@@ -1,29 +1,32 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+} from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Résoudre |z-z\'|=r'
+export const titre = "Résoudre |z-z'|=r"
 
 export const dateDePublication = '4/5/2024'
 
 export const uuid = '16c5e'
 export const refs = {
   'fr-fr': ['canTEC2-03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
  * @author Stéphane Guyon
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-7, 7, 0)
     const b = randint(-7, 7, 0)
     const r = randint(1, 10)

@@ -24,12 +24,16 @@ export const uuid = '8b399'
 
 export const refs = {
   'fr-fr': ['4C32-4', 'BP2AutoE10'],
-  'fr-ch': ['10NO2-7', '11NO1-1']
+  'fr-ch': ['10NO2-7', '11NO1-1'],
 }
 export default class CalculsPuissancesDe10 extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Facile\n2 : Difficile',
+    ]
 
     this.sup = 1
 
@@ -41,13 +45,32 @@ export default class CalculsPuissancesDe10 extends Exercice {
     this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = 'Donner la notation scientifique.'
 
     const listeFacteurs1 = [2, 3, 5, 7]
 
-    for (let i = 0, texte, texteCorr, facteurs, mantisse, exp, a, b, c, d, aexp, bexp, cexp, dexp, diviseurs, scientifiquestring, cpt = 0;
-      i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        facteurs,
+        mantisse,
+        exp,
+        a,
+        b,
+        c,
+        d,
+        aexp,
+        bexp,
+        cexp,
+        dexp,
+        diviseurs,
+        scientifiquestring,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       mantisse = randint(2, 9)
 
       facteurs = []
@@ -72,7 +95,7 @@ export default class CalculsPuissancesDe10 extends Exercice {
       diviseurs = listeDesDiviseurs(mantisse * c * d)
       a = diviseurs[randint(1, diviseurs.length - 2)]
       aexp = randint(1, 5) * choice([-1, 1])
-      b = mantisse * c * d / a
+      b = (mantisse * c * d) / a
       bexp = randint(1, 5) * choice([-1, 1])
       exp = aexp + bexp - cexp - dexp
       scientifiquestring = `${texNombre(mantisse)} \\times 10^{${exp}}`
@@ -88,25 +111,25 @@ export default class CalculsPuissancesDe10 extends Exercice {
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].options = {
         ordered: false,
-        lastChoice: 5
+        lastChoice: 5,
       }
       this.autoCorrection[i].propositions = [
         {
           texte: `$${scientifiquestring}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$${texNombre(mantisse)} \\times 10^{${exp - 1}}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${texNombre(mantisse)} \\times 10^{${exp + 1}}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${texNombre(mantisse)} \\times 10^{${-exp}}$`,
-          statut: false
-        }
+          statut: false,
+        },
       ]
 
       const props = propositionsQcm(this, i)

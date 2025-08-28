@@ -23,10 +23,10 @@ export const uuid = '516d1'
 
 export const refs = {
   'fr-fr': ['4G20-6', 'BP2AutoS4'],
-  'fr-ch': ['10NO3-4']
+  'fr-ch': ['10NO3-4'],
 }
 export default class CalculValeurApprocheeRacineCarree extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 6
@@ -34,13 +34,21 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
 
-    this.besoinFormulaireNumerique = ['Avec ou sans calculatrice', 3, '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : Mélange']
-    this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : Collège\n2 : Lycée']
+    this.besoinFormulaireNumerique = [
+      'Avec ou sans calculatrice',
+      3,
+      '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : Mélange',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Choix des corrections',
+      2,
+      '1 : Collège\n2 : Lycée',
+    ]
     this.sup = 3
     this.sup2 = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let listeAvecOuSansCalculatrice
     if (this.sup === 1) {
       listeAvecOuSansCalculatrice = ['avec']
@@ -49,16 +57,44 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
     } else {
       listeAvecOuSansCalculatrice = ['avec', 'sans']
     }
-    listeAvecOuSansCalculatrice = combinaisonListes(listeAvecOuSansCalculatrice, this.nbQuestions)
+    listeAvecOuSansCalculatrice = combinaisonListes(
+      listeAvecOuSansCalculatrice,
+      this.nbQuestions,
+    )
     const typeQuestionsDisponibles = ['unite', 'dixieme', 'centieme']
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, indexRep = 0, type, a, nbDec, reponse, pasReponse, reponseG, reponseD, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        indexRep = 0,
+        type,
+        a,
+        nbDec,
+        reponse,
+        pasReponse,
+        reponseG,
+        reponseD,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       if (listeAvecOuSansCalculatrice[i] === 'avec') {
-        a = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
+        a = randint(
+          2,
+          300,
+          [
+            4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256,
+            289,
+          ],
+        )
         switch (listeTypeQuestions[i]) {
           case 'unite':
-            type = 'à l\'unité'
+            type = "à l'unité"
             reponse = texNombre(Math.sqrt(a), 0)
             reponseG = texNombre(Math.floor(Math.sqrt(a)), 0)
             reponseD = texNombre(Math.ceil(Math.sqrt(a)), 0)
@@ -113,7 +149,9 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
         texteCorr += `Or $${reponseG ** 2} < ${a} < ${reponseD ** 2}$,<br>`
         if (this.sup2 === 1) {
           texteCorr += `donc $\\sqrt{${reponseG ** 2}} < \\sqrt{${a}} < \\sqrt{${reponseD ** 2}}$,<br>`
-        } else { texteCorr += `donc $\\sqrt{${reponseG ** 2}} < \\sqrt{${a}} < \\sqrt{${reponseD ** 2}}$ puisque la fonction racine carrée est strictement croissante sur $\\mathbb{R}_+$,<br>` }
+        } else {
+          texteCorr += `donc $\\sqrt{${reponseG ** 2}} < \\sqrt{${a}} < \\sqrt{${reponseD ** 2}}$ puisque la fonction racine carrée est strictement croissante sur $\\mathbb{R}_+$,<br>`
+        }
         texteCorr += `enfin $${reponseG} < \\sqrt{${a}} < ${reponseD}$.`
       }
       if (this.questionJamaisPosee(i, a)) {
@@ -125,30 +163,37 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  propositions: [{
-                    texte: texteCorr,
-                    enonce: `À l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
-                    statut: 1
-                  }]
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      enonce: `À l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
+                      statut: 1,
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
-                      texte: `arrondi de $\\sqrt{${a}}$ ${type} près :`,
-                      valeur: [parseFloat(reponse.replaceAll(',', '.'))],
-                      param: {
-                        digits: nombreDeChiffresDansLaPartieEntiere(parseFloat(reponse.replaceAll(',', '.'))) + nbDec,
-                        decimals: nbDec,
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
-                }
-              ]
+                  propositions: [
+                    {
+                      texte: '',
+                      statut: '',
+                      reponse: {
+                        texte: `arrondi de $\\sqrt{${a}}$ ${type} près :`,
+                        valeur: [parseFloat(reponse.replaceAll(',', '.'))],
+                        param: {
+                          digits:
+                            nombreDeChiffresDansLaPartieEntiere(
+                              parseFloat(reponse.replaceAll(',', '.')),
+                            ) + nbDec,
+                          decimals: nbDec,
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -157,47 +202,57 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  propositions: [{
-                    texte: texteCorr,
-                    enonce: `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers.\\\\`,
-                    statut: 2
-                  }]
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      enonce: `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers.\\\\`,
+                      statut: 2,
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
-                      texte: 'Entier inférieur',
-                      valeur: [Number(reponseG)],
-                      param: {
-                        digits: nombreDeChiffresDansLaPartieEntiere(Number(reponseG)),
-                        decimals: 0,
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
+                  propositions: [
+                    {
+                      texte: '',
+                      statut: '',
+                      reponse: {
+                        texte: 'Entier inférieur',
+                        valeur: [Number(reponseG)],
+                        param: {
+                          digits: nombreDeChiffresDansLaPartieEntiere(
+                            Number(reponseG),
+                          ),
+                          decimals: 0,
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
-                      texte: 'Entier supérieur',
-                      valeur: [Number(reponseD)],
-                      param: {
-                        digits: nombreDeChiffresDansLaPartieEntiere(Number(reponseD)),
-                        decimals: 0,
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
-                }
-              ]
+                  propositions: [
+                    {
+                      texte: '',
+                      statut: '',
+                      reponse: {
+                        texte: 'Entier supérieur',
+                        valeur: [Number(reponseD)],
+                        param: {
+                          digits: nombreDeChiffresDansLaPartieEntiere(
+                            Number(reponseD),
+                          ),
+                          decimals: 0,
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
         }

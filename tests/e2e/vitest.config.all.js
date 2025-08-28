@@ -5,11 +5,17 @@ import { mergeConfig } from 'vite'
 import { defineConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
-export default mergeConfig(viteConfig, defineConfig({
-  test: {
-    include: ['./tests/interactivity/*.test.{js,ts}', './tests/console_errors/*.test.{js,ts}'],
-    // on veut laisser le navigateur ouvert sur un plantage (10min)
-    hookTimeout: 600_000,
-    testTimeout: 600_000
-  }
-}))
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      include: [
+        './tests/interactivity/*.test.{js,ts}',
+        './tests/console_errors/*.test.{js,ts}',
+      ],
+      // on veut laisser le navigateur ouvert sur un plantage (10min)
+      hookTimeout: 600_000,
+      testTimeout: 600_000,
+    },
+  }),
+)

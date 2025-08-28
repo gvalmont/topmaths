@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'c573b'
 export const refs = {
   'fr-fr': ['TSA1-QCM04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,7 +28,7 @@ export default class metropoleSept2023Q4 extends ExerciceQcm {
       'une suite décroissante ',
       'une suite géométrique de raison 1,2  ',
       'une suite arithmétique de raison $60$',
-      'une suite ni géométrique ni arithmétique'
+      'une suite ni géométrique ni arithmétique',
     ]
 
     this.enonce = `On considère la suite $\\left(u_n\\right)$ définie sur $\\mathbb N$ par:
@@ -39,11 +39,13 @@ On considère la suite $\\left(v_n\\right)$ définie sur $\\mathbb N$ par : $v_n
 La suite $\\left(v_n\\right)$ est:`
 
     this.correction = 'On a quel que soit $n \\in \\mathbb N$ :<br> '
-    this.correction += '$v_{n+1} = u_{n+1} + 60 $<br>$\\qquad=  1,2u_n + 12 + 60$ <br>$\\qquad= 1,2u_n + 72 $<br>$\\qquad= 1,2\\left(u_n + 60\\right)$ <br>$\\qquad= 1,2v_n$<br>'
-    this.correction += 'Cette égalité montre que la suite $\\left(v_n\\right)$ est géométrique de raison 1,2.'
+    this.correction +=
+      '$v_{n+1} = u_{n+1} + 60 $<br>$\\qquad=  1,2u_n + 12 + 60$ <br>$\\qquad= 1,2u_n + 72 $<br>$\\qquad= 1,2\\left(u_n + 60\\right)$ <br>$\\qquad= 1,2v_n$<br>'
+    this.correction +=
+      'Cette égalité montre que la suite $\\left(v_n\\right)$ est géométrique de raison 1,2.'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

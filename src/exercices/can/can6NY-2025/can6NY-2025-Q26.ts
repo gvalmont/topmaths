@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '603f6'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,14 +18,14 @@ export const refs = {
 
 */
 export default class CalculDivers extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = 2
     const b = 0
     const c = 2
@@ -40,7 +40,9 @@ export default class CalculDivers extends ExerciceSimple {
       this.correction = `Comme $${texNombre(a * 1000 + b * 100 + c * 10 + d)}=${miseEnEvidence(texNombre(a * 100 + b * 10 + c))}\\times 10+${d}$, il y a $${miseEnEvidence(texNombre(a * 100 + b * 10 + c, 0))}$ ${m} dans $${texNombre(a * 1000 + b * 100 + c * 10 + d)}$.`
       this.reponse = a * 100 + b * 10 + c
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

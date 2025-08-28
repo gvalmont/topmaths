@@ -4,7 +4,7 @@ import ProblemeCompMulNbParts from './problemeCompMulNbParts'
 /**
  * @author Jean-Claude Lhote
  */
-export function chocolats5 (decimal = false): Probleme {
+export function chocolats5(decimal = false): Probleme {
   const nb1 = decimal ? randint(81, 159, [100, 120, 140]) / 20 : randint(4, 8)
   const nbFois = randint(2, 5)
   const data = { nbFois, nb1 }

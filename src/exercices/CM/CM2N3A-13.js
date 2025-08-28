@@ -20,10 +20,10 @@ export const uuid = 'ee307'
 export const refs = {
   'fr-fr': ['CM2N3A-13'],
   'fr-2016': ['CM008'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Soustraire11 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -32,15 +32,16 @@ export default class Soustraire11 extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 1, 1, 1, 2]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       if (listeTypeDeQuestions[i] === 1) {
         a = randint(12, 99)

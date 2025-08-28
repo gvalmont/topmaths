@@ -13,7 +13,7 @@ export const uuid = '3eda9'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -23,10 +23,11 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 30
-      this.question = 'Le produit de $5$ par la somme de $2$ et de $4$ est égal à : '
+      this.question =
+        'Le produit de $5$ par la somme de $2$ et de $4$ est égal à : '
       this.correction = `la somme de $2$ et de $4$ est égal à : $2+4=6$.<br>
       Le produit de $5$ par la somme de $2$ et de $4$ est donc égal à : $5\\times 6=${miseEnEvidence(30)}$.`
     } else {

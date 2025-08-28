@@ -70,28 +70,28 @@ Ce générateur permet de créer facilement des exercices QCM pour Mathalea à p
 ### Méthode 1 : Classe directe
 
 ```typescript
-import QcmJsonGenerator from "./QcmJsonGenerator";
-import type { QcmJsonData } from "./QcmJsonGenerator";
+import QcmJsonGenerator from './QcmJsonGenerator'
+import type { QcmJsonData } from './QcmJsonGenerator'
 
 const qcmData: QcmJsonData = {
-  titre: "Mon QCM",
+  titre: 'Mon QCM',
   questions: [
     {
-      enonce: "Combien font 2 + 2 ?",
-      reponses: ["4", "3", "5", "22"],
+      enonce: 'Combien font 2 + 2 ?',
+      reponses: ['4', '3', '5', '22'],
       corrections: [
-        "Correct !",
-        "Erreur de calcul",
-        "Erreur de calcul",
+        'Correct !',
+        'Erreur de calcul',
+        'Erreur de calcul',
         "Ce n'est pas une concaténation",
       ],
     },
   ],
-};
+}
 
 export default class MonQcm extends QcmJsonGenerator {
   constructor() {
-    super(qcmData);
+    super(qcmData)
   }
 }
 ```
@@ -99,35 +99,35 @@ export default class MonQcm extends QcmJsonGenerator {
 ### Méthode 2 : Fonctions utilitaires
 
 ```typescript
-import { createSimpleQcm, createMultipleChoiceQcm } from "./utils/qcmUtils";
+import { createSimpleQcm, createMultipleChoiceQcm } from './utils/qcmUtils'
 
 // QCM simple
 const ExerciceSimple = createSimpleQcm(
-  "Combien font 3 × 7 ?",
-  ["21", "18", "24", "28"],
-  ["Correct !", "Erreur", "Erreur", "Erreur"],
-  "Multiplication"
-);
+  'Combien font 3 × 7 ?',
+  ['21', '18', '24', '28'],
+  ['Correct !', 'Erreur', 'Erreur', 'Erreur'],
+  'Multiplication',
+)
 
 // QCM à réponses multiples
 const ExerciceMultiple = createMultipleChoiceQcm(
-  "Quels sont les nombres premiers ?",
-  ["2", "3", "4", "5"],
+  'Quels sont les nombres premiers ?',
+  ['2', '3', '4', '5'],
   [true, true, false, true],
-  ["Correct !", "Correct !", "Faux", "Correct !"],
-  "Nombres premiers"
-);
+  ['Correct !', 'Correct !', 'Faux', 'Correct !'],
+  'Nombres premiers',
+)
 ```
 
 ### Méthode 3 : Depuis un fichier JSON
 
 ```typescript
-import { createQcmFromJson } from "./utils/qcmUtils";
-import qcmData from "./exemples/qcm-mathematiques.json";
+import { createQcmFromJson } from './utils/qcmUtils'
+import qcmData from './exemples/qcm-mathematiques.json'
 
-const ExerciceDepuisJson = createQcmFromJson(qcmData);
+const ExerciceDepuisJson = createQcmFromJson(qcmData)
 
-export default ExerciceDepuisJson;
+export default ExerciceDepuisJson
 ```
 
 ## Options disponibles

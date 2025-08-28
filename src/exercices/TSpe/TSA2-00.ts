@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = '25135'
 export const refs = {
   'fr-fr': ['TSA2-00'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export const dateDePublication = '17/04/2024'
@@ -26,17 +26,27 @@ export const dateDePublication = '17/04/2024'
  *
  */
 class DerivationLnU extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets :\n1 : ln(ax+b)\n2 : ln(ax²+bx+c)\n3 : ln(x^n)\n4 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Types de fonctions : ',
+      'Nombres séparés par des tirets :\n1 : ln(ax+b)\n2 : ln(ax²+bx+c)\n3 : ln(x^n)\n4 : Mélange',
+    ]
     this.sup = '1'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
-    const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    const listeTypeDeQuestion = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      defaut: 4,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+    })
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let laFonctionFEnLatex: string
       let df: string
       let formeGeneraleDerivee: string
@@ -57,12 +67,16 @@ class DerivationLnU extends Exercice {
         fPrimeDetaillee = `\\dfrac{${String(a)}}{${u}}`
         fPrime = `\\dfrac{${String(a)}}{${u}}`
         laFonctionFEnLatex = `\\ln\\left( ${u}\\right)`
-        df = a < 0 ? `\\left]-\\infty;${valeurInterdite}\\right[` : `\\left]${valeurInterdite};+\\infty\\right[`
+        df =
+          a < 0
+            ? `\\left]-\\infty;${valeurInterdite}\\right[`
+            : `\\left]${valeurInterdite};+\\infty\\right[`
         formeGenerale = 'ln(u)'
         formeGeneraleDerivee = '(ln(u))^\\prime=\\dfrac{u^\\prime}{u}'
         domaine = a < 0 ? [-b / a - 10, -b / a - 1] : [-b / a + 1, -b / a + 10]
       } else if (listeTypeDeQuestion[i] === 2) {
-        while (b ** 2 - 4 * a * c <= 0) { // On veut éviter un domaine de définition vide
+        while (b ** 2 - 4 * a * c <= 0) {
+          // On veut éviter un domaine de définition vide
           a = randint(-10, 10, 0)
           b = randint(-5, 5, 0)
           c = randint(-10, 10)
@@ -73,10 +87,16 @@ class DerivationLnU extends Exercice {
         fPrimeDetaillee = `\\dfrac{${uPrime}}{${u}}`
         fPrime = `\\dfrac{${uPrime}}{${u}}`
         laFonctionFEnLatex = `\\ln\\left( ${u}\\right)`
-        df = a > 0 ? `\\left]-\\infty;${poly.texX1}\\right[\\cup \\left]${poly.texX2};+\\infty\\right[` : `\\left]${poly.texX1};${poly.texX2}\\right[`
+        df =
+          a > 0
+            ? `\\left]-\\infty;${poly.texX1}\\right[\\cup \\left]${poly.texX2};+\\infty\\right[`
+            : `\\left]${poly.texX1};${poly.texX2}\\right[`
         formeGenerale = 'ln(u)'
         formeGeneraleDerivee = '(ln(u))^\\prime=\\dfrac{u^\\prime}{u}'
-        domaine = a > 0 ? [Number(poly.x1) - 10, Number(poly.x1) - 1] : [Number(poly.x1) + 0.01, Number(poly.x2) - 0.01]
+        domaine =
+          a > 0
+            ? [Number(poly.x1) - 10, Number(poly.x1) - 1]
+            : [Number(poly.x1) + 0.01, Number(poly.x2) - 0.01]
       } else {
         const n = randint(3, 9)
         u = `x^{${n}}`
@@ -89,14 +109,22 @@ class DerivationLnU extends Exercice {
         formeGeneraleDerivee = '(\\ln(u))^\\prime=\\dfrac{u^\\prime}{u}'
         domaine = [1, 10]
       }
-      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par :<br>$f(x)=${laFonctionFEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, `${KeyboardType.clavierDeBaseAvecX} ${KeyboardType.clavierFullOperations}`, { texteAvant: '$f\'(x)=$' })
+      const texte =
+        `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par :<br>$f(x)=${laFonctionFEnLatex}$.<br>` +
+        ajouteChampTexteMathLive(
+          this,
+          i,
+          `${KeyboardType.clavierDeBaseAvecX} ${KeyboardType.clavierFullOperations}`,
+          { texteAvant: "$f'(x)=$" },
+        )
       let texteCorr = ''
       if (this.correctionDetaillee) {
         texteCorr += `La fonction $f$ est de la forme $${formeGenerale}$ et donc que la dérivée est de la forme $${formeGeneraleDerivee}$.<br>`
         texteCorr += `On a $u(x)=${u}$ et $u^\\prime(x)=${uPrime}$.<br>`
         texteCorr += `$f^\\prime(x)=${fPrimeDetaillee}$.<br>`
         if (listeTypeDeQuestion[i] === 3) {
-          texteCorr += 'On peut utiliser ici la propriété $\\ln(x^n)=n\\ln(x)$ et donc $(\\ln(x^n))^\\prime=n(\\ln(x))^\\prime=\\dfrac{n}{x}$.<br>'
+          texteCorr +=
+            'On peut utiliser ici la propriété $\\ln(x^n)=n\\ln(x)$ et donc $(\\ln(x^n))^\\prime=n(\\ln(x))^\\prime=\\dfrac{n}{x}$.<br>'
         }
       }
       texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonctionFEnLatex}$ est : `
@@ -107,7 +135,13 @@ class DerivationLnU extends Exercice {
         this.listeCorrections[i] = texteCorr
 
         // @ts-expect-error problème de typage handleAnswers
-        handleAnswers(this, i, { reponse: { value: fPrime, options: { variable: 'x', domaine }, compare: functionCompare } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: fPrime,
+            options: { variable: 'x', domaine },
+            compare: functionCompare,
+          },
+        })
         i++
         cpt--
       }

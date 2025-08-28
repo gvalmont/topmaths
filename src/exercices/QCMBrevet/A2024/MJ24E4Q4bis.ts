@@ -4,7 +4,12 @@ import { Polygone, polygone, polyline } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../../modules/2dGeneralites'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 import { rotationAnimee } from '../../../modules/2dAnimation'
@@ -12,7 +17,7 @@ import { rotationAnimee } from '../../../modules/2dAnimation'
 export const uuid = '2c2db'
 export const refs = {
   'fr-fr': ['3G1QCM-5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,7 +30,7 @@ export const dateDePublication = '05/01/2025'
  * @author Jean-Claude LHOTE
  * jean-claude.lhote@ac-nancy-metz.fr
  */
-export function rose (nbSecteurs: number): NestedObjetMathalea2dArray {
+export function rose(nbSecteurs: number): NestedObjetMathalea2dArray {
   const rose: NestedObjetMathalea2dArray = []
   const angleRot = 360 / nbSecteurs
   const O = point(0, 0, 'O', 'above right')
@@ -42,40 +47,71 @@ export function rose (nbSecteurs: number): NestedObjetMathalea2dArray {
     const bPrime = rotation(B, O, -i * angleRot)
     const cPrime = rotation(C, O, -i * angleRot)
     const polyPrime = polyline([aPrime, bPrime, cPrime, O], 'black')
-    const numero = latex2d(String(i), (aPrime.x + bPrime.x + cPrime.x + O.x) / 4, (aPrime.y + bPrime.y + cPrime.y + O.y) / 4, { color: 'black' })
+    const numero = latex2d(
+      String(i),
+      (aPrime.x + bPrime.x + cPrime.x + O.x) / 4,
+      (aPrime.y + bPrime.y + cPrime.y + O.y) / 4,
+      { color: 'black' },
+    )
     rose.push(polyPrime, numero)
   }
   return rose
 }
 export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
-  private appliquerLesValeurs (nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
+  private appliquerLesValeurs(
+    nbSecteurs: number,
+    nbSecteursRot: number,
+    sens: boolean,
+  ): void {
+    // sens = true => sens trigo
     const rosa = rose(nbSecteurs)
     const angleRot = 360 / nbSecteurs
     const good = sens ? nbSecteurs - nbSecteursRot : nbSecteursRot
     const distracteur1 = sens ? nbSecteursRot : nbSecteurs - nbSecteursRot
-    const distracteur2 = sens ? nbSecteursRot - 1 : nbSecteurs + 1 - nbSecteursRot
+    const distracteur2 = sens
+      ? nbSecteursRot - 1
+      : nbSecteurs + 1 - nbSecteursRot
     this.reponses = [
       `Motif ${good}`,
       `Motif ${distracteur1}`,
-      `Motif ${distracteur2}`
+      `Motif ${distracteur2}`,
     ]
     const poly = polygone((rosa[0] as Polygone).listePoints)
     poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-    const polyAnim = rotationAnimee([poly], point(0, 0), angleRot * nbSecteursRot * (sens ? 1 : -1))
-    const lab = latex2d('O', -0.5, -0.5, { color: 'black', letterSize: 'normalsize' })
+    const polyAnim = rotationAnimee(
+      [poly],
+      point(0, 0),
+      angleRot * nbSecteursRot * (sens ? 1 : -1),
+    )
+    const lab = latex2d('O', -0.5, -0.5, {
+      color: 'black',
+      letterSize: 'normalsize',
+    })
     if (!this.sup3) {
-      this.enonce = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, lab])), rosa, lab)
+      this.enonce = mathalea2d(
+        Object.assign(
+          { pixelsParCm: 20, scale: 0.5 },
+          fixeBordures([rosa, lab]),
+        ),
+        rosa,
+        lab,
+      )
     } else this.enonce = ''
-    this.enonce += `Quelle est l'image du motif gris par la rotation de centre $O$ et d'angle $${angleRot * nbSecteursRot}^\\circ$ dans le sens ${sens
-      ? 'antihoraire'
-      : 'horaire'
-      } ?`
+    this.enonce += `Quelle est l'image du motif gris par la rotation de centre $O$ et d'angle $${angleRot * nbSecteursRot}^\\circ$ dans le sens ${
+      sens ? 'antihoraire' : 'horaire'
+    } ?`
 
-    this.correction = `L'image du motif gris dans la rotation de centre $O$ et d'angle $${angleRot * nbSecteursRot}^\\circ$ dans le sens ${sens
-      ? 'antihoraire'
-      : 'horaire'
-      } est le motif ${good}.<br>`
-    this.correction += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, polyAnim])), rosa, polyAnim)
+    this.correction = `L'image du motif gris dans la rotation de centre $O$ et d'angle $${angleRot * nbSecteursRot}^\\circ$ dans le sens ${
+      sens ? 'antihoraire' : 'horaire'
+    } est le motif ${good}.<br>`
+    this.correction += mathalea2d(
+      Object.assign(
+        { pixelsParCm: 20, scale: 0.5 },
+        fixeBordures([rosa, polyAnim]),
+      ),
+      rosa,
+      polyAnim,
+    )
   }
 
   versionOriginale: () => void = () => {
@@ -104,7 +140,7 @@ export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaire3CaseACocher = ['Figure masquée', false]
     this.sup = false

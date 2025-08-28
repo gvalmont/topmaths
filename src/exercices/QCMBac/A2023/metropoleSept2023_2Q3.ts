@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '0649b'
 export const refs = {
   'fr-fr': ['TSG2-QCM07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,7 +28,7 @@ export default class metropoleSept2024Ex4Q3 extends ExerciceQcm {
       'strictement parallèle au plan $\\mathcal{P}$',
       'orthogonale au plan $\\mathcal{P}$',
       'sécante au plan $\\mathcal{P}$',
-      'incluse dans le plan $\\mathcal{P}$'
+      'incluse dans le plan $\\mathcal{P}$',
     ]
 
     this.enonce = this.sup3
@@ -42,21 +42,27 @@ $\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0
 
     this.enonce += '<br>La droite $(\\Delta)$ est :'
 
-    this.correction = 'La droite $(\\Delta)$ a pour vecteur directeur :<br> $\\vec{v}\\begin{pmatrix}-1\\\\0\\\\3\\end{pmatrix}$, '
-    this.correction += 'et le plan $\\mathcal{P}$ a pour vecteur normal $\\vec n \\begin{pmatrix}3\\\\2\\\\1\\end{pmatrix}$.<br>'
-    this.correction += '$\\vec{v}\\cdot \\vec{n} = -1\\times 3 +0\\times 2+3\\times 1 = 0$ donc $\\vec{v}\\perp \\vec{v}$,<br>'
+    this.correction =
+      'La droite $(\\Delta)$ a pour vecteur directeur :<br> $\\vec{v}\\begin{pmatrix}-1\\\\0\\\\3\\end{pmatrix}$, '
+    this.correction +=
+      'et le plan $\\mathcal{P}$ a pour vecteur normal $\\vec n \\begin{pmatrix}3\\\\2\\\\1\\end{pmatrix}$.<br>'
+    this.correction +=
+      '$\\vec{v}\\cdot \\vec{n} = -1\\times 3 +0\\times 2+3\\times 1 = 0$ donc $\\vec{v}\\perp \\vec{v}$,<br>'
     this.correction += 'et donc $(\\Delta)$ est parallèle à $\\mathcal{P}$.<br>'
-    this.correction += 'Le point H de coordonnées $H(1~;~2~;~-4)$ appartient à $(\\Delta)$.<br>'
-    this.correction += '$3x_{\\text H} +2y_{\\text H} +z_{\\text H}-4 =3\\times 1 + 2\\times 2 -4-4=-1\\neq 0$<br>'
+    this.correction +=
+      'Le point H de coordonnées $H(1~;~2~;~-4)$ appartient à $(\\Delta)$.<br>'
+    this.correction +=
+      '$3x_{\\text H} +2y_{\\text H} +z_{\\text H}-4 =3\\times 1 + 2\\times 2 -4-4=-1\\neq 0$<br>'
     this.correction += ' donc $\\text H \\notin\\mathcal{P}$.<br>'
-    this.correction += 'La droite $(\\Delta)$ n\'est pas incluse dans le plan $\\mathcal{P}$.'
+    this.correction +=
+      "La droite $(\\Delta)$ n'est pas incluse dans le plan $\\mathcal{P}$."
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

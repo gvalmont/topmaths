@@ -13,7 +13,7 @@ export const uuid = 'ef726'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = -1
       this.question = '$7-14+6$'

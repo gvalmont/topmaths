@@ -6,7 +6,7 @@ import { nombreElementsDifferents } from '../../ExerciceQcm'
 export const uuid = '2f4e0'
 export const refs = {
   'fr-fr': ['3C1QCM-04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -20,14 +20,19 @@ export const dateDePublication = '06/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class MetropoleSep22Ex1Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs (mantisse:number, e1:number, e2:number, e3:number): void {
+  private appliquerLesValeurs(
+    mantisse: number,
+    e1: number,
+    e2: number,
+    e3: number,
+  ): void {
     const expV = e1 + e2 - e3
     const expF1 = e3 * e2 + e1
     const expF2 = e1 - e3
     this.reponses = [
       `$${String(mantisse)}^{${String(expV)}}$`,
       `$${String(mantisse)}^{${String(expF1)}}$`,
-      `$${String(mantisse)}^{${String(expF2)}}$`
+      `$${String(mantisse)}^{${String(expF2)}}$`,
     ]
     this.enonce = `$\\dfrac{${String(mantisse)}^{${String(e1)}}\\times ${String(mantisse)}^{${String(e2)}}}{${String(mantisse)}^{${String(e3)}}}$`
     this.correction = ` $\\begin{aligned}
@@ -54,7 +59,7 @@ export default class MetropoleSep22Ex1Q1 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

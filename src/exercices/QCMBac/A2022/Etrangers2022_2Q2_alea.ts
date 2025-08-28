@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'e37a9'
 export const refs = {
   'fr-fr': ['TSA5-QCM03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -26,22 +26,24 @@ export const dateDePublication = '24/02/2025'
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      'La courbe $\\mathcal{C}_g$ admet exactement un point d\'inflexion sur $]0~;~+\\infty[$.',
+      "La courbe $\\mathcal{C}_g$ admet exactement un point d'inflexion sur $]0~;~+\\infty[$.",
       'La fonction $g$ est convexe sur $]0~;~+\\infty[$.',
       'La fonction $g$ est concave sur $]0~;~+\\infty[$.',
-      'La courbe $\\mathcal{C}_g$ admet exactement deux points d\'inflexion sur $]0~;~+\\infty[$.'
+      "La courbe $\\mathcal{C}_g$ admet exactement deux points d'inflexion sur $]0~;~+\\infty[$.",
     ]
 
     this.enonce = ` Soit la fonction $g$ définie pour tout réel $x$ strictement positif par: <br>
 $g(x) = x \\ln (x) - x^2$.<br>
 On note $\\mathcal{C}_g$ sa courbe représentative dans un repère du plan.`
-    this.correction = 'Sur $]0~;~+\\infty[$, $g$ est dérivable et sur cet intervalle :<br> $f\'(x) = \\ln (x) + x \\times \\dfrac{1}{x} - 2x = \\ln (x) - 2x + 1$.'
-    this.correction += '<br> Puis $f\'\'(x) = \\dfrac{1}{x} - 2$.'
-    this.correction += '<br>On a donc $f\'\'(x) = 0 \\iff \\dfrac{1}{x} - 2 = 0 \\iff \\dfrac{1}{x} = 2 \\iff x = \\dfrac{1}{2}$.'
-    this.correction += `<br>Sur $]0~;~+ \\infty[$,   ${texteEnCouleurEtGras('$f$ admet un seul point d\'inflexion d\'abscisse $\\dfrac{1}{2}$.')}`
+    this.correction =
+      "Sur $]0~;~+\\infty[$, $g$ est dérivable et sur cet intervalle :<br> $f'(x) = \\ln (x) + x \\times \\dfrac{1}{x} - 2x = \\ln (x) - 2x + 1$."
+    this.correction += "<br> Puis $f''(x) = \\dfrac{1}{x} - 2$."
+    this.correction +=
+      "<br>On a donc $f''(x) = 0 \\iff \\dfrac{1}{x} - 2 = 0 \\iff \\dfrac{1}{x} = 2 \\iff x = \\dfrac{1}{2}$."
+    this.correction += `<br>Sur $]0~;~+ \\infty[$,   ${texteEnCouleurEtGras("$f$ admet un seul point d'inflexion d'abscisse $\\dfrac{1}{2}$.")}`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

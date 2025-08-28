@@ -17,7 +17,8 @@ import blocklypyt from '../../lib/blockly/blocklypyt.json'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 
-export const titre = 'Calculer une longueur avec le théorème de Pythagore (blockly)'
+export const titre =
+  'Calculer une longueur avec le théorème de Pythagore (blockly)'
 export const interactifReady = true
 export const interactifType = 'custom'
 
@@ -30,26 +31,37 @@ export const uuid = 'c0f90'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 Blockly.setLocale(En as unknown as { [key: string]: string })
 
 export default class Pythagore2DBlockly extends Exercice {
   typeDeQuestion: string
-  saveArguments: { nomDuPolygone: string, longueurBC: number, longueurAC: number, longueurAB: number, listeTypeDeQuestion: string, key: string }[]
-  constructor () {
+  saveArguments: {
+    nomDuPolygone: string
+    longueurBC: number
+    longueurAC: number
+    longueurAB: number
+    listeTypeDeQuestion: string
+    key: string
+  }[]
+  constructor() {
     super()
 
     this.nbQuestions = 2
     this.sup = 3
     this.sup2 = 3
     this.typeDeQuestion = 'Calculer :'
-    this.besoinFormulaire2Numerique = ['Recherche de côtés ', 3, '1 : Hypoténuse\n2 : Côtés de l\'angle droit\n3: Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Recherche de côtés ',
+      3,
+      "1 : Hypoténuse\n2 : Côtés de l'angle droit\n3: Mélange",
+    ]
     this.saveArguments = []
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion(numeroExercice: number) {
     let listeTypeDeQuestions
     if (this.sup2 === 1) {
       listeTypeDeQuestions = ['BC']
@@ -59,10 +71,19 @@ export default class Pythagore2DBlockly extends Exercice {
       listeTypeDeQuestions = ['AB', 'BC', 'AC']
     }
     const listeDeNomsDePolygones = ['ABC', 'DEF']
-    this.consigne = ((this.nbQuestions > 1) ? 'Dans chaque cas, calculer' : 'Calculer') + ' la longueur manquante (si nécessaire, l\'arrondir au millimètre près).'
+    this.consigne =
+      (this.nbQuestions > 1 ? 'Dans chaque cas, calculer' : 'Calculer') +
+      " la longueur manquante (si nécessaire, l'arrondir au millimètre près)."
 
-    listeTypeDeQuestions = combinaisonListesSansChangerOrdre(listeTypeDeQuestions, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      listeTypeDeQuestions,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
       const A1 = point(0, 0)
@@ -89,24 +110,61 @@ export default class Pythagore2DBlockly extends Exercice {
       const longueurBC = longueur(B, C, 1)
       const mesObjetsATracer: ObjetMathalea2D[] = [codage, p2, nomme]
 
-      if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'AB') {
+      if (
+        this.typeDeQuestion === 'Calculer :' &&
+        listeTypeDeQuestions[i] === 'AB'
+      ) {
         mesObjetsATracer.push(affAC, affBC)
-      } else if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'BC') {
+      } else if (
+        this.typeDeQuestion === 'Calculer :' &&
+        listeTypeDeQuestions[i] === 'BC'
+      ) {
         mesObjetsATracer.push(affAC, affAB)
-      } else if (this.typeDeQuestion === 'Calculer :' && listeTypeDeQuestions[i] === 'AC') {
+      } else if (
+        this.typeDeQuestion === 'Calculer :' &&
+        listeTypeDeQuestions[i] === 'AC'
+      ) {
         mesObjetsATracer.push(affAB, affBC)
       }
 
-      texte += mathalea2d({ xmin, xmax, ymin, ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
+      texte += mathalea2d(
+        { xmin, xmax, ymin, ymax, scale: 0.6, style: 'display: block' },
+        mesObjetsATracer,
+      )
 
       if (this.typeDeQuestion === 'Calculer :') {
         let redaction
         if (listeTypeDeQuestions[i] === 'AB') {
-          redaction = RedactionPythagore(A.nom, B.nom, C.nom, 2, longueurAB, longueurAC, longueurBC)
+          redaction = RedactionPythagore(
+            A.nom,
+            B.nom,
+            C.nom,
+            2,
+            longueurAB,
+            longueurAC,
+            longueurBC,
+          )
         } else if (listeTypeDeQuestions[i] === 'BC') {
-          redaction = RedactionPythagore(A.nom, B.nom, C.nom, 1, longueurAB, longueurAC, longueurBC)
-        } else { // listeTypeDeQuestions[i] === 'AC'
-          redaction = RedactionPythagore(A.nom, C.nom, B.nom, 2, longueurAC, longueurAB, longueurBC)
+          redaction = RedactionPythagore(
+            A.nom,
+            B.nom,
+            C.nom,
+            1,
+            longueurAB,
+            longueurAC,
+            longueurBC,
+          )
+        } else {
+          // listeTypeDeQuestions[i] === 'AC'
+          redaction = RedactionPythagore(
+            A.nom,
+            C.nom,
+            B.nom,
+            2,
+            longueurAC,
+            longueurAB,
+            longueurBC,
+          )
         }
         texteCorr = redaction[0] ?? ''
 
@@ -139,8 +197,19 @@ export default class Pythagore2DBlockly extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        const key = nomDuPolygone + longueurBC.toString() + longueurAC.toString() + longueurAB.toString()
-        this.saveArguments[i] = { nomDuPolygone, longueurBC, longueurAC, longueurAB, listeTypeDeQuestion: listeTypeDeQuestions[i], key }
+        const key =
+          nomDuPolygone +
+          longueurBC.toString() +
+          longueurAC.toString() +
+          longueurAB.toString()
+        this.saveArguments[i] = {
+          nomDuPolygone,
+          longueurBC,
+          longueurAC,
+          longueurAB,
+          listeTypeDeQuestion: listeTypeDeQuestions[i],
+          key,
+        }
         i++
       }
       cpt++
@@ -155,64 +224,82 @@ export default class Pythagore2DBlockly extends Exercice {
       // console log('nbQ:' + nbQ)
       for (let k = 0; k < nbQ; k++) {
         // console log('k:' + k)
-        createBlockly(k, numExercice, that.saveArguments[k].nomDuPolygone, that.saveArguments[k].longueurBC, that.saveArguments[k].longueurAC, that.saveArguments[k].longueurAB, that.saveArguments[k].listeTypeDeQuestion, that.saveArguments[k].key)
+        createBlockly(
+          k,
+          numExercice,
+          that.saveArguments[k].nomDuPolygone,
+          that.saveArguments[k].longueurBC,
+          that.saveArguments[k].longueurAC,
+          that.saveArguments[k].longueurAB,
+          that.saveArguments[k].listeTypeDeQuestion,
+          that.saveArguments[k].key,
+        )
       }
     }
-    const createBlockly = function (questId: number, numExercice: number, nomDuPolygone: string, longueurBC: number, longueurAC: number, longueurAB: number, listeTypeDeQuestion: string, key: string) {
+    const createBlockly = function (
+      questId: number,
+      numExercice: number,
+      nomDuPolygone: string,
+      longueurBC: number,
+      longueurAC: number,
+      longueurAB: number,
+      listeTypeDeQuestion: string,
+      key: string,
+    ) {
       const toolbox = {
         kind: 'flyoutToolbox',
         contents: [
           {
             kind: 'block',
-            type: 'start'
+            type: 'start',
           },
           {
             kind: 'block',
-            type: 'demonstration'
+            type: 'demonstration',
           },
           {
             kind: 'block',
-            type: 'triangle_rect_iso'
+            type: 'triangle_rect_iso',
           },
           {
             kind: 'block',
-            type: 'secantes'
+            type: 'secantes',
           },
           {
             kind: 'block',
-            type: 'paralleles'
+            type: 'paralleles',
           },
           {
             kind: 'block',
-            type: 'pythagore'
+            type: 'pythagore',
           },
           {
             kind: 'block',
-            type: 'thales'
+            type: 'thales',
           },
           {
             kind: 'block',
-            type: 'trigonometrie'
+            type: 'trigonometrie',
           },
           {
             kind: 'block',
-            type: 'reciproque'
+            type: 'reciproque',
           },
           {
             kind: 'block',
-            type: 'egale_comp'
+            type: 'egale_comp',
           },
           {
             kind: 'block',
-            type: 'longueur'
+            type: 'longueur',
           },
           {
             kind: 'block',
-            type: 'angle'
+            type: 'angle',
           },
           {
             kind: 'block',
-            type: 'carre'
+            type: 'carre',
           },
           {
             kind: 'block',
@@ -224,11 +311,11 @@ export default class Pythagore2DBlockly extends Exercice {
                   inputs: {
                     value: {
                       block: {
-                        type: 'longueur'
-                      }
-                    }
-                  }
-                }
+                        type: 'longueur',
+                      },
+                    },
+                  },
+                },
               },
               op2: {
                 block: {
@@ -236,45 +323,59 @@ export default class Pythagore2DBlockly extends Exercice {
                   inputs: {
                     op1: {
                       block: {
-                        type: 'carre'
-                      }
+                        type: 'carre',
+                      },
                     },
                     op2: {
                       block: {
-                        type: 'carre'
-                      }
-                    }
-                  }
-                }
-              }
-            }
+                        type: 'carre',
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
           {
             kind: 'block',
-            type: 'operation'
+            type: 'operation',
           },
           {
             kind: 'block',
-            type: 'operation_square_trigo'
+            type: 'operation_square_trigo',
           },
           {
             kind: 'block',
-            type: 'unite'
+            type: 'unite',
           },
           {
             kind: 'block',
-            type: 'textinput'
-          }
-        ]
+            type: 'textinput',
+          },
+        ],
       }
-      const secondaryArea = document.getElementById('secondaryArea' + numExercice + '_' + questId)
-      const secondaryDiv = document.getElementById('secondaryDiv' + numExercice + '_' + questId)
-      const workspaceExisting = retrieveWorkspace('workspace_sol_' + numExercice + '_' + questId + '_' + key)
-      if (secondaryDiv !== null && secondaryDiv.querySelector('.injectionDiv') && workspaceExisting) {
+      const secondaryArea = document.getElementById(
+        'secondaryArea' + numExercice + '_' + questId,
+      )
+      const secondaryDiv = document.getElementById(
+        'secondaryDiv' + numExercice + '_' + questId,
+      )
+      const workspaceExisting = retrieveWorkspace(
+        'workspace_sol_' + numExercice + '_' + questId + '_' + key,
+      )
+      if (
+        secondaryDiv !== null &&
+        secondaryDiv.querySelector('.injectionDiv') &&
+        workspaceExisting
+      ) {
         // already loaded
-        document.dispatchEvent(new window.Event('blocklyEvent', { bubbles: true }))
+        document.dispatchEvent(
+          new window.Event('blocklyEvent', { bubbles: true }),
+        )
       } else if (secondaryDiv !== null) {
-        const workspaceExisting = retrieveWorkspace('workspace_sol_' + numExercice + '_' + questId)
+        const workspaceExisting = retrieveWorkspace(
+          'workspace_sol_' + numExercice + '_' + questId,
+        )
         if (workspaceExisting) {
           // console log('dispatchEvent: dispose')
           workspaceExisting.dispose()
@@ -289,86 +390,159 @@ export default class Pythagore2DBlockly extends Exercice {
             maxScale: 3,
             minScale: 0.3,
             scaleSpeed: 1.2,
-            pinch: false
-          }
+            pinch: false,
+          },
         })
-        secondaryWorkspace.idkey = 'workspace_sol_' + numExercice + '_' + questId + '_' + key
+        secondaryWorkspace.idkey =
+          'workspace_sol_' + numExercice + '_' + questId + '_' + key
         const solution1 = JSON.parse(JSON.stringify(blocklypyt)) // POUR CLONER SINON BUG
-        solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.prepoint = nomDuPolygone[0]
-        solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.deuxpoint = nomDuPolygone[1]
-        solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.troispoint = nomDuPolygone[2]
-        solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.trisommet = nomDuPolygone[0]
-        const egalitePytagore = solution1.blocks.blocks[0].next.block.inputs.Propriété.block.next.block
-        egalitePytagore.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[1] + nomDuPolygone[2]
-        egalitePytagore.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[0] + nomDuPolygone[1]
-        egalitePytagore.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[2] + nomDuPolygone[0]
+        solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.prepoint =
+          nomDuPolygone[0]
+        solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.deuxpoint =
+          nomDuPolygone[1]
+        solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.troispoint =
+          nomDuPolygone[2]
+        solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.trisommet =
+          nomDuPolygone[0]
+        const egalitePytagore =
+          solution1.blocks.blocks[0].next.block.inputs.Propriété.block.next
+            .block
+        egalitePytagore.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+          nomDuPolygone[1] + nomDuPolygone[2]
+        egalitePytagore.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+          nomDuPolygone[0] + nomDuPolygone[1]
+        egalitePytagore.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.Longueur_triangle =
+          nomDuPolygone[2] + nomDuPolygone[0]
         const egalitePytagoreMoins = egalitePytagore.next.block
         const egalitePytagoreCalcul1 = egalitePytagoreMoins.next.block
         const egalitePytagoreCalcul2 = egalitePytagoreCalcul1.next.block
         const egalitePytagoreCalcul3 = egalitePytagoreCalcul2.next.block
         const egalitePytagoreCalcul4 = egalitePytagoreCalcul3.next.block
         if (listeTypeDeQuestion === 'AB') {
-          egalitePytagoreMoins.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[0] + nomDuPolygone[1]
-          egalitePytagoreMoins.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[1] + nomDuPolygone[2]
-          egalitePytagoreMoins.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[2] + nomDuPolygone[0]
-          egalitePytagoreCalcul1.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[0] + nomDuPolygone[1]
-          egalitePytagoreCalcul1.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.NUM = stringNombre(longueurBC, 1)
-          egalitePytagoreCalcul1.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurAC, 1)
-          egalitePytagoreCalcul2.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[0] + nomDuPolygone[1]
-          egalitePytagoreCalcul2.inputs.op2.block.inputs.op1.block.fields.NUM = stringNombre(longueurBC ** 2, 2)
-          egalitePytagoreCalcul2.inputs.op2.block.inputs.op2.block.fields.NUM = stringNombre(longueurAC ** 2, 2)
-          egalitePytagoreCalcul3.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[0] + nomDuPolygone[1]
-          egalitePytagoreCalcul3.inputs.op2.block.fields.NUM = stringNombre(longueurBC ** 2 - longueurAC ** 2, 2)
-          egalitePytagoreCalcul4.inputs.op1.block.fields.Longueur_triangle = nomDuPolygone[0] + nomDuPolygone[1]
-          egalitePytagoreCalcul4.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurBC ** 2 - longueurAC ** 2, 2)
-          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op1.block.fields.Longueur_triangle = nomDuPolygone[0] + nomDuPolygone[1]
-          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurAB, 2)
-          if (stringNombre(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1) === stringNombre(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 5)) {
-            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op = 'equal'
+          egalitePytagoreMoins.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[0] + nomDuPolygone[1]
+          egalitePytagoreMoins.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[1] + nomDuPolygone[2]
+          egalitePytagoreMoins.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[2] + nomDuPolygone[0]
+          egalitePytagoreCalcul1.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[0] + nomDuPolygone[1]
+          egalitePytagoreCalcul1.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurBC, 1)
+          egalitePytagoreCalcul1.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurAC, 1)
+          egalitePytagoreCalcul2.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[0] + nomDuPolygone[1]
+          egalitePytagoreCalcul2.inputs.op2.block.inputs.op1.block.fields.NUM =
+            stringNombre(longueurBC ** 2, 2)
+          egalitePytagoreCalcul2.inputs.op2.block.inputs.op2.block.fields.NUM =
+            stringNombre(longueurAC ** 2, 2)
+          egalitePytagoreCalcul3.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[0] + nomDuPolygone[1]
+          egalitePytagoreCalcul3.inputs.op2.block.fields.NUM = stringNombre(
+            longueurBC ** 2 - longueurAC ** 2,
+            2,
+          )
+          egalitePytagoreCalcul4.inputs.op1.block.fields.Longueur_triangle =
+            nomDuPolygone[0] + nomDuPolygone[1]
+          egalitePytagoreCalcul4.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurBC ** 2 - longueurAC ** 2, 2)
+          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op1.block.fields.Longueur_triangle =
+            nomDuPolygone[0] + nomDuPolygone[1]
+          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurAB, 2)
+          if (
+            stringNombre(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1) ===
+            stringNombre(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 5)
+          ) {
+            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op =
+              'equal'
           } else {
-            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op = 'approx'
+            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op =
+              'approx'
           }
         } else if (listeTypeDeQuestion === 'AC') {
-          egalitePytagoreMoins.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[2] + nomDuPolygone[0]
-          egalitePytagoreMoins.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[1] + nomDuPolygone[2]
-          egalitePytagoreMoins.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[0] + nomDuPolygone[1]
-          egalitePytagoreCalcul1.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[2] + nomDuPolygone[0]
-          egalitePytagoreCalcul1.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.NUM = stringNombre(longueurBC, 1)
-          egalitePytagoreCalcul1.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurAB, 1)
-          egalitePytagoreCalcul2.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[2] + nomDuPolygone[0]
-          egalitePytagoreCalcul2.inputs.op2.block.inputs.op1.block.fields.NUM = stringNombre(longueurBC ** 2, 2)
-          egalitePytagoreCalcul2.inputs.op2.block.inputs.op2.block.fields.NUM = stringNombre(longueurAB ** 2, 2)
-          egalitePytagoreCalcul3.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[2] + nomDuPolygone[0]
-          egalitePytagoreCalcul3.inputs.op2.block.fields.NUM = stringNombre(longueurBC ** 2 - longueurAB ** 2, 2)
-          egalitePytagoreCalcul4.inputs.op1.block.fields.Longueur_triangle = nomDuPolygone[2] + nomDuPolygone[0]
-          egalitePytagoreCalcul4.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurBC ** 2 - longueurAB ** 2, 2)
-          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op1.block.fields.Longueur_triangle = nomDuPolygone[2] + nomDuPolygone[0]
-          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurAC, 2)
-          if (stringNombre(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) === stringNombre(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)) {
-            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op = 'equal'
+          egalitePytagoreMoins.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[2] + nomDuPolygone[0]
+          egalitePytagoreMoins.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[1] + nomDuPolygone[2]
+          egalitePytagoreMoins.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[0] + nomDuPolygone[1]
+          egalitePytagoreCalcul1.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[2] + nomDuPolygone[0]
+          egalitePytagoreCalcul1.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurBC, 1)
+          egalitePytagoreCalcul1.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurAB, 1)
+          egalitePytagoreCalcul2.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[2] + nomDuPolygone[0]
+          egalitePytagoreCalcul2.inputs.op2.block.inputs.op1.block.fields.NUM =
+            stringNombre(longueurBC ** 2, 2)
+          egalitePytagoreCalcul2.inputs.op2.block.inputs.op2.block.fields.NUM =
+            stringNombre(longueurAB ** 2, 2)
+          egalitePytagoreCalcul3.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[2] + nomDuPolygone[0]
+          egalitePytagoreCalcul3.inputs.op2.block.fields.NUM = stringNombre(
+            longueurBC ** 2 - longueurAB ** 2,
+            2,
+          )
+          egalitePytagoreCalcul4.inputs.op1.block.fields.Longueur_triangle =
+            nomDuPolygone[2] + nomDuPolygone[0]
+          egalitePytagoreCalcul4.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurBC ** 2 - longueurAB ** 2, 2)
+          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op1.block.fields.Longueur_triangle =
+            nomDuPolygone[2] + nomDuPolygone[0]
+          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurAC, 2)
+          if (
+            stringNombre(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) ===
+            stringNombre(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)
+          ) {
+            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op =
+              'equal'
           } else {
-            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op = 'approx'
+            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op =
+              'approx'
           }
         } else {
           egalitePytagore.next.block = egalitePytagoreCalcul1
-          egalitePytagoreCalcul1.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[1] + nomDuPolygone[2]
+          egalitePytagoreCalcul1.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[1] + nomDuPolygone[2]
           egalitePytagoreCalcul1.inputs.op2.block.fields.op = 'plus'
-          egalitePytagoreCalcul1.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.NUM = stringNombre(longueurAB, 1)
-          egalitePytagoreCalcul1.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurAC, 1)
-          egalitePytagoreCalcul2.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[1] + nomDuPolygone[2]
+          egalitePytagoreCalcul1.inputs.op2.block.inputs.op1.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurAB, 1)
+          egalitePytagoreCalcul1.inputs.op2.block.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurAC, 1)
+          egalitePytagoreCalcul2.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[1] + nomDuPolygone[2]
           egalitePytagoreCalcul2.inputs.op2.block.fields.op = 'plus'
-          egalitePytagoreCalcul2.inputs.op2.block.inputs.op1.block.fields.NUM = stringNombre(longueurAB ** 2, 2)
-          egalitePytagoreCalcul2.inputs.op2.block.inputs.op2.block.fields.NUM = stringNombre(longueurAC ** 2, 2)
-          egalitePytagoreCalcul3.inputs.op1.block.inputs.value.block.fields.Longueur_triangle = nomDuPolygone[1] + nomDuPolygone[2]
-          egalitePytagoreCalcul3.inputs.op2.block.fields.NUM = stringNombre(longueurAB ** 2 + longueurAC ** 2, 2)
-          egalitePytagoreCalcul4.inputs.op1.block.fields.Longueur_triangle = nomDuPolygone[1] + nomDuPolygone[2]
-          egalitePytagoreCalcul4.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurAB ** 2 + longueurAC ** 2, 2)
-          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op1.block.fields.Longueur_triangle = nomDuPolygone[1] + nomDuPolygone[2]
-          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op2.block.inputs.value.block.fields.NUM = stringNombre(longueurBC, 2)
-          if (stringNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) === stringNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)) {
-            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op = 'equal'
+          egalitePytagoreCalcul2.inputs.op2.block.inputs.op1.block.fields.NUM =
+            stringNombre(longueurAB ** 2, 2)
+          egalitePytagoreCalcul2.inputs.op2.block.inputs.op2.block.fields.NUM =
+            stringNombre(longueurAC ** 2, 2)
+          egalitePytagoreCalcul3.inputs.op1.block.inputs.value.block.fields.Longueur_triangle =
+            nomDuPolygone[1] + nomDuPolygone[2]
+          egalitePytagoreCalcul3.inputs.op2.block.fields.NUM = stringNombre(
+            longueurAB ** 2 + longueurAC ** 2,
+            2,
+          )
+          egalitePytagoreCalcul4.inputs.op1.block.fields.Longueur_triangle =
+            nomDuPolygone[1] + nomDuPolygone[2]
+          egalitePytagoreCalcul4.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurAB ** 2 + longueurAC ** 2, 2)
+          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op1.block.fields.Longueur_triangle =
+            nomDuPolygone[1] + nomDuPolygone[2]
+          solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.inputs.op2.block.inputs.value.block.fields.NUM =
+            stringNombre(longueurBC, 2)
+          if (
+            stringNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) ===
+            stringNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)
+          ) {
+            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op =
+              'equal'
           } else {
-            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op = 'approx'
+            solution1.blocks.blocks[0].next.block.inputs.Conclusion.block.fields.op =
+              'approx'
           }
         }
         Blockly.serialization.workspaces.load(solution1, secondaryWorkspace)
@@ -401,15 +575,23 @@ export default class Pythagore2DBlockly extends Exercice {
         window.addEventListener('resize', onresize2, false)
       }
 
-      const blocklyArea = document.getElementById('blocklyArea' + numExercice + '_' + questId)
-      const blocklyDiv = document.getElementById('blocklyDiv' + numExercice + '_' + questId)
+      const blocklyArea = document.getElementById(
+        'blocklyArea' + numExercice + '_' + questId,
+      )
+      const blocklyDiv = document.getElementById(
+        'blocklyDiv' + numExercice + '_' + questId,
+      )
       if (blocklyDiv !== null && blocklyDiv.querySelector('.injectionDiv')) {
         // already loaded
         setTimeout(function () {
-          document.dispatchEvent(new window.Event('blocklyEvent', { bubbles: true }))
+          document.dispatchEvent(
+            new window.Event('blocklyEvent', { bubbles: true }),
+          )
         }, 1000)
       } else if (blocklyDiv !== null) {
-        const workspaceExisting = retrieveWorkspace('workspace_quest_' + numExercice + '_' + questId)
+        const workspaceExisting = retrieveWorkspace(
+          'workspace_quest_' + numExercice + '_' + questId,
+        )
         if (workspaceExisting) {
           // console log('dispatchEvent: dispose')
           workspaceExisting.dispose()
@@ -436,10 +618,11 @@ export default class Pythagore2DBlockly extends Exercice {
             maxScale: 3,
             minScale: 0.3,
             scaleSpeed: 1.2,
-            pinch: false
-          }
+            pinch: false,
+          },
         })
-        demoWorkspace.idkey = 'workspace_quest_' + numExercice + '_' + questId + '_' + key
+        demoWorkspace.idkey =
+          'workspace_quest_' + numExercice + '_' + questId + '_' + key
         // console log('blockly loaded nbr:' + Blockly.Workspace.getAll().length)
         // console log('demoWorkspace.idkey:' + demoWorkspace.idkey)
 
@@ -474,11 +657,17 @@ export default class Pythagore2DBlockly extends Exercice {
     if (i === undefined) return ''
     if (this.answers === undefined) this.answers = {}
     let result = 'OK'
-    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
+    const spanResultat = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${i}`,
+    )
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${i}`,
+    )
     spanResultat.innerHTML = ''
     let feedback = ''
-    const workspaceExisting = retrieveWorkspace('workspace_quest_' + this.numeroExercice + '_' + i)
+    const workspaceExisting = retrieveWorkspace(
+      'workspace_quest_' + this.numeroExercice + '_' + i,
+    )
     const start = workspaceExisting.getBlocksByType('start')[0]
     if (!start) {
       feedback += 'Manque le bloc "démonstration"<br>'
@@ -504,20 +693,34 @@ export default class Pythagore2DBlockly extends Exercice {
       spanResultat.innerHTML = '☹️'
       result = 'KO'
     } else {
-      if (condition.type === 'triangle_rect_iso' && condition.getFieldValue('tritype') === 'rect') {
+      if (
+        condition.type === 'triangle_rect_iso' &&
+        condition.getFieldValue('tritype') === 'rect'
+      ) {
         feedback += 'Condition: le bloc triangle rectangle défini<br>'
       } else {
         feedback += 'Condition: le bloc triangle rectangle mal défini<br>'
         spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
-      if (this.saveArguments[i].nomDuPolygone.includes(condition.getFieldValue('prepoint')) &&
-        this.saveArguments[i].nomDuPolygone.includes(condition.getFieldValue('deuxpoint')) &&
-        this.saveArguments[i].nomDuPolygone.includes(condition.getFieldValue('troispoint')) &&
-        this.saveArguments[i].nomDuPolygone.includes(condition.getFieldValue('troispoint'))) {
+      if (
+        this.saveArguments[i].nomDuPolygone.includes(
+          condition.getFieldValue('prepoint'),
+        ) &&
+        this.saveArguments[i].nomDuPolygone.includes(
+          condition.getFieldValue('deuxpoint'),
+        ) &&
+        this.saveArguments[i].nomDuPolygone.includes(
+          condition.getFieldValue('troispoint'),
+        ) &&
+        this.saveArguments[i].nomDuPolygone.includes(
+          condition.getFieldValue('troispoint'),
+        )
+      ) {
         feedback += 'Condition: le bloc triangle rectangle bien défini<br>'
       } else {
-        feedback += 'Condition: le bloc triangle rectangle avec des points mal définis<br>'
+        feedback +=
+          'Condition: le bloc triangle rectangle avec des points mal définis<br>'
         spanResultat.innerHTML = '☹️'
         result[0] = 'KO'
       }
@@ -543,44 +746,100 @@ export default class Pythagore2DBlockly extends Exercice {
       }
 
       const egalitePyt = prop.getNextBlock() // égalité de Pythagore
-      if (egalitePyt && egalitePyt.type === 'egale_comp' &&
-      egalitePyt.getFieldValue('op') === 'equal' &&
-      egalitePyt.getInputTargetBlock('op1') &&
-      egalitePyt.getInputTargetBlock('op1')?.type === 'carre' &&
-      egalitePyt.getInputTargetBlock('op1')?.getInputTargetBlock('value') &&
-      egalitePyt.getInputTargetBlock('op1')?.getInputTargetBlock('value')?.type === 'longueur' &&
-      egalitePyt.getInputTargetBlock('op1')?.getInputTargetBlock('value')?.getFieldValue('Longueur_triangle') === nomDuPolygone[1] + nomDuPolygone[2]) {
-        feedback += 'Propriété: Egalité de Pythagore : bloc correct à gauche<br>'
+      if (
+        egalitePyt &&
+        egalitePyt.type === 'egale_comp' &&
+        egalitePyt.getFieldValue('op') === 'equal' &&
+        egalitePyt.getInputTargetBlock('op1') &&
+        egalitePyt.getInputTargetBlock('op1')?.type === 'carre' &&
+        egalitePyt.getInputTargetBlock('op1')?.getInputTargetBlock('value') &&
+        egalitePyt.getInputTargetBlock('op1')?.getInputTargetBlock('value')
+          ?.type === 'longueur' &&
+        egalitePyt
+          .getInputTargetBlock('op1')
+          ?.getInputTargetBlock('value')
+          ?.getFieldValue('Longueur_triangle') ===
+          nomDuPolygone[1] + nomDuPolygone[2]
+      ) {
+        feedback +=
+          'Propriété: Egalité de Pythagore : bloc correct à gauche<br>'
       } else {
-        feedback += 'Propriété: Egalité de Pythagore : bloc incorrecte à gauche<br>'
+        feedback +=
+          'Propriété: Egalité de Pythagore : bloc incorrecte à gauche<br>'
         spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
 
-      if (egalitePyt && egalitePyt.type === 'egale_comp' &&
-      egalitePyt.getFieldValue('op') === 'equal' &&
-      egalitePyt.getInputTargetBlock('op2') &&
-      egalitePyt.getInputTargetBlock('op2')?.type === 'operation' &&
-      egalitePyt.getInputTargetBlock('op2')?.getFieldValue('op') === 'plus' &&
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op1') &&
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op1')?.type === 'carre' &&
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op1')?.getInputTargetBlock('value') &&
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op1')?.getInputTargetBlock('value')?.type === 'longueur' &&
-      (egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op1')?.getInputTargetBlock('value')?.getFieldValue('Longueur_triangle') === nomDuPolygone[0] + nomDuPolygone[1] ||
-       egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op1')?.getInputTargetBlock('value')?.getFieldValue('Longueur_triangle') === nomDuPolygone[2] + nomDuPolygone[0]) &&
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op2') &&
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op2')?.type === 'carre' &&
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op2')?.getInputTargetBlock('value') &&
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op2')?.getInputTargetBlock('value')?.type === 'longueur' &&
-      (egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op2')?.getInputTargetBlock('value')?.getFieldValue('Longueur_triangle') === nomDuPolygone[0] + nomDuPolygone[1] ||
-      egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op2')?.getInputTargetBlock('value')?.getFieldValue('Longueur_triangle') === nomDuPolygone[2] + nomDuPolygone[0])) {
-        feedback += 'Propriété: Egalité de Pythagore : bloc correct à droite<br>'
+      if (
+        egalitePyt &&
+        egalitePyt.type === 'egale_comp' &&
+        egalitePyt.getFieldValue('op') === 'equal' &&
+        egalitePyt.getInputTargetBlock('op2') &&
+        egalitePyt.getInputTargetBlock('op2')?.type === 'operation' &&
+        egalitePyt.getInputTargetBlock('op2')?.getFieldValue('op') === 'plus' &&
+        egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op1') &&
+        egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op1')
+          ?.type === 'carre' &&
+        egalitePyt
+          .getInputTargetBlock('op2')
+          ?.getInputTargetBlock('op1')
+          ?.getInputTargetBlock('value') &&
+        egalitePyt
+          .getInputTargetBlock('op2')
+          ?.getInputTargetBlock('op1')
+          ?.getInputTargetBlock('value')?.type === 'longueur' &&
+        (egalitePyt
+          .getInputTargetBlock('op2')
+          ?.getInputTargetBlock('op1')
+          ?.getInputTargetBlock('value')
+          ?.getFieldValue('Longueur_triangle') ===
+          nomDuPolygone[0] + nomDuPolygone[1] ||
+          egalitePyt
+            .getInputTargetBlock('op2')
+            ?.getInputTargetBlock('op1')
+            ?.getInputTargetBlock('value')
+            ?.getFieldValue('Longueur_triangle') ===
+            nomDuPolygone[2] + nomDuPolygone[0]) &&
+        egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op2') &&
+        egalitePyt.getInputTargetBlock('op2')?.getInputTargetBlock('op2')
+          ?.type === 'carre' &&
+        egalitePyt
+          .getInputTargetBlock('op2')
+          ?.getInputTargetBlock('op2')
+          ?.getInputTargetBlock('value') &&
+        egalitePyt
+          .getInputTargetBlock('op2')
+          ?.getInputTargetBlock('op2')
+          ?.getInputTargetBlock('value')?.type === 'longueur' &&
+        (egalitePyt
+          .getInputTargetBlock('op2')
+          ?.getInputTargetBlock('op2')
+          ?.getInputTargetBlock('value')
+          ?.getFieldValue('Longueur_triangle') ===
+          nomDuPolygone[0] + nomDuPolygone[1] ||
+          egalitePyt
+            .getInputTargetBlock('op2')
+            ?.getInputTargetBlock('op2')
+            ?.getInputTargetBlock('value')
+            ?.getFieldValue('Longueur_triangle') ===
+            nomDuPolygone[2] + nomDuPolygone[0])
+      ) {
+        feedback +=
+          'Propriété: Egalité de Pythagore : bloc correct à droite<br>'
       } else {
-        feedback += 'Propriété: Egalité de Pythagore : bloc incorrect à droite<br>'
+        feedback +=
+          'Propriété: Egalité de Pythagore : bloc incorrect à droite<br>'
       }
       let racineCarre = egalitePyt?.getNextBlock() // égalité de Pythagore
       while (racineCarre) {
-        const [resu, feed] = this.racineCarreSearch(racineCarre, nomDuPolygone, this.saveArguments[i].listeTypeDeQuestion, longueurBC, longueurAC, longueurAB)
+        const [resu, feed] = this.racineCarreSearch(
+          racineCarre,
+          nomDuPolygone,
+          this.saveArguments[i].listeTypeDeQuestion,
+          longueurBC,
+          longueurAC,
+          longueurAB,
+        )
         racineCarre = racineCarre.getNextBlock()
         if (resu) {
           feedback += feed
@@ -607,7 +866,10 @@ export default class Pythagore2DBlockly extends Exercice {
       if (this.saveArguments[i].listeTypeDeQuestion === 'AB') {
         nomLongueur = nomDuPolygone[0] + nomDuPolygone[1]
         longueurCherche = stringNombre(longueurAB)
-        if (stringNombre(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1) === stringNombre(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 5)) {
+        if (
+          stringNombre(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1) ===
+          stringNombre(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 5)
+        ) {
           equalOrApprox = 'equal'
         } else {
           equalOrApprox = 'approx'
@@ -615,7 +877,10 @@ export default class Pythagore2DBlockly extends Exercice {
       } else if (this.saveArguments[i].listeTypeDeQuestion === 'AC') {
         nomLongueur = nomDuPolygone[2] + nomDuPolygone[0]
         longueurCherche = stringNombre(longueurAC)
-        if (stringNombre(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) === stringNombre(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)) {
+        if (
+          stringNombre(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) ===
+          stringNombre(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)
+        ) {
           equalOrApprox = 'equal'
         } else {
           equalOrApprox = 'approx'
@@ -623,7 +888,10 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         nomLongueur = nomDuPolygone[1] + nomDuPolygone[2]
         longueurCherche = stringNombre(longueurBC)
-        if (stringNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) === stringNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)) {
+        if (
+          stringNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) ===
+          stringNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)
+        ) {
           equalOrApprox = 'equal'
         } else {
           equalOrApprox = 'approx'
@@ -636,33 +904,54 @@ export default class Pythagore2DBlockly extends Exercice {
         spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
-      if (conclusion.type === 'egale_comp' && conclusion.getFieldValue('op') === equalOrApprox) {
-        feedback += 'Conclusion: le bloc conclusion défini avec le bon signe<br>'
+      if (
+        conclusion.type === 'egale_comp' &&
+        conclusion.getFieldValue('op') === equalOrApprox
+      ) {
+        feedback +=
+          'Conclusion: le bloc conclusion défini avec le bon signe<br>'
       } else if (conclusion.type === 'egale_comp') {
-        feedback += 'Conclusion: le bloc conclusion défini avec le mauvais signe<br>'
+        feedback +=
+          'Conclusion: le bloc conclusion défini avec le mauvais signe<br>'
         spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
       const op1 = conclusion.getInputTargetBlock('op1')
-      if (op1 && op1.type === 'longueur' && op1.getFieldValue('Longueur_triangle') === nomLongueur) {
-        feedback += 'Conclusion: le bloc conclusion défini avec le bon segment<br>'
+      if (
+        op1 &&
+        op1.type === 'longueur' &&
+        op1.getFieldValue('Longueur_triangle') === nomLongueur
+      ) {
+        feedback +=
+          'Conclusion: le bloc conclusion défini avec le bon segment<br>'
       } else {
-        feedback += 'Conclusion: le bloc conclusion défini avec le mauvais segment<br>'
+        feedback +=
+          'Conclusion: le bloc conclusion défini avec le mauvais segment<br>'
         spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
       const op2 = conclusion.getInputTargetBlock('op2')
       if (op2 && op2.type === 'unite' && op2.getFieldValue('unite') === 'cm') {
-        feedback += 'Conclusion: le bloc conclusion défini avec la bonne unité<br>'
+        feedback +=
+          'Conclusion: le bloc conclusion défini avec la bonne unité<br>'
       } else {
-        feedback += 'Conclusion: le bloc conclusion défini avec la mauvaise unité<br>'
+        feedback +=
+          'Conclusion: le bloc conclusion défini avec la mauvaise unité<br>'
         spanResultat.innerHTML = '☹️'
         result[0] = 'KO'
       }
-      if (op2 && op2.getInputTargetBlock('value') && op2.getInputTargetBlock('value').type === 'textinput' && op2.getInputTargetBlock('value').getFieldValue('NUM') === longueurCherche) {
-        feedback += 'Conclusion: le bloc conclusion défini avec la bonne longueur<br>'
+      if (
+        op2 &&
+        op2.getInputTargetBlock('value') &&
+        op2.getInputTargetBlock('value').type === 'textinput' &&
+        op2.getInputTargetBlock('value').getFieldValue('NUM') ===
+          longueurCherche
+      ) {
+        feedback +=
+          'Conclusion: le bloc conclusion défini avec la bonne longueur<br>'
       } else {
-        feedback += 'Conclusion: le bloc conclusion défini avec la mauvaise longueur<br>'
+        feedback +=
+          'Conclusion: le bloc conclusion défini avec la mauvaise longueur<br>'
         spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
@@ -672,7 +961,14 @@ export default class Pythagore2DBlockly extends Exercice {
     return result
   }
 
-  racineCarreSearch (racineCarre: Blockly.Block, nomDuPolygone: string, listeTypeDeQuestion: string, longueurBC: number, longueurAC: number, longueurAB: number) {
+  racineCarreSearch(
+    racineCarre: Blockly.Block,
+    nomDuPolygone: string,
+    listeTypeDeQuestion: string,
+    longueurBC: number,
+    longueurAC: number,
+    longueurAB: number,
+  ) {
     let feedback = ''
     let result = true
     let value = ''
@@ -688,21 +984,34 @@ export default class Pythagore2DBlockly extends Exercice {
       nom = nomDuPolygone[2] + nomDuPolygone[0]
     }
 
-    if (racineCarre && racineCarre.type === 'egale_comp' &&
+    if (
+      racineCarre &&
+      racineCarre.type === 'egale_comp' &&
       racineCarre.getFieldValue('op') === 'equal' &&
       racineCarre.getInputTargetBlock('op1')?.type === 'longueur' &&
-      racineCarre.getInputTargetBlock('op1')?.getFieldValue('Longueur_triangle') === nom) {
+      racineCarre
+        .getInputTargetBlock('op1')
+        ?.getFieldValue('Longueur_triangle') === nom
+    ) {
       feedback += 'Propriété: bloc racine carré correct à gauche<br>'
     } else {
       result = false
       feedback += 'Propriété: bloc racine carré incorrect à gauche<br>'
     }
 
-    if (racineCarre && racineCarre.type === 'egale_comp' &&
+    if (
+      racineCarre &&
+      racineCarre.type === 'egale_comp' &&
       racineCarre.getFieldValue('op') === 'equal' &&
-      racineCarre.getInputTargetBlock('op2')?.type === 'operation_square_trigo' &&
-      racineCarre.getInputTargetBlock('op2')?.getFieldValue('op') === 'racine' &&
-      racineCarre.getInputTargetBlock('op2')?.getInputTargetBlock('value')?.getFieldValue('NUM') === value) {
+      racineCarre.getInputTargetBlock('op2')?.type ===
+        'operation_square_trigo' &&
+      racineCarre.getInputTargetBlock('op2')?.getFieldValue('op') ===
+        'racine' &&
+      racineCarre
+        .getInputTargetBlock('op2')
+        ?.getInputTargetBlock('value')
+        ?.getFieldValue('NUM') === value
+    ) {
       feedback += 'Propriété: bloc racine carré correct à droite<br>'
     } else {
       feedback += 'Propriété: bloc racine carré incorrect à droite<br>'
@@ -712,7 +1021,7 @@ export default class Pythagore2DBlockly extends Exercice {
   }
 }
 
-function retrieveWorkspace (name: string) {
+function retrieveWorkspace(name: string) {
   const workspacesAll = Blockly.Workspace.getAll()
   for (let k = 0; k < workspacesAll.length; k++) {
     const ws = workspacesAll[k] as Blockly.Workspace & { idkey?: string }

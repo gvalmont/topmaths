@@ -3,7 +3,11 @@ import MonomePlusieursVariables from '../lib/mathFonctions/MonomePlusieursVariab
 import PolynomePlusieursVariables from '../lib/mathFonctions/PolynomePlusieursVariables'
 import { shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../lib/outils/calculs'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../lib/outils/ecritures'
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import { pgcd } from '../lib/outils/primalite'
 import { getLang } from '../lib/stores/languagesStore'
@@ -11,8 +15,8 @@ import FractionEtendue from './FractionEtendue'
 import { randint } from './outils'
 
 interface Options {
-  format: string;
-  variable: string;
+  format: string
+  variable: string
   // other properties if needed
 }
 
@@ -30,37 +34,86 @@ class EquationSecondDegre {
   correctionDetailleeTex: string
   correctionTex: string
   variable: string
-  fonctionEvaluer: (x:number) => number
-  constructor (a: FractionEtendue, b: FractionEtendue, c: FractionEtendue, d: FractionEtendue, e: FractionEtendue, f: FractionEtendue, options = { format: 'initial', variable: 'x' }) {
+  fonctionEvaluer: (x: number) => number
+  constructor(
+    a: FractionEtendue,
+    b: FractionEtendue,
+    c: FractionEtendue,
+    d: FractionEtendue,
+    e: FractionEtendue,
+    f: FractionEtendue,
+    options = { format: 'initial', variable: 'x' },
+  ) {
     const lang = getLang()
     this.coefficients = [a, b, c, d, e, f]
-    this.fonctionEvaluer = (x:number) => this.coefficients[0].num / this.coefficients[0].den * x * x + this.coefficients[1].num / this.coefficients[1].den * x + this.coefficients[2].num / this.coefficients[2].den
+    this.fonctionEvaluer = (x: number) =>
+      (this.coefficients[0].num / this.coefficients[0].den) * x * x +
+      (this.coefficients[1].num / this.coefficients[1].den) * x +
+      this.coefficients[2].num / this.coefficients[2].den
     let melange = true
     this.variable = options.variable
     this.natureDelEquation = options.format
     this.natureDesSolutions = ''
-    const nomValDefault = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']
-    this.coefficientsEqReduite = [a.differenceFraction(d).simplifie(), b.differenceFraction(e).simplifie(), c.differenceFraction(f).simplifie(), new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1)]
+    const nomValDefault = [
+      `${this.variable}^2`,
+      this.variable,
+      '',
+      `${this.variable}^2`,
+      this.variable,
+      '',
+    ]
+    this.coefficientsEqReduite = [
+      a.differenceFraction(d).simplifie(),
+      b.differenceFraction(e).simplifie(),
+      c.differenceFraction(f).simplifie(),
+      new FractionEtendue(0, 1),
+      new FractionEtendue(0, 1),
+      new FractionEtendue(0, 1),
+    ]
     this.equationTex = ''
     if (options.format === 'reduit') {
       melange = false
       this.equationTex = this.printToLatexEq(this.coefficientsEqReduite)
     } else if (options.format === 'melangeReduit') {
-      const tabMelange = shuffle2tableauxSansModif(this.coefficientsEqReduite.slice(0, 3), nomValDefault.slice(0, 3))
-      this.equationTex = this.printToLatexEq(tabMelange[0].concat(this.coefficientsEqReduite.slice(3)), tabMelange[1].concat(nomValDefault.slice(3)))
+      const tabMelange = shuffle2tableauxSansModif(
+        this.coefficientsEqReduite.slice(0, 3),
+        nomValDefault.slice(0, 3),
+      )
+      this.equationTex = this.printToLatexEq(
+        tabMelange[0].concat(this.coefficientsEqReduite.slice(3)),
+        tabMelange[1].concat(nomValDefault.slice(3)),
+      )
     } else if (options.format === 'melangeSimple') {
       const coefficientsRevus = this.complexifyCoefficients(this.coefficients)
       this.equationTex = this.printToLatexEq(coefficientsRevus, nomValDefault)
     } else if (options.format === 'melangeComplique') {
       const coefficientsRevus = this.complexifyCoefficients(this.coefficients)
-      const tabMelange1 = shuffle2tableauxSansModif(coefficientsRevus.slice(0, 3), nomValDefault.slice(0, 3))
-      const tabMelange2 = shuffle2tableauxSansModif(coefficientsRevus.slice(3), nomValDefault.slice(3))
-      const tabMelange = [tabMelange1[0].concat(tabMelange2[0]), tabMelange1[1].concat(tabMelange2[1])]
-      this.equationTex = this.printToLatexEq(tabMelange[0] as FractionEtendue[], tabMelange[1] as string[])
+      const tabMelange1 = shuffle2tableauxSansModif(
+        coefficientsRevus.slice(0, 3),
+        nomValDefault.slice(0, 3),
+      )
+      const tabMelange2 = shuffle2tableauxSansModif(
+        coefficientsRevus.slice(3),
+        nomValDefault.slice(3),
+      )
+      const tabMelange = [
+        tabMelange1[0].concat(tabMelange2[0]),
+        tabMelange1[1].concat(tabMelange2[1]),
+      ]
+      this.equationTex = this.printToLatexEq(
+        tabMelange[0] as FractionEtendue[],
+        tabMelange[1] as string[],
+      )
     } else if (options.format === 'initial') {
       this.equationTex = this.printToLatexEq(this.coefficients, nomValDefault)
     }
-    this.delta = this.coefficientsEqReduite[1].produitFraction(this.coefficientsEqReduite[1]).differenceFraction(this.coefficientsEqReduite[0].produitFraction(this.coefficientsEqReduite[2]).produitFraction(4))
+    this.delta = this.coefficientsEqReduite[1]
+      .produitFraction(this.coefficientsEqReduite[1])
+      .differenceFraction(
+        this.coefficientsEqReduite[0]
+          .produitFraction(this.coefficientsEqReduite[2])
+          .produitFraction(4),
+      )
     this.nombreSolutions = 0
     if (this.delta.num > 0) {
       this.nombreSolutions = 2
@@ -73,14 +126,56 @@ class EquationSecondDegre {
     this.natureDesSolutions = ''
     if (this.nombreSolutions > 0) {
       if (this.delta.estParfaite) {
-        if (this.coefficientsEqReduite[1].multiplieEntier(-1).differenceFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((a.multiplieEntier(2)).inverse()).denIrred === 1) {
+        if (
+          this.coefficientsEqReduite[1]
+            .multiplieEntier(-1)
+            .differenceFraction(
+              new FractionEtendue(
+                sqrt(this.delta.num) as number,
+                sqrt(this.delta.den) as number,
+              ),
+            )
+            .produitFraction(a.multiplieEntier(2).inverse()).denIrred === 1
+        ) {
           this.natureDesSolutions = 'entier'
         } else {
           this.natureDesSolutions = 'fractionnaire'
         }
-      } else { this.natureDesSolutions = 'irrationnel' }
-      if (this.natureDesSolutions === 'entier' || this.natureDesSolutions === 'fractionnaire') {
-        this.solutionsListeTex = [`${this.coefficientsEqReduite[1].multiplieEntier(-1).differenceFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((this.coefficientsEqReduite[0].multiplieEntier(2)).inverse()).texFractionSimplifiee}`, `${this.coefficientsEqReduite[1].multiplieEntier(-1).sommeFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((this.coefficientsEqReduite[0].multiplieEntier(2)).inverse()).texFractionSimplifiee}`]
+      } else {
+        this.natureDesSolutions = 'irrationnel'
+      }
+      if (
+        this.natureDesSolutions === 'entier' ||
+        this.natureDesSolutions === 'fractionnaire'
+      ) {
+        this.solutionsListeTex = [
+          `${
+            this.coefficientsEqReduite[1]
+              .multiplieEntier(-1)
+              .differenceFraction(
+                new FractionEtendue(
+                  sqrt(this.delta.num) as number,
+                  sqrt(this.delta.den) as number,
+                ),
+              )
+              .produitFraction(
+                this.coefficientsEqReduite[0].multiplieEntier(2).inverse(),
+              ).texFractionSimplifiee
+          }`,
+          `${
+            this.coefficientsEqReduite[1]
+              .multiplieEntier(-1)
+              .sommeFraction(
+                new FractionEtendue(
+                  sqrt(this.delta.num) as number,
+                  sqrt(this.delta.den) as number,
+                ),
+              )
+              .produitFraction(
+                this.coefficientsEqReduite[0].multiplieEntier(2).inverse(),
+              ).texFractionSimplifiee
+          }`,
+        ]
         // parse la réponse latex en CE qui la simplifie et l'imprime
       } else if (this.natureDesSolutions === 'irrationnel') {
         const sol1Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`
@@ -88,20 +183,57 @@ class EquationSecondDegre {
         const racineDelta = extraireRacineCarree(this.delta.num)
         if (this.delta.estEntiere) {
           if (this.delta.num === 0) {
-            const sol1 = new FractionEtendue(-this.coefficientsEqReduite[1], 2).produitFraction((this.coefficientsEqReduite[0]).inverse())
-            this.solutionsListeTex = [sol1.texFractionSimplifiee, sol1.texFractionSimplifiee]
+            const sol1 = new FractionEtendue(
+              -this.coefficientsEqReduite[1],
+              2,
+            ).produitFraction(this.coefficientsEqReduite[0].inverse())
+            this.solutionsListeTex = [
+              sol1.texFractionSimplifiee,
+              sol1.texFractionSimplifiee,
+            ]
           } else if (racineDelta[1] === 1) {
-            const sol1 = new FractionEtendue(-this.coefficientsEqReduite[1] + racineDelta[0], 2).produitFraction((this.coefficientsEqReduite[0]).inverse())
-            const sol2 = new FractionEtendue(-this.coefficientsEqReduite[1] - racineDelta[0], 2).produitFraction(this.coefficientsEqReduite[0].inverse())
-            this.solutionsListeTex = [sol1.texFractionSimplifiee, sol2.texFractionSimplifiee]
+            const sol1 = new FractionEtendue(
+              -this.coefficientsEqReduite[1] + racineDelta[0],
+              2,
+            ).produitFraction(this.coefficientsEqReduite[0].inverse())
+            const sol2 = new FractionEtendue(
+              -this.coefficientsEqReduite[1] - racineDelta[0],
+              2,
+            ).produitFraction(this.coefficientsEqReduite[0].inverse())
+            this.solutionsListeTex = [
+              sol1.texFractionSimplifiee,
+              sol2.texFractionSimplifiee,
+            ]
           } else {
-            let pgcdRacines = pgcd(2 * this.coefficientsEqReduite[0].num * this.coefficientsEqReduite[1].den, this.coefficientsEqReduite[1].num * this.coefficientsEqReduite[0].den)
-            pgcdRacines = pgcd(pgcdRacines, this.coefficientsEqReduite[0].den * this.coefficientsEqReduite[1].den * racineDelta[0])
+            let pgcdRacines = pgcd(
+              2 *
+                this.coefficientsEqReduite[0].num *
+                this.coefficientsEqReduite[1].den,
+              this.coefficientsEqReduite[1].num *
+                this.coefficientsEqReduite[0].den,
+            )
+            pgcdRacines = pgcd(
+              pgcdRacines,
+              this.coefficientsEqReduite[0].den *
+                this.coefficientsEqReduite[1].den *
+                racineDelta[0],
+            )
             // s = (a - b*sqrt(c))/d
-            const a = -this.coefficientsEqReduite[1].num * this.coefficientsEqReduite[0].den / pgcdRacines
-            const b = this.coefficientsEqReduite[0].den * this.coefficientsEqReduite[1].den * racineDelta[0] / pgcdRacines
+            const a =
+              (-this.coefficientsEqReduite[1].num *
+                this.coefficientsEqReduite[0].den) /
+              pgcdRacines
+            const b =
+              (this.coefficientsEqReduite[0].den *
+                this.coefficientsEqReduite[1].den *
+                racineDelta[0]) /
+              pgcdRacines
             const c = racineDelta[1]
-            const d = 2 * this.coefficientsEqReduite[0].num * this.coefficientsEqReduite[1].den / pgcdRacines
+            const d =
+              (2 *
+                this.coefficientsEqReduite[0].num *
+                this.coefficientsEqReduite[1].den) /
+              pgcdRacines
             const sol1RevisiteeTex = `\\dfrac{${a} - ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
             const sol2RevisiteeTex = `\\dfrac{${a} + ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
             this.solutionsListeTex = [sol1RevisiteeTex, sol2RevisiteeTex]
@@ -111,9 +243,19 @@ class EquationSecondDegre {
         }
       }
     }
-    this.ensembleDeSolutionsTex = this.delta.num < 0 ? 'S=\\emptyset' : this.delta.num > 0 ? 'S = \\left\\{' + this.solutionsListeTex.join(';') + '\\right\\}' : `S=\\left\\{${this.solutionsListeTex[0]}\\right\\}`
-    if (this.nombreSolutions === 0) { this.correctionTex = `On a que $\\Delta=${this.delta.texFSD}$, l'équation n'a pas de solution réelle, $${this.ensembleDeSolutionsTex}$.` } else {
-      this.correctionTex = `On a que $\\Delta=${this.delta.texFSD}$, donc l'équation a ${this.nombreSolutions} solution` + (this.nombreSolutions > 1 ? 's' : '') + `, ${this.ensembleDeSolutionsTex}.`
+    this.ensembleDeSolutionsTex =
+      this.delta.num < 0
+        ? 'S=\\emptyset'
+        : this.delta.num > 0
+          ? 'S = \\left\\{' + this.solutionsListeTex.join(';') + '\\right\\}'
+          : `S=\\left\\{${this.solutionsListeTex[0]}\\right\\}`
+    if (this.nombreSolutions === 0) {
+      this.correctionTex = `On a que $\\Delta=${this.delta.texFSD}$, l'équation n'a pas de solution réelle, $${this.ensembleDeSolutionsTex}$.`
+    } else {
+      this.correctionTex =
+        `On a que $\\Delta=${this.delta.texFSD}$, donc l'équation a ${this.nombreSolutions} solution` +
+        (this.nombreSolutions > 1 ? 's' : '') +
+        `, ${this.ensembleDeSolutionsTex}.`
     }
     this.correctionDetailleeTex = ''
     if (melange) {
@@ -121,14 +263,18 @@ class EquationSecondDegre {
     }
     this.correctionDetailleeTex += `On calcule le discriminant : \\[\\Delta=\\left(${this.coefficientsEqReduite[1].texFractionSimplifiee}\\right)^2-4\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}\\times${this.coefficientsEqReduite[2].ecritureParentheseSiNegatif}=${this.delta.texFractionSimplifiee}.\\] On a $\\Delta=${this.delta.texFractionSimplifiee}$, donc `
     if (this.nombreSolutions > 1) {
-      this.correctionDetailleeTex += 'l\'équation a deux solutions. Les solutions sont'
+      this.correctionDetailleeTex +=
+        "l'équation a deux solutions. Les solutions sont"
       if (lang === 'fr-CH') {
         this.correctionDetailleeTex += `\\[${this.variable}_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       } else {
         this.correctionDetailleeTex += `\\[${this.variable}_{1}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\quad`
         this.correctionDetailleeTex += ` ${this.variable}_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       }
-      if (this.natureDesSolutions === 'entier' || this.natureDesSolutions === 'fractionnaire') {
+      if (
+        this.natureDesSolutions === 'entier' ||
+        this.natureDesSolutions === 'fractionnaire'
+      ) {
         this.correctionDetailleeTex += `En calculant, on obtient $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
       } else {
         this.correctionDetailleeTex += `Ainsi, $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
@@ -143,14 +289,30 @@ class EquationSecondDegre {
   }
 
   // Méthode pour créer une équation à partir des coefficients
-  static aPartirDesCoefficients (a: FractionEtendue, b: FractionEtendue, c: FractionEtendue, d: FractionEtendue, e: FractionEtendue, f: FractionEtendue, options:Options): EquationSecondDegre {
+  static aPartirDesCoefficients(
+    a: FractionEtendue,
+    b: FractionEtendue,
+    c: FractionEtendue,
+    d: FractionEtendue,
+    e: FractionEtendue,
+    f: FractionEtendue,
+    options: Options,
+  ): EquationSecondDegre {
     return new EquationSecondDegre(a, b, c, d, e, f, options)
   }
 
   // Méthode pour créer une équation à partir des solutions
-  static aPartirDesSolutions (sol1: FractionEtendue, sol2: FractionEtendue, coeffLead: FractionEtendue, options: Options): EquationSecondDegre {
+  static aPartirDesSolutions(
+    sol1: FractionEtendue,
+    sol2: FractionEtendue,
+    coeffLead: FractionEtendue,
+    options: Options,
+  ): EquationSecondDegre {
     const a = coeffLead
-    const b = sol1.sommeFraction(sol2).multiplieEntier(-1).produitFraction(coeffLead)
+    const b = sol1
+      .sommeFraction(sol2)
+      .multiplieEntier(-1)
+      .produitFraction(coeffLead)
     const c = sol1.produitFraction(sol2).produitFraction(coeffLead)
     const d = new FractionEtendue(0, 1)
     const e = new FractionEtendue(0, 1)
@@ -188,7 +350,9 @@ class EquationSecondDegre {
   //   return new EquationSecondDegre(coefficients[0], coefficients[1], coefficients[2], coefficients[3], coefficients[4], coefficients[5])
   // }
   // Si tous les coefficients sont de fractions entières, alors on ajoute de part et d'autre aléatoire des entiers pour complexifier l'équation et si une des fractions n'est pas entière, on ajoute des fractions entières pour complexifier l'équation
-  private complexifyCoefficients (coefficients: FractionEtendue[]): FractionEtendue[] {
+  private complexifyCoefficients(
+    coefficients: FractionEtendue[],
+  ): FractionEtendue[] {
     const newCoefficients = coefficients
     let checkFractionEntiere = true
     for (let i = 0; i < 6; i++) {
@@ -206,7 +370,10 @@ class EquationSecondDegre {
         }
       } else {
         for (let i = 0; i < 3; i++) {
-          const ajout = new FractionEtendue(randint(-4, 4, [0]), randint(-3, 3, [0]))
+          const ajout = new FractionEtendue(
+            randint(-4, 4, [0]),
+            randint(-3, 3, [0]),
+          )
           newCoefficients[i] = newCoefficients[i].sommeFraction(ajout)
           newCoefficients[i + 3] = newCoefficients[i + 3].sommeFraction(ajout)
         }
@@ -223,11 +390,21 @@ class EquationSecondDegre {
     return newCoefficients
   }
 
-  private printToLatexEq (coeff:FractionEtendue[], nomVal: string[] = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']): string {
+  private printToLatexEq(
+    coeff: FractionEtendue[],
+    nomVal: string[] = [
+      `${this.variable}^2`,
+      this.variable,
+      '',
+      `${this.variable}^2`,
+      this.variable,
+      '',
+    ],
+  ): string {
     let expr = ''
     let checkPreviousNull = true
     for (let i = 0; i < 3; i++) {
-      if ((coeff.slice(0, 3).every(item => item.num === 0)) && i === 0) {
+      if (coeff.slice(0, 3).every((item) => item.num === 0) && i === 0) {
         expr = expr + '0'
       } else if (!(coeff[i].num === 0) && checkPreviousNull) {
         if (nomVal[i] === '') {
@@ -248,7 +425,7 @@ class EquationSecondDegre {
     expr = expr + '='
     checkPreviousNull = true
     for (let i = 3; i < 6; i++) {
-      if ((coeff.slice(3).every(item => item.num === 0)) && i === 3) {
+      if (coeff.slice(3).every((item) => item.num === 0) && i === 3) {
         expr = expr + '0'
       } else if (!(coeff[i].num === 0) && checkPreviousNull) {
         if (nomVal[i] === '') {
@@ -270,20 +447,31 @@ class EquationSecondDegre {
   }
 
   // Méthode pour construire le polynomePlusieursVariables à partir de la forme réduite
-  polynomeFormeReduite (): PolynomePlusieursVariables {
-    const m1 = new MonomePlusieursVariables(this.coefficients[0], { variables: [this.variable], exposants: [2] })
-    const m2 = new MonomePlusieursVariables(this.coefficients[1], { variables: [this.variable], exposants: [1] })
-    const m3 = new MonomePlusieursVariables(this.coefficients[2], { variables: [this.variable], exposants: [0] })
+  polynomeFormeReduite(): PolynomePlusieursVariables {
+    const m1 = new MonomePlusieursVariables(this.coefficients[0], {
+      variables: [this.variable],
+      exposants: [2],
+    })
+    const m2 = new MonomePlusieursVariables(this.coefficients[1], {
+      variables: [this.variable],
+      exposants: [1],
+    })
+    const m3 = new MonomePlusieursVariables(this.coefficients[2], {
+      variables: [this.variable],
+      exposants: [0],
+    })
     return new PolynomePlusieursVariables([m1, m2, m3])
   }
 
-  formeCanonique (): string {
-    const alpha = this.coefficients[1].oppose().diviseFraction(this.coefficients[0].multiplieEntier(2).simplifie())
+  formeCanonique(): string {
+    const alpha = this.coefficients[1]
+      .oppose()
+      .diviseFraction(this.coefficients[0].multiplieEntier(2).simplifie())
     const beta = this.polynomeFormeReduite().evaluer({ x: alpha }).simplifie()
     return `${rienSi1(this.coefficients[0])}\\left(${this.variable}${alpha.oppose().simplifie().texFractionSignee}\\right)^2${beta.texFractionSignee}`
   }
 
-  solutionFrac () : FractionEtendue[] | string {
+  solutionFrac(): FractionEtendue[] | string {
     if (this.nombreSolutions === 0) {
       return 'Pas de solution'
     } else {
@@ -297,7 +485,18 @@ class EquationSecondDegre {
           if (!this.solutionsListeTex[j].includes('\\dfrac')) {
             numDen1 = [Number(this.solutionsListeTex[j]), Number('1')]
           } else if (this.solutionsListeTex[j].includes('\\dfrac')) {
-            numDen1 = [Number(this.solutionsListeTex[j].match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)[0]), Number(this.solutionsListeTex[j].match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)[1])]
+            numDen1 = [
+              Number(
+                this.solutionsListeTex[j]
+                  .match(/\\dfrac{(\d+)}{(\d+)}/)
+                  ?.slice(1)[0],
+              ),
+              Number(
+                this.solutionsListeTex[j]
+                  .match(/\\dfrac{(\d+)}{(\d+)}/)
+                  ?.slice(1)[1],
+              ),
+            ]
             if (this.solutionsListeTex[j].includes('-')) {
               numDen1[0] = -numDen1[0]
             }
@@ -310,12 +509,22 @@ class EquationSecondDegre {
     }
   }
 
-  printToLatex (): string {
+  printToLatex(): string {
     let expr = ''
     let checkPreviousNull = true
-    const nomVal = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']
+    const nomVal = [
+      `${this.variable}^2`,
+      this.variable,
+      '',
+      `${this.variable}^2`,
+      this.variable,
+      '',
+    ]
     for (let i = 0; i < 3; i++) {
-      if ((this.coefficients.slice(0, 3).every(item => item.num === 0)) && i === 0) {
+      if (
+        this.coefficients.slice(0, 3).every((item) => item.num === 0) &&
+        i === 0
+      ) {
         expr = expr + '0'
       } else if (!(this.coefficients[i].num === 0) && checkPreviousNull) {
         if (nomVal[i] === '') {
@@ -336,7 +545,10 @@ class EquationSecondDegre {
     expr = expr + '='
     checkPreviousNull = true
     for (let i = 3; i < 6; i++) {
-      if ((this.coefficients.slice(3).every(item => item.num === 0)) && i === 3) {
+      if (
+        this.coefficients.slice(3).every((item) => item.num === 0) &&
+        i === 3
+      ) {
         expr = expr + '0'
       } else if (!(this.coefficients[i].num === 0) && checkPreviousNull) {
         if (nomVal[i] === '') {
@@ -349,7 +561,9 @@ class EquationSecondDegre {
         if (nomVal[i] === '') {
           expr = expr + `${this.coefficients[i].texFSD}`
         } else {
-          expr = expr + `${ecritureAlgebriqueSauf1(this.coefficients[i])}${nomVal[i]}`
+          expr =
+            expr +
+            `${ecritureAlgebriqueSauf1(this.coefficients[i])}${nomVal[i]}`
         }
         checkPreviousNull = false
       }
@@ -357,15 +571,24 @@ class EquationSecondDegre {
     return expr
   }
 
-  printToLatexMDG (option = { indice: -1, couleur: 'black' }
-  ): string {
+  printToLatexMDG(option = { indice: -1, couleur: 'black' }): string {
     let expr = ''
     let suiteExpr = ''
     let checkPreviousNull = true
-    const nomVal = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']
+    const nomVal = [
+      `${this.variable}^2`,
+      this.variable,
+      '',
+      `${this.variable}^2`,
+      this.variable,
+      '',
+    ]
     for (let i = 0; i < 3; i++) {
       suiteExpr = ''
-      if ((this.coefficients.slice(0, 3).every(item => item.num === 0)) && i === 0) {
+      if (
+        this.coefficients.slice(0, 3).every((item) => item.num === 0) &&
+        i === 0
+      ) {
         suiteExpr = '0'
       } else if (!(this.coefficients[i].num === 0) && checkPreviousNull) {
         if (nomVal[i] === '') {
@@ -383,13 +606,28 @@ class EquationSecondDegre {
         checkPreviousNull = false
       }
       if (i === option.indice) {
-        if (suiteExpr.split(this.variable)[0] === '+' || suiteExpr.split(this.variable)[0] === '-') {
-          suiteExpr = miseEnEvidence(suiteExpr.split(this.variable)[0] + '1', option.couleur) + this.variable + suiteExpr.split(this.variable)[1]
+        if (
+          suiteExpr.split(this.variable)[0] === '+' ||
+          suiteExpr.split(this.variable)[0] === '-'
+        ) {
+          suiteExpr =
+            miseEnEvidence(
+              suiteExpr.split(this.variable)[0] + '1',
+              option.couleur,
+            ) +
+            this.variable +
+            suiteExpr.split(this.variable)[1]
         }
-        if ((suiteExpr.split(this.variable).length !== 1)) {
-          suiteExpr = miseEnEvidence(suiteExpr.split(this.variable)[0], option.couleur) + this.variable + suiteExpr.split(this.variable)[1]
+        if (suiteExpr.split(this.variable).length !== 1) {
+          suiteExpr =
+            miseEnEvidence(suiteExpr.split(this.variable)[0], option.couleur) +
+            this.variable +
+            suiteExpr.split(this.variable)[1]
         } else {
-          suiteExpr = miseEnEvidence(suiteExpr.split(this.variable)[0], option.couleur)
+          suiteExpr = miseEnEvidence(
+            suiteExpr.split(this.variable)[0],
+            option.couleur,
+          )
         }
         suiteExpr = '\\,' + suiteExpr
       }

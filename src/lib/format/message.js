@@ -7,9 +7,9 @@ import { context } from '../../modules/context'
  * @param {string} titre
  * @author Sébastien Lozano
  */
-export function warnMessage (texte, couleur, titre) {
+export function warnMessage(texte, couleur, titre) {
   const timeStamp = Date.now()
-  if (typeof (titre) === 'undefined') {
+  if (typeof titre === 'undefined') {
     titre = ''
   }
   if (context.isHtml) {
@@ -23,11 +23,21 @@ export function warnMessage (texte, couleur, titre) {
       `
   } else {
     // return texCadreParOrange(texte);
-    return `
-    \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
-      ` + texte + `
+    return (
+      `
+    \\begin{bclogo}[couleurBarre=` +
+      couleur +
+      ',couleurBord=' +
+      couleur +
+      ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' +
+      titre +
+      `}
+      ` +
+      texte +
+      `
     \\end{bclogo}
     `
+    )
   }
 }
 
@@ -37,7 +47,7 @@ export function warnMessage (texte, couleur, titre) {
  * @author Sébastien Lozano
  */
 
-export function infoMessage ({ titre, texte, couleur }) {
+export function infoMessage({ titre, texte, couleur }) {
   // ;
   const timeStamp = Date.now()
   if (context.isHtml) {
@@ -50,11 +60,21 @@ export function infoMessage ({ titre, texte, couleur }) {
       </div>
       `
   } else {
-    return `
-    \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bcinfo,arrondi=0.1]{\\bf ' + titre + `}
-      ` + texte + `
+    return (
+      `
+    \\begin{bclogo}[couleurBarre=` +
+      couleur +
+      ',couleurBord=' +
+      couleur +
+      ',epBord=2,couleur=gray!10,logo=\\bcinfo,arrondi=0.1]{\\bf ' +
+      titre +
+      `}
+      ` +
+      texte +
+      `
     \\end{bclogo}
     `
+    )
   }
 }
 
@@ -64,7 +84,7 @@ export function infoMessage ({ titre, texte, couleur }) {
  * @author Sébastien Lozano
  */
 
-export function lampeMessage ({ titre, texte, couleur }) {
+export function lampeMessage({ titre, texte, couleur }) {
   const timeStamp = Date.now()
   if (context.isHtml) {
     return `
@@ -80,10 +100,20 @@ export function lampeMessage ({ titre, texte, couleur }) {
     {\\bf ${titre}} : ${texte}
     `
   } else {
-    return `
-    \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
-      ` + texte + `
+    return (
+      `
+    \\begin{bclogo}[couleurBarre=` +
+      couleur +
+      ',couleurBord=' +
+      couleur +
+      ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' +
+      titre +
+      `}
+      ` +
+      texte +
+      `
     \\end{bclogo}
     `
+    )
   }
 }

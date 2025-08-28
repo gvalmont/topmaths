@@ -12,21 +12,21 @@ export const interactifType = 'mathLive'
 export const uuid = '2d330'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class ecrireDecimale extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = 2025
     const b = randint(11, 59, [20, 30, 40, 50])
     const c = new Decimal(a).div(10)
@@ -42,7 +42,9 @@ export default class ecrireDecimale extends ExerciceSimple {
       this.question = `Écrire sous forme décimale $\\dfrac{${b}}{10}+\\dfrac{${texNombre(a)}}{100}$. `
       this.correction = `$\\dfrac{${b}}{10}+\\dfrac{${texNombre(a)}}{100}=${texNombre(b / 10, 1)}+${texNombre(a / 100, 2)}=${miseEnEvidence(this.reponse)}$<br>`
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

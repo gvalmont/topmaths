@@ -4,7 +4,7 @@ export const uuid = 'duduReperagePlan'
 export const titre = 'Repérage dans le plan'
 
 class duduReperagePlan extends ExternalApp {
-  constructor () {
+  constructor() {
     super('https://mathix.org/reperage_plan/index.html?suivi=1&mathalea=1')
   }
 }

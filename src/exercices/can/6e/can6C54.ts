@@ -10,15 +10,15 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '03/07/2025'
 /**
  * @author Gilles Mora
-*/
+ */
 export const uuid = '39c09'
 
 export const refs = {
   'fr-fr': ['can6C54', '6N3H-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FractionsEgalesACompleter extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -26,7 +26,7 @@ export default class FractionsEgalesACompleter extends ExerciceSimple {
     this.formatInteractif = 'fillInTheBlank'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2])) {
       case 1:
         {

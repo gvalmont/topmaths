@@ -15,10 +15,10 @@ export const uuid = '71eba'
 
 export const refs = {
   'fr-fr': ['1A-C3-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC3b extends CalculPuissancesOperation {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

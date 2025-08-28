@@ -1,6 +1,10 @@
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -16,7 +20,10 @@ export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '21/12/2023'
 
-function texFraction (numerateur: number | string, denominateur: number | string) {
+function texFraction(
+  numerateur: number | string,
+  denominateur: number | string,
+) {
   return `\\dfrac{${numerateur}}{${denominateur}}`
 }
 
@@ -37,13 +44,14 @@ export const uuid = '1acf7'
 export const refs = {
   'fr-fr': ['auto6N2B-1'],
   'fr-2016': ['6N23-1'],
-  'fr-ch': ['9NO10-11']
+  'fr-ch': ['9NO10-11'],
 }
 export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : n/100 = ...+.../10 + .../100',
         '2 : n/100 = ...+.../100 + .../10',
@@ -52,10 +60,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
         '5 : u = .../100',
         '6 : n/10 = ... + .../10 + .../100',
         '7 :  .../100 = u + d/10',
-        '8 : Mélange'
-      ].join('\n')
+        '8 : Mélange',
+      ].join('\n'),
     ]
-    this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l\'écriture décimale.'
+    this.consigne =
+      "Compléter les égalités avec une fraction décimale, la décomposition canonique puis l'écriture décimale."
     this.spacing = 2
     this.spacingCorr = 2
     this.nbCols = 2
@@ -63,21 +72,33 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
     this.sup = '1-2-3' // Type de question
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestions
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 7,
       defaut: 8,
       melange: 8,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
+      saisie: this.sup,
     }).map(Number)
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+      cpt++
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      const u = (typesDeQuestions >= 4 && typesDeQuestions <= 5) ? randint(2, 19) : randint(2, 9) // chiffre des unités
-      const d = (typesDeQuestions >= 4 && typesDeQuestions <= 5) ? 0 : randint(1, 9) // chiffre des dixièmes
-      const c = ((typesDeQuestions >= 4 && typesDeQuestions <= 5) || typesDeQuestions === 7) ? 0 : randint(1, 9) // chiffre des centièmes
+      const u =
+        typesDeQuestions >= 4 && typesDeQuestions <= 5
+          ? randint(2, 19)
+          : randint(2, 9) // chiffre des unités
+      const d =
+        typesDeQuestions >= 4 && typesDeQuestions <= 5 ? 0 : randint(1, 9) // chiffre des dixièmes
+      const c =
+        (typesDeQuestions >= 4 && typesDeQuestions <= 5) ||
+        typesDeQuestions === 7
+          ? 0
+          : randint(1, 9) // chiffre des centièmes
       const n = 100 * u + 10 * d + c
       if (!this.questionJamaisPosee(i, u, d, c)) {
         // Si la question a été posée, on passe
@@ -93,13 +114,16 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             const content = `${fraction(n, 100).texFraction}~=~ %{champ1} + \\dfrac{%{champ2}}{10} + \\dfrac{%{champ3}}{100}~=~%{champ4}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
-              bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
+              bareme: (listePoints) => [
+                listePoints[0] * listePoints[1] * listePoints[2] +
+                  listePoints[3],
+                2,
+              ],
               champ1: { value: u },
               champ2: { value: d },
               champ3: { value: c },
-              champ4: { value: arrondi(u + d / 10 + c / 100, 2) }
-            }
-            )
+              champ4: { value: arrondi(u + d / 10 + c / 100, 2) },
+            })
           } else {
             texte = `$${fraction(n, 100).texFraction}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', '10')}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', '100')}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
             texteCorr = `$${fraction(n, 100).texFraction}=${u}+${texFraction(d, '10')}+${texFraction(c, '100')}=${ecritureDecimale}$`
@@ -119,11 +143,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 1,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -137,11 +161,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 1,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -155,11 +179,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 1,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -173,38 +197,41 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 5,
-                          decimals: 3
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+                          decimals: 3,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
           break
         case 2: // n/100 = ... + .../100 + .../10
           ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
           texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
-                        c,
-                        100
-                    )}+${texFraction(d, 10)}=${ecritureDecimale}$`
+            c,
+            100,
+          )}+${texFraction(d, 10)}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
             const content = `${fraction(n, 100).texFraction}~=~ %{champ1} + \\dfrac{%{champ2}}{100} + \\dfrac{%{champ3}}{10}~=~%{champ4}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
-              bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
+              bareme: (listePoints) => [
+                listePoints[0] * listePoints[1] * listePoints[2] +
+                  listePoints[3],
+                2,
+              ],
               champ1: { value: u },
               champ3: { value: d },
               champ2: { value: c },
-              champ4: { value: arrondi(u + d / 10 + c / 100, 2) }
-            }
-            )
+              champ4: { value: arrondi(u + d / 10 + c / 100, 2) },
+            })
           } else {
             texte = `$${texFraction(n, '100')}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(
-                            context.isAmc ? 'b' : '\\ldots\\ldots',
-                            100
-                        )}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 10)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
+              context.isAmc ? 'b' : '\\ldots\\ldots',
+              100,
+            )}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 10)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonceAvant: false,
@@ -221,11 +248,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 1,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -239,11 +266,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 1,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -257,11 +284,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 1,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -275,13 +302,13 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 5,
-                          decimals: 3
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+                          decimals: 3,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
 
@@ -289,24 +316,26 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
         case 3: // .../... = u + d/10 + c/100=...
           ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
           texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
-                        d,
-                        '10'
-                    )}+${texFraction(c, '100')}=${ecritureDecimale}$`
+            d,
+            '10',
+          )}+${texFraction(c, '100')}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{%{champ1}}{%{champ2}}~=~ ${u} + \\dfrac{${d}}{10} + \\dfrac{${c}}{100}~=~%{champ3}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
-              bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+              bareme: (listePoints) => [
+                listePoints[0] * listePoints[1] + listePoints[2],
+                2,
+              ],
               champ1: { value: n },
               champ2: { value: 100 },
-              champ3: { value: arrondi(u + d / 10 + c / 100, 2) }
-            }
-            )
+              champ3: { value: arrondi(u + d / 10 + c / 100, 2) },
+            })
           } else {
             texte = `$${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(
-                            d,
-                            '10'
-                        )}+${texFraction(c, '100')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`
+              d,
+              '10',
+            )}+${texFraction(c, '100')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonceAvant: false,
@@ -323,11 +352,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 4,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -341,13 +370,13 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 5,
-                          decimals: 3
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+                          decimals: 3,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
           break
@@ -358,9 +387,8 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
-              champ1: { value: u * 10 }
-            }
-            )
+              champ1: { value: u * 10 },
+            })
           } else {
             texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '10')}$`
             this.autoCorrection[i] = {
@@ -378,13 +406,13 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 3,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
 
@@ -396,9 +424,8 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
-              champ1: { value: u * 100 }
-            }
-            )
+              champ1: { value: u * 100 },
+            })
           } else {
             texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}$`
             this.autoCorrection[i] = {
@@ -416,13 +443,13 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 3,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
           break
@@ -433,13 +460,16 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             const content = `\\dfrac{${n}}{10}~=~ %{champ1} + \\dfrac{%{champ2}}{10} + \\dfrac{%{champ3}}{100}~=~%{champ4}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
-              bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
+              bareme: (listePoints) => [
+                listePoints[0] * listePoints[1] * listePoints[2] +
+                  listePoints[3],
+                2,
+              ],
               champ1: { value: u * 10 + d },
               champ2: { value: c },
               champ3: { value: 0 },
-              champ4: { value: arrondi(u * 10 + d + c / 10, 2) }
-            }
-            )
+              champ4: { value: arrondi(u * 10 + d + c / 10, 2) },
+            })
           } else {
             texte = `$${texFraction(n, 10)}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', 10)}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 100)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
@@ -458,12 +488,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 3,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
-
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -477,11 +506,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 1,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -495,11 +524,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 1,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -513,13 +542,13 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 5,
-                          decimals: 3
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+                          decimals: 3,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
           break
@@ -533,9 +562,8 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
               champ1: { value: n },
-              champ2: { value: arrondi(u + d / 10, 1) }
-            }
-            )
+              champ2: { value: arrondi(u + d / 10, 1) },
+            })
           } else {
             texte = `$${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(d, '10')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
@@ -554,11 +582,11 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 4,
-                          decimals: 0
-                        }
-                      }
-                    }
-                  ]
+                          decimals: 0,
+                        },
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
@@ -572,13 +600,13 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                         param: {
                           signe: false,
                           digits: 5,
-                          decimals: 3
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+                          decimals: 3,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
           break

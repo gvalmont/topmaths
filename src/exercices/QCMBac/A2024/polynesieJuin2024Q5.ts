@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'c83a0'
 export const refs = {
   'fr-fr': ['TSG1-QCM06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,12 +25,19 @@ export default class MetropoleJuin24Exo4Q2 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
 
-  private appliquerLesValeurs (nn: number, k : number, p : number, pc: number, ses:number): void {
+  private appliquerLesValeurs(
+    nn: number,
+    k: number,
+    p: number,
+    pc: number,
+    ses: number,
+  ): void {
     this.reponses = [
       `$\\dbinom{${ses}}{${p}} \\times \\dbinom{${nn - ses}}{${k - p}} $`,
       `$\\dbinom{${ses}}{${p}} + \\dbinom{${nn - ses}}{${k - p}} $`,
-     `$\\dbinom{${ses}}{${p}} $`,
-      `$${ses}^{${p}} \\times ${nn - ses}^{${k - p}}$`]
+      `$\\dbinom{${ses}}{${p}} $`,
+      `$${ses}^{${p}} \\times ${nn - ses}^{${k - p}}$`,
+    ]
     let eleve = ''
     if (nn - pc - ses > 1) {
       eleve = 'élèves ont'
@@ -38,10 +45,12 @@ export default class MetropoleJuin24Exo4Q2 extends ExerciceQcmA {
       eleve = 'élève a'
     }
     const list = createList({
-      items: [`${pc} élèves ont choisi la spécialité physique-chimie`,
-       `${ses} élèves ont choisi la spécialité SES`,
-       `${nn - pc - ses} ${eleve} choisi la spécialité LLCE espagnol.`],
-      style: 'fleches'
+      items: [
+        `${pc} élèves ont choisi la spécialité physique-chimie`,
+        `${ses} élèves ont choisi la spécialité SES`,
+        `${nn - pc - ses} ${eleve} choisi la spécialité LLCE espagnol.`,
+      ],
+      style: 'fleches',
     })
     this.enonce = `Une professeure de terminale Spé Maths s'intéresse à l'autre spécialité des ${nn} élèves de son groupe :
    ${list}
@@ -62,18 +71,18 @@ export default class MetropoleJuin24Exo4Q2 extends ExerciceQcmA {
   versionAleatoire: () => void = () => {
     const n = 4 // nombre de réponses différentes voulues (on rappelle que la première réponse est la bonne)
     do {
-      const nn = randint(28, 35)// nombre d'élèves au total
-      const k = randint(5, 10)// effectif du groupe à choisir
+      const nn = randint(28, 35) // nombre d'élèves au total
+      const k = randint(5, 10) // effectif du groupe à choisir
 
-      const pc = randint(12, 18)  // nombre d'élèves en PC à choisir
-      const ses = randint(6, nn - pc - 3)   // nombre d'élèves en SES à choisir
-      const p = randint(2, k - 2)// effectif du groupe à choisir
+      const pc = randint(12, 18) // nombre d'élèves en PC à choisir
+      const ses = randint(6, nn - pc - 3) // nombre d'élèves en SES à choisir
+      const p = randint(2, k - 2) // effectif du groupe à choisir
       this.appliquerLesValeurs(nn, k, p, pc, ses)
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

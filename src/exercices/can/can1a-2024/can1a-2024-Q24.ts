@@ -2,7 +2,10 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { randint } from '../../../modules/outils'
-import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 export const titre = 'Trouver un axe de symétrie'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -13,7 +16,7 @@ export const uuid = '34c25'
 
 */
 export default class equationAxeSymetrie extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +26,7 @@ export default class equationAxeSymetrie extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let axe = randint(-5, 5)
     let x1 = randint(-10, 10, [0, axe])
     let x2 = 2 * axe - x1
@@ -47,18 +50,17 @@ export default class equationAxeSymetrie extends ExerciceSimple {
       propositions: [
         {
           texte: `$x=${axe}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$x=${x1}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$x=${-axe}$`,
-          statut: false
-        }
-      ]
-
+          statut: false,
+        },
+      ],
     }
     const qcm = propositionsQcm(this, 0)
 

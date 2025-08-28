@@ -1,4 +1,8 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -8,13 +12,13 @@ import ExerciceQcm from '../ExerciceQcm'
 export const uuid = '0b15f'
 export const refs = {
   'fr-fr': ['TSA6-05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM : Tester une solution d\'une équation différentielle'
+export const titre = "QCM : Tester une solution d'une équation différentielle"
 export const dateDePublication = '26/03/2025'
 /*
  @author Stéphane Guyon
@@ -46,7 +50,7 @@ export default class EquaDiff extends ExerciceQcm {
     this.correction = correction
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

@@ -2,13 +2,17 @@ import { choice } from '../../lib/outils/arrayOutils'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDansLaPartieEntiere
+  nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -17,7 +21,7 @@ export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
-export const titre = 'Calculer la valeur décimale d\'une fraction'
+export const titre = "Calculer la valeur décimale d'une fraction"
 export const dateDePublication = '18/11/2021'
 export const dateDeModifImportante = '23/02/2024'
 
@@ -40,18 +44,20 @@ export const uuid = 'd5e44'
 export const refs = {
   'fr-fr': ['BP2AutoC3', '6N3A-1'],
   'fr-2016': ['6N23-6', 'BP2AutoC3'],
-  'fr-ch': ['9NO10-7']
+  'fr-ch': ['9NO10-7'],
 }
 export default class DivisionFraction extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Type de questions',
       2,
-      '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au centième près'
+      '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au centième près',
     ]
     // this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-    this.besoinFormulaire3Texte = ['Types de questions', `Nombres séparés par des tirets
+    this.besoinFormulaire3Texte = [
+      'Types de questions',
+      `Nombres séparés par des tirets
 1 : entier divisé par 4 (quotient exact)
 2 : entier divisé par 8 (quotient exact)
 3 : entier divisé par 6 (quotient exact)
@@ -61,7 +67,8 @@ export default class DivisionFraction extends Exercice {
 7 : entier divisé par 7 (quotient approché)
 8 : entier divisé par 9 (quotient approché)
 9 : entier divisé par 3 (quotient approché)
-10 : Mélange`]
+10 : Mélange`,
+    ]
     this.consigne = 'Calculer la valeur décimale des fractions suivantes.'
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
@@ -71,18 +78,19 @@ export default class DivisionFraction extends Exercice {
     this.sup3 = '10'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       min: this.sup === 1 ? 1 : 7,
       max: this.sup === 1 ? 6 : 9,
       defaut: 10,
       melange: 10,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // fraction : entier divisé par 4 quotient : xx,25 ou xx,75
@@ -97,7 +105,10 @@ export default class DivisionFraction extends Exercice {
           break
         case 3: // fraction : entier divisé par 6 quotient : xxx,5
           b = 6
-          q = arrondi(randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5, 1)
+          q = arrondi(
+            randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5,
+            1,
+          )
           a = q * 6
           break
         case 4: // fraction : entier divisé par 2
@@ -132,15 +143,26 @@ export default class DivisionFraction extends Exercice {
           q = arrondi(a / b, 3)
       }
       if (this.sup === 2) {
-        this.consigne = 'Calculer une valeur approchée au centième près des fractions suivantes.'
+        this.consigne =
+          'Calculer une valeur approchée au centième près des fractions suivantes.'
         q = arrondi(q, 2)
       }
       texte = `$${texFraction(texNombre(a), texNombre(b))}`
       if (this.sup === 1) {
-        texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
+        texteCorr = Operation({
+          operande1: a,
+          operande2: b,
+          type: 'division',
+          precision: 3,
+        })
         texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}=${miseEnEvidence(texNombre(q))}$`
       } else {
-        texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
+        texteCorr = Operation({
+          operande1: a,
+          operande2: b,
+          type: 'division',
+          precision: 3,
+        })
         texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${miseEnEvidence(texNombre(q, 2))}$`
       }
       setReponse(this, i, q)
@@ -156,13 +178,18 @@ export default class DivisionFraction extends Exercice {
       }
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: false }]
+        this.autoCorrection[i].propositions = [
+          { texte: texteCorr, statut: false },
+        ]
         // @ts-expect-error
         this.autoCorrection[i].reponse.param = {
-          digits: nombreDeChiffresDansLaPartieEntiere(q) + nombreDeChiffresDansLaPartieDecimale(q) + 2,
+          digits:
+            nombreDeChiffresDansLaPartieEntiere(q) +
+            nombreDeChiffresDansLaPartieDecimale(q) +
+            2,
           decimals: nombreDeChiffresDansLaPartieDecimale(q) + 1,
           signe: false,
-          exposantNbChiffres: 0
+          exposantNbChiffres: 0,
         }
       }
       if (this.questionJamaisPosee(i, a, b, q)) {
@@ -177,6 +204,6 @@ export default class DivisionFraction extends Exercice {
   }
 }
 
-function texFraction (num: number | string, den: number | string) {
+function texFraction(num: number | string, den: number | string) {
   return `\\dfrac{${num}}{${den}}`
 }

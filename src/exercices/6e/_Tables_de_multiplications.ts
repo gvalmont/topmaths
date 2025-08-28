@@ -5,7 +5,10 @@ import { choice, creerCouples } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -21,7 +24,7 @@ export const dateDeModifImportante = '27/08/2024'
  * @author Rémi Angot (ES6: Loïc Geeraerts)
  */
 export default class TablesDeMultiplications extends Exercice {
-  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9-10') {
+  constructor(tablesParDefaut = '2-3-4-5-6-7-8-9-10') {
     super()
     // Multiplier deux nombres
     this.sup = tablesParDefaut
@@ -30,14 +33,21 @@ export default class TablesDeMultiplications extends Exercice {
     this.consigne = 'Calculer : '
     this.spacing = 2
 
-    this.besoinFormulaireTexte = ['Choix des tables', 'Nombres séparés par des tirets :\nChoisir des tables entre 1 et 11.\nMettre 12 pour choisir une table au hasard.'] // Texte, tooltip
+    this.besoinFormulaireTexte = [
+      'Choix des tables',
+      'Nombres séparés par des tirets :\nChoisir des tables entre 1 et 11.\nMettre 12 pour choisir une table au hasard.',
+    ] // Texte, tooltip
     this.besoinFormulaire2Texte = [
-      'Type de questions', 'Nombres séparés par des tirets :\n1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange'
+      'Type de questions',
+      'Nombres séparés par des tirets :\n1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange',
     ]
-    this.besoinFormulaire3CaseACocher = ['Le facteur de gauche est celui de la table', true]
+    this.besoinFormulaire3CaseACocher = [
+      'Le facteur de gauche est celui de la table',
+      true,
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const tables = gestionnaireFormulaireTexte({
       min: 1,
       max: 11,
@@ -45,59 +55,113 @@ export default class TablesDeMultiplications extends Exercice {
       defaut: 12,
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
-      enleveDoublons: true
+      enleveDoublons: true,
     })
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, defaut: 1, melange: 4, listeOfCase: ['classique', 'a_trous', 'quotient'], nbQuestions: this.nbQuestions })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 3,
+      defaut: 1,
+      melange: 4,
+      listeOfCase: ['classique', 'a_trous', 'quotient'],
+      nbQuestions: this.nbQuestions,
+    })
     const couples = creerCouples(
       tables.map(Number),
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
-      81
+      81,
     ) // Liste tous les couples possibles (2,3)≠(3,2)
-    for (let i = 0, reponse, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 80;) {
+    for (
+      let i = 0, reponse, cpt = 0, texte, texteCorr;
+      i < this.nbQuestions && cpt < 80;
+
+    ) {
       const typeDeQuestion = listeTypeDeQuestions[i]
       const a: number = couples[cpt][0]
       const b: number = couples[cpt][1]
-      const ordre = (this.sup3 || (tables.length === 1 && typeDeQuestion === 'a_trous')) ? [true] : [true, false]
+      const ordre =
+        this.sup3 || (tables.length === 1 && typeDeQuestion === 'a_trous')
+          ? [true]
+          : [true, false]
       const choix = choice(ordre)
       if (typeDeQuestion === 'classique') {
         reponse = a * b
         if (choix) {
           texte = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} =`
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
+          texte +=
+            this.interactif && context.isHtml
+              ? '$' +
+                ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+              : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
         } else {
           texte = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
+          texte +=
+            this.interactif && context.isHtml
+              ? '$' +
+                ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+              : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
         }
-        handleAnswers(this, i, { reponse: { value: String(a * b), options: { resultatSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: String(a * b),
+            options: { resultatSeulementEtNonOperation: true },
+          },
+        })
       } else if (typeDeQuestion === 'a_trous') {
         if (choix) {
           texte = '$' + a.toString() + '\\times '
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
+          texte +=
+            this.interactif && context.isHtml
+              ? '$' +
+                ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+                  texteApres: ` $=${(a * b).toString()}$`,
+                })
+              : ` \\ldots\\ldots =${(a * b).toString()}$`
           reponse = b
         } else {
-          texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
+          texte =
+            this.interactif && context.isHtml
+              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+                  texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$`,
+                })
+              : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
           reponse = a
         }
-        handleAnswers(this, i, { reponse: { value: String(reponse), options: { resultatSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: String(reponse),
+            options: { resultatSeulementEtNonOperation: true },
+          },
+        })
         texteCorr = choix
           ? `$${a.toString()} \\times ${miseEnEvidence(reponse.toString())} =${(a * b).toString()}$`
           : `$${miseEnEvidence(reponse.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
-      } else { // typeDeQuestion === 'quotient'
+      } else {
+        // typeDeQuestion === 'quotient'
         texte = `$${texNombre(a * b, 0)} \\div ${texNombre(a, 0)} = `
-        texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
+        texte +=
+          this.interactif && context.isHtml
+            ? '$' +
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+            : '\\ldots\\ldots$'
         texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
         reponse = b
-        handleAnswers(this, i, { reponse: { value: String(reponse), options: { resultatSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: String(reponse),
+            options: { resultatSeulementEtNonOperation: true },
+          },
+        })
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
           propositions: [
             {
-              texte: '' // Si vide, le texte est la correction de l'exercice.
-            }
+              texte: '', // Si vide, le texte est la correction de l'exercice.
+            },
           ],
           reponse: {
             // @ts-expect-error l'objet reponse pour AMC n'a pas du tout les mêmes attributs que pour interactif
@@ -108,9 +172,9 @@ export default class TablesDeMultiplications extends Exercice {
               signe: false,
               exposantNbChiffres: 0,
               exposantSigne: false,
-              approx: 0
-            }
-          }
+              approx: 0,
+            },
+          },
         }
       }
       if (this.questionJamaisPosee(i, a, b, typeDeQuestion)) {

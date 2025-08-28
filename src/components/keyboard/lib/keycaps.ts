@@ -1,4 +1,11 @@
-import { areaMetricUnits, areaOtherUnits, lengthUnits, massUnits, volumeMetricUnits, volumeOtherUnits } from './unitsSystem'
+import {
+  areaMetricUnits,
+  areaOtherUnits,
+  lengthUnits,
+  massUnits,
+  volumeMetricUnits,
+  volumeOtherUnits,
+} from './unitsSystem'
 
 const basicKeys = {
   // ================== numbers
@@ -15,254 +22,253 @@ const basicKeys = {
   // ================== operations
   ADD: {
     display: '+',
-    insert: '+'
+    insert: '+',
   },
   SUB: {
     display: '—',
-    insert: '-'
+    insert: '-',
   },
   MULT: {
     display: '$\\times$',
-    insert: '\\times'
+    insert: '\\times',
   },
   DIV: {
     display: '$\\div$',
-    insert: '\\div'
+    insert: '\\div',
   },
   FRAC: {
     display: '$\\frac{\\square}{\\square}$',
-    insert: '\\frac{#@}{#1}'
+    insert: '\\frac{#@}{#1}',
   },
   SQRT: {
     display: '$\\sqrt{\\square}$',
-    insert: '\\sqrt{#1}'
+    insert: '\\sqrt{#1}',
   },
   NORM: {
     display: '$\\vert\\square\\vert$',
-    insert: '\\vert#0\\vert'
+    insert: '\\vert#0\\vert',
   },
   SQRTN: {
-
     display: '$\\sqrt[\\square]{\\square}$',
-    insert: '\\sqrt[#1]{#2}'
+    insert: '\\sqrt[#1]{#2}',
   },
   SQ: {
     display: '$\\square^2$',
-    insert: '^2'
+    insert: '^2',
   },
   CUBE: {
     display: '$x^3$',
-    insert: '^3'
+    insert: '^3',
   },
   POW: {
     display: '$\\square^\\square$',
-    insert: '#@^{#0}'
+    insert: '#@^{#0}',
   },
   'e^': {
     display: '$e^{\\square}$',
-    insert: 'e^{#0}'
+    insert: 'e^{#0}',
   },
   LOG: {
     display: '$\\log(\\square)$',
-    insert: '\\log(#0)'
+    insert: '\\log(#0)',
   },
   LN: {
     display: '$\\ln(\\square)$',
-    insert: '\\ln(#0)'
+    insert: '\\ln(#0)',
   },
   POW10: {
     display: '$\\times10^\\square$',
-    insert: '$$\\times10^#0$$'
+    insert: '$$\\times10^#0$$',
   },
   // ================== suites
 
   INDICE: {
     display: '$\\square_\\square$',
-    insert: '#@_{#0}'
+    insert: '#@_{#0}',
   },
   INDICE_N: {
     display: '$\\square_{n}$',
-    insert: '#@_{n}'
+    insert: '#@_{n}',
   },
   U_INDICE_N: {
     display: '$u_{n}$',
-    insert: 'u_{n}'
+    insert: 'u_{n}',
   },
   V_INDICE_N: {
     display: '$v_{n}$',
-    insert: 'v_{n}'
+    insert: 'v_{n}',
   },
   W_INDICE_N: {
     display: '$w_{n}$',
-    insert: 'w_{n}'
+    insert: 'w_{n}',
   },
   C_INDICE_N: {
     display: '$c_{n}$',
-    insert: 'c_{n}'
+    insert: 'c_{n}',
   },
 
   // ================== functions
   COS: {
     display: 'cos',
-    insert: '\\cos(#0)'
+    insert: '\\cos(#0)',
   },
   SIN: {
     display: 'sin',
-    insert: '\\sin(#0)'
+    insert: '\\sin(#0)',
   },
   TAN: {
     display: 'tan',
-    insert: '\\tan(#0)'
+    insert: '\\tan(#0)',
   },
   // ================== symbols
   COMMA: {
     display: ',',
-    insert: '{,}'
+    insert: '{,}',
   },
   POINT: {
-    display: '.'
+    display: '.',
   },
   SPACE: {
     display: '$\\tiny\\text{espace}$',
-    insert: '\\,'
+    insert: '\\,',
   },
   '(': {
     display: '(',
-    insert: '\\lparen'
+    insert: '\\lparen',
   },
   ')': {
     display: ')',
-    insert: '\\rparen'
+    insert: '\\rparen',
   },
   PARENTHESES: {
     display: '$(\\square)$',
-    insert: '\\lparen#0\\rparen'
+    insert: '\\lparen#0\\rparen',
   },
   '{': {
     display: '{',
-    insert: '$$\\{$$'
+    insert: '$$\\{$$',
   },
   '}': {
     display: '}',
-    insert: '$$\\}$$'
+    insert: '$$\\}$$',
   },
   '[': {
     display: '[',
-    insert: '$[$'
+    insert: '$[$',
   },
   ']': {
     display: ']',
-    insert: '$]$'
+    insert: '$]$',
   },
   '=': {
-    display: '='
+    display: '=',
   },
   DEG: {
-    display: '°'
+    display: '°',
   },
   DEGCELSIUS: {
     display: '°C',
-    insert: '°C'
+    insert: '°C',
   },
   ANG: {
     display: '$\\widehat{\\square}$',
-    insert: '$$\\widehat{#0}$$'
+    insert: '$$\\widehat{#0}$$',
   },
   PERCENT: {
     display: '%',
-    insert: '\\%'
+    insert: '\\%',
   },
   COLON: {
-    display: ':'
+    display: ':',
   },
   SEMICOLON: {
-    display: ';'
+    display: ';',
   },
   LESS: {
-    display: '<'
+    display: '<',
   },
   GREAT: {
-    display: '>'
+    display: '>',
   },
   LESSEQ: {
     display: '$\\leqslant$',
-    insert: '$$\\leqslant$$'
+    insert: '$$\\leqslant$$',
   },
   GREATEQ: {
     display: '$\\geqslant$',
-    insert: '$$\\geqslant$$'
+    insert: '$$\\geqslant$$',
   },
   IN: {
     display: '$\\in$',
-    insert: '$$\\in$$'
+    insert: '$$\\in$$',
   },
   AST: {
     display: '*',
-    insert: '$$\\ast$$'
+    insert: '$$\\ast$$',
   },
   SLASH: {
     display: '/',
-    insert: '\\slash'
+    insert: '\\slash',
   },
   BACKSLASH: {
     display: '\\',
-    insert: '\\backslash'
+    insert: '\\backslash',
   },
   QUOTE: {
-    display: '\'',
-    insert: '{\\:\\text{\'}\\:}'
+    display: "'",
+    insert: "{\\:\\text{'}\\:}",
   },
   DBLQUOTE: {
     display: '"',
-    insert: '{\\:\\text{"}\\:}'
+    insert: '{\\:\\text{"}\\:}',
   },
   INTPOINT: {
     display: '?',
-    insert: '{\\:\\text{?}\\:}'
+    insert: '{\\:\\text{?}\\:}',
   },
   EXCPOINT: {
     display: '!',
-    insert: '{\\:\\text{!}\\:}'
+    insert: '{\\:\\text{!}\\:}',
   },
   AROBASE: {
     display: '@',
-    insert: '{\\:\\text{@}\\:}'
+    insert: '{\\:\\text{@}\\:}',
   },
   HASH: {
     display: '#',
-    insert: '{\\:\\text{#}\\:}'
+    insert: '{\\:\\text{#}\\:}',
   },
   DOLLAR: {
     display: '$',
-    insert: '{\\:\\text{\\$}\\:}'
+    insert: '{\\:\\text{\\$}\\:}',
   },
   AND: {
     display: '&',
-    insert: '{\\:\\text{\\&}\\:}'
+    insert: '{\\:\\text{\\&}\\:}',
   },
   OR: {
     display: '|',
-    insert: '{\\:\\text{|}\\:}'
+    insert: '{\\:\\text{|}\\:}',
   },
   TILDE: {
     display: '~',
-    insert: '$$\\sim$$'
+    insert: '$$\\sim$$',
   },
   BRACKETS: {
     display: '$[\\square]$',
-    insert: '$$[#0]$$'
+    insert: '$$[#0]$$',
   },
   BRACES: {
     display: '$\\{\\square\\}$',
-    insert: '$$\\{#0\\}$$'
+    insert: '$$\\{#0\\}$$',
   },
   VECT: {
     display: '$\\overrightarrow{\\square}$',
-    insert: '$$\\overrightarrow#0$$'
+    insert: '$$\\overrightarrow#0$$',
   },
   INFTY: {
     display: '$\\infty$',
-    insert: '\\infty'
+    insert: '\\infty',
   },
   // ================== letters
   a: { display: 'a' },
@@ -331,42 +337,45 @@ const basicKeys = {
   // ================== greek letters
   PI: {
     display: '$\\pi$',
-    insert: '\\pi'
+    insert: '\\pi',
   },
   ALPHA: {
     display: 'α',
-    insert: '\\alpha'
+    insert: '\\alpha',
   },
   BETA: {
     display: 'β',
-    insert: '\\beta'
+    insert: '\\beta',
   },
   GAMMA: {
     display: 'γ',
-    insert: '\\gamma'
+    insert: '\\gamma',
   },
   DELTA: {
     display: 'δ',
-    insert: '\\delta'
+    insert: '\\delta',
   },
   EPSILON: {
     display: 'ε',
-    insert: '\\epsilon'
+    insert: '\\epsilon',
   },
   THETA: {
     display: 'θ',
-    insert: '\\theta'
+    insert: '\\theta',
   },
   LAMBDA: {
     display: 'λ',
-    insert: '\\lambda'
+    insert: '\\lambda',
   },
   OMEGA: {
     display: 'ω',
-    insert: '\\omega'
+    insert: '\\omega',
   },
   // ================== hours, minutes, secondes
-  WEEK: { display: '$\\tiny\\text{semaines}$', insert: '{\\:\\text{semaines}\\:}' },
+  WEEK: {
+    display: '$\\tiny\\text{semaines}$',
+    insert: '{\\:\\text{semaines}\\:}',
+  },
   DAY: { display: 'j', insert: '{\\:\\text{j}\\:}' },
   HOUR: { display: 'h', insert: '{\\:\\text{h}\\:}' },
   MIN: { display: 'min', insert: '{\\:\\text{min}\\:}' },
@@ -374,246 +383,254 @@ const basicKeys = {
   // ================== special keys
   BACK: {
     display: '<i class="bx bx-arrow-back"/>',
-    command: ['performWithFeedback', 'moveToPreviousChar']
+    command: ['performWithFeedback', 'moveToPreviousChar'],
   },
   FWD: {
     display: '<i class="bx bx-arrow-back bx-rotate-180"/>',
-    command: ['performWithFeedback', 'moveToNextChar']
+    command: ['performWithFeedback', 'moveToNextChar'],
   },
   CLOSE: {
     display: '<i class="bx bx-window-close"/>',
-    command: 'closeKeyboard'
+    command: 'closeKeyboard',
   },
   DEL: {
     display: '⌫',
-    command: ['performWithFeedback', 'deleteBackward']
+    command: ['performWithFeedback', 'deleteBackward'],
   },
   ABC: {
-    display: 'ABC'
+    display: 'ABC',
   },
   abc: {
-    display: 'abc'
+    display: 'abc',
   },
   NUM: {
-    display: '?123'
+    display: '?123',
   },
   // =================== sets
   COMP: {
     display: '$\\mathbb{C}$',
-    insert: '\\mathbb{C}'
+    insert: '\\mathbb{C}',
   },
   REAL: {
     display: '$\\mathbb{R}$',
-    insert: '\\mathbb{R}'
+    insert: '\\mathbb{R}',
   },
   RATIO: {
     display: '$\\mathbb{Q}$',
-    insert: '\\mathbb{Q}'
+    insert: '\\mathbb{Q}',
   },
   DECIMAL: {
     display: '$\\mathbb{D}$',
-    insert: '\\mathbb{D}'
+    insert: '\\mathbb{D}',
   },
   REL: {
     display: '$\\mathbb{Z}$',
-    insert: '\\mathbb{Z}'
+    insert: '\\mathbb{Z}',
   },
   INTEG: {
     display: '$\\mathbb{N}$',
-    insert: '\\mathbb{N}'
+    insert: '\\mathbb{N}',
   },
   EMPTY: {
     display: '$\\emptyset$',
-    insert: '\\emptyset'
+    insert: '\\emptyset',
   },
   UNION: {
     display: '$\\cup$',
-    insert: '\\cup'
+    insert: '\\cup',
   },
   INTER: {
     display: '$\\cap$',
-    insert: '\\cap'
+    insert: '\\cap',
   },
   // =================== functions
   LIM: {
     display: '$\\lim\\limits_{\\square\\to\\square}$',
-    insert: '$$\\lim_{#0\\to\\ #1}}$$'
+    insert: '$$\\lim_{#0\\to\\ #1}}$$',
   },
   FCT: {
     display: '$f(\\square)$',
-    insert: '$$f(#0)$$'
+    insert: '$$f(#0)$$',
   },
   SIGMA: {
     display: '$\\sum\\limits_{\\square}^{\\square}$',
-    insert: '$$\\sum_#0^#1$$'
+    insert: '$$\\sum_#0^#1$$',
   },
   INT: {
     display: '$\\int_{\\square}^{\\square}$',
-    insert: '$$\\int_#0^#1$$'
+    insert: '$$\\int_#0^#1$$',
   },
   // =================== probabilities
   BINOM: {
     display: '$\\tbinom{\\square}{\\square}$',
-    insert: '$$\\tbinom{#0}{#1}$$'
+    insert: '$$\\tbinom{#0}{#1}$$',
   },
   PROB: {
     display: '$P_{\\square}({\\square})$',
-    insert: '$$P_{#0}({#1})$$'
+    insert: '$$P_{#0}({#1})$$',
   },
   OVERLINE: {
     display: '$\\overline{\\square}$',
-    insert: '$$\\overline{#0}$$'
+    insert: '$$\\overline{#0}$$',
   },
   Vrai: {
     display: '$\\text{Vrai}$',
-    insert: '\\text{Vrai}'
+    insert: '\\text{Vrai}',
   },
   Faux: {
     display: '$\\text{Faux}$',
-    insert: '\\text{Faux}'
+    insert: '\\text{Faux}',
   },
   // =================== numération
   MILLION: {
     display: '$\\tiny\\text{million}$',
-    insert: '\\text{million}'
+    insert: '\\text{million}',
   },
   MILLIARD: {
     display: '$\\tiny\\text{milliard}$',
-    insert: '\\text{milliard}'
+    insert: '\\text{milliard}',
   },
   MILLE: {
     display: '$\\tiny\\text{mille}$',
-    insert: '\\text{mille}'
+    insert: '\\text{mille}',
   },
   CENTAINE: {
     display: '$\\tiny\\text{centaine}$',
-    insert: '\\text{centaine}'
+    insert: '\\text{centaine}',
   },
   DIZAINE: {
     display: '$\\tiny\\text{dizaine}$',
-    insert: '\\text{dizaine}'
+    insert: '\\text{dizaine}',
   },
   UNITE: {
     display: '$\\tiny\\text{unité}$',
-    insert: '\\text{unité}'
+    insert: '\\text{unité}',
   },
   DE: {
     display: '$\\tiny\\text{ de }$',
-    insert: '\\text{ de }'
+    insert: '\\text{ de }',
   },
   DIXIEME: {
     display: '$\\tiny\\text{dixième}$',
-    insert: '\\text{dixième}'
+    insert: '\\text{dixième}',
   },
   CENTIEME: {
     display: '$\\tiny\\text{centième}$',
-    insert: '\\text{centième}'
+    insert: '\\text{centième}',
   },
   MILLIEME: {
     display: '$\\tiny\\text{millième}$',
-    insert: '\\text{millième}'
+    insert: '\\text{millième}',
   },
   DIX_MILLIEME: {
     display: '$\\tiny\\text{dix-millième}$',
-    insert: '\\text{dix-millième}'
+    insert: '\\text{dix-millième}',
   },
   CENT_MILLIEME: {
     display: '$\\tiny\\text{cent-millième}$',
-    insert: '\\text{cent-millième}'
+    insert: '\\text{cent-millième}',
   },
   MILLIONIEME: {
     display: '$\\tiny\\text{millionième}$',
-    insert: '\\text{millionième}'
+    insert: '\\text{millionième}',
   },
   HYPHEN: {
     display: '$\\tiny\\text{-}$',
-    insert: '\\text{-}'
+    insert: '\\text{-}',
   },
   DIX: {
     display: '$\\tiny\\text{dix}$',
-    insert: '\\text{dix}'
+    insert: '\\text{dix}',
   },
   VINGT: {
     display: '$\\tiny\\text{vingt}$',
-    insert: '\\text{vingt}'
+    insert: '\\text{vingt}',
   },
   TRENTE: {
     display: '$\\tiny\\text{trente}$',
-    insert: '\\text{trente}'
+    insert: '\\text{trente}',
   },
   QUARANTE: {
     display: '$\\tiny\\text{quarante}$',
-    insert: '\\text{quarante}'
+    insert: '\\text{quarante}',
   },
   CINQUANTE: {
     display: '$\\tiny\\text{cinquante}$',
-    insert: '\\text{cinquante}'
+    insert: '\\text{cinquante}',
   },
   SOIXANTE: {
     display: '$\\tiny\\text{soixante}$',
-    insert: '\\text{soixante}'
+    insert: '\\text{soixante}',
   },
   SOIXANTE_DIX: {
     display: '$\\tiny\\text{soixante-dix}$',
-    insert: '\\text{soixante-dix}'
+    insert: '\\text{soixante-dix}',
   },
   QUATRE_VINGT: {
     display: '$\\tiny\\text{quatre-vingt}$',
-    insert: '\\text{quatre-vingt}'
+    insert: '\\text{quatre-vingt}',
   },
   QUATRE_VINGT_DIX: {
     display: '$\\tiny\\text{quatre-vingt-dix}$',
-    insert: '\\text{quatre-vingt-dix}'
+    insert: '\\text{quatre-vingt-dix}',
   },
   CENT: {
     display: '$\\tiny\\text{cent}$',
-    insert: '\\text{cent}'
-  }
+    insert: '\\text{cent}',
+  },
 }
 
-const massUnitsKeys: Record<string, { display: string, insert: string }> = {}
+const massUnitsKeys: Record<string, { display: string; insert: string }> = {}
 for (const unit of massUnits.units) {
   const k = `MASS ${unit.symbol}`
   massUnitsKeys[k] = {
     display: unit.symbol,
-    insert: unit.insert
+    insert: unit.insert,
   }
 }
 
-const lengthUnitsKeys: Record<string, { display: string, insert: string }> = {}
+const lengthUnitsKeys: Record<string, { display: string; insert: string }> = {}
 for (const unit of lengthUnits.units) {
   const k = `LENGTH ${unit.symbol}`
   lengthUnitsKeys[k] = {
     display: unit.symbol,
-    insert: unit.insert
+    insert: unit.insert,
   }
 }
 
-const areaUnitsKeys: Record<string, { display: string, insert: string }> = {}
+const areaUnitsKeys: Record<string, { display: string; insert: string }> = {}
 for (const unit of [...areaMetricUnits.units, ...areaOtherUnits.units]) {
   const k = `AREA ${unit.symbol}`
   areaUnitsKeys[k] = {
     display: unit.symbol,
-    insert: unit.insert
+    insert: unit.insert,
   }
 }
 
-const volumeUnitsKeys: Record<string, { display: string, insert: string }> = {}
+const volumeUnitsKeys: Record<string, { display: string; insert: string }> = {}
 for (const unit of volumeMetricUnits.units) {
   const k = `VOLUME' ${unit.symbol}`
   volumeUnitsKeys[k] = {
     display: unit.symbol,
-    insert: unit.insert
+    insert: unit.insert,
   }
 }
 
-const capacityUnitsKeys: Record<string, { display: string, insert: string }> = {}
+const capacityUnitsKeys: Record<string, { display: string; insert: string }> =
+  {}
 for (const unit of volumeOtherUnits.units) {
   const k = `CAPACITY ${unit.symbol}`
   capacityUnitsKeys[k] = {
     display: unit.symbol,
-    insert: unit.insert
+    insert: unit.insert,
   }
 }
 
-export const keys = { ...basicKeys, ...lengthUnitsKeys, ...massUnitsKeys, ...areaUnitsKeys, ...volumeUnitsKeys, ...capacityUnitsKeys }
+export const keys = {
+  ...basicKeys,
+  ...lengthUnitsKeys,
+  ...massUnitsKeys,
+  ...areaUnitsKeys,
+  ...volumeUnitsKeys,
+  ...capacityUnitsKeys,
+}

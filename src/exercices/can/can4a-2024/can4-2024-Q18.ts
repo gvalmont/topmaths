@@ -4,7 +4,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Déterminer l\'opposé ou l\'inverse d\'une fraction'
+export const titre = "Déterminer l'opposé ou l'inverse d'une fraction"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '719da'
@@ -14,7 +14,7 @@ export const uuid = '719da'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,16 +25,26 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: FractionEtendue
     if (this.canOfficielle) {
       reponse = new FractionEtendue(2, 3).oppose()
-      this.question = 'L\'opposé de $\\dfrac{2}{3}$ '
+      this.question = "L'opposé de $\\dfrac{2}{3}$ "
       this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
       L'opposé de $\\dfrac{2}{3}$ est : $${miseEnEvidence(reponse.texFSD)}$.`
     } else {
-      const listeFractions = [[1, 3], [1, 7], [5, 7], [3, 7],
-        [5, 3], [7, 9], [7, 3], [4, 7], [7, 13], [1, 9]]
+      const listeFractions = [
+        [1, 3],
+        [1, 7],
+        [5, 7],
+        [3, 7],
+        [5, 3],
+        [7, 9],
+        [7, 3],
+        [4, 7],
+        [7, 13],
+        [1, 9],
+      ]
       const a = choice(listeFractions)
       if (choice([true, false])) {
         reponse = new FractionEtendue(a[0], a[1]).oppose()

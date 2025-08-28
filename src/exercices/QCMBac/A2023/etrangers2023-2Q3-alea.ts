@@ -8,7 +8,7 @@ import { combinations } from 'mathjs'
 export const uuid = 'ecde7'
 export const refs = {
   'fr-fr': ['TSP1-QCM05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,14 +25,14 @@ export const dateDePublication = '08/11/2024'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (n: number, pourcent: number): void {
+  private appliquerLesValeurs(n: number, pourcent: number): void {
     let P = 0
     let k = 0
     const seuil = 0.95
     const p = pourcent / 100
     do {
       const cnk = combinations(n, k)
-      const pDeXEgalK = cnk * (p ** k) * ((1 - p) ** (n - k))
+      const pDeXEgalK = cnk * p ** k * (1 - p) ** (n - k)
       P += pDeXEgalK
       k++
     } while (P < seuil && k < n)
@@ -43,9 +43,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     const sol4 = rangeMinMax(k - 3, k, [k])
     const sol = choice([sol1, sol2, sol3, sol4]).map(String)
 
-    this.reponses = [
-      `${k}`, ...sol
-    ]
+    this.reponses = [`${k}`, ...sol]
 
     this.enonce = this.sup3
       ? `Une chaîne de fabrication produit des pièces mécaniques.<br>
@@ -54,7 +52,8 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
      Le nombre de pièces produites est suffisamment grand pour que ce choix puisse être assimilé à un tirage avec remise. <br>
      On note $X$ la variable aléatoire égale au nombre de pièces défectueuses tirées.<br>`
       : ''
-    this.enonce += 'Quel est le plus petit entier naturel $k$ tel que la probabilité de tirer au plus $k$ pièces défectueuses soit supérieure ou égale à $95 \\%$ ?'
+    this.enonce +=
+      'Quel est le plus petit entier naturel $k$ tel que la probabilité de tirer au plus $k$ pièces défectueuses soit supérieure ou égale à $95 \\%$ ?'
     this.correction = `${k}`
   }
 
@@ -76,11 +75,11 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

@@ -17,17 +17,17 @@ export const uuid = '71292'
 
 export const refs = {
   'fr-fr': ['canTEC1-01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeDeComplexes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const z1 = complex(randint(-5, 5), randint(-5, 5))
     const z2 = complex(randint(-5, 5), randint(-5, 5))
     this.question = `On donne $~~a = ${z1.toString()}~~$ et $~~b = ${z2.toString()}$.<br>Calcule $a + b$.`
@@ -39,30 +39,30 @@ export default class SommeDeComplexes extends ExerciceSimple {
         {
           type: 'AMCNum',
           propositions: {
-            texte: this.correction
+            texte: this.correction,
           },
           reponse: {
             valeur: add(z1, z2).re,
             digits: 2,
             deciams: 0,
             signe: true,
-            approx: 0
-          }
+            approx: 0,
+          },
         },
         {
           type: 'AMCNum',
           propositions: {
-            texte: ''
+            texte: '',
           },
           reponse: {
             valeur: add(z1, z2).im,
             digits: 2,
             deciams: 0,
             signe: true,
-            approx: 0
-          }
-        }
-      ]
+            approx: 0,
+          },
+        },
+      ],
     }
   }
 }

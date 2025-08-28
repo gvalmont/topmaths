@@ -6,7 +6,11 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { cribleEratostheneN, pgcd } from '../../lib/outils/primalite'
@@ -24,39 +28,43 @@ export const uuid = '0cf54'
 
 export const refs = {
   'fr-fr': ['2S30-3', 'BP2FLUC2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProbaUnionInter extends Exercice {
-  constructor () {
+  constructor() {
     super()
     // this.consigne = 'Calculer '
     this.sup = 6
     this.nbQuestions = 1
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Probabilité de gagner/perdre un match',
         '2 : Probabilité et nombres premiers',
         '3 : Probabilité tirage dans une urne',
         '4 : Probabilité Pile/face',
         '5 : Probabilité et nombre de boules',
-        '6 : Mélange'
-      ].join('\n')
+        '6 : Mélange',
+      ].join('\n'),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 5,
       melange: 6,
       defaut: 6,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const a = randint(1, 20)
       let reponse
       let texte = ''
@@ -68,35 +76,51 @@ export default class ProbaUnionInter extends Exercice {
       let pAinterB
       pAinterB = new Decimal(randint(1, 99)).div(100)
       let pAunionB = pA.add(pB).sub(pAinterB)
-      while (pAunionB.greaterThan(0.99) === true || pAunionB.lessThan(0.01) === true || pAinterB.greaterThan(pA.sub(0.01)) === true || pAinterB.greaterThan(pB.sub(0.01)) === true) {
+      while (
+        pAunionB.greaterThan(0.99) === true ||
+        pAunionB.lessThan(0.01) === true ||
+        pAinterB.greaterThan(pA.sub(0.01)) === true ||
+        pAinterB.greaterThan(pB.sub(0.01)) === true
+      ) {
         pA = new Decimal(randint(1, 99)).div(100)
         pB = new Decimal(randint(1, 99)).div(100)
         pAinterB = new Decimal(randint(1, 99)).div(100)
         pAunionB = pA.add(pB).sub(pAinterB)
       }
       switch (listeTypeDeQuestions[i]) {
-        case 1:// probabilité de gagner/perdre le match
+        case 1: // probabilité de gagner/perdre le match
           {
             const choix = choice([true, false])
 
             const pG = new Decimal(randint(40, 65)).div(100) // gagner
-            const pN = new Decimal(randint(10, 30)).div(100)// nul
-            const NG = pG.add(pN)// nul ou gagner
-            const pP = NG.mul(-1).add(1)// perdre
+            const pN = new Decimal(randint(10, 30)).div(100) // nul
+            const NG = pG.add(pN) // nul ou gagner
+            const pP = NG.mul(-1).add(1) // perdre
 
-            const sport = choice(['hand-ball', 'football', 'rugby', 'basket', 'volley-ball', 'water-polo', 'baseball'])
+            const sport = choice([
+              'hand-ball',
+              'football',
+              'rugby',
+              'basket',
+              'volley-ball',
+              'water-polo',
+              'baseball',
+            ])
 
             texte = `Lors d'un match de ${sport}, l'équipe qui reçoit un adversaire a une probabilité de $${texNombre(pG, 2)}$ de gagner son match et $${texNombre(pN, 2)}$ de faire un match nul.`
             if (choix === true) {
               reponse = texNombre(NG, 2)
-              texte += '<br>Quelle est la probabilité, pour cette équipe, de ne pas perdre le match ?'
-              texteCorr = 'Ne pas perdre un match, c\'est, soit le gagner, soit faire un match nul. La probabilité est donc : <br> <br>'
+              texte +=
+                '<br>Quelle est la probabilité, pour cette équipe, de ne pas perdre le match ?'
+              texteCorr =
+                "Ne pas perdre un match, c'est, soit le gagner, soit faire un match nul. La probabilité est donc : <br> <br>"
               texteCorr += `$P=$ P(«${sp(1)}Gagner le match${sp(1)}») + P(«${sp(1)}Match nul${sp(1)}») <br>`
               texteCorr += `$P= ${texNombre(pG, 2)} + ${texNombre(pN, 2)}$ <br> `
               texteCorr += `$P= ${miseEnEvidence(reponse)}$  <br>`
             } else {
               reponse = texNombre(pP, 2)
-              texte += '<br>Quelle est la probabilité, pour cette équipe, de perdre le match ?'
+              texte +=
+                '<br>Quelle est la probabilité, pour cette équipe, de perdre le match ?'
               texteCorr = `L'événement  «${sp(1)}Perdre le match${sp(1)}» est l'événement contraire de  «${sp(1)}Ne pas perdre le match${sp(1)}». On peut donc affirmer que : <br> <br>`
               texteCorr += `P(«${sp(1)}Perdre le match${sp(1)}») $+$ P(«${sp(1)}Ne pas perdre le match${sp(1)}») $= 1$ <br>`
               texteCorr += `$P=1-$ P(«${sp(1)}Ne pas perdre le match${sp(1)}»)<br>`
@@ -106,18 +130,26 @@ export default class ProbaUnionInter extends Exercice {
               texteCorr += `$P=${miseEnEvidence(reponse)}$<br>`
             }
 
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+              { texteAvant: sp(5) },
+            )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
-        case 2:// proba d'obtenir un nombre premier
+        case 2: // proba d'obtenir un nombre premier
           {
             const a = randint(6, 40)
-            reponse = new FractionEtendue(cribleEratostheneN(a).length, a).texFraction
+            reponse = new FractionEtendue(cribleEratostheneN(a).length, a)
+              .texFraction
             texte = `Une urne contient $${a}$  boules numérotées de $1$ à $${a}$. <br>
         On choisit une boule au hasard. <br>
         Quelle est la probabilité d'obtenir  un nombre premier ? `
-            texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : ` + cribleEratostheneN(a)[0]
+            texteCorr =
+              `Les nombres premiers inférieurs à $${a}$ sont : ` +
+              cribleEratostheneN(a)[0]
             for (let k = 1; k < cribleEratostheneN(a).length; k++) {
               texteCorr += ', ' + cribleEratostheneN(a)[k]
             }
@@ -129,12 +161,17 @@ export default class ProbaUnionInter extends Exercice {
         La probabilité d'obtenir un nombre premier est donc : $${miseEnEvidence(reponse)}${new FractionEtendue(cribleEratostheneN(a).length, a).texSimplificationAvecEtapes()}$. `
             }
 
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+              { texteAvant: sp(5) },
+            )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
 
-        case 3:// proba d'obtenir une boule rouge
+        case 3: // proba d'obtenir une boule rouge
           {
             const a = randint(3, 10)
             const b = a - randint(-1, 1, 0)
@@ -154,11 +191,16 @@ export default class ProbaUnionInter extends Exercice {
                 On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(nbBoules)}$ de tirer une boule ${choix1 ? 'rouge' : 'bleue'}.<br>
                 Ainsi, la probabilité de tirer une boule ${choix1 ? 'rouge' : 'bleue'} est $\\dfrac{${miseEnEvidence(choix1 ? `${a}` : `${b}`)}}{${miseEnEvidence(nbBoules)}}$.`
 
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+              { texteAvant: sp(5) },
+            )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
-        case 4://
+        case 4: //
           {
             const c = choice([2, 3, 11, 12])
             const choix = choice(['a', 'b', 'c', 'd'])
@@ -180,37 +222,69 @@ export default class ProbaUnionInter extends Exercice {
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $2$ issues qui comportent une seule fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{1}{2}')}$.`
               reponse = new FractionEtendue(1, 2).texFraction
-            } else { // if (choix === 'd') {
+            } else {
+              // if (choix === 'd') {
               texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l'événement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $1$ issue qui comporte deux fois ${c ? 'piles' : 'faces'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{1}{4}')}$.`
               reponse = new FractionEtendue(1, 4).texFraction
             }
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+              { texteAvant: sp(5) },
+            )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
-        case 5:{
-          const listeFractionProba = [[1, 3], [2, 5], [3, 7], [1, 8], [6, 11], [4, 7],
-            [3, 4], [3, 5], [2, 9], [4, 5], [7, 8], [6, 7], [3, 10], [2, 9], [2, 7], [3, 11]]
-          const choixProba = choice(listeFractionProba)
-          const proba1 = new FractionEtendue(choixProba[0], choixProba[1]).texFraction
-          const k = randint(2, 10)
-          const nbBoulesV = k * choixProba[0]
-          const reponse = stringNombre(k * choixProba[1] - k * choixProba[0], 0)
+        case 5:
+          {
+            const listeFractionProba = [
+              [1, 3],
+              [2, 5],
+              [3, 7],
+              [1, 8],
+              [6, 11],
+              [4, 7],
+              [3, 4],
+              [3, 5],
+              [2, 9],
+              [4, 5],
+              [7, 8],
+              [6, 7],
+              [3, 10],
+              [2, 9],
+              [2, 7],
+              [3, 11],
+            ]
+            const choixProba = choice(listeFractionProba)
+            const proba1 = new FractionEtendue(choixProba[0], choixProba[1])
+              .texFraction
+            const k = randint(2, 10)
+            const nbBoulesV = k * choixProba[0]
+            const reponse = stringNombre(
+              k * choixProba[1] - k * choixProba[0],
+              0,
+            )
 
-          texte = `Dans une urne contenant des boules vertes et des boules bleues, on tire au hasard
+            texte = `Dans une urne contenant des boules vertes et des boules bleues, on tire au hasard
           une boule et on regarde sa couleur. <br>
           La probabilité d'obtenir une boule verte est $${proba1}$.<br>
           Déterminer le nombre de boules bleues dans cette urne sachant qu'il y a $${nbBoulesV}$
           boules vertes`
-          texte += this.interactif ? ' : ' : '.'
-          texteCorr = `La probabilité d'obtenir une boule verte est $${proba1}$, soit $\\dfrac{${k * choixProba[0]}}{${k * choixProba[1]}}$.<br>
+            texte += this.interactif ? ' : ' : '.'
+            texteCorr = `La probabilité d'obtenir une boule verte est $${proba1}$, soit $\\dfrac{${k * choixProba[0]}}{${k * choixProba[1]}}$.<br>
           Il y a donc $${k * choixProba[1]}$ boules au total dans l'urne et donc $${k * choixProba[1]}-${k * choixProba[0]}=${miseEnEvidence(reponse)}$ boules bleues.`
 
-          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(), texteApres: 'boules bleues' })
-          handleAnswers(this, i, { reponse: { value: reponse } })
-        }
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+              { texteAvant: sp(), texteApres: 'boules bleues' },
+            )
+            handleAnswers(this, i, { reponse: { value: reponse } })
+          }
           break
       }
 

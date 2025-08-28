@@ -15,10 +15,10 @@ export const uuid = '42237'
 
 export const refs = {
   'fr-fr': ['1A-C14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC14 extends CalculExpAvecValeurs {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

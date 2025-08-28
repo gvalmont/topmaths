@@ -18,25 +18,25 @@ export const uuid = 'ac56a'
 
 export const refs = {
   'fr-fr': ['can6M02', 'CM1M1C-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LaBonneUnite extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const hauteurs = [
       ['chaise', 75, 115, ' cm'],
       ['grue', 120, 250, ' dm'],
       ['tour', 50, 180, ' m'],
       ['girafe', 40, 50, ' dm'],
-      ['coline', 75, 150, ' m']
+      ['coline', 75, 150, ' m'],
     ]
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const unites = [' cm', ' dm', ' m']
       const a = randint(0, 4)
       const b = randint(hauteurs[a][1] as number, hauteurs[a][2] as number)
@@ -48,17 +48,17 @@ export default class LaBonneUnite extends Exercice {
         propositions: [
           {
             texte: `$${b}$${hauteurs[a][3]}`,
-            statut: true
+            statut: true,
           },
           {
             texte: `$${b}$${unites[0]}`,
-            statut: false
+            statut: false,
           },
           {
             texte: `$${b}$${unites[1]}`,
-            statut: false
-          }
-        ]
+            statut: false,
+          },
+        ],
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {

@@ -18,16 +18,16 @@ export const uuid = 'c58e0'
 
 export const refs = {
   'fr-fr': ['can4P04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProportionnaliteNotes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let b, n
     const a = choice([30, 40, 50, 60, 80, 100])
 
@@ -40,7 +40,7 @@ export default class ProportionnaliteNotes extends ExerciceSimple {
       Quelle est sa note sur $20$ ?`
       this.correction = `Sa note est de $${(n * 2) / 3}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
-      Pour obtenir la note sur $20$, on multiplie sa note par $2$ (on obtient $${n * 2}$), puis on divise le résultat par $3$, soit  $${n * 2}\\div 3=${n * 2 / 3}$.<br>
+      Pour obtenir la note sur $20$, on multiplie sa note par $2$ (on obtient $${n * 2}$), puis on divise le résultat par $3$, soit  $${n * 2}\\div 3=${(n * 2) / 3}$.<br>
       En multipliant par $2$, on obtient sa note sur $60$, puis en divisant par $3$, on la ramène sur $20$. `)
       this.reponse = (n * 2) / 3
     }
@@ -62,9 +62,9 @@ export default class ProportionnaliteNotes extends ExerciceSimple {
       this.question = `${prenom()} a obtenu $${n}$ sur $50$ à son devoir.<br>
 
         Quelle est sa note sur $20$ ?`
-      this.correction = `Sa note est de $${texNombre(n * 2 / 5)}$ sur $20$.`
+      this.correction = `Sa note est de $${texNombre((n * 2) / 5)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
-        Pour obtenir la note sur $20$, on multiplie sa note par $2$ (on obtient $${n * 2}$), puis on divise le résultat par $5$, soit  $${n * 2}\\div 5=${n * 2 / 5}$.<br>
+        Pour obtenir la note sur $20$, on multiplie sa note par $2$ (on obtient $${n * 2}$), puis on divise le résultat par $5$, soit  $${n * 2}\\div 5=${(n * 2) / 5}$.<br>
         En multipliant par $2$, on obtient sa note sur $100$, puis en divisant par $5$, on la ramène sur $20$. `)
       this.reponse = (n * 2) / 5
     }
@@ -104,7 +104,7 @@ export default class ProportionnaliteNotes extends ExerciceSimple {
         Pour obtenir la note sur $20$, on divise la note sur $100$ par $5$. `)
       this.reponse = n / 5
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

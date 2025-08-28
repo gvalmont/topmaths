@@ -20,10 +20,10 @@ export const uuid = '84eaa'
 
 export const refs = {
   'fr-fr': ['can2G15'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DeterminantVecteur extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -32,7 +32,7 @@ export default class DeterminantVecteur extends ExerciceSimple {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const vx = randint(-5, 5)
     const vy = randint(-5, 5)
     const ux = randint(-5, 5, 0)
@@ -41,7 +41,9 @@ export default class DeterminantVecteur extends ExerciceSimple {
 
     this.question = `Dans un repère orthonormé, on donne les vecteurs $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$.<br>
       Calculer le déterminant des vecteurs $\\vec{u}$ et $\\vec{v}$.<br><br>`
-    this.optionsChampTexte = { texteAvant: '$det\\left(\\vec{u}\\,;\\,\\vec{v}\\right)=$' }
+    this.optionsChampTexte = {
+      texteAvant: '$det\\left(\\vec{u}\\,;\\,\\vec{v}\\right)=$',
+    }
     this.correction = `On sait d'après le cours que si $\\vec{u}\\begin{pmatrix}x \\\\ y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x' \\\\ y'\\end{pmatrix}$, alors :<br><br>
       $det\\left(\\vec{u}\\,;\\,\\vec{v}\\right)=\\begin{vmatrix}x&x'\\\\y&y'\\end{vmatrix}=xy'-x'y$.<br><br>
       En appliquant à l'énoncé :<br><br>

@@ -16,14 +16,18 @@ export const uuid = '4963b'
 
 export const refs = {
   'fr-fr': ['3L11-9'],
-  'fr-ch': ['11FA2-15']
+  'fr-ch': ['11FA2-15'],
 }
-export default class RoseAdditive4L extends ExoRose { // c'est l'ExoRose zéro contenu dans _Roses.js
-  constructor () {
+export default class RoseAdditive4L extends ExoRose {
+  // c'est l'ExoRose zéro contenu dans _Roses.js
+  constructor() {
     super()
     this.operation = 'multiplication'
     this.typeDonnees = 'litteraux'
-    this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des facteurs', 30]
+    this.besoinFormulaireNumerique = [
+      'Valeur maximale (entre 10 et 30) des facteurs',
+      30,
+    ]
     this.besoinFormulaire2Numerique = ['Nombre de facteurs (entre 3 et 5)', 5]
   }
 }

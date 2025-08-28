@@ -4,7 +4,7 @@ import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { randint } from '../../../modules/outils'
-export const titre = 'Trouver le plus grand d\'un décimal et d\'une fraction'
+export const titre = "Trouver le plus grand d'un décimal et d'une fraction"
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const uuid = 'e1faf'
@@ -14,7 +14,7 @@ export const uuid = 'e1faf'
 
 */
 export default class CompareDecimalFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class CompareDecimalFraction extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: string
     let b: string
     let nbA: number
@@ -57,14 +57,13 @@ export default class CompareDecimalFraction extends ExerciceSimple {
       propositions: [
         {
           texte: `$${a}$`,
-          statut: nbA > nbB
+          statut: nbA > nbB,
         },
         {
           texte: `$${b}$`,
-          statut: nbB > nbA
-        }
-      ]
-
+          statut: nbB > nbA,
+        },
+      ],
     }
     const qcm = propositionsQcm(this, 0)
     if (!this.interactif) {
@@ -80,7 +79,7 @@ export default class CompareDecimalFraction extends ExerciceSimple {
     this.correction = `Le plus grand nombre est : $${miseEnEvidence(reponse)}$.<br><br>`
     if (nbA > nbB) {
       if (Number.isInteger(num / den)) {
-        this.correction += `En effet : $\\dfrac{${num}}{${den}}=${texNombre((num / den), 0)}$`
+        this.correction += `En effet : $\\dfrac{${num}}{${den}}=${texNombre(num / den, 0)}$`
       } else {
         if (num > den) {
           this.correction += `Comme : <br>

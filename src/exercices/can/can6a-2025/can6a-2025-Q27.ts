@@ -3,20 +3,20 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Convertir des fractions d\'heure en minutes'
+export const titre = "Convertir des fractions d'heure en minutes"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '61128'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025N6Q27 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class Can2025N6Q27 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '$=$', texteApres: 'min' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 0.5 : choice([0.25, 0.5, 0.75])
     this.reponse = texNombre(a * 60, 0)
     this.question = 'Complète. <br> '
@@ -34,8 +34,12 @@ export default class Can2025N6Q27 extends ExerciceSimple {
       this.correction = `$${texNombre(a, 2)}$ h $=\\dfrac{1}{2}$ h $=${miseEnEvidence(this.reponse)}$ min`
     } else if (a === 0.25) {
       this.correction = `$${texNombre(a, 2)}$ h $=\\dfrac{1}{4}$ h $=${miseEnEvidence(this.reponse)}$ min`
-    } else { this.correction = `$${texNombre(a, 2)}$ h $=\\dfrac{3}{4}$ h $=${miseEnEvidence(this.reponse)}$ min` }
-    if (!this.interactif) { this.question += ' $= \\ldots$ min ' }
+    } else {
+      this.correction = `$${texNombre(a, 2)}$ h $=\\dfrac{3}{4}$ h $=${miseEnEvidence(this.reponse)}$ min`
+    }
+    if (!this.interactif) {
+      this.question += ' $= \\ldots$ min '
+    }
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$${texNombre(a, 2)}$ h $=\\ldots$ min `
   }

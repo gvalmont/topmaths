@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
@@ -22,10 +25,10 @@ export const uuid = '84ae6'
 
 export const refs = {
   'fr-fr': ['can1F09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -34,16 +37,68 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
     // this.formatInteractif = 'fractionEgale'
   }
 
-  nouvelleVersion () {
-    const listeFractions = [[2, 5], [-2, 3], [-3, 4], [5, 7], [-3, 7],
-      [3, 5], [4, 5], [-2, 7], [-7, 9], [-4, 9], [4, 7], [2, 11], [-3, 11], [8, 9], [6, 7], [-8, 3], [-7, 3], [2, 15], [-2, 15], [3, 17], [-3, 10]]
-    const listeFractions2 = [[2, 5], [2, 3], [3, 4], [5, 7], [3, 7],
-      [3, 5], [4, 5], [2, 7], [7, 9], [-4, 9], [4, 7], [2, 11], [3, 11], [8, 9], [6, 7], [10, 7], [11, 7], [9, 8], [7, 8], [11, 3], [2, 15]]
-    let a; let p; let m; let f; let fraction = []; let fraction2 = []
-    switch (choice([1, 2, 3, 4])) { //
-      case 1:// x/a+p
+  nouvelleVersion() {
+    const listeFractions = [
+      [2, 5],
+      [-2, 3],
+      [-3, 4],
+      [5, 7],
+      [-3, 7],
+      [3, 5],
+      [4, 5],
+      [-2, 7],
+      [-7, 9],
+      [-4, 9],
+      [4, 7],
+      [2, 11],
+      [-3, 11],
+      [8, 9],
+      [6, 7],
+      [-8, 3],
+      [-7, 3],
+      [2, 15],
+      [-2, 15],
+      [3, 17],
+      [-3, 10],
+    ]
+    const listeFractions2 = [
+      [2, 5],
+      [2, 3],
+      [3, 4],
+      [5, 7],
+      [3, 7],
+      [3, 5],
+      [4, 5],
+      [2, 7],
+      [7, 9],
+      [-4, 9],
+      [4, 7],
+      [2, 11],
+      [3, 11],
+      [8, 9],
+      [6, 7],
+      [10, 7],
+      [11, 7],
+      [9, 8],
+      [7, 8],
+      [11, 3],
+      [2, 15],
+    ]
+    let a
+    let p
+    let m
+    let f
+    let fraction = []
+    let fraction2 = []
+    switch (
+      choice([1, 2, 3, 4]) //
+    ) {
+      case 1: // x/a+p
         a = randint(2, 15)
-        p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        p = choice([
+          randint(1, 10) * choice([-1, 1]),
+          new Decimal(randint(-19, 19, [0, -10, 10])).div(10),
+        ])
 
         if (choice([true, false])) {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
@@ -51,7 +106,9 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
             $f(x)=\\dfrac{x}{${a}}${ecritureAlgebrique(p)}$. <br>
 
             Déterminer $f'(x)$.   <br>       `
-          if (this.interactif) { this.question += '$f\'(x)=$' }
+          if (this.interactif) {
+            this.question += "$f'(x)=$"
+          }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{1}{${a}}$ et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{1}{${a}}$. `
 
@@ -62,7 +119,9 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
          $f(x)=-\\dfrac{x}{${a}}${ecritureAlgebrique(p)}$.<br>
          
           Déterminer $f'(x)$.   <br>  `
-          if (this.interactif) { this.question += '$f\'(x)=$' }
+          if (this.interactif) {
+            this.question += "$f'(x)=$"
+          }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=-\\dfrac{1}{${a}}$ et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=-\\dfrac{1}{${a}}$. `
 
@@ -70,9 +129,12 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
         }
 
         break
-      case 2:// (mx+p)/a
+      case 2: // (mx+p)/a
         m = randint(2, 15) * choice([-1, 1])
-        p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        p = choice([
+          randint(1, 10) * choice([-1, 1]),
+          new Decimal(randint(-19, 19, [0, -10, 10])).div(10),
+        ])
         a = randint(2, 15)
         f = new FractionEtendue(m, a)
         if (choice([true, false])) {
@@ -81,7 +143,9 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
            $f(x)=\\dfrac{${reduireAxPlusB(m, p)}}{${a}}$. <br>
 
             Déterminer $f'(x)$.   <br>  `
-          if (this.interactif) { this.question += '$f\'(x)=$' }
+          if (this.interactif) {
+            this.question += "$f'(x)=$"
+          }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${m}}{${a}}$ et $p=\\dfrac{${texNombre(p, 1)}}{${a}}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${m}}{${a}}${f.texSimplificationAvecEtapes()}$. `
 
@@ -92,7 +156,9 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
            $f(x)=\\dfrac{${texNombre(p, 1)}${ecritureAlgebrique(m)}x}{${a}}$.<br>
            
             Déterminer $f'(x)$.   <br>  `
-          if (this.interactif) { this.question += '$f\'(x)=$' }
+          if (this.interactif) {
+            this.question += "$f'(x)=$"
+          }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${m}}{${a}}$ et $p=\\dfrac{${texNombre(p, 1)}}{${a}}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${m}}{${a}}${f.texSimplificationAvecEtapes()}$. `
 
@@ -101,9 +167,12 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
 
         break
 
-      case 3:// mx/a+p ou mx/a
+      case 3: // mx/a+p ou mx/a
         m = randint(2, 15) * choice([-1, 1])
-        p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        p = choice([
+          randint(1, 10) * choice([-1, 1]),
+          new Decimal(randint(-19, 19, [0, -10, 10])).div(10),
+        ])
         a = randint(2, 15)
         fraction = choice(listeFractions)
         f = new FractionEtendue(fraction[0], fraction[1])
@@ -113,7 +182,9 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
          $f(x)=\\dfrac{${fraction[0]}x}{${fraction[1]}}${ecritureAlgebrique(p)}$.<br>
 
           Déterminer $f'(x)$.   <br>  `
-          if (this.interactif) { this.question += '$f\'(x)=$' }
+          if (this.interactif) {
+            this.question += "$f'(x)=$"
+          }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${fraction[0]}}{${fraction[1]}}$  et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction[0]}}{${fraction[1]}}$. `
 
@@ -124,7 +195,9 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
             $f(x)=\\dfrac{${fraction[0]}x}{${fraction[1]}}$.<br>
 
             Déterminer $f'(x)$.   <br>  `
-          if (this.interactif) { this.question += '$f\'(x)=$' }
+          if (this.interactif) {
+            this.question += "$f'(x)=$"
+          }
           this.correction = `On reconnaît une fonction linéaire de la forme $f(x)=mx$ avec $m=\\dfrac{${fraction[0]}}{${fraction[1]}}$.<br>
               La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction[0]}}{${fraction[1]}}$. `
 
@@ -133,9 +206,12 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
 
         break
 
-      case 4:// p+/-mx/a
+      case 4: // p+/-mx/a
         m = randint(2, 15) * choice([-1, 1])
-        p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        p = choice([
+          randint(1, 10) * choice([-1, 1]),
+          new Decimal(randint(-19, 19, [0, -10, 10])).div(10),
+        ])
         a = randint(2, 15)
         fraction2 = choice(listeFractions2)
         if (choice([true, false])) {
@@ -146,7 +222,9 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
           $f(x)=${texNombre(p, 1)}+\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$. <br>
           
           Déterminer $f'(x)$.   <br>  `
-          if (this.interactif) { this.question += '$f\'(x)=$' }
+          if (this.interactif) {
+            this.question += "$f'(x)=$"
+          }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${fraction2[0]}}{${fraction2[1]}}$  et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction2[0]}}{${fraction2[1]}}$. `
 
@@ -158,7 +236,9 @@ export default class CalculFonctionDeriveeAffine2 extends ExerciceSimple {
            $f(x)=${texNombre(p, 1)}-\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$. <br>
 
             Déterminer $f'(x)$.   <br>  `
-          if (this.interactif) { this.question += '$f\'(x)=$' }
+          if (this.interactif) {
+            this.question += "$f'(x)=$"
+          }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=-\\dfrac{${fraction2[0]}}{${fraction2[1]}}$  et $p=${texNombre(p, 1)}$.<br>
               La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=-\\dfrac{${fraction2[0]}}{${fraction2[1]}}$. `
 

@@ -7,7 +7,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'e5ec7'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -15,7 +15,7 @@ export const refs = {
 
 */
 export default class Can2025CE1Q11 extends ExerciceCan {
-  enonce (a?: number, k?: number) {
+  enonce(a?: number, k?: number) {
     if (a == null || k == null) {
       a = randint(3, 7)
       k = randint(2, 6)
@@ -31,7 +31,7 @@ export default class Can2025CE1Q11 extends ExerciceCan {
     this.canReponseACompleter = `${a}~;~${a + k}~;~\\ldots~;~${a + 3 * k}~;~${a + 4 * k}`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(5, 3) : this.enonce()
   }
 }

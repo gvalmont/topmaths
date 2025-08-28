@@ -6,13 +6,24 @@
   import SlideshowOverviewMainPanel from './presentationalComponent/mainPanel/SlideshowOverviewMainPanel.svelte'
   import ZoomButtons from '../../start/presentationalComponents/header/headerButtons/setupButtons/ZoomButtons.svelte'
   import { tick } from 'svelte'
-  import { mathaleaGenerateSeed, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
-  import { globalOptions, darkMode, exercicesParams } from '../../../../lib/stores/generalStore'
+  import {
+    mathaleaGenerateSeed,
+    mathaleaRenderDiv,
+    mathaleaUpdateUrlFromExercicesParams,
+  } from '../../../../lib/mathalea'
+  import {
+    globalOptions,
+    darkMode,
+    exercicesParams,
+  } from '../../../../lib/stores/generalStore'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
 
   export let exercises: Exercice[] = []
   export let slideshow: Slideshow
-  export let updateExercises: (updateSlidesContent?: boolean, updateParamsFromUrl?: boolean) => void
+  export let updateExercises: (
+    updateSlidesContent?: boolean,
+    updateParamsFromUrl?: boolean,
+  ) => void
   export let backToSettings: () => void
 
   let currentSeriesIndex: 0 | 1 | 2 | 3 | 4 = 0
@@ -31,8 +42,12 @@
 
   let order: number[]
   $: {
-    const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
-    order = $globalOptions.order === undefined || $globalOptions.order.length === 0 ? [...Array(questionsNb).keys()] : $globalOptions.order
+    const questionsNb =
+      slideshow.selectedQuestionsNumber || slideshow.slides.length
+    order =
+      $globalOptions.order === undefined || $globalOptions.order.length === 0
+        ? [...Array(questionsNb).keys()]
+        : $globalOptions.order
   }
 
   let series: Serie[] = []
@@ -42,7 +57,7 @@
       const serie: Serie = {
         consignes: [],
         questions: [],
-        corrections: []
+        corrections: [],
       }
       for (const slide of slideshow.slides) {
         serie.consignes.push(slide.vues[i].consigne)
@@ -53,31 +68,36 @@
     }
   }
 
-  $: if ((isQuestionsVisible || isCorrectionVisible || correctionsSteps.length > 0) && currentSeriesIndex !== undefined) {
+  $: if (
+    (isQuestionsVisible ||
+      isCorrectionVisible ||
+      correctionsSteps.length > 0) &&
+    currentSeriesIndex !== undefined
+  ) {
     tick().then(() => mathaleaRenderDiv(divExercice))
   }
 
-  function setCorrectionVisible (correctionVisibility: boolean) {
+  function setCorrectionVisible(correctionVisibility: boolean) {
     isCorrectionVisible = correctionVisibility
     if (!isCorrectionVisible) {
       setQuestionsVisible(true)
     }
   }
 
-  function setCurrentVue (vue: number) {
+  function setCurrentVue(vue: number) {
     if (isIntegerInRange0to4(vue)) {
       currentSeriesIndex = vue
     }
   }
 
-  function setQuestionsVisible (questionsVisibility: boolean) {
+  function setQuestionsVisible(questionsVisibility: boolean) {
     isQuestionsVisible = questionsVisibility
     if (!isQuestionsVisible) {
       setCorrectionVisible(true)
     }
   }
 
-  function newDataForAll () {
+  function newDataForAll() {
     const newParams: InterfaceParams[] = []
     for (const exercice of exercises) {
       exercice.seed = mathaleaGenerateSeed()
@@ -86,7 +106,7 @@
         id: exercice.id,
         alea: exercice.seed.substring(0, 4),
         nbQuestions: exercice.nbQuestions,
-        duration: exercice.duration
+        duration: exercice.duration,
       })
     }
     exercicesParams.set(newParams)
@@ -101,7 +121,7 @@
    * Gestion du pas à pas pour l'affichage des corrections
    * @param {string} button chaîne correspondant à la direction du pas à pas ("backward" ou "forward")
    */
-  function handleCorrectionsStepsClick (button: 'backward' | 'forward') {
+  function handleCorrectionsStepsClick(button: 'backward' | 'forward') {
     if (button === 'backward') {
       if (correctionsSteps.length !== 0) {
         correctionsSteps.pop()
@@ -116,9 +136,11 @@
     }
   }
 
-  function zoomUpdate (plusMinus: '+' | '-') {
+  function zoomUpdate(plusMinus: '+' | '-') {
     const oldZoom = Number($globalOptions.z || 1)
-    const newZoom = Number((plusMinus === '+' ? oldZoom + 0.1 : oldZoom - 0.1).toFixed(1))
+    const newZoom = Number(
+      (plusMinus === '+' ? oldZoom + 0.1 : oldZoom - 0.1).toFixed(1),
+    )
     $globalOptions.z = newZoom.toString()
     const main = document.querySelector('main')
     tick().then(() => mathaleaRenderDiv(main))
@@ -126,26 +148,30 @@
   }
 </script>
 
-<div class={$darkMode.isActive ? 'dark' : ''}>
-  <div class="fixed z-20 rounded-b-full rounded-t-full bg-opacity-80
+<div class="{$darkMode.isActive ? 'dark' : ''}">
+  <div
+    class="fixed z-20 rounded-b-full rounded-t-full bg-opacity-80
     bottom-2 lg:bottom-6
     right-2 lg:right-6
-    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas "
+    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
-    <div class="flex flex-col space-y-2
+    <div
+      class="flex flex-col space-y-2
       scale-75 lg:scale-100"
     >
-      <ZoomButtons {zoomUpdate}/>
+      <ZoomButtons {zoomUpdate} />
     </div>
   </div>
-  <div class="flex
-    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+  <div
+    class="flex
+    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  >
     <aside class="h-screen sticky top-0">
       <SlideshowOverviewLeftPanel
         {isQuestionsVisible}
         {isCorrectionVisible}
-        currentVue={currentSeriesIndex}
-        nbOfVues={nbVues}
+        currentVue="{currentSeriesIndex}"
+        nbOfVues="{nbVues}"
         {setCurrentVue}
         {setQuestionsVisible}
         {setCorrectionVisible}
@@ -154,10 +180,11 @@
         {backToSettings}
       />
     </aside>
-    <main class="flex flex-row p-2
+    <main
+      class="flex flex-row p-2
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
       text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-      bind:this={divExercice}
+      bind:this="{divExercice}"
     >
       <SlideshowOverviewMainPanel
         {isQuestionsVisible}

@@ -3,7 +3,7 @@ import SuperFigure from 'apigeom'
 /**
  * wrapper des figures provenant de Apigeom, transformer en mathalea2d pour gérer le zoom
  */
-export function wrapperApigeomToMathalea (figure : SuperFigure) {
+export function wrapperApigeomToMathalea(figure: SuperFigure) {
   figure.divFigure.classList.add('svgContainer')
   figure.divFigure.querySelector('svg')?.classList.add('mathalea2d')
   for (const di of figure.divFigure.querySelectorAll('div')) {

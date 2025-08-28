@@ -5,7 +5,10 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 
@@ -34,12 +37,16 @@ export const uuid = '612a5'
 
 export const refs = {
   'fr-fr': ['2S10-2', 'BP2SP8'],
-  'fr-ch': ['9NO14-8']
+  'fr-ch': ['9NO14-8'],
 }
 export default class Proportions extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer l\'effectif d\'une sous-population \n2 : Calculer une proportion en pourcentage\n3 : Calculer l\'effectif de la population totale \n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      "1 : Déterminer l'effectif d'une sous-population \n2 : Calculer une proportion en pourcentage\n3 : Calculer l'effectif de la population totale \n4 : Mélange",
+    ]
 
     this.nbQuestions = 2
 
@@ -48,8 +55,12 @@ export default class Proportions extends Exercice {
     this.spacingCorr = 2
   }
 
-  nouvelleVersion () {
-    let typesDeQuestionsDisponibles: ('sous-population' | 'proportion' | 'population-totale')[] = []
+  nouvelleVersion() {
+    let typesDeQuestionsDisponibles: (
+      | 'sous-population'
+      | 'proportion'
+      | 'population-totale'
+    )[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['sous-population']
     }
@@ -60,14 +71,29 @@ export default class Proportions extends Exercice {
       typesDeQuestionsDisponibles = ['population-totale']
     }
     if (this.sup === 4) {
-      typesDeQuestionsDisponibles = ['sous-population', 'proportion', 'population-totale']
+      typesDeQuestionsDisponibles = [
+        'sous-population',
+        'proportion',
+        'population-totale',
+      ]
     }
-    const situationsDisponibles = ['spectacle', 'cadeau', 'réserve', 'entreprise']//
+    const situationsDisponibles = [
+      'spectacle',
+      'cadeau',
+      'réserve',
+      'entreprise',
+    ] //
     // const situationsDisponibles = ['cadeau'] pour test de chaque situation
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const typesDeSituations = combinaisonListes(
+      situationsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let prénom, espèces
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let totale: number
       let taux: number
       let p: number
@@ -114,7 +140,8 @@ export default class Proportions extends Exercice {
                 case 2:
                   texte = `$${texNombre(totale, 0)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes majeures dans le public.`
                   texteCorr = `${context.isHtml ? '<br>' : ''}On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
-                  texteCorr += 'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
+                  texteCorr +=
+                    'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
                   texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(1 - p, 4)} \\times ${texNombre(totale, 0)} = ${texNombre(sous2, 2)}$`
                   texteCorr += `<br>Il y a donc $${miseEnEvidence(texNombre(sous2, 2))}$ personnes majeures dans le public.`
@@ -146,7 +173,7 @@ export default class Proportions extends Exercice {
               break
           }
           break
-        case 'cadeau' :
+        case 'cadeau':
           switch (randint(1, 3)) {
             case 1:
               totale = 50 * randint(1, 3, 2)
@@ -165,7 +192,34 @@ export default class Proportions extends Exercice {
           p = taux / 100
           sous = p * totale
           sous2 = totale - sous
-          prénom = choice(['Frédéric', 'Brice', 'Marion', 'Christelle', 'Léo', 'Gabriel', 'Maël', 'Louise', 'Lina', 'Mia', 'Rose', 'Mohamed', 'Mehdi', 'Rayan', 'Karim', 'Yasmine', 'Noûr', 'Kaïs', 'Louna', 'Nora', 'Fatima', 'Nora', 'Nadia', 'Sohan', 'Timothée', 'Jamal'])
+          prénom = choice([
+            'Frédéric',
+            'Brice',
+            'Marion',
+            'Christelle',
+            'Léo',
+            'Gabriel',
+            'Maël',
+            'Louise',
+            'Lina',
+            'Mia',
+            'Rose',
+            'Mohamed',
+            'Mehdi',
+            'Rayan',
+            'Karim',
+            'Yasmine',
+            'Noûr',
+            'Kaïs',
+            'Louna',
+            'Nora',
+            'Fatima',
+            'Nora',
+            'Nadia',
+            'Sohan',
+            'Timothée',
+            'Jamal',
+          ])
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${taux}~\\%$ du prix total. <br>Combien ai-je donné pour le cadeau de ${prénom} ?`
@@ -198,7 +252,7 @@ export default class Proportions extends Exercice {
               break
           }
           break
-        case 'réserve' :
+        case 'réserve':
           switch (randint(1, 3)) {
             case 1:
               totale = 50 * randint(10, 60)
@@ -218,7 +272,11 @@ export default class Proportions extends Exercice {
           sous = p * totale
           sous2 = totale - sous
           // espèce = choice(['pic noir', 'pipit farlouse', 'bruant des roseaux']) au singulier, inutile à priori
-          espèces = choice(['pics noirs', 'pipits farlouse', 'bruants des roseaux'])
+          espèces = choice([
+            'pics noirs',
+            'pipits farlouse',
+            'bruants des roseaux',
+          ])
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${taux}~\\%$ de ${espèces}.<br>Quel est le nombre de ${espèces} ?`
@@ -254,7 +312,7 @@ export default class Proportions extends Exercice {
           }
           break
 
-        case 'entreprise' :
+        case 'entreprise':
         default:
           switch (randint(1, 3)) {
             case 1:
@@ -315,9 +373,18 @@ export default class Proportions extends Exercice {
         // @ts-expect-error
         this.autoCorrection[i].reponse.texte = '\\\\En \\% : '
       }
-      texte += ajouteChampTexteMathLive(this, i, '', { texteApres: listeTypeDeQuestions[i] === 'proportion' ? ' %' : (typesDeSituations[i] === 'cadeau' && listeTypeDeQuestions[i] !== 'proportion' ? '€' : '') })
+      texte += ajouteChampTexteMathLive(this, i, '', {
+        texteApres:
+          listeTypeDeQuestions[i] === 'proportion'
+            ? ' %'
+            : typesDeSituations[i] === 'cadeau' &&
+                listeTypeDeQuestions[i] !== 'proportion'
+              ? '€'
+              : '',
+      })
 
-      if (this.questionJamaisPosee(i, taux, totale, sous)) { // on utilise donc cette fonction basée sur les variables aléatoires pour éviter les doublons
+      if (this.questionJamaisPosee(i, taux, totale, sous)) {
+        // on utilise donc cette fonction basée sur les variables aléatoires pour éviter les doublons
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

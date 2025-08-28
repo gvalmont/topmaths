@@ -2,7 +2,11 @@ import { engrenages } from '../../../lib/2d/engrenage'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ppcm } from '../../../lib/outils/primalite'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
@@ -10,7 +14,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'c6a37'
 export const refs = {
   'fr-fr': ['3A1QCM-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,8 +29,12 @@ export const dateDePublication = '05/12/2024'
  * Il est interactif et dispose d'un export AMC d'office
  */
 export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
-  private appliquerLesValeurs (nb1: number, nb2:number, nbTours:number) : void {
-    const engins = engrenages({ dureeTourBase: 0, module: 0.5, marqueurs: false }, nb1, nb2)
+  private appliquerLesValeurs(nb1: number, nb2: number, nbTours: number): void {
+    const engins = engrenages(
+      { dureeTourBase: 0, module: 0.5, marqueurs: false },
+      nb1,
+      nb2,
+    )
     for (const roue of engins) {
       roue.couleurDeRemplissage = colorToLatexOrHTML('gray')
       roue.marqueurD = false
@@ -44,9 +52,14 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     this.reponses = [
       `${nbToursGrandeRoue} tours`,
       `${nbTours} tours`,
-      `${nbToursGrandeRoue * 2} tours`
+      `${nbToursGrandeRoue * 2} tours`,
     ]
-    const figure = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures([engins, texte1, texte2])), engins, texte1, texte2)
+    const figure = mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures([engins, texte1, texte2])),
+      engins,
+      texte1,
+      texte2,
+    )
     this.enonce = `Voici un engrenage :<br>
     ${figure}${context.isHtml ? '' : '\n\n'}
     Si la petite roue effectue exactement $${nbTours}$ tours, combien de tours complets effectue la grande roue ?`
@@ -75,7 +88,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < nbReponses)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

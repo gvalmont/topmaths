@@ -16,23 +16,27 @@ export const uuid = '3c064'
 
 export const refs = {
   'fr-fr': ['can3C10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EncadrementAvecPuissancesDe10 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a
     const choix = choice(['$a$', '$b$'])
     switch (choice(['a', 'b', 'c', 'd', 'e'])) {
       case 'a':
-
-        a = randint(2, 9) * 10 ** 4 + randint(1, 9) * 10 ** 3 + randint(1, 9) * 10 ** 2 + randint(1, 9) * 10 + randint(1, 9)
+        a =
+          randint(2, 9) * 10 ** 4 +
+          randint(1, 9) * 10 ** 3 +
+          randint(1, 9) * 10 ** 2 +
+          randint(1, 9) * 10 +
+          randint(1, 9)
         this.question = `L'encadrement de $${texNombre(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombre(a)}<10^b$.<br>
   
         Quelle est la valeur de ${choix} ?
@@ -49,7 +53,13 @@ export default class EncadrementAvecPuissancesDe10 extends ExerciceSimple {
         break
 
       case 'b':
-        a = randint(2, 9) * 10 ** 5 + randint(1, 9) * 10 ** 4 + randint(1, 9) * 10 ** 3 + randint(1, 9) * 10 ** 2 + randint(1, 9) * 10 + randint(1, 9)
+        a =
+          randint(2, 9) * 10 ** 5 +
+          randint(1, 9) * 10 ** 4 +
+          randint(1, 9) * 10 ** 3 +
+          randint(1, 9) * 10 ** 2 +
+          randint(1, 9) * 10 +
+          randint(1, 9)
         this.question = `L'encadrement de $${texNombre(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombre(a)}<10^b$.<br>
       
         Quelle est la valeur de ${choix} ?
@@ -115,7 +125,7 @@ export default class EncadrementAvecPuissancesDe10 extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

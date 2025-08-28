@@ -39,18 +39,18 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
   figures: Figure[] = []
   pointsA: Point[] = []
   pointsB: Point[] = []
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1 // On complète le nb de questions
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.figures = []
 
     const textO = latex2d('\\text{O}', -0.3, -0.3, {
       letterSize: 'scriptsize',
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const xA = randint(-3, 3)
       const yA = randint(-2, 2)
       const A = point(xA, yA, 'A')
@@ -70,7 +70,7 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
         ordonnéeOrigine * coeffMult,
       ]
 
-      function makeEquation (x: string | number, y: string) {
+      function makeEquation(x: string | number, y: string) {
         // Version LaTeX propre de l'équation
         let equation = ''
         if (coeffs[0] === 0) {
@@ -78,11 +78,11 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
         } else {
           if (typeof x === 'number') {
             equation = `${coeffs[0]}\\times ${ecritureParentheseSiMoins(x)}${ecritureAlgebriqueSauf1(
-              coeffs[1]
+              coeffs[1],
             )}${y}`
           } else {
             equation = `${rienSi1(coeffs[0])}${x}${ecritureAlgebriqueSauf1(
-              coeffs[1]
+              coeffs[1],
             )}${y}`
           }
         }
@@ -130,16 +130,19 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
       }
       const ordonnéeA = new FractionEtendue(
         coeffs[2] - coeffs[0] * xA,
-        coeffs[1]
+        coeffs[1],
       )
-      texteCorr = `Dans l'équation cartésienne, on remplace $x$ par une valeur au choix, disons $${xA}$, et on en déduit la valeur de l'ordonnée : $${makeEquation(xA, 'y')}$, ce qui donne $y=\\dfrac{${coeffs[2]
-        }-${ecritureParentheseSiNegatif(coeffs[0])}\\times${ecritureParentheseSiNegatif(
-          xA
-        )}}{${coeffs[1]
-        }}=${ordonnéeA.texFraction}${ordonnéeA.texSimplificationAvecEtapes()}$.<br>`
+      texteCorr = `Dans l'équation cartésienne, on remplace $x$ par une valeur au choix, disons $${xA}$, et on en déduit la valeur de l'ordonnée : $${makeEquation(xA, 'y')}$, ce qui donne $y=\\dfrac{${
+        coeffs[2]
+      }-${ecritureParentheseSiNegatif(coeffs[0])}\\times${ecritureParentheseSiNegatif(
+        xA,
+      )}}{${
+        coeffs[1]
+      }}=${ordonnéeA.texFraction}${ordonnéeA.texSimplificationAvecEtapes()}$.<br>`
       texteCorr += `On peut donc placer le point $A$ de coordonnées $(${xA}\\,;\\,${yA})$.<br>`
       texteCorr += `Dans l'équation cartésienne, le coefficient de $x$ est $${coeffs[0]}$, et celui de $y$ est $${coeffs[1]}$. Notons le premier $a$, et le deuxième $b$.<br>`
-      texteCorr += 'On sait qu\'une droite d\'équation $ax+by=c$ admet pour vecteur directeur celui de coordonnées $\\begin{pmatrix}b\\\\-a\\end{pmatrix}$.<br>'
+      texteCorr +=
+        "On sait qu'une droite d'équation $ax+by=c$ admet pour vecteur directeur celui de coordonnées $\\begin{pmatrix}b\\\\-a\\end{pmatrix}$.<br>"
       texteCorr += `Un vecteur directeur de la droite $d$ (notons le $\\vec{u}$) est donc de coordonnées $\\begin{pmatrix}${vecteurDirecteur.x}\\\\${vecteurDirecteur.y}\\end{pmatrix}$.`
       if (pente === 0) {
         texteCorr += ' Donc la droite $(d)$ est horizontale.'
@@ -150,7 +153,7 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
             monRepere,
             droiteAB,
             marquePointA,
-            textO
+            textO,
           )
         }
       } else {
@@ -161,11 +164,11 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
             $
             \\begin{aligned}
             x_B-x_A=${vecteurDirecteur.x}&\\iff x_B = ${vecteurDirecteur.x}${ecritureAlgebrique(
-          A.x
-        )}=${C.x}\\\\
+              A.x,
+            )}=${C.x}\\\\
             y_B-y_A=${vecteurDirecteur.y}&\\iff y_B = ${vecteurDirecteur.y}${ecritureAlgebrique(
-          A.y
-        )}=${C.y}
+              A.y,
+            )}=${C.y}
             \\end{aligned}
             $
             <br>
@@ -181,7 +184,7 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
             droiteAB,
             marquePointA,
             marquePointC,
-            textO
+            textO,
           )
         }
       }
@@ -260,10 +263,10 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
     this.answers[figure.id] = figure.json
 
     const divFeedback = document.querySelector(
-      `#feedbackEx${this.numeroExercice}Q${i}`
+      `#feedbackEx${this.numeroExercice}Q${i}`,
     ) // Ne pas changer le nom du FeedBack, il est écrit en dur, ailleurs.
     const lines = [...figure.elements.values()].filter((e) =>
-      e.type.includes('Line')
+      e.type.includes('Line'),
     )
 
     const isValid = figure.checkLine({

@@ -27,12 +27,15 @@ export const uuid = 'f8f4e'
 
 export const refs = {
   'fr-fr': ['5N13'],
-  'fr-ch': ['9NO12-3']
+  'fr-ch': ['9NO12-3'],
 }
 export default class Exercice_fractions_simplifier extends Exercice {
-  constructor (max = 11) {
+  constructor(max = 11) {
     super()
-    this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99999]
+    this.besoinFormulaireNumerique = [
+      'Valeur maximale du facteur commun',
+      99999,
+    ]
     this.besoinFormulaire2CaseACocher = ['Simplification maximale exigée']
     this.besoinFormulaire3CaseACocher = ['QCM']
     this.sup = max // Correspond au facteur commun
@@ -41,15 +44,26 @@ export default class Exercice_fractions_simplifier extends Exercice {
     this.spacingCorr = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
-    this.amcType = this.sup3 ? (!this.sup2 ? 'qcmMult' : 'qcmMono') : (!this.sup2 ? 'AMCOpen' : 'AMCNum')
+    this.amcType = this.sup3
+      ? !this.sup2
+        ? 'qcmMult'
+        : 'qcmMono'
+      : !this.sup2
+        ? 'AMCOpen'
+        : 'AMCNum'
 
     this.consigne = this.sup3
       ? ''
-      : this.sup2 ? 'Simplifier les fractions suivantes au maximum.' : 'Simplifier les fractions suivantes.'
+      : this.sup2
+        ? 'Simplifier les fractions suivantes au maximum.'
+        : 'Simplifier les fractions suivantes.'
     if (this.nbQuestions === 1) {
-      this.consigne = this.consigne.replace('les fractions suivantes', 'la fraction suivante')
+      this.consigne = this.consigne.replace(
+        'les fractions suivantes',
+        'la fraction suivante',
+      )
     }
     const liste_fractions = [
       [1, 2],
@@ -82,11 +96,12 @@ export default class Exercice_fractions_simplifier extends Exercice {
       [1, 10],
       [3, 10],
       [7, 10],
-      [9, 10]
+      [9, 10],
     ] // Couples de nombres premiers entre eux
     for (
       let i = 0, cpt = 0, fraction, a, k, b, texte, texteCorr, reponse;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       if (liste_fractions.length === 0) break
       fraction = choice(liste_fractions) //
@@ -99,41 +114,73 @@ export default class Exercice_fractions_simplifier extends Exercice {
       const fractionInitale = new FractionEtendue(k * a, k * b).texFraction
       if (this.sup3) {
         texte = 'Parmi les fractions proposées ci-dessous, '
-        texte += (tabDiviseursDek.length > 2 && !this.sup2) ? 'lesquelles sont ' : 'laquelle est '
+        texte +=
+          tabDiviseursDek.length > 2 && !this.sup2
+            ? 'lesquelles sont '
+            : 'laquelle est '
         if (this.sup2) texte += 'la fraction la plus simplifiée de '
         else texte += 'une fraction simplifiée de '
         texte += `$${fractionInitale}$ ? `
       } else {
         texte =
-                '$ ' +
-                fractionInitale +
-                ' = ' +
-                texFractionFromString('\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots') +
-                ' = ' +
-                texFractionFromString('\\ldots\\ldots', '\\ldots\\ldots') +
-                ' $'
+          '$ ' +
+          fractionInitale +
+          ' = ' +
+          texFractionFromString(
+            '\\ldots\\ldots\\ldots\\ldots',
+            '\\ldots\\ldots\\ldots\\ldots',
+          ) +
+          ' = ' +
+          texFractionFromString('\\ldots\\ldots', '\\ldots\\ldots') +
+          ' $'
       }
       texteCorr = ''
       for (let ee = tabDiviseursDek.length - 2; ee >= 0; ee--) {
-        texteCorr += '$ ' +
-                fractionInitale +
-                ' = ' +
-                texFractionFromString(String(k / tabDiviseursDek[ee]) + ' \\times ' + String(a * tabDiviseursDek[ee]), String(k / tabDiviseursDek[ee]) + ' \\times ' + String(b * tabDiviseursDek[ee])) +
-                ' = ' +
-                (!this.sup2 || ee === 0 // On met tout en couleur qd on veut toutes les simplifications ou seulement la dernière si simplification maximale
-                  ? miseEnEvidence(new FractionEtendue(a * tabDiviseursDek[ee], b * tabDiviseursDek[ee]).texFraction)
-                  : new FractionEtendue(a * tabDiviseursDek[ee], b * tabDiviseursDek[ee]).texFraction
-                ) +
-                ' $<br>'
+        texteCorr +=
+          '$ ' +
+          fractionInitale +
+          ' = ' +
+          texFractionFromString(
+            String(k / tabDiviseursDek[ee]) +
+              ' \\times ' +
+              String(a * tabDiviseursDek[ee]),
+            String(k / tabDiviseursDek[ee]) +
+              ' \\times ' +
+              String(b * tabDiviseursDek[ee]),
+          ) +
+          ' = ' +
+          (!this.sup2 || ee === 0 // On met tout en couleur qd on veut toutes les simplifications ou seulement la dernière si simplification maximale
+            ? miseEnEvidence(
+                new FractionEtendue(
+                  a * tabDiviseursDek[ee],
+                  b * tabDiviseursDek[ee],
+                ).texFraction,
+              )
+            : new FractionEtendue(
+                a * tabDiviseursDek[ee],
+                b * tabDiviseursDek[ee],
+              ).texFraction) +
+          ' $<br>'
       }
       if (this.sup2 || this.interactifType === 'qcm') {
         reponse = new FractionEtendue(a, b)
       } else {
         reponse = new FractionEtendue(k * a, k * b)
       }
-      if (this.interactifType === 'qcm' || this.amcType === 'qcmMult' || this.amcType === 'qcmMono') {
-        let fractionsFausses = [[a, b - 1], [a, b + 1], [a + 1, b - 1], [a + 1, b], [a + 1, b + 1]]
-        if (a !== 1) fractionsFausses.push([a - 1, b - 1], [a - 1, b], [a - 1, b + 1])
+      if (
+        this.interactifType === 'qcm' ||
+        this.amcType === 'qcmMult' ||
+        this.amcType === 'qcmMono'
+      ) {
+        let fractionsFausses = [
+          [a, b - 1],
+          [a, b + 1],
+          [a + 1, b - 1],
+          [a + 1, b],
+          [a + 1, b + 1],
+        ]
+        if (a !== 1)
+          fractionsFausses.push([a - 1, b - 1], [a - 1, b], [a - 1, b + 1])
 
         fractionsFausses = shuffle(fractionsFausses)
         this.autoCorrection[i] = {
@@ -142,88 +189,149 @@ export default class Exercice_fractions_simplifier extends Exercice {
             {
               texte: '$' + reponse.toLatex() + '$',
               statut: true,
-              feedback: ''
+              feedback: '',
             },
             {
-              texte: '$' + new FractionEtendue(fractionsFausses[0][0], fractionsFausses[0][1]).toLatex() + '$',
+              texte:
+                '$' +
+                new FractionEtendue(
+                  fractionsFausses[0][0],
+                  fractionsFausses[0][1],
+                ).toLatex() +
+                '$',
               statut: false,
-              feedback: ''
+              feedback: '',
             },
             {
-              texte: '$' + new FractionEtendue(fractionsFausses[1][0], fractionsFausses[1][1]).toLatex() + '$',
+              texte:
+                '$' +
+                new FractionEtendue(
+                  fractionsFausses[1][0],
+                  fractionsFausses[1][1],
+                ).toLatex() +
+                '$',
               statut: false,
-              feedback: ''
+              feedback: '',
             },
             {
-              texte: '$' + new FractionEtendue(fractionsFausses[2][0], fractionsFausses[2][1]).toLatex() + '$',
+              texte:
+                '$' +
+                new FractionEtendue(
+                  fractionsFausses[2][0],
+                  fractionsFausses[2][1],
+                ).toLatex() +
+                '$',
               statut: false,
-              feedback: ''
+              feedback: '',
             },
             {
               texte: '$' + new FractionEtendue(a * k, b).toLatex() + '$',
               statut: false,
-              feedback: ''
+              feedback: '',
             },
             {
               texte: '$' + new FractionEtendue(a, b * k).toLatex() + '$',
               statut: false,
-              feedback: ''
-            }
-
+              feedback: '',
+            },
           ],
           options: {
-            ordered: false // (true si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
-          }
+            ordered: false, // (true si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
+          },
         }
         if (tabDiviseursDek.length > 2) {
           const choixDiviseurDek = choice(tabDiviseursDek, [1, k])
-          const denSimplifie = a * k / choixDiviseurDek
-          const numSimplifie = b * k / choixDiviseurDek
+          const denSimplifie = (a * k) / choixDiviseurDek
+          const numSimplifie = (b * k) / choixDiviseurDek
           // @ts-expect-error
           this.autoCorrection[i].propositions[3] = {
-            texte: '$' + new FractionEtendue(denSimplifie, numSimplifie).toLatex() + '$',
+            texte:
+              '$' +
+              new FractionEtendue(denSimplifie, numSimplifie).toLatex() +
+              '$',
             statut: !this.sup2,
-            feedback: ''
+            feedback: '',
           }
-          let fractionsFaussesSimplifiees = [[denSimplifie + 1, numSimplifie], [denSimplifie - 1, numSimplifie]]
-          fractionsFaussesSimplifiees.push([denSimplifie, numSimplifie + 1], [denSimplifie, numSimplifie - 1])
+          let fractionsFaussesSimplifiees = [
+            [denSimplifie + 1, numSimplifie],
+            [denSimplifie - 1, numSimplifie],
+          ]
+          fractionsFaussesSimplifiees.push(
+            [denSimplifie, numSimplifie + 1],
+            [denSimplifie, numSimplifie - 1],
+          )
           fractionsFaussesSimplifiees = shuffle(fractionsFaussesSimplifiees)
           // @ts-expect-error
           this.autoCorrection[i].propositions[4] = {
-            texte: '$' + new FractionEtendue(fractionsFaussesSimplifiees[0][0], fractionsFaussesSimplifiees[0][1]).toLatex() + '$',
+            texte:
+              '$' +
+              new FractionEtendue(
+                fractionsFaussesSimplifiees[0][0],
+                fractionsFaussesSimplifiees[0][1],
+              ).toLatex() +
+              '$',
             statut: false,
-            feedback: ''
+            feedback: '',
           }
           // @ts-expect-error
           this.autoCorrection[i].propositions[5] = {
-            texte: '$' + new FractionEtendue(fractionsFaussesSimplifiees[1][0], fractionsFaussesSimplifiees[1][1]).toLatex() + '$',
+            texte:
+              '$' +
+              new FractionEtendue(
+                fractionsFaussesSimplifiees[1][0],
+                fractionsFaussesSimplifiees[1][1],
+              ).toLatex() +
+              '$',
             statut: false,
-            feedback: ''
+            feedback: '',
           }
         }
         const monQcm = propositionsQcm(this, i) // Les deux paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice.
-        if (this.interactif && this.interactifType === 'qcm') texte += monQcm.texte
-        if (!this.interactif && this.sup3 && !context.isAmc) texte += monQcm.texte
+        if (this.interactif && this.interactifType === 'qcm')
+          texte += monQcm.texte
+        if (!this.interactif && this.sup3 && !context.isAmc)
+          texte += monQcm.texte
       } else {
-        texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction')
-        if (this.amcType === 'AMCOpen') this.autoCorrection[i] = { enonce: `Simplfier $${fractionInitale}$ en détaillant la simplification.`, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
-        if (this.amcType === 'AMCNum' && context.isAmc) texte = `Simplifier, de façon maximale, $${fractionInitale}$.`
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          '  clavierDeBaseAvecFraction',
+        )
+        if (this.amcType === 'AMCOpen')
+          this.autoCorrection[i] = {
+            enonce: `Simplfier $${fractionInitale}$ en détaillant la simplification.`,
+            propositions: [{ texte: texteCorr, statut: 1, feedback: '' }],
+          }
+        if (this.amcType === 'AMCNum' && context.isAmc)
+          texte = `Simplifier, de façon maximale, $${fractionInitale}$.`
       }
-      if ((this.interactif && context.isHtml) || this.sup3) texte = texte.replace(' \\dfrac{\\ldots\\ldots\\ldots\\ldots}{\\ldots\\ldots\\ldots\\ldots} = \\dfrac{\\ldots\\ldots}{\\ldots\\ldots}', '')
+      if ((this.interactif && context.isHtml) || this.sup3)
+        texte = texte.replace(
+          ' \\dfrac{\\ldots\\ldots\\ldots\\ldots}{\\ldots\\ldots\\ldots\\ldots} = \\dfrac{\\ldots\\ldots}{\\ldots\\ldots}',
+          '',
+        )
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         if (this.interactifType === 'mathLive' || this.amcType === 'AMCNum') {
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: this.sup2, fractionSimplifiee: !this.sup2 } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse.toLatex(),
+              options: {
+                fractionIrreductible: this.sup2,
+                fractionSimplifiee: !this.sup2,
+              },
+            },
+          })
           if (context.isAmc) {
             texte = 'Simplifier la fraction suivante au maximum.\\\\\n' + texte
             this.autoCorrection[i] = {
               enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
               propositions: [
                 {
-                  texte: '' // Si vide, le texte est la correction de l'exercice.
-                }
+                  texte: '', // Si vide, le texte est la correction de l'exercice.
+                },
               ],
               reponse: {
                 // @ts-expect-error
@@ -231,9 +339,9 @@ export default class Exercice_fractions_simplifier extends Exercice {
                 param: {
                   digits: 4,
                   digitsNum: 2,
-                  digitsDen: 2
-                }
-              }
+                  digitsDen: 2,
+                },
+              },
             }
           }
         }

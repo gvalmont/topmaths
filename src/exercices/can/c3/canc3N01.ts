@@ -20,17 +20,17 @@ export const uuid = 'f7ad2'
 
 export const refs = {
   'fr-fr': ['canc3N01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EcritureDeNombreEntier extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const a = randint(1, 9)
       const b = randint(1, 9, a)
       const c = randint(1, 9, [a, b])
@@ -61,17 +61,17 @@ export default class EcritureDeNombreEntier extends Exercice {
         propositions: [
           {
             texte: nombreEnLettres(n1),
-            statut: true
+            statut: true,
           },
           {
             texte: nombreEnLettres(n2),
-            statut: false
+            statut: false,
           },
           {
             texte: nombreEnLettres(n3),
-            statut: false
-          }
-        ]
+            statut: false,
+          },
+        ],
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
@@ -79,7 +79,7 @@ export default class EcritureDeNombreEntier extends Exercice {
       }
       const texteCorr = `$${texNombre(n1)}$ s'écrit ${nombreEnLettres(n1)}.`
       if (this.listeQuestions.indexOf(texte) === -1) {
-      // Si la question n'a jamais été posée, on en crée une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

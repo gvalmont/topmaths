@@ -2,12 +2,15 @@ import { courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
+import {
+  premierMultipleInferieur,
+  premierMultipleSuperieur,
+} from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-export const titre = 'Représentation graphique d\'un polynôme du second degré'
+export const titre = "Représentation graphique d'un polynôme du second degré"
 
 /**
  * @author Jean-Léon Henry (modifié par EE pour corriger exo et remplacer Repere et Courbe par Repere2 et Courbe2 (juillet 2022))
@@ -22,18 +25,22 @@ export const uuid = 'a896e'
 
 export const refs = {
   'fr-fr': ['1AL23-50'],
-  'fr-ch': ['1mF3-1']
+  'fr-ch': ['1mF3-1'],
 }
 export default class LireElementsCarac extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Signe du coefficient dominant\n2 : Racines\n3 : Coordonnées du sommet\n4 : Mélange des trois type de questions']
+    this.besoinFormulaireNumerique = [
+      'Type de questions ',
+      4,
+      '1 : Signe du coefficient dominant\n2 : Racines\n3 : Coordonnées du sommet\n4 : Mélange des trois type de questions',
+    ]
 
     this.nbQuestions = 5 // Nombre de questions par défaut
     this.sup = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = 'Répondre à '
     this.consigne += this.nbQuestions > 1 ? 'ces questions' : 'cette question'
     this.consigne += ' par lecture graphique.'
@@ -42,10 +49,16 @@ export default class LireElementsCarac extends Exercice {
     if (this.sup < 4) typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else typesDeQuestionsDisponibles = [1, 2, 3]
     const fName = []
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    let Ymin; let Yscale; let Ymax
-    let Xmin; let Xmax
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    let Ymin
+    let Yscale
+    let Ymax
+    let Xmin
+    let Xmax
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       fName.push(lettreMinusculeDepuisChiffre(i + 6))
       let texteCorr = ''
       let texte = ''
@@ -64,7 +77,7 @@ export default class LireElementsCarac extends Exercice {
           do {
             x1 = randint(-10, 10)
             x2 = randint(-10, 10, x1)
-          } while (x1 * x2 > 0)// Flemme de coder la gestion d'une racine double
+          } while (x1 * x2 > 0) // Flemme de coder la gestion d'une racine double
           // On fabrique les coeffs à partir des racines
           b = -a * (x1 + x2)
           c = x1 * x2 * a
@@ -108,7 +121,7 @@ export default class LireElementsCarac extends Exercice {
        *    deux racines dans [-9;9]
        * Q3 :
        *    le sommet dans le carré [-9;9]²
-      */
+       */
 
       if (listeTypeDeQuestions[i] === 3) {
         Xmin = alpha - 5
@@ -128,7 +141,9 @@ export default class LireElementsCarac extends Exercice {
       }
 
       if (Ymax - Ymin < 10) Yscale = 2
-      else Yscale = Math.max(1, Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5) * 2
+      else
+        Yscale =
+          Math.max(1, Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5) * 2
       if (listeTypeDeQuestions[i] === 3) {
         // Nécessaire pour permettre la lecture graphique
         Yscale = 1
@@ -141,25 +156,34 @@ export default class LireElementsCarac extends Exercice {
         yUnite: 1 / Yscale,
         yThickDistance: Yscale,
         grilleYDistance: Yscale,
-        yLabelEcart: 0.8
+        yLabelEcart: 0.8,
       })
 
       const svgYmin = Math.min(Ymin / Yscale, -1)
       const svgYmax = Math.max(Ymax / Yscale, 1)
 
-      const F = (x:number) => a * x ** 2 + b * x + c
+      const F = (x: number) => a * x ** 2 + b * x + c
       const objets = [
         r,
-        courbe(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 })
+        courbe(F, {
+          repere: r,
+          xMin: Xmin,
+          xMax: Xmax,
+          color: 'blue',
+          epaisseur: 1.5,
+        }),
       ]
-      texte += mathalea2d({
-        xmin: Xmin - 1,
-        xmax: Xmax + 1,
-        ymin: svgYmin,
-        ymax: svgYmax + 2,
-        pixelsParCm,
-        scale: 0.6
-      }, objets)
+      texte += mathalea2d(
+        {
+          xmin: Xmin - 1,
+          xmax: Xmax + 1,
+          ymin: svgYmin,
+          ymax: svgYmax + 2,
+          pixelsParCm,
+          scale: 0.6,
+        },
+        objets,
+      )
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte

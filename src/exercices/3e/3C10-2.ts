@@ -8,10 +8,10 @@ export const amcType = 'AMCNum'
 export const uuid = '379cd'
 export const refs = {
   'fr-fr': ['3C10-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PuissancesDunRelatif13e extends PuissancesDunRelatif1 {
-  constructor () {
+  constructor() {
     super()
     this.classe = 3
   }

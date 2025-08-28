@@ -32,17 +32,26 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
         updateFigures(svgContainer, zoom)
       }
     }
-    if (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth) {
+    if (
+      parent.firstElementChild.scrollHeight > originalClientHeight ||
+      parent.firstElementChild.scrollWidth > originalClientWidth
+    ) {
       zoom -= 0.2
       if (zoom >= 1) parent.style.fontSize = `${zoom}rem`
     }
-  } while (zoom > 0.6 && (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth))
+  } while (
+    zoom > 0.6 &&
+    (parent.firstElementChild.scrollHeight > originalClientHeight ||
+      parent.firstElementChild.scrollWidth > originalClientWidth)
+  )
 }
 // Pour les schémas en boite
 
-function resizeSchemaContainer (schemaContainer: HTMLElement, zoom: number) {
-  const originalWidth = schemaContainer.dataset.originalWidth || schemaContainer.offsetWidth
-  const originalHeight = schemaContainer.dataset.originalHeight || schemaContainer.offsetHeight
+function resizeSchemaContainer(schemaContainer: HTMLElement, zoom: number) {
+  const originalWidth =
+    schemaContainer.dataset.originalWidth || schemaContainer.offsetWidth
+  const originalHeight =
+    schemaContainer.dataset.originalHeight || schemaContainer.offsetHeight
 
   // Store the original dimensions if not already stored
   if (!schemaContainer.dataset.originalWidth) {
@@ -60,7 +69,7 @@ function resizeSchemaContainer (schemaContainer: HTMLElement, zoom: number) {
   schemaContainer.style.width = `${Math.round(parseFloat(String(originalWidth)) * zoom)}px`
 }
 
-export function resizeContent (container: HTMLElement | null, zoom: number) {
+export function resizeContent(container: HTMLElement | null, zoom: number) {
   const ZOOM_MIN = 0.2
   if (!container) return
   // mathalea2d
@@ -82,38 +91,53 @@ export function resizeContent (container: HTMLElement | null, zoom: number) {
     }
   }
   // Schémas en boite
-  const schemaContainers = container.getElementsByClassName('SchemaContainer') ?? []
+  const schemaContainers =
+    container.getElementsByClassName('SchemaContainer') ?? []
   for (const schemaContainer of schemaContainers) {
-    resizeSchemaContainer(schemaContainer as HTMLElement, Math.max(zoom, ZOOM_MIN))
+    resizeSchemaContainer(
+      schemaContainer as HTMLElement,
+      Math.max(zoom, ZOOM_MIN),
+    )
   }
   // Texte
   container.style.fontSize = `${Math.max(zoom, ZOOM_MIN)}rem`
 }
 
-export function updateFigures (svgContainer: Element, zoom: number) {
+export function updateFigures(svgContainer: Element, zoom: number) {
   const svgDivs = svgContainer.querySelectorAll<SVGElement>('.mathalea2d')
   for (const svgDiv of svgDivs) {
     if (svgDiv instanceof SVGElement) {
       const figure = svgDiv
       const width = figure.getAttribute('width')
       const height = figure.getAttribute('height')
-      if (!figure.dataset.widthInitiale && width != null) figure.dataset.widthInitiale = width
-      if (!figure.dataset.heightInitiale && height != null) figure.dataset.heightInitiale = height
-      const newHeight = (Number(figure.dataset.heightInitiale) * zoom).toString()
+      if (!figure.dataset.widthInitiale && width != null)
+        figure.dataset.widthInitiale = width
+      if (!figure.dataset.heightInitiale && height != null)
+        figure.dataset.heightInitiale = height
+      const newHeight = (
+        Number(figure.dataset.heightInitiale) * zoom
+      ).toString()
       const newWidth = (Number(figure.dataset.widthInitiale) * zoom).toString()
       if (newHeight !== height) {
-        figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
+        figure.setAttribute(
+          'height',
+          (Number(figure.dataset.heightInitiale) * zoom).toString(),
+        )
       }
       if (newWidth !== width) {
-        figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
+        figure.setAttribute(
+          'width',
+          (Number(figure.dataset.widthInitiale) * zoom).toString(),
+        )
       }
 
       // accorder la position des éléments dans la figure SVG
-      const eltsInVariationTables = svgContainer.getElementsByClassName('divLatex') ?? []
+      const eltsInVariationTables =
+        svgContainer.getElementsByClassName('divLatex') ?? []
       for (const elt of eltsInVariationTables) {
         const e = elt as HTMLDivElement
-        if (!e.dataset.top) e.dataset.top = (e.style.top.replace('px', ''))
-        if (!e.dataset.left) e.dataset.left = (e.style.left.replace('px', ''))
+        if (!e.dataset.top) e.dataset.top = e.style.top.replace('px', '')
+        if (!e.dataset.left) e.dataset.left = e.style.left.replace('px', '')
         const initialTop = Number(e.dataset.top)
         const initialLeft = Number(e.dataset.left)
         e.style.setProperty('top', (initialTop * zoom).toString() + 'px')
@@ -135,7 +159,10 @@ export function updateFigures (svgContainer: Element, zoom: number) {
  * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
  * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
  */
-export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1) => {
+export const resizeTags = (
+  tags: HTMLElement[] | SVGElement[],
+  factor: number = 1,
+) => {
   let widthUnit, heightUnit: string
   for (const tag of tags) {
     const widthAttributeExists: boolean = tag.hasAttribute('width')
@@ -148,15 +175,20 @@ export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1
         const width = tag.style.width
         const units = width.match(/\D/g) ?? []
         widthUnit = units.join('')
-        originalWidth = String(parseFloat(tag.style.width.replace(widthUnit, '')))
+        originalWidth = String(
+          parseFloat(tag.style.width.replace(widthUnit, '')),
+        )
       }
       tag.dataset.width = originalWidth ?? '50'
     }
-    if (!widthAttributeExists && tag.hasAttribute('data-width-unit') === false) {
+    if (
+      !widthAttributeExists &&
+      tag.hasAttribute('data-width-unit') === false
+    ) {
       tag.dataset.widthUnit = widthUnit
     }
     if (tag.hasAttribute('data-height') === false) {
-      let originalHeight:string | null
+      let originalHeight: string | null
       if (heightAttributeExists) {
         originalHeight = tag.getAttribute('height')
         heightUnit = 'px'
@@ -164,14 +196,19 @@ export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1
         const height = tag.style.height
         const units = height.match(/\D/g) ?? []
         heightUnit = units.join('')
-        originalHeight = String(parseFloat(tag.style.height.replace(heightUnit, '')))
+        originalHeight = String(
+          parseFloat(tag.style.height.replace(heightUnit, '')),
+        )
       }
       tag.dataset.height = originalHeight ?? '30'
     } else {
       heightUnit = 'px'
     }
 
-    if (!heightAttributeExists && tag.hasAttribute('data-height-unit') === false) {
+    if (
+      !heightAttributeExists &&
+      tag.hasAttribute('data-height-unit') === false
+    ) {
       tag.dataset.heightUnit = heightUnit
     }
     const w = Number(tag.getAttribute('data-width')) * factor
@@ -179,11 +216,25 @@ export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1
     if (widthAttributeExists && heightAttributeExists) {
       tag.setAttribute('width', String(w))
       tag.setAttribute('height', String(h))
-    } else { tag.setAttribute('style', 'width:' + String(w) + tag.dataset.widthUnit + '; height:' + String(h) + tag.dataset.heightUnit + ';') }
+    } else {
+      tag.setAttribute(
+        'style',
+        'width:' +
+          String(w) +
+          tag.dataset.widthUnit +
+          '; height:' +
+          String(h) +
+          tag.dataset.heightUnit +
+          ';',
+      )
+    }
   }
 }
 
-export const updateIframeSize = (container: HTMLDivElement, iframe: HTMLIFrameElement) => {
+export const updateIframeSize = (
+  container: HTMLDivElement,
+  iframe: HTMLIFrameElement,
+) => {
   if (container.offsetWidth !== 0) {
     iframe.setAttribute('width', '100%')
     iframe.setAttribute('height', iframe.offsetWidth * 0.75 + '')

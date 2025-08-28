@@ -14,10 +14,10 @@ export const uuid = 'fbaff'
 export const refs = {
   'fr-fr': ['6M1D-1'],
   'fr-2016': ['6M11-0'],
-  'fr-ch': ['9GM1-7', '10GM1-5']
+  'fr-ch': ['9GM1-7', '10GM1-5'],
 }
 export default class DecomposerFigureComplexe extends PerimetreOuAireDeFiguresComposees {
-  constructor () {
+  constructor() {
     super()
     this.sup3 = 1
     this.sup4 = 4

@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '2a856'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025CM12Q13 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,13 +26,15 @@ export default class Can2025CM12Q13 extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: 'dm.' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 10 : randint(1, 3) * 10
     const b = this.canOfficielle ? 3 : randint(2, 5)
-    this.reponse = texNombre(a * b / 10, 0)
+    this.reponse = texNombre((a * b) / 10, 0)
     this.question = `$${a}$ petites ficelles de longueur $${b}$ cm sont mises bout à bout.<br>
     On obtient une longueur de  `
-    if (!this.interactif) { this.question += '$\\ldots$ dm.' }
+    if (!this.interactif) {
+      this.question += '$\\ldots$ dm.'
+    }
     this.optionsChampTexte = { texteApres: ' dm.' }
     this.correction = ` La longueur totale est donnée par le produit du nombre de petites ficelles par la longueur d'une petite ficelle. <br>
     $${a}\\times ${b}=${a * b}$<br>

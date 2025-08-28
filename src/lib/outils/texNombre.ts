@@ -1,9 +1,7 @@
 import Decimal from 'decimal.js'
 import { evaluate, format, round } from 'mathjs'
 import { context } from '../../modules/context'
-import {
-  tropDeChiffres
-} from '../../modules/outils'
+import { tropDeChiffres } from '../../modules/outils'
 import { miseEnEvidence } from './embellissements'
 import { extraireRacineCarree } from './calculs'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres'
@@ -16,7 +14,7 @@ const math = { format, evaluate }
  * retourne le code Latex de la racine carrée de n réduite
  * @author Jean-CLaude Lhote
  */
-export function texRacineCarree (n: number) {
+export function texRacineCarree(n: number) {
   const result = extraireRacineCarree(n)
   if (result[1] === 1) return `${result[0]}`
   else if (result[0] === 1) return `\\sqrt{${result[1]}}`
@@ -31,17 +29,28 @@ export function texRacineCarree (n: number) {
  * @param {string} nul couleur si 0
  * @param {number} precision
  */
-export function texNombreCoul (nombre: number | Decimal, positif = 'green', negatif = 'red', nul = 'black', precision: number) {
+export function texNombreCoul(
+  nombre: number | Decimal,
+  positif = 'green',
+  negatif = 'red',
+  nul = 'black',
+  precision: number,
+) {
   if (typeof nombre === 'string') {
-    window.notify('texNombreCouleur appelé avec un string à la place d\'un nombre', { nombre })
+    window.notify(
+      "texNombreCouleur appelé avec un string à la place d'un nombre",
+      { nombre },
+    )
   }
   if (nombre instanceof Decimal) {
     if (nombre.isZero()) return miseEnEvidence(texNombre(0, precision), nul)
-    else if (nombre.isNeg()) return miseEnEvidence(texNombre(nombre, precision), negatif)
+    else if (nombre.isNeg())
+      return miseEnEvidence(texNombre(nombre, precision), negatif)
     else return miseEnEvidence(texNombre(nombre, precision), positif)
   } else {
     if (nombre > 0) return miseEnEvidence(texNombre(nombre, precision), positif)
-    else if (nombre < 0) return miseEnEvidence(texNombre(nombre, precision), negatif)
+    else if (nombre < 0)
+      return miseEnEvidence(texNombre(nombre, precision), negatif)
     else return miseEnEvidence(texNombre(0, precision), nul)
   }
 }
@@ -51,8 +60,11 @@ export function texNombreCoul (nombre: number | Decimal, positif = 'green', nega
  * @param {number} nb
  * @returns retourne un nombre au format français
  */
-export function numberFormat (nb: number) {
-  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
+export function numberFormat(nb: number) {
+  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 })
+    .format(nb)
+    .toString()
+    .replace(/\s+/g, '\\thickspace ')
 }
 
 /**
@@ -68,13 +80,26 @@ export function numberFormat (nb: number) {
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb: number | Decimal | FractionEtendue, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
+export function texNombre(
+  nb: number | Decimal | FractionEtendue,
+  precision = 8,
+  completerZeros = false,
+  aussiCompleterEntiers = false,
+) {
   // if (precision == null) window.notifyLocal('Il faut 2 arguments à texNombre ! La précision attendue est obligatoire !', { nombre: nb, precision })
   if (typeof nb === 'string') {
-    window.notify('texNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
+    window.notify("texNombre appelé avec un string à la place d'un nombre", {
+      nombre: nb,
+    })
     nb = Number(nb)
   }
-  const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
+  const result = afficherNombre(
+    nb,
+    precision,
+    'texNombre',
+    completerZeros,
+    aussiCompleterEntiers,
+  )
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
@@ -82,11 +107,20 @@ export function texNombre (nb: number | Decimal | FractionEtendue, precision = 8
  * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
  * @author Rémi Angot
  */
-export function texNombre2 (nb: number) {
+export function texNombre2(nb: number) {
   if (typeof nb === 'string') {
-    window.notify('texNombre2 appelé avec un string à la place d\'un nombre', { nombre: nb })
+    window.notify("texNombre2 appelé avec un string à la place d'un nombre", {
+      nombre: nb,
+    })
   }
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
+  let nombre = math
+    .format(nb, {
+      notation: 'auto',
+      lowerExp: -12,
+      upperExp: 12,
+      precision: 12,
+    })
+    .replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere
   if (rangVirgule !== -1) {
@@ -100,10 +134,12 @@ export function texNombre2 (nb: number) {
   }
 
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
+    partieEntiere =
+      partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
   for (let i = 3; i < partieDecimale.length; i += 5) {
-    partieDecimale = partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
+    partieDecimale =
+      partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
     i += 12
   }
   if (partieDecimale === '') {
@@ -121,11 +157,20 @@ export function texNombre2 (nb: number) {
  * @author Eric Elter d'après la fonction de Rémi Angot
  * Rajout Octobre 2021 pour 6C14
  */
-export function texNombre3 (nb: number) {
+export function texNombre3(nb: number) {
   if (typeof nb === 'string') {
-    window.notify('texNombre3 appelé avec un string à la place d\'un nombre', { nombre: nb })
+    window.notify("texNombre3 appelé avec un string à la place d'un nombre", {
+      nombre: nb,
+    })
   }
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
+  let nombre = math
+    .format(nb, {
+      notation: 'auto',
+      lowerExp: -12,
+      upperExp: 12,
+      precision: 12,
+    })
+    .replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere
   if (rangVirgule !== -1) {
@@ -139,10 +184,12 @@ export function texNombre3 (nb: number) {
   }
 
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + sp() + partieEntiere.substring(i)
+    partieEntiere =
+      partieEntiere.substring(0, i) + sp() + partieEntiere.substring(i)
   }
   for (let i = 3; i <= partieDecimale.length; i += 3) {
-    partieDecimale = partieDecimale.substring(0, i) + sp() + partieDecimale.substring(i)
+    partieDecimale =
+      partieDecimale.substring(0, i) + sp() + partieDecimale.substring(i)
     i += 12
   }
   if (partieDecimale === '') {
@@ -159,14 +206,17 @@ export function texNombre3 (nb: number) {
  * insereEspaceDansNombre fonctionne peut-être mieux
  * @author Rémi Angot
  */
-export function nombreAvecEspace (nb: number) {
+export function nombreAvecEspace(nb: number) {
   if (isNaN(nb)) {
     window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
     return 'NaN'
   }
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
-    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
+    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 })
+      .format(nb)
+      .toString()
+      .replace(/\s+/g, ' ')
   } else {
     let result
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
@@ -184,7 +234,7 @@ export function nombreAvecEspace (nb: number) {
  * @param {number} exp
  * @returns {string} Écriture décimale avec espaces
  */
-export function scientifiqueToDecimal (mantisse: number, exp: number) {
+export function scientifiqueToDecimal(mantisse: number, exp: number) {
   if (exp < -6) Decimal.set({ toExpNeg: exp - 1 })
   else if (exp > 20) Decimal.set({ toExpPos: exp + 1 })
   return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
@@ -202,14 +252,27 @@ export function scientifiqueToDecimal (mantisse: number, exp: number) {
  * @param {boolean?} aussiCompleterEntiers=false si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb: number | Decimal, precision?: number, completerZeros?:boolean, aussiCompleterEntiers?:boolean) {
+export function stringNombre(
+  nb: number | Decimal,
+  precision?: number,
+  completerZeros?: boolean,
+  aussiCompleterEntiers?: boolean,
+) {
   if (completerZeros === undefined) completerZeros = false
   if (aussiCompleterEntiers === undefined) aussiCompleterEntiers = false
   if (precision === undefined) precision = 8
   if (typeof nb === 'string') {
-    window.notify('stringNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
+    window.notify("stringNombre appelé avec un string à la place d'un nombre", {
+      nombre: nb,
+    })
   }
-  return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
+  return afficherNombre(
+    nb,
+    precision,
+    'stringNombre',
+    completerZeros,
+    aussiCompleterEntiers,
+  )
 }
 
 /**
@@ -224,7 +287,13 @@ export function stringNombre (nb: number | Decimal, precision?: number, complete
  * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
  * @param {boolean} aussiCompleterEntiers true si on veut ajouter des zéros inutiles aux entiers
  */
-function afficherNombre (nb: number | Decimal | FractionEtendue | string, precision: number, fonction: 'texNombre' | 'stringNombre', completerZeros = false, aussiCompleterEntiers: boolean) {
+function afficherNombre(
+  nb: number | Decimal | FractionEtendue | string,
+  precision: number,
+  fonction: 'texNombre' | 'stringNombre',
+  completerZeros = false,
+  aussiCompleterEntiers: boolean,
+) {
   /**
    * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
    * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
@@ -237,7 +306,12 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
    * @returns string avec le nombre dans le format français
    */
 
-  function insereEspacesNombre (nb: number | Decimal, nbChiffresPartieEntiere: number, precision: number, fonction: 'stringNombre' | 'texNombre') {
+  function insereEspacesNombre(
+    nb: number | Decimal,
+    nbChiffresPartieEntiere: number,
+    precision: number,
+    fonction: 'stringNombre' | 'texNombre',
+  ) {
     let signe
     let nombre
     const maximumSignificantDigits = nbChiffresPartieEntiere + precision
@@ -257,26 +331,42 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
           nombre = nb.toDP(precision).toString().replace('.', ',')
         }
       }
-    } else { // nb est un number
+    } else {
+      // nb est un number
       signe = nb < 0
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
-      if (Math.abs(nb) < 1) { // si il est < 1, on n'a pas à se préoccuper de savoir si il est entier pour aussiCompleterEntiers
+      if (Math.abs(nb) < 1) {
+        // si il est < 1, on n'a pas à se préoccuper de savoir si il est entier pour aussiCompleterEntiers
         if (completerZeros) {
           nombre = Intl.NumberFormat('fr-FR', {
             maximumFractionDigits: precision,
-            minimumFractionDigits: precision
+            minimumFractionDigits: precision,
           }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb).replaceAll(/\s+/g, ' ')
+          nombre = Intl.NumberFormat('fr-FR', {
+            maximumFractionDigits: precision,
+          })
+            .format(nb)
+            .replaceAll(/\s+/g, ' ')
         }
       } else {
-        if (completerZeros && ((aussiCompleterEntiers && Number.isInteger(nb)) || (!Number.isInteger(nb)))) {
+        if (
+          completerZeros &&
+          ((aussiCompleterEntiers && Number.isInteger(nb)) ||
+            !Number.isInteger(nb))
+        ) {
           nombre = Intl.NumberFormat('fr-FR', {
             maximumSignificantDigits,
-            minimumSignificantDigits: Math.min(maximumSignificantDigits, 15)
-          }).format(nb).replaceAll(/\s+/g, ' ')
+            minimumSignificantDigits: Math.min(maximumSignificantDigits, 15),
+          })
+            .format(nb)
+            .replaceAll(/\s+/g, ' ')
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits: Math.min(maximumSignificantDigits, 15) }).format(nb).replaceAll(/\s+/g, ' ')
+          nombre = Intl.NumberFormat('fr-FR', {
+            maximumSignificantDigits: Math.min(maximumSignificantDigits, 15),
+          })
+            .format(nb)
+            .replaceAll(/\s+/g, ' ')
         }
       }
     }
@@ -296,12 +386,21 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
     if (nb instanceof Decimal) {
       if (signe) partieEntiere = partieEntiere.substring(1)
       for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-        partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
+        partieEntiere =
+          partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
       }
       if (signe) partieEntiere = '-' + partieEntiere
     }
-    for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
-      partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
+    for (
+      let i = 3;
+      i < partieDecimale.length;
+      i += fonction === 'texNombre' ? 5 : 4
+    ) {
+      // des paquets de 3 nombres + 1 espace
+      partieDecimale =
+        partieDecimale.substring(0, i) +
+        (fonction === 'texNombre' ? '\\,' : ' ') +
+        partieDecimale.substring(i)
     }
     if (partieDecimale === '') {
       nombre = partieEntiere
@@ -337,7 +436,10 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
       // On a à faire à un number trop petit ou trop grand pour que l'algorithme classique fonctionne.
       // x.toFixed(18) ne contiendrait pas assez de chiffres significatifs
       // afficherNombre n'est pas prévu pour des nombres pareils sauf éventuellement au format Decimal
-      window.notify(`trouveLaPrecision de ${x} n'est pas possible : il ne peut pas être transformé en écriture décimale. Il faut adapter le code de l'exercice ou verifier que ce nombre n'est pas un bug`, { x })
+      window.notify(
+        `trouveLaPrecision de ${x} n'est pas possible : il ne peut pas être transformé en écriture décimale. Il faut adapter le code de l'exercice ou verifier que ce nombre n'est pas un bug`,
+        { x },
+      )
       return 10
     }
   }
@@ -351,27 +453,37 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
       if (nb !== '') {
         nb = new Decimal(nbFormatAnglais)
       } else {
-        window.notify(`TrouveLaPrecision : problème avec ce nombre : ${nb}`, { nb })
+        window.notify(`TrouveLaPrecision : problème avec ce nombre : ${nb}`, {
+          nb,
+        })
       }
     } else if (typeof nb !== 'number') {
-      window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, { nombreEntrant: nb })
+      window.notify(
+        `afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`,
+        { nombreEntrant: nb },
+      )
       nb = Number(nb)
       if (isNaN(nb)) {
-        window.notify('Et ce paramètre n\'est pas convertible en nombre ! il faut donc vérifier l\'exercice qui comporte un bug !', { nb })
+        window.notify(
+          "Et ce paramètre n'est pas convertible en nombre ! il faut donc vérifier l'exercice qui comporte un bug !",
+          { nb },
+        )
         nb = 0
       }
     }
   }
 
-  if (precision === undefined) { // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
+  if (precision === undefined) {
+    // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
     if (nb instanceof Decimal) {
-      precision = nb.e < 0 ? nb.precision() + (-nb.e) : nb.precision(true)
+      precision = nb.e < 0 ? nb.precision() + -nb.e : nb.precision(true)
     } else {
       if (Number.isInteger(nb)) {
         precision = 0
       } else {
         const ordreGrandeur = Math.round(Math.log10(Number(nb)))
-        if (ordreGrandeur < -10) { // ça veut dire que le nombre est trop insignifiant pour donner un résultat affiché convenable
+        if (ordreGrandeur < -10) {
+          // ça veut dire que le nombre est trop insignifiant pour donner un résultat affiché convenable
           precision = 0 // on retourne 0 pour avoir un arrondi à zéro !
         } else {
           precision = trouveLaPrecision(Number(nb))
@@ -381,7 +493,11 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
   }
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (Number.isNaN(nb) && !(nb instanceof Decimal)) {
-    window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
+    window.notify("AfficherNombre : Le nombre n'en est pas un", {
+      nb,
+      precision,
+      fonction,
+    })
     return ''
   }
   if (nb instanceof Decimal) {
@@ -395,22 +511,27 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
       nbChiffresPartieEntiere = nb.abs().floor().toFixed(0).length
     }
     if (nb.isInteger() && !aussiCompleterEntiers) precision = 0
-    else if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+    else if (typeof precision !== 'number') {
+      // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
       precision = 15 - nbChiffresPartieEntiere
     } else if (precision < 0) {
       precision = 0
     }
-  } else { // nb est un number
+  } else {
+    // nb est un number
     if (Math.abs(Number(nb)) < 1) {
       nbChiffresPartieEntiere = 0
     } else {
       // attention 9.7 donner 10 avec Math.abs(9.7).toFixed(0)
-      nbChiffresPartieEntiere = Math.floor(Math.abs(Number(nb))).toFixed(0).length
+      nbChiffresPartieEntiere = Math.floor(Math.abs(Number(nb))).toFixed(
+        0,
+      ).length
     }
     if (Number.isInteger(nb) && !completerZeros) {
       precision = 0
     } else {
-      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+      if (typeof precision !== 'number') {
+        // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
         precision = 15 - nbChiffresPartieEntiere
       } else if (precision < 0) {
         precision = 0
@@ -420,11 +541,26 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
 
-  if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
-    window.notify(fonction + ` : ${tropDeChiffres} le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un Decimal !`, { nb, precision })
-    return insereEspacesNombre(Number(nb), nbChiffresPartieEntiere, precision, fonction)
+  if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) {
+    // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
+    window.notify(
+      fonction +
+        ` : ${tropDeChiffres} le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un Decimal !`,
+      { nb, precision },
+    )
+    return insereEspacesNombre(
+      Number(nb),
+      nbChiffresPartieEntiere,
+      precision,
+      fonction,
+    )
   } else {
-    return insereEspacesNombre(Number(nb), nbChiffresPartieEntiere, precision, fonction)
+    return insereEspacesNombre(
+      Number(nb),
+      nbChiffresPartieEntiere,
+      precision,
+      fonction,
+    )
   }
 }
 
@@ -432,7 +568,7 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
  * Pour bien afficher les centimes avec 2 chiffres après la virgule
  * @author Rémi Angot
  */
-export function texPrix (nb: number | Decimal) {
+export function texPrix(nb: number | Decimal) {
   if (nb instanceof Decimal) {
     if (nb.isInteger()) return texNombre(nb, 0)
     else return texNombre(nb, 2, true)
@@ -459,7 +595,7 @@ export function texPrix (nb: number | Decimal) {
  *
  * @author Eric Elter
  */
-export function decimalToScientifique (nbDecimal: number) {
+export function decimalToScientifique(nbDecimal: number) {
   let exposant = 0
   let mantisseNb = new Decimal(nbDecimal)
   if (mantisseNb.abs().gte(10)) {
@@ -485,6 +621,6 @@ export function decimalToScientifique (nbDecimal: number) {
 
  * @author Rémi Angot
  */
-export function formatMinute (minute: number): string {
+export function formatMinute(minute: number): string {
   return minute < 10 ? `0${minute}` : minute.toString()
 }

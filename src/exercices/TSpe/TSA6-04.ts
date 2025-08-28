@@ -1,5 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -12,7 +16,7 @@ import ExerciceQcm from '../ExerciceQcm'
 export const uuid = 'c1209'
 export const refs = {
   'fr-fr': ['TSA6-04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -48,7 +52,7 @@ export default class Primitives extends ExerciceQcm {
     this.correction = correction
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

@@ -4,14 +4,27 @@ import {
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire,
   droiteVerticaleParPoint,
-  Droite
+  Droite,
 } from '../../lib/2d/droites'
 import { point, TracePoint, Point, pointSurDroite } from '../../lib/2d/points'
-import { colorToLatexOrHTML, mathalea2d, Vide2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  mathalea2d,
+  Vide2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { grille } from '../../lib/2d/reperes'
 import { egal, randint } from '../../modules/outils'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { labelPoint, latexParCoordonnees, LatexParCoordonnees } from '../../lib/2d/textes'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
+import {
+  labelPoint,
+  latexParCoordonnees,
+  LatexParCoordonnees,
+} from '../../lib/2d/textes'
 import { projectionOrtho, symetrieAxiale } from '../../lib/2d/transformations'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/angles'
@@ -35,7 +48,7 @@ export const uuid = '26ea4'
 export const refs = {
   'fr-fr': ['6G7A'],
   'fr-2016': ['6G24-0'],
-  'fr-ch': ['9ES6-11']
+  'fr-ch': ['9ES6-11'],
 }
 
 /**
@@ -43,7 +56,7 @@ export const refs = {
  * @param pointA
  * @param pointB
  */
-function positionneLabel (pointA: Point, pointB: Point) {
+function positionneLabel(pointA: Point, pointB: Point) {
   if (pointA.x < pointB.x) return 'above left'
   else if (pointA.x > pointB.x) return 'below right'
   else {
@@ -56,12 +69,31 @@ function positionneLabel (pointA: Point, pointB: Point) {
  * supprime les points hors cadre
  * @param points
  */
-function deletePoints (points: { x: number, y: number }[], type : number) {
-  const newPoints: { x: number, y: number }[] = []
-  const typeV = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 1, y: -1 }]
+function deletePoints(points: { x: number; y: number }[], type: number) {
+  const newPoints: { x: number; y: number }[] = []
+  const typeV = [
+    { x: 1, y: 0 },
+    { x: 0, y: 1 },
+    { x: 1, y: 1 },
+    { x: 1, y: -1 },
+  ]
   for (const point of points) {
-    if (point.x >= -7.5 && point.x <= 7.5 && point.y >= -7.5 && point.y <= 7.5 && point.x !== point.y && point.x !== -point.y) {
-      if (!newPoints.some(e => (e.x === point.x && e.y === point.y) || typeV[type].x * point.x + typeV[type].y * point.y === typeV[type].x * e.x + typeV[type].y * e.y)) {
+    if (
+      point.x >= -7.5 &&
+      point.x <= 7.5 &&
+      point.y >= -7.5 &&
+      point.y <= 7.5 &&
+      point.x !== point.y &&
+      point.x !== -point.y
+    ) {
+      if (
+        !newPoints.some(
+          (e) =>
+            (e.x === point.x && e.y === point.y) ||
+            typeV[type].x * point.x + typeV[type].y * point.y ===
+              typeV[type].x * e.x + typeV[type].y * e.y,
+        )
+      ) {
         newPoints.push(point)
       }
     }
@@ -80,26 +112,35 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   labels!: string[][]
   d!: Line[]
   exoCustomResultat: boolean
-  constructor () {
+  constructor() {
     super()
     this.exoCustomResultat = true
     this.nbQuestions = 1
-    this.besoinFormulaireNumerique = ['Type d\'axes', 5, '1 : Axe horizontal\n2 : Axe vertical\n3 : Axe oblique /\n4 : Axe oblique \\\n5 : Mélange']
-    this.besoinFormulaire2Numerique = [
-      'Type d\'aide',
-      4,
-      'Quadrillages\nPerpendiculaires en pointillés\nMarques de compas\nAucune'
+    this.besoinFormulaireNumerique = [
+      "Type d'axes",
+      5,
+      '1 : Axe horizontal\n2 : Axe vertical\n3 : Axe oblique /\n4 : Axe oblique \\\n5 : Mélange',
     ]
-    this.besoinFormulaire3Numerique = ['Nombre de points à construire (5 maxi)', 5]
+    this.besoinFormulaire2Numerique = [
+      "Type d'aide",
+      4,
+      'Quadrillages\nPerpendiculaires en pointillés\nMarques de compas\nAucune',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Nombre de points à construire (5 maxi)',
+      5,
+    ]
     this.sup = 1
     this.sup2 = 1
     this.sup3 = 3
     this.nbPoints = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const marks: string[] = ['//', '///', 'x', 'O', '|||']
-    const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
+    const colors: string[] = context.isHtml
+      ? ['red', 'green', 'purple', 'blue', 'gray']
+      : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
 
     let choixDeLaxe: number[] = []
@@ -128,13 +169,13 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       middle.length = 0
       symetriques.length = 0
       antecedents.length = 0
-      let nuage: { x: number, y: number }[] = []
-      let nuageSaved: { x: number, y: number }[] = []
+      let nuage: { x: number; y: number }[] = []
+      let nuageSaved: { x: number; y: number }[] = []
       // On construit les points
       do {
         nuage = []
         for (let x = -4; x < 4; x += 1) {
-          nuage.push({ y: ((randint(1, 3) * 2) + 1) * choice([-0.5, 0.5]), x })
+          nuage.push({ y: (randint(1, 3) * 2 + 1) * choice([-0.5, 0.5]), x })
         }
         // On transforme les points en fonction du choix de l'axe
         if (choixDeLaxe[i] === 1) {
@@ -149,14 +190,14 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           for (let n = 0; n < nuage.length; n++) {
             nuage[n] = {
               x: Math.round(Math.sqrt(2) * (nuage[n].x - nuage[n].y)),
-              y: Math.round(Math.sqrt(2) * (nuage[n].x + nuage[n].y))
+              y: Math.round(Math.sqrt(2) * (nuage[n].x + nuage[n].y)),
             }
           }
         } else {
           for (let n = 0; n < nuage.length; n++) {
             nuage[n] = {
               x: Math.round(Math.sqrt(2) * (nuage[n].x + nuage[n].y)),
-              y: Math.round(Math.sqrt(2) * (nuage[n].y - nuage[n].x))
+              y: Math.round(Math.sqrt(2) * (nuage[n].y - nuage[n].x)),
             }
           }
         }
@@ -170,7 +211,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       // Maintenant, je les mets dans l'ordre alphabétique pour faciliter l'interactivité
 
       // Les antécédents sont des points nommés
-      antecedents = shuffle(nuage).map((el, k) => point(el.x, el.y, this.labels[i][k])) // on mélange et on ne prendra que les nbPoints premiers
+      antecedents = shuffle(nuage).map((el, k) =>
+        point(el.x, el.y, this.labels[i][k]),
+      ) // on mélange et on ne prendra que les nbPoints premiers
       const O = point(0, 0, '', 'above')
 
       if (choixDeLaxe[i] === 1) {
@@ -188,14 +231,26 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
       const guideDroites = []
       for (let k = 0; k < this.nbPoints; k++) {
-        const guide = droiteParPointEtPerpendiculaire(antecedents[k], d[i]) as Droite
+        const guide = droiteParPointEtPerpendiculaire(
+          antecedents[k],
+          d[i],
+        ) as Droite
         guide.pointilles = 2
         guide.color = colorToLatexOrHTML(colors[k])
         guide.opacite = 0.8
         guideDroites.push(guide)
       }
-      enonce = `${this.sup2 === 1 ? 'Placer' : 'Construire'} le${this.nbPoints > 1 ? 's' : ''} symétrique${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join('\',') + '\'' : (this.labels[i][0] + '\' ')}$` + (this.nbPoints > 1 ? ` et $${this.labels[i][this.nbPoints - 1] + '\''}$` : '') + (this.nbPoints > 1 ? ' respectifs ' : '')
-      enonce += `${this.nbPoints > 1 ? ' des' : ' du'} point${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join(',') : (this.labels[i][0]) + '$ par rapport à la droite $(d).'}$` + (this.nbPoints > 1 ? ` et $${this.labels[i][this.nbPoints - 1]}$ par rapport à la droite $(d)$.<br>` : '<br>')
+      enonce =
+        `${this.sup2 === 1 ? 'Placer' : 'Construire'} le${this.nbPoints > 1 ? 's' : ''} symétrique${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join("',") + "'" : this.labels[i][0] + "' "}$` +
+        (this.nbPoints > 1
+          ? ` et $${this.labels[i][this.nbPoints - 1] + "'"}$`
+          : '') +
+        (this.nbPoints > 1 ? ' respectifs ' : '')
+      enonce +=
+        `${this.nbPoints > 1 ? ' des' : ' du'} point${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join(',') : this.labels[i][0] + '$ par rapport à la droite $(d).'}$` +
+        (this.nbPoints > 1
+          ? ` et $${this.labels[i][this.nbPoints - 1]}$ par rapport à la droite $(d)$.<br>`
+          : '<br>')
       const guidesArc = []
       for (let k = 0; k < this.nbPoints; k++) {
         symetriques[k] = symetrieAxiale(antecedents[k] as Point, d[i]) as Point
@@ -212,7 +267,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       if (this.sup2 === 1) {
         objets.push(grille(-8, -8, 8, 8, 'gray', 0.5, 1, 0))
       } else if (this.sup2 === 2) {
-        enonce += 'Les droites tracées en pointillés sont perpendiculaires à $(d)$.<br>'
+        enonce +=
+          'Les droites tracées en pointillés sont perpendiculaires à $(d)$.<br>'
         objets.push(...guideDroites)
       } else if (this.sup2 === 3) {
         enonce += 'Les cercles tracés en pointillés sont centrés sur $(d)$.<br>'
@@ -221,7 +277,11 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       objets.push(d[i], labelD)
       for (let k = 0; k < this.nbPoints; k++) {
         objets.push(new TracePoint(antecedents[k]))
-        const sym = symetrieAxiale(antecedents[k] as Point, d[i], (antecedents[k] as Point).nom + '\'') as Point
+        const sym = symetrieAxiale(
+          antecedents[k] as Point,
+          d[i],
+          (antecedents[k] as Point).nom + "'",
+        ) as Point
         sym.positionLabel = positionneLabel(sym, antecedents[k])
         antecedents[k].positionLabel = positionneLabel(antecedents[k], sym)
         const egalite = codageMilieu(antecedents[k], sym, colors[k], marks[k])
@@ -234,14 +294,14 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
       objetsCorrection = [...objets, ...objetsCorrection, ...guideDroites]
       if (this.sup2 === 2) {
-        guideDroites.forEach(guide => {
+        guideDroites.forEach((guide) => {
           guide.epaisseur = 1
           guide.opacite = 0.8
         })
         objetsCorrection.push(...guideDroites)
       }
       if (this.sup2 === 3) {
-        guidesArc.forEach(guide => {
+        guidesArc.forEach((guide) => {
           guide.epaisseur = 1
           guide.opacite = 0.8
         })
@@ -249,18 +309,55 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
       const pointSurD = pointSurDroite(d[i], 50, '', 'above')
       for (let k = 0; k < this.nbPoints; k++) {
-        const carre = codageAngleDroit(antecedents[k], middle[k], pointSurD, 'blue', 0.3, 0.5)
+        const carre = codageAngleDroit(
+          antecedents[k],
+          middle[k],
+          pointSurD,
+          'blue',
+          0.3,
+          0.5,
+        )
 
         objetsCorrection.push(carre)
       }
       const options = {}
-      if (this.sup2 === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
+      if (this.sup2 === 1)
+        Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
-        this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 600, height: 600 }))
-        this.figuresApiGeom[i].options.labelAutomaticBeginsWith = this.labels[i][0] + '\''
+        this.figuresApiGeom[i] = new Figure(
+          Object.assign(options, {
+            xMin: -10,
+            yMin: -10,
+            width: 600,
+            height: 600,
+          }),
+        )
+        this.figuresApiGeom[i].options.labelAutomaticBeginsWith =
+          this.labels[i][0] + "'"
         this.figuresApiGeom[i].scale = 0.5
-        this.figuresApiGeom[i].setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'DRAG', 'NAME_POINT', 'SHAKE', 'UNDO', 'REDO', 'REMOVE'], nbCols: 6, position: 'top' })
-        const O = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
+        this.figuresApiGeom[i].setToolbar({
+          tools: [
+            'POINT',
+            'POINT_ON',
+            'POINT_INTERSECTION',
+            'LINE_PERPENDICULAR',
+            'CIRCLE_CENTER_POINT',
+            'DRAG',
+            'NAME_POINT',
+            'SHAKE',
+            'UNDO',
+            'REDO',
+            'REMOVE',
+          ],
+          nbCols: 6,
+          position: 'top',
+        })
+        const O = this.figuresApiGeom[i].create('Point', {
+          x: 0,
+          y: 0,
+          isVisible: false,
+          isSelectable: false,
+        })
         let pointB
         if (choixDeLaxe[i] === 1) {
           pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: 0 })
@@ -275,41 +372,105 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         // L'axe de symétrie est fixe
         pointB.isFree = false
         O.isFree = false
-        this.d[i] = this.figuresApiGeom[i].create('Line', { point1: O, point2: pointB }) as Line
+        this.d[i] = this.figuresApiGeom[i].create('Line', {
+          point1: O,
+          point2: pointB,
+        }) as Line
         this.d[i].color = 'blue'
         this.d[i].thickness = 2
         const labelX = labelD.x
         const labelY = labelD.y
-        this.figuresApiGeom[i].create('TextByPosition', { text: '$(d)$', x: labelX, y: labelY })
+        this.figuresApiGeom[i].create('TextByPosition', {
+          text: '$(d)$',
+          x: labelX,
+          y: labelY,
+        })
         this.antecedents[i] = []
         for (let k = 0; k < this.nbPoints; k++) {
-          (this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isSelectable: true, isFree: false, label: antecedents[k].nom })
+          ;(this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[
+            i
+          ].create('Point', {
+            x: antecedents[k].x,
+            y: antecedents[k].y,
+            isSelectable: true,
+            isFree: false,
+            label: antecedents[k].nom,
+          })
         }
         if (this.sup2 === 1) {
-          this.figuresApiGeom[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
+          this.figuresApiGeom[i].create('Grid', {
+            xMin: -10,
+            yMin: -10,
+            xMax: 10,
+            yMax: 10,
+            stepX: 1,
+            stepY: 1,
+            color: 'gray',
+            axeX: false,
+            axeY: false,
+            labelX: false,
+            labelY: false,
+          })
         }
         if (this.sup2 === 2) {
           for (let k = 0; k < this.nbPoints; k++) {
-            this.figuresApiGeom[i].create('LinePerpendicular', { point: (this.antecedents[i][k] as PointApigeom), line: this.d[i], isDashed: true, color: 'gray' })
+            this.figuresApiGeom[i].create('LinePerpendicular', {
+              point: this.antecedents[i][k] as PointApigeom,
+              line: this.d[i],
+              isDashed: true,
+              color: 'gray',
+            })
           }
         }
         if (this.sup2 === 3) {
           for (let k = 0; k < this.nbPoints; k++) {
             this.figuresApiGeom[i].create('CircleCenterPoint', {
-              center: this.figuresApiGeom[i].create('Point', { isVisible: false, x: middle[k].x, y: middle[k].y }),
-              point: (this.antecedents[i][k] as PointApigeom),
+              center: this.figuresApiGeom[i].create('Point', {
+                isVisible: false,
+                x: middle[k].x,
+                y: middle[k].y,
+              }),
+              point: this.antecedents[i][k] as PointApigeom,
               isDashed: true,
-              color: 'gray'
+              color: 'gray',
             })
           }
         }
         // this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
-        const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], defaultAction: 'POINT' })
+        const emplacementPourFigure = figureApigeom({
+          exercice: this,
+          i,
+          figure: this.figuresApiGeom[i],
+          defaultAction: 'POINT',
+        })
         this.listeQuestions[i] = enonce + '<br><br>' + emplacementPourFigure
       } else {
-        this.listeQuestions[i] = enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets)
+        this.listeQuestions[i] =
+          enonce +
+          '<br><br>' +
+          mathalea2d(
+            {
+              xmin: -10,
+              xmax: 10,
+              ymin: -10,
+              ymax: 10,
+              scale: 0.5,
+              pixelsParCm: 15,
+            },
+            objets,
+          )
       }
-      this.listeCorrections[i] = mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objetsCorrection)
+      this.listeCorrections[i] = mathalea2d(
+        {
+          xmin: -10,
+          xmax: 10,
+          ymin: -10,
+          ymax: 10,
+          scale: 0.5,
+          pixelsParCm: 15,
+        },
+        objetsCorrection,
+      )
     }
   }
 
@@ -318,18 +479,34 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     const resultat = []
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${i}`,
+    ) as HTMLDivElement
     let feedback = ''
 
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
-      const { x, y } = reflectOverLineCoord((this.antecedents[i][k] as PointApigeom), this.d[i])
+      const { x, y } = reflectOverLineCoord(
+        this.antecedents[i][k] as PointApigeom,
+        this.d[i],
+      )
       const elts = Array.from(this.figuresApiGeom[i].elements.values())
-      const points = elts
-        .filter(e => e.type !== 'pointer' &&
-              (e.type === 'Point' || e.type === 'PointOnLine' || e.type === 'PointOnCircle' || e.type === 'PointIntersectionLL' || e.type === 'PointIntersectionLC' || e.type === 'PointIntersectionCC')) as PointApigeom[]
-      const matchPoint = points.find(p => p.label === `${this.labels[i][k]}'`) as PointApigeom
-      const sym = points.find(p => egal(x, p.x, 0.001) && egal(y, p.y, 0.001)) as PointApigeom
+      const points = elts.filter(
+        (e) =>
+          e.type !== 'pointer' &&
+          (e.type === 'Point' ||
+            e.type === 'PointOnLine' ||
+            e.type === 'PointOnCircle' ||
+            e.type === 'PointIntersectionLL' ||
+            e.type === 'PointIntersectionLC' ||
+            e.type === 'PointIntersectionCC'),
+      ) as PointApigeom[]
+      const matchPoint = points.find(
+        (p) => p.label === `${this.labels[i][k]}'`,
+      ) as PointApigeom
+      const sym = points.find(
+        (p) => egal(x, p.x, 0.001) && egal(y, p.y, 0.001),
+      ) as PointApigeom
       if (matchPoint != null) {
         if (egal(x, matchPoint.x, 0.001) && egal(y, matchPoint.y, 0.001)) {
           matchPoint.color = 'green'
@@ -357,7 +534,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     }
     if (this.sup2 !== 1) {
       this.figuresApiGeom[i].shake()
-      feedback = 'On « secoue » la figure pour voir si les points sont bien définis.<br>' + feedback
+      feedback =
+        'On « secoue » la figure pour voir si les points sont bien définis.<br>' +
+        feedback
     }
     if (divFeedback) divFeedback.innerHTML = feedback
     this.figuresApiGeom[i].isDynamic = false

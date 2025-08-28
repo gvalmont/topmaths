@@ -6,7 +6,7 @@ export const titre = 'Calculer une somme'
 export const uuid = 'bc613'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -14,7 +14,7 @@ export const refs = {
 
 */
 export default class Can2025CM2Q12 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -22,7 +22,7 @@ export default class Can2025CM2Q12 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 9 : randint(6, 9)
     const b = this.canOfficielle ? 6 : randint(5, 8)
 

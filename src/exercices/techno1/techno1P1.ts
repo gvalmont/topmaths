@@ -15,10 +15,10 @@ export const uuid = 'c988f'
 
 export const refs = {
   'fr-fr': ['techno1P1', 'BP2AutoC5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EcritureFractionnaire1T extends EcritureFractionnaire {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
   }

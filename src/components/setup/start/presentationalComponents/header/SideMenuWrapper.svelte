@@ -9,8 +9,8 @@
      h-8 md:h-10
      w-8 md:w-10
     {isRecorder
-      ? `${isSidenavOpened ? 'translate-x-[400px]' : ' translate-x-0'} top-0 rounded-r-md transition-transform ease-in-out`
-      : 'bottom-0 rounded-t-md'}
+    ? `${isSidenavOpened ? 'translate-x-[400px]' : ' translate-x-0'} top-0 rounded-r-md transition-transform ease-in-out`
+    : 'bottom-0 rounded-t-md'}
     bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
   <button
@@ -19,9 +19,9 @@
     data-te-target="#choiceSideMenuWrapper"
     aria-controls="#choiceSideMenuWrapper"
     aria-haspopup="true"
-    on:click={() => {
+    on:click="{() => {
       toggleSidenav(false)
-    }}
+    }}"
   >
     <i
       class="bx
@@ -29,6 +29,6 @@
         {isSidenavOpened ? 'bx-x' : 'bx-right-arrow-alt'}
         text-coopmaths-action dark:text-coopmathsdark-action
         hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
-    />
+    ></i>
   </button>
 </div>

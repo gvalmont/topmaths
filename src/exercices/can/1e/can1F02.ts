@@ -3,14 +3,15 @@ import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  reduirePolynomeDegre3
+  reduirePolynomeDegre3,
 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import Exercice from '../../Exercice'
 import { fraction } from '../../../modules/fractions'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-export const titre = 'Déterminer le sens de variation d’un pôlynome du second degré'
+export const titre =
+  'Déterminer le sens de variation d’un pôlynome du second degré'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -27,20 +28,22 @@ export const uuid = 'cc460'
 
 export const refs = {
   'fr-fr': ['can1F02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SecondDegreVariations extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, maFraction, c, maFractionN, props
     for (let i = 0; i < this.nbQuestions; i++) {
-      switch (choice([1, 2, 3, 4, 5, 6])) { //
-        case 1 :// croissante forme développée
+      switch (
+        choice([1, 2, 3, 4, 5, 6]) //
+      ) {
+        case 1: // croissante forme développée
           a = randint(-5, 5, 0)
           b = randint(-9, 9)
           c = randint(-9, 9, 0)
@@ -56,21 +59,21 @@ export default class SecondDegreVariations extends Exercice {
               propositions: [
                 {
                   texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                  statut: a > 0
+                  statut: a > 0,
                 },
                 {
                   texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                  statut: a < 0
+                  statut: a < 0,
                 },
                 {
                   texte: `$\\bigg[${a}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                  statut: a === 0
+                  statut: a === 0,
                 },
                 {
                   texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${a} \\bigg]$ `,
-                  statut: a === 0
-                }
-              ]
+                  statut: a === 0,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -79,21 +82,21 @@ export default class SecondDegreVariations extends Exercice {
               propositions: [
                 {
                   texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                  statut: a > 0
+                  statut: a > 0,
                 },
                 {
                   texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                  statut: a < 0
+                  statut: a < 0,
                 },
                 {
                   texte: `$\\bigg[${maFractionN.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                  statut: a === 0
+                  statut: a === 0,
                 },
                 {
                   texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
-                  statut: a === 0
-                }
-              ]
+                  statut: a === 0,
+                },
+              ],
             }
           }
           props = propositionsQcm(this, i)
@@ -109,7 +112,7 @@ export default class SecondDegreVariations extends Exercice {
           }
           break
 
-        case 2 :// croissante forme canonique
+        case 2: // croissante forme canonique
           a = randint(-10, 10, 0)
           b = randint(-5, 5, 0)
           c = randint(-9, 9, 0)
@@ -136,21 +139,21 @@ export default class SecondDegreVariations extends Exercice {
             propositions: [
               {
                 texte: `$\\bigg[${-b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a > 0
+                statut: a > 0,
               },
               {
                 texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${-b} \\bigg]$ `,
-                statut: a < 0
+                statut: a < 0,
               },
               {
                 texte: `$\\bigg[${b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a === 0
+                statut: a === 0,
               },
               {
                 texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${b} \\bigg]$ `,
-                statut: a === 0
-              }
-            ]
+                statut: a === 0,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -195,7 +198,7 @@ export default class SecondDegreVariations extends Exercice {
             }
           }
           break
-        case 3 :// croissante forme factorisée
+        case 3: // croissante forme factorisée
           a = randint(-5, 5, 0)
           b = randint(-9, 9)
           c = randint(-9, 9, 0)
@@ -209,13 +212,13 @@ export default class SecondDegreVariations extends Exercice {
           } else {
             if (a === -1) {
               texte =
-              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=-(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
+                texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=-(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
               <br>
               
               Donner le plus grand intervalle sur lequel la fonction $f$ est croissante.`
             } else {
               texte =
-              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=${a}(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
+                texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=${a}(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
               <br>
               
               Donner le plus grand intervalle sur lequel la fonction $f$ est croissante.`
@@ -227,21 +230,21 @@ export default class SecondDegreVariations extends Exercice {
             propositions: [
               {
                 texte: `$\\bigg[${maFraction.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a > 0
+                statut: a > 0,
               },
               {
                 texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: a < 0
+                statut: a < 0,
               },
               {
                 texte: `$\\bigg[${maFractionN.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a === 0
+                statut: a === 0,
               },
               {
                 texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
-                statut: a === 0
-              }
-            ]
+                statut: a === 0,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -261,7 +264,7 @@ export default class SecondDegreVariations extends Exercice {
           }
           break
 
-        case 4 :// décroissante forme développée
+        case 4: // décroissante forme développée
           a = randint(-5, 5, 0)
           b = randint(-9, 9)
           c = randint(-9, 9, 0)
@@ -278,21 +281,21 @@ export default class SecondDegreVariations extends Exercice {
               propositions: [
                 {
                   texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                  statut: a < 0
+                  statut: a < 0,
                 },
                 {
                   texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                  statut: a > 0
+                  statut: a > 0,
                 },
                 {
                   texte: `$\\bigg[${a}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                  statut: a === 0
+                  statut: a === 0,
                 },
                 {
                   texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${a} \\bigg]$ `,
-                  statut: a === 0
-                }
-              ]
+                  statut: a === 0,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -301,21 +304,21 @@ export default class SecondDegreVariations extends Exercice {
               propositions: [
                 {
                   texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                  statut: a < 0
+                  statut: a < 0,
                 },
                 {
                   texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                  statut: a > 0
+                  statut: a > 0,
                 },
                 {
                   texte: `$\\bigg[${maFractionN.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                  statut: a === 0
+                  statut: a === 0,
                 },
                 {
                   texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
-                  statut: a === 0
-                }
-              ]
+                  statut: a === 0,
+                },
+              ],
             }
           }
 
@@ -332,7 +335,7 @@ export default class SecondDegreVariations extends Exercice {
           }
           break
 
-        case 5 :// décroissante forme canonique
+        case 5: // décroissante forme canonique
           a = randint(-10, 10, 0)
           b = randint(-5, 5, 0)
           c = randint(-9, 9, 0)
@@ -361,21 +364,21 @@ export default class SecondDegreVariations extends Exercice {
             propositions: [
               {
                 texte: `$\\bigg[${-b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a < 0
+                statut: a < 0,
               },
               {
                 texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${-b} \\bigg]$ `,
-                statut: a > 0
+                statut: a > 0,
               },
               {
                 texte: `$\\bigg[${b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a === 0
+                statut: a === 0,
               },
               {
                 texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${b} \\bigg]$ `,
-                statut: a === 0
-              }
-            ]
+                statut: a === 0,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -420,7 +423,7 @@ export default class SecondDegreVariations extends Exercice {
           }
           break
 
-        case 6 :// décroissante forme factorisée
+        case 6: // décroissante forme factorisée
           a = randint(-5, 5, 0)
           b = randint(-9, 9)
           c = randint(-9, 9, 0)
@@ -434,11 +437,11 @@ export default class SecondDegreVariations extends Exercice {
           } else {
             if (a === -1) {
               texte =
-              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=-(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
+                texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=-(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
               <br>                           Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
             } else {
               texte =
-              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${a}(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
+                texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${a}(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
               <br>
               
           Donner le plus grand intervalle sur lequel la fonction $f$ est décroissante.`
@@ -450,21 +453,21 @@ export default class SecondDegreVariations extends Exercice {
             propositions: [
               {
                 texte: `$\\bigg[${maFraction.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a < 0
+                statut: a < 0,
               },
               {
                 texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: a > 0
+                statut: a > 0,
               },
               {
                 texte: `$\\bigg[${maFractionN.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a === 0
+                statut: a === 0,
               },
               {
                 texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
-                statut: a === 0
-              }
-            ]
+                statut: a === 0,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)

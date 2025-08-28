@@ -1,10 +1,13 @@
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'e9e43'
 export const refs = {
   'fr-fr': ['TSA5-QCM19'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,21 +32,24 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$0$', // Réponse correcte (d)
       '$\\dfrac{2}{3}$', // Mauvaise réponse (a)
       '$+\\infty$', // Mauvaise réponse (b)
-      '$-\\infty$' // Mauvaise réponse (c)
+      '$-\\infty$', // Mauvaise réponse (c)
     ]
 
-    this.enonce = 'La limite en $+\\infty$ de la fonction $f$ définie sur $]0~;~+\\infty[$ par '
+    this.enonce =
+      'La limite en $+\\infty$ de la fonction $f$ définie sur $]0~;~+\\infty[$ par '
     this.enonce += '$f(x) = \\dfrac{2\\ln x}{3x^2 + 1}$'
     this.enonce += ' est égale à :'
 
     this.correction = 'On utilise les croissances comparées :<br>'
-    this.correction += '$\\displaystyle\\lim_{x \\to +\\infty} \\dfrac{\\ln x}{x^2} = 0.$<br>'
+    this.correction +=
+      '$\\displaystyle\\lim_{x \\to +\\infty} \\dfrac{\\ln x}{x^2} = 0.$<br>'
     this.correction += 'Ainsi, on a :<br>'
-    this.correction += '$\\displaystyle\\lim_{x \\to +\\infty} f(x) = \\displaystyle\\lim_{x \\to +\\infty} \\dfrac{2\\ln x}{3x^2 + 1} = 0.$<br>'
+    this.correction +=
+      '$\\displaystyle\\lim_{x \\to +\\infty} f(x) = \\displaystyle\\lim_{x \\to +\\infty} \\dfrac{2\\ln x}{3x^2 + 1} = 0.$<br>'
     this.correction += `La bonne réponse est donc $${miseEnEvidence('0')}$.`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

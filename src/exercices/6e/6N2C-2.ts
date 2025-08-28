@@ -1,6 +1,9 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -15,7 +18,8 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const titre = 'Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ...'
+export const titre =
+  'Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ...'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '04/11/2021'
@@ -30,46 +34,67 @@ export const uuid = '85989'
 export const refs = {
   'fr-fr': ['6N2C-2'],
   'fr-2016': ['6C30-7'],
-  'fr-ch': ['9NO8-13']
+  'fr-ch': ['9NO8-13'],
 }
 export default class DiviserUnNombreParPuissanceDeDix extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireCaseACocher = ['Les nombres-exemples sont entiers', false]
-    this.besoinFormulaire2CaseACocher = ['Exercice avec un raisonnement associé', true]
+    this.besoinFormulaireCaseACocher = [
+      'Les nombres-exemples sont entiers',
+      false,
+    ]
+    this.besoinFormulaire2CaseACocher = [
+      'Exercice avec un raisonnement associé',
+      true,
+    ]
     this.nbQuestions = 5 // Ici le nombre de questions
     this.sup = false
     this.sup2 = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes']
     let listeChoixAlea = range(2)
-    if (!this.sup2 || this.interactif) { this.nbQuestions = min(this.nbQuestions, 3) }
-    if (context.isAmc) { this.sup2 = false }
+    if (!this.sup2 || this.interactif) {
+      this.nbQuestions = min(this.nbQuestions, 3)
+    }
+    if (context.isAmc) {
+      this.sup2 = false
+    }
     if (this.interactif) {
       this.introduction = lampeMessage({
         titre: 'Aucun raisonnement écrit ne vous est demandé.',
-        texte: ' Vous pouvez, tout de même, le faire au brouillon sur un exemple avant de choisir une réponse en ligne.',
-        couleur: 'nombres'
+        texte:
+          ' Vous pouvez, tout de même, le faire au brouillon sur un exemple avant de choisir une réponse en ligne.',
+        couleur: 'nombres',
       })
     } else {
       this.introduction = lampeMessage({
         titre: 'Bien lire les consignes.',
         texte: '',
-        couleur: 'nombres'
+        couleur: 'nombres',
       })
     }
     listeChoixAlea = combinaisonListes(listeChoixAlea, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const choixAlea = listeChoixAlea[0]
       listeChoixAlea.splice(0, 1)
       const centaine = randint(0, 1) === 0 ? choice(rangeMinMax(0, 9)) : 0
       const dizaine = choice(rangeMinMax(0, 9), [centaine])
       const unite = choice(rangeMinMax(0, 9), [centaine, dizaine])
-      const dixieme = (this.sup) ? 0 : choice(rangeMinMax(0, 9), [centaine, dizaine, unite])
-      const centieme = ((randint(0, 1) !== 0) || (this.sup)) ? 0 : choice(rangeMinMax(0, 9), [centaine, dizaine, unite, dixieme])
-      const exemple = centaine * 100 + dizaine * 10 + unite + dixieme / 10 + centieme / 100
+      const dixieme = this.sup
+        ? 0
+        : choice(rangeMinMax(0, 9), [centaine, dizaine, unite])
+      const centieme =
+        randint(0, 1) !== 0 || this.sup
+          ? 0
+          : choice(rangeMinMax(0, 9), [centaine, dizaine, unite, dixieme])
+      const exemple =
+        centaine * 100 + dizaine * 10 + unite + dixieme / 10 + centieme / 100
       if (this.sup2 && !this.interactif) {
         texte = `Voici un nombre : $${texNombre(exemple, 2)}$.<br>`
         texte += `${numAlpha(0)} Entourer le chiffre des unités de ce nombre.<br>`
@@ -99,28 +124,34 @@ export default class DiviserUnNombreParPuissanceDeDix extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: `$${texNombre(10 ** (3 - choixAlea), 0)}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$${choixAleaFaux[0]}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${choixAleaFaux[1]}$`,
-          statut: false
-        }
+          statut: false,
+        },
       ]
       this.autoCorrection[i].options = {
         ordered: false,
-        lastChoice: 4
+        lastChoice: 4,
       }
       const props = propositionsQcm(this, i)
       if (this.interactif) {
         texte += '<br>' + props.texte
       }
-      if (context.isHtml) texteCorr += mathalea2d({ xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 }, glisseNombre(exemple, choixAlea - 3))
+      if (context.isHtml)
+        texteCorr += mathalea2d(
+          { xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 },
+          glisseNombre(exemple, choixAlea - 3),
+        )
 
-      if (this.questionJamaisPosee(i, dizaine, centaine, unite, dixieme, centieme)) {
+      if (
+        this.questionJamaisPosee(i, dizaine, centaine, unite, dixieme, centieme)
+      ) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

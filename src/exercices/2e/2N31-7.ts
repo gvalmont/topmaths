@@ -6,7 +6,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-export const titre = 'Trouver l\'exposant manquant dans des nombres écrits avec des puissances de 10'
+export const titre =
+  "Trouver l'exposant manquant dans des nombres écrits avec des puissances de 10"
 export const dateDePublication = '08/09/2023'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -21,26 +22,35 @@ export const uuid = 'f49ff'
 
 export const refs = {
   'fr-fr': ['2N31-7', 'BP2AutoE3'],
-  'fr-ch': ['10NO2-15']
+  'fr-ch': ['10NO2-15'],
 }
 export default class CalculsAvecPuissancesDeDixBis extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Facile\n2 : Moyen\n3 : Difficile',
+    ]
     this.besoinFormulaire2CaseACocher = ['Avec des exposants élevés', false]
     this.sup = 1
     this.nbQuestions = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.interactif) {
-      this.consigne = this.nbQuestions === 1 ? 'Choisir l\'exposant manquant dans l\'égalité suivante.' : 'Choisir l\'exposant manquant dans les égalités suivantes.'
+      this.consigne =
+        this.nbQuestions === 1
+          ? "Choisir l'exposant manquant dans l'égalité suivante."
+          : "Choisir l'exposant manquant dans les égalités suivantes."
     } else {
-      this.consigne = this.nbQuestions === 1 ? 'Trouver l\'exposant manquant dans l\'égalité suivante.' : 'Trouver l\'exposant manquant dans les égalités suivantes.'
+      this.consigne =
+        this.nbQuestions === 1
+          ? "Trouver l'exposant manquant dans l'égalité suivante."
+          : "Trouver l'exposant manquant dans les égalités suivantes."
     }
 
-    for (let i = 0, cpt = 0;
-      i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let decalage = 0
       let mantisse = 0
       let exp = 0
@@ -49,26 +59,35 @@ export default class CalculsAvecPuissancesDeDixBis extends Exercice {
         case 0:
           decalage = randint(-1, 1, 0)
           mantisse = randint(1, 9)
-          exp = (!this.sup2)
+          exp = !this.sup2
             ? randint(decalage - 3, decalage + 3, [decalage, 0])
-            : choice(rangeMinMax(decalage - 4, decalage + 8), rangeMinMax(decalage - 2, decalage + 2))
+            : choice(
+                rangeMinMax(decalage - 4, decalage + 8),
+                rangeMinMax(decalage - 2, decalage + 2),
+              )
           break
         case 1:
           decalage = randint(-2, 2, 0)
           mantisse = arrondi(randint(11, 99) / 10)
-          exp = (!this.sup2)
+          exp = !this.sup2
             ? randint(decalage - 3, decalage + 3, [decalage, 0])
-            : choice(rangeMinMax(decalage - 9, decalage + 9), rangeMinMax(decalage - 3, decalage + 3))
+            : choice(
+                rangeMinMax(decalage - 9, decalage + 9),
+                rangeMinMax(decalage - 3, decalage + 3),
+              )
           break
         case 2:
           decalage = randint(-3, 3, 0)
           if (randint(0, 1) === 1) mantisse = arrondi(randint(111, 999) / 100)
           else mantisse = arrondi((randint(1, 9) * 100 + randint(1, 9)) / 100)
-          exp = (!this.sup2)
+          exp = !this.sup2
             ? randint(decalage - 3, decalage + 3, [decalage, 0])
-            : choice(rangeMinMax(decalage - 10, decalage + 10), rangeMinMax(decalage - 4, decalage + 4))
+            : choice(
+                rangeMinMax(decalage - 10, decalage + 10),
+                rangeMinMax(decalage - 4, decalage + 4),
+              )
           break
-/*        case 3:
+        /*        case 3:
           decalage = randint(-4, 4, 0)
           if (randint(0, 1) === 1) mantisse = calcul((randint(1, 9) * 1000 + randint(1, 19) * 5) / 1000)
           else mantisse = calcul(randint(1111, 9999) / 1000)
@@ -89,24 +108,24 @@ export default class CalculsAvecPuissancesDeDixBis extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: `$${exp1}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$${exp1 - 1}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${exp1 + 1}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${-exp1}$`,
-          statut: false
-        }
+          statut: false,
+        },
       ]
       this.autoCorrection[i].options = {
         ordered: false,
-        lastChoice: 5
+        lastChoice: 5,
       }
 
       const props = propositionsQcm(this, i)

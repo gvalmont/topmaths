@@ -3,7 +3,8 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Déterminer un nombre à partir de son nombre de centaines, dizaines, unités'
+export const titre =
+  'Déterminer un nombre à partir de son nombre de centaines, dizaines, unités'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -19,20 +20,22 @@ export const uuid = '1dbee'
 
 export const refs = {
   'fr-fr': ['can6N03', '6N1A-flash3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RecomposerEntierMoinsSimple extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const c = randint(2, 30)
     const d = randint(2, 30, c)
     const u = randint(2, 30, [c, d])
-    switch (choice([1, 2, 3])) { //
+    switch (
+      choice([1, 2, 3]) //
+    ) {
       case 1:
         this.reponse = c * 100 + d * 10
         this.question = `Écrire le nombre égal à $${c}$ centaines et $${d}$ dizaines.`
@@ -60,7 +63,9 @@ export default class RecomposerEntierMoinsSimple extends ExerciceSimple {
         \\end{aligned}$`
         break
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

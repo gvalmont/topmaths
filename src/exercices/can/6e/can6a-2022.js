@@ -7,7 +7,11 @@ import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
-import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import {
+  formatMinute,
+  stringNombre,
+  texNombre,
+} from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
@@ -18,7 +22,10 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 6e sujet 2022'
@@ -33,7 +40,7 @@ export const dateDePublication = '13/04/2022' // La date de publication initiale
  * Gilles Mora
  */
 
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
@@ -41,10 +48,10 @@ export const uuid = 'b9634'
 
 export const refs = {
   'fr-fr': ['can6a-2022'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN2022Sixieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 30
 
@@ -56,15 +63,60 @@ export default class SujetCAN2022Sixieme extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    const typeQuestionsDisponiblesNiv1 = shuffle([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    ])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, taille1, chiffre, chiffre2, propositions, code1, code2, code3, code4, choix, a, b, c, d, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        texte,
+        texteCorr,
+        reponse,
+        taille1,
+        chiffre,
+        chiffre2,
+        propositions,
+        code1,
+        code2,
+        code3,
+        code4,
+        choix,
+        a,
+        b,
+        c,
+        d,
+        k,
+        s1,
+        s2,
+        A,
+        B,
+        C,
+        D,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -83,7 +135,6 @@ export default class SujetCAN2022Sixieme extends Exercice {
           break
 
         case 2:
-
           a = randint(11, 25, 20) * 2
           reponse = a / 2
           texte = `La moitié de $${a}$ est : `
@@ -126,7 +177,9 @@ export default class SujetCAN2022Sixieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '    ', { texteApres: '€.' })
+            texte += ajouteChampTexteMathLive(this, index, '    ', {
+              texteApres: '€.',
+            })
           } else {
             texte += '$\\ldots$ €'
           }
@@ -144,7 +197,9 @@ export default class SujetCAN2022Sixieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '   ', { texteApres: 'min' })
+            texte += ajouteChampTexteMathLive(this, index, '   ', {
+              texteApres: 'min',
+            })
           } else {
             texte += '$\\ldots$ min'
           }
@@ -168,17 +223,22 @@ export default class SujetCAN2022Sixieme extends Exercice {
             pointListe: [[a, '?']],
             pointCouleur: 'blue',
             pointStyle: 'x',
-            labelsPrincipaux: true
+            labelsPrincipaux: true,
           })
           reponse = a
-          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>' + mathalea2d({
-            xmin: -1,
-            ymin: -1,
-            xmax: 15,
-            ymax: 2,
-            scale: 0.6,
-            style: 'margin: auto'
-          }, d)
+          texte =
+            "Quel est le nombre écrit sous le point d'interrogation ?<br>" +
+            mathalea2d(
+              {
+                xmin: -1,
+                ymin: -1,
+                xmax: 15,
+                ymax: 2,
+                scale: 0.6,
+                style: 'margin: auto',
+              },
+              d,
+            )
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -238,7 +298,9 @@ export default class SujetCAN2022Sixieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'groupes.' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: 'groupes.',
+            })
           } else {
             texte += '$\\ldots$ groupes.'
           }
@@ -246,8 +308,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
           break
 
         case 9:
-
-          choix = choice(['a', 'b', 'c'])//, 'b', 'c'
+          choix = choice(['a', 'b', 'c']) //, 'b', 'c'
           if (choix === 'a') {
             reponse = randint(4, 9)
             a = reponse * 4
@@ -291,7 +352,6 @@ export default class SujetCAN2022Sixieme extends Exercice {
           break
 
         case 11:
-
           a = randint(1, 9) + randint(3, 7) / 10
           k = choice([10, 100, 1000])
           reponse = a * k
@@ -319,10 +379,17 @@ export default class SujetCAN2022Sixieme extends Exercice {
 
           texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - b}$ min, et il faut ajouter $1$ heure et $${d}$ min pour arriver à $${c}$ h $${d}$, soit au total $${miseEnEvidence(1)}$ h $${miseEnEvidence(formatMinute(60 - b + d))}$ min.`
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: 60 - b + d }).toString(), options: { HMS: true } } })
+          handleAnswers(this, index, {
+            reponse: {
+              value: new Hms({ hour: 1, minute: 60 - b + d }).toString(),
+              options: { HMS: true },
+            },
+          })
 
           nbChamps = 1
           break
@@ -336,7 +403,9 @@ export default class SujetCAN2022Sixieme extends Exercice {
             texteCorr = `$${a}=\\dfrac{${4 * a}}{4}=${4 * a}\\times \\dfrac{1}{4}$, donc $${miseEnEvidence(4 * a)}$ quarts $=${a}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'quarts' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', {
+                texteApres: 'quarts',
+              })
             } else {
               texte += '$\\ldots$ quarts'
             }
@@ -348,7 +417,9 @@ export default class SujetCAN2022Sixieme extends Exercice {
             texteCorr = `$${a}=\\dfrac{${3 * a}}{3}=${3 * a}\\times \\dfrac{1}{3}$, donc $${miseEnEvidence(3 * a)}$ tiers $=${a}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'tiers' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', {
+                texteApres: 'tiers',
+              })
             } else {
               texte += '$\\ldots$ tiers'
             }
@@ -368,10 +439,17 @@ export default class SujetCAN2022Sixieme extends Exercice {
             texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
             $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+              texte +=
+                '<br>' +
+                ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), options: { HMS: true } } })
+            handleAnswers(this, index, {
+              reponse: {
+                value: new Hms({ hour: a + 1, minute: reponse }).toString(),
+                options: { HMS: true },
+              },
+            })
           } else {
             a = randint(6, 10)
             b = choice([20, 25, 30, 35])
@@ -381,10 +459,17 @@ export default class SujetCAN2022Sixieme extends Exercice {
             texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
 $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+              texte +=
+                '<br>' +
+                ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), options: { HMS: true } } })
+            handleAnswers(this, index, {
+              reponse: {
+                value: new Hms({ hour: a + 1, minute: reponse }).toString(),
+                options: { HMS: true },
+              },
+            })
           }
 
           nbChamps = 1
@@ -392,7 +477,10 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
         case 15:
           a = arrondi(randint(1, 9) + 0.9 + randint(1, 9) / 100, 2)
-          b = arrondi(randint(1, 9) + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000, 3)
+          b = arrondi(
+            randint(1, 9) + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000,
+            3,
+          )
 
           if (choice([true, false])) {
             texte = `Ajoute un dixième à $${texNombre(a)}$.`
@@ -431,7 +519,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'billes.' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: 'billes.',
+            })
           } else {
             texte += '$\\ldots$ billes.'
           }
@@ -456,29 +546,50 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           ymax = 4
           objets = []
           objets.push(
-            texteParPosition(`${stringNombre(c)} cm`, milieu(A, B).x, milieu(A, B).y - 0.5),
-            texteParPosition(`${stringNombre(c)} cm`, milieu(D, C).x, milieu(D, C).y + 0.5),
+            texteParPosition(
+              `${stringNombre(c)} cm`,
+              milieu(A, B).x,
+              milieu(A, B).y - 0.5,
+            ),
+            texteParPosition(
+              `${stringNombre(c)} cm`,
+              milieu(D, C).x,
+              milieu(D, C).y + 0.5,
+            ),
             texteParPosition('?', milieu(B, C).x + 0.5, milieu(B, C).y),
-            segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2, code3, code4)
+            segment(A, B),
+            segment(B, C),
+            segment(C, D),
+            segment(D, A),
+            code1,
+            code2,
+            code3,
+            code4,
+          )
           reponse = b / 2
           texte = `Le périmètre de cette figure est $${a + b}$ cm. <br>
             `
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 30,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.8,
-            style: 'margin: auto'
-          }, objets)
+          texte += mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 30,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.8,
+              style: 'margin: auto',
+            },
+            objets,
+          )
           texteCorr = `Puisque le périmètre du rectangle est $${a + b}$ cm, alors $\\text{?}=(${a + b}-2\\times ${texNombre(a / 2)})\\div 2=${miseEnEvidence(texNombre(b / 2))}$ cm.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$\\text{?}=$'
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'cm' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: 'cm',
+            })
           } else {
             texte += '  $\\text{?}=\\ldots$ cm'
           }
@@ -497,7 +608,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
       Comme : $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000, 2)}$, alors $${texNombre(a)}$ g$=${miseEnEvidence(texNombre(reponse, 2))}$ kg.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'kg' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', {
+                texteApres: 'kg',
+              })
             } else {
               texte += '  $\\ldots$ kg'
             }
@@ -509,7 +622,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             Comme : $${texNombre(a, 1)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a, 1)}$ kg$=${miseEnEvidence(reponse)}$ g.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'g' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', {
+                texteApres: 'g',
+              })
             } else {
               texte += '  $\\ldots$ g'
             }
@@ -518,14 +633,23 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           break
 
         case 19:
-          chiffre = [['deux', 2], ['trois', 3], ['cinq', 5]]
-          chiffre2 = [['vingt', 20], ['trente', 30], ['cinquante', 50]]
+          chiffre = [
+            ['deux', 2],
+            ['trois', 3],
+            ['cinq', 5],
+          ]
+          chiffre2 = [
+            ['vingt', 20],
+            ['trente', 30],
+            ['cinquante', 50],
+          ]
           a = randint(0, 2)
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
             texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille `
-            reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000
+            reponse =
+              2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille$=
             ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000)} + ${texNombre(chiffre[a][1] * 1000)}
                         =${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000))}$. `
@@ -594,23 +718,29 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             objets = []
             objets.push(
               texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.5),
-              a, s1, s2, labelPoint(A, B)
+              a,
+              s1,
+              s2,
+              labelPoint(A, B),
               // A, B
             )
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 20,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 0.7,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 20,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 0.7,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `Une unité correspond à $4$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{4}=${miseEnEvidence(texNombre(b / 4))}$ unité. `
           } else {
             a = grille(-2, -2, 10, 4, 'gray', 1, 1)
@@ -632,28 +762,38 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             objets = []
             objets.push(
               texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.5),
-              a, s1, s2, labelPoint(A, B)
+              a,
+              s1,
+              s2,
+              labelPoint(A, B),
               // A, B
             )
             reponse = fraction(b, 5)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 25,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 25,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `Une unité correspond à $5$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{5}=${miseEnEvidence(texNombre(b / 5))}$ unité. `
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'unité' })
+            texte += ajouteChampTexteMathLive(this, index, '', {
+              texteApres: 'unité',
+            })
           } else {
             texte += ' <br>$\\ldots$ unité'
           }
@@ -663,7 +803,6 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           break
 
         case 21:
-
           a = choice([2, 3, 5, 10, 100])
           texte = `Complète : <br>
             $${a}$ jours $=$`
@@ -672,7 +811,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'h' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: 'h',
+            })
           } else {
             texte += '$\\ldots$ h'
           }
@@ -690,7 +831,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'min' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: 'min',
+            })
           } else {
             texte += '$\\ldots$ min'
           }
@@ -742,58 +885,68 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           if (choice([true, false])) {
             a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
             reponse = arrondi(a / 5, 1)
-            texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({
-              xmin: -1,
-              ymin: -1,
-              xmax: 14,
-              ymax: 1.5,
-              scale: 0.8,
-              style: 'margin: auto'
-            }, droiteGraduee({
-              Unite: 3,
-              Min: 0,
-              Max: 3.2,
-              x: 0,
-              y: 0,
-              thickSecDist: 1 / 5,
-              thickSec: true,
-              thickoffset: 0,
-              axeStyle: '|->',
-              pointListe: [[a / 5, 'A']],
-              pointCouleur: 'blue',
-              pointStyle: 'x',
-              labelsPrincipaux: true,
-              step1: 1,
-              step2: 1
-            }))
+            texte =
+              "Détermine l'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>" +
+              mathalea2d(
+                {
+                  xmin: -1,
+                  ymin: -1,
+                  xmax: 14,
+                  ymax: 1.5,
+                  scale: 0.8,
+                  style: 'margin: auto',
+                },
+                droiteGraduee({
+                  Unite: 3,
+                  Min: 0,
+                  Max: 3.2,
+                  x: 0,
+                  y: 0,
+                  thickSecDist: 1 / 5,
+                  thickSec: true,
+                  thickoffset: 0,
+                  axeStyle: '|->',
+                  pointListe: [[a / 5, 'A']],
+                  pointCouleur: 'blue',
+                  pointStyle: 'x',
+                  labelsPrincipaux: true,
+                  step1: 1,
+                  step2: 1,
+                }),
+              )
             texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{5}=${texNombre(reponse)}$`
           } else {
             a = choice([1, 3, 5, 7, 9]) // numérateur
             reponse = arrondi(a / 4, 2)
-            texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({
-              xmin: -1,
-              ymin: -1,
-              xmax: 14,
-              ymax: 1.5,
-              scale: 0.8,
-              style: 'margin: auto'
-            }, droiteGraduee({
-              Unite: 3,
-              Min: 0,
-              Max: 3.2,
-              x: 0,
-              y: 0,
-              thickSecDist: 1 / 4,
-              thickSec: true,
-              thickoffset: 0,
-              axeStyle: '|->',
-              pointListe: [[a / 4, 'A']],
-              pointCouleur: 'blue',
-              pointStyle: 'x',
-              labelsPrincipaux: true,
-              step1: 1,
-              step2: 1
-            }))
+            texte =
+              "Détermine l'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>" +
+              mathalea2d(
+                {
+                  xmin: -1,
+                  ymin: -1,
+                  xmax: 14,
+                  ymax: 1.5,
+                  scale: 0.8,
+                  style: 'margin: auto',
+                },
+                droiteGraduee({
+                  Unite: 3,
+                  Min: 0,
+                  Max: 3.2,
+                  x: 0,
+                  y: 0,
+                  thickSecDist: 1 / 4,
+                  thickSec: true,
+                  thickoffset: 0,
+                  axeStyle: '|->',
+                  pointListe: [[a / 4, 'A']],
+                  pointCouleur: 'blue',
+                  pointStyle: 'x',
+                  labelsPrincipaux: true,
+                  step1: 1,
+                  step2: 1,
+                }),
+              )
             texteCorr = `L'unité est divisée en $4$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{4}=${texNombre(reponse)}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -804,7 +957,6 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           break
 
         case 25:
-
           a = randint(1, 9) / 10 + randint(1, 9) / 100
           b = randint(1, 9) / 10
           reponse = arrondi(a + b, 2)
@@ -821,18 +973,33 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           break
 
         case 26:
-          taille1 = [['fourmi', 2, 5, 'mm'], ['girafe', 40, 50, 'dm'], ['crevette', 5, 10, 'cm'], ['baleine', 15, 25, 'm'], ['souris', 40, 60, 'mm']]
+          taille1 = [
+            ['fourmi', 2, 5, 'mm'],
+            ['girafe', 40, 50, 'dm'],
+            ['crevette', 5, 10, 'cm'],
+            ['baleine', 15, 25, 'm'],
+            ['souris', 40, 60, 'mm'],
+          ]
 
           a = randint(0, 1)
           b = randint(taille1[a][1], taille1[a][2])
-          propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}$ cm`, `$${b}$ mm`])
+          propositions = shuffle([
+            `$${b}$ m`,
+            `$${b}$ dm`,
+            `$${b}$ cm`,
+            `$${b}$ mm`,
+          ])
 
           texte = `Choisis parmi les propositions suivantes la taille d'une ${taille1[a][0]} (nombre et unité à recopier).<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}`
           texteCorr = `La taille d'une ${taille1[a][0]} est ${b} ${taille1[a][3]}`
-          setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
+          setReponse(this, index, new Grandeur(b, taille1[a][3]), {
+            formatInteractif: 'unites',
+          })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' unites[Longueur]')
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, ' unites[Longueur]')
           }
           nbChamps = 1
           break
@@ -845,7 +1012,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           texteCorr = `Le double de $${texNombre(a, 1)}$ est $2\\times ${texNombre(a, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: '.' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: '.',
+            })
           } else {
             texte += '$\\ldots$'
           }
@@ -884,7 +1053,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'cm' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: 'cm',
+            })
           } else {
             texte += '$\\ldots$ cm'
           }
@@ -903,7 +1074,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'h' })
+              texte +=
+                '<br>' +
+                ajouteChampTexteMathLive(this, index, '', { texteApres: 'h' })
             }
           }
           if (choix === 'b') {
@@ -916,7 +1089,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = b
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'min' })
+              texte +=
+                '<br>' +
+                ajouteChampTexteMathLive(this, index, '', { texteApres: 'min' })
             }
           }
           if (choix === 'c') {
@@ -928,7 +1103,9 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = c * b
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: '€' })
+              texte +=
+                '<br>' +
+                ajouteChampTexteMathLive(this, index, '', { texteApres: '€' })
             }
           }
 
@@ -942,13 +1119,16 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = c * a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'h' })
+              texte +=
+                '<br>' +
+                ajouteChampTexteMathLive(this, index, '', { texteApres: 'h' })
             }
           }
           nbChamps = 1
           break
       }
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, texte)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

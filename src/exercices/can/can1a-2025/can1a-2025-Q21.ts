@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'bdaaf'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q21 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,13 +28,14 @@ export default class Can2025N5Q21 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 100 : randint(2, 9) * 100
     const coeff = this.canOfficielle ? 2024 : randint(2, 20) * 2
     const coeffb = this.canOfficielle ? 1 : choice([0, 1])
     const signe = this.canOfficielle ? '+' : choice(['+', '-'])
     this.question = ` $${a} ${signe} \\cos(${texNombre(coeff + coeffb, 0)}\\pi)$`
-    this.correction = 'Si $n$ est pair $\\cos(n\\pi)=1$ et si $n$ est impair, $\\cos(n\\pi)=-1$.<br>'
+    this.correction =
+      'Si $n$ est pair $\\cos(n\\pi)=1$ et si $n$ est impair, $\\cos(n\\pi)=-1$.<br>'
     if (signe === '+') {
       this.reponse = coeffb === 0 ? a + 1 : a - 1
 

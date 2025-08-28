@@ -5,14 +5,13 @@
   import type { VueType } from '../../../../../../lib/types'
 
   export let reorderModalDisplayed: boolean = false
-  export let zoomUpdate: (plusMinus: ('+' | '-')) => void
+  export let zoomUpdate: (plusMinus: '+' | '-') => void
   export let setAllInteractive: (isAllInteractive: boolean) => void
   export let newDataForAll: () => void
   export let trash: () => void
   export let setFullScreen: (isFullScreen: boolean) => void
   export let handleExport: (vue: VueType) => void
   export let exportQcmCam: () => Promise<void>
-
 </script>
 
 <ButtonsDeck class="md:pl-10 flex md:flex">
@@ -33,9 +32,6 @@
     slot="export-buttons"
     class="flex flex-row justify-end items-center space-x-3 md:space-x-4"
   >
-    <ExportButtons
-      {handleExport}
-      {exportQcmCam}
-    />
+    <ExportButtons {handleExport} {exportQcmCam} />
   </div>
 </ButtonsDeck>

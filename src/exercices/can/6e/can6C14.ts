@@ -1,4 +1,7 @@
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -18,10 +21,10 @@ export const uuid = '90d0d'
 
 export const refs = {
   'fr-fr': ['can6C14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Somme4EntiersQuiSeMarient extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.formatChampTexte = KeyboardType.clavierNumbers
@@ -29,7 +32,7 @@ export default class Somme4EntiersQuiSeMarient extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(3, 7) * 10
@@ -37,11 +40,14 @@ export default class Somme4EntiersQuiSeMarient extends ExerciceSimple {
     this.reponse = 2 * (c + d)
     this.question = `Calculer $${c - a} + ${d + b} + ${c + a} + ${d - b}$.`
     this.correction = `$${c - a} + ${d + b} + ${c + a} + ${d - b} =  ${miseEnEvidence(2 * (c + d))}$<br>`
-    this.correction += texteEnCouleur(`
+    this.correction += texteEnCouleur(
+      `
     <br> Mentalement : <br>
 On change l'ordre des termes pour simplifier le calcul  :<br>
   $\\underbrace{${c - a}+${c + a}}_{${2 * c}}+
-\\underbrace{${d + b}+${d - b}}_{${2 * d}}=${2 * c}+${2 * d}=${2 * c + 2 * d}$. `, bleuMathalea)
+\\underbrace{${d + b}+${d - b}}_{${2 * d}}=${2 * c}+${2 * d}=${2 * c + 2 * d}$. `,
+      bleuMathalea,
+    )
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

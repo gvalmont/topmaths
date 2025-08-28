@@ -1,5 +1,5 @@
 import PremierOuPas from '../3e/3A10-1'
-export const titre = 'Justifier qu\'un nombre est premier ou pas'
+export const titre = "Justifier qu'un nombre est premier ou pas"
 export const dateDeModifImportante = '29/10/2021'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -9,10 +9,10 @@ export const uuid = 'c04cc'
 
 export const refs = {
   'fr-fr': ['2N20-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PremierOuPas2nde extends PremierOuPas {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
     this.sup2 = false

@@ -42,7 +42,7 @@ export const refs = {
   'fr-ch': [],
 }
 export default class VuesEmpilementCubes extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Longueur, largeur et hauteur sous la forme abc',
@@ -64,7 +64,7 @@ export default class VuesEmpilementCubes extends Exercice {
     this.nbQuestions = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const dimensionsTab = gestionnaireFormulaireTexte({
       max: 999,
       defaut: 1,
@@ -153,7 +153,7 @@ export default class VuesEmpilementCubes extends Exercice {
         texte += 'Voici un solide composé par un empilement de cubes.<br>'
         const { canvasEnonce } = canvasEnonceCorrection(
           L,
-          `SceneEx${this.numeroExercice}Q${q}`
+          `SceneEx${this.numeroExercice}Q${q}`,
         )
         texte += canvasEnonce + '<br>'
       }

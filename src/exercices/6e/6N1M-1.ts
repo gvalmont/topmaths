@@ -2,7 +2,11 @@ import { infoMessage } from '../../lib/format/message'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
@@ -25,35 +29,61 @@ export const uuid = 'b86b9'
 export const refs = {
   'fr-fr': ['6N1M-1'],
   'fr-2016': ['6N31-4'],
-  'fr-ch': ['9NO7-7']
+  'fr-ch': ['9NO7-7'],
 }
 export default class IntercalerDecimalEntre2Decimaux extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Compléter avec un nombre décimal.'
     this.nbQuestions = 6
     this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
     this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
-    this.besoinFormulaireTexte = ['Type de question', [
-      'Nombres séparés par des tirets  :',
-      '1 : b-a > 0,1',
-      '2 : b-a = 0,1',
-      '3 : b-a = 0,1, b entier',
-      '4 : b-a = 0,01',
-      '5 : b-a = 0,01, a avec 9 centièmes',
-      '6 : b-a = 0,01, a avec 99 centièmes',
-      '7 : a avec 3 chiffres après la virgule et b un seul',
-      '8 : b-a = 0,1, a entier',
-      '9 : b-a = 0,01, a entier',
-      '10 : b-a = 1, a et b entiers',
-      '11 : Mélange'
-    ].join('\n')]
+    this.besoinFormulaireTexte = [
+      'Type de question',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : b-a > 0,1',
+        '2 : b-a = 0,1',
+        '3 : b-a = 0,1, b entier',
+        '4 : b-a = 0,01',
+        '5 : b-a = 0,01, a avec 9 centièmes',
+        '6 : b-a = 0,01, a avec 99 centièmes',
+        '7 : a avec 3 chiffres après la virgule et b un seul',
+        '8 : b-a = 0,1, a entier',
+        '9 : b-a = 0,01, a entier',
+        '10 : b-a = 1, a et b entiers',
+        '11 : Mélange',
+      ].join('\n'),
+    ]
     this.sup = '11'
   }
 
-  nouvelleVersion () {
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, melange: 11, defaut: 11, nbQuestions: this.nbQuestions, listeOfCase: ['a,b1', 'a,b2', 'a,9', 'a,bc', 'a,b9', 'a,99', 'a,b0c', 'a,1', 'a,01', 'a'] })
-    for (let i = 0, texte, texteCorr, a, b, r, u, d1, c1, c2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 10,
+      melange: 11,
+      defaut: 11,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: [
+        'a,b1',
+        'a,b2',
+        'a,9',
+        'a,bc',
+        'a,b9',
+        'a,99',
+        'a,b0c',
+        'a,1',
+        'a,01',
+        'a',
+      ],
+    })
+    for (
+      let i = 0, texte, texteCorr, a, b, r, u, d1, c1, c2, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (listeTypeDeQuestions[i]) {
         case 'a,b1': // 1 : b-a > 0,1
           d1 = randint(1, 6)
@@ -107,7 +137,7 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
           if (b - a > 0.1) {
             r = u + (d1 + 1) / 10
           } else {
-            r = u + (d1) / 10 + 1 / 100
+            r = u + d1 / 10 + 1 / 100
           }
           break
         case 'a,1':
@@ -134,7 +164,10 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
           break
       }
       if (this.interactif) {
-        texte = `$${texNombre(a)}<$` + ajouteChampTexteMathLive(this, i, '') + `$\\quad<${texNombre(b)}$`
+        texte =
+          `$${texNombre(a)}<$` +
+          ajouteChampTexteMathLive(this, i, '') +
+          `$\\quad<${texNombre(b)}$`
         setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' })
       } else {
         texte = `$${texNombre(a)}<${sp(3)}\\ldots\\ldots\\ldots\\ldots\\ldots${sp(3)}<${texNombre(b)}$`
@@ -144,7 +177,9 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
-          propositions: [{ texte: texteCorr, statut: 3, feedback: '', sanscadre: true }]
+          propositions: [
+            { texte: texteCorr, statut: 3, feedback: '', sanscadre: true },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, a, b)) {
@@ -157,11 +192,13 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
     }
     listeQuestionsToContenu(this)
     if (context.isHtml) {
-      this.contenuCorrection = infoMessage({
-        titre: 'Remarque',
-        texte: "Il y a une infinité de solutions. La correction ne montre qu'une possibilité.",
-        couleur: 'black'
-      }) + this.contenuCorrection
+      this.contenuCorrection =
+        infoMessage({
+          titre: 'Remarque',
+          texte:
+            "Il y a une infinité de solutions. La correction ne montre qu'une possibilité.",
+          couleur: 'black',
+        }) + this.contenuCorrection
     }
   }
 }

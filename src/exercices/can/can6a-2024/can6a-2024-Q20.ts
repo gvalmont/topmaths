@@ -3,7 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
-export const titre = 'Calculer une distance à partir d\'une vitesse'
+export const titre = "Calculer une distance à partir d'une vitesse"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '63897'
@@ -13,7 +13,7 @@ export const uuid = '63897'
 
 */
 export default class AbscisseEnDemis extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class AbscisseEnDemis extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let vitesse: number
     let duree: number
 

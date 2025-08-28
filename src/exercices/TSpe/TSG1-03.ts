@@ -11,9 +11,9 @@ export const dateDePublication = '20/4/2025'
 export const uuid = '32fa3'
 export const refs = {
   'fr-fr': ['TSG1-03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-function factorielle (num: number): number {
+function factorielle(num: number): number {
   if (num === 0 || num === 1) return 1
   return num * factorielle(num - 1)
 }
@@ -23,13 +23,13 @@ function factorielle (num: number): number {
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const n = randint(3, 6) // nombre de chiffres
     const p = randint(3, 5) // nombre de lettres du code
     const lettre = randint(p + 1, 8) // nombre de lettres possibles pour le code.

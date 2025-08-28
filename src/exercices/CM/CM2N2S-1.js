@@ -8,10 +8,10 @@ export const uuid = '2fa3b'
 export const refs = {
   'fr-fr': ['CM2N2S-1'],
   'fr-2016': ['c3N22'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LireAbscisseDecimaleTroisFormesCM extends LireAbscisseDecimaleTroisFormes {
-  constructor () {
+  constructor() {
     super()
     this.niveau = 'CM'
     this.sup = 1

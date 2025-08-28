@@ -9,7 +9,6 @@ export const uuid = '109b1'
 
 export const refs = {
   'fr-fr': ['2G11-1', 'BP2G21'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class ProblemesPythagore2nde extends ProblemesPythagore {
-}
+export default class ProblemesPythagore2nde extends ProblemesPythagore {}

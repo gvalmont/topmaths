@@ -8,7 +8,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { pgcd } from '../../../lib/outils/primalite'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Passer d\'un décimal à une fraction irréductible'
+export const titre = "Passer d'un décimal à une fraction irréductible"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -22,10 +22,10 @@ export const uuid = '3f875'
 
 export const refs = {
   'fr-fr': ['can3C14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DecimalVersFractionIr extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -33,10 +33,12 @@ export default class DecimalVersFractionIr extends ExerciceSimple {
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, d, maFraction, d1
-    switch (choice([1, 2, 3])) { //, 2, 3
-      case 1:// division par 10
+    switch (
+      choice([1, 2, 3]) //, 2, 3
+    ) {
+      case 1: // division par 10
         a = randint(1, 39, [10, 20, 30])
         d = new Decimal(a).div(10)
         maFraction = new FractionEtendue(a, 10)
@@ -47,7 +49,7 @@ export default class DecimalVersFractionIr extends ExerciceSimple {
         this.reponse = maFraction.simplifie()
 
         break
-      case 2:// division par 100
+      case 2: // division par 100
         a = randint(1, 19, 10)
         d = new Decimal(a).div(100)
         maFraction = new FractionEtendue(a, 100)
@@ -58,7 +60,7 @@ export default class DecimalVersFractionIr extends ExerciceSimple {
         this.reponse = maFraction.simplifie()
         break
 
-      case 3:// 0,25 et 0,75
+      case 3: // 0,25 et 0,75
         a = 2 * randint(0, 19) + 1
         d = new Decimal(a).div(4)
         maFraction = new FractionEtendue(a, 4)
@@ -74,8 +76,10 @@ export default class DecimalVersFractionIr extends ExerciceSimple {
         this.reponse = maFraction.simplifie()
         break
     }
-    if (this.interactif) { this.question += '<br>' }
-    this.canEnonce = this.question// 'Compléter'
+    if (this.interactif) {
+      this.question += '<br>'
+    }
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

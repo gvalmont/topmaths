@@ -15,7 +15,7 @@ export const uuid = '0f2c6'
 
 */
 export default class CoutBDEtRomans extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,7 +26,7 @@ export default class CoutBDEtRomans extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let coutUnitaire: Decimal
     let nbBds: number
     let nbRomans: number
@@ -47,7 +47,9 @@ export default class CoutBDEtRomans extends ExerciceSimple {
     $${stringNombre(coutUnitaire, 2, true)}$ € ${sp(0.5)} l'unité et $${stringNombre(nbRomans, 0)}$ romans à $${stringNombre(coutUnitaire, 2, true)}$ €${sp(0.5)} l'unité.`
     this.canEnonce = this.question
     this.question += '<br> Il paye : '
-    if (!this.interactif) { this.question += '$\\ldots$ €' }
+    if (!this.interactif) {
+      this.question += '$\\ldots$ €'
+    }
     this.canReponseACompleter = 'Il paye $\\ldots$ €'
     this.correction = `Comme les BD et les romans coûtent le même prix à l'unité, on calcule le nombre d'ouvrages : $${stringNombre(nbBds, 0)}+${stringNombre(nbRomans, 0)}=10$<br>`
     this.correction += `On multiplie ensuite par le prix unitaire : $10\\times ${texPrix(coutUnitaire)}=${miseEnEvidence(this.reponse)}$ €`

@@ -9,7 +9,6 @@ export const uuid = '20907'
 
 export const refs = {
   'fr-fr': ['2G11-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class CalculDAngleFigureComplexe2nde extends CalculDAngleFigureComplexe {
-}
+export default class CalculDAngleFigureComplexe2nde extends CalculDAngleFigureComplexe {}

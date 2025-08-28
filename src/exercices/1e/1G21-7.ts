@@ -1,4 +1,10 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusByPlusC, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusByPlusC,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -6,7 +12,8 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-export const titre = 'Déterminer les coordonnées d\'un projeté orthogonal sur une droite'
+export const titre =
+  "Déterminer les coordonnées d'un projeté orthogonal sur une droite"
 export const dateDePublication = '30/06/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,19 +26,19 @@ export const uuid = 'cee3b'
 
 export const refs = {
   'fr-fr': ['1G21-7'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 class EqCartVectNormal extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     // Lettre entre A et W mais pas L, M, N ou O pour ne pas avoir O dans les 4 points
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       const b = randint(-2, 2, 0)
@@ -39,7 +46,7 @@ class EqCartVectNormal extends Exercice {
       const xH = a * randint(-3, 3, 0)
       const yH = randint(-3, 3, 0)
       const xA = a * randint(-3, 3, [0, xH / a])
-      const yA = (b / a) * xA - (b / a) * xH + yH// pour que A soit sur la pendiculaire à d passant par A
+      const yA = (b / a) * xA - (b / a) * xH + yH // pour que A soit sur la pendiculaire à d passant par A
       const constante = -xH * a - yH * b // pour que H soit sur d
       texte = `Dans un repère $(O\\,;\\, \\vec{i}\\,,\\,\\vec{j})$, on considère la droite 
          $d$ d'équation 
@@ -69,13 +76,21 @@ class EqCartVectNormal extends Exercice {
        \\iff \\begin{cases} y_H=${yH}\\\\ x_H=${xH}\\end{cases}$`
       texteCorr += ` <br><br>On en déduit que le point $H$ a pour coordonnées $(${miseEnEvidence(texNombre(xH, 0))}\\,;\\,${miseEnEvidence(texNombre(yH, 0))})$.`
       if (this.interactif) {
-        texte += '<br>Les coordonnées du point $H$ sont :' + remplisLesBlancs(this, i, '(%{champ1};{%{champ2}).')
-        handleAnswers(this, i, {
-          bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          champ1: { value: String(xH) },
-          champ2: { value: String(yH) }
-        },
-        { formatInteractif: 'fillInTheBlank' }
+        texte +=
+          '<br>Les coordonnées du point $H$ sont :' +
+          remplisLesBlancs(this, i, '(%{champ1};{%{champ2}).')
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: (listePoints: number[]) => [
+              Math.min(listePoints[0], listePoints[1]),
+              1,
+            ],
+            champ1: { value: String(xH) },
+            champ2: { value: String(yH) },
+          },
+          { formatInteractif: 'fillInTheBlank' },
         )
       }
       if (this.questionJamaisPosee(i, texte)) {

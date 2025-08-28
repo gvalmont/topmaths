@@ -8,31 +8,31 @@ import { texNombre } from './texNombre'
  */
 
 type AccoladeType = {
-  start: number, // colonne de début (1 = première colonne)
-  end: number, // colonne de fin = start + longueur de l'accolade
-  text: string,
-  type?: 'accolade' | 'flèche', // pour le style de l'accolade, 'curl' pour les accolades classiques, 'arrow' pour les accolades avec une flèche
+  start: number // colonne de début (1 = première colonne)
+  end: number // colonne de fin = start + longueur de l'accolade
+  text: string
+  type?: 'accolade' | 'flèche' // pour le style de l'accolade, 'curl' pour les accolades classiques, 'arrow' pour les accolades avec une flèche
   options?: {
-    justify?: 'start' | 'center' | 'end', // pour justifier le texte à gauche, au centre ou à droite
-    color?: string, // pour la couleur du texte
-    fontSize?: string, // pour la taille de la police
-    fontWeight?: string, // pour le poids de la police
-    lineHeight?: string, // pour la hauteur de ligne
+    justify?: 'start' | 'center' | 'end' // pour justifier le texte à gauche, au centre ou à droite
+    color?: string // pour la couleur du texte
+    fontSize?: string // pour la taille de la police
+    fontWeight?: string // pour le poids de la police
+    lineHeight?: string // pour la hauteur de ligne
   }
 }
 type BarreSchemaType = {
   color: string
   length: number
-  content: string,
-  type?: 'boite' | 'flèche',
+  content: string
+  type?: 'boite' | 'flèche'
   options?: {
-    borderless?: boolean, // pour une boîte sans bordure
-    justify?: 'start' | 'center' | 'end', // pour justifier le texte à gauche, au centre ou à droite
-    color?: string, // pour la couleur du texte
-    fontSize?: string, // pour la taille de la police
-    fontWeight?: string, // pour le poids de la police
-    textAlign?: 'left' | 'center' | 'right', // pour aligner le texte à gauche, au centre ou à droite
-    style?: string, // pour ajouter un style CSS supplémentaire
+    borderless?: boolean // pour une boîte sans bordure
+    justify?: 'start' | 'center' | 'end' // pour justifier le texte à gauche, au centre ou à droite
+    color?: string // pour la couleur du texte
+    fontSize?: string // pour la taille de la police
+    fontWeight?: string // pour le poids de la police
+    textAlign?: 'left' | 'center' | 'right' // pour aligner le texte à gauche, au centre ou à droite
+    style?: string // pour ajouter un style CSS supplémentaire
     // par exemple: 'border: 1px solid black;'
     // pour ajouter une bordure ou d'autres styles
     // on peut aussi ajouter d'autres options si besoin
@@ -60,7 +60,19 @@ export default class SchemaEnBoite {
   rightBraces?: AccoladeType[] // pour les accolades à droite, si nécessaire
   maxEnteteLength?: number // pour la largeur max des entêtes (en nombre d'unité de grille), si nécessaire
 
-  constructor ({ lignes, bottomBraces, topBraces, rightBraces }: { lignes: LigneSchemaType[], bottomBraces?: LigneAccoladeType, topBraces?: LigneAccoladeType, rightBraces?: LigneAccoladeType } = { lignes: [] }) {
+  constructor(
+    {
+      lignes,
+      bottomBraces,
+      topBraces,
+      rightBraces,
+    }: {
+      lignes: LigneSchemaType[]
+      bottomBraces?: LigneAccoladeType
+      topBraces?: LigneAccoladeType
+      rightBraces?: LigneAccoladeType
+    } = { lignes: [] },
+  ) {
     this.lignes = lignes
     this.rightBraces = []
     if (bottomBraces) {
@@ -74,7 +86,7 @@ export default class SchemaEnBoite {
     }
   }
 
-  display (texScale = 0.8): string {
+  display(texScale = 0.8): string {
     if (context.isHtml) {
       // Trouver la largeur max des entêtes (en nombre d'unité de grille)
       let maxEnteteLength = 0
@@ -104,8 +116,9 @@ export default class SchemaEnBoite {
           const fontWeight = options.fontWeight ?? 'normal'
           const lineHeight = options.lineHeight ?? '1.2em'
           if (start != null && end != null && texte != null) {
-            ligneAccoladeH += type === 'flèche'
-              ? `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none; --arrow-color: ${color}">
+            ligneAccoladeH +=
+              type === 'flèche'
+                ? `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none; --arrow-color: ${color}">
                     <div class="latexAccoladeTop" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">${texte}</div>
                   <div class="horizontalArrow">
                     <div class="horizontalArrowHead" style="transform: rotate(180deg);"></div>
@@ -113,7 +126,7 @@ export default class SchemaEnBoite {
                     <div class="horizontalArrowHead"></div>
                   </div>
                 </div>\n`
-              : `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none"; --brace-color: ${color}">
+                : `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none"; --brace-color: ${color}">
                     <div class="latexAccoladeTop" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">${texte}</div>
                     <div class="braceTop">
                       <div class="braceTopLeft">
@@ -160,9 +173,10 @@ export default class SchemaEnBoite {
           const fontWeight = options.fontWeight ?? 'normal'
           const style = options.style ?? ''
           const type = barre.type ?? 'boite'
-          const borderless = options.borderless ?? false// Si on veut une boîte sans bordure
-          barresHtml += type === 'boite'
-            ? `<div class="SchemaItem" style="grid-row: ${i + 2 + offset};
+          const borderless = options.borderless ?? false // Si on veut une boîte sans bordure
+          barresHtml +=
+            type === 'boite'
+              ? `<div class="SchemaItem" style="grid-row: ${i + 2 + offset};
                   grid-column-start: ${start + maxEnteteLength};
                   grid-column-end: ${start + barre.length + maxEnteteLength};
                   background-color:${barre.color};
@@ -171,16 +185,21 @@ export default class SchemaEnBoite {
                   font-size:${fontSize};
                   font-weight:${fontWeight};
                   line-height:${lineHeight};
-                  ${borderless
-                   ? 'border: none;'
-                   : k > 0 ? 'border-left: none;' : 'border: solid 1px black;'}
-                   ${style}">
-                ${barre.content.includes('<br>')
-                  ? `<div style="text-align: center;">${barre.content}</div>\n`
-                  : barre.content
+                  ${
+                    borderless
+                      ? 'border: none;'
+                      : k > 0
+                        ? 'border-left: none;'
+                        : 'border: solid 1px black;'
                   }
+                   ${style}">
+                ${
+                  barre.content.includes('<br>')
+                    ? `<div style="text-align: center;">${barre.content}</div>\n`
+                    : barre.content
+                }
               </div>\n`
-            : `<div class="SchemaItem" style="grid-row: ${i + 2 + offset};
+              : `<div class="SchemaItem" style="grid-row: ${i + 2 + offset};
                   grid-column-start: ${start + maxEnteteLength};
                   grid-column-end: ${start + barre.length + maxEnteteLength};
                   background-color:${barre.color};
@@ -209,16 +228,16 @@ export default class SchemaEnBoite {
           // On peut fixer la largeur en "em" selon maxEnteteLength, ou laisser le CSS gérer
           lignesHtml.push(
             `<div class="SchemaItem" style="grid-row: ${i + 2 + offset}; grid-column-start: 1; grid-column-end: ${maxEnteteLength + 1}; border: none; color: ${couleurEntete}; font-size: ${fontSizeEntete}; font-weight: ${fontWeightEntete}">${entete}</div>\n` +
-            barresHtml
+              barresHtml,
           )
         } else {
-          lignesHtml.push(
-            barresHtml
-          )
+          lignesHtml.push(barresHtml)
         }
         // Espacement vertical si spacing > 0 (on ajoute un div vide)
         if (spacing > 0) {
-          lignesHtml.push(`<div class="SchemaItem" style="grid-row: ${i + 3 + offset}; grid-column-start: 1; grid-column-end: 2; border: none; height: ${spacing}em"></div>\n`)
+          lignesHtml.push(
+            `<div class="SchemaItem" style="grid-row: ${i + 3 + offset}; grid-column-start: 1; grid-column-end: 2; border: none; height: ${spacing}em"></div>\n`,
+          )
           offset++
         }
       }
@@ -238,8 +257,9 @@ export default class SchemaEnBoite {
           const fontWeight = options.fontWeight ?? 'normal'
           const lineHeight = options.lineHeight ?? '1.2em'
           if (start != null && end != null && texte != null) {
-            ligneAccoladeB += type === 'flèche'
-              ? `<div class="SchemaBottom" style="grid-row: ${this.lignes.length + 2 + offset}; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none; --brace-color: ${color}">
+            ligneAccoladeB +=
+              type === 'flèche'
+                ? `<div class="SchemaBottom" style="grid-row: ${this.lignes.length + 2 + offset}; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none; --brace-color: ${color}">
                   <div class="horizontalArrow">
                     <div class="horizontalArrowHead" style="transform: rotate(180deg);"></div>
                     <div class="horizontalArrowLine"></div>
@@ -247,7 +267,7 @@ export default class SchemaEnBoite {
                   </div>
                     <div class="latexAccoladeBottom" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">${texte}</div>
                 </div>\n`
-              : `<div class="SchemaBottom" style="grid-row: ${this.lignes.length + 2 + offset}; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none; --brace-color: ${color}">
+                : `<div class="SchemaBottom" style="grid-row: ${this.lignes.length + 2 + offset}; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none; --brace-color: ${color}">
                     <div class="braceBottom">
                       <div class="braceBottomLeft">
                         <div class="curlBottomLeftLeft"></div>
@@ -261,9 +281,10 @@ export default class SchemaEnBoite {
                     </div>
                   </div>
                 <div class="latexAccoladeBottom" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">
-                  ${texte.includes('<br>')
-                    ? `<div style="text-align: center;">${texte}</div>\n`
-                    : `${texte}`
+                  ${
+                    texte.includes('<br>')
+                      ? `<div style="text-align: center;">${texte}</div>\n`
+                      : `${texte}`
                   }</div>\n
                   </div>\n`
           }
@@ -272,7 +293,14 @@ export default class SchemaEnBoite {
       let ligneAccoladeDroite = ''
       if (this.rightBraces) {
         for (let k = 0; k < this.rightBraces.length; k++) {
-          const gridLength = Math.max(...this.lignes.map(l => l.barres.reduce((acc, b) => acc + (b.length ?? 0), 0) + (maxEnteteLength ?? 0) + 1)) // Longueur totale de la grille
+          const gridLength = Math.max(
+            ...this.lignes.map(
+              (l) =>
+                l.barres.reduce((acc, b) => acc + (b.length ?? 0), 0) +
+                (maxEnteteLength ?? 0) +
+                1,
+            ),
+          ) // Longueur totale de la grille
           const brace = this.rightBraces[k]
           const start = brace.start
           const end = brace.end
@@ -284,8 +312,7 @@ export default class SchemaEnBoite {
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
-            ligneAccoladeDroite +=
-  `<div class="SchemaRight" style="grid-row: ${start}/${end}; grid-column-start: ${gridLength + 1}; grid-column-end: ${gridLength + 2}; text-align:center; border: none; --brace-color: ${color}">
+            ligneAccoladeDroite += `<div class="SchemaRight" style="grid-row: ${start}/${end}; grid-column-start: ${gridLength + 1}; grid-column-end: ${gridLength + 2}; text-align:center; border: none; --brace-color: ${color}">
     <div class="braceRight">
       <div class="braceRightTop">
         <div class="curlRightTopTop"></div>
@@ -306,7 +333,8 @@ export default class SchemaEnBoite {
         }
       }
       return `<div class="SchemaContainer">${ligneAccoladeH}\n${lignesHtml.join('\n')}\n${ligneAccoladeB}${ligneAccoladeDroite}</div>\n`
-    } else { // latex
+    } else {
+      // latex
       // Trouver la largeur max des entêtes (en nombre de caractères)
       let maxEnteteLength = 0
       let hasEntete = false
@@ -324,8 +352,10 @@ export default class SchemaEnBoite {
       if (this.topBraces) {
         for (let k = 0; k < this.topBraces.length; k++) {
           const brace = this.topBraces[k]
-          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
-          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
+          const start =
+            (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
+          const end =
+            (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
           const texte = brace.text
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -340,7 +370,8 @@ export default class SchemaEnBoite {
               if (fontSize === 'small') fontSizeCmd = '\\small '
               else if (fontSize === 'large') fontSizeCmd = '\\large '
               else if (fontSize === 'Large') fontSizeCmd = '\\Large '
-              else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
+              else if (fontSize === 'footnotesize')
+                fontSizeCmd = '\\footnotesize '
             }
             let fontWeightCmd = ''
             if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
@@ -364,7 +395,19 @@ export default class SchemaEnBoite {
         const barres = ligne.barres ?? []
         if (hasEntete) {
           // On ajoute une barre vide pour l'entête
-          barres.unshift({ color: 'white', length: maxEnteteLength, content: entete, type: 'boite', options: { color: couleurEntete, justify: 'center', style: 'borderless', fontSize: fontSizeEntete, fontWeight: fontWeightEntete } })
+          barres.unshift({
+            color: 'white',
+            length: maxEnteteLength,
+            content: entete,
+            type: 'boite',
+            options: {
+              color: couleurEntete,
+              justify: 'center',
+              style: 'borderless',
+              fontSize: fontSizeEntete,
+              fontWeight: fontWeightEntete,
+            },
+          })
         }
         let start = 0
         const lineHeight = ligne.height ?? '1.2em'
@@ -405,7 +448,8 @@ export default class SchemaEnBoite {
             if (fontSize === 'small') fontSizeCmd = '\\small '
             else if (fontSize === 'large') fontSizeCmd = '\\large '
             else if (fontSize === 'Large') fontSizeCmd = '\\Large '
-            else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
+            else if (fontSize === 'footnotesize')
+              fontSizeCmd = '\\footnotesize '
           }
           let fontWeightCmd = ''
           if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
@@ -447,8 +491,10 @@ export default class SchemaEnBoite {
       if (this.bottomBraces) {
         for (let k = 0; k < this.bottomBraces.length; k++) {
           const brace = this.bottomBraces[k]
-          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
-          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
+          const start =
+            (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
+          const end =
+            (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
           const texte = brace.text
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -463,7 +509,8 @@ export default class SchemaEnBoite {
               if (fontSize === 'small') fontSizeCmd = '\\small '
               else if (fontSize === 'large') fontSizeCmd = '\\large '
               else if (fontSize === 'Large') fontSizeCmd = '\\Large '
-              else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
+              else if (fontSize === 'footnotesize')
+                fontSizeCmd = '\\footnotesize '
             }
             let fontWeightCmd = ''
             if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
@@ -471,20 +518,30 @@ export default class SchemaEnBoite {
               ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
               : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
             if (type === 'flèche') {
-              latex += `\\draw[<->,thick, draw=${color}] (${(start).toFixed(1)},${y - 0.2}) -- (${(end).toFixed(1)},${y - 0.2}) node[below, pos=0.5] {${texteLatex}};\n`
+              latex += `\\draw[<->,thick, draw=${color}] (${start.toFixed(1)},${y - 0.2}) -- (${end.toFixed(1)},${y - 0.2}) node[below, pos=0.5] {${texteLatex}};\n`
             } else {
-              latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}] (${(end).toFixed(1)},${y}) -- node[below=10pt, pos=0.5] {${texteLatex}} (${(start).toFixed(1)},${y});\n`
+              latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}] (${end.toFixed(1)},${y}) -- node[below=10pt, pos=0.5] {${texteLatex}} (${start.toFixed(1)},${y});\n`
             }
           }
         }
       }
       if (this.rightBraces) {
-        const longueurBarres = this.lignes.map(l => l.barres.reduce((acc, b) => acc + (b.length ?? 0), 0) + (maxEnteteLength ?? 0))
+        const longueurBarres = this.lignes.map(
+          (l) =>
+            l.barres.reduce((acc, b) => acc + (b.length ?? 0), 0) +
+            (maxEnteteLength ?? 0),
+        )
         const gridLength = Math.max(...longueurBarres) // Longueur totale de la grille
         for (let k = 0; k < this.rightBraces.length; k++) {
           const brace = this.rightBraces[k]
-          const start = 3 + (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * texScale - brace.start * texScale
-          const end = 3 + (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * texScale - brace.end * texScale
+          const start =
+            3 +
+            (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * texScale -
+            brace.start * texScale
+          const end =
+            3 +
+            (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * texScale -
+            brace.end * texScale
           const texte = brace.text
           // const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -499,7 +556,8 @@ export default class SchemaEnBoite {
               if (fontSize === 'small') fontSizeCmd = '\\small '
               else if (fontSize === 'large') fontSizeCmd = '\\large '
               else if (fontSize === 'Large') fontSizeCmd = '\\Large '
-              else if (fontSize === 'footnotesize') fontSizeCmd = '\\footnotesize '
+              else if (fontSize === 'footnotesize')
+                fontSizeCmd = '\\footnotesize '
             }
             let fontWeightCmd = ''
             if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
@@ -526,101 +584,242 @@ export default class SchemaEnBoite {
    * @param produit Le produit au format string si on veut écrire autre chose que '?' (écrit dans la case du dessous)
    * @returns
    */
-  static multiplication (nb1: number | undefined, nb2: number | undefined, precision: number, produit:string | undefined): SchemaEnBoite {
+  static multiplication(
+    nb1: number | undefined,
+    nb2: number | undefined,
+    precision: number,
+    produit: string | undefined,
+  ): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       topBraces: [
         {
           start: 1,
           end: 8 + precision * 2,
-          text: nb2 != null ? `$${texNombre(nb2, precision)}\\text{ fois}$` : '? fois',
-        }
+          text:
+            nb2 != null
+              ? `$${texNombre(nb2, precision)}\\text{ fois}$`
+              : '? fois',
+        },
       ],
       lignes: [
         {
           barres: [
-            { color: 'lightgray', length: 2 + precision, content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?', type: 'boite' },
-            { color: 'lightgray', length: 3, content: '\\ldots', type: 'boite' },
-            { color: 'lightgray', length: 2 + precision, content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?', type: 'boite' },
-          ]
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?',
+              type: 'boite',
+            },
+            {
+              color: 'lightgray',
+              length: 3,
+              content: '\\ldots',
+              type: 'boite',
+            },
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?',
+              type: 'boite',
+            },
+          ],
         },
         {
           barres: [
-            { color: 'white', length: 7 + precision * 2, content: produit != null ? produit : '?' } // `${nb1 * nb2}`,
-          ]
-        }
+            {
+              color: 'white',
+              length: 7 + precision * 2,
+              content: produit != null ? produit : '?',
+            }, // `${nb1 * nb2}`,
+          ],
+        },
       ],
     })
     return seb
   }
 
   /**
- *
- * @param dividende Le dividende (écrit dans la case du dessous)
- * @param quotient Le diviseur (nombre entier de fois écrit sur l'accolade)
- * @param diviseur Le diviseur (écrit dans les cases du dessus)
- * @param precision nombre de chiffres après la virgule du dividende et du diviseur
- * @returns
- */
-  static division (dividende: number | undefined, diviseur: number | undefined, quotient: number | undefined, precision: number): SchemaEnBoite {
+   *
+   * @param dividende Le dividende (écrit dans la case du dessous)
+   * @param quotient Le diviseur (nombre entier de fois écrit sur l'accolade)
+   * @param diviseur Le diviseur (écrit dans les cases du dessus)
+   * @param precision nombre de chiffres après la virgule du dividende et du diviseur
+   * @returns
+   */
+  static division(
+    dividende: number | undefined,
+    diviseur: number | undefined,
+    quotient: number | undefined,
+    precision: number,
+  ): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       topBraces: [
         {
           start: 1,
           end: 8 + 2 * precision,
           text: quotient == null ? '? fois' : `${texNombre(quotient, 0)} fois`,
-        }
+        },
       ],
       lignes: [
         {
           barres: [
-            { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$`, type: 'boite' },
-            { color: 'lightgray', length: 3, content: '\\ldots', type: 'boite' },
-            { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$`, type: 'boite' },
-          ]
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content:
+                diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$`,
+              type: 'boite',
+            },
+            {
+              color: 'lightgray',
+              length: 3,
+              content: '\\ldots',
+              type: 'boite',
+            },
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content:
+                diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$`,
+              type: 'boite',
+            },
+          ],
         },
         {
           barres: [
-
-            { color: 'white', length: 7 + 2 * precision, content: dividende == null ? '?' : `$${texNombre(dividende, precision)}$` },
-          ]
-        }
+            {
+              color: 'white',
+              length: 7 + 2 * precision,
+              content:
+                dividende == null
+                  ? '?'
+                  : `$${texNombre(dividende, precision)}$`,
+            },
+          ],
+        },
       ],
     })
     return seb
   }
 
-  static multiplicationPuisDivisionAvecReste (nbFois: number | string | undefined, nb1: number | string | undefined, nb2: number | string | undefined, nbParts: number | String | undefined, reste: number | string | undefined, precison: number): SchemaEnBoite {
+  static multiplicationPuisDivisionAvecReste(
+    nbFois: number | string | undefined,
+    nb1: number | string | undefined,
+    nb2: number | string | undefined,
+    nbParts: number | String | undefined,
+    reste: number | string | undefined,
+    precison: number,
+  ): SchemaEnBoite {
     const longueur = typeof nbFois === 'number' ? nbFois * 3 : 10
     const seb = new SchemaEnBoite({
-      topBraces: nbFois != null
-        ? typeof nbFois === 'string'
-          ? [{ start: 1, end: longueur + 1, text: `${nbFois}`, type: 'accolade' }]
-          : [{ start: 1, end: longueur + 1, text: `${texNombre(nbFois, 0)}`, type: 'accolade' }]
-        : [{ start: 1, end: longueur + 1, text: '? fois', type: 'accolade' }],
-      lignes: [{
-        spacing: 0.5,
-        barres: typeof nbFois === 'number'
-          ? range(nbFois - 1).map(i => {
-            const nb1Tex = nb1 != null ? typeof nb1 === 'number' ? `$${texNombre(nb1, precison)}$` : `${nb1}` : '?'
-            return { color: 'white', length: 3, content: nb1Tex, type: 'boite' }
-          })
-          : [
-              { color: 'lightgray', length: 3, content: nb1 != null ? typeof nb1 === 'number' ? `$${texNombre(nb1, precison)}$` : `${nb1}` : '?', type: 'boite' },
-              { color: 'lightgray', length: longueur - 3, content: '\\ldots', type: 'boite', options: { justify: 'start' } }
-            ]
-      }, {
-        barres: [{ color: 'lightgray', length: 3, content: nb2 != null ? typeof nb2 === 'number' ? `$${texNombre(nb2, precison)}$` : `${nb2}` : '?', type: 'boite' as const },
-          { color: 'lightgray', length: longueur - 6, content: '\\ldots', type: 'boite' as const, options: { justify: 'start' as 'start' } },
-          { color: 'lightgray', length: 3, content: reste != null ? typeof reste === 'number' ? `$${texNombre(reste, precison)}$` : `${reste}` : '?', type: 'boite' as const, options: { justify: 'center' as const } }]
-      }],
+      topBraces:
+        nbFois != null
+          ? typeof nbFois === 'string'
+            ? [
+                {
+                  start: 1,
+                  end: longueur + 1,
+                  text: `${nbFois}`,
+                  type: 'accolade',
+                },
+              ]
+            : [
+                {
+                  start: 1,
+                  end: longueur + 1,
+                  text: `${texNombre(nbFois, 0)}`,
+                  type: 'accolade',
+                },
+              ]
+          : [{ start: 1, end: longueur + 1, text: '? fois', type: 'accolade' }],
+      lignes: [
+        {
+          spacing: 0.5,
+          barres:
+            typeof nbFois === 'number'
+              ? range(nbFois - 1).map((i) => {
+                  const nb1Tex =
+                    nb1 != null
+                      ? typeof nb1 === 'number'
+                        ? `$${texNombre(nb1, precison)}$`
+                        : `${nb1}`
+                      : '?'
+                  return {
+                    color: 'white',
+                    length: 3,
+                    content: nb1Tex,
+                    type: 'boite',
+                  }
+                })
+              : [
+                  {
+                    color: 'lightgray',
+                    length: 3,
+                    content:
+                      nb1 != null
+                        ? typeof nb1 === 'number'
+                          ? `$${texNombre(nb1, precison)}$`
+                          : `${nb1}`
+                        : '?',
+                    type: 'boite',
+                  },
+                  {
+                    color: 'lightgray',
+                    length: longueur - 3,
+                    content: '\\ldots',
+                    type: 'boite',
+                    options: { justify: 'start' },
+                  },
+                ],
+        },
+        {
+          barres: [
+            {
+              color: 'lightgray',
+              length: 3,
+              content:
+                nb2 != null
+                  ? typeof nb2 === 'number'
+                    ? `$${texNombre(nb2, precison)}$`
+                    : `${nb2}`
+                  : '?',
+              type: 'boite' as const,
+            },
+            {
+              color: 'lightgray',
+              length: longueur - 6,
+              content: '\\ldots',
+              type: 'boite' as const,
+              options: { justify: 'start' as 'start' },
+            },
+            {
+              color: 'lightgray',
+              length: 3,
+              content:
+                reste != null
+                  ? typeof reste === 'number'
+                    ? `$${texNombre(reste, precison)}$`
+                    : `${reste}`
+                  : '?',
+              type: 'boite' as const,
+              options: { justify: 'center' as const },
+            },
+          ],
+        },
+      ],
       bottomBraces: [
         {
           start: 1,
           end: longueur - 2,
-          text: nbParts != null ? typeof nbParts === 'string' ? nbParts : `$${texNombre(Number(nbParts), precison)}$` : '?',
-          type: 'flèche'
-        }
-      ]
+          text:
+            nbParts != null
+              ? typeof nbParts === 'string'
+                ? nbParts
+                : `$${texNombre(Number(nbParts), precison)}$`
+              : '?',
+          type: 'flèche',
+        },
+      ],
     })
 
     return seb
@@ -635,177 +834,303 @@ export default class SchemaEnBoite {
    * @param precision
    * @returns
    */
-  static divisionAvecReste (dividende: number | undefined, diviseur: number | undefined, quotient: number | undefined, precision: number, reste?: string): SchemaEnBoite {
+  static divisionAvecReste(
+    dividende: number | undefined,
+    diviseur: number | undefined,
+    quotient: number | undefined,
+    precision: number,
+    reste?: string,
+  ): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       topBraces: [
         {
           start: 1,
           end: 8 + 2 * precision,
           text: quotient == null ? '? fois' : `$${quotient}$ fois`,
-        }
+        },
       ],
       lignes: [
         {
           barres: [
-            { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content:
+                diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$`,
+            },
             { color: 'lightgray', length: 3, content: '\\ldots' },
-            { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
-            { color: 'lightgray', length: 2, content: reste ?? '?' }
-          ]
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content:
+                diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$`,
+            },
+            { color: 'lightgray', length: 2, content: reste ?? '?' },
+          ],
         },
         {
           barres: [
-            { color: 'white', length: 9 + 2 * precision, content: dividende == null ? '?' : `$${texNombre(dividende, precision)}$` }
-          ]
-        }
-      ]
+            {
+              color: 'white',
+              length: 9 + 2 * precision,
+              content:
+                dividende == null
+                  ? '?'
+                  : `$${texNombre(dividende, precision)}$`,
+            },
+          ],
+        },
+      ],
     })
     return seb
   }
 
-  static addition (nb1: number | undefined, nb2: number | undefined, precision: number): SchemaEnBoite {
+  static addition(
+    nb1: number | undefined,
+    nb2: number | undefined,
+    precision: number,
+  ): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       lignes: [
         {
           barres: [
-            { color: 'lightgray', length: 2 + precision, content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?' },
-            { color: 'lightgray', length: 2 + precision, content: nb2 != null ? `$${texNombre(nb2, precision)}$` : '?' },
-          ]
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?',
+            },
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content: nb2 != null ? `$${texNombre(nb2, precision)}$` : '?',
+            },
+          ],
         },
         {
-          barres: [
-            { color: 'white', length: 4 + precision * 2, content: '?' },
-          ]
-        }
-      ]
+          barres: [{ color: 'white', length: 4 + precision * 2, content: '?' }],
+        },
+      ],
     })
     return seb
   }
 
-  static additionPartiesTout (tout: number | string | undefined, precision: number, parties: (number | string | undefined)[]): SchemaEnBoite {
+  static additionPartiesTout(
+    tout: number | string | undefined,
+    precision: number,
+    parties: (number | string | undefined)[],
+  ): SchemaEnBoite {
     const nbParties = parties.length
-    const partieLength = (nbParties < 3 ? 4 : 3)
+    const partieLength = nbParties < 3 ? 4 : 3
     const seb = new SchemaEnBoite({
       topBraces: [
         {
           start: 1,
           end: nbParties * partieLength + 1,
-          text: tout != null
-            ? typeof tout === 'string'
-              ? tout
-              : `$${texNombre(tout, precision)}$`
-            : '?',
-          type: 'accolade'
-        }
+          text:
+            tout != null
+              ? typeof tout === 'string'
+                ? tout
+                : `$${texNombre(tout, precision)}$`
+              : '?',
+          type: 'accolade',
+        },
       ],
       lignes: [
         {
-          barres:
-          parties.map((partie, index) => Object.assign({
-            color: 'lightgray',
-            length: partieLength,
-            content: partie != null
-              ? typeof partie === 'string'
-                ? partie
-                : `$${texNombre(Number(partie), precision)}$`
-              : '?',
-          }, {}))
-        }
-      ]
+          barres: parties.map((partie, index) =>
+            Object.assign(
+              {
+                color: 'lightgray',
+                length: partieLength,
+                content:
+                  partie != null
+                    ? typeof partie === 'string'
+                      ? partie
+                      : `$${texNombre(Number(partie), precision)}$`
+                    : '?',
+              },
+              {},
+            ),
+          ),
+        },
+      ],
     })
     return seb
   }
 
-  static additionPartiesToutComparaison (partie1: number | undefined, partie2: number | undefined, difference: number | undefined, tout: number | undefined, precision: number): SchemaEnBoite {
+  static additionPartiesToutComparaison(
+    partie1: number | undefined,
+    partie2: number | undefined,
+    difference: number | undefined,
+    tout: number | undefined,
+    precision: number,
+  ): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       rightBraces: [
         {
           start: 1,
           end: 5,
           text: tout != null ? `${texNombre(tout, precision)}$` : '?',
-          type: 'accolade'
-        }
+          type: 'accolade',
+        },
       ],
       lignes: [
         {
           barres: [
-            { color: 'lightgray', length: 8 + precision, content: partie1 == null ? '?' : `$${texNombre(partie1, precision)}$` }
-          ]
+            {
+              color: 'lightgray',
+              length: 8 + precision,
+              content:
+                partie1 == null ? '?' : `$${texNombre(partie1, precision)}$`,
+            },
+          ],
         },
         {
           barres: [
-            { color: 'lightgray', length: 4 + precision, content: partie2 == null ? '?' : `$${texNombre(partie2, precision)}$` },
-            { color: 'white', type: 'flèche', length: 4 + precision, content: difference != null ? `$${texNombre(difference, precision)}$` : 'différence', options: { style: 'border-left: none;border-top: none; border-bottom: none;border-right: dashed;' } }
-          ]
-        }
-      ]
+            {
+              color: 'lightgray',
+              length: 4 + precision,
+              content:
+                partie2 == null ? '?' : `$${texNombre(partie2, precision)}$`,
+            },
+            {
+              color: 'white',
+              type: 'flèche',
+              length: 4 + precision,
+              content:
+                difference != null
+                  ? `$${texNombre(difference, precision)}$`
+                  : 'différence',
+              options: {
+                style:
+                  'border-left: none;border-top: none; border-bottom: none;border-right: dashed;',
+              },
+            },
+          ],
+        },
+      ],
     })
     return seb
   }
 
-  static additionPartiesToutComparaison2 (partie1:string, partie2:string, partie3:string, difference:string, tout?:string, afficherTout?: boolean): SchemaEnBoite {
-    const seb = new SchemaEnBoite(afficherTout
-      ? Object.assign({}, {
-        lignes: [
-          {
-            spacing: 0.5,
-            barres: [
-              { color: 'lightgray', length: 3, content: partie1 },
-              { color: 'lightgray', length: 7, content: partie2 }
-            ]
-          },
-          {
-            barres: [
-              { color: 'lightgray', length: 6, content: partie3 },
-              { color: 'white', type: 'flèche' as const, length: 4, content: difference, options: { style: 'border-left: none;border-top: none; border-bottom: none;border-right: dashed;' } }
-            ]
-          }
-        ],
-        topBraces: [
-          {
-            start: 1,
-            end: 11,
-            text: tout,
-            type: 'accolade'
-          }
-        ]
-      })
-      : Object.assign({}, {
-        lignes: [
-          {
-            spacing: 0.5,
-            barres: [
-              { color: 'lightgray', length: 3, content: partie1 },
-              { color: 'lightgray', length: 7, content: partie2 }
-            ]
-          },
-          {
-            barres: [
-              { color: 'lightgray', length: 6, content: partie3 },
-              { color: 'white', type: 'flèche' as const, length: 4, content: difference, options: { style: 'border-left: none;border-top: none; border-bottom: none;border-right: dashed;' } }
-            ]
-          }
-        ]
-      }))
+  static additionPartiesToutComparaison2(
+    partie1: string,
+    partie2: string,
+    partie3: string,
+    difference: string,
+    tout?: string,
+    afficherTout?: boolean,
+  ): SchemaEnBoite {
+    const seb = new SchemaEnBoite(
+      afficherTout
+        ? Object.assign(
+            {},
+            {
+              lignes: [
+                {
+                  spacing: 0.5,
+                  barres: [
+                    { color: 'lightgray', length: 3, content: partie1 },
+                    { color: 'lightgray', length: 7, content: partie2 },
+                  ],
+                },
+                {
+                  barres: [
+                    { color: 'lightgray', length: 6, content: partie3 },
+                    {
+                      color: 'white',
+                      type: 'flèche' as const,
+                      length: 4,
+                      content: difference,
+                      options: {
+                        style:
+                          'border-left: none;border-top: none; border-bottom: none;border-right: dashed;',
+                      },
+                    },
+                  ],
+                },
+              ],
+              topBraces: [
+                {
+                  start: 1,
+                  end: 11,
+                  text: tout,
+                  type: 'accolade',
+                },
+              ],
+            },
+          )
+        : Object.assign(
+            {},
+            {
+              lignes: [
+                {
+                  spacing: 0.5,
+                  barres: [
+                    { color: 'lightgray', length: 3, content: partie1 },
+                    { color: 'lightgray', length: 7, content: partie2 },
+                  ],
+                },
+                {
+                  barres: [
+                    { color: 'lightgray', length: 6, content: partie3 },
+                    {
+                      color: 'white',
+                      type: 'flèche' as const,
+                      length: 4,
+                      content: difference,
+                      options: {
+                        style:
+                          'border-left: none;border-top: none; border-bottom: none;border-right: dashed;',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ),
+    )
 
     return seb
   }
 
-  static soustraction (terme1: number | undefined, difference: number | undefined, terme2: number | undefined, precision: number): SchemaEnBoite {
+  static soustraction(
+    terme1: number | undefined,
+    difference: number | undefined,
+    terme2: number | undefined,
+    precision: number,
+  ): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       lignes: [
         {
           barres: [
-            { color: 'lightgray', length: 2 + precision, content: terme1 == null ? '?' : `$${texNombre(terme1, precision)}$` },
-            { color: 'lightgray', length: 2 + precision, content: terme2 == null ? '?' : `$${texNombre(terme2, precision)}$` },
-          ]
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content:
+                terme1 == null ? '?' : `$${texNombre(terme1, precision)}$`,
+            },
+            {
+              color: 'lightgray',
+              length: 2 + precision,
+              content:
+                terme2 == null ? '?' : `$${texNombre(terme2, precision)}$`,
+            },
+          ],
         },
         {
           barres: [
-            { color: 'white', length: 4 + precision * 2, content: difference == null ? '?' : `$${texNombre(difference, precision)}$` },
-          ]
-        }
-      ]
+            {
+              color: 'white',
+              length: 4 + precision * 2,
+              content:
+                difference == null
+                  ? '?'
+                  : `$${texNombre(difference, precision)}$`,
+            },
+          ],
+        },
+      ],
     })
     return seb
   }

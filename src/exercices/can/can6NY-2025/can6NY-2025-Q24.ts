@@ -11,14 +11,14 @@ export const interactifType = 'mathLive'
 export const uuid = '3321e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora + Eric Elter
-*/
+ */
 export default class CalculDivers extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -27,7 +27,7 @@ export default class CalculDivers extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=81\\times 25$, compléter :`
     switch (randint(1, 4)) {
       case 1:

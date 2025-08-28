@@ -7,10 +7,10 @@ export const uuid = '2b6a2'
 
 export const refs = {
   'fr-fr': ['5G30'],
-  'fr-ch': ['9ES2-6']
+  'fr-ch': ['9ES2-6'],
 }
 export default class UtiliserLeCodagePourDecrire5e extends UtiliserLeCodagePourDecrire {
-  constructor () {
+  constructor() {
     super()
     this.classe = 5
   }

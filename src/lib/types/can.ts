@@ -1,4 +1,10 @@
-export type CanState = 'start' | 'countdown' | 'race' | 'end' | 'solutions' | 'canHomeScreen'
+export type CanState =
+  | 'start'
+  | 'countdown'
+  | 'race'
+  | 'end'
+  | 'solutions'
+  | 'canHomeScreen'
 export type CanSolutionsMode = 'gathered' | 'split'
 export type CanOptions = {
   durationInMinutes: number

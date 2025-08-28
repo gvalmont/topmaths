@@ -12,14 +12,14 @@ export const uuid = '08680'
 export const refs = {
   'fr-fr': ['auto6N3D-4'],
   'fr-2016': ['6C10-7b'],
-  'fr-ch': ['9NO3-13']
+  'fr-ch': ['9NO3-13'],
 }
 /**
  * @author Jean-Claude Lhote
  * @constructor
  */
 export default class FabriqueAYohaku6B extends FabriqueAYohaku {
-  constructor () {
+  constructor() {
     super()
     this.sup = 10
     this.sup2 = 2
@@ -29,6 +29,9 @@ export default class FabriqueAYohaku6B extends FabriqueAYohaku {
     this.besoinFormulaireNumerique = false
     this.besoinFormulaire2Numerique = false
     this.besoinFormulaire3Numerique = false
-    this.besoinFormulaire4CaseACocher = ['Avec aide (la présence d\'une valeur impose une solution unique)', false]
+    this.besoinFormulaire4CaseACocher = [
+      "Avec aide (la présence d'une valeur impose une solution unique)",
+      false,
+    ]
   }
 }

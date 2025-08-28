@@ -19,10 +19,10 @@ export const uuid = '9094b'
 
 export const refs = {
   'fr-fr': ['can3C08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProgrammeCalcul extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -31,7 +31,7 @@ export default class ProgrammeCalcul extends ExerciceSimple {
     // ${texNombre(ecritureParenthesesSiNegatif(a / 5 - e))}^2=${texNombre((a / 5 - e) * (a / 5 - e))}$
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = arrondi(randint(2, 9) * 5)
     const b = arrondi(randint(2, 9) * 4)
     const c = arrondi(randint(2, 9) * 3)
@@ -99,7 +99,7 @@ export default class ProgrammeCalcul extends ExerciceSimple {
       `)
       this.reponse = (d / 6 - e) * (d / 6 - e)
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

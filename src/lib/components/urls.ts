@@ -8,7 +8,7 @@ export class MathAleaURL extends URL {
   /**
    * Utilise l'URL courante pour fabriquer l'URL lors de l' appel new MathAleaURL()
    */
-  constructor (url?: string) {
+  constructor(url?: string) {
     if (url === undefined) {
       url = document.URL
     }
@@ -18,14 +18,21 @@ export class MathAleaURL extends URL {
   /**
    * Utilise le store exercicesParams pour fabriquer l'URL (utile pour les recorders qui freezent l'url)
    */
-  static fromExercisesParams (): MathAleaURL {
-    const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
+  static fromExercisesParams(): MathAleaURL {
+    const url = new URL(
+      window.location.protocol +
+        '//' +
+        window.location.host +
+        window.location.pathname,
+    )
     const params = get(exercicesParams)
     for (const ex of params) {
       url.searchParams.append('uuid', ex.uuid)
       if (ex.id != null) url.searchParams.append('id', ex.id)
-      if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
-      if (ex.duration != null) url.searchParams.append('d', ex.duration.toString())
+      if (ex.nbQuestions !== undefined)
+        url.searchParams.append('n', ex.nbQuestions.toString())
+      if (ex.duration != null)
+        url.searchParams.append('d', ex.duration.toString())
       if (ex.sup != null) url.searchParams.append('s', ex.sup)
       if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
       if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
@@ -45,7 +52,7 @@ export class MathAleaURL extends URL {
    * @param paramToBeRemoved paramètre à supprimer dans l'URL (seulement les propriétés de InterfaceGlobalOptions sont permises )
    * @returns l'URL
    */
-  removeParam (paramToBeRemoved: keyof InterfaceGlobalOptions): MathAleaURL {
+  removeParam(paramToBeRemoved: keyof InterfaceGlobalOptions): MathAleaURL {
     this.searchParams.delete(paramToBeRemoved)
     return this
   }
@@ -56,7 +63,7 @@ export class MathAleaURL extends URL {
    * @param value valeur du paramètre
    * @returns l'URL
    */
-  addParam (param: keyof InterfaceGlobalOptions, value: string): MathAleaURL {
+  addParam(param: keyof InterfaceGlobalOptions, value: string): MathAleaURL {
     this.searchParams.append(param, value)
     return this
   }
@@ -64,7 +71,7 @@ export class MathAleaURL extends URL {
   /**
    * Supprime la graine de l'aléatoire de l'URL et retourne l'URL modifiée
    */
-  removeSeed (): MathAleaURL {
+  removeSeed(): MathAleaURL {
     this.searchParams.delete('alea')
     return this
   }
@@ -75,7 +82,7 @@ export class MathAleaURL extends URL {
    * @param value valeur du paramètre
    * @returns l'URL
    */
-  setParam (param: keyof InterfaceGlobalOptions, value: string): MathAleaURL {
+  setParam(param: keyof InterfaceGlobalOptions, value: string): MathAleaURL {
     this.searchParams.set(param, value)
     return this
   }
@@ -85,7 +92,7 @@ export class MathAleaURL extends URL {
    * @param value la vue cible
    * @returns l'URL
    */
-  setVue (value: VueType): MathAleaURL {
+  setVue(value: VueType): MathAleaURL {
     this.setParam('v', value)
     return this
   }
@@ -97,23 +104,25 @@ export class MathAleaURL extends URL {
  * @param mode le mode de présentation des exercices
  * @returns l'URL correspondant à la feuille d'exercices avec tous les paramètres
  */
-export function buildMathAleaURL (options: {
-  view?: VueType,
-  mode?: InterfaceGlobalOptions['presMode'],
-  isEncrypted?: boolean,
-  isShort?: boolean,
+export function buildMathAleaURL(options: {
+  view?: VueType
+  mode?: InterfaceGlobalOptions['presMode']
+  isEncrypted?: boolean
+  isShort?: boolean
   removeSeed?: boolean
   /** S'il y a un recorder l'url est cachée et doit être construite à partir du store exercicesParams */
   recorder?: 'Moodle'
-}
-): URL {
-  const url = options.recorder ? MathAleaURL.fromExercisesParams() : new MathAleaURL()
+}): URL {
+  const url = options.recorder
+    ? MathAleaURL.fromExercisesParams()
+    : new MathAleaURL()
   if (options.removeSeed) {
     url.removeSeed()
   }
   const global = get(globalOptions)
   const can = get(canOptions)
-  if (options.view) url.setVue(options.view).addParam('es', buildEsParams(options.mode))
+  if (options.view)
+    url.setVue(options.view).addParam('es', buildEsParams(options.mode))
   if (options.view === 'can') {
     // paramètres spécifiques à la can dans l'URL
     url
@@ -124,10 +133,19 @@ export function buildMathAleaURL (options: {
       .addParam('canI', can.isInteractive ? '1' : '0')
   } else if (options.view === 'diaporama') {
     url.addParam('ds', buildDsParams())
-    if (global.select !== undefined && global.select !== undefined && global.select.length > 0 && global.select.length < get(exercicesParams).length) {
+    if (
+      global.select !== undefined &&
+      global.select !== undefined &&
+      global.select.length > 0 &&
+      global.select.length < get(exercicesParams).length
+    ) {
       url.addParam('select', global.select.join('-'))
     }
-    if (global.order !== undefined && global.order.length > 0 && global.shuffle) {
+    if (
+      global.order !== undefined &&
+      global.order.length > 0 &&
+      global.shuffle
+    ) {
       url.addParam('order', global.order.join('-'))
     }
   } else {
@@ -139,7 +157,9 @@ export function buildMathAleaURL (options: {
   if (global.beta) {
     url.addParam('beta', '1')
   }
-  const cryptedUrl = options.isEncrypted ? encrypt(url.toString()) : url.toString()
+  const cryptedUrl = options.isEncrypted
+    ? encrypt(url.toString())
+    : url.toString()
   return new URL(cryptedUrl)
 }
 
@@ -148,21 +168,24 @@ export function buildMathAleaURL (options: {
  * @param mode mode de présentation
  * @returns la chaîne de 6 chiffres représentant le setup
  */
-export function buildEsParams (
-  mode?: InterfaceGlobalOptions['presMode']
+export function buildEsParams(
+  mode?: InterfaceGlobalOptions['presMode'],
 ): string {
   const options = get(globalOptions)
-  const presentationMode = new Map([ // sync with src/lib/stores/generalStore.ts presModeId
+  const presentationMode = new Map([
+    // sync with src/lib/stores/generalStore.ts presModeId
     ['liste_exos', 0],
     ['un_exo_par_page', 1],
     ['liste_exos', 2],
     ['une_question_par_page', 3],
     ['recto', 4],
-    ['verso', 5]
+    ['verso', 5],
   ])
   let es = ''
   // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed
-  es += presentationMode.get(mode !== undefined ? mode : options.presMode ?? 'liste_exos')
+  es += presentationMode.get(
+    mode !== undefined ? mode : (options.presMode ?? 'liste_exos'),
+  )
   es += options.setInteractive ?? '2'
   es += options.isSolutionAccessible ? '1' : '0'
   es += options.isInteractiveFree ? '1' : '0'
@@ -172,7 +195,7 @@ export function buildEsParams (
   return es
 }
 
-export function buildDsParams (): string {
+export function buildDsParams(): string {
   let ds = ''
   const options = get(globalOptions)
   ds += options.nbVues?.toString() ?? '1'
@@ -186,21 +209,25 @@ export function buildDsParams (): string {
   return ds
 }
 
-export async function getShortenedCurrentUrl (addendum: string = ''): Promise<string> {
+export async function getShortenedCurrentUrl(
+  addendum: string = '',
+): Promise<string> {
   const urlObj = new URL(window.location.href)
   const port = urlObj.port
   const baseUrl = port ? 'https://coopmaths.fr/alea' : document.URL
   const url = `${baseUrl}${addendum}`
 
   try {
-    const response = await fetch(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(url)}`)
+    const response = await fetch(
+      `https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(url)}`,
+    )
     if (!response.ok) {
       throw new Error('Network response was not ok.')
     }
     const jsonResponse = await response.json()
     return jsonResponse.result.full_short_link
   } catch (error) {
-    notify('Impossible de raccourcir l\'url', { error })
+    notify("Impossible de raccourcir l'url", { error })
     return url
   }
 }
@@ -214,7 +241,7 @@ export async function getShortenedCurrentUrl (addendum: string = ''): Promise<st
  * @returns {URL} URL encryptée
  * @author sylvain
  */
-export function encrypt (url: string): string {
+export function encrypt(url: string): string {
   const urlParts = url.split('?')
   let newUrl = urlParts[0] + '?EEEE'
   let char, nextChar, combinedCharCode
@@ -247,7 +274,7 @@ export function encrypt (url: string): string {
  * @returns {URL} URL décryptée
  * @author sylvain
  */
-export function decrypt (url: URL): URL {
+export function decrypt(url: URL): URL {
   const oldUrl = url.href
   const part1 = oldUrl.slice(0, oldUrl.indexOf('?'))
   const part2withEEEE = oldUrl.replace(part1 + '?', '')
@@ -263,7 +290,7 @@ export function decrypt (url: URL): URL {
     if (matches !== null) {
       part2 = matches.reduce(
         (acc, char) => acc + String.fromCharCode(parseInt(char, 16)),
-        ''
+        '',
       )
     }
 
@@ -291,7 +318,7 @@ export function decrypt (url: URL): URL {
  * @param {URL} url Chaîne representant l'URL à analyser
  * @returns {boolean} `true` si l'URL est crypté avec la fonction `encrypt`
  */
-export function isCrypted (url: URL): boolean {
+export function isCrypted(url: URL): boolean {
   return url.href.includes('?EEEE')
 }
 
@@ -308,14 +335,14 @@ export function isCrypted (url: URL): boolean {
  * @param {string} filename nom doné au fichier téléchargé
  * @see {@link https://blog.gitnux.com/code/javascript-download-file-from-url/}
  */
-export async function downloadFileFromURL (url: string, filename: string) {
+export async function downloadFileFromURL(url: string, filename: string) {
   try {
     // Fetch the file
     const response = await fetch(url)
     // Check if the request was successful
     if (response.status !== 200) {
       throw new Error(
-        `Unable to download file. HTTP status: ${response.status}`
+        `Unable to download file. HTTP status: ${response.status}`,
       )
     }
 

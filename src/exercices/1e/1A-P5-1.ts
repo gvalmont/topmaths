@@ -7,7 +7,7 @@ export const uuid = '3a5ab'
 // Author Stéphane Guyon
 export const refs = {
   'fr-fr': ['1A-P5-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,57 +29,58 @@ export default class Puissances extends ExerciceQcmA {
       visible: false,
       alter: '',
       enfants: [
-        new Arbre(
-          {
-            rationnel,
-            nom: 'A',
-            proba: pA,
-            enfants: [new Arbre(
-              {
-                rationnel,
-                nom: 'C',
-                proba: pAC
-              }),
-            new Arbre(
-              {
-                rationnel,
-                nom: '\\bar C',
-                proba: Number(1 - pAC)
-              })
-            ]
-          }),
+        new Arbre({
+          rationnel,
+          nom: 'A',
+          proba: pA,
+          enfants: [
+            new Arbre({
+              rationnel,
+              nom: 'C',
+              proba: pAC,
+            }),
+            new Arbre({
+              rationnel,
+              nom: '\\bar C',
+              proba: Number(1 - pAC),
+            }),
+          ],
+        }),
         new Arbre({
           rationnel,
           nom: '\\bar A',
           proba: Number(1 - pA),
-          enfants: [new Arbre({
-            rationnel,
-            nom: 'C',
-            proba: pBC,
-            visible: true,
-            // alter: 'x'
-          }),
-          new Arbre({
-            rationnel,
-            nom: '\\bar C',
-            proba: Number(1 - pBC),
-            visible: true,
-            alter: ''
-          })
-          ]
-        })
-      ]
+          enfants: [
+            new Arbre({
+              rationnel,
+              nom: 'C',
+              proba: pBC,
+              visible: true,
+              // alter: 'x'
+            }),
+            new Arbre({
+              rationnel,
+              nom: '\\bar C',
+              proba: Number(1 - pBC),
+              visible: true,
+              alter: '',
+            }),
+          ],
+        }),
+      ],
     })
 
     omega.setTailles() // On calcule les tailles des arbres.
     objets = omega.represente(0, 6, 0, 3, true, 1, 8)
     const Reponse = pA * pAC + (1 - pA) * pBC
-   
-    
+
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :'
-    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
+    this.enonce += mathalea2d(
+      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce += '$p(C)=\\ldots$'
     this.correction = `On applique la formule de probabilité totale :<br> $\\begin{aligned}
     p(C)&=p(A)\\times p_A(C)+p(\\overline A)\\times p_{\\overline A}(C)\\\\
@@ -112,71 +113,70 @@ export default class Puissances extends ExerciceQcmA {
       visible: false,
       alter: '',
       enfants: [
-        new Arbre(
-          {
-            rationnel,
-            nom: 'A',
-            proba: pA,
-            enfants: [new Arbre(
-              {
-                rationnel,
-                nom: 'C',
-                proba: pAC
-              }),
-            new Arbre(
-              {
-                rationnel,
-                nom: '\\bar C',
-                proba: Number(1 - pAC)
-              })
-            ]
-          }),
+        new Arbre({
+          rationnel,
+          nom: 'A',
+          proba: pA,
+          enfants: [
+            new Arbre({
+              rationnel,
+              nom: 'C',
+              proba: pAC,
+            }),
+            new Arbre({
+              rationnel,
+              nom: '\\bar C',
+              proba: Number(1 - pAC),
+            }),
+          ],
+        }),
         new Arbre({
           rationnel,
           nom: '\\bar A',
           proba: Number(1 - pA),
-          enfants: [new Arbre({
-            rationnel,
-            nom: 'C',
-            proba: pBC,
-            visible: true,
-            // alter: 'x'
-          }),
-          new Arbre({
-            rationnel,
-            nom: '\\bar C',
-            proba: Number(1 - pBC),
-            visible: true,
-            alter: ''
-          })
-          ]
-        })
-      ]
+          enfants: [
+            new Arbre({
+              rationnel,
+              nom: 'C',
+              proba: pBC,
+              visible: true,
+              // alter: 'x'
+            }),
+            new Arbre({
+              rationnel,
+              nom: '\\bar C',
+              proba: Number(1 - pBC),
+              visible: true,
+              alter: '',
+            }),
+          ],
+        }),
+      ],
     })
 
     omega.setTailles() // On calcule les tailles des arbres.
     objets = omega.represente(0, 6, 0, 3, true, 1, 8)
     const Reponse = pA * pAC + (1 - pA) * pBC
-    const distracteur1 = Reponse + randint(-1, 1, 0) * randint(5, 30) / 100
-    let distracteur2 : number
-    let distracteur3 : number
+    const distracteur1 = Reponse + (randint(-1, 1, 0) * randint(5, 30)) / 100
+    let distracteur2: number
+    let distracteur3: number
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
     do {
-      distracteur2 = Reponse + randint(-1, 1, 0) * randint(5, 30) / 100
-    } while (
-      distracteur2 === distracteur1 ||
-      distracteur2 === Reponse
-    )
+      distracteur2 = Reponse + (randint(-1, 1, 0) * randint(5, 30)) / 100
+    } while (distracteur2 === distracteur1 || distracteur2 === Reponse)
     do {
-      distracteur3 = Reponse + randint(-1, 1, 0) * randint(5, 30) / 100
+      distracteur3 = Reponse + (randint(-1, 1, 0) * randint(5, 30)) / 100
     } while (
       distracteur3 === distracteur1 ||
       distracteur3 === distracteur2 ||
       distracteur3 === Reponse
     )
-    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :'
-    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
+    this.enonce += mathalea2d(
+      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce += '$p(C)=\\ldots$'
     this.correction = `On applique la formule de probabilité totale :<br> $\\begin{aligned}
     p(C)&=p(A)\\times p_A(C)+p(\\overline A)\\times p_{\\overline A}(C)\\\\
@@ -191,7 +191,7 @@ export default class Puissances extends ExerciceQcmA {
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

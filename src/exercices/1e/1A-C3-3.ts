@@ -6,7 +6,7 @@ export const uuid = '65cdf'
 // Author Stéphane Guyon
 export const refs = {
   'fr-fr': ['1A-C3-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -15,7 +15,8 @@ export const amcType = 'qcmMono'
 export const titre = 'Calculer avec des puissances (3)'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'Soit $n$ un entier non nul. À quelle expression est égale $\\left(3^n\\right)^{2}$ ?'
+    this.enonce =
+      'Soit $n$ un entier non nul. À quelle expression est égale $\\left(3^n\\right)^{2}$ ?'
     this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
     Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a : 
      $\\left(a^{n}\\right)^{p}=a^{np}$<br>
@@ -29,7 +30,7 @@ export default class Puissances extends ExerciceQcmA {
       '$9^{n}$',
       '$3^{n^{2}}$',
       '$6^{n}$',
-      'Aucune de ces propositions'
+      'Aucune de ces propositions',
     ]
   }
 
@@ -46,14 +47,15 @@ export default class Puissances extends ExerciceQcmA {
     &=${a ** k}^{n}
     \\end{aligned}$`
     miseEnEvidence(`$${a}^{2n}$`)
-    this.reponses = [`$${a ** k}^{n}$`,
+    this.reponses = [
+      `$${a ** k}^{n}$`,
       `$${a}^{n^{${k}}}$`,
       `$${a}^{${k}+n}$`,
-      `$${a * k}^{n}$`
+      `$${a * k}^{n}$`,
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

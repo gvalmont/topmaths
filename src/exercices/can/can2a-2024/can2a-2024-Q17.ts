@@ -10,9 +10,9 @@ export const interactifType = 'mathLive'
 export const uuid = '2c801'
 /**
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -21,7 +21,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'Rendre irréductible la fraction $\\dfrac{15}{20}$.<br>'
       this.reponse = new FractionEtendue(3, 4).texFraction
@@ -30,7 +30,17 @@ export default class NomExercice extends ExerciceSimple {
       &=${miseEnEvidence('\\dfrac{3}{4}')}
       \\end{aligned}$`
     } else {
-      const listeFractions24 = [[5, 3], [7, 9], [3, 7], [5, 7], [9, 7], [2, 9], [4, 7], [11, 5], [11, 3]]
+      const listeFractions24 = [
+        [5, 3],
+        [7, 9],
+        [3, 7],
+        [5, 7],
+        [9, 7],
+        [2, 9],
+        [4, 7],
+        [11, 5],
+        [11, 3],
+      ]
       const a = choice(listeFractions24)
       const b = new FractionEtendue(a[0], a[1])
       const k1 = choice([3, 5, 7, 9])
@@ -42,8 +52,8 @@ export default class NomExercice extends ExerciceSimple {
       this.reponse = {
         reponse: {
           value: b.simplifie().texFraction,
-          options: { fractionIrreductible: true }
-        }
+          options: { fractionIrreductible: true },
+        },
       }
     }
     this.canEnonce = this.question

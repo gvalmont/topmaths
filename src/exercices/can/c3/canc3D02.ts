@@ -25,10 +25,10 @@ export const uuid = '0861b'
 
 export const refs = {
   'fr-fr': ['canc3D02', '6M4B-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LireUneDuree extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -37,12 +37,21 @@ export default class LireUneDuree extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierHms
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let h1, m1, h2, m2, enonce
     const matinOuSoir = choice(['matin', 'soir'])
     const quidam = personne()
-    const OccupationsMatinales = ['a lu un livre', 'a fait un jogging', 'a préparé le repas', 'a fait ses devoirs']
-    const occupationsNocturnes = ['a regardé une émission', 'a écouté de la musique', 'a joué aux cartes']
+    const OccupationsMatinales = [
+      'a lu un livre',
+      'a fait un jogging',
+      'a préparé le repas',
+      'a fait ses devoirs',
+    ]
+    const occupationsNocturnes = [
+      'a regardé une émission',
+      'a écouté de la musique',
+      'a joué aux cartes',
+    ]
     switch (matinOuSoir) {
       case 'matin':
         h1 = randint(8, 10)
@@ -63,15 +72,42 @@ export default class LireUneDuree extends ExerciceSimple {
 
     const horloge1 = new Horloge(0, 0, 2, new Hms({ hour: h1, minute: m1 }))
     const horloge2 = new Horloge(0, 0, 2, new Hms({ hour: h2, minute: m2 }))
-    this.question = enonce + (context.isHtml ? '<table><tr><td>' : '\\begin{multicols}{2}\n') +
-      mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, style: 'margin: auto' }, horloge1, texteParPosition('Heure de début', 0, -2.5)) +
+    this.question =
+      enonce +
+      (context.isHtml ? '<table><tr><td>' : '\\begin{multicols}{2}\n') +
+      mathalea2d(
+        {
+          xmin: -3,
+          ymin: -3,
+          xmax: 3,
+          ymax: 3,
+          scale: 0.6,
+          style: 'margin: auto',
+        },
+        horloge1,
+        texteParPosition('Heure de début', 0, -2.5),
+      ) +
       (context.isHtml ? '</td><td>' : '') +
-      mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, style: 'margin: auto' }, horloge2, texteParPosition('Heure de fin', 0, -2.5)) +
+      mathalea2d(
+        {
+          xmin: -3,
+          ymin: -3,
+          xmax: 3,
+          ymax: 3,
+          scale: 0.6,
+          style: 'margin: auto',
+        },
+        horloge2,
+        texteParPosition('Heure de fin', 0, -2.5),
+      ) +
       (context.isHtml ? '</td></tr></table>' : '\\end{multicols}\n') +
       'Combien de temps cela a-t-il duré ?'
-    this.reponse = { reponse: { value: `${h2 - h1}h ${m2 - m1}`, options: { HMS: true } } }
+    this.reponse = {
+      reponse: { value: `${h2 - h1}h ${m2 - m1}`, options: { HMS: true } },
+    }
     this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de $${Math.round((m2 - m1) / 5)}$ graduations soit $${m2 - m1}$ minutes.<br>`
-    this.correction += 'Ensuite on regarde si la petite aiguille a avancé d\'au moins une graduation.<br>'
+    this.correction +=
+      "Ensuite on regarde si la petite aiguille a avancé d'au moins une graduation.<br>"
     if (h2 === h1) {
       this.correction += `Ce n'est pas le cas, donc il s'est écoulé seulement ${texteEnCouleurEtGras(`${formatMinute(m2 - m1)} minutes`)}.`
     } else {

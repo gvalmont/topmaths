@@ -4,11 +4,22 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ecritureParentheseSiMoins, ecritureParentheseSiNegatif, reduirePolynomeDegre3, rienSi1, simpleDeveloppement, simpleDeveloppementAvecDoubleX } from '../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiMoins,
+  ecritureParentheseSiNegatif,
+  reduirePolynomeDegre3,
+  rienSi1,
+  simpleDeveloppement,
+  simpleDeveloppementAvecDoubleX,
+} from '../../lib/outils/ecritures'
 
 export const titre = 'Effectuer la simple distributivité'
 export const dateDePublication = '03/02/2025'
@@ -25,17 +36,35 @@ export const uuid = 'f61d9'
 
 export const refs = {
   'fr-fr': ['3L11-0'],
-  'fr-ch': ['10FA2-4', '11FA2-16', '1mCL1-1']
+  'fr-ch': ['10FA2-4', '11FA2-16', '1mCL1-1'],
 }
 
 export default class SimpleDistributivite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Type d\'expressions', 'Nombres séparés par des tirets :\n1 : c(ax+b)\n2 : (ax+b)*c\n3 : cx(ax+b) \n4 : (ax+b)*cx\n5 : Mélange']
-    this.besoinFormulaire2Numerique = ['Signe de $a$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
-    this.besoinFormulaire3Numerique = ['Signe de $b$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
-    this.besoinFormulaire4Numerique = ['Signe de $c$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
-    this.besoinFormulaire5CaseACocher = ['Uniquement avec la variable $x$', false]
+    this.besoinFormulaireTexte = [
+      "Type d'expressions",
+      'Nombres séparés par des tirets :\n1 : c(ax+b)\n2 : (ax+b)*c\n3 : cx(ax+b) \n4 : (ax+b)*cx\n5 : Mélange',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Signe de $a$',
+      3,
+      '1 : Positif\n2 : Négatif \n3 : Hasard',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Signe de $b$',
+      3,
+      '1 : Positif\n2 : Négatif \n3 : Hasard',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Signe de $c$',
+      3,
+      '1 : Positif\n2 : Négatif \n3 : Hasard',
+    ]
+    this.besoinFormulaire5CaseACocher = [
+      'Uniquement avec la variable $x$',
+      false,
+    ]
     this.sup = 5
     this.sup2 = 3
     this.sup3 = 3
@@ -47,8 +76,11 @@ export default class SimpleDistributivite extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Développer et réduire les expressions suivantes.'
+        : "Développer et réduire l'expression suivante."
 
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -56,29 +88,44 @@ export default class SimpleDistributivite extends Exercice {
       max: 4,
       melange: 5,
       defaut: 5,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, reponse, cpt = 0, a, b, c; i < this.nbQuestions && cpt < 50;) {
-      a = randint(1, 9) * (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([1, -1]))
-      b = randint(1, 9) * (this.sup3 === 1 ? 1 : this.sup3 === 2 ? -1 : choice([1, -1]))
-      c = randint(2, 9) * (this.sup4 === 1 ? 1 : this.sup4 === 2 ? -1 : choice([1, -1]))
+    for (
+      let i = 0, reponse, cpt = 0, a, b, c;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      a =
+        randint(1, 9) *
+        (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([1, -1]))
+      b =
+        randint(1, 9) *
+        (this.sup3 === 1 ? 1 : this.sup3 === 2 ? -1 : choice([1, -1]))
+      c =
+        randint(2, 9) *
+        (this.sup4 === 1 ? 1 : this.sup4 === 2 ? -1 : choice([1, -1]))
       let reponse1 = 0
       let reponse2 = 0
       let texteCorr = ''
       let texte = ''
-      const variable = this.sup5 ? 'x' : choice(['x', 'y', 'z', 'a', 'b', 'c', 'n', 'k'])
+      const variable = this.sup5
+        ? 'x'
+        : choice(['x', 'y', 'z', 'a', 'b', 'c', 'n', 'k'])
       texte = `$${lettreDepuisChiffre(i + 1)} = `
       const typeDeQuestions = parseInt(listeTypeDeQuestions[i].toString())
       switch (typeDeQuestions) {
-        case 1 :
+        case 1:
           texte += `${c} (${reduirePolynomeDegre3(0, 0, a, b, variable)})$`
           break
-        case 2 :
+        case 2:
           texte += `(${reduirePolynomeDegre3(0, 0, a, b, variable)})\\times ${ecritureParentheseSiNegatif(c)} $`
           break
-        case 3 :
+        case 3:
           texte += `${c}${variable} (${reduirePolynomeDegre3(0, 0, a, b, variable)})$`
           break
         default:
@@ -106,7 +153,10 @@ export default class SimpleDistributivite extends Exercice {
       texteCorr = ''
       for (const etape of etapes) {
         const etapeModifiee = etape.replace('$', '')
-        texteCorr += etapeModifiee === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
+        texteCorr +=
+          etapeModifiee === lettreDepuisChiffre(i + 1)
+            ? ''
+            : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
       }
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
@@ -121,8 +171,18 @@ export default class SimpleDistributivite extends Exercice {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      handleAnswers(this, i, { reponse: { value: reponse, options: { expressionsForcementReduites: true } } })
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
+      handleAnswers(this, i, {
+        reponse: {
+          value: reponse,
+          options: { expressionsForcementReduites: true },
+        },
+      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecVariable,
+        { texteAvant: ' $=$' },
+      )
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -132,87 +192,97 @@ export default class SimpleDistributivite extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: texteCorr,
-                enonce: `${texte}<br>`,
-                statut: 4
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: `${texte}<br>`,
+                  statut: 4,
+                },
+              ],
             },
-          ]
+          ],
         }
         if (typeDeQuestions < 3) {
           this.autoCorrection[i].propositions?.push(
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $a$ dans $ax+b$',
-                  valeur: reponse1,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $a$ dans $ax+b$',
+                    valeur: reponse1,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $b$ dans $ax+b$',
-                  valeur: reponse2,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
-            }
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $b$ dans $ax+b$',
+                    valeur: reponse2,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
           )
         } else {
           this.autoCorrection[i].propositions?.push(
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $a$ dans $ax^2+bx$',
-                  valeur: reponse1,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $a$ dans $ax^2+bx$',
+                    valeur: reponse1,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $b$ dans $ax^2+bx$',
-                  valeur: reponse2,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
-            }
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $b$ dans $ax^2+bx$',
+                    valeur: reponse2,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
           )
         }
       }

@@ -15,7 +15,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'be991'
 export const refs = {
   'fr-fr': ['3G2QCM-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -30,19 +30,21 @@ export const dateDePublication = '05/12/2024'
  * Il est interactif et dispose d'un export AMC d'office
  */
 export default class AmeriqueSud1224Ex1Q3 extends ExerciceQcmA {
-  private appliquerLesValeurs (BD: number, BC:number, AC: number) : void {
+  private appliquerLesValeurs(BD: number, BC: number, AC: number): void {
     const labels = this.sup ? Array.from('AHBDC') : choisitLettresDifferentes(5)
-    const HD = AC * BD / BC
+    const HD = (AC * BD) / BC
     const HD1 = HD - 0.8
     const HD2 = HD + 0.8
     const HD3 = HD + 1.2
     const HD4 = HD - 1.2
     const HD5 = HD + 1.6
-    const choix = this.sup ? [HD5, HD2] : shuffle([HD1, HD2, HD3, HD4].filter(x => x > 0))
+    const choix = this.sup
+      ? [HD5, HD2]
+      : shuffle([HD1, HD2, HD3, HD4].filter((x) => x > 0))
     this.reponses = [
       `$${texNombre(HD, 2)}$ cm`,
       `$${texNombre(choix[0], 1)}$ cm`,
-      `$${texNombre(choix[1], 1)}$ cm`
+      `$${texNombre(choix[1], 1)}$ cm`,
     ]
     const objets = []
     const B = point(0, 0, labels[2])
@@ -56,7 +58,10 @@ export default class AmeriqueSud1224Ex1Q3 extends ExerciceQcmA {
     const poly = polygoneAvecNom(A, H, B, D, C, 0.8)
     const segHD = segment(H, D)
     objets.push(poly, segHD)
-    const figure = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    const figure = mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce = `${figure}${context.isHtml ? '' : '\n\n'}
     $${labels[2]}$, $${labels[1]}$ et $${labels[0]}$ sont alignés.<br>
     $${labels[2]}$, $${labels[3]}$ et $${labels[4]}$ sont alignés.<br>
@@ -83,7 +88,7 @@ export default class AmeriqueSud1224Ex1Q3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < nbReponses)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

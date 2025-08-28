@@ -1,12 +1,20 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { abs, signe } from '../../lib/outils/nombres'
 
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -26,29 +34,32 @@ export const uuid = '799c4'
 
 export const refs = {
   'fr-fr': ['4L20', 'BP2RES8'],
-  'fr-ch': ['10FA3-7']
+  'fr-ch': ['10FA3-7'],
 }
 
-function gestionEspaceMiseEnEvidence (texte: string) { // EE : Pour améliorer la gestion des espaces annulée par la fonction miseEnEvidence()
+function gestionEspaceMiseEnEvidence(texte: string) {
+  // EE : Pour améliorer la gestion des espaces annulée par la fonction miseEnEvidence()
   const texteSepare = texte.split(texte[0])
-  return (sp(2) + texte[0] + sp(2) + texteSepare[1])
+  return sp(2) + texte[0] + sp(2) + texteSepare[1]
 }
 
 export default class ExerciceEquation1 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
-    this.besoinFormulaire2Texte = ["Type d'équations", [
-      'Nombres séparés par des tirets  :',
-      '1 : ax+b=0',
-      '2 : ax+b=c',
-      '3 : ax=b',
-      '4 : x+b=c',
-      '5 : ax+b=cx+d',
-      '6 : x/a=b',
-      '7 : ax/b=c',
-      '8 : Mélange'
-    ].join('\n')
+    this.besoinFormulaire2Texte = [
+      "Type d'équations",
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : ax+b=0',
+        '2 : ax+b=c',
+        '3 : ax=b',
+        '4 : x+b=c',
+        '5 : ax+b=cx+d',
+        '6 : x/a=b',
+        '7 : ax/b=c',
+        '8 : Mélange',
+      ].join('\n'),
     ]
     this.besoinFormulaire3CaseACocher = ['Avec uniquement la lettre $x$']
     this.spacing = 2
@@ -61,10 +72,11 @@ export default class ExerciceEquation1 extends Exercice {
     this.nbQuestions = 6
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1
-      ? 'Résoudre l\'équation suivante.'
-      : 'Résoudre les équations suivantes.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? "Résoudre l'équation suivante."
+        : 'Résoudre les équations suivantes.'
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -79,14 +91,21 @@ export default class ExerciceEquation1 extends Exercice {
         'x+b=c',
         'ax+b=cx+d',
         'x/a=b',
-        'ax/b=c']
+        'ax/b=c',
+      ],
     })
 
-    for (let i = 0, a, b, c, d, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const inconnue = this.sup3 ? 'x' : choice(['x', 'y', 'z', 'm', 't', 'a', 'b', 'c'])
+    for (
+      let i = 0, a, b, c, d, texte, texteCorr, reponse, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      const inconnue = this.sup3
+        ? 'x'
+        : choice(['x', 'y', 'z', 'm', 't', 'a', 'b', 'c'])
       switch (listeTypeDeQuestions[i]) {
-        case 'ax+b=0' :
-        case 'ax+b=c' :
+        case 'ax+b=0':
+        case 'ax+b=c':
           c = listeTypeDeQuestions[i] === 'ax+b=0' ? 0 : randint(1, 13)
           do {
             a = randint(2, 13)
@@ -97,8 +116,10 @@ export default class ExerciceEquation1 extends Exercice {
             b *= choice([-1, 1])
             c *= choice([-1, 1])
           }
-          if (!this.sup && c < b) { // Si c-b < 0 et que l'on ne veut pas de relatif, on échange c et b.
-            if (c === 0) { // si c=0, on change le signe de b, pour garder c=0
+          if (!this.sup && c < b) {
+            // Si c-b < 0 et que l'on ne veut pas de relatif, on échange c et b.
+            if (c === 0) {
+              // si c=0, on change le signe de b, pour garder c=0
               b *= -1
             } else {
               d = b
@@ -117,15 +138,18 @@ export default class ExerciceEquation1 extends Exercice {
               texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
             }
           }
-          texteCorr += `$${a}${inconnue}${ecritureAlgebrique(b)}${miseEnEvidence(gestionEspaceMiseEnEvidence(
-          ecritureAlgebrique(-1 * b)), 'blue')}=${c}${miseEnEvidence(gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)), 'blue')}$<br>`
+          texteCorr += `$${a}${inconnue}${ecritureAlgebrique(b)}${miseEnEvidence(
+            gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)),
+            'blue',
+          )}=${c}${miseEnEvidence(gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)), 'blue')}$<br>`
           texteCorr += `$${a}${inconnue}=${c - b}$<br>`
           if (this.correctionDetaillee) {
             texteCorr += `On divise les deux membres par $${a}$.<br>`
           }
           texteCorr += `$${a}${inconnue}${miseEnEvidence(
-                    sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a), 'blue'
-                )}=${c - b + miseEnEvidence(sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a), 'blue')}$<br>`
+            sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a),
+            'blue',
+          )}=${c - b + miseEnEvidence(sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a), 'blue')}$<br>`
           texteCorr += `$${inconnue}=${new FractionEtendue(c - b, a).texFSD}$`
           reponse = new FractionEtendue(c - b, a).simplifie()
           if (pgcd(Math.abs(a), Math.abs(c - b)) > 1) {
@@ -150,13 +174,14 @@ export default class ExerciceEquation1 extends Exercice {
               texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
             }
           }
-          texteCorr += `$${inconnue}${ecritureAlgebrique(b)}${miseEnEvidence(gestionEspaceMiseEnEvidence(
-                    ecritureAlgebrique(-1 * b)), 'blue'
-                )}=${c}${miseEnEvidence(gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)), 'blue')}$<br>`
+          texteCorr += `$${inconnue}${ecritureAlgebrique(b)}${miseEnEvidence(
+            gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)),
+            'blue',
+          )}=${c}${miseEnEvidence(gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)), 'blue')}$<br>`
           texteCorr += `$${inconnue}=${c - b}$`
           reponse = new FractionEtendue(c - b, 1)
           break
-        case 'ax=b' :
+        case 'ax=b':
           c = 1 // c'est pour éviter un warning
           do {
             a = randint(2, 13)
@@ -173,8 +198,9 @@ export default class ExerciceEquation1 extends Exercice {
             texteCorr += `On divise les deux membres par $${a}$.<br>`
           }
           texteCorr += `$${a}${inconnue}${miseEnEvidence(
-                    sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a), 'blue'
-                )}=${b + miseEnEvidence(sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a), 'blue')}$<br>`
+            sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a),
+            'blue',
+          )}=${b + miseEnEvidence(sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a), 'blue')}$<br>`
           texteCorr += `$${inconnue}=${new FractionEtendue(b, a).texFSD}$`
           reponse = new FractionEtendue(b, a).simplifie()
           // if (pgcd(abs(a), abs(b)) > 1 || a < 0) {
@@ -207,31 +233,37 @@ export default class ExerciceEquation1 extends Exercice {
             }
           } while ((d - b) % (a - c) === 0)
           texte = `$${rienSi1(a)}${inconnue}${ecritureAlgebrique(b)}=${rienSi1(
-                    c
-                )}${inconnue}${ecritureAlgebrique(d)}$`
+            c,
+          )}${inconnue}${ecritureAlgebrique(d)}$`
           texteCorr = texte + '<br>'
 
           if (this.correctionDetaillee) {
             if (c > 0) {
               texteCorr += `On soustrait $${rienSi1(
-                            c
-                        )}${inconnue}$ aux deux membres.<br>`
+                c,
+              )}${inconnue}$ aux deux membres.<br>`
             } else {
               texteCorr += `On ajoute $${rienSi1(
-                            -1 * c
-                        )}${inconnue}$ aux deux membres.<br>`
+                -1 * c,
+              )}${inconnue}$ aux deux membres.<br>`
             }
           }
           texteCorr += `$${rienSi1(a)}${inconnue}${ecritureAlgebrique(
-                    b
-                )}${miseEnEvidence(gestionEspaceMiseEnEvidence(
-                    signe(-1 * c) + rienSi1(abs(c)) + inconnue), 'blue'
-                )}=${c}${inconnue}${ecritureAlgebrique(d)}${miseEnEvidence(gestionEspaceMiseEnEvidence(
-                    signe(-1 * c) + rienSi1(abs(c)) + inconnue), 'blue'
-                )}$<br>`
+            b,
+          )}${miseEnEvidence(
+            gestionEspaceMiseEnEvidence(
+              signe(-1 * c) + rienSi1(abs(c)) + inconnue,
+            ),
+            'blue',
+          )}=${c}${inconnue}${ecritureAlgebrique(d)}${miseEnEvidence(
+            gestionEspaceMiseEnEvidence(
+              signe(-1 * c) + rienSi1(abs(c)) + inconnue,
+            ),
+            'blue',
+          )}$<br>`
           texteCorr += `$${rienSi1(a - c)}${inconnue}${ecritureAlgebrique(
-                    b
-                )}=${d}$<br>`
+            b,
+          )}=${d}$<br>`
           if (this.correctionDetaillee) {
             if (b > 0) {
               texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -240,20 +272,27 @@ export default class ExerciceEquation1 extends Exercice {
             }
           }
           texteCorr += `$${rienSi1(a - c)}${inconnue}${ecritureAlgebrique(
-                    b
-                )}${miseEnEvidence(gestionEspaceMiseEnEvidence(
-                    ecritureAlgebrique(-1 * b)), 'blue'
-                )}=${d}${miseEnEvidence(gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)), 'blue')}$<br>`
+            b,
+          )}${miseEnEvidence(
+            gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)),
+            'blue',
+          )}=${d}${miseEnEvidence(gestionEspaceMiseEnEvidence(ecritureAlgebrique(-1 * b)), 'blue')}$<br>`
           texteCorr += `$${rienSi1(a - c)}${inconnue}=${d - b}$<br>`
 
           if (this.correctionDetaillee) {
             texteCorr += `On divise les deux membres par $${a - c}$.<br>`
           }
           texteCorr += `$${rienSi1(a - c)}${inconnue}${miseEnEvidence(
-                    sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a - c), 'blue'
-                )}=${d -
-                b +
-                miseEnEvidence(sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a - c), 'blue')}$<br>`
+            sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a - c),
+            'blue',
+          )}=${
+            d -
+            b +
+            miseEnEvidence(
+              sp() + '\\div' + sp() + ecritureParentheseSiNegatif(a - c),
+              'blue',
+            )
+          }$<br>`
           texteCorr += `$${inconnue}=${new FractionEtendue(d - b, a - c).texFSD}$`
           // if (pgcd(abs(d - b), abs(a - c)) > 1 || a - c < 0) {
           reponse = new FractionEtendue(d - b, a - c).simplifie()
@@ -261,7 +300,7 @@ export default class ExerciceEquation1 extends Exercice {
             texteCorr += `<br>$${inconnue}=${reponse.texFSD}$`
           }
           break
-        case 'x/a=b' :
+        case 'x/a=b':
           c = 1 // c'est pour éviter un warning
           do {
             a = randint(2, 13)
@@ -278,8 +317,9 @@ export default class ExerciceEquation1 extends Exercice {
             texteCorr += `On multiplie les deux membres par $${a}$.<br>`
           }
           texteCorr += `$\\dfrac{${inconnue}}{${a}}${miseEnEvidence(
-                    '\\times' + sp() + ecritureParentheseSiNegatif(a), 'blue'
-                )}=${b + miseEnEvidence('\\times' + sp() + ecritureParentheseSiNegatif(a), 'blue')}$`
+            '\\times' + sp() + ecritureParentheseSiNegatif(a),
+            'blue',
+          )}=${b + miseEnEvidence('\\times' + sp() + ecritureParentheseSiNegatif(a), 'blue')}$`
           texteCorr += `<br>$${inconnue}=${b * a}$`
           reponse = new FractionEtendue(a * b, 1)
           break
@@ -302,8 +342,12 @@ export default class ExerciceEquation1 extends Exercice {
             texteCorr += `On multiplie les deux membres par $\\dfrac{${a < 0 ? -b : b}}{${Math.abs(a)}}$.<br>`
           }
           texteCorr += `$\\dfrac{${a}${inconnue}}{${b}}${miseEnEvidence(
-                    sp() + '\\times' + sp() + `\\dfrac{${a < 0 ? -b : b}}{${Math.abs(a)}}`, 'blue'
-                )}=${c + miseEnEvidence(sp() + '\\times' + sp() + `\\dfrac{${a < 0 ? -b : b}}{${Math.abs(a)}}`, 'blue')}$`
+            sp() +
+              '\\times' +
+              sp() +
+              `\\dfrac{${a < 0 ? -b : b}}{${Math.abs(a)}}`,
+            'blue',
+          )}=${c + miseEnEvidence(sp() + '\\times' + sp() + `\\dfrac{${a < 0 ? -b : b}}{${Math.abs(a)}}`, 'blue')}$`
           texteCorr += `<br>$${inconnue}=\\dfrac{${c * b * (a < 0 ? -1 : 1)}}{${Math.abs(a)}}$`
           reponse = new FractionEtendue(c * b, a).simplifie()
           if (pgcd(c * b, a) !== 1) {
@@ -312,7 +356,12 @@ export default class ExerciceEquation1 extends Exercice {
           break
       }
       texteCorr += `<br> La solution de l'équation ${texte} est $${miseEnEvidence(reponse.texFSD)}$.`
-      texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: `<br>$ ${inconnue} = $ ` })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        '  clavierDeBaseAvecFraction',
+        { texteAvant: `<br>$ ${inconnue} = $ ` },
+      )
       handleAnswers(this, i, { reponse: { value: reponse.texFSD } })
 
       if (this.questionJamaisPosee(i, a, b, c, listeTypeDeQuestions[i])) {
@@ -325,19 +374,24 @@ export default class ExerciceEquation1 extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                propositions: [{
-                  texte: texteCorr,
-                  statut: '',
-                  reponse: {
-                    texte: (listeTypeDeQuestions[i] === `${inconnue}+b=c`) ? `Résoudre ${texte}.` : `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible.`,
-                    valeur: [reponse],
-                    param: {
-                      signe: this.sup
-                    }
-                  }
-                }]
-              }
-            ]
+                propositions: [
+                  {
+                    texte: texteCorr,
+                    statut: '',
+                    reponse: {
+                      texte:
+                        listeTypeDeQuestions[i] === `${inconnue}+b=c`
+                          ? `Résoudre ${texte}.`
+                          : `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible.`,
+                      valeur: [reponse],
+                      param: {
+                        signe: this.sup,
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
           }
         }
         i++

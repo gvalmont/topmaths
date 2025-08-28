@@ -1,15 +1,18 @@
-import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
 import Shikaku from '../6e/_Shikaku'
 import Exercice from '../Exercice'
 export const titre = 'Générateur de Shikaku'
 
 export const refs = {
   'fr-fr': ['P019'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = '6fb13'
 export default class GenerateurShikaku extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = `Paver la grille à l'aide de rectangles.<br>
   Chaque rectangle doit contenir un nombre et un seul.<br>
@@ -21,14 +24,20 @@ export default class GenerateurShikaku extends Exercice {
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const largeur = contraindreValeur(4, 30, this.sup, 12)
     const hauteur = contraindreValeur(4, 30, this.sup2, 5)
-    for (let i = 0, shikaku, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, shikaku, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       shikaku = new Shikaku(largeur, hauteur)
       texte = `${shikaku.represente('')}`
       texteCorr = shikaku.represente('solution')
-      if (this.questionJamaisPosee(i, JSON.stringify(shikaku.pavage.rectangles))) {
+      if (
+        this.questionJamaisPosee(i, JSON.stringify(shikaku.pavage.rectangles))
+      ) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

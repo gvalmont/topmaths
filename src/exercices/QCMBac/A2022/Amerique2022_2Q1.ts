@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '48aff'
 export const refs = {
   'fr-fr': ['TSA5-QCM14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,25 +29,30 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$ -\\dfrac{1}{2} \\ln (3) $', // Réponse correcte (d)
       '$ 1 - \\dfrac{1}{2} \\ln (3) $', // Mauvaise réponse (a)
       '$ \\dfrac{1}{2} \\ln (3) $', // Mauvaise réponse (b)
-      '$ 3 \\ln (3) + \\dfrac{1}{2} $' // Mauvaise réponse (c)
+      '$ 3 \\ln (3) + \\dfrac{1}{2} $', // Mauvaise réponse (c)
     ]
 
     this.enonce = 'Le réel $a$ est défini par '
-    this.enonce += '$a = \\ln (9) + \\ln \\left(\\dfrac{\\sqrt{3}}{3} \\right) + \\ln \\left(\\dfrac{1}{9} \\right).$<br>'
+    this.enonce +=
+      '$a = \\ln (9) + \\ln \\left(\\dfrac{\\sqrt{3}}{3} \\right) + \\ln \\left(\\dfrac{1}{9} \\right).$<br>'
     this.enonce += 'Quelle est la valeur de $a$ ?'
 
-    this.correction = 'On simplifie l\'expression de $a$ étape par étape :<br>'
+    this.correction = "On simplifie l'expression de $a$ étape par étape :<br>"
     this.correction += '$\\begin{aligned}'
-    this.correction += 'a &= \\ln (9) + \\ln \\left(\\dfrac{\\sqrt{3}}{3} \\right) + \\ln \\left(\\dfrac{1}{9} \\right) \\\\'
-    this.correction += '&= \\ln \\left(3^2 \\right) + \\ln \\left(\\sqrt{3} \\right) - \\ln (3) - \\ln \\left(3^2 \\right) \\\\'
-    this.correction += '&= 2 \\ln (3) + \\dfrac{1}{2} \\ln (3) - \\ln (3) - 2 \\ln (3) \\\\'
-    this.correction += '&= \\left(2 + \\dfrac{1}{2} - 1 - 2 \\right) \\ln (3) \\\\'
+    this.correction +=
+      'a &= \\ln (9) + \\ln \\left(\\dfrac{\\sqrt{3}}{3} \\right) + \\ln \\left(\\dfrac{1}{9} \\right) \\\\'
+    this.correction +=
+      '&= \\ln \\left(3^2 \\right) + \\ln \\left(\\sqrt{3} \\right) - \\ln (3) - \\ln \\left(3^2 \\right) \\\\'
+    this.correction +=
+      '&= 2 \\ln (3) + \\dfrac{1}{2} \\ln (3) - \\ln (3) - 2 \\ln (3) \\\\'
+    this.correction +=
+      '&= \\left(2 + \\dfrac{1}{2} - 1 - 2 \\right) \\ln (3) \\\\'
     this.correction += '&= -\\dfrac{1}{2} \\ln (3)'
     this.correction += '\\end{aligned}$<br>'
     this.correction += `La bonne réponse est donc la réponse $${miseEnEvidence(' -\\dfrac{1}{2} \\ln (3) ')}$`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

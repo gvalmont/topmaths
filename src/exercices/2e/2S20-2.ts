@@ -7,7 +7,6 @@ export const amcType = 'AMCNum'
 export const uuid = '4bc38'
 export const refs = {
   'fr-fr': ['2S20-2', 'BP2SP5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class DeterminerDesMedianes2nde extends DeterminerDesMedianes {
-}
+export default class DeterminerDesMedianes2nde extends DeterminerDesMedianes {}

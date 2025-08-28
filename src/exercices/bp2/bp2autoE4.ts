@@ -9,11 +9,11 @@ export const dateDePublication = '12/4/2025'
 export const uuid = 'd6d5d'
 export const refs = {
   'fr-fr': ['BP2AutoE4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class ExercicePuissancesDe10QCM extends PolynesieJuin12Exo1Q1 {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false

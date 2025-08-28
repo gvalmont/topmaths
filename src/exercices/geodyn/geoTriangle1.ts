@@ -19,7 +19,7 @@ export const interactifType = 'custom'
 
 export const refs = {
   'fr-fr': ['triangle1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = 'e514f'
 
@@ -29,7 +29,7 @@ class ConstructionTriangle extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   triangle!: Triangle
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -39,13 +39,13 @@ class ConstructionTriangle extends ExerciceSimple {
     this.formatChampTexte = 'none' // Pas de champ texte pour cet exercice simple de géométrie dynamique
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     this.figure = new Figure({
       xMin: -7,
       yMin: -7,
       width: 800,
       height: 500,
-      border: true
+      border: true,
     })
     this.triangle = { label: 'ABC', a: 3, b: 4, c: 50 }
     this.triangle.label = creerNomDePolygone(3)
@@ -58,7 +58,7 @@ class ConstructionTriangle extends ExerciceSimple {
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [
       string,
       string,
-      string
+      string,
     ]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
 
@@ -78,16 +78,16 @@ class ConstructionTriangle extends ExerciceSimple {
         'REMOVE',
         'UNDO',
         'REDO',
-        'SHAKE'
+        'SHAKE',
       ],
-      position: 'top'
+      position: 'top',
     })
     this.figure.options.labelAutomaticBeginsWith = labelA
     const emplacementPourFigure = figureApigeom({
       exercice: this,
       i: 0,
       figure: this.figure,
-      defaultAction: 'POINT'
+      defaultAction: 'POINT',
     })
     let texteCorr = `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon $${c}$.`
     texteCorr += `<br>$${labelB}${labelC}=${a}$ donc $${labelC}$ est sur le cercle de centre $${labelB}$ et de rayon $${a}$.`
@@ -98,7 +98,7 @@ class ConstructionTriangle extends ExerciceSimple {
       exercice: this,
       i: 0,
       idAddendum: 'Correction',
-      figure: figureCorrection
+      figure: figureCorrection,
     })
     if (!context.isHtml) {
       texteCorr = figureCorrection.tikz()
@@ -114,33 +114,33 @@ class ConstructionTriangle extends ExerciceSimple {
     const resultat = []
     // 1 point par distance correcte + 2 points si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(
-      `#feedbackEx${this.numeroExercice}Q${0}`
+      `#feedbackEx${this.numeroExercice}Q${0}`,
     ) as HTMLDivElement
     let feedback = ''
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [
       string,
       string,
-      string
+      string,
     ]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
     let { message, isValid } = this.figure.checkDistance({
       label1: labelA,
       label2: labelB,
-      distance: c
+      distance: c,
     })
     if (message) feedback += `${message}<br>`
     resultat.push(isValid ? 'OK' : 'KO')
     ;({ message, isValid } = this.figure.checkDistance({
       label1: labelB,
       label2: labelC,
-      distance: a
+      distance: a,
     }))
     if (message) feedback += `${message}<br>`
     resultat.push(isValid ? 'OK' : 'KO')
     ;({ message, isValid } = this.figure.checkDistance({
       label1: labelC,
       label2: labelA,
-      distance: b
+      distance: b,
     }))
     if (message) feedback += `${message}<br>`
     resultat.push(isValid ? 'OK' : 'KO')
@@ -172,12 +172,12 @@ class ConstructionTriangle extends ExerciceSimple {
   }
 }
 
-function isTriangle (triangle: Triangle): boolean {
+function isTriangle(triangle: Triangle): boolean {
   const { a, b, c } = triangle
   return a + b > c && a + c > b && b + c > a
 }
 
-function createAnimationConstructionTriangle (triangle: Triangle): Figure {
+function createAnimationConstructionTriangle(triangle: Triangle): Figure {
   const { label, a, b, c } = triangle
   const [labelA, labelB, labelC] = label.split('') as [string, string, string]
   const figure = new Figure({
@@ -185,18 +185,18 @@ function createAnimationConstructionTriangle (triangle: Triangle): Figure {
     yMin: 0,
     width: 800,
     height: 500,
-    border: true
+    border: true,
   })
   figure.setToolbar({
     position: 'top',
-    tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE']
+    tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'],
   })
   const description = figure.create('TextByPosition', {
     anchor: 'bottomLeft',
     backgroundColor: 'white',
     text: `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon ${c}`,
     x: 10,
-    y: 15
+    y: 15,
   })
   figure.saveState()
   const A = figure.create('Point', { label: labelA, x: 5, y: 7 })
@@ -204,7 +204,7 @@ function createAnimationConstructionTriangle (triangle: Triangle): Figure {
   const B = figure.create('PointOnCircle', {
     angleWithHorizontal: 0,
     circle: cA1,
-    label: labelB
+    label: labelB,
   })
   description.text =
     'Il faut bien utiliser le bouton « Point sur » et pas « Point libre ».'

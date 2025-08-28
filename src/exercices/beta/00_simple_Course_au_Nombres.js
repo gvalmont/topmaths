@@ -10,7 +10,7 @@ export const dateDePublication = '4/5/2024'
 export const uuid = 'b9935'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,13 +19,13 @@ export const refs = {
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 10)
     const b = randint(1, 10)
     this.question = `$${texNombre(a, 0)}+${texNombre(b, 0)}$`

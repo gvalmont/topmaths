@@ -1,6 +1,10 @@
 import { max } from 'mathjs'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
-import { choice, combinaisonListes, getRandomSubarray } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  getRandomSubarray,
+} from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -11,23 +15,38 @@ export const dateDePublication = '19/08/2024'
 /**
  * Réduire une expression littérale
  * @author Nathan Scheinmann
-*/
+ */
 
 export const uuid = '62111'
 export const refs = {
   'fr-fr': ['3L11-12'],
-  'fr-ch': ['11FA1-8', '1mCL1-11']
+  'fr-ch': ['11FA1-8', '1mCL1-11'],
 }
 
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Réduire les expressions suivantes.'
+        : "Réduire l'expression suivante."
 
-    this.besoinFormulaireNumerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Coefficients',
+      3,
+      'Entiers \n2 : Fractionnaires \n3 : Mélange',
+    ]
     this.besoinFormulaire2Numerique = ['Degré minimum', 6, '0\n1\n2\n3\n4\n5']
-    this.besoinFormulaire3Numerique = ['Degré maximum (au moins égal au degré minimum)', 5, '1\n2\n3\n4\n5']
-    this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']
+    this.besoinFormulaire3Numerique = [
+      'Degré maximum (au moins égal au degré minimum)',
+      5,
+      '1\n2\n3\n4\n5',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Nombre de variables différentes',
+      5,
+      '1\n2\n3\n4\n5',
+    ]
     this.besoinFormulaire5Numerique = ['Nombre de termes', 2, '2\n3']
     // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
     // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
@@ -39,12 +58,15 @@ export default class nomExercice extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1]
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte, texteCorr: string
       const degMin = this.sup2 - 1
       const degMax = max(this.sup3, this.sup2 - 1)
@@ -53,41 +75,54 @@ export default class nomExercice extends Exercice {
       const typeCoeffListe = ['entier', 'fractionnaire']
       let typeofCoeff = []
       switch (listeTypeDeQuestions[i]) {
-        case 1:{
-          if (this.sup === 1) {
-            typeofCoeff = ['entier']
-          } else if (this.sup === 2) {
-            typeofCoeff = ['fraction']
-          } else {
-            typeofCoeff = typeCoeffListe
-          }
-          texte = ''
-          texteCorr = ''
-          const listMonome = []
-          const q1 = MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect)
-          const q2 = MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect)
-          listMonome.push(q1)
-          listMonome.push(q2)
-          if (this.sup5 > 1) {
-            const q3 = MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect)
-            listMonome.push(q3)
-          }
-          // Multplier les éléments de la liste ensemble en utilisant la méthode produit
-          let p = listMonome[0]
-          for (let i = 1; i < listMonome.length; i++) {
-            p = p.produit(listMonome[i])
-          }
-          // Créer le string qui multiplie les monômes ensemble avec \times en séparation
-          let t = ''
-          for (let i = 0; i < listMonome.length; i++) {
-            t += listMonome[i].toStringAvecParentheses()
-            if (i < listMonome.length - 1) {
-              t += ' \\times '
+        case 1:
+          {
+            if (this.sup === 1) {
+              typeofCoeff = ['entier']
+            } else if (this.sup === 2) {
+              typeofCoeff = ['fraction']
+            } else {
+              typeofCoeff = typeCoeffListe
             }
+            texte = ''
+            texteCorr = ''
+            const listMonome = []
+            const q1 = MonomePlusieursVariables.createRandomMonome(
+              randint(degMin, degMax),
+              choice(typeofCoeff),
+              variablesSelect,
+            )
+            const q2 = MonomePlusieursVariables.createRandomMonome(
+              randint(degMin, degMax),
+              choice(typeofCoeff),
+              variablesSelect,
+            )
+            listMonome.push(q1)
+            listMonome.push(q2)
+            if (this.sup5 > 1) {
+              const q3 = MonomePlusieursVariables.createRandomMonome(
+                randint(degMin, degMax),
+                choice(typeofCoeff),
+                variablesSelect,
+              )
+              listMonome.push(q3)
+            }
+            // Multplier les éléments de la liste ensemble en utilisant la méthode produit
+            let p = listMonome[0]
+            for (let i = 1; i < listMonome.length; i++) {
+              p = p.produit(listMonome[i])
+            }
+            // Créer le string qui multiplie les monômes ensemble avec \times en séparation
+            let t = ''
+            for (let i = 0; i < listMonome.length; i++) {
+              t += listMonome[i].toStringAvecParentheses()
+              if (i < listMonome.length - 1) {
+                t += ' \\times '
+              }
+            }
+            texte = `$${lettreDepuisChiffre(i + 1)}=${t}$`
+            texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(p.toString())}$`
           }
-          texte = `$${lettreDepuisChiffre(i + 1)}=${t}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(p.toString())}$`
-        }
           if (this.questionJamaisPosee(i, texteCorr)) {
             this.listeQuestions[i] = texte
             this.listeCorrections[i] = texteCorr

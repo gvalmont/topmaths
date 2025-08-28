@@ -1,6 +1,11 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { shuffle, shuffle2tableaux } from '../../../lib/outils/arrayOutils'
-import { fixeBordures, mathalea2d, ObjetMathalea2D, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
+import {
+  fixeBordures,
+  mathalea2d,
+  ObjetMathalea2D,
+  type NestedObjetMathalea2dArray,
+} from '../../../modules/2dGeneralites'
 import { cube } from '../../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
@@ -8,7 +13,7 @@ import ExerciceCan from '../../ExerciceCan'
 export const uuid = 'f6jd7'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,57 +34,58 @@ const pentaminos: [number, number][][][] = [
       [0, 1],
       [0, 1],
       [0, 1],
-      [0, 2]
-    ]
+      [0, 2],
+    ],
   ],
   [
     [
       [0, 1],
       [0, 1],
       [0, 2],
-      [0, 1]
-    ]
+      [0, 1],
+    ],
   ],
   [
     [
       [0, 1],
       [0, 1],
-      [0, 3]
-    ]
+      [0, 3],
+    ],
   ],
   [
     [
       [0, 1],
       [0, 3],
-      [0, 1]
-    ]
+      [0, 1],
+    ],
   ],
   [
     [
       [1, 2],
       [0, 3],
-      [1, 2]
-    ]
-  ], [
+      [1, 2],
+    ],
+  ],
+  [
     [
       [0, 2],
       [0, 1],
-      [0, 2]
-    ]
+      [0, 2],
+    ],
   ],
   [
     [
       [0, 2],
       [0, 2],
-      [0, 1]
-    ]
-  ]
+      [0, 1],
+    ],
+  ],
 ]
 /**
  * Cette fonction range les cubes de l'empilement dans un tableau de coordonnées de façon à ce que les cubes de la ligne de devant en bas soient en premier.
  * @param empilement
  */
-function rangeCubes (empilement: [number, number][][]) {
+function rangeCubes(empilement: [number, number][][]) {
   const lstCoordonneesCubes: [number, number, number][] = []
   const larg = empilement.length
   const long = empilement[0].length
@@ -96,7 +102,7 @@ function rangeCubes (empilement: [number, number][][]) {
  * Cette fonction prend un empilement de profondeur n et renvers l'ordre des lignes (1 devient n, 2 devient n-1 ...
  * @param empilement
  */
-function permute1 (empilement: [number, number][][]): [number, number][][] {
+function permute1(empilement: [number, number][][]): [number, number][][] {
   const empilement1: [number, number][][] = []
   const larg = empilement[0].length
   empilement1[0] = []
@@ -109,7 +115,7 @@ function permute1 (empilement: [number, number][][]): [number, number][][] {
  *  cette fonction prend un empilement sur un rang de large et le bascule sur la droite pour obtenir un empilement de 1 de haut.
  * @param empilement
  */
-function tourne1 (empilement: [number, number][][]): [number, number][][] {
+function tourne1(empilement: [number, number][][]): [number, number][][] {
   const empilement1: [number, number][][] = []
   const larg = empilement[0].length
   const long = empilement.length
@@ -139,7 +145,7 @@ function tourne1 (empilement: [number, number][][]): [number, number][][] {
  * @param empilement Cette fonction effectue un quart de tour de l'empilement.
  * @returns
  */
-function tourne2 (empilement: [number, number][][]): [number, number][][] {
+function tourne2(empilement: [number, number][][]): [number, number][][] {
   const empilement1: [number, number][][] = []
   const larg = empilement[0].length
   const long = empilement.length
@@ -153,7 +159,10 @@ function tourne2 (empilement: [number, number][][]): [number, number][][] {
 }
 
 export default class Visualisation3d extends ExerciceCan {
-  enonce (empilement?: [number, number][][], empilementBis?: [number, number][][]) : void {
+  enonce(
+    empilement?: [number, number][][],
+    empilementBis?: [number, number][][],
+  ): void {
     const alpha = 70
     const beta = -30
     let officiel = true
@@ -170,62 +179,169 @@ export default class Visualisation3d extends ExerciceCan {
     // La figure sans fioriture
     const objets0: NestedObjetMathalea2dArray = []
     for (let i = 0; i < lstCoordonneesCubes.length; i++) {
-      objets0.push(...cube(lstCoordonneesCubes[i][0], lstCoordonneesCubes[i][1], lstCoordonneesCubes[i][2], alpha, beta, { colorD, colorG, colorT }).c2d)
+      objets0.push(
+        ...cube(
+          lstCoordonneesCubes[i][0],
+          lstCoordonneesCubes[i][1],
+          lstCoordonneesCubes[i][2],
+          alpha,
+          beta,
+          { colorD, colorG, colorT },
+        ).c2d,
+      )
     }
-    const figure0 = mathalea2d(Object.assign({ scale: 0.4, style: 'display: inline-block' }, fixeBordures(objets0)), objets0)
+    const figure0 = mathalea2d(
+      Object.assign(
+        { scale: 0.4, style: 'display: inline-block' },
+        fixeBordures(objets0),
+      ),
+      objets0,
+    )
 
     // On permute ligne de devant et ligne de derrière
     const objets1: ObjetMathalea2D[] = []
     const empilement1 = permute1(empilement)
     const lstCoordonneesCubes1 = rangeCubes(empilement1)
     for (let i = 0; i < lstCoordonneesCubes1.length; i++) {
-      objets1.push(...cube(lstCoordonneesCubes1[i][0], lstCoordonneesCubes1[i][1], lstCoordonneesCubes1[i][2], alpha, beta, { colorD, colorG, colorT }).c2d)
+      objets1.push(
+        ...cube(
+          lstCoordonneesCubes1[i][0],
+          lstCoordonneesCubes1[i][1],
+          lstCoordonneesCubes1[i][2],
+          alpha,
+          beta,
+          { colorD, colorG, colorT },
+        ).c2d,
+      )
     }
-    const figure1 = mathalea2d(Object.assign({ scale: 0.4, style: 'display: inline-block' }, fixeBordures(objets1)), objets1)
+    const figure1 = mathalea2d(
+      Object.assign(
+        { scale: 0.4, style: 'display: inline-block' },
+        fixeBordures(objets1),
+      ),
+      objets1,
+    )
 
     // On tourne d'un quart de tour dans l'axe de l'empilement pour le coucher
     const objets2: ObjetMathalea2D[] = []
     const empilement2 = tourne1(empilement)
     const lstCoordonneesCubes2 = rangeCubes(empilement2)
     for (let i = 0; i < lstCoordonneesCubes2.length; i++) {
-      objets2.push(...cube(lstCoordonneesCubes2[i][0], lstCoordonneesCubes2[i][1], lstCoordonneesCubes2[i][2], alpha, beta, { colorD, colorG, colorT }).c2d)
+      objets2.push(
+        ...cube(
+          lstCoordonneesCubes2[i][0],
+          lstCoordonneesCubes2[i][1],
+          lstCoordonneesCubes2[i][2],
+          alpha,
+          beta,
+          { colorD, colorG, colorT },
+        ).c2d,
+      )
     }
-    const figure2 = mathalea2d(Object.assign({ scale: 0.4, style: 'display: inline-block' }, fixeBordures(objets2)), objets2)
+    const figure2 = mathalea2d(
+      Object.assign(
+        { scale: 0.4, style: 'display: inline-block' },
+        fixeBordures(objets2),
+      ),
+      objets2,
+    )
 
     // On tourne d'un quart de tour dans l'axe vertical après avoir permuté la ligne de devant et la ligne de derrière
     const objets4: ObjetMathalea2D[] = []
     const empilement3 = tourne2(permute1(empilement))
     const lstCoordonneesCubes3 = rangeCubes(empilement3)
     for (let i = 0; i < lstCoordonneesCubes3.length; i++) {
-      objets4.push(...cube(lstCoordonneesCubes3[i][0], lstCoordonneesCubes3[i][1], lstCoordonneesCubes3[i][2], alpha - 50, beta, { colorD: colorG, colorG: colorD, colorT }).c2d)
+      objets4.push(
+        ...cube(
+          lstCoordonneesCubes3[i][0],
+          lstCoordonneesCubes3[i][1],
+          lstCoordonneesCubes3[i][2],
+          alpha - 50,
+          beta,
+          { colorD: colorG, colorG: colorD, colorT },
+        ).c2d,
+      )
     }
-    const figure4 = mathalea2d(Object.assign({ scale: 0.4, style: 'display: inline-block' }, fixeBordures(objets4)), objets4)
+    const figure4 = mathalea2d(
+      Object.assign(
+        { scale: 0.4, style: 'display: inline-block' },
+        fixeBordures(objets4),
+      ),
+      objets4,
+    )
 
     // On tourne d'un quart de tour dans l'axe vertical
     const objets5: ObjetMathalea2D[] = []
     const empilement4 = tourne2(empilement)
     const lstCoordonneesCubes4 = rangeCubes(empilement4)
     for (let i = 0; i < lstCoordonneesCubes4.length; i++) {
-      objets5.push(...cube(lstCoordonneesCubes4[i][0], lstCoordonneesCubes4[i][1], lstCoordonneesCubes4[i][2], alpha, beta, { colorD, colorG, colorT }).c2d)
+      objets5.push(
+        ...cube(
+          lstCoordonneesCubes4[i][0],
+          lstCoordonneesCubes4[i][1],
+          lstCoordonneesCubes4[i][2],
+          alpha,
+          beta,
+          { colorD, colorG, colorT },
+        ).c2d,
+      )
     }
-    const figure5 = mathalea2d(Object.assign({ scale: 0.4, style: 'display: inline-block' }, fixeBordures(objets5)), objets5)
+    const figure5 = mathalea2d(
+      Object.assign(
+        { scale: 0.4, style: 'display: inline-block' },
+        fixeBordures(objets5),
+      ),
+      objets5,
+    )
 
     //
     const objets6: ObjetMathalea2D[] = []
     const empilement5 = tourne1(permute1(empilement))
     const lstCoordonneesCubes5 = rangeCubes(empilement5)
     for (let i = 0; i < lstCoordonneesCubes5.length; i++) {
-      objets6.push(...cube(lstCoordonneesCubes5[i][0], lstCoordonneesCubes5[i][1], lstCoordonneesCubes5[i][2], alpha, beta, { colorD, colorG, colorT }).c2d)
+      objets6.push(
+        ...cube(
+          lstCoordonneesCubes5[i][0],
+          lstCoordonneesCubes5[i][1],
+          lstCoordonneesCubes5[i][2],
+          alpha,
+          beta,
+          { colorD, colorG, colorT },
+        ).c2d,
+      )
     }
-    const figure6 = mathalea2d(Object.assign({ scale: 0.4, style: 'display: inline-block' }, fixeBordures(objets6)), objets6)
+    const figure6 = mathalea2d(
+      Object.assign(
+        { scale: 0.4, style: 'display: inline-block' },
+        fixeBordures(objets6),
+      ),
+      objets6,
+    )
     const lstCoordonneesBis = rangeCubes(empilementBis)
     const objetsBis: ObjetMathalea2D[] = []
     for (let i = 0; i < lstCoordonneesBis.length; i++) {
-      objetsBis.push(...cube(lstCoordonneesBis[i][0], lstCoordonneesBis[i][1], lstCoordonneesBis[i][2], alpha, beta, { colorD, colorG, colorT }).c2d)
+      objetsBis.push(
+        ...cube(
+          lstCoordonneesBis[i][0],
+          lstCoordonneesBis[i][1],
+          lstCoordonneesBis[i][2],
+          alpha,
+          beta,
+          { colorD, colorG, colorT },
+        ).c2d,
+      )
     }
-    const figureBis = mathalea2d(Object.assign({ scale: 0.4, style: 'display: inline-block' }, fixeBordures(objetsBis)), objetsBis)
+    const figureBis = mathalea2d(
+      Object.assign(
+        { scale: 0.4, style: 'display: inline-block' },
+        fixeBordures(objetsBis),
+      ),
+      objetsBis,
+    )
     const statuts = [false, false, false, true]
-    const figuresCorrectes = officiel ? [figure0, figure1, figure2, figure4, figure5, figure6] : [figure0, figure1, figure2, figure4, figure5, figure6]
+    const figuresCorrectes = officiel
+      ? [figure0, figure1, figure2, figure4, figure5, figure6]
+      : [figure0, figure1, figure2, figure4, figure5, figure6]
     const figures = shuffle(figuresCorrectes).slice(0, 3).concat(figureBis)
     shuffle2tableaux(figures, statuts)
 
@@ -235,21 +351,21 @@ export default class Visualisation3d extends ExerciceCan {
       propositions: [
         {
           texte: figures[0],
-          statut: statuts[0]
+          statut: statuts[0],
         },
         {
           texte: figures[1],
-          statut: statuts[1]
+          statut: statuts[1],
         },
         {
           texte: figures[2],
-          statut: statuts[2]
+          statut: statuts[2],
         },
         {
           texte: figures[3],
-          statut: statuts[3]
-        }
-      ]
+          statut: statuts[3],
+        },
+      ],
     }
     const monQcm = propositionsQcm(this, 0)
     this.question += monQcm.texte
@@ -258,21 +374,24 @@ export default class Visualisation3d extends ExerciceCan {
     this.canReponseACompleter = `${figures[0]}${figures[1]}<br>${figures[2]}${figures[3]}`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle
-      ? this.enonce([
-        [
-          [0, 1],
-          [0, 1],
-          [0, 2]
-        ]
-      ], [
-        [
-          [0, 1],
-          [0, 2],
-          [0, 1]
-        ]
-      ])
+      ? this.enonce(
+          [
+            [
+              [0, 1],
+              [0, 1],
+              [0, 2],
+            ],
+          ],
+          [
+            [
+              [0, 1],
+              [0, 2],
+              [0, 1],
+            ],
+          ],
+        )
       : this.enonce()
   }
 }

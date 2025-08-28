@@ -1,10 +1,17 @@
 import Decimal from 'decimal.js'
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs.js'
 
-async function test (page: Page) {
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+async function test(page: Page) {
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
   const urlExercice = hostname + '?uuid=4ce2d&id=3P10-1&n=20&i=1&s=2'
   // 3P10-1 uniquement dans le cas de la recherche du taux de variation
   const questions = await getQuestions(page, urlExercice)
@@ -16,7 +23,9 @@ async function test (page: Page) {
     if (!question.isCorrect) {
       taux = taux.times(-1)
     }
-    reponse = taux.greaterThan(0) ? '+' + taux.toNumber() + '%' : taux.toNumber() + '%'
+    reponse = taux.greaterThan(0)
+      ? '+' + taux.toNumber() + '%'
+      : taux.toNumber() + '%'
     await inputAnswer(page, question, reponse)
   }
   await checkFeedback(page, questions)

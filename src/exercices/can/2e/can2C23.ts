@@ -20,10 +20,10 @@ export const uuid = 'eaf63'
 
 export const refs = {
   'fr-fr': ['can2C23'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculToutAvecPartie extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -31,22 +31,23 @@ export default class CalculToutAvecPartie extends ExerciceSimple {
     this.versionQcmDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let taux, partie, matiere
 
     switch (randint(1, 2)) {
       case 1:
         taux = choice([1, 2, 4, 5, 10])
         if (taux === 1) {
-          partie = randint(1, 2) * 10  // 10 ou 20 → total 1000 ou 2000
+          partie = randint(1, 2) * 10 // 10 ou 20 → total 1000 ou 2000
         } else if (taux === 2) {
-          partie = randint(1, 4) * 10  // 10, 20, 30 ou 40 → total 500 à 2000
+          partie = randint(1, 4) * 10 // 10, 20, 30 ou 40 → total 500 à 2000
         } else if (taux === 4) {
-          partie = randint(4, 6) * 10  // 40 à 60 → total 1000 à 1500
+          partie = randint(4, 6) * 10 // 40 à 60 → total 1000 à 1500
         } else if (taux === 5) {
-          partie = randint(4, 6) * 10  // 40 à 60 → total 800 à 1200
-        } else { // taux === 10
-          partie = randint(4, 6) * 10  // 40 à 60 → total 400 à 600
+          partie = randint(4, 6) * 10 // 40 à 60 → total 800 à 1200
+        } else {
+          // taux === 10
+          partie = randint(4, 6) * 10 // 40 à 60 → total 400 à 600
         }
         matiere = 'le Grec'
         break
@@ -54,11 +55,12 @@ export default class CalculToutAvecPartie extends ExerciceSimple {
       default:
         taux = choice([20, 25, 50])
         if (taux === 20) {
-          partie = randint(15, 20) * 10  // 150 à 200 → total 750 à 1000
+          partie = randint(15, 20) * 10 // 150 à 200 → total 750 à 1000
         } else if (taux === 25) {
-          partie = randint(15, 20) * 10  // 150 à 200 → total 600 à 800
-        } else { // taux === 50
-          partie = randint(15, 20) * 10  // 150 à 200 → total 300 à 400
+          partie = randint(15, 20) * 10 // 150 à 200 → total 600 à 800
+        } else {
+          // taux === 50
+          partie = randint(15, 20) * 10 // 150 à 200 → total 300 à 400
         }
         matiere = "l'Espagnol"
         break
@@ -67,7 +69,7 @@ export default class CalculToutAvecPartie extends ExerciceSimple {
     // Parties communes
     const fracTaux = new FractionEtendue(taux, 100)
     const multiplicateur = texNombre(100 / taux, 1)
-    const total = partie * 100 / taux
+    const total = (partie * 100) / taux
 
     const correctionCommune = `En notant $N$ le nombre total d'élèves, 
     $${taux}\\,\\%$ de $N$ est égal à $${partie}$ élèves.<br>
@@ -76,10 +78,10 @@ Ainsi,  $N=${multiplicateur}\\times ${partie}$ élèves soit
     $${miseEnEvidence(`${texNombre(total, 0)}`)}$ élèves au total.`
 
     const distracteursCommuns = [
-      `$${texNombre(partie * 10 / taux, 0)}$`,
+      `$${texNombre((partie * 10) / taux, 0)}$`,
       `${taux === 10 ? `$${texNombre(partie * taux + 10, 0)}$` : `$${texNombre(partie * taux, 0)}$`}`,
       `$${texNombre(total + 100, 1)}$`,
-      `$${texNombre(total - 100, 1)}$`
+      `$${texNombre(total - 100, 1)}$`,
     ]
 
     this.question = `Dans un lycée, $${partie}$ élèves étudient ${matiere}, ce qui représente $${taux}\\,\\%$ du nombre d'élèves inscrits dans ce lycée.<br>
@@ -93,7 +95,8 @@ Ainsi,  $N=${multiplicateur}\\times ${partie}$ élèves soit
 
     this.canEnonce = `Dans un lycée, $${partie}$ élèves étudient ${matiere}, ce qui représente $${taux}\\,\\%$ du nombre d'élèves inscrits dans ce lycée.<br>`
 
-    this.canReponseACompleter = 'Le nombre d\'élèves inscrits dans ce lycée est égal à : $\\ldots$'
+    this.canReponseACompleter =
+      "Le nombre d'élèves inscrits dans ce lycée est égal à : $\\ldots$"
 
     if (!this.interactif && !this.versionQcm) {
       this.question += ' $\\ldots$'

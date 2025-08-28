@@ -11,7 +11,8 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const dateDePublication = '05/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Déterminer graphiquement le nombre de solutions de l\'équation $f\\prime(x)=0$'
+export const titre =
+  "Déterminer graphiquement le nombre de solutions de l'équation $f\\prime(x)=0$"
 /**
  * @author Gilles MORA
   *
@@ -20,11 +21,11 @@ export const titre = 'Déterminer graphiquement le nombre de solutions de l\'éq
 export const uuid = 'd96b4'
 export const refs = {
   'fr-fr': ['can1F25'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResolEquationDerivee extends ExerciceSimple {
   spline!: Spline
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -33,47 +34,62 @@ export default class ResolEquationDerivee extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: 'solution(s)' }
   }
 
-  nouvelleVersion () {
-    const noeuds2 = [{ x: -2, y: -1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+  nouvelleVersion() {
+    const noeuds2 = [
+      { x: -2, y: -1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: 0, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 2, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: 4, y: 1, deriveeGauche: 2, deriveeDroit: 2, isVisible: true }
+      { x: 4, y: 1, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
     ]
-    const noeuds0 = [{ x: -2, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-      { x: 4, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
+    const noeuds0 = [
+      { x: -2, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+      { x: 4, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
     ]
-    const noeuds1 = [{ x: -2, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+    const noeuds1 = [
+      { x: -2, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: 0, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: 3, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true }
+      { x: 3, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
     ]
-    const noeuds3 = [{ x: -2, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+    const noeuds3 = [
+      { x: -2, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -1, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 0, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 2, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: 4, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true }
+      { x: 4, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
     ]
 
-    const noeuds4 = [{ x: -2, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+    const noeuds4 = [
+      { x: -2, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -1, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 0, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 1, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 3, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: 4, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
+      { x: 4, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
     ]
-    const mesFonctions = [noeuds0, noeuds1, noeuds2, noeuds3, noeuds4]// noeuds0, noeuds1, noeuds2, noeuds3, noeuds4
-    function aleatoiriseCourbe (listeFonctions : Array<{ x: number, y: number, deriveeGauche: number, deriveeDroit: number, isVisible: boolean }>[]) {
+    const mesFonctions = [noeuds0, noeuds1, noeuds2, noeuds3, noeuds4] // noeuds0, noeuds1, noeuds2, noeuds3, noeuds4
+    function aleatoiriseCourbe(
+      listeFonctions: Array<{
+        x: number
+        y: number
+        deriveeGauche: number
+        deriveeDroit: number
+        isVisible: boolean
+      }>[],
+    ) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-2, 2) // translations
       const deltaY = randint(-2, +2)
       const choix = choice(listeFonctions)
-      return choix.map((noeud) => Object({
-        x: (noeud.x + deltaX) * coeffX,
-        y: (noeud.y + deltaY) * coeffY,
-        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-        isVisible: noeud.isVisible
-      }))
+      return choix.map((noeud) =>
+        Object({
+          x: (noeud.x + deltaX) * coeffX,
+          y: (noeud.y + deltaY) * coeffY,
+          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+          isVisible: noeud.isVisible,
+        }),
+      )
     }
 
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
@@ -94,20 +110,33 @@ export default class ResolEquationDerivee extends ExerciceSimple {
       grilleSecondaireYMin: bornes.yMin - 1,
       grilleSecondaireYMax: bornes.yMax + 1,
       grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1
+      grilleSecondaireXMax: bornes.xMax + 1,
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'blue'
+      color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]
 
-    this.question = `On donne la représentation graphique d'une fonction $f$. <br>
+    this.question =
+      `On donne la représentation graphique d'une fonction $f$. <br>
     Déterminer le nombre de solutions de l'équation $f'(x)=0$.<br><br>` +
-       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) // fixeBordures(objetsEnonce))
+      mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          {
+            xmin: bornes.xMin - 1,
+            ymin: bornes.yMin - 1,
+            xmax: bornes.xMax + 1,
+            ymax: bornes.yMax + 1,
+          },
+        ),
+        objetsEnonce,
+        o,
+      ) // fixeBordures(objetsEnonce))
     this.question += '<br>'
     const extrema = nuage.filter((el) => el.deriveeGauche === 0)
     // const nbreExtremum=nuage.filter((el)=>el.deriveeGauche===0).length
@@ -119,8 +148,22 @@ export default class ResolEquationDerivee extends ExerciceSimple {
      ${extrema.length === 0 || extrema.length === 0 ? 'tangente horizontale' : 'tangentes horizontales'} (au niveau des changmements de variations)
 , on en déduit que l'équation $f'(x)=0$ admet $${miseEnEvidence(this.reponse)}$ ${extrema.length === 0 || extrema.length === 0 ? 'solution' : 'solutions'}.`
     // this.correction +=`${absExtrema.join(' et ') }`
-    this.canEnonce = 'On donne la représentation graphique d\'une fonction $f$. <br>' +
-       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
-    this.canReponseACompleter = 'Le nombre de solutions de l\'équation $f\'(x)=0$ est : $\\ldots$.<br>'
+    this.canEnonce =
+      "On donne la représentation graphique d'une fonction $f$. <br>" +
+      mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          {
+            xmin: bornes.xMin - 1,
+            ymin: bornes.yMin - 1,
+            xmax: bornes.xMax + 1,
+            ymax: bornes.yMax + 1,
+          },
+        ),
+        objetsEnonce,
+        o,
+      ) // fixeBordures(objetsEnonce))
+    this.canReponseACompleter =
+      "Le nombre de solutions de l'équation $f'(x)=0$ est : $\\ldots$.<br>"
   }
 }

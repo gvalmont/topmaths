@@ -12,10 +12,10 @@ export const uuid = '2dd6a'
 
 export const refs = {
   'fr-fr': ['can1G02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CosEtsinsCAN extends CosEtsin {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.can = true

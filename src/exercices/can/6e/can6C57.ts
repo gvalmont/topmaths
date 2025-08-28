@@ -7,7 +7,8 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer une somme ou une différence de fractions à dénominateurs compatibles'
+export const titre =
+  'Calculer une somme ou une différence de fractions à dénominateurs compatibles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -22,10 +23,10 @@ export const uuid = '058e4'
 
 export const refs = {
   'fr-fr': ['can6C57', '6N3K-flash3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeDiffFractionsCompatibles extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -35,7 +36,7 @@ export default class SommeDiffFractionsCompatibles extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let frac1: FractionEtendue
     let frac2: FractionEtendue
     let resultat: FractionEtendue
@@ -56,7 +57,7 @@ export default class SommeDiffFractionsCompatibles extends ExerciceSimple {
         this.correction = `On cherche un dénominateur commun (ici $${ppcm(frac1.den, frac2.den)}$), puis on additionne les numérateurs :<br>
 $\\begin{aligned}
 ${frac1.texFraction} + ${frac2.texFraction} &= \\dfrac{${frac1.num}\\times ${texNombre(p / frac1.den, 0)}}{${frac1.den}\\times ${texNombre(p / frac1.den, 0)}} +${frac2.texFraction} \\\\
-&=\\dfrac{${frac1.num * p / frac1.den}}{${resultat.den}} +${frac2.texFraction} \\\\[0.7em]
+&=\\dfrac{${(frac1.num * p) / frac1.den}}{${resultat.den}} +${frac2.texFraction} \\\\[0.7em]
 &=${miseEnEvidence(resultat.texFraction)}${pgcd(resultat.num, resultat.den) !== 1 ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}` : ''}
 \\end{aligned}$`
         if (this.interactif) {
@@ -83,7 +84,7 @@ ${frac1.texFraction} + ${frac2.texFraction} &= \\dfrac{${frac1.num}\\times ${tex
         this.correction = `On réduit au même dénominateur ($${resultat.den}$), puis on soustrait les numérateurs :<br>
 $\\begin{aligned}
 ${frac1.texFraction} + ${frac2.texFraction} &= \\dfrac{${frac1.num}\\times ${texNombre(p / frac1.den, 0)}}{${frac1.den}\\times ${texNombre(p / frac1.den, 0)}} -${frac2.texFraction} \\\\
-&=\\dfrac{${frac1.num * p / frac1.den}}{${resultat.den}} -${frac2.texFraction} \\\\[0.7em]
+&=\\dfrac{${(frac1.num * p) / frac1.den}}{${resultat.den}} -${frac2.texFraction} \\\\[0.7em]
 &=${miseEnEvidence(resultat.texFraction)}${pgcd(resultat.num, resultat.den) !== 1 ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}` : ''}
 \\end{aligned}$`
         if (this.interactif) {

@@ -28,18 +28,18 @@ export const uuid = 'd5b6c'
 
 export const refs = {
   'fr-fr': ['can2F07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExtremumsTableau extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, ligne1
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const x1 = randint(-20, 10)
       const x2 = randint(x1 + 1, 15)
       const x3 = randint(x2 + 1, 20)
@@ -52,34 +52,63 @@ export default class ExtremumsTableau extends Exercice {
       const m = Math.min(y1, y2, y3, y4)
       const choix = randint(1, 2)
       if (choix === 1) {
-        ligne1 = ['Var', 10, `+/$${y1}$`, 10, `-/$${y2}$`, 10, `+/$${y3}$`, 10, `-/$${y4}$`, 10]
+        ligne1 = [
+          'Var',
+          10,
+          `+/$${y1}$`,
+          10,
+          `-/$${y2}$`,
+          10,
+          `+/$${y3}$`,
+          10,
+          `-/$${y4}$`,
+          10,
+        ]
       } else {
-        ligne1 = ['Var', 10, `-/$${-y1}$`, 10, `+/$${-y2}$`, 10, `-/$${-y3}$`, 10, `+/$${-y4}$`, 10]
+        ligne1 = [
+          'Var',
+          10,
+          `-/$${-y1}$`,
+          10,
+          `+/$${-y2}$`,
+          10,
+          `-/$${-y3}$`,
+          10,
+          `+/$${-y4}$`,
+          10,
+        ]
       }
 
       texte = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1}\\,;\\,${x4}]$ :<br>
       `
 
-      texte += tableauDeVariation({
-        tabInit: [
-          [
-            // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-            ['$x$', 2, 10], ['$f(x)$', 4, 30]
+      texte +=
+        tableauDeVariation({
+          tabInit: [
+            [
+              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+              ['$x$', 2, 10],
+              ['$f(x)$', 4, 30],
+            ],
+            // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+            [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10],
           ],
-          // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-          [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
-        ],
-        // tabLines ci-dessous contient les autres lignes du tableau.
-        tabLines: [ligne1],
-        colorBackground: '',
-        espcl: 4, // taille en cm entre deux antécédents
-        deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-        lgt: 2, // taille de la première colonne en cm
-        scale: context.isHtml ? 1 : 0.5// ceci est l'échelle du texte
-      }) + '<br>'
+          // tabLines ci-dessous contient les autres lignes du tableau.
+          tabLines: [ligne1],
+          colorBackground: '',
+          espcl: 4, // taille en cm entre deux antécédents
+          deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+          lgt: 2, // taille de la première colonne en cm
+          scale: context.isHtml ? 1 : 0.5, // ceci est l'échelle du texte
+        }) + '<br>'
       this.canEnonce = texte
       if (choice([true, false])) {
-        texte += remplisLesBlancs(this, i, '\\text{ Le maximum de } f \\text{ est  : } %{champ1}. \\text{ Il est atteint en } x=  %{champ2}', KeyboardType.clavierDeBase)
+        texte += remplisLesBlancs(
+          this,
+          i,
+          '\\text{ Le maximum de } f \\text{ est  : } %{champ1}. \\text{ Il est atteint en } x=  %{champ2}',
+          KeyboardType.clavierDeBase,
+        )
         // this.canEnonce += 'Déterminer le maximum de $f$ et la valeur en laquelle il est atteint.'
         this.canReponseACompleter = `Le maximum de $f$ est $\\ldots$. <br>
         Il est atteint en $x=\\ldots$`
@@ -90,11 +119,13 @@ export default class ExtremumsTableau extends Exercice {
 
             if (!context.isAmc) {
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
                 champ1: { value: y1 },
-                champ2: { value: x1 }
-              }
-              )
+                champ2: { value: x1 },
+              })
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -110,11 +141,11 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
                   },
                   {
                     type: 'AMCNum',
@@ -127,13 +158,13 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
               }
             }
           } else {
@@ -142,11 +173,13 @@ export default class ExtremumsTableau extends Exercice {
 
             if (!context.isAmc) {
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
                 champ1: { value: y3 },
-                champ2: { value: x3 }
-              }
-              )
+                champ2: { value: x3 },
+              })
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -162,11 +195,11 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
                   },
                   {
                     type: 'AMCNum',
@@ -179,13 +212,13 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
               }
             }
           }
@@ -195,11 +228,13 @@ export default class ExtremumsTableau extends Exercice {
         Ainsi, le maximum de $f$ est $${miseEnEvidence(-y2)}$.<br>Il est atteint en $x=${miseEnEvidence(x2)}$. `
             if (!context.isAmc) {
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
                 champ1: { value: -y2 },
-                champ2: { value: x2 }
-              }
-              )
+                champ2: { value: x2 },
+              })
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -215,11 +250,11 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
                   },
                   {
                     type: 'AMCNum',
@@ -232,13 +267,13 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
               }
             }
           } else {
@@ -246,11 +281,13 @@ export default class ExtremumsTableau extends Exercice {
         Ainsi, le maximum de $f$ est $${miseEnEvidence(-y4)}$.<br>Il est atteint en $x=${miseEnEvidence(x4)}$.  `
             if (!context.isAmc) {
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
                 champ1: { value: -y4 },
-                champ2: { value: x4 }
-              }
-              )
+                champ2: { value: x4 },
+              })
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -266,11 +303,11 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
                   },
                   {
                     type: 'AMCNum',
@@ -283,13 +320,13 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
               }
             }
           }
@@ -299,7 +336,12 @@ export default class ExtremumsTableau extends Exercice {
         // this.canReponseACompleter = 'Min $=\\ldots$ atteint en $x=\\ldots$'
         this.canReponseACompleter = `Le minimum de $f$ est $\\ldots$. <br>
         Il est atteint en $x=\\ldots$`
-        texte += remplisLesBlancs(this, i, '\\text{ Le minimum de } f \\text{ est  : } %{champ1}. \\text{ Il est atteint en } x=  %{champ2}', KeyboardType.clavierDeBase)
+        texte += remplisLesBlancs(
+          this,
+          i,
+          '\\text{ Le minimum de } f \\text{ est  : } %{champ1}. \\text{ Il est atteint en } x=  %{champ2}',
+          KeyboardType.clavierDeBase,
+        )
 
         if (choix === 1) {
           if (m === y2) {
@@ -307,11 +349,13 @@ export default class ExtremumsTableau extends Exercice {
           Ainsi, le minimum de $f$ est $${miseEnEvidence(y2)}$.<br>Il est atteint en $x=${miseEnEvidence(x2)}$.`
             if (!context.isAmc) {
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
                 champ1: { value: y2 },
-                champ2: { value: x2 }
-              }
-              )
+                champ2: { value: x2 },
+              })
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -327,11 +371,11 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
                   },
                   {
                     type: 'AMCNum',
@@ -344,13 +388,13 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
               }
             }
           } else {
@@ -358,11 +402,13 @@ export default class ExtremumsTableau extends Exercice {
           Ainsi, le minimum de $f$ est $${miseEnEvidence(y4)}$.<br>Il est atteint en $x=${miseEnEvidence(x4)}$.  `
             if (!context.isAmc) {
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
                 champ1: { value: y4 },
-                champ2: { value: x4 }
-              }
-              )
+                champ2: { value: x4 },
+              })
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -378,11 +424,11 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
                   },
                   {
                     type: 'AMCNum',
@@ -395,13 +441,13 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
               }
             }
           }
@@ -411,11 +457,13 @@ export default class ExtremumsTableau extends Exercice {
           Ainsi, le minimum de $f$ est $${miseEnEvidence(-y1)}$.<br>Il est atteint en $x=${miseEnEvidence(x1)}$. `
             if (!context.isAmc) {
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
                 champ1: { value: -y1 },
-                champ2: { value: x1 }
-              }
-              )
+                champ2: { value: x1 },
+              })
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -431,11 +479,11 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
                   },
                   {
                     type: 'AMCNum',
@@ -448,13 +496,13 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
               }
             }
           } else {
@@ -462,11 +510,13 @@ export default class ExtremumsTableau extends Exercice {
           Ainsi, le minimum de $f$ est $${miseEnEvidence(-y3)}$.<br>Il est atteint en $x=${miseEnEvidence(x3)}$.  `
             if (!context.isAmc) {
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
                 champ1: { value: -y3 },
-                champ2: { value: x3 }
-              }
-              )
+                champ2: { value: x3 },
+              })
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -482,11 +532,11 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
                   },
                   {
                     type: 'AMCNum',
@@ -499,13 +549,13 @@ export default class ExtremumsTableau extends Exercice {
                           param: {
                             digits: 2,
                             signe: true,
-                            decimals: 0
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
+                            decimals: 0,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
               }
             }
           }

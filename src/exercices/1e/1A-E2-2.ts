@@ -9,7 +9,7 @@ export const uuid = '6201b'
 
 export const refs = {
   'fr-fr': ['1A-E2-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  *
@@ -20,11 +20,12 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec un taux d\'évolution (2)'
+export const titre = "Calculer avec un taux d'évolution (2)"
 
 export default class AugmentationsSuccessives extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'Le prix d\'un article est noté $P$. Il connaît deux augmentations de $20\\,\\%$.<br> Le prix après ces augmentations est :'
+    this.enonce =
+      "Le prix d'un article est noté $P$. Il connaît deux augmentations de $20\\,\\%$.<br> Le prix après ces augmentations est :"
     this.correction = `Après une augmentation de $20\\,\\%$, le nouveau prix est $P \\times 1,2$.<br>
  Après une deuxième augmentation de $20\\,\\%$, le prix devient : $(P \\times 1,2) \\times 1,2 = P \\times 1,2^2 = ${miseEnEvidence('P \\times 1,44')}$`
 
@@ -32,7 +33,7 @@ export default class AugmentationsSuccessives extends ExerciceQcmA {
       '$P \\times 1,2^2$',
       '$P \\times \\left(1 + \\left(\\dfrac{20}{100}\\right)^2\\right)$',
       '$\\dfrac{P}{1,44}$',
-      '$P \\times 1,40$'
+      '$P \\times 1,40$',
     ]
   }
 
@@ -59,26 +60,28 @@ export default class AugmentationsSuccessives extends ExerciceQcmA {
     const bonnesReponses = [
       `$P \\times ${coefficientTexte}^${nombreAugmentations}$`,
       `$P \\times \\left(1 + \\dfrac{${pourcentage}}{100}\\right)^${nombreAugmentations}$`,
-      `$P \\times \\left(1 + ${new FractionEtendue(pourcentage, 100).texFractionSimplifiee}\\right)^${nombreAugmentations}$`
+      `$P \\times \\left(1 + ${new FractionEtendue(pourcentage, 100).texFractionSimplifiee}\\right)^${nombreAugmentations}$`,
     ]
 
     // Distracteurs classiques
     const distracteurs = [
       `$P \\times \\left(1 + \\left(\\dfrac{${pourcentage}}{100}\\right)^${nombreAugmentations}\\right)$`, // Confusion avec la formule
-      `$P \\times ${texNombre(1 + nombreAugmentations * pourcentage / 100, 2)}$`, // Addition linéaire des pourcentages
+      `$P \\times ${texNombre(1 + (nombreAugmentations * pourcentage) / 100, 2)}$`, // Addition linéaire des pourcentages
       `$\\dfrac{P}{${coefficientTotalTexte}}$`, // Division au lieu de multiplication
       `$P \\times ${coefficientTotalTexte}$`, // Résultat final direct (pas la formule)
       `$P \\times \\left(\\dfrac{${pourcentage}}{100}\\right)^${nombreAugmentations}$`, // Oubli du +1
-      `$P \\times ${texNombre(pourcentage / 100 * nombreAugmentations, 2)}$`, // Confusion totale
-      `$P \\times \\left(${coefficientTexte} + ${texNombre((nombreAugmentations - 1) * pourcentage / 100, 2)}\\right)$`, // Formule inventée
-      `$P \\times ${texNombre(coefficientUnitaire + (nombreAugmentations - 1) * pourcentage / 100, 2)}$` // Autre formule fausse
+      `$P \\times ${texNombre((pourcentage / 100) * nombreAugmentations, 2)}$`, // Confusion totale
+      `$P \\times \\left(${coefficientTexte} + ${texNombre(((nombreAugmentations - 1) * pourcentage) / 100, 2)}\\right)$`, // Formule inventée
+      `$P \\times ${texNombre(coefficientUnitaire + ((nombreAugmentations - 1) * pourcentage) / 100, 2)}$`, // Autre formule fausse
     ]
 
     // Sélection d'une bonne réponse
     const bonneReponse = choice(bonnesReponses)
 
     // Sélection de 3 distracteurs distincts
-    const distracteursFiltres = distracteurs.filter(rep => rep !== bonneReponse)
+    const distracteursFiltres = distracteurs.filter(
+      (rep) => rep !== bonneReponse,
+    )
     const troisDistracteurs: string[] = []
 
     while (troisDistracteurs.length < 3 && distracteursFiltres.length > 0) {
@@ -104,7 +107,7 @@ export default class AugmentationsSuccessives extends ExerciceQcmA {
     this.reponses = [bonneReponse, ...troisDistracteurs]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

@@ -1,5 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureNombreRelatif,
+  ecritureNombreRelatifc,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -31,11 +36,11 @@ export const uuid = 'cbc26'
 
 export const refs = {
   'fr-fr': ['5R20'],
-  'fr-ch': ['9NO9-6']
+  'fr-ch': ['9NO9-6'],
 }
 export default class ExerciceAdditionsRelatifs extends Exercice {
   modeQcm: boolean
-  constructor () {
+  constructor() {
     super()
     this.sup = 20
     this.sup4 = false // nombres décimaux
@@ -43,50 +48,84 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
     this.modeQcm = false
     this.sup3 = false
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-    this.besoinFormulaire2Numerique = ['Type de questions', 3, 'Tous les nombres entre parenthèses \n2 : Seul le 2e terme négatif est entre parenthèses \n3 : Écriture simplifiée']
+    this.besoinFormulaire2Numerique = [
+      'Type de questions',
+      3,
+      'Tous les nombres entre parenthèses \n2 : Seul le 2e terme négatif est entre parenthèses \n3 : Écriture simplifiée',
+    ]
     this.sup2 = 1 // écriture simplifiée
     this.besoinFormulaire4CaseACocher = ['Avec des nombres décimaux']
     if (context.isHtml) this.besoinFormulaire3CaseACocher = ['QCM']
-    this.comment = "Si l'option « Avec des nombres décimaux » est activée, 2 fois sur 3 les nombres auront un chiffre après la virgule et une fois sur 3 un seul terme aura deux chiffres après la virgule."
+    this.comment =
+      "Si l'option « Avec des nombres décimaux » est activée, 2 fois sur 3 les nombres auront un chiffre après la virgule et une fois sur 3 un seul terme aura deux chiffres après la virgule."
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // Rétrocompatibilité avec les liens vers les exercices quand c'était des cases à cocher
     if (this.sup2 === false) {
       this.sup2 = 1
     } else if (this.sup2 === true) {
       this.sup2 = 3
     }
-    this.consigne = this.sup3 ? 'Calculer puis cocher la case correspondante.' : this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Calculer.'
+    this.consigne = this.sup3
+      ? 'Calculer puis cocher la case correspondante.'
+      : this.interactif
+        ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.'
+        : 'Calculer.'
     this.nbCols = this.sup3 ? 2 : 3
     this.nbColsCorr = this.sup3 ? 2 : 3
 
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
-    const partieDecimaleAUnChiffre = combinaisonListes([true, true, false], this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const partieDecimaleAUnChiffre = combinaisonListes(
+      [true, true, false],
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let a: number
       let b: number
       let texte = ''
       let texteCorr = ''
       a = randint(1, this.sup)
       b = randint(1, this.sup)
-      const k: (1 | -1)[] = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
+      const k: (1 | -1)[] = choice([
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+      ]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
       a = a * k[0]
       b = b * k[1]
       if (this.sup4) {
         a = new Decimal(randint(1, this.sup * 10)).div(10).mul(k[0]).toNumber()
         if (partieDecimaleAUnChiffre[i]) {
-          b = new Decimal(randint(1, this.sup * 10)).div(10).mul(k[1]).toNumber()
+          b = new Decimal(randint(1, this.sup * 10))
+            .div(10)
+            .mul(k[1])
+            .toNumber()
         } else {
-          b = new Decimal(randint(1, this.sup * 100)).div(100).mul(k[1]).toNumber()
+          b = new Decimal(randint(1, this.sup * 100))
+            .div(100)
+            .mul(k[1])
+            .toNumber()
         }
         if (choice([true, false])) {
-          [a, b] = [b, a]
+          ;[a, b] = [b, a]
         }
       }
       if (this.sup2 === 1) {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + '$'
-        texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b, { color: orangeMathalea }) + ' $'
+        texte =
+          '$ ' +
+          ecritureNombreRelatif(a) +
+          ' + ' +
+          ecritureNombreRelatif(b) +
+          '$'
+        texteCorr =
+          '$ ' +
+          ecritureNombreRelatifc(a) +
+          ' + ' +
+          ecritureNombreRelatifc(b) +
+          ' = ' +
+          ecritureNombreRelatifc(a + b, { color: orangeMathalea }) +
+          ' $'
       } else if (this.sup2 === 2) {
         texte = `$ ${texNombre(a)} + ${ecritureParentheseSiNegatif(b)}$`
         texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)} = ${miseEnEvidence(texNombre(a + b))} $`
@@ -100,20 +139,20 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: `$${texNombre(a + b)}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$${texNombre(a - b)}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${texNombre(-a + b)}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${texNombre(-a - b)}$`,
-          statut: false
-        }
+          statut: false,
+        },
       ]
       if (this.sup3) {
         const qcm = propositionsQcm(this, i)
@@ -122,8 +161,15 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
           texteCorr += qcm.texteCorr
         }
       } else {
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: ' $=$' })
-        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), options: { resultatSeulementEtNonOperation: true } } })
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
+          texteAvant: ' $=$',
+        })
+        handleAnswers(this, i, {
+          reponse: {
+            value: arrondi(a + b).toString(),
+            options: { resultatSeulementEtNonOperation: true },
+          },
+        })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] = texte

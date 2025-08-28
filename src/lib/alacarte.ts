@@ -6,21 +6,21 @@ interface Items {
 }
 
 interface DocumentsEntity {
-  title: string;
-  items: string[];
-  number?: number;
+  title: string
+  items: string[]
+  number?: number
 }
 
 export interface UserSettings {
-  items: Items;
-  documents: (DocumentsEntity)[];
+  items: Items
+  documents: DocumentsEntity[]
 }
 
 export interface itemsWithExercises {
   [key: string]: Exercice[]
 }
 
-export function handleUrl (url: URL) {
+export function handleUrl(url: URL) {
   const entries = url.searchParams.entries()
   let indiceExercice = -1
   const newExercisesParams: InterfaceParams[] = []
@@ -28,7 +28,8 @@ export function handleUrl (url: URL) {
     if (entry[0] === 'uuid') {
       indiceExercice++
       const uuid = entry[1]
-      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid }
+      if (!newExercisesParams[indiceExercice])
+        newExercisesParams[indiceExercice] = { uuid }
       newExercisesParams[indiceExercice].uuid = uuid // string
       newExercisesParams[indiceExercice].interactif = '0' // par défaut
     } else if (entry[0] === 'n') {
@@ -56,7 +57,10 @@ export function handleUrl (url: URL) {
   return newExercisesParams
 }
 
-export function generateLatex (userSettings: UserSettings, itemsWithExercises: itemsWithExercises) {
+export function generateLatex(
+  userSettings: UserSettings,
+  itemsWithExercises: itemsWithExercises,
+) {
   let output = preambuleLight
   let outputCorr = '\n\n%%%%%%%%%%%%%%%%%%%%'
   outputCorr += '\n%%%  CORRECTION  %%%'

@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Utiliser les priorités opératoires avec des relatifs'
@@ -17,16 +20,16 @@ export const uuid = '1da2d'
 
 export const refs = {
   'fr-fr': ['can4C01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PrioriteOperatoireEtRelatifs extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a = randint(-12, 12, 0)
     const b = randint(-4, 4, [-1, 0, 1])
     const c = randint(2, 6)

@@ -13,10 +13,10 @@ export const uuid = 'f1286'
 
 export const refs = {
   'fr-fr': ['can2L18'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FactoriserIdentitesRemarquables2CAN extends FactoriserIdentitesRemarquables2 {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierEnsemble
     this.nbQuestions = 1

@@ -20,22 +20,42 @@ export const uuid = '2be1d'
 export const refs = {
   'fr-fr': ['6N0B-4'],
   'fr-2016': ['6C13-3'],
-  'fr-ch': ['9FA2-2']
+  'fr-ch': ['9FA2-2'],
 }
 
 class OperationsReciproques extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
     this.spacingCorr = 2
   }
 
-  nouvelleVersion (): void {
-    type TypeQuestionsDisponibles = 'x+' | '+x' | 'x-' | '-x' | '/+' | '+/' | '/-' | '-/'
-    const typeQuestionsDisponibles = ['x+', '+x', 'x-', '-x', '/+', '+/', '/-', '-/'] as TypeQuestionsDisponibles[]
+  nouvelleVersion(): void {
+    type TypeQuestionsDisponibles =
+      | 'x+'
+      | '+x'
+      | 'x-'
+      | '-x'
+      | '/+'
+      | '+/'
+      | '/-'
+      | '-/'
+    const typeQuestionsDisponibles = [
+      'x+',
+      '+x',
+      'x-',
+      '-x',
+      '/+',
+      '+/',
+      '/-',
+      '-/',
+    ] as TypeQuestionsDisponibles[]
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    ) as TypeQuestionsDisponibles[]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let depart = randint(1, 10)
@@ -49,7 +69,7 @@ class OperationsReciproques extends Exercice {
           arrivee = etape + operande2
           texte = `Je choisis un nombre, je le multiplie par ${operande1} puis j'ajoute ${operande2} au résultat. Quel est le nombre de départ si j'obtiens ${arrivee} ?`
           texteCorr = `$\\ldots \\xrightarrow{\\times${operande1}} \\ldots \\xrightarrow{+${operande2}} ${arrivee}$`
-          texteCorr += '<br>On peut « faire les calculs à l\'envers » : '
+          texteCorr += "<br>On peut « faire les calculs à l'envers » : "
           texteCorr += `<br>$${depart} \\xleftarrow[\\div${operande1}]{} ${etape} \\xleftarrow[-${operande2}]{} ${arrivee}$.`
           break
         case '+x':
@@ -59,7 +79,7 @@ class OperationsReciproques extends Exercice {
           arrivee = etape * operande2
           texte = `Je choisis un nombre, j'ajoute ${operande1} puis je le multiplie par ${operande2}. Quel est le nombre de départ si j'obtiens ${arrivee} ?`
           texteCorr = `$\\ldots \\xrightarrow{+${operande1}} \\ldots \\xrightarrow{\\times${operande2}} ${arrivee}$`
-          texteCorr += '<br>On peut « faire les calculs à l\'envers » : '
+          texteCorr += "<br>On peut « faire les calculs à l'envers » : "
           texteCorr += `<br>$${depart} \\xleftarrow[-${operande1}]{} ${etape} \\xleftarrow[\\div${operande2}]{} ${arrivee}$.`
           break
         case 'x-':
@@ -69,7 +89,7 @@ class OperationsReciproques extends Exercice {
           arrivee = etape - operande2
           texte = `Je choisis un nombre, je le multiplie par ${operande1} puis je soustrais ${operande2} au résultat. Quel est le nombre de départ si j'obtiens ${arrivee} ?`
           texteCorr = `$\\ldots \\xrightarrow{\\times${operande1}} \\ldots \\xrightarrow{-${operande2}} ${arrivee}$`
-          texteCorr += '<br>On peut « faire les calculs à l\'envers » : '
+          texteCorr += "<br>On peut « faire les calculs à l'envers » : "
           texteCorr += `<br>$${depart} \\xleftarrow[\\div${operande1}]{} ${etape} \\xleftarrow[+${operande2}]{} ${arrivee}$.`
           break
         case '-x':
@@ -78,7 +98,7 @@ class OperationsReciproques extends Exercice {
           depart = etape + operande1
           texte = `Je choisis un nombre, je soustrais ${operande1} puis je le multiplie par ${operande2}. Quel est le nombre de départ si j'obtiens ${arrivee} ?`
           texteCorr = `$\\ldots \\xrightarrow{-${operande1}} \\ldots \\xrightarrow{\\times${operande2}} ${arrivee}$`
-          texteCorr += '<br>On peut « faire les calculs à l\'envers » : '
+          texteCorr += "<br>On peut « faire les calculs à l'envers » : "
           texteCorr += `<br>$${depart} \\xleftarrow[+${operande1}]{} ${etape} \\xleftarrow[\\div${operande2}]{} ${arrivee}$.`
           break
         case '/+':
@@ -87,7 +107,7 @@ class OperationsReciproques extends Exercice {
           depart = etape * operande1
           texte = `Je choisis un nombre, je le divise par ${operande1} puis j'ajoute ${operande2} au résultat. Quel est le nombre de départ si j'obtiens ${arrivee} ?`
           texteCorr = `$\\ldots \\xrightarrow{\\div${operande1}} \\ldots \\xrightarrow{+${operande2}} ${arrivee}$`
-          texteCorr += '<br>On peut « faire les calculs à l\'envers » : '
+          texteCorr += "<br>On peut « faire les calculs à l'envers » : "
           texteCorr += `<br>$${depart} \\xleftarrow[\\times${operande1}]{} ${etape} \\xleftarrow[+${operande2}]{} ${arrivee}$.`
           break
         case '+/':
@@ -97,7 +117,7 @@ class OperationsReciproques extends Exercice {
           depart = etape - operande1
           texte = `Je choisis un nombre, j'ajoute ${operande1} puis je le divise par ${operande2}. Quel est le nombre de départ si j'obtiens ${arrivee} ?`
           texteCorr = `$\\ldots \\xrightarrow{+${operande1}} \\ldots \\xrightarrow{\\div${operande2}} ${arrivee}$`
-          texteCorr += '<br>On peut « faire les calculs à l\'envers » : '
+          texteCorr += "<br>On peut « faire les calculs à l'envers » : "
           texteCorr += `<br>$${depart} \\xleftarrow[-${operande1}]{} ${etape} \\xleftarrow[\\times${operande2}]{} ${arrivee}$.`
           break
         case '/-':
@@ -107,7 +127,7 @@ class OperationsReciproques extends Exercice {
           arrivee = etape - operande2
           texte = `Je choisis un nombre, je le divise par ${operande1} puis je soustrais ${operande2} au résultat. Quel est le nombre de départ si j'obtiens ${arrivee} ?`
           texteCorr = `$\\ldots \\xrightarrow{\\div${operande1}} \\ldots \\xrightarrow{-${operande2}} ${arrivee}$`
-          texteCorr += '<br>On peut « faire les calculs à l\'envers » : '
+          texteCorr += "<br>On peut « faire les calculs à l'envers » : "
           texteCorr += `<br>$${depart} \\xleftarrow[\\times${operande1}]{} ${etape} \\xleftarrow[+${operande2}]{} ${arrivee}$.`
           break
         case '-/':
@@ -116,13 +136,14 @@ class OperationsReciproques extends Exercice {
           depart = etape + operande1
           texte = `Je choisis un nombre, je soustrais ${operande1} puis je le divise par ${operande2}. Quel est le nombre de départ si j'obtiens ${arrivee} ?`
           texteCorr = `$\\ldots \\xrightarrow{-${operande1}} \\ldots \\xrightarrow{\\div${operande2}} ${arrivee}$`
-          texteCorr += '<br>On peut « faire les calculs à l\'envers » : '
+          texteCorr += "<br>On peut « faire les calculs à l'envers » : "
           texteCorr += `<br>$${depart} \\xleftarrow[+${operande1}]{} ${etape} \\xleftarrow[\\times${operande2}]{} ${arrivee}$.`
           break
       }
       texteCorr += `<br>Le nombre de départ est donc $${depart}$.`
       if (this.interactif) {
-        texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+        texte +=
+          '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
         setReponse(this, i, depart)
       }
       if (this.questionJamaisPosee(i, depart, operande1, operande2)) {

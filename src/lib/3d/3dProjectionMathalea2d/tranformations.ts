@@ -1,6 +1,20 @@
-import { ObjetMathalea2D, colorToLatexOrHTML, fixeBordures } from '../../../modules/2dGeneralites'
+import {
+  ObjetMathalea2D,
+  colorToLatexOrHTML,
+  fixeBordures,
+} from '../../../modules/2dGeneralites'
 import { segment } from '../../2d/segmentsVecteurs'
-import { Point3d, Vecteur3d, point3d, vecteur3d, Polygone3d, Droite3d, polygone3d, droite3d, arete3d } from './elements'
+import {
+  Point3d,
+  Vecteur3d,
+  point3d,
+  vecteur3d,
+  Polygone3d,
+  Droite3d,
+  polygone3d,
+  droite3d,
+  arete3d,
+} from './elements'
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
 
 export const math = { matrix, multiply, norm, cross, dot }
@@ -22,17 +36,25 @@ export const math = { matrix, multiply, norm, cross, dot }
  * @param {*} angle Angle de rotation
  */
 
-export function rotationV3d<T extends Point3d | Vecteur3d> (point3D: T, vecteur3D: Vecteur3d, angle: number): T {
+export function rotationV3d<T extends Point3d | Vecteur3d>(
+  point3D: T,
+  vecteur3D: Vecteur3d,
+  angle: number,
+): T {
   let V, p2
   const norme = math.norm(vecteur3D.matrice)
   const unitaire = math.multiply(vecteur3D.matrice, 1 / norme)
   const u = unitaire._data[0]
   const v = unitaire._data[1]
   const w = unitaire._data[2]
-  const c = Math.cos(angle * Math.PI / 180)
-  const s = Math.sin(angle * Math.PI / 180)
+  const c = Math.cos((angle * Math.PI) / 180)
+  const s = Math.sin((angle * Math.PI) / 180)
   const k = 1 - c
-  const matrice = math.matrix([[u * u * k + c, u * v * k - w * s, u * w * k + v * s], [u * v * k + w * s, v * v * k + c, v * w * k - u * s], [u * w * k - v * s, v * w * k + u * s, w * w * k + c]])
+  const matrice = math.matrix([
+    [u * u * k + c, u * v * k - w * s, u * w * k + v * s],
+    [u * v * k + w * s, v * v * k + c, v * w * k - u * s],
+    [u * w * k - v * s, v * w * k + u * s, w * w * k + c],
+  ])
   if (point3D instanceof Point3d) {
     V = math.matrix([point3D.x, point3D.y, point3D.z])
     p2 = math.multiply(matrice, V)
@@ -55,7 +77,12 @@ export function rotationV3d<T extends Point3d | Vecteur3d> (point3D: T, vecteur3
  * @param {string} color couleur du polygone créé. si non précisé la couleur sera celle du polygone argument
  */
 
-export function rotation3d<T extends Point3d | Vecteur3d | Polygone3d> (point3D: T, droite3D: Droite3d, angle: number, color?: string): T {
+export function rotation3d<T extends Point3d | Vecteur3d | Polygone3d>(
+  point3D: T,
+  droite3D: Droite3d,
+  angle: number,
+  color?: string,
+): T {
   const directeur = droite3D.directeur
   const origine = droite3D.origine
   if (point3D instanceof Point3d) {
@@ -69,7 +96,8 @@ export function rotation3d<T extends Point3d | Vecteur3d | Polygone3d> (point3D:
     return rotationV3d(point3D, directeur, angle)
   }
   if (point3D instanceof Polygone3d) {
-    const rotated = point3D.listePoints.map((p: Point3d) => rotation3d(p, droite3D, angle)
+    const rotated = point3D.listePoints.map((p: Point3d) =>
+      rotation3d(p, droite3D, angle),
     )
     return polygone3d(rotated, color ?? point3D.color) as T
   }
@@ -84,7 +112,13 @@ export function rotation3d<T extends Point3d | Vecteur3d | Polygone3d> (point3D:
  */
 
 export class SensDeRotation3d extends ObjetMathalea2D {
-  constructor (axe: Droite3d, rayon: Vecteur3d, angle: number, epaisseur: number, color: string) {
+  constructor(
+    axe: Droite3d,
+    rayon: Vecteur3d,
+    angle: number,
+    epaisseur: number,
+    color: string,
+  ) {
     super()
     this.epaisseur = epaisseur
     this.color = colorToLatexOrHTML(color)
@@ -116,7 +150,13 @@ export class SensDeRotation3d extends ObjetMathalea2D {
   }
 }
 
-export function sensDeRotation3d (axe: Droite3d, rayon: Vecteur3d, angle: number, epaisseur: number, color: string) {
+export function sensDeRotation3d(
+  axe: Droite3d,
+  rayon: Vecteur3d,
+  angle: number,
+  epaisseur: number,
+  color: string,
+) {
   return new SensDeRotation3d(axe, rayon, angle, epaisseur, color)
 }
 /**
@@ -127,7 +167,10 @@ export function sensDeRotation3d (axe: Droite3d, rayon: Vecteur3d, angle: number
  * @param {Vecteur3d} vecteur3D
  */
 
-export function translation3d<T extends Point3d | Polygone3d> (point3D: T, vecteur3D: Vecteur3d): T {
+export function translation3d<T extends Point3d | Polygone3d>(
+  point3D: T,
+  vecteur3D: Vecteur3d,
+): T {
   if (point3D instanceof Point3d) {
     const x = point3D.x + vecteur3D.x
     const y = point3D.y + vecteur3D.y
@@ -140,7 +183,10 @@ export function translation3d<T extends Point3d | Polygone3d> (point3D: T, vecte
     }
     return polygone3d(p, point3D.color) as T
   }
-  window.notify('translation3d ne peut être appliqué qu\'à un point3d ou un polygone3d', point3D)
+  window.notify(
+    "translation3d ne peut être appliqué qu'à un point3d ou un polygone3d",
+    point3D,
+  )
   return point3D
 }
 /**
@@ -150,7 +196,12 @@ export function translation3d<T extends Point3d | Polygone3d> (point3D: T, vecte
  * Pour les points3d les polygones ou les vecteurs (multiplication scalaire par rapport)
  */
 
-export function homothetie3d<T extends Point3d | Vecteur3d | Polygone3d> (point3D: T, centre: Point3d, rapport: number, color?: string): T {
+export function homothetie3d<T extends Point3d | Vecteur3d | Polygone3d>(
+  point3D: T,
+  centre: Point3d,
+  rapport: number,
+  color?: string,
+): T {
   let V
   const p = []
   if (point3D instanceof Point3d) {
@@ -171,19 +222,22 @@ export function homothetie3d<T extends Point3d | Vecteur3d | Polygone3d> (point3
     }
     return polygone3d(p, color ?? point3D.color) as T
   }
-  window.notify('homothetie3d ne peut être appliqué qu\'à un point3d, un vecteur3d ou un polygone3d', point3D)
+  window.notify(
+    "homothetie3d ne peut être appliqué qu'à un point3d, un vecteur3d ou un polygone3d",
+    point3D,
+  )
   return point3D
 }
 
 export class CodageAngleDroit3D extends ObjetMathalea2D {
-  constructor (A: Point3d, B: Point3d, C: Point3d, color = 'black', taille = 1) {
+  constructor(A: Point3d, B: Point3d, C: Point3d, color = 'black', taille = 1) {
     super()
     const BA = vecteur3d(B, A)
     const BC = vecteur3d(B, C)
     const k1 = BA.norme
     const k2 = BC.norme
-    const M1 = homothetie3d(A, B, taille * 0.5 / k1)
-    const M3 = homothetie3d(C, B, taille * 0.5 / k2)
+    const M1 = homothetie3d(A, B, (taille * 0.5) / k1)
+    const M3 = homothetie3d(C, B, (taille * 0.5) / k2)
     const BM1 = vecteur3d(B, M1)
     const BM3 = vecteur3d(B, M3)
     const x = B.x + BM1.x + BM3.x

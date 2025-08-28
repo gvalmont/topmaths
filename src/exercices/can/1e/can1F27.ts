@@ -7,14 +7,15 @@ import { rienSi1, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import type FractionEtendue from '../../../modules/FractionEtendue'
-export const titre = 'Retrouver un polynôme du second degré à partir de son tableau de signes'
+export const titre =
+  'Retrouver un polynôme du second degré à partir de son tableau de signes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '08/09/2024'
 export const uuid = 'c0f97'
 export const refs = {
   'fr-fr': ['can1F27'],
-  'fr-ch': ['1mF3-14']
+  'fr-ch': ['1mF3-14'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -22,7 +23,7 @@ export const refs = {
 
 */
 export default class PolyTableauSignes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -31,30 +32,31 @@ export default class PolyTableauSignes extends ExerciceSimple {
     this.spacingCorr = 2
   }
 
-  nouvelleVersion () {
-    const a = randint(-9, 9, 0)// coefficient a
+  nouvelleVersion() {
+    const a = randint(-9, 9, 0) // coefficient a
     const b = randint(-9, 9) // racine1
     const c = randint(-9, 9, b) // racine2
     const fonction = (x: number | FractionEtendue) => {
       if (typeof x !== 'number') {
-        window.notify('La fonction de can1F27 n\'accepte que des numbers et a reçu un x qui n\'en est pas', x)
+        window.notify(
+          "La fonction de can1F27 n'accepte que des numbers et a reçu un x qui n'en est pas",
+          x,
+        )
         return 0
       }
       return a * (x - b) * (x - c)
     }
-    const tableau = tableauSignesFonction(fonction,
-      -10,
-      10,
-      {
-        step: 1,
-        tolerance: 0.1,
-        substituts: [
-          { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' }
-        ]
-      })
+    const tableau = tableauSignesFonction(fonction, -10, 10, {
+      step: 1,
+      tolerance: 0.1,
+      substituts: [
+        { antVal: -10, antTex: '-\\infty' },
+        { antVal: 10, antTex: '+\\infty' },
+      ],
+    })
     this.reponse = `${a}(${reduireAxPlusB(1, -b)})(${reduireAxPlusB(1, -c)})`
-    this.question = 'On donne le tableau de signes d\'une fonction polynôme du second définie par $f(x)=ax^2+bx+c$. <br>'
+    this.question =
+      "On donne le tableau de signes d'une fonction polynôme du second définie par $f(x)=ax^2+bx+c$. <br>"
     this.question += `<br>${tableau}<br>`
     this.question += `Sachant que $|a|= ${abs(a)}$, donner une expression factorisée de $f(x)$.`
     this.correction = `Le tableau de signes de $f(x)$ indique que la parabole représentant $f$ est tournée vers le ${a > 0 ? 'haut.' : 'bas.'}<br>
@@ -73,7 +75,9 @@ export default class PolyTableauSignes extends ExerciceSimple {
       this.correction += ` $${miseEnEvidence(`${rienSi1(a)}(${reduireAxPlusB(1, -b)})(${reduireAxPlusB(1, -c)})`)}$`
     }
 
-    if (this.interactif) { this.question += '<br>$f(x)=$' }
+    if (this.interactif) {
+      this.question += '<br>$f(x)=$'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$f(x)=\\ldots$'
   }

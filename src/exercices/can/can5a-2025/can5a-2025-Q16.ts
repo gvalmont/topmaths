@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a343v'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q14 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     let coeff
     let d
     if (a == null || b == null || c == null) {
@@ -31,8 +31,16 @@ export default class Can2025N5Q14 extends ExerciceCan {
     coeff = a / c
     d = b / coeff
     this.reponse = d
-    const [L0C0, L0C1, L1C0, L1C1] = [a, b, c, '?'].map((el) => Object.assign({}, { content: `${el}`, latex: true, }))
-    const tableau = tableau2x2({ L0C0, L0C1, L1C0, L1C1 }, this.numeroExercice ?? 0, 0, false, 'tableauMathlive')
+    const [L0C0, L0C1, L1C0, L1C1] = [a, b, c, '?'].map((el) =>
+      Object.assign({}, { content: `${el}`, latex: true }),
+    )
+    const tableau = tableau2x2(
+      { L0C0, L0C1, L1C0, L1C1 },
+      this.numeroExercice ?? 0,
+      0,
+      false,
+      'tableauMathlive',
+    )
     this.question = `On donne le tableau de proportionnalité : <br>${tableau} `
     this.correction = `On a $${a} \\div ${c} = ${coeff}$ donc $${b} \\div ${coeff} = ${miseEnEvidence(d)}$.`
     this.canEnonce = this.question
@@ -42,7 +50,7 @@ export default class Can2025N5Q14 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(24, 36, 6) : this.enonce()
   }
 }

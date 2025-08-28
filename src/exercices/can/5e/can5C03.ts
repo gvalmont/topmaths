@@ -16,17 +16,17 @@ export const uuid = '62e1f'
 
 export const refs = {
   'fr-fr': ['can5C03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DifferenceEntiers5e extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const b = randint(41, 69, [50, 60])
     const a = randint(2, 30) + 100
     this.reponse = a - b
@@ -42,7 +42,7 @@ export default class DifferenceEntiers5e extends ExerciceSimple {
     \\end{aligned}$<br>
        Cela donne :  $${a} - ${b}=${a - b}$.
       `)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

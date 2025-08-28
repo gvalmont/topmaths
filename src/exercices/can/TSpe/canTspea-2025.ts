@@ -36,14 +36,14 @@ export const interactifType = 'mathLive'
 export const uuid = '6ca87'
 export const refs = {
   'fr-fr': ['canTSpea-2025'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '01/05/2025'
 
 /**
  * Annales CAN 2025
  * @author Gilles Mora
-*/
+ */
 
 const questions = [
   Question1,
@@ -75,11 +75,11 @@ const questions = [
   Question27,
   Question28,
   Question29,
-  Question30
+  Question30,
 ]
 
 export default class CanTSpea2025 extends MetaExercice {
-  constructor () {
+  constructor() {
     super(questions)
   }
 }

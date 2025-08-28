@@ -2,7 +2,7 @@ import ExerciceBrevet from './ExerciceBrevet'
 
 // class à utiliser pour fabriquer des Qcm ayant une version aléatoire
 export default class ExerciceBrevetA extends ExerciceBrevet {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
@@ -10,5 +10,5 @@ export default class ExerciceBrevetA extends ExerciceBrevet {
     this.versionAleatoire(0)
   }
 
-  versionAleatoire: (i:number) => void = () => {}
+  versionAleatoire: (i: number) => void = () => {}
 }

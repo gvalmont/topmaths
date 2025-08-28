@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 export const uuid = 'e6d64'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,7 +18,7 @@ export const refs = {
 */
 
 export default class Can2025CE2Q6 extends ExerciceCan {
-  enonce (a?: number, b?: number, nbre?:number) {
+  enonce(a?: number, b?: number, nbre?: number) {
     if (a == null || b == null || nbre == null) {
       a = randint(6, 8) * 100 + 9 * 10 + randint(1, 9)
       b = a + 10
@@ -30,17 +30,18 @@ export default class Can2025CE2Q6 extends ExerciceCan {
       propositions: [
         {
           texte: `$${nbre}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$${a - 9}$`,
-          statut: false
-        }, {
+          statut: false,
+        },
+        {
           texte: `$${b + 80}$`,
-          statut: false
-        }
+          statut: false,
+        },
       ],
-      options: { vertical: true }
+      options: { vertical: true },
     }
     this.formatInteractif = 'qcm'
     const monQcm = propositionsQcm(this, 0)
@@ -48,11 +49,13 @@ export default class Can2025CE2Q6 extends ExerciceCan {
     this.question += `${monQcm.texte}`
     this.canEnonce = `Coche le nombre qui est entre $${a}$ et $${b}$.`
 
-    this.correction = monQcm.texteCorr + `$${nbre}$ est plus petit que $${b}$ et plus grand que $${a}$, donc le nombre qui est entre $${a}$ et $${b}$ est : $${miseEnEvidence(nbre)}$.`
+    this.correction =
+      monQcm.texteCorr +
+      `$${nbre}$ est plus petit que $${b}$ et plus grand que $${a}$, donc le nombre qui est entre $${a}$ et $${b}$ est : $${miseEnEvidence(nbre)}$.`
     this.canReponseACompleter = monQcm.texte
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(794, 804, 799) : this.enonce()
   }
 }

@@ -15,10 +15,10 @@ export const uuid = '106e7'
 
 export const refs = {
   'fr-fr': ['1A-C9-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC9b extends DeveloppementDouble {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

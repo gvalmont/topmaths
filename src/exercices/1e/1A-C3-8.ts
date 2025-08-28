@@ -6,7 +6,7 @@ export const uuid = 'c0964'
 // Author Stéphane Guyon
 export const refs = {
   'fr-fr': ['1A-C3-8'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -17,12 +17,7 @@ export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.correction = `$\\begin{aligned} 2^{n}+2^n&=2\\times 2^n\\\\    &=${miseEnEvidence('2^{n+1}')}    \\end{aligned}$<br>`
 
-    this.reponses = [
-      '$2^{n+1}$',
-      '$4^n$',
-      '$2^{2n}$',
-      '$(2^n)^2)$',
-    ]
+    this.reponses = ['$2^{n+1}$', '$4^n$', '$2^{2n}$', '$(2^n)^2)$']
   }
 
   versionAleatoire = () => {
@@ -32,13 +27,13 @@ export default class Puissances extends ExerciceQcmA {
     this.correction = `$\\begin{aligned} ${k}^{n}+${k}^n&=${miseEnEvidence(`2\\times ${k}^{n}`)}    \\end{aligned}$<br>`
     this.reponses = [
       `$2\\times ${k}^n$`,
-       `$${2 * k}^n$`,
-       `$${k}^{n+1}$`,
-       `$ ${k}^{2n}$`,
+      `$${2 * k}^n$`,
+      `$${k}^{n+1}$`,
+      `$ ${k}^{2n}$`,
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

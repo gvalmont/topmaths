@@ -16,19 +16,23 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
 /**
-* Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
-* @author Rémi Angot
-*/
+ * Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
+ * @author Rémi Angot
+ */
 export const uuid = 'eea67'
 
 export const refs = {
   'fr-fr': ['3G20-1', 'BP2AutoR7', 'BP2G14'],
-  'fr-ch': ['11GM3-8']
+  'fr-ch': ['11GM3-8'],
 }
 export default class ProblemesThales extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Triangles rectangles imbriqués\n2 : Triangles dans un rectangle\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      3,
+      '1 : Triangles rectangles imbriqués\n2 : Triangles dans un rectangle\n3 : Mélange',
+    ]
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
@@ -36,18 +40,44 @@ export default class ProblemesThales extends Exercice {
     this.sup = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte = ''
     let texteCorr = ''
-    const typesDeQuestions = (this.sup === 1 || this.sup === 2) ? this.sup : choice([1, 2])
-    let A, B, C, D, E, M, N, x, k, y, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels, BC, BD, MN
+    const typesDeQuestions =
+      this.sup === 1 || this.sup === 2 ? this.sup : choice([1, 2])
+    let A,
+      B,
+      C,
+      D,
+      E,
+      M,
+      N,
+      x,
+      k,
+      y,
+      p,
+      codage1,
+      codage2,
+      codage3,
+      codage4,
+      sMN,
+      sBD,
+      sCote,
+      texte1,
+      texte2,
+      texte3,
+      texte4,
+      labels,
+      BC,
+      BD,
+      MN
     const [nomA, nomB, nomC, nomD] = creerNomDePolygone(4, ['MNQD'])
     switch (typesDeQuestions) {
       case 1:
         x = randint(6, 10)
         k = new Decimal(randint(12, 19)).div(10)
-        y = new Decimal(randint(30, 50)).div(10);
-        [A, B, C, D, E] = creerNomDePolygone(5, 'QD')
+        y = new Decimal(randint(30, 50)).div(10)
+        ;[A, B, C, D, E] = creerNomDePolygone(5, 'QD')
         texte = `On sait que $${A}${E}=${x}$ cm ; $${A}${D}=${texNombre(k * x, 1)}$ cm et $${E}${B}=${texNombre(y, 1)}$ cm.<br>`
         texte += `Calculer la valeur exacte de $${D}${C}$.`
         if (context.isHtml) {
@@ -79,10 +109,10 @@ export default class ProblemesThales extends Exercice {
           texte += choice([fig1, fig2])
         } else {
           const fig1 = `\\begin{tikzpicture}[scale=.6]
-\\draw (0,0)--(${(k * x)},0)--(${(k * x)},${-k * y})--cycle;
+\\draw (0,0)--(${k * x},0)--(${k * x},${-k * y})--cycle;
 \\draw (${x},0)--(${x},${-y});
 \\draw (${x},0) rectangle ++(-.5,-.5);
-\\draw (${(k * x)},0) rectangle ++(-.5,-.5);
+\\draw (${k * x},0) rectangle ++(-.5,-.5);
 \\node [above left] at (0,0) {${A}};
 \\node [above] at (${x},0) {${E}};
 \\node [above right] at (${k * x},0) {${D}};
@@ -91,10 +121,10 @@ export default class ProblemesThales extends Exercice {
 \\end{tikzpicture}`
 
           const fig2 = `\\begin{tikzpicture}[scale=.6]
-\\draw (0,0)--(${(k * x)},0)--(${(k * x)},${k * y})--cycle;
+\\draw (0,0)--(${k * x},0)--(${k * x},${k * y})--cycle;
 \\draw (${x},0)--(${x},${y});
 \\draw (${x},0) rectangle ++(.5,.5);
-\\draw (${(k * x)},0) rectangle ++(.5,.5);
+\\draw (${k * x},0) rectangle ++(.5,.5);
 \\node [below left] at (0,0) {${A}};
 \\node [below] at (${x},0) {${E}};
 \\node [below right] at (${k * x},0) {${D}};
@@ -130,7 +160,14 @@ export default class ProblemesThales extends Exercice {
         sBD = segment(B, D)
         sCote = segment(point(N.x - 1.3, N.y), point(D.x - 1.3, D.y))
         sCote.styleExtremites = '<->'
-        texte1 = texteParPoint('?', milieu(point(N.x - 1.5, N.y), point(D.x - 1.5, D.y)), 0, 'black', 1, 'gauche')
+        texte1 = texteParPoint(
+          '?',
+          milieu(point(N.x - 1.5, N.y), point(D.x - 1.5, D.y)),
+          0,
+          'black',
+          1,
+          'gauche',
+        )
         texte2 = texteSurSegment(BD + ' cm', B, D)
         texte3 = texteSurSegment(stringNombre(MN) + ' cm', M, N)
         texte4 = texteSurSegment(BC + ' cm', B, C)
@@ -139,13 +176,28 @@ export default class ProblemesThales extends Exercice {
 
         texte = `Sur la figure ci-dessous $${nomA + nomB + nomC + nomD}$ est un rectangle et $(MN)$ est parallèle à la diagonale $(${nomB + nomD})$.`
         texte += `<br>Calculer la longueur $${nomD + 'N'}$ au millimètre près.<br><br>`
-        texte += mathalea2d({
-          xmin: -2,
-          xmax: 9,
-          ymin: -1.5,
-          ymax: 5,
-          scale: 0.8
-        }, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels)
+        texte += mathalea2d(
+          {
+            xmin: -2,
+            xmax: 9,
+            ymin: -1.5,
+            ymax: 5,
+            scale: 0.8,
+          },
+          p,
+          codage1,
+          codage2,
+          codage3,
+          codage4,
+          sMN,
+          sBD,
+          sCote,
+          texte1,
+          texte2,
+          texte3,
+          texte4,
+          labels,
+        )
 
         texteCorr = `Dans le triangle $${nomA + nomB + nomD}$, $M$ est un point de $[${nomA + nomB}]$, $N$ est un point de $[${nomA + nomD}]$ et $(MN)$ est parallèle à $(${nomB + nomD})$ donc d'après le théorème de Thalès on a : `
         texteCorr += `<br><br> $${texFractionFromString(nomA + 'M', nomA + nomB)}=${texFractionFromString(nomA + 'N', nomA + nomD)}=${texFractionFromString('MN', nomB + nomD)}$`

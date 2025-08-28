@@ -16,31 +16,36 @@
   $: {
     if (stepsUl) {
       const steps = stepsUl.querySelectorAll('button')
-      if (steps[currentQuestionNumber]) steps[currentQuestionNumber].scrollIntoView()
-      if (steps[currentQuestionNumber + 5]) steps[currentQuestionNumber + 5].scrollIntoView()
-      if (steps[currentQuestionNumber - 5]) steps[currentQuestionNumber - 5].scrollIntoView()
-      const diapoProgressContainer = document.getElementById('diapoProgressContainer')
+      if (steps[currentQuestionNumber])
+        steps[currentQuestionNumber].scrollIntoView()
+      if (steps[currentQuestionNumber + 5])
+        steps[currentQuestionNumber + 5].scrollIntoView()
+      if (steps[currentQuestionNumber - 5])
+        steps[currentQuestionNumber - 5].scrollIntoView()
+      const diapoProgressContainer = document.getElementById(
+        'diapoProgressContainer',
+      )
       if (diapoProgressContainer) diapoProgressContainer.scrollIntoView()
     }
   }
-
 </script>
 
 <div
   id="diapoProgressContainer"
-  class:invisible={isManualModeActive}
+  class:invisible="{isManualModeActive}"
   class="flex flex-row flex-shrink-0 h-6 border
     border-coopmaths-warn dark:border-coopmathsdark-warn"
 >
   <div
     class="bg-coopmaths-warn dark:bg-coopmathsdark-warn"
-    style="width: {ratioTime}%; transition: width {currentSlideDuration / 100}s linear"
-  />
+    style="width: {ratioTime}%; transition: width {currentSlideDuration /
+      100}s linear"
+  ></div>
 </div>
 <ul id="stepsUl" class="steps w-full mt-3">
   {#each [...Array(totalQuestionsNumber).keys()] as i}
     <button
-      on:click={() => goToQuestion(i)}
+      on:click="{() => goToQuestion(i)}"
       class="cursor-pointer
         step dark:step-info
         {currentQuestionNumber === i ? 'step-current' : ''}
@@ -52,7 +57,8 @@
 
 <style>
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
     }
     50% {
@@ -64,6 +70,5 @@
   }
   .step-current::after {
     animation: pulse 1s infinite ease-in-out;
-
   }
 </style>

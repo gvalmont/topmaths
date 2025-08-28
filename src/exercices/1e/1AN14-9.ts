@@ -4,15 +4,26 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiMoins, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiMoins,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, signe } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Calculer la dérivée d\'une fonction avec exponentielle'
+export const titre = "Calculer la dérivée d'une fonction avec exponentielle"
 export const dateDePublication = '06/08/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,36 +37,39 @@ export const uuid = 'd2a2d'
 
 export const refs = {
   'fr-fr': ['1AN14-9'],
-  'fr-ch': ['']
+  'fr-ch': [''],
 }
 
 export default class DeriveeExp extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : a*e^x+bx+c\n2 : e^u avec u affine\n3 :  e^u avec u poly second degré\n4 : u*e^x\n5 : (ax+b)*e^mx\n6 : (m*e^x)/(ax+b) ou  (m*e^x)/(ax^2+b) \n7 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Choix des questions',
+      'Nombres séparés par des tirets :\n1 : a*e^x+bx+c\n2 : e^u avec u affine\n3 :  e^u avec u poly second degré\n4 : u*e^x\n5 : (ax+b)*e^mx\n6 : (m*e^x)/(ax+b) ou  (m*e^x)/(ax^2+b) \n7 : Mélange',
+    ]
     this.sup = '7'
     this.spacing = 1.5
     this.spacingCorr = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 6,
       melange: 7,
       defaut: 7,
-      nbQuestions: this.nbQuestions
-
+      nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let value = ''
-      const texteIntro = 'On considère la fonction $f$ définie sur $\\mathbb{R}$ par :'
+      const texteIntro =
+        'On considère la fonction $f$ définie sur $\\mathbb{R}$ par :'
       switch (listeDeQuestions[i]) {
-        case 1:// aexp(x)+bx+c
+        case 1: // aexp(x)+bx+c
           {
             const a = randint(-10, 10, 0)
             const b = randint(-5, 5)
@@ -64,68 +78,115 @@ export default class DeriveeExp extends Exercice {
             texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme somme de fonctions dérivables sur $\\mathbb{R}$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, `
             if (choix === true) {
-              texte = texteIntro + ` $f(x)=${rienSi1(a)}\\text{e}^x${b === 0 ? `${ecritureAlgebrique(c)}` : `${signe(b)}${reduireAxPlusB(abs(b), c)}`}$.<br>
+              texte =
+                texteIntro +
+                ` $f(x)=${rienSi1(a)}\\text{e}^x${b === 0 ? `${ecritureAlgebrique(c)}` : `${signe(b)}${reduireAxPlusB(abs(b), c)}`}$.<br>
             Calculer $f'(x)$.`
               texteCorr += `$f'(x)=${miseEnEvidence(`${rienSi1(a)}\\text{e}^x${b === 0 ? '' : `${ecritureAlgebrique(b)}`}`)}$.`
             } else {
-              texte = texteIntro + ` $f(x)=${reduireAxPlusB(b, c)}${signe(a)}${rienSi1(abs(a))}\\text{e}^x$.<br>
+              texte =
+                texteIntro +
+                ` $f(x)=${reduireAxPlusB(b, c)}${signe(a)}${rienSi1(abs(a))}\\text{e}^x$.<br>
             Calculer $f'(x)$.`
               texteCorr += `$f'(x)=${miseEnEvidence(`${b}${rienSi1(a)}\\text{e}^x`)}$.`
             }
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierFonctionsTerminales,
+              { texteAvant: "<br>$f'(x)=$" },
+            )
             value = `${`${a}e^x+${b}`}`
             handleAnswers(this, i, { reponse: { value } })
           }
           break
-        case 2:// exp(u) avec u affine
-          { const listeab = [[randint(-10, 10, [0, 1]), 0], [randint(-30, 30, [0, 10]) / 10, 0], [randint(-5, 5, 0), randint(-10, 10, 0)], [randint(-30, 30, [0, 10]) / 10, randint(-30, 30, [0, 10]) / 10]] // a puis b
+        case 2: // exp(u) avec u affine
+          {
+            const listeab = [
+              [randint(-10, 10, [0, 1]), 0],
+              [randint(-30, 30, [0, 10]) / 10, 0],
+              [randint(-5, 5, 0), randint(-10, 10, 0)],
+              [randint(-30, 30, [0, 10]) / 10, randint(-30, 30, [0, 10]) / 10],
+            ] // a puis b
             const ab = choice(listeab)
-            const poly = new Polynome({ rand: true, coeffs: [ab[1], ab[0]] })// ax+b
+            const poly = new Polynome({ rand: true, coeffs: [ab[1], ab[0]] }) // ax+b
             const derivee = poly.derivee()
-            texte = texteIntro + `$f(x)=\\text{e}^{${poly}}$.<br>
+            texte =
+              texteIntro +
+              `$f(x)=\\text{e}^{${poly}}$.<br>
              Calculer $f'(x)$.`
             texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme composée de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $\\text{e}^u$ avec $u(x)=${poly}$, donc sa fonction dérivée est donnée par $f'=u'\\text{e}^u$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, `
             texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\text{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\text{e}^{${poly}}`)}$`}.`
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierFonctionsTerminales,
+              { texteAvant: "<br>$f'(x)=$" },
+            )
             value = `${`${derivee}e^{${poly}}`}`
           }
           handleAnswers(this, i, { reponse: { value } })
           break
 
-        case 3:// exp(u) avec u second degré
+        case 3: // exp(u) avec u second degré
           // switch (randint(2,2)) {
           {
-            const listeabc = [[randint(-10, 10, 0), 0, 0], [randint(-2, 2, 0), randint(-2, 2, 0), 0], [randint(-2, 2, 0), 0, randint(-2, 2, 0)], [randint(-2, 2, 0), randint(-5, 5, 0), randint(-2, 2, 0)], [randint(-30, 30, [-20, -10, 0, 10, 20]) / 10, 0, 0]] // a puis b
+            const listeabc = [
+              [randint(-10, 10, 0), 0, 0],
+              [randint(-2, 2, 0), randint(-2, 2, 0), 0],
+              [randint(-2, 2, 0), 0, randint(-2, 2, 0)],
+              [randint(-2, 2, 0), randint(-5, 5, 0), randint(-2, 2, 0)],
+              [randint(-30, 30, [-20, -10, 0, 10, 20]) / 10, 0, 0],
+            ] // a puis b
             const abc = choice(listeabc)
-            const poly = new Polynome({ rand: true, coeffs: [abc[2], abc[1], abc[0]] })
+            const poly = new Polynome({
+              rand: true,
+              coeffs: [abc[2], abc[1], abc[0]],
+            })
             const derivee = poly.derivee()
-            texte = texteIntro + `$f(x)=\\text{e}^{${poly}}$.<br>
+            texte =
+              texteIntro +
+              `$f(x)=\\text{e}^{${poly}}$.<br>
              Calculer $f'(x)$.`
             texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme composée de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $\\text{e}^u$ avec $u(x)=${poly}$, donc sa fonction dérivée est donnée par $f'=u'\\text{e}^u$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, `
             texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\text{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\text{e}^{${poly}}`)}$`}.`
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierFonctionsTerminales,
+              { texteAvant: "<br>$f'(x)=$" },
+            )
             value = `${`${derivee}e^{${poly}}`}`
           }
           handleAnswers(this, i, { reponse: { value } })
           break
 
-        case 4:// (ax+b)e^x ou (ax^2+bx+c)e^x
+        case 4: // (ax+b)e^x ou (ax^2+bx+c)e^x
           switch (randint(1, 2)) {
             case 1:
               {
-                const listeab = [[randint(-10, 10, 0), 0], [randint(-29, 29, 0) / 10, 0], [randint(-10, 10, 0), randint(-10, 10, 0)]] // a puis b
+                const listeab = [
+                  [randint(-10, 10, 0), 0],
+                  [randint(-29, 29, 0) / 10, 0],
+                  [randint(-10, 10, 0), randint(-10, 10, 0)],
+                ] // a puis b
                 const ab = choice(listeab)
-                const poly = new Polynome({ rand: true, coeffs: [ab[1], ab[0]] })// ax+b
+                const poly = new Polynome({
+                  rand: true,
+                  coeffs: [ab[1], ab[0]],
+                }) // ax+b
 
                 texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^x$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
-                texte = texteIntro + ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^x` : `(${poly})\\text{e}^x`}$.<br>
+                texte =
+                  texteIntro +
+                  ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^x` : `(${poly})\\text{e}^x`}$.<br>
             Calculer $f'(x)$ et écrire son expression sous forme factorisée.`
                 texteCorr += ` 
               $\\begin{aligned}
@@ -134,26 +195,47 @@ export default class DeriveeExp extends Exercice {
               &= ${miseEnEvidence(`${ab[0] + ab[1] === 0 ? `${ab[0]}\\text{e}^x` : `\\text{e}^x(${reduireAxPlusB(ab[0], ab[0] + ab[1])})`}`)}.
               \\end{aligned}$`
 
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierFonctionsTerminales,
+                  { texteAvant: "<br>$f'(x)=$" },
+                )
                 value = `${`(${reduireAxPlusB(ab[0], ab[0] + ab[1])})e^x`}`
-                handleAnswers(this, i, { reponse: { value, options: { factorisation: true } } })
+                handleAnswers(this, i, {
+                  reponse: { value, options: { factorisation: true } },
+                })
               }
               break
 
             case 2:
             default:
               {
-                const listeabc = [[randint(-10, 10, 0), 0, 0], [randint(-2, 2, 0), randint(-2, 2, 0), 0], [randint(-2, 2, 0), 0, randint(-2, 2, 0)], [randint(-2, 2, 0), randint(-5, 5, 0), randint(-2, 2, 0)], [randint(-30, 30, [-20, -10, 0, 10, 20]) / 10, 0, 0]] // a puis b
+                const listeabc = [
+                  [randint(-10, 10, 0), 0, 0],
+                  [randint(-2, 2, 0), randint(-2, 2, 0), 0],
+                  [randint(-2, 2, 0), 0, randint(-2, 2, 0)],
+                  [randint(-2, 2, 0), randint(-5, 5, 0), randint(-2, 2, 0)],
+                  [randint(-30, 30, [-20, -10, 0, 10, 20]) / 10, 0, 0],
+                ] // a puis b
                 const abc = choice(listeabc)
-                const poly = new Polynome({ rand: true, coeffs: [abc[2], abc[1], abc[0]] })
+                const poly = new Polynome({
+                  rand: true,
+                  coeffs: [abc[2], abc[1], abc[0]],
+                })
                 const derivee = poly.derivee()
-                const polyF = new Polynome({ rand: true, coeffs: [abc[2] + abc[1], 2 * abc[0] + abc[1], abc[0]] })
+                const polyF = new Polynome({
+                  rand: true,
+                  coeffs: [abc[2] + abc[1], 2 * abc[0] + abc[1], abc[0]],
+                })
 
                 texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^x$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
-                texte = texteIntro + ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^x` : `(${poly})\\text{e}^x`}$.<br>
+                texte =
+                  texteIntro +
+                  ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^x` : `(${poly})\\text{e}^x`}$.<br>
             Calculer $f'(x)$ et écrire son expression sous forme factorisée.`
                 texteCorr += ` 
               $\\begin{aligned}
@@ -161,29 +243,44 @@ export default class DeriveeExp extends Exercice {
            &=${derivee.isMon() ? `${miseEnEvidence(`\\text{e}^x(${polyF})`)}.` : `\\text{e}^x(${derivee}+(${poly}))`}\\\\
               ${derivee.isMon() ? '' : `&=${miseEnEvidence(`\\text{e}^x(${polyF})`)}.`}
               \\end{aligned}$`
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierFonctionsTerminales,
+                  { texteAvant: "<br>$f'(x)=$" },
+                )
                 value = `${`(${polyF})e^x`}`
-                handleAnswers(this, i, { reponse: { value, options: { factorisation: true } } })
+                handleAnswers(this, i, {
+                  reponse: { value, options: { factorisation: true } },
+                })
               }
               break
           }
           break
 
-        case 5:// (ax+b)e^mx
-
+        case 5: // (ax+b)e^mx
           {
-            const listeab = [[randint(-10, 10, [0, 1]), 0], [randint(-29, 29, 0) / 10, 0], [randint(-10, 10, 0), randint(-10, 10, 0)]] // a puis b
+            const listeab = [
+              [randint(-10, 10, [0, 1]), 0],
+              [randint(-29, 29, 0) / 10, 0],
+              [randint(-10, 10, 0), randint(-10, 10, 0)],
+            ] // a puis b
             const ab = choice(listeab)
-            const poly = new Polynome({ rand: true, coeffs: [ab[1], ab[0]] })// b+ax
+            const poly = new Polynome({ rand: true, coeffs: [ab[1], ab[0]] }) // b+ax
             const derivee = poly.derivee()
             const m = randint(-10, 10, [0, 1])
-            const polyF = new Polynome({ rand: true, coeffs: [ab[0] + m * ab[1], m * ab[0]] })
+            const polyF = new Polynome({
+              rand: true,
+              coeffs: [ab[0] + m * ab[1], m * ab[0]],
+            })
             texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^{${rienSi1(m)}x}$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
 
-            texte = texteIntro + ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^{${rienSi1(m)}x}` : `(${poly})\\text{e}^{${rienSi1(m)}x}`}$.<br>
+            texte =
+              texteIntro +
+              ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^{${rienSi1(m)}x}` : `(${poly})\\text{e}^{${rienSi1(m)}x}`}$.<br>
             Calculer $f'(x)$ et écrire son expression sous forme factorisée.`
             texteCorr += ` 
               $\\begin{aligned}
@@ -193,24 +290,37 @@ export default class DeriveeExp extends Exercice {
               &= ${miseEnEvidence(`\\text{e}^{${rienSi1(m)}x}(${polyF})`)}.
               \\end{aligned}$`
 
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierFonctionsTerminales,
+              { texteAvant: "<br>$f'(x)=$" },
+            )
             value = `${`(${polyF})e^{${m}x}`}`
-            handleAnswers(this, i, { reponse: { value, options: { factorisation: true } } })
+            handleAnswers(this, i, {
+              reponse: { value, options: { factorisation: true } },
+            })
           }
           break
 
-        case 6:// (m*e^x)/(ax+b)ou (m*e^x)/(ax^2+b)
+        case 6: // (m*e^x)/(ax+b)ou (m*e^x)/(ax^2+b)
           switch (randint(1, 2)) {
             case 1:
               {
-                const listeab = [[randint(1, 3), 0], [randint(1, 10), randint(-4, 4, 0)]] // a puis b
+                const listeab = [
+                  [randint(1, 3), 0],
+                  [randint(1, 10), randint(-4, 4, 0)],
+                ] // a puis b
                 let ab = choice(listeab)
                 let m = randint(1, 5)
                 do {
                   ab = choice(listeab)
                   m = randint(1, 7)
                 } while (pgcd(m, ab[0]) !== 1)
-                const poly = new Polynome({ rand: true, coeffs: [ab[1], ab[0]] })// b+ax
+                const poly = new Polynome({
+                  rand: true,
+                  coeffs: [ab[1], ab[0]],
+                }) // b+ax
                 const polyNum = poly.multiply(m).add(-m * ab[0])
                 const vi = new FractionEtendue(-ab[1], ab[0]).simplifie()
                 texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme quotient de fonctions dérivables sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$ dont le dénominateur ne s'annule pas sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$.<br>
@@ -227,15 +337,25 @@ export default class DeriveeExp extends Exercice {
         &=${miseEnEvidence(`\\dfrac{${polyNum.isMon() ? ` ${polyNum}` : `(${polyNum})`}\\text{e}^{x}}{${ab[0] === 1 && ab[1] === 0 ? `${poly}^2` : `(${poly})^2`}}`)}.
               \\end{aligned}$`
 
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierFonctionsTerminales,
+                  { texteAvant: "<br>$f'(x)=$" },
+                )
                 value = `${`\\dfrac{(${polyNum})e^{x}}{(${poly})^2}`}`
-                handleAnswers(this, i, { reponse: { value, compare: functionCompare } })
+                handleAnswers(this, i, {
+                  reponse: { value, compare: functionCompare },
+                })
               }
               break
             case 2:
             default:
               {
-                const listeabc = [[randint(1, 10, 0), 0, 0], [randint(1, 10, 0), 0, randint(1, 10)]]
+                const listeabc = [
+                  [randint(1, 10, 0), 0, 0],
+                  [randint(1, 10, 0), 0, randint(1, 10)],
+                ]
                 let abc = choice(listeabc)
                 let m = randint(1, 7)
 
@@ -243,10 +363,16 @@ export default class DeriveeExp extends Exercice {
                   abc = choice(listeabc)
                   m = randint(1, 7)
                 } while (pgcd(m, abc[0]) !== 1)
-                const poly = new Polynome({ rand: true, coeffs: [abc[2], abc[1], abc[0]] }) // c+bx+ax^2
+                const poly = new Polynome({
+                  rand: true,
+                  coeffs: [abc[2], abc[1], abc[0]],
+                }) // c+bx+ax^2
                 const derivee = poly.derivee()
-                const polyF = new Polynome({ rand: true, coeffs: [abc[2] * m, -2 * abc[0] * m, m * abc[0]] })
-                texteCorr = `La fonction $f$ est dérivable sur $${abc[2] !== 0 ? '\\mathbb{R}' : '\\mathbb{R}^*'}$ comme quotient de fonctions dérivables sur ${abc[2] !== 0 ? '$\\mathbb{R}$' : '$\\mathbb{R}^*$ dont le dénominateur ne s\'annule pas sur $\\mathbb{R}^*$'}.<br>
+                const polyF = new Polynome({
+                  rand: true,
+                  coeffs: [abc[2] * m, -2 * abc[0] * m, m * abc[0]],
+                })
+                texteCorr = `La fonction $f$ est dérivable sur $${abc[2] !== 0 ? '\\mathbb{R}' : '\\mathbb{R}^*'}$ comme quotient de fonctions dérivables sur ${abc[2] !== 0 ? '$\\mathbb{R}$' : "$\\mathbb{R}^*$ dont le dénominateur ne s'annule pas sur $\\mathbb{R}^*$"}.<br>
             $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${rienSi1(m)}\\text{e}^{x}$ et $v(x)=${poly}$, donc sa fonction dérivée est donnée par 
             $f'=\\dfrac{u'\\times v- u\\times v'}{v^2}$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
@@ -260,9 +386,16 @@ export default class DeriveeExp extends Exercice {
         &=${miseEnEvidence(`\\dfrac{${polyF.isMon() ? ` ${polyF}` : `(${polyF})`}\\text{e}^{x}}{(${poly})^2}`)}.
               \\end{aligned}$`
 
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierFonctionsTerminales,
+                  { texteAvant: "<br>$f'(x)=$" },
+                )
                 value = `${`\\dfrac{(${polyF})e^{x}}{(${poly})^2}`}`
-                handleAnswers(this, i, { reponse: { value, compare: functionCompare } })
+                handleAnswers(this, i, {
+                  reponse: { value, compare: functionCompare },
+                })
               }
               break
           }

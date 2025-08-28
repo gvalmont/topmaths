@@ -13,7 +13,7 @@
 
   let lastTime = window.performance.now()
   let frame: number | undefined
-  ;(function update () {
+  ;(function update() {
     const time = window.performance.now()
     elapsed += time - lastTime
 
@@ -24,7 +24,7 @@
       const timeD = millisecondToMinSec(duration - elapsed)
       const formattedtime = [
         timeD.minutes.toString().padStart(2, '0'),
-        timeD.seconds.toString().padStart(2, '0')
+        timeD.seconds.toString().padStart(2, '0'),
       ].join(':')
 
       displayedTime = formattedtime
@@ -39,7 +39,7 @@
     dispatch('message', {
       state: 'endTimer',
       elapsed,
-      duration
+      duration,
     })
   }
   onDestroy(() => {

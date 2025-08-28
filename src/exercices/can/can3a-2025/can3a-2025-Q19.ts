@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = '4650c'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -16,7 +16,7 @@ export const refs = {
 
 */
 export default class CalculPuissance extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class CalculPuissance extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? -7 : randint(-10, -1)
     const reponse = a ** 2
     this.reponse = reponse

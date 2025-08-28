@@ -7,7 +7,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 export const uuid = '6a9da'
 export const refs = {
   'fr-fr': ['3S2QCM-4', 'BP2FLUC5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -22,39 +22,55 @@ export const dateDePublication = '07/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class AmeriqueNordJuin22Ex1Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs (maxInclus: number, nbFaces: number, adjectif: string): void {
+  private appliquerLesValeurs(
+    maxInclus: number,
+    nbFaces: number,
+    adjectif: string,
+  ): void {
     const f1 = maxInclus / nbFaces
     const f2 = (nbFaces - maxInclus + 1) / nbFaces
 
-    if (adjectif === 'inférieur' && (f1 === 1 / maxInclus || f1 === maxInclus / 6 || f1 === 1 / nbFaces)) {
+    if (
+      adjectif === 'inférieur' &&
+      (f1 === 1 / maxInclus || f1 === maxInclus / 6 || f1 === 1 / nbFaces)
+    ) {
       maxInclus++
     }
-    if (adjectif === 'supérieur' && (f2 === 1 / maxInclus || f2 === maxInclus / 6 || f2 === 1 / nbFaces)) {
+    if (
+      adjectif === 'supérieur' &&
+      (f2 === 1 / maxInclus || f2 === maxInclus / 6 || f2 === 1 / nbFaces)
+    ) {
       maxInclus--
     }
 
-    const resultat = adjectif === 'inférieur'
-      ? new FractionEtendue(maxInclus, nbFaces)
-      : new FractionEtendue(nbFaces - maxInclus + 1, nbFaces)
+    const resultat =
+      adjectif === 'inférieur'
+        ? new FractionEtendue(maxInclus, nbFaces)
+        : new FractionEtendue(nbFaces - maxInclus + 1, nbFaces)
     this.reponses = [
-        `$${resultat.texFractionSimplifiee}$`,
-        `$\\dfrac{1}{${maxInclus}}$`,
-        `$\\dfrac{${maxInclus}}{6}$`,
-        `$\\dfrac{1}{${nbFaces}}$`
+      `$${resultat.texFractionSimplifiee}$`,
+      `$\\dfrac{1}{${maxInclus}}$`,
+      `$\\dfrac{${maxInclus}}{6}$`,
+      `$\\dfrac{1}{${nbFaces}}$`,
     ]
 
     this.enonce = `On lance un dé équilibré à $${nbFaces}$ faces numérotées de $1$ à $${nbFaces}$.<br>La probabilité pour que le numéro tiré soit ${adjectif} ou égal à $${maxInclus}$ est :`
-    this.correction = `Les issues favorables qui réalisent l'événement "tirer un numéro ${adjectif} ou égal à $${maxInclus}$" sont les numéros $${adjectif === 'inférieur'
- ? `1, \\ldots, ${maxInclus}`
-: `${maxInclus}, \\ldots, ${nbFaces}`}
+    this.correction = `Les issues favorables qui réalisent l'événement "tirer un numéro ${adjectif} ou égal à $${maxInclus}$" sont les numéros $${
+      adjectif === 'inférieur'
+        ? `1, \\ldots, ${maxInclus}`
+        : `${maxInclus}, \\ldots, ${nbFaces}`
+    }
 $.<br>`
-    this.correction += `Il y a donc ${adjectif === 'inférieur'
-    ? maxInclus
-    : nbFaces - maxInclus + 1}
+    this.correction += `Il y a donc ${
+      adjectif === 'inférieur' ? maxInclus : nbFaces - maxInclus + 1
+    }
      issues favorables et ${nbFaces} issues possibles.<br>`
-    this.correction += `La probabilité de tirer un numéro ${adjectif} ou égal à $${maxInclus}$ est donc $${resultat.estIrreductible
-       ? miseEnEvidence(resultat.texFraction)
-       : miseEnEvidence(`${resultat.texFraction} \\text{ soit } ${resultat.texFractionSimplifiee}`)
+    this.correction += `La probabilité de tirer un numéro ${adjectif} ou égal à $${maxInclus}$ est donc $${
+      resultat.estIrreductible
+        ? miseEnEvidence(resultat.texFraction)
+        : miseEnEvidence(
+            `${resultat.texFraction} \\text{ soit } ${resultat.texFractionSimplifiee}`,
+          )
     }$.`
   }
 
@@ -72,7 +88,7 @@ $.<br>`
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

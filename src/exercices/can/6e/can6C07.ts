@@ -17,11 +17,11 @@ export const uuid = 'b3aee'
 
 export const refs = {
   'fr-fr': ['can6C07', '6N2J-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class ResteDivisionPar3 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,7 +29,7 @@ export default class ResteDivisionPar3 extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const b = randint(1, 9)
     const c = randint(0, 9)
     const d = randint(0, 9, [b, c])
@@ -66,7 +66,7 @@ export default class ResteDivisionPar3 extends ExerciceSimple {
      Ainsi, le reste de la division de $${a}$ par $3$ est donc $2$.
          `)
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

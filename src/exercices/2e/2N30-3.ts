@@ -7,10 +7,10 @@ export const interactifType = 'mathLive'
 export const uuid = '29919'
 export const refs = {
   'fr-fr': ['2N30-3', 'BP2AutoH2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceMultiplierFractions2nde extends ExerciceMultiplierFractions {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
   }

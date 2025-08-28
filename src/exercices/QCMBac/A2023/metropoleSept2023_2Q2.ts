@@ -3,13 +3,13 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '7e718'
 export const refs = {
   'fr-fr': ['TSG2-QCM06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Métropole 09/2024 : nature d\'un triangle'
+export const titre = "Métropole 09/2024 : nature d'un triangle"
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -28,8 +28,7 @@ export default class metropoleSept2024Ex4Q2 extends ExerciceQcm {
       'rectangle non isocèle',
       'équilatéral',
       'rectangle isocèle',
-      'isocèle non rectangle'
-
+      'isocèle non rectangle',
     ]
 
     this.enonce = this.sup3
@@ -43,18 +42,23 @@ $\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0
 
     this.enonce += '<br>Le triangle ABC est :'
 
-    this.correction = 'On calcule les coordonnés des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ on obtient :<br>'
-    this.correction += '$\\overrightarrow{AB}\\begin{pmatrix} 2\\\\0\\\\4\\end{pmatrix}$ et $\\overrightarrow{AC}\\begin{pmatrix} 2\\\\2\\\\-1 \\end{pmatrix}$.<br>'
-    this.correction += 'Donc $\\overrightarrow{AB}\\cdot\\overrightarrow{AC} = 2\\times 2+0\\times 2+4\\times (-1)=0$ <br>'
-    this.correction += 'donc $\\overrightarrow{AB}\\perp \\overrightarrow{AC}$ donc ABC est rectangle en A.<br>'
-    this.correction += 'D\'autre parent, $\\text{AB}^2=2^2+0^2+4^2=20$ et $\\text{AC}^2=2^2+2^2+(-1)^2=9$, donc $\\text{AB}\\neq \\text{AC}$<br>'
-    this.correction += 'Le triangle ABC n\'est pas isocèle.'
+    this.correction =
+      'On calcule les coordonnés des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ on obtient :<br>'
+    this.correction +=
+      '$\\overrightarrow{AB}\\begin{pmatrix} 2\\\\0\\\\4\\end{pmatrix}$ et $\\overrightarrow{AC}\\begin{pmatrix} 2\\\\2\\\\-1 \\end{pmatrix}$.<br>'
+    this.correction +=
+      'Donc $\\overrightarrow{AB}\\cdot\\overrightarrow{AC} = 2\\times 2+0\\times 2+4\\times (-1)=0$ <br>'
+    this.correction +=
+      'donc $\\overrightarrow{AB}\\perp \\overrightarrow{AC}$ donc ABC est rectangle en A.<br>'
+    this.correction +=
+      "D'autre parent, $\\text{AB}^2=2^2+0^2+4^2=20$ et $\\text{AC}^2=2^2+2^2+(-1)^2=9$, donc $\\text{AB}\\neq \\text{AC}$<br>"
+    this.correction += "Le triangle ABC n'est pas isocèle."
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
     this.versionOriginale()
   }

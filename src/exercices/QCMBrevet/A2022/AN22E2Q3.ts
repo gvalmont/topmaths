@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 export const uuid = 'd03c4'
 export const refs = {
   'fr-fr': ['3F2QCM-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -22,12 +22,12 @@ export const dateDePublication = '07/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class AmeriqueNordJuin22Ex1Q3 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b:number, c:number): void {
+  private appliquerLesValeurs(a: number, b: number, c: number): void {
     this.reponses = [
-        `$f(x)=\\dfrac{${b * c}}{${a.toString()}}x$`,
-        `$f(x)=\\dfrac{${a.toString()}}{${String(b * c)}}x$`,
-        `$f(x)=x+\\dfrac{${c.toString()}}{${b.toString()}}$`,
-        `$f(x)=x-\\dfrac{${c.toString()}}{${b.toString()}}x$`
+      `$f(x)=\\dfrac{${b * c}}{${a.toString()}}x$`,
+      `$f(x)=\\dfrac{${a.toString()}}{${String(b * c)}}x$`,
+      `$f(x)=x+\\dfrac{${c.toString()}}{${b.toString()}}$`,
+      `$f(x)=x-\\dfrac{${c.toString()}}{${b.toString()}}x$`,
     ]
 
     this.enonce = `La fonction linéaire $f$ telle que $f\\left(\\dfrac{${a.toString()}}{${b.toString()}}\\right)=${c.toString()}$ est :`
@@ -47,7 +47,9 @@ export default class AmeriqueNordJuin22Ex1Q3 extends ExerciceQcmA {
   versionAleatoire: () => void = () => {
     const n = 4
     do {
-      const frac = choice(obtenirListeFractionsIrreductibles().filter(el => el.num !== 1))
+      const frac = choice(
+        obtenirListeFractionsIrreductibles().filter((el) => el.num !== 1),
+      )
       const a = frac.num
       const b = frac.den
       const c = randint(1, 9, [a, b, 2, 4, 6, 8])
@@ -55,7 +57,7 @@ export default class AmeriqueNordJuin22Ex1Q3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

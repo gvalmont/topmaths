@@ -14,10 +14,10 @@ export const uuid = '76b93'
 
 export const refs = {
   'fr-fr': ['can6G02', '6G8A-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CompterLesCubesManquant extends DenombrerCubes {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.sup2 = 1

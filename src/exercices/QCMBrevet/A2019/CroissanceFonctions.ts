@@ -6,7 +6,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'croiss'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,7 +21,14 @@ export const dateDePublication = '03/07/2025'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class CroissanceFonctions extends ExerciceQcmA {
-  private appliquerLesValeurs (typeFonction: string, a: number, b: number, x1: number, x2: number, choix: number): void {
+  private appliquerLesValeurs(
+    typeFonction: string,
+    a: number,
+    b: number,
+    x1: number,
+    x2: number,
+    choix: number,
+  ): void {
     let bonneReponse: string
 
     switch (typeFonction) {
@@ -59,18 +66,21 @@ export default class CroissanceFonctions extends ExerciceQcmA {
 
     // Génération des réponses selon le choix
     if (typeFonction === 'carre') {
-      this.reponses = choix === 0
-        ? [bonneReponse, 'toujours croissante', 'toujours décroissante']
-        : choix === 1
-          ? [bonneReponse, 'constante', 'toujours croissante']
-          : [bonneReponse, 'toujours décroissante', 'constante']
+      this.reponses =
+        choix === 0
+          ? [bonneReponse, 'toujours croissante', 'toujours décroissante']
+          : choix === 1
+            ? [bonneReponse, 'constante', 'toujours croissante']
+            : [bonneReponse, 'toujours décroissante', 'constante']
     } else {
-      const autrereponse = bonneReponse === 'croissante' ? 'décroissante' : 'croissante'
-      this.reponses = choix === 0
-        ? [bonneReponse, autrereponse, 'constante']
-        : choix === 1
-          ? [bonneReponse, 'constante', autrereponse]
-          : [bonneReponse, autrereponse, 'ni croissante ni décroissante']
+      const autrereponse =
+        bonneReponse === 'croissante' ? 'décroissante' : 'croissante'
+      this.reponses =
+        choix === 0
+          ? [bonneReponse, autrereponse, 'constante']
+          : choix === 1
+            ? [bonneReponse, 'constante', autrereponse]
+            : [bonneReponse, autrereponse, 'ni croissante ni décroissante']
     }
   }
 
@@ -82,7 +92,8 @@ export default class CroissanceFonctions extends ExerciceQcmA {
     const n = 3
     do {
       const typeChoix = randint(0, 2)
-      const typeFonction = typeChoix === 0 ? 'lineaire' : typeChoix === 1 ? 'affine' : 'carre'
+      const typeFonction =
+        typeChoix === 0 ? 'lineaire' : typeChoix === 1 ? 'affine' : 'carre'
       let a: number, b: number, x1: number, x2: number
 
       if (typeFonction === 'lineaire') {
@@ -95,18 +106,22 @@ export default class CroissanceFonctions extends ExerciceQcmA {
         b = randint(-10, 10)
         x1 = randint(-3, 3)
         x2 = randint(-3, 3)
-      } else { // carre
+      } else {
+        // carre
         a = 1
         b = 0
         // On choisit un intervalle soit dans les négatifs, soit dans les positifs
         const intervalleChoix = randint(0, 2)
-        if (intervalleChoix === 0) { // negatif
+        if (intervalleChoix === 0) {
+          // negatif
           x1 = randint(-5, -1)
           x2 = randint(x1 + 1, 0)
-        } else if (intervalleChoix === 1) { // positif
+        } else if (intervalleChoix === 1) {
+          // positif
           x1 = randint(0, 3)
           x2 = randint(x1 + 1, 5)
-        } else { // mixte
+        } else {
+          // mixte
           x1 = randint(-3, -1)
           x2 = randint(1, 3)
         }
@@ -117,7 +132,7 @@ export default class CroissanceFonctions extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

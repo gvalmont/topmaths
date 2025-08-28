@@ -7,7 +7,6 @@ export interface BasicHeaderProps {
   isSettingsVisible: boolean
 }
 
-export type HeaderProps = BasicHeaderProps &
-{
+export type HeaderProps = BasicHeaderProps & {
   [key: string]: string | boolean | number
 }

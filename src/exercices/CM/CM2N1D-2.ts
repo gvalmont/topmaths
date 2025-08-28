@@ -4,7 +4,7 @@ import {
   contraindreValeur,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -34,7 +34,7 @@ export const glossaire = [
   ['centaine de millions', 'centaines de millions'],
   ['milliard', 'milliards'],
   ['dizaine de milliards', 'dizaines de milliards'],
-  ['centaine de milliards', 'centaines de milliards']
+  ['centaine de milliards', 'centaines de milliards'],
 ]
 
 /**
@@ -46,7 +46,7 @@ export const uuid = 'c96de'
 export const refs = {
   'fr-fr': ['CM2N1D-2'],
   'fr-2016': ['c3N10-1'],
-  'fr-ch': ['9NO1-8']
+  'fr-ch': ['9NO1-8'],
 }
 export default class RecomposerEntierC3 extends Exercice {
   nombreDeChiffresMin!: number
@@ -56,23 +56,23 @@ export default class RecomposerEntierC3 extends Exercice {
   morceaux!: string[][]
   exposantMorceaux!: number[][]
 
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = [
       'Puissance de 10 en chiffres/lettres',
-      false
+      false,
     ]
     this.besoinFormulaire2Numerique = [
       'Nombre de chiffres maximum des nombres à décomposer',
-      9
+      9,
     ]
     this.besoinFormulaire3Texte = [
       'Types de question séparés par des tirets :',
-      '1 : Décomposer (donner les chiffres)\n2 : Décomposer (compléter avec 10, 100...)\n3 : Composer (sans groupement)\n4 : Composer avec groupement\n5 : Mélange'
+      '1 : Décomposer (donner les chiffres)\n2 : Décomposer (compléter avec 10, 100...)\n3 : Composer (sans groupement)\n4 : Composer avec groupement\n5 : Mélange',
     ]
     this.besoinFormulaire4Texte = [
       'Présence de zéro(s) ',
-      'Nombres séparés par des tirets :\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange',
     ]
     this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
     this.nbQuestions = 4
@@ -84,13 +84,13 @@ export default class RecomposerEntierC3 extends Exercice {
     this.nombreDeChiffresMin = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       max: 4,
       defaut: 5,
       melange: 5,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     // Pour activer le mélange
     const desordonne = this.sup5
@@ -101,7 +101,7 @@ export default class RecomposerEntierC3 extends Exercice {
       max: 3,
       defaut: 4,
       melange: 4,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     // ça c'est pour éviter de ne pas pouvoir fabriquer les nombres.
     const nombreDeChiffresMin = this.nombreDeChiffresMin
@@ -109,7 +109,7 @@ export default class RecomposerEntierC3 extends Exercice {
       nombreDeChiffresMin,
       11,
       this.sup2,
-      6
+      6,
     )
     this.nombreDeChamps = []
     this.premierChamp = []
@@ -118,6 +118,7 @@ export default class RecomposerEntierC3 extends Exercice {
     for (
       let i = 0, cpt = 0, texte, texteCorr, indexChamp = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       texte = ''
       texteCorr = ''
@@ -181,7 +182,11 @@ export default class RecomposerEntierC3 extends Exercice {
           break
         case 2: // décomposer en complétant les puissances de 10
           for (let k = 0; k < nbChiffres; k++) {
-            nombreStr += randint(1, 9, Array.from(nombreStr).map(Number)).toString()
+            nombreStr += randint(
+              1,
+              9,
+              Array.from(nombreStr).map(Number),
+            ).toString()
           }
           if (presenceDeZeros > 1) {
             const arrayFromNbr = Array.from(nombreStr)
@@ -213,9 +218,9 @@ export default class RecomposerEntierC3 extends Exercice {
                   indexChamp,
                   enLettre
                     ? glossaire[this.exposantMorceaux[i][k]][
-                      Number(this.morceaux[i][k]) > 1 ? 1 : 0
-                    ]
-                    : 10 ** this.exposantMorceaux[i][k]
+                        Number(this.morceaux[i][k]) > 1 ? 1 : 0
+                      ]
+                    : 10 ** this.exposantMorceaux[i][k],
                 )
                 indexChamp++
               }
@@ -311,7 +316,8 @@ export default class RecomposerEntierC3 extends Exercice {
             if (this.morceaux[i][k] === '') break
             index += j
           }
-          if (this.morceaux[i][this.morceaux[i].length - 1] === '') this.morceaux[i].pop()
+          if (this.morceaux[i][this.morceaux[i].length - 1] === '')
+            this.morceaux[i].pop()
           if (desordonne) {
             shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
           }
@@ -345,9 +351,9 @@ export default class RecomposerEntierC3 extends Exercice {
             {
               texte: texteCorr,
               statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-              sanscadre: true
-            }
-          ]
+              sanscadre: true,
+            },
+          ],
         }
       }
 
@@ -364,17 +370,17 @@ export default class RecomposerEntierC3 extends Exercice {
     listeQuestionsToContenu(this)
   }
 
-  correctionInteractive = (i:number) => {
+  correctionInteractive = (i: number) => {
     const champsTexte = []
     const saisies = []
     if (this.premierChamp[i] === undefined) return 'OK'
     const divFeedback = document.querySelector(
-      `#divDuSmiley${this.numeroExercice}Q${i}`
+      `#divDuSmiley${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
     let resultatOK = true
     for (let k = 0; k < this.nombreDeChamps[i]; k++) {
       champsTexte[k] = document.getElementById(
-        `champTexteEx${this.numeroExercice}Q${k + this.premierChamp[i]}`
+        `champTexteEx${this.numeroExercice}Q${k + this.premierChamp[i]}`,
       ) as MathfieldElement
       saisies[k] = champsTexte[k].value
         .replace(',', '.')
@@ -385,7 +391,7 @@ export default class RecomposerEntierC3 extends Exercice {
           Number.parseInt(
             // @ts-expect-error
             this.autoCorrection[this.premierChamp[i] + k].reponse.valeur.reponse
-              .value as string
+              .value as string,
           )
     }
     if (resultatOK) {

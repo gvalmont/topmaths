@@ -1,5 +1,8 @@
 import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
@@ -11,7 +14,7 @@ export const interactifType = 'qcm'
 export const uuid = 'ea002'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +22,7 @@ export const refs = {
 
 */
 export default class PlusGrandNombre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -27,8 +30,12 @@ export default class PlusGrandNombre extends ExerciceSimple {
     this.formatInteractif = 'qcm'
   }
 
-  nouvelleVersion () {
-    const [aa, bb, cc] = choice([[2025, 'dixièmes', 10], [2025, 'centièmes', 100], [2025, 'millièmes', 1000]])
+  nouvelleVersion() {
+    const [aa, bb, cc] = choice([
+      [2025, 'dixièmes', 10],
+      [2025, 'centièmes', 100],
+      [2025, 'millièmes', 1000],
+    ])
     const a = aa
     const b = bb
     const c = cc
@@ -43,14 +50,13 @@ export default class PlusGrandNombre extends ExerciceSimple {
       propositions: [
         {
           texte: `$${texNombre(a, 0)}$ ${b}  `,
-          statut: nbA > nbB
+          statut: nbA > nbB,
         },
         {
           texte: `$${texNombre(nbB, 1)}$`,
-          statut: nbB > nbA
-        }
-      ]
-
+          statut: nbB > nbA,
+        },
+      ],
     }
     const qcm = propositionsQcm(this, 0)
     if (!this.interactif) {

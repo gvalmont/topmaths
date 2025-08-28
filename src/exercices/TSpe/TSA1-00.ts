@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'ff9d1'
 export const refs = {
   'fr-fr': ['TSA1-00'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '16/08/2024'
 export const dateDeModifImportante = '26/10/2024'
@@ -28,7 +28,7 @@ export const dateDeModifImportante = '26/10/2024'
 /**
  * compilation des cans de terminale sur les suites
  * @author Jean-Claude Lhote
-*/
+ */
 
 const questions = [
   Question1,
@@ -39,19 +39,20 @@ const questions = [
   Question6,
   Question7,
   Question8,
-  Question9
+  Question9,
 ]
 
 export default class LimitesSuites extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
-    this.comment = 'Il y a 9 types de questions différentes correspondant aux exercices canTSpeS01 à canTSpeS09.'
+    this.comment =
+      'Il y a 9 types de questions différentes correspondant aux exercices canTSpeS01 à canTSpeS09.'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const exos = combinaisonListes(questions, this.nbQuestions)
-    for (let i = 0, index = 0; i < this.nbQuestions;) {
+    for (let i = 0, index = 0; i < this.nbQuestions; ) {
       const Exo = exos[index]
       const question = new Exo()
       question.nouvelleVersion()
@@ -59,7 +60,8 @@ export default class LimitesSuites extends Exercice {
       const texteCorr = question.correction as string
       const reponse = question.reponse as string
       if (this.questionJamaisPosee(i, texteCorr)) {
-        this.listeQuestions[i] = texte + ajouteChampTexteMathLive(this, i, KeyboardType.lycee)
+        this.listeQuestions[i] =
+          texte + ajouteChampTexteMathLive(this, i, KeyboardType.lycee)
         this.listeCorrections[i] = texteCorr
         handleAnswers(this, i, { reponse: { value: reponse } })
         i++

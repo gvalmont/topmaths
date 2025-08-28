@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'bcfc8'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,14 +19,14 @@ export const refs = {
 
 */
 export default class CalculDivers extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = randint(1, 5)
     if (choix === 1) {
       this.question = `À quel nombre décimal est égal $${texNombre(2025)}$ dixièmes ? `
@@ -49,7 +49,9 @@ export default class CalculDivers extends ExerciceSimple {
       this.reponse = texNombre(new Decimal(2025).mul(100), 3)
       this.correction = `$${texNombre(2025)}$ centaines est égal à $${texNombre(2025)}\\times 100=${miseEnEvidence(this.reponse)}$.`
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

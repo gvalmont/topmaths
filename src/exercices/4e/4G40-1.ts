@@ -8,10 +8,10 @@ export const dateDePublication = '09/05/2021'
 export const uuid = 'b236d'
 export const refs = {
   'fr-fr': ['4G40-1', 'BP2AutoS5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ArrondirUneValeur4eCos extends ArrondirUneValeur6e {
-  constructor () {
+  constructor() {
     super()
     this.version = 4
     this.sup2 = true

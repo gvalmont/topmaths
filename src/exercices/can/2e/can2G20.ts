@@ -26,10 +26,10 @@ export const uuid = '1f967'
 
 export const refs = {
   'fr-fr': ['can2G20'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EquationDroite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -37,7 +37,7 @@ export default class EquationDroite extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const xA = 0
     const yA = randint(1, 4)
     const xB = randint(-5, 5, 0)
@@ -50,11 +50,11 @@ export default class EquationDroite extends ExerciceSimple {
     // Pour l'affichage du coefficient directeur, on utilise toujours le point le plus à gauche
     let pointRef, pointCible
     if (xA < xB) {
-    // A est à gauche, B est à droite
+      // A est à gauche, B est à droite
       pointRef = A
       pointCible = B
     } else {
-    // B est à gauche, A est à droite
+      // B est à gauche, A est à droite
       pointRef = B
       pointCible = A
     }
@@ -78,8 +78,18 @@ export default class EquationDroite extends ExerciceSimple {
     // Labels pour les déplacements (on affiche la valeur absolue si nécessaire)
     const deltaX = pointCible.x - pointRef.x
     const deltaY = pointCible.y - pointRef.y
-    const lHorizontal = latex2d(`${deltaX}`, milieu(pointRef, pointHorizontal).x, pointRef.y + 0.3, { color: 'red', letterSize: 'scriptsize' })
-    const lVertical = latex2d(`${deltaY}`, pointCible.x + 0.5, milieu(pointCible, pointHorizontal).y, { color: 'blue', letterSize: 'scriptsize' })
+    const lHorizontal = latex2d(
+      `${deltaX}`,
+      milieu(pointRef, pointHorizontal).x,
+      pointRef.y + 0.3,
+      { color: 'red', letterSize: 'scriptsize' },
+    )
+    const lVertical = latex2d(
+      `${deltaY}`,
+      pointCible.x + 0.5,
+      milieu(pointCible, pointHorizontal).y,
+      { color: 'blue', letterSize: 'scriptsize' },
+    )
 
     const traceB = tracePoint(B, 'black')
     const d = droite(A, B, '', 'blue')
@@ -115,27 +125,65 @@ export default class EquationDroite extends ExerciceSimple {
       grilleSecondaireYMin: ymin - 0.1,
       grilleSecondaireYMax: ymax + 0.1,
       grilleSecondaireXMin: xmin - 0.1,
-      grilleSecondaireXMax: xmax + 0.1
+      grilleSecondaireXMax: xmax + 0.1,
     })
 
-    const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, traceB, o)
-    const objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sHorizontal, sVertical, lHorizontal, lVertical)
+    const objet = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin: ymin - 0.25,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceA,
+      traceB,
+      o,
+    )
+    const objetC = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceA,
+      lA,
+      lB,
+      traceB,
+      o,
+      sHorizontal,
+      sVertical,
+      lHorizontal,
+      lVertical,
+    )
 
-    this.question = this.versionQcm ? '' : 'Donner l\'équation réduite de la droite.<br>'
+    this.question = this.versionQcm
+      ? ''
+      : "Donner l'équation réduite de la droite.<br>"
     this.question += `${objet}`
-    this.question += this.versionQcm ? '<br>L\'équation réduite de cette droite est : ' : ''
+    this.question += this.versionQcm
+      ? "<br>L'équation réduite de cette droite est : "
+      : ''
 
     if (yB === yA) {
-      this.reponse = this.versionQcm ? `$y= ${yA}$` : [`y=${yA}`, `y=0x + ${yA}`, `y=0 \\cdot x + ${yA}`]
+      this.reponse = this.versionQcm
+        ? `$y= ${yA}$`
+        : [`y=${yA}`, `y=0x + ${yA}`, `y=0 \\cdot x + ${yA}`]
       this.correction = `La droite est horizontale. On en déduit que son coefficient directeur est $m=0$.<br>
         Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${yA}`)}$.`
-      this.distracteurs = [
-      `$y=x + ${yA}$`,
-      `$x=${yA}$`,
-      `$y=${rienSi1(yA)}x$`
-      ]
+      this.distracteurs = [`$y=x + ${yA}$`, `$x=${yA}$`, `$y=${rienSi1(yA)}x$`]
     } else {
-    // On utilise toujours le déplacement affiché graphiquement pour la correction
+      // On utilise toujours le déplacement affiché graphiquement pour la correction
       this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
 $m=\\dfrac{${miseEnEvidence(deltaY, 'blue')}}{${miseEnEvidence(deltaX, 'red')}}${maFraction.texSimplificationAvecEtapes()}$.<br>`
 
@@ -152,16 +200,16 @@ $m=\\dfrac{${miseEnEvidence(deltaY, 'blue')}}{${miseEnEvidence(deltaX, 'red')}}$
       this.reponse = this.versionQcm
         ? `$y= ${maFraction.texFractionSimplifiee}x${yA === 0 ? '' : ` ${ecritureAlgebrique(yA)}`}$`
         : [
-        `y=${maFraction.texFraction}x${ecritureAlgebrique(yA)}`,
-        `y=\\frac{${yB - yA}}{${xB - xA}}x${ecritureAlgebrique(yA)}`,
-        `y=\\frac{${yA - yB}}{${xA - xB}}x${ecritureAlgebrique(yA)}`
+            `y=${maFraction.texFraction}x${ecritureAlgebrique(yA)}`,
+            `y=\\frac{${yB - yA}}{${xB - xA}}x${ecritureAlgebrique(yA)}`,
+            `y=\\frac{${yA - yB}}{${xA - xB}}x${ecritureAlgebrique(yA)}`,
           ]
 
       // Distracteurs basés sur des erreurs classiques
       this.distracteurs = [
-      `$y= ${maFraction.multiplieEntier(-1).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$`, // Coefficient opposé
-      `$y=${yA}$`, // Droite horizontale (erreur)
-      `$y= ${new FractionEtendue(xB - xA, yB - yA).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$` // Fraction inversée
+        `$y= ${maFraction.multiplieEntier(-1).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$`, // Coefficient opposé
+        `$y=${yA}$`, // Droite horizontale (erreur)
+        `$y= ${new FractionEtendue(xB - xA, yB - yA).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$`, // Fraction inversée
       ]
     }
 

@@ -3,7 +3,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Établir une relation entre unité, dixième, centième et millième '
+export const titre =
+  'Établir une relation entre unité, dixième, centième et millième '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -12,15 +13,15 @@ export const dateDePublication = '03/07/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export const uuid = '59129'
 
 export const refs = {
   'fr-fr': ['can6C50', 'auto6N2A-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RelationUniteDixiemeCentiemeMillieme extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,9 +29,11 @@ export default class RelationUniteDixiemeCentiemeMillieme extends ExerciceSimple
     this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, resultat
-    switch (choice([1, 2])) { //, 2, 3
+    switch (
+      choice([1, 2]) //, 2, 3
+    ) {
       case 1:
         a = choice([1, 10, 100, 1000])
         b = choice([10, 100, 1000])
@@ -40,7 +43,7 @@ export default class RelationUniteDixiemeCentiemeMillieme extends ExerciceSimple
         this.reponse = resultat
         break
 
-      case 2://
+      case 2: //
         a = choice([10, 100, 1000])
         b = choice([10, 100, 1000])
         resultat = texNombre(a / b, 3)

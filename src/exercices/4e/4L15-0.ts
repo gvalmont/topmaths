@@ -1,5 +1,12 @@
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
+import {
+  choice,
+  combinaisonListesSansChangerOrdre,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../lib/outils/embellissements'
 import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
@@ -8,7 +15,8 @@ import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-export const titre = 'Trouver l\'erreur dans une résolution d\'équation du premier degré'
+export const titre =
+  "Trouver l'erreur dans une résolution d'équation du premier degré"
 
 /**
  * * Trouver l'erreur dans une equation
@@ -18,15 +26,25 @@ export const uuid = 'df5a3'
 
 export const refs = {
   'fr-fr': ['4L15-0', 'BP2RES6'],
-  'fr-ch': ['10FA3-8']
+  'fr-ch': ['10FA3-8'],
 }
 
 // une fonction pour gérer le signe
 const signeDansEq = function (nb: number) {
   if (nb > 0) {
-    return { signe: '+', operation: '\\bf{soustraire}', operationTexte: 'soustraire', chgt_signe: nb }
+    return {
+      signe: '+',
+      operation: '\\bf{soustraire}',
+      operationTexte: 'soustraire',
+      chgt_signe: nb,
+    }
   } else {
-    return { signe: '', operation: '\\bf{ajouter}', operationTexte: 'ajouter', chgt_signe: nb * (-1) }
+    return {
+      signe: '',
+      operation: '\\bf{ajouter}',
+      operationTexte: 'ajouter',
+      chgt_signe: nb * -1,
+    }
   }
 }
 
@@ -70,7 +88,7 @@ const simpFrac = function (n: number, d: number) {
 }
 
 export default class TrouverErreurResolEqDeg1 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
     // On ne peut pas aller à la ligne dans l'environnement exo de la sortie LaTeX
@@ -81,16 +99,28 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
     this.spacingCorr = context.isHtml ? 2.5 : 1.5
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1
-      ? "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
-      : "Trouver l'erreur dans la résolution suivante.<br>On ne demande pas de résoudre l'équation."
-    const typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
+        : "Trouver l'erreur dans la résolution suivante.<br>On ne demande pas de résoudre l'équation."
+    const typeDeQuestionsDisponibles = shuffle([
+      choice([1, 3]),
+      choice([2, 4]),
+      5,
+    ])
 
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées --> à remettre comme ci-dessus
     const variables = ['x', 't', 'u', 'v', 'w', 'y', 'z']
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // on choisit un nom pour l'inconnue
       const inc = variables[randint(0, variables.length - 1)]
 
@@ -104,7 +134,8 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
 
       // pour les situations
       const situations = [
-        { // case 1 --> ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
+        {
+          // case 1 --> ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
           a,
@@ -122,7 +153,7 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(c).signe} ${c}${inc}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(c).operationTexte} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.`,
-          eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
+          eq_corr: `${texteGras("Équation d'origine : ")} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
           eq_corr_et1: `${texteGras('Étape 1 : ')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres.
           <br> $${a}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
@@ -133,9 +164,10 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
           <br> $${a - c}${inc} = ${d - b}$`,
           eq_corr_et3: `${texteGras('Étape 5 :')} $${miseEnEvidence('\\textbf{diviser par}')}$ $${miseEnEvidence(a - c)}$ les deux membres.
           <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
-          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`
+          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`,
         },
-        { // case 2 --> ax+b=d+cx  erreur à l'étape 2 on passe b de l'autre côté
+        {
+          // case 2 --> ax+b=d+cx  erreur à l'étape 2 on passe b de l'autre côté
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
           a,
@@ -153,7 +185,7 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(b).signe} ${b}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(b).operationTexte} $${signeDansEq(b).chgt_signe}$ aux deux membres.`,
-          eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
+          eq_corr: `${texteGras("Équation d'origine : ")} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
           eq_corr_et1: `${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres
           <br> $${a}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $ ${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
@@ -164,9 +196,10 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
           <br> $${a - c}${inc} = ${d - b}$`,
           eq_corr_et3: `${texteGras('Étape 5 :')} $${miseEnEvidence('\\textbf{diviser par}')}$ $${miseEnEvidence(a - c)}$ les deux membres
           <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
-          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`
+          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`,
         },
-        { // case 3 --> ax+b=cx+d  erreur à l'étape 2 on passe cx de l'autre côté
+        {
+          // case 3 --> ax+b=cx+d  erreur à l'étape 2 on passe cx de l'autre côté
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
           a,
@@ -184,7 +217,7 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(c).signe} ${c}${inc}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(c).operationTexte} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.`,
-          eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
+          eq_corr: `${texteGras("Équation d'origine : ")} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1: `${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres
           <br> $${a}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
@@ -195,9 +228,10 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
           <br> $${a - c}${inc} = ${d - b}$`,
           eq_corr_et3: `${texteGras('Étape 5 :')} $${miseEnEvidence('\\textbf{diviser par}')}$ $${miseEnEvidence(a - c)}$ les deux membres
           <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
-          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`
+          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`,
         },
-        { // case 4 --> ax+b=cx+d  erreur à l'étape 1 on passe b de l'autre côté
+        {
+          // case 4 --> ax+b=cx+d  erreur à l'étape 1 on passe b de l'autre côté
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
           a,
@@ -215,7 +249,7 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(b).signe} ${b}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(b).operationTexte} $${signeDansEq(b).chgt_signe}$ aux deux membres.`,
-          eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
+          eq_corr: `${texteGras("Équation d'origine : ")} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1: `${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres
           <br>$${a}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
@@ -226,9 +260,10 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
           <br>$${a - c}${inc} = ${d - b}$`,
           eq_corr_et3: `${texteGras('Étape 5 :')} $${miseEnEvidence('\\textbf{diviser par}')}$ $${miseEnEvidence(a - c)}$ les deux membres
           <br>$\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
-          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`
+          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`,
         },
-        { // case 5 --> ax+b=cx+d  erreur à l'étape 4 on soustrait au lieu de diviser
+        {
+          // case 5 --> ax+b=cx+d  erreur à l'étape 4 on soustrait au lieu de diviser
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
           a,
@@ -246,7 +281,7 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
             <br>${currentGenreEtPrenom.prenom} soustrait le coefficient de ${inc} au lieu de diviser par ce coefficient.
             <br>Or $${a - c}${inc}$ représente la multiplication $${a - c}\\times ${inc}$, et l'opération inverse de la multiplication c'est la division et non la soustraction.
             <br>Ici il faut diviser les deux membres par $${a - c}$.`,
-          eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
+          eq_corr: `${texteGras("Équation d'origine : ")} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1: `${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres
           <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
@@ -257,9 +292,8 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
           <br> $${a - c}${inc} = ${d - b}$`,
           eq_corr_et3: `${texteGras('Étape 5 :')} $${miseEnEvidence('\\textbf{diviser par}')}$ $${miseEnEvidence(a - c)}$ les deux membres
           <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
-          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`
-        }
-
+          <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}`,
+        },
       ]
 
       const enonces = []
@@ -281,13 +315,14 @@ export default class TrouverErreurResolEqDeg1 extends Exercice {
         <br>${situations[k].eq_corr_et1}
         <br>${situations[k].eq_corr_et2}
         <br>${situations[k].eq_corr_et3}
-        `
+        `,
         })
       }
       texte = `${enonces[listeTypeDeQuestions[i] - 1].enonce}`
       texteCorr = `${enonces[listeTypeDeQuestions[i] - 1].correction}`
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

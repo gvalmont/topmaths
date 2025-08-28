@@ -11,10 +11,10 @@ export const uuid = 'b5eaf'
 export const refs = {
   'fr-fr': ['auto6G1B'],
   'fr-2016': ['6G20-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class VocabulaireDesTriangles6e extends VocabulaireDesTriangles {
-  constructor () {
+  constructor() {
     super()
     this.classe = 6
   }

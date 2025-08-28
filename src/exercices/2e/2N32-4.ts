@@ -19,12 +19,16 @@ export const uuid = '12b72'
 
 export const refs = {
   'fr-fr': ['2N32-4'],
-  'fr-ch': ['11NO1-7', '1mCN-9']
+  'fr-ch': ['11NO1-7', '1mCN-9'],
 }
 export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : En donnant la racine carrée unité\n2 : Sans indication',
+    ]
 
     this.nbQuestions = 4
     this.nbCols = 2
@@ -33,8 +37,12 @@ export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
     this.spacingCorr = context.isHtml ? 2 : 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const e1 = randint(2, 8) * choice([-1, 1])
       const e2 = randint(2, 8) * choice([-1, 1])
       const e3 = randint(2, 8) * choice([-1, 1])
@@ -54,7 +62,10 @@ export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
       const f = f1 + f2 + f3
 
       texte = `Écrire $${lettreDepuisChiffre(i + 1)}=${e1}\\sqrt{${d1}} ${ecritureAlgebrique(e2)}\\sqrt{${d2}} ${ecritureAlgebrique(e3)}\\sqrt{${d3}}$`
-      texte += this.sup === 1 ? ` sous la forme $a\\sqrt{${c}}$ où $a$ est un entier.` : ' sous la forme $a\\sqrt{b}$ où $a$ et $b$ sont des entiers et $b$ le plus petit possible.'
+      texte +=
+        this.sup === 1
+          ? ` sous la forme $a\\sqrt{${c}}$ où $a$ est un entier.`
+          : ' sous la forme $a\\sqrt{b}$ où $a$ et $b$ sont des entiers et $b$ le plus petit possible.'
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d1}, ${d2} et ${d3}. <br>
                 On trouve $${d1}=${b1} \\times ${c}~~$, $~~${d2}=${b2} \\times ${c}~~$ et $${d3}=${b3} \\times ${c}$<br>
                 On a donc  : $\\sqrt{${d1}}=\\sqrt{${a1}^{2} \\times ${c} }=${a1}\\times \\sqrt{${c}}$,
@@ -65,11 +76,16 @@ export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
                 $${lettreDepuisChiffre(i + 1)}=(${f1}${ecritureAlgebrique(f2)}${ecritureAlgebrique(f3)})\\times \\sqrt{${c}} = ${f}\\sqrt{${c}}$`
 
       if (this.interactif) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: `$${lettreDepuisChiffre(i + 1)}=$` })
+        texte +=
+          '<br><br>' +
+          ajouteChampTexteMathLive(this, i, '', {
+            texteAvant: `$${lettreDepuisChiffre(i + 1)}=$`,
+          })
         setReponse(this, i, `${f}\\sqrt{${c}}`)
       }
 
-      if (this.questionJamaisPosee(i, e1, e2, e3, d1, d2, d3)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, e1, e2, e3, d1, d2, d3)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

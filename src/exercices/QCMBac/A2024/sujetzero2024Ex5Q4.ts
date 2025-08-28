@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '1bc77'
 export const refs = {
   'fr-fr': ['TSG1-QCM04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,17 +28,17 @@ export default class SujetZero2024Ex5Q4 extends ExerciceQcm {
       '$2^{10}$',
       '$2 \\times 10$',
       '$1 \\times 2 \\times 3 \\times \\cdots \\times 10$',
-      '$\\dfrac{1 \\times 2 \\times 3 \\times \\cdots \\times 10}{1 \\times 2}$'
-
+      '$\\dfrac{1 \\times 2 \\times 3 \\times \\cdots \\times 10}{1 \\times 2}$',
     ]
 
     this.enonce = `On effectue dix lancers d'une pièce de monnaie. Le résultat d'un lancer est "pile" ou "face".<br>
     On note la liste ordonnée des dix résultats.<br>
     Quel est le nombre de listes ordonnées possibles?`
-    this.correction = 'Il y a 2 résultats possibles si on effectue 1 lancer, $2^2$ résultats possibles si on effectue 2 lancers, etc., $2^{10}$ résultats possibles si on effectue 10 lancers.'
+    this.correction =
+      'Il y a 2 résultats possibles si on effectue 1 lancer, $2^2$ résultats possibles si on effectue 2 lancers, etc., $2^{10}$ résultats possibles si on effectue 10 lancers.'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

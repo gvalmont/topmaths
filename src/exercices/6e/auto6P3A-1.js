@@ -22,10 +22,10 @@ export const uuid = '6a3de'
 export const refs = {
   'fr-fr': ['auto6P3A-1'],
   'fr-2016': ['CM010'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Tiers extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -35,15 +35,16 @@ export default class Tiers extends Exercice {
     this.sup = 1 // niveau de difficulté
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = range1(4)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 3
@@ -57,8 +58,8 @@ export default class Tiers extends Exercice {
           a = randint(2, 9)
           texte = `$\\text{Le tiers de }${texNombre(a * 3 * 100)}$`
           texteCorr = `$\\text{Le tiers de }${texNombre(
-                        a * 3 * 100
-                    )} \\text{ est } ${texNombre(a * 100)}$`
+            a * 3 * 100,
+          )} \\text{ est } ${texNombre(a * 100)}$`
           setReponse(this, i, a * 100)
           texte += ajouteChampTexteMathLive(this, i)
           break
@@ -66,8 +67,8 @@ export default class Tiers extends Exercice {
           a = randint(2, 9)
           texte = `$\\text{Le tiers de }${texNombre(a * 3 * 10)}$`
           texteCorr = `$\\text{Le tiers de }${texNombre(
-                        a * 3 * 10
-                    )} \\text{ est } ${texNombre(a * 10)}$`
+            a * 3 * 10,
+          )} \\text{ est } ${texNombre(a * 10)}$`
           setReponse(this, i, a * 10)
           texte += ajouteChampTexteMathLive(this, i)
           break
@@ -76,8 +77,8 @@ export default class Tiers extends Exercice {
           b = randint(2, 9)
           texte = `$\\text{Le tiers de }${texNombre(a * 3 + (b * 3) / 100)}$`
           texteCorr = `$\\text{Le tiers de }${texNombre(
-                        a * 3 + (b * 3) / 100
-                    )} \\text{ est } ${texNombre(a + b / 100)}$`
+            a * 3 + (b * 3) / 100,
+          )} \\text{ est } ${texNombre(a + b / 100)}$`
           setReponse(this, i, a + b / 100)
           texte += ajouteChampTexteMathLive(this, i)
           break

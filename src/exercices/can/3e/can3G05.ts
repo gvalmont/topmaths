@@ -26,10 +26,10 @@ export const uuid = 'c6b9c'
 
 export const refs = {
   'fr-fr': ['can3G05'],
-  'fr-ch': ['1mT-2']
+  'fr-ch': ['1mT-2'],
 }
 export default class Trigo extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -37,11 +37,18 @@ export default class Trigo extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const lang = getLang()
     this.question = ''
     const listeTriplet = [
-      [3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [12, 35, 37], [9, 40, 41], [11, 60, 61]
+      [3, 4, 5],
+      [5, 12, 13],
+      [8, 15, 17],
+      [7, 24, 25],
+      [20, 21, 29],
+      [12, 35, 37],
+      [9, 40, 41],
+      [11, 60, 61],
     ] // triplets Pythagore
     const triplet = choice(listeTriplet)
     const nom = creerNomDePolygone(3, ['QD'])
@@ -52,12 +59,23 @@ export default class Trigo extends ExerciceSimple {
     const alpha = randint(0, 135)
     const B = rotation(pointAdistance(A, a, 0), A, alpha, nom[1])
     const C = similitude(A, B, 90, b / a, nom[2])
-    const pol = polygoneAvecNom(A, B, C, 10 * c / 170) // 10 *c / 170 => on arrête à 10 pixels du points...  lié à pixelsParCm: 170 / c plus bas
+    const pol = polygoneAvecNom(A, B, C, (10 * c) / 170) // 10 *c / 170 => on arrête à 10 pixels du points...  lié à pixelsParCm: 170 / c plus bas
     const objets = []
-    objets.push(segment(A, B), segment(B, C), segment(A, C), codageAngleDroit(A, B, C))
-    objets.push(afficheLongueurSegment(A, B, 'black', 0.5, ''), afficheLongueurSegment(B, C, 'black', 0.5, ''), afficheLongueurSegment(C, A, 'black', 0.5, ''))
+    objets.push(
+      segment(A, B),
+      segment(B, C),
+      segment(A, C),
+      codageAngleDroit(A, B, C),
+    )
+    objets.push(
+      afficheLongueurSegment(A, B, 'black', 0.5, ''),
+      afficheLongueurSegment(B, C, 'black', 0.5, ''),
+      afficheLongueurSegment(C, A, 'black', 0.5, ''),
+    )
     objets.push(pol[0], pol[1])
-    switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //, 'b'
+    switch (
+      choice(['a', 'b', 'c', 'd', 'e', 'f']) //, 'b'
+    ) {
       case 'a':
         this.question = `Donner la valeur de $\\cos${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}$  sous la forme d'une fraction irréductible.<br>
 
@@ -110,13 +128,25 @@ export default class Trigo extends ExerciceSimple {
         break
     }
 
-    this.question += mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.05 * c, rymin: -0.05 * c, rxmax: 0.05 * c, rymax: 0.05 * c }), {
-      pixelsParCm: 170 / c,
-      mainlevee: false,
-      amplitude: 0.5,
-      scale: 4 / c,
-      style: 'margin: auto'
-    }), objets)
+    this.question += mathalea2d(
+      Object.assign(
+        {},
+        fixeBordures(objets, {
+          rxmin: -0.05 * c,
+          rymin: -0.05 * c,
+          rxmax: 0.05 * c,
+          rymax: 0.05 * c,
+        }),
+        {
+          pixelsParCm: 170 / c,
+          mainlevee: false,
+          amplitude: 0.5,
+          scale: 4 / c,
+          style: 'margin: auto',
+        },
+      ),
+      objets,
+    )
     this.canEnonce = this.question.replaceAll('<br>', '\\\\') // 'Compléter'
     this.canReponseACompleter = ''
   }

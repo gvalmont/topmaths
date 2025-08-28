@@ -17,17 +17,17 @@ export const uuid = '9419f'
 
 export const refs = {
   'fr-fr': ['can3L02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EquationAXPlusBEgalZero extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-5, 5, [0, -1, 1])
     this.reponse = randint(-9, 9, [-1, 0, 1])
     const b = -a * this.reponse
@@ -43,7 +43,7 @@ export default class EquationAXPlusBEgalZero extends ExerciceSimple {
     x&=${this.reponse}
     \\end{aligned}$
    `
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -4,9 +4,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-import { texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
+import {
+  texteEnCouleurEtGras,
+  texteGras,
+} from '../../lib/outils/embellissements'
 
-export const titre = 'Écrire la liste de tous les diviseurs d\'un entier (bis)'
+export const titre = "Écrire la liste de tous les diviseurs d'un entier (bis)"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '13/12/2024'
@@ -14,23 +17,32 @@ export const dateDePublication = '13/12/2024'
 export const uuid = '108ab'
 export const refs = {
   'fr-fr': ['5A10-1'],
-  'fr-ch': ['9NO4-31']
+  'fr-ch': ['9NO4-31'],
 }
 /**
  * Donner la liste de tous les diviseurs de tête pour des nombres simples
  * @author
-*/
+ */
 export default class ListeDiviseurs extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
-    this.consigne = 'Donner la liste de tous les diviseurs des nombres suivants.'
-    const typeQuestionsDisponibles = ['multipleDe10', 'Premier', 'Pair', 'ImpairMultipleDe3']
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    this.consigne =
+      'Donner la liste de tous les diviseurs des nombres suivants.'
+    const typeQuestionsDisponibles = [
+      'multipleDe10',
+      'Premier',
+      'Pair',
+      'ImpairMultipleDe3',
+    ]
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let n = 0
       switch (listeTypeQuestions[i]) {
         case 'multipleDe10':
@@ -59,7 +71,12 @@ export default class ListeDiviseurs extends Exercice {
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i)
           this.consigne = `Donner la liste de tous les diviseurs des nombres suivants ${texteGras('séparés par un point-virgule')}.`
-          handleAnswers(this, i, { reponse: { value: divisors.join(';'), options: { suiteDeNombres: true } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: divisors.join(';'),
+              options: { suiteDeNombres: true },
+            },
+          })
         }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

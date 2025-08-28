@@ -19,17 +19,17 @@ export const uuid = 'bd96a'
 
 export const refs = {
   'fr-fr': ['can2C21'],
-  'fr-ch': ['10NO3-6b']
+  'fr-ch': ['10NO3-6b'],
 }
 export default class calculsRacinesCarresPafaitsDecimaux extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.spacing = 1.5
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let a, b
@@ -37,19 +37,26 @@ export default class calculsRacinesCarresPafaitsDecimaux extends Exercice {
       switch (randint(1, 2)) {
         case 1:
           choix = choice([true, false])
-          a = choix === true ? new Decimal(randint(1, 12, 10)).div(choice([10, 100])) : new Decimal(randint(1, 12, 10)).mul(choice([10, 100]))
+          a =
+            choix === true
+              ? new Decimal(randint(1, 12, 10)).div(choice([10, 100]))
+              : new Decimal(randint(1, 12, 10)).mul(choice([10, 100]))
           b = a.pow(2)
           reponse = texNombre(a, 2)
           texte = 'Compléter.<br>'
           if (this.interactif) {
-            handleAnswers(this, i,
-              {
-                champ1: { value: reponse }
-
-              }
+            handleAnswers(this, i, {
+              champ1: { value: reponse },
+            })
+            texte += remplisLesBlancs(
+              this,
+              i,
+              `\\sqrt{${texNombre(b, 4)}} = %{champ1}`,
+              KeyboardType.clavierNumbers,
             )
-            texte += remplisLesBlancs(this, i, `\\sqrt{${texNombre(b, 4)}} = %{champ1}`, KeyboardType.clavierNumbers)
-          } else { texte += `$\\sqrt{${texNombre(b, 4)}} = \\ldots$` }
+          } else {
+            texte += `$\\sqrt{${texNombre(b, 4)}} = \\ldots$`
+          }
           texteCorr = `$\\sqrt{${texNombre(b, 4)}} =${miseEnEvidence(texNombre(a, 2))}$`
 
           this.canEnonce = 'Compléter.'
@@ -60,21 +67,31 @@ export default class calculsRacinesCarresPafaitsDecimaux extends Exercice {
 
         case 2:
           choix = choice([true, false])
-          a = choix === true ? a = new Decimal(randint(1, 12, 10)).div(10) : new Decimal(randint(1, 12, 10)).mul(10)
+          a =
+            choix === true
+              ? (a = new Decimal(randint(1, 12, 10)).div(10))
+              : new Decimal(randint(1, 12, 10)).mul(10)
           b = a.pow(2)
           reponse = texNombre(b, 4)
           texte = 'Compléter.<br>'
           if (this.interactif) {
-            handleAnswers(this, i,
-              {
-                champ1: { value: reponse }
-              }
+            handleAnswers(this, i, {
+              champ1: { value: reponse },
+            })
+            texte += remplisLesBlancs(
+              this,
+              i,
+              `\\sqrt{%{champ1}} = ${texNombre(a, 2)}`,
+              KeyboardType.clavierDeBaseAvecFraction,
             )
-            texte += remplisLesBlancs(this, i, `\\sqrt{%{champ1}} = ${texNombre(a, 2)}`, KeyboardType.clavierDeBaseAvecFraction)
-          } else { texte += `$\\sqrt{\\ldots} =${texNombre(a, 2)} $` }
-          texteCorr = `On a ${choix === true
-? `$${texNombre(a, 2)}^2=${texNombre(b, 4)}$.`
-            : `$${texNombre(a, 2)}^2=${new Decimal(a).div(10)}^2\\times 10^2=${texNombre(b, 4)}$.`}<br>
+          } else {
+            texte += `$\\sqrt{\\ldots} =${texNombre(a, 2)} $`
+          }
+          texteCorr = `On a ${
+            choix === true
+              ? `$${texNombre(a, 2)}^2=${texNombre(b, 4)}$.`
+              : `$${texNombre(a, 2)}^2=${new Decimal(a).div(10)}^2\\times 10^2=${texNombre(b, 4)}$.`
+          }<br>
           Donc $\\sqrt{${miseEnEvidence(texNombre(b, 4))}} =${texNombre(a, 2)}$.<br>`
 
           this.canEnonce = 'Compléter.'

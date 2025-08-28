@@ -23,39 +23,61 @@ export const uuid = '9552d'
 
 export const refs = {
   'fr-fr': ['3A10-7'],
-  'fr-ch': ['9NO4-15']
+  'fr-ch': ['9NO4-15'],
 }
 export default class ExerciceLabyrinthePremiers3e extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Liste des nombres premiers ', 3, '1 : Inférieurs à 30\n2 : Inférieurs à 100\n3 : Inférieurs à 200']
-    this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
-    this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
-    this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 3 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.besoinFormulaireNumerique = [
+      'Liste des nombres premiers ',
+      3,
+      '1 : Inférieurs à 30\n2 : Inférieurs à 100\n3 : Inférieurs à 200',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Niveau de rapidité',
+      6,
+      '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)',
+      8,
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Nombre de colonnes du labyrinthe (entre 3 et 8 ou bien 1 si vous laissez le hasard décider)',
+      8,
+    ]
     this.nbQuestions = 3
     this.sup = 3
     this.sup2 = 6
     this.sup3 = 1
     this.sup4 = 1
-    this.comment = 'Malgré le choix du nombre de colonnes et de lignes, pour une question de puissance de calculs, le nombre de cases est limité à 60.'
+    this.comment =
+      'Malgré le choix du nombre de colonnes et de lignes, pour une question de puissance de calculs, le nombre de cases est limité à 60.'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const tailleChiffre = 1.5
-    let nbPremiers:number[] = []
+    let nbPremiers: number[] = []
     let nbMax
     switch (this.sup) {
-      case 2 :
-        nbPremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+      case 2:
+        nbPremiers = [
+          2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
+          67, 71, 73, 79, 83, 89, 97,
+        ]
         nbMax = 99
         break
-      case 1 :
+      case 1:
         nbPremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
         nbMax = 29
         break
-      case 3 :
+      case 3:
       default:
-        nbPremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199]
+        nbPremiers = [
+          2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
+          67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137,
+          139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
+        ]
         nbMax = 199
         break
     }
@@ -64,18 +86,30 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
     let laby: Labyrinthe
     let monChemin
 
-    for (let q = 0; q < this.nbQuestions;) {
+    for (let q = 0; q < this.nbQuestions; ) {
       let nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3)
       let nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4)
       let indiceDiminution = 0
       while (nbL * nbC > 60) {
         indiceDiminution++
         if (choice([true, false])) {
-          nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3 - 1 - indiceDiminution % 2)
-          nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4 - indiceDiminution % 2)
+          nbL =
+            this.sup3 === 1
+              ? randint(2, 7)
+              : Math.max(2, this.sup3 - 1 - (indiceDiminution % 2))
+          nbC =
+            this.sup4 === 1
+              ? randint(3, 7)
+              : Math.max(3, this.sup4 - (indiceDiminution % 2))
         } else {
-          nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3 - indiceDiminution % 2)
-          nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4 - 1 - indiceDiminution % 2)
+          nbL =
+            this.sup3 === 1
+              ? randint(2, 7)
+              : Math.max(2, this.sup3 - (indiceDiminution % 2))
+          nbC =
+            this.sup4 === 1
+              ? randint(3, 7)
+              : Math.max(3, this.sup4 - 1 - (indiceDiminution % 2))
         }
       }
       laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
@@ -84,24 +118,61 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin, orangeMathalea) // On trace le chemin solution
 
-      texte = 'Trouver la sortie en ne passant que par les cases contenant un nombre premier.<br>'
+      texte =
+        'Trouver la sortie en ne passant que par les cases contenant un nombre premier.<br>'
       texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
 
       const bonnesReponses = combinaisonListes(nbPremiers, nbC * nbL)
-      let mauvaisesReponses = Array.from({ length: nbMax - 1 }, (_, i) => i + 2).filter((number) => !nbPremiers.includes(number))
+      let mauvaisesReponses = Array.from(
+        { length: nbMax - 1 },
+        (_, i) => i + 2,
+      ).filter((number) => !nbPremiers.includes(number))
       mauvaisesReponses = combinaisonListes(mauvaisesReponses, nbC * nbL)
       // Le tableau de nombre étant fait, on place les objets nombres.
-      laby.nombres2d = laby.placeNombres(monChemin, bonnesReponses, mauvaisesReponses, tailleChiffre)
-      const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
+      laby.nombres2d = laby.placeNombres(
+        monChemin,
+        bonnesReponses,
+        mauvaisesReponses,
+        tailleChiffre,
+      )
+      const params = {
+        xmin: -4,
+        ymin: 0,
+        xmax: 5 + 3 * nbC,
+        ymax: 2 + 3 * nbL,
+        pixelsParCm: 20,
+        scale: 0.7,
+      }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
-      texte += ajouteChampTexteMathLive(this, 2 * q, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
-      handleAnswers(this, 2 * q, { reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}` } })
-      texte += ajouteChampTexteMathLive(this, 2 * q + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
-      handleAnswers(this, 2 * q + 1, { reponse: { value: `${laby.chemin2d.length - 1}` } })
-      texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
+      texte += ajouteChampTexteMathLive(
+        this,
+        2 * q,
+        KeyboardType.clavierNumbers,
+        { texteAvant: 'Indiquer le numéro de la bonne sortie :' },
+      )
+      handleAnswers(this, 2 * q, {
+        reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}` },
+      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        2 * q + 1,
+        KeyboardType.clavierNumbers,
+        { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' },
+      )
+      handleAnswers(this, 2 * q + 1, {
+        reponse: { value: `${laby.chemin2d.length - 1}` },
+      })
+      texteCorr += mathalea2d(
+        params,
+        laby.murs2d,
+        laby.nombres2d,
+        laby.chemin2d,
+      )
 
-      if (this.questionJamaisPosee(q, bonnesReponses[0], mauvaisesReponses[0])) {
+      if (
+        this.questionJamaisPosee(q, bonnesReponses[0], mauvaisesReponses[0])
+      ) {
         this.listeQuestions[q] = texte
         this.listeCorrections[q] = texteCorr
 

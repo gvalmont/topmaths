@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Trouver le résultat d\'un programme Python'
+export const titre = "Trouver le résultat d'un programme Python"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'eb3e8'
@@ -16,7 +16,7 @@ export const uuid = 'eb3e8'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'Soit le script Python : <br>'
       this.question += '$\\begin{array}{|l|}\n'
@@ -50,7 +50,8 @@ export default class NomExercice extends ExerciceSimple {
       this.canEnonce += '}\\newline'
       this.canEnonce += '\\medskip'
 
-      this.canReponseACompleter = 'Que renvoie  $\\texttt{mystere(12)}$ ? <br> $\\ldots$'
+      this.canReponseACompleter =
+        'Que renvoie  $\\texttt{mystere(12)}$ ? <br> $\\ldots$'
     } else {
       const a = randint(2, 9) * choice([-1, 1])
       const choix = choice([true, false])

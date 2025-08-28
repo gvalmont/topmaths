@@ -14,7 +14,7 @@ export const uuid = '8bef8'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.spacing = 3
@@ -26,18 +26,31 @@ export default class NomExercice extends ExerciceSimple {
     // this.question += ajouteChampTexteMathLive(this, 0, ' ', { texteAvant: '$=$' })
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: FractionEtendue
     if (this.canOfficielle) {
       reponse = new FractionEtendue(2, 7)
       this.question = '$\\dfrac{9}{7}=1+ \\text{?}$ '
       this.correction = `$\\dfrac{9}{7}=\\dfrac{7}{7}+\\dfrac{2}{7}=1+${miseEnEvidence(reponse.texFraction)}$`
     } else {
-      const listeFractions = [[4, 3, 1, 1, 3], [10, 7, 1, 3, 7], [12, 7, 1, 5, 7],
-        [9, 4, 2, 1, 4], [17, 7, 2, 3, 7], [16, 3, 5, 1, 3], [17, 3, 5, 2, 3],
-        [11, 9, 1, 2, 9], [8, 7, 1, 1, 7], [10, 7, 1, 3, 7],
-        [15, 11, 1, 4, 11], [13, 7, 1, 6, 7], [13, 9, 1, 4, 9],
-        [16, 9, 1, 7, 9], [18, 7, 2, 4, 7], [10, 9, 1, 1, 9]]
+      const listeFractions = [
+        [4, 3, 1, 1, 3],
+        [10, 7, 1, 3, 7],
+        [12, 7, 1, 5, 7],
+        [9, 4, 2, 1, 4],
+        [17, 7, 2, 3, 7],
+        [16, 3, 5, 1, 3],
+        [17, 3, 5, 2, 3],
+        [11, 9, 1, 2, 9],
+        [8, 7, 1, 1, 7],
+        [10, 7, 1, 3, 7],
+        [15, 11, 1, 4, 11],
+        [13, 7, 1, 6, 7],
+        [13, 9, 1, 4, 9],
+        [16, 9, 1, 7, 9],
+        [18, 7, 2, 4, 7],
+        [10, 9, 1, 1, 9],
+      ]
       const a = choice(listeFractions)
       const frac1 = new FractionEtendue(a[0], a[1])
       reponse = new FractionEtendue(a[3], a[4])

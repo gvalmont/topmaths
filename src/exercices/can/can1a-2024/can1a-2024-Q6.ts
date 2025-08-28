@@ -5,7 +5,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue'
-export const titre = 'Donner l\'écriture décimale d\'une fraction'
+export const titre = "Donner l'écriture décimale d'une fraction"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '96963'
@@ -15,7 +15,7 @@ export const uuid = '96963'
 
 */
 export default class ValeurDec extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -25,7 +25,7 @@ export default class ValeurDec extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 5.25
       this.question = 'Écriture décimale de $\\dfrac{21}{4}$<br>'

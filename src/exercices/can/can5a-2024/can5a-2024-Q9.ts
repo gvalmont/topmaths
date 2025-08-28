@@ -14,9 +14,9 @@ export const uuid = '1bb1e'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(7, 10).texFraction
       this.question = 'Complète : <br> $7$ dm $=$ '
@@ -34,7 +34,9 @@ export default class NomExercice extends ExerciceSimple {
       this.canReponseACompleter = ' $7$ dm $=\\ldots$ m'
       if (this.interactif) {
         this.optionsChampTexte = { texteApres: 'm' }
-      } else { this.question += `${context.isHtml ? '$\\ldots$ m' : ''}` }
+      } else {
+        this.question += `${context.isHtml ? '$\\ldots$ m' : ''}`
+      }
     } else {
       if (choice([true, false])) {
         const a = randint(3, 15)
@@ -47,14 +49,18 @@ export default class NomExercice extends ExerciceSimple {
         this.canReponseACompleter = `$${a}$ dm $=\\ldots$ m`
         if (this.interactif) {
           this.optionsChampTexte = { texteApres: 'm' }
-        } else { this.question += `${context.isHtml ? '$\\ldots$ m' : ''}` }
+        } else {
+          this.question += `${context.isHtml ? '$\\ldots$ m' : ''}`
+        }
       } else {
         const a = randint(15, 60)
         this.reponse = String(a * 10)
         this.question = `Complète : <br> $${texNombre(a, 0)}$ m $=$ `
         if (this.interactif) {
           this.optionsChampTexte = { texteApres: 'dm' }
-        } else { this.question += `${context.isHtml ? '$\\ldots$ dm' : ''}` }
+        } else {
+          this.question += `${context.isHtml ? '$\\ldots$ dm' : ''}`
+        }
         this.correction = ` Comme $1$ m $=10$ dm,  pour passer des "m" au "dm", on multiplie par $10$.<br>
             Comme $${texNombre(a, 1)}\\times 10 =${texNombre(a * 10, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(a * 10, 0))}$ dm.`
         this.canReponseACompleter = ` $${texNombre(a, 0)}$ m $= \\ldots$ dm`

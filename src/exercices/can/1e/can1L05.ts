@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  reduirePolynomeDegre3,
+} from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -26,18 +29,18 @@ export const uuid = '7e740'
 
 export const refs = {
   'fr-fr': ['can1L05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResoudreEquationSecondDegre2 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, c, d, x1, x2
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       x1 = randint(-3, 3, 0)
       x2 = randint(-3, 3, [0, x1, -x1])
       a = randint(1, 2) * choice([-1, 1])
@@ -54,8 +57,16 @@ export default class ResoudreEquationSecondDegre2 extends Exercice {
       }
 
       texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br> $${reduirePolynomeDegre3(0, a, b, c)}=${0}$.`
-      handleAnswers(this, i, { reponse: { value: `\\{${Math.min(x1, x2)};${Math.max(x1, x2)}\\}`, options: { ensembleDeNombres: true } } })
-      if (this.interactif) texte += '<br>$\\mathscr{S}=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
+      handleAnswers(this, i, {
+        reponse: {
+          value: `\\{${Math.min(x1, x2)};${Math.max(x1, x2)}\\}`,
+          options: { ensembleDeNombres: true },
+        },
+      })
+      if (this.interactif)
+        texte +=
+          '<br>$\\mathscr{S}=$' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
 
       /* if (!this.interactif) {
         texte += '.'

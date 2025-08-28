@@ -1,10 +1,10 @@
 type EmojiInfos = {
-  unicode: string;
-  nomPluriel: string;
-  nomSingulier: string;
-  articlePluriel: string;
-  articleSingulier: string;
-  articleCourt: string;
+  unicode: string
+  nomPluriel: string
+  nomSingulier: string
+  articlePluriel: string
+  articleSingulier: string
+  articleCourt: string
 }
 export const listeEmojisInfos: Record<string, EmojiInfos> = {
   smiley: {
@@ -13,7 +13,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'smiley',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   heart: {
     unicode: '2764',
@@ -21,7 +21,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'cœur',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   thumbsUp: {
     unicode: '1f44d',
@@ -29,15 +29,15 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'pouce levé',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   étoile: {
     unicode: '2b50',
     nomPluriel: 'étoiles',
     nomSingulier: 'étoile',
     articlePluriel: 'les',
-    articleSingulier: 'l\'',
-    articleCourt: 'd\''
+    articleSingulier: "l'",
+    articleCourt: "d'",
   },
   pizza: {
     unicode: '1f355',
@@ -45,7 +45,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'pizza',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   beer: {
     unicode: '1f37a',
@@ -53,7 +53,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'bière',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   licorne: {
     unicode: '1f984',
@@ -61,7 +61,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'licorne',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   chien: {
     unicode: '1f436',
@@ -69,7 +69,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'chien',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   chat: {
     unicode: '1f431',
@@ -77,7 +77,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'chat',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   souris: {
     unicode: '1f42d',
@@ -85,7 +85,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'souris',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   tortue: {
     unicode: '1f422',
@@ -93,7 +93,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'tortue',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   pieuvre: {
     unicode: '1f419',
@@ -101,7 +101,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'pieuvre',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   poisson: {
     unicode: '1f41f',
@@ -109,7 +109,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'poisson',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   papillon: {
     unicode: '1f98b',
@@ -117,7 +117,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'papillon',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   fantome: {
     unicode: '1f47b',
@@ -125,7 +125,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'fantôme',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   dragon: {
     unicode: '1f409',
@@ -133,7 +133,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'dragon',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   feu: {
     unicode: '1f525',
@@ -141,7 +141,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'feu',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   fleur: {
     unicode: '1f33c',
@@ -149,15 +149,15 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'fleur',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   etoileBrillante: {
     unicode: '1f31f',
     nomPluriel: 'étoiles brillantes',
     nomSingulier: 'étoile brillante',
     articlePluriel: 'les',
-    articleSingulier: 'l\'',
-    articleCourt: 'd\''
+    articleSingulier: "l'",
+    articleCourt: "d'",
   },
   cloche: {
     unicode: '1f514',
@@ -165,7 +165,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'cloche',
     articlePluriel: 'les',
     articleSingulier: 'la',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   crotte: {
     unicode: '1f4a9',
@@ -173,7 +173,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'crotte',
     articlePluriel: 'les',
     articleSingulier: 'la',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   fusee: {
     unicode: '1f680',
@@ -181,7 +181,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'fusée',
     articlePluriel: 'les',
     articleSingulier: 'la',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   drapeauDamier: {
     unicode: '1f3c1',
@@ -189,15 +189,15 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'drapeau damier',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   arcEnCiel: {
     unicode: '1f308',
     nomPluriel: 'arcs-en-ciel',
     nomSingulier: 'arc-en-ciel',
     articlePluriel: 'les',
-    articleSingulier: 'l\'',
-    articleCourt: 'd\''
+    articleSingulier: "l'",
+    articleCourt: "d'",
   },
   soleil: {
     unicode: '2600',
@@ -205,7 +205,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'soleil',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   lune: {
     unicode: '1f319',
@@ -213,7 +213,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'lune',
     articlePluriel: 'les',
     articleSingulier: 'la',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   nuage: {
     unicode: '2601',
@@ -221,7 +221,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'nuage',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   cerise: {
     unicode: '1f352',
@@ -229,7 +229,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'cerise',
     articlePluriel: 'les',
     articleSingulier: 'la',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   pomme: {
     unicode: '1f34e',
@@ -237,7 +237,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'pomme',
     articlePluriel: 'les',
     articleSingulier: 'la',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   biere: {
     unicode: '1f37a',
@@ -245,7 +245,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'bière',
     articlePluriel: 'les',
     articleSingulier: 'la',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   pingouin: {
     unicode: '1f427',
@@ -253,7 +253,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'pingouin',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   banane: {
     unicode: '1f34c',
@@ -261,7 +261,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'banane',
     articlePluriel: 'les',
     articleSingulier: 'la',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   fraise: {
     unicode: '1f353',
@@ -269,7 +269,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'fraise',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   raisin: {
     unicode: '1f347',
@@ -277,7 +277,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'raisin',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   pasteque: {
     unicode: '1f349',
@@ -285,7 +285,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'pastèque',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   melon: {
     unicode: '1f348',
@@ -293,15 +293,15 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'melon',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   orange: {
     unicode: '1f34a',
     nomPluriel: 'oranges',
     nomSingulier: 'orange',
     articlePluriel: 'les',
-    articleSingulier: 'l\'',
-    articleCourt: 'd\''
+    articleSingulier: "l'",
+    articleCourt: "d'",
   },
   citron: {
     unicode: '1f34b',
@@ -309,7 +309,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'citron',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   peche: {
     unicode: '1f351',
@@ -317,7 +317,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'pêche',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   poire: {
     unicode: '1f350',
@@ -325,15 +325,15 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'poire',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   ananas: {
     unicode: '1f34d',
     nomPluriel: 'ananas',
     nomSingulier: 'ananas',
     articlePluriel: 'les',
-    articleSingulier: 'l\'',
-    articleCourt: 'd\''
+    articleSingulier: "l'",
+    articleCourt: "d'",
   },
   kiwi: {
     unicode: '1f95d',
@@ -341,7 +341,7 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'kiwi',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   mangue: {
     unicode: '1f96d',
@@ -349,15 +349,15 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'mangue',
     articlePluriel: 'les',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de',
   },
   explosion: {
     unicode: '1f4a5',
     nomPluriel: 'explosions',
     nomSingulier: 'explosion',
     articlePluriel: 'les',
-    articleSingulier: 'l\'',
-    articleCourt: 'd\''
+    articleSingulier: "l'",
+    articleCourt: "d'",
   },
   cadeau: {
     unicode: '1f381',
@@ -365,6 +365,6 @@ export const listeEmojisInfos: Record<string, EmojiInfos> = {
     nomSingulier: 'cadeau',
     articlePluriel: 'les',
     articleSingulier: 'un',
-    articleCourt: 'de'
-  }
+    articleCourt: 'de',
+  },
 }

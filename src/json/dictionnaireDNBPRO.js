@@ -5,7 +5,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: ['QCM', 'Statistiques', 'Probabilités', 'Volumes', 'Fonctions']
+    tags: ['QCM', 'Statistiques', 'Probabilités', 'Volumes', 'Fonctions'],
   },
   dnbpro_2024_06_polynesie_2: {
     annee: '2024',
@@ -13,7 +13,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: ['Tableur', 'Pourcentages']
+    tags: ['Tableur', 'Pourcentages'],
   },
   dnbpro_2024_06_polynesie_3: {
     annee: '2024',
@@ -21,7 +21,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: ['Pythagore', 'Pourcentages']
+    tags: ['Pythagore', 'Pourcentages'],
   },
   dnbpro_2024_06_polynesie_4: {
     annee: '2024',
@@ -29,7 +29,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: ['Calcul numérique', 'Recherche d\'informations']
+    tags: ['Calcul numérique', "Recherche d'informations"],
   },
   dnbpro_2024_06_polynesie_5: {
     annee: '2024',
@@ -37,7 +37,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnbpro_2024_07_metropole_1: {
     annee: '2024',
@@ -45,7 +45,14 @@ export const dictionnaireDNBPRO = {
     mois: 'Juillet',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: ['QCM', 'Puissances', 'Proportionnalité', 'Probabilités', 'Pourcentages', 'Agrandissement-réduction']
+    tags: [
+      'QCM',
+      'Puissances',
+      'Proportionnalité',
+      'Probabilités',
+      'Pourcentages',
+      'Agrandissement-réduction',
+    ],
   },
   dnbpro_2024_07_metropole_2: {
     annee: '2024',
@@ -53,7 +60,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juillet',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: ['Volumes', 'Vitesses']
+    tags: ['Volumes', 'Vitesses'],
   },
   dnbpro_2024_07_metropole_3: {
     annee: '2024',
@@ -61,7 +68,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juillet',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnbpro_2024_07_metropole_4: {
     annee: '2024',
@@ -69,7 +76,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juillet',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: ['Fonctions', 'Équations', 'Lecture graphique']
+    tags: ['Fonctions', 'Équations', 'Lecture graphique'],
   },
   dnbpro_2024_07_metropole_5: {
     annee: '2024',
@@ -77,7 +84,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juillet',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations']
+    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations'],
   },
   dnbpro_2024_09_metropole_1: {
     annee: '2024',
@@ -85,7 +92,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Équations', 'Volumes']
+    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Équations', 'Volumes'],
   },
   dnbpro_2024_09_metropole_2: {
     annee: '2024',
@@ -93,7 +100,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: ['Pourcentages', 'Recherche d\'informations']
+    tags: ['Pourcentages', "Recherche d'informations"],
   },
   dnbpro_2024_09_metropole_3: {
     annee: '2024',
@@ -101,7 +108,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: ['Fonctions', 'Lecture graphique']
+    tags: ['Fonctions', 'Lecture graphique'],
   },
   dnbpro_2024_09_metropole_4: {
     annee: '2024',
@@ -109,7 +116,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: ['Pythagore', 'Thalès', 'Volumes']
+    tags: ['Pythagore', 'Thalès', 'Volumes'],
   },
   dnbpro_2024_09_metropole_5: {
     annee: '2024',
@@ -117,7 +124,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: ['Algorithmique-programmation', 'Aires et périmètres']
+    tags: ['Algorithmique-programmation', 'Aires et périmètres'],
   },
   dnbpro_2024_09_polynesie_1: {
     annee: '2024',
@@ -125,7 +132,14 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: ['QCM', 'Fonctions', 'Probabilités', 'Pourcentages', 'Équations', 'Vitesses']
+    tags: [
+      'QCM',
+      'Fonctions',
+      'Probabilités',
+      'Pourcentages',
+      'Équations',
+      'Vitesses',
+    ],
   },
   dnbpro_2024_09_polynesie_2: {
     annee: '2024',
@@ -133,7 +147,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnbpro_2024_09_polynesie_3: {
     annee: '2024',
@@ -141,7 +155,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: ['Statistiques', 'Recherche d\'informations']
+    tags: ['Statistiques', "Recherche d'informations"],
   },
   dnbpro_2024_09_polynesie_4: {
     annee: '2024',
@@ -149,7 +163,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: ['Recherche d\'informations', 'Volumes']
+    tags: ["Recherche d'informations", 'Volumes'],
   },
   dnbpro_2024_09_polynesie_5: {
     annee: '2024',
@@ -157,7 +171,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
 
   dnbpro_2023_06_metropole_1: {
@@ -166,7 +180,14 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: ['QCM', 'Probabilités', 'Calcul numérique', 'Volumes', 'Statistiques', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Probabilités',
+      'Calcul numérique',
+      'Volumes',
+      'Statistiques',
+      'Trigonométrie',
+    ],
   },
   dnbpro_2023_06_metropole_2: {
     annee: '2023',
@@ -174,7 +195,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: ['Volumes', 'Réduction-agrandissement']
+    tags: ['Volumes', 'Réduction-agrandissement'],
   },
   dnbpro_2023_06_metropole_3: {
     annee: '2023',
@@ -182,7 +203,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnbpro_2023_06_metropole_4: {
     annee: '2023',
@@ -190,7 +211,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: ['Pythagore', 'Aires et périmètres']
+    tags: ['Pythagore', 'Aires et périmètres'],
   },
   dnbpro_2023_06_metropole_5: {
     annee: '2023',
@@ -198,7 +219,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: ['Algorithmique-programmation', 'Équations']
+    tags: ['Algorithmique-programmation', 'Équations'],
   },
   dnbpro_2023_06_polynesie_1: {
     annee: '2023',
@@ -206,7 +227,14 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: ['QCM', 'Calcul numérique', 'Équations', 'Probabilités', 'Fonctions', 'Thalès']
+    tags: [
+      'QCM',
+      'Calcul numérique',
+      'Équations',
+      'Probabilités',
+      'Fonctions',
+      'Thalès',
+    ],
   },
   dnbpro_2023_06_polynesie_2: {
     annee: '2023',
@@ -214,7 +242,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: ['Aires et périmètres', 'Pythagore']
+    tags: ['Aires et périmètres', 'Pythagore'],
   },
   dnbpro_2023_06_polynesie_3: {
     annee: '2023',
@@ -222,7 +250,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: ['Statistiques', 'Proportionnalité']
+    tags: ['Statistiques', 'Proportionnalité'],
   },
   dnbpro_2023_06_polynesie_4: {
     annee: '2023',
@@ -230,7 +258,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: ['Fonctions', 'Lecture graphique']
+    tags: ['Fonctions', 'Lecture graphique'],
   },
   dnbpro_2023_06_polynesie_5: {
     annee: '2023',
@@ -238,7 +266,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnbpro_2023_09_metropole_1: {
     annee: '2023',
@@ -246,7 +274,14 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: ['QCM', 'Probabilités', 'Équations', 'Calcul numérique', 'Probabilités', 'Pourcentages']
+    tags: [
+      'QCM',
+      'Probabilités',
+      'Équations',
+      'Calcul numérique',
+      'Probabilités',
+      'Pourcentages',
+    ],
   },
   dnbpro_2023_09_metropole_2: {
     annee: '2023',
@@ -254,7 +289,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnbpro_2023_09_metropole_3: {
     annee: '2023',
@@ -262,7 +297,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: ['Fonctions', 'Lecture graphique']
+    tags: ['Fonctions', 'Lecture graphique'],
   },
   dnbpro_2023_09_metropole_4: {
     annee: '2023',
@@ -270,7 +305,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnbpro_2023_09_metropole_5: {
     annee: '2023',
@@ -278,7 +313,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: ['Thalès']
+    tags: ['Thalès'],
   },
   dnbpro_2023_09_polynesie_1: {
     annee: '2023',
@@ -286,7 +321,15 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: ['QCM', 'Statistiques', 'Calcul littéral', 'Pythagore', 'Calcul numérique', 'Fonctions', 'Volumes']
+    tags: [
+      'QCM',
+      'Statistiques',
+      'Calcul littéral',
+      'Pythagore',
+      'Calcul numérique',
+      'Fonctions',
+      'Volumes',
+    ],
   },
   dnbpro_2023_09_polynesie_2: {
     annee: '2023',
@@ -294,7 +337,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnbpro_2023_09_polynesie_3: {
     annee: '2023',
@@ -302,7 +345,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: ['Statistiques', 'Lecture graphique']
+    tags: ['Statistiques', 'Lecture graphique'],
   },
   dnbpro_2023_09_polynesie_4: {
     annee: '2023',
@@ -310,7 +353,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnbpro_2023_09_polynesie_5: {
     annee: '2023',
@@ -318,7 +361,6 @@ export const dictionnaireDNBPRO = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: ['Tableur', 'Probabilités']
+    tags: ['Tableur', 'Probabilités'],
   },
-
 }

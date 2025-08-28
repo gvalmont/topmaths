@@ -7,7 +7,6 @@ export const titre = 'Égalités entre fractions simples'
 export const uuid = '4718e'
 export const refs = {
   'fr-fr': ['5N13-2'],
-  'fr-ch': ['9NO12-4']
+  'fr-ch': ['9NO12-4'],
 }
-export default class EgalitesEntreFractions5e extends EgalitesEntreFractions {
-}
+export default class EgalitesEntreFractions5e extends EgalitesEntreFractions {}

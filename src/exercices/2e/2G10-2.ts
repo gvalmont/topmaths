@@ -5,7 +5,6 @@ export const uuid = '86a65'
 
 export const refs = {
   'fr-fr': ['2G10-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class DemonstrationsParallelogrammes2nde extends demonstrationsParallelogrammes {
-}
+export default class DemonstrationsParallelogrammes2nde extends demonstrationsParallelogrammes {}

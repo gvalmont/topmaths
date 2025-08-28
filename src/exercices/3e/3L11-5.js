@@ -1,4 +1,8 @@
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListesSansChangerOrdre,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { warnMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -9,7 +13,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Utiliser la distributivité pour effectuer du calcul mental'
+export const titre =
+  'Utiliser la distributivité pour effectuer du calcul mental'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '14/11/2020'
@@ -24,12 +29,16 @@ export const uuid = 'edbd5'
 
 export const refs = {
   'fr-fr': ['3L11-5'],
-  'fr-ch': ['11FA2-5']
+  'fr-ch': ['11FA2-5'],
 }
 export default class IdentitesCalculs extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"]
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange",
+    ]
 
     this.can = false // pour décliner en version CAN
     this.canVersion = '' // Pour distinguer les déclinaisons
@@ -39,13 +48,17 @@ export default class IdentitesCalculs extends Exercice {
     this.nbQuestions = 3
 
     // this.nbQuestionsModifiable = false;
-    context.isHtml ? this.spacing = 1 : this.spacing = 1
-    context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
+    context.isHtml ? (this.spacing = 1) : (this.spacing = 1)
+    context.isHtml ? (this.spacingCorr = 1) : (this.spacingCorr = 1)
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant ' : 'Effectuer les calculs suivants '
-    this.consigne += 'sans calculatrice. Utiliser la double distributivité ou les identités remarquables.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Effectuer le calcul suivant '
+        : 'Effectuer les calculs suivants '
+    this.consigne +=
+      'sans calculatrice. Utiliser la double distributivité ou les identités remarquables.'
     let typesDeQuestionsDisponibles
 
     // une fonction pour gérer un \hfill dans la sortie LaTeX
@@ -59,26 +72,49 @@ export default class IdentitesCalculs extends Exercice {
     switch (Number(this.sup)) {
       case 1:
         typesDeQuestionsDisponibles = [0, 0, 0] // shuffle([choice([1,3]),choice([2,3]),0]);
-        this.introduction = warnMessage('$(a+b)^2=a^2+2ab+b^2$', 'nombres', 'Coup de pouce')
+        this.introduction = warnMessage(
+          '$(a+b)^2=a^2+2ab+b^2$',
+          'nombres',
+          'Coup de pouce',
+        )
         break
       case 2:
         typesDeQuestionsDisponibles = [1, 1, 1] // shuffle([choice([1,3]),choice([2,3]),0]);
-        this.introduction = warnMessage('$(a-b)^2 = a^2-2ab+b^2$', 'nombres', 'Coup de pouce')
+        this.introduction = warnMessage(
+          '$(a-b)^2 = a^2-2ab+b^2$',
+          'nombres',
+          'Coup de pouce',
+        )
         break
       case 3:
         typesDeQuestionsDisponibles = [2, 2, 2] // shuffle([choice([1,3]),choice([2,3]),0]);
-        this.introduction = warnMessage('$(a+b)(a-b)=a^2-b^2$', 'nombres', 'Coup de pouce')
+        this.introduction = warnMessage(
+          '$(a+b)(a-b)=a^2-b^2$',
+          'nombres',
+          'Coup de pouce',
+        )
         break
       case 4:
         typesDeQuestionsDisponibles = shuffle([0, 1, 2]) // shuffle([choice([1,3]),choice([2,3]),0]);
-        this.introduction = warnMessage(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, 'nombres', 'Coup de pouce')
+        this.introduction = warnMessage(
+          `$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`,
+          'nombres',
+          'Coup de pouce',
+        )
         break
     }
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // une fonction pour gérer l'affichage sous forme de carré
       // a et b  sont les facteurs du produit, s'ils sont égaux on affiche sous forme de carré
       const ifIsCarreAfficheCarre = function (a, b, canV2 = false) {
@@ -114,12 +150,12 @@ export default class IdentitesCalculs extends Exercice {
         bSomDif = randint(1, 9)
       } else {
         switch (this.canVersion) {
-          case 'v1' :
+          case 'v1':
             bSomme = 1
             bDifference = 1
             bSomDif = 1
             break
-          case 'v2' :
+          case 'v2':
             bSomme = randint(1, 4)
             bDifference = randint(1, 4)
             bSomDif = randint(1, 9)
@@ -128,11 +164,46 @@ export default class IdentitesCalculs extends Exercice {
       }
       const coeff = choice([10, 100])
       const coeffSomDif = 100
-      const signesSomDif = choice([[{ str: '-', nb: -1 }, { str: '+', nb: 1 }], [{ str: '+', nb: 1 }, {
-        str: '-',
-        nb: -1
-      }]])
-      const lettres = choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
+      const signesSomDif = choice([
+        [
+          { str: '-', nb: -1 },
+          { str: '+', nb: 1 },
+        ],
+        [
+          { str: '+', nb: 1 },
+          {
+            str: '-',
+            nb: -1,
+          },
+        ],
+      ])
+      const lettres = choice([
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
+      ])
 
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
@@ -142,20 +213,35 @@ export default class IdentitesCalculs extends Exercice {
           b: bSomme,
           coeff,
           a_coeff: a * coeff,
-          operations: [{ str: '+', nb: 1 }, { str: '+', nb: 1 }],
-          facteurs: [{
-            str: `${texNombre(a * coeff)}+${bSomme}`,
-            nb: texNombre(a * coeff + bSomme)
-          }, { str: `${texNombre(a * coeff)}+${bSomme}`, nb: texNombre(a * coeff + bSomme) }],
+          operations: [
+            { str: '+', nb: 1 },
+            { str: '+', nb: 1 },
+          ],
+          facteurs: [
+            {
+              str: `${texNombre(a * coeff)}+${bSomme}`,
+              nb: texNombre(a * coeff + bSomme),
+            },
+            {
+              str: `${texNombre(a * coeff)}+${bSomme}`,
+              nb: texNombre(a * coeff + bSomme),
+            },
+          ],
           carre_de_a_coeff: texNombre(coeff * coeff * a * a),
           // carre_de_coeff:coeff*coeff,
           carre_de_b: texNombre(bSomme * bSomme),
-          termes_rectangles: [texNombre(coeff * a * bSomme), texNombre(coeff * a * bSomme)],
+          termes_rectangles: [
+            texNombre(coeff * a * bSomme),
+            texNombre(coeff * a * bSomme),
+          ],
           somme_terme_rect: texNombre(2 * coeff * a * bSomme),
           signes_dbl_dist: ['+', '+', '+'],
           carre: true,
-          resultat: texNombre(a * a * coeff * coeff + bSomme * bSomme + 2 * a * coeff * bSomme),
-          resultatNumerique: a * a * coeff * coeff + bSomme * bSomme + 2 * a * coeff * bSomme
+          resultat: texNombre(
+            a * a * coeff * coeff + bSomme * bSomme + 2 * a * coeff * bSomme,
+          ),
+          resultatNumerique:
+            a * a * coeff * coeff + bSomme * bSomme + 2 * a * coeff * bSomme,
         },
         {
           lettre: lettres,
@@ -163,20 +249,39 @@ export default class IdentitesCalculs extends Exercice {
           b: bDifference,
           coeff,
           a_coeff: a * coeff,
-          operations: [{ str: '-', nb: -1 }, { str: '-', nb: -1 }],
-          facteurs: [{
-            str: `${texNombre(a * coeff)}-${bDifference}`,
-            nb: texNombre(a * coeff - bDifference)
-          }, { str: `${texNombre(a * coeff)}-${bDifference}`, nb: texNombre(a * coeff - bDifference) }],
+          operations: [
+            { str: '-', nb: -1 },
+            { str: '-', nb: -1 },
+          ],
+          facteurs: [
+            {
+              str: `${texNombre(a * coeff)}-${bDifference}`,
+              nb: texNombre(a * coeff - bDifference),
+            },
+            {
+              str: `${texNombre(a * coeff)}-${bDifference}`,
+              nb: texNombre(a * coeff - bDifference),
+            },
+          ],
           carre_de_a_coeff: texNombre(coeff * coeff * a * a),
           // carre_de_coeff:coeff*coeff,
           carre_de_b: texNombre(bDifference * bDifference),
-          termes_rectangles: [texNombre(coeff * a * bDifference), texNombre(coeff * a * bDifference)],
+          termes_rectangles: [
+            texNombre(coeff * a * bDifference),
+            texNombre(coeff * a * bDifference),
+          ],
           somme_terme_rect: texNombre(2 * coeff * a * bDifference),
           signes_dbl_dist: ['+', '-', '-'],
           carre: true,
-          resultat: texNombre(a * a * coeff * coeff + bDifference * bDifference - 2 * a * coeff * bDifference),
-          resultatNumerique: a * a * coeff * coeff + bDifference * bDifference - 2 * a * coeff * bDifference
+          resultat: texNombre(
+            a * a * coeff * coeff +
+              bDifference * bDifference -
+              2 * a * coeff * bDifference,
+          ),
+          resultatNumerique:
+            a * a * coeff * coeff +
+            bDifference * bDifference -
+            2 * a * coeff * bDifference,
         },
         {
           lettre: lettres,
@@ -185,23 +290,32 @@ export default class IdentitesCalculs extends Exercice {
           coeff: coeffSomDif,
           a_coeff: a * coeffSomDif,
           operations: signesSomDif,
-          facteurs: [{
-            str: `${texNombre(a * coeffSomDif)} ${signesSomDif[0].str} ${bSomDif}`,
-            nb: texNombre(a * coeffSomDif + signesSomDif[0].nb * bSomDif)
-          }, {
-            str: `${texNombre(a * coeffSomDif)} ${signesSomDif[1].str} ${bSomDif}`,
-            nb: texNombre(a * coeffSomDif + signesSomDif[1].nb * bSomDif)
-          }],
+          facteurs: [
+            {
+              str: `${texNombre(a * coeffSomDif)} ${signesSomDif[0].str} ${bSomDif}`,
+              nb: texNombre(a * coeffSomDif + signesSomDif[0].nb * bSomDif),
+            },
+            {
+              str: `${texNombre(a * coeffSomDif)} ${signesSomDif[1].str} ${bSomDif}`,
+              nb: texNombre(a * coeffSomDif + signesSomDif[1].nb * bSomDif),
+            },
+          ],
           carre_de_a_coeff: texNombre(coeffSomDif * coeffSomDif * a * a),
           // carre_de_coeff:coeff*coeff,
           carre_de_b: texNombre(bSomDif * bSomDif),
-          termes_rectangles: [texNombre(coeffSomDif * a * bSomDif), texNombre(coeffSomDif * a * bSomDif)],
+          termes_rectangles: [
+            texNombre(coeffSomDif * a * bSomDif),
+            texNombre(coeffSomDif * a * bSomDif),
+          ],
           somme_terme_rect: 0,
           signes_dbl_dist: ['-', '+', '-'],
           carre: false,
-          resultat: texNombre(a * a * coeffSomDif * coeffSomDif - bSomDif * bSomDif),
-          resultatNumerique: a * a * coeffSomDif * coeffSomDif - bSomDif * bSomDif
-        }
+          resultat: texNombre(
+            a * a * coeffSomDif * coeffSomDif - bSomDif * bSomDif,
+          ),
+          resultatNumerique:
+            a * a * coeffSomDif * coeffSomDif - bSomDif * bSomDif,
+        },
       ]
 
       const enonces = []
@@ -220,15 +334,16 @@ export default class IdentitesCalculs extends Exercice {
                         $${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
                         $${situations[k].lettre} = ${miseEnEvidence(situations[k].resultat)}$
                     `,
-          correction2: k !== situations.length - 1
-            ? ` ${texteGras('Avec une identité remarquable')}<br>
+          correction2:
+            k !== situations.length - 1
+              ? ` ${texteGras('Avec une identité remarquable')}<br>
                 $${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$<br>
                 $${situations[k].lettre} = ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`, `(${situations[k].facteurs[1].str})`)} $<br>
                 $${situations[k].lettre} = ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
                 $${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}$<br>
                 $${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
                 $${situations[k].lettre} = ${miseEnEvidence(situations[k].resultat)}$`
-            : ` ${texteGras('Avec une identité remarquable')}<br>
+              : ` ${texteGras('Avec une identité remarquable')}<br>
                 $${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$<br>
                 $${situations[k].lettre} = ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`, `(${situations[k].facteurs[1].str})`)} $<br>
                 $${situations[k].lettre} = ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
@@ -236,8 +351,7 @@ export default class IdentitesCalculs extends Exercice {
                 $${situations[k].lettre} = ${miseEnEvidence(situations[k].resultat)}$`,
           enonceCanV1: `$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}=$`,
           enonceCanV2: `$${ifIsCarreAfficheCarre(situations[k].facteurs[0].str, situations[k].facteurs[1].str, true)}=$`,
-          resultatCan: `${situations[k].resultatNumerique}`
-
+          resultatCan: `${situations[k].resultatNumerique}`,
         })
       }
 
@@ -263,12 +377,12 @@ export default class IdentitesCalculs extends Exercice {
             setReponse(this, i, situations[0].resultatNumerique)
           } else {
             switch (this.canVersion) {
-              case 'v1' :
+              case 'v1':
                 this.question = `${enonces[0].enonceCanV1}`
                 this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
                 this.reponse = `${enonces[0].resultatCan}`
                 break
-              case 'v2' :
+              case 'v2':
               default:
                 this.question = `${enonces[0].enonceCanV2}`
                 this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
@@ -299,12 +413,12 @@ export default class IdentitesCalculs extends Exercice {
             setReponse(this, i, situations[1].resultatNumerique)
           } else {
             switch (this.canVersion) {
-              case 'v1' :
+              case 'v1':
                 this.question = `${enonces[1].enonceCanV1}`
                 this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
                 this.reponse = `${enonces[1].resultatCan}`
                 break
-              case 'v2' :
+              case 'v2':
               default:
                 this.question = `${enonces[1].enonceCanV2}`
                 this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
@@ -336,12 +450,12 @@ export default class IdentitesCalculs extends Exercice {
             setReponse(this, i, situations[2].resultatNumerique)
           } else {
             switch (this.canVersion) {
-              case 'v1' :
+              case 'v1':
                 this.question = `${enonces[2].enonceCanV1}`
                 this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
                 this.reponse = `${enonces[2].resultatCan}`
                 break
-              case 'v2' :
+              case 'v2':
               default:
                 this.question = `${enonces[2].enonceCanV2}`
                 this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
@@ -356,11 +470,17 @@ export default class IdentitesCalculs extends Exercice {
       if (!this.can) {
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$ ' })
       }
-      if (this.questionJamaisPosee(i, a, coeff, coeffSomDif)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, coeff, coeffSomDif)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         // ToDo traiter les éventuelles questions interactives en double
         let mybool = false
-        this.listeQuestions.forEach(elt => {
-          if (texte.split('$')[1].substr(2).indexOf(elt.split('$')[1].substr(2)) !== -1) {
+        this.listeQuestions.forEach((elt) => {
+          if (
+            texte
+              .split('$')[1]
+              .substr(2)
+              .indexOf(elt.split('$')[1].substr(2)) !== -1
+          ) {
             mybool = true
           }
         })

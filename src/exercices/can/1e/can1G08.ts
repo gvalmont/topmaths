@@ -1,4 +1,8 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { texteCentre } from '../../../lib/format/miseEnPage'
 import { sp } from '../../../lib/outils/outilString'
 import Exercice from '../../Exercice'
@@ -7,7 +11,8 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
-export const titre = 'Déterminer un vecteur normal avec une équation cartésienne'
+export const titre =
+  'Déterminer un vecteur normal avec une équation cartésienne'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDePublication = '08/07/2022'
@@ -21,20 +26,20 @@ export const uuid = 'e7919'
 
 export const refs = {
   'fr-fr': ['can1G08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class VecteurNormEqCart extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte
     let texteCorr
 
-    for (let i = 0, a, b, c, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       a = randint(-9, 9, 0)
       b = randint(-9, 9, 0)
       c = randint(-5, 5, 0)
@@ -67,11 +72,19 @@ export default class VecteurNormEqCart extends Exercice {
     this.canReponseACompleter = ''
   }
 
-  correctionInteractive = i => {
-    const champTexte1 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i}`)
-    const champTexte2 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i + 1}`)
-    const spanResultat1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
-    const spanResultat2 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`)
+  correctionInteractive = (i) => {
+    const champTexte1 = document.getElementById(
+      `champTexteEx${this.numeroExercice}Q${2 * i}`,
+    )
+    const champTexte2 = document.getElementById(
+      `champTexteEx${this.numeroExercice}Q${2 * i + 1}`,
+    )
+    const spanResultat1 = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${2 * i}`,
+    )
+    const spanResultat2 = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`,
+    )
     let saisie1 = champTexte1.value.replace(',', '.')
     let saisie2 = champTexte2.value.replace(',', '.')
     saisie1 = saisie1.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses

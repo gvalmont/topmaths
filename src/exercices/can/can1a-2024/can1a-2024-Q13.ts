@@ -13,16 +13,17 @@ export const uuid = '3828e'
 
 */
 export default class ProduitScalaire extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let ux: number
     let uy: number
     let vx: number
@@ -41,8 +42,10 @@ export default class ProduitScalaire extends ExerciceSimple {
       this.reponse = ux * vx + uy * vy
     }
     this.question = `Dans une base orthonormée : $\\vec{u}(${ux}\\,;\\,${uy})$ et  $\\vec{v}(${vx}\\,;\\,${vy})$.<br>
-    Alors $\\vec{u}\\cdot\\vec{v}=$`//
-    if (!this.interactif) { this.question += ' $\\ldots$' }
+    Alors $\\vec{u}\\cdot\\vec{v}=$` //
+    if (!this.interactif) {
+      this.question += ' $\\ldots$'
+    }
     this.correction = ` $\\begin{aligned}
         \\vec{u}\\cdot\\vec{v}&=${ux}\\times ${ecritureParentheseSiNegatif(vx)}+${ecritureParentheseSiNegatif(uy)}\\times${ecritureParentheseSiNegatif(vy)}\\\\
         &=${miseEnEvidence(this.reponse)} 

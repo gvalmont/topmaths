@@ -6,10 +6,14 @@ import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
+export const titre = "Lire l'abscisse décimale d'un point (niveau 2)"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -27,16 +31,17 @@ export const uuid = '8418e'
 export const refs = {
   'fr-fr': ['6N1H-1'],
   'fr-2016': ['6N30-1'],
-  'fr-ch': ['9NO7-2']
+  'fr-ch': ['9NO7-2'],
 }
 export default class LireAbscisseDecimaleBis2d extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Choix des subdivisions',
-      'Nombres séparés par des tirets :\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange',
     ]
-    this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
+    this.consigne =
+      "Lire l'abscisse de chacun des points suivants et donner le résultat sous la forme d'un nombre en écriture décimale."
     this.nbQuestions = 3
 
     this.sup = 7
@@ -44,7 +49,7 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
     this.niveau = 6
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // numeroExercice est 0 pour l'exercice 1
     /*
         let QuestionsDisponibles
@@ -68,12 +73,36 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
       defaut: 7,
       melange: 7,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
+      saisie: this.sup,
     })
 
     const d = []
     this.contenu = this.consigne
-    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        abs0,
+        l1,
+        l2,
+        l3,
+        x1,
+        x2,
+        x3,
+        x11,
+        x22,
+        x33,
+        xA,
+        xB,
+        xC,
+        pas1,
+        pas2,
+        thick1,
+        thick2,
+        texte = '',
+        texteCorr = '',
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
       l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
       l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
@@ -110,7 +139,10 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
           pas2 = 10
           break
         case 2: // Placer des centièmes
-          abs0 = this.niveau === 2 ? arrondi(randint(-80, 80) / 10, 1) : arrondi(randint(0, 50) / 10, 1)
+          abs0 =
+            this.niveau === 2
+              ? arrondi(randint(-80, 80) / 10, 1)
+              : arrondi(randint(0, 50) / 10, 1)
           pas1 = 10
           pas2 = 10
           break
@@ -139,8 +171,15 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[thick1, `${stringNombre(arrondi(abs0 + thick1 / pas1))}`], [thick2, `${stringNombre(arrondi(abs0 + thick2 / pas1))}`]],
-        pointListe: [[xA, l1], [xB, l2], [xC, l3]]
+        labelListe: [
+          [thick1, `${stringNombre(arrondi(abs0 + thick1 / pas1))}`],
+          [thick2, `${stringNombre(arrondi(abs0 + thick2 / pas1))}`],
+        ],
+        pointListe: [
+          [xA, l1],
+          [xB, l2],
+          [xC, l3],
+        ],
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -156,14 +195,23 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
           [0, `${stringNombre(abs0)}`],
           [xA, stringNombre(arrondi(xA / pas1 + abs0))],
           [xB, stringNombre(arrondi(xB / pas1 + abs0))],
-          [xC, stringNombre(arrondi(xC / pas1 + abs0))]
+          [xC, stringNombre(arrondi(xC / pas1 + abs0))],
         ],
-        pointListe: [[xA, l1], [xB, l2], [xC, l3]]
-
+        pointListe: [
+          [xA, l1],
+          [xB, l2],
+          [xC, l3],
+        ],
       })
 
-      texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
-      texteCorr = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
+      texte = mathalea2d(
+        { xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 },
+        d[2 * i],
+      )
+      texteCorr = mathalea2d(
+        { xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 },
+        d[2 * i + 1],
+      )
 
       if (this.interactif && context.isHtml) {
         setReponse(this, 3 * i, arrondi(xA / pas1 + abs0))
@@ -176,7 +224,9 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,
-            propositions: [{ texte: texteCorr, statut: 0, feedback: '', sanscadre: true }]
+            propositions: [
+              { texte: texteCorr, statut: 0, feedback: '', sanscadre: true },
+            ],
           }
         }
       }

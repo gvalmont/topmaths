@@ -1,5 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -7,7 +10,8 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
-export const titre = 'Développer les identités remarquables avec des racines carrées'
+export const titre =
+  'Développer les identités remarquables avec des racines carrées'
 export const dateDeModifImportante = '25/04/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,10 +24,10 @@ export const uuid = '91dc4'
 
 export const refs = {
   'fr-fr': ['2N32-6'],
-  'fr-ch': ['11NO1-9', '1mCN-11']
+  'fr-ch': ['11NO1-9', '1mCN-11'],
 }
 export default class IdentitesRemarquablesEtRacineCarree extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 5
@@ -32,11 +36,18 @@ export default class IdentitesRemarquablesEtRacineCarree extends Exercice {
     this.sup = 1
   }
 
-  nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+    let typesDeQuestions
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Effectuer le calcul suivant.'
+        : 'Effectuer les calculs suivants.'
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let a = 0
       let b = 0
       let c = 0

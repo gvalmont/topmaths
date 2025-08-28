@@ -2,7 +2,11 @@ import { lampeMessage } from '../../lib/format/message'
 import { choice, compteOccurences } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
 import Exercice from '../Exercice'
 export const titre = 'Compléter un script Scratch - 1'
@@ -20,26 +24,27 @@ export const uuid = '39a32'
 
 export const refs = {
   'fr-fr': ['3I12-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CompleterScriptMultiple extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Brique(s) à trouver',
-      'Nombres séparés par des tirets :\n1 : Lignes 3 et 5\n2 : Ligne 6\n3 : Lignes 7 et 8 (aux extrèmes)\n4 : Lignes 7 et 8 (au centre)\n5 : Une des possiblités précédentes choisie au hasard'
+      'Nombres séparés par des tirets :\n1 : Lignes 3 et 5\n2 : Ligne 6\n3 : Lignes 7 et 8 (aux extrèmes)\n4 : Lignes 7 et 8 (au centre)\n5 : Une des possiblités précédentes choisie au hasard',
     ]
     this.besoinFormulaire2Texte = [
       'Choix sur la brique intiale',
-      'Nombres séparés par des tirets :\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
+      'Nombres séparés par des tirets :\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard',
     ]
     this.besoinFormulaire3Texte = [
       'Choix sur une des phrases finales',
-      'Nombres séparés par des tirets :\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard'
+      'Nombres séparés par des tirets :\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard',
     ]
     this.besoinFormulaire4Numerique = [
-      'Choix de l\'ordre sur la brique modulo', 3,
-      '1 : Premier entier demandé modulo le second\n2 : Second entier demandé modulo le premier \n3 : Une des possiblités précédentes choisie au hasard'
+      "Choix de l'ordre sur la brique modulo",
+      3,
+      '1 : Premier entier demandé modulo le second\n2 : Second entier demandé modulo le premier \n3 : Une des possiblités précédentes choisie au hasard',
     ]
     this.sup = 5
     this.sup2 = 5
@@ -50,13 +55,17 @@ export default class CompleterScriptMultiple extends Exercice {
     this.typeExercice = 'Scratch'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.introduction = lampeMessage({
-      titre: context.isHtml ? `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}` : 'Information',
-      texte: (context.isHtml
-        ? ''
-        : '$\\setscratch{print}\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}$<br>') + 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
-      couleur: 'nombres'
+      titre: context.isHtml
+        ? `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}`
+        : 'Information',
+      texte:
+        (context.isHtml
+          ? ''
+          : '$\\setscratch{print}\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}$<br>') +
+        'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
+      couleur: 'nombres',
     })
 
     this.consigne = 'Compléter les briques manquantes.'
@@ -84,7 +93,7 @@ export default class CompleterScriptMultiple extends Exercice {
       melange: 5,
       nbQuestions: this.nbQuestions,
       shuffle: false,
-      saisie: this.sup
+      saisie: this.sup,
     })
 
     const choixLignes3et5 = compteOccurences(briquesATrouver, 1) > 0
@@ -117,7 +126,7 @@ export default class CompleterScriptMultiple extends Exercice {
       defaut: 5,
       melange: 5,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup2
+      saisie: this.sup2,
     })
 
     /*
@@ -145,14 +154,20 @@ export default class CompleterScriptMultiple extends Exercice {
       defaut: 4,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup3
+      saisie: this.sup3,
     })
 
-    for (let i = 0, texte:string, texteCorr :string, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const diviseurEnPremier = this.sup4 === 3 ? choice([true, false]) : this.sup4 === 2
+    for (
+      let i = 0, texte: string, texteCorr: string, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      const diviseurEnPremier =
+        this.sup4 === 3 ? choice([true, false]) : this.sup4 === 2
 
       const tableauTouches = []
-      for (let i = 1; i < 27; i++) tableauTouches.push(String.fromCharCode(64 + i).toLowerCase())
+      for (let i = 1; i < 27; i++)
+        tableauTouches.push(String.fromCharCode(64 + i).toLowerCase())
       for (let i = 0; i < 10; i++) tableauTouches.push(i)
       tableauTouches.push('espace')
       tableauTouches.push('flèche haut')
@@ -167,79 +182,101 @@ export default class CompleterScriptMultiple extends Exercice {
       let var2 = lettreDepuisChiffre(nb2)
       let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=1]\n'
       switch (briqueInitiale[i]) {
-        case 1 :
+        case 1:
           texteScratch += '\\blockinit{quand \\greenflag est cliqué}\n'
           break
-        case 2 :
+        case 2:
           texteScratch += '\\blockinit{quand ce sprite est cliqué}\n'
           break
-        case 3 :
+        case 3:
           texteScratch += `\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`
           break
-        case 4 :
-          texteScratch += '\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n'
+        case 4:
+          texteScratch +=
+            "\\blockinit{quand la touche \\selectmenu{n'importe laquelle} est pressée}\n"
           break
       }
-      texteScratch += '\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n'
+      texteScratch +=
+        '\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n'
       const texteSansTrou = [texteScratch]
-      texteSansTrou.push(`\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalsensing{réponse}}\n`)
+      texteSansTrou.push(
+        `\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalsensing{réponse}}\n`,
+      )
       texteScratch += choixLignes3et5
         ? `\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalnum{ ................ }}\n`
         : texteSansTrou[1]
-      texteSansTrou.push('\\blockmove{demander \\ovalnum{Donne-moi un second nombre entier.} et attendre}\n')
+      texteSansTrou.push(
+        '\\blockmove{demander \\ovalnum{Donne-moi un second nombre entier.} et attendre}\n',
+      )
       texteScratch += texteSansTrou[2]
-      texteSansTrou.push(`\\blockvariable{mettre \\selectmenu{${var2}} à \\ovalsensing{réponse}}\n`)
+      texteSansTrou.push(
+        `\\blockvariable{mettre \\selectmenu{${var2}} à \\ovalsensing{réponse}}\n`,
+      )
       texteScratch += choixLignes3et5
         ? `\\blockvariable{mettre \\selectmenu{${var2}} à \\ovalnum{ ................ }}\n`
         : texteSansTrou[3]
       const var3 = lettreDepuisChiffre(nb1)
       var1 = diviseurEnPremier ? var2 : var1
       var2 = diviseurEnPremier ? var3 : var2
-      texteSansTrou.push(`\\blockifelse{si \\booloperator{\\ovaloperator{\\ovalmove{${var1}} modulo \\ovalmove{${var2}}} = \\ovalnum{0}} alors}\n`)
+      texteSansTrou.push(
+        `\\blockifelse{si \\booloperator{\\ovaloperator{\\ovalmove{${var1}} modulo \\ovalmove{${var2}}} = \\ovalnum{0}} alors}\n`,
+      )
       texteScratch += choixLigne6
         ? '\\blockifelse{si \\booloperator{\\ovaloperator{\\ovalnum{ ................ } modulo \\ovalnum{ ................ }} = \\ovalnum{0}} alors}\n'
         : texteSansTrou[4]
       switch (choixScript[i]) {
-        case 1 : // .... est un multiple de ....
-          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ est un multiple de } et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`)
+        case 1: // .... est un multiple de ....
+          texteSansTrou.push(
+            `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ est un multiple de } et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`,
+          )
           texteScratch += choixLignes7et8Extremes
             ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un multiple de '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
             : choixLignes7et8Centre
               ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un multiple de '}} et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`
               : texteSansTrou[5]
-          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ n'est pas un multiple de } et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`)
+          texteSansTrou.push(
+            `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ n'est pas un multiple de } et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`,
+          )
           texteScratch += choixLignes7et8Extremes
-            ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un multiple de '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
+            ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : " n'est pas un multiple de "}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
             : choixLignes7et8Centre
-              ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un multiple de '}} et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`
+              ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : " n'est pas un multiple de "}} et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`
               : texteSansTrou[6]
           break
-        case 2 : // .... divise ....
-          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ divise } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`)
+        case 2: // .... divise ....
+          texteSansTrou.push(
+            `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ divise } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`,
+          )
           texteScratch += choixLignes7et8Extremes
             ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' divise '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
             : choixLignes7et8Centre
               ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' divise '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
               : texteSansTrou[5]
-          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ ne divise pas } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`)
+          texteSansTrou.push(
+            `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ ne divise pas } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`,
+          )
           texteScratch += choixLignes7et8Extremes
             ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' ne divise pas '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
             : choixLignes7et8Centre
               ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' ne divise pas '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
               : texteSansTrou[6]
           break
-        case 3 : // .... est un diviseur de  ....
-          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ est un diviseur de } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`)
+        case 3: // .... est un diviseur de  ....
+          texteSansTrou.push(
+            `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ est un diviseur de } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`,
+          )
           texteScratch += choixLignes7et8Extremes
             ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un diviseur de '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
             : choixLignes7et8Centre
               ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un diviseur de '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
               : texteSansTrou[5]
-          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ n'est pas un diviseur de } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`)
+          texteSansTrou.push(
+            `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ n'est pas un diviseur de } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`,
+          )
           texteScratch += choixLignes7et8Extremes
-            ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un diviseur de '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
+            ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : " n'est pas un diviseur de "}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
             : choixLignes7et8Centre
-              ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un diviseur de '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
+              ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : " n'est pas un diviseur de "}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
               : texteSansTrou[6]
           break
       }
@@ -259,10 +296,12 @@ export default class CompleterScriptMultiple extends Exercice {
         texteCorr = 'Il y a un problème avec texteSansTrou' // Provide a default string value
       }
       if (context.isAmc) {
-        this.autoCorrection = [{
-          enonce: this.consigne + '<br>' + texteScratch + '<br>',
-          propositions: [{ statut: 3, sanscadre: true }]
-        }]
+        this.autoCorrection = [
+          {
+            enonce: this.consigne + '<br>' + texteScratch + '<br>',
+            propositions: [{ statut: 3, sanscadre: true }],
+          },
+        ]
       }
 
       if (this.questionJamaisPosee(i, texte)) {

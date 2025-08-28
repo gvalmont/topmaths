@@ -18,16 +18,16 @@ export const uuid = 'd52aa'
 
 export const refs = {
   'fr-fr': ['can6M03', 'auto6M1C-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ConvertirEnM extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a
     if (choice([true, false])) {
       a = randint(0, 5) * 10 + randint(1, 9)

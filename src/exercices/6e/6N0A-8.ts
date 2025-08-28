@@ -4,7 +4,7 @@ export const uuid = '86529'
 export const refs = {
   'fr-fr': ['BP2AutoN1', '6N0A-8'],
   'fr-2016': ['6N11-1', 'BP2AutoN1'],
-  'fr-ch': ['9NO2-6']
+  'fr-ch': ['9NO2-6'],
 }
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const dateDeModifImportante = '17/04/2025'
  */
 
 class ReperageEntier extends ReperageEntiersOuDecimaux {
-  constructor () {
+  constructor() {
     super()
     this.version = 'entiers'
     this.nbQuestions = 4
@@ -26,7 +26,8 @@ class ReperageEntier extends ReperageEntiersOuDecimaux {
     this.sup2 = false
     this.besoinFormulaireTexte = [
       'Types de pas de graduations',
-      'Nombres séparés par des tirets :\n1 : Entiers consécutifs\n2 : Le pas secondaire vaut 2, 3, 4 ou 5\n3 : Le pas secondaire vaut 2, 3, 6, 25 ou 50\n4 : Le pas principal est moins simple\n5 : Mélange']
+      'Nombres séparés par des tirets :\n1 : Entiers consécutifs\n2 : Le pas secondaire vaut 2, 3, 4 ou 5\n3 : Le pas secondaire vaut 2, 3, 6, 25 ou 50\n4 : Le pas principal est moins simple\n5 : Mélange',
+    ]
     this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false

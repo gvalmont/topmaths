@@ -12,9 +12,9 @@ export const uuid = 'fad30'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: number
     if (this.canOfficielle) {
       reponse = 20
@@ -61,6 +61,8 @@ export default class NomExercice extends ExerciceSimple {
     this.canReponseACompleter = '$\\ldots$ €'
     if (this.interactif) {
       this.optionsChampTexte = { texteApres: '€.' }
-    } else { this.question += '$\\ldots$ €.' }
+    } else {
+      this.question += '$\\ldots$ €.'
+    }
   }
 }

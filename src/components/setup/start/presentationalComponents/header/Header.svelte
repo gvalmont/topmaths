@@ -9,7 +9,7 @@
 
   export let isExerciseDisplayed: boolean
   export let isNavBarVisible: boolean
-  export let zoomUpdate: (plusMinus: ('+' | '-')) => void
+  export let zoomUpdate: (plusMinus: '+' | '-') => void
   export let setAllInteractive: (isAllInteractive: boolean) => void
   export let newDataForAll: () => void
   export let trash: () => void
@@ -29,10 +29,10 @@
   export let exportQcmCam: () => Promise<void>
 
   let reorderModalDisplayed: boolean
-
 </script>
 
-<header class="flex flex-col scrollbar-hide w-full
+<header
+  class="flex flex-col scrollbar-hide w-full
   md:sticky md:top-0 md:z-50
   bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
@@ -70,21 +70,15 @@
     {/if}
     <!-- Barre de boutons si non-smartphone  -->
     <div
-      class="flex {isExerciseDisplayed
-        ? 'xl:h-[50px] md:h-[100px]'
-        : 'h-0'}"
+      class="flex {isExerciseDisplayed ? 'xl:h-[50px] md:h-[100px]' : 'h-0'}"
     >
       <div
-        class={!isExerciseDisplayed
+        class="{!isExerciseDisplayed
           ? 'hidden'
-          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}"
         id="barre-boutons"
       >
-        <SideMenuWrapper
-          {isRecorder}
-          {isSidenavOpened}
-          {toggleSidenav}
-        />
+        <SideMenuWrapper {isRecorder} {isSidenavOpened} {toggleSidenav} />
         <HeaderButtons
           bind:reorderModalDisplayed
           {zoomUpdate}

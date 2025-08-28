@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0ce7f'
 export const refs = {
   'fr-fr': ['canTSpeS07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '13/08/2024'
 
@@ -18,13 +18,13 @@ export const dateDePublication = '13/08/2024'
  *
  */
 export default class LimiteFormeIndeterminee extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // n^m-n^p
     const m = randint(2, 9)
     const p = randint(2, 9, m)
@@ -41,8 +41,7 @@ export default class LimiteFormeIndeterminee extends ExerciceSimple {
       this.correction += `$${un}-${vn}=n^${p}(${diff === -1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^{${-diff}}}`}-1)$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${p}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${diff === -1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^{${-diff}}}`}-1=-1$.<br>`
       this.reponse = '-\\infty'
     }
-    this.correction +=
-      'Ainsi, par produit, '
+    this.correction += 'Ainsi, par produit, '
     this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${miseEnEvidence(this.reponse)}$.`
   }
 }

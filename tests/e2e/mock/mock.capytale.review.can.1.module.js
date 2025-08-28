@@ -16,7 +16,7 @@ const rpc = new RPC({
   serviceId,
 
   // Optionally, allowlist the origin you want to talk to:
-  origin: '*'
+  origin: '*',
 })
 
 const activityParams = {
@@ -28,13 +28,13 @@ const activityParams = {
         uuid: '51242',
         id: 'canc3D04',
         interactif: '1',
-        alea: 'stG6'
+        alea: 'stG6',
       },
       {
         uuid: '6225c',
         id: '6M23',
         interactif: '1',
-        alea: 'Qlfa'
+        alea: 'Qlfa',
       },
       {
         uuid: '6225c',
@@ -47,13 +47,13 @@ const activityParams = {
         sup3: '2',
         sup4: 'false',
         cd: '1',
-        alea: '4JMh'
+        alea: '4JMh',
       },
       {
         uuid: 'f8dee',
         id: '6G2B',
         interactif: '1',
-        alea: 'XEP0'
+        alea: 'XEP0',
       },
       {
         uuid: '83763',
@@ -62,13 +62,13 @@ const activityParams = {
         nbQuestions: 2,
         duration: 10,
         cd: '1',
-        alea: 'AJha'
+        alea: 'AJha',
       },
       {
         uuid: 'e6f62',
         id: '6C13-2',
         interactif: '1',
-        alea: 'fdfj'
+        alea: 'fdfj',
       },
       {
         uuid: '0688e',
@@ -81,8 +81,8 @@ const activityParams = {
         sup3: '1',
         sup4: 'true',
         cd: '1',
-        alea: 'gFXm'
-      }
+        alea: 'gFXm',
+      },
     ],
     globalOptions: {
       v: '',
@@ -107,7 +107,7 @@ const activityParams = {
       beta: false,
       iframe: '',
       isDataRandom: false, // ajouter pour ne pas changer les données
-      answers: ''
+      answers: '',
     },
     canOptions: {
       durationInMinutes: 540,
@@ -118,26 +118,24 @@ const activityParams = {
       isInteractive: true,
       remainingTimeInSeconds: 0,
       questionGetAnswer: [],
-      state: 'start'
-    }
+      state: 'start',
+    },
   },
   studentAssignment: [
     {
       uuid: '51242',
-      title: 'Indiquer l\'heure sur une horloge',
+      title: "Indiquer l'heure sur une horloge",
       indice: 0,
       state: 'done',
       alea: 'stG6',
       answers: {
-        clockEx0Q0: '8h10'
+        clockEx0Q0: '8h10',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: '6225c',
@@ -151,15 +149,13 @@ const activityParams = {
         Ex1Q0R2: '0',
         Ex1Q0R3: '1',
         Ex1Q0R4: '0',
-        Ex1Q0: '$200\\,000\\,000$'
+        Ex1Q0: '$200\\,000\\,000$',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: '6225c',
@@ -168,15 +164,13 @@ const activityParams = {
       state: 'done',
       alea: '4JMh',
       answers: {
-        Ex2Q0: '600000'
+        Ex2Q0: '600000',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: 'f8dee',
@@ -185,15 +179,14 @@ const activityParams = {
       state: 'done',
       alea: 'XEP0',
       answers: {
-        apigeomEx3F06GXX0: '{\n  "apiGeomVersion": "3.0.20230508",\n  "options": {\n    "animationStepInterval": 3000,\n    "automaticUserMessage": true,\n    "borderSize": 0.2,\n    "color": "red",\n    "colorPointPolygon": "none",\n    "changeColorChangeActionToSetOptions": true,\n    "discFillOpacity": 0.2,\n    "displayGrid": false,\n    "distanceWithoutNewPoint": 0.2,\n    "fillColor": "none",\n    "fillColorAndBorderColorAreSame": true,\n    "fillOpacity": 0.2,\n    "gridWithTwoPointsOnSamePosition": true,\n    "fontSize": "1em",\n    "isDashed": false,\n    "labelDxInPixels": 15,\n    "labelDyInPixels": 15,\n    "latexHeight": 12,\n    "labelIsVisible": true,\n    "latexWidth": 18,\n    "limitNumberOfElement": {},\n    "mark": "||",\n    "moveTextGrid": 15,\n    "pointDescriptionWithCoordinates": true,\n    "pointSize": 5,\n    "thickness": 1,\n    "shape": "x",\n    "shapeForPolygon": "x",\n    "thicknessForPoint": 2,\n    "tmpColor": "gray",\n    "tmpFillColor": "rgba(241, 89, 41, 0.5)",\n    "tmpFillOpacity": 0.2,\n    "tmpIsDashed": true,\n    "tmpThickness": 1,\n    "tmpShape": "x"\n  },\n  "point1": {\n    "color": "currentColor",\n    "id": "point1",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "B",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": 1,\n    "y": 2\n  },\n  "point2": {\n    "color": "currentColor",\n    "id": "point2",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "S",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": -3,\n    "y": 2\n  },\n  "element0": {\n    "color": "blue",\n    "id": "element0",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": true,\n    "opacity": 1,\n    "thickness": 1,\n    "type": "Circle",\n    "fillColor": "none",\n    "fillOpacity": 0.2,\n    "idCenter": "point1",\n    "radius": "3.7"\n  },\n  "element1": {\n    "color": "red",\n    "id": "element1",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": true,\n    "opacity": 1,\n    "thickness": 1,\n    "type": "Circle",\n    "fillColor": "red",\n    "fillOpacity": 0.2,\n    "idCenter": "point2",\n    "radius": "5"\n  }\n}'
+        apigeomEx3F06GXX0:
+          '{\n  "apiGeomVersion": "3.0.20230508",\n  "options": {\n    "animationStepInterval": 3000,\n    "automaticUserMessage": true,\n    "borderSize": 0.2,\n    "color": "red",\n    "colorPointPolygon": "none",\n    "changeColorChangeActionToSetOptions": true,\n    "discFillOpacity": 0.2,\n    "displayGrid": false,\n    "distanceWithoutNewPoint": 0.2,\n    "fillColor": "none",\n    "fillColorAndBorderColorAreSame": true,\n    "fillOpacity": 0.2,\n    "gridWithTwoPointsOnSamePosition": true,\n    "fontSize": "1em",\n    "isDashed": false,\n    "labelDxInPixels": 15,\n    "labelDyInPixels": 15,\n    "latexHeight": 12,\n    "labelIsVisible": true,\n    "latexWidth": 18,\n    "limitNumberOfElement": {},\n    "mark": "||",\n    "moveTextGrid": 15,\n    "pointDescriptionWithCoordinates": true,\n    "pointSize": 5,\n    "thickness": 1,\n    "shape": "x",\n    "shapeForPolygon": "x",\n    "thicknessForPoint": 2,\n    "tmpColor": "gray",\n    "tmpFillColor": "rgba(241, 89, 41, 0.5)",\n    "tmpFillOpacity": 0.2,\n    "tmpIsDashed": true,\n    "tmpThickness": 1,\n    "tmpShape": "x"\n  },\n  "point1": {\n    "color": "currentColor",\n    "id": "point1",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "B",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": 1,\n    "y": 2\n  },\n  "point2": {\n    "color": "currentColor",\n    "id": "point2",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "S",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": -3,\n    "y": 2\n  },\n  "element0": {\n    "color": "blue",\n    "id": "element0",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": true,\n    "opacity": 1,\n    "thickness": 1,\n    "type": "Circle",\n    "fillColor": "none",\n    "fillOpacity": 0.2,\n    "idCenter": "point1",\n    "radius": "3.7"\n  },\n  "element1": {\n    "color": "red",\n    "id": "element1",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": true,\n    "opacity": 1,\n    "thickness": 1,\n    "type": "Circle",\n    "fillColor": "red",\n    "fillOpacity": 0.2,\n    "idCenter": "point2",\n    "radius": "5"\n  }\n}',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: '83763',
@@ -202,15 +195,13 @@ const activityParams = {
       state: 'done',
       alea: 'AJha',
       answers: {
-        cliquefigure0Ex4Q0: '1'
+        cliquefigure0Ex4Q0: '1',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: '83763',
@@ -219,15 +210,13 @@ const activityParams = {
       state: 'done',
       alea: 'AJha',
       answers: {
-        cliquefigure3Ex4Q1: '1'
+        cliquefigure3Ex4Q1: '1',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: 'e6f62',
@@ -236,15 +225,13 @@ const activityParams = {
       state: 'done',
       alea: 'fdfj',
       answers: {
-        ex5Q0: 'produit'
+        ex5Q0: 'produit',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: 'e6f62',
@@ -253,15 +240,13 @@ const activityParams = {
       state: 'done',
       alea: 'fdfj',
       answers: {
-        ex5Q1: 'somme'
+        ex5Q1: 'somme',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: 'e6f62',
@@ -270,15 +255,13 @@ const activityParams = {
       state: 'done',
       alea: 'fdfj',
       answers: {
-        ex5Q2: 'différence'
+        ex5Q2: 'différence',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: 'e6f62',
@@ -287,15 +270,13 @@ const activityParams = {
       state: 'done',
       alea: 'fdfj',
       answers: {
-        ex5Q3: 'quotient'
+        ex5Q3: 'quotient',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
+      resultsByQuestion: [true],
+      duration: 133,
     },
     {
       uuid: '0688e',
@@ -304,18 +285,17 @@ const activityParams = {
       state: 'done',
       alea: 'gFXm',
       answers: {
-        rectangleDNDEx6Q0R1: 'etiquetteEx6Q0I23-clone-1741053922542;etiquetteEx6Q0I12-clone-1741053924366;etiquetteEx6Q0I7-clone-1741053927894;etiquetteEx6Q0I12-clone-1741053929838;etiquetteEx6Q0I22-clone-1741053933164;etiquetteEx6Q0I12-clone-1741053935150;etiquetteEx6Q0I41-clone-1741053956750;etiquetteEx6Q0I12-clone-1741053945759;etiquetteEx6Q0I37-clone-1741053965549;etiquetteEx6Q0I12-clone-1741053968213;etiquetteEx6Q0I21-clone-1741053970573',
+        rectangleDNDEx6Q0R1:
+          'etiquetteEx6Q0I23-clone-1741053922542;etiquetteEx6Q0I12-clone-1741053924366;etiquetteEx6Q0I7-clone-1741053927894;etiquetteEx6Q0I12-clone-1741053929838;etiquetteEx6Q0I22-clone-1741053933164;etiquetteEx6Q0I12-clone-1741053935150;etiquetteEx6Q0I41-clone-1741053956750;etiquetteEx6Q0I12-clone-1741053945759;etiquetteEx6Q0I37-clone-1741053965549;etiquetteEx6Q0I12-clone-1741053968213;etiquetteEx6Q0I21-clone-1741053970573',
         texteDNDEx6Q0R1: 'cinq - mille - quatre - cent - trente - trois',
-        Ex6Q0: 'cinq - mille - quatre - cent - trente - trois'
+        Ex6Q0: 'cinq - mille - quatre - cent - trente - trois',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
       bestScore: 1,
-      resultsByQuestion: [
-        true
-      ],
-      duration: 133
-    }
+      resultsByQuestion: [true],
+      duration: 133,
+    },
   ],
   evaluation: '11',
   exerciceGraded: 'all',
@@ -332,10 +312,10 @@ const activityParams = {
       true,
       true,
       true,
-      true
-    ]
+      true,
+    ],
   },
-  final: false
+  final: false,
 }
 
 rpc.expose('toolGetActivityParams', () => activityParams)

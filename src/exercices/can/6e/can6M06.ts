@@ -1,6 +1,12 @@
 import Decimal from 'decimal.js'
 import { cercle } from '../../../lib/2d/cercle'
-import { milieu, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../../lib/2d/points'
+import {
+  milieu,
+  point,
+  pointAdistance,
+  pointIntersectionCC,
+  tracePoint,
+} from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { longueur } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
@@ -25,18 +31,18 @@ export const uuid = 'e52ba'
 
 export const refs = {
   'fr-fr': ['can6M06', 'CM1M1H-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Perimetre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nom = creerNomDePolygone(4, ['QD'])
-    const a = randint(3, 6)//
+    const a = randint(3, 6) //
     const c = (randint(3, 5) * 10 + randint(3, 9)) / 10
     const A = point(0, 0, nom[0])
     const B = pointAdistance(A, c, 0, nom[1])
@@ -55,15 +61,47 @@ export default class Perimetre extends ExerciceSimple {
     const pol = polygoneAvecNom(A, B, C, D) // polygoneAvecNom s'occupe du placement des noms des sommets
     const reponse = new Decimal(a).add(b).add(c).add(d)
     objets.push(pol[0], pol[1], tracePoint(A, B, C, D)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-    objets.push(texteParPosition(`${stringNombre(b)} m`, milieu(A, D).x - 0.8, milieu(A, D).y),
-      texteParPosition(`${stringNombre(a)} m`, milieu(B, C).x + 0.8, milieu(B, C).y),
-      texteParPosition(`${stringNombre(c)} m`, milieu(A, B).x, milieu(A, B).y - 0.6),
-      texteParPosition(`${stringNombre(d)} m`, milieu(C, D).x, milieu(C, D).y + 0.5))
+    objets.push(
+      texteParPosition(
+        `${stringNombre(b)} m`,
+        milieu(A, D).x - 0.8,
+        milieu(A, D).y,
+      ),
+      texteParPosition(
+        `${stringNombre(a)} m`,
+        milieu(B, C).x + 0.8,
+        milieu(B, C).y,
+      ),
+      texteParPosition(
+        `${stringNombre(c)} m`,
+        milieu(A, B).x,
+        milieu(A, B).y - 0.6,
+      ),
+      texteParPosition(
+        `${stringNombre(d)} m`,
+        milieu(C, D).x,
+        milieu(C, D).y + 0.5,
+      ),
+    )
 
-    this.question = `Quel est le périmètre du quadrilatère $${nom}$ ?<br>
+    this.question =
+      `Quel est le périmètre du quadrilatère $${nom}$ ?<br>
 
     ` +
-      mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+      mathalea2d(
+        {
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 20,
+          mainlevee: true,
+          amplitude: 0.5,
+          scale: 0.6,
+          style: 'margin: auto',
+        },
+        objets,
+      )
     this.reponse = reponse
     this.correction = ` Le périmètre est : $${texNombre(reponse, 1)}$ m. `
     this.optionsChampTexte = { texteApres: ' m' }

@@ -8,7 +8,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer une longueur/un périmètre/une aire (avec des entiers)'
+export const titre =
+  'Calculer une longueur/un périmètre/une aire (avec des entiers)'
 export const dateDePublication = '25/08/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,10 +24,10 @@ export const uuid = 'cb91f'
 
 export const refs = {
   'fr-fr': ['canc3M02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -35,10 +36,23 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' cm' }
   }
 
-  nouvelleVersion () {
-    let choix; let a; let b; let A; let B; let C; let D; let objets = []; let s1; let s2; let s3; let s4
-    switch (choice([1, 2, 3, 4])) { //
-      case 1:// périmètre/aire carré
+  nouvelleVersion() {
+    let choix
+    let a
+    let b
+    let A
+    let B
+    let C
+    let D
+    let objets = []
+    let s1
+    let s2
+    let s3
+    let s4
+    switch (
+      choice([1, 2, 3, 4]) //
+    ) {
+      case 1: // périmètre/aire carré
         choix = choice([true, false])
         objets = []
         a = randint(3, 14)
@@ -51,11 +65,34 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         s3 = segment(C, D)
         s4 = segment(A, D)
         if (choice([true, false])) {
-          objets.push(codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, D), codageSegments('||', 'blue', A, D),
+          objets.push(
+            codageSegments('||', 'blue', A, B),
+            codageSegments('||', 'blue', B, C),
+            codageSegments('||', 'blue', C, D),
+            codageSegments('||', 'blue', A, D),
             texteParPosition(`${a} cm`, milieu(A, B).x, milieu(A, B).y - 0.8),
-            codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
-          this.question = `${choix ? 'Quel' : 'Quelle'} est ${choix ? 'le périmètre' : 'l’aire'} de ce carré ? <br>` + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
+            codageAngleDroit(D, A, B),
+            codageAngleDroit(A, B, C),
+            codageAngleDroit(B, C, D),
+            codageAngleDroit(C, D, A),
+            s1,
+            s2,
+            s3,
+            s4,
+          )
+          this.question =
+            `${choix ? 'Quel' : 'Quelle'} est ${choix ? 'le périmètre' : 'l’aire'} de ce carré ? <br>` +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1.2,
+                xmax: 7,
+                ymax: 7,
+                scale: 0.5,
+                style: 'margin: auto',
+              },
+              objets,
+            )
           this.optionsChampTexte = { texteApres: choix ? ' cm' : ' cm$^2$' }
 
           this.reponse = choix ? 4 * a : a * a
@@ -63,14 +100,37 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         Son ${choix ? 'périmètre' : 'aire'} est donc
         ${choix ? `$4$ fois la longueur de son côté, soit $4\\times ${a}=${4 * a}$ cm.` : `le carré de la longueur de son côté, soit $${a}\\times ${a}=${a * a}$ cm$^2$.`}`
         } else {
-          objets.push(codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, D), codageSegments('||', 'blue', A, D),
+          objets.push(
+            codageSegments('||', 'blue', A, B),
+            codageSegments('||', 'blue', B, C),
+            codageSegments('||', 'blue', C, D),
+            codageSegments('||', 'blue', A, D),
             texteParPosition('?', milieu(A, B).x, milieu(A, B).y - 0.8),
-            codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
-          this.question = `Le périmètre  de ce carré est $${4 * a}$ cm.<br>
+            codageAngleDroit(D, A, B),
+            codageAngleDroit(A, B, C),
+            codageAngleDroit(B, C, D),
+            codageAngleDroit(C, D, A),
+            s1,
+            s2,
+            s3,
+            s4,
+          )
+          this.question =
+            `Le périmètre  de ce carré est $${4 * a}$ cm.<br>
             Quelle est la longueur de son côté ? <br>
             
-            ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
+            ` +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1.5,
+                xmax: 7,
+                ymax: 7,
+                scale: 0.5,
+                style: 'margin: auto',
+              },
+              objets,
+            )
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = a
@@ -79,7 +139,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         }
         break
 
-      case 2:// périmètre/aire rectangle
+      case 2: // périmètre/aire rectangle
         choix = choice([true, false])
         objets = []
         a = randint(6, 11)
@@ -93,15 +153,38 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         s3 = segment(C, D)
         s4 = segment(A, D)
 
-        objets.push(codageSegments('||', 'blue', A, B), codageSegments('|', 'blue', B, C),
-          codageSegments('||', 'blue', C, D), codageSegments('|', 'blue', A, D),
+        objets.push(
+          codageSegments('||', 'blue', A, B),
+          codageSegments('|', 'blue', B, C),
+          codageSegments('||', 'blue', C, D),
+          codageSegments('|', 'blue', A, D),
           texteParPosition(`${a} cm`, milieu(A, B).x, milieu(A, B).y - 0.7),
           texteParPosition(`${b} cm`, milieu(B, C).x + 1.5, milieu(B, C).y),
-          codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
-        this.question = `${choix ? 'Quel' : 'Quelle'} est ${choix ? 'le périmètre' : 'l’aire'} de ce rectangle ? <br>
+          codageAngleDroit(D, A, B),
+          codageAngleDroit(A, B, C),
+          codageAngleDroit(B, C, D),
+          codageAngleDroit(C, D, A),
+          s1,
+          s2,
+          s3,
+          s4,
+        )
+        this.question =
+          `${choix ? 'Quel' : 'Quelle'} est ${choix ? 'le périmètre' : 'l’aire'} de ce rectangle ? <br>
         La figure n'est pas à l'échelle. <br>
         
-        ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 11, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
+        ` +
+          mathalea2d(
+            {
+              xmin: -0.5,
+              ymin: -1.5,
+              xmax: 11,
+              ymax: 7,
+              scale: 0.5,
+              style: 'margin: auto',
+            },
+            objets,
+          )
         this.optionsChampTexte = { texteApres: choix ? ' cm' : ' cm$^2$' }
 
         this.reponse = choix ? 2 * a + 2 * b : a * b
@@ -110,7 +193,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         ${choix ? `$2$ fois la longueur de son demi-périmètre, soit $2\\times (${a}+${b})=${2 * a + 2 * b}$ cm.` : `le produit de sa longueur par sa largeur, soit $${a}\\times ${b}=${a * b}$ cm$^2$.`}`
         break
 
-      case 3:// périmètre/longueur triangle équi
+      case 3: // périmètre/longueur triangle équi
         objets = []
         a = randint(3, 14)
         A = point(0, 0, 'A', 'below')
@@ -121,26 +204,60 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         s3 = segment(A, C)
 
         if (choice([true, false])) {
-          objets.push(codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
+          objets.push(
+            codageSegments('||', 'blue', A, B),
+            codageSegments('||', 'blue', B, C),
             codageSegments('||', 'blue', C, A),
             texteParPosition(`${a} cm`, milieu(A, B).x, milieu(A, B).y - 0.8),
-            s1, s2, s3)
-          this.question = `Quel est  le périmètre de ce triangle ? <br>
+            s1,
+            s2,
+            s3,
+          )
+          this.question =
+            `Quel est  le périmètre de ce triangle ? <br>
           
-          ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 7, ymax: 6, scale: 0.5, style: 'margin: auto' }, objets)
+          ` +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1.5,
+                xmax: 7,
+                ymax: 6,
+                scale: 0.5,
+                style: 'margin: auto',
+              },
+              objets,
+            )
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = 3 * a
           this.correction = `Le triangle est équilatéral.<br>
         Son périmètre est $3$ fois la longueur de son côté, soit $3\\times ${a}=${3 * a}$ cm.`
         } else {
-          objets.push(codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
+          objets.push(
+            codageSegments('||', 'blue', A, B),
+            codageSegments('||', 'blue', B, C),
             codageSegments('||', 'blue', C, A),
             texteParPosition('?', milieu(A, B).x, milieu(A, B).y - 0.7),
-            s1, s2, s3)
-          this.question = `Le périmètre de ce triangle est  $${3 * a}$ cm, quelle est la longueur de son côté ?<br>
+            s1,
+            s2,
+            s3,
+          )
+          this.question =
+            `Le périmètre de ce triangle est  $${3 * a}$ cm, quelle est la longueur de son côté ?<br>
           
-          ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 7, ymax: 6, scale: 0.5, style: 'margin: auto' }, objets)
+          ` +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1.5,
+                xmax: 7,
+                ymax: 6,
+                scale: 0.5,
+                style: 'margin: auto',
+              },
+              objets,
+            )
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = a
@@ -148,7 +265,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         }
         break
 
-      case 4:// périmètre/longueur triangle isocèle
+      case 4: // périmètre/longueur triangle isocèle
         objets = []
         do {
           a = randint(3, 7)
@@ -161,18 +278,38 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         s2 = segment(B, C)
         s3 = segment(A, C)
 
-        choix = choice(['a', 'b', 'c'])//
+        choix = choice(['a', 'b', 'c']) //
         if (choix === 'a') {
-          objets.push(codageSegments('||', 'blue', B, C),
+          objets.push(
+            codageSegments('||', 'blue', B, C),
             codageSegments('||', 'blue', C, A),
             texteParPosition(`${b} cm`, milieu(A, B).x, milieu(A, B).y - 0.7),
-            texteParPosition(`${a} cm`, milieu(B, C).x + 1, milieu(B, C).y + 0.5),
-            s1, s2, s3)
-          this.question = `Quel est  le périmètre de ce triangle ? <br>
+            texteParPosition(
+              `${a} cm`,
+              milieu(B, C).x + 1,
+              milieu(B, C).y + 0.5,
+            ),
+            s1,
+            s2,
+            s3,
+          )
+          this.question =
+            `Quel est  le périmètre de ce triangle ? <br>
 
         La figure n'est pas à l'échelle. <br>
         
-        ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 3, scale: 0.7, style: 'margin: auto' }, objets)
+        ` +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1.5,
+                xmax: 6,
+                ymax: 3,
+                scale: 0.7,
+                style: 'margin: auto',
+              },
+              objets,
+            )
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = 2 * a + b
@@ -181,16 +318,32 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         Son périmètre est : $2\\times ${a}+${b}=${2 * a + b}$ cm.`
         }
         if (choix === 'b') {
-          objets.push(codageSegments('||', 'blue', B, C),
+          objets.push(
+            codageSegments('||', 'blue', B, C),
             codageSegments('||', 'blue', C, A),
             texteParPosition(`${b} cm`, milieu(A, B).x, milieu(A, B).y - 0.7),
             texteParPosition('?', milieu(B, C).x + 1, milieu(B, C).y + 0.5),
-            s1, s2, s3)
-          this.question = `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
+            s1,
+            s2,
+            s3,
+          )
+          this.question =
+            `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
           
           La figure n'est pas à l'échelle. <br>
             
-            ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
+            ` +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1.5,
+                xmax: 6,
+                ymax: 2.5,
+                scale: 0.7,
+                style: 'margin: auto',
+              },
+              objets,
+            )
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = a
@@ -199,16 +352,36 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
             On obtient  la longueur cherchée en divisant par $2$, soit $${2 * a}\\div 2=${a}$ cm.`
         }
         if (choix === 'c') {
-          objets.push(codageSegments('||', 'blue', B, C),
+          objets.push(
+            codageSegments('||', 'blue', B, C),
             codageSegments('||', 'blue', C, A),
             texteParPosition('?', milieu(A, B).x, milieu(A, B).y - 0.7),
-            texteParPosition(`${a} cm`, milieu(B, C).x + 1, milieu(B, C).y + 0.5),
-            s1, s2, s3)
-          this.question = `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
+            texteParPosition(
+              `${a} cm`,
+              milieu(B, C).x + 1,
+              milieu(B, C).y + 0.5,
+            ),
+            s1,
+            s2,
+            s3,
+          )
+          this.question =
+            `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
           
           La figure n'est pas à l'échelle. <br>
                 
-                ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
+                ` +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1.5,
+                xmax: 6,
+                ymax: 2.5,
+                scale: 0.7,
+                style: 'margin: auto',
+              },
+              objets,
+            )
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = b

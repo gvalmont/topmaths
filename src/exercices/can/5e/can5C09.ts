@@ -17,17 +17,17 @@ export const uuid = '1a593'
 
 export const refs = {
   'fr-fr': ['can5C09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class MutliplierParN0N extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 4)
     const b = randint(9, 24, [10, 20])
     this.reponse = 101 * a * b
@@ -35,7 +35,7 @@ export default class MutliplierParN0N extends ExerciceSimple {
     this.correction = `$${b}\\times ${a * 101}= ${101 * a * b}$<br><br>`
     this.correction += `${texteEnCouleur('Mentalement :')}<br>`
     this.correction += `${texteEnCouleur('On calcule $' + a + '\\times ' + b + '=' + texNombre(a * b) + '$ puis on multiplie par $101$ ce qui revient à ajouter $' + texNombre(a * b * 100) + '$ et $' + texNombre(a * b) + '$.')}`
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -4,7 +4,7 @@ import type {
   InterfaceParams,
   InterfaceResultExercice,
   VueType,
-  bibliothequeExercise
+  bibliothequeExercise,
 } from '../types'
 import { type JSONReferentielEnding } from '../types/referentiels'
 import { canOptions } from './canStore'
@@ -59,13 +59,15 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   oneShot: false,
   twoColumns: false,
   beta: false,
-  lang: 'fr-FR'
+  lang: 'fr-FR',
 })
 
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
-export const capytaleMode = writable<'none' | 'create' | 'assignment' | 'review' | 'view'>('none')
+export const capytaleMode = writable<
+  'none' | 'create' | 'assignment' | 'review' | 'view'
+>('none')
 
 export const capytaleStudentAssignment = writable<InterfaceResultExercice[]>()
 
@@ -86,16 +88,17 @@ export const previousView = writable<undefined | '' | VueType>(undefined)
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
-export const bibliothequeDisplayedContent = writable<Record<string, JSONReferentielEnding>>()
+export const bibliothequeDisplayedContent =
+  writable<Record<string, JSONReferentielEnding>>()
 export const bibliothequePathToSection = writable<string[]>([])
 
 /**
  * Déplace un exercice dans exercicesParams
  */
-export function moveExercice (
+export function moveExercice(
   liste: InterfaceParams[],
   iDepart: number,
-  iArrivee: number
+  iArrivee: number,
 ): InterfaceParams[] {
   liste.splice(iArrivee, 0, liste.splice(iDepart, 1)[0])
   return liste
@@ -107,7 +110,7 @@ let timerId: ReturnType<typeof setTimeout> | undefined
 /**
  * Complète l'URL courante avec les éléments relatifs au diaporama
  */
-export function updateGlobalOptionsInURL (url: URL) {
+export function updateGlobalOptionsInURL(url: URL) {
   const options = get(globalOptions)
   const canStore = get(canOptions)
   if (options.v) {
@@ -125,7 +128,11 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('dGlobal')
   }
-  if (options.v === 'eleve' || options.v === 'myriade' || options.v === 'indices') {
+  if (
+    options.v === 'eleve' ||
+    options.v === 'myriade' ||
+    options.v === 'indices'
+  ) {
     if (options.title != null && options.title.length > 0) {
       url.searchParams.append('title', options.title)
     } else {
@@ -191,7 +198,11 @@ export function updateGlobalOptionsInURL (url: URL) {
     ) {
       url.searchParams.append('select', options.select.join('-'))
     }
-    if (options.order !== undefined && options.order.length > 0 && options.shuffle) {
+    if (
+      options.order !== undefined &&
+      options.order.length > 0 &&
+      options.shuffle
+    ) {
       url.searchParams.append('order', options.order.join('-'))
     }
   } else {
@@ -222,13 +233,14 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
 }
 
-export const presModeId: [ // sync with src/components/urls.ts presentationMode
+export const presModeId: [
+  // sync with src/components/urls.ts presentationMode
   'liste_exos',
   'un_exo_par_page',
   'liste_exos',
   'une_question_par_page',
   'recto',
-  'verso'
+  'verso',
   // 'cartes'
 ] = [
   'liste_exos',
@@ -236,6 +248,6 @@ export const presModeId: [ // sync with src/components/urls.ts presentationMode
   'liste_exos',
   'une_question_par_page',
   'recto',
-  'verso'
+  'verso',
   // 'cartes'
 ]

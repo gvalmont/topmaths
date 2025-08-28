@@ -20,7 +20,7 @@ export const uuid = 'e46e6'
 
 export const refs = {
   'fr-fr': ['200F3-02'],
-  'fr-ch': ['11FA7-5']
+  'fr-ch': ['11FA7-5'],
 }
 
 /**
@@ -28,7 +28,7 @@ export const refs = {
  * @author Jean-Claude Lhote
  */
 export default class LectureEnsebleDef extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -38,146 +38,245 @@ export default class LectureEnsebleDef extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // Dans ce modèle, j'ai pris la première question du fichier Doc-Automatismes-2de-acOT-GTCAN-2023.pdf.
     // La question posée est de lister tous les diviseurs d'un entier.
     // Selon le niveau choisi, on augmente la difficulté de l'entier choisi.
     // Le reste est identique pour les trois niveaux
     // Le bloc décidant de l'aléatoire
-    function aleatoiriseSpline (noeuds: NoeudSpline[]) {
+    function aleatoiriseSpline(noeuds: NoeudSpline[]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-1, +1) // translations
       const deltaY = randint(-2, +2) / 2
       // la liste des noeuds de notre fonction
-      const nuage = noeuds.map((noeud) => Object({
-        x: (noeud.x + deltaX) * coeffX,
-        y: (noeud.y + deltaY) * coeffY,
-        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-        isVisible: noeud.isVisible
-      }))
+      const nuage = noeuds.map((noeud) =>
+        Object({
+          x: (noeud.x + deltaX) * coeffX,
+          y: (noeud.y + deltaY) * coeffY,
+          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+          isVisible: noeud.isVisible,
+        }),
+      )
       return spline(nuage)
     }
 
     const noeuds1 = [
-      { x: -2 + randint(-1, 1), y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+      {
+        x: -2 + randint(-1, 1),
+        y: 1,
+        deriveeGauche: 1,
+        deriveeDroit: 1,
+        isVisible: true,
+      },
       { x: 0, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
       { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
-      { x: 5 + randint(-1, 1), y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
+      {
+        x: 5 + randint(-1, 1),
+        y: 1,
+        deriveeGauche: 1,
+        deriveeDroit: 1,
+        isVisible: true,
+      },
     ]
     const noeuds2 = [
-      { x: -3 + randint(-1, 1), y: 3 + randint(-1, 1), deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
-      { x: -1, y: 0 + randint(-1, 1), deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
-      { x: 1, y: -2 + randint(0, 1), deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
-      { x: 3, y: 1 + randint(-1, 1), deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
-      { x: 5 + randint(-1, 1), y: -2 + randint(-1, 1), deriveeGauche: -2, deriveeDroit: -2, isVisible: true }
+      {
+        x: -3 + randint(-1, 1),
+        y: 3 + randint(-1, 1),
+        deriveeGauche: -2,
+        deriveeDroit: -2,
+        isVisible: true,
+      },
+      {
+        x: -1,
+        y: 0 + randint(-1, 1),
+        deriveeGauche: 0,
+        deriveeDroit: 0,
+        isVisible: false,
+      },
+      {
+        x: 1,
+        y: -2 + randint(0, 1),
+        deriveeGauche: 0,
+        deriveeDroit: 0,
+        isVisible: false,
+      },
+      {
+        x: 3,
+        y: 1 + randint(-1, 1),
+        deriveeGauche: 0,
+        deriveeDroit: 0,
+        isVisible: false,
+      },
+      {
+        x: 5 + randint(-1, 1),
+        y: -2 + randint(-1, 1),
+        deriveeGauche: -2,
+        deriveeDroit: -2,
+        isVisible: true,
+      },
     ]
     let courbeAvecTrace, xmin, xmax, repere
     let ouvertDroit, ouvertGauche
     switch (this.sup) {
-      case 1: { // défini aux 2 extrémités par des points d'abscisses entières
-        const spline = aleatoiriseSpline(choice([noeuds1, noeuds2]))
-        const { xMin, xMax, yMin, yMax } = spline.trouveMaxes()
-                ;[xmin, xmax] = [xMin, xMax]
-        repere = new RepereBuilder({
-          xMin: xMin - 2,
-          xMax: xMax + 2,
-          yMin: yMin - 2,
-          yMax: yMax + 2
-        }).setGrille({ grilleX: { dx: 1, xMin: xMin - 2, xMax: xMax + 2 }, grilleY: { dy: 1, yMin: yMin - 2, yMax: yMax + 2 } })
-          .setThickX({ xMin, xMax, dx: 1 })
-          .setThickY({ yMin, yMax, dy: 1 })
-          .buildStandard()
+      case 1:
+        {
+          // défini aux 2 extrémités par des points d'abscisses entières
+          const spline = aleatoiriseSpline(choice([noeuds1, noeuds2]))
+          const { xMin, xMax, yMin, yMax } = spline.trouveMaxes()
+          ;[xmin, xmax] = [xMin, xMax]
+          repere = new RepereBuilder({
+            xMin: xMin - 2,
+            xMax: xMax + 2,
+            yMin: yMin - 2,
+            yMax: yMax + 2,
+          })
+            .setGrille({
+              grilleX: { dx: 1, xMin: xMin - 2, xMax: xMax + 2 },
+              grilleY: { dy: 1, yMin: yMin - 2, yMax: yMax + 2 },
+            })
+            .setThickX({ xMin, xMax, dx: 1 })
+            .setThickY({ yMin, yMax, dy: 1 })
+            .buildStandard()
 
-        ouvertGauche = Math.random() < 0.5
-        ouvertDroit = Math.random() < 0.5
+          ouvertGauche = Math.random() < 0.5
+          ouvertDroit = Math.random() < 0.5
 
-        courbeAvecTrace = [spline.courbe({
-          color: 'blue',
-          ajouteNoeuds: false,
-          optionsNoeuds: { style: '.', epaisseur: 2 }
-        })]
-        if (ouvertGauche) {
-          courbeAvecTrace.push(
-            croche(spline.x[0], spline.y[0], 'gauche', 0.1, 'blue')
-          )
-        } else {
-          courbeAvecTrace.push(plot(spline.x[0], spline.y[0], { couleur: 'blue' }))
+          courbeAvecTrace = [
+            spline.courbe({
+              color: 'blue',
+              ajouteNoeuds: false,
+              optionsNoeuds: { style: '.', epaisseur: 2 },
+            }),
+          ]
+          if (ouvertGauche) {
+            courbeAvecTrace.push(
+              croche(spline.x[0], spline.y[0], 'gauche', 0.1, 'blue'),
+            )
+          } else {
+            courbeAvecTrace.push(
+              plot(spline.x[0], spline.y[0], { couleur: 'blue' }),
+            )
+          }
+          if (ouvertDroit) {
+            courbeAvecTrace.push(
+              croche(
+                spline.x[spline.n - 1],
+                spline.y[spline.n - 1],
+                'droit',
+                0.1,
+                'blue',
+              ),
+            )
+          } else {
+            courbeAvecTrace.push(
+              plot(spline.x[spline.n - 1], spline.y[spline.n - 1], {
+                couleur: 'blue',
+              }),
+            )
+          }
         }
-        if (ouvertDroit) {
-          courbeAvecTrace.push(
-            croche(spline.x[spline.n - 1], spline.y[spline.n - 1], 'droit', 0.1, 'blue')
-          )
-        } else {
-          courbeAvecTrace.push(plot(spline.x[spline.n - 1], spline.y[spline.n - 1], { couleur: 'blue' }))
-        }
-      }
         break
-      case 2: { // borné à droite mais pas à gauche.
-        const dx = randint(-2, 2)
-        const dy = randint(-2, 2) / 2
-        const signe = choice([-1, 1])
-        const parabole = (x: number) => signe * (x + dx) ** 2 + dy
-        repere = new RepereBuilder({
-          xMin: -5,
-          xMax: 5,
-          yMin: -5,
-          yMax: 5
-        }).setGrille({ grilleX: { dx: 1, xMin: -5, xMax: 5 }, grilleY: { dy: 1, yMin: -5, yMax: 5 } })
-          .setThickX({ xMin: -5, xMax: 5, dx: 1 })
-          .setThickY({ yMin: -5, yMax: 5, dy: 1 })
-          .buildStandard()
-        if (choice([true, false])) {
-          xmin = -dx - 1
-          xmax = '+\\infty'
-          ouvertGauche = false
-          ouvertDroit = true
-          courbeAvecTrace = [
-            courbe(parabole, { repere, xMin: -dx - 1, step: 0.05, epaisseur: 1 }),
-            plot(-dx - 1, parabole(-dx - 1), { rayon: 0.1 })]
-        } else {
-          xmax = -dx + 1
-          xmin = '-\\infty'
-          ouvertGauche = true
-          ouvertDroit = false
-          courbeAvecTrace = [
-            courbe(parabole, { repere, xMax: -dx + 1, step: 0.05, epaisseur: 1 }),
-            plot(-dx + 1, parabole(-dx + 1), { rayon: 0.1 })]
+      case 2:
+        {
+          // borné à droite mais pas à gauche.
+          const dx = randint(-2, 2)
+          const dy = randint(-2, 2) / 2
+          const signe = choice([-1, 1])
+          const parabole = (x: number) => signe * (x + dx) ** 2 + dy
+          repere = new RepereBuilder({
+            xMin: -5,
+            xMax: 5,
+            yMin: -5,
+            yMax: 5,
+          })
+            .setGrille({
+              grilleX: { dx: 1, xMin: -5, xMax: 5 },
+              grilleY: { dy: 1, yMin: -5, yMax: 5 },
+            })
+            .setThickX({ xMin: -5, xMax: 5, dx: 1 })
+            .setThickY({ yMin: -5, yMax: 5, dy: 1 })
+            .buildStandard()
+          if (choice([true, false])) {
+            xmin = -dx - 1
+            xmax = '+\\infty'
+            ouvertGauche = false
+            ouvertDroit = true
+            courbeAvecTrace = [
+              courbe(parabole, {
+                repere,
+                xMin: -dx - 1,
+                step: 0.05,
+                epaisseur: 1,
+              }),
+              plot(-dx - 1, parabole(-dx - 1), { rayon: 0.1 }),
+            ]
+          } else {
+            xmax = -dx + 1
+            xmin = '-\\infty'
+            ouvertGauche = true
+            ouvertDroit = false
+            courbeAvecTrace = [
+              courbe(parabole, {
+                repere,
+                xMax: -dx + 1,
+                step: 0.05,
+                epaisseur: 1,
+              }),
+              plot(-dx + 1, parabole(-dx + 1), { rayon: 0.1 }),
+            ]
+          }
         }
-      }
         break
       case 3:
-      default:{ // cubique non bornée
-        const dx = randint(-2, 2)
-        const dy = randint(-2, 2) / 2
-        const signe = choice([-1, 1])
-        const hyperbole = (x:number) => signe * (x + dx) * (x - dx) * x + dy
-        repere = new RepereBuilder({
-          xMin: -5,
-          xMax: 5,
-          yMin: -5,
-          yMax: 5
-        }).setGrille({ grilleX: { dx: 1, xMin: -5, xMax: 5 }, grilleY: { dy: 1, yMin: -5, yMax: 5 } })
-          .setThickX({ xMin: -5, xMax: 5, dx: 1 })
-          .setThickY({ yMin: -5, yMax: 5, dy: 1 })
-          .buildStandard()
-        xmin = '-\\infty'
-        xmax = '+\\infty'
-        ouvertGauche = true
-        ouvertDroit = true
-        courbeAvecTrace = courbe(hyperbole, { repere, xMin: -5, xMax: 5, step: 0.05, epaisseur: 1 })
-      }
+      default:
+        {
+          // cubique non bornée
+          const dx = randint(-2, 2)
+          const dy = randint(-2, 2) / 2
+          const signe = choice([-1, 1])
+          const hyperbole = (x: number) => signe * (x + dx) * (x - dx) * x + dy
+          repere = new RepereBuilder({
+            xMin: -5,
+            xMax: 5,
+            yMin: -5,
+            yMax: 5,
+          })
+            .setGrille({
+              grilleX: { dx: 1, xMin: -5, xMax: 5 },
+              grilleY: { dy: 1, yMin: -5, yMax: 5 },
+            })
+            .setThickX({ xMin: -5, xMax: 5, dx: 1 })
+            .setThickY({ yMin: -5, yMax: 5, dy: 1 })
+            .buildStandard()
+          xmin = '-\\infty'
+          xmax = '+\\infty'
+          ouvertGauche = true
+          ouvertDroit = true
+          courbeAvecTrace = courbe(hyperbole, {
+            repere,
+            xMin: -5,
+            xMax: 5,
+            step: 0.05,
+            epaisseur: 1,
+          })
+        }
         break
     }
 
-    this.question = mathalea2d(Object.assign({}, fixeBordures([repere])), [repere, courbeAvecTrace]) + 'Quel est l\'ensemble de définition de la fonction représentée ci-dessus ?'
+    this.question =
+      mathalea2d(Object.assign({}, fixeBordures([repere])), [
+        repere,
+        courbeAvecTrace,
+      ]) +
+      "Quel est l'ensemble de définition de la fonction représentée ci-dessus ?"
     this.correction = `L'ensemble de définition de la fonction est $${miseEnEvidence(`${ouvertGauche ? ']' : '['}${xmin};${xmax}${ouvertDroit ? '[' : ']'}`)}$.`
     this.reponse = {
       reponse: {
         value: `${ouvertGauche ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${ouvertDroit ? '\\right\\lbrack' : '\\right\\rbrack'}`,
-        options: { intervalle: true }
-      }
+        options: { intervalle: true },
+      },
     }
   }
 }

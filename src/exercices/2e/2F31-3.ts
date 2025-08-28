@@ -4,7 +4,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import type FractionEtendue from '../../modules/FractionEtendue'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 export const titre = 'Comparer des images dans un tableau de variations'
@@ -14,34 +18,36 @@ export const interactifType = 'qcm'
 export const uuid = '2f857'
 export const refs = {
   'fr-fr': ['2F31-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
  *
  * @author Gilles Mora
-*/
+ */
 
 export default class ComparerImagesTableau extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : On peut comparer avec le sens de variation\n2 : On peut comparer par encadrement\n3 : On ne peut pas comparer\n4  : Mélange']
+    this.besoinFormulaireTexte = [
+      'Choix des questions',
+      'Nombres séparés par des tirets :\n1 : On peut comparer avec le sens de variation\n2 : On peut comparer par encadrement\n3 : On ne peut pas comparer\n4  : Mélange',
+    ]
     this.sup = '4'
     this.spacingCorr = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
       melange: 4,
       defaut: 4,
-      nbQuestions: this.nbQuestions
-
+      nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
 
@@ -58,14 +64,23 @@ export default class ComparerImagesTableau extends Exercice {
       const alpha = randint(-5, 5, 0)
       const beta = randint(1, 3)
       const k = randint(-3, 3)
-      const rac1 = randint(-3, 3)// rac de la dérivée pour poly3
-      const rac2 = rac1 + randint(3, 6, 0)// rac de la dérivée pour poly3
-      const fonction1 = (x:number) => a * (x - alpha) ** 2 + beta// forme développée
-      const derivee1 = (x:number) => 2 * a * (x - alpha)// Sa dérivée
-      const fonction2 = (x:number) => 2 * a * x ** 3 - 3 * a * rac1 * x ** 2 - 3 * a * rac2 * x ** 2 + 6 * a * rac1 * rac2 * x + k
-      const derivee2 = (x:number) => 6 * a * x ** 2 - 6 * a * rac1 * x - 6 * a * rac2 * x + 6 * a * rac1 * rac2
+      const rac1 = randint(-3, 3) // rac de la dérivée pour poly3
+      const rac2 = rac1 + randint(3, 6, 0) // rac de la dérivée pour poly3
+      const fonction1 = (x: number) => a * (x - alpha) ** 2 + beta // forme développée
+      const derivee1 = (x: number) => 2 * a * (x - alpha) // Sa dérivée
+      const fonction2 = (x: number) =>
+        2 * a * x ** 3 -
+        3 * a * rac1 * x ** 2 -
+        3 * a * rac2 * x ** 2 +
+        6 * a * rac1 * rac2 * x +
+        k
+      const derivee2 = (x: number) =>
+        6 * a * x ** 2 -
+        6 * a * rac1 * x -
+        6 * a * rac2 * x +
+        6 * a * rac1 * rac2
       switch (listeDeQuestions[i]) {
-        case 1:// on peut comparer grâce aux variations
+        case 1: // on peut comparer grâce aux variations
           switch (randint(0, 1)) {
             case 0:
               {
@@ -74,22 +89,48 @@ export default class ComparerImagesTableau extends Exercice {
                 const p = new Trinome(0, 0, 0) // Le constructeur de Trinome veut 3 arguments
                 p.defFormeCanonique(a, alpha, beta)
 
-                const x1 = choix ? randint(borneInf + 1, alpha - 2) : randint(alpha + 1, borneSup - 2)
-                const x2 = choix ? randint(x1 + 1, alpha - 1) : randint(x1 + 1, borneSup - 1)
+                const x1 = choix
+                  ? randint(borneInf + 1, alpha - 2)
+                  : randint(alpha + 1, borneSup - 2)
+                const x2 = choix
+                  ? randint(x1 + 1, alpha - 1)
+                  : randint(x1 + 1, borneSup - 1)
                 tolerance = 0.005
                 xMin = borneInf
                 xMax = borneSup
-                substituts = [{ antVal: borneInf, antTex: `$${borneInf}$`, imgVal: Number(p.image(borneInf)), imgTex: `$${p.image(borneInf).texFraction}$` },
-                  { antVal: p.alpha.valeurDecimale, antTex: p.alpha.simplifie().texFSD, imgVal: p.beta.valeurDecimale, imgTex: `$${p.beta.simplifie().texFSD}$` },
-                  { antVal: borneSup, antTex: `${borneSup}`, imgVal: Number(p.image(borneSup)), imgTex: `$${p.image(borneSup).texFraction}$` }
+                substituts = [
+                  {
+                    antVal: borneInf,
+                    antTex: `$${borneInf}$`,
+                    imgVal: Number(p.image(borneInf)),
+                    imgTex: `$${p.image(borneInf).texFraction}$`,
+                  },
+                  {
+                    antVal: p.alpha.valeurDecimale,
+                    antTex: p.alpha.simplifie().texFSD,
+                    imgVal: p.beta.valeurDecimale,
+                    imgTex: `$${p.beta.simplifie().texFSD}$`,
+                  },
+                  {
+                    antVal: borneSup,
+                    antTex: `${borneSup}`,
+                    imgVal: Number(p.image(borneSup)),
+                    imgTex: `$${p.image(borneSup).texFraction}$`,
+                  },
                 ]
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction1 as (x: number | FractionEtendue)=>number, derivee1 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(
+                  fonction1 as (x: number | FractionEtendue) => number,
+                  derivee1 as (x: number | FractionEtendue) => number,
+                  xMin,
+                  xMax,
+                  { ligneDerivee: false, substituts, step: 0.5, tolerance },
+                )
                 texteCorr = `D'après le tableau de variations, la fonction $f$ est strictement ${a > 0 ? `${choix ? 'décroissante' : 'croissante'}` : `${choix ? 'croissante' : 'décroissante'}`} sur ${choix ? `$[${borneInf}\\,;\\,${alpha}]$` : `$[${alpha}\\,;\\,${borneSup}]$`}. <br>
           De plus,<br>
            ${choix ? `$\\bullet$ $${x1}\\in [${borneInf}\\,;\\,${alpha}]$,<br>$\\bullet$ $${x2}\\in [${borneInf}\\,;\\,${alpha}]$, <br>$\\bullet$ $${x1}<${x2}$` : `$\\bullet$ $${x1}\\in [${alpha}\\,;\\,${borneSup}]$,<br> $\\bullet$ $${x2}\\in [${alpha}\\,;\\,${borneSup}]$, <br>$\\bullet$ $${x1}<${x2}$`}.<br>
          On sait que si une fonction est strictement ${a > 0 ? `${choix ? 'décroissante' : 'croissante'}` : `${choix ? 'croissante' : 'décroissante'}`} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
-         ${a > 0 ? `${choix ? 'l\'ordre inverse' : 'le même ordre'}` : `${choix ? 'le même ordre' : 'l\'ordre inverse'}`}.
+         ${a > 0 ? `${choix ? "l'ordre inverse" : 'le même ordre'}` : `${choix ? 'le même ordre' : "l'ordre inverse"}`}.
          <br>
          Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? `${choix ? '$f(x_1) > f(x_2)$' : '$f(x_1) < f(x_2)$'}` : `${choix ? '$f(x_1) < f(x_2)$' : '$f(x_1) > f(x_2)$'}`}
          <br>
@@ -100,17 +141,17 @@ export default class ComparerImagesTableau extends Exercice {
                   propositions: [
                     {
                       texte: `${a > 0 ? `${choix ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}` : `${choix ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`}`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `${a > 0 ? `${choix ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}` : `${choix ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`}`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'On ne peut pas savoir',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 props = propositionsQcm(this, i)
                 if (this.interactif) texte += props.texte
@@ -142,15 +183,41 @@ export default class ComparerImagesTableau extends Exercice {
                 tolerance = 0.005
                 xMin = borneInf
                 xMax = borneSup
-                substituts = [{ antVal: borneInf, antTex: `${texNombre(borneInf, 0)}`, imgVal: fonction2(borneInf), imgTex: `$${texNombre(ImBorneInf, 0)}$` },
-                  { antVal: Math.min(rac1, rac2), antTex: `${texNombre(Math.min(rac1, rac2), 0)}`, imgTex: `$${texNombre(Imx1, 0)}$` },
-                  { antVal: Math.max(rac1, rac2), antTex: `${texNombre(Math.max(rac1, rac2), 0)}`, imgTex: `$${texNombre(Imx2, 0)}$` },
-                  { antVal: borneSup, antTex: `${texNombre(borneSup, 0)}`, imgTex: `$${texNombre(ImBorneSup, 0)}$` }]
+                substituts = [
+                  {
+                    antVal: borneInf,
+                    antTex: `${texNombre(borneInf, 0)}`,
+                    imgVal: fonction2(borneInf),
+                    imgTex: `$${texNombre(ImBorneInf, 0)}$`,
+                  },
+                  {
+                    antVal: Math.min(rac1, rac2),
+                    antTex: `${texNombre(Math.min(rac1, rac2), 0)}`,
+                    imgTex: `$${texNombre(Imx1, 0)}$`,
+                  },
+                  {
+                    antVal: Math.max(rac1, rac2),
+                    antTex: `${texNombre(Math.max(rac1, rac2), 0)}`,
+                    imgTex: `$${texNombre(Imx2, 0)}$`,
+                  },
+                  {
+                    antVal: borneSup,
+                    antTex: `${texNombre(borneSup, 0)}`,
+                    imgTex: `$${texNombre(ImBorneSup, 0)}$`,
+                  },
+                ]
 
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction2 as (x: number | FractionEtendue)=>number, derivee2 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(
+                  fonction2 as (x: number | FractionEtendue) => number,
+                  derivee2 as (x: number | FractionEtendue) => number,
+                  xMin,
+                  xMax,
+                  { ligneDerivee: false, substituts, step: 0.5, tolerance },
+                )
 
-                if (choixIntervalle === 1 || choixIntervalle === 3) { // corr dans le cas ou x1 et x2 sont dans l'intervalle 1 ou 3
+                if (choixIntervalle === 1 || choixIntervalle === 3) {
+                  // corr dans le cas ou x1 et x2 sont dans l'intervalle 1 ou 3
                   texteCorr = `D'après le tableau de variations, la fonction $f$ est strictement ${a > 0 ? 'croissante' : 'décroissante'}  sur 
                   ${a > 0 ? `$[${borneInf}\\,;\\,${rac1}]$` : `$[${rac2}\\,;\\,${borneSup}]$`}. <br>
           De plus,<br>
@@ -158,19 +225,20 @@ export default class ComparerImagesTableau extends Exercice {
           $\\bullet$ $${x2}\\in ${choixIntervalle === 1 ? `[${borneInf}\\,;\\,${rac1}]` : `[${rac2}\\,;\\,${borneSup}]`}$, <br>
             $\\bullet$ $${x1}<${x2}$.<br>
          On sait que si une fonction est strictement ${a > 0 ? 'croissante' : 'décroissante'} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
-         ${a > 0 ? 'le même ordre' : 'l\'ordre inverse'}.
+         ${a > 0 ? 'le même ordre' : "l'ordre inverse"}.
          <br>
          Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? '$f(x_1) < f(x_2)$' : '$f(x_1) > f(x_2)$'}. <br>
           Par conséquent, comme $${x1}<${x2}$, alors ${a > 0 ? `${texteEnCouleurEtGras(`$f(${x1}) < f(${x2})$`)}.` : `${texteEnCouleurEtGras(`$f(${x1}) > f(${x2})$`)}.`}`
                 }
-                if (choixIntervalle === 2) { // corr dans le cas ou x1 et x2 sont dans l'intervalle 2
+                if (choixIntervalle === 2) {
+                  // corr dans le cas ou x1 et x2 sont dans l'intervalle 2
                   texteCorr = `D'après le tableau de variations, la fonction $f$ est ${a > 0 ? 'décroissante' : 'croissante'}  sur $[${borneInf}\\,;\\,${rac1}]$. <br>
                     De plus,<br>
                     $\\bullet$ $${x1}\\in [${rac1}\\,;\\,${rac2}]$,<br>
                     $\\bullet$ $${x2}\\in [${rac1}\\,;\\,${rac2}]$, <br>
                       $\\bullet$ $${x1}<${x2}$.<br>
                    On sait que si une fonction est strictement ${a > 0 ? 'décroissante' : 'croissante'} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
-                   ${a > 0 ? 'l\'ordre inverse' : 'le même ordre'}.
+                   ${a > 0 ? "l'ordre inverse" : 'le même ordre'}.
                    <br>
                    Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? '$f(x_1) > f(x_2)$' : '$f(x_1) < f(x_2)$'}. <br>
                     Par conséquent, comme $${x1}<${x2}$, alors ${a > 0 ? `${texteEnCouleurEtGras(`$f(${x1}) > f(${x2})$`)}.` : `${texteEnCouleurEtGras(`$f(${x1}) < f(${x2})$`)}.`}`
@@ -181,19 +249,18 @@ export default class ComparerImagesTableau extends Exercice {
                     enonce: texte,
                     propositions: [
                       {
-
                         texte: `${a > 0 ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`,
-                        statut: true
+                        statut: true,
                       },
                       {
                         texte: `${a > 0 ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`,
-                        statut: false
+                        statut: false,
                       },
                       {
                         texte: 'On ne peut pas savoir',
-                        statut: false
-                      }
-                    ]
+                        statut: false,
+                      },
+                    ],
                   }
                 }
                 if (choixIntervalle === 2) {
@@ -201,19 +268,18 @@ export default class ComparerImagesTableau extends Exercice {
                     enonce: texte,
                     propositions: [
                       {
-
                         texte: `${a > 0 ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`,
-                        statut: true
+                        statut: true,
                       },
                       {
                         texte: `${a > 0 ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`,
-                        statut: false
+                        statut: false,
                       },
                       {
                         texte: 'On ne peut pas savoir',
-                        statut: false
-                      }
-                    ]
+                        statut: false,
+                      },
+                    ],
                   }
                 }
 
@@ -224,9 +290,9 @@ export default class ComparerImagesTableau extends Exercice {
           }
           break
 
-        case 2:// On peut comparer par encadrement
+        case 2: // On peut comparer par encadrement
           switch (randint(0, 1)) {
-            case 0:// parabole x1 dans le premier intervalle et x2 = borne sup
+            case 0: // parabole x1 dans le premier intervalle et x2 = borne sup
               {
                 const borneInf = alpha - randint(3, 12)
                 const borneSup = alpha + randint(3, 12)
@@ -242,38 +308,62 @@ export default class ComparerImagesTableau extends Exercice {
                 const ImAlpha = randint(-5, 5)
                 const ImBorneInf = a > 0 ? ImAlpha + k : ImAlpha - k
                 const ImBorneSup = a > 0 ? ImBorneInf + k : ImBorneInf - k
-                substituts = [{ antVal: borneInf, antTex: `$${texNombre(borneInf, 0)}$`, imgTex: `$${texNombre(ImBorneInf, 0)}$` },
-                  { antVal: p.alpha.valeurDecimale, antTex: p.alpha.simplifie().texFSD, imgVal: p.beta.valeurDecimale, imgTex: `$${texNombre(ImAlpha, 0)}$` },
-                  { antVal: borneSup, antTex: `$${texNombre(borneSup, 0)}$`, imgTex: `${texNombre(ImBorneSup, 0)}` }
+                substituts = [
+                  {
+                    antVal: borneInf,
+                    antTex: `$${texNombre(borneInf, 0)}$`,
+                    imgTex: `$${texNombre(ImBorneInf, 0)}$`,
+                  },
+                  {
+                    antVal: p.alpha.valeurDecimale,
+                    antTex: p.alpha.simplifie().texFSD,
+                    imgVal: p.beta.valeurDecimale,
+                    imgTex: `$${texNombre(ImAlpha, 0)}$`,
+                  },
+                  {
+                    antVal: borneSup,
+                    antTex: `$${texNombre(borneSup, 0)}$`,
+                    imgTex: `${texNombre(ImBorneSup, 0)}`,
+                  },
                 ]
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction1 as (x: number | FractionEtendue)=>number, derivee1 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(
+                  fonction1 as (x: number | FractionEtendue) => number,
+                  derivee1 as (x: number | FractionEtendue) => number,
+                  xMin,
+                  xMax,
+                  { ligneDerivee: false, substituts, step: 0.5, tolerance },
+                )
                 texteCorr = `Comme $${x1}$ et $${x2}$ n'appartiennent pas à un intervalle sur lequel $f$ est monotone, on ne peut pas utiliser le sens de variations de $f$ pour comparer $f(${x1})$ et $f(${x2})$.<br>
-                Mais, d'après le tableau de variations, $f(${x2})=${ImBorneSup}$ et comme $${x1}\\in [${borneInf}\\,;\\,${alpha}]$, ${a > 0
-? ` alors $${ImAlpha}< f(${x1}) < ${ImBorneInf}$.`
-                  : ` alors $${ImBorneInf} < f(${x1}) < ${ImAlpha}$.`}
+                Mais, d'après le tableau de variations, $f(${x2})=${ImBorneSup}$ et comme $${x1}\\in [${borneInf}\\,;\\,${alpha}]$, ${
+                  a > 0
+                    ? ` alors $${ImAlpha}< f(${x1}) < ${ImBorneInf}$.`
+                    : ` alors $${ImBorneInf} < f(${x1}) < ${ImAlpha}$.`
+                }
                                 <br>
                 On en déduit que ${a > 0 ? `${texteEnCouleurEtGras(`$f(${x1}) < f(${x2})$`)}.` : `${texteEnCouleurEtGras(`$f(${x1}) > f(${x2})$`)}.`}<br>
-                En effet, ${a > 0
-? `$f(${x1})$ est un nombre compris entre $${ImAlpha}$ et $${ImBorneInf}$, il sera donc inférieur à  $f(${x2})=${ImBorneSup}$`
-                   : `$f(${x1})$ est un nombre compris entre $${ImBorneInf}$ et $${ImAlpha}$, il sera donc supérieur à  $f(${x2})=${ImBorneSup}$`}.
+                En effet, ${
+                  a > 0
+                    ? `$f(${x1})$ est un nombre compris entre $${ImAlpha}$ et $${ImBorneInf}$, il sera donc inférieur à  $f(${x2})=${ImBorneSup}$`
+                    : `$f(${x1})$ est un nombre compris entre $${ImBorneInf}$ et $${ImAlpha}$, il sera donc supérieur à  $f(${x2})=${ImBorneSup}$`
+                }.
         `
                 this.autoCorrection[i] = {
                   enonce: texte,
                   propositions: [
                     {
                       texte: `${a > 0 ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `${a > 0 ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'On ne peut pas savoir',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 props = propositionsQcm(this, i)
                 if (this.interactif) texte += props.texte
@@ -292,38 +382,65 @@ export default class ComparerImagesTableau extends Exercice {
                 tolerance = 0.005
                 xMin = borneInf
                 xMax = borneSup
-                substituts = [{ antVal: borneInf, antTex: `${texNombre(borneInf, 0)}`, imgVal: fonction2(borneInf), imgTex: `$${texNombre(ImBorneInf, 0)}$` },
-                  { antVal: Math.min(rac1, rac2), antTex: `${texNombre(Math.min(rac1, rac2), 0)}`, imgTex: `$${texNombre(Imx1, 0)}$` },
-                  { antVal: Math.max(rac1, rac2), antTex: `${texNombre(Math.max(rac1, rac2), 0)}`, imgTex: `$${texNombre(Imx2, 0)}$` },
-                  { antVal: borneSup, antTex: `${texNombre(borneSup, 0)}`, imgTex: `$${texNombre(ImBorneSup, 0)}$` }]
+                substituts = [
+                  {
+                    antVal: borneInf,
+                    antTex: `${texNombre(borneInf, 0)}`,
+                    imgVal: fonction2(borneInf),
+                    imgTex: `$${texNombre(ImBorneInf, 0)}$`,
+                  },
+                  {
+                    antVal: Math.min(rac1, rac2),
+                    antTex: `${texNombre(Math.min(rac1, rac2), 0)}`,
+                    imgTex: `$${texNombre(Imx1, 0)}$`,
+                  },
+                  {
+                    antVal: Math.max(rac1, rac2),
+                    antTex: `${texNombre(Math.max(rac1, rac2), 0)}`,
+                    imgTex: `$${texNombre(Imx2, 0)}$`,
+                  },
+                  {
+                    antVal: borneSup,
+                    antTex: `${texNombre(borneSup, 0)}`,
+                    imgTex: `$${texNombre(ImBorneSup, 0)}$`,
+                  },
+                ]
 
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction2 as (x: number | FractionEtendue)=>number, derivee2 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(
+                  fonction2 as (x: number | FractionEtendue) => number,
+                  derivee2 as (x: number | FractionEtendue) => number,
+                  xMin,
+                  xMax,
+                  { ligneDerivee: false, substituts, step: 0.5, tolerance },
+                )
                 texteCorr = `Comme $${x1}$ et $${x2}$ n'appartiennent pas à un intervalle sur lequel $f$ est monotone, on ne peut pas utiliser le sens de variations de $f$ pour comparer $f(${x1})$ et $f(${x2})$.<br>
                 Mais, d'après le tableau de variations :<br>
                 $\\bullet$ Comme $${x1}\\in [${borneInf}\\,;\\,${Math.min(rac1, rac2)}]$, alors ${a > 0 ? `$${ImBorneInf} < f(${x1}) < ${Imx1}$` : `$${Imx1} < f(${x1}) < ${ImBorneInf}$`}. <br>
                 $\\bullet$ Comme $${x2}\\in [${Math.max(rac1, rac2)}\\,;\\,${borneSup}]$, alors ${a > 0 ? `$${Imx2} < f(${x2}) < ${ImBorneSup}$` : `$${ImBorneSup} < f(${x2}) < ${Imx2}$`}. <br>
                 On en déduit que ${a > 0 ? `${texteEnCouleurEtGras(`$f(${x1}) > f(${x2})$`)}.` : `${texteEnCouleurEtGras(`$f(${x1}) < f(${x2})$`)}.`}<br>
-                En effet, ${a > 0
-? `$f(${x1})$ est un nombre compris entre  $${ImBorneInf}$ et $${Imx1}$, il sera donc supérieur à  $f(${x2})$ qui est un nombre compris entre $${Imx2}$ et $${ImBorneSup}$.`
-                   : `$f(${x1})$ est un nombre compris entre $${Imx1}$ et  $${ImBorneInf}$, il sera donc inférieur à  $f(${x2})$ qui est un nombre compris entre $${ImBorneSup}$ et  $${Imx2}$. `}
+                En effet, ${
+                  a > 0
+                    ? `$f(${x1})$ est un nombre compris entre  $${ImBorneInf}$ et $${Imx1}$, il sera donc supérieur à  $f(${x2})$ qui est un nombre compris entre $${Imx2}$ et $${ImBorneSup}$.`
+                    : `$f(${x1})$ est un nombre compris entre $${Imx1}$ et  $${ImBorneInf}$, il sera donc inférieur à  $f(${x2})$ qui est un nombre compris entre $${ImBorneSup}$ et  $${Imx2}$. `
+                }
         `
                 this.autoCorrection[i] = {
                   enonce: texte,
                   propositions: [
                     {
                       texte: `${a > 0 ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `${a > 0 ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'On ne peut pas savoir',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 props = propositionsQcm(this, i)
                 if (this.interactif) texte += props.texte
@@ -332,9 +449,9 @@ export default class ComparerImagesTableau extends Exercice {
           }
           break
 
-        case 3:// on ne peut pas comparer
+        case 3: // on ne peut pas comparer
           switch (randint(0, 1)) {
-            case 0:// parabole x1 dans le premier intervalle et x2 = borne sup
+            case 0: // parabole x1 dans le premier intervalle et x2 = borne sup
               {
                 const borneInf = alpha - randint(3, 12)
                 const borneSup = alpha + randint(3, 12)
@@ -349,41 +466,68 @@ export default class ComparerImagesTableau extends Exercice {
                 const k = randint(3, 10)
                 const ImAlpha = randint(-5, 5)
                 const ImBorneInf = a > 0 ? ImAlpha + k : ImAlpha - k
-                const ImBorneSup = a > 0 ? ImAlpha + k - randint(1, 2) : ImAlpha - k + randint(1, 2)
-                substituts = [{ antVal: borneInf, antTex: `$${texNombre(borneInf, 0)}$`, imgTex: `$${texNombre(ImBorneInf, 0)}$` },
-                  { antVal: p.alpha.valeurDecimale, antTex: p.alpha.simplifie().texFSD, imgVal: p.beta.valeurDecimale, imgTex: `$${texNombre(ImAlpha, 0)}$` },
-                  { antVal: borneSup, antTex: `$${texNombre(borneSup, 0)}$`, imgTex: `${texNombre(ImBorneSup, 0)}` }
+                const ImBorneSup =
+                  a > 0
+                    ? ImAlpha + k - randint(1, 2)
+                    : ImAlpha - k + randint(1, 2)
+                substituts = [
+                  {
+                    antVal: borneInf,
+                    antTex: `$${texNombre(borneInf, 0)}$`,
+                    imgTex: `$${texNombre(ImBorneInf, 0)}$`,
+                  },
+                  {
+                    antVal: p.alpha.valeurDecimale,
+                    antTex: p.alpha.simplifie().texFSD,
+                    imgVal: p.beta.valeurDecimale,
+                    imgTex: `$${texNombre(ImAlpha, 0)}$`,
+                  },
+                  {
+                    antVal: borneSup,
+                    antTex: `$${texNombre(borneSup, 0)}$`,
+                    imgTex: `${texNombre(ImBorneSup, 0)}`,
+                  },
                 ]
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction1 as (x: number | FractionEtendue)=>number, derivee1 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(
+                  fonction1 as (x: number | FractionEtendue) => number,
+                  derivee1 as (x: number | FractionEtendue) => number,
+                  xMin,
+                  xMax,
+                  { ligneDerivee: false, substituts, step: 0.5, tolerance },
+                )
                 texteCorr = `Comme $${x1}$ et $${x2}$ n'appartiennent pas à un intervalle sur lequel $f$ est monotone, on ne peut pas utiliser le sens de variations de $f$ pour comparer $f(${x1})$ et $f(${x2})$.<br>
               D'après le tableau de variations :<br>
-              $\\bullet$ Comme $${x1}\\in [${borneInf}\\,;\\,${alpha}]$, ${a > 0
-? ` alors $${ImAlpha}< f(${x1}) < ${ImBorneInf}$.`
-                : ` alors $${ImBorneInf} < f(${x1}) < ${ImAlpha}$.`}
+              $\\bullet$ Comme $${x1}\\in [${borneInf}\\,;\\,${alpha}]$, ${
+                a > 0
+                  ? ` alors $${ImAlpha}< f(${x1}) < ${ImBorneInf}$.`
+                  : ` alors $${ImBorneInf} < f(${x1}) < ${ImAlpha}$.`
+              }
                               <br>
                               $\\bullet$ $f(${x2})=${ImBorneSup}$.
                               <br>
                                          Ainsi, ${texteEnCouleurEtGras('on ne peut pas comparer')} $f(${x1})$ et  $f(${x2})$.  <br>
-             En effet $f(${x1})$ et $f(${x2})$ appartiennent tous les deux à l'intervalle ${a > 0
-              ? `$]${ImAlpha}\\,;\\, ${ImBorneInf}[$.`
-                              : `$]${ImBorneInf}\\,;\\, ${ImAlpha}[$.`} `
+             En effet $f(${x1})$ et $f(${x2})$ appartiennent tous les deux à l'intervalle ${
+               a > 0
+                 ? `$]${ImAlpha}\\,;\\, ${ImBorneInf}[$.`
+                 : `$]${ImBorneInf}\\,;\\, ${ImAlpha}[$.`
+             } `
                 this.autoCorrection[i] = {
                   enonce: texte,
                   propositions: [
                     {
                       texte: `${a > 0 ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `${a > 0 ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'On ne peut pas savoir',
-                      statut: true
-                    }
-                  ]
+                      statut: true,
+                    },
+                  ],
                 }
                 props = propositionsQcm(this, i)
                 if (this.interactif) texte += props.texte
@@ -402,13 +546,38 @@ export default class ComparerImagesTableau extends Exercice {
                 tolerance = 0.005
                 xMin = borneInf
                 xMax = borneSup
-                substituts = [{ antVal: borneInf, antTex: `${texNombre(borneInf, 0)}`, imgVal: fonction2(borneInf), imgTex: `$${texNombre(ImBorneInf, 0)}$` },
-                  { antVal: Math.min(rac1, rac2), antTex: `${texNombre(Math.min(rac1, rac2), 0)}`, imgTex: `$${texNombre(Imx1, 0)}$` },
-                  { antVal: Math.max(rac1, rac2), antTex: `${texNombre(Math.max(rac1, rac2), 0)}`, imgTex: `$${texNombre(Imx2, 0)}$` },
-                  { antVal: borneSup, antTex: `${texNombre(borneSup, 0)}`, imgTex: `$${texNombre(ImBorneSup, 0)}$` }]
+                substituts = [
+                  {
+                    antVal: borneInf,
+                    antTex: `${texNombre(borneInf, 0)}`,
+                    imgVal: fonction2(borneInf),
+                    imgTex: `$${texNombre(ImBorneInf, 0)}$`,
+                  },
+                  {
+                    antVal: Math.min(rac1, rac2),
+                    antTex: `${texNombre(Math.min(rac1, rac2), 0)}`,
+                    imgTex: `$${texNombre(Imx1, 0)}$`,
+                  },
+                  {
+                    antVal: Math.max(rac1, rac2),
+                    antTex: `${texNombre(Math.max(rac1, rac2), 0)}`,
+                    imgTex: `$${texNombre(Imx2, 0)}$`,
+                  },
+                  {
+                    antVal: borneSup,
+                    antTex: `${texNombre(borneSup, 0)}`,
+                    imgTex: `$${texNombre(ImBorneSup, 0)}$`,
+                  },
+                ]
 
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction2 as (x: number | FractionEtendue)=>number, derivee2 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(
+                  fonction2 as (x: number | FractionEtendue) => number,
+                  derivee2 as (x: number | FractionEtendue) => number,
+                  xMin,
+                  xMax,
+                  { ligneDerivee: false, substituts, step: 0.5, tolerance },
+                )
                 texteCorr = `Comme $${x1}$ et $${x2}$ n'appartiennent pas à un intervalle sur lequel $f$ est monotone, on ne peut pas utiliser le sens de variations de $f$ pour comparer $f(${x1})$ et $f(${x2})$.<br>
                 Mais, d'après le tableau de variations : <br>
                 $\\bullet$ Comme $${x1}\\in [${borneInf}\\,;\\,${Math.min(rac1, rac2)}]$, alors ${a > 0 ? `$${ImBorneInf} < f(${x1}) < ${Imx1}$` : `$${Imx1} < f(${x1}) < ${ImBorneInf}$`}. <br>
@@ -421,17 +590,17 @@ export default class ComparerImagesTableau extends Exercice {
                   propositions: [
                     {
                       texte: `${a > 0 ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `${a > 0 ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'On ne peut pas savoir',
-                      statut: true
-                    }
-                  ]
+                      statut: true,
+                    },
+                  ],
                 }
                 props = propositionsQcm(this, i)
                 if (this.interactif) texte += props.texte

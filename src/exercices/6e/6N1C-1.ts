@@ -1,20 +1,18 @@
 import { droiteGraduee } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'
-import {
-  handleAnswers
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/outils/embellissements'
-import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieEntiere,
+} from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -36,15 +34,15 @@ export const uuid = 'acd4a'
 export const refs = {
   'fr-fr': ['6N1C-1'],
   'fr-2016': ['6N11'],
-  'fr-ch': ['9NO2-1']
+  'fr-ch': ['9NO2-1'],
 }
 export default class LireAbscisseEntiere2d extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      '1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange'
+      '1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange',
     ]
     this.nbQuestions = 3
 
@@ -52,9 +50,11 @@ export default class LireAbscisseEntiere2d extends Exercice {
     this.interactif = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = "Lire l'abscisse de chacun des points suivants."
-    if (this.interactif) { this.consigne += texteGras(' Penser à mettre les espaces nécessaires.') }
+    if (this.interactif) {
+      this.consigne += texteGras(' Penser à mettre les espaces nécessaires.')
+    }
     let typesDeQuestions
 
     if (this.sup === 4) {
@@ -80,16 +80,17 @@ export default class LireAbscisseEntiere2d extends Exercice {
         texteCorr = '',
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
       this.autoCorrection[3 * i] = {
-        propositions: [{ texte: '', statut: 4, feedback: '' }]
+        propositions: [{ texte: '', statut: 4, feedback: '' }],
       }
       this.autoCorrection[3 * i + 1] = {
-        propositions: [{ texte: '', statut: 4, feedback: '' }]
+        propositions: [{ texte: '', statut: 4, feedback: '' }],
       }
       this.autoCorrection[3 * i + 2] = {
-        propositions: [{ texte: '', statut: 4, feedback: '' }]
+        propositions: [{ texte: '', statut: 4, feedback: '' }],
       }
       l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
       l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
@@ -129,13 +130,13 @@ export default class LireAbscisseEntiere2d extends Exercice {
         step1: 10,
         labelListe: [
           [0, `${texNombre(abs0, 0)}`],
-          [1, `${texNombre(abs0 + 1 / pas1, 0)}`]
+          [1, `${texNombre(abs0 + 1 / pas1, 0)}`],
         ],
         pointListe: [
           [x1, l1],
           [x2, l2],
-          [x3, l3]
-        ]
+          [x3, l3],
+        ],
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -151,46 +152,50 @@ export default class LireAbscisseEntiere2d extends Exercice {
         labelListe: [
           [x1, `\\boldsymbol{${texNombre(reponse1, 0)}}`],
           [x2, `\\boldsymbol{${texNombre(reponse2, 0)}}`],
-          [x3, `\\boldsymbol{${texNombre(reponse3, 0)}}`]
+          [x3, `\\boldsymbol{${texNombre(reponse3, 0)}}`],
         ],
         pointListe: [
           [x1, l1],
           [x2, l2],
-          [x3, l3]
+          [x3, l3],
         ],
-        labelCustomDistance: 1.5
+        labelCustomDistance: 1.5,
       })
-      const label1 = latex2d(`${texNombre(abs0, 0)}`, 0, -0.7, { letterSize: 'scriptsize' })
-      const label2 = latex2d(`${texNombre(abs0 + 1 / pas1, 0)}`, 4, -0.7, { letterSize: 'scriptsize' })
+      const label1 = latex2d(`${texNombre(abs0, 0)}`, 0, -0.7, {
+        letterSize: 'scriptsize',
+      })
+      const label2 = latex2d(`${texNombre(abs0 + 1 / pas1, 0)}`, 4, -0.7, {
+        letterSize: 'scriptsize',
+      })
       texte = mathalea2d(
         { xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 },
-        d[2 * i]
+        d[2 * i],
       )
       texteCorr = mathalea2d(
         { xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 },
         d[2 * i + 1],
         label1,
-        label2
+        label2,
       )
 
       if (this.interactif && context.isHtml) {
         handleAnswers(this, 3 * i, {
           reponse: {
             value: texNombre(reponse1, 0),
-            options: { nombreAvecEspace: true }
-          }
+            options: { nombreAvecEspace: true },
+          },
         })
         handleAnswers(this, 3 * i + 1, {
           reponse: {
             value: texNombre(reponse2, 0),
-            options: { nombreAvecEspace: true }
-          }
+            options: { nombreAvecEspace: true },
+          },
         })
         handleAnswers(this, 3 * i + 2, {
           reponse: {
             value: texNombre(reponse3, 0),
-            options: { nombreAvecEspace: true }
-          }
+            options: { nombreAvecEspace: true },
+          },
         })
         texte += `<br>${ajouteChampTexteMathLive(this, 3 * i, KeyboardType.numbersSpace, { texteAvant: `${l1}(`, texteApres: ')' })}`
         texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.numbersSpace, { texteAvant: `${l2}(`, texteApres: ')' })}`
@@ -202,22 +207,22 @@ export default class LireAbscisseEntiere2d extends Exercice {
           propositions: [
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: `Lire l'abscisse de chacun des points.<br>${texte}<br>Abscisse de $${l1}$ :`,
-                  valeur: reponse1,
-                  param:
-                  {
-                    digits: nombreDeChiffresDansLaPartieEntiere(reponse1),
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }
-              ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `Lire l'abscisse de chacun des points.<br>${texte}<br>Abscisse de $${l1}$ :`,
+                    valeur: reponse1,
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse1),
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
@@ -232,31 +237,32 @@ export default class LireAbscisseEntiere2d extends Exercice {
                       digits: nombreDeChiffresDansLaPartieEntiere(reponse2),
                       decimals: 0,
                       signe: false,
-                      approx: 0
-                    }
-                  }
-                }
-              ]
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: `Abscisse de $${l3}$ :`,
-                  valeur: reponse3,
-                  param: {
-                    digits: nombreDeChiffresDansLaPartieEntiere(reponse3),
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }
-              ]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `Abscisse de $${l3}$ :`,
+                    valeur: reponse3,
+                    param: {
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse3),
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
 

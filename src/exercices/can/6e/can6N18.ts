@@ -23,19 +23,21 @@ export const uuid = 'b9582'
 
 export const refs = {
   'fr-fr': ['can6N18', '6N1A-flash6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EncadrerDizaine extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let question1, correction1, N
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2])) { // 1,1,2,3,4,5,6,7,8
-        case 1 :
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2]) // 1,1,2,3,4,5,6,7,8
+      ) {
+        case 1:
           {
             const um = randint(0, 1) * 1000
             const c = randint(0, 9) * 100
@@ -46,22 +48,31 @@ export default class EncadrerDizaine extends Exercice {
             question1 = `Encadrer $${texNombre(N)}$ entre deux dizaines consécutives.`
 
             if (this.interactif) {
-              question1 += '<br>' + remplisLesBlancs(this, i, `%{champ1}< ${texNombre(N)} <  %{champ2}`, KeyboardType.clavierDeBase)
+              question1 +=
+                '<br>' +
+                remplisLesBlancs(
+                  this,
+                  i,
+                  `%{champ1}< ${texNombre(N)} <  %{champ2}`,
+                  KeyboardType.clavierDeBase,
+                )
             }
 
             correction1 = `$${miseEnEvidence(`${texNombre(um + c + d)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + d + 10)}`)}$ `
             handleAnswers(this, i, {
-              bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+              bareme: (listePoints) => [
+                Math.min(listePoints[0], listePoints[1]),
+                1,
+              ],
               champ1: { value: `${um + c + d}` },
-              champ2: { value: `${um + c + d + 10}` }
-            }
-            )
+              champ2: { value: `${um + c + d + 10}` },
+            })
             this.canEnonce = question1
             this.canReponseACompleter = `$\\ldots < ${texNombre(N)}< \\ldots$`
           }
           break
 
-        case 2 :
+        case 2:
         default:
           {
             const um = randint(0, 9) * 1000
@@ -73,14 +84,23 @@ export default class EncadrerDizaine extends Exercice {
             question1 = `Encadrer $${texNombre(N)}$ entre deux centaines consécutives.`
 
             if (this.interactif) {
-              question1 += '<br>' + remplisLesBlancs(this, i, `%{champ1}< ${texNombre(N)} <  %{champ2}`, KeyboardType.clavierDeBase)
+              question1 +=
+                '<br>' +
+                remplisLesBlancs(
+                  this,
+                  i,
+                  `%{champ1}< ${texNombre(N)} <  %{champ2}`,
+                  KeyboardType.clavierDeBase,
+                )
             }
             handleAnswers(this, i, {
-              bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+              bareme: (listePoints) => [
+                Math.min(listePoints[0], listePoints[1]),
+                1,
+              ],
               champ1: { value: `${um + c}` },
-              champ2: { value: `${um + c + 100}` }
-            }
-            )
+              champ2: { value: `${um + c + 100}` },
+            })
             correction1 = `$${miseEnEvidence(`${texNombre(um + c)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + 100)}`)}$ `
             this.canEnonce = question1
             this.canReponseACompleter = `$\\ldots < ${texNombre(N)}< \\ldots$`

@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 export const uuid = '663ca'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -20,23 +20,27 @@ export const refs = {
 
 */
 export default class simplifierFractionSimple extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const n = choice([2025, -2025])
     const d = choice([-1, 2025, -2025])
     const signe = n * d < 0 ? '-' : ''
     this.reponse = new FractionEtendue(n, d).texFractionSimplifiee
     this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n)}}{${texNombre(d)}}$.`
     this.correction = `$\\dfrac{${texNombre(n)}}{${texNombre(d)}}=`
-    this.correction += !(signe === '' && n > 0) ? `${signe}\\dfrac{${texNombre(abs(n))}}{${texNombre(abs(d))}}=` : ''
+    this.correction += !(signe === '' && n > 0)
+      ? `${signe}\\dfrac{${texNombre(abs(n))}}{${texNombre(abs(d))}}=`
+      : ''
     this.correction += `${miseEnEvidence(this.reponse)}$`
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

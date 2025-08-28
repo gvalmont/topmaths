@@ -5,7 +5,7 @@ import { loadScratchblocks } from './loaders'
  * retourne une promesse rejetée en cas de pb de chargement (à gérer par l'appelant)
  * @return {Promise}
  */
-export async function scratchTraductionFr () {
+export async function scratchTraductionFr() {
   await loadScratchblocks()
   window.scratchblocks.loadLanguages({
     fr: {
@@ -34,7 +34,8 @@ export async function scratchTraductionFr () {
         'next costume': 'costume suivant',
         'next backdrop': 'arrière-plan suivant',
         'switch backdrop to %1': "basculer sur l'arrière-plan %1",
-        'switch backdrop to %1 and wait': "basculer sur l'arrière-plan %1 et attendre",
+        'switch backdrop to %1 and wait':
+          "basculer sur l'arrière-plan %1 et attendre",
         'change %1 effect by %2': "ajouter %2 à l'effet %1",
         'set %1 effect to %2': "mettre l'effet %1 à %2",
         'clear graphic effects': 'annuler les effets graphiques',
@@ -99,7 +100,8 @@ export async function scratchTraductionFr () {
         'delete all of %1': 'supprimer tous les éléments de la liste %1',
         'if on edge, bounce': 'rebondir si le bord est atteint',
         'insert %1 at %2 of %3': 'insérer %1 en position %2 de %3',
-        'replace item %1 of %2 with %3': "remplacer l'élément %1 de la liste %2 par %3",
+        'replace item %1 of %2 with %3':
+          "remplacer l'élément %1 de la liste %2 par %3",
         'show list %1': 'montrer la liste %1',
         'hide list %1': 'cacher la liste %1',
         'x position': 'abscisse x',
@@ -162,20 +164,13 @@ export async function scratchTraductionFr () {
         'tilt angle %1': "angle d'inclinaison %1",
         else: 'sinon',
         'user id': "id de l'utilisateur",
-        'loud?': 'fort ?'
+        'loud?': 'fort ?',
       },
       dropdowns: {},
       ignorelt: [],
-      soundEffects: [
-        'hauteur',
-        'stéréo gauche/droite'
-      ],
-      osis: [
-        'autres scripts dans sprite'
-      ],
-      definePrefix: [
-        'définir'
-      ],
+      soundEffects: ['hauteur', 'stéréo gauche/droite'],
+      osis: ['autres scripts dans sprite'],
+      definePrefix: ['définir'],
       defineSuffix: [],
       palette: {
         Motion: 'Mouvement',
@@ -186,7 +181,7 @@ export async function scratchTraductionFr () {
         Sensing: 'Capteurs',
         Operators: 'Opérateurs',
         Variables: 'Variables',
-        'My Blocks': 'Mes Blocs'
+        'My Blocks': 'Mes Blocs',
       },
       math: [
         'abs',
@@ -202,16 +197,16 @@ export async function scratchTraductionFr () {
         'ln',
         'log',
         'e^',
-        '10^'
+        '10^',
       ],
       aliases: {
         'tourner gauche de %1 degrés': 'turn @turnLeft %1 degrees',
         'tourner droite de %1 degrés': 'turn @turnRight %1 degrees',
         'quand le drapeau vert pressé': 'when @greenFlag clicked',
-        fin: 'end'
+        fin: 'end',
       },
       name: 'Français',
-      percentTranslated: 100
-    }
+      percentTranslated: 100,
+    },
   })
 }

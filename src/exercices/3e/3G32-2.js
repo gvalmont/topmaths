@@ -13,10 +13,10 @@ export const uuid = '5986b'
 
 export const refs = {
   'fr-fr': ['3G32-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculHauteurObjet extends problemesTrigoLongueur {
-  constructor () {
+  constructor() {
     super()
     this.sup2 = 3
     this.besoinFormulaireCaseACocher = false

@@ -3,7 +3,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-export const titre = 'Déterminer la parité d\'une expression'
+export const titre = "Déterminer la parité d'une expression"
 
 /**
  * 2N21
@@ -13,10 +13,10 @@ export const uuid = '3ec5c'
 
 export const refs = {
   'fr-fr': ['2N20-8'],
-  'fr-ch': ['11FA4-2']
+  'fr-ch': ['11FA4-2'],
 }
 export default class Parite extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Soit $n$ un entier naturel.'
@@ -25,10 +25,14 @@ export default class Parite extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    const typesDeQuestionsDisponibles = [1, 2, 3]
+    let typesDeQuestions
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let a = 0
       let b = 0
       let texte = ''
@@ -39,7 +43,6 @@ export default class Parite extends Exercice {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
-
           a = randint(2, 6)
           b = randint(2, 11, [4, 8, 9])
 
@@ -161,7 +164,8 @@ export default class Parite extends Exercice {
           }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

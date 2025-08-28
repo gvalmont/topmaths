@@ -14,7 +14,7 @@ export const uuid = '8d837'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 10
       this.question = '$4\\times 2,5$ '
@@ -33,7 +33,16 @@ export default class NomExercice extends ExerciceSimple {
       this.canEnonce = '$4\\times 2,5$'
       this.canReponseACompleter = ''
     } else {
-      const couple = choice([[4, 25], [2, 15], [4, 15], [2, 55], [2, 65], [4, 5], [4, 35], [2, 75]])
+      const couple = choice([
+        [4, 25],
+        [2, 15],
+        [4, 15],
+        [2, 55],
+        [2, 65],
+        [4, 5],
+        [4, 35],
+        [2, 75],
+      ])
       const a = couple[0]
       const b = couple[1] / 10
       this.reponse = new Decimal(a).mul(b)

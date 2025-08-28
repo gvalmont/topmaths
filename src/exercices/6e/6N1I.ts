@@ -36,10 +36,10 @@ export const uuid = 'be1e4'
 export const refs = {
   'fr-fr': ['BP2AutoG4', '6N1I'],
   'fr-2016': ['6N31', 'BP2AutoG4'],
-  'fr-ch': ['9NO7-4']
+  'fr-ch': ['9NO7-4'],
 }
 export default class ComparerDecimaux extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Compléter avec le signe < , > ou =.'
     this.nbQuestions = 8
@@ -47,20 +47,11 @@ export default class ComparerDecimaux extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [
-      choice([1, 4, 5]),
-      2,
-      2,
-      3,
-      6,
-      7,
-      8,
-      9
-    ] // une seule question du type inversion de chiffres (1,4,5)
+  nouvelleVersion() {
+    const typesDeQuestionsDisponibles = [choice([1, 4, 5]), 2, 2, 3, 6, 7, 8, 9] // une seule question du type inversion de chiffres (1,4,5)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (
@@ -131,7 +122,7 @@ export default class ComparerDecimaux extends Exercice {
           x = a + b / 100
           y = a + c / 1000
           if (randint(1, 2) === 1) {
-            [x, y] = [y, x]
+            ;[x, y] = [y, x]
           }
           break
         case 9: // a+1,bb  a,cccc avec cccc>bb
@@ -142,7 +133,7 @@ export default class ComparerDecimaux extends Exercice {
           x = a + 1 + b / 100
           y = a + c / 10000
           if (randint(1, 2) === 1) {
-            [x, y] = [y, x]
+            ;[x, y] = [y, x]
           }
           break
       }
@@ -196,7 +187,9 @@ export default class ComparerDecimaux extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
-          propositions: [{ texte: texteCorr, statut: 3, feedback: '', sanscadre: true }]
+          propositions: [
+            { texte: texteCorr, statut: 3, feedback: '', sanscadre: true },
+          ],
         }
       } else if (this.interactif) {
         this.autoCorrection[i] = {
@@ -213,11 +206,11 @@ export default class ComparerDecimaux extends Exercice {
             {
               texte: prop3,
               statut: signe === '=',
-            }
+            },
           ],
           options: {
-            ordered: true
-          }
+            ordered: true,
+          },
         }
         const monQcm = propositionsQcm(this, i)
         texte += monQcm.texte

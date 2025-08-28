@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f776b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q19 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     if (a == null || b == null || c == null) {
       a = randint(2, 8)
       b = randint(3, 9, a)
@@ -28,9 +28,9 @@ export default class Can2025N4Q19 extends ExerciceCan {
       items: [
         'Choisir un nombre ;',
         `Multiplier par $${a}$ ;`,
-        `Ajouter $${b}$.<br><br>`
+        `Ajouter $${b}$.<br><br>`,
       ],
-      style: 'fleches'
+      style: 'fleches',
     })
     this.question += `${liste}Quel nombre obtient-on si le nombre choisi est $${c}$ ?`
     this.correction = `
@@ -44,7 +44,7 @@ export default class Can2025N4Q19 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(3, 5, -4) : this.enonce()
   }
 }

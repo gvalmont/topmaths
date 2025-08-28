@@ -10,7 +10,7 @@ import { ppcm } from '../../lib/outils/primalite'
 export const uuid = '2ab24'
 export const refs = {
   'fr-fr': ['1A-C19-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -36,8 +36,14 @@ export default class Auto1C19b extends ExerciceQcmA {
     const reponse = totalRembourse.entierMoinsFraction(1) // 1 - 5/12 = 7/12
     // Mise au même dénominateur avec le ppcm
     const denomCommun = ppcm(frac1.den, fracFevrier.den)
-    const frac1Equiv = new FractionEtendue(frac1.num * (denomCommun / frac1.den), denomCommun)
-    const fracFevrierEquiv = new FractionEtendue(fracFevrier.num * (denomCommun / fracFevrier.den), denomCommun)
+    const frac1Equiv = new FractionEtendue(
+      frac1.num * (denomCommun / frac1.den),
+      denomCommun,
+    )
+    const fracFevrierEquiv = new FractionEtendue(
+      fracFevrier.num * (denomCommun / fracFevrier.den),
+      denomCommun,
+    )
 
     this.enonce = `Une personne doit rembourser un crédit de $${texNombre(credit, 0)}$ en trois mois.<br>
         En janvier, elle rembourse $${frac1.texFraction}$ du crédit et en février elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
@@ -59,7 +65,7 @@ export default class Auto1C19b extends ExerciceQcmA {
       `$${reponse.texFractionSimplifiee}$ du crédit.`,
       '$\\dfrac{1}{2}$ du crédit.',
       '$\\dfrac{5}{12}$ du crédit.',
-      '$\\dfrac{1}{4}$ du crédit.'
+      '$\\dfrac{1}{4}$ du crédit.',
     ]
   }
 
@@ -97,7 +103,7 @@ export default class Auto1C19b extends ExerciceQcmA {
       [7, 9, 1, 8], // 7/9 * (1 + 1/8) = 7/9 * 9/8 = 7/8 < 1 ✓
       [3, 10, 1, 4], // 3/10 * (1 + 1/4) = 3/10 * 5/4 = 3/8 < 1 ✓
       [7, 10, 1, 4], // 7/10 * (1 + 1/4) = 7/10 * 5/4 = 7/8 < 1 ✓
-      [8, 10, 1, 9]  // 8/10 * (1 + 1/9) = 4/5 * 10/9 = 8/9 < 1 ✓
+      [8, 10, 1, 9], // 8/10 * (1 + 1/9) = 4/5 * 10/9 = 8/9 < 1 ✓
     ]
 
     const fractions = choice(listeFractions)
@@ -109,8 +115,14 @@ export default class Auto1C19b extends ExerciceQcmA {
     const credit = randint(12, 25) * 100
     // Mise au même dénominateur avec le ppcm
     const denomCommun = ppcm(frac1.den, fracFevrier.den)
-    const frac1Equiv = new FractionEtendue(frac1.num * (denomCommun / frac1.den), denomCommun)
-    const fracFevrierEquiv = new FractionEtendue(fracFevrier.num * (denomCommun / fracFevrier.den), denomCommun)
+    const frac1Equiv = new FractionEtendue(
+      frac1.num * (denomCommun / frac1.den),
+      denomCommun,
+    )
+    const fracFevrierEquiv = new FractionEtendue(
+      fracFevrier.num * (denomCommun / fracFevrier.den),
+      denomCommun,
+    )
     this.enonce = `Une personne doit rembourser un crédit de $${texNombre(credit, 0)}$ en trois mois.<br>
         En janvier, elle rembourse $${frac1.texFraction}$ du crédit et en février elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
         En mars elle doit rembourser :`
@@ -136,12 +148,12 @@ export default class Auto1C19b extends ExerciceQcmA {
       `$${reponse.texFractionSimplifiee}$ du crédit.`,
       `$${fausseReponse1.texFractionSimplifiee}$ du crédit.`,
       `$${fausseReponse2.texFractionSimplifiee}$ du crédit.`,
-      `$${fausseReponse3.texFractionSimplifiee}$ du crédit.`
+      `$${fausseReponse3.texFractionSimplifiee}$ du crédit.`,
     ]
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version originale pour un exercice statique
-  constructor () {
+  constructor() {
     super()
     // this.options = { vertical: true, ordered: false }
     this.versionOriginale() // Changé de versionAleatoire() à versionOriginale()

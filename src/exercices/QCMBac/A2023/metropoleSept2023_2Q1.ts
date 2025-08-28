@@ -3,13 +3,13 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '4b8ca'
 export const refs = {
   'fr-fr': ['TSG2-QCM05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Métropole 09/2024 : point d\'un plan'
+export const titre = "Métropole 09/2024 : point d'un plan"
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -28,8 +28,7 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
       '$T(1~;~0~;~1)$',
       '$R(1~;~-3~;~1)$',
       '$S(1~;~2~;~-1)$',
-      '$U(2~;~-1~;~1)$'
-
+      '$U(2~;~-1~;~1)$',
     ]
 
     this.enonce = this.sup3
@@ -40,15 +39,17 @@ $\\bullet~~$ La droite $(\\Delta)$ de représentation paramétrique :  $\\left\\
 $\\bullet~~$ Le plan $\\mathcal{P}$ d'équation cartésienne : $3 x+2 y+z-4=0$;<br>
 $\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0$.<br>`
       : ''
-    this.enonce += 'Lequel des points suivants appartient au plan $\\mathcal{P}$ ?'
-    this.correction = '$3x_{T} +2y_{T} +z_{T}-4= 3+0+1-4=0$ donc $\\text T \\in \\mathcal{P}$'
+    this.enonce +=
+      'Lequel des points suivants appartient au plan $\\mathcal{P}$ ?'
+    this.correction =
+      '$3x_{T} +2y_{T} +z_{T}-4= 3+0+1-4=0$ donc $\\text T \\in \\mathcal{P}$'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

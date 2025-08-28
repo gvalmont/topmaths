@@ -1,9 +1,13 @@
 /**
-   * Afficher un écran (élément <dialog>) pendant un nombre de millisecondes
-   * @param {string} dialogId id de l'élément <dialog> à activer
-   * @param {number} nbOfMilliseconds durée de l'affichage en ms
-   */
-export async function showDialogForLimitedTime (dialogId : string, nbOfMilliseconds: number, innerHTML = '') {
+ * Afficher un écran (élément <dialog>) pendant un nombre de millisecondes
+ * @param {string} dialogId id de l'élément <dialog> à activer
+ * @param {number} nbOfMilliseconds durée de l'affichage en ms
+ */
+export async function showDialogForLimitedTime(
+  dialogId: string,
+  nbOfMilliseconds: number,
+  innerHTML = '',
+) {
   const dialog = document.getElementById(dialogId) as HTMLDialogElement
   if (dialog) {
     if (innerHTML !== '') dialog.innerHTML = innerHTML
@@ -14,18 +18,18 @@ export async function showDialogForLimitedTime (dialogId : string, nbOfMilliseco
 }
 
 /**
-   * Faire une pause pendant l'exécution d'un programme
-   * {@link https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep?page=1&tab=scoredesc#tab-top | Source}
-   * @param {number} ms nb de millisecondes de la pause
-   * @author sylvain
-   */
+ * Faire une pause pendant l'exécution d'un programme
+ * {@link https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep?page=1&tab=scoredesc#tab-top | Source}
+ * @param {number} ms nb de millisecondes de la pause
+ * @author sylvain
+ */
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 /**
  * popup pour demander à l'utilisateur de rafraîchir la page
  * car le serveur a été mis à jour.
  */
-export function showPopupAndWait (): Promise<void> {
+export function showPopupAndWait(): Promise<void> {
   return new Promise((resolve) => {
     const popup = document.createElement('div')
     popup.style.position = 'fixed'
@@ -38,7 +42,8 @@ export function showPopupAndWait (): Promise<void> {
     popup.style.zIndex = '10000'
 
     const message = document.createElement('p')
-    message.textContent = 'Le serveur a été mis à jour. Veuillez actualiser la page.'
+    message.textContent =
+      'Le serveur a été mis à jour. Veuillez actualiser la page.'
     popup.appendChild(message)
 
     const refreshButton = document.createElement('button')

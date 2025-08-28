@@ -7,22 +7,22 @@ const sampleQcmData: QcmJsonData = {
   options: {
     vertical: true,
     ordered: true,
-    lastChoice: 3
+    lastChoice: 3,
   },
   questions: [
     {
       enonce: 'Quelle couleur est le ciel ?',
       reponses: ['Bleu', 'Vert', 'Rouge'],
       corrections: ['Correct', 'Faux', 'Faux'],
-      bonnesReponses: [true, false, false]
+      bonnesReponses: [true, false, false],
     },
     {
       enonce: 'Combien font 1+1 ?',
       reponses: ['2', '3'],
       corrections: ['Correct', 'Faux'],
-      bonnesReponses: [true, false]
-    }
-  ]
+      bonnesReponses: [true, false],
+    },
+  ],
 }
 
 describe('QcmJsonGenerator', () => {
@@ -65,9 +65,9 @@ describe('QcmJsonGenerator', () => {
       questions: [
         {
           enonce: 'Test',
-          reponses: ['A', 'B']
-        }
-      ]
+          reponses: ['A', 'B'],
+        },
+      ],
     }
     const gen = new QcmJsonGenerator(data)
     gen.versionOriginale()
@@ -76,7 +76,9 @@ describe('QcmJsonGenerator', () => {
 
   it('should pick a random question in versionAleatoire', () => {
     generator.versionAleatoire()
-    expect(generator.enonce).toMatch(/(Quelle couleur est le ciel|Combien font 1\+1)/)
+    expect(generator.enonce).toMatch(
+      /(Quelle couleur est le ciel|Combien font 1\+1)/,
+    )
     expect(generator.reponses.length).toBeGreaterThan(1)
   })
 
@@ -97,7 +99,7 @@ describe('QcmJsonGenerator', () => {
   it('should invalidate QcmJsonData with invalid reponses', () => {
     const data = {
       ...sampleQcmData,
-      questions: [{ enonce: 'Q', reponses: ['A'] }]
+      questions: [{ enonce: 'Q', reponses: ['A'] }],
     }
     expect(QcmJsonGenerator.validateJsonData(data)).toBe(false)
   })
@@ -105,7 +107,7 @@ describe('QcmJsonGenerator', () => {
   it('should invalidate QcmJsonData with non-string reponse', () => {
     const data = {
       ...sampleQcmData,
-      questions: [{ enonce: 'Q', reponses: ['A', 2] }]
+      questions: [{ enonce: 'Q', reponses: ['A', 2] }],
     }
     expect(QcmJsonGenerator.validateJsonData(data)).toBe(false)
   })
@@ -117,9 +119,9 @@ describe('QcmJsonGenerator', () => {
         {
           enonce: 'Q',
           reponses: ['A', 'B'],
-          corrections: [1, 2]
-        }
-      ]
+          corrections: [1, 2],
+        },
+      ],
     }
     expect(QcmJsonGenerator.validateJsonData(data)).toBe(false)
   })
@@ -131,9 +133,9 @@ describe('QcmJsonGenerator', () => {
         {
           enonce: 'Q',
           reponses: ['A', 'B'],
-          bonnesReponses: [true]
-        }
-      ]
+          bonnesReponses: [true],
+        },
+      ],
     }
     expect(QcmJsonGenerator.validateJsonData(data)).toBe(false)
   })

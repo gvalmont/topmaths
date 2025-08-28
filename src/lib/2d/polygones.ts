@@ -1,11 +1,22 @@
 import earcut from 'earcut'
-import { colorToLatexOrHTML, ObjetMathalea2D, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  ObjetMathalea2D,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { Point, point, pointAdistance, pointSurSegment } from './points'
 import { longueur, segment, Vecteur, vecteur } from './segmentsVecteurs'
-import { Latex2d, LatexParCoordonnees, latexParCoordonnees, TexteParPoint, texteParPoint, texteParPosition } from './textes'
+import {
+  Latex2d,
+  LatexParCoordonnees,
+  latexParCoordonnees,
+  TexteParPoint,
+  texteParPoint,
+  texteParPosition,
+} from './textes'
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
 import { lettreDepuisChiffre } from '../outils/outilString'
@@ -14,7 +25,7 @@ import { codageAngleDroit } from './angles'
 import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
 import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 
-type BinomeXY = { x: number, y: number }
+type BinomeXY = { x: number; y: number }
 type BinomesXY = BinomeXY[]
 
 /**
@@ -28,7 +39,7 @@ type BinomesXY = BinomeXY[]
  * @return {Point}
  */
 // JSDOC Validee par EE Juin 2022
-export function barycentre (p: Polygone, nom = '', positionLabel = 'above') {
+export function barycentre(p: Polygone, nom = '', positionLabel = 'above') {
   let sommex = 0
   let sommey = 0
   let nbsommets = 0
@@ -52,20 +63,25 @@ export class Polyline extends ObjetMathalea2D {
   listePoints3d: Point3d[]
   nom: string
   stringColor: string
-  constructor (...points: (PointAbstrait | Point3d)[] | [(PointAbstrait | Point3d)[], string]) {
+  constructor(
+    ...points:
+      | (PointAbstrait | Point3d)[]
+      | [(PointAbstrait | Point3d)[], string]
+  ) {
     super()
     this.epaisseur = 1
     this.pointilles = 0
     this.opacite = 1
     if (Array.isArray(points[0])) {
-    // Si le premier argument est un tableau
-      this.listePoints = points[0].filter(el => el instanceof PointAbstrait)
-      this.listePoints3d = points[0].filter(el => el instanceof Point3d)
+      // Si le premier argument est un tableau
+      this.listePoints = points[0].filter((el) => el instanceof PointAbstrait)
+      this.listePoints3d = points[0].filter((el) => el instanceof Point3d)
       this.stringColor = String(points[1]) // alors le deuxième est un string
       this.color = colorToLatexOrHTML(String(points[1]))
-    } else { // On n'a que des points
-      this.listePoints = points.filter(el => el instanceof PointAbstrait)
-      this.listePoints3d = points.filter(el => el instanceof Point3d)
+    } else {
+      // On n'a que des points
+      this.listePoints = points.filter((el) => el instanceof PointAbstrait)
+      this.listePoints3d = points.filter((el) => el instanceof Point3d)
       this.color = colorToLatexOrHTML('black')
       this.stringColor = 'black'
     }
@@ -74,7 +90,8 @@ export class Polyline extends ObjetMathalea2D {
     let ymin = 1000
     let ymax = -1000
     for (const unPoint of this.listePoints) {
-      if (unPoint.typeObjet !== 'point') window.notify('Polyline : argument invalide', { ...points })
+      if (unPoint.typeObjet !== 'point')
+        window.notify('Polyline : argument invalide', { ...points })
       xmin = Math.min(xmin, unPoint.x)
       xmax = Math.max(xmax, unPoint.x)
       ymin = Math.min(ymin, unPoint.y)
@@ -83,17 +100,17 @@ export class Polyline extends ObjetMathalea2D {
     this.bordures = [xmin, ymin, xmax, ymax]
     this.nom = ''
     if (this.listePoints.length < 15) {
-    // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
+      // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
       for (const point of this.listePoints) {
         this.nom += point.nom
       }
       for (const point of this.listePoints3d) {
         this.nom += point.label
       }
-    };
+    }
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -132,7 +149,7 @@ export class Polyline extends ObjetMathalea2D {
     return `<polyline points="${binomeXY}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }
 
-  tikz () {
+  tikz() {
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -174,11 +191,15 @@ export class Polyline extends ObjetMathalea2D {
     return `\\draw${optionsDraw} ${binomeXY};`
   }
 
-  svgml (coeff: number, amp: number) {
+  svgml(coeff: number, amp: number) {
     let code = ''
     let s
     for (let k = 1; k < this.listePoints.length; k++) {
-      s = segment(this.listePoints[k - 1], this.listePoints[k], this.stringColor)
+      s = segment(
+        this.listePoints[k - 1],
+        this.listePoints[k],
+        this.stringColor,
+      )
       s.epaisseur = this.epaisseur
       s.opacite = this.opacite
       code += s.svgml(coeff, amp)
@@ -186,7 +207,7 @@ export class Polyline extends ObjetMathalea2D {
     return code
   }
 
-  tikzml (amp: number) {
+  tikzml(amp: number) {
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -197,7 +218,9 @@ export class Polyline extends ObjetMathalea2D {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    tableauOptions.push(`decorate,decoration={random steps , segment length=3pt, amplitude = ${amp}pt}`)
+    tableauOptions.push(
+      `decorate,decoration={random steps , segment length=3pt, amplitude = ${amp}pt}`,
+    )
 
     let optionsDraw = ''
     if (tableauOptions.length > 0) {
@@ -220,7 +243,9 @@ export class Polyline extends ObjetMathalea2D {
  * @returns Polyline
  * @author Rémi Angot
  */
-export function polyline (...args: (PointAbstrait | Point3d)[] | [(PointAbstrait | Point3d)[], string]) {
+export function polyline(
+  ...args: (PointAbstrait | Point3d)[] | [(PointAbstrait | Point3d)[], string]
+) {
   return new Polyline(...args)
 }
 
@@ -267,7 +292,7 @@ export class Polygone extends ObjetMathalea2D {
   _aire: number
   stringColor: string
   readonly perimetre: number
-  constructor (...points: PointAbstrait[] | [PointAbstrait[], string?]) {
+  constructor(...points: PointAbstrait[] | [PointAbstrait[], string?]) {
     super()
     this.epaisseurDesHachures = 1
     this.distanceDesHachures = 10
@@ -281,7 +306,7 @@ export class Polygone extends ObjetMathalea2D {
     this._aire = 0
     this.stringColor = 'black'
     if (Array.isArray(points[0])) {
-    // Si le premier argument est un tableau
+      // Si le premier argument est un tableau
       this.listePoints = points[0]
       if (points[1]) {
         this.color = colorToLatexOrHTML(String(points[1]))
@@ -299,15 +324,15 @@ export class Polygone extends ObjetMathalea2D {
         this.couleurDesHachures = colorToLatexOrHTML('black')
         this.hachures = false
       }
-      this.nom = this.listePoints.map(el => el.nom).join('')
+      this.nom = this.listePoints.map((el) => el.nom).join('')
     } else {
       if (typeof points[points.length - 1] === 'string') {
         this.color = colorToLatexOrHTML(String(points[points.length - 1]))
         this.stringColor = String(points[points.length - 1])
         points.splice(points.length - 1, 1)
       }
-      this.listePoints = points.filter(el => el instanceof PointAbstrait)
-      this.nom = this.listePoints.map(el => el.nom).join('')
+      this.listePoints = points.filter((el) => el instanceof PointAbstrait)
+      this.nom = this.listePoints.map((el) => el.nom).join('')
       this.couleurDeRemplissage = colorToLatexOrHTML('none')
       this.couleurDesHachures = colorToLatexOrHTML('none') // Rajout EE du 22/02/2024 pour 6N22 cas 3
       this.hachures = false
@@ -318,7 +343,8 @@ export class Polygone extends ObjetMathalea2D {
     let ymax = -1000
     this.bordures = [xmin, ymin, xmax, ymax]
     for (const unPoint of this.listePoints) {
-      if (unPoint.typeObjet !== 'point') window.notify('Polygone : argument invalide', { ...points })
+      if (unPoint.typeObjet !== 'point')
+        window.notify('Polygone : argument invalide', { ...points })
       xmin = Math.min(xmin, unPoint.x)
       xmax = Math.max(xmax, unPoint.x)
       ymin = Math.min(ymin, unPoint.y)
@@ -327,12 +353,15 @@ export class Polygone extends ObjetMathalea2D {
     this.bordures = [xmin, ymin, xmax, ymax]
     let p = 0
     for (let i = 0; i < this.listePoints.length; i++) {
-      p += longueur(this.listePoints[i], this.listePoints[(i + 1) % this.listePoints.length])
+      p += longueur(
+        this.listePoints[i],
+        this.listePoints[(i + 1) % this.listePoints.length],
+      )
     }
     this.perimetre = p
   }
 
-  binomesXY (coeff: number) {
+  binomesXY(coeff: number) {
     let liste = ''
     for (const point of this.listePoints) {
       liste += `${point.xSVG(coeff)},${point.ySVG(coeff)} `
@@ -340,29 +369,38 @@ export class Polygone extends ObjetMathalea2D {
     return liste
   }
 
-  get flat () {
+  get flat() {
     if (this._flat.length === 0) {
       this._flat = polygoneToFlatArray(this)
     }
     return this._flat
   }
 
-  get triangulation () {
+  get triangulation() {
     if (this._triangulation.length === 0) {
       const trianglesIndices = earcut(this.flat)
       this._triangulation = []
       for (let i = 0; i < trianglesIndices.length; i += 3) {
         this._triangulation.push([
-          point(this.flat[trianglesIndices[i] * 2], this.flat[trianglesIndices[i] * 2 + 1]),
-          point(this.flat[trianglesIndices[i + 1] * 2], this.flat[trianglesIndices[i + 1] * 2 + 1]),
-          point(this.flat[trianglesIndices[i + 2] * 2], this.flat[trianglesIndices[i + 2] * 2 + 1])
+          point(
+            this.flat[trianglesIndices[i] * 2],
+            this.flat[trianglesIndices[i] * 2 + 1],
+          ),
+          point(
+            this.flat[trianglesIndices[i + 1] * 2],
+            this.flat[trianglesIndices[i + 1] * 2 + 1],
+          ),
+          point(
+            this.flat[trianglesIndices[i + 2] * 2],
+            this.flat[trianglesIndices[i + 2] * 2 + 1],
+          ),
         ])
       }
     }
     return this._triangulation
   }
 
-  get aire () {
+  get aire() {
     if (this._aire === 0) {
       const triangles = this.triangulation
       this._aire = 0
@@ -373,7 +411,7 @@ export class Polygone extends ObjetMathalea2D {
     return this._aire
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -402,17 +440,23 @@ export class Polygone extends ObjetMathalea2D {
       if (this.couleurDeRemplissage.length < 1) {
         this.couleurDeRemplissage = colorToLatexOrHTML('none')
       }
-      return pattern({
-        motif: String(this.hachures),
-        id: String(this.id),
-        distanceDesHachures: this.distanceDesHachures,
-        epaisseurDesHachures: this.epaisseurDesHachures,
-        couleurDesHachures: this.couleurDesHachures[0] || 'black',
-        couleurDeRemplissage: this.couleurDeRemplissage[0],
-        opaciteDeRemplissage: this.opaciteDeRemplissage
-      }) + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+      return (
+        pattern({
+          motif: String(this.hachures),
+          id: String(this.id),
+          distanceDesHachures: this.distanceDesHachures,
+          epaisseurDesHachures: this.epaisseurDesHachures,
+          couleurDesHachures: this.couleurDesHachures[0] || 'black',
+          couleurDeRemplissage: this.couleurDeRemplissage[0],
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
+        }) +
+        `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+      )
     } else {
-      if (this.couleurDeRemplissage[0] === '' || this.couleurDeRemplissage[0] === undefined) {
+      if (
+        this.couleurDeRemplissage[0] === '' ||
+        this.couleurDeRemplissage[0] === undefined
+      ) {
         this.style += ' fill="none" '
       } else {
         this.style += ` fill="${this.couleurDeRemplissage[0]}" `
@@ -425,7 +469,7 @@ export class Polygone extends ObjetMathalea2D {
     }
   }
 
-  tikz () {
+  tikz() {
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
@@ -454,8 +498,13 @@ export class Polygone extends ObjetMathalea2D {
       tableauOptions.push(`opacity=${this.opacite}`)
     }
 
-    if (this.couleurDeRemplissage[1] !== '' && this.couleurDeRemplissage[1] !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}${this.opaciteDeRemplissage !== 1 ? ', opacity = ' + this.opaciteDeRemplissage : ''}}`)
+    if (
+      this.couleurDeRemplissage[1] !== '' &&
+      this.couleurDeRemplissage[1] !== 'none'
+    ) {
+      tableauOptions.push(
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]}${this.opaciteDeRemplissage !== 1 ? ', opacity = ' + this.opaciteDeRemplissage : ''}}`,
+      )
     }
     if (this.hachures != null && typeof this.hachures === 'string') {
       tableauOptions.push(
@@ -465,8 +514,8 @@ export class Polygone extends ObjetMathalea2D {
           distanceDesHachures: this.distanceDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
           couleurDeRemplissage: this.couleurDeRemplissage[1],
-          opaciteDeRemplissage: this.opaciteDeRemplissage
-        })
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
+        }),
       )
     }
     let optionsDraw = ''
@@ -484,7 +533,7 @@ export class Polygone extends ObjetMathalea2D {
     return lines
   }
 
-  svgml (coeff: number, amp: number) {
+  svgml(coeff: number, amp: number) {
     let code = ''
     let segmentCourant
     let A, B
@@ -499,7 +548,7 @@ export class Polygone extends ObjetMathalea2D {
     return code
   }
 
-  tikzml (amp: number) {
+  tikzml(amp: number) {
     let code = ''
     let segmentCourant
     let A, B
@@ -539,7 +588,9 @@ export class Polygone extends ObjetMathalea2D {
  *
  * @author Rémi Angot
  */
-export function polygone (...args: PointAbstrait[] | [PointAbstrait[], string?]) {
+export function polygone(
+  ...args: PointAbstrait[] | [PointAbstrait[], string?]
+) {
   return new Polygone(...args)
 }
 
@@ -550,14 +601,19 @@ export function polygone (...args: PointAbstrait[] | [PointAbstrait[], string?])
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
  * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
  */
-export function polygoneAvecNom (...args: (PointAbstrait | number)[]): [Polygone, NommePolygone] {
+export function polygoneAvecNom(
+  ...args: (PointAbstrait | number)[]
+): [Polygone, NommePolygone] {
   let k = 0.5
   if (typeof args[args.length - 1] === 'number') {
     k = Number(args[args.length - 1])
     args.splice(args.length - 1, 1)
   }
   if (!isPointsAbstraits(args)) {
-    window.notify('polygoneAvecNom : les arguments doivent être des objets PointAbstrait', { args })
+    window.notify(
+      'polygoneAvecNom : les arguments doivent être des objets PointAbstrait',
+      { args },
+    )
     return [polygone(), nommePolygone(polygone())]
   }
   const p = polygone(...args)
@@ -581,8 +637,13 @@ export function polygoneAvecNom (...args: (PointAbstrait | number)[]): [Polygone
  * Si on veut des noms de points à plus de 1 caractère, il faut soit les passer en tableau soit les séparer par des virgules au sein du string
  * @example renommePolygone(p, "A',B',C',D'") ou renommePolygone(p, ["A'","B'","C'","D'"])
  */
-export function renommePolygone (p: Polygone, noms: string | string[]) {
-  noms = (typeof noms === 'string') ? noms.includes(',') ? noms.split(',') : noms : noms
+export function renommePolygone(p: Polygone, noms: string | string[]) {
+  noms =
+    typeof noms === 'string'
+      ? noms.includes(',')
+        ? noms.split(',')
+        : noms
+      : noms
   for (let i = 0; i < p.listePoints.length; i++) {
     if (noms[i] !== undefined) {
       p.listePoints[i].nom = noms[i]
@@ -600,13 +661,18 @@ export function renommePolygone (p: Polygone, noms: string | string[]) {
  * @return {Polygone}
  * @author Rémi Angot
  **/
-export function polygoneRegulier (A: Point, B: Point, n: number, color = 'black') {
+export function polygoneRegulier(
+  A: Point,
+  B: Point,
+  n: number,
+  color = 'black',
+) {
   const listePoints = [A, B]
   for (let i = 1; i < n - 1; i++) {
     listePoints[i + 1] = rotation(
       listePoints[i - 1],
       listePoints[i],
-      -180 + 360 / n
+      -180 + 360 / n,
     )
   }
   return new Polygone(listePoints, color)
@@ -628,7 +694,7 @@ export function polygoneRegulier (A: Point, B: Point, n: number, color = 'black'
  * JSDOC Validee par EE Juin 2022
  *
  */
-export function carre (A: Point, B: Point, color = 'black') {
+export function carre(A: Point, B: Point, color = 'black') {
   return polygoneRegulier(A, B, 4, color)
 }
 
@@ -637,7 +703,12 @@ export function carre (A: Point, B: Point, color = 'black') {
  * @returns {Polygone} Objet Mathalea2d
  * @author Rémi Angot
  */
-export function polygoneRegulierParCentreEtRayon (O: Point, r: number, n: number, color = 'black') {
+export function polygoneRegulierParCentreEtRayon(
+  O: Point,
+  r: number,
+  n: number,
+  color = 'black',
+) {
   const p = []
   p[0] = point(O.x + r, O.y)
   for (let i = 1; i < n; i++) {
@@ -662,55 +733,111 @@ export class BoiteBuilder {
   yMax: number
   forme: Polygone
   text!: LatexParCoordonnees | TexteParPoint | Latex2d
-  constructor ({ xMin, xMax, yMin, yMax }: { xMin: number, xMax: number, yMin: number, yMax: number }) {
+  constructor({
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+  }: {
+    xMin: number
+    xMax: number
+    yMin: number
+    yMax: number
+  }) {
     this.xMin = xMin
     this.xMax = xMax
     this.yMin = yMin
     this.yMax = yMax
-    this.forme = polygone([point(xMin, yMin), point(xMax, yMin), point(xMax, yMax), point(xMin, yMax)])
+    this.forme = polygone([
+      point(xMin, yMin),
+      point(xMax, yMin),
+      point(xMax, yMax),
+      point(xMin, yMax),
+    ])
   }
 
   /**
-     * l'objet ou l'array d'objet pour la fonction mathalea2d()
-     * @return {[Polygone|Vide2d,LatexParCoordonnees|TexteParPoint)]|Polygone}
-     */
-  render () {
+   * l'objet ou l'array d'objet pour la fonction mathalea2d()
+   * @return {[Polygone|Vide2d,LatexParCoordonnees|TexteParPoint)]|Polygone}
+   */
+  render() {
     return this.text ? [this.forme, this.text] : this.forme
   }
 
   /**
-     * La méthode retourne l'objet afin de la rendre chaînable
-     * @param {Object} params
-     * @param {string} [params.color]
-     * @param {string} [params.colorBackground]
-     * @param {number} [params.opacity]
-     * @param {number} [params.backgroudOpacity]
-     * @return {BoiteBuilder}
-     */
-  addColor ({ color, colorBackground, opacity, backgroudOpacity }: { color?: string, colorBackground?: string, opacity?: number, backgroudOpacity?: number }) {
+   * La méthode retourne l'objet afin de la rendre chaînable
+   * @param {Object} params
+   * @param {string} [params.color]
+   * @param {string} [params.colorBackground]
+   * @param {number} [params.opacity]
+   * @param {number} [params.backgroudOpacity]
+   * @return {BoiteBuilder}
+   */
+  addColor({
+    color,
+    colorBackground,
+    opacity,
+    backgroudOpacity,
+  }: {
+    color?: string
+    colorBackground?: string
+    opacity?: number
+    backgroudOpacity?: number
+  }) {
     this.forme.color = colorToLatexOrHTML(color ?? 'black')
     this.forme.opacite = opacity ?? 1
-    this.forme.couleurDeRemplissage = colorToLatexOrHTML(colorBackground ?? 'none')
+    this.forme.couleurDeRemplissage = colorToLatexOrHTML(
+      colorBackground ?? 'none',
+    )
     this.forme.opaciteDeRemplissage = backgroudOpacity ?? 0.7
     return this
   }
 
   /**
-     * La méthode retourne l'objet afin de la rendre chaînable
-     * @param {string} textIn si contient '\\' alors c'est une commande latex rendue par latexParCoordonnees()
-     * @param {string} color
-     * @param {number} opacity
-     * @param {number} size (facteur d'agrandissement ou de réduction 1 par défaut)
-     * @return {BoiteBuilder}
-     */
-  addTextIn ({ textIn, color, opacity, size }:{ textIn: string, color?: string, opacity?: number, size?: number }) {
+   * La méthode retourne l'objet afin de la rendre chaînable
+   * @param {string} textIn si contient '\\' alors c'est une commande latex rendue par latexParCoordonnees()
+   * @param {string} color
+   * @param {number} opacity
+   * @param {number} size (facteur d'agrandissement ou de réduction 1 par défaut)
+   * @return {BoiteBuilder}
+   */
+  addTextIn({
+    textIn,
+    color,
+    opacity,
+    size,
+  }: {
+    textIn: string
+    color?: string
+    opacity?: number
+    size?: number
+  }) {
     if (typeof textIn !== 'string') {
-      window.notify('BoiteBuilder.addTextIn() requiert un texteIn de type string ', { textIn })
+      window.notify(
+        'BoiteBuilder.addTextIn() requiert un texteIn de type string ',
+        { textIn },
+      )
     }
     if (textIn.length > 0) {
       this.text = textIn.includes('\\')
-        ? latexParCoordonnees(textIn, (this.xMin + this.xMax) / 2, (this.yMin + this.yMax) / 2, color ?? 'black', 50, 0, '', (size ?? 1) * 10)
-        : texteParPosition(textIn, (this.xMin + this.xMax) / 2, (this.yMin + this.yMax) / 2, 0, color ?? 'black', size)
+        ? latexParCoordonnees(
+            textIn,
+            (this.xMin + this.xMax) / 2,
+            (this.yMin + this.yMax) / 2,
+            color ?? 'black',
+            50,
+            0,
+            '',
+            (size ?? 1) * 10,
+          )
+        : texteParPosition(
+            textIn,
+            (this.xMin + this.xMax) / 2,
+            (this.yMin + this.yMax) / 2,
+            0,
+            color ?? 'black',
+            size,
+          )
       this.text.opacite = opacity ?? 1
     }
     return this
@@ -722,7 +849,7 @@ export class BoiteBuilder {
  * @return {number[]} retourne la liste des coordonnées des sommets de p dans un seul tableau.
  * @author Jean-Claude Lhote
  */
-export function polygoneToFlatArray (p: Polygone) {
+export function polygoneToFlatArray(p: Polygone) {
   const flatArray = []
   for (let i = 0; i < p.listePoints.length; i++) {
     flatArray.push(p.listePoints[i].x, p.listePoints[i].y)
@@ -752,13 +879,13 @@ export class PolygoneATrous extends ObjetMathalea2D {
   stringColor: string
   stringCouleurDeFond: string
   stringCouleurDeRemplissage: string
-  constructor ({
+  constructor({
     data = [],
     holes = [],
     noms = '',
     color = 'black',
     couleurDeRemplissage = 'blue',
-    couleurDeFond = 'white'
+    couleurDeFond = 'white',
   }) {
     super()
     this.colorString = color
@@ -778,7 +905,11 @@ export class PolygoneATrous extends ObjetMathalea2D {
       }
     }
     // On cherche les bordures
-    for (let i = 0, xmin = 1000, xmax = -1000, ymin = 1000, ymax = -1000; i < data.length; i += 2) {
+    for (
+      let i = 0, xmin = 1000, xmax = -1000, ymin = 1000, ymax = -1000;
+      i < data.length;
+      i += 2
+    ) {
       xmin = Math.min(xmin, data[i])
       xmax = Math.max(xmax, data[i])
       ymin = Math.min(ymin, data[i + 1])
@@ -796,7 +927,11 @@ export class PolygoneATrous extends ObjetMathalea2D {
     let trouPol: Polygone
     for (let i = 0; i < holes.length; i++) {
       trous[i] = []
-      for (let j = holes[i] * 2; j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length); j += 2) {
+      for (
+        let j = holes[i] * 2;
+        j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length);
+        j += 2
+      ) {
         trou = point(data[j], data[j + 1])
         if (noms.length >= data.length >> 1) {
           trou.nom = noms[j >> 1]
@@ -805,16 +940,31 @@ export class PolygoneATrous extends ObjetMathalea2D {
       }
       trouPol = polygone(...trous[i])
       trouPol.color = colorToLatexOrHTML(this.stringColor)
-      trouPol.couleurDeRemplissage = colorToLatexOrHTML(this.stringCouleurDeFond)
+      trouPol.couleurDeRemplissage = colorToLatexOrHTML(
+        this.stringCouleurDeFond,
+      )
       this.trous.push(trouPol)
     }
   }
 
-  get triangulation (): Polygone[] {
+  get triangulation(): Polygone[] {
     if (this._triangulation === null) {
       this._triangulation = []
       for (let i = 0, triangle; i < this.triangles.length; i += 3) {
-        triangle = polygone([point(this.data[this.triangles[i] * 2], this.data[this.triangles[i] * 2 + 1]), point(this.data[this.triangles[i + 1] * 2], this.data[this.triangles[i + 1] * 2 + 1]), point(this.data[this.triangles[i + 2] * 2], this.data[this.triangles[i + 2] * 2 + 1])])
+        triangle = polygone([
+          point(
+            this.data[this.triangles[i] * 2],
+            this.data[this.triangles[i] * 2 + 1],
+          ),
+          point(
+            this.data[this.triangles[i + 1] * 2],
+            this.data[this.triangles[i + 1] * 2 + 1],
+          ),
+          point(
+            this.data[this.triangles[i + 2] * 2],
+            this.data[this.triangles[i + 2] * 2 + 1],
+          ),
+        ])
         triangle.color = colorToLatexOrHTML(this.stringColor)
         triangle.couleurDeRemplissage = colorToLatexOrHTML('none')
         this._triangulation.push(triangle)
@@ -823,7 +973,7 @@ export class PolygoneATrous extends ObjetMathalea2D {
     return this._triangulation
   }
 
-  get aire (): number {
+  get aire(): number {
     if (this._aire === null) {
       this._aire = this.contour.aire
       for (let i = 0; i < this.trous.length; i++) {
@@ -833,7 +983,7 @@ export class PolygoneATrous extends ObjetMathalea2D {
     return this._aire
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = this.contour.svg(coeff)
     for (let i = 0; i < this.trous.length; i++) {
       code += this.trous[i].svg(coeff)
@@ -841,7 +991,7 @@ export class PolygoneATrous extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = this.contour.tikz()
     for (let i = 0; i < this.trous.length; i++) {
       code += '\n\t' + this.trous[i].tikz()
@@ -861,15 +1011,22 @@ export class PolygoneATrous extends ObjetMathalea2D {
  * @param {string} [couleurDeFond = 'white'] est la couleur de remplissage des trous
  * @return {PolygoneaTrou} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
  */
-export function polygoneATrous ({
+export function polygoneATrous({
   data = [],
   holes = [],
   noms = '',
   color = 'black',
   couleurDeRemplissage = 'blue',
-  couleurDeFond = 'white'
+  couleurDeFond = 'white',
 }) {
-  return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, couleurDeFond })
+  return new PolygoneATrous({
+    data,
+    holes,
+    noms,
+    color,
+    couleurDeRemplissage,
+    couleurDeFond,
+  })
 }
 
 /*********************************************/
@@ -882,7 +1039,12 @@ export function polygoneATrous ({
  * @param {Point} C
  * @return {PolygoneAvecNom}
  */
-export function parallelogramme3points (nom:string, A: Point, B: Point, C: Point) {
+export function parallelogramme3points(
+  nom: string,
+  A: Point,
+  B: Point,
+  C: Point,
+) {
   const D = translation(A, vecteur(B, C), nom[3])
   A.nom = nom[0]
   B.nom = nom[1]
@@ -900,7 +1062,12 @@ export function parallelogramme3points (nom:string, A: Point, B: Point, C: Point
  * @param {number} h
  * @return {PolygoneAvecNom}
  */
-export function parallelogramme2points1hauteur (nom:string, A: Point, B: Point, h: number) {
+export function parallelogramme2points1hauteur(
+  nom: string,
+  A: Point,
+  B: Point,
+  h: number,
+) {
   if (typeof B === 'number') {
     B = pointAdistance(A, B, randint(-180, 180))
   }
@@ -908,7 +1075,15 @@ export function parallelogramme2points1hauteur (nom:string, A: Point, B: Point, 
   B.nom = nom[1]
   let H = rotation(B, A, 90)
   H = pointSurSegment(A, H, h)
-  const D = translation(H, homothetie(vecteur(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10) as Vecteur, nom[3])
+  const D = translation(
+    H,
+    homothetie(
+      vecteur(A, B),
+      A,
+      randint(-5, 5, rangeMinMax(-2, 2)) / 10,
+    ) as Vecteur,
+    nom[3],
+  )
   const C = translation(D, vecteur(A, B), nom[2])
   return polygoneAvecNom(A, B, C, D)
 }
@@ -928,7 +1103,17 @@ export function parallelogramme2points1hauteur (nom:string, A: Point, B: Point, 
  * @example rectangle1Point2Longueurs(A, 5, 3, { nom: 'ABCD', angleRotation: 45 })
  * @author Guillaume Valmont d'après 6M11 d'Eric Elter
  */
-export function rectangle1Point2Longueurs (A: Point, longueur: number, largeur: number, options: { nom?: string, angleRotation?: number, avecCodageSegments?: boolean, avecCodagesAnglesDroits?: boolean } = { avecCodageSegments: true, avecCodagesAnglesDroits: true }) {
+export function rectangle1Point2Longueurs(
+  A: Point,
+  longueur: number,
+  largeur: number,
+  options: {
+    nom?: string
+    angleRotation?: number
+    avecCodageSegments?: boolean
+    avecCodagesAnglesDroits?: boolean
+  } = { avecCodageSegments: true, avecCodagesAnglesDroits: true },
+) {
   const objets: ObjetMathalea2D[] = []
   const angleRotation = options.angleRotation ?? 0
   const B = pointAdistance(A, longueur, angleRotation)
@@ -950,11 +1135,24 @@ export function rectangle1Point2Longueurs (A: Point, longueur: number, largeur: 
     D.nom = lettreDepuisChiffre(numD)
   }
   objets.push(...polygoneAvecNom(A, B, C, D))
-  if (options.avecCodageSegments || options.avecCodageSegments === undefined) { // Lorsqu'un objet d'options est passé, le avecCodageSegments: true par défaut est écrasé donc s'il n'est pas redéfini en false, on le considère comme true
-    objets.push(codageSegments('/', 'red', B, C, D, A), codageSegments('||', 'blue', A, B, C, D))
+  if (options.avecCodageSegments || options.avecCodageSegments === undefined) {
+    // Lorsqu'un objet d'options est passé, le avecCodageSegments: true par défaut est écrasé donc s'il n'est pas redéfini en false, on le considère comme true
+    objets.push(
+      codageSegments('/', 'red', B, C, D, A),
+      codageSegments('||', 'blue', A, B, C, D),
+    )
   }
-  if (options.avecCodagesAnglesDroits || options.avecCodagesAnglesDroits === undefined) { // Lorsqu'un objet d'options est passé, le avecCodagesAnglesDroits: true par défaut est écrasé donc s'il n'est pas redéfini en false, on le considère comme true
-    objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
+  if (
+    options.avecCodagesAnglesDroits ||
+    options.avecCodagesAnglesDroits === undefined
+  ) {
+    // Lorsqu'un objet d'options est passé, le avecCodagesAnglesDroits: true par défaut est écrasé donc s'il n'est pas redéfini en false, on le considère comme true
+    objets.push(
+      codageAngleDroit(A, B, C),
+      codageAngleDroit(D, C, B),
+      codageAngleDroit(A, D, C),
+      codageAngleDroit(B, A, D),
+    )
   }
   return objets
 }
@@ -969,7 +1167,7 @@ export function rectangle1Point2Longueurs (A: Point, longueur: number, largeur: 
 export class NommePolygone extends ObjetMathalea2D {
   poly: Polygone
   dist: number
-  constructor (p: Polygone, nom = '', k = 0.5, color = 'black', size = 1) {
+  constructor(p: Polygone, nom = '', k = 0.5, color = 'black', size = 1) {
     super()
     this.poly = p
     this.dist = k
@@ -984,7 +1182,12 @@ export class NommePolygone extends ObjetMathalea2D {
     let yMin = 1000
     let yMax = -1000
     for (const pt of p.listePoints) {
-      const P = pointSurSegment(G, pt, longueur(G, pt) + (context.isHtml ? k * 20 / context.pixelsParCm : k / context.scale))
+      const P = pointSurSegment(
+        G,
+        pt,
+        longueur(G, pt) +
+          (context.isHtml ? (k * 20) / context.pixelsParCm : k / context.scale),
+      )
       P.positionLabel = 'center'
       this.objets.push(texteParPoint(pt.nom, P, 0, color, size, 'milieu', true))
       xMin = Math.min(xMin, P.x - 0.5)
@@ -995,7 +1198,7 @@ export class NommePolygone extends ObjetMathalea2D {
     this.bordures = [xMin, yMin, xMax, yMax]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -1004,7 +1207,7 @@ export class NommePolygone extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -1014,7 +1217,13 @@ export class NommePolygone extends ObjetMathalea2D {
   }
 }
 
-export function nommePolygone (p: Polygone, nom = '', k = 0.5, color = 'black', size = 1) {
+export function nommePolygone(
+  p: Polygone,
+  nom = '',
+  k = 0.5,
+  color = 'black',
+  size = 1,
+) {
   return new NommePolygone(p, nom, k, color, size)
 }
 
@@ -1024,7 +1233,7 @@ export function nommePolygone (p: Polygone, nom = '', k = 0.5, color = 'black', 
  * le nom du motif sert dans la fonction pattern
  * @author Jean-Claude Lhote
  */
-export function motifs (index: number) {
+export function motifs(index: number) {
   switch (index) {
     case 0:
       return 'north east lines'
@@ -1089,24 +1298,17 @@ export function motifs (index: number) {
  * les hachures sont gérées par la fonction pattern() et retourne une option pour la commande draw qui est plus efficace.
  * Il est donc préférable d'utiliser la propriété hachures des objets Polygone. (Jean-Claude Lhote)
  */
-export function patternTikZ (params: {
-  x0: number;
-  y0: number;
-  x1: number;
-  y1: number;
-  distanceDesHachures: number;
-  couleurDesHachures: string;
-  motif: string;
+export function patternTikZ(params: {
+  x0: number
+  y0: number
+  x1: number
+  y1: number
+  distanceDesHachures: number
+  couleurDesHachures: string
+  motif: string
 }): string {
-  const {
-    x0,
-    y0,
-    x1,
-    y1,
-    distanceDesHachures,
-    couleurDesHachures,
-    motif
-  } = params
+  const { x0, y0, x1, y1, distanceDesHachures, couleurDesHachures, motif } =
+    params
 
   const lignes: string[] = []
   const hauteur = y1 - y0
@@ -1118,7 +1320,7 @@ export function patternTikZ (params: {
     case 'horizontal lines': {
       for (let y = y0; y <= y1; y += distanceDesHachures) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
+          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`,
         )
       }
       break
@@ -1127,7 +1329,7 @@ export function patternTikZ (params: {
     case 'vertical lines': {
       for (let x = x0; x <= x1; x += distanceDesHachures) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`,
         )
       }
       break
@@ -1137,7 +1339,7 @@ export function patternTikZ (params: {
       for (let x = x0; x <= x1; x += distanceDesHachures) {
         for (let y = y0; y <= y1; y += distanceDesHachures) {
           lignes.push(
-            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) circle (0.05);`
+            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) circle (0.05);`,
           )
         }
       }
@@ -1148,12 +1350,12 @@ export function patternTikZ (params: {
       // Combine horizontal + vertical
       for (let y = y0; y <= y1; y += distanceDesHachures) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
+          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`,
         )
       }
       for (let x = x0; x <= x1; x += distanceDesHachures) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`,
         )
       }
       break
@@ -1164,12 +1366,12 @@ export function patternTikZ (params: {
       const side = distanceDesHachures / 5
       for (let y = y0; y <= y1; y += side) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
+          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`,
         )
       }
       for (let x = x0; x <= x1; x += side) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`,
         )
       }
       break
@@ -1182,7 +1384,7 @@ export function patternTikZ (params: {
         toggle = !toggle
         for (let x = x0 + (toggle ? 0 : side); x < x1; x += 2 * side) {
           lignes.push(
-            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) rectangle (${(x + side).toFixed(2)},${(y + side).toFixed(2)});`
+            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) rectangle (${(x + side).toFixed(2)},${(y + side).toFixed(2)});`,
           )
         }
       }
@@ -1194,7 +1396,7 @@ export function patternTikZ (params: {
       for (let x = x0; x <= x1; x += side) {
         for (let y = y0; y <= y1; y += side) {
           lignes.push(
-            `\\node[star,star points=5,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`
+            `\\node[star,star points=5,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`,
           )
         }
       }
@@ -1206,7 +1408,7 @@ export function patternTikZ (params: {
       for (let x = x0; x <= x1; x += side) {
         for (let y = y0; y <= y1; y += side) {
           lignes.push(
-            `\\node[star,star points=6,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`
+            `\\node[star,star points=6,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`,
           )
         }
       }
@@ -1219,20 +1421,20 @@ export function patternTikZ (params: {
       for (let x = x0; x <= x1; x += side) {
         for (let y = y0; y <= y1; y += side) {
           lignes.push(
-            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) circle (0.05);`
+            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) circle (0.05);`,
           )
         }
       }
       // Hachures horizontales
       for (let y = y0; y <= y1; y += distanceDesHachures) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
+          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`,
         )
       }
       // Hachures verticales
       for (let x = x0; x <= x1; x += distanceDesHachures) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`,
         )
       }
       break
@@ -1250,7 +1452,7 @@ export function patternTikZ (params: {
           const yTop = Math.min(y + brickHeight, y1)
           if (xRight > x0 && xLeft < x1) {
             lignes.push(
-              `\\draw(${xLeft.toFixed(2)},${y.toFixed(2)}) rectangle (${xRight.toFixed(2)},${yTop.toFixed(2)});`
+              `\\draw(${xLeft.toFixed(2)},${y.toFixed(2)}) rectangle (${xRight.toFixed(2)},${yTop.toFixed(2)});`,
             )
           }
         }
@@ -1259,12 +1461,12 @@ export function patternTikZ (params: {
     }
 
     case 'north east lines':
-    default : {
+    default: {
       const xmin = x0 - hauteur
       const xmax = x1 + hauteur
       for (let x = xmin; x <= xmax; x += distanceDesHachures) {
         lignes.push(
-          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- ++(${hauteur},${hauteur});`
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- ++(${hauteur},${hauteur});`,
         )
       }
       break
@@ -1281,14 +1483,14 @@ export function patternTikZ (params: {
  * définit un motif de remplissage pour les polygones, les rectangles... ou tout élément SVG qui se remplit.
  * @author Jean-Claude Lhote
  */
-export function pattern ({
+export function pattern({
   motif = 'north east lines',
   id = '0',
   distanceDesHachures = 10,
   epaisseurDesHachures = 1,
   couleurDesHachures = 'black',
   couleurDeRemplissage = 'none',
-  opaciteDeRemplissage = 0.5
+  opaciteDeRemplissage = 0.5,
 }) {
   let myPattern = ''
   if (context.isHtml) {
@@ -1418,7 +1620,8 @@ export function pattern ({
         break
     }
     return myPattern
-  } else { // Sortie Latex
+  } else {
+    // Sortie Latex
     switch (motif) {
       case 'north east lines':
         myPattern = `pattern color = ${couleurDesHachures} , pattern = {Lines[angle=45, distance=${distanceDesHachures}pt, line width=0.3pt]}`
@@ -1469,9 +1672,21 @@ export function pattern ({
  * @returns {boolean}
  * @author Jean-Claude Lhote
  */
-function trouveCouple (pt1: { x: number, y: number }, pt2: { x: number, y: number }, couple: [{ x: number, y: number }, { x: number, y: number }]) {
-  return (pt1.x === couple[0].x && pt1.y === couple[0].y && pt2.x === couple[1].x && pt2.y === couple[1].y) ||
-    (pt1.x === couple[1].x && pt1.y === couple[1].y && pt2.x === couple[0].x && pt2.y === couple[0].y)
+function trouveCouple(
+  pt1: { x: number; y: number },
+  pt2: { x: number; y: number },
+  couple: [{ x: number; y: number }, { x: number; y: number }],
+) {
+  return (
+    (pt1.x === couple[0].x &&
+      pt1.y === couple[0].y &&
+      pt2.x === couple[1].x &&
+      pt2.y === couple[1].y) ||
+    (pt1.x === couple[1].x &&
+      pt1.y === couple[1].y &&
+      pt2.x === couple[0].x &&
+      pt2.y === couple[0].y)
+  )
 }
 /**
  * fonction utilitaire pour la classe Tetris
@@ -1481,15 +1696,34 @@ function trouveCouple (pt1: { x: number, y: number }, pt2: { x: number, y: numbe
  * @param {[Point,Point][]} couplesPoints
  * @returns
  */
-function TrouveExtremites (pt1: { x: number, y: number }, couplesPoints: [{ x: number, y: number }, { x: number, y: number }][]) {
-  const index = couplesPoints.findIndex((couple: [{ x: number, y: number }, { x: number, y: number }]) => (couple[0].x === pt1.x && couple[0].y === pt1.y) || (couple[1].x === pt1.x && couple[1].y === pt1.y))
+function TrouveExtremites(
+  pt1: { x: number; y: number },
+  couplesPoints: [{ x: number; y: number }, { x: number; y: number }][],
+) {
+  const index = couplesPoints.findIndex(
+    (couple: [{ x: number; y: number }, { x: number; y: number }]) =>
+      (couple[0].x === pt1.x && couple[0].y === pt1.y) ||
+      (couple[1].x === pt1.x && couple[1].y === pt1.y),
+  )
   if (index !== -1) {
     const couple = couplesPoints[index]
     couplesPoints.splice(index, 1)
     if (couple[0].x === pt1.x && couple[0].y === pt1.y) {
-      return { couple: [{ x: couple[0].x, y: couple[0].y }, { x: couple[1].x, y: couple[1].y }], couplesPointsRestants: couplesPoints }
+      return {
+        couple: [
+          { x: couple[0].x, y: couple[0].y },
+          { x: couple[1].x, y: couple[1].y },
+        ],
+        couplesPointsRestants: couplesPoints,
+      }
     } else {
-      return { couple: [{ x: couple[1].x, y: couple[1].y }, { x: couple[0].x, y: couple[0].y }], couplesPointsRestants: couplesPoints }
+      return {
+        couple: [
+          { x: couple[1].x, y: couple[1].y },
+          { x: couple[0].x, y: couple[0].y },
+        ],
+        couplesPointsRestants: couplesPoints,
+      }
     }
   } else {
     return { couple: null, couplesPointsRestants: couplesPoints }
@@ -1507,25 +1741,25 @@ export class Polyquad {
   xOrigine: number
   yOrigine: number
   poly!: Polygone
-  dots!: { x: number, y: number }[]
-  carresOccupes: { x: number, y: number }[]
-  carresAdjacentsDispo: { x: number, y: number }[]
+  dots!: { x: number; y: number }[]
+  carresOccupes: { x: number; y: number }[]
+  carresAdjacentsDispo: { x: number; y: number }[]
   complexity: number
   rectangle: {
-    xMin: number,
-    xMax: number,
-    yMin: number,
+    xMin: number
+    xMax: number
+    yMin: number
     yMax: number
   }
 
-  constructor (aire: number, xOrigine: number, yOrigine: number) {
+  constructor(aire: number, xOrigine: number, yOrigine: number) {
     this.xOrigine = xOrigine
     this.yOrigine = yOrigine
     const casesAdjacentes = [
       { x: 0, y: 1 },
       { x: 1, y: 0 },
       { x: 0, y: -1 },
-      { x: -1, y: 0 }
+      { x: -1, y: 0 },
     ]
     // on crée un polygone à base de carrés de surface aire
 
@@ -1535,16 +1769,34 @@ export class Polyquad {
     do {
       this.carresOccupes = [{ x: 0, y: 0 }]
       cpt++
-      this.carresAdjacentsDispo = casesAdjacentes.map((caseAdj) => ({ x: caseAdj.x, y: caseAdj.y }))
+      this.carresAdjacentsDispo = casesAdjacentes.map((caseAdj) => ({
+        x: caseAdj.x,
+        y: caseAdj.y,
+      }))
       while (this.carresOccupes.length < aire) {
         const index = randint(0, this.carresAdjacentsDispo.length - 1) // On choisit une case adjacente disponible
         const carreChoisi = this.carresAdjacentsDispo[index] // La voilà
         this.carresAdjacentsDispo.splice(index, 1) // On supprime la case choisie des cases adjacentes disponibles
         this.carresOccupes.push({ x: carreChoisi.x, y: carreChoisi.y }) // Elle devient une case occupée
         for (const caseAdj of casesAdjacentes) {
-          const caseAdjDispo = { x: carreChoisi.x + caseAdj.x, y: carreChoisi.y + caseAdj.y }
-          if (this.carresOccupes.find((caseOccupe) => caseAdjDispo.x === caseOccupe.x && caseAdjDispo.y === caseOccupe.y) == null) {
-            if (this.carresAdjacentsDispo.find((caseAdjDispoTrouvee) => caseAdjDispo.x === caseAdjDispoTrouvee.x && caseAdjDispo.y === caseAdjDispoTrouvee.y) == null) {
+          const caseAdjDispo = {
+            x: carreChoisi.x + caseAdj.x,
+            y: carreChoisi.y + caseAdj.y,
+          }
+          if (
+            this.carresOccupes.find(
+              (caseOccupe) =>
+                caseAdjDispo.x === caseOccupe.x &&
+                caseAdjDispo.y === caseOccupe.y,
+            ) == null
+          ) {
+            if (
+              this.carresAdjacentsDispo.find(
+                (caseAdjDispoTrouvee) =>
+                  caseAdjDispo.x === caseAdjDispoTrouvee.x &&
+                  caseAdjDispo.y === caseAdjDispoTrouvee.y,
+              ) == null
+            ) {
               this.carresAdjacentsDispo.push(caseAdjDispo)
             }
           }
@@ -1552,22 +1804,29 @@ export class Polyquad {
       }
 
       this.rectangle = this.findRectangle()
-      aireTotale = (this.rectangle.xMax - this.rectangle.xMin) * (this.rectangle.yMax - this.rectangle.yMin)
+      aireTotale =
+        (this.rectangle.xMax - this.rectangle.xMin) *
+        (this.rectangle.yMax - this.rectangle.yMin)
       aireExt = this.aireExt()
 
       this.translate(-this.rectangle.xMin, -this.rectangle.yMin)
       // permet de renseigner this.dots (la liste des sommets.)
       this.detoure()
-    } while ((aireTotale - aireExt !== aire) && cpt < 100)
+    } while (aireTotale - aireExt !== aire && cpt < 100)
     this.complexity = aireExt / aireTotale
 
-    this.poly = translation(polygone(this.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteur(xOrigine, yOrigine))
+    this.poly = translation(
+      polygone(
+        this.dots.map((el: { x: number; y: number }) => point(el.x, el.y)),
+      ),
+      vecteur(xOrigine, yOrigine),
+    )
     this.poly.color = colorToLatexOrHTML('red')
     this.poly.couleurDeRemplissage = colorToLatexOrHTML('orange')
     this.poly.epaisseur = 2
   }
 
-  ajouteCarres (n: number): Polyquad {
+  ajouteCarres(n: number): Polyquad {
     let cpt = 0
     let aireTotale = 0
     let aireExt = 0
@@ -1575,7 +1834,7 @@ export class Polyquad {
       { x: 0, y: 1 },
       { x: 1, y: 0 },
       { x: 0, y: -1 },
-      { x: -1, y: 0 }
+      { x: -1, y: 0 },
     ]
     const aire = this.carresOccupes.length + n
     let carresOccupes
@@ -1583,7 +1842,9 @@ export class Polyquad {
     const tetris2 = new Polyquad(aire, this.xOrigine, this.yOrigine)
     do {
       carresOccupes = JSON.parse(JSON.stringify(this.carresOccupes))
-      casesAdjacentesDispo = JSON.parse(JSON.stringify(this.carresAdjacentsDispo))
+      casesAdjacentesDispo = JSON.parse(
+        JSON.stringify(this.carresAdjacentsDispo),
+      )
       cpt++
       while (carresOccupes.length < aire) {
         const index = randint(0, casesAdjacentesDispo.length - 1) // On choisit une case adjacente disponible
@@ -1591,36 +1852,62 @@ export class Polyquad {
         casesAdjacentesDispo.splice(index, 1) // On supprime la case choisie des cases adjacentes disponibles
         carresOccupes.push({ x: carreChoisi.x, y: carreChoisi.y }) // Elle devient une case occupée
         for (const caseAdj of casesAdjacentes) {
-          const caseAdjDispo = { x: carreChoisi.x + caseAdj.x, y: carreChoisi.y + caseAdj.y }
-          if (carresOccupes.find((caseOccupe: { x: number, y: number }) => caseAdjDispo.x === caseOccupe.x && caseAdjDispo.y === caseOccupe.y) == null) {
-            if (casesAdjacentesDispo.find((caseAdjDispoTrouvee: { x: number, y: number }) => caseAdjDispo.x === caseAdjDispoTrouvee.x && caseAdjDispo.y === caseAdjDispoTrouvee.y) == null) {
+          const caseAdjDispo = {
+            x: carreChoisi.x + caseAdj.x,
+            y: carreChoisi.y + caseAdj.y,
+          }
+          if (
+            carresOccupes.find(
+              (caseOccupe: { x: number; y: number }) =>
+                caseAdjDispo.x === caseOccupe.x &&
+                caseAdjDispo.y === caseOccupe.y,
+            ) == null
+          ) {
+            if (
+              casesAdjacentesDispo.find(
+                (caseAdjDispoTrouvee: { x: number; y: number }) =>
+                  caseAdjDispo.x === caseAdjDispoTrouvee.x &&
+                  caseAdjDispo.y === caseAdjDispoTrouvee.y,
+              ) == null
+            ) {
               casesAdjacentesDispo.push(caseAdjDispo)
             }
           }
         }
       }
       tetris2.carresOccupes = JSON.parse(JSON.stringify(carresOccupes))
-      tetris2.carresAdjacentsDispo = JSON.parse(JSON.stringify(casesAdjacentesDispo))
+      tetris2.carresAdjacentsDispo = JSON.parse(
+        JSON.stringify(casesAdjacentesDispo),
+      )
       tetris2.rectangle = tetris2.findRectangle()
-      aireTotale = (tetris2.rectangle.xMax - tetris2.rectangle.xMin) * (tetris2.rectangle.yMax - tetris2.rectangle.yMin)
+      aireTotale =
+        (tetris2.rectangle.xMax - tetris2.rectangle.xMin) *
+        (tetris2.rectangle.yMax - tetris2.rectangle.yMin)
       aireExt = tetris2.aireExt()
 
       tetris2.translate(-tetris2.rectangle.xMin, -tetris2.rectangle.yMin)
       // permet de renseigner this.dots (la liste des sommets)
       tetris2.detoure()
-    } while ((aireTotale - aireExt !== aire) && cpt < 100)
+    } while (aireTotale - aireExt !== aire && cpt < 100)
     tetris2.carresOccupes = JSON.parse(JSON.stringify(carresOccupes))
-    tetris2.carresAdjacentsDispo = JSON.parse(JSON.stringify(casesAdjacentesDispo))
+    tetris2.carresAdjacentsDispo = JSON.parse(
+      JSON.stringify(casesAdjacentesDispo),
+    )
     tetris2.complexity = aireExt / aireTotale
 
-    tetris2.poly = translation(polygone(tetris2.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteur(tetris2.xOrigine, tetris2.yOrigine))
+    tetris2.poly = translation(
+      polygone(
+        tetris2.dots.map((el: { x: number; y: number }) => point(el.x, el.y)),
+      ),
+      vecteur(tetris2.xOrigine, tetris2.yOrigine),
+    )
     tetris2.poly.color = colorToLatexOrHTML('red')
     tetris2.poly.couleurDeRemplissage = colorToLatexOrHTML('orange')
     tetris2.poly.epaisseur = 2
     return tetris2
   }
 
-  private findRectangle () {
+  private findRectangle() {
     let xMin = 1000
     let xMax = -1000
     let yMin = 1000
@@ -1634,7 +1921,7 @@ export class Polyquad {
     return { xMin, xMax, yMin, yMax }
   }
 
-  translate (dx: number, dy: number) {
+  translate(dx: number, dy: number) {
     for (const carre of this.carresOccupes) {
       carre.x += dx
       carre.y += dy
@@ -1643,14 +1930,26 @@ export class Polyquad {
       carre.x += dx
       carre.y += dy
     }
-    this.rectangle = { xMin: this.rectangle.xMin + dx, xMax: this.rectangle.xMax + dx, yMin: this.rectangle.yMin + dy, yMax: this.rectangle.yMax + dy }
+    this.rectangle = {
+      xMin: this.rectangle.xMin + dx,
+      xMax: this.rectangle.xMax + dx,
+      yMin: this.rectangle.yMin + dy,
+      yMax: this.rectangle.yMax + dy,
+    }
   }
 
-  rotate (sens: boolean) {
+  rotate(sens: boolean) {
     const matriceTransfo = sens
-      ? [[0, -1], [1, 0]]
-      : [[0, 1], [-1, 0]]
-    if (matriceTransfo == null) throw Error('La matrice ne peut pas être créée, ce qui est impossible')
+      ? [
+          [0, -1],
+          [1, 0],
+        ]
+      : [
+          [0, 1],
+          [-1, 0],
+        ]
+    if (matriceTransfo == null)
+      throw Error('La matrice ne peut pas être créée, ce qui est impossible')
     for (const carre of this.carresOccupes) {
       const x = matriceTransfo[0][0] * carre.x + matriceTransfo[0][1] * carre.y
       const y = matriceTransfo[1][0] * carre.x + matriceTransfo[1][1] * carre.y
@@ -1668,22 +1967,29 @@ export class Polyquad {
     // permet de renseigner this.dots (la liste des sommets.)
     this.detoure()
 
-    this.poly = translation(polygone(this.dots.map((el: { x: number, y: number }) => point(el.x, el.y))), vecteur(this.xOrigine, this.yOrigine))
+    this.poly = translation(
+      polygone(
+        this.dots.map((el: { x: number; y: number }) => point(el.x, el.y)),
+      ),
+      vecteur(this.xOrigine, this.yOrigine),
+    )
     this.poly.color = colorToLatexOrHTML('red')
     this.poly.couleurDeRemplissage = colorToLatexOrHTML('orange')
     this.poly.epaisseur = 2
   }
 
-  isEmpty (x:number, y:number) {
-    return this.carresOccupes.find((carre) => carre.x === x && carre.y === y) == null
+  isEmpty(x: number, y: number) {
+    return (
+      this.carresOccupes.find((carre) => carre.x === x && carre.y === y) == null
+    )
   }
 
-  aireExt () {
+  aireExt() {
     let aire = 0
-    const xMin = Math.min(...this.carresOccupes.map(carre => carre.x))
-    const xMax = Math.max(...this.carresOccupes.map(carre => carre.x))
-    const yMin = Math.min(...this.carresOccupes.map(carre => carre.y))
-    const yMax = Math.max(...this.carresOccupes.map(carre => carre.y))
+    const xMin = Math.min(...this.carresOccupes.map((carre) => carre.x))
+    const xMax = Math.max(...this.carresOccupes.map((carre) => carre.x))
+    const yMin = Math.min(...this.carresOccupes.map((carre) => carre.y))
+    const yMax = Math.max(...this.carresOccupes.map((carre) => carre.y))
     for (let y = yMin; y <= yMax; y++) {
       let xG = xMin
       let xD = xMax
@@ -1707,10 +2013,13 @@ export class Polyquad {
     return aire
   }
 
-  render () {
+  render() {
     const objets: NestedObjetMathalea2dArray = []
     for (const car of this.carresOccupes) {
-      const quad = carre(point(car.x + this.xOrigine, car.y + this.yOrigine), point(car.x + this.xOrigine + 1, car.y + this.yOrigine))
+      const quad = carre(
+        point(car.x + this.xOrigine, car.y + this.yOrigine),
+        point(car.x + this.xOrigine + 1, car.y + this.yOrigine),
+      )
       quad.couleurDeRemplissage = colorToLatexOrHTML('orange')
       quad.color = colorToLatexOrHTML('black')
       objets.push(quad)
@@ -1718,64 +2027,101 @@ export class Polyquad {
     return objets
   }
 
-  detoure () {
-    const borduresNonNettoyees:[boolean, boolean, boolean, boolean][][] = []
+  detoure() {
+    const borduresNonNettoyees: [boolean, boolean, boolean, boolean][][] = []
     for (let x = this.rectangle.xMin; x < this.rectangle.xMax; x++) {
       borduresNonNettoyees[x] = []
 
       for (let y = this.rectangle.yMin; y < this.rectangle.yMax; y++) {
-        borduresNonNettoyees[x][y] = this.carresOccupes.find((carre) => carre.x === x && carre.y === y) == null
-          ? [false, false, false, false]
-          : [true, true, true, true]
+        borduresNonNettoyees[x][y] =
+          this.carresOccupes.find((carre) => carre.x === x && carre.y === y) ==
+          null
+            ? [false, false, false, false]
+            : [true, true, true, true]
       }
     }
     const xor = function (a: boolean, b: boolean) {
       return (a || b) && !(a && b)
     }
-    const borduresNettoyees:[boolean, boolean, boolean, boolean][][] = []
+    const borduresNettoyees: [boolean, boolean, boolean, boolean][][] = []
     for (let x = this.rectangle.xMin; x < this.rectangle.xMax; x++) {
       borduresNettoyees[x] = []
       for (let y = this.rectangle.yMin; y < this.rectangle.yMax; y++) {
         borduresNettoyees[x][y] = [false, false, false, false]
-        borduresNettoyees[x][y][0] = y === 0 ? borduresNonNettoyees[x][y][0] : xor(borduresNonNettoyees[x][y][0], borduresNonNettoyees[x][y - 1][2])
-        borduresNettoyees[x][y][1] = x === this.rectangle.xMax - 1 ? borduresNonNettoyees[x][y][1] : xor(borduresNonNettoyees[x][y][1], borduresNonNettoyees[x + 1][y][3])
-        borduresNettoyees[x][y][2] = y === this.rectangle.yMax - 1 ? borduresNonNettoyees[x][y][2] : xor(borduresNonNettoyees[x][y][2], borduresNonNettoyees[x][y + 1][0])
-        borduresNettoyees[x][y][3] = x === 0 ? borduresNonNettoyees[x][y][3] : xor(borduresNonNettoyees[x][y][3], borduresNonNettoyees[x - 1][y][1])
+        borduresNettoyees[x][y][0] =
+          y === 0
+            ? borduresNonNettoyees[x][y][0]
+            : xor(
+                borduresNonNettoyees[x][y][0],
+                borduresNonNettoyees[x][y - 1][2],
+              )
+        borduresNettoyees[x][y][1] =
+          x === this.rectangle.xMax - 1
+            ? borduresNonNettoyees[x][y][1]
+            : xor(
+                borduresNonNettoyees[x][y][1],
+                borduresNonNettoyees[x + 1][y][3],
+              )
+        borduresNettoyees[x][y][2] =
+          y === this.rectangle.yMax - 1
+            ? borduresNonNettoyees[x][y][2]
+            : xor(
+                borduresNonNettoyees[x][y][2],
+                borduresNonNettoyees[x][y + 1][0],
+              )
+        borduresNettoyees[x][y][3] =
+          x === 0
+            ? borduresNonNettoyees[x][y][3]
+            : xor(
+                borduresNonNettoyees[x][y][3],
+                borduresNonNettoyees[x - 1][y][1],
+              )
       }
     }
-    let couplesCoords: [{ x: number, y: number }, { x: number, y: number }][] = []
+    let couplesCoords: [{ x: number; y: number }, { x: number; y: number }][] =
+      []
 
     for (let x = this.rectangle.xMin; x < this.rectangle.xMax; x++) {
       for (let y = this.rectangle.yMin; y < this.rectangle.yMax; y++) {
         if (borduresNettoyees[x][y][0]) {
           const pt1 = { x, y }
           const pt2 = { x: x + 1, y }
-          if (!couplesCoords.some(couple => trouveCouple(pt1, pt2, couple))) couplesCoords.push([pt1, pt2])
+          if (!couplesCoords.some((couple) => trouveCouple(pt1, pt2, couple)))
+            couplesCoords.push([pt1, pt2])
         }
         if (borduresNettoyees[x][y][1]) {
           const pt1 = { x: x + 1, y }
           const pt2 = { x: x + 1, y: y + 1 }
-          if (!couplesCoords.some(couple => trouveCouple(pt1, pt2, couple))) couplesCoords.push([pt1, pt2])
+          if (!couplesCoords.some((couple) => trouveCouple(pt1, pt2, couple)))
+            couplesCoords.push([pt1, pt2])
         }
         if (borduresNettoyees[x][y][2]) {
           const pt1 = { x: x + 1, y: y + 1 }
           const pt2 = { x, y: y + 1 }
-          if (!couplesCoords.some(couple => trouveCouple(pt1, pt2, couple))) couplesCoords.push([pt1, pt2])
+          if (!couplesCoords.some((couple) => trouveCouple(pt1, pt2, couple)))
+            couplesCoords.push([pt1, pt2])
         }
         if (borduresNettoyees[x][y][3]) {
           const pt1 = { x, y: y + 1 }
           const pt2 = { x, y }
-          if (!couplesCoords.some(couple => trouveCouple(pt1, pt2, couple))) couplesCoords.push([pt1, pt2])
+          if (!couplesCoords.some((couple) => trouveCouple(pt1, pt2, couple)))
+            couplesCoords.push([pt1, pt2])
         }
       }
     }
 
-    this.dots = [{ x: couplesCoords[0][0].x, y: couplesCoords[0][0].y }, { x: couplesCoords[0][1].x, y: couplesCoords[0][1].y }]
+    this.dots = [
+      { x: couplesCoords[0][0].x, y: couplesCoords[0][0].y },
+      { x: couplesCoords[0][1].x, y: couplesCoords[0][1].y },
+    ]
     couplesCoords.shift()
     // afin d'éviter les boucles infinies, on limite le nombre d'itérations au nombre de couples de points.
     let cpt = couplesCoords.length
     while (couplesCoords.length > 0 && cpt > 0) {
-      const { couple, couplesPointsRestants } = TrouveExtremites(this.dots[this.dots.length - 1], couplesCoords)
+      const { couple, couplesPointsRestants } = TrouveExtremites(
+        this.dots[this.dots.length - 1],
+        couplesCoords,
+      )
       cpt--
       const seg = couple
       couplesCoords = couplesPointsRestants
@@ -1800,7 +2146,12 @@ export class Polyquad {
  * @param {number} dy2 Composante y du second vecteur
  * @returns {boolean} true si les vecteurs sont orientés dans la même direction, false sinon
  */
-function sontVecteursAlignes (dx1: number, dy1: number, dx2: number, dy2: number): boolean {
+function sontVecteursAlignes(
+  dx1: number,
+  dy1: number,
+  dx2: number,
+  dy2: number,
+): boolean {
   if (dx1 === 0) {
     if (dy1 === 0) {
       return dx2 === 0 && dy2 === 0
@@ -1825,9 +2176,9 @@ function sontVecteursAlignes (dx1: number, dy1: number, dx2: number, dy2: number
  * @returns {BinomesXY} une liste de binomesXY
  * @author Jean-Claude Lhote
  */
-export function elimineBinomesXYIntermediairesAlignes (binomesXY: BinomesXY) {
+export function elimineBinomesXYIntermediairesAlignes(binomesXY: BinomesXY) {
   // on supprime les binomesXY intermédiaires
-  for (let i = 1; i < binomesXY.length - 1;) {
+  for (let i = 1; i < binomesXY.length - 1; ) {
     const pt1 = binomesXY[i - 1]
     const pt2 = binomesXY[i]
     const pt3 = binomesXY[i + 1]

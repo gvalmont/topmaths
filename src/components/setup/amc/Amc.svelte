@@ -6,10 +6,13 @@
     mathaleaHandleExerciceSimple,
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaGenerateSeed,
-    mathaleaUpdateUrlFromExercicesParams
+    mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea.js'
   import Footer from '../../Footer.svelte'
-  import { darkMode, exercicesParams } from '../../../lib/stores/generalStore.js'
+  import {
+    darkMode,
+    exercicesParams,
+  } from '../../../lib/stores/generalStore.js'
   import type TypeExercice from '../../../exercices/Exercice'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
@@ -43,7 +46,7 @@
   let isNonAMCModaleDisplayed = false
   let isOverleafModalDisplayed = false
 
-  async function initExercices () {
+  async function initExercices() {
     exercicesARetirer.length = 0
     await mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
@@ -55,7 +58,8 @@
       if (exercice.typeExercice === 'simple') {
         mathaleaHandleExerciceSimple(exercice, false)
       } else {
-        if (exercice.nouvelleVersionWrapper != null) exercice.nouvelleVersionWrapper()
+        if (exercice.nouvelleVersionWrapper != null)
+          exercice.nouvelleVersionWrapper()
       }
       if (exercice.amcType == null) {
         // l'exercice n'est pas disponible AMC
@@ -70,7 +74,7 @@
       }
     }
     exercices = exercices.filter(
-      (exercice) => !exercicesARetirer.includes(exercice.uuid)
+      (exercice) => !exercicesARetirer.includes(exercice.uuid),
     )
 
     refsExercicesARetirer = refsExercicesARetirer
@@ -121,7 +125,7 @@
       matiere,
       titre,
       nbQuestions: nbQuestions.map((elt) => elt.nombre),
-      nbExemplaires
+      nbExemplaires,
     })
   }
 
@@ -139,7 +143,7 @@
   /**
    * Gérer le POST pour Overleaf
    */
-  function handleOverLeaf () {
+  function handleOverLeaf() {
     textForOverleaf.value =
       'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(content)))
     overleafForm.submit()
@@ -154,7 +158,12 @@
     ? 'dark'
     : ''}"
 >
-  <NavBar subtitle="AMC" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
+  <NavBar
+    subtitle="AMC"
+    subtitleType="export"
+    handleLanguage="{() => {}}"
+    locale="{$referentielLocale}"
+  />
 
   <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div
@@ -167,12 +176,12 @@
           Type d'entête
         </div>
         <FormRadio
-          bind:valueSelected={entete}
-          labelsValues={[
+          bind:valueSelected="{entete}"
+          labelsValues="{[
             { label: 'Grille de codage', value: 'AMCcodeGrid' },
             { label: 'Copies pré-remplies', value: 'AMCassociation' },
-            { label: 'Noms et prénoms manuscrits', value: 'manuscrits' }
-          ]}
+            { label: 'Noms et prénoms manuscrits', value: 'manuscrits' },
+          ]}"
           title="entete"
         />
       </div>
@@ -183,11 +192,11 @@
           Format
         </div>
         <FormRadio
-          bind:valueSelected={format}
-          labelsValues={[
+          bind:valueSelected="{format}"
+          labelsValues="{[
             { label: 'Format A4 portrait', value: 'A4' },
-            { label: 'Format A3 paysage 2 colonnes', value: 'A3' }
-          ]}
+            { label: 'Format A3 paysage 2 colonnes', value: 'A3' },
+          ]}"
           title="format"
         />
       </div>
@@ -202,7 +211,7 @@
           Matière
         </div>
         <input
-          bind:value={matiere}
+          bind:value="{matiere}"
           id="amc-export-matiere-input"
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           type="text"
@@ -215,7 +224,7 @@
           Titre
         </div>
         <input
-          bind:value={titre}
+          bind:value="{titre}"
           id="amc-export-titre-input"
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           type="text"
@@ -232,14 +241,14 @@
             {exercice.id}{exercice.sup
               ? `-S:${exercice.sup}`
               : ''}{exercice.sup2 ? `-S2:${exercice.sup2}` : ''}{exercice.sup3
-                ? `-S3:${exercice.sup3}`
-                : ''}
+              ? `-S3:${exercice.sup3}`
+              : ''}
             <input
               type="text"
               id="amc-export-nb-questions-gr{i}-input"
               class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-              placeholder={exercice.nbQuestions.toString()}
-              bind:value={nbQuestionsModif[i]}
+              placeholder="{exercice.nbQuestions.toString()}"
+              bind:value="{nbQuestionsModif[i]}"
             />
             <span>{exercice.amcType ? exercice.amcType : 'not amcReady'}</span>
             <button
@@ -247,16 +256,17 @@
               data-tip="Nouvel énoncé"
               id="amc-export-new-enonce-button"
               type="button"
-              on:click={() => {
+              on:click="{() => {
                 exercice.seed = mathaleaGenerateSeed()
                 seedrandom(exercice.seed, { global: true })
-                if (exercice.nouvelleVersionWrapper != null) exercice.nouvelleVersionWrapper()
+                if (exercice.nouvelleVersionWrapper != null)
+                  exercice.nouvelleVersionWrapper()
                 $exercicesParams[i].alea = exercice.seed
                 mathaleaUpdateUrlFromExercicesParams()
-              }}
+              }}"
               ><i
                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
-              />
+              ></i>
             </button>
             <!-- <button
                class="tooltip tooltip-left tooltip-neutral"
@@ -280,10 +290,10 @@
         {/each}
         <div>
           <BasicClassicModal
-            bind:isDisplayed={isNonAMCModaleDisplayed}
+            bind:isDisplayed="{isNonAMCModaleDisplayed}"
             icon="bxs-error"
           >
-            <span slot="header" />
+            <span slot="header"></span>
             <div slot="content" class="text-justify">
               Les exercices suivants n'ayant pas de version AMC, ils ont été
               retirés de la liste.
@@ -303,7 +313,7 @@
           Nombre d'exemplaires distincts
         </div>
         <input
-          bind:value={nbExemplaires}
+          bind:value="{nbExemplaires}"
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           min="1"
           type="number"
@@ -316,21 +326,21 @@
     >
       <ButtonActionInfo
         action="copy"
-        textToCopy={content}
+        textToCopy="{content}"
         tooltip="Copier le code LaTeX dans le presse-papier"
         text="Copier le code LaTeX"
-        inverted={false}
+        inverted="{false}"
         successMessage="Le code LaTeX a été copié dans le presse-papier"
         errorMessage="Impossible de copier le code dans le presse-papier !"
-        displayDuration={3000}
+        displayDuration="{3000}"
         class="px-2 py-1 rounded-md"
       />
       <ButtonTextAction
         class="px-2 py-1 rounded-md"
         id="open-btn"
-        on:click={() => {
+        on:click="{() => {
           isOverleafModalDisplayed = true
-        }}
+        }}"
         text="Compiler sur OverLeaf"
       />
     </div>
@@ -341,7 +351,7 @@
   </section>
   <!-- Message avant envoi sur Overleaf -->
   <BasicClassicModal
-    bind:isDisplayed={isOverleafModalDisplayed}
+    bind:isDisplayed="{isOverleafModalDisplayed}"
     icon="bxs-error"
   >
     <span slot="header">Attention !</span>
@@ -355,7 +365,7 @@
     <div slot="footer">
       <ButtonTextAction
         text="Compiler sur OverLeaf"
-        on:click={handleOverLeaf}
+        on:click="{handleOverLeaf}"
       />
     </div>
   </BasicClassicModal>
@@ -380,7 +390,7 @@
     />
     <input
       autocomplete="off"
-      bind:this={textForOverleaf}
+      bind:this="{textForOverleaf}"
       name="snip_uri[]"
       type="hidden"
       value=""

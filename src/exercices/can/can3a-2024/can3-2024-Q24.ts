@@ -1,7 +1,11 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer une expression pour une valeur particulière'
@@ -14,7 +18,7 @@ export const uuid = 'eaa47'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +28,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = -6
       this.question = 'Calculer $2+8x$ pour $x=-1$.<br> '

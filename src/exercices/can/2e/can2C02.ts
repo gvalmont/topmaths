@@ -18,17 +18,17 @@ export const uuid = '76ac6'
 
 export const refs = {
   'fr-fr': ['can2C02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAstucieuxAvecDifferenceCarre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(15, 40)
     const b = a + 1
     if (choice([true, false])) {
@@ -44,7 +44,7 @@ export default class CalculAstucieuxAvecDifferenceCarre extends ExerciceSimple {
       $${a}^2-${b}^2=(${a}-${b})(${a}+${b})=${a - b}\\times ${a + b}=${miseEnEvidence(a ** 2 - b ** 2)}$.`
       this.reponse = a ** 2 - b ** 2
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

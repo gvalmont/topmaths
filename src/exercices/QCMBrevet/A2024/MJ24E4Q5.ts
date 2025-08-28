@@ -9,7 +9,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '481c6'
 export const refs = {
   'fr-fr': ['3S1QCM-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -24,7 +24,7 @@ export const dateDePublication = '28/10/2024'
  */
 
 export default class MetropoleJuin24Exo4Q5 extends ExerciceQcmA {
-  private appliquerLesValeurs (liste: number[]): void {
+  private appliquerLesValeurs(liste: number[]): void {
     const newList = Array.from(new Set(liste))
     let finalList
     if (newList.length % 2 === 0) {
@@ -33,17 +33,17 @@ export default class MetropoleJuin24Exo4Q5 extends ExerciceQcmA {
       finalList = newList
     }
     const nbEleves = finalList.length
-    const listeValeurs = finalList.map(el => texNombre(el, 2)).join('~;~')
+    const listeValeurs = finalList.map((el) => texNombre(el, 2)).join('~;~')
     const listOrd = finalList.slice().sort((a, b) => a - b)
     const index = Math.floor(finalList.length / 2)
     const mediane = texNombre(listOrd[index], 2)
     this.reponses = [
       `$${mediane}$`,
       `$${texNombre(finalList[index], 2)}$`,
-      `$${texNombre(listOrd[index - 1], 2)}$`
+      `$${texNombre(listOrd[index - 1], 2)}$`,
     ]
     this.enonce = `On a mesuré les tailles, en m, de ${nombreEnLettres(nbEleves)} élèves :<br>$${listeValeurs}$<br>Quelle est la médiane, en m, de ces tailles ?`
-    this.correction = `On a dans l'ordre croissant : $${listOrd.map(el => texNombre(el, 2)).join('~\\leq~')}$.<br>
+    this.correction = `On a dans l'ordre croissant : $${listOrd.map((el) => texNombre(el, 2)).join('~\\leq~')}$.<br>
     Il y a autant de tailles inférieures à $${mediane}$m que de tailles supérieures à $${mediane}$m, donc $${miseEnEvidence(`${mediane}`)}$ est la médiane.`
   }
 
@@ -61,19 +61,20 @@ export default class MetropoleJuin24Exo4Q5 extends ExerciceQcmA {
     }
     const index = randint(0, nbTailles - 2, [Math.floor(nbTailles / 2)]) // On choisit l'index de la médiane (pas au milieu)
     const newList: number[] = []
-    for (let i = 0, ii = 0; i < nbTailles;) { // On refait la liste en insérant la médiane à l'index choisi
+    for (let i = 0, ii = 0; i < nbTailles; ) {
+      // On refait la liste en insérant la médiane à l'index choisi
       if (i === index) newList.push(mediane)
       else newList.push(liste[ii++])
       i++
     }
     let k = 0
     do {
-      this.appliquerLesValeurs(shuffle(newList.map(el => el / 100))) // On applique la division par 100 à chaque élément pour avoir les tailles en m.
+      this.appliquerLesValeurs(shuffle(newList.map((el) => el / 100))) // On applique la division par 100 à chaque élément pour avoir les tailles en m.
       k++
     } while (nombreElementsDifferents(this.reponses) < n && k < 100)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

@@ -1,5 +1,6 @@
 import ExerciceConversions from '../6e/_Exercice_conversions'
-export const titre = 'Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)'
+export const titre =
+  'Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,10 +16,10 @@ export const uuid = 'ae35d'
 export const refs = {
   'fr-fr': ['5N15-1'],
   'fr-2016': ['6N24'],
-  'fr-ch': ['10GM3-8']
+  'fr-ch': ['10GM3-8'],
 }
 export default class Exercice6N24 extends ExerciceConversions {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
     this.correction_avec_des_fractions = true

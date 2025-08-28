@@ -16,17 +16,17 @@ export const uuid = '14b41'
 
 export const refs = {
   'fr-fr': ['can5C07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PrioriteOperatoire5e extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(5, 9)
     const b = 20 - a
     const c = randint(3, 9)
@@ -38,7 +38,7 @@ export default class PrioriteOperatoire5e extends ExerciceSimple {
     La multiplication étant prioritaire sur l'addition, on commence par calculer $${a} \\times ${c}=${a * c}$.<br>
     On ajoute ensuite  $${b}$ pour obtenir le résultat : $${a * c}+${b}=${this.reponse}$.
      `)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

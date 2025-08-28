@@ -10,7 +10,8 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
-export const titre = 'Utiliser la formule des probabilités totales dans un arbre'
+export const titre =
+  'Utiliser la formule des probabilités totales dans un arbre'
 export const dateDePublication = '05/07/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,31 +27,60 @@ export const uuid = 'ee478'
 
 export const refs = {
   'fr-fr': ['can1P05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculProbaFormuleProbaTotale extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = true
-    this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
+    this.keyboard = [
+      'numbers',
+      'fullOperations',
+      'variables',
+      'trigo',
+      'advanced',
+    ]
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0, reponse1, reponse2, pA, pBsachantA, pBbarresachantAbarre, pBbarresachantA, pAbarre, pBsachantAbarre, omega, texte, texteCorr, objets; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0,
+        cpt = 0,
+        reponse1,
+        reponse2,
+        pA,
+        pBsachantA,
+        pBbarresachantAbarre,
+        pBbarresachantA,
+        pAbarre,
+        pBsachantAbarre,
+        omega,
+        texte,
+        texteCorr,
+        objets;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       objets = []
       // On choisit les probas de l'arbre
-      pA = (new Decimal(randint(1, 9, 5))).div(10)
-      pAbarre = (new Decimal((pA)).mul(-1)).add(1)
-      pBsachantA = (new Decimal(randint(1, 9, 5))).div(10)
-      pBbarresachantA = (new Decimal((pBsachantA)).mul(-1)).add(1)
-      pBsachantAbarre = (new Decimal(randint(1, 9, 5))).div(10)
+      pA = new Decimal(randint(1, 9, 5)).div(10)
+      pAbarre = new Decimal(pA).mul(-1).add(1)
+      pBsachantA = new Decimal(randint(1, 9, 5)).div(10)
+      pBbarresachantA = new Decimal(pBsachantA).mul(-1).add(1)
+      pBsachantAbarre = new Decimal(randint(1, 9, 5)).div(10)
       pBbarresachantAbarre = new Decimal(pBsachantAbarre).mul(-1).add(1)
-      reponse1 = (new Decimal((pA)).mul(pBsachantA)).add(new Decimal((pAbarre)).mul(pBsachantAbarre))
-      reponse2 = (new Decimal((pA)).mul(pBbarresachantA)).add(new Decimal((pAbarre)).mul(pBbarresachantAbarre))
-      switch (choice([1, 2])) { //
+      reponse1 = new Decimal(pA)
+        .mul(pBsachantA)
+        .add(new Decimal(pAbarre).mul(pBsachantAbarre))
+      reponse2 = new Decimal(pA)
+        .mul(pBbarresachantA)
+        .add(new Decimal(pAbarre).mul(pBbarresachantAbarre))
+      switch (
+        choice([1, 2]) //
+      ) {
         case 1:
           // On définit l'arbre complet
           omega = new Arbre({
@@ -61,44 +91,43 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
             visible: false,
             alter: '',
             enfants: [
-              new Arbre(
-                {
-                  rationnel: false,
-                  nom: 'A',
-                  proba: pA,
-                  alter: '',
-                  enfants: [new Arbre(
-                    {
-                      rationnel: false,
-                      nom: 'B',
-                      proba: pBsachantA,
-                      alter: ''
-                    }),
-                  new Arbre(
-                    {
-                      rationnel: false,
-                      nom: '\\overline{B}',
-                      proba: pBbarresachantA
-                    })
-                  ]
-                }),
+              new Arbre({
+                rationnel: false,
+                nom: 'A',
+                proba: pA,
+                alter: '',
+                enfants: [
+                  new Arbre({
+                    rationnel: false,
+                    nom: 'B',
+                    proba: pBsachantA,
+                    alter: '',
+                  }),
+                  new Arbre({
+                    rationnel: false,
+                    nom: '\\overline{B}',
+                    proba: pBbarresachantA,
+                  }),
+                ],
+              }),
               new Arbre({
                 rationnel: false,
                 nom: '\\overline{A}',
                 proba: pAbarre,
-                enfants: [new Arbre({
-                  rationnel: false,
-                  nom: 'B',
-                  proba: pBsachantAbarre
-                }),
-                new Arbre({
-                  rationnel: false,
-                  nom: '\\overline{B}',
-                  proba: pBbarresachantAbarre
-                })
-                ]
-              })
-            ]
+                enfants: [
+                  new Arbre({
+                    rationnel: false,
+                    nom: 'B',
+                    proba: pBsachantAbarre,
+                  }),
+                  new Arbre({
+                    rationnel: false,
+                    nom: '\\overline{B}',
+                    proba: pBbarresachantAbarre,
+                  }),
+                ],
+              }),
+            ],
           })
 
           omega.setTailles() // On calcule les tailles des arbres.
@@ -106,14 +135,17 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
-          texte += mathalea2d({
-            xmin: -0.1,
-            xmax: 14,
-            ymin: 0,
-            ymax: 7,
-            style: 'inline',
-            scale: 0.5
-          }, ...objets)
+          texte += mathalea2d(
+            {
+              xmin: -0.1,
+              xmax: 14,
+              ymin: 0,
+              ymax: 7,
+              style: 'inline',
+              scale: 0.5,
+            },
+            ...objets,
+          )
 
           if (this.interactif) {
             texte += '<br>$P(B)=$ '
@@ -146,44 +178,43 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
             visible: false,
             alter: '',
             enfants: [
-              new Arbre(
-                {
-                  rationnel: false,
-                  nom: 'A',
-                  proba: pA,
-                  alter: '',
-                  enfants: [new Arbre(
-                    {
-                      rationnel: false,
-                      nom: 'B',
-                      proba: pBsachantA,
-                      alter: ''
-                    }),
-                  new Arbre(
-                    {
-                      rationnel: false,
-                      nom: '\\overline{B}',
-                      proba: pBbarresachantA
-                    })
-                  ]
-                }),
+              new Arbre({
+                rationnel: false,
+                nom: 'A',
+                proba: pA,
+                alter: '',
+                enfants: [
+                  new Arbre({
+                    rationnel: false,
+                    nom: 'B',
+                    proba: pBsachantA,
+                    alter: '',
+                  }),
+                  new Arbre({
+                    rationnel: false,
+                    nom: '\\overline{B}',
+                    proba: pBbarresachantA,
+                  }),
+                ],
+              }),
               new Arbre({
                 rationnel: false,
                 nom: '\\overline{A}',
                 proba: pAbarre,
-                enfants: [new Arbre({
-                  rationnel: false,
-                  nom: 'B',
-                  proba: pBsachantAbarre
-                }),
-                new Arbre({
-                  rationnel: false,
-                  nom: '\\overline{B}',
-                  proba: pBbarresachantAbarre
-                })
-                ]
-              })
-            ]
+                enfants: [
+                  new Arbre({
+                    rationnel: false,
+                    nom: 'B',
+                    proba: pBsachantAbarre,
+                  }),
+                  new Arbre({
+                    rationnel: false,
+                    nom: '\\overline{B}',
+                    proba: pBbarresachantAbarre,
+                  }),
+                ],
+              }),
+            ],
           })
 
           omega.setTailles() // On calcule les tailles des arbres.
@@ -191,14 +222,17 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
           texte = `On donne l’arbre de probabilités ci-dessous :<br>
 
          `
-          texte += mathalea2d({
-            xmin: -0.1,
-            xmax: 14,
-            ymin: 0,
-            ymax: 7,
-            style: 'inline',
-            scale: 0.5
-          }, ...objets)
+          texte += mathalea2d(
+            {
+              xmin: -0.1,
+              xmax: 14,
+              ymin: 0,
+              ymax: 7,
+              style: 'inline',
+              scale: 0.5,
+            },
+            ...objets,
+          )
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{B})=$ '

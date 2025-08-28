@@ -9,7 +9,8 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-export const titre = 'Déterminer une ordonnée/abscisse avec une fonction linéaire'
+export const titre =
+  'Déterminer une ordonnée/abscisse avec une fonction linéaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '02/11/2022'
@@ -24,26 +25,37 @@ export const uuid = 'bf9f2'
 
 export const refs = {
   'fr-fr': ['can3F10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let xA, yB
     const a = choice([0.5, 1.5, 2, 2.5, 3, 3.5, 4])
-    if (a === 0.5 || a === 1.5 || a === 2) { xA = choice([2, 4]) } else { xA = 2 }
+    if (a === 0.5 || a === 1.5 || a === 2) {
+      xA = choice([2, 4])
+    } else {
+      xA = 2
+    }
     const yA = a * xA
     const f = (x: number) => a * x
     const xB = randint(5, 10)
-    if (a === 0.5) { yB = randint(6, 10) * 2 } else
-      if (a === 1.5) { yB = randint(6, 10) * 3 } else
-        if (a === 2.5) { yB = randint(3, 10) * 5 } else
-          if (a === 3.5) { yB = randint(2, 5) * 7 } else { yB = randint(5, 10) * a }
+    if (a === 0.5) {
+      yB = randint(6, 10) * 2
+    } else if (a === 1.5) {
+      yB = randint(6, 10) * 3
+    } else if (a === 2.5) {
+      yB = randint(3, 10) * 5
+    } else if (a === 3.5) {
+      yB = randint(2, 5) * 7
+    } else {
+      yB = randint(5, 10) * a
+    }
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const A = point(xA, 0.5 * yA)
     const Ax = point(A.x, 0)
@@ -84,11 +96,28 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
       grilleSecondaireYMin: 2 * ymin,
       grilleSecondaireYMax: 2 * ymax,
       grilleSecondaireXMin: xmin,
-      grilleSecondaireXMax: xmax
+      grilleSecondaireXMax: xmax,
     })
-    const objet = mathalea2d({ xmin, xmax, ymin, ymax, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }), r1, lA, traceA, o, sAAx, sAAy)
+    const objet = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }),
+      r1,
+      lA,
+      traceA,
+      o,
+      sAAx,
+      sAAy,
+    )
     switch (choice([1, 2])) {
-      case 1://
+      case 1: //
         this.question = `$B(${xB}\\,;\\, \\ldots)$ est un point de la droite $(OA)$.<br>
         Quelle est son ordonnée ?<br>
         `
@@ -104,7 +133,7 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
         this.reponse = a * xB
 
         break
-      case 2://
+      case 2: //
         this.question = `$B(\\ldots\\,;\\, ${yB})$ est un point de la droite $(OA)$.<br>
         Quelle est son abscisse ?<br>
         `
@@ -116,19 +145,18 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
         if (a === 0.5) {
           this.correction += `Diviser par $${texNombre(a, 1)}$ (soit par $\\dfrac{1}{2}$) revient à multiplier par $2$.<br>
         Ainsi, l'abscisse du point $B$ est donnée par $${yB}\\times 2=${miseEnEvidence(yB / a)}$.`
-        } else
-          if (a === 1.5) {
-            this.correction += `Diviser par $${texNombre(a, 1)}$ (soit par $\\dfrac{3}{2}$) revient à multiplier par $3$ puis diviser par $2$.<br>
+        } else if (a === 1.5) {
+          this.correction += `Diviser par $${texNombre(a, 1)}$ (soit par $\\dfrac{3}{2}$) revient à multiplier par $3$ puis diviser par $2$.<br>
         Ainsi, l'abscisse du point $B$ est donnée par $(${yB}\\times 2)\\div 3=${miseEnEvidence(yB / a)}$.`
-          } else
-            if (a === 2.5) {
-              this.correction += `Diviser par $${texNombre(a, 1)}$ (soit par $\\dfrac{5}{2}$) revient à multiplier par $2$ puis diviser par $5$.<br>
+        } else if (a === 2.5) {
+          this.correction += `Diviser par $${texNombre(a, 1)}$ (soit par $\\dfrac{5}{2}$) revient à multiplier par $2$ puis diviser par $5$.<br>
         Ainsi, l'abscisse du point $B$ est donnée par $(${yB}\\times 2)\\div 5=${miseEnEvidence(yB / a)}$.`
-            } else
-              if (a === 3.5) {
-                this.correction += `Diviser par $${texNombre(a, 1)}$ (soit par $\\dfrac{7}{2}$) revient à multiplier par $2$ puis diviser par $7$.<br>
+        } else if (a === 3.5) {
+          this.correction += `Diviser par $${texNombre(a, 1)}$ (soit par $\\dfrac{7}{2}$) revient à multiplier par $2$ puis diviser par $7$.<br>
         Ainsi, l'abscisse du point $B$ est donnée par $(${yB}\\times 2)\\div 7=${yB / a}$.`
-              } else { this.correction += `Ainsi, l'abscisse du point $B$ est donnée par  $${yB}\\div ${a}=${miseEnEvidence(yB / a)}$. ` }
+        } else {
+          this.correction += `Ainsi, l'abscisse du point $B$ est donnée par  $${yB}\\div ${a}=${miseEnEvidence(yB / a)}$. `
+        }
 
         this.reponse = yB / a
         this.canEnonce = 'Compléter.<br> '

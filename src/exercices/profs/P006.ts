@@ -11,7 +11,7 @@ export const titre = 'Placer un nombre décimal avec des zooms successifs'
 
 export const refs = {
   'fr-fr': ['P006'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = 'bd5f7'
 
@@ -20,10 +20,17 @@ export const uuid = 'bd5f7'
  * @author Jean-Claude Lhote
  */
 export default class NombreAPlacer extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes']
-    this.besoinFormulaire2Numerique = ['Saisir le nombre du millièmes du nombre décimal ', 99999]
+    this.besoinFormulaireNumerique = [
+      'Nombre de zoom',
+      3,
+      '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Saisir le nombre du millièmes du nombre décimal ',
+      99999,
+    ]
     this.besoinFormulaire3CaseACocher = ['Afficher les abscisses']
 
     this.nbQuestions = 1
@@ -33,7 +40,7 @@ export default class NombreAPlacer extends Exercice {
     this.sup3 = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte = ''
     const noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0
@@ -69,13 +76,17 @@ export default class NombreAPlacer extends Exercice {
       axeCouleur: 'black',
       axeHauteur: 6,
       labelsPrincipaux: this.sup3,
-      pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+      pointListe: [
+        [x1, `${noms[1]}`],
+        [x2, `${noms[0]}`],
+        [x3, `${noms[2]}`],
+      ],
       pointTaille: 6,
       pointOpacite: 0.8,
       pointCouleur: 'blue',
       pointStyle: '|',
       pointEpaisseur: 3,
-      axeStyle: extremite
+      axeStyle: extremite,
     })
     const d2 = droiteGraduee({
       x: 6.5,
@@ -94,13 +105,19 @@ export default class NombreAPlacer extends Exercice {
       axeCouleur: 'black',
       axeHauteur: 6,
       labelsPrincipaux: this.sup3,
-      pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+      pointListe: [
+        [x1, `${noms[1]}`],
+        [x2, `${noms[0]}`],
+        [x3, `${noms[2]}`],
+        [x21, `${noms[3]}`],
+        [x31, `${noms[4]}`],
+      ],
       pointTaille: 6,
       pointOpacite: 0.8,
       pointCouleur: 'blue',
       pointStyle: '|',
       pointEpaisseur: 2,
-      axeStyle: extremite
+      axeStyle: extremite,
     })
     const d3 = droiteGraduee({
       x: 6.5,
@@ -118,13 +135,17 @@ export default class NombreAPlacer extends Exercice {
       axeCouleur: 'black',
       axeHauteur: 6,
       labelsPrincipaux: this.sup3,
-      pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+      pointListe: [
+        [x1, `${noms[1]}`],
+        [x21, `${noms[3]}`],
+        [x31, `${noms[4]}`],
+      ],
       pointTaille: 6,
       pointOpacite: 0.8,
       pointCouleur: 'blue',
       pointStyle: '|',
       pointEpaisseur: 2,
-      axeStyle: extremite
+      axeStyle: extremite,
     })
 
     const pA1 = point((x2 - xmin) * 30, 6)
@@ -143,8 +164,21 @@ export default class NombreAPlacer extends Exercice {
     const sD = segment(pD1, pD2)
     sC.pointilles = 5
     sD.pointilles = 5
-    const fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
-    if (this.sup === 3) { objets.push(d1, d2, d3, sA, sB, sC, sD) } else if (this.sup === 2) { objets.push(d1, d2, sA, sB) } else { objets.push(d1) }
+    const fenetre = {
+      xmin: -1.5,
+      xmax: 35,
+      ymin: -1.5,
+      ymax: 7.5,
+      pixelsParCm: 25,
+      scale: 0.5,
+    }
+    if (this.sup === 3) {
+      objets.push(d1, d2, d3, sA, sB, sC, sD)
+    } else if (this.sup === 2) {
+      objets.push(d1, d2, sA, sB)
+    } else {
+      objets.push(d1)
+    }
 
     texte = mathalea2d(fenetre, objets)
     this.contenu = texte

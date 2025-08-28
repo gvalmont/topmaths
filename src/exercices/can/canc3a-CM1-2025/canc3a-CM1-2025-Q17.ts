@@ -9,13 +9,13 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 
-export const titre = 'Calculer la longueur d\'un segment par comparaison'
+export const titre = "Calculer la longueur d'un segment par comparaison"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'e22ff'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -23,7 +23,7 @@ export const refs = {
 
 */
 export default class Can2025CM1Q17 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -32,7 +32,7 @@ export default class Can2025CM1Q17 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const grille = new Grille(0, 0, 8, 3, 'gray', 1, 1)
     const A = new Point(1, 1)
     const B = new Point(2, 1)
@@ -44,13 +44,23 @@ export default class Can2025CM1Q17 extends ExerciceSimple {
     const l2 = l1 / 3
     seg1.epaisseur = 3
     seg2.epaisseur = 3
-    const long = latex2d(`${l1}\\text{ cm}`, 3, 2.5, { letterSize: 'normalsize' })
-    const longCherche = latex2d('\\ldots \\text{ cm}', 2, 0.5, { letterSize: 'normalsize' })
+    const long = latex2d(`${l1}\\text{ cm}`, 3, 2.5, {
+      letterSize: 'normalsize',
+    })
+    const longCherche = latex2d('\\ldots \\text{ cm}', 2, 0.5, {
+      letterSize: 'normalsize',
+    })
     const objets = [grille, seg1, seg2, long, longCherche]
     this.question = 'Complète.'
-    this.question += mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 30 }, fixeBordures(objets)), objets)
+    this.question += mathalea2d(
+      Object.assign({ scale: 0.5, pixelsParCm: 30 }, fixeBordures(objets)),
+      objets,
+    )
     this.canEnonce = 'Complète.'
-    this.canReponseACompleter = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    this.canReponseACompleter = mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
     this.reponse = texNombre(l2, 0)
     this.correction = `Chaque carreau a une longueur de $${l1}\\div 3 = ${texNombre(l1 / 3, 0)}$ cm, ainsi la longueur du segment est  $${miseEnEvidence(this.reponse)}$ cm.`
   }

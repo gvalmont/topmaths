@@ -14,17 +14,17 @@ export const interactifType = 'qcm'
  * Exercice vrai ou faux
  * Une sélection aléatoire d'affirmations est proposée à l'élève qui doit dire si elles sont vraies ou fausses
  * Ces affirmations sont tirées de this.affirmations
-*/
+ */
 
 interface Affirmation {
-  texte: string;
-  statut: boolean;
-  correction: string;
+  texte: string
+  statut: boolean
+  correction: string
 }
 
 export default class VraiFaux extends Exercice {
   affirmations: Affirmation[]
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.consigne = 'Pour chaque affirmation, dire si elle est vraie ou fausse.'
@@ -33,34 +33,35 @@ export default class VraiFaux extends Exercice {
     this.sup = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1
-      ? 'Dire si cette affirmation est vraie ou fausse.'
-      : 'Pour chaque affirmation, dire si elle est vraie ou fausse.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Dire si cette affirmation est vraie ou fausse.'
+        : 'Pour chaque affirmation, dire si elle est vraie ou fausse.'
     this.affirmations.sort(() => Math.random() - 0.5)
     this.nbQuestions = Math.min(this.affirmations.length, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = this.affirmations[i].texte
       const propositions = [
         {
           texte: 'Vrai',
-          statut: this.affirmations[i].statut
+          statut: this.affirmations[i].statut,
         },
         {
           texte: 'Faux',
-          statut: !this.affirmations[i].statut
-        }
+          statut: !this.affirmations[i].statut,
+        },
       ]
       if (this.sup) {
         propositions.push({
           texte: 'Je ne sais pas',
-          statut: false
+          statut: false,
         })
       }
       this.autoCorrection[i] = {
         options: { ordered: true, vertical: false, radio: true },
         enonce: texte,
-        propositions
+        propositions,
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc && this.interactif) {

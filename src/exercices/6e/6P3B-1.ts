@@ -1,14 +1,21 @@
 import Decimal from 'decimal.js'
 import { texPrix } from '../../lib/format/style'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutils'
+import {
+  combinaisonListes,
+  compteOccurences,
+} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Reconnaitre une situation de proportionnalité'
@@ -26,16 +33,19 @@ export const uuid = '850d5'
 export const refs = {
   'fr-fr': ['BP2AutoL4', '6P3B-1'],
   'fr-2016': ['6P10', 'BP2AutoL4'],
-  'fr-ch': ['9FA3-1']
+  'fr-ch': ['9FA3-1'],
 }
 export default class ProportionnalitePasProportionnalite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange']
-    this.besoinFormulaire2CaseACocher = ['Avec \'je ne sais pas\' dans le QCM']
+    this.besoinFormulaireTexte = [
+      'Type de questions',
+      'Nombres séparés par des tirets :\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange',
+    ]
+    this.besoinFormulaire2CaseACocher = ["Avec 'je ne sais pas' dans le QCM"]
 
-    context.isHtml ? this.spacing = 2 : this.spacing = 1.4
-    context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.4)
+    context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 1)
     this.nbQuestions = 5
 
     this.nbColsModifiable = false
@@ -44,14 +54,18 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
     this.sup2 = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let bonneReponse
 
-    this.consigne = this.interactif ? 'Cocher la bonne réponse.' : this.nbQuestions > 1 ? 'Répondre aux questions posées en justifiant.' : 'Répondre à la question posée en justifiant.'
+    this.consigne = this.interactif
+      ? 'Cocher la bonne réponse.'
+      : this.nbQuestions > 1
+        ? 'Répondre aux questions posées en justifiant.'
+        : 'Répondre à la question posée en justifiant.'
     const listeIndexDisponibles = [0, 1, 2, 3, 4]
     const listeIndex = combinaisonListes(
       listeIndexDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
 
     const listeChoix = gestionnaireFormulaireTexte({
@@ -59,32 +73,37 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
       defaut: 6,
       melange: 6,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
+      saisie: this.sup,
     })
 
-    const nombre = compteOccurences(listeChoix, '1') + compteOccurences(listeChoix, '5')
-    const listeProportionnelOuPas = combinaisonListes(
-      [true, false],
-      nombre
-    )
+    const nombre =
+      compteOccurences(listeChoix, '1') + compteOccurences(listeChoix, '5')
+    const listeProportionnelOuPas = combinaisonListes([true, false], nombre)
     const listeDeLieux = [
       'dans un magasin de bricolage',
       'dans une animalerie',
       'au supermarché local',
       "à l'épicerie",
-      'dans la boutique du musée'
+      'dans la boutique du musée',
     ]
     const listeDeChoses: string[][] = [[]]
     const listeDePrixUnit: number[][] = [[]]
     const tirages: [number, Decimal][] = []
     let index3 = []
-    const villes = ['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade']
+    const villes = [
+      'Moscou',
+      'Berlin',
+      'Paris',
+      'Bruxelles',
+      'Rome',
+      'Belgrade',
+    ]
     const verbes = [
       'double',
       'triple',
       'quadruple',
       'est multiplié par 5',
-      'est multiplié par 6'
+      'est multiplié par 6',
     ]
     listeDeChoses[0] = [
       'articles',
@@ -95,7 +114,7 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
       'ampoules',
       'tournevis',
       'spatules',
-      'raccords de tuyaux'
+      'raccords de tuyaux',
     ]
     listeDeChoses[1] = [
       'poissons rouges',
@@ -105,7 +124,7 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
       'colliers anti-puces',
       'souris',
       'lapereaux',
-      'paquets de graines'
+      'paquets de graines',
     ]
     listeDeChoses[2] = [
       'sets de tables',
@@ -114,7 +133,7 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
       'os à macher',
       'dosettes de café',
       'packs de lait',
-      'paquets de pâtes'
+      'paquets de pâtes',
     ]
     listeDeChoses[3] = [
       'mangues',
@@ -124,7 +143,7 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
       'paquets de madeleines de Commercy',
       'bergamottes',
       'bredeles',
-      'pots de cancoillotte'
+      'pots de cancoillotte',
     ]
     listeDeChoses[4] = [
       'cartes',
@@ -133,7 +152,7 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
       'puzzles',
       'maquettes',
       'roches',
-      'jeux de société'
+      'jeux de société',
     ]
     listeDePrixUnit[0] = [5, 4, 1.25, 3, 0.5, 1.5, 2, 6, 4.5]
     listeDePrixUnit[1] = [1.5, 7, 20, 2.5, 25, 2, 15, 8]
@@ -174,7 +193,10 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
             prenoms = [prenomF(), prenomM()]
             index2 = randint(0, listeDeChoses[index1].length - 1)
             objet = listeDeChoses[index1][index2]
-            pu = new Decimal(listeDePrixUnit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1))).toDP(2)
+            pu = new Decimal(
+              listeDePrixUnit[index1][index2] *
+                (1 + randint(1, 2) * 0.2 * randint(-1, 1)),
+            ).toDP(2)
             y = randint(2, 5)
             somme = pu.mul(y)
             p = y * randint(2, 5)
@@ -192,7 +214,10 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
             prenoms = [prenomF(), prenomM()]
             index2 = randint(0, listeDeChoses[index1].length - 1)
             objet = listeDeChoses[index1][index2]
-            pu = new Decimal(listeDePrixUnit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1))).toDP(2)
+            pu = new Decimal(
+              listeDePrixUnit[index1][index2] *
+                (1 + randint(1, 2) * 0.2 * randint(-1, 1)),
+            ).toDP(2)
             y = randint(2, 5)
             somme = pu.mul(y)
             p = y * randint(2, 5)
@@ -213,21 +238,24 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
           x = randint(5, 20)
           y = randint(5, 20, x) * 100
           x = x * 100
-          n = Math.round(x * (1 + randint(0, 2) * 0.2) / 60)
-          p = Math.round(y * (1 + randint(0, 2) * 0.2) / 60)
+          n = Math.round((x * (1 + randint(0, 2) * 0.2)) / 60)
+          p = Math.round((y * (1 + randint(0, 2) * 0.2)) / 60)
           index1 = new Decimal(x).div(n) // vitesse fille
           index2 = new Decimal(y).div(p) // vitesse garçon
 
           texte = `${prenoms[0]} habite à $${texNombre(x, 0)}$ m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`
           texte += `${prenoms[1]}, lui, habite à $${texNombre(y, 0)}$ m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`
-          texte += 'Les durées de trajet pour venir au collège sont-elles proportionnelles aux distances parcourues ?<br>'
+          texte +=
+            'Les durées de trajet pour venir au collège sont-elles proportionnelles aux distances parcourues ?<br>'
           texteCorr = `${prenoms[0]} parcourt ${x} m en ${n} minutes soit environ $\\dfrac{${x}\\text{ m}}{${n}\\text{ min}} ${index1.eq(index1.toDP(1)) ? '=' : '\\approx'} ${texNombre(index1.toDP(1), 1)}\\text{ m}/_{\\text{ min}}$`
           texteCorr += ` et ${prenoms[1]} parcourt ${y} m en ${p} minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${index2.eq(index2.toDP(1)) ? '=' : '\\approx'} ${texNombre(index2.toDP(1))}\\text{ m}/_{\\text{ min}}$.<br>`
           if (index1.eq(index2)) {
-            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne).'
+            texteCorr +=
+              "Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)."
             bonneReponse = 'oui'
           } else {
-            texteCorr += 'La distance parcourue en une minute (vitesse moyenne) n\'est pas la même dans ces deux situations, il n\'y a donc pas proportionnalité.<br>'
+            texteCorr +=
+              "La distance parcourue en une minute (vitesse moyenne) n'est pas la même dans ces deux situations, il n'y a donc pas proportionnalité.<br>"
             bonneReponse = 'non'
           }
           break
@@ -237,10 +265,12 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
           y = x + randint(25, 35)
           texte = `${prenoms[0]} vient d'avoir ${x} ans cette année. Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`
           texte += `L'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?<br>`
-          texteCorr = `Aujourd'hui, la différence d'âge entre ${prenoms[0]
-            } et ${prenoms[1]} est de ${y - x} ans.<br>`
-          texteCorr += `${prenoms[0]} a ${x} ans aujourd'hui. Dans ${x} années, ${prenoms[0]} aura ${2 * x
-            } ans (${x} + ${x}), c'est-à-dire le double d'aujourd'hui.<br>`
+          texteCorr = `Aujourd'hui, la différence d'âge entre ${
+            prenoms[0]
+          } et ${prenoms[1]} est de ${y - x} ans.<br>`
+          texteCorr += `${prenoms[0]} a ${x} ans aujourd'hui. Dans ${x} années, ${prenoms[0]} aura ${
+            2 * x
+          } ans (${x} + ${x}), c'est-à-dire le double d'aujourd'hui.<br>`
           texteCorr += `Son père ${prenoms[1]} qui a actuellement ${y} ans aura ${x + y} ans cette année-là (${y}+${x}).<br>`
           texteCorr += `Quand l'âge de ${prenoms[0]} double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]} et l'âge de son père ne sont pas propotionnels.<br>`
           texteCorr += `Dans ${x} années, la différence d'âge restera la même : ${x + y} - ${2 * x} = ${y - x}.`
@@ -250,13 +280,15 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
           index1 = randint(0, 5)
           index2 = randint(0, 4)
           texte = `Une épidémie se répand dans la ville de ${villes[index1]}. `
-          texte += `Le nombre de malades ${verbes[index2]} tous les ${index2 + 2
-            } jours.<br>`
+          texte += `Le nombre de malades ${verbes[index2]} tous les ${
+            index2 + 2
+          } jours.<br>`
           texte += 'Le nombre de malades est-il proportionnel au nombre de '
-          texte += 'jours passés depuis le début de l\'épidémie ?<br>'
+          texte += "jours passés depuis le début de l'épidémie ?<br>"
           texteCorr = `Admettons qu'il y ait 10 malades le 1er jour. Le ${1 + 2 + index2}e jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)}$ malades.<br>`
           texteCorr += `Entre le 1er jour et le ${3 + index2}e jour, le nombre de malades est multiplié par ${index2 + 2} mais le nombre de jours est multiplié par ${3 + index2}.<br>`
-          texteCorr += 'Donc le nombre de malades n\'est pas proportionnel au nombre de jours passés.<br>'
+          texteCorr +=
+            "Donc le nombre de malades n'est pas proportionnel au nombre de jours passés.<br>"
           bonneReponse = 'non'
           break
         case 5: // Achat (tableau de proportionnalité)
@@ -265,7 +297,10 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
           index1 = randint(0, 5)
           objet = listeDeChoses[4][index1]
           index2 = randint(0, 4)
-          pu = new Decimal(listeDePrixUnit[4][index1] * (1 + randint(1, 2) * 0.2 * randint(-1, 1))).toDP(2)
+          pu = new Decimal(
+            listeDePrixUnit[4][index1] *
+              (1 + randint(1, 2) * 0.2 * randint(-1, 1)),
+          ).toDP(2)
           n = randint(2, 6)
           p = randint(0, 3)
           tirages[0] = [n, pu.mul(n)]
@@ -282,7 +317,9 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
           texte += `|}\\hline  \\text{${objet}}`
           for (let j = 0; j < tirages.length; j++) texte += `&${tirages[j][0]}`
           texte += '\\\\\\hline \\text{Prix (en €})'
-          for (let j = 0; j < tirages.length; j++) { texte += `&${texPrix(tirages[j][1])}` }
+          for (let j = 0; j < tirages.length; j++) {
+            texte += `&${texPrix(tirages[j][1])}`
+          }
           texte += '\\\\\\hline\\end{array}$<br> <br>'
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée ?<br>`
           texteCorr = `On peut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br><br>`
@@ -312,18 +349,18 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
           this.autoCorrection[i].propositions = [
             {
               texte: 'oui',
-              statut: bonneReponse !== 'non'
+              statut: bonneReponse !== 'non',
             },
             {
               texte: 'non',
-              statut: bonneReponse !== 'oui'
-            }
+              statut: bonneReponse !== 'oui',
+            },
           ]
           if (this.sup2) {
             // @ts-expect-error
             this.autoCorrection[i].propositions.push({
               texte: 'je ne sais pas',
-              statut: false
+              statut: false,
             })
           }
           const props = propositionsQcm(this, i)

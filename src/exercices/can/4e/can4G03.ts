@@ -4,7 +4,10 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { similitude } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
@@ -19,26 +22,26 @@ export const dateDeModifImportante = '01/06/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export const uuid = 'd9524'
 
 export const refs = {
   'fr-fr': ['can4G03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculHypotenusePythagore extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b
     const nom = creerNomDePolygone(3, ['QD'])
-    a = randint(2, 7)//
-    b = randint(3, 7)//
+    a = randint(2, 7) //
+    b = randint(3, 7) //
     const A = point(0, 0, nom[0])
     const B = pointAdistance(A, a, randint(0, 45), nom[1])
     const C = similitude(A, B, 90, b / a, nom[2])
@@ -56,14 +59,36 @@ export default class CalculHypotenusePythagore extends ExerciceSimple {
       case 'a':
         c2 = a ** 2 + b ** 2
         reduction = extraireRacineCarree(c2)
-        reductible = (reduction[0] !== 1)
-        entiere = (reduction[1] === 1)
+        reductible = reduction[0] !== 1
+        entiere = reduction[1] === 1
         objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-        objets.push(texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y + 0.4),
-          texteParPosition(`${texNombre(b)}`, milieu(B, C).x + 0.4, milieu(B, C).y)
+        objets.push(
+          texteParPosition(
+            `${texNombre(a)}`,
+            milieu(A, B).x,
+            milieu(A, B).y + 0.4,
+          ),
+          texteParPosition(
+            `${texNombre(b)}`,
+            milieu(B, C).x + 0.4,
+            milieu(B, C).y,
+          ),
         )
         this.question = `Sur cette figure, calculer la valeur exacte de $${nom[0]}${nom[2]}$.<br>`
-        this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
+        this.question += mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 22,
+            mainlevee: false,
+            amplitude: 0.3,
+            scale: 0.5,
+            style: 'margin: auto',
+          },
+          objets,
+        )
 
         if (entiere) {
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
@@ -99,18 +124,22 @@ Cette somme vaut $${b ** 2}+${a ** 2}=${c2}$. <br>
 La valeur cherchée est donc : $\\sqrt{${c2}}$.
 `)
         }
-        this.reponse = [`\\sqrt{${c2}}`, `${Math.sqrt(c2)}`, texRacineCarree(c2)]
-        this.canEnonce = this.question// 'Compléter'
+        this.reponse = [
+          `\\sqrt{${c2}}`,
+          `${Math.sqrt(c2)}`,
+          texRacineCarree(c2),
+        ]
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = `$${nom[0]}${nom[2]}=\\ldots$`
         break
 
       case 'b':
-        a = randint(1, 10)//
-        b = randint(2, 10, [4, 9])//
+        a = randint(1, 10) //
+        b = randint(2, 10, [4, 9]) //
         c2 = a ** 2 + b
         reduction = extraireRacineCarree(c2)
-        reductible = (reduction[0] !== 1)
-        entiere = (reduction[1] === 1)
+        reductible = reduction[0] !== 1
+        entiere = reduction[1] === 1
         if (entiere) {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$ dans lequel
                   $${nom[0]}${nom[1]}=${a}$ et $${nom[0]}${nom[2]}=\\sqrt{${b}}$.<br>
@@ -150,8 +179,12 @@ La longueur $${nom[1]}${nom[2]}$ est donnée par la racine carrée de la somme d
 Cette somme vaut $${b}+${a ** 2}=${c2}$ (n'oubliez pas que $(\\sqrt{${b}})^2=${b}$). <br>
 La valeur cherchée est donc : $\\sqrt{${c2}}${reductible ? '=' + texRacineCarree(c2) : ''}$.`)
         }
-        this.reponse = [`\\sqrt{${c2}}`, texRacineCarree(c2), `${Math.sqrt(c2)}`]
-        this.canEnonce = this.question// 'Compléter'
+        this.reponse = [
+          `\\sqrt{${c2}}`,
+          texRacineCarree(c2),
+          `${Math.sqrt(c2)}`,
+        ]
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = `$${nom[1]}${nom[2]}=\\ldots$`
         break
     }

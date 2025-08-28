@@ -8,11 +8,14 @@ import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
-export function fete (decimal = false): Probleme {
+export function fete(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nbFois = randint(3, 5) * 5
   const quotité = decimal ? (randint(10, 20) * 2 + 1) * 0.5 : randint(11, 19)
-  const total = Math.ceil(nbFois * quotité + (decimal ? (randint(4, 16) * 10 + 1) * 0.5 : randint(2, 8) * 20))
+  const total = Math.ceil(
+    nbFois * quotité +
+      (decimal ? (randint(4, 16) * 10 + 1) * 0.5 : randint(2, 8) * 20),
+  )
   const reste = total - nbFois * quotité
   const data = { nbFois, quotité, reste }
   const enonce = `Pour une fête de l'école, ${personnage.prenom} a apporté $${texNombre(total, 1)}$ centilitres de jus de fruit.

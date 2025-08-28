@@ -11,7 +11,8 @@ import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
-export const titre = 'Déterminer une probabilité dans un tableau de probabilités'
+export const titre =
+  'Déterminer une probabilité dans un tableau de probabilités'
 export const dateDePublication = '06/07/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,37 +28,73 @@ export const uuid = '73673'
 
 export const refs = {
   'fr-fr': ['can1P06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculProbaTableau extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = true
-    this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
+    this.keyboard = [
+      'numbers',
+      'fullOperations',
+      'variables',
+      'trigo',
+      'advanced',
+    ]
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0, reponse, tableau, pAbarreinterBbarre, pA, pB, pAinterB, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
-      // On choisit les probas de l'arbre
-      pA = (new Decimal(randint(27, 40))).div(100)
-      pB = (new Decimal(randint(41, 70))).div(100)
-      pAinterB = (new Decimal(randint(11, 25))).div(100)
-      pAbarreinterBbarre = (new Decimal(1 - pA)).sub(pB).add(pAinterB)
+  nouvelleVersion() {
+    for (
+      let i = 0,
+        cpt = 0,
+        reponse,
+        tableau,
+        pAbarreinterBbarre,
+        pA,
+        pB,
+        pAinterB,
+        texte,
+        texteCorr;
+      i < this.nbQuestions && cpt < 50;
 
-      tableau = tableauColonneLigne(['', 'A', '\\overline{A}', '\\text{Total}'],
+    ) {
+      // On choisit les probas de l'arbre
+      pA = new Decimal(randint(27, 40)).div(100)
+      pB = new Decimal(randint(41, 70)).div(100)
+      pAinterB = new Decimal(randint(11, 25)).div(100)
+      pAbarreinterBbarre = new Decimal(1 - pA).sub(pB).add(pAinterB)
+
+      tableau = tableauColonneLigne(
+        ['', 'A', '\\overline{A}', '\\text{Total}'],
         ['B', '\\overline{B}', '\\text{Total}'],
-        [`${texNombre(pAinterB, 2)}`, `${texNombre(pB - pAinterB, 2)}`, `${texNombre(pB, 2)}`, `${texNombre(pA - pAinterB, 2)}`, `${texNombre(pAbarreinterBbarre, 2)}`, `${texNombre(1 - pB, 2)}`, `${texNombre(pA, 2)}`, `${texNombre(1 - pA, 2)}`, '1'])
-      texte = 'Ce tableau est un tableau de probabilités avec deux événements $A$ et $B$  d’une expérience aléatoire.<br>'
+        [
+          `${texNombre(pAinterB, 2)}`,
+          `${texNombre(pB - pAinterB, 2)}`,
+          `${texNombre(pB, 2)}`,
+          `${texNombre(pA - pAinterB, 2)}`,
+          `${texNombre(pAbarreinterBbarre, 2)}`,
+          `${texNombre(1 - pB, 2)}`,
+          `${texNombre(pA, 2)}`,
+          `${texNombre(1 - pA, 2)}`,
+          '1',
+        ],
+      )
+      texte =
+        'Ce tableau est un tableau de probabilités avec deux événements $A$ et $B$  d’une expérience aléatoire.<br>'
       this.canEnonce = texte
-      switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) { //
-        case 1:// p_A(B)
+      switch (
+        choice([1, 2, 3, 4, 5, 6, 7, 8, 9]) //
+      ) {
+        case 1: // p_A(B)
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br> $P_A(B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous la forme d’une fraction d’entiers)',
+            })
           } else {
             texte += 'Déterminer $P_A(B)$. '
           }
@@ -68,11 +105,13 @@ export default class CalculProbaTableau extends Exercice {
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P_A(B)=\\ldots$'
           break
-        case 2:// p(B)
+        case 2: // p(B)
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br>Calculer $P(B)$. '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous forme décimale)',
+            })
           } else {
             texte += 'Déterminer $P(B)$. '
           }
@@ -83,26 +122,30 @@ export default class CalculProbaTableau extends Exercice {
           this.canReponseACompleter = '$P_A(B)=\\ldots$'
           break
 
-        case 3:// p(Bbarre)
+        case 3: // p(Bbarre)
           texte += `${tableau} `
           if (this.interactif) {
             texte += '<br>  $P(\\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous forme décimale)',
+            })
           } else {
             texte += 'Déterminer $P(\\overline{B})$. '
           }
           texteCorr = ` $P(\\overline{B})=${miseEnEvidence(texNombre(1 - pB, 2))}$
       `
-          reponse = (new Decimal(pB)).mul(-1).add(1)
+          reponse = new Decimal(pB).mul(-1).add(1)
           setReponse(this, i, reponse)
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P(\\overline{B})=\\ldots$'
           break
-        case 4:// p(AinterB)
+        case 4: // p(AinterB)
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous forme décimale)',
+            })
           } else {
             texte += ' Déterminer $P(A\\cap B)$. '
           }
@@ -113,41 +156,47 @@ export default class CalculProbaTableau extends Exercice {
           this.canReponseACompleter = '$P(A\\cap B)=\\ldots$'
           break
 
-        case 5:// p(AinterBbarre)
+        case 5: // p(AinterBbarre)
           texte += `${tableau} `
           if (this.interactif) {
             texte += '<br> $P(A\\cap \\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous forme décimale)',
+            })
           } else {
             texte += '  Déterminer $P(A\\cap \\overline{B})$. '
           }
           texteCorr = ` $P(A\\cap \\overline{B})=${miseEnEvidence(texNombre(pA - pAinterB, 2))}$ `
-          reponse = (new Decimal(pA)).sub(pAinterB)
+          reponse = new Decimal(pA).sub(pAinterB)
           setReponse(this, i, reponse)
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P(A\\cap \\overline{B})=\\ldots$'
           break
 
-        case 6:// p(AbarreinterBbarre)
+        case 6: // p(AbarreinterBbarre)
           texte += `${tableau} `
           if (this.interactif) {
             texte += '<br>$P(\\overline{A}\\cap B)=$. '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous forme décimale)',
+            })
           } else {
             texte += `${sp(5)}Déterminer $P(\\overline{A}\\cap B)$. `
           }
           texteCorr = ` $P(\\overline{A}\\cap B)=${miseEnEvidence(texNombre(pB - pAinterB, 2))}$ `
-          reponse = (new Decimal(pB)).sub(pAinterB)
+          reponse = new Decimal(pB).sub(pAinterB)
           setReponse(this, i, reponse)
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P(\\overline{A}\\cap B)=\\ldots$'
           break
 
-        case 7:// p_B(A)
+        case 7: // p_B(A)
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br>$P_B(A)=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous la forme d’une fraction d’entiers)',
+            })
           } else {
             texte += ' Déterminer $P_B(A)$. '
           }
@@ -158,11 +207,13 @@ export default class CalculProbaTableau extends Exercice {
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P_B(A)=\\ldots$'
           break
-        case 8:// p_B(Abarre)
+        case 8: // p_B(Abarre)
           texte += `${tableau}         `
           if (this.interactif) {
             texte += '<br> $P_B(\\overline{A})=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous la forme d’une fraction d’entiers)',
+            })
           } else {
             texte += 'Déterminer $P_B(\\overline{A})$. '
           }
@@ -174,11 +225,13 @@ export default class CalculProbaTableau extends Exercice {
           this.canReponseACompleter = '$P_B(\\overline{A})=\\ldots$'
           break
 
-        case 9:// p_Bbare(Abarre)
+        case 9: // p_Bbare(Abarre)
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br>$P_{\\overline{B}}(\\overline{A})=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
+            texte += ajouteChampTexteMathLive(this, i, ' lycee', {
+              texteApres: '(Résultat sous la forme d’une fraction d’entiers)',
+            })
           } else {
             texte += '       Déterminer $P_{\\overline{B}}(\\overline{A})$. '
           }
@@ -186,7 +239,8 @@ export default class CalculProbaTableau extends Exercice {
           reponse = new FractionEtendue(pAbarreinterBbarre, 1 - pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           this.canEnonce += `${tableau}<br>`
-          this.canReponseACompleter = '$P_{\\overline{B}}(\\overline{A})=\\ldots$'
+          this.canReponseACompleter =
+            '$P_{\\overline{B}}(\\overline{A})=\\ldots$'
           break
       }
       if (this.questionJamaisPosee(i, pA, pB)) {

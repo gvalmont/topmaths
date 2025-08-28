@@ -3,7 +3,8 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Développer des égalités remarquables avec des racines carrées'
+export const titre =
+  'Développer des égalités remarquables avec des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '30/03/2023'
@@ -17,10 +18,10 @@ export const uuid = '9883e'
 
 export const refs = {
   'fr-fr': ['can2C17'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DevelopperEgalitesRemarquablesRC extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.optionsChampTexte = { texteAvant: '<br>' }
     this.typeExercice = 'simple'
@@ -29,8 +30,10 @@ export default class DevelopperEgalitesRemarquablesRC extends ExerciceSimple {
     this.optionsDeComparaison = { texteSansCasse: true }
   }
 
-  nouvelleVersion () {
-    switch (choice([1, 2, 3, 4, 5, 6])) { //, 2, 3, 4, 5, 6
+  nouvelleVersion() {
+    switch (
+      choice([1, 2, 3, 4, 5, 6]) //, 2, 3, 4, 5, 6
+    ) {
       case 1:
         {
           const inconnue = choice([2, 3, 5, 7])
@@ -42,7 +45,13 @@ $\\begin{aligned}
 &=${inconnue}+${2 * a}\\sqrt{${inconnue}}+${a * a}\\\\
 &=${miseEnEvidence(`${inconnue + a * a}+${2 * a}\\sqrt{${inconnue}}`)}
 \\end{aligned}$`
-          this.reponse = [`${inconnue + a * a}+${2 * a}\\sqrt${inconnue}`, `${2 * a}\\sqrt${inconnue}+${inconnue + a * a}`, `${2 * a}\\times\\sqrt${inconnue}+${inconnue + a * a}`, `${inconnue + a * a}+${2 * a}\\times\\sqrt${inconnue}`, `${inconnue + a * a}+\\sqrt${inconnue}\\times${2 * a}`]
+          this.reponse = [
+            `${inconnue + a * a}+${2 * a}\\sqrt${inconnue}`,
+            `${2 * a}\\sqrt${inconnue}+${inconnue + a * a}`,
+            `${2 * a}\\times\\sqrt${inconnue}+${inconnue + a * a}`,
+            `${inconnue + a * a}+${2 * a}\\times\\sqrt${inconnue}`,
+            `${inconnue + a * a}+\\sqrt${inconnue}\\times${2 * a}`,
+          ]
         }
         break
       case 2:
@@ -56,7 +65,14 @@ $\\begin{aligned}
       &=${inconnue}-${2 * a}\\sqrt{${inconnue}}+${a * a}\\\\
       &=${miseEnEvidence(`${inconnue + a * a}-${2 * a}\\sqrt{${inconnue}}`)}
       \\end{aligned}$`
-          this.reponse = [`${inconnue + a * a}-${2 * a}\\sqrt${inconnue}`, `${inconnue + a * a}-${2 * a}\\times\\sqrt${inconnue}`, `${-2 * a}\\sqrt${inconnue}+${inconnue + a * a}`, `${-2 * a}\\times\\sqrt${inconnue}+${inconnue + a * a}`, `${inconnue + a * a}+${-2 * a}\\times\\sqrt${inconnue}`, `${inconnue + a * a}+\\sqrt${inconnue}\\times${-2 * a}`]
+          this.reponse = [
+            `${inconnue + a * a}-${2 * a}\\sqrt${inconnue}`,
+            `${inconnue + a * a}-${2 * a}\\times\\sqrt${inconnue}`,
+            `${-2 * a}\\sqrt${inconnue}+${inconnue + a * a}`,
+            `${-2 * a}\\times\\sqrt${inconnue}+${inconnue + a * a}`,
+            `${inconnue + a * a}+${-2 * a}\\times\\sqrt${inconnue}`,
+            `${inconnue + a * a}+\\sqrt${inconnue}\\times${-2 * a}`,
+          ]
         }
         break
       case 3:
@@ -83,7 +99,12 @@ $\\begin{aligned}
       &=4\\times${inconnue}+${4 * a}\\sqrt{${inconnue}}+${a * a}\\\\
       &=${miseEnEvidence(`${4 * inconnue + a * a}+${4 * a}\\sqrt${inconnue}`)}
       \\end{aligned}$`
-          this.reponse = [`${4 * inconnue + a * a}+${4 * a}\\sqrt${inconnue}`, `${4 * inconnue + a * a}+${4 * a}\\times\\sqrt${inconnue}`, `${4 * a}\\sqrt${inconnue}+${4 * inconnue + a * a}`, `${4 * a}\\times\\sqrt${inconnue}+${4 * inconnue + a * a}`]
+          this.reponse = [
+            `${4 * inconnue + a * a}+${4 * a}\\sqrt${inconnue}`,
+            `${4 * inconnue + a * a}+${4 * a}\\times\\sqrt${inconnue}`,
+            `${4 * a}\\sqrt${inconnue}+${4 * inconnue + a * a}`,
+            `${4 * a}\\times\\sqrt${inconnue}+${4 * inconnue + a * a}`,
+          ]
         }
         break
       case 5:
@@ -97,7 +118,12 @@ $\\begin{aligned}
               &=4\\times${inconnue}-${4 * a}\\sqrt{${inconnue}}+${a * a}\\\\
               &=${miseEnEvidence(`${4 * inconnue + a * a}-${4 * a}\\sqrt{${inconnue}}`)}
               \\end{aligned}$`
-          this.reponse = [`${4 * inconnue + a * a}-${4 * a}\\sqrt${inconnue}`, `${4 * inconnue + a * a}-${4 * a}\\times\\sqrt${inconnue}`, `-${4 * a}\\sqrt${inconnue}+${4 * inconnue + a * a}`, `-${4 * a}\\times\\sqrt${inconnue}+${4 * inconnue + a * a}`]
+          this.reponse = [
+            `${4 * inconnue + a * a}-${4 * a}\\sqrt${inconnue}`,
+            `${4 * inconnue + a * a}-${4 * a}\\times\\sqrt${inconnue}`,
+            `-${4 * a}\\sqrt${inconnue}+${4 * inconnue + a * a}`,
+            `-${4 * a}\\times\\sqrt${inconnue}+${4 * inconnue + a * a}`,
+          ]
         }
         break
       case 6:

@@ -1,6 +1,9 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -14,7 +17,7 @@ export const dateDePublication = '21/02/2025'
 export const uuid = '305fd'
 export const refs = {
   'fr-fr': ['canTSpeAN05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -23,7 +26,7 @@ export const refs = {
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -31,12 +34,14 @@ export default class NomExercice extends ExerciceSimple {
     // this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-8, 8, 0)
     const b = randint(-8, 8, 0)
     const k = randint(0, 1) // membre de droite de l'égalité ln(ax+b)= k
     let ln = '1' // valeur de ln si k=0
-    if (k === 1) { ln = '\\mathrm{e}' }// valeur de ln si k=1
+    if (k === 1) {
+      ln = '\\mathrm{e}'
+    } // valeur de ln si k=1
     const f = new FractionEtendue(-b, a) // racine de ax + b pour déterminer le Df de l'expression
     const racine = f.texFractionSimplifiee // racine de ax + b
 
@@ -47,7 +52,8 @@ export default class NomExercice extends ExerciceSimple {
     this.correction = `On vérifie avant de commencer que l'expression $${reduireAxPlusB(a, b)}$ est bien strictement positive sur $D$.<br> `
     this.correction += `$\\ln(${reduireAxPlusB(a, b)})$ existe donc pour tout $x$ appartenant à $D$.<br> `
     this.correction += `Soit $x\\in D$. <br>On résout :<br>$ \\begin{aligned} \\phantom{\\iff}&\\ln(${reduireAxPlusB(a, b)})=${k}\\quad \\quad(1)\\\\ \\iff&\\ln(${reduireAxPlusB(a, b)})=\\ln ${ln}  \\end{aligned}$`
-    this.correction += '<br>On sait que pour tout $a$ et $b$ appartenant à $\\R_+^*,  ~~a=b \\iff \\ln (a) = \\ln (b)$.<br> '
+    this.correction +=
+      '<br>On sait que pour tout $a$ et $b$ appartenant à $\\R_+^*,  ~~a=b \\iff \\ln (a) = \\ln (b)$.<br> '
     this.correction += `$\\begin{aligned} (1)\\iff&${reduireAxPlusB(a, b)}=${ln}\\end{aligned}$`
     if (k === 0) {
       const sol = new FractionEtendue(1 - b, a)

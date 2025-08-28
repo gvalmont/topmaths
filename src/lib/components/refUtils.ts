@@ -7,7 +7,7 @@ import {
   type JSONReferentielObject,
   type ResourceAndItsPath,
   isExerciceItemInReferentiel,
-  isJSONReferentielEnding
+  isJSONReferentielEnding,
 } from '../types/referentiels'
 import { toMap } from './toMap'
 
@@ -17,8 +17,8 @@ import { toMap } from './toMap'
  * @returns {ResourceAndItsPath[]} un tableau de tous les exercices ayant une date de modification/publication inférieure à un mois
  * @author sylvain
  */
-export function getRecentExercices (
-  refObj: JSONReferentielObject
+export function getRecentExercices(
+  refObj: JSONReferentielObject,
 ): ResourceAndItsPath[] {
   return findResourcesAndPaths(refObj, (e: JSONReferentielEnding) => {
     if (isExerciceItemInReferentiel(e)) {
@@ -42,8 +42,8 @@ export function getRecentExercices (
  * @returns {ResourceAndItsPath[]} un tableau de tous les exercices (terminaisons) avec leur chemin
  * @author sylvain
  */
-export function getAllEndings (
-  refObj: JSONReferentielObject
+export function getAllEndings(
+  refObj: JSONReferentielObject,
 ): ResourceAndItsPath[] {
   return findResourcesAndPaths(refObj, () => true)
 }
@@ -56,7 +56,7 @@ export function getAllEndings (
  * @param {string} levelCode code du niveau
  * @author sylvain
  */
-export function codeToLevelTitle (levelCode: string): string {
+export function codeToLevelTitle(levelCode: string): string {
   const listeNiveaux: { [key: string]: string } = codeListForLevels
   const listeThemes: { [key: string]: string } = codeListForThemes
   if (listeNiveaux[levelCode]) {
@@ -89,10 +89,10 @@ export function codeToLevelTitle (levelCode: string): string {
     }
  * ```
  */
-export function fetchThrough (
+export function fetchThrough(
   referentiel: JSONReferentielObject,
   harvest: JSONReferentielEnding[],
-  goalReachedWith: (e: JSONReferentielEnding) => boolean
+  goalReachedWith: (e: JSONReferentielEnding) => boolean,
 ): void {
   Object.values(referentiel).forEach((value) => {
     if (isJSONReferentielEnding(value)) {
@@ -115,13 +115,13 @@ export function fetchThrough (
  * `{resource: JSONReferentielEnding,  pathToResource: string[]}`
  * @author sylvain
  */
-export function findResourcesAndPaths (
+export function findResourcesAndPaths(
   referentiel: JSONReferentielObject,
-  goalReachedWith: (e: JSONReferentielEnding) => boolean
+  goalReachedWith: (e: JSONReferentielEnding) => boolean,
 ): ResourceAndItsPath[] {
   const harvest: ResourceAndItsPath[] = []
   const path: string[] = []
-  function find (ref: JSONReferentielObject) {
+  function find(ref: JSONReferentielObject) {
     Object.entries(ref).forEach(([key, value]) => {
       if (isJSONReferentielEnding(value)) {
         if (goalReachedWith(value)) {
@@ -149,15 +149,15 @@ export function findResourcesAndPaths (
  * @throws erreur si l'uuid est retrouvée plus d'une fois
  * @author sylvain
  */
-export function retrieveResourceFromUuid (
+export function retrieveResourceFromUuid(
   referentiel: JSONReferentielObject,
-  targetUuid: string
+  targetUuid: string,
 ): JSONReferentielEnding | null {
   const harvest: JSONReferentielEnding[] = []
   fetchThrough(
     referentiel,
     harvest,
-    (resource: JSONReferentielEnding) => resource.uuid === targetUuid
+    (resource: JSONReferentielEnding) => resource.uuid === targetUuid,
   )
   switch (harvest.length) {
     case 0:
@@ -165,11 +165,13 @@ export function retrieveResourceFromUuid (
     case 1:
       return harvest[0]
     default:
-      console.log(`${targetUuid} est présente ${harvest.length} fois dans le référentiel !!!`)
+      console.log(
+        `${targetUuid} est présente ${harvest.length} fois dans le référentiel !!!`,
+      )
       return harvest[0]
-      // throw new Error(
-      //   `${targetUuid} est présente ${harvest.length} fois dans le référentiel !!!`
-      // )
+    // throw new Error(
+    //   `${targetUuid} est présente ${harvest.length} fois dans le référentiel !!!`
+    // )
   }
 }
 
@@ -179,10 +181,10 @@ export function retrieveResourceFromUuid (
  * @returns un objet aux entrées imbriquées correspondant à une branche + une terminaison
  * @author sylvain
  */
-function pathToObject (item: ResourceAndItsPath): JSONReferentielObject {
+function pathToObject(item: ResourceAndItsPath): JSONReferentielObject {
   return item.pathToResource.reduceRight(
     (value, key) => ({ [key]: value }),
-    (<unknown>item.resource) as JSONReferentielObject
+    (<unknown>item.resource) as JSONReferentielObject,
   )
 }
 
@@ -193,8 +195,8 @@ function pathToObject (item: ResourceAndItsPath): JSONReferentielObject {
  * @returns {JSONReferentielObject[]} la liste des objets transformés
  * @author sylvain
  */
-function pathsToObjectsArray (
-  items: ResourceAndItsPath[]
+function pathsToObjectsArray(
+  items: ResourceAndItsPath[],
 ): JSONReferentielObject[] {
   const result: JSONReferentielObject[] = []
   for (const item of items) {
@@ -210,8 +212,8 @@ function pathsToObjectsArray (
  * @returns {JSONReferentielObject} un référentiel sous forme d'objet
  * @author sylvain
  */
-export function buildReferentiel (
-  refList: ResourceAndItsPath[]
+export function buildReferentiel(
+  refList: ResourceAndItsPath[],
 ): JSONReferentielObject {
   return pathsToObjectsArray(refList).reduce((prev, current) => {
     return mergeReferentielObjects(prev, current)
@@ -225,7 +227,7 @@ export function buildReferentiel (
  * @see https://tutorial.eyehunts.com/js/javascript-merge-objects-without-overwriting-example-code/
  * @author sylvain
  */
-export function mergeReferentielObjects (
+export function mergeReferentielObjects(
   ...objects: JSONReferentielObject[]
 ): JSONReferentielObject {
   const isObject = (obj: unknown) => obj && typeof obj === 'object'
@@ -253,7 +255,7 @@ export function mergeReferentielObjects (
  * @returns la valeur mentionnée dans `src/json/referentielsActivation.json` <br/> `false` si le nom du référentiel n'exoiste pas.
  * @author sylvain
  */
-export function isReferentielActivated (refName: string): boolean {
+export function isReferentielActivated(refName: string): boolean {
   const referentielList = toMap({ ...referentielsActivation })
   if (referentielList.has(refName)) {
     return referentielList.get(refName) === 'true'

@@ -14,15 +14,15 @@ export const amcType = 'AMCNum'
  * 1/n +/- 1/m
  * @author Gilles Mora
  * publié le 23/10/2021
-*/
+ */
 export const uuid = '8cbb4'
 
 export const refs = {
   'fr-fr': ['can4C10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeDifferenceFractionsEgyptiennes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,7 +30,7 @@ export default class SommeDifferenceFractionsEgyptiennes extends ExerciceSimple 
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 7)
     const b = randint(2, 7, a)
     if (choice([true, false])) {

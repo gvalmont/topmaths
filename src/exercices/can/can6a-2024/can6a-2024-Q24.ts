@@ -17,7 +17,7 @@ export const uuid = '050b3'
 */
 
 export default class PlaceVirguleProduit extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,7 +26,7 @@ export default class PlaceVirguleProduit extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let coeff: number
     let facteur1: number
     let facteur2: number

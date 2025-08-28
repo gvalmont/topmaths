@@ -6,14 +6,14 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
-export const titre = 'Calculer la fraction d\'un décimal'
+export const titre = "Calculer la fraction d'un décimal"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '30/04/2024'
 export const uuid = '669aa'
 export const refs = {
   'fr-fr': ['can5C29'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -21,16 +21,16 @@ export const refs = {
 
 */
 export default class fractionsDecimaux extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2, 3])) {
-      case 1:// quart
+      case 1: // quart
         {
           const b = new Decimal(randint(1, 16, [5, 10])).div(10)
           const a = b.mul(4)
@@ -44,7 +44,7 @@ export default class fractionsDecimaux extends ExerciceSimple {
           }
         }
         break
-      case 2:// tiers
+      case 2: // tiers
         {
           const b = new Decimal(randint(1, 14)).div(10)
           const a = b.mul(3)
@@ -59,7 +59,7 @@ export default class fractionsDecimaux extends ExerciceSimple {
         }
         break
 
-      case 3:// cinquième
+      case 3: // cinquième
         {
           const b = new Decimal(2 * randint(1, 14) - 1).div(10)
           const a = b.mul(5)
@@ -74,7 +74,7 @@ export default class fractionsDecimaux extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

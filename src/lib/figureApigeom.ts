@@ -14,16 +14,23 @@ import { get } from 'svelte/store'
  *
  * - Si une même question a plusieurs figures, il faut ajouter un idAddendum (par exemple 'Correction' pour la figure de correction)
  */
-export default function figureApigeom ({ exercice, figure, animation = false, i, defaultAction, idAddendum = '', isDynamic }:
-{
-  exercice: Exercice,
-  figure: Figure,
-  animation?: boolean,
-  i: number,
+export default function figureApigeom({
+  exercice,
+  figure,
+  animation = false,
+  i,
+  defaultAction,
+  idAddendum = '',
+  isDynamic,
+}: {
+  exercice: Exercice
+  figure: Figure
+  animation?: boolean
+  i: number
   /** identifiant supplémentaire pour identifier l'
-  * si c'est la figure de la correction ou une 2e figure dans la question
-  */
-  idAddendum?: string,
+   * si c'est la figure de la correction ou une 2e figure dans la question
+   */
+  idAddendum?: string
   /** Action en cours au lancement de l'exercice qui doit obligatoirement être un bouton de la toolbar */
   defaultAction?: string
   /** figure chargé en interactif et pourtant on souhaite qu'elle soit statique => isDynamic = false */
@@ -32,7 +39,7 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   if (!context.isHtml) return ''
   // Styles par défaut
   figure.isDynamic = isDynamic !== undefined ? isDynamic : !!exercice.interactif
-  figure.divButtons.style.display = (figure.isDynamic) ? 'grid' : 'none'
+  figure.divButtons.style.display = figure.isDynamic ? 'grid' : 'none'
   figure.divUserMessage.style.fontSize = '1em'
   figure.divUserMessage.style.pointerEvents = 'none'
   figure.divUserMessage.style.removeProperty('color')
@@ -45,7 +52,7 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
 
   // Pour revoir la copie de l'élève dans Capytale
   // Attention, la clé de answers[] doit contenir apigeom, c'est pourquoi l'id est généré par cette fonction
-  function idApigeomFunct (event: Event) : void {
+  function idApigeomFunct(event: Event): void {
     if (!figure.container) {
       // figure effacée, donc on annule la mise à jour...
       document.removeEventListener(idApigeom, idApigeomFunct)
@@ -63,7 +70,7 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   document.addEventListener(idApigeom, idApigeomFunct)
 
   let oldZoom = 1
-  function updateZoom (event: Event) : void {
+  function updateZoom(event: Event): void {
     if (!figure.container || !figure.container.id) {
       // figure effacée, donc on annule la mise à jour...
       document.removeEventListener('zoomChanged', updateZoom)
@@ -75,12 +82,18 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     if (oldZoom !== zoom) {
       oldZoom = zoom
       // console.log('zoom:' + idApigeom + ':' + zoom)
-      if (figure != null) figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
+      if (figure != null)
+        figure.zoom(zoom, {
+          changeHeight: true,
+          changeWidth: true,
+          changeLeft: false,
+          changeBottom: false,
+        })
     }
   }
   document.addEventListener('zoomChanged', updateZoom)
 
-  function updateAffichage (): void {
+  function updateAffichage(): void {
     if (!figure.container || !figure.container.id) {
       // figure effacée, donc on annule la mise à jour...
       document.removeEventListener('exercicesAffiches', updateAffichage)
@@ -117,7 +130,12 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     if (oldZoom !== zoom) {
       oldZoom = zoom
       // console.log('ExAff:' + idApigeom + ':' + zoom)
-      figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
+      figure.zoom(zoom, {
+        changeHeight: true,
+        changeWidth: true,
+        changeLeft: false,
+        changeBottom: false,
+      })
     }
   }
   document.addEventListener('exercicesAffiches', updateAffichage)

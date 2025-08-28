@@ -9,7 +9,7 @@ import ExerciceQcm from '../ExerciceQcm'
 export const uuid = 'fe22f'
 export const refs = {
   'fr-fr': ['TSA6-02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -31,22 +31,24 @@ export default class Binomiale extends ExerciceQcm {
 
     let correction
     this.reponses = [
-        `$F(x)=${c}\\times \\ln\\left(${reduireAxPlusB(1, a)}\\right)+C$, où $C\\in\\mathbb{R}$`,
-        `$F(x)=C\\times \\ln\\left(${reduireAxPlusB(1, a)}\\right)$, où $C\\in\\mathbb{R}$`,
-        `$F(x)=\\dfrac{${c}}{\\left(${reduireAxPlusB(1, a)}\\right)^2}+C$ où $C\\in\\mathbb{R}$`,
-        `$F(x)=C\\times \\ln\\left(${reduireAxPlusB(c, a * c)}\\right)$, où $C\\in\\mathbb{R}$`]
+      `$F(x)=${c}\\times \\ln\\left(${reduireAxPlusB(1, a)}\\right)+C$, où $C\\in\\mathbb{R}$`,
+      `$F(x)=C\\times \\ln\\left(${reduireAxPlusB(1, a)}\\right)$, où $C\\in\\mathbb{R}$`,
+      `$F(x)=\\dfrac{${c}}{\\left(${reduireAxPlusB(1, a)}\\right)^2}+C$ où $C\\in\\mathbb{R}$`,
+      `$F(x)=C\\times \\ln\\left(${reduireAxPlusB(c, a * c)}\\right)$, où $C\\in\\mathbb{R}$`,
+    ]
     const texte = `Une primitive de la fonction $f$ définie sur $]${texNombre(-a)};+\\infty[$ par $f(x)=\\dfrac{${c}}{${reduireAxPlusB(1, a)}}$, est la fonction : <br>`
     this.enonce = texte
 
     correction = `Soit $u$ la fonction définie sur  $]${texNombre(-a)};+\\infty[$ par $u(x)=${reduireAxPlusB(1, a)}$.<br>`
     correction += `On a alors $u'(x)=1$. <br>$f$ peut donc s'écrire sous la forme : $f(x)=${c} \\times\\dfrac{u'(x)}{u(x)}$.<br>`
-    correction += 'On sait qu\'une primitive d\'une fonction sous la forme $\\dfrac{u\'(x)}{u(x)}$, avec $u(x)\\neq0$, est définie par $\\ln{u(x)}$.<br>'
+    correction +=
+      "On sait qu'une primitive d'une fonction sous la forme $\\dfrac{u'(x)}{u(x)}$, avec $u(x)\\neq0$, est définie par $\\ln{u(x)}$.<br>"
     correction += `Une primitive de $f$ est donc ${texteEnCouleurEtGras(`$F(x)=${c} \\times \\ln\\left(${reduireAxPlusB(1, a)}\\right)+ C$ avec $C\\in\\mathbb{R}$`)} .<br>`
     this.correction = correction
     this.enonce = texte
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

@@ -16,17 +16,17 @@ export const uuid = '63dff'
 
 export const refs = {
   'fr-fr': ['can5C05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Division5e extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(11, 15)
     const b = randint(3, 6)
     const c = a * b
@@ -39,7 +39,7 @@ export default class Division5e extends ExerciceSimple {
         Ainsi :
      $${c} \\div ${b}=10+${(c - 10 * b) / b}=${a}$.<br>
      `)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

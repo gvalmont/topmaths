@@ -1,7 +1,13 @@
 import { angle, codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
-import { milieu, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import {
+  milieu,
+  point,
+  pointIntersectionDD,
+  pointSurDroite,
+  tracePoint,
+} from '../../lib/2d/points'
 import { grille, seyes } from '../../lib/2d/reperes'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
@@ -13,7 +19,7 @@ import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -30,53 +36,69 @@ export const uuid = 'df825'
 export const refs = {
   'fr-fr': ['CM2G2A-2'],
   'fr-2016': ['6G11-1'],
-  'fr-ch': ['9ES3-2']
+  'fr-ch': ['9ES3-2'],
 }
 export default class constructionPerpendiculaires extends Exercice {
-//
-  constructor () {
+  //
+  constructor() {
     super()
 
     this.nbQuestions = 1
 
     this.sup = 1
     this.sup2 = '1'
-    this.spacing = (context.isHtml) ? 2 : 1
+    this.spacing = context.isHtml ? 2 : 1
     this.besoinFormulaireNumerique = [
       'Type de cahier',
       3,
-      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche',
     ]
     this.besoinFormulaire2Texte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Orthocentre (intérieur du triangle)',
         '2 : Orthocentre (extérieur du triangle)',
         '3 : Centre du cercle circonscrit  (intérieur du triangle)',
         '4 : Centre du cercle circonscrit  (extérieur du triangle)',
-        '5 : Mélange'
-      ].join('\n')
+        '5 : Mélange',
+      ].join('\n'),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let listeTypeDeQuestions = []
     listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 4,
       defaut: 1,
       melange: 5,
-      listeOfCase: ['OrthoInterieur', 'OrthoExterieur', 'CircoInterieur', 'CircoExterieur', 'Mélange'],
+      listeOfCase: [
+        'OrthoInterieur',
+        'OrthoExterieur',
+        'CircoInterieur',
+        'CircoExterieur',
+        'Mélange',
+      ],
       nbQuestions: this.nbQuestions,
-      saisie: this.sup2
+      saisie: this.sup2,
     })
-    for (let i = 0, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (
+      let i = 0, typesDeQuestions, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+      cpt++
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const anim = new Alea2iep()
       const objetsEnonce = []
       const objetsCorrection = []
       const indLettre = randint(1, 15)
       const A = point(0, 0, lettreDepuisChiffre(indLettre), 'above left')
-      let B = point(20, randint(-4, 0, [-1, 0, 1]), lettreDepuisChiffre(indLettre + 1), 'above right')
+      let B = point(
+        20,
+        randint(-4, 0, [-1, 0, 1]),
+        lettreDepuisChiffre(indLettre + 1),
+        'above right',
+      )
 
       let ang1, ang2, ang3
       switch (typesDeQuestions) {
@@ -102,7 +124,7 @@ export default class constructionPerpendiculaires extends Exercice {
         }
         case 'OrthoExterieur':
         case 'CircoExterieur':
-        default:{
+        default: {
           // triangle avec un angle obtus
           ang1 = 90 + randint(10, 30)
           ang2 = randint(30, 50)
@@ -118,13 +140,22 @@ export default class constructionPerpendiculaires extends Exercice {
       const C1 = rotation(B, A, ang1)
       const C2 = rotation(A, B, -1 * ang2)
       const CC = pointIntersectionDD(droite(A, C1), droite(B, C2))
-      let C = point(Math.floor(CC.x), Math.floor(CC.y), lettreDepuisChiffre(indLettre + 2), 'above left')
+      let C = point(
+        Math.floor(CC.x),
+        Math.floor(CC.y),
+        lettreDepuisChiffre(indLettre + 2),
+        'above left',
+      )
 
       const ag1 = angle(B, A, C)
       const ag2 = angle(C, B, A)
       const ag3 = angle(A, C, B)
 
-      if ((typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'CircoInterieur') && (ag1 > 85 || ag2 > 85 || ag3 > 85)) {
+      if (
+        (typesDeQuestions === 'OrthoInterieur' ||
+          typesDeQuestions === 'CircoInterieur') &&
+        (ag1 > 85 || ag2 > 85 || ag3 > 85)
+      ) {
         continue
       }
 
@@ -155,7 +186,12 @@ export default class constructionPerpendiculaires extends Exercice {
       const Ymax = Math.ceil(Math.max(A.y, B.y, C.y, ortho.y) + 1)
       context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
 
-      let pHc = pointIntersectionDD(droite(point(Xmin, Ymin), point(Xmax, Ymin)), hC, '(d_1)', 'above left')
+      let pHc = pointIntersectionDD(
+        droite(point(Xmin, Ymin), point(Xmax, Ymin)),
+        hC,
+        '(d_1)',
+        'above left',
+      )
       if (pHc && pHc.x >= Xmin && pHc.x <= Xmax) {
         // intersection avec le cadran du bas
         // pHc.x - Xmin > Xmax - pHc.x ? pHc.x = pHc.x - 0.5 : pHc.x = pHc.x + 0.5
@@ -165,23 +201,43 @@ export default class constructionPerpendiculaires extends Exercice {
         pHc = pointSurDroite(hC, Xmin, '(d_1)', 'above left')
         // pHc.x = pHc.x - 1
       }
-      let pHb = pointIntersectionDD(droite(point(Xmin, Ymin), point(Xmin, Ymax)), hB, '(d_2)', 'below right')
+      let pHb = pointIntersectionDD(
+        droite(point(Xmin, Ymin), point(Xmin, Ymax)),
+        hB,
+        '(d_2)',
+        'below right',
+      )
       if (pHb && pHb.y <= Ymax && pHb.y >= Ymin) {
         // intersection avec le cadran de gauche
         pHb.x = pHb.x + 0.5
       } else {
-        pHb = pointIntersectionDD(droite(point(Xmin, Ymax), point(Xmax, Ymax)), hB, '(d_2)', 'below left')
+        pHb = pointIntersectionDD(
+          droite(point(Xmin, Ymax), point(Xmax, Ymax)),
+          hB,
+          '(d_2)',
+          'below left',
+        )
         if (pHb && pHb.x <= Xmax && pHb.x >= Xmin) {
           // intersection avec le cadran d'en haut
           pHb.y = pHb.y - 0.5
         }
       }
-      let pHa = pointIntersectionDD(droite(point(Xmax, Ymin), point(Xmax, Ymax)), hA, '(d_3)', 'above left')
+      let pHa = pointIntersectionDD(
+        droite(point(Xmax, Ymin), point(Xmax, Ymax)),
+        hA,
+        '(d_3)',
+        'above left',
+      )
       if (pHa && pHa.y <= Ymax && pHa.y >= Ymin) {
         // intersection avec le cadran de droite
         pHa.x = pHa.x - 0.5
       } else {
-        pHa = pointIntersectionDD(droite(point(Xmin, Ymax), point(Xmax, Ymax)), hA, '(d_3)', 'below right')
+        pHa = pointIntersectionDD(
+          droite(point(Xmin, Ymax), point(Xmax, Ymax)),
+          hA,
+          '(d_3)',
+          'below right',
+        )
         if (pHa && pHa.x <= Xmax && pHa.x >= Xmin) {
           // intersection avec le cadran d'en haut
           pHa.y = pHa.y - 0.5
@@ -195,17 +251,38 @@ export default class constructionPerpendiculaires extends Exercice {
       objetsCorrection.push(latexParPoint(pHb.nom, pHb, 'green', 20, 12, '', 8))
       objetsCorrection.push(latexParPoint(pHa.nom, pHa, 'red', 20, 12, '', 8))
       // objetsCorrection.push(latexParCoordonnees (pHc.nom.substring(1, pHc.nom.length - 1), pHc.x, pHc.y, 'blue', 50, 20, '',8))
-      if (typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'OrthoExterieur') {
-        objetsCorrection.push(codageAngleDroit(B, pointIntersectionDD(hC, dAB), C), codageAngleDroit(C, pointIntersectionDD(hA, dBC), A), codageAngleDroit(B, pointIntersectionDD(hB, dAC), C))
+      if (
+        typesDeQuestions === 'OrthoInterieur' ||
+        typesDeQuestions === 'OrthoExterieur'
+      ) {
+        objetsCorrection.push(
+          codageAngleDroit(B, pointIntersectionDD(hC, dAB), C),
+          codageAngleDroit(C, pointIntersectionDD(hA, dBC), A),
+          codageAngleDroit(B, pointIntersectionDD(hB, dAC), C),
+        )
       } else {
-        objetsCorrection.push(codageSegment(B, milieu(B, C), '|||'), codageSegment(milieu(B, C), C, '|||'), codageSegment(A, milieu(A, C), '||'), codageSegment(milieu(A, C), C, '||'), codageSegment(B, milieu(A, B), '|'), codageSegment(milieu(A, B), A, '|'), codageAngleDroit(B, milieu(A, B), ortho), codageAngleDroit(C, milieu(B, C), ortho), codageAngleDroit(C, milieu(A, C), ortho))
+        objetsCorrection.push(
+          codageSegment(B, milieu(B, C), '|||'),
+          codageSegment(milieu(B, C), C, '|||'),
+          codageSegment(A, milieu(A, C), '||'),
+          codageSegment(milieu(A, C), C, '||'),
+          codageSegment(B, milieu(A, B), '|'),
+          codageSegment(milieu(A, B), A, '|'),
+          codageAngleDroit(B, milieu(A, B), ortho),
+          codageAngleDroit(C, milieu(B, C), ortho),
+          codageAngleDroit(C, milieu(A, C), ortho),
+        )
       }
       objetsEnonce.push(T, labelPoint(A, B, C))
       let correction = ''
       let enonce = ''
       let questind = 0
-      if (context.isHtml) enonce += numAlpha(questind++) + ' Reproduire la figure ci-dessous.<br>'
-      if (typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'OrthoExterieur') {
+      if (context.isHtml)
+        enonce += numAlpha(questind++) + ' Reproduire la figure ci-dessous.<br>'
+      if (
+        typesDeQuestions === 'OrthoInterieur' ||
+        typesDeQuestions === 'OrthoExterieur'
+      ) {
         enonce +=
           numAlpha(questind++) +
           `Tracer les droites $(${A.nom}${B.nom})$, $(${A.nom}${C.nom})$ et $(${B.nom}${C.nom})$.<br>`
@@ -226,20 +303,17 @@ export default class constructionPerpendiculaires extends Exercice {
           numAlpha(questind++) +
           `Tracer les droites $(${A.nom}${B.nom})$, $(${A.nom}${C.nom})$ et $(${B.nom}${C.nom})$.<br>`
         enonce +=
-          numAlpha(questind++) +
-          `Placer le milieu de $[${A.nom}${B.nom}]$.<br>`
+          numAlpha(questind++) + `Placer le milieu de $[${A.nom}${B.nom}]$.<br>`
         enonce +=
           numAlpha(questind++) +
           `Tracer la droite $(d_1)$ perpendiculaire à $(${A.nom}${B.nom})$ passant par le milieu de $[${A.nom}${B.nom}]$.<br>`
         enonce +=
-          numAlpha(questind++) +
-          `Placer le milieu de $[${A.nom}${C.nom}]$.<br>`
+          numAlpha(questind++) + `Placer le milieu de $[${A.nom}${C.nom}]$.<br>`
         enonce +=
           numAlpha(questind++) +
           `Tracer la droite $(d_2)$ perpendiculaire à $(${A.nom}${C.nom})$ passant par le milieu de $[${A.nom}${C.nom}]$.<br>`
         enonce +=
-          numAlpha(questind++) +
-          `Placer le milieu de $[${B.nom}${C.nom}]$.<br>`
+          numAlpha(questind++) + `Placer le milieu de $[${B.nom}${C.nom}]$.<br>`
         enonce +=
           numAlpha(questind++) +
           `Tracer la droite $(d_3)$ perpendiculaire à $(${B.nom}${C.nom})$ passant par le milieu de $[${B.nom}${C.nom}]$.<br>`
@@ -262,7 +336,10 @@ export default class constructionPerpendiculaires extends Exercice {
       anim.regleDroite(A, C, { couleur: 'blue' })
       anim.regleDroite(B, C, { couleur: 'blue' })
       anim.regleMasquer()
-      if (typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'OrthoExterieur') {
+      if (
+        typesDeQuestions === 'OrthoInterieur' ||
+        typesDeQuestions === 'OrthoExterieur'
+      ) {
         anim.perpendiculaireRegleEquerreDroitePoint(droite(A, B), C)
         anim.textePosition('$(d_1)$', pHc.x, pHc.y)
         anim.perpendiculaireRegleEquerreDroitePoint(droite(A, C), B)
@@ -291,17 +368,19 @@ export default class constructionPerpendiculaires extends Exercice {
       objetsEnonce.push(g, carreaux)
       objetsCorrection.push(g, carreaux)
       const ppc = 20
-      enonce += '<br>' + mathalea2d(
-        {
-          xmin: Xmin,
-          ymin: Ymin,
-          xmax: Xmax,
-          ymax: Ymax,
-          pixelsParCm: ppc,
-          scale: sc
-        },
-        objetsEnonce
-      )
+      enonce +=
+        '<br>' +
+        mathalea2d(
+          {
+            xmin: Xmin,
+            ymin: Ymin,
+            xmax: Xmax,
+            ymax: Ymax,
+            pixelsParCm: ppc,
+            scale: sc,
+          },
+          objetsEnonce,
+        )
       correction += mathalea2d(
         {
           xmin: Xmin,
@@ -309,14 +388,16 @@ export default class constructionPerpendiculaires extends Exercice {
           xmax: Xmax,
           ymax: Ymax,
           pixelsParCm: ppc,
-          scale: sc
+          scale: sc,
         },
-        objetsCorrection
+        objetsCorrection,
       )
 
       /****************************************************/
       correction += anim.htmlBouton(this.numeroExercice ?? 0, i)
-      if (context.isHtml) correction += '<br><br>Remarque : les droites $(d_1)$, $(d_2)$ et $(d_3)$ ont un seul point d\'intersection. On dit qu\'elles sont concourantes.'
+      if (context.isHtml)
+        correction +=
+          "<br><br>Remarque : les droites $(d_1)$, $(d_2)$ et $(d_3)$ ont un seul point d'intersection. On dit qu'elles sont concourantes."
       if (this.questionJamaisPosee(i, A.x, A.y, B.x, B.y)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = enonce

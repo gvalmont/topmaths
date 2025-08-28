@@ -15,40 +15,52 @@ export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
-export const titre = 'Placer un point sur une droite graduée dont l\'abscisse est un nombre relatif'
+export const titre =
+  "Placer un point sur une droite graduée dont l'abscisse est un nombre relatif"
 export const dateDeModifImportante = '03/05/2024'
 
 /**
-* Placer un point d'abscisse un nombre relatif
-* @author Jean-Claude Lhote et Rémi Angot
-*/
+ * Placer un point d'abscisse un nombre relatif
+ * @author Jean-Claude Lhote et Rémi Angot
+ */
 export const uuid = '6d576'
 
 export const refs = {
   'fr-fr': ['5R11-2'],
-  'fr-ch': ['9NO9-2']
+  'fr-ch': ['9NO9-2'],
 }
 
-type goodAnswer = { label: string, x: number }[]
+type goodAnswer = { label: string; x: number }[]
 
 class PlacerPointsSurAxeRelatifs extends Exercice {
   goodAnswers: goodAnswer[] = []
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 2
     this.sup = 1
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestions
 
     this.figures = []
-    if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
+    if (this.sup === 4) {
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+    } else {
+      typesDeQuestions = combinaisonListes(
+        [parseInt(this.sup)],
+        this.nbQuestions,
+      )
+    }
 
     this.contenu = this.consigne
     for (let i = 0; i < this.nbQuestions; i++) {
-      let abs0, step, stepBis : number
+      let abs0, step, stepBis: number
       let texte = ''
       let texteCorr = ''
       const label1 = lettreDepuisChiffre(i * 3 + 1)
@@ -79,33 +91,70 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       const x11 = randint(1, 9)
       const x22 = randint(1, 9)
       const x33 = randint(1, 3)
-      const abs1 = arrondi(abs0 + x1 / step + x11 / step / stepBis, typesDeQuestions[i]) // le type de questions est égal au nombre de décimales.
-      const abs2 = arrondi(abs0 + x2 / step + x22 / step / stepBis, typesDeQuestions[i])
-      const abs3 = arrondi(abs0 + x3 / step + x33 / step / stepBis, typesDeQuestions[i])
+      const abs1 = arrondi(
+        abs0 + x1 / step + x11 / step / stepBis,
+        typesDeQuestions[i],
+      ) // le type de questions est égal au nombre de décimales.
+      const abs2 = arrondi(
+        abs0 + x2 / step + x22 / step / stepBis,
+        typesDeQuestions[i],
+      )
+      const abs3 = arrondi(
+        abs0 + x3 / step + x33 / step / stepBis,
+        typesDeQuestions[i],
+      )
 
       this.goodAnswers[i] = [
         { label: label1, x: arrondi(abs1, 4) },
         { label: label2, x: arrondi(abs2, 4) },
-        { label: label3, x: arrondi(abs3, 4) }
+        { label: label3, x: arrondi(abs3, 4) },
       ]
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
-          propositions: [{ texte: texteCorr, statut: 0, feedback: '' }]
+          propositions: [{ texte: texteCorr, statut: 0, feedback: '' }],
         }
       }
 
-      const { figure, latex } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step })
+      const { figure, latex } = apigeomGraduatedLine({
+        xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis),
+        xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis),
+        scale: step,
+      })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
       figure.options.distanceWithoutNewPoint = 0.00001
       this.figures[i] = figure
 
-      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step, points: this.goodAnswers[i] })
-      figureCorr.create('Point', { label: label1, x: abs1, color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
-      figureCorr.create('Point', { label: label2, x: abs2, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
-      figureCorr.create('Point', { label: label3, x: abs3, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
+      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({
+        xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis),
+        xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis),
+        scale: step,
+        points: this.goodAnswers[i],
+      })
+      figureCorr.create('Point', {
+        label: label1,
+        x: abs1,
+        color: orangeMathalea,
+        colorLabel: orangeMathalea,
+        shape: 'x',
+        labelDxInPixels: 0,
+      })
+      figureCorr.create('Point', {
+        label: label2,
+        x: abs2,
+        color: orangeMathalea,
+        colorLabel: orangeMathalea,
+        labelDxInPixels: 0,
+      })
+      figureCorr.create('Point', {
+        label: label3,
+        x: abs3,
+        color: orangeMathalea,
+        colorLabel: orangeMathalea,
+        labelDxInPixels: 0,
+      })
       // MGU : gère le zoom des figures apigeom statiques comme les figures mathalea2d
       figureCorr.divFigure.classList.add('svgContainer')
       figureCorr.divFigure.querySelector('svg')?.classList.add('mathalea2d')
@@ -117,7 +166,9 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this, i, figure, defaultAction: 'POINT' })
+          texte +=
+            '<br>' +
+            figureApigeom({ exercice: this, i, figure, defaultAction: 'POINT' })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -132,7 +183,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: this.consigne + '<br>' + texte + '<br>',
-          propositions: [{ statut: 3, sanscadre: true }]
+          propositions: [{ statut: 3, sanscadre: true }],
         }
       }
       this.listeQuestions.push(texte)
@@ -154,11 +205,18 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
     const goodAnswer = this.goodAnswers[i]
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${i}`,
+    )
     for (let j = 0; j < goodAnswer.length; j++) {
       const label = goodAnswer[j].label
       const x = goodAnswer[j].x
-      const { isValid, message, points } = figure.checkCoords({ checkOnlyAbscissa: true, label, x, y: 0 })
+      const { isValid, message, points } = figure.checkCoords({
+        checkOnlyAbscissa: true,
+        label,
+        x,
+        y: 0,
+      })
       const point = points[0]
       if (isValid) {
         result.push('OK')

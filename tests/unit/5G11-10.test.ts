@@ -4,11 +4,11 @@ import { Point } from '../../src/lib/2d/points'
 
 // Mock avant l'import
 vi.mock('../../src/lib/renderScratch', () => ({
-  renderScratch: vi.fn(() => 'mocked value')
+  renderScratch: vi.fn(() => 'mocked value'),
 }))
 
 vi.mock('../../src/lib/components/version', () => ({
-  checkForServerUpdate: vi.fn(() => 'mocked value')
+  checkForServerUpdate: vi.fn(() => 'mocked value'),
 }))
 
 describe('ConstrctionsSymetrieCentralePoints', () => {
@@ -24,9 +24,12 @@ describe('ConstrctionsSymetrieCentralePoints', () => {
     expect(exercice.besoinFormulaireNumerique).toEqual([
       "Type d'aide",
       4,
-      'Quadrillages\nDemi-droites en pointillés\nMarques de compas\nAucune'
+      'Quadrillages\nDemi-droites en pointillés\nMarques de compas\nAucune',
     ])
-    expect(exercice.besoinFormulaire2Numerique).toEqual(['Nombre de points à construire (5 maxi)', 5])
+    expect(exercice.besoinFormulaire2Numerique).toEqual([
+      'Nombre de points à construire (5 maxi)',
+      5,
+    ])
     expect(exercice.sup).toBe(1)
     expect(exercice.sup2).toBe(3)
   })
@@ -70,7 +73,7 @@ describe('ConstrctionsSymetrieCentralePoints', () => {
   test('nouvelleVersion should generate valid centers', () => {
     exercice.nouvelleVersion()
 
-    exercice.centres.forEach(center => {
+    exercice.centres.forEach((center) => {
       expect(center).toBeInstanceOf(Point)
       expect(center.x).toBe(0)
       expect(center.y).toBe(0)

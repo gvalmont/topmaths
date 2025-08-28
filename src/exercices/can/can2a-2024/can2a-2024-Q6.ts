@@ -13,7 +13,7 @@ export const uuid = '9379b'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -23,12 +23,14 @@ export default class NomExercice extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '0,06'
       this.question = '$0,2\\times 0,3$'
-      this.correction = 'On décompose le calcul pour le rendre plus simple mentalement :<br>'
-      this.correction += ' $\\begin{aligned} 0,2\\times 0,3 &=2\\times 0,1\\times 3\\times 0,1\\\\'
+      this.correction =
+        'On décompose le calcul pour le rendre plus simple mentalement :<br>'
+      this.correction +=
+        ' $\\begin{aligned} 0,2\\times 0,3 &=2\\times 0,1\\times 3\\times 0,1\\\\'
       this.correction += ' &= 6\\times 0,01\\\\'
       this.correction += `\n&= ${miseEnEvidence('0,06')}`
       this.correction += '\n\\end{aligned}$'
@@ -37,7 +39,8 @@ export default class NomExercice extends ExerciceSimple {
       const b = randint(1, 9) / 10
       this.reponse = (a * b).toFixed(2)
       this.question = `$${texNombre(a, 1)}\\times${texNombre(b, 1)}$`
-      this.correction = 'On décompose le calcul pour le rendre plus simple mentalement :<br>'
+      this.correction =
+        'On décompose le calcul pour le rendre plus simple mentalement :<br>'
       this.correction += `  $\\begin{aligned} ${texNombre(a, 1)}\\times${texNombre(b, 1)} &=${texNombre(a * 10, 0)}\\times 0,1\\times ${texNombre(b * 10, 0)}\\times 0,1\\\\`
       this.correction += ` &= ${texNombre(a * b * 100, 0)}\\times 0,01\\\\`
       this.correction += `'\n&= ${miseEnEvidence(texNombre(a * b, 2))}`

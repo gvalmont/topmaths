@@ -5,7 +5,7 @@ export const uuid = 'd388c'
 // Author Stéphane Guyon
 export const refs = {
   'fr-fr': ['1A-C9-5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -16,22 +16,16 @@ export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = 'Soit $x$ un réel non nul.<br>'
 
+    this.enonce = 'Soit $x$ un réel non nul.<br>'
 
-        this.enonce = 'Soit $x$ un réel non nul.<br>'
-
-        this.enonce += `À quelle expression est égale $\\dfrac{4x^2}{\\dfrac{2}{x^2}}$?`
-              this.correction = `On peut simplifier l'expression : <br>$\\begin{aligned}
+    this.enonce += `À quelle expression est égale $\\dfrac{4x^2}{\\dfrac{2}{x^2}}$?`
+    this.correction = `On peut simplifier l'expression : <br>$\\begin{aligned}
         \\dfrac{4x^2}{\\dfrac{2}{x^2}}&=4x^2 \\times \\dfrac{x^2}{2}\\\\
         &=\\dfrac{4x^4}{2}\\\\
         &=2x^4.
      \\end{aligned}$`
 
-    this.reponses = [
-      '$2x^4$',
-      '$2$ ',
-      '$8$ ',
-      '$8x^4$ ',
-    ]
+    this.reponses = ['$2x^4$', '$2$ ', '$8$ ', '$8x^4$ ']
   }
 
   versionAleatoire = () => {
@@ -41,8 +35,8 @@ export default class Puissances extends ExerciceQcmA {
     const k = randint(2, 5)
     this.enonce = 'Soit $x$ un réel non nul.<br>'
 
-        this.enonce += `À quelle expression est égale $\\dfrac{${k*a}x^{${n}}}{\\dfrac{${a}}{x^${p}}}$?`
-              this.correction = `On peut simplifier l'expression : <br>
+    this.enonce += `À quelle expression est égale $\\dfrac{${k * a}x^{${n}}}{\\dfrac{${a}}{x^${p}}}$?`
+    this.correction = `On peut simplifier l'expression : <br>
               $\\begin{aligned}
        \\dfrac{${k * a}x^{${n}}}{\\dfrac{${a}}{x^${p}}}&=${k * a}x^{${n}} \\times \\dfrac{x^${p}}{${a}}\\\\
         &=\\dfrac{${k * a}x^{${n + p}}}{${a}}\\\\
@@ -50,14 +44,14 @@ export default class Puissances extends ExerciceQcmA {
      \\end{aligned}$`
 
     this.reponses = [
-            `$${k}x^{${n + p}}$`,
-            `$${k}x^{${n - p}}$`,
-            `$${k * a}x^{${n - p}}$`,
-            `$${k * a}x^{${n + p}}$`
+      `$${k}x^{${n + p}}$`,
+      `$${k}x^{${n - p}}$`,
+      `$${k * a}x^{${n - p}}$`,
+      `$${k * a}x^{${n + p}}$`,
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

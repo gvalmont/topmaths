@@ -9,11 +9,11 @@ export const dateDePublication = '12/4/2025'
 export const uuid = '80f5f'
 export const refs = {
   'fr-fr': ['BP2AutoF3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class NotationQCM extends NotationScientifiqueQCM {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false

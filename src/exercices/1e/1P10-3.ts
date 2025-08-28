@@ -1,6 +1,10 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -19,48 +23,87 @@ export const dateDePublication = '29/04/2025'
 /**
  *
  * @author Gilles Mora
-*/
+ */
 export const uuid = '233ef'
 
 export const refs = {
   'fr-fr': ['1P10-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculerProbaArbre extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.sup = 4
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
-        '1 : Probabilité d\'une intersection',
+        "1 : Probabilité d'une intersection",
         '2 : Probabilité totale',
         '3 : Probabilité conditionnelle',
-        '4 : Mélange'
-      ].join('\n')
+        '4 : Mélange',
+      ].join('\n'),
     ]
     this.besoinFormulaire2CaseACocher = ['Proba rationnelle', true]
     this.sup2 = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
       melange: 4,
       defaut: 4,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     const rationnel = this.sup2
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0, pA, pB, pBb, omega, pAsachantB, pAbsachantBb, pAbsachantB, pAsachantBb, pBsachantA, pAbinterBb, pAbinterB, pAinterBb, pAinterB, pBsachantAb, pAb, pBbsachantA, pBbsachantAb, objets, listeEV, ev, texteProbaTotaleB, texteProbaTotaleBb; i < this.nbQuestions && cpt < 50;) {
-      listeEV = [['A', 'B'], ['A', 'C'], ['R', 'T'], ['K', 'L']]
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        reponse,
+        cpt = 0,
+        pA,
+        pB,
+        pBb,
+        omega,
+        pAsachantB,
+        pAbsachantBb,
+        pAbsachantB,
+        pAsachantBb,
+        pBsachantA,
+        pAbinterBb,
+        pAbinterB,
+        pAinterBb,
+        pAinterB,
+        pBsachantAb,
+        pAb,
+        pBbsachantA,
+        pBbsachantAb,
+        objets,
+        listeEV,
+        ev,
+        texteProbaTotaleB,
+        texteProbaTotaleBb;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      listeEV = [
+        ['A', 'B'],
+        ['A', 'C'],
+        ['R', 'T'],
+        ['K', 'L'],
+      ]
       ev = choice(listeEV)
       pA = new FractionEtendue(randint(1, 9), 10)
       pAb = pA.ajouteEntier(-1).oppose()
@@ -101,55 +144,67 @@ export default class CalculerProbaArbre extends Exercice {
         visible: false,
         alter: '',
         enfants: [
-          new Arbre(
-            {
-              rationnel,
-              nom: `${ev[0]}`,
-              proba: pA,
-              enfants: [new Arbre(
-                {
-                  rationnel,
-                  nom: `${ev[1]}`,
-                  proba: pBsachantA
-                }),
-              new Arbre(
-                {
-                  rationnel,
-                  nom: `\\overline{${ev[1]}}`,
-                  proba: pBbsachantA
-                })
-              ]
-            }),
+          new Arbre({
+            rationnel,
+            nom: `${ev[0]}`,
+            proba: pA,
+            enfants: [
+              new Arbre({
+                rationnel,
+                nom: `${ev[1]}`,
+                proba: pBsachantA,
+              }),
+              new Arbre({
+                rationnel,
+                nom: `\\overline{${ev[1]}}`,
+                proba: pBbsachantA,
+              }),
+            ],
+          }),
           new Arbre({
             rationnel,
             nom: `\\overline{${ev[0]}}`,
             proba: pAb,
-            enfants: [new Arbre({
-              rationnel,
-              nom: `${ev[1]}`,
-              proba: pBsachantAb
-            }),
-            new Arbre({
-              rationnel,
-              nom: `\\overline{${ev[1]}}`,
-              proba: pBbsachantAb
-            })
-            ]
-          })
-        ]
+            enfants: [
+              new Arbre({
+                rationnel,
+                nom: `${ev[1]}`,
+                proba: pBsachantAb,
+              }),
+              new Arbre({
+                rationnel,
+                nom: `\\overline{${ev[1]}}`,
+                proba: pBbsachantAb,
+              }),
+            ],
+          }),
+        ],
       })
 
       omega.setTailles() // On calcule les tailles des arbres.
-      objets = omega.represente(0, 9, 0, rationnel ? 2 : 2, true, 1, 2)// On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-      switch (listeTypeDeQuestions[i]) { // listeTypeDeQuestions[i]
+      objets = omega.represente(0, 9, 0, rationnel ? 2 : 2, true, 1, 2) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+      switch (
+        listeTypeDeQuestions[i] // listeTypeDeQuestions[i]
+      ) {
         case 1: // intersection
-
-          texte = 'On donne l\'arbre de probabilités :<br><br>'
-          texte += mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objets)), objets) + '<br>'
+          texte = "On donne l'arbre de probabilités :<br><br>"
+          texte +=
+            mathalea2d(
+              Object.assign(
+                { scale: 0.7, style: 'inline' },
+                fixeBordures(objets),
+              ),
+              objets,
+            ) + '<br>'
           switch (randint(1, 4)) {
-            case 1 :// PAinterB
+            case 1: // PAinterB
               texte += `Calculer $P(${ev[0]}\\cap ${ev[1]})$.`
-              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(${ev[0]}\\cap ${ev[1]})=$` })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+                { texteAvant: `<br>$P(${ev[0]}\\cap ${ev[1]})=$` },
+              )
               reponse = pAinterB.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = `On a : <br>
@@ -159,9 +214,14 @@ export default class CalculerProbaArbre extends Exercice {
               &=${this.sup2 === true ? `${miseEnEvidence(`${pAinterB.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAinterB.valeurDecimale, 4)}`)}`}
               \\end{aligned}$`
               break
-            case 2 :// PAinterBb
+            case 2: // PAinterBb
               texte += `Calculer $P(${ev[0]}\\cap \\overline{${ev[1]}})$.`
-              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(${ev[0]}\\cap \\overline{${ev[1]}})=$` })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+                { texteAvant: `<br>$P(${ev[0]}\\cap \\overline{${ev[1]}})=$` },
+              )
               reponse = pAinterBb.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = `On a : <br>
@@ -171,9 +231,14 @@ export default class CalculerProbaArbre extends Exercice {
               &=${this.sup2 === true ? `${miseEnEvidence(`${pAinterBb.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAinterBb.valeurDecimale, 4)}`)}`}
               \\end{aligned}$`
               break
-            case 3 :// PAbinterB
+            case 3: // PAbinterB
               texte += `Calculer $P(\\overline{${ev[0]}}\\cap ${ev[1]})$.`
-              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(\\overline{${ev[0]}}\\cap ${ev[1]})=$` })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+                { texteAvant: `<br>$P(\\overline{${ev[0]}}\\cap ${ev[1]})=$` },
+              )
               reponse = pAbinterB.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = `On a : <br>
@@ -183,10 +248,17 @@ export default class CalculerProbaArbre extends Exercice {
               &=${this.sup2 === true ? `${miseEnEvidence(`${pAbinterB.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAbinterB.valeurDecimale, 4)}`)}`}
               \\end{aligned}$`
               break
-            case 4 :// PAbinterBb
+            case 4: // PAbinterBb
             default:
               texte += `Calculer $P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})$.`
-              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})=$` })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+                {
+                  texteAvant: `<br>$P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})=$`,
+                },
+              )
               reponse = pAbinterBb.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = `On a : <br>
@@ -201,22 +273,38 @@ export default class CalculerProbaArbre extends Exercice {
           break
 
         case 2: // proba totale
-
-          texte = 'On donne l\'arbre de probabilités :<br><br>'
-          texte += mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objets)), objets) + '<br>'
+          texte = "On donne l'arbre de probabilités :<br><br>"
+          texte +=
+            mathalea2d(
+              Object.assign(
+                { scale: 0.7, style: 'inline' },
+                fixeBordures(objets),
+              ),
+              objets,
+            ) + '<br>'
           switch (randint(1, 2)) {
-            case 1 :// pB
+            case 1: // pB
               texte += `Calculer $P(${ev[1]})$.`
-              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(${ev[1]})=$` })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+                { texteAvant: `<br>$P(${ev[1]})=$` },
+              )
               reponse = pB.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = texteProbaTotaleB
               texteCorr += `Ainsi, ${this.sup2 === true ? `$P(${ev[1]})=${miseEnEvidence(`${pB.simplifie().texFraction}`)}$.` : `$P(${ev[1]})=${miseEnEvidence(`${texNombre(pB.valeurDecimale, 4)}`)}`}$.`
               break
-            case 2 :
+            case 2:
             default:
               texte += `Calculer $P(\\overline{${ev[1]}})$.`
-              texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P(\\overline{${ev[1]}})=$` })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+                { texteAvant: `<br>$P(\\overline{${ev[1]}})=$` },
+              )
               reponse = pBb.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = texteProbaTotaleBb
@@ -227,17 +315,43 @@ export default class CalculerProbaArbre extends Exercice {
           break
         case 3: // conditionnelle inversée
         default:
-          texte = 'On donne l\'arbre de probabilités :<br><br>'
-          texte += mathalea2d(Object.assign({ scale: 0.7, style: 'inline' }, fixeBordures(objets)), objets) + '<br>'
+          texte = "On donne l'arbre de probabilités :<br><br>"
+          texte +=
+            mathalea2d(
+              Object.assign(
+                { scale: 0.7, style: 'inline' },
+                fixeBordures(objets),
+              ),
+              objets,
+            ) + '<br>'
           switch (randint(1, 4)) {
-            case 1 :// PAsachantB
+            case 1: // PAsachantB
               texte += `Calculer $P_{${ev[1]}}(${ev[0]})$.`
-              reponse = this.sup2 === true ? pAsachantB.texFraction : arrondi(pAsachantB.valeurDecimale, 3)
+              reponse =
+                this.sup2 === true
+                  ? pAsachantB.texFraction
+                  : arrondi(pAsachantB.valeurDecimale, 3)
               if (this.sup2 === true) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{${ev[1]}}(${ev[0]})=$`, texteApres: '(résultat en fraction)' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `<br>$P_{${ev[1]}}(${ev[0]})=$`,
+                    texteApres: '(résultat en fraction)',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               } else {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{${ev[1]}}(${ev[0]})\\approx$`, texteApres: '(valeur décimale arrondie à $0,001$)' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `<br>$P_{${ev[1]}}(${ev[0]})\\approx$`,
+                    texteApres: '(valeur décimale arrondie à $0,001$)',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               texteCorr = `On utilise la formule :  $P_{${ev[1]}}(${ev[0]})=\\dfrac{P(${ev[1]}\\cap ${ev[0]})}{P(${ev[1]})}$.<br> 
@@ -252,14 +366,33 @@ export default class CalculerProbaArbre extends Exercice {
               &${this.sup2 === true ? `=${miseEnEvidence(`${pAsachantB.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAsachantB.valeurDecimale, 3)}`)}`}
               \\end{aligned}$`
               break
-            case 2 :// PAsachantBb
+            case 2: // PAsachantBb
               texte += `Calculer $P_{\\overline{${ev[1]}}}(${ev[0]})$.`
-              reponse = this.sup2 === true ? pAsachantBb.texFraction : arrondi(pAsachantBb.valeurDecimale, 3)
+              reponse =
+                this.sup2 === true
+                  ? pAsachantBb.texFraction
+                  : arrondi(pAsachantBb.valeurDecimale, 3)
               if (this.sup2 === true) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{\\overline{${ev[1]}}}(${ev[0]})=$`, texteApres: '(résultat en fraction)' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `<br>$P_{\\overline{${ev[1]}}}(${ev[0]})=$`,
+                    texteApres: '(résultat en fraction)',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               } else {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{\\overline{${ev[1]}}}(${ev[0]})\\approx$`, texteApres: '(valeur décimale arrondie à $0,001$)' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `<br>$P_{\\overline{${ev[1]}}}(${ev[0]})\\approx$`,
+                    texteApres: '(valeur décimale arrondie à $0,001$)',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               texteCorr = `On utilise la formule :  $P_{\\overline{${ev[1]}}}(${ev[0]})=\\dfrac{P(\\overline{${ev[1]}}\\cap ${ev[0]})}{P(\\overline{${ev[1]}})}$.<br> 
@@ -274,14 +407,33 @@ export default class CalculerProbaArbre extends Exercice {
             &${this.sup2 === true ? `=${miseEnEvidence(`${pAsachantBb.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAsachantBb.valeurDecimale, 3)}`)}`}
             \\end{aligned}$`
               break
-            case 3 :// PAbsachantB
+            case 3: // PAbsachantB
               texte += `Calculer $P_{${ev[1]}}(\\overline{${ev[0]}})$.`
-              reponse = this.sup2 === true ? pAbsachantB.texFraction : arrondi(pAbsachantB.valeurDecimale, 3)
+              reponse =
+                this.sup2 === true
+                  ? pAbsachantB.texFraction
+                  : arrondi(pAbsachantB.valeurDecimale, 3)
               if (this.sup2 === true) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{${ev[1]}}(\\overline{${ev[0]}})=$`, texteApres: '(résultat en fraction)' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `<br>$P_{${ev[1]}}(\\overline{${ev[0]}})=$`,
+                    texteApres: '(résultat en fraction)',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               } else {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{${ev[1]}}(\\overline{${ev[0]}})\\approx$`, texteApres: '(valeur décimale arrondie à $0,001$)' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `<br>$P_{${ev[1]}}(\\overline{${ev[0]}})\\approx$`,
+                    texteApres: '(valeur décimale arrondie à $0,001$)',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               texteCorr = `On utilise la formule :  $P_{${ev[1]}}(\\overline{${ev[0]}})=\\dfrac{P(${ev[1]}\\cap \\overline{${ev[0]}})}{P(${ev[1]})}$.<br> 
@@ -296,15 +448,34 @@ export default class CalculerProbaArbre extends Exercice {
           &${this.sup2 === true ? `=${miseEnEvidence(`${pAbsachantB.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAbsachantB.valeurDecimale, 3)}`)}`}
           \\end{aligned}$`
               break
-            case 4 :// PAbsachantBb
+            case 4: // PAbsachantBb
             default:
               texte += `Calculer $P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})$.`
-              reponse = this.sup2 === true ? pAbsachantBb.texFraction : arrondi(pAbsachantBb.valeurDecimale, 3)
+              reponse =
+                this.sup2 === true
+                  ? pAbsachantBb.texFraction
+                  : arrondi(pAbsachantBb.valeurDecimale, 3)
               if (this.sup2 === true) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})=$`, texteApres: '(résultat en fraction)' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `<br>$P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})=$`,
+                    texteApres: '(résultat en fraction)',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               } else {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: `<br>$P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})\\approx$`, texteApres: '(valeur décimale arrondie à $0,001$)' })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `<br>$P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})\\approx$`,
+                    texteApres: '(valeur décimale arrondie à $0,001$)',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               texteCorr = `On utilise la formule :  $P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})=\\dfrac{P(\\overline{${ev[1]}}\\cap \\overline{${ev[0]}})}{P(\\overline{${ev[1]})}}$.<br> 

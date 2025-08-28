@@ -17,19 +17,25 @@ export default class Pyramide {
   fractionOn: boolean
 
   /**
-     *
-     * @param {object} param0
-     * @param {string} param0.operation
-     * @param {number} param0.nombreEtages
-     * @param {number[]|number[][]} param0.rangeData
-     * @param {number[]}  param0.exclusions
-     * @param {boolean} param0.fractionOn
-     */
-  constructor ({ operation = '+', nombreEtages = 3, rangeData = [1, 10], exclusions = [], fractionOn = false }:{
-    operation: '+' | '*',
-    nombreEtages: number,
-    rangeData: [number, number] | [[number, number], [number, number]],
-    exclusions: number[],
+   *
+   * @param {object} param0
+   * @param {string} param0.operation
+   * @param {number} param0.nombreEtages
+   * @param {number[]|number[][]} param0.rangeData
+   * @param {number[]}  param0.exclusions
+   * @param {boolean} param0.fractionOn
+   */
+  constructor({
+    operation = '+',
+    nombreEtages = 3,
+    rangeData = [1, 10],
+    exclusions = [],
+    fractionOn = false,
+  }: {
+    operation: '+' | '*'
+    nombreEtages: number
+    rangeData: [number, number] | [[number, number], [number, number]]
+    exclusions: number[]
     fractionOn: boolean
   }) {
     this.operation = operation
@@ -56,16 +62,26 @@ export default class Pyramide {
           switch (operation) {
             case '+':
               if (this.fractionOn) {
-                this.valeurs[y][x] = (this.valeurs[y + 1][x] as FractionEtendue).sommeFraction((this.valeurs[y + 1][x + 1] as FractionEtendue)).simplifie()
+                this.valeurs[y][x] = (this.valeurs[y + 1][x] as FractionEtendue)
+                  .sommeFraction(this.valeurs[y + 1][x + 1] as FractionEtendue)
+                  .simplifie()
               } else {
-                this.valeurs[y][x] = Number(this.valeurs[y + 1][x]) + Number(this.valeurs[y + 1][x + 1])
+                this.valeurs[y][x] =
+                  Number(this.valeurs[y + 1][x]) +
+                  Number(this.valeurs[y + 1][x + 1])
               }
               break
             case '*':
               if (this.fractionOn) {
-                this.valeurs[y][x] = (this.valeurs[y + 1][x] as FractionEtendue).produitFraction((this.valeurs[y + 1][x + 1] as FractionEtendue)).simplifie()
+                this.valeurs[y][x] = (this.valeurs[y + 1][x] as FractionEtendue)
+                  .produitFraction(
+                    this.valeurs[y + 1][x + 1] as FractionEtendue,
+                  )
+                  .simplifie()
               } else {
-                this.valeurs[y][x] = Number(this.valeurs[y + 1][x]) * Number(this.valeurs[y + 1][x + 1])
+                this.valeurs[y][x] =
+                  Number(this.valeurs[y + 1][x]) *
+                  Number(this.valeurs[y + 1][x + 1])
               }
 
               break
@@ -76,17 +92,17 @@ export default class Pyramide {
     }
   }
 
-  visible (x: number, y: number) {
+  visible(x: number, y: number) {
     return this.isVisible[y][x]
   }
 
-  estSolvable (x: number, y: number): boolean {
+  estSolvable(x: number, y: number): boolean {
     if (this.visible(x, y)) return true
     else if (y === this.nombreEtages - 1) return false
     else return this.estSolvable(x, y + 1) && this.estSolvable(x + 1, y + 1)
   }
 
-  choisisUneCaseNonVisible (): [number, number] {
+  choisisUneCaseNonVisible(): [number, number] {
     let x, y
     let trouve = false
     let cpt = 0
@@ -104,7 +120,7 @@ export default class Pyramide {
     return [x, y]
   }
 
-  aleatoirise () {
+  aleatoirise() {
     let solvable = false
     do {
       const [x, y] = this.choisisUneCaseNonVisible()
@@ -113,7 +129,7 @@ export default class Pyramide {
     } while (!solvable)
   }
 
-  representeMoi (xO = 0, yO = 0): NestedObjetMathalea2dArray {
+  representeMoi(xO = 0, yO = 0): NestedObjetMathalea2dArray {
     const objets = []
     const hCase = this.fractionOn ? 2 : 1
     for (let y = this.nombreEtages; y > 0; y--) {
@@ -128,19 +144,24 @@ export default class Pyramide {
                                                        texteOpacite: 1
                                                      }))
                                                      */
-        objets.push(new BoiteBuilder({
-          xMin: xO + x * 4 + (this.nombreEtages - y) * 2,
-          yMin: yO + (this.nombreEtages - y) * hCase,
-          xMax: xO + x * 4 + 4 + (this.nombreEtages - y) * 2,
-          yMax: yO + (1 + this.nombreEtages - y) * hCase
-        }).addTextIn({
-          textIn: !this.isVisible[y - 1][x]
-            ? ''
-            : this.fractionOn
-              ? (this.valeurs[y - 1][x] as FractionEtendue).texFractionSimplifiee
-              : stringNombre(Number(this.valeurs[y - 1][x]), 0),
-          opacity: 1
-        }).render())
+        objets.push(
+          new BoiteBuilder({
+            xMin: xO + x * 4 + (this.nombreEtages - y) * 2,
+            yMin: yO + (this.nombreEtages - y) * hCase,
+            xMax: xO + x * 4 + 4 + (this.nombreEtages - y) * 2,
+            yMax: yO + (1 + this.nombreEtages - y) * hCase,
+          })
+            .addTextIn({
+              textIn: !this.isVisible[y - 1][x]
+                ? ''
+                : this.fractionOn
+                  ? (this.valeurs[y - 1][x] as FractionEtendue)
+                      .texFractionSimplifiee
+                  : stringNombre(Number(this.valeurs[y - 1][x]), 0),
+              opacity: 1,
+            })
+            .render(),
+        )
       }
     }
     return objets

@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = '80a7b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -16,7 +16,7 @@ export const refs = {
 
 */
 export default class Can2025CE1Q12 extends ExerciceCan {
-  enonce (a?: number, b?: number, quidam? : string) {
+  enonce(a?: number, b?: number, quidam?: string) {
     if (a == null || b == null || quidam == null) {
       quidam = prenomM() as string
 
@@ -36,10 +36,13 @@ export default class Can2025CE1Q12 extends ExerciceCan {
     if (this.interactif) {
       this.question += ' <br> '
     }
-    this.optionsChampTexte = { texteApres: ' gâteaux.', texteAvant: ' Il reste' }
+    this.optionsChampTexte = {
+      texteApres: ' gâteaux.',
+      texteAvant: ' Il reste',
+    }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(40, 12, 'Arthur') : this.enonce()
   }
 }

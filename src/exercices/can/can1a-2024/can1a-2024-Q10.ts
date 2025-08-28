@@ -14,7 +14,7 @@ export const uuid = 'a9e45'
 
 */
 export default class Equation1degre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -24,10 +24,10 @@ export default class Equation1degre extends ExerciceSimple {
     // this.formatInteractif = 'fractionEgale'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(2, 7)
-      this.question = 'Solution de  l\'équation $7x+3=5$<br>'
+      this.question = "Solution de  l'équation $7x+3=5$<br>"
       this.correction = `On procède par étapes successives :<br>
     On commence par isoler $7x$ dans le membre de gauche en retranchant
     $3$ dans chacun des membres, puis on divise
@@ -41,8 +41,22 @@ export default class Equation1degre extends ExerciceSimple {
     La solution de l'équation est : $${miseEnEvidence('\\dfrac{2}{7}')}$.
     `
     } else {
-      const listevaleurs = [[3, 1, 5], [3, 1, 8], [3, 2, 9], [3, 2, -9], [7, 4, -2], [7, 4, 8],
-        [7, 3, 2], [7, 3, -5], [6, 3, -2], [6, 3, 10], [6, 4, 3], [6, 4, -3], [3, 4, 14], [7, 4, 14]]
+      const listevaleurs = [
+        [3, 1, 5],
+        [3, 1, 8],
+        [3, 2, 9],
+        [3, 2, -9],
+        [7, 4, -2],
+        [7, 4, 8],
+        [7, 3, 2],
+        [7, 3, -5],
+        [6, 3, -2],
+        [6, 3, 10],
+        [6, 4, 3],
+        [6, 4, -3],
+        [3, 4, 14],
+        [7, 4, 14],
+      ]
       const val = choice(listevaleurs)
       const a = val[0]
       const b = val[1]

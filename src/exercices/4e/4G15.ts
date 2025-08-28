@@ -1,15 +1,36 @@
 import { Droite, droite, mediatrice } from '../../lib/2d/droites'
-import { milieu, point, pointAdistance, pointSurSegment, tracePoint } from '../../lib/2d/points'
-import { nommePolygone, Polygone, polygone, polygoneAvecNom, renommePolygone } from '../../lib/2d/polygones'
+import {
+  milieu,
+  point,
+  pointAdistance,
+  pointSurSegment,
+  tracePoint,
+} from '../../lib/2d/points'
+import {
+  nommePolygone,
+  Polygone,
+  polygone,
+  polygoneAvecNom,
+  renommePolygone,
+} from '../../lib/2d/polygones'
 import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
-import { rotation, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
+import {
+  rotation,
+  similitude,
+  symetrieAxiale,
+  translation,
+} from '../../lib/2d/transformations'
 import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
-import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation'
+import {
+  rotationAnimee,
+  symetrieAnimee,
+  translationAnimee,
+} from '../../modules/2dAnimation'
 
 export const titre = 'Tranformations de triangle'
 /**
@@ -19,10 +40,10 @@ export const uuid = '0da6a'
 
 export const refs = {
   'fr-fr': ['4G15'],
-  'fr-ch': ['10ES2-7']
+  'fr-ch': ['10ES2-7'],
 }
 export default class TransformationsDeTriangle extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.titre = 'Tranformations de triangle'
@@ -30,15 +51,33 @@ export default class TransformationsDeTriangle extends Exercice {
     this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion(numeroExercice: number) {
     const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
     const objetsCorrection = [] // Idem pour la correction
 
     let texteCorr = '' // Idem pour le texte de la correction.
     let largeur = 20
     let hauteur = 20
-    let A, B, C, triangle, O, M, X, Y, triangle1, A1, B1, C1, d1, D, F, triangle3, triangle4,
-      triangle5, traces, labels
+    let A,
+      B,
+      C,
+      triangle,
+      O,
+      M,
+      X,
+      Y,
+      triangle1,
+      A1,
+      B1,
+      C1,
+      d1,
+      D,
+      F,
+      triangle3,
+      triangle4,
+      triangle5,
+      traces,
+      labels
     let xMin, xMax, yMin, yMax
     let alpha, beta
     const anim = new Alea2iep()
@@ -87,10 +126,42 @@ export default class TransformationsDeTriangle extends Exercice {
       renommePolygone(triangle5, ['$A_4$', '$B_4$', '$C_4$'])
 
       for (let i = 0; i < 3; i++) {
-        xMin = Math.min(xMin, triangle0.listePoints[i].x, triangle1.listePoints[i].x, triangle2.listePoints[i].x, triangle3.listePoints[i].x, triangle4.listePoints[i].x, triangle5.listePoints[i].x)
-        xMax = Math.max(xMax, triangle0.listePoints[i].x, triangle1.listePoints[i].x, triangle2.listePoints[i].x, triangle3.listePoints[i].x, triangle4.listePoints[i].x, triangle5.listePoints[i].x)
-        yMin = Math.min(yMin, triangle0.listePoints[i].y, triangle1.listePoints[i].y, triangle2.listePoints[i].y, triangle3.listePoints[i].y, triangle4.listePoints[i].y, triangle5.listePoints[i].y)
-        yMax = Math.max(yMax, triangle0.listePoints[i].y, triangle1.listePoints[i].y, triangle2.listePoints[i].y, triangle3.listePoints[i].y, triangle4.listePoints[i].y, triangle5.listePoints[i].y)
+        xMin = Math.min(
+          xMin,
+          triangle0.listePoints[i].x,
+          triangle1.listePoints[i].x,
+          triangle2.listePoints[i].x,
+          triangle3.listePoints[i].x,
+          triangle4.listePoints[i].x,
+          triangle5.listePoints[i].x,
+        )
+        xMax = Math.max(
+          xMax,
+          triangle0.listePoints[i].x,
+          triangle1.listePoints[i].x,
+          triangle2.listePoints[i].x,
+          triangle3.listePoints[i].x,
+          triangle4.listePoints[i].x,
+          triangle5.listePoints[i].x,
+        )
+        yMin = Math.min(
+          yMin,
+          triangle0.listePoints[i].y,
+          triangle1.listePoints[i].y,
+          triangle2.listePoints[i].y,
+          triangle3.listePoints[i].y,
+          triangle4.listePoints[i].y,
+          triangle5.listePoints[i].y,
+        )
+        yMax = Math.max(
+          yMax,
+          triangle0.listePoints[i].y,
+          triangle1.listePoints[i].y,
+          triangle2.listePoints[i].y,
+          triangle3.listePoints[i].y,
+          triangle4.listePoints[i].y,
+          triangle5.listePoints[i].y,
+        )
       }
       xMax += 4
       xMin--
@@ -100,17 +171,53 @@ export default class TransformationsDeTriangle extends Exercice {
       hauteur = yMax - yMin
     } while (largeur > 16 && hauteur > 16)
 
-    let texte = 'Construire<br>$A_1B_1C_1$ le triangle symétrique de $ABC$ par rapport à la droite $(d)$;<br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
-    texte += '$A_2B_2C_2$ le triangle symétrique de $A_1B_1C_1$ par rapport au point $D$;<br>'
-    texte += '$A_3B_3C_3$ le triangle translaté de $A_2B_2C_2$ tel que $D$ soit transformé en $F$;<br>'
+    let texte =
+      'Construire<br>$A_1B_1C_1$ le triangle symétrique de $ABC$ par rapport à la droite $(d)$;<br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
+    texte +=
+      '$A_2B_2C_2$ le triangle symétrique de $A_1B_1C_1$ par rapport au point $D$;<br>'
+    texte +=
+      '$A_3B_3C_3$ le triangle translaté de $A_2B_2C_2$ tel que $D$ soit transformé en $F$;<br>'
     texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centre $F$ et d'angle $${Math.abs(alpha)}^\\circ$ dans le sens des aiguilles d'une montre.<br>`
 
-    const nomd = latexParPoint('(d)', translation(milieu(B, B1), vecteur(1, 0)), 'black', 30, 12, '')
+    const nomd = latexParPoint(
+      '(d)',
+      translation(milieu(B, B1), vecteur(1, 0)),
+      'black',
+      30,
+      12,
+      '',
+    )
     if (context.isHtml) {
-      const triangle2a = !context.isHtml ? vide2d() : symetrieAnimee(triangle0, med, `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle3a = !context.isHtml ? vide2d() : rotationAnimee([triangle2], D, 180, `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle4a = !context.isHtml ? vide2d() : translationAnimee([triangle3], vecteur(D, F), `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle5a = !context.isHtml ? vide2d() : rotationAnimee([triangle4], F, alpha, `id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle2a = !context.isHtml
+        ? vide2d()
+        : symetrieAnimee(
+            triangle0,
+            med,
+            `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`,
+          )
+      const triangle3a = !context.isHtml
+        ? vide2d()
+        : rotationAnimee(
+            [triangle2],
+            D,
+            180,
+            `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`,
+          )
+      const triangle4a = !context.isHtml
+        ? vide2d()
+        : translationAnimee(
+            [triangle3],
+            vecteur(D, F),
+            `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`,
+          )
+      const triangle5a = !context.isHtml
+        ? vide2d()
+        : rotationAnimee(
+            [triangle4],
+            F,
+            alpha,
+            `id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`,
+          )
       anim.vitesse = 15
       anim.tempo = 0.5
       anim.recadre(xMin, yMax)
@@ -121,26 +228,41 @@ export default class TransformationsDeTriangle extends Exercice {
       anim.textePoint('(d)', milieu(B, B1))
       anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], {
         couleur: 'blue',
-        couleurCodage: 'lightblue'
+        couleurCodage: 'lightblue',
       })
       anim.demiTourPolygone(triangle2, D, ['A_2', 'B_2', 'C_2'], {
         couleur: 'red',
-        couleurCodage: 'pink'
+        couleurCodage: 'pink',
       })
       anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], {
         couleur: 'brown',
-        couleurCodage: '#f15929'
+        couleurCodage: '#f15929',
       })
       anim.rotationPolygone(triangle4, F, alpha, ['A_4', 'B_4', 'C_4'], {
         couleur: 'green',
-        couleurCodage: 'lightgreen'
+        couleurCodage: 'lightgreen',
       })
       anim.crayonMasquer()
       objetsCorrection.push(triangle2a, triangle3a, triangle4a, triangle5a)
     }
     context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
     objetsEnonce.push(triangle0, triangle[1], traces, labels, med, nomd) // On rempli les tableaux d'objets Mathalea2d
-    objetsCorrection.push(triangle0, triangle[1], traces, labels, med, nomd, triangle2, nommePolygone(triangle2), triangle3, nommePolygone(triangle3), triangle4, nommePolygone(triangle4), triangle5, nommePolygone(triangle5))
+    objetsCorrection.push(
+      triangle0,
+      triangle[1],
+      traces,
+      labels,
+      med,
+      nomd,
+      triangle2,
+      nommePolygone(triangle2),
+      triangle3,
+      nommePolygone(triangle3),
+      triangle4,
+      nommePolygone(triangle4),
+      triangle5,
+      nommePolygone(triangle5),
+    )
 
     // paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
     //    paramsEnonceml = { xmin: Math.min(objetsEnonceml.x), ymin: Math.min(objetsEnonceml.y), xmax: Math.max(objetsEnonceml.x), ymax: Math.max(objetsEnonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
@@ -152,7 +274,7 @@ export default class TransformationsDeTriangle extends Exercice {
       ymax: yMax,
       pixelsParCm: 20,
       scale: 1,
-      mainlevee: false
+      mainlevee: false,
     }
     // paramètres de la fenêtre Mathalea2d pour la correction
     const paramsCorrection = {
@@ -161,7 +283,7 @@ export default class TransformationsDeTriangle extends Exercice {
       xmax: xMax,
       ymax: yMax,
       pixelsParCm: 20,
-      scale: 1
+      scale: 1,
     }
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
     texte += mathalea2d(paramsEnonce, objetsEnonce)

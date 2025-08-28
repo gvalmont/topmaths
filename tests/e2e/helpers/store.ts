@@ -1,11 +1,11 @@
 class Store<T> {
   private store: Record<string, T> = {}
 
-  set (key: string, value: T): void {
+  set(key: string, value: T): void {
     this.store[key] = value
   }
 
-  get (key: string): T | undefined {
+  get(key: string): T | undefined {
     return this.store[key]
   }
 }

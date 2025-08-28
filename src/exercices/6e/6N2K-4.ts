@@ -14,7 +14,7 @@ export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Indiquer une égalité à partir d\'une division euclidienne'
+export const titre = "Indiquer une égalité à partir d'une division euclidienne"
 
 export const dateDePublication = '09/09/2022'
 
@@ -41,13 +41,16 @@ export const uuid = 'd0cd7'
 export const refs = {
   'fr-fr': ['6N2K-4'],
   'fr-2016': ['6C11-3'],
-  'fr-ch': ['9NO3-7']
+  'fr-ch': ['9NO3-7'],
 }
 export default class APartirDeDivisionsEuclidiennes extends Exercice {
   classe: number
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Divisions par 2, 3, 4 ou 5\n2 : Diviseur à 1 chiffre\n3 : Diviseur à 2 chiffres'
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Divisions par 2, 3, 4 ou 5\n2 : Diviseur à 1 chiffre\n3 : Diviseur à 2 chiffres',
     ]
     this.sup = 3
     this.spacing = 2
@@ -57,9 +60,12 @@ export default class APartirDeDivisionsEuclidiennes extends Exercice {
     this.classe = 6
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = 'À partir '
-    this.consigne += this.nbQuestions === 1 ? 'de la division euclidienne suivante, ' : 'des divisions euclidiennes suivantes, '
+    this.consigne +=
+      this.nbQuestions === 1
+        ? 'de la division euclidienne suivante, '
+        : 'des divisions euclidiennes suivantes, '
     this.consigne += "donner l'égalité fondamentale correspondante."
 
     let typesDeQuestionsDisponibles, typesDeQuestions
@@ -68,15 +74,19 @@ export default class APartirDeDivisionsEuclidiennes extends Exercice {
     else typesDeQuestionsDisponibles = [4, 4, 5, 6]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (
       let i = 0, texte = '', texteCorr = '', cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
-      this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 4, feedback: '' }] }
+      this.autoCorrection[i] = {
+        enonce: texte,
+        propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
+      }
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 1: // division par 2, 3 , 4 ou 5
@@ -114,27 +124,50 @@ export default class APartirDeDivisionsEuclidiennes extends Exercice {
       texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}<br>`
       if (r === 0) {
         texteCorr = `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}`)}$`
-        setReponse(this, i, [`${a}=${b}\\times${q}`, `${a}=${q}\\times${b}`,
-                    `${b}\\times${q}=${a}`, `${q}\\times${b}=${a}`,
-                    `${a}=${b}\\times ${q}+${0}`, `${a}=${q}\\times ${b}+${0}`,
-                    `${b}\\times ${q}+${0}=${a}`, `${q}\\times ${b}+${0}=${a}`,
-                    `${a}=(${b}\\times ${q})+${0}`, `${a}=(${q}\\times ${b})+${0}`,
-                    `(${b}\\times ${q})+${0}=${a}`, `(${q}\\times ${b})+${0}=${a}`,
-                    `${a}\\div${b}=${q}`, `${a}\\div${q}=${b}`,
-                    `${q}=${a}\\div${b}`, `${b}=${a}\\div${q}`])
+        setReponse(this, i, [
+          `${a}=${b}\\times${q}`,
+          `${a}=${q}\\times${b}`,
+          `${b}\\times${q}=${a}`,
+          `${q}\\times${b}=${a}`,
+          `${a}=${b}\\times ${q}+${0}`,
+          `${a}=${q}\\times ${b}+${0}`,
+          `${b}\\times ${q}+${0}=${a}`,
+          `${q}\\times ${b}+${0}=${a}`,
+          `${a}=(${b}\\times ${q})+${0}`,
+          `${a}=(${q}\\times ${b})+${0}`,
+          `(${b}\\times ${q})+${0}=${a}`,
+          `(${q}\\times ${b})+${0}=${a}`,
+          `${a}\\div${b}=${q}`,
+          `${a}\\div${q}=${b}`,
+          `${q}=${a}\\div${b}`,
+          `${b}=${a}\\div${q}`,
+        ])
       } else {
-        texteCorr = this.classe === 3
-          ? `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}+${r}`)}$`
-          : `$${miseEnEvidence(`${texNombre(a)}=(${b}\\times${texNombre(q)})+${r}`)}$`
-        setReponse(this, i, [`${a}=${b}\\times ${q}+${r}`, `${a}=${q}\\times ${b}+${r}`,
-        `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`,
-        `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
-        `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`])
+        texteCorr =
+          this.classe === 3
+            ? `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}+${r}`)}$`
+            : `$${miseEnEvidence(`${texNombre(a)}=(${b}\\times${texNombre(q)})+${r}`)}$`
+        setReponse(this, i, [
+          `${a}=${b}\\times ${q}+${r}`,
+          `${a}=${q}\\times ${b}+${r}`,
+          `${b}\\times ${q}+${r}=${a}`,
+          `${q}\\times ${b}+${r}=${a}`,
+          `${a}=(${b}\\times ${q})+${r}`,
+          `${a}=(${q}\\times ${b})+${r}`,
+          `(${b}\\times ${q})+${r}=${a}`,
+          `(${q}\\times ${b})+${r}=${a}`,
+        ])
       }
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecEgal)
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecEgal,
+      )
       // Pour AMC question AmcOpen
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = 'Indiquer une égalité à partir de la  division euclidienne suivante : <br><br>' + texte
+        this.autoCorrection[i].enonce =
+          'Indiquer une égalité à partir de la  division euclidienne suivante : <br><br>' +
+          texte
         // @ts-expect-error Trop compliqué à typer
         this.autoCorrection[i].propositions[0].texte = texteCorr
         // @ts-expect-error Trop compliqué à typer

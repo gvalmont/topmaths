@@ -16,17 +16,17 @@ export const uuid = 'dcc68'
 
 export const refs = {
   'fr-fr': ['can3G01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AgrandissementReduction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c
     switch (choice(['a', 'b', 'c', 'c'])) {
       case 'a':
@@ -54,8 +54,8 @@ export default class AgrandissementReduction extends ExerciceSimple {
         `
         break
       case 'c':
-        a = randint(2, 4)// aire
-        c = randint(2, 4)// coefficient
+        a = randint(2, 4) // aire
+        c = randint(2, 4) // coefficient
 
         this.question = `Les longueurs d'un rectangle de $${a}$ cm$^2$  sont multipliées par $${c}$.<br>
 
@@ -67,7 +67,7 @@ export default class AgrandissementReduction extends ExerciceSimple {
     `
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

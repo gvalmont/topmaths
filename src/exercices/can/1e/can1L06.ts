@@ -1,4 +1,8 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -16,17 +20,17 @@ export const uuid = 'd1ad9'
 
 export const refs = {
   'fr-fr': ['can1L06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FormeCanonique extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const alpha = randint(-3, 3, [0])
     const beta = randint(-5, 5, [0])
     const b = -2 * alpha
@@ -55,14 +59,18 @@ export default class FormeCanonique extends ExerciceSimple {
       }
     }
 
-    this.correction = 'La forme canonique est donnée par : $f(x)=a(x-\\alpha)^2+\\beta$.'
+    this.correction =
+      'La forme canonique est donnée par : $f(x)=a(x-\\alpha)^2+\\beta$.'
 
     this.correction += `<br> On a $a=1$, et on reconnaît dans $x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$, le début du carré de $(${reduireAxPlusB(1, -alpha)})^2$.`
     this.correction += `<br>On peut donc écrire :  $\\underbrace{x^2${ecritureAlgebriqueSauf1(b)}x}_{(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}}${ecritureAlgebrique(c)}
     =${miseEnEvidence(`(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}${ecritureAlgebrique(c)}`)}$.`
     this.correction += '<br>Soit : $f(x)='
     this.correction += `(x ${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$`
-    this.reponse = [`(x${ecritureAlgebrique(b / 2)})^2${ecritureAlgebrique(beta)}`, `${beta}+(x${ecritureAlgebrique(b / 2)})^2`]
+    this.reponse = [
+      `(x${ecritureAlgebrique(b / 2)})^2${ecritureAlgebrique(beta)}`,
+      `${beta}+(x${ecritureAlgebrique(b / 2)})^2`,
+    ]
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

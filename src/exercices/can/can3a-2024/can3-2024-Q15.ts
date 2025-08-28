@@ -15,7 +15,7 @@ export const uuid = '50e11'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(3, 35).texFraction
       this.question = '$\\dfrac{13}{35}-\\dfrac{2}{7}$    '

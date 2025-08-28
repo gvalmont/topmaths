@@ -1,10 +1,21 @@
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDe,
+} from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -12,7 +23,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import FractionEtendue from '../../modules/FractionEtendue'
 
-export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de fraction décimale (ou inversement)'
+export const titre =
+  "Donner l'écriture décimale d'un nombre à partir de fraction décimale (ou inversement)"
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
@@ -30,23 +42,36 @@ export const uuid = '47fed'
 export const refs = {
   'fr-fr': ['auto6N2B'],
   'fr-2016': ['6N23-4a'],
-  'fr-ch': ['9NO10-14']
+  'fr-ch': ['9NO10-14'],
 }
 export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 5
-    this.besoinFormulaireTexte = ['Type des fractions décimales', 'Nombres séparés par des tirets :\n1 : Du genre 128/10\n2 : Du genre 8+5/100+7/100\n3 : Mélange']
-    this.besoinFormulaire2Numerique = ['Type de questions', 2, '1 : Du nombre décimal à la fraction décimale\n2 : De fractions décimales au nombre décimal']
+    this.besoinFormulaireTexte = [
+      'Type des fractions décimales',
+      'Nombres séparés par des tirets :\n1 : Du genre 128/10\n2 : Du genre 8+5/100+7/100\n3 : Mélange',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Type de questions',
+      2,
+      '1 : Du nombre décimal à la fraction décimale\n2 : De fractions décimales au nombre décimal',
+    ]
     this.sup = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.sup2 === 2) {
-      this.consigne = "Donner l'écriture décimale de " + (this.nbQuestions > 1 ? 'chaque' : 'ce') + ' nombre.'
+      this.consigne =
+        "Donner l'écriture décimale de " +
+        (this.nbQuestions > 1 ? 'chaque' : 'ce') +
+        ' nombre.'
     } else {
-      this.consigne = 'Donner une fraction décimale de ' + (this.nbQuestions > 1 ? 'chaque' : 'ce') + ' nombre.'
+      this.consigne =
+        'Donner une fraction décimale de ' +
+        (this.nbQuestions > 1 ? 'chaque' : 'ce') +
+        ' nombre.'
     }
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
@@ -55,11 +80,14 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
       melange: 6,
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
-      shuffle: false
+      shuffle: false,
     })
 
     for (
-      let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, n, choix; i < this.nbQuestions && cpt < 50;) {
+      let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, n, choix;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       a = randint(2, 9)
       b = randint(2, 9, a)
       c = randint(2, 9, [a, b])
@@ -97,27 +125,53 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
       }
       const fractionDecimale = new FractionEtendue(reponseAMC, 1)
       if (this.sup2 === 2) {
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteAvant: sp() + '=' })
-        handleAnswers(this, i, { reponse: { value: reponseAMC, options: { nombreDecimalSeulement: true } } })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierNumbers,
+          { texteAvant: sp() + '=' },
+        )
+        handleAnswers(this, i, {
+          reponse: {
+            value: reponseAMC,
+            options: { nombreDecimalSeulement: true },
+          },
+        })
       } else {
         texte = `$${texNombre(reponseAMC)}$`
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp() + '=' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+          { texteAvant: sp() + '=' },
+        )
         texteCorr = `$${texNombre(reponseAMC)}=${fractionDecimale.texFraction}$`
-        handleAnswers(this, i, { reponse: { value: fractionDecimale.texFraction, options: { fractionDecimale: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: fractionDecimale.texFraction,
+            options: { fractionDecimale: true },
+          },
+        })
       }
       if (context.isAmc) {
         const choixDigit = randint(0, 1)
         if (this.sup2 === 2) {
           setReponse(this, i, reponseAMC, {
-            digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
-            decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
-            signe: false
+            digits:
+              nombreDeChiffresDe(reponseAMC) +
+              randint(choixDigit, choixDigit + 1),
+            decimals:
+              nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+            signe: false,
           })
         } else {
           setReponse(this, i, fractionDecimale, {
-            digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
-            decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit + 1,
-            signe: false
+            digits:
+              nombreDeChiffresDe(reponseAMC) +
+              randint(choixDigit, choixDigit + 1),
+            decimals:
+              nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit + 1,
+            signe: false,
           })
         }
       }
@@ -135,7 +189,8 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
 
       // Fin de cette uniformisation
 
-      if (this.questionJamaisPosee(i, reponseAMC)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, reponseAMC)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         if (!context.isHtml && i === 0) {

@@ -19,10 +19,10 @@ export const uuid = 'f3b31'
 
 export const refs = {
   'fr-fr': ['can6C43'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceComparerDeuxFractionsCAN extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
@@ -33,15 +33,22 @@ export default class ExerciceComparerDeuxFractionsCAN extends Exercice {
     this.sup2 = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeFractions = obtenirListeFractionsIrreductibles()
-    for (let i = 0, cpt = 0, texte, texteCorr, signe, signe2; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, cpt = 0, texte, texteCorr, signe, signe2;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       this.autoCorrection[i] = {}
       const fractionAbsolue = choice(listeFractions)
       const k = randint(2, 11)
-      let ecart = choice([-4, -3, -2, -1, 1, 2, 3, 4], [-k * fractionAbsolue.num, k * fractionAbsolue.num]) // On exclut -k * a pour ne pas avoir une fraction nulle
+      let ecart = choice(
+        [-4, -3, -2, -1, 1, 2, 3, 4],
+        [-k * fractionAbsolue.num, k * fractionAbsolue.num],
+      ) // On exclut -k * a pour ne pas avoir une fraction nulle
       if (k * fractionAbsolue.num + ecart <= 0) {
-        ecart = ecart * (-1)
+        ecart = ecart * -1
       }
       if (ecart > 0) {
         signe = '<'
@@ -52,14 +59,29 @@ export default class ExerciceComparerDeuxFractionsCAN extends Exercice {
       }
       enleveElement(listeFractions, fractionAbsolue) // Il n'y aura pas 2 fois la même réponse
       const fraction = fractionAbsolue
-      const autreFraction = new FractionEtendue(k * fraction.num + ecart, k * fraction.den)
+      const autreFraction = new FractionEtendue(
+        k * fraction.num + ecart,
+        k * fraction.den,
+      )
       const ordreDesFractions = Math.random() < 0.5
       if (ordreDesFractions) {
-        texte = remplisLesBlancs(this, i, `${fraction.texFSD}\\quad%{champ1}\\quad${autreFraction.texFSD}`, 'clavierCompare', '\\quad\\ldots\\quad')
+        texte = remplisLesBlancs(
+          this,
+          i,
+          `${fraction.texFSD}\\quad%{champ1}\\quad${autreFraction.texFSD}`,
+          'clavierCompare',
+          '\\quad\\ldots\\quad',
+        )
         this.canEnonce = 'Compléter avec $>$ ou $<$.'
         this.canReponseACompleter = `$${fraction.texFSD}$ $\\ldots$ $${autreFraction.texFSD}$`
       } else {
-        texte = remplisLesBlancs(this, i, `${autreFraction.texFSD}\\quad%{champ1}\\quad${fraction.texFSD}`, 'clavierCompare', '\\quad\\ldots\\quad')
+        texte = remplisLesBlancs(
+          this,
+          i,
+          `${autreFraction.texFSD}\\quad%{champ1}\\quad${fraction.texFSD}`,
+          'clavierCompare',
+          '\\quad\\ldots\\quad',
+        )
         this.canEnonce = 'Compléter avec $>$ ou $<$.'
         this.canReponseACompleter = `$${autreFraction.texFSD}$ $\\ldots$ $${fraction.texFSD}$`
       }
@@ -74,9 +96,22 @@ export default class ExerciceComparerDeuxFractionsCAN extends Exercice {
         texteCorr += `  et   $\\quad${autreFraction.texFSD} ${signe2} ${fraction.reduire(k).texFSD} \\quad$ donc $\\quad ${autreFraction.texFSD} ${miseEnEvidence(signe2)} ${fraction.texFSD} $.`
       }
 
-      handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+      handleAnswers(
+        this,
+        i,
+        {
+          champ1: {
+            value: ordreDesFractions ? signe : signe2,
+            options: { texteSansCasse: true },
+          },
+        },
+        { formatInteractif: 'fillInTheBlank' },
+      )
 
-      if (this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (
+        this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)
+      ) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 

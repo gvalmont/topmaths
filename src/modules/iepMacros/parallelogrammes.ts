@@ -8,18 +8,29 @@ import { droite } from '../../lib/2d/droites'
 import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
 import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
-import { homothetie, similitude, translation2Points } from '../../lib/2d/transformations'
+import {
+  homothetie,
+  similitude,
+  translation2Points,
+} from '../../lib/2d/transformations'
 import type Alea2iep from '../Alea2iep'
 
 /**
-   * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {string} nomD
-   * @param {boolean} description
-   */
-export function parallelogramme3sommetsConsecutifs (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, nomD = '', description = true) {
+ * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs
+ * @param {point} A
+ * @param {point} B
+ * @param {point} C
+ * @param {string} nomD
+ * @param {boolean} description
+ */
+export function parallelogramme3sommetsConsecutifs(
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+  nomD = '',
+  description = true,
+) {
   const D = translation2Points(C, B, A)
   D.nom = nomD
   const xMin = Math.min(A.x, B.x, C.x, D.x)
@@ -32,7 +43,11 @@ export function parallelogramme3sommetsConsecutifs (this: Alea2iep, A: PointAbst
   this.pointCreer(B, { tempo: 0 })
   this.pointCreer(C, { tempo: 0 })
   if (description) {
-    this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses côtés opposés sont de même longueur.`, xMin - 1, yMin - 1)
+    this.textePosition(
+      `${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses côtés opposés sont de même longueur.`,
+      xMin - 1,
+      yMin - 1,
+    )
   }
   this.compasEcarter2Points(B, A)
   this.textePosition(`${B.nom + A.nom} = ${C.nom + D.nom}`, xMin - 1, yMin - 2)
@@ -46,21 +61,45 @@ export function parallelogramme3sommetsConsecutifs (this: Alea2iep, A: PointAbst
   this.regleSegment(D, A)
   this.regleMasquer()
   this.crayonMasquer()
-  this.segmentCodage(A, B, { codage: '///', couleur: this.couleurCodage, tempo: 0 })
-  this.segmentCodage(D, C, { codage: '///', couleur: this.couleurCodage, tempo: 0 })
-  this.segmentCodage(B, C, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
-  this.segmentCodage(A, D, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
+  this.segmentCodage(A, B, {
+    codage: '///',
+    couleur: this.couleurCodage,
+    tempo: 0,
+  })
+  this.segmentCodage(D, C, {
+    codage: '///',
+    couleur: this.couleurCodage,
+    tempo: 0,
+  })
+  this.segmentCodage(B, C, {
+    codage: '//',
+    couleur: this.couleurCodage,
+    tempo: 0,
+  })
+  this.segmentCodage(A, D, {
+    codage: '//',
+    couleur: this.couleurCodage,
+    tempo: 0,
+  })
 }
 /**
-     * Trace le parallélogramme ABCD de centre O à partir de [AB] et O.
-     * @param {point} A
-     * @param {point} B
-     * @param {point} O
-     * @param {string} nomC
-     * @param {string} nomD
-     * @param {boolean} description
-     */
-export function parallelogramme2sommetsConsecutifsCentre (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, O: PointAbstrait, nomC = '', nomD = '', description = true) {
+ * Trace le parallélogramme ABCD de centre O à partir de [AB] et O.
+ * @param {point} A
+ * @param {point} B
+ * @param {point} O
+ * @param {string} nomC
+ * @param {string} nomD
+ * @param {boolean} description
+ */
+export function parallelogramme2sommetsConsecutifsCentre(
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  O: PointAbstrait,
+  nomC = '',
+  nomD = '',
+  description = true,
+) {
   const C = translation2Points(O, A, O)
   C.nom = nomC
   const D = translation2Points(O, B, O)
@@ -78,7 +117,11 @@ export function parallelogramme2sommetsConsecutifsCentre (this: Alea2iep, A: Poi
   this.pointCreer(B, { tempo: 0 })
   this.pointCreer(O, { tempo: 0 })
   if (description && nom.length === 4) {
-    this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses diagonales se coupent en leur milieu.`, xMin - 1, yMin - 1)
+    this.textePosition(
+      `${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses diagonales se coupent en leur milieu.`,
+      xMin - 1,
+      yMin - 1,
+    )
   }
   this.pointilles = true
   this.epaisseur = 1
@@ -88,7 +131,11 @@ export function parallelogramme2sommetsConsecutifsCentre (this: Alea2iep, A: Poi
   this.crayonMasquer()
   this.compasEcarter2Points(A, O)
   if (description && nom.length === 4) {
-    this.textePosition(`${A.nom + O.nom} = ${O.nom + C.nom}`, xMin - 1, yMin - 2)
+    this.textePosition(
+      `${A.nom + O.nom} = ${O.nom + C.nom}`,
+      xMin - 1,
+      yMin - 2,
+    )
   }
   this.pointilles = false
   this.compasTracerArcCentrePoint(O, C)
@@ -100,7 +147,11 @@ export function parallelogramme2sommetsConsecutifsCentre (this: Alea2iep, A: Poi
   this.pointilles = false
   this.compasEcarter2Points(B, O)
   if (description && nom.length === 4) {
-    this.textePosition(`${B.nom + O.nom} = ${O.nom + D.nom}`, xMin - 1, yMin - 3)
+    this.textePosition(
+      `${B.nom + O.nom} = ${O.nom + D.nom}`,
+      xMin - 1,
+      yMin - 3,
+    )
   }
   this.compasTracerArcCentrePoint(O, D)
   this.compasMasquer()
@@ -113,19 +164,41 @@ export function parallelogramme2sommetsConsecutifsCentre (this: Alea2iep, A: Poi
   this.regleMasquer()
   this.compasMasquer()
   this.crayonMasquer()
-  this.segmentCodage(A, O, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
-  this.segmentCodage(O, C, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
-  this.segmentCodage(B, O, { codage: 'O', couleur: this.couleurCodage, tempo: 0 })
-  this.segmentCodage(O, D, { codage: 'O', couleur: this.couleurCodage, tempo: 0 })
+  this.segmentCodage(A, O, {
+    codage: '//',
+    couleur: this.couleurCodage,
+    tempo: 0,
+  })
+  this.segmentCodage(O, C, {
+    codage: '//',
+    couleur: this.couleurCodage,
+    tempo: 0,
+  })
+  this.segmentCodage(B, O, {
+    codage: 'O',
+    couleur: this.couleurCodage,
+    tempo: 0,
+  })
+  this.segmentCodage(O, D, {
+    codage: 'O',
+    couleur: this.couleurCodage,
+    tempo: 0,
+  })
 }
 /**
-     * Trace la parallélogramme ABCD de centre O en partant de [AD), [AB) et O (mais sans voir la position de B et D au départ)
-     * @param {point} D
-     * @param {point} A
-     * @param {point} B
-     * @param {point} O
-     */
-export function parallelogrammeAngleCentre (this: Alea2iep, D: PointAbstrait, A: PointAbstrait, B: PointAbstrait, O: PointAbstrait) {
+ * Trace la parallélogramme ABCD de centre O en partant de [AD), [AB) et O (mais sans voir la position de B et D au départ)
+ * @param {point} D
+ * @param {point} A
+ * @param {point} B
+ * @param {point} O
+ */
+export function parallelogrammeAngleCentre(
+  this: Alea2iep,
+  D: PointAbstrait,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  O: PointAbstrait,
+) {
   const B1 = pointSurSegment(A, B, longueur(A, B) + 2)
   const D1 = pointSurSegment(A, D, longueur(A, D) + 2)
   const C = translation2Points(B, A, D)
@@ -133,19 +206,37 @@ export function parallelogrammeAngleCentre (this: Alea2iep, D: PointAbstrait, A:
   this.traitRapide(A, D1)
   this.pointCreer(O, { tempo: 0 })
   this.pointCreer(A, { tempo: 0 })
-  this.regleDemiDroiteOriginePoint(A, O, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1, pointilles: true })
+  this.regleDemiDroiteOriginePoint(A, O, {
+    couleur: this.couleurTraitsDeConstruction,
+    epaisseur: 1,
+    pointilles: true,
+  })
   this.pointilles = false
   this.regleMasquer()
   this.crayonMasquer()
   this.compasEcarter2Points(A, O)
-  this.compasTracerArcCentrePoint(O, C, { couleur: this.couleurTraitsDeConstruction })
+  this.compasTracerArcCentrePoint(O, C, {
+    couleur: this.couleurTraitsDeConstruction,
+  })
   this.compasMasquer()
-  this.paralleleRegleEquerre2points3epoint(B1, A, C, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1 })
+  this.paralleleRegleEquerre2points3epoint(B1, A, C, {
+    couleur: this.couleurTraitsDeConstruction,
+    epaisseur: 1,
+  })
   this.equerreMasquer()
-  this.regleDroite(C, D, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1 })
-  this.paralleleRegleEquerre2points3epoint(A, D1, C, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1 })
+  this.regleDroite(C, D, {
+    couleur: this.couleurTraitsDeConstruction,
+    epaisseur: 1,
+  })
+  this.paralleleRegleEquerre2points3epoint(A, D1, C, {
+    couleur: this.couleurTraitsDeConstruction,
+    epaisseur: 1,
+  })
   this.equerreMasquer()
-  this.regleDroite(C, B, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1 })
+  this.regleDroite(C, B, {
+    couleur: this.couleurTraitsDeConstruction,
+    epaisseur: 1,
+  })
   this.pointCreer(D, { tempo: 0 })
   this.pointCreer(B, { tempo: 0 })
   this.pointCreer(C, { tempo: 0 })
@@ -163,19 +254,38 @@ export function parallelogrammeAngleCentre (this: Alea2iep, D: PointAbstrait, A:
  * @param {object} options { distance: 1, monAngle: 40, nom: '', nommerGraduations: false }
  * @returns M
  */
-export function partageSegment (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, n: number, d: number, { distance = 1, monAngle = 40, nom = '', nommerGraduations = false } = {}) {
+export function partageSegment(
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  n: number,
+  d: number,
+  { distance = 1, monAngle = 40, nom = '', nommerGraduations = false } = {},
+) {
   this.traitRapide(A, B)
   this.regleMasquerGraduations()
   this.regleMontrer(A)
-  const y = similitude(B, A, monAngle, (Math.max(n, d) + 1) * distance / longueur(A, B))
+  const y = similitude(
+    B,
+    A,
+    monAngle,
+    ((Math.max(n, d) + 1) * distance) / longueur(A, B),
+  )
   this.regleSegment(A, y)
   this.regleMasquer()
   this.crayonMasquer()
   const Ax = [A]
   for (let i = 1; i <= Math.max(n, d); i++) {
-    Ax.push(pointAdistance(A, distance * i, monAngle + droite(A, B).angleAvecHorizontale))
+    Ax.push(
+      pointAdistance(
+        A,
+        distance * i,
+        monAngle + droite(A, B).angleAvecHorizontale,
+      ),
+    )
     this.compasTracerArcCentrePoint(Ax[i - 1], Ax[i])
-    if (nommerGraduations) this.pointCreer(Ax[i], { label: A.nom + '_' + i, dx: -1, dy: 0.5 })
+    if (nommerGraduations)
+      this.pointCreer(Ax[i], { label: A.nom + '_' + i, dx: -1, dy: 0.5 })
   }
   this.compasMasquer()
   this.regleSegment(Ax[d], B)

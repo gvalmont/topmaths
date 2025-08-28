@@ -24,11 +24,11 @@ export const uuid = '41187'
 
 export const refs = {
   'fr-fr': ['4G20-4', 'BP2AutoS2', 'BP2G8'],
-  'fr-ch': ['10NO3-2']
+  'fr-ch': ['10NO3-2'],
 }
 export default class ArrondirUneValeur4e extends Exercice {
   version: number
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 3
@@ -38,20 +38,35 @@ export default class ArrondirUneValeur4e extends Exercice {
     context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)
   }
 
-  nouvelleVersion () {
-    this.consigne = 'Arrondir chaque nombre à l\'unité, puis au dixième, puis au centième.'
+  nouvelleVersion() {
+    this.consigne =
+      "Arrondir chaque nombre à l'unité, puis au dixième, puis au centième."
 
     let n, nb, rac, angle, v
 
-    for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte = '', texteCorr = '', cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       this.autoCorrection[3 * i] = {}
       this.autoCorrection[3 * i + 1] = {}
       this.autoCorrection[3 * i + 2] = {}
       if (this.version === 1) {
-        rac = new Decimal(randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289]))
+        rac = new Decimal(
+          randint(
+            2,
+            300,
+            [
+              4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256,
+              289,
+            ],
+          ),
+        )
         n = rac.sqrt()
         nb = `\\sqrt{${rac}}`
-      } else { // if (this.version === 2)
+      } else {
+        // if (this.version === 2)
         v = new Decimal(randint(11, 99)).div(10)
         angle = randint(1, 89, 60)
         if (choice([true, false])) {
@@ -65,26 +80,33 @@ export default class ArrondirUneValeur4e extends Exercice {
 
       texte = `Quand on écrit sur la calculatrice $${nb}$, elle renvoie : $${texNombre(n, 10)}.$`
 
-      texte += '<br>Son arrondi à l\'unité est : '
-      texte += this.interactif ? ajouteChampTexteMathLive(this, 3 * i) : '$\\ldots\\ldots\\ldots$'
+      texte += "<br>Son arrondi à l'unité est : "
+      texte += this.interactif
+        ? ajouteChampTexteMathLive(this, 3 * i)
+        : '$\\ldots\\ldots\\ldots$'
       // texteCorr = `Quand on écrit sur la calculatrice $${nb}$, elle renvoie : $${texNombre(n, 10)}.$`
       texteCorr = `Arrondi à l'unité de $${texNombre(n, 10)}$ : `
       texteCorr += `$${miseEnEvidence(texNombre(n, 0))}$`
       setReponse(this, 3 * i, n.round())
 
       texte += '<br>Son arrondi au dixième est : '
-      texte += this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 1) : '$\\ldots\\ldots\\ldots$'
+      texte += this.interactif
+        ? ajouteChampTexteMathLive(this, 3 * i + 1)
+        : '$\\ldots\\ldots\\ldots$'
       texteCorr += `<br>Arrondi au dixième de $${texNombre(n, 10)}$ : `
       texteCorr += `$${miseEnEvidence(texNombre(n, 1, true))}$`
       setReponse(this, 3 * i + 1, n.toDP(1))
 
       texte += '<br>Son arrondi au centième est : '
-      texte += this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 2) : '$\\ldots\\ldots\\ldots$'
+      texte += this.interactif
+        ? ajouteChampTexteMathLive(this, 3 * i + 2)
+        : '$\\ldots\\ldots\\ldots$'
       texteCorr += `<br>Arrondi au centième de $${texNombre(n, 10)}$ : `
       texteCorr += `$${miseEnEvidence(texNombre(n, 2, true))}$`
       setReponse(this, 3 * i + 2, n.toDP(2))
 
-      if (this.questionJamaisPosee(i, n)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, n)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

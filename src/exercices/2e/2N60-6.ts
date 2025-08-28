@@ -8,12 +8,16 @@ import {
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
   reduirePolynomeDegre3,
-  rienSi1
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '25/05/2023'
@@ -28,10 +32,10 @@ export const uuid = '53e8f'
 
 export const refs = {
   'fr-fr': ['2N60-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PositionRelative extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = 1
@@ -40,12 +44,15 @@ export default class PositionRelative extends Exercice {
     this.nbQuestions = 1
     this.besoinFormulaireTexte = [
       'Choix des fonctions',
-      '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange'
+      '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange',
     ]
-    this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
+    this.besoinFormulaire2Texte = [
+      'Choix des questions',
+      '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -54,7 +61,7 @@ export default class PositionRelative extends Exercice {
       defaut: 3,
       listeOfCase: ['affines', 'polynômeEtAffine'],
       shuffle: false,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     const sousChoix = gestionnaireFormulaireTexte({
       saisie: this.sup2,
@@ -64,20 +71,23 @@ export default class PositionRelative extends Exercice {
       listeOfCase: ['true', 'false'],
       nbQuestions: this.nbQuestions,
       shuffle: false,
-      melange: 0
+      melange: 0,
     }).map(Boolean)
     shuffle2tableaux(listeTypeDeQuestions, sousChoix)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      let a: number = 0; let b: number; let c:number; let d:number // les coefficients des fonctions
+      let a: number = 0
+      let b: number
+      let c: number
+      let d: number // les coefficients des fonctions
       let ligne1: (string | number)[]
       let ligne2: (string | number)[]
       let ligne3: (string | number)[] // les lignes du tableau de signes
       const typesDeQuestions = listeTypeDeQuestions[i]
       const remarque = `${texteGras('Remarque :')} vous pouvez vérifier ce résultat en représentant les courbes sur votre calculatrice graphique.`
       switch (typesDeQuestions) {
-        case 'affines':// position relative avec deux fonctions affines
+        case 'affines': // position relative avec deux fonctions affines
           if (sousChoix[i]) {
             a = randint(-9, 9, 0)
             b = randint(-9, 9, 0)
@@ -97,20 +107,22 @@ export default class PositionRelative extends Exercice {
             ${a - c > 0 ? `x&<\\dfrac{${d - b}}{${a - c}}` : `x&>\\dfrac{${d - b}}{${a - c}}`}
               \\end{aligned}$
               <br>
-              ${pgcd(d - b, a - c) === 1 && a - c > 0 ? 'L\'' : `Comme $\\dfrac{${d - b}}{${a - c}}=${texFractionReduite(d - b, a - c)}$, l'`}  ensemble $S$ des solutions de l'inéquation est
+              ${pgcd(d - b, a - c) === 1 && a - c > 0 ? "L'" : `Comme $\\dfrac{${d - b}}{${a - c}}=${texFractionReduite(d - b, a - c)}$, l'`}  ensemble $S$ des solutions de l'inéquation est
               $S= ${a - c > 0 ? `\\left]-\\infty\\,;\\,${texFractionReduite(d - b, a - c)}\\right[` : `\\left]${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty\\right[`}$.<br>`
 
             texteCorr += `${numAlpha(1)} Position relative : <br>
               La courbe $\\mathscr{C}_f$ est en dessous de la courbe $\\mathscr{C}_g$ sur l'intervalle $${a - c > 0 ? `\\left]-\\infty\\,;\\,${texFractionReduite(d - b, a - c)}\\right[` : `\\left]${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty\\right[`}$.`
             texteCorr += `<br>${remarque}`
-          } else { // sans question intermédiaire
+          } else {
+            // sans question intermédiaire
             a = randint(-9, 9, 0)
             b = randint(-9, 9, 0)
             c = randint(-9, 9, [0, a])
             d = randint(-9, 9, 0)
             texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduireAxPlusB(a, b)}$ et $g(x)=${reduireAxPlusB(c, d)}$. <br>
               On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-            texte += 'Étudier la position relative des deux courbes  $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
+            texte +=
+              'Étudier la position relative des deux courbes  $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
             texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
               Plus précisément, si $f(x)-g(x)>0$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$, sinon, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.<br>
               Pour tout réel $x$,<br> $\\begin{aligned}
@@ -130,11 +142,19 @@ export default class PositionRelative extends Exercice {
                 // @ts-expect-error tableauDeVariation n'est pas typé
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                  ['$x$', 2.5, 10], ['$f(x)-g(x)$', 2, 50]
+                  ['$x$', 2.5, 10],
+                  ['$f(x)-g(x)$', 2, 50],
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
                 // @ts-expect-error tableauDeVariation n'est pas typé
-                ['$-\\infty$', 20, `$${texFractionReduite(d - b, a - c)}$`, 20, '$+\\infty$', 30]
+                [
+                  '$-\\infty$',
+                  20,
+                  `$${texFractionReduite(d - b, a - c)}$`,
+                  20,
+                  '$+\\infty$',
+                  30,
+                ],
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
               // @ts-expect-error tableauDeVariation n'est pas typé
@@ -142,7 +162,7 @@ export default class PositionRelative extends Exercice {
               colorBackground: '',
               espcl: 3.5, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-              lgt: 5 // taille de la première colonne en cm
+              lgt: 5, // taille de la première colonne en cm
             })
 
             texteCorr += `Comme $f(x)-g(x)>0$ sur l'intervalle $${a - c > 0 ? `\\left]${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty\\right[` : `\\left]-\\infty\\,;\\,${texFractionReduite(d - b, a - c)}\\right[`}$,
@@ -154,8 +174,10 @@ export default class PositionRelative extends Exercice {
         case 'polynômeEtAffine':
         default: {
           const alea = choice([1, 2, 3])
-          if (alea === 1) { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de x^2 +/- a)
-            if (sousChoix[i]) { // avec question intermédiaire
+          if (alea === 1) {
+            // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de x^2 +/- a)
+            if (sousChoix[i]) {
+              // avec question intermédiaire
               a = 1 // c'est juste pour le this.questionJamaisPosee
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
@@ -187,9 +209,54 @@ export default class PositionRelative extends Exercice {
             \\end{aligned}$
             <br>
            `
-              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-              ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+              ligne1 = [
+                'Line',
+                30,
+                '',
+                0,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+                't',
+                20,
+                '+',
+                20,
+              ]
+              ligne2 = [
+                'Line',
+                30,
+                '',
+                0,
+                '-',
+                20,
+                't',
+                20,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+              ]
+              ligne3 = [
+                'Line',
+                30,
+                '',
+                0,
+                '+',
+                20,
+                'z',
+                20,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+              ]
               if (c - d > 0) {
                 texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}>0$.<br>
                 ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)>0$, soit $f(x)>g(x)$. <br>
@@ -214,30 +281,52 @@ export default class PositionRelative extends Exercice {
                   tabInit: [
                     // @ts-expect-error tableauDeVariation n'est pas typé
                     [
-                      ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                      ['$x$', 2.5, 30],
+                      [
+                        `$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`,
+                        2,
+                        75,
+                      ],
+                      [
+                        `$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`,
+                        2,
+                        75,
+                      ],
+                      ['$f(x)-g(x)$', 2, 200],
                     ],
                     // @ts-expect-error tableauDeVariation n'est pas typé
-                    ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
+                    [
+                      '$-\\infty$',
+                      30,
+                      `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`,
+                      20,
+                      `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`,
+                      20,
+                      '$+\\infty$',
+                      30,
+                    ],
                   ],
                   // @ts-expect-error tableauDeVariation n'est pas typé
                   tabLines: [ligne1, ligne2, ligne3],
                   colorBackground: '',
                   espcl: 3.5,
                   deltacl: 0.8,
-                  lgt: 10
+                  lgt: 10,
                 })
                 texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)<0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                   $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
                 texteCorr += `<br>${remarque}`
               }
-            } else { // sans question intermédiaire
+            } else {
+              // sans question intermédiaire
               a = 1 // c'est juste pour le this.questionJamaisPosee
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
               d = randint(-10, 10, 0)
               texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par :$f(x)=${reduirePolynomeDegre3(0, 1, b, c)}$ et $g(x)=${reduireAxPlusB(b, d)}$. <br>
               On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-              texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
+              texte +=
+                'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
               texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
             Plus précisément, si $f(x)-g(x)>0$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$, sinon, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.<br>`
               texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
@@ -248,9 +337,54 @@ export default class PositionRelative extends Exercice {
             \\end{aligned}$
             <br>
            `
-              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-              ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+              ligne1 = [
+                'Line',
+                30,
+                '',
+                0,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+                't',
+                20,
+                '+',
+                20,
+              ]
+              ligne2 = [
+                'Line',
+                30,
+                '',
+                0,
+                '-',
+                20,
+                't',
+                20,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+              ]
+              ligne3 = [
+                'Line',
+                30,
+                '',
+                0,
+                '+',
+                20,
+                'z',
+                20,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+              ]
               if (c - d > 0) {
                 texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}>0$.<br>
                  On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)>0$, soit $f(x)>g(x)$. <br>
@@ -275,25 +409,47 @@ export default class PositionRelative extends Exercice {
                   tabInit: [
                     // @ts-expect-error tableauDeVariation n'est pas typé
                     [
-                      ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                      ['$x$', 2.5, 30],
+                      [
+                        `$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`,
+                        2,
+                        75,
+                      ],
+                      [
+                        `$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`,
+                        2,
+                        75,
+                      ],
+                      ['$f(x)-g(x)$', 2, 200],
                     ],
                     // @ts-expect-error tableauDeVariation n'est pas typé
-                    ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
+                    [
+                      '$-\\infty$',
+                      30,
+                      `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`,
+                      20,
+                      `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`,
+                      20,
+                      '$+\\infty$',
+                      30,
+                    ],
                   ],
                   // @ts-expect-error tableauDeVariation n'est pas typé
                   tabLines: [ligne1, ligne2, ligne3],
                   colorBackground: '',
                   espcl: 3.5,
                   deltacl: 0.8,
-                  lgt: 10
+                  lgt: 10,
                 })
                 texteCorr += `<br> Comme $f(x)-g(x)<0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                   $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
                 texteCorr += `<br>${remarque}`
               }
             }
-          } else if (alea === 2) { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de -x^2 +/- a)
-            if (sousChoix[i]) { // avec question intermédiaire
+          } else if (alea === 2) {
+            // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de -x^2 +/- a)
+            if (sousChoix[i]) {
+              // avec question intermédiaire
               a = 1 // c'est juste pour le this.questionJamaisPosee
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
@@ -325,9 +481,54 @@ export default class PositionRelative extends Exercice {
               \\end{aligned}$
               <br>
              `
-              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-              ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              ligne1 = [
+                'Line',
+                30,
+                '',
+                0,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+                't',
+                20,
+                '+',
+                20,
+              ]
+              ligne2 = [
+                'Line',
+                30,
+                '',
+                0,
+                '+',
+                20,
+                't',
+                20,
+                '+',
+                20,
+                'z',
+                20,
+                '-',
+                20,
+              ]
+              ligne3 = [
+                'Line',
+                30,
+                '',
+                0,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+                'z',
+                20,
+                '-',
+                20,
+              ]
               if (c - d > 0) {
                 texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}<0$.<br>
                   ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)<0$, soit $f(x) < g(x)$. <br>
@@ -355,29 +556,51 @@ export default class PositionRelative extends Exercice {
                   tabInit: [
                     // @ts-expect-error tableauDeVariation n'est pas typé
                     [
-                      ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                      ['$x$', 2.5, 30],
+                      [
+                        `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`,
+                        2,
+                        75,
+                      ],
+                      [
+                        `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`,
+                        2,
+                        75,
+                      ],
+                      ['$f(x)-g(x)$', 2, 200],
                     ],
                     // @ts-expect-error tableauDeVariation n'est pas typé
-                    ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
+                    [
+                      '$-\\infty$',
+                      30,
+                      `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`,
+                      20,
+                      `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`,
+                      20,
+                      '$+\\infty$',
+                      30,
+                    ],
                   ],
                   // @ts-expect-error tableauDeVariation n'est pas typé
                   tabLines: [ligne1, ligne2, ligne3],
                   colorBackground: '',
                   espcl: 3.5,
                   deltacl: 0.8,
-                  lgt: 10
+                  lgt: 10,
                 })
                 texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)>0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                     $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
                 texteCorr += `<br>${remarque}`
               }
-            } else { // sans question intermédiaire
+            } else {
+              // sans question intermédiaire
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
               d = randint(-10, 10, 0)
               texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, -1, b, -c)}$ et $g(x)=${reduireAxPlusB(b, -d)}$. <br>
             On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-              texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
+              texte +=
+                'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
               texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
             Plus précisément, si $f(x)-g(x)>0$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$, sinon, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.<br>`
               texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
@@ -388,9 +611,54 @@ export default class PositionRelative extends Exercice {
             \\end{aligned}$
             <br>
            `
-              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-              ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              ligne1 = [
+                'Line',
+                30,
+                '',
+                0,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+                't',
+                20,
+                '+',
+                20,
+              ]
+              ligne2 = [
+                'Line',
+                30,
+                '',
+                0,
+                '+',
+                20,
+                't',
+                20,
+                '+',
+                20,
+                'z',
+                20,
+                '-',
+                20,
+              ]
+              ligne3 = [
+                'Line',
+                30,
+                '',
+                0,
+                '-',
+                20,
+                'z',
+                20,
+                '+',
+                20,
+                'z',
+                20,
+                '-',
+                20,
+              ]
               if (c - d > 0) {
                 texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}<0$.<br>
                 ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)<0$, soit $f(x) < g(x)$. <br>
@@ -417,32 +685,55 @@ export default class PositionRelative extends Exercice {
                   tabInit: [
                     // @ts-expect-error tableauDeVariation n'est pas typé
                     [
-                      ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                      ['$x$', 2.5, 30],
+                      [
+                        `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`,
+                        2,
+                        75,
+                      ],
+                      [
+                        `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`,
+                        2,
+                        75,
+                      ],
+                      ['$f(x)-g(x)$', 2, 200],
                     ],
                     // @ts-expect-error tableauDeVariation n'est pas typé
-                    ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
+                    [
+                      '$-\\infty$',
+                      30,
+                      `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`,
+                      20,
+                      `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`,
+                      20,
+                      '$+\\infty$',
+                      30,
+                    ],
                   ],
                   // @ts-expect-error tableauDeVariation n'est pas typé
                   tabLines: [ligne1, ligne2, ligne3],
                   colorBackground: '',
                   espcl: 3.5,
                   deltacl: 0.8,
-                  lgt: 10
+                  lgt: 10,
                 })
                 texteCorr += `<br> Comme $f(x)-g(x)>0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                   $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
                 texteCorr += `<br>${remarque}`
               }
             }
-          } else { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de ax^2 +bx)
-            if (!sousChoix[i]) { // sans question intermédiaire
+          } else {
+            // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de ax^2 +bx)
+            if (!sousChoix[i]) {
+              // sans question intermédiaire
               a = randint(-3, 3, 0)
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
               d = randint(-10, 10, [0, b])
               texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$ et $g(x)=${reduireAxPlusB(d, c)}$. <br>
               On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-              texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
+              texte +=
+                'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
               texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
             Plus précisément, si $f(x)-g(x)>0$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$, sinon, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.<br>`
               texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
@@ -454,22 +745,202 @@ export default class PositionRelative extends Exercice {
               \\end{aligned}$
               <br>
              `
-              if ((a > 0) && ((d - b) / a > 0)) {
-                ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-                ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-                ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-              } else if ((a > 0) && ((d - b) / a < 0)) {
-                ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-                ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-                ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-              } else if ((a < 0) && ((d - b) / a > 0)) {
-                ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-                ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-                ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              if (a > 0 && (d - b) / a > 0) {
+                ligne1 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  't',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne2 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  't',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne3 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+              } else if (a > 0 && (d - b) / a < 0) {
+                ligne1 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  't',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne2 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  't',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne3 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+              } else if (a < 0 && (d - b) / a > 0) {
+                ligne1 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  't',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne2 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  't',
+                  20,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                ]
+                ligne3 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                ]
               } else {
-                ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-                ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
-                ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+                ligne1 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  't',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne2 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                  't',
+                  20,
+                  '-',
+                  20,
+                ]
+                ligne3 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                ]
               }
 
               texteCorr += `  $x$ s'annule en $0$ et $${rienSi1(a)}x${ecritureAlgebrique(b - d)}$ s'annule en $${texFractionReduite(d - b, a)}$.<br>
@@ -483,17 +954,27 @@ export default class PositionRelative extends Exercice {
                   [
                     ['$x$', 2.5, 30],
                     ['$x$', 2, 75],
-                    [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                    [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75],
+                    ['$f(x)-g(x)$', 2, 200],
                   ],
                   // @ts-expect-error tableauDeVariation n'est pas typé
-                  ['$-\\infty$', 30, `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, '$+\\infty$', 30]
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`,
+                    20,
+                    `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
                 // @ts-expect-error tableauDeVariation n'est pas typé
                 tabLines: [ligne1, ligne2, ligne3],
                 colorBackground: '',
                 espcl: 3.5,
                 deltacl: 0.8,
-                lgt: 10
+                lgt: 10,
               })
               if (a < 0) {
                 texteCorr += `<br> Comme $f(x)-g(x)>0$ pour
@@ -514,7 +995,8 @@ export default class PositionRelative extends Exercice {
                       et sur $\\left]${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\,;\\,+\\infty \\right[$.`
                 texteCorr += `<br>${remarque}`
               }
-            } else { // avec question intermédiaire
+            } else {
+              // avec question intermédiaire
               a = randint(-3, 3, 0)
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
@@ -534,22 +1016,202 @@ export default class PositionRelative extends Exercice {
           \\end{aligned}$
           <br>
          `
-              if ((a > 0) && ((d - b) / a > 0)) {
-                ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-                ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-                ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-              } else if ((a > 0) && ((d - b) / a < 0)) {
-                ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-                ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-                ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-              } else if ((a < 0) && ((d - b) / a > 0)) {
-                ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-                ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-                ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              if (a > 0 && (d - b) / a > 0) {
+                ligne1 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  't',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne2 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  't',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne3 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+              } else if (a > 0 && (d - b) / a < 0) {
+                ligne1 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  't',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne2 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  't',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne3 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+              } else if (a < 0 && (d - b) / a > 0) {
+                ligne1 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  't',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne2 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  't',
+                  20,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                ]
+                ligne3 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                ]
               } else {
-                ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-                ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
-                ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+                ligne1 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  't',
+                  20,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                ]
+                ligne2 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                  't',
+                  20,
+                  '-',
+                  20,
+                ]
+                ligne3 = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  20,
+                  '+',
+                  20,
+                  'z',
+                  20,
+                  '-',
+                  20,
+                ]
               }
 
               texteCorr += ` ${numAlpha(1)} $x$ s'annule en $0$ et $${rienSi1(a)}x${ecritureAlgebrique(b - d)}$ s'annule en $${texFractionReduite(d - b, a)}$.<br>
@@ -563,17 +1225,27 @@ export default class PositionRelative extends Exercice {
                   [
                     ['$x$', 2.5, 30],
                     ['$x$', 2, 75],
-                    [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                    [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75],
+                    ['$f(x)-g(x)$', 2, 200],
                   ],
                   // @ts-expect-error tableauDeVariation n'est pas typé
-                  ['$-\\infty$', 30, `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, '$+\\infty$', 30]
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`,
+                    20,
+                    `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
                 // @ts-expect-error tableauDeVariation n'est pas typé
                 tabLines: [ligne1, ligne2, ligne3],
                 colorBackground: '',
                 espcl: 3.5,
                 deltacl: 0.8,
-                lgt: 10
+                lgt: 10,
               })
               if (a < 0) {
                 texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)>0$ pour

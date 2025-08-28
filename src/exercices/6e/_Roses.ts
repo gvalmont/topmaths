@@ -1,7 +1,14 @@
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import Exercice from '../Exercice'
@@ -25,11 +32,21 @@ export default class ExoRose extends Exercice {
   clavier?: string
   indexInconnue: number[]
 
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des facteurs', 30]
-    this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 9 (limité à 5 pour les valeurs fractionnaires ou littérales)', 9]
-    this.besoinFormulaire3Numerique = ['Type de questions', 4, '1 : Calculer les produits\n2 : Calculer les facteurs\n3 : Course aux nombres 1\n4 : Course aux nombres 2']
+    this.besoinFormulaireNumerique = [
+      'Valeur maximale (entre 10 et 30) des facteurs',
+      30,
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Nombre de facteur entre 3 et 9 (limité à 5 pour les valeurs fractionnaires ou littérales)',
+      9,
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Type de questions',
+      4,
+      '1 : Calculer les produits\n2 : Calculer les facteurs\n3 : Course aux nombres 1\n4 : Course aux nombres 2',
+    ]
 
     this.spacing = 2
 
@@ -48,13 +65,16 @@ export default class ExoRose extends Exercice {
     this.indexInconnue = []
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.valeurMax = contraindreValeur(10, 30, this.sup, 10)
     this.nombreDeValeurs = contraindreValeur(3, 9, this.sup2, 5)
     switch (this.sup3) {
       case 1:
         this.type = 'résultats'
-        if (this.typeDonnees.substring(0, 4) === 'frac' || this.typeDonnees === 'litteraux') {
+        if (
+          this.typeDonnees.substring(0, 4) === 'frac' ||
+          this.typeDonnees === 'litteraux'
+        ) {
           if (this.nombreDeValeurs > 5) this.nombreDeValeurs = 5
         }
         break
@@ -62,14 +82,20 @@ export default class ExoRose extends Exercice {
         this.type = 'valeurs'
         break
       case 3:
-        if (this.typeDonnees.substring(0, 4) === 'frac' || this.typeDonnees === 'litteraux') {
+        if (
+          this.typeDonnees.substring(0, 4) === 'frac' ||
+          this.typeDonnees === 'litteraux'
+        ) {
           if (this.nombreDeValeurs > 5) this.nombreDeValeurs = 5
         }
         this.type = 'can1'
         break
       case 4:
         this.type = 'can2'
-        if (this.typeDonnees.substring(0, 4) === 'frac' || this.typeDonnees === 'litteraux') {
+        if (
+          this.typeDonnees.substring(0, 4) === 'frac' ||
+          this.typeDonnees === 'litteraux'
+        ) {
           if (this.nombreDeValeurs > 5) this.nombreDeValeurs = 5
         }
         break
@@ -90,23 +116,25 @@ export default class ExoRose extends Exercice {
     ) {
       this.indexInconnue[i] = randint(0, this.nombreDeValeurs - 1)
       if (this.operation === 'multiplication') {
-        this.introduction = 'Les nombres situés à l\'extrémité des flèches sont les produits des nombres dont les flèches sont issues.'
+        this.introduction =
+          "Les nombres situés à l'extrémité des flèches sont les produits des nombres dont les flèches sont issues."
       } else {
-        this.introduction = 'Les nombres situés à l\'extrémité des flèches sont les sommes des nombres dont les flèches sont issues.'
+        this.introduction =
+          "Les nombres situés à l'extrémité des flèches sont les sommes des nombres dont les flèches sont issues."
       }
       switch (this.type) {
         case 'résultats':
           if (this.operation === 'multiplication') {
-            texte = 'Calculer les produits à l\'extrémité des flèches.<br>'
+            texte = "Calculer les produits à l'extrémité des flèches.<br>"
           } else {
-            texte = 'Calculer les sommes à l\'extrémité des flèches.<br>'
+            texte = "Calculer les sommes à l'extrémité des flèches.<br>"
           }
           break
         case 'valeurs':
           if (this.operation === 'multiplication') {
-            texte = 'Retrouver les facteurs à l\'origine des flèches.<br>'
+            texte = "Retrouver les facteurs à l'origine des flèches.<br>"
           } else {
-            texte = 'Retrouver les termes à l\'origine des flèches.<br>'
+            texte = "Retrouver les termes à l'origine des flèches.<br>"
           }
           break
         case 'can1':
@@ -132,15 +160,20 @@ export default class ExoRose extends Exercice {
         operation: this.operation,
         valeurMax: this.valeurMax,
         typeDonnees: this.typeDonnees,
-        indexInconnue: this.indexInconnue[i]
+        indexInconnue: this.indexInconnue[i],
       })
       objets = this.roses[i].representation()
       this.roses[i].type = 'solutions'
       objetsCorr = this.roses[i].representation()
-      texte += mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
+      texte += mathalea2d(
+        Object.assign({ scale: 0.6 }, fixeBordures(objets)),
+        objets,
+      )
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
-          texte += ajouteChampTexteMathLive(this, i, '   ' + this.clavier, { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=` })
+          texte += ajouteChampTexteMathLive(this, i, '   ' + this.clavier, {
+            texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`,
+          })
         } else {
           let question = ''
           for (let k = 0; k < this.nombreDeValeurs; k++) {
@@ -149,7 +182,10 @@ export default class ExoRose extends Exercice {
           texte += remplisLesBlancs(this, i, question, this.clavier, '\\ldots')
         }
       }
-      texteCorr = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorr)), objetsCorr)
+      texteCorr = mathalea2d(
+        Object.assign({ scale: 0.6 }, fixeBordures(objetsCorr)),
+        objetsCorr,
+      )
       if (this.questionJamaisPosee(i, ...this.roses[i].values)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
@@ -161,11 +197,14 @@ export default class ExoRose extends Exercice {
             propositions: [
               {
                 texte: '',
-                statut: (this.type === 'can1' || this.type === 'can2') ? 1 : Math.ceil(this.sup2 / 4), // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                statut:
+                  this.type === 'can1' || this.type === 'can2'
+                    ? 1
+                    : Math.ceil(this.sup2 / 4), // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
                 // pointilles: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-              }
-            ]
+              },
+            ],
           }
         }
         i++
@@ -178,18 +217,28 @@ export default class ExoRose extends Exercice {
   correctionInteractive = (i: number) => {
     const taille = this.nombreDeValeurs
     const champsTexte = []
-    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`) as HTMLSpanElement
+    const spanResultat = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${i}`,
+    ) as HTMLSpanElement
     const saisies = []
     if (this.type.substring(0, 3) === 'can') {
-      champsTexte[0] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
+      champsTexte[0] = document.getElementById(
+        `champTexteEx${this.numeroExercice}Q${i}`,
+      ) as MathfieldElement
       if (champsTexte[0] != null) {
-        saisies[0] = champsTexte[0].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
+        saisies[0] = champsTexte[0].value
+          .replace(',', '.')
+          .replace(/\((\+?-?\d+)\)/, '$1')
       }
     } else {
-      const mfe = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
+      const mfe = document.querySelector(
+        `math-field#champTexteEx${this.numeroExercice}Q${i}`,
+      ) as MathfieldElement
       for (let k = 0; k < taille; k++) {
         champsTexte[k] = mfe.getPromptValue(`champ${k + 1}`)
-        saisies[k] = champsTexte[k].replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
+        saisies[k] = champsTexte[k]
+          .replace(',', '.')
+          .replace(/\((\+?-?\d+)\)/, '$1')
       }
     }
     let resultat
@@ -203,40 +252,67 @@ export default class ExoRose extends Exercice {
     return resultat
   }
 
-  saisieCoherente (saisies: string[], taille: number, question: number) {
+  saisieCoherente(saisies: string[], taille: number, question: number) {
     let resultatOK = true
     let stringSaisie = saisies[0]
     let stringResultat
     if (this.type === 'can2') {
-      stringResultat = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
-        ? this.roses[question].resultats[this.indexInconnue[question]].toLatex().replace('dfrac', 'frac')
-        : this.roses[question].resultats[this.indexInconnue[question]].toString()
+      stringResultat =
+        this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+          ? this.roses[question].resultats[this.indexInconnue[question]]
+              .toLatex()
+              .replace('dfrac', 'frac')
+          : this.roses[question].resultats[
+              this.indexInconnue[question]
+            ].toString()
       const resultParsed = engine.parse(stringResultat)
-      return resultParsed === null ? false : (resultParsed as BoxedExpression).isSame(engine.parse(stringSaisie))
+      return resultParsed === null
+        ? false
+        : (resultParsed as BoxedExpression).isSame(engine.parse(stringSaisie))
     } else if (this.type === 'can1') {
       stringSaisie = saisies[0]
-      stringResultat = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
-        ? (this.roses[question].values[this.indexInconnue[question]] as FractionEtendue).toLatex().replace('dfrac', 'frac')
-        : this.roses[question].values[this.indexInconnue[question]].toString()
+      stringResultat =
+        this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+          ? (
+              this.roses[question].values[
+                this.indexInconnue[question]
+              ] as FractionEtendue
+            )
+              .toLatex()
+              .replace('dfrac', 'frac')
+          : this.roses[question].values[this.indexInconnue[question]].toString()
       return engine.parse(stringSaisie).isSame(engine.parse(stringResultat))
     } else {
       for (let i = 0; i < taille; i++) {
         stringSaisie = saisies[i]
         if (this.type === 'résultats') {
-          stringResultat = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
-            ? this.roses[question].resultats[i].replace('dfrac', 'frac')
-            : String(this.roses[question].resultats[i])
+          stringResultat =
+            this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+              ? this.roses[question].resultats[i].replace('dfrac', 'frac')
+              : String(this.roses[question].resultats[i])
         } else {
-          stringResultat = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
-            ? this.roses[question].resultats[i].replace('dfrac', 'frac')
-            : String(this.roses[question].resultats[i])
-          stringSaisie = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
-            ? `${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times '}${saisies[(i + 1) % this.nombreDeValeurs]}`
-            : this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])
+          stringResultat =
+            this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+              ? this.roses[question].resultats[i].replace('dfrac', 'frac')
+              : String(this.roses[question].resultats[i])
+          stringSaisie =
+            this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+              ? `${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times '}${saisies[(i + 1) % this.nombreDeValeurs]}`
+              : this.roses[question].operate(
+                  saisies[i],
+                  saisies[(i + 1) % this.nombreDeValeurs],
+                )
         }
         const saisieParsed = engine.parse(stringSaisie.replace('dfrac', 'frac'))
 
-        resultatOK = Boolean(resultatOK && (saisieParsed == null ? false : saisieParsed.isEqual(engine.parse(stringResultat) ?? engine.parse('NaN'))))
+        resultatOK = Boolean(
+          resultatOK &&
+            (saisieParsed == null
+              ? false
+              : saisieParsed.isEqual(
+                  engine.parse(stringResultat) ?? engine.parse('NaN'),
+                )),
+        )
       }
       return resultatOK
     }

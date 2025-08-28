@@ -2,7 +2,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  rienSi1
+  rienSi1,
 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
@@ -20,17 +20,17 @@ export const uuid = 'c1168'
 
 export const refs = {
   'fr-fr': ['can1L07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DeveloppementCoeff extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d
     a = randint(-8, 5, [0])
     b = randint(-5, 9, [0])

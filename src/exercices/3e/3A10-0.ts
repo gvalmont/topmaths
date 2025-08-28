@@ -8,10 +8,10 @@ export const dateDePublication = '11/10/2023'
 export const uuid = '3e436'
 export const refs = {
   'fr-fr': ['3A10-0'],
-  'fr-ch': ['9NO4-26']
+  'fr-ch': ['9NO4-26'],
 }
 export default class PremierOuPasDebut extends PremierOuPas {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = false
     this.besoinFormulaire2CaseACocher = false

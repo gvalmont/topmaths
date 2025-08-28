@@ -4,10 +4,10 @@ export const interactifReady = false
 export const uuid = '26ea7'
 export const refs = {
   'fr-fr': ['4S10'],
-  'fr-ch': ['10FA5-1']
+  'fr-ch': ['10FA5-1'],
 }
 export default class ConstruireUnDiagramme4e extends ConstruireUnDiagramme {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
     this.sup2 = 2

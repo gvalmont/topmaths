@@ -19,6 +19,8 @@ test('Utilisation de la classe grandeur', () => {
   expect(l3.convertirEn('m').mesure).toBe(0.12345)
   expect(l3.estUneApproximation(new Grandeur(11.4, 'cm'), 1)).toBe(true)
 
-  expect(Grandeur.fromString('13cm').estEgal(Grandeur.fromString('130\\,mm'))).toBe(true)
+  expect(
+    Grandeur.fromString('13cm').estEgal(Grandeur.fromString('130\\,mm')),
+  ).toBe(true)
   expect(Grandeur.fromString('1 ha').convertirEn('m^2').mesure).toBe(10000)
 })

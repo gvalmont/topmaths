@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '9cdad'
 export const refs = {
   'fr-fr': ['canTSpeS09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '13/08/2024'
 
@@ -19,13 +19,13 @@ export const dateDePublication = '13/08/2024'
  *
  */
 export default class LimiteFormeIndeterminee extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // (a+ou-n^m)/n^p
     const m = randint(2, 9)
     const a = randint(1, 9)

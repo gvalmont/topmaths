@@ -4,7 +4,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Augmenter un nombre d\'une fraction'
+export const titre = "Augmenter un nombre d'une fraction"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -20,18 +20,18 @@ export const uuid = 'bcb79'
 
 export const refs = {
   'fr-fr': ['can4C14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AugmenterFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2, 3, 4])) {
-      case 1:// tiers
+      case 1: // tiers
         {
           const n = randint(1, 25)
 
@@ -40,7 +40,11 @@ export default class AugmenterFraction extends ExerciceSimple {
             this.reponse = reponse
             this.question = `$${3 * n}$ augmenté de son tiers est égal à : `
 
-            if (this.interactif) { this.question += '' } else { this.question += '$\\ldots$' }
+            if (this.interactif) {
+              this.question += ''
+            } else {
+              this.question += '$\\ldots$'
+            }
 
             this.correction = ` Le tiers de $${3 * n}$ est $${3 * n}\\div 3 = ${n}$.<br>
             Ainsi, $${3 * n}$ augmenté de son tiers est égal à : $${3 * n}+${n}=${miseEnEvidence(reponse)}$.
@@ -51,7 +55,11 @@ export default class AugmenterFraction extends ExerciceSimple {
 
             this.question = `$${3 * n}$ diminué de son tiers est égal à : `
 
-            if (this.interactif) { this.question += '' } else { this.question += '$\\ldots$' }
+            if (this.interactif) {
+              this.question += ''
+            } else {
+              this.question += '$\\ldots$'
+            }
 
             this.correction = ` Le tiers de $${3 * n}$ est $${3 * n}\\div 3 = ${n}$.<br>
             Ainsi, $${3 * n}$ diminué de son tiers est égal à : $${3 * n}-${n}=${miseEnEvidence(reponse)}$.
@@ -62,7 +70,7 @@ export default class AugmenterFraction extends ExerciceSimple {
         }
         break
 
-      case 2:// quart
+      case 2: // quart
         {
           const n = randint(1, 25)
 
@@ -71,7 +79,11 @@ export default class AugmenterFraction extends ExerciceSimple {
             this.reponse = reponse
             this.question = `$${2 * n}$ augmenté de son quart est égal à : `
 
-            if (this.interactif) { this.question += '' } else { this.question += '$\\ldots$' }
+            if (this.interactif) {
+              this.question += ''
+            } else {
+              this.question += '$\\ldots$'
+            }
 
             this.correction = ` Le quart de $${2 * n}$ est $${2 * n}\\div 4 = ${texNombre(n / 2, 1)}$.<br>
             Ainsi, $${2 * n}$ augmenté de son quart est égal à : $${2 * n}+${texNombre(0.5 * n, 1)}=${miseEnEvidence(texNombre(reponse))}$.
@@ -81,7 +93,11 @@ export default class AugmenterFraction extends ExerciceSimple {
             this.reponse = reponse
             this.question = `$${2 * n}$ diminué de son quart est égal à : `
 
-            if (this.interactif) { this.question += '' } else { this.question += '$\\ldots$' }
+            if (this.interactif) {
+              this.question += ''
+            } else {
+              this.question += '$\\ldots$'
+            }
 
             this.correction = ` Le quart de $${2 * n}$ est $${2 * n}\\div 4 = ${texNombre(n / 2, 1)}$.<br>
             Ainsi, $${2 * n}$ diminué de son quart est égal à : $${2 * n}-${texNombre(0.5 * n, 1)}=${miseEnEvidence(texNombre(reponse))}$.
@@ -92,7 +108,7 @@ export default class AugmenterFraction extends ExerciceSimple {
         }
         break
 
-      case 3:// cinquième
+      case 3: // cinquième
         {
           const n = randint(1, 16)
 
@@ -101,7 +117,11 @@ export default class AugmenterFraction extends ExerciceSimple {
             this.reponse = reponse
             this.question = `$${5 * n}$ augmenté de son cinquième est égal à : `
 
-            if (this.interactif) { this.question += '' } else { this.question += '$\\ldots$' }
+            if (this.interactif) {
+              this.question += ''
+            } else {
+              this.question += '$\\ldots$'
+            }
 
             this.correction = ` Le cinquième de $${5 * n}$ est $${5 * n}\\div 5 = ${n}$.<br>
             Ainsi, $${5 * n}$ augmenté de son cinquième est égal à : $${5 * n}+${n}=${miseEnEvidence(texNombre(reponse))}$.
@@ -111,7 +131,11 @@ export default class AugmenterFraction extends ExerciceSimple {
             this.reponse = reponse
             this.question = `$${5 * n}$ diminué de son cinquième est égal à : `
 
-            if (this.interactif) { this.question += '' } else { this.question += '$\\ldots$' }
+            if (this.interactif) {
+              this.question += ''
+            } else {
+              this.question += '$\\ldots$'
+            }
 
             this.correction = ` Le quart de $${5 * n}$ est $${5 * n}\\div 5 = ${n}$.<br>
             Ainsi, $${5 * n}$ diminué de son cinquième est égal à : $${5 * n}-${n}=${miseEnEvidence(texNombre(reponse))}$.
@@ -122,7 +146,7 @@ export default class AugmenterFraction extends ExerciceSimple {
         }
         break
 
-      case 4:// dixième
+      case 4: // dixième
         {
           const n = randint(1, 100)
 
@@ -131,7 +155,11 @@ export default class AugmenterFraction extends ExerciceSimple {
             this.reponse = reponse
             this.question = `$${n}$ augmenté de son dixième est égal à : `
 
-            if (this.interactif) { this.question += '' } else { this.question += '$\\ldots$' }
+            if (this.interactif) {
+              this.question += ''
+            } else {
+              this.question += '$\\ldots$'
+            }
 
             this.correction = ` Le dixième de $${n}$ est $${n}\\div 10 = ${texNombre(n / 10, 1)}$.<br>
             Ainsi, $${n}$ augmenté de son dixième est égal à : $${n}+${texNombre(0.1 * n, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$.
@@ -141,7 +169,11 @@ export default class AugmenterFraction extends ExerciceSimple {
             this.reponse = reponse
             this.question = `$${n}$ diminué de son dixième est égal à : `
 
-            if (this.interactif) { this.question += '' } else { this.question += '$\\ldots$' }
+            if (this.interactif) {
+              this.question += ''
+            } else {
+              this.question += '$\\ldots$'
+            }
 
             this.correction = ` Le dixième de $${n}$ est $${n}\\div 10 = ${texNombre(n / 10, 1)}$.<br>
             Ainsi, $${n}$ diminué de son dixième est égal à : $${n}-${texNombre(0.1 * n, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$.

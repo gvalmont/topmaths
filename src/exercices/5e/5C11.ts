@@ -8,10 +8,10 @@ export const amcType = 'AMCOpen'
 export const uuid = '9d15d'
 export const refs = {
   'fr-fr': ['5C11'],
-  'fr-ch': ['9NO4-20']
+  'fr-ch': ['9NO4-20'],
 }
 export default class TraduireUnePhraseParUneExpression extends EcrireUneExpressionNumerique {
-  constructor () {
+  constructor() {
     super()
     this.version = 1
     this.sup2 = false

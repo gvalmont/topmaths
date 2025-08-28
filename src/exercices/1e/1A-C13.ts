@@ -15,10 +15,10 @@ export const uuid = 'd8e2b'
 
 export const refs = {
   'fr-fr': ['1A-C13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC13 extends ExprimerEnFonction {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

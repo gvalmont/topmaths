@@ -8,10 +8,10 @@ export const dateDeModifImportante = '21/09/2023'
 export const uuid = '2c600'
 export const refs = {
   'fr-fr': ['5L14-3'],
-  'fr-ch': ['10FA1-7']
+  'fr-ch': ['10FA1-7'],
 }
 export default class TraduireUnePhraseParUneExpressionLitteraleEtCalculer extends EcrireUneExpressionNumerique {
-  constructor () {
+  constructor() {
     super()
     this.version = 3
     this.litteral = true

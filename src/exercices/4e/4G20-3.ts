@@ -30,22 +30,27 @@ export const uuid = 'e564b'
 
 export const refs = {
   'fr-fr': ['4G20-3'],
-  'fr-ch': ['10NO2-2']
+  'fr-ch': ['10NO2-2'],
 }
 export default class calculsDeCarre extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = 1
     this.nbQuestions = 6
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
-    context.isHtml ? this.spacing = 2 : this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
     this.consigneModifiable = false
-    this.besoinFormulaireNumerique = ['Type de nombre', 4, ' 1: Entier naturel \n2 : Entier relatif\n3 : Nombre décimal positif \n4 : Nombre décimal relatif \n5 : Fractionnaire relatif \n6 : Mélange']
-    this.comment = 'Il est possible de faire cet exercice de tête en connaissant les 15 premiers carrés parfaits.'
+    this.besoinFormulaireNumerique = [
+      'Type de nombre',
+      4,
+      ' 1: Entier naturel \n2 : Entier relatif\n3 : Nombre décimal positif \n4 : Nombre décimal relatif \n5 : Fractionnaire relatif \n6 : Mélange',
+    ]
+    this.comment =
+      'Il est possible de faire cet exercice de tête en connaissant les 15 premiers carrés parfaits.'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1: // entier naturel
@@ -68,19 +73,31 @@ export default class calculsDeCarre extends Exercice {
         break
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    this.nbQuestions === 1 ? this.consigne = 'Calculer le carré du nombre suivant.' : this.consigne = 'Calculer les carrés des nombres suivants.'
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    this.nbQuestions === 1
+      ? (this.consigne = 'Calculer le carré du nombre suivant.')
+      : (this.consigne = 'Calculer les carrés des nombres suivants.')
     if (this.interactif) {
       this.consigne = 'Calculer'
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const entier = randint(1, 15)
       const signe = randint(-1, 1, [0])
       const decimal = randint(1, 15) / 10
       const numerateur = randint(2, 9)
       let denominateur = randint(2, 9, [numerateur])
-      while (denominateur % numerateur === 0 || numerateur % denominateur === 0) {
+      while (
+        denominateur % numerateur === 0 ||
+        numerateur % denominateur === 0
+      ) {
         denominateur = randint(2, 9)
       }
       switch (listeTypeDeQuestions[i]) {
@@ -91,34 +108,61 @@ export default class calculsDeCarre extends Exercice {
           setReponse(this, i, entier * entier)
           break
         case 2: // entier relatif
-          texte = this.interactif ? `$${ecritureParentheseSiMoins(signe * entier)}^2=$` : `$${signe * entier}$`
-          texteCorr = signe === -1 ? `$(${signe * entier})^2` : `$${signe * entier}^2`
+          texte = this.interactif
+            ? `$${ecritureParentheseSiMoins(signe * entier)}^2=$`
+            : `$${signe * entier}$`
+          texteCorr =
+            signe === -1 ? `$(${signe * entier})^2` : `$${signe * entier}^2`
           texteCorr += `=${miseEnEvidence(entier * entier)}$`
           setReponse(this, i, entier * entier)
           break
         case 3: // décimal positif
-          texte = this.interactif ? `$${texNombre(decimal, 2)}^2=$` : `$${texNombre(decimal, 2)}$`
+          texte = this.interactif
+            ? `$${texNombre(decimal, 2)}^2=$`
+            : `$${texNombre(decimal, 2)}$`
           texteCorr = `$${texNombre(decimal, 2)}^2`
           texteCorr += `=${miseEnEvidence(texNombre(decimal ** 2, 2))}$`
           setReponse(this, i, (decimal ** 2).toFixed(2))
           break
         case 4: // décimal relatif
-          texte = this.interactif ? `$${ecritureParentheseSiMoins(texNombre(signe * decimal, 2))}^2=$` : `$${texNombre(signe * decimal, 2)}$`
-          texteCorr = signe === -1 ? `$(${texNombre(signe * decimal, 2)})^2` : `$${texNombre(signe * decimal, 2)}^2`
+          texte = this.interactif
+            ? `$${ecritureParentheseSiMoins(texNombre(signe * decimal, 2))}^2=$`
+            : `$${texNombre(signe * decimal, 2)}$`
+          texteCorr =
+            signe === -1
+              ? `$(${texNombre(signe * decimal, 2)})^2`
+              : `$${texNombre(signe * decimal, 2)}^2`
           texteCorr += `=${miseEnEvidence(texNombre(decimal ** 2, 2))}$`
           setReponse(this, i, (decimal ** 2).toFixed(2))
           break
         case 5: // fractionnaire relatif
         default:
-          texte = this.interactif ? `$\\left(${signe === -1 ? '-' : ''}\\dfrac{${numerateur}}{${denominateur}}\\right)^2=$` : `$${signe === -1 ? '-' : ''}\\dfrac{${numerateur}}{${denominateur}}$`
-          texteCorr = signe === -1 ? `$\\left(-\\dfrac{${numerateur}}{${denominateur}}\\right)^2` : `$\\left(\\dfrac{${numerateur}}{${denominateur}}\\right)^2`
+          texte = this.interactif
+            ? `$\\left(${signe === -1 ? '-' : ''}\\dfrac{${numerateur}}{${denominateur}}\\right)^2=$`
+            : `$${signe === -1 ? '-' : ''}\\dfrac{${numerateur}}{${denominateur}}$`
+          texteCorr =
+            signe === -1
+              ? `$\\left(-\\dfrac{${numerateur}}{${denominateur}}\\right)^2`
+              : `$\\left(\\dfrac{${numerateur}}{${denominateur}}\\right)^2`
           texteCorr += `=${miseEnEvidence(`\\dfrac{${numerateur * numerateur}}{${denominateur * denominateur}}`)}$`
-          setReponse(this, i, new FractionEtendue(numerateur * numerateur, denominateur * denominateur), { formatInteractif: 'fractionEgale' })
+          setReponse(
+            this,
+            i,
+            new FractionEtendue(
+              numerateur * numerateur,
+              denominateur * denominateur,
+            ),
+            { formatInteractif: 'fractionEgale' },
+          )
           break
       }
 
       if (this.questionJamaisPosee(i, decimal, entier)) {
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+        )
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

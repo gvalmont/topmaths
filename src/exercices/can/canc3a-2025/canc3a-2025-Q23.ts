@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
 export const uuid = '4c0a8'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025CM2Q23 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,13 +26,17 @@ export default class Can2025CM2Q23 extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: '€.' }
   }
 
-  nouvelleVersion () {
-    const a = this.canOfficielle ? 4.25 : randint(1, 4) + choice([25, 50, 75]) / 100
+  nouvelleVersion() {
+    const a = this.canOfficielle
+      ? 4.25
+      : randint(1, 4) + choice([25, 50, 75]) / 100
 
     this.reponse = texNombre(5 - a, 2)
     this.question = `Je dois payer $${texNombre(a, 2, true)}$ €. Je paie avec un billet de $5$ euros.<br>
       On me rend  `
-    if (!this.interactif) { this.question += '$\\ldots$ €.' }
+    if (!this.interactif) {
+      this.question += '$\\ldots$ €.'
+    }
 
     this.correction = `
       $5-${texNombre(a, 2, true)}=${texNombre(5 - a, 2, true)}$<br>

@@ -3,7 +3,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
-import { ecritureAlgebrique, rienSi1, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  rienSi1,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 export const titre = 'Reconnaitre une suite arithmétique/géométrique (QCM)'
@@ -20,34 +25,42 @@ export const uuid = '42983'
 
 export const refs = {
   'fr-fr': ['1AL11-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ReconnaitreSuites extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.spacing = 1.5
     this.spacingCorr = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // this.consigne = this.interactif ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}` : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
-    const typeDeQuestionsDisponibles = [1, 2, 3]; let typeDeQuestion
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
+    const typeDeQuestionsDisponibles = [1, 2, 3]
+    let typeDeQuestion
+    const listeTypeDeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, a, b, r, q, u0, q1, monQcm, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, a, b, r, q, u0, q1, monQcm, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typeDeQuestion = listeTypeDeQuestions[i]
       const ListeNomS = ['u', 'v', 'w', 't']
       const NomS = choice(ListeNomS)
       const reponseSA = `La suite $(${NomS}_n)$ est arithmétique de raison `
       const reponseSG = `La suite $(${NomS}_n)$ est géométrique de raison `
       const reponseNiNi = `La suite $(${NomS}_n)$ n'est ni arithmétique, ni géométrique. `
-      const NiNi = `$${NomS}_{1}-${NomS}_{0}\\neq ${NomS}_{2}-${NomS}_{1}$ donc la suite ${texteEnCouleur('n\'est pas arithmétque')}.<br>
-          $\\dfrac{${NomS}_{1}}{${NomS}_{0}}\\neq \\dfrac{${NomS}_{2}}{${NomS}_{1}}$ donc la suite ${texteEnCouleur('n\'est pas géométrique')}.`
+      const NiNi = `$${NomS}_{1}-${NomS}_{0}\\neq ${NomS}_{2}-${NomS}_{1}$ donc la suite ${texteEnCouleur("n'est pas arithmétque")}.<br>
+          $\\dfrac{${NomS}_{1}}{${NomS}_{0}}\\neq \\dfrac{${NomS}_{2}}{${NomS}_{1}}$ donc la suite ${texteEnCouleur("n'est pas géométrique")}.`
       switch (typeDeQuestion) {
-        case 1:// SA
+        case 1: // SA
           switch (randint(1, 3)) {
-            case 1 :
+            case 1:
               r = randint(-10, 10, 0)
               u0 = randint(-10, 10, [0, r])
               texte = `On considère la suite $(${NomS}_n)$ définie pour tout $n\\in \\mathbb{N}$ par : $${NomS}_n=${choice([true, false]) ? `${rienSi1(r)}n${ecritureAlgebrique(u0)}` : `${u0}${ecritureAlgebriqueSauf1(r)}n`}$.<br>
@@ -55,7 +68,7 @@ export default class ReconnaitreSuites extends Exercice {
               texteCorr = `On reconnaît la forme explicite d'une suite $${NomS}$ arithmétique de raison $r$ et de premier terme $${NomS}_0$ :<br> $${NomS}_n=${NomS}_0+n\\times r$ avec $${NomS}_0=${u0}$ et $r=${r}$.`
               break
 
-            case 2 :// SA forme explicite2
+            case 2: // SA forme explicite2
               r = randint(-10, 10, 0)
               u0 = randint(-10, 10, [0, r])
               texte = `On considère la suite $(${NomS}_n)$ définie pour tout $n\\in \\mathbb{N}^*$ par : 
@@ -66,7 +79,7 @@ export default class ReconnaitreSuites extends Exercice {
           On reconnaît la forme explicite d'une suite $${NomS}$ arithmétique de raison $r=${r}$.`
               break
 
-            default:// SA forme récurrente
+            default: // SA forme récurrente
               u0 = randint(-10, 10, 0)
               r = randint(-10, 10, [0, u0])
               texte = `On considère la suite $(${NomS}_n)$ définie pour tout $n\\in \\mathbb{N}$ par : $${NomS}_{n+1}=${choice([true, false]) ? `${NomS}_n${ecritureAlgebrique(r)}` : `${r}+${NomS}_n`}$ et $${NomS}_0=${u0}$.<br>
@@ -80,30 +93,32 @@ export default class ReconnaitreSuites extends Exercice {
             propositions: [
               {
                 texte: reponseSA + `$${r}$.`,
-                statut: true
+                statut: true,
               },
               {
                 texte: reponseSA + `$${u0}$.`,
-                statut: false
+                statut: false,
               },
               {
                 texte: reponseSG + ` $${r}$.`,
-                statut: false
+                statut: false,
               },
               {
                 texte: reponseNiNi,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
-          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite arithmétique de raison $${r}$`)}.`
+          texteCorr =
+            texteCorr +
+            `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite arithmétique de raison $${r}$`)}.`
           break
 
-        case 2:// SG
+        case 2: // SG
           switch (randint(1, 4)) {
-            case 1:// SG forme récurrente
+            case 1: // SG forme récurrente
               u0 = randint(-10, 10, 0)
               q = randint(-9, 9, [0, 1, -1, u0])
               texte = `On considère la suite $(${NomS}_n)$ définie pour tout $n\\in \\mathbb{N}$ par : $${NomS}_{n+1}=${choice([true, false]) ? `${NomS}_n\\times ${ecritureParentheseSiNegatif(q)}` : `${q}${NomS}_n`}$ et $${NomS}_0=${u0}$.<br>
@@ -120,14 +135,14 @@ export default class ReconnaitreSuites extends Exercice {
           On reconnaît la forme récurrente d'une suite $${NomS}$ géométrique de raison $q=${texNombre(q, 1)}$.`
               break
 
-            case 3:// SG forme explicite1
+            case 3: // SG forme explicite1
               q = new Decimal(randint(-9, 9, 0)).div(10)
               u0 = randint(-9, 9, [0, -1, 1])
               texte = `On considère la suite $(${NomS}_n)$ définie pour tout $n\\in \\mathbb{N}$ par : $${NomS}_{n}=${u0}\\times ${ecritureParentheseSiNegatif(q)}^n$.<br>
                   Alors :`
               texteCorr = `On reconnaît la forme explicite d'une suite $${NomS}$ géométrique de raison $q$ et de premier terme $${NomS}_0$ :<br> $${NomS}_n=${NomS}_0\\times q^n$ avec $${NomS}_0=${u0}$ et $q=${texNombre(q, 1)}$.`
               break
-            default :// SG forme explicite2
+            default: // SG forme explicite2
               q1 = choice([2, 4, 5])
               q = new Decimal(1).div(q1)
               u0 = randint(-9, 9, [0, -1, 1, q1])
@@ -144,35 +159,38 @@ export default class ReconnaitreSuites extends Exercice {
             propositions: [
               {
                 texte: reponseSA + `$${texNombre(q, 2)}$.`,
-                statut: false
+                statut: false,
               },
               {
                 texte: reponseSG + `$${u0}$.`,
-                statut: false
+                statut: false,
               },
               {
                 texte: reponseSG + ` $${texNombre(q, 2)}$.`,
-                statut: true
+                statut: true,
               },
               {
                 texte: reponseNiNi,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
-          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite géométrique de raison $${texNombre(q, 2)}$`)}.`
+          texteCorr =
+            texteCorr +
+            `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite géométrique de raison $${texNombre(q, 2)}$`)}.`
           break
 
-        default:// NiNi
+        default: // NiNi
           switch (randint(1, 3)) {
-            case 1:// NiNi1
+            case 1: // NiNi1
               u0 = randint(-9, 9, [0, -1, 1])
               a = randint(-9, 9, [0, u0])
               texte = `On considère la suite $(${NomS}_n)$ définie pour tout $n\\in \\mathbb{N}$ par : $${NomS}_{n+1}=${a}-${NomS}_{n}$ et $${NomS}_{0}=${u0}$.<br>
             Alors :`
-              texteCorr = `On a $${NomS}_{0}=${u0}$, $${NomS}_{1}=${a - u0}$ et $${NomS}_{2}=${u0}$.<br> 
+              texteCorr =
+                `On a $${NomS}_{0}=${u0}$, $${NomS}_{1}=${a - u0}$ et $${NomS}_{2}=${u0}$.<br> 
             ` + NiNi
               break
             case 2:
@@ -182,15 +200,17 @@ export default class ReconnaitreSuites extends Exercice {
               texte = `On considère la suite $(${NomS}_n)$ définie pour tout $n\\in \\mathbb{N}$ par : $${NomS}_{n+1}=${a}${NomS}_{n}${ecritureAlgebrique(b)}$ et $${NomS}_{0}=${u0}$.<br>
             Alors :`
 
-              texteCorr = `On a $${NomS}_{0}=${u0}$, $${NomS}_{1}=${a * u0 + b}$ et $${NomS}_{2}=${a * (a * u0 + b) + b}$.<br> 
+              texteCorr =
+                `On a $${NomS}_{0}=${u0}$, $${NomS}_{1}=${a * u0 + b}$ et $${NomS}_{2}=${a * (a * u0 + b) + b}$.<br> 
             ` + NiNi
               break
-            default:// NiNi3
+            default: // NiNi3
               a = randint(-5, 5, 0)
               u0 = randint(-5, 5, [0, a])
               texte = `On considère la suite $(${NomS}_n)$ définie pour tout $n\\in \\mathbb{N}$ par : $${NomS}_{n}=${rienSi1(a)}n^2${ecritureAlgebrique(u0)}$.<br>
             Alors :`
-              texteCorr = `On a $${NomS}_{0}=${u0}$, $${NomS}_{1}=${a + u0}$ et $${NomS}_{2}=${a * 4 + u0}$.<br> 
+              texteCorr =
+                `On a $${NomS}_{0}=${u0}$, $${NomS}_{1}=${a + u0}$ et $${NomS}_{2}=${a * 4 + u0}$.<br> 
             ` + NiNi
               break
           }
@@ -201,28 +221,29 @@ export default class ReconnaitreSuites extends Exercice {
             propositions: [
               {
                 texte: reponseSA + `$${a}$.`,
-                statut: false
+                statut: false,
               },
               {
                 texte: reponseSG + `$${a}$.`,
-                statut: false
+                statut: false,
               },
               {
                 texte: reponseSA + `$${u0}$.`,
-                statut: false
+                statut: false,
               },
               {
                 texte: reponseNiNi,
-                statut: true
-              }
-            ]
+                statut: true,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
           break
       }
 
-      if (this.questionJamaisPosee(i, typeDeQuestion)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, typeDeQuestion)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

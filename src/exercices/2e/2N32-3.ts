@@ -16,12 +16,16 @@ export const uuid = 'd9495'
 
 export const refs = {
   'fr-fr': ['2N32-3'],
-  'fr-ch': ['11NO1-6', '1mCN-8']
+  'fr-ch': ['11NO1-6', '1mCN-8'],
 }
 export default class ExtraireUnCarreParfaitDUneRacineCarree extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : En donnant la racine carrée unité\n2 : Sans indication',
+    ]
 
     this.titre = 'Écrire une racine carrée sous la forme $a\\sqrt{b}$'
     this.nbQuestions = 4
@@ -30,11 +34,14 @@ export default class ExtraireUnCarreParfaitDUneRacineCarree extends Exercice {
     this.sup = 2 //
   }
 
-  nouvelleVersion () {
-    this.consigne = (this.sup === 2) ? `Écrire le${this.nbQuestions > 1 ? 's' : ''} nombre${this.nbQuestions > 1 ? 's' : ''} proposé${this.nbQuestions > 1 ? 's' : ''} sous la forme $a\\sqrt{b}$ où $a$ est un entier et $b$ le plus petit entier possible.` : ''
+  nouvelleVersion() {
+    this.consigne =
+      this.sup === 2
+        ? `Écrire le${this.nbQuestions > 1 ? 's' : ''} nombre${this.nbQuestions > 1 ? 's' : ''} proposé${this.nbQuestions > 1 ? 's' : ''} sous la forme $a\\sqrt{b}$ où $a$ est un entier et $b$ le plus petit entier possible.`
+        : ''
 
     let a, b, c, d, texte, texteCorr, reponse
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let enonce = ''
       a = randint(2, 11)
       b = a * a
@@ -52,13 +59,23 @@ export default class ExtraireUnCarreParfaitDUneRacineCarree extends Exercice {
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.<br>`
       texteCorr += `On a donc la décomposition : $${d}=${c}\\times${b}=${c}\\times${a}^{2}$,<br>`
       texteCorr += `qui permet d'écrire que : $\\sqrt{${d}}=\\sqrt{${a}^{2}\\times${c}}=\\color{red} {${a}\\times\\sqrt{${c}}}$`
-      reponse = [`${a}\\times\\sqrt{${c}}`, `${a}\\sqrt{${c}}`, `\\sqrt{${c}}\\times${a}`, `${a}\\times\\sqrt${c}`, `${a}\\sqrt${c}`, `\\sqrt${c}\\times${a}`]
+      reponse = [
+        `${a}\\times\\sqrt{${c}}`,
+        `${a}\\sqrt{${c}}`,
+        `\\sqrt{${c}}\\times${a}`,
+        `${a}\\times\\sqrt${c}`,
+        `${a}\\sqrt${c}`,
+        `\\sqrt${c}\\times${a}`,
+      ]
       // Pb MathLive 01/11/23 : ligne 48, supprimer 3 dernières réponses
       setReponse(this, i, reponse, { formatInteractif: 'texte' })
       if (this.interactif) {
-        texte = ajouteChampTexteMathLive(this, i, '', { texteAvant: enonce.replace('}$', '}=$') })
+        texte = ajouteChampTexteMathLive(this, i, '', {
+          texteAvant: enonce.replace('}$', '}=$'),
+        })
       } else texte = enonce
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -15,7 +15,9 @@
   export let goToOverview: () => void
 
   const divQuestion: HTMLDivElement[] = []
-  const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
+  const exercicesAffiches = new window.Event('exercicesAffiches', {
+    bubbles: true,
+  })
   let isCorrectionVisible = false
   let isPause = false
   let isManualPause = false
@@ -42,7 +44,8 @@
 
   let order: number[] = []
   $: {
-    const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
+    const questionsNb =
+      slideshow.selectedQuestionsNumber || slideshow.slides.length
     order = $globalOptions.order || [...Array(questionsNb).keys()]
   }
 
@@ -53,7 +56,10 @@
   $: currentSlide = slideshow.slides[order[slideshow.currentQuestion]]
 
   let currentSlideDuration: number
-  $: currentSlideDuration = $globalOptions.durationGlobal || (currentSlide && currentSlide.exercise.duration) || 10
+  $: currentSlideDuration =
+    $globalOptions.durationGlobal ||
+    (currentSlide && currentSlide.exercise.duration) ||
+    10
 
   $: if (slideshow.currentQuestion > -1) {
     playCurrentQuestion()
@@ -63,7 +69,7 @@
     pause()
   })
 
-  function prevQuestion () {
+  function prevQuestion() {
     if (slideshow.currentQuestion === 0) {
       pause()
       backToSettings()
@@ -79,7 +85,7 @@
     slideshow.currentQuestion--
   }
 
-  function nextQuestion () {
+  function nextQuestion() {
     if (isManualPause) {
       slideshow.currentQuestion++
       return
@@ -97,8 +103,9 @@
     renderAllViews()
   }
 
-  async function playCurrentQuestion () {
-    const isEndScreen = slideshow.currentQuestion === slideshow.selectedQuestionsNumber
+  async function playCurrentQuestion() {
+    const isEndScreen =
+      slideshow.currentQuestion === slideshow.selectedQuestionsNumber
     if (isEndScreen) {
       return
     }
@@ -113,31 +120,39 @@
       } catch (error) {
         if (error instanceof Error) {
           if (error.name === 'NotAllowedError') {
-            console.error('Audio playback was not allowed. Please interact with the page to enable audio.')
+            console.error(
+              'Audio playback was not allowed. Please interact with the page to enable audio.',
+            )
           } else {
-            console.error('An error occurred while trying to play the audio:', error)
+            console.error(
+              'An error occurred while trying to play the audio:',
+              error,
+            )
           }
         } else {
           console.error('An unknown error occurred:', error)
         }
       }
     }
-    if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
+    if ($globalOptions.screenBetweenSlides)
+      await showDialogForLimitedTime('transition', 1000)
     play(false)
   }
 
-  async function renderAllViews (optimalZoomUpdate : boolean = true) {
+  async function renderAllViews(optimalZoomUpdate: boolean = true) {
     if (optimalZoomUpdate) {
       optimalZoom = await findOptimalZoom()
     }
     for (let vueIndex = 0; vueIndex < nbVues; vueIndex++) {
-      const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
+      const exerciseContainerDiv = document.getElementById(
+        'exerciseContainer' + vueIndex,
+      )
       mathaleaRenderDiv(exerciseContainerDiv, optimalZoom * userZoom)
     }
     document.dispatchEvent(exercicesAffiches)
   }
 
-  async function findOptimalZoom () {
+  async function findOptimalZoom() {
     await tick()
     const optimalZoomForViews = new Array(nbVues).fill(0)
     for (let vueIndex = 0; vueIndex < nbVues; vueIndex++) {
@@ -146,42 +161,59 @@
     return Math.min(...optimalZoomForViews)
   }
 
-  function findOptimalZoomForView (vueIndex: number) {
+  function findOptimalZoomForView(vueIndex: number) {
     const MIN_ZOOM = 0.5
-    const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
+    const exerciseContainerDiv = document.getElementById(
+      'exerciseContainer' + vueIndex,
+    )
     const questionDiv = document.getElementById('question' + vueIndex)
     const correctionDiv = document.getElementById('correction' + vueIndex)
     if (!exerciseContainerDiv) return
-    const svgContainers = exerciseContainerDiv.getElementsByClassName('svgContainer') ?? []
+    const svgContainers =
+      exerciseContainerDiv.getElementsByClassName('svgContainer') ?? []
     for (const svgContainer of svgContainers) {
       svgContainer.classList.add('flex')
       svgContainer.classList.add('justify-center')
-      svgContainer.querySelectorAll<HTMLElement>('[id^="M2D"]').forEach((item) => {
-        item.style.display = 'inline-block'
-      })
+      svgContainer
+        .querySelectorAll<HTMLElement>('[id^="M2D"]')
+        .forEach((item) => {
+          item.style.display = 'inline-block'
+        })
     }
     mathaleaRenderDiv(exerciseContainerDiv, 1)
-    const { height: questionHeight, width: questionWidth } = getSizes(questionDiv)
-    const { height: correctionHeight, width: correctionWidth } = getSizes(correctionDiv)
+    const { height: questionHeight, width: questionWidth } =
+      getSizes(questionDiv)
+    const { height: correctionHeight, width: correctionWidth } =
+      getSizes(correctionDiv)
     const containerWidth = exerciseContainerDiv.clientWidth
     const containerHeight = exerciseContainerDiv.clientHeight
     const questionWidthOptimalZoom = containerWidth / questionWidth
     const correctionWidthOptimalZoom = containerWidth / correctionWidth
-    const questionCorrectionHeightOptimalZoom = containerHeight / (questionHeight + correctionHeight)
-    return Math.max(Math.min(questionWidthOptimalZoom, correctionWidthOptimalZoom, questionCorrectionHeightOptimalZoom), MIN_ZOOM)
+    const questionCorrectionHeightOptimalZoom =
+      containerHeight / (questionHeight + correctionHeight)
+    return Math.max(
+      Math.min(
+        questionWidthOptimalZoom,
+        correctionWidthOptimalZoom,
+        questionCorrectionHeightOptimalZoom,
+      ),
+      MIN_ZOOM,
+    )
   }
 
-  function getSizes (element: HTMLElement | null) {
+  function getSizes(element: HTMLElement | null) {
     if (element === null) {
       return { height: 0, width: 0 }
     } else {
       return {
-        height: element.scrollHeight > element.clientHeight
-          ? element.scrollHeight
-          : element.clientHeight,
-        width: element.scrollWidth > element.clientWidth
-          ? element.scrollWidth
-          : element.clientWidth
+        height:
+          element.scrollHeight > element.clientHeight
+            ? element.scrollHeight
+            : element.clientHeight,
+        width:
+          element.scrollWidth > element.clientWidth
+            ? element.scrollWidth
+            : element.clientWidth,
       }
     }
   }
@@ -190,7 +222,7 @@
     renderAllViews()
   }
 
-  function handleShortcut (e: KeyboardEvent) {
+  function handleShortcut(e: KeyboardEvent) {
     if (e.key === '+' && !e.metaKey && !e.ctrlKey) {
       e.preventDefault()
       zoomPlus()
@@ -217,25 +249,25 @@
     }
   }
 
-  function handleTimerChange (cursorTimeValue: number) {
+  function handleTimerChange(cursorTimeValue: number) {
     const durationGlobal = cursorTimeValue || undefined
     $globalOptions.manualMode = !durationGlobal
     $globalOptions.durationGlobal = durationGlobal
     pause(true)
   }
 
-  function zoomPlus () {
+  function zoomPlus() {
     userZoom += 0.05
     renderAllViews(false)
   }
 
-  function zoomMinus () {
+  function zoomMinus() {
     if (userZoom > 0.5) {
       userZoom -= 0.05
     }
     renderAllViews(false)
   }
-  async function switchDisplayMode () {
+  async function switchDisplayMode() {
     pause()
     if (isQuestionVisible && !isCorrectionVisible) {
       isQuestionVisible = false
@@ -251,7 +283,7 @@
     renderAllViews()
   }
 
-  function play (isUserAction: boolean = false) {
+  function play(isUserAction: boolean = false) {
     if (ratioTime >= 100) {
       nextQuestion()
     }
@@ -260,7 +292,8 @@
       return
     }
     isPause = false
-    if (ratioTime === 0) { // Permet de ne pas sauter une question si la correction est affichée et qu'on se déplace en cliquant sur les steps
+    if (ratioTime === 0) {
+      // Permet de ne pas sauter une question si la correction est affichée et qu'on se déplace en cliquant sur les steps
       isQuestionVisible = true
       isCorrectionVisible = false
       renderAllViews()
@@ -284,7 +317,7 @@
     }, currentSlideDuration * 10)
   }
 
-  function pause (isUserAction: boolean = false) {
+  function pause(isUserAction: boolean = false) {
     if ($globalOptions.manualMode) {
       return
     }
@@ -293,7 +326,7 @@
     if (isUserAction) isManualPause = true
   }
 
-  function switchPause (isUserAction: boolean = false) {
+  function switchPause(isUserAction: boolean = false) {
     if ($globalOptions.manualMode) {
       return
     }
@@ -304,15 +337,18 @@
     }
   }
 
-  function goToQuestion (questionNumber: number) {
-    if (questionNumber < 0 || questionNumber > slideshow.selectedQuestionsNumber) {
+  function goToQuestion(questionNumber: number) {
+    if (
+      questionNumber < 0 ||
+      questionNumber > slideshow.selectedQuestionsNumber
+    ) {
       return
     }
     slideshow.currentQuestion = questionNumber
     ratioTime = 0
   }
 
-  function returnToStart () {
+  function returnToStart() {
     isQuestionVisible = true
     isCorrectionVisible = false
     pause(true)
@@ -320,7 +356,7 @@
   }
 </script>
 
-<svelte:window on:keydown={handleShortcut} />
+<svelte:window on:keydown="{handleShortcut}" />
 
 {#if slideshow.currentQuestion < slideshow.selectedQuestionsNumber && slideshow.currentQuestion > -1}
   <div
@@ -329,19 +365,21 @@
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     data-theme="daisytheme"
   >
-    <header class="flex flex-col pb-1 w-full
+    <header
+      class="flex flex-col pb-1 w-full
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <SlideshowPlaySteps
-        currentQuestionNumber={slideshow.currentQuestion}
-        isManualModeActive={$globalOptions.manualMode}
-        totalQuestionsNumber={slideshow.selectedQuestionsNumber}
+        currentQuestionNumber="{slideshow.currentQuestion}"
+        isManualModeActive="{$globalOptions.manualMode}"
+        totalQuestionsNumber="{slideshow.selectedQuestionsNumber}"
         {ratioTime}
         {currentSlideDuration}
         {goToQuestion}
       />
     </header>
-    <main class="h-[80%]
+    <main
+      class="h-[80%]
       text-coopmaths-corpus dark:text-coopmathsdark-corpus
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
@@ -350,16 +388,17 @@
         {isQuestionVisible}
         {isCorrectionVisible}
         {currentSlide}
-        currentQuestion={slideshow.currentQuestion}
-        selectedQuestionsNumber={slideshow.selectedQuestionsNumber}
-        isImagesOnSides={!!$globalOptions.isImagesOnSides}
+        currentQuestion="{slideshow.currentQuestion}"
+        selectedQuestionsNumber="{slideshow.selectedQuestionsNumber}"
+        isImagesOnSides="{!!$globalOptions.isImagesOnSides}"
       />
     </main>
-    <footer class="sticky flex flex-row justify-between w-full py-1 bottom-0 opacity-100
+    <footer
+      class="sticky flex flex-row justify-between w-full py-1 bottom-0 opacity-100
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <SlideshowPlaySettings
-        isManualModeActive={$globalOptions.manualMode}
+        isManualModeActive="{$globalOptions.manualMode}"
         {isQuestionVisible}
         {isCorrectionVisible}
         {currentSlideDuration}
@@ -385,13 +424,11 @@
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     data-theme="daisytheme"
   >
-    <div class="flex flex-row items-center justify-center w-full text-[20vw] font-extrabold">
+    <div
+      class="flex flex-row items-center justify-center w-full text-[20vw] font-extrabold"
+    >
       Fin !
     </div>
-    <SlideshowPlayEndButtons
-      {returnToStart}
-      {backToSettings}
-      {goToOverview}
-    />
+    <SlideshowPlayEndButtons {returnToStart} {backToSettings} {goToOverview} />
   </div>
 {/if}

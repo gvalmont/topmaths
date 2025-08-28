@@ -19,17 +19,17 @@ export const uuid = 'f8019'
 
 export const refs = {
   'fr-fr': ['can6M10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class VolumePaveSimple extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const l = randint(2, 5)
     const L = randint(2, 4)
     const h = randint(2, 6, [l, L])

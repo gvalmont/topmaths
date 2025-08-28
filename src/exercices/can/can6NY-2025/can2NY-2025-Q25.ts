@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 export const uuid = '82a2f'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,14 +17,14 @@ export const refs = {
 
 */
 export default class diviseur extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'qcm'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = choice([9, 27, 25, 75, 6, 13, 17, 7, 11, 15])
 
     const correctionOui = `${texteEnCouleurEtGras('Oui')}, $${a}$ est un diviseur de $${texNombre(2025, 0)}$ car `
@@ -37,17 +37,18 @@ export default class diviseur extends ExerciceSimple {
       propositions: [
         {
           texte: 'OUI',
-          statut: a === 9 || a === 27 || a === 25 || a === 75 || a === 15
+          statut: a === 9 || a === 27 || a === 25 || a === 75 || a === 15,
         },
         {
           texte: 'NON',
-          statut: a === 6 || a === 13 || a === 17 || a === 7 || a === 11 || a === 8
-        }
-      ]
-
+          statut:
+            a === 6 || a === 13 || a === 17 || a === 7 || a === 11 || a === 8,
+        },
+      ],
     }
     const qcm = propositionsQcm(this, 0)
-    this.question = `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? ` + qcm.texte
+    this.question =
+      `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? ` + qcm.texte
     this.canEnonce = `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? `
     this.canReponseACompleter = `OUI ${sp(7)} NON`
     if (a === 13 || a === 17 || a === 11 || a === 7) {

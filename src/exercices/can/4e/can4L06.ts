@@ -14,16 +14,16 @@ export const uuid = 'e75ae'
 
 export const refs = {
   'fr-fr': ['can4L06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculSubstitution extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, d
     switch (randint(1, 4)) {
       case 1:
@@ -59,7 +59,7 @@ export default class CalculSubstitution extends ExerciceSimple {
         this.correction = `$(${a})^2+${a}-${d}=${a ** 2 + a - d}$.`
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

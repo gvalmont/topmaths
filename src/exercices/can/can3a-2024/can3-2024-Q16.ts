@@ -5,16 +5,16 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Calculer le côté d\'un carré à partir de son aire'
+export const titre = "Calculer le côté d'un carré à partir de son aire"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '4a518'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 6
       this.question = `Un carré a une aire de $36$ cm$^2$.<br>

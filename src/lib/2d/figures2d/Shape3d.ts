@@ -3,14 +3,14 @@ import { context } from '../../../modules/context'
 import { VisualPattern } from '../patterns/VisualPattern'
 import type { VisualPattern3D } from '../patterns/VisualPattern3D'
 // Fonction dupliquée de ../Figures2D.ts pour éviter les dépendances circulaires
-function rotatedBoundingBoxWithCenter (
+function rotatedBoundingBoxWithCenter(
   xmin: number,
   ymin: number,
   xmax: number,
   ymax: number,
   alpha: number,
   cx: number,
-  cy: number
+  cy: number,
 ): [number, number, number, number] {
   const w2 = (xmax - xmin) / 2
   const h2 = (ymax - ymin) / 2
@@ -49,7 +49,7 @@ export class Shape3D extends ObjetMathalea2D {
   pixelsParCm: number
   bordures: [number, number, number, number] // [xmin, ymin, xmax, ymax]
   opacite = 1
-  constructor ({
+  constructor({
     name = '',
     codeSvg,
     codeTikz,
@@ -62,21 +62,21 @@ export class Shape3D extends ObjetMathalea2D {
     pixelsParCm = context.pixelsParCm,
     opacite = 1,
     bordures,
-    shapeId = 'cubeIso'
+    shapeId = 'cubeIso',
   }: {
-    name?: string,
-    codeSvg: string,
-    codeTikz: string,
-    x?: number,
-    y?: number,
-    angle?: number,
-    scale?: number,
-    width: number,
-    height: number,
-    pixelsParCm?: number,
-    opacite?: number,
-    bordures?: [number, number, number, number],
-    shapeIso?: string,
+    name?: string
+    codeSvg: string
+    codeTikz: string
+    x?: number
+    y?: number
+    angle?: number
+    scale?: number
+    width: number
+    height: number
+    pixelsParCm?: number
+    opacite?: number
+    bordures?: [number, number, number, number]
+    shapeIso?: string
     shapeId?: string
   }) {
     super()
@@ -94,48 +94,53 @@ export class Shape3D extends ObjetMathalea2D {
     this.pixelsParCm = pixelsParCm
     this.opacite = opacite
     this.bordures = bordures ?? [
-      (this.x),
-      (this.y),
-      (this.x + this.width),
-      (this.y + this.height)
+      this.x,
+      this.y,
+      this.x + this.width,
+      this.y + this.height,
     ]
   }
 
-  svg (coeff: number) {
-    return `<g opacity=${this.opacite} transform="translate(${this.x * coeff}, ${-this.y * coeff}) ${this.scale !== 1 || this.scale !== 1 || coeff !== 20 ? `scale(${this.scale * coeff / 20},${this.scale * coeff / 20})` : ''} ${this.angle !== 0 ? `rotate(${-this.angle})` : ''}">${this.codeSvg}</g>`
+  svg(coeff: number) {
+    return `<g opacity=${this.opacite} transform="translate(${this.x * coeff}, ${-this.y * coeff}) ${this.scale !== 1 || this.scale !== 1 || coeff !== 20 ? `scale(${(this.scale * coeff) / 20},${(this.scale * coeff) / 20})` : ''} ${this.angle !== 0 ? `rotate(${-this.angle})` : ''}">${this.codeSvg}</g>`
   }
 
-  tikz () {
+  tikz() {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(3)},${(this.y).toFixed(3)})}${this.scale !== 1 ? `, xscale=${this.scale}` : ''}${this.scale !== 1 ? `, yscale=${this.scale}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${this.x.toFixed(3)},${this.y.toFixed(3)})}${this.scale !== 1 ? `, xscale=${this.scale}` : ''}${this.scale !== 1 ? `, yscale=${this.scale}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
     ${this.codeTikz}
     \\end{scope}`
   }
 
-  updateBordures () {
-    this.bordures = [
-      (this.x),
-      (this.y),
-      (this.x + this.width),
-      (this.y + this.height)
-    ]
+  updateBordures() {
+    this.bordures = [this.x, this.y, this.x + this.width, this.y + this.height]
     if (this.angle !== 0) {
-      this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], this.angle * Math.PI / 180, this.x, this.y)
+      this.bordures = rotatedBoundingBoxWithCenter(
+        this.bordures[0],
+        this.bordures[1],
+        this.bordures[2],
+        this.bordures[3],
+        (this.angle * Math.PI) / 180,
+        this.x,
+        this.y,
+      )
     }
   }
 
-  dilate (factor: number) {
+  dilate(factor: number) {
     const lastScale = this.scale
     this.scale = lastScale
     this.width *= factor
     this.heigth *= factor
   }
 
-  clone (x:number, y:number, z:number, angle: number): Shape3D {
+  clone(x: number, y: number, z: number, angle: number): Shape3D {
     const codeTikz = String(this.codeTikz)
     const codeSvg = String(this.codeSvg)
-    const [px, py] = project3dIso(x, y, z, angle ?? Math.PI / 6).map(n => n / 20)
+    const [px, py] = project3dIso(x, y, z, angle ?? Math.PI / 6).map(
+      (n) => n / 20,
+    )
     const scale = this.scale
     const width = Number(this.width)
     const height = Number(this.height)
@@ -151,48 +156,57 @@ export class Shape3D extends ObjetMathalea2D {
       height,
       pixelsParCm,
       opacite: this.opacite,
-      bordures: this.bordures
+      bordures: this.bordures,
     })
   }
 }
 
-export function project3dIso (x: number, y: number, z: number, angle: number = Math.PI / 6): [number, number] {
+export function project3dIso(
+  x: number,
+  y: number,
+  z: number,
+  angle: number = Math.PI / 6,
+): [number, number] {
   const cosA = Math.cos(angle)
   const sinA = Math.sin(angle)
-  const px = context.isHtml ? (x * sinA + y * cosA) * 20 : (x * sinA + y * cosA) * 20
-  const py = context.isHtml ? (x * cosA - y * sinA) * 10 - z * 20 : z * 20 - (x * cosA - y * sinA) * 10
+  const px = context.isHtml
+    ? (x * sinA + y * cosA) * 20
+    : (x * sinA + y * cosA) * 20
+  const py = context.isHtml
+    ? (x * cosA - y * sinA) * 10 - z * 20
+    : z * 20 - (x * cosA - y * sinA) * 10
   return [px, py]
 }
-export function faceTop (angle: number): string {
+export function faceTop(angle: number): string {
   const topPoints = [
     project3dIso(0, 0, 1, angle),
     project3dIso(0, 1, 1, angle),
     project3dIso(1, 1, 1, angle),
-    project3dIso(1, 0, 1, angle)
+    project3dIso(1, 0, 1, angle),
   ]
-  return `<polygon points="${topPoints.map(p => p.join(',')).join(' ')}" fill="green" stroke="black" stroke-width="1" />`
+  return `<polygon points="${topPoints.map((p) => p.join(',')).join(' ')}" fill="green" stroke="black" stroke-width="1" />`
 }
-export function faceLeft (angle: number): string {
+export function faceLeft(angle: number): string {
   const leftPoints = [
     project3dIso(0, 0, 1, angle),
     project3dIso(1, 0, 1, angle),
     project3dIso(1, 0, 0, angle),
-    project3dIso(0, 0, 0, angle)
+    project3dIso(0, 0, 0, angle),
   ]
-  return `<polygon points="${leftPoints.map(p => p.join(',')).join(' ')}
+  return `<polygon points="${leftPoints.map((p) => p.join(',')).join(' ')}
 " fill="yellow" stroke="black" stroke-width="1" />`
 }
-export function faceRight (angle: number): string {
+export function faceRight(angle: number): string {
   const rightPoints = [
     project3dIso(1, 0, 1, angle),
     project3dIso(1, 1, 1, angle),
     project3dIso(1, 1, 0, angle),
-    project3dIso(1, 0, 0, angle)
+    project3dIso(1, 0, 0, angle),
   ]
-  return `<polygon points="${rightPoints.map(p => p.join(',')).join(' ')}" fill="red" stroke="black" stroke-width="1" />`
+  return `<polygon points="${rightPoints.map((p) => p.join(',')).join(' ')}" fill="red" stroke="black" stroke-width="1" />`
 }
 
-export function cubeDef (shapeId?:string, scale?: number): ObjetMathalea2D {
+export function cubeDef(shapeId?: string, scale?: number): ObjetMathalea2D {
   const cube = new ObjetMathalea2D()
   cube.bordures = [0, -0.5, 1, 1]
   cube.svg = function (coeff: number): string {
@@ -225,17 +239,17 @@ export function cubeDef (shapeId?:string, scale?: number): ObjetMathalea2D {
  * @param options Options pour personnaliser le style du cube.
  * @returns Une instance de Shape2D représentant un cube.
  */
-export function shapeCubeIso (
+export function shapeCubeIso(
   shapeId?: string,
-  x?:number,
-  y?:number,
+  x?: number,
+  y?: number,
   options?: {
-    fillStyle?: string;
-    strokeStyle?: string;
-    lineWidth?: number;
-    opacite?: number;
-    scale?: number;
-  }
+    fillStyle?: string
+    strokeStyle?: string
+    lineWidth?: number
+    opacite?: number
+    scale?: number
+  },
 ): Shape3D {
   const codeSvg = `<use href="#${shapeId}" transform="translate(${x ?? 0},${y ?? 0})"></use>`
   const codeTikz = '\\pic at (0,0) {cubeIso};'
@@ -252,12 +266,19 @@ export function shapeCubeIso (
 /*
   MGu refactoring pour gérer les eventsListeners
 */
-export function updateCubeIso ({ pattern, i, j, angle, newScale, inCorrectionMode }: {
-  pattern: VisualPattern3D,
-  i: number,
-  j: number,
-  angle: number,
-  newScale?: number,
+export function updateCubeIso({
+  pattern,
+  i,
+  j,
+  angle,
+  newScale,
+  inCorrectionMode,
+}: {
+  pattern: VisualPattern3D
+  i: number
+  j: number
+  angle: number
+  newScale?: number
   inCorrectionMode?: boolean
 }): void | (() => void) {
   if (pattern instanceof VisualPattern) return
@@ -265,7 +286,7 @@ export function updateCubeIso ({ pattern, i, j, angle, newScale, inCorrectionMod
   let lastX = 0
   const motifId = `Motif${i}F${j}`
 
-  function mouseMoveAction (e: MouseEvent) {
+  function mouseMoveAction(e: MouseEvent) {
     if (!dragging) return
     const dx = e.clientX - lastX
     lastX = e.clientX
@@ -274,11 +295,11 @@ export function updateCubeIso ({ pattern, i, j, angle, newScale, inCorrectionMod
     renderScene()
   }
 
-  function mouseupAction () {
+  function mouseupAction() {
     dragging = false
   }
 
-  function destroyListeners () {
+  function destroyListeners() {
     window.removeEventListener('mousemove', mouseMoveAction)
     window.removeEventListener('mouseup', mouseupAction)
     document.removeEventListener('correctionsAffichees', setup)
@@ -288,12 +309,14 @@ export function updateCubeIso ({ pattern, i, j, angle, newScale, inCorrectionMod
   window.addEventListener('mousemove', mouseMoveAction)
   window.addEventListener('mouseup', mouseupAction)
 
-  function renderScene () {
-    const svg = document.querySelector(`svg#${motifId}`) as SVGSVGElement & { _eventsBound?: boolean } | null
+  function renderScene() {
+    const svg = document.querySelector(`svg#${motifId}`) as
+      | (SVGSVGElement & { _eventsBound?: boolean })
+      | null
     if (!svg) return
     // Sélectionne la balise <defs> qui contient un <g> dont l'id commence par "cubeIso"
-    const defs = Array.from(svg.querySelectorAll('defs')).find(defsEl =>
-      defsEl.querySelector('g[id^="cubeIso"]')
+    const defs = Array.from(svg.querySelectorAll('defs')).find((defsEl) =>
+      defsEl.querySelector('g[id^="cubeIso"]'),
     ) as SVGDefsElement | undefined
     if (!defs) return
 
@@ -311,17 +334,19 @@ export function updateCubeIso ({ pattern, i, j, angle, newScale, inCorrectionMod
     }
     // Sélectionne tous les <g> qui suivent <defs> et qui sont enfants directs de <svg>
     const svgGroups = Array.from(svg.children).filter(
-      el => el.tagName === 'g'
+      (el) => el.tagName === 'g',
     ) as SVGGElement[]
     // Supprimer tous les groupes enfants directs de <svg>
-    svgGroups.forEach(group => group.remove())
+    svgGroups.forEach((group) => group.remove())
 
     // Recalculer chaque polygone avec pattern.render(j, angle)
     const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
     // Ajouter les SVG générés par svg() de chaque objet
-    cells.forEach(cell => {
+    cells.forEach((cell) => {
       const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
-      const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, { scale: cell[3]?.scale ?? newScale ?? 1 })
+      const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, {
+        scale: cell[3]?.scale ?? newScale ?? 1,
+      })
       if (typeof obj.svg === 'function') {
         const temp = document.createElementNS('http://www.w3.org/2000/svg', 'g')
         // temp.setAttribute('transform', `translate(${px}, ${py})`)
@@ -331,8 +356,10 @@ export function updateCubeIso ({ pattern, i, j, angle, newScale, inCorrectionMod
     })
   }
 
-  function setup () {
-    const svg = document.querySelector(`svg#${motifId}`) as SVGSVGElement & { _eventsBound?: boolean } | null
+  function setup() {
+    const svg = document.querySelector(`svg#${motifId}`) as
+      | (SVGSVGElement & { _eventsBound?: boolean })
+      | null
     if (svg && !svg._eventsBound) {
       // console.log(motifId)
       svg._eventsBound = true

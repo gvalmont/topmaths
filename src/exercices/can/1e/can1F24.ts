@@ -1,6 +1,10 @@
 import { courbe } from '../../../lib/2d/courbes'
 import { Repere, repere } from '../../../lib/2d/reperes'
-import { Latex2d, TexteParPoint, texteParPosition } from '../../../lib/2d/textes'
+import {
+  Latex2d,
+  TexteParPoint,
+  texteParPosition,
+} from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -24,10 +28,10 @@ export const dateDeModifImportante = '01/08/2025'
 export const uuid = '2ccca'
 export const refs = {
   'fr-fr': ['can1F24'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LectureGraphiqueParaboleA extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.versionQcmDisponible = true
     this.nbQuestions = 1
@@ -35,16 +39,15 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: number
     let b: number
     let o: TexteParPoint | Latex2d
-    let f: (x:number)=>number
+    let f: (x: number) => number
     let r: Repere
 
     switch (choice([1, 2])) {
-      case 1:// cas parabole a>0
-
+      case 1: // cas parabole a>0
         a = randint(1, 8) / 2
         b = randint(-6, 6, 0) / 2
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
@@ -74,21 +77,26 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireXMax: 3.1,
             yLabelEcart: 0.7,
             axeXStyle: '->',
-            axeYStyle: '->'
+            axeYStyle: '->',
           })
-          f = x => a * x ** 2 + b
+          f = (x) => a * x ** 2 + b
 
           this.question = `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br>`
           this.question +=
-             mathalea2d({
-               xmin: -6.1,
-               xmax: 6.1,
-               ymin: -2.1,
-               ymax: 12.1,
-               pixelsParCm: 20,
-               scale: 0.45,
-               style: 'margin: auto'
-             }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 })) + '<br>'
+            mathalea2d(
+              {
+                xmin: -6.1,
+                xmax: 6.1,
+                ymin: -2.1,
+                ymax: 12.1,
+                pixelsParCm: 20,
+                scale: 0.45,
+                style: 'margin: auto',
+              },
+              r,
+              o,
+              courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+            ) + '<br>'
           this.question += `${this.versionQcm ? 'À partir de cette représentation graphique, on a : ' : 'À partir de cette représentation graphique, déterminer la valeur de $a$.<br>'}`
         } else {
           r = repere({
@@ -112,31 +120,34 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireXMax: 3.1,
             yLabelEcart: 0.7,
             axeXStyle: '->',
-            axeYStyle: '->'
+            axeYStyle: '->',
           })
 
-          f = x => a * x ** 2 + b
+          f = (x) => a * x ** 2 + b
 
           this.question = `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> `
           this.question +=
-            mathalea2d({
-              xmin: -6.1,
-              xmax: 6.1,
-              ymin: -6.1,
-              ymax: 6.1,
-              pixelsParCm: 20,
-              scale: 0.45,
-              style: 'margin: auto'
-            }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 })) +
-       '<br>'
+            mathalea2d(
+              {
+                xmin: -6.1,
+                xmax: 6.1,
+                ymin: -6.1,
+                ymax: 6.1,
+                pixelsParCm: 20,
+                scale: 0.45,
+                style: 'margin: auto',
+              },
+              r,
+              o,
+              courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+            ) + '<br>'
           this.question += `${this.versionQcm ? 'À partir de cette représentation graphique, on a : ' : 'À partir de cette représentation graphique, déterminer la valeur de $a$.<br>'}`
         }
 
         break
 
-      case 2:// cas parabole a<0
+      case 2: // cas parabole a<0
       default:
-
         a = randint(-4, -1) / 2
         b = randint(-6, 6, 0) / 2
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
@@ -166,21 +177,28 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireXMax: 3.1,
             yLabelEcart: 0.7,
             axeXStyle: '->',
-            axeYStyle: '->'
+            axeYStyle: '->',
           })
 
-          f = x => a * x ** 2 + b
+          f = (x) => a * x ** 2 + b
 
-          this.question = `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> ` +
-           mathalea2d({
-             xmin: -6,
-             xmax: 6,
-             ymin: -4.1,
-             ymax: 8.1,
-             pixelsParCm: 20,
-             scale: 0.6,
-             style: 'margin: auto'
-           }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 })) + '<br>'
+          this.question =
+            `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> ` +
+            mathalea2d(
+              {
+                xmin: -6,
+                xmax: 6,
+                ymin: -4.1,
+                ymax: 8.1,
+                pixelsParCm: 20,
+                scale: 0.6,
+                style: 'margin: auto',
+              },
+              r,
+              o,
+              courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+            ) +
+            '<br>'
           this.question += `${this.versionQcm ? 'À partir de cette représentation graphique, on a : ' : 'À partir de cette représentation graphique, déterminer la valeur de $a$.<br>'}`
         } else {
           r = repere({
@@ -204,21 +222,28 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireXMax: 3.1,
             yLabelEcart: 0.7,
             axeXStyle: '->',
-            axeYStyle: '->'
+            axeYStyle: '->',
           })
 
-          f = x => a * x ** 2 + b
+          f = (x) => a * x ** 2 + b
 
-          this.question = `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> ` +
-          mathalea2d({
-            xmin: -6,
-            xmax: 6,
-            ymin: -10.1,
-            ymax: 2.1,
-            pixelsParCm: 20,
-            scale: 0.45,
-            style: 'margin: auto'
-          }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 })) + '<br>'
+          this.question =
+            `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> ` +
+            mathalea2d(
+              {
+                xmin: -6,
+                xmax: 6,
+                ymin: -10.1,
+                ymax: 2.1,
+                pixelsParCm: 20,
+                scale: 0.45,
+                style: 'margin: auto',
+              },
+              r,
+              o,
+              courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+            ) +
+            '<br>'
           this.question += `${this.versionQcm ? 'À partir de cette représentation graphique, on a : ' : 'À partir de cette représentation graphique, déterminer la valeur de $a$.<br>'}`
         }
 
@@ -227,8 +252,15 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
     this.correction = `${this.versionQcm ? `La valeur de $b$ est donnée par l'image de $0$ par $f$ (ordonnée du point d'intersection entre la courbe et l'axe des ordonnées).<br> Ainsi, $b=${miseEnEvidence(texNombre(b, 1))}$.<br>` : ''}La valeur de $a$ s'obtient (par exemple) grâce à l'image de $1$ par la fonction $f$.<br>
           On lit $f(1)=${texNombre(f(1), 1)}$. D'où, $a\\times 1^2${ecritureAlgebrique(b)}=${texNombre(f(1), 1)}$, soit $a=${miseEnEvidence(texNombre(a, 1))}$.<br>
           Ainsi, $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(b)}$.`
-    this.reponse = this.versionQcm ? `$a=${texNombre(a, 1)}$ et $b=${texNombre(b, 1)}$` : a
-    this.distracteurs = [`$a=${texNombre(b, 1)}$ et $b=${texNombre(b, 1)}$`, `$a=${texNombre(a + 0.5, 1)}$ et $b=${texNombre(b, 1)}$`, `$a=${texNombre(-a, 1)}$ et $b=${texNombre(b, 1)}$`, `$a=${texNombre(a, 1)}$ et $b=${texNombre(-b, 1)}$`]
+    this.reponse = this.versionQcm
+      ? `$a=${texNombre(a, 1)}$ et $b=${texNombre(b, 1)}$`
+      : a
+    this.distracteurs = [
+      `$a=${texNombre(b, 1)}$ et $b=${texNombre(b, 1)}$`,
+      `$a=${texNombre(a + 0.5, 1)}$ et $b=${texNombre(b, 1)}$`,
+      `$a=${texNombre(-a, 1)}$ et $b=${texNombre(b, 1)}$`,
+      `$a=${texNombre(a, 1)}$ et $b=${texNombre(-b, 1)}$`,
+    ]
     this.listeCanEnonces.push(this.question)
     this.listeCanReponsesACompleter.push('$a=\\ldots$')
   }

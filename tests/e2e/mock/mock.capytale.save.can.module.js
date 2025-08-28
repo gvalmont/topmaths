@@ -16,7 +16,7 @@ const rpc = new RPC({
   serviceId,
 
   // Optionally, allowlist the origin you want to talk to:
-  origin: '*'
+  origin: '*',
 })
 
 const activityParams = {
@@ -28,13 +28,13 @@ const activityParams = {
         uuid: '51242',
         id: 'canc3D04',
         interactif: '1',
-        alea: 'stG6'
+        alea: 'stG6',
       },
       {
         uuid: '6225c',
         id: '6M23',
         interactif: '1',
-        alea: 'Qlfa'
+        alea: 'Qlfa',
       },
       {
         uuid: '6225c',
@@ -47,13 +47,13 @@ const activityParams = {
         sup3: '2',
         sup4: 'false',
         cd: '1',
-        alea: '4JMh'
+        alea: '4JMh',
       },
       {
         uuid: 'f8dee',
         id: '6G2B',
         interactif: '1',
-        alea: 'XEP0'
+        alea: 'XEP0',
       },
       {
         uuid: '83763',
@@ -62,13 +62,13 @@ const activityParams = {
         nbQuestions: 2,
         duration: 10,
         cd: '1',
-        alea: 'AJha'
+        alea: 'AJha',
       },
       {
         uuid: 'e6f62',
         id: '6C13-2',
         interactif: '1',
-        alea: 'fdfj'
+        alea: 'fdfj',
       },
       {
         uuid: '0688e',
@@ -81,8 +81,8 @@ const activityParams = {
         sup3: '1',
         sup4: 'true',
         cd: '1',
-        alea: 'gFXm'
-      }
+        alea: 'gFXm',
+      },
     ],
     globalOptions: {
       v: '',
@@ -107,7 +107,7 @@ const activityParams = {
       beta: false,
       iframe: '',
       isDataRandom: false, // ajouter pour ne pas changer les données
-      answers: ''
+      answers: '',
     },
     canOptions: {
       durationInMinutes: 540,
@@ -118,9 +118,9 @@ const activityParams = {
       isInteractive: true,
       remainingTimeInSeconds: 0,
       questionGetAnswer: [],
-      state: 'start'
-    }
-  }
+      state: 'start',
+    },
+  },
 }
 
 rpc.expose('toolGetActivityParams', () => activityParams)

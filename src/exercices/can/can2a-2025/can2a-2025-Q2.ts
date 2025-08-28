@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '764b2'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class PrioriteMultiplication extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +27,7 @@ export default class PrioriteMultiplication extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = -46
       this.question = ' $10-7\\times 8$'

@@ -3,7 +3,7 @@ import {
   ecritureAlgebrique,
   ecritureParentheseSiMoins,
   ecritureParentheseSiNegatif,
-  rienSi1
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
@@ -11,7 +11,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Réduire et simplifier, si possible, une expression littérale simple'
+export const titre =
+  'Réduire et simplifier, si possible, une expression littérale simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -39,10 +40,10 @@ export const uuid = 'cc129'
 
 export const refs = {
   'fr-fr': ['4L10-1', 'BP2AutoI12'],
-  'fr-ch': ['10FA1-15']
+  'fr-ch': ['10FA1-15'],
 }
 export default class ReductionsPiegesClassiques extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 
@@ -50,9 +51,12 @@ export default class ReductionsPiegesClassiques extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = 'Réduire et simplifier, si possible, '
-    this.consigne += this.nbQuestions > 1 ? 'les expressions suivantes.' : 'l\'expression suivante.'
+    this.consigne +=
+      this.nbQuestions > 1
+        ? 'les expressions suivantes.'
+        : "l'expression suivante."
 
     const typesDeQuestionsDisponibles = [
       'ax+b',
@@ -67,11 +71,18 @@ export default class ReductionsPiegesClassiques extends Exercice {
       'ax×0',
       'ax^2×x',
       'ax^2-a',
-      'ax^2-ax^2'
+      'ax^2-ax^2',
     ]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     let typesDeQuestions // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, a, b, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(2, 11)
       b = randint(2, 11)
@@ -153,7 +164,10 @@ export default class ReductionsPiegesClassiques extends Exercice {
       }
 
       if (this.interactif) {
-        reponse = [reponse, `${lettreDepuisChiffre(i + 1, saufD)}=${reponse}`.replace('D=', 'd=')]
+        reponse = [
+          reponse,
+          `${lettreDepuisChiffre(i + 1, saufD)}=${reponse}`.replace('D=', 'd='),
+        ]
         setReponse(this, i, reponse)
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
       }

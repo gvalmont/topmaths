@@ -6,7 +6,7 @@ class Node2d {
   hCost: number
   parent: Node2d | null
 
-  constructor (x : number, y: number, walkable = true) {
+  constructor(x: number, y: number, walkable = true) {
     this.x = x
     this.y = y
     this.walkable = walkable
@@ -15,16 +15,23 @@ class Node2d {
     this.parent = null
   }
 
-  get fCost () { return this.gCost + this.hCost }
+  get fCost() {
+    return this.gCost + this.hCost
+  }
 }
 
-function heuristic (nodeA : Node2d, nodeB : Node2d) {
+function heuristic(nodeA: Node2d, nodeB: Node2d) {
   const dx = Math.abs(nodeA.x - nodeB.x)
   const dy = Math.abs(nodeA.y - nodeB.y)
   return 14 * Math.min(dx, dy) + 10 * Math.abs(dx - dy)
 }
 
-function findPath (startNode : Node2d, endNode : Node2d, grid : Node2d[][], modifiedNodes = new Set()) {
+function findPath(
+  startNode: Node2d,
+  endNode: Node2d,
+  grid: Node2d[][],
+  modifiedNodes = new Set(),
+) {
   const openSet = [startNode]
   const closedSet = new Set<Node2d>()
   startNode.gCost = 0
@@ -49,7 +56,12 @@ function findPath (startNode : Node2d, endNode : Node2d, grid : Node2d[][], modi
     }
 
     for (const neighbor of getNeighbors(currentNode, grid)) {
-      if (!neighbor.walkable || closedSet.has(neighbor) || modifiedNodes.has(neighbor)) continue
+      if (
+        !neighbor.walkable ||
+        closedSet.has(neighbor) ||
+        modifiedNodes.has(neighbor)
+      )
+        continue
       const cost = currentNode.gCost + heuristic(currentNode, neighbor)
       if (cost < neighbor.gCost || !openSet.includes(neighbor)) {
         neighbor.gCost = cost
@@ -62,19 +74,25 @@ function findPath (startNode : Node2d, endNode : Node2d, grid : Node2d[][], modi
   return null
 }
 
-function getNeighbors (node : Node2d, grid : Node2d[][]) {
+function getNeighbors(node: Node2d, grid: Node2d[][]) {
   const neighbors = []
   const { x, y } = node
-  const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+  const directions = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0],
+  ]
   for (const [dx, dy] of directions) {
     const nx = x + dx
     const ny = y + dy
-    if (grid[ny] && grid[ny][nx] && grid[ny][nx].walkable) neighbors.push(grid[ny][nx])
+    if (grid[ny] && grid[ny][nx] && grid[ny][nx].walkable)
+      neighbors.push(grid[ny][nx])
   }
   return neighbors
 }
 
-function createGrid (rows : number, cols : number, rate : number) {
+function createGrid(rows: number, cols: number, rate: number) {
   const grid = []
   for (let y = 0; y < rows; y++) {
     const row = []
@@ -98,14 +116,21 @@ function createGrid (rows : number, cols : number, rate : number) {
  * @param colsEnd le numéro de la colonne d'arrivée
  * @returns les chemins trouvés entre le point de départ et le point d'arrivée
  */
-export function runAStar (rows : number, cols : number, rowsStart : number, colsStart : number, rowsEnd : number, colsEnd : number) : Node2d[][] {
-  const rate = rows * cols > 25 ? 0.2 : 0// 20% de cases non accessibles
+export function runAStar(
+  rows: number,
+  cols: number,
+  rowsStart: number,
+  colsStart: number,
+  rowsEnd: number,
+  colsEnd: number,
+): Node2d[][] {
+  const rate = rows * cols > 25 ? 0.2 : 0 // 20% de cases non accessibles
   const grid = createGrid(rows, cols, rate)
   const start = grid[rowsStart][colsStart]
   const end = grid[rowsEnd][colsEnd]
   start.walkable = true
   end.walkable = true
-  const paths : Node2d[][] = []
+  const paths: Node2d[][] = []
   const modifiedNodes = new Set()
   const path1 = findPath(start, end, grid, modifiedNodes)
   if (path1) {
@@ -116,7 +141,9 @@ export function runAStar (rows : number, cols : number, rowsStart : number, cols
   const path2 = findPath(start, end, grid, modifiedNodes)
   if (path2) {
     paths.push([start, ...path2.slice().reverse()])
-    paths[paths.length - 1].slice(Math.floor(path2.length * 0.4), Math.floor(path2.length * 0.6)).forEach(node => modifiedNodes.add(node))
+    paths[paths.length - 1]
+      .slice(Math.floor(path2.length * 0.4), Math.floor(path2.length * 0.6))
+      .forEach((node) => modifiedNodes.add(node))
   }
 
   const path3 = findPath(start, end, grid, modifiedNodes)

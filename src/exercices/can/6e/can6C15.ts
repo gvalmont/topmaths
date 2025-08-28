@@ -20,10 +20,10 @@ export const uuid = '84b48'
 
 export const refs = {
   'fr-fr': ['can6C15', '6N3C-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FractionCommeFacteurManquant extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -31,7 +31,7 @@ export default class FractionCommeFacteurManquant extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b
     do {
       a = randint(2, 25)
@@ -51,39 +51,43 @@ export default class FractionCommeFacteurManquant extends ExerciceSimple {
         propositions: [
           {
             type: 'AMCNum',
-            propositions: [{
-              texte: this.correction,
-              statut: '',
-              reponse: {
-                texte: 'Numérateur',
-                valeur: a,
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
-                }
-              }
-            }]
+            propositions: [
+              {
+                texte: this.correction,
+                statut: '',
+                reponse: {
+                  texte: 'Numérateur',
+                  valeur: a,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0,
+                  },
+                },
+              },
+            ],
           },
           {
             type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: 'Dénominateur',
-                valeur: b,
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
-                }
-              }
-            }]
-          }
-        ]
+            propositions: [
+              {
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Dénominateur',
+                  valeur: b,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0,
+                  },
+                },
+              },
+            ],
+          },
+        ],
       }
     }
     this.canEnonce = this.question

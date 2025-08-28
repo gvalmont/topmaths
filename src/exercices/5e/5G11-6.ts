@@ -25,14 +25,18 @@ export const uuid = '2a611'
 
 export const refs = {
   'fr-fr': ['5G11-6'],
-  'fr-ch': ['9ES6-16']
+  'fr-ch': ['9ES6-16'],
 }
 export default class CompleterParSymetrie5e extends Exercice {
   pointsNonSolution: PointCliquable[][]
   pointsSolution: PointCliquable[][]
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Type de papier pointé',
+      4,
+      '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange',
+    ]
 
     this.nbQuestions = 1
 
@@ -41,8 +45,9 @@ export default class CompleterParSymetrie5e extends Exercice {
     this.pointsSolution = []
   }
 
-  nouvelleVersion () {
-    if (this.interactif) this.consigne = 'Placer les points en cliquant, puis vérifier la réponse.'
+  nouvelleVersion() {
+    if (this.interactif)
+      this.consigne = 'Placer les points en cliquant, puis vérifier la réponse.'
     const couples = []
     const pointsCliquables: PointCliquable[][] = [[]]
     let pointsPossibles
@@ -51,8 +56,24 @@ export default class CompleterParSymetrie5e extends Exercice {
     const pointsEnPlusCorr = []
 
     const typeDePapier = ['quad', 'quad', 'hexa', 'equi'] // l'élément 0 sera changé aléatoirement pour correspondre au type mélange (this.sup2 % 4)
-    for (let i = 0, cpt = 0, papier, image, d, O, j, trouve, texte, texteCorr, objetsEnonce, nbCouplesComplets, objetsCorrection; i < this.nbQuestions && cpt < 50;) {
-      typeDePapier[0] = typeDePapier[1 + i % 3]
+    for (
+      let i = 0,
+        cpt = 0,
+        papier,
+        image,
+        d,
+        O,
+        j,
+        trouve,
+        texte,
+        texteCorr,
+        objetsEnonce,
+        nbCouplesComplets,
+        objetsCorrection;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      typeDePapier[0] = typeDePapier[1 + (i % 3)]
       // on remet à vide tous les tableaux utilisés pour la question suivante
       objetsEnonce = []
       objetsCorrection = []
@@ -64,11 +85,17 @@ export default class CompleterParSymetrie5e extends Exercice {
       pointsCliquables[i] = []
       couples.length = 0
 
-      papier = papierPointe({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, type: typeDePapier[this.sup2 === 4 ? 0 : this.sup2] })
+      papier = papierPointe({
+        xmin: 0,
+        ymin: 0,
+        xmax: 10,
+        ymax: 10,
+        type: typeDePapier[this.sup2 === 4 ? 0 : this.sup2],
+      })
 
       objetsEnonce.push(papier)
 
-      if (typeDePapier[(this.sup2 === 4 ? 0 : this.sup2)] === 'quad') {
+      if (typeDePapier[this.sup2 === 4 ? 0 : this.sup2] === 'quad') {
         O = point(5, 5, 'O')
       } else {
         O = point(4.33, 4.5, 'O')
@@ -81,22 +108,43 @@ export default class CompleterParSymetrie5e extends Exercice {
       // on prépare les points cliquables pour la version interactive
       if (this.interactif && context.isHtml) {
         for (let p = 0; p < papier.listeCoords.length; p++) {
-          pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], { radius: 0.2, color: 'red', width: 2, opacite: 0.7 }))
+          pointsCliquables[i].push(
+            pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], {
+              radius: 0.2,
+              color: 'red',
+              width: 2,
+              opacite: 0.7,
+            }),
+          )
         }
       }
-      while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
-        image = rotation(point(pointsPossibles[0][0], pointsPossibles[0][1]), O, 180)
+      while (pointsPossibles.length > 1) {
+        // si il n'en reste qu'un, on ne peut pas trouver de symétrique
+        image = rotation(
+          point(pointsPossibles[0][0], pointsPossibles[0][1]),
+          O,
+          180,
+        )
         j = 1
         trouve = false
         while (j < pointsPossibles.length && !trouve) {
           // si l'image est proche d'un point, c'est qu'on a deux symétriques donc un couple potentiel.
-          if (longueur(image, point(pointsPossibles[j][0], pointsPossibles[j][1])) < 0.5) {
+          if (
+            longueur(
+              image,
+              point(pointsPossibles[j][0], pointsPossibles[j][1]),
+            ) < 0.5
+          ) {
             trouve = true
           } else j++
         }
         if (trouve) {
           // on stocke le couple de symétrique en modifiant aléatoirement l'ordre.
-          couples.push(choice([true, false]) ? [pointsPossibles[0], pointsPossibles[j]] : [pointsPossibles[j], pointsPossibles[0]])
+          couples.push(
+            choice([true, false])
+              ? [pointsPossibles[0], pointsPossibles[j]]
+              : [pointsPossibles[j], pointsPossibles[0]],
+          )
           pointsPossibles.splice(j, 1) // on retire d'abord le points d'indice j
           pointsPossibles.splice(0, 1) // puis le point d'indice 0
         } else {
@@ -111,12 +159,18 @@ export default class CompleterParSymetrie5e extends Exercice {
       }
       nbCouplesComplets = randint(2, 5)
       for (let p = 0; p < pointsChoisis.length; p += 2) {
-        if (p < nbCouplesComplets) { // On affiche un certains nombre de couples
+        if (p < nbCouplesComplets) {
+          // On affiche un certains nombre de couples
           pointsAffiches.push(point(pointsChoisis[p][0], pointsChoisis[p][1]))
-          pointsAffiches.push(point(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]))
-        } else { // et on affiche un seul des points pour les couples restants
+          pointsAffiches.push(
+            point(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
+          )
+        } else {
+          // et on affiche un seul des points pour les couples restants
           pointsAffiches.push(point(pointsChoisis[p][0], pointsChoisis[p][1]))
-          pointsEnPlusCorr.push(point(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]))
+          pointsEnPlusCorr.push(
+            point(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
+          )
         }
       }
       for (let p = 0; p < pointsAffiches.length; p++) {
@@ -129,7 +183,9 @@ export default class CompleterParSymetrie5e extends Exercice {
         trouve = false
         let q = 0
         while (q < pointsEnPlusCorr.length && !trouve) {
-          if (longueur(pointsEnPlusCorr[q], pointsCliquables[i][p].point) < 0.1) {
+          if (
+            longueur(pointsEnPlusCorr[q], pointsCliquables[i][p].point) < 0.1
+          ) {
             trouve = true
             this.pointsSolution[i].push(pointsCliquables[i][p])
           } else {
@@ -145,13 +201,31 @@ export default class CompleterParSymetrie5e extends Exercice {
         : 'Voici une grille contenant des points et un centre de symétrie.<br>Ajouter un minimum de points afin que chacun des points ait son symétrique par rapport à O.<br>'
       texteCorr = ''
       // On prépare la figure...
-      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 }, ...objetsEnonce, ...pointsCliquables[i], labelPoint(O))
+      texte += mathalea2d(
+        { xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 },
+        ...objetsEnonce,
+        ...pointsCliquables[i],
+        labelPoint(O),
+      )
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
-      texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 }, ...objetsEnonce, ...objetsCorrection, labelPoint(O))
+      texteCorr += mathalea2d(
+        { xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 },
+        ...objetsEnonce,
+        ...objetsCorrection,
+        labelPoint(O),
+      )
 
-      if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          nbCouplesChoisis,
+          nbCouplesComplets,
+          pointsChoisis[0][0],
+          pointsChoisis[0][1],
+        )
+      ) {
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: '',
@@ -160,31 +234,35 @@ export default class CompleterParSymetrie5e extends Exercice {
               {
                 type: 'AMCOpen',
                 // @ts-expect-error
-                propositions: [{
-                  enonce: texte,
-                  texte: texteCorr,
-                  statut: 1,
-                  pointilles: true
-                }]
+                propositions: [
+                  {
+                    enonce: texte,
+                    texte: texteCorr,
+                    statut: 1,
+                    pointilles: true,
+                  },
+                ],
               },
               {
                 type: 'AMCNum',
                 // @ts-expect-error
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: 'Nombre de points ajoutés',
-                    valeur: [pointsEnPlusCorr.length],
-                    param: {
-                      digits: 2,
-                      signe: false,
-                      decimals: 0
-                    }
-                  }
-                }]
-              }
-            ]
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: 'Nombre de points ajoutés',
+                      valeur: [pointsEnPlusCorr.length],
+                      param: {
+                        digits: 2,
+                        signe: false,
+                        decimals: 0,
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
           }
         }
         this.listeQuestions[i] = texte
@@ -196,7 +274,7 @@ export default class CompleterParSymetrie5e extends Exercice {
     listeQuestionsToContenu(this)
   }
 
-  correctionInteractive = (i:number) => {
+  correctionInteractive = (i: number) => {
     let resultat
     let aucunMauvaisPointsCliques = true
     for (const monPoint of this.pointsNonSolution[i]) {
@@ -207,7 +285,9 @@ export default class CompleterParSymetrie5e extends Exercice {
       if (!monPoint.etat) aucunMauvaisPointsCliques = false
       monPoint.stopCliquable()
     }
-    const spanFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`) as HTMLSpanElement
+    const spanFeedback = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${i}`,
+    ) as HTMLSpanElement
     for (let j = 0; j < this.pointsSolution[i].length; j++) {
       this.pointsSolution[i][j].stopCliquable()
     }

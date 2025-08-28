@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'fb224'
 export const refs = {
   'fr-fr': ['TSA6-QCM05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,17 +29,21 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$x \\longmapsto x \\ln (x) - x$', // Réponse correcte (c)
       '$x \\longmapsto \\ln (x)$', // Mauvaise réponse (a)
       '$x \\longmapsto \\dfrac{1}{x}$', // Mauvaise réponse (b)
-      '$x \\longmapsto \\dfrac{\\ln (x)}{x}$' // Mauvaise réponse (d)
+      '$x \\longmapsto \\dfrac{\\ln (x)}{x}$', // Mauvaise réponse (d)
     ]
 
-    this.enonce = 'La fonction $x \\longmapsto \\ln (x)$ admet pour primitive sur $]0~;~+ \\infty[$ la fonction :'
+    this.enonce =
+      'La fonction $x \\longmapsto \\ln (x)$ admet pour primitive sur $]0~;~+ \\infty[$ la fonction :'
 
-    this.correction = 'Pour déterminer si $f(x) = \\ln(x)$ admet pour primitive l\'une des fonctions proposées, il suffit de les dériver.<br>'
+    this.correction =
+      "Pour déterminer si $f(x) = \\ln(x)$ admet pour primitive l'une des fonctions proposées, il suffit de les dériver.<br>"
     this.correction += 'Soit $g(x) = x \\ln (x) - x$.<br>'
-    this.correction += 'La fonction $g$ est dérivable comme somme et produit de fonctions dérivables sur $]0~;~+ \\infty[$.<br>'
+    this.correction +=
+      'La fonction $g$ est dérivable comme somme et produit de fonctions dérivables sur $]0~;~+ \\infty[$.<br>'
     this.correction += 'On calcule sa dérivée :<br>'
     this.correction += '$\\begin{aligned}'
-    this.correction += 'g\'(x) &= 1 \\times \\ln(x) + x \\times \\dfrac{1}{x} - 1 \\\\'
+    this.correction +=
+      "g'(x) &= 1 \\times \\ln(x) + x \\times \\dfrac{1}{x} - 1 \\\\"
     this.correction += '&= \\ln(x) + 1 - 1 \\\\'
     this.correction += '&= \\ln(x) \\\\'
     this.correction += '&= f(x)'
@@ -47,7 +51,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     this.correction += `Ainsi, une primitive de $f(x) = \\ln(x)$ est  ${texteEnCouleurEtGras('$g(x) = x \\ln (x) - x$ ')}`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

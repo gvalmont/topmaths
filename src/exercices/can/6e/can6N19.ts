@@ -19,10 +19,10 @@ export const uuid = '3a8f8'
 
 export const refs = {
   'fr-fr': ['can6N19', '6N1B-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class decomposerDecimal extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.spacing = 1.5
@@ -31,8 +31,8 @@ export default class decomposerDecimal extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       const u = randint(1, 9)
@@ -46,14 +46,21 @@ export default class decomposerDecimal extends Exercice {
           if (choice([true, false])) {
             texte = 'Compléter : <br>'
             if (this.interactif) {
-              texte += remplisLesBlancs(this, i, `${texNombre(nbre, 2)}= \\, %{champ1}  \\text{ unité(s) }  \\, %{champ2}\\, \\text{ dixième(s)}\\, %{champ3}\\, \\text{ centième(s)}`, KeyboardType.clavierDeBase)
+              texte += remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(nbre, 2)}= \\, %{champ1}  \\text{ unité(s) }  \\, %{champ2}\\, \\text{ dixième(s)}\\, %{champ3}\\, \\text{ centième(s)}`,
+                KeyboardType.clavierDeBase,
+              )
               handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1], listePoints[2]), 1],
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1], listePoints[2]),
+                  1,
+                ],
                 champ1: { value: texNombre(u, 0) },
                 champ2: { value: texNombre(d, 0) },
-                champ3: { value: texNombre(c, 0) }
-              }
-              )
+                champ3: { value: texNombre(c, 0) },
+              })
             } else {
               texte += `$${texNombre(nbre, 2)}=\\ldots$ unité(s)  $\\ldots$ dixième(s) $\\ldots$ centième(s)`
             }
@@ -69,14 +76,29 @@ export default class decomposerDecimal extends Exercice {
             texte = 'Compléter avec un nombre décimal : <br>'
             if (this.interactif) {
               if (d === 0) {
-                texte += remplisLesBlancs(this, i, `${texNombre(u, 0)} \\text{${u === 1 ? ' unité ' : ' unités '} }+ ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }= \\, %{champ1} `, KeyboardType.clavierDeBase)
-              } else { texte += remplisLesBlancs(this, i, `${texNombre(u, 0)} \\text{${u === 1 ? ' unité ' : ' unités '} } + ${texNombre(d, 0)}\\text{${d === 1 ? ' dixième ' : ' dixièmes '} }+ ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }= \\, %{champ1} `, KeyboardType.clavierDeBase) }
-              handleAnswers(this, i, {
-                champ1: { value: texNombre(nbre, 2) }
+                texte += remplisLesBlancs(
+                  this,
+                  i,
+                  `${texNombre(u, 0)} \\text{${u === 1 ? ' unité ' : ' unités '} }+ ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }= \\, %{champ1} `,
+                  KeyboardType.clavierDeBase,
+                )
+              } else {
+                texte += remplisLesBlancs(
+                  this,
+                  i,
+                  `${texNombre(u, 0)} \\text{${u === 1 ? ' unité ' : ' unités '} } + ${texNombre(d, 0)}\\text{${d === 1 ? ' dixième ' : ' dixièmes '} }+ ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }= \\, %{champ1} `,
+                  KeyboardType.clavierDeBase,
+                )
               }
-              )
+              handleAnswers(this, i, {
+                champ1: { value: texNombre(nbre, 2) },
+              })
             } else {
-              if (d === 0) { texte += `$${texNombre(u, 0)} \\text{${u === 1 ? ' unité ' : ' unités '} } + ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }=\\ldots$ ` } else { texte += `$${texNombre(u, 0)} \\text{${u === 1 ? ' unité ' : ' unités '} } + ${texNombre(d, 0)}\\text{${d === 1 ? ' dixième ' : ' dixièmes '} }+ ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }=\\ldots$ ` }
+              if (d === 0) {
+                texte += `$${texNombre(u, 0)} \\text{${u === 1 ? ' unité ' : ' unités '} } + ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }=\\ldots$ `
+              } else {
+                texte += `$${texNombre(u, 0)} \\text{${u === 1 ? ' unité ' : ' unités '} } + ${texNombre(d, 0)}\\text{${d === 1 ? ' dixième ' : ' dixièmes '} }+ ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }=\\ldots$ `
+              }
             }
             texteCorr = `Comme $1$ dixième $=0,1$ et $1$ centième $=0,01$ :<br>
            $\\begin{aligned}
@@ -95,13 +117,20 @@ export default class decomposerDecimal extends Exercice {
           if (choice([true, false])) {
             texte = 'Compléter : <br>'
             if (this.interactif) {
-              texte += remplisLesBlancs(this, i, `${texNombre(nbre, 2)}=   \\, %{champ1}\\, \\text{ dixième(s)}\\, %{champ2}\\, \\text{ centième(s)}`, KeyboardType.clavierDeBase)
-              handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-                champ1: { value: texNombre(u * 10 + d, 0) },
-                champ2: { value: texNombre(c, 0) }
-              }
+              texte += remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(nbre, 2)}=   \\, %{champ1}\\, \\text{ dixième(s)}\\, %{champ2}\\, \\text{ centième(s)}`,
+                KeyboardType.clavierDeBase,
               )
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
+                champ1: { value: texNombre(u * 10 + d, 0) },
+                champ2: { value: texNombre(c, 0) },
+              })
             } else {
               texte += `$${texNombre(nbre, 2)}= \\ldots$ dixième(s) $\\ldots$ centième(s)`
             }
@@ -116,11 +145,15 @@ export default class decomposerDecimal extends Exercice {
           } else {
             texte = 'Compléter avec un nombre décimal : <br>'
             if (this.interactif) {
-              texte += remplisLesBlancs(this, i, `${texNombre(u * 10 + d, 0)} \\text{ dixièmes } + ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }= \\, %{champ1} `, KeyboardType.clavierDeBase)
-              handleAnswers(this, i, {
-                champ1: { value: texNombre(nbre, 2) }
-              }
+              texte += remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(u * 10 + d, 0)} \\text{ dixièmes } + ${texNombre(c, 0)}\\text{${c === 1 || c === 0 ? ' centième' : ' centièmes'} }= \\, %{champ1} `,
+                KeyboardType.clavierDeBase,
               )
+              handleAnswers(this, i, {
+                champ1: { value: texNombre(nbre, 2) },
+              })
             } else {
               texte += `$${texNombre(u * 10 + d, 0)} \\text{ dixièmes } + ${texNombre(c, 0)}\\text{${c === 1 ? ' centième' : ' centièmes'} }=\\ldots$ `
             }
@@ -141,11 +174,15 @@ export default class decomposerDecimal extends Exercice {
           if (choice([true, false])) {
             texte = 'Compléter : <br>'
             if (this.interactif) {
-              texte += remplisLesBlancs(this, i, `${texNombre(nbre, 2)}=   \\, %{champ1}\\, \\text{ centième(s)}`, KeyboardType.clavierDeBase)
-              handleAnswers(this, i, {
-                champ1: { value: texNombre(u * 100 + d * 10 + c, 0) }
-              }
+              texte += remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(nbre, 2)}=   \\, %{champ1}\\, \\text{ centième(s)}`,
+                KeyboardType.clavierDeBase,
               )
+              handleAnswers(this, i, {
+                champ1: { value: texNombre(u * 100 + d * 10 + c, 0) },
+              })
             } else {
               texte += `$${texNombre(nbre, 2)}= \\ldots$ centièmes(s) `
             }
@@ -160,11 +197,15 @@ export default class decomposerDecimal extends Exercice {
           } else {
             texte = 'Compléter avec un nombre décimal : <br>'
             if (this.interactif) {
-              texte += remplisLesBlancs(this, i, `${texNombre(u * 100 + d * 10 + c, 0)} \\text{ centièmes } = \\, %{champ1} `, KeyboardType.clavierDeBase)
-              handleAnswers(this, i, {
-                champ1: { value: texNombre(nbre, 2) }
-              }
+              texte += remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(u * 100 + d * 10 + c, 0)} \\text{ centièmes } = \\, %{champ1} `,
+                KeyboardType.clavierDeBase,
               )
+              handleAnswers(this, i, {
+                champ1: { value: texNombre(nbre, 2) },
+              })
             } else {
               texte += `$${texNombre(u * 100 + d * 10 + c, 0)} \\text{ centièmes } =\\ldots$ `
             }

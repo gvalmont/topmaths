@@ -17,7 +17,7 @@ export const uuid = 'ffbe9'
 */
 
 export default class EncadreParDeuxEntiers extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +27,7 @@ export default class EncadreParDeuxEntiers extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let decimal: Decimal
     let partieDecimale: Decimal
     if (this.canOfficielle) {
@@ -42,7 +42,11 @@ export default class EncadreParDeuxEntiers extends ExerciceSimple {
     this.question = `%{champ1} < ${texNombre(decimal, 1)} < %{champ2}`
     this.canEnonce = 'Encadre par deux entiers consécutifs.'
     this.canReponseACompleter = `$\\ldots < ${texNombre(decimal, 1)} < \\ldots$`
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf }, champ2: { value: entierSup } }
+    this.reponse = {
+      bareme: toutPourUnPoint,
+      champ1: { value: entierInf },
+      champ2: { value: entierSup },
+    }
     this.correction = `$${miseEnEvidence(texNombre(entierInf, 0))} < ${texNombre(decimal, 1)} < ${miseEnEvidence(texNombre(entierSup, 0))}$`
   }
 }

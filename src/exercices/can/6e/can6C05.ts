@@ -1,7 +1,10 @@
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -20,20 +23,23 @@ export const uuid = 'c8078'
 
 export const refs = {
   'fr-fr': ['can6C05', 'auto6N2D-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class MultiplierAstucieusement extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
-    this.besoinFormulaireCaseACocher = ['Permettre des facteurs au dixième, au millième', false]
+    this.besoinFormulaireCaseACocher = [
+      'Permettre des facteurs au dixième, au millième',
+      false,
+    ]
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
@@ -43,16 +49,19 @@ export default class MultiplierAstucieusement extends ExerciceSimple {
     let nombre = a * 1000 + b * 100
     nombre += this.sup ? choice([c * 10 + d, c * 10, 0]) : c * 10
     const facteur = nombre / 1000
-    this.reponse = (typeDeQuestions < 5) ? nombre / 10 : nombre / 100
+    this.reponse = typeDeQuestions < 5 ? nombre / 10 : nombre / 100
     switch (typeDeQuestions) {
       case 1:
         this.question = `Calculer $4 \\times ${texNombre(facteur, 3)}\\times 25$.`
         this.correction = `$4 \\times ${texNombre(facteur, 3)}\\times 25 = 100 \\times ${texNombre(facteur, 3)} = ${miseEnEvidence(texNombre(this.reponse, 1))}$<br>`
-        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+        this.correction += texteEnCouleur(
+          `<br> Mentalement : <br>
   On remarque dans $4 \\times ${texNombre(facteur, 3)}\\times 25$ le produit $4\\times 25$ qui donne $100$.<br>
   Il reste alors à multiplier par $100$ le nombre $${texNombre(facteur, 3)}$ : le chiffre des unités ($${a}$) devient le chiffre des centaines, etc ...
   on obtient ainsi comme résultat : $${texNombre(this.reponse, 1)}$.
-    `, bleuMathalea)
+    `,
+          bleuMathalea,
+        )
         break
       case 2:
         this.question = `Calculer $2 \\times ${texNombre(facteur, 3)}\\times 50$.`
@@ -102,7 +111,7 @@ export default class MultiplierAstucieusement extends ExerciceSimple {
         break
     }
 
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

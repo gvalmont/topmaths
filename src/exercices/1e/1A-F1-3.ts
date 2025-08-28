@@ -15,10 +15,10 @@ export const uuid = 'f32dd'
 
 export const refs = {
   'fr-fr': ['1A-F1-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF1c extends ImageSpline {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '570b7'
 export const refs = {
   'fr-fr': ['TSA6-QCM02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,8 +28,7 @@ export default class metropoleSept2023Q1 extends ExerciceQcm {
       '$F(x) = \\dfrac12 \\mathrm{e}^{x^2 - 3}$',
       '$F(x) = 2x\\mathrm{e}^{x^2 - 3}$',
       '$F(x) = \\left(2x^2 + 1\\right)\\mathrm{e}^{x^2 - 3}$',
-      '$F(x) = \\dfrac12 x\\mathrm{e}^{x^2 - 3}$'
-
+      '$F(x) = \\dfrac12 x\\mathrm{e}^{x^2 - 3}$',
     ]
 
     this.enonce = `On considère la fonction $f$ définie sur $\\mathbb R$ par 
@@ -37,10 +36,11 @@ $f(x) = x \\mathrm{e}^{x^2 - 3}.$<br>
 
 Une des primitives $F$ de la fonction $f$ sur $\\mathbb R$ est définie par :`
 
-    this.correction = 'Avec $F(x) = \\dfrac12 \\mathrm{e}^{x^2 - 3}$, on a $F\'(x) = 2x \\times \\dfrac12\\mathrm{e}^{x^2 - 3} = x\\mathrm{e}^{x^2 - 3} = f(x)$ '
+    this.correction =
+      "Avec $F(x) = \\dfrac12 \\mathrm{e}^{x^2 - 3}$, on a $F'(x) = 2x \\times \\dfrac12\\mathrm{e}^{x^2 - 3} = x\\mathrm{e}^{x^2 - 3} = f(x)$ "
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

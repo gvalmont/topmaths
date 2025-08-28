@@ -1,15 +1,24 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  reduirePolynomeDegre3,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Supprimer les parenthèses puis réduire l\'expression'
+export const titre = "Supprimer les parenthèses puis réduire l'expression"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
@@ -25,13 +34,14 @@ export const uuid = '603a8'
 
 export const refs = {
   'fr-fr': ['3L10'],
-  'fr-ch': ['11FA1-1']
+  'fr-ch': ['11FA1-1'],
 }
 export default class OpposeExpression extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Types de questions',
-  `Nombres séparés par des tirets
+    this.besoinFormulaireTexte = [
+      'Types de questions',
+      `Nombres séparés par des tirets
 1 : -(ax+b)
 2 : (ax+b)
 3 : -(ax2+bx+c)
@@ -42,7 +52,7 @@ export default class OpposeExpression extends Exercice {
 8 : -(ax+b)+(cx2+dx+e)
 9 : (ax2+bx+c)-(dx2+ex+f)
 10 : -(ax2+bx+c)+(dx2+ex+f)
-11 : Mélange`
+11 : Mélange`,
     ]
     this.spacing = context.isHtml ? 3 : 2
     this.spacing = context.isHtml ? 3 : 2
@@ -52,8 +62,11 @@ export default class OpposeExpression extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Supprimer les parenthèses et réduire les expressions suivantes.'
+        : "Supprimer les parenthèses et réduire l'expression suivante."
 
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']
 
@@ -62,11 +75,18 @@ export default class OpposeExpression extends Exercice {
       max: 10,
       defaut: 2,
       melange: 11,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
-    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-    for (let i = 0, a, b, c, d, e, f, choixLettre, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    listeTypeDeQuestions = combinaisonListes(
+      listeTypeDeQuestions,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, a, b, c, d, e, f, choixLettre, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+      cpt++
+    ) {
       let texte = ''
       let texteCorr = ''
       let reponse = ''
@@ -82,35 +102,35 @@ export default class OpposeExpression extends Exercice {
       choixLettre = choice(lettresPossibles)
 
       switch (listeTypeDeQuestions[i]) {
-        case 1 : // '-(ax+b)':
+        case 1: // '-(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=-(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
           texteCorr = texte
           reponse1 = 0
           reponse2 = -a
           reponse3 = -b
           break
-        case 2 : // '(ax+b)':
+        case 2: // '(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
           texteCorr = texte
           reponse1 = 0
           reponse2 = a
           reponse3 = b
           break
-        case 3 : // '-(ax2+bx+c)':
+        case 3: // '-(ax2+bx+c)':
           texte = `$${lettreDepuisChiffre(i + 1)}=-(${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)})$`
           texteCorr = texte
           reponse1 = -a
           reponse2 = -b
           reponse3 = -c
           break
-        case 4 : // '(ax2+bx+c)':
+        case 4: // '(ax2+bx+c)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)})$`
           texteCorr = texte
           reponse1 = a
           reponse2 = b
           reponse3 = c
           break
-        case 5 : // '(ax+b)-(cx+d)':
+        case 5: // '(ax+b)-(cx+d)':
           texte = `$${lettreDepuisChiffre(i + 1)}= (${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}) - (${rienSi1(c)}${choixLettre}${ecritureAlgebrique(d)})$`
           texteCorr = texte
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}${ecritureAlgebriqueSauf1(-c)}${choixLettre}${ecritureAlgebrique(-d)}$`
@@ -118,7 +138,7 @@ export default class OpposeExpression extends Exercice {
           reponse2 = a - c
           reponse3 = b - d
           break
-        case 6 : // '-(ax+b)+(cx+d)':
+        case 6: // '-(ax+b)+(cx+d)':
           texte = `$${lettreDepuisChiffre(i + 1)}= -(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}) + (${rienSi1(c)}${choixLettre}${ecritureAlgebrique(d)})$`
           texteCorr = texte
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(-a)}${choixLettre}${ecritureAlgebrique(-b)}${ecritureAlgebriqueSauf1(c)}${choixLettre}${ecritureAlgebrique(d)}$`
@@ -126,7 +146,7 @@ export default class OpposeExpression extends Exercice {
           reponse2 = c - a
           reponse3 = d - b
           break
-        case 7 : // '(ax+b)-(cx2+dx+e)':
+        case 7: // '(ax+b)-(cx2+dx+e)':
           texte = `$${lettreDepuisChiffre(i + 1)}= (${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}) - (${rienSi1(c)}${choixLettre}^2${ecritureAlgebriqueSauf1(d)}${choixLettre}${ecritureAlgebrique(e)})$`
           texteCorr = texte
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)} ${ecritureAlgebriqueSauf1(-c)}${choixLettre}^2${ecritureAlgebriqueSauf1(-d)}${choixLettre}${ecritureAlgebrique(-e)}$`
@@ -134,7 +154,7 @@ export default class OpposeExpression extends Exercice {
           reponse2 = a - d
           reponse3 = b - e
           break
-        case 8 : // '-(ax+b)+(cx2+dx+e)':
+        case 8: // '-(ax+b)+(cx2+dx+e)':
           texte = `$${lettreDepuisChiffre(i + 1)}= -(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}) + (${rienSi1(c)}${choixLettre}^2${ecritureAlgebriqueSauf1(d)}${choixLettre}${ecritureAlgebrique(e)})$`
           texteCorr = texte
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(-a)}${choixLettre}${ecritureAlgebrique(-b)} ${ecritureAlgebriqueSauf1(c)}${choixLettre}^2${ecritureAlgebriqueSauf1(d)}${choixLettre}${ecritureAlgebrique(e)}$`
@@ -142,7 +162,7 @@ export default class OpposeExpression extends Exercice {
           reponse2 = -a + d
           reponse3 = -b + e
           break
-        case 9 : // '(ax2+bx+c)-(dx2+ex+f)'
+        case 9: // '(ax2+bx+c)-(dx2+ex+f)'
           texte = `$${lettreDepuisChiffre(i + 1)}= (${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)}) - (${rienSi1(d)}${choixLettre}^2${ecritureAlgebriqueSauf1(e)}${choixLettre}${ecritureAlgebrique(f)})$`
           texteCorr = texte
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)}${ecritureAlgebriqueSauf1(-d)}${choixLettre}^2${ecritureAlgebriqueSauf1(-e)}${choixLettre}${ecritureAlgebrique(-f)}$`
@@ -150,7 +170,7 @@ export default class OpposeExpression extends Exercice {
           reponse2 = b - e
           reponse3 = c - f
           break
-        case 10 : // '-(ax2+bx+c)+(dx2+ex+f)'
+        case 10: // '-(ax2+bx+c)+(dx2+ex+f)'
           texte = `$${lettreDepuisChiffre(i + 1)}= -(${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)}) + (${rienSi1(d)}${choixLettre}^2${ecritureAlgebriqueSauf1(e)}${choixLettre}${ecritureAlgebrique(f)})$`
           texteCorr = texte
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(-a)}${choixLettre}^2${ecritureAlgebriqueSauf1(-b)}${choixLettre}${ecritureAlgebrique(-c)} ${ecritureAlgebriqueSauf1(d)}${choixLettre}^2${ecritureAlgebriqueSauf1(e)}${choixLettre}${ecritureAlgebrique(f)}$`
@@ -176,7 +196,14 @@ export default class OpposeExpression extends Exercice {
 
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: reponse } })
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)) : ''
+        texte += this.interactif
+          ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecVariable,
+            )
+          : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',
@@ -185,64 +212,72 @@ export default class OpposeExpression extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: texteCorr,
-                enonce: texte + '<br>',
-                statut: 4
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: texte + '<br>',
+                  statut: 4,
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: `valeur de $m$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                  valeur: reponse1,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `valeur de $m$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
+                    valeur: reponse1,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: `valeur de $n$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                  valeur: reponse2,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `valeur de $n$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
+                    valeur: reponse2,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: `valeur de $p$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                  valeur: reponse3,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `valeur de $p$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
+                    valeur: reponse3,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

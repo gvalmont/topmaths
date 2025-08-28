@@ -3,7 +3,8 @@ import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
-export const titre = 'Réaliser le produit de deux longueurs à la règle non graduée et au compas'
+export const titre =
+  'Réaliser le produit de deux longueurs à la règle non graduée et au compas'
 
 export const dateDePublication = '1/11/2021'
 
@@ -15,21 +16,29 @@ export const uuid = 'b976a'
 
 export const refs = {
   'fr-fr': ['PEG23'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProduitDeDeuxLongueurs extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Longueur de l\'unité en cm', 10]
-    this.besoinFormulaire2Numerique = ['Longueur de a en cm', 10, 'Valeur au hasard si laissé vide']
-    this.besoinFormulaire3Numerique = ['Longueur de b en cm', 10, 'Valeur au hasard si laissé vide']
+    this.besoinFormulaireNumerique = ["Longueur de l'unité en cm", 10]
+    this.besoinFormulaire2Numerique = [
+      'Longueur de a en cm',
+      10,
+      'Valeur au hasard si laissé vide',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Longueur de b en cm',
+      10,
+      'Valeur au hasard si laissé vide',
+    ]
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.sup = 1
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion(numeroExercice) {
     const anim = new Alea2iep()
     const unite = this.sup
     const a = this.sup2 === undefined ? randint(2, 5) : this.sup2
@@ -103,18 +112,22 @@ export default class ProduitDeDeuxLongueurs extends Exercice {
     anim.regleMasquer()
     anim.crayonMasquer()
 
-    const texte = 'À partir d\'un segment unité, d\'un segment de longueur $a$ et d\'un segment de longueur $b$, construire un segment de longueur $a\\times b$.'
+    const texte =
+      "À partir d'un segment unité, d'un segment de longueur $a$ et d'un segment de longueur $b$, construire un segment de longueur $a\\times b$."
     let texteCorr = texteGras('Programme de construction :')
     texteCorr += '<br>On trace une demi-droite $[OA)$ telle que $OA = a$.'
-    texteCorr += '<br>On trace une demi-droite de même origine $[OB)$ telle que $OB = b$.'
+    texteCorr +=
+      '<br>On trace une demi-droite de même origine $[OB)$ telle que $OB = b$.'
     texteCorr += '<br>On place le point $I$ sur $[OB)$ tel que $OI = 1u$.'
     texteCorr += '<br>On trace le segment $[IA]$.'
     texteCorr += '<br>On trace la parallèle à $(IA)$ passant par $B$.'
     texteCorr += '<br>Elle coupe $[OA)$ en $M$.'
 
     texteCorr += '<br><br>' + texteGras('Justification :')
-    texteCorr += '<br> Les droites $(IA)$ et $(BM)$ sont parallèles donc d\'après le théorème de Thalès, on a  :'
-    texteCorr += '<br> $\\dfrac{OA}{OM}=\\dfrac{OI}{OB}$ soit $\\dfrac{a}{OM}=\\dfrac{1}{b}$'
+    texteCorr +=
+      "<br> Les droites $(IA)$ et $(BM)$ sont parallèles donc d'après le théorème de Thalès, on a  :"
+    texteCorr +=
+      '<br> $\\dfrac{OA}{OM}=\\dfrac{OI}{OB}$ soit $\\dfrac{a}{OM}=\\dfrac{1}{b}$'
     texteCorr += '<br><br> Finalement, on a $OM=ab$.'
     texteCorr += anim.html(numeroExercice)
 

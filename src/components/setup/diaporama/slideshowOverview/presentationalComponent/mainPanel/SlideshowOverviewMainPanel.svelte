@@ -8,15 +8,18 @@
   export let order: number[]
   export let series: Serie[]
   export let correctionsSteps: number[]
-
 </script>
 
 {#each Array(series.length).keys() as seriesId}
-  <div class={currentSeriesIndex === 4 || currentSeriesIndex === seriesId ? '' : 'hidden'}>
+  <div
+    class="{currentSeriesIndex === 4 || currentSeriesIndex === seriesId
+      ? ''
+      : 'hidden'}"
+  >
     <SlideshowOverviewSeries
       {isQuestionsVisible}
       {isCorrectionVisible}
-      seriesIndex={seriesId}
+      seriesIndex="{seriesId}"
       {order}
       {series}
       {correctionsSteps}

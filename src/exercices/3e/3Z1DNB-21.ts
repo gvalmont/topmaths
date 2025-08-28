@@ -1,10 +1,13 @@
 import { point } from '../../lib/2d/points'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
-import { /* miseEnEvidence, */ texteGras, texteItalique } from '../../lib/outils/embellissements'
+import {
+  /* miseEnEvidence, */ texteGras,
+  texteItalique,
+} from '../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import ExerciceBrevetA from '../ExerciceBrevetA'
-import { premierMultipleInferieur, } from '../../lib/outils/primalite'
+import { premierMultipleInferieur } from '../../lib/outils/primalite'
 import { prenomPronom } from '../../lib/outils/Personne'
 // import { texteParPosition } from '../../lib/2d/textes'
 import { randint } from '../../modules/outils'
@@ -15,9 +18,9 @@ import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
 export const uuid = '8abca'
 export const refs = {
   'fr-fr': ['3Z1DNB-21'],
-  'fr-ch': ['11EVA-3']
+  'fr-ch': ['11EVA-3'],
 }
-export const titre = 'Préparation DNB : Aires, prise d\'initiative, volumes'
+export const titre = "Préparation DNB : Aires, prise d'initiative, volumes"
 export const dateDePublication = '15/04/2025'
 
 /**
@@ -29,52 +32,62 @@ export const dateDePublication = '15/04/2025'
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
 export default class ExercicePolynesie592015 extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Polynésie Septembre 2015.<br>')
+    this.introduction = texteItalique(
+      "D'après l'exercice 5 du brevet Polynésie Septembre 2015.<br>",
+    )
 
     this.versionAleatoire()
   }
 
-  private appliquerLesValeurs (productionLait: number, densiteChevre: number, grandeLongueur: number, petiteLongueur: number, contenanceA: number, diametreB: number, hauteurB: number, prenom1: string, ilElle:string) : void {
-    const aireTotale = grandeLongueur * petiteLongueur + petiteLongueur * petiteLongueur
-    const nombreChevre = Math.floor(aireTotale / 10000 * densiteChevre)
+  private appliquerLesValeurs(
+    productionLait: number,
+    densiteChevre: number,
+    grandeLongueur: number,
+    petiteLongueur: number,
+    contenanceA: number,
+    diametreB: number,
+    hauteurB: number,
+    prenom1: string,
+    ilElle: string,
+  ): void {
+    const aireTotale =
+      grandeLongueur * petiteLongueur + petiteLongueur * petiteLongueur
+    const nombreChevre = Math.floor((aireTotale / 10000) * densiteChevre)
     const productionLaitTotale = nombreChevre * productionLait
-    const volumeB = Math.PI * (diametreB / 2) ** 2 * hauteurB / 1000
+    const volumeB = (Math.PI * (diametreB / 2) ** 2 * hauteurB) / 1000
     const majIlElle = ilElle === 'il' ? 'Il' : 'Elle'
     // const volumeA= contenanceA / 1000
     const listeQuestions = createList({
       items: [
         `Prouver que ${prenom1} peut posséder au maximum ${nombreChevre} chèvres.`,
-        `Dans ces conditions, combien de litres de lait peut-${ilElle} espérer produire par jour en moyenne ?`
+        `Dans ces conditions, combien de litres de lait peut-${ilElle} espérer produire par jour en moyenne ?`,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
     const deuxPetiteLongueur = 2 * petiteLongueur
     const differenceLongueur = grandeLongueur - petiteLongueur
 
     let correction1 = `On peut partager la surface de pâturage en deux rectangles, l'un de ${petiteLongueur} (m) sur $2 \\times ${petiteLongueur} = ${deuxPetiteLongueur}$ (m) et l'autre de ${petiteLongueur} (m) sur $${grandeLongueur} - ${petiteLongueur} = ${differenceLongueur}$ (m).<br>`
     correction1 += `L'aire totale est égale à $${petiteLongueur} \\times ${deuxPetiteLongueur} + ${differenceLongueur} \\times ${petiteLongueur} = ${texNombre(aireTotale)}$ m$^2$, soit $${texNombre(aireTotale / 10000, 2)}$ ha ; donc on peut y faire paître au maximum :` // <br>`
-    correction1 += `$${texNombre(aireTotale / 10000, 2)} \\times ${densiteChevre} = ${texNombre(aireTotale / 10000 * densiteChevre, 2)}$, soit un maximum de ${nombreChevre} chèvres.<br>`
+    correction1 += `$${texNombre(aireTotale / 10000, 2)} \\times ${densiteChevre} = ${texNombre((aireTotale / 10000) * densiteChevre, 2)}$, soit un maximum de ${nombreChevre} chèvres.<br>`
     correction1 += `${texteItalique('Remarque')} : Autre méthode : on peut décomposer la surface du pâturage en un rectangle de longueur ${grandeLongueur} m et de largeur ${petiteLongueur} m et un carré de côté ${petiteLongueur} m.<br>`
     correction1 += `Aire totale : $${grandeLongueur} \\times ${petiteLongueur} + ${petiteLongueur}^2 = ${texNombre(aireTotale)}$ m$^2$.`
     const correction2 = `Les ${nombreChevre} chèvres donneront en moyenne par jour : $${nombreChevre} \\times ${texNombre(productionLait, 1)} = ${texNombre(productionLaitTotale, 1)}$ litres de lait.`
 
     const listeCorrections = createList({
-      items: [
-        correction1,
-        correction2
-      ],
-      style: 'nombres'
+      items: [correction1, correction2],
+      style: 'nombres',
     })
     const listeCuves = createList({
       items: [
         `cuve A : contenance ${contenanceA} litres`,
-        `cuve B : diamètre ${diametreB} cm, hauteur ${hauteurB} cm`
+        `cuve B : diamètre ${diametreB} cm, hauteur ${hauteurB} cm`,
       ],
-      style: 'fleches'
+      style: 'fleches',
     })
     const petitL = 5
     const grandL = 12
@@ -90,11 +103,41 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
     const segmentDE = segment(D, E)
     const segmentEF = segment(E, F)
     const segmentFA = segment(F, A)
-    const codes = codageSegments('|', 'black', segmentAB, segmentBC, segmentDE, 0.8)
-    const longAB = placeLatexSurSegment(`${texNombre(petiteLongueur, 0)}\\text{~m}`, B, A, { distance: 0.8 })
-    const longEF = placeLatexSurSegment(`${texNombre(grandeLongueur, 0)}\\text{~m}`, F, E, {})
-    const objets = [segmentAB, segmentBC, segmentCD, segmentDE, segmentEF, segmentFA, codes, longAB, longEF]
-    const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
+    const codes = codageSegments(
+      '|',
+      'black',
+      segmentAB,
+      segmentBC,
+      segmentDE,
+      0.8,
+    )
+    const longAB = placeLatexSurSegment(
+      `${texNombre(petiteLongueur, 0)}\\text{~m}`,
+      B,
+      A,
+      { distance: 0.8 },
+    )
+    const longEF = placeLatexSurSegment(
+      `${texNombre(grandeLongueur, 0)}\\text{~m}`,
+      F,
+      E,
+      {},
+    )
+    const objets = [
+      segmentAB,
+      segmentBC,
+      segmentCD,
+      segmentDE,
+      segmentEF,
+      segmentFA,
+      codes,
+      longAB,
+      longEF,
+    ]
+    const figure = mathalea2d(
+      Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
 
     this.enonce = `${prenom1} s'installe comme éleveur de chèvres pour produire du lait afin de fabriquer des fromages.<br><br>`
     this.enonce += `${texteGras('PARTIE 1 : La production de lait')} <br><br>`
@@ -113,13 +156,14 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
     this.enonce += `${prenom1} veut acheter une cuve cylindrique pour stocker le lait de ses chèvres.<br>`
     this.enonce += `${majIlElle} a le choix entre 2 modèles :`
     this.enonce += listeCuves
-    this.enonce += 'Formule du volume du cylindre : $V = \\pi \\times  r^2 \\times h$ <br>'
+    this.enonce +=
+      'Formule du volume du cylindre : $V = \\pi \\times  r^2 \\times h$ <br>'
     this.enonce += 'Conversion : 1 dm$^3$ = 1 L <br><br>'
     this.enonce += `${majIlElle} choisit la cuve ayant la plus grande contenance. Laquelle va-t-${ilElle} acheter ? <br>`
     this.correction = `${texteGras('PARTIE 1 : La production de lait')}`
     this.correction += listeCorrections
     this.correction += `${texteGras('PARTIE 2 : Le stockage du lait')} <br>`
-    this.correction += `${'Volume de la cuve B :'} $V_{\\text{B}} = \\pi \\times  ${texNombre(diametreB / 20, 1)}^2 \\times ${texNombre(hauteurB / 10, 1)} = ${texNombre(diametreB * diametreB * hauteurB / 4000, 3)} \\pi \\approx ${texNombre(volumeB, 1)}$ dm$^3$, `
+    this.correction += `${'Volume de la cuve B :'} $V_{\\text{B}} = \\pi \\times  ${texNombre(diametreB / 20, 1)}^2 \\times ${texNombre(hauteurB / 10, 1)} = ${texNombre((diametreB * diametreB * hauteurB) / 4000, 3)} \\pi \\approx ${texNombre(volumeB, 1)}$ dm$^3$, `
     this.correction += `et $${texNombre(volumeB, 1)}$ litres ${volumeB > contenanceA ? '>' : '<'} $${contenanceA}$  litres.<br>`
     this.correction += `${majIlElle} va donc acheter une cuve ${volumeB > contenanceA ? 'B' : 'A'}.<br>`
   }
@@ -129,13 +173,13 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
   }
 
   versionAleatoire: () => void = () => {
-    let productionLait : number
-    let densiteChevre : number
-    let grandeLongueur : number
-    let petiteLongueur : number
-    let contenanceA : number
-    let diametreB : number
-    let hauteurB : number
+    let productionLait: number
+    let densiteChevre: number
+    let grandeLongueur: number
+    let petiteLongueur: number
+    let contenanceA: number
+    let diametreB: number
+    let hauteurB: number
     let volumeB: number
     let productionLaitTotale: number
     do {
@@ -144,12 +188,20 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
       densiteChevre = randint(8, 16) // réalité on pourrait monter plus haut
       grandeLongueur = randint(55, 75)
       // diminuer la taille de la petite longueur pour que ça ne fasse pas une trop grande supperficie
-      petiteLongueur = randint(petiteLongueurMin, 40 - Math.floor(petiteLongueurMin * grandeLongueur / 75)) * 10
+      petiteLongueur =
+        randint(
+          petiteLongueurMin,
+          40 - Math.floor((petiteLongueurMin * grandeLongueur) / 75),
+        ) * 10
       grandeLongueur *= 10
-      const aireTotale = grandeLongueur * petiteLongueur + petiteLongueur * petiteLongueur
-      const nombreChevre = Math.floor(aireTotale / 10000 * densiteChevre)
+      const aireTotale =
+        grandeLongueur * petiteLongueur + petiteLongueur * petiteLongueur
+      const nombreChevre = Math.floor((aireTotale / 10000) * densiteChevre)
       productionLaitTotale = nombreChevre * productionLait
-      contenanceA = premierMultipleInferieur(5, productionLaitTotale * randint(13, 22) / 10) // en litres /dm^3
+      contenanceA = premierMultipleInferieur(
+        5,
+        (productionLaitTotale * randint(13, 22)) / 10,
+      ) // en litres /dm^3
       volumeB = (contenanceA + choice([-1, 1]) * randint(30, 100)) * 1000 // en cm^3
       diametreB = randint(7, 15) * 10 // en cm
       hauteurB = volumeB / (Math.PI * (diametreB / 2) ** 2)
@@ -161,6 +213,16 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
     } while (volumeB < productionLaitTotale * 1000 || hauteurB < diametreB) // volumeB < productionLaitTotale * 1000
     const { prenom: prenom1, pronom: ilElle } = prenomPronom()
 
-    this.appliquerLesValeurs(productionLait, densiteChevre, grandeLongueur, petiteLongueur, contenanceA, diametreB, hauteurB, prenom1, ilElle)
+    this.appliquerLesValeurs(
+      productionLait,
+      densiteChevre,
+      grandeLongueur,
+      petiteLongueur,
+      contenanceA,
+      diametreB,
+      hauteurB,
+      prenom1,
+      ilElle,
+    )
   }
 }

@@ -7,28 +7,35 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
 import { arrondi } from '../../lib/outils/nombres'
 
-export const titre = 'Simulation d\'expériences aléatoires'
+export const titre = "Simulation d'expériences aléatoires"
 
 export const refs = {
   'fr-fr': ['P009'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = '691a7'
 
 /**
  * Reconnaitre une fonction affine
-* @author Erwan Duplessy
-* 6C30-1
-* D'après le document "Attendus en fin de 3eme"
-* On donne les fréquences d\'apparition de chaque face d\'un dé pour 10000 lancers.
-* L\'élève interprète les résultats en les comparant aux probabilités théoriques.
-*/
+ * @author Erwan Duplessy
+ * 6C30-1
+ * D'après le document "Attendus en fin de 3eme"
+ * On donne les fréquences d\'apparition de chaque face d\'un dé pour 10000 lancers.
+ * L\'élève interprète les résultats en les comparant aux probabilités théoriques.
+ */
 
 export default class SimulateurAleatoire extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type d\'expérience', 2, '1 : Tirage de dés\n 2 : Tirage dans une urne']
-    this.besoinFormulaire2Texte = ['Nombre de tirages', `Taper un nombre entier : ${10000} par exemple`]
+    this.besoinFormulaireNumerique = [
+      "Type d'expérience",
+      2,
+      '1 : Tirage de dés\n 2 : Tirage dans une urne',
+    ]
+    this.besoinFormulaire2Texte = [
+      'Nombre de tirages',
+      `Taper un nombre entier : ${10000} par exemple`,
+    ]
     this.besoinFormulaire3CaseACocher = ['Équiprobabilité', true]
 
     this.nbQuestions = 1 // Ici le nombre de questions
@@ -42,10 +49,10 @@ export default class SimulateurAleatoire extends Exercice {
 
     //  this.consigne = '<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>'
 
-  // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
+    // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
@@ -53,19 +60,28 @@ export default class SimulateurAleatoire extends Exercice {
     let texteCorr = ''
     let nbFaces = 2 * randint(1, 5) + 2 // nombre de faces du dé : 4, 6, 8, 10 ou 12
     const nbLancers = parseInt(this.sup2) // nombre de lancers
-    const tabEff = []// tableau d'effectifs temporaires - une dimension [eff]
+    const tabEff = [] // tableau d'effectifs temporaires - une dimension [eff]
     let S = 0 // effectif total
     const tabRes = [] // tableau des fréqeunces observées - deux dimensions [val, freq]
 
     const tabcoul = ['rouges', 'vertes', 'bleues', 'noires']
-    const tabNbBoules = [randint(2, 5), randint(2, 5), randint(2, 5), randint(2, 5)]
-    let nbBoules = 0; let f; let choix
+    const tabNbBoules = [
+      randint(2, 5),
+      randint(2, 5),
+      randint(2, 5),
+      randint(2, 5),
+    ]
+    let nbBoules = 0
+    let f
+    let choix
     let face
     for (let i = 0; i < 4; i++) {
       nbBoules += tabNbBoules[i]
     }
 
-    switch (parseInt(this.sup)) { //
+    switch (
+      parseInt(this.sup) //
+    ) {
       case 1: // Tirages de dés
         f = fraction(1, nbFaces)
         texteCorr = `Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${texNombre(f.pourcentage, 2)}\\%$.<br>`
@@ -92,13 +108,14 @@ export default class SimulateurAleatoire extends Exercice {
           for (let i = 0; i < nbLancers; i++) {
             tabEff[randint(1, nbFaces) - 1]++
           }
-          S = tabEff[face - 1] * 3 / 4
+          S = (tabEff[face - 1] * 3) / 4
           tabEff[randint(1, nbFaces, face) - 1] += S
           tabEff[face - 1] -= S
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, arrondi(tabEff[i] / nbLancers)]
           }
-          texteCorr += 'Ici, l\'expérience montre qu\'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>'
+          texteCorr +=
+            "Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>"
           texteCorr += `En effet, la fréquence de la face $${face}$ est largement inférieure à $${texNombre(f.pourcentage, 2)}\\%$.`
         }
 
@@ -106,10 +123,12 @@ export default class SimulateurAleatoire extends Exercice {
 
       case 2: // Tirage dans une urne
         face = randint(1, 4)
-        texte += 'Des boules de différentes couleurs sont placées dans une urne.<br>'
+        texte +=
+          'Des boules de différentes couleurs sont placées dans une urne.<br>'
         texte += `Il y a $${tabNbBoules[0]}$ ${tabcoul[0]}, $${tabNbBoules[1]}$ ${tabcoul[1]}, $${tabNbBoules[2]}$ ${tabcoul[2]} et $${tabNbBoules[3]}$ ${tabcoul[3]}.<br>`
         texte += `On effectue $${texNombre(nbLancers)}$ tirages avec remise.<br>`
-        texte += 'On étudie les fréquences d\'apparition de chaque couleur.<br>On obtient les résultats suivants : <br>'
+        texte +=
+          "On étudie les fréquences d'apparition de chaque couleur.<br>On obtient les résultats suivants : <br>"
         f = fraction(tabNbBoules[face - 1], nbBoules)
         if (this.sup3) {
           nbFaces = 4
@@ -122,7 +141,10 @@ export default class SimulateurAleatoire extends Exercice {
               tabEff[0]++
             } else if (choix <= tabNbBoules[0] + tabNbBoules[1]) {
               tabEff[1]++
-            } else if (choix <= tabNbBoules[0] + tabNbBoules[1] + tabNbBoules[2]) {
+            } else if (
+              choix <=
+              tabNbBoules[0] + tabNbBoules[1] + tabNbBoules[2]
+            ) {
               tabEff[2]++
             } else {
               tabEff[3]++
@@ -142,19 +164,23 @@ export default class SimulateurAleatoire extends Exercice {
               tabEff[0]++
             } else if (choix < tabNbBoules[0] + tabNbBoules[1]) {
               tabEff[1]++
-            } else if (choix < tabNbBoules[0] + tabNbBoules[1] + tabNbBoules[2]) {
+            } else if (
+              choix <
+              tabNbBoules[0] + tabNbBoules[1] + tabNbBoules[2]
+            ) {
               tabEff[2]++
             } else {
               tabEff[3]++
             }
           }
-          S = tabEff[face - 1] * 3 / 4
+          S = (tabEff[face - 1] * 3) / 4
           tabEff[randint(1, 4, face) - 1] += S
           tabEff[face - 1] -= S
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, arrondi(tabEff[i] / nbLancers)]
           }
-          texteCorr += 'Ici, l\'expérience montre qu\'il y a quelque chose qui semble fausser cette équiprobabilité comme des boules discernables au toucher.<br>'
+          texteCorr +=
+            "Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme des boules discernables au toucher.<br>"
           texteCorr += `En effet, la fréquence des boules ${tabcoul[face - 1]} est largement inférieure à $${f.texFraction}\\approx ${texNombre(f.pourcentage, 2)}\\%$.`
         }
         break
@@ -168,7 +194,7 @@ export default class SimulateurAleatoire extends Exercice {
           texte += ` & \\textbf{\\text{${i + 1}}}`
         }
         texte += '\\\\\\hline\n'
-        texte += '\\text{Fréquence d\'apparition}'
+        texte += "\\text{Fréquence d'apparition}"
         for (let i = 0; i < nbFaces; i++) {
           texte += ` & ${texNombre(100 * tabRes[i][1], 1)} \\% `
         }
@@ -189,15 +215,33 @@ export default class SimulateurAleatoire extends Exercice {
             xMax: 10,
             yMin: 0,
             axeXStyle: '',
-            yLegende: 'fréquences en %'
+            yLegende: 'fréquences en %',
           })
 
           const lstElementGraph = []
           for (let i = 0; i < nbFaces; i++) {
-          //  lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, i + 1), { unite: 1 / coef })
-            lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, String(i + 1), {}))
+            //  lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, i + 1), { unite: 1 / coef })
+            lstElementGraph.push(
+              traceBarre(
+                ((r.xMax - r.xMin) / nbFaces) * (i + 0.5),
+                tabRes[i][1] * 10,
+                String(i + 1),
+                {},
+              ),
+            )
           }
-          texte += mathalea2d({ xmin: -1, xmax: 11, ymin: -4, ymax: 5.5, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
+          texte += mathalea2d(
+            {
+              xmin: -1,
+              xmax: 11,
+              ymin: -4,
+              ymax: 5.5,
+              pixelsParCm: 30,
+              scale: 1,
+            },
+            r,
+            lstElementGraph,
+          )
         }
         break
       case 2:
@@ -208,7 +252,7 @@ export default class SimulateurAleatoire extends Exercice {
           texte += ` & \\textbf{\\text{${tabcoul[i].substring(0, tabcoul[i].length - 1)}}}`
         }
         texte += '\\\\\\hline\n'
-        texte += '\\text{Fréquence d\'apparition}'
+        texte += "\\text{Fréquence d'apparition}"
         for (let i = 0; i < nbFaces; i++) {
           texte += ` & ${texNombre(100 * tabRes[i][1], 1)} \\%`
         }
@@ -229,15 +273,33 @@ export default class SimulateurAleatoire extends Exercice {
             xMax: 10,
             yMin: 0,
             axeXStyle: '',
-            yLegende: 'fréquences en %'
+            yLegende: 'fréquences en %',
           })
 
           const lstElementGraph = []
           for (let i = 0; i < nbFaces; i++) {
             // lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, tabcoul[i]), { unite: 1 / coef })
-            lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, tabcoul[i], {}))
+            lstElementGraph.push(
+              traceBarre(
+                ((r.xMax - r.xMin) / nbFaces) * (i + 0.5),
+                tabRes[i][1] * 10,
+                tabcoul[i],
+                {},
+              ),
+            )
           }
-          texte += mathalea2d({ xmin: -1, xmax: 12, ymin: -4, ymax: 7, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
+          texte += mathalea2d(
+            {
+              xmin: -1,
+              xmax: 12,
+              ymin: -4,
+              ymax: 7,
+              pixelsParCm: 30,
+              scale: 1,
+            },
+            r,
+            lstElementGraph,
+          )
         }
         break
     }

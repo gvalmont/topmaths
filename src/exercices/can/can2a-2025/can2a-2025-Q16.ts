@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 export const uuid = 'c5503'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class AdditionFractionVF extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -27,12 +27,26 @@ export default class AdditionFractionVF extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
-    const listeFractionsOUI = [[1, 3, 1, 6, 3, 6], [1, 2, 1, 4, 3, 4], [2, 5, 1, 10, 5, 10], [1, 4, 3, 2, 7, 4], [3, 5, 1, 10, 7, 10]]
+  nouvelleVersion() {
+    const listeFractionsOUI = [
+      [1, 3, 1, 6, 3, 6],
+      [1, 2, 1, 4, 3, 4],
+      [2, 5, 1, 10, 5, 10],
+      [1, 4, 3, 2, 7, 4],
+      [3, 5, 1, 10, 7, 10],
+    ]
     const fracOUI = choice(listeFractionsOUI)
-    const listeFractionsNON = [[1, 3, 4, 5, 5, 8], [1, 2, 1, 5, 2, 7], [2, 3, 4, 10, 6, 13], [3, 7, 1, 2, 4, 9], [7, 3, 1, 4, 8, 7]]
+    const listeFractionsNON = [
+      [1, 3, 4, 5, 5, 8],
+      [1, 2, 1, 5, 2, 7],
+      [2, 3, 4, 10, 6, 13],
+      [3, 7, 1, 2, 4, 9],
+      [7, 3, 1, 4, 8, 7],
+    ]
     const fracNON = choice(listeFractionsNON)
-    const choix = this.canOfficielle ? [1, 2, 1, 3, 2, 5] : choice([fracOUI, fracNON])
+    const choix = this.canOfficielle
+      ? [1, 2, 1, 3, 2, 5]
+      : choice([fracOUI, fracNON])
 
     const a = `\\dfrac{${choix[0]}}{${choix[1]}}`
     const b = `\\dfrac{${choix[2]}}{${choix[3]}}`
@@ -53,14 +67,13 @@ export default class AdditionFractionVF extends ExerciceSimple {
       propositions: [
         {
           texte: 'Vrai',
-          statut: choix === fracOUI
+          statut: choix === fracOUI,
         },
         {
           texte: 'Faux',
-          statut: this.canOfficielle || choix === fracNON
-        }
-      ]
-
+          statut: this.canOfficielle || choix === fracNON,
+        },
+      ],
     }
     const qcm = propositionsQcm(this, 0)
     if (!this.interactif) {

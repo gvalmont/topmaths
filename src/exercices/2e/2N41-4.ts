@@ -1,5 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import {
+  texFractionFromString,
+  texFractionReduite,
+} from '../../lib/outils/deprecatedFractions'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -19,13 +22,17 @@ export const uuid = '877a9'
 
 export const refs = {
   'fr-fr': ['2N41-4'],
-  'fr-ch': ['11FA2-10']
+  'fr-ch': ['11FA2-10'],
 }
 export default class DevelopperIdentitesRemarquables3 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      5,
+      '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents',
+    ]
 
     this.nbQuestions = 3
     this.sup = 5
@@ -37,10 +44,11 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
     }
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1
-      ? 'Développer puis réduire l\'expression suivante.'
-      : 'Développer puis réduire les expressions suivantes.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? "Développer puis réduire l'expression suivante."
+        : 'Développer puis réduire les expressions suivantes.'
 
     const listeFractions = [
       [1, 2],
@@ -73,7 +81,7 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
       [1, 10],
       [3, 10],
       [7, 10],
-      [9, 10]
+      [9, 10],
     ]
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
@@ -88,8 +96,25 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     } // mélange des questions
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0, a, b, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        reponse,
+        cpt = 0,
+        a,
+        b,
+        fraction = [],
+        ns,
+        ds,
+        typesDeQuestions;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 12)
       b = randint(2, 12)
@@ -126,11 +151,11 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 + 2 \\times \\color{red}(${b}x)\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${2 * (-b) * a}x+${a * a}$`
+            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${2 * -b * a}x+${a * a}$`
           } else {
-            texteCorr = texte + `$= ${b * b}x^2 -${2 * (-b) * a}x+${a * a}$`
+            texteCorr = texte + `$= ${b * b}x^2 -${2 * -b * a}x+${a * a}$`
           }
-          reponse = `${b * b}x^2-${2 * (-b) * a}x+${a * a}`
+          reponse = `${b * b}x^2-${2 * -b * a}x+${a * a}`
           break
         case 4:
         default:
@@ -139,17 +164,22 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${texFractionFromString(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}\\right)^2 + 2 \\times \\color{red}${texFractionFromString(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
             texteCorr += `$\\phantom{\\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionFromString(ns * ns, ds * ds)}x^2+${texFractionFromString(2 * ns * a, ds)}x+${a * a}$`
-            if ((pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1)) {
+            if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
               texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
             }
           } else {
             // texteCorr = texte + `$= ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
-            texteCorr = texte + `$= ${texFractionFromString(ns * ns, ds * ds)}x^2+${texFractionFromString(2 * ns * a, ds)}x+${a * a}$`
-            if ((pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1)) {
+            texteCorr =
+              texte +
+              `$= ${texFractionFromString(ns * ns, ds * ds)}x^2+${texFractionFromString(2 * ns * a, ds)}x+${a * a}$`
+            if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
               texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
             }
           }
-          reponse = [`${texFractionFromString(ns * ns, ds * ds)}x^2+${texFractionFromString(2 * ns * a, ds)}x+${a * a}`, `${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}`]
+          reponse = [
+            `${texFractionFromString(ns * ns, ds * ds)}x^2+${texFractionFromString(2 * ns * a, ds)}x+${a * a}`,
+            `${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}`,
+          ]
           break
       }
       texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$ ' })

@@ -4,7 +4,7 @@ export const uuid = 'prioritesOperatoires'
 export const titre = 'Priorités opératoires'
 
 class prioritesOperatoires extends ExternalApp {
-  constructor () {
+  constructor() {
     super('https://www.mathix.org/priorite_calcul/?suivi=1&mathalea=1')
   }
 }

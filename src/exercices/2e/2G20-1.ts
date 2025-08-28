@@ -1,6 +1,10 @@
 import Exercice from '../Exercice'
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { point } from '../../lib/2d/points'
 import { grille } from '../../lib/2d/reperes'
@@ -16,7 +20,7 @@ export const dateDePublication = '31/03/2025'
 export const uuid = '57d64'
 export const refs = {
   'fr-fr': ['2G20-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -26,47 +30,60 @@ export const refs = {
  */
 
 export default class ReconnaitreVecteurs extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.sup = 4
     this.nbQuestions = 1
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Vecteurs égaux',
         '2 : Vecteurs opposés',
         '3 : Vecteurs colinéaires',
-        '4 : Mélange'
-      ].join('\n')
+        '4 : Mélange',
+      ].join('\n'),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
       melange: 4,
       defaut: 4,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, monQcm, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, monQcm, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let k1 = randint(-5, 5)
       let k2
-      if (k1 === 0) { k2 = randint(-5, 5, 0) } else { k2 = randint(-5, 5) } // pas de vecteur nul
+      if (k1 === 0) {
+        k2 = randint(-5, 5, 0)
+      } else {
+        k2 = randint(-5, 5)
+      } // pas de vecteur nul
       const A = point(0, 0) // pt origine vecteur de base
       const B = point(A.x + k1, A.y + k2) // pt extrémité vecteur de base
 
       let xC = 0
       let yC = 0
       let d = Math.abs(k2 * xC - k1 * yC) / Math.sqrt(k1 ** 2 + k2 ** 2)
-      while (d < 2 || d > 3) { // vecteurs colinaires : distance des directions entre 2 et 3
+      while (d < 2 || d > 3) {
+        // vecteurs colinaires : distance des directions entre 2 et 3
         xC = randint(-3, 3)
         yC = randint(-3, 3)
         d = Math.abs(k2 * xC - k1 * yC) / Math.sqrt(k1 ** 2 + k2 ** 2)
@@ -81,7 +98,11 @@ export default class ReconnaitreVecteurs extends Exercice {
 
       const k4 = choice([-k1, k1])
       let k5
-      if (k4 === k1) { k5 = -k2 } else { k5 = k2 }
+      if (k4 === k1) {
+        k5 = -k2
+      } else {
+        k5 = k2
+      }
       const G = point(xC + k4, yC + k5) // pt extrémité vecteur quelconque avec norme égale et "même sens"
 
       const k6 = choice([-0.5, -0.75, -1.25, -1.5])
@@ -96,7 +117,8 @@ export default class ReconnaitreVecteurs extends Exercice {
 
       const ptsExt = [D, E, F, H, G, K, G, K] // liste des pts d'extrémité
       let choixPtExt = choice(ptsExt) // choix du pt d'extrémité
-      while ((choixPtExt === G || choixPtExt === K) && (k1 === 0 || k2 === 0)) { // pas de vecteur horizontal ou vertical dans ces cas sinon direction + sens changé
+      while ((choixPtExt === G || choixPtExt === K) && (k1 === 0 || k2 === 0)) {
+        // pas de vecteur horizontal ou vertical dans ces cas sinon direction + sens changé
         choixPtExt = choice(ptsExt)
         k1 = 0
         k2 = 0
@@ -115,27 +137,43 @@ export default class ReconnaitreVecteurs extends Exercice {
       const Grille = grille(xmin, ymin, xmax, ymax)
 
       switch (listeTypeDeQuestions[i]) {
-        case 1: { // Vecteurs égaux
-          texte = mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 }, AB, nomvAB, CptExt, nomvCptExt, Grille)
+        case 1: {
+          // Vecteurs égaux
+          texte = mathalea2d(
+            {
+              xmin,
+              xmax,
+              ymin,
+              ymax,
+              style: 'margin: auto',
+              pixelsParCm: 30,
+              scale: 0.75,
+            },
+            AB,
+            nomvAB,
+            CptExt,
+            nomvCptExt,
+            Grille,
+          )
           texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils égaux ?'
-          texteCorr = 'Deux vecteurs sont égaux s\'ils ont :'
+          texteCorr = "Deux vecteurs sont égaux s'ils ont :"
           texteCorr += '<br>- la même direction,'
           texteCorr += '<br>- le même sens,'
           texteCorr += '<br>- la même norme.'
 
           let rep1, rep2, rep3, rep4
           if (choixPtExt === D) {
-            [rep1, rep2, rep3, rep4] = [true, false, false, false]
+            ;[rep1, rep2, rep3, rep4] = [true, false, false, false]
           } else if (choixPtExt === G) {
-            [rep1, rep2, rep3, rep4] = [false, true, false, false]
+            ;[rep1, rep2, rep3, rep4] = [false, true, false, false]
           } else if (choixPtExt === E) {
-            [rep1, rep2, rep3, rep4] = [false, false, true, false]
+            ;[rep1, rep2, rep3, rep4] = [false, false, true, false]
           } else if (choixPtExt === F) {
-            [rep1, rep2, rep3, rep4] = [false, false, false, true]
+            ;[rep1, rep2, rep3, rep4] = [false, false, false, true]
           } else if (choixPtExt === H) {
-            [rep1, rep2, rep3, rep4] = [false, false, true, true]
+            ;[rep1, rep2, rep3, rep4] = [false, false, true, true]
           } else if (choixPtExt === K) {
-            [rep1, rep2, rep3, rep4] = [false, true, false, true]
+            ;[rep1, rep2, rep3, rep4] = [false, true, false, true]
           }
 
           this.autoCorrection[i] = {
@@ -144,48 +182,65 @@ export default class ReconnaitreVecteurs extends Exercice {
             propositions: [
               {
                 texte: 'Oui.',
-                statut: rep1
+                statut: rep1,
               },
               {
-                texte: 'Non, les deux vecteurs n\'ont pas la même direction.',
-                statut: rep2
+                texte: "Non, les deux vecteurs n'ont pas la même direction.",
+                statut: rep2,
               },
               {
-                texte: 'Non, les deux vecteurs n\'ont pas le même sens.',
-                statut: rep3
+                texte: "Non, les deux vecteurs n'ont pas le même sens.",
+                statut: rep3,
               },
               {
-                texte: 'Non, les deux vecteurs n\'ont pas la même norme.',
-                statut: rep4
-              }
-            ]
+                texte: "Non, les deux vecteurs n'ont pas la même norme.",
+                statut: rep4,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
           break
         }
 
-        case 2: { // Vecteurs opposés
-          texte = mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 }, AB, nomvAB, CptExt, nomvCptExt, Grille)
-          texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils opposés ?'
-          texteCorr = 'Deux vecteurs sont opposés s\'ils ont :'
+        case 2: {
+          // Vecteurs opposés
+          texte = mathalea2d(
+            {
+              xmin,
+              xmax,
+              ymin,
+              ymax,
+              style: 'margin: auto',
+              pixelsParCm: 30,
+              scale: 0.75,
+            },
+            AB,
+            nomvAB,
+            CptExt,
+            nomvCptExt,
+            Grille,
+          )
+          texte +=
+            '<br>Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils opposés ?'
+          texteCorr = "Deux vecteurs sont opposés s'ils ont :"
           texteCorr += '<br>- la même direction,'
           texteCorr += '<br>- des sens opposés,'
           texteCorr += '<br>- la même norme.'
 
           let rep1, rep2, rep3, rep4
           if (choixPtExt === E) {
-            [rep1, rep2, rep3, rep4] = [true, false, false, false]
+            ;[rep1, rep2, rep3, rep4] = [true, false, false, false]
           } else if (choixPtExt === G) {
-            [rep1, rep2, rep3, rep4] = [false, true, false, false]
+            ;[rep1, rep2, rep3, rep4] = [false, true, false, false]
           } else if (choixPtExt === D) {
-            [rep1, rep2, rep3, rep4] = [false, false, true, false]
+            ;[rep1, rep2, rep3, rep4] = [false, false, true, false]
           } else if (choixPtExt === F) {
-            [rep1, rep2, rep3, rep4] = [false, false, true, true]
+            ;[rep1, rep2, rep3, rep4] = [false, false, true, true]
           } else if (choixPtExt === H) {
-            [rep1, rep2, rep3, rep4] = [false, false, false, true]
+            ;[rep1, rep2, rep3, rep4] = [false, false, false, true]
           } else if (choixPtExt === K) {
-            [rep1, rep2, rep3, rep4] = [false, true, false, true]
+            ;[rep1, rep2, rep3, rep4] = [false, true, false, true]
           }
 
           this.autoCorrection[i] = {
@@ -194,21 +249,21 @@ export default class ReconnaitreVecteurs extends Exercice {
             propositions: [
               {
                 texte: 'Oui.',
-                statut: rep1
+                statut: rep1,
               },
               {
-                texte: 'Non, les deux vecteurs n\'ont pas la même direction.',
-                statut: rep2
+                texte: "Non, les deux vecteurs n'ont pas la même direction.",
+                statut: rep2,
               },
               {
-                texte: 'Non, les deux vecteurs n\'ont pas des sens opposés.',
-                statut: rep3
+                texte: "Non, les deux vecteurs n'ont pas des sens opposés.",
+                statut: rep3,
               },
               {
-                texte: 'Non, les deux vecteurs n\'ont pas la même norme.',
-                statut: rep4
-              }
-            ]
+                texte: "Non, les deux vecteurs n'ont pas la même norme.",
+                statut: rep4,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
@@ -216,16 +271,39 @@ export default class ReconnaitreVecteurs extends Exercice {
         }
 
         case 3:
-        default: { // Vecteurs colinéaires
-          texte = mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 }, AB, nomvAB, CptExt, nomvCptExt, Grille)
-          texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils colinéaires ?'
-          texteCorr = 'Deux vecteurs sont colinéaires s\'ils ont la même direction.'
+        default: {
+          // Vecteurs colinéaires
+          texte = mathalea2d(
+            {
+              xmin,
+              xmax,
+              ymin,
+              ymax,
+              style: 'margin: auto',
+              pixelsParCm: 30,
+              scale: 0.75,
+            },
+            AB,
+            nomvAB,
+            CptExt,
+            nomvCptExt,
+            Grille,
+          )
+          texte +=
+            '<br>Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils colinéaires ?'
+          texteCorr =
+            "Deux vecteurs sont colinéaires s'ils ont la même direction."
 
           let rep1, rep2
-          if (choixPtExt === D || choixPtExt === E || choixPtExt === F || choixPtExt === H) {
-            [rep1, rep2] = [true, false]
+          if (
+            choixPtExt === D ||
+            choixPtExt === E ||
+            choixPtExt === F ||
+            choixPtExt === H
+          ) {
+            ;[rep1, rep2] = [true, false]
           } else if (choixPtExt === G || choixPtExt === K) {
-            [rep1, rep2] = [false, true]
+            ;[rep1, rep2] = [false, true]
           }
 
           this.autoCorrection[i] = {
@@ -234,13 +312,13 @@ export default class ReconnaitreVecteurs extends Exercice {
             propositions: [
               {
                 texte: 'Oui.',
-                statut: rep1
+                statut: rep1,
               },
               {
                 texte: 'Non.',
-                statut: rep2
-              }
-            ]
+                statut: rep2,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
@@ -248,7 +326,8 @@ export default class ReconnaitreVecteurs extends Exercice {
         }
       }
 
-      if (this.questionJamaisPosee(i, k1)) { // Si la question n'a jamais été posée, on en créé une autre.
+      if (this.questionJamaisPosee(i, k1)) {
+        // Si la question n'a jamais été posée, on en créé une autre.
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++ // On passe à la question suivante

@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f3a3e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N6Q2 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     if (a == null || b == null || c == null) {
       a = randint(2, 9) * choice([1, 10])
       b = choice([10, 100])
@@ -37,7 +37,7 @@ export default class Can2025N6Q2 extends ExerciceCan {
     this.canReponseACompleter = `$\\ldots$ ${premierMot}`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(5, 10, 100) : this.enonce()
   }
 }

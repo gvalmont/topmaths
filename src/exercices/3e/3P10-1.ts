@@ -1,13 +1,21 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 
-export const titre = 'Lier un coefficient multiplicateur d\'une variation à un pourcentage et réciproquement'
+export const titre =
+  "Lier un coefficient multiplicateur d'une variation à un pourcentage et réciproquement"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -19,13 +27,17 @@ export const uuid = '4ce2d'
 
 export const refs = {
   'fr-fr': ['3P10-1', 'BP2CCF12'],
-  'fr-ch': ['10FA4-6']
+  'fr-ch': ['10FA4-6'],
 }
 export default class CoefficientEvolution extends Exercice {
   version = 1
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange',
+    ]
 
     this.consigne = 'Compléter.'
     this.nbQuestions = 4
@@ -35,21 +47,34 @@ export default class CoefficientEvolution extends Exercice {
   }
 
   // }
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles = []
     this.sup = contraindreValeur(1, 3, this.sup, 1)
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['coef+', 'coef-']
-      this.introduction = this.interactif ? '<em>Il faut saisir un nombre décimal.</em>' : ''
+      this.introduction = this.interactif
+        ? '<em>Il faut saisir un nombre décimal.</em>'
+        : ''
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = ['taux+', 'taux-']
-      this.introduction = this.interactif ? '<em>Il faut saisir une réponse de la forme +10% ou -10%.</em>' : ''
+      this.introduction = this.interactif
+        ? '<em>Il faut saisir une réponse de la forme +10% ou -10%.</em>'
+        : ''
     } else {
       typesDeQuestionsDisponibles = ['coef+', 'coef-', 'taux+', 'taux-']
-      this.introduction = this.interactif ? '<em>Il faut saisir un nombre décimal ou une réponse de la forme +10% ou -10%.</em>' : ''
+      this.introduction = this.interactif
+        ? '<em>Il faut saisir un nombre décimal ou une réponse de la forme +10% ou -10%.</em>'
+        : ''
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, reponse, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 100;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0, texte, texteCorr, reponse, taux, coeff, cpt = 0;
+      i < this.nbQuestions && cpt < 100;
+
+    ) {
       if (['taux-', 'coef-'].includes(listeTypeDeQuestions[i])) {
         taux = choice([randint(1, 9) * 10, randint(1, 29, [10, 20])])
       } else {
@@ -84,7 +109,9 @@ export default class CoefficientEvolution extends Exercice {
           break
         case 'taux+':
           coeff = texNombre(1 + taux / 100, 2)
-          texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire ` : `Multiplier par $${coeff}$ revient à `
+          texte = this.interactif
+            ? `Multiplier par $${coeff}$ revient à faire `
+            : `Multiplier par $${coeff}$ revient à `
 
           texteCorr = `Multiplier par $${coeff}$ revient à ${texteEnCouleurEtGras('augmenter de ', 'blue')} $${miseEnEvidence(`${taux}~\\%`, 'blue')}$  car $${coeff} = ${100 + taux}~\\% = 100~\\% ${miseEnEvidence(`+ ${taux}~\\%`)}$.`
           if (this.version === 2) {
@@ -100,7 +127,9 @@ export default class CoefficientEvolution extends Exercice {
         case 'taux-':
         default:
           coeff = texNombre(1 - taux / 100, 2)
-          texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire ` : `Multiplier par $${coeff}$ revient à `
+          texte = this.interactif
+            ? `Multiplier par $${coeff}$ revient à faire `
+            : `Multiplier par $${coeff}$ revient à `
           texteCorr = `Multiplier par $${coeff}$ revient à ${texteEnCouleurEtGras('diminuer de ', 'blue')} $${miseEnEvidence(`${taux}~\\%`, 'blue')}$ car $${coeff} = ${100 - taux}~\\% = 100~\\% ${miseEnEvidence(`- ${taux}~\\%`)}$.`
           if (this.version === 2) {
             texteCorr = `On cherche le taux d'évolution $T$  connaissant le coefficient multiplicateur $CM=${coeff}$.<br>
@@ -113,7 +142,8 @@ export default class CoefficientEvolution extends Exercice {
           break
       }
       texte += this.interactif ? ajouteChampTexteMathLive(this, i) : '...'
-      if (this.questionJamaisPosee(i, taux)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, taux)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

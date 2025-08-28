@@ -1,9 +1,19 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../lib/outils/embellissements'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
+import {
+  fraction,
+  obtenirListeFractionsIrreductiblesFaciles,
+} from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
@@ -15,18 +25,22 @@ export const dateDePublication = '06/02/2021'
 
 /**
  * Résoudre des équations (ax+b)(cx+d)=0
-* @author Stéphane Guyon & Jean-claude Lhote
-*/
+ * @author Stéphane Guyon & Jean-claude Lhote
+ */
 export const uuid = '53762'
 
 export const refs = {
   'fr-fr': ['2N52-1', 'BP2RES31'],
-  'fr-ch': ['11FA10-2']
+  'fr-ch': ['11FA10-2'],
 }
 export default class EquationsProduitsNuls2 extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=0 b et d rationnels\n4 : Mélange des cas précédents']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      5,
+      '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=0 b et d rationnels\n4 : Mélange des cas précédents',
+    ]
 
     this.nbQuestions = 3
     this.sup = 1
@@ -36,8 +50,13 @@ export default class EquationsProduitsNuls2 extends Exercice {
     this.correctionDetaillee = true
   }
 
-  nouvelleVersion () {
-    this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
+  nouvelleVersion() {
+    this.consigne =
+      'Résoudre dans $\\mathbb R$ ' +
+      (this.nbQuestions !== 1
+        ? 'les équations suivantes'
+        : "l'équation suivante") +
+      '.'
     let typesDeQuestionsDisponibles = []
     if (this.sup < 4) {
       typesDeQuestionsDisponibles = [this.sup]
@@ -45,8 +64,15 @@ export default class EquationsProduitsNuls2 extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3]
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const a = randint(-9, 9, 0)
       const b = randint(-9, 9, 0)
@@ -67,7 +93,8 @@ export default class EquationsProduitsNuls2 extends Exercice {
                     ${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
           texteCorr += texte + '<br>' // optimisation du code
           texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$ ou $${reduireAxPlusB(c, d)}=0$<br>`
-          if (this.correctionDetaillee) { // on ajoute les étapes de résolution si la correction détaillée est cochée.
+          if (this.correctionDetaillee) {
+            // on ajoute les étapes de résolution si la correction détaillée est cochée.
             texteCorr += `$\\iff ${reduireAxPlusB(a, 0)}=${-b}$ ou $ ${reduireAxPlusB(c, 0)}=${-d}$<br>`
           }
           f1 = fraction(-b, a)
@@ -139,8 +166,12 @@ export default class EquationsProduitsNuls2 extends Exercice {
           }
           break
       }
-      texte += sp(4) + ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
-      handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
+      texte +=
+        sp(4) +
+        ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
+      handleAnswers(this, i, {
+        reponse: { value: reponse, options: { ensembleDeNombres: true } },
+      })
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 

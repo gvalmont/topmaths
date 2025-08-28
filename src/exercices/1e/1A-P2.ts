@@ -15,10 +15,10 @@ export const uuid = '78ab0'
 
 export const refs = {
   'fr-fr': ['1A-P2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AP2 extends ProbaEvenementContraire {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

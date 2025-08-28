@@ -26,12 +26,16 @@ export const uuid = '4a128'
 export const refs = {
   'fr-fr': ['5A11-3'],
   'fr-2016': ['6N43'],
-  'fr-ch': ['9NO4-4']
+  'fr-ch': ['9NO4-4'],
 }
 export default class CriteresDeDivisibilite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Critères de divisibilité par 2, 5 et10\n2 : Critères de divisibilité par 3 et 9\n3 : Critères de divisibilité par 2, 3, 5, 9 et 10\n4 : Avec ou sans critère de divisibilité']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      4,
+      '1 : Critères de divisibilité par 2, 5 et10\n2 : Critères de divisibilité par 3 et 9\n3 : Critères de divisibilité par 2, 3, 5, 9 et 10\n4 : Avec ou sans critère de divisibilité',
+    ]
 
     this.sup = 4 // Correspond au facteur commun
     this.consigne = 'Répondre aux questions suivantes en justifiant.'
@@ -40,38 +44,40 @@ export default class CriteresDeDivisibilite extends Exercice {
     this.nbQuestions = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let listeExercicesDisponibles
     if (this.sup === 1) {
       listeExercicesDisponibles = [2, 5, 10]
-    } else
-      if (this.sup === 2) {
-        listeExercicesDisponibles = [3, 9]
-      } else
-        if (this.sup === 3) {
-          listeExercicesDisponibles = [2, 3, 5, 9, 10]
-        } else {
-          listeExercicesDisponibles = [2, 3, 5, 9, 10, 'autre']
-        }
+    } else if (this.sup === 2) {
+      listeExercicesDisponibles = [3, 9]
+    } else if (this.sup === 3) {
+      listeExercicesDisponibles = [2, 3, 5, 9, 10]
+    } else {
+      listeExercicesDisponibles = [2, 3, 5, 9, 10, 'autre']
+    }
     const listeTypeDeQuestions = combinaisonListes(
       listeExercicesDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
-    for (let i = 0, n, u, texte, texteCorr, sommeString, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, n, u, texte, texteCorr, sommeString, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       this.autoCorrection[i] = {}
       this.autoCorrection[i].propositions = [
         {
           texte: 'Oui',
-          statut: false
+          statut: false,
         },
         {
           texte: 'Non',
-          statut: false
+          statut: false,
         },
         {
           texte: 'Je ne sais pas',
-          statut: false
-        }
+          statut: false,
+        },
       ]
       this.autoCorrection[i].options = { ordered: true, radio: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
       switch (listeTypeDeQuestions[i]) {
@@ -81,16 +87,14 @@ export default class CriteresDeDivisibilite extends Exercice {
           texte = `$${texNombre(n)}$ est-il divisible par $2$ ?`
           if (u % 2 === 0) {
             texteCorr = `Le chiffre des unités de $${texNombre(
-              n
+              n,
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $2$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
-              n
-            )}$ est $${u}$ donc $${texNombre(
-              n
-            )}$ n'est pas divisible par $2$.`
+              n,
+            )}$ est $${u}$ donc $${texNombre(n)}$ n'est pas divisible par $2$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
@@ -106,12 +110,13 @@ export default class CriteresDeDivisibilite extends Exercice {
             // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${(sommeString[0] - sommeString[0] % 3) / 3
-              }+${sommeString[0] % 3}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${
+              (sommeString[0] - (sommeString[0] % 3)) / 3
+            }+${sommeString[0] % 3}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(
-              n
+              n,
             )}$ n'est pas divisible par $3$ donc $${texNombre(
-              n
+              n,
             )}$ n'est pas divisible par $3$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
@@ -128,7 +133,7 @@ export default class CriteresDeDivisibilite extends Exercice {
             // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${(sommeString[0] - sommeString[0] % 9) / 9}+${sommeString[0] % 9}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${(sommeString[0] - (sommeString[0] % 9)) / 9}+${sommeString[0] % 9}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(n)}$ n'est pas divisible par $9$ donc $${texNombre(n)}$ n'est pas divisible par $9$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
@@ -141,16 +146,14 @@ export default class CriteresDeDivisibilite extends Exercice {
           texte = `$${texNombre(n)}$ est-il divisible par $5$ ?`
           if (u % 5 === 0) {
             texteCorr = `Le chiffre des unités de $${texNombre(
-              n
+              n,
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $5$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
-              n
-            )}$ est $${u}$ donc $${texNombre(
-              n
-            )}$ n'est pas divisible par $5$.`
+              n,
+            )}$ est $${u}$ donc $${texNombre(n)}$ n'est pas divisible par $5$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
@@ -162,16 +165,14 @@ export default class CriteresDeDivisibilite extends Exercice {
           texte = `$${texNombre(n)}$ est-il divisible par $10$ ?`
           if (u === 0) {
             texteCorr = `Le chiffre des unités de $${texNombre(
-              n
+              n,
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $10$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
-              n
-            )}$ est $${u}$ donc $${texNombre(
-              n
-            )}$ n'est pas divisible par $10$.`
+              n,
+            )}$ est $${u}$ donc $${texNombre(n)}$ n'est pas divisible par $10$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true
           }
@@ -182,36 +183,35 @@ export default class CriteresDeDivisibilite extends Exercice {
           n = randint(100, 999)
           u = choice([7, 7, 7, 7, 13, 17, 19])
           if (u === 7) {
-            n = choice(
-              [randint(10, 99) * 10 + 7,
-                7 * randint(11, 99),
-                randint(100, 999)]
-            ) // un nombre qui se termine par 7, un divisible par 7, un au hasard
+            n = choice([
+              randint(10, 99) * 10 + 7,
+              7 * randint(11, 99),
+              randint(100, 999),
+            ]) // un nombre qui se termine par 7, un divisible par 7, un au hasard
           } else {
-            n = choice(
-              [randint(10, 99) * 100 + u,
-                u * randint(11, 99),
-                randint(100, 999)]
-            ) // un nombre qui se termine par u, un divisible par u, un au hasard
+            n = choice([
+              randint(10, 99) * 100 + u,
+              u * randint(11, 99),
+              randint(100, 999),
+            ]) // un nombre qui se termine par u, un divisible par u, un au hasard
           }
           texte = `$${texNombre(n)}$ est-il divisible par $${u}$ ?`
           texteCorr = `On ne connaît pas de critère de divisibilité par $${u}$, on calcule donc la division euclidienne de $${texNombre(
-            n
+            n,
           )}$ par $${u}$.<br>`
           if (n % u === 0) {
-            texteCorr += `$${texNombre(n)}=${u}\\times${texNombre(
-              n / u
-            )}$<br>`
+            texteCorr += `$${texNombre(n)}=${u}\\times${texNombre(n / u)}$<br>`
             texteCorr += `Le reste de la division euclidienne est nul donc $${texNombre(
-              n
+              n,
             )}$ est divisible par $${u}$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr += `$${texNombre(n)}=${u}\\times${(n - (n % u)) / u}+${n % u
-              }$<br>`
+            texteCorr += `$${texNombre(n)}=${u}\\times${(n - (n % u)) / u}+${
+              n % u
+            }$<br>`
             texteCorr += `Le reste de la division euclidienne n'est pas nul donc $${texNombre(
-              n
+              n,
             )}$ n'est pas divisible par $${u}$.`
             // @ts-expect-error
             this.autoCorrection[i].propositions[1].statut = true

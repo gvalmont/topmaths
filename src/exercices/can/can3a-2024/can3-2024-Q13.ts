@@ -4,7 +4,12 @@ import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { signe } from '../../../lib/outils/nombres'
-import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+  reduirePolynomeDegre3,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Réduire une expression littérale'
@@ -17,7 +22,7 @@ export const uuid = '93937'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +32,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse
     if (this.canOfficielle) {
       reponse = '14x^2-10x+12'
@@ -38,7 +43,7 @@ export default class NomExercice extends ExerciceSimple {
       \\end{aligned}$
      `
     } else {
-      const choix = choice([1, 2])// 1,2
+      const choix = choice([1, 2]) // 1,2
       if (choix === 1) {
         const b = randint(1, 3)
         const c = randint(1, 3)

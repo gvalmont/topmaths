@@ -1,11 +1,18 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre des problèmes (impliquant diverses opérations)'
@@ -25,75 +32,143 @@ export const uuid = '72e9d'
 export const refs = {
   'fr-fr': ['6N5-6'],
   'fr-2016': ['6C12-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class ProblèmesBalance extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'On a réalisé deux pesées comme indiqué sur les schémas.'
     this.nbQuestions = 4
 
     this.sup = 1
     this.sup2 = 1
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Soustraction et division\n2 :Multiplication, soustraction et division\n3 : Mélange']
-    this.besoinFormulaire2Numerique = ['Précision de la masse', 4, '1 : à la dizaine\n2 :à l\'unité\n3 : au dixième\n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Soustraction et division\n2 :Multiplication, soustraction et division\n3 : Mélange',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Précision de la masse',
+      4,
+      "1 : à la dizaine\n2 :à l'unité\n3 : au dixième\n4 : Mélange",
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestions = gestionnaireFormulaireTexte({
       max: 2,
       defaut: 1,
       melange: 3,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
+      saisie: this.sup,
     })
     const precisions = gestionnaireFormulaireTexte({
       max: 3,
       defaut: 1,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup2
+      saisie: this.sup2,
     })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const n = precisions[i] as number
-      const masseEtoile = randint(2, 5) * 10 + randint(1, 9) * (n >= 2 ? 1 : 0) + randint(1, 9) * 0.1 * (n >= 3 ? 1 : 0)
-      const masseBoule = randint(2, 5, [Math.floor(masseEtoile / 10)]) * 10 + randint(1, 9) * (n >= 2 ? 1 : 0) + randint(1, 9) * 0.1 * (n >= 3 ? 1 : 0)
+      const masseEtoile =
+        randint(2, 5) * 10 +
+        randint(1, 9) * (n >= 2 ? 1 : 0) +
+        randint(1, 9) * 0.1 * (n >= 3 ? 1 : 0)
+      const masseBoule =
+        randint(2, 5, [Math.floor(masseEtoile / 10)]) * 10 +
+        randint(1, 9) * (n >= 2 ? 1 : 0) +
+        randint(1, 9) * 0.1 * (n >= 3 ? 1 : 0)
 
       const nombreEtoile = randint(2, 5)
       const nombreBoule = randint(2, 5, [nombreEtoile])
 
       switch (typesDeQuestions[i]) {
         case 1: {
-          const mult = randint(0, 1) === 0 ? [randint(2, 4), 1] : [1, randint(2, 4)]
-          const gauche = this.generateBalance(nombreBoule, nombreEtoile, masseBoule * nombreBoule + masseEtoile * nombreEtoile)
-          const droite = this.generateBalance(nombreBoule * mult[0], nombreEtoile * mult[1], masseBoule * nombreBoule * mult[0] + masseEtoile * nombreEtoile * mult[1])
+          const mult =
+            randint(0, 1) === 0 ? [randint(2, 4), 1] : [1, randint(2, 4)]
+          const gauche = this.generateBalance(
+            nombreBoule,
+            nombreEtoile,
+            masseBoule * nombreBoule + masseEtoile * nombreEtoile,
+          )
+          const droite = this.generateBalance(
+            nombreBoule * mult[0],
+            nombreEtoile * mult[1],
+            masseBoule * nombreBoule * mult[0] +
+              masseEtoile * nombreEtoile * mult[1],
+          )
           const inverse = randint(0, 1)
-          texte = (inverse === 0 ? gauche + (!context.isHtml ? '<br>' : '') + droite : droite + (!context.isHtml ? '<br>' : '') + gauche) + '<br>'
+          texte =
+            (inverse === 0
+              ? gauche + (!context.isHtml ? '<br>' : '') + droite
+              : droite + (!context.isHtml ? '<br>' : '') + gauche) + '<br>'
           texte += `${numAlpha(0)} Quelle est la masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'} en grammes?<br>`
-          texte += (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i * 2, KeyboardType.clavierDeBase, { texteApres: ' g' }) + '<br>' : ''
+          texte +=
+            this.interactif && !context.isAmc
+              ? ajouteChampTexteMathLive(
+                  this,
+                  i * 2,
+                  KeyboardType.clavierDeBase,
+                  { texteApres: ' g' },
+                ) + '<br>'
+              : ''
           texte += `${numAlpha(1)} Quelle est la masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'} en grammes?<br>`
-          texte += (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i * 2 + 1, KeyboardType.clavierDeBase, { texteApres: ' g' }) + '<br>' : ''
+          texte +=
+            this.interactif && !context.isAmc
+              ? ajouteChampTexteMathLive(
+                  this,
+                  i * 2 + 1,
+                  KeyboardType.clavierDeBase,
+                  { texteApres: ' g' },
+                ) + '<br>'
+              : ''
           texteCorr = `${numAlpha(0)} Si on fait la soustraction entre les deux balances, ${mult[0] === 1 ? 'les boules sont enlevées' : 'les étoiles sont enlevées'}.<br>`
-          texteCorr += this.generateBalance(nombreBoule * mult[0] - nombreBoule, nombreEtoile * mult[1] - nombreEtoile, masseBoule * (nombreBoule * mult[0] - nombreBoule) + masseEtoile * (nombreEtoile * mult[1] - nombreEtoile)) + '<br>'
-          texteCorr += `On divise ensuite par le nombre ${mult[0] === 1 ? 'd\'étoiles restantes' : 'de boules restantes'} pour trouver la masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'}.<br>`
+          texteCorr +=
+            this.generateBalance(
+              nombreBoule * mult[0] - nombreBoule,
+              nombreEtoile * mult[1] - nombreEtoile,
+              masseBoule * (nombreBoule * mult[0] - nombreBoule) +
+                masseEtoile * (nombreEtoile * mult[1] - nombreEtoile),
+            ) + '<br>'
+          texteCorr += `On divise ensuite par le nombre ${mult[0] === 1 ? "d'étoiles restantes" : 'de boules restantes'} pour trouver la masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'}.<br>`
           texteCorr += `$ ${texNombre(masseBoule * (nombreBoule * mult[0] - nombreBoule) + masseEtoile * (nombreEtoile * mult[1] - nombreEtoile))} \\div ${mult[0] === 1 ? nombreEtoile * mult[1] - nombreEtoile : nombreBoule * mult[0] - nombreBoule} = ${texNombre(mult[0] === 1 ? masseEtoile : masseBoule)}$ g.<br>`
           texteCorr += `La masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'} est de $${miseEnEvidence(texNombre(mult[0] === 1 ? masseEtoile : masseBoule))}$ g.<br>`
-          texteCorr += `${numAlpha(1)} Si on reprend la ${(inverse === 0 ? 'première' : 'deuxième')} balance<br>`
+          texteCorr += `${numAlpha(1)} Si on reprend la ${inverse === 0 ? 'première' : 'deuxième'} balance<br>`
           texteCorr += gauche + '<br>'
           texteCorr += `On supprime les ${mult[0] === 1 ? nombreEtoile : nombreBoule} ${mult[0] === 1 ? 'étoiles' : 'boules'} à gauche et on supprime à droite $${mult[0] === 1 ? nombreEtoile : nombreBoule} \\times ${mult[0] === 1 ? texNombre(masseEtoile) : texNombre(masseBoule)} = ${mult[0] === 1 ? texNombre(nombreEtoile * masseEtoile) : texNombre(nombreBoule * masseBoule)}$ g.<br>`
-          texteCorr += this.generateBalance(mult[0] === 1 ? nombreBoule : 0, mult[0] === 1 ? 0 : nombreEtoile, mult[0] === 1 ? nombreBoule * masseBoule : nombreEtoile * masseEtoile) + '<br>'
+          texteCorr +=
+            this.generateBalance(
+              mult[0] === 1 ? nombreBoule : 0,
+              mult[0] === 1 ? 0 : nombreEtoile,
+              mult[0] === 1
+                ? nombreBoule * masseBoule
+                : nombreEtoile * masseEtoile,
+            ) + '<br>'
           texteCorr += `On en déduit que  ${mult[0] === 1 ? nombreBoule : nombreEtoile} ${mult[0] === 1 ? 'boules' : 'étoiles'} pèsent $${texNombre(mult[0] === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)}$ g.<br>`
           texteCorr += `On divise ensuite ${mult[0] === 1 ? nombreBoule : nombreEtoile} pour trouver la masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'}.<br>`
           texteCorr += `$ ${texNombre(mult[0] === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)} \\div ${mult[0] === 1 ? nombreBoule : nombreEtoile} = ${texNombre(mult[0] === 1 ? masseBoule : masseEtoile)}$ g.<br>`
           texteCorr += `La masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'} est de $${miseEnEvidence(texNombre(mult[0] === 1 ? masseBoule : masseEtoile))}$ g.<br>`
           if (context.isAmc) {
-            setReponse(this, i * 2, (mult[0] === 1 ? masseEtoile : masseBoule))
-            setReponse(this, i * 2 + 1, (mult[0] === 1 ? masseBoule : masseEtoile))
+            setReponse(this, i * 2, mult[0] === 1 ? masseEtoile : masseBoule)
+            setReponse(
+              this,
+              i * 2 + 1,
+              mult[0] === 1 ? masseBoule : masseEtoile,
+            )
           } else {
-            handleAnswers(this, i * 2, { reponse: { value: (mult[0] === 1 ? masseEtoile : masseBoule) } })
-            handleAnswers(this, i * 2 + 1, { reponse: { value: (mult[0] === 1 ? masseBoule : masseEtoile) } })
+            handleAnswers(this, i * 2, {
+              reponse: { value: mult[0] === 1 ? masseEtoile : masseBoule },
+            })
+            handleAnswers(this, i * 2 + 1, {
+              reponse: { value: mult[0] === 1 ? masseBoule : masseEtoile },
+            })
           }
           break
         }
@@ -101,43 +176,130 @@ export default class ProblèmesBalance extends Exercice {
           const mutl1 = randint(2, 4)
           const mult2 = randint(2, 4, [mutl1])
           const mult = randint(0, 1) === 0 ? [mutl1, mult2] : [mult2, mutl1]
-          const gaucheMinMult = (mult[0] < mult[1] ? 1 : 0)
-          const gauche = this.generateBalance(nombreBoule, nombreEtoile, masseBoule * nombreBoule + masseEtoile * nombreEtoile)
-          const droite = this.generateBalance(nombreBoule * mult[0], nombreEtoile * mult[1], masseBoule * nombreBoule * mult[0] + masseEtoile * nombreEtoile * mult[1])
+          const gaucheMinMult = mult[0] < mult[1] ? 1 : 0
+          const gauche = this.generateBalance(
+            nombreBoule,
+            nombreEtoile,
+            masseBoule * nombreBoule + masseEtoile * nombreEtoile,
+          )
+          const droite = this.generateBalance(
+            nombreBoule * mult[0],
+            nombreEtoile * mult[1],
+            masseBoule * nombreBoule * mult[0] +
+              masseEtoile * nombreEtoile * mult[1],
+          )
           const inverse = randint(0, 1)
-          texte = (inverse ? droite + (!context.isHtml ? '<br>' : '') + gauche : gauche + (!context.isHtml ? '<br>' : '') + droite) + '<br>'
+          texte =
+            (inverse
+              ? droite + (!context.isHtml ? '<br>' : '') + gauche
+              : gauche + (!context.isHtml ? '<br>' : '') + droite) + '<br>'
           texte += `${numAlpha(0)} Quelle est la masse d'une ${gaucheMinMult === 1 ? 'étoile' : 'boule'} en grammes?<br>`
-          texte += (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i * 2, KeyboardType.clavierDeBase, { texteApres: ' g' }) + '<br>' : ''
+          texte +=
+            this.interactif && !context.isAmc
+              ? ajouteChampTexteMathLive(
+                  this,
+                  i * 2,
+                  KeyboardType.clavierDeBase,
+                  { texteApres: ' g' },
+                ) + '<br>'
+              : ''
           texte += `${numAlpha(1)} Quelle est la masse d'une ${gaucheMinMult === 0 ? 'étoile' : 'boule'} en grammes?<br>`
-          texte += (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i * 2 + 1, KeyboardType.clavierDeBase, { texteApres: ' g' }) + '<br>' : ''
-          texteCorr = `${numAlpha(0)} Si on multiplie la ${inverse === 0 ? 'première' : 'deuxième'} par ${gaucheMinMult === 1 ? mult[0] : mult[1]} alors on obtient la même quantité ${gaucheMinMult === 1 ? 'de boules' : 'd\'étoiles'}.<br>`
-          texteCorr += this.generateBalance(nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]), nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]), masseBoule * nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) + masseEtoile * nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1])) + '<br>'
+          texte +=
+            this.interactif && !context.isAmc
+              ? ajouteChampTexteMathLive(
+                  this,
+                  i * 2 + 1,
+                  KeyboardType.clavierDeBase,
+                  { texteApres: ' g' },
+                ) + '<br>'
+              : ''
+          texteCorr = `${numAlpha(0)} Si on multiplie la ${inverse === 0 ? 'première' : 'deuxième'} par ${gaucheMinMult === 1 ? mult[0] : mult[1]} alors on obtient la même quantité ${gaucheMinMult === 1 ? 'de boules' : "d'étoiles"}.<br>`
+          texteCorr +=
+            this.generateBalance(
+              nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]),
+              nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]),
+              masseBoule *
+                nombreBoule *
+                (gaucheMinMult === 1 ? mult[0] : mult[1]) +
+                masseEtoile *
+                  nombreEtoile *
+                  (gaucheMinMult === 1 ? mult[0] : mult[1]),
+            ) + '<br>'
           texteCorr += `La ${inverse === 1 ? 'première' : 'deuxième'} étant: <br>`
           texteCorr += droite + '<br>'
           texteCorr += `Si on fait la soustraction entre les deux balances, ${gaucheMinMult === 1 ? 'les boules sont enlevées' : 'les étoiles sont enlevées'}.<br>`
-          texteCorr += this.generateBalance(Math.abs(nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreBoule * mult[0]), Math.abs(nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreEtoile * mult[1]), Math.abs(masseBoule * (nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreBoule * mult[0]) + masseEtoile * (nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreEtoile * mult[1]))) + '<br>'
-          texteCorr += `On divise ensuite par le nombre ${gaucheMinMult === 1 ? 'd\'étoiles restantes' : 'de boules restantes'} pour trouver la masse d'une ${gaucheMinMult === 1 ? 'étoile' : 'boule'}.<br>`
+          texteCorr +=
+            this.generateBalance(
+              Math.abs(
+                nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) -
+                  nombreBoule * mult[0],
+              ),
+              Math.abs(
+                nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) -
+                  nombreEtoile * mult[1],
+              ),
+              Math.abs(
+                masseBoule *
+                  (nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) -
+                    nombreBoule * mult[0]) +
+                  masseEtoile *
+                    (nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) -
+                      nombreEtoile * mult[1]),
+              ),
+            ) + '<br>'
+          texteCorr += `On divise ensuite par le nombre ${gaucheMinMult === 1 ? "d'étoiles restantes" : 'de boules restantes'} pour trouver la masse d'une ${gaucheMinMult === 1 ? 'étoile' : 'boule'}.<br>`
           texteCorr += `$ ${texNombre(Math.abs(masseBoule * (nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreBoule * mult[0]) + masseEtoile * (nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreEtoile * mult[1])))} \\div ${gaucheMinMult === 1 ? Math.abs(nombreEtoile * mult[1] - nombreEtoile * mult[0]) : Math.abs(nombreBoule * mult[0] - nombreBoule * mult[1])} = ${gaucheMinMult === 1 ? texNombre(masseEtoile) : texNombre(masseBoule)}$ g.<br>`
           texteCorr += `La masse d'une ${gaucheMinMult === 1 ? 'étoile' : 'boule'} est de $${miseEnEvidence(texNombre(gaucheMinMult === 1 ? masseEtoile : masseBoule))}$ g.<br>`
           texteCorr += `${numAlpha(1)} Si on reprend la ${inverse === 0 ? 'première' : 'deuxième'} balance<br>`
           texteCorr += gauche + '<br>'
           texteCorr += `On supprime les ${gaucheMinMult === 0 ? nombreBoule : nombreEtoile} ${gaucheMinMult === 0 ? ' boules' : ' étoiles'} à gauche et on supprime à droite $${gaucheMinMult === 0 ? nombreBoule : nombreEtoile} \\times ${gaucheMinMult === 0 ? texNombre(masseBoule) : texNombre(masseEtoile)} = ${gaucheMinMult === 0 ? texNombre(nombreBoule * masseBoule) : texNombre(nombreEtoile * masseEtoile)}$ g.<br>`
-          texteCorr += this.generateBalance(gaucheMinMult === 1 ? nombreBoule : 0, gaucheMinMult === 1 ? 0 : nombreEtoile, gaucheMinMult === 1 ? nombreBoule * masseBoule : nombreEtoile * masseEtoile) + '<br>'
+          texteCorr +=
+            this.generateBalance(
+              gaucheMinMult === 1 ? nombreBoule : 0,
+              gaucheMinMult === 1 ? 0 : nombreEtoile,
+              gaucheMinMult === 1
+                ? nombreBoule * masseBoule
+                : nombreEtoile * masseEtoile,
+            ) + '<br>'
           texteCorr += `On en déduit que  ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} ${gaucheMinMult === 1 ? 'boules' : 'étoiles'} pèsent $${texNombre(gaucheMinMult === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)}$ g.<br>`
           texteCorr += `On divise ensuite par ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} pour trouver la masse d'une ${gaucheMinMult === 1 ? 'boule' : 'étoile'}.<br>`
           texteCorr += `$ ${texNombre(gaucheMinMult === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)} \\div ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} = ${gaucheMinMult === 1 ? texNombre(masseBoule) : texNombre(masseEtoile)}$ g.<br>`
           texteCorr += `La masse d'une ${gaucheMinMult === 1 ? 'boule' : 'étoile'} est de $${miseEnEvidence(texNombre(gaucheMinMult === 1 ? masseBoule : masseEtoile))}$ g.<br>`
           if (context.isAmc) {
-            setReponse(this, i * 2, (gaucheMinMult === 1 ? masseEtoile : masseBoule))
-            setReponse(this, i * 2 + 1, (gaucheMinMult === 1 ? masseBoule : masseEtoile))
+            setReponse(
+              this,
+              i * 2,
+              gaucheMinMult === 1 ? masseEtoile : masseBoule,
+            )
+            setReponse(
+              this,
+              i * 2 + 1,
+              gaucheMinMult === 1 ? masseBoule : masseEtoile,
+            )
           } else {
-            handleAnswers(this, i * 2, { reponse: { value: (gaucheMinMult === 1 ? masseEtoile : masseBoule) } })
-            handleAnswers(this, i * 2 + 1, { reponse: { value: (gaucheMinMult === 1 ? masseBoule : masseEtoile) } })
+            handleAnswers(this, i * 2, {
+              reponse: {
+                value: gaucheMinMult === 1 ? masseEtoile : masseBoule,
+              },
+            })
+            handleAnswers(this, i * 2 + 1, {
+              reponse: {
+                value: gaucheMinMult === 1 ? masseBoule : masseEtoile,
+              },
+            })
           }
         }
       }
 
-      if (this.questionJamaisPosee(i, nombreEtoile, masseBoule, masseBoule, masseEtoile)) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          nombreEtoile,
+          masseBoule,
+          masseBoule,
+          masseEtoile,
+        )
+      ) {
         this.listeQuestions[i] = texte ?? ''
         this.listeCorrections[i] = texteCorr ?? ''
         i++
@@ -147,7 +309,7 @@ export default class ProblèmesBalance extends Exercice {
     listeQuestionsToContenu(this)
   }
 
-  generateBalance (boules : number, etoiles: number, masse: number) : string {
+  generateBalance(boules: number, etoiles: number, masse: number): string {
     if (!context.isHtml) {
       return this.generateBalanceTikz(boules, etoiles, masse)
     } else {
@@ -155,16 +317,17 @@ export default class ProblèmesBalance extends Exercice {
     }
   }
 
-  generateBalanceSVG (boules : number, etoiles: number, masse: number) : string {
+  generateBalanceSVG(boules: number, etoiles: number, masse: number): string {
     const svgWidth = 400
     const svgHeight = 200
     const baseY = 50
 
     // Génère les symboles
-    const bouleSVG = (x : number, y: number) => `<circle cx="${x}" cy="${y}" r="10" fill="black" />`
-    const etoileSVG = (x : number, y: number) =>
+    const bouleSVG = (x: number, y: number) =>
+      `<circle cx="${x}" cy="${y}" r="10" fill="black" />`
+    const etoileSVG = (x: number, y: number) =>
       `<text x="${x}" y="${y + 10}" font-size="30" text-anchor="middle" fill="gold">★</text>`
-    const masseSVG = (x : number, y : number, value : number) =>
+    const masseSVG = (x: number, y: number, value: number) =>
       `<rect x="${x - 25}" y="${y - 20}" width="50" height="40" rx="5" ry="5" fill="#666" />
        <text x="${x}" y="${y + 5}" font-size="14" text-anchor="middle" fill="white">${Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(masse).toString()} g</text>`
     // Positionnement des objets sur les plateaux
@@ -176,11 +339,20 @@ export default class ProblèmesBalance extends Exercice {
         if (i < 4) {
           leftObjects.push(bouleSVG(30 + i * spacing, baseY + 40))
         } else if (i < 7) {
-          leftObjects.push(bouleSVG(30 + (i - 4) * spacing + spacing / 2, baseY + 20))
+          leftObjects.push(
+            bouleSVG(30 + (i - 4) * spacing + spacing / 2, baseY + 20),
+          )
         } else if (i < 9) {
-          leftObjects.push(bouleSVG(30 + (i - 7) * spacing + spacing, baseY + 0))
+          leftObjects.push(
+            bouleSVG(30 + (i - 7) * spacing + spacing, baseY + 0),
+          )
         } else if (i < 10) {
-          leftObjects.push(bouleSVG(30 + (i - 9) * spacing + spacing + spacing / 2, baseY - 20))
+          leftObjects.push(
+            bouleSVG(
+              30 + (i - 9) * spacing + spacing + spacing / 2,
+              baseY - 20,
+            ),
+          )
         } else {
           leftObjects.push(bouleSVG(30 + (i - 10) * spacing, baseY + 0))
         }
@@ -205,15 +377,29 @@ export default class ProblèmesBalance extends Exercice {
         if (i < 4) {
           leftObjects.push(etoileSVG(30 + (4 + i) * spacing, baseY + 40))
         } else if (i < 7) {
-          leftObjects.push(etoileSVG(30 + (4 + i - 4) * spacing + spacing / 2, baseY + 20))
+          leftObjects.push(
+            etoileSVG(30 + (4 + i - 4) * spacing + spacing / 2, baseY + 20),
+          )
         } else if (i < 9) {
-          leftObjects.push(etoileSVG(30 + (4 + i - 7) * spacing + spacing, baseY + 0))
+          leftObjects.push(
+            etoileSVG(30 + (4 + i - 7) * spacing + spacing, baseY + 0),
+          )
         } else if (i < 10) {
-          leftObjects.push(etoileSVG(30 + (4 + i - 9) * spacing + spacing + spacing / 2, baseY - 20))
+          leftObjects.push(
+            etoileSVG(
+              30 + (4 + i - 9) * spacing + spacing + spacing / 2,
+              baseY - 20,
+            ),
+          )
         } else if (i < 11) {
           leftObjects.push(etoileSVG(30 + (4 + i - 10) * spacing, baseY + 0))
         } else if (i < 12) {
-          leftObjects.push(etoileSVG(30 + (4 + i - 11) * spacing + spacing + spacing + spacing, baseY + 0))
+          leftObjects.push(
+            etoileSVG(
+              30 + (4 + i - 11) * spacing + spacing + spacing + spacing,
+              baseY + 0,
+            ),
+          )
         }
       } else {
         // forme carré
@@ -262,7 +448,11 @@ export default class ProblèmesBalance extends Exercice {
     return balanceSVG
   }
 
-  generateBalanceTikz = (boules : number, etoiles: number, masse: number) : string => {
+  generateBalanceTikz = (
+    boules: number,
+    etoiles: number,
+    masse: number,
+  ): string => {
     return `
 \\begin{tikzpicture}[baseline={(current bounding box.north)}, scale=1]
 

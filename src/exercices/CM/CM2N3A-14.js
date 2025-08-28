@@ -19,10 +19,10 @@ export const uuid = '67962'
 export const refs = {
   'fr-fr': ['CM2N3A-14'],
   'fr-2016': ['CM012'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComplementA100 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -31,10 +31,11 @@ export default class ComplementA100 extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       a = randint(11, 89)
       texte = `$100-${a}=$`

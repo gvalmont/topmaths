@@ -4,7 +4,8 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
+export const titre =
+  "Utiliser les différentes formes d'un polynôme du second degré"
 export const interactifReady = false
 
 export const dateDePublication = '27/10/2022'
@@ -13,21 +14,21 @@ export const dateDeModifImportante = '5/11/2023'
 /**
  * Forme développée, factorisée ou canonique pour résoudre équations et inéquations
  * @author Rémi Angot
-*/
+ */
 export const uuid = '8fde1'
 
 export const refs = {
   'fr-fr': ['1AL23-7'],
-  'fr-ch': ['1mF3-7']
+  'fr-ch': ['1mF3-7'],
 }
 export default class EtudeTrinome extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-4, 4, [-1, 0, 1])
     // x1 + x2 doit êter pair pour n'avoir que des nombres entiers dans les différentes formes
     const x1 = randint(-5, 5, 0)
@@ -43,19 +44,21 @@ export default class EtudeTrinome extends Exercice {
     correction1 += `<br><br>$f(x)=${etapesDeveloppement[2]}$`
 
     const question2 = `Montrer que $f(x)$ se factorise sous la forme $f(x)=${p.texFormeFactorisee}$.`
-    let correction2 = 'On développe l\'expression : '
+    let correction2 = "On développe l'expression : "
     const etapesDeveloppement2 = p.arrayTexDevelopperFormeFactorisee
     correction2 += `<br><br> $${p.texFormeFactorisee} = ${etapesDeveloppement2[0]}$`
     correction2 += `<br><br> $\\phantom{${p.texFormeFactorisee}} = ${etapesDeveloppement2[1]}$`
     correction2 += `<br><br> $\\phantom{${p.texFormeFactorisee}} = ${etapesDeveloppement2[2]}$`
     correction2 += `<br><br> On retrouve la même forme développée que celle de la question précédente donc on a bien $f(x)=${p.texFormeFactorisee}$.`
 
-    let question3 = 'Répondre aux questions suivantes en utilisant l\'écriture de $f(x)$ la mieux adaptée :'
+    let question3 =
+      "Répondre aux questions suivantes en utilisant l'écriture de $f(x)$ la mieux adaptée :"
     let correction3 = ''
 
-    const q3a = 'Résoudre l\'équation $f(x) = 0$.'
+    const q3a = "Résoudre l'équation $f(x) = 0$."
 
-    let corr3a = 'Ici, on va utiliser la forme factorisée pour se ramener à une équation produit nul. Il est aussi possible de calculer le discriminant mais cela serait plus long.'
+    let corr3a =
+      'Ici, on va utiliser la forme factorisée pour se ramener à une équation produit nul. Il est aussi possible de calculer le discriminant mais cela serait plus long.'
     corr3a += `<br><br>$f(x)=0 \\iff ${p.texFormeFactorisee} = 0$`
     corr3a += `<br><br>$\\phantom{f(x)=0} \\iff x${ecritureAlgebrique(-x1)} = 0 \\text{\\quad ou \\quad} x${ecritureAlgebrique(-x2)} = 0$`
     corr3a += `<br><br>$\\phantom{f(x)=0} \\iff x=${x1} \\text{\\quad ou \\quad} x=${x2}$`
@@ -82,7 +85,10 @@ export default class EtudeTrinome extends Exercice {
       corr3c += ` or $${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2$ est toujours négatif et ne s'annule que pour $x=${nonSolution}$.`
       corr3c += `<br><br>$S=\\R \\smallsetminus \\{${nonSolution}\\}$`
     }
-    const [sousQuestions, sousCorrections] = [[q3a, q3b, q3c], [corr3a, corr3b, corr3c]]
+    const [sousQuestions, sousCorrections] = [
+      [q3a, q3b, q3c],
+      [corr3a, corr3b, corr3c],
+    ]
     shuffle2tableaux(sousQuestions, sousCorrections)
     for (let i = 0; i < 3; i++) {
       question3 += `<br><br>${numAlpha(i)} ${sousQuestions[i]}`

@@ -17,10 +17,10 @@ export const uuid = '4a666'
 
 export const refs = {
   'fr-fr': ['can2G01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AgrandissementReductionGFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,11 +29,39 @@ export default class AgrandissementReductionGFraction extends ExerciceSimple {
     // this.formatInteractif = 'fractionEgale'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeFractions = [
-      [1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6], [1, 7],
-      [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8], [1, 9], [2, 9],
-      [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]
+      [1, 2],
+      [1, 3],
+      [2, 3],
+      [1, 4],
+      [3, 4],
+      [1, 5],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [1, 6],
+      [5, 6],
+      [1, 7],
+      [2, 7],
+      [3, 7],
+      [4, 7],
+      [5, 7],
+      [6, 7],
+      [1, 8],
+      [3, 8],
+      [5, 8],
+      [7, 8],
+      [1, 9],
+      [2, 9],
+      [4, 9],
+      [5, 9],
+      [7, 9],
+      [8, 9],
+      [1, 10],
+      [3, 10],
+      [7, 10],
+      [9, 10],
     ] // Couples de nombres premiers entre eux
     let n, d, fraction
     switch (choice(['a', 'b'])) {
@@ -68,7 +96,7 @@ export default class AgrandissementReductionGFraction extends ExerciceSimple {
     <br>`
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

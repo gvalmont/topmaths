@@ -1,7 +1,15 @@
-import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
+import {
+  listeDeNotes,
+  tirerLesDes,
+  unMoisDeTemperature,
+} from '../../lib/outils/aleatoires'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { OutilsStats } from '../../modules/outilsStat'
 import Exercice from '../Exercice'
 
@@ -26,12 +34,15 @@ export const uuid = '7c068'
 
 export const refs = {
   'fr-fr': ['4S11'],
-  'fr-ch': ['11NO2-9']
+  'fr-ch': ['11NO2-9'],
 }
 export default class DeterminerDesMedianes extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets :\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type de séries',
+      'Nombres séparés par des tirets :\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange',
+    ]
 
     this.nbQuestions = 1
 
@@ -44,20 +55,37 @@ export default class DeterminerDesMedianes extends Exercice {
     }
   }
 
-  nouvelleVersion () {
-    const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
+  nouvelleVersion() {
+    const listePairOuImpair = combinaisonListes(
+      ['pair', 'impair'],
+      this.nbQuestions,
+    )
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
       melange: 4,
       defaut: 4,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
-    for (let i = 0, temperatures, nombreNotes, notes, nombreDes, nombreTirages, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        temperatures,
+        nombreNotes,
+        notes,
+        nombreDes,
+        nombreTirages,
+        tirages,
+        texte,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let repInteractive
-      if (typeDeQuestions[i] === 1) { // ici on lance des dés
+      if (typeDeQuestions[i] === 1) {
+        // ici on lance des dés
         nombreDes = randint(1, 2)
         const nombreFaces: 4 | 6 | 8 | 10 = choice([4, 6, 8, 10])
         if (listePairOuImpair[i] === 'pair') {
@@ -66,11 +94,27 @@ export default class DeterminerDesMedianes extends Exercice {
           nombreTirages = choice([49, 99, 199, 299, 999, 1999])
         }
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
-        texte = OutilsStats.texteTirages2D(nombreDes, nombreTirages, nombreFaces, tirages, false)
-        const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages) as unknown as [[number, number], number]
-        texteCorr = OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, scoresMedians, tirages)
+        texte = OutilsStats.texteTirages2D(
+          nombreDes,
+          nombreTirages,
+          nombreFaces,
+          tirages,
+          false,
+        )
+        const [scoresMedians, medianeCorr] =
+          OutilsStats.computeMedianeTirages2D(
+            nombreTirages,
+            tirages,
+          ) as unknown as [[number, number], number]
+        texteCorr = OutilsStats.texteCorrMedianeTirages2D(
+          nombreTirages,
+          medianeCorr,
+          scoresMedians,
+          tirages,
+        )
         repInteractive = medianeCorr
-      } else if (typeDeQuestions[i] === 2) { // ici on trie des notes
+      } else if (typeDeQuestions[i] === 2) {
+        // ici on trie des notes
         if (listePairOuImpair[i] === 'pair') {
           nombreNotes = choice([8, 10, 12])
         } else {
@@ -79,9 +123,14 @@ export default class DeterminerDesMedianes extends Exercice {
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
         texte = OutilsStats.texteNotes(notes)
         const [mediane, medianeCorr] = OutilsStats.computeMediane(notes)
-        texteCorr = OutilsStats.texteCorrMedianeNotes(notes, medianeCorr, mediane)
+        texteCorr = OutilsStats.texteCorrMedianeNotes(
+          notes,
+          medianeCorr,
+          mediane,
+        )
         repInteractive = medianeCorr
-      } else { // ici on relève des températures
+      } else {
+        // ici on relève des températures
         const annee = randint(1980, 2019)
         let listeMois
         if (listePairOuImpair[i] === 'pair') {
@@ -89,29 +138,49 @@ export default class DeterminerDesMedianes extends Exercice {
         } else {
           listeMois = [1, 3, 5, 7, 8, 10, 12]
         }
-        if ((((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) && (listePairOuImpair[i] === 'impair')) { // Si l'année est bissextile et qu'on veut une liste impair
+        if (
+          ((annee % 4 === 0 && annee % 100 !== 0) || annee % 400 === 0) &&
+          listePairOuImpair[i] === 'impair'
+        ) {
+          // Si l'année est bissextile et qu'on veut une liste impair
           listeMois.push(2)
-        } else if (!(((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) && (listePairOuImpair[i] === 'pair')) { // Si l'année n'est pas bissextile et qu'on veut une liste paire
+        } else if (
+          !((annee % 4 === 0 && annee % 100 !== 0) || annee % 400 === 0) &&
+          listePairOuImpair[i] === 'pair'
+        ) {
+          // Si l'année n'est pas bissextile et qu'on veut une liste paire
           listeMois.push(2)
         }
         const mois = listeMois[randint(0, listeMois.length - 1)]
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
-        temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // on récupère une série de température correspondant à 1 mois d'une année (série brute)
+        temperatures = unMoisDeTemperature(
+          temperaturesDeBase[mois - 1],
+          mois,
+          annee,
+        ) // on récupère une série de température correspondant à 1 mois d'une année (série brute)
         texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
         const [mediane, medianeCorr] = OutilsStats.computeMediane(temperatures)
-        texteCorr = OutilsStats.texteCorrMedianeTemperatures(temperatures, medianeCorr, mediane)
+        texteCorr = OutilsStats.texteCorrMedianeTemperatures(
+          temperatures,
+          medianeCorr,
+          mediane,
+        )
         repInteractive = medianeCorr
       }
 
       // On factorise la question
-      (this.interactif && !context.isAmc) ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br>Déterminer une médiane de cette série.'
+      this.interactif && !context.isAmc
+        ? (texte += '<br><br>Déterminer une médiane de cette série : ')
+        : (texte += '<br>Déterminer une médiane de cette série.')
 
       if (Array.isArray(repInteractive)) {
         setReponse(this, i, repInteractive, {
           decimals: 1,
-          milieuIntervalle: arrondi((repInteractive[0] + repInteractive[1]) / 2),
+          milieuIntervalle: arrondi(
+            (repInteractive[0] + repInteractive[1]) / 2,
+          ),
           approx: 'intervalleStrict',
-          formatInteractif: 'intervalleStrict'
+          formatInteractif: 'intervalleStrict',
         })
       } else {
         setReponse(this, i, repInteractive)
@@ -119,7 +188,8 @@ export default class DeterminerDesMedianes extends Exercice {
       if (this.interactif && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, '')
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

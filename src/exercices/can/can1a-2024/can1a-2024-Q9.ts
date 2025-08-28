@@ -16,7 +16,7 @@ export const uuid = 'fa173'
 */
 
 export default class EncadreRacParDeuxEntiers extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class EncadreRacParDeuxEntiers extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let nbre: number
     if (this.canOfficielle) {
       nbre = 70
@@ -39,7 +39,11 @@ export default class EncadreRacParDeuxEntiers extends ExerciceSimple {
     this.question = `%{champ1} < \\sqrt{${texNombre(nbre, 0)}} < %{champ2}`
     this.canEnonce = 'Compléter par deux entiers consécutifs.'
     this.canReponseACompleter = `$\\ldots < \\sqrt{${texNombre(nbre, 1)}} < \\ldots$`
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf }, champ2: { value: entierSup } }
+    this.reponse = {
+      bareme: toutPourUnPoint,
+      champ1: { value: entierInf },
+      champ2: { value: entierSup },
+    }
     this.correction = `Comme $${texNombre(entierInf ** 2, 0)} < ${texNombre(nbre, 0)} < ${texNombre(entierSup ** 2, 0)}$, alors 
     $${miseEnEvidence(texNombre(entierInf, 0))} < \\sqrt{${texNombre(nbre, 0)}} < ${miseEnEvidence(texNombre(entierSup, 0))}$.`
   }

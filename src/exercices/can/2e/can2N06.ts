@@ -16,17 +16,17 @@ export const uuid = 'e57cb'
 
 export const refs = {
   'fr-fr': ['can2N06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DecimalForme extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const puissance = randint(1, 5)
     const puissance10 = 10 ** puissance
     const a1 = randint(1, 9) * choice([1, -1])

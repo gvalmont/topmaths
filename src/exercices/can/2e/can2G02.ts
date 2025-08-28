@@ -22,10 +22,10 @@ export const uuid = '31f61'
 
 export const refs = {
   'fr-fr': ['can2G02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculCotePythagore extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -33,10 +33,10 @@ export default class CalculCotePythagore extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nom = creerNomDePolygone(3, ['QD'])
-    const a = randint(1, 5)//
-    const b = randint(6, 10)//
+    const a = randint(1, 5) //
+    const b = randint(6, 10) //
     const A = point(0, 0, nom[0])
     const B = pointAdistance(A, a, 90, nom[1])
     const C = pointAdistance(B, Math.sqrt(b ** 2 - a ** 2), 0, nom[2])
@@ -48,16 +48,43 @@ export default class CalculCotePythagore extends ExerciceSimple {
     const ymax = Math.max(A.y, B.y, C.y) + 1
 
     objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-    objets.push(texteParPosition(`${texNombre(b)}`, milieu(A, C).x + 0.2, milieu(A, C).y - 0.3),
+    objets.push(
+      texteParPosition(
+        `${texNombre(b)}`,
+        milieu(A, C).x + 0.2,
+        milieu(A, C).y - 0.3,
+      ),
       texteParPosition(`${texNombre(a)}`, milieu(A, B).x - 0.3, milieu(A, B).y),
-      texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true)
+      texteParPosition(
+        'x',
+        milieu(B, C).x,
+        milieu(B, C).y + 0.3,
+        'milieu',
+        'black',
+        1,
+        'middle',
+        true,
+      ),
     )
     this.question = `Sur cette figure $x=\\sqrt{a}$.<br>
     
     Quelle est la valeur de $a$ ?<br>
 
     `
-    this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.3, scale: 0.7, style: 'margin: auto' }, objets)
+    this.question += mathalea2d(
+      {
+        xmin,
+        ymin,
+        xmax,
+        ymax,
+        pixelsParCm: 25,
+        mainlevee: false,
+        amplitude: 0.3,
+        scale: 0.7,
+        style: 'margin: auto',
+      },
+      objets,
+    )
     this.correction = ` En utilisant le théorème de Pythagore, on a :<br>
         $${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2$, soit
         $${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2-${nom[0]}${nom[1]}^2$. <br>
@@ -65,7 +92,7 @@ export default class CalculCotePythagore extends ExerciceSimple {
        <br>
        Ainsi, $a=${miseEnEvidence(b ** 2 - a ** 2)}$.`
     this.reponse = b ** 2 - a ** 2
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = '$a=\\ldots$'
   }
 }

@@ -7,10 +7,14 @@ import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
-export function relais (decimal = false): Probleme {
+export function relais(decimal = false): Probleme {
   const nbFois = randint(3, 6)
-  const quotité = decimal ? randint(2, 5) + randint(1, 9) * 0.1 + choice([0, 5]) * 0.01 : randint(35, 75) * 50
-  const total = nbFois * quotité + (decimal ? choice([1, 2]) + randint(1, 8) * 0.1 : randint(4, 28) * 100)
+  const quotité = decimal
+    ? randint(2, 5) + randint(1, 9) * 0.1 + choice([0, 5]) * 0.01
+    : randint(35, 75) * 50
+  const total =
+    nbFois * quotité +
+    (decimal ? choice([1, 2]) + randint(1, 8) * 0.1 : randint(4, 28) * 100)
   const reste = total - nbFois * quotité
   const data = { nbFois, quotité, reste }
   // const unite = decimal ? 'km' : 'm'

@@ -3,7 +3,7 @@
  * @param texte
  * @returns {(number|number)[]|(number|number)[]}
  */
-export function extraireCoeffAffine (texte: string) {
+export function extraireCoeffAffine(texte: string) {
   const [, , c, d] = extraireCoeffDeg3(texte)
   return [c, d]
 }
@@ -13,7 +13,7 @@ export function extraireCoeffAffine (texte: string) {
  * @param texte La chaine de caractère contenant l'expression ex : '-5x^3+\frac{3}{2}x^2-6x' retournera [-5,{signe:1,num:3,den:2},-6,0]
  * @returns {(number|{num: number, den: number, signe: number}|{num: number, den: number, signe: number}|{num: number, den: number, signe: number}|number)[]}
  */
-export function extraireCoeffDeg3 (texte:string) {
+export function extraireCoeffDeg3(texte: string) {
   texte = texte.replaceAll(/\s/g, '').replaceAll('−', '-').replaceAll('𝑥', 'x')
   let a, b, c, d
   // Normalement il y a du degré 3, on commence par chercher le coefficient
@@ -23,11 +23,13 @@ export function extraireCoeffDeg3 (texte:string) {
     let monome3 = deg3[0]
     fonctionDegre2 = texte.slice(monome3.length)
     let signeA = 1
-    if (monome3[0] === '-') { // ça commence par un - donc a est négatif
+    if (monome3[0] === '-') {
+      // ça commence par un - donc a est négatif
       signeA = -1
       monome3 = monome3.slice(1)
     }
-    if (monome3[0] === 'x') { // coeff 1 ou -1 non écrit
+    if (monome3[0] === 'x') {
+      // coeff 1 ou -1 non écrit
       a = signeA
     } else {
       if (monome3.includes('frac')) {
@@ -52,11 +54,13 @@ export function extraireCoeffDeg3 (texte:string) {
     let monome2 = deg2[0]
     fonctionAffine = fonctionDegre2.slice(monome2.length)
     let signeB = 1
-    if (monome2[0] === '-') { // ça commence par - donc b est négatif
+    if (monome2[0] === '-') {
+      // ça commence par - donc b est négatif
       signeB = -1
       monome2 = monome2.slice(1)
     }
-    if (monome2[0] === 'x') { // coeff 1 ou -1 non écrit
+    if (monome2[0] === 'x') {
+      // coeff 1 ou -1 non écrit
       b = signeB
     } else {
       if (monome2[0] === '+') {
@@ -84,11 +88,13 @@ export function extraireCoeffDeg3 (texte:string) {
     let monome1 = deg1[0]
     fonctionConstante = fonctionAffine.slice(monome1.length)
     let signeC = 1
-    if (monome1[0] === '-') { // ça commence par - donc c est négatif
+    if (monome1[0] === '-') {
+      // ça commence par - donc c est négatif
       signeC = -1
       monome1 = monome1.slice(1)
     }
-    if (monome1[0] === 'x') { // coeff 1 ou -1 non écrit
+    if (monome1[0] === 'x') {
+      // coeff 1 ou -1 non écrit
       c = signeC
     } else {
       if (monome1[0] === '+') {
@@ -112,7 +118,8 @@ export function extraireCoeffDeg3 (texte:string) {
   }
   if (fonctionConstante.length === 0) {
     d = 0
-  } else { // à priori d n'est pas une fraction... à vérifier !
+  } else {
+    // à priori d n'est pas une fraction... à vérifier !
     d = Number(fonctionConstante)
   }
   return [a, b, c, d]

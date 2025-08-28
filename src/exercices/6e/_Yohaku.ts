@@ -1,4 +1,8 @@
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { Yohaku } from '../../lib/outils/Yohaku'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { context } from '../../modules/context'
@@ -16,7 +20,7 @@ export const uuid = '3a377'
 
 export const refs = {
   'fr-fr': ['Yohaku'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDeModifImportante = '16/12/2023'
 /**
@@ -24,9 +28,16 @@ export const dateDeModifImportante = '16/12/2023'
  * @constructor
  */
 export default class FabriqueAYohaku extends Exercice {
-  type: 'entiers' | 'littéraux' | 'expressions' | 'fractions' | 'entiers relatifs' | 'fractions dénominateurs multiples' | 'fractions positives dénominateurs premiers'
+  type:
+    | 'entiers'
+    | 'littéraux'
+    | 'expressions'
+    | 'fractions'
+    | 'entiers relatifs'
+    | 'fractions dénominateurs multiples'
+    | 'fractions positives dénominateurs premiers'
   yohaku: Yohaku[]
-  constructor () {
+  constructor() {
     super()
     this.exoCustomResultat = true
     this.nbQuestions = 3
@@ -37,20 +48,32 @@ export default class FabriqueAYohaku extends Exercice {
     this.type = 'entiers'
     this.yohaku = []
     this.besoinFormulaireNumerique = ['Valeur maximale des données', 999]
-    this.besoinFormulaire2Numerique = ['Opération', 2, '1 : Addition\n2 : Multiplication']
-    this.besoinFormulaire3Numerique = ['Taille de la grille (nombre de cases horizontales)', 5]
+    this.besoinFormulaire2Numerique = [
+      'Opération',
+      2,
+      '1 : Addition\n2 : Multiplication',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Taille de la grille (nombre de cases horizontales)',
+      5,
+    ]
     this.besoinFormulaire4CaseACocher = ['Avec aide', false]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const type = this.type
-    for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, cpt = 0, texte, texteCorr;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const donnees: string[] = []
       const taille = contraindreValeur(2, 5, this.sup3, 3)
       const valeurMax = contraindreValeur(taille ** 2 + 1, 999, this.sup, 30)
       const operateur = this.sup2 === 1 ? 'addition' : 'multiplication'
       const Case = this.sup4 ? randint(0, taille ** 2 - 1) : undefined
-      const largeur = this.type === 'littéraux' ? operateur === 'addition' ? 4 : 5 : 2
+      const largeur =
+        this.type === 'littéraux' ? (operateur === 'addition' ? 4 : 5) : 2
       const yohaku = new Yohaku({
         type,
         taille,
@@ -58,20 +81,36 @@ export default class FabriqueAYohaku extends Exercice {
         operation: operateur,
         cellules: donnees,
         Case,
-        valeurMax
+        valeurMax,
       })
       yohaku.calculeResultats()
-      const mot = type === 'littéraux' ? 'expressions' : type.includes('frac') ? 'fractions' : 'nombres'
-      this.introduction = operateur === 'addition'
-        ? `Trouver les ${mot} à mettre dans les cases vides pour que les sommes de chaque ligne et chaque colonne soient exactes.`
-        : `Trouver les ${mot} à mettre dans les cases vides pour que les produits de chaque ligne et chaque colonne soient exacts.`
+      const mot =
+        type === 'littéraux'
+          ? 'expressions'
+          : type.includes('frac')
+            ? 'fractions'
+            : 'nombres'
+      this.introduction =
+        operateur === 'addition'
+          ? `Trouver les ${mot} à mettre dans les cases vides pour que les sommes de chaque ligne et chaque colonne soient exactes.`
+          : `Trouver les ${mot} à mettre dans les cases vides pour que les produits de chaque ligne et chaque colonne soient exacts.`
       this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot} qui conviennent${this.sup4 ? '' : ' (plusieurs solutions possibles)'}.<br>`
-      texte = yohaku.representation({ numeroExercice: this.numeroExercice ?? 0, question: i, isInteractif: this.interactif, classes: '' })
-      texteCorr = Case == null
-        ? 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'
-        : ''
+      texte = yohaku.representation({
+        numeroExercice: this.numeroExercice ?? 0,
+        question: i,
+        isInteractif: this.interactif,
+        classes: '',
+      })
+      texteCorr =
+        Case == null
+          ? "La grille ci-dessous n'est donnée qu'à titre d'exemple, il y a d'autres solutions.<br><br>"
+          : ''
       yohaku.solution = true
-      texteCorr += yohaku.representation({ numeroExercice: this.numeroExercice ?? 0, question: i, isInteractif: false })
+      texteCorr += yohaku.representation({
+        numeroExercice: this.numeroExercice ?? 0,
+        question: i,
+        isInteractif: false,
+      })
 
       this.yohaku[i] = yohaku
       if (this.questionJamaisPosee(i, ...yohaku.cellules)) {
@@ -85,9 +124,9 @@ export default class FabriqueAYohaku extends Exercice {
               {
                 texte: '',
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-              }
-            ]
+                sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              },
+            ],
           }
         }
         i++
@@ -102,28 +141,46 @@ export default class FabriqueAYohaku extends Exercice {
     let cell
     const spanResultat: HTMLSpanElement[][] = []
     const saisies = []
-    const spanFeedback = document.querySelector(`span#feedbackEx${this.numeroExercice}Q${i}`) as HTMLSpanElement
+    const spanFeedback = document.querySelector(
+      `span#feedbackEx${this.numeroExercice}Q${i}`,
+    ) as HTMLSpanElement
     saveAnswersFromTable(this, i, 2, this.sup3)
     for (let l = 0; l < taille; l++) {
       spanResultat[l] = []
       for (let c = 0; c < taille; c++) {
-        cell = document.getElementById(`champTexteEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`) as MathfieldElement
+        cell = document.getElementById(
+          `champTexteEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`,
+        ) as MathfieldElement
         if (cell != null) {
-          spanResultat[l][c] = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`) as HTMLSpanElement
-          if (this.yohaku[i].type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
-            if (cell.value != null) saisies[l * taille + c] = cell.value.replace(',', '.') ?? '0'
+          spanResultat[l][c] = document.querySelector(
+            `span#resultatCheckEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`,
+          ) as HTMLSpanElement
+          if (this.yohaku[i].type === 'littéraux') {
+            // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
+            if (cell.value != null)
+              saisies[l * taille + c] = cell.value.replace(',', '.') ?? '0'
           } else {
-            if (cell.value != null) saisies[l * taille + c] = cell.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ?? '0'
+            if (cell.value != null)
+              saisies[l * taille + c] =
+                cell.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ??
+                '0'
             // on peut taper des entiers dans les Yohaku fraction, mais ils doivent être modifiés en fraction pour le calcul
-            if (!isNaN(Number(saisies[l * taille + c])) && this.yohaku[i].type.includes('frac')) {
+            if (
+              !isNaN(Number(saisies[l * taille + c])) &&
+              this.yohaku[i].type.includes('frac')
+            ) {
               saisies[l * taille + c] = `\\frac{${saisies[l * taille + c]}}{1}`
             }
           }
         } else if (cell == null && l * taille + c !== this.yohaku[i].Case) {
-          window.notify(`Pas de cellule L${l + 1}C${c + 1} dans le document`, {})
+          window.notify(
+            `Pas de cellule L${l + 1}C${c + 1} dans le document`,
+            {},
+          )
         } else {
           if (this.yohaku[i].Case != null) {
-            saisies[l * taille + c] = this.yohaku[i].cellules[this.yohaku[i].Case]
+            saisies[l * taille + c] =
+              this.yohaku[i].cellules[this.yohaku[i].Case]
           }
         }
       }
@@ -163,13 +220,17 @@ export default class FabriqueAYohaku extends Exercice {
       resultats.Ligne1 ? 'OK' : 'KO',
       resultats.Ligne2 ? 'OK' : 'KO',
       resultats.Colonne1 ? 'OK' : 'KO',
-      resultats.Colonne2 ? 'OK' : 'KO'
+      resultats.Colonne2 ? 'OK' : 'KO',
     ]
   }
 
-  saisieCoherente (saisies: string[], taille:number, question:number) : Record<string, string> {
+  saisieCoherente(
+    saisies: string[],
+    taille: number,
+    question: number,
+  ): Record<string, string> {
     const engine = new ComputeEngine()
-    const test = function (yohaku: Yohaku[], i:number, valeurs: string[]) {
+    const test = function (yohaku: Yohaku[], i: number, valeurs: string[]) {
       let resultatOK
       const resultVal = engine.parse(String(yohaku[question].operate(valeurs)))
       const resultatAttendu = engine.parse(yohaku[question].resultats[i])
@@ -186,14 +247,24 @@ export default class FabriqueAYohaku extends Exercice {
       for (let j = 0; j < taille; j++) {
         valeurs.push(saisies[i + j * taille] ?? '0')
       }
-      result = Object.assign(result, Object.fromEntries([[`Colonne${i + 1}`, test(this.yohaku, i, valeurs)]]))
+      result = Object.assign(
+        result,
+        Object.fromEntries([
+          [`Colonne${i + 1}`, test(this.yohaku, i, valeurs)],
+        ]),
+      )
     }
     for (let i = taille; i < taille * 2; i++) {
       const valeurs = []
       for (let j = 0; j < taille; j++) {
         valeurs.push(saisies[(i - taille) * taille + j] ?? '0')
       }
-      result = Object.assign(result, Object.fromEntries([[`Ligne${i - taille + 1}`, test(this.yohaku, i, valeurs)]]))
+      result = Object.assign(
+        result,
+        Object.fromEntries([
+          [`Ligne${i - taille + 1}`, test(this.yohaku, i, valeurs)],
+        ]),
+      )
     }
     return result
   }

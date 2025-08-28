@@ -8,10 +8,12 @@ import ProblemeMultiplicatifs from './problemesMultiplicatifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function cinema (decimal = false): Probleme {
+export function cinema(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nbFois = randint(4, 12, 10)
-  const facteur = decimal ? randint(6, 9) * choice([1.1, 1.2, 1.3]) : randint(6, 11, 10)
+  const facteur = decimal
+    ? randint(6, 9) * choice([1.1, 1.2, 1.3])
+    : randint(6, 11, 10)
   const data = { nbFois, facteur }
   const enonce = `${personnage.prenom} a acheté ${nbFois} tickets de cinéma à $${texNombre(facteur, 2, true, false)}$ euros chacun. Combien a-t-${personnage.pronom} payé au total ?`
   const correction = `${personnage.prenom} a acheté ${nbFois} tickets à $${texNombre(facteur, 2, true, false)}$ euros.

@@ -15,15 +15,15 @@ export const dateDePublication = '06/07/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export const uuid = '3b4c5'
 
 export const refs = {
   'fr-fr': ['can6C59'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DenominateurCommun extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.spacing = 1.5
@@ -33,15 +33,13 @@ export default class DenominateurCommun extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const frac1 = choice(obtenirListeFractionsIrreductibles())
 
     let frac2: FractionEtendue
     do {
       frac2 = choice(obtenirListeFractionsIrreductibles())
-    } while (
-      frac2.den === frac1.den
-    )
+    } while (frac2.den === frac1.den)
 
     const resultat = ppcm(frac1.den, frac2.den)
 

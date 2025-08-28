@@ -16,7 +16,7 @@ export const uuid = 'edbea'
 */
 
 export default class MultiplierDecimaux1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,7 +26,7 @@ export default class MultiplierDecimaux1 extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let b: number
     let a: Decimal
     if (this.canOfficielle) {

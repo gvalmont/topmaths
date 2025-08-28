@@ -4,7 +4,6 @@ export const interactifReady = false
 export const uuid = '426f5'
 export const refs = {
   'fr-fr': ['4A11-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class FractionsIrreductibles4e extends FractionsIrreductibles {
-}
+export default class FractionsIrreductibles4e extends FractionsIrreductibles {}

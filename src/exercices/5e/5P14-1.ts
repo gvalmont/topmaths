@@ -9,11 +9,11 @@ export const dateDePublication = '04/04/2022'
 
 export const refs = {
   'fr-fr': ['5P14-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = '542be'
 export default class ExercicePourcentage5e2 extends Proportions {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
     this.besoinFormulaireNumerique = false

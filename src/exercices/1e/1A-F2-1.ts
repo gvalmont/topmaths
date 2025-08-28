@@ -1,5 +1,6 @@
 import CoordonneesPointIntersectionAxeAbscissesDroite from '../can/2e/can2L03'
-export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des abscisses et une droite'
+export const titre =
+  'Calculer les coordonnées du point d’intersection entre l’axe des abscisses et une droite'
 export const dateDePublication = '26/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +16,10 @@ export const uuid = '08208'
 
 export const refs = {
   'fr-fr': ['1A-F2-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF2a extends CoordonneesPointIntersectionAxeAbscissesDroite {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

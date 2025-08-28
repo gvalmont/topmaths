@@ -20,17 +20,17 @@ export const uuid = 'eaebb'
 
 export const refs = {
   'fr-fr': ['can2G08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CoordonneesVecteur2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-6, 6, [0, 1, -1])
     const b = randint(2, 10)
     if (choice([true, false])) {

@@ -5,7 +5,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { Matrice } from '../../lib/mathFonctions/Matrice'
 import { labelPoint } from '../../lib/2d/textes'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../modules/2dGeneralites'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
@@ -16,10 +20,11 @@ import type { Matrix } from 'mathjs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '2c20c'
-export const titre = 'Lire des coordonnées en repère orthogonal, normé ou quelconque'
+export const titre =
+  'Lire des coordonnées en repère orthogonal, normé ou quelconque'
 export const refs = {
   'fr-fr': ['2G12-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -29,18 +34,24 @@ export const refs = {
  * Une version de cet exercice en sens inverse est disponible sous le titre "Repérage 2e" (bis).
  */
 export default class Reperage2e extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Type de repère', [
-      'Nombres séparés par des tirets  :',
-      '1 : Orthogonal',
-      '2 : Normé',
-      '3 : Quelconque',
-      '4 : Mélange'
-    ].join('\n')]
+    this.besoinFormulaireTexte = [
+      'Type de repère',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : Orthogonal',
+        '2 : Normé',
+        '3 : Quelconque',
+        '4 : Mélange',
+      ].join('\n'),
+    ]
     this.sup = '1'
-    this.besoinFormulaire2CaseACocher = ['Présence de coordonnées fractionnaires', false]
+    this.besoinFormulaire2CaseACocher = [
+      'Présence de coordonnées fractionnaires',
+      false,
+    ]
     this.sup2 = false
     this.besoinFormulaire3Numerique = ['Nombre de points à trouver/placer', 3]
     this.sup3 = 3
@@ -50,15 +61,22 @@ export default class Reperage2e extends Exercice {
     Les points à trouver sont choisis aléatoirement à coordonnées entières. On peut choisir le nombre de points à trouver de 1 à 3.`
   }
 
-  nouvelleVersion () {
-    const listeTypeDeReperes = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, nbQuestions: this.nbQuestions, defaut: 4 })
+  nouvelleVersion() {
+    const listeTypeDeReperes = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+      defaut: 4,
+    })
     const x: FractionEtendue[][] = []
     const y: FractionEtendue[][] = []
     const X: number[][] = []
     const Y: number[][] = []
     const noms: string[][] = []
     const points: Point[][] = []
-    for (let i = 0; i < this.nbQuestions;) {
+    for (let i = 0; i < this.nbQuestions; ) {
       x[i] = []
       y[i] = []
       X[i] = []
@@ -80,22 +98,42 @@ export default class Reperage2e extends Exercice {
             coordsI = [choice([1.5, 2.5]), 0]
             coordsK = [0, choice([1, 2])]
             break
-          case 2:{
-            const I = similitude(point(randint(6, 8) * 0.2, 0), pointO, randint(-20, 20), 1)
-            coordsI = [I.x, I.y]
-            const K = similitude(point(...coordsI), pointO, randint(60, 80), 1)
-            coordsK = [K.x, K.y]
-          }
+          case 2:
+            {
+              const I = similitude(
+                point(randint(6, 8) * 0.2, 0),
+                pointO,
+                randint(-20, 20),
+                1,
+              )
+              coordsI = [I.x, I.y]
+              const K = similitude(
+                point(...coordsI),
+                pointO,
+                randint(60, 80),
+                1,
+              )
+              coordsK = [K.x, K.y]
+            }
             break
           case 3:
-          default:{
-            coordsI = [1.5, randint(-4, 4, [0]) * 0.2]
-            const K = similitude(point(...coordsI), pointO, randint(60, 80), choice([0.6, 0.7, 1.25, 1.3, 1.4]))
-            coordsK = [K.x, K.y]
-          }
+          default:
+            {
+              coordsI = [1.5, randint(-4, 4, [0]) * 0.2]
+              const K = similitude(
+                point(...coordsI),
+                pointO,
+                randint(60, 80),
+                choice([0.6, 0.7, 1.25, 1.3, 1.4]),
+              )
+              coordsK = [K.x, K.y]
+            }
             break
         }
-        matrice = new Matrice([[coordsI[0], coordsK[0]], [coordsI[1], coordsK[1]]])
+        matrice = new Matrice([
+          [coordsI[0], coordsK[0]],
+          [coordsI[1], coordsK[1]],
+        ])
         matriceInverse = matrice.inverse()
       } while (matrice == null || matriceInverse == null)
       const pointI = point(coordsI[0], coordsI[1], labelI, 'below')
@@ -125,27 +163,60 @@ export default class Reperage2e extends Exercice {
       }
       for (let xx = -4; xx < 4 + 1 / denX; xx += 1 / denX) {
         if (this.sup4) {
-          const pointL = point(...(matrice.multiply([xx, -3]) as unknown as Matrix)!.toArray() as [number, number])
-          const pointH = point(...(matrice.multiply([xx, 3]) as unknown as Matrix)!.toArray() as [number, number])
+          const pointL = point(
+            ...((matrice.multiply([
+              xx,
+              -3,
+            ]) as unknown as Matrix)!.toArray() as [number, number]),
+          )
+          const pointH = point(
+            ...((matrice.multiply([xx, 3]) as unknown as Matrix)!.toArray() as [
+              number,
+              number,
+            ]),
+          )
           if (Math.abs(xx) > 0.01) grid.push(segment(pointL, pointH))
         }
         for (let yy = -3; yy < 3 + 1 / denY; yy += 1 / denY) {
           if (this.sup4 && xx === -4) {
-            const pointL = point(...(matrice.multiply([-4, yy]) as unknown as Matrix)!.toArray() as [number, number])
-            const pointH = point(...(matrice.multiply([4, yy]) as unknown as Matrix)!.toArray() as [number, number])
+            const pointL = point(
+              ...((matrice.multiply([
+                -4,
+                yy,
+              ]) as unknown as Matrix)!.toArray() as [number, number]),
+            )
+            const pointH = point(
+              ...((matrice.multiply([
+                4,
+                yy,
+              ]) as unknown as Matrix)!.toArray() as [number, number]),
+            )
             if (Math.abs(yy) > 0.01) grid.push(segment(pointL, pointH))
           }
-          if (!this.sup4) { // Si pas de grille, on fait des points et on ajoute des ticks sur les axes.
+          if (!this.sup4) {
+            // Si pas de grille, on fait des points et on ajoute des ticks sur les axes.
             if (Math.abs(xx) > 0.1 && Math.abs(yy) > 0.1) {
-              grid.push(point(...(matrice.multiply([xx, yy]) as unknown as Matrix)!.toArray() as [number, number]))
+              grid.push(
+                point(
+                  ...((matrice.multiply([
+                    xx,
+                    yy,
+                  ]) as unknown as Matrix)!.toArray() as [number, number]),
+                ),
+              )
             } else {
-              const [x, y] = (matrice.multiply([xx, yy]) as unknown as Matrix)!.toArray() as [number, number]
-              if (Math.abs(x) < 0.1) { // On est sur l'axe des ordonnées
+              const [x, y] = (matrice.multiply([
+                xx,
+                yy,
+              ]) as unknown as Matrix)!.toArray() as [number, number]
+              if (Math.abs(x) < 0.1) {
+                // On est sur l'axe des ordonnées
                 const s = segment(x - 0.1, y, x + 0.1, y)
                 s.epaisseur = 1.5
                 if (Math.abs(y) > 0.1) grid.push(s)
               }
-              if (Math.abs(y) < 0.1) { // On est sur l'axe des abscisses
+              if (Math.abs(y) < 0.1) {
+                // On est sur l'axe des abscisses
                 const s = segment(x, y - 0.1, x, y + 0.1)
                 s.epaisseur = 1.5
                 if (Math.abs(x) > 0.1) grid.push(s)
@@ -154,8 +225,10 @@ export default class Reperage2e extends Exercice {
           }
         }
       }
-      const dots = this.sup4 ? grid : tracePoint(...grid.filter(el => el instanceof Point))
-      const ticks = this.sup4 ? [] : grid.filter(el => el instanceof Segment)
+      const dots = this.sup4
+        ? grid
+        : tracePoint(...grid.filter((el) => el instanceof Point))
+      const ticks = this.sup4 ? [] : grid.filter((el) => el instanceof Segment)
       if (this.sup4) {
         for (const el of dots as Segment[]) {
           el.styleExtremites = '-'
@@ -164,27 +237,51 @@ export default class Reperage2e extends Exercice {
           el.opacite = 0.6
         }
       } else {
-        (dots as TracePoint).style = '.';
-        (dots as TracePoint).epaisseur = 0.4;
-        (dots as TracePoint).opacite = 0.6;
-        (dots as TracePoint).color = colorToLatexOrHTML('gray')
+        ;(dots as TracePoint).style = '.'
+        ;(dots as TracePoint).epaisseur = 0.4
+        ;(dots as TracePoint).opacite = 0.6
+        ;(dots as TracePoint).color = colorToLatexOrHTML('gray')
       }
 
       for (let k = 0; k < this.sup3; k++) {
         do {
           x[i][k] = fraction(randint(-3 * denX, 3 * denX), denX)
           y[i][k] = fraction(randint(-2 * denY, 2 * denY), denY)
-        } while ((x[i][k].isEqual(0) && y[i][k].isEqual(1)) || (x[i][k].isEqual(1) && y[i][k].isEqual(0)) || (x[i][k].isEqual(0) && y[i][k].isEqual(0)) || (x[i].slice(0, k).map(el => el.num).includes(x[i][k].num) && y[i].slice(0, k).map(el => el.num).includes(y[i][k].num)))
-        const [mdx, mdy] = (matrice.multiply([x[i][k].valeurDecimale, y[i][k].valeurDecimale]) as unknown as Matrix).toArray() as [number, number]
+        } while (
+          (x[i][k].isEqual(0) && y[i][k].isEqual(1)) ||
+          (x[i][k].isEqual(1) && y[i][k].isEqual(0)) ||
+          (x[i][k].isEqual(0) && y[i][k].isEqual(0)) ||
+          (x[i]
+            .slice(0, k)
+            .map((el) => el.num)
+            .includes(x[i][k].num) &&
+            y[i]
+              .slice(0, k)
+              .map((el) => el.num)
+              .includes(y[i][k].num))
+        )
+        const [mdx, mdy] = (
+          matrice.multiply([
+            x[i][k].valeurDecimale,
+            y[i][k].valeurDecimale,
+          ]) as unknown as Matrix
+        ).toArray() as [number, number]
         X[i][k] = mdx
         Y[i][k] = mdy
-        points[i][k] = point(mdx, mdy, listeNoms[3 + k], `${x[i][k].valeurDecimale < 0
-           ? y[i][k].valeurDecimale < 0
-           ? 'below left'
-           : 'above left'
-           : y[i][k].valeurDecimale
-           ? 'below right'
-           : 'above right'}`)
+        points[i][k] = point(
+          mdx,
+          mdy,
+          listeNoms[3 + k],
+          `${
+            x[i][k].valeurDecimale < 0
+              ? y[i][k].valeurDecimale < 0
+                ? 'below left'
+                : 'above left'
+              : y[i][k].valeurDecimale
+                ? 'below right'
+                : 'above right'
+          }`,
+        )
       }
       const traces = tracePoint(...points[i])
       traces.style = 'x'
@@ -192,24 +289,43 @@ export default class Reperage2e extends Exercice {
       traces.color = colorToLatexOrHTML('black')
       const labels = labelPoint(pointO, pointI, pointK, ...points[i])
       const objets = [traces, traceRep, labels, OI, OK, dots, ticks]
-      let question = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+      let question = mathalea2d(
+        Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+        objets,
+      )
 
       question += `Quelles sont les coordonnées des points $${noms[i].join('$, $')}$ dans le repère $(${labelO},${labelI},${labelK})$ ?<br>`
       if (this.interactif) {
-        question += noms[i].map((el, k) => `Coordonnées de $${el}$ : ${ajouteQuestionMathlive({
-          exercice: this,
-          question: i * this.sup3 + k,
-          typeInteractivite: 'remplisLesBlancs',
-          // objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
-          objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee }, champ2: { value: y[i][k].texFractionSimplifiee }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
-          content: '(%{champ1}~~;~~%{champ2})'
-        })}`).join('<br>')
+        question += noms[i]
+          .map(
+            (el, k) =>
+              `Coordonnées de $${el}$ : ${ajouteQuestionMathlive({
+                exercice: this,
+                question: i * this.sup3 + k,
+                typeInteractivite: 'remplisLesBlancs',
+                // objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
+                objetReponse: {
+                  champ1: { value: x[i][k].texFractionSimplifiee },
+                  champ2: { value: y[i][k].texFractionSimplifiee },
+                  bareme: (listePoints: number[]) => [
+                    Math.min(...listePoints),
+                    1,
+                  ],
+                },
+                content: '(%{champ1}~~;~~%{champ2})',
+              })}`,
+          )
+          .join('<br>')
       } else {
-        question += noms[i].map((el) => `Coordonnées de $${el}$ : $(\\ldots~~;~~\\ldots)$`).join('<br>')
+        question += noms[i]
+          .map((el) => `Coordonnées de $${el}$ : $(\\ldots~~;~~\\ldots)$`)
+          .join('<br>')
       }
       const reponse = `Dans le repère $(${labelO},${labelI},${labelK})$ sont :<br>
             $${points[i].map((p, k) => `${listeNoms[k + 3]}(${x[i][k].texFractionSimplifiee};${y[i][k].texFractionSimplifiee})`).join(', ')}$`
-      if (this.questionJamaisPosee(i, ...X[i], ...Y[i], ...coordsI, ...coordsK)) {
+      if (
+        this.questionJamaisPosee(i, ...X[i], ...Y[i], ...coordsI, ...coordsK)
+      ) {
         this.listeQuestions[i] = question
         this.listeCorrections[i] = reponse
         i++

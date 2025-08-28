@@ -14,19 +14,25 @@ export const interactifType = 'mathLive'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
-const result = fonctionComparaison('(2a-5)(-2-2a)', '(2a-2)(2a-5)', { factorisation: true })
+const result = fonctionComparaison('(2a-5)(-2-2a)', '(2a-2)(2a-5)', {
+  factorisation: true,
+})
 
 const expr1 = engine.parse('\\frac{-3+\\sqrt{41}}{4}', { canonical: true })
-const expr2 = engine.parse('-\\frac34+\\frac{\\sqrt{41}}{4}', { canonical: true })
+const expr2 = engine.parse('-\\frac34+\\frac{\\sqrt{41}}{4}', {
+  canonical: true,
+})
 console.info(expr1.isEqual(expr2)) // -> false but should be true
 const expr3 = engine.parse('\\frac{-3-\\sqrt{41}}{4}', { canonical: true })
-const expr4 = engine.parse('-\\frac34-\\frac{\\sqrt{41}}{4}', { canonical: true })
+const expr4 = engine.parse('-\\frac34-\\frac{\\sqrt{41}}{4}', {
+  canonical: true,
+})
 console.info(expr3.isEqual(expr4)) // -> true as it should
 
 // -> ["Add",12,["Delimiter",["Negate",2]]]
@@ -52,15 +58,19 @@ console.info('-\\dfrac{-12}{-13}'.replace(/^\\dfrac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)
 */
 
 export default class desTestsPourInteractivité extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     // this.consigne = 'Quel est le résultat des calculs suivants ?'
-    this.consigne = 'Écrire ce nombre sous forme d\'une somme.'
+    this.consigne = "Écrire ce nombre sous forme d'une somme."
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0, a, b;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       a = randint(1, 12)
       b = randint(2, 12)
 
@@ -70,17 +80,25 @@ export default class desTestsPourInteractivité extends Exercice {
       // const reponse = new FractionEtendue(-20, 50).valeurDecimale
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 +' + reponse + '$ : $'
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 :$'
-      const enonce = '\\dfrac{-3+\\sqrt{41}}{4} + -\\dfrac34+\\dfrac{\\sqrt{41}}{4}'
+      const enonce =
+        '\\dfrac{-3+\\sqrt{41}}{4} + -\\dfrac34+\\dfrac{\\sqrt{41}}{4}'
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
       // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
-      texte = `$${enonce}$` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
+      texte =
+        `$${enonce}$` +
+        ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
       // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1, 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction)
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })
-      handleAnswers(this, i, { reponse: { value: reponse, options: { additionSeulementEtNonResultat: true } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: reponse,
+          options: { additionSeulementEtNonResultat: true },
+        },
+      })
       // handleAnswers(this, i, { reponse: { value: reponse } })
 
       if (this.questionJamaisPosee(i, a, b)) {

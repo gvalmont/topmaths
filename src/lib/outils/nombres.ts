@@ -8,7 +8,8 @@ import Decimal from 'decimal.js'
 import { round } from 'mathjs'
 import { enleveElement } from './arrayOutils'
 
-export function signe (a: number) { // + ou -
+export function signe(a: number) {
+  // + ou -
   let result
   if (a > 0) {
     result = '+'
@@ -24,19 +25,26 @@ export function signe (a: number) { // + ou -
  * sommeDesChiffres(123)
  * // [ 6, '1+2+3']
  * @author Rémi Angot (Rajout Tableau par EE)
- */export function sommeDesChiffres (n: number | number[]): [number, string] {
+ */ export function sommeDesChiffres(n: number | number[]): [number, string] {
   let nString
   if (Array.isArray(n)) nString = n.join('').toString()
   else nString = n.toString()
   let somme = 0
   let sommeString = ''
   for (let i = 0; i < nString.length - 1; i++) {
-    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[i]) !== -1) {
+    if (
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[i]) !==
+      -1
+    ) {
       sommeString += nString[i] + '+'
       somme += Number(nString[i])
     }
   }
-  if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[nString.length - 1]) !== -1) {
+  if (
+    ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(
+      nString[nString.length - 1],
+    ) !== -1
+  ) {
     sommeString += nString[nString.length - 1]
     somme += Number(nString[nString.length - 1])
   }
@@ -50,9 +58,12 @@ export function signe (a: number) { // + ou -
  * @param {number} precision
  * @return {number}
  */
-export function arrondi (nombre: number, precision = 6) {
+export function arrondi(nombre: number, precision = 6) {
   if (isNaN(nombre)) {
-    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
+    window.notify("Le nombre à arrondir n'en est pas un, ça retourne NaN", {
+      nombre,
+      precision,
+    })
     return NaN
   } else {
     return round(nombre, precision)
@@ -63,7 +74,7 @@ export function arrondi (nombre: number, precision = 6) {
  * Retourne la troncature signée de nombre.
  * @author Jean-Claude Lhote
  */
-export function troncature (nombre: number, precision: number) {
+export function troncature(nombre: number, precision: number) {
   const tmp = Math.pow(10, precision)
   const absolu = new Decimal(nombre).abs()
   const tronc = absolu.mul(tmp).floor().div(tmp)
@@ -76,7 +87,7 @@ export function troncature (nombre: number, precision: number) {
  * @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
  * @returns {number|Decimal}
  */
-export function abs<T extends number | Decimal> (a: T): T {
+export function abs<T extends number | Decimal>(a: T): T {
   if (a instanceof Decimal) return a.abs() as T
   return Math.abs(a) as T
 }
@@ -85,7 +96,7 @@ export function abs<T extends number | Decimal> (a: T): T {
  * prend une liste de nombres relatifs et la retourne avec les positifs au début et les négatifs à la fin.
  * @param {array} liste la liste de nombres à trier
  */
-export function triePositifsNegatifs (liste: number[]) {
+export function triePositifsNegatifs(liste: number[]) {
   const positifs = []
   const negatifs = []
   for (let i = 0; i < liste.length; i++) {
@@ -101,11 +112,15 @@ export function triePositifsNegatifs (liste: number[]) {
  * @param {number} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Rémi Angot
  */
-export function nombreDeChiffresDansLaPartieDecimale (nb: number | string | Decimal, except?: number) {
+export function nombreDeChiffresDansLaPartieDecimale(
+  nb: number | string | Decimal,
+  except?: number,
+) {
   let sauf = 0
   if (nb instanceof Decimal || typeof nb === 'number') nb = nb.toString()
   if (nb.indexOf('.') > 0) {
-    if (except && !isNaN(except)) sauf = (String(nb).split('.')[1].split(String(except)).length - 1)
+    if (except && !isNaN(except))
+      sauf = String(nb).split('.')[1].split(String(except)).length - 1
     return nb.split('.')[1].length - sauf
   } else {
     return 0
@@ -116,7 +131,10 @@ export function nombreDeChiffresDansLaPartieDecimale (nb: number | string | Deci
  * Renvoie le nombre de chiffres dans la partie entière
  * @author ?
  */
-export function nombreDeChiffresDansLaPartieEntiere (nb: number, except?: number) {
+export function nombreDeChiffresDansLaPartieEntiere(
+  nb: number,
+  except?: number,
+) {
   let nombre
   let sauf = 0
   if (nb < 0) {
@@ -125,7 +143,8 @@ export function nombreDeChiffresDansLaPartieEntiere (nb: number, except?: number
     nombre = nb
   }
   if (String(nombre).indexOf('.') > 0) {
-    if (except && !isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
+    if (except && !isNaN(except))
+      sauf = String(nombre).split('.')[0].split(String(except)).length - 1
     return String(nombre).split('.')[0].length - sauf
   } else {
     // if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1) @fixme à quoi sert cette affectation inutile ?
@@ -139,9 +158,12 @@ export function nombreDeChiffresDansLaPartieEntiere (nb: number, except?: number
  * @param {number} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Jean-Claude Lhote
  */
-export function nombreDeChiffresDe (nb: number | Decimal, except?: number) {
+export function nombreDeChiffresDe(nb: number | Decimal, except?: number) {
   if (nb instanceof Decimal) nb = nb.toNumber()
-  return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
+  return (
+    nombreDeChiffresDansLaPartieDecimale(nb, except) +
+    nombreDeChiffresDansLaPartieEntiere(nb, except)
+  )
 }
 
 /**
@@ -149,7 +171,7 @@ export function nombreDeChiffresDe (nb: number | Decimal, except?: number) {
  * x le nombre dont on cherche l'ordre de grandeur
  * type = 0 pour la puissance de 10 inférieure, 1 pour la puissance de 10 supérieur et 2 pour la plus proche
  */
-export function ordreDeGrandeur (x: number, type: number) {
+export function ordreDeGrandeur(x: number, type: number) {
   let signe
   if (x < 0) signe = -1
   else signe = 1
@@ -172,7 +194,7 @@ export function ordreDeGrandeur (x: number, type: number) {
  *
  * @author Rémi Angot
  */
-export function range (max: number = 10, listeAEviter: number[] = []) {
+export function range(max: number = 10, listeAEviter: number[] = []) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const liste = [...Array(max + 1).keys()]
   for (let i = 0; i < listeAEviter.length; i++) {
@@ -193,7 +215,12 @@ export function range (max: number = 10, listeAEviter: number[] = []) {
  *
  * @author Rémi Angot
  */
-export function rangeMinMax (min: number, max: number, listeAEviter: number | number[] = [], step = 1) {
+export function rangeMinMax(
+  min: number,
+  max: number,
+  listeAEviter: number | number[] = [],
+  step = 1,
+) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const liste = []
   for (let i = min; i <= max; i = i + step) {
@@ -214,7 +241,7 @@ export function rangeMinMax (min: number, max: number, listeAEviter: number | nu
  * @param {number[]} listeAEviter valeurs à éviter
  * @author Rémi Angot
  */
-export function range1 (max: number = 10, listeAEviter: number[] = []) {
+export function range1(max: number = 10, listeAEviter: number[] = []) {
   const liste = []
   for (let i = 1; i <= max; i++) {
     liste.push(i)
@@ -231,7 +258,7 @@ export function range1 (max: number = 10, listeAEviter: number[] = []) {
  *
  * @author Rémi Angot
  */
-export function compareNombres (a: number, b: number) {
+export function compareNombres(a: number, b: number) {
   return a - b
 }
 
@@ -239,7 +266,7 @@ export function compareNombres (a: number, b: number) {
  *
  * Copié sur https://delicious-insights.com/fr/articles/le-piege-de-array-sort/
  */
-export function numTrie (arr: number[]) {
+export function numTrie(arr: number[]) {
   return arr.sort(function (a, b) {
     return a - b
   })
@@ -251,7 +278,7 @@ export function numTrie (arr: number[]) {
  * -1 si a est négatif, 1 sinon.
  * @author Jean-Claude Lhote
  */
-export function unSiPositifMoinsUnSinon (a: number) {
+export function unSiPositifMoinsUnSinon(a: number) {
   if (a < 0) return -1
   else return 1
 }
@@ -262,10 +289,9 @@ export function unSiPositifMoinsUnSinon (a: number) {
  * @returns boolean
  * @author Jean-Claude Lhote
  */
-export function tousDeMemeSigne (a: number[]) {
+export function tousDeMemeSigne(a: number[]) {
   if (a.length === 0) return true
   return a.every((val) => {
     return signe(val) === signe(a[0])
-  }
-  )
+  })
 }

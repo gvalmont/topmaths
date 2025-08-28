@@ -20,7 +20,7 @@ import type { ReponseComplexe } from '../interactif/gestionInteractif'
  * //rienSi1(-1)+'x' -> -x
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function rienSi1 (a: number | FractionEtendue | Decimal) {
+export function rienSi1(a: number | FractionEtendue | Decimal) {
   if (typeof a === 'number') {
     if (a === 1) return ''
     if (a === -1) return '-'
@@ -31,15 +31,19 @@ export function rienSi1 (a: number | FractionEtendue | Decimal) {
     if (a.eq(-1)) return '-'
     return texNombre(a)
   }
-  if (a instanceof FractionEtendue && !(a.isEqual(fraction(1, 1)) || a.isEqual(fraction(-1, 1)))) return a.toLatex()
-  if (a instanceof FractionEtendue && (a.isEqual(fraction(1, 1)))) return ''
-  if (a instanceof FractionEtendue && (a.isEqual(fraction(-1, 1)))) return '-'
+  if (
+    a instanceof FractionEtendue &&
+    !(a.isEqual(fraction(1, 1)) || a.isEqual(fraction(-1, 1)))
+  )
+    return a.toLatex()
+  if (a instanceof FractionEtendue && a.isEqual(fraction(1, 1))) return ''
+  if (a instanceof FractionEtendue && a.isEqual(fraction(-1, 1))) return '-'
   if (!(a instanceof FractionEtendue)) {
     if (egal(a, 1)) return ''
     if (egal(a, -1)) return '-'
   }
   if (typeof a === 'string') {
-    window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
+    window.notify("rienSi1() n'accepte pas les string.", { argument: a })
     return texNombre(Number(a), 7)
   }
   console.log(typeof a)
@@ -54,7 +58,7 @@ export function rienSi1 (a: number | FractionEtendue | Decimal) {
  * // rienSi0(2) -> '2'
  * @author Guillaume Valmont
  */
-export function rienSi0 (a: number | FractionEtendue | Decimal) {
+export function rienSi0(a: number | FractionEtendue | Decimal) {
   if (typeof a === 'number') {
     if (a === 0) return ''
     return texNombre(a)
@@ -63,13 +67,14 @@ export function rienSi0 (a: number | FractionEtendue | Decimal) {
     if (a.isZero()) return ''
     return texNombre(a)
   }
-  if (a instanceof FractionEtendue && !a.isEqual(fraction(0, 1))) return a.toLatex()
+  if (a instanceof FractionEtendue && !a.isEqual(fraction(0, 1)))
+    return a.toLatex()
   if (a instanceof FractionEtendue && a.isEqual(fraction(0, 1))) return ''
   if (!(a instanceof FractionEtendue)) {
     if (egal(a, 0)) return ''
   }
   if (typeof a === 'string') {
-    window.notify('rienSi0() n\'accepte pas les string.', { argument: a })
+    window.notify("rienSi0() n'accepte pas les string.", { argument: a })
     return texNombre(Number(a), 7)
   }
   console.log(typeof a)
@@ -84,7 +89,7 @@ export function rienSi0 (a: number | FractionEtendue | Decimal) {
  * // 'dm'+texteExposant(3)
  * @author Rémi Angot
  */
-export function texteExposant (texte: string | number) {
+export function texteExposant(texte: string | number) {
   if (typeof texte === 'number') texte = String(texte)
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
@@ -99,9 +104,11 @@ export function texteExposant (texte: string | number) {
  * //(+3) ou (-3)
  * @author Rémi Angot
  */
-export function ecritureNombreRelatif (a: number) {
+export function ecritureNombreRelatif(a: number) {
   if (typeof a === 'string') {
-    window.notify('ecritureNombreRelatif() n\'accepte pas les string.', { argument: a })
+    window.notify("ecritureNombreRelatif() n'accepte pas les string.", {
+      argument: a,
+    })
     a = Number(a)
   }
   if (a > 0) {
@@ -117,9 +124,14 @@ export function ecritureNombreRelatif (a: number) {
  * Idem ecritureNombreRelatif avec le code couleur : vert si positif, rouge si négatif, noir si nul
  * @param {number} a
  */
-export function ecritureNombreRelatifc (a: string | number, { color = null } : { color?: string | null } = {}) {
+export function ecritureNombreRelatifc(
+  a: string | number,
+  { color = null }: { color?: string | null } = {},
+) {
   if (typeof a === 'string') {
-    window.notify('ecritureNombreRelatifc() n\'accepte pas les string.', { argument: a })
+    window.notify("ecritureNombreRelatifc() n'accepte pas les string.", {
+      argument: a,
+    })
     a = Number(a)
   }
   let result = ''
@@ -127,7 +139,8 @@ export function ecritureNombreRelatifc (a: string | number, { color = null } : {
     result = miseEnEvidence('(+' + texNombre(a, 7) + ')', color ?? 'blue')
   } else if (a < 0) {
     result = miseEnEvidence('(' + texNombre(a, 7) + ')', color ?? 'green') // EE : Je change cette couleur pour ne pas avoir le orange de la correction.
-  } else { // ne pas mettre de parenthèses pour le nnombre 0.
+  } else {
+    // ne pas mettre de parenthèses pour le nnombre 0.
     result = miseEnEvidence('0', color ?? 'black')
   }
   return result
@@ -139,9 +152,11 @@ export function ecritureNombreRelatifc (a: string | number, { color = null } : {
  * //+3 ou -3
  * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
  */
-export function ecritureAlgebrique (a: number | FractionEtendue | Decimal) {
+export function ecritureAlgebrique(a: number | FractionEtendue | Decimal) {
   if (typeof a === 'string') {
-    window.notify('ecritureAlgebrique() n\'accepte pas les string.', { argument: a })
+    window.notify("ecritureAlgebrique() n'accepte pas les string.", {
+      argument: a,
+    })
     return a
   } else if (a instanceof FractionEtendue) {
     return a.texFractionSignee
@@ -158,7 +173,9 @@ export function ecritureAlgebrique (a: number | FractionEtendue | Decimal) {
       return texNombre(a, 7)
     }
   } else {
-    window.notify('ecritureAlgebrique() : type de valeur non prise en compte', { argument: a })
+    window.notify('ecritureAlgebrique() : type de valeur non prise en compte', {
+      argument: a,
+    })
     return ''
   }
 }
@@ -169,21 +186,27 @@ export function ecritureAlgebrique (a: number | FractionEtendue | Decimal) {
  * //+3 ou -3
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) {
+export function ecritureAlgebriqueSauf1(a: FractionEtendue | number | Decimal) {
   if (a instanceof FractionEtendue) {
     if (a.num === 1 && a.den === 1) return '+'
     else if (a.num === -1 && a.den === 1) return '-'
     else return a.texFractionSignee
   }
   if (typeof a === 'string') {
-    window.notify('ecritureAlgebriqueSauf1() n\'accepte pas les string.', { argument: a })
+    window.notify("ecritureAlgebriqueSauf1() n'accepte pas les string.", {
+      argument: a,
+    })
     a = Number(a)
   }
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
-  else if (typeof a === 'number' || a instanceof Decimal) return ecritureAlgebrique(a)
+  else if (typeof a === 'number' || a instanceof Decimal)
+    return ecritureAlgebrique(a)
   else {
-    window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte', {})
+    window.notify(
+      'ecritureAlgebriqueSauf1 : type de valeur non prise en compte',
+      {},
+    )
     return 'erreur type de valeur non prise en compte'
   }
 }
@@ -192,9 +215,11 @@ export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) 
  * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul).
  * @param {number} a
  */
-export function ecritureAlgebriquec (a: number | string, color?:string) {
+export function ecritureAlgebriquec(a: number | string, color?: string) {
   if (typeof a === 'string') {
-    window.notify('ecritureAlgebriquec() n\'accepte pas les string.', { argument: a })
+    window.notify("ecritureAlgebriquec() n'accepte pas les string.", {
+      argument: a,
+    })
     a = Number(a)
   }
   let result = ''
@@ -212,8 +237,12 @@ export function ecritureAlgebriquec (a: number | string, color?:string) {
  * @returns {string} met en évidence le signe - si r < 0
  */
 
-export function signeMoinsEnEvidence (r: number, precision = 0) {
-  if (typeof r !== 'number') window.notify('signeMoinsEnEvidence() appelé avec autre chose qu\'un nombre.', { argument: r })
+export function signeMoinsEnEvidence(r: number, precision = 0) {
+  if (typeof r !== 'number')
+    window.notify(
+      "signeMoinsEnEvidence() appelé avec autre chose qu'un nombre.",
+      { argument: r },
+    )
   else if (r < 0) return miseEnEvidence('-') + texNombre(Math.abs(r), precision)
   else return texNombre(Math.abs(r), precision)
 }
@@ -225,10 +254,13 @@ export function signeMoinsEnEvidence (r: number, precision = 0) {
  * @author Rémi Angot
  * @return {string}
  */
-export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtendue): string {
+export function ecritureParentheseSiNegatif(
+  a: Decimal | number | FractionEtendue,
+): string {
   let result = ''
   if (a instanceof Decimal) {
-    if (a.gte(0)) return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
+    if (a.gte(0))
+      return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
     else return `(${texNombre(a, 8)})`
   } else if (typeof a === 'number') {
     if (a >= 0) {
@@ -240,7 +272,10 @@ export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtend
   } else if (a instanceof FractionEtendue) {
     return a.ecritureParentheseSiNegatif
   } else {
-    window.notify('ecritureParentheseSiNegatif() appelée avec autre chose qu\'un nombre', { argument: a })
+    window.notify(
+      "ecritureParentheseSiNegatif() appelée avec autre chose qu'un nombre",
+      { argument: a },
+    )
     return 'undefined'
   }
 }
@@ -251,15 +286,23 @@ export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtend
  * // (-3x)
  * @author Rémi Angot
  */
-export function ecritureParentheseSiMoins (expr: string | number | FractionEtendue) {
+export function ecritureParentheseSiMoins(
+  expr: string | number | FractionEtendue,
+) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
-  else if (typeof expr === 'string') return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
-  else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, 7)})`
+  else if (typeof expr === 'string')
+    return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
+  else if (typeof expr === 'number' && expr < 0)
+    return `(${stringNombre(expr, 7)})`
   else if (typeof expr === 'number') return stringNombre(expr, 7)
-  else if (expr instanceof FractionEtendue && expr.s === -1) return `(${expr.texFSD})`
+  else if (expr instanceof FractionEtendue && expr.s === -1)
+    return `(${expr.texFSD})`
   else {
     // avant on passait ici quand c'était un string sans signe - devant... c'était une mauvaise idée !
-    window.notify('ecritureParentheseSiMoins() n\'accepte pas ce type d\'argument.', { argument: expr })
+    window.notify(
+      "ecritureParentheseSiMoins() n'accepte pas ce type d'argument.",
+      { argument: expr },
+    )
     return String(expr)
   }
 }
@@ -271,7 +314,7 @@ export function ecritureParentheseSiMoins (expr: string | number | FractionEtend
  * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
  */
 
-export function calculAligne (numero: number, etapes: number[]) {
+export function calculAligne(numero: number, etapes: number[]) {
   let script = `$\\begin{aligned}${miseEnEvidence(lettreDepuisChiffre(numero))}&=${etapes[0]}`
   for (let i = 1; i < etapes.length - 1; i++) {
     script += `\\\\&=${etapes[i]}`
@@ -286,15 +329,26 @@ export function calculAligne (numero: number, etapes: number[]) {
  * fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
  * @author Jean-Claude Lhote
  */
-export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: number) {
+export function egalOuApprox(
+  a: number | FractionEtendue | Decimal,
+  precision: number,
+) {
   if (a instanceof FractionEtendue) {
     // @ ts-expect-errors
-    return egal(a.num / a.den, arrondi(a.num / a.den, precision)) ? '=' : '\\approx'
+    return egal(a.num / a.den, arrondi(a.num / a.den, precision))
+      ? '='
+      : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
-  } else if (!isNaN(a) && !isNaN(precision)) return egal(a, round(a, precision), 10 ** (-precision - 2)) ? '=' : '\\approx'
+  } else if (!isNaN(a) && !isNaN(precision))
+    return egal(a, round(a, precision), 10 ** (-precision - 2))
+      ? '='
+      : '\\approx'
   else {
-    window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
+    window.notify("egalOuApprox : l'argument n'est pas un nombre", {
+      a,
+      precision,
+    })
     return 'Mauvais argument (nombres attendus).'
   }
 }
@@ -307,7 +361,12 @@ export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: 
  * @param {number | Decimal | FractionEtendue} b
  * @param {string} [inconnue = 'x'] 'x' par défaut, mais on peut préciser autre chose.
  */
-export function reduireAxPlusB (a: number | Decimal | FractionEtendue, b: number | Decimal | FractionEtendue, inconnue: string = 'x', options: OptionsReduireAxPlusByPlusC = {}) {
+export function reduireAxPlusB(
+  a: number | Decimal | FractionEtendue,
+  b: number | Decimal | FractionEtendue,
+  inconnue: string = 'x',
+  options: OptionsReduireAxPlusByPlusC = {},
+) {
   return reduireAxPlusByPlusC(a, 0, b, inconnue, undefined, options)
 }
 
@@ -349,42 +408,108 @@ type OptionsReduireAxPlusByPlusC = {
  * @example reduireAxPlusByPlusC(3,-4,5,'a','b') // renvoie 3a-4b+5
  * @return {string}
  */
-export function reduireAxPlusByPlusC (a: number | Decimal | FractionEtendue, b: number | Decimal | FractionEtendue, c: number | Decimal | FractionEtendue, inconnueX = 'x', inconnueY = 'y', options: OptionsReduireAxPlusByPlusC = {}) {
-  if (!(a instanceof Decimal) && !(a instanceof FractionEtendue)) a = new Decimal(a)
-  if (!(b instanceof Decimal) && !(b instanceof FractionEtendue)) b = new Decimal(b)
-  if (!(c instanceof Decimal) && !(c instanceof FractionEtendue)) c = new Decimal(c)
-  let valeurDecimaleFraction : number
-  let aEgalZero : boolean
-  let bEgalZero : boolean
-  let cEgalZero : boolean
-  let termeA : string
-  let termeB : string
-  let termeC : string
+export function reduireAxPlusByPlusC(
+  a: number | Decimal | FractionEtendue,
+  b: number | Decimal | FractionEtendue,
+  c: number | Decimal | FractionEtendue,
+  inconnueX = 'x',
+  inconnueY = 'y',
+  options: OptionsReduireAxPlusByPlusC = {},
+) {
+  if (!(a instanceof Decimal) && !(a instanceof FractionEtendue))
+    a = new Decimal(a)
+  if (!(b instanceof Decimal) && !(b instanceof FractionEtendue))
+    b = new Decimal(b)
+  if (!(c instanceof Decimal) && !(c instanceof FractionEtendue))
+    c = new Decimal(c)
+  let valeurDecimaleFraction: number
+  let aEgalZero: boolean
+  let bEgalZero: boolean
+  let cEgalZero: boolean
+  let termeA: string
+  let termeB: string
+  let termeC: string
   if (a instanceof Decimal) {
     aEgalZero = a.isZero()
-    termeA = aEgalZero ? '' : ((a.eq(1) ? (options.ordreInverse ? '+' : '') : a.eq(-1) ? '-' : (options.ordreInverse ? ecritureAlgebriqueSauf1(a) : texNombre(a))) + inconnueX)
+    termeA = aEgalZero
+      ? ''
+      : (a.eq(1)
+          ? options.ordreInverse
+            ? '+'
+            : ''
+          : a.eq(-1)
+            ? '-'
+            : options.ordreInverse
+              ? ecritureAlgebriqueSauf1(a)
+              : texNombre(a)) + inconnueX
   } else {
     valeurDecimaleFraction = a.valeurDecimale
     aEgalZero = valeurDecimaleFraction === 0
-    termeA = aEgalZero ? '' : ((valeurDecimaleFraction === 1 ? (options.ordreInverse ? '+' : '') : valeurDecimaleFraction === -1 ? '-' : (options.ordreInverse ? a.texFractionSignee : a.texFSD)) + inconnueX)
+    termeA = aEgalZero
+      ? ''
+      : (valeurDecimaleFraction === 1
+          ? options.ordreInverse
+            ? '+'
+            : ''
+          : valeurDecimaleFraction === -1
+            ? '-'
+            : options.ordreInverse
+              ? a.texFractionSignee
+              : a.texFSD) + inconnueX
   }
   if (b instanceof Decimal) {
     bEgalZero = b.isZero()
-    termeB = bEgalZero ? '' : ((b.eq(-1) ? '-' : (b.eq(1) && aEgalZero) ? '' : (b.eq(1) && !aEgalZero) ? '+' : aEgalZero ? (texNombre(b)) : (ecritureAlgebrique(b))) + inconnueY)
+    termeB = bEgalZero
+      ? ''
+      : (b.eq(-1)
+          ? '-'
+          : b.eq(1) && aEgalZero
+            ? ''
+            : b.eq(1) && !aEgalZero
+              ? '+'
+              : aEgalZero
+                ? texNombre(b)
+                : ecritureAlgebrique(b)) + inconnueY
   } else {
     valeurDecimaleFraction = b.valeurDecimale
     bEgalZero = valeurDecimaleFraction === 0
-    termeB = bEgalZero ? '' : ((valeurDecimaleFraction === -1 ? '-' : (valeurDecimaleFraction === 1 && aEgalZero) ? '' : (valeurDecimaleFraction === 1 && !aEgalZero) ? '+' : bEgalZero ? `${b.texFSD}` : `${b.texFractionSignee}`) + inconnueY)
+    termeB = bEgalZero
+      ? ''
+      : (valeurDecimaleFraction === -1
+          ? '-'
+          : valeurDecimaleFraction === 1 && aEgalZero
+            ? ''
+            : valeurDecimaleFraction === 1 && !aEgalZero
+              ? '+'
+              : bEgalZero
+                ? `${b.texFSD}`
+                : `${b.texFractionSignee}`) + inconnueY
   }
   if (c instanceof Decimal) {
     cEgalZero = c.isZero()
-    termeC = (aEgalZero && bEgalZero && cEgalZero) ? '0' : cEgalZero ? '' : ((aEgalZero && bEgalZero) || options.ordreInverse) ? texNombre(c) : (ecritureAlgebrique(c))
+    termeC =
+      aEgalZero && bEgalZero && cEgalZero
+        ? '0'
+        : cEgalZero
+          ? ''
+          : (aEgalZero && bEgalZero) || options.ordreInverse
+            ? texNombre(c)
+            : ecritureAlgebrique(c)
   } else {
     valeurDecimaleFraction = c.valeurDecimale
     cEgalZero = valeurDecimaleFraction === 0
-    termeC = (aEgalZero && bEgalZero && cEgalZero) ? '0' : cEgalZero ? '' : ((aEgalZero && bEgalZero) || options.ordreInverse) ? `${c.texFSD}` : `${c.texFractionSignee}`
+    termeC =
+      aEgalZero && bEgalZero && cEgalZero
+        ? '0'
+        : cEgalZero
+          ? ''
+          : (aEgalZero && bEgalZero) || options.ordreInverse
+            ? `${c.texFSD}`
+            : `${c.texFractionSignee}`
   }
-  const result = options.ordreInverse ? `${termeC}${termeB}${termeA}` : `${termeA}${termeB}${termeC}`
+  const result = options.ordreInverse
+    ? `${termeC}${termeB}${termeA}`
+    : `${termeA}${termeB}${termeC}`
   return result
 }
 /*
@@ -397,8 +522,14 @@ reponse += new FractionEtendue(n, d).valeurDecimale === 0 && valeurDecimaleFract
  * renvoie une chaine correspondant à l'écriture réduite d'ax^3+bx^2+cx+d selon les valeurs de a, b, c et d
  * @author Jean-Claude Lhote
  */
-export function reduirePolynomeDegre3 (a: number | string, b: number | string, c: number | string, d: number | string, x = 'x') {
-  [a, b, c, d].forEach((el) => typeof el === 'number' ? el : Number(el))
+export function reduirePolynomeDegre3(
+  a: number | string,
+  b: number | string,
+  c: number | string,
+  d: number | string,
+  x = 'x',
+) {
+  ;[a, b, c, d].forEach((el) => (typeof el === 'number' ? el : Number(el)))
   let result = ''
   if (a !== 0) {
     switch (a) {
@@ -441,7 +572,8 @@ export function reduirePolynomeDegre3 (a: number | string, b: number | string, c
     if (d !== 0) {
       result += `${typeof d === 'number' ? ecritureAlgebrique(d) : d}`
     }
-  } else { // degré 2 pas de degré 3
+  } else {
+    // degré 2 pas de degré 3
     if (b !== 0) {
       switch (b) {
         case 1:
@@ -470,30 +602,31 @@ export function reduirePolynomeDegre3 (a: number | string, b: number | string, c
       if (d !== 0) {
         result += `${typeof d === 'number' ? ecritureAlgebrique(d) : d}`
       }
-    } else // degré 1 pas de degré 2 ni de degré 3
-      if (c !== 0) {
-        switch (c) {
-          case 1:
-            result += `${x}`
-            break
-          case -1:
-            result += `-${x}`
-            break
-          default:
-            result += `${c}${x}`
-            break
-        }
-        if (d !== 0) {
-          result += `${typeof d === 'number' ? ecritureAlgebrique(d) : d}`
-        }
-      } else { // degré 0 a=0, b=0 et c=0
-        result += `${d}`
+    } else if (c !== 0) {
+      // degré 1 pas de degré 2 ni de degré 3
+      switch (c) {
+        case 1:
+          result += `${x}`
+          break
+        case -1:
+          result += `-${x}`
+          break
+        default:
+          result += `${c}${x}`
+          break
       }
+      if (d !== 0) {
+        result += `${typeof d === 'number' ? ecritureAlgebrique(d) : d}`
+      }
+    } else {
+      // degré 0 a=0, b=0 et c=0
+      result += `${d}`
+    }
   }
   return result
 }
 
-export function ordreAlphabetique (str: string):string {
+export function ordreAlphabetique(str: string): string {
   const chars = Array.from(str)
   const orderedChars = chars.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
   return orderedChars.join('')
@@ -504,7 +637,7 @@ export function ordreAlphabetique (str: string):string {
  * @param array
  * @returns une chaîne à afficher
  */
-export function lister (array: unknown[]): string {
+export function lister(array: unknown[]): string {
   let str = ''
   for (let i = 0; i < array.length - 1; i++) {
     if (i !== 0) str += ', '
@@ -533,9 +666,28 @@ export function lister (array: unknown[]): string {
  * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4, variable:'y})[0] renvoie 5y*(-y)+5y*4+(-2)*(-y)+(-2)*4
  * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4, variable:'y})[1] renvoie -5y^2+20y+2y+(-8)
  */
-export function doubleDeveloppement ({ a = 1, b = 1, c = 1, d = 1, x = 'x', reduire = false } = {}) {
-  if (a === 0) return [...simpleDeveloppement({ a: c, b: d, c: b, x, sommeAGauche: false })]
-  if (b === 0) return [...simpleDeveloppementAvecDoubleX({ a: c, b: d, c: a, x, sommeAGauche: false })]
+export function doubleDeveloppement({
+  a = 1,
+  b = 1,
+  c = 1,
+  d = 1,
+  x = 'x',
+  reduire = false,
+} = {}) {
+  if (a === 0)
+    return [
+      ...simpleDeveloppement({ a: c, b: d, c: b, x, sommeAGauche: false }),
+    ]
+  if (b === 0)
+    return [
+      ...simpleDeveloppementAvecDoubleX({
+        a: c,
+        b: d,
+        c: a,
+        x,
+        sommeAGauche: false,
+      }),
+    ]
   if (c === 0) return [...simpleDeveloppement({ a, b, c: d, x })]
   if (d === 0) return [...simpleDeveloppementAvecDoubleX({ a, b, c, x })]
   const expression1 = `${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + x)} + 
@@ -550,7 +702,7 @@ export function doubleDeveloppement ({ a = 1, b = 1, c = 1, d = 1, x = 'x', redu
   ${ecritureAlgebriqueSauf1(a * d)}${x}
   ${ecritureAlgebriqueSauf1(b * c)}${x}
   ${ecritureAlgebrique(b * d)}`
-  return (reduire && expression2 !== expression3)
+  return reduire && expression2 !== expression3
     ? [expression1, expression2, expression3]
     : [expression1, expression2]
 }
@@ -572,27 +724,40 @@ export function doubleDeveloppement ({ a = 1, b = 1, c = 1, d = 1, x = 'x', redu
  * @example simpleDeveloppement({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[0] renvoie 3*5y+3*(-2)
  * @example simpleDeveloppement({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[1] renvoie 15y+(-6)
  */
-export function simpleDeveloppement ({ a = 1, b = 1, c = 1, x = 'x', sommeAGauche = true } = {}) {
+export function simpleDeveloppement({
+  a = 1,
+  b = 1,
+  c = 1,
+  x = 'x',
+  sommeAGauche = true,
+} = {}) {
   if (a === 0) {
-    return [sommeAGauche
-      ? `${rienSi1(b)} \\times ${ecritureParentheseSiNegatif(c)}`
-      : `${rienSi1(c)} \\times ${ecritureParentheseSiNegatif(b)}`, `${rienSi1(b * c)}`]
+    return [
+      sommeAGauche
+        ? `${rienSi1(b)} \\times ${ecritureParentheseSiNegatif(c)}`
+        : `${rienSi1(c)} \\times ${ecritureParentheseSiNegatif(b)}`,
+      `${rienSi1(b * c)}`,
+    ]
   }
   if (b === 0) {
-    return [sommeAGauche
-      ? `${rienSi1(a)}${x}} \\times ${ecritureParentheseSiNegatif(c)}`
-      : `${rienSi1(c)} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)}`, `${rienSi1(a * c)}${x}`]
+    return [
+      sommeAGauche
+        ? `${rienSi1(a)}${x}} \\times ${ecritureParentheseSiNegatif(c)}`
+        : `${rienSi1(c)} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)}`,
+      `${rienSi1(a * c)}${x}`,
+    ]
   }
   if (c === 0) {
     return [0, 0]
   }
-  return [sommeAGauche
-    ? `${rienSi1(a)}${x}\\times ${ecritureParentheseSiNegatif(c)} +
+  return [
+    sommeAGauche
+      ? `${rienSi1(a)}${x}\\times ${ecritureParentheseSiNegatif(c)} +
     ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(c)}`
-    : `${rienSi1(c)} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
+      : `${rienSi1(c)} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
       ${ecritureParentheseSiNegatif(c)} \\times ${ecritureParentheseSiNegatif(b)}`,
-     `${rienSi1(a * c)}${x} + 
-    ${ecritureParentheseSiMoins(rienSi1(b * c) ?? '')}`
+    `${rienSi1(a * c)}${x} + 
+    ${ecritureParentheseSiMoins(rienSi1(b * c) ?? '')}`,
   ]
 }
 
@@ -613,29 +778,44 @@ export function simpleDeveloppement ({ a = 1, b = 1, c = 1, x = 'x', sommeAGauch
  * @example simpleDeveloppementAvecDoubleX({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[0] renvoie 3y*5y+3y*(-2)
  * @example simpleDeveloppementAvecDoubleX({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[1] renvoie 15y^2+(-6y)
  */
-export function simpleDeveloppementAvecDoubleX ({ a = 1, b = 1, c = 1, x = 'x', sommeAGauche = true, doubleX = true } = {}) {
-  const xCarre = doubleX ? (x + '^2') : x
+export function simpleDeveloppementAvecDoubleX({
+  a = 1,
+  b = 1,
+  c = 1,
+  x = 'x',
+  sommeAGauche = true,
+  doubleX = true,
+} = {}) {
+  const xCarre = doubleX ? x + '^2' : x
   const xSeul = doubleX ? x : ''
   if (a === 0) {
-    return [sommeAGauche
-      ? `${rienSi1(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`
-      : `${rienSi1(c)}${x} \\times ${ecritureParentheseSiNegatif(b)}`, `${rienSi1(b * c)}${x}`]
+    return [
+      sommeAGauche
+        ? `${rienSi1(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`
+        : `${rienSi1(c)}${x} \\times ${ecritureParentheseSiNegatif(b)}`,
+      `${rienSi1(b * c)}${x}`,
+    ]
   }
   if (b === 0) {
-    return [sommeAGauche
-      ? `${rienSi1(a)}${x}} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`
-      : `${rienSi1(c)}${x} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)}`, `${rienSi1(a * c)}${x}`]
+    return [
+      sommeAGauche
+        ? `${rienSi1(a)}${x}} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`
+        : `${rienSi1(c)}${x} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)}`,
+      `${rienSi1(a * c)}${x}`,
+    ]
   }
   if (c === 0) {
     return [0, 0]
   }
-  return [sommeAGauche
-    ? `${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)} +
+  return [
+    sommeAGauche
+      ? `${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)} +
     ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)}`
-    : `${rienSi1(c)}${xSeul} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
+      : `${rienSi1(c)}${xSeul} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
       ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)} \\times ${ecritureParentheseSiNegatif(b)}`,
-       `${rienSi1(a * c)}${xCarre} + 
-      ${ecritureParentheseSiMoins(rienSi1(b * c) + xSeul)}`]
+    `${rienSi1(a * c)}${xCarre} + 
+      ${ecritureParentheseSiMoins(rienSi1(b * c) + xSeul)}`,
+  ]
 }
 
 /**
@@ -644,7 +824,7 @@ export function simpleDeveloppementAvecDoubleX ({ a = 1, b = 1, c = 1, x = 'x', 
  * @param a La valeur à formater
  * @returns {string} La valeur formatée pour l'affichage
  */
-export function formaterReponse (a: ReponseComplexe | undefined) {
+export function formaterReponse(a: ReponseComplexe | undefined) {
   if (Array.isArray(a)) {
     return formaterReponse(a[0])
   }
@@ -663,6 +843,8 @@ export function formaterReponse (a: ReponseComplexe | undefined) {
   if (a instanceof Hms) {
     return a.toString()
   }
-  window.notify('formaterReponse : type de valeur non prise en compte : ', { a })
+  window.notify('formaterReponse : type de valeur non prise en compte : ', {
+    a,
+  })
   return String(a)
 }

@@ -18,7 +18,7 @@ export const uuid = '3f574'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +29,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const A = point(0, 0, 'E', 'above')
     const B = point(4, 0, 'F', 'above')
     const C = point(4, -2, 'G', 'below')
@@ -46,21 +46,42 @@ export default class NomExercice extends ExerciceSimple {
       const triplet = [[3, 5, 34]]
       const a = choice(triplet)
       objets.push(
-        latexParCoordonnees(`${a[1]}\\text{ cm}`, milieu(A, B).x, milieu(A, B).y + 0.4, 'black', 0, 0, '')
-        , latexParCoordonnees(`${a[0]} \\text{ cm}`, milieu(B, C).x + 0.6, milieu(B, C).y, 'black', 0, 0, ''),
-        labelPoint(A, B, C), codageAngleDroit(A, B, C))
+        latexParCoordonnees(
+          `${a[1]}\\text{ cm}`,
+          milieu(A, B).x,
+          milieu(A, B).y + 0.4,
+          'black',
+          0,
+          0,
+          '',
+        ),
+        latexParCoordonnees(
+          `${a[0]} \\text{ cm}`,
+          milieu(B, C).x + 0.6,
+          milieu(B, C).y,
+          'black',
+          0,
+          0,
+          '',
+        ),
+        labelPoint(A, B, C),
+        codageAngleDroit(A, B, C),
+      )
       this.reponse = `\\sqrt{${a[2]}}`
-      this.question = mathalea2d({
-        xmin,
-        ymin,
-        xmax,
-        ymax,
-        pixelsParCm: 40,
-        mainlevee: false,
-        amplitude: 0.5,
-        scale: 1,
-        style: 'margin: auto'
-      }, objets)
+      this.question = mathalea2d(
+        {
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 40,
+          mainlevee: false,
+          amplitude: 0.5,
+          scale: 1,
+          style: 'margin: auto',
+        },
+        objets,
+      )
       this.question += '<br>La valeur exacte de $EG$ est : '
       this.correction = `On utilise le théorème de Pythagore dans le triangle  $EFG$ rectangle en $F$ :<br>
         $\\begin{aligned}
@@ -73,24 +94,51 @@ export default class NomExercice extends ExerciceSimple {
       this.canReponseACompleter = '$EG=\\ldots$ cm'
     } else {
       if (choice([true, false])) {
-        const triplet = [[4, 5, 41], [2, 5, 29], [3, 6, 45], [4, 7, 65], [5, 6, 61]]
+        const triplet = [
+          [4, 5, 41],
+          [2, 5, 29],
+          [3, 6, 45],
+          [4, 7, 65],
+          [5, 6, 61],
+        ]
         const a = choice(triplet)
         objets.push(
-          latexParCoordonnees(`${a[1]} \\text{ cm}`, milieu(A, B).x, milieu(A, B).y + 0.4, 'black', 0, 0, '')
-          , latexParCoordonnees(`${a[0]}\\text{ cm}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'black', 0, 0, ''),
-          labelPoint(A, B, C), codageAngleDroit(A, B, C))
+          latexParCoordonnees(
+            `${a[1]} \\text{ cm}`,
+            milieu(A, B).x,
+            milieu(A, B).y + 0.4,
+            'black',
+            0,
+            0,
+            '',
+          ),
+          latexParCoordonnees(
+            `${a[0]}\\text{ cm}`,
+            milieu(B, C).x + 0.5,
+            milieu(B, C).y,
+            'black',
+            0,
+            0,
+            '',
+          ),
+          labelPoint(A, B, C),
+          codageAngleDroit(A, B, C),
+        )
         this.reponse = `\\sqrt{${a[2]}}`
-        this.question = mathalea2d({
-          xmin,
-          ymin,
-          xmax,
-          ymax,
-          pixelsParCm: 40,
-          mainlevee: false,
-          amplitude: 0.5,
-          scale: 1,
-          style: 'margin: auto'
-        }, objets)
+        this.question = mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 40,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 1,
+            style: 'margin: auto',
+          },
+          objets,
+        )
         this.question += '<br>La valeur exacte de $EG$ est : '
 
         this.correction = `On utilise le théorème de Pythagore dans le triangle  $EFG$ rectangle en $F$ :<br>
@@ -103,24 +151,53 @@ export default class NomExercice extends ExerciceSimple {
         this.canEnonce = this.question
         this.canReponseACompleter = '$EG=\\ldots$ cm'
       } else {
-        const triplet = [[6, 5, 11], [4, 3, 7], [7, 6, 13], [8, 5, 39], [7, 6, 13], [10, 9, 19], [10, 7, 51]]
+        const triplet = [
+          [6, 5, 11],
+          [4, 3, 7],
+          [7, 6, 13],
+          [8, 5, 39],
+          [7, 6, 13],
+          [10, 9, 19],
+          [10, 7, 51],
+        ]
         const a = choice(triplet)
         objets.push(
-          latexParCoordonnees(`${a[0]} \\text{ cm}`, milieu(A, C).x, milieu(A, C).y - 0.4, 'black', 0, 0, '')
-          , latexParCoordonnees(`${a[1]}\\text{ cm} `, milieu(A, B).x, milieu(A, B).y + 0.5, 'black', 0, 0, ''),
-          labelPoint(A, B, C), codageAngleDroit(A, B, C))
+          latexParCoordonnees(
+            `${a[0]} \\text{ cm}`,
+            milieu(A, C).x,
+            milieu(A, C).y - 0.4,
+            'black',
+            0,
+            0,
+            '',
+          ),
+          latexParCoordonnees(
+            `${a[1]}\\text{ cm} `,
+            milieu(A, B).x,
+            milieu(A, B).y + 0.5,
+            'black',
+            0,
+            0,
+            '',
+          ),
+          labelPoint(A, B, C),
+          codageAngleDroit(A, B, C),
+        )
         this.reponse = `\\sqrt{${a[2]}}`
-        this.question = mathalea2d({
-          xmin,
-          ymin,
-          xmax,
-          ymax,
-          pixelsParCm: 40,
-          mainlevee: false,
-          amplitude: 0.5,
-          scale: 1,
-          style: 'margin: auto'
-        }, objets)
+        this.question = mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 40,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 1,
+            style: 'margin: auto',
+          },
+          objets,
+        )
         this.question += '<br>La valeur exacte de $FG$ est : '
 
         this.correction = `On utilise le théorème de Pythagore dans le triangle  $EFG$ rectangle en $F$ :<br>
@@ -135,6 +212,8 @@ export default class NomExercice extends ExerciceSimple {
         this.canReponseACompleter = '$EF=\\ldots$ cm'
       }
     }
-    if (!this.interactif) { this.question += '$\\ldots$ cm' }
+    if (!this.interactif) {
+      this.question += '$\\ldots$ cm'
+    }
   }
 }

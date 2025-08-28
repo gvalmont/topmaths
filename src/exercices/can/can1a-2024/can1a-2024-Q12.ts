@@ -4,7 +4,10 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 export const titre = 'Factoriser avec un facteur commun'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,16 +18,17 @@ export const uuid = 'b4205'
 
 */
 export default class Fatorisation1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '(2x-1)(2x-5)'
       this.question = ' Factoriser $(2x-1)^2-4(2x-1)$.<br>' //
@@ -37,17 +41,23 @@ export default class Fatorisation1 extends ExerciceSimple {
       const c = randint(-5, 5, [0, 1, b, -b, -1])
       const choix = choice([true, false])
       this.reponse = `(${reduireAxPlusB(a, b)})(${a}x${ecritureAlgebrique(b + c)})`
-      this.question = ` Factoriser   ${choix
-        ? `$(${reduireAxPlusB(a, b)})^2${ecritureAlgebrique(c)}(${reduireAxPlusB(a, b)})$.<br>`
-        : `$${c}(${reduireAxPlusB(a, b)})+(${reduireAxPlusB(a, b)})^2$.<br>`}`//
+      this.question = ` Factoriser   ${
+        choix
+          ? `$(${reduireAxPlusB(a, b)})^2${ecritureAlgebrique(c)}(${reduireAxPlusB(a, b)})$.<br>`
+          : `$${c}(${reduireAxPlusB(a, b)})+(${reduireAxPlusB(a, b)})^2$.<br>`
+      }` //
       this.correction = `$(${reduireAxPlusB(a, b)})$ est un facteur commun.<br>
       $\\begin{aligned}
-      ${choix
+      ${
+        choix
           ? `(${reduireAxPlusB(a, b)})^2${ecritureAlgebrique(c)}(${reduireAxPlusB(a, b)})`
-          : `${c}(${reduireAxPlusB(a, b)})+(${reduireAxPlusB(a, b)})^2`}
-      &=${choix
+          : `${c}(${reduireAxPlusB(a, b)})+(${reduireAxPlusB(a, b)})^2`
+      }
+      &=${
+        choix
           ? `(${reduireAxPlusB(a, b)})((${reduireAxPlusB(a, b)})${ecritureAlgebrique(c)})`
-          : `(${reduireAxPlusB(a, b)})(${c}+(${reduireAxPlusB(a, b)}))`}\\\\
+          : `(${reduireAxPlusB(a, b)})(${c}+(${reduireAxPlusB(a, b)}))`
+      }\\\\
       &=${miseEnEvidence(`(${reduireAxPlusB(a, b)})(${a}x${ecritureAlgebrique(b + c)})`)}\\end{aligned}$`
     }
     this.canEnonce = this.question

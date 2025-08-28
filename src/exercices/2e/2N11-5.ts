@@ -1,29 +1,41 @@
 import { customSortStringNumber } from '../../lib/components/sorting'
-import { combinaisonListes, getRandomSubarray } from '../../lib/outils/arrayOutils'
+import {
+  combinaisonListes,
+  getRandomSubarray,
+} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Déterminer l\'appartenance d\'un élément ou la contenance d\'un ensemble à un ensemble'
+export const titre =
+  "Déterminer l'appartenance d'un élément ou la contenance d'un ensemble à un ensemble"
 export const dateDePublication = '01/09/2024'
 
 /**
  * Réduire une expression littérale
  * @author Nathan Scheinmann
  * erreur avec 9X7w
-*/
+ */
 
 export const uuid = 'b5a46'
 export const refs = {
   'fr-fr': ['2N11-5'],
-  'fr-ch': ['1mEI-3']
+  'fr-ch': ['1mEI-3'],
 }
 
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 4
-    this.besoinFormulaireNumerique = ['Type d\'ensembles', 3, 'Nombres \n2 : Lettres \n3 : Mélange']
-    this.besoinFormulaire2Numerique = ['Nombre d\'éléments maximum', 3, '3 \n4 \n5\n 6']
+    this.besoinFormulaireNumerique = [
+      "Type d'ensembles",
+      3,
+      'Nombres \n2 : Lettres \n3 : Mélange',
+    ]
+    this.besoinFormulaire2Numerique = [
+      "Nombre d'éléments maximum",
+      3,
+      '3 \n4 \n5\n 6',
+    ]
     this.besoinFormulaire3CaseACocher = ['Appartenance']
     this.besoinFormulaire4CaseACocher = ['Contenance']
     this.besoinFormulaire5CaseACocher = ['Consigne avec les symboles']
@@ -51,7 +63,7 @@ export default class nomExercice extends Exercice {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let nbBesoinsFormulaireCaseACocher = 0
     let symbole = ''
     if (this.sup3) {
@@ -64,7 +76,17 @@ export default class nomExercice extends Exercice {
     }
     this.consigne = `Compléter avec ${this.sup5 ? symbole : 'le symbole qui convient'}.`
 
-    let typeQuestionsDisponibles: ('nombresElementTrue' | 'nombresElementFalse' | 'nombresContenanceTrue' | 'nombresContenanceFalse' | 'lettresElementTrue' | 'lettresElementFalse' | 'lettresContenanceTrue' | 'lettresContenanceFalse' | 'erreur')[]
+    let typeQuestionsDisponibles: (
+      | 'nombresElementTrue'
+      | 'nombresElementFalse'
+      | 'nombresContenanceTrue'
+      | 'nombresContenanceFalse'
+      | 'lettresElementTrue'
+      | 'lettresElementFalse'
+      | 'lettresContenanceTrue'
+      | 'lettresContenanceFalse'
+      | 'erreur'
+    )[]
     typeQuestionsDisponibles = []
     if (this.sup === 1) {
       if (this.sup3 === true) {
@@ -86,8 +108,14 @@ export default class nomExercice extends Exercice {
       }
     } else {
       if (this.sup3 === true) {
-        typeQuestionsDisponibles = (['nombresElementTrue', 'nombresElementFalse', 'lettresElementTrue', 'lettresElementFalse'])
-      } if (this.sup4 === true) {
+        typeQuestionsDisponibles = [
+          'nombresElementTrue',
+          'nombresElementFalse',
+          'lettresElementTrue',
+          'lettresElementFalse',
+        ]
+      }
+      if (this.sup4 === true) {
         typeQuestionsDisponibles.push('nombresContenanceFalse')
         typeQuestionsDisponibles.push('nombresContenanceTrue')
         typeQuestionsDisponibles.push('lettresContenanceTrue')
@@ -99,11 +127,14 @@ export default class nomExercice extends Exercice {
       this.consigne = 'Au moins une option doit être cochée'
       this.nbQuestions = 1
     }
-    const listeTypeDeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texteCorr: string
-      let texte : string
+      let texte: string
       let listeElements: (number | string)[]
       listeElements = []
       if (listeTypeDeQuestions[i].includes('erreur')) {
@@ -111,30 +142,74 @@ export default class nomExercice extends Exercice {
         texteCorr = ''
       } else {
         switch (listeTypeDeQuestions[i].substring(0, 7)) {
-          case 'nombres':{
-            listeElements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+          case 'nombres': {
+            listeElements = [
+              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+              20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+              36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+            ]
             break
           }
-          case 'lettres':{
-            listeElements = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+          case 'lettres': {
+            listeElements = [
+              'a',
+              'b',
+              'c',
+              'd',
+              'e',
+              'f',
+              'g',
+              'h',
+              'i',
+              'j',
+              'k',
+              'l',
+              'm',
+              'n',
+              'o',
+              'p',
+              'q',
+              'r',
+              's',
+              't',
+              'u',
+              'v',
+              'w',
+              'x',
+              'y',
+              'z',
+            ]
             break
           }
         }
-        const ensemble1 = getRandomSubarray(listeElements.slice(0, listeElements.length - 1), this.sup2 + 2 - randint(0, 1))
+        const ensemble1 = getRandomSubarray(
+          listeElements.slice(0, listeElements.length - 1),
+          this.sup2 + 2 - randint(0, 1),
+        )
         const el = ensemble1[randint(0, ensemble1.length - 1)]
         // get the first element after el in listeElements which is after el and not in ensemble1
-        const el2 = listeElements.find(e => listeElements.indexOf(e) > listeElements.indexOf(el) && !ensemble1.includes(e))
-        const subEns = getRandomSubarray(ensemble1, ensemble1.length - randint(1, ensemble1.length - 1))
-        let subPasEns : (number | string)[]
+        const el2 = listeElements.find(
+          (e) =>
+            listeElements.indexOf(e) > listeElements.indexOf(el) &&
+            !ensemble1.includes(e),
+        )
+        const subEns = getRandomSubarray(
+          ensemble1,
+          ensemble1.length - randint(1, ensemble1.length - 1),
+        )
+        let subPasEns: (number | string)[]
         subPasEns = []
         if (randint(0, 1) === 1) {
           subPasEns = [...subEns]
-          subPasEns.push(el2 as (number | string))
+          subPasEns.push(el2 as number | string)
         } else {
-        // define a subPasEns which is not contained in ensemble1
+          // define a subPasEns which is not contained in ensemble1
           do {
-            subPasEns = getRandomSubarray(listeElements.slice(0, listeElements.length - 1), this.sup2 + 2 - this.sup2).sort(customSortStringNumber)
-          } while (subPasEns.every(e => ensemble1.includes(e)))
+            subPasEns = getRandomSubarray(
+              listeElements.slice(0, listeElements.length - 1),
+              this.sup2 + 2 - this.sup2,
+            ).sort(customSortStringNumber)
+          } while (subPasEns.every((e) => ensemble1.includes(e)))
         }
         // if the string contains element
         texteCorr = ''

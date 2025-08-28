@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'ffe8e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class resoudreUnProblemeArgent extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -27,7 +27,7 @@ export default class resoudreUnProblemeArgent extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const prenoms = prenomF(2)
 
     const a = randint(5, 15) * 100
@@ -39,7 +39,9 @@ export default class resoudreUnProblemeArgent extends ExerciceSimple {
     this.correction = `$${texNombre(2025, 0)}-${texNombre(a, 0)}=${texNombre(this.reponse, 0)}$.<br>
     ${prenoms[1]} a $${miseEnEvidence(texNombre(this.reponse, 0))}$ €.`
 
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ €'
   }

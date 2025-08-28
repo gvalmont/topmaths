@@ -19,10 +19,10 @@ export const uuid = '27f5c'
 
 export const refs = {
   'fr-fr': ['can2C14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAvecRacineDef extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.optionsChampTexte = { texteAvant: '<br>' }
     this.formatChampTexte = KeyboardType.clavierFullOperations
@@ -30,9 +30,11 @@ export default class CalculAvecRacineDef extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, choix
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
+    switch (
+      choice([1, 2, 3, 4, 5, 6, 7, 8]) //
+    ) {
       case 1:
         a = choice([1, 4, 9, 16, 25, 36, 49, 64, 81, 100])
         if (choice([true, false])) {
@@ -60,7 +62,9 @@ export default class CalculAvecRacineDef extends ExerciceSimple {
         break
 
       case 3:
-        a = choice([2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 25, 36, 49, 64, 81, 100]) * choice([-1, 1])
+        a =
+          choice([2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 25, 36, 49, 64, 81, 100]) *
+          choice([-1, 1])
         this.question = `Calculer $\\sqrt{${ecritureParentheseSiNegatif(a)}^2}$. `
         if (a < 0) {
           this.correction = `$\\sqrt{(${a})^2}=\\sqrt{${-a}^2}=\\sqrt{${-a}\\times ${-a}}=\\sqrt{${-a}}\\times \\sqrt{${-a}}=(\\sqrt{${-a}})^2$<br>
@@ -72,7 +76,11 @@ export default class CalculAvecRacineDef extends ExerciceSimple {
           Ainsi, $\\sqrt{${a}^2}=${miseEnEvidence(`${a}`)}$.`
         }
         this.optionsDeComparaison = { texteSansCasse: true }
-        if (a < 0) { this.reponse = -a } else { this.reponse = a }
+        if (a < 0) {
+          this.reponse = -a
+        } else {
+          this.reponse = a
+        }
 
         break
 
@@ -120,7 +128,9 @@ export default class CalculAvecRacineDef extends ExerciceSimple {
           this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $${miseEnEvidence('-')} ${miseEnEvidence(`\\sqrt{${a}}`)}$.`}`
         }
-        this.reponse = choix ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`] : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
+        this.reponse = choix
+          ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`]
+          : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
         break
 
       case 7:
@@ -146,7 +156,9 @@ export default class CalculAvecRacineDef extends ExerciceSimple {
           this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $${miseEnEvidence('-')} ${miseEnEvidence(`\\sqrt{${a}}`)}$.`}`
         }
-        this.reponse = choix ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`] : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
+        this.reponse = choix
+          ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`]
+          : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
         break
 
       case 8:
@@ -157,7 +169,7 @@ export default class CalculAvecRacineDef extends ExerciceSimple {
         this.reponse = a * a
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

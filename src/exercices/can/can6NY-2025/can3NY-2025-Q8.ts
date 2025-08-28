@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'e2101'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -20,7 +20,7 @@ export const refs = {
 
 */
 export default class calcAvecDecimaux extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -31,7 +31,7 @@ export default class calcAvecDecimaux extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = new Decimal(randint(1, 29, [10, 20])).div(choice([10, 100]))
     this.reponse = texNombre(new Decimal(2025).sub(a), 2)
     this.question = `$${texNombre(2025)}-${texNombre(a, 2)}$`

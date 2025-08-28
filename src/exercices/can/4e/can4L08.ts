@@ -1,5 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
@@ -20,22 +24,23 @@ export const uuid = 'a6e97'
 
 export const refs = {
   'fr-fr': ['can4L08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ReconnaitreExpL extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, c, d, e, monQcm
     const nomVar = ['a', 'b', 'x', 'y']
     const inc = choice(nomVar)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) { //
-        case 1 :// a(x+b)
-
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2, 3, 4, 5, 6, 7, 8, 9]) //
+      ) {
+        case 1: // a(x+b)
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(1, 10)
           c = 0 // c'est pour this.questionJamaisPosee
@@ -50,13 +55,13 @@ export default class ReconnaitreExpL extends Exercice {
             propositions: [
               {
                 texte: 'Somme',
-                statut: false
+                statut: false,
               },
               {
                 texte: 'Produit',
-                statut: true
-              }
-            ]
+                statut: true,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
@@ -67,7 +72,7 @@ export default class ReconnaitreExpL extends Exercice {
 
           break
 
-        case 2 :// ax + b ou a+b*x
+        case 2: // ax + b ou a+b*x
           if (choice([true, false])) {
             a = randint(-10, 10, [0, 1])
             b = randint(-10, 10, [-1, 0, 1])
@@ -83,14 +88,14 @@ export default class ReconnaitreExpL extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
 
                 {
                   texte: 'Produit',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -118,14 +123,14 @@ export default class ReconnaitreExpL extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
 
                 {
                   texte: 'Produit',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -141,8 +146,7 @@ export default class ReconnaitreExpL extends Exercice {
           }
           break
 
-        case 3 :// ax +/- by
-
+        case 3: // ax +/- by
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(-10, 10, [-1, 0, 1])
           c = 0 // c'est pour this.questionJamaisPosee
@@ -156,13 +160,13 @@ export default class ReconnaitreExpL extends Exercice {
             propositions: [
               {
                 texte: 'Somme',
-                statut: true
+                statut: true,
               },
               {
                 texte: 'Produit',
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
@@ -178,7 +182,7 @@ export default class ReconnaitreExpL extends Exercice {
 
           break
 
-        case 4 :// ax+b(x+c)
+        case 4: // ax+b(x+c)
           if (choice([true, false])) {
             a = randint(-10, 10, [-1, 0, 1])
             b = randint(2, 10)
@@ -193,14 +197,14 @@ export default class ReconnaitreExpL extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
 
                 {
                   texte: 'Produit',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -221,14 +225,14 @@ export default class ReconnaitreExpL extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
 
                 {
                   texte: 'Produit',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -239,8 +243,7 @@ export default class ReconnaitreExpL extends Exercice {
 
           break
 
-        case 5 :// (ax+b)(cx+d)
-
+        case 5: // (ax+b)(cx+d)
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
@@ -255,14 +258,14 @@ export default class ReconnaitreExpL extends Exercice {
             propositions: [
               {
                 texte: 'Somme',
-                statut: false
+                statut: false,
               },
 
               {
                 texte: 'Produit',
-                statut: true
-              }
-            ]
+                statut: true,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
@@ -271,8 +274,7 @@ export default class ReconnaitreExpL extends Exercice {
           texteCorr += `<br>$\\underbrace{(${a}x+${b})}_{A}\\underbrace{(${c}x${ecritureAlgebrique(d)})}_{B}$`
 
           break
-        case 6 :// (ax+b)+(cx+d)
-
+        case 6: // (ax+b)+(cx+d)
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
@@ -287,14 +289,14 @@ export default class ReconnaitreExpL extends Exercice {
             propositions: [
               {
                 texte: 'Somme',
-                statut: true
+                statut: true,
               },
 
               {
                 texte: 'Produit',
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
@@ -303,8 +305,7 @@ export default class ReconnaitreExpL extends Exercice {
           texteCorr += `<br>$\\underbrace{(${a}x+${b})}_{A}+\\underbrace{(${c}x${ecritureAlgebrique(d)})}_{B}$`
 
           break
-        case 7 :// (ax+b)+(cx+d)(ax+b)
-
+        case 7: // (ax+b)+(cx+d)(ax+b)
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
@@ -319,14 +320,14 @@ export default class ReconnaitreExpL extends Exercice {
             propositions: [
               {
                 texte: 'Somme',
-                statut: true
+                statut: true,
               },
 
               {
                 texte: 'Produit',
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
@@ -337,8 +338,7 @@ export default class ReconnaitreExpL extends Exercice {
 
           break
 
-        case 8 :// (ax+b)(cx+d)+e
-
+        case 8: // (ax+b)(cx+d)+e
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
@@ -354,14 +354,14 @@ export default class ReconnaitreExpL extends Exercice {
             propositions: [
               {
                 texte: 'Somme',
-                statut: true
+                statut: true,
               },
 
               {
                 texte: 'Produit',
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
@@ -372,7 +372,7 @@ export default class ReconnaitreExpL extends Exercice {
 
           break
 
-        case 9 :// e(ax+b)(cx+d)
+        case 9: // e(ax+b)(cx+d)
         default:
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(2, 10)
@@ -389,14 +389,14 @@ export default class ReconnaitreExpL extends Exercice {
             propositions: [
               {
                 texte: 'Somme',
-                statut: false
+                statut: false,
               },
 
               {
                 texte: 'Produit',
-                statut: true
-              }
-            ]
+                statut: true,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte

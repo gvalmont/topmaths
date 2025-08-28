@@ -1,13 +1,21 @@
 import FractionEtendue from '../../../../src/modules/FractionEtendue'
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs.js'
 
-async function testFractionSimplifiee (page: Page) {
+async function testFractionSimplifiee(page: Page) {
   // Ce test s'assure que les fractions simplifiée pas au maximum sont acceptées
   // et qu'une fraction égale (celle de l'énoncé) mais pas simplifiée n'est pas acceptée
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  const urlExercice = hostname + '?uuid=f8f4e&id=5N13&n=20&d=10&s=50&s2=false&i=1&cd=1'
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
+  const urlExercice =
+    hostname + '?uuid=f8f4e&id=5N13&n=20&d=10&s=50&s2=false&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {

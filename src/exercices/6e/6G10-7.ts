@@ -11,10 +11,10 @@ export const uuid = '35282'
 // Ne pas référencer cet exo, il ferait doublon avec 6G10-4
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LeCercle extends VocabulaireDuCercle {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }

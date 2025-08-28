@@ -12,10 +12,10 @@ export type Vendor = {
 export const vendor = writable<Vendor>({
   brand: {
     name: 'bordas',
-    logoPath: ''
+    logoPath: '',
   },
   product: {
     name: 'indices',
-    logoPath: 'assets/images/vendors/bordas/indices−bordas-logo.png'
-  }
+    logoPath: 'assets/images/vendors/bordas/indices−bordas-logo.png',
+  },
 })

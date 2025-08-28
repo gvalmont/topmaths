@@ -1,10 +1,15 @@
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 
-async function test (page: Page) {
+async function test(page: Page) {
   const urlExercice = '' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
   if (urlExercice === '') {
-    console.error('Il faut renseigner l\'url de l\'exercice')
+    console.error("Il faut renseigner l'url de l'exercice")
     return true
   }
   const questions = await getQuestions(page, urlExercice)

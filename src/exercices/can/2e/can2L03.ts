@@ -1,11 +1,15 @@
-import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des abscisses et une droite'
+export const titre =
+  'Calculer les coordonnées du point d’intersection entre l’axe des abscisses et une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -19,19 +23,22 @@ export const uuid = '05ba1'
 
 export const refs = {
   'fr-fr': ['can2L03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CoordonneesPointIntersectionAxeAbscissesDroite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
   }
 
-  nouvelleVersion () {
-    switch (randint(1, 2)) { //,
+  nouvelleVersion() {
+    switch (
+      randint(1, 2) //,
+    ) {
       case 1:
         {
           const a = randint(-10, 10, 0)
@@ -39,21 +46,29 @@ export default class CoordonneesPointIntersectionAxeAbscissesDroite extends Exer
           const b = n * a
 
           this.formatInteractif = 'texte'
-          this.reponse = this.versionQcm ? `$(${-b / a}\\,;\\,0)$` : `${-b / a};0`
+          this.reponse = this.versionQcm
+            ? `$(${-b / a}\\,;\\,0)$`
+            : `${-b / a};0`
           this.question = this.versionQcm
             ? ` Les coordonnées du point d'intersection
     entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses sont : `
             : ` Déterminer les coordonnées du point d'intersection
     entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses. `
           if (this.interactif) {
-            this.optionsChampTexte = { texteAvant: '<br>$($', texteApres: '$)$' }
+            this.optionsChampTexte = {
+              texteAvant: '<br>$($',
+              texteApres: '$)$',
+            }
           }
 
           this.correction = `L'ordonnée de ce point est $0$ puisque le point d'intersection se situe sur l'axe des abscisses.<br>
       Son abscisse est donc donnée par la solution de l'équation  $${reduireAxPlusB(a, b)}=0$, c'est-à-dire $x=${new FractionEtendue(-b, a).texFractionSimplifiee}$.
     <br>Les coordonnées de ce   point sont donc : $(${miseEnEvidence(`${new FractionEtendue(-b, a).texFractionSimplifiee}\\,;\\,0`)})$.`
-          this.distracteurs = [`$(0\\,;\\,${texNombre(-b / a, 1)})$`, `$(${b}\\,;\\,0)$`,
-            `$(${texNombre(b / a, 1)}\\,;\\,0)$`, `$(${a}\\,;\\,0)$`
+          this.distracteurs = [
+            `$(0\\,;\\,${texNombre(-b / a, 1)})$`,
+            `$(${b}\\,;\\,0)$`,
+            `$(${texNombre(b / a, 1)}\\,;\\,0)$`,
+            `$(${a}\\,;\\,0)$`,
           ]
           this.canEnonce = this.question
           this.canReponseACompleter = ''
@@ -78,14 +93,20 @@ export default class CoordonneesPointIntersectionAxeAbscissesDroite extends Exer
     entre la droite d'équation $y=\\dfrac{x}{${a}}${ecritureAlgebrique(b)}$ et l'axe des abscisses. 
        `
           if (this.interactif) {
-            this.optionsChampTexte = { texteAvant: '<br>$($', texteApres: '$)$' }
+            this.optionsChampTexte = {
+              texteAvant: '<br>$($',
+              texteApres: '$)$',
+            }
           }
 
           this.correction = `L'ordonnée de ce point est $0$ puisque le point d'intersection se situe sur l'axe des abscisses.<br>
       Son abscisse est donc donnée par la solution de l'équation  $\\dfrac{x}{${a}}${ecritureAlgebrique(b)}=0$, c'est-à-dire $x=${-b * a}$.
     <br>Les coordonnées de ce   point sont donc : $(${miseEnEvidence(`${-b * a}\\,;\\,0`)})$.`
-          this.distracteurs = [`$(0\\,;\\,${texNombre(-b * a, 1)})$`, `$(${b}\\,;\\,0)$`,
-            `$(${texNombre(b * a, 1)}\\,;\\,0)$`, `$(${a}\\,;\\,0)$`
+          this.distracteurs = [
+            `$(0\\,;\\,${texNombre(-b * a, 1)})$`,
+            `$(${b}\\,;\\,0)$`,
+            `$(${texNombre(b * a, 1)}\\,;\\,0)$`,
+            `$(${a}\\,;\\,0)$`,
           ]
           this.canEnonce = this.question
           this.canReponseACompleter = ''

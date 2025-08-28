@@ -9,7 +9,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '89dc7'
 export const refs = {
   'fr-fr': ['TSA6-QCM03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -30,7 +30,8 @@ export const dateDePublication = '28/10/2024'
  */
 export default class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'La solution $f$ de l\'équation différentielle $y^{\\prime}=-3y+7$ telle que $f(0) =1$ est la fonction définie sur $\\R$ par :<br>'
+    this.enonce =
+      "La solution $f$ de l'équation différentielle $y^{\\prime}=-3y+7$ telle que $f(0) =1$ est la fonction définie sur $\\R$ par :<br>"
     this.correction = `L'équation différentielle $y' = -3y$ a pour solutions les fonctions $x \\longmapsto f(x) = K \\mathrm{e}^{-3x}$, avec $K \\in \\R$.<br>
     La fonction $x \\longmapsto \\alpha$, avec $\\alpha \\in \\R$ est solution de l'équation différentielle $y' = -3y+7$ si et seulement si $y' = 0 = -3\\alpha+7 \\iff 3\\alpha = 7 \\iff \\alpha = \\dfrac73$.<br>
     On sait qu'alors les solutions de l'équation différentielle $y' = -3y+7$ sont les fonctions $x \\longmapsto K \\mathrm{e}^{-3x}+\\dfrac73$.<br>
@@ -40,13 +41,15 @@ export default class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
       '$f(x) = -\\dfrac43\\mathrm{e}^{-3x}+\\dfrac73$',
       '$f(x) = \\mathrm{e}^{-3x}$',
       '$f(x) = -\\dfrac{10}{3}\\mathrm{e}^{-3x}-\\dfrac73$',
-      '$f(x) = \\mathrm{e}^{-3x}+\\dfrac73$'
+      '$f(x) = \\mathrm{e}^{-3x}+\\dfrac73$',
     ]
   }
 
   versionAleatoire = () => {
     const a = this.sup ? -3 : randint(-5, 5, [1, 0, -1]) // En premier, ce sont les valeurs originales et en deuxième, les valeurs aléatoires
-    const b = this.sup ? 7 : premierAvec(Math.abs(a), [], false) * choice([-1, 1])
+    const b = this.sup
+      ? 7
+      : premierAvec(Math.abs(a), [], false) * choice([-1, 1])
     const c = this.sup ? 1 : randint(1, 3) * choice([-1, 1])
     const alpha = fraction(b, -a).simplifie()
     const K = alpha.oppose().ajouteEntier(c).simplifie().texFSD
@@ -62,12 +65,12 @@ export default class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
     this.reponses = [
       `$f(x) = ${K} \\mathrm{e}^{${String(a)}x} ${texAlpha}$`,
       `$f(x) = \\mathrm{e}^{${String(a)}x}$`,
-       `$f(x) = \\mathrm{e}^{${String(a)}x} ${texAlpha}$`,
-       `$f(x) = ${fauxK} \\mathrm{e}^{${String(a)}x} ${texMoinsAlpha}$`
+      `$f(x) = \\mathrm{e}^{${String(a)}x} ${texAlpha}$`,
+      `$f(x) = ${fauxK} \\mathrm{e}^{${String(a)}x} ${texMoinsAlpha}$`,
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

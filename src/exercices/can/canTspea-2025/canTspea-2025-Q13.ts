@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'd077f'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -21,7 +21,7 @@ export const refs = {
 
 */
 export default class Can2025TQ13 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -31,7 +31,7 @@ export default class Can2025TQ13 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? -1 : randint(-9, -2)
     const b = this.canOfficielle ? 4 : randint(1, 9)
     const fonction = (x: number) => x ** 2
@@ -39,13 +39,29 @@ export default class Can2025TQ13 extends ExerciceSimple {
     const tolerance = 0.005
     const xMin = a
     const xMax = b
-    const tableau = tableauVariationsFonction(fonction as (x: number | FractionEtendue) => number, derivee as (x: number | FractionEtendue) => number, xMin, xMax, {
-      step: 1,
-      tolerance
-    })
+    const tableau = tableauVariationsFonction(
+      fonction as (x: number | FractionEtendue) => number,
+      derivee as (x: number | FractionEtendue) => number,
+      xMin,
+      xMax,
+      {
+        step: 1,
+        tolerance,
+      },
+    )
     if (abs(a) < b) {
-      this.reponse = { bareme: toutPourUnPoint, champ1: { value: 0 }, champ2: { value: b ** 2 } }
-    } else { this.reponse = { bareme: toutPourUnPoint, champ1: { value: 0 }, champ2: { value: a ** 2 } } }
+      this.reponse = {
+        bareme: toutPourUnPoint,
+        champ1: { value: 0 },
+        champ2: { value: b ** 2 },
+      }
+    } else {
+      this.reponse = {
+        bareme: toutPourUnPoint,
+        champ1: { value: 0 },
+        champ2: { value: a ** 2 },
+      }
+    }
     this.correction = `$${a}\\leqslant x \\leqslant ${b}$ signifie $x\\in [${a};${b}]$. <br>
     Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
         sur l'intervalle $[${a};${b}]$ : <br>${tableau}

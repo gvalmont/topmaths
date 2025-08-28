@@ -10,14 +10,12 @@ import { Segment, segment } from '../segmentsVecteurs'
  * @version 1.0
  * @date 2025-05-10
  */
-export function panneauRoutePrioritaire (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du losange jaune
-    strokeStyle?: string; // Couleur de la bordure du losange
-    lineWidth?: number; // Épaisseur de la bordure
-    borderFillSyle?: string
-  }
-): Figure2D {
+export function panneauRoutePrioritaire(options?: {
+  fillStyle?: string // Couleur de remplissage du losange jaune
+  strokeStyle?: string // Couleur de la bordure du losange
+  lineWidth?: number // Épaisseur de la bordure
+  borderFillSyle?: string
+}): Figure2D {
   // Génération du code SVG
   const diamondFill = options?.fillStyle || 'yellow'
   const diamondStroke = options?.strokeStyle || 'black'
@@ -41,20 +39,25 @@ export function panneauRoutePrioritaire (
     segment(-1, -1, 1, 1),
     segment(-1, 1, 1, -1),
     segment(-1.2, 0, 1.2, 0),
-    segment(0, -1.2, 0, 1.2)
+    segment(0, -1.2, 0, 1.2),
   ]
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    axes,
+    centre: point(0, 0),
+  })
 }
 
-export function panneauFinDeRoutePrioritaire (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du losange jaune
-    strokeStyle?: string; // Couleur de la bordure du losange
-    lineWidth?: number; // Épaisseur de la bordure
-    borderFillSyle?: string
-    cancelStroke?: string // Couleur du trait qui barre le losange
-  }
-): Figure2D {
+export function panneauFinDeRoutePrioritaire(options?: {
+  fillStyle?: string // Couleur de remplissage du losange jaune
+  strokeStyle?: string // Couleur de la bordure du losange
+  lineWidth?: number // Épaisseur de la bordure
+  borderFillSyle?: string
+  cancelStroke?: string // Couleur du trait qui barre le losange
+}): Figure2D {
   // Génération du code SVG
   const diamondFill = options?.fillStyle || 'yellow'
   const diamondStroke = options?.strokeStyle || 'gray'
@@ -76,11 +79,15 @@ export function panneauFinDeRoutePrioritaire (
     \\draw[${tikzDiamondFill}, ${tikzDiamondStroke}, ${tikzDiamondLineWidth}] (0,-0.75) -- (0.75,0) -- (0,0.75) -- (-0.75,0) -- cycle;
     \\draw[${tikzDiamondCancelStroke}, line width=3pt] (-0.5,-0.5) -- (0.5,0.5);
   `.trim()
-  const axes = [
-    segment(-1, -1, 1, 1),
-    segment(-1, 1, 1, -1)
-  ]
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
+  const axes = [segment(-1, -1, 1, 1), segment(-1, 1, 1, -1)]
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    axes,
+    centre: point(0, 0),
+  })
 }
 /**
  * Génère une figure représentant un panneau de stationnement interdit.
@@ -90,13 +97,11 @@ export function panneauFinDeRoutePrioritaire (
  * @version 1.0
  * @date 2025-05-10
  */
-export function panneauStationnementInterdit (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du cercle bleu
-    strokeStyle?: string; // Couleur de la bordure du cercle
-    lineWidth?: number; // Épaisseur de la bordure
-  }
-): Figure2D {
+export function panneauStationnementInterdit(options?: {
+  fillStyle?: string // Couleur de remplissage du cercle bleu
+  strokeStyle?: string // Couleur de la bordure du cercle
+  lineWidth?: number // Épaisseur de la bordure
+}): Figure2D {
   // Génération du code SVG
   const circleFill = options?.fillStyle || 'blue'
   const circleStroke = options?.strokeStyle || 'red'
@@ -119,11 +124,15 @@ export function panneauStationnementInterdit (
       \\draw[${tikzCrossColor}, line width=5pt] (-0.7,0.7) -- (0.7,-0.7);
   `.trim()
 
-  const axes = [
-    segment(-1, -1, 1, 1),
-    segment(-1, 1, 1, -1)
-  ]
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
+  const axes = [segment(-1, -1, 1, 1), segment(-1, 1, 1, -1)]
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    axes,
+    centre: point(0, 0),
+  })
 }
 /**
  * Génère une figure représentant un panneau STOP.
@@ -133,14 +142,12 @@ export function panneauStationnementInterdit (
  * @version 1.0
  * @date 2025-05-10
  */
-export function panneauStop (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'octogone (par défaut rouge)
-    strokeStyle?: string; // Couleur de la bordure de l'octogone (par défaut blanc)
-    lineWidth?: number; // Épaisseur de la bordure
-    textColor?: string; // Couleur du texte "STOP" (par défaut blanc)
-  }
-): Figure2D {
+export function panneauStop(options?: {
+  fillStyle?: string // Couleur de remplissage de l'octogone (par défaut rouge)
+  strokeStyle?: string // Couleur de la bordure de l'octogone (par défaut blanc)
+  lineWidth?: number // Épaisseur de la bordure
+  textColor?: string // Couleur du texte "STOP" (par défaut blanc)
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'red'
   const strokeStyle = options?.strokeStyle || 'white'
@@ -161,7 +168,13 @@ export function panneauStop (
                     \\node at (0,0) {\\textcolor{${textColor}}{\\textbf{\\small STOP}}};
     `.trim()
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, nonAxe: segment(0, -2.5, 0, 2.5) })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    nonAxe: segment(0, -2.5, 0, 2.5),
+  })
 }
 /**
  * Génère une figure représentant un panneau de voie sans issue.
@@ -169,15 +182,13 @@ export function panneauStop (
  * @returns Une instance de Figure2D représentant un panneau de voie sans issue.
  * @author Jean-Claude Lhote
  */
-export function panneauVoieSansIssue (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du carré bleu (par défaut bleu)
-    strokeStyle?: string; // Couleur de la bordure noire (par défaut noir)
-    lineWidth?: number; // Épaisseur de la bordure noire
-    tFillStyle?: string; // Couleur de la forme en T (par défaut blanc)
-    barFillStyle?: string; // Couleur de la barre rouge (par défaut rouge)
-  }
-): Figure2D {
+export function panneauVoieSansIssue(options?: {
+  fillStyle?: string // Couleur de remplissage du carré bleu (par défaut bleu)
+  strokeStyle?: string // Couleur de la bordure noire (par défaut noir)
+  lineWidth?: number // Épaisseur de la bordure noire
+  tFillStyle?: string // Couleur de la forme en T (par défaut blanc)
+  barFillStyle?: string // Couleur de la barre rouge (par défaut rouge)
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'blue'
   const strokeStyle = options?.strokeStyle || 'black'
@@ -212,14 +223,12 @@ export function panneauVoieSansIssue (
  * @returns Une instance de Figure2D représentant un panneau de parking.
  * @author Jean-Claude Lhote
  */
-export function panneauParking (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du carré bleu (par défaut bleu)
-    strokeStyle?: string; // Couleur de la bordure noire (par défaut noir)
-    lineWidth?: number; // Épaisseur de la bordure noire
-    pFillStyle?: string; // Couleur de la lettre P (par défaut blanc)
-  }
-): Figure2D {
+export function panneauParking(options?: {
+  fillStyle?: string // Couleur de remplissage du carré bleu (par défaut bleu)
+  strokeStyle?: string // Couleur de la bordure noire (par défaut noir)
+  lineWidth?: number // Épaisseur de la bordure noire
+  pFillStyle?: string // Couleur de la lettre P (par défaut blanc)
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'blue'
   const strokeStyle = options?.strokeStyle || 'black'
@@ -240,7 +249,13 @@ export function panneauParking (
     \\node[text=${pFillStyle}, font=\\bfseries, scale=1.5] at (0,0) {P};
   `.trim()
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, nonAxe: segment(0, -2.5, 0, 2.5) })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    nonAxe: segment(0, -2.5, 0, 2.5),
+  })
 }
 /**
  * Génère une figure représentant un panneau de céder le passage.
@@ -248,36 +263,48 @@ export function panneauParking (
  * @returns
  * @author Jean-Claude Lhote
  */
-export function panneauCederLePassage (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    borderStyle?: string; // Couleur du liseré noir
-    borderWidth?: number; // Épaisseur du liseré noir
-  }
-): Figure2D {
+export function panneauCederLePassage(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  borderStyle?: string // Couleur du liseré noir
+  borderWidth?: number // Épaisseur du liseré noir
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'white'
   const strokeStyle = options?.strokeStyle || 'red'
   const lineWidth = options?.lineWidth || 3
   const borderStyle = options?.borderStyle || 'black'
   const borderWidth = options?.borderWidth || 1
-  const sommets1 = [-90, 30, 150].map((angle) =>
-  `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
-  const sommets2 = [-90, 30, 150].map((angle) =>
-  `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets1 = [-90, 30, 150]
+    .map(
+      (angle) =>
+        `${(22 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-22 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
+  const sommets2 = [-90, 30, 150]
+    .map(
+      (angle) =>
+        `${(19 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-19 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
   // Génération du code SVG
   const codeSvg = `
     <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
     <polygon points="${sommets2}" fill="none" stroke="${strokeStyle}" stroke-width="${lineWidth}" />
   `.trim()
-  const tikzSommets1 = [-90, 30, 150].map((angle) =>
-    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
-  const tikzSommets2 = [-90, 30, 150].map((angle) =>
-    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
+  const tikzSommets1 = [-90, 30, 150]
+    .map(
+      (angle) =>
+        `(${((22 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((22 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
+  const tikzSommets2 = [-90, 30, 150]
+    .map(
+      (angle) =>
+        `(${((19 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((19 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
 
   const codeTikz = `
     \\draw[fill=${fillStyle}, draw=${borderStyle}, line width=${borderWidth}pt] 
@@ -288,7 +315,13 @@ export function panneauCederLePassage (
   // Génération du code TikZ
 
   const axes = [-90, 30, 150].map((angle) =>
-    segment(1.2 * Math.cos(angle * Math.PI / 180), -1.2 * Math.sin(angle * Math.PI / 180), -1.2 * Math.cos(angle * Math.PI / 180), 1.2 * Math.sin(angle * Math.PI / 180)))
+    segment(
+      1.2 * Math.cos((angle * Math.PI) / 180),
+      -1.2 * Math.sin((angle * Math.PI) / 180),
+      -1.2 * Math.cos((angle * Math.PI) / 180),
+      1.2 * Math.sin((angle * Math.PI) / 180),
+    ),
+  )
   return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes })
 }
 
@@ -298,25 +331,31 @@ export function panneauCederLePassage (
  * @returns Une instance de Figure2D représentant un panneau de danger pour une circulation à double sens.
  * @author Jean-Claude Lhote
  */
-export function panneauDoubleSens (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    borderStyle?: string; // Couleur du liseré noir
-    borderWidth?: number; // Épaisseur du liseré noir
-  }
-): Figure2D {
+export function panneauDoubleSens(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  borderStyle?: string // Couleur du liseré noir
+  borderWidth?: number // Épaisseur du liseré noir
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'white'
   const strokeStyle = options?.strokeStyle || 'red'
   const lineWidth = options?.lineWidth || 3
   const borderStyle = options?.borderStyle || 'black'
   const borderWidth = options?.borderWidth || 1
-  const sommets1 = [90, -30, -150].map((angle) =>
-  `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
-  const sommets2 = [90, -30, -150].map((angle) =>
-  `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(22 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-22 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
+  const sommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(19 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-19 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
   // Génération du code SVG
   const codeSvg = `
     <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
@@ -324,12 +363,18 @@ export function panneauDoubleSens (
     <path d="M -2,-7 L -2,2 L -0.5,2 L -3,7 L -5.5,2 L -4,2 L -4,-7 Z" fill="black" />
     <path d="M 4,7 L 4,-2 L 5.5,-2 L 3,-7 L 0.5,-2 L 2,-2 L 2,7 Z" fill="black" />
   `.trim()
-  const tikzSommets1 = [90, -30, -150].map((angle) =>
-    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
-  const tikzSommets2 = [90, -30, -150].map((angle) =>
-    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
+  const tikzSommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((22 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((22 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
+  const tikzSommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((19 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((19 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
 
   const codeTikz = `
     \\draw[fill=${fillStyle}, draw=${borderStyle}, line width=${borderWidth}pt] 
@@ -343,7 +388,13 @@ export function panneauDoubleSens (
   `.trim()
   // Génération du code TikZ
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, nonAxe: segment(0, -2.5, 0, 2.5) })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    nonAxe: segment(0, -2.5, 0, 2.5),
+  })
 }
 /**
  *
@@ -351,25 +402,31 @@ export function panneauDoubleSens (
  * @returns
  * @author Jean-Claude Lhote
  */
-export function panneauRetrecissementChaussee1 (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    borderStyle?: string; // Couleur du liseré noir
-    borderWidth?: number; // Épaisseur du liseré noir
-  }
-): Figure2D {
+export function panneauRetrecissementChaussee1(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  borderStyle?: string // Couleur du liseré noir
+  borderWidth?: number // Épaisseur du liseré noir
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'white'
   const strokeStyle = options?.strokeStyle || 'red'
   const lineWidth = options?.lineWidth || 3
   const borderStyle = options?.borderStyle || 'black'
   const borderWidth = options?.borderWidth || 1
-  const sommets1 = [90, -30, -150].map((angle) =>
-  `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
-  const sommets2 = [90, -30, -150].map((angle) =>
-  `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(22 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-22 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
+  const sommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(19 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-19 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
   // Génération du code SVG
   const codeSvg = `
     <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
@@ -378,12 +435,18 @@ export function panneauRetrecissementChaussee1 (
     <path d="M 3.5,6 L 3.5,2 L 2,-2 L 2,-6" stroke="black" stroke-width="2" fill="none" />
   `.trim()
 
-  const tikzSommets1 = [90, -30, -150].map((angle) =>
-    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
-  const tikzSommets2 = [90, -30, -150].map((angle) =>
-    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
+  const tikzSommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((22 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((22 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
+  const tikzSommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((19 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((19 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
 
   const codeTikz = `
     \\draw[fill=${fillStyle}, draw=${borderStyle}, line width=${borderWidth}pt] 
@@ -394,7 +457,13 @@ export function panneauRetrecissementChaussee1 (
     \\draw[draw=black, line width=2pt] (0.175,-0.3) -- (0.175,-0.1) -- (0.1,0.1) -- (0.1,0.3);
   `.trim()
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, nonAxe: segment(0, -2.5, 0, 2.5) })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    nonAxe: segment(0, -2.5, 0, 2.5),
+  })
 }
 /**
  *
@@ -402,25 +471,31 @@ export function panneauRetrecissementChaussee1 (
  * @returns
  * @author Jean-Claude Lhote
  */
-export function panneauRetrecissementChaussee2 (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    borderStyle?: string; // Couleur du liseré noir
-    borderWidth?: number; // Épaisseur du liseré noir
-  }
-): Figure2D {
+export function panneauRetrecissementChaussee2(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  borderStyle?: string // Couleur du liseré noir
+  borderWidth?: number // Épaisseur du liseré noir
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'white'
   const strokeStyle = options?.strokeStyle || 'red'
   const lineWidth = options?.lineWidth || 3
   const borderStyle = options?.borderStyle || 'black'
   const borderWidth = options?.borderWidth || 1
-  const sommets1 = [90, -30, -150].map((angle) =>
-  `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
-  const sommets2 = [90, -30, -150].map((angle) =>
-  `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(22 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-22 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
+  const sommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(19 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-19 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
   // Génération du code SVG
   const codeSvg = `
     <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
@@ -430,12 +505,18 @@ export function panneauRetrecissementChaussee2 (
   `.trim()
 
   // Génération du code TikZ
-  const tikzSommets1 = [90, -30, -150].map((angle) =>
-    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
-  const tikzSommets2 = [90, -30, -150].map((angle) =>
-    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
+  const tikzSommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((22 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((22 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
+  const tikzSommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((19 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((19 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
 
   const codeTikz = `
   % panneauRetrecissementChaussee2
@@ -455,25 +536,31 @@ export function panneauRetrecissementChaussee2 (
  * @returns
  * @author Jean-Claude Lhote
  */
-export function panneauRetrecissementChaussee3 (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    borderStyle?: string; // Couleur du liseré noir
-    borderWidth?: number; // Épaisseur du liseré noir
-  }
-): Figure2D {
+export function panneauRetrecissementChaussee3(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  borderStyle?: string // Couleur du liseré noir
+  borderWidth?: number // Épaisseur du liseré noir
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'white'
   const strokeStyle = options?.strokeStyle || 'red'
   const lineWidth = options?.lineWidth || 3
   const borderStyle = options?.borderStyle || 'black'
   const borderWidth = options?.borderWidth || 1
-  const sommets1 = [90, -30, -150].map((angle) =>
-  `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
-  const sommets2 = [90, -30, -150].map((angle) =>
-  `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(22 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-22 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
+  const sommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(19 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-19 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
   // Génération du code SVG
   const codeSvg = `
     <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
@@ -482,12 +569,18 @@ export function panneauRetrecissementChaussee3 (
     <path d="M -3.5,6 L -3.5,2 L -2,-2 L -2,-6" stroke="black" stroke-width="2" fill="none" />
   `.trim()
 
-  const tikzSommets1 = [90, -30, -150].map((angle) =>
-    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
-  const tikzSommets2 = [90, -30, -150].map((angle) =>
-    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
+  const tikzSommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((22 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((22 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
+  const tikzSommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((19 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((19 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
 
   const codeTikz = `
     \\draw[fill=${fillStyle}, draw=${borderStyle}, line width=${borderWidth}pt] 
@@ -498,7 +591,13 @@ export function panneauRetrecissementChaussee3 (
     \\draw[draw=black, line width=2pt] (-0.175,-0.3) -- (-0.175,-0.1) -- (-0.1,0.1) -- (-0.1,0.3);
   `.trim()
 
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, nonAxe: segment(0, -2.5, 0, 2.5) })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    nonAxe: segment(0, -2.5, 0, 2.5),
+  })
 }
 /**
  *
@@ -506,25 +605,31 @@ export function panneauRetrecissementChaussee3 (
  * @returns
  * @author Jean-Claude Lhote
  */
-export function panneauCroisementPrioriteADroite (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    borderStyle?: string; // Couleur du liseré noir
-    borderWidth?: number; // Épaisseur du liseré noir
-  }
-): Figure2D {
+export function panneauCroisementPrioriteADroite(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  borderStyle?: string // Couleur du liseré noir
+  borderWidth?: number // Épaisseur du liseré noir
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'white'
   const strokeStyle = options?.strokeStyle || 'red'
   const lineWidth = options?.lineWidth || 3
   const borderStyle = options?.borderStyle || 'black'
   const borderWidth = options?.borderWidth || 1
-  const sommets1 = [90, -30, -150].map((angle) =>
-  `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
-  const sommets2 = [90, -30, -150].map((angle) =>
-  `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(22 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-22 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
+  const sommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(19 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-19 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
   // Génération du code SVG
   const codeSvg = `
     <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
@@ -534,12 +639,18 @@ export function panneauCroisementPrioriteADroite (
   `.trim()
 
   // Génération du code TikZ
-  const tikzSommets1 = [90, -30, -150].map((angle) =>
-    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
-  const tikzSommets2 = [90, -30, -150].map((angle) =>
-    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
+  const tikzSommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((22 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((22 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
+  const tikzSommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((19 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((19 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
 
   const codeTikz = `
   % panneau de croisement
@@ -559,25 +670,31 @@ export function panneauCroisementPrioriteADroite (
  * @returns Figure2D représentant un panneau de feu tricolore.
  * @author Jean-Claude Lhote
  */
-export function panneauFeuTricolore (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    borderStyle?: string; // Couleur du liseré noir
-    borderWidth?: number; // Épaisseur du liseré noir
-  }
-): Figure2D {
+export function panneauFeuTricolore(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  borderStyle?: string // Couleur du liseré noir
+  borderWidth?: number // Épaisseur du liseré noir
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'white'
   const strokeStyle = options?.strokeStyle || 'red'
   const lineWidth = options?.lineWidth || 3
   const borderStyle = options?.borderStyle || 'black'
   const borderWidth = options?.borderWidth || 1
-  const sommets1 = [90, -30, -150].map((angle) =>
-  `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
-  const sommets2 = [90, -30, -150].map((angle) =>
-  `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(22 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-22 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
+  const sommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(19 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-19 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
   // Génération du code SVG
   const codeSvg = `
     <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
@@ -585,15 +702,20 @@ export function panneauFeuTricolore (
       <rect x="-3" y="-8" width="6" height="14" rx="3" fill="black" />
     <circle cx="0" cy="-5" r="1.5" fill="red" />
     <circle cx="0" cy="-1" r="1.5" fill="orange" />
-    <circle cx="0" cy="3" r="1.5" fill="green" />`
-    .trim()
+    <circle cx="0" cy="3" r="1.5" fill="green" />`.trim()
 
-  const tikzSommets1 = [90, -30, -150].map((angle) =>
-    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
-  const tikzSommets2 = [90, -30, -150].map((angle) =>
-    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
+  const tikzSommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((22 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((22 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
+  const tikzSommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((19 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((19 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
 
   const codeTikz = `
   % Panneau feu tricolore
@@ -616,25 +738,31 @@ export function panneauFeuTricolore (
  * @returns Figure2D représentant un panneau de danger pour un croisement avec une route secondaire.
  * @author
  */
-export function panneauCroisementRouteSecondaire (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    borderStyle?: string; // Couleur du liseré noir
-    borderWidth?: number; // Épaisseur du liseré noir
-  }
-): Figure2D {
+export function panneauCroisementRouteSecondaire(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  borderStyle?: string // Couleur du liseré noir
+  borderWidth?: number // Épaisseur du liseré noir
+}): Figure2D {
   // Options par défaut
   const fillStyle = options?.fillStyle || 'white'
   const strokeStyle = options?.strokeStyle || 'red'
   const lineWidth = options?.lineWidth || 3
   const borderStyle = options?.borderStyle || 'black'
   const borderWidth = options?.borderWidth || 1
-  const sommets1 = [90, -30, -150].map((angle) =>
-    `${(22 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-22 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
-  const sommets2 = [90, -30, -150].map((angle) =>
-    `${(19 * Math.cos(angle * Math.PI / 180)).toFixed(2)},${(-19 * Math.sin(angle * Math.PI / 180)).toFixed(2)}`).join(' ')
+  const sommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(22 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-22 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
+  const sommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `${(19 * Math.cos((angle * Math.PI) / 180)).toFixed(2)},${(-19 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}`,
+    )
+    .join(' ')
   // Génération du code SVG
   const codeSvg = `
     <polygon points="${sommets1}" fill="${fillStyle}" stroke="${borderStyle}" stroke-width="${borderWidth}" />
@@ -643,12 +771,18 @@ export function panneauCroisementRouteSecondaire (
     <line x1="-6" y1="-1" x2="6" y2="-1" stroke="black" stroke-width="2" />
   `.trim()
 
-  const tikzSommets1 = [90, -30, -150].map((angle) =>
-    `(${(22 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(22 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
-  const tikzSommets2 = [90, -30, -150].map((angle) =>
-    `(${(19 * Math.cos(angle * Math.PI / 180) / 20).toFixed(3)},${(19 * Math.sin(angle * Math.PI / 180) / 20).toFixed(3)})`
-  ).join(' -- ')
+  const tikzSommets1 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((22 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((22 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
+  const tikzSommets2 = [90, -30, -150]
+    .map(
+      (angle) =>
+        `(${((19 * Math.cos((angle * Math.PI) / 180)) / 20).toFixed(3)},${((19 * Math.sin((angle * Math.PI) / 180)) / 20).toFixed(3)})`,
+    )
+    .join(' -- ')
 
   const codeTikz = `
   % Panneau de croisement avec une route secondaire
@@ -671,13 +805,11 @@ export function panneauCroisementRouteSecondaire (
  * @version 1.0
  * @date 2025-05-10
  */
-export function panneauSensInterdit (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du cercle rouge
-    strokeStyle?: string; // Couleur de la bordure du cercle
-    lineWidth?: number; // Épaisseur de la bordure
-  }
-): Figure2D {
+export function panneauSensInterdit(options?: {
+  fillStyle?: string // Couleur de remplissage du cercle rouge
+  strokeStyle?: string // Couleur de la bordure du cercle
+  lineWidth?: number // Épaisseur de la bordure
+}): Figure2D {
   // Génération du code SVG
   const circleFill = options?.fillStyle || 'red'
   const circleStroke = options?.strokeStyle || 'red'
@@ -698,11 +830,15 @@ export function panneauSensInterdit (
    \\draw[${tikzCircleFill}, ${tikzCircleStroke}, ${tikzCircleLineWidth}] (0,0) circle (0.95cm);
     \\fill[white] (-0.75, -0.125) rectangle (0.75, 0.125);
   `.trim()
-  const axes = [
-    segment(-1.2, 0, 1.2, 0),
-    segment(0, -1.2, 0, 1.2)
-  ]
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
+  const axes = [segment(-1.2, 0, 1.2, 0), segment(0, -1.2, 0, 1.2)]
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    axes,
+    centre: point(0, 0),
+  })
 }
 
 /**
@@ -711,14 +847,12 @@ export function panneauSensInterdit (
  * @returns Une instance de Figure2D représentant un panneau d'interdiction de circuler.
  *
  */
-export function panneauInterdictionDeCirculer (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage de l'intérieur du cercle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure rouge
-    lineWidth?: number; // Épaisseur de la bordure rouge
-    barFillStyle?: string; // Couleur de la barre diagonale (par défaut rouge)
-  }
-): Figure2D {
+export function panneauInterdictionDeCirculer(options?: {
+  fillStyle?: string // Couleur de remplissage de l'intérieur du cercle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure rouge
+  lineWidth?: number // Épaisseur de la bordure rouge
+  barFillStyle?: string // Couleur de la barre diagonale (par défaut rouge)
+}): Figure2D {
   // Options par défaut
   const circleFill = options?.fillStyle || 'red'
   const circleStroke = options?.strokeStyle || 'red'
@@ -743,13 +877,22 @@ export function panneauInterdictionDeCirculer (
   const axes: Segment[] = []
   for (let k = 0; k < 10; k++) {
     const axe = segment(
-      -1.2 * Math.cos(Math.PI * (k * 180 / 10) / 180),
-      -1.2 * Math.sin(Math.PI * (k * 180 / 10) / 180),
-      1.2 * Math.cos(Math.PI * (k * 180 / 10) / 180),
-      1.2 * Math.sin(Math.PI * (k * 180 / 10) / 180))
+      -1.2 * Math.cos((Math.PI * ((k * 180) / 10)) / 180),
+      -1.2 * Math.sin((Math.PI * ((k * 180) / 10)) / 180),
+      1.2 * Math.cos((Math.PI * ((k * 180) / 10)) / 180),
+      1.2 * Math.sin((Math.PI * ((k * 180) / 10)) / 180),
+    )
     axes.push(axe)
   }
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, nbAxes: Number.POSITIVE_INFINITY, axes, centre: point(0, 0) })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    nbAxes: Number.POSITIVE_INFINITY,
+    axes,
+    centre: point(0, 0),
+  })
 }
 /**
  * Génère une figure représentant un panneau de fin de limitation.
@@ -759,14 +902,12 @@ export function panneauInterdictionDeCirculer (
  * @version 1.0
  * @date 2025-05-10
  */
-export function panneauFinDeLimitation (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du cercle (par défaut blanc)
-    strokeStyle?: string; // Couleur de la bordure du cercle (par défaut noir)
-    lineWidth?: number; // Épaisseur de la bordure
-    diagonalColor?: string; // Couleur des diagonales (par défaut gris)
-  }
-): Figure2D {
+export function panneauFinDeLimitation(options?: {
+  fillStyle?: string // Couleur de remplissage du cercle (par défaut blanc)
+  strokeStyle?: string // Couleur de la bordure du cercle (par défaut noir)
+  lineWidth?: number // Épaisseur de la bordure
+  diagonalColor?: string // Couleur des diagonales (par défaut gris)
+}): Figure2D {
   // Génération du code SVG
   const circleFill = options?.fillStyle || 'white'
   const circleStroke = options?.strokeStyle || 'black'
@@ -786,11 +927,15 @@ export function panneauFinDeLimitation (
     \\draw[${tikzCircleFill}, ${tikzCircleStroke}, ${tikzCircleLineWidth}] (0,0) circle (1cm);
     \\draw[${tikzDiagonalColor}, line width=1pt] (-0.75,-0.75) -- (0.75,0.75);
   `.trim()
-  const axes = [
-    segment(-1, -1, 1, 1),
-    segment(-1, 1, 1, -1)
-  ]
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
+  const axes = [segment(-1, -1, 1, 1), segment(-1, 1, 1, -1)]
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    axes,
+    centre: point(0, 0),
+  })
 }
 
 /**
@@ -801,13 +946,11 @@ export function panneauFinDeLimitation (
  * @version 1.0
  * @date 2025-05-10
  */
-export function panneauArretInterdit (
-  options?: {
-    fillStyle?: string; // Couleur de remplissage du cercle rouge
-    strokeStyle?: string; // Couleur de la bordure du cercle
-    lineWidth?: number; // Épaisseur de la bordure
-  }
-): Figure2D {
+export function panneauArretInterdit(options?: {
+  fillStyle?: string // Couleur de remplissage du cercle rouge
+  strokeStyle?: string // Couleur de la bordure du cercle
+  lineWidth?: number // Épaisseur de la bordure
+}): Figure2D {
   // Génération du code SVG
   const circleFill = options?.fillStyle || 'blue'
   const circleStroke = options?.strokeStyle || 'red'
@@ -836,7 +979,14 @@ export function panneauArretInterdit (
     segment(-1.2, 0, 1.2, 0),
     segment(0, -1.2, 0, 1.2),
     segment(-1, -1, 1, 1),
-    segment(-1, 1, 1, -1)
+    segment(-1, 1, 1, -1),
   ]
-  return new Figure2D({ codeSvg, codeTikz, width: 2, height: 2, axes, centre: point(0, 0) })
+  return new Figure2D({
+    codeSvg,
+    codeTikz,
+    width: 2,
+    height: 2,
+    axes,
+    centre: point(0, 0),
+  })
 }

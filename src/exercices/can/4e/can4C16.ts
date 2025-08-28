@@ -17,10 +17,10 @@ export const uuid = '07df0'
 
 export const refs = {
   'fr-fr': ['can4C16'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class MultiplierFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,13 +28,65 @@ export default class MultiplierFraction extends ExerciceSimple {
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 
-  nouvelleVersion () {
-    const listeFractions1 = [[1, 3], [1, 5], [2, 3], [3, 4], [2, 5], [4, 5],
-      [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8],
-      [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [3, 4], [5, 3], [5, 3], [5, 4], [10, 3], [3, 10]]
-    const listeFractions2 = [[1, 3], [1, 5], [2, 3], [3, 4], [2, 5], [4, 5],
-      [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
-      [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [9, 8], [10, 7], [10, 9], [7, 10]]
+  nouvelleVersion() {
+    const listeFractions1 = [
+      [1, 3],
+      [1, 5],
+      [2, 3],
+      [3, 4],
+      [2, 5],
+      [4, 5],
+      [1, 6],
+      [5, 6],
+      [1, 7],
+      [2, 7],
+      [3, 7],
+      [4, 7],
+      [5, 7],
+      [6, 7],
+      [1, 8],
+      [3, 8],
+      [1, 9],
+      [2, 9],
+      [4, 9],
+      [5, 9],
+      [7, 9],
+      [3, 4],
+      [5, 3],
+      [5, 3],
+      [5, 4],
+      [10, 3],
+      [3, 10],
+    ]
+    const listeFractions2 = [
+      [1, 3],
+      [1, 5],
+      [2, 3],
+      [3, 4],
+      [2, 5],
+      [4, 5],
+      [1, 6],
+      [5, 6],
+      [1, 7],
+      [2, 7],
+      [3, 7],
+      [4, 7],
+      [5, 7],
+      [6, 7],
+      [1, 8],
+      [3, 8],
+      [5, 8],
+      [7, 8],
+      [1, 9],
+      [2, 9],
+      [4, 9],
+      [5, 9],
+      [7, 9],
+      [9, 8],
+      [10, 7],
+      [10, 9],
+      [7, 10],
+    ]
     const fraction1 = choice(listeFractions1)
     const fraction2 = choice(listeFractions2)
     const n1 = fraction1[0]

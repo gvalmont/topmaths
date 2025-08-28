@@ -1,29 +1,42 @@
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 import { clean } from '../../helpers/text'
 import { KatexHandler } from '../../helpers/KatexHandler'
 import { fraction } from '../../../../src/modules/fractions'
 import prefs from '../../helpers/prefs.js'
 
-async function test (page: Page) {
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  const urlExercice = hostname + '?uuid=91d72&id=5N10&n=20&d=10&s=3&s2=false&i=1&cd=1'
+async function test(page: Page) {
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
+  const urlExercice =
+    hostname + '?uuid=91d72&id=5N10&n=20&d=10&s=3&s2=false&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
     let reponse
 
     const innerText = clean(question.innerText, ['virgules'])
-    if (innerText.includes('décimale')) { // l'énoncé fournit une fraction on saisit un décimal
-      const katexFraction = new KatexHandler(page, question, { has: page.locator('mfrac') })
+    if (innerText.includes('décimale')) {
+      // l'énoncé fournit une fraction on saisit un décimal
+      const katexFraction = new KatexHandler(page, question, {
+        has: page.locator('mfrac'),
+      })
       const fraction = await katexFraction.getFraction()
       const { num, den } = fraction ?? { num: undefined, den: undefined }
-      if (num == null || den == null) throw Error(`getFraction n'a pas trouvé la fraction : ${fraction}`)
+      if (num == null || den == null)
+        throw Error(`getFraction n'a pas trouvé la fraction : ${fraction}`)
       const [n, d] = [num, den].map(Number)
       reponse = question.isCorrect
         ? (n / d).toFixed(3).replace('.', ',')
         : (d / n).toFixed(3).replace('.', ',')
-    } else { // l'énoncé fournit un décimal on saisit une fraction
+    } else {
+      // l'énoncé fournit un décimal on saisit une fraction
       const katexExpression = new KatexHandler(page, question, { hasText: ',' })
       const expression = await katexExpression.getExpression()
       if (expression == null) return false
@@ -31,7 +44,8 @@ async function test (page: Page) {
       const chunks = exprCleaned.match(/\d+,\d+/g)
       if (chunks !== null) {
         const nombre = Number(chunks[0].replace(',', '.'))
-        if (nombre != null) { // on fabrique la réponse
+        if (nombre != null) {
+          // on fabrique la réponse
           const laFraction = fraction(nombre, undefined)
           reponse = question.isCorrect
             ? `${String(laFraction.num)}/${String(laFraction.den)}`

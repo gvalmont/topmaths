@@ -1,13 +1,24 @@
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import {
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDansLaPartieEntiere,
+} from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '29/08/2021'
@@ -15,7 +26,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = 'Calculer des images (et antécédents) dans diverses fonctions'
+export const titre =
+  'Calculer des images (et antécédents) dans diverses fonctions'
 
 /**
  * Répondre à des questions sur les fonctions.
@@ -25,17 +37,26 @@ export const uuid = 'ba520'
 
 export const refs = {
   'fr-fr': ['3F10-2', 'BP2AutoO3'],
-  'fr-ch': ['10FA5-6', '11FA8-2', '1mF1-10']
+  'fr-ch': ['10FA5-6', '11FA8-2', '1mF1-10'],
 }
 export default class CalculsImagesFonctions extends Exercice {
   fonctions: string
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Choix des questions', 'Nombres séparés par des tirets :\n1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynôme de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
+      'Choix des questions',
+      'Nombres séparés par des tirets :\n1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynôme de degré 2 \n4 : Fonction rationnelle \n5 : Mélange',
     ]
-    this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
-    this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Que des entiers négatifs\n3 : Avec des entiers relatifs\n4 : Avec des fractions positives dans les coefficients (uniquement pour linéaire et affine)\n5 : Avec des antécédents tous négatifs (pas de fraction)\n6 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Image ou antécédent',
+      3,
+      "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange",
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Niveau de difficulté',
+      5,
+      '1 : Que des entiers positifs\n2 : Que des entiers négatifs\n3 : Avec des entiers relatifs\n4 : Avec des fractions positives dans les coefficients (uniquement pour linéaire et affine)\n5 : Avec des antécédents tous négatifs (pas de fraction)\n6 : Mélange',
+    ]
 
     this.sup = 2
     this.sup2 = 1
@@ -45,45 +66,48 @@ export default class CalculsImagesFonctions extends Exercice {
     this.fonctions = 'toutesLesFonctions'
   }
 
-  nouvelleVersion () {
-    const listeTypeDeQuestions = this.fonctions === 'affinesOuLineaires'
-      ? gestionnaireFormulaireTexte({
-        saisie: this.sup,
-        min: 1,
-        max: 2,
-        defaut: 3,
-        melange: 3,
-        nbQuestions: this.nbQuestions,
-        listeOfCase: ['linéaire', 'affine']
-      })
-      : this.fonctions === 'polynomialesOuRationnelles'
+  nouvelleVersion() {
+    const listeTypeDeQuestions =
+      this.fonctions === 'affinesOuLineaires'
         ? gestionnaireFormulaireTexte({
-          saisie: this.sup,
-          min: 1,
-          max: 2,
-          defaut: 3,
-          melange: 3,
-          nbQuestions: this.nbQuestions,
-          listeOfCase: ['polynôme', 'fraction']
-        })
-        : gestionnaireFormulaireTexte({
-          saisie: this.sup,
-          min: 1,
-          max: 4,
-          defaut: 5,
-          melange: 5,
-          nbQuestions: this.nbQuestions,
-          listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction']
-        })
+            saisie: this.sup,
+            min: 1,
+            max: 2,
+            defaut: 3,
+            melange: 3,
+            nbQuestions: this.nbQuestions,
+            listeOfCase: ['linéaire', 'affine'],
+          })
+        : this.fonctions === 'polynomialesOuRationnelles'
+          ? gestionnaireFormulaireTexte({
+              saisie: this.sup,
+              min: 1,
+              max: 2,
+              defaut: 3,
+              melange: 3,
+              nbQuestions: this.nbQuestions,
+              listeOfCase: ['polynôme', 'fraction'],
+            })
+          : gestionnaireFormulaireTexte({
+              saisie: this.sup,
+              min: 1,
+              max: 4,
+              defaut: 5,
+              melange: 5,
+              nbQuestions: this.nbQuestions,
+              listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction'],
+            })
 
     let sousChoix
-    if (this.sup2 === 1) { // Pour paramétrer plus finement le type de question pour les questions
+    if (this.sup2 === 1) {
+      // Pour paramétrer plus finement le type de question pour les questions
       if (this.sup3 !== 4) {
         sousChoix = combinaisonListes([0], this.nbQuestions)
       } else {
         sousChoix = combinaisonListes([1], this.nbQuestions)
       }
-    } else if (this.sup2 === 2) { // Que pour les fonctions affines et linéaires
+    } else if (this.sup2 === 2) {
+      // Que pour les fonctions affines et linéaires
       if (this.sup3 < 4 || this.sup3 === 5) {
         sousChoix = combinaisonListes([2, 3], this.nbQuestions)
       } else if (this.sup3 === 4) {
@@ -91,7 +115,8 @@ export default class CalculsImagesFonctions extends Exercice {
       } else {
         sousChoix = combinaisonListes([2, 3, 4], this.nbQuestions)
       }
-    } else { // Que pour les fonctions non affines
+    } else {
+      // Que pour les fonctions non affines
       if (this.sup3 < 4 || this.sup3 === 5) {
         sousChoix = combinaisonListes([0, 2, 3], this.nbQuestions)
       } else if (this.sup3 === 4) {
@@ -100,11 +125,29 @@ export default class CalculsImagesFonctions extends Exercice {
         sousChoix = combinaisonListes([0, 1, 2, 3, 4], this.nbQuestions)
       }
     }
-    for (let i = 0, texte, texteCorr, x, y, m, n, enonce, correction, reponses = [], tagImage, ant, img, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        x,
+        y,
+        m,
+        n,
+        enonce,
+        correction,
+        reponses = [],
+        tagImage,
+        ant,
+        img,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // on ne choisit que des nombres compris entre 1 et 20
       texte = ''
       texteCorr = ''
-      if (this.sup3 > 3 && this.fonctions === 'polynomialesOuRationnelles') this.sup3++
+      if (this.sup3 > 3 && this.fonctions === 'polynomialesOuRationnelles')
+        this.sup3++
       if (this.sup3 === 1) {
         x = randint(2, 9)
         y = randint(-9, 9, [x, 0])
@@ -254,68 +297,96 @@ export default class CalculsImagesFonctions extends Exercice {
           sousChoix[i] = randint(0, 3)
           switch (sousChoix[i]) {
             case 0:
-              if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
+              if (n !== x)
+                m = n - x // n différent de 0 donc m + x différent de zéro
               else m = n ** 2 - x // idem
               enonce = `Soit $f$ la fonction qui à $x$ associe $\\dfrac{x}{x${ecritureAlgebrique(m)}}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}$`
               reponses[i] = new FractionEtendue(x, x + m)
               break
-            case 1:{ if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
-            else m = n ** 2 - x
-            enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$. <br> Quelle est l'image de $${x}$ ?<br>`
-            correction = `$f(x)=\\dfrac{${rienSi1(m)}x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x + m}}`
-            /*               reponses[i] = new FractionEtendue(m * x, x + m)
+            case 1: {
+              if (n !== x)
+                m = n - x // n différent de 0 donc m + x différent de zéro
+              else m = n ** 2 - x
+              enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$. <br> Quelle est l'image de $${x}$ ?<br>`
+              correction = `$f(x)=\\dfrac{${rienSi1(m)}x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x + m}}`
+              /*               reponses[i] = new FractionEtendue(m * x, x + m)
               correction += reponses[i].estEntiere ? `=${reponses[i].simplifie().texFraction}$` : '$'
  */
-            const repFraction = new FractionEtendue(m * x, x + m)
-            correction += repFraction.estEntiere ? `=${repFraction.simplifie().texFraction}$` : '$'
-            reponses[i] = repFraction
-            break
+              const repFraction = new FractionEtendue(m * x, x + m)
+              correction += repFraction.estEntiere
+                ? `=${repFraction.simplifie().texFraction}$`
+                : '$'
+              reponses[i] = repFraction
+              break
             }
             case 2:
-              if (n !== x) m = n - x // // n différent de 0 donc m + x différent de zéro et x différent de zéro
+              if (n !== x)
+                m = n - x // // n différent de 0 donc m + x différent de zéro et x différent de zéro
               else m = n ** 2 - x
               enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=\\dfrac{${rienSi1(m)}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}^2+${n}\\times ${ecritureParentheseSiNegatif(x)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(m)}\\times ${ecritureParentheseSiNegatif(x)}}=\\dfrac{${m * x ** 2}${ecritureAlgebrique(n * x)}}{${x ** 2}${ecritureAlgebrique(m * x)}}=\\dfrac{${m * x ** 2 + n * x}}{${x ** 2 + m * x}}=\\dfrac{${m * x + n}}{${x + m}}$`
-              reponses[i] = new FractionEtendue(m * x ** 2 + n * x, x ** 2 + m * x)
+              reponses[i] = new FractionEtendue(
+                m * x ** 2 + n * x,
+                x ** 2 + m * x,
+              )
               break
-            case 3:{ if (n !== x && n !== 2 * x) m = n - x // x - m = 2x - n donc différent de zéro
-            else if (n ** 2 !== 2 * x) m = n ** 2 - x // x-m = 2x - n**2 donc différent de zéro
-            else m = n + x // x-m = n donc différent de zéro
-            enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. <br> Quelle est l'image de $${x}$ ?<br>`
-            correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$`
-            correction += `donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}`
-            correction += `=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}`
-            /* reponses[i] = new FractionEtendue(1, x - m)
+            case 3: {
+              if (n !== x && n !== 2 * x)
+                m = n - x // x - m = 2x - n donc différent de zéro
+              else if (n ** 2 !== 2 * x)
+                m = n ** 2 - x // x-m = 2x - n**2 donc différent de zéro
+              else m = n + x // x-m = n donc différent de zéro
+              enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. <br> Quelle est l'image de $${x}$ ?<br>`
+              correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$`
+              correction += `donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}`
+              correction += `=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}`
+              /* reponses[i] = new FractionEtendue(1, x - m)
             correction += `=${reponses[i].texFSD}$` */
-            const repFraction = new FractionEtendue(1, x - m)
-            correction += `=${repFraction.texFSD}$`
-            reponses[i] = repFraction
-            break
+              const repFraction = new FractionEtendue(1, x - m)
+              correction += `=${repFraction.texFSD}$`
+              reponses[i] = repFraction
+              break
             }
           }
-          setReponse(this, i, reponses[i], { formatInteractif: 'fractionEgale' })
+          setReponse(this, i, reponses[i], {
+            formatInteractif: 'fractionEgale',
+          })
           break
       }
       if (this.interactif) {
         if (tagImage) {
-          texte = enonce + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$f(${ant})=$` })
+          texte =
+            enonce +
+            ajouteChampTexteMathLive(this, i, ' ', {
+              texteAvant: `$f(${ant})=$`,
+            })
         } else {
-          texte = enonce + ajouteChampTexteMathLive(this, i, ' ', {
-            texteAvant: '$f($',
-            texteApres: `$)=${img}$`
-          })
+          texte =
+            enonce +
+            ajouteChampTexteMathLive(this, i, ' ', {
+              texteAvant: '$f($',
+              texteApres: `$)=${img}$`,
+            })
         }
       } else {
         texte = enonce
       }
 
       if (tagImage) {
-        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(reponses[i] instanceof FractionEtendue ? (reponses[i] as FractionEtendue).simplifie().texFSD : texNombre(reponses[i], 5))}$`
+        texteCorr =
+          correction +
+          '<br>' +
+          `$f(${ant})=${miseEnEvidence(reponses[i] instanceof FractionEtendue ? (reponses[i] as FractionEtendue).simplifie().texFSD : texNombre(reponses[i], 5))}$`
       } else {
-        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(reponses[i] instanceof FractionEtendue ? (reponses[i] as FractionEtendue).simplifie().texFSD : texNombre(reponses[i], 5))})=${img}$`
+        texteCorr =
+          correction +
+          '<br>' +
+          `$f(${miseEnEvidence(reponses[i] instanceof FractionEtendue ? (reponses[i] as FractionEtendue).simplifie().texFSD : texNombre(reponses[i], 5))})=${img}$`
       }
-      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
+      if (
+        this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])
+      ) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte ?? ''
         this.listeCorrections[i] = texteCorr
@@ -329,13 +400,24 @@ export default class CalculsImagesFonctions extends Exercice {
     if (context.isAmc) {
       for (let i = 0; i < this.nbQuestions; i++) {
         // @ts-ignore this.autoCorrection[i] est bien défini
-        maxNbChiffresAvantLaVirgule = Math.max(maxNbChiffresAvantLaVirgule, nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]))
+        maxNbChiffresAvantLaVirgule = Math.max(
+          maxNbChiffresAvantLaVirgule,
+          nombreDeChiffresDansLaPartieEntiere(
+            this.autoCorrection[i].reponse.valeur[0],
+          ),
+        )
         // @ts-ignore this.autoCorrection[i] est bien défini
-        maxNbDecimals = Math.max(maxNbDecimals, nombreDeChiffresDansLaPartieDecimale(this.autoCorrection[i].reponse.valeur[0]))
+        maxNbDecimals = Math.max(
+          maxNbDecimals,
+          nombreDeChiffresDansLaPartieDecimale(
+            this.autoCorrection[i].reponse.valeur[0],
+          ),
+        )
       }
       for (let i = 0; i < this.nbQuestions; i++) {
         // @ts-expect-error
-        this.autoCorrection[i].reponse.param.digits = maxNbChiffresAvantLaVirgule + maxNbDecimals
+        this.autoCorrection[i].reponse.param.digits =
+          maxNbChiffresAvantLaVirgule + maxNbDecimals
         // @ts-expect-error
         this.autoCorrection[i].reponse.param.decimals = maxNbDecimals
         // @ts-expect-error

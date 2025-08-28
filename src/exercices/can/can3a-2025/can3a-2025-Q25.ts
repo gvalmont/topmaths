@@ -2,13 +2,13 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-export const titre = 'Calculer le périmètre d\'un cercle'
+export const titre = "Calculer le périmètre d'un cercle"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '416d2'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -16,7 +16,7 @@ export const refs = {
 
 */
 export default class PerimetreCercle extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class PerimetreCercle extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '<br>', texteApres: 'cm' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const r = this.canOfficielle ? 10 : randint(3, 12)
     const reponse = `${2 * r}\\times \\pi`
     this.reponse = reponse

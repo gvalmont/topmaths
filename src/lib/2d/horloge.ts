@@ -14,7 +14,7 @@ import { rotation, similitude, translation } from './transformations'
  * Date de publication : 01/02/2025
  */
 export default class Horloge extends ObjetMathalea2D {
-  constructor (x = 0, y = 0, rayon = 2, heure?: Hms) {
+  constructor(x = 0, y = 0, rayon = 2, heure?: Hms) {
     super()
     this.objets = []
     const O = point(x, y)
@@ -25,8 +25,13 @@ export default class Horloge extends ObjetMathalea2D {
     rouage.epaisseur = 3
     const ecartNumeros = 0.5
     for (let i = 1; i <= 12; i++) {
-      const angleRot = Math.PI / 180 * (90 - i * 30)
-      const numero = latex2d(String(i), x + (rayon - ecartNumeros) * Math.cos(angleRot), y + (rayon - ecartNumeros) * Math.sin(angleRot), { letterSize: 'footnotesize', orientation: 0, opacity: 0.6 })
+      const angleRot = (Math.PI / 180) * (90 - i * 30)
+      const numero = latex2d(
+        String(i),
+        x + (rayon - ecartNumeros) * Math.cos(angleRot),
+        y + (rayon - ecartNumeros) * Math.sin(angleRot),
+        { letterSize: 'footnotesize', orientation: 0, opacity: 0.6 },
+      )
       this.objets.push(numero)
     }
     this.objets.push(rouage)
@@ -65,7 +70,7 @@ export default class Horloge extends ObjetMathalea2D {
     }
   }
 
-  svg (coef: number) {
+  svg(coef: number) {
     let code = ''
     if (this.objets != null) {
       for (const objet of this.objets) {
@@ -76,7 +81,7 @@ export default class Horloge extends ObjetMathalea2D {
   }
 
   // à remplacer par un code tikzPicture plus propre ?
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets != null) {
       for (const objet of this.objets) {

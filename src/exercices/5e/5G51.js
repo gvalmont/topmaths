@@ -6,7 +6,11 @@ import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  colorToLatexOrHTML,
+  vide2d,
+} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -20,18 +24,22 @@ export const uuid = 'a013f'
 
 export const refs = {
   'fr-fr': ['5G51'],
-  'fr-ch': ['9ES7-2']
+  'fr-ch': ['9ES7-2'],
 }
 export default class RepresenterUnSolide5e extends Exercice {
-  constructor () {
+  constructor() {
     super()
     // Héritage de la classe Exercice ()
-    this.besoinFormulaireNumerique = ['Type de solides', 5, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de solides',
+      5,
+      ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange',
+    ]
 
     this.besoinFormulaire2Numerique = [
       'Type de cahier',
       3,
-      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche',
     ]
 
     this.nbQuestions = 1
@@ -41,64 +49,118 @@ export default class RepresenterUnSolide5e extends Exercice {
     this.classe = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
 
-    if (this.sup === 3) { typesDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typesDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typesDeQuestionsDisponibles = [1, 2, 4, 6] } else { typesDeQuestionsDisponibles = [parseInt(this.sup)] }
+    if (this.sup === 3) {
+      typesDeQuestionsDisponibles = [1, 2]
+    } else if (this.sup === 5) {
+      typesDeQuestionsDisponibles = [1, 2, 4]
+    } else if (this.sup === 7) {
+      typesDeQuestionsDisponibles = [1, 2, 4, 6]
+    } else {
+      typesDeQuestionsDisponibles = [parseInt(this.sup)]
+    }
 
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     let Xmin, Xmax, Ymin, Ymax, ppc, sc
 
-    if (this.classe === 6) { // sixième : cube et pavé droit
+    if (this.classe === 6) {
+      // sixième : cube et pavé droit
       typesDeQuestionsDisponibles = [1, 2]
-    } else if (this.classe === 5) { // cinquième : on ajoute le prisme
+    } else if (this.classe === 5) {
+      // cinquième : on ajoute le prisme
       typesDeQuestionsDisponibles = [1, 2, 4]
-    } else if (this.classe === 4) { typesDeQuestionsDisponibles = [1, 2, 4, 6] }
+    } else if (this.classe === 4) {
+      typesDeQuestionsDisponibles = [1, 2, 4, 6]
+    }
     // Quatrième : on ajoute la pyramide
-    if (this.sup2 === 1) { sc = 0.5 } else { sc = 0.8 }
+    if (this.sup2 === 1) {
+      sc = 0.5
+    } else {
+      sc = 0.8
+    }
 
-    let A; let B; let C; let D; let E; let F; let G; let H; let I
-    let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH; let IA; let IB; let IE; let IF; let BD; let FH
+    let A
+    let B
+    let C
+    let D
+    let E
+    let F
+    let G
+    let H
+    let I
+    let AB
+    let BC
+    let CD
+    let DA
+    let EF
+    let FG
+    let GH
+    let HE
+    let AE
+    let BF
+    let CG
+    let DH
+    let IA
+    let IB
+    let IE
+    let IF
+    let BD
+    let FH
     let coeffpersp
     let enonce
     let correction
-    let carreaux; let g
+    let carreaux
+    let g
     let objetsEnonce = []
     let objetsCorrection = []
     let listeDeNomsDePolygones
-    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       if (i % 2 === 0) listeDeNomsDePolygones = ['QD']
       const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
       const anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135])
-      if (anglepersp % 10 === 0) { coeffpersp = 0.6 } else { coeffpersp = 0.4 }
+      if (anglepersp % 10 === 0) {
+        coeffpersp = 0.6
+      } else {
+        coeffpersp = 0.4
+      }
       objetsCorrection = []
       objetsEnonce = []
 
       switch (listeTypeDeQuestions[i]) {
         case 1: // cube
           enonce = `$${nom}$ est un cube.<br>`
-          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
+          if (context.isHtml) {
+            enonce +=
+              'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          }
           correction = 'Figure complétée :<br>'
           break
 
         case 2: // pavé droit
           enonce = `$${nom}$ est un pavé droit.<br>`
-          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
+          if (context.isHtml) {
+            enonce +=
+              'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          }
           correction = 'Figure complétée :<br>'
           break
 
         case 4: // prisme
-          enonce = 'On considère un prisme à base triangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          enonce =
+            'On considère un prisme à base triangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
           correction = 'Figure complétée :<br>'
           break
 
         case 6: // pyramide
-          enonce = 'On considère une pyramide à base rectangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          enonce =
+            'On considère une pyramide à base rectangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
           correction = 'Figure complétée :<br>'
           break
       }
@@ -119,7 +181,14 @@ export default class RepresenterUnSolide5e extends Exercice {
           B = point(9 + randint(1, 3), 0, nom[1], 'right')
           C = point(B.x, randint(3, 7), nom[2], 'right')
           D = point(A.x, C.y, nom[3], 'left')
-          E = similitude(B, A, anglepersp, coeffpersp * randint(5, 12) / 10, nom[4], 'left')
+          E = similitude(
+            B,
+            A,
+            anglepersp,
+            (coeffpersp * randint(5, 12)) / 10,
+            nom[4],
+            'left',
+          )
           E.x = Math.round(E.x)
           E.y = Math.round(E.y)
           break
@@ -226,8 +295,18 @@ export default class RepresenterUnSolide5e extends Exercice {
       Ymax = Math.max(D.y, H.y) + 1
       ppc = 20
 
-      if (this.sup2 < 3) { g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) } else { g = vide2d() }
-      if (this.sup2 === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = vide2d(); sc = 0.5 }
+      if (this.sup2 < 3) {
+        g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
+      } else {
+        g = vide2d()
+      }
+      if (this.sup2 === 2) {
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
+        sc = 0.8
+      } else {
+        carreaux = vide2d()
+        sc = 0.5
+      }
 
       const params = {
         xmin: Xmin,
@@ -235,34 +314,47 @@ export default class RepresenterUnSolide5e extends Exercice {
         xmax: Xmax,
         ymax: Ymax,
         pixelsParCm: ppc,
-        scale: sc
+        scale: sc,
       }
 
       if (listeTypeDeQuestions[i] === 1) {
-        objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
+        objetsEnonce.push(
+          AB,
+          BC,
+          CD,
+          DA,
+          AE,
+          labelPoint(A, B, C, D, E),
           g,
-          carreaux
+          carreaux,
         )
       }
 
       if (listeTypeDeQuestions[i] === 2) {
-        objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
+        objetsEnonce.push(
+          AB,
+          BC,
+          CD,
+          DA,
+          AE,
+          labelPoint(A, B, C, D, E),
           g,
-          carreaux
+          carreaux,
         )
       }
 
       if (listeTypeDeQuestions[i] === 4) {
-        objetsEnonce.push(AB, DA, BD, AE,
-          g,
-          carreaux
-        )
+        objetsEnonce.push(AB, DA, BD, AE, g, carreaux)
       }
 
       if (listeTypeDeQuestions[i] === 6) {
-        objetsEnonce.push(AB, BF, tracePoint(I, 'red'), labelPoint(I),
+        objetsEnonce.push(
+          AB,
+          BF,
+          tracePoint(I, 'red'),
+          labelPoint(I),
           g,
-          carreaux
+          carreaux,
         )
       }
 
@@ -280,9 +372,22 @@ export default class RepresenterUnSolide5e extends Exercice {
         BF.color = colorToLatexOrHTML('blue')
         CG.color = colorToLatexOrHTML('blue')
         DH.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+        objetsCorrection.push(
+          AB,
+          BC,
+          CD,
+          DA,
+          EF,
+          FG,
+          GH,
+          HE,
+          AE,
+          BF,
+          CG,
+          DH,
+          labelPoint(A, B, C, D, E, F, G, H),
           g,
-          carreaux
+          carreaux,
         )
       }
 
@@ -299,9 +404,22 @@ export default class RepresenterUnSolide5e extends Exercice {
         BF.color = colorToLatexOrHTML('blue')
         CG.color = colorToLatexOrHTML('blue')
         DH.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+        objetsCorrection.push(
+          AB,
+          BC,
+          CD,
+          DA,
+          EF,
+          FG,
+          GH,
+          HE,
+          AE,
+          BF,
+          CG,
+          DH,
+          labelPoint(A, B, C, D, E, F, G, H),
           g,
-          carreaux
+          carreaux,
         )
       }
 
@@ -318,10 +436,7 @@ export default class RepresenterUnSolide5e extends Exercice {
         BF.color = colorToLatexOrHTML('blue')
         CG.color = colorToLatexOrHTML('blue')
         DH.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH,
-          g,
-          carreaux
-        )
+        objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH, g, carreaux)
       }
 
       if (listeTypeDeQuestions[i] === 6) {
@@ -337,9 +452,18 @@ export default class RepresenterUnSolide5e extends Exercice {
         BF.color = colorToLatexOrHTML('blue')
         CG.color = colorToLatexOrHTML('blue')
         DH.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(AB, EF, AE, BF, IA, IB, IE, IF, tracePoint(I),
+        objetsCorrection.push(
+          AB,
+          EF,
+          AE,
+          BF,
+          IA,
+          IB,
+          IE,
+          IF,
+          tracePoint(I),
           g,
-          carreaux
+          carreaux,
         )
       }
 

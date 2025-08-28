@@ -14,7 +14,7 @@ export const uuid = '107a3'
 
 */
 export default class Can2024Q1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class Can2024Q1 extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 45
       this.question = '$5\\times 9$ '

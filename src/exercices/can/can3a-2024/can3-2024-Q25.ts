@@ -14,7 +14,7 @@ export const uuid = '21a91'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 20
       this.question = ` Un jouet coûtait $50$ €. <br>
@@ -37,8 +37,20 @@ export default class NomExercice extends ExerciceSimple {
     
      `
     } else {
-      const listeValeurs = [[50, 40, 20], [50, 45, 10], [60, 48, 20], [80, 72, 10], [50, 35, 30],
-        [50, 30, 40], [60, 42, 30], [60, 54, 10], [80, 72, 10], [40, 30, 25], [60, 45, 25], [80, 60, 25]]
+      const listeValeurs = [
+        [50, 40, 20],
+        [50, 45, 10],
+        [60, 48, 20],
+        [80, 72, 10],
+        [50, 35, 30],
+        [50, 30, 40],
+        [60, 42, 30],
+        [60, 54, 10],
+        [80, 72, 10],
+        [40, 30, 25],
+        [60, 45, 25],
+        [80, 60, 25],
+      ]
       const valeurs = choice(listeValeurs)
       const a = valeurs[0]
       const b = valeurs[1]

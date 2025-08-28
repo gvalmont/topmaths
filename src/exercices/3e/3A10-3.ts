@@ -2,10 +2,18 @@ import { warnMessage } from '../../lib/format/message'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { cribleEratostheneN, obtenirListeFacteursPremiers, premiersEntreBornes } from '../../lib/outils/primalite'
+import {
+  cribleEratostheneN,
+  obtenirListeFacteursPremiers,
+  premiersEntreBornes,
+} from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -26,30 +34,37 @@ export const uuid = '32f33'
 
 export const refs = {
   'fr-fr': ['3A10-3'],
-  'fr-ch': ['9NO4-17', '1mCN-2']
+  'fr-ch': ['9NO4-17', '1mCN-2'],
 }
 export default class DecompositionFacteursPremiers extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     // pas de différence entre la version html et la version latex pour la consigne
     // mais une différence selon que l'exo est affiché en interactif ou non
 
-    context.isHtml ? this.spacing = 2 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     this.nbQuestions = 3
     // this.correctionDetailleeDisponible = true;
 
-    this.besoinFormulaireCaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
-    this.besoinFormulaire2Texte = ['Choix des décompositions', 'Nombres séparés par des tirets :\n1 : 3 à 5 petits facteurs premiers max\n2 : 2 facteurs premiers entre 30 et 100\n3 : Un seul grand nombre premier\n4 : Mélange']
+    this.besoinFormulaireCaseACocher = [
+      'Afficher la liste des nombres premiers inférieurs à 100',
+    ]
+    this.besoinFormulaire2Texte = [
+      'Choix des décompositions',
+      'Nombres séparés par des tirets :\n1 : 3 à 5 petits facteurs premiers max\n2 : 2 facteurs premiers entre 30 et 100\n3 : Un seul grand nombre premier\n4 : Mélange',
+    ]
     this.sup = true
     this.sup2 = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestions
 
-    let stringRappel = 'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' + cribleEratostheneN(100)[0]
+    let stringRappel =
+      'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' +
+      cribleEratostheneN(100)[0]
     for (let k = 1; k < cribleEratostheneN(100).length; k++) {
       stringRappel += ', ' + cribleEratostheneN(100)[k]
     }
@@ -68,11 +83,11 @@ export default class DecompositionFacteursPremiers extends Exercice {
       melange: 4,
       defaut: 4,
       shuffle: true,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     // Fin du rajout EE
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       typesDeQuestions = listeDesProblemes[i]
       let nombre = 0
       let reponse = ''
@@ -91,9 +106,11 @@ export default class DecompositionFacteursPremiers extends Exercice {
             // on choisit les rangs pour les nombres premiers
             const tabRangs: string | any[] = []
             const tabRangsExclus = []
-            for (let k = 0; k < (nbDePremiers); k++) {
+            for (let k = 0; k < nbDePremiers; k++) {
               for (let m = 0; m < k; m++) {
-                if (tabRangs.length > 0) { tabRangsExclus.push(tabRangs[m]) }
+                if (tabRangs.length > 0) {
+                  tabRangsExclus.push(tabRangs[m])
+                }
               }
               tabRangs[k] = randint(0, rgMax, tabRangsExclus)
             }
@@ -115,7 +132,8 @@ export default class DecompositionFacteursPremiers extends Exercice {
             }
 
             // yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
-            texte = 'À l\'aide de la calculatrice, si c\'est possible, décomposer '
+            texte =
+              "À l'aide de la calculatrice, si c'est possible, décomposer "
             let nombreTodecompose = 1
             for (let k = 0; k < tabRangs.length; k++) {
               for (let m = 0; m < tabMultiplicites[k]; m++) {
@@ -131,7 +149,11 @@ export default class DecompositionFacteursPremiers extends Exercice {
             texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(nombreTodecompose)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(nombreTodecompose)}}$, c'est-à-dire inférieurs à $${texNombre(racinePremier1)}$.<br>`
             texteCorr += 'Ce sont les nombres de la liste : <br>'
             texteCorr += '$' + cribleEratostheneN(racinePremier1)[0] + '$ ; '
-            for (let k = 1; k < cribleEratostheneN(racinePremier1).length; k++) {
+            for (
+              let k = 1;
+              k < cribleEratostheneN(racinePremier1).length;
+              k++
+            ) {
               texteCorr += '$' + cribleEratostheneN(racinePremier1)[k] + '$'
               if (k !== cribleEratostheneN(racinePremier1).length - 1) {
                 texteCorr += ' ; '
@@ -144,11 +166,13 @@ export default class DecompositionFacteursPremiers extends Exercice {
             }
 
             texteCorr += '<br>'
-            const listeFacteursPremiers = obtenirListeFacteursPremiers(nombreTodecompose)
+            const listeFacteursPremiers =
+              obtenirListeFacteursPremiers(nombreTodecompose)
             let quotientIntermediaire = nombreTodecompose
             for (let k = 0; k < listeFacteursPremiers.length; k++) {
               texteCorr += `$${texNombre(quotientIntermediaire)}\\div${miseEnEvidence(listeFacteursPremiers[k])} = ${texNombre(quotientIntermediaire / listeFacteursPremiers[k])}$<br>`
-              quotientIntermediaire = quotientIntermediaire / listeFacteursPremiers[k]
+              quotientIntermediaire =
+                quotientIntermediaire / listeFacteursPremiers[k]
             }
 
             texteCorr += `Finalement, on obtient la décomposition suivante : $ ${texNombre(nombreTodecompose)} = `
@@ -182,7 +206,8 @@ export default class DecompositionFacteursPremiers extends Exercice {
             const r2 = randint(0, premiersEntreBornes(30, 100).length - 1, r1)
             let premier1 = premiersEntreBornes(30, 100)[r1]
             let premier2 = premiersEntreBornes(30, 100)[r2]
-            if (premier1 > premier2) { // on inverse p1 et p2 si p1 est supérieur à p2
+            if (premier1 > premier2) {
+              // on inverse p1 et p2 si p1 est supérieur à p2
               const p = premier1
               premier1 = premier2
               premier2 = p
@@ -198,11 +223,14 @@ export default class DecompositionFacteursPremiers extends Exercice {
             }
 
             texteCorr += '.$<br>'
-            const listeFacteursPremiers = obtenirListeFacteursPremiers(premier1 * premier2)
+            const listeFacteursPremiers = obtenirListeFacteursPremiers(
+              premier1 * premier2,
+            )
             let quotientIntermediaire = premier1 * premier2
             for (let k = 0; k < listeFacteursPremiers.length; k++) {
               texteCorr += `$${texNombre(quotientIntermediaire)}\\div${miseEnEvidence(listeFacteursPremiers[k])} = ${texNombre(quotientIntermediaire / listeFacteursPremiers[k])}$<br>`
-              quotientIntermediaire = quotientIntermediaire / listeFacteursPremiers[k]
+              quotientIntermediaire =
+                quotientIntermediaire / listeFacteursPremiers[k]
             }
 
             texteCorr += ` D'où $${texNombre(premier1 * premier2)} = ${texNombre(premier1)}\\times${texNombre(premier2)}$.`
@@ -235,17 +263,18 @@ export default class DecompositionFacteursPremiers extends Exercice {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: `<br> <b>Écrire les facteurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : ` })
+      texte += ajouteChampTexteMathLive(this, i, '', {
+        texteAvant: `<br> <b>Écrire les facteurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : `,
+      })
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
-          propositions: [
-            { statut: 3, sanscadre: false, pointilles: false }
-          ]
+          propositions: [{ statut: 3, sanscadre: false, pointilles: false }],
         }
       }
 
-      if (this.questionJamaisPosee(i, reponse)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, reponse)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

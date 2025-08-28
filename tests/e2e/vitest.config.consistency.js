@@ -7,20 +7,23 @@ const arg = process.argv[2]
 
 console.log('Running consistency test with', arg)
 
-export default mergeConfig(viteConfig, defineConfig({
-  resolve: {
-    alias: {
-      testBrowser: resolve(__dirname, 'e2e')
-    }
-  },
-  test: {
-    include: ['./tests/consistency/consistency.test.{js,ts}'],
-    hookTimeout: 600_000,
-    testTimeout: 200_000,
-    poolOptions: {
-      threads: {
-        singleThread: true
-      }
-    }
-  }
-}))
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    resolve: {
+      alias: {
+        testBrowser: resolve(__dirname, 'e2e'),
+      },
+    },
+    test: {
+      include: ['./tests/consistency/consistency.test.{js,ts}'],
+      hookTimeout: 600_000,
+      testTimeout: 200_000,
+      poolOptions: {
+        threads: {
+          singleThread: true,
+        },
+      },
+    },
+  }),
+)

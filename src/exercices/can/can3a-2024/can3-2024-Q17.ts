@@ -14,7 +14,7 @@ export const uuid = '54dc6'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: FractionEtendue
     if (this.canOfficielle) {
       reponse = new FractionEtendue(4, 10)
@@ -46,17 +46,17 @@ export default class NomExercice extends ExerciceSimple {
         this.correction = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$.<br>
         Il y a donc $4$ nombres premiers inférieurs à $${a}$. <br>
         On en déduit que la probabilité d'obtenir un nombre premier est : $${miseEnEvidence(reponse.texFraction)}${reponse.texSimplificationAvecEtapes()}$.`
-      } else if ((a > 10) && (a < 13)) {
+      } else if (a > 10 && a < 13) {
         reponse = new FractionEtendue(b + 1, a)
         this.correction = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$.<br>
 Il y a donc $5$ nombres premiers inférieurs à $${a}$. <br>
 On en déduit que la probabilité d'obtenir un nombre premier est : $${miseEnEvidence(reponse.texFraction)}${reponse.texSimplificationAvecEtapes()}$.`
-      } else if ((a > 12) && (a < 17)) {
+      } else if (a > 12 && a < 17) {
         reponse = new FractionEtendue(b + 2, a)
         this.correction = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$.<br>
 Il y a donc $6$ nombres premiers inférieurs à $${a}$. <br>
 On en déduit que la probabilité d'obtenir un nombre premier est : $${miseEnEvidence(reponse.texFraction)}${reponse.texSimplificationAvecEtapes()}$.`
-      } else if ((a > 16) && (a < 19)) {
+      } else if (a > 16 && a < 19) {
         reponse = new FractionEtendue(b + 3, a)
         this.correction = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$, $17$.<br>
 Il y a donc $7$ nombres premiers inférieurs à $${a}$. <br>

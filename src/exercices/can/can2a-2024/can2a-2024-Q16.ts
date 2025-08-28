@@ -13,7 +13,7 @@ export const uuid = '0e09a'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -22,10 +22,10 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 4
-      this.question = 'Solution de  l\'équation $2x-3=5$<br>'
+      this.question = "Solution de  l'équation $2x-3=5$<br>"
       this.correction = `On procède par étapes successives :<br>
     On commence par isoler $2x$ dans le membre de gauche en ajoutant
     $3$ dans chacun des membres, puis on divise

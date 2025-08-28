@@ -1,8 +1,11 @@
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
-export const titre = 'Démontrer l\'équivalence de deux programmes de calcul'
+export const titre = "Démontrer l'équivalence de deux programmes de calcul"
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '21/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -20,10 +23,10 @@ export const uuid = '501f9'
 
 export const refs = {
   'fr-fr': ['4L12'],
-  'fr-ch': ['11FA4-1']
+  'fr-ch': ['11FA4-1'],
 }
 export default class EquivalenceProgrammesCalcul extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -33,8 +36,24 @@ export default class EquivalenceProgrammesCalcul extends Exercice {
     this.video = 'https://www.youtube.com/watch?v=-iw4OkMhgCA'
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, texteOperationA1, texteOperationA2, texteOperationB1, texteOperationB3, signeA2, signeB1, signeB3, signeB1B2, signeB1B2B3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        texteOperationA1,
+        texteOperationA2,
+        texteOperationB1,
+        texteOperationB3,
+        signeA2,
+        signeB1,
+        signeB3,
+        signeB1B2,
+        signeB1B2B3,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const B1 = randint(-9, 9, [0])
       const B2 = randint(2, 6)
       const B3 = randint(-9, 9, [0, -1 * B2 * B1]) // pour éviter -1 * B2 * B1 , car sinon A2 = 0
@@ -110,7 +129,8 @@ export default class EquivalenceProgrammesCalcul extends Exercice {
       Comme on peut remplacer $${miseEnEvidence('\\textit{x}')}$ par n'importe quel nombre, on a donc montré qu'on obtient le même résultat avec les deux programmes de calcul pour n'importe quel nombre.`
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, A1, A2, B1, B3)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, A1, A2, B1, B3)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Supprime b, c et d dans la ligne ci-dessus et remplace les par NombreAAjouter !
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
@@ -121,7 +141,17 @@ export default class EquivalenceProgrammesCalcul extends Exercice {
     listeQuestionsToContenu(this)
   }
 
-  testeProgrammesDeCalcul (nombreATester:number, A1:number, A2:number, B1:number, B2:number, B3:number, signeA2: string, signeB1: string, signeB3: string) {
+  testeProgrammesDeCalcul(
+    nombreATester: number,
+    A1: number,
+    A2: number,
+    B1: number,
+    B2: number,
+    B3: number,
+    signeA2: string,
+    signeB1: string,
+    signeB3: string,
+  ) {
     return `${texteGras('Programme A :')}<br>
   $${nombreATester} \\times ${A1} = ${nombreATester * A1}$ <br>
   $${nombreATester * A1} ${signeA2} ${A2} = ${miseEnEvidence(nombreATester * A1 + A2)}$ <br><br>

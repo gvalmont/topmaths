@@ -8,14 +8,18 @@ export const dateDePublication = '24/09/2023'
 export const uuid = '31bd7'
 export const refs = {
   'fr-fr': ['3C10-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NotationPuissanceEn3eme extends NotationPuissance {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
     this.sup3 = 3
     this.classe = 3
-    this.besoinFormulaire3Numerique = ['Exposant', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
+    this.besoinFormulaire3Numerique = [
+      'Exposant',
+      3,
+      '1 : Positif\n2 : Négatif\n3 : Mélange',
+    ]
   }
 }

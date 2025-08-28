@@ -4,7 +4,11 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Calculs utilisant les propriétés des logarithmes'
@@ -14,7 +18,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['TSA5-03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  *
@@ -23,33 +27,49 @@ export const refs = {
 */
 export default class ExerciceCalculsProprietesLog extends Exercice {
   version: string
-  constructor () {
+  constructor() {
     super()
     this.version = 'ln'
     this.nbQuestions = 5
     this.spacingCorr = 3
     this.sup = '3'
-    this.besoinFormulaireTexte = ['Type de question', ' Nombres séparés par des tirets :\n1 : Avec log(a^n*b^m)\n2 : Avec log(a^n/b^m)\n3 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type de question',
+      ' Nombres séparés par des tirets :\n1 : Avec log(a^n*b^m)\n2 : Avec log(a^n/b^m)\n3 : Mélange',
+    ]
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.sup2 = false
-    this.besoinFormulaire3CaseACocher = ['Données exprimées avec des puissances', true]
+    this.besoinFormulaire3CaseACocher = [
+      'Données exprimées avec des puissances',
+      true,
+    ]
     this.sup3 = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.version = this.sup2 ? 'ln' : 'log'
     const logString = this.version === 'ln' ? '\\ln' : '\\log'
 
     // La liste des types de questions fabriquée à partir du paramètre this.sup
-    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 2, melange: 3, defaut: 3, nbQuestions: this.nbQuestions })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 2,
+      melange: 3,
+      defaut: 3,
+      nbQuestions: this.nbQuestions,
+    })
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       // on déclare les objets A et B qui servent à définir a et b
       const A = { base: choice([2, 3, 5]), exp: randint(2, 5) }
-      const B = { base: choice([2, 3, 5], [A.base]), exp: randint(2, 5, [A.exp]) }
+      const B = {
+        base: choice([2, 3, 5], [A.base]),
+        exp: randint(2, 5, [A.exp]),
+      }
       const valeurA = A.base ** A.exp
       const valeurB = B.base ** B.exp
       const valeurAfoisB = valeurA * valeurB
-      const exprime = (A: { base: number, exp: number }) => `${A.base}^${A.exp}`
+      const exprime = (A: { base: number; exp: number }) => `${A.base}^${A.exp}`
       const intro = `Exprimer, en fonction de $${logString} \\left(${A.base}\\right)$ et $${logString} \\left(${B.base}\\right)$, le nombre suivant : ${sp()} `
       let texte: string
       let texteCorr = ''
@@ -91,7 +111,11 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       if (this.interactif) {
         handleAnswers(this, i, { reponse: { value: answer } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFonctionsTerminales,
+        )
       }
       if (this.questionJamaisPosee(i, A.base, A.exp, B.base, B.exp, signe)) {
         this.listeQuestions[i] = texte

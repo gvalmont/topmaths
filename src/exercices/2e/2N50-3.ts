@@ -1,5 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString'
@@ -10,7 +13,7 @@ import { fraction } from '../../modules/fractions'
 import Exercice from '../Exercice'
 import { randint, itemize, listeQuestionsToContenu } from '../../modules/outils'
 
-export const titre = 'Modéliser une situation à l\'aide d\'une équation'
+export const titre = "Modéliser une situation à l'aide d'une équation"
 export const dateDePublication = '16/12/2021'
 /**
  * @author Gilles Mora
@@ -19,12 +22,16 @@ export const uuid = '846b8'
 
 export const refs = {
   'fr-fr': ['2N50-3', 'BP2RES23'],
-  'fr-ch': ['10FA3-12', '11FA6-8']
+  'fr-ch': ['10FA3-12', '11FA6-8'],
 }
 export default class ModeliserEquations extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Situations concrètes\n2 : Programmes de calculs\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      3,
+      '1 : Situations concrètes\n2 : Programmes de calculs\n3 : Mélange',
+    ]
 
     this.nbQuestions = 1
     // this.nbQuestionsModifiable = false
@@ -33,31 +40,46 @@ export default class ModeliserEquations extends Exercice {
     this.sup = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4']
     } else if (this.sup === 2) {
       typeDeQuestionsDisponibles = ['typeE5', 'typeE6', 'typeE7', 'typeE8']
     } else {
-      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8']
+      typeDeQuestionsDisponibles = [
+        'typeE1',
+        'typeE2',
+        'typeE3',
+        'typeE4',
+        'typeE5',
+        'typeE6',
+        'typeE7',
+        'typeE8',
+      ]
     }
     //
-    const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       // Boucle principale où i+1 correspond au numéro de la question
       let texte = ''
       let texteCorr = ''
       const variables: number[] = []
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'typeE1': {
-          const j = randint(10, 20) * 10// prime janvier
-          const f = randint(15, 20) * 10// prime fevrier
-          const b = randint(6, 9) * 10
-          const a = f - j + b// augmentation
-          const t = randint(3, 6)
-          const taux = fraction(t, 100)
-          texte = `  Le salaire mensuel d'un commercial est composé d'un salaire fixe auquel
+      switch (
+        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
+        case 'typeE1':
+          {
+            const j = randint(10, 20) * 10 // prime janvier
+            const f = randint(15, 20) * 10 // prime fevrier
+            const b = randint(6, 9) * 10
+            const a = f - j + b // augmentation
+            const t = randint(3, 6)
+            const taux = fraction(t, 100)
+            texte = `  Le salaire mensuel d'un commercial est composé d'un salaire fixe auquel
                   s'ajoute une prime suivant ses objectifs.<br>
                    Au mois de janvier, son salaire fixe est $x$ € et sa prime a été de $${j}$ €.  <br>
                   Au mois de février son salaire fixe a augmenté de $${t}~\\%$ et il reçoit une prime de $${f}$ €. <br>
@@ -67,7 +89,7 @@ export default class ModeliserEquations extends Exercice {
                   ${numAlpha(1)} Déterminer le salaire du commercial au mois de janvier (arrondir à l'euro près).<br>
               `
 
-          texteCorr = `${numAlpha(0)} Le salaire du mois de janvier en fonction de $x$ est : $x+${j}$.<br>
+            texteCorr = `${numAlpha(0)} Le salaire du mois de janvier en fonction de $x$ est : $x+${j}$.<br>
             Le salaire du mois de février en fonction de $x$ est : $\\left(1+${taux.texFraction}\\right)x+${f}=${texNombre(1 + t / 100)}x+${f}$.<br>
             ${numAlpha(1)} Globalement, le salaire au mois
                   de février a augmenté de $${a}$ € par rapport à celui du mois de janvier, cela signifie que le salaire du
@@ -83,34 +105,38 @@ export default class ModeliserEquations extends Exercice {
             \\dfrac{${texNombre(-t / 100)}x}{${miseEnEvidence(texNombre(-t / 100))}}&=\\dfrac{${texNombre(f - j - a)}}{${miseEnEvidence(texNombre(-t / 100))}}\\\\
             x&=\\dfrac{${texNombre(f - j - a)}}{${texNombre(-t / 100)}}
             \\end{aligned}$<br>`
-          if (Math.round((f - j - a) / (-t / 100)) === (f - j - a) / (-t / 100)) {
-            texteCorr += ` ${sp(40)}$ \\begin{aligned}
+            if (
+              Math.round((f - j - a) / (-t / 100)) ===
+              (f - j - a) / (-t / 100)
+            ) {
+              texteCorr += ` ${sp(40)}$ \\begin{aligned}
             x&= ${Math.round((f - j - a) / (-t / 100))}
             \\end{aligned}$<br>`
-          } else {
-            texteCorr += ` ${sp(40)}$ \\begin{aligned}
+            } else {
+              texteCorr += ` ${sp(40)}$ \\begin{aligned}
             x&\\simeq ${Math.round((f - j - a) / (-t / 100))}
             \\end{aligned}$<br>`
-          }
+            }
 
-          texteCorr += `Puisque le salaire est composé du fixe et de la prime, le salaire de ce commercial au mois de janvier a été de :
+            texteCorr += `Puisque le salaire est composé du fixe et de la prime, le salaire de ce commercial au mois de janvier a été de :
       $${Math.round((f - j - a) / (-t / 100))}+${j}$ €, soit  $${Math.round((f - j - a) / (-t / 100) + j)}$ €.`
-          variables.push(a, b, f, j, t)
-        }
+            variables.push(a, b, f, j, t)
+          }
           break
-        case 'typeE2': {
-          const a = randint(20, 30) //
-          const b = randint(a + 5, 50) //
-          let c = randint(20, 35)
-          const d = randint(15, c - 1) / 100
-          c = c / 100
-          texte = `  Une société de location de véhicules propose deux tarifs :<br>
+        case 'typeE2':
+          {
+            const a = randint(20, 30) //
+            const b = randint(a + 5, 50) //
+            let c = randint(20, 35)
+            const d = randint(15, c - 1) / 100
+            c = c / 100
+            texte = `  Une société de location de véhicules propose deux tarifs :<br>
                 $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c)}$ € par km parcouru ;<br>
                 $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d)}$ € par km parcouru ;<br>
           
                        Pour quelle distance (arrondie au km près), les deux tarifs sont-ils égaux ?<br>
                                       `
-          texteCorr = `En notant $x$, le nombre de km parcourus, on a :<br>
+            texteCorr = `En notant $x$, le nombre de km parcourus, on a :<br>
                 $\\bullet$ Avec le tarif A, le prix à payer est : $${reduireAxPlusB(c, a)}$ ;<br>
                 $\\bullet$  Avec le tarif B, le prix à payer est : $${reduireAxPlusB(d, b)}$ ;<br>
                           Les deux tarifs sont identiques lorsque : $${reduireAxPlusB(c, a)}=${reduireAxPlusB(d, b)}$.<br>
@@ -123,27 +149,28 @@ export default class ModeliserEquations extends Exercice {
                 ${texNombre(c - d)}x&=${b - a}\\\\
         \\dfrac{${texNombre(c - d)}x}{${miseEnEvidence(texNombre(c - d))}}&=\\dfrac{${b - a}}{${miseEnEvidence(texNombre(c - d))}}\\\\
         \\end{aligned}$<br>`
-          if (Math.round((b - a) / (c - d)) === (b - a) / (c - d)) {
-            texteCorr += ` ${sp(40)}$ \\begin{aligned}
+            if (Math.round((b - a) / (c - d)) === (b - a) / (c - d)) {
+              texteCorr += ` ${sp(40)}$ \\begin{aligned}
                             x&= ${Math.round((b - a) / (c - d))}
                             \\end{aligned}$<br>
                                             C'est pour une distance de $${Math.round((b - a) / (c - d))}$ km que les deux tarifs sont identiques.
                `
-          } else {
-            texteCorr += ` ${sp(40)}$ \\begin{aligned}
+            } else {
+              texteCorr += ` ${sp(40)}$ \\begin{aligned}
                             x&\\simeq ${Math.round((b - a) / (c - d))}
                             \\end{aligned}$<br>
                                          C'est pour une distance d'environ $${Math.round((b - a) / (c - d))}$ km que les deux tarifs sont identiques.
                                 `
+            }
+            variables.push(a, b, c, d)
           }
-          variables.push(a, b, c, d)
-        }
           break
-        case 'typeE3': {
-          const a = randint(4, 10) / 100 //
-          const b = randint(300, 400) //
-          const c = randint(Math.floor((a + 1) * 100), 12)
-          texte = `  Une usine fabrique des bouteilles en verre. <br>
+        case 'typeE3':
+          {
+            const a = randint(4, 10) / 100 //
+            const b = randint(300, 400) //
+            const c = randint(Math.floor((a + 1) * 100), 12)
+            texte = `  Une usine fabrique des bouteilles en verre. <br>
             En notant $x$ le nombre de bouteilles fabriquées dans une journée, les coûts de fabrication en euros, sont donnés par :
             $${texNombre(a)}x+${texNombre(b)}$.<br>
             Ces bouteilles sont toutes revendues au tarif unitaire de $${texNombre(c)}$ €.<br>
@@ -153,7 +180,7 @@ export default class ModeliserEquations extends Exercice {
       Combien de bouteilles l'entreprise doit-elle produire et vendre pour que le résultat net soit nul ?
             <br>
                           `
-          texteCorr = `
+            texteCorr = `
       $\\bullet$ La recette est donnée par : $${texNombre(c)}\\times x=${texNombre(c)}x$ ;<br>
       $\\bullet$ Les coûts de fabrication sont donnés par : $${texNombre(a)}x+${texNombre(b)}$ ;<br>
       $\\bullet$ Le résultat net est donné par la différence entre la recette et les coûts, donc par :<br>
@@ -165,37 +192,38 @@ export default class ModeliserEquations extends Exercice {
             ${texNombre(c - a)}x&=${texNombre(b)}\\\\
             \\dfrac{${texNombre(c - a)}x}{${miseEnEvidence(texNombre(c - a))}}&=\\dfrac{${texNombre(b)}}{${miseEnEvidence(texNombre(c - a))}}\\\\
                  \\end{aligned}$<br>`
-          if (Math.round((b) / (c - a)) === b / (c - a)) {
-            texteCorr += `${sp(37)} $\\begin{aligned}
-         x&=${Math.round((b) / (c - a))}
+            if (Math.round(b / (c - a)) === b / (c - a)) {
+              texteCorr += `${sp(37)} $\\begin{aligned}
+         x&=${Math.round(b / (c - a))}
          \\end{aligned}$<br>
-            C'est pour une production de $${Math.round((b) / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.
+            C'est pour une production de $${Math.round(b / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.
         `
-          } else {
-            texteCorr += `${sp(37)} $\\begin{aligned}
-        x&\\simeq${Math.round((b) / (c - a))}
+            } else {
+              texteCorr += `${sp(37)} $\\begin{aligned}
+        x&\\simeq${Math.round(b / (c - a))}
         \\end{aligned}$<br>
-           C'est pour une production d'environ $${Math.round((b) / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.
+           C'est pour une production d'environ $${Math.round(b / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.
        `
+            }
+            variables.push(a, b, c)
           }
-          variables.push(a, b, c)
-        }
           break
-        case 'typeE4': {
-          const a = randint(48, 55) //
-          const b = randint(3, 6) //
-          const N = randint(12, 25)
-          const d = randint(3, 5)
-          const c = N * (a + b) - d * a
+        case 'typeE4':
+          {
+            const a = randint(48, 55) //
+            const b = randint(3, 6) //
+            const N = randint(12, 25)
+            const d = randint(3, 5)
+            const c = N * (a + b) - d * a
 
-          texte = `  $${a}$ élèves  d'un lycée font une sortie théâtre. Ils sont accompagnés de $${b}$ adultes. <br>
+            texte = `  $${a}$ élèves  d'un lycée font une sortie théâtre. Ils sont accompagnés de $${b}$ adultes. <br>
             Les élèves bénéficient d'un tarif réduit. Ils paient $${d}$ € de moins que les adultes. <br>
             Le coût total de cette sortie (élèves $+$ adultes) est de $${c}$ €. <br>
             En notant $x$ le tarif pour un adulte, modéliser la situation à l'aide d'une équation puis déterminer le prix de la place pour un adulte.
       
               `
 
-          texteCorr = `En notant $x$ le tarif pour un adulte,  celui d'un élève est $(x-${d})$ €. <br>
+            texteCorr = `En notant $x$ le tarif pour un adulte,  celui d'un élève est $(x-${d})$ €. <br>
             Puisque le coût total est de $${c}$ €, on obtient l'équation : <br>
             $\\begin{aligned}
             ${a}\\times (x-${d})+${b}\\times x &=${c}\\\\
@@ -207,20 +235,26 @@ export default class ModeliserEquations extends Exercice {
             x &= ${texNombre((c + a * d) / (a + b))}\\end{aligned}$<br>
       Le prix de la place de théâtre pour un adulte est : $${texNombre((c + a * d) / (a + b))}$ €.
               `
-          variables.push(a, b, c, d)
-        }
+            variables.push(a, b, c, d)
+          }
           break
-        case 'typeE5': {
-          const a = randint(4, 10)
-          const b = randint(2, 10)
-          const c = randint(2, 10)
-          const res = randint(-5, 5)
-          texte = ` ${texteGras('Voici un programme de calcul :')} `
-          texte += itemize(['Choisir un nombre', `Multiplier ce nombre par $${a}$`, `Ajouter $${b}$`, `Multiplier le résultat par $${c}$`])
-          texte += `Quel nombre doit-on choisir au départ pour obtenir $${res}$ comme résultat final ?<br>
+        case 'typeE5':
+          {
+            const a = randint(4, 10)
+            const b = randint(2, 10)
+            const c = randint(2, 10)
+            const res = randint(-5, 5)
+            texte = ` ${texteGras('Voici un programme de calcul :')} `
+            texte += itemize([
+              'Choisir un nombre',
+              `Multiplier ce nombre par $${a}$`,
+              `Ajouter $${b}$`,
+              `Multiplier le résultat par $${c}$`,
+            ])
+            texte += `Quel nombre doit-on choisir au départ pour obtenir $${res}$ comme résultat final ?<br>
                On donnera le résultat sous la forme d'une fraction irréductible ou d'un nombre entier le cas échéant.`
 
-          texteCorr = `En notant $x$ le nombre choisi au départ, on obtient  :<br>
+            texteCorr = `En notant $x$ le nombre choisi au départ, on obtient  :<br>
           $\\bullet$ Multiplier ce nombre par $${a}$ : ${sp(6)}$${a}\\times x=${a}x$ ;<br>
           $\\bullet$ Ajouter $${b}$ : ${sp(6)}$${a}x+${b}$ ; <br>
           $\\bullet$ Multiplier le résultat par $${c}$ :${sp(6)}$${c}\\times (${a}x+${b})=${texNombre(c * a)}x+${texNombre(b * c)}$.<br>
@@ -235,22 +269,23 @@ export default class ModeliserEquations extends Exercice {
          \\end{aligned}$<br>
            Le nombre que l'on doit choisir pour obtenir $${res}$ à la fin du programme est :  $${texFractionReduite(res - b * c, c * a)}$.
                      `
-          variables.push(a, b, c, res)
-        }
+            variables.push(a, b, c, res)
+          }
 
           break
-        case 'typeE6': {
-          const a = randint(2, 10)
-          const b = randint(2, 10)
-          const c = randint(2, 10, [a])
-          const d = prenom()
-          const e = prenom()
+        case 'typeE6':
+          {
+            const a = randint(2, 10)
+            const b = randint(2, 10)
+            const c = randint(2, 10, [a])
+            const d = prenom()
+            const e = prenom()
 
-          texte = `${d} choisit un nombre, le multiplie par $${a}$ puis ajoute $${b}$.  <br>
+            texte = `${d} choisit un nombre, le multiplie par $${a}$ puis ajoute $${b}$.  <br>
            ${e} choisit le même nombre, lui ajoute $${c}$, multiplie le résultat par le nombre de départ, puis soustrait le carré du nombre de départ.<br>
             Quel nombre doivent-ils choisir au départ pour obtenir le même résultat ?`
 
-          texteCorr = `En notant $x$ le nombre choisi au départ, on obtient :<br>
+            texteCorr = `En notant $x$ le nombre choisi au départ, on obtient :<br>
           $\\bullet$  avec le calcul de ${d} :
       $${a}\\times x+${b}=${a}x+${b}$ ;<br>
               $\\bullet$ avec celui de ${e}, on obtient : <br>
@@ -263,38 +298,48 @@ export default class ModeliserEquations extends Exercice {
       ${reduireAxPlusB(a - c, 0)}+${b}&=0\\\\
       ${reduireAxPlusB(a - c, 0)}+${b}-${miseEnEvidence(b)}&=0-${miseEnEvidence(b)}
       \\end{aligned}$<br>`
-          if (a - c === 1) {
-            texteCorr += `${sp(25)}$x=-${b}$<br>
+            if (a - c === 1) {
+              texteCorr += `${sp(25)}$x=-${b}$<br>
            Le nombre commun que ${d} et ${e} doivent choisir au départ pour obtenir le même résultat est : $-${b}$.
                   `
-          } else {
-            texteCorr += `
+            } else {
+              texteCorr += `
             ${sp(20)}$ \\begin{aligned}
            \\dfrac{${a - c}x}{${miseEnEvidence(a - c)}}&=\\dfrac{${-b}}{${miseEnEvidence(a - c)}}\\\\
            x&=${texFractionReduite(-b, a - c)}
            \\end{aligned}$<br>
           Le nombre commun que ${d} et ${e} doivent choisir au départ pour obtenir le même résultat est : $${texFractionReduite(-b, a - c)}$.`
+            }
+            variables.push(a, b, c)
           }
-          variables.push(a, b, c)
-        }
           break
 
-        case 'typeE7': {
-          const a = randint(2, 8)
+        case 'typeE7':
+          {
+            const a = randint(2, 8)
 
-          const b = randint(10, 100)
+            const b = randint(10, 100)
 
-          texte = `On donne les deux programmes de calcul suivants :<br>
+            texte = `On donne les deux programmes de calcul suivants :<br>
           ${texteGras('Programme 1 :')}<br>
                  `
-          texte += itemize(['Choisir un nombre', `Ajouter $${a}$`, 'Prendre le carré du résultat'])
+            texte += itemize([
+              'Choisir un nombre',
+              `Ajouter $${a}$`,
+              'Prendre le carré du résultat',
+            ])
 
-          texte += `<br>
+            texte += `<br>
           ${texteGras('Programme 2 :')}<br>
                       `
-          texte += itemize(['Choisir un nombre', `Multiplier par $${texNombre(2 * a)}$ `, `Ajouter $${b}$`])
-          texte += '<br>Déterminer les nombres éventuels que l\'on peut entrer dans ces deux programmes pour qu\'au final ils donnent le même résultat.<br><br>'
-          texteCorr = `En notant $x$ le nombre choisi au départ : <br>
+            texte += itemize([
+              'Choisir un nombre',
+              `Multiplier par $${texNombre(2 * a)}$ `,
+              `Ajouter $${b}$`,
+            ])
+            texte +=
+              "<br>Déterminer les nombres éventuels que l'on peut entrer dans ces deux programmes pour qu'au final ils donnent le même résultat.<br><br>"
+            texteCorr = `En notant $x$ le nombre choisi au départ : <br>
                  
                  On obtient avec le ${texteGras('programme 1 :')} <br>
       $\\bullet$ Ajouter $${a}$ :${sp(5)} $x+${a}$ ;<br>
@@ -312,50 +357,71 @@ export default class ModeliserEquations extends Exercice {
       \\end{aligned}$
       <br>
             `
-          if (b < a * a) {
-            texteCorr += `
+            if (b < a * a) {
+              texteCorr += `
            L'équation n'a pas de solution car $${texNombre(b - a * a)}<0$. <br>Par conséquent il n'existe pas de nombre qui donne le même résultat avec les deux programmes.
                   `
-          } else {
-            if (b === a * a) {
-              texteCorr += `${sp(8)}$\\begin{aligned}x&=-${b}\\\\
+            } else {
+              if (b === a * a) {
+                texteCorr += `${sp(8)}$\\begin{aligned}x&=-${b}\\\\
               x&=0
               \\end{aligned}<br>
            Quand on entre $0$, les deux programmes donnent le même résultat.
                   `
-            } else {
-              if (b - a * a === 1 || b - a * a === 4 || b - a * a === 9 || b - a * a === 16 || b - a * a === 25 || b - a * a === 36 || b - a * a === 49 || b - a * a === 64 || b - a * a === 81 || b - a * a === 100) {
-                texteCorr += `${sp(10)}$x=-${Math.sqrt(b - a * a)}$ ou $x=${Math.sqrt(b - a * a)}$.<br>
+              } else {
+                if (
+                  b - a * a === 1 ||
+                  b - a * a === 4 ||
+                  b - a * a === 9 ||
+                  b - a * a === 16 ||
+                  b - a * a === 25 ||
+                  b - a * a === 36 ||
+                  b - a * a === 49 ||
+                  b - a * a === 64 ||
+                  b - a * a === 81 ||
+                  b - a * a === 100
+                ) {
+                  texteCorr += `${sp(10)}$x=-${Math.sqrt(b - a * a)}$ ou $x=${Math.sqrt(b - a * a)}$.<br>
               Quand on entre $-${Math.sqrt(b - a * a)}$ ou $-${Math.sqrt(b - a * a)}$, on obtient le même résultat avec les deux programmes.
                   `
-              } else {
-                texteCorr += `${sp(10)}$x=-\\sqrt{${b - a * a}}$ ou $x=\\sqrt{${b - a * a}}$.<br>
+                } else {
+                  texteCorr += `${sp(10)}$x=-\\sqrt{${b - a * a}}$ ou $x=\\sqrt{${b - a * a}}$.<br>
               Quand on entre   $-\\sqrt{${b - a * a}}$ ou $\\sqrt{${b - a * a}}$, on obtient le même résultat avec les deux programmes.
             `
+                }
               }
             }
+            variables.push(a, b)
           }
-          variables.push(a, b)
-        }
           break
         case 'typeE8':
-        default: {
-          const a = randint(2, 10)
-          const b = randint(2, 10)
-          const c = randint(2, 10)
-          const d = randint(2, 10)
-          texte = `On donne les deux programmes de calcul suivants :<br>
+        default:
+          {
+            const a = randint(2, 10)
+            const b = randint(2, 10)
+            const c = randint(2, 10)
+            const d = randint(2, 10)
+            texte = `On donne les deux programmes de calcul suivants :<br>
           ${texteGras('Programme 1 :')}<br>
                    `
-          texte += itemize(['Choisir un nombre', 'Prendre l\'opposé de ce nombre', `Multiplier par $${b}$`, `Ajouter $${a}$`])
+            texte += itemize([
+              'Choisir un nombre',
+              "Prendre l'opposé de ce nombre",
+              `Multiplier par $${b}$`,
+              `Ajouter $${a}$`,
+            ])
 
-          texte += `<br>
+            texte += `<br>
           ${texteGras('Programme 2 :')}<br>
                         `
-          texte += itemize(['Choisir un nombre', `Multiplier par $${c}$ `, `Ajouter $${d}$`])
-          texte += `<br>On entre le même nombre dans chacun des deux programmes de calcul et on effectue le produit de ces deux nombres. <br>
+            texte += itemize([
+              'Choisir un nombre',
+              `Multiplier par $${c}$ `,
+              `Ajouter $${d}$`,
+            ])
+            texte += `<br>On entre le même nombre dans chacun des deux programmes de calcul et on effectue le produit de ces deux nombres. <br>
               Quel(s) nombre(s) doit-on entrer pour que ce produit soit nul ?<br><br>`
-          texteCorr = `En notant $x$ le nombre choisi au départ : <br>
+            texteCorr = `En notant $x$ le nombre choisi au départ : <br>
                    
                    On obtient avec le ${texteGras('programme 1 :')} :<br>
         $\\bullet$ Prendre l'opposé de ce nombre :${sp(10)} $-x$ <br>
@@ -379,12 +445,12 @@ export default class ModeliserEquations extends Exercice {
         x=${texFractionReduite(-a, -b)}&${sp(2)}\\text{ou}${sp(2)}x=${texFractionReduite(-d, c)}\\end{aligned}$<br>
               On obtient $0$ en faisant le produit des deux résultats de ces programmes en choisissant comme nombres au départ : $${texFractionReduite(-a, -b)}$ ou $${texFractionReduite(-d, c)}$.
               `
-          variables.push(a, b, c, d)
-        }
+            variables.push(a, b, c, d)
+          }
           break
       }
       if (this.questionJamaisPosee(i, variables.map(String).join())) {
-      // Si la question n'a jamais été posée, on en crée une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

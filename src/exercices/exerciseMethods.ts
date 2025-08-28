@@ -5,8 +5,26 @@ import CryptoJS from 'crypto-js'
 import type Decimal from 'decimal.js'
 type EventListener = (evt: Event) => void
 
-export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?: number, numeroQuestion?: number): void {
-  const signature = [this.seed, this.sup, this.sup2, this.sup3, this.sup4, this.sup5, this.correctionDetaillee, this.interactif, this.nbQuestions, numeroExercice, numeroQuestion].map(String).join('')
+export function exportedNouvelleVersionWrapper(
+  this: Exercice,
+  numeroExercice?: number,
+  numeroQuestion?: number,
+): void {
+  const signature = [
+    this.seed,
+    this.sup,
+    this.sup2,
+    this.sup3,
+    this.sup4,
+    this.sup5,
+    this.correctionDetaillee,
+    this.interactif,
+    this.nbQuestions,
+    numeroExercice,
+    numeroQuestion,
+  ]
+    .map(String)
+    .join('')
   if (this.lastCallback === signature) {
     // identique
     // pas de recalcul à faire
@@ -17,7 +35,7 @@ export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?:
   this.nouvelleVersion(numeroExercice, numeroQuestion)
 }
 
-export function exportedReinit (this: Exercice) {
+export function exportedReinit(this: Exercice) {
   this.listeQuestions = []
   this.listeCorrections = []
   this.listeCanEnonces = []
@@ -29,7 +47,7 @@ export function exportedReinit (this: Exercice) {
   this.distracteurs = []
   if (this.figures) {
     // figure APIGEOM
-    this.figures.forEach(fig => {
+    this.figures.forEach((fig) => {
       if (fig instanceof Figure) {
         fig.clearHtml()
         fig.container = document.createElement('div')
@@ -47,17 +65,17 @@ export function exportedReinit (this: Exercice) {
   }
 }
 
-export function exportedApplyNewSeed (this: Exercice) {
+export function exportedApplyNewSeed(this: Exercice) {
   const seed = generateSeed({
     includeUpperCase: true,
     includeNumbers: true,
     length: 4,
-    startsWithLowerCase: false
+    startsWithLowerCase: false,
   })
   this.seed = seed
 }
 
-function empreinteTexte (str: string): string {
+function empreinteTexte(str: string): string {
   // Utiliser CryptoJS pour calculer une empreinte SHA256 de la chaîne de caractères
   const hash = CryptoJS.SHA256(str)
   // Convertir l'empreinte en chaîne de caractères hexadécimale
@@ -71,14 +89,23 @@ function empreinteTexte (str: string): string {
  * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
  * @returns {boolean} true si la question n'a jamais été posée
  */
-export function exportedQuestionJamaisPosee (this: Exercice, i: number, ...args:(string | number | FractionEtendue | Decimal)[]) {
+export function exportedQuestionJamaisPosee(
+  this: Exercice,
+  i: number,
+  ...args: (string | number | FractionEtendue | Decimal)[]
+) {
   if (i === 0) this.listeArguments = []
   let argsConcatenes = ''
   for (const arg of args) {
-    if (arg !== undefined) argsConcatenes += (arg instanceof FractionEtendue ? arg.texFraction : arg.toString())
+    if (arg !== undefined)
+      argsConcatenes +=
+        arg instanceof FractionEtendue ? arg.texFraction : arg.toString()
   }
   const empreinte = empreinteTexte(argsConcatenes)
-  if (this.listeArguments != null && this.listeArguments.indexOf(empreinte) > -1) {
+  if (
+    this.listeArguments != null &&
+    this.listeArguments.indexOf(empreinte) > -1
+  ) {
     return false
   } else if (this.listeArguments != null) {
     this.listeArguments.push(empreinte)
@@ -86,7 +113,17 @@ export function exportedQuestionJamaisPosee (this: Exercice, i: number, ...args:
   }
 }
 
-function generateSeed ({ includeUpperCase = true, includeNumbers = true, length = 4, startsWithLowerCase = false }: { includeUpperCase?: boolean, includeNumbers?: boolean, length?: number, startsWithLowerCase?: boolean } = {}) {
+function generateSeed({
+  includeUpperCase = true,
+  includeNumbers = true,
+  length = 4,
+  startsWithLowerCase = false,
+}: {
+  includeUpperCase?: boolean
+  includeNumbers?: boolean
+  length?: number
+  startsWithLowerCase?: boolean
+} = {}) {
   let a = 10
   const b = 'abcdefghijklmnopqrstuvwxyz'
   let c = ''

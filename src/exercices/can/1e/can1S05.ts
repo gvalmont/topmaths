@@ -1,11 +1,18 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -22,10 +29,10 @@ export const uuid = '88acd'
 
 export const refs = {
   'fr-fr': ['can1S05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NatureSuiteEx extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -33,18 +40,20 @@ export default class NatureSuiteEx extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte = ''
     let texteCorr = ''
     let a: number
     let b: number
     let d: number
-    let props: { texte: string, texteCorr: string }
+    let props: { texte: string; texteCorr: string }
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3, 4])) { //
-        case 1 :// suite arithmétique simple
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2, 3, 4]) //
+      ) {
+        case 1: // suite arithmétique simple
           a = randint(1, 10) * choice([-1, 1])
           b = randint(1, 10) * choice([-1, 1])
 
@@ -56,17 +65,17 @@ export default class NatureSuiteEx extends Exercice {
             propositions: [
               {
                 texte: `arithmétique de raison $${a}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `arithmétique de raison $${b}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `géométrique de raison $${a}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -80,8 +89,7 @@ export default class NatureSuiteEx extends Exercice {
         On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite arithmétique de raison')} $${miseEnEvidence(a)}$ et de premier terme $${s}_0=${b}$.`
 
           break
-        case 2 :// suite arithmétique avec fraction
-
+        case 2: // suite arithmétique avec fraction
           b = randint(1, 10) * choice([-1, 1])
           d = randint(2, 10)
           a = d * randint(1, 10) * choice([-1, 1])
@@ -93,17 +101,17 @@ export default class NatureSuiteEx extends Exercice {
             propositions: [
               {
                 texte: `arithmétique de raison $${texNombre(a / d)}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `arithmétique de raison $${a}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `géométrique de raison $${texNombre(a / d)}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -114,12 +122,14 @@ export default class NatureSuiteEx extends Exercice {
           }
           if (b < 0) {
             texteCorr = `$${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}=${texFractionReduite(a, d)}n${texFractionReduite(b, d)}$.<br> `
-          } else { texteCorr = `$${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}=${texFractionReduite(a, d)}n+${texFractionReduite(b, d)}$.<br> ` }
+          } else {
+            texteCorr = `$${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}=${texFractionReduite(a, d)}n+${texFractionReduite(b, d)}$.<br> `
+          }
           texteCorr += `Cette dernière expression est de la forme $${s}_n=${s}_0+nr$ avec $${s}_0=${texFractionReduite(b, d)}$ et $r=${texFractionReduite(a, d)}$.<br>
         On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite arithmétique de raison')} $${miseEnEvidence(`${texFractionReduite(a, d)}`)}$ et de premier terme $${s}_0=${texFractionReduite(b, d)}$.`
 
           break
-        case 3 :// suite geométrique simple
+        case 3: // suite geométrique simple
           a = randint(-10, 10, [-1, 0])
           b = randint(-10, 10, [-1, 0, 1, a])
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =
@@ -131,20 +141,22 @@ export default class NatureSuiteEx extends Exercice {
             propositions: [
               {
                 texte: `géométrique de raison $${b}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `arithmétique de raison $${b}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `géométrique de raison $${a}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
-          if (this.interactif) { texte += props.texte } else {
+          if (this.interactif) {
+            texte += props.texte
+          } else {
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =
           ${a === 1 ? `${ecritureParentheseSiNegatif(b)}^n$` : `${a}\\times${ecritureParentheseSiNegatif(b)}^n$`}
 <br>       Quelle est la nature de cette suite ?<br> 
@@ -162,7 +174,7 @@ export default class NatureSuiteEx extends Exercice {
 
           break
 
-        case 4 :// suite geométrique avec quotient
+        case 4: // suite geométrique avec quotient
           a = randint(-10, 10, [-1, 0])
           b = randint(2, 10, a)
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}}{${b}^n}$.
@@ -173,17 +185,17 @@ export default class NatureSuiteEx extends Exercice {
             propositions: [
               {
                 texte: `géométrique de raison $\\dfrac{1}{${b}}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `arithmétique de raison $${b}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `géométrique de raison $${a}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte

@@ -3,7 +3,7 @@ import { arrondi, range1 } from '../../lib/outils/nombres'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -19,29 +19,39 @@ export const uuid = 'bd6ff'
 export const refs = {
   'fr-fr': ['CM2N4B-3'],
   'fr-2016': ['CM021'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CompteEstBon extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Niveaux de difficultés nombres de 1 à 3 séparés par des tirets :',
-      '1: Avec 10 et 100\n2 : Avec 10 et de quoi faire facilement 100\n3 : Avec des calculs imbriqués\n4 : Mélange'
+      '1: Avec 10 et 100\n2 : Avec 10 et de quoi faire facilement 100\n3 : Avec des calculs imbriqués\n4 : Mélange',
     ] // Texte, tooltip
     this.consigne =
-    'Trouver le résultat en utilisant les quatre opérations et les nombres du tirage (une seule fois).'
+      'Trouver le résultat en utilisant les quatre opérations et les nombres du tirage (une seule fois).'
     this.nbQuestions = 5
     this.nbCols = 2
     this.nbColsCorr = 2
     this.sup = 1 // niveau de calcul souhaité
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, cible, tirage
-    const typesDeQuestions = gestionnaireFormulaireTexte(({ saisie: this.sup, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions }))
+    const typesDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      max: 3,
+      defaut: 4,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+    })
     const choix = combinaisonListes(range1(5), this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typesDeQuestions[i]) {
         case 1:
           a = randint(2, 9)
@@ -140,7 +150,9 @@ export default class CompteEstBon extends Exercice {
           break
       }
       texte = 'Voici le tirage : '
-      for (let i = 0; i < 5; i++) { texte += `${tirage[i]} ; ` }
+      for (let i = 0; i < 5; i++) {
+        texte += `${tirage[i]} ; `
+      }
       texte += `${tirage[5]}.<br>`
       texte += `Et le nombre à trouver est : ${cible}.`
 

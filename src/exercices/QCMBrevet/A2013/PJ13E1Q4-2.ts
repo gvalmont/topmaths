@@ -5,7 +5,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '67e1c'
 export const refs = {
   'fr-fr': ['3L1QCM-05', 'BP2AutoI19'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -19,13 +19,13 @@ export const dateDePublication = '30/10/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class EtrangersJuin13Exo1Q4 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b: number): void {
+  private appliquerLesValeurs(a: number, b: number): void {
     const b2 = Math.sqrt(b)
     const a2 = Math.sqrt(a)
     this.reponses = [
       `$(${String(a2)}-${String(b2)}x)(${String(a2)}+${String(b2)}x)$`,
       `$${String(a - b)}x^2$`,
-      `$(${String(a2)}-${String(b2)}x)^2$`
+      `$(${String(a2)}-${String(b2)}x)^2$`,
     ]
     this.enonce = `La forme factorisée de $${String(a)}-${String(b)}x^2$ est :`
     this.correction = `$\\begin{aligned}${String(a)}-${String(b)}x^2&=${String(a2)}^2-${String(b2)}^2x^2\\\\
@@ -47,7 +47,7 @@ export default class EtrangersJuin13Exo1Q4 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

@@ -1,8 +1,14 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 
 export const interactifReady = true
@@ -18,40 +24,40 @@ export const uuid = '795b9'
 export const refs = {
   'fr-fr': ['6N2C'],
   'fr-2016': ['6C30-10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class DiviserPar10 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
     this.besoinFormulaireTexte = [
-      'Choix de l\'opération',
-        `Nombres séparés par des tirets :
+      "Choix de l'opération",
+      `Nombres séparés par des tirets :
     1 : Diviser par ... revient à ...
     2 : Multiplier par ... revient à ...
-    3 : Mélange`
+    3 : Mélange`,
     ]
     this.besoinFormulaire2Texte = [
       'Choix du nombre',
-        `Nombres séparés par des tirets :
+      `Nombres séparés par des tirets :
     1 : Division par 10
     2 : Division par 100
     3 : Division par 1 000
-    4 : Mélange`
+    4 : Mélange`,
     ]
     this.sup2 = 4
     this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const diviseursPossibles = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
       max: 3,
       melange: 4,
       defaut: 4,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     const operationsPossibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -59,74 +65,95 @@ export default class DiviserPar10 extends Exercice {
       max: 2,
       melange: 3,
       defaut: 3,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     let combien = 0
     let reponse = ''
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       switch (diviseursPossibles[i]) {
-        case 1 :
+        case 1:
           combien = 10
           reponse = '0,1'
           break
-        case 2 :
+        case 2:
           combien = 100
           reponse = '0,01'
           break
-        case 3 :
+        case 3:
           combien = 1000
           reponse = '0,001'
           break
       }
-      if (this.questionJamaisPosee(i, combien, operationsPossibles[i])) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, combien, operationsPossibles[i])) {
+        // Si la question n'a jamais été posée, on en créé une autre
         let texte = ''
         let texteCorr = ''
         if (operationsPossibles[i] === 1) {
           texte += `Diviser par $${texNombre(combien)}$ revient à `
           texte += this.interactif
             ? choixDeroulant(this, 2 * i, [
-              { label: 'Choisir un verbe', value: '' },
-              { label: 'ajouter', value: 'ajouter' },
-              { label: 'diviser', value: 'diviser' },
-              { label: 'multiplier', value: 'multiplier' },
-              { label: 'soustraire', value: 'soustraire' }
-            ])
+                { label: 'Choisir un verbe', value: '' },
+                { label: 'ajouter', value: 'ajouter' },
+                { label: 'diviser', value: 'diviser' },
+                { label: 'multiplier', value: 'multiplier' },
+                { label: 'soustraire', value: 'soustraire' },
+              ])
             : '$\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots$'
-          handleAnswers(this, 2 * i, { reponse: { value: 'multiplier' } }, { formatInteractif: 'listeDeroulante' })
+          handleAnswers(
+            this,
+            2 * i,
+            { reponse: { value: 'multiplier' } },
+            { formatInteractif: 'listeDeroulante' },
+          )
           texte += ' par '
           texte += this.interactif
             ? choixDeroulant(this, 2 * i + 1, [
-              { label: 'Choisir la bonne valeur', value: '' },
-              { latex: '0,1', value: '0,1' },
-              { latex: '0,01', value: '0,01' },
-              { latex: '0,001', value: '0,001' }
-            ])
+                { label: 'Choisir la bonne valeur', value: '' },
+                { latex: '0,1', value: '0,1' },
+                { latex: '0,01', value: '0,01' },
+                { latex: '0,001', value: '0,001' },
+              ])
             : '$\\ldots\\ldots\\ldots\\ldots$'
-          handleAnswers(this, 2 * i + 1, { reponse: { value: reponse } }, { formatInteractif: 'listeDeroulante' })
+          handleAnswers(
+            this,
+            2 * i + 1,
+            { reponse: { value: reponse } },
+            { formatInteractif: 'listeDeroulante' },
+          )
           texteCorr = `Diviser par $${texNombre(combien)}$ revient à ${texteEnCouleurEtGras('multiplier')} par $${texteEnCouleurEtGras(reponse)}$.`
         } else {
           texte += `Multiplier par $${reponse}$ revient à `
           texte += this.interactif
             ? choixDeroulant(this, 2 * i, [
-              { label: 'Choisir un verbe', value: '' },
-              { label: 'ajouter', value: 'ajouter' },
-              { label: 'diviser', value: 'diviser' },
-              { label: 'multiplier', value: 'multiplier' },
-              { label: 'soustraire', value: 'soustraire' }
-            ])
+                { label: 'Choisir un verbe', value: '' },
+                { label: 'ajouter', value: 'ajouter' },
+                { label: 'diviser', value: 'diviser' },
+                { label: 'multiplier', value: 'multiplier' },
+                { label: 'soustraire', value: 'soustraire' },
+              ])
             : '$\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots$'
-          handleAnswers(this, 2 * i, { reponse: { value: 'diviser' } }, { formatInteractif: 'listeDeroulante' })
+          handleAnswers(
+            this,
+            2 * i,
+            { reponse: { value: 'diviser' } },
+            { formatInteractif: 'listeDeroulante' },
+          )
           texte += ' par '
           texte += this.interactif
             ? choixDeroulant(this, 2 * i + 1, [
-              { label: 'Choisir la bonne valeur', value: '' },
-              { latex: '10', value: '10' },
-              { latex: '100', value: '100' },
-              { latex: '1\\,000', value: '1 000' }
-            ])
+                { label: 'Choisir la bonne valeur', value: '' },
+                { latex: '10', value: '10' },
+                { latex: '100', value: '100' },
+                { latex: '1\\,000', value: '1 000' },
+              ])
             : '$\\ldots\\ldots\\ldots\\ldots$'
-          handleAnswers(this, 2 * i + 1, { reponse: { value: combien } }, { formatInteractif: 'listeDeroulante' })
+          handleAnswers(
+            this,
+            2 * i + 1,
+            { reponse: { value: combien } },
+            { formatInteractif: 'listeDeroulante' },
+          )
           texteCorr = `Multiplier par $${reponse}$ revient à ${texteEnCouleurEtGras('diviser')} par $${miseEnEvidence(texNombre(combien))}$.`
         }
         texte += '.'

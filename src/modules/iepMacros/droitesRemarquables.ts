@@ -6,7 +6,11 @@ import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { projectionOrtho, rotation } from '../../lib/2d/transformations'
 import { centreCercleCirconscrit } from '../../lib/2d/triangle'
 import type Alea2iep from '../Alea2iep'
-import type { OptionsCompas, OptionsOutilMesure, OptionsRegle } from '../Alea2iep'
+import type {
+  OptionsCompas,
+  OptionsOutilMesure,
+  OptionsRegle,
+} from '../Alea2iep'
 
 type OptionsMediatriceAuCompas = OptionsCompas & {
   longueur1?: number // Longueur pour le codage d'angle
@@ -20,8 +24,13 @@ type OptionsMediatriceAuCompas = OptionsCompas & {
  * @param {point} B
  * @param {objet} options Défaut : {longueur1: 3, longueur2: 3, codage: 'X', couleurCodage : this.couleurCodage, couleurCompas: this.couleurCompas, coderFigure: true}
  * @return {array} [arc1, arc2, arc3, arc4, codage1?, codage2?, codageCarre?]
-  */
-export const mediatriceAuCompas = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, options: OptionsMediatriceAuCompas = {}): number[] {
+ */
+export const mediatriceAuCompas = function (
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  options: OptionsMediatriceAuCompas = {},
+): number[] {
   options.longueur1 = options.longueur1 ?? 3
   options.longueur2 = options.longueur2 ?? -3
   options.codage = options.codage ?? 'X'
@@ -35,18 +44,70 @@ export const mediatriceAuCompas = function (this: Alea2iep, A: PointAbstrait, B:
   this.compasMontrer()
   this.compasDeplacer(A, options)
   let arc1, arc2, arc3, arc4
-  if (options.longueur1 === -1 * options.longueur2) { // Si la distance est la même des deux côtés, on peut faire les arcs de part et d'autre
-    this.compasEcarter(longueur(A, M), { vitesse: options.vitesse, sens: options.vitesse })
-    arc1 = this.compasTracerArcCentrePoint(A, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-    arc2 = this.compasTracerArcCentrePoint(A, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-    arc4 = this.compasTracerArcCentrePoint(B, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-    arc3 = this.compasTracerArcCentrePoint(B, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
+  if (options.longueur1 === -1 * options.longueur2) {
+    // Si la distance est la même des deux côtés, on peut faire les arcs de part et d'autre
+    this.compasEcarter(longueur(A, M), {
+      vitesse: options.vitesse,
+      sens: options.vitesse,
+    })
+    arc1 = this.compasTracerArcCentrePoint(A, M, {
+      delta: options.delta,
+      couleur: options.couleurCompas,
+      sens: options.sens,
+      vitesse: options.vitesse,
+      tempo: options.tempo,
+    })
+    arc2 = this.compasTracerArcCentrePoint(A, N, {
+      delta: options.delta,
+      couleur: options.couleurCompas,
+      sens: options.sens,
+      vitesse: options.vitesse,
+      tempo: options.tempo,
+    })
+    arc4 = this.compasTracerArcCentrePoint(B, N, {
+      delta: options.delta,
+      couleur: options.couleurCompas,
+      sens: options.sens,
+      vitesse: options.vitesse,
+      tempo: options.tempo,
+    })
+    arc3 = this.compasTracerArcCentrePoint(B, M, {
+      delta: options.delta,
+      couleur: options.couleurCompas,
+      sens: options.sens,
+      vitesse: options.vitesse,
+      tempo: options.tempo,
+    })
   } else {
     this.compasEcarter(longueur(A, M), options)
-    arc1 = this.compasTracerArcCentrePoint(A, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-    arc2 = this.compasTracerArcCentrePoint(B, M, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-    arc3 = this.compasTracerArcCentrePoint(B, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
-    arc4 = this.compasTracerArcCentrePoint(A, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
+    arc1 = this.compasTracerArcCentrePoint(A, M, {
+      delta: options.delta,
+      couleur: options.couleurCompas,
+      sens: options.sens,
+      vitesse: options.vitesse,
+      tempo: options.tempo,
+    })
+    arc2 = this.compasTracerArcCentrePoint(B, M, {
+      delta: options.delta,
+      couleur: options.couleurCompas,
+      sens: options.sens,
+      vitesse: options.vitesse,
+      tempo: options.tempo,
+    })
+    arc3 = this.compasTracerArcCentrePoint(B, N, {
+      delta: options.delta,
+      couleur: options.couleurCompas,
+      sens: options.sens,
+      vitesse: options.vitesse,
+      tempo: options.tempo,
+    })
+    arc4 = this.compasTracerArcCentrePoint(A, N, {
+      delta: options.delta,
+      couleur: options.couleurCompas,
+      sens: options.sens,
+      vitesse: options.vitesse,
+      tempo: options.tempo,
+    })
   }
   this.compasMasquer()
   if (M.x <= N.x) {
@@ -56,21 +117,38 @@ export const mediatriceAuCompas = function (this: Alea2iep, A: PointAbstrait, B:
   }
   this.regleMasquer()
   if (options.coderFigure) {
-    const codage1 = this.segmentCodage(A, O, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
-    const codage2 = this.segmentCodage(O, B, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
-    const codageCarre = this.codageAngleDroit(A, O, O2, { couleur: options.couleurCodage, tempo: options.tempo, vitesse: options.vitesse })
+    const codage1 = this.segmentCodage(A, O, {
+      codage: options.codage,
+      couleur: options.couleurCodage,
+      tempo: options.tempo,
+    })
+    const codage2 = this.segmentCodage(O, B, {
+      codage: options.codage,
+      couleur: options.couleurCodage,
+      tempo: options.tempo,
+    })
+    const codageCarre = this.codageAngleDroit(A, O, O2, {
+      couleur: options.couleurCodage,
+      tempo: options.tempo,
+      vitesse: options.vitesse,
+    })
     return [arc1, arc2, arc3, arc4, codage1, codage2, ...codageCarre]
   } else {
     return [arc1, arc2, arc3, arc4]
   }
 }
 /**
-     * Trace la médiatrice du segment [AB] avec la méthode Règle + équerre.
-     * @param {point} A
-     * @param {point} B
-     * @param {booléen} codage
-     */
-export const mediatriceRegleEquerre = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, codage = 'X') {
+ * Trace la médiatrice du segment [AB] avec la méthode Règle + équerre.
+ * @param {point} A
+ * @param {point} B
+ * @param {booléen} codage
+ */
+export const mediatriceRegleEquerre = function (
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  codage = 'X',
+) {
   const O = milieu(A, B)
   this.regleMontrer()
   this.regleDeplacer(A)
@@ -106,13 +184,19 @@ export const mediatriceRegleEquerre = function (this: Alea2iep, A: PointAbstrait
   this.codageAngleDroit(A, O, O2)
 }
 /**
-     * Trace la hauteur issue de C dans un triangle ABC. Prolonge si besoin le segment [AB] pour avoir le pied de la hauteur et le codage de l'angle droit.
-     * @param {point} A 1er point de la base
-     * @param {point} B 2e point de la base
-     * @param {point} C Sommet dont est issue la hauteur
-     * @param {booléen} codage angle droit ajouté si true
-     */
-export const hauteur = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, codage = true) {
+ * Trace la hauteur issue de C dans un triangle ABC. Prolonge si besoin le segment [AB] pour avoir le pied de la hauteur et le codage de l'angle droit.
+ * @param {point} A 1er point de la base
+ * @param {point} B 2e point de la base
+ * @param {point} C Sommet dont est issue la hauteur
+ * @param {booléen} codage angle droit ajouté si true
+ */
+export const hauteur = function (
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+  codage = true,
+) {
   const d = droite(A, B)
   d.isVisible = false
   const H = projectionOrtho(C, d)
@@ -125,11 +209,21 @@ export const hauteur = function (this: Alea2iep, A: PointAbstrait, B: PointAbstr
     D = A
   }
   if (this.x(H) < this.x(G) || this.x(H) > this.x(D)) {
-    if (this.x(H) < this.x(G)) { // si le pied de la hauteur est trop à gauche
-      this.regleProlongerSegment(D, G, { longueur: longueur(G, H) + 2, pointilles: true, couleur: 'red' })
+    if (this.x(H) < this.x(G)) {
+      // si le pied de la hauteur est trop à gauche
+      this.regleProlongerSegment(D, G, {
+        longueur: longueur(G, H) + 2,
+        pointilles: true,
+        couleur: 'red',
+      })
     }
-    if (this.x(H) > this.x(D)) { // si le pied de la hauteur est trop à droite
-      this.regleProlongerSegment(G, D, { longueur: longueur(D, H) + 2, pointilles: true, couleur: 'red' })
+    if (this.x(H) > this.x(D)) {
+      // si le pied de la hauteur est trop à droite
+      this.regleProlongerSegment(G, D, {
+        longueur: longueur(D, H) + 2,
+        pointilles: true,
+        couleur: 'red',
+      })
     }
     this.regleMasquer()
   }
@@ -153,13 +247,19 @@ export const hauteur = function (this: Alea2iep, A: PointAbstrait, B: PointAbstr
   this.crayonMasquer()
 }
 /**
-   * Trace la médiane issue de C passant par le milieu de [AB]
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {objet} options
-   */
-export const mediane = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsRegle = {}) {
+ * Trace la médiane issue de C passant par le milieu de [AB]
+ * @param {point} A
+ * @param {point} B
+ * @param {point} C
+ * @param {objet} options
+ */
+export const mediane = function (
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+  options: OptionsRegle = {},
+) {
   options.codage = options.codage ?? 'X'
   options.epaisseur = options.epaisseur ?? 1
   options.couleur = options.couleur ?? 'green'
@@ -188,18 +288,25 @@ type OptionsIepBissectrice = OptionsCompas & {
   distanceDeA?: number // Distance de A pour pointSurSegment()
 }
 /**
-   * Trace la bissectrice de l'angle ABC au compas.
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {objet} param3
-   * @returns {objet} {arc1, arc2, arc3, arc4}
-   * { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}
-   */
-export const bissectriceAuCompas = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsIepBissectrice = {}) {
+ * Trace la bissectrice de l'angle ABC au compas.
+ * @param {point} A
+ * @param {point} B
+ * @param {point} C
+ * @param {objet} param3
+ * @returns {objet} {arc1, arc2, arc3, arc4}
+ * { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}
+ */
+export const bissectriceAuCompas = function (
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+  options: OptionsIepBissectrice = {},
+) {
   options.codage = options.codage ?? '/'
   options.distanceDeA = options.distanceDeA ?? 2
-  options.masquerTraitsDeConstructions = options.masquerTraitsDeConstructions ?? true
+  options.masquerTraitsDeConstructions =
+    options.masquerTraitsDeConstructions ?? true
   options.longueur = options.longueur ?? longueur(B, A)
   options.epaisseur = options.epaisseur ?? 1
   const A1 = pointSurSegment(B, A, options.distanceDeA)
@@ -232,15 +339,23 @@ type OptionsIepCercleCirconscrit = OptionsOutilMesure & {
   couleurCercle?: string
 }
 /**
-   * Construit les 3 médiatrices des côtés du triangle ABC puis le cercle circonscrit au triangle
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {objet} options
-   */
-export const cercleCirconscrit = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsIepCercleCirconscrit = {}) {
-  options.couleurMediatrice = options.couleurMediatrice ?? options.couleur ?? this.couleur
-  options.couleurCercle = options.couleurCercle ?? options.couleur ?? this.couleur
+ * Construit les 3 médiatrices des côtés du triangle ABC puis le cercle circonscrit au triangle
+ * @param {point} A
+ * @param {point} B
+ * @param {point} C
+ * @param {objet} options
+ */
+export const cercleCirconscrit = function (
+  this: Alea2iep,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+  options: OptionsIepCercleCirconscrit = {},
+) {
+  options.couleurMediatrice =
+    options.couleurMediatrice ?? options.couleur ?? this.couleur
+  options.couleurCercle =
+    options.couleurCercle ?? options.couleur ?? this.couleur
   options.codage = options.codage ?? 'X'
   const m1 = this.mediatriceAuCompas(A, B, options)
   this.traitMasquer(m1[0]) // On cache les arcs de cercle une fois la médiatrice tracée

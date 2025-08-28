@@ -15,10 +15,10 @@ export const uuid = 'c4579'
 
 export const refs = {
   'fr-fr': ['1A-F6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF6 extends EquationDroite {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

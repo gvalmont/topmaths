@@ -1,4 +1,8 @@
-import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  ObjetMathalea2D,
+} from '../../modules/2dGeneralites'
 import { egal } from '../../modules/outils'
 import { degToRad } from '../mathFonctions/trigo'
 import { arc } from './cercle'
@@ -19,7 +23,9 @@ import { pointAbstrait, PointAbstrait } from './points-abstraits'
  * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Rémi Angot
  */
-export function translation<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (O: T, v: Vecteur, nom = '', positionLabel = 'above', color = 'black'): T {
+export function translation<
+  T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur,
+>(O: T, v: Vecteur, nom = '', positionLabel = 'above', color = 'black'): T {
   if (O instanceof PointAbstrait) {
     const x = O.x + v.x
     const y = O.y + v.y
@@ -33,7 +39,7 @@ export function translation<T extends PointAbstrait | Point | Droite | Segment |
     const p2 = []
     for (let i = 0; i < O.listePoints.length; i++) {
       p2[i] = translation(O.listePoints[i], v)
-      p2[i].nom = O.listePoints[i].nom + '\''
+      p2[i].nom = O.listePoints[i].nom + "'"
     }
     return polygone(p2, color) as T
   }
@@ -60,7 +66,16 @@ export function translation<T extends PointAbstrait | Point | Droite | Segment |
  * @author Rémi Angot
  */
 
-export function translation2Points<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (O: T, A: PointAbstrait, B: PointAbstrait, nom = '', positionLabel = 'above', color = 'black'): T {
+export function translation2Points<
+  T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur,
+>(
+  O: T,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  nom = '',
+  positionLabel = 'above',
+  color = 'black',
+): T {
   if (O instanceof PointAbstrait) {
     const x = O.x + B.x - A.x
     const y = O.y + B.y - A.y
@@ -74,7 +89,7 @@ export function translation2Points<T extends PointAbstrait | Point | Droite | Se
     const p2 = []
     for (let i = 0; i < O.listePoints.length; i++) {
       p2[i] = translation2Points(O.listePoints[i], A, B)
-      p2[i].nom = O.listePoints[i].nom + '\''
+      p2[i].nom = O.listePoints[i].nom + "'"
     }
     return polygone(p2, color) as T
   }
@@ -103,12 +118,23 @@ export function translation2Points<T extends PointAbstrait | Point | Droite | Se
  * @return L'image de A par la rotation de centre O et d'angle angle
  * @author Rémi Angot et Jean-Claude Lhote
  */
-export function rotation<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (A:T, O:PointAbstrait, angle: number, nom = '', positionLabel = 'above', color = 'black'):T {
+export function rotation<
+  T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur,
+>(
+  A: T,
+  O: PointAbstrait,
+  angle: number,
+  nom = '',
+  positionLabel = 'above',
+  color = 'black',
+): T {
   if (A instanceof PointAbstrait) {
-    const x = O.x +
+    const x =
+      O.x +
       (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
       (A.y - O.y) * Math.sin((angle * Math.PI) / 180)
-    const y = O.y +
+    const y =
+      O.y +
       (A.x - O.x) * Math.sin((angle * Math.PI) / 180) +
       (A.y - O.y) * Math.cos((angle * Math.PI) / 180)
     if (A instanceof Point) {
@@ -121,7 +147,7 @@ export function rotation<T extends PointAbstrait | Point | Droite | Segment | Po
     const p2 = []
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = rotation(A.listePoints[i], O, angle)
-      p2[i].nom = A.listePoints[i].nom + '\''
+      p2[i].nom = A.listePoints[i].nom + "'"
     }
     return polygone(p2, color) as T
   }
@@ -137,10 +163,12 @@ export function rotation<T extends PointAbstrait | Point | Droite | Segment | Po
     s.styleExtremites = A.styleExtremites
     return s as T
   }
-  const x = A.x * Math.cos((angle * Math.PI) / 180) -
-      A.y * Math.sin((angle * Math.PI) / 180)
-  const y = A.x * Math.sin((angle * Math.PI) / 180) +
-      A.y * Math.cos((angle * Math.PI) / 180)
+  const x =
+    A.x * Math.cos((angle * Math.PI) / 180) -
+    A.y * Math.sin((angle * Math.PI) / 180)
+  const y =
+    A.x * Math.sin((angle * Math.PI) / 180) +
+    A.y * Math.cos((angle * Math.PI) / 180)
   const v = vecteur(x, y)
   return v as T
 }
@@ -152,7 +180,12 @@ export function rotation<T extends PointAbstrait | Point | Droite | Segment | Po
  * sens Le sens (+1 ou -1) de la rotation. +1=sens trig
  */
 export class SensDeRotation extends ObjetMathalea2D {
-  constructor (A1:PointAbstrait, centre:PointAbstrait, sens:1 | -1, color = 'black') {
+  constructor(
+    A1: PointAbstrait,
+    centre: PointAbstrait,
+    sens: 1 | -1,
+    color = 'black',
+  ) {
     super()
     this.objets = []
     const arc1 = arc(A1, centre, 20 * sens)
@@ -163,11 +196,16 @@ export class SensDeRotation extends ObjetMathalea2D {
     const s1 = segment(A2, F1, color)
     const s2 = segment(A2, F2, color)
     this.objets.push(arc1, s1, s2)
-    const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
+    const bordures = fixeBordures(this.objets, {
+      rxmin: 0,
+      rxmax: 0,
+      rymin: 0,
+      rymax: 0,
+    })
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -176,7 +214,7 @@ export class SensDeRotation extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -186,7 +224,12 @@ export class SensDeRotation extends ObjetMathalea2D {
   }
 }
 
-export function sensDeRotation (A:Point, O:Point, sens:1 | -1, color = 'black') {
+export function sensDeRotation(
+  A: Point,
+  O: Point,
+  sens: 1 | -1,
+  color = 'black',
+) {
   return new SensDeRotation(A, O, sens, color)
 }
 
@@ -206,7 +249,16 @@ export function sensDeRotation (A:Point, O:Point, sens:1 | -1, color = 'black') 
  * @author Rémi Angot
  * @return {Point|Segment|Droite|Polygone|Vecteur}
  */
-export function homothetie<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (Objet:T, O: PointAbstrait, k: number, nom = '', positionLabel = 'above', color = 'black'):T {
+export function homothetie<
+  T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur,
+>(
+  Objet: T,
+  O: PointAbstrait,
+  k: number,
+  nom = '',
+  positionLabel = 'above',
+  color = 'black',
+): T {
   if (Objet instanceof PointAbstrait) {
     const x = O.x + k * (Objet.x - O.x)
     const y = O.y + k * (Objet.y - O.y)
@@ -220,7 +272,7 @@ export function homothetie<T extends PointAbstrait | Point | Droite | Segment | 
     const p2 = []
     for (let i = 0; i < Objet.listePoints.length; i++) {
       p2[i] = homothetie(Objet.listePoints[i], O, k)
-      p2[i].nom = Objet.listePoints[i].nom + '\''
+      p2[i].nom = Objet.listePoints[i].nom + "'"
     }
     return polygone(p2, color) as T
   }
@@ -252,7 +304,15 @@ export function homothetie<T extends PointAbstrait | Point | Droite | Segment | 
  * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Jean-Claude Lhote
  */
-export function symetrieAxiale<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (A:T, d:Droite | Mediatrice, nom = '', positionLabel = 'above', color = 'black'):T {
+export function symetrieAxiale<
+  T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur,
+>(
+  A: T,
+  d: Droite | Mediatrice,
+  nom = '',
+  positionLabel = 'above',
+  color = 'black',
+): T {
   let x, y
   const a = d.a
   const b = d.b
@@ -267,7 +327,10 @@ export function symetrieAxiale<T extends PointAbstrait | Point | Droite | Segmen
       x = -(A.x + (2 * c) / a)
     } else {
       x = k * ((b * b - a * a) * A.x - 2 * a * b * A.y - 2 * a * c)
-      y = k * ((a * a - b * b) * A.y - 2 * a * b * A.x + (a * a * c) / b - b * c) - c / b
+      y =
+        k *
+          ((a * a - b * b) * A.y - 2 * a * b * A.x + (a * a * c) / b - b * c) -
+        c / b
     }
     if (A instanceof Point) {
       return point(x, y, nom, positionLabel) as T
@@ -279,7 +342,7 @@ export function symetrieAxiale<T extends PointAbstrait | Point | Droite | Segmen
     const p2 = []
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = symetrieAxiale(A.listePoints[i], d)
-      p2[i].nom = A.listePoints[i].nom + '\''
+      p2[i].nom = A.listePoints[i].nom + "'"
     }
     return polygone(p2, color) as T
   }
@@ -309,7 +372,12 @@ export function symetrieAxiale<T extends PointAbstrait | Point | Droite | Segmen
  * N = projectionOrtho(M,d,'N','below left')
  *@author Jean-Claude Lhote
  */
-export function projectionOrtho<T extends PointAbstrait | Point | Vecteur> (M:T, d: Droite, nom = '', positionLabel = 'above'):T {
+export function projectionOrtho<T extends PointAbstrait | Point | Vecteur>(
+  M: T,
+  d: Droite,
+  nom = '',
+  positionLabel = 'above',
+): T {
   const a = d.a
   const b = d.b
   const c = d.c
@@ -359,7 +427,16 @@ export function projectionOrtho<T extends PointAbstrait | Point | Vecteur> (M:T,
  * @return {PointAbstrait|Point|Segment|Droite|Polygone|Vecteur} Retourne un objet du même type que le paramètre objet de la fonction
  */
 // JSDOC Validee par EE Juin 2022
-export function affiniteOrtho<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (A: T, d: Droite, k: number, nom = '', positionLabel = 'above', color = 'black'):T {
+export function affiniteOrtho<
+  T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur,
+>(
+  A: T,
+  d: Droite,
+  k: number,
+  nom = '',
+  positionLabel = 'above',
+  color = 'black',
+): T {
   const a = d.a
   const b = d.b
   const c = d.c
@@ -374,7 +451,11 @@ export function affiniteOrtho<T extends PointAbstrait | Point | Droite | Segment
       x = k * A.x + (c * (k - 1)) / a
     } else {
       x = q * (b * b * A.x - a * b * A.y - a * c) * (1 - k) + k * A.x
-      y = q * (a * a * A.y - a * b * A.x + (a * a * c) / b) * (1 - k) + (k * c) / b + k * A.y - c / b
+      y =
+        q * (a * a * A.y - a * b * A.x + (a * a * c) / b) * (1 - k) +
+        (k * c) / b +
+        k * A.y -
+        c / b
     }
     if (A instanceof Point) {
       return point(x, y, nom, positionLabel) as T
@@ -386,7 +467,7 @@ export function affiniteOrtho<T extends PointAbstrait | Point | Droite | Segment
     const p2 = []
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = affiniteOrtho(A.listePoints[i], d, k)
-      p2[i].nom = A.listePoints[i].nom + '\''
+      p2[i].nom = A.listePoints[i].nom + "'"
     }
     return new Polygone(p2, color) as T
   }
@@ -420,11 +501,23 @@ export function affiniteOrtho<T extends PointAbstrait | Point | Droite | Segment
  * M = similitude(B,O,30,1.1,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 1.1
  * @author Jean-Claude Lhote
  */
-export function similitude<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (A:T, O:PointAbstrait, a:number, k:number, nom = '', positionLabel = 'above', color = 'black'): T {
+export function similitude<
+  T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur,
+>(
+  A: T,
+  O: PointAbstrait,
+  a: number,
+  k: number,
+  nom = '',
+  positionLabel = 'above',
+  color = 'black',
+): T {
   if (A instanceof PointAbstrait) {
     const ra = degToRad(a)
-    const x = O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
-    const y = O.y + k * (Math.cos(ra) * (A.y - O.y) + Math.sin(ra) * (A.x - O.x))
+    const x =
+      O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
+    const y =
+      O.y + k * (Math.cos(ra) * (A.y - O.y) + Math.sin(ra) * (A.x - O.x))
     if (A instanceof Point) {
       return point(x, y, nom, positionLabel) as T
     } else {
@@ -435,7 +528,7 @@ export function similitude<T extends PointAbstrait | Point | Droite | Segment | 
     const p2 = []
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = similitude(A.listePoints[i], O, a, k)
-      p2[i].nom = A.listePoints[i].nom + '\''
+      p2[i].nom = A.listePoints[i].nom + "'"
     }
     return polygone(p2, color) as T
   }

@@ -27,10 +27,10 @@ export const uuid = 'f6413'
 export const refs = {
   'fr-fr': ['6N2E'],
   'fr-2016': ['6C30-0'],
-  'fr-ch': ['9NO8-9']
+  'fr-ch': ['9NO8-9'],
 }
 export default class MultiplierDecimaux extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Poser et effectuer les calculs suivants.'
@@ -41,35 +41,75 @@ export default class MultiplierDecimaux extends Exercice {
     this.sup2 = 3
     this.sup3 = 1
     this.sup4 = 2
-    this.besoinFormulaireNumerique = ['Choix du nombre de chiffres significatifs dans le premier facteur', 4,
-      '1 : Un chiffre\n2 : Deux chiffres\n3 : Trois chiffres\n4 : Quatre chiffres']
-    this.besoinFormulaire2Numerique = ['Choix du nombre de chiffres significatifs dans le second facteur', 4,
-      '1 : Un chiffre\n2 : Deux chiffres\n3 : Trois chiffres\n4 : Quatre chiffres']
-    this.besoinFormulaire3Numerique = ['Choix du nombre de décimales significatives dans le premier facteur', 3,
-      '1 : Une décimale\n2 : Deux décimales\n3 : Trois décimales']
-    this.besoinFormulaire4Numerique = ['Choix du nombre de décimales significatives dans le second facteur', 3,
-      '1 : Une décimale\n2 : Deux décimales\n3 : Trois décimales']
+    this.besoinFormulaireNumerique = [
+      'Choix du nombre de chiffres significatifs dans le premier facteur',
+      4,
+      '1 : Un chiffre\n2 : Deux chiffres\n3 : Trois chiffres\n4 : Quatre chiffres',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Choix du nombre de chiffres significatifs dans le second facteur',
+      4,
+      '1 : Un chiffre\n2 : Deux chiffres\n3 : Trois chiffres\n4 : Quatre chiffres',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Choix du nombre de décimales significatives dans le premier facteur',
+      3,
+      '1 : Une décimale\n2 : Deux décimales\n3 : Trois décimales',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Choix du nombre de décimales significatives dans le second facteur',
+      3,
+      '1 : Une décimale\n2 : Deux décimales\n3 : Trois décimales',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse
     const nbChiffresa = parseInt(this.sup)
     const nbChiffresb = parseInt(this.sup2)
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
-      a = this.sup === 1 ? randint(2, 9) : 10 * randint(Math.pow(10, nbChiffresa - 2) + 1, Math.pow(10, nbChiffresa - 1) - 1) + randint(1, 9)
+    for (
+      let i = 0, texte, texteCorr, cpt = 0, a, b;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      a =
+        this.sup === 1
+          ? randint(2, 9)
+          : 10 *
+              randint(
+                Math.pow(10, nbChiffresa - 2) + 1,
+                Math.pow(10, nbChiffresa - 1) - 1,
+              ) +
+            randint(1, 9)
       a = a / Math.pow(10, parseInt(this.sup3))
-      b = this.sup2 === 1 ? randint(2, 9) : 10 * randint(Math.pow(10, nbChiffresb - 2) + 1, Math.pow(10, nbChiffresb - 1) - 1) + randint(1, 9)
+      b =
+        this.sup2 === 1
+          ? randint(2, 9)
+          : 10 *
+              randint(
+                Math.pow(10, nbChiffresb - 2) + 1,
+                Math.pow(10, nbChiffresb - 1) - 1,
+              ) +
+            randint(1, 9)
       b = b / Math.pow(10, parseInt(this.sup4))
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = arrondi(a * b)
-      texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
-      texteCorr += '$\\phantom{espace}$' + Operation({
-        operande1: b,
-        operande2: a,
+      texteCorr = Operation({
+        operande1: a,
+        operande2: b,
         type: 'multiplication',
-        style: 'display: inline'
+        style: 'display: inline',
       })
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, '')
+      texteCorr +=
+        '$\\phantom{espace}$' +
+        Operation({
+          operande1: b,
+          operande2: a,
+          type: 'multiplication',
+          style: 'display: inline',
+        })
+      if (context.isHtml && this.interactif)
+        texte += '$~=$' + ajouteChampTexteMathLive(this, i, '')
       setReponse(this, i, reponse)
       this.autoCorrection[i].options = {
         digits: 0,
@@ -77,7 +117,7 @@ export default class MultiplierDecimaux extends Exercice {
         signe: false,
         exposantNbChiffres: 0,
         exposantSigne: false,
-        approx: 0
+        approx: 0,
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

@@ -2,7 +2,10 @@ import { courbe } from '../../lib/2d/courbes'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -11,7 +14,8 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
 
-export const titre = 'Déterminer une fonction affine par la donnée des images de deux nombres'
+export const titre =
+  'Déterminer une fonction affine par la donnée des images de deux nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -30,12 +34,16 @@ export const uuid = 'b8b33'
 
 export const refs = {
   'fr-fr': ['3F21-2'],
-  'fr-ch': ['11FA9-3']
+  'fr-ch': ['11FA9-3'],
 }
 export default class DeterminerFonctionAffine extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile\n3 : Très difficile']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Facile\n2 : Difficile\n3 : Très difficile',
+    ]
 
     this.sup = 1
     this.nbQuestions = 2
@@ -44,7 +52,7 @@ export default class DeterminerFonctionAffine extends Exercice {
     // this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeDeQuestionsDisponibles
     if (parseInt(this.sup) === 1) {
       typeDeQuestionsDisponibles = [0, 1]
@@ -53,8 +61,15 @@ export default class DeterminerFonctionAffine extends Exercice {
     } else {
       typeDeQuestionsDisponibles = [3, 4]
     }
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, tA, tB, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, tA, tB, r, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       let a = 0
@@ -78,15 +93,26 @@ export default class DeterminerFonctionAffine extends Exercice {
             tA = tracePoint(point(x1, y1), 'red')
             tB = tracePoint(point(x2, y2), 'red')
 
-            r = repere({ xMin: -5, yMin: Math.min(-1, b - 1), xMax: 5, yMax: Math.max(b + 1, 2) })
-            texteCorr += `<br><br>${mathalea2d({
-                            xmin: -5,
-                            ymin: Math.min(-1, b - 1),
-                            xmax: 5,
-                            ymax: Math.max(b + 1, 2),
-                            pixelsParCm: 20,
-                            scale: 0.7
-                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            r = repere({
+              xMin: -5,
+              yMin: Math.min(-1, b - 1),
+              xMax: 5,
+              yMax: Math.max(b + 1, 2),
+            })
+            texteCorr += `<br><br>${mathalea2d(
+              {
+                xmin: -5,
+                ymin: Math.min(-1, b - 1),
+                xmax: 5,
+                ymax: Math.max(b + 1, 2),
+                pixelsParCm: 20,
+                scale: 0.7,
+              },
+              r,
+              courbe((x) => a * x + b, { repere: r, color: 'blue' }),
+              tA,
+              tB,
+            )}`
           }
           break
 
@@ -109,16 +135,22 @@ export default class DeterminerFonctionAffine extends Exercice {
               xMin: -5,
               yMin: Math.min(-5 * a + b, 5 * a + b),
               xMax: 5,
-              yMax: Math.max(-5 * a + b, 5 * a + b)
+              yMax: Math.max(-5 * a + b, 5 * a + b),
             })
-            texteCorr += `<br><br>${mathalea2d({
-                            xmin: -5,
-                            ymin: Math.min(-5 * a + b, 5 * a + b),
-                            xmax: 5,
-                            ymax: Math.max(-5 * a + b, 5 * a + b),
-                            pixelsParCm: 20,
-                            scale: 0.7
-                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            texteCorr += `<br><br>${mathalea2d(
+              {
+                xmin: -5,
+                ymin: Math.min(-5 * a + b, 5 * a + b),
+                xmax: 5,
+                ymax: Math.max(-5 * a + b, 5 * a + b),
+                pixelsParCm: 20,
+                scale: 0.7,
+              },
+              r,
+              courbe((x) => a * x + b, { repere: r, color: 'blue' }),
+              tA,
+              tB,
+            )}`
           }
           break
 
@@ -143,16 +175,22 @@ export default class DeterminerFonctionAffine extends Exercice {
               xMin: -5,
               yMin: Math.min(-5 * a + b, 5 * a + b),
               xMax: 5,
-              yMax: Math.max(-5 * a + b, 5 * a + b)
+              yMax: Math.max(-5 * a + b, 5 * a + b),
             })
-            texteCorr += `<br><br>${mathalea2d({
-                            xmin: -5,
-                            ymin: Math.min(-5 * a + b, 5 * a + b),
-                            xmax: 5,
-                            ymax: Math.max(-5 * a + b, 5 * a + b),
-                            pixelsParCm: 20,
-                            scale: 0.7
-                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            texteCorr += `<br><br>${mathalea2d(
+              {
+                xmin: -5,
+                ymin: Math.min(-5 * a + b, 5 * a + b),
+                xmax: 5,
+                ymax: Math.max(-5 * a + b, 5 * a + b),
+                pixelsParCm: 20,
+                scale: 0.7,
+              },
+              r,
+              courbe((x) => a * x + b, { repere: r, color: 'blue' }),
+              tA,
+              tB,
+            )}`
           }
           break
 
@@ -179,20 +217,26 @@ export default class DeterminerFonctionAffine extends Exercice {
               xMin: -5,
               yMin: Math.min(-5 * a + b, 5 * a + b),
               xMax: 5,
-              yMax: Math.max(-5 * a + b, 5 * a + b)
+              yMax: Math.max(-5 * a + b, 5 * a + b),
             })
-            texteCorr += `<br><br>${mathalea2d({
-                            xmin: -5,
-                            ymin: Math.min(-5 * a + b, 5 * a + b),
-                            xmax: 5,
-                            ymax: Math.max(-5 * a + b, 5 * a + b),
-                            pixelsParCm: 20,
-                            scale: 0.7
-                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            texteCorr += `<br><br>${mathalea2d(
+              {
+                xmin: -5,
+                ymin: Math.min(-5 * a + b, 5 * a + b),
+                xmax: 5,
+                ymax: Math.max(-5 * a + b, 5 * a + b),
+                pixelsParCm: 20,
+                scale: 0.7,
+              },
+              r,
+              courbe((x) => a * x + b, { repere: r, color: 'blue' }),
+              tA,
+              tB,
+            )}`
           }
           break
 
-        case 4:{
+        case 4: {
           x1 = randint(-5, 5, 0)
           x2 = randint(-5, 5, [0, x1])
           y1 = randint(-5, 5)
@@ -207,7 +251,11 @@ export default class DeterminerFonctionAffine extends Exercice {
           texteCorr += `Donc $a=\\dfrac{${y1 - y2}}{${x1 - x2}}=${aFrac.texFractionSimplifiee}$.<br>`
           texteCorr += `Donc $b=${y1}+${aFrac.texFractionSimplifiee}\\times ${ecritureParentheseSiNegatif(-x1)}=${fraction(y1 * aFrac.denIrred, aFrac.denIrred).texFraction}+${aFrac.multiplieEntier(-x1).texFractionSimplifiee}=${bFrac.texFractionSimplifiee}$.<br>`
           texteCorr += `Donc $f(x)=${aFrac.texFractionSimplifiee}x${bFrac.simplifie().texFractionSignee}$.`
-          setReponse(this, i, `f(x)=${aFrac.texFractionSimplifiee}x${bFrac.simplifie().texFractionSignee}`)
+          setReponse(
+            this,
+            i,
+            `f(x)=${aFrac.texFractionSimplifiee}x${bFrac.simplifie().texFractionSignee}`,
+          )
           if (this.correctionDetaillee) {
             tA = tracePoint(point(x1, y1), 'red')
             tB = tracePoint(point(x2, y2), 'red')
@@ -218,16 +266,22 @@ export default class DeterminerFonctionAffine extends Exercice {
               xMin: -5,
               yMin: Math.round(Math.min(-5 * a + b, 5 * a + b)),
               xMax: 5,
-              yMax: Math.round(Math.max(-5 * a + b, 5 * a + b))
+              yMax: Math.round(Math.max(-5 * a + b, 5 * a + b)),
             })
-            texteCorr += `<br><br>${mathalea2d({
-                            xmin: -5,
-                            ymin: Math.round(Math.min(-5 * a + b, 5 * a + b)),
-                            xmax: 5,
-                            ymax: Math.round(Math.max(-5 * a + b, 5 * a + b)),
-                            pixelsParCm: 20,
-                            scale: 0.7
-                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            texteCorr += `<br><br>${mathalea2d(
+              {
+                xmin: -5,
+                ymin: Math.round(Math.min(-5 * a + b, 5 * a + b)),
+                xmax: 5,
+                ymax: Math.round(Math.max(-5 * a + b, 5 * a + b)),
+                pixelsParCm: 20,
+                scale: 0.7,
+              },
+              r,
+              courbe((x) => a * x + b, { repere: r, color: 'blue' }),
+              tA,
+              tB,
+            )}`
           }
           break
         }
@@ -235,7 +289,18 @@ export default class DeterminerFonctionAffine extends Exercice {
       texte = `La fonction $f$ est une fonction affine et on sait que $f(${x1})=${y1}$ et $f(${x2})=${y2}$.<br>`
       texte += 'Déterminer la forme algébrique de la fonction $f$.'
       texte += ajouteChampTexteMathLive(this, i)
-      if (this.questionJamaisPosee(i, x1, x2, y1, y2, a, b, listeTypeDeQuestions[i])) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          x1,
+          x2,
+          y1,
+          y2,
+          a,
+          b,
+          listeTypeDeQuestions[i],
+        )
+      ) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

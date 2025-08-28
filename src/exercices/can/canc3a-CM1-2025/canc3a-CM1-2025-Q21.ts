@@ -7,14 +7,14 @@ export const interactifType = 'mathLive'
 export const uuid = '320c3'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025CM1Q21 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -23,7 +23,7 @@ export default class Can2025CM1Q21 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '$=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.reponse = 100
     this.question = '$2\\times 50$ '
     this.correction = `$2\\times 50 = ${miseEnEvidence(100)}$`

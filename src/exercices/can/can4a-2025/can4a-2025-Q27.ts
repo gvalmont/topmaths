@@ -3,13 +3,13 @@ import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-export const titre = 'Moitié d\'un nombre décimal'
+export const titre = "Moitié d'un nombre décimal"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '3422l'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q27 extends ExerciceCan {
-  enonce (a?:number) {
+  enonce(a?: number) {
     if (a == null) {
       a = (randint(1, 4) * 2 + 1 + randint(1, 4) / 5) / 10
     }
@@ -29,7 +29,7 @@ export default class Can2025N4Q27 extends ExerciceCan {
     this.question += this.interactif ? ' $=$' : ''
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(0.34) : this.enonce()
   }
 }

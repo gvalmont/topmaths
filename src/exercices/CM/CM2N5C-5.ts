@@ -13,7 +13,7 @@ export const uuid = '4f77c'
 export const refs = {
   'fr-fr': ['CM2N5C-5'],
   'fr-2016': ['c3C32-04'],
-  'fr-ch': ['9NO16-7']
+  'fr-ch': ['9NO16-7'],
 }
 export const titre = 'Le spectacle (problème complexe)'
 export const dateDePublication = '21/11/2024'
@@ -25,26 +25,37 @@ export const interactifReady = true
  * Ces exercices seront proposés systématiquement pour 3 niveaux de difficulté afin de différentier autour d'un même problème
  */
 export default class ExerciceProbleme004 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.spacing = 1.2
     this.spacingCorr = 1.2
     this.nbQuestions = 1
-    this.besoinFormulaireNumerique = ['niveau de difficulté', 3, '1 : Élèves à besoin\n2 : Moyens\n3 : Avancés']
+    this.besoinFormulaireNumerique = [
+      'niveau de difficulté',
+      3,
+      '1 : Élèves à besoin\n2 : Moyens\n3 : Avancés',
+    ]
     this.sup = 2
-    this.besoinFormulaire3CaseACocher = ['Opération posée dans la correction', false]
+    this.besoinFormulaire3CaseACocher = [
+      'Opération posée dans la correction',
+      false,
+    ]
 
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let nbArtistes = 5
     let payeArtiste = 50
     let fraisDeplacement = 200
     let nbEleves = 50
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const show = choice(['musical.artistes', 'théatral.acteurs', 'des arts du cirque.acrobates'])
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const show = choice([
+        'musical.artistes',
+        'théatral.acteurs',
+        'des arts du cirque.acrobates',
+      ])
       const [showType, artiste] = show.split('.')
       switch (this.sup) {
         case 1:
@@ -74,7 +85,8 @@ export default class ExerciceProbleme004 extends Exercice {
       const participation = this.sup === 1 ? doublePair / 2 : doubleImpair / 2
       const priseEnCharge = nbEleves * participation
       const aides = sommeTotale - priseEnCharge
-      const aideParents = this.sup === 1 ? 0 : Math.floor(aides / 100) * choice([10, 20, 30])
+      const aideParents =
+        this.sup === 1 ? 0 : Math.floor(aides / 100) * choice([10, 20, 30])
       const aideMairie = aides - aideParents
       const resteAPayer = sommeTotale - aides
       let listePrincipale: string
@@ -89,47 +101,71 @@ ${this.sup3 ? `${deuxColonnesResp(Operation({ operande1: payeArtiste, operande2:
  $\\begin{aligned}${nbArtistes}\\times ${payeArtiste}+${fraisDeplacement}&=${cachets}+${fraisDeplacement}\\\\&=${sommeTotale}\\end{aligned}$<br>
  La dépense totale est de $${this.sup !== 3 ? miseEnEvidence(texNombre(sommeTotale, 0)) : texNombre(sommeTotale, 0)}$ euros.<br>`
       // aides
-      const correction3a = this.sup === 1
-        ? ''
-        : `${this.correctionDetaillee ? 'Le montant total des aides est la somme des aides de la mairie et de l\'association de parents d\'élèves :<br>' : ''}
+      const correction3a =
+        this.sup === 1
+          ? ''
+          : `${this.correctionDetaillee ? "Le montant total des aides est la somme des aides de la mairie et de l'association de parents d'élèves :<br>" : ''}
 ${this.sup3 ? `${Operation({ operande1: aideMairie, operande2: aideParents, type: 'addition' })}` : ''}
 $${aideMairie}+${aideParents}=${aides}$<br>
 Le montant total des aides est de $${this.sup !== 3 ? miseEnEvidence(texNombre(aides, 0)) : texNombre(aides, 0)}$ euros.<br>`
       // participation
-      const correction3b = `${this.correctionDetaillee ? 'La participation par élève est le montant restant à charge pour les familles divisé par le nombre d\'élèves :<br>' : ''}
+      const correction3b = `${this.correctionDetaillee ? "La participation par élève est le montant restant à charge pour les familles divisé par le nombre d'élèves :<br>" : ''}
 ${this.sup3 ? `${Operation({ operande1: resteAPayer, operande2: nbEleves, type: 'division' })}` : ''}
 $${resteAPayer}\\div ${nbEleves}=${texNombre(participation, 2, true)}$<br>
 La participation par élève se monte à $${miseEnEvidence(texNombre(participation, 2, true))}$ euros.<br>`
       // reste à payer
-      const correction2 = `${this.sup === 1
-        ? `${this.correctionDetaillee ? 'Le montant restant à charge pour les familles est la somme totale moins l\'aide de la mairie :<br>' : ''}
+      const correction2 = `${
+        this.sup === 1
+          ? `${this.correctionDetaillee ? "Le montant restant à charge pour les familles est la somme totale moins l'aide de la mairie :<br>" : ''}
 ${this.sup3 ? `${Operation({ operande1: sommeTotale, operande2: aideMairie, type: 'soustraction' })}` : ''}
 $${sommeTotale}-${aideMairie}=${resteAPayer}$<br>
 Le montant restant à payer par les familles est de $${this.sup !== 3 ? miseEnEvidence(texNombre(resteAPayer, 0)) : texNombre(resteAPayer, 0)}$ euros.<br>`
-        : `${this.correctionDetaillee ? 'Le montant restant à charge pour les familles est la somme totale moins les aides de la mairie et de l\'association de parents d\'élèves :<br>' : ''}
+          : `${this.correctionDetaillee ? "Le montant restant à charge pour les familles est la somme totale moins les aides de la mairie et de l'association de parents d'élèves :<br>" : ''}
 ${this.sup3 ? `${Operation({ operande1: sommeTotale, operande2: aides, type: 'soustraction' })}` : ''}
 $${sommeTotale}-${aides}=${resteAPayer}$<br>
-Le montant restant à payer par les familles est de $${this.sup !== 3 ? miseEnEvidence(texNombre(resteAPayer, 0)) : texNombre(resteAPayer, 0)}$ euros.<br>`}`
+Le montant restant à payer par les familles est de $${this.sup !== 3 ? miseEnEvidence(texNombre(resteAPayer, 0)) : texNombre(resteAPayer, 0)}$ euros.<br>`
+      }`
 
       if (this.sup === 1) {
         listePrincipale += createList({
           items: [
-            'Quel est le montant total de la dépense ?' + ajouteQuestionMathlive({ exercice: this, question: 3 * i, objetReponse: { reponse: { value: String(sommeTotale) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' }),
-            'Quel montant total reste-t-il à charge pour les familles des enfants ?' + ajouteQuestionMathlive({ exercice: this, question: 3 * i + 1, objetReponse: { reponse: { value: String(resteAPayer) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' }),
-            `Si les $${nbEleves}$ élèves de cette école assistent au spectacle, quelle participation financière doit être demandée à chaque élève pour payer la dépense restante ?` + ajouteQuestionMathlive({ exercice: this, question: 3 * i + 2, objetReponse: { reponse: { value: String(participation) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' })
+            'Quel est le montant total de la dépense ?' +
+              ajouteQuestionMathlive({
+                exercice: this,
+                question: 3 * i,
+                objetReponse: { reponse: { value: String(sommeTotale) } },
+                typeInteractivite: 'mathlive',
+                texteApres: ' euros.',
+              }),
+            'Quel montant total reste-t-il à charge pour les familles des enfants ?' +
+              ajouteQuestionMathlive({
+                exercice: this,
+                question: 3 * i + 1,
+                objetReponse: { reponse: { value: String(resteAPayer) } },
+                typeInteractivite: 'mathlive',
+                texteApres: ' euros.',
+              }),
+            `Si les $${nbEleves}$ élèves de cette école assistent au spectacle, quelle participation financière doit être demandée à chaque élève pour payer la dépense restante ?` +
+              ajouteQuestionMathlive({
+                exercice: this,
+                question: 3 * i + 2,
+                objetReponse: { reponse: { value: String(participation) } },
+                typeInteractivite: 'mathlive',
+                texteApres: ' euros.',
+              }),
           ],
-          style: 'alpha'
+          style: 'alpha',
         })
         listeCorrections = createList({
           items: [
             correction1,
-            `${this.correctionDetaillee ? 'Le montant restant à charge pour les familles est la somme totale moins l\'aide de la mairie :<br>' : ''}
+            `${this.correctionDetaillee ? "Le montant restant à charge pour les familles est la somme totale moins l'aide de la mairie :<br>" : ''}
 ${this.sup3 ? `${Operation({ operande1: sommeTotale, operande2: aideMairie, type: 'soustraction' })}` : ''}
 $${sommeTotale}-${aideMairie}=${resteAPayer}$<br>
 La somme totale restant à payer par les familles est de $${this.sup !== 3 ? miseEnEvidence(texNombre(resteAPayer, 0)) : texNombre(resteAPayer, 0)}$ euros.<br>`,
-            correction3b
+            correction3b,
           ],
-          style: 'alpha'
+          style: 'alpha',
         })
       } else if (this.sup === 2) {
         listePrincipale = `  Un spectacle ${showType} avec $${nbArtistes}$ ${artiste} est proposé au directeur d'une école.<br>
@@ -139,34 +175,60 @@ La somme totale restant à payer par les familles est de $${this.sup !== 3 ? mis
         L'association de parents d'élèves donne une aide de $${aideParents}$ euros.<br>`
         listePrincipale += createList({
           items: [
-            'Quel est le montant total de la dépense ?' + ajouteQuestionMathlive({ exercice: this, question: 3 * i, objetReponse: { reponse: { value: String(sommeTotale) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' }),
-            'Quel est le montant total des aides ?' + ajouteQuestionMathlive({ exercice: this, question: 3 * i + 1, objetReponse: { reponse: { value: String(aides) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' }),
-            `Si les $${nbEleves}$ élèves de cette école assistent au spectacle, quelle participation financière doit être demandée à chaque élève pour payer la dépense restante ?` + ajouteQuestionMathlive({ exercice: this, question: 3 * i + 2, objetReponse: { reponse: { value: String(participation) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' })
+            'Quel est le montant total de la dépense ?' +
+              ajouteQuestionMathlive({
+                exercice: this,
+                question: 3 * i,
+                objetReponse: { reponse: { value: String(sommeTotale) } },
+                typeInteractivite: 'mathlive',
+                texteApres: ' euros.',
+              }),
+            'Quel est le montant total des aides ?' +
+              ajouteQuestionMathlive({
+                exercice: this,
+                question: 3 * i + 1,
+                objetReponse: { reponse: { value: String(aides) } },
+                typeInteractivite: 'mathlive',
+                texteApres: ' euros.',
+              }),
+            `Si les $${nbEleves}$ élèves de cette école assistent au spectacle, quelle participation financière doit être demandée à chaque élève pour payer la dépense restante ?` +
+              ajouteQuestionMathlive({
+                exercice: this,
+                question: 3 * i + 2,
+                objetReponse: { reponse: { value: String(participation) } },
+                typeInteractivite: 'mathlive',
+                texteApres: ' euros.',
+              }),
           ],
-          style: 'alpha'
+          style: 'alpha',
         })
         listeCorrections = createList({
           items: [
             correction1,
             correction3a,
             createList({
-              items: [
-                correction2,
-                correction3b
-              ],
-              style: 'fleches'
-            })
+              items: [correction2, correction3b],
+              style: 'fleches',
+            }),
           ],
-          style: 'alpha'
+          style: 'alpha',
         })
       } else {
         const age = randint(7, 11)
         const distance = randint(41, 49)
-        listePrincipale = `  Un spectacle ${showType} avec cinq ${artiste} est proposé au directeur d'une école, pour une classe d'enfants de $${age}$ ans.<br>
+        listePrincipale =
+          `  Un spectacle ${showType} avec cinq ${artiste} est proposé au directeur d'une école, pour une classe d'enfants de $${age}$ ans.<br>
         Il faut payer les ${artiste} $${payeArtiste}$ euros chacun.<br>
         Il faut aussi payer leur déplacement de $${distance}$ km, soit $${fraisDeplacement}$ euros au total. Il n'y a pas d'autres frais.<br>
         L'association de parents d'élèves donne une aide de $${aideParents}$ euros et la mairie accorde une autre aide de $${aideMairie}$ euros.<br>
-        Si les $${nbEleves}$ élèves de cette école assistent au spectacle, quelle participation financière doit être demandée à chaque élève pour payer la dépense restante ?<br>` + ajouteQuestionMathlive({ exercice: this, question: i, objetReponse: { reponse: { value: String(participation) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' })
+        Si les $${nbEleves}$ élèves de cette école assistent au spectacle, quelle participation financière doit être demandée à chaque élève pour payer la dépense restante ?<br>` +
+          ajouteQuestionMathlive({
+            exercice: this,
+            question: i,
+            objetReponse: { reponse: { value: String(participation) } },
+            typeInteractivite: 'mathlive',
+            texteApres: ' euros.',
+          })
         listeCorrections = createList({
           items: [
             `${this.correctionDetaillee ? 'Calculons la somme totale à payer pour les artistes et leur déplacement :<br>' : ''}
@@ -176,9 +238,9 @@ La somme totale restant à payer par les familles est de $${this.sup !== 3 ? mis
             `${this.correctionDetaillee ? 'Calculons le montant restant à charge pour les familles :<br>' : ''}
         ${correction2}`,
             `${this.correctionDetaillee ? 'Calculons la participation par élève :<br>' : ''}
-        ${correction3b}`
+        ${correction3b}`,
           ],
-          style: 'fleches'
+          style: 'fleches',
         })
       }
       if (this.questionJamaisPosee(i, sommeTotale, aideMairie, nbEleves)) {

@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'a601c'
 export const refs = {
   'fr-fr': ['TSA5-QCM08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,16 +29,19 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$f(2x) = f(x) + \\ln (16)$',
       '$f(2x) = 2f(x)$ ',
       '$f(2x) = f(x) + \\ln (24)$',
-      '$f(2x) = \\ln (2) + f(x)$'
+      '$f(2x) = \\ln (2) + f(x)$',
     ]
 
-    this.enonce = ' On considère la fonction $f$ définie sur l\'intervalle $]0~;~+\\infty[$ par $f(x) = 4\\ln (3x)$.<br>'
-    this.enonce += ' Pour tout réel $x$ de l\'intervalle $]0~;~+\\infty[$ , on a :'
-    this.correction = 'Soit $x\\in ]0~;~+\\infty[$. On a : <br>$\\begin{aligned}    f(2x) &= 4 \\ln (3\\times2x)\\\\&= \\ln \\left((3\\times2x)^4\\right)\\\\&= \\ln \\left(2^4\\times(3x)^4\\right)\\\\&=\\ln \\left(2^4\\right)+\\ln\\left((3x)^4\\right)\\\\&=\\ln (16)+4\\ln(3x)\\\\&=\\ln (16)+f(x)\\\\\\end{aligned}$ '
+    this.enonce =
+      " On considère la fonction $f$ définie sur l'intervalle $]0~;~+\\infty[$ par $f(x) = 4\\ln (3x)$.<br>"
+    this.enonce +=
+      " Pour tout réel $x$ de l'intervalle $]0~;~+\\infty[$ , on a :"
+    this.correction =
+      'Soit $x\\in ]0~;~+\\infty[$. On a : <br>$\\begin{aligned}    f(2x) &= 4 \\ln (3\\times2x)\\\\&= \\ln \\left((3\\times2x)^4\\right)\\\\&= \\ln \\left(2^4\\times(3x)^4\\right)\\\\&=\\ln \\left(2^4\\right)+\\ln\\left((3x)^4\\right)\\\\&=\\ln (16)+4\\ln(3x)\\\\&=\\ln (16)+f(x)\\\\\\end{aligned}$ '
     this.correction += `<br>La bonne réponse est $:${miseEnEvidence('f(2x) = f(x) + \\ln (16)')}$ .`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

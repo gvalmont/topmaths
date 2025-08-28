@@ -4,16 +4,16 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-export const titre = 'Calculer une distance à partir d\'une vitesse'
+export const titre = "Calculer une distance à partir d'une vitesse"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '5108c'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class DistanceEtVitesse extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class DistanceEtVitesse extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 13.5
       this.question = `Un sportif court $${texNombre(4500, 0)}$ m  en $20$ min.<br>
@@ -33,8 +33,12 @@ export default class DistanceEtVitesse extends ExerciceSimple {
        ${texNombre(13500, 0)}$ m.<br>
        Sa vitesse est donc $${miseEnEvidence(texNombre(13.5, 1))}$ km/h.`
     } else {
-      const listeHeureDistance = [[5500, 20, 3, 16.5], [6500, 20, 3, 19.5],
-        [3500, 15, 4, 14], [4500, 15, 4, 18]]// distance, temps, fois plus, reponse
+      const listeHeureDistance = [
+        [5500, 20, 3, 16.5],
+        [6500, 20, 3, 19.5],
+        [3500, 15, 4, 14],
+        [4500, 15, 4, 18],
+      ] // distance, temps, fois plus, reponse
       const choix = choice(listeHeureDistance)
       this.reponse = choix[3]
       this.question = `Un sportif court $${texNombre(choix[0], 0)}$ m  en $${choix[1]}$ min.<br>

@@ -24,10 +24,10 @@ export const uuid = '6341d'
 
 export const refs = {
   'fr-fr': ['can2G03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculHypotenusePythagore extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -35,11 +35,11 @@ export default class CalculHypotenusePythagore extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b
     const nom = creerNomDePolygone(3, ['QD'])
-    a = randint(2, 7)//
-    b = randint(3, 7)//
+    a = randint(2, 7) //
+    b = randint(3, 7) //
     const A = point(0, 0, nom[0])
     const B = pointAdistance(A, a, randint(0, 45), nom[1])
     const C = similitude(A, B, 90, b / a, nom[2])
@@ -52,29 +52,67 @@ export default class CalculHypotenusePythagore extends ExerciceSimple {
     switch (choice(['a', 'b'])) {
       case 'a':
         objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-        objets.push(texteParPosition('x', milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y + 0.4),
-          texteParPosition(`${texNombre(b)}`, milieu(B, C).x + 0.4, milieu(B, C).y)
+        objets.push(
+          texteParPosition(
+            'x',
+            milieu(A, C).x,
+            milieu(A, C).y - 0.3,
+            'milieu',
+            'black',
+            1,
+            'middle',
+            true,
+          ),
+          texteParPosition(
+            `${texNombre(a)}`,
+            milieu(A, B).x,
+            milieu(A, B).y + 0.4,
+          ),
+          texteParPosition(
+            `${texNombre(b)}`,
+            milieu(B, C).x + 0.4,
+            milieu(B, C).y,
+          ),
         )
         this.question = `Sur cette figure $x=\\sqrt{a}$.<br>
         
         Quelle est la valeur de $a$ ?<br>
 
         `
-        this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 18, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
+        this.question += mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 18,
+            mainlevee: false,
+            amplitude: 0.3,
+            scale: 0.5,
+            style: 'margin: auto',
+          },
+          objets,
+        )
         this.correction = ` En utilisant le théorème de Pythagore, on a :<br>
         $${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2$, soit
         $${a}^2+${b}^2=x^2$, d'où $x=\\sqrt{${a}^2+${b}^2}=\\sqrt{${a ** 2 + b ** 2}}$
        <br>
        Ainsi, $a=${miseEnEvidence(a ** 2 + b ** 2)}$.`
         this.reponse = a ** 2 + b ** 2
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = '$a=\\ldots$'
         break
       case 'b':
-        a = randint(1, 10)//
-        b = randint(2, 10, [4, 9])//
-        if (a ** 2 + b === 4 || a ** 2 + b === 9 || a ** 2 + b === 16 || a ** 2 + b === 25 || a ** 2 + b === 36 || a ** 2 + b === 49) {
+        a = randint(1, 10) //
+        b = randint(2, 10, [4, 9]) //
+        if (
+          a ** 2 + b === 4 ||
+          a ** 2 + b === 9 ||
+          a ** 2 + b === 16 ||
+          a ** 2 + b === 25 ||
+          a ** 2 + b === 36 ||
+          a ** 2 + b === 49
+        ) {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$.<br>
         $${nom[0]}${nom[1]}=${a}$ ; $${nom[0]}${nom[2]}=\\sqrt{${b}}$.<br>
         
@@ -100,7 +138,7 @@ export default class CalculHypotenusePythagore extends ExerciceSimple {
                <br>`
           this.reponse = `\\sqrt{${a ** 2 + b}}`
         }
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = `$${nom[1]}${nom[2]}=\\ldots$`
         break
     }

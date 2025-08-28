@@ -14,7 +14,7 @@ export const dateDePublication = '18/05/2024'
 export const uuid = '8490c'
 export const refs = {
   'fr-fr': ['can3S07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -22,7 +22,7 @@ export const refs = {
 
 */
 export default class EnFonctionDe extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -31,9 +31,9 @@ export default class EnFonctionDe extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '$a=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2])) {
-      case 1://
+      case 1: //
         {
           const val1 = randint(-10, 20, 0)
           const val2 = randint(1, 10)
@@ -53,7 +53,7 @@ export default class EnFonctionDe extends ExerciceSimple {
           }
         }
         break
-      case 2://
+      case 2: //
         {
           const val1 = randint(1, 10)
           const val2 = randint(1, 10)

@@ -20,10 +20,10 @@ export const uuid = '5e009'
 export const refs = {
   'fr-fr': ['CM2N3A-15'],
   'fr-2016': ['CM013'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComplementAUneDizaine extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -32,10 +32,11 @@ export default class ComplementAUneDizaine extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       a = randint(2, 9) * 10
       b = randint(2, a - 11)

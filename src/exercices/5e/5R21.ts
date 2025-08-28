@@ -3,14 +3,20 @@ import {
   ecritureAlgebrique,
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
-  ecritureParentheseSiNegatif
+  ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
-import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieEntiere,
+} from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -40,16 +46,18 @@ export const uuid = 'b6982'
 
 export const refs = {
   'fr-fr': ['5R21'],
-  'fr-ch': ['9NO9-13']
+  'fr-ch': ['9NO9-13'],
 }
 export default class ExerciceSoustractionsRelatifs extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.sup = 20
     this.sup2 = false // écriture simplifiée
     this.sup3 = false // nombres décimaux
 
-    this.consigne = this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Calculer.'
+    this.consigne = this.interactif
+      ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.'
+      : 'Calculer.'
     this.nbCols = 3
     this.nbColsCorr = 2
     this.correctionDetailleeDisponible = true
@@ -57,14 +65,22 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
     this.besoinFormulaire3CaseACocher = ['Avec des nombres décimaux']
-    this.comment = "Si l'option « Avec des nombres décimaux » est activée, 2 fois sur 3 les nombres auront un chiffre après la virgule et une fois sur 3 un seul terme aura deux chiffres après la virgule."
+    this.comment =
+      "Si l'option « Avec des nombres décimaux » est activée, 2 fois sur 3 les nombres auront un chiffre après la virgule et une fois sur 3 un seul terme aura deux chiffres après la virgule."
   }
 
-  nouvelleVersion () {
-    let liste: [(1 | -1), (1 | -1)][] = [[-1, -1], [-1, 1], [1, -1]] // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
+  nouvelleVersion() {
+    let liste: [1 | -1, 1 | -1][] = [
+      [-1, -1],
+      [-1, 1],
+      [1, -1],
+    ] // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
     liste = combinaisonListes(liste, this.nbQuestions)
-    const partieDecimaleAUnChiffre = combinaisonListes([true, true, false], this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const partieDecimaleAUnChiffre = combinaisonListes(
+      [true, true, false],
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let a: number
       let b: number
       let texte = ''
@@ -77,18 +93,28 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
       if (this.sup3) {
         a = new Decimal(randint(1, this.sup * 10)).div(10).mul(k[0]).toNumber()
         if (partieDecimaleAUnChiffre[i]) {
-          b = new Decimal(randint(1, this.sup * 10)).div(10).mul(k[1]).toNumber()
+          b = new Decimal(randint(1, this.sup * 10))
+            .div(10)
+            .mul(k[1])
+            .toNumber()
         } else {
-          b = new Decimal(randint(1, this.sup * 100)).div(100).mul(k[1]).toNumber()
+          b = new Decimal(randint(1, this.sup * 100))
+            .div(100)
+            .mul(k[1])
+            .toNumber()
         }
         if (choice([true, false])) {
-          [a, b] = [b, a]
+          ;[a, b] = [b, a]
         }
       }
       if (this.sup2) {
         texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} =$`
         if (this.interactif && !context.isAmc) {
-          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '' })
+          texte =
+            `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` +
+            ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
+              texteAvant: '',
+            })
         }
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${miseEnEvidence(texNombre(a - b))} $`
@@ -100,27 +126,73 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
           }
         }
       } else {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' =$'
+        texte =
+          '$ ' +
+          ecritureNombreRelatif(a) +
+          ' - ' +
+          ecritureNombreRelatif(b) +
+          ' =$'
         if (this.interactif && !context.isAmc) {
-          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '' })
+          texte =
+            '$ ' +
+            ecritureNombreRelatif(a) +
+            ' - ' +
+            ecritureNombreRelatif(b) +
+            ' = $' +
+            ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
+              texteAvant: '',
+            })
         }
         if (this.correctionDetaillee) {
-          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b, { color: orangeMathalea }) + ' $'
+          texteCorr =
+            '$ ' +
+            ecritureNombreRelatif(a) +
+            ' - ' +
+            ecritureNombreRelatif(b) +
+            ' = ' +
+            ecritureNombreRelatifc(a) +
+            ' + ' +
+            ecritureNombreRelatifc(-1 * b) +
+            ' = ' +
+            ecritureNombreRelatifc(a - b, { color: orangeMathalea }) +
+            ' $'
         } else {
-          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a - b, { color: orangeMathalea }) + ' $'
+          texteCorr =
+            '$ ' +
+            ecritureNombreRelatif(a) +
+            ' - ' +
+            ecritureNombreRelatif(b) +
+            ' = ' +
+            ecritureNombreRelatifc(a - b, { color: orangeMathalea }) +
+            ' $'
         }
       }
-      if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {
-          setReponse(this, i, [arrondi(a - b), `(${ecritureAlgebrique(a - b)})`], {
-            signe: true,
-            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(arrondi(a - b))),
-            decimals: 0
+          setReponse(
+            this,
+            i,
+            [arrondi(a - b), `(${ecritureAlgebrique(a - b)})`],
+            {
+              signe: true,
+              digits: Math.max(
+                2,
+                nombreDeChiffresDansLaPartieEntiere(arrondi(a - b)),
+              ),
+              decimals: 0,
+            },
+          )
+        } else
+          handleAnswers(this, i, {
+            reponse: {
+              value: arrondi(a - b).toString(),
+              options: { resultatSeulementEtNonOperation: true },
+            },
           })
-        } else handleAnswers(this, i, { reponse: { value: (arrondi(a - b)).toString(), options: { resultatSeulementEtNonOperation: true } } })
 
         i++
       }

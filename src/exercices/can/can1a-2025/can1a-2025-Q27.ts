@@ -4,13 +4,13 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
-export const titre = 'Calculer les coordonnées d\'un milieu'
+export const titre = "Calculer les coordonnées d'un milieu"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '89612'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q27 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,8 +28,10 @@ export default class Can2025N5Q27 extends ExerciceSimple {
     this.formatInteractif = 'fillInTheBlank'
   }
 
-  nouvelleVersion () {
-    const a = this.canOfficielle ? 4050 : randint(1, 4) * 1000 + randint(1, 6) * 10
+  nouvelleVersion() {
+    const a = this.canOfficielle
+      ? 4050
+      : randint(1, 4) * 1000 + randint(1, 6) * 10
     const b = this.canOfficielle ? 10 : randint(1, 3) * 10
     const xa = a - b
     const ya = -b
@@ -37,7 +39,11 @@ export default class Can2025N5Q27 extends ExerciceSimple {
     const yb = a + b
     const xm = (xa + xb) / 2
     const ym = (ya + yb) / 2
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: xm }, champ2: { value: ym } }
+    this.reponse = {
+      bareme: toutPourUnPoint,
+      champ1: { value: xm },
+      champ2: { value: ym },
+    }
     this.consigne = `$A(${texNombre(xa, 0)}\\,;\\,${texNombre(ya, 0)})$ et $B(${texNombre(xb, 0)}\\,;\\,${texNombre(yb, 0)})$<br>
          Déterminer les coordonnées de $M$, milieu de $[AB]$.`
     this.question = 'M(%{champ1};%{champ2})'

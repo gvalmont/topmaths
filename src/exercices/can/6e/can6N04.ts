@@ -29,17 +29,17 @@ export const uuid = 'ca515'
 
 export const refs = {
   'fr-fr': ['can6N04', 'CM1N3J-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class AbscisseFractionnaire extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const a = randint(2, 6) // dénominateur
       let b = randint(2, a * 4 - 1)
       do {
@@ -47,30 +47,48 @@ export default class AbscisseFractionnaire extends Exercice {
       } while (b % a === 0)
       const c = new FractionEtendue(b, a)
       this.reponse = c
-      this.question = 'Déterminer l\'abscisse du point $A$.<br>'
+      this.question = "Déterminer l'abscisse du point $A$.<br>"
 
-      this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.5, pixelsParCm: 30, style: 'margin: auto' }, latex2d('A', 3 * b / a, 0.5, { color: 'blue' }), droiteGraduee({
-        Unite: 3,
-        Min: 0,
-        Max: 4.2,
-        x: 0,
-        y: 0,
-        thickSecDist: 1 / a,
-        thickSec: true,
-        thickOffset: 0,
-        axeStyle: '->',
-        pointListe: [[b / a, '']],
-        pointCouleur: 'blue',
-        pointTaille: 3,
-        pointStyle: 'x',
-        labelsPrincipaux: true,
-        step1: 1,
-        step2: 1
-      }))
+      this.question += mathalea2d(
+        {
+          xmin: -1,
+          ymin: -1.5,
+          xmax: 14,
+          ymax: 1.5,
+          scale: 0.5,
+          pixelsParCm: 30,
+          style: 'margin: auto',
+        },
+        latex2d('A', (3 * b) / a, 0.5, { color: 'blue' }),
+        droiteGraduee({
+          Unite: 3,
+          Min: 0,
+          Max: 4.2,
+          x: 0,
+          y: 0,
+          thickSecDist: 1 / a,
+          thickSec: true,
+          thickOffset: 0,
+          axeStyle: '->',
+          pointListe: [[b / a, '']],
+          pointCouleur: 'blue',
+          pointTaille: 3,
+          pointStyle: 'x',
+          labelsPrincipaux: true,
+          step1: 1,
+          step2: 1,
+        }),
+      )
 
-      if (!(context.isAmc)) {
-        this.question += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-        handleAnswers(this, i, { reponse: { value: c.texFraction, options: {} } })
+      if (!context.isAmc) {
+        this.question += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+        )
+        handleAnswers(this, i, {
+          reponse: { value: c.texFraction, options: {} },
+        })
       }
 
       if (pgcd(a, b) === 1) {
@@ -98,39 +116,43 @@ export default class AbscisseFractionnaire extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                propositions: [{
-                  texte: this.correction,
-                  statut: '',
-                  reponse: {
-                    texte: 'Numérateur',
-                    valeur: b,
-                    param: {
-                      digits: b > 9 ? 2 : 1,
-                      decimals: 0,
-                      signe: false,
-                      approx: 0
-                    }
-                  }
-                }]
+                propositions: [
+                  {
+                    texte: this.correction,
+                    statut: '',
+                    reponse: {
+                      texte: 'Numérateur',
+                      valeur: b,
+                      param: {
+                        digits: b > 9 ? 2 : 1,
+                        decimals: 0,
+                        signe: false,
+                        approx: 0,
+                      },
+                    },
+                  },
+                ],
               },
               {
                 type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: 'Dénominateur',
-                    valeur: a,
-                    param: {
-                      digits: 1,
-                      decimals: 0,
-                      signe: false,
-                      approx: 0
-                    }
-                  }
-                }]
-              }
-            ]
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: 'Dénominateur',
+                      valeur: a,
+                      param: {
+                        digits: 1,
+                        decimals: 0,
+                        signe: false,
+                        approx: 0,
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
           }
         }
 

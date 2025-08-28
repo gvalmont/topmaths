@@ -2,7 +2,10 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { reduirePolynomeDegre3, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import {
+  reduirePolynomeDegre3,
+  ecritureParentheseSiNegatif,
+} from '../../../lib/outils/ecritures'
 export const titre = 'Calculer un discriminant'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,7 +16,7 @@ export const uuid = '17868'
 
 */
 export default class DeltaSecondDegre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -22,7 +25,7 @@ export default class DeltaSecondDegre extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: number
     let b: number
     let c: number
@@ -47,6 +50,8 @@ export default class DeltaSecondDegre extends ExerciceSimple {
       \\end{aligned}$`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$'
-    if (!this.interactif) { this.question += ' $\\ldots$' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots$'
+    }
   }
 }

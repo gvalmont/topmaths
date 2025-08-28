@@ -1,7 +1,11 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import {
+  listeQuestionsToContenu,
+  randint,
+  gestionnaireFormulaireTexte,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -22,21 +26,26 @@ export const uuid = '04b0a'
 
 export const refs = {
   'fr-fr': ['2N41-6', 'BP2AutoI1'],
-  'fr-ch': ['11FA2-13']
+  'fr-ch': ['11FA2-13'],
 }
 export default class DevelopperIdentitesRemarquables2 extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas 1 et 2']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas 1 et 2',
+    ]
 
     this.besoinFormulaire2Texte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : (a+b)²',
         '2 : (a-b)²',
         '3 : (a+b)(a-b)',
-        '4 : Mélange'
-      ].join('\n')
+        '4 : Mélange',
+      ].join('\n'),
     ]
 
     this.consigne = 'Développer et réduire les expressions suivantes.'
@@ -52,7 +61,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -84,7 +93,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
       [1, 10],
       [3, 10],
       [7, 10],
-      [9, 10]
+      [9, 10],
     ]
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
@@ -92,7 +101,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
       saisie: this.sup2,
       max: 3,
       melange: 4,
-      defaut: 1
+      defaut: 1,
     })
 
     // let typesDeQuestionsDisponibles = []
@@ -144,7 +153,11 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
       }
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0, a, b, typesDeQuestions;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       b = randint(2, 9)
       a = randint(1, 9, [b])
@@ -165,7 +178,9 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
           } else {
             texteCorr += `$(x+${a})^2=x^2+${2 * a}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `x^2+${2 * a}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `x^2+${2 * a}x+${a * a}` },
+          })
           break
         case 2:
           texte = `$(x-${a})^2$` // (x-a)²
@@ -173,7 +188,9 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(x-${a})^2=x^2-2 \\times ${a} \\times x+${a}^2=x^2-${2 * a}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `x^2-${2 * a}x+${a * a}` },
+          })
           break
         case 3:
           texte = `$(x-${a})(x+${a})$` // (x-a)(x+a)
@@ -189,7 +206,9 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(${b}x+${a})^2=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2+${2 * b * a}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2+${2 * b * a}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `${b * b}x^2+${2 * b * a}x+${a * a}` },
+          })
           break
         case 5:
           texte = `$(${b}x-${a})^2$` // (bx-a)² b>1
@@ -197,7 +216,9 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(${b}x-${a})^2=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2-${2 * b * a}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}` },
+          })
           break
         case 6:
           texte = `$(${b}x-${a})(${b}x+${a})$` // (bx-a)(bx+a) b>1
@@ -213,7 +234,9 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${new FractionEtendue(ns, ds).simplifie().texFraction}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${frac}x+${a}\\right)^2=\\left(${frac}x\\right)^2+2 \\times ${frac}x \\times ${a} + ${a}^2=${frac2}x^2+${new FractionEtendue(ns * 2 * a, ds).texFraction}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${frac2}x^2+${dblProdFrac}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `${frac2}x^2+${dblProdFrac}x+${a * a}` },
+          })
           break
         case 8:
           texte = `$\\left(${frac}x-${a}\\right)^2$` // (kx-a)² k rationnel
@@ -221,7 +244,9 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${frac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${frac}x-${a}\\right)^2=\\left(${frac}x\\right)^2-2 \\times ${frac}x \\times ${a} + ${a}^2=${frac2}x^2-${dblProdFrac}x+${a * a}$`
-          handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${dblProdFrac}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `${frac2}x^2-${dblProdFrac}x+${a * a}` },
+          })
           break
         case 9:
         default:
@@ -234,7 +259,8 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
           handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${a * a}` } })
           break
       }
-      if (this.interactif) texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
+      if (this.interactif)
+        texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
       if (this.questionJamaisPosee(i, typesDeQuestions, a)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

@@ -15,7 +15,7 @@ export const uuid = '63eb6'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 40
       this.question = '$0,4\\text{ L }=$ '
@@ -35,7 +35,9 @@ export default class NomExercice extends ExerciceSimple {
       this.canReponseACompleter = '$0,4\\text{ L }=\\ldots$ cL'
       if (!this.interactif) {
         this.question += '$\\ldots$ cL'
-      } else { this.optionsChampTexte = { texteApres: 'cL' } }
+      } else {
+        this.optionsChampTexte = { texteApres: 'cL' }
+      }
     } else {
       if (choice([true, false])) {
         const a = randint(5, 19, 10) / 10
@@ -47,7 +49,9 @@ export default class NomExercice extends ExerciceSimple {
         this.canReponseACompleter = '$\\ldots$ cL'
         if (!this.interactif) {
           this.question += '$\\ldots$ cL'
-        } else { this.optionsChampTexte = { texteApres: 'cL' } }
+        } else {
+          this.optionsChampTexte = { texteApres: 'cL' }
+        }
       } else {
         const a = randint(5, 19, 10) * 10
         this.reponse = (a / 100).toFixed(1)
@@ -58,7 +62,9 @@ export default class NomExercice extends ExerciceSimple {
         this.canReponseACompleter = '$\\ldots$ L'
         if (!this.interactif) {
           this.question += '$\\ldots$ L'
-        } else { this.optionsChampTexte = { texteApres: 'L' } }
+        } else {
+          this.optionsChampTexte = { texteApres: 'L' }
+        }
       }
     }
   }

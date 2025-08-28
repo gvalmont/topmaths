@@ -15,10 +15,10 @@ export const uuid = '1ac8c'
 
 export const refs = {
   'fr-fr': ['1A-C4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC4 extends FractionDecimaleEcritureDecimale2 {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

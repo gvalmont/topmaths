@@ -1,22 +1,22 @@
-import { UniverSheetElement } from 'univer-sheets-vite';
+import { UniverSheetElement } from 'univer-sheets-vite'
 
 export class SheetElement extends UniverSheetElement {
   private button: HTMLButtonElement | null = null
   private messageDiv: HTMLDivElement | null = null
 
-  connectedCallback () {
+  connectedCallback() {
     this.render()
     this.initListener()
     setTimeout(() => this.customizeSheet(), 0)
   }
 
-  private render () {
+  private render() {
     let rawData = ''
-     if (this.hasAttribute('data')) {
-       rawData= this.getAttribute('data')!
+    if (this.hasAttribute('data')) {
+      rawData = this.getAttribute('data')!
       // Nettoie les guillemets HTML si besoin
       rawData = rawData.replace(/&quot;/g, '"')
-     }
+    }
     this.innerHTML = `
       <div>
         <div style="flex:1;width:${this.getAttribute('width') || '100%'};height:${this.getAttribute('height') || '250px'}; min-width:${this.getAttribute('min-width') || '360px'};display:flex; flex-direction:column;">
@@ -32,7 +32,7 @@ export class SheetElement extends UniverSheetElement {
     this.messageDiv = this.querySelector('#message-faux')
   }
 
-  private customizeSheet () {
+  private customizeSheet() {
     const univerSheet = this.querySelector('univer-sheet') as any
     if (!univerSheet) return
     if (this.hasAttribute('data')) {
@@ -52,18 +52,20 @@ export class SheetElement extends UniverSheetElement {
     }
   }
 
-  private initListener () {
+  private initListener() {
     if (this.button) {
       this.button.addEventListener('click', () => {
         const eventName = this.getAttribute('check') || 'sheet-check'
-        this.dispatchEvent(new CustomEvent(eventName, {
-          bubbles: true,
-          composed: true,
-          detail: {
-            sheet: this,
-            messageDiv: this.messageDiv
-          }
-        }))
+        this.dispatchEvent(
+          new CustomEvent(eventName, {
+            bubbles: true,
+            composed: true,
+            detail: {
+              sheet: this,
+              messageDiv: this.messageDiv,
+            },
+          }),
+        )
       })
     }
   }
@@ -79,19 +81,19 @@ export function addSheet({
   interactif,
   rowCount = 4,
   columnCount = 4,
-  width = "100%",
-  height = "250px",
-  minWidth = "360px"
+  width = '100%',
+  height = '250px',
+  minWidth = '360px',
 }: {
-  numeroExercice: number | string,
-  question: number | string,
-  data: any,
-  styles: any,
-  interactif: boolean | string,
-  rowCount?: number,
+  numeroExercice: number | string
+  question: number | string
+  data: any
+  styles: any
+  interactif: boolean | string
+  rowCount?: number
   columnCount?: number
-  width?: string,
-  height?: string,
+  width?: string
+  height?: string
   minWidth?: string
 }): string {
   return `<sheet-element
@@ -100,7 +102,7 @@ export function addSheet({
       rowCount,
       columnCount,
       cellData: data,
-      styles: styles
+      styles: styles,
     })}'
     isInteractif="${interactif}"
     check="checkEx${numeroExercice}Q${question}"

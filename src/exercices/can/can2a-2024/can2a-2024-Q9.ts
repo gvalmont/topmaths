@@ -13,7 +13,7 @@ export const uuid = '71105'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -23,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 6
       this.question = '$\\sqrt{36}$ '

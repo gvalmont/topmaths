@@ -4,7 +4,8 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
-export const titre = 'Déterminer les coordonnées d\'un point avec une translation'
+export const titre =
+  "Déterminer les coordonnées d'un point avec une translation"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -20,10 +21,10 @@ export const uuid = '0dfad'
 
 export const refs = {
   'fr-fr': ['can2G14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TranslationVecteur extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -32,7 +33,7 @@ export default class TranslationVecteur extends ExerciceSimple {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const xA = randint(-5, 5)
     const yA = randint(-5, 5)
     const ux = randint(-5, 5, 0)

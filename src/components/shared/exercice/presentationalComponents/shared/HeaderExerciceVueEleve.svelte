@@ -33,14 +33,9 @@
       class="flex flex-row justify-start items-start"
       id="exerciceHeader{indiceExercice}"
     >
-      <div
-        class={showNumber
-          ? 'flex'
-          : 'hidden'}
-      >
+      <div class="{showNumber ? 'flex' : 'hidden'}">
         <div
-          class="{isMenuNeededForExercises &&
-          presMode !== 'liste_exos'
+          class="{isMenuNeededForExercises && presMode !== 'liste_exos'
             ? 'hidden'
             : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal translate-y-1"
         >
@@ -48,8 +43,7 @@
         </div>
       </div>
       <div
-        class="font-light {isMenuNeededForExercises &&
-        presMode !== 'liste_exos'
+        class="font-light {isMenuNeededForExercises && presMode !== 'liste_exos'
           ? 'text-xl'
           : 'text-lg'} ml-2"
       >

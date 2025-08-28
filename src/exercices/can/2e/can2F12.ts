@@ -5,7 +5,8 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-export const titre = 'Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images'
+export const titre =
+  'Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -22,10 +23,10 @@ export const uuid = '25143'
 
 export const refs = {
   'fr-fr': ['can2F12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComparerAvecFctRef extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -33,11 +34,13 @@ export default class ComparerAvecFctRef extends Exercice {
     this.spacing = 1.2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, N, props
-    for (let i = 0; i < this.nbQuestions;) {
-      switch (choice([1, 2, 3])) { //
-        case 1 :
+    for (let i = 0; i < this.nbQuestions; ) {
+      switch (
+        choice([1, 2, 3]) //
+      ) {
+        case 1:
           N = randint(1, 2)
           if (N === 1) {
             a = randint(1, 9) + randint(5, 9) / 10
@@ -50,13 +53,13 @@ export default class ComparerAvecFctRef extends Exercice {
                 propositions: [
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               this.autoCorrection[i] = {
@@ -65,13 +68,13 @@ export default class ComparerAvecFctRef extends Exercice {
                 propositions: [
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
 
@@ -92,7 +95,7 @@ export default class ComparerAvecFctRef extends Exercice {
             }
           }
           if (N === 2) {
-            a = ((randint(1, 9) + randint(5, 9) / 10)) * (-1)
+            a = (randint(1, 9) + randint(5, 9) / 10) * -1
             b = a + (randint(1, 9) / 10) * choice([1, -1])
             texte = 'Sélectionner l’affirmation correcte. '
             if (a < b) {
@@ -102,13 +105,13 @@ export default class ComparerAvecFctRef extends Exercice {
                 propositions: [
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               this.autoCorrection[i] = {
@@ -117,13 +120,13 @@ export default class ComparerAvecFctRef extends Exercice {
                 propositions: [
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
 
@@ -146,7 +149,7 @@ export default class ComparerAvecFctRef extends Exercice {
           this.canEnonce = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
           this.canReponseACompleter = ''
           break
-        case 2 :
+        case 2:
           a = randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1])
           b = (a + randint(1, 9) / 10) * choice([-1, 1])
           texte = 'Sélectionner l’affirmation correcte. '
@@ -157,13 +160,13 @@ export default class ComparerAvecFctRef extends Exercice {
               propositions: [
                 {
                   texte: `$${ecritureParentheseSiNegatif(b)}^3>${ecritureParentheseSiNegatif(a)}^3$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${ecritureParentheseSiNegatif(a)}^3>${ecritureParentheseSiNegatif(b)}^3$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -172,13 +175,13 @@ export default class ComparerAvecFctRef extends Exercice {
               propositions: [
                 {
                   texte: `$${ecritureParentheseSiNegatif(b)}^3<${ecritureParentheseSiNegatif(a)}^3$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$(${ecritureParentheseSiNegatif(a)})^3<${ecritureParentheseSiNegatif(b)}^3$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -194,14 +197,18 @@ export default class ComparerAvecFctRef extends Exercice {
           if (a < b) {
             texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
             alors $${ecritureParentheseSiNegatif(a)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(b)}^3$.`
-          } else { texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors $${ecritureParentheseSiNegatif(b)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a)}^3$.` }
+          } else {
+            texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors $${ecritureParentheseSiNegatif(b)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a)}^3$.`
+          }
           this.canEnonce = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
           this.canReponseACompleter = ''
           break
-        case 3 :
-          a = randint(0, 10) + (randint(6, 9) / 10)
-          b = (a + (randint(1, 5, 0) / 10) * choice([-1, 1]))
-          if (b === 1) { b = 2 }
+        case 3:
+          a = randint(0, 10) + randint(6, 9) / 10
+          b = a + (randint(1, 5, 0) / 10) * choice([-1, 1])
+          if (b === 1) {
+            b = 2
+          }
           texte = 'Sélectionner l’affirmation correcte. '
           if (a < b) {
             this.autoCorrection[i] = {
@@ -210,13 +217,13 @@ export default class ComparerAvecFctRef extends Exercice {
               propositions: [
                 {
                   texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$\\sqrt{${texNombre(a)}}>\\sqrt{${texNombre(b)}}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -225,13 +232,13 @@ export default class ComparerAvecFctRef extends Exercice {
               propositions: [
                 {
                   texte: `$\\sqrt{${texNombre(b)}}<\\sqrt{${texNombre(a)}}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 

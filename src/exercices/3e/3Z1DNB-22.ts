@@ -4,7 +4,10 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteItalique } from '../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import ExerciceBrevetA from '../ExerciceBrevetA'
-import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
+import {
+  premierMultipleInferieur,
+  premierMultipleSuperieur,
+} from '../../lib/outils/primalite'
 import { polygone } from '../../lib/2d/polygones'
 import { randint } from '../../modules/outils'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -19,9 +22,10 @@ import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 export const uuid = 'bc6ad'
 export const refs = {
   'fr-fr': ['3Z1DNB-22'],
-  'fr-ch': ['1mT-14']
+  'fr-ch': ['1mT-14'],
 }
-export const titre = 'Préparation DNB : Statistiques, pourcentages, trigonométrie'
+export const titre =
+  'Préparation DNB : Statistiques, pourcentages, trigonométrie'
 export const dateDePublication = '16/04/2025'
 
 /**
@@ -33,16 +37,24 @@ export const dateDePublication = '16/04/2025'
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
 export default class ExerciceMetropole392024 extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.introduction = texteItalique('D\'après l\'exercice 3 du brevet Métropole septembre 2024.<br>')
+    this.introduction = texteItalique(
+      "D'après l'exercice 3 du brevet Métropole septembre 2024.<br>",
+    )
 
     this.versionAleatoire()
   }
 
-  private appliquerLesValeurs (productions: number[], pourcentage: number, tarif: number, hauteurToit: number, longueurToit: number) : void {
+  private appliquerLesValeurs(
+    productions: number[],
+    pourcentage: number,
+    tarif: number,
+    hauteurToit: number,
+    longueurToit: number,
+  ): void {
     const L = point(0, 0, 'L', 'left')
     const O = point(4, 3, 'O', 'above')
     const K = point(8, 0, 'K', 'right')
@@ -54,7 +66,12 @@ export default class ExerciceMetropole392024 extends ExerciceBrevetA {
     const labels = labelPoint(L, O, K, V)
     const angleD = codageAngleDroit(K, V, O)
     const hauteur = placeLatexSurSegment(`${hauteurToit}\\text{ m}`, O, V, {})
-    const longueur = placeLatexSurSegment(`${texNombre(longueurToit, 1)}\\text{ m}`, L, O, {})
+    const longueur = placeLatexSurSegment(
+      `${texNombre(longueurToit, 1)}\\text{ m}`,
+      L,
+      O,
+      {},
+    )
     const A = point(0, -5)
     const B = point(8, -5)
     const batiment = polygone(A, B, K, O, L)
@@ -71,47 +88,68 @@ export default class ExerciceMetropole392024 extends ExerciceBrevetA {
       hauteur,
       longueur,
       labels,
-      fleche
+      fleche,
     ]
-    const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.8 }, fixeBordures(objets)), objets, textePanneaux)
-    const entetesColonne = ['\\text{Jour de la semaine}', '\\text{Lundi}', '\\text{Mardi}', '\\text{Mercredi}', '\\text{Jeudi}', '\\text{Vendredi}', '\\text{Samedi}', '\\text{Dimanche}']
+    const figure = mathalea2d(
+      Object.assign({ pixelsParCm: 30, scale: 0.8 }, fixeBordures(objets)),
+      objets,
+      textePanneaux,
+    )
+    const entetesColonne = [
+      '\\text{Jour de la semaine}',
+      '\\text{Lundi}',
+      '\\text{Mardi}',
+      '\\text{Mercredi}',
+      '\\text{Jeudi}',
+      '\\text{Vendredi}',
+      '\\text{Samedi}',
+      '\\text{Dimanche}',
+    ]
     const entetesLigne = ['\\text{Électricité produite (kWh)}']
     const contenu = productions.map((valeur) => String(valeur))
     const tableau = tableauColonneLigne(entetesColonne, entetesLigne, contenu)
     this.enonce = `Une entreprise décide de faire poser sur le toit de son hangar des panneaux solaires.
 Pendant une semaine d'utilisation, les productions d'électricité journalières en kilowattheures (kWh) de ces panneaux ont été relevées dans le tableau ci-dessous :<br>
 ${tableau}`
-    const question1a = 'Quel jour la production d\'électricité a-t-elle été la plus grande ?'
-    const question1b = 'Calculer l\'étendue de ces productions d\'électricité.'
-    const question1c = 'Quelle est la production moyenne d\'électricité par jour sur cette période ?'
+    const question1a =
+      "Quel jour la production d'électricité a-t-elle été la plus grande ?"
+    const question1b = "Calculer l'étendue de ces productions d'électricité."
+    const question1c =
+      "Quelle est la production moyenne d'électricité par jour sur cette période ?"
     const question2 = `L'entreprise revend $${pourcentage}\\,\\%$ de sa production d'électricité au tarif de $${tarif}$ centimes le kWh.<br>
 Combien a-t-elle gagné en euros pendant ces $7$ jours ?`
-    const question3 = 'Afin que les panneaux solaires aient une production maximale, le toit doit avoir une pente avec l\'horizontale comprise entre $30^\\circ$ et $35^\\circ$.<br>' + deuxColonnesResp(`
+    const question3 =
+      "Afin que les panneaux solaires aient une production maximale, le toit doit avoir une pente avec l'horizontale comprise entre $30^\\circ$ et $35^\\circ$.<br>" +
+      deuxColonnesResp(
+        `
 Schéma en coupe du hangar.<br>
 La pente du toit avec l'horizontale correspond à l'angle $\\widehat{\\text{OLV}}$.<br>
 $OL = ${texNombre(longueurToit, 1)}\\text{ m}$<br>
-$OV = ${texNombre(hauteurToit, 1)}\\text{ m}$<br>`
-    , figure, { largeur1: 50, widthmincol1: '300px', widthmincol2: '300px' }) + 'Sur ce toit, les panneaux solaires ont-ils une production maximale?'
+$OV = ${texNombre(hauteurToit, 1)}\\text{ m}$<br>`,
+        figure,
+        { largeur1: 50, widthmincol1: '300px', widthmincol2: '300px' },
+      ) +
+      'Sur ce toit, les panneaux solaires ont-ils une production maximale?'
     const question1 = createList({
-      items: [
-        question1a,
-        question1b,
-        question1c
-      ],
-      style: 'alpha'
+      items: [question1a, question1b, question1c],
+      style: 'alpha',
     })
     const questions = createList({
-      items: [
-        question1,
-        question2,
-        question3
-      ],
-      style: 'nombres'
+      items: [question1, question2, question3],
+      style: 'nombres',
     })
     this.enonce += `<br><br>${questions}`
     const indexMin = productions.indexOf(Math.min(...productions))
     const indexMax = productions.indexOf(Math.max(...productions))
-    const jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+    const jours = [
+      'Lundi',
+      'Mardi',
+      'Mercredi',
+      'Jeudi',
+      'Vendredi',
+      'Samedi',
+      'Dimanche',
+    ]
     const jourMin = jours[indexMin]
     const jourMax = jours[indexMax]
     const productionMin = productions[indexMin]
@@ -121,45 +159,44 @@ $OV = ${texNombre(hauteurToit, 1)}\\text{ m}$<br>`
     const correction1b = `La production a été la plus faible le ${jourMin} avec $${productionMin}$ kWh, donc l'étendue de ces productions d'électricité est :<br>
     $${productionMax} - ${productionMin}=${productionMax - productionMin}$ kWh.`
     const correction1c = `La production moyenne d'électricité par jour sur cette période est :<br>
-    $\\dfrac{${productions.map(el => String(el)).join('+')}}{7}=\\dfrac{${texNombre(productionTotale, 0)}}{7}=${texNombre(productionTotale / 7, 2)}$ kWh.`
+    $\\dfrac{${productions.map((el) => String(el)).join('+')}}{7}=\\dfrac{${texNombre(productionTotale, 0)}}{7}=${texNombre(productionTotale / 7, 2)}$ kWh.`
     const correction1 = createList({
-      items: [
-        correction1a,
-        correction1b,
-        correction1c
-      ],
-      style: 'alpha'
+      items: [correction1a, correction1b, correction1c],
+      style: 'alpha',
     })
-    const productionRevendue = productionTotale * pourcentage / 100
+    const productionRevendue = (productionTotale * pourcentage) / 100
     const prixRevente = productionRevendue * tarif
     const correction2 = `La production d'électricité totale sur la semaine est de $${texNombre(productionTotale, 0)}$ kWh.<br>
     L'entreprise revend $${pourcentage}\\,\\%$ de sa production d'électricité soit :<br>
     $${texNombre(productionTotale, 0)}\\times \\dfrac{${pourcentage}}{100} = ${texNombre(productionRevendue, 2)}$ kWh.<br>
     $${texNombre(productionRevendue, 2)}\\times${tarif} = ${texNombre(prixRevente, 2)}$ (centimes)<br>
     Donc elle a gagné environ $${texNombre(prixRevente / 100, 2)}$€.`
-    const angle = Math.asin(hauteurToit / longueurToit) * 180 / Math.PI
+    const angle = (Math.asin(hauteurToit / longueurToit) * 180) / Math.PI
     const correction3 = `Afin que les panneaux solaires aient une production maximale, le toit doit avoir une pente avec l'horizontale comprise entre $30^\\circ$ et $35^\\circ$.<br>
 Le triangle $OLV$ est rectangle en $V$ donc on peut utiliser la fonction trigonométrique sinus :<br>
 $\\sin(\\widehat{OLV})=\\dfrac{OV}{OL}=\\dfrac{${texNombre(hauteurToit, 1)}}{${texNombre(longueurToit, 1)}}$.<br>
 On en déduit que $\\widehat{OLV}\\approx ${texNombre(angle, 1)}^\\circ$.<br>
-${angle < 30
-      ? `La pente du toit avec l'horizontale est de $${texNombre(angle, 1)}^\\circ$ qui est inférieur à $30^\\circ$, donc les panneaux solaires n'ont pas une production maximale.`
-      : angle > 35
-        ? `La pente du toit avec l'horizontale est de $${texNombre(angle, 1)}^\\circ$ qui est supérieur à $35^\\circ$, donc les panneaux solaires n'ont pas une production maximale.`
-        : `La pente du toit avec l'horizontale est de $${texNombre(angle, 1)}^\\circ$ qui est bien compris entre $30^\\circ$ et $35^\\circ$, donc les panneaux solaires ont une production maximale.`
-    }`
+${
+  angle < 30
+    ? `La pente du toit avec l'horizontale est de $${texNombre(angle, 1)}^\\circ$ qui est inférieur à $30^\\circ$, donc les panneaux solaires n'ont pas une production maximale.`
+    : angle > 35
+      ? `La pente du toit avec l'horizontale est de $${texNombre(angle, 1)}^\\circ$ qui est supérieur à $35^\\circ$, donc les panneaux solaires n'ont pas une production maximale.`
+      : `La pente du toit avec l'horizontale est de $${texNombre(angle, 1)}^\\circ$ qui est bien compris entre $30^\\circ$ et $35^\\circ$, donc les panneaux solaires ont une production maximale.`
+}`
     this.correction = createList({
-      items: [
-        correction1,
-        correction2,
-        correction3
-      ],
-      style: 'nombres'
+      items: [correction1, correction2, correction3],
+      style: 'nombres',
     })
   }
 
   versionOriginale: () => void = () => {
-    this.appliquerLesValeurs([381, 363, 322, 329, 393, 405, 376], 15, 8, 7, 13.5)
+    this.appliquerLesValeurs(
+      [381, 363, 322, 329, 393, 405, 376],
+      15,
+      8,
+      7,
+      13.5,
+    )
   }
 
   versionAleatoire: () => void = () => {
@@ -176,20 +213,36 @@ ${angle < 30
     do {
       productions.length = 0
       for (let i = 0; i < 3; i++) {
-        productions.push(randint(productionMin, productionMedian), randint(productionMedian, productionMax))
+        productions.push(
+          randint(productionMin, productionMedian),
+          randint(productionMedian, productionMax),
+        )
       }
       productionTotale = productions.reduce((a, b) => a + b, 0)
       const reste = productionTotale % 7
-      productions.push(choice([premierMultipleInferieur(7, productionMedian), premierMultipleSuperieur(7, productionMedian)]) + 7 - reste)
+      productions.push(
+        choice([
+          premierMultipleInferieur(7, productionMedian),
+          premierMultipleSuperieur(7, productionMedian),
+        ]) +
+          7 -
+          reste,
+      )
       productionTotale = productions.reduce((a, b) => a + b, 0)
       shuffle(productions)
       hauteurToit = randint(6, 8)
       longueurToit = randint(120, 150) / 10
-      angle = Math.asin(hauteurToit / longueurToit) * 180 / Math.PI
+      angle = (Math.asin(hauteurToit / longueurToit) * 180) / Math.PI
       pourcentage = randint(10, 20)
       tarif = randint(6, 10)
     } while (angle < 26 || angle > 38)
 
-    this.appliquerLesValeurs(productions, pourcentage, tarif, hauteurToit, longueurToit)
+    this.appliquerLesValeurs(
+      productions,
+      pourcentage,
+      tarif,
+      hauteurToit,
+      longueurToit,
+    )
   }
 }

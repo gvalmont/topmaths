@@ -3,7 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Écrire la valeur décimale d\'une somme de fractions'
+export const titre = "Écrire la valeur décimale d'une somme de fractions"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,8 +15,8 @@ export const dateDeModifImportante = '31/03/2023'
 export const uuid = 'b1881'
 
 export const refs = {
-  'fr-fr': ['can5C17','auto6N2B-flash5'],
-  'fr-ch': []
+  'fr-fr': ['can5C17', 'auto6N2B-flash5'],
+  'fr-ch': [],
 }
 export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
   constructor() {
@@ -30,7 +30,7 @@ export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
     let resultat
 
     switch (choice([1, 2, 3, 4])) {
-      case 1:// fraction addition avec un entier
+      case 1: // fraction addition avec un entier
         c = choice([2, 4, 5])
         b = randint(1, c - 1)
         maFraction = fraction(b, c)
@@ -41,7 +41,7 @@ export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
         this.reponse = resultat
         break
 
-      case 2:// addition entier et fraction avec den =100 ou 1000
+      case 2: // addition entier et fraction avec den =100 ou 1000
         b = choice([100, 1000])
         a = randint(1, 15)
         c = randint(11, 19)
@@ -53,7 +53,7 @@ export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
         this.correction = `$${a}+${maFraction.texFraction} = ${texNombre(resultat)}$`
         this.reponse = resultat
         break
-      case 3:// addition entier et fraction avec den =100 et 1000
+      case 3: // addition entier et fraction avec den =100 et 1000
         a = randint(1, 15)
         b = randint(11, 19)
         c = randint(1, 9)
@@ -65,7 +65,7 @@ export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
         this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombre(b / 100)}+${texNombre(c / 1000)}=${texNombre(resultat)}$.`
         this.reponse = resultat
         break
-      case 4:// addition entier et fraction avec den =1000 et 100
+      case 4: // addition entier et fraction avec den =1000 et 100
         a = randint(1, 15)
         b = randint(1, 9)
         c = randint(1, 9)
@@ -78,7 +78,7 @@ export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
         this.reponse = resultat
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

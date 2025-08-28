@@ -1,10 +1,16 @@
 import JSZip from 'jszip'
 import JSZipUtils from 'jszip-utils'
 import { saveAs } from 'file-saver'
-import { buildImagesUrlsList, doesLatexNeedsPics, getExosContentList, getPicsNames, type latexFileType } from './Latex'
+import {
+  buildImagesUrlsList,
+  doesLatexNeedsPics,
+  getExosContentList,
+  getPicsNames,
+  type latexFileType,
+} from './Latex'
 import type TypeExercice from '../exercices/Exercice'
 
-export function downloadZip (filesUrls: string[], zipFileName: string) {
+export function downloadZip(filesUrls: string[], zipFileName: string) {
   const zip = new JSZip()
   let count = 0
   filesUrls.forEach((url) => {
@@ -32,7 +38,11 @@ export function downloadZip (filesUrls: string[], zipFileName: string) {
  * @param {LatexFileInfos} filesInfo paramètres du fichier LaTeX à générer
  * @author sylvain
  */
-export async function downloadTexWithImagesZip (zipFileName: string, latexFile: latexFileType, exercices: TypeExercice[]) {
+export async function downloadTexWithImagesZip(
+  zipFileName: string,
+  latexFile: latexFileType,
+  exercices: TypeExercice[],
+) {
   const zip = new JSZip()
   const withImages = doesLatexNeedsPics(latexFile.contents)
   const exosContentList = getExosContentList(exercices)
@@ -66,10 +76,16 @@ export async function downloadTexWithImagesZip (zipFileName: string, latexFile: 
   }
 }
 
-export async function downloadFile (content: string, fileName: string): Promise<'success' | 'error'> {
+export async function downloadFile(
+  content: string,
+  fileName: string,
+): Promise<'success' | 'error'> {
   try {
     const element = document.createElement('a')
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content))
+    element.setAttribute(
+      'href',
+      'data:text/plain;charset=utf-8,' + encodeURIComponent(content),
+    )
     element.setAttribute('download', fileName)
     element.style.display = 'none'
     document.body.appendChild(element)

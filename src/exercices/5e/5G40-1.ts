@@ -6,7 +6,8 @@ import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { range1 } from '../../lib/outils/nombres'
 
-export const titre = 'Compléter une phrase par la définition ou une propriété d\'un parallélogramme'
+export const titre =
+  "Compléter une phrase par la définition ou une propriété d'un parallélogramme"
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -19,270 +20,317 @@ export const dateDeModifImportante = '28/04/2025'
  * @author Rémi Angot
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Amélioration du QCM et de la sortie LaTex par Eric Elter le 28/04/2025
-*/
+ */
 export const uuid = 'af2c2'
 
 export const refs = {
   'fr-fr': ['5G40-1'],
-  'fr-ch': ['9ES2-1']
+  'fr-ch': ['9ES2-1'],
 }
 export default class ProprietesDesParallelogrammes extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme (max. 4 questions)\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme (max. 5 questions)\n3 : Mélange (max. 9 questions)"]
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      "1 : Propriétés du parallélogramme (max. 4 questions)\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme (max. 5 questions)\n3 : Mélange (max. 9 questions)",
+    ]
 
     this.sup = 3
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
-    this.consigne = "À l'aide de la définition ou d'une propriété d'un parallélogramme, "
-    this.consigne += this.nbQuestions === 1
-      ? 'compléter la phrase suivante'
-      : 'compléter les phrases suivantes'
-    this.consigne += this.interactif || context.isAmc ? ' en choisissant ce qui convient.' : '.'
+  nouvelleVersion() {
+    this.consigne =
+      "À l'aide de la définition ou d'une propriété d'un parallélogramme, "
+    this.consigne +=
+      this.nbQuestions === 1
+        ? 'compléter la phrase suivante'
+        : 'compléter les phrases suivantes'
+    this.consigne +=
+      this.interactif || context.isAmc
+        ? ' en choisissant ce qui convient.'
+        : '.'
 
-    const typeQuestionsDisponibles = this.sup === 1 ? [1, 2, 3, 4] : this.sup === 2 ? [5, 6, 7, 8, 9] : range1(9)
+    const typeQuestionsDisponibles =
+      this.sup === 1
+        ? [1, 2, 3, 4]
+        : this.sup === 2
+          ? [5, 6, 7, 8, 9]
+          : range1(9)
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       this.introduction = 'Dans cet exercice, on supposera que'
-      this.introduction += this.nbQuestions === 1
-        ? ' le quadrilatère est non croisé.'
-        : ' tous les quadrilatères sont non croisés.'
+      this.introduction +=
+        this.nbQuestions === 1
+          ? ' le quadrilatère est non croisé.'
+          : ' tous les quadrilatères sont non croisés.'
 
       switch (listeTypeQuestions[i]) {
         case 1:
-          texte = this.interactif || context.isAmc ? 'Si un quadrilatère est un parallélogramme, alors ses côtés …' : 'Si un quadrilatère est un parallélogramme, alors ses côtés opposés … et …'
+          texte =
+            this.interactif || context.isAmc
+              ? 'Si un quadrilatère est un parallélogramme, alors ses côtés …'
+              : 'Si un quadrilatère est un parallélogramme, alors ses côtés opposés … et …'
           texteCorr = `Si un quadrilatère est un parallélogramme, alors ses côtés ${texteEnCouleurEtGras('opposés sont parallèles et de même longueur')}.`
           break
         case 2:
-          texte = 'Si un quadrilatère est un parallélogramme, alors ses diagonales …'
+          texte =
+            'Si un quadrilatère est un parallélogramme, alors ses diagonales …'
           texteCorr = `Si un quadrilatère est un parallélogramme, alors ses diagonales ${texteEnCouleurEtGras('se coupent en leur milieu')}.`
           break
         case 3:
-          texte = 'Si un quadrilatère est un parallélogramme, alors ses angles …'
+          texte =
+            'Si un quadrilatère est un parallélogramme, alors ses angles …'
           texteCorr = `Si un quadrilatère est un parallélogramme, alors ses angles ${texteEnCouleurEtGras('opposés sont égaux')} et la somme de deux angles consécutifs est égale à 180°').`
           break
         case 4:
-          texte = this.interactif || context.isAmc ? 'Si un quadrilatère est un parallélogramme, alors …' : 'Si un quadrilatère est un parallélogramme, alors … symétrie …'
+          texte =
+            this.interactif || context.isAmc
+              ? 'Si un quadrilatère est un parallélogramme, alors …'
+              : 'Si un quadrilatère est un parallélogramme, alors … symétrie …'
           texteCorr = `Si un quadrilatère est un parallélogramme, alors ${texteEnCouleurEtGras("il a un centre de symétrie qui est le point d'intersection de ses diagonales")} et donc ${texteEnCouleurEtGras('ses diagonales se coupent en leur milieu')}.`
           break
         case 5:
-          texte = "Si un quadrilatère a ses diagonales …, alors c'est un parallélogramme."
+          texte =
+            "Si un quadrilatère a ses diagonales …, alors c'est un parallélogramme."
           texteCorr = `Si un quadrilatère a ses diagonales ${texteEnCouleurEtGras('qui se coupent en leur milieu')}, alors c'est un parallélogramme.`
           break
         case 6:
-          texte = this.interactif || context.isAmc ? "Si un quadrilatère a ses … parallèles, alors c'est un parallélogramme." : "Si un quadrilatère a ses côtés … parallèles, alors c'est un parallélogramme."
+          texte =
+            this.interactif || context.isAmc
+              ? "Si un quadrilatère a ses … parallèles, alors c'est un parallélogramme."
+              : "Si un quadrilatère a ses côtés … parallèles, alors c'est un parallélogramme."
           texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés')} parallèles, alors c'est un parallélogramme.`
           break
         case 7:
-          texte = this.interactif || context.isAmc ? "Si un quadrilatère a ses … longueur, alors c'est un parallélogramme." : "Si un quadrilatère a ses côtés … longueur, alors c'est un parallélogramme."
+          texte =
+            this.interactif || context.isAmc
+              ? "Si un quadrilatère a ses … longueur, alors c'est un parallélogramme."
+              : "Si un quadrilatère a ses côtés … longueur, alors c'est un parallélogramme."
           texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés de même')} longueur, alors c'est un parallélogramme.`
           break
         case 8:
-          texte = this.interactif || context.isAmc ? "Si un quadrilatère a deux côtés …, alors c'est un parallélogramme." : "Si un quadrilatère a deux côtés … et …, alors c'est un parallélogramme."
+          texte =
+            this.interactif || context.isAmc
+              ? "Si un quadrilatère a deux côtés …, alors c'est un parallélogramme."
+              : "Si un quadrilatère a deux côtés … et …, alors c'est un parallélogramme."
           texteCorr = `Si un quadrilatère a deux côtés ${texteEnCouleurEtGras('parallèles et de même longueur')}, alors c'est un parallélogramme.`
           break
         case 9:
         default:
-          texte = this.interactif || context.isAmc ? "Si un quadrilatère a …, alors c'est un parallélogramme." : "Si un quadrilatère a … angles …, alors c'est un parallélogramme."
+          texte =
+            this.interactif || context.isAmc
+              ? "Si un quadrilatère a …, alors c'est un parallélogramme."
+              : "Si un quadrilatère a … angles …, alors c'est un parallélogramme."
           texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses angles opposés égaux')}, alors c'est un parallélogramme.`
           break
       }
       if (context.isAmc) texte = texte.replaceAll('…', '..............')
-      if (!context.isHtml) { // Pour gérer les … et mettre l'espace qu'il faut pour remplir.
+      if (!context.isHtml) {
+        // Pour gérer les … et mettre l'espace qu'il faut pour remplir.
         texte = texte
-          .replaceAll(/…,/g, '\\dotfill, \\\\')   // Cas avec virgule
-          .replaceAll(/…/g, '\\dotfill \\\\')                 // Cas général
+          .replaceAll(/…,/g, '\\dotfill, \\\\') // Cas avec virgule
+          .replaceAll(/…/g, '\\dotfill \\\\') // Cas général
       }
 
       this.autoCorrection[i] = {}
-      this.autoCorrection[i].options = context.isAmc ? { ordered: false } : { ordered: false, vertical: true }
+      this.autoCorrection[i].options = context.isAmc
+        ? { ordered: false }
+        : { ordered: false, vertical: true }
       this.autoCorrection[i].enonce = `${texte}\n`
       if (listeTypeQuestions[i] < 4) {
         this.autoCorrection[i].propositions = [
           {
             texte: 'opposés sont parallèles',
-            statut: listeTypeQuestions[i] === 1
+            statut: listeTypeQuestions[i] === 1,
           },
           {
             texte: 'opposés sont de même longueur',
-            statut: listeTypeQuestions[i] === 1
+            statut: listeTypeQuestions[i] === 1,
           },
           {
             texte: 'se coupent en leur milieu',
-            statut: listeTypeQuestions[i] === 2
+            statut: listeTypeQuestions[i] === 2,
           },
           {
             texte: 'opposés sont égaux',
-            statut: listeTypeQuestions[i] === 3
+            statut: listeTypeQuestions[i] === 3,
           },
           {
-            texte: ' sont le point d\'intersection de ses diagonales',
-            statut: false
-          }
+            texte: " sont le point d'intersection de ses diagonales",
+            statut: false,
+          },
         ]
       } else if (listeTypeQuestions[i] === 4) {
         this.autoCorrection[i].propositions = [
           {
             texte: 'ses diagonales sont parallèles',
-            statut: false
+            statut: false,
           },
           {
             texte: 'ses diagonales sont de même longueur',
-            statut: false
+            statut: false,
           },
           {
             texte: 'ses diagonales se coupent en leur milieu',
-            statut: true
+            statut: true,
           },
           {
             texte: 'ses diagonales sont égales',
-            statut: false
+            statut: false,
           },
           {
-            texte: 'il a un centre de symétrie qui est le point d\'intersection de ses diagonales',
-            statut: true
-          }
+            texte:
+              "il a un centre de symétrie qui est le point d'intersection de ses diagonales",
+            statut: true,
+          },
         ]
       } else if (listeTypeQuestions[i] === 5) {
         this.autoCorrection[i].propositions = [
           {
             texte: 'qui se coupent en leur milieu',
-            statut: true
+            statut: true,
           },
           {
             texte: 'qui sont de même longueur',
-            statut: false
+            statut: false,
           },
           {
             texte: 'qui sont parallèles',
-            statut: false
+            statut: false,
           },
           {
             texte: 'qui sont égales',
-            statut: false
+            statut: false,
           },
           {
             texte: 'qui ne se coupent pas',
-            statut: false
-          }
+            statut: false,
+          },
         ]
       } else if (listeTypeQuestions[i] === 6) {
         this.autoCorrection[i].propositions = [
           {
             texte: 'ses côtés opposés',
-            statut: true
+            statut: true,
           },
           {
             texte: 'ses côtés consécutifs',
-            statut: false
+            statut: false,
           },
           {
             texte: 'ses angles',
-            statut: false
+            statut: false,
           },
           {
             texte: 'ses diagonales',
-            statut: false
+            statut: false,
           },
           {
             texte: 'ses sommets',
-            statut: false
-          }
+            statut: false,
+          },
         ]
       } else if (listeTypeQuestions[i] === 7) {
         this.autoCorrection[i].propositions = [
           {
             texte: 'ses côtés opposés de même',
-            statut: true
+            statut: true,
           },
           {
             texte: 'ses côtés consécutifs de même',
-            statut: false
+            statut: false,
           },
           {
             texte: 'la distance entre ses angles de même',
-            statut: false
+            statut: false,
           },
           {
             texte: 'ses diagonales de quelconque',
-            statut: false
+            statut: false,
           },
           {
             texte: 'la distance entre ses sommets de même',
-            statut: false
-          }
+            statut: false,
+          },
         ]
       } else if (listeTypeQuestions[i] === 8) {
         this.autoCorrection[i].propositions = [
           {
             texte: 'parallèles et de même longueur',
-            statut: true
+            statut: true,
           },
           {
             texte: 'opposés parallèles',
-            statut: false
+            statut: false,
           },
           {
             texte: 'opposés de même longueur',
-            statut: false
+            statut: false,
           },
           {
             texte: 'diagonales de longueur quelconque',
-            statut: false
+            statut: false,
           },
           {
             texte: 'deux angles opposés de même mesure',
-            statut: false
-          }
+            statut: false,
+          },
         ]
       } else if (listeTypeQuestions[i] === 8) {
         this.autoCorrection[i].propositions = [
           {
             texte: 'parallèles et de même longueur',
-            statut: true
+            statut: true,
           },
           {
             texte: 'opposés parallèles',
-            statut: false
+            statut: false,
           },
           {
             texte: 'opposés de même longueur',
-            statut: false
+            statut: false,
           },
           {
             texte: 'diagonales de longueur quelconque',
-            statut: false
+            statut: false,
           },
           {
             texte: 'deux angles opposés de même mesure',
-            statut: false
-          }
+            statut: false,
+          },
         ]
       } else if (listeTypeQuestions[i] === 9) {
         this.autoCorrection[i].propositions = [
           {
             texte: 'ses angles opposés de même mesure',
-            statut: true
+            statut: true,
           },
           {
             texte: 'ses angles opposés',
-            statut: false
+            statut: false,
           },
           {
             texte: 'ses sommets opposés',
-            statut: false
+            statut: false,
           },
           {
             texte: 'deux angles opposés de même mesure',
-            statut: false
+            statut: false,
           },
           {
             texte: 'ses côtés opposés',
-            statut: false
-          }
+            statut: false,
+          },
         ]
       }
       const props = propositionsQcm(this, i)
@@ -290,7 +338,8 @@ export default class ProprietesDesParallelogrammes extends Exercice {
         texte += props.texte
       }
 
-      if (this.questionJamaisPosee(i, texteCorr)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, texteCorr)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

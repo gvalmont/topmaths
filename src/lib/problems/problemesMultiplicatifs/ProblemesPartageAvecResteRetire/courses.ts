@@ -9,12 +9,12 @@ import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
-export function courses2 (decimal = false): Probleme {
+export function courses2(decimal = false): Probleme {
   const personnage = prenomPronom()
   let objet
   do {
     const objets = shuffle(choice(shuffle(troisObjetsAVendre)))
-    objet = objets.find(o => o.prixMaxi < 20)
+    objet = objets.find((o) => o.prixMaxi < 20)
   } while (objet == null)
   const quotité = randint(objet.prixMini, objet.prixMaxi)
   const reste = randint(10, 20)

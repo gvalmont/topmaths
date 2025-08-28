@@ -1,18 +1,30 @@
 import { orangeMathalea } from '../../lib/colors'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { simplificationDeFractionAvecEtapes, texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
+import {
+  simplificationDeFractionAvecEtapes,
+  texFractionFromString,
+} from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Effectuer somme, différence, produit ou quotient de fractions'
+export const titre =
+  'Effectuer somme, différence, produit ou quotient de fractions'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const dateDePublication = '15/09/2021'
@@ -27,14 +39,14 @@ export const uuid = '374b6'
 
 export const refs = {
   'fr-fr': ['4C23', 'BP2AutoH17'],
-  'fr-ch': ['10NO5-4']
+  'fr-ch': ['10NO5-4'],
 }
 export default class SommeOuProduitFractions extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Type de questions',
-      'Nombres séparés par des tirets :\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient'
+      'Nombres séparés par des tirets :\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient',
     ]
     this.spacing = 3
     this.spacingCorr = context.isHtml ? 3 : 3
@@ -49,17 +61,36 @@ export default class SommeOuProduitFractions extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeQuestionsDisponibles = []
     const typeQuestionsPossibles = [
       ['sommeMult', 'sommeAvecEntier'],
       ['diffMult', 'diffAvecEntier'],
       ['prod', 'prodAvecEntier'],
       ['sommePuisProd', 'prodPuisSomme'],
-      ['sommeMult', 'sommeAvecEntier', 'diffMult', 'diffAvecEntier', 'prod', 'prodAvecEntier', 'sommePuisProd', 'prodPuisSomme'],
+      [
+        'sommeMult',
+        'sommeAvecEntier',
+        'diffMult',
+        'diffAvecEntier',
+        'prod',
+        'prodAvecEntier',
+        'sommePuisProd',
+        'prodPuisSomme',
+      ],
       ['div', 'entierPuisDiv'],
-      ['sommeMult', 'sommeAvecEntier', 'diffMult', 'diffAvecEntier', 'prod', 'prodAvecEntier', 'sommePuisProd', 'prodPuisSomme', 'div', 'entierPuisDiv']
-
+      [
+        'sommeMult',
+        'sommeAvecEntier',
+        'diffMult',
+        'diffAvecEntier',
+        'prod',
+        'prodAvecEntier',
+        'sommePuisProd',
+        'prodPuisSomme',
+        'div',
+        'entierPuisDiv',
+      ],
     ]
 
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
@@ -69,17 +100,41 @@ export default class SommeOuProduitFractions extends Exercice {
       nbQuestions: this.nbQuestions,
       shuffle: true,
       saisie: this.sup,
-      enleveDoublons: false
+      enleveDoublons: false,
     }).map(Number)
 
     for (let ee = 0; ee < QuestionsDisponibles.length; ee++) {
-      const typesQuestions = typeQuestionsPossibles[QuestionsDisponibles[ee] - 1]
-      typeQuestionsDisponibles.push(typesQuestions[randint(0, typesQuestions.length - 1)])
+      const typesQuestions =
+        typeQuestionsPossibles[QuestionsDisponibles[ee] - 1]
+      typeQuestionsDisponibles.push(
+        typesQuestions[randint(0, typesQuestions.length - 1)],
+      )
     }
     typeQuestionsDisponibles = shuffle(typeQuestionsDisponibles)
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, num1, num2, den1, kden1, den2, k, k2, alea, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0,
+        num1,
+        num2,
+        den1,
+        kden1,
+        den2,
+        k,
+        k2,
+        alea,
+        texte,
+        texteCorr,
+        num,
+        den,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      // Boucle principale où i+1 correspond au numéro de la question
       // les numérateurs
       num1 = randint(1, 7)
       num2 = randint(3, 9)
@@ -93,7 +148,9 @@ export default class SommeOuProduitFractions extends Exercice {
       texte = ''
       texteCorr = ''
       const lettre = lettreDepuisChiffre(i + 1)
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'sommeMult': // Somme de fractions de dénominateurs égaux ou multiples
           if (alea === 1) {
             texte += `$${lettre} = ${texFractionFromString(num1, den1)}+${texFractionFromString(num2, kden1)}$ `
@@ -292,7 +349,7 @@ export default class SommeOuProduitFractions extends Exercice {
       }
 
       if (pgcd(num, den) === 1) {
-      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 
         const textCorrSplit = texteCorr.split('=')
         let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
@@ -309,11 +366,16 @@ export default class SommeOuProduitFractions extends Exercice {
         texteCorr += `<br>$${lettre}  ${simplificationDeFractionAvecEtapes(num, den, { couleur1: 'blue', couleur2: orangeMathalea })}$`
       }
       texteCorr += '<br>'
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$${lettre}=$` })
-      handleAnswers(this, i, { reponse: { value: new FractionEtendue(num, den).texFraction } })
+      texte += ajouteChampTexteMathLive(this, i, ' ', {
+        texteAvant: `<br>$${lettre}=$`,
+      })
+      handleAnswers(this, i, {
+        reponse: { value: new FractionEtendue(num, den).texFraction },
+      })
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, num, den)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, num, den)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

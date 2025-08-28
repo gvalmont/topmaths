@@ -8,7 +8,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'be990'
 export const refs = {
   'fr-fr': ['3S2QCM-6', 'BP2FLUC7'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,17 +23,24 @@ export const dateDePublication = '05/12/2024'
  * Il est interactif et dispose d'un export AMC d'office
  */
 export default class AmeriqueSud1224Ex1Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs (nb1: number, nb2:number, couleur1: string, couleur2: string) : void {
+  private appliquerLesValeurs(
+    nb1: number,
+    nb2: number,
+    couleur1: string,
+    couleur2: string,
+  ): void {
     this.reponses = [
       `$\\dfrac{${nb2}}{${nb1 + nb2}}$`,
       `$\\dfrac{${nb1}}{${nb1 + nb2}}$`,
-      `$\\dfrac{${nb2}}{${nb1}}$`
+      `$\\dfrac{${nb2}}{${nb1}}$`,
     ]
     const frac = fraction(nb2, nb1 + nb2)
     this.enonce = `Une urne contient ${nombreEnLettres(nb1)} jeton${nb1 > 1 ? 's' : ''} ${couleur1}${nb1 > 1 ? 's' : ''} et ${nombreEnLettres(nb2)} jeton${nb2 > 1 ? 's' : ''} ${couleur2}${nb2 > 1 ? 's' : ''}. On tire un jeton au hasard.<br>
     Quelle est la probabilité d'obtenir un jeton ${couleur2} ?`
     this.correction = `Il y a en tout ${nombreEnLettres(nb1 + nb2)} jetons. Il y a ${nombreEnLettres(nb2)} jeton${nb2 > 1 ? 's' : ''} ${couleur2}${nb2 > 1 ? 's' : ''}. La probabilité d'obtenir un jeton ${couleur2} est donc de $\\dfrac{${nb2}}{${nb1 + nb2}}$`
-    this.correction += frac.estIrreductible ? '.' : `, ou $${frac.texFractionSimplifiee}$ en simplifiant.`
+    this.correction += frac.estIrreductible
+      ? '.'
+      : `, ou $${frac.texFractionSimplifiee}$ en simplifiant.`
   }
 
   versionOriginale: () => void = () => {
@@ -53,7 +60,7 @@ export default class AmeriqueSud1224Ex1Q1 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < nbReponses)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

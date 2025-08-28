@@ -1,5 +1,6 @@
 import TrouverpDroite from '../can/2e/can2G24'
-export const titre = 'Déterminer un coefficient directeur à partir des coordonnées'
+export const titre =
+  'Déterminer un coefficient directeur à partir des coordonnées'
 export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +16,10 @@ export const uuid = '10a62'
 
 export const refs = {
   'fr-fr': ['1A-F6-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF6d extends TrouverpDroite {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

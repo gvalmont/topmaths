@@ -32,32 +32,48 @@ describe('fonctionComparaison', () => {
     expect(result3.isOk).toBe(false)
   })
 
-  it('Vérifie le fonctionnement de l\'option expressionsForcementReduites', () => {
-    const result = fonctionComparaison('x + x', '2x', { expressionsForcementReduites: true })
+  it("Vérifie le fonctionnement de l'option expressionsForcementReduites", () => {
+    const result = fonctionComparaison('x + x', '2x', {
+      expressionsForcementReduites: true,
+    })
     expect(result.isOk).toBe(false)
-    const result2 = fonctionComparaison('2x+2x^2+4', '2x^2+2x+4', { expressionsForcementReduites: true })
+    const result2 = fonctionComparaison('2x+2x^2+4', '2x^2+2x+4', {
+      expressionsForcementReduites: true,
+    })
     expect(result2.isOk).toBe(true)
-    const result3 = fonctionComparaison('x+2x^2+2+x+2', '2x^2+2x+4', { expressionsForcementReduites: true })
+    const result3 = fonctionComparaison('x+2x^2+2+x+2', '2x^2+2x+4', {
+      expressionsForcementReduites: true,
+    })
     expect(result3.isOk).toBe(false)
   })
 
-  it('Vérifie le fonctionnement de l\'option avecSigneMultiplier', () => {
-    const result = fonctionComparaison('-2 * 3', '-6', { avecSigneMultiplier: true })
+  it("Vérifie le fonctionnement de l'option avecSigneMultiplier", () => {
+    const result = fonctionComparaison('-2 * 3', '-6', {
+      avecSigneMultiplier: true,
+    })
     expect(result.isOk).toBe(true)
     expect(result.feedback).toBe('')
   })
 
-  it('Vérifie le fonctionnement de l\'option avecFractions', () => {
-    const result = fonctionComparaison('\\dfrac{1}{2}', '0.5', { avecFractions: true })
+  it("Vérifie le fonctionnement de l'option avecFractions", () => {
+    const result = fonctionComparaison('\\dfrac{1}{2}', '0.5', {
+      avecFractions: true,
+    })
     expect(result.isOk).toBe(true)
     expect(result.feedback).toBe('')
-    const result2 = fonctionComparaison('\\frac{5}{10}', '0.5', { avecFractions: true })
+    const result2 = fonctionComparaison('\\frac{5}{10}', '0.5', {
+      avecFractions: true,
+    })
     expect(result2.isOk).toBe(true)
     expect(result2.feedback).toBe('')
-    const result3 = fonctionComparaison('\\frac{5}{10}', '0.5', { avecFractions: true })
+    const result3 = fonctionComparaison('\\frac{5}{10}', '0.5', {
+      avecFractions: true,
+    })
     expect(result3.isOk).toBe(true)
     expect(result3.feedback).toBe('')
-    const result4 = fonctionComparaison('2^{-1}', '0.5', { avecFractions: true })
+    const result4 = fonctionComparaison('2^{-1}', '0.5', {
+      avecFractions: true,
+    })
     expect(result4.isOk).toBe(true)
     expect(result4.feedback).toBe('')
     const result5 = fonctionComparaison('0.5', '0.5', { avecFractions: true })
@@ -65,92 +81,160 @@ describe('fonctionComparaison', () => {
     expect(result5.feedback).toBe('')
   })
 
-  it('Vérifie le fonctionnement de l\'option fractionIrreductible', () => {
-    const result = fonctionComparaison('\\dfrac{4}{8}', '\\dfrac{1}{2}', { fractionIrreductible: true })
+  it("Vérifie le fonctionnement de l'option fractionIrreductible", () => {
+    const result = fonctionComparaison('\\dfrac{4}{8}', '\\dfrac{1}{2}', {
+      fractionIrreductible: true,
+    })
     expect(result.isOk).toBe(false)
-    expect(result.feedback).toBe('Résultat incorrect car une fraction irréductible est attendue.')
+    expect(result.feedback).toBe(
+      'Résultat incorrect car une fraction irréductible est attendue.',
+    )
     // est-il normal de passer une fraction non irreductible comme bonne réponse quand une saisie irreductible est attendue ?
     // en tout cas ça fonctionne !
-    const result2 = fonctionComparaison('\\dfrac{2}{4}', '\\dfrac{2}{4}', { fractionIrreductible: true })
+    const result2 = fonctionComparaison('\\dfrac{2}{4}', '\\dfrac{2}{4}', {
+      fractionIrreductible: true,
+    })
     expect(result2.isOk).toBe(false)
-    expect(result2.feedback).toBe('Résultat incorrect car une fraction irréductible est attendue.')
-    const result3 = fonctionComparaison('\\dfrac{1}{2}', '\\dfrac{2}{4}', { fractionIrreductible: true })
+    expect(result2.feedback).toBe(
+      'Résultat incorrect car une fraction irréductible est attendue.',
+    )
+    const result3 = fonctionComparaison('\\dfrac{1}{2}', '\\dfrac{2}{4}', {
+      fractionIrreductible: true,
+    })
     expect(result3.isOk).toBe(true)
     expect(result3.feedback).toBe(undefined) // Les feedback undefined ne devraient pas exister, ils devraient être '' compatible avec le type de feedback
   })
 
-  it('Vérifie le fonctionnement de l\'option fractionSimplifiee', () => {
-    const result = fonctionComparaison('\\dfrac{4}{8}', '\\dfrac{8}{16}', { fractionSimplifiee: true })
+  it("Vérifie le fonctionnement de l'option fractionSimplifiee", () => {
+    const result = fonctionComparaison('\\dfrac{4}{8}', '\\dfrac{8}{16}', {
+      fractionSimplifiee: true,
+    })
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('\\dfrac{3}{6}', '\\dfrac{8}{16}', { fractionSimplifiee: true })
+    const result2 = fonctionComparaison('\\dfrac{3}{6}', '\\dfrac{8}{16}', {
+      fractionSimplifiee: true,
+    })
     expect(result2.isOk).toBe(false)
-    expect(result2.feedback).toBe('Résultat incorrect car une fraction réduite est attendue.') // Ce feedback n'est pas le bon ! On pourrait dire que 3/6 est réduite par rapport à 8/16 (d'ailleurs, c'est le test suivant)
+    expect(result2.feedback).toBe(
+      'Résultat incorrect car une fraction réduite est attendue.',
+    ) // Ce feedback n'est pas le bon ! On pourrait dire que 3/6 est réduite par rapport à 8/16 (d'ailleurs, c'est le test suivant)
   })
 
-  it('Vérifie le fonctionnement de l\'option fractionReduite', () => {
-    const result = fonctionComparaison('\\dfrac{4}{8}', '\\dfrac{8}{16}', { fractionReduite: true })
+  it("Vérifie le fonctionnement de l'option fractionReduite", () => {
+    const result = fonctionComparaison('\\dfrac{4}{8}', '\\dfrac{8}{16}', {
+      fractionReduite: true,
+    })
     expect(result.isOk).toBe(true) // Je ne sais pas pourquoi ce test ne passe pas alors qu'en pas à pas, il passe !
-    const result2 = fonctionComparaison('\\dfrac{3}{6}', '\\dfrac{8}{16}', { fractionReduite: true })
+    const result2 = fonctionComparaison('\\dfrac{3}{6}', '\\dfrac{8}{16}', {
+      fractionReduite: true,
+    })
     expect(result2.isOk).toBe(true) // Je ne sais pas pourquoi ce test ne passe pas alors qu'en pas à pas, il passe !
   })
 
-  it('Vérifie le fonctionnement de l\'option fractionDecimale', () => {
-    const result = fonctionComparaison('\\dfrac{5}{10}', '0.5', { fractionDecimale: true })
+  it("Vérifie le fonctionnement de l'option fractionDecimale", () => {
+    const result = fonctionComparaison('\\dfrac{5}{10}', '0.5', {
+      fractionDecimale: true,
+    })
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('\\dfrac{6}{12}', '0.5', { fractionDecimale: true })
+    const result2 = fonctionComparaison('\\dfrac{6}{12}', '0.5', {
+      fractionDecimale: true,
+    })
     expect(result2.isOk).toBe(false)
-    expect(result2.feedback).toBe('Résultat incorrect car une fraction décimale est attendue.')
-    const result3 = fonctionComparaison('0.5', '0.5', { fractionDecimale: true })
+    expect(result2.feedback).toBe(
+      'Résultat incorrect car une fraction décimale est attendue.',
+    )
+    const result3 = fonctionComparaison('0.5', '0.5', {
+      fractionDecimale: true,
+    })
     expect(result3.isOk).toBe(false)
-    expect(result3.feedback).toBe('Résultat incorrect car une fraction décimale est attendue.')
+    expect(result3.feedback).toBe(
+      'Résultat incorrect car une fraction décimale est attendue.',
+    )
   })
 
-  it('Vérifie le fonctionnement de l\'option fractionEgale', () => {
-    const result = fonctionComparaison('\\dfrac{32}{64}', '\\dfrac{8}{16}', { fractionEgale: true })
+  it("Vérifie le fonctionnement de l'option fractionEgale", () => {
+    const result = fonctionComparaison('\\dfrac{32}{64}', '\\dfrac{8}{16}', {
+      fractionEgale: true,
+    })
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('\\dfrac{1}{2}', '\\dfrac{4}{8}', { fractionEgale: true })
+    const result2 = fonctionComparaison('\\dfrac{1}{2}', '\\dfrac{4}{8}', {
+      fractionEgale: true,
+    })
     expect(result2.isOk).toBe(true)
-    const result3 = fonctionComparaison('\\dfrac{7}{14}', '\\dfrac{4}{8}', { fractionEgale: true })
+    const result3 = fonctionComparaison('\\dfrac{7}{14}', '\\dfrac{4}{8}', {
+      fractionEgale: true,
+    })
     expect(result3.isOk).toBe(true)
-    const result4 = fonctionComparaison('0.5', '\\dfrac{4}{8}', { fractionEgale: true })
+    const result4 = fonctionComparaison('0.5', '\\dfrac{4}{8}', {
+      fractionEgale: true,
+    })
     expect(result4.isOk).toBe(false)
-    expect(result4.feedback).toBe('Résultat incorrect car une fraction est attendue.')
+    expect(result4.feedback).toBe(
+      'Résultat incorrect car une fraction est attendue.',
+    )
   })
 
-  it('Vérifie le fonctionnement de l\'option nombreDecimalSeulement', () => {
-    const result = fonctionComparaison('0.5', '0.5', { nombreDecimalSeulement: true })
+  it("Vérifie le fonctionnement de l'option nombreDecimalSeulement", () => {
+    const result = fonctionComparaison('0.5', '0.5', {
+      nombreDecimalSeulement: true,
+    })
     expect(result.isOk).toBe(true)
     expect(result.feedback).toBe('')
-    const result2 = fonctionComparaison('\\frac{1}{2}', '0.5', { nombreDecimalSeulement: true })
+    const result2 = fonctionComparaison('\\frac{1}{2}', '0.5', {
+      nombreDecimalSeulement: true,
+    })
     expect(result2.isOk).toBe(false)
-    expect(result2.feedback).toBe('Résultat incorrect car une valeur décimale (ou entière) est attendue.')
-    const result3 = fonctionComparaison('1/2', '0.5', { nombreDecimalSeulement: true })
+    expect(result2.feedback).toBe(
+      'Résultat incorrect car une valeur décimale (ou entière) est attendue.',
+    )
+    const result3 = fonctionComparaison('1/2', '0.5', {
+      nombreDecimalSeulement: true,
+    })
     expect(result3.isOk).toBe(false)
-    expect(result3.feedback).toBe('Résultat incorrect car une valeur décimale (ou entière) est attendue.')
+    expect(result3.feedback).toBe(
+      'Résultat incorrect car une valeur décimale (ou entière) est attendue.',
+    )
   })
 
-  it('Vérifie le fonctionnement de l\'option operationSeulementEtNonResultat', () => {
-    const result = fonctionComparaison('4', '2+2', { operationSeulementEtNonResultat: true })
+  it("Vérifie le fonctionnement de l'option operationSeulementEtNonResultat", () => {
+    const result = fonctionComparaison('4', '2+2', {
+      operationSeulementEtNonResultat: true,
+    })
     expect(result.isOk).toBe(false)
-    expect(result.feedback).toBe('Résultat incorrect car un calcul est attendu.')
-    const result2 = fonctionComparaison('2\\times3+1', '1+3\\times2', { operationSeulementEtNonResultat: true })
+    expect(result.feedback).toBe(
+      'Résultat incorrect car un calcul est attendu.',
+    )
+    const result2 = fonctionComparaison('2\\times3+1', '1+3\\times2', {
+      operationSeulementEtNonResultat: true,
+    })
     expect(result2.isOk).toBe(true)
-    const result3 = fonctionComparaison('3\\times2+1', '1+3\\times2', { operationSeulementEtNonResultat: true })
+    const result3 = fonctionComparaison('3\\times2+1', '1+3\\times2', {
+      operationSeulementEtNonResultat: true,
+    })
     expect(result3.isOk).toBe(true)
-    const result4 = fonctionComparaison('(3\\times2)+1', '1+3\\times2', { operationSeulementEtNonResultat: true })
+    const result4 = fonctionComparaison('(3\\times2)+1', '1+3\\times2', {
+      operationSeulementEtNonResultat: true,
+    })
     expect(result4.isOk).toBe(true)
-    const result5 = fonctionComparaison('3\\times(2+1)', '1+3\\times2', { operationSeulementEtNonResultat: true })
+    const result5 = fonctionComparaison('3\\times(2+1)', '1+3\\times2', {
+      operationSeulementEtNonResultat: true,
+    })
     expect(result5.isOk).toBe(false)
-    expect(result5.feedback).toBe('Résultat incorrect car ce n\'est pas ce calcul qui est attendu.')
+    expect(result5.feedback).toBe(
+      "Résultat incorrect car ce n'est pas ce calcul qui est attendu.",
+    )
   })
 
-  it('Vérifie le fonctionnement de l\'option resultatSeulementEtNonOperation', () => {
-    const result = fonctionComparaison('2+2', '4', { resultatSeulementEtNonOperation: true })
+  it("Vérifie le fonctionnement de l'option resultatSeulementEtNonOperation", () => {
+    const result = fonctionComparaison('2+2', '4', {
+      resultatSeulementEtNonOperation: true,
+    })
     expect(result.isOk).toBe(false)
-    expect(result.feedback).toBe('Résultat incorrect car une valeur numérique est attendue.')
+    expect(result.feedback).toBe(
+      'Résultat incorrect car une valeur numérique est attendue.',
+    )
   })
 
-  it('Vérifie le fonctionnement de l\'option HMS', () => {
+  it("Vérifie le fonctionnement de l'option HMS", () => {
     const result = fonctionComparaison('1h30m', '1h30m', { HMS: true })
     expect(result.isOk).toBe(true)
     const result2 = fonctionComparaison('1h30m27s', '1h30m27s', { HMS: true })
@@ -159,73 +243,123 @@ describe('fonctionComparaison', () => {
     expect(result3.isOk).toBe(false)
   })
 
-  it('Vérifie le fonctionnement de l\'option intervalle', () => {
+  it("Vérifie le fonctionnement de l'option intervalle", () => {
     const result = fonctionComparaison('[1;2]', '[1;2]', { intervalle: true })
     expect(result.isOk).toBe(true)
     expect(result.feedback).toBe('')
     const result2 = fonctionComparaison(']1;2]', '[1;2]', { intervalle: true })
     expect(result2.isOk).toBe(false)
-    expect(result2.feedback).toBe('Le crochet placé en position 1 est mal orienté.<br>')
+    expect(result2.feedback).toBe(
+      'Le crochet placé en position 1 est mal orienté.<br>',
+    )
   })
 
-  it('Vérifie le fonctionnement de l\'option estDansIntervalle', () => {
-    const result = fonctionComparaison('1.5', '[1;2]', { estDansIntervalle: true })
+  it("Vérifie le fonctionnement de l'option estDansIntervalle", () => {
+    const result = fonctionComparaison('1.5', '[1;2]', {
+      estDansIntervalle: true,
+    })
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('\\dfrac{3}{2}', '[1;2]', { estDansIntervalle: true })
+    const result2 = fonctionComparaison('\\dfrac{3}{2}', '[1;2]', {
+      estDansIntervalle: true,
+    })
     expect(result2.isOk).toBe(true)
-    const result3 = fonctionComparaison('\\sqrt{3}', '[1;2]', { estDansIntervalle: true })
+    const result3 = fonctionComparaison('\\sqrt{3}', '[1;2]', {
+      estDansIntervalle: true,
+    })
     expect(result3.isOk).toBe(true)
-    const result4 = fonctionComparaison('\\sqrt{3}', '[\\sqrt{3};2]', { estDansIntervalle: true })
+    const result4 = fonctionComparaison('\\sqrt{3}', '[\\sqrt{3};2]', {
+      estDansIntervalle: true,
+    })
     expect(result4.isOk).toBe(true)
     // voir le todo dans la fonction pour que la réponse soit fausse
-    const result5 = fonctionComparaison('2x', '[-1;2]', { estDansIntervalle: true })
+    const result5 = fonctionComparaison('2x', '[-1;2]', {
+      estDansIntervalle: true,
+    })
     expect(result5.isOk).toBe(true)
 
     // expect(result.feedback).toBe('Comparaison réussie')
   })
 
-  it('Vérifie le fonctionnement de l\'option ecritureScientifique', () => {
-    let result = fonctionComparaison('1{,}357\\times 10^3', '1357', { ecritureScientifique: true })
+  it("Vérifie le fonctionnement de l'option ecritureScientifique", () => {
+    let result = fonctionComparaison('1{,}357\\times 10^3', '1357', {
+      ecritureScientifique: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('1{,}357\\times 10^{3}', '1357', { ecritureScientifique: true })
+    result = fonctionComparaison('1{,}357\\times 10^{3}', '1357', {
+      ecritureScientifique: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('1 \\times 10^{3}', '1000', { ecritureScientifique: true })
+    result = fonctionComparaison('1 \\times 10^{3}', '1000', {
+      ecritureScientifique: true,
+    })
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('1{,}357\\times 1000', '1357', { ecritureScientifique: true })
+    const result2 = fonctionComparaison('1{,}357\\times 1000', '1357', {
+      ecritureScientifique: true,
+    })
     expect(result2.isOk).toBe(false)
-    const result3 = fonctionComparaison('1{,}357\\times 10^0', '1.357', { ecritureScientifique: true })
+    const result3 = fonctionComparaison('1{,}357\\times 10^0', '1.357', {
+      ecritureScientifique: true,
+    })
     expect(result3.isOk).toBe(true)
-    const result4 = fonctionComparaison('1{,}357', '1.357', { ecritureScientifique: true })
+    const result4 = fonctionComparaison('1{,}357', '1.357', {
+      ecritureScientifique: true,
+    })
     expect(result4.isOk).toBe(true)
   })
 
-  it('Vérifie le fonctionnement de l\'option unite', () => {
-    const result = fonctionComparaison('3{,}5\\operatorname{\\mathrm{cm}}', '3{,}5cm', { unite: true })
+  it("Vérifie le fonctionnement de l'option unite", () => {
+    const result = fonctionComparaison(
+      '3{,}5\\operatorname{\\mathrm{cm}}',
+      '3{,}5cm',
+      { unite: true },
+    )
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('0{,}035\\operatorname{\\mathrm{m}}', '3{,}5cm', { unite: true })
+    const result2 = fonctionComparaison(
+      '0{,}035\\operatorname{\\mathrm{m}}',
+      '3{,}5cm',
+      { unite: true },
+    )
     expect(result2.isOk).toBe(true)
-    const result3 = fonctionComparaison('0{,}035\\operatorname{\\mathrm{g}}', '3{,}5cm', { unite: true })
+    const result3 = fonctionComparaison(
+      '0{,}035\\operatorname{\\mathrm{g}}',
+      '3{,}5cm',
+      { unite: true },
+    )
     expect(result3.isOk).toBe(false)
   })
 
-  it('Vérifie le fonctionnement de l\'option precisionUnite', () => {
-    const result = fonctionComparaison('3{,}47\\operatorname{\\mathrm{m}}', '347cm', { unite: true, precisionUnite: 0 })
+  it("Vérifie le fonctionnement de l'option precisionUnite", () => {
+    const result = fonctionComparaison(
+      '3{,}47\\operatorname{\\mathrm{m}}',
+      '347cm',
+      { unite: true, precisionUnite: 0 },
+    )
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('3{,}5\\operatorname{\\mathrm{m}}', '3.47m', { unite: true, precisionUnite: 0.1 })
+    const result2 = fonctionComparaison(
+      '3{,}5\\operatorname{\\mathrm{m}}',
+      '3.47m',
+      { unite: true, precisionUnite: 0.1 },
+    )
     expect(result2.isOk).toBe(false)
-    expect(result2.feedback).toBe('La réponse n\'est pas arrondie à $1$ près.')
-    const result3 = fonctionComparaison('3{,}4\\operatorname{\\mathrm{m}}', '3.47m', { unite: true, precisionUnite: 0.05 })
+    expect(result2.feedback).toBe("La réponse n'est pas arrondie à $1$ près.")
+    const result3 = fonctionComparaison(
+      '3{,}4\\operatorname{\\mathrm{m}}',
+      '3.47m',
+      { unite: true, precisionUnite: 0.05 },
+    )
     expect(result3.isOk).toBe(false)
 
     // expect(result.feedback).toBe('Comparaison réussie')
   })
 
-  it('Vérifie le fonctionnement de l\'option puissance, sansExposantUn et seulementCertainesPuissances', () => {
+  it("Vérifie le fonctionnement de l'option puissance, sansExposantUn et seulementCertainesPuissances", () => {
     const result = fonctionComparaison('2^35', '2^35', { puissance: true })
     expect(result.isOk).toBe(true)
     const result2 = fonctionComparaison('2^12', '4096', { puissance: true })
     expect(result2.isOk).toBe(false)
-    const result2bis = fonctionComparaison('2^{12}', '4096', { puissance: true })
+    const result2bis = fonctionComparaison('2^{12}', '4096', {
+      puissance: true,
+    })
     expect(result2bis.isOk).toBe(true)
     const result3 = fonctionComparaison('4^6', '2^12', { puissance: true })
     expect(result3.isOk).toBe(false)
@@ -241,41 +375,57 @@ describe('fonctionComparaison', () => {
     expect(result6.isOk).toBe(true)
     const result7 = fonctionComparaison('16^1', '16', { sansExposantUn: true })
     expect(result7.isOk).toBe(false)
-    const result8 = fonctionComparaison('4^2', '2^4', { seulementCertainesPuissances: true })
+    const result8 = fonctionComparaison('4^2', '2^4', {
+      seulementCertainesPuissances: true,
+    })
     expect(result8.isOk).toBe(false)
   })
 
-  it('Vérifie le fonctionnement de l\'option texteAvecCasse', () => {
+  it("Vérifie le fonctionnement de l'option texteAvecCasse", () => {
     const result = fonctionComparaison('Test', 'test', { texteAvecCasse: true })
     expect(result.isOk).toBe(false)
-    const result2 = fonctionComparaison('Test2.#?/%', 'Test2.#?/%', { texteAvecCasse: true })
+    const result2 = fonctionComparaison('Test2.#?/%', 'Test2.#?/%', {
+      texteAvecCasse: true,
+    })
     expect(result2.isOk).toBe(true)
   })
 
-  it('Vérifie le fonctionnement de l\'option texteSansCasse', () => {
+  it("Vérifie le fonctionnement de l'option texteSansCasse", () => {
     const result = fonctionComparaison('Test', 'test', { texteSansCasse: true })
     expect(result.isOk).toBe(true)
     const result2 = fonctionComparaison('oui', 'Oui', { texteSansCasse: true })
     expect(result2.isOk).toBe(true)
   })
 
-  it('Vérifie le fonctionnement de l\'option nombreAvecEspace', () => {
-    let result = fonctionComparaison('1000', '1 000', { nombreAvecEspace: true })
+  it("Vérifie le fonctionnement de l'option nombreAvecEspace", () => {
+    let result = fonctionComparaison('1000', '1 000', {
+      nombreAvecEspace: true,
+    })
     expect(result.isOk).toBe(false)
     result = fonctionComparaison('1 000', '1000', { nombreAvecEspace: true })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('1 000{,}3', texNombre(1000.3), { nombreAvecEspace: true })
+    result = fonctionComparaison('1 000{,}3', texNombre(1000.3), {
+      nombreAvecEspace: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('1 000{,}123 4', texNombre(1000.1234), { nombreAvecEspace: true })
+    result = fonctionComparaison('1 000{,}123 4', texNombre(1000.1234), {
+      nombreAvecEspace: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('123', texNombre(123), { nombreAvecEspace: true })
+    result = fonctionComparaison('123', texNombre(123), {
+      nombreAvecEspace: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('0{,}123', texNombre(0.123), { nombreAvecEspace: true })
+    result = fonctionComparaison('0{,}123', texNombre(0.123), {
+      nombreAvecEspace: true,
+    })
     expect(result.isOk).toBe(true)
   })
 
-  it('Vérifie le fonctionnement de l\'option egaliteExpression', () => {
-    const result = fonctionComparaison('2x+x=y', 'y=x+2x', { egaliteExpression: true })
+  it("Vérifie le fonctionnement de l'option egaliteExpression", () => {
+    const result = fonctionComparaison('2x+x=y', 'y=x+2x', {
+      egaliteExpression: true,
+    })
     expect(result.isOk).toBe(true)
     // const result2 = fonctionComparaison('y=x+x+x', 'y=x+2x', { egaliteExpression: true })
     // expect(result2.isOk).toBe(true) // @fixme ne devrait pas être false, ou alors on devrait pouvoir tolérer des écritures différentes, la preuve ci-dessous
@@ -284,91 +434,163 @@ describe('fonctionComparaison', () => {
     // expect(result.feedback).toBe('Comparaison réussie')
   })
 
-  it('Vérifie le fonctionnement de l\'option factorisation.', () => {
-    let result = fonctionComparaison('(2a-2)(2a-5)', '(2a-2)(2a-5)', { factorisation: true })
+  it("Vérifie le fonctionnement de l'option factorisation.", () => {
+    let result = fonctionComparaison('(2a-2)(2a-5)', '(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('(2a-5)(-2+2a)', '(2a-2)(2a-5)', { factorisation: true })
+    result = fonctionComparaison('(2a-5)(-2+2a)', '(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('-(2a-5)(-2a+2)', '(2a-2)(2a-5)', { factorisation: true })
+    result = fonctionComparaison('-(2a-5)(-2a+2)', '(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('(2\\times a-5)\\times(-2+2a)', '(2a-2)(2a-5)', { factorisation: true })
+    result = fonctionComparaison(
+      '(2\\times a-5)\\times(-2+2a)',
+      '(2a-2)(2a-5)',
+      { factorisation: true },
+    )
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('2(2a-5)(-1+a)', '(2a-2)(2a-5)', { factorisation: true })
+    result = fonctionComparaison('2(2a-5)(-1+a)', '(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('(2a-5)(-2-2a)', '(2a-2)(2a-5)', { factorisation: true })
+    result = fonctionComparaison('(2a-5)(-2-2a)', '(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(false)
     expect(result.feedback).toBe('Seulement $1$ facteur est correct.')
-    result = fonctionComparaison('(2a-5)(2-2a)', '(2a-2)(2a-5)', { factorisation: true })
+    result = fonctionComparaison('(2a-5)(2-2a)', '(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(false)
-    expect(result.feedback).toBe("L'expression saisie est l'opposé de l'expression attendue.")
-    result = fonctionComparaison('(2a-5)(2-2a)', '-(2a-2)(2a-5)', { factorisation: true })
+    expect(result.feedback).toBe(
+      "L'expression saisie est l'opposé de l'expression attendue.",
+    )
+    result = fonctionComparaison('(2a-5)(2-2a)', '-(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('-(2a-5)(2-2a)', '(2a-2)(2a-5)', { factorisation: true })
+    result = fonctionComparaison('-(2a-5)(2-2a)', '(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('3(x+2)(x+2)', '3(x+2)^2', { factorisation: true })
+    result = fonctionComparaison('3(x+2)(x+2)', '3(x+2)^2', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('(x+2)^2', '(x+2)(x+2)', { factorisation: true })
+    result = fonctionComparaison('(x+2)^2', '(x+2)(x+2)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('3(x+2)^2', '(3x+6)(x+2)', { factorisation: true })
+    result = fonctionComparaison('3(x+2)^2', '(3x+6)(x+2)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('2(2a^2-7a+5)', '(2a-2)(2a-5)', { factorisation: true })
+    result = fonctionComparaison('2(2a^2-7a+5)', '(2a-2)(2a-5)', {
+      factorisation: true,
+    })
     expect(result.isOk).toBe(true)
   })
 
-  it('Vérifie le fonctionnement de l\'option exclusifFactorisation.', () => {
-    let result = fonctionComparaison('(2a-2)(2a-5)', '(2a-2)(2a-5)', { exclusifFactorisation: true })
+  it("Vérifie le fonctionnement de l'option exclusifFactorisation.", () => {
+    let result = fonctionComparaison('(2a-2)(2a-5)', '(2a-2)(2a-5)', {
+      exclusifFactorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('(2a-5)(-2+2a)', '(2a-2)(2a-5)', { exclusifFactorisation: true })
+    result = fonctionComparaison('(2a-5)(-2+2a)', '(2a-2)(2a-5)', {
+      exclusifFactorisation: true,
+    })
     expect(result.isOk).toBe(true)
     //  result = fonctionComparaison('-(2a-5)(-2a+2)', '(2a-2)(2a-5)', { exclusifFactorisation: true })
     //  expect(result.isOk).toBe(false)
-    result = fonctionComparaison('(2\\times a-5)\\times(-2+2a)', '(2a-2)(2a-5)', { exclusifFactorisation: true })
+    result = fonctionComparaison(
+      '(2\\times a-5)\\times(-2+2a)',
+      '(2a-2)(2a-5)',
+      { exclusifFactorisation: true },
+    )
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('2(2a-5)(-1+a)', '(2a-2)(2a-5)', { exclusifFactorisation: true })
+    result = fonctionComparaison('2(2a-5)(-1+a)', '(2a-2)(2a-5)', {
+      exclusifFactorisation: true,
+    })
     expect(result.isOk).toBe(false)
-    result = fonctionComparaison('(x+2)^2', '(x+2)(x+2)', { exclusifFactorisation: true })
+    result = fonctionComparaison('(x+2)^2', '(x+2)(x+2)', {
+      exclusifFactorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('3(x+2)^2', '(3x+6)(x+2)', { exclusifFactorisation: true })
-    expect(result.isOk).toBe(false)
-  })
-
-  it('Vérifie le fonctionnement de l\'option nbFacteursIdentiquesFactorisation.', () => {
-    let result = fonctionComparaison('(2a-2)(2a-5)', '(2a-2)(2a-5)', { nbFacteursIdentiquesFactorisation: true })
-    expect(result.isOk).toBe(true)
-    result = fonctionComparaison('(2a-5)(-2+2a)', '(2a-2)(2a-5)', { nbFacteursIdentiquesFactorisation: true })
-    expect(result.isOk).toBe(true)
-    result = fonctionComparaison('-(2a-5)(-2a+2)', '(2a-2)(2a-5)', { nbFacteursIdentiquesFactorisation: true })
-    expect(result.isOk).toBe(true)
-    result = fonctionComparaison('(2\\times a-5)\\times(-2+2a)', '(2a-2)(2a-5)', { nbFacteursIdentiquesFactorisation: true })
-    expect(result.isOk).toBe(true)
-    result = fonctionComparaison('2(2a-5)(-1+a)', '(2a-2)(2a-5)', { nbFacteursIdentiquesFactorisation: true })
-    expect(result.isOk).toBe(false)
-    result = fonctionComparaison('3(x+2)(x+2)', '3(x+2)^2', { nbFacteursIdentiquesFactorisation: true })
-    expect(result.isOk).toBe(true)
-    result = fonctionComparaison('(x+2)^2', '(x+2)(x+2)', { nbFacteursIdentiquesFactorisation: true })
-    expect(result.isOk).toBe(true)
-    result = fonctionComparaison('3(x+2)^2', '(3x+6)(x+2)', { nbFacteursIdentiquesFactorisation: true })
+    result = fonctionComparaison('3(x+2)^2', '(3x+6)(x+2)', {
+      exclusifFactorisation: true,
+    })
     expect(result.isOk).toBe(false)
   })
 
-  it('Vérifie le fonctionnement de l\'option unSeulFacteurLitteral.', () => {
-    let result = fonctionComparaison('(2a-2)(2a-5)', '(2a-2)(2a-5)', { unSeulFacteurLitteral: true })
+  it("Vérifie le fonctionnement de l'option nbFacteursIdentiquesFactorisation.", () => {
+    let result = fonctionComparaison('(2a-2)(2a-5)', '(2a-2)(2a-5)', {
+      nbFacteursIdentiquesFactorisation: true,
+    })
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison('2(2a^2-7a+5)', '(2a-2)(2a-5)', { unSeulFacteurLitteral: true })
+    result = fonctionComparaison('(2a-5)(-2+2a)', '(2a-2)(2a-5)', {
+      nbFacteursIdentiquesFactorisation: true,
+    })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('-(2a-5)(-2a+2)', '(2a-2)(2a-5)', {
+      nbFacteursIdentiquesFactorisation: true,
+    })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison(
+      '(2\\times a-5)\\times(-2+2a)',
+      '(2a-2)(2a-5)',
+      { nbFacteursIdentiquesFactorisation: true },
+    )
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('2(2a-5)(-1+a)', '(2a-2)(2a-5)', {
+      nbFacteursIdentiquesFactorisation: true,
+    })
+    expect(result.isOk).toBe(false)
+    result = fonctionComparaison('3(x+2)(x+2)', '3(x+2)^2', {
+      nbFacteursIdentiquesFactorisation: true,
+    })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('(x+2)^2', '(x+2)(x+2)', {
+      nbFacteursIdentiquesFactorisation: true,
+    })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('3(x+2)^2', '(3x+6)(x+2)', {
+      nbFacteursIdentiquesFactorisation: true,
+    })
     expect(result.isOk).toBe(false)
   })
 
-  it('Vérifie le fonctionnement de l\'option nonReponseAcceptee', () => {
+  it("Vérifie le fonctionnement de l'option unSeulFacteurLitteral.", () => {
+    let result = fonctionComparaison('(2a-2)(2a-5)', '(2a-2)(2a-5)', {
+      unSeulFacteurLitteral: true,
+    })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('2(2a^2-7a+5)', '(2a-2)(2a-5)', {
+      unSeulFacteurLitteral: true,
+    })
+    expect(result.isOk).toBe(false)
+  })
+
+  it("Vérifie le fonctionnement de l'option nonReponseAcceptee", () => {
     const result = fonctionComparaison('', '', { nonReponseAcceptee: true })
     expect(result.isOk).toBe(true)
   })
 
-  it('Vérifie le fonctionnement de l\'option developpementEgal', () => {
-    const result = fonctionComparaison('25x^2-40x+16', '5x*5x-2*4*5x+4*4', { developpementEgal: true }) // Développement de (5x-4)^2
+  it("Vérifie le fonctionnement de l'option developpementEgal", () => {
+    const result = fonctionComparaison('25x^2-40x+16', '5x*5x-2*4*5x+4*4', {
+      developpementEgal: true,
+    }) // Développement de (5x-4)^2
     expect(result.isOk).toBe(true)
-    const result2 = fonctionComparaison('25x^2-40x+16', '4*4+5x*5x-2*20x', { developpementEgal: true }) // Développement de (5x-4)^2
+    const result2 = fonctionComparaison('25x^2-40x+16', '4*4+5x*5x-2*20x', {
+      developpementEgal: true,
+    }) // Développement de (5x-4)^2
     expect(result2.isOk).toBe(true)
-    const result3 = fonctionComparaison('25x^2-40x+16', '4*4+5x*5x-20x-20x', { developpementEgal: true }) // Développement de (5x-4)^2
+    const result3 = fonctionComparaison('25x^2-40x+16', '4*4+5x*5x-20x-20x', {
+      developpementEgal: true,
+    }) // Développement de (5x-4)^2
     expect(result3.isOk).toBe(true)
   })
 
@@ -396,7 +618,9 @@ describe('fonctionComparaison', () => {
 
     // Bug 3
     const engine = new ComputeEngine()
-    const ecritureScientifique1000 = engine.parse('1000').toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] }) // 10^{3} and why it is not 1\cdot10^{3}
+    const ecritureScientifique1000 = engine
+      .parse('1000')
+      .toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] }) // 10^{3} and why it is not 1\cdot10^{3}
     expect(ecritureScientifique1000 === '1\\cdot10^{1}').toBe(false)
   })
 })

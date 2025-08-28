@@ -7,7 +7,7 @@
     title: 'Titre',
     presentation: ' blabla',
     imgPath: 'images/apps/appDefault.png',
-    uuid: 'theUuid'
+    uuid: 'theUuid',
   }
   export let reversed: boolean = false
   export let selected: boolean = false
@@ -23,20 +23,20 @@
     listeCodes = listeCodes
   }
 
-  function addAppToList () {
+  function addAppToList() {
     exercicesParams.update((list) => [...list, { uuid: application.uuid }])
   }
   const isPresent = (code: string) => {
     return code === application.uuid
   }
-  function removeAppFromList () {
+  function removeAppFromList() {
     const matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [
       ...list.slice(0, matchingIndex),
-      ...list.slice(matchingIndex + 1)
+      ...list.slice(matchingIndex + 1),
     ])
   }
-  function handelSelection () {
+  function handelSelection() {
     selected = !selected
     if (selected) {
       addAppToList()
@@ -49,11 +49,11 @@
 <button
   type="button"
   class="relative block w-full rounded-lg bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark shadow-lg border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
-  on:click={handelSelection}
+  on:click="{handelSelection}"
 >
   <div class="{reversed ? 'hide' : 'block'} ">
     <img
-      src={application.imgPath}
+      src="{application.imgPath}"
       alt="{application.title} image"
       class="object-fill rounded-t-lg"
     />
@@ -74,7 +74,7 @@
     <div
       class="rounded-full h-8 w-8 bg-coopmaths-action text-coopmaths-canvas flex justify-center items-center hover:animate-pulse"
     >
-      <i class="bx bx-sm {selected ? 'bx-minus' : 'bx-plus'}" />
+      <i class="bx bx-sm {selected ? 'bx-minus' : 'bx-plus'}"></i>
     </div>
   </div>
   <div class="absolute top-3 right-3 rotate-frac">
@@ -88,7 +88,7 @@
         class="{selected
           ? 'container'
           : 'hidden'} absolute top-1 left-[0.1rem] bx bx-check bx-md text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-      />
+      ></i>
     </div>
   </div>
 </button>

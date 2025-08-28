@@ -9,15 +9,19 @@ import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  colorToLatexOrHTML,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
-export const titre = 'Encadrer l\'aire d\'un disque'
+export const titre = "Encadrer l'aire d'un disque"
 
 export const refs = {
   'fr-fr': ['P017'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = '0ff0f'
 
@@ -27,10 +31,13 @@ export const uuid = '0ff0f'
 
 */
 export default class EncadrerAireDisque extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Nombre d\'étapes (entre 1 et 50)', 50]
-    this.besoinFormulaire2Numerique = ['Rayon du disque (nombre entier entre 1 et 20)', 20]
+    this.besoinFormulaireNumerique = ["Nombre d'étapes (entre 1 et 50)", 50]
+    this.besoinFormulaire2Numerique = [
+      'Rayon du disque (nombre entier entre 1 et 20)',
+      20,
+    ]
 
     this.spacing = context.isHtml ? 2 : 1
 
@@ -39,7 +46,7 @@ export default class EncadrerAireDisque extends Exercice {
     this.sup2 = 10
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte = ''
 
     this.listeCorrections = [''] // Liste de questions corrigées
@@ -47,7 +54,15 @@ export default class EncadrerAireDisque extends Exercice {
 
     const centre = point(0, 0)
     const rayon = this.sup2
-    const paramsEnonce = { xmin: -rayon - 1, ymin: -rayon - 1, xmax: rayon + 1, ymax: rayon + 1, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+    const paramsEnonce = {
+      xmin: -rayon - 1,
+      ymin: -rayon - 1,
+      xmax: rayon + 1,
+      ymax: rayon + 1,
+      pixelsParCm: 30,
+      scale: 0.7,
+      mainlevee: false,
+    }
     const cerc = cercle(centre, rayon, 'red')
     cerc.epaisseur = 2
     const cote = rayon
@@ -83,19 +98,46 @@ export default class EncadrerAireDisque extends Exercice {
       for (let i = 1; i <= Nmax; i++) {
         while (longueur(centre, D) < rayon) {
           A = D
-          B = translation(centre, vecteur(abscisse2.num / abscisse2.den, ordonnee1.num / ordonnee1.den))
-          C = translation(centre, vecteur(abscisse2.num / abscisse2.den, ordonnee2.num / ordonnee2.den))
-          D = translation(centre, vecteur(abscisse1.num / abscisse1.den, ordonnee2.num / ordonnee2.den))
+          B = translation(
+            centre,
+            vecteur(
+              abscisse2.num / abscisse2.den,
+              ordonnee1.num / ordonnee1.den,
+            ),
+          )
+          C = translation(
+            centre,
+            vecteur(
+              abscisse2.num / abscisse2.den,
+              ordonnee2.num / ordonnee2.den,
+            ),
+          )
+          D = translation(
+            centre,
+            vecteur(
+              abscisse1.num / abscisse1.den,
+              ordonnee2.num / ordonnee2.den,
+            ),
+          )
           Kre = polygone([A, B, C, D], 'green')
-          Kre2 = symetrieAxiale(Kre, droite(centre, point(centre.x, centre.y + 1)))
+          Kre2 = symetrieAxiale(
+            Kre,
+            droite(centre, point(centre.x, centre.y + 1)),
+          )
           Kre.couleurDeRemplissage = colorToLatexOrHTML('green')
           Kre.opaciteDeRemplissage = 0.5
           Kre2.color = colorToLatexOrHTML('green')
           Kre2.couleurDeRemplissage = colorToLatexOrHTML('green')
           Kre2.opaciteDeRemplissage = 0.5
           objets.push(Kre, Kre2)
-          Kre = symetrieAxiale(Kre, droite(centre, point(centre.x + 1, centre.y)))
-          Kre2 = symetrieAxiale(Kre2, droite(centre, point(centre.x + 1, centre.y)))
+          Kre = symetrieAxiale(
+            Kre,
+            droite(centre, point(centre.x + 1, centre.y)),
+          )
+          Kre2 = symetrieAxiale(
+            Kre2,
+            droite(centre, point(centre.x + 1, centre.y)),
+          )
           compteurExterieur = compteurExterieur + 4
           Kre.color = colorToLatexOrHTML('green')
           Kre.couleurDeRemplissage = colorToLatexOrHTML('green')
@@ -111,7 +153,10 @@ export default class EncadrerAireDisque extends Exercice {
         ordonnee2 = longueurCoteCarreRef
         abscisse1 = abscisse2
         abscisse2 = abscisse2.sommeFraction(longueurCoteCarreRef)
-        D = translation(centre, vecteur(abscisse1.num / abscisse1.den, ordonnee1.num / ordonnee1.den))
+        D = translation(
+          centre,
+          vecteur(abscisse1.num / abscisse1.den, ordonnee1.num / ordonnee1.den),
+        )
         A = D
         B = D
         C = D
@@ -125,20 +170,42 @@ export default class EncadrerAireDisque extends Exercice {
       abscisse2 = new FractionEtendue(cote, Nmax)
       for (let i = 1; i <= Nmax; i++) {
         A = D
-        B = translation(centre, vecteur(abscisse2.num / abscisse2.den, ordonnee1.num / ordonnee1.den))
-        C = translation(centre, vecteur(abscisse2.num / abscisse2.den, ordonnee2.num / ordonnee2.den))
-        D = translation(centre, vecteur(abscisse1.num / abscisse1.den, ordonnee2.num / ordonnee2.den))
-        while (longueur(centre, B) <= rayon && longueur(centre, C) <= rayon && longueur(centre, D) <= rayon) {
+        B = translation(
+          centre,
+          vecteur(abscisse2.num / abscisse2.den, ordonnee1.num / ordonnee1.den),
+        )
+        C = translation(
+          centre,
+          vecteur(abscisse2.num / abscisse2.den, ordonnee2.num / ordonnee2.den),
+        )
+        D = translation(
+          centre,
+          vecteur(abscisse1.num / abscisse1.den, ordonnee2.num / ordonnee2.den),
+        )
+        while (
+          longueur(centre, B) <= rayon &&
+          longueur(centre, C) <= rayon &&
+          longueur(centre, D) <= rayon
+        ) {
           Kre = polygone([A, B, C, D], 'blue')
-          Kre2 = symetrieAxiale(Kre, droite(centre, point(centre.x, centre.y + 1)))
+          Kre2 = symetrieAxiale(
+            Kre,
+            droite(centre, point(centre.x, centre.y + 1)),
+          )
           Kre.couleurDeRemplissage = colorToLatexOrHTML('blue')
           Kre.opaciteDeRemplissage = 0.5
           Kre2.color = colorToLatexOrHTML('blue')
           Kre2.couleurDeRemplissage = colorToLatexOrHTML('blue')
           Kre2.opaciteDeRemplissage = 0.5
           objets.push(Kre, Kre2)
-          Kre = symetrieAxiale(Kre, droite(centre, point(centre.x + 1, centre.y)))
-          Kre2 = symetrieAxiale(Kre2, droite(centre, point(centre.x + 1, centre.y)))
+          Kre = symetrieAxiale(
+            Kre,
+            droite(centre, point(centre.x + 1, centre.y)),
+          )
+          Kre2 = symetrieAxiale(
+            Kre2,
+            droite(centre, point(centre.x + 1, centre.y)),
+          )
           compteurInterieur = compteurInterieur + 4
           Kre.color = colorToLatexOrHTML('blue')
           Kre.couleurDeRemplissage = colorToLatexOrHTML('blue')
@@ -150,15 +217,36 @@ export default class EncadrerAireDisque extends Exercice {
           ordonnee1 = ordonnee2
           ordonnee2 = ordonnee2.sommeFraction(longueurCoteCarreRef)
           A = D
-          B = translation(centre, vecteur(abscisse2.num / abscisse2.den, ordonnee1.num / ordonnee1.den))
-          C = translation(centre, vecteur(abscisse2.num / abscisse2.den, ordonnee2.num / ordonnee2.den))
-          D = translation(centre, vecteur(abscisse1.num / abscisse1.den, ordonnee2.num / ordonnee2.den))
+          B = translation(
+            centre,
+            vecteur(
+              abscisse2.num / abscisse2.den,
+              ordonnee1.num / ordonnee1.den,
+            ),
+          )
+          C = translation(
+            centre,
+            vecteur(
+              abscisse2.num / abscisse2.den,
+              ordonnee2.num / ordonnee2.den,
+            ),
+          )
+          D = translation(
+            centre,
+            vecteur(
+              abscisse1.num / abscisse1.den,
+              ordonnee2.num / ordonnee2.den,
+            ),
+          )
         }
         ordonnee1 = new FractionEtendue(0, Nmax)
         ordonnee2 = longueurCoteCarreRef
         abscisse1 = abscisse2
         abscisse2 = abscisse2.sommeFraction(longueurCoteCarreRef)
-        D = translation(centre, vecteur(abscisse1.num / abscisse1.den, ordonnee1.num / ordonnee1.den))
+        D = translation(
+          centre,
+          vecteur(abscisse1.num / abscisse1.den, ordonnee1.num / ordonnee1.den),
+        )
         A = D
         B = D
         C = D

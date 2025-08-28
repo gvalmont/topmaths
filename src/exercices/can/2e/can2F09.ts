@@ -21,10 +21,10 @@ export const uuid = 'a7515'
 
 export const refs = {
   'fr-fr': ['can2F09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResoudreEquationsFonctionDeReference extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -32,14 +32,19 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, k, b, c, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 1, 2, 3])) { //
-        case 1 :
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 1, 2, 3]) //
+      ) {
+        case 1:
           a = randint(0, 10) ** 2
           b = choice([2, 3, 5, 7, 10, 11, 13, 14, 15, 17, 19, 21, 23])
-          c = choice([-1, -2, -3, -5, -7, -10, -11, -13, -14, -15, -4, -9, -16, -25, -36, -49, -64, -81, -100])
+          c = choice([
+            -1, -2, -3, -5, -7, -10, -11, -13, -14, -15, -4, -9, -16, -25, -36,
+            -49, -64, -81, -100,
+          ])
           k = choice([a, a, b, b, c])
           texte = `L'ensemble des solutions $S$ de l'équation $x^2=${k}$ est :
                  `
@@ -51,17 +56,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                 propositions: [
                   {
                     texte: '$S=\\{0\\}$',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: '$S=\\{1\\}$',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               this.autoCorrection[i] = {
@@ -70,17 +75,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\{${Math.sqrt(k)}\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{${k}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
           }
@@ -91,17 +96,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
               propositions: [
                 {
                   texte: `$S=\\{-\\sqrt{${k}};\\sqrt{${k}}\\}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{\\sqrt{${k}}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\emptyset$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           if (k === c) {
@@ -111,17 +116,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{-\\sqrt{${-k}};\\sqrt{${-k}}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\{\\sqrt{${-k}}\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -168,7 +173,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
           this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $x^2=${k}$.`
           this.canReponseACompleter = ''
           break
-        case 2 :
+        case 2:
           k = randint(-5, 10)
           texte = `L'ensemble des solutions $S$ de l'équation $\\sqrt{x}=${k}$ est :
                    `
@@ -182,17 +187,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                     propositions: [
                       {
                         texte: `$S=\\{${k ** 2}\\}$`,
-                        statut: true
+                        statut: true,
                       },
                       {
                         texte: '$S=\\emptyset$',
-                        statut: false
+                        statut: false,
                       },
                       {
                         texte: `$S=\\{${k}\\}$`,
-                        statut: false
-                      }
-                    ]
+                        statut: false,
+                      },
+                    ],
                   }
                 } else {
                   this.autoCorrection[i] = {
@@ -201,17 +206,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                     propositions: [
                       {
                         texte: `$S=\\{${k ** 2}\\}$`,
-                        statut: true
+                        statut: true,
                       },
                       {
                         texte: `$S=\\{${2 * k}\\}$`,
-                        statut: false
+                        statut: false,
                       },
                       {
                         texte: `$S=\\{${k}\\}$`,
-                        statut: false
-                      }
-                    ]
+                        statut: false,
+                      },
+                    ],
                   }
                 }
               }
@@ -222,17 +227,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\{${k}\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{${2 * k}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
           }
@@ -244,17 +249,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{\\sqrt{${-k}}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\{${k ** 2}\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           if (k === 0) {
@@ -264,17 +269,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\{0\\}$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{${k + 1}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\emptyset$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -305,7 +310,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
           this.canReponseACompleter = ''
           break
 
-        case 3 :
+        case 3:
           k = randint(-10, 10)
           texte = `L'ensemble des solutions $S$ de l'équation $\\dfrac{1}{x}=${k}$ est :
                      `
@@ -317,17 +322,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               this.autoCorrection[i] = {
@@ -336,17 +341,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\left\\{${k}\\right\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
           }
@@ -357,17 +362,17 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: '$S=\\left\\{0\\right\\}$',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\left\\{-1\\right\\}$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           props = propositionsQcm(this, i)

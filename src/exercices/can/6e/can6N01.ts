@@ -18,16 +18,16 @@ export const uuid = '5cffb'
 
 export const refs = {
   'fr-fr': ['can6N01', '6N1A-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RecomposerEntier extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 5)
     const b = randint(2, 9)
     const c = randint(2, 9)

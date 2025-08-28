@@ -18,10 +18,10 @@ export const uuid = '763d3'
 
 export const refs = {
   'fr-fr': ['can2P01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculsDeProbabilites extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,7 +30,7 @@ export default class CalculsDeProbabilites extends ExerciceSimple {
     // this.formatInteractif = 'fractionEgale'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 4)
     const b = choice([2, 3])
     const c = choice([2, 3, 11, 12])
@@ -42,7 +42,8 @@ export default class CalculsDeProbabilites extends ExerciceSimple {
         Quelle est la probabilité d’obtenir deux fois le même nombre ?
         <br>
         Donner le résultat sous la forme d'une fraction irréductible.`
-        this.correction = "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
+        this.correction =
+          "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
         this.reponse = new FractionEtendue(1, 6)
         break
       case 'b':
@@ -69,7 +70,7 @@ export default class CalculsDeProbabilites extends ExerciceSimple {
         this.reponse = new FractionEtendue(p[c - 2], 36)
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -6,7 +6,8 @@ import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { createList } from '../../lib/format/lists'
-export const titre = 'Résoudre une équation en choisissant la forme la plus appropriée'
+export const titre =
+  'Résoudre une équation en choisissant la forme la plus appropriée'
 
 export const dateDePublication = '22/09/2024'
 export const uuid = '2a6c7'
@@ -20,11 +21,11 @@ export const uuid = '2a6c7'
 
 export const refs = {
   'fr-fr': ['1AL23-24'],
-  'fr-ch': ['1mF3-9']
+  'fr-ch': ['1mF3-9'],
 }
 
 export default class ResolutionEquationDifferentesFormes extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 4
     this.nbQuestionsModifiable = false
@@ -32,7 +33,7 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
     this.sup = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.sup) {
       let a: number
       let b: number
@@ -53,7 +54,7 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
         beta = alpha ** 2 * a + b * alpha + c
         x1 = (-b - Math.sqrt(delta)) / (2 * a)
         x2 = (-b + Math.sqrt(delta)) / (2 * a)
-        R = a * (randint(1, 10)) ** 2 + beta
+        R = a * randint(1, 10) ** 2 + beta
       } while (c === 0 || R === 0 || R === c || beta === 0)
 
       const trinome = new Trinome(a, b, c)
@@ -61,17 +62,17 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
       const items = [
         trinome.tex,
         trinome.texFormeFactorisee,
-        trinome.texFormeCanonique
-      ].map(s => `$f(x)=${s}$`)
-      const list = createList(
-        {
-          items,
-          style: 'puces',
-          classOptions: 'space-y-2 p-4'
-        })
+        trinome.texFormeCanonique,
+      ].map((s) => `$f(x)=${s}$`)
+      const list = createList({
+        items,
+        style: 'puces',
+        classOptions: 'space-y-2 p-4',
+      })
 
       this.introduction += list
-      this.introduction += 'En choisissant la forme la plus adaptée, résoudre les équations suivantes :'
+      this.introduction +=
+        'En choisissant la forme la plus adaptée, résoudre les équations suivantes :'
       this.introduction += '<br><br>'
 
       const question1 = `$f(x) = ${beta}$`
@@ -151,7 +152,12 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
       correction4 += `$S =\\left\\{${alpha - Math.sqrt((R - beta) / a)};${alpha + Math.sqrt((R - beta) / a)}\\right\\}$`
 
       this.listeQuestions.push(question1, question2, question3, question4)
-      this.listeCorrections.push(correction1, correction2, correction3, correction4)
+      this.listeCorrections.push(
+        correction1,
+        correction2,
+        correction3,
+        correction4,
+      )
 
       listeQuestionsToContenu(this)
     } else {
@@ -169,25 +175,24 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
         b = -alpha * 2 * a
         beta = randint(1, 100)
         c = a * alpha ** 2 + beta
-        R = a * (randint(1, 10)) ** 2 + beta
+        R = a * randint(1, 10) ** 2 + beta
         delta = b ** 2 - 4 * a * c
       } while (c === 0 || R === 0 || R === c || beta === 0 || delta >= 0)
 
       const trinome = new Trinome(a, b, c)
-      const items = [
-        trinome.tex,
-        trinome.texFormeCanonique
-      ].map(s => `$f(x)=${s}$`)
-      const list = createList(
-        {
-          items,
-          style: 'puces',
-          classOptions: 'space-y-2 p-4'
-        })
+      const items = [trinome.tex, trinome.texFormeCanonique].map(
+        (s) => `$f(x)=${s}$`,
+      )
+      const list = createList({
+        items,
+        style: 'puces',
+        classOptions: 'space-y-2 p-4',
+      })
 
       this.introduction = 'Voici deux formes possibles de la fonction $f$ :'
       this.introduction += list
-      this.introduction += 'En choisissant la forme la plus adaptée, résoudre les équations suivantes :'
+      this.introduction +=
+        'En choisissant la forme la plus adaptée, résoudre les équations suivantes :'
       this.introduction += '<br><br>'
 
       const question1 = `$f(x) = ${beta}$`
@@ -224,7 +229,7 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
         correction2 += `$\\iff$ $(x ${ecritureAlgebrique(-alpha)})^2 = ${texFractionReduite(-beta, a)}$`
         correction2 += '<br>'
       }
-      correction2 += 'Il n\'y a pas de solution réelles. : $S=\\emptyset$'
+      correction2 += "Il n'y a pas de solution réelles. : $S=\\emptyset$"
 
       const question3 = `$f(x) = ${c}$`
 
@@ -240,7 +245,7 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
       correction3 += '<br>'
       correction3 += `$\\iff$ $x = 0$ ou $${rienSi1(a)}x ${ecritureAlgebrique(b)} = 0$`
       correction3 += '<br>'
-      correction3 += `$\\iff$ $x = 0$ ou $${rienSi1(a)}x = ${(-b)}$`
+      correction3 += `$\\iff$ $x = 0$ ou $${rienSi1(a)}x = ${-b}$`
       correction3 += '<br>'
       if (a !== 1) {
         correction3 += `$\\iff$ $x = 0$ ou $x = ${texNombre(-b / a, 0)}$`
@@ -269,7 +274,12 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
       correction4 += `$S =\\left\\{${alpha - Math.sqrt((R - beta) / a)};${alpha + Math.sqrt((R - beta) / a)}\\right\\}$`
 
       this.listeQuestions.push(question1, question2, question3, question4)
-      this.listeCorrections.push(correction1, correction2, correction3, correction4)
+      this.listeCorrections.push(
+        correction1,
+        correction2,
+        correction3,
+        correction4,
+      )
 
       listeQuestionsToContenu(this)
     }

@@ -1,8 +1,20 @@
-import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  ObjetMathalea2D,
+  xSVG,
+  ySVG,
+} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { estentier, inferieurouegal } from '../../modules/outils'
 import { Point, point, tracePoint } from './points'
-import { elimineBinomesXYIntermediairesAlignes, motifs, Polygone, polygone, polyline } from './polygones'
+import {
+  elimineBinomesXYIntermediairesAlignes,
+  motifs,
+  Polygone,
+  polygone,
+  polyline,
+} from './polygones'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
 import { arc } from './cercle'
@@ -18,7 +30,15 @@ export class LectureImage extends ObjetMathalea2D {
   textAbs: string
   textOrd: string
   stringColor: string
-  constructor (x: number, y: number, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {
+  constructor(
+    x: number,
+    y: number,
+    xscale = 1,
+    yscale = 1,
+    color = 'red',
+    textAbs = '',
+    textOrd = '',
+  ) {
     super()
     this.x = x
     this.y = y
@@ -31,7 +51,7 @@ export class LectureImage extends ObjetMathalea2D {
     this.stringColor = color
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
     const M = point(x0, y0)
@@ -43,12 +63,35 @@ export class LectureImage extends ObjetMathalea2D {
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' +
-      (this.textAbs != null ? texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.stringColor).svg(coeff) : '') + '\t\n' +
-      (this.textOrd != null ? texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.stringColor).svg(coeff) : '')
+    return (
+      '\t\n' +
+      Sx.svg(coeff) +
+      '\t\n' +
+      Sy.svg(coeff) +
+      '\t\n' +
+      (this.textAbs != null
+        ? texteParPosition(
+            this.textAbs,
+            x0,
+            (-1 * 20) / coeff,
+            0,
+            this.stringColor,
+          ).svg(coeff)
+        : '') +
+      '\t\n' +
+      (this.textOrd != null
+        ? texteParPosition(
+            this.textOrd,
+            (-1 * 20) / coeff,
+            y0,
+            0,
+            this.stringColor,
+          ).svg(coeff)
+        : '')
+    )
   }
 
-  tikz () {
+  tikz() {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
     const M = point(x0, y0)
@@ -60,10 +103,31 @@ export class LectureImage extends ObjetMathalea2D {
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 0, this.stringColor).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 0, this.stringColor).tikz()
+    return (
+      '\t\n' +
+      Sx.tikz() +
+      '\t\n' +
+      Sy.tikz() +
+      '\t\n' +
+      texteParPosition(
+        this.textAbs,
+        x0,
+        -1 / context.scale,
+        0,
+        this.stringColor,
+      ).tikz() +
+      '\t\n' +
+      texteParPosition(
+        this.textOrd,
+        -1 / context.scale,
+        y0,
+        0,
+        this.stringColor,
+      ).tikz()
+    )
   }
 
-  svgml (coeff: number, amp: number) {
+  svgml(coeff: number, amp: number) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
     const M = point(this.x, this.y)
@@ -75,10 +139,31 @@ export class LectureImage extends ObjetMathalea2D {
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.stringColor).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.stringColor).svg(coeff)
+    return (
+      '\t\n' +
+      Sx.svgml(coeff, amp) +
+      '\t\n' +
+      Sy.svgml(coeff, amp) +
+      '\t\n' +
+      texteParPosition(
+        this.textAbs,
+        x0,
+        (-1 * 20) / coeff,
+        0,
+        this.stringColor,
+      ).svg(coeff) +
+      '\t\n' +
+      texteParPosition(
+        this.textOrd,
+        (-1 * 20) / coeff,
+        y0,
+        0,
+        this.stringColor,
+      ).svg(coeff)
+    )
   }
 
-  tikzml (amp: number) {
+  tikzml(amp: number) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
     const M = point(this.x, this.y)
@@ -90,12 +175,41 @@ export class LectureImage extends ObjetMathalea2D {
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 0, this.stringColor).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 0, this.stringColor).tikz()
+    return (
+      '\t\n' +
+      Sx.tikzml(amp) +
+      '\t\n' +
+      Sy.tikzml(amp) +
+      '\t\n' +
+      texteParPosition(
+        this.textAbs,
+        x0,
+        -1 / context.scale,
+        0,
+        this.stringColor,
+      ).tikz() +
+      '\t\n' +
+      texteParPosition(
+        this.textOrd,
+        -1 / context.scale,
+        y0,
+        0,
+        this.stringColor,
+      ).tikz()
+    )
   }
 }
 /**
  */
-export function lectureImage (x: number, y: number, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = ''): LectureImage {
+export function lectureImage(
+  x: number,
+  y: number,
+  xscale = 1,
+  yscale = 1,
+  color = 'red',
+  textAbs = '',
+  textOrd = '',
+): LectureImage {
   return new LectureImage(x, y, xscale, yscale, color, textAbs, textOrd)
 }
 
@@ -107,7 +221,15 @@ export class LectureAntecedent extends ObjetMathalea2D {
   textAbs: string
   textOrd: string
   stringColor: string
-  constructor (x: number, y: number, xscale: number, yscale: number, color = 'black', textOrd: string, textAbs: string) {
+  constructor(
+    x: number,
+    y: number,
+    xscale: number,
+    yscale: number,
+    color = 'black',
+    textOrd: string,
+    textAbs: string,
+  ) {
     super()
     //
     this.x = x
@@ -122,7 +244,7 @@ export class LectureAntecedent extends ObjetMathalea2D {
     this.bordures = [-2, -1.5, x + 2, y > 0 ? y + 1 : 0]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
     const M = point(x0, y0)
@@ -134,12 +256,35 @@ export class LectureAntecedent extends ObjetMathalea2D {
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + (this.textAbs != null ? texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.stringColor).svg(coeff) : '') +
+    return (
       '\t\n' +
-      (this.textOrd != null ? texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.stringColor).svg(coeff) : '')
+      Sx.svg(coeff) +
+      '\t\n' +
+      Sy.svg(coeff) +
+      '\t\n' +
+      (this.textAbs != null
+        ? texteParPosition(
+            this.textAbs,
+            x0,
+            (-1 * 20) / coeff,
+            0,
+            this.stringColor,
+          ).svg(coeff)
+        : '') +
+      '\t\n' +
+      (this.textOrd != null
+        ? texteParPosition(
+            this.textOrd,
+            (-1 * 20) / coeff,
+            y0,
+            0,
+            this.stringColor,
+          ).svg(coeff)
+        : '')
+    )
   }
 
-  tikz () {
+  tikz() {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
     const M = point(x0, y0)
@@ -151,10 +296,31 @@ export class LectureAntecedent extends ObjetMathalea2D {
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 0, this.stringColor).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 0, this.stringColor).tikz()
+    return (
+      '\t\n' +
+      Sx.tikz() +
+      '\t\n' +
+      Sy.tikz() +
+      '\t\n' +
+      texteParPosition(
+        this.textAbs,
+        x0,
+        -1 / context.scale,
+        0,
+        this.stringColor,
+      ).tikz() +
+      '\t\n' +
+      texteParPosition(
+        this.textOrd,
+        -1 / context.scale,
+        y0,
+        0,
+        this.stringColor,
+      ).tikz()
+    )
   }
 
-  svgml (coeff: number, amp: number) {
+  svgml(coeff: number, amp: number) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
     const M = point(x0, y0)
@@ -166,10 +332,31 @@ export class LectureAntecedent extends ObjetMathalea2D {
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.stringColor).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.stringColor).svg(coeff)
+    return (
+      '\t\n' +
+      Sx.svgml(coeff, amp) +
+      '\t\n' +
+      Sy.svgml(coeff, amp) +
+      '\t\n' +
+      texteParPosition(
+        this.textAbs,
+        x0,
+        (-1 * 20) / coeff,
+        0,
+        this.stringColor,
+      ).svg(coeff) +
+      '\t\n' +
+      texteParPosition(
+        this.textOrd,
+        (-1 * 20) / coeff,
+        y0,
+        0,
+        this.stringColor,
+      ).svg(coeff)
+    )
   }
 
-  tikzml (amp: number) {
+  tikzml(amp: number) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
     const M = point(x0, y0)
@@ -181,11 +368,40 @@ export class LectureAntecedent extends ObjetMathalea2D {
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 0, this.stringColor).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 0, this.stringColor).tikz()
+    return (
+      '\t\n' +
+      Sx.tikzml(amp) +
+      '\t\n' +
+      Sy.tikzml(amp) +
+      '\t\n' +
+      texteParPosition(
+        this.textAbs,
+        x0,
+        -1 / context.scale,
+        0,
+        this.stringColor,
+      ).tikz() +
+      '\t\n' +
+      texteParPosition(
+        this.textOrd,
+        -1 / context.scale,
+        y0,
+        0,
+        this.stringColor,
+      ).tikz()
+    )
   }
 }
 
-export function lectureAntecedent (x: number, y: number, xscale: number, yscale: number, color = 'black', textOrd: string, textAbs: string): LectureAntecedent {
+export function lectureAntecedent(
+  x: number,
+  y: number,
+  xscale: number,
+  yscale: number,
+  color = 'black',
+  textOrd: string,
+  textAbs: string,
+): LectureAntecedent {
   return new LectureAntecedent(x, y, xscale, yscale, color, textOrd, textAbs)
 }
 
@@ -214,42 +430,53 @@ export function lectureAntecedent (x: number, y: number, xscale: number, yscale:
 // JSDOC Validee par EE Aout 2022
 export class Courbe extends ObjetMathalea2D {
   stringColor: string
-  constructor (f: (x: number)=>number, {
-    repere,
-    color = 'black',
-    epaisseur = 2,
-    step = false,
-    xMin,
-    xMax,
-    yMin,
-    yMax,
-    xUnite = 1,
-    yUnite = 1
-  }:{
-    repere?: Repere,
-    color?: string,
-    epaisseur?: number,
-    step?: boolean | number,
-    xMin?: number,
-    xMax?: number,
-    yMin?: number,
-    yMax?: number,
-    xUnite?: number,
-    yUnite?: number
-  } = {}) {
+  constructor(
+    f: (x: number) => number,
+    {
+      repere,
+      color = 'black',
+      epaisseur = 2,
+      step = false,
+      xMin,
+      xMax,
+      yMin,
+      yMax,
+      xUnite = 1,
+      yUnite = 1,
+    }: {
+      repere?: Repere
+      color?: string
+      epaisseur?: number
+      step?: boolean | number
+      xMin?: number
+      xMax?: number
+      yMin?: number
+      yMax?: number
+      xUnite?: number
+      yUnite?: number
+    } = {},
+  ) {
     super()
     this.objets = []
 
     if (repere == null) {
-      window.notify('Erreur dans Courbe : Il faut préciser le repère dans lequel tracer la courbe', { repere })
+      window.notify(
+        'Erreur dans Courbe : Il faut préciser le repère dans lequel tracer la courbe',
+        { repere },
+      )
       repere = new Repere({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
     }
-    const xmin = xMin == null ? xMin = repere.xMin ?? 0 : xMin
-    const xmax = xMax == null ? xMax = repere.xMax ?? 0 : xMax
-    const ymin = yMin == null ? yMin = repere.yMin ?? 0 : yMin
-    const ymax = yMax == null ? yMax = repere.yMax ?? 0 : yMax
+    const xmin = xMin == null ? (xMin = repere.xMin ?? 0) : xMin
+    const xmax = xMax == null ? (xMax = repere.xMax ?? 0) : xMax
+    const ymin = yMin == null ? (yMin = repere.yMin ?? 0) : yMin
+    const ymax = yMax == null ? (yMax = repere.yMax ?? 0) : yMax
 
-    this.bordures = (repere?.bordures ?? [0, 0, 0, 0]) as unknown as [number, number, number, number]
+    this.bordures = (repere?.bordures ?? [0, 0, 0, 0]) as unknown as [
+      number,
+      number,
+      number,
+      number,
+    ]
 
     this.stringColor = color
     let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
@@ -272,8 +499,7 @@ export class Courbe extends ObjetMathalea2D {
     } else {
       pas = Number(step)
     }
-    for (let x = xmin; inferieurouegal(x, xMax ?? 10); x += pas
-    ) {
+    for (let x = xmin; inferieurouegal(x, xMax ?? 10); x += pas) {
       if (x > xmax) x = xmax // normalement x<xmax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xmax+epsilon qui sort de l'intervalle de déf
       const y = Number(f(x))
       if (isFinite(y)) {
@@ -298,7 +524,7 @@ export class Courbe extends ObjetMathalea2D {
     }
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -307,7 +533,7 @@ export class Courbe extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -316,21 +542,21 @@ export class Courbe extends ObjetMathalea2D {
     return code
   }
 
-  svgml (coeff: number, amp: number) {
+  svgml(coeff: number, amp: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
+      if (typeof objet.svgml === 'undefined') code += '\n\t' + objet.svg(coeff)
       else code += '\n\t' + objet.svgml(coeff, amp)
     }
     return code
   }
 
-  tikzml (amp: number) {
+  tikzml(amp: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
+      if (typeof objet.tikzml === 'undefined') code += '\n\t' + objet.tikz()
       else code += '\n\t' + objet.tikzml(amp)
     }
     return code
@@ -359,30 +585,44 @@ export class Courbe extends ObjetMathalea2D {
  * @return {Courbe}
  */
 // JSDOC Validee par EE Aout 2022
-export function courbe (f: (x:number)=>number, {
-  repere,
-  color = 'black',
-  epaisseur = 2,
-  step = false,
-  xMin,
-  xMax,
-  yMin,
-  yMax,
-  xUnite = 1,
-  yUnite = 1
-}:{
-  repere?: Repere,
-  color?: string,
-  epaisseur?: number,
-  step?: boolean | number,
-  xMin?: number,
-  xMax?: number,
-  yMin?: number,
-  yMax?: number,
-  xUnite?: number,
-  yUnite?: number
-} = {}) {
-  return new Courbe(f, { repere, color, epaisseur, step, xMin, xMax, yMin, yMax, xUnite, yUnite })
+export function courbe(
+  f: (x: number) => number,
+  {
+    repere,
+    color = 'black',
+    epaisseur = 2,
+    step = false,
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    xUnite = 1,
+    yUnite = 1,
+  }: {
+    repere?: Repere
+    color?: string
+    epaisseur?: number
+    step?: boolean | number
+    xMin?: number
+    xMax?: number
+    yMin?: number
+    yMax?: number
+    xUnite?: number
+    yUnite?: number
+  } = {},
+) {
+  return new Courbe(f, {
+    repere,
+    color,
+    epaisseur,
+    step,
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    xUnite,
+    yUnite,
+  })
 }
 
 /**
@@ -413,27 +653,30 @@ export function courbe (f: (x:number)=>number, {
  */
 // JSDOC Validee par EE Juin 2022
 export class Integrale extends ObjetMathalea2D {
-  constructor (f: (x:number)=>number, {
-    repere,
-    color = 'black',
-    couleurDeRemplissage = 'blue',
-    epaisseur = 2,
-    step = false,
-    a = 0,
-    b = 1,
-    opacite = 0.5,
-    hachures = 0
-  }:{
-    repere?: Repere,
-    color?: string,
-    epaisseur?: number,
-    couleurDeRemplissage?: string,
-    step?: boolean | number,
-    a?: number,
-    b?: number,
-    opacite?: number,
-    hachures?: number
-  } = {}) {
+  constructor(
+    f: (x: number) => number,
+    {
+      repere,
+      color = 'black',
+      couleurDeRemplissage = 'blue',
+      epaisseur = 2,
+      step = false,
+      a = 0,
+      b = 1,
+      opacite = 0.5,
+      hachures = 0,
+    }: {
+      repere?: Repere
+      color?: string
+      epaisseur?: number
+      couleurDeRemplissage?: string
+      step?: boolean | number
+      a?: number
+      b?: number
+      opacite?: number
+      hachures?: number
+    } = {},
+  ) {
     super()
     this.objets = []
     const ymin = repere?.yMin ?? -10
@@ -449,34 +692,45 @@ export class Integrale extends ObjetMathalea2D {
     } else {
       pas = Number(step)
     }
-    for (let x = a; inferieurouegal(x, b); x += pas
-    ) {
+    for (let x = a; inferieurouegal(x, b); x += pas) {
       if (x > b) x = b // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
       if (isFinite(f(x))) {
         if (f(x) < ymax + 1 && f(x) > ymin - 1) {
           points.push(point(x * xunite, f(x) * yunite))
         } else {
-          window.notify('Erreur dans Integrale : Il semble que la fonction ne soit pas continue sur l\'intervalle', {
-            f,
-            a,
-            b
-          })
+          window.notify(
+            "Erreur dans Integrale : Il semble que la fonction ne soit pas continue sur l'intervalle",
+            {
+              f,
+              a,
+              b,
+            },
+          )
         }
       } else {
         x += 0.05
       }
     }
-    points.push(point(b * xunite, f(b) * yunite), point(b * xunite, 0), point(a * xunite, 0))
+    points.push(
+      point(b * xunite, f(b) * yunite),
+      point(b * xunite, 0),
+      point(a * xunite, 0),
+    )
     const p = polygone([...points], color)
     p.epaisseur = epaisseur
     p.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     p.opaciteDeRemplissage = opacite
     p.hachures = hachures !== -1 ? motifs(hachures) : false
-    this.bordures = repere?.bordures as unknown as [number, number, number, number]
+    this.bordures = repere?.bordures as unknown as [
+      number,
+      number,
+      number,
+      number,
+    ]
     objets.push(p)
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -485,7 +739,7 @@ export class Integrale extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -494,21 +748,21 @@ export class Integrale extends ObjetMathalea2D {
     return code
   }
 
-  svgml (coeff: number, amp: number) {
+  svgml(coeff: number, amp: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
+      if (typeof objet.svgml === 'undefined') code += '\n\t' + objet.svg(coeff)
       else code += '\n\t' + objet.svgml(coeff, amp)
     }
     return code
   }
 
-  tikzml (amp: number) {
+  tikzml(amp: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
+      if (typeof objet.tikzml === 'undefined') code += '\n\t' + objet.tikz()
       else code += '\n\t' + objet.tikzml(amp)
     }
     return code
@@ -536,28 +790,41 @@ export class Integrale extends ObjetMathalea2D {
  * @return {Integrale}
  */
 // JSDOC Validee par EE Juin 2022
-export function integrale (f: (x:number)=>number, {
-  repere,
-  color = 'black',
-  couleurDeRemplissage = 'blue',
-  epaisseur = 2,
-  step = false,
-  a = 0,
-  b = 1,
-  opacite = 0.5,
-  hachures = 0
-}:{
-  repere?: Repere,
-  color?: string,
-  epaisseur?: number,
-  couleurDeRemplissage?: string,
-  step?: boolean | number,
-  a?: number,
-  b?: number,
-  opacite?: number,
-  hachures?: number
-} = {}) {
-  return new Integrale(f, { repere, color, couleurDeRemplissage, epaisseur, step, a, b, opacite, hachures })
+export function integrale(
+  f: (x: number) => number,
+  {
+    repere,
+    color = 'black',
+    couleurDeRemplissage = 'blue',
+    epaisseur = 2,
+    step = false,
+    a = 0,
+    b = 1,
+    opacite = 0.5,
+    hachures = 0,
+  }: {
+    repere?: Repere
+    color?: string
+    epaisseur?: number
+    couleurDeRemplissage?: string
+    step?: boolean | number
+    a?: number
+    b?: number
+    opacite?: number
+    hachures?: number
+  } = {},
+) {
+  return new Integrale(f, {
+    repere,
+    color,
+    couleurDeRemplissage,
+    epaisseur,
+    step,
+    a,
+    b,
+    opacite,
+    hachures,
+  })
 }
 /**
  * Trace l'aire entre la courbe d'une fonction et l'axe des abscisses
@@ -577,22 +844,25 @@ export function integrale (f: (x:number)=>number, {
  * @author Jean-Claude Lhote
  */
 export class IntegraleComptable extends ObjetMathalea2D {
-  aire: { negative: number, positive: number }
-  constructor (f: (x:number)=>number, {
-    xMin,
-    xMax,
-    pas = 1,
-    sup = false,
-    colorPositif = 'red',
-    colorNegatif = 'blue'
-  }:{
-    xMin: number,
-    xMax: number,
-    pas?: number,
-    sup?: boolean,
-    colorPositif?: string,
-    colorNegatif?: string
-  }) {
+  aire: { negative: number; positive: number }
+  constructor(
+    f: (x: number) => number,
+    {
+      xMin,
+      xMax,
+      pas = 1,
+      sup = false,
+      colorPositif = 'red',
+      colorNegatif = 'blue',
+    }: {
+      xMin: number
+      xMax: number
+      pas?: number
+      sup?: boolean
+      colorPositif?: string
+      colorNegatif?: string
+    },
+  ) {
     super()
     this.objets = []
     const rectangles: Polygone[] = []
@@ -600,11 +870,13 @@ export class IntegraleComptable extends ObjetMathalea2D {
     for (let k = 0; k < (xMax - xMin) / pas; k++) {
       echantillonnage[k] = []
       for (let j = 0; j < 5; j++) {
-        const x = xMin + k * pas + j * pas / 5
+        const x = xMin + k * pas + (j * pas) / 5
         if (estentier(f(x) / pas, 0.05)) {
           echantillonnage[k].push(Math.round(f(x) / pas) * pas)
         } else {
-          echantillonnage[k].push(sup ? Math.ceil(f(x) / pas) * pas : Math.floor(f(x) / pas) * pas)
+          echantillonnage[k].push(
+            sup ? Math.ceil(f(x) / pas) * pas : Math.floor(f(x) / pas) * pas,
+          )
         }
       }
     }
@@ -612,21 +884,45 @@ export class IntegraleComptable extends ObjetMathalea2D {
       echantillonnage[k].push(echantillonnage[k + 1][0])
     }
     if (estentier(f(xMax) / pas, 0.05)) {
-      echantillonnage[echantillonnage.length - 1].push(Math.round(f(xMax) / pas) * pas)
+      echantillonnage[echantillonnage.length - 1].push(
+        Math.round(f(xMax) / pas) * pas,
+      )
     } else {
-      echantillonnage[echantillonnage.length - 1].push(sup ? Math.ceil(f(xMax) / pas) * pas : Math.floor(f(xMax) / pas) * pas)
+      echantillonnage[echantillonnage.length - 1].push(
+        sup ? Math.ceil(f(xMax) / pas) * pas : Math.floor(f(xMax) / pas) * pas,
+      )
     }
 
     for (let k = 0; k < echantillonnage.length; k++) {
       const xk = xMin + k * pas
-      const yk = sup ? Math.max(...echantillonnage[k]) : Math.min(...echantillonnage[k])
+      const yk = sup
+        ? Math.max(...echantillonnage[k])
+        : Math.min(...echantillonnage[k])
       if (tousDeMemeSigne(echantillonnage[k])) {
-        const p = polygone([point(xk, 0), point(xk, yk), point(xk + pas, yk), point(xk + pas, 0)], yk > 0 ? colorPositif : colorNegatif)
-        p.couleurDeRemplissage = colorToLatexOrHTML(yk > 0 ? colorPositif : colorNegatif)
+        const p = polygone(
+          [
+            point(xk, 0),
+            point(xk, yk),
+            point(xk + pas, yk),
+            point(xk + pas, 0),
+          ],
+          yk > 0 ? colorPositif : colorNegatif,
+        )
+        p.couleurDeRemplissage = colorToLatexOrHTML(
+          yk > 0 ? colorPositif : colorNegatif,
+        )
         rectangles.push(p)
       } else {
         const couleur = sup ? colorPositif : colorNegatif
-        const p = polygone([point(xk, 0), point(xk, yk), point(xk + pas, yk), point(xk + pas, 0)], couleur)
+        const p = polygone(
+          [
+            point(xk, 0),
+            point(xk, yk),
+            point(xk + pas, yk),
+            point(xk + pas, 0),
+          ],
+          couleur,
+        )
         p.couleurDeRemplissage = colorToLatexOrHTML(couleur)
         rectangles.push(p)
       }
@@ -635,13 +931,20 @@ export class IntegraleComptable extends ObjetMathalea2D {
     let color: string[] = []
     let sommetFinal: Point = point(0, 0)
     while (rectangles.length > 0) {
-      const sommets = [rectangles[0].listePoints[0], rectangles[0].listePoints[1], rectangles[0].listePoints[2]]
+      const sommets = [
+        rectangles[0].listePoints[0],
+        rectangles[0].listePoints[1],
+        rectangles[0].listePoints[2],
+      ]
       color = rectangles[0].color.slice()
       const pol = rectangles.shift()
       if (pol != null) {
         sommetFinal = pol.listePoints[3]
       }
-      while (rectangles.length > 0 && rectangles[0].couleurDeRemplissage[0] === color[0]) {
+      while (
+        rectangles.length > 0 &&
+        rectangles[0].couleurDeRemplissage[0] === color[0]
+      ) {
         sommets.push(rectangles[0].listePoints[1], rectangles[0].listePoints[2])
         const pol = rectangles.shift()
         if (pol != null) {
@@ -652,8 +955,11 @@ export class IntegraleComptable extends ObjetMathalea2D {
       if (rectangles.length === 0) {
         sommets.push(sommetFinal)
         const binomesXY = elimineBinomesXYIntermediairesAlignes(sommets)
-        const p = polygone(binomesXY.map(el => point(el.x, el.y)))
-        p.color = p.bordures[1] < 0 && p.bordures[3] === 0 ? colorToLatexOrHTML(colorNegatif) : colorToLatexOrHTML(colorPositif)
+        const p = polygone(binomesXY.map((el) => point(el.x, el.y)))
+        p.color =
+          p.bordures[1] < 0 && p.bordures[3] === 0
+            ? colorToLatexOrHTML(colorNegatif)
+            : colorToLatexOrHTML(colorPositif)
         p.couleurDeRemplissage = p.color
         this.objets.push(p)
         break
@@ -662,8 +968,11 @@ export class IntegraleComptable extends ObjetMathalea2D {
       // s'il reste qu'un seul rectangle alors on le pousse dans la liste des objets
       sommets.push(sommetFinal)
       const binomesXY = elimineBinomesXYIntermediairesAlignes(sommets)
-      const p = polygone(binomesXY.map(el => point(el.x, el.y)))
-      p.color = p.bordures[1] < 0 && p.bordures[3] === 0 ? colorToLatexOrHTML(colorNegatif) : colorToLatexOrHTML(colorPositif)
+      const p = polygone(binomesXY.map((el) => point(el.x, el.y)))
+      p.color =
+        p.bordures[1] < 0 && p.bordures[3] === 0
+          ? colorToLatexOrHTML(colorNegatif)
+          : colorToLatexOrHTML(colorPositif)
       p.couleurDeRemplissage = p.color
       this.objets.push(p)
       if (rectangles.length === 1) {
@@ -673,8 +982,18 @@ export class IntegraleComptable extends ObjetMathalea2D {
       } // sinon on contine en initialisant le nouveau polygone au début de la boucle
     }
 
-    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { rxmax: 0, rxmin: 0, rymax: 0, rymin: 0 })
-    this.bordures = [xmin, xmax, ymin, ymax] as unknown as [number, number, number, number]
+    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, {
+      rxmax: 0,
+      rxmin: 0,
+      rymax: 0,
+      rymin: 0,
+    })
+    this.bordures = [xmin, xmax, ymin, ymax] as unknown as [
+      number,
+      number,
+      number,
+      number,
+    ]
     this.aire = { negative: 0, positive: 0 }
     for (const objet of this.objets) {
       if (objet.bordures[1] < 0 && objet.bordures[3] === 0) {
@@ -689,13 +1008,19 @@ export class BezierPath extends ObjetMathalea2D {
   xStart: number
   yStart: number
   listeOfTriplets: [number, number][][]
-  constructor ({
+  constructor({
     xStart = 0,
     yStart = 0,
-    listeOfTriplets = [[[1, 1], [-1, -1], [1, 1]]] as [number, number][][],
+    listeOfTriplets = [
+      [
+        [1, 1],
+        [-1, -1],
+        [1, 1],
+      ],
+    ] as [number, number][][],
     color = 'black',
     epaisseur = 2,
-    opacite = 1
+    opacite = 1,
   }) {
     super()
     this.color = colorToLatexOrHTML(color)
@@ -706,7 +1031,8 @@ export class BezierPath extends ObjetMathalea2D {
     this.listeOfTriplets = listeOfTriplets
   }
 
-  svg (coeff: number) { //
+  svg(coeff: number) {
+    //
     let path = `<path fill="none" stroke="${this.color[0]}" stroke-width=${this.epaisseur} d="M${xSVG(this.xStart, coeff)},${ySVG(this.yStart, coeff)} c`
     for (const triplet of this.listeOfTriplets) {
       path += `${xSVG(triplet[0][0], coeff)},${ySVG(triplet[0][1], coeff)} ${xSVG(triplet[1][0], coeff)},${ySVG(triplet[1][1], coeff)} ${xSVG(triplet[2][0], coeff)},${ySVG(triplet[2][1], coeff)} `
@@ -715,7 +1041,7 @@ export class BezierPath extends ObjetMathalea2D {
     return path
   }
 
-  tikz () {
+  tikz() {
     let path = `\n\t\\draw[color = ${this.color[1]},line width = ${this.epaisseur}, opacity = ${this.opacite}](${this.xStart},${this.yStart})`
     // Pour tikz, les coordonnées du point initial et final doivent être en coordonnées absolues, seules les points de contrôles peuvent-être en relatif à leur noeud respectif
     let x0 = this.xStart
@@ -757,31 +1083,34 @@ export class BezierPath extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export class CourbeSpline extends ObjetMathalea2D {
-  constructor (f: Spline, {
-    repere,
-    color = 'black',
-    epaisseur = 2,
-    step = false,
-    xMin,
-    xMax,
-    yMin,
-    yMax,
-    xUnite = 1,
-    yUnite = 1,
-    traceNoeuds = true
-  }:{
-    repere?: Repere,
-    color?: string,
-    epaisseur?: number,
-    step?: boolean | number,
-    xMin?: number,
-    xMax?: number,
-    yMin?: number,
-    yMax?: number,
-    xUnite?: number,
-    yUnite?: number,
-    traceNoeuds?: boolean
-  } = {}) {
+  constructor(
+    f: Spline,
+    {
+      repere,
+      color = 'black',
+      epaisseur = 2,
+      step = false,
+      xMin,
+      xMax,
+      yMin,
+      yMax,
+      xUnite = 1,
+      yUnite = 1,
+      traceNoeuds = true,
+    }: {
+      repere?: Repere
+      color?: string
+      epaisseur?: number
+      step?: boolean | number
+      xMin?: number
+      xMax?: number
+      yMin?: number
+      yMax?: number
+      xUnite?: number
+      yUnite?: number
+      traceNoeuds?: boolean
+    } = {},
+  ) {
     super()
     this.objets = []
 
@@ -790,10 +1119,10 @@ export class CourbeSpline extends ObjetMathalea2D {
     let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
     xunite = repere?.xUnite ?? 1
     yunite = repere?.yUnite ?? 1
-    const xmin = xMin == null ? xMin = repere?.xMin ?? 0 : xMin
-    const xmax = xMax == null ? xMax = repere?.xMax ?? 0 : xMax
-    const ymin = yMin == null ? yMin = repere?.yMin ?? 0 : yMin
-    const ymax = yMax == null ? yMax = repere?.yMax ?? 0 : yMax
+    const xmin = xMin == null ? (xMin = repere?.xMin ?? 0) : xMin
+    const xmax = xMax == null ? (xMax = repere?.xMax ?? 0) : xMax
+    const ymin = yMin == null ? (yMin = repere?.yMin ?? 0) : yMin
+    const ymax = yMax == null ? (yMax = repere?.yMax ?? 0) : yMax
 
     if (isNaN(xunite)) {
       xunite = xUnite
@@ -803,7 +1132,10 @@ export class CourbeSpline extends ObjetMathalea2D {
       yunite = yUnite
     }
     if (f.x == null || f.y == null) {
-      window.notify('On ne peut pas tracer la courbe de cette spline : elle n\'a pas de noeuds', { spline: JSON.stringify(f) })
+      window.notify(
+        "On ne peut pas tracer la courbe de cette spline : elle n'a pas de noeuds",
+        { spline: JSON.stringify(f) },
+      )
       return
     }
     if (traceNoeuds) {
@@ -844,10 +1176,15 @@ export class CourbeSpline extends ObjetMathalea2D {
     p.epaisseur = epaisseur
     p.opacite = 0.7
     this.objets.push(p)
-    this.bordures = repere?.bordures as unknown as [number, number, number, number]
+    this.bordures = repere?.bordures as unknown as [
+      number,
+      number,
+      number,
+      number,
+    ]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -856,7 +1193,7 @@ export class CourbeSpline extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -889,32 +1226,47 @@ export class CourbeSpline extends ObjetMathalea2D {
  * @return {CourbeSpline}
  */
 // JSDOC Validee par EE Juin 2022
-export function courbeSpline (f: Spline, {
-  repere,
-  color = 'black',
-  epaisseur = 2,
-  step = false,
-  xMin,
-  xMax,
-  yMin,
-  yMax,
-  xUnite = 1,
-  yUnite = 1,
-  traceNoeuds = true
-}:{
-  repere?: Repere,
-  color?: string,
-  epaisseur?: number,
-  step?: boolean | number,
-  xMin?: number,
-  xMax?: number,
-  yMin?: number,
-  yMax?: number,
-  xUnite?: number,
-  yUnite?: number,
-  traceNoeuds?: boolean
-} = {}) {
-  return new CourbeSpline(f, { repere, color, epaisseur, step, xMin, xMax, yMin, yMax, xUnite, yUnite, traceNoeuds })
+export function courbeSpline(
+  f: Spline,
+  {
+    repere,
+    color = 'black',
+    epaisseur = 2,
+    step = false,
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    xUnite = 1,
+    yUnite = 1,
+    traceNoeuds = true,
+  }: {
+    repere?: Repere
+    color?: string
+    epaisseur?: number
+    step?: boolean | number
+    xMin?: number
+    xMax?: number
+    yMin?: number
+    yMax?: number
+    xUnite?: number
+    yUnite?: number
+    traceNoeuds?: boolean
+  } = {},
+) {
+  return new CourbeSpline(f, {
+    repere,
+    color,
+    epaisseur,
+    step,
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    xUnite,
+    yUnite,
+    traceNoeuds,
+  })
 }
 
 /**
@@ -947,7 +1299,7 @@ const cosineInterpolate = (y1: number, y2: number, mu: number) => {
 // JSDOC Validee par EE Juin 2022
 export class CourbeInterpolee extends ObjetMathalea2D {
   courbes: Courbe[]
-  constructor (
+  constructor(
     tableau: number[][],
     {
       color = 'black',
@@ -955,19 +1307,20 @@ export class CourbeInterpolee extends ObjetMathalea2D {
       repere,
       xMin,
       xMax,
-      step = 0.2
-    }:{
-      color?: string,
-      epaisseur?: number,
-      repere?: Repere,
-      xMin?: number,
-      xMax?: number,
+      step = 0.2,
+    }: {
+      color?: string
+      epaisseur?: number
+      repere?: Repere
+      xMin?: number
+      xMax?: number
       step?: number
-    } = {}) {
+    } = {},
+  ) {
     super()
     this.courbes = []
-    const xmin = xMin != null ? xMin : repere?.xMin ?? -1
-    const xmax = xMax != null ? xMax : repere?.xMax ?? 1
+    const xmin = xMin != null ? xMin : (repere?.xMin ?? -1)
+    const xmax = xMax != null ? xMax : (repere?.xMax ?? 1)
     for (let i = 0; i < tableau.length - 1; i++) {
       const x0 = tableau[i][0]
       const y0 = tableau[i][1]
@@ -977,15 +1330,27 @@ export class CourbeInterpolee extends ObjetMathalea2D {
       let depart, fin
       xmin > x0 ? (depart = xMin) : (depart = x0)
       xmax < x1 ? (fin = xMax) : (fin = x1)
-      const c = courbe(f, { repere, xMin: depart, xMax: fin, color, epaisseur, step })
+      const c = courbe(f, {
+        repere,
+        xMin: depart,
+        xMax: fin,
+        color,
+        epaisseur,
+        step,
+      })
       this.courbes.push(c)
     }
-    const lesY = tableau.map(el => el[1])
-    const lesX = tableau.map(el => el[0])
-    this.bordures = [Math.min(...lesX), Math.min(...lesY), Math.max(...lesX), Math.max(...lesY)]
+    const lesY = tableau.map((el) => el[1])
+    const lesX = tableau.map((el) => el[0])
+    this.bordures = [
+      Math.min(...lesX),
+      Math.min(...lesY),
+      Math.max(...lesX),
+      Math.max(...lesY),
+    ]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.courbes == null) return code
     for (const objet of this.courbes) {
@@ -994,7 +1359,7 @@ export class CourbeInterpolee extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.courbes == null) return code
     for (const objet of this.courbes) {
@@ -1022,45 +1387,56 @@ export class CourbeInterpolee extends ObjetMathalea2D {
  * @return {CourbeInterpolee}
  */
 // JSDOC Validee par EE Juin 2022
-export function courbeInterpolee (tableau: number[][], {
-  color = 'black',
-  epaisseur = 1,
-  repere,
-  xMin = -10,
-  xMax = 10,
-  step = 0.2
-}:{
-  color?: string,
-  epaisseur?: number,
-  repere?: Repere,
-  xMin?: number,
-  xMax?: number,
-  step?: number
-} = {}) {
-  return new CourbeInterpolee(tableau, { color, epaisseur, repere, xMin, xMax, step })
+export function courbeInterpolee(
+  tableau: number[][],
+  {
+    color = 'black',
+    epaisseur = 1,
+    repere,
+    xMin = -10,
+    xMax = 10,
+    step = 0.2,
+  }: {
+    color?: string
+    epaisseur?: number
+    repere?: Repere
+    xMin?: number
+    xMax?: number
+    step?: number
+  } = {},
+) {
+  return new CourbeInterpolee(tableau, {
+    color,
+    epaisseur,
+    repere,
+    xMin,
+    xMax,
+    step,
+  })
 }
 
 export class GraphiqueInterpole extends ObjetMathalea2D {
   courbes: Courbe[]
-  constructor (
-    tableau: number[][], {
+  constructor(
+    tableau: number[][],
+    {
       color = 'black',
       epaisseur = 1,
       repere, // repère par défaut : le laisser...
-      step = 0.2
-    }:{
-      color?: string,
-      epaisseur?: number,
-      repere?: Repere,
+      step = 0.2,
+    }: {
+      color?: string
+      epaisseur?: number
+      repere?: Repere
       step?: number
-    } = {}
+    } = {},
   ) {
     super()
     this.courbes = []
     const xmin = repere?.xMin ?? tableau[0][0]
     const xmax = repere?.xMax ?? tableau[tableau.length - 1][0]
-    const ymin = repere?.yMin ?? Math.min(...tableau.map(el => el[0]))
-    const ymax = repere?.yMax ?? Math.max(...tableau.map(el => el[1]))
+    const ymin = repere?.yMin ?? Math.min(...tableau.map((el) => el[0]))
+    const ymax = repere?.yMax ?? Math.max(...tableau.map((el) => el[1]))
     for (let i = 0; i < tableau.length - 1; i++) {
       const x0 = tableau[i][0]
       const y0 = tableau[i][1]
@@ -1080,14 +1456,19 @@ export class GraphiqueInterpole extends ObjetMathalea2D {
         xUnite: repere?.xUnite ?? 1,
         yUnite: repere?.yUnite ?? 1,
         yMin: ymin,
-        yMax: ymax
+        yMax: ymax,
       })
       this.courbes.push(c)
     }
-    this.bordures = repere?.bordures as unknown as [number, number, number, number]
+    this.bordures = repere?.bordures as unknown as [
+      number,
+      number,
+      number,
+      number,
+    ]
   }
 
-  svg (coeff:number) {
+  svg(coeff: number) {
     let code = ''
     for (const objet of this.courbes) {
       code += '\n\t' + objet.svg(coeff)
@@ -1095,7 +1476,7 @@ export class GraphiqueInterpole extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     for (const objet of this.courbes) {
       code += '\n\t' + objet.tikz()
@@ -1109,21 +1490,24 @@ export class GraphiqueInterpole extends ObjetMathalea2D {
  *
  * @author Rémi Angot
  */
-export function graphiqueInterpole (tableau: number[][], {
-  color = 'black',
-  epaisseur = 1,
-  repere, // repère par défaut : le laisser...
-  step = 0.2
-}:{
-  color?: string,
-  epaisseur?: number,
-  repere?: Repere,
-  step?: number
-} = {}) {
+export function graphiqueInterpole(
+  tableau: number[][],
+  {
+    color = 'black',
+    epaisseur = 1,
+    repere, // repère par défaut : le laisser...
+    step = 0.2,
+  }: {
+    color?: string
+    epaisseur?: number
+    repere?: Repere
+    step?: number
+  } = {},
+) {
   return new GraphiqueInterpole(tableau, { color, epaisseur, repere, step })
 }
 
-export function imageInterpolee (tableau: number[][], antecedent: number) {
+export function imageInterpolee(tableau: number[][], antecedent: number) {
   const x0 = tableau[0][0]
   const y0 = tableau[0][1]
   const x1 = tableau[1][0]
@@ -1132,7 +1516,7 @@ export function imageInterpolee (tableau: number[][], antecedent: number) {
   return f(antecedent)
 }
 
-export function antecedentInterpole (tableau: number[][], image: number) {
+export function antecedentInterpole(tableau: number[][], image: number) {
   const x0 = tableau[0][0]
   const y0 = tableau[0][1]
   const x1 = tableau[1][0]
@@ -1141,7 +1525,13 @@ export function antecedentInterpole (tableau: number[][], image: number) {
   return antecedentParDichotomie(x0, x1, f, image, 0.01)
 }
 
-export function antecedentParDichotomie (xmin: number, xmax: number, f: (x:number)=>number, y: number, precision = 0.01) {
+export function antecedentParDichotomie(
+  xmin: number,
+  xmax: number,
+  f: (x: number) => number,
+  y: number,
+  precision = 0.01,
+) {
   // On arrondit à 1E-6 parce que sinon, on passe à côté de valeur qui devraient être nulle mais le sont pas à 1E-15 !
   const ymax = Number(Math.max(f(xmax), f(xmin)).toFixed(6))
   const ymin = Number(Math.min(f(xmax), f(xmin)).toFixed(6))
@@ -1184,11 +1574,20 @@ export function antecedentParDichotomie (xmin: number, xmax: number, f: (x:numbe
  * @param {string} couleur
  * @returns {Arc}
  */
-export function croche (x:number, y:number, sens = 'gauche', rayon = 0.1, couleur = 'black') {
+export function croche(
+  x: number,
+  y: number,
+  sens = 'gauche',
+  rayon = 0.1,
+  couleur = 'black',
+) {
   const centre = point(x + (sens === 'gauche' ? -rayon : rayon), y)
   const dessous = point(x + (sens === 'gauche' ? -rayon : rayon), y - rayon)
   const dessus = point(x + (sens === 'gauche' ? -rayon : rayon), y + rayon)
-  const croche = sens === 'gauche' ? arc(dessous, centre, dessus) : arc(dessus, centre, dessous)
+  const croche =
+    sens === 'gauche'
+      ? arc(dessous, centre, dessus)
+      : arc(dessus, centre, dessous)
   croche.color = colorToLatexOrHTML(couleur)
   return croche
 }

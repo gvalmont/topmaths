@@ -3,7 +3,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { createList } from '../../lib/format/lists'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -18,15 +22,15 @@ export const interactifType = 'mathLive'
 /**
  * Étudier une suite arithmético-géométrique
  * @author Gilles Mora
-*/
+ */
 export const uuid = '12afc'
 
 export const refs = {
   'fr-fr': ['1AL11-7'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SuitesArithmeticoG extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.sup = '3'
@@ -35,8 +39,8 @@ export default class SuitesArithmeticoG extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Avec des décimaux']
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let a, u0, b, k
@@ -62,46 +66,51 @@ export default class SuitesArithmeticoG extends Exercice {
         propositions: [
           {
             texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}=${texNombre(a, 1)}${NomSA}_n$`,
-            statut: true
+            statut: true,
           },
           {
             texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}=${texNombre(b, 1)}${NomSA}_n$`,
-            statut: false
+            statut: false,
           },
           {
             texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}= ${rienSi1(-k)}${NomSA}_n$`,
-            statut: false
+            statut: false,
           },
           {
             texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}=${NomSA}_n${ecritureAlgebrique(-k)}$`,
-            statut: false
-          }
-        ]
+            statut: false,
+          },
+        ],
       }
       const monQcm = propositionsQcm(this, 3 * i)
       if (this.interactif) texte += monQcm.texte
 
       texte = `Soit $(${NomS}_n)$ la suite définie pour tout entier naturel $n$ par $${NomS}_{n+1}=${texNombre(a, 1)}${NomS}_n ${ecritureAlgebrique(b)}$ et $${NomS}_0=${texNombre(u0, 1)}$.`
-      texte += createList(
-        {
-          items: [
-           `${this.interactif
-? `On pose $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$ pour tout entier naturel $n$.<br>
+      texte += createList({
+        items: [
+          `${
+            this.interactif
+              ? `On pose $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$ pour tout entier naturel $n$.<br>
 ` + monQcm.texte
-: `On pose $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$ pour tout entier naturel $n$.<br>
+              : `On pose $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$ pour tout entier naturel $n$.<br>
 Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
- Donner sa raison et son premier terme.`}`,
- `Exprimer $${NomSA}_n$ en fonction de $n$.` + ajouteChampTexteMathLive(this, 3 * i + 1, '', { texteAvant: `<br>$${NomSA}_n=$` }), `En déduire l'expression du terme général de $(${NomS}_n)$ en fonction de $n$.` + ajouteChampTexteMathLive(this, 3 * i + 2, '', { texteAvant: `<br>$${NomS}_n=$` })
+ Donner sa raison et son premier terme.`
+          }`,
+          `Exprimer $${NomSA}_n$ en fonction de $n$.` +
+            ajouteChampTexteMathLive(this, 3 * i + 1, '', {
+              texteAvant: `<br>$${NomSA}_n=$`,
+            }),
+          `En déduire l'expression du terme général de $(${NomS}_n)$ en fonction de $n$.` +
+            ajouteChampTexteMathLive(this, 3 * i + 2, '', {
+              texteAvant: `<br>$${NomS}_n=$`,
+            }),
+        ],
+        style: 'nombres',
+      })
 
-          ],
-          style: 'nombres'
-        }
-      )
-
-      texteCorr = createList(
-        {
-          items: [
-            `Pour tout entier naturel $n$, <br>
+      texteCorr = createList({
+        items: [
+          `Pour tout entier naturel $n$, <br>
             $\\begin{aligned}
            ${NomSA}_{n+1}&=${NomS}_{n+1} ${ecritureAlgebrique(-k)}\\\\
            &=${texNombre(a, 1)}${NomS}_n ${ecritureAlgebrique(b)} ${ecritureAlgebrique(-k)}\\\\
@@ -116,20 +125,22 @@ Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
           ${NomSA}_0&=${NomS}_0${ecritureAlgebrique(-k)}\\\\
           &=${texNombre(u0, 1)}${ecritureAlgebrique(-k)}\\\\
           &=${texNombre(new Decimal(u0).sub(k), 1)}
-          \\end{aligned}$`, `
+          \\end{aligned}$`,
+          `
           On en déduit l'expression de $${NomSA}_n$ en fonction de $n$ pour tout entier naturel $n$ : $${NomSA}_n=${miseEnEvidence(`${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n`)}$.
-           `, `Puisque $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$, alors $${NomS}_n=${NomSA}_n ${ecritureAlgebrique(k)}$.<br>
+           `,
+          `Puisque $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$, alors $${NomS}_n=${NomSA}_n ${ecritureAlgebrique(k)}$.<br>
            Ainsi l'expression de $${NomS}_n$ en fonction de $n$ est donnée pour tout entier naturel $n$ par  : 
-           $${NomS}_n=${miseEnEvidence(`${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`)}$.`
-          ],
-          style: 'nombres'
-        }
-      )
+           $${NomS}_n=${miseEnEvidence(`${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`)}$.`,
+        ],
+        style: 'nombres',
+      })
       const reponse1 = `${new Decimal(u0).sub(k)} \\times ${ecritureParentheseSiNegatif(a)}^n`
       const reponse2 = `${new Decimal(u0).sub(k)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`
       handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1 } })
       handleAnswers(this, 3 * i + 2, { reponse: { value: reponse2 } })
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, texte)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

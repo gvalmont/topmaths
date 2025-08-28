@@ -17,10 +17,10 @@ export const uuid = 'a24fb'
 
 export const refs = {
   'fr-fr': ['canc3C19'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class problemeMultiplication extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,8 +29,10 @@ export default class problemeMultiplication extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
-    switch (randint(1, 6)) { // 1,2, 3
+  nouvelleVersion() {
+    switch (
+      randint(1, 6) // 1,2, 3
+    ) {
       case 1:
         {
           const prenom = prenomM()
@@ -101,8 +103,17 @@ Combien cela coûte-t-il pour le collège ?`
 
       case 5:
         {
-          const listeValeur: [number, string][] = [[1000, 'mille'], [2000, 'deux mille'], [3000, 'trois mille'], [4000, 'quatre mille'], [5000, 'cinq mille'],
-            [6000, 'six mille'], [7000, 'sept mille'], [8000, 'huit mille'], [9000, 'neuf mille']]
+          const listeValeur: [number, string][] = [
+            [1000, 'mille'],
+            [2000, 'deux mille'],
+            [3000, 'trois mille'],
+            [4000, 'quatre mille'],
+            [5000, 'cinq mille'],
+            [6000, 'six mille'],
+            [7000, 'sept mille'],
+            [8000, 'huit mille'],
+            [9000, 'neuf mille'],
+          ]
           const a = choice(listeValeur)
           const b = randint(9, 25)
           this.reponse = texNombre(a[0] * b, 0)
@@ -121,7 +132,12 @@ Combien cela coûte-t-il pour le collège ?`
       case 6:
         {
           const prenom = prenomF()
-          const listeValeur: [number, string][] = [[4, 'trois'], [5, 'quatre'], [6, 'cinq'], [7, 'six']]
+          const listeValeur: [number, string][] = [
+            [4, 'trois'],
+            [5, 'quatre'],
+            [6, 'cinq'],
+            [7, 'six'],
+          ]
           const a = choice(listeValeur)
           const b = randint(1, 2) * 10 + randint(1, 9)
           this.reponse = texNombre(a[0] * b, 0)
@@ -137,6 +153,8 @@ Combien de bonbons avaient-ils à partager ?`
         }
         break
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 }

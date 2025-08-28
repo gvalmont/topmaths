@@ -21,16 +21,16 @@ export const uuid = 'ca4ce'
 
 export const refs = {
   'fr-fr': ['can5C13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAstucieux1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
@@ -38,7 +38,9 @@ export default class CalculAstucieux1 extends ExerciceSimple {
     const e = (2 * a + 1) / 2
     const f = randint(1, 9) - 0.2
     const g = randint(10, 90)
-    switch (choice(['a', 'b', 'c', 'd', 'e', 'f', 'g'])) { //
+    switch (
+      choice(['a', 'b', 'c', 'd', 'e', 'f', 'g']) //
+    ) {
       case 'a':
         this.question = `Calculer $4 \\times ${texNombre(d)}\\times 25$.`
         this.correction = `$4 \\times ${texNombre(d)}\\times 25 = ${texNombre(100 * d)}$`
@@ -93,7 +95,7 @@ export default class CalculAstucieux1 extends ExerciceSimple {
         $${g} \\times ${texNombre(d)}+${texNombre(100 - g)}\\times ${texNombre(d)}=${texNombre(d)}\\times(\\underbrace{${texNombre(g)}+${texNombre(100 - g)}}_{100})=${texNombre(d)}\\times 100=${texNombre(100 * d)}$  `)
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a343q'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q11 extends ExerciceCan {
-  enonce (a?: number, categA?: string, b?: number, categB?: string) {
+  enonce(a?: number, categA?: string, b?: number, categB?: string) {
     let aa = 100
     let bb = 0.1
     if (a == null || b == null || categA == null || categB == null) {
@@ -39,7 +39,9 @@ export default class Can2025N5Q11 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
-    this.canOfficielle ? this.enonce(4, 'centaines', 3, 'dixièmes') : this.enonce()
+  nouvelleVersion() {
+    this.canOfficielle
+      ? this.enonce(4, 'centaines', 3, 'dixièmes')
+      : this.enonce()
   }
 }

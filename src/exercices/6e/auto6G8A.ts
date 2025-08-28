@@ -9,20 +9,30 @@ import {
   cone3d,
   cylindre3d,
   prisme3d,
-  pyramide3d
+  pyramide3d,
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   arc3d,
-  arete3d, droite3d,
+  arete3d,
+  droite3d,
   Point3d,
   point3d,
-  polygone3d, vecteur3d
+  polygone3d,
+  vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { context } from '../../modules/context'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import {
+  fixeBordures,
+  mathalea2d,
+  ObjetMathalea2D,
+} from '../../modules/2dGeneralites'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import type { Latex2d } from '../../lib/2d/textes'
@@ -43,11 +53,11 @@ export const amcType = 'qcmMono'
 export const refs = {
   'fr-fr': ['auto6G8A'],
   'fr-2016': ['6G44-1'],
-  'fr-ch': ['9ES7-8', '10ES1-1', '11ES1-1']
+  'fr-ch': ['9ES7-8', '10ES1-1', '11ES1-1'],
 }
 export const uuid = '051aa'
 export default class ReconnaitreDesSolides extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.nbCols = 4
@@ -55,7 +65,8 @@ export default class ReconnaitreDesSolides extends Exercice {
     this.sup = '8' // Type de question
     this.sup2 = false // qcm
     this.besoinFormulaireTexte = [
-      'Type de solides', [
+      'Type de solides',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Prisme',
         '2 : Pyramide',
@@ -64,26 +75,37 @@ export default class ReconnaitreDesSolides extends Exercice {
         '5 : Pavé',
         '6 : Cube',
         '7 : Sphère',
-        '8 : Mélange'
-      ].join('\n')
+        '8 : Mélange',
+      ].join('\n'),
     ]
     this.besoinFormulaire2CaseACocher = ['QCM']
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const maxTentativesParQuestion = 50
-    const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
+    const solides = [
+      'prisme',
+      'pyramide',
+      'cône',
+      'cylindre',
+      'pavé droit',
+      'cube',
+      'sphère',
+    ]
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
 
-    this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? 'Donner le nom de ce solide.' : 'Donner le nom de chacun des solides.'
+    this.consigne =
+      this.nbQuestions === 1 || context.vue === 'diap'
+        ? 'Donner le nom de ce solide.'
+        : 'Donner le nom de chacun des solides.'
 
     const typeDeQuestion = gestionnaireFormulaireTexte({
       max: 7,
       defaut: 8,
       nbQuestions: this.nbQuestions * maxTentativesParQuestion,
       melange: 8,
-      saisie: this.sup
-    }).map(e => Number(e))
+      saisie: this.sup,
+    }).map((e) => Number(e))
 
     for (let j = 0, k = 0; j < this.nbQuestions && k < 50; k++) {
       const choix = typeDeQuestion[k]
@@ -91,10 +113,15 @@ export default class ReconnaitreDesSolides extends Exercice {
       const objets: (ObjetMathalea2D | Latex2d)[] = []
       let reponseQcm
 
-      let axe = choix === 1 ? randint(1, 2) : (choix > 1 && choix <= 5) ? randint(1, 3) : 0
+      let axe =
+        choix === 1
+          ? randint(1, 2)
+          : choix > 1 && choix <= 5
+            ? randint(1, 3)
+            : 0
 
       // nombre de sommets de la base.
-      const n = choix < 3 ? randint(3, 8) : (choix === 5 || choix === 6 ? 4 : 0)
+      const n = choix < 3 ? randint(3, 8) : choix === 5 || choix === 6 ? 4 : 0
 
       let prisme, pyra, cone, cylindre, pave, sphere
       let texteCorrection = ''
@@ -108,11 +135,30 @@ export default class ReconnaitreDesSolides extends Exercice {
             const points3XZ = []
             const points3YZ = []
             const rayon = 2
-            const alpha = Math.PI * 2 / n
+            const alpha = (Math.PI * 2) / n
             for (let i = 0; i < n; i++) {
-              points3XY.push(point3d(rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i), 0))
-              points3XZ.push(point3d(rayon * Math.cos(alpha * i), 5, rayon * Math.sin(alpha * i), true))
-              points3YZ.push(point3d(-1, rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i)))
+              points3XY.push(
+                point3d(
+                  rayon * Math.cos(alpha * i),
+                  rayon * Math.sin(alpha * i),
+                  0,
+                ),
+              )
+              points3XZ.push(
+                point3d(
+                  rayon * Math.cos(alpha * i),
+                  5,
+                  rayon * Math.sin(alpha * i),
+                  true,
+                ),
+              )
+              points3YZ.push(
+                point3d(
+                  -1,
+                  rayon * Math.cos(alpha * i),
+                  rayon * Math.sin(alpha * i),
+                ),
+              )
             }
             let base, k3, p3
             if (axe === 2) {
@@ -120,7 +166,14 @@ export default class ReconnaitreDesSolides extends Exercice {
               if (n === 4) {
                 const points3DRota = []
                 for (let i = 0; i < points3YZ.length; i++) {
-                  points3DRota.push(rotation3d(points3YZ[i], droite3d(point3d(0, 0, 0), vecteur3d(1, 0, 0)), 0 + (i === 0 ? 30 : (i === 1 ? -30 : 0)), 'red'))
+                  points3DRota.push(
+                    rotation3d(
+                      points3YZ[i],
+                      droite3d(point3d(0, 0, 0), vecteur3d(1, 0, 0)),
+                      0 + (i === 0 ? 30 : i === 1 ? -30 : 0),
+                      'red',
+                    ),
+                  )
                 }
                 points3YZ.length = 0
                 points3YZ.push(...points3DRota)
@@ -133,7 +186,14 @@ export default class ReconnaitreDesSolides extends Exercice {
               if (n === 4) {
                 const points3DRota = []
                 for (let i = 0; i < points3XY.length; i++) {
-                  points3DRota.push(rotation3d(points3XY[i], droite3d(point3d(0, 0, 0), vecteur3d(0, 0, 1)), 0 + (i === 0 ? 30 : (i === 1 ? -30 : 0)), 'red'))
+                  points3DRota.push(
+                    rotation3d(
+                      points3XY[i],
+                      droite3d(point3d(0, 0, 0), vecteur3d(0, 0, 1)),
+                      0 + (i === 0 ? 30 : i === 1 ? -30 : 0),
+                      'red',
+                    ),
+                  )
                 }
                 points3XY.length = 0
                 points3XY.push(...points3DRota)
@@ -151,30 +211,62 @@ export default class ReconnaitreDesSolides extends Exercice {
               pyra = pyramide3d(base, p3)
               const objs = pyra.c2d
               objets.push(...(objs as (ObjetMathalea2D | Latex2d)[]))
-              texteCorrection = `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
+              texteCorrection = `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.` // et selon l'axe=$${axe}$`
             }
           }
-          reponse = solide === 'prisme' ? ['prisme', 'prisme droit'] : 'pyramide'
+          reponse =
+            solide === 'prisme' ? ['prisme', 'prisme droit'] : 'pyramide'
 
           break
-        case 'cône': // cone  ?
-        {
+        case 'cône': { // cone  ?
           if (axe === 3) {
-            cone = cone3d(point3d(0, 0, 0), point3d(0, -7, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)), 'black', true, 'black', 'white')
+            cone = cone3d(
+              point3d(0, 0, 0),
+              point3d(0, -7, 0),
+              vecteur3d(
+                Math.cos((30 * Math.PI) / 180.0),
+                0,
+                Math.sin((30 * Math.PI) / 180.0),
+              ),
+              'black',
+              true,
+              'black',
+              'white',
+            )
             /* for (let kk = 15; kk < 25; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
             } */
             objets.push(...(cone.c2d as (ObjetMathalea2D | Latex2d)[]))
           } else if (axe === 2) {
-            cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)), 'black', true, 'black', 'white')
+            cone = cone3d(
+              point3d(0, 0, 0),
+              point3d(3, 0, 0),
+              vecteur3d(
+                0,
+                Math.cos((60 * Math.PI) / 180.0),
+                Math.sin((60 * Math.PI) / 180.0),
+              ),
+              'black',
+              true,
+              'black',
+              'white',
+            )
             /* for (let kk = 3; kk < 3 + 17; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
             } */
             objets.push(...(cone.c2d as (ObjetMathalea2D | Latex2d)[]))
           } else {
-            cone = cone2d({ centre: point(0, 0), rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
+            cone = cone2d({
+              centre: point(0, 0),
+              rx: randint(15, 30) / 10,
+              hauteur: choice([3, 4, 5]),
+            })
             const t = tracePoint(cone.centre)
-            const g = homothetie(segment(cone.centre, cone.sommet), milieu(cone.centre, cone.sommet), 1.5) as Segment
+            const g = homothetie(
+              segment(cone.centre, cone.sommet),
+              milieu(cone.centre, cone.sommet),
+              1.5,
+            ) as Segment
             g.pointilles = 2
             objets.push(cone, g, t)
           }
@@ -184,11 +276,48 @@ export default class ReconnaitreDesSolides extends Exercice {
         }
         case 'cylindre': // cylindre
           if (axe === 3) {
-            cylindre = cylindre3d(point3d(0, 0, 2), point3d(0, -3, 2), vecteur3d(1, 0, 0), vecteur3d(1, 0, 0))
-            const c1 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'black', 110, 280)
-            const c2 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'black', 280, 360 + 110)
-            const c3 = arc3d(point3d(0, -0.5, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'black', 110, 280)
-            const c4 = arc3d(point3d(0, -0.5, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'black', 280, 360 + 110)
+            cylindre = cylindre3d(
+              point3d(0, 0, 2),
+              point3d(0, -3, 2),
+              vecteur3d(1, 0, 0),
+              vecteur3d(1, 0, 0),
+            )
+            const c1 = arc3d(
+              point3d(0, 3, 1),
+              vecteur3d(0, -1, 0),
+              vecteur3d(1, 0, 0),
+              'caché',
+              'black',
+              110,
+              280,
+            )
+            const c2 = arc3d(
+              point3d(0, 3, 1),
+              vecteur3d(0, -1, 0),
+              vecteur3d(1, 0, 0),
+              'visible',
+              'black',
+              280,
+              360 + 110,
+            )
+            const c3 = arc3d(
+              point3d(0, -0.5, 1),
+              vecteur3d(0, -1, 0),
+              vecteur3d(1, 0, 0),
+              'caché',
+              'black',
+              110,
+              280,
+            )
+            const c4 = arc3d(
+              point3d(0, -0.5, 1),
+              vecteur3d(0, -1, 0),
+              vecteur3d(1, 0, 0),
+              'visible',
+              'black',
+              280,
+              360 + 110,
+            )
             // generatrice
             const g = []
             for (let i = 0; i < c1.listePoints.length; i += 2) {
@@ -205,16 +334,60 @@ export default class ReconnaitreDesSolides extends Exercice {
             c3.pointilles = 0
             c3.opacite = 1
             cylindre.c2d = []
-            cylindre.c2d.push(c1, c2, c3, c4, ...g, arete3d(point3d(0, 4, 1), point3d(0, -4, 1), 'red', false).c2d)
+            cylindre.c2d.push(
+              c1,
+              c2,
+              c3,
+              c4,
+              ...g,
+              arete3d(point3d(0, 4, 1), point3d(0, -4, 1), 'red', false).c2d,
+            )
           } else if (axe === 2) {
             // base sur le plan YZ
-            cylindre = cylindre3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, 1, 0), vecteur3d(0, 1, 0))
+            cylindre = cylindre3d(
+              point3d(0, 0, 0),
+              point3d(3, 0, 0),
+              vecteur3d(0, 1, 0),
+              vecteur3d(0, 1, 0),
+            )
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
                         c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
-            const c1 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'black', 90, 270)
-            const c2 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'caché', 'black', 270, 360 + 90)
-            const c3 = arc3d(point3d(3, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'black', 90, 270)
-            const c4 = arc3d(point3d(3, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'caché', 'black', 270, 360 + 90)
+            const c1 = arc3d(
+              point3d(0, 0, 1),
+              vecteur3d(1, 0, 0),
+              vecteur3d(0, 1, 0),
+              'visible',
+              'black',
+              90,
+              270,
+            )
+            const c2 = arc3d(
+              point3d(0, 0, 1),
+              vecteur3d(1, 0, 0),
+              vecteur3d(0, 1, 0),
+              'caché',
+              'black',
+              270,
+              360 + 90,
+            )
+            const c3 = arc3d(
+              point3d(3, 0, 1),
+              vecteur3d(1, 0, 0),
+              vecteur3d(0, 1, 0),
+              'visible',
+              'black',
+              90,
+              270,
+            )
+            const c4 = arc3d(
+              point3d(3, 0, 1),
+              vecteur3d(1, 0, 0),
+              vecteur3d(0, 1, 0),
+              'caché',
+              'black',
+              270,
+              360 + 90,
+            )
             // generatrice
             const g = []
             for (let i = 0; i < c1.listePoints.length; i += 2) {
@@ -231,18 +404,30 @@ export default class ReconnaitreDesSolides extends Exercice {
             c4.pointilles = 0
             c4.opacite = 1
             cylindre.c2d = []
-            cylindre.c2d.push(c1, c2, c3, c4, ...g, arete3d(point3d(-1, 0, 1), point3d(4, 0, 1), 'red', false).c2d)
+            cylindre.c2d.push(
+              c1,
+              c2,
+              c3,
+              c4,
+              ...g,
+              arete3d(point3d(-1, 0, 1), point3d(4, 0, 1), 'red', false).c2d,
+            )
           } else {
-            cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
+            cylindre = cylindre3d(
+              point3d(0, 0, 0),
+              point3d(0, 0, 3),
+              vecteur3d(2, 0, 0),
+              vecteur3d(2, 0, 0),
+            )
           }
           objets.push(...cylindre.c2d)
           reponse = ['cylindre', 'cylindre de révolution']
-          texteCorrection = premiereLettreEnMajuscule(solide) + ' de révolution.'
+          texteCorrection =
+            premiereLettreEnMajuscule(solide) + ' de révolution.'
 
           break
         case 'pavé droit': // pavé droit
-        case 'cube': // cube
-        {
+        case 'cube': { // cube
           if (solide === 'cube') {
             axe = 2 // cube quel que soit l'axe
           }
@@ -250,17 +435,50 @@ export default class ReconnaitreDesSolides extends Exercice {
           const points3XZ: Point3d[] = []
           const points3YZ: Point3d[] = []
           const rayon = 2
-          const alpha = Math.PI * 2 / n
+          const alpha = (Math.PI * 2) / n
           for (let i = 0; i < n; i++) {
-            points3XY.push(point3d(rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i), 0, !(i > 0 && i <= (n / 2 - 0.1))))
-            points3XZ.push(point3d(rayon * Math.cos(alpha * i), 5, rayon * Math.sin(alpha * i), true))
-            points3YZ.push(point3d(-1, rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i), !(i === 0 || (n > 6 && i === n - 1) || (n > 6 && i === 1) || (n === 6 && i === 5))))
+            points3XY.push(
+              point3d(
+                rayon * Math.cos(alpha * i),
+                rayon * Math.sin(alpha * i),
+                0,
+                !(i > 0 && i <= n / 2 - 0.1),
+              ),
+            )
+            points3XZ.push(
+              point3d(
+                rayon * Math.cos(alpha * i),
+                5,
+                rayon * Math.sin(alpha * i),
+                true,
+              ),
+            )
+            points3YZ.push(
+              point3d(
+                -1,
+                rayon * Math.cos(alpha * i),
+                rayon * Math.sin(alpha * i),
+                !(
+                  i === 0 ||
+                  (n > 6 && i === n - 1) ||
+                  (n > 6 && i === 1) ||
+                  (n === 6 && i === 5)
+                ),
+              ),
+            )
           }
           if (axe === 3) {
             // base sur le plan YZ
             const points3DRota = []
             for (let i = 0; i < points3XY.length; i++) {
-              points3DRota.push(rotation3d(points3XZ[i], droite3d(point3d(0, 0, 0), vecteur3d(0, 1, 0)), -45, 'red'))
+              points3DRota.push(
+                rotation3d(
+                  points3XZ[i],
+                  droite3d(point3d(0, 0, 0), vecteur3d(0, 1, 0)),
+                  -45,
+                  'red',
+                ),
+              )
             }
             points3XZ.length = 0
             points3XZ.push(...points3DRota)
@@ -272,7 +490,14 @@ export default class ReconnaitreDesSolides extends Exercice {
             // base sur le plan YZ
             const points3DRota = []
             for (let i = 0; i < points3YZ.length; i++) {
-              points3DRota.push(rotation3d(points3YZ[i], droite3d(point3d(0, 0, 0), vecteur3d(1, 0, 0)), -45, 'red'))
+              points3DRota.push(
+                rotation3d(
+                  points3YZ[i],
+                  droite3d(point3d(0, 0, 0), vecteur3d(1, 0, 0)),
+                  -45,
+                  'red',
+                ),
+              )
             }
             points3YZ.length = 0
             points3YZ.push(...points3DRota)
@@ -288,7 +513,14 @@ export default class ReconnaitreDesSolides extends Exercice {
             // base sur le plan XY
             const points3DRota = []
             for (let i = 0; i < points3XY.length; i++) {
-              points3DRota.push(rotation3d(points3XY[i], droite3d(point3d(0, 0, 0), vecteur3d(0, 0, 1)), 0, 'red'))
+              points3DRota.push(
+                rotation3d(
+                  points3XY[i],
+                  droite3d(point3d(0, 0, 0), vecteur3d(0, 0, 1)),
+                  0,
+                  'red',
+                ),
+              )
             }
             points3XY.length = 0
             points3XY.push(...points3DRota)
@@ -315,10 +547,13 @@ export default class ReconnaitreDesSolides extends Exercice {
         reponseQcm = solide
         if (this.sup2) reponse = solide // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
 
-        this.question = mathalea2d(Object.assign({}, fixeBordures(objets), {
-          scale: 0.5,
-          style: 'margin: auto'
-        }), ...objets.flat())
+        this.question = mathalea2d(
+          Object.assign({}, fixeBordures(objets), {
+            scale: 0.5,
+            style: 'margin: auto',
+          }),
+          ...objets.flat(),
+        )
 
         this.autoCorrection[j] = {}
         this.autoCorrection[j].options = {}
@@ -326,32 +561,32 @@ export default class ReconnaitreDesSolides extends Exercice {
         this.autoCorrection[j].propositions = [
           {
             texte: 'Prisme',
-            statut: (reponseQcm === 'prisme')
+            statut: reponseQcm === 'prisme',
           },
           {
             texte: 'Pyramide',
-            statut: (reponseQcm === 'pyramide')
+            statut: reponseQcm === 'pyramide',
           },
           {
             texte: 'Cône',
-            statut: (reponseQcm === 'cône')
+            statut: reponseQcm === 'cône',
           },
           {
             texte: 'Cylindre',
-            statut: (reponseQcm === 'cylindre')
+            statut: reponseQcm === 'cylindre',
           },
           {
             texte: 'Pavé',
-            statut: (reponseQcm === 'pavé droit')
+            statut: reponseQcm === 'pavé droit',
           },
           {
             texte: 'Cube',
-            statut: (reponseQcm === 'cube')
+            statut: reponseQcm === 'cube',
           },
           {
             texte: 'Sphère',
-            statut: (reponseQcm === 'sphère')
-          }
+            statut: reponseQcm === 'sphère',
+          },
         ]
         if (this.sup2) {
           this.question += propositionsQcm(this, j).texte

@@ -16,10 +16,10 @@ export const uuid = '31e91'
 
 export const refs = {
   'fr-fr': ['canc3C18'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class problemeSoustraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,8 +28,10 @@ export default class problemeSoustraction extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
-    switch (randint(1, 7)) { // 1,2, 3
+  nouvelleVersion() {
+    switch (
+      randint(1, 7) // 1,2, 3
+    ) {
       case 1:
         {
           const a = randint(4, 6) * 10 + randint(1, 5)
@@ -117,7 +119,8 @@ Combien de places sont inoccupées ? `
 
       case 6:
         {
-          const a = randint(1, 3) * 1000 + randint(1, 9) * 100 + randint(6, 9) * 10
+          const a =
+            randint(1, 3) * 1000 + randint(1, 9) * 100 + randint(6, 9) * 10
           const b = randint(1, 2) * 100 + randint(1, 5) * 10
           const c = a - b
           this.reponse = texNombre(c, 0)
@@ -149,6 +152,8 @@ Combien de places sont inoccupées ? `
         }
         break
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 }

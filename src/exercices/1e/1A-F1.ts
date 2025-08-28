@@ -15,10 +15,10 @@ export const uuid = 'fdba8'
 
 export const refs = {
   'fr-fr': ['1A-F1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF1 extends CalculImageSecondDegre {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

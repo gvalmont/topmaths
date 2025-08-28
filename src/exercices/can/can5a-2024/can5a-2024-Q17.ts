@@ -15,7 +15,7 @@ export const uuid = '43038'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 31
       this.question = `Compléter la suite logique : <br>
@@ -45,6 +45,8 @@ export default class NomExercice extends ExerciceSimple {
     this.canReponseACompleter = '? $=\\ldots$'
     if (!this.interactif) {
       this.question += '<br>? $=\\ldots$'
-    } else { this.question += '<br>? $=$' }
+    } else {
+      this.question += '<br>? $=$'
+    }
   }
 }

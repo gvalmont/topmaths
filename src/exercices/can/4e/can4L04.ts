@@ -17,16 +17,16 @@ export const uuid = '12514'
 
 export const refs = {
   'fr-fr': ['can4L04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SubstitutionRelatif extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = -randint(2, 6)
     const b = randint(12, 25)
     const c = randint(3, 7)
@@ -37,7 +37,7 @@ export default class SubstitutionRelatif extends ExerciceSimple {
        Puis, on calcule  $${b}${ecritureAlgebrique(c * a)}=${b + c * a}$.  `)
 
     this.reponse = b + c * a
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

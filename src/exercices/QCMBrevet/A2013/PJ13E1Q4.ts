@@ -5,7 +5,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '67e19'
 export const refs = {
   'fr-fr': ['3L1QCM-06', 'BP2AutoI20'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -19,12 +19,12 @@ export const dateDePublication = '30/10/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class PolynesieJuin13Exo1Q4 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b: number): void {
-    const b2 = (b ** 2) / 2
+  private appliquerLesValeurs(a: number, b: number): void {
+    const b2 = b ** 2 / 2
     this.reponses = [
       `$(${String(a)}x+${String(b)})(${String(a)}x-${String(b)})$`,
       `$(${String(a)}x-${String(b)})^2$`,
-      `$(${String(a)}x-${String(b2)})(${String(a)}x+${String(b2)})$`
+      `$(${String(a)}x-${String(b2)})(${String(a)}x+${String(b2)})$`,
     ]
     this.enonce = `Quelle est l'expression factorisée de $${String(a ** 2)}x^2-${String(b ** 2)}$ ?`
     this.correction = `$\\begin{aligned}${String(a ** 2)}x^2-${String(b ** 2)}&=${String(a)}^2x^2-${String(b)}^2\\\\
@@ -46,7 +46,7 @@ export default class PolynesieJuin13Exo1Q4 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

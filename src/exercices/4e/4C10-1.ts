@@ -1,6 +1,6 @@
 import SigneProduitQuotientRelatifs from './4C10-0'
 
-export const titre = 'Donner le signe d\'un produit de nombres relatifs'
+export const titre = "Donner le signe d'un produit de nombres relatifs"
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -15,10 +15,10 @@ export const uuid = '4fd42'
 
 export const refs = {
   'fr-fr': ['4C10-1'],
-  'fr-ch': ['10NO4-3']
+  'fr-ch': ['10NO4-3'],
 }
 export default class SigneProduitRelatifs extends SigneProduitQuotientRelatifs {
-  constructor () {
+  constructor() {
     super()
     this.exo = '4C10-1'
     this.sup = 4
@@ -27,7 +27,7 @@ export default class SigneProduitRelatifs extends SigneProduitQuotientRelatifs {
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      '1 : 2 facteurs\n2 : 3 facteurs\n3 : 4 facteurs\n4 : Mélange'
+      '1 : 2 facteurs\n2 : 3 facteurs\n3 : 4 facteurs\n4 : Mélange',
     ]
   }
 }

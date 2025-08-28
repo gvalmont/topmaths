@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '01eb1'
 export const refs = {
   'fr-fr': ['TSA5-QCM05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,20 +29,27 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$]- 3~;~2[$',
       '$]- \\infty~;~6]$',
       '$]0~;~+\\infty[$',
-      '$]2~;~+\\infty[$'
+      '$]2~;~+\\infty[$',
     ]
 
-    this.enonce = ' La  fonction $x \\longmapsto  \\ln \\left(-x^2- x + 6\\right)$ est définie sur '
-    this.correction = 'La fonction est définie si $- x^2 - x + 6 > 0 \\iff x^2 + x - 6 < 0$.'
-    this.correction += '<br>Le trinôme $x^2 +x - 6$ a une racine évidente : $2$.<br>'
-    this.correction += ' Le produit des racines étant égal à $- 6$, l\'autre racine est donc $- 3$.<br>'
-    this.correction += 'On aurait pu aussi calculer le discriminant : $\\Delta = 1^2 - 4 \\times 1 \\times (- 6) = 1 + 24 = 25$ ,<br>'
-    this.correction += 'ce qui donne aussi $x_1 = \\dfrac{- 1 - 5}{2} = - 3$ et $x_2 = \\dfrac{- 1 + 5}{2} = 2$.<br>'
-    this.correction += 'On sait que ce trinôme est du signe de $a=1$, donc positif, à l\'extérieur de ses racines. Il est donc négatif entre les racines $- 3$ et 2.<br>'
-    this.correction += `${texteEnCouleurEtGras('La fonction est donc définie sur l\'intervalle $]-3~;~2[$.')}`
+    this.enonce =
+      ' La  fonction $x \\longmapsto  \\ln \\left(-x^2- x + 6\\right)$ est définie sur '
+    this.correction =
+      'La fonction est définie si $- x^2 - x + 6 > 0 \\iff x^2 + x - 6 < 0$.'
+    this.correction +=
+      '<br>Le trinôme $x^2 +x - 6$ a une racine évidente : $2$.<br>'
+    this.correction +=
+      " Le produit des racines étant égal à $- 6$, l'autre racine est donc $- 3$.<br>"
+    this.correction +=
+      'On aurait pu aussi calculer le discriminant : $\\Delta = 1^2 - 4 \\times 1 \\times (- 6) = 1 + 24 = 25$ ,<br>'
+    this.correction +=
+      'ce qui donne aussi $x_1 = \\dfrac{- 1 - 5}{2} = - 3$ et $x_2 = \\dfrac{- 1 + 5}{2} = 2$.<br>'
+    this.correction +=
+      "On sait que ce trinôme est du signe de $a=1$, donc positif, à l'extérieur de ses racines. Il est donc négatif entre les racines $- 3$ et 2.<br>"
+    this.correction += `${texteEnCouleurEtGras("La fonction est donc définie sur l'intervalle $]-3~;~2[$.")}`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

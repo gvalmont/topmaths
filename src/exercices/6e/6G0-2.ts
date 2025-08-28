@@ -1,6 +1,11 @@
 import { Droite, droite } from '../../lib/2d/droites'
 import { Point, point, tracePointSurDroite } from '../../lib/2d/points'
-import { DemiDroite, demiDroite, Segment, segment } from '../../lib/2d/segmentsVecteurs'
+import {
+  DemiDroite,
+  demiDroite,
+  Segment,
+  segment,
+} from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -10,7 +15,8 @@ import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import Exercice from '../Exercice'
 
-export const titre = 'Donner description et notation de droites, segments et demi-droites'
+export const titre =
+  'Donner description et notation de droites, segments et demi-droites'
 export const amcReady = true
 export const amcType = 'qcmMult'
 export const interactifReady = true
@@ -26,20 +32,30 @@ export const uuid = 'd81c6'
 export const refs = {
   'fr-fr': ['6G0-2'],
   'fr-2016': ['6G10-1'],
-  'fr-ch': ['9ES1-2']
+  'fr-ch': ['9ES1-2'],
 }
 export default class DescriptionSegmentDroiteDemiDroite extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
-    this.consigne = (this.interactif || context.isAmc) ? 'Cocher les propositions correspondant à la figure.' : 'Décrire précisément, avec des mots, la figure et donner sa notation mathématique.'
+  nouvelleVersion() {
+    this.consigne =
+      this.interactif || context.isAmc
+        ? 'Cocher les propositions correspondant à la figure.'
+        : 'Décrire précisément, avec des mots, la figure et donner sa notation mathématique.'
     const typesDeQuestionsDisponibles = [1, 4, choice([2, 3])]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     let listeDeNomsDePolygones: string[] = []
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       if (i % 5 === 0) listeDeNomsDePolygones = ['QD']
       const p = creerNomDePolygone(2, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(p)
@@ -47,39 +63,49 @@ export default class DescriptionSegmentDroiteDemiDroite extends Exercice {
       const B = point(4, randint(0, 20) / 10, p[1])
       const t1 = tracePointSurDroite(A, B)
       const t2 = tracePointSurDroite(B, A)
-      const creerDroiteDemiSegment: (A:Point, B:Point)=>
-      {
-        trait: Segment | Droite | DemiDroite,
-        correction: string,
+      const creerDroiteDemiSegment: (
+        A: Point,
+        B: Point,
+      ) => {
+        trait: Segment | Droite | DemiDroite
+        correction: string
         propsQcm: {
-          droite: { phrase: string, notation: string, bonneReponse: boolean },
-          segment: { phrase: string, notation: string, bonneReponse: boolean },
-          demiDroite1: { phrase: string, notation: string, bonneReponse: boolean },
-          demiDroite2: { phrase: string, notation: string, bonneReponse: boolean }
+          droite: { phrase: string; notation: string; bonneReponse: boolean }
+          segment: { phrase: string; notation: string; bonneReponse: boolean }
+          demiDroite1: {
+            phrase: string
+            notation: string
+            bonneReponse: boolean
+          }
+          demiDroite2: {
+            phrase: string
+            notation: string
+            bonneReponse: boolean
+          }
         }
-      } = (A:Point, B:Point) => {
+      } = (A: Point, B: Point) => {
         let trait, correction
         const propsQcm = {
           droite: {
             phrase: `La droite passant par $${A.nom}$ et $${B.nom}$`,
             notation: `$(${A.nom}${B.nom})$`,
-            bonneReponse: false
+            bonneReponse: false,
           },
           segment: {
             phrase: `Le segment d'extrémités $${A.nom}$ et $${B.nom}$`,
             notation: `$[${A.nom}${B.nom}]$`,
-            bonneReponse: false
+            bonneReponse: false,
           },
           demiDroite1: {
             phrase: `La demi-droite d'origine $${A.nom}$ passant par $${B.nom}$`,
             notation: `$[${A.nom}${B.nom})$`,
-            bonneReponse: false
+            bonneReponse: false,
           },
           demiDroite2: {
             phrase: `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$`,
             notation: `$[${B.nom}${A.nom})$`,
-            bonneReponse: false
-          }
+            bonneReponse: false,
+          },
         }
         switch (listeTypeDeQuestions[i]) {
           case 1:
@@ -107,14 +133,26 @@ export default class DescriptionSegmentDroiteDemiDroite extends Exercice {
         return { trait, correction, propsQcm }
       }
 
-      const { trait: dAB, correction: dABCorr, propsQcm } = creerDroiteDemiSegment(A, B)
+      const {
+        trait: dAB,
+        correction: dABCorr,
+        propsQcm,
+      } = creerDroiteDemiSegment(A, B)
       const labels = labelPoint(A, B)
       texte = mathalea2d(
-        { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6, optionsTikz: ['baseline=(current bounding box.north)'] },
+        {
+          xmin: -2,
+          ymin: -1,
+          xmax: 7,
+          ymax: 3,
+          pixelsParCm: 40,
+          scale: 0.6,
+          optionsTikz: ['baseline=(current bounding box.north)'],
+        },
         dAB,
         t1,
         t2,
-        labels
+        labels,
       )
       this.autoCorrection[i] = {
         enonce: texte,
@@ -122,37 +160,37 @@ export default class DescriptionSegmentDroiteDemiDroite extends Exercice {
         propositions: [
           {
             texte: propsQcm.droite.phrase,
-            statut: propsQcm.droite.bonneReponse
+            statut: propsQcm.droite.bonneReponse,
           },
           {
             texte: propsQcm.demiDroite1.phrase,
-            statut: propsQcm.demiDroite1.bonneReponse
+            statut: propsQcm.demiDroite1.bonneReponse,
           },
           {
             texte: propsQcm.demiDroite2.phrase,
-            statut: propsQcm.demiDroite2.bonneReponse
+            statut: propsQcm.demiDroite2.bonneReponse,
           },
           {
             texte: propsQcm.segment.phrase,
-            statut: propsQcm.segment.bonneReponse
+            statut: propsQcm.segment.bonneReponse,
           },
           {
             texte: propsQcm.droite.notation,
-            statut: propsQcm.droite.bonneReponse
+            statut: propsQcm.droite.bonneReponse,
           },
           {
             texte: propsQcm.demiDroite1.notation,
-            statut: propsQcm.demiDroite1.bonneReponse
+            statut: propsQcm.demiDroite1.bonneReponse,
           },
           {
             texte: propsQcm.demiDroite2.notation,
-            statut: propsQcm.demiDroite2.bonneReponse
+            statut: propsQcm.demiDroite2.bonneReponse,
           },
           {
             texte: propsQcm.segment.notation,
-            statut: propsQcm.segment.bonneReponse
-          }
-        ]
+            statut: propsQcm.segment.bonneReponse,
+          },
+        ],
       }
 
       const leQcmHtml = propositionsQcm(this, i)

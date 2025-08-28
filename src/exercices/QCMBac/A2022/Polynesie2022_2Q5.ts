@@ -1,10 +1,13 @@
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = '2f559'
 export const refs = {
   'fr-fr': ['TSA2-QCM10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,22 +32,26 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$y = 2\\text{e}x - \\text{e}$', // Réponse correcte (b)
       '$y = \\text{e}x + \\text{e}$', // Mauvaise réponse (a)
       '$y = 2\\text{e}x + \\text{e}$', // Mauvaise réponse (c)
-      '$y = \\text{e}x$' // Mauvaise réponse (d)
+      '$y = \\text{e}x$', // Mauvaise réponse (d)
     ]
 
-    this.enonce = 'L\'équation réduite de la tangente au point d\'abscisse 1 de la courbe de la fonction $f$<br> définie sur $\\R$ par '
+    this.enonce =
+      "L'équation réduite de la tangente au point d'abscisse 1 de la courbe de la fonction $f$<br> définie sur $\\R$ par "
     this.enonce += '$f(x) = x\\text{e}^x$ est'
 
     this.correction = 'On calcule la dérivée de $f$ :<br>'
-    this.correction += '$f\'(x) = \\text{e}^x + x\\text{e}^x = (1 + x)\\text{e}^x.$<br>'
-    this.correction += 'Ainsi, $f\'(1) = (1 + 1)\\text{e}^1 = 2\\text{e}$.<br>'
-    this.correction += 'On a également $f(1) = 1 \\times \\text{e}^1 = \\text{e}$.<br>'
-    this.correction += 'L\'équation de la tangente est donc :<br>'
-    this.correction += '$y = f\'(1)(x - 1) + f(1) = 2\\text{e}(x - 1) + \\text{e} = 2\\text{e}x - 2\\text{e} + \\text{e} = 2\\text{e}x - \\text{e}.$<br>'
+    this.correction +=
+      "$f'(x) = \\text{e}^x + x\\text{e}^x = (1 + x)\\text{e}^x.$<br>"
+    this.correction += "Ainsi, $f'(1) = (1 + 1)\\text{e}^1 = 2\\text{e}$.<br>"
+    this.correction +=
+      'On a également $f(1) = 1 \\times \\text{e}^1 = \\text{e}$.<br>'
+    this.correction += "L'équation de la tangente est donc :<br>"
+    this.correction +=
+      "$y = f'(1)(x - 1) + f(1) = 2\\text{e}(x - 1) + \\text{e} = 2\\text{e}x - 2\\text{e} + \\text{e} = 2\\text{e}x - \\text{e}.$<br>"
     this.correction += `La bonne réponse est donc $${miseEnEvidence('y = 2\\text{e}x - \\text{e}')}$`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

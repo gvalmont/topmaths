@@ -8,7 +8,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,16 +27,16 @@ export const dateDeModifImportante = '17/10/2023'
  * Connaissance du vocabulaire de base des angles : nom, sommet, côté
  * @author Guillaume Valmont (modifié par EE pour modifier le nb de questions et rajouter un paramètre)
  * 6G22-1
-*/
+ */
 export const uuid = 'e8d33'
 
 export const refs = {
   'fr-fr': ['6G4A-1'],
   'fr-2016': ['6G22-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class VocabulaireDeBaseDesAngles extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.correctionDetailleeDisponible = true
@@ -40,7 +44,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
     this.sup = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 4,
@@ -49,10 +53,14 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
       shuffle: true,
       listeOfCase: ['nom', 'sommet', 'cote', 'autre'],
       enleveDoublons: true,
-      nbQuestions: 0
+      nbQuestions: 0,
     })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
       const propositionsAMC = []
@@ -65,20 +73,53 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
       const indiceNomA = randint(1, 26)
       const indiceNomB = randint(1, 26, [indiceNomA])
       const indiceNomC = randint(1, 26, [indiceNomA, indiceNomB])
-      const A = point(randint(xMin, xMax), randint(yMin, yMax), lettreDepuisChiffre(indiceNomA))
-      let B = point(randint(xMin, xMax), randint(yMin, yMax), lettreDepuisChiffre(indiceNomB))
+      const A = point(
+        randint(xMin, xMax),
+        randint(yMin, yMax),
+        lettreDepuisChiffre(indiceNomA),
+      )
+      let B = point(
+        randint(xMin, xMax),
+        randint(yMin, yMax),
+        lettreDepuisChiffre(indiceNomB),
+      )
       while (longueur(A, B) < distanceMin) {
-        B = point(randint(xMin, xMax), randint(yMin, yMax), lettreDepuisChiffre(indiceNomB))
+        B = point(
+          randint(xMin, xMax),
+          randint(yMin, yMax),
+          lettreDepuisChiffre(indiceNomB),
+        )
       }
-      let C = point(randint(xMin, xMax), randint(yMin, yMax), lettreDepuisChiffre(indiceNomC))
-      while (longueur(A, C) < distanceMin || longueur(B, C) < distanceMin || angle(A, B, C) < 10 || angle(A, B, C) > 170) {
-        C = point(randint(xMin, xMax), randint(yMin, yMax), lettreDepuisChiffre(indiceNomC))
+      let C = point(
+        randint(xMin, xMax),
+        randint(yMin, yMax),
+        lettreDepuisChiffre(indiceNomC),
+      )
+      while (
+        longueur(A, C) < distanceMin ||
+        longueur(B, C) < distanceMin ||
+        angle(A, B, C) < 10 ||
+        angle(A, B, C) > 170
+      ) {
+        C = point(
+          randint(xMin, xMax),
+          randint(yMin, yMax),
+          lettreDepuisChiffre(indiceNomC),
+        )
       }
       const points = [A, B, C]
       const angleABC = codageAngle(A, B, C, 2)
       const demiDroiteBA = demiDroite(B, A)
       const demiDroiteCA = demiDroite(B, C)
-      objets2d.push(tracePoint(...points), texteParPoint(A.nom, rotation(A, B, -10)), texteParPoint(C.nom, rotation(C, B, 10)), texteParPoint(B.nom, homothetie(B, A, 1.2)), angleABC, demiDroiteBA, demiDroiteCA)
+      objets2d.push(
+        tracePoint(...points),
+        texteParPoint(A.nom, rotation(A, B, -10)),
+        texteParPoint(C.nom, rotation(C, B, 10)),
+        texteParPoint(B.nom, homothetie(B, A, 1.2)),
+        angleABC,
+        demiDroiteBA,
+        demiDroiteCA,
+      )
       // On affiche le cadre mathalea2d
       const pointsX = []
       const pointsY = []
@@ -90,10 +131,23 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
       const xmax = Math.max(...pointsX) + 2
       const ymin = Math.min(...pointsY) - 2
       const ymax = Math.max(...pointsY) + 2
-      const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.6 }
-      const texteFigure = `À propos de l'angle ci-dessous, compléter ${listeTypeQuestions.length === 1 ? 'la' : 'chaque'} phrase par la case adéquate.<br>` + mathalea2d(parametres2d, objets2d)
+      const parametres2d = {
+        xmin,
+        ymin,
+        xmax,
+        ymax,
+        pixelsParCm: 20,
+        scale: 0.6,
+      }
+      const texteFigure =
+        `À propos de l'angle ci-dessous, compléter ${listeTypeQuestions.length === 1 ? 'la' : 'chaque'} phrase par la case adéquate.<br>` +
+        mathalea2d(parametres2d, objets2d)
 
-      for (let ee = 0, texteQuestion, texteCorrQuestion; ee < listeTypeQuestions.length;) {
+      for (
+        let ee = 0, texteQuestion, texteCorrQuestion;
+        ee < listeTypeQuestions.length;
+
+      ) {
         texteQuestion = ''
         texteCorrQuestion = ''
         // On construit les questions
@@ -104,32 +158,61 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
 
         switch (listeTypeQuestions[ee]) {
           case 'nom':
-            questionReponse =
-          {
-            question: (context.isAmc ? '' : ((listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$${nomDirectCorrect}$ est :`,
-            propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
-            reponses: ['le nom de l\'angle'],
-            explications: `C'est l'angle de sommet $${B.nom}$, formé par les demi-droites $[${B.nom}${A.nom})$ et $[${B.nom}${C.nom})$.`
-          }
+            questionReponse = {
+              question:
+                (context.isAmc
+                  ? ''
+                  : listeTypeQuestions.length === 1
+                    ? ''
+                    : numAlpha(ee)) + `$${nomDirectCorrect}$ est :`,
+              propositions: [
+                'le sommet',
+                'un côté',
+                "le nom de l'angle",
+                'rien de cela',
+              ],
+              reponses: ["le nom de l'angle"],
+              explications: `C'est l'angle de sommet $${B.nom}$, formé par les demi-droites $[${B.nom}${A.nom})$ et $[${B.nom}${C.nom})$.`,
+            }
             break
           case 'sommet':
-            questionReponse =
-          {
-            question: (context.isAmc ? '' : ((listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$${B.nom}$ est :`,
-            propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
-            reponses: ['le sommet'],
-            explications: 'Le sommet de l\'angle est l\'origine commune des demi-droites qui le forment.'
-          }
+            questionReponse = {
+              question:
+                (context.isAmc
+                  ? ''
+                  : listeTypeQuestions.length === 1
+                    ? ''
+                    : numAlpha(ee)) + `$${B.nom}$ est :`,
+              propositions: [
+                'le sommet',
+                'un côté',
+                "le nom de l'angle",
+                'rien de cela',
+              ],
+              reponses: ['le sommet'],
+              explications:
+                "Le sommet de l'angle est l'origine commune des demi-droites qui le forment.",
+            }
 
             break
           case 'cote':
-            questionReponse =
-          {
-            question: (context.isAmc ? '' : ((listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$[${B.nom}${C.nom})$ est :`,
-            propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
-            reponses: ['un côté'],
-            explications: 'Les côtés sont les demi-droites qui forment l\'angle.'
-          }
+            questionReponse = {
+              question:
+                (context.isAmc
+                  ? ''
+                  : listeTypeQuestions.length === 1
+                    ? ''
+                    : numAlpha(ee)) + `$[${B.nom}${C.nom})$ est :`,
+              propositions: [
+                'le sommet',
+                'un côté',
+                "le nom de l'angle",
+                'rien de cela',
+              ],
+              reponses: ['un côté'],
+              explications:
+                "Les côtés sont les demi-droites qui forment l'angle.",
+            }
 
             break
           case 'autre':
@@ -139,23 +222,32 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
             switch (choice(['sommet', 'cote', 'nom'])) {
               case 'sommet':
                 question = `$${A.nom}$ est :`
-                explications = 'Le sommet de l\'angle est l\'origine commune des demi-droites qui le forment.'
+                explications =
+                  "Le sommet de l'angle est l'origine commune des demi-droites qui le forment."
                 break
               case 'cote':
                 question = `$${B.nom}${A.nom}$ est :`
-                explications = 'Les côtés sont des demi-droites et se notent donc avec un crochet et une parenthèse.'
+                explications =
+                  'Les côtés sont des demi-droites et se notent donc avec un crochet et une parenthèse.'
                 break
               case 'nom':
                 question = `$${nomIndirrectIncorrect}$ est :`
                 explications = `C'est l'angle de sommet $${B.nom}$, formé par les demi-droites $[${B.nom}${A.nom})$ et $[${B.nom}${C.nom})$, c'est donc l'angle $${nomDirectCorrect}$.`
                 break
             }
-            questionReponse =
-            {
-              question: context.isAmc ? question : ((listeTypeQuestions.length === 1 ? '' : numAlpha(ee)) + question),
-              propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
+            questionReponse = {
+              question: context.isAmc
+                ? question
+                : (listeTypeQuestions.length === 1 ? '' : numAlpha(ee)) +
+                  question,
+              propositions: [
+                'le sommet',
+                'un côté',
+                "le nom de l'angle",
+                'rien de cela',
+              ],
               reponses: ['rien de cela'],
-              explications
+              explications,
             }
 
             break
@@ -170,29 +262,34 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           propositions.push({
             texte: proposition,
             statut,
-            feedback: ''
+            feedback: '',
           })
         }
         if (!context.isAmc) {
           this.autoCorrection[ee + i * listeTypeQuestions.length] = {
             enonce: questionReponse.question,
             options: { ordered: true },
-            propositions
+            propositions,
           }
 
-          const monQcm = propositionsQcm(this, ee + i * listeTypeQuestions.length)
+          const monQcm = propositionsQcm(
+            this,
+            ee + i * listeTypeQuestions.length,
+          )
           texteQuestion += questionReponse.question + '<br>'
           texteQuestion += monQcm.texte
           texteCorrQuestion += questionReponse.question + '<br>'
           texteCorrQuestion += monQcm.texteCorr
-          texteCorrQuestion += this.correctionDetaillee ? ('<br>' + questionReponse.explications + '<br><br>') : '<br>'
+          texteCorrQuestion += this.correctionDetaillee
+            ? '<br>' + questionReponse.explications + '<br><br>'
+            : '<br>'
           texte += texteQuestion
           texteCorr += texteCorrQuestion
         } else {
           propositionsAMC[ee] = {
             type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
             enonce: questionReponse.question,
-            propositions
+            propositions,
           }
         }
 
@@ -206,7 +303,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
           melange: true, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
           options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
-          propositions: propositionsAMC
+          propositions: propositionsAMC,
         }
       }
 
@@ -218,6 +315,9 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.besoinFormulaireTexte = ['Cas à traiter ', 'Nombres séparés par des tirets :\n1 : Nom de l\'angle\n2 : Sommet de l\'angle\n3 : Côté de l\'angle\n4 : Rien de cela\n5 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Cas à traiter ',
+      "Nombres séparés par des tirets :\n1 : Nom de l'angle\n2 : Sommet de l'angle\n3 : Côté de l'angle\n4 : Rien de cela\n5 : Mélange",
+    ]
   }
 }

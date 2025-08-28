@@ -11,21 +11,21 @@ export const interactifType = 'mathLive'
 export const uuid = '86cb7'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter+  Gilles Mora
-*/
+ */
 export default class CalculParentheses extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 12) * 2 + 1
 
     this.reponse = texNombre(new Decimal(2025).sub(a).div(2), 0)
@@ -33,7 +33,9 @@ export default class CalculParentheses extends ExerciceSimple {
     this.correction = `Multiplier par $0,5$ revient à prendre la moitié.<br>
       Ainsi, $(${texNombre(2025, 0)}-${a})\\times 0,5=\\dfrac{${new Decimal(2025).sub(a)}}{2}=${miseEnEvidence(this.reponse)}$.`
 
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

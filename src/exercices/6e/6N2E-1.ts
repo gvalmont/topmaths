@@ -6,7 +6,10 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Operation from '../../modules/operations'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 
@@ -33,10 +36,10 @@ export const uuid = '52939'
 export const refs = {
   'fr-fr': ['6N2E-1'],
   'fr-2016': ['6C30'],
-  'fr-ch': ['9NO8-8']
+  'fr-ch': ['9NO8-8'],
 }
 export default class MultiplierDecimaux extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Poser et effectuer les calculs suivants.'
     this.spacing = 2
@@ -47,34 +50,47 @@ export default class MultiplierDecimaux extends Exercice {
     this.besoinFormulaire2Numerique = [
       'Type de cahier',
       3,
-      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche',
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     let grilletxt
     if (this.sup2 < 3) {
-      const g = (this.sup2 < 3 ? grille(0, 0, 5, 8, 'gray', 0.7) : vide2d())
-      const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 8) : vide2d())
-      const sc = (this.sup2 === 2 ? 0.8 : 0.5)
-      const params = { xmin: 0, ymin: 0, xmax: 5, ymax: 8, pixelsParCm: 20, scale: sc }
+      const g = this.sup2 < 3 ? grille(0, 0, 5, 8, 'gray', 0.7) : vide2d()
+      const carreaux = this.sup2 === 2 ? seyes(0, 0, 5, 8) : vide2d()
+      const sc = this.sup2 === 2 ? 0.8 : 0.5
+      const params = {
+        xmin: 0,
+        ymin: 0,
+        xmax: 5,
+        ymax: 8,
+        pixelsParCm: 20,
+        scale: sc,
+      }
       grilletxt = '<br>' + mathalea2d(params, g, carreaux)
     } else {
       grilletxt = ''
     }
 
     let typesDeQuestions, reponse
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0, a, b, c;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 1: // xxx * xx,x chiffres inférieurs à 5
-          a = new Decimal(randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5))
+          a = new Decimal(
+            randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5),
+          )
           c = new Decimal(randint(2, 5)).div(10)
           b = new Decimal(randint(2, 5)).add(c)
           break
@@ -85,7 +101,9 @@ export default class MultiplierDecimaux extends Exercice {
           b = new Decimal(randint(6, 9)).add(c)
           break
         case 3: // x,xx * x0x
-          c = new Decimal(randint(2, 9)).div(10).add(new Decimal(randint(2, 9)).div(100))
+          c = new Decimal(randint(2, 9))
+            .div(10)
+            .add(new Decimal(randint(2, 9)).div(100))
           a = new Decimal(randint(2, 9)).add(c).add(c)
           b = new Decimal(randint(2, 9) * 100 + randint(2, 9))
           break
@@ -101,9 +119,19 @@ export default class MultiplierDecimaux extends Exercice {
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       texte += grilletxt
       reponse = new Decimal(a).mul(b)
-      texteCorr = Operation({ operande1: a.toNumber(), operande2: b.toNumber(), type: 'multiplication', style: 'display: inline' })
+      texteCorr = Operation({
+        operande1: a.toNumber(),
+        operande2: b.toNumber(),
+        type: 'multiplication',
+        style: 'display: inline',
+      })
       texteCorr += context.isHtml ? '' : '\\hspace*{30mm}'
-      texteCorr += Operation({ operande1: b.toNumber(), operande2: a.toNumber(), type: 'multiplication', style: 'display: inline' })
+      texteCorr += Operation({
+        operande1: b.toNumber(),
+        operande2: a.toNumber(),
+        type: 'multiplication',
+        style: 'display: inline',
+      })
       texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: '$~=$' })
       if (context.isAmc) setReponse(this, i, reponse)
       else handleAnswers(this, i, { reponse: { value: reponse } })
@@ -113,7 +141,7 @@ export default class MultiplierDecimaux extends Exercice {
         signe: false,
         exposantNbChiffres: 0,
         exposantSigne: false,
-        approx: 0
+        approx: 0,
       }
 
       if (this.questionJamaisPosee(i, a, b)) {

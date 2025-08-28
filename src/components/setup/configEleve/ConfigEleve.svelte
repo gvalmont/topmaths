@@ -2,13 +2,13 @@
   import {
     exercicesParams,
     darkMode,
-    globalOptions
+    globalOptions,
   } from '../../../lib/stores/generalStore'
   import { canOptions } from '../../../lib/stores/canStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import {
     mathaleaGenerateSeed,
-    mathaleaUpdateUrlFromExercicesParams
+    mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea.js'
   import Footer from '../../Footer.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
@@ -43,20 +43,20 @@
       toolTipsMessage: 'En clair',
       icon: 'bx-glasses-alt',
       isShort: false,
-      isEncrypted: false
+      isEncrypted: false,
     },
     short: {
       toolTipsMessage: 'Raccourci',
       icon: 'bx-move-horizontal',
       isShort: true,
-      isEncrypted: false
+      isEncrypted: false,
     },
     crypt: {
       toolTipsMessage: 'Crypté',
       icon: 'bx-lock',
       isShort: false,
-      isEncrypted: true
-    }
+      isEncrypted: true,
+    },
   }
   $: $canOptions.isInteractive = $globalOptions.setInteractive === '1'
   type LinkFormat = keyof typeof availableLinkFormats
@@ -72,19 +72,19 @@
   /**
    * Construit l'URL correspondant aux choix de la page de configuration et bascule sur cette page
    */
-  function handleVueSetUp () {
+  function handleVueSetUp() {
     const nextView = $canOptions.isChoosen ? 'can' : 'eleve'
     const url = buildMathAleaURL({
       view: nextView,
       isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
-      removeSeed: isDataRandom
+      removeSeed: isDataRandom,
     })
     window.open(url, '_blank')?.focus()
   }
 
   // Gestion de la graine
   let isDataRandom: boolean = false
-  function handleSeed () {
+  function handleSeed() {
     for (const param of $exercicesParams) {
       if (!isDataRandom && param.alea === undefined) {
         param.alea = mathaleaGenerateSeed()
@@ -95,7 +95,7 @@
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
-  function toggleCan () {
+  function toggleCan() {
     if ($canOptions.isChoosen) {
       $globalOptions.setInteractive = '1'
     }
@@ -107,7 +107,12 @@
     ? 'dark'
     : ''} mb-auto flex flex-col min-h-screen justify-start bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
-  <NavBar subtitle="La page Élève" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale}/>
+  <NavBar
+    subtitle="La page Élève"
+    subtitleType="export"
+    handleLanguage="{() => {}}"
+    locale="{$referentielLocale}"
+  />
   <div
     class="flex flex-col h-full w-full bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
   >
@@ -142,9 +147,9 @@
             role="tab"
             aria-controls="tabs-pres-classic"
             aria-selected="true"
-            on:click={() => {
+            on:click="{() => {
               $canOptions.isChoosen = false
-            }}
+            }}"
           >
             Présentation classique
           </a>
@@ -162,10 +167,10 @@
             role="tab"
             aria-controls="tabs-pres-can"
             aria-selected="false"
-            on:click={() => {
+            on:click="{() => {
               $canOptions.isChoosen = true
               toggleCan()
-            }}
+            }}"
           >
             Course aux nombres
           </a>
@@ -204,7 +209,7 @@
                   type="text"
                   id="config-eleve-titre-input"
                   class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border disabled:border-opacity-10 dark:disabled:border-opacity-10 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
-                  bind:value={$globalOptions.title}
+                  bind:value="{$globalOptions.title}"
                 />
                 <div
                   class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title &&
@@ -217,36 +222,36 @@
               </div>
               <FormRadio
                 title="présentation"
-                bind:valueSelected={presMode}
-                on:newvalue={() => $globalOptions.presMode = presMode}
-                labelsValues={[
+                bind:valueSelected="{presMode}"
+                on:newvalue="{() => ($globalOptions.presMode = presMode)}"
+                labelsValues="{[
                   {
                     label: 'Tous les exercices sur une page',
-                    value: 'liste_exos'
+                    value: 'liste_exos',
                   },
                   {
                     label: 'Une page par exercice',
                     value: 'un_exo_par_page',
-                    isDisabled: $exercicesParams.length === 1
+                    isDisabled: $exercicesParams.length === 1,
                   },
                   {
                     label: 'Une page par question',
-                    value: 'une_question_par_page'
-                  }
+                    value: 'une_question_par_page',
+                  },
                   // { label: 'Cartes', value: 'cartes' }
-                ]}
+                ]}"
               />
               <div class="pl-4 pt-4">
                 <ButtonToggleAlt
-                  title={'Deux colonnes'}
-                  isDisabled={$globalOptions.presMode === 'un_exo_par_page' ||
-                    $globalOptions.presMode === 'une_question_par_page'}
-                  bind:value={$globalOptions.twoColumns}
-                  id={'config-eleve-nb-colonnes-toggle'}
-                  explanations={[
+                  title="{'Deux colonnes'}"
+                  isDisabled="{$globalOptions.presMode === 'un_exo_par_page' ||
+                    $globalOptions.presMode === 'une_question_par_page'}"
+                  bind:value="{$globalOptions.twoColumns}"
+                  id="{'config-eleve-nb-colonnes-toggle'}"
+                  explanations="{[
                     'Les exercices seront présentés sur deux colonnes.',
-                    'Les exercices seront présentés sur une seule colonne.'
-                  ]}
+                    'Les exercices seront présentés sur une seule colonne.',
+                  ]}"
                 />
               </div>
             </div>
@@ -259,36 +264,37 @@
               </div>
               <FormRadio
                 title="Interactif"
-                bind:valueSelected={setInteractive}
-                on:newvalue={() => $globalOptions.setInteractive = setInteractive}
-                labelsValues={[
+                bind:valueSelected="{setInteractive}"
+                on:newvalue="{() =>
+                  ($globalOptions.setInteractive = setInteractive)}"
+                labelsValues="{[
                   { label: 'Laisser tel quel', value: '2' },
                   { label: 'Tout interactif', value: '1' },
-                  { label: "Pas d'interactivité", value: '0' }
-                ]}
+                  { label: "Pas d'interactivité", value: '0' },
+                ]}"
               />
               <div class="pl-2 pt-4">
                 <ButtonToggleAlt
-                  title={"Modifier l'interactivité"}
-                  bind:value={$globalOptions.isInteractiveFree}
-                  id={'config-eleve-interactif-permis-toggle'}
-                  explanations={[
+                  title="{"Modifier l'interactivité"}"
+                  bind:value="{$globalOptions.isInteractiveFree}"
+                  id="{'config-eleve-interactif-permis-toggle'}"
+                  explanations="{[
                     "Les élèves peuvent rendre l'exercice interactif ou pas.",
-                    "Les élèves ne pourront pas changer le status de l'interactivité."
-                  ]}
+                    "Les élèves ne pourront pas changer le status de l'interactivité.",
+                  ]}"
                 />
               </div>
               <div class="pl-2 pt-2">
                 <ButtonToggleAlt
-                  title={'Une seule réponse'}
-                  isDisabled={$globalOptions.setInteractive === '0'}
-                  bind:value={$globalOptions.oneShot}
-                  id={'config-eleve-refaire-toggle'}
-                  explanations={[
+                  title="{'Une seule réponse'}"
+                  isDisabled="{$globalOptions.setInteractive === '0'}"
+                  bind:value="{$globalOptions.oneShot}"
+                  id="{'config-eleve-refaire-toggle'}"
+                  explanations="{[
                     "Les élèves n'auront qu'une seule possibilité pour répondre aux exercices.",
-                    "Les élèves pourront refaire les exercices autant de fois qu'ils le souhaitent."
-                  ]}
-                  on:toggle={handleSeed}
+                    "Les élèves pourront refaire les exercices autant de fois qu'ils le souhaitent.",
+                  ]}"
+                  on:toggle="{handleSeed}"
                 />
               </div>
             </div>
@@ -300,13 +306,13 @@
               </div>
               <div class="flex flex-row justify-start items-center px-4">
                 <ButtonToggleAlt
-                  title={'Accès aux corrections'}
-                  bind:value={$globalOptions.isSolutionAccessible}
-                  id={'config-eleve-acces-corrections-toggle'}
-                  explanations={[
+                  title="{'Accès aux corrections'}"
+                  bind:value="{$globalOptions.isSolutionAccessible}"
+                  id="{'config-eleve-acces-corrections-toggle'}"
+                  explanations="{[
                     'Les élèves pourront accéder aux corrections en cliquant sur un bouton.',
-                    "Les élèves n'auront aucun moyen de voir la correction."
-                  ]}
+                    "Les élèves n'auront aucun moyen de voir la correction.",
+                  ]}"
                 />
               </div>
             </div>
@@ -347,8 +353,8 @@
                     type="number"
                     id="config-eleve-can-duration-input"
                     class="w-1/5 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-opacity-10 disabled:text-opacity-10 dark:disabled:border-opacity-10 dark:disabled:text-opacity-10"
-                    bind:value={$canOptions.durationInMinutes}
-                    disabled={!$canOptions.isChoosen}
+                    bind:value="{$canOptions.durationInMinutes}"
+                    disabled="{!$canOptions.isChoosen}"
                   />
                   <div
                     class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
@@ -373,8 +379,8 @@
                     type="text"
                     id="config-eleve-can-duration-input"
                     class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-opacity-10 disabled:text-opacity-10 dark:disabled:border-opacity-10 dark:disabled:text-opacity-10"
-                    bind:value={$canOptions.subTitle}
-                    disabled={!$canOptions.isChoosen}
+                    bind:value="{$canOptions.subTitle}"
+                    disabled="{!$canOptions.isChoosen}"
                   />
                 </div>
               </div>
@@ -389,30 +395,30 @@
                 class="flex flex-col items-start justify-start space-y-2 px-4"
               >
                 <ButtonToggleAlt
-                  title={'Accès aux solutions'}
-                  id={'config-eleve-solutions-can-toggle'}
-                  bind:value={$canOptions.solutionsAccess}
-                  isDisabled={!$canOptions.isChoosen}
-                  explanations={[
+                  title="{'Accès aux solutions'}"
+                  id="{'config-eleve-solutions-can-toggle'}"
+                  bind:value="{$canOptions.solutionsAccess}"
+                  isDisabled="{!$canOptions.isChoosen}"
+                  explanations="{[
                     'Les élèves auront accès aux solutions dans le format défini ci-dessous.',
-                    "Les élèves n'auront pas accès aux solutions."
-                  ]}
+                    "Les élèves n'auront pas accès aux solutions.",
+                  ]}"
                 />
                 <FormRadio
                   title="can-solutions-config"
-                  bind:valueSelected={$canOptions.solutionsMode}
-                  isDisabled={!$canOptions.isChoosen ||
-                    !$canOptions.solutionsAccess}
-                  labelsValues={[
+                  bind:valueSelected="{$canOptions.solutionsMode}"
+                  isDisabled="{!$canOptions.isChoosen ||
+                    !$canOptions.solutionsAccess}"
+                  labelsValues="{[
                     {
                       label: 'Solutions rassemblées à la fin.',
-                      value: 'gathered'
+                      value: 'gathered',
                     },
                     {
                       label: 'Solutions avec les questions.',
-                      value: 'split'
-                    }
-                  ]}
+                      value: 'split',
+                    },
+                  ]}"
                 />
               </div>
             </div>
@@ -431,13 +437,13 @@
           </div>
           <div class="flex flex-row justify-start items-center px-4">
             <ButtonToggleAlt
-              title={'Données différentes'}
-              bind:value={isDataRandom}
-              id={'config-eleve-donnes-differentes-toggle'}
-              explanations={[
+              title="{'Données différentes'}"
+              bind:value="{isDataRandom}"
+              id="{'config-eleve-donnes-differentes-toggle'}"
+              explanations="{[
                 "Chaque élève aura des pages avec des données différentes d'un autre élève.",
-                'Tous les élèves auront des pages identiques.'
-              ]}
+                'Tous les élèves auront des pages identiques.',
+              ]}"
             />
           </div>
         </div>
@@ -449,14 +455,14 @@
           </div>
           <div class="flex flex-row justify-start items-center px-4">
             <ButtonToggleAlt
-              title={'Titre de l\'exercice'}
-              bind:value={$globalOptions.isTitleDisplayed}
-              id={'config-eleve-title-displayed-toggle'}
-              explanations={[
+              title="{"Titre de l'exercice"}"
+              bind:value="{$globalOptions.isTitleDisplayed}"
+              id="{'config-eleve-title-displayed-toggle'}"
+              explanations="{[
                 'Les titres sont affichés',
-                'Les titres sont masqués.'
-              ]}
-              on:toggle={handleSeed}
+                'Les titres sont masqués.',
+              ]}"
+              on:toggle="{handleSeed}"
             />
           </div>
         </div>
@@ -465,7 +471,7 @@
         class="pt-4 pb-8 px-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
         <ButtonTextAction
-          on:click={handleVueSetUp}
+          on:click="{handleVueSetUp}"
           class="px-2 py-1 rounded-md"
           text="Visualiser"
         />
@@ -491,12 +497,12 @@
           <div class="flex">
             <FormRadio
               title="linkFormat"
-              bind:valueSelected={currentLinkFormat}
-              labelsValues={[
+              bind:valueSelected="{currentLinkFormat}"
+              labelsValues="{[
                 { label: 'En clair', value: 'clear' },
                 { label: 'Crypté', value: 'crypt' },
-                { label: 'Raccourci', value: 'short', isDisabled: true }
-              ]}
+                { label: 'Raccourci', value: 'short', isDisabled: true },
+              ]}"
               orientation="row"
             />
           </div>
@@ -513,36 +519,40 @@
             <div class="my-1">
               <ButtonActionInfo
                 action="copy"
-                textToCopy={buildMathAleaURL({
+                textToCopy="{buildMathAleaURL({
                   view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
-                  removeSeed: isDataRandom
-                }).toString()}
-                tooltip={'Lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage}
-                icon={'bx-link text-2xl'}
-                cornerIcon={availableLinkFormats[currentLinkFormat].icon}
+                  isEncrypted:
+                    availableLinkFormats[currentLinkFormat].isEncrypted,
+                  removeSeed: isDataRandom,
+                }).toString()}"
+                tooltip="{'Lien ' +
+                  availableLinkFormats[currentLinkFormat].toolTipsMessage}"
+                icon="{'bx-link text-2xl'}"
+                cornerIcon="{availableLinkFormats[currentLinkFormat].icon}"
                 messageSuccess="Le lien de la fiche élève est copié dans le presse-papier !"
                 messageError="Impossible de copier le lien dans le presse-papier !"
               />
             </div>
           </div>
           <div class="flex flex-col justify-center items-center px-2">
-            <div class="font-semibold
+            <div
+              class="font-semibold
               text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-lightest"
             >
               QR-Code
             </div>
             <div class="my-1">
               <ButtonQRCode
-                tooltip={'QR-code (lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage + ')'}
-                customUrl={buildMathAleaURL(
-                  {
-                    view: $canOptions.isChoosen ? 'can' : 'eleve',
-                    isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
-                    removeSeed: isDataRandom
-                  }
-                ).toString()}
-                cornerIcon={availableLinkFormats[currentLinkFormat].icon}
+                tooltip="{'QR-code (lien ' +
+                  availableLinkFormats[currentLinkFormat].toolTipsMessage +
+                  ')'}"
+                customUrl="{buildMathAleaURL({
+                  view: $canOptions.isChoosen ? 'can' : 'eleve',
+                  isEncrypted:
+                    availableLinkFormats[currentLinkFormat].isEncrypted,
+                  removeSeed: isDataRandom,
+                }).toString()}"
+                cornerIcon="{availableLinkFormats[currentLinkFormat].icon}"
               />
             </div>
           </div>
@@ -555,14 +565,17 @@
             <div class="my-1">
               <ButtonActionInfo
                 action="copy"
-                textToCopy={`<iframe src="${buildMathAleaURL({
+                textToCopy="{`<iframe src="${buildMathAleaURL({
                   view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
-                  removeSeed: isDataRandom
-                }).toString()}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`}
-                tooltip={'Code (lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage + ')'}
-                icon={'bx-code-alt text-2xl'}
-                cornerIcon={availableLinkFormats[currentLinkFormat].icon}
+                  isEncrypted:
+                    availableLinkFormats[currentLinkFormat].isEncrypted,
+                  removeSeed: isDataRandom,
+                }).toString()}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`}"
+                tooltip="{'Code (lien ' +
+                  availableLinkFormats[currentLinkFormat].toolTipsMessage +
+                  ')'}"
+                icon="{'bx-code-alt text-2xl'}"
+                cornerIcon="{availableLinkFormats[currentLinkFormat].icon}"
                 messageSuccess="Le code de la fiche élève est copié dans le presse-papier !"
                 messageError="Impossible de copier le code dans le presse-papier !"
               />
@@ -577,17 +590,22 @@
             <div class="my-1">
               <ButtonActionInfo
                 action="download"
-                urlToDownload={buildMathAleaURL({
+                urlToDownload="{buildMathAleaURL({
                   view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
-                  removeSeed: isDataRandom
-                }).toString()}
-                fileName={$globalOptions.title ? $globalOptions.title : 'mathAlea'}
+                  isEncrypted:
+                    availableLinkFormats[currentLinkFormat].isEncrypted,
+                  removeSeed: isDataRandom,
+                }).toString()}"
+                fileName="{$globalOptions.title
+                  ? $globalOptions.title
+                  : 'mathAlea'}"
                 successMessage="Le téléchargement va début dans quelques instants."
                 errorMessage="Impossible de télécharger le fichier."
-                tooltip={'Fichier de redirection (lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage + ')'}
-                icon={'bxs-file-export text-2xl'}
-                cornerIcon={availableLinkFormats[currentLinkFormat].icon}
+                tooltip="{'Fichier de redirection (lien ' +
+                  availableLinkFormats[currentLinkFormat].toolTipsMessage +
+                  ')'}"
+                icon="{'bxs-file-export text-2xl'}"
+                cornerIcon="{availableLinkFormats[currentLinkFormat].icon}"
               />
             </div>
           </div>

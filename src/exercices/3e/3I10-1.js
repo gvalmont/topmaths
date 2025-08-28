@@ -6,8 +6,16 @@ import { texteGras } from '../../lib/format/style'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { noteLaCouleur, plateau2dNLC, testInstruction } from '../../modules/noteLaCouleur'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import {
+  noteLaCouleur,
+  plateau2dNLC,
+  testInstruction,
+} from '../../modules/noteLaCouleur'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../modules/2dGeneralites'
 import {
   ajouterAx,
   ajouterAy,
@@ -17,7 +25,7 @@ import {
   baisseCrayon,
   creerLutin,
   leveCrayon,
-  orienter
+  orienter,
 } from '../../modules/2dLutin'
 import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -41,19 +49,22 @@ export const uuid = '2ecd9'
 
 export const refs = {
   'fr-fr': ['3I10-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-function nombreDeNegatifs (arr) {
+function nombreDeNegatifs(arr) {
   const initialValue = 0
-  return arr.reduce((previousValue, currentValue) => previousValue + (currentValue < 0 ? 1 : 0), initialValue)
+  return arr.reduce(
+    (previousValue, currentValue) => previousValue + (currentValue < 0 ? 1 : 0),
+    initialValue,
+  )
 }
 
 export default class ScratchMultiScript extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Compétence évaluée', // EE :On enlève le mélange sinon, on pourrait avoir 3 ou 4 couleurs dans des questions différentes et ensuite souci Capytale.
-      '1 : Repérage dans le plan\n2 : Boucles répéter n fois imbriquées\n3 : Conditionnelles'
+      '1 : Repérage dans le plan\n2 : Boucles répéter n fois imbriquées\n3 : Conditionnelles',
     ]
 
     this.spacing = 2
@@ -66,16 +77,38 @@ export default class ScratchMultiScript extends Exercice {
     this.correctionDetaille = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.introduction = lampeMessage({
       titre: 'Information',
-      texte: scratchblock(`\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}`) +
-          ' Cette brique donne la couleur de la case sur laquelle est positionné le lutin.',
-      couleur: 'nombres'
+      texte:
+        scratchblock(
+          `\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}`,
+        ) +
+        ' Cette brique donne la couleur de la case sur laquelle est positionné le lutin.',
+      couleur: 'nombres',
     })
-    const lePlateau = plateau2dNLC({ type: 1, melange: false, scale: 0.5, relatif: true })
-    const listeCouleurs = ['Blanc', 'Vert', 'Bleu', 'Rouge', 'Noir', 'Rose', 'Orange', 'Jaune', 'Gris']
-    this.consigne = 'Donner la série de couleurs affichées par ce' + (this.nbQuestions > 1 ? 's' : '') + ' programme' + (this.nbQuestions > 1 ? 's.' : '.')
+    const lePlateau = plateau2dNLC({
+      type: 1,
+      melange: false,
+      scale: 0.5,
+      relatif: true,
+    })
+    const listeCouleurs = [
+      'Blanc',
+      'Vert',
+      'Bleu',
+      'Rouge',
+      'Noir',
+      'Rose',
+      'Orange',
+      'Jaune',
+      'Gris',
+    ]
+    this.consigne =
+      'Donner la série de couleurs affichées par ce' +
+      (this.nbQuestions > 1 ? 's' : '') +
+      ' programme' +
+      (this.nbQuestions > 1 ? 's.' : '.')
     const mesQcm = []
     let indexReponse = 0
     const choixQuestions = parseInt(this.sup)
@@ -85,24 +118,41 @@ export default class ScratchMultiScript extends Exercice {
     context.unitesLutinParCm = 20 // avancer de 10 pour le lutin lui fait parcourir 1cm (en fait 0,5cm car j'ai ajouté un scale=0.5 pour la sortie latex)
     context.pixelsParCm = 20 // 20 pixels d'écran représentent 1cm (enfin ça dépend du zoom, donc c'est juste un réglage par défaut)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const objetsCorrection = []
       couleurs[i] = []
       const x = []
       const y = []
       const touchePressee = lettreMinusculeDepuisChiffre(i + 1)
       const choixBriqueInitiale = [
-        ['\\blockinit{quand \\greenflag est cliqué}\n', 'Quand le drapeau vert est cliqué'],
-        ['\\blockinit{quand ce sprite est cliqué}\n', 'Quand ce sprite est cliqué'],
-        [`\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`, `Quand la touche ${touchePressee} est pressée`],
-        ['\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n', "Quand n'importe quelle touche est pressée"]
+        [
+          '\\blockinit{quand \\greenflag est cliqué}\n',
+          'Quand le drapeau vert est cliqué',
+        ],
+        [
+          '\\blockinit{quand ce sprite est cliqué}\n',
+          'Quand ce sprite est cliqué',
+        ],
+        [
+          `\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`,
+          `Quand la touche ${touchePressee} est pressée`,
+        ],
+        [
+          "\\blockinit{quand la touche \\selectmenu{n'importe laquelle} est pressée}\n",
+          "Quand n'importe quelle touche est pressée",
+        ],
       ]
 
       let texteScratch = `\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.8]\n`
       const rotations = ['\\turnright{}', '\\turnleft{}']
       const orientations = [0, 90, 180]
       texteScratch += choixBriqueInitiale[2][0]
-      noteLesCouleurs[i] = noteLaCouleur({ x: 0, y: 0, plateau: lePlateau.plateauNLC, relatif: true })
+      noteLesCouleurs[i] = noteLaCouleur({
+        x: 0,
+        y: 0,
+        plateau: lePlateau.plateauNLC,
+        relatif: true,
+      })
       const pion = noteLesCouleurs[i]
       lutins[i] = creerLutin()
       lutins.color = colorToLatexOrHTML('green') // la couleur de la trace
@@ -130,7 +180,7 @@ export default class ScratchMultiScript extends Exercice {
           texteScratch += `\\blockmove{aller à x: \\ovalnum{${x[0]}} y: \\ovalnum{${y[0]}}}\n`
           texteScratch += "\\blockmove{s'orienter à \\ovalnum{90}}\n"
           orienter(angleScratchTo2d(90), lutins[i])
-          texteScratch += '\\blockpen{stylo en position d\'écriture}\n'
+          texteScratch += "\\blockpen{stylo en position d'écriture}\n"
           baisseCrayon(lutins[i])
           for (let j = 1; j <= 3; j++) {
             texteScratch += `\\blockmove{aller à x: \\ovalnum{${x[j]}} y: \\ovalnum{${y[j]}}}\n`
@@ -164,21 +214,25 @@ export default class ScratchMultiScript extends Exercice {
           allerA(x[0], y[0], lutins[i])
           pion.currentOrientation = i % 3 < 2 ? 90 : 180
           orienter(angleScratchTo2d(i % 3 < 2 ? 90 : 180), lutins[i])
-          texteScratch += '\\blockpen{stylo en position d\'écriture}\n'
+          texteScratch += "\\blockpen{stylo en position d'écriture}\n"
           baisseCrayon(lutins[i])
           texteScratch += `\\blockrepeat{répéter \\ovalnum{2} fois}{
 \\blockrepeat{répéter \\ovalnum{2} fois}{
-\\blockmove{avancer de \\ovalnum{${x[i % 3 + 1]}} pas}
+\\blockmove{avancer de \\ovalnum{${x[(i % 3) + 1]}} pas}
 \\blockmove{tourner ${rotations[i % 2]} de \\ovalnum{90} degrés}
-\\blockmove{avancer de \\ovalnum{${y[i % 3 + 1]}} pas}
+\\blockmove{avancer de \\ovalnum{${y[(i % 3) + 1]}} pas}
 \\blockmove{tourner ${rotations[(i + 1) % 2]} de \\ovalnum{90} degrés}
 \\blockmoreblocks{Note la couleur}
 }
-\\blockmove{tourner ${rotations[(i % 3 === 2 ? 1 : 0)]} de \\ovalnum{90} degrés}
+\\blockmove{tourner ${rotations[i % 3 === 2 ? 1 : 0]} de \\ovalnum{90} degrés}
 }\n`
           for (let k = 0; k < 2; k++) {
             for (let l = 0; l < 2; l++) {
-              const test = testInstruction(`AV${x[i % 3 + 1]}`, lutins[i], pion)
+              const test = testInstruction(
+                `AV${x[(i % 3) + 1]}`,
+                lutins[i],
+                pion,
+              )
               if (test[0]) {
                 pion.currentPos.x = test[1]
                 pion.currentPos.y = test[2]
@@ -208,7 +262,11 @@ export default class ScratchMultiScript extends Exercice {
                   //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               }
-              const test2 = testInstruction(`AV${y[i % 3 + 1]}`, lutins[i], pion)
+              const test2 = testInstruction(
+                `AV${y[(i % 3) + 1]}`,
+                lutins[i],
+                pion,
+              )
               if (test2[0]) {
                 pion.currentPos.x = test2[1]
                 pion.currentPos.y = test2[2]
@@ -238,7 +296,7 @@ export default class ScratchMultiScript extends Exercice {
               couleurs[i].push(pion.nlc())
             }
             let test4
-            if (rotations[(i % 3 === 2 ? 1 : 0)] === '\\turnright{}') {
+            if (rotations[i % 3 === 2 ? 1 : 0] === '\\turnright{}') {
               test4 = testInstruction('TD90', lutins[i], pion)
             } else {
               test4 = testInstruction('TG90', lutins[i], pion)
@@ -267,57 +325,83 @@ export default class ScratchMultiScript extends Exercice {
           texteScratch += `\\blockmove{s'orienter à \\ovalnum{${orientations[i % 3]}}}\n`
           pion.currentOrientation = orientations[i % 3]
           orienter(angleScratchTo2d(orientations[i % 3]), lutins[i])
-          texteScratch += '\\blockpen{stylo en position d\'écriture}\n'
+          texteScratch += "\\blockpen{stylo en position d'écriture}\n"
           baisseCrayon(lutins[i])
           texteScratch += `\\blockrepeat{répéter \\ovalnum{4} fois}{
 \\blockifelse{si \\booloperator{\\ovalmove{${i % 3 < 1 ? 'abscisse x' : 'ordonnée y'}} > \\ovalnum{${i % 3 < 1 ? 120 : 30}}} alors}
-{\\blockmove{ajouter \\ovalnum{${x[i % 3 + 1]}} à x}\n\\blockmove{ajouter \\ovalnum{${y[i % 3 + 1]}} à y}\n}
-{\\blockmove{ajouter \\ovalnum{${x[i % 3 + 4]}} à x}\n\\blockmove{ajouter \\ovalnum{${y[i % 3 + 4]}} à y}\n}
+{\\blockmove{ajouter \\ovalnum{${x[(i % 3) + 1]}} à x}\n\\blockmove{ajouter \\ovalnum{${y[(i % 3) + 1]}} à y}\n}
+{\\blockmove{ajouter \\ovalnum{${x[(i % 3) + 4]}} à x}\n\\blockmove{ajouter \\ovalnum{${y[(i % 3) + 4]}} à y}\n}
 \\blockmoreblocks{Note la couleur}\n}\n`
           for (let k = 0; k < 4; k++) {
             if (i % 3 < 1) {
-              if (lutins[i].x > (i % 3 < 1 ? 120 : 30) / context.unitesLutinParCm) {
-                ajouterAx(x[i % 3 + 1], lutins[i])
-                ajouterAy(y[i % 3 + 1], lutins[i])
-                if (pion.testCoords(lutins[i].x * context.unitesLutinParCm, lutins[i].y * context.unitesLutinParCm)) {
+              if (
+                lutins[i].x >
+                (i % 3 < 1 ? 120 : 30) / context.unitesLutinParCm
+              ) {
+                ajouterAx(x[(i % 3) + 1], lutins[i])
+                ajouterAy(y[(i % 3) + 1], lutins[i])
+                if (
+                  pion.testCoords(
+                    lutins[i].x * context.unitesLutinParCm,
+                    lutins[i].y * context.unitesLutinParCm,
+                  )
+                ) {
                   pion.currentPos = {
                     x: lutins[i].x * context.unitesLutinParCm,
-                    y: lutins[i].y * context.unitesLutinParCm
+                    y: lutins[i].y * context.unitesLutinParCm,
                   }
                 } else {
                   //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               } else {
-                ajouterAx(x[i % 3 + 4], lutins[i])
-                ajouterAy(y[i % 3 + 4], lutins[i])
-                if (pion.testCoords(lutins[i].x * context.unitesLutinParCm, lutins[i].y * context.unitesLutinParCm)) {
+                ajouterAx(x[(i % 3) + 4], lutins[i])
+                ajouterAy(y[(i % 3) + 4], lutins[i])
+                if (
+                  pion.testCoords(
+                    lutins[i].x * context.unitesLutinParCm,
+                    lutins[i].y * context.unitesLutinParCm,
+                  )
+                ) {
                   pion.currentPos = {
                     x: lutins[i].x * context.unitesLutinParCm,
-                    y: lutins[i].y * context.unitesLutinParCm
+                    y: lutins[i].y * context.unitesLutinParCm,
                   }
                 } else {
                   //     throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               }
             } else {
-              if (lutins[i].y > (i % 3 < 1 ? 120 : 30) / context.unitesLutinParCm) {
-                ajouterAx(x[i % 3 + 1], lutins[i])
-                ajouterAy(y[i % 3 + 1], lutins[i])
-                if (pion.testCoords(lutins[i].x * context.unitesLutinParCm, lutins[i].y * context.unitesLutinParCm)) {
+              if (
+                lutins[i].y >
+                (i % 3 < 1 ? 120 : 30) / context.unitesLutinParCm
+              ) {
+                ajouterAx(x[(i % 3) + 1], lutins[i])
+                ajouterAy(y[(i % 3) + 1], lutins[i])
+                if (
+                  pion.testCoords(
+                    lutins[i].x * context.unitesLutinParCm,
+                    lutins[i].y * context.unitesLutinParCm,
+                  )
+                ) {
                   pion.currentPos = {
                     x: lutins[i].x * context.unitesLutinParCm,
-                    y: lutins[i].y * context.unitesLutinParCm
+                    y: lutins[i].y * context.unitesLutinParCm,
                   }
                 } else {
                   //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               } else {
-                ajouterAx(x[i % 3 + 4], lutins[i])
-                ajouterAy(y[i % 3 + 4], lutins[i])
-                if (pion.testCoords(lutins[i].x * context.unitesLutinParCm, lutins[i].y * context.unitesLutinParCm)) {
+                ajouterAx(x[(i % 3) + 4], lutins[i])
+                ajouterAy(y[(i % 3) + 4], lutins[i])
+                if (
+                  pion.testCoords(
+                    lutins[i].x * context.unitesLutinParCm,
+                    lutins[i].y * context.unitesLutinParCm,
+                  )
+                ) {
                   pion.currentPos = {
                     x: lutins[i].x * context.unitesLutinParCm,
-                    y: lutins[i].y * context.unitesLutinParCm
+                    y: lutins[i].y * context.unitesLutinParCm,
                   }
                 } else {
                   //   throw Error('Le mouvement n\'est pas valide : sortie de plateau')
@@ -334,11 +418,18 @@ export default class ScratchMultiScript extends Exercice {
           break
       }
       texteScratch += '\\end{scratch}'
-      let texte = `${(this.interactif || context.isAmc) ? '' : 'Noter la séquence de couleurs produite.<br>'}`
-      texte += deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures(lePlateau.objets), {
-        scale: 0.4,
-        style: 'display: inline'
-      }), lePlateau.objets), 35)
+      let texte = `${this.interactif || context.isAmc ? '' : 'Noter la séquence de couleurs produite.<br>'}`
+      texte += deuxColonnes(
+        scratchblock(texteScratch),
+        mathalea2d(
+          Object.assign({}, fixeBordures(lePlateau.objets), {
+            scale: 0.4,
+            style: 'display: inline',
+          }),
+          lePlateau.objets,
+        ),
+        35,
+      )
 
       let texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteGras(couleurs[i][0])} `
@@ -346,7 +437,8 @@ export default class ScratchMultiScript extends Exercice {
         texteCorr += `- ${texteGras(couleurs[i][k])} `
       }
       texteCorr += '<br>'
-      lutins[i].animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
+      lutins[i].animation =
+        `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>
     <stop offset="1" style="stop-color:#FF9400"/>
   </radialGradient> <circle fill="url(#Ball)"  r="12" stroke-width="1"
@@ -355,53 +447,73 @@ export default class ScratchMultiScript extends Exercice {
     <animateMotion path="M ${lutins[i].listeTraces[0][0] * context.pixelsParCm} ${-lutins[i].listeTraces[0][1] * context.pixelsParCm} L`
 
       for (let k = 0; k < lutins[i].listeTraces.length; k++) {
-        const B = point(lutins[i].listeTraces[k][2], lutins[i].listeTraces[k][3])
-        lutins[i].animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
+        const B = point(
+          lutins[i].listeTraces[k][2],
+          lutins[i].listeTraces[k][3],
+        )
+        lutins[i].animation +=
+          ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
       }
-      lutins[i].animation += '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
+      lutins[i].animation +=
+        '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
 
       objetsCorrection.push(lePlateau.objets, lutins[i])
-      texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), {
-        style: 'display: inline',
-        scale: 0.4
-      }), objetsCorrection)
-      if (!context.isAmc) { // on prépare les
+      texteCorr += mathalea2d(
+        Object.assign({}, fixeBordures(objetsCorrection), {
+          style: 'display: inline',
+          scale: 0.4,
+        }),
+        objetsCorrection,
+      )
+      if (!context.isAmc) {
+        // on prépare les
         for (let k = 0; k < couleurs[i].length; k++) {
           this.autoCorrection[indexReponse + k] = {}
-          this.autoCorrection[indexReponse + k].options = { ordered: true, vertical: false, nbCols: 9 }
+          this.autoCorrection[indexReponse + k].options = {
+            ordered: true,
+            vertical: false,
+            nbCols: 9,
+          }
 
           this.autoCorrection[indexReponse + k].propositions = []
           for (let j = 0; j < listeCouleurs.length; j++) {
             this.autoCorrection[indexReponse + k].propositions.push({
               texte: listeCouleurs[j],
-              statut: couleurs[i][k] === listeCouleurs[j]
+              statut: couleurs[i][k] === listeCouleurs[j],
             })
           }
         }
       } else {
         this.autoCorrection[i] = {}
-        this.autoCorrection[i].enonce = `${deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures(lePlateau.objets), {
-                    scale: 0.4,
-                    style: 'display: inline'
-                }), lePlateau.objets), 35)}`
+        this.autoCorrection[i].enonce = `${deuxColonnes(
+          scratchblock(texteScratch),
+          mathalea2d(
+            Object.assign({}, fixeBordures(lePlateau.objets), {
+              scale: 0.4,
+              style: 'display: inline',
+            }),
+            lePlateau.objets,
+          ),
+          35,
+        )}`
         this.autoCorrection[i].propositions = []
-        this.autoCorrection[i].propositions.push(
-          {
-            type: 'AMCOpen',
-            propositions: [{
+        this.autoCorrection[i].propositions.push({
+          type: 'AMCOpen',
+          propositions: [
+            {
               enonce: 'Tracé',
               texte: texteCorr,
               statut: 0,
-              sanscadre: true
-            }]
-          })
+              sanscadre: true,
+            },
+          ],
+        })
         for (let k = 0; k < couleurs[i].length; k++) {
-          this.autoCorrection[i].propositions.push(
-            {
-              type: 'qcmMono',
-              propositions: [],
-              options: { ordered: true }
-            })
+          this.autoCorrection[i].propositions.push({
+            type: 'qcmMono',
+            propositions: [],
+            options: { ordered: true },
+          })
         }
         for (let k = 0; k < couleurs[i].length; k++) {
           this.autoCorrection[i].propositions[k + 1].propositions = []
@@ -409,15 +521,19 @@ export default class ScratchMultiScript extends Exercice {
             this.autoCorrection[i].propositions[k + 1].propositions.push({
               texte: listeCouleurs[j],
               statut: listeCouleurs[j] === couleurs[i][k],
-              reponse: j === 0 ? { texte: `couleur N° ${k + 1} : ` } : {}
+              reponse: j === 0 ? { texte: `couleur N° ${k + 1} : ` } : {},
             })
           }
         }
       }
       for (let k = 0; k < couleurs[i].length; k++) {
         mesQcm[indexReponse + k] = propositionsQcm(this, indexReponse + k)
-        texte += `Couleur N° ${k + 1} ? ` + (this.interactif ? mesQcm[indexReponse + k].texte : '')
-        texteCorr += `Couleur N° ${k + 1} : ` + (this.interactif ? mesQcm[indexReponse + k].texteCorr : '')
+        texte +=
+          `Couleur N° ${k + 1} ? ` +
+          (this.interactif ? mesQcm[indexReponse + k].texte : '')
+        texteCorr +=
+          `Couleur N° ${k + 1} : ` +
+          (this.interactif ? mesQcm[indexReponse + k].texteCorr : '')
       }
       if (!context.isHtml && i !== this.nbQuestions - 1) {
         texte += '\\columnbreak'

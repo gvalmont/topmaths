@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'cfa5e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class CalculImage extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -27,12 +27,18 @@ export default class CalculImage extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
-    const p = this.canOfficielle ? new Trinome(1, -4, 1) : new Trinome(1, randint(1, 5), 1)
+  nouvelleVersion() {
+    const p = this.canOfficielle
+      ? new Trinome(1, -4, 1)
+      : new Trinome(1, randint(1, 5), 1)
     const val = this.canOfficielle ? -1 : randint(-6, -1)
     this.reponse = val ** 2 + p.b.valeurDecimale * val + p.c.valeurDecimale
     this.question = `$f(x)=${p.tex}$`
-    if (this.interactif) { this.question += `<br>$f(${val})=$` } else { this.question += `<br>$f(${val})=\\ldots$` }
+    if (this.interactif) {
+      this.question += `<br>$f(${val})=$`
+    } else {
+      this.question += `<br>$f(${val})=\\ldots$`
+    }
     this.correction = `$f(${val})=${p.texCalculImage(val)}$<br>
     On a donc $f(${val})=${miseEnEvidence(this.reponse)}$.`
 

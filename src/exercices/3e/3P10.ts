@@ -27,20 +27,24 @@ export const uuid = '0bcef'
 
 export const refs = {
   'fr-fr': ['3P10'],
-  'fr-ch': ['10FA4-5']
+  'fr-ch': ['10FA4-5'],
 }
 export default class EvolutionsEnPourcentage extends Exercice {
   onlyMoney = false
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange',
+    ]
 
     this.nbQuestions = 4
 
     this.sup = 4 // type de questions
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['finale']
@@ -51,18 +55,30 @@ export default class EvolutionsEnPourcentage extends Exercice {
     } else {
       typesDeQuestionsDisponibles = ['finale', 'evolution', 'initiale']
     }
-    const situationsDisponibles = this.onlyMoney ? ['prix', 'facture'] : ['prix', 'etablissement', 'facture', 'population']
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions)
+    const situationsDisponibles = this.onlyMoney
+      ? ['prix', 'facture']
+      : ['prix', 'etablissement', 'facture', 'population']
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    const typesDeSituations = combinaisonListes(
+      situationsDisponibles,
+      this.nbQuestions,
+    )
     let date, cetteAnnee, anneeDerniere, etablissement, facture, nb
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let depart, arrive, taux, coeff, reponse
       let texte = ''
       let texteApres = ''
       let texteCorr = ''
       switch (typesDeSituations[i]) {
         case 'prix':
-          depart = choice([randint(11, 99) / 10, randint(11, 99), randint(11, 99) * 10])
+          depart = choice([
+            randint(11, 99) / 10,
+            randint(11, 99),
+            randint(11, 99) * 10,
+          ])
           taux = choice([10, 20, 30, 40, 60])
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
@@ -193,7 +209,13 @@ export default class EvolutionsEnPourcentage extends Exercice {
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
           arrive = depart * (1 + taux / 100)
-          facture = choice(["ma facture annuelle d'électricité", 'ma facture annuelle de gaz', "ma taxe d'habitation", 'mon ordinateur', 'mon vélo électrique'])
+          facture = choice([
+            "ma facture annuelle d'électricité",
+            'ma facture annuelle de gaz',
+            "ma taxe d'habitation",
+            'mon ordinateur',
+            'mon vélo électrique',
+          ])
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
               if (taux > 0) {
@@ -301,7 +323,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
       handleAnswers(this, i, { reponse: { value: arrondi(reponse) } })
 
       texte += ajouteChampTexteMathLive(this, i, '', { texteApres })
-      if (this.questionJamaisPosee(i, reponse)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, reponse)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -20,13 +20,16 @@ export const uuid = '9cb7e'
 
 export const refs = {
   'fr-fr': ['5N10-1'],
-  'fr-ch': ['9NO12-12', '10NO5-13']
+  'fr-ch': ['9NO12-12', '10NO5-13'],
 }
 
 export default class PasserEcritureFractionnaireFraction extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Type de question', 'Nombres séparés par des tirets :\n1 : Numérateur décimal seulement\n2 : Dénominateur décimal seulement\n3 : Numérateur et dénominateur décimaux\n4 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type de question',
+      'Nombres séparés par des tirets :\n1 : Numérateur décimal seulement\n2 : Dénominateur décimal seulement\n3 : Numérateur et dénominateur décimaux\n4 : Mélange',
+    ]
     this.sup = '4'
     this.besoinFormulaire2Numerique = ['Nombre maximum de décimales', 3]
     this.sup2 = 1
@@ -34,12 +37,26 @@ export default class PasserEcritureFractionnaireFraction extends Exercice {
     this.sup3 = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.sup3 ? 'Écrire les nombres suivants sous forme de fraction et simplifier si possible.' : 'Écrire les nombres suivants sous forme de fraction.'
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, min: 1, max: 3, melange: 4, defaut: 3 })
+  nouvelleVersion() {
+    this.consigne = this.sup3
+      ? 'Écrire les nombres suivants sous forme de fraction et simplifier si possible.'
+      : 'Écrire les nombres suivants sous forme de fraction.'
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      nbQuestions: this.nbQuestions,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 3,
+    })
     const nbDecimalesMax = this.sup2
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let nbDecimalesNumerateur = 0; let nbDecimalesDenominateur = 0
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      let nbDecimalesNumerateur = 0
+      let nbDecimalesDenominateur = 0
       let nbDecimalesSup = 0
       if (listeTypeDeQuestions[i] === 1) {
         nbDecimalesNumerateur = randint(1, nbDecimalesMax)
@@ -50,7 +67,10 @@ export default class PasserEcritureFractionnaireFraction extends Exercice {
       } else {
         nbDecimalesDenominateur = randint(1, nbDecimalesMax)
         nbDecimalesNumerateur = randint(1, nbDecimalesMax)
-        nbDecimalesSup = Math.max(nbDecimalesNumerateur, nbDecimalesDenominateur)
+        nbDecimalesSup = Math.max(
+          nbDecimalesNumerateur,
+          nbDecimalesDenominateur,
+        )
       }
       const facteurCommun = this.sup3 ? choice([2, 3, 4, 5, 6, 8, 9]) : 1
       let numerateur = 0
@@ -60,18 +80,40 @@ export default class PasserEcritureFractionnaireFraction extends Exercice {
         denominateur = randint(2, 10 ** (nbDecimalesDenominateur + 1))
         numerateur *= facteurCommun
         denominateur *= facteurCommun
-      } while (pgcd(numerateur, denominateur) !== facteurCommun || numerateur % 10 === 0 || denominateur % 10 === 0)
+      } while (
+        pgcd(numerateur, denominateur) !== facteurCommun ||
+        numerateur % 10 === 0 ||
+        denominateur % 10 === 0
+      )
 
-      const texNombreNumerateur = texNombre(numerateur / 10 ** nbDecimalesNumerateur, nbDecimalesNumerateur)
-      const texNombreDenominateur = texNombre(denominateur / 10 ** nbDecimalesDenominateur, nbDecimalesDenominateur)
-      const value = new FractionEtendue(numerateur * 10 ** nbDecimalesMax / (10 ** nbDecimalesNumerateur), denominateur * 10 ** nbDecimalesMax / (10 ** nbDecimalesDenominateur))
-      texte = `$\\dfrac{${texNombreNumerateur}}{${texNombreDenominateur}}$` + ajouteQuestionMathlive({
-        exercice: this,
-        question: i,
-        texteAvant: '$=$',
-        typeInteractivite: 'mathlive',
-        objetReponse: { reponse: { value, options: this.sup3 ? { fractionSimplifiee: true } : { fractionEgale: true } } }
-      })
+      const texNombreNumerateur = texNombre(
+        numerateur / 10 ** nbDecimalesNumerateur,
+        nbDecimalesNumerateur,
+      )
+      const texNombreDenominateur = texNombre(
+        denominateur / 10 ** nbDecimalesDenominateur,
+        nbDecimalesDenominateur,
+      )
+      const value = new FractionEtendue(
+        (numerateur * 10 ** nbDecimalesMax) / 10 ** nbDecimalesNumerateur,
+        (denominateur * 10 ** nbDecimalesMax) / 10 ** nbDecimalesDenominateur,
+      )
+      texte =
+        `$\\dfrac{${texNombreNumerateur}}{${texNombreDenominateur}}$` +
+        ajouteQuestionMathlive({
+          exercice: this,
+          question: i,
+          texteAvant: '$=$',
+          typeInteractivite: 'mathlive',
+          objetReponse: {
+            reponse: {
+              value,
+              options: this.sup3
+                ? { fractionSimplifiee: true }
+                : { fractionEgale: true },
+            },
+          },
+        })
       const multiplicateur = texNombre(10 ** nbDecimalesSup, 0)
       texteCorr = `Pour transformer l'écriture fractionnaire en fraction, il faut multiplier le numérateur et le dénominateur par $${multiplicateur}$.<br>
       $\\begin{aligned}\\dfrac{${texNombreNumerateur}}{${texNombreDenominateur}}&=\\dfrac{${texNombreNumerateur}\\times ${multiplicateur}}{${texNombreDenominateur}\\times ${multiplicateur}}\\\\

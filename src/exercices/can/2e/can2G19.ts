@@ -10,7 +10,8 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-export const titre = 'Déterminer le coefficient directeur d\'une droite (graphique)'
+export const titre =
+  "Déterminer le coefficient directeur d'une droite (graphique)"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '10/11/2022'
@@ -25,10 +26,10 @@ export const uuid = '6082f'
 
 export const refs = {
   'fr-fr': ['can2G19'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CoeffDirDroite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -37,9 +38,35 @@ export default class CoeffDirDroite extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    let xA, yA, xB, yB, o, A, B, Bx, sABx, sBBx, m, lA, traceA, lB, lABx, lBBx, traceB, d, r1, xmin, xmax, ymin, ymax, objet, objetC
-    switch (choice([1, 2])) { //, 2, 2
+  nouvelleVersion() {
+    let xA,
+      yA,
+      xB,
+      yB,
+      o,
+      A,
+      B,
+      Bx,
+      sABx,
+      sBBx,
+      m,
+      lA,
+      traceA,
+      lB,
+      lABx,
+      lBBx,
+      traceB,
+      d,
+      r1,
+      xmin,
+      xmax,
+      ymin,
+      ymax,
+      objet,
+      objetC
+    switch (
+      choice([1, 2]) //, 2, 2
+    ) {
       case 1:
         xA = randint(-4, -1)
         yA = randint(0, 4)
@@ -59,8 +86,22 @@ export default class CoeffDirDroite extends ExerciceSimple {
         lA = texteParPosition('A', xA, yA + 0.5, 'milieu', 'black', 1)
         traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
         lB = texteParPosition('B', xB, yB + 0.5, 'milieu', 'black', 1)
-        lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, 'milieu', 'red', 1)
-        lBBx = texteParPosition(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, 'milieu', 'blue', 1)
+        lABx = texteParPosition(
+          `${xB - xA}`,
+          milieu(A, Bx).x,
+          A.y + 0.3,
+          'milieu',
+          'red',
+          1,
+        )
+        lBBx = texteParPosition(
+          `${yB - yA}`,
+          B.x + 0.5,
+          milieu(B, Bx).y,
+          'milieu',
+          'blue',
+          1,
+        )
         traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
         d = droite(A, B, '', 'blue')
         d.epaisseur = 2
@@ -94,10 +135,48 @@ export default class CoeffDirDroite extends ExerciceSimple {
           grilleSecondaireYMin: ymin,
           grilleSecondaireYMax: ymax,
           grilleSecondaireXMin: xmin,
-          grilleSecondaireXMax: xmax
+          grilleSecondaireXMax: xmax,
         })
-        objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
-        objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+        objet = mathalea2d(
+          {
+            xmin,
+            xmax,
+            ymin,
+            ymax: ymax + 0.25,
+            pixelsParCm: 30,
+            scale: 0.75,
+            style: 'margin: auto',
+          },
+          d,
+          r1,
+          traceA,
+          lA,
+          lB,
+          traceB,
+          o,
+        )
+        objetC = mathalea2d(
+          {
+            xmin,
+            xmax,
+            ymin,
+            ymax: ymax + 0.25,
+            pixelsParCm: 30,
+            scale: 0.75,
+            style: 'margin: auto',
+          },
+          d,
+          r1,
+          traceA,
+          lA,
+          lB,
+          traceB,
+          o,
+          sABx,
+          sBBx,
+          lABx,
+          lBBx,
+        )
 
         this.question = 'Donner le coefficient directeur $m$ de la droite.<br>'
         this.question += `${objet}<br>`
@@ -130,8 +209,33 @@ export default class CoeffDirDroite extends ExerciceSimple {
         lA = texteParPosition('A', xA, yA + 0.5, 'milieu', 'black', 1.5)
         traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
         lB = texteParPosition('B', xB, yB + 0.5, 'milieu', 'black', 1.5)
-        if (yA > yB) { lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, 'milieu', 'red', 1) } else { lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y - 0.3, 'milieu', 'red', 1) }
-        lBBx = texteParPosition(`${2 * (yB - yA)}`, B.x + 0.5, milieu(B, Bx).y, 'milieu', 'blue', 1)
+        if (yA > yB) {
+          lABx = texteParPosition(
+            `${xB - xA}`,
+            milieu(A, Bx).x,
+            A.y + 0.3,
+            'milieu',
+            'red',
+            1,
+          )
+        } else {
+          lABx = texteParPosition(
+            `${xB - xA}`,
+            milieu(A, Bx).x,
+            A.y - 0.3,
+            'milieu',
+            'red',
+            1,
+          )
+        }
+        lBBx = texteParPosition(
+          `${2 * (yB - yA)}`,
+          B.x + 0.5,
+          milieu(B, Bx).y,
+          'milieu',
+          'blue',
+          1,
+        )
         traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
         d = droite(A, B, '', 'blue')
         d.epaisseur = 2
@@ -160,10 +264,48 @@ export default class CoeffDirDroite extends ExerciceSimple {
           yLabelDistance: 2,
           yLabelEcart: 0.4,
           grilleXDistance: 1,
-          grilleYDistance: 0.5
+          grilleYDistance: 0.5,
         })
-        objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
-        objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+        objet = mathalea2d(
+          {
+            xmin,
+            xmax,
+            ymin,
+            ymax: ymax + 0.25,
+            pixelsParCm: 30,
+            scale: 0.75,
+            style: 'margin: auto',
+          },
+          d,
+          r1,
+          traceA,
+          lA,
+          lB,
+          traceB,
+          o,
+        )
+        objetC = mathalea2d(
+          {
+            xmin,
+            xmax,
+            ymin,
+            ymax: ymax + 0.25,
+            pixelsParCm: 30,
+            scale: 0.75,
+            style: 'margin: auto',
+          },
+          d,
+          r1,
+          traceA,
+          lA,
+          lB,
+          traceB,
+          o,
+          sABx,
+          sBBx,
+          lABx,
+          lBBx,
+        )
 
         this.question = 'Donner le coefficient directeur $m$ de la droite.<br>'
         this.question += `${objet}<br>`

@@ -6,13 +6,14 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '0c97a'
 export const refs = {
   'fr-fr': ['1A-S4-7'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Comparer la moyenne et l\'écart-type d\'une série rangée en classes.'
+export const titre =
+  "Comparer la moyenne et l'écart-type d'une série rangée en classes."
 export const dateDePublication = '05/08/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
@@ -22,20 +23,20 @@ export const dateDePublication = '05/08/2025'
 export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (): void {
+  private appliquerLesValeurs(): void {
     const moyenne = (arr: number[]) =>
       arr.reduce((sum, x) => sum + x, 0) / arr.length
 
     const ecartType = (arr: number[]) => {
       const m = moyenne(arr)
       const variance =
-      arr.reduce((sum, x) => sum + Math.pow(x - m, 2), 0) / arr.length
+        arr.reduce((sum, x) => sum + Math.pow(x - m, 2), 0) / arr.length
       return Math.sqrt(variance)
     }
 
     const genereSerie = (
       moyenneCible: number,
-      dispersion: number
+      dispersion: number,
     ): number[] => {
       const base = moyenneCible
       const deltas = {
@@ -44,7 +45,10 @@ export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
         forte: [3, -3, 0, 0],
       }
 
-      const ecarts = deltas[dispersion === 1 ? 'faible' : dispersion === 2 ? 'moyenne' : 'forte']
+      const ecarts =
+        deltas[
+          dispersion === 1 ? 'faible' : dispersion === 2 ? 'moyenne' : 'forte'
+        ]
       const melange = ecarts.sort(() => Math.random() - 0.5)
       return melange.map((d) => base + d)
     }
@@ -57,22 +61,22 @@ export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
 
     switch (scenario) {
       case 0:
-      // Même moyenne, mais série B plus dispersée
+        // Même moyenne, mais série B plus dispersée
         serieA = genereSerie(10, 1)
         serieB = genereSerie(10, 3)
         break
       case 1:
-      // Moyenne A > B, écart-type similaire
+        // Moyenne A > B, écart-type similaire
         serieA = genereSerie(12, 2)
         serieB = genereSerie(9, 2)
         break
       case 2:
-      // Moyenne égale, A plus dispersée
+        // Moyenne égale, A plus dispersée
         serieA = genereSerie(10, 3)
         serieB = genereSerie(10, 1)
         break
       case 3:
-      // Moyenne B > A, écart-type égal
+        // Moyenne B > A, écart-type égal
         serieA = genereSerie(9, 3)
         serieB = genereSerie(12, 3)
         break
@@ -88,7 +92,7 @@ export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
       'La moyenne de la série B est strictement supérieure à la moyenne de la série A.',
       'La moyenne de la série A est strictement supérieure à la moyenne de la série B.',
       'L’écart-type de la série A est strictement supérieur à l’écart-type de la série B.',
-      'L’écart-type de la série B est strictement supérieur à l’écart-type de la série A.'
+      'L’écart-type de la série B est strictement supérieur à l’écart-type de la série A.',
     ]
 
     // Détection automatique de la bonne réponse
@@ -122,7 +126,7 @@ export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
     }
 
     // Réorganiser les réponses pour mettre la bonne en premier
-    const autres = toutesLesReponses.filter(r => r !== bonnePhrase)
+    const autres = toutesLesReponses.filter((r) => r !== bonnePhrase)
     this.reponses = [bonnePhrase, ...autres]
 
     // Construire l'énoncé
@@ -147,7 +151,7 @@ Laquelle des quatre propositions suivantes est vraie ?`
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

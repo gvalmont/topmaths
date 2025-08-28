@@ -5,13 +5,13 @@ import { context } from '../../../modules/context'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Trouver le résultat d\'un programme Python'
+export const titre = "Trouver le résultat d'un programme Python"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ca805'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class PythonCalcul extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -28,7 +28,7 @@ export default class PythonCalcul extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = '$\\begin{array}{|l|}\n'
       this.question += '\\hline\n'
@@ -99,6 +99,8 @@ export default class PythonCalcul extends ExerciceSimple {
       this.canEnonce += `<br>Que renvoie  $\\texttt{mystere(${a})}$ ?`
       this.canReponseACompleter = '$\\ldots$'
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 }

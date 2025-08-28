@@ -1,6 +1,10 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -14,22 +18,23 @@ export const interactifType = 'mathLive'
 export const interactifReady = true
 
 /**
-* Trouver un pourcentage dans un problème
-* @author Eric Elter
-*/
+ * Trouver un pourcentage dans un problème
+ * @author Eric Elter
+ */
 
 export const uuid = '66c48'
 
 export const refs = {
   'fr-fr': ['6N1E-2'],
   'fr-2016': ['6N23-12'],
-  'fr-ch': ['']
+  'fr-ch': [''],
 }
 export default class DecimalFractionPourcentage extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Choix de problèmes', [
+      'Choix de problèmes',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Brebis dans un troupeau',
         '2 : Filles dans un groupe',
@@ -50,12 +55,13 @@ export default class DecimalFractionPourcentage extends Exercice {
         '17 : Vélos dans un parking',
         '18 : Eau utilisée dans une réserve',
         '19 : Bonbons dans un sachet',
-        '20 : Mélange'
-      ].join('\n')
+        '20 : Mélange',
+      ].join('\n'),
     ]
 
     this.besoinFormulaire2Texte = [
-      'Choix des dénominateurs initiaux', [
+      'Choix des dénominateurs initiaux',
+      [
         'Nombres séparés par des tirets  :',
         '1 : 10',
         '2 : 20',
@@ -65,8 +71,8 @@ export default class DecimalFractionPourcentage extends Exercice {
         '6 : 200',
         '7 : 500',
         '8 : 1000',
-        '9 : Mélange'
-      ].join('\n')
+        '9 : Mélange',
+      ].join('\n'),
     ]
 
     this.sup = 20
@@ -74,14 +80,14 @@ export default class DecimalFractionPourcentage extends Exercice {
     this.nbQuestions = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 19,
       defaut: 20,
       melange: 20,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
     const typeDeDenominateurs = gestionnaireFormulaireTexte({
@@ -91,32 +97,33 @@ export default class DecimalFractionPourcentage extends Exercice {
       defaut: 9,
       melange: 9,
       nbQuestions: this.nbQuestions,
-      listeOfCase: [10, 20, 25, 50, 100, 200, 500, 1000]
+      listeOfCase: [10, 20, 25, 50, 100, 200, 500, 1000],
     })
-    const typeDeDenominateursNumber: number[] = typeDeDenominateurs
-      .filter((val): val is number => typeof val === 'number')
+    const typeDeDenominateursNumber: number[] = typeDeDenominateurs.filter(
+      (val): val is number => typeof val === 'number',
+    )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let reponse = 0
       const num = typeDeDenominateursNumber[i]
-      let den :number[] = [0, 0]
+      let den: number[] = [0, 0]
       switch (num) {
         case 10:
         case 20:
         case 25:
         case 50:
-        case 100 :
+        case 100:
           den = [randint(2, num), arrondi(100 / num, 1)]
           break
-        case 200 :
+        case 200:
           den = [2 * randint(1, 99), 2]
           break
-        case 500 :
+        case 500:
           den = [50 * randint(1, 9), 5]
           break
-        case 1000 :
+        case 1000:
           den = [10 * randint(1, 99), 10]
           break
       }
@@ -327,7 +334,7 @@ export default class DecimalFractionPourcentage extends Exercice {
               reponse = arrondi(den[0] / den[1])
               texteCorr = `Parmi $${texNombre(num)}$ élèves, $${den[0]}$ portent des lunettes, alors avec $${den[1]}$ fois moins d'élèves, on obtient $100$ élèves dont $${reponse}$ à lunettes car $${den[0]}\\div${den[1]}=${reponse}$.<br>`
             }
-            texteCorr += 'La proportion d\'élèves à lunettes dans ce groupe'
+            texteCorr += "La proportion d'élèves à lunettes dans ce groupe"
           }
           break
         }
@@ -344,7 +351,8 @@ export default class DecimalFractionPourcentage extends Exercice {
               reponse = arrondi(den[0] / den[1])
               texteCorr = `Sur $${texNombre(num)}$ livres, $${den[0]}$ sont des BD, alors avec $${den[1]}$ fois moins de livres, on obtient $100$ livres dont $${reponse}$ bandes dessinées car $${den[0]}\\div${den[1]}=${reponse}$.<br>`
             }
-            texteCorr += 'La proportion de bandes dessinées dans cette bibliothèque'
+            texteCorr +=
+              'La proportion de bandes dessinées dans cette bibliothèque'
           }
           break
         }
@@ -395,7 +403,7 @@ export default class DecimalFractionPourcentage extends Exercice {
               reponse = arrondi(den[0] / den[1])
               texteCorr = `Parmi $${texNombre(num)}$ œufs, $${den[0]}$ sont cassés, alors avec $${den[1]}$ fois moins d'œufs, on obtient $100$ œufs dont $${reponse}$ cassés car $${den[0]}\\div${den[1]}=${reponse}$.<br>`
             }
-            texteCorr += 'La proportion d\'œufs cassés dans ce poulailler'
+            texteCorr += "La proportion d'œufs cassés dans ce poulailler"
           }
           break
         }
@@ -429,7 +437,7 @@ export default class DecimalFractionPourcentage extends Exercice {
               reponse = arrondi(den[0] / den[1])
               texteCorr = `Sur $${texNombre(num)}$ litres, $${den[0]}$ sont utilisés, alors avec $${den[1]}$ fois moins de litres d'eau, on obtient $100$ litres d'eau dont $${reponse}$ litres sont utilisés car $${den[0]}\\div${den[1]}=${reponse}$.<br>`
             }
-            texteCorr += 'La proportion d\'eau utilisée dans cette réserve'
+            texteCorr += "La proportion d'eau utilisée dans cette réserve"
           }
           break
         }
@@ -453,9 +461,14 @@ export default class DecimalFractionPourcentage extends Exercice {
       }
       texteCorr += ` est donc de $${new FractionEtendue(reponse, 100).texFraction}$, soit $${miseEnEvidence(reponse)}$ %.`
 
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' %' })
-      handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
-      if (this.questionJamaisPosee(i, num, ...den)) { // Si la question n'a jamais été posée, on en créé une autre
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteApres: ' %',
+      })
+      handleAnswers(this, i, {
+        reponse: { value: reponse, options: { nombreDecimalSeulement: true } },
+      })
+      if (this.questionJamaisPosee(i, num, ...den)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

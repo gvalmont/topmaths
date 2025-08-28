@@ -1,14 +1,11 @@
 <script lang="ts">
-  import {
-    globalOptions,
-    darkMode
-  } from '../../../lib/stores/generalStore'
+  import { globalOptions, darkMode } from '../../../lib/stores/generalStore'
   import ButtonIcon from '../forms/ButtonIcon.svelte'
   import { mathaleaGoToView } from '../../../lib/mathalea'
   import NavBarSubtitle from './NavBarSubtitle.svelte'
   import {
     VUES_WITH_LANG_STATUS_ONLY,
-    type Language
+    type Language,
   } from '../../../lib/types/languages'
   import LanguageStatus from '../ui/LanguageStatus.svelte'
   import LanguageDropdown from '../ui/LanguageDropdown.svelte'
@@ -22,7 +19,6 @@
   export let handleLanguage: (lang: string) => void
 
   let showLanguageChoiceModal: boolean = false
-
 </script>
 
 <!--
@@ -45,23 +41,28 @@
   ```
  -->
 
-<nav class="p-4
+<nav
+  class="p-4
   md:h-[120px]
   bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
   <!-- container -->
-  <div class="flex flex-row justify-between items-start w-full mx-auto
+  <div
+    class="flex flex-row justify-between items-start w-full mx-auto
     space-x-0 md:space-x-6"
   >
-    <div class="flex justify-start flex-col
+    <div
+      class="flex justify-start flex-col
       space-x-0 md:space-x-2"
     >
-      <div class="flex align-middle
-        flex-col md:flex-row">
+      <div
+        class="flex align-middle
+        flex-col md:flex-row"
+      >
         <div>
           <div
-            on:click={() => mathaleaGoToView('')}
-            on:keydown={() => mathaleaGoToView('')}
+            on:click="{() => mathaleaGoToView('')}"
+            on:keydown="{() => mathaleaGoToView('')}"
             role="link"
             tabindex="0"
             class="relative inline-flex font-logo9 tracking-tighter font-black
@@ -74,7 +75,8 @@
           >
             {title}
           </div>
-          <div class="absolute ml-3 -mt-1 font-light text-sm
+          <div
+            class="absolute ml-3 -mt-1 font-light text-sm
               text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
           >
             <span class="font-light font-sans tracking-normal">par</span>
@@ -90,10 +92,11 @@
             </a>
           </div>
         </div>
-        <NavBarSubtitle {subtitle} type={subtitleType} />
+        <NavBarSubtitle {subtitle} type="{subtitleType}" />
       </div>
     </div>
-    <div class="flex flex-row space-x-4 pt-2
+    <div
+      class="flex flex-row space-x-4 pt-2
       pr-0 md:pr-4"
     >
       {#if $globalOptions.v && VUES_WITH_LANG_STATUS_ONLY.includes($globalOptions.v)}
@@ -107,9 +110,9 @@
         <div class="md:hidden">
           <button
             type="button"
-            on:click={() => {
+            on:click="{() => {
               showLanguageChoiceModal = !showLanguageChoiceModal
-            }}
+            }}"
           >
             <LanguageIcon {locale} />
           </button>
@@ -125,23 +128,19 @@
           id="hidden-checkbox-for-darkmode"
           type="checkbox"
           class="invisible"
-          bind:checked={$darkMode.isActive}
+          bind:checked="{$darkMode.isActive}"
         />
-        <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
-        <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
+        <div class="swap-on"><i class="bx bx-sm bx-sun"></i></div>
+        <div class="swap-off"><i class="bx bx-sm bx-moon"></i></div>
       </label>
       <ButtonIcon
         icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
         class="text-3xl"
-        on:click={() => {
+        on:click="{() => {
           mathaleaGoToView('')
-        }}
+        }}"
       />
     </div>
   </div>
 </nav>
-<ModalLanguageChoice
-  bind:showLanguageChoiceModal
-  {locale}
-  {handleLanguage}
-/>
+<ModalLanguageChoice bind:showLanguageChoiceModal {locale} {handleLanguage} />

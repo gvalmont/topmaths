@@ -1,4 +1,8 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  enleveElement,
+} from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { range } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -36,25 +40,33 @@ export const uuid = '8865d'
 
 export const refs = {
   'fr-fr': ['5L14-2'],
-  'fr-ch': ['10FA1-1', '11FA1-4']
+  'fr-ch': ['10FA1-1', '11FA1-4'],
 }
 export default class ExerciceSubstituer extends Exercice {
-  constructor (difficulte = 1) {
+  constructor(difficulte = 1) {
     super()
     this.sup = difficulte
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif',
+    ]
 
     this.consigneModifiable = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse
     const typeDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let k = randint(2, 9)
     let k2 = randint(2, 9)
     let k3 = randint(2, 9)
-    if (this.sup > 1) { // si difficulté 2, k, k2 et k3 peuvent être négatifs !!! La correction est à faire. Exercice non fini
+    if (this.sup > 1) {
+      // si difficulté 2, k, k2 et k3 peuvent être négatifs !!! La correction est à faire. Exercice non fini
       k = k * choice([-1, 1])
       k2 = k2 * choice([-1, 1])
       k3 = k3 * choice([-1, 1])
@@ -66,11 +78,22 @@ export default class ExerciceSubstituer extends Exercice {
     enleveElement(valeursPossibles, y)
     const z = choice(valeursPossibles)
 
-    const listeTypeDeQuestionsExact = listeTypeDeQuestions.slice(0, this.nbQuestions)
-    if (listeTypeDeQuestionsExact.includes(5) || listeTypeDeQuestionsExact.includes(6)) this.consigne = `Calculer pour $x=${x}$, $y=${y}$ et $z=${z}$.`
+    const listeTypeDeQuestionsExact = listeTypeDeQuestions.slice(
+      0,
+      this.nbQuestions,
+    )
+    if (
+      listeTypeDeQuestionsExact.includes(5) ||
+      listeTypeDeQuestionsExact.includes(6)
+    )
+      this.consigne = `Calculer pour $x=${x}$, $y=${y}$ et $z=${z}$.`
     else this.consigne = `Calculer pour $x=${x}$ et $y=${y}$.`
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestions[i]) {
         case 1:
@@ -127,12 +150,18 @@ export default class ExerciceSubstituer extends Exercice {
       }
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, '', {
-          texteAvant: '$~=~$'
+          texteAvant: '$~=~$',
         })
-      } else if (context.isAmc) texte = 'Calculer ' + texte + ` pour $x=${x}$, $y=${y}$ et $z=${z}$.`
-      setReponse(this, i, reponse, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
+      } else if (context.isAmc)
+        texte = 'Calculer ' + texte + ` pour $x=${x}$, $y=${y}$ et $z=${z}$.`
+      setReponse(this, i, reponse, {
+        formatInteractif: 'calcul',
+        digits: 3,
+        decimals: 0,
+      })
 
-      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

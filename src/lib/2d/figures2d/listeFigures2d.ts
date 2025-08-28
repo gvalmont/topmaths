@@ -1,10 +1,91 @@
 import type { Figure2D } from '../Figures2D'
-import { panneauCroisementPrioriteADroite, panneauCederLePassage, panneauDoubleSens, panneauFeuTricolore, panneauRetrecissementChaussee1, panneauRetrecissementChaussee2, panneauCroisementRouteSecondaire, panneauRetrecissementChaussee3, panneauFinDeLimitation, panneauSensInterdit, panneauArretInterdit, panneauInterdictionDeCirculer, panneauFinDeRoutePrioritaire, panneauVoieSansIssue, panneauParking, panneauStop, panneauStationnementInterdit, panneauRoutePrioritaire } from './panneaux'
+import {
+  panneauCroisementPrioriteADroite,
+  panneauCederLePassage,
+  panneauDoubleSens,
+  panneauFeuTricolore,
+  panneauRetrecissementChaussee1,
+  panneauRetrecissementChaussee2,
+  panneauCroisementRouteSecondaire,
+  panneauRetrecissementChaussee3,
+  panneauFinDeLimitation,
+  panneauSensInterdit,
+  panneauArretInterdit,
+  panneauInterdictionDeCirculer,
+  panneauFinDeRoutePrioritaire,
+  panneauVoieSansIssue,
+  panneauParking,
+  panneauStop,
+  panneauStationnementInterdit,
+  panneauRoutePrioritaire,
+} from './panneaux'
 import { briqueLego } from './legos'
-import { ovale, aileDelta, cerfVolant, coeur, croissantDeLune, croixRouge, etoile4Branches, etoile5Branches, ferACheval, hexagoneNonRegulier, losange, ogive, pacman, parallelogramme, pentagoneRegulier, rectangle, trapezeIsocele, triangleEquilateral, triangleIsocele, triangleQuelconque1 } from './geometrie'
+import {
+  ovale,
+  aileDelta,
+  cerfVolant,
+  coeur,
+  croissantDeLune,
+  croixRouge,
+  etoile4Branches,
+  etoile5Branches,
+  ferACheval,
+  hexagoneNonRegulier,
+  losange,
+  ogive,
+  pacman,
+  parallelogramme,
+  pentagoneRegulier,
+  rectangle,
+  trapezeIsocele,
+  triangleEquilateral,
+  triangleIsocele,
+  triangleQuelconque1,
+} from './geometrie'
 import { randint } from '../../../modules/outils'
-import { lettreA, lettreB, lettreC, lettreD, lettreE, lettreF, lettreG, lettreH, lettreI, lettreJ, lettreK, lettreL, lettreM, lettreN, lettreO, lettreP, lettreQ, lettreR, lettreS, lettreT, lettreU, lettreV, lettreW, lettreX, lettreY, lettreZ } from './lettres'
-import { chiffreDigital, nombre13, nombre25, nombre26, nombre30, nombre38, nombre42, nombre52, nombre73, nombre75, nombre80, nombre88, nombre96 } from './chiffres'
+import {
+  lettreA,
+  lettreB,
+  lettreC,
+  lettreD,
+  lettreE,
+  lettreF,
+  lettreG,
+  lettreH,
+  lettreI,
+  lettreJ,
+  lettreK,
+  lettreL,
+  lettreM,
+  lettreN,
+  lettreO,
+  lettreP,
+  lettreQ,
+  lettreR,
+  lettreS,
+  lettreT,
+  lettreU,
+  lettreV,
+  lettreW,
+  lettreX,
+  lettreY,
+  lettreZ,
+} from './lettres'
+import {
+  chiffreDigital,
+  nombre13,
+  nombre25,
+  nombre26,
+  nombre30,
+  nombre38,
+  nombre42,
+  nombre52,
+  nombre73,
+  nombre75,
+  nombre80,
+  nombre88,
+  nombre96,
+} from './chiffres'
 /**
  * @description formes utilisées dans l'exercice 6G25-4 notamment
  * @author Jean-Claude Lhote
@@ -21,91 +102,91 @@ export const listeFigures2d: Forme[] = [
     numero: 2,
     name: 'sens interdit',
     type: 'panneau',
-    figure2d: panneauSensInterdit
+    figure2d: panneauSensInterdit,
   },
   {
     numero: 3,
-    name: 'interdiction de s\'arrêter',
+    name: "interdiction de s'arrêter",
     type: 'panneau',
-    figure2d: panneauArretInterdit
+    figure2d: panneauArretInterdit,
   },
   {
     numero: 4,
     name: 'interdiction de circuler à tout véhicule',
     type: 'panneau',
-    figure2d: panneauInterdictionDeCirculer
+    figure2d: panneauInterdictionDeCirculer,
   },
   {
     numero: 5,
     name: 'danger : céder le passage',
     type: 'panneau',
-    figure2d: panneauCederLePassage
+    figure2d: panneauCederLePassage,
   },
   {
     numero: 6,
     name: 'danger : circulation à double sens',
     type: 'panneau',
-    figure2d: panneauDoubleSens
+    figure2d: panneauDoubleSens,
   },
   {
     numero: 7,
     name: 'danger : retrécissement de chaussée',
     type: 'panneau',
-    figure2d: panneauRetrecissementChaussee1
+    figure2d: panneauRetrecissementChaussee1,
   },
   {
     numero: 8,
     name: 'danger : retrécissement de chaussée',
     type: 'panneau',
-    figure2d: panneauRetrecissementChaussee2
+    figure2d: panneauRetrecissementChaussee2,
   },
   {
     numero: 9,
     name: 'danger : croisement à priorité à droite',
     type: 'panneau',
-    figure2d: panneauCroisementPrioriteADroite
+    figure2d: panneauCroisementPrioriteADroite,
   },
   {
     numero: 10,
     name: 'fin de route prioritaire',
     type: 'panneau',
-    figure2d: panneauFinDeRoutePrioritaire
+    figure2d: panneauFinDeRoutePrioritaire,
   },
   {
     numero: 11,
     name: 'danger : feu tricolore',
     type: 'panneau',
-    figure2d: panneauFeuTricolore
+    figure2d: panneauFeuTricolore,
   },
   {
     numero: 12,
     name: 'voie sans issue',
     type: 'panneau',
-    figure2d: panneauVoieSansIssue
+    figure2d: panneauVoieSansIssue,
   },
   {
     numero: 13,
     name: 'parking',
     type: 'panneau',
-    figure2d: panneauParking
+    figure2d: panneauParking,
   },
   {
     numero: 14,
     name: 'stop',
     type: 'panneau',
-    figure2d: panneauStop
+    figure2d: panneauStop,
   },
   {
     numero: 15,
     name: 'stationnement interdit',
     type: 'panneau',
-    figure2d: panneauStationnementInterdit
+    figure2d: panneauStationnementInterdit,
   },
   {
     numero: 16,
     name: 'route prioritaire',
     type: 'panneau',
-    figure2d: panneauRoutePrioritaire
+    figure2d: panneauRoutePrioritaire,
   },
   // legos
   {
@@ -113,161 +194,161 @@ export const listeFigures2d: Forme[] = [
     name: 'lego2x2',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 2, ny: 2 }
+    options: { nx: 2, ny: 2 },
   },
   {
     numero: 18,
     name: 'lego3x2',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 3, ny: 2 }
+    options: { nx: 3, ny: 2 },
   },
   {
     numero: 19,
     name: 'lego4x2',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 4, ny: 2 }
+    options: { nx: 4, ny: 2 },
   },
   {
     numero: 20,
     name: 'lego5x2',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 5, ny: 2 }
+    options: { nx: 5, ny: 2 },
   },
   {
     numero: 21,
     name: 'lego6x2',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 6, ny: 2 }
+    options: { nx: 6, ny: 2 },
   },
   {
     numero: 22,
     name: 'lego8x2',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 8, ny: 2 }
+    options: { nx: 8, ny: 2 },
   },
   {
     numero: 23,
     name: 'lego5x4',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 5, ny: 4 }
+    options: { nx: 5, ny: 4 },
   },
   {
     numero: 24,
     name: 'lego6x4',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 6, ny: 4 }
+    options: { nx: 6, ny: 4 },
   },
   {
     numero: 25,
     name: 'lego8x4',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 8, ny: 4 }
+    options: { nx: 8, ny: 4 },
   },
   {
     numero: 26,
     name: 'lego3x3',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 3, ny: 3 }
+    options: { nx: 3, ny: 3 },
   },
   {
     numero: 27,
     name: 'lego4x4',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 4, ny: 4 }
+    options: { nx: 4, ny: 4 },
   },
   {
     numero: 28,
     name: 'lego4x3',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 4, ny: 3 }
+    options: { nx: 4, ny: 3 },
   },
   {
     numero: 29,
     name: 'lego5x3',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 5, ny: 3 }
+    options: { nx: 5, ny: 3 },
   },
   {
     numero: 30,
     name: 'lego6x3',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 6, ny: 3 }
+    options: { nx: 6, ny: 3 },
   },
   {
     numero: 31,
     name: 'lego8x3',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 8, ny: 3 }
+    options: { nx: 8, ny: 3 },
   },
   {
     numero: 32,
     name: 'lego8x6',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 8, ny: 6 }
+    options: { nx: 8, ny: 6 },
   },
   {
     numero: 33,
     name: 'lego2x1',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 2, ny: 1 }
+    options: { nx: 2, ny: 1 },
   },
   {
     numero: 34,
     name: 'lego3x1',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 3, ny: 1 }
+    options: { nx: 3, ny: 1 },
   },
   {
     numero: 35,
     name: 'lego4x1',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 4, ny: 1 }
+    options: { nx: 4, ny: 1 },
   },
   {
     numero: 36,
     name: 'lego5x1',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 5, ny: 1 }
+    options: { nx: 5, ny: 1 },
   },
   {
     numero: 37,
     name: 'lego6x1',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 6, ny: 1 }
+    options: { nx: 6, ny: 1 },
   },
   {
     numero: 38,
     name: 'lego8x1',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 8, ny: 1 }
+    options: { nx: 8, ny: 1 },
   },
   {
     numero: 39,
     name: 'lego8x8',
     type: 'lego',
     figure2d: briqueLego,
-    options: { nx: 8, ny: 8 }
+    options: { nx: 8, ny: 8 },
   },
   // formes géométriques
   {
@@ -275,370 +356,399 @@ export const listeFigures2d: Forme[] = [
     name: 'triangle quelconque',
     type: 'geometrique',
     figure2d: triangleQuelconque1,
-    options: { opacite: 0.8 }
+    options: { opacite: 0.8 },
   },
   {
     numero: 41,
     name: 'pentagone régulier',
     type: 'geometrique',
     figure2d: pentagoneRegulier,
-    options: { rayon: 2, opacite: 0.7 }
+    options: { rayon: 2, opacite: 0.7 },
   },
   {
     numero: 42,
     name: 'etoile à 5 branches',
     type: 'geometrique',
     figure2d: etoile5Branches,
-    options: { rayonInterieur: 0.7, rayonExterieur: 1.5 }
+    options: { rayonInterieur: 0.7, rayonExterieur: 1.5 },
   },
   {
     numero: 43,
     name: 'cerf-volant',
     type: 'geometrique',
     figure2d: cerfVolant,
-    options: { largeur: randint(2, 5) / 2, hauteur: randint(32, 40) / 10, opacite: 0.8 }
+    options: {
+      largeur: randint(2, 5) / 2,
+      hauteur: randint(32, 40) / 10,
+      opacite: 0.8,
+    },
   },
   {
     numero: 44,
     name: 'aile delta',
     type: 'geometrique',
     figure2d: aileDelta,
-    options: { base: 4, hauteur: 2 }
+    options: { base: 4, hauteur: 2 },
   },
   {
     numero: 45,
     name: 'trapèze isocèle',
     type: 'geometrique',
     figure2d: trapezeIsocele,
-    options: { baseInferieure: 4, baseSuperieure: 2, hauteur: 2.5 }
+    options: { baseInferieure: 4, baseSuperieure: 2, hauteur: 2.5 },
   },
   {
     numero: 46,
     name: 'hexagone non régulier',
     type: 'geometrique',
     figure2d: hexagoneNonRegulier,
-    options: { rayonHorizontal: 2, rayonVertical: 1 }
+    options: { rayonHorizontal: 2, rayonVertical: 1 },
   },
   {
     numero: 47,
     name: 'croissant de lune 1',
     type: 'geometrique',
     figure2d: croissantDeLune,
-    options: { rayonExterieur: 3, rayonInterieur: 4, }
+    options: { rayonExterieur: 3, rayonInterieur: 4 },
   },
   {
     numero: 48,
     name: 'croissant de lune 2',
     type: 'geometrique',
     figure2d: croissantDeLune,
-    options: { rayonExterieur: 3, rayonInterieur: 5.5, angle: 90 } // lune avec le rayon intérieur plus grand
+    options: { rayonExterieur: 3, rayonInterieur: 5.5, angle: 90 }, // lune avec le rayon intérieur plus grand
   },
   {
     numero: 49,
     name: 'ovale',
     type: 'geometrique',
-    figure2d: ovale
+    figure2d: ovale,
   },
   {
     numero: 50,
     name: 'pacman',
     type: 'geometrique',
-    figure2d: pacman
+    figure2d: pacman,
   },
   {
     numero: 51,
     name: 'fer à cheval',
     type: 'geometrique',
     figure2d: ferACheval,
-    options: { rayonInterieur: 1.5, rayonExterieur: 2 }
+    options: { rayonInterieur: 1.5, rayonExterieur: 2 },
   },
   {
     numero: 52,
     name: 'parallélogramme 1',
     type: 'geometrique',
     figure2d: parallelogramme,
-    options: { base: 4, hauteur: 2, angle: 60 }
+    options: { base: 4, hauteur: 2, angle: 60 },
   },
   {
     numero: 53,
     name: 'parallélogramme 2',
     type: 'geometrique',
     figure2d: parallelogramme,
-    options: { base: 4, hauteur: 3, angle: 80 }
+    options: { base: 4, hauteur: 3, angle: 80 },
   },
   {
     numero: 54,
     name: 'croissant de lune 4',
     type: 'geometrique',
     figure2d: croissantDeLune,
-    options: { rayonExterieur: 3.5, rayonInterieur: 3, angle: 45 } // lune avec le rayon extérieur plus grand
+    options: { rayonExterieur: 3.5, rayonInterieur: 3, angle: 45 }, // lune avec le rayon extérieur plus grand
   },
   {
     numero: 55,
     name: 'coeur',
     type: 'geometrique',
     figure2d: coeur,
-    options: { base: 3 }
+    options: { base: 3 },
   },
   {
     numero: 56,
     name: 'ogive',
     type: 'geometrique',
     figure2d: ogive,
-    options: { hauteur: 2, opacite: 0.5 }
+    options: { hauteur: 2, opacite: 0.5 },
   },
   {
     numero: 57,
     name: 'etoile à 4 branches 1',
     type: 'geometrique',
     figure2d: etoile4Branches,
-    options: { rayonExterieur: 2, rayonInterieur: 0.5, }
+    options: { rayonExterieur: 2, rayonInterieur: 0.5 },
   },
   {
     numero: 58,
     name: 'etoile à 4 branches 2',
     type: 'geometrique',
     figure2d: etoile4Branches,
-    options: { rayonExterieur: 2, rayonInterieur: 1, }
+    options: { rayonExterieur: 2, rayonInterieur: 1 },
   },
   {
     numero: 59,
     name: 'croix rouge',
     type: 'geometrique',
     figure2d: croixRouge,
-    options: { }
+    options: {},
   },
   {
     numero: 60,
     name: 'rectangle 1',
     type: 'geometrique',
     figure2d: rectangle,
-    options: { angle: 45, coinsArrondis: true, fillStyle: 'green', opacite: 0.7 }
+    options: {
+      angle: 45,
+      coinsArrondis: true,
+      fillStyle: 'green',
+      opacite: 0.7,
+    },
   },
   {
     numero: 61,
     name: 'rectangle 2',
     type: 'geometrique',
     figure2d: rectangle,
-    options: { angle: -20, coinsArrondis: true, largeur: 3, hauteur: 2, fillStyle: 'blue', opacite: 0.5 }
+    options: {
+      angle: -20,
+      coinsArrondis: true,
+      largeur: 3,
+      hauteur: 2,
+      fillStyle: 'blue',
+      opacite: 0.5,
+    },
   },
   {
     numero: 62,
     name: 'rectangle 3',
     type: 'geometrique',
-    figure2d: rectangle
+    figure2d: rectangle,
   },
   {
     numero: 63,
     name: 'rectangle 4',
     type: 'geometrique',
     figure2d: rectangle,
-    options: { angle: 20, hauteur: 1, largeur: 4, fillStyle: 'yellow', opacite: 0.9 }
+    options: {
+      angle: 20,
+      hauteur: 1,
+      largeur: 4,
+      fillStyle: 'yellow',
+      opacite: 0.9,
+    },
   },
   {
     numero: 64,
     name: 'losange 1',
     type: 'geometrique',
     figure2d: losange,
-    options: { fillStyle: 'cyan' }
+    options: { fillStyle: 'cyan' },
   },
   {
     numero: 65,
     name: 'losange 2',
     type: 'geometrique',
     figure2d: losange,
-    options: { fillStyle: 'magenta', coinsArrondis: true, hauteur: 3, largeur: 5, angle: 45, opacite: 0.5 }
+    options: {
+      fillStyle: 'magenta',
+      coinsArrondis: true,
+      hauteur: 3,
+      largeur: 5,
+      angle: 45,
+      opacite: 0.5,
+    },
   },
   {
     numero: 66,
     name: 'triangle isocèle',
     type: 'geometrique',
     figure2d: triangleIsocele,
-    options: { fillStyle: 'purple', opacite: 0.6 }
+    options: { fillStyle: 'purple', opacite: 0.6 },
   },
   {
     numero: 67,
     name: 'triangle équilatéral 1',
     type: 'geometrique',
     figure2d: triangleEquilateral,
-    options: { fillStyle: 'orange', base: 4, opacite: 0.6 }
+    options: { fillStyle: 'orange', base: 4, opacite: 0.6 },
   },
   {
     numero: 68,
     name: 'danger : croisement avec une route secondaire',
     type: 'panneau',
-    figure2d: panneauCroisementRouteSecondaire
+    figure2d: panneauCroisementRouteSecondaire,
   },
   {
     numero: 69,
     name: 'triangle équilatéral 2',
     type: 'geometrique',
     figure2d: triangleEquilateral,
-    options: { fillStyle: 'red', base: 4, opacite: 0.6, angle: -30 }
+    options: { fillStyle: 'red', base: 4, opacite: 0.6, angle: -30 },
   },
   {
     numero: 70,
     name: 'rétrécissement e chaussée 3',
     type: 'panneau',
-    figure2d: panneauRetrecissementChaussee3
+    figure2d: panneauRetrecissementChaussee3,
   },
   {
     numero: 71,
     name: 'lettre A',
     type: 'lettre',
-    figure2d: lettreA
+    figure2d: lettreA,
   },
   {
     numero: 72,
     name: 'lettre B',
     type: 'lettre',
-    figure2d: lettreB
+    figure2d: lettreB,
   },
   {
     numero: 73,
     name: 'lettre C',
     type: 'lettre',
-    figure2d: lettreC
+    figure2d: lettreC,
   },
   {
     numero: 74,
     name: 'lettre D',
     type: 'lettre',
-    figure2d: lettreD
+    figure2d: lettreD,
   },
   {
     numero: 75,
     name: 'lettre E',
     type: 'lettre',
-    figure2d: lettreE
+    figure2d: lettreE,
   },
   {
     numero: 76,
     name: 'lettre F',
     type: 'lettre',
-    figure2d: lettreF
+    figure2d: lettreF,
   },
   {
     numero: 77,
     name: 'lettre G',
     type: 'lettre',
-    figure2d: lettreG
+    figure2d: lettreG,
   },
   {
     numero: 78,
     name: 'lettre H',
     type: 'lettre',
-    figure2d: lettreH
+    figure2d: lettreH,
   },
   {
     numero: 79,
     name: 'lettre I',
     type: 'lettre',
-    figure2d: lettreI
+    figure2d: lettreI,
   },
   {
     numero: 80,
     name: 'lettre J',
     type: 'lettre',
     figure2d: lettreJ,
-    options: { base: 4, fillStyle: 'red' }
+    options: { base: 4, fillStyle: 'red' },
   },
   {
     numero: 81,
     name: 'lettre K',
     type: 'lettre',
-    figure2d: lettreK
+    figure2d: lettreK,
   },
   {
     numero: 82,
     name: 'lettre L',
     type: 'lettre',
-    figure2d: lettreL
+    figure2d: lettreL,
   },
   {
     numero: 83,
     name: 'lettre M',
     type: 'lettre',
-    figure2d: lettreM
+    figure2d: lettreM,
   },
   {
     numero: 84,
     name: 'lettre N',
     type: 'lettre',
-    figure2d: lettreN
+    figure2d: lettreN,
   },
   {
     numero: 85,
     name: 'lettre O',
     type: 'lettre',
-    figure2d: lettreO
+    figure2d: lettreO,
   },
   {
     numero: 86,
     name: 'lettre P',
     type: 'lettre',
-    figure2d: lettreP
+    figure2d: lettreP,
   },
   {
     numero: 88,
     name: 'lettre Q',
     type: 'lettre',
-    figure2d: lettreQ
+    figure2d: lettreQ,
   },
   {
     numero: 88,
     name: 'lettre R',
     type: 'lettre',
-    figure2d: lettreR
+    figure2d: lettreR,
   },
   {
     numero: 89,
     name: 'lettre S',
     type: 'lettre',
     figure2d: lettreS,
-    options: { base: 4, fillStyle: 'red' }
+    options: { base: 4, fillStyle: 'red' },
   },
   {
     numero: 90,
     name: 'lettre T',
     type: 'lettre',
-    figure2d: lettreT
+    figure2d: lettreT,
   },
   {
     numero: 91,
     name: 'lettre U',
     type: 'lettre',
-    figure2d: lettreU
+    figure2d: lettreU,
   },
   {
     numero: 92,
     name: 'lettre V',
     type: 'lettre',
-    figure2d: lettreV
+    figure2d: lettreV,
   },
   {
     numero: 93,
     name: 'lettre W',
     type: 'lettre',
-    figure2d: lettreW
+    figure2d: lettreW,
   },
   {
     numero: 94,
     name: 'lettre X',
     type: 'lettre',
-    figure2d: lettreX
+    figure2d: lettreX,
   },
   {
     numero: 95,
     name: 'lettre Y',
     type: 'lettre',
-    figure2d: lettreY
+    figure2d: lettreY,
   },
   {
     numero: 96,
     name: 'lettre Z',
     type: 'lettre',
-    figure2d: lettreZ
+    figure2d: lettreZ,
   },
   // chiffres
   {
@@ -646,143 +756,143 @@ export const listeFigures2d: Forme[] = [
     name: 'chiffre 0',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 0 }
+    options: { chiffre: 0 },
   },
   {
     numero: 98,
     name: 'chiffre 1',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 1 }
+    options: { chiffre: 1 },
   },
   {
     numero: 99,
     name: 'chiffre 2',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 2 }
+    options: { chiffre: 2 },
   },
   {
     numero: 100,
     name: 'chiffre 3',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 3 }
+    options: { chiffre: 3 },
   },
   {
     numero: 101,
     name: 'chiffre 4',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 4 }
+    options: { chiffre: 4 },
   },
   {
     numero: 102,
     name: 'chiffre 5',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 5 }
+    options: { chiffre: 5 },
   },
   {
     numero: 103,
     name: 'chiffre 6',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 6 }
+    options: { chiffre: 6 },
   },
   {
     numero: 104,
     name: 'chiffre 7',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 7 }
+    options: { chiffre: 7 },
   },
   {
     numero: 105,
     name: 'chiffre 8',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 8 }
+    options: { chiffre: 8 },
   },
   {
     numero: 106,
     name: 'chiffre 9',
     type: 'chiffre',
     figure2d: chiffreDigital,
-    options: { chiffre: 9 }
+    options: { chiffre: 9 },
   },
   {
     numero: 107,
     name: 'quatre-vingt-huit',
     type: 'chiffre',
-    figure2d: nombre88
+    figure2d: nombre88,
   },
   {
     numero: 108,
     name: 'trente-huit',
     type: 'chiffre',
-    figure2d: nombre38
+    figure2d: nombre38,
   },
   {
     numero: 109,
     name: 'trente',
     type: 'chiffre',
-    figure2d: nombre30
+    figure2d: nombre30,
   },
   {
     numero: 110,
     name: 'vingt-cinq',
     type: 'chiffre',
-    figure2d: nombre25
+    figure2d: nombre25,
   },
   {
     numero: 111,
     name: 'soixante-quinze',
     type: 'chiffre',
-    figure2d: nombre75
+    figure2d: nombre75,
   },
   {
     numero: 112,
     name: 'treize',
     type: 'chiffre',
-    figure2d: nombre13
+    figure2d: nombre13,
   },
   {
     numero: 113,
     name: 'cinquante-deux',
     type: 'chiffre',
-    figure2d: nombre52
+    figure2d: nombre52,
   },
   {
     numero: 114,
     name: 'soixante-treize',
     type: 'chiffre',
-    figure2d: nombre73
+    figure2d: nombre73,
   },
   {
     numero: 115,
     name: 'vingt-six',
     type: 'chiffre',
-    figure2d: nombre26
+    figure2d: nombre26,
   },
   {
     numero: 116,
     name: 'quarante-deux',
     type: 'chiffre',
-    figure2d: nombre42
+    figure2d: nombre42,
   },
   {
     numero: 117,
     name: 'quatre-vingt-seize',
     type: 'chiffre',
-    figure2d: nombre96
+    figure2d: nombre96,
   },
   {
     numero: 118,
     name: 'quatre-vingt',
     type: 'chiffre',
-    figure2d: nombre80
-  }
+    figure2d: nombre80,
+  },
 ]
 export type Figure2DOptions = {
   fillStyle?: string

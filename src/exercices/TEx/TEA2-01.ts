@@ -6,7 +6,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { pgcd } from '../../lib/outils/primalite'
 
-export const titre = 'Calculer un PGCD avec l\'algorithme d\'Euclide. '
+export const titre = "Calculer un PGCD avec l'algorithme d'Euclide. "
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '21/02/2025'
@@ -16,11 +16,11 @@ export const uuid = 'f68cc'
 
 export const refs = {
   'fr-fr': ['TEA2-01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class ExerciceEuclide extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = ''
     this.nbQuestions = 1
@@ -37,11 +37,11 @@ export default class ExerciceEuclide extends Exercice {
   // }
 
   // Fonction pour générer une nouvelle version des questions
-  nouvelleVersion () {
+  nouvelleVersion() {
     // const typeQuestionsDisponibles = ['type1']
     // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       // Générer les nombres aléatoires pour l'algorithme d'Euclide
@@ -53,7 +53,8 @@ export default class ExerciceEuclide extends Exercice {
 
       // Création des étapes de l'algorithme sous la forme "a = bq + r"
       const etapes = []
-      let tempA = a; let tempB = b
+      let tempA = a
+      let tempB = b
 
       while (tempB !== 0) {
         const quotient = Math.floor(tempA / tempB)
@@ -66,19 +67,17 @@ export default class ExerciceEuclide extends Exercice {
 
       // Texte de la question et correction
       texte = `Calculer, en utilisant l'algorithme d'Euclide, $PGCD (${a} ; ${b})$.`
-      texteCorr = ' On effectue successivement les divisions euclidiennes de l\'algorithme, jusqu\'à obtenir un reste nul :'
+      texteCorr =
+        " On effectue successivement les divisions euclidiennes de l'algorithme, jusqu'à obtenir un reste nul :"
       texteCorr += '<br>' + etapes.join('\n')
       texteCorr += `<br> $PGCD (${a} ; ${b})=${miseEnEvidence(PGCD)}$.`
 
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] =
-                texte +
-                  ajouteChampTexteMathLive(
-                    this,
-                    i,
-                    `  ${KeyboardType.lycee}`,
-                    { texteAvant: `<br>$PGCD(${a}~;~${b})=~~$` }
-                  )
+          texte +
+          ajouteChampTexteMathLive(this, i, `  ${KeyboardType.lycee}`, {
+            texteAvant: `<br>$PGCD(${a}~;~${b})=~~$`,
+          })
 
         this.listeCorrections[i] = texteCorr
         handleAnswers(this, i, { reponse: { value: `${pgcd}` } })

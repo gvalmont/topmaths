@@ -3,7 +3,11 @@ import DragAndDrop, { type Etiquette } from '../../lib/interactif/DragAndDrop'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  gestionnaireFormulaireTexte,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 import { glossaire } from './CM2N1D-2'
 export const titre = 'Décomposer un nombre entier'
@@ -20,14 +24,14 @@ export const uuid = '6498e'
 export const refs = {
   'fr-fr': ['CM2N1D-1'],
   'fr-2016': ['c3N10-0'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 class DragAndDropNumerationEntiere extends Exercice {
   dragAndDrops: DragAndDrop[]
   nombreDeChiffresMin: number
   morceaux!: string[][]
   exposantMorceaux!: number[][]
-  constructor () {
+  constructor() {
     super()
     this.interactif = false
     this.nombreDeChiffresMin = 4
@@ -35,16 +39,16 @@ class DragAndDropNumerationEntiere extends Exercice {
     this.sup = false // false pour des puissances de 10 en chiffres, true pour lettres
     this.besoinFormulaireCaseACocher = [
       'Puissance de 10 en chiffres/lettres',
-      false
+      false,
     ]
     this.besoinFormulaire2Numerique = [
       'Nombre de chiffres maximum des nombres à décomposer',
-      7
+      7,
     ]
     this.sup2 = 4
     this.besoinFormulaire4Texte = [
       'Présence de zéro(s) ',
-      'Nombres séparés par des tirets :\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange',
     ]
     this.sup4 = '4'
     this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
@@ -52,7 +56,7 @@ class DragAndDropNumerationEntiere extends Exercice {
     this.dragAndDrops = []
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // Pour activer le mélange
     const desordonne = this.sup5
     const enLettre = this.sup
@@ -62,7 +66,7 @@ class DragAndDropNumerationEntiere extends Exercice {
       max: 3,
       defaut: 4,
       melange: 4,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     // ça c'est pour éviter de ne pas pouvoir fabriquer les nombres.
     const nombreDeChiffresMin = this.nombreDeChiffresMin
@@ -70,13 +74,14 @@ class DragAndDropNumerationEntiere extends Exercice {
       nombreDeChiffresMin,
       11,
       this.sup2,
-      6
+      6,
     )
     this.morceaux = []
     this.exposantMorceaux = []
     for (
-      let i = 0, cpt = 0, texte: string, texteCorr:string;
+      let i = 0, cpt = 0, texte: string, texteCorr: string;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       texte = ''
       texteCorr = ''
@@ -103,7 +108,7 @@ class DragAndDropNumerationEntiere extends Exercice {
 
       texteCorr = `$${texNombre(nombre, 0)}=`
       for (let k = 0; k < nbChiffres; k++) {
-      // on prépare la correction pour l'exo non interactif
+        // on prépare la correction pour l'exo non interactif
         this.morceaux[i][k] = nombreStr[k]
         this.exposantMorceaux[i][k] = nbChiffres - 1 - k
       }
@@ -117,42 +122,44 @@ class DragAndDropNumerationEntiere extends Exercice {
         if (enLettre) {
           etiquettes.push({
             id: String(2 * e + 1),
-            contenu: glossaire[e][0]
+            contenu: glossaire[e][0],
           })
           if (e !== 3) {
             etiquettes.push({
               id: String(2 * e + 2),
-              contenu: glossaire[e][1]
+              contenu: glossaire[e][1],
             })
           }
         } else {
           etiquettes.push({
             id: String(e + 1),
-            contenu: `$\\times ${texNombre(10 ** e, 0)}$`
+            contenu: `$\\times ${texNombre(10 ** e, 0)}$`,
           })
         }
       }
 
-      for (
-        let k = 0, indiceRectangle = 1;
-        k < this.morceaux[i].length;
-        k++
-      ) {
+      for (let k = 0, indiceRectangle = 1; k < this.morceaux[i].length; k++) {
         if (this.morceaux[i][k] !== '0') {
           enonceATrous += `$${this.morceaux[i][k]}$%{rectangle${indiceRectangle}}$+$`
           if (this.exposantMorceaux[i][k] === 3) {
             reponses.push([
-            `rectangle${indiceRectangle++}`,
-            { value: enLettre ? String(2 * this.exposantMorceaux[i][k] + 1) : String(this.exposantMorceaux[i][k] + 1) }
+              `rectangle${indiceRectangle++}`,
+              {
+                value: enLettre
+                  ? String(2 * this.exposantMorceaux[i][k] + 1)
+                  : String(this.exposantMorceaux[i][k] + 1),
+              },
             ])
           } else {
             const shift = Number(this.morceaux[i][k]) > 1 ? 1 : 0
             reponses.push([
               `rectangle${indiceRectangle++}`,
               {
-                value: enLettre ? String(2 * this.exposantMorceaux[i][k] + 1 + shift) : String(this.exposantMorceaux[i][k] + 1),
-                options: { multi: false }
-              }
+                value: enLettre
+                  ? String(2 * this.exposantMorceaux[i][k] + 1 + shift)
+                  : String(this.exposantMorceaux[i][k] + 1),
+                options: { multi: false },
+              },
             ])
           }
         }
@@ -164,10 +171,13 @@ class DragAndDropNumerationEntiere extends Exercice {
         question: i,
         etiquettes: [etiquettes],
         consigne: `Remettre les étiquettes au bon endroit pour reconstituer le nombre $${texNombre(nombre, 0)}$`,
-        enonceATrous
+        enonceATrous,
       })
       handleAnswers(this, i, objetReponse, { formatInteractif: 'dnd' })
-      texte += leDragAndDrop.ajouteDragAndDrop({ melange: true, duplicable: false })
+      texte += leDragAndDrop.ajouteDragAndDrop({
+        melange: true,
+        duplicable: false,
+      })
       for (let k = 0; k < this.morceaux[i].length; k++) {
         if (this.morceaux[i][k] !== '0') {
           texteCorr += enLettre

@@ -2,7 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
@@ -11,31 +14,37 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import {
   gestionnaireFormulaireTexte,
-  listeQuestionsToContenu, randint
+  listeQuestionsToContenu,
+  randint,
 } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
-export const titre = 'Résoudre algébriquement une équation $f(x)=k$ avec une fonction de référence'
+export const titre =
+  'Résoudre algébriquement une équation $f(x)=k$ avec une fonction de référence'
 export const dateDePublication = '07/01/2022'
 export const dateDeModifImportante = '16/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-*
-*
-* @author Gilles Mora // suppression des calcul des texNombre et simplification des racines carrées de fration par Jean-Claude Lhote
-*
-*/
+ *
+ *
+ * @author Gilles Mora // suppression des calcul des texNombre et simplification des racines carrées de fration par Jean-Claude Lhote
+ *
+ */
 export const uuid = 'de0d1'
 
 export const refs = {
   'fr-fr': ['2F12-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EquationsFonctionsRef extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Équation directe\n2 : Équation indirecte\n3 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Choix des questions',
+      3,
+      '1 : Équation directe\n2 : Équation indirecte\n3 : Mélange',
+    ]
 
     this.sup = 1
     this.sup2 = 1
@@ -45,27 +54,31 @@ export default class EquationsFonctionsRef extends Exercice {
     this.nbQuestions = 2
 
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : x^2=k',
         '2 : sqrt(x)=k',
         '3 : 1/x=k',
         '4 : x^3=k',
-        '5 : Mélange'
-      ].join('\n')
+        '5 : Mélange',
+      ].join('\n'),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 4,
       melange: 5,
       defaut: 1,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
     let sousChoix
     // ça c'est casse-gueule ! Il faut que chaque type de question ait le même nombre de sous-choix !!!
@@ -76,16 +89,40 @@ export default class EquationsFonctionsRef extends Exercice {
     } else {
       sousChoix = combinaisonListes([0, 1, 2, 3], this.nbQuestions)
     }
-    for (let i = 0, texte, texteCorr, a, b, c, k, k1, f1, listeaEtb, choix, enonce, correction, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        a,
+        b,
+        c,
+        k,
+        k1,
+        f1,
+        listeaEtb,
+        choix,
+        enonce,
+        correction,
+        reponse,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // on ne choisit que des nombres compris entre 1 et 20
 
       switch (listeTypeDeQuestions[i]) {
         case 1: // x^2=k
-          switch (sousChoix[i]) { //
+          switch (
+            sousChoix[i] //
+          ) {
             case 0:
               a = randint(0, 15) ** 2
               b = 0
-              k = choice([choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) * choice([-1, 1]), a])
+              k = choice([
+                choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) *
+                  choice([-1, 1]),
+                a,
+              ])
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $x^2=${k}$`
               correction = ''
@@ -122,14 +159,19 @@ export default class EquationsFonctionsRef extends Exercice {
               }
 
               break
-            case 1:// x^2+b=c
+            case 1: // x^2+b=c
               b = randint(-15, 15, 0)
               a = randint(0, 15) ** 2
-              k = choice([choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) * choice([-1, 1]), a])
+              k = choice([
+                choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) *
+                  choice([-1, 1]),
+                a,
+              ])
               c = k + b
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $x^2${ecritureAlgebrique(b)}=${c}$`
-              correction = 'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
+              correction =
+                'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
               if (b > 0) {
                 correction += `$\\begin{aligned}
              x^2${ecritureAlgebrique(b)}&=${c}\\\\
@@ -173,14 +215,19 @@ export default class EquationsFonctionsRef extends Exercice {
                 reponse = '\\emptyset'
               }
               break
-            case 2:// -x^2+b=c
+            case 2: // -x^2+b=c
               b = randint(-15, 15, 0)
               a = randint(0, 15) ** 2
-              k = choice([choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) * choice([-1, 1]), a])
+              k = choice([
+                choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) *
+                  choice([-1, 1]),
+                a,
+              ])
               c = b - k
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
-              correction = 'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
+              correction =
+                'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
               if (b > 0) {
                 correction += `$\\begin{aligned}
              -x^2+${b}&=${c}\\\\
@@ -227,7 +274,7 @@ export default class EquationsFonctionsRef extends Exercice {
               }
               break
 
-            case 3:// ax^2+b=c
+            case 3: // ax^2+b=c
             default:
               a = randint(-10, 10, [-1, 0, 1])
               b = randint(-10, 10, 0)
@@ -236,7 +283,8 @@ export default class EquationsFonctionsRef extends Exercice {
               f1 = new FractionEtendue(c - b, a)
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $${a}x^2${ecritureAlgebrique(b)}=${c}$`
-              correction = 'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
+              correction =
+                'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
               if (b > 0) {
                 correction += `$\\begin{aligned}
               ${a}x^2${ecritureAlgebrique(b)}&=${c}\\\\
@@ -253,14 +301,25 @@ export default class EquationsFonctionsRef extends Exercice {
             \\end{aligned}$`
               }
               if (k > 0) {
-                if (c - b === a || c - b === 4 * a || c - b === 9 * a || c - b === 16 * a || c - b === 25 * a) {
+                if (
+                  c - b === a ||
+                  c - b === 4 * a ||
+                  c - b === 9 * a ||
+                  c - b === 16 * a ||
+                  c - b === 25 * a
+                ) {
                   correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.
                 <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.
                 <br> Ainsi, $S=${miseEnEvidence(`\\left\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\right\\}`)}$.`
                   reponse = `\\{-${extraireRacineCarree(k)[0]};${extraireRacineCarree(k)[0]}\\}`
                 } else {
-                  if (((c - b === 4) && a === 9) || ((c - b === 9) && a === 4) || ((c - b === 16) && a === 9) || ((c - b === 9) && a === 16)) {
+                  if (
+                    (c - b === 4 && a === 9) ||
+                    (c - b === 9 && a === 4) ||
+                    (c - b === 16 && a === 9) ||
+                    (c - b === 9 && a === 16)
+                  ) {
                     correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texFractionReduite(c - b, a)}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}$.
                   <br>  Comme $-\\sqrt{${f1.texFractionSimplifiee}}=-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\sqrt{${f1.texFractionSimplifiee}}=\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ alors
                   les solutions de l'équation peuvent s'écrire plus simplement : $-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$.<br>
@@ -288,9 +347,9 @@ export default class EquationsFonctionsRef extends Exercice {
               break
           }
           break
-        case 2:// 'sqrt(x)=k'
+        case 2: // 'sqrt(x)=k'
           switch (sousChoix[i]) {
-            case 0:// sqrt(x)=k
+            case 0: // sqrt(x)=k
               a = 0
               b = 0
               k = randint(-25, 25, 0)
@@ -316,7 +375,7 @@ export default class EquationsFonctionsRef extends Exercice {
               }
               break
 
-            case 1:// sqrt(x)+b=c
+            case 1: // sqrt(x)+b=c
               a = 0
               b = randint(-10, 10, 0)
               c = randint(-10, 10)
@@ -352,7 +411,7 @@ Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
               }
 
               break
-            case 2:// -sqrt(x)+b=c
+            case 2: // -sqrt(x)+b=c
               a = 0 // ça ne sert à rien sauf pour différentier les questions
               b = randint(-10, 10, 0)
               c = randint(-10, 10)
@@ -389,7 +448,7 @@ Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
               }
 
               break
-            case 3:// a*sqrt(x)+b=c
+            case 3: // a*sqrt(x)+b=c
             default:
               a = randint(-10, 10, [0, -1, 1])
               b = randint(-10, 10, 0)
@@ -429,13 +488,16 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               break
           }
           break
-        case 3:// '1/x=k'
-
-          switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
+        case 3: // '1/x=k'
+          switch (
+            sousChoix[i] // sousChoix[i] = randint(0, 5)
+          ) {
             case 0:
               b = 0
               a = 0
-              k = choice([-3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13])
+              k = choice([
+                -3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13,
+              ])
 
               enonce = `Résoudre dans $\\mathbb{R}^*$ :<br>
                 ${sp(50)} $\\dfrac{1}{x}=${k}$`
@@ -463,7 +525,9 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
 
             case 1:
               a = 0
-              k = choice([-3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13])
+              k = choice([
+                -3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13,
+              ])
               b = randint(-10, 10, 0)
               c = k + b
               // k = c - b
@@ -499,7 +563,25 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               }
               break
             case 2:
-              listeaEtb = [[5, 0], [3, 0], [10, 5], [6, 3], [2, 14], [1, 7], [2, 9], [3, 9], [9, 3], [2, 7], [4, 3], [10, 6], [5, 3], [4, 7], [10, 3], [6, 9], [4, 2]]
+              listeaEtb = [
+                [5, 0],
+                [3, 0],
+                [10, 5],
+                [6, 3],
+                [2, 14],
+                [1, 7],
+                [2, 9],
+                [3, 9],
+                [9, 3],
+                [2, 7],
+                [4, 3],
+                [10, 6],
+                [5, 3],
+                [4, 7],
+                [10, 3],
+                [6, 9],
+                [4, 2],
+              ]
               choix = choice(listeaEtb)
               a = choix[0] * choice([-1, 1])
               b = choix[1] * choice([-1, 1])
@@ -538,7 +620,9 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
               a = randint(-10, 10, 0)
               b = randint(-10, 10, 0)
               // c = randint(-10, 10, 0)
-              k = choice([-3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13])
+              k = choice([
+                -3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13,
+              ])
               c = a * k + b
               // k = (c - b) / a
               enonce = `Résoudre dans $\\mathbb{R}^*$ :<br>
@@ -585,10 +669,11 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
           }
           break
 
-        case 4:// 'x^3=k'
+        case 4: // 'x^3=k'
         default:
-
-          switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
+          switch (
+            sousChoix[i] // sousChoix[i] = randint(0, 5)
+          ) {
             case 0:
               a = 0
               b = 0
@@ -701,10 +786,17 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
           }
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
-      texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
+      handleAnswers(this, i, {
+        reponse: { value: reponse, options: { ensembleDeNombres: true } },
+      })
+      texte =
+        enonce +
+        '<br>' +
+        ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
       texteCorr = correction
-      if (this.interactif) { texte += '<br>$\\textit{Respecter les notations}$.' }
+      if (this.interactif) {
+        texte += '<br>$\\textit{Respecter les notations}$.'
+      }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

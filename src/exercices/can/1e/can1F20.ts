@@ -1,5 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import Exercice from '../../Exercice'
@@ -23,10 +27,10 @@ export const uuid = '5283f'
 
 export const refs = {
   'fr-fr': ['can1F20'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -34,13 +38,39 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
-    const choixab1 = [[2, 8], [-2, -8], [-2, 8], [2, -8], [2, 2], [3, -3], [3, 3], [10, 10], [4, 16], [5, 20], [10, 40], [-5, 20], [-5, -20],
-      [2, 32], [-2, 32], [-9, 81], [9, 36], [-6, 24], [4, -36], [2, 50], [-2, 50], [3, -12], [3, -48], [3, 48], [-4, 36], [-4, -36]]//
+  nouvelleVersion() {
+    const choixab1 = [
+      [2, 8],
+      [-2, -8],
+      [-2, 8],
+      [2, -8],
+      [2, 2],
+      [3, -3],
+      [3, 3],
+      [10, 10],
+      [4, 16],
+      [5, 20],
+      [10, 40],
+      [-5, 20],
+      [-5, -20],
+      [2, 32],
+      [-2, 32],
+      [-9, 81],
+      [9, 36],
+      [-6, 24],
+      [4, -36],
+      [2, 50],
+      [-2, 50],
+      [3, -12],
+      [3, -48],
+      [3, 48],
+      [-4, 36],
+      [-4, -36],
+    ] //
     let texte, texteCorr, a, k, b, c, fraction, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       switch (choice([1, 2, 3, 3, 4])) {
-        case 1 :// ax^2-b=0  pour x^2=b/a avec b/a carré parfait positif ou négatif
+        case 1: // ax^2-b=0  pour x^2=b/a avec b/a carré parfait positif ou négatif
           fraction = choice(choixab1)
           a = fraction[0]
           b = fraction[1]
@@ -60,18 +90,17 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
               propositions: [
                 {
                   texte: `$S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: '$S=\\emptyset$',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
-                  statut: false
-                }
-              ]
-
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -80,17 +109,17 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\{-${Math.sqrt(-k)}${sp(1)};${sp(1)}${Math.sqrt(-k)}\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -124,7 +153,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
 
           break
 
-        case 2 :// ax^2-b=0  pour x^2=b/a avec b/a pas carré parfait positif ou négatif
+        case 2: // ax^2-b=0  pour x^2=b/a avec b/a pas carré parfait positif ou négatif
           a = randint(-3, 9, [-1, 0, 1])
           b = a * choice([2, 3, 5, 7, 10, -2, -3, -10])
 
@@ -143,18 +172,17 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
               propositions: [
                 {
                   texte: `$S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: '$S=\\emptyset$',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
-                  statut: false
-                }
-              ]
-
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -163,17 +191,17 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\{-\\sqrt{${-k}}${sp(1)};${sp(1)}\\sqrt{${-k}}\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -207,8 +235,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
 
           break
 
-        case 3 :// ax^2+bx=0
-
+        case 3: // ax^2+bx=0
           a = randint(-5, 3, 0)
           b = randint(-3, 5, 0)
 
@@ -228,17 +255,17 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
               propositions: [
                 {
                   texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.inverse().texFractionSimplifiee}\\right\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -247,17 +274,17 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
               propositions: [
                 {
                   texte: `$S=\\left\\{${k.texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.oppose().texFractionSimplifiee}\\right\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\left\\{${k.inverse().texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           //
@@ -295,8 +322,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
 
           break
 
-        case 4 :// egalite remarquable
-
+        case 4: // egalite remarquable
           a = choice([1, 2])
           b = randint(-3, 5, 0)
           c = b ** 2
@@ -316,17 +342,17 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
               propositions: [
                 {
                   texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}\\right\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -335,17 +361,17 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
               propositions: [
                 {
                   texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}\\right\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           //

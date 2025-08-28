@@ -6,7 +6,7 @@ export const uuid = 'a49d5'
 // Author Stéphane Guyon
 export const refs = {
   'fr-fr': ['TA-A1-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -15,7 +15,8 @@ export const amcType = 'qcmMono'
 export const titre = 'Calculer avec des puissances (3)'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'Soit $a$ un nombre réel non nul et $n$ un entier non nul. À quelle expression est égale $\\left(a^2\\right)^{n}$ ?'
+    this.enonce =
+      'Soit $a$ un nombre réel non nul et $n$ un entier non nul. À quelle expression est égale $\\left(a^2\\right)^{n}$ ?'
     this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
     Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a $\\left(a^{n}\\right)^{p}=a^{np}$<br>
     $\\left(a^2\\right)^{n}$= a^{2n}$`
@@ -25,7 +26,7 @@ export default class Puissances extends ExerciceQcmA {
       '$a^{2n}$',
       '$a^{2+n}$',
       '$a^{2^n}$',
-      'Aucune de ces propositions'
+      'Aucune de ces propositions',
     ]
   }
 
@@ -34,14 +35,15 @@ export default class Puissances extends ExerciceQcmA {
     this.enonce = `Soient $a$ un nombre réel non nul et $n$ un entier.  À quelle expression est égale $a^{${k}^{n}}$ ?`
     this.correction = `$\\begin{aligned}
         a^${k}^n&= a^{${k}n}<br>`
-    this.reponses = [`$a^{${k}^{n}}$`,
+    this.reponses = [
+      `$a^{${k}^{n}}$`,
       `$a^{${k}{n}}$`,
       `$a^{${k}+n}$`,
-      'Aucune de ces propositions.'
+      'Aucune de ces propositions.',
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

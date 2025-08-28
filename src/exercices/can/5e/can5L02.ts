@@ -6,10 +6,10 @@ export const dateDePublication = '23/11/2023'
 export const uuid = 'b7307'
 export const refs = {
   'fr-fr': ['can5L02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ÉcrireUneExpressionLitteraleCAN extends ÉcrireUneExpressionLitterale {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }

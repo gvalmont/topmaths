@@ -1,18 +1,24 @@
 import { ajouteCanvas3d } from '../../lib/3d/3d_dynamique/Canvas3DElement'
-import { createPrismWithWireframe, createPyramidWithWireframe, createTruncatedPyramidWithWireframe, createWireframeUnion } from '../../lib/3d/3d_dynamique/solidesThreeJs'
+import {
+  createPrismWithWireframe,
+  createPyramidWithWireframe,
+  createTruncatedPyramidWithWireframe,
+  createWireframeUnion,
+} from '../../lib/3d/3d_dynamique/solidesThreeJs'
 import {
   Point3d,
   point3d,
-  polygone3d, vecteur3d
+  polygone3d,
+  vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elements'
 import {
   prisme3d,
   pyramide3d,
-  pyramideTronquee3d
+  pyramideTronquee3d,
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   homothetie3d,
-  translation3d
+  translation3d,
 } from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -22,7 +28,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Trouver le nombre de faces ou d\'arêtes d\'un solide'
+export const titre = "Trouver le nombre de faces ou d'arêtes d'un solide"
 export const dateDePublication = '7/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -38,13 +44,17 @@ export const uuid = 'da6a4'
 export const refs = {
   'fr-fr': ['BP2G2', '5G53'],
   'fr-2016': ['6G44', 'BP2G2'],
-  'fr-ch': ['9ES7-7']
+  'fr-ch': ['9ES7-7'],
 }
 export default class NombreDeFacesEtDAretes extends Exercice {
   version: number
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Sur le nombre d\'arêtes\n 2 : Sur le nombre de faces\n 3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      3,
+      "1 : Sur le nombre d'arêtes\n 2 : Sur le nombre de faces\n 3 : Mélange",
+    ]
     this.besoinFormulaire2CaseACocher = ['3d dynamique', false]
     this.sup2 = false
     this.nbQuestions = 4
@@ -53,7 +63,7 @@ export default class NombreDeFacesEtDAretes extends Exercice {
     this.version = 6
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.version === 3) {
       this.sup = 3
     }
@@ -78,7 +88,7 @@ export default class NombreDeFacesEtDAretes extends Exercice {
       typeDeQuestion = choix1.slice(0, this.nbQuestions)
     }
     typeDeQuestion = shuffle(typeDeQuestion)
-    for (let j = 0, choix; j < this.nbQuestions;) {
+    for (let j = 0, choix; j < this.nbQuestions; ) {
       let question = 'Voici un solide :<br>'
       const objects = []
       choix = typeDeQuestion[j]
@@ -93,17 +103,37 @@ export default class NombreDeFacesEtDAretes extends Exercice {
       const k2 = homothetie3d(k, O, -1)
       const s1 = translation3d(O, k1)
       const s2 = translation3d(O, k2)
-      const alpha = Math.PI * 2 / n
+      const alpha = (Math.PI * 2) / n
       const coeff = randint(5, 7) / 10
       for (let i = 0; i < n; i++) {
-        points3D.push(point3d(rayon * Math.cos(alpha * i + (n > 5 ? 0.5 : 0)), rayon * Math.sin(alpha * i + (n > 5 ? 0.5 : 0)), 0))
+        points3D.push(
+          point3d(
+            rayon * Math.cos(alpha * i + (n > 5 ? 0.5 : 0)),
+            rayon * Math.sin(alpha * i + (n > 5 ? 0.5 : 0)),
+            0,
+          ),
+        )
       }
       // choix = j + 1
       const base = polygone3d(...points3D)
       const corps = prisme3d(base, vecteur3d(0, 0, -2))
       const base2 = translation3d(base, k)
-      const chapeau1 = choix < 7 ? pyramide3d(base2, s1) : choix < 9 ? pyramide3d(base, s1) : choix < 13 ? pyramideTronquee3d(base, s1, coeff) : pyramide3d(base, s1)
-      const chapeau2 = choix < 9 ? pyramide3d(base, s2) : choix < 11 ? pyramideTronquee3d(base, s2, coeff) : choix < 13 ? pyramide3d(base, s2) : pyramideTronquee3d(base, s2, coeff)
+      const chapeau1 =
+        choix < 7
+          ? pyramide3d(base2, s1)
+          : choix < 9
+            ? pyramide3d(base, s1)
+            : choix < 13
+              ? pyramideTronquee3d(base, s1, coeff)
+              : pyramide3d(base, s1)
+      const chapeau2 =
+        choix < 9
+          ? pyramide3d(base, s2)
+          : choix < 11
+            ? pyramideTronquee3d(base, s2, coeff)
+            : choix < 13
+              ? pyramide3d(base, s2)
+              : pyramideTronquee3d(base, s2, coeff)
 
       switch (choix) {
         case 1: // Prisme + 2 pyramides -> faces ?
@@ -111,9 +141,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
             const geometries = [
               createPrismWithWireframe(n, 3, -0.5, 0.5, false, false),
               createPyramidWithWireframe(n, 3, 0.5, 2, false),
-              createPyramidWithWireframe(n, 3, -0.5, -2, false)
+              createPyramidWithWireframe(n, 3, -0.5, -2, false),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
@@ -130,9 +163,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
             const geometries = [
               createPrismWithWireframe(n, 3, -0.5, 0.5, false, false),
               createPyramidWithWireframe(n, 3, 0.5, 2, false),
-              createPyramidWithWireframe(n, 3, -0.5, -2, false)
+              createPyramidWithWireframe(n, 3, -0.5, -2, false),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
@@ -151,7 +187,10 @@ export default class NombreDeFacesEtDAretes extends Exercice {
               createPrismWithWireframe(n, 3, -0.5, 0.5, true, false),
               createPyramidWithWireframe(n, 3, 0.5, 2),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
@@ -166,9 +205,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPrismWithWireframe(n, 3, -0.5, 0.5, true, false),
-              createPyramidWithWireframe(n, 3, 0.5, 2)
+              createPyramidWithWireframe(n, 3, 0.5, 2),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
@@ -183,9 +225,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPrismWithWireframe(n, 3, -0.5, 0.5, false, true),
-              createPyramidWithWireframe(n, 3, -0.5, -2)
+              createPyramidWithWireframe(n, 3, -0.5, -2),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n; i++) {
               corps.base1.c2d[i].isVisible = false
@@ -200,9 +245,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPrismWithWireframe(n, 3, -0.5, 0.5, false, true),
-              createPyramidWithWireframe(n, 3, -0.5, -2)
+              createPyramidWithWireframe(n, 3, -0.5, -2),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             objets.push(...corps.c2d, ...chapeau2.c2d)
           }
@@ -213,9 +261,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPyramidWithWireframe(n, 3, 0, 3),
-              createPyramidWithWireframe(n, 3, 0, -2)
+              createPyramidWithWireframe(n, 3, 0, -2),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
             //  objets.push(...chapeau2.c2d)
@@ -229,9 +280,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPyramidWithWireframe(n, 3, 0, 3),
-              createPyramidWithWireframe(n, 3, 0, -2)
+              createPyramidWithWireframe(n, 3, 0, -2),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             objets.push(...chapeau1.c2d, ...chapeau2.c2d)
           }
@@ -242,9 +296,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPyramidWithWireframe(n, 3, 0, 1.5, false),
-              createPyramidWithWireframe(n, 3, 0, -1, false)
+              createPyramidWithWireframe(n, 3, 0, -1, false),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau2.c2d[i + 2 * n].pointilles = 2
@@ -263,9 +320,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPyramidWithWireframe(n, 3, 0, 1.5, false),
-              createPyramidWithWireframe(n, 3, 0, -1, false)
+              createPyramidWithWireframe(n, 3, 0, -1, false),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau2.c2d[i + 2 * n].pointilles = 2
@@ -283,9 +343,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPyramidWithWireframe(n, 3, 0, 2, false),
-              createTruncatedPyramidWithWireframe(n, 3, 1, 0, -1, false, true)
+              createTruncatedPyramidWithWireframe(n, 3, 1, 0, -1, false, true),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau1.c2d[i].pointilles = 2
@@ -303,9 +366,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createPyramidWithWireframe(n, 3, 0, 2, false),
-              createTruncatedPyramidWithWireframe(n, 3, 1, 0, -1, false, true)
+              createTruncatedPyramidWithWireframe(n, 3, 1, 0, -1, false, true),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau1.c2d[i].pointilles = 2
@@ -322,9 +388,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createTruncatedPyramidWithWireframe(n, 3, 1, 0, -2, false, true),
-              createPyramidWithWireframe(n, 3, 0, 2)
+              createPyramidWithWireframe(n, 3, 0, 2),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau2.c2d[i].pointilles = 2
@@ -343,9 +412,12 @@ export default class NombreDeFacesEtDAretes extends Exercice {
           if (this.sup2 && context.isHtml) {
             const geometries = [
               createTruncatedPyramidWithWireframe(n, 3, 1, 0, -2, false, true),
-              createPyramidWithWireframe(n, 3, 0, 2)
+              createPyramidWithWireframe(n, 3, 0, 2),
             ]
-            objects.push({ type: 'bufferGeometry', geometry: createWireframeUnion(geometries) })
+            objects.push({
+              type: 'bufferGeometry',
+              geometry: createWireframeUnion(geometries),
+            })
           } else {
             for (let i = 0; i < n / 2; i++) {
               chapeau2.c2d[i].pointilles = 2
@@ -364,14 +436,19 @@ export default class NombreDeFacesEtDAretes extends Exercice {
 
       if (objects.length > 0) {
         const content = { objects: objects as any, autoCenterZoomMargin: 1 }
-        question += ajouteCanvas3d({ id: `canvas3d-Ex${this.numeroExercice}Q${j}`, content, width: 250, height: 250 })
+        question += ajouteCanvas3d({
+          id: `canvas3d-Ex${this.numeroExercice}Q${j}`,
+          content,
+          width: 250,
+          height: 250,
+        })
       } else {
         question += mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
       }
       if (choix % 2 === 1) {
         question += '<br>Quel est le nombre de faces de ce solide ?'
       } else {
-        question += '<br>Quel est le nombre d\'arêtes de ce solide ?'
+        question += "<br>Quel est le nombre d'arêtes de ce solide ?"
       }
       if (this.questionJamaisPosee(j, choix, n)) {
         handleAnswers(this, j, { reponse: { value: this.reponse } })

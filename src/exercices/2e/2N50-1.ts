@@ -13,10 +13,10 @@ export const uuid = '622b9'
 export const titre = 'Mettre un problème en équation et le résoudre'
 export const refs = {
   'fr-fr': ['2N50-1', 'BP2RES21'],
-  'fr-ch': ['11FA6-7']
+  'fr-ch': ['11FA6-7'],
 }
 export default class ProblemesEnEquation2 extends ProblemesEnEquation {
-  public constructor () {
+  public constructor() {
     super()
     this.niveau = 2
     this.correctionDetaillee = false

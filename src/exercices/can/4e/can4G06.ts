@@ -1,7 +1,10 @@
 import { droite } from '../../../lib/2d/droites'
 import { milieu, point, pointAdistance } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
+import {
+  segment,
+  segmentAvecExtremites,
+} from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
@@ -23,24 +26,41 @@ export const uuid = '61c07'
 
 export const refs = {
   'fr-fr': ['can4G06', 'BP2AutoR12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculLongueurThales extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    let nom, a, b, c, k, A, B, C, D, E, G, H, xmin, xmax, ymin, ymax, objets, pol
+  nouvelleVersion() {
+    let nom,
+      a,
+      b,
+      c,
+      k,
+      A,
+      B,
+      C,
+      D,
+      E,
+      G,
+      H,
+      xmin,
+      xmax,
+      ymin,
+      ymax,
+      objets,
+      pol
     if (choice([true, false])) {
       nom = creerNomDePolygone(5, ['QD'])
       k = choice([1.5, 2, 2.5])
-      b = randint(2, 5)//
+      b = randint(2, 5) //
       a = k * b
-      c = randint(2, 5, b)//
+      c = randint(2, 5, b) //
 
       A = point(0, 0, nom[0], 'below right')
       B = pointAdistance(A, b, 40, nom[1])
@@ -56,28 +76,63 @@ export default class CalculLongueurThales extends ExerciceSimple {
       ymax = Math.max(A.y, B.y, C.y, D.y, E.y) + 1
       objets = []
       objets.push(pol[0]) //, pol[1]
-      objets.push(droite(A, B), segment(B, E), droite(A, C), segment(D, C), segmentAvecExtremites(G, H), labelPoint(A, B, C, D, E))
-      objets.push(texteParPosition(`${stringNombre(a)}`, milieu(G, H).x, milieu(G, H).y + 0.9),
-        texteParPosition(`${stringNombre(b)}`, milieu(A, B).x, milieu(A, B).y + 0.4), texteParPosition(`${stringNombre(c)}`, milieu(B, E).x, milieu(B, E).y + 0.3))
+      objets.push(
+        droite(A, B),
+        segment(B, E),
+        droite(A, C),
+        segment(D, C),
+        segmentAvecExtremites(G, H),
+        labelPoint(A, B, C, D, E),
+      )
+      objets.push(
+        texteParPosition(
+          `${stringNombre(a)}`,
+          milieu(G, H).x,
+          milieu(G, H).y + 0.9,
+        ),
+        texteParPosition(
+          `${stringNombre(b)}`,
+          milieu(A, B).x,
+          milieu(A, B).y + 0.4,
+        ),
+        texteParPosition(
+          `${stringNombre(c)}`,
+          milieu(B, E).x,
+          milieu(B, E).y + 0.3,
+        ),
+      )
       this.question = `Les droites $(${nom[1]}${nom[4]})$ et $(${nom[3]}${nom[2]})$ sont parallèles.<br>
 
         Calculer $${nom[3]}${nom[2]}$.<br>
         
         `
-      this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+      this.question += mathalea2d(
+        {
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 15,
+          mainlevee: false,
+          amplitude: 0.5,
+          scale: 0.5,
+          style: 'margin: auto',
+        },
+        objets,
+      )
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[2]}$.<br>
     Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombre(a)}}{${b}}=${texNombre(a / b)}$.<br>
     On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombre(a / b)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
-        Ainsi, $${nom[3]}${nom[2]}=${texNombre(a / b)}\\times ${nom[1]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${texNombre(a * c / b)}$.
+        Ainsi, $${nom[3]}${nom[2]}=${texNombre(a / b)}\\times ${nom[1]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${texNombre((a * c) / b)}$.
                   <br>`
-      this.reponse = a * c / b
-      this.canEnonce = this.question// 'Compléter'
+      this.reponse = (a * c) / b
+      this.canEnonce = this.question // 'Compléter'
       this.canReponseACompleter = `$${nom[3]}${nom[2]}=\\ldots$`
     } else {
       nom = creerNomDePolygone(5, ['QD'])
       k = choice([1.5, 2, 2.5])
-      a = randint(2, 5)//
-      b = randint(2, 5, a)//
+      a = randint(2, 5) //
+      b = randint(2, 5, a) //
 
       A = point(0, 0, nom[0], 'below right')
       B = pointAdistance(A, a, 40, nom[1])
@@ -91,23 +146,56 @@ export default class CalculLongueurThales extends ExerciceSimple {
       ymax = Math.max(A.y, B.y, C.y, D.y, E.y) + 1
       objets = []
       objets.push(pol[0]) //, pol[1]
-      objets.push(droite(A, B), segment(B, E), droite(A, C), segment(D, C), labelPoint(A, B, C, D, E))
-      objets.push(texteParPosition(`${stringNombre(a)}`, milieu(A, B).x, milieu(A, B).y + 0.4),
-        texteParPosition(`${stringNombre(k * b)}`, milieu(D, C).x + 0.6, milieu(D, C).y + 0.2),
-        texteParPosition(`${stringNombre(b)}`, milieu(B, E).x + 0.6, milieu(B, E).y + 0.2))
+      objets.push(
+        droite(A, B),
+        segment(B, E),
+        droite(A, C),
+        segment(D, C),
+        labelPoint(A, B, C, D, E),
+      )
+      objets.push(
+        texteParPosition(
+          `${stringNombre(a)}`,
+          milieu(A, B).x,
+          milieu(A, B).y + 0.4,
+        ),
+        texteParPosition(
+          `${stringNombre(k * b)}`,
+          milieu(D, C).x + 0.6,
+          milieu(D, C).y + 0.2,
+        ),
+        texteParPosition(
+          `${stringNombre(b)}`,
+          milieu(B, E).x + 0.6,
+          milieu(B, E).y + 0.2,
+        ),
+      )
       this.question = `Les droites $(${nom[1]}${nom[4]})$ et $(${nom[3]}${nom[2]})$ sont parallèles. <br>
 
        Calculer $${nom[0]}${nom[3]}$.<br>
        
        `
-      this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+      this.question += mathalea2d(
+        {
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 15,
+          mainlevee: false,
+          amplitude: 0.5,
+          scale: 0.5,
+          style: 'margin: auto',
+        },
+        objets,
+      )
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[2]}$.<br>
    Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[2]}${nom[3]}}{${nom[1]}${nom[4]}}=\\dfrac{${texNombre(k * b)}}{${b}}=${texNombre(k)}$.<br>
    On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombre(k)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
        Ainsi, $${nom[0]}${nom[3]}=${texNombre(k)}\\times ${nom[0]}${nom[1]}=${texNombre(k)}\\times ${a}=${texNombre(k * a)}$.
                  <br>`
       this.reponse = k * a
-      this.canEnonce = this.question// 'Compléter'
+      this.canEnonce = this.question // 'Compléter'
       this.canReponseACompleter = `$${nom[0]}${nom[3]}=\\ldots$`
     }
   }

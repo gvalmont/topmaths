@@ -9,10 +9,10 @@ export const uuid = '85618'
 export const refs = {
   'fr-fr': [''],
   'fr-2016': ['c3N10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ÉcrireEntiersCycle3 extends ÉcrireNombresEntiers {
-  constructor () {
+  constructor() {
     super()
     this.sup2 = 0
     this.sup = 1

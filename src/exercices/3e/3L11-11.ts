@@ -1,7 +1,12 @@
 import { max } from 'mathjs'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
-import { choice, combinaisonListes, getRandomSubarray, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  getRandomSubarray,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -17,23 +22,38 @@ export const interactifType = 'mathLive'
 /**
  * Réduire une expression littérale
  * @author Nathan Scheinmann
-*/
+ */
 
 export const uuid = '2f983'
 export const refs = {
   'fr-fr': ['3L11-11'],
-  'fr-ch': ['11FA1-7', '1mCL1-10']
+  'fr-ch': ['11FA1-7', '1mCL1-10'],
 }
 
 export default class NomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Réduire les expressions suivantes.'
+        : "Réduire l'expression suivante."
 
-    this.besoinFormulaireNumerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Coefficients',
+      3,
+      'Entiers \n2 : Fractionnaires \n3 : Mélange',
+    ]
     this.besoinFormulaire2Numerique = ['Degré minimum', 6, '0\n1\n2\n3\n4\n5']
-    this.besoinFormulaire3Numerique = ['Degré maximum (au moins égal au degré minimum)', 5, '1\n2\n3\n4\n5']
-    this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']
+    this.besoinFormulaire3Numerique = [
+      'Degré maximum (au moins égal au degré minimum)',
+      5,
+      '1\n2\n3\n4\n5',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Nombre de variables différentes',
+      5,
+      '1\n2\n3\n4\n5',
+    ]
     this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '2\n3\n4\n5\n6']
     // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
     // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
@@ -45,11 +65,14 @@ export default class NomExercice extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1]
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte, texteCorr: string
       const degMin = this.sup2 - 1
       const degMax = max(this.sup3, this.sup2 - 1)
@@ -57,11 +80,14 @@ export default class NomExercice extends Exercice {
       const variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeCoeffListe = ['entier', 'fractionnaire']
       let typeofCoeff = []
-      let rep: PolynomePlusieursVariables = PolynomePlusieursVariables.createRandomPolynome(1, 1, 1, 'entier', ['x'])
+      let rep: PolynomePlusieursVariables =
+        PolynomePlusieursVariables.createRandomPolynome(1, 1, 1, 'entier', [
+          'x',
+        ])
       texte = ''
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
-        case 1:{
+        case 1: {
           if (this.sup === 1) {
             typeofCoeff = ['entier']
           } else if (this.sup === 2) {
@@ -70,29 +96,69 @@ export default class NomExercice extends Exercice {
             typeofCoeff = typeCoeffListe
           }
 
-          const q = MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect)
-          let r : MonomePlusieursVariables
+          const q = MonomePlusieursVariables.createRandomMonome(
+            randint(degMin, degMax),
+            choice(typeofCoeff),
+            variablesSelect,
+          )
+          let r: MonomePlusieursVariables
           const randomInt = randint(0, 3)
           if (randomInt === 0 || randomInt === 1 || randomInt === 2) {
-            r = MonomePlusieursVariables.createMonomeFromPartieLitterale(choice(typeofCoeff), q.partieLitterale)
+            r = MonomePlusieursVariables.createMonomeFromPartieLitterale(
+              choice(typeofCoeff),
+              q.partieLitterale,
+            )
           } else {
-            r = MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect)
+            r = MonomePlusieursVariables.createRandomMonome(
+              randint(degMin, degMax),
+              choice(typeofCoeff),
+              variablesSelect,
+            )
           }
           let monomesListe = [q, r]
           if (this.sup5 + 1 > 3) {
-            monomesListe.push(MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect))
+            monomesListe.push(
+              MonomePlusieursVariables.createRandomMonome(
+                randint(degMin, degMax),
+                choice(typeofCoeff),
+                variablesSelect,
+              ),
+            )
             const randomInt = randint(0, 3)
             if (randomInt === 0 || randomInt === 1 || randomInt === 2) {
-              monomesListe.push(MonomePlusieursVariables.createMonomeFromPartieLitterale(choice(typeofCoeff), monomesListe[2].partieLitterale))
+              monomesListe.push(
+                MonomePlusieursVariables.createMonomeFromPartieLitterale(
+                  choice(typeofCoeff),
+                  monomesListe[2].partieLitterale,
+                ),
+              )
             } else {
-              monomesListe.push(MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect))
+              monomesListe.push(
+                MonomePlusieursVariables.createRandomMonome(
+                  randint(degMin, degMax),
+                  choice(typeofCoeff),
+                  variablesSelect,
+                ),
+              )
             }
 
             for (let i = 0; i < this.sup5 + 1 - 4; i++) {
-              monomesListe.push(MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect))
+              monomesListe.push(
+                MonomePlusieursVariables.createRandomMonome(
+                  randint(degMin, degMax),
+                  choice(typeofCoeff),
+                  variablesSelect,
+                ),
+              )
             }
           } else if (this.sup5 + 1 === 3) {
-            monomesListe.push(MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect))
+            monomesListe.push(
+              MonomePlusieursVariables.createRandomMonome(
+                randint(degMin, degMax),
+                choice(typeofCoeff),
+                variablesSelect,
+              ),
+            )
           }
           monomesListe = shuffle(monomesListe)
           // On redéfinit à présent le coefficient des monômes fractionnaires afin que toutes les fractions soient des multiples les unes des autres
@@ -104,13 +170,18 @@ export default class NomExercice extends Exercice {
                 denominateurCommun = monomesListe[i].coefficient.den
                 testPremiereFraction = false
               } else {
-                monomesListe[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+                monomesListe[i].coefficient = new FractionEtendue(
+                  randint(-10, 10, [0]),
+                  denominateurCommun * randint(-2, 2, [0]),
+                )
               }
             }
           }
           const t = new PolynomePlusieursVariables(monomesListe)
           rep = PolynomePlusieursVariables.PolynomeReduit(monomesListe)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${t.toString()}$` + ajouteChampTexteMathLive(this, i, '', { texteAvant: '$=$' })
+          texte =
+            `$${lettreDepuisChiffre(i + 1)}=${t.toString()}$` +
+            ajouteChampTexteMathLive(this, i, '', { texteAvant: '$=$' })
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(rep.toString())}$`
         }
       }

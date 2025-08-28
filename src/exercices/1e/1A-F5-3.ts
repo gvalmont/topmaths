@@ -13,44 +13,37 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '6fc42'
 export const refs = {
   'fr-fr': ['1A-F5-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Retrouver une fonction affine à partir de son tableau de signes'
+export const titre =
+  'Retrouver une fonction affine à partir de son tableau de signes'
 export const dateDePublication = '10/07/2025'
 
 export default class Auto1AF5c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    const f = (x:number | FractionEtendue) => -3 * Number(x) + 6
+    const f = (x: number | FractionEtendue) => -3 * Number(x) + 6
     this.enonce = `On considère une fonction $f$ définie sur $\\mathbb{R}$ dont le tableau de signes est donné ci-dessous. <br><br>
-  ${tableauSignesFonction(f,
-        -10,
-        10,
-        {
-          step: 1,
-          tolerance: 0.1,
-          substituts: [
-            { antVal: -10, antTex: '-\\infty' },
-            { antVal: 10, antTex: '+\\infty' }
-          ]
-        })}<br><br>
+  ${tableauSignesFonction(f, -10, 10, {
+    step: 1,
+    tolerance: 0.1,
+    substituts: [
+      { antVal: -10, antTex: '-\\infty' },
+      { antVal: 10, antTex: '+\\infty' },
+    ],
+  })}<br><br>
         Parmi les quatre expressions proposées pour la fonction $f$, une seule est possible. `
-    this.reponses = [
-      '$f(x)=-3x+6$',
-      '$f(x)=x+2$',
-      '$f(x)=x-2$',
-      '$f(x)=-4x+2$'
-    ]
+    this.reponses = ['$f(x)=-3x+6$', '$f(x)=x+2$', '$f(x)=x-2$', '$f(x)=-4x+2$']
     this.correction = `Parmi les réponses proposées, on cherche la fonction affine qui s'annule en $2$ et dont le coefficient directeur est négatif. En effet, 
      la droite représentant la fonction $f$ est décroissante car la fonction donne des images positives puis négatives d'après le tableau de signes.<br>
      Il s'agit de la fonction $f$ définie par  $${miseEnEvidence('f(x)=-3x+6')}$.`
   }
 
   versionAleatoire: () => void = () => {
-  // Génération aléatoire de la racine (nombre entier entre -5 et 5, excluant 0)
+    // Génération aléatoire de la racine (nombre entier entre -5 et 5, excluant 0)
     const racine = randint(-5, 5, 0)
 
     // Choix aléatoire entre fonction croissante ou décroissante
@@ -67,17 +60,14 @@ export default class Auto1AF5c extends ExerciceQcmA {
     const f = (x: number | FractionEtendue) => a * Number(x) + b
 
     this.enonce = `On considère une fonction $f$ définie sur $\\mathbb{R}$ dont le tableau de signes est donné ci-dessous. <br><br>
-${tableauSignesFonction(f,
-    -10,
-    10,
-    {
-      step: 1,
-      tolerance: 0.1,
-      substituts: [
-        { antVal: -10, antTex: '-\\infty' },
-        { antVal: 10, antTex: '+\\infty' }
-      ]
-    })}<br><br>
+${tableauSignesFonction(f, -10, 10, {
+  step: 1,
+  tolerance: 0.1,
+  substituts: [
+    { antVal: -10, antTex: '-\\infty' },
+    { antVal: 10, antTex: '+\\infty' },
+  ],
+})}<br><br>
     Parmi les quatre expressions proposées pour la fonction $f$, une seule est possible. `
 
     // Construction de la bonne réponse
@@ -107,7 +97,7 @@ ${tableauSignesFonction(f,
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

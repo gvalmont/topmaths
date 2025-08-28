@@ -15,15 +15,15 @@ export const dateDePublication = '18/10/2021'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export const uuid = '81a00'
 
 export const refs = {
   'fr-fr': ['can6C25', '6N2H-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RecherchePrix extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -32,10 +32,14 @@ export default class RecherchePrix extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' €' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeviennoiserie = [
       ['pains au chocolat', 'un pain au chocolat'],
-      ['chocolatines', 'une chocolatine'], ['pains aux raisins', 'un pain aux raisins'], ['cookies', 'un cookie'], ['brioches', 'une brioche']]
+      ['chocolatines', 'une chocolatine'],
+      ['pains aux raisins', 'un pain aux raisins'],
+      ['cookies', 'un cookie'],
+      ['brioches', 'une brioche'],
+    ]
     const a = randint(2, 6)
     const v = choice(listeviennoiserie)
     const p = v[0]

@@ -17,7 +17,7 @@ export const uuid = 'f7b05'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +27,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       const d = droiteGraduee({
         Unite: 3,
@@ -43,24 +43,29 @@ export default class NomExercice extends ExerciceSimple {
         pointListe: [[1.25, 'A']],
         pointCouleur: 'blue',
         pointStyle: 'x',
-        labelsPrincipaux: true
+        labelsPrincipaux: true,
       })
       this.reponse = '1.25'
-      this.question = mathalea2d({
-        xmin: -1,
-        ymin: -1.5,
-        xmax: 10,
-        ymax: 1.5,
-        scale: 0.6,
-        style: 'margin: auto'
-      }, d)
-      this.question += '<br>L\'abscisse du point $A$ est : '
+      this.question = mathalea2d(
+        {
+          xmin: -1,
+          ymin: -1.5,
+          xmax: 10,
+          ymax: 1.5,
+          scale: 0.6,
+          style: 'margin: auto',
+        },
+        d,
+      )
+      this.question += "<br>L'abscisse du point $A$ est : "
       this.correction = `Entre $0$ et $1$, il y a $4$ intervalles.<br>
       Une graduation correspond donc à $0,25$.<br>
       Ainsi, l'abscisse du point $A$ est : $${miseEnEvidence(texNombre(1.25))}$.`
     } else {
       const choix = choice([true, false])
-      const a = choice(['0.25', '0.75', '1.25', '1.5', '1.75', '2.25', '2.75'].map(Number))
+      const a = choice(
+        ['0.25', '0.75', '1.25', '1.5', '1.75', '2.25', '2.75'].map(Number),
+      )
       const b = randint(1, 14, [5, 10]) / 5
       const d = droiteGraduee({
         Unite: 3,
@@ -76,18 +81,21 @@ export default class NomExercice extends ExerciceSimple {
         pointListe: choix ? [[a, 'A']] : [[b, 'A']],
         pointCouleur: 'blue',
         pointStyle: 'x',
-        labelsPrincipaux: true
+        labelsPrincipaux: true,
       })
       this.reponse = choix ? a.toFixed(2) : b.toFixed(2)
-      this.question = mathalea2d({
-        xmin: -1,
-        ymin: -1.3,
-        xmax: 10,
-        ymax: 1.2,
-        scale: 0.6,
-        style: 'margin: auto'
-      }, d)
-      this.question += '<br>L\'abscisse du point $A$ est : '
+      this.question = mathalea2d(
+        {
+          xmin: -1,
+          ymin: -1.3,
+          xmax: 10,
+          ymax: 1.2,
+          scale: 0.6,
+          style: 'margin: auto',
+        },
+        d,
+      )
+      this.question += "<br>L'abscisse du point $A$ est : "
       this.correction = `Entre $0$ et $1$, il y a ${choix ? '$4$' : '$5$'} intervalles.<br>
       Une graduation correspond donc à ${choix ? '$0,25$' : '$0,2$'}.<br>
       Ainsi, l'abscisse du point $A$ est : ${choix ? `$${miseEnEvidence(texNombre(a, 2))}$` : `$${miseEnEvidence(texNombre(b))}$`}.`

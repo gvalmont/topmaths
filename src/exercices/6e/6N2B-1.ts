@@ -24,29 +24,32 @@ export const uuid = '47a54'
 export const refs = {
   'fr-fr': ['6N2B-1'],
   'fr-2016': ['6C30-4'],
-  'fr-ch': ['9NO8-3']
+  'fr-ch': ['9NO8-3'],
 }
 export default class PlacerLaVirgule extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
     this.nbQuestions = 4 // Ici le nombre de questions
-    this.consigne = 'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
+    this.consigne =
+      'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
     this.sup = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.nbQuestions > 1) {
       if (this.interactif) {
         this.consigne = 'Déterminer le résultat de ces multiplications.'
       } else {
-        this.consigne = 'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
+        this.consigne =
+          'Les calculs suivants sont faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
       }
     } else {
       if (this.interactif) {
         this.consigne = 'Déterminer le résultat de cette multiplication.'
       } else {
-        this.consigne = 'Le calcul suivant est faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
+        this.consigne =
+          'Le calcul suivant est faux. Placer la virgule correctement dans le résultat pour que le calcul soit juste.'
       }
     }
 
@@ -54,7 +57,19 @@ export default class PlacerLaVirgule extends Exercice {
 
     // Indispensable d'exporter les solutions pour rendre le QCM interactif
     this.tableauSolutionsDuQcm = []
-    for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        coef,
+        nombre,
+        nombreentier,
+        resultat,
+        exposant,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       coef = -randint(1, 3)
@@ -63,40 +78,42 @@ export default class PlacerLaVirgule extends Exercice {
       } else {
         exposant = 0
       }
-      nombreentier = arrondi(randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
+      nombreentier = arrondi(
+        randint(10, 1000) + randint(10, 999) * choice([0, 1000]),
+      )
       nombre = arrondi(nombreentier * 10 ** exposant)
       resultat = arrondi(nombre * 10 ** coef)
       texte = `$${texNombre2(nombre)} \\times ${texNombre2(arrondi(10 ** coef))}$`
       if (!this.interactif) {
         texte += `$~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
       }
-      texteCorr = `Quand on multiplie par $${texNombre2(arrondi(10 ** coef))}=${texFractionFromString(1, arrondi(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre(10 ** (-coef))}$ fois plus petite.<br>`
+      texteCorr = `Quand on multiplie par $${texNombre2(arrondi(10 ** coef))}=${texFractionFromString(1, arrondi(10 ** -coef))}$, chaque chiffre prend une valeur $${texNombre(10 ** -coef)}$ fois plus petite.<br>`
       texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-      texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(arrondi(10 ** coef))} = ${texNombre2(resultat)}$`// ${texNombre(Math.floor(resultat))}${miseEnEvidence(',')}${texNombre(resultat-Math.floor(resultat)).replace('0,','')}$`
+      texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(arrondi(10 ** coef))} = ${texNombre2(resultat)}$` // ${texNombre(Math.floor(resultat))}${miseEnEvidence(',')}${texNombre(resultat-Math.floor(resultat)).replace('0,','')}$`
 
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
           texte: `$${texNombre2(resultat)}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$${texNombre2(arrondi(resultat / 10))}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${texNombre2(arrondi(resultat * 10))}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${texNombre2(arrondi(resultat / 100))}$`,
-          statut: false
-        }
+          statut: false,
+        },
       ]
       this.autoCorrection[i].options = {
         ordered: false,
-        lastChoice: 4
+        lastChoice: 4,
       }
       const props = propositionsQcm(this, i)
       if (this.interactif) {

@@ -15,7 +15,7 @@ import { context } from './context'
  */
 // JSDOC Validee par EE Juin 2022
 export class AfficherCrayon extends ObjetMathalea2D {
-  constructor (A) {
+  constructor(A) {
     super()
     this.x = A.x
     this.y = A.y
@@ -32,12 +32,12 @@ export class AfficherCrayon extends ObjetMathalea2D {
 }
 
 /**
-   * Afficher (en HTML) un crayon avec la mine sur le point A
-   * @param {point} A
-   * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
-   * @return {AfficherCrayon}
-   */
+ * Afficher (en HTML) un crayon avec la mine sur le point A
+ * @param {point} A
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @return {AfficherCrayon}
+ */
 // JSDOC Validee par EE Juin 2022
-export function afficherCrayon (A) {
+export function afficherCrayon(A) {
   return new AfficherCrayon(A)
 }

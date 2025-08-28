@@ -5,7 +5,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer l\'image d\'une fraction par une fonction affine'
+export const titre = "Calculer l'image d'une fraction par une fonction affine"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -20,10 +20,10 @@ export const uuid = 'adb5c'
 
 export const refs = {
   'fr-fr': ['can3F13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculImageParFonctionAffineFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatInteractif = 'fractionEgale'
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
@@ -34,7 +34,7 @@ export default class CalculImageParFonctionAffineFraction extends ExerciceSimple
     this.optionsChampTexte = { texteAvant: '<br> ' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // Coefficient directeur a (entier non nul)
     const a = randint(-6, 6, [0])
 
@@ -46,8 +46,21 @@ export default class CalculImageParFonctionAffineFraction extends ExerciceSimple
 
     // Choix de la fraction x parmi les fractions simples
     const fractionsSimples = [
-      [1, 3], [2, 3], [3, 4], [1, 4], [2, 5], [3, 5], [4, 5],
-      [5, 4], [5, 3], [4, 3], [3, 2], [5, 2], [7, 3], [7, 4], [1, 7]
+      [1, 3],
+      [2, 3],
+      [3, 4],
+      [1, 4],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [5, 4],
+      [5, 3],
+      [4, 3],
+      [3, 2],
+      [5, 2],
+      [7, 3],
+      [7, 4],
+      [1, 7],
     ]
 
     const [num, den] = choice(fractionsSimples)
@@ -94,14 +107,20 @@ export default class CalculImageParFonctionAffineFraction extends ExerciceSimple
       this.reponse = `$${resultat.texFractionSimplifiee}$`
 
       // Création des distracteurs
-      const distracteur1 = new FractionEtendue(signe * num, den * a).ajouteEntier(b) // Erreur : x/(a×den) + b
-      const distracteur2 = new FractionEtendue(a * signe * num, den).ajouteEntier(-b) // Erreur : ax - b au lieu de ax + b
+      const distracteur1 = new FractionEtendue(
+        signe * num,
+        den * a,
+      ).ajouteEntier(b) // Erreur : x/(a×den) + b
+      const distracteur2 = new FractionEtendue(
+        a * signe * num,
+        den,
+      ).ajouteEntier(-b) // Erreur : ax - b au lieu de ax + b
       const distracteur3 = new FractionEtendue(signe * num + a * den, den) // Erreur : (x + a)/den au lieu de ax + b
 
       this.distracteurs = [
         `$${distracteur1.texFractionSimplifiee}$`,
         `$${distracteur2.texFractionSimplifiee}$`,
-        `$${distracteur3.texFractionSimplifiee}$`
+        `$${distracteur3.texFractionSimplifiee}$`,
       ]
     } else {
       this.reponse = resultat.texFractionSimplifiee

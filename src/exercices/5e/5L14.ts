@@ -5,10 +5,13 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 
-export const titre = 'Calculer la valeur d\'une expression littérale'
+export const titre = "Calculer la valeur d'une expression littérale"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModificationImportante = '26/05/2025'
@@ -34,17 +37,17 @@ export const uuid = '17e39'
 
 export const refs = {
   'fr-fr': ['5L14'],
-  'fr-ch': ['10FA1-2', '11FA1-6']
+  'fr-ch': ['10FA1-2', '11FA1-6'],
 }
 export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
   version: string
-  constructor () {
+  constructor() {
     super()
     this.version = '5L14'
     this.nbQuestions = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // let typesDeQuestionsDisponibles = range1(10)
     let typesDeQuestionsDisponibles
 
@@ -54,9 +57,16 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
       typesDeQuestionsDisponibles = range1(10)
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let a, b, c, d, x, y
       switch (listeTypeDeQuestions[i]) {
         case 1: // ax+b
@@ -255,9 +265,10 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
           setReponse(this, i, (a * x + b) * (c * y - d))
           break
       }
-      texte += this.interactif ? (' : ' + ajouteChampTexteMathLive(this, i)) : '.'
+      texte += this.interactif ? ' : ' + ajouteChampTexteMathLive(this, i) : '.'
 
-      if (this.questionJamaisPosee(i, texteCorr)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texteCorr)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -7,7 +7,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 
-export const titre = 'Donner l\'écriture décimale à partir d\'une somme d\'entiers et de fractions décimales'
+export const titre =
+  "Donner l'écriture décimale à partir d'une somme d'entiers et de fractions décimales"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -24,12 +25,16 @@ export const uuid = 'ec7e4'
 export const refs = {
   'fr-fr': ['CM2N2P-1'],
   'fr-2016': ['c3N20'],
-  'fr-ch': ['9NO13-3']
+  'fr-ch': ['9NO13-3'],
 }
 export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : L\'ordre est respecté\n 2 : L\'ordre des termes est aléatoire']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      "1 : L'ordre est respecté\n 2 : L'ordre des termes est aléatoire",
+    ]
 
     this.consigne = "Donner l'écriture décimale des nombres suivants."
     this.nbQuestions = 6
@@ -40,19 +45,35 @@ export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
     this.sup = 2
   }
 
-  nouvelleVersion () {
-    let typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] // On créé 3 types de questions
+  nouvelleVersion() {
+    let typesDeQuestionsDisponibles = [
+      'type1',
+      'type2',
+      'type3',
+      'type4',
+      'type5',
+      'type6',
+    ] // On créé 3 types de questions
     if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = ['type1', 'type5']
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, a, b, c, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, a, b, c, texte, texteCorr, reponse, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = choice([randint(1, 9), randint(1, 9), randint(10, 99)])
       b = randint(1, 9, [a])
       c = randint(1, 9, [a, b]) // Tous les chiffres doivent être différents
-      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeDeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'type1':
           texte = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100}$`
           texteCorr = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100} = ${texNombre(a + b / 10 + c / 100)} $`

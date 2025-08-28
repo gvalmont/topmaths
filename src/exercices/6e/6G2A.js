@@ -1,13 +1,21 @@
 import { cercle } from '../../lib/2d/cercle'
 import { droite } from '../../lib/2d/droites'
-import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
+import {
+  point,
+  pointAdistance,
+  pointIntersectionLC,
+  tracePoint,
+} from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
+import {
+  numAlpha,
+  premiereLettreEnMajuscule,
+} from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
@@ -39,10 +47,10 @@ export const uuid = '03b49'
 export const refs = {
   'fr-fr': ['6G2A'],
   'fr-2016': ['6G10-4'],
-  'fr-ch': ['9ES1-9']
+  'fr-ch': ['9ES1-9'],
 }
 
-function ajouterAlternatives (fonction, reponses) {
+function ajouterAlternatives(fonction, reponses) {
   const copieReponses = []
   for (const reponse of reponses) {
     copieReponses.push(reponse)
@@ -53,27 +61,33 @@ function ajouterAlternatives (fonction, reponses) {
   return reponses
 }
 
-function longueurAlternative (longueur) {
+function longueurAlternative(longueur) {
   return longueur.slice(1) + longueur.slice(0, 1)
 }
 
 // const mots = ['un diamètre', 'le diamètre', 'un rayon', 'le rayon', 'une corde', 'le centre', 'le milieu']
 // @todo relire la définition de cette fonction et la déplacer
-function segmentAlternatif (reponses) {
+function segmentAlternatif(reponses) {
   if (reponses[0] != null) {
     return '[' + reponses[0].slice(2, 3) + reponses[0].slice(1, 2) + ']'
   } else {
-    window.notify('segmentAlternatif n\'a pas de matière pour choisir', { reponses })
+    window.notify("segmentAlternatif n'a pas de matière pour choisir", {
+      reponses,
+    })
   }
 }
 
 export default class VocabulaireDuCercle extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
 
-    this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Sens des questions',
+      3,
+      '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange',
+    ]
     this.sup = 3
     this.besoinFormulaire2CaseACocher = ['QCM']
     this.sup2 = true
@@ -82,25 +96,31 @@ export default class VocabulaireDuCercle extends Exercice {
     // this.sup3 = this.typesDeQuestionsParDefaut
     this.sup3 = '1-2-3-4-5-6'
     this.besoinFormulaire3Texte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Au moins deux nombres séparés par des tirets :',
         '1 : Le rayon',
         '2 : Un rayon',
         '3 : Le diamètre',
         '4 : Un diamètre',
         '5 : Une corde',
-        '6 : Le centre'
+        '6 : Le centre',
         // '7 : Le centre, qui est aussi le milieu'
-      ].join('\n')
+      ].join('\n'),
     ]
 
     this.spacingCorr = 1.5 // Interligne des réponses
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // typesDeQuestions nécessite d'avoir au moins deux valeurs
-    const typesDeQuestions = String(this.sup3).match(/[1-6]/g).length > 1 ? this.sup3 : this.besoinFormulaire3Texte[1]
-    this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
+    const typesDeQuestions =
+      String(this.sup3).match(/[1-6]/g).length > 1
+        ? this.sup3
+        : this.besoinFormulaire3Texte[1]
+    this.consigne = this.sup2
+      ? 'Cocher la (ou les) bonne(s) réponse(s).'
+      : 'Compléter.'
     if (context.isHtml) this.consigne += '<br>'
 
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
@@ -117,11 +137,18 @@ export default class VocabulaireDuCercle extends Exercice {
         sensDesQuestionsDisponibles = ['Un rayon est ...', '[AB] est ...']
         break
     }
-    const sensDesQuestions = combinaisonListes(sensDesQuestionsDisponibles, this.nbQuestions * nbSousQuestionMax)
+    const sensDesQuestions = combinaisonListes(
+      sensDesQuestionsDisponibles,
+      this.nbQuestions * nbSousQuestionMax,
+    )
     const distanceMinEntrePoints = 2
     const distanceMinCorde = 3
     const distanceMaxCorde = 5.9
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
       const propositionsAMC = []
 
@@ -136,22 +163,48 @@ export default class VocabulaireDuCercle extends Exercice {
       do {
         B = pointAdistance(O, 3, nomsDesPoints[2])
         C = pointIntersectionLC(droite(O, B), leCercle, nomsDesPoints[3])
-      } while (longueur(A, B) < distanceMinEntrePoints || longueur(A, C) < distanceMinEntrePoints || longueur(B, C) < distanceMinEntrePoints)
+      } while (
+        longueur(A, B) < distanceMinEntrePoints ||
+        longueur(A, C) < distanceMinEntrePoints ||
+        longueur(B, C) < distanceMinEntrePoints
+      )
       do {
         D = pointAdistance(O, 3, nomsDesPoints[4])
-      } while (longueur(A, D) < distanceMinEntrePoints || longueur(B, D) < distanceMinEntrePoints || longueur(C, D) < distanceMinEntrePoints)
+      } while (
+        longueur(A, D) < distanceMinEntrePoints ||
+        longueur(B, D) < distanceMinEntrePoints ||
+        longueur(C, D) < distanceMinEntrePoints
+      )
       do {
         E = pointAdistance(O, 3, nomsDesPoints[5])
-      } while (longueur(A, E) < distanceMinEntrePoints || longueur(B, E) < distanceMinEntrePoints || longueur(C, E) < distanceMinEntrePoints || longueur(D, E) < distanceMinCorde || longueur(D, E) > distanceMaxCorde)
+      } while (
+        longueur(A, E) < distanceMinEntrePoints ||
+        longueur(B, E) < distanceMinEntrePoints ||
+        longueur(C, E) < distanceMinEntrePoints ||
+        longueur(D, E) < distanceMinCorde ||
+        longueur(D, E) > distanceMaxCorde
+      )
       const OA = segment(O, A)
       const BC = segment(B, C)
       const DE = segment(D, E)
       const polygon = polygoneAvecNom(A, B, C, D, E)
       const codage = codageSegments('//', 'blue', O, B, O, C, O, A)
-      objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon[1], codage)
+      objetsEnonce.push(
+        leCercle,
+        labelPoint(O),
+        tracePoint(O),
+        OA,
+        BC,
+        DE,
+        polygon[1],
+        codage,
+      )
       // const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1, optionsTikz: 'baseline=(current bounding box.north)' }
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-      const figure = mathalea2d(Object.assign({ }, fixeBordures(objetsEnonce)), objetsEnonce)
+      const figure = mathalea2d(
+        Object.assign({}, fixeBordures(objetsEnonce)),
+        objetsEnonce,
+      )
       texte += figure
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += texte
@@ -159,64 +212,58 @@ export default class VocabulaireDuCercle extends Exercice {
       let questions = []
 
       if (typesDeQuestions.includes('1')) {
-        questions.push(
-          {
-            nom: `$${O.nom + A.nom}$`,
-            nature: 'le rayon',
-            commentaire: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-            commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
-            sens: sensDesQuestions[i * nbSousQuestionMax + 2]
-          })
+        questions.push({
+          nom: `$${O.nom + A.nom}$`,
+          nature: 'le rayon',
+          commentaire: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+          sens: sensDesQuestions[i * nbSousQuestionMax + 2],
+        })
       }
       if (typesDeQuestions.includes('2')) {
-        questions.push(
-          {
-            nom: `[$${O.nom + A.nom}$]`,
-            nature: 'un rayon',
-            commentaire: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
-            commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-            sens: sensDesQuestions[i * nbSousQuestionMax]
-          })
+        questions.push({
+          nom: `[$${O.nom + A.nom}$]`,
+          nature: 'un rayon',
+          commentaire: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+          sens: sensDesQuestions[i * nbSousQuestionMax],
+        })
       }
       if (typesDeQuestions.includes('3')) {
-        questions.push(
-          {
-            nom: `$${B.nom + C.nom}$`,
-            nature: 'le diamètre',
-            commentaire: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-            commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
-            sens: sensDesQuestions[i * nbSousQuestionMax + 3]
-          })
+        questions.push({
+          nom: `$${B.nom + C.nom}$`,
+          nature: 'le diamètre',
+          commentaire: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+          sens: sensDesQuestions[i * nbSousQuestionMax + 3],
+        })
       }
       if (typesDeQuestions.includes('4')) {
-        questions.push(
-          {
-            nom: `[$${B.nom + C.nom}$]`,
-            nature: 'un diamètre',
-            commentaire: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
-            commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-            sens: sensDesQuestions[i * nbSousQuestionMax + 1]
-          })
+        questions.push({
+          nom: `[$${B.nom + C.nom}$]`,
+          nature: 'un diamètre',
+          commentaire: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+          sens: sensDesQuestions[i * nbSousQuestionMax + 1],
+        })
       }
       if (typesDeQuestions.includes('5')) {
-        questions.push(
-          {
-            nom: `[$${D.nom + E.nom}$]`,
-            nature: 'une corde',
-            commentaire: '',
-            commentaireAlt: '',
-            sens: sensDesQuestions[i * nbSousQuestionMax + 4]
-          })
+        questions.push({
+          nom: `[$${D.nom + E.nom}$]`,
+          nature: 'une corde',
+          commentaire: '',
+          commentaireAlt: '',
+          sens: sensDesQuestions[i * nbSousQuestionMax + 4],
+        })
       }
       if (typesDeQuestions.includes('6')) {
-        questions.push(
-          {
-            nom: `$${O.nom}$`,
-            nature: 'le centre',
-            commentaire: '',
-            commentaireAlt: '',
-            sens: sensDesQuestions[i * nbSousQuestionMax + 5]
-          })
+        questions.push({
+          nom: `$${O.nom}$`,
+          nature: 'le centre',
+          commentaire: '',
+          commentaireAlt: '',
+          sens: sensDesQuestions[i * nbSousQuestionMax + 5],
+        })
       }
       /* if (typesDeQuestions.includes('7')) {
         questions.push(
@@ -236,7 +283,7 @@ export default class VocabulaireDuCercle extends Exercice {
           texte: texteProposition,
           statut: false,
           feedback: question.commentaire,
-          feedbackAlt: question.commentaireAlt
+          feedbackAlt: question.commentaireAlt,
         })
       }
       const propositionsABEst = []
@@ -246,7 +293,7 @@ export default class VocabulaireDuCercle extends Exercice {
           texte: texteProposition,
           statut: false,
           feedback: question.commentaire,
-          feedbackAlt: question.commentaireAlt
+          feedbackAlt: question.commentaireAlt,
         })
       }
       let j = 0
@@ -264,17 +311,35 @@ export default class VocabulaireDuCercle extends Exercice {
         texte += numAlpha(j)
         texteCorr += numAlpha(j)
         if (question.sens === 'Un rayon est ...') {
-          enonce = `${premiereLettreEnMajuscule(question.nature)} du cercle est ` + ((this.interactif && !this.sup2) ? ajouteChampTexte(this, i * questions.length + j, KeyboardType.alphanumericAvecEspace) : '...')
+          enonce =
+            `${premiereLettreEnMajuscule(question.nature)} du cercle est ` +
+            (this.interactif && !this.sup2
+              ? ajouteChampTexte(
+                  this,
+                  i * questions.length + j,
+                  KeyboardType.alphanumericAvecEspace,
+                )
+              : '...')
           texte += `${enonce}.`
           texteCorr += `${premiereLettreEnMajuscule(question.nature)} du cercle est ${texteEnCouleurEtGras(question.nom)}.<br>`
-          if (question.nature === 'une corde') texteCorr += `${texteEnCouleurEtGras(nomDiametre)} étant un diamètre, c'est aussi une corde.<br>`
+          if (question.nature === 'une corde')
+            texteCorr += `${texteEnCouleurEtGras(nomDiametre)} étant un diamètre, c'est aussi une corde.<br>`
         }
         if (question.sens === '[AB] est ...') {
-          enonce = `${question.nom} est ` + ((this.interactif && !this.sup2) ? ajouteChampTexte(this, i * questions.length + j, KeyboardType.alphanumericAvecEspace) : '...')
+          enonce =
+            `${question.nom} est ` +
+            (this.interactif && !this.sup2
+              ? ajouteChampTexte(
+                  this,
+                  i * questions.length + j,
+                  KeyboardType.alphanumericAvecEspace,
+                )
+              : '...')
           texte += `${enonce} du cercle.`
           texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}${question.nom === nomDiametre ? ' et aussi ' + texteEnCouleurEtGras('une corde') : ''} du cercle.<br>`
         }
-        if (this.correctionDetaillee && question.commentaire !== '') texteCorr += question.commentaire + '<br>'
+        if (this.correctionDetaillee && question.commentaire !== '')
+          texteCorr += question.commentaire + '<br>'
         if (this.sup2 || context.isAmc) {
           let propositions = []
           if (question.sens === 'Un rayon est ...') {
@@ -286,27 +351,36 @@ export default class VocabulaireDuCercle extends Exercice {
             propositions = clone(propositionsABEst)
           }
           for (let ee = 0; ee < propositions.length; ee++) {
-            const statut = propositions[ee].texte === question.nom || propositions[ee].texte === question.nature || (question.nature === 'un diamètre' && propositions[ee].texte === 'une corde') || (question.nature === 'une corde' && propositions[ee].texte === nomDiametre)
+            const statut =
+              propositions[ee].texte === question.nom ||
+              propositions[ee].texte === question.nature ||
+              (question.nature === 'un diamètre' &&
+                propositions[ee].texte === 'une corde') ||
+              (question.nature === 'une corde' &&
+                propositions[ee].texte === nomDiametre)
             let feedback
-            statut ? feedback = propositions[ee].feedback : feedback = propositions[ee].feedbackAlt
+            statut
+              ? (feedback = propositions[ee].feedback)
+              : (feedback = propositions[ee].feedbackAlt)
             propositionsEE.push({
               texte: propositions[ee].texte,
               statut,
-              feedback
+              feedback,
             })
           }
           if (!context.isAmc) {
             this.autoCorrection[i * questions.length + j] = {
               enonce,
               options: { ordered: false },
-              propositions: propositionsEE
+              propositions: propositionsEE,
             }
-            texte += propositionsQcm(this, i * questions.length + j).texte + '<br>'
+            texte +=
+              propositionsQcm(this, i * questions.length + j).texte + '<br>'
           } else if (context.isAmc) {
             propositionsAMC[j] = {
               type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               enonce,
-              propositions: propositionsEE
+              propositions: propositionsEE,
             }
           }
         } else {
@@ -315,14 +389,24 @@ export default class VocabulaireDuCercle extends Exercice {
             reponses = [question.nom.replace(/\$/g, '')]
             switch (question.nature) {
               case 'le rayon':
-                reponses.push(O.nom + B.nom, O.nom + C.nom, O.nom + D.nom, O.nom + E.nom)
+                reponses.push(
+                  O.nom + B.nom,
+                  O.nom + C.nom,
+                  O.nom + D.nom,
+                  O.nom + E.nom,
+                )
                 reponses = ajouterAlternatives(longueurAlternative, reponses)
                 break
               case 'le diamètre':
                 reponses.push(longueurAlternative(reponses[0]))
                 break
               case 'un rayon':
-                reponses.push('[' + O.nom + B.nom + ']', '[' + O.nom + C.nom + ']', '[' + O.nom + D.nom + ']', '[' + O.nom + E.nom + ']')
+                reponses.push(
+                  '[' + O.nom + B.nom + ']',
+                  '[' + O.nom + C.nom + ']',
+                  '[' + O.nom + D.nom + ']',
+                  '[' + O.nom + E.nom + ']',
+                )
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
                 break
               case 'un diamètre':
@@ -354,7 +438,9 @@ export default class VocabulaireDuCercle extends Exercice {
             }
           }
 
-          handleAnswers(this, i * questions.length + j, { reponse: { value: reponses, options: { texteSansCasse: true } } })
+          handleAnswers(this, i * questions.length + j, {
+            reponse: { value: reponses, options: { texteSansCasse: true } },
+          })
         }
         texte += '<br>'
 
@@ -363,19 +449,22 @@ export default class VocabulaireDuCercle extends Exercice {
       }
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, nomsDesPoints, objetsEnonce)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, nomsDesPoints, objetsEnonce)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: figure + 'À partir de la figure ci-dessus, compléter les phrases suivantes.',
+            enonce:
+              figure +
+              'À partir de la figure ci-dessus, compléter les phrases suivantes.',
             enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
             enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
             melange: true, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
             options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
-            propositions: propositionsAMC
+            propositions: propositionsAMC,
           }
         }
 

@@ -13,7 +13,8 @@ if (customElements.get('glisse-nombre') === undefined) {
   customElements.define('glisse-nombre', GlisseNombreElement)
 }
 
-export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
+export const titre =
+  'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
 
 /**
  * Multiplier ou diviser un nombre entier par 10, 100 ou 1 000
@@ -27,17 +28,17 @@ export const uuid = 'ec005'
 export const refs = {
   'fr-fr': ['CM1C1E-1'],
   'fr-2016': ['6N24-1'],
-  'fr-ch': ['9NO10-5']
+  'fr-ch': ['9NO10-5'],
 }
 export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = "Donner l'écriture décimale."
     this.spacing = 2
     this.spacingCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -48,9 +49,9 @@ export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 exten
           randint(2, 9),
           randint(11, 99),
           randint(1, 9) * 100 + randint(1, 9),
-          randint(1, 9) * 1000 + randint(1, 9)
+          randint(1, 9) * 1000 + randint(1, 9),
         ],
-        randint(101, 999)
+        randint(101, 999),
       )
       // X, XX, X0X, X00X,XXX
       b = choice([10, 100, 1000])
@@ -61,21 +62,20 @@ export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 exten
           '$ ' +
           texFractionFromString(texNombre(a), texNombre(b)) +
           ' = ' +
-          texNombre((a / b)) +
+          texNombre(a / b) +
           ' $'
         if (context.isHtml && i === 0) {
           this.introduction = `<glisse-nombre number="${texNombre(a / b)}"/>`
         }
       } else {
-        texte =
-          '$ ' + texNombre(a) + '\\times' + texNombre(b) + ' =  $'
+        texte = '$ ' + texNombre(a) + '\\times' + texNombre(b) + ' =  $'
         texteCorr =
           '$ ' +
           texNombre(a) +
           '\\times' +
           texNombre(b) +
           ' = ' +
-          texNombre((a * b)) +
+          texNombre(a * b) +
           ' $'
         if (context.isHtml && i === 0) {
           this.introduction = `<glisse-nombre number="${a}"/>`

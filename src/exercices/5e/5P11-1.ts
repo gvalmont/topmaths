@@ -1,7 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { minToHour } from '../../lib/outils/dateEtHoraires'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { nombreAvecEspace, stringNombre, texNombre } from '../../lib/outils/texNombre'
+import {
+  nombreAvecEspace,
+  stringNombre,
+  texNombre,
+} from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -24,24 +28,33 @@ export const uuid = 'a29bd'
 
 export const refs = {
   'fr-fr': ['5P11-1'],
-  'fr-ch': ['11FA11-1']
+  'fr-ch': ['11FA11-1'],
 }
 export default class VitesseDistanceTemps extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
     if (this.sup2 === 1) {
-      this.consigneCorrection = ' À vitesse constante, la distance et le temps du trajet sont proportionnels. On peut donc utiliser la technique du produit en croix.'
+      this.consigneCorrection =
+        ' À vitesse constante, la distance et le temps du trajet sont proportionnels. On peut donc utiliser la technique du produit en croix.'
     } else {
       this.consigneCorrection = ''
     }
     this.sup = 4
     this.sup2 = 1
-    this.besoinFormulaireNumerique = ['Type de problème', 4, '1: Déterminer la vitesse\n2 : Déterminer la durée\n3 : Déterminer la distance \n4: Mélange ']
-    this.besoinFormulaire2Numerique = ['Type de correction', 2, '1: Avec un tableau de proportionnalité\n2: Avec les formules']
+    this.besoinFormulaireNumerique = [
+      'Type de problème',
+      4,
+      '1: Déterminer la vitesse\n2 : Déterminer la durée\n3 : Déterminer la distance \n4: Mélange ',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Type de correction',
+      2,
+      '1: Avec un tableau de proportionnalité\n2: Avec les formules',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles = ['vitesse', 'temps', 'distance']
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['vitesse']
@@ -50,10 +63,17 @@ export default class VitesseDistanceTemps extends Exercice {
     } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = ['distance']
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let texteApres
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let t; let prenom; let destination; let texte; let texteCorr
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      let t
+      let prenom
+      let destination
+      let texte
+      let texteCorr
       const v = randint(8, 26, [12]) * 5 // On évite le 60 km/h trop trivial
       if (v % 2 === 0) {
         t = randint(5, 39, [20]) * 3
@@ -62,7 +82,7 @@ export default class VitesseDistanceTemps extends Exercice {
       } // On s'assure que le produit v*t est divisible par 6
       const tHour = Math.floor(t / 60)
       const tMin = t % 60
-      const d = v * t / 60
+      const d = (v * t) / 60
       const pronomgenre = choice(['il', 'elle'])
       if (pronomgenre === 'il') {
         prenom = prenomM()
@@ -70,11 +90,22 @@ export default class VitesseDistanceTemps extends Exercice {
         prenom = prenomF()
       }
       if (d < 60) {
-        destination = choice(['à son travail', "à l'école de ses enfants", 'au cinéma', 'au centre de loisirs'])
+        destination = choice([
+          'à son travail',
+          "à l'école de ses enfants",
+          'au cinéma',
+          'au centre de loisirs',
+        ])
       } else {
-        destination = choice(["jusqu'à sa location de vacances", 'dans la maison de ses parents', 'à une conférence'])
+        destination = choice([
+          "jusqu'à sa location de vacances",
+          'dans la maison de ses parents',
+          'à une conférence',
+        ])
       }
-      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeDeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'vitesse':
           texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km. Déterminer sa vitesse moyenne`
           texte += this.interactif ? ' : ' : '.'
@@ -130,7 +161,9 @@ export default class VitesseDistanceTemps extends Exercice {
           }
           texteCorr += '<br><br>'
           texteCorr += `${prenom} mettra`
-          texteCorr += this.interactif ? ` ${texteEnCouleurEtGras(t)} min` : ` ${texteEnCouleurEtGras(minToHour(t))}`
+          texteCorr += this.interactif
+            ? ` ${texteEnCouleurEtGras(t)} min`
+            : ` ${texteEnCouleurEtGras(minToHour(t))}`
           texteCorr += ` pour aller ${destination}.`
           texteApres = sp() + ' minutes'
           setReponse(this, i, t)

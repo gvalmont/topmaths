@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'cd736'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,14 +19,14 @@ export const refs = {
 
 */
 export default class CalculDivers extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 9)
     const d = new Decimal(a).div(10)
     const c = new Decimal(a).div(100)
@@ -42,7 +42,9 @@ export default class CalculDivers extends ExerciceSimple {
         this.correction = `$${texNombre(2025)} -${texNombre(c, 2)}=${miseEnEvidence(this.reponse)}$`
         break
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

@@ -2,7 +2,10 @@ import { point } from '../../lib/2d/points'
 import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -19,10 +22,10 @@ export const uuid = 'e471c'
 
 export const refs = {
   'fr-fr': ['2N15-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ValeurAbsolueEtEquation extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
@@ -31,13 +34,18 @@ export default class ValeurAbsolueEtEquation extends Exercice {
     this.nbColsCorr = 2
     this.sup = 1 //
     this.correctionDetailleeDisponible = true
-    context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+    context.isHtml
+      ? (this.correctionDetaillee = true)
+      : (this.correctionDetaillee = false)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       let a: number
       let b: number
@@ -50,7 +58,7 @@ export default class ValeurAbsolueEtEquation extends Exercice {
         case 1:
           c = 0 // c'est pour éviter les warnings
           a = randint(1, 15) * choice([-1, 1])
-          b = randint(1, 15) * (-1)
+          b = randint(1, 15) * -1
 
           texte = `$\\vert x ${ecritureAlgebrique(a)}\\vert =${b}$`
           texteCorr = ` ${b} étant négatif, il n'existe pas de solution à cette équation. $S=\\emptyset$`
@@ -58,7 +66,6 @@ export default class ValeurAbsolueEtEquation extends Exercice {
           break
         case 2:
         default:
-
           a = randint(1, 15) * choice([-1, 1])
           b = randint(1, 15)
           c = -a
@@ -89,13 +96,23 @@ export default class ValeurAbsolueEtEquation extends Exercice {
             const cote2 = segment(point(6.05, 1), point(9, 1))
             cote2.styleExtremites = '<->'
             const texteCote2 = texteParPosition(b, 7.5, 1.6)
-            texteCorr += mathalea2d({ xmin: -1, xmax: 13, ymin: -2, ymax: 2.5 },
-              s, s1, s2, l, cote, texteCote, cote2, texteCote2)
+            texteCorr += mathalea2d(
+              { xmin: -1, xmax: 13, ymin: -2, ymax: 2.5 },
+              s,
+              s1,
+              s2,
+              l,
+              cote,
+              texteCote,
+              cote2,
+              texteCote2,
+            )
           }
           break
       }
 
-      if (this.questionJamaisPosee(i, a, b, c, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, c, typesDeQuestions)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -1,4 +1,8 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  enleveElement,
+} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import Exercice from '../Exercice'
@@ -15,22 +19,25 @@ export const amcType = 'qcmMono'
 export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 
 /**
-* Comparer deux fractions dont les dénominateurs sont multiples (avec un coefficient paramétrable qui est par défaut inférieur à 11)
-* @author Rémi Angot
-* Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
-* rendu interactif + AMC par Jean-Claude Lhote
-*/
+ * Comparer deux fractions dont les dénominateurs sont multiples (avec un coefficient paramétrable qui est par défaut inférieur à 11)
+ * @author Rémi Angot
+ * Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
+ * rendu interactif + AMC par Jean-Claude Lhote
+ */
 export const uuid = '234a7'
 
 export const refs = {
   'fr-fr': ['BP2AutoG6', '6N3I-3'],
   'fr-2016': ['5N14', 'BP2AutoG6'],
-  'fr-ch': ['9NO12-5']
+  'fr-ch': ['9NO12-5'],
 }
 export default class ExerciceComparerDeuxFractions extends Exercice {
-  constructor (max = 11) {
+  constructor(max = 11) {
     super()
-    this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
+    this.besoinFormulaireNumerique = [
+      'Valeur maximale du coefficient multiplicateur',
+      99999,
+    ]
     this.besoinFormulaire2CaseACocher = ['Inclure des nombres négatifs']
     this.sup = max // Correspond au facteur commun
     this.consigne = 'Comparer les fractions suivantes.'
@@ -41,19 +48,26 @@ export default class ExerciceComparerDeuxFractions extends Exercice {
     this.sup2 = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions)
     // On crée une liste de FractionEtendues irréductibles.
     const listeFractions = obtenirListeFractionsIrreductibles()
-    for (let i = 0, cpt = 0, positifOuNegatif, texte, texteCorr, signe, signe2; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, cpt = 0, positifOuNegatif, texte, texteCorr, signe, signe2;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       this.autoCorrection[i] = {}
       if (this.sup2 === true) positifOuNegatif = listeSignes[i]
       else positifOuNegatif = 1
       const fractionAbsolue = choice(listeFractions)
       const k = randint(2, this.sup)
-      let ecart = choice([-4, -3, -2, -1, 1, 2, 3, 4], [-k * fractionAbsolue.num, k * fractionAbsolue.num]) // On exclut -k * a pour ne pas avoir une fraction nulle
+      let ecart = choice(
+        [-4, -3, -2, -1, 1, 2, 3, 4],
+        [-k * fractionAbsolue.num, k * fractionAbsolue.num],
+      ) // On exclut -k * a pour ne pas avoir une fraction nulle
       if (k * fractionAbsolue.num + ecart <= 0) {
-        ecart = ecart * (-1)
+        ecart = ecart * -1
       }
       if (ecart > 0) {
         signe = '<'
@@ -64,12 +78,27 @@ export default class ExerciceComparerDeuxFractions extends Exercice {
       }
       enleveElement(listeFractions, fractionAbsolue) // Il n'y aura pas 2 fois la même réponse
       const fraction = fractionAbsolue.multiplieEntier(positifOuNegatif)
-      const autreFraction = new FractionEtendue(k * fraction.num + ecart, k * fraction.den)
+      const autreFraction = new FractionEtendue(
+        k * fraction.num + ecart,
+        k * fraction.den,
+      )
       const ordreDesFractions = Math.random() < 0.5
       if (ordreDesFractions) {
-        texte = remplisLesBlancs(this, i, `${fraction.texFSD}\\quad%{champ1}\\quad${autreFraction.texFSD}`, 'clavierCompare', '\\quad\\ldots\\quad')
+        texte = remplisLesBlancs(
+          this,
+          i,
+          `${fraction.texFSD}\\quad%{champ1}\\quad${autreFraction.texFSD}`,
+          'clavierCompare',
+          '\\quad\\ldots\\quad',
+        )
       } else {
-        texte = remplisLesBlancs(this, i, `${autreFraction.texFSD}\\quad%{champ1}\\quad${fraction.texFSD}`, 'clavierCompare', '\\quad\\ldots\\quad')
+        texte = remplisLesBlancs(
+          this,
+          i,
+          `${autreFraction.texFSD}\\quad%{champ1}\\quad${fraction.texFSD}`,
+          'clavierCompare',
+          '\\quad\\ldots\\quad',
+        )
       }
       if (!context.isHtml) {
         texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots')
@@ -85,24 +114,45 @@ export default class ExerciceComparerDeuxFractions extends Exercice {
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: 'comparer les fractions suivantes : ' + (ordreDesFractions ? `$${fraction.texFSD} \\quad$ et $\\quad ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} \\quad$ et $\\quad ${fraction.texFSD}$`),
+          enonce:
+            'comparer les fractions suivantes : ' +
+            (ordreDesFractions
+              ? `$${fraction.texFSD} \\quad$ et $\\quad ${autreFraction.texFSD}$`
+              : `$${autreFraction.texFSD} \\quad$ et $\\quad ${fraction.texFSD}$`),
           propositions: [
             {
-              texte: ordreDesFractions ? `$${fraction.texFSD} < ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} < ${fraction.texFSD}$`,
-              statut: ordreDesFractions ? ecart > 0 : ecart < 0
+              texte: ordreDesFractions
+                ? `$${fraction.texFSD} < ${autreFraction.texFSD}$`
+                : `$${autreFraction.texFSD} < ${fraction.texFSD}$`,
+              statut: ordreDesFractions ? ecart > 0 : ecart < 0,
             },
             {
-              texte: ordreDesFractions ? `$${fraction.texFSD} > ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} >${fraction.texFSD}$`,
-              statut: ordreDesFractions ? ecart < 0 : ecart > 0
-            }
+              texte: ordreDesFractions
+                ? `$${fraction.texFSD} > ${autreFraction.texFSD}$`
+                : `$${autreFraction.texFSD} >${fraction.texFSD}$`,
+              statut: ordreDesFractions ? ecart < 0 : ecart > 0,
+            },
           ],
-          options: { ordered: false }
+          options: { ordered: false },
         }
       } else {
-        handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+        handleAnswers(
+          this,
+          i,
+          {
+            champ1: {
+              value: ordreDesFractions ? signe : signe2,
+              options: { texteSansCasse: true },
+            },
+          },
+          { formatInteractif: 'fillInTheBlank' },
+        )
       }
 
-      if (this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (
+        this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)
+      ) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

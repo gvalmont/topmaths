@@ -1,4 +1,8 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -8,7 +12,8 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 
-export const titre = 'Ordonner une liste de nombres écrits sous forme de fractions ou de nombres mixtes'
+export const titre =
+  'Ordonner une liste de nombres écrits sous forme de fractions ou de nombres mixtes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '21/07/2025'
@@ -22,7 +27,7 @@ export const uuid = '98293'
 export const refs = {
   'fr-fr': ['6N3J'],
   'fr-2016': ['6N20-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -42,31 +47,30 @@ export const refs = {
  * const T2 = ["z", "a", "m"];
  * const result = sortByT1Order(T1, T2); // ["a", "m", "z"]
  */
-function sortByT1Order (T1: number[], T2: string[]): string[] {
+function sortByT1Order(T1: number[], T2: string[]): string[] {
   if (T1.length !== T2.length) {
     throw new Error('T1 and T2 must have the same length')
   }
 
-  return T1
-    .map((value, index) => ({ value, str: T2[index] }))
+  return T1.map((value, index) => ({ value, str: T2[index] }))
     .sort((a, b) => a.value - b.value)
-    .map(pair => pair.str)
+    .map((pair) => pair.str)
 }
 
 export default class ComparerFractionsNombresMixtes extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.besoinFormulaireNumerique = [
       'Type du rangement',
       3,
-      '1 : Ordre croissant\n2 : Ordre décroissant\n3 : Mélange'
+      '1 : Ordre croissant\n2 : Ordre décroissant\n3 : Mélange',
     ]
     this.sup = 3
     this.besoinFormulaire2Numerique = [
       'Type du rangement',
       3,
-      '1 : Nombre mixte plus grand que 1\n2 : Nombre mixte plus petit que 1\n3 : Mélange'
+      '1 : Nombre mixte plus grand que 1\n2 : Nombre mixte plus petit que 1\n3 : Mélange',
     ]
     this.sup2 = 3
     this.correctionDetailleeDisponible = true
@@ -75,13 +79,16 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
     this.spacingCorr = 2.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let listeTypeDeQuestions = this.sup === 3 ? [1, 2] : [this.sup]
-    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
+    listeTypeDeQuestions = combinaisonListes(
+      listeTypeDeQuestions,
+      this.nbQuestions,
+    )
     let listeTypeDeSignes = this.sup === 3 ? [1, 2] : [this.sup2]
     listeTypeDeSignes = combinaisonListes(listeTypeDeSignes, this.nbQuestions)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const croissant = listeTypeDeQuestions[i] === 1
       const ordre = croissant ? 'croissant' : 'décroissant'
       const symbole = croissant ? '<' : '>'
@@ -91,25 +98,48 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
 
       const numerateurFractionMixte = choice([true, false]) ? 1 : 2
       const complementNumerateurFM = 3 - numerateurFractionMixte
-      const complementNb3 = choice([numerateurFractionMixte + complementNumerateurFM, Math.abs(numerateurFractionMixte - complementNumerateurFM)])
+      const complementNb3 = choice([
+        numerateurFractionMixte + complementNumerateurFM,
+        Math.abs(numerateurFractionMixte - complementNumerateurFM),
+      ])
 
       // (a+1)/b avec a>b
-      const Nb1 = new FractionEtendue(listeTypeDeSignes[i] === 1 ? denominateur + complementNumerateurFM : denominateur - complementNumerateurFM, denominateur)
+      const Nb1 = new FractionEtendue(
+        listeTypeDeSignes[i] === 1
+          ? denominateur + complementNumerateurFM
+          : denominateur - complementNumerateurFM,
+        denominateur,
+      )
       // (2a+1)/2b
-      const Nb2 = new FractionEtendue(listeTypeDeSignes[i] === 1 ? 2 * denominateur + complementNb3 : 2 * denominateur - complementNb3, 2 * denominateur)
+      const Nb2 = new FractionEtendue(
+        listeTypeDeSignes[i] === 1
+          ? 2 * denominateur + complementNb3
+          : 2 * denominateur - complementNb3,
+        2 * denominateur,
+      )
       // 1 + 1/b
       const Nb3 = new FractionEtendue(numerateurFractionMixte, denominateur)
       // c/b avec c/b
-      const Nb4 = new FractionEtendue(listeTypeDeSignes[i] === 1 ? denominateur - randint(2, denominateur - 1) : denominateur + randint(2, denominateur - 1), denominateur)
+      const Nb4 = new FractionEtendue(
+        listeTypeDeSignes[i] === 1
+          ? denominateur - randint(2, denominateur - 1)
+          : denominateur + randint(2, denominateur - 1),
+        denominateur,
+      )
       // 1
       const Nb5 = new FractionEtendue(1, 1)
 
       const TableauDeFractions = [Nb1, Nb2, Nb3, Nb4, Nb5]
 
       if (this.questionJamaisPosee(i, ...TableauDeFractions)) {
-        const TableauDeNombres = TableauDeFractions.map(el => el.valeurDecimale)
-        TableauDeNombres[2] = listeTypeDeSignes[i] === 1 ? 1 + TableauDeNombres[2] : 1 - TableauDeNombres[2]
-        const TableauAComparer = TableauDeFractions.map(el => el.texFraction)
+        const TableauDeNombres = TableauDeFractions.map(
+          (el) => el.valeurDecimale,
+        )
+        TableauDeNombres[2] =
+          listeTypeDeSignes[i] === 1
+            ? 1 + TableauDeNombres[2]
+            : 1 - TableauDeNombres[2]
+        const TableauAComparer = TableauDeFractions.map((el) => el.texFraction)
         const unPlus = listeTypeDeSignes[i] === 1 ? '1+' : '1-'
         TableauAComparer[2] = unPlus + TableauAComparer[2]
 
@@ -120,25 +150,36 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
         texte = texte.slice(0, -1)
         texte += '<br>'
 
-        texte += remplisLesBlancs(this,
+        texte += remplisLesBlancs(
+          this,
           i,
-        `%{champ1}${symbole}%{champ2}${symbole}%{champ3}${symbole}%{champ4}${symbole}%{champ5}`,
-        ` ${KeyboardType.clavierDeBaseAvecFraction}`,
-        '\\ldots\\ldots'
+          `%{champ1}${symbole}%{champ2}${symbole}%{champ3}${symbole}%{champ4}${symbole}%{champ5}`,
+          ` ${KeyboardType.clavierDeBaseAvecFraction}`,
+          '\\ldots\\ldots',
         )
 
-        const fractionsTrieesFinales = sortByT1Order(TableauDeNombres, TableauAComparer)
-
-        handleAnswers(this, i,
-          {
-            bareme: (listePoints) => [Math.ceil((listePoints[0] * listePoints[1] + listePoints[2] + listePoints[3] + listePoints[4]) / 2), 3],
-            champ1: { value: fractionsTrieesFinales[0] },
-            champ2: { value: fractionsTrieesFinales[1] },
-            champ3: { value: fractionsTrieesFinales[2] },
-            champ4: { value: fractionsTrieesFinales[3] },
-            champ5: { value: fractionsTrieesFinales[4] }
-          }
+        const fractionsTrieesFinales = sortByT1Order(
+          TableauDeNombres,
+          TableauAComparer,
         )
+
+        handleAnswers(this, i, {
+          bareme: (listePoints) => [
+            Math.ceil(
+              (listePoints[0] * listePoints[1] +
+                listePoints[2] +
+                listePoints[3] +
+                listePoints[4]) /
+                2,
+            ),
+            3,
+          ],
+          champ1: { value: fractionsTrieesFinales[0] },
+          champ2: { value: fractionsTrieesFinales[1] },
+          champ3: { value: fractionsTrieesFinales[2] },
+          champ4: { value: fractionsTrieesFinales[3] },
+          champ5: { value: fractionsTrieesFinales[4] },
+        })
 
         let texteCorr = ''
         const sens = listeTypeDeQuestions[i] === 1 ? 1 : -1
@@ -146,7 +187,8 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
         if (this.correctionDetaillee) {
           texteCorr = 'Commençons par comparer ces nombres à 1.<br>'
           const symboleComparaison = listeTypeDeSignes[i] === 1 ? '>' : '<'
-          const symboleComparaisonContraire = listeTypeDeSignes[i] === 2 ? '>' : '<'
+          const symboleComparaisonContraire =
+            listeTypeDeSignes[i] === 2 ? '>' : '<'
           texteCorr += `$${Nb1.texFraction}${symboleComparaison}1 ${sp(20)} ${Nb2.texFraction}${symboleComparaison}1 ${sp(20)} ${unPlus}${Nb3.texFraction}${symboleComparaison}1 ${sp(20)} ${Nb4.texFraction}${symboleComparaisonContraire}1$<br>`
           texteCorr += `Comparons maintenant $${Nb1.texFraction}$, $${Nb2.texFraction}$ et $${unPlus}${Nb3.texFraction}$ entre eux.<br>`
           texteCorr += `$${Nb1.texFraction}=${unPlus}${new FractionEtendue(complementNumerateurFM, denominateur).texFraction}=${unPlus}${new FractionEtendue(2 * complementNumerateurFM, 2 * denominateur).texFraction} ${sp(20)}`
@@ -154,12 +196,22 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
           texteCorr += `${unPlus}${Nb3.texFraction}=${unPlus}${new FractionEtendue(2 * numerateurFractionMixte, 2 * denominateur).texFraction}$<br>`
           texteCorr += 'Et donc on a : '
           const TableauDeFractionsPartiel = [Nb1, Nb2, Nb3]
-          const TableauDeNombresPartiel = TableauDeFractionsPartiel.map(el => el.valeurDecimale)
-          TableauDeNombresPartiel[2] = listeTypeDeSignes[i] === 1 ? 1 + TableauDeNombresPartiel[2] : 1 - TableauDeNombresPartiel[2]
-          const TableauAComparerPartiel = TableauDeFractionsPartiel.map(el => el.texFraction)
+          const TableauDeNombresPartiel = TableauDeFractionsPartiel.map(
+            (el) => el.valeurDecimale,
+          )
+          TableauDeNombresPartiel[2] =
+            listeTypeDeSignes[i] === 1
+              ? 1 + TableauDeNombresPartiel[2]
+              : 1 - TableauDeNombresPartiel[2]
+          const TableauAComparerPartiel = TableauDeFractionsPartiel.map(
+            (el) => el.texFraction,
+          )
           TableauAComparerPartiel[2] = unPlus + TableauAComparerPartiel[2]
 
-          const fractionsTrieesPartielles = sortByT1Order(TableauDeNombresPartiel, TableauAComparerPartiel)
+          const fractionsTrieesPartielles = sortByT1Order(
+            TableauDeNombresPartiel,
+            TableauAComparerPartiel,
+          )
           const start = sens === 1 ? 0 : fractionsTrieesPartielles.length - 1
           const end = sens === 1 ? fractionsTrieesPartielles.length : -1
           for (let indice = start; indice !== end; indice += sens) {

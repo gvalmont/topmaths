@@ -6,7 +6,7 @@ import { shuffle } from '../../lib/outils/arrayOutils'
 import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
-  nombreDeChiffresDe
+  nombreDeChiffresDe,
 } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
@@ -38,14 +38,18 @@ export const uuid = '12773'
 export const refs = {
   'fr-fr': ['6N1H-2'],
   'fr-2016': ['6N23-2'],
-  'fr-ch': ['9NO11-7']
+  'fr-ch': ['9NO11-7'],
 }
 export default class LireAbscisseDecimaleTroisFormes extends Exercice {
   niveau: string
   vspace: number // espace vertical entre les questions pourqoi en faire une propriété de l'exo ? aschant que le seul clone exiistant ne modifie pas cette valeur ?
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Au dixième\n2 : Au centième\n3 : Au millième',
+    ]
     this.niveau = 'sixième'
 
     if (context.isHtml) {
@@ -58,8 +62,12 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let d1
       let extremite
       const noms = choisitLettresDifferentes(3, 'Q')
@@ -77,7 +85,7 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
           thickOff = 0
         } else {
           xmin = randint(1, 15)
-          thickOff = 2 / (10 ** (this.sup))
+          thickOff = 2 / 10 ** this.sup
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
@@ -107,13 +115,17 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
           thickCouleur: 'black',
           axeCouleur: 'black',
           axeHauteur: 4,
-          pointListe: [[x1, `${noms[0]}`], [x2, `${noms[1]}`], [x3, `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[0]}`],
+            [x2, `${noms[1]}`],
+            [x3, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
       } else if (this.sup === 2) {
         if (this.niveau === 'CM') {
@@ -121,7 +133,7 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
           thickOff = 0
         } else {
           xmin = randint(1, 15) - 0.1
-          thickOff = 2 / (10 ** (this.sup))
+          thickOff = 2 / 10 ** this.sup
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
@@ -151,21 +163,26 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
           thickCouleur: 'black',
           axeCouleur: 'black',
           axeHauteur: 4,
-          pointListe: [[x1, `${noms[0]}`], [x2, `${noms[1]}`], [x3, `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[0]}`],
+            [x2, `${noms[1]}`],
+            [x3, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
-      } else { // this.sup === 3
+      } else {
+        // this.sup === 3
         if (this.niveau === 'CM') {
           xmin = 0
           thickOff = 0
         } else {
           xmin = randint(0, 15) + randint(0, 9) * 0.1
-          thickOff = 2 / (10 ** (this.sup))
+          thickOff = 2 / 10 ** this.sup
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
@@ -199,30 +216,51 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
           thickCouleur: 'black',
           axeCouleur: 'black',
           axeHauteur: 4,
-          pointListe: [[x1, `${noms[0]}`], [x2, `${noms[1]}`], [x3, `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[0]}`],
+            [x2, `${noms[1]}`],
+            [x3, `${noms[2]}`],
+          ],
           labelListe: [[xmin + 0.09, stringNombre(xmin + 0.09, 2)]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
       }
       const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
-      texte = texte1 + ajouteChampTexteMathLive(this, i * 3, KeyboardType.clavierNumbers, {
-        texteAvant: `${sp(10)} $${noms[0]}($`,
-        texteApres: `$${sp(1)})$`
-      })
-      texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1.` + ajouteChampTexteMathLive(this, i * 3 + 1, KeyboardType.clavierDeBaseAvecFraction, {
-        texteAvant: `${sp(10)} $${noms[1]}($`,
-        texteApres: `$${sp(1)})$`// `$${sp(2)}+$`
-      }) // + ajouteChampTexteMathLive(this, i * 3 + 2, ' ', { texteApres: `$${sp(1)})$` })
+      texte =
+        texte1 +
+        ajouteChampTexteMathLive(this, i * 3, KeyboardType.clavierNumbers, {
+          texteAvant: `${sp(10)} $${noms[0]}($`,
+          texteApres: `$${sp(1)})$`,
+        })
+      texte +=
+        `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1.` +
+        ajouteChampTexteMathLive(
+          this,
+          i * 3 + 1,
+          KeyboardType.clavierDeBaseAvecFraction,
+          {
+            texteAvant: `${sp(10)} $${noms[1]}($`,
+            texteApres: `$${sp(1)})$`, // `$${sp(2)}+$`
+          },
+        ) // + ajouteChampTexteMathLive(this, i * 3 + 2, ' ', { texteApres: `$${sp(1)})$` })
       let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
-      texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 3 + 2, KeyboardType.clavierDeBaseAvecFraction, {
-        texteAvant: `${sp(10)} $${noms[2]}($`,
-        texteApres: `$${sp(1)})$`
-      })
+      texte +=
+        `<br>${numAlpha(2)} ` +
+        texte3 +
+        ajouteChampTexteMathLive(
+          this,
+          i * 3 + 2,
+          KeyboardType.clavierDeBaseAvecFraction,
+          {
+            texteAvant: `${sp(10)} $${noms[2]}($`,
+            texteApres: `$${sp(1)})$`,
+          },
+        )
       texte3 = `${numAlpha(1)} ` + texte3
       const multiple = this.sup === 1 ? 10 : this.sup === 2 ? 100 : 1000
       texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${miseEnEvidence(texNombre(x1, 2))}$.<br>`
@@ -230,8 +268,15 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
       texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${miseEnEvidence(new FractionEtendue(multiple * x3, multiple).toLatex())}$.`
       if (!context.isAmc) {
         handleAnswers(this, i, { reponse: { value: x1 } })
-        handleAnswers(this, i + 1, { reponse: { value: `${Math.floor(x2)}+${new FractionEtendue(multiple * (x2 - Math.floor(x2)), multiple).toLatex()}`, options: { operationSeulementEtNonResultat: true } } })
-        handleAnswers(this, i + 2, { reponse: { value: x3, options: { fractionDecimale: true } } })
+        handleAnswers(this, i + 1, {
+          reponse: {
+            value: `${Math.floor(x2)}+${new FractionEtendue(multiple * (x2 - Math.floor(x2)), multiple).toLatex()}`,
+            options: { operationSeulementEtNonResultat: true },
+          },
+        })
+        handleAnswers(this, i + 2, {
+          reponse: { value: x3, options: { fractionDecimale: true } },
+        })
       } else {
         this.autoCorrection[i] = {
           enonce: '', // on le remplira à la fin.
@@ -239,88 +284,110 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
           propositions: [
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: texteCorr,
-                statut: '',
-                reponse: {
-                  texte: texte1,
-                  valeur: x1,
-                  param: {
-                    digits: nombreDeChiffresDe(x1),
-                    decimals: nombreDeChiffresDansLaPartieDecimale(x1),
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: '',
+                  reponse: {
+                    texte: texte1,
+                    valeur: x1,
+                    param: {
+                      digits: nombreDeChiffresDe(x1),
+                      decimals: nombreDeChiffresDansLaPartieDecimale(x1),
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: texte3,
-                  valeur: new FractionEtendue(multiple * x3, multiple),
-                  param: {
-                    digitsNum: nombreDeChiffresDansLaPartieEntiere(multiple * x3) + 1,
-                    digitsDen: 5,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: texte3,
+                    valeur: new FractionEtendue(multiple * x3, multiple),
+                    param: {
+                      digitsNum:
+                        nombreDeChiffresDansLaPartieEntiere(multiple * x3) + 1,
+                      digitsDen: 5,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: `${numAlpha(2)} Donner la partie entière de l'abscisse de $${noms[1]}$.`,
-                  valeur: Math.floor(x2),
-                  param: {
-                    digits: nombreDeChiffresDansLaPartieEntiere(Math.floor(x2)) + 1,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `${numAlpha(2)} Donner la partie entière de l'abscisse de $${noms[1]}$.`,
+                    valeur: Math.floor(x2),
+                    param: {
+                      digits:
+                        nombreDeChiffresDansLaPartieEntiere(Math.floor(x2)) + 1,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
-                  valeur: new FractionEtendue(multiple * (x2 - Math.floor(x2)), multiple),
-                  param: {
-                    digitsNum: nombreDeChiffresDansLaPartieEntiere(multiple * (x2 - Math.floor(x2))),
-                    digitsDen: 4,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
+                    valeur: new FractionEtendue(
+                      multiple * (x2 - Math.floor(x2)),
+                      multiple,
+                    ),
+                    param: {
+                      digitsNum: nombreDeChiffresDansLaPartieEntiere(
+                        multiple * (x2 - Math.floor(x2)),
+                      ),
+                      digitsDen: 4,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
 
-      const textedroite = '<br>' + mathalea2d({
-        xmin: -1.5,
-        xmax: (xmax - xmin) * unite + 1.5, // la longueur totale de l'axe flèche comprise+ 1,
-        ymin: -1.5,
-        ymax: 1.5,
-        pixelsParCm: 25,
-        scale: 0.5
-      }, d1)
+      const textedroite =
+        '<br>' +
+        mathalea2d(
+          {
+            xmin: -1.5,
+            xmax: (xmax - xmin) * unite + 1.5, // la longueur totale de l'axe flèche comprise+ 1,
+            ymin: -1.5,
+            ymax: 1.5,
+            pixelsParCm: 25,
+            scale: 0.5,
+          },
+          d1,
+        )
       texte += textedroite
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = 'À partir de la droite graduée ci-dessous, répondre aux questions ci-dessous.' + textedroite
+        this.autoCorrection[i].enonce =
+          'À partir de la droite graduée ci-dessous, répondre aux questions ci-dessous.' +
+          textedroite
       }
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions

@@ -17,11 +17,11 @@ export const uuid = 'bcbe1'
 export const refs = {
   'fr-fr': ['6G6C-1'],
   'fr-2016': ['5G31-1'],
-  'fr-ch': ['9ES2-10']
+  'fr-ch': ['9ES2-10'],
 }
 export default class ConstructibiliteDesTrianglesLongueurs extends ConstructibiliteDesTriangles {
   exo: string
-  constructor () {
+  constructor() {
     super()
     this.exo = '5G31-1'
   }

@@ -4,7 +4,8 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)'
+export const titre =
+  'Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -20,24 +21,30 @@ export const uuid = 'dcf22'
 
 export const refs = {
   'fr-fr': ['can6N14', '6N1B-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DeterminerLeNombre extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, monQcm
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3])) { // 1
-        case 1 :
-
-          a = choice([randint(10, 99), randint(100, 999), randint(1000, 2000), randint(1, 9)])
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2, 3]) // 1
+      ) {
+        case 1:
+          a = choice([
+            randint(10, 99),
+            randint(100, 999),
+            randint(1000, 2000),
+            randint(1, 9),
+          ])
           texte = `Quel est le nombre égal à $${a}$ dixièmes ?
           `
           this.canEnonce = texte
@@ -46,21 +53,21 @@ export default class DeterminerLeNombre extends Exercice {
             propositions: [
               {
                 texte: `$${texNombre(a / 10)}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `$${texNombre(a * 10)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${texNombre(a / 100)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${texNombre(a / 1000)}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
@@ -68,9 +75,13 @@ export default class DeterminerLeNombre extends Exercice {
           Ainsi, $${a}$ dixièmes $=${a}\\times 0,1=${miseEnEvidence(texNombre(a / 10))}$. `
 
           break
-        case 2 :
-
-          a = choice([randint(10, 99), randint(100, 999), randint(1000, 2000), randint(1, 9)])
+        case 2:
+          a = choice([
+            randint(10, 99),
+            randint(100, 999),
+            randint(1000, 2000),
+            randint(1, 9),
+          ])
           texte = `Quel est le nombre égal à $${a}$ centièmes ?
           `
           this.canEnonce = texte
@@ -79,21 +90,21 @@ export default class DeterminerLeNombre extends Exercice {
             propositions: [
               {
                 texte: `$${texNombre(a / 100)}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `$${texNombre(a * 100)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${texNombre(a / 1000)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${texNombre(a / 10000)}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
@@ -101,10 +112,14 @@ export default class DeterminerLeNombre extends Exercice {
           Ainsi, $${a}$ centièmes $=${a}\\times 0,01=${miseEnEvidence(texNombre(a / 100))}$. `
           break
 
-        case 3 :
+        case 3:
         default:
-
-          a = choice([randint(10, 99), randint(100, 999), randint(1000, 2000), randint(1, 9)])
+          a = choice([
+            randint(10, 99),
+            randint(100, 999),
+            randint(1000, 2000),
+            randint(1, 9),
+          ])
           texte = `Quel est le nombre égal à $${a}$ millièmes ?
           `
           this.canEnonce = texte
@@ -114,21 +129,21 @@ export default class DeterminerLeNombre extends Exercice {
             propositions: [
               {
                 texte: `$${texNombre(a / 1000)}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `$${texNombre(a / 10000)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${texNombre(a / 100)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${texNombre(a / 10)}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte

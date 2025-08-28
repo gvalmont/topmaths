@@ -16,15 +16,15 @@ export const uuid = '1e528'
 export const refs = {
   'fr-fr': ['CM2N4B-1'],
   'fr-2016': ['CM019'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LeCompteEstBonV3 extends Exercice {
-  constructor (maxSolution) {
+  constructor(maxSolution) {
     super()
     this.besoinFormulaireNumerique = ['Limite inférieure', maxSolution ?? 100]
     this.besoinFormulaire2Numerique = ['Limite supérieure', 100]
     this.consigne =
-    'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
+      'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
     this.nbQuestions = 5
     this.nbCols = 2
     this.nbColsCorr = 2
@@ -32,7 +32,7 @@ export default class LeCompteEstBonV3 extends Exercice {
     this.sup2 = 70
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let solutionMathador = []
     let tirage, solution, expression
     let minSolution = parseInt(this.sup)
@@ -47,7 +47,10 @@ export default class LeCompteEstBonV3 extends Exercice {
 
     ) {
       this.autoCorrection[i] = {}
-      solutionMathador = TrouverSolutionMathador(minSolution, maxSolution ?? 100)
+      solutionMathador = TrouverSolutionMathador(
+        minSolution,
+        maxSolution ?? 100,
+      )
       tirage = solutionMathador[0]
       solution = solutionMathador[1]
       expression = solutionMathador[3]
@@ -64,7 +67,10 @@ export default class LeCompteEstBonV3 extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 4, feedback: '' }] }
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
+        }
         i++
       }
       cpt++

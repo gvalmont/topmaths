@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a3y3b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q26 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     let question = 'num'
     let coeff = 4
     if (a == null || b == null || c == null) {
@@ -27,11 +27,12 @@ export default class Can2025N5Q26 extends ExerciceCan {
       coeff = randint(2, 7)
       c = question === 'num' ? b * coeff : a * coeff
     }
-    this.reponse = question === 'num' ? c * a / b : c * b / a
+    this.reponse = question === 'num' ? (c * a) / b : (c * b) / a
     this.question = `$\\dfrac{${a}}{${b}}=${question === 'num' ? `\\dfrac{?}{${c}}$` : `\\dfrac{${c}}{?}$`}`
-    this.correction = question === 'num'
-      ? `On remarque que $${c}=${coeff}\\times ${b}$, donc $?=${coeff}\\times ${a}=${coeff * a}$.<br>`
-      : `On remarque que $${c}=${coeff}\\times ${a}$, donc $?=${coeff}\\times ${b}=${coeff * b}$.<br>`
+    this.correction =
+      question === 'num'
+        ? `On remarque que $${c}=${coeff}\\times ${b}$, donc $?=${coeff}\\times ${a}=${coeff * a}$.<br>`
+        : `On remarque que $${c}=${coeff}\\times ${a}$, donc $?=${coeff}\\times ${b}=${coeff * b}$.<br>`
 
     this.correction += `Ainsi, $\\dfrac{${a}}{${b}}=${question === 'num' ? `\\dfrac{${miseEnEvidence(coeff * a)}}{${c}}$` : `\\dfrac{${c}}{${miseEnEvidence(coeff * b)}}$`}`
     this.canEnonce = this.question
@@ -41,7 +42,7 @@ export default class Can2025N5Q26 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(3, 5, 20) : this.enonce()
   }
 }

@@ -1,4 +1,8 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../lib/outils/deprecatedFractions'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -32,27 +36,33 @@ export const uuid = '72ce7'
 
 export const refs = {
   'fr-fr': ['4C22', 'BP2AutoH13'],
-  'fr-ch': ['10NO5-6']
+  'fr-ch': ['10NO5-6'],
 }
 
 const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une fraction de fraction
 const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une fraction de fraction lorsque le numérateur ou le dénominateur est entier
 
 export default class ExerciceMultiplierFractions extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       3,
-      ' 1 : Tout positif avec une fois sur 4 un entier\n 2 : Deux fractions (50% de type 1 et 50% de type 3)\n3 : Fractions avec nombres relatifs (au moins 2 négatifs)'
+      ' 1 : Tout positif avec une fois sur 4 un entier\n 2 : Deux fractions (50% de type 1 et 50% de type 3)\n3 : Fractions avec nombres relatifs (au moins 2 négatifs)',
     ]
     this.besoinFormulaire2CaseACocher = ['Avec décomposition']
     this.besoinFormulaire3CaseACocher = ['Demander une fraction irréductible']
-    this.besoinFormulaire4Numerique = ['Type d\'opération', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
+    this.besoinFormulaire4Numerique = [
+      "Type d'opération",
+      3,
+      '1 : Multiplication\n2 : Division\n3 : Mélange',
+    ]
     this.listeAvecNumerotation = false
     this.sup = 1 // Avec ou sans relatifs
     this.sup3 = true
-    if (context.isAmc) this.titre = 'Multiplier des fractions et donner le résultat sous forme irréductible'
+    if (context.isAmc)
+      this.titre =
+        'Multiplier des fractions et donner le résultat sous forme irréductible'
     this.spacing = 3
     this.spacingCorr = 3
     this.nbQuestions = 5
@@ -60,7 +70,7 @@ export default class ExerciceMultiplierFractions extends Exercice {
     this.sup4 = 1 // multiplications par défaut
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
     const listeFractions = obtenirListeFractionsIrreductibles()
     const fractionIrreductibleDemandee = this.sup3
@@ -72,7 +82,7 @@ export default class ExerciceMultiplierFractions extends Exercice {
     // this.sup = contraindreValeur(1, 3, this.sup, 1)
     // this.sup4 = contraindreValeur(1, 3, this.sup4, 1)
     if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1, 2, 2, 2]// 1*nombre entier,3*fraction (pas de négatifs)
+      typesDeQuestionsDisponibles = [1, 2, 2, 2] // 1*nombre entier,3*fraction (pas de négatifs)
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2, 3] // fractions, 50% fractions positives 50% fractions avec relatifs
     } else {
@@ -82,19 +92,34 @@ export default class ExerciceMultiplierFractions extends Exercice {
     const typesDoperation = []
     if (this.sup4 % 2 === 1) typesDoperation.push('mul')
     if (this.sup4 > 1) typesDoperation.push('div')
-    const listeTypesDoperation = combinaisonListes(typesDoperation, this.nbQuestions)
+    const listeTypesDoperation = combinaisonListes(
+      typesDoperation,
+      this.nbQuestions,
+    )
     let nombreDeSigneMoins
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
     for (
-      let i = 0, a, b, c, d, texte, texteCorr, reponse, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let i = 0,
+        a,
+        b,
+        c,
+        d,
+        texte,
+        texteCorr,
+        reponse,
+        typesDeQuestions,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
-        [a, b] = choice(listeFractions);
-        [c, d] = choice(listeFractions)
-      } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || (b * d === 100))
+        ;[a, b] = choice(listeFractions)
+        ;[c, d] = choice(listeFractions)
+      } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || b * d === 100)
       if (!this.sup2) {
         // methode 1 : simplifications finale
         switch (typesDeQuestions) {
@@ -113,7 +138,8 @@ export default class ExerciceMultiplierFractions extends Exercice {
               b = b * choice([-1, 1])
               c = c * choice([-1, 1])
               d = d * choice([-1, 1])
-              nombreDeSigneMoins = Number(a < 0) + Number(b < 0) + Number(c < 0) + Number(d < 0)
+              nombreDeSigneMoins =
+                Number(a < 0) + Number(b < 0) + Number(c < 0) + Number(d < 0)
             } while (nombreDeSigneMoins < 2)
             break
         }
@@ -129,7 +155,11 @@ export default class ExerciceMultiplierFractions extends Exercice {
           d = d * facteurA
           b = b * facteurB
           c = c * facteurB
-        } while ((Math.abs(a) === Math.abs(b) && Math.abs(c) === Math.abs(d) && listePremiers.length > 1))
+        } while (
+          Math.abs(a) === Math.abs(b) &&
+          Math.abs(c) === Math.abs(d) &&
+          listePremiers.length > 1
+        )
 
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
@@ -143,7 +173,8 @@ export default class ExerciceMultiplierFractions extends Exercice {
               b = b * choice([-1, 1])
               c = c * choice([-1, 1])
               d = d * choice([-1, 1])
-              nombreDeSigneMoins = Number(a < 0) + Number(b < 0) + Number(c < 0) + Number(d < 0)
+              nombreDeSigneMoins =
+                Number(a < 0) + Number(b < 0) + Number(c < 0) + Number(d < 0)
             } while (nombreDeSigneMoins < 2)
             break
         }
@@ -163,16 +194,23 @@ export default class ExerciceMultiplierFractions extends Exercice {
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
-        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: fractionIrreductibleDemandee } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: reponse.toLatex(),
+            options: { fractionIrreductible: fractionIrreductibleDemandee },
+          },
+        })
 
         if (context.isAmc) {
-          texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+          texte =
+            'Calculer et donner le résultat sous forme irréductible\\\\\n' +
+            texte
           this.autoCorrection[i] = {
             enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
             propositions: [
               {
-                texte: '' // Si vide, le texte est la correction de l'exercice.
-              }
+                texte: '', // Si vide, le texte est la correction de l'exercice.
+              },
             ],
             reponse: {
               // @ts-expect-error
@@ -181,9 +219,9 @@ export default class ExerciceMultiplierFractions extends Exercice {
                 digits: 5,
                 digitsNum: 3,
                 digitsDen: 2,
-                signe: true
-              }
-            }
+                signe: true,
+              },
+            },
           }
         }
 

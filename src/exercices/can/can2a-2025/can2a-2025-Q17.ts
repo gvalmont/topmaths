@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '5b0ab'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class CoeffDirecteur extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -29,7 +29,7 @@ export default class CoeffDirecteur extends ExerciceSimple {
     this.optionsDeComparaison = { fractionEgale: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const xK = this.canOfficielle ? 3 : randint(3, 10)
     const yK = this.canOfficielle ? 1 : randint(0, 7)
     const xL = this.canOfficielle ? -5 : randint(-5, 7, [0, xK])
@@ -43,13 +43,16 @@ export default class CoeffDirecteur extends ExerciceSimple {
       this.correction = `On remarque que les points $K$ et $L$ ont les mêmes ordonnées. <br>
     On en déduit que la droite $(KL)$ est horizontale et donc que son coefficient directeur est égal à $${miseEnEvidence('0')}$.`
     } else {
-      this.correction = 'On sait d\'après le cours que le coefficient directeur $m$ est donné par : $m=\\dfrac{y_L-y_K}{x_-x_A}$.'
+      this.correction =
+        "On sait d'après le cours que le coefficient directeur $m$ est donné par : $m=\\dfrac{y_L-y_K}{x_-x_A}$."
       this.correction += `<br>On applique avec les données de l'énoncé :
         $m=\\dfrac{${yL}-${ecritureParentheseSiNegatif(yK)}}{${xL}-${ecritureParentheseSiNegatif(xK)}}=
         ${miseEnEvidence(`${this.reponse}`)}$.`
     }
 
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

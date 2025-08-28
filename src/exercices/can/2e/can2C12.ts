@@ -22,31 +22,38 @@ export const uuid = '9d51d'
 
 export const refs = {
   'fr-fr': ['can2C12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TauxGlobal extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
-    this.optionsChampTexte = { texteAvant: '<br>Taux d\'évolution global : ', texteApres: ' $\\%$' }
+    this.optionsChampTexte = {
+      texteAvant: "<br>Taux d'évolution global : ",
+      texteApres: ' $\\%$',
+    }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, coeffG
     let listeCalculs = []
     this.reponse = 0
-    switch (choice(['a', 'b', 'c', 'd'])) { //
-      case 'a':// augmente puis diminue
+    switch (
+      choice(['a', 'b', 'c', 'd']) //
+    ) {
+      case 'a': // augmente puis diminue
         a = randint(1, 9) * 10
         b = randint(1, 14) * 5
         coeffG = (1 + a / 100) * (1 - b / 100)
-        listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100, 4)}\\times ${texNombre(1 - b / 100, 4)}=${texNombre((1 - a / 100) * (1 - b / 100), 4)}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(1 + a / 100, 4)}\\times ${texNombre(1 - b / 100, 4)}=${texNombre((1 + a / 100) * (1 - b / 100), 4)}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(1 + a / 100, 4)}\\times ${texNombre(1 + b / 100, 4)}=${texNombre((1 + a / 100) * (1 + b / 100), 4)}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
+        listeCalculs = [
+          `$\\bullet$ $${texNombre(1 - a / 100, 4)}\\times ${texNombre(1 - b / 100, 4)}=${texNombre((1 - a / 100) * (1 - b / 100), 4)}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(1 + a / 100, 4)}\\times ${texNombre(1 - b / 100, 4)}=${texNombre((1 + a / 100) * (1 - b / 100), 4)}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(1 + a / 100, 4)}\\times ${texNombre(1 + b / 100, 4)}=${texNombre((1 + a / 100) * (1 + b / 100), 4)}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`,
+        ]
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
  ${listeCalculs[2]}${listeCalculs[3]}<br>
@@ -65,17 +72,23 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
 `
         }
 
-        this.distracteurs = [`$${texNombre((-coeffG) * 100, 2)}\\,\\%$`, `$${texNombre((coeffG) * 100, 2)}\\,\\%$`, `$${texNombre(a - b, 4)}\\,\\%$`]
+        this.distracteurs = [
+          `$${texNombre(-coeffG * 100, 2)}\\,\\%$`,
+          `$${texNombre(coeffG * 100, 2)}\\,\\%$`,
+          `$${texNombre(a - b, 4)}\\,\\%$`,
+        ]
         break
 
-      case 'b':// augmente puis augmente
+      case 'b': // augmente puis augmente
         a = randint(1, 9) * 10
         b = randint(1, 14) * 5
         coeffG = (1 + a / 100) * (1 + b / 100)
-        listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 - a / 100) * (1 + b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
+        listeCalculs = [
+          `$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 - a / 100) * (1 + b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`,
+        ]
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>
@@ -87,17 +100,23 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
            $1+${texNombre(coeffG - 1)}$. <br>
           Le taux d'évolution global est donc : $${miseEnEvidence('+')} ${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$.`
 
-        this.distracteurs = [`$${texNombre(100 * ((1 + a / 100) * (1 - b / 100)))}\\,\\%$`, `$${texNombre((coeffG) * 100, 2)}\\,\\%$`, `$${texNombre(a + b, 4)}\\,\\%$`]
+        this.distracteurs = [
+          `$${texNombre(100 * ((1 + a / 100) * (1 - b / 100)))}\\,\\%$`,
+          `$${texNombre(coeffG * 100, 2)}\\,\\%$`,
+          `$${texNombre(a + b, 4)}\\,\\%$`,
+        ]
 
         break
-      case 'c':// diminue puis diminue
+      case 'c': // diminue puis diminue
         a = randint(1, 9) * 10
         b = randint(1, 14) * 5
         coeffG = (1 - a / 100) * (1 - b / 100)
-        listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 - a / 100) * (1 - b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
+        listeCalculs = [
+          `$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 - a / 100) * (1 - b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`,
+        ]
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>
@@ -110,18 +129,24 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
            $1-${texNombre(1 - coeffG)}$. <br>
           Le taux d'évolution global est donc : $${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$.`
 
-        this.distracteurs = [`$${texNombre(-100 * ((1 + a / 100) * (1 - b / 100)))}\\,\\%$`, `$${texNombre((coeffG) * 100, 2)}\\,\\%$`, `$${texNombre(-a - b, 4)}\\,\\%$`]
+        this.distracteurs = [
+          `$${texNombre(-100 * ((1 + a / 100) * (1 - b / 100)))}\\,\\%$`,
+          `$${texNombre(coeffG * 100, 2)}\\,\\%$`,
+          `$${texNombre(-a - b, 4)}\\,\\%$`,
+        ]
 
         break
-      case 'd':// diminue puis augmente
+      case 'd': // diminue puis augmente
       default:
         a = randint(1, 9) * 10
         b = randint(1, 4) * 5
         coeffG = (1 - a / 100) * (1 + b / 100)
-        listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 - a / 100) * (1 + b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
-        `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`]
+        listeCalculs = [
+          `$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 - a / 100) * (1 + b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
+          `$\\bullet$ $${texNombre(a / 100)}\\times ${texNombre(b / 100)}=${texNombre((a / 100) * (b / 100))}$${sp(4)}`,
+        ]
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>
@@ -138,11 +163,17 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
           this.correction += ` $1-${texNombre(1 - coeffG)}$. <br>
           Le taux d'évolution global est donc : $${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$.`
         }
-        this.distracteurs = [`$${texNombre(-100 * ((1 + a / 100) * (1 - b / 100)))}\\,\\%$`, `$${texNombre((coeffG) * 100, 2)}\\,\\%$`, `$${texNombre(-a + b, 4)}\\,\\%$`]
+        this.distracteurs = [
+          `$${texNombre(-100 * ((1 + a / 100) * (1 - b / 100)))}\\,\\%$`,
+          `$${texNombre(coeffG * 100, 2)}\\,\\%$`,
+          `$${texNombre(-a + b, 4)}\\,\\%$`,
+        ]
 
         break
     }
-    this.reponse = this.versionQcm ? `$${texNombre((coeffG - 1) * 100, 2)}\\,\\%$` : `${texNombre((coeffG - 1) * 100, 2)}`
+    this.reponse = this.versionQcm
+      ? `$${texNombre((coeffG - 1) * 100, 2)}\\,\\%$`
+      : `${texNombre((coeffG - 1) * 100, 2)}`
 
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots \\%$'

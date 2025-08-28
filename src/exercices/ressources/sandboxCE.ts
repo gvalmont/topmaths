@@ -2,19 +2,24 @@ import './styleSandbox.scss'
 import { MathfieldElement, type Expression } from 'mathlive'
 import { ComputeEngine, type BoxedExpression } from '@cortex-js/compute-engine'
 
-export type FOrmatValue = 'litteral' | 'numerique' | 'fonction' | 'liste' | 'fraction'
+export type FOrmatValue =
+  | 'litteral'
+  | 'numerique'
+  | 'fonction'
+  | 'liste'
+  | 'fraction'
 
 interface ILitteralValues {
-  developper?: boolean,
-  simplifier?: boolean,
-  ordonner?: boolean,
-  deriver?: boolean,
+  developper?: boolean
+  simplifier?: boolean
+  ordonner?: boolean
+  deriver?: boolean
   compiler?: boolean
 }
 
 interface IFractionValues {
-  irreductible: boolean,
-  forcerdecimalenrationnel: boolean,
+  irreductible: boolean
+  forcerdecimalenrationnel: boolean
   fractionplussimple: boolean
 }
 
@@ -24,27 +29,38 @@ interface INumeriqueValues {
 }
 
 interface IListeValues {
-  ordonnee: boolean,
-  croissant: boolean,
+  ordonnee: boolean
+  croissant: boolean
   eliminedoublons: boolean
 }
 
 interface IFonctionValues {
-  deriver: boolean,
-  simplifier: boolean,
+  deriver: boolean
+  simplifier: boolean
 }
 
-const litteralOptionsValues = ['développer', 'simplifier', 'dériver', 'compiler']
-const numeriqueOptionsValue: [string, string, string][] = [['notation', 'scientifique', 'ingénieure']]
-const fractionOptionsValues = ['irréductible', 'forcer décimal en rationnel', 'fraction plus simple']
+const litteralOptionsValues = [
+  'développer',
+  'simplifier',
+  'dériver',
+  'compiler',
+]
+const numeriqueOptionsValue: [string, string, string][] = [
+  ['notation', 'scientifique', 'ingénieure'],
+]
+const fractionOptionsValues = [
+  'irréductible',
+  'forcer décimal en rationnel',
+  'fraction plus simple',
+]
 const listeOptionsValues = ['ordonnée', 'croissant', 'élimine doublons']
 const fonctionOptionsValues = ['simplifier', 'dériver']
 
 interface IOptionFormat {
-  litteral?: ILitteralValues,
-  fraction?: IFractionValues,
-  fonction?: IFonctionValues,
-  liste?: IListeValues,
+  litteral?: ILitteralValues
+  fraction?: IFractionValues
+  fonction?: IFonctionValues
+  liste?: IListeValues
   numerique?: INumeriqueValues
 }
 
@@ -68,9 +84,10 @@ ce.jsonSerializationOptions = {
     metadata: ["latex"]
 }
 */
-function cleanDivTexContent (parent: HTMLDivElement) {
+function cleanDivTexContent(parent: HTMLDivElement) {
   for (const child of Array.from(parent.children)) {
-    if (child.children.length > 0 && child instanceof HTMLDivElement) cleanDivTexContent(child)
+    if (child.children.length > 0 && child instanceof HTMLDivElement)
+      cleanDivTexContent(child)
     else {
       if (child.textContent !== '') {
         child.textContent = ''
@@ -90,19 +107,25 @@ function cleanDivTexContent (parent: HTMLDivElement) {
  * @param optionsFormatSaisie
  * @param optionsFormatReponse
  */
-function compare (saisie: string, reponse: string, {
-  saisieCanonical,
-  reponseCanonical,
-  isEqual,
-  formatSelector, optionsFormatSaisie, optionsFormatReponse
-}: {
-  saisieCanonical: boolean,
-  reponseCanonical: boolean,
-  isEqual: boolean,
-  formatSelector: FOrmatValue,
-  optionsFormatSaisie: IOptionFormat,
-  optionsFormatReponse: IOptionFormat
-}): boolean {
+function compare(
+  saisie: string,
+  reponse: string,
+  {
+    saisieCanonical,
+    reponseCanonical,
+    isEqual,
+    formatSelector,
+    optionsFormatSaisie,
+    optionsFormatReponse,
+  }: {
+    saisieCanonical: boolean
+    reponseCanonical: boolean
+    isEqual: boolean
+    formatSelector: FOrmatValue
+    optionsFormatSaisie: IOptionFormat
+    optionsFormatReponse: IOptionFormat
+  },
+): boolean {
   if (formatSelector === 'fraction') {
     saisieCanonical = false
     reponseCanonical = false
@@ -136,7 +159,9 @@ function compare (saisie: string, reponse: string, {
         }
         // Pour l'instant l'option n'est pas encore disponible dans Compute-engine, donc elle est retiré en attendant des choix possibles.
         if (optionsFormatSaisie.litteral.deriver) {
-          alert('Attention ! la dérivée n\'est fonctionnelle que pour les polynômes.')
+          alert(
+            "Attention ! la dérivée n'est fonctionnelle que pour les polynômes.",
+          )
           saisieParsed = ce.box(['D', saisieParsed, 'x']).evaluate()
         }
         if (optionsFormatSaisie.litteral.compiler) {
@@ -145,16 +170,19 @@ function compare (saisie: string, reponse: string, {
       }
       saisieFinaleLatex = saisieParsed.latex
       if (optionsFormatReponse.litteral) {
-        if (optionsFormatReponse.litteral.developper) { // @todo comprendre comment ça fonctionne
+        if (optionsFormatReponse.litteral.developper) {
+          // @todo comprendre comment ça fonctionne
           reponseParsed = ce.box(['Expand', reponseParsed]).evaluate()
         }
         if (optionsFormatReponse.litteral.simplifier) {
           reponseParsed = reponseParsed.simplify()
         }
-        if (optionsFormatReponse.litteral.deriver) { // @todo comprendre comment ça fonctionne
+        if (optionsFormatReponse.litteral.deriver) {
+          // @todo comprendre comment ça fonctionne
           reponseParsed = ce.box(['Derivative', reponseParsed, 'x']).evaluate()
         }
-        if (optionsFormatReponse.litteral.compiler) { // @todo comprendre comment ça fonctionne
+        if (optionsFormatReponse.litteral.compiler) {
+          // @todo comprendre comment ça fonctionne
           reponseCompilee = reponseParsed.compile()
         }
       }
@@ -192,8 +220,8 @@ function compare (saisie: string, reponse: string, {
       reponseParsed = ce.parse(reponse, { canonical: reponseCanonical })
       reponseFinaleLatex = reponseParsed.latex
       break
-    case 'liste':// @todo à implémenter
-    case 'fonction':// @todo à implémenter
+    case 'liste': // @todo à implémenter
+    case 'fonction': // @todo à implémenter
     case 'fraction':
     default:
       if (optionsFormatSaisie.fraction?.forcerdecimalenrationnel) {
@@ -221,7 +249,9 @@ function compare (saisie: string, reponse: string, {
         result = saisieParsed.isEqual(reponseParsed)
         result = result && num1 < num2
       } else {
-        console.warn(`On a un problème avec l'un des deux numérateurs : numSaisie = ${num1} et numReponse = ${num2} `)
+        console.warn(
+          `On a un problème avec l'un des deux numérateurs : numSaisie = ${num1} et numReponse = ${num2} `,
+        )
         result = false
       }
     } else if (optionsFormatSaisie.fraction?.irreductible) {
@@ -229,11 +259,14 @@ function compare (saisie: string, reponse: string, {
       const denSaisie = Number(saisieParsed.op2.numericValue)
       const irreductible = gcd(numSaisie, denSaisie) === 1
       result = irreductible && saisieParsed.isEqual(reponseParsed)
-    } else { // ni irreductible, ni plus simple,
+    } else {
+      // ni irreductible, ni plus simple,
       result = saisieParsed.isEqual(reponseParsed)
     }
   } else {
-    result = isEqual ? saisieParsed.isEqual(reponseParsed) : saisieParsed.isSame(reponseParsed)
+    result = isEqual
+      ? saisieParsed.isEqual(reponseParsed)
+      : saisieParsed.isSame(reponseParsed)
   }
   // On connait la réponse, on va maintenant rendre compte dans les différents éléments de feedback.
   const resultatSaisie = document.querySelector('#resultatSaisie')
@@ -243,16 +276,28 @@ function compare (saisie: string, reponse: string, {
     resultatReponse.textContent = `${reponseFinaleLatex}`
   }
 
-  if (feedback != null) { // c'est pour pas que ts râle feedback est dans la page html.
+  if (feedback != null) {
+    // c'est pour pas que ts râle feedback est dans la page html.
     const p1 = document.querySelector('div#conclusion')
-    if (p1) p1.appendChild(document.createTextNode(`Comparaison de la saisie élève [${saisieParsed.json}] soit ${saisieParsed.latex} et de la réponse [${reponseParsed.json}] soit ${reponseParsed.latex} en utilisant la méthode ${isEqual ? 'isEqual()' : 'isSame()'} avec le processus de traitement pour le format ${formatSelector} : ${String(result)}`))
+    if (p1)
+      p1.appendChild(
+        document.createTextNode(
+          `Comparaison de la saisie élève [${saisieParsed.json}] soit ${saisieParsed.latex} et de la réponse [${reponseParsed.json}] soit ${reponseParsed.latex} en utilisant la méthode ${isEqual ? 'isEqual()' : 'isSame()'} avec le processus de traitement pour le format ${formatSelector} : ${String(result)}`,
+        ),
+      )
     if (saisieCompilee) {
       const div1 = document.querySelector('div#saisieCompile')
-      if (div1) div1.appendChild(document.createTextNode(`saisie compilée : ${saisieCompilee}`))
+      if (div1)
+        div1.appendChild(
+          document.createTextNode(`saisie compilée : ${saisieCompilee}`),
+        )
     }
     if (reponseCompilee) {
       const div2 = document.querySelector('div#reponseCompile')
-      if (div2) div2.appendChild(document.createTextNode(`réponse compilée : ${reponseCompilee}`))
+      if (div2)
+        div2.appendChild(
+          document.createTextNode(`réponse compilée : ${reponseCompilee}`),
+        )
     }
   }
   // alert(`Résultat de la comparaison = ${result}`)
@@ -269,7 +314,7 @@ class ComputeEngineSandbox {
   titre: string
   container: HTMLDivElement
 
-  constructor () {
+  constructor() {
     this.typeExercice = 'html'
     this.titre = 'Compute-engine sandbox'
     this.container = document.createElement('div')
@@ -372,18 +417,28 @@ class ComputeEngineSandbox {
     </div>
 `
     const inputSep = this.container.querySelector<HTMLFormElement>('#sep')
-    const formSaisieCanonical = this.container.querySelector<HTMLFormElement>('#canonicalSaisie')
-    const formReponseCanonical = this.container.querySelector<HTMLFormElement>('#canonicalReponse')
-    const optionsSaisie = this.container.querySelector<HTMLTableCellElement>('#optionsSaisie')
-    const optionsReponse = this.container.querySelector<HTMLTableCellElement>('#optionsReponse')
-    const formIsEqual = this.container.querySelector<HTMLFormElement>('#isEqual')
+    const formSaisieCanonical =
+      this.container.querySelector<HTMLFormElement>('#canonicalSaisie')
+    const formReponseCanonical =
+      this.container.querySelector<HTMLFormElement>('#canonicalReponse')
+    const optionsSaisie =
+      this.container.querySelector<HTMLTableCellElement>('#optionsSaisie')
+    const optionsReponse =
+      this.container.querySelector<HTMLTableCellElement>('#optionsReponse')
+    const formIsEqual =
+      this.container.querySelector<HTMLFormElement>('#isEqual')
     const radioSaisieCanonical = formSaisieCanonical?.querySelectorAll('input')
-    const radioReponseCanonical = formReponseCanonical?.querySelectorAll('input')
+    const radioReponseCanonical =
+      formReponseCanonical?.querySelectorAll('input')
     const radioIsEqual = formIsEqual?.querySelectorAll('input')
-    const cellSaisie = this.container.querySelector<HTMLTableCellElement>('#saisie')
-    const cellReponse = this.container.querySelector<HTMLTableCellElement>('#reponse')
-    const cellResultat = this.container.querySelector<HTMLTableCellElement>('#resultat')
-    const formatSelector = this.container.querySelector<HTMLSelectElement>('#format')
+    const cellSaisie =
+      this.container.querySelector<HTMLTableCellElement>('#saisie')
+    const cellReponse =
+      this.container.querySelector<HTMLTableCellElement>('#reponse')
+    const cellResultat =
+      this.container.querySelector<HTMLTableCellElement>('#resultat')
+    const formatSelector =
+      this.container.querySelector<HTMLSelectElement>('#format')
     // les options pour chaque format (à implémenter)
 
     // initialisation des variables
@@ -414,7 +469,7 @@ class ComputeEngineSandbox {
     /**
      * Une fonction pour nettoyer les zones d'options
      */
-    function cleanOptions () {
+    function cleanOptions() {
       if (optionsSaisie && formOptionsSaisie) {
         for (const child of Array.from(formOptionsSaisie.children)) {
           formOptionsSaisie.removeChild(child)
@@ -439,7 +494,7 @@ class ComputeEngineSandbox {
      * @param value
      * @param checked
      */
-    function addCheckbox (label: string, value: string, checked: boolean) {
+    function addCheckbox(label: string, value: string, checked: boolean) {
       const lab1 = document.createElement('label')
       const textContent = document.createTextNode(label)
       const input1 = document.createElement('input')
@@ -453,7 +508,7 @@ class ComputeEngineSandbox {
       return lab1
     }
 
-    function addRadios (label: [string, string, string], checked: boolean) {
+    function addRadios(label: [string, string, string], checked: boolean) {
       const lab1 = document.createElement('label')
       const textContent = document.createTextNode(label[0] + ' : ')
       const input1 = document.createElement('input')
@@ -483,14 +538,31 @@ class ComputeEngineSandbox {
      * @param {boolean} onlySaisie si true, il n'y aura pas de cases à cocher sur la réponse
      * @param {strings} labels les différentes options du format.
      */
-    function renseigneOptions (onlySaisie: boolean, ...labels: string[] | [string, string, string][]) {
+    function renseigneOptions(
+      onlySaisie: boolean,
+      ...labels: string[] | [string, string, string][]
+    ) {
       cleanOptions()
       for (const label of labels) {
-        const element = Array.isArray(label) ? addRadios(label, false) : addCheckbox(label, label.replaceAll('é', 'e').replaceAll(/\s/g, ''), false)
+        const element = Array.isArray(label)
+          ? addRadios(label, false)
+          : addCheckbox(
+              label,
+              label.replaceAll('é', 'e').replaceAll(/\s/g, ''),
+              false,
+            )
         formOptionsSaisie.appendChild(element)
         formOptionsSaisie.appendChild(document.createElement('br'))
         if (!onlySaisie) {
-          formOptionsReponse.appendChild(Array.isArray(label) ? addRadios(label, false) : addCheckbox(label, label.replaceAll('é', 'e').replaceAll(/\s/g, ''), false))
+          formOptionsReponse.appendChild(
+            Array.isArray(label)
+              ? addRadios(label, false)
+              : addCheckbox(
+                  label,
+                  label.replaceAll('é', 'e').replaceAll(/\s/g, ''),
+                  false,
+                ),
+          )
           formOptionsReponse.appendChild(document.createElement('br'))
         }
       }
@@ -500,7 +572,7 @@ class ComputeEngineSandbox {
      * met à jour les options du format (appelé à chaque changement de format et à l'init avec la valeur 'littéral')
      * @param format
      */
-    function updateOptions (format: string) {
+    function updateOptions(format: string) {
       if (format) {
         if (optionsSaisie && optionsReponse) {
           switch (format) {
@@ -521,7 +593,9 @@ class ComputeEngineSandbox {
               break
             default:
               cleanOptions()
-              throw Error(`Le sélecteur de format a rencontré une valeur imprévue : ${formatSelector?.value}`)
+              throw Error(
+                `Le sélecteur de format a rencontré une valeur imprévue : ${formatSelector?.value}`,
+              )
           }
           optionsSaisie.appendChild(formOptionsSaisie)
           optionsReponse.appendChild(formOptionsReponse)
@@ -530,22 +604,34 @@ class ComputeEngineSandbox {
     }
 
     // Mise en place des listeners sur les différents éléments qui provoque un changement
-    if (formatSelector) { // sélecteur de format
+    if (formatSelector) {
+      // sélecteur de format
       formatSelector.addEventListener('change', () => {
         if (formatSelector?.value === 'fraction') {
-          alert('En format "fraction", le test se fait toujours avec isEqual, et l\'option canonical à false.\nSi l\'option "forcer décimal en rationnel" est active, les nombres décimaux sont convertis en fractions décimales.\nLes options permettent d\'affiner le test.')
+          alert(
+            'En format "fraction", le test se fait toujours avec isEqual, et l\'option canonical à false.\nSi l\'option "forcer décimal en rationnel" est active, les nombres décimaux sont convertis en fractions décimales.\nLes options permettent d\'affiner le test.',
+          )
           if (formReponseCanonical) {
-            const inputs = Array.from(formReponseCanonical.querySelectorAll('input'))
+            const inputs = Array.from(
+              formReponseCanonical.querySelectorAll('input'),
+            )
             if (inputs[1]) inputs[1].checked = true
           }
         }
         updateOptions(formatSelector.value)
-      }
-      )
+      })
     }
 
     if (inputSep) {
-      const jsonChange = ({ from, to, json }: { from: string, to: string, json: Expression | string }) => {
+      const jsonChange = ({
+        from,
+        to,
+        json,
+      }: {
+        from: string
+        to: string
+        json: Expression | string
+      }) => {
         if (Array.isArray(json)) {
           for (const element of json) {
             jsonChange({ from, to, json: element })
@@ -580,33 +666,50 @@ class ComputeEngineSandbox {
       })
     }
 
-    if (formSaisieCanonical) { // radios forme canonique saisie
+    if (formSaisieCanonical) {
+      // radios forme canonique saisie
       formSaisieCanonical.addEventListener('change', () => {
         if (formatSelector?.value === 'fraction') {
-          alert('En format "fraction", le test se fait avec isEqual, l\'option canonical à false.\nLes options permettent de configurer plus finement le test.\nDe plus, si l\'option "forcer décimal en rationnel" est active, les nombres décimaux sont convertis en fraction décimale avant le test.')
-          const inputs = Array.from(formSaisieCanonical.querySelectorAll('input'))
+          alert(
+            'En format "fraction", le test se fait avec isEqual, l\'option canonical à false.\nLes options permettent de configurer plus finement le test.\nDe plus, si l\'option "forcer décimal en rationnel" est active, les nombres décimaux sont convertis en fraction décimale avant le test.',
+          )
+          const inputs = Array.from(
+            formSaisieCanonical.querySelectorAll('input'),
+          )
           if (inputs[1]) inputs[1].checked = true
           return
         }
-        if (radioSaisieCanonical) saisieCanonical = Boolean(radioSaisieCanonical[0]?.checked)
+        if (radioSaisieCanonical)
+          saisieCanonical = Boolean(radioSaisieCanonical[0]?.checked)
         updateResultat()
       })
     }
-    if (formReponseCanonical) { // radios forme canonique réponse
+    if (formReponseCanonical) {
+      // radios forme canonique réponse
       formReponseCanonical.addEventListener('change', () => {
         if (formatSelector?.value === 'fraction') {
-          alert('En format "fraction", l\'option canonical reste à false car sinon, cela provoque la réduction de la fraction.')
-          const inputs = Array.from(formReponseCanonical.querySelectorAll('input'))
+          alert(
+            'En format "fraction", l\'option canonical reste à false car sinon, cela provoque la réduction de la fraction.',
+          )
+          const inputs = Array.from(
+            formReponseCanonical.querySelectorAll('input'),
+          )
           if (inputs[1]) inputs[1].checked = true
           return
         }
-        if (radioReponseCanonical) reponseCanonical = Boolean(radioReponseCanonical[0]?.checked)
+        if (radioReponseCanonical)
+          reponseCanonical = Boolean(radioReponseCanonical[0]?.checked)
         updateResultat()
       })
     }
-    if (formIsEqual) { // radios isEqual/isSame
+    if (formIsEqual) {
+      // radios isEqual/isSame
       formIsEqual.addEventListener('change', () => {
-        if (radioIsEqual && formatSelector && formatSelector.value === 'fraction') {
+        if (
+          radioIsEqual &&
+          formatSelector &&
+          formatSelector.value === 'fraction'
+        ) {
           const optionsSaisie = document.querySelector('#optionsSaisie')
           if (optionsSaisie) {
             const formSaisie = optionsSaisie.firstChild as HTMLFormElement
@@ -614,7 +717,8 @@ class ComputeEngineSandbox {
             // const irreductible = (elements[0] as HTMLInputElement).checked
             const accepterDecimal = (elements[1] as HTMLInputElement).checked
             // const plusSimple = (elements[2] as HTMLInputElement).checked
-            if (accepterDecimal) { // On accepte une valeur décimale même si irreductible ou plusSimple sont cochés... c'est pour faire des tests.
+            if (accepterDecimal) {
+              // On accepte une valeur décimale même si irreductible ou plusSimple sont cochés... c'est pour faire des tests.
               // En théorie, si on veut une fraction irréductible, on ne tolérera pas les décimaux.
               isEqual = true
               if (radioIsEqual[0] && radioIsEqual[1]) {
@@ -633,12 +737,14 @@ class ComputeEngineSandbox {
         updateResultat()
       })
     }
-    if (saisie) { // champ de saisie Mathlive
+    if (saisie) {
+      // champ de saisie Mathlive
       saisie.addEventListener('change', () => {
         updateResultat()
       })
     }
-    if (reponse) { // champ de réponse Mathlive
+    if (reponse) {
+      // champ de réponse Mathlive
       reponse.addEventListener('change', () => {
         updateResultat()
       })
@@ -647,20 +753,38 @@ class ComputeEngineSandbox {
     /**
      * La fonction qui met à jour le résultat de la comparaison...
      */
-    function updateResultat () {
+    function updateResultat() {
       optionsFormatSaisie = {}
       optionsFormatReponse = {}
       let property: FOrmatValue
       if (formatSelector) {
         const format = formatSelector.value
-        if (['littéral', 'fraction', 'fonction', 'numérique', 'liste'].includes(format)) {
-          property = format.replaceAll('é', 'e').replaceAll(/\s/g, '') as FOrmatValue
-          const propsSaisie = (Array.from(formOptionsSaisie.elements) as HTMLInputElement[]).filter(elt => elt.checked).map(elt => {
-            return elt.name === 'notation' ? [elt.name, elt.value] : [elt.name, true]
-          })
-          const propsReponse = (Array.from(formOptionsReponse.elements) as HTMLInputElement[]).filter(elt => elt.checked).map(elt => {
-            return elt.name === 'notation' ? [elt.name, elt.value] : [elt.name, true]
-          })
+        if (
+          ['littéral', 'fraction', 'fonction', 'numérique', 'liste'].includes(
+            format,
+          )
+        ) {
+          property = format
+            .replaceAll('é', 'e')
+            .replaceAll(/\s/g, '') as FOrmatValue
+          const propsSaisie = (
+            Array.from(formOptionsSaisie.elements) as HTMLInputElement[]
+          )
+            .filter((elt) => elt.checked)
+            .map((elt) => {
+              return elt.name === 'notation'
+                ? [elt.name, elt.value]
+                : [elt.name, true]
+            })
+          const propsReponse = (
+            Array.from(formOptionsReponse.elements) as HTMLInputElement[]
+          )
+            .filter((elt) => elt.checked)
+            .map((elt) => {
+              return elt.name === 'notation'
+                ? [elt.name, elt.value]
+                : [elt.name, true]
+            })
           const objetSaisie = [property, Object.fromEntries(propsSaisie)]
           const objetReponse = [property, Object.fromEntries(propsReponse)]
           optionsFormatSaisie = Object.fromEntries([objetSaisie])
@@ -672,7 +796,7 @@ class ComputeEngineSandbox {
               isEqual,
               formatSelector: property,
               optionsFormatSaisie,
-              optionsFormatReponse
+              optionsFormatReponse,
             })
             cellResultat.innerText = String(resultat)
           }
@@ -687,7 +811,7 @@ class ComputeEngineSandbox {
     updateOptions('littéral') // à la mise en route, on est en format 'littéral'
   }
 
-  get html () {
+  get html() {
     return this.container
   }
 }

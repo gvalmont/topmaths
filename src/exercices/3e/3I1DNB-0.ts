@@ -4,9 +4,16 @@ import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { rotation, translation } from '../../lib/2d/transformations'
 import { createList } from '../../lib/format/lists'
-import { centrage, deuxColonnesResp, troisColonnes } from '../../lib/format/miseEnPage'
+import {
+  centrage,
+  deuxColonnesResp,
+  troisColonnes,
+} from '../../lib/format/miseEnPage'
 import { choice } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras, texteItalique } from '../../lib/outils/embellissements'
+import {
+  texteEnCouleurEtGras,
+  texteItalique,
+} from '../../lib/outils/embellissements'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -17,7 +24,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = '972f6'
 export const refs = {
   'fr-fr': ['3I1DNB-0', '3Z1DNB-16'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const titre = 'Scratch'
 export const dateDePublication = '7/12/2024'
@@ -28,17 +35,27 @@ export const dateDePublication = '7/12/2024'
  * Il s'agit d'un exercice de type Brevet Aléatoirisé
  */
 export default class Exercice3I1DNB0 extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
 
-    this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Amérique du sud 2024.<br>')
+    this.introduction = texteItalique(
+      "D'après l'exercice 5 du brevet Amérique du sud 2024.<br>",
+    )
 
     this.versionAleatoire(0)
   }
 
-  private appliquerLesValeurs (figure: string, av: number, rep: number, av2: number, rep2: number, angle: number, sens: 'direct' | 'indirect') {
+  private appliquerLesValeurs(
+    figure: string,
+    av: number,
+    rep: number,
+    av2: number,
+    rep2: number,
+    angle: number,
+    sens: 'direct' | 'indirect',
+  ) {
     // enonce
     const ppcm = 15
     const sc = 0.5
@@ -48,8 +65,9 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
     const droit = sens === 'direct'
     const s = droit ? -1 : 1
     switch (figure) {
-      case 'rectangle': {
-        texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+      case 'rectangle':
+        {
+          texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
         \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
@@ -61,7 +79,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       }
          \\blockpen{relever le stylo}
          \\end{scratch}`
-        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+          texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {
@@ -69,15 +87,16 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
            \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{${angle}} degrés}
         }
          \\end{scratch}\n`
-        const depart = point(0, 0)
-        const p1 = translation(depart, vecteur(av / 5, 0))
-        const p2 = rotation(translation(p1, vecteur(av / 10, 0)), p1, s * 90)
-        const p3 = translation(p2, vecteur(-av / 5, 0))
-        poly = polygone([depart, p1, p2, p3])
-      }
+          const depart = point(0, 0)
+          const p1 = translation(depart, vecteur(av / 5, 0))
+          const p2 = rotation(translation(p1, vecteur(av / 10, 0)), p1, s * 90)
+          const p3 = translation(p2, vecteur(-av / 5, 0))
+          poly = polygone([depart, p1, p2, p3])
+        }
         break
-      case 'carré': {
-        texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+      case 'carré':
+        {
+          texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
         \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
@@ -89,7 +108,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       }
          \\blockpen{relever le stylo}
          \\end{scratch}\n`
-        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+          texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {
@@ -97,15 +116,16 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
            \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{${angle}} degrés}
         }
          \\end{scratch}\n`
-        const depart = point(0, 0)
-        const p1 = translation(depart, vecteur(av / 5, 0))
-        const p2 = rotation(translation(p1, vecteur(av / 5, 0)), p1, s * 90)
-        const p3 = translation(p2, vecteur(-av / 5, 0))
-        poly = polygone([depart, p1, p2, p3])
-      }
+          const depart = point(0, 0)
+          const p1 = translation(depart, vecteur(av / 5, 0))
+          const p2 = rotation(translation(p1, vecteur(av / 5, 0)), p1, s * 90)
+          const p3 = translation(p2, vecteur(-av / 5, 0))
+          poly = polygone([depart, p1, p2, p3])
+        }
         break
-      default:{
-        texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
+      default:
+        {
+          texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
         \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
@@ -117,7 +137,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       }
          \\blockpen{relever le stylo}
          \\end{scratch}\n`
-        texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+          texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {
@@ -125,12 +145,12 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
            \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{${angle}} degrés}
         }
          \\end{scratch}\n`
-        const depart = point(0, 0)
-        const p1 = translation(depart, vecteur(av / 5, 0))
-        const p2 = rotation(translation(p1, vecteur(av / 5, 0)), p1, s * 60)
-        const p3 = translation(p2, vecteur(-av / 5, 0))
-        poly = polygone([depart, p1, p2, p3])
-      }
+          const depart = point(0, 0)
+          const p1 = translation(depart, vecteur(av / 5, 0))
+          const p2 = rotation(translation(p1, vecteur(av / 5, 0)), p1, s * 60)
+          const p3 = translation(p2, vecteur(-av / 5, 0))
+          poly = polygone([depart, p1, p2, p3])
+        }
         break
     }
     const info = texteParPosition('Point et', -5, 1)
@@ -140,69 +160,97 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
     const fleche = segment(point(-3, 0), point(-0.5, 0))
     fleche.styleExtremites = '->'
     const objets = [poly, fleche, info, info2, info3]
-    const figure1 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets)), objets)
+    const figure1 = mathalea2d(
+      Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets)),
+      objets,
+    )
     // 3 figures
     const objets2 = [poly]
     for (let i = 1; i < rep; i++) {
       objets2.push(rotation(poly, poly.listePoints[0], s * angle * i))
     }
-    const fig3 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets2)), objets2)
-    const angle2 = this.sup ? angle - 10 : angle === 50 ? 60 : angle === 60 ? 70 : 60
+    const fig3 = mathalea2d(
+      Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets2)),
+      objets2,
+    )
+    const angle2 = this.sup
+      ? angle - 10
+      : angle === 50
+        ? 60
+        : angle === 60
+          ? 70
+          : 60
 
     const objets3 = [poly]
     for (let i = 1; i < (figure === 'losange' ? 6 : 8); i++) {
       objets3.push(rotation(poly, poly.listePoints[0], s * angle * i))
     }
-    const fig2 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets3)), objets3)
+    const fig2 = mathalea2d(
+      Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets3)),
+      objets3,
+    )
 
     const objets4 = [poly]
     for (let i = 1; i < rep; i++) {
       objets4.push(rotation(poly, poly.listePoints[0], s * angle2 * i))
     }
-    const fig1 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets4)), objets4)
+    const fig1 = mathalea2d(
+      Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets4)),
+      objets4,
+    )
     let figs = [fig1, fig2, fig3]
-    const permute = 3// randint(0, 2)
+    const permute = 3 // randint(0, 2)
     if (!this.sup) {
       figs = figs.map((_, i, arr) => arr[(i - permute + 3) % 3])
     }
 
     const objets5 = [poly]
     for (let i = 1; i < rep2; i++) {
-      objets5.push(translation(poly, vecteur(i * av2 / 5, 0)))
+      objets5.push(translation(poly, vecteur((i * av2) / 5, 0)))
     }
-    const fig4 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets5)), objets5)
+    const fig4 = mathalea2d(
+      Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets5)),
+      objets5,
+    )
     let enonce = `Dans cet exercice, aucune justification n'est attendue pour les réponses apportées aux questions 1 et 2.<br>
 À l'aide d'un logiciel de programmation, on définit un bloc ${premiereLettreEnMajuscule(figure)} pour construire un ${figure}.<br>
-${deuxColonnesResp(`${centrage(texteEnCouleurEtGras(`Bloc «${figure}»`, 'black'))}
-${scratchblock(texteScratch1)}`, `${centrage(texteEnCouleurEtGras(`${premiereLettreEnMajuscule(figure)} obtenu`, 'black'))}
-${figure1}`, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', eleId: '' })}
+${deuxColonnesResp(
+  `${centrage(texteEnCouleurEtGras(`Bloc «${figure}»`, 'black'))}
+${scratchblock(texteScratch1)}`,
+  `${centrage(texteEnCouleurEtGras(`${premiereLettreEnMajuscule(figure)} obtenu`, 'black'))}
+${figure1}`,
+  { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', eleId: '' },
+)}
 `
-    const listeFigs = figs.map((el, k) => `${centrage(`figure ${k + 1}`)}${el}`) as [string, string, string]
+    const listeFigs = figs.map(
+      (el, k) => `${centrage(`figure ${k + 1}`)}${el}`,
+    ) as [string, string, string]
     enonce += createList({
       items: [
         `Dans le bloc «${figure}», par quelles valeurs faut-il remplacer $a$ et $b$ pour obtenir le ${figure} ci-dessus ?`,
-    `On définit ensuite un nouveau bloc nommé  «Motif A» :<br>
+        `On définit ensuite un nouveau bloc nommé  «Motif A» :<br>
     ${scratchblock(texteScratch2)}<br>
     Parmi les figures ci-dessous, laquelle est obtenue en utilisant le bloc «Motif A» ?<br>
     ${troisColonnes(...listeFigs, 200, 200)}`,
-    `On définit un nouveau bloc nommé «Motif B» :<br>
+        `On définit un nouveau bloc nommé «Motif B» :<br>
     En l'exécutant on obtient la figure ci-dessous :<br>
     ${centrage(fig4)}
-    Écrire un script du bloc «Motif B».`
+    Écrire un script du bloc «Motif B».`,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
 
     // correction
     const correction1 = createList({
       items: [
-        `${figure === 'rectangle'
-         ? `Le ${figure} ci-dessus, a une largeur qui est la moitié de sa longueur, il faut donc remplacer $a$ par $${av / 2}$.<br>`
-         : `La figure ci-dessus est un ${figure} dont les côtés sont de même mesure, il faut donc remplacer $a$ par $${av}$.<br>`
-         }
+        `${
+          figure === 'rectangle'
+            ? `Le ${figure} ci-dessus, a une largeur qui est la moitié de sa longueur, il faut donc remplacer $a$ par $${av / 2}$.<br>`
+            : `La figure ci-dessus est un ${figure} dont les côtés sont de même mesure, il faut donc remplacer $a$ par $${av}$.<br>`
+        }
          Il faut remplacer $b$  par $2$ car les instructions de la boucle ne construisent que deux côtés.`,
-        `La figure obtenue en utilisant le bloc «Motif A» est la figure ${this.sup ? 3 : (2 + permute) % 3 + 1}.<br>
-        En effet, la figure ${this.sup ? 1 : (0 + permute) % 3 + 1} est obtenue en utilisant un angle de $${angle2}^{\\circ}$ et la figure ${this.sup ? 2 : (1 + permute) % 3 + 1} comporte ${figure === 'rectangle' ? 8 : 6} ${figure}s.`,
+        `La figure obtenue en utilisant le bloc «Motif A» est la figure ${this.sup ? 3 : ((2 + permute) % 3) + 1}.<br>
+        En effet, la figure ${this.sup ? 1 : ((0 + permute) % 3) + 1} est obtenue en utilisant un angle de $${angle2}^{\\circ}$ et la figure ${this.sup ? 2 : ((1 + permute) % 3) + 1} comporte ${figure === 'rectangle' ? 8 : 6} ${figure}s.`,
         `Voici un script du bloc «Motif B» :<br>
         ${scratchblock(`\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
         \\initmoreblocks{définir \\namemoreblocks{Motif B}}
@@ -212,9 +260,9 @@ ${figure1}`, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', eleId
            \\blockmoreblocks{${figure}}
            \\blockmove{avancer de \\ovalnum{${av2}} pas}
         }
-         \\end{scratch}\n`)}`
+         \\end{scratch}\n`)}`,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
     this.enonce = enonce
     this.correction = correction1
@@ -224,7 +272,7 @@ ${figure1}`, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', eleId
     this.appliquerLesValeurs('losange', 20, 3, 40, 3, 60, 'direct')
   }
 
-  versionAleatoire: (i: number) => void = (i:number) => {
+  versionAleatoire: (i: number) => void = (i: number) => {
     const figure = choice(['carré', 'losange', 'rectangle'])
     const rep2 = choice([3, 4, 5])
     const av = randint(4, 5) * 5

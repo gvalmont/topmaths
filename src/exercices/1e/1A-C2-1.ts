@@ -15,10 +15,10 @@ export const uuid = 'efc17'
 
 export const refs = {
   'fr-fr': ['1A-C2-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC2a extends NombreInverse {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

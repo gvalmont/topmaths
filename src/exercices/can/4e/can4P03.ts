@@ -18,17 +18,17 @@ export const uuid = '709b6'
 
 export const refs = {
   'fr-fr': ['can4P03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class QuatriemeProportionnelle extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 6)
     const b = randint(4, 8, a) * 2
     const c = choice([2, 3, 4, 5])
@@ -38,12 +38,18 @@ export default class QuatriemeProportionnelle extends ExerciceSimple {
         this.question = `Compléter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableau2x2({
-          L0C0: { content: String(b), background: 'lightgray' },
-          L1C0: { content: '' },
-          L0C1: { content: String(a), background: 'lightgray' },
-          L1C1: { content: String(a * c), background: 'lightgray' }
-        }, this.numeroExercice ?? 0, 0, false, '')
+        this.question += tableau2x2(
+          {
+            L0C0: { content: String(b), background: 'lightgray' },
+            L1C0: { content: '' },
+            L0C1: { content: String(a), background: 'lightgray' },
+            L1C1: { content: String(a * c), background: 'lightgray' },
+          },
+          this.numeroExercice ?? 0,
+          0,
+          false,
+          '',
+        )
         this.question += `<br>
         
         `
@@ -57,12 +63,18 @@ export default class QuatriemeProportionnelle extends ExerciceSimple {
         this.question = `Compléter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableau2x2({
-          L0C0: { content: String(a), background: 'lightgray' },
-          L1C1: { content: '' },
-          L1C0: { content: String(b), background: 'lightgray' },
-          L0C1: { content: String(a * c), background: 'lightgray' }
-        }, this.numeroExercice ?? 0, 0, false, '')
+        this.question += tableau2x2(
+          {
+            L0C0: { content: String(a), background: 'lightgray' },
+            L1C1: { content: '' },
+            L1C0: { content: String(b), background: 'lightgray' },
+            L0C1: { content: String(a * c), background: 'lightgray' },
+          },
+          this.numeroExercice ?? 0,
+          0,
+          false,
+          '',
+        )
         this.question += `<br>
         
         `
@@ -76,12 +88,18 @@ export default class QuatriemeProportionnelle extends ExerciceSimple {
         this.question = `Compléter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableau2x2({
-          L1C0: { content: String(b), background: 'lightgray' },
-          L0C0: { content: '' },
-          L1C1: { content: String(a), background: 'lightgray' },
-          L0C1: { content: String(a * c), background: 'lightgray' }
-        }, this.numeroExercice ?? 0, 0, false, '')
+        this.question += tableau2x2(
+          {
+            L1C0: { content: String(b), background: 'lightgray' },
+            L0C0: { content: '' },
+            L1C1: { content: String(a), background: 'lightgray' },
+            L0C1: { content: String(a * c), background: 'lightgray' },
+          },
+          this.numeroExercice ?? 0,
+          0,
+          false,
+          '',
+        )
         this.question += `<br>
         
         `
@@ -95,12 +113,18 @@ export default class QuatriemeProportionnelle extends ExerciceSimple {
         this.question = `Compléter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableau2x2({
-          L0C0: { content: String(b), background: 'lightgray' },
-          L0C1: { content: '' },
-          L1C0: { content: String(a), background: 'lightgray' },
-          L1C1: { content: String(a * c), background: 'lightgray' }
-        }, this.numeroExercice ?? 0, 0, false, '')
+        this.question += tableau2x2(
+          {
+            L0C0: { content: String(b), background: 'lightgray' },
+            L0C1: { content: '' },
+            L1C0: { content: String(a), background: 'lightgray' },
+            L1C1: { content: String(a * c), background: 'lightgray' },
+          },
+          this.numeroExercice ?? 0,
+          0,
+          false,
+          '',
+        )
         this.question += `<br>
         
         `
@@ -111,7 +135,7 @@ export default class QuatriemeProportionnelle extends ExerciceSimple {
          Ainsi, le nombre manquant est donné par : $${b}\\times ${c}=${b * c}$.`)
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

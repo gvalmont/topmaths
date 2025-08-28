@@ -17,18 +17,18 @@ export const uuid = '2e274'
 
 export const refs = {
   'fr-fr': ['can6C03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class AdditionATrou extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(5, 9)
     const b = randint(6, 9)
     const c = randint(1, 5)

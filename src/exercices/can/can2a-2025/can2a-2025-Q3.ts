@@ -1,7 +1,14 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Développer une expression'
@@ -10,7 +17,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f3208'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +25,7 @@ export const refs = {
 
 */
 export default class Developper extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -27,7 +34,7 @@ export default class Developper extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'Forme développée et réduite de  $(x-2)(x+3)$'
       this.correction = `$\\begin{aligned}
@@ -35,10 +42,15 @@ export default class Developper extends ExerciceSimple {
       &=${miseEnEvidence('x^2+x-6')}
       \\end{aligned}$`
       this.correction += '<br>Le terme en $x^2$ vient de $x\\times x=x^2$.'
-      this.correction += '<br>Le terme en $x$ vient de la somme de $3 \\times x$ et de $-2 \\times x$.'
+      this.correction +=
+        '<br>Le terme en $x$ vient de la somme de $3 \\times x$ et de $-2 \\times x$.'
       this.correction += '<br>Le terme constant vient de $-2\\times 3=6$.'
-      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, 1, 1, -6, 'x') } }
-      if (this.interactif) { this.question += '<br>$(x-2)(x+3)=$' }
+      this.reponse = {
+        reponse: { value: reduirePolynomeDegre3(0, 1, 1, -6, 'x') },
+      }
+      if (this.interactif) {
+        this.question += '<br>$(x-2)(x+3)=$'
+      }
     } else {
       const a = 1
       const b = randint(-9, 9, 0)
@@ -52,8 +64,14 @@ export default class Developper extends ExerciceSimple {
       this.correction += `<br>Le terme en $x^2$ vient de $x\\times x=${rienSi1(a * c)}x^2$.`
       this.correction += `<br>Le terme en $x$ vient de la somme de $${rienSi1(a)}x \\times ${ecritureParentheseSiNegatif(d)}$ et de $${b} \\times ${c === 1 ? '' : `${ecritureParentheseSiNegatif(c)}`}x$.`
       this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
-      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x') } }
-      if (this.interactif) { this.question += `<br>$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=$` }
+      this.reponse = {
+        reponse: {
+          value: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x'),
+        },
+      }
+      if (this.interactif) {
+        this.question += `<br>$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=$`
+      }
     }
 
     this.canEnonce = this.question

@@ -7,7 +7,7 @@ export const titre = 'Interpollation par splines avec tangentes'
 
 export const refs = {
   'fr-fr': ['P021'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = '4c7ca'
 
@@ -17,11 +17,20 @@ export const uuid = '4c7ca'
 
  */
 export default class TraceCourbeSpline extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Liste des coordonnées sous la forme: (x0;y0)/(x1;y1)/...', '']
-    this.besoinFormulaire2Texte = ['Liste des nombres dérivés sous la forme (gauche0;droite0)/(gauche1;droite1)/...', '']
-    this.besoinFormulaire3Texte = ['Etat visible(1)/invisible(0) de chaque noeud sous la forme 0/1/...', '']
+    this.besoinFormulaireTexte = [
+      'Liste des coordonnées sous la forme: (x0;y0)/(x1;y1)/...',
+      '',
+    ]
+    this.besoinFormulaire2Texte = [
+      'Liste des nombres dérivés sous la forme (gauche0;droite0)/(gauche1;droite1)/...',
+      '',
+    ]
+    this.besoinFormulaire3Texte = [
+      'Etat visible(1)/invisible(0) de chaque noeud sous la forme 0/1/...',
+      '',
+    ]
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
@@ -31,7 +40,7 @@ export default class TraceCourbeSpline extends Exercice {
     this.sup3 = '1/1/1/1'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const noeuds: NoeudSpline[] = []
     const listeCoords = this.sup.split('/')
     const listePentes = this.sup2.split('/')
@@ -48,13 +57,18 @@ export default class TraceCourbeSpline extends Exercice {
       if (pentes == null) {
         pentes = [0, 0]
       } else {
-        pentes = [Number(pentes[0].replace(',', '.')), Number(pentes[1].replace(',', '.'))]
+        pentes = [
+          Number(pentes[0].replace(',', '.')),
+          Number(pentes[1].replace(',', '.')),
+        ]
       }
       noeuds[i].deriveeGauche = pentes[0]
       noeuds[i].deriveeDroit = pentes[1]
     }
     for (let i = 0; i < noeuds.length; i++) {
-      noeuds[i].isVisible = !(listeVisibles[i] === null || listeVisibles[i] === '0')
+      noeuds[i].isVisible = !(
+        listeVisibles[i] === null || listeVisibles[i] === '0'
+      )
     }
 
     const f = spline(noeuds)

@@ -1,5 +1,5 @@
 import CalculImageParFonctionAffineFraction from '../can/3e/can3F13'
-export const titre = 'Calculer l\'image d\'une fraction par une fonction affine'
+export const titre = "Calculer l'image d'une fraction par une fonction affine"
 export const dateDePublication = '23/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +15,10 @@ export const uuid = 'e3ea1'
 
 export const refs = {
   'fr-fr': ['1A-F1-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF1b extends CalculImageParFonctionAffineFraction {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

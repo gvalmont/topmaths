@@ -6,7 +6,8 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer une somme ou une différence de fractions de même dénominateur'
+export const titre =
+  'Calculer une somme ou une différence de fractions de même dénominateur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -21,10 +22,10 @@ export const uuid = '6dbf3'
 
 export const refs = {
   'fr-fr': ['can6C56', '6N3K-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeDiffFractionsMemeDen extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -33,7 +34,7 @@ export default class SommeDiffFractionsMemeDen extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let frac1, frac2, resultat
     switch (choice([1, 2])) {
       case 1:
@@ -61,7 +62,10 @@ export default class SommeDiffFractionsMemeDen extends ExerciceSimple {
         do {
           frac1 = choice(obtenirListeFractionsIrreductibles())
           frac2 = new FractionEtendue(randint(1, frac1.num), frac1.den)
-        } while (frac1.num - frac2.num <= 0 || frac1.num - frac2.num === frac1.den)
+        } while (
+          frac1.num - frac2.num <= 0 ||
+          frac1.num - frac2.num === frac1.den
+        )
 
         resultat = new FractionEtendue(frac1.num - frac2.num, frac1.den)
 

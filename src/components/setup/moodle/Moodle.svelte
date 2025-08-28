@@ -267,8 +267,8 @@
   <NavBar
     subtitle="Moodle"
     subtitleType="export"
-    handleLanguage={() => {}}
-    locale={$referentielLocale}
+    handleLanguage="{() => {}}"
+    locale="{$referentielLocale}"
   />
   <div
     class="flex flex-col h-full w-full bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
@@ -305,9 +305,9 @@
             aria-controls="tabs-gift"
             aria-selected="true"
             data-te-nav-active=""
-            on:click={() => {
+            on:click="{() => {
               tab = 'gift'
-            }}
+            }}"
           >
             Export Gift (Quiz)
           </a>
@@ -323,9 +323,9 @@
             role="tab"
             aria-controls="tabs-scorm"
             aria-selected="false"
-            on:click={() => {
+            on:click="{() => {
               tab = 'scorm'
-            }}
+            }}"
           >
             Export SCORM
           </a>
@@ -343,9 +343,9 @@
             role="tab"
             aria-controls="tabs-bookmarklet"
             aria-selected="false"
-            on:click={() => {
+            on:click="{() => {
               tab = 'bookmarklet'
-            }}
+            }}"
           >
             Marque-page magique
           </a>
@@ -402,8 +402,8 @@
                   </div>
                   <FormRadio
                     title="Type d'aléatoire"
-                    bind:valueSelected={aleaType}
-                    labelsValues={[
+                    bind:valueSelected="{aleaType}"
+                    labelsValues="{[
                       {
                         label:
                           "L'énoncé change à chaque actualisation de la page",
@@ -418,7 +418,7 @@
                         label: "Pas d'aléatoire (utiliser l'énoncé actuel')",
                         value: 'graine',
                       },
-                    ]}
+                    ]}"
                   />
                   <div
                     class="pl-2 pb-2 mt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
@@ -426,20 +426,20 @@
                     Autres options
                   </div>
                   <ButtonToggleAlt
-                    title={'Afficher le titre'}
-                    bind:value={showTitle}
-                    explanations={[
+                    title="{'Afficher le titre'}"
+                    bind:value="{showTitle}"
+                    explanations="{[
                       "Le titre de l'exercice sera affiché",
                       "Le titre de l'exercice ne sera pas affiché",
-                    ]}
+                    ]}"
                   />
                 </div>
                 <button
                   type="submit"
-                  on:click={downloadGift}
+                  on:click="{downloadGift}"
                   class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
                 >
-                  <i class="bx bx-download mr-2" />Télécharger le fichier gift
+                  <i class="bx bx-download mr-2"></i>Télécharger le fichier gift
                 </button>
               </div>
               <!-- <button
@@ -502,21 +502,22 @@
               <div class="flex flex-col justify-center items-center space-y-2">
                 <div class="pl-4 pt-4">
                   <ButtonToggleAlt
-                    title={'Utiliser des exercices aléatoires'}
-                    bind:value={useAlea}
-                    explanations={[
+                    title="{'Utiliser des exercices aléatoires'}"
+                    bind:value="{useAlea}"
+                    explanations="{[
                       'Chaque élève aura des exercices différents.',
                       'Tous les élèves auront le même exercice',
-                    ]}
+                    ]}"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  on:click={downloadScorm}
+                  on:click="{downloadScorm}"
                   class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
                 >
-                  <i class="bx bx-download mr-2" />Télécharger le fichier SCORM
+                  <i class="bx bx-download mr-2"></i>Télécharger le fichier
+                  SCORM
                 </button>
               </div>
               <h1

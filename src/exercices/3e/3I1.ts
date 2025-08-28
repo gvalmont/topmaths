@@ -9,7 +9,8 @@ import { scratchblock } from '../../modules/scratchblock'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Trouver la position d\'un lutin grâce à des instructions conditionnelles (scratch)'
+export const titre =
+  "Trouver la position d'un lutin grâce à des instructions conditionnelles (scratch)"
 export const dateDePublication = '24/11/2020'
 export const dateDeModifImportante = '02/01/2025'
 
@@ -21,12 +22,16 @@ export const uuid = '8cbd6'
 
 export const refs = {
   'fr-fr': ['3I1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class InstructionConditionnelle extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Variante', 3, '1 : Sans condition imbriquée\n2 : Avec une condition imbriquée\n3 : Avec deux conditions imbriquées']
+    this.besoinFormulaireNumerique = [
+      'Variante',
+      3,
+      '1 : Sans condition imbriquée\n2 : Avec une condition imbriquée\n3 : Avec deux conditions imbriquées',
+    ]
     this.sup = 1
     this.nbQuestions = 1
     this.consigne = 'Donner les coordonnées de la position finale du lutin.'
@@ -35,14 +40,15 @@ export default class InstructionConditionnelle extends Exercice {
     this.nbQuestionsModifiable = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let txtintroscratch = ''
     txtintroscratch = `\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill blocks,scale=0.8]\n`
     txtintroscratch += '\\blockvariable{\\ovalvariable{var}}' // refuse d'afficher si '\\ovalvariable{var}' seul
     // txtintroscratch += '\\blockmoreblocks{\\ovalvariable{var}}'
     txtintroscratch += '\\end{scratch}'
-    let texte = "La position initiale d'un lutin dans un repère est (0,0).<br> Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>" // texte de l'énoncé
-    texte += 'Une variable a été créée, elle s\'appelle'
+    let texte =
+      "La position initiale d'un lutin dans un repère est (0,0).<br> Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>" // texte de l'énoncé
+    texte += "Une variable a été créée, elle s'appelle"
     texte += scratchblock(txtintroscratch)
     texte += '. <br>'
     let texteCorr = ' ' // texte du corrigé
@@ -71,10 +77,10 @@ export default class InstructionConditionnelle extends Exercice {
       codeTikz += `{\\blockmove{ajouter \\ovalnum{${xLutin2}} à x}\n}\n` // attention aux /n qui marque la fin des chacun des blocs (blockmove et block si)
     }
     codeTikz += '}\n' // fin du si
-    codeTikz += `{\\blockmove{ajouter \\ovalnum{${yLutin1}} à y}\n`// `{sinon \\blockmove{ajouter \\ovalnum{${yLutin1}} à y}\n`
+    codeTikz += `{\\blockmove{ajouter \\ovalnum{${yLutin1}} à y}\n` // `{sinon \\blockmove{ajouter \\ovalnum{${yLutin1}} à y}\n`
     if (this.sup > 2) {
       codeTikz += `\\blockif{si \\booloperator{\\ovalvariable{var} > \\ovalnum{${n4}}} alors}\n`
-      codeTikz += `{\\blockmove{ajouter \\ovalnum{${yLutin2}} à y}\n}\n`// attention aux /n qui marque la fin des chacun des blocs (blockmove et block si)
+      codeTikz += `{\\blockmove{ajouter \\ovalnum{${yLutin2}} à y}\n}\n` // attention aux /n qui marque la fin des chacun des blocs (blockmove et block si)
     }
     codeTikz += '}\n' // fin du sinon ?
     codeTikz += '\\end{scratch}'
@@ -105,14 +111,24 @@ export default class InstructionConditionnelle extends Exercice {
     }
     texteCorr += ` La position finale est donc : (${texteEnCouleurEtGras(xLutin)} ; ${texteEnCouleurEtGras(yLutin)}).`
     if (this.interactif) {
-      texte += '<br>La position finale du lutin est : ' + remplisLesBlancs(this, 0, ' (~%{champ1}~;~%{champ2}~).', KeyboardType.clavierDeBase)
+      texte +=
+        '<br>La position finale du lutin est : ' +
+        remplisLesBlancs(
+          this,
+          0,
+          ' (~%{champ1}~;~%{champ2}~).',
+          KeyboardType.clavierDeBase,
+        )
     }
-    handleAnswers(this, 0, {
-      // bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: xLutin },
-      champ2: { value: yLutin }
-    },
-    { formatInteractif: 'fillInTheBlank' }
+    handleAnswers(
+      this,
+      0,
+      {
+        // bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
+        champ1: { value: xLutin },
+        champ2: { value: yLutin },
+      },
+      { formatInteractif: 'fillInTheBlank' },
     )
 
     this.listeQuestions.push(texte)

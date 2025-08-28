@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '67e15'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -24,11 +24,11 @@ export const dateDePublication = '28/10/2024'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (a: number, b: number, c: number): void {
+  private appliquerLesValeurs(a: number, b: number, c: number): void {
     this.reponses = [
       `$${String(a * c - b)}$`,
       `$${String(a * c + b)}$`,
-      `$${String(a + c - b)}$`
+      `$${String(a + c - b)}$`,
     ]
     this.enonce = `On considère la fonction $f$ définie par $f(x) = ${reduireAxPlusB(a, -b)}$.<br>Quelle est l'image de $${c.toString()}$ par cette fonction ?`
     this.correction = `$f(x) = ${reduireAxPlusB(a, -b)}$, donc $f(${c.toString()}) = ${a}\\times (${c.toString()}) - ${b.toString()} = ${miseEnEvidence((a * c - b).toString())}$.`
@@ -52,7 +52,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

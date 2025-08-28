@@ -39,19 +39,41 @@ export class Yohaku {
   operation?: 'addition' | 'multiplication'
   solution?: boolean
   clavier?: string
-  constructor ({ type, largeur, hauteur, taille, Case, cellules, operation, valeurMax, solution }:
-  { type?: string, largeur?: number, hauteur?: number, taille?: number, Case?: number | undefined, cellules?: string[], resultats?: string[], operation?: 'addition' | 'multiplication', valeurMax?: number, solution?: boolean } = {
-    type: 'entiers',
-    largeur: 2,
-    hauteur: 2,
-    taille: 2,
-    Case: undefined,
-    resultats: [],
-    operation: 'addition',
-    valeurMax: 50,
-    solution: false,
-    cellules: []
-  }) {
+  constructor(
+    {
+      type,
+      largeur,
+      hauteur,
+      taille,
+      Case,
+      cellules,
+      operation,
+      valeurMax,
+      solution,
+    }: {
+      type?: string
+      largeur?: number
+      hauteur?: number
+      taille?: number
+      Case?: number | undefined
+      cellules?: string[]
+      resultats?: string[]
+      operation?: 'addition' | 'multiplication'
+      valeurMax?: number
+      solution?: boolean
+    } = {
+      type: 'entiers',
+      largeur: 2,
+      hauteur: 2,
+      taille: 2,
+      Case: undefined,
+      resultats: [],
+      operation: 'addition',
+      valeurMax: 50,
+      solution: false,
+      cellules: [],
+    },
+  ) {
     this.largeur = largeur ?? 2
     this.hauteur = hauteur ?? 2
     this.Case = Case
@@ -70,41 +92,52 @@ export class Yohaku {
       const den = randint(2, valeurMax)
       for (let i = 0; i < this.taille ** 2; i++) {
         switch (this.type) {
-          case 'entiers' :
+          case 'entiers':
             this.cellules.push(String(randint(1, valeurMax) ?? 2))
             this.clavier = String(KeyboardType.clavierDeBase)
             break
-          case 'entiers relatifs' :
+          case 'entiers relatifs':
             this.cellules.push(String(randint(-valeurMax, valeurMax, 0)))
             this.clavier = String(KeyboardType.clavierDeBase)
             break
-          case 'littéraux' :
-            this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
+          case 'littéraux':
+            this.cellules.push(
+              reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'),
+            )
             this.clavier = String(KeyboardType.clavierDeBaseAvecVariable)
             break
-          case 'fractions dénominateurs multiples': { // EE : Modif pour 4C21-2 afin que les sommes des lignes ne soient pas identiques aux sommes des colonnes
+          case 'fractions dénominateurs multiples': {
+            // EE : Modif pour 4C21-2 afin que les sommes des lignes ne soient pas identiques aux sommes des colonnes
             let testFraction = new FractionEtendue(randint(1, valeurMax), den)
-            let sommeFractions:FractionEtendue
+            let sommeFractions: FractionEtendue
             if (i + 1 >= this.taille) {
               if ((i + 1) % this.taille === 1) {
                 sommeFractions = new FractionEtendue(0, 1)
                 for (let ee = 0; ee < this.taille; ee++) {
-                  sommeFractions = sommeFractions.sommeFraction(this.cellulesEE[ee + this.taille * Math.floor(ee / this.taille)])
+                  sommeFractions = sommeFractions.sommeFraction(
+                    this.cellulesEE[
+                      ee + this.taille * Math.floor(ee / this.taille)
+                    ],
+                  )
                 }
                 this.sommesCellules.push(sommeFractions)
               }
               if (i >= this.taille * (this.taille - 1)) {
-                let fractionsEgales :boolean
+                let fractionsEgales: boolean
                 do {
                   fractionsEgales = false
                   testFraction = new FractionEtendue(randint(1, valeurMax), den)
                   sommeFractions = new FractionEtendue(0, 1)
                   for (let ee = 0; ee < this.taille - 1; ee++) {
-                    sommeFractions = sommeFractions.sommeFraction(this.cellulesEE[i % this.taille + this.taille * ee])
+                    sommeFractions = sommeFractions.sommeFraction(
+                      this.cellulesEE[(i % this.taille) + this.taille * ee],
+                    )
                   }
                   sommeFractions = sommeFractions.sommeFraction(testFraction)
                   for (let ee = 0; ee < this.sommesCellules.length; ee++) {
-                    fractionsEgales = fractionsEgales || this.sommesCellules[ee].isEqual(sommeFractions)
+                    fractionsEgales =
+                      fractionsEgales ||
+                      this.sommesCellules[ee].isEqual(sommeFractions)
                   }
                 } while (fractionsEgales)
                 this.sommesCellules.push(sommeFractions)
@@ -116,56 +149,99 @@ export class Yohaku {
             break
           }
           case 'fractions positives dénominateurs premiers':
-            this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
+            this.cellules.push(
+              fraction(
+                randint(1, valeurMax),
+                Number(choice([2, 3, 5, 7])),
+              ).texFraction.replace('dfrac', 'frac'),
+            )
             this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
             break
 
-          case 'fractions positives' :
-            this.cellules.push(fraction(randint(1, valeurMax), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
+          case 'fractions positives':
+            this.cellules.push(
+              fraction(
+                randint(1, valeurMax),
+                randint(2, valeurMax),
+              ).texFraction.replace('dfrac', 'frac'),
+            )
             this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
             break
-          case 'fractions relatives' :
-            this.cellules.push(fraction(randint(-valeurMax, valeurMax, 0), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
+          case 'fractions relatives':
+            this.cellules.push(
+              fraction(
+                randint(-valeurMax, valeurMax, 0),
+                randint(2, valeurMax),
+              ).texFraction.replace('dfrac', 'frac'),
+            )
             this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
             break
         }
       }
-    } else { // si elles sont définies, on complète éventuellement la grille aléatoirement.
-      this.cellulesPreremplies = [...cellules ?? []]
+    } else {
+      // si elles sont définies, on complète éventuellement la grille aléatoirement.
+      this.cellulesPreremplies = [...(cellules ?? [])]
       for (let i = this.cellules.length; i < this.taille ** 2; i++) {
         if (Array.isArray(cellules) && cellules[i] === '') {
           switch (this.type) {
-            case 'entiers' :
+            case 'entiers':
               this.cellules.push(String(randint(1, valeurMax)))
               this.clavier = String(KeyboardType.clavierDeBase)
               break
-            case 'entiers relatifs' :
+            case 'entiers relatifs':
               this.cellules.push(String(randint(-valeurMax, valeurMax, 0)))
               this.clavier = String(KeyboardType.clavierDeBase)
               break
-            case 'littéraux' :
-              this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
+            case 'littéraux':
+              this.cellules.push(
+                reduireAxPlusB(
+                  randint(1, valeurMax),
+                  randint(1, valeurMax),
+                  'x',
+                ),
+              )
               this.clavier = String(KeyboardType.clavierDeBaseAvecVariable)
               break
-            case 'fractions dénominateurs multiples':{
-              const cellulePrecedente = engine.parse(this.cellules[i - 1])
-              if (Array.isArray(cellulePrecedente.numericValue)) {
-                const [, den] = cellulePrecedente.numericValue
-                this.cellules.push(fraction(randint(1, valeurMax), Number(den) ?? 1).texFraction.replace('dfrac', 'frac'))
+            case 'fractions dénominateurs multiples':
+              {
+                const cellulePrecedente = engine.parse(this.cellules[i - 1])
+                if (Array.isArray(cellulePrecedente.numericValue)) {
+                  const [, den] = cellulePrecedente.numericValue
+                  this.cellules.push(
+                    fraction(
+                      randint(1, valeurMax),
+                      Number(den) ?? 1,
+                    ).texFraction.replace('dfrac', 'frac'),
+                  )
+                }
+                this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
               }
-              this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
-            }
               break
             case 'fractions positives dénominateurs premiers':
-              this.cellules.push(new FractionEtendue(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
+              this.cellules.push(
+                new FractionEtendue(
+                  randint(1, valeurMax),
+                  Number(choice([2, 3, 5, 7])),
+                ).texFraction.replace('dfrac', 'frac'),
+              )
               this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
               break
-            case 'fractions positives' :
-              this.cellules.push(fraction(randint(1, valeurMax), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
+            case 'fractions positives':
+              this.cellules.push(
+                fraction(
+                  randint(1, valeurMax),
+                  randint(2, valeurMax),
+                ).texFraction.replace('dfrac', 'frac'),
+              )
               this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
               break
-            case 'fractions relatives' :
-              this.cellules.push(fraction(randint(-valeurMax, valeurMax, 0), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
+            case 'fractions relatives':
+              this.cellules.push(
+                fraction(
+                  randint(-valeurMax, valeurMax, 0),
+                  randint(2, valeurMax),
+                ).texFraction.replace('dfrac', 'frac'),
+              )
               this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
               break
           }
@@ -175,7 +251,7 @@ export class Yohaku {
   }
 
   // méthode qui calcule les résultats si on le veut (sinon on peut les renseigner dans this.resultats manuellement)
-  calculeResultats () {
+  calculeResultats() {
     let valeurs
     for (let i = 0; i < this.taille; i++) {
       valeurs = []
@@ -194,24 +270,48 @@ export class Yohaku {
   }
 
   // fonction utilisée par calculeResultats
-  operate (valeurs: Array<string>) {
+  operate(valeurs: Array<string>) {
     let initialValue: string
     switch (this.operation) {
       case 'addition':
         initialValue = '0'
-        return engine.parse(valeurs.reduce((previous, current) => `${previous}+${current}`, initialValue)).simplify().latex
+        return engine
+          .parse(
+            valeurs.reduce(
+              (previous, current) => `${previous}+${current}`,
+              initialValue,
+            ),
+          )
+          .simplify().latex
       case 'multiplication':
         initialValue = '1'
-        return engine.parse(valeurs.reduce((previous, current) => `(${previous})\\times (${current})`, initialValue)).simplify().latex
+        return engine
+          .parse(
+            valeurs.reduce(
+              (previous, current) => `(${previous})\\times (${current})`,
+              initialValue,
+            ),
+          )
+          .simplify().latex
     }
   }
 
   /**
-     * Retourne le tableau
-     * @param {boolean} isInteractif
-     * @returns {string}
-     */
-  representation ({ numeroExercice, question, isInteractif, classes = '' }:{ numeroExercice: number, question: number, isInteractif: boolean, classes?: string }) {
+   * Retourne le tableau
+   * @param {boolean} isInteractif
+   * @returns {string}
+   */
+  representation({
+    numeroExercice,
+    question,
+    isInteractif,
+    classes = '',
+  }: {
+    numeroExercice: number
+    question: number
+    isInteractif: boolean
+    classes?: string
+  }) {
     const dimension = this.taille
     const largeurARemplir = this.taille + 1 // 1 de plus que dimension pour la colonne/ligne résultat.
     // première case ; l'opération
@@ -221,85 +321,109 @@ export class Yohaku {
     for (let i = 0; i < dimension; i++) {
       tabEnteteColonnes.push(`\\text{Colonne ${i + 1}}`)
     }
-    tabEnteteColonnes.push(`\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`)
+    tabEnteteColonnes.push(
+      `\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`,
+    )
     // Les entêtes de lignes
     const tabEnteteLignes: string[] = []
     for (let i = 0; i < dimension; i++) {
       tabEnteteLignes.push(`\\text{Ligne ${i + 1}}`)
     }
-    tabEnteteLignes.push(`\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`)
+    tabEnteteLignes.push(
+      `\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`,
+    )
     // Y a-t-il une case prédéfinie ?
-    const laCase = this.Case == null
-      ? null
-      : (this.Case % dimension) + (Math.floor(this.Case / dimension) * (largeurARemplir))
+    const laCase =
+      this.Case == null
+        ? null
+        : (this.Case % dimension) +
+          Math.floor(this.Case / dimension) * largeurARemplir
     // La partie centrale du tableau : dimension + 1 pour les résultats.
     const tabLignes: string[] = []
     let j = 0 // Pour indexer le numéro de ligne
     let k = 0 // Pour indexer les valeurs utilisées de la grille
-    for (let i = 0; i < (largeurARemplir) ** 2; i++) { // i parcourt la partie centrale (dimension+1)²
-      if (this.solution) { // On remplit toutes les cases avec les valeurs stockées
-        if (i % (largeurARemplir) < dimension) {
-          if (i < (largeurARemplir) * (dimension)) {
+    for (let i = 0; i < largeurARemplir ** 2; i++) {
+      // i parcourt la partie centrale (dimension+1)²
+      if (this.solution) {
+        // On remplit toutes les cases avec les valeurs stockées
+        if (i % largeurARemplir < dimension) {
+          if (i < largeurARemplir * dimension) {
             const cellule = this.cellules[k]
             tabLignes.push(cellule)
             k++
           } else {
             if (j < dimension * 2) {
-              tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
+              tabLignes.push(
+                `${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`,
+              )
               j++
             }
           }
         } else {
           if (j < dimension * 2) {
-            tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
+            tabLignes.push(
+              `${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`,
+            )
             j++
           }
         }
-      } else { // Ici on met des chaines vides et éventuellement la case prédéfinie pour rendre la solution unique
-        if (this.Case == null) { // numéro de case aléatoire prédéfinie undefined
-          if (this.cellulesPreremplies[k] != null) { // Il peut y avoir des cases prédéfinies quand même par exemple 3 sur 4 pour une CAN à une réponse
-            if (i % (largeurARemplir) < dimension) {
-              if (i < (largeurARemplir) * (dimension)) {
+      } else {
+        // Ici on met des chaines vides et éventuellement la case prédéfinie pour rendre la solution unique
+        if (this.Case == null) {
+          // numéro de case aléatoire prédéfinie undefined
+          if (this.cellulesPreremplies[k] != null) {
+            // Il peut y avoir des cases prédéfinies quand même par exemple 3 sur 4 pour une CAN à une réponse
+            if (i % largeurARemplir < dimension) {
+              if (i < largeurARemplir * dimension) {
                 tabLignes.push(this.cellulesPreremplies[k])
                 k++
               } else {
                 if (j < dimension * 2) {
-                  tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
+                  tabLignes.push(
+                    `${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`,
+                  )
                   j++
                 }
               }
             } else {
               if (j < dimension * 2) {
-                tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
+                tabLignes.push(
+                  `${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`,
+                )
                 j++
               }
             }
-          } else { // On met une chaine vide donc case à compléter
-            if (i % (largeurARemplir) < dimension) {
-              if (i < (largeurARemplir) * (dimension)) {
+          } else {
+            // On met une chaine vide donc case à compléter
+            if (i % largeurARemplir < dimension) {
+              if (i < largeurARemplir * dimension) {
                 tabLignes.push('')
                 k++
               } else {
                 if (j < dimension * 2) {
-                  tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
+                  tabLignes.push(
+                    `${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`,
+                  )
                   j++
                 }
               }
             } else {
               if (j < dimension * 2) {
-                tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
+                tabLignes.push(
+                  `${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`,
+                )
                 j++
               }
             }
           }
         } else {
-          if (i % (largeurARemplir) < dimension) {
+          if (i % largeurARemplir < dimension) {
             if (i === laCase) {
               const cellule = this.cellules[k]
               k++
               tabLignes.push(cellule)
             } else {
-              if (i < (largeurARemplir) * (dimension)) {
+              if (i < largeurARemplir * dimension) {
                 if (this.cellulesPreremplies[k] != null) {
                   tabLignes.push(this.cellulesPreremplies[k])
                   k++
@@ -309,14 +433,18 @@ export class Yohaku {
                 }
               } else {
                 if (j < dimension * 2) {
-                  tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
+                  tabLignes.push(
+                    `${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`,
+                  )
                   j++
                 }
               }
             }
           } else {
             if (j < dimension * 2) {
-              tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
+              tabLignes.push(
+                `${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`,
+              )
               j++
             }
           }
@@ -326,26 +454,51 @@ export class Yohaku {
     // dernière case
     tabLignes.push(`${context.isHtml ? '' : couleur}///////`)
     if (context.isHtml) {
-      const style: { [key: string]: string } = Object.fromEntries(this.solution
-        ? [
-            ['L1C1', `;${orangeMathalea}`],
-            ['L1C2', `;${orangeMathalea}`],
-            ['L2C1', `;${orangeMathalea}`],
-            ['L2C2', `;${orangeMathalea}`]
-          ]
-        : [])
-      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes + ' ' + this.clavier, isInteractif, style)
+      const style: { [key: string]: string } = Object.fromEntries(
+        this.solution
+          ? [
+              ['L1C1', `;${orangeMathalea}`],
+              ['L1C2', `;${orangeMathalea}`],
+              ['L2C1', `;${orangeMathalea}`],
+              ['L2C2', `;${orangeMathalea}`],
+            ]
+          : [],
+      )
+      const tab = AddTabDbleEntryMathlive.create(
+        numeroExercice,
+        question,
+        AddTabDbleEntryMathlive.convertTclToTableauMathlive(
+          tabEnteteColonnes,
+          tabEnteteLignes,
+          tabLignes,
+        ),
+        classes + ' ' + this.clavier,
+        isInteractif,
+        style,
+      )
       return tab.output
     } else {
-      const style: { [key: string]: string } = Object.fromEntries(this.solution
-        ? [
-            ['L1C1', `${orangeMathalea}`],
-            ['L1C2', `${orangeMathalea}`],
-            ['L2C1', `${orangeMathalea}`],
-            ['L2C2', `${orangeMathalea}`]
-          ]
-        : [])
-      return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true, numeroExercice, question, false, style)
+      const style: { [key: string]: string } = Object.fromEntries(
+        this.solution
+          ? [
+              ['L1C1', `${orangeMathalea}`],
+              ['L1C2', `${orangeMathalea}`],
+              ['L2C1', `${orangeMathalea}`],
+              ['L2C2', `${orangeMathalea}`],
+            ]
+          : [],
+      )
+      return tableauColonneLigne(
+        tabEnteteColonnes,
+        tabEnteteLignes,
+        tabLignes,
+        2,
+        true,
+        numeroExercice,
+        question,
+        false,
+        style,
+      )
     }
   }
 }

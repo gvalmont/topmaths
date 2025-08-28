@@ -1,35 +1,58 @@
 import { max } from 'mathjs'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
-import { choice, combinaisonListes, getRandomSubarray, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  getRandomSubarray,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
-export const titre = 'Développer une expression à l\'aide de la distributivité simple et double'
+export const titre =
+  "Développer une expression à l'aide de la distributivité simple et double"
 export const dateDePublication = '04/09/2024'
 
 /**
  * Réduire une expression littérale
  * @author Nathan Scheinmann
-*/
+ */
 
 export const uuid = '1cd08'
 export const refs = {
   'fr-fr': ['3L11-14'],
-  'fr-ch': ['11FA1-10', '1mCL1-6']
+  'fr-ch': ['11FA1-10', '1mCL1-6'],
 }
 
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Développer et réduire les expressions suivantes.'
+        : "Développer et réduire l'expression suivante."
 
-    this.besoinFormulaireNumerique = ['Type de calcul', 3, 'Distributivité simple\nDistributivité double\nMélange']
-    this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de calcul',
+      3,
+      'Distributivité simple\nDistributivité double\nMélange',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Coefficients',
+      3,
+      'Entiers \n2 : Fractionnaires \n3 : Mélange',
+    ]
     this.besoinFormulaire3Numerique = ['Degré maximum', 5, '1\n2\n3\n4\n5']
-    this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']
-    this.besoinFormulaire5CaseACocher = ['Présence d\'un signe devant l\'expression (si distributivité double)']
+    this.besoinFormulaire4Numerique = [
+      'Nombre de variables différentes',
+      5,
+      '1\n2\n3\n4\n5',
+    ]
+    this.besoinFormulaire5CaseACocher = [
+      "Présence d'un signe devant l'expression (si distributivité double)",
+    ]
     // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
     // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
     this.sup = 3
@@ -40,8 +63,11 @@ export default class nomExercice extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Développer et réduire les expressions suivantes.'
+        : "Développer et réduire l'expression suivante."
 
     let typeQuestionsDisponibles: ('simple' | 'double')[]
     if (this.sup === 1) {
@@ -49,12 +75,20 @@ export default class nomExercice extends Exercice {
     } else if (this.sup === 2) {
       typeQuestionsDisponibles = ['double']
     } else {
-      typeQuestionsDisponibles = shuffle(['simple', 'double', 'simple', 'double'])
+      typeQuestionsDisponibles = shuffle([
+        'simple',
+        'double',
+        'simple',
+        'double',
+      ])
     }
     const degMin = 0
-    const listeTypeDeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte, texteCorr: string
       const degMax = max(this.sup3, 0)
       const variables = ['x', 'y', 'z', 'r', 's', 't']
@@ -71,9 +105,21 @@ export default class nomExercice extends Exercice {
         typeofCoeff = typeCoeffListe
       }
       switch (listeTypeDeQuestions[i]) {
-        case 'simple':{
-          p1 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, 1, choice(typeofCoeff), variablesSelect)
-          p2 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, 2, choice(typeofCoeff), variablesSelect)
+        case 'simple': {
+          p1 = PolynomePlusieursVariables.createRandomPolynome(
+            degMin,
+            degMax,
+            1,
+            choice(typeofCoeff),
+            variablesSelect,
+          )
+          p2 = PolynomePlusieursVariables.createRandomPolynome(
+            degMin,
+            degMax,
+            2,
+            choice(typeofCoeff),
+            variablesSelect,
+          )
           // On redéfinit à présent le coefficient des monômes fractionnaires afin que toutes les fractions soient des multiples les unes des autres
           let testPremiereFraction = true
           let denominateurCommun = 1
@@ -83,7 +129,10 @@ export default class nomExercice extends Exercice {
                 denominateurCommun = p1.monomes[i].coefficient.den
                 testPremiereFraction = false
               } else {
-                p1.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+                p1.monomes[i].coefficient = new FractionEtendue(
+                  randint(-10, 10, [0]),
+                  denominateurCommun * randint(-2, 2, [0]),
+                )
               }
             }
           }
@@ -93,20 +142,39 @@ export default class nomExercice extends Exercice {
                 denominateurCommun = p2.monomes[i].coefficient.den
                 testPremiereFraction = false
               } else {
-                p2.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+                p2.monomes[i].coefficient = new FractionEtendue(
+                  randint(-10, 10, [0]),
+                  denominateurCommun * randint(-2, 2, [0]),
+                )
               }
             }
           }
-          if (p1.monomes[0].coefficient.num === 1 && p1.monomes[0].coefficient.den === 1) {
+          if (
+            p1.monomes[0].coefficient.num === 1 &&
+            p1.monomes[0].coefficient.den === 1
+          ) {
             p1.monomes[0].coefficient = new FractionEtendue(-2, 1)
           }
           texte = `$${lettreDepuisChiffre(i + 1)}=${p1.toString() === '-1' ? '-' : `${p1.toString()}`}\\left(${p2.toString()}\\right)$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${(p1.produit(p2)).toString()}=${miseEnEvidence((p1.produit(p2)).reduire().toString())}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${p1.produit(p2).toString()}=${miseEnEvidence(p1.produit(p2).reduire().toString())}$`
           break
         }
-        case 'double':{
-          p1 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, 2, choice(typeofCoeff), variablesSelect)
-          p2 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, 2, choice(typeofCoeff), variablesSelect, getRandomSubarray(p1.monomes, randint(1, 0)))
+        case 'double': {
+          p1 = PolynomePlusieursVariables.createRandomPolynome(
+            degMin,
+            degMax,
+            2,
+            choice(typeofCoeff),
+            variablesSelect,
+          )
+          p2 = PolynomePlusieursVariables.createRandomPolynome(
+            degMin,
+            degMax,
+            2,
+            choice(typeofCoeff),
+            variablesSelect,
+            getRandomSubarray(p1.monomes, randint(1, 0)),
+          )
           // On redéfinit à présent le coefficient des monômes fractionnaires afin que toutes les fractions soient des multiples les unes des autres
           let testPremiereFraction = true
           let denominateurCommun = 1
@@ -116,7 +184,10 @@ export default class nomExercice extends Exercice {
                 denominateurCommun = p1.monomes[i].coefficient.den
                 testPremiereFraction = false
               } else {
-                p1.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+                p1.monomes[i].coefficient = new FractionEtendue(
+                  randint(-10, 10, [0]),
+                  denominateurCommun * randint(-2, 2, [0]),
+                )
               }
             }
           }
@@ -126,11 +197,14 @@ export default class nomExercice extends Exercice {
                 denominateurCommun = p2.monomes[i].coefficient.den
                 testPremiereFraction = false
               } else {
-                p2.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+                p2.monomes[i].coefficient = new FractionEtendue(
+                  randint(-10, 10, [0]),
+                  denominateurCommun * randint(-2, 2, [0]),
+                )
               }
             }
           }
-          let p3 : PolynomePlusieursVariables
+          let p3: PolynomePlusieursVariables
           p3 = p1
           let avecSigne = false
           if (this.sup5) {

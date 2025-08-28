@@ -15,7 +15,7 @@ export const interactifType = 'custom'
 
 export const refs = {
   'fr-fr': ['elements1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = '6fdab'
 
@@ -23,31 +23,38 @@ class Trait {
   type: 'Segment' | 'Ray' | 'Line'
   nameA: string
   nameB: string
-  constructor (type: 'Segment' | 'Ray' | 'Line', nameA: string, nameB: string) {
+  constructor(type: 'Segment' | 'Ray' | 'Line', nameA: string, nameB: string) {
     this.type = type
     this.nameA = nameA
     this.nameB = nameB
   }
 
-  checkExist (figure: Figure) {
-    return checkElementExist({ type: this.type, point1: this.nameA, point2: this.nameB }, figure)
+  checkExist(figure: Figure) {
+    return checkElementExist(
+      { type: this.type, point1: this.nameA, point2: this.nameB },
+      figure,
+    )
   }
 
-  create (figure: Figure): void {
-    const point1 = [...figure.elements.values()].filter(element => element instanceof Point && element.label === this.nameA)[0]
-    const point2 = [...figure.elements.values()].filter(element => element instanceof Point && element.label === this.nameB)[0]
+  create(figure: Figure): void {
+    const point1 = [...figure.elements.values()].filter(
+      (element) => element instanceof Point && element.label === this.nameA,
+    )[0]
+    const point2 = [...figure.elements.values()].filter(
+      (element) => element instanceof Point && element.label === this.nameB,
+    )[0]
     figure.create(this.type, { point1, point2 })
   }
 
-  get point1 () {
+  get point1() {
     return this.nameA
   }
 
-  get point2 () {
+  get point2() {
     return this.nameB
   }
 
-  get descriptionConstruction () {
+  get descriptionConstruction() {
     if (this.type === 'Segment') {
       return `On trace le segment $[${this.nameA + this.nameB}]$.`
     }
@@ -57,7 +64,7 @@ class Trait {
     return `On trace la droite $(${this.nameA + this.nameB})$.`
   }
 
-  get description () {
+  get description() {
     if (this.type === 'Segment') {
       return `le segment d'extrémités $${this.nameA}$ et $${this.nameB}$`
     }
@@ -67,7 +74,7 @@ class Trait {
     return `la droite passant par les points $${this.nameA}$ et $${this.nameB}$`
   }
 
-  get notation (): string {
+  get notation(): string {
     if (this.type === 'Segment') {
       return `$[${this.nameA + this.nameB}$]`
     }
@@ -77,7 +84,7 @@ class Trait {
     return `$(${this.nameA + this.nameB}$)`
   }
 
-  get wrongFeedback () {
+  get wrongFeedback() {
     if (this.type === 'Segment') {
       return `Le segment $[${this.nameA + this.nameB}$] n'existe pas.`
     }
@@ -95,7 +102,7 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
   nameB!: string
   nameC!: string
   traits!: Trait[]
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -105,8 +112,14 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
     this.exoCustomResultat = true
   }
 
-  nouvelleVersion (): void {
-    this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
+  nouvelleVersion(): void {
+    this.figure = new Figure({
+      xMin: 0,
+      yMin: 0,
+      width: 800,
+      height: 500,
+      border: true,
+    })
     this.traits = []
 
     const indiceFirstLetter = 65 + Math.floor(Math.random() * 22)
@@ -115,7 +128,9 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
     this.nameC = String.fromCharCode(indiceFirstLetter + 2)
     this.figure.options.labelAutomaticBeginsWith = this.nameA
 
-    const types = ['Segment', 'Line', 'Ray'].sort(() => Math.random() - 0.5) as ('Segment' | 'Line' | 'Ray')[]
+    const types = ['Segment', 'Line', 'Ray'].sort(
+      () => Math.random() - 0.5,
+    ) as ('Segment' | 'Line' | 'Ray')[]
     this.traits.push(new Trait(types[0], this.nameA, this.nameB))
     this.traits.push(new Trait(types[1], this.nameB, this.nameC))
     this.traits.push(new Trait(types[2], this.nameC, this.nameA))
@@ -125,10 +140,35 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
     } else {
       enonce = `Tracer ${this.traits[0].notation}, ${this.traits[1].notation} et ${this.traits[2].notation}.`
     }
-    this.figure.setToolbar({ tools: ['POINT', 'NAME_POINT', 'SEGMENT', 'LINE', 'RAY', 'DRAG', 'REMOVE', 'UNDO', 'REDO'], position: 'top', nbCols: 9 })
-    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure, defaultAction: 'POINT' })
+    this.figure.setToolbar({
+      tools: [
+        'POINT',
+        'NAME_POINT',
+        'SEGMENT',
+        'LINE',
+        'RAY',
+        'DRAG',
+        'REMOVE',
+        'UNDO',
+        'REDO',
+      ],
+      position: 'top',
+      nbCols: 9,
+    })
+    const emplacementPourFigure = figureApigeom({
+      exercice: this,
+      i: 0,
+      figure: this.figure,
+      defaultAction: 'POINT',
+    })
     const figureCorrection = createAnimation(this.traits)
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, i: 0, idAddendum: 'Correction', figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({
+      animation: true,
+      exercice: this,
+      i: 0,
+      idAddendum: 'Correction',
+      figure: figureCorrection,
+    })
     this.question = enonce + emplacementPourFigure
     this.correction = emplacementPourFigureCorrection
   }
@@ -139,12 +179,18 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figure.id] = this.figure.json
     let feedback = ''
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`)
-    const resultatCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
-    const points = [...this.figure.elements.values()].filter(element => element instanceof Point && element.type !== 'pointer')
-    const pointsA = points.filter(point => point.label === this.nameA)
-    const pointsB = points.filter(point => point.label === this.nameB)
-    const pointsC = points.filter(point => point.label === this.nameC)
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${0}`,
+    )
+    const resultatCheck = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${0}`,
+    )
+    const points = [...this.figure.elements.values()].filter(
+      (element) => element instanceof Point && element.type !== 'pointer',
+    )
+    const pointsA = points.filter((point) => point.label === this.nameA)
+    const pointsB = points.filter((point) => point.label === this.nameB)
+    const pointsC = points.filter((point) => point.label === this.nameC)
     if (pointsA.length > 1 || pointsB.length > 1 || pointsC.length > 1) {
       feedback = 'Il ne doit pas y avoir plusieurs points avec le même nom'
       resultat.push('KO', 'KO', 'KO')
@@ -165,7 +211,7 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
       divFeedback.innerHTML = feedback || 'Bravo !'
     }
     if (resultatCheck) {
-      resultatCheck.innerHTML = resultat.every(r => r === 'OK') ? '😎' : '☹️'
+      resultatCheck.innerHTML = resultat.every((r) => r === 'OK') ? '😎' : '☹️'
     }
     this.figure.setToolbar({ position: 'top', tools: ['DRAG', 'DESCRIPTION'] })
     return resultat
@@ -174,10 +220,25 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
 
 export default ConstructionSegmentRayLine
 
-function createAnimation (traits: Trait[]) : Figure {
-  const figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
-  figure.setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
-  const description = figure.create('TextByPosition', { anchor: 'bottomLeft', backgroundColor: 'white', text: '', x: 10, y: 15 })
+function createAnimation(traits: Trait[]): Figure {
+  const figure = new Figure({
+    xMin: 0,
+    yMin: 0,
+    width: 800,
+    height: 500,
+    border: true,
+  })
+  figure.setToolbar({
+    position: 'top',
+    tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'],
+  })
+  const description = figure.create('TextByPosition', {
+    anchor: 'bottomLeft',
+    backgroundColor: 'white',
+    text: '',
+    x: 10,
+    y: 15,
+  })
   figure.create('Point', { x: 3, y: 3, label: traits[0].point1 })
   figure.create('Point', { x: 12, y: 4, label: traits[0].point2 })
   figure.create('Point', { x: 8, y: 10, label: traits[1].point2 })

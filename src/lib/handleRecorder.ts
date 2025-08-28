@@ -3,7 +3,7 @@ import { get } from 'svelte/store'
 import { mathaleaGetExercicesFromParams } from './mathalea'
 import { buildMathAleaURL } from './components/urls'
 
-export async function sendActivityParams () {
+export async function sendActivityParams() {
   const exercices = []
   const exoParams = get(exercicesParams)
   const exo = await mathaleaGetExercicesFromParams(exoParams)
@@ -30,7 +30,7 @@ export async function sendActivityParams () {
     paramUrl = paramUrl.slice(0, -1)
     exercices.push({
       titre: exo[i].titre,
-      url: paramUrl
+      url: paramUrl,
     })
     i++
   }
@@ -39,7 +39,7 @@ export async function sendActivityParams () {
     view: 'eleve',
     mode: 'un_exo_par_page',
     removeSeed: true,
-    recorder: 'Moodle'
+    recorder: 'Moodle',
   }).toString()
   console.info(url)
   window.parent.postMessage(
@@ -47,8 +47,8 @@ export async function sendActivityParams () {
       exercices,
       action: 'mathalea:activityParams',
       url,
-      globalOptions: options
+      globalOptions: options,
     },
-    '*'
+    '*',
   )
 }

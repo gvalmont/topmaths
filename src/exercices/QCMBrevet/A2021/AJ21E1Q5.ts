@@ -8,7 +8,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '44f7a'
 export const refs = {
   'fr-fr': ['3C1QCM-05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,11 +23,11 @@ export const dateDePublication = '09/11/2024'
  */
 
 export default class AsieJuin21Exo1Q5 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b: number): void {
+  private appliquerLesValeurs(a: number, b: number): void {
     this.reponses = [
       `$${String(a)}^{${texNombre(b + 1, 0)}}$`,
       `$${String(a)}^{${texNombre(2 * b, 0)}}$`,
-      `$${String(a * a)}^{${texNombre(b, 0)}}$`
+      `$${String(a * a)}^{${texNombre(b, 0)}}$`,
     ]
     this.enonce = `$${String(a)}\\times ${String(a)}^{${texNombre(b, 0)}}$ est égal à :`
     this.correction = `$\\begin{aligned}${String(a)}\\times ${String(a)}^{${texNombre(b, 0)}}&=${String(a)}^1\\times ${String(a)}^{${texNombre(b, 0)}}\\\\
@@ -49,7 +49,7 @@ export default class AsieJuin21Exo1Q5 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

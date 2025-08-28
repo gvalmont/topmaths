@@ -3,7 +3,7 @@ import {
   isStaticType,
   type ResourceAndItsPath,
   isExamItemInReferentiel,
-  resourceHasMonth
+  resourceHasMonth,
 } from '../types/referentiels'
 import { monthes } from './handleDate'
 
@@ -32,7 +32,7 @@ type ResourceAndItsPathDecomposition = {
  * @param v chaine à inspecter
  * @returns `true` si la chaîne contient un nombre
  */
-function thisStringRepresentsANumber (v: string) {
+function thisStringRepresentsANumber(v: string) {
   return (+v).toString() === v
 }
 
@@ -60,7 +60,7 @@ const customSorting = {
   },
   desc: function (a: StringDecomposition, b: StringDecomposition): number {
     return customSorting.asc(b, a)
-  }
+  },
 }
 
 /**
@@ -69,7 +69,7 @@ const customSorting = {
 const customSortingForResources = {
   asc: function (
     a: ResourceAndItsPathDecomposition,
-    b: ResourceAndItsPathDecomposition
+    b: ResourceAndItsPathDecomposition,
   ): number {
     let i = 0
     const l = Math.min(a.value.length, b.value.length)
@@ -90,10 +90,10 @@ const customSortingForResources = {
   },
   desc: function (
     a: ResourceAndItsPathDecomposition,
-    b: ResourceAndItsPathDecomposition
+    b: ResourceAndItsPathDecomposition,
   ): number {
     return customSortingForResources.asc(b, a)
-  }
+  },
 }
 
 /**
@@ -105,7 +105,7 @@ const customSortingForResources = {
  */
 export const sortArrayOfStringsWithHyphens = (
   data: string[],
-  order: 'asc' | 'desc' = 'asc'
+  order: 'asc' | 'desc' = 'asc',
 ) => {
   // nettoyer les chaînes en ne gardant que les éléments liés par des tirets
   // (comme `4-A10-1`) puis déstructurer cette chaîne
@@ -139,7 +139,7 @@ export const sortArrayOfStringsWithHyphens = (
 export const sortArrayOfResourcesBasedOnProp = (
   data: ResourceAndItsPath[],
   key: 'uuid' | 'id',
-  order: 'asc' | 'desc' = 'asc'
+  order: 'asc' | 'desc' = 'asc',
 ): ResourceAndItsPath[] => {
   if (data.length === 0) {
     return data
@@ -177,14 +177,17 @@ export const sortArrayOfResourcesBasedOnProp = (
  */
 export const sortArrayOfResourcesBasedOnYearAndMonth = (
   data: ResourceAndItsPath[],
-  order: 'asc' | 'desc' = 'asc'
+  order: 'asc' | 'desc' = 'asc',
 ): ResourceAndItsPath[] => {
   if (data.length === 0) {
     return data
   }
   return data.sort((a, b) => {
     // seuls les ressources de type examens ont des propriétés `annee` et des fois `mois`
-    if (isExamItemInReferentiel(a.resource) && isExamItemInReferentiel(b.resource)) {
+    if (
+      isExamItemInReferentiel(a.resource) &&
+      isExamItemInReferentiel(b.resource)
+    ) {
       const resourceAYear = parseInt(a.resource.annee)
       const resourceBYear = parseInt(b.resource.annee)
       if (resourceAYear !== resourceBYear) {
@@ -223,7 +226,10 @@ export const sortArrayOfResourcesBasedOnYearAndMonth = (
  * @returns le résultat de la comparaison
  */
 // Define a custom sorting function
-export const customSortStringNumber = (a: number | string, b: number | string): number => {
+export const customSortStringNumber = (
+  a: number | string,
+  b: number | string,
+): number => {
   if (typeof a === 'number' && typeof b === 'number') {
     return a - b
   } else {
@@ -234,14 +240,14 @@ export const customSortStringNumber = (a: number | string, b: number | string): 
 type Order = 'asc' | 'desc' | 'ascStringdescNumber'
 
 // Fonction qui divise une chaîne en parties numériques et non numériques (pour mettre dans l'ordre sujet1, sujet2 et sujet10)
-function splitAlphaNumeric (str: string): (string | number)[] {
+function splitAlphaNumeric(str: string): (string | number)[] {
   return str
     .split(/(\d+)/)
     .map((part) => (isNaN(Number(part)) ? part : Number(part)))
 }
 
 // Fonction de comparaison prenant en compte les parties numériques et les majuscules accentuées
-function compareAlphaNumeric (a: string, b: string, order: Order): number {
+function compareAlphaNumeric(a: string, b: string, order: Order): number {
   const aParts = splitAlphaNumeric(a)
   const bParts = splitAlphaNumeric(b)
 
@@ -256,14 +262,16 @@ function compareAlphaNumeric (a: string, b: string, order: Order): number {
       }
     } else if (aPart !== bPart) {
       // Utiliser localeCompare pour comparer les chaînes de manière insensible aux accents et à la casse
-      const comparison = (aPart as string).normalize('NFD').localeCompare(
-        (bPart as string).normalize('NFD'),
-        undefined,
-        { sensitivity: 'base' }
-      )
+      const comparison = (aPart as string)
+        .normalize('NFD')
+        .localeCompare((bPart as string).normalize('NFD'), undefined, {
+          sensitivity: 'base',
+        })
       if (comparison !== 0) {
         // console.log(a +':' + b +'=>s' + aPart +':'+ bPart + ':'+ (comparison))
-        return order === 'asc' || order === 'ascStringdescNumber' ? comparison : -comparison
+        return order === 'asc' || order === 'ascStringdescNumber'
+          ? comparison
+          : -comparison
       }
     }
   }
@@ -296,23 +304,35 @@ function compareAlphaNumeric (a: string, b: string, order: Order): number {
 ] */
 export const triAnnales = (
   data: ResourceAndItsPath[],
-  order: Order = 'asc'
+  order: Order = 'asc',
 ): ResourceAndItsPath[] => {
   if (data.length > 0) {
     data.sort((a, b) => {
       // Premier critère de tri : pathToResource[0]
-      let result = compareAlphaNumeric(a.pathToResource[0], b.pathToResource[0], order)
+      let result = compareAlphaNumeric(
+        a.pathToResource[0],
+        b.pathToResource[0],
+        order,
+      )
       if (result !== 0) return result
 
       // Deuxième critère de tri : pathToResource[1] (si disponible)
       if (a.pathToResource[1] && b.pathToResource[1]) {
-        result = compareAlphaNumeric(a.pathToResource[1], b.pathToResource[1], order)
+        result = compareAlphaNumeric(
+          a.pathToResource[1],
+          b.pathToResource[1],
+          order,
+        )
         if (result !== 0) return result
       }
 
       // Troisième critère de tri : pathToResource[2] (si disponible)
       if (a.pathToResource[2] && b.pathToResource[2]) {
-        result = compareAlphaNumeric(a.pathToResource[2], b.pathToResource[2], order)
+        result = compareAlphaNumeric(
+          a.pathToResource[2],
+          b.pathToResource[2],
+          order,
+        )
         if (result !== 0) return result
       }
 

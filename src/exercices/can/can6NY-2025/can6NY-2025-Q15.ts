@@ -8,7 +8,7 @@ export const interactifType = 'qcm'
 export const uuid = 'b926b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -16,14 +16,14 @@ export const refs = {
 
 */
 export default class multiple extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'qcm'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = choice([2, 5, 3, 9, 10])
     this.autoCorrection[0] = {
       options: { ordered: true },
@@ -31,21 +31,21 @@ export default class multiple extends ExerciceSimple {
       propositions: [
         {
           texte: 'OUI',
-          statut: a === 3 || a === 5 || a === 3 || a === 5 || a === 9
+          statut: a === 3 || a === 5 || a === 3 || a === 5 || a === 9,
         },
         {
           texte: 'NON',
-          statut: a === 2 || a === 10
-        }
-      ]
-
+          statut: a === 2 || a === 10,
+        },
+      ],
     }
     const qcm = propositionsQcm(this, 0)
-    this.question = `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? ` + qcm.texte
+    this.question =
+      `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? ` + qcm.texte
     this.canEnonce = `$${texNombre(2025)}$ est-il un multiple de $${a}$ ? `
     this.canReponseACompleter = `OUI ${sp(7)} NON`
     if (a === 2 || a === 10) {
-      this.correction = `$${texNombre(2025)}$  a pour chiffre des unités $5$ qui ${a === 2 ? 'n\'est pas pair' : 'n\'est pas $0$'}. <br>
+      this.correction = `$${texNombre(2025)}$  a pour chiffre des unités $5$ qui ${a === 2 ? "n'est pas pair" : "n'est pas $0$"}. <br>
     Donc  $${texNombre(2025)}$  n'est pas un multiple de ${a === 2 ? '$2$' : '$10$'}.`
     }
     if (a === 3 || a === 9) {

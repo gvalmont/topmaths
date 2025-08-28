@@ -5,7 +5,7 @@
  * @author Sébastien Lozano
  */
 export class Relatif {
-  constructor (...relatifs) {
+  constructor(...relatifs) {
     this.relatifs = relatifs
   }
 
@@ -15,7 +15,7 @@ export class Relatif {
    * @return {array} Renvoie un tableau de -1 ou 1
    * @example getSigneNumber(-1,-2,8,-9,4) renvoie [-1,-1,1,-1,1]
    */
-  getSigneNumber () {
+  getSigneNumber() {
     const signes = []
     try {
       // port du string interdit !
@@ -29,7 +29,7 @@ export class Relatif {
       })
       // Quoi faire sans nombres ?
       if (this.relatifs.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
+        throw new Error("C'est mieux avec quelques nombres !")
       }
       this.relatifs.forEach(function (element) {
         if (element < 0) {
@@ -51,7 +51,7 @@ export class Relatif {
    * @return {array} Renvoie un tableau de strings valant 'négatif' ou 'positif'
    * @example getSigneNumber(-1,-2,8,-9,4) renvoie le tableau de strings [négatif,négatif,positif,négatif,positif]
    */
-  getSigneString () {
+  getSigneString() {
     const signesString = []
     const signes = this.getSigneNumber()
     signes.forEach(function (element) {
@@ -72,7 +72,7 @@ export class Relatif {
    * @example getSigneProduitNumber(1,-4,-7) renvoie 1
    */
 
-  getSigneProduitNumber (...n) {
+  getSigneProduitNumber(...n) {
     let produit = 1
     try {
       // port du string interdit !
@@ -86,7 +86,7 @@ export class Relatif {
       })
       // Quoi faire sans nombres ?
       if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
+        throw new Error("C'est mieux avec quelques nombres !")
       }
       n.forEach(function (element) {
         produit = produit * element
@@ -110,7 +110,7 @@ export class Relatif {
    * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
    */
 
-  getSigneProduitString (...n) {
+  getSigneProduitString(...n) {
     const produit = this.getSigneProduitNumber(...n)
     if (produit === -1) {
       return 'négatif'
@@ -129,7 +129,7 @@ export class Relatif {
    * @example getCardNegatifs([4,-5,7,7,-8,-9]) renvoie 3
    */
 
-  getCardNegatifs ([...n]) {
+  getCardNegatifs([...n]) {
     let card = 0
     try {
       // port du string interdit !
@@ -143,7 +143,7 @@ export class Relatif {
       })
       // Quoi faire sans nombres ?
       if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
+        throw new Error("C'est mieux avec quelques nombres !")
       }
       n.forEach(function (element) {
         if (element < 0) {
@@ -163,7 +163,7 @@ export class Relatif {
    * @example orth_facteurs_negatifs(0) ou orth_facteurs_negatifs(1) renvoie 'facteur negatif'
    * @example orth_facteurs_negatifs(7) renvoie 'facteurs negatifs'
    */
-  orthographeFacteursNegatifs (n) {
+  orthographeFacteursNegatifs(n) {
     if (n >= 2) {
       return 'facteurs négatifs'
     } else {
@@ -177,7 +177,7 @@ export class Relatif {
    * @example setRegleProduitFacteurs([1,-2,-8,5]) renvoie le string 'Il y a 2 facteurs négatifs, le nombre de facteurs négatifs est pair donc le produit est positif.'
    */
 
-  setRegleSigneProduit (...n) {
+  setRegleSigneProduit(...n) {
     try {
       // port du string interdit !
       n.forEach(function (element) {
@@ -187,7 +187,7 @@ export class Relatif {
       })
       // Quoi faire sans nombres ?
       if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
+        throw new Error("C'est mieux avec quelques nombres !")
       }
       if (n.length === 2) {
         if (this.getCardNegatifs(n) % 2 === 0) {
@@ -219,7 +219,7 @@ export class Relatif {
    * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
    */
 
-  setRegleSigneQuotient (...n) {
+  setRegleSigneQuotient(...n) {
     try {
       // port du string interdit !
       n.forEach(function (element) {
@@ -229,7 +229,7 @@ export class Relatif {
       })
       // Quoi faire sans nombres ?
       if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
+        throw new Error("C'est mieux avec quelques nombres !")
       }
       if (n.length === 2) {
         if (this.getCardNegatifs(n) % 2 === 0) {

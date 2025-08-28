@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f78d0'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025TQ18 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,19 +26,21 @@ export default class Can2025TQ18 extends ExerciceSimple {
     this.compare = functionCompare
     this.optionsDeComparaison = { variable: 'x' }
     this.canOfficielle = true
-    this.optionsChampTexte = { texteAvant: ' <br>$f\'(x)=$' }
+    this.optionsChampTexte = { texteAvant: " <br>$f'(x)=$" }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? -2 : randint(-5, 5, [-1, 0, 1])
     const b = this.canOfficielle ? 5 : randint(3, 9)
     this.reponse = `${a}\\times e^{${a}x}+\\dfrac{1}{${b}}`
     this.question = `Soit $f(x)=\\text{e}^{${a}x}+\\dfrac{x}{${b}}$<br>`
-    if (!this.interactif) { this.question += '$f\'(x)=\\ldots$' }
+    if (!this.interactif) {
+      this.question += "$f'(x)=\\ldots$"
+    }
     this.correction = `D'après le cours, si $f=\\text{e}^u$ alors $f'=u'\\times \\text{e}^{u}$.<br>
     De plus, $\\dfrac{x}{${b}}=\\dfrac{1}{${b}}x$.<br>
     Donc $f'(x)=${miseEnEvidence(`${a}\\text{e}^{${a}x}+\\dfrac{1}{${b}}`)}$.`
     this.canEnonce = ` $f(x)=\\text{e}^{${a}x}+\\dfrac{x}{${b}}$`
-    this.canReponseACompleter = '$f\'(x)=\\ldots$'
+    this.canReponseACompleter = "$f'(x)=\\ldots$"
   }
 }

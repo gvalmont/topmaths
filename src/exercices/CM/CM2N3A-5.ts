@@ -13,10 +13,10 @@ export const uuid = 'b259a'
 export const refs = {
   'fr-fr': ['CM2N3A-5'],
   'fr-2016': ['c3C11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DivisionCycle3 extends DivisionsEuclidiennes {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
   }

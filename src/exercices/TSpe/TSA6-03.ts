@@ -9,7 +9,7 @@ import ExerciceQcm from '../ExerciceQcm'
 export const uuid = 'ed974'
 export const refs = {
   'fr-fr': ['TSA6-03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -32,15 +32,17 @@ export default class Binomiale extends ExerciceQcm {
 
     let correction = ''
     this.reponses = [
-        `$F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(new FractionEtendue(-1, a))}\\times \\mathrm{e}^{${b}}$`,
-        `$F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(new FractionEtendue(1, a))}\\times \\mathrm{e}^{${b}}$`,
-        `$F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(-a)}\\times \\mathrm{e}^{${b}}$`,
-        `$F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(a)}\\times \\mathrm{e}^{${b}}$`,
-        `$F(x)=${a}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(new FractionEtendue(-1, a))}\\times \\mathrm{e}^{${b}}$`]
+      `$F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(new FractionEtendue(-1, a))}\\times \\mathrm{e}^{${b}}$`,
+      `$F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(new FractionEtendue(1, a))}\\times \\mathrm{e}^{${b}}$`,
+      `$F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(-a)}\\times \\mathrm{e}^{${b}}$`,
+      `$F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(a)}\\times \\mathrm{e}^{${b}}$`,
+      `$F(x)=${a}\\mathrm{e}^{${reduireAxPlusB(a, b)}} ${ecritureAlgebrique(c)}${ecritureAlgebrique(new FractionEtendue(-1, a))}\\times \\mathrm{e}^{${b}}$`,
+    ]
     const texte = `La seule primitive $F$ de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=\\mathrm{e}^{${reduireAxPlusB(a, b)}}$ telle que $F(0)=${c}$ est la fonction définie par :<br>`
     this.enonce = texte
 
-    correction = 'Les primitives d\'une fonction $f$ définie pour tout réel par $f(x)=\\mathrm{e}^{ax+b}$, avec $a\\neq0$, sont sous la forme  $F(x)=\\dfrac{1}{a}\\mathrm{e}^{ax+b}+k$ avec $k\\in\\mathbb R$.<br>'
+    correction =
+      "Les primitives d'une fonction $f$ définie pour tout réel par $f(x)=\\mathrm{e}^{ax+b}$, avec $a\\neq0$, sont sous la forme  $F(x)=\\dfrac{1}{a}\\mathrm{e}^{ax+b}+k$ avec $k\\in\\mathbb R$.<br>"
     correction += `Cela nous donne dans la situation présente :  $F(x)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${reduireAxPlusB(a, b)}}+k$, avec $k\\in\\mathbb R$.<br>`
     correction += `On a $F(0)=${new FractionEtendue(1, a).texFractionSimplifiee}\\mathrm{e}^{${b}}+k=${c}$<br>`
     correction += `On en déduit que $k=${c}${ecritureAlgebrique(new FractionEtendue(-1, a))}\\mathrm{e}^{${b}}$<br>`
@@ -49,7 +51,7 @@ export default class Binomiale extends ExerciceQcm {
     this.enonce = texte
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

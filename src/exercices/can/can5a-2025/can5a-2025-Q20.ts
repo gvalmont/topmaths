@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a343a'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q20 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     let q: number
     let r: number
     if (a == null || b == null) {
@@ -32,10 +32,12 @@ export default class Can2025N5Q20 extends ExerciceCan {
     this.question = `Détermine le reste de la division euclidienne de $${a}$ par $${b}$.`
     this.correction = `$${a} = ${b}\\times${q}+${r}=${b * q}+${r}$, donc le reste est $${miseEnEvidence(texNombre(r, 0))}$.`
     this.canEnonce = this.question
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(20, 7) : this.enonce()
   }
 }

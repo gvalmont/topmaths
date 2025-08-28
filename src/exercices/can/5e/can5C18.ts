@@ -19,21 +19,24 @@ export const uuid = '1f71c'
 
 export const refs = {
   'fr-fr': ['can5C18'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ReconnaitreExp extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, c, d, choix, listeFractions1, fractionR, monQcm
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3, 4])) { // 1
-        case 1 :// a+b*c a*b+c  a*b-c
-          choix = choice([1, 2, 3])// 1,2
-          if (choix === 1) { // a+b*c
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2, 3, 4]) // 1
+      ) {
+        case 1: // a+b*c a*b+c  a*b-c
+          choix = choice([1, 2, 3]) // 1,2
+          if (choix === 1) {
+            // a+b*c
             a = randint(1, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -45,21 +48,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -67,7 +70,8 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur l’addition). <br>
             On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}}_{A}+\\underbrace{${b}\\times ${c}}_{B}$`
-          } else if (choix === 2) { // a*b+c
+          } else if (choix === 2) {
+            // a*b+c
             a = randint(1, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -79,21 +83,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -101,7 +105,8 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur l’addition).<br>
              On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times  ${b}}_{A}+\\underbrace{ ${c}}_{B}$`
-          } else { // a*b-c
+          } else {
+            // a*b-c
             a = randint(1, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -113,21 +118,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -138,9 +143,10 @@ export default class ReconnaitreExp extends Exercice {
           }
           break
 
-        case 2 :// a*b+/-c*d
-          choix = choice([1, 2])// 1,2
-          if (choix === 1) { // a*b+c*d
+        case 2: // a*b+/-c*d
+          choix = choice([1, 2]) // 1,2
+          if (choix === 1) {
+            // a*b+c*d
             a = randint(2, 10)
             b = randint(2, 10)
             c = randint(2, 10)
@@ -153,28 +159,29 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur l’addition). <br>
             On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times${b}}_{A}+\\underbrace{${c}\\times ${d}}_{B}$`
-          } else { // a*b-c*d
+          } else {
+            // a*b-c*d
             a = randint(5, 10)
             b = randint(5, 10)
             c = randint(2, 5)
@@ -187,21 +194,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -212,9 +219,10 @@ export default class ReconnaitreExp extends Exercice {
           }
 
           break
-        case 3 :// avec parenthèses
-          choix = choice([1, 2, 3, 4, 5, 6])// 1,2
-          if (choix === 1) { // a*(b+c)
+        case 3: // avec parenthèses
+          choix = choice([1, 2, 3, 4, 5, 6]) // 1,2
+          if (choix === 1) {
+            // a*(b+c)
             a = randint(2, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -227,29 +235,34 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
             On en déduit que l’expression est un produit de deux facteurs $A$ et $B$ :`
-            if (choix === true) { texteCorr += `<br>$\\underbrace{${a}}_{A}\\times\\underbrace{(${b}+ ${c})}_{B}$` } else { texteCorr += `<br>$${a}(${b}+ ${c})=\\underbrace{${a}}_{A}\\times\\underbrace{(${b}+ ${c})}_{B}$` }
-          } else if (choix === 2) { // (b+c)*a
+            if (choix === true) {
+              texteCorr += `<br>$\\underbrace{${a}}_{A}\\times\\underbrace{(${b}+ ${c})}_{B}$`
+            } else {
+              texteCorr += `<br>$${a}(${b}+ ${c})=\\underbrace{${a}}_{A}\\times\\underbrace{(${b}+ ${c})}_{B}$`
+            }
+          } else if (choix === 2) {
+            // (b+c)*a
             a = randint(2, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -261,21 +274,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -283,7 +296,8 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
             On en déduit que l’expression est un produit de deux facteurs $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{(${b}+ ${c})}_{A}\\times\\underbrace{${a}}_{B}$`
-          } else if (choix === 3) { // (a+b):c
+          } else if (choix === 3) {
+            // (a+b):c
             a = randint(2, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -295,21 +309,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: true
-                }
-              ]
+                  statut: true,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -317,7 +331,8 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une division. <br>
           On en déduit que l’expression est le quotient de $A$ par $B$ :`
             texteCorr += `<br> $(\\underbrace{${a}+${b}}_{A})\\div\\underbrace{${c}}_{B}$`
-          } else if (choix === 4) { // a*(b+c)*d
+          } else if (choix === 4) {
+            // a*(b+c)*d
             a = randint(2, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -330,21 +345,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -352,7 +367,8 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
             On en déduit que l’expression est un produit de trois facteurs $A$,  $B$ et $C$ :`
             texteCorr += `<br>$\\underbrace{${a}}_{A}\\times (\\underbrace{${b}+ ${c}}_{B})\\times \\underbrace{${d}}_{C}$`
-          } else if (choix === 5) { // a*(b+c)+d
+          } else if (choix === 5) {
+            // a*(b+c)+d
             a = randint(2, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -365,21 +381,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -387,7 +403,8 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme. <br>
             On en déduit que l’expression est une somme de deux termes $A$ et  $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times (${b}+ ${c})}_{A}+ \\underbrace{${d}}_{B}$`
-          } else { // a*(b+c)-d
+          } else {
+            // a*(b+c)-d
             a = randint(2, 10)
             b = randint(1, 10)
             c = randint(2, 10)
@@ -400,21 +417,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -424,13 +441,31 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr += `<br>$\\underbrace{${a}\\times (${b}+ ${c})}_{A}- \\underbrace{${d}}_{B}$`
           }
           break
-        case 4 :// avec des fractions
+        case 4: // avec des fractions
         default:
-          choix = choice([1, 2, 3, 4])// 1,2
-          if (choix === 1) { // a/b+c
+          choix = choice([1, 2, 3, 4]) // 1,2
+          if (choix === 1) {
+            // a/b+c
             listeFractions1 = [
-              [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7], [9, 7], [13, 7], [11, 8], [11, 9], [7, 6], [12, 11], [4, 3],
-              [7, 5], [13, 7], [13, 9], [13, 11], [13, 12], [14, 11]
+              [10, 3],
+              [5, 4],
+              [7, 4],
+              [10, 7],
+              [11, 7],
+              [12, 7],
+              [9, 7],
+              [13, 7],
+              [11, 8],
+              [11, 9],
+              [7, 6],
+              [12, 11],
+              [4, 3],
+              [7, 5],
+              [13, 7],
+              [13, 9],
+              [13, 11],
+              [13, 12],
+              [14, 11],
             ] // Couples de nombres premiers entre eux >1
             fractionR = choice(listeFractions1)
             a = fractionR[0]
@@ -445,21 +480,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -467,10 +502,28 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme. <br>
             On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{\\dfrac{${a}}{${b}}}_{A}+\\underbrace{${c}}_{B}$`
-          } else if (choix === 2) { // a/b-c
+          } else if (choix === 2) {
+            // a/b-c
             listeFractions1 = [
-              [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7], [9, 7], [13, 7], [11, 8], [11, 9], [7, 6], [12, 11], [4, 3],
-              [7, 5], [13, 7], [13, 9], [13, 11], [13, 12], [14, 11]
+              [10, 3],
+              [5, 4],
+              [7, 4],
+              [10, 7],
+              [11, 7],
+              [12, 7],
+              [9, 7],
+              [13, 7],
+              [11, 8],
+              [11, 9],
+              [7, 6],
+              [12, 11],
+              [4, 3],
+              [7, 5],
+              [13, 7],
+              [13, 9],
+              [13, 11],
+              [13, 12],
+              [14, 11],
             ] // Couples de nombres premiers entre eux >1
             fractionR = choice(listeFractions1)
             a = fractionR[0]
@@ -485,21 +538,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -507,10 +560,28 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une différence. <br>
             On en déduit que l’expression est une différence de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{\\dfrac{${a}}{${b}}}_{A}-\\underbrace{${c}}_{B}$`
-          } else if (choix === 3) { // a/b-c
+          } else if (choix === 3) {
+            // a/b-c
             listeFractions1 = [
-              [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7], [9, 7], [13, 7], [11, 8], [11, 9], [7, 6], [12, 11], [4, 3],
-              [7, 5], [13, 7], [13, 9], [13, 11], [13, 12], [14, 11]
+              [10, 3],
+              [5, 4],
+              [7, 4],
+              [10, 7],
+              [11, 7],
+              [12, 7],
+              [9, 7],
+              [13, 7],
+              [11, 8],
+              [11, 9],
+              [7, 6],
+              [12, 11],
+              [4, 3],
+              [7, 5],
+              [13, 7],
+              [13, 9],
+              [13, 11],
+              [13, 12],
+              [14, 11],
             ] // Couples de nombres premiers entre eux >1
             fractionR = choice(listeFractions1)
             a = fractionR[0]
@@ -525,21 +596,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -547,7 +618,8 @@ export default class ReconnaitreExp extends Exercice {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une différence. <br>
             On en déduit que l’expression est une différence de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${c}}_{A}-\\underbrace{\\dfrac{${a}}{${b}}}_{B}$`
-          } else { // (a+b)/c
+          } else {
+            // (a+b)/c
             a = randint(2, 10)
             b = randint(2, 10)
             c = randint(2, 10)
@@ -560,21 +632,21 @@ export default class ReconnaitreExp extends Exercice {
               propositions: [
                 {
                   texte: 'Somme',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Différence',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Produit',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: 'Quotient',
-                  statut: true
-                }
-              ]
+                  statut: true,
+                },
+              ],
             }
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte

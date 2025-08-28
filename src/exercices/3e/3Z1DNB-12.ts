@@ -17,7 +17,7 @@ import { lectureAntecedent } from '../../lib/2d/courbes'
 export const uuid = 'fb6ad'
 export const refs = {
   'fr-fr': ['3Z1DNB-12'],
-  'fr-ch': ['11FA8-22', '1mF1-15']
+  'fr-ch': ['11FA8-22', '1mF1-15'],
 }
 export const titre = 'Préparation DNB : Fonctions affines, lecture graphique'
 export const dateDePublication = '12/04/2025'
@@ -31,24 +31,36 @@ export const dateDePublication = '12/04/2025'
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
 export default class ExerciceAmeriqueNord392024 extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.introduction = texteItalique('D\'après l\'exercice 3 du brevet Amérique du Nord 2024.<br>')
+    this.introduction = texteItalique(
+      "D'après l'exercice 3 du brevet Amérique du Nord 2024.<br>",
+    )
 
     this.versionAleatoire()
   }
 
-  private appliquerLesValeurs (classique: number, essentielAbo: number, essentielUnitaire: number, liberteAbo: number, nbClassique: number, nbEssentiel: number, prixEssentiel: number, budgetMax: number) : void {
-    const f2 = (x:number) => essentielAbo + essentielUnitaire * x
+  private appliquerLesValeurs(
+    classique: number,
+    essentielAbo: number,
+    essentielUnitaire: number,
+    liberteAbo: number,
+    nbClassique: number,
+    nbEssentiel: number,
+    prixEssentiel: number,
+    budgetMax: number,
+  ): void {
+    const f2 = (x: number) => essentielAbo + essentielUnitaire * x
     const yMax = liberteAbo + 30
     const yMin = 0
     const xMin = 0
     const xMax = Math.round((liberteAbo - essentielAbo) / essentielUnitaire) + 5
-    const pointF2D = f2(xMax) < yMax
-      ? point(xMax, f2(xMax) / 10)
-      : point((yMax - essentielAbo) / essentielUnitaire, yMax / 10)
+    const pointF2D =
+      f2(xMax) < yMax
+        ? point(xMax, f2(xMax) / 10)
+        : point((yMax - essentielAbo) / essentielUnitaire, yMax / 10)
     const pointF2G = point(0, essentielAbo / 10)
     const pointF3G = point(0, liberteAbo / 10)
     const pointF3D = point(xMax, liberteAbo / 10)
@@ -57,11 +69,15 @@ export default class ExerciceAmeriqueNord392024 extends ExerciceBrevetA {
     const d1 = droite(pointF1G, pointF1D, '', 'red')
     const d2 = droite(pointF2G, pointF2D, '', 'green')
     const d3 = droite(pointF3G, pointF3D, '', 'blue')
-    const n1 = latex2d('(d_1)', pointF1D.x - 1, pointF1D.y + 0.4, { color: 'red' })
-    const n2 = latex2d('(d_2)', pointF2D.x - 1, pointF2D.y + 0.4, { color: 'green' })
+    const n1 = latex2d('(d_1)', pointF1D.x - 1, pointF1D.y + 0.4, {
+      color: 'red',
+    })
+    const n2 = latex2d('(d_2)', pointF2D.x - 1, pointF2D.y + 0.4, {
+      color: 'green',
+    })
     const n3 = latex2d('(d_3)', pointF3D.x, pointF3D.y - 0.5, { color: 'blue' })
     const legendY = texteParPosition('Prix à payer en €', 4.5, yMax / 10)
-    const legendX = texteParPosition('Nombre d\'entrees', xMax - 2, 1)
+    const legendX = texteParPosition("Nombre d'entrees", xMax - 2, 1)
 
     const rep = new RepereBuilder({ xMin, xMax, yMin, yMax })
       .setGrille({ grilleX: { dx: 5 }, grilleY: { dy: 50 } })
@@ -76,20 +92,55 @@ export default class ExerciceAmeriqueNord392024 extends ExerciceBrevetA {
     rep.yLabelEcart = 1
     rep.xLabelEcart = 1
     const objets = [rep.buildCustom(), d1, d2, d3, n1, n2, n3, legendY, legendX]
-    const figure = mathalea2d(Object.assign({ pixelsParCm: 15, scale: 0.35 }, fixeBordures(objets)), objets)
-    const lectureA = lectureAntecedent((prixEssentiel - essentielAbo) / essentielUnitaire, prixEssentiel / 10, 1, 1, 'purple', prixEssentiel % 50 === 0 ? '' : String(prixEssentiel), '')
+    const figure = mathalea2d(
+      Object.assign({ pixelsParCm: 15, scale: 0.35 }, fixeBordures(objets)),
+      objets,
+    )
+    const lectureA = lectureAntecedent(
+      (prixEssentiel - essentielAbo) / essentielUnitaire,
+      prixEssentiel / 10,
+      1,
+      1,
+      'purple',
+      prixEssentiel % 50 === 0 ? '' : String(prixEssentiel),
+      '',
+    )
     const libInt = (liberteAbo - essentielAbo) / essentielUnitaire
-    const entreeMax = Math.floor(budgetMax / classique) > Math.floor((budgetMax - essentielAbo) / essentielUnitaire)
-      ? [budgetMax / classique, 'Classique']
-      : [(budgetMax - essentielAbo) / essentielUnitaire, 'Essentiel']
-    const lectureC = lectureAntecedent(Number(entreeMax[0]), budgetMax / 10, 1, 1, 'orange', budgetMax % 50 === 0 ? '' : String(budgetMax), '')
-    const lectureB = lectureAntecedent(libInt, liberteAbo / 10, 1, 1, 'pink', liberteAbo % 50 === 0 ? '' : String(liberteAbo), '')
+    const entreeMax =
+      Math.floor(budgetMax / classique) >
+      Math.floor((budgetMax - essentielAbo) / essentielUnitaire)
+        ? [budgetMax / classique, 'Classique']
+        : [(budgetMax - essentielAbo) / essentielUnitaire, 'Essentiel']
+    const lectureC = lectureAntecedent(
+      Number(entreeMax[0]),
+      budgetMax / 10,
+      1,
+      1,
+      'orange',
+      budgetMax % 50 === 0 ? '' : String(budgetMax),
+      '',
+    )
+    const lectureB = lectureAntecedent(
+      libInt,
+      liberteAbo / 10,
+      1,
+      1,
+      'pink',
+      liberteAbo % 50 === 0 ? '' : String(liberteAbo),
+      '',
+    )
     const objets2 = [...objets, lectureA, lectureB, lectureC]
-    const figureCorr = mathalea2d(Object.assign({ pixelsParCm: 15, scale: 0.35 }, fixeBordures(objets2)), objets2)
+    const figureCorr = mathalea2d(
+      Object.assign({ pixelsParCm: 15, scale: 0.35 }, fixeBordures(objets2)),
+      objets2,
+    )
     const fonctions = shuffle([
       { name: 'Classique', expr: `x \\longmapsto ${texPrix(classique)} x` },
-      { name: 'Essentiel', expr: `x \\longmapsto ${texPrix(essentielAbo)} + ${texPrix(essentielUnitaire)}x` },
-      { name: 'Liberté', expr: `x \\longmapsto ${texPrix(liberteAbo)}` }
+      {
+        name: 'Essentiel',
+        expr: `x \\longmapsto ${texPrix(essentielAbo)} + ${texPrix(essentielUnitaire)}x`,
+      },
+      { name: 'Liberté', expr: `x \\longmapsto ${texPrix(liberteAbo)}` },
     ])
     this.enonce = `Un cinéma propose trois tarifs :<br>
   ${texteGras('Tarif "Classique"')} : La personne paye chaque entrée $${texPrix(classique)}$€.<br>
@@ -119,35 +170,37 @@ $h$ correspond au tarif "${fonctions[2].name}".<br>`
     const xB = (liberteAbo - essentielAbo) / essentielUnitaire
     const correction5b = `La droite horizontale d'équation $y=${liberteAbo}$ coupe la droite $d_2$ au point d'abscisse $${texNombre(xB, 1)}$.<br>
     À partir de $${Math.ceil(xB)}$ entrées, le tarif "liberté" devient plus intéressant.`
-    const question5b = 'À partir de combien d\'entrées, le tarif "Liberté" devient-il le tarif le plus intéressant ?'
+    const question5b =
+      'À partir de combien d\'entrées, le tarif "Liberté" devient-il le tarif le plus intéressant ?'
 
     const question5c = `Si on décide de ne pas dépasser un budget de $${texPrix(budgetMax)}$€, quel est le tarif qui permet d'acheter le plus grand nombre d'entrées ?`
     const correction5c = `La droite horizontale d'équation $y=${budgetMax}$ coupe en dernier ${entreeMax[1] === 'Classique' ? 'la droite $(d_1)$' : 'la droite $(d_2)$'} au point d'abscisse $${texNombre(Number(entreeMax[0]), 1)}$.<br>
     Pour $${budgetMax}$€, c'est le tarif ${entreeMax[1]} qui donne le plus d'entrées.`
     const listeQuestions5 = createList({
       items: [question5a, question5b, question5c],
-      style: 'alpha'
+      style: 'alpha',
     })
     const correction5 = createList({
-      items: [
-        correction5a, correction5b, correction5c
-      ],
-      style: 'alpha'
+      items: [correction5a, correction5b, correction5c],
+      style: 'alpha',
     })
-    const question4 = 'Quel tarif propose un prix proportionnel au nombre d\'entrées ?'
-    const fClass = fonctions.findIndex(el => el.expr === `x \\longmapsto ${texPrix(classique)} x`)
+    const question4 =
+      "Quel tarif propose un prix proportionnel au nombre d'entrées ?"
+    const fClass = fonctions.findIndex(
+      (el) => el.expr === `x \\longmapsto ${texPrix(classique)} x`,
+    )
     const correction4 = `C'est le tarif "Classique" qui propose un prix proportionnel au nombre d'entrées (la fonction $${lettreMinusculeDepuisChiffre(fClass + 6)}$ est linéaire).<br>
     ${figureCorr}`
     const question5 = `Pour les questions suivantes, aucune justification n'est attendue.<br>
     ${listeQuestions5}`
     const listeQuestions = createList({
       items: [question1, question2, question3, question4, question5],
-      style: 'nombres'
+      style: 'nombres',
     })
     this.enonce += listeQuestions
     const listeCorrections = createList({
       items: [correction1, correction2, correction3, correction4, correction5],
-      style: 'nombres'
+      style: 'nombres',
     })
     this.correction = listeCorrections
   }
@@ -162,16 +215,35 @@ $h$ correspond au tarif "${fonctions[2].name}".<br>`
     let essentielAbo: number
     let liberteAbo: number
     do {
-      classique = 5 * randint(16, 23) / 10
-      essentielUnitaire = randint(Math.floor(classique * 0.5), Math.floor(classique * 0.8))
+      classique = (5 * randint(16, 23)) / 10
+      essentielUnitaire = randint(
+        Math.floor(classique * 0.5),
+        Math.floor(classique * 0.8),
+      )
       essentielAbo = (classique - essentielUnitaire) * randint(7, 12)
-      liberteAbo = premierMultipleSuperieur(10, 30 * essentielUnitaire + essentielAbo)
+      liberteAbo = premierMultipleSuperieur(
+        10,
+        30 * essentielUnitaire + essentielAbo,
+      )
     } while (essentielAbo < 30 || !Number.isInteger(essentielAbo))
     const nbClassique = randint(3, 6)
     const nbEssentiel = randint(8, 11)
-    const prixEssentiel = premierMultipleSuperieur(10, randint(20, 30) * essentielUnitaire + essentielAbo)
-    const budgetMax = randint(Math.floor(liberteAbo / 20), liberteAbo / 10 - 2) * 10
+    const prixEssentiel = premierMultipleSuperieur(
+      10,
+      randint(20, 30) * essentielUnitaire + essentielAbo,
+    )
+    const budgetMax =
+      randint(Math.floor(liberteAbo / 20), liberteAbo / 10 - 2) * 10
 
-    this.appliquerLesValeurs(classique, essentielAbo, essentielUnitaire, liberteAbo, nbClassique, nbEssentiel, prixEssentiel, budgetMax)
+    this.appliquerLesValeurs(
+      classique,
+      essentielAbo,
+      essentielUnitaire,
+      liberteAbo,
+      nbClassique,
+      nbEssentiel,
+      prixEssentiel,
+      budgetMax,
+    )
   }
 }

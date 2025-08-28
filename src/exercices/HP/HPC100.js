@@ -9,15 +9,15 @@ export const titre = 'Division de polynômes'
  *
  * @author Jean-Claude Lhote à partir d'un exercice de Eric Schrafstetter
  * abandon de l'usage de xcas au profit de Polynome.
-*/
+ */
 export const uuid = 'ad6a2'
 
 export const refs = {
   'fr-fr': ['HPC100'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DivisionDePolynomes extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer le quotient Q(x) de la division de P(x) par D(x)'
@@ -28,8 +28,12 @@ export default class DivisionDePolynomes extends Exercice {
     this.sup = 1 // Niveau de difficulté
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, a, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0)
       const diviseur = new Polynome({ coeffs: [a, 1] })

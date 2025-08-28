@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'c35c9'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N62Q13 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,7 +26,7 @@ export default class Can2025N62Q13 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '<br>', texteApres: 'pièces' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 1.2 : randint(11, 29, 20) / 10
 
     this.reponse = texNombre(a * 10, 0)

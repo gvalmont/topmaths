@@ -3,11 +3,18 @@ import {
   ecritureAlgebrique,
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
-  ecritureParentheseSiNegatif
+  ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
-import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieEntiere,
+} from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
@@ -31,21 +38,22 @@ export const uuid = '0b020'
 
 export const refs = {
   'fr-fr': ['4C10-7'],
-  'fr-ch': ['10NO4-9']
+  'fr-ch': ['10NO4-9'],
 }
 export default class ExerciceOperationsRelatifs extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Avec des écritures simplifiées']
     this.besoinFormulaire2Texte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : multiplication',
         '2 : division',
         '3 : addition',
         '4 : soustraction',
-        '5 : Mélange'
-      ].join('\n')
+        '5 : Mélange',
+      ].join('\n'),
     ]
     this.besoinFormulaire3Numerique = ['Valeur maximale', 99999]
     this.sup = false // écriture simplifiée
@@ -55,16 +63,24 @@ export default class ExerciceOperationsRelatifs extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
-    const listeTypeDeSignes = combinaisonListes(['-+', '+-', '--', '-+', '+-', '--', '++'], this.nbQuestions)
+  nouvelleVersion() {
+    const listeTypeDeSignes = combinaisonListes(
+      ['-+', '+-', '--', '-+', '+-', '--', '++'],
+      this.nbQuestions,
+    )
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
       saisie: this.sup2,
       max: 4,
       melange: 5,
-      defaut: 2
+      defaut: 2,
     })
-    for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+    for (
+      let i = 0, a, b, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      // On limite le nombre d'essais pour chercher des valeurs nouvelles
       switch (listeTypeDeQuestions[i]) {
         case 2:
           b = randint(2, 9)
@@ -103,7 +119,7 @@ export default class ExerciceOperationsRelatifs extends Exercice {
           setReponse(this, i, a * b, {
             signe: true,
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a * b)),
-            decimals: 0
+            decimals: 0,
           })
           break
         case 2: // quotients
@@ -117,7 +133,7 @@ export default class ExerciceOperationsRelatifs extends Exercice {
           setReponse(this, i, arrondi(a / b), {
             signe: true,
             digits: 1,
-            decimals: 0
+            decimals: 0,
           })
           break
         case 3: // additions
@@ -131,7 +147,7 @@ export default class ExerciceOperationsRelatifs extends Exercice {
           setReponse(this, i, a + b, {
             signe: true,
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)),
-            decimals: 0
+            decimals: 0,
           })
           break
         case 4: // soustractions
@@ -146,14 +162,16 @@ export default class ExerciceOperationsRelatifs extends Exercice {
           setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], {
             signe: true,
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
-            decimals: 0
+            decimals: 0,
           })
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: sp() + '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
+        texteAvant: sp() + '$=$',
+      })
 
       if (this.sup) {
-      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 
         const textCorrSplit = texteCorr.split('=')
         let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
@@ -165,15 +183,18 @@ export default class ExerciceOperationsRelatifs extends Exercice {
         }
         texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
 
-      // Fin de cette uniformisation
+        // Fin de cette uniformisation
       }
 
-      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {
-          this.autoCorrection[i].propositions = [{ statut: 0, sanscadre: false, texte: texteCorr }]
+          this.autoCorrection[i].propositions = [
+            { statut: 0, sanscadre: false, texte: texteCorr },
+          ]
           this.autoCorrection[i].enonce = 'Calculer.\\\\' + texte
         }
         i++

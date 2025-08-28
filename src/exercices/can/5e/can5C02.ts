@@ -16,17 +16,17 @@ export const uuid = '5ecdc'
 
 export const refs = {
   'fr-fr': ['can5C02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeEntiers5e extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const b = randint(51, 89, [60, 70, 80])
     const a = randint(2, 39, [10, 20, 30]) + 100
     this.reponse = a + b
@@ -36,7 +36,7 @@ export default class SommeEntiers5e extends ExerciceSimple {
     On décompose le calcul $${a} + ${b}$ en  $(100+${a - 100})+ ${b}=100+ (\\underbrace{${a - 100} +${b}}_{${a - 100 + b}})$ .<br>
        Cela donne :  $100+${a - 100 + b}=${this.reponse}$.
       `)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

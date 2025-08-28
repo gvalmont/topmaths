@@ -86,20 +86,20 @@ export default defineConfig({
             return 'vendor'
           }
         },
-        sourcemap: true
+        sourcemap: true,
       },
-      maxParallelFileOps: 2
+      maxParallelFileOps: 2,
     }, // rollupOptions
     sourcemap: true, // https://vitejs.dev/config/build-options.html#build-sourcemap
     // inutile de le préciser avec le plugin legacy
-    target: 'modules' // https://vitejs.dev/config/build-options.html#build-target
+    target: 'modules', // https://vitejs.dev/config/build-options.html#build-target
   }, // build
   // Finalement ça ne change rien au pb de jQuery is undefined au chargement du chunk qui contient jquery-ui
   // optimizeDeps: {
   //   exclude: ['jquery', 'jquery-ui']
   // },
   plugins: [
-    dynamicImport()
+    dynamicImport(),
     // splitVendorChunkPlugin ne semble pas servir à grand chose, on a toujours tous les node_modules dans le même chunk, même sans rollupOptions.manualChunks
     // avec on passe de 1486 fichiers à 1513, mais les gros restent énormes
     // splitVendorChunkPlugin() // https://vitejs.dev/guide/build.html#chunking-strategy
@@ -123,15 +123,28 @@ export default defineConfig({
     // Attention, avec l'import dynamique par défaut de vite, ça ne marche pas pour les imports dynamiques depuis un js
     // (depuis un ts c'est ok), qui doivent tous être en relatif
     // avec le plugin https://github.com/vite-plugin/vite-plugin-dynamic-import ça doit fonctionner
-    alias: { // cf https://vitejs.dev/config/shared-options.html#resolve-alias
+    alias: {
+      // cf https://vitejs.dev/config/shared-options.html#resolve-alias
       src: srcDir,
       // alias jquery remplacé par le dedupe plus bas
       // jquery: resolve(__dirname, 'node_modules/jquery'),
       // 'jquery-ui': resolve(__dirname, 'node_modules/jquery-ui'),
       // @basthon/kernel-loader charge @basthon/kernel-sql qui charge sql.js qui veut crypto, path et du wasm, on le désactive ici via un alias
-      '@basthon/kernel-sql': resolve(srcDir, 'lib', 'outils', 'basthon', 'emptyModule.js'),
+      '@basthon/kernel-sql': resolve(
+        srcDir,
+        'lib',
+        'outils',
+        'basthon',
+        'emptyModule.js',
+      ),
       // lui est aussi très gros et on s'en sert pas, en le virant le chunk vendor-basthon passe de 18M à 43K
-      '@basthon/kernel-ocaml': resolve(srcDir, 'lib', 'outils', 'basthon', 'emptyModule.js')
+      '@basthon/kernel-ocaml': resolve(
+        srcDir,
+        'lib',
+        'outils',
+        'basthon',
+        'emptyModule.js',
+      ),
     },
     // Les extension jquery (jstree par ex) font leur propre import jquery qu'elles augmentent sans l'exporter.
     // Il faut donc obliger tous les imports à prendre le même module js de jQuery, on passait par un alias et
@@ -141,10 +154,10 @@ export default defineConfig({
     // https://vitejs.dev/config/shared-options.html#resolve-dedupe
     dedupe: [
       'jquery',
-      'jquery-ui'
+      'jquery-ui',
       // il reste un pb avec cm2exN4_65 et son import de 'jquery-ui/ui/widgets/sortable' qui ne trouve pas jQuery en global…
       // mais remplacer dedupe par l'alias ne change rien
-    ]
+    ],
     // il faudrait voir si cette options permet de régler les pbs d'alias qu'on a eu précédemment
     // https://vitejs.dev/config/shared-options.html#resolve-preservesymlinks
     // , preserveSymlinks: true
@@ -154,6 +167,6 @@ export default defineConfig({
     port: 8081,
     // on préfère planter si le 8081 est déjà occupé (car on doit déjà tourner à coté)
     // cf https://vitejs.dev/config/server-options.html#server-strictport
-    strictPort: true
-  }
+    strictPort: true,
+  },
 })

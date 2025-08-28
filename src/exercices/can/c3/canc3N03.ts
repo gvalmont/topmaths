@@ -17,10 +17,10 @@ export const uuid = '44f8c'
 
 export const refs = {
   'fr-fr': ['canc3N03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PlusGrandNombreEntier extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +29,7 @@ export default class PlusGrandNombreEntier extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

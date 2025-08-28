@@ -1,7 +1,11 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique, reduireAxPlusB, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+  ecritureParentheseSiNegatif,
+} from '../../../lib/outils/ecritures'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -15,7 +19,7 @@ export const uuid = '9727d'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +29,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = -2
       this.question = ` $f$ est la fonction définie par : $f(x)=4-2x$ pour tout nombre $x$.<br>

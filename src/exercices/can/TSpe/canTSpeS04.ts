@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '76669'
 export const refs = {
   'fr-fr': ['canTSpeS04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '12/08/2024'
 
@@ -19,13 +19,13 @@ export const dateDePublication = '12/08/2024'
  *
  */
 class APlusbBnSurN extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-9, 9, 0)
     const b = randint(1, 9)
     const pm = choice([true, false])

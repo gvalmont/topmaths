@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 export const uuid = '87e45'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,19 +17,29 @@ export const refs = {
 
 */
 
-const choix: [number, 'mm' | 'dm' | 'cm' | 'm' | 'km', 'dm' | 'mm' | 'cm' | 'm' | 'km', 'dm' | 'mm' | 'cm' | 'm' | 'km'][] = [
+const choix: [
+  number,
+  'mm' | 'dm' | 'cm' | 'm' | 'km',
+  'dm' | 'mm' | 'cm' | 'm' | 'km',
+  'dm' | 'mm' | 'cm' | 'm' | 'km',
+][] = [
   [100, 'cm', 'm', 'mm'],
   [10, 'mm', 'cm', 'dm'],
   [1000, 'm', 'km', 'dm'],
   [1000, 'mm', 'm', 'km'],
   [10, 'mm', 'cm', 'dm'],
   [100, 'mm', 'dm', 'cm'],
-  [1000, 'mm', 'm', 'cm']
+  [1000, 'mm', 'm', 'cm'],
 ]
 export default class Can2025CE2Q4 extends ExerciceCan {
-  enonce (a?: number, b?: 'dm' | 'mm' | 'cm' | 'm' | 'km', c?:'dm' | 'mm' | 'cm' | 'm' | 'km', d?:'dm' | 'mm' | 'cm' | 'm' | 'km') {
+  enonce(
+    a?: number,
+    b?: 'dm' | 'mm' | 'cm' | 'm' | 'km',
+    c?: 'dm' | 'mm' | 'cm' | 'm' | 'km',
+    d?: 'dm' | 'mm' | 'cm' | 'm' | 'km',
+  ) {
     if (a == null || b == null || c == null || d == null) {
-      [a, b, c, d] = choice(choix)
+      ;[a, b, c, d] = choice(choix)
     }
     this.question = 'Coche la bonne réponse.'
     this.autoCorrection[0] = {
@@ -37,14 +47,14 @@ export default class Can2025CE2Q4 extends ExerciceCan {
       propositions: [
         {
           texte: `$1$ ${c} $= ${texNombre(a)}$ ${b}`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$1$ ${c} $= ${texNombre(a)}$ ${d}`,
-          statut: false
+          statut: false,
         },
       ],
-      options: { vertical: true }
+      options: { vertical: true },
     }
     const monQcm = propositionsQcm(this, 0)
     this.formatInteractif = 'qcm'
@@ -54,11 +64,13 @@ export default class Can2025CE2Q4 extends ExerciceCan {
 
     this.canEnonce = 'Coche la bonne réponse.'
 
-    this.correction = monQcm.texteCorr + ` Pour passer des ${b} au ${c}, on multiplie par $${texNombre(a, 0)}$.`
+    this.correction =
+      monQcm.texteCorr +
+      ` Pour passer des ${b} au ${c}, on multiplie par $${texNombre(a, 0)}$.`
     this.canReponseACompleter = monQcm.texte
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(100, 'cm', 'm', 'mm') : this.enonce()
   }
 }

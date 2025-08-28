@@ -1,6 +1,10 @@
 import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -12,7 +16,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { prenomPronom } from '../../lib/outils/Personne'
 import { createList } from '../../lib/format/lists'
 
-export const titre = 'Comprendre le sens d\'un pourcentage'
+export const titre = "Comprendre le sens d'un pourcentage"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '22/07/2025'
@@ -26,18 +30,22 @@ export const uuid = '44e23'
 export const refs = {
   'fr-fr': ['6N3O'],
   'fr-2016': ['6N33-5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class ComprendreSensPourcentage extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
-    this.comment += 'On peut sélectionner son thème de questions grâce à un paramètre.<br>'
-    this.comment += 'À la question b), on peut choisir son multiple de 100 grâce à un paramètre.<br>'
-    this.comment += 'À la question c), on peut choisir son diviseur de 100 grâce à un paramètre.<br>'
+    this.comment +=
+      'On peut sélectionner son thème de questions grâce à un paramètre.<br>'
+    this.comment +=
+      'À la question b), on peut choisir son multiple de 100 grâce à un paramètre.<br>'
+    this.comment +=
+      'À la question c), on peut choisir son diviseur de 100 grâce à un paramètre.<br>'
     this.besoinFormulaireTexte = [
-      'Thème de questions', [
+      'Thème de questions',
+      [
         'Nombres séparés par des tirets :',
         '1 : Sucres dans un aliment',
         '2 : Graisses dans un aliment',
@@ -47,38 +55,40 @@ export default class ComprendreSensPourcentage extends Exercice {
         '6 : Sel dans un fromage',
         '7 : Fibres dans un légume',
         '8 : Réduction sur un prix',
-        '9 : Consommation d\'essence',
+        "9 : Consommation d'essence",
         '10 : Temps de lecture/jeux vidéos',
         '11 : Réussite sportive',
         '12 : Consommation électrique',
-        '13 : Résultats d\'une élection',
+        "13 : Résultats d'une élection",
         '14 : Distance parcourue à vélo',
-        '15 : Mélange'
-      ].join('\n')
+        '15 : Mélange',
+      ].join('\n'),
     ]
     this.sup = 1
 
     this.besoinFormulaire2Texte = [
-      'Multiples de 100', [
+      'Multiples de 100',
+      [
         'Nombres séparés par des tirets :',
         '1 : 200',
         '2 : 300',
         '3 : 400',
         '4 : 500',
-        '5 : Mélange'
-      ].join('\n')
+        '5 : Mélange',
+      ].join('\n'),
     ]
     this.sup2 = 5
 
     this.besoinFormulaire3Texte = [
-      'Diviseurs de 100', [
+      'Diviseurs de 100',
+      [
         'Nombres séparés par des tirets :',
         '1 : 50',
         '2 : 25',
         '3 : 20',
         '4 : 10',
-        '5 : Mélange'
-      ].join('\n')
+        '5 : Mélange',
+      ].join('\n'),
     ]
     this.sup3 = 5
 
@@ -88,13 +98,13 @@ export default class ComprendreSensPourcentage extends Exercice {
     this.spacingCorr = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
       max: 14,
       melange: 15,
-      defaut: 15
+      defaut: 15,
     }).map(Number)
 
     const multiplePour100 = gestionnaireFormulaireTexte({
@@ -103,7 +113,7 @@ export default class ComprendreSensPourcentage extends Exercice {
       max: 4,
       melange: 5,
       defaut: 5,
-      listeOfCase: rangeMinMax(2, 5)
+      listeOfCase: rangeMinMax(2, 5),
     }).map(Number)
 
     const diviseurPour100 = gestionnaireFormulaireTexte({
@@ -112,30 +122,29 @@ export default class ComprendreSensPourcentage extends Exercice {
       max: 4,
       melange: 5,
       defaut: 5,
-      listeOfCase: [2, 4, 5, 10]
+      listeOfCase: [2, 4, 5, 10],
     }).map(Number)
 
     let pourcentage = 0
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texteCorr = ''
       const texteAvant = []
       let texteApres = ''
       let unites = 'g'
       const quidam = prenomPronom()
       switch (listeTypeDeQuestions[i]) {
-        case 1 :
-        case 2 :
-        case 3 :
-        {
+        case 1:
+        case 2:
+        case 3: {
           let nutriment = ''
           switch (listeTypeDeQuestions[i]) {
-            case 1 :
+            case 1:
               nutriment = 'sucres'
               break
-            case 2 :
+            case 2:
               nutriment = 'graisses'
               break
-            default :
+            default:
               nutriment = 'protéines'
               break
           }
@@ -150,9 +159,17 @@ export default class ComprendreSensPourcentage extends Exercice {
 
           break
         }
-        case 4 :
-        {
-          const fruitsAvecArticle = choice(['un concombre', 'une pastèque', 'une tomate', 'une courgette', 'une fraise', 'un melon', 'un pamplemousse', 'une pêche'])
+        case 4: {
+          const fruitsAvecArticle = choice([
+            'un concombre',
+            'une pastèque',
+            'une tomate',
+            'une courgette',
+            'une fraise',
+            'un melon',
+            'un pamplemousse',
+            'une pêche',
+          ])
           const fruits = fruitsAvecArticle.split(' ')[1]
           pourcentage = randint(81, 96, [90])
 
@@ -165,8 +182,7 @@ export default class ComprendreSensPourcentage extends Exercice {
 
           break
         }
-        case 5 :
-        {
+        case 5: {
           const nutriment = 'sucres'
           pourcentage = randint(11, 39, [20, 30])
 
@@ -179,8 +195,7 @@ export default class ComprendreSensPourcentage extends Exercice {
 
           break
         }
-        case 6 :
-        {
+        case 6: {
           const nutriment = 'sel'
           pourcentage = randint(2, 12, [10])
 
@@ -193,8 +208,7 @@ export default class ComprendreSensPourcentage extends Exercice {
 
           break
         }
-        case 7 :
-        {
+        case 7: {
           const nutriment = 'fibres'
           pourcentage = randint(1, 9)
 
@@ -207,7 +221,7 @@ export default class ComprendreSensPourcentage extends Exercice {
 
           break
         }
-        case 8 :
+        case 8:
           unites = '€'
           pourcentage = choice([15, 20, 25, 30, 40, 50, 60, 70])
 
@@ -219,7 +233,7 @@ export default class ComprendreSensPourcentage extends Exercice {
           texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}$ €, on économise`
 
           break
-        case 9 :
+        case 9:
           unites = 'L'
           pourcentage = randint(4, 18, [10])
 
@@ -231,7 +245,7 @@ export default class ComprendreSensPourcentage extends Exercice {
           texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}$ km, la voiture consomme`
 
           break
-        case 10 :
+        case 10:
           unites = 'minutes'
           pourcentage = choice([20, 40, 60])
           if (choice([true, false])) {
@@ -250,7 +264,7 @@ export default class ComprendreSensPourcentage extends Exercice {
             texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}$ minutes, ${quidam.prenom} joue`
           }
           break
-        case 11 :
+        case 11:
           pourcentage = choice([40, 60, 70, 80, 90])
           if (choice([true, true, true, false])) {
             unites = 'tirs'
@@ -270,7 +284,7 @@ export default class ComprendreSensPourcentage extends Exercice {
             texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}$ tentatives de lancers francs, ${quidam.prenom} marque`
           }
           break
-        case 12 :
+        case 12:
           unites = 'kWh'
           pourcentage = randint(3, 29, [10, 20])
           texteAvant[0] = `Si un appareil utilise $${pourcentage}\\ \\%$ de l'énergie d'un foyer, alors pour $100$ kilowattheures (kWh), cet appareil consomme`
@@ -281,7 +295,7 @@ export default class ComprendreSensPourcentage extends Exercice {
           texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}$ kWh, cet appareil consomme`
 
           break
-        case 13 :
+        case 13:
           unites = 'voix'
           pourcentage = choice([20, 40, 60, 80])
           texteAvant[0] = `Si, lors d'une élection, un candidat récolte $${pourcentage}\\ \\%$ des voix, alors pour $100$ votants, ce candidat reçoit`
@@ -292,7 +306,7 @@ export default class ComprendreSensPourcentage extends Exercice {
           texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}$ votants, ce candidat reçoit`
 
           break
-        case 14 :
+        case 14:
           unites = 'km'
           pourcentage = randint(31, 79, [40, 50, 60, 70])
           texteAvant[0] = `Si un cycliste parcourt $${pourcentage}\\ \\%$ de son trajet total en montée, alors pour $100$ km parcourus,`
@@ -304,37 +318,61 @@ export default class ComprendreSensPourcentage extends Exercice {
 
           break
       }
-      const reponse = [pourcentage,
+      const reponse = [
+        pourcentage,
         pourcentage * multiplePour100[i],
-        texNombre(arrondi(pourcentage / diviseurPour100[i]))]
+        texNombre(arrondi(pourcentage / diviseurPour100[i])),
+      ]
       const items = []
       const itemsCorr = []
       for (let indice = 0; indice < 3; indice++) {
-        items.push(this.interactif
-          ? ajouteChampTexteMathLive(this, 3 * i + indice, KeyboardType.clavierNumbers, { texteAvant: texteAvant[indice], texteApres })
-          : texteAvant[indice] + ' $$\\ldots ' + texteApres)
-        handleAnswers(this, 3 * i + indice, { reponse: { value: reponse[indice], options: { nombreDecimalSeulement: true } } })
+        items.push(
+          this.interactif
+            ? ajouteChampTexteMathLive(
+                this,
+                3 * i + indice,
+                KeyboardType.clavierNumbers,
+                { texteAvant: texteAvant[indice], texteApres },
+              )
+            : texteAvant[indice] + ' $$\\ldots ' + texteApres,
+        )
+        handleAnswers(this, 3 * i + indice, {
+          reponse: {
+            value: reponse[indice],
+            options: { nombreDecimalSeulement: true },
+          },
+        })
         texteCorr = ''
         switch (indice) {
-          case 1 :
+          case 1:
             if (this.correctionDetaillee) {
               texteCorr += `$${multiplePour100[i] * 100}$ ${unites} = $${miseEnEvidence(multiplePour100[i], bleuMathalea)} \\times 100$ ${unites} ${sp(10)}`
               texteCorr += `et ${sp(10)} $${miseEnEvidence(multiplePour100[i], bleuMathalea)} \\times ${pourcentage}$ ${unites} = $${miseEnEvidence(reponse[1])}$ ${unites}.<br>`
             }
             break
-          case 2 :
+          case 2:
             if (this.correctionDetaillee) {
               texteCorr += `$${arrondi(100 / diviseurPour100[i])}$ ${unites} = $100$ ${unites} $\\div ${miseEnEvidence(diviseurPour100[i], bleuMathalea)}$ ${sp(10)}`
               texteCorr += `et ${sp(10)} $${pourcentage}$ ${unites} $\\div ${miseEnEvidence(diviseurPour100[i], bleuMathalea)}$ = $${miseEnEvidence(reponse[2])}$ ${unites}.<br>`
             }
             break
         }
-        texteCorr += texteAvant[indice] + ` $${miseEnEvidence(reponse[indice])}$ ` + texteApres
+        texteCorr +=
+          texteAvant[indice] +
+          ` $${miseEnEvidence(reponse[indice])}$ ` +
+          texteApres
         itemsCorr.push(texteCorr)
       }
       const texte = createList({ items, style: 'alpha' })
       texteCorr = createList({ items: itemsCorr, style: 'alpha' })
-      if (this.questionJamaisPosee(i, pourcentage, multiplePour100[i], diviseurPour100[i])) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          pourcentage,
+          multiplePour100[i],
+          diviseurPour100[i],
+        )
+      ) {
         this.listeCorrections[i] = texteCorr
         this.listeQuestions[i] = texte
         i++

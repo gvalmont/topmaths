@@ -6,11 +6,19 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
-import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString'
+import {
+  numAlpha,
+  premiereLettreEnMajuscule,
+  sp,
+} from '../../lib/outils/outilString'
 import { personne, personnes } from '../../lib/outils/Personne'
 import { ppcm } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Problèmes de ratio'
@@ -22,7 +30,7 @@ export const uuid = '0a637'
 
 export const refs = {
   'fr-fr': ['5P12-1'],
-  'fr-ch': ['9NO14-10']
+  'fr-ch': ['9NO14-10'],
 }
 // Ancien 5N15 avant septembre 2023
 /**
@@ -30,10 +38,17 @@ export const refs = {
  * @author Jean-Claude Lhote
  */
 export default class ProblemeDeRatio extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
-    this.besoinFormulaire2Texte = ['Type de problèmes', 'Nombres séparés par des tirets :\n1 : Partage\n2 : Coktails\n3 : dilution\n4 Recette\n5 : Écrans\n6 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de ratios',
+      3,
+      ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange',
+    ]
+    this.besoinFormulaire2Texte = [
+      'Type de problèmes',
+      'Nombres séparés par des tirets :\n1 : Partage\n2 : Coktails\n3 : dilution\n4 Recette\n5 : Écrans\n6 : Mélange',
+    ]
 
     this.nbQuestions = 4 // Ici le nombre de questions
     this.sup = 3
@@ -42,19 +57,87 @@ export default class ProblemeDeRatio extends Exercice {
     this.spacingCorr = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let prenoms = []
     const objets = ['billes', 'livres', 'perles', 'gâteaux', 'bonbons']
-    const sirops = ['de fraise', 'de citron', 'de cerise', 'de menthe', 'd\'orange']
-    const jusdefruit = ['d\'ananas', 'de banane', 'de pamplemousse', 'd\'abricot', 'de raisin']
-    const produits = ['produit d\'entretien', 'décapant biologique', 'colorant', 'shampoing automobile', 'fertilisant liquide']
-    let article; let p1; let quidam; let index; let index2
-    const ratiosables = [[10, 6, 5], [7, 4, 4], [13, 7, 10]]
-    const ratiovinaigrette = [[2, 3], [3, 5], [4, 7]]
-    const ratioecran = [[16, 9], [4, 3], [21, 9], [16, 10]]
-    const resolutions = [[800, 600], [1024, 768], [1280, 720], [1280, 1024], [1366, 768], [1600, 900], [1680, 1050], [1920, 1080]]
-    const typeDeProblèmes = gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 5, melange: 6, defaut: 1, listeOfCase: ['partage', 'mélange', 'dilution', 'recette', 'ecran'] }).map(String)
-    for (let i = 0, texte, texteCorr, x:number, y: number, z, total, a:number, b: number, c:number, n = 2, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const sirops = [
+      'de fraise',
+      'de citron',
+      'de cerise',
+      'de menthe',
+      "d'orange",
+    ]
+    const jusdefruit = [
+      "d'ananas",
+      'de banane',
+      'de pamplemousse',
+      "d'abricot",
+      'de raisin',
+    ]
+    const produits = [
+      "produit d'entretien",
+      'décapant biologique',
+      'colorant',
+      'shampoing automobile',
+      'fertilisant liquide',
+    ]
+    let article
+    let p1
+    let quidam
+    let index
+    let index2
+    const ratiosables = [
+      [10, 6, 5],
+      [7, 4, 4],
+      [13, 7, 10],
+    ]
+    const ratiovinaigrette = [
+      [2, 3],
+      [3, 5],
+      [4, 7],
+    ]
+    const ratioecran = [
+      [16, 9],
+      [4, 3],
+      [21, 9],
+      [16, 10],
+    ]
+    const resolutions = [
+      [800, 600],
+      [1024, 768],
+      [1280, 720],
+      [1280, 1024],
+      [1366, 768],
+      [1600, 900],
+      [1680, 1050],
+      [1920, 1080],
+    ]
+    const typeDeProblèmes = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      nbQuestions: this.nbQuestions,
+      min: 1,
+      max: 5,
+      melange: 6,
+      defaut: 1,
+      listeOfCase: ['partage', 'mélange', 'dilution', 'recette', 'ecran'],
+    }).map(String)
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        x: number,
+        y: number,
+        z,
+        total,
+        a: number,
+        b: number,
+        c: number,
+        n = 2,
+        k,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       index = randint(0, 10)
       index2 = randint(0, 10)
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
@@ -87,7 +170,9 @@ export default class ProblemeDeRatio extends Exercice {
       }
       k = randint(2, 6)
       total = (x + y + z) * k
-      switch (typeDeProblèmes[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      switch (
+        typeDeProblèmes[i] // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      ) {
         case 'partage':
           prenoms = personnes(n)
           for (let j = 0; j < n - 1; j++) {
@@ -111,8 +196,12 @@ export default class ProblemeDeRatio extends Exercice {
                 exercice: this,
                 question: i,
                 content: `\\text{${prenoms[0].prenom} : }%{champ1}\\text{ ;  ${prenoms[1].prenom} : }%{champ2}`,
-                objetReponse: { champ1: { value: k * x }, champ2: { value: k * y }, bareme: toutAUnPoint },
-                typeInteractivite: 'remplisLesBlancs'
+                objetReponse: {
+                  champ1: { value: k * x },
+                  champ2: { value: k * y },
+                  bareme: toutAUnPoint,
+                },
+                typeInteractivite: 'remplisLesBlancs',
               })
             }
           } else {
@@ -125,8 +214,13 @@ export default class ProblemeDeRatio extends Exercice {
                 exercice: this,
                 question: i,
                 content: `\\text{${prenoms[0].prenom} : }%{champ1}\\text{ ;  ${prenoms[1].prenom} : }%{champ2}\\text{ ;  ${prenoms[2].prenom} : }%{champ3}`,
-                objetReponse: { champ1: { value: k * x }, champ2: { value: k * y }, champ3: { value: k * z }, bareme: toutAUnPoint },
-                typeInteractivite: 'remplisLesBlancs'
+                objetReponse: {
+                  champ1: { value: k * x },
+                  champ2: { value: k * y },
+                  champ3: { value: k * z },
+                  bareme: toutAUnPoint,
+                },
+                typeInteractivite: 'remplisLesBlancs',
               })
             }
           }
@@ -144,7 +238,8 @@ export default class ProblemeDeRatio extends Exercice {
           quidam = personne({})
           article = quidam.pronom
 
-          if (n === 2) { // On mélange du sirop et de l'eau
+          if (n === 2) {
+            // On mélange du sirop et de l'eau
             texte += `${quidam.prenom} prépare un sirop à l'eau pour ses amis. ${premiereLettreEnMajuscule(article)} mélange du sirop ${sirops[index % 5]} et de l'eau dans le ratio $~${x}~:~${y}$.<br>`
             if (choice([true, false])) {
               texte += `${premiereLettreEnMajuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop et d'eau doit-${article} mélanger ?`
@@ -155,9 +250,14 @@ export default class ProblemeDeRatio extends Exercice {
                 texte += ajouteQuestionMathlive({
                   exercice: this,
                   question: i,
-                  content: '\\text{Sirop : }%{champ1}\\text{ cL}\\text{ ;  eau : }%{champ2}\\text{ cL}',
-                  objetReponse: { champ1: { value: k * x }, champ2: { value: k * y }, bareme: toutAUnPoint },
-                  typeInteractivite: 'remplisLesBlancs'
+                  content:
+                    '\\text{Sirop : }%{champ1}\\text{ cL}\\text{ ;  eau : }%{champ2}\\text{ cL}',
+                  objetReponse: {
+                    champ1: { value: k * x },
+                    champ2: { value: k * y },
+                    bareme: toutAUnPoint,
+                  },
+                  typeInteractivite: 'remplisLesBlancs',
                 })
               }
             } else {
@@ -171,13 +271,19 @@ export default class ProblemeDeRatio extends Exercice {
                 texte += ajouteQuestionMathlive({
                   exercice: this,
                   question: i,
-                  content: '\\text{eau : }%{champ1}\\text{ cL}\\text{ ;  boisson : }%{champ2}\\text{ cL}',
-                  objetReponse: { champ1: { value: k * y }, champ2: { value: k * y + k * x }, bareme: toutAUnPoint },
-                  typeInteractivite: 'remplisLesBlancs'
+                  content:
+                    '\\text{eau : }%{champ1}\\text{ cL}\\text{ ;  boisson : }%{champ2}\\text{ cL}',
+                  objetReponse: {
+                    champ1: { value: k * y },
+                    champ2: { value: k * y + k * x },
+                    bareme: toutAUnPoint,
+                  },
+                  typeInteractivite: 'remplisLesBlancs',
                 })
               }
             }
-          } else { // On mélange du sirop, du jus de fruit et de la limonade.
+          } else {
+            // On mélange du sirop, du jus de fruit et de la limonade.
             texte += `${quidam.prenom} prépare un cocktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingrédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
             if (choice([true, false])) {
               texte += `${premiereLettreEnMajuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop, de jus et d'eau gazeuse doit-${article} mélanger ?<br>`
@@ -189,8 +295,13 @@ export default class ProblemeDeRatio extends Exercice {
                   exercice: this,
                   question: i,
                   content: `\\text{ sirop  ${sirops[index % 5]} : }%{champ1}\\text{ cL}\\text{ ; jus ${jusdefruit[index2 % 5]}: }%{champ2}\\text{ cL}\\text{ ;  eau gazeuse : }%{champ3}\\text{ cL}`,
-                  objetReponse: { champ1: { value: String(k * x) }, champ2: { value: String(k * y) }, champ3: { value: String(k * z) }, bareme: toutAUnPoint },
-                  typeInteractivite: 'remplisLesBlancs'
+                  objetReponse: {
+                    champ1: { value: String(k * x) },
+                    champ2: { value: String(k * y) },
+                    champ3: { value: String(k * z) },
+                    bareme: toutAUnPoint,
+                  },
+                  typeInteractivite: 'remplisLesBlancs',
                 })
               }
             } else {
@@ -205,8 +316,13 @@ export default class ProblemeDeRatio extends Exercice {
                   exercice: this,
                   question: i,
                   content: `\\text{jus ${jusdefruit[index2 % 5]} : }%{champ1}\\text{ cL}\\text{ ;  eau gazeuse : }%{champ2}\\text{ cL}\\text{ ; Volume total : }%{champ3}\\text{ cL}`,
-                  objetReponse: { champ1: { value: String(k * y) }, champ2: { value: String(k * z) }, champ3: { value: String(k * (x + y + z)) }, bareme: toutAUnPoint },
-                  typeInteractivite: 'remplisLesBlancs'
+                  objetReponse: {
+                    champ1: { value: String(k * y) },
+                    champ2: { value: String(k * z) },
+                    champ3: { value: String(k * (x + y + z)) },
+                    bareme: toutAUnPoint,
+                  },
+                  typeInteractivite: 'remplisLesBlancs',
                 })
               }
             }
@@ -217,29 +333,37 @@ export default class ProblemeDeRatio extends Exercice {
           x = randint(1, 3)
           y = randint(2 * x, 4 * x)
           a = x + y
-          p1 = Math.round(x * 100 / a)
-          if (n === 3) { // Deux ratios de dilution : x:y x:z
+          p1 = Math.round((x * 100) / a)
+          if (n === 3) {
+            // Deux ratios de dilution : x:y x:z
             z = randint(5 * x, 10 * x)
             b = x + z
             // p2 = p1
-            p1 = Math.round(x * 100 / b)
+            p1 = Math.round((x * 100) / b)
           }
           k = randint(10, 20) * 10
           texte += `Un ${produits[index % 5]} est vendu sous forme concentrée avec l'indication suivante sur le bidon :<br>`
           if (n === 2) {
             texte += `Diluer avec de l'eau à $~${x}~:~${y}~$.<br>`
             if (choice([true, false])) {
-              texte += 'À quel pourcentage de produit concentré dans le mélange final correspond ce ratio ? (arrondir à l\'unité).<br>'
+              texte +=
+                "À quel pourcentage de produit concentré dans le mélange final correspond ce ratio ? (arrondir à l'unité).<br>"
               texteCorr += `Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index % 5]} dans $${y}$ unités de volume d'eau.<br>`
               texteCorr += `Ce qui fait donc un total de $${x + y}$ unités de volume de produit dilué.<br>`
-              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre(arrondi(x / (x + y)), 3)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$.`
+              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre(arrondi(x / (x + y)), 3)}$ soit environ $${Math.round((100 * x) / (x + y))}\\%$.`
               if (this.interactif) {
                 texte += ajouteQuestionMathlive({
                   exercice: this,
                   question: i,
-                  objetReponse: { reponse: { value: p1, compare: approximatelyCompare, options: { tolerance: 0.5 } } },
+                  objetReponse: {
+                    reponse: {
+                      value: p1,
+                      compare: approximatelyCompare,
+                      options: { tolerance: 0.5 },
+                    },
+                  },
                   texteApres: '%',
-                  typeInteractivite: 'mathlive'
+                  typeInteractivite: 'mathlive',
                 })
               }
             } else {
@@ -252,28 +376,47 @@ export default class ProblemeDeRatio extends Exercice {
                   exercice: this,
                   question: i,
                   content: `\\text{${produits[index % 5]} : }%{champ1}\\text{ cL}\\text{ ;  eau : }%{champ2}\\text{ cL}`,
-                  objetReponse: { champ1: { value: k * x }, champ2: { value: k * y }, bareme: toutAUnPoint },
-                  typeInteractivite: 'remplisLesBlancs'
+                  objetReponse: {
+                    champ1: { value: k * x },
+                    champ2: { value: k * y },
+                    bareme: toutAUnPoint,
+                  },
+                  typeInteractivite: 'remplisLesBlancs',
                 })
               }
             }
           } else {
             texte += `Diluer avec de l'eau de $~${x}~:~${z}~$ à $~${x}~:~${y}~$.<br>`
             if (choice([true, false])) {
-              texte += 'Donner les pourcentages minimum de produit concentré dans le mélange final (arrondi à l\'unité).<br>'
+              texte +=
+                "Donner les pourcentages minimum de produit concentré dans le mélange final (arrondi à l'unité).<br>"
               texteCorr += `Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index % 5]} dans $${y}$ unités de volume d'eau.<br>`
               texteCorr += `Ce qui fait donc un total de $${x}+${y}=${x + y}$ unités de volume de produit dilué.<br>`
-              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre(arrondi(x / (x + y)), 4)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$<br>`
+              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre(arrondi(x / (x + y)), 4)}$ soit environ $${Math.round((100 * x) / (x + y))}\\%$<br>`
               texteCorr += `De la même façon, selon le ratio $~${x}~:~${z}$, on obtient la proportion suivante :<br>`
-              texteCorr += `$${texFractionFromString(x + '\\text{ unités de volume}', `(${x}+${z})\\text{ unités de volume}`)}=${texFractionFromString(x, x + z)}\\approx ${texNombre(arrondi(x / (x + z)), 4)}$ soit environ $${Math.round(100 * x / (x + z))}\\%$.<br>`
-              texteCorr += 'Conclusion : les pourcentages et les ratios annoncés correspondent bien.'
+              texteCorr += `$${texFractionFromString(x + '\\text{ unités de volume}', `(${x}+${z})\\text{ unités de volume}`)}=${texFractionFromString(x, x + z)}\\approx ${texNombre(arrondi(x / (x + z)), 4)}$ soit environ $${Math.round((100 * x) / (x + z))}\\%$.<br>`
+              texteCorr +=
+                'Conclusion : les pourcentages et les ratios annoncés correspondent bien.'
               if (this.interactif) {
                 texte += ajouteQuestionMathlive({
                   exercice: this,
                   question: i,
-                  content: '\\text{pourcentage minimum : }%{champ1}\\%\\text{ ;  pourcentage maximum : }%{champ2}\\%',
-                  objetReponse: { champ2: { value: Math.round(100 * x / (x + y)), compare: approximatelyCompare, options: { tolerance: 0.5 } }, champ1: { value: Math.round(100 * x / (x + z)), compare: approximatelyCompare, options: { tolerance: 0.5 } }, bareme: toutAUnPoint },
-                  typeInteractivite: 'remplisLesBlancs'
+                  content:
+                    '\\text{pourcentage minimum : }%{champ1}\\%\\text{ ;  pourcentage maximum : }%{champ2}\\%',
+                  objetReponse: {
+                    champ2: {
+                      value: Math.round((100 * x) / (x + y)),
+                      compare: approximatelyCompare,
+                      options: { tolerance: 0.5 },
+                    },
+                    champ1: {
+                      value: Math.round((100 * x) / (x + z)),
+                      compare: approximatelyCompare,
+                      options: { tolerance: 0.5 },
+                    },
+                    bareme: toutAUnPoint,
+                  },
+                  typeInteractivite: 'remplisLesBlancs',
                 })
               }
             } else {
@@ -291,8 +434,13 @@ export default class ProblemeDeRatio extends Exercice {
                   exercice: this,
                   question: i,
                   content: `\\text{${produits[index % 5]} mélange 1 : }%{champ1}\\text{ cL}\\text{ ; eau mélange 1 : }%{champ2}\\text{ cL}\\text{ ;  eau mélange 2 : }%{champ3}\\text{ cL}`,
-                  objetReponse: { champ1: { value: String(k * x) }, champ2: { value: String(k * y) }, champ3: { value: String(k * z - k * y) }, bareme: toutAUnPoint },
-                  typeInteractivite: 'remplisLesBlancs'
+                  objetReponse: {
+                    champ1: { value: String(k * x) },
+                    champ2: { value: String(k * y) },
+                    champ3: { value: String(k * z - k * y) },
+                    bareme: toutAUnPoint,
+                  },
+                  typeInteractivite: 'remplisLesBlancs',
                 })
               }
             }
@@ -320,9 +468,15 @@ export default class ProblemeDeRatio extends Exercice {
               texte += ajouteQuestionMathlive({
                 exercice: this,
                 question: i,
-                content: '\\text{masse de farine : }%{champ1}\\text{ g}\\text{ ; masse de sucre : }%{champ2}\\text{ g}\\text{ ;  masse de sable : }%{champ3}\\text{ g}',
-                objetReponse: { champ1: { value: String(k * x) }, champ2: { value: String(k * y) }, champ3: { value: String(k * z - k * y) }, bareme: toutAUnPoint },
-                typeInteractivite: 'remplisLesBlancs'
+                content:
+                  '\\text{masse de farine : }%{champ1}\\text{ g}\\text{ ; masse de sucre : }%{champ2}\\text{ g}\\text{ ;  masse de sable : }%{champ3}\\text{ g}',
+                objetReponse: {
+                  champ1: { value: String(k * x) },
+                  champ2: { value: String(k * y) },
+                  champ3: { value: String(k * z - k * y) },
+                  bareme: toutAUnPoint,
+                },
+                typeInteractivite: 'remplisLesBlancs',
               })
             }
           } else {
@@ -343,9 +497,14 @@ export default class ProblemeDeRatio extends Exercice {
               texte += ajouteQuestionMathlive({
                 exercice: this,
                 question: i,
-                content: '\\text{volume de vinaigre : }%{champ1}\\text{ mL}\\text{ ; volume de vinaigrette : }%{champ2}\\text{ mL}',
-                objetReponse: { champ1: { value: String(k * x * 15) }, champ2: { value: String(k * 15 * (x + y)) }, bareme: toutAUnPoint },
-                typeInteractivite: 'remplisLesBlancs'
+                content:
+                  '\\text{volume de vinaigre : }%{champ1}\\text{ mL}\\text{ ; volume de vinaigrette : }%{champ2}\\text{ mL}',
+                objetReponse: {
+                  champ1: { value: String(k * x * 15) },
+                  champ2: { value: String(k * 15 * (x + y)) },
+                  bareme: toutAUnPoint,
+                },
+                typeInteractivite: 'remplisLesBlancs',
               })
             }
           }
@@ -361,13 +520,15 @@ export default class ProblemeDeRatio extends Exercice {
             texteCorr += `La résolution d'image $${texNombre(a, 0)}\\times ${texNombre(b, 0)}$ respecte effectivement le format $${x}~:~${y}$.<br>`
             texteCorr += `En effet, $${texFractionFromString(a, x)}=${texFractionFromString(b, y)}=${texNombre(a / x)}$`
             if (this.interactif) {
-              texte += `Si oui, saisir $${texNombre(b, 0)}$ dans la zone de saisie, sinon saisir la hauteur adaptée.<br>` + ajouteQuestionMathlive({
-                exercice: this,
-                question: i,
-                content: `${texNombre(a, 0)}\\times %{champ1}`,
-                objetReponse: { champ1: { value: texNombre(b, 0) } },
-                typeInteractivite: 'remplisLesBlancs'
-              })
+              texte +=
+                `Si oui, saisir $${texNombre(b, 0)}$ dans la zone de saisie, sinon saisir la hauteur adaptée.<br>` +
+                ajouteQuestionMathlive({
+                  exercice: this,
+                  question: i,
+                  content: `${texNombre(a, 0)}\\times %{champ1}`,
+                  objetReponse: { champ1: { value: texNombre(b, 0) } },
+                  typeInteractivite: 'remplisLesBlancs',
+                })
             }
           } else {
             texteCorr += `La résolution d'image $${a}\\times ${b}$ ne respecte pas le format $${x}~:~${y}$.<br>`
@@ -376,15 +537,18 @@ export default class ProblemeDeRatio extends Exercice {
               texteCorr += `En effet, $${texFractionFromString(a, x)}=${texNombre(a / x)}$ et $${texFractionFromString(b, y)}\\approx ${texNombre(b / y)}$.<br>`
               k = a / x
               if (!this.interactif) {
-                texte += 'Sinon, proposer une résolution qui conviendrait en gardant la largeur d\'image.'
+                texte +=
+                  "Sinon, proposer une résolution qui conviendrait en gardant la largeur d'image."
               } else {
-                texte += `Si oui, saisir $${texNombre(b, 0)}$ dans la zone de saisie, sinon saisir la hauteur adaptée.<br>` + ajouteQuestionMathlive({
-                  exercice: this,
-                  question: i,
-                  content: `${texNombre(a, 0)}\\times %{champ1}`,
-                  objetReponse: { champ1: { value: String(k * y) } },
-                  typeInteractivite: 'remplisLesBlancs'
-                })
+                texte +=
+                  `Si oui, saisir $${texNombre(b, 0)}$ dans la zone de saisie, sinon saisir la hauteur adaptée.<br>` +
+                  ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    content: `${texNombre(a, 0)}\\times %{champ1}`,
+                    objetReponse: { champ1: { value: String(k * y) } },
+                    typeInteractivite: 'remplisLesBlancs',
+                  })
               }
               texteCorr += `On doit avoir : $${texFractionFromString(a, x)}=${texFractionFromString('h', y)}$<br>`
               texteCorr += `Donc $h=${texFractionFromString(`${y}\\times ${texNombre(a, 0)}`, String(x))}=${k * y}$. La résolution $${a}\\times ${k * y}$ respecte le format $${x}~:~${y}$.`
@@ -392,16 +556,20 @@ export default class ProblemeDeRatio extends Exercice {
               texteCorr += `En effet, $${texFractionFromString(a, x)}\\approx ${texNombre(a / x)}$ et $${texFractionFromString(b, y)}=${texNombre(b / y)}$.<br>`
               k = b / y
               if (!this.interactif) {
-                texte += 'Sinon, proposer une résolution qui conviendrait en gardant la hauteur d\'image.'
+                texte +=
+                  "Sinon, proposer une résolution qui conviendrait en gardant la hauteur d'image."
               } else {
-                texte += `Si oui, saisir $${texNombre(a, 0)}$ dans la zone de saisie, sinon saisir la largeur adaptée.<br>` + ajouteQuestionMathlive({
-                  exercice: this,
-                  question: i,
-                  content: ` %{champ1}\\times${texNombre(b, 0)}`,
-                  objetReponse: { champ1: { value: String(k * x) } },
-                  typeInteractivite: 'remplisLesBlancs'
-                })
-              } texteCorr += `On doit avoir : $${texFractionFromString(b, y)}=${texFractionFromString('L', x)}$<br>`
+                texte +=
+                  `Si oui, saisir $${texNombre(a, 0)}$ dans la zone de saisie, sinon saisir la largeur adaptée.<br>` +
+                  ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    content: ` %{champ1}\\times${texNombre(b, 0)}`,
+                    objetReponse: { champ1: { value: String(k * x) } },
+                    typeInteractivite: 'remplisLesBlancs',
+                  })
+              }
+              texteCorr += `On doit avoir : $${texFractionFromString(b, y)}=${texFractionFromString('L', x)}$<br>`
               texteCorr += `Donc $L=${texFractionFromString(x + '\\times' + b, y)}=${k * x}$. La résolution $${k * x}\\times ${b}$ respecte le format $${x}~:~${y}$.`
             } else {
               texteCorr += `En effet, $${texFractionFromString(a, x)}\\approx ${texNombre(a / x)}$ et $${texFractionFromString(b, y)}\\approx ${texNombre(b / y)}$.<br>`
@@ -423,15 +591,28 @@ export default class ProblemeDeRatio extends Exercice {
                 c += k
               }
               const callback = (exercice: Exercice, question: number) => {
-                const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+                const spanReponseLigne = document.querySelector(
+                  `#resultatCheckEx${exercice.numeroExercice}Q${question}`,
+                )
                 let feedback: string = ''
-                const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
+                const mfe = document.querySelector(
+                  `#champTexteEx${exercice.numeroExercice}Q${question}`,
+                ) as MathfieldElement
                 const prompts = mfe.getPrompts()
                 if (prompts.length !== 2) {
-                  return { isOk: false, feedback: 'erreur dans le programme : Les zones n\'ont pas été trouvées', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+                  return {
+                    isOk: false,
+                    feedback:
+                      "erreur dans le programme : Les zones n'ont pas été trouvées",
+                    score: { nbBonnesReponses: 0, nbReponses: 1 },
+                  }
                 }
-                const [largeur, hauteur] = prompts.map((prompt) => mfe.getPromptValue(prompt))
-                const isOk = Number(largeur) > 1024 && (Number(largeur) / x) === (Number(hauteur) / y)
+                const [largeur, hauteur] = prompts.map((prompt) =>
+                  mfe.getPromptValue(prompt),
+                )
+                const isOk =
+                  Number(largeur) > 1024 &&
+                  Number(largeur) / x === Number(hauteur) / y
                 if (Number(largeur) < 1024) {
                   feedback = 'La largeur doit être supérieure à 1024 pixels<br>'
                 }
@@ -445,36 +626,55 @@ export default class ProblemeDeRatio extends Exercice {
                   feedback,
                   score: {
                     nbBonnesReponses: isOk ? 1 : 0,
-                    nbReponses: 1
-                  }
+                    nbReponses: 1,
+                  },
                 }
                 // on met le smiley
                 if (spanReponseLigne != null) {
                   spanReponseLigne.innerHTML = resultat.isOk ? '😎' : '☹️'
                 }
-                const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
+                const spanFeedback = document.querySelector(
+                  `#feedbackEx${exercice.numeroExercice}Q${question}`,
+                )
                 // on met le feedback
-                if (feedback != null && spanFeedback != null && feedback.length > 0) {
+                if (
+                  feedback != null &&
+                  spanFeedback != null &&
+                  feedback.length > 0
+                ) {
                   spanFeedback.innerHTML = '💡 ' + feedback
-                  spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+                  spanFeedback.classList.add(
+                    'py-2',
+                    'italic',
+                    'text-coopmaths-warn-darkest',
+                    'dark:text-coopmathsdark-warn-darkest',
+                  )
                 }
                 return resultat
               }
 
               if (this.interactif) {
-                texte += `Si oui, recopier les nombres $${texNombre(a, 0)}$ et $${texNombre(b, 0)}$ dans les zones de saisies, sinon, saisissez une résolution adaptée avec une largeur supérieure à 1024 pixels` + ajouteQuestionMathlive({
-                  exercice: this,
-                  question: i,
-                  content: ' %{champ1}\\times %{champ2}',
-                  objetReponse: { champ1: { value: c.toFixed(0) }, champ2: { value: (c * y / x).toFixed(0) }, bareme: toutAUnPoint, callback },
-                  typeInteractivite: 'remplisLesBlancs'
-                })
+                texte +=
+                  `Si oui, recopier les nombres $${texNombre(a, 0)}$ et $${texNombre(b, 0)}$ dans les zones de saisies, sinon, saisissez une résolution adaptée avec une largeur supérieure à 1024 pixels` +
+                  ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    content: ' %{champ1}\\times %{champ2}',
+                    objetReponse: {
+                      champ1: { value: c.toFixed(0) },
+                      champ2: { value: ((c * y) / x).toFixed(0) },
+                      bareme: toutAUnPoint,
+                      callback,
+                    },
+                    typeInteractivite: 'remplisLesBlancs',
+                  })
               } else {
-                texte += 'Sinon proposer une résolution adaptée à ce ratio avec une largeur supérieure à 1024 pixels.'
+                texte +=
+                  'Sinon proposer une résolution adaptée à ce ratio avec une largeur supérieure à 1024 pixels.'
               }
               texteCorr += `Le nombre $${c}$ est un multiple de $${x}$ et de $${y}$.<br>`
-              texteCorr += `Je choisis comme résolution $${c} \\times ${texFractionFromString(c + '\\times ' + y, x)}$ soit $${c}\\times ${c * y / x}$.<br>`
-              texteCorr += `En effet $${texFractionFromString(c, x)}=${texFractionFromString(c * y / x, y)}=${c / x}$ donc la résolution $${c}\\times ${c * y / x}$ respecte le format $${x}~:~${y}$.`
+              texteCorr += `Je choisis comme résolution $${c} \\times ${texFractionFromString(c + '\\times ' + y, x)}$ soit $${c}\\times ${(c * y) / x}$.<br>`
+              texteCorr += `En effet $${texFractionFromString(c, x)}=${texFractionFromString((c * y) / x, y)}=${c / x}$ donc la résolution $${c}\\times ${(c * y) / x}$ respecte le format $${x}~:~${y}$.`
             }
           }
 

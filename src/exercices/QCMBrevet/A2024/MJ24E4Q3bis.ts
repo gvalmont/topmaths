@@ -4,7 +4,11 @@ import { Polygone, polygone } from '../../../lib/2d/polygones'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { symetrieAnimee } from '../../../modules/2dAnimation'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
@@ -13,7 +17,7 @@ import { rose } from './MJ24E4Q4bis'
 export const uuid = '3c2db'
 export const refs = {
   'fr-fr': ['3G1QCM-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,10 +32,19 @@ export const dateDePublication = '05/01/2025'
  */
 
 export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
-  private appliquerLesValeurs (nbSecteurs: number, nbSecteursRot: number, sens: boolean): void { // sens = true => sens trigo
+  private appliquerLesValeurs(
+    nbSecteurs: number,
+    nbSecteursRot: number,
+    sens: boolean,
+  ): void {
+    // sens = true => sens trigo
     const angleRot = 360 / nbSecteurs
     const rosa = rose(nbSecteurs)
-    const d = rotation(droite(point(0, 0), point(-5, 0)), point(0, 0), sens ? angleRot * nbSecteursRot : -angleRot * nbSecteursRot)
+    const d = rotation(
+      droite(point(0, 0), point(-5, 0)),
+      point(0, 0),
+      sens ? angleRot * nbSecteursRot : -angleRot * nbSecteursRot,
+    )
     d.color = colorToLatexOrHTML('black')
     d.epaisseur = 2
 
@@ -41,7 +54,11 @@ export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
     const polyAnim = symetrieAnimee(poly, d)
 
     context.fenetreMathalea2d = [-6, -6, 6, 6]
-    const lab = labelOnLine(d, '(d)', { preferedPosition: 'left', color: 'black', letterSize: 'normalsize' })
+    const lab = labelOnLine(d, '(d)', {
+      preferedPosition: 'left',
+      color: 'black',
+      letterSize: 'normalsize',
+    })
     const good = sens
       ? nbSecteurs - 1 - 2 * nbSecteursRot
       : 2 * (nbSecteursRot - 1) + 1
@@ -50,15 +67,29 @@ export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
     this.reponses = [
       `Motif ${good}`,
       `Motif ${distracteur1}`,
-      `Motif ${distracteur2}`
+      `Motif ${distracteur2}`,
     ]
     if (!this.sup3) {
-      this.enonce = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, lab])), rosa, lab)
+      this.enonce = mathalea2d(
+        Object.assign(
+          { pixelsParCm: 20, scale: 0.5 },
+          fixeBordures([rosa, lab]),
+        ),
+        rosa,
+        lab,
+      )
     } else this.enonce = ''
     this.enonce += `La droite (d) a été tournée ${nbSecteursRot} fois de ${angleRot}° dans le sens ${sens ? 'trigonométrique' : 'horaire'}.<br>`
-    this.enonce += 'Quel est l\'image du motif gris par la symétrie d\'axe (d) ?'
+    this.enonce += "Quel est l'image du motif gris par la symétrie d'axe (d) ?"
     this.correction = `L'image du motif gris par la symétrie d'axe (d) est le motif ${good}.<br>`
-    this.correction += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, polyAnim])), rosa, polyAnim)
+    this.correction += mathalea2d(
+      Object.assign(
+        { pixelsParCm: 20, scale: 0.5 },
+        fixeBordures([rosa, polyAnim]),
+      ),
+      rosa,
+      polyAnim,
+    )
   }
 
   versionOriginale: () => void = () => {
@@ -87,7 +118,7 @@ export default class MetropoleJuin24Exo4BisQ3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaire3CaseACocher = ['Figure masquée', false]
     this.sup = false

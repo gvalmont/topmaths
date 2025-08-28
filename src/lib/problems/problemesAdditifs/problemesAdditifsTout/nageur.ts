@@ -8,10 +8,12 @@ import ProblemeAdditif from './problemesAdditifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function nageur (decimal = false): Probleme {
+export function nageur(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nb1 = decimal ? randint(25, 35) / 10 : randint(20, 40) * 100
-  const nb2 = decimal ? randint(25, 45) / 10 : randint(20, 50, Math.round(nb1 / 100)) * 100
+  const nb2 = decimal
+    ? randint(25, 45) / 10
+    : randint(20, 50, Math.round(nb1 / 100)) * 100
   const data = { nb1, nb2 }
   const unite = decimal ? 'km' : 'm'
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'

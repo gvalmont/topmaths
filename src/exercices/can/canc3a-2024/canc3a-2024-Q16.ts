@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Calculer le quart d\'une quantité'
+export const titre = "Calculer le quart d'une quantité"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f5788'
@@ -13,7 +13,7 @@ export const uuid = 'f5788'
 
 */
 export default class PourcentageFacileCM2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -22,7 +22,7 @@ export default class PourcentageFacileCM2 extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let distance: number
     let unite: string
 

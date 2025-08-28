@@ -2,7 +2,10 @@ import Exercice from '../Exercice'
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -16,7 +19,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['TSA5-08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -25,28 +28,51 @@ export const refs = {
 
 */
 export default class ExerciceCalculsAvecLog extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     if (this.nbQuestions === 1) {
-      this.consigne = 'Calculer la valeur de l\'expression suivante.'
+      this.consigne = "Calculer la valeur de l'expression suivante."
     } else {
       this.consigne = 'Calculer la valeur des expressions suivantes.'
     }
     this.spacingCorr = 2
   }
 
-  nouvelleVersion () {
-    const typeQuestionsDisponibles = ['addition', 'soustraction', 'multiplication']
+  nouvelleVersion() {
+    const typeQuestionsDisponibles = [
+      'addition',
+      'soustraction',
+      'multiplication',
+    ]
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      const listeFacteurs = [[1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [2, 3], [2, 4], [2, 5], [4, 5]]
-        .map(paire => [[paire[0], paire[1]], [paire[1], paire[0]]]) // On crée les mêmes mais inversés
+      const listeFacteurs = [
+        [1, 1],
+        [1, 2],
+        [1, 3],
+        [1, 4],
+        [1, 5],
+        [2, 3],
+        [2, 4],
+        [2, 5],
+        [4, 5],
+      ]
+        .map((paire) => [
+          [paire[0], paire[1]],
+          [paire[1], paire[0]],
+        ]) // On crée les mêmes mais inversés
         .flat(1) // On applatit la liste de liste
-        .map(paire => [[paire[0], paire[1]], [-paire[0], paire[1]]]) // On crée les variations avec les négatifs
+        .map((paire) => [
+          [paire[0], paire[1]],
+          [-paire[0], paire[1]],
+        ]) // On crée les variations avec les négatifs
         .flat(1) // on applatit à nouveau
       const [a, c] = choice(listeFacteurs)
       const [m, n] = choice(listeFacteurs)
@@ -102,7 +128,8 @@ export default class ExerciceCalculsAvecLog extends Exercice {
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
       }
-      if (this.questionJamaisPosee(i, a, m, n, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a, m, n, c)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

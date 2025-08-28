@@ -1,5 +1,5 @@
 import ConstruireParSymetrie from '../6e/_Construire_par_symetrie'
-export const titre = 'Construire le symétrique d\'un point par symétrie centrale'
+export const titre = "Construire le symétrique d'un point par symétrie centrale"
 export const interactifReady = false
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -11,10 +11,10 @@ export const uuid = '8d4bf'
 
 export const refs = {
   'fr-fr': ['5G11-1'],
-  'fr-ch': ['9ES6-5']
+  'fr-ch': ['9ES6-5'],
 }
 export default class SymetrieCentralePoint extends ConstruireParSymetrie {
-  constructor () {
+  constructor() {
     super()
     this.figure = false
     this.version = 5

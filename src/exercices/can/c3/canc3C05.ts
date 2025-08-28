@@ -21,18 +21,22 @@ export const uuid = 'd0287'
 
 export const refs = {
   'fr-fr': ['canc3C05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PariteDunNombre extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
-    for (let i = 0, a, b, c, d, e, f, g, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0, a, b, c, d, e, f, g, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (choice([1, 2, 3, 4, 5])) {
         case 1:
           a = randint(10, 20) * 10
@@ -46,8 +50,10 @@ export default class PariteDunNombre extends Exercice {
           this.canEnonce = texte
           texteCorr = `$${e}$ est un nombre ${e % 2 === 0 ? 'pair' : 'impair'} car il a $${b}$ comme chiffre des unités.<br>`
           texteCorr += `$${f}$ est un nombre ${f % 2 === 0 ? 'pair' : 'impair'} car il a $${d}$ comme chiffre des unités.<br>`
-          texteCorr += `La somme ${e % 2 === 0 && f % 2 === 0 ? 'de deux nombres pairs' : e % 2 === 1 && f % 2 === 1 ? 'de deux nombres impairs' : 'd\'un nombre impair et d\'un nombre pair'} est ${g % 2 === 0 ? 'paire' : 'impaire'}.<br>`
-          texteCorr += texteEnCouleur(`Mentalement on peut ajouter seulement les chiffres des unités des deux nombres : $${b}+${d}=${b + d}$`)
+          texteCorr += `La somme ${e % 2 === 0 && f % 2 === 0 ? 'de deux nombres pairs' : e % 2 === 1 && f % 2 === 1 ? 'de deux nombres impairs' : "d'un nombre impair et d'un nombre pair"} est ${g % 2 === 0 ? 'paire' : 'impaire'}.<br>`
+          texteCorr += texteEnCouleur(
+            `Mentalement on peut ajouter seulement les chiffres des unités des deux nombres : $${b}+${d}=${b + d}$`,
+          )
           texteCorr += `<br>Donc le nombre $${e}+${f}$ est ${g % 2 === 0 ? 'pair' : 'impair'}.`
           break
         case 2:
@@ -69,16 +75,20 @@ export default class PariteDunNombre extends Exercice {
           texteCorr += `Donc le chiffre des unités de $${e} \\times ${f}$ est celui de $${e % 10}\\times ${f % 10}=${b * d}$ soit $${g % 10}$.<br>`
           break
         case 3:
-          a = choice([randint(101, 109) * 4, randint(111, 119) * 4, randint(121, 129) * 4])
+          a = choice([
+            randint(101, 109) * 4,
+            randint(111, 119) * 4,
+            randint(121, 129) * 4,
+          ])
           b = choice([0, 2])
           e = a + b
           g = e >> 1
           texte = `Le nombre $${e}\\div 2$ est-il pair ?`
           this.canEnonce = texte
           texteCorr = `On va retirer le plus grand multiple de 20 possible de $${e}$ :<br>`
-          texteCorr += `Dans ${e} il va $${Math.floor(e / 20)}\\times 20=${e - e % 20}$ et il reste ${e % 20}.<br>`
+          texteCorr += `Dans ${e} il va $${Math.floor(e / 20)}\\times 20=${e - (e % 20)}$ et il reste ${e % 20}.<br>`
           texteCorr += `Si on divise $${e % 20}$ par $2$ on trouve $${texNombre((e % 20) / 2)}$ qui est un nombre ${g % 2 === 0 ? 'pair' : 'impair'}.<br>`
-          texteCorr += `Or, $${e}\\div 2= (${e - e % 20} + ${e % 20})\\div 2 =${(e - e % 20) >> 1} + ${(e % 20) >> 1}=${e >> 1}$.<br>`
+          texteCorr += `Or, $${e}\\div 2= (${e - (e % 20)} + ${e % 20})\\div 2 =${(e - (e % 20)) >> 1} + ${e % 20 >> 1}=${e >> 1}$.<br>`
           texteCorr += `Donc le nombre $${e}\\div 2$ est ${g % 2 === 0 ? 'pair' : 'impair'}.`
           break
         case 4:
@@ -93,8 +103,10 @@ export default class PariteDunNombre extends Exercice {
           this.canEnonce = texte
           texteCorr = `$${f}$ est un nombre ${f % 2 === 0 ? 'pair' : 'impair'} car il a $${d}$ comme chiffre des unités.<br>`
           texteCorr += `$${e}$ est un nombre ${e % 2 === 0 ? 'pair' : 'impair'} car il a $${b}$ comme chiffre des unités.<br>`
-          texteCorr += `La différence ${e % 2 === 0 && f % 2 === 0 ? 'de deux nombres pairs' : e % 2 === 1 && f % 2 === 1 ? 'de deux nombres impairs' : 'd\'un nombre impair et d\'un nombre pair'} est ${g % 2 === 0 ? 'paire' : 'impaire'}.<br>`
-          texteCorr += texteEnCouleur(`Mentalement on peut soustraire les chiffres des unités des deux nombres ${d < b ? '(en empruntant une dizaine à $' + f + '$) ' : ''} : $${d < b ? d + 10 : d} - ${b}=${g % 10}$`)
+          texteCorr += `La différence ${e % 2 === 0 && f % 2 === 0 ? 'de deux nombres pairs' : e % 2 === 1 && f % 2 === 1 ? 'de deux nombres impairs' : "d'un nombre impair et d'un nombre pair"} est ${g % 2 === 0 ? 'paire' : 'impaire'}.<br>`
+          texteCorr += texteEnCouleur(
+            `Mentalement on peut soustraire les chiffres des unités des deux nombres ${d < b ? '(en empruntant une dizaine à $' + f + '$) ' : ''} : $${d < b ? d + 10 : d} - ${b}=${g % 10}$`,
+          )
           texteCorr += `<br>Donc le nombre $${f}-${e}$ est ${g % 2 === 0 ? 'pair' : 'impair'}.`
           break
         case 5:
@@ -110,11 +122,13 @@ export default class PariteDunNombre extends Exercice {
           this.canEnonce = texte
           if (b % 2 === 0) {
             texteCorr = `$${b}$ est un nombre pair. Le produit de deux nombres pairs est un nombre pair.<br>`
-            texteCorr += 'Ainsi, les multiplications successives donnent toujours un résultat pair.<br>'
+            texteCorr +=
+              'Ainsi, les multiplications successives donnent toujours un résultat pair.<br>'
             texteCorr += `Donc ${texte.replace('L', 'l').replace('est-il', 'est').replace('?', '')}.`
           } else {
             texteCorr = `$${b}$ est un nombre impair. Le produit de deux nombres impairs est un nombre impair.<br>`
-            texteCorr += 'Ainsi, les multiplications successives donnent toujours un résultat impair.<br>'
+            texteCorr +=
+              'Ainsi, les multiplications successives donnent toujours un résultat impair.<br>'
             texteCorr += `Donc ${texte.replace('L', 'l').replace('est-il', 'est').replace('?', '').replace('pair', 'impair')}.`
           }
           break
@@ -124,24 +138,24 @@ export default class PariteDunNombre extends Exercice {
         propositions: [
           {
             texte: 'Oui',
-            statut: g % 2 === 0
+            statut: g % 2 === 0,
           },
           {
             texte: 'Non',
-            statut: g % 2 === 1
-          }
+            statut: g % 2 === 1,
+          },
         ],
         options: {
           ordered: true,
-          radio: true
-        }
+          radio: true,
+        },
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
         texte += monQcm.texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
-      // Si la question n'a jamais été posée, on en crée une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

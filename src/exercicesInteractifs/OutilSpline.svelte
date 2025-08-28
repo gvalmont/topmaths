@@ -6,9 +6,9 @@
 
   export const titre = 'Interpolation par splines (avec formulaire)'
 
-  export const refs = {  
-    'fr-fr': ['P022'],  
-    'fr-ch': []
+  export const refs = {
+    'fr-fr': ['P022'],
+    'fr-ch': [],
   }
   export const uuid = 'spline'
 
@@ -20,18 +20,18 @@
     settingsReady: false,
     interactifReady: false,
     randomReady: false,
-    correctionReady: false
+    correctionReady: false,
   }
   let noeuds = [
     { x: -3, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
     { x: -1, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     { x: 1, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: 3, y: 4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
+    { x: 3, y: 4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   ]
 
   let contenu = ''
 
-  function refreshCourb () {
+  function refreshCourb() {
     if (trieNoeuds(noeuds)) {
       const f = spline(noeuds)
       const { xMin, xMax, yMin, yMax } = f.trouveMaxes()
@@ -42,33 +42,34 @@
     }
   }
 
-  function removeNoeud () {
+  function removeNoeud() {
     if (noeuds.length < 4) return
     noeuds.pop()
     noeuds = noeuds
     refreshCourb()
   }
 
-  function addNoeud () {
+  function addNoeud() {
     noeuds.push({
       x: noeuds.at(-1).x + 1,
       y: noeuds.at(-1).y,
       deriveeGauche: 0,
       deriveeDroit: 0,
-      isVisible: true
+      isVisible: true,
     })
     noeuds = noeuds
     refreshCourb()
   }
 
-  function copy () {
+  function copy() {
     noeuds = noeuds
     navigator.clipboard.writeText(JSON.stringify(noeuds))
     alert('Noeuds copiés dans le presse-papier')
   }
 
-  async function paste () {
-    const jsonNoeuds = (await navigator.clipboard.readText()).replaceAll('x', '"x"')
+  async function paste() {
+    const jsonNoeuds = (await navigator.clipboard.readText())
+      .replaceAll('x', '"x"')
       .replaceAll('y', '"y"')
       .replaceAll('deriveeGauche', '"deriveeGauche"')
       .replaceAll('deriveeDroit', '"deriveeDroit"')
@@ -106,49 +107,50 @@
       {#each noeuds as { x, y, deriveeGauche, deriveeDroit, isVisible }}
         <input
           type="number"
-          bind:value={x}
-          min={-10}
-          max={10}
-          step={0.1}
-          on:change={refreshCourb}
+          bind:value="{x}"
+          min="{-10}"
+          max="{10}"
+          step="{0.1}"
+          on:change="{refreshCourb}"
         />
         <input
           type="number"
-          bind:value={y}
-          min={-10}
-          max={10}
-          step={0.1}
-          on:change={refreshCourb}
+          bind:value="{y}"
+          min="{-10}"
+          max="{10}"
+          step="{0.1}"
+          on:change="{refreshCourb}"
         />
         <input
           type="number"
-          bind:value={deriveeGauche}
-          min={-10}
-          max={10}
-          step={0.1}
-          on:change={refreshCourb}
+          bind:value="{deriveeGauche}"
+          min="{-10}"
+          max="{10}"
+          step="{0.1}"
+          on:change="{refreshCourb}"
         />
         <input
           type="number"
-          bind:value={deriveeDroit}
-          min={-10}
-          max={10}
-          step={0.1}
-          on:change={refreshCourb}
+          bind:value="{deriveeDroit}"
+          min="{-10}"
+          max="{10}"
+          step="{0.1}"
+          on:change="{refreshCourb}"
         />
         <input
           type="checkbox"
-          bind:checked={isVisible}
-          on:change={refreshCourb}
+          bind:checked="{isVisible}"
+          on:change="{refreshCourb}"
         />
       {/each}
-      <button on:click={removeNoeud}
-      ><i class="bx bx-lg bx-minus-circle"/></button
+      <button on:click="{removeNoeud}"
+        ><i class="bx bx-lg bx-minus-circle"></i></button
       >
-      <button on:click={addNoeud}><i class="bx bx-lg bx-plus-circle"/></button>
-      <button on:click={copy}><i class="bx bx-lg bx-clipboard"/></button>
-      <button on:click={paste}><i class="bx bx-lg bx-download"/></button>
+      <button on:click="{addNoeud}"
+        ><i class="bx bx-lg bx-plus-circle"></i></button
+      >
+      <button on:click="{copy}"><i class="bx bx-lg bx-clipboard"></i></button>
+      <button on:click="{paste}"><i class="bx bx-lg bx-download"></i></button>
     </div>
   </div>
-
 </section>

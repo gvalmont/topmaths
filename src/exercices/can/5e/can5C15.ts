@@ -17,7 +17,7 @@ export const uuid = '6b25b'
 
 export const refs = {
   'fr-fr': ['can5C15'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NombreATrouver extends ExerciceSimple {
   constructor() {
@@ -41,7 +41,7 @@ export default class NombreATrouver extends ExerciceSimple {
 L'"écart" entre les deux nombres est $${abs(c - a)}$. Il faut donc ajouter $${c - a}$.
 `)
     this.reponse = c - a
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

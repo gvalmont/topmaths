@@ -1,8 +1,14 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-export const titre = 'Calculer une somme élémentaire avec le logarithme népérien'
+export const titre =
+  'Calculer une somme élémentaire avec le logarithme népérien'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -11,7 +17,7 @@ export const dateDePublication = '20/02/2025'
 export const uuid = '7c230'
 export const refs = {
   'fr-fr': ['canTSpeAN04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -20,13 +26,13 @@ export const refs = {
 
 */
 export default class logarithme extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a1 = randint(-5, 5, 0)
     const a2 = randint(-5, 5, 0)
     const a3 = randint(-5, 5, 0)

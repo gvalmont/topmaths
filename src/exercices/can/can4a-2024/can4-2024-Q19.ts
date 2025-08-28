@@ -13,7 +13,7 @@ export const uuid = 'a0698'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 90
       this.question = '$20\\,\\%$ de $450$  '
@@ -32,7 +32,7 @@ export default class NomExercice extends ExerciceSimple {
     } else {
       const a = randint(1, 5) * 10
       const p = randint(2, 9, 5) * 10
-      this.reponse = a * p / 100
+      this.reponse = (a * p) / 100
       this.question = `$${p}\\,\\%$ de $${a}$ `
 
       this.correction = `Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>

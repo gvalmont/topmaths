@@ -15,10 +15,10 @@ export const uuid = 'c8a75'
 
 export const refs = {
   'fr-fr': ['1A-R5-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AR5a extends CalculToutAvecPartie {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

@@ -9,7 +9,7 @@ import ProblemeAdditif from './problemesAdditifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function transports (): Probleme {
+export function transports(): Probleme {
   const personnage = prenomPronom()
   const nb1 = randint(25, 35)
   const nb2 = randint(25, 35, nb1)

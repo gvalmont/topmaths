@@ -15,7 +15,7 @@ export const uuid = 'bb035'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(22, 7).texFraction
       this.question = '$3+\\dfrac{1}{7}$ '
@@ -35,7 +35,22 @@ export default class NomExercice extends ExerciceSimple {
       &  =${miseEnEvidence('\\dfrac{22}{7}')}
       \\end{aligned}$`
     } else {
-      const listeFractions2 = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [5, 3], [4, 7], [1, 5], [3, 5], [1, 7], [2, 9], [1, 9], [7, 9], [1, 8], [5, 8]
+      const listeFractions2 = [
+        [1, 3],
+        [2, 3],
+        [3, 7],
+        [2, 7],
+        [4, 3],
+        [5, 3],
+        [4, 7],
+        [1, 5],
+        [3, 5],
+        [1, 7],
+        [2, 9],
+        [1, 9],
+        [7, 9],
+        [1, 8],
+        [5, 8],
       ]
       const frac = choice(listeFractions2)
       const a = randint(1, 4)

@@ -9,21 +9,24 @@ import './listeDeroulante/ListeDeroulanteElement'
  * @param {object} exercice l'exercice appelant pour pouvoir atteindre ses propriétés.
  * @param {number} i le numéro de la question
  * @returns {string} 'OK' si la réponse est correcte, 'KO' sinon
-*/
-export function verifQuestionListeDeroulante (exercice: Exercice, i:number) {
+ */
+export function verifQuestionListeDeroulante(exercice: Exercice, i: number) {
   /* // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
   const eltFeedback = document.querySelector(`resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On ajoute le div pour le feedback
   setStyles(eltFeedback, 'marginBottom: 20px')
   if (eltFeedback) eltFeedback.innerHTML = ''
    */
-  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-  if (spanReponseLigne == null) {
-    window.notify('l\'exercice ayant appelé verifQuestionListeDeroulante() n\'a pas correctement défini le span pour le smiley', { exercice: JSON.stringify(exercice) })
-  }
-  const liste = document.querySelector(
-          `#ex${exercice.numeroExercice}Q${i}`
+  const spanReponseLigne = document.querySelector(
+    `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
   )
+  if (spanReponseLigne == null) {
+    window.notify(
+      "l'exercice ayant appelé verifQuestionListeDeroulante() n'a pas correctement défini le span pour le smiley",
+      { exercice: JSON.stringify(exercice) },
+    )
+  }
+  const liste = document.querySelector(`#ex${exercice.numeroExercice}Q${i}`)
   let value
 
   if (liste) {
@@ -47,34 +50,50 @@ export function verifQuestionListeDeroulante (exercice: Exercice, i:number) {
       spanReponseLigne.innerHTML = '☹️'
     }
   }
-  if (spanReponseLigne) (spanReponseLigne as HTMLElement).style.fontSize = 'large'
+  if (spanReponseLigne)
+    (spanReponseLigne as HTMLElement).style.fontSize = 'large'
   return resultat
 }
 
 /**
  *
-  * Fonction pour créer une liste déroulante dans un exercice interactif.
-  * @param {Exercice} exercice l'exercice appelant pour pouvoir atteindre ses propriétés.
-  * @param {number} i le numéro de la question
-  * @param {AllChoicesType} choix les choix possibles dans la liste déroulante
-  * @param {boolean} [choix0] true si on veut un choix sélectionnable en premier (pas d'entête) par défaut false
-  * @param {string} [style] le style à appliquer à la liste déroulante (en plus ou en remplacement de celui par défaut))
-  * @returns {string} le code HTML de la liste déroulante
+ * Fonction pour créer une liste déroulante dans un exercice interactif.
+ * @param {Exercice} exercice l'exercice appelant pour pouvoir atteindre ses propriétés.
+ * @param {number} i le numéro de la question
+ * @param {AllChoicesType} choix les choix possibles dans la liste déroulante
+ * @param {boolean} [choix0] true si on veut un choix sélectionnable en premier (pas d'entête) par défaut false
+ * @param {string} [style] le style à appliquer à la liste déroulante (en plus ou en remplacement de celui par défaut))
+ * @returns {string} le code HTML de la liste déroulante
  */
-export function choixDeroulant (exercice: Exercice, i:number, choix: AllChoicesType, choix0?: boolean, style?: string) {
+export function choixDeroulant(
+  exercice: Exercice,
+  i: number,
+  choix: AllChoicesType,
+  choix0?: boolean,
+  style?: string,
+) {
   if (!exercice.interactif || !context.isHtml) return ''
 
   choix0 = choix0 !== undefined ? Boolean(choix0) : false
   style = style ? ` style="${style}"` : ''
-  if (context.isHtml && exercice?.autoCorrection[i]?.reponse?.param?.formatInteractif !== 'listeDeroulante') {
+  if (
+    context.isHtml &&
+    exercice?.autoCorrection[i]?.reponse?.param?.formatInteractif !==
+      'listeDeroulante'
+  ) {
     if (exercice?.autoCorrection == null) exercice.autoCorrection = []
     if (exercice?.autoCorrection[i] == null) exercice.autoCorrection[i] = {}
-    if (exercice?.autoCorrection[i].reponse == null) exercice.autoCorrection[i].reponse = {}
-    if (exercice.autoCorrection[i].reponse.param == null) exercice.autoCorrection[i].reponse.param = {}
-    exercice.autoCorrection[i].reponse.param.formatInteractif = 'listeDeroulante'
+    if (exercice?.autoCorrection[i].reponse == null)
+      exercice.autoCorrection[i].reponse = {}
+    if (exercice.autoCorrection[i].reponse.param == null)
+      exercice.autoCorrection[i].reponse.param = {}
+    exercice.autoCorrection[i].reponse.param.formatInteractif =
+      'listeDeroulante'
   }
-  let result = `<liste-deroulante class="mx-2 listeDeroulante" id="ex${exercice.numeroExercice}Q${i}"${style} choices="` +
-encodeURIComponent(JSON.stringify(choix)) + `" choix0="${choix0}"></liste-deroulante>`
+  let result =
+    `<liste-deroulante class="mx-2 listeDeroulante" id="ex${exercice.numeroExercice}Q${i}"${style} choices="` +
+    encodeURIComponent(JSON.stringify(choix)) +
+    `" choix0="${choix0}"></liste-deroulante>`
   /* let result = `<select class="mx-2 listeDeroulante" id="Ex${exercice.numeroExercice}Q${i}" ${style}>
       <option> Choisir ${type === 'nombre' ? 'un nombre' : type} </option>`
 
@@ -95,21 +114,37 @@ encodeURIComponent(JSON.stringify(choix)) + `" choix0="${choix0}"></liste-deroul
  * @param {object} options // options.vertical pour présenter les réponses, options.ordered pour modifier l'ordre
  * passer toutes les options possibles pour AMC (lastChoice par exemple utile si pas ordonné pour dire où s'arrête le mélange voir le wiki concernant AMC).
  */
-export function listeDeroulanteToQcm (exercice: Exercice, question: number, choix: AllChoicesType, reponse: string, options: any) {
+export function listeDeroulanteToQcm(
+  exercice: Exercice,
+  question: number,
+  choix: AllChoicesType,
+  reponse: string,
+  options: any,
+) {
   if (exercice == null || choix == null || reponse == null) {
-    window.notify('Il manque des paramètres pour transformer la liste déroulante en qcm', { exercice, question, choix, reponse })
+    window.notify(
+      'Il manque des paramètres pour transformer la liste déroulante en qcm',
+      { exercice, question, choix, reponse },
+    )
     return
   }
-  if (!choix.some(el => el.value === reponse)) {
-    window.notify('La réponse doit faire partie de la liste !', { choix, reponse })
+  if (!choix.some((el) => el.value === reponse)) {
+    window.notify('La réponse doit faire partie de la liste !', {
+      choix,
+      reponse,
+    })
     return
   }
   const vertical = options?.vertical ?? true // Par défaut c'est vertical comme une liste déroulante mais on peut passer vertical = false
   const ordered = options?.ordered ?? true // Par défaut ce sera le même ordre que la liste déroulante
-  if (exercice.autoCorrection == null || !Array.isArray(exercice.autoCorrection)) {
+  if (
+    exercice.autoCorrection == null ||
+    !Array.isArray(exercice.autoCorrection)
+  ) {
     exercice.autoCorrection = []
   }
-  if (exercice.autoCorrection[question] == null) exercice.autoCorrection[question] = {}
+  if (exercice.autoCorrection[question] == null)
+    exercice.autoCorrection[question] = {}
   exercice.autoCorrection[question] = {}
   exercice.autoCorrection[question].options = { vertical, ordered, ...options }
   exercice.autoCorrection[question].propositions = []
@@ -118,12 +153,12 @@ export function listeDeroulanteToQcm (exercice: Exercice, question: number, choi
     if (choix[j].label != null) {
       exercice.autoCorrection[question].propositions.push({
         texte: choix[j].label,
-        statut: choix[j].value === reponse // il n'y a qu'une bonne réponse, et elle doit correspondre à l'un des choix.
+        statut: choix[j].value === reponse, // il n'y a qu'une bonne réponse, et elle doit correspondre à l'un des choix.
       })
     } else if (choix[j].latex != null) {
       exercice.autoCorrection[question].propositions.push({
         texte: `$${choix[j].latex}$`,
-        statut: choix[j].value === reponse // il n'y a qu'une bonne réponse, et elle doit correspondre à l'un des choix.
+        statut: choix[j].value === reponse, // il n'y a qu'une bonne réponse, et elle doit correspondre à l'un des choix.
       })
     } else if (choix[j].svg != null) {
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -136,7 +171,7 @@ export function listeDeroulanteToQcm (exercice: Exercice, question: number, choi
       svg.innerHTML = choix[j].svg ?? ''
       exercice.autoCorrection[question].propositions.push({
         texte: svg.outerHTML,
-        statut: choix[j].value === reponse
+        statut: choix[j].value === reponse,
       })
       setTimeout(() => {
         document.removeChild(svg)
@@ -148,10 +183,13 @@ export function listeDeroulanteToQcm (exercice: Exercice, question: number, choi
       image.style.height = '30px'
       exercice.autoCorrection[question].propositions.push({
         texte: image.outerHTML,
-        statut: choix[j].value === reponse
+        statut: choix[j].value === reponse,
       })
     } else {
-      console.warn('La liste déroulante à convertir en qcm contient un choix de type inconnu', JSON.stringify(choix[j]))
+      console.warn(
+        'La liste déroulante à convertir en qcm contient un choix de type inconnu',
+        JSON.stringify(choix[j]),
+      )
     }
   }
 }

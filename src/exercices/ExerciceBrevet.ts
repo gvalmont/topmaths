@@ -18,15 +18,15 @@ export const nombreElementsDifferents = (liste: string[]) => {
 export default class ExerciceBrevet extends Exercice {
   enonce!: string
   checksum!: string
-  versionAleatoire?: (i:number)=>void
-  versionOriginale:()=>void = () => {
+  versionAleatoire?: (i: number) => void
+  versionOriginale: () => void = () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
     this.enonce = 'Enoncé de la question'
     // Ici, on colle les différentes réponses prise dans le latex : attention !!! mettre la bonne en premier (elles seront brassées par propositionsQcm)
     this.correction = 'La correction'
   }
 
-  constructor () {
+  constructor() {
     super()
     // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
     this.nbQuestions = 1
@@ -37,9 +37,9 @@ export default class ExerciceBrevet extends Exercice {
     this.versionOriginale()
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.versionAleatoire != null) {
-      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
+      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30; ) {
         if (this.sup) this.versionOriginale()
         else this.versionAleatoire(i)
         if (this.questionJamaisPosee(i, String(this.correction))) {

@@ -17,17 +17,17 @@ export const uuid = '30cc1'
 
 export const refs = {
   'fr-fr': ['canTEC1-02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeDeComplexes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const z1 = complex(randint(-5, 5, 0), randint(-5, 5, 0))
     const z2 = complex(0, randint(-5, 5, 0))
     const z = multiply(z1, z2) as Complex
@@ -40,30 +40,30 @@ export default class SommeDeComplexes extends ExerciceSimple {
         {
           type: 'AMCNum',
           propositions: {
-            texte: this.correction
+            texte: this.correction,
           },
           reponse: {
             valeur: z.re,
             digits: 2,
             decimals: 0,
             signe: true,
-            approx: 0
-          }
+            approx: 0,
+          },
         },
         {
           type: 'AMCNum',
           propositions: {
-            texte: ''
+            texte: '',
           },
           reponse: {
             valeur: z.im,
             digits: 2,
             decimals: 0,
             signe: true,
-            approx: 0
-          }
-        }
-      ]
+            approx: 0,
+          },
+        },
+      ],
     }
   }
 }

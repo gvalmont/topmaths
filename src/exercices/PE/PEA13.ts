@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { valeurBase } from './PEA11-1'
 
-export const titre = 'Multiplications dans d\'autres bases'
+export const titre = "Multiplications dans d'autres bases"
 export const dateDePublication = '2/11/2021'
 
 /**
@@ -19,11 +19,12 @@ export const uuid = 'a7016'
 
 export const refs = {
   'fr-fr': ['PEA13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
-export function base10VersBaseN (nombre: number | Decimal, b: number) {
-  if (nombre instanceof Decimal) return nombre.toNumber().toString(b).toUpperCase()
+export function base10VersBaseN(nombre: number | Decimal, b: number) {
+  if (nombre instanceof Decimal)
+    return nombre.toNumber().toString(b).toUpperCase()
   else return nombre.toString(b).toUpperCase()
 }
 
@@ -32,7 +33,10 @@ export function base10VersBaseN (nombre: number | Decimal, b: number) {
  * @param {} nombre
  * @param {number} b la base de départ
  */
-export function baseNVersBase10 (stringNombre: number | Decimal | string, b: number) {
+export function baseNVersBase10(
+  stringNombre: number | Decimal | string,
+  b: number,
+) {
   let result = 0
   if (typeof stringNombre === 'number') {
     stringNombre = stringNombre.toString()
@@ -40,15 +44,20 @@ export function baseNVersBase10 (stringNombre: number | Decimal | string, b: num
     stringNombre = stringNombre.toNumber().toString()
   }
   for (let i = 0; i < stringNombre.length; i++) {
-    result += b ** i * valeurBase(stringNombre.charAt(stringNombre.length - 1 - i))
+    result +=
+      b ** i * valeurBase(stringNombre.charAt(stringNombre.length - 1 - i))
   }
   return result
 }
 
 export default class MultiplicationsBaseN extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Choix de la base', 9, '3 à 9 (au hasard si laissé vide)']
+    this.besoinFormulaireNumerique = [
+      'Choix de la base',
+      9,
+      '3 à 9 (au hasard si laissé vide)',
+    ]
 
     this.video = 'pkp9e8XDH3M'
     this.consigne = 'Poser et effectuer les calculs suivants :'
@@ -58,17 +67,24 @@ export default class MultiplicationsBaseN extends Exercice {
     this.spacingCorr = context.isHtml ? 2 : 1
   }
 
-  nouvelleVersion () {
-    const base = (this.sup === undefined || this.sup < 3 || this.sup > 9) ? randint(3, 5) : this.sup
+  nouvelleVersion() {
+    const base =
+      this.sup === undefined || this.sup < 3 || this.sup > 9
+        ? randint(3, 5)
+        : this.sup
     if ([3, 4, 5].includes(base)) {
       this.listeQuestions[0] = `Écrire la table de Pythagore en base ${base}.`
       this.listeCorrections[0] = tableDePythagore(base)
     }
-    const indicePremierCalcul = ([3, 4, 5].includes(base)) ? 1 : 0
+    const indicePremierCalcul = [3, 4, 5].includes(base) ? 1 : 0
 
-    for (let i = indicePremierCalcul, texte, texteCorr, m, n, mb, nb, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const n1 = (base === 3) ? randint(0, 2) : randint(2, base - 1)
-      const n2 = (base === 3) ? randint(1, 2) : randint(2, base - 1, n1)
+    for (
+      let i = indicePremierCalcul, texte, texteCorr, m, n, mb, nb, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      const n1 = base === 3 ? randint(0, 2) : randint(2, base - 1)
+      const n2 = base === 3 ? randint(1, 2) : randint(2, base - 1, n1)
       nb = n2 * 10 + n1
       n = baseNVersBase10(nb, base)
       const m1 = randint(1, base - 1)
@@ -81,7 +97,15 @@ export default class MultiplicationsBaseN extends Exercice {
       nb = nb.toString()
       texte = `$(${mb})_{${base}} \\times (${nb})_{${base}}$`
       if (parseInt(mb) < parseInt(nb)) [mb, nb] = [nb, mb]
-      texteCorr = `En base ${base} :<br>` + Operation({ operande1: m, operande2: n, type: 'multiplication', base }) + '<br>'
+      texteCorr =
+        `En base ${base} :<br>` +
+        Operation({
+          operande1: m,
+          operande2: n,
+          type: 'multiplication',
+          base,
+        }) +
+        '<br>'
       for (let ligne = nb.length - 1; ligne > -1; ligne--) {
         const retenue = []
         texteCorr += `Calcul de $${nb[ligne]}\\times${mb} :$ <br>`
@@ -90,7 +114,10 @@ export default class MultiplicationsBaseN extends Exercice {
           const b = mb[mb.length - 1 - colonne]
           let abEnBaseN = base10VersBaseN(Number(a) * Number(b), base)
           if (retenue[colonne - 1]) {
-            abEnBaseN = base10VersBaseN(parseInt(a) * parseInt(b) + parseInt(retenue[colonne - 1]), base)
+            abEnBaseN = base10VersBaseN(
+              parseInt(a) * parseInt(b) + parseInt(retenue[colonne - 1]),
+              base,
+            )
             texteCorr += `$\\qquad ${a} \\times ${b} + ${retenue[colonne - 1]} = ${parseInt(a) * parseInt(b) + parseInt(retenue[colonne - 1])} = (${abEnBaseN})_{${base}}  $`
           } else {
             texteCorr += `$\\qquad ${a} \\times ${b} = ${Number(a) * Number(b)} = (${abEnBaseN})_{${base}}  $`
@@ -104,7 +131,8 @@ export default class MultiplicationsBaseN extends Exercice {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

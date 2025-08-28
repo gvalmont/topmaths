@@ -22,15 +22,30 @@ class InteractiveClock extends HTMLElement {
   private _isDynamic = true
   private _currentAction?: 'hour' | 'minute' | 'second'
 
-  constructor () {
+  constructor() {
     super()
-    this.hour = this.getAttribute('hour') ? Number(this.getAttribute('hour')) : 12
-    this.minute = this.getAttribute('minute') ? Number(this.getAttribute('minute')) : 0
-    this.svgHandHour = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-    this.svgHandMinute = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-    this.svgHandSecond = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+    this.hour = this.getAttribute('hour')
+      ? Number(this.getAttribute('hour'))
+      : 12
+    this.minute = this.getAttribute('minute')
+      ? Number(this.getAttribute('minute'))
+      : 0
+    this.svgHandHour = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'line',
+    )
+    this.svgHandMinute = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'line',
+    )
+    this.svgHandSecond = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'line',
+    )
     this.showHands = !(this.getAttribute('showHands') === 'false')
-    this.showSecond = this.hasAttribute('showSecond') ? !(this.getAttribute('showSecond') === 'false') : false
+    this.showSecond = this.hasAttribute('showSecond')
+      ? !(this.getAttribute('showSecond') === 'false')
+      : false
     this.isDynamic = !(this.getAttribute('isDynamic') === 'false')
     this.draggingHand = false
   }
@@ -38,7 +53,7 @@ class InteractiveClock extends HTMLElement {
   /**
    * Méthode appelée lorsque l'élément est ajouté au DOM
    */
-  connectedCallback () {
+  connectedCallback() {
     const container = document.createElement('div')
     container.className = 'flex flex-wrap items-center'
 
@@ -51,7 +66,10 @@ class InteractiveClock extends HTMLElement {
     svg.setAttribute('height', '200')
     svg.setAttribute('viewBox', '-200 -200 400 400')
 
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+    const circle = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'circle',
+    )
     circle.setAttribute('cx', '0')
     circle.setAttribute('cy', '0')
     circle.setAttribute('r', '200')
@@ -60,7 +78,10 @@ class InteractiveClock extends HTMLElement {
     circle.setAttribute('fill', 'none')
     svg.appendChild(circle)
 
-    const circleCentral = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+    const circleCentral = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'circle',
+    )
     circleCentral.setAttribute('cx', '0')
     circleCentral.setAttribute('cy', '0')
     circleCentral.setAttribute('r', '10')
@@ -73,7 +94,10 @@ class InteractiveClock extends HTMLElement {
       const angle = (i / 12) * 2 * Math.PI
       const x = Math.sin(angle) * 160
       const y = -Math.cos(angle) * 160
-      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+      const text = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'text',
+      )
       text.setAttribute('x', x.toString())
       text.setAttribute('y', y.toString())
       text.setAttribute('text-anchor', 'middle')
@@ -98,7 +122,10 @@ class InteractiveClock extends HTMLElement {
         y1 = -Math.cos(angle) * 180
       }
 
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+      const line = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'line',
+      )
       line.setAttribute('x1', x1.toString())
       line.setAttribute('y1', y1.toString())
       line.setAttribute('x2', x2.toString())
@@ -188,7 +215,7 @@ class InteractiveClock extends HTMLElement {
   /**
    * Création d'une aiguille
    */
-  createHand (length: number, type: 'hour' | 'minute' | 'second') {
+  createHand(length: number, type: 'hour' | 'minute' | 'second') {
     const hand = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     hand.setAttribute('x1', '0')
     hand.setAttribute('y1', '0')
@@ -205,7 +232,7 @@ class InteractiveClock extends HTMLElement {
     return hand
   }
 
-  updateHandHour (adaptHourHandToMinutes = true) {
+  updateHandHour(adaptHourHandToMinutes = true) {
     let angle = (this.hour / 12) * 2 * Math.PI
     if (adaptHourHandToMinutes) {
       angle += (this.minute / 360) * Math.PI
@@ -216,7 +243,7 @@ class InteractiveClock extends HTMLElement {
     this.svgHandHour.setAttribute('y2', y2.toString())
   }
 
-  updateHandMinute () {
+  updateHandMinute() {
     const angle = (this.minute / 60) * 2 * Math.PI
     const x2 = Math.sin(angle) * 150
     const y2 = -Math.cos(angle) * 150
@@ -224,7 +251,7 @@ class InteractiveClock extends HTMLElement {
     this.svgHandMinute.setAttribute('y2', y2.toString())
   }
 
-  updateHandSecond () {
+  updateHandSecond() {
     const angle = (this.second / 60) * 2 * Math.PI
     const x2 = Math.sin(angle) * 170
     const y2 = -Math.cos(angle) * 170
@@ -232,18 +259,22 @@ class InteractiveClock extends HTMLElement {
     this.svgHandSecond.setAttribute('y2', y2.toString())
   }
 
-  dragHand (event: MouseEvent | TouchEvent) {
+  dragHand(event: MouseEvent | TouchEvent) {
     if (!this.isDynamic) return
     if (!this.draggingHand) return
     const rect = (event.target as SVGElement).getBoundingClientRect()
-    const clientX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX
-    const clientY = event instanceof MouseEvent ? event.clientY : event.touches[0].clientY
+    const clientX =
+      event instanceof MouseEvent ? event.clientX : event.touches[0].clientX
+    const clientY =
+      event instanceof MouseEvent ? event.clientY : event.touches[0].clientY
     const x = clientX - rect.left - rect.width / 2
     const y = clientY - rect.top - rect.height / 2
     // Ne rien faire si on est trop près du centre
     if (Math.sqrt(x * x + y * y) < 20) return
     const angle = (Math.atan2(y, x) + Math.PI / 2 + 2 * Math.PI) % (2 * Math.PI)
-    const value = Math.round((angle / (2 * Math.PI)) * (this.currentAction === 'hour' ? 12 : 60))
+    const value = Math.round(
+      (angle / (2 * Math.PI)) * (this.currentAction === 'hour' ? 12 : 60),
+    )
     if (this.currentAction === 'hour') {
       this.hour = value
     } else if (this.currentAction === 'minute') {
@@ -266,15 +297,15 @@ class InteractiveClock extends HTMLElement {
     this.updateHandSecond()
   }
 
-  disconnectedCallback () {
+  disconnectedCallback() {
     // Code pour gérer la suppression de l'horloge du DOM
   }
 
-  get currentAction () {
+  get currentAction() {
     return this._currentAction
   }
 
-  set currentAction (value: 'hour' | 'minute' | 'second' | undefined) {
+  set currentAction(value: 'hour' | 'minute' | 'second' | undefined) {
     this._currentAction = value
     if (value === 'hour') {
       this.svgHandHour.setAttribute('stroke', '#216D9A')
@@ -295,48 +326,48 @@ class InteractiveClock extends HTMLElement {
     }
   }
 
-  get hour () {
+  get hour() {
     return Number(this.getAttribute('hour'))
   }
 
-  set hour (value: number) {
+  set hour(value: number) {
     if (value === 0) {
       value = 12
     }
     this.setAttribute('hour', value.toString())
   }
 
-  get second () {
+  get second() {
     return Number(this.getAttribute('second')) || 0
   }
 
-  set second (value: number) {
+  set second(value: number) {
     this.setAttribute('second', value.toString())
     this.previousSecond = this.second
   }
 
-  get isDynamic () {
+  get isDynamic() {
     return this._isDynamic
   }
 
-  set isDynamic (value: boolean) {
+  set isDynamic(value: boolean) {
     this._isDynamic = value
     if (!value) {
       this.currentAction = undefined
     }
   }
 
-  get minute () {
+  get minute() {
     return Number(this.getAttribute('minute'))
   }
 
-  set minute (value) {
+  set minute(value) {
     this.setAttribute('minute', value.toString())
     this.previousMinute = this.minute
   }
 }
 
-export default function handleInteractiveClock () {
+export default function handleInteractiveClock() {
   if (customElements.get('interactive-clock') === undefined) {
     customElements.define('interactive-clock', InteractiveClock)
   }

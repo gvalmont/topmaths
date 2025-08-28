@@ -7,7 +7,7 @@ import {
   combinaisonListes,
   combinaisonListes2,
   enleveElement,
-  enleveElementNo
+  enleveElementNo,
 } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
@@ -17,7 +17,7 @@ import { context } from '../../modules/context'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
-  randint
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -43,29 +43,29 @@ export const uuid = '4e35d'
 export const refs = {
   'fr-fr': ['6N2J-4'],
   'fr-2016': ['6C11-2'],
-  'fr-ch': ['9NO3-6']
+  'fr-ch': ['9NO3-6'],
 }
 export default class VocabulaireDivisionEuclidienne extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Choix des mots à enlever',
-      "Nombres séparés par des tirets :\nAu maximum, seuls les deux premiers entiers non nuls différents seront retenus.\n0 : Pour enlever aucun mot\n1 : Pour enlever 'dividende' du choix des mots\n2 : Pour enlever 'diviseur' du choix des mots\n3 : Pour enlever 'quotient' du choix des mots\n4 : Pour enlever 'reste' du choix des mots"
+      "Nombres séparés par des tirets :\nAu maximum, seuls les deux premiers entiers non nuls différents seront retenus.\n0 : Pour enlever aucun mot\n1 : Pour enlever 'dividende' du choix des mots\n2 : Pour enlever 'diviseur' du choix des mots\n3 : Pour enlever 'quotient' du choix des mots\n4 : Pour enlever 'reste' du choix des mots",
     ]
     this.besoinFormulaire2Numerique = [
       'Choix sur les mots à trouver',
       2,
-      '1 : Les mots à trouver sont répartis au hasard, mais de façon cyclique.\n2 : Les mots à trouver sont tous présents et répartis au hasard mais les mots ne sont pas répartis forcément équitablement.'
+      '1 : Les mots à trouver sont répartis au hasard, mais de façon cyclique.\n2 : Les mots à trouver sont tous présents et répartis au hasard mais les mots ne sont pas répartis forcément équitablement.',
     ]
     this.besoinFormulaire3Numerique = [
       "Choix sur l'égalité",
       2,
-      '1 : Égalité classique (a=bq+r ou a=qb+r)\n2 : Égalité moins classique (par exemple, a=r+bq ou qb+r=a)\n3 : Mélange'
+      '1 : Égalité classique (a=bq+r ou a=qb+r)\n2 : Égalité moins classique (par exemple, a=r+bq ou qb+r=a)\n3 : Mélange',
     ]
     this.besoinFormulaire4Numerique = [
       'Choix sur le nombre de divisions euclidiennes associées à chaque égalité',
       3,
-      '1 : Une seule division euclidienne associée\n2 : Deux divisions euclidiennes associées\n3 : Mélange'
+      '1 : Une seule division euclidienne associée\n2 : Deux divisions euclidiennes associées\n3 : Mélange',
     ]
     this.nbQuestions = 5
     this.sup = 1
@@ -74,7 +74,7 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
     this.sup4 = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne =
       'En utilisant le vocabulaire associé à la division euclidienne, détermine, '
     this.consigne +=
@@ -88,7 +88,7 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
       if (typeof this.sup === 'number') {
         enleveElementNo(
           QuestionsDisponibles,
-          contraindreValeur(0, 3, this.sup, 0) - 1
+          contraindreValeur(0, 3, this.sup, 0) - 1,
         )
       } else {
         const QuestionsDisponibles2 = this.sup.split('-')
@@ -100,8 +100,8 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
                 0,
                 3,
                 Number.parseInt(QuestionsDisponibles2[i]),
-                0
-              ) - 1
+                0,
+              ) - 1,
             )
           }
         }
@@ -117,6 +117,7 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       Nbutilises[0] = 0
       Nbutilises[1] = randint(5, 99)
@@ -139,7 +140,7 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
           }
           Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
           Nbutilises[3] = randint(4, max(Nbutilises[2], Nbutilises[1]) - 1, [
-            min(Nbutilises[2], Nbutilises[1])
+            min(Nbutilises[2], Nbutilises[1]),
           ])
           break
       }
@@ -197,7 +198,7 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
           TabCorrection[1] = `$${Nbutilises[1]}$ est le quotient`
           TabCorrection[2] = `$${Nbutilises[2]}$ est le diviseur`
           TabCorrection[ChoixQuestions[i]] = texteEnCouleurEtGras(
-            TabCorrection[ChoixQuestions[i]]
+            TabCorrection[ChoixQuestions[i]],
           )
           texteCorr +=
             numAlpha(1) +
@@ -264,7 +265,7 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
         ReponsesCorrectes = [
           ChoixReponses[
             3 - ChoixQuestions[i] === 0 ? 3 : (3 - ChoixQuestions[i]) % 3
-          ]
+          ],
         ]
       }
       if (this.questionJamaisPosee(i, ...Nbutilises)) {
@@ -272,37 +273,33 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
         if (this.interactif) {
           texte +=
             '<br>' +
-            ajouteChampTexteMathLive(
-              this,
-              i,
-              KeyboardType.alphanumeric
-            )
+            ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric)
         }
         setReponse(this, i, ReponsesCorrectes, {
-          formatInteractif: 'ignorerCasse'
+          formatInteractif: 'ignorerCasse',
         })
         if (context.isAmc) {
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
               texte: 'dividende',
-              statut: ReponsesCorrectes.includes('dividende')
+              statut: ReponsesCorrectes.includes('dividende'),
             },
             {
               texte: 'diviseur',
-              statut: ReponsesCorrectes.includes('diviseur')
+              statut: ReponsesCorrectes.includes('diviseur'),
             },
             {
               texte: 'quotient',
-              statut: ReponsesCorrectes.includes('quotient')
+              statut: ReponsesCorrectes.includes('quotient'),
             },
             {
               texte: 'reste',
-              statut: ReponsesCorrectes.includes('reste')
-            }
+              statut: ReponsesCorrectes.includes('reste'),
+            },
           ]
           this.autoCorrection[i].options = {
-            ordered: false
+            ordered: false,
           }
         }
         this.listeQuestions[i] = texte

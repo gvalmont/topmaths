@@ -6,10 +6,15 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { eclatePuissance, simpExp } from '../../lib/outils/puissance'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Effectuer des calculs avec des puissances de 10 uniquement'
+export const titre =
+  'Effectuer des calculs avec des puissances de 10 uniquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -25,10 +30,10 @@ export const uuid = 'f5dcf'
 
 export const refs = {
   'fr-fr': ['4C30', 'BP2AutoE5'],
-  'fr-ch': ['10NO2-3']
+  'fr-ch': ['10NO2-3'],
 }
 export default class PuissancesDeDix extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     context.isHtml
@@ -42,15 +47,19 @@ export default class PuissancesDeDix extends Exercice {
     this.sup2 = 4
     this.sup3 = false
     this.besoinFormulaireNumerique = false // Voir 2N31-5 pour voir besoinFormulaireNumerique à true
-    this.besoinFormulaire2Texte = ['Type de calculs', 'Nombres séparés par des tirets :\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
+    this.besoinFormulaire2Texte = [
+      'Type de calculs',
+      'Nombres séparés par des tirets :\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange',
+    ] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
   }
 
-  nouvelleVersion () {
-    this.besoinFormulaire3CaseACocher = this.sup !== 2 ? ['Avec des puissances négatives'] : false
+  nouvelleVersion() {
+    this.besoinFormulaire3CaseACocher =
+      this.sup !== 2 ? ['Avec des puissances négatives'] : false
     this.correctionDetailleeDisponible = this.sup !== 2
     let typesDeQuestions
 
-    let typesDeQuestionsDisponibles : number[] = []
+    let typesDeQuestionsDisponibles: number[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3] // produit, quotient et exponentiation de puissances de 10
       if (this.nbQuestions > 30) {
@@ -62,17 +71,14 @@ export default class PuissancesDeDix extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] // calculs deuxième série
     }
     const listeTypeDeQuestions = this.besoinFormulaireNumerique
-      ? combinaisonListes(
-        typesDeQuestionsDisponibles,
-        this.nbQuestions
-      )
+      ? combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
       : gestionnaireFormulaireTexte({
-        nbQuestions: this.nbQuestions,
-        saisie: this.sup2,
-        max: 3,
-        melange: 4,
-        defaut: 4
-      }).map(Number)
+          nbQuestions: this.nbQuestions,
+          saisie: this.sup2,
+          max: 3,
+          melange: 4,
+          defaut: 4,
+        }).map(Number)
 
     // pour pouvoir adapter les couleurs en cas de besoin
     const coul0 = 'red'
@@ -92,12 +98,22 @@ export default class PuissancesDeDix extends Exercice {
         exposantAMC,
         cpt = 0;
       i < this.nbQuestions && cpt < 100;
+
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
-      const nbrNegSign = (i === 0 ? [] : (this.listeArguments[i - 1].match(/-/g) || [])).length
-      exp0 = (this.sup3 && nbrNegSign === 0 ? -1 : (nbrNegSign === 1 || !this.sup3 ? 1 : -1)) * randint(2, 9)
-      exp1 = (this.sup3 && nbrNegSign === 0 ? -1 : 1) * randint(2, 9, [exp0, -1 * exp0])
+      const nbrNegSign = (
+        i === 0 ? [] : this.listeArguments[i - 1].match(/-/g) || []
+      ).length
+      exp0 =
+        (this.sup3 && nbrNegSign === 0
+          ? -1
+          : nbrNegSign === 1 || !this.sup3
+            ? 1
+            : -1) * randint(2, 9)
+      exp1 =
+        (this.sup3 && nbrNegSign === 0 ? -1 : 1) *
+        randint(2, 9, [exp0, -1 * exp0])
       exp = randint(0, 1) === 0 ? [exp0, exp1] : [exp1, exp0]
       // on choisit deux exposants différents c'est mieux
       lettre = lettreDepuisChiffre(i + 1)
@@ -149,7 +165,12 @@ export default class PuissancesDeDix extends Exercice {
             texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${-1 * exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur et $\\color{${coul1}}{${-1 * exp[1]}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
             texteCorr += `$${lettre}=\\dfrac{1}{10^{${-1 * exp[0]}+${-1 * exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[0] - 1 * exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
           }
-          exposantAMC = [exp[0] + exp[1], exp[0] * exp[1], Math.max(...exp) - Math.min(...exp), -1 * (exp[0] + exp[1])]
+          exposantAMC = [
+            exp[0] + exp[1],
+            exp[0] * exp[1],
+            Math.max(...exp) - Math.min(...exp),
+            -1 * (exp[0] + exp[1]),
+          ]
           break
         }
         case 2: {
@@ -218,14 +239,28 @@ export default class PuissancesDeDix extends Exercice {
             texteCorr += `Il y a donc $\\mathbf{\\color{${couleurExp0}}{${-1 * exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur et $\\color{${couleurExp1}}{${exp[1]}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
             texteCorr += `$${lettre}=\\dfrac{1}{10^{${-1 * exp[0]}+${exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[0] + exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
           }
-          exposantAMC = [exp[0] - exp[1], exp[0] * exp[1], -exp[0] + exp[1], exp[0] + exp[1]]
+          exposantAMC = [
+            exp[0] - exp[1],
+            exp[0] * exp[1],
+            -exp[0] + exp[1],
+            exp[0] + exp[1],
+          ]
           break
         }
         case 3: {
           // exponentiation
-          const nbrNegSign = (i === 0 ? [] : (this.listeArguments[i - 1].match(/-/g) || [])).length
-          exp0 = (this.sup3 && nbrNegSign === 0 ? -1 : (nbrNegSign === 1 || !this.sup3 ? 1 : -1)) * randint(2, 4)
-          exp1 = (this.sup3 && nbrNegSign === 0 ? -1 : 1) * randint(2, 4, [exp0, -1 * exp0])
+          const nbrNegSign = (
+            i === 0 ? [] : this.listeArguments[i - 1].match(/-/g) || []
+          ).length
+          exp0 =
+            (this.sup3 && nbrNegSign === 0
+              ? -1
+              : nbrNegSign === 1 || !this.sup3
+                ? 1
+                : -1) * randint(2, 4)
+          exp1 =
+            (this.sup3 && nbrNegSign === 0 ? -1 : 1) *
+            randint(2, 4, [exp0, -1 * exp0])
           exp = randint(0, 1) === 0 ? [exp0, exp1] : [exp1, exp0]
           // on choisit deux exposants différents c'est mieux
           texte = `$${lettre}=(10^{${exp[0]}})^{${exp[1]}}$`
@@ -265,7 +300,12 @@ export default class PuissancesDeDix extends Exercice {
             reponseInteractive = `10^{${exp[0] * exp[1]}}`
             texteCorr += `$${lettre}={10^{${-1 * exp[0]}\\times${-1 * exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
           }
-          exposantAMC = [exp[0] * exp[1], exp[0] - exp[1], exp[0] + exp[1], -1 * (exp[0] + exp[1])]
+          exposantAMC = [
+            exp[0] * exp[1],
+            exp[0] - exp[1],
+            exp[0] + exp[1],
+            -1 * (exp[0] + exp[1]),
+          ]
           break
         }
         case 4:
@@ -274,20 +314,25 @@ export default class PuissancesDeDix extends Exercice {
           texteCorr = `$${lettre}=\\dfrac{10^${exp[0]}\\times 100}{10^${exp[1]} \\times 10^${exp[2]}}`
           texteCorr += ` = \\dfrac{10^${exp[0]}\\times 10^{2}}{10^${exp[1]} \\times 10^${exp[2]}}`
           texteCorr += ` = \\dfrac{10^{${exp[0]}+2}}{10^{${exp[1]}+${exp[2]}}}`
-          texteCorr += ` = \\dfrac{10^{${exp[0] + 2}}}{10^{${exp[1] + exp[2]
-                    }}}`
+          texteCorr += ` = \\dfrac{10^{${exp[0] + 2}}}{10^{${exp[1] + exp[2]}}}`
           texteCorr += ` = 10^{${exp[0] + 2}-${exp[1] + exp[2]}}`
           reponseInteractive = `10^{${exp[0] + 2 - exp[1] - exp[2]}}`
           texteCorr += ` = ${miseEnEvidence(reponseInteractive)}`
           if (
             exp[0] + 2 - exp[1] - exp[2] === 0 ||
-                        exp[0] + 2 - exp[1] - exp[2] === 1
+            exp[0] + 2 - exp[1] - exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
-            texteCorr += sp(2) + '(=' + simpExp(10, exp[0] + 2 - exp[1] - exp[2]) + ')'
+            texteCorr +=
+              sp(2) + '(=' + simpExp(10, exp[0] + 2 - exp[1] - exp[2]) + ')'
           }
           texteCorr += '$'
-          exposantAMC = [exp[0] + 2 - exp[1] - exp[2], exp[0] + 2 - exp[1] + exp[2], exp[0] + 2 + exp[1] - exp[2], exp[0] + 1 - exp[1] - exp[2]]
+          exposantAMC = [
+            exp[0] + 2 - exp[1] - exp[2],
+            exp[0] + 2 - exp[1] + exp[2],
+            exp[0] + 2 + exp[1] - exp[2],
+            exp[0] + 1 - exp[1] - exp[2],
+          ]
           break
         case 5:
           exp = [randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 2 exposants distincts
@@ -304,7 +349,12 @@ export default class PuissancesDeDix extends Exercice {
             texteCorr += sp(2) + '(=' + simpExp(10, exp[0] + 3 - exp[1]) + ')'
           }
           texteCorr += '$'
-          exposantAMC = [exp[0] + 3 - exp[1], exp[0] + 3 + exp[1], -exp[0] + 3 + exp[1], -exp[0] + 3 - exp[1]]
+          exposantAMC = [
+            exp[0] + 3 - exp[1],
+            exp[0] + 3 + exp[1],
+            -exp[0] + 3 + exp[1],
+            -exp[0] + 3 - exp[1],
+          ]
           break
         case 6:
           exp = [randint(1, 7, [1]), randint(1, 2)] // on a besoin de 2 exposants distincts
@@ -325,10 +375,16 @@ export default class PuissancesDeDix extends Exercice {
           texteCorr += `=${miseEnEvidence(reponseInteractive)}`
           if (1 + exp[0] - 2 * exp[1] === 0 || 1 + exp[0] - 2 * exp[1] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
-            texteCorr += sp(2) + '(=' + simpExp(10, 1 + exp[0] - 2 * exp[1]) + ')'
+            texteCorr +=
+              sp(2) + '(=' + simpExp(10, 1 + exp[0] - 2 * exp[1]) + ')'
           }
           texteCorr += '$'
-          exposantAMC = [1 + exp[0] + 2 * exp[1], 1 - exp[0] + 2 * exp[1], 1 + exp[0] - 2 * exp[1], 1 + exp[0] + exp[1]]
+          exposantAMC = [
+            1 + exp[0] + 2 * exp[1],
+            1 - exp[0] + 2 * exp[1],
+            1 + exp[0] - 2 * exp[1],
+            1 + exp[0] + exp[1],
+          ]
           break
         case 7:
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
@@ -371,35 +427,49 @@ export default class PuissancesDeDix extends Exercice {
           reponseInteractive = `10^{${3 * exp[0] - 1}}`
           texteCorr += `=${miseEnEvidence(reponseInteractive)}$`
           // inutile de tester l'exposant final car il vaut au minimum 5
-          exposantAMC = [3 * exp[0] - 1, 3 * exp[0] + 1, 3 * exp[0], 3 * exp[0] - 2]
+          exposantAMC = [
+            3 * exp[0] - 1,
+            3 * exp[0] + 1,
+            3 * exp[0],
+            3 * exp[0] - 2,
+          ]
           break
         case 10:
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 4, [1])] // on a besoin de 3 exposants distincts
           texte = `$${lettre}=\\dfrac{10^${exp[0]}\\times 10^${exp[1]}}{100^${exp[2]}}\\times 10$`
           texteCorr = `$${lettre}=\\dfrac{10^${exp[0]}\\times 10^${exp[1]}}{100^${exp[2]}}\\times 10`
           texteCorr += `=\\dfrac{10^{${exp[0]}+${exp[1]}}}{(10^2)^${exp[2]}}\\times 10`
-          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}}}{10^{2\\times ${exp[2]
-                    }}}\\times 10`
-          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}}}{10^{${2 * exp[2]
-                    }}}\\times 10`
-          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}}\\times 10}{10^{${2 * exp[2]
-                    }}}`
-          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}+1}}{10^{${2 * exp[2]
-                    }}}`
-          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1] + 1}}}{10^{${2 * exp[2]
-                    }}}`
+          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}}}{10^{2\\times ${
+            exp[2]
+          }}}\\times 10`
+          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}}}{10^{${
+            2 * exp[2]
+          }}}\\times 10`
+          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}}\\times 10}{10^{${
+            2 * exp[2]
+          }}}`
+          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1]}+1}}{10^{${2 * exp[2]}}}`
+          texteCorr += `=\\dfrac{10^{${exp[0] + exp[1] + 1}}}{10^{${
+            2 * exp[2]
+          }}}`
           texteCorr += `=10^{${exp[0] + exp[1] + 1}-${2 * exp[2]}}`
           reponseInteractive = `10^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
           texteCorr += `=${miseEnEvidence(reponseInteractive)}`
           if (
             exp[0] + exp[1] + 1 - 2 * exp[2] === 0 ||
-                        exp[0] + exp[1] + 1 - 2 * exp[2] === 1
+            exp[0] + exp[1] + 1 - 2 * exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
-            texteCorr += sp(2) + '(=' + simpExp(10, exp[0] + exp[1] + 1 - 2 * exp[2]) + ')'
+            texteCorr +=
+              sp(2) + '(=' + simpExp(10, exp[0] + exp[1] + 1 - 2 * exp[2]) + ')'
           }
           texteCorr += '$'
-          exposantAMC = [exp[0] + exp[1] + 1 - 2 * exp[2], exp[0] + exp[1] - 2 * exp[2], exp[0] + exp[1] + 1 - exp[2], exp[0] + exp[1] - exp[2]]
+          exposantAMC = [
+            exp[0] + exp[1] + 1 - 2 * exp[2],
+            exp[0] + exp[1] - 2 * exp[2],
+            exp[0] + exp[1] + 1 - exp[2],
+            exp[0] + exp[1] - exp[2],
+          ]
           break
         case 11:
         default:
@@ -417,40 +487,54 @@ export default class PuissancesDeDix extends Exercice {
             texteCorr += sp(2) + '(=' + simpExp(10, 3 + 1 - 2 * exp[0]) + ')'
           }
           texteCorr += '$'
-          exposantAMC = [4 - 2 * exp[0], 4 - exp[0], 3 - 2 * exp[0], 5 - 2 * exp[0]]
+          exposantAMC = [
+            4 - 2 * exp[0],
+            4 - exp[0],
+            3 - 2 * exp[0],
+            5 - 2 * exp[0],
+          ]
           break
       }
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}$=$${sp(2)}` })
+        setReponse(this, i, reponseInteractive, {
+          formatInteractif: 'puissance',
+        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+          { texteAvant: `${sp(2)}$=$${sp(2)}` },
+        )
       }
       if (context.isAmc) {
         // setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: 10, exposantPuissance: exposantInteractif })
         this.autoCorrection[i] = {}
         this.autoCorrection[i].enonce = `${texte}\n`
         this.autoCorrection[i].options = {
-          ordered: false
+          ordered: false,
         }
         this.autoCorrection[i].propositions = [
           {
             texte: `$10^{${exposantAMC[0]}}$`,
-            statut: true
+            statut: true,
           },
           {
             texte: `$10^{${exposantAMC[1]}}$`,
-            statut: false
+            statut: false,
           },
           {
             texte: `$10^{${exposantAMC[2]}}$`,
-            statut: false
+            statut: false,
           },
           {
             texte: `$10^{${exposantAMC[3]}}$`,
-            statut: false
-          }
+            statut: false,
+          },
         ]
       }
-      if (this.questionJamaisPosee(i, exp.map(String).join(), typesDeQuestions)) {
+      if (
+        this.questionJamaisPosee(i, exp.map(String).join(), typesDeQuestions)
+      ) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

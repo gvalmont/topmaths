@@ -5,7 +5,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'f7abe'
 export const refs = {
   'fr-fr': ['3L1QCM-10', 'BP2AutoI5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -20,12 +20,12 @@ export const dateDePublication = '09/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class AntillesSep20Ex2Q5 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number): void {
+  private appliquerLesValeurs(a: number): void {
     this.reponses = [
       `$x^2-${String(a ** 2)}$`,
       `$x^2+${String(a ** 2)}$`,
       '$2x$',
-      `$2x-${String(a * a)}$`
+      `$2x-${String(a * a)}$`,
     ]
     this.enonce = `Une expression développée de $A=(x-${String(a)})(x+${String(a)})$ est :`
     this.correction = `$\\begin{aligned}A=(x-${String(a)})(x+${String(a)})&=x\\times x+x\\times ${String(a)}-${String(a)}\\times x-${String(a)}\\times ${String(a)}\\\\
@@ -46,7 +46,7 @@ export default class AntillesSep20Ex2Q5 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

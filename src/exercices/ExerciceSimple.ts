@@ -5,7 +5,7 @@ export default class ExerciceSimple extends Exercice {
   typeExercice: 'simple'
   versionQcmDisponible?: boolean // Pour les exercices de type simple, si des distracteurs sont définis, on peut proposer une version QCM
   versionQcm?: boolean // Seulement pour les exercices de type simple, version QCM activée si 'true'
-  constructor () {
+  constructor() {
     super()
     this.distracteurs = []
     this.typeExercice = 'simple'

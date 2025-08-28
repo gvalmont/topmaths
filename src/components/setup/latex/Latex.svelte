@@ -1,15 +1,12 @@
 <script lang="ts">
-import {
-  Carousel,
-  initTE
-} from 'tw-elements'
+  import { Carousel, initTE } from 'tw-elements'
   import { exercicesParams, darkMode } from '../../../lib/stores/generalStore'
   import { get } from 'svelte/store'
   import {
     mathaleaGetExercicesFromParams,
     mathaleaRenderDiv,
     mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaUpdateUrlFromExercicesParams
+    mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea.js'
   import type TypeExercice from '../../../exercices/Exercice'
   import Footer from '../../Footer.svelte'
@@ -22,8 +19,7 @@ import {
     doesLatexNeedsPics,
     makeImageFilesUrls,
     type latexFileType,
-    type LatexFileInfos
-
+    type LatexFileInfos,
   } from '../../../lib/Latex'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
@@ -40,7 +36,7 @@ import {
    * Toutes les variables configurables par l'interface WEB
    * qui adaptent la sortie PDF
    */
-  const latexFileInfos : LatexFileInfos = {
+  const latexFileInfos: LatexFileInfos = {
     title: '',
     reference: '',
     subtitle: '',
@@ -52,7 +48,7 @@ import {
     qrcodeOption: 'SansQrcode',
     durationCanOption: '9 min',
     titleOption: 'SansTitre',
-    nbVersions: 1
+    nbVersions: 1,
   }
 
   const imgStylePartialUrls = {
@@ -60,11 +56,15 @@ import {
     Classique: 'images/exports/export-classique',
     ProfMaquette: 'images/exports/export-profmaquette',
     ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode',
-    Can: 'images/exports/export-can'
+    Can: 'images/exports/export-can',
   }
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
-  let latexFile: latexFileType = { contents: { preamble: '', intro: '', content: '', contentCorr: '' }, latexWithoutPreamble: '', latexWithPreamble: '' }
+  let latexFile: latexFileType = {
+    contents: { preamble: '', intro: '', content: '', contentCorr: '' },
+    latexWithoutPreamble: '',
+    latexWithPreamble: '',
+  }
   let isExerciceStaticInTheList = false
   let picsWanted: boolean
   let messageForCopyPasteModal: string
@@ -76,11 +76,13 @@ import {
 
   const latex = new Latex()
 
-  async function initExercices () {
+  async function initExercices() {
     // console.log('initExercices')
     mathaleaUpdateExercicesParamsFromUrl()
     const interfaceParams = get(exercicesParams)
-    interfaceParams.forEach(e => { e.interactif = '0' })
+    interfaceParams.forEach((e) => {
+      e.interactif = '0'
+    })
     mathaleaUpdateUrlFromExercicesParams(interfaceParams)
     exercices = await mathaleaGetExercicesFromParams(interfaceParams)
     latex.addExercices(exercices.filter((ex) => ex.typeExercice !== 'html'))
@@ -90,10 +92,15 @@ import {
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
   }
 
-  async function updateLatexWithAbortController () {
+  async function updateLatexWithAbortController() {
     const clone = UpdateController.update()
     if (clone.signal?.aborted) {
-      return Promise.reject(new DOMException('Aborted in updateLatexWithAbortController', 'AbortError'))
+      return Promise.reject(
+        new DOMException(
+          'Aborted in updateLatexWithAbortController',
+          'AbortError',
+        ),
+      )
     }
 
     return new Promise<void>(async (resolve, reject) => {
@@ -101,21 +108,28 @@ import {
       const rej = () => {
         log('reject')
         clone.signal?.removeEventListener('abort', rej)
-        reject(new DOMException('Aborted in updateLatexWithAbortController', 'AbortError'))
+        reject(
+          new DOMException(
+            'Aborted in updateLatexWithAbortController',
+            'AbortError',
+          ),
+        )
       }
       clone.signal?.addEventListener('abort', rej)
       // Something fake async
-      await updateLatex(clone).then(() => {
-        clone.signal?.removeEventListener('abort', rej)
-        log('Promise resolu')
-        resolve()
-      }).catch(err => {
-        reject(new DOMException(`Aborted : ${err.message}`, 'AbortError'))
-      })
+      await updateLatex(clone)
+        .then(() => {
+          clone.signal?.removeEventListener('abort', rej)
+          log('Promise resolu')
+          resolve()
+        })
+        .catch((err) => {
+          reject(new DOMException(`Aborted : ${err.message}`, 'AbortError'))
+        })
     })
   }
 
-  async function updateLatex (clone : LatexFileInfos) {
+  async function updateLatex(clone: LatexFileInfos) {
     try {
       log('updateLatex')
       // await new Promise((resolve) => setTimeout(resolve, 10000))
@@ -132,8 +146,8 @@ import {
   }
 
   class UpdateController {
-    static controller : AbortController | undefined
-    static update () {
+    static controller: AbortController | undefined
+    static update() {
       if (UpdateController.controller === undefined) {
         UpdateController.controller = new AbortController()
       } else {
@@ -147,7 +161,7 @@ import {
   }
 
   const debug = false
-  function log (str : string) {
+  function log(str: string) {
     if (debug) {
       console.info(str)
     }
@@ -168,7 +182,7 @@ import {
       latexFileInfos.titleOption = latexFileInfos.titleOption
       latexFileInfos.tailleFontOption = latexFileInfos.tailleFontOption
       latexFileInfos.dysTailleFontOption = latexFileInfos.dysTailleFontOption
-      promise = updateLatexWithAbortController().catch(err => {
+      promise = updateLatexWithAbortController().catch((err) => {
         if (err.name === 'AbortError') {
           log('Promise Aborted')
         } else {
@@ -178,7 +192,7 @@ import {
     }
   }
 
-  async function forceUpdate () {
+  async function forceUpdate() {
     log('forceUpdate')
     latexFileInfos.title = latexFileInfos.title
   }
@@ -186,13 +200,15 @@ import {
   onMount(async () => {
     initTE({ Carousel })
     // console.log('onMount')
-    promise = initExercices().then(() => updateLatexWithAbortController()).catch(err => {
-      if (err.name === 'AbortError') {
-        log('Promise Aborted')
-      } else {
-        log('Promise Rejected')
-      }
-    })
+    promise = initExercices()
+      .then(() => updateLatexWithAbortController())
+      .catch((err) => {
+        if (err.name === 'AbortError') {
+          log('Promise Aborted')
+        } else {
+          log('Promise Rejected')
+        }
+      })
     document.addEventListener('updateAsyncEx', forceUpdate)
     mathaleaRenderDiv(divText)
     // console.log('fin onMount')
@@ -214,7 +230,7 @@ import {
    * Gérer le téléchargement des images dans une archive `images.zip` lors du clic sur le bouton du modal
    * @author sylvain
    */
-  function handleActionFromDownloadPicsModal () {
+  function handleActionFromDownloadPicsModal() {
     // console.log('handleActionFromDownloadPicsModal')
     const imagesFilesUrls = makeImageFilesUrls(exercices)
     downloadZip(imagesFilesUrls, 'images.zip')
@@ -224,7 +240,7 @@ import {
   /**
    * Gérer l'affichage du modal : on donne la liste des images par exercice
    */
-  function handleDownloadPicsModalDisplay () {
+  function handleDownloadPicsModalDisplay() {
     // console.log('handleDownloadPicsModalDisplay')
     exosContentList = getExosContentList(exercices)
     picsNames = getPicsNames(exosContentList)
@@ -234,7 +250,7 @@ import {
   /**
    * Construction d'un message contextualisé indiquant le besoin de télécharger les images si besoin
    */
-  export function buildMessageForCopyPaste (picsWanted: boolean) {
+  export function buildMessageForCopyPaste(picsWanted: boolean) {
     if (picsWanted) {
       return `<p>Le code LaTeX a été copié dans le presse-papier.</p>
       <p class="font-bold text-coopmaths-warn-darkest">Ne pas oublier de télécharger les figures !</p>`
@@ -249,7 +265,12 @@ import {
     ? 'dark'
     : ''}"
 >
-  <NavBar subtitle="LaTeX" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
+  <NavBar
+    subtitle="LaTeX"
+    subtitleType="export"
+    handleLanguage="{() => {}}"
+    locale="{$referentielLocale}"
+  />
 
   <section
     class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
@@ -279,235 +300,235 @@ import {
           <FormRadio
             title="Style"
             bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.style}
-            labelsValues={[
+            orientation="{'col'}"
+            bind:valueSelected="{latexFileInfos.style}"
+            labelsValues="{[
               { label: 'Coopmaths', value: 'Coopmaths' },
               { label: 'Classique', value: 'Classique' },
               { label: 'ProfMaquette', value: 'ProfMaquette' },
               {
                 label: 'ProfMaquette avec QrCode',
-                value: 'ProfMaquetteQrcode'
+                value: 'ProfMaquetteQrcode',
               },
               {
                 label: 'Course aux nombres',
                 value: 'Can',
-                isDisabled: isExerciceStaticInTheList
-              }
-            ]}
+                isDisabled: isExerciceStaticInTheList,
+              },
+            ]}"
           />
           {#if latexFileInfos.style === 'Coopmaths' || latexFileInfos.style === 'Classique' || latexFileInfos.style === 'ProfMaquetteQrcode'}
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Police de caractères
-          </h6>
-          <FormRadio
-            title="fontOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.fontOption}
-            labelsValues={[
-              { label: 'Standard', value: 'StandardFont' },
-              { label: 'Dys', value: 'DysFont' }
-            ]}
-          />
-          {#if latexFileInfos.fontOption === 'StandardFont'}
-          <span>
-          Taille: 
-          <input
-            type="number"
-            id="export-latex-taille-input"
-            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-            name="tailleFontOption"
-            maxlength="2"
-            min="8"
-            max="20"
-            bind:value={latexFileInfos.tailleFontOption}
-          />
-          </span>
-          {/if}
-          {#if latexFileInfos.fontOption === 'DysFont'}
-          <span>
-          Taille: 
-          <input
-            type="number"
-            id="export-latex-dys-taille-input"
-            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-            name="dysTailleFontOption"
-            maxlength="2"
-            min="8"
-            max="20"
-            bind:value={latexFileInfos.dysTailleFontOption}
-          />
-          </span>
-          {/if}
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Police de caractères
+            </h6>
+            <FormRadio
+              title="fontOption"
+              bgColor="bg-coopmaths-canvas-dark"
+              orientation="{'col'}"
+              bind:valueSelected="{latexFileInfos.fontOption}"
+              labelsValues="{[
+                { label: 'Standard', value: 'StandardFont' },
+                { label: 'Dys', value: 'DysFont' },
+              ]}"
+            />
+            {#if latexFileInfos.fontOption === 'StandardFont'}
+              <span>
+                Taille:
+                <input
+                  type="number"
+                  id="export-latex-taille-input"
+                  class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                  name="tailleFontOption"
+                  maxlength="2"
+                  min="8"
+                  max="20"
+                  bind:value="{latexFileInfos.tailleFontOption}"
+                />
+              </span>
+            {/if}
+            {#if latexFileInfos.fontOption === 'DysFont'}
+              <span>
+                Taille:
+                <input
+                  type="number"
+                  id="export-latex-dys-taille-input"
+                  class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                  name="dysTailleFontOption"
+                  maxlength="2"
+                  min="8"
+                  max="20"
+                  bind:value="{latexFileInfos.dysTailleFontOption}"
+                />
+              </span>
+            {/if}
           {/if}
           {#if latexFileInfos.style === 'Can'}
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Options
-          </h6>
-          <FormRadio
-            title="durationCanOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.correctionOption}
-            labelsValues={[
-              { label: 'Avec correction', value: 'AvecCorrection' },
-              { label: 'Sans correction', value: 'SansCorrection' }
-            ]}
-          />          
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Police de caractères
-          </h6>
-          <FormRadio
-            title="fontOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.fontOption}
-            labelsValues={[
-              { label: 'Standard', value: 'StandardFont' },
-              { label: 'Dys', value: 'DysFont' }
-            ]}
-          />
-          {#if latexFileInfos.fontOption === 'StandardFont'}
-          <span>
-          Taille: 
-          <input
-            type="number"
-            id="export-latex-taille-input"
-            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-            name="tailleFontOption"
-            maxlength="2"
-            min="8"
-            max="20"
-            bind:value={latexFileInfos.tailleFontOption}
-          />
-          </span>
-          {/if}
-          {#if latexFileInfos.fontOption === 'DysFont'}
-          <span>
-          Taille: 
-          <input
-            type="number"
-            id="export-latex-dys-taille-input"
-            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-            name="dysTailleFontOption"
-            maxlength="2"
-            min="8"
-            max="20"
-            bind:value={latexFileInfos.dysTailleFontOption}
-          />
-          </span>
-          {/if}
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Durée
-          </h6>
-          <input
-            type="text"
-            id="export-latex-duree-input"
-            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder= "9 min"
-            bind:value={latexFileInfos.durationCanOption}
-          />
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Options
+            </h6>
+            <FormRadio
+              title="durationCanOption"
+              bgColor="bg-coopmaths-canvas-dark"
+              orientation="{'col'}"
+              bind:valueSelected="{latexFileInfos.correctionOption}"
+              labelsValues="{[
+                { label: 'Avec correction', value: 'AvecCorrection' },
+                { label: 'Sans correction', value: 'SansCorrection' },
+              ]}"
+            />
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Police de caractères
+            </h6>
+            <FormRadio
+              title="fontOption"
+              bgColor="bg-coopmaths-canvas-dark"
+              orientation="{'col'}"
+              bind:valueSelected="{latexFileInfos.fontOption}"
+              labelsValues="{[
+                { label: 'Standard', value: 'StandardFont' },
+                { label: 'Dys', value: 'DysFont' },
+              ]}"
+            />
+            {#if latexFileInfos.fontOption === 'StandardFont'}
+              <span>
+                Taille:
+                <input
+                  type="number"
+                  id="export-latex-taille-input"
+                  class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                  name="tailleFontOption"
+                  maxlength="2"
+                  min="8"
+                  max="20"
+                  bind:value="{latexFileInfos.tailleFontOption}"
+                />
+              </span>
+            {/if}
+            {#if latexFileInfos.fontOption === 'DysFont'}
+              <span>
+                Taille:
+                <input
+                  type="number"
+                  id="export-latex-dys-taille-input"
+                  class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                  name="dysTailleFontOption"
+                  maxlength="2"
+                  min="8"
+                  max="20"
+                  bind:value="{latexFileInfos.dysTailleFontOption}"
+                />
+              </span>
+            {/if}
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Durée
+            </h6>
+            <input
+              type="text"
+              id="export-latex-duree-input"
+              class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+              placeholder="9 min"
+              bind:value="{latexFileInfos.durationCanOption}"
+            />
           {/if}
           {#if latexFileInfos.style === 'ProfMaquette'}
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Options
-          </h6>
-          <FormRadio
-            title="correctionOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.correctionOption}
-            labelsValues={[
-              { label: 'Avec correction', value: 'AvecCorrection' },
-              { label: 'Sans correction', value: 'SansCorrection' }
-            ]}
-          />
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Exercices
-          </h6>
-          <FormRadio
-            title="titlenOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.titleOption}
-            labelsValues={[
-              { label: 'Avec titre', value: 'AvecTitre' },
-              { label: 'Sans titre', value: 'SansTitre' }
-            ]}
-          />
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Police de caractères
-          </h6>
-          <FormRadio
-            title="fontOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.fontOption}
-            labelsValues={[
-              { label: 'Standard', value: 'StandardFont' },
-              { label: 'Dys', value: 'DysFont' }
-            ]}
-          />
-          {#if latexFileInfos.fontOption === 'StandardFont'}
-          <span>
-          Taille: 
-          <input
-            type="number"
-            id="export-latex-taille-input"
-            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-            name="tailleFontOption"
-            maxlength="2"
-            min="8"
-            max="20"
-            bind:value={latexFileInfos.tailleFontOption}
-          />
-          </span>
-          {/if}
-          {#if latexFileInfos.fontOption === 'DysFont'}
-          <span>
-          Taille: 
-          <input
-            type="number"
-            id="export-latex-dys-taille-input"
-            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-            name="dysTailleFontOption"
-            maxlength="2"
-            min="8"
-            max="20"
-            bind:value={latexFileInfos.dysTailleFontOption}
-          />
-          </span>
-          {/if}
-          <h6
-            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-           Qrcode
-          </h6>
-          <FormRadio
-            title="qrcodeOption"
-            bgColor="bg-coopmaths-canvas-dark"
-            orientation={'col'}
-            bind:valueSelected={latexFileInfos.qrcodeOption}
-            labelsValues={[
-              { label: 'Avec', value: 'AvecQrcode' },
-              { label: 'Sans', value: 'SansQrcode' }
-            ]}
-          />
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Options
+            </h6>
+            <FormRadio
+              title="correctionOption"
+              bgColor="bg-coopmaths-canvas-dark"
+              orientation="{'col'}"
+              bind:valueSelected="{latexFileInfos.correctionOption}"
+              labelsValues="{[
+                { label: 'Avec correction', value: 'AvecCorrection' },
+                { label: 'Sans correction', value: 'SansCorrection' },
+              ]}"
+            />
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Exercices
+            </h6>
+            <FormRadio
+              title="titlenOption"
+              bgColor="bg-coopmaths-canvas-dark"
+              orientation="{'col'}"
+              bind:valueSelected="{latexFileInfos.titleOption}"
+              labelsValues="{[
+                { label: 'Avec titre', value: 'AvecTitre' },
+                { label: 'Sans titre', value: 'SansTitre' },
+              ]}"
+            />
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Police de caractères
+            </h6>
+            <FormRadio
+              title="fontOption"
+              bgColor="bg-coopmaths-canvas-dark"
+              orientation="{'col'}"
+              bind:valueSelected="{latexFileInfos.fontOption}"
+              labelsValues="{[
+                { label: 'Standard', value: 'StandardFont' },
+                { label: 'Dys', value: 'DysFont' },
+              ]}"
+            />
+            {#if latexFileInfos.fontOption === 'StandardFont'}
+              <span>
+                Taille:
+                <input
+                  type="number"
+                  id="export-latex-taille-input"
+                  class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                  name="tailleFontOption"
+                  maxlength="2"
+                  min="8"
+                  max="20"
+                  bind:value="{latexFileInfos.tailleFontOption}"
+                />
+              </span>
+            {/if}
+            {#if latexFileInfos.fontOption === 'DysFont'}
+              <span>
+                Taille:
+                <input
+                  type="number"
+                  id="export-latex-dys-taille-input"
+                  class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                  name="dysTailleFontOption"
+                  maxlength="2"
+                  min="8"
+                  max="20"
+                  bind:value="{latexFileInfos.dysTailleFontOption}"
+                />
+              </span>
+            {/if}
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Qrcode
+            </h6>
+            <FormRadio
+              title="qrcodeOption"
+              bgColor="bg-coopmaths-canvas-dark"
+              orientation="{'col'}"
+              bind:valueSelected="{latexFileInfos.qrcodeOption}"
+              labelsValues="{[
+                { label: 'Avec', value: 'AvecQrcode' },
+                { label: 'Sans', value: 'SansQrcode' },
+              ]}"
+            />
           {/if}
         </div>
         <!-- Carousel de vignette pour les aperçus -->
@@ -528,7 +549,7 @@ import {
                 data-te-carousel-active
               >
                 <img
-                  src={`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}
+                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}"
                   alt="{latexFileInfos.style} image-1"
                   class="block h-auto w-full rounded-r-lg"
                 />
@@ -539,48 +560,54 @@ import {
                 data-te-carousel-item
               >
                 <img
-                  src={`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}
+                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}"
                   alt="{latexFileInfos.style} image-2"
                   class="block h-auto w-full rounded-r-lg"
                 />
               </div>
             </div>
           </div>
-                </div>
         </div>
+      </div>
 
-      <SimpleCard icon={''} title={'Éléments de titres'}>
+      <SimpleCard icon="{''}" title="{'Éléments de titres'}">
         <div class="flex flex-col w-full justify-start items-start space-y-2">
           <input
             type="text"
             id="export-latex-titre-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder={latexFileInfos.style === 'Can' ? 'Course aux nombres' : 'Titre'}
-            bind:value={latexFileInfos.title}
+            placeholder="{latexFileInfos.style === 'Can'
+              ? 'Course aux nombres'
+              : 'Titre'}"
+            bind:value="{latexFileInfos.title}"
           />
           <input
             type="text"
             id="export-latex-reference-input"
             class=" border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder={latexFileInfos.style === 'Coopmaths' || latexFileInfos.style === 'ProfMaquetteQrcode' || latexFileInfos.style === 'ProfMaquette'
+            placeholder="{latexFileInfos.style === 'Coopmaths' ||
+            latexFileInfos.style === 'ProfMaquetteQrcode' ||
+            latexFileInfos.style === 'ProfMaquette'
               ? 'Référence'
-              : 'Haut de page gauche'}
-            bind:value={latexFileInfos.reference}
-            disabled={latexFileInfos.style === 'Can'}
+              : 'Haut de page gauche'}"
+            bind:value="{latexFileInfos.reference}"
+            disabled="{latexFileInfos.style === 'Can'}"
           />
           <input
             type="text"
             id="export-latex-soustitre-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder={latexFileInfos.style === 'Coopmaths' || latexFileInfos.style === 'ProfMaquetteQrcode' || latexFileInfos.style === 'ProfMaquette'
+            placeholder="{latexFileInfos.style === 'Coopmaths' ||
+            latexFileInfos.style === 'ProfMaquetteQrcode' ||
+            latexFileInfos.style === 'ProfMaquette'
               ? 'Sous-titre / Chapitre'
-              : 'Pied de page droit'}
-            bind:value={latexFileInfos.subtitle}
-            disabled={latexFileInfos.style === 'Can'}
+              : 'Pied de page droit'}"
+            bind:value="{latexFileInfos.subtitle}"
+            disabled="{latexFileInfos.style === 'Can'}"
           />
         </div>
       </SimpleCard>
-      <SimpleCard icon={''} title={'Nombre de versions des exercices'}>
+      <SimpleCard icon="{''}" title="{'Nombre de versions des exercices'}">
         <input
           type="number"
           id="export-latex-nb-versions-input"
@@ -589,12 +616,12 @@ import {
           maxlength="2"
           min="1"
           max="20"
-          bind:value={latexFileInfos.nbVersions}
+          bind:value="{latexFileInfos.nbVersions}"
         />
       </SimpleCard>
     </div>
 
-    <div bind:this={divText}>
+    <div bind:this="{divText}">
       <h1
         class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
       >
@@ -609,43 +636,46 @@ import {
         <div
           class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-2 gap-8"
         >
-          <SimpleCard title={'Obtenir un PDF'}>
+          <SimpleCard title="{'Obtenir un PDF'}">
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
-              vais être redirigé(e) vers le site OverLeaf (qui nécessite d'avoir un compte) pour compiler le code en
-              ligne.
+              vais être redirigé(e) vers le site OverLeaf (qui nécessite d'avoir
+              un compte) pour compiler le code en ligne.
             </div>
             <div slot="button1">
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-              <ButtonOverleaf
-                class="flex w-full flex-col justify-center"
-                {latexFile}
-                {exercices}
-                disabled={false}
-              />
+                <ButtonOverleaf
+                  class="flex w-full flex-col justify-center"
+                  {latexFile}
+                  {exercices}
+                  disabled="{false}"
+                />
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title={'Compiler le code pour avoir un fichier PDF (version encore beta)'}>
+          <SimpleCard
+            title="{'Compiler le code pour avoir un fichier PDF (version encore beta)'}"
+          >
             <div>
-              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. J'essaie
-              le nouveau compilateur en ligne (serveur TexLive.net) qui ne nécessite pas d'avoir un compte.
+              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$.
+              J'essaie le nouveau compilateur en ligne (serveur TexLive.net) qui
+              ne nécessite pas d'avoir un compte.
             </div>
             <div slot="button1">
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-              <ButtonCompileLatexToPDF
-                class="flex w-full flex-col justify-center"
-                {latex}
-                {latexFileInfos}
-              />
+                <ButtonCompileLatexToPDF
+                  class="flex w-full flex-col justify-center"
+                  {latex}
+                  {latexFileInfos}
+                />
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title={'Copier le code'} icon={'bx-copy-alt'}>
+          <SimpleCard title="{'Copier le code'}" icon="{'bx-copy-alt'}">
             <div>
               Je souhaite copier le code $\LaTeX$ pour le coller dans un autre
               logiciel.
@@ -654,14 +684,14 @@ import {
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-              <ButtonActionInfo
-                action="copy"
-                textToCopy={latexFile.latexWithoutPreamble}
-                text="Code seul"
-                successMessage={messageForCopyPasteModal}
-                errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
-                class="px-2 py-1 rounded-md"
-              />
+                <ButtonActionInfo
+                  action="copy"
+                  textToCopy="{latexFile.latexWithoutPreamble}"
+                  text="Code seul"
+                  successMessage="{messageForCopyPasteModal}"
+                  errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
+                  class="px-2 py-1 rounded-md"
+                />
               {/await}
             </div>
             <div slot="button2">
@@ -670,25 +700,25 @@ import {
               {:then}
                 <ButtonActionInfo
                   action="copy"
-                  textToCopy={latexFile.latexWithPreamble}
+                  textToCopy="{latexFile.latexWithPreamble}"
                   text="Code + préambule"
-                  successMessage={messageForCopyPasteModal}
+                  successMessage="{messageForCopyPasteModal}"
                   errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
                   class="px-2 py-1 rounded-md"
                 />
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
+          <SimpleCard title="{'Télécharger le code'}" icon="{'bx-download'}">
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
             <div slot="button1">
               <ButtonTextAction
                 class="px-2 py-1 rounded-md"
                 id="downloadFullArchive"
-                on:click={async () => {
+                on:click="{async () => {
                   await promise
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
-                }}
+                }}"
                 text="Archive complète"
               />
             </div>
@@ -696,23 +726,23 @@ import {
               {#await promise}
                 <p></p>
               {:then}
-              <ButtonTextAction
-                class="inline-block px-2 py-1 rounded-md"
-                id="downloadPicsButton"
-                on:click={handleDownloadPicsModalDisplay}
-                text="Uniquement les figures"
-                disabled={!picsWanted}
-              />
+                <ButtonTextAction
+                  class="inline-block px-2 py-1 rounded-md"
+                  id="downloadPicsButton"
+                  on:click="{handleDownloadPicsModalDisplay}"
+                  text="Uniquement les figures"
+                  disabled="{!picsWanted}"
+                />
               {/await}
             </div>
           </SimpleCard>
         </div>
         <BasicClassicModal
-          bind:isDisplayed={isDownloadPicsModalDisplayed}
+          bind:isDisplayed="{isDownloadPicsModalDisplayed}"
           icon="bx-code"
         >
           <span slot="header"></span>
-          <div slot='content' class="flex flex-col justify-start items-start">
+          <div slot="content" class="flex flex-col justify-start items-start">
             Voici ce dont vous aurez besoin :
             {#each exosContentList as exo, i (exo)}
               <ul
@@ -739,7 +769,7 @@ import {
           <div slot="footer">
             <ButtonTextAction
               text="Télécharger les figures"
-              on:click={handleActionFromDownloadPicsModal}
+              on:click="{handleActionFromDownloadPicsModal}"
             />
           </div>
         </BasicClassicModal>
@@ -747,7 +777,7 @@ import {
     </div>
 
     <dialog
-      bind:this={dialogLua}
+      bind:this="{dialogLua}"
       class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg p-6"
     >
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -776,8 +806,7 @@ import {
       Code
     </h1>
     <pre
-      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-y-auto overflow-x-scroll text-xs"
-      >
+      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-y-auto overflow-x-scroll text-xs">
       {#await promise}
         <p>Chargement en cours...</p>
       {:then}

@@ -2,12 +2,13 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
-  reduirePolynomeDegre3
+  reduirePolynomeDegre3,
 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
-export const titre = 'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
+export const titre =
+  'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -22,21 +23,18 @@ export const uuid = '2d459'
 
 export const refs = {
   'fr-fr': ['can1F21'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EcondDegreAbscisseOrdonneeSommet extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    const nomF = [
-      ['f'], ['g'], ['h'], ['u'],
-      ['v']
-    ]
+  nouvelleVersion() {
+    const nomF = [['f'], ['g'], ['h'], ['u'], ['v']]
     let a, b, c, r, alpha, nom
     if (choice([true, false])) {
       // this.formatInteractif = 'fractionEgale'
@@ -73,9 +71,25 @@ export default class EcondDegreAbscisseOrdonneeSommet extends ExerciceSimple {
           L'ordonnée du sommet est donnée par l'image de l'abscisse, soit `
 
       if (a === 1) {
-        if (b === 0) { if (c === 0) { this.correction += `$ ${ecritureParentheseSiNegatif(alpha)}^2=${r}$.` } else { this.correction += `$${ecritureParentheseSiNegatif(alpha)}^2${ecritureAlgebrique(c)}=${r}$.` } } else { this.correction += `$${ecritureParentheseSiNegatif(alpha)}^2${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(c)}=${r}$.` }
+        if (b === 0) {
+          if (c === 0) {
+            this.correction += `$ ${ecritureParentheseSiNegatif(alpha)}^2=${r}$.`
+          } else {
+            this.correction += `$${ecritureParentheseSiNegatif(alpha)}^2${ecritureAlgebrique(c)}=${r}$.`
+          }
+        } else {
+          this.correction += `$${ecritureParentheseSiNegatif(alpha)}^2${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(c)}=${r}$.`
+        }
       } else {
-        if (b === 0) { if (c === 0) { this.correction += `$${a}\\times ${ecritureParentheseSiNegatif(alpha)}^2=${r}$.` } else { this.correction += `$${a}\\times ${ecritureParentheseSiNegatif(alpha)}^2${ecritureAlgebrique(c)}=${r}$.` } } else { this.correction += `$${a}\\times ${ecritureParentheseSiNegatif(alpha)}^2${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(c)}=${r}$.` }
+        if (b === 0) {
+          if (c === 0) {
+            this.correction += `$${a}\\times ${ecritureParentheseSiNegatif(alpha)}^2=${r}$.`
+          } else {
+            this.correction += `$${a}\\times ${ecritureParentheseSiNegatif(alpha)}^2${ecritureAlgebrique(c)}=${r}$.`
+          }
+        } else {
+          this.correction += `$${a}\\times ${ecritureParentheseSiNegatif(alpha)}^2${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(alpha)}${ecritureAlgebrique(c)}=${r}$.`
+        }
       }
       this.reponse = r
     }

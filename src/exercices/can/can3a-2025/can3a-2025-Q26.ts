@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'ff7fe'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class convertirLitres extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,14 +29,21 @@ export default class convertirLitres extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '', texteApres: 'L' }
   }
 
-  nouvelleVersion () {
-    const a = this.canOfficielle ? 510 : choice([randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
+  nouvelleVersion() {
+    const a = this.canOfficielle
+      ? 510
+      : choice([
+          randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9),
+          randint(1, 9) * 10 + randint(1, 9),
+        ])
     const reponse = arrondi(a / 1000, 3)
     this.reponse = reponse
     this.question = `$${a}$ cm$^3=$ `
     this.correction = `$1$ cm$^3 = 0,001 $dm$^3$ et $1$ dm$^3 = 1$ L.<br>
              $${a} \\text{ cm}^3 = ${a}\\times 0,001 \\text{ dm}^3=${miseEnEvidence(`${texNombre(reponse, 3)}`)}$ L.`
-    if (!this.interactif) { this.question += ' $\\ldots$ L' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots$ L'
+    }
     this.canEnonce = 'Compléter.'
     this.canReponseACompleter = this.question
   }

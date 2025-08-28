@@ -1,6 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
+import {
+  texFractionFromString,
+  simplificationDeFractionAvecEtapes,
+} from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
@@ -10,7 +13,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString'
 
-export const titre = 'Calculer la fraction d\'un nombre'
+export const titre = "Calculer la fraction d'un nombre"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -27,10 +30,10 @@ export const uuid = 'ddb83'
 export const refs = {
   'fr-fr': ['6N3L'],
   'fr-2016': ['6N33'],
-  'fr-ch': ['9NO14-1']
+  'fr-ch': ['9NO14-1'],
 }
 export default class FractionDUnNombre extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Forcer résultat entier', true]
     this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes', false]
@@ -43,7 +46,7 @@ export default class FractionDUnNombre extends Exercice {
     this.nbCols = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -75,12 +78,13 @@ export default class FractionDUnNombre extends Exercice {
       [1, 10],
       [3, 10],
       [7, 10],
-      [9, 10]
+      [9, 10],
     ] // Couples de nombres premiers entre eux
 
     for (
       let i = 0, a, b, k, n, j, fraction, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       fraction = choice(listeFractions)
       a = fraction[0]
@@ -96,100 +100,116 @@ export default class FractionDUnNombre extends Exercice {
         // Si n * 1/b
         if (n / b - arrondi(n / b, 4) === 0) {
           texteCorr += `$${texFractionFromString(
-                        a,
-                        miseEnEvidence(b, 'blue')
-                    )}\\times${n}=${n}\\div${miseEnEvidence(b, 'blue')}=${texNombre(
-                        n / b)
-                    }$`
-        } else { // si résultat décimal
+            a,
+            miseEnEvidence(b, 'blue'),
+          )}\\times${n}=${n}\\div${miseEnEvidence(b, 'blue')}=${texNombre(
+            n / b,
+          )}$`
+        } else {
+          // si résultat décimal
           texteCorr += `$${texFractionFromString(a, b)}\\times${n}=${texFractionFromString(
-                        n,
-                        b
-                    )}${simplificationDeFractionAvecEtapes(n, b)}$`
+            n,
+            b,
+          )}${simplificationDeFractionAvecEtapes(n, b)}$`
         } // si résultat non décimal
       } else {
         if (n / b - arrondi(n / b, 4) === 0) {
           // si n/b décimal calcul (n/b)*a
           texteCorr += `$${texFractionFromString(
-                        a,
-                        miseEnEvidence(b, 'blue')
-                    )}\\times${n}=(${n}\\div${miseEnEvidence(
-                        b, 'blue'
-                    )})\\times${a}=${texNombre(
-                        n / b)
-                    }\\times${a}=${texNombre((n / b) * a)}$<br>`
+            a,
+            miseEnEvidence(b, 'blue'),
+          )}\\times${n}=(${n}\\div${miseEnEvidence(
+            b,
+            'blue',
+          )})\\times${a}=${texNombre(
+            n / b,
+          )}\\times${a}=${texNombre((n / b) * a)}$<br>`
         } else {
           if ((n * a) / b - arrondi((n * a) / b, 4) === 0) {
             // si n/b non décimal, alors on se rabat sur (n*a)/b
             texteCorr += ` $${texFractionFromString(
-                            a,
-                            miseEnEvidence(b, 'blue')
-                        )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-                            b, 'blue'
-                        )}=${n * a}\\div${miseEnEvidence(
-                            b, 'blue'
-                        )}=${texNombre((n / b) * a)}$<br>`
+              a,
+              miseEnEvidence(b, 'blue'),
+            )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
+              b,
+              'blue',
+            )}=${n * a}\\div${miseEnEvidence(
+              b,
+              'blue',
+            )}=${texNombre((n / b) * a)}$<br>`
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
             texteCorr += ` $${texFractionFromString(
-                            a,
-                            miseEnEvidence(b, 'blue')
-                        )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-                            b, 'blue'
-                        )}=${n * a}\\div${miseEnEvidence(
-                            b, 'blue'
-                        )}=${texFractionFromString(n * a, miseEnEvidence(b, 'blue'))}$<br>`
+              a,
+              miseEnEvidence(b, 'blue'),
+            )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
+              b,
+              'blue',
+            )}=${n * a}\\div${miseEnEvidence(
+              b,
+              'blue',
+            )}=${texFractionFromString(n * a, miseEnEvidence(b, 'blue'))}$<br>`
           }
           j = true
         }
-        if (
-          (n * a) / b - arrondi((n * a) / b, 4) === 0 &&
-                    this.sup2 &&
-                    !j
-        ) {
+        if ((n * a) / b - arrondi((n * a) / b, 4) === 0 && this.sup2 && !j) {
           // Si autres méthodes et si (a*n)/b décimal calcul (n*a)/b
           texteCorr += ` $${texFractionFromString(
-                        a,
-                        miseEnEvidence(b, 'blue')
-                    )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-                        b, 'blue'
-                    )}=${n * a}\\div${miseEnEvidence(b, 'blue')}=${texNombre(
-                        (n / b) * a)
-                    }$<br>`
+            a,
+            miseEnEvidence(b, 'blue'),
+          )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
+            b,
+            'blue',
+          )}=${n * a}\\div${miseEnEvidence(b, 'blue')}=${texNombre(
+            (n / b) * a,
+          )}$<br>`
         } else {
           // si autre méthode et résultat fractionnaire calcul (n*a)/b
           if (this.sup2 && !j) {
             texteCorr += ` $${texFractionFromString(
-                            a,
-                            miseEnEvidence(b, 'blue')
-                        )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-                            b, 'blue'
-                        )}=${n * a}\\div${miseEnEvidence(
-                            b, 'blue'
-                        )}=${texFractionFromString(n * a, miseEnEvidence(b, 'blue'))}$<br>`
+              a,
+              miseEnEvidence(b, 'blue'),
+            )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
+              b,
+              'blue',
+            )}=${n * a}\\div${miseEnEvidence(
+              b,
+              'blue',
+            )}=${texFractionFromString(n * a, miseEnEvidence(b, 'blue'))}$<br>`
           }
         }
         // si autre méthode et a/b décimal calcul (a/b)*n
-        if ((b === 2 || b === 4 || b === 5 || b === 8 || b === 10) && this.sup2) {
+        if (
+          (b === 2 || b === 4 || b === 5 || b === 8 || b === 10) &&
+          this.sup2
+        ) {
           texteCorr += ` $${texFractionFromString(
-                        a,
-                        miseEnEvidence(b, 'blue')
-                    )}\\times${n}=(${a}\\div${miseEnEvidence(
-                        b, 'blue'
-                    )})\\times${n}=${texNombre(
-                        a / b)
-                    }\\times${n}=${texNombre((n / b) * a)}$`
+            a,
+            miseEnEvidence(b, 'blue'),
+          )}\\times${n}=(${a}\\div${miseEnEvidence(
+            b,
+            'blue',
+          )})\\times${n}=${texNombre(
+            a / b,
+          )}\\times${n}=${texNombre((n / b) * a)}$`
         }
       }
 
-      setReponse(this, i, n * a / b)
-      if (n * a % b !== 0 && !context.isAmc) {
-        setReponse(this, i, [n * a / b, texFractionFromString(n * a, b)])
+      setReponse(this, i, (n * a) / b)
+      if ((n * a) % b !== 0 && !context.isAmc) {
+        setReponse(this, i, [(n * a) / b, texFractionFromString(n * a, b)])
       }
-      texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        '  clavierDeBaseAvecFraction',
+        { texteAvant: sp() + '$=$' },
+      )
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: false }]
+        this.autoCorrection[i].propositions = [
+          { texte: texteCorr, statut: false },
+        ]
         // @ts-expect-error
         this.autoCorrection[i].reponse.param.digits = 2
         // @ts-expect-error

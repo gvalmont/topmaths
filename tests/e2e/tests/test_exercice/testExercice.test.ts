@@ -1,7 +1,13 @@
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs'
 import { runTest } from '../../helpers/run'
-import { getExercisesCount, getLatexFromPage, testAllViews, type Variation, type View } from '../../helpers/testAllViews'
+import {
+  getExercisesCount,
+  getLatexFromPage,
+  testAllViews,
+  type Variation,
+  type View,
+} from '../../helpers/testAllViews'
 import { promises as fs } from 'fs'
 import { dirname } from 'path'
 import { exec } from 'child_process'
@@ -11,8 +17,10 @@ import { exec } from 'child_process'
 
 let id = '4C20' // paramètres par défaut utilisés si non définis dans les variables d'environnement (voir ci-dessus)
 
-async function test (page: Page) {
-  const shellId = Object.entries(process.env).filter(([key]) => key === 'id').map(el => el[1])[0]
+async function test(page: Page) {
+  const shellId = Object.entries(process.env)
+    .filter(([key]) => key === 'id')
+    .map((el) => el[1])[0]
   if (shellId) id = shellId
   try {
     await fs.rmdir(`screenshots/${id}/`, { recursive: true })
@@ -21,7 +29,9 @@ async function test (page: Page) {
   }
   await testAllViews(page, { params: `id=${id}` }, callback)
   console.warn(`Les captures d'écran sont dans le dossier screenshots/${id}`)
-  console.warn('N\'oubliez pas de tester les différents paramètres de votre exercice avec et sans interactivité !')
+  console.warn(
+    "N'oubliez pas de tester les différents paramètres de votre exercice avec et sans interactivité !",
+  )
   return true
 }
 
@@ -36,20 +46,41 @@ type Scenario = {
 let questionsNb = 1
 let isFirstPage = true
 
-const callback = async (page: Page, description: string, view: View, variation: Variation) => {
+const callback = async (
+  page: Page,
+  description: string,
+  view: View,
+  variation: Variation,
+) => {
   if (view === 'start' && isFirstPage) {
-    questionsNb = (await page.locator('.list-inside').locator('li').all()).length
+    questionsNb = (await page.locator('.list-inside').locator('li').all())
+      .length
     isFirstPage = false // des fois questionsNb n'est pas défini lorsqu'on lance la course aux nombres, peut-être pour ça ?
   }
   const scenario = await getScenario(description, view, variation)
   if (scenario.isMultiplePagesView) {
-    if (!scenario.navigationSelectors || scenario.navigationSelectors.length === 0) {
-      console.error('View has multiple pages but no navigation selector is found') // Je ne sais pas pourquoi mais the throw new Error apparaît comme <empty line> dans la console et donc on ne sait pas ce qui a causé l'erreur
-      throw new Error('View has multiple pages but no navigation selector is found')
+    if (
+      !scenario.navigationSelectors ||
+      scenario.navigationSelectors.length === 0
+    ) {
+      console.error(
+        'View has multiple pages but no navigation selector is found',
+      ) // Je ne sais pas pourquoi mais the throw new Error apparaît comme <empty line> dans la console et donc on ne sait pas ce qui a causé l'erreur
+      throw new Error(
+        'View has multiple pages but no navigation selector is found',
+      )
     }
-    if (scenario.displayCorrectionSelectors.length !== 0 && scenario.displayCorrectionSelectors.length - 1 !== scenario.navigationSelectors.length) {
-      console.error('In multiple pages scenario, displayCorrectionSelectors should be empty or have the same length as scenario.navigationSelectors minus one')
-      throw new Error('In multiple pages scenario, displayCorrectionSelectors should be empty or have the same length as scenario.navigationSelectors minus one')
+    if (
+      scenario.displayCorrectionSelectors.length !== 0 &&
+      scenario.displayCorrectionSelectors.length - 1 !==
+        scenario.navigationSelectors.length
+    ) {
+      console.error(
+        'In multiple pages scenario, displayCorrectionSelectors should be empty or have the same length as scenario.navigationSelectors minus one',
+      )
+      throw new Error(
+        'In multiple pages scenario, displayCorrectionSelectors should be empty or have the same length as scenario.navigationSelectors minus one',
+      )
     }
     for (let i = 0; i < scenario.navigationSelectors.length + 1; i++) {
       if (scenario.displayCorrectionSelectors.length !== 0) {
@@ -57,9 +88,15 @@ const callback = async (page: Page, description: string, view: View, variation: 
       }
       await page.waitForTimeout(100) // to limit white screenshots
       await action(page, description, view, variation, String(i + 1))
-      const viewSpecificExceptions = (view === 'diaporama' && i === scenario.navigationSelectors.length) // there is no correction to show in diaporama's ending screen
-      if (scenario.callbackBeforeNavigation && !viewSpecificExceptions) await scenario.callbackBeforeNavigation(page, i)
-      if (scenario.navigationSelectors[i] !== '' && i < scenario.navigationSelectors.length) await page.locator(scenario.navigationSelectors[i]).click()
+      const viewSpecificExceptions =
+        view === 'diaporama' && i === scenario.navigationSelectors.length // there is no correction to show in diaporama's ending screen
+      if (scenario.callbackBeforeNavigation && !viewSpecificExceptions)
+        await scenario.callbackBeforeNavigation(page, i)
+      if (
+        scenario.navigationSelectors[i] !== '' &&
+        i < scenario.navigationSelectors.length
+      )
+        await page.locator(scenario.navigationSelectors[i]).click()
     }
   } else {
     if (view === 'LaTeX' || view === 'AMC') {
@@ -83,7 +120,13 @@ const callback = async (page: Page, description: string, view: View, variation: 
   }
 }
 
-async function compileLaTeX (page: Page, description: string, view: View, variation: Variation, latex: string) {
+async function compileLaTeX(
+  page: Page,
+  description: string,
+  view: View,
+  variation: Variation,
+  latex: string,
+) {
   const texDir = `screenshots/${id}/tex`
   const fileName = `${view}-${variation}${description !== '' ? `-${description}` : ''}`
   await writeStringToFile(`${texDir}/${fileName}.tex`, latex)
@@ -99,7 +142,7 @@ async function compileLaTeX (page: Page, description: string, view: View, variat
   }
 }
 
-async function prepareCompilation (view: View, AmcFiles: string[]) {
+async function prepareCompilation(view: View, AmcFiles: string[]) {
   if (view === 'AMC') {
     for (const file of AmcFiles) {
       console.log(`copy ${file}`)
@@ -113,7 +156,7 @@ async function prepareCompilation (view: View, AmcFiles: string[]) {
   }
 }
 
-async function compileLatex (texDir: string, fileName: string) {
+async function compileLatex(texDir: string, fileName: string) {
   const compilationCommand = `lualatex ${texDir}/${fileName}.tex`
   console.log(`First compilation of ${texDir}/${fileName}.tex`)
   await runShellCommand(compilationCommand)
@@ -121,7 +164,13 @@ async function compileLatex (texDir: string, fileName: string) {
   await runShellCommand(compilationCommand)
 }
 
-async function cleanAuxiliaryFiles (page: Page, view: View, variation: Variation, fileName: string, AmcFiles: string[]) {
+async function cleanAuxiliaryFiles(
+  page: Page,
+  view: View,
+  variation: Variation,
+  fileName: string,
+  AmcFiles: string[],
+) {
   console.log(`Cleaning auxiliary filed of ${fileName}`)
   await removeFile(`${fileName}.aux`)
   await removeFile(`${fileName}.log`)
@@ -146,7 +195,7 @@ async function cleanAuxiliaryFiles (page: Page, view: View, variation: Variation
   }
 }
 
-async function removeFile (fileName: string, canFail?: boolean) {
+async function removeFile(fileName: string, canFail?: boolean) {
   try {
     await fs.unlink(fileName)
     console.log(`Deleted ${fileName}`)
@@ -156,7 +205,7 @@ async function removeFile (fileName: string, canFail?: boolean) {
   }
 }
 
-async function movePdfFiles (id: string, fileName: string) {
+async function movePdfFiles(id: string, fileName: string) {
   console.log(`Moving generated pdf from ${fileName}`)
   try {
     await fs.rename(`${fileName}.pdf`, `screenshots/${id}/${fileName}.pdf`)
@@ -166,10 +215,14 @@ async function movePdfFiles (id: string, fileName: string) {
   }
 }
 
-async function getScenario (description: string, view: View, variation: Variation): Promise<Scenario> {
+async function getScenario(
+  description: string,
+  view: View,
+  variation: Variation,
+): Promise<Scenario> {
   if (view === 'start') {
     return {
-      displayCorrectionSelectors: ['.bx-check-circle']
+      displayCorrectionSelectors: ['.bx-check-circle'],
     }
   } else if (view === 'diaporama') {
     const callbackBeforeNavigation = async (page: Page, i: number) => {
@@ -180,7 +233,7 @@ async function getScenario (description: string, view: View, variation: Variatio
       displayCorrectionSelectors: [],
       isMultiplePagesView: true, // always true since we have to click next to go to the final screen
       navigationSelectors: new Array(questionsNb).fill('.bx-skip-next'),
-      callbackBeforeNavigation
+      callbackBeforeNavigation,
     }
   } else if (view === 'apercu') {
     return {
@@ -193,19 +246,23 @@ async function getScenario (description: string, view: View, variation: Variatio
         navigationSelectors.push(`#questionTitleID${i + 1}`)
       }
       return {
-        displayCorrectionSelectors: new Array(questionsNb).fill('.bx-toggle-right:not(.hidden .bx-toggle-right)'),
+        displayCorrectionSelectors: new Array(questionsNb).fill(
+          '.bx-toggle-right:not(.hidden .bx-toggle-right)',
+        ),
         isMultiplePagesView: questionsNb > 1,
-        navigationSelectors
+        navigationSelectors,
       }
     } else if (variation === 'Course aux nombres') {
       return {
         displayCorrectionSelectors: [],
         isMultiplePagesView: questionsNb > 1,
-        navigationSelectors: new Array(questionsNb - 1).fill('.bxs-chevron-right')
+        navigationSelectors: new Array(questionsNb - 1).fill(
+          '.bxs-chevron-right',
+        ),
       }
     } else if (variation === 'Tous les exercices sur une page') {
       return {
-        displayCorrectionSelectors: ['text=Voir la correction']
+        displayCorrectionSelectors: ['text=Voir la correction'],
       }
     }
   }
@@ -214,12 +271,19 @@ async function getScenario (description: string, view: View, variation: Variatio
   }
 }
 
-async function displayCorrection (page: Page, scenario: Scenario, displayCorrectionSelectorIndex: number) {
+async function displayCorrection(
+  page: Page,
+  scenario: Scenario,
+  displayCorrectionSelectorIndex: number,
+) {
   if (scenario.displayCorrectionSelectors.length === 0) return
-  const displayCorrectionSelector = scenario.displayCorrectionSelectors[displayCorrectionSelectorIndex]
+  const displayCorrectionSelector =
+    scenario.displayCorrectionSelectors[displayCorrectionSelectorIndex]
   if (displayCorrectionSelector === '') return
   if (scenario.isMultipleDisplayCorrectionSelectorsOnSamePage) {
-    const correctionToggles = await page.locator(displayCorrectionSelector).all()
+    const correctionToggles = await page
+      .locator(displayCorrectionSelector)
+      .all()
     for (let i = correctionToggles.length - 1; i >= 0; i--) {
       await correctionToggles[i].click()
     }
@@ -228,11 +292,23 @@ async function displayCorrection (page: Page, scenario: Scenario, displayCorrect
   }
 }
 
-async function action (page: Page, description: string, view: View, variation: Variation, append?: string) {
-  await page.screenshot({ path: `screenshots/${id}/${view}${variation !== '' ? `-${variation}` : ''}${append !== undefined ? `-${append}` : ''}${description !== '' ? `-${description}` : ''}.png`, fullPage: true })
+async function action(
+  page: Page,
+  description: string,
+  view: View,
+  variation: Variation,
+  append?: string,
+) {
+  await page.screenshot({
+    path: `screenshots/${id}/${view}${variation !== '' ? `-${variation}` : ''}${append !== undefined ? `-${append}` : ''}${description !== '' ? `-${description}` : ''}.png`,
+    fullPage: true,
+  })
 }
 
-async function writeStringToFile (filePath: string, content: string): Promise<void> {
+async function writeStringToFile(
+  filePath: string,
+  content: string,
+): Promise<void> {
   try {
     console.log(`Write ${filePath}`)
     await fs.mkdir(dirname(filePath), { recursive: true })
@@ -242,7 +318,7 @@ async function writeStringToFile (filePath: string, content: string): Promise<vo
   }
 }
 
-async function runShellCommand (command: string): Promise<void> {
+async function runShellCommand(command: string): Promise<void> {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
@@ -257,16 +333,22 @@ async function runShellCommand (command: string): Promise<void> {
   })
 }
 
-async function testNanUndefined (page: Page) {
+async function testNanUndefined(page: Page) {
   for (let i = 0; i < 10; i++) {
     const NaNLocators = await page.locator('text=/\\bNaN\\b/').all()
     const undefinedLocators = await page.locator('text=/\\bundefined\\b/').all()
     if (NaNLocators.length > 0 || undefinedLocators.length > 0) {
-      await action(page, `${getTimeStamp()}`, 'apercu', '', `testNaNUndefined-${i + 1}`)
+      await action(
+        page,
+        `${getTimeStamp()}`,
+        'apercu',
+        '',
+        `testNaNUndefined-${i + 1}`,
+      )
     }
-    if (await page.locator('.bx-refresh').count() === 1) {
+    if ((await page.locator('.bx-refresh').count()) === 1) {
       await page.locator('.bx-refresh').click()
-    } else if (await page.locator('.bx-refresh').count() > 1) {
+    } else if ((await page.locator('.bx-refresh').count()) > 1) {
       await page.locator('.bx-refresh').nth(0).click()
     } else {
       console.warn('No refresh button found, skipping NaN/undefined test')
@@ -274,7 +356,7 @@ async function testNanUndefined (page: Page) {
   }
 }
 
-function getTimeStamp () {
+function getTimeStamp() {
   return new Date().toISOString().replace(/[:.]/g, '-')
 }
 

@@ -17,17 +17,17 @@ export const uuid = '38207'
 
 export const refs = {
   'fr-fr': ['can2P02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Denombrement extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, prenom1
     switch (choice(['a', 'b'])) {
       case 'a':
@@ -51,7 +51,7 @@ export default class Denombrement extends ExerciceSimple {
         this.reponse = arrondi(a * b)
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

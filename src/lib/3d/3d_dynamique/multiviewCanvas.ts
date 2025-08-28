@@ -6,13 +6,16 @@ import { THREE } from './threeInstance'
 export class MultiViewCanvas {
   canvas: HTMLCanvasElement
   renderer: THREE.WebGLRenderer
-  scenes: { scene: THREE.Scene, camera: THREE.Camera }[] = []
+  scenes: { scene: THREE.Scene; camera: THREE.Camera }[] = []
 
-  constructor (width: number, height: number, nbViews: number) {
+  constructor(width: number, height: number, nbViews: number) {
     this.canvas = document.createElement('canvas')
     this.canvas.width = width
     this.canvas.height = height
-    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true })
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      antialias: true,
+    })
     this.renderer.setSize(width, height, false)
     this.renderer.setClearColor(0xffffff)
 
@@ -40,7 +43,7 @@ export class MultiViewCanvas {
     }
   }
 
-  render () {
+  render() {
     const cols = Math.ceil(Math.sqrt(this.scenes.length))
     const rows = Math.ceil(this.scenes.length / cols)
     const w = Math.floor(this.canvas.width / cols)
@@ -60,8 +63,10 @@ export class MultiViewCanvas {
 
       // Met à jour l'aspect de la caméra si c'est une PerspectiveCamera
       if (this.scenes[i].camera instanceof THREE.PerspectiveCamera) {
-        (this.scenes[i].camera as THREE.PerspectiveCamera).aspect = w / h
-        ;(this.scenes[i].camera as THREE.PerspectiveCamera).updateProjectionMatrix()
+        ;(this.scenes[i].camera as THREE.PerspectiveCamera).aspect = w / h
+        ;(
+          this.scenes[i].camera as THREE.PerspectiveCamera
+        ).updateProjectionMatrix()
       }
 
       // Rendu de la scène
@@ -75,18 +80,19 @@ export class MultiViewCanvas {
    * @param viewIndex Index de la vue à modifier
    * @param objects Tableau d'objets THREE.Object3D à ajouter
    */
-  setObjects (viewIndex: number, objects: THREE.Object3D[]) {
+  setObjects(viewIndex: number, objects: THREE.Object3D[]) {
     const { scene } = this.scenes[viewIndex]
     // Supprime tout sauf les lumières
-    scene.children = scene.children.filter(obj =>
-      obj.type === 'DirectionalLight' ||
-      obj.type === 'AmbientLight' ||
-      obj.type === 'PerspectiveCamera' ||
-      obj.type === 'AxesHelper' ||
-      obj.type === 'GridHelper'
+    scene.children = scene.children.filter(
+      (obj) =>
+        obj.type === 'DirectionalLight' ||
+        obj.type === 'AmbientLight' ||
+        obj.type === 'PerspectiveCamera' ||
+        obj.type === 'AxesHelper' ||
+        obj.type === 'GridHelper',
     )
     // Ajoute les nouveaux objets
-    objects.forEach(obj => scene.add(obj))
+    objects.forEach((obj) => scene.add(obj))
     this.render()
   }
 }

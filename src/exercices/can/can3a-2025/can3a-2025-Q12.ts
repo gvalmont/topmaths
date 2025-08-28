@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'bc9a6'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -16,7 +16,7 @@ export const refs = {
 
 */
 export default class AdditionnerEntier extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class AdditionnerEntier extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 123 : randint(121, 128)
     const b = this.canOfficielle ? 99 : randint(1, 9) * 10 + 9
     this.reponse = a - b

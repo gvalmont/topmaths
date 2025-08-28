@@ -8,14 +8,18 @@ import { choice } from '../../lib/outils/arrayOutils'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
-import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 export const titre = 'Dérivée de $\\lambda u$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd89'
 export const refs = {
   'fr-fr': ['1AN14-1'],
-  'fr-ch': ['3mA2-1']
+  'fr-ch': ['3mA2-1'],
 }
 export const dateDePublication = '09/05/2024'
 const listFrac = obtenirListeFractionsIrreductibles()
@@ -26,16 +30,19 @@ const listFrac = obtenirListeFractionsIrreductibles()
  *
  */
 class DerivationFonctionsUsuelles extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets : \n1 : Fonctions usuelles au hasard\n2 : Affine niveau 1\n3 : Affine niveau2\n4 : Monome niveau 1\n5 : Monome niveau2\n6 : Inverse niveau 1\n7 : Inverse niveau 2\n8 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Types de fonctions',
+      'Nombres séparés par des tirets : \n1 : Fonctions usuelles au hasard\n2 : Affine niveau 1\n3 : Affine niveau2\n4 : Monome niveau 1\n5 : Monome niveau2\n6 : Inverse niveau 1\n7 : Inverse niveau 2\n8 : Mélange',
+    ]
     this.sup = '8'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -43,17 +50,50 @@ class DerivationFonctionsUsuelles extends Exercice {
       defaut: 1,
       melange: 8,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['usuelles', 'affine1', 'affine2', 'monome1', 'monome2', 'inverse1', 'inverse2']
+      listeOfCase: [
+        'usuelles',
+        'affine1',
+        'affine2',
+        'monome1',
+        'monome2',
+        'inverse1',
+        'inverse2',
+      ],
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let laFonction: string = ''
       let laDerivee: string = ''
       let df: string = ''
-      const nameF = ['f', 'g', 'h', 'l', 'm', 'p', 'r', 's', 't', 'u', 'v', 'w', 'b', 'c', 'd', 'e'][i % 16]
+      const nameF = [
+        'f',
+        'g',
+        'h',
+        'l',
+        'm',
+        'p',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'b',
+        'c',
+        'd',
+        'e',
+      ][i % 16]
       let correctionDetaillee = ''
       switch (listeTypeDeQuestion[i]) {
         case 'usuelles':
-          laFonction = choice(['k', 'mx+p', 'x^2', 'x^3', 'x^n', '\\frac{1}{x}', '\\sqrt{x}'])
+          laFonction = choice([
+            'k',
+            'mx+p',
+            'x^2',
+            'x^3',
+            'x^n',
+            '\\frac{1}{x}',
+            '\\sqrt{x}',
+          ])
           switch (laFonction) {
             case 'k':
               df = 'pour tout $x\\in\\R$'
@@ -62,7 +102,12 @@ class DerivationFonctionsUsuelles extends Exercice {
                 texNombre(new Decimal(randint(-1000, 1000)).div(100), 2),
                 choice(listFrac).multiplieEntier(choice([-1, 1])).texFSD,
                 `\\sqrt{${choice(['2', '3', '5', '\\frac{1}{2}', '\\frac{1}{3}', '\\frac{3}{2}', '\\frac{4}{3}', '\\frac{1}{6}'])}}`,
-                choice(['\\pi', '\\frac{\\pi}{2}', '\\frac{\\pi}{3}', '\\frac{\\pi}{4}'])
+                choice([
+                  '\\pi',
+                  '\\frac{\\pi}{2}',
+                  '\\frac{\\pi}{3}',
+                  '\\frac{\\pi}{4}',
+                ]),
               ])
               laDerivee = '0'
               correctionDetaillee = `La fonction $${nameF}$ est une fonction constante, sa dérivée est nulle.<br>`
@@ -98,84 +143,101 @@ class DerivationFonctionsUsuelles extends Exercice {
               break
           }
           break
-        case 'affine1': {
-          df = 'pour tout $x\\in\\R$'
-          laFonction = choice([
-            reduireAxPlusB(randint(-100, 100, 0), randint(-100, 100, 0)),
-            `${String(randint(-100, 100, 0))}${ecritureAlgebriqueSauf1(randint(-100, 100, 0))}x`,
-            reduireAxPlusB(new Decimal(randint(-1000, 1000, 0)).div(100), new Decimal(randint(-1000, 1000, 0)).div(100)),
-            `${texNombre(new Decimal(randint(-1000, 1000, 0)).div(100), 2)}${ecritureAlgebriqueSauf1(new Decimal(randint(-1000, 1000, 0)).div(100))}x`
-          ])
-          laDerivee = laFonction.replaceAll('{,}', '.')
-          const derivee1 = laDerivee.match(/-?\d*\.?\d*(-?\+?\d*.?\d*)x/)
-          const derivee2 = laDerivee.match(/(-?\d*\.?\d*)x/)
-          if (laFonction.charAt(laFonction.length - 1) === 'x') {
-            if (derivee1 != null) laDerivee = derivee1[1]
-            else window.notify('Un problème avec la dérivée de cette fonction', { laFonction })
-          } else {
-            if (derivee2 != null) laDerivee = derivee2[1]
-            else window.notify('Un problème avec la dérivée de cette fonction', { laFonction })
+        case 'affine1':
+          {
+            df = 'pour tout $x\\in\\R$'
+            laFonction = choice([
+              reduireAxPlusB(randint(-100, 100, 0), randint(-100, 100, 0)),
+              `${String(randint(-100, 100, 0))}${ecritureAlgebriqueSauf1(randint(-100, 100, 0))}x`,
+              reduireAxPlusB(
+                new Decimal(randint(-1000, 1000, 0)).div(100),
+                new Decimal(randint(-1000, 1000, 0)).div(100),
+              ),
+              `${texNombre(new Decimal(randint(-1000, 1000, 0)).div(100), 2)}${ecritureAlgebriqueSauf1(new Decimal(randint(-1000, 1000, 0)).div(100))}x`,
+            ])
+            laDerivee = laFonction.replaceAll('{,}', '.')
+            const derivee1 = laDerivee.match(/-?\d*\.?\d*(-?\+?\d*.?\d*)x/)
+            const derivee2 = laDerivee.match(/(-?\d*\.?\d*)x/)
+            if (laFonction.charAt(laFonction.length - 1) === 'x') {
+              if (derivee1 != null) laDerivee = derivee1[1]
+              else
+                window.notify('Un problème avec la dérivée de cette fonction', {
+                  laFonction,
+                })
+            } else {
+              if (derivee2 != null) laDerivee = derivee2[1]
+              else
+                window.notify('Un problème avec la dérivée de cette fonction', {
+                  laFonction,
+                })
+            }
+            laDerivee = laDerivee.startsWith('+')
+              ? laDerivee.substring(1)
+              : laDerivee
+            laDerivee = laDerivee.replaceAll('.', '{,}')
+            correctionDetaillee = `La fonction $${nameF}$ est une fonction affine de la forme $f(x)=ax+b$, sa dérivée est le coefficient $a$.<br>`
           }
-          laDerivee = laDerivee.startsWith('+') ? laDerivee.substring(1) : laDerivee
-          laDerivee = laDerivee.replaceAll('.', '{,}')
-          correctionDetaillee = `La fonction $${nameF}$ est une fonction affine de la forme $f(x)=ax+b$, sa dérivée est le coefficient $a$.<br>`
-        }
           break
-        case 'affine2': {
-          const frac = choice(listFrac).multiplieEntier(choice([-1, 1]))
-          const b = randint(1, 10)
-          df = 'pour tout $x\\in\\R$'
-          if (choice([true, false])) {
-            laFonction = `${frac.texFractionSimplifiee}x+${b}`
-            laDerivee = `${frac.texFractionSimplifiee}`
-          } else {
-            laFonction = `\\frac{${rienSi1(frac.num)}x+${b}}{${frac.den}}`
-            laDerivee = `${frac.texFractionSimplifiee}`
-            correctionDetaillee += `$${nameF}(x)$ peut s'écrire $${frac.texFractionSimplifiee}x+\\frac{${b}}{${frac.den}}$.<br>`
+        case 'affine2':
+          {
+            const frac = choice(listFrac).multiplieEntier(choice([-1, 1]))
+            const b = randint(1, 10)
+            df = 'pour tout $x\\in\\R$'
+            if (choice([true, false])) {
+              laFonction = `${frac.texFractionSimplifiee}x+${b}`
+              laDerivee = `${frac.texFractionSimplifiee}`
+            } else {
+              laFonction = `\\frac{${rienSi1(frac.num)}x+${b}}{${frac.den}}`
+              laDerivee = `${frac.texFractionSimplifiee}`
+              correctionDetaillee += `$${nameF}(x)$ peut s'écrire $${frac.texFractionSimplifiee}x+\\frac{${b}}{${frac.den}}$.<br>`
+            }
+            correctionDetaillee += `La fonction $${nameF}$ est une fonction affine de la forme $f(x)=ax+b$, sa dérivée est le coefficient $a$.<br>`
           }
-          correctionDetaillee += `La fonction $${nameF}$ est une fonction affine de la forme $f(x)=ax+b$, sa dérivée est le coefficient $a$.<br>`
-        }
           break
-        case 'monome1':{
-          const n = randint(4, 15)
-          const m = randint(-10, 10, [-1, 0, 1])
-          df = 'pour tout $x\\in\\R$'
-          laFonction = `${String(m)}x^{${n}}`
-          laDerivee = `${n * m}x^{${n - 1}}`
-          correctionDetaillee = `La fonction $${nameF}$ est une fonction de la forme $f(x)=ax^n$, sa dérivée est $anx^{n-1}$.<br>`
-        }
-          break
-        case 'monome2':{
-          const den = randint(2, 8)
-          const n = randint(2, 15)
-          df = 'pour tout $x\\in\\R$'
-          if (choice([true, false])) {
-            laFonction = `\\frac{x^{${n}}}{${den}}`
-            correctionDetaillee = `$${nameF}(x)$ peut s'écrire $\\frac{1}{${den}}x^{${n}}$.<br>`
-          } else {
-            laFonction = `\\frac{1}{${den}}x^{${n}}`
+        case 'monome1':
+          {
+            const n = randint(4, 15)
+            const m = randint(-10, 10, [-1, 0, 1])
+            df = 'pour tout $x\\in\\R$'
+            laFonction = `${String(m)}x^{${n}}`
+            laDerivee = `${n * m}x^{${n - 1}}`
+            correctionDetaillee = `La fonction $${nameF}$ est une fonction de la forme $f(x)=ax^n$, sa dérivée est $anx^{n-1}$.<br>`
           }
-          laDerivee = `\\frac{${n}}{${den}}x^{${n - 1}}`
-          correctionDetaillee += `La fonction $${nameF}$ est une fonction de la forme $f(x)=ax^n$ avec $a=\\frac{${1}}{${den}}$ et $n=${n}$. Sa dérivée est $anx^{n-1}$.<br><br>`
-        }
           break
-        case 'inverse1':{
-          const num = randint(-10, 10, [-1, 1, 0])
-          laFonction = `\\frac{${num}}{x}`
-          laDerivee = `${num < 0 ? '' : '-'}\\frac{${num < 0 ? String(-num) : String(num)}}{x^2}`
-          correctionDetaillee = `La fonction $${nameF}$ est une fonction de la forme $f(x)=a\\times\\frac{1}{x}$ avec $a=${num}$. Sa dérivée est $a\\times\\frac{-1}{x^2}$.<br><br>`
-          df = 'pour tout $x\\in\\R^*$'
-        }
+        case 'monome2':
+          {
+            const den = randint(2, 8)
+            const n = randint(2, 15)
+            df = 'pour tout $x\\in\\R$'
+            if (choice([true, false])) {
+              laFonction = `\\frac{x^{${n}}}{${den}}`
+              correctionDetaillee = `$${nameF}(x)$ peut s'écrire $\\frac{1}{${den}}x^{${n}}$.<br>`
+            } else {
+              laFonction = `\\frac{1}{${den}}x^{${n}}`
+            }
+            laDerivee = `\\frac{${n}}{${den}}x^{${n - 1}}`
+            correctionDetaillee += `La fonction $${nameF}$ est une fonction de la forme $f(x)=ax^n$ avec $a=\\frac{${1}}{${den}}$ et $n=${n}$. Sa dérivée est $anx^{n-1}$.<br><br>`
+          }
           break
-        case 'inverse2':{
-          const frac = choice(listFrac).multiplieEntier(choice([-1, 1]))
-          const num = frac.num
-          const den = frac.den
-          laFonction = `\\frac{${num}}{${den}x}`
-          laDerivee = `${num < 0 ? '' : '-'}\\frac{${num < 0 ? String(-num) : String(num)}}{${den}x^2}`
-          correctionDetaillee = `La fonction $${nameF}$ est une fonction de la forme $f(x)=a\\times\\frac{1}{x}$ avec $a=\\frac{${num}}{${den}}$. Sa dérivée est $a\\times\\frac{-1}{x^2}$.<br><br>`
-          df = 'pour tout $x\\in\\R^*$'
-        }
+        case 'inverse1':
+          {
+            const num = randint(-10, 10, [-1, 1, 0])
+            laFonction = `\\frac{${num}}{x}`
+            laDerivee = `${num < 0 ? '' : '-'}\\frac{${num < 0 ? String(-num) : String(num)}}{x^2}`
+            correctionDetaillee = `La fonction $${nameF}$ est une fonction de la forme $f(x)=a\\times\\frac{1}{x}$ avec $a=${num}$. Sa dérivée est $a\\times\\frac{-1}{x^2}$.<br><br>`
+            df = 'pour tout $x\\in\\R^*$'
+          }
+          break
+        case 'inverse2':
+          {
+            const frac = choice(listFrac).multiplieEntier(choice([-1, 1]))
+            const num = frac.num
+            const den = frac.den
+            laFonction = `\\frac{${num}}{${den}x}`
+            laDerivee = `${num < 0 ? '' : '-'}\\frac{${num < 0 ? String(-num) : String(num)}}{${den}x^2}`
+            correctionDetaillee = `La fonction $${nameF}$ est une fonction de la forme $f(x)=a\\times\\frac{1}{x}$ avec $a=\\frac{${num}}{${den}}$. Sa dérivée est $a\\times\\frac{-1}{x^2}$.<br><br>`
+            df = 'pour tout $x\\in\\R^*$'
+          }
           break
         default:
           df = 'pour tout $x\\in\\R$'
@@ -183,11 +245,17 @@ class DerivationFonctionsUsuelles extends Exercice {
           laDerivee = '0'
           break
       }
-      const passageDeLigneCorr = laDerivee.includes('frac') || laFonction.includes('frac') ? '<br><br>' : '<br>'
-      let texte = `Donner la dérivée de la fonction $${nameF}$, dérivable ${df}, définie par  $${nameF}(x)=${laFonction}$.` + ajouteChampTexteMathLive(this, i, '')
+      const passageDeLigneCorr =
+        laDerivee.includes('frac') || laFonction.includes('frac')
+          ? '<br><br>'
+          : '<br>'
+      let texte =
+        `Donner la dérivée de la fonction $${nameF}$, dérivable ${df}, définie par  $${nameF}(x)=${laFonction}$.` +
+        ajouteChampTexteMathLive(this, i, '')
       const reponse = laDerivee
       let texteCorr = ''
-      if (this.correctionDetaillee) texteCorr += correctionDetaillee.replace('<br>', passageDeLigneCorr)
+      if (this.correctionDetaillee)
+        texteCorr += correctionDetaillee.replace('<br>', passageDeLigneCorr)
       texteCorr += `L'expression de la dérivée de la fonction $${nameF}$ définie par $${nameF}(x)=${laFonction}$ est : `
       texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${reponse}`)}$.`
       texte = texte.replaceAll('\\frac', '\\dfrac')
@@ -196,7 +264,13 @@ class DerivationFonctionsUsuelles extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        handleAnswers(this, i, { reponse: { value: reponse, options: { variable: 'x', domaine: [-10, 10] }, compare: functionCompare } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: reponse,
+            options: { variable: 'x', domaine: [-10, 10] },
+            compare: functionCompare,
+          },
+        })
         i++
         cpt--
       }

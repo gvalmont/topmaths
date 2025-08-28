@@ -24,7 +24,8 @@
   export let inverted: boolean = false
 
   export let successMessage: string = 'Copié dans le presse-papier'
-  export let errorMessage: string = 'Une erreur est survenue lors de la copie dans le presse-papier.'
+  export let errorMessage: string =
+    'Une erreur est survenue lors de la copie dans le presse-papier.'
   export let displayDuration: number = 3000
 
   let contentDisplayed: 'success' | 'error' | 'none' = 'none'
@@ -39,61 +40,69 @@
     actionFunction = download
   }
 
-  function copyToClipboard () {
+  function copyToClipboard() {
     if (textToCopy === '' && !useCurrentUrl) {
       console.error('Le texte à copier est vide')
       contentDisplayed = 'error'
       return
     }
-    navigator.clipboard.writeText(useCurrentUrl ? buildMathAleaURL({removeSeed}).toString() : textToCopy).then(
-      () => {
-        contentDisplayed = 'success'
-      },
-      (err) => {
-        console.error('Impossible de copier le texte dans le presse-papier', err)
-        contentDisplayed = 'error'
-      }
-    )
+    navigator.clipboard
+      .writeText(
+        useCurrentUrl
+          ? buildMathAleaURL({ removeSeed }).toString()
+          : textToCopy,
+      )
+      .then(
+        () => {
+          contentDisplayed = 'success'
+        },
+        (err) => {
+          console.error(
+            'Impossible de copier le texte dans le presse-papier',
+            err,
+          )
+          contentDisplayed = 'error'
+        },
+      )
   }
 
-  function download () {
+  function download() {
     if (urlToDownload === '' && !useCurrentUrl) {
-      console.error('L\'URL à télécharger est vide')
+      console.error("L'URL à télécharger est vide")
       return
     }
     const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(useCurrentUrl ? buildMathAleaURL({}).toString() : urlToDownload)}"></head></html>`
-    downloadFile(text, `${fileName}.html`).then(
-      (returnString) => { contentDisplayed = returnString }
-    )
+    downloadFile(text, `${fileName}.html`).then((returnString) => {
+      contentDisplayed = returnString
+    })
   }
-
 </script>
 
 {#if text === ''}
   <ButtonIconTooltip
-      {icon}
-      {tooltip}
-      {disabled}
-      {floatUnderText}
-      {cornerIcon}
-      {cornerIconClass}
-      class="{$$props.class || ''}"
-      on:click={actionFunction}
+    {icon}
+    {tooltip}
+    {disabled}
+    {floatUnderText}
+    {cornerIcon}
+    {cornerIconClass}
+    class="{$$props.class || ''}"
+    on:click="{actionFunction}"
   />
 {:else}
   <ButtonTextAction
-      {text}
-      {title}
-      {disabled}
-      {icon}
-      {inverted}
-      class="{$$props.class || ''}"
-      on:click={actionFunction}
+    {text}
+    {title}
+    {disabled}
+    {icon}
+    {inverted}
+    class="{$$props.class || ''}"
+    on:click="{actionFunction}"
   />
 {/if}
 
 <BasicInfoModal
-  bind:contentDisplayed={contentDisplayed}
+  bind:contentDisplayed
   {successMessage}
   {errorMessage}
   {displayDuration}

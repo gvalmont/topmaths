@@ -1,7 +1,17 @@
-import { angleModulo, codageAngle, codageAngleDroit, rapporteur } from '../../../lib/2d/angles'
+import {
+  angleModulo,
+  codageAngle,
+  codageAngleDroit,
+  rapporteur,
+} from '../../../lib/2d/angles'
 import { arc } from '../../../lib/2d/cercle'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point, pointSurSegment, tracePoint } from '../../../lib/2d/points'
+import {
+  milieu,
+  point,
+  pointSurSegment,
+  tracePoint,
+} from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -21,7 +31,10 @@ import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -38,7 +51,7 @@ export const dateDePublication = '02/05/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
@@ -46,12 +59,12 @@ export const uuid = '1fdf7'
 
 export const refs = {
   'fr-fr': ['can5a-2022'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN2022cinquieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.nbQuestions = 30// 10,20,30
+    this.nbQuestions = 30 // 10,20,30
 
     this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
@@ -61,16 +74,40 @@ export default class SujetCAN2022cinquieme extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    const typeQuestionsDisponiblesNiv1 = shuffle([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    ])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
 
-    const listeFractions30 = [[11, 4], [13, 4], [15, 4], [17, 4], [19, 4], [21, 4], [23, 4], [27, 4], [29, 4], [7, 5], [9, 5],
-      [11, 5], [13, 5], [17, 5]]
+    const listeFractions30 = [
+      [11, 4],
+      [13, 4],
+      [15, 4],
+      [17, 4],
+      [19, 4],
+      [21, 4],
+      [23, 4],
+      [27, 4],
+      [29, 4],
+      [7, 5],
+      [9, 5],
+      [11, 5],
+      [13, 5],
+      [17, 5],
+    ]
 
     // Pour la question 24
     let paramsEnonce
@@ -97,7 +134,64 @@ export default class SujetCAN2022cinquieme extends Exercice {
     let ACCorr
     let R
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction30, demiDisque, p, traceA, traceB, traceC, traceH, codeA, segmentBC, segmentAB, segmentAD, segmentDC, codage1, codage2, codage3, codage4, s1, s2, poly1, poly2, propositions, chiffre, chiffre2, u, e, f, choix, a, b, c, g, h, k, A, B, C, D, E, F, G, H, d, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        texte,
+        texteCorr,
+        reponse,
+        fraction30,
+        demiDisque,
+        p,
+        traceA,
+        traceB,
+        traceC,
+        traceH,
+        codeA,
+        segmentBC,
+        segmentAB,
+        segmentAD,
+        segmentDC,
+        codage1,
+        codage2,
+        codage3,
+        codage4,
+        s1,
+        s2,
+        poly1,
+        poly2,
+        propositions,
+        chiffre,
+        chiffre2,
+        u,
+        e,
+        f,
+        choix,
+        a,
+        b,
+        c,
+        g,
+        h,
+        k,
+        A,
+        B,
+        C,
+        D,
+        E,
+        F,
+        G,
+        H,
+        d,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -116,15 +210,47 @@ export default class SujetCAN2022cinquieme extends Exercice {
           break
 
         case 2:
-          chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-          chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
+          chiffre = [
+            ['un', 1],
+            ['deux', 2],
+            ['trois', 3],
+            ['cinq', 5],
+            ['quatre', 4],
+            ['six', 6],
+            ['sept', 7],
+            ['huit', 8],
+            ['neuf', 9],
+          ]
+          chiffre2 = [
+            ['vingt', 20],
+            ['trente', 30],
+            ['quarante', 40],
+            ['cinquante', 50],
+            ['soixante', 60],
+          ]
           a = randint(0, 8)
           b = randint(0, 4)
           c = randint(0, 8)
           d = randint(0, 4)
           if (choice([true, false])) {
-            chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-            chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
+            chiffre = [
+              ['un', 1],
+              ['deux', 2],
+              ['trois', 3],
+              ['cinq', 5],
+              ['quatre', 4],
+              ['six', 6],
+              ['sept', 7],
+              ['huit', 8],
+              ['neuf', 9],
+            ]
+            chiffre2 = [
+              ['vingt', 20],
+              ['trente', 30],
+              ['quarante', 40],
+              ['cinquante', 50],
+              ['soixante', 60],
+            ]
             a = randint(0, 8)
             b = randint(0, 4)
             c = randint(0, 8)
@@ -307,12 +433,16 @@ export default class SujetCAN2022cinquieme extends Exercice {
           break
 
         case 9:
-          choix = choice(['a', 'b', 'c'])//, 'b'
+          choix = choice(['a', 'b', 'c']) //, 'b'
           if (choix === 'a') {
             a = randint(45, 49) + randint(1, 9) / 10
             b = randint(2, 5) + randint(1, 9) / 10
 
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
+            propositions = shuffle([
+              `$${texNombre((a * b) / 10, 3)}$`,
+              `$${texNombre(a * b * 10, 1)}$`,
+              `$${texNombre(a * b, 2)}$`,
+            ])
             reponse = arrondi(a * b, 3)
             texte = `Recopie  le résultat de  :
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
@@ -323,7 +453,11 @@ export default class SujetCAN2022cinquieme extends Exercice {
           if (choix === 'b') {
             a = randint(3, 9) + randint(1, 9) / 10
             b = randint(2, 5) + randint(1, 9) / 10
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
+            propositions = shuffle([
+              `$${texNombre((a * b) / 10, 3)}$`,
+              `$${texNombre(a * b * 10, 1)}$`,
+              `$${texNombre(a * b, 2)}$`,
+            ])
             reponse = arrondi(a * b, 3)
             texte = `Recopie  le résultat de  :
                 $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
@@ -334,13 +468,18 @@ export default class SujetCAN2022cinquieme extends Exercice {
           if (choix === 'c') {
             a = randint(45, 49) + randint(1, 9) / 10
             b = randint(25, 29) + randint(1, 9) / 10
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
+            propositions = shuffle([
+              `$${texNombre((a * b) / 10, 3)}$`,
+              `$${texNombre(a * b * 10, 1)}$`,
+              `$${texNombre(a * b, 2)}$`,
+            ])
             reponse = arrondi(a * b, 3)
             texte = `Recopie  le résultat de  :
                     $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr = 'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
+            texteCorr =
+              'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -388,7 +527,6 @@ export default class SujetCAN2022cinquieme extends Exercice {
           break
 
         case 11:
-
           a = randint(5, 9)
           b = randint(2, 6)
           c = choice([2, 4, 5])
@@ -419,8 +557,17 @@ export default class SujetCAN2022cinquieme extends Exercice {
           Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$h$${d % 60}$min.`
           } else {
             texte = `Écrire en heures/minutes : <br>$${d}$ min $=$ `
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: b }).toString(), options: { HMS: true } } })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierHms,
+            )
+            handleAnswers(this, index, {
+              reponse: {
+                value: new Hms({ hour: a, minute: b }).toString(),
+                options: { HMS: true },
+              },
+            })
 
             texteCorr = ` On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
           Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$h$${d % 60}$min.`
@@ -429,7 +576,6 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
           break
         case 13:
-
           a = randint(2, 9)
           b = randint(2, 9)
           texte = `$${texNombre(a / 10, 1)}\\times ${b * 100}=$
@@ -449,13 +595,13 @@ export default class SujetCAN2022cinquieme extends Exercice {
           break
 
         case 14:
-          choix = choice(['a', 'b'])//, 'b', 'c', 'd'
+          choix = choice(['a', 'b']) //, 'b', 'c', 'd'
 
-          a = randint(20, 29)// mes angle E->H
-          b = randint(70, 75)// mes angle C->F
-          c = 180 - a - b// mes angle D ->G
-          A = point(4, 7, 'A', 'below')// axe
-          B = point(6, 4, 'B', 'below')// axe
+          a = randint(20, 29) // mes angle E->H
+          b = randint(70, 75) // mes angle C->F
+          c = 180 - a - b // mes angle D ->G
+          A = point(4, 7, 'A', 'below') // axe
+          B = point(6, 4, 'B', 'below') // axe
           C = point(1, 5, 'C', 'left')
           D = point(3, 6, 'D', 'above')
           E = point(4, 1, 'E', 'below')
@@ -471,9 +617,9 @@ export default class SujetCAN2022cinquieme extends Exercice {
           if (choix === 'b') {
             reponse = c
           }
-          e = texteParPosition(`${stringNombre(a)}°`, 3.4, 2.5)// angle E
-          f = texteParPosition(`${stringNombre(b)}°`, 1.6, 4.9)// angle C
-          g = texteParPosition(`${stringNombre(c)}°`, 2.7, 5.5)// angle D
+          e = texteParPosition(`${stringNombre(a)}°`, 3.4, 2.5) // angle E
+          f = texteParPosition(`${stringNombre(b)}°`, 1.6, 4.9) // angle C
+          g = texteParPosition(`${stringNombre(c)}°`, 2.7, 5.5) // angle D
           if (choix === 'a') {
             h = texteParPosition('?', 7, 8.5)
             codeA = codageAngle(F, G, H)
@@ -485,15 +631,27 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
           poly1.epaisseur = 1
           poly2.epaisseur = 1
-          texte = 'Le triangle $FGH$ est le symétrique du triangle $DEF$ par rapport à la droite $d$<br> '
-          texte += mathalea2d({
-            xmin: 0,
-            ymin: 0,
-            xmax: 10,
-            ymax: 10,
-            pixelsParCm: 27,
-            scale: 0.8
-          }, poly1, poly2, labelPoint(C, D, E, F, G, H), d, e, f, g, h, codeA)
+          texte =
+            'Le triangle $FGH$ est le symétrique du triangle $DEF$ par rapport à la droite $d$<br> '
+          texte += mathalea2d(
+            {
+              xmin: 0,
+              ymin: 0,
+              xmax: 10,
+              ymax: 10,
+              pixelsParCm: 27,
+              scale: 0.8,
+            },
+            poly1,
+            poly2,
+            labelPoint(C, D, E, F, G, H),
+            d,
+            e,
+            f,
+            g,
+            h,
+            codeA,
+          )
           texteCorr = `La symétrie axiale conserve les angles.
            Cela signifie que la mesure de l'angle  $\\widehat{C}$ est égale à celle de l'angle $\\widehat{G}$, celle de l'angle $\\widehat{D}$ est égale à celle de
            l'angle $\\widehat{F}$ et celle de l'angle $\\widehat{E}$ est égale à celle de l'angle $\\widehat{H}$.`
@@ -509,7 +667,6 @@ export default class SujetCAN2022cinquieme extends Exercice {
           break
 
         case 15:
-
           a = randint(1, 9)
 
           texte = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est :
@@ -528,10 +685,14 @@ export default class SujetCAN2022cinquieme extends Exercice {
           nbChamps = 1
           break
         case 16:
-
           a = randint(9, 15)
           b = randint(2, 4)
-          propositions = shuffle([`$${texNombre(2 * a + 5 * b)}$ cm`, `$${texNombre(2 * a + 8 * b)}$ cm`, `$${texNombre(2 * a + 6 * b)}$ cm`, `$${texNombre(2 * a + 3 * b)}$ cm`])
+          propositions = shuffle([
+            `$${texNombre(2 * a + 5 * b)}$ cm`,
+            `$${texNombre(2 * a + 8 * b)}$ cm`,
+            `$${texNombre(2 * a + 6 * b)}$ cm`,
+            `$${texNombre(2 * a + 3 * b)}$ cm`,
+          ])
           A = point(0, 0, 'A', 'below')
           B = point(6, 0, 'B', 'below')
           C = point(6, 4, 'C', 'left')
@@ -547,33 +708,57 @@ export default class SujetCAN2022cinquieme extends Exercice {
           segmentBC.pointilles = 2
           demiDisque = arc(B, milieu(B, C), 180, false, 'white', 'black', 0.2)
 
-          e = texteParPosition(`${a}  cm`, milieu(D, C).x - 0.5, milieu(D, C).y + 0.3)
-          f = texteParPosition(`${texNombre(b * 2, 0)} cm`, milieu(A, D).x - 0.7, milieu(A, D).y)
+          e = texteParPosition(
+            `${a}  cm`,
+            milieu(D, C).x - 0.5,
+            milieu(D, C).y + 0.3,
+          )
+          f = texteParPosition(
+            `${texNombre(b * 2, 0)} cm`,
+            milieu(A, D).x - 0.7,
+            milieu(A, D).y,
+          )
 
-          texte = 'Un ordre de grandeur du périmètre de cette figure est : <br> '
+          texte =
+            'Un ordre de grandeur du périmètre de cette figure est : <br> '
           texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}<br>`
-          texte += mathalea2d({
-            xmin: -1.5,
-            ymin: -1,
-            xmax: 10,
-            ymax: 5,
-            pixelsParCm: 27,
-            scale: 1
-          }, segmentAB, segmentAD, segmentDC, segmentBC, demiDisque, e, f, codage1, codage2, codage3, codage4)
+          texte += mathalea2d(
+            {
+              xmin: -1.5,
+              ymin: -1,
+              xmax: 10,
+              ymax: 5,
+              pixelsParCm: 27,
+              scale: 1,
+            },
+            segmentAB,
+            segmentAD,
+            segmentDC,
+            segmentBC,
+            demiDisque,
+            e,
+            f,
+            codage1,
+            codage2,
+            codage3,
+            codage4,
+          )
           texteCorr = `La figure est constituée de deux longueurs de $${a}$ cm, d'une longueur de $${texNombre(2 * b, 0)}$ cm et de la longueur d'un demmi-cercle de rayon $${b}$ cm.<br>
           Comme le périmètre d'un cercle est $2\\times \\pi \\times $ Rayon, le périmètre du demi-cercle est $ \\pi\\times $ Rayon, dont une valeur approchée est $3\\times $Rayon.<br>
           Ainsi, un ordre de grandeur du périmètre de la figure est : $2\\times ${a}+${texNombre(2 * b, 0)}+3\\times ${b}=${texNombre(2 * a + 5 * b)}$ cm.`
 
-          setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), { formatInteractif: 'unites' })
+          setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), {
+            formatInteractif: 'unites',
+          })
           if (this.interactif) {
-            texte += ' Recopie la réponse correcte (nombre et unité à recopier).'
+            texte +=
+              ' Recopie la réponse correcte (nombre et unité à recopier).'
             texte += ajouteChampTexteMathLive(this, index, ' unites[Longueur]')
           }
           nbChamps = 1
           break
 
         case 17:
-
           a = randint(-9, -1) + randint(-9, -1) / 10
           if (choice([true, false])) {
             texte = `L'opposé de $${texNombre(a, 1)}$ est :
@@ -592,7 +777,9 @@ export default class SujetCAN2022cinquieme extends Exercice {
            `
 
             reponse = fraction(1, a)
-            setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+            setReponse(this, index, reponse, {
+              formatInteractif: 'fractionEgale',
+            })
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ')
@@ -646,61 +833,71 @@ export default class SujetCAN2022cinquieme extends Exercice {
             a = randint(21, 28)
             k = randint(1, 9)
             reponse = arrondi(a + k / 10, 1)
-            texte = 'Détermine l\'abscisse du point A  :<br> ' + mathalea2d({
-              xmin: -0.8,
-              ymin: -1,
-              xmax: 15,
-              ymax: 1.5,
-              scale: 0.7,
-              style: 'margin: auto'
-            }, droiteGraduee({
-              Unite: 10,
-              Min: a - 0.2,
-              Max: a + 1.2,
-              x: 0,
-              y: 0,
-              thickSecDist: 1 / 10,
-              thickSec: true,
-              thickoffset: 0,
-              axeStyle: '|->',
-              pointListe: [[a + k / 10, 'A']],
-              pointCouleur: 'blue',
-              pointStyle: 'x',
-              labelsPrincipaux: true,
-              labelPointTaille: 12,
-              step1: 1,
-              step2: 1
-            }))
+            texte =
+              "Détermine l'abscisse du point A  :<br> " +
+              mathalea2d(
+                {
+                  xmin: -0.8,
+                  ymin: -1,
+                  xmax: 15,
+                  ymax: 1.5,
+                  scale: 0.7,
+                  style: 'margin: auto',
+                },
+                droiteGraduee({
+                  Unite: 10,
+                  Min: a - 0.2,
+                  Max: a + 1.2,
+                  x: 0,
+                  y: 0,
+                  thickSecDist: 1 / 10,
+                  thickSec: true,
+                  thickoffset: 0,
+                  axeStyle: '|->',
+                  pointListe: [[a + k / 10, 'A']],
+                  pointCouleur: 'blue',
+                  pointStyle: 'x',
+                  labelsPrincipaux: true,
+                  labelPointTaille: 12,
+                  step1: 1,
+                  step2: 1,
+                }),
+              )
             texteCorr = `L'unité est divisée en $10$ (chaque graduation "correspond" à $0,1$). Ainsi, l'abscisse du point A est  : $${texNombre(reponse, 1)}$`
           } else {
             a = randint(21, 28)
             k = randint(1, 4)
             reponse = arrondi(a + k / 5, 1)
-            texte = 'Détermine l\'abscisse du point A  :<br> ' + mathalea2d({
-              xmin: -0.8,
-              ymin: -1,
-              xmax: 15,
-              ymax: 1.5,
-              scale: 0.7,
-              style: 'margin: auto'
-            }, droiteGraduee({
-              Unite: 10,
-              Min: a - 0.2,
-              Max: a + 1.2,
-              x: 0,
-              y: 0,
-              thickSecDist: 1 / 5,
-              thickSec: true,
-              thickoffset: 0,
-              axeStyle: '|->',
-              pointListe: [[a + k / 5, 'A']],
-              pointCouleur: 'blue',
-              pointStyle: 'x',
-              labelsPrincipaux: true,
-              labelPointTaille: 12,
-              step1: 1,
-              step2: 1
-            }))
+            texte =
+              "Détermine l'abscisse du point A  :<br> " +
+              mathalea2d(
+                {
+                  xmin: -0.8,
+                  ymin: -1,
+                  xmax: 15,
+                  ymax: 1.5,
+                  scale: 0.7,
+                  style: 'margin: auto',
+                },
+                droiteGraduee({
+                  Unite: 10,
+                  Min: a - 0.2,
+                  Max: a + 1.2,
+                  x: 0,
+                  y: 0,
+                  thickSecDist: 1 / 5,
+                  thickSec: true,
+                  thickoffset: 0,
+                  axeStyle: '|->',
+                  pointListe: [[a + k / 5, 'A']],
+                  pointCouleur: 'blue',
+                  pointStyle: 'x',
+                  labelsPrincipaux: true,
+                  labelPointTaille: 12,
+                  step1: 1,
+                  step2: 1,
+                }),
+              )
             texteCorr = `L'unité est divisée en $5$ (chaque graduation "correspond" à $0,2$). Ainsi, l'abscisse du point A est  : $${texNombre(reponse, 1)}$`
           }
 
@@ -723,7 +920,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           } else {
             a = randint(11, 35, [20, 17, 18, 19, 27, 28, 29])
             p = choice([30, 40])
-            reponse = arrondi(a * p / 10, 0)
+            reponse = arrondi((a * p) / 10, 0)
             texte = `$${p}\\%$ de $${a * 10}= $`
 
             texteCorr = `Comme $10\\%$  de $${a * 10}$ vaut $${a}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
@@ -803,25 +1000,78 @@ export default class SujetCAN2022cinquieme extends Exercice {
           sensRot2 = choice([-1, 1]) // Ce sens de rotation indique si on fait une rotation de B dans le sens trigo ou l'autre sens.
           numA = randint(1, 26, [4, 5, 15, 23, 24, 25])
           numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
-          angB = this.sup === 1 ? 90 + sensRot * 90 : (this.sup === 2 ? sensRot * 90 : randint(0, 360) - 180)
+          angB =
+            this.sup === 1
+              ? 90 + sensRot * 90
+              : this.sup === 2
+                ? sensRot * 90
+                : randint(0, 360) - 180
 
           // posA (et posB, pos C...) permet de choisir une position du point pour ne pas que celui-ci soit illisible (géné par le rapporteur ou l'orientation d'une demi-droite)
           if (sensRot2 * sensRot === 1) {
-            posA = angB > 135 ? 'above' : (angB > 45 ? 'right' : (angB > -45 ? 'below' : (angB > -135 ? 'left' : 'above')))
+            posA =
+              angB > 135
+                ? 'above'
+                : angB > 45
+                  ? 'right'
+                  : angB > -45
+                    ? 'below'
+                    : angB > -135
+                      ? 'left'
+                      : 'above'
           } else {
-            posA = angB > 135 ? 'below' : (angB > 45 ? 'left' : (angB > -45 ? 'above' : (angB > -135 ? 'right' : 'below')))
+            posA =
+              angB > 135
+                ? 'below'
+                : angB > 45
+                  ? 'left'
+                  : angB > -45
+                    ? 'above'
+                    : angB > -135
+                      ? 'right'
+                      : 'below'
           }
           A = point(0, 0, lettreDepuisChiffre(numA), posA)
           B1 = rotation(point(tailleRapporteur + 0.5, 0), A, angB)
 
-          posB = angB > 135 ? 'above' : (angB > 45 ? 'right' : (angB > -45 ? 'below' : (angB > -135 ? 'left' : 'above')))
-          B = pointSurSegment(A, B1, tailleRapporteur + 0.5, lettreDepuisChiffre(numB), posB)
+          posB =
+            angB > 135
+              ? 'above'
+              : angB > 45
+                ? 'right'
+                : angB > -45
+                  ? 'below'
+                  : angB > -135
+                    ? 'left'
+                    : 'above'
+          B = pointSurSegment(
+            A,
+            B1,
+            tailleRapporteur + 0.5,
+            lettreDepuisChiffre(numB),
+            posB,
+          )
           angC = sensRot * sensRot2 * a * 10
-          posC = angleModulo(angB + angC) > 135 ? 'above' : (angleModulo(angB + angC) > 45 ? 'right' : (angleModulo(angB + angC) > -45 ? 'below' : (angleModulo(angB + angC) > -135 ? 'left' : 'above')))
+          posC =
+            angleModulo(angB + angC) > 135
+              ? 'above'
+              : angleModulo(angB + angC) > 45
+                ? 'right'
+                : angleModulo(angB + angC) > -45
+                  ? 'below'
+                  : angleModulo(angB + angC) > -135
+                    ? 'left'
+                    : 'above'
 
           C1 = rotation(B1, A, angC)
           numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
-          C = pointSurSegment(A, C1, tailleRapporteur + 0.5, lettreDepuisChiffre(numC), posC)
+          C = pointSurSegment(
+            A,
+            C1,
+            tailleRapporteur + 0.5,
+            lettreDepuisChiffre(numC),
+            posC,
+          )
           AB = segment(A, B1)
           AC = segment(A, C1)
           ACCorr = segment(A, C1, 'red')
@@ -835,14 +1085,34 @@ export default class SujetCAN2022cinquieme extends Exercice {
             avecNombre: 'deuxSens',
             precisionAuDegre: 10,
             stepGraduation: 90,
-            rayonsVisibles: false
+            rayonsVisibles: false,
           })
           sudEst = rotation(sudEst, A, angC < 0 ? angB + 180 : angB)
           nordEst = rotation(nordEst, A, angC < 0 ? angB + 180 : angB)
           sudOuest = rotation(sudOuest, A, angC < 0 ? angB + 180 : angB)
           nordOuest = rotation(nordOuest, A, angC < 0 ? angB + 180 : angB)
-          objetsEnonce.push(R, AB, AC, codageAngle(B, A, angC, 1, '', 'black', 2, 1, 'none', 0, false, true, '?', 2)) // On remplit les tableaux d'objets Mathalea2d
-          texte = 'Donne la mesure de l\'angle.'
+          objetsEnonce.push(
+            R,
+            AB,
+            AC,
+            codageAngle(
+              B,
+              A,
+              angC,
+              1,
+              '',
+              'black',
+              2,
+              1,
+              'none',
+              0,
+              false,
+              true,
+              '?',
+              2,
+            ),
+          ) // On remplit les tableaux d'objets Mathalea2d
+          texte = "Donne la mesure de l'angle."
           paramsEnonce = {
             xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
             ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
@@ -850,7 +1120,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
             pixelsParCm: 20,
             scale: 0.4,
-            mainlevee: false
+            mainlevee: false,
           }
           texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
 
@@ -913,7 +1183,6 @@ export default class SujetCAN2022cinquieme extends Exercice {
           break
 
         case 27:
-
           a = grille(-2, -2, 9, 8, 'gray', 1, 1)
 
           b = randint(1, 8, 4)
@@ -941,34 +1210,68 @@ export default class SujetCAN2022cinquieme extends Exercice {
           traceH = tracePoint(H)
           objets = []
           objets.push(
-            texteParPosition('1  cm', milieu(D, E).x, milieu(D, E).y + 0.4, 'milieu', 'black', 1, 'middle', true),
-            a, s1, labelPoint(A, B, C), traceA, traceB, traceC)
+            texteParPosition(
+              '1  cm',
+              milieu(D, E).x,
+              milieu(D, E).y + 0.4,
+              'milieu',
+              'black',
+              1,
+              'middle',
+              true,
+            ),
+            a,
+            s1,
+            labelPoint(A, B, C),
+            traceA,
+            traceB,
+            traceC,
+          )
           reponse = arrondi(c / (d + 1), 1)
           texte = `Quelle est la distance du point $A$ à la droite $(BC)$ ? <br>
             `
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 20,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.7,
-            style: 'margin: auto'
-          }, objets)
-          texteCorr = mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 15,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.7,
-            style: 'margin: auto'
-          }, objets, s2, traceH, droite(B, C),
-          texteParPosition(`${reponse}  cm`, milieu(A, H).x - 0.9, milieu(A, H).y, 'milieu', 'black', 1, 'middle', true), labelPoint(H))
+          texte += mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 20,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.7,
+              style: 'margin: auto',
+            },
+            objets,
+          )
+          texteCorr = mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 15,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.7,
+              style: 'margin: auto',
+            },
+            objets,
+            s2,
+            traceH,
+            droite(B, C),
+            texteParPosition(
+              `${reponse}  cm`,
+              milieu(A, H).x - 0.9,
+              milieu(A, H).y,
+              'milieu',
+              'black',
+              1,
+              'middle',
+              true,
+            ),
+            labelPoint(H),
+          )
           texteCorr += `La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${texNombre(reponse, 1)}$ cm`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -982,7 +1285,6 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
           break
         case 28:
-
           a = randint(17, 39, [20, 30])
           reponse = 101 * a
           texte = `$${a}\\times 101=$`
@@ -1011,7 +1313,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '  ') + '$\\pi$ cm$^2$'
+            texte +=
+              ajouteChampTexteMathLive(this, index, '  ') + '$\\pi$ cm$^2$'
           } else {
             texte += '$\\ldots \\pi$ cm$^2$'
           }
@@ -1044,7 +1347,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

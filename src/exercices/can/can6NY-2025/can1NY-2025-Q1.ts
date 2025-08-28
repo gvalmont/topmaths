@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'd44fe'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class calcAvecChiffres extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -25,7 +25,7 @@ export default class calcAvecChiffres extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = choice([1, 2, 3, 4, 5])
 
     if (choix === 1) {

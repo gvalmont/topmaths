@@ -4,7 +4,7 @@ export const uuid = 'duduTrigo'
 export const titre = 'Trigonométrie'
 
 class duduTrigo extends ExternalApp {
-  constructor () {
+  constructor() {
     super('https://mathix.org/trigo/index.html?suivi=1&mathalea=1')
   }
 }

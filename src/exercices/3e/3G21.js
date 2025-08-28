@@ -13,7 +13,11 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -23,7 +27,8 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '11/06/2024'
 
-export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès'
+export const titre =
+  'Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès'
 
 /**
  * Reciproque_Thales
@@ -34,25 +39,25 @@ export const uuid = '3451c'
 
 export const refs = {
   'fr-fr': ['3G21'],
-  'fr-ch': ['11GM3-5']
+  'fr-ch': ['11GM3-5'],
 }
 export default class ReciproqueThales extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       3,
-      ' 1 : Cas simple \n 2 : Complication \n 3 : Sans figure'
+      ' 1 : Cas simple \n 2 : Complication \n 3 : Sans figure',
     ]
     this.besoinFormulaire2Numerique = [
       'Réciproque ou contraposée',
       3,
-      ' 1 : Réciproque \n 2 : Contraposée \n 3 : Mélange'
+      ' 1 : Réciproque \n 2 : Contraposée \n 3 : Mélange',
     ]
     this.besoinFormulaire3Numerique = [
       'Triangles emboîtés ou papillon',
       3,
-      ' 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L\'un des deux au hasard'
+      " 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L'un des deux au hasard",
     ]
     this.nbQuestions = 3
     context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
@@ -63,14 +68,18 @@ export default class ReciproqueThales extends Exercice {
     this.sup2 = 3
     this.sup3 = 3
 
-  // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
+    // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion(numeroExercice) {
     this.sup = contraindreValeur(1, 3, parseInt(this.sup), 1)
     this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 1)
     this.sup3 = contraindreValeur(1, 3, parseInt(this.sup3), 3)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const lettre1 = randint(1, 26) // aleatoirisation du nom des points
       const s1 = lettreDepuisChiffre(lettre1)
       const lettre2 = randint(1, 26, [lettre1])
@@ -86,7 +95,12 @@ export default class ReciproqueThales extends Exercice {
       let x3 = randint(5, 6)
       let y3 = randint(-2, 1)
       let k = new Decimal(randint(2, 8)).div(10)
-      k = this.sup3 === 2 ? k.mul(-1) : this.sup3 === 3 ? k.mul(randint(-1, 1, [0])) : k
+      k =
+        this.sup3 === 2
+          ? k.mul(-1)
+          : this.sup3 === 3
+            ? k.mul(randint(-1, 1, [0]))
+            : k
       let k2
       if (this.sup2 === 1) {
         k2 = k.mul(1)
@@ -174,23 +188,23 @@ export default class ReciproqueThales extends Exercice {
           if (k.isPos()) {
             // triangles imbriqués
             texteCorr +=
-                            'On sait que ' +
-                            `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` +
-                            ' cm.<br>'
+              'On sait que ' +
+              `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` +
+              ' cm.<br>'
             texteCorr +=
-                            'On sait aussi que ' +
-                            `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` +
-                            ' cm.<br>'
+              'On sait aussi que ' +
+              `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` +
+              ' cm.<br>'
           } else {
             // papillon
             texteCorr +=
-                            'On sait que ' +
-                            `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` +
-                            ' cm.<br>'
+              'On sait que ' +
+              `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` +
+              ' cm.<br>'
             texteCorr +=
-                            'On sait aussi que ' +
-                            `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
-                            ' cm.<br>'
+              'On sait aussi que ' +
+              `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
+              ' cm.<br>'
           }
         } else if (randint(1, 2) === 1) {
           // triangles imbriqués sans figure
@@ -209,24 +223,26 @@ export default class ReciproqueThales extends Exercice {
         }
 
         texteCorr += `D'une part, on a : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
-                    s15
-                )}}{${s14}\\times${miseEnEvidence(s15)}}=\\dfrac{
+          s15,
+        )}}{${s14}\\times${miseEnEvidence(s15)}}=\\dfrac{
         ${texNombre(dist12 * dist15, 3)}}
         {${s14}\\times${s15}}
       $.`
         texteCorr += `<br>D'autre part, on a : $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
-                    s14
-                )}}{${s15}\\times${miseEnEvidence(s14)}}=\\dfrac{${texNombre(dist13 * dist14, 3)}}
+          s14,
+        )}}{${s15}\\times${miseEnEvidence(s14)}}=\\dfrac{${texNombre(dist13 * dist14, 3)}}
         {${s14}\\times${s15}}
       $.`
 
         if (!k.eq(k2)) {
-          if (!context.isAmc) setReponse(this, i, 'non', { formatInteractif: 'ignorerCasse' })
+          if (!context.isAmc)
+            setReponse(this, i, 'non', { formatInteractif: 'ignorerCasse' })
           // droites non parallèles
           texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
           texteCorr += `Donc d'après le théorème de Thalès, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
         } else {
-          if (!context.isAmc) setReponse(this, i, 'oui', { formatInteractif: 'ignorerCasse' })
+          if (!context.isAmc)
+            setReponse(this, i, 'oui', { formatInteractif: 'ignorerCasse' })
           // droites parallèles
           texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
           if (k.isPos()) {
@@ -238,17 +254,27 @@ export default class ReciproqueThales extends Exercice {
         }
 
         if (this.sup !== 3) {
-          texte += mathalea2d({
-            xmin: xMin,
-            xMax,
-            ymin: yMin,
-            ymax: yMax
-          }, t1, t2, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN)
+          texte += mathalea2d(
+            {
+              xmin: xMin,
+              xMax,
+              ymin: yMin,
+              ymax: yMax,
+            },
+            t1,
+            t2,
+            marqueNomA,
+            marqueNomB,
+            marqueNomC,
+            marqueNomM,
+            marqueNomN,
+          )
         }
 
-        const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
-        const boutonAideMathalea2d = ajouterBoutonMathalea2d(`${numeroExercice}_Q${i}`,
-                    `if (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == undefined || (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == 'false')){
+        const epaisseurTriangle = k < 0 ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
+        const boutonAideMathalea2d = ajouterBoutonMathalea2d(
+          `${numeroExercice}_Q${i}`,
+          `if (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == undefined || (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == 'false')){
           document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.stroke = 'blue';
           document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.stroke = 'red';
           document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.opacity = .5;
@@ -269,7 +295,8 @@ export default class ReciproqueThales extends Exercice {
   
         }
         `,
-                    'Mettre en couleur les 2 triangles')
+          'Mettre en couleur les 2 triangles',
+        )
 
         if (context.isHtml && this.sup !== 3) {
           texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`
@@ -280,40 +307,41 @@ export default class ReciproqueThales extends Exercice {
         if (this.sup === 1) {
           // niveau 1 : Calcul direct
           texte =
-                        '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+            '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
           texte += `\n\t \\item $${s1 + s2}=${s12}$ cm \n\t \\item $${s1 + s3}=${s13}$ cm\n\t \\item $${s1 + s5}=${s15}$ cm\n\t \\item $${s1 + s4}=${s14}$ cm`
           texte +=
-                        '\\end{itemize}  ' +
-                        `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
-                        '\\end{minipage}'
+            '\\end{itemize}  ' +
+            `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
+            '\\end{minipage}'
         } else if (this.sup === 2) {
           // niveau 2 : Calcul intermédiaire nécessaire
           texte =
-                        '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+            '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
           texte += `\n\t \\item $${s1 + s2} = ${s12}$ cm\n\t \\item $${s1 + s3} = ${s13}$ cm\n\t \\item $${s3 + s5} = ${s35}$ cm\n\t \\item $${s2 + s4} = ${s24}$ cm`
           texte +=
-                        '\\end{itemize}  ' +
-                        `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
-                        '\\end{minipage}'
+            '\\end{itemize}  ' +
+            `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
+            '\\end{minipage}'
           if (k.isPos()) {
             // triangles imbriqués
             texteCorr +=
-                            'On sait que ' +
-                            `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` +
-                            ' cm.<br>'
+              'On sait que ' +
+              `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` +
+              ' cm.<br>'
             texteCorr +=
-                            'On sait aussi que ' +
-                            `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` +
-                            ' cm.<br>'
-          } else { // papillon
+              'On sait aussi que ' +
+              `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` +
+              ' cm.<br>'
+          } else {
+            // papillon
             texteCorr +=
-                            'On sait que ' +
-                            `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` +
-                            ' cm.<br>'
+              'On sait que ' +
+              `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` +
+              ' cm.<br>'
             texteCorr +=
-                            'On sait aussi que ' +
-                            `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
-                            ' cm.<br>'
+              'On sait aussi que ' +
+              `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
+              ' cm.<br>'
           } // énoncé sans figure
         } else if (randint(1, 2) === 1) {
           // triangles imbriqués
@@ -332,46 +360,46 @@ export default class ReciproqueThales extends Exercice {
           // dessin de la figure
           texte += '\\vspace{0pt}   \n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
           texte +=
-                        '\n\t \\tkzDefPoints{0/0/' +
-                        s1 +
-                        ',' +
-                        x3 +
-                        '/' +
-                        y3 +
-                        '/' +
-                        s3 +
-                        ',' +
-                        x2 +
-                        '/' +
-                        y2 +
-                        '/' +
-                        s2 +
-                        '}' // Placer les points du triangle principal
+            '\n\t \\tkzDefPoints{0/0/' +
+            s1 +
+            ',' +
+            x3 +
+            '/' +
+            y3 +
+            '/' +
+            s3 +
+            ',' +
+            x2 +
+            '/' +
+            y2 +
+            '/' +
+            s2 +
+            '}' // Placer les points du triangle principal
           texte += '\n\t \\tkzDrawPolygon(' + s1 + ',' + s2 + ',' + s3 + ')' // Trace le triangle principal
 
           // Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
           texte +=
-                        '\n\t \\tkzDefPointBy[homothety=center ' +
-                        s1 +
-                        ' ratio ' +
-                        k +
-                        '](' +
-                        s2 +
-                        ')' +
-                        '\t\\tkzGetPoint{' +
-                        s4 +
-                        '}' // Place le premier point du triangle image
+            '\n\t \\tkzDefPointBy[homothety=center ' +
+            s1 +
+            ' ratio ' +
+            k +
+            '](' +
+            s2 +
+            ')' +
+            '\t\\tkzGetPoint{' +
+            s4 +
+            '}' // Place le premier point du triangle image
           texte +=
-                        '\n\t \\tkzDefPointBy[homothety=center ' +
-                        s1 +
-                        ' ratio ' +
-                        k +
-                        '](' +
-                        s3 +
-                        ')' +
-                        '\t\\tkzGetPoint{' +
-                        s5 +
-                        '}' // Place le deuxième point du triangle image
+            '\n\t \\tkzDefPointBy[homothety=center ' +
+            s1 +
+            ' ratio ' +
+            k +
+            '](' +
+            s3 +
+            ')' +
+            '\t\\tkzGetPoint{' +
+            s5 +
+            '}' // Place le deuxième point du triangle image
           texte += '\n\t \\tkzDrawSegment(' + s4 + ',' + s5 + ')' // Trace le segment
           if (k > 0) {
             texte += '\n\t \\tkzLabelPoints[left](' + s1 + ')' // nomme les points
@@ -393,17 +421,17 @@ export default class ReciproqueThales extends Exercice {
 
         // correction
         texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
-                    s15
-                )}}{${s14}\\times${miseEnEvidence(s15)}}=${texFractionFromString(
-                    texNombre(dist12 * dist15, 3),
-                    texNombre(dist14 * dist15, 4)
-                )}$.`
+          s15,
+        )}}{${s14}\\times${miseEnEvidence(s15)}}=${texFractionFromString(
+          texNombre(dist12 * dist15, 3),
+          texNombre(dist14 * dist15, 4),
+        )}$.`
         texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
-                    s14
-                )}}{${s15}\\times${miseEnEvidence(s14)}}=${texFractionFromString(
-                    texNombre(dist13 * dist14, 3),
-                    texNombre(dist14 * dist15, 4)
-                )}$.`
+          s14,
+        )}}{${s15}\\times${miseEnEvidence(s14)}}=${texFractionFromString(
+          texNombre(dist13 * dist14, 3),
+          texNombre(dist14 * dist15, 4),
+        )}$.`
 
         if (!k.eq(k2)) {
           // droites pas parallèles
@@ -422,18 +450,19 @@ export default class ReciproqueThales extends Exercice {
         this.autoCorrection[i] = {
           enonce: '',
           enonceAvant: false,
-          propositions:
-                        [
-                          {
-                            type: 'AMCOpen',
-                            propositions: [{
-                              texte: texteCorr,
-                              enonce: '<br>' + texte + '<br>',
-                              statut: 6,
-                              feedback: ''
-                            }]
-                          }
-                        ]
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: '<br>' + texte + '<br>',
+                  statut: 6,
+                  feedback: '',
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, x2, y2, x3, y3)) {

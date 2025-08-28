@@ -19,19 +19,21 @@ export const uuid = '4fc0e'
 
 export const refs = {
   'fr-fr': ['can5C14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DivisionAvecDecimaux extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: number
     let b: number
-    switch (choice(['a', 'b', 'c', 'd'])) { //
+    switch (
+      choice(['a', 'b', 'c', 'd']) //
+    ) {
       case 'a':
         a = randint(3, 9) / 10
         b = randint(2, 9)
@@ -92,7 +94,7 @@ export default class DivisionAvecDecimaux extends ExerciceSimple {
         this.reponse = (a * b) / (a * 10)
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

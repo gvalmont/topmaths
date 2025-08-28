@@ -17,20 +17,20 @@ export const uuid = 'c7270'
 
 export const refs = {
   'fr-fr': ['techno1P3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Proportion extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const b = choice([2, 3, 4, 6, 8, 9]) /* Numérateur fraction */
-    const c = choice([5, 7, 11, 13])/* Dénominateur fraction */
-    const d = randint(4, 11)/* Multiple */
+    const c = choice([5, 7, 11, 13]) /* Dénominateur fraction */
+    const d = randint(4, 11) /* Multiple */
     const a = c * d
     this.question = `Calculer  $\\dfrac{${b}}{${c}}$ de $${a}$.  <br> `
     this.correction = `Calculer la fraction d'un nombre, c'est multiplier la fraction par ce nombre.

@@ -13,10 +13,10 @@ export const uuid = 'e38d8'
 
 export const refs = {
   'fr-fr': ['techno1E2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AssocierCoefficient1T extends AssocierCoefficient {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
   }

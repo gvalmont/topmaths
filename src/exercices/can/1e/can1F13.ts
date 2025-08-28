@@ -3,7 +3,8 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-export const titre = 'Déterminer le coefficient directeur d’une tangente (fonctions de référence)'
+export const titre =
+  'Déterminer le coefficient directeur d’une tangente (fonctions de référence)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -20,20 +21,23 @@ export const uuid = '3c690'
 
 export const refs = {
   'fr-fr': ['can1F13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculCoeffDir extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    let a; let f
-    switch (choice([1, 1, 2, 2, 3, 3, 4])) { //
-      case 1:// x^2
+  nouvelleVersion() {
+    let a
+    let f
+    switch (
+      choice([1, 1, 2, 2, 3, 3, 4]) //
+    ) {
+      case 1: // x^2
         a = randint(2, 15) * choice([-1, 1])
 
         this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction carré au point d'abscisse $${a}$.    `
@@ -45,7 +49,7 @@ export default class CalculCoeffDir extends ExerciceSimple {
         this.reponse = 2 * a
 
         break
-      case 2:// sqrt(x)
+      case 2: // sqrt(x)
         a = randint(1, 25)
 
         this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction racine carrée au point d'abscisse $${a}$.
@@ -58,13 +62,20 @@ export default class CalculCoeffDir extends ExerciceSimple {
         if (a === 1 || a === 4 || a === 9 || a === 16 || a === 25) {
           f = new FractionEtendue(1, Math.sqrt(a))
           this.correction += `Comme $f'(${a})=\\dfrac{1}{2\\sqrt{${a}}}=\\dfrac{1}{${2 * Math.sqrt(a)}}$, le coefficient directeur de la tangente au point d'abscisse $${a}$ est : $\\dfrac{1}{${2 * Math.sqrt(a)}}$.`
-          this.reponse = [`\\dfrac{1}{2\\sqrt{${a}}}`, f.texFraction, 1 / (2 * Math.sqrt(a))]
+          this.reponse = [
+            `\\dfrac{1}{2\\sqrt{${a}}}`,
+            f.texFraction,
+            1 / (2 * Math.sqrt(a)),
+          ]
         } else {
           this.correction += `Comme $f'(${a})=\\dfrac{1}{2\\sqrt{${a}}}$, le coefficient directeur de la tangente au point d'abscisse $${a}$ est : $\\dfrac{1}{2\\sqrt{${a}}}$.`
-          this.reponse = [`\\dfrac{1}{2\\sqrt{${a}}}`, `\\dfrac{0,5}{\\sqrt{${a}}}`]
+          this.reponse = [
+            `\\dfrac{1}{2\\sqrt{${a}}}`,
+            `\\dfrac{0,5}{\\sqrt{${a}}}`,
+          ]
         }
         break
-      case 3:// 1/x
+      case 3: // 1/x
         a = randint(1, 10) * choice([-1, 1])
         f = new FractionEtendue(-1, a * a)
         this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction inverse au point d'abscisse $${a}$.
@@ -77,15 +88,25 @@ Comme $f'(${a})=-\\dfrac{1}{${ecritureParentheseSiNegatif(a)}^2}=-\\dfrac{1}{${a
         if (a === 1 || a === -1) {
           this.correction += '$=-1$.'
 
-          this.reponse = [`\\dfrac{-1}{${a * a}}`, `-\\dfrac{1}{${a * a}}`, f, -1]
+          this.reponse = [
+            `\\dfrac{-1}{${a * a}}`,
+            `-\\dfrac{1}{${a * a}}`,
+            f,
+            -1,
+          ]
         } else {
           this.correction += '.'
-          this.reponse = [`\\dfrac{-1}{${a * a}}`, `-\\dfrac{1}{${a * a}}`, f, -1]
+          this.reponse = [
+            `\\dfrac{-1}{${a * a}}`,
+            `-\\dfrac{1}{${a * a}}`,
+            f,
+            -1,
+          ]
         }
 
         break
 
-      case 4:// x^3
+      case 4: // x^3
         a = randint(1, 5) * choice([-1, 1])
 
         this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction cube au point d'abscisse $${a}$.

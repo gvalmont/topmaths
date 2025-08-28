@@ -6,7 +6,8 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer la somme ou la différence d\'un entier et d\'une fraction'
+export const titre =
+  "Calculer la somme ou la différence d'un entier et d'une fraction"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,15 +17,15 @@ export const dateDePublication = '06/07/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export const uuid = 'dd7d1'
 
 export const refs = {
   'fr-fr': ['can6C60', '6N3K-flash5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeDiffEntierFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.spacing = 1.5
@@ -33,7 +34,7 @@ export default class SommeDiffEntierFraction extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let resultat: FractionEtendue
 
     switch (choice([1, 2])) {
@@ -46,10 +47,11 @@ export default class SommeDiffEntierFraction extends ExerciceSimple {
           this.correction = `On écrit l'entier sous la forme d'une fraction de dénominateur $${frac.den}$, soit $${entier}=  \\dfrac{${entier * frac.den}}{${frac.den}}$<br>
 $\\begin{aligned}
 ${entier} + ${frac.texFraction} &= \\dfrac{${entier * frac.den}}{${frac.den}} + ${frac.texFraction} \\\\
-&= ${miseEnEvidence(resultat.texFraction)}${pgcd(resultat.num, resultat.den) !== 1
+&= ${miseEnEvidence(resultat.texFraction)}${
+            pgcd(resultat.num, resultat.den) !== 1
               ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
               : ''
-            }
+          }
 \\end{aligned}$`
 
           if (this.interactif) {
@@ -67,7 +69,10 @@ ${entier} + ${frac.texFraction} &= \\dfrac{${entier * frac.den}}{${frac.den}} + 
           do {
             frac = choice(obtenirListeFractionsIrreductibles())
             entier = randint(1, 10)
-            resultat = new FractionEtendue(entier * frac.den - frac.num, frac.den)
+            resultat = new FractionEtendue(
+              entier * frac.den - frac.num,
+              frac.den,
+            )
           } while (resultat.num <= 0)
 
           this.question = `Calculer $${entier} - ${frac.texFraction}$.`
@@ -75,10 +80,11 @@ ${entier} + ${frac.texFraction} &= \\dfrac{${entier * frac.den}}{${frac.den}} + 
           this.correction = `On écrit l'entier sous la forme d'une fraction de dénominateur $${frac.den}$, soit $${entier}=  \\dfrac{${entier * frac.den}}{${frac.den}}$<br>
 $\\begin{aligned}
 ${entier} - ${frac.texFraction} &= \\dfrac{${entier * frac.den}}{${frac.den}} - ${frac.texFraction} \\\\
-&= ${miseEnEvidence(resultat.texFraction)}${pgcd(resultat.num, resultat.den) !== 1
+&= ${miseEnEvidence(resultat.texFraction)}${
+            pgcd(resultat.num, resultat.den) !== 1
               ? ` = ${miseEnEvidence(resultat.texFractionSimplifiee)}`
               : ''
-            }
+          }
 \\end{aligned}$`
 
           if (this.interactif) {

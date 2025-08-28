@@ -54,7 +54,15 @@ export const bleuMathalea = coopmathsStruct
 export const vertMathalea = coopmathsWarn1100
 export const noirMathalea = coopmathsCorpus
 
-export function parseHexColor (input : string) : null | { withHash: string, withoutHash: string, r: number, g: number, b: number } {
+export function parseHexColor(
+  input: string,
+): null | {
+  withHash: string
+  withoutHash: string
+  r: number
+  g: number
+  b: number
+} {
   const regex = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/
   console.log(input)
   const match = input.match(regex)
@@ -63,7 +71,10 @@ export function parseHexColor (input : string) : null | { withHash: string, with
   let hex = match[1]
   // Convertit les couleurs courtes (#abc → #aabbcc)
   if (hex.length === 3) {
-    hex = hex.split('').map(c => c + c).join('')
+    hex = hex
+      .split('')
+      .map((c) => c + c)
+      .join('')
   }
   console.log(hex.toUpperCase())
   return {

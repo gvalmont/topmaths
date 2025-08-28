@@ -22,10 +22,10 @@ export const uuid = '14688'
 export const refs = {
   'fr-fr': ['CM2N3B-1'],
   'fr-2016': ['CM009'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Moitie extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -35,15 +35,16 @@ export default class Moitie extends Exercice {
     this.sup = 1 // niveau de difficulté
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = range1(6)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 2
@@ -56,8 +57,9 @@ export default class Moitie extends Exercice {
         case 2: // Impair inférieur à 20
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${a * 2 + 1}$`
-          texteCorr = `$\\text{La moitié de }${a * 2 + 1
-                    } \\text{ est } ${texNombre(a + 5 / 10)}$`
+          texteCorr = `$\\text{La moitié de }${
+            a * 2 + 1
+          } \\text{ est } ${texNombre(a + 5 / 10)}$`
           setReponse(this, i, arrondi(a + 5 / 10))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
@@ -65,8 +67,8 @@ export default class Moitie extends Exercice {
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${texNombre(a * 2 * 100)}$`
           texteCorr = `$\\text{La moitié de }${texNombre(
-                        a * 2 * 100
-                    )} \\text{ est } ${texNombre(a * 100)}$`
+            a * 2 * 100,
+          )} \\text{ est } ${texNombre(a * 100)}$`
           setReponse(this, i, a * 100)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
@@ -74,28 +76,27 @@ export default class Moitie extends Exercice {
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${texNombre((a * 2 + 1) * 100)}$`
           texteCorr = `$\\text{La moitié de }${texNombre(
-                        (a * 2 + 1) * 100
-                    )} \\text{ est } ${texNombre(a * 100 + 50)}$`
+            (a * 2 + 1) * 100,
+          )} \\text{ est } ${texNombre(a * 100 + 50)}$`
           setReponse(this, i, a * 100 + 50)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
         case 5: // a,b avec a et b pairs
           a = randint(2, 9)
           b = randint(2, 9)
-          texte = `$\\text{La moitié de }${texNombre(
-                        a * 2 + (b * 2) / 100
-                    )}$`
+          texte = `$\\text{La moitié de }${texNombre(a * 2 + (b * 2) / 100)}$`
           texteCorr = `$\\text{La moitié de }${texNombre(
-                        a * 2 + (b * 2) / 100
-                    )} \\text{ est } ${texNombre(a + b / 100)}$`
+            a * 2 + (b * 2) / 100,
+          )} \\text{ est } ${texNombre(a + b / 100)}$`
           setReponse(this, i, arrondi(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
         case 6: // 1xx avec xx un nombre pair
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${100 + a * 2}$`
-          texteCorr = `$\\text{La moitié de }${100 + a * 2} \\text{ est } ${50 + a
-                    }$`
+          texteCorr = `$\\text{La moitié de }${100 + a * 2} \\text{ est } ${
+            50 + a
+          }$`
           setReponse(this, i, 50 + a)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break

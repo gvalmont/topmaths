@@ -11,7 +11,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 export const uuid = '2e7a5'
 export const refs = {
   'fr-fr': ['1A-C11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -27,7 +27,7 @@ export const dateDePublication = '05/08/2025'
  */
 export default class Auto1C11 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'La solution de l\'équation $4(x-5)=7x+3$ est : '
+    this.enonce = "La solution de l'équation $4(x-5)=7x+3$ est : "
     this.correction = `On développe, puis on isole l'inconnue dans le membre de gauche :<br>
  $\\begin{aligned}
  4(x-5)&=7x+3\\\\
@@ -40,10 +40,12 @@ export default class Auto1C11 extends ExerciceQcmA {
 
     this.correction += ` La solution est $${miseEnEvidence('-\\dfrac{23}{3}')}$.`
 
-    this.reponses = ['$-\\dfrac{23}{3}$',
+    this.reponses = [
+      '$-\\dfrac{23}{3}$',
       '$\\dfrac{23}{3}$',
       '$26$',
-      '$-\\dfrac{17}{3}$']
+      '$-\\dfrac{17}{3}$',
+    ]
   }
 
   versionAleatoire: () => void = () => {
@@ -74,18 +76,20 @@ export default class Auto1C11 extends ExerciceQcmA {
  ${rienSi1(k * a - c)}x${ecritureAlgebrique(k * b)}${miseEnEvidence(ecritureAlgebrique(-k * b))}&=${d}${miseEnEvidence(ecritureAlgebrique(-k * b))}\\\\
  ${rienSi1(k * a - c)}x&=${d - k * b}\\\\
  x&=${texFractionFromString(d - k * b, k * a - c)}
- ${pgcd(abs(d - k * b), abs(k * a - c)) > 1 || (k * a - c) < 0 ? `\\\\x&=${new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee}` : ''}
+ ${pgcd(abs(d - k * b), abs(k * a - c)) > 1 || k * a - c < 0 ? `\\\\x&=${new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee}` : ''}
 \\end{aligned}$
  `
       this.correction += `<br> La solution est $${miseEnEvidence(new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee)}$.`
 
-      bonnereponse = new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee
+      bonnereponse = new FractionEtendue(d - k * b, k * a - c)
+        .texFractionSimplifiee
 
       // Erreurs possibles
       erreur1 = new FractionEtendue(d - b, a - c).texFractionSimplifiee // Oubli du k dans le développement
       erreur2 = new FractionEtendue(d + k * b, k * a - c).texFractionSimplifiee // Erreur de signe
       erreur3 = new FractionEtendue(d - k * b, k * a + c).texFractionSimplifiee // Erreur dans la soustraction des x
-    } else { // k-(ax+b)=cx+d
+    } else {
+      // k-(ax+b)=cx+d
       if (c === -a) {
         c = randint(-9, 9, [0, a, -a])
       } // éviter division par 0
@@ -105,12 +109,13 @@ export default class Auto1C11 extends ExerciceQcmA {
  ${rienSi1(newA - c)}x${ecritureAlgebrique(newB)}${miseEnEvidence(ecritureAlgebrique(-1 * newB))}&=${d}${miseEnEvidence(ecritureAlgebrique(-1 * newB))}\\\\
  ${rienSi1(newA - c)}x&=${d - newB}\\\\
  x&=${texFractionFromString(d - newB, newA - c)}
- ${pgcd(abs(d - newB), abs(newA - c)) > 1 || (newA - c) < 0 ? `\\\\x&=${new FractionEtendue(d - newB, newA - c).texFractionSimplifiee}\n` : ''}\\end{aligned}$
+ ${pgcd(abs(d - newB), abs(newA - c)) > 1 || newA - c < 0 ? `\\\\x&=${new FractionEtendue(d - newB, newA - c).texFractionSimplifiee}\n` : ''}\\end{aligned}$
  `
 
       this.correction += `<br> La solution est $${miseEnEvidence(new FractionEtendue(d - newB, newA - c).texFractionSimplifiee)}$.`
 
-      bonnereponse = new FractionEtendue(d - newB, newA - c).texFractionSimplifiee
+      bonnereponse = new FractionEtendue(d - newB, newA - c)
+        .texFractionSimplifiee
 
       // Erreurs possibles
       erreur1 = new FractionEtendue(d + newB, newA - c).texFractionSimplifiee // Erreur de signe
@@ -118,11 +123,16 @@ export default class Auto1C11 extends ExerciceQcmA {
       erreur3 = new FractionEtendue(-d + newB, newA - c).texFractionSimplifiee // Erreur dans la soustraction des x
     }
 
-    this.reponses = [`$${bonnereponse}$`, `$${erreur1}$`, `$${erreur2}$`, `$${erreur3}$`]
+    this.reponses = [
+      `$${bonnereponse}$`,
+      `$${erreur1}$`,
+      `$${erreur2}$`,
+      `$${erreur3}$`,
+    ]
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

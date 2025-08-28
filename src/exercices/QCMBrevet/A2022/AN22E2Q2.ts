@@ -6,7 +6,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 export const uuid = '6a9db'
 export const refs = {
   'fr-fr': ['4C2QCM-03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,19 +21,19 @@ export const dateDePublication = '07/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class AmeriqueNordJuin22Ex1Q2 extends ExerciceQcmA {
-  private appliquerLesValeurs (nbVol: number, volume:number): void {
+  private appliquerLesValeurs(nbVol: number, volume: number): void {
     this.reponses = [
-        `$${texNombre(nbVol * Math.round(volume / (nbVol + 1)), 0)}$`,
-        `$${texNombre(Math.round(volume / (nbVol)), 0)}$`,
-        `$${texNombre(Math.round(volume / (nbVol + 1)), 0)}$`,
-        `$${texNombre((nbVol - 2) * Math.round(volume / (nbVol)), 0)}$`
+      `$${texNombre(nbVol * Math.round(volume / (nbVol + 1)), 0)}$`,
+      `$${texNombre(Math.round(volume / nbVol), 0)}$`,
+      `$${texNombre(Math.round(volume / (nbVol + 1)), 0)}$`,
+      `$${texNombre((nbVol - 2) * Math.round(volume / nbVol), 0)}$`,
     ]
 
     this.enonce = `Une boisson est composée de sirop et d'eau dans la proportion d'un volume de sirop pour $${nbVol}$ volumes d'eau (c'est à dire dans le ratio $1:${nbVol}$).<br>`
     this.enonce += `La quantité d'eau nécessaire pour préparer $${volume}$ mL de cette boisson est :`
     this.correction = `Pour préparer la boisson on utilise $1$ volume de sirop et $${nbVol}$ volumes d'eau, soit $${nbVol + 1}$ volumes de liquide.<br>`
     this.correction += `Pour $${volume}$ mL de boisson, le volume d'eau est donc :<br>
-    $${nbVol}\\times \\dfrac{${volume}}{${(nbVol + 1)}}=${nbVol}\\times ${volume / (nbVol + 1)}$ soit $${miseEnEvidence(texNombre(nbVol * Math.round(volume / (nbVol + 1)), 0))}$ mL d'eau.<br>`
+    $${nbVol}\\times \\dfrac{${volume}}{${nbVol + 1}}=${nbVol}\\times ${volume / (nbVol + 1)}$ soit $${miseEnEvidence(texNombre(nbVol * Math.round(volume / (nbVol + 1)), 0))}$ mL d'eau.<br>`
   }
 
   versionOriginale: () => void = () => {
@@ -49,7 +49,7 @@ export default class AmeriqueNordJuin22Ex1Q2 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '6e29b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class CalculsNombres extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -26,7 +26,7 @@ export default class CalculsNombres extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = choice([1, 2, 3, 4])
     if (choix === 1) {
       this.question = '$20+25$'

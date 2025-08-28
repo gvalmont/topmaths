@@ -23,7 +23,7 @@ export const uuid = '9315e'
 
 export const refs = {
   'fr-fr': ['2F11-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComparerAvecFonctionRef extends Exercice {
   constructor() {
@@ -31,12 +31,12 @@ export default class ComparerAvecFonctionRef extends Exercice {
     this.besoinFormulaireNumerique = [
       'Choix des questions',
       6,
-      '1 : Avec une fonction affine\n2 : Avec la fonction carré\n3 : Avec la fonction inverse\n4 : Avec la fonction racine carrée\n5 : Avec la fonction cube\n6 : Mélange'
+      '1 : Avec une fonction affine\n2 : Avec la fonction carré\n3 : Avec la fonction inverse\n4 : Avec la fonction racine carrée\n5 : Avec la fonction cube\n6 : Mélange',
     ]
     this.besoinFormulaire2Numerique = [
       'Choix des énoncés',
       2,
-      '1 : Avec la fonction précisée \n2 : Sans la fonction précisée (sauf fonction affine)'
+      '1 : Avec la fonction précisée \n2 : Sans la fonction précisée (sauf fonction affine)',
     ]
 
     this.nbQuestions = 1
@@ -68,13 +68,13 @@ export default class ComparerAvecFonctionRef extends Exercice {
         'typeE4',
         'typeE5',
         'typeE6',
-        'typeE7'
+        'typeE7',
       ] //
     }
     //
     const listeTypeQuestions = combinaisonListes(
       typeDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, cpt = 0;
@@ -408,18 +408,18 @@ export default class ComparerAvecFonctionRef extends Exercice {
       const choixListeDeroulante1 = [
         { label: 'Choisir', value: '' },
         { label: 'croissante', value: 'croissante' },
-        { label: 'décroissante', value: 'decroissante' }
+        { label: 'décroissante', value: 'decroissante' },
       ]
       const choixListeDeroulante2 = [
         { label: 'Choisir', value: '' },
         { latex: '\\mathbb{R}', value: 'R' },
         { latex: '}0\\,;\\,+\\infty[', value: 'R+' },
-        { latex: ']-\\infty\\,;\\,0[', value: 'R-' }
+        { latex: ']-\\infty\\,;\\,0[', value: 'R-' },
       ]
       const choixListeDeroulante3 = [
         { label: 'Choisir', value: '' },
         { label: '<', value: '<' },
-        { label: '>', value: '>' }
+        { label: '>', value: '>' },
       ]
       if (this.interactif) {
         texte = texte.slice(0, -1)
@@ -443,19 +443,19 @@ export default class ComparerAvecFonctionRef extends Exercice {
           this,
           3 * i,
           { reponse: { value: reponse[0], options: { texteSansCasse: true } } },
-          { formatInteractif: 'listeDeroulante' }
+          { formatInteractif: 'listeDeroulante' },
         )
         handleAnswers(
           this,
           3 * i + 1,
           { reponse: { value: reponse[1], options: { texteSansCasse: true } } },
-          { formatInteractif: 'listeDeroulante' }
+          { formatInteractif: 'listeDeroulante' },
         )
         handleAnswers(
           this,
           3 * i + 2,
           { reponse: { value: reponse[2], options: { texteSansCasse: true } } },
-          { formatInteractif: 'listeDeroulante' }
+          { formatInteractif: 'listeDeroulante' },
         )
       }
       if (this.questionJamaisPosee(i, variables.map(String).join(''))) {

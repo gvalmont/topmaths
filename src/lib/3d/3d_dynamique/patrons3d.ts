@@ -1,14 +1,21 @@
-import { type objetFace, type FaceNode, findPivot, buildFaceTree, getAbsolutePositions, getPivotPositions } from '../utilsPatrons'
+import {
+  type objetFace,
+  type FaceNode,
+  findPivot,
+  buildFaceTree,
+  getAbsolutePositions,
+  getPivotPositions,
+} from '../utilsPatrons'
 import type { GroupDescription } from './Canvas3DElement'
 import { THREE } from './threeInstance'
 
-export function addFaceRecursive3D (
+export function addFaceRecursive3D(
   node: FaceNode,
   taille: number,
   facePositions: Map<string, [number, number, number]>,
   pivotPositions: Map<string, [number, number, number]>,
   couleurs: string[],
-  faceCount: { value: number } = { value: 0 }
+  faceCount: { value: number } = { value: 0 },
 ): THREE.Group {
   const EPSILON = 0.002
   const boxWidth = taille - 2 * EPSILON
@@ -21,7 +28,9 @@ export function addFaceRecursive3D (
   const key = `${node.x},${node.y}`
   const faceAbsPos = facePositions.get(key) ?? [0, 0, 0]
   const pivotAbsPos = pivotPositions.get(key) ?? [0, 0, 0]
-  const parentPivotAbsPos = node.parent ? pivotPositions.get(`${node.parent.x},${node.parent.y}`) ?? [0, 0, 0] : [0, 0, 0]
+  const parentPivotAbsPos = node.parent
+    ? (pivotPositions.get(`${node.parent.x},${node.parent.y}`) ?? [0, 0, 0])
+    : [0, 0, 0]
 
   // Création du groupe pour ce noeud (pivot)
   const pivotGroup = new THREE.Group()
@@ -35,7 +44,7 @@ export function addFaceRecursive3D (
     pivotGroup.position.set(
       pivotAbsPos[0] - parentPivotAbsPos[0],
       pivotAbsPos[1] - parentPivotAbsPos[1],
-      pivotAbsPos[2] - parentPivotAbsPos[2]
+      pivotAbsPos[2] - parentPivotAbsPos[2],
     )
   } else {
     // Racine
@@ -44,7 +53,10 @@ export function addFaceRecursive3D (
 
   // Création de la face (Mesh)
   const geometry = new THREE.BoxGeometry(boxWidth, 0.01, boxDepth)
-  const material = new THREE.MeshPhongMaterial({ color: couleur, side: THREE.DoubleSide })
+  const material = new THREE.MeshPhongMaterial({
+    color: couleur,
+    side: THREE.DoubleSide,
+  })
   const mesh = new THREE.Mesh(geometry, material)
 
   // Position de la face dans son pivot
@@ -52,7 +64,7 @@ export function addFaceRecursive3D (
     mesh.position.set(
       faceAbsPos[0] - pivotAbsPos[0],
       faceAbsPos[1] - pivotAbsPos[1],
-      faceAbsPos[2] - pivotAbsPos[2]
+      faceAbsPos[2] - pivotAbsPos[2],
     )
   } else {
     mesh.position.set(0, 0, 0)
@@ -61,28 +73,59 @@ export function addFaceRecursive3D (
 
   // Ajout récursif des enfants
   for (const child of node.children) {
-    const childGroup = addFaceRecursive3D(child, taille, facePositions, pivotPositions, couleurs, faceCount)
+    const childGroup = addFaceRecursive3D(
+      child,
+      taille,
+      facePositions,
+      pivotPositions,
+      couleurs,
+      faceCount,
+    )
     pivotGroup.add(childGroup)
   }
 
   return pivotGroup
 }
 
-export function generateContent3D (matrice: objetFace[][], id: string): GroupDescription {
+export function generateContent3D(
+  matrice: objetFace[][],
+  id: string,
+): GroupDescription {
   const pivot = findPivot(matrice)
   const taille = 1.5
   const tree = buildFaceTree(matrice, pivot.x, pivot.y)
-  const facePositions = getAbsolutePositions(tree, taille, [pivot.x, 0, pivot.y], new Map<string, [number, number, number]>())
-  const pivotsPositions = getPivotPositions(tree, taille, facePositions, new Map<string, [number, number, number]>())
+  const facePositions = getAbsolutePositions(
+    tree,
+    taille,
+    [pivot.x, 0, pivot.y],
+    new Map<string, [number, number, number]>(),
+  )
+  const pivotsPositions = getPivotPositions(
+    tree,
+    taille,
+    facePositions,
+    new Map<string, [number, number, number]>(),
+  )
   const couleurs = [
-    '#3498db', '#2ecc71', '#e67e22', '#9b59b6', '#f1c40f', '#5dade2'
+    '#3498db',
+    '#2ecc71',
+    '#e67e22',
+    '#9b59b6',
+    '#f1c40f',
+    '#5dade2',
   ]
-  const group = addFaceRecursive3D(tree, taille, facePositions, pivotsPositions, couleurs)
-  group.traverse(obj => obj.updateMatrix())
+  const group = addFaceRecursive3D(
+    tree,
+    taille,
+    facePositions,
+    pivotsPositions,
+    couleurs,
+  )
+  group.traverse((obj) => obj.updateMatrix())
   const groupJson = group.toJSON()
   return {
     type: 'group',
-    object: groupJson
+    object: groupJson,
   }
 }
 
@@ -96,7 +139,7 @@ export const blinkColors = [
   '#ff8800', // orange vif
   '#ff0080', // rose flashy
   '#00ff88', // vert menthe
-  '#8800ff' // violet flashy
+  '#8800ff', // violet flashy
 ]
 /**
  *
@@ -106,11 +149,16 @@ export const blinkColors = [
  * @param interval
  * @returns
  */
-export function blinkABox (box: Element, color = '#ff0000', times = 26, interval = 200) {
+export function blinkABox(
+  box: Element,
+  color = '#ff0000',
+  times = 26,
+  interval = 200,
+) {
   let count = 0
   let stopped = false
   const originalColor = String(box.getAttribute('color'))
-  function stop () {
+  function stop() {
     stopped = true
     box.setAttribute('color', originalColor)
   }
@@ -135,8 +183,15 @@ export function blinkABox (box: Element, color = '#ff0000', times = 26, interval
  * @param id
  * @returns
  */
-export function affichePatron3D (matrice: objetFace[][], id: string): HTMLElement {
-  const objects = [generateContent3D(matrice, id), { type: 'ambientLight', color: 0xffffff }, { type: 'directionalLight', color: 0xffffff, position: [8, 8, 8] }]
+export function affichePatron3D(
+  matrice: objetFace[][],
+  id: string,
+): HTMLElement {
+  const objects = [
+    generateContent3D(matrice, id),
+    { type: 'ambientLight', color: 0xffffff },
+    { type: 'directionalLight', color: 0xffffff, position: [8, 8, 8] },
+  ]
   const content = { objects, autoCenterZoomMargin: 1.2 }
   const canvas3d = document.createElement('canvas-3d')
   canvas3d.setAttribute('id', id)
@@ -146,23 +201,31 @@ export function affichePatron3D (matrice: objetFace[][], id: string): HTMLElemen
   return canvas3d
 }
 
-export function createEtatPatron () {
+export function createEtatPatron() {
   return {
     pliageEnCours: false,
     depliageEnCours: false,
     estPlie: false,
     estDeplie: true,
-    blinkEnCours: false
+    blinkEnCours: false,
   }
 }
 
-export function ajouteListenersThreeJS (canvas3d: HTMLElement, group: THREE.Group, id: string) {
+export function ajouteListenersThreeJS(
+  canvas3d: HTMLElement,
+  group: THREE.Group,
+  id: string,
+) {
   // Crée et stocke l’état sur le canvas
-  (canvas3d as any)._etatPatron = createEtatPatron()
+  ;(canvas3d as any)._etatPatron = createEtatPatron()
 
   // Récupère les boutons
-  const btnPlier = canvas3d.querySelector(`#btnPlier-${id}`) as HTMLButtonElement
-  const btnDeplier = canvas3d.querySelector(`#btnDeplier-${id}`) as HTMLButtonElement
+  const btnPlier = canvas3d.querySelector(
+    `#btnPlier-${id}`,
+  ) as HTMLButtonElement
+  const btnDeplier = canvas3d.querySelector(
+    `#btnDeplier-${id}`,
+  ) as HTMLButtonElement
 
   // Initialisation des boutons
   if (btnPlier) btnPlier.disabled = false
@@ -184,7 +247,7 @@ export function ajouteListenersThreeJS (canvas3d: HTMLElement, group: THREE.Grou
       // Test de collision
       let collision = false
       const meshes: THREE.Mesh[] = []
-      group.traverse(obj => {
+      group.traverse((obj) => {
         if (obj instanceof THREE.Mesh) meshes.push(obj)
       })
       const collidedMeshes: THREE.Mesh[] = []
@@ -196,7 +259,8 @@ export function ajouteListenersThreeJS (canvas3d: HTMLElement, group: THREE.Grou
           intersectionBox.intersect(boxB)
           const size = intersectionBox.getSize(new THREE.Vector3())
           const volume = size.x * size.y * size.z
-          if (volume > 0.01) { // seuil à ajuster selon la précision souhaitée
+          if (volume > 0.01) {
+            // seuil à ajuster selon la précision souhaitée
             collision = true
             collidedMeshes.push(meshes[i], meshes[j])
           }
@@ -207,7 +271,7 @@ export function ajouteListenersThreeJS (canvas3d: HTMLElement, group: THREE.Grou
         btnDeplier.disabled = true
         // Blink sur tous les meshes en collision
         let pending = collidedMeshes.length
-        collidedMeshes.forEach(mesh => {
+        collidedMeshes.forEach((mesh) => {
           blinkMesh(mesh, '#ff0000', 7, 200, () => {
             pending--
             if (pending === 0) {
@@ -239,22 +303,34 @@ export function ajouteListenersThreeJS (canvas3d: HTMLElement, group: THREE.Grou
   })
 }
 
-export function animePliageThreeJS (group: THREE.Group, onComplete?: () => void, duration = 1000) {
+export function animePliageThreeJS(
+  group: THREE.Group,
+  onComplete?: () => void,
+  duration = 1000,
+) {
   const pivots: THREE.Group[] = []
-  group.traverse(obj => {
+  group.traverse((obj) => {
     if (obj instanceof THREE.Group && obj.userData.directionFromParent) {
       pivots.push(obj)
     }
   })
   let pending = pivots.length
-  pivots.forEach(obj => {
+  pivots.forEach((obj) => {
     const from = obj.rotation.clone()
     const to = new THREE.Euler()
     switch (obj.userData.directionFromParent) {
-      case 'T': to.set(Math.PI / 2, 0, 0); break
-      case 'B': to.set(-Math.PI / 2, 0, 0); break
-      case 'L': to.set(0, 0, -Math.PI / 2); break
-      case 'R': to.set(0, 0, Math.PI / 2); break
+      case 'T':
+        to.set(Math.PI / 2, 0, 0)
+        break
+      case 'B':
+        to.set(-Math.PI / 2, 0, 0)
+        break
+      case 'L':
+        to.set(0, 0, -Math.PI / 2)
+        break
+      case 'R':
+        to.set(0, 0, Math.PI / 2)
+        break
     }
     animateRotation(obj, from, to, duration, () => {
       pending--
@@ -262,15 +338,19 @@ export function animePliageThreeJS (group: THREE.Group, onComplete?: () => void,
     })
   })
 }
-export function animeDepliageThreeJS (group: THREE.Group, onComplete?: () => void, duration = 1000) {
+export function animeDepliageThreeJS(
+  group: THREE.Group,
+  onComplete?: () => void,
+  duration = 1000,
+) {
   const pivots: THREE.Group[] = []
-  group.traverse(obj => {
+  group.traverse((obj) => {
     if (obj instanceof THREE.Group && obj.userData.directionFromParent) {
       pivots.push(obj)
     }
   })
   let pending = pivots.length
-  pivots.forEach(obj => {
+  pivots.forEach((obj) => {
     const from = obj.rotation.clone()
     const to = new THREE.Euler(0, 0, 0)
     animateRotation(obj, from, to, duration, () => {
@@ -280,10 +360,10 @@ export function animeDepliageThreeJS (group: THREE.Group, onComplete?: () => voi
   })
 }
 
-export function onCorrectionsAffichees () {
+export function onCorrectionsAffichees() {
   // Sélectionne tous les canvas-3d présents dans le DOM
   const canvasList = document.querySelectorAll('canvas-3d')
-  canvasList.forEach(canvas3d => {
+  canvasList.forEach((canvas3d) => {
     // Récupère l'id unique (doit être défini lors de la création)
     const idCanvas = canvas3d.getAttribute('id') || ''
     const match = idCanvas.match(/Ex\d+Q\d+/)
@@ -292,7 +372,7 @@ export function onCorrectionsAffichees () {
     // Récupère le groupe Three.js via le getter objects
     const objects = (canvas3d as any).objects
     const group = Array.isArray(objects)
-      ? objects.find(obj => obj instanceof THREE.Group)
+      ? objects.find((obj) => obj instanceof THREE.Group)
       : undefined
 
     if (group && idEvent) {
@@ -303,14 +383,20 @@ export function onCorrectionsAffichees () {
   document.removeEventListener('correctionsAffichees', onCorrectionsAffichees)
 }
 
-function animateRotation (obj: THREE.Group, from: THREE.Euler, to: THREE.Euler, duration: number, onComplete?: () => void) {
+function animateRotation(
+  obj: THREE.Group,
+  from: THREE.Euler,
+  to: THREE.Euler,
+  duration: number,
+  onComplete?: () => void,
+) {
   const start = performance.now()
-  function step (now: number) {
+  function step(now: number) {
     const t = Math.min((now - start) / duration, 1)
     obj.rotation.set(
       from.x + (to.x - from.x) * t,
       from.y + (to.y - from.y) * t,
-      from.z + (to.z - from.z) * t
+      from.z + (to.z - from.z) * t,
     )
     if (t < 1) {
       requestAnimationFrame(step)
@@ -322,12 +408,12 @@ function animateRotation (obj: THREE.Group, from: THREE.Euler, to: THREE.Euler, 
   requestAnimationFrame(step)
 }
 
-function blinkMesh (
+function blinkMesh(
   mesh: THREE.Mesh,
   color = '#ff0000',
   times = 26,
   interval = 200,
-  onComplete?: () => void
+  onComplete?: () => void,
 ) {
   let count = 0
   const stopped = false
@@ -339,7 +425,7 @@ function blinkMesh (
   }
   const originalColor = material.color.clone()
 
-  function blink () {
+  function blink() {
     if (stopped) return
     if (material.color) {
       material.color.set(count % 2 === 0 ? color : '#ffffff')

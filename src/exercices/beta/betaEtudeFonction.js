@@ -9,7 +9,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 */
 import Exercice from '../Exercice'
 
-export const titre = 'Recherche d\'antécédents'
+export const titre = "Recherche d'antécédents"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -22,7 +22,7 @@ export const uuid = '9f20b' // @todo à changer dans un nouvel exo (utiliser pnp
 
  */
 export default class BetaEtudeFonction extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = 3
@@ -31,7 +31,7 @@ export default class BetaEtudeFonction extends Exercice {
     this.besoinFormulaireNumerique = ['Degré du polynôme:', 5]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     //
     /* const poly = new Polynome({ deg: this.sup, rand: true })
     const fonction = poly.fonction

@@ -5,7 +5,10 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 
 import { texNombre } from '../../lib/outils/texNombre'
@@ -26,58 +29,104 @@ export const uuid = 'b0b3c'
 
 export const refs = {
   'fr-fr': ['4C30-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PuissancesEtPrefixe extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.nbCols = 2
 
     this.sup = 1
-    this.besoinFormulaireNumerique = ['Type de questions', 2, '1: De la puissance de 10 au préfixe\n2: Du préfixe à la puissance de 10']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      2,
+      '1: De la puissance de 10 au préfixe\n2: Du préfixe à la puissance de 10',
+    ]
   }
 
-  nouvelleVersion () {
-    this.interactifType = (this.sup === 1) ? 'listeDeroulante' : 'mathLive'
-    this.consigne = this.sup === 1 ? ('Trouver le préfixe correspondant ' + (this.nbQuestions === 1 ? 'à la puissance de 10 suivante.' : 'aux puissances de 10 suivantes.')) : ('Trouver la puissance de 10 correspondant ' + (this.nbQuestions === 1 ? 'au préfixe suivant.' : 'aux préfixes suivants.'))
+  nouvelleVersion() {
+    this.interactifType = this.sup === 1 ? 'listeDeroulante' : 'mathLive'
+    this.consigne =
+      this.sup === 1
+        ? 'Trouver le préfixe correspondant ' +
+          (this.nbQuestions === 1
+            ? 'à la puissance de 10 suivante.'
+            : 'aux puissances de 10 suivantes.')
+        : 'Trouver la puissance de 10 correspondant ' +
+          (this.nbQuestions === 1
+            ? 'au préfixe suivant.'
+            : 'aux préfixes suivants.')
 
-    const exposants = [[-9, 'nano', 'un milliardième'], [-6, 'micro', 'un millionième'], [-3, 'milli', 'un millième'], [-2, 'centi', 'un centième'], [-1, 'déci', 'un dixième'], [1, 'déca', 'dix'], [2, 'hecto', 'cent'], [3, 'kilo', 'mille'], [6, 'méga', 'un-million'], [9, 'giga', 'un-milliard'], [12, 'téra', 'mille-milliards']]
+    const exposants = [
+      [-9, 'nano', 'un milliardième'],
+      [-6, 'micro', 'un millionième'],
+      [-3, 'milli', 'un millième'],
+      [-2, 'centi', 'un centième'],
+      [-1, 'déci', 'un dixième'],
+      [1, 'déca', 'dix'],
+      [2, 'hecto', 'cent'],
+      [3, 'kilo', 'mille'],
+      [6, 'méga', 'un-million'],
+      [9, 'giga', 'un-milliard'],
+      [12, 'téra', 'mille-milliards'],
+    ]
     const listeExposants = combinaisonListes(exposants, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const exposant = listeExposants[i][0]
       const prefixe = listeExposants[i][1]
       const description = listeExposants[i][2]
       const reponseDecimale = new Decimal(10).pow(exposant)
       if (this.sup === 1) {
-        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, [
-          { label: 'Choisir le bon préfixe', value: '' },
-          ...shuffle([
-            { label: 'nano', value: 'nano' },
-            { label: 'micro', value: 'micro' },
-            { label: 'milli', value: 'milli' },
-            { label: 'centi', value: 'centi' },
-            { label: 'déci', value: 'déci' },
-            { label: 'déca', value: 'déca' },
-            { label: 'hecto', value: 'hecto' },
-            { label: 'kilo', value: 'kilo' },
-            { label: 'méga', value: 'méga' },
-            { label: 'giga', value: 'giga' },
-            { label: 'téra', value: 'téra' }
+        texte =
+          `$10^{${exposant}}$` +
+          choixDeroulant(this, i, [
+            { label: 'Choisir le bon préfixe', value: '' },
+            ...shuffle([
+              { label: 'nano', value: 'nano' },
+              { label: 'micro', value: 'micro' },
+              { label: 'milli', value: 'milli' },
+              { label: 'centi', value: 'centi' },
+              { label: 'déci', value: 'déci' },
+              { label: 'déca', value: 'déca' },
+              { label: 'hecto', value: 'hecto' },
+              { label: 'kilo', value: 'kilo' },
+              { label: 'méga', value: 'méga' },
+              { label: 'giga', value: 'giga' },
+              { label: 'téra', value: 'téra' },
+            ]),
           ])
-        ])
-        handleAnswers(this, i, { reponse: { value: prefixe } }, { formatInteractif: 'listeDeroulante' })
+        handleAnswers(
+          this,
+          i,
+          { reponse: { value: prefixe } },
+          { formatInteractif: 'listeDeroulante' },
+        )
         texteCorr = `$10^{${exposant}}$, c'est ${description} donc le préfixe correspondant est ${texteEnCouleurEtGras(prefixe)}.`
       } else {
         texte = this.interactif
-          ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
+          ? `Le préfixe ${prefixe} est associé à : ` +
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierFullOperations,
+            )
           : `${prefixe}`
         handleAnswers(this, i, { reponse: { value: `10^{${exposant}}` } })
         texteCorr = `Le préfixe ${prefixe} est associé à ${description}, soit $${miseEnEvidence(`10^{${exposant}}`)}$ ou $${miseEnEvidence(texNombre(reponseDecimale, 9))}$.`
       }
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = this.sup === 1 ? `Quel est le préfixe correspondant à $10^{${exposant}}$ ? $\\ldots$ ` : `Quelle est la puissance de 10 correspondant au préfixe ${prefixe} ? $\\ldots$ `
-        this.autoCorrection[i].propositions = [{ statut: 1, sanscadre: true, texte: texteCorr }]
+        this.autoCorrection[i].enonce =
+          this.sup === 1
+            ? `Quel est le préfixe correspondant à $10^{${exposant}}$ ? $\\ldots$ `
+            : `Quelle est la puissance de 10 correspondant au préfixe ${prefixe} ? $\\ldots$ `
+        this.autoCorrection[i].propositions = [
+          { statut: 1, sanscadre: true, texte: texteCorr },
+        ]
       }
       if (this.questionJamaisPosee(i, exposant)) {
         this.listeQuestions[i] = texte

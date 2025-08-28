@@ -14,10 +14,10 @@ export const uuid = '4239a'
 
 export const refs = {
   'fr-fr': ['can4C11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SignePuissance extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Déterminer le signe de l’expression :'
     this.nbQuestions = 1

@@ -10,9 +10,9 @@ export const uuid = 'cfd87'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -23,27 +23,27 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 8
-      this.question = 'Le nombre de sommets d\'un cube est :  '
+      this.question = "Le nombre de sommets d'un cube est :  "
       this.correction = `Un cube a $${miseEnEvidence(8)}$ sommets.`
     } else {
       const choix = choice(['a', 'b', 'c'])
       if (choix === 'a') {
         this.reponse = 8
-        this.question = 'Le nombre de sommets d\'un cube est :  '
+        this.question = "Le nombre de sommets d'un cube est :  "
         this.correction = `Un cube a $${miseEnEvidence(8)}$ sommets.`
       }
 
       if (choix === 'b') {
         this.reponse = 6
-        this.question = 'Le nombre de faces d\'un cube est :  '
+        this.question = "Le nombre de faces d'un cube est :  "
         this.correction = `Un cube a $${miseEnEvidence(6)}$ faces.`
       }
       if (choix === 'c') {
         this.reponse = 12
-        this.question = 'Le nombre d\'arêtes d\'un cube est :  '
+        this.question = "Le nombre d'arêtes d'un cube est :  "
         this.correction = `Un cube a $${miseEnEvidence(12)}$ arêtes.`
       }
     }

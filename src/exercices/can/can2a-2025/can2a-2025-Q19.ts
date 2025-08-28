@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
 export const uuid = '3acb0'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class TauxGlobal extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.canOfficielle = true
     this.typeExercice = 'simple'
@@ -25,9 +25,10 @@ export default class TauxGlobal extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
-      this.question = 'Deux hausses successives de $100\\,\\%$ correspondent à une  hausse globale de : '
+      this.question =
+        'Deux hausses successives de $100\\,\\%$ correspondent à une  hausse globale de : '
       this.correction = `Augmenter de $100\\,\\%$ revient à multiplier par $2$. <br>
       Ainsi, les deux hausses successives de $100\\,\\%$ correspondent à un coefficient multiplicateur global de $4$.<br>
       On en déduit que la hausse globale est de $${miseEnEvidence('300')}\\,\\%$. `
@@ -36,7 +37,8 @@ export default class TauxGlobal extends ExerciceSimple {
       if (!this.interactif) {
         this.question += '$\\ldots\\,\\%$'
       }
-      this.canEnonce = 'Deux hausses successives de $100\\,\\%$ correspondent à une  hausse globale de : '
+      this.canEnonce =
+        'Deux hausses successives de $100\\,\\%$ correspondent à une  hausse globale de : '
       this.canReponseACompleter = '$\\ldots\\,\\%$'
     } else {
       const taux = new Decimal(choice([10, 20, 30, 40, 50, 60])).div(100)

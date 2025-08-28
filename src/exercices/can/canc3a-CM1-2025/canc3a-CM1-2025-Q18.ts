@@ -10,13 +10,14 @@ import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { Polygone } from '../../../lib/2d/polygones'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Calculer la longueur d\'un côté d\'un triangle connaissant la longueur de son contour'
+export const titre =
+  "Calculer la longueur d'un côté d'un triangle connaissant la longueur de son contour"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '66e74'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -24,7 +25,7 @@ export const refs = {
 
 */
 export default class Can2025CM1Q18 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -33,7 +34,7 @@ export default class Can2025CM1Q18 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const A = new Point(0, 0)
     const B = new Point(6, 0)
     const C = new Point(2.5, 3.3)
@@ -48,17 +49,47 @@ export default class Can2025CM1Q18 extends ExerciceSimple {
     const l1 = this.canOfficielle ? 6 : randint(5, 9)
     const l2 = this.canOfficielle ? 5 : l1 - 1
     const l3 = this.canOfficielle ? 4 : l1 - choice([2, 3])
-    const longueur1 = latex2d(`${l1} \\text{ cm}`, 3, -1, { letterSize: 'normalsize' })
-    const longueur2 = latex2d(`${l2} \\text{ cm}`, 5.5, 2, { letterSize: 'normalsize' })
-    const longueur3 = latex2d('\\ldots \\text{ cm}', -0.5, 2, { letterSize: 'normalsize' })
-    const objets = [triangle, cote1, cote2, cote3, longueur1, longueur2, longueur3]
+    const longueur1 = latex2d(`${l1} \\text{ cm}`, 3, -1, {
+      letterSize: 'normalsize',
+    })
+    const longueur2 = latex2d(`${l2} \\text{ cm}`, 5.5, 2, {
+      letterSize: 'normalsize',
+    })
+    const longueur3 = latex2d('\\ldots \\text{ cm}', -0.5, 2, {
+      letterSize: 'normalsize',
+    })
+    const objets = [
+      triangle,
+      cote1,
+      cote2,
+      cote3,
+      longueur1,
+      longueur2,
+      longueur3,
+    ]
 
-    this.question = mathalea2d(Object.assign({ scale: 0.5, style: 'display: block', pixelsParCm: 25 }, fixeBordures(objets)), objets)
+    this.question = mathalea2d(
+      Object.assign(
+        { scale: 0.5, style: 'display: block', pixelsParCm: 25 },
+        fixeBordures(objets),
+      ),
+      objets,
+    )
     this.question += `La longueur du contour de ce triangle  est de  $${l1 + l2 + l3}$ cm.<br>`
-    if (!this.interactif) { this.question += 'Complète.' } else { this.question += 'La longueur manquante est : ' }
+    if (!this.interactif) {
+      this.question += 'Complète.'
+    } else {
+      this.question += 'La longueur manquante est : '
+    }
     this.canEnonce = `La longueur du contour de ce triangle  est de  $${l1 + l2 + l3}$ cm.<br>
     Complète. `
-    this.canReponseACompleter = mathalea2d(Object.assign({ scale: 0.5, style: 'display: block', pixelsParCm: 25 }, fixeBordures(objets)), objets)
+    this.canReponseACompleter = mathalea2d(
+      Object.assign(
+        { scale: 0.5, style: 'display: block', pixelsParCm: 25 },
+        fixeBordures(objets),
+      ),
+      objets,
+    )
     this.reponse = texNombre(l3, 0)
     this.correction = `La longueur du côté est donnée par :  <br>
     $${l1 + l2 + l3}-${l1}-${l2}=${miseEnEvidence(l3)}$ cm.`

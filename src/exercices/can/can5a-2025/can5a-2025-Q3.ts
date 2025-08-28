@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a343i'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,12 +18,15 @@ export const refs = {
 
 */
 export default class Can2025N5Q3 extends ExerciceCan {
-  enonce (a?: string, b?: number) {
+  enonce(a?: string, b?: number) {
     let c = 3
     if (a == null || b == null) {
       a = choice(['La moitié', 'Le tiers', 'Le quart'])
       c = a === 'La moitié' ? 2 : a === 'Le tiers' ? 3 : 4
-      b = ((c === 4 ? randint(1, 2) : c === 3 ? randint(1, 3) : randint(1, 4)) + 10) * c
+      b =
+        ((c === 4 ? randint(1, 2) : c === 3 ? randint(1, 3) : randint(1, 4)) +
+          10) *
+        c
     }
     this.reponse = b / c
     this.question = `${a} de $${b}$ `
@@ -35,7 +38,7 @@ export default class Can2025N5Q3 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce('Le tiers', 36) : this.enonce()
   }
 }

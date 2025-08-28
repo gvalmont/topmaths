@@ -1,7 +1,12 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
-import { point, pointAdistance, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points'
+import {
+  point,
+  pointAdistance,
+  pointIntersectionDD,
+  pointSurDroite,
+} from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -9,7 +14,10 @@ import { translation2Points } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import Exercice from '../Exercice'
-import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 import type { PointAbstrait } from '../../lib/2d/points-abstraits'
@@ -25,28 +33,32 @@ export const uuid = '6a2dd'
 
 export const refs = {
   'fr-fr': ['4G10-2'],
-  'fr-ch': ['10ES2-3']
+  'fr-ch': ['10ES2-3'],
 }
 
-function segmente (point:PointAbstrait, image:PointAbstrait) {
+function segmente(point: PointAbstrait, image: PointAbstrait) {
   const segmentAA = segment(point, image, 'red')
   segmentAA.styleExtremites = '|->'
   segmentAA.pointilles = 2
   return segmentAA
 }
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let objetsEnonceEtCorr: NestedObjetMathalea2dArray
     let objetsEnonceOnly: NestedObjetMathalea2dArray
     let objetsCorrectionOnly: NestedObjetMathalea2dArray
     let paramsEnonce
     let paramsCorrection
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       objetsEnonceOnly = []
       objetsCorrectionOnly = []
       objetsEnonceEtCorr = []
@@ -55,11 +67,27 @@ export default class nomExercice extends Exercice {
 
       // Figure initiale
       const A = point(0, -8, lettres[0], 'below')
-      const B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), lettres[1])
-      const C = triangle2points2longueurs(A, B, randint(40, 60) / 10, randint(30, 50) / 10).listePoints[2]
+      const B = pointAdistance(
+        A,
+        randint(30, 60) / 10,
+        randint(0, 45),
+        lettres[1],
+      )
+      const C = triangle2points2longueurs(
+        A,
+        B,
+        randint(40, 60) / 10,
+        randint(30, 50) / 10,
+      ).listePoints[2]
       C.nom = lettres[2]
       const poly = polygoneAvecNom(A, B, C)
-      objetsEnonceEtCorr.push(poly[0], poly[1], afficheLongueurSegment(B, A), afficheLongueurSegment(A, C), afficheLongueurSegment(C, B))
+      objetsEnonceEtCorr.push(
+        poly[0],
+        poly[1],
+        afficheLongueurSegment(B, A),
+        afficheLongueurSegment(A, C),
+        afficheLongueurSegment(C, B),
+      )
 
       // Vecteur et image par translation
       const D = point(B.x - 1, B.y + 7 + randint(-10, 10) / 10, lettres[3])
@@ -69,32 +97,64 @@ export default class nomExercice extends Exercice {
       const imageC = translation2Points(C, D, E, `${lettres[2]}'`)
       const imagePoly = polygoneAvecNom(imageA, imageB, imageC)
 
-      objetsEnonceEtCorr.push(vecteur(D, E).representant(D), afficheLongueurSegment(D, E), labelPoint(D, E))
+      objetsEnonceEtCorr.push(
+        vecteur(D, E).representant(D),
+        afficheLongueurSegment(D, E),
+        labelPoint(D, E),
+      )
       objetsCorrectionOnly.push(imagePoly[0], imagePoly[1])
-      objetsCorrectionOnly.push(afficheLongueurSegment(imageB, imageA), afficheLongueurSegment(imageA, imageC), afficheLongueurSegment(imageC, imageB))
-      objetsCorrectionOnly.push(segmente(A, imageA), segmente(B, imageB), segmente(C, imageC))
-      objetsCorrectionOnly.push(afficheLongueurSegment(A, imageA, 'red'), afficheLongueurSegment(B, imageB, 'red'), afficheLongueurSegment(C, imageC, 'red'))
+      objetsCorrectionOnly.push(
+        afficheLongueurSegment(imageB, imageA),
+        afficheLongueurSegment(imageA, imageC),
+        afficheLongueurSegment(imageC, imageB),
+      )
+      objetsCorrectionOnly.push(
+        segmente(A, imageA),
+        segmente(B, imageB),
+        segmente(C, imageC),
+      )
+      objetsCorrectionOnly.push(
+        afficheLongueurSegment(A, imageA, 'red'),
+        afficheLongueurSegment(B, imageB, 'red'),
+        afficheLongueurSegment(C, imageC, 'red'),
+      )
 
       // Perpendiculaire
       const min = Math.max(A.x, B.x, C.x, D.x)
       const max = Math.min(imageA.x, imageB.x, imageC.x, E.x)
       const DE = droite(D, E)
       const pied = pointSurDroite(DE, (min + max) / 2)
-      const perpendiculaire = droiteParPointEtPerpendiculaire(pied, DE, '', 'red')
+      const perpendiculaire = droiteParPointEtPerpendiculaire(
+        pied,
+        DE,
+        '',
+        'red',
+      )
       perpendiculaire.pointilles = 2
       const pied2 = pointSurDroite(perpendiculaire, (min + max) / 2 + 0.1)
       const AA = pointIntersectionDD(droite(A, imageA), perpendiculaire)
       const AA2 = pointSurDroite(perpendiculaire, AA.x - 0.1)
       const BB = pointIntersectionDD(droite(B, imageB), perpendiculaire)
       const CC = pointIntersectionDD(droite(C, imageC), perpendiculaire)
-      objetsCorrectionOnly.push(perpendiculaire, codageAngleDroit(D, pied, pied2, 'red'))
-      objetsCorrectionOnly.push(codageAngleDroit(A, AA, pied, 'red'), codageAngleDroit(B, BB, pied, 'red'), codageAngleDroit(C, CC, pied, 'red'))
+      objetsCorrectionOnly.push(
+        perpendiculaire,
+        codageAngleDroit(D, pied, pied2, 'red'),
+      )
+      objetsCorrectionOnly.push(
+        codageAngleDroit(A, AA, pied, 'red'),
+        codageAngleDroit(B, BB, pied, 'red'),
+        codageAngleDroit(C, CC, pied, 'red'),
+      )
 
       // Paramétrage de la fenêtre
-      const xmin = Math.min(A.x, B.x, C.x, D.x, E.x, imageA.x, imageB.x, imageC.x) - 2
-      const xmax = Math.max(A.x, B.x, C.x, D.x, E.x, imageA.x, imageB.x, imageC.x) + 2
-      const ymin = Math.min(A.y, B.y, C.y, D.x, E.x, imageA.y, imageB.y, imageC.y) - 2
-      const ymax = Math.max(A.y, B.y, C.y, D.x, E.x, imageA.y, imageB.y, imageC.y) + 2
+      const xmin =
+        Math.min(A.x, B.x, C.x, D.x, E.x, imageA.x, imageB.x, imageC.x) - 2
+      const xmax =
+        Math.max(A.x, B.x, C.x, D.x, E.x, imageA.x, imageB.x, imageC.x) + 2
+      const ymin =
+        Math.min(A.y, B.y, C.y, D.x, E.x, imageA.y, imageB.y, imageC.y) - 2
+      const ymax =
+        Math.max(A.y, B.y, C.y, D.x, E.x, imageA.y, imageB.y, imageC.y) + 2
       paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       paramsCorrection = paramsEnonce
 
@@ -185,7 +245,11 @@ export default class nomExercice extends Exercice {
       // Énoncé et correction
       texte = `Tracer l'image du triangle $${lettres[0]}${lettres[1]}${lettres[2]}$ par la translation qui transforme $${lettres[3]}$ en $${lettres[4]}$.<br>`
       texte += mathalea2d(paramsEnonce, objetsEnonceOnly, objetsEnonceEtCorr)
-      texteCorr = mathalea2d(paramsCorrection, objetsCorrectionOnly, objetsEnonceEtCorr)
+      texteCorr = mathalea2d(
+        paramsCorrection,
+        objetsCorrectionOnly,
+        objetsEnonceEtCorr,
+      )
       texteCorr += anim.htmlBouton(this.numeroExercice ?? 0, i)
       if (this.questionJamaisPosee(i, B.x, B.y, C.x, C.y)) {
         this.listeQuestions[i] = texte

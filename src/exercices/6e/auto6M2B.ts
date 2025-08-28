@@ -4,16 +4,16 @@ import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
   enleveDoublonNum,
-  shuffle
+  shuffle,
 } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
-  texteEnCouleurEtGras
+  texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -32,7 +32,7 @@ export const uuid = 'feeb3'
 export const refs = {
   'fr-fr': ['auto6M2B'],
   'fr-2016': ['6M25-4'],
-  'fr-ch': ['']
+  'fr-ch': [''],
 }
 
 export default class FormulesAireCarreRectangle extends Exercice {
@@ -49,8 +49,8 @@ export default class FormulesAireCarreRectangle extends Exercice {
         '1 : Une seule liste déroulante',
         '2 : Deux listes déroulantes',
         '3 : Trois listes déroulantes',
-        '4 : Mélange'
-      ].join('\n')
+        '4 : Mélange',
+      ].join('\n'),
     ]
     this.sup = '4'
 
@@ -61,8 +61,8 @@ export default class FormulesAireCarreRectangle extends Exercice {
         '1 : cm²',
         '2 : dm²',
         '3 : m²',
-        '4 : Mélange'
-      ].join('\n')
+        '4 : Mélange',
+      ].join('\n'),
     ]
     this.sup2 = '4'
 
@@ -76,7 +76,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
       defaut: 4,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
+      saisie: this.sup,
     }).map(Number)
     nbDeListesDeroulantes = combinaisonListes(nbDeListesDeroulantes, 50)
 
@@ -88,7 +88,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
       melange: 4,
       nbQuestions: this.nbQuestions,
       saisie: this.sup2,
-      listeOfCase: ['cm', 'dm', 'm']
+      listeOfCase: ['cm', 'dm', 'm'],
     }).map(String)
     unitesChoisies = combinaisonListes(unitesChoisies, 50)
 
@@ -108,27 +108,27 @@ export default class FormulesAireCarreRectangle extends Exercice {
         { label: "l'aire", value: 'aire' },
         { label: 'le périmètre', value: 'perimetre' },
         { label: 'la longueur', value: 'longueur' },
-        { label: 'le volume', value: 'volume' }
+        { label: 'le volume', value: 'volume' },
       ],
       [
         { label: 'carré', value: 'carre' },
         { label: 'rectangle', value: 'rectangle' },
         { label: 'losange', value: 'losange' },
         { label: 'triangle', value: 'triangle' },
-        { label: 'quadrilatère', value: 'quadrilatere' }
+        { label: 'quadrilatère', value: 'quadrilatere' },
       ],
       [
         { label: '1 mm', value: 'mm' },
         { label: '1 cm', value: 'cm' },
         { label: '1 dm', value: 'dm' },
-        { label: '1 m', value: 'm' }
+        { label: '1 m', value: 'm' },
       ],
       [
         { label: '1 mm²', value: 'mm2' },
         { label: '1 cm²', value: 'cm2' },
         { label: '1 dm²', value: 'dm2' },
-        { label: '1 m²', value: 'm2' }
-      ]
+        { label: '1 m²', value: 'm2' },
+      ],
     ]
 
     let indiceInteractif = 0
@@ -152,7 +152,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = ['aire']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[0])
+                ...shuffle(choixListeDeroulante[0]),
               ])
               texteCorr = `$1$ ${unite}$^2$ est ${texteEnCouleurEtGras("l'aire")} d'un carré de $1$ ${unite} de côté.`
               break
@@ -162,7 +162,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = [unite]
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[2])
+                ...shuffle(choixListeDeroulante[2]),
               ])
               texteCorr = `$1$ ${unite}$^2$ est l'aire d'un carré de ${texteEnCouleurEtGras('1 ' + unite)} de côté.`
               break
@@ -172,7 +172,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = ['carre']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[1])
+                ...shuffle(choixListeDeroulante[1]),
               ])
               texteCorr = `$1$ ${unite}$^2$ est l'aire d'un ${texteEnCouleurEtGras('carré')} de $1$ ${unite} de côté.`
               break
@@ -182,7 +182,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = [unite + '2']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[3])
+                ...shuffle(choixListeDeroulante[3]),
               ])
               texteCorr = `1 ${texteEnCouleurEtGras(unite)}$${miseEnEvidence('^2')}$ est l'aire d'un carré de $1$ ${unite} de côté.`
               break
@@ -192,7 +192,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
             ? choixDeroulant(
                 this,
                 indiceInteractif,
-                choixListeDeroulantePourCeCas[0]
+                choixListeDeroulantePourCeCas[0],
               )
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
@@ -207,11 +207,11 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = ['aire', 'carre']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[0])
+                ...shuffle(choixListeDeroulante[0]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[1])
+                ...shuffle(choixListeDeroulante[1]),
               ])
               texteCorr = `$1$ ${unite}$^2$ est ${texteEnCouleurEtGras("l'aire")} d'un ${texteEnCouleurEtGras('carré')} de $1$ ${unite} de côté.`
               break
@@ -222,11 +222,11 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = ['aire', unite]
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[0])
+                ...shuffle(choixListeDeroulante[0]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[2])
+                ...shuffle(choixListeDeroulante[2]),
               ])
               texteCorr = `$1$ ${unite}$^2$ est ${texteEnCouleurEtGras("l'aire")} d'un carré de ${texteEnCouleurEtGras('1 ' + unite)} de côté.`
               break
@@ -237,11 +237,11 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = ['carre', unite]
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[1])
+                ...shuffle(choixListeDeroulante[1]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[2])
+                ...shuffle(choixListeDeroulante[2]),
               ])
               texteCorr = `$1$ ${unite}$^2$ est l'aire d'un ${texteEnCouleurEtGras('carré')} de ${texteEnCouleurEtGras('1 ' + unite)} de côté.`
               break
@@ -252,11 +252,11 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = [unite + '2', 'aire']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[3])
+                ...shuffle(choixListeDeroulante[3]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[0])
+                ...shuffle(choixListeDeroulante[0]),
               ])
               texteCorr = `1 ${texteEnCouleurEtGras(unite)}$${miseEnEvidence('^2')}$ est ${texteEnCouleurEtGras("l'aire")} d'un carré de $1$ ${unite} de côté.`
               break
@@ -267,11 +267,11 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = [unite + '2', 'carre']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[3])
+                ...shuffle(choixListeDeroulante[3]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[1])
+                ...shuffle(choixListeDeroulante[1]),
               ])
               texteCorr = `1 ${texteEnCouleurEtGras(unite)}$${miseEnEvidence('^2')}$ est l'aire d'un ${texteEnCouleurEtGras('carré')} de $1$ ${unite} de côté.`
               break
@@ -281,7 +281,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
             ? choixDeroulant(
                 this,
                 indiceInteractif,
-                choixListeDeroulantePourCeCas[0]
+                choixListeDeroulantePourCeCas[0],
               )
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
@@ -289,7 +289,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
             ? choixDeroulant(
                 this,
                 indiceInteractif + 1,
-                choixListeDeroulantePourCeCas[1]
+                choixListeDeroulantePourCeCas[1],
               )
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[2]
@@ -305,15 +305,15 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = ['aire', 'carre', unite]
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[0])
+                ...shuffle(choixListeDeroulante[0]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[1])
+                ...shuffle(choixListeDeroulante[1]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[2])
+                ...shuffle(choixListeDeroulante[2]),
               ])
               texteCorr = `1 ${unite}$^2$ est ${texteEnCouleurEtGras("l'aire")} d'un ${texteEnCouleurEtGras('carré')} de ${texteEnCouleurEtGras('1 ' + unite)} de côté.`
               break
@@ -326,15 +326,15 @@ export default class FormulesAireCarreRectangle extends Exercice {
               this.listeReponses[i] = [unite + '2', 'aire', 'carre']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[3])
+                ...shuffle(choixListeDeroulante[3]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[0])
+                ...shuffle(choixListeDeroulante[0]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[1])
+                ...shuffle(choixListeDeroulante[1]),
               ])
               texteCorr = `1 ${texteEnCouleurEtGras(unite)}$${miseEnEvidence('^2')}$ est ${texteEnCouleurEtGras("l'aire")} d'un ${texteEnCouleurEtGras('carré')} de $1$ ${unite} de côté.`
               break
@@ -345,7 +345,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
             ? choixDeroulant(
                 this,
                 indiceInteractif,
-                choixListeDeroulantePourCeCas[0]
+                choixListeDeroulantePourCeCas[0],
               )
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
@@ -353,7 +353,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
             ? choixDeroulant(
                 this,
                 indiceInteractif + 1,
-                choixListeDeroulantePourCeCas[1]
+                choixListeDeroulantePourCeCas[1],
               )
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[2]
@@ -361,7 +361,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
             ? choixDeroulant(
                 this,
                 indiceInteractif + 2,
-                choixListeDeroulantePourCeCas[2]
+                choixListeDeroulantePourCeCas[2],
               )
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[3]
@@ -373,7 +373,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
           i,
           unite,
           choixPossibilites,
-          this.listeReponses[i].length
+          this.listeReponses[i].length,
         )
       ) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
@@ -391,18 +391,18 @@ export default class FormulesAireCarreRectangle extends Exercice {
 
   correctionInteractive = (i: number) => {
     let spanReponseLigne = document.querySelector(
-      `#resultatCheckEx${this.numeroExercice}Q0`
+      `#resultatCheckEx${this.numeroExercice}Q0`,
     )
     let isOk = false
     if (this.listeReponses[i].length === 3) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`
+        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       const select2 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`
+        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
       ) as HTMLSelectElement
       const select3 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 2}`
+        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 2}`,
       ) as HTMLSelectElement
       let isOk1 = false
       let isOk23 = false
@@ -423,14 +423,14 @@ export default class FormulesAireCarreRectangle extends Exercice {
         isOk = false
       }
       spanReponseLigne = document.querySelector(
-        `#resultatCheckEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 2}`
+        `#resultatCheckEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 2}`,
       )
     } else if (this.listeReponses[i].length === 2) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`
+        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       const select2 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`
+        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
       ) as HTMLSelectElement
       let isOk1 = false
       let isOk2 = false
@@ -444,26 +444,26 @@ export default class FormulesAireCarreRectangle extends Exercice {
         isOk = false
       }
       spanReponseLigne = document.querySelector(
-        `#resultatCheckEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`
+        `#resultatCheckEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
       )
     } else {
       // if (this.listeReponses[i].length === 1) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`
+        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       if (select1?.value != null) {
         const choix1 = select1.value
         isOk = choix1 === this.listeReponses[i][0]
       }
       spanReponseLigne = document.querySelector(
-        `#resultatCheckEx${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`
+        `#resultatCheckEx${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       )
     }
 
     if (spanReponseLigne == null)
       window.notify(
         `Pas trouvé le spanReponseLigne dans 6M25-3 pour i=${i}`,
-        {}
+        {},
       )
     if (spanReponseLigne) {
       if (isOk) {

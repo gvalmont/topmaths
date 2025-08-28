@@ -4,16 +4,17 @@ import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Déterminer un coefficient multiplicateur ou un taux d\'évolution'
+export const titre =
+  "Déterminer un coefficient multiplicateur ou un taux d'évolution"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '80386'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -22,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'Multiplier par $1,12$ revient à augmenter de : '
       this.correction = `Comme $1,12=1+0,12$, multiplier par $1,12$ revient à augmenter de $${miseEnEvidence('12')}\\,\\%$. `

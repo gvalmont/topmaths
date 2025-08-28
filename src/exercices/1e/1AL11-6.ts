@@ -1,15 +1,25 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+} from '../../lib/outils/ecritures'
 
-export const titre = 'Donner la forme explicite d\'une suite arithmétique ou géométrique'
+export const titre =
+  "Donner la forme explicite d'une suite arithmétique ou géométrique"
 
 export const dateDePublication = '30/11/2024'
 export const interactifReady = true
@@ -18,47 +28,53 @@ export const interactifType = 'mathLive'
 /**
  *
  * @author Gilles Mora
-*/
+ */
 export const uuid = 'b30ac'
 
 export const refs = {
   'fr-fr': ['1AL11-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SuitesExplicites extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.sup = '5'
     this.spacing = 1.5
     this.spacingCorr = 2
-    this.besoinFormulaire2CaseACocher = ['Le premier terme de la suite est $u_p$']
+    this.besoinFormulaire2CaseACocher = [
+      'Le premier terme de la suite est $u_p$',
+    ]
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Suite arithmétique définie directement',
         '2 : Suite arithmétique définie par une relation de récurrence',
         '3 : Suite géométrique définie directement',
         '4 : Suite géométrique défine par une relation de récurrence',
-        '5 : Mélange'
-      ].join('\n')
+        '5 : Mélange',
+      ].join('\n'),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 4,
       melange: 5,
       defaut: 5,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let reponse
@@ -70,18 +86,29 @@ export default class SuitesExplicites extends Exercice {
       let q = new Decimal(1)
       let indice
       switch (listeTypeDeQuestions[i]) {
-        case 1:// SA définie directement
-          a = choice([new Decimal(randint(1, 99)).div(10), new Decimal(randint(-12, 12, 0))])
-          r = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, 0))])
+        case 1: // SA définie directement
+          a = choice([
+            new Decimal(randint(1, 99)).div(10),
+            new Decimal(randint(-12, 12, 0)),
+          ])
+          r = choice([
+            new Decimal(randint(-99, 99, [0, 10])).div(10),
+            new Decimal(randint(-15, 15, 0)),
+          ])
           indice = this.sup2 ? randint(1, 10) : 0
           b = new Decimal(r).mul(indice).mul(-1).add(a)
-          reponse = this.sup2 ? `${reduireAxPlusB(r, b, 'n')}` : `${reduireAxPlusB(r, a, 'n')}`
+          reponse = this.sup2
+            ? `${reduireAxPlusB(r, b, 'n')}`
+            : `${reduireAxPlusB(r, a, 'n')}`
           handleAnswers(this, i, { reponse: { value: reponse } })
           texte = `Soit $(${NomS}_n)$ une suite arithmétique de raison $r=${texNombre(r, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
 
           if (this.sup2) {
-            if (this.interactif) { texte += '<br>Écrire cette expression sous forme développée et réduite.' }
+            if (this.interactif) {
+              texte +=
+                '<br>Écrire cette expression sous forme développée et réduite.'
+            }
             texteCorr = `La suite $(${NomS}_n)$ est arithmétique, on a pour tout $n$ et $p$ entiers naturels : $${NomS}_n=${NomS}_p+(n-p)\\times r$.<br>
           Pour tout $n\\in\\mathbb{N}$, <br>
           $\\begin{aligned}          
@@ -93,19 +120,41 @@ export default class SuitesExplicites extends Exercice {
           Ainsi, pour tout $n\\in\\mathbb{N}$, $${NomS}_n=${miseEnEvidence(`${texNombre(a, 1)}${ecritureAlgebriqueSauf1(r)}n`)}$.`
           }
           break
-        case 2:// SA définie avec une Relation de récurrence
-          a = choice([new Decimal(randint(1, 99)).div(10), new Decimal(randint(-12, 12, 0))])
-          r = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, 0))])
+        case 2: // SA définie avec une Relation de récurrence
+          a = choice([
+            new Decimal(randint(1, 99)).div(10),
+            new Decimal(randint(-12, 12, 0)),
+          ])
+          r = choice([
+            new Decimal(randint(-99, 99, [0, 10])).div(10),
+            new Decimal(randint(-15, 15, 0)),
+          ])
           indice = this.sup2 ? randint(1, 10) : 0
           b = new Decimal(r).mul(indice).mul(-1).add(a)
-          reponse = this.sup2 ? [`${texNombre(b, 1)}+n\\times ${ecritureParentheseSiNegatif(r)} `, `${texNombre(b, 1)}${ecritureAlgebriqueSauf1(r)}n`] : [`${texNombre(a, 1)}+n\\times ${ecritureParentheseSiNegatif(r)}`, `${texNombre(a, 1)}${ecritureAlgebriqueSauf1(r)}n`]
-          handleAnswers(this, i, { reponse: { value: reponse, options: { expressionsForcementReduites: true } } })
+          reponse = this.sup2
+            ? [
+                `${texNombre(b, 1)}+n\\times ${ecritureParentheseSiNegatif(r)} `,
+                `${texNombre(b, 1)}${ecritureAlgebriqueSauf1(r)}n`,
+              ]
+            : [
+                `${texNombre(a, 1)}+n\\times ${ecritureParentheseSiNegatif(r)}`,
+                `${texNombre(a, 1)}${ecritureAlgebriqueSauf1(r)}n`,
+              ]
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse,
+              options: { expressionsForcementReduites: true },
+            },
+          })
           texte = `Soit $(${NomS}_n)$ une suite définie par $${NomS}_{${indice}}=${texNombre(a, 1)}$ et  
         $${NomS}_{n+1}=${NomS}_n${ecritureAlgebrique(r)}$ pour tout entier naturel $n$.<br>
       Donner l'expression de $${NomS}_n$ en fonction de $n$.`
           texteCorr = `$${NomS}_{n+1}=${NomS}_n${ecritureAlgebrique(r)}$ est la relation de récurrence d'une suite arithmétique de raison $${texNombre(r, 1)}$.<br>`
           if (this.sup2) {
-            if (this.interactif) { texte += '<br> Écrire cette expression sous forme développée et réduite.' }
+            if (this.interactif) {
+              texte +=
+                '<br> Écrire cette expression sous forme développée et réduite.'
+            }
             texteCorr += `On  a pour tout $n$ et $p$ entiers naturels : $${NomS}_n=${NomS}_p+(n-p)\\times r$.<br>
         Pour tout $n\\in\\mathbb{N}$ : <br>
         $\\begin{aligned}          
@@ -117,14 +166,32 @@ export default class SuitesExplicites extends Exercice {
         Ainsi, pour tout $n\\in\\mathbb{N}$, $${NomS}_n=${miseEnEvidence(`${texNombre(a, 1)}${ecritureAlgebriqueSauf1(r)}n`)}$.`
           }
           break
-        case 3:// SG définie directement
-          a = choice([new Decimal(randint(1, 99, 10)).div(10), new Decimal(randint(-12, 12, [0, 1]))])
-          q = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, [0, 1]))])
+        case 3: // SG définie directement
+          a = choice([
+            new Decimal(randint(1, 99, 10)).div(10),
+            new Decimal(randint(-12, 12, [0, 1])),
+          ])
+          q = choice([
+            new Decimal(randint(-99, 99, [0, 10])).div(10),
+            new Decimal(randint(-15, 15, [0, 1])),
+          ])
           indice = this.sup2 ? randint(1, 10) : 0
 
-          reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
+          reponse = this.sup2
+            ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} `
+            : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
           //  handleAnswers(this, i, { reponse: { value: reponse, options: { nbFacteursIdentiquesFactorisation: true } } })
-          handleAnswers(this, i, { reponse: { value: reponse, options: { fonction: true, variable: 'n', entier: true, domaine: [0, 10] } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse,
+              options: {
+                fonction: true,
+                variable: 'n',
+                entier: true,
+                domaine: [0, 10],
+              },
+            },
+          })
           texte = `Soit $(${NomS}_n)$ une suite géométrique de raison $q=${texNombre(q, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
           if (this.sup2) {
@@ -137,11 +204,19 @@ export default class SuitesExplicites extends Exercice {
 
           break
 
-        case 4:// SG définie par relation de récurrence
-          a = choice([new Decimal(randint(1, 99, 10)).div(10), new Decimal(randint(-12, 12, [0, 1]))])
-          q = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, [0, 1]))])
+        case 4: // SG définie par relation de récurrence
+          a = choice([
+            new Decimal(randint(1, 99, 10)).div(10),
+            new Decimal(randint(-12, 12, [0, 1])),
+          ])
+          q = choice([
+            new Decimal(randint(-99, 99, [0, 10])).div(10),
+            new Decimal(randint(-15, 15, [0, 1])),
+          ])
           indice = this.sup2 ? randint(1, 10) : 0
-          reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
+          reponse = this.sup2
+            ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} `
+            : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
           handleAnswers(this, i, { reponse: { value: reponse } })
           texte = `Soit $(${NomS}_n)$ une suite définie par $${NomS}_{${indice}}=${texNombre(a, 1)}$ et  
         $${NomS}_{n+1}=${texNombre(q, 1)}\\times ${NomS}_n$ pour tout entier naturel $n$.<br>
@@ -158,8 +233,13 @@ export default class SuitesExplicites extends Exercice {
           break
       }
 
-      if (this.interactif) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_n=$` }) }
-      if (this.questionJamaisPosee(i, a, q, r, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.interactif) {
+        texte +=
+          '<br>' +
+          ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_n=$` })
+      }
+      if (this.questionJamaisPosee(i, a, q, r, b)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

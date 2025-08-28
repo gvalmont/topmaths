@@ -7,13 +7,13 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '2137a'
 export const refs = {
   'fr-fr': ['1A-C3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Trouver  l\'égalité correcte (puissances)'
+export const titre = "Trouver  l'égalité correcte (puissances)"
 export const dateDePublication = '23/07/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
@@ -40,7 +40,7 @@ export default class TrouverEgalite extends ExerciceQcmA {
       '$\\dfrac{10^{-5}}{10^8}=10^{-13}$',
       '$40\\times \\dfrac{1}{40^3}=40^2$',
       '$\\left(2^{-4}\\right)^3=2^{-1}$',
-      '$5^{-6}\\times 11^{-6}=55^{-12}$'
+      '$5^{-6}\\times 11^{-6}=55^{-12}$',
     ]
   }
 
@@ -66,8 +66,10 @@ export default class TrouverEgalite extends ExerciceQcmA {
     const calc3F = `\\left(${a2}^{${n2}}\\right)^${p2}=${a2}^{${n2 + p2}}` // (a^n)^p=a^(n*p) réponse fausse
     const calc4F = `${a3}^{${n3}}\\times ${b3}^{${n3}}=${a3 * b3}^{${2 * n3}}` // a^n*b^n=(a*b)^n
 
-    switch (randint(1, 4)) { //
-      case 1:  //  a^n/a^p=a^n-p
+    switch (
+      randint(1, 4) //
+    ) {
+      case 1: //  a^n/a^p=a^n-p
         this.enonce = 'La seule égalité vraie est :'
         this.correction = `La seule égalité vraie est  : $${miseEnEvidence(`${calc1}`)}$.<br>
     En effet, <br>  
@@ -83,11 +85,11 @@ export default class TrouverEgalite extends ExerciceQcmA {
           `$${calc1}$`,
           `$${calc2F}$`,
           `$${calc3F}$`,
-          `$${calc4F}$`
+          `$${calc4F}$`,
         ]
         break
 
-      case 2:// égalité vraie est la a*1/a^n
+      case 2: // égalité vraie est la a*1/a^n
         this.enonce = 'La seule égalité vraie est :'
         this.correction = `La seule égalité vraie est  : $${miseEnEvidence(`${calc2}`)}$.<br>
     En effet, <br>  
@@ -101,14 +103,14 @@ export default class TrouverEgalite extends ExerciceQcmA {
   $${calc3}\\neq ${a2}^{${n2 + p2}}$<br>
        $${calc4}\\neq ${a3 * b3}^{${2 * n3}}$`
         this.reponses = [
-            `$${calc2}$`,
+          `$${calc2}$`,
           `$${calc1F}$`,
           `$${calc3F}$`,
-          `$${calc4F}$`
+          `$${calc4F}$`,
         ]
         break
 
-      case 3:// égalité vraie est la (a^n)^p
+      case 3: // égalité vraie est la (a^n)^p
         this.enonce = 'La seule égalité vraie est :'
         this.correction = `La seule égalité vraie est  : $${miseEnEvidence(`${calc3}`)}$.<br>
     En effet, <br>  
@@ -121,15 +123,16 @@ export default class TrouverEgalite extends ExerciceQcmA {
   $${calc2}\\neq ${a1}^{${n1 - 1}}$<br>
        $${calc4}\\neq ${a3 * b3}^{${2 * n3}}$`
         this.reponses = [
-               `$${calc3}$`,
+          `$${calc3}$`,
           `$${calc2F}$`,
           `$${calc1F}$`,
-          `$${calc4F}$`
+          `$${calc4F}$`,
         ]
         break
 
-      case 4:// égalité vraie est a^n*b^n=(a*b)*n
-      default:this.enonce = 'La seule égalité vraie est :'
+      case 4: // égalité vraie est a^n*b^n=(a*b)*n
+      default:
+        this.enonce = 'La seule égalité vraie est :'
         this.correction = `La seule égalité vraie est  : $${miseEnEvidence(`${calc4}`)}$.<br>
     En effet, <br>  
       $\\begin{aligned}
@@ -141,18 +144,17 @@ export default class TrouverEgalite extends ExerciceQcmA {
   $${calc2}\\neq ${a1}^{${n1 - 1}}$<br>
        $${calc3}\\neq ${a2}^{${n2 + p2}}$`
         this.reponses = [
-             `$${calc4}$`,
+          `$${calc4}$`,
           `$${calc1F}$`,
           `$${calc3F}$`,
-          `$${calc2F}$`
-
+          `$${calc2F}$`,
         ]
         break
     }
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

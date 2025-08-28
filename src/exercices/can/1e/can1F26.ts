@@ -14,10 +14,10 @@ export const uuid = 'ce463'
 
 export const refs = {
   'fr-fr': ['can1F26'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 class ExpCAN extends SimplifierExponentielles {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 

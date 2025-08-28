@@ -3,30 +3,32 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Calculer les coordonnées d\'un milieu'
+export const titre = "Calculer les coordonnées d'un milieu"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '24396'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.optionsChampTexte = { texteAvant: '$M($', texteApres: '$)$' }
     this.formatInteractif = 'texte'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '5;15'
-      this.question = 'Coordonnées du point $M$ milieu du segment $[AB]$ où $A(2\\,;\\,20)$ et $B(8\\,;\\,10)$<br>'
+      this.question =
+        'Coordonnées du point $M$ milieu du segment $[AB]$ où $A(2\\,;\\,20)$ et $B(8\\,;\\,10)$<br>'
       this.correction = `Les coordonnées du milieu sont données par la moyenne des abscisses et la moyenne des ordonnées : <br>
     $x_M=\\dfrac{2+8}{2}=${miseEnEvidence(texNombre(5))}$ et $y_M=\\dfrac{20+10}{2}=${miseEnEvidence(texNombre(15))}$.<br>
     Ainsi,  $M(${miseEnEvidence('5\\,;\\,15')})$.`

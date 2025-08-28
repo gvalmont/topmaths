@@ -3,7 +3,11 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Calculer une limite'
 export const interactifReady = true
@@ -11,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a09e5'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +23,7 @@ export const refs = {
 
 */
 export default class Can2025TQ30 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,7 +32,7 @@ export default class Can2025TQ30 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? -5 : randint(-9, 9, 0)
     const b = this.canOfficielle ? 2 : randint(-9, 9, 0)
     const c = this.canOfficielle ? 2 : randint(-9, 9, 0)

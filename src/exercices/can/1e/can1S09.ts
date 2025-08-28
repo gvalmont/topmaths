@@ -24,21 +24,27 @@ export const uuid = '1eb6e'
 
 export const refs = {
   'fr-fr': ['can1S09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RelationRec extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
-    for (let i = 0, texte, texteCorr, a, b, c, T, proportion, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 1, 2, 3, 4])) { //
-        case 1 :// magazine arithmetico-geo
+    for (
+      let i = 0, texte, texteCorr, a, b, c, T, proportion, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      switch (
+        choice([1, 1, 2, 3, 4]) //
+      ) {
+        case 1: // magazine arithmetico-geo
           a = randint(1, 30)
           b = randint(1, 10) * 100
           c = randint(5, 20) * 1000
@@ -65,7 +71,7 @@ export default class RelationRec extends Exercice {
           this.canReponseACompleter = ''
           break
 
-        case 2 :// magazine geo
+        case 2: // magazine geo
           a = randint(1, 15)
           b = randint(1, 10) * 100
           c = randint(5, 20) * 1000
@@ -93,7 +99,7 @@ export default class RelationRec extends Exercice {
           this.canReponseACompleter = ''
           break
 
-        case 3 :// magazine arith
+        case 3: // magazine arith
           a = randint(1, 15) * 100
           b = randint(1, 10) * 100
           c = randint(5, 20) * 1000
@@ -118,8 +124,14 @@ export default class RelationRec extends Exercice {
           this.canReponseACompleter = ''
           break
         case 4:
-        default :// magazine arith/geo avec tiers....
-          proportion = ['le quart', 'le tiers', 'le dixième', 'le cinquième', 'la moitié']//
+        default: // magazine arith/geo avec tiers....
+          proportion = [
+            'le quart',
+            'le tiers',
+            'le dixième',
+            'le cinquième',
+            'la moitié',
+          ] //
           a = randint(1, 15) * 100
           b = randint(1, 10) * 100
           c = randint(5, 20) * 1000

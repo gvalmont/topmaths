@@ -17,17 +17,17 @@ export const uuid = 'bc6a9'
 
 export const refs = {
   'fr-fr': ['can5C06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResteDivision5e extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = choice([25, 20, 50, 40, 15])
     const b = randint(5, a - 1)
     const c = randint(3, 9)
@@ -40,7 +40,7 @@ export default class ResteDivision5e extends ExerciceSimple {
     Comme $${d}=${a * c}+${b}$, on en déduit que le reste de la division euclidienne de $${d}$ par $${a}$ est  $${b}$.
      `)
     this.reponse = b
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

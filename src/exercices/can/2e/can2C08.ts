@@ -17,19 +17,27 @@ export const uuid = '3a350'
 
 export const refs = {
   'fr-fr': ['can2C08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAvecRacineCarree3 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeRacines1 = [
-      [2, 8], [2, 32], [2, 50], [3, 27], [5, 20], [2, 18], [2, 72], [3, 48], [5, 45]
+      [2, 8],
+      [2, 32],
+      [2, 50],
+      [3, 27],
+      [5, 20],
+      [2, 18],
+      [2, 72],
+      [3, 48],
+      [5, 45],
     ] // couples pour simplifier des produits de racines carrées
     let racine, a, b, reduction
     switch (choice([1, 2])) {

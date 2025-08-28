@@ -12,7 +12,7 @@ import { exp } from 'mathjs'
 export const uuid = 'azer'
 export const refs = {
   'fr-fr': ['TSA2-QCM08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,7 +29,7 @@ export const dateDePublication = '08/11/2024'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (a: number, b: number): void {
+  private appliquerLesValeurs(a: number, b: number): void {
     const r = repere({
       xMin: -8,
       yMin: -8,
@@ -53,7 +53,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
       grilleSecondaireYMin: 0,
       grilleSecondaireYMax: 1,
       grilleSecondaireXMin: 0,
-      grilleSecondaireXMax: 1
+      grilleSecondaireXMax: 1,
     })
     const A = point(0, 2, 'A')
     const B = point(2, 8, 'B')
@@ -62,9 +62,9 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
     const tB = tracePoint(B, 'red') // Variable qui trace les points avec une croix
     const tC = tracePoint(C, 'red') // Variable qui trace les points avec une croix
-    const lA = labelPoint(A, 'red')// Variable qui trace les nom s A et B
-    const lB = labelPoint(B, 'red')// Variable qui trace les nom s A et B
-    const lC = labelPoint(C, 'red')// Variable qui trace les nom s A et B
+    const lA = labelPoint(A, 'red') // Variable qui trace les nom s A et B
+    const lB = labelPoint(B, 'red') // Variable qui trace les nom s A et B
+    const lC = labelPoint(C, 'red') // Variable qui trace les nom s A et B
     tA.taille = 5
     tA.epaisseur = 2
     tB.taille = 5
@@ -75,23 +75,42 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     droiteAB.color = colorToLatexOrHTML('red')
     droiteAB.epaisseur = 2
 
-    const f = (x:number) => (a * x + b) * exp(x)
-    const graphique = mathalea2d({
-      xmin: -6,
-      xmax: 5,
-      ymin: -4,
-      ymax: 9,
-      pixelsParCm: 30,
-      scale: 1,
-      style: 'margin: auto'
-    },
-    [courbe(f, { repere: r, xMin: -5, xMax: 8, color: 'blue', epaisseur: 2 }), r, o, tA, tB, lA, lB, tC, lC, droiteAB]
+    const f = (x: number) => (a * x + b) * exp(x)
+    const graphique = mathalea2d(
+      {
+        xmin: -6,
+        xmax: 5,
+        ymin: -4,
+        ymax: 9,
+        pixelsParCm: 30,
+        scale: 1,
+        style: 'margin: auto',
+      },
+      [
+        courbe(f, {
+          repere: r,
+          xMin: -5,
+          xMax: 8,
+          color: 'blue',
+          epaisseur: 2,
+        }),
+        r,
+        o,
+        tA,
+        tB,
+        lA,
+        lB,
+        tC,
+        lC,
+        droiteAB,
+      ],
     )
     this.reponses = [
       '$a = 10$ et $b = 5$',
       '$a = 2,5$ et $b = 0,5$',
       '$a = -1,5$ et $b = 5$',
-      '$a = 0$ et $b = 5$']
+      '$a = 0$ et $b = 5$',
+    ]
 
     this.enonce = this.sup3
       ? `Le graphique ci-contre donne la représentation graphique $\\mathcal{C}_f$ dans un repère orthogonal <br>
@@ -101,8 +120,10 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
       Le point C est le point de la courbe $\\mathcal{C}_f$ ayant pour abscisse $-2,5$.<br> La droite (AB) est la tangente à la courbe $\\mathcal{C}_f$ au point A.<br>
        ${graphique}`
       : ''
-    this.enonce += 'On admet que la fonction $f$ représentée ci-dessus est définie sur $\\R$ par $f(x) = (ax + b)\\text{e}^x$,<br>'
-    this.enonce += ' où $a$ et $b$ sont deux nombres réels et que sa courbe coupe l\'axe des abscisses <br>en son point de coordonnées $(-0,5~;~ 0)$. <br>On peut affirmer que:'
+    this.enonce +=
+      'On admet que la fonction $f$ représentée ci-dessus est définie sur $\\R$ par $f(x) = (ax + b)\\text{e}^x$,<br>'
+    this.enonce +=
+      " où $a$ et $b$ sont deux nombres réels et que sa courbe coupe l'axe des abscisses <br>en son point de coordonnées $(-0,5~;~ 0)$. <br>On peut affirmer que:"
     this.correction = `Graphiquement $f(0) = ${b} \\iff b\\text{e}^0 = ${b} \\iff b = ${b}$ ;<br>
      D'autre part $f$ est dérivable sur $\\mathbb{R}$ et sur cet intervalle :<br>
 $f'(x) = ${a}\\text{e}^x + (${a}x + ${b})\\text{e}^x = \\text{e}^x(${a}x + ${a} + ${b})$.<br>
@@ -130,11 +151,11 @@ $\\iff a = 10$<br>`
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

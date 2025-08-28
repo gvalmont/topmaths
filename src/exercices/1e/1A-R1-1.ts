@@ -15,10 +15,10 @@ export const uuid = 'cd464'
 
 export const refs = {
   'fr-fr': ['1A-R1-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AR1a extends PourcentageARetrouver {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

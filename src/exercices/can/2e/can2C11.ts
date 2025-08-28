@@ -20,22 +20,28 @@ export const uuid = '031f0'
 
 export const refs = {
   'fr-fr': ['can2C11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CoeffTaux extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let taux, coeff
 
-    switch (choice(['a', 'b', 'b'])) { //, 'b', 'b'
+    switch (
+      choice(['a', 'b', 'b']) //, 'b', 'b'
+    ) {
       case 'a':
-        taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
+        taux = choice([
+          randint(1, 9) * 10,
+          randint(1, 9),
+          randint(1, 9) * 10 + randint(1, 9),
+        ])
         coeff = 1 + taux / 100
         this.question = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff)}$ est : `
 
@@ -48,12 +54,20 @@ export default class CoeffTaux extends ExerciceSimple {
         Cela signifie  qu'on l'augmente de $${texNombre(coeff * 100 - 100)}${sp(1)}\\%$ car $100${sp(1)}\\% +${texNombre(coeff * 100 - 100)}${sp(1)}\\%=${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
         Le taux d'évolution est donc $${miseEnEvidence('+')} ${miseEnEvidence(`${taux}${sp(1)}`)} \\%$.`
         this.reponse = this.versionQcm ? `$+${texNombre(taux, 0)}\\,\\%$` : taux
-        this.distracteurs = [`$+${texNombre(1 + taux / 100, 3)}\\,\\%$`, `$+${texNombre(taux / 100, 4)}\\,\\%$`, `$+${texNombre(1 + taux / 1000, 4)}\\,\\%$`]
+        this.distracteurs = [
+          `$+${texNombre(1 + taux / 100, 3)}\\,\\%$`,
+          `$+${texNombre(taux / 100, 4)}\\,\\%$`,
+          `$+${texNombre(1 + taux / 1000, 4)}\\,\\%$`,
+        ]
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff, 2)}$ est $\\ldots$ $\\%$ `
         break
       case 'b':
-        taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
+        taux = choice([
+          randint(1, 9) * 10,
+          randint(1, 9),
+          randint(1, 9) * 10 + randint(1, 9),
+        ])
         coeff = 1 - taux / 100
         this.question = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff)}$ est `
 
@@ -65,8 +79,14 @@ export default class CoeffTaux extends ExerciceSimple {
         Multiplier une valeur par $${texNombre(coeff)}$ revient à en prendre  $${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
         Cela signifie  qu'on la diminue de $${texNombre(100 - coeff * 100)}${sp(1)}\\%$ car $100${sp(1)}\\%-${texNombre(100 - coeff * 100)}${sp(1)}\\% =${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
         Le taux d'évolution est donc $${miseEnEvidence('-')} ${miseEnEvidence(`${taux}${sp(1)}`)} \\%$.`
-        this.reponse = this.versionQcm ? `$${texNombre(-taux, 0)}\\,\\%$` : -taux
-        this.distracteurs = [`$${texNombre(-taux / 10, 3)}\\,\\%$`, `$-${texNombre(100 - taux, 4)}\\,\\%$`, `$-${texNombre(1 - taux / 100, 4)}\\,\\%$`]
+        this.reponse = this.versionQcm
+          ? `$${texNombre(-taux, 0)}\\,\\%$`
+          : -taux
+        this.distracteurs = [
+          `$${texNombre(-taux / 10, 3)}\\,\\%$`,
+          `$-${texNombre(100 - taux, 4)}\\,\\%$`,
+          `$-${texNombre(1 - taux / 100, 4)}\\,\\%$`,
+        ]
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff, 2)}$ est $\\ldots$ $\\%$ `
         break

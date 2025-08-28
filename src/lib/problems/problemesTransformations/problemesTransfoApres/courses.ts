@@ -10,9 +10,9 @@ import ProblemeTransfoApres from './problemesTransfoApres'
 /**
  * @author Jean-Claude Lhote
  */
-export function courses3 (decimal = true): Probleme {
+export function courses3(decimal = true): Probleme {
   const personnage = prenomPronom()
-  let objet: { nom: string, prixMini: number, prixMaxi: number }
+  let objet: { nom: string; prixMini: number; prixMaxi: number }
   do {
     objet = choice(choice(troisObjetsAVendre))
   } while (objet.prixMini < 20) // Assure que les deux objets sont différents
@@ -31,7 +31,10 @@ Combien ${personnage.prenom} doit-${personnage.pronom} dépenser aujourd'hui ?`
   const probleme = new ProblemeTransfoApres('courses3', data)
   probleme.enonce = enonce
   probleme.correction = correction
-  if (probleme.schema.topBraces == null || probleme.schema.topBraces.length === 0) {
+  if (
+    probleme.schema.topBraces == null ||
+    probleme.schema.topBraces.length === 0
+  ) {
     probleme.schema.topBraces = []
   }
   probleme.schema.topBraces[0].text = `$${miseEnEvidence(texNombre(prix1 + augmentation, 2, true))}\\text{ €}$`

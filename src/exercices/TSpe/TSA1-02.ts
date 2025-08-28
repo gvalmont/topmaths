@@ -1,6 +1,9 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
-import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  texteEnCouleur,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import Trinome from '../../modules/Trinome'
 import { createList } from '../../lib/format/lists'
@@ -9,31 +12,31 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import { sp } from '../../lib/outils/outilString'
 
-export const titre = 'Étude d\'une suite $u_{n+1}=f(u_n)$ par récurrence'
+export const titre = "Étude d'une suite $u_{n+1}=f(u_n)$ par récurrence"
 export const dateDePublication = '25/10/2024'
 
 /**
  * @author Rémi Angot
  * Étude d\'une suite par récurrence définie par une fonction polynôme du second degré.
-*/
+ */
 
 export const uuid = '787b5'
 export const refs = {
   'fr-fr': ['TSA1-02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 const bleuMathalea = context.isHtml ? '#216D9A' : 'black'
 
 export default class EtudeSuiteFonctionRecurrence extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte = ''
     let texteCorr = ''
 
@@ -48,7 +51,7 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
       [frac(1, 4), frac(-2, 3), frac(17, 12)],
       [frac(1, 4), frac(-1, 4), frac(1, 1)],
       [frac(1, 5), frac(-1, 5), frac(1, 1)],
-      [frac(1, 5), frac(1, 5), frac(3, 5)]
+      [frac(1, 5), frac(1, 5), frac(3, 5)],
     ])
 
     const f = new Trinome(a, b, c)
@@ -57,31 +60,37 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
     const questions = [
       `Étudier le sens de variation de $f$ sur $[${i1}\\;;\\;${i2}]$.`,
       `Démontrer par récurrence que, pour tout entier naturel $n$, $${i1} \\leqslant u_n \\leqslant ${i2}$`,
-      'Démontrer que la suite $(u_n)$ est décroissante.'
+      'Démontrer que la suite $(u_n)$ est décroissante.',
     ]
     const style = 'nombres'
     const classOptions = 'space-y-4 mt-3'
-    texte += '<br>' + createList({
-      items: questions,
-      style,
-      classOptions
-    })
-    let correction1 = 'La fonction $f$ est une fonction polynôme du second degré. Elle est donc dérivable sur $\\R$ et pour tout $x$ de $\\R$ :'
+    texte +=
+      '<br>' +
+      createList({
+        items: questions,
+        style,
+        classOptions,
+      })
+    let correction1 =
+      'La fonction $f$ est une fonction polynôme du second degré. Elle est donc dérivable sur $\\R$ et pour tout $x$ de $\\R$ :'
     correction1 += `<br><br> $f'(x)=${f.derivee.tex}$.`
     correction1 += `<br><br> $f'(x)=0 \\Leftrightarrow x=${alpha}$.`
     correction1 += `<br><br>Or $${alpha} \\geqslant ${i1}$ donc $f$ est croissante sur $[${i1}\\;;\\;${i2}]$.`
 
-    const fonction = (x:FractionEtendue | number) => f.image(x).toNumber()
-    const derivee = (x:FractionEtendue | number) => f.derivee.image(x).toNumber()
-    correction1 += '<br><br>' + tableauVariationsFonction(fonction, derivee, i1, i2, {
-      ligneDerivee: true,
-      substituts: [
-        { antVal: 3, antTex: '3', imgTex: '$ $' },
-        { antVal: 1, antTex: '1', imgTex: '$ $' }
-      ],
-      step: new FractionEtendue(1, 100),
-      tolerance: 0.001
-    })
+    const fonction = (x: FractionEtendue | number) => f.image(x).toNumber()
+    const derivee = (x: FractionEtendue | number) =>
+      f.derivee.image(x).toNumber()
+    correction1 +=
+      '<br><br>' +
+      tableauVariationsFonction(fonction, derivee, i1, i2, {
+        ligneDerivee: true,
+        substituts: [
+          { antVal: 3, antTex: '3', imgTex: '$ $' },
+          { antVal: 1, antTex: '1', imgTex: '$ $' },
+        ],
+        step: new FractionEtendue(1, 100),
+        tolerance: 0.001,
+      })
 
     let correction2 = `Démontrons par récurrence que, pour tout entier naturel $n$, $${i1} \\leqslant u_n \\leqslant ${i2}$`
     correction2 += `<br><br>${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
@@ -99,15 +108,18 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
     correction2 += '<br><br>Donc la propriété est vraie au rang $n+1$.'
 
     correction2 += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
-    correction2 += '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
+    correction2 +=
+      '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
 
-    let correction3 = 'Démontrons par récurrence que pour tout $n$ entier naturel : $u_{n+1} \\leqslant u_n$.'
+    let correction3 =
+      'Démontrons par récurrence que pour tout $n$ entier naturel : $u_{n+1} \\leqslant u_n$.'
     correction3 += `<br><br>${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
     correction3 += `<br><br>$u_1 = f(u_0) = f(${i2}) = ${f.image(i2).texFractionSimplifiee} \\leqslant u_0$`
     correction3 += '<br><br>La propriété est donc vraie au rang 0.'
 
     correction3 += `<br><br>${texteEnCouleurEtGras('Hérédité :', bleuMathalea)}`
-    correction3 += '<br><br>Soit $n$ un entier naturel. Supposons que $u_{n+1} \\leqslant u_n$.'
+    correction3 +=
+      '<br><br>Soit $n$ un entier naturel. Supposons que $u_{n+1} \\leqslant u_n$.'
     correction3 += '<br><br>Montrons alors que $u_{n+2} \\leqslant u_{n+1}$.'
     correction3 += '<br><br>On a : '
     correction3 += `<br><br>$u_{n+1} \\leqslant u_n \\qquad$ ${texteEnCouleur('Hypothèse de récurrence', 'forestgreen')}`
@@ -115,12 +127,13 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
     correction3 += '<br><br>$u_{n+2} \\leqslant u_{n+1}$'
 
     correction3 += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
-    correction3 += '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
+    correction3 +=
+      '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
 
     texteCorr = createList({
       items: [correction1, correction2, correction3],
       style,
-      classOptions
+      classOptions,
     })
 
     if (!context.isHtml) {
@@ -133,6 +146,6 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
   }
 }
 
-function frac (a: number, b: number) {
+function frac(a: number, b: number) {
   return new FractionEtendue(a, b)
 }

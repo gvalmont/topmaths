@@ -5,27 +5,27 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Donner le nombre de solutions d\'une équation'
+export const titre = "Donner le nombre de solutions d'une équation"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '10886'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class nbreSolutions extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = 2025
     const b = randint(2020, 2030)
     this.question = ` Combien de solutions réelles possède l'équation  ${choice([true, false]) ? `$-x^2+${texNombre(a)}=${texNombre(b)}$` : `$${texNombre(a)}-x^2=${texNombre(b)}$`} ?`
@@ -42,7 +42,9 @@ export default class nbreSolutions extends ExerciceSimple {
            Cette équation n'a pas de solution réelle ($${miseEnEvidence('0')}$ solution) car $${texNombre(a - b)}<0$.`
       this.reponse = 0
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

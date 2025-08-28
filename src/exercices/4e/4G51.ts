@@ -8,7 +8,11 @@ import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  colorToLatexOrHTML,
+  vide2d,
+} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -28,18 +32,22 @@ export const uuid = '0e754'
 
 export const refs = {
   'fr-fr': ['4G51'],
-  'fr-ch': ['9ES7-3']
+  'fr-ch': ['9ES7-3'],
 }
 export default class RepresenterUnSolide4e extends Exercice {
   classe: number
-  constructor () {
+  constructor() {
     super()
     // Héritage de la classe Exercice ()
-    this.besoinFormulaireNumerique = ['Type de solides', 9, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides\n 8 : Cônes\n 9 : Mélange cubes, pavés, prismes, pyramides, cônes']
+    this.besoinFormulaireNumerique = [
+      'Type de solides',
+      9,
+      ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides\n 8 : Cônes\n 9 : Mélange cubes, pavés, prismes, pyramides, cônes',
+    ]
     this.besoinFormulaire2Numerique = [
       'Type de cahier',
       3,
-      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche',
     ]
     this.nbQuestions = 1
 
@@ -48,7 +56,7 @@ export default class RepresenterUnSolide4e extends Exercice {
     this.classe = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
 
     if (this.sup === 3) {
@@ -65,70 +73,125 @@ export default class RepresenterUnSolide4e extends Exercice {
 
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     let Xmin, Xmax, Ymin, Ymax, ppc, sc
 
-    if (this.classe === 6) { // sixième : cube et pavé droit
+    if (this.classe === 6) {
+      // sixième : cube et pavé droit
       typesDeQuestionsDisponibles = [1, 2]
-    } else if (this.classe === 5) { // cinquième : on ajoute le prisme
+    } else if (this.classe === 5) {
+      // cinquième : on ajoute le prisme
       typesDeQuestionsDisponibles = [1, 2, 4]
-    } else if (this.classe === 4) { // Quatrième : on ajoute la pyramide et le cône
+    } else if (this.classe === 4) {
+      // Quatrième : on ajoute la pyramide et le cône
       typesDeQuestionsDisponibles = [1, 2, 4, 6, 8]
     }
-    if (this.sup2 === 1) { sc = 0.5 } else { sc = 0.8 }
+    if (this.sup2 === 1) {
+      sc = 0.5
+    } else {
+      sc = 0.8
+    }
 
-    let A; let B; let C; let D; let E; let F; let G; let H; let I
-    let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH; let IA; let IB; let IE; let IF; let BD; let FH
+    let A
+    let B
+    let C
+    let D
+    let E
+    let F
+    let G
+    let H
+    let I
+    let AB
+    let BC
+    let CD
+    let DA
+    let EF
+    let FG
+    let GH
+    let HE
+    let AE
+    let BF
+    let CG
+    let DH
+    let IA
+    let IB
+    let IE
+    let IF
+    let BD
+    let FH
     let coeffpersp
-    let enonce : string = ''
-    let correction : string = ''
-    let carreaux; let g
+    let enonce: string = ''
+    let correction: string = ''
+    let carreaux
+    let g
     let objetsEnonce = []
     let objetsCorrection = []
     let listeDeNomsDePolygones: string[] = []
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       if (i % 2 === 0) listeDeNomsDePolygones = ['QD'] // lettres à éviter
       const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
       const anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135])
-      if (anglepersp % 10 === 0) { coeffpersp = 0.6 } else { coeffpersp = 0.4 }
+      if (anglepersp % 10 === 0) {
+        coeffpersp = 0.6
+      } else {
+        coeffpersp = 0.4
+      }
       objetsCorrection = []
       objetsEnonce = []
 
       switch (listeTypeDeQuestions[i]) {
         case 1: // cube
           enonce = `$${nom}$ est un cube.<br>`
-          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
+          if (context.isHtml) {
+            enonce +=
+              'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          }
           correction = 'Figure complétée :<br>'
           break
 
         case 2: // pavé droit
           enonce = `$${nom}$ est un pavé droit.<br>`
-          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
+          if (context.isHtml) {
+            enonce +=
+              'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          }
           correction = 'Figure complétée :<br>'
           break
 
         case 4: // prisme
           enonce = 'On considère un prisme à base triangulaire.<br>'
-          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
+          if (context.isHtml) {
+            enonce +=
+              'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          }
           correction = 'Figure complétée :<br>'
           break
 
         case 6: // pyramide
           enonce = 'On considère une pyramide à base rectangulaire.<br>'
-          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
+          if (context.isHtml) {
+            enonce +=
+              'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          }
           correction = 'Figure complétée :<br>'
           break
 
         case 8: // cône
           enonce = 'On considère un cône de révolution.<br>'
-          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous de façon à obtenir la représentation d\'un cône en perspective cavalière.<br>' }
+          if (context.isHtml) {
+            enonce +=
+              "Reproduire et compléter la figure ci-dessous de façon à obtenir la représentation d'un cône en perspective cavalière.<br>"
+          }
           correction = 'Figure complétée :<br>'
           break
       }
-      if (!context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous de façon à obtenir la représentation de ce solide en perspective cavalière.<br>' }
+      if (!context.isHtml) {
+        enonce +=
+          'Reproduire et compléter la figure ci-dessous de façon à obtenir la représentation de ce solide en perspective cavalière.<br>'
+      }
 
       switch (listeTypeDeQuestions[i] % 2) {
         case 1:
@@ -147,7 +210,14 @@ export default class RepresenterUnSolide4e extends Exercice {
           B = point(9 + randint(1, 3), 0, nom[1], 'right')
           C = point(B.x, randint(3, 7), nom[2], 'right')
           D = point(A.x, C.y, nom[3], 'left')
-          E = similitude(B, A, anglepersp, coeffpersp * randint(5, 12) / 10, nom[4], 'left')
+          E = similitude(
+            B,
+            A,
+            anglepersp,
+            (coeffpersp * randint(5, 12)) / 10,
+            nom[4],
+            'left',
+          )
           E.x = Math.round(E.x)
           E.y = Math.round(E.y)
           break
@@ -254,8 +324,18 @@ export default class RepresenterUnSolide4e extends Exercice {
       Ymax = Math.max(D.y, H.y) + 1
       ppc = 20
 
-      if (this.sup2 < 3) { g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) } else { g = vide2d() }
-      if (this.sup2 === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = vide2d(); sc = 0.5 }
+      if (this.sup2 < 3) {
+        g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
+      } else {
+        g = vide2d()
+      }
+      if (this.sup2 === 2) {
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
+        sc = 0.8
+      } else {
+        carreaux = vide2d()
+        sc = 0.5
+      }
 
       const params = {
         xmin: Xmin,
@@ -263,35 +343,41 @@ export default class RepresenterUnSolide4e extends Exercice {
         xmax: Xmax,
         ymax: Ymax,
         pixelsParCm: ppc,
-        scale: sc
+        scale: sc,
       }
 
       if (listeTypeDeQuestions[i] === 1) {
-        objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
+        objetsEnonce.push(
+          AB,
+          BC,
+          CD,
+          DA,
+          AE,
+          labelPoint(A, B, C, D, E),
           g,
-          carreaux
+          carreaux,
         )
       }
 
       if (listeTypeDeQuestions[i] === 2) {
-        objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
+        objetsEnonce.push(
+          AB,
+          BC,
+          CD,
+          DA,
+          AE,
+          labelPoint(A, B, C, D, E),
           g,
-          carreaux
+          carreaux,
         )
       }
 
       if (listeTypeDeQuestions[i] === 4) {
-        objetsEnonce.push(AB, DA, BD, AE,
-          g,
-          carreaux
-        )
+        objetsEnonce.push(AB, DA, BD, AE, g, carreaux)
       }
 
       if (listeTypeDeQuestions[i] === 6) {
-        objetsEnonce.push(AB, BF, tracePoint(I, 'red'),
-          g,
-          carreaux
-        )
+        objetsEnonce.push(AB, BF, tracePoint(I, 'red'), g, carreaux)
       }
 
       if (listeTypeDeQuestions[i] === 8) {
@@ -311,17 +397,32 @@ export default class RepresenterUnSolide4e extends Exercice {
 
         switch (choice(['hemisphere nord', 'hemisphere sud'])) {
           case 'hemisphere nord':
-            objetsEnonce.push(semiEllipse({ centre, rx, ry, hemisphere: 'nord', pointilles: 5 }))
+            objetsEnonce.push(
+              semiEllipse({
+                centre,
+                rx,
+                ry,
+                hemisphere: 'nord',
+                pointilles: 5,
+              }),
+            )
             break
           case 'hemisphere sud':
-            objetsEnonce.push(semiEllipse({ centre, rx, ry, hemisphere: 'sud' }))
+            objetsEnonce.push(
+              semiEllipse({ centre, rx, ry, hemisphere: 'sud' }),
+            )
             break
         }
 
         //       objetsCorrection.push(tracePoint(sommet), hauteurDuCone, rayon, angleDroit, cone({ centre, rx, hauteur: 1.5 * rx }),
-        objetsCorrection.push(tracePoint(sommet), hauteurDuCone, rayon, angleDroit, cone({ centre, rx, hauteur: hauteurDuCone.longueur }),
+        objetsCorrection.push(
+          tracePoint(sommet),
+          hauteurDuCone,
+          rayon,
+          angleDroit,
+          cone({ centre, rx, hauteur: hauteurDuCone.longueur }),
           g,
-          carreaux
+          carreaux,
         )
       }
 
@@ -339,9 +440,22 @@ export default class RepresenterUnSolide4e extends Exercice {
         BF.color = colorToLatexOrHTML('blue')
         CG.color = colorToLatexOrHTML('blue')
         DH.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+        objetsCorrection.push(
+          AB,
+          BC,
+          CD,
+          DA,
+          EF,
+          FG,
+          GH,
+          HE,
+          AE,
+          BF,
+          CG,
+          DH,
+          labelPoint(A, B, C, D, E, F, G, H),
           g,
-          carreaux
+          carreaux,
         )
       }
 
@@ -358,9 +472,22 @@ export default class RepresenterUnSolide4e extends Exercice {
         BF.color = colorToLatexOrHTML('blue')
         CG.color = colorToLatexOrHTML('blue')
         DH.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+        objetsCorrection.push(
+          AB,
+          BC,
+          CD,
+          DA,
+          EF,
+          FG,
+          GH,
+          HE,
+          AE,
+          BF,
+          CG,
+          DH,
+          labelPoint(A, B, C, D, E, F, G, H),
           g,
-          carreaux
+          carreaux,
         )
       }
 
@@ -377,10 +504,7 @@ export default class RepresenterUnSolide4e extends Exercice {
         BF.color = colorToLatexOrHTML('blue')
         CG.color = colorToLatexOrHTML('blue')
         DH.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH,
-          g,
-          carreaux
-        )
+        objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH, g, carreaux)
       }
 
       if (listeTypeDeQuestions[i] === 6) {
@@ -396,9 +520,18 @@ export default class RepresenterUnSolide4e extends Exercice {
         BF.color = colorToLatexOrHTML('blue')
         CG.color = colorToLatexOrHTML('blue')
         DH.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(AB, EF, AE, BF, IA, IB, IE, IF, tracePoint(I),
+        objetsCorrection.push(
+          AB,
+          EF,
+          AE,
+          BF,
+          IA,
+          IB,
+          IE,
+          IF,
+          tracePoint(I),
           g,
-          carreaux
+          carreaux,
         )
       }
 
@@ -413,12 +546,17 @@ export default class RepresenterUnSolide4e extends Exercice {
               feedback: '',
               enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
               sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-              pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
-            }
-          ]
+              pointilles: false, // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+            },
+          ],
         }
       }
-      if (this.questionJamaisPosee(i, [A, B, C, D, E, F, G, H].map(p => p.nom).join(''))) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          [A, B, C, D, E, F, G, H].map((p) => p.nom).join(''),
+        )
+      ) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = enonce
         this.listeCorrections[i] = correction

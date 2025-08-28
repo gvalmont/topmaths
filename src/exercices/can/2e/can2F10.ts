@@ -2,7 +2,10 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
@@ -25,10 +28,10 @@ export const uuid = '1380f'
 
 export const refs = {
   'fr-fr': ['can2F10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -36,11 +39,11 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, k, b, c, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       switch (choice([1, 2, 3, 4, 5, 6])) {
-        case 1 :
+        case 1:
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
           k = arrondi(c - b)
@@ -54,17 +57,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{${extraireRacineCarree(k)[0]}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               if (extraireRacineCarree(k)[1] === k) {
@@ -74,17 +77,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: '$S=\\emptyset$',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `$S=\\{\\sqrt{${c - b}}\\}$`,
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               } else {
                 this.autoCorrection[i] = {
@@ -93,17 +96,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `$S=\\{${Math.sqrt(k)}\\}$`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `$S=\\{${k}\\}$`,
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               }
             }
@@ -116,17 +119,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\{0\\}$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: '$S=\\{1}\\}$',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\emptyset$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           if (k < 0) {
@@ -137,17 +140,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: '$S=\\emptyset$',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\{-${Math.sqrt(-k)};${Math.sqrt(-k)}\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{-${Math.sqrt(-k)}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               this.autoCorrection[i] = {
@@ -156,17 +159,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: '$S=\\emptyset$',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\{-\\sqrt{${-k}};\\sqrt{${-k}}\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{\\sqrt{${-k}}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
           }
@@ -228,7 +231,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
           this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $x^2${ecritureAlgebrique(b)}=${c}$.`
           this.canReponseACompleter = ''
           break
-        case 2 :
+        case 2:
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
           k = arrondi(b - c)
@@ -242,17 +245,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{${extraireRacineCarree(k)[0]}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               if (extraireRacineCarree(k)[1] === k) {
@@ -262,17 +265,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: '$S=\\emptyset$',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `$S=\\{\\sqrt{${k}}\\}$`,
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               } else {
                 this.autoCorrection[i] = {
@@ -281,17 +284,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `$S=\\{${Math.sqrt(k)}\\}$`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `$S=\\{${k}\\}$`,
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               }
             }
@@ -304,17 +307,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\{0\\}$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: '$S=\\{1}\\}$',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\emptyset$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           if (k < 0) {
@@ -325,17 +328,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: '$S=\\emptyset$',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\{-${Math.sqrt(-k)};${Math.sqrt(-k)}\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{-${Math.sqrt(-k)}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               this.autoCorrection[i] = {
@@ -344,17 +347,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: '$S=\\emptyset$',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\{-\\sqrt{${-k}};\\sqrt{${-k}}\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{\\sqrt{${-k}}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
           }
@@ -421,7 +424,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
           this.canReponseACompleter = ''
           break
 
-        case 3 :
+        case 3:
           b = randint(-5, 5, 0)
           c = randint(-5, 5)
           k = arrondi(c - b)
@@ -435,17 +438,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\{${k ** 2}\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\{${2 * k}\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{${k}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               this.autoCorrection[i] = {
@@ -454,17 +457,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\{${k}\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{${2 * k}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
           }
@@ -476,17 +479,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{\\sqrt{${-k}}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\{${k ** 2}\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           if (k === 0) {
@@ -496,17 +499,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\{0\\}$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{${k + 1}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\emptyset$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -551,7 +554,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
           this.canEnonce = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ l'équation $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$.`
           this.canReponseACompleter = ''
           break
-        case 4 :
+        case 4:
           b = randint(-5, 5, 0)
           c = randint(-5, 5)
           k = arrondi(b - c)
@@ -566,17 +569,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\{${k ** 2}\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: '$S=\\emptyset$',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `$S=\\{${k}\\}$`,
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               } else {
                 this.autoCorrection[i] = {
@@ -585,17 +588,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\{${k ** 2}\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `$S=\\{${2 * k}\\}$`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `$S=\\{${k}\\}$`,
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               }
             } else {
@@ -605,17 +608,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\{${k}\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: `$S=\\{${2 * k}\\}$`,
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             }
           }
@@ -627,17 +630,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{\\sqrt{${-k}}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$S=\\{${k ** 2}\\}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           if (k === 0) {
@@ -647,17 +650,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\{0\\}$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$S=\\{${k + 1}\\}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\emptyset$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -698,7 +701,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
           this.canEnonce = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ l'équation $-\\sqrt{x}${ecritureAlgebrique(b)}=${c}$.`
           this.canReponseACompleter = ''
           break
-        case 5 :
+        case 5:
           b = randint(-10, 10, 0)
           c = randint(-10, 10)
           k = c - b
@@ -712,17 +715,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               if (k === -1) {
@@ -732,17 +735,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: '$S=\\emptyset$',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               } else {
                 this.autoCorrection[i] = {
@@ -751,17 +754,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `$S=\\left\\{${k}\\right\\}$`,
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               }
             }
@@ -774,17 +777,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: '$S=\\left\\{0\\right\\}$',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\left\\{-1\\right\\}$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           props = propositionsQcm(this, i)
@@ -817,7 +820,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
           this.canEnonce = `Résoudre dans $\\mathbb{R}^*$ l'équation $\\dfrac{1}{x}${ecritureAlgebrique(b)}=${c}$.`
           this.canReponseACompleter = ''
           break
-        case 6 :
+        case 6:
         default:
           b = randint(-10, 10, 0)
           c = randint(-10, 10)
@@ -832,17 +835,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 propositions: [
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: '$S=\\emptyset$',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
             } else {
               if (k === -1) {
@@ -852,17 +855,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: '$S=\\emptyset$',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               } else {
                 this.autoCorrection[i] = {
@@ -871,17 +874,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                   propositions: [
                     {
                       texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: `$S=\\left\\{${k}\\right\\}$`,
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
               }
             }
@@ -894,17 +897,17 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: '$S=\\left\\{0\\right\\}$',
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: '$S=\\left\\{-1\\right\\}$',
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           props = propositionsQcm(this, i)

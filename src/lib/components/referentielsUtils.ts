@@ -17,13 +17,12 @@ const baseReferentiel: JSONReferentielObject = {
   ...referentiel,
   static: {
     ...referentielStaticFR,
-    ...referentielStaticCH
-  }
+    ...referentielStaticCH,
+  },
 }
 if (get(globalOptions).beta) {
   // const second: JSONReferentielObject = referentiel2nd
   // Object.assign(baseReferentiel.static, { '2nd': second['2nd'] })
-
   // @ToDo afficher les exercices statiques de 2nd
   // if (baseReferentiel.static !== null) {
   //   baseReferentiel.static['2nd'] = { ...referentiel2nd }
@@ -37,7 +36,7 @@ let referentielMap = toMap(baseReferentiel)
  * @param listOfEntries COnstruction d'un référentiel basé sur une liste d'entrée
  * @returns
  */
-function buildReferentiel (listOfEntries) {
+function buildReferentiel(listOfEntries) {
   const referentiel = {}
   for (const path of listOfEntries) {
     let schema = referentiel
@@ -71,8 +70,8 @@ const isObject = (val: unknown) =>
  * @return {[string]} objet des exos nouveaux
  * @author sylvain
  */
-function getRecentExercises (
-  obj: InterfaceReferentiel[]
+function getRecentExercises(
+  obj: InterfaceReferentiel[],
 ): InterfaceReferentiel[] {
   const recentExercises: InterfaceReferentiel[] = []
   /**
@@ -82,7 +81,7 @@ function getRecentExercises (
    * @param obj Objet à parcourir
    */
   const traverseObject = (
-    obj: InterfaceReferentiel[]
+    obj: InterfaceReferentiel[],
   ): InterfaceReferentiel[] => {
     return Object.entries(obj).reduce((product, [key, value]) => {
       if (isObject(value as InterfaceReferentiel)) {
@@ -117,10 +116,10 @@ function getRecentExercises (
  * @param itemsAccepted Tableau des entrées filtrées
  * @returns tableau de tous les exercices filtrés
  */
-export function updateReferentiel (
+export function updateReferentiel(
   isAmcOnlySelected,
   isInteractiveOnlySelected,
-  itemsAccepted
+  itemsAccepted,
 ) {
   // console.log(getRecentExercices(baseReferentiel))
   let filteredReferentiel = {}
@@ -134,7 +133,7 @@ export function updateReferentiel (
         const ref = { ...referentiel }
         return {
           ...obj,
-          [key]: ref[key]
+          [key]: ref[key],
         }
       }, {})
     // console.log("first list :")
@@ -144,27 +143,27 @@ export function updateReferentiel (
   if (isAmcOnlySelected && !isInteractiveOnlySelected) {
     const amcCompatible = findPropPaths(
       baseReferentiel,
-      (key) => key === 'amc'
+      (key) => key === 'amc',
     ).map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
     filteredReferentiel = { ...buildReferentiel(amcCompatible) }
   } else if (isInteractiveOnlySelected && !isAmcOnlySelected) {
     const interactiveCompatible = findPropPaths(
       baseReferentiel,
-      (key) => key === 'interactif'
+      (key) => key === 'interactif',
     ).map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
     filteredReferentiel = { ...buildReferentiel(interactiveCompatible) }
   } else if (isAmcOnlySelected && isInteractiveOnlySelected) {
     const amcCompatible = findPropPaths(
       baseReferentiel,
-      (key) => key === 'amc'
+      (key) => key === 'amc',
     ).map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
     const interactiveCompatible = findPropPaths(
       baseReferentiel,
-      (key) => key === 'interactif'
+      (key) => key === 'interactif',
     ).map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
     // garder que les doublons
     const bothCompatible = findDuplicates(
-      amcCompatible.concat(interactiveCompatible)
+      amcCompatible.concat(interactiveCompatible),
     )
     filteredReferentiel = { ...buildReferentiel(bothCompatible) }
   }
@@ -180,7 +179,7 @@ export function updateReferentiel (
  * Retrouve le titre d'un niveau basé sur son
  * @param levelId
  */
-export function codeToLevelTitle (code: string) {
+export function codeToLevelTitle(code: string) {
   if (codeList[code]) {
     return codeList[code]
   } else {
@@ -194,7 +193,7 @@ export function codeToLevelTitle (code: string) {
  * @param refName nom du référentiel (conformément au type `ReferentielNames` dans `src/lib/types.ts`)
  * @returns la valeur mentionnée dans `src/json/referentielsActivation.json` <br/> `false` si le nom du référentiel n'exoiste pas.
  */
-export function isReferentielActivated (refName: string): boolean {
+export function isReferentielActivated(refName: string): boolean {
   const referentielList = toMap({ ...referentielsActivation })
   if (referentielList.has(refName)) {
     return referentielList.get(refName) === 'true'

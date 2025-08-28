@@ -20,17 +20,17 @@ export const uuid = '4dadb'
 
 export const refs = {
   'fr-fr': ['5R12-1'],
-  'fr-ch': ['9FA1-6']
+  'fr-ch': ['9FA1-6'],
 }
 
 // Type simplifié pour la sauvegarde de la réponse
-type Coords = { label: string, x: number, y: number }
+type Coords = { label: string; x: number; y: number }
 
 class ReperagePointDuPlan extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   points: Coords[] = []
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.exoCustomResultat = true // Pour qu'une unique question puisse rapporter plusieurs points
@@ -40,8 +40,14 @@ class ReperagePointDuPlan extends ExerciceSimple {
     this.reponse = ''
   }
 
-  nouvelleVersion (): void {
-    this.figure = new Figure({ snapGrid: true, xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
+  nouvelleVersion(): void {
+    this.figure = new Figure({
+      snapGrid: true,
+      xMin: -6.3,
+      yMin: -6.3,
+      width: 378,
+      height: 378,
+    })
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     this.figure.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     this.figure.options.labelAutomaticBeginsWith = 'A' // Les points sont nommés par ordre alphabétique
@@ -57,35 +63,83 @@ class ReperagePointDuPlan extends ExerciceSimple {
     let y3 = randint(-6, 6, [0, y1, y2])
     let y4 = 0
     // On mélange en évitant le couple (0,0)
-    while ([[x1, y1], [x2, y2], [x3, y3], [x4, y4]].some(e => e[0] === 0 && e[1] === 0)) {
-      [x1, x2, x3, x4] = [x1, x2, x3, x4].sort(() => Math.random() - 0.5)
+    while (
+      [
+        [x1, y1],
+        [x2, y2],
+        [x3, y3],
+        [x4, y4],
+      ].some((e) => e[0] === 0 && e[1] === 0)
+    ) {
+      ;[x1, x2, x3, x4] = [x1, x2, x3, x4].sort(() => Math.random() - 0.5)
       ;[y1, y2, y3, y4] = [y1, y2, y3, y4].sort(() => Math.random() - 0.5)
     }
     this.points = [
       { label: 'A', x: x1, y: y1 },
       { label: 'B', x: x2, y: y2 },
       { label: 'C', x: x3, y: y3 },
-      { label: 'D', x: x4, y: y4 }
+      { label: 'D', x: x4, y: y4 },
     ]
-    const figureCorr = new Figure({ snapGrid: true, xMin: -7, yMin: -7, width: 420, height: 420, isDynamic: false })
+    const figureCorr = new Figure({
+      snapGrid: true,
+      xMin: -7,
+      yMin: -7,
+      width: 420,
+      height: 420,
+      isDynamic: false,
+    })
     figureCorr.setToolbar({ tools: ['REMOVE'], position: 'top' })
     figureCorr.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     for (const coord of this.points) {
-      figureCorr.create('Point', { x: coord.x, y: coord.y, color: 'green', thickness: 3, label: coord.label })
+      figureCorr.create('Point', {
+        x: coord.x,
+        y: coord.y,
+        color: 'green',
+        thickness: 3,
+        label: coord.label,
+      })
     }
     let enonce = 'Placer les points suivants : '
     enonce += `$A(${x1}\\;;\\;${y1})$ ; $B(${x2}\\;;\\;${y2})$ ; $C(${x3}\\;;\\;${y3})$ et $D(${x4}\\;;\\;${y4})$.`
     // this.figure.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
-    this.figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
+    this.figure.setToolbar({
+      tools: ['POINT', 'DRAG', 'REMOVE'],
+      position: 'top',
+    })
     if (context.isHtml) {
       if (this.interactif) {
-        this.question = enonce + '<br>' + figureApigeom({ exercice: this, i: 0, figure: this.figure, isDynamic: true, defaultAction: 'POINT' })
+        this.question =
+          enonce +
+          '<br>' +
+          figureApigeom({
+            exercice: this,
+            i: 0,
+            figure: this.figure,
+            isDynamic: true,
+            defaultAction: 'POINT',
+          })
       } else {
-        this.question = enonce + '<br>' + figureApigeom({ exercice: this, i: 0, figure: this.figure, isDynamic: false })
+        this.question =
+          enonce +
+          '<br>' +
+          figureApigeom({
+            exercice: this,
+            i: 0,
+            figure: this.figure,
+            isDynamic: false,
+          })
       }
-      this.correction = figureApigeom({ exercice: this, i: 0, figure: figureCorr, isDynamic: false, idAddendum: 'correction' })
+      this.correction = figureApigeom({
+        exercice: this,
+        i: 0,
+        figure: figureCorr,
+        isDynamic: false,
+        idAddendum: 'correction',
+      })
     } else {
-      this.question = enonce + `\n\n\\bigskip\n{\\Reperage[Plan,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
+      this.question =
+        enonce +
+        `\n\n\\bigskip\n{\\Reperage[Plan,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
         -5/0/A,0/-5/B,5/0/C,0/5/D%
         }}`
       this.correction = `{\\Reperage[Plan,AffichageGrad,Unitesx=0.75,Unitey=0.75,Traces={%
@@ -106,9 +160,9 @@ class ReperagePointDuPlan extends ExerciceSimple {
           {
             texte: '',
             statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-            sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-          }
-        ]
+            sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+          },
+        ],
       }
     }
   }
@@ -118,9 +172,15 @@ class ReperagePointDuPlan extends ExerciceSimple {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figure.id] = this.figure.json
     const resultat = [] // Tableau de 'OK' ou de'KO' pour le calcul du score
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q0`)
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q0`,
+    )
     for (const coord of this.points) {
-      const { points, isValid, message } = this.figure.checkCoords({ label: coord.label, x: coord.x, y: coord.y })
+      const { points, isValid, message } = this.figure.checkCoords({
+        label: coord.label,
+        x: coord.x,
+        y: coord.y,
+      })
       // Point par point, je vérifie que le label et les coordonnées correspondent
       if (isValid) {
         resultat.push('OK')
@@ -136,7 +196,13 @@ class ReperagePointDuPlan extends ExerciceSimple {
           // Là aussi je rajoute as TextByPosition car je suis sûr que ce point a un label
           textLabel.color = 'red'
         }
-        const pointCorr = this.figure.create('Point', { x: coord.x, y: coord.y, color: 'green', thickness: 3, label: coord.label })
+        const pointCorr = this.figure.create('Point', {
+          x: coord.x,
+          y: coord.y,
+          color: 'green',
+          thickness: 3,
+          label: coord.label,
+        })
         const pointCorrLabel = pointCorr.elementTextLabel as TextByPosition
         pointCorrLabel.color = 'green'
         resultat.push('KO')

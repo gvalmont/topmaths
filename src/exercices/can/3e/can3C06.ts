@@ -20,19 +20,21 @@ export const uuid = '9634b'
 
 export const refs = {
   'fr-fr': ['can3C06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculDivers1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c
-    switch (choice(['a', 'b', 'c', 'd'])) { //
+    switch (
+      choice(['a', 'b', 'c', 'd']) //
+    ) {
       case 'a':
         a = randint(-5, 5, [0, 1])
         b = randint(2, 9)
@@ -65,7 +67,7 @@ export default class CalculDivers1 extends ExerciceSimple {
         this.reponse = arrondi(a * c + b * b)
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

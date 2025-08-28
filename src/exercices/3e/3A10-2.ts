@@ -1,4 +1,7 @@
-import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  combinaisonListesSansChangerOrdre,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
@@ -7,7 +10,8 @@ import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-export const titre = 'Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11'
+export const titre =
+  'Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -24,20 +28,21 @@ export const uuid = '526f8'
 
 export const refs = {
   'fr-fr': ['3A10-2'],
-  'fr-ch': ['9NO4-27']
+  'fr-ch': ['9NO4-27'],
 }
 const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 export default class PremierOuPasCriterePar7Par11 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     // pas de différence entre la version html et la version latex pour la consigne
-    this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
+    this.consigne =
+      'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
     if (context.isDiaporama) {
       this.consigne = 'Ce nombre est-il premier ?'
     }
-    context.isHtml ? this.spacing = 1 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? (this.spacing = 1) : (this.spacing = 2)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     this.nbQuestions = 7
 
     this.nbCols = 2
@@ -46,32 +51,39 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
     this.sup = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestions
     if (this.interactif) {
-      this.consigne = 'Les nombres suivants sont-ils premiers ? Penser aux critères de divisibilité.'
+      this.consigne =
+        'Les nombres suivants sont-ils premiers ? Penser aux critères de divisibilité.'
     }
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
 
     // let typesDeQuestionsDisponibles = [1];
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
     let stringRappelB = 'Ces critères de divisibilité pourront être utiles :'
     if (context.isHtml) {
       stringRappelB += '<br>'
-      stringRappelB += '- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l\'est.<br>'
-      stringRappelB += '- Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.'
+      stringRappelB +=
+        "- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l'est.<br>"
+      stringRappelB +=
+        '- Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.'
       stringRappelB += '<br> <br>'
     } else {
       stringRappelB += itemize([
-        'Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l\'st.',
-        'Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.'
+        "Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l'st.",
+        'Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.',
       ])
       stringRappelB += '\\par\\vspace{0.5cm}'
     }
-    stringRappelB += 'Ainsi que cette liste des nombres premiers inférieurs à 100 : '
+    stringRappelB +=
+      'Ainsi que cette liste des nombres premiers inférieurs à 100 : '
     if (context.isHtml) {
       stringRappelB += '<br>'
     } else {
@@ -89,7 +101,27 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
       this.introduction = ''
     }
 
-    for (let i = 0, N, sum, bonneReponse, evenSum, oddSum, r, r1, r2, tabPremiersATester, prime1, prime2, NLongueur, N1Longueur, N1, sum1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        N,
+        sum,
+        bonneReponse,
+        evenSum,
+        oddSum,
+        r,
+        r1,
+        r2,
+        tabPremiersATester,
+        prime1,
+        prime2,
+        NLongueur,
+        N1Longueur,
+        N1,
+        sum1,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       let texte = ''
       let texteCorr = ''
@@ -98,13 +130,15 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
           N = 2 * randint(51, 499)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme ${nombreAvecEspace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         case 2: // Multiple de 3
           sum = 0 // pour la valeur de la somme;
           N = 3 * randint(34, 333) // on initialise avant la boucle car on a peut être de la chance
-          while ((N % 2 === 0) || (N % 5 === 0)) {
+          while (N % 2 === 0 || N % 5 === 0) {
             N = 3 * randint(34, 333)
           }
           texte = nombreAvecEspace(N)
@@ -115,15 +149,20 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
             sum += Number(N.toString().charAt(k))
           }
           texteCorr += ` = ${sum} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         case 3: // Multiple de 5
           N = 5 * randint(20, 200)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est divisible par 5, `
-          texteCorr += 'il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, '
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr +=
+            'il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, '
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         case 4: // Multiple de 7
@@ -132,7 +171,7 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
           // N1Longueur  pour la taille du string N1
           // sum1 pour la somme de la répétition du critère
           N = 7 * randint(15, 143)
-          while ((N % 2 === 0) || (N % 3 === 0) || (N % 5 === 0)) {
+          while (N % 2 === 0 || N % 3 === 0 || N % 5 === 0) {
             N = 7 * randint(15, 143)
           }
           texte = nombreAvecEspace(N)
@@ -141,30 +180,38 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
           texteCorr += '<br>'
           N1 = N
           N1Longueur = NLongueur
-          sum1 = Number(N1.toString().substring(0, N1Longueur - 1)) + 5 * Number(N1.toString().charAt(N1Longueur - 1))
+          sum1 =
+            Number(N1.toString().substring(0, N1Longueur - 1)) +
+            5 * Number(N1.toString().charAt(N1Longueur - 1))
           while (sum1 >= 56) {
             texteCorr += `${N1.toString().substring(0, N1Longueur - 1)} + 5$\\times$${N1.toString().charAt(N1Longueur - 1)}`
             texteCorr += ` = ${Number(N1.toString().substring(0, N1Longueur - 1)) + 5 * Number(N1.toString().charAt(N1Longueur - 1))}`
             texteCorr += '<br>'
             N1 = sum1
             N1Longueur = N1.toString().length
-            sum1 = Number(N1.toString().substring(0, N1Longueur - 1)) + 5 * Number(N1.toString().charAt(N1Longueur - 1))
+            sum1 =
+              Number(N1.toString().substring(0, N1Longueur - 1)) +
+              5 * Number(N1.toString().charAt(N1Longueur - 1))
           }
           texteCorr += `Comme ${N1.toString().substring(0, N1Longueur - 1)} + 5$\\times$${N1.toString().charAt(N1Longueur - 1)} = ${sum1} est un multiple de 7, alors 7 divise ${N} aussi `
-          texteCorr += 'qui admet donc au moins trois diviseurs : 1, 7 et lui-même, '
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr +=
+            'qui admet donc au moins trois diviseurs : 1, 7 et lui-même, '
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         case 5: // multiple de 11
           // evenSum  pour la somme des chiffres de rang impair
           // oddSum pour la somme des chiffres de rang pair
           N = 11 * randint(10, 91)
-          while ((N % 2 === 0) || (N % 3 === 0) || (N % 5 === 0) || (N % 7 === 0)) {
+          while (N % 2 === 0 || N % 3 === 0 || N % 5 === 0 || N % 7 === 0) {
             N = 11 * randint(10, 91)
           }
           texte = nombreAvecEspace(N)
           texteCorr = `D'une part, la somme des chiffres de rang impair de ${nombreAvecEspace(N)} vaut `
-          if (Number(N.toString().length) % 2 === 0) { // si N a un nombre pair de chiffres
+          if (Number(N.toString().length) % 2 === 0) {
+            // si N a un nombre pair de chiffres
             evenSum = Number(N.toString().charAt(1))
             texteCorr += N.toString().charAt(1)
             for (let k = 3; k < N.toString().length; k++) {
@@ -174,7 +221,8 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
               }
             }
             texteCorr += ' = ' + evenSum + '. <br> '
-          } else { // sinon N a un nombre impair de chiffres
+          } else {
+            // sinon N a un nombre impair de chiffres
             evenSum = Number(N.toString().charAt(0))
             texteCorr += N.toString().charAt(0)
             for (let m = 1; m < N.toString().length; m++) {
@@ -186,7 +234,8 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
             texteCorr += ' = ' + evenSum + '. <br> '
           }
           texteCorr += `D'autre part, la somme des chiffres de rang pair de ${nombreAvecEspace(N)} vaut `
-          if (Number(N.toString().length) % 2 === 0) { // si N a un nombre pair de chiffres
+          if (Number(N.toString().length) % 2 === 0) {
+            // si N a un nombre pair de chiffres
             oddSum = Number(N.toString().charAt(0))
             texteCorr += N.toString().charAt(0)
             for (let k = 1; k < N.toString().length; k++) {
@@ -196,7 +245,8 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
               }
             }
             texteCorr += ' = ' + oddSum + '. <br> '
-          } else { // sinon N a un nombre impair de chiffres
+          } else {
+            // sinon N a un nombre impair de chiffres
             oddSum = Number(N.toString().charAt(1))
             texteCorr += N.toString().charAt(1)
             for (let m = 3; m < N.toString().length; m++) {
@@ -207,15 +257,18 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
             }
             texteCorr += ' = ' + oddSum + '. <br> '
           }
-          texteCorr += 'La différence entre la somme des chiffres de rangs pairs et celle des chiffres de rangs impairs vaut '
-          if ((oddSum - evenSum) === 0) {
+          texteCorr +=
+            'La différence entre la somme des chiffres de rangs pairs et celle des chiffres de rangs impairs vaut '
+          if (oddSum - evenSum === 0) {
             texteCorr += `${oddSum - evenSum} `
           } else {
             texteCorr += `${Math.abs(oddSum - evenSum)} `
           }
           texteCorr += 'qui est un multiple de 11, <br>'
           texteCorr += ` cela signifie que ${nombreAvecEspace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         case 6: // produit de deux nombres premiers inférieurs à 100
@@ -233,7 +286,11 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
           } else {
             texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même, `
           }
-          texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(
+            `${N} = ` +
+              nombreAvecEspace(prime1 * prime2) +
+              " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         case 7: // nombre premier inférieur à 529
@@ -254,7 +311,9 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
           }
           texteCorr += '.'
           texteCorr += `<br> Aucun de ces nombres premiers ne divise ${N}, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + ' est donc un nombre premier.',
+          )
           bonneReponse = 'oui'
           break
       }
@@ -264,19 +323,20 @@ export default class PremierOuPasCriterePar7Par11 extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: 'est premier',
-          statut: bonneReponse !== 'non'
+          statut: bonneReponse !== 'non',
         },
         {
-          texte: 'n\'est pas premier',
-          statut: bonneReponse !== 'oui'
-        }
+          texte: "n'est pas premier",
+          statut: bonneReponse !== 'oui',
+        },
       ]
       const props = propositionsQcm(this, i)
       if (this.interactif) {
         texte += props.texte
       }
 
-      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -25,12 +25,81 @@ export class Triangle {
   a2: number
   a3: number
 
-  constructor (l1?: number, l2?: number, l3?: number, a1?:number, a2?:number, a3?:number) {
-    this.nom = choice(['AGE', 'AIL', 'AIR', 'ALU', 'AME', 'AMI', 'ANE', 'ARC', 'BAC', 'BAL', 'BAR',
-      'BEC', 'BEL', 'BIO', 'BIP', 'BIS', 'BLE', 'BOA', 'BOF', 'BOG', 'BOL', 'BUT', 'BYE', 'COQ', 'CRI',
-      'CRU', 'DUC', 'DUO', 'DUR', 'EAU', 'ECU', 'EGO', 'EPI', 'FER', 'FIL', 'FUN', 'GPS', 'ICE', 'JET',
-      'KIF', 'KIR', 'MAC', 'NEM', 'PAS', 'PIC', 'PIF', 'PIN', 'POT', 'RAI', 'RAP', 'RAT', 'RIF', 'SEL',
-      'TAF', 'TIC', 'TAC', 'TOC', 'TOP', 'UNI', 'WOK', 'YAK', 'YEN', 'ZEN', 'ZIG', 'ZAG'])
+  constructor(
+    l1?: number,
+    l2?: number,
+    l3?: number,
+    a1?: number,
+    a2?: number,
+    a3?: number,
+  ) {
+    this.nom = choice([
+      'AGE',
+      'AIL',
+      'AIR',
+      'ALU',
+      'AME',
+      'AMI',
+      'ANE',
+      'ARC',
+      'BAC',
+      'BAL',
+      'BAR',
+      'BEC',
+      'BEL',
+      'BIO',
+      'BIP',
+      'BIS',
+      'BLE',
+      'BOA',
+      'BOF',
+      'BOG',
+      'BOL',
+      'BUT',
+      'BYE',
+      'COQ',
+      'CRI',
+      'CRU',
+      'DUC',
+      'DUO',
+      'DUR',
+      'EAU',
+      'ECU',
+      'EGO',
+      'EPI',
+      'FER',
+      'FIL',
+      'FUN',
+      'GPS',
+      'ICE',
+      'JET',
+      'KIF',
+      'KIR',
+      'MAC',
+      'NEM',
+      'PAS',
+      'PIC',
+      'PIF',
+      'PIN',
+      'POT',
+      'RAI',
+      'RAP',
+      'RAT',
+      'RIF',
+      'SEL',
+      'TAF',
+      'TIC',
+      'TAC',
+      'TOC',
+      'TOP',
+      'UNI',
+      'WOK',
+      'YAK',
+      'YEN',
+      'ZEN',
+      'ZIG',
+      'ZAG',
+    ])
     this.l1 = l1 ?? 0
     this.l2 = l2 ?? 0
     this.l3 = l3 ?? 0
@@ -44,7 +113,7 @@ export class Triangle {
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
    * @example si triangle est une instance de la classe Triangle() triangle.getNom() renvoie le string '$AMI$' si AMI est le nom tiré au hasard
    */
-  getNom () {
+  getNom() {
     return '$' + this.nom + '$'
   }
 
@@ -53,7 +122,7 @@ export class Triangle {
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
    * @example si triangle est une instance de la classe Triangle() triangle.getCotes() renvoie le tableau de strings ['$[AM]$','$[MI]$','$[IA]$'] dans cet ordre si AMI est le nom tiré au hasard
    */
-  getCotes () {
+  getCotes() {
     const cotes = []
     const triangle = this.nom
     const sommets = triangle.split('')
@@ -68,7 +137,7 @@ export class Triangle {
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
    * @example si triangle est une instance de la classe Triangle() triangle.getCotes() renvoie le tableau de strings ['$AM$','$MI$','$IA$'] dans cet ordre si AMI est le nom tiré au hasard
    */
-  getLongueurs () {
+  getLongueurs() {
     const longueurs = []
     const triangle = this.nom
     const sommets = triangle.split('')
@@ -81,10 +150,14 @@ export class Triangle {
   /**
    * @return {array} Renvoie un tableau avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance de la classe
    */
-  getLongueursValeurs () {
-    if ((typeof this.l1 === 'undefined') || (typeof this.l2 === 'undefined') || (typeof this.l3 === 'undefined')) {
+  getLongueursValeurs() {
+    if (
+      typeof this.l1 === 'undefined' ||
+      typeof this.l2 === 'undefined' ||
+      typeof this.l3 === 'undefined'
+    ) {
       // return false;
-      return ['L\'une des longueurs de l\'objet triangle n\'est pas définie']
+      return ["L'une des longueurs de l'objet triangle n'est pas définie"]
     }
     const longueurs = []
     longueurs[0] = this.l1
@@ -98,7 +171,7 @@ export class Triangle {
    * @return {array} Renvoie un tableau de strings avec les noms des angles du triangle.
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
    */
-  getAngles () {
+  getAngles() {
     const angles = []
     const triangle = this.nom
     const sommets = triangle.split('')
@@ -112,10 +185,14 @@ export class Triangle {
   /**
    * @return {array} Renvoie un tableau avec les valeurs des angles du triangle passées en paramètre à l'instance de la classe
    */
-  getAnglesValeurs () {
-    if ((typeof this.a1 === 'undefined') || (typeof this.a2 === 'undefined') || (typeof this.a3 === 'undefined')) {
+  getAnglesValeurs() {
+    if (
+      typeof this.a1 === 'undefined' ||
+      typeof this.a2 === 'undefined' ||
+      typeof this.a3 === 'undefined'
+    ) {
       // return false;
-      return ['L\'un des angles de l\'objet triangle n\'est pas définie']
+      return ["L'un des angles de l'objet triangle n'est pas définie"]
     }
     const angles = []
     angles[0] = this.a1
@@ -129,7 +206,7 @@ export class Triangle {
    * @return {array} Renvoie un tableau de strings avec les noms des sommets du triangle.
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
    */
-  getSommets (math = true) {
+  getSommets(math = true) {
     const triangle = this.nom
     const sommets = triangle.split('')
     if (math === true) {
@@ -143,7 +220,7 @@ export class Triangle {
   /**
    * @return {string} Renvoie un string avec les noms des sommets du triangle de la forme : '$A$, $B$ et $C$'
    */
-  get stringSommets () {
+  get stringSommets() {
     const [a, b, c] = this.getSommets()
     return `${a}, ${b} et ${c}`
   }
@@ -156,10 +233,14 @@ export class Triangle {
    * * triangle.l3 = 4
    * * triangle.getPerimetre() renvoie 9
    */
-  getPerimetre () {
-    if ((typeof this.l1 === 'undefined') || (typeof this.l2 === 'undefined') || (typeof this.l3 === 'undefined')) {
+  getPerimetre() {
+    if (
+      typeof this.l1 === 'undefined' ||
+      typeof this.l2 === 'undefined' ||
+      typeof this.l3 === 'undefined'
+    ) {
       // return false;
-      return 'L\'une des longueurs de l\'objet triangle n\'est pas définie'
+      return "L'une des longueurs de l'objet triangle n'est pas définie"
     } else {
       return this.l1 + this.l2 + this.l3
     }
@@ -178,8 +259,12 @@ export class Triangle {
    * * triangle.l3 = 4
    * * triangle.isTrueTriangleLongueurs() renvoie true
    */
-  isTrueTriangleLongueurs () {
-    if ((typeof this.l1 === 'undefined') || (typeof this.l2 === 'undefined') || (typeof this.l3 === 'undefined')) {
+  isTrueTriangleLongueurs() {
+    if (
+      typeof this.l1 === 'undefined' ||
+      typeof this.l2 === 'undefined' ||
+      typeof this.l3 === 'undefined'
+    ) {
       return false
       // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
     }
@@ -205,8 +290,12 @@ export class Triangle {
    * * triangle.l3 = 4
    * * triangle.isTrueTriangleLongueurs() renvoie false
    */
-  isPlatTriangleLongueurs () {
-    if ((typeof this.l1 === 'undefined') || (typeof this.l2 === 'undefined') || (typeof this.l3 === 'undefined')) {
+  isPlatTriangleLongueurs() {
+    if (
+      typeof this.l1 === 'undefined' ||
+      typeof this.l2 === 'undefined' ||
+      typeof this.l3 === 'undefined'
+    ) {
       // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
       return false
     }
@@ -232,19 +321,27 @@ export class Triangle {
    * * triangle.a3 = 60
    * * triangle.isTrueTriangleAngles() renvoie true
    */
-  isTrueTriangleAngles () {
+  isTrueTriangleAngles() {
     // si l'un des angles n'est pas defini ça ne va pas
-    if ((typeof this.a1 === 'undefined') || (typeof this.a2 === 'undefined') || (typeof this.a3 === 'undefined')) {
+    if (
+      typeof this.a1 === 'undefined' ||
+      typeof this.a2 === 'undefined' ||
+      typeof this.a3 === 'undefined'
+    ) {
       return false
       // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
     }
     // si l'un des angles est négatif ça ne va pas
-    if ((this.a1 < 0) || (this.a2 < 0) || (this.a3 < 0)) {
+    if (this.a1 < 0 || this.a2 < 0 || this.a3 < 0) {
       return false
       // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
     }
-    if ((this.a1 + this.a2 + this.a3) === 180) {
-      if ((this.a1 === 0 && this.a2 === 0) || (this.a2 === 0 && this.a3 === 0) || (this.a3 === 0 && this.a1 === 0)) {
+    if (this.a1 + this.a2 + this.a3 === 180) {
+      if (
+        (this.a1 === 0 && this.a2 === 0) ||
+        (this.a2 === 0 && this.a3 === 0) ||
+        (this.a3 === 0 && this.a1 === 0)
+      ) {
         return false
       } else {
         return true
@@ -268,13 +365,21 @@ export class Triangle {
    * * triangle.a3 = 60
    * * triangle.isTrueTriangleAngles() renvoie false
    */
-  isPlatTriangleAngles () {
-    if ((typeof this.a1 === 'undefined') || (typeof this.a2 === 'undefined') || (typeof this.a3 === 'undefined')) {
+  isPlatTriangleAngles() {
+    if (
+      typeof this.a1 === 'undefined' ||
+      typeof this.a2 === 'undefined' ||
+      typeof this.a3 === 'undefined'
+    ) {
       return false
       // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
     }
-    if ((this.a1 + this.a2 + this.a3) === 180) {
-      if ((this.a1 === 0 && this.a2 === 0) || (this.a2 === 0 && this.a3 === 0) || (this.a3 === 0 && this.a1 === 0)) {
+    if (this.a1 + this.a2 + this.a3 === 180) {
+      if (
+        (this.a1 === 0 && this.a2 === 0) ||
+        (this.a2 === 0 && this.a3 === 0) ||
+        (this.a3 === 0 && this.a1 === 0)
+      ) {
         return true
       } else {
         return false

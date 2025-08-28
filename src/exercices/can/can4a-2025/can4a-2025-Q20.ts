@@ -2,13 +2,13 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import ExerciceCan from '../../ExerciceCan'
 
-export const titre = 'Compter les sommets d\'un prisme'
+export const titre = "Compter les sommets d'un prisme"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ayxrt'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -16,14 +16,16 @@ export const refs = {
 
 */
 export default class Can2025N4Q20 extends ExerciceCan {
-  enonce (a?: string) {
-    const listeSolides = ['pavé droit',
+  enonce(a?: string) {
+    const listeSolides = [
+      'pavé droit',
       'cube',
       'tétraèdre',
       'prisme droit à base triangulaire',
       'prisme droit à base héxagonale',
       'prisme droit à base pentagonale',
-      'prisme droit à base octogonale']
+      'prisme droit à base octogonale',
+    ]
     let solide = listeSolides[0]
     if (a == null) {
       solide = choice(listeSolides)
@@ -56,14 +58,15 @@ export default class Can2025N4Q20 extends ExerciceCan {
 
     this.reponse = nbSommets
     this.question = `Donner le nombre de sommets d'un ${solide}.`
-    this.correction = solide === 'tétraèdre'
-      ? 'Un tétraèdre a 4 sommets.'
-      : `Un ${solide} a $${miseEnEvidence(nbSommets)}$ sommets car il possède deux bases opposées à $${nbSommets / 2}$ sommets chacune.`
+    this.correction =
+      solide === 'tétraèdre'
+        ? 'Un tétraèdre a 4 sommets.'
+        : `Un ${solide} a $${miseEnEvidence(nbSommets)}$ sommets car il possède deux bases opposées à $${nbSommets / 2}$ sommets chacune.`
     this.canEnonce = this.question
     this.question += this.interactif ? '<br>' : ''
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce('pavé droit') : this.enonce()
   }
 }

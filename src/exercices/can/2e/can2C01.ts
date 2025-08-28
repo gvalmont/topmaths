@@ -18,17 +18,17 @@ export const uuid = '1f399'
 
 export const refs = {
   'fr-fr': ['can2C01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NombreDeNombresEntiersEntreDeuxValeurs2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b
     switch (choice(['a', 'b', 'c'])) {
       case 'a':
@@ -54,7 +54,7 @@ export default class NombreDeNombresEntiersEntreDeuxValeurs2 extends ExerciceSim
         this.reponse = b - a
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -1,18 +1,31 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduirePolynomeDegre3,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
+import {
+  developpe,
+  regroupeTermesMemeDegre,
+  suppressionParentheses,
+} from '../../lib/mathFonctions/outilsMaths'
 import engine from '../../lib/interactif/comparisonFunctions'
 import type { BoxedExpression } from '@cortex-js/compute-engine'
 
-export const titre = 'Développer puis réduire des expressions littérales complexes'
+export const titre =
+  'Développer puis réduire des expressions littérales complexes'
 export const dateDePublication = '20/04/2024'
 // export const dateDeModifImportante =
 
@@ -31,11 +44,11 @@ export const amcReady = true
 export const uuid = '889ef'
 export const refs = {
   'fr-fr': ['2N41-10a'],
-  'fr-ch': ['1mCL1-4', '11FA2-19']
+  'fr-ch': ['1mCL1-4', '11FA2-19'],
 }
 
 export default class DevelopperReduireExprComplexe extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Types de questions',
@@ -51,9 +64,16 @@ export default class DevelopperReduireExprComplexe extends Exercice {
 9 : '(ax+b)(ax-b) + (cx+d)^2'
 10 : '(ax-b)(ax+b) - (cx+d)^2'
 11 : 'Mélange'
-`]
-    this.besoinFormulaire2CaseACocher = ['Coefficients strictement positifs', true]
-    this.besoinFormulaire3Numerique = ['Niveau de détail dans la correction détaillée', 3]
+`,
+    ]
+    this.besoinFormulaire2CaseACocher = [
+      'Coefficients strictement positifs',
+      true,
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Niveau de détail dans la correction détaillée',
+      3,
+    ]
     this.besoinFormulaire4CaseACocher = ['Couleur dans la correction', true]
     // Héritage de la classe Exercice()
     this.spacing = context.isHtml ? 3 : 2
@@ -69,11 +89,11 @@ export default class DevelopperReduireExprComplexe extends Exercice {
     this.correctionDetaillee = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne =
-            this.nbQuestions > 1
-              ? 'Développer puis réduire les expressions littérales suivantes.'
-              : 'Développer puis réduire l\'expression littérale suivante.'
+      this.nbQuestions > 1
+        ? 'Développer puis réduire les expressions littérales suivantes.'
+        : "Développer puis réduire l'expression littérale suivante."
 
     const lettresPossibles = ['x', 'y', 'z', 't']
 
@@ -83,15 +103,14 @@ export default class DevelopperReduireExprComplexe extends Exercice {
       max: 10,
       defaut: 1,
       melange: 11,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
     listeTypeDeQuestions = combinaisonListes(
       listeTypeDeQuestions,
-      this.nbQuestions
+      this.nbQuestions,
     )
-    for (
-      let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       const isColored = this.sup4
       const level: 0 | 1 | 2 = (this.sup3 - 1) as 0 | 1 | 2
       const isPositif = this.sup2
@@ -103,31 +122,31 @@ export default class DevelopperReduireExprComplexe extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 2: // '(ax+b)(cx+d)-(ex+f)(gx+h)'
           ope = '-'
-          // eslint-disable-next-line no-fallthrough
+        // eslint-disable-next-line no-fallthrough
         case 1: // '(ax+b)(cx+d)+(ex+f)(gx+h)'
           break
         case 4: // '(ax+b)^2-(cx+d)^2'
           ope = '-'
-          // eslint-disable-next-line no-fallthrough
+        // eslint-disable-next-line no-fallthrough
         case 3: // '(ax+b)^2+(cx+d)^2'
           factsProd1Diff = false
           factsProd2Diff = false
           break
         case 6: // '(ax+b)^2-(cx+d)(ex+f)'
           ope = '-'
-          // eslint-disable-next-line no-fallthrough
+        // eslint-disable-next-line no-fallthrough
         case 5: // '(ax+b)^2+(cx+d)(ex+f)'
           factsProd1Diff = false
           break
         case 8: // '(cx+d)(ex+f)-(ax+b)^2'
           ope = '-'
-          // eslint-disable-next-line no-fallthrough
+        // eslint-disable-next-line no-fallthrough
         case 7: // '(cx+d)(ex+f)+(ax+b)^2'
           factsProd2Diff = false
           break
         case 10: // '(ax-b)(ax+b)-(cx+d)^2'
           ope = '-'
-          // eslint-disable-next-line no-fallthrough
+        // eslint-disable-next-line no-fallthrough
         case 9: // '(ax-b)(ax+b)+(cx+d)^2'
           prod1Remarquable = true
           factsProd2Diff = false
@@ -163,28 +182,59 @@ export default class DevelopperReduireExprComplexe extends Exercice {
       const expression2 = factsProd2Diff
         ? `(${rienSi1(e)} ${choixLettre}${ecritureAlgebrique(f)}) (${rienSi1(g)} ${choixLettre}${ecritureAlgebrique(h)})`
         : `(${rienSi1(e)} ${choixLettre}${ecritureAlgebrique(f)})^2`
-      const expressionDeveloppee1 = developpe(expression1, { isColored, colorOffset: 0, level })
-      const expressionDeveloppee2 = developpe(expression2, { isColored, colorOffset: 4, level })
-      const parsedExp1: BoxedExpression = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac'))
+      const expressionDeveloppee1 = developpe(expression1, {
+        isColored,
+        colorOffset: 0,
+        level,
+      })
+      const expressionDeveloppee2 = developpe(expression2, {
+        isColored,
+        colorOffset: 4,
+        level,
+      })
+      const parsedExp1: BoxedExpression = engine.parse(
+        developpe(expression1, {
+          isColored: false,
+          colorOffset: 0,
+          level: 0,
+        }).replaceAll('\\dfrac', '\\frac'),
+      )
       const devExpr1 = parsedExp1 != null ? parsedExp1.latex : ''
       if (devExpr1 === '') {
-        window.notify('Erreur dans le développement de l\'expression 1', { expression1 })
+        window.notify("Erreur dans le développement de l'expression 1", {
+          expression1,
+        })
       }
-      const parsedExp2 = engine.parse(developpe(expression2, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac'))
+      const parsedExp2 = engine.parse(
+        developpe(expression2, {
+          isColored: false,
+          colorOffset: 0,
+          level: 0,
+        }).replaceAll('\\dfrac', '\\frac'),
+      )
       const devExpr2 = parsedExp2 != null ? parsedExp2.latex : ''
       if (devExpr2 === '') {
-        window.notify('Erreur dans le développement de l\'expression 2', { expression2 })
+        window.notify("Erreur dans le développement de l'expression 2", {
+          expression2,
+        })
       }
-      const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, { isColored })
-      const sansParenthesesNetB = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, { isColored: false })
+      const sansParentheses = suppressionParentheses(
+        `(${devExpr1})${ope}(${devExpr2})`,
+        { isColored },
+      )
+      const sansParenthesesNetB = suppressionParentheses(
+        `(${devExpr1})${ope}(${devExpr2})`,
+        { isColored: false },
+      )
       const expression = `${expression1}${ope}${expression2}`
-      const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, { isColored })
-      const coeffX2 = ope === '-'
-        ? a * c - e * g
-        : a * c + e * g
-      const coeffX = ope === '-'
-        ? a * d + b * c - e * h - f * g
-        : a * d + b * c + e * h + f * g
+      const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, {
+        isColored,
+      })
+      const coeffX2 = ope === '-' ? a * c - e * g : a * c + e * g
+      const coeffX =
+        ope === '-'
+          ? a * d + b * c - e * h - f * g
+          : a * d + b * c + e * h + f * g
       const coeffConst = String(ope === '-' ? b * d - f * h : b * d + f * h)
       const reponse = `${reduirePolynomeDegre3(0, coeffX2, coeffX, Number(coeffConst), choixLettre)}`
       let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
@@ -206,7 +256,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
         handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
-                    ajouteChampTexteMathLive(this, i, ' ')
+            ajouteChampTexteMathLive(this, i, ' ')
           : ''
       } else {
         this.autoCorrection[i] = {
@@ -214,68 +264,77 @@ export default class DevelopperReduireExprComplexe extends Exercice {
           enonceAvant: false,
           options: {
             multicols: true,
-            barreseparation: true
+            barreseparation: true,
           },
-          propositions: [{
-            type: 'AMCOpen',
-            propositions: [{
-              texte: texteCorr,
-              enonce: texte + '<br>',
-              statut: 4
-            }]
-          },
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: `valeur de $m$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                valeur: coeffX2,
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: true,
-                  approx: 0
-                }
-              }
-            }]
-          },
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: `valeur de $n$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                valeur: coeffX,
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: true,
-                  approx: 0
-                }
-              }
-            }]
-          },
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: `valeur de $p$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                valeur: coeffConst,
-                param: {
-                  digits: 2,
-                  decimals: 0,
-                  signe: true,
-                  approx: 0
-                }
-              }
-            }]
-          }
-          ]
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: texte + '<br>',
+                  statut: 4,
+                },
+              ],
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `valeur de $m$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
+                    valeur: coeffX2,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `valeur de $n$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
+                    valeur: coeffX,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `valeur de $p$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
+                    valeur: coeffConst,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

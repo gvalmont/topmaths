@@ -10,7 +10,8 @@ import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { choice } from '../../../lib/outils/arrayOutils'
 
-export const titre = 'Lire les coordonnées d’un vecteur représenté dans un repère'
+export const titre =
+  'Lire les coordonnées d’un vecteur représenté dans un repère'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -27,17 +28,33 @@ export const uuid = '8a0ce'
 
 export const refs = {
   'fr-fr': ['can2G18'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LectureGraphiqueVecteurRepere extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    let texte, texteCorr, xa, ya, k1, k2, o, r1, A, B, vAB, xmin, xmax, ymin, ymax, nomvAB, AB
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    let texte,
+      texteCorr,
+      xa,
+      ya,
+      k1,
+      k2,
+      o,
+      r1,
+      A,
+      B,
+      vAB,
+      xmin,
+      xmax,
+      ymin,
+      ymax,
+      nomvAB,
+      AB
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const nomVecteur = ['u', 'v', 'w', 'AB', 'HG', 'KL']
       const vec = choice(nomVecteur)
       xa = randint(-2, 2)
@@ -77,24 +94,40 @@ export default class LectureGraphiqueVecteurRepere extends Exercice {
         grilleSecondaireYMin: ymin,
         grilleSecondaireYMax: ymax,
         grilleSecondaireXMin: xmin,
-        grilleSecondaireXMax: xmax
+        grilleSecondaireXMax: xmax,
       })
 
       texte = `Lire les coordonnées du vecteur $\\overrightarrow{${vec}}$.<br><br>`
-      texte += mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 },
-        r1, o, AB, nomvAB
+      texte += mathalea2d(
+        {
+          xmin,
+          xmax,
+          ymin,
+          ymax,
+          style: 'margin: auto',
+          pixelsParCm: 30,
+          scale: 0.75,
+        },
+        r1,
+        o,
+        AB,
+        nomvAB,
       )
       texte += ''
 
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: k1 },
-        champ2: { value: k2 }
+        champ2: { value: k2 },
       })
       if (this.interactif) {
-        texte += `<br>$\\overrightarrow{${vec}}$` + remplisLesBlancs(this, i,
-          '\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}'
-        )
+        texte +=
+          `<br>$\\overrightarrow{${vec}}$` +
+          remplisLesBlancs(
+            this,
+            i,
+            '\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}',
+          )
       }
 
       texteCorr = `En partant de l'origine  du vecteur pour aller à son extrémité, on fait un déplacement de $${k1}$ unité(s) horizontalement et $${k2}$ unité(s) verticalement.<br>

@@ -12,7 +12,11 @@ export type ObjetDivLatex = {
   latex: string
   letterSize: string
 }
-export type NestedObjetMathalea2dArray = (ObjetMathalea2D | Latex2d | NestedObjetMathalea2dArray)[]
+export type NestedObjetMathalea2dArray = (
+  | ObjetMathalea2D
+  | Latex2d
+  | NestedObjetMathalea2dArray
+)[]
 
 export const colours = {
   aliceblue: '#f0f8ff',
@@ -156,7 +160,7 @@ export const colours = {
   white: '#ffffff',
   whitesmoke: '#f5f5f5',
   yellow: '#ffff00',
-  yellowgreen: '#9acd32'
+  yellowgreen: '#9acd32',
 }
 export type ColourNames = keyof typeof colours
 /*
@@ -216,7 +220,7 @@ export class ObjetMathalea2D {
   objets?: (ObjetMathalea2D | Latex2d)[]
   typeObjet?: string
 
-  constructor () {
+  constructor() {
     this.positionLabel = 'above'
     this.color = colorToLatexOrHTML('black')
     this.style = ''
@@ -228,11 +232,11 @@ export class ObjetMathalea2D {
     numId++
   }
 
-  svg (coeff: number): string | ObjetDivLatex {
+  svg(coeff: number): string | ObjetDivLatex {
     return ''
   }
 
-  tikz (): string | ObjetDivLatex {
+  tikz(): string | ObjetDivLatex {
     return ''
   }
 }
@@ -243,14 +247,16 @@ export class ObjetMathalea2D {
  * @param coeff
  * @return {number}
  */
-export const xSVG = (x: number, coeff: number) => arrondi(x * coeff, 1) as number
+export const xSVG = (x: number, coeff: number) =>
+  arrondi(x * coeff, 1) as number
 /**
  * Une fonction pour convertir des ordonnées en unité Mathalé en ordonnées svg
  * @param y
  * @param coeff
  * @return {number}
  */
-export const ySVG = (y: number, coeff: number) => arrondi(-y * coeff, 1) as number
+export const ySVG = (y: number, coeff: number) =>
+  arrondi(-y * coeff, 1) as number
 /**
  * mathalea2d(xmin,xmax,ymin,ymax,objets)
  *
@@ -277,7 +283,7 @@ export const ySVG = (y: number, coeff: number) => arrondi(-y * coeff, 1) as numb
  *  @param {string?} [options.id = '']
  * @param {(ObjetMathalea2D|ObjetMathalea2D[])[]} objets
  */
-export function mathalea2d (
+export function mathalea2d(
   {
     xmin = 0,
     ymin = 0,
@@ -290,29 +296,37 @@ export function mathalea2d (
     mainlevee = false,
     amplitude = 1,
     style = 'display: block',
-    id = '' // L'id peut-être utile pour des animations, c'est celui du svg. Le div englobant aura un id en M2D + id
+    id = '', // L'id peut-être utile pour des animations, c'est celui du svg. Le div englobant aura un id en M2D + id
   }: {
-    xmin?: number,
-    ymin?: number,
-    xmax?: number,
-    ymax?: number,
-    pixelsParCm?: number,
-    scale?: number,
-    zoom?: number,
-    optionsTikz?: string | string[],
-    mainlevee?: boolean,
-    amplitude?: number,
-    style?: string,
+    xmin?: number
+    ymin?: number
+    xmax?: number
+    ymax?: number
+    pixelsParCm?: number
+    scale?: number
+    zoom?: number
+    optionsTikz?: string | string[]
+    mainlevee?: boolean
+    amplitude?: number
+    style?: string
     id?: string
   } = {},
   ...objets: NestedObjetMathalea2dArray
 ) {
-  const ajouteCodeHtml = (mainlevee: boolean, objets: ObjetMathalea2D | NestedObjetMathalea2dArray, divsLatex: string[], xmin: number, ymax: number) => {
+  const ajouteCodeHtml = (
+    mainlevee: boolean,
+    objets: ObjetMathalea2D | NestedObjetMathalea2dArray,
+    divsLatex: string[],
+    xmin: number,
+    ymax: number,
+  ) => {
     let codeSvg = ''
     // Dans le cas d'objets composites avec des objets Mathalea2d et des divLatex, il faut que ces objets exposent une propriété objets qui contient la liste des objets qui les composent.
     // Cette list est substituée à l'objet ici
     if (objets instanceof ObjetMathalea2D) {
-      if (objets.objets != null) { objets = objets.objets as ObjetMathalea2D[] }
+      if (objets.objets != null) {
+        objets = objets.objets as ObjetMathalea2D[]
+      }
     } // c'est un objet composé d'objets. Exemple : Repere
     if (!Array.isArray(objets) && objets != null) {
       try {
@@ -328,18 +342,23 @@ export function mathalea2d (
               if (typeof codeLatex !== 'object') {
                 window.notify(
                   "Dans mathalea2d, la méthode svg() de l'objet a renvoyé quelque chose d'inconnu",
-                  { codeLatex }
+                  { codeLatex },
                 )
                 return codeSvg
               }
               const xSvg = (codeLatex.x - xmin) * pixelsParCm * zoom
               const ySvg = -(codeLatex.y - ymax) * pixelsParCm * zoom
 
-              codeLatex.backgroundColor = codeLatex.backgroundColor.replace('{', '').replace('}', '')
-              codeLatex.color = codeLatex.color.replace('{', '').replace('}', '')
+              codeLatex.backgroundColor = codeLatex.backgroundColor
+                .replace('{', '')
+                .replace('}', '')
+              codeLatex.color = codeLatex.color
+                .replace('{', '')
+                .replace('}', '')
 
               const divOuterHtml =
-                codeLatex.backgroundColor !== '' && codeLatex.backgroundColor !== 'none'
+                codeLatex.backgroundColor !== '' &&
+                codeLatex.backgroundColor !== 'none'
                   ? `<div class="divLatex" style="background-color: ${codeLatex.backgroundColor}; position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${-codeLatex.orientation}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\' + codeLatex.letterSize + ' {\\color{' + codeLatex.color + '}{' + codeLatex.latex + '}}')}</div>`
                   : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${-codeLatex.orientation}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + codeLatex.latex + '}}')}</div>`
               divsLatex.push(divOuterHtml)
@@ -347,14 +366,19 @@ export function mathalea2d (
           } else {
             window.notify(
               'Un problème avec ce mathalea2d, la liste des objets contient un truc louche',
-              { objets: JSON.stringify(objets) }
+              { objets: JSON.stringify(objets) },
             )
           }
         } else {
-          if (objet?.svgml) { codeSvg = '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
+          if (objet?.svgml) {
+            codeSvg = '\t' + objet.svgml(pixelsParCm, amplitude) + '\n'
+          }
         }
       } catch (error: unknown) {
-        window.notify(error instanceof Error ? (error as Error).message : String(error), { objet: JSON.stringify(objets) })
+        window.notify(
+          error instanceof Error ? (error as Error).message : String(error),
+          { objet: JSON.stringify(objets) },
+        )
       }
     } else {
       if (objets != null && Array.isArray(objets)) {
@@ -364,23 +388,32 @@ export function mathalea2d (
       } else {
         window.notify(
           'Un problème avec ce mathalea2d, la liste des objets contient un truc louche',
-          { objets: JSON.stringify(objets) }
+          { objets: JSON.stringify(objets) },
         )
       }
     }
     return codeSvg
   }
-  const ajouteCodeTikz = (mainlevee: boolean, objets: ObjetMathalea2D | NestedObjetMathalea2dArray) => {
+  const ajouteCodeTikz = (
+    mainlevee: boolean,
+    objets: ObjetMathalea2D | NestedObjetMathalea2dArray,
+  ) => {
     let codeTikz = ''
     if (objets instanceof ObjetMathalea2D) {
-      if (objets.objets != null) { objets = objets.objets as ObjetMathalea2D[] }
+      if (objets.objets != null) {
+        objets = objets.objets as ObjetMathalea2D[]
+      }
     } // c'est un objet composé d'objets. Exemple : Repere
     if (!Array.isArray(objets)) {
       try {
         if (!mainlevee || typeof objets.tikzml === 'undefined') {
-          if (typeof objets.tikz === 'function') { codeTikz = '\t' + objets.tikz() + '\n' }
+          if (typeof objets.tikz === 'function') {
+            codeTikz = '\t' + objets.tikz() + '\n'
+          }
         } else {
-          if (typeof objets.tikzml === 'function') { codeTikz = '\t' + objets.tikzml(amplitude) + '\n' }
+          if (typeof objets.tikzml === 'function') {
+            codeTikz = '\t' + objets.tikzml(amplitude) + '\n'
+          }
         }
       } catch (error: unknown) {
         console.log(error instanceof Error ? error.message : String(error))
@@ -394,9 +427,11 @@ export function mathalea2d (
   }
   // On prépare le code HTML
   const divsLatex: string[] = []
-  let codeSvg = `<svg class="mathalea2d" ${style} ${id !== '' ? `id="${id}"` : ''}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
-    }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
-    } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
+  let codeSvg = `<svg class="mathalea2d" ${style} ${id !== '' ? `id="${id}"` : ''}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
+    (ymax - ymin) * pixelsParCm * zoom
+  }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${
+    (xmax - xmin) * pixelsParCm
+  } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
   codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
   codeSvg += '\n</svg>'
   codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
@@ -459,7 +494,7 @@ export function mathalea2d (
 export class Vide2d extends ObjetMathalea2D {
   x: number
   y: number
-  constructor (x: number, y: number) {
+  constructor(x: number, y: number) {
     super()
     this.x = x
     this.y = y
@@ -475,7 +510,7 @@ export class Vide2d extends ObjetMathalea2D {
  * @param y
  * @returns {Vide2d}
  */
-export function vide2d (x = 0, y = 0) {
+export function vide2d(x = 0, y = 0) {
   return new Vide2d(x, y)
 }
 
@@ -487,18 +522,18 @@ export function vide2d (x = 0, y = 0) {
  * @return {number[]}
  */
 // JSDOC Validee par EE Juin 2022
-function convertHexToRGB (couleur = '000000') {
+function convertHexToRGB(couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   if (hexDecoupe !== null && hexDecoupe.length === 3) {
     return [
       Number.parseInt(hexDecoupe[0], 16),
       Number.parseInt(hexDecoupe[1], 16),
-      Number.parseInt(hexDecoupe[2], 16)
+      Number.parseInt(hexDecoupe[2], 16),
     ]
   } else {
     window.notify(
       'Une couleur est mal formée. Veuillez le signaler aux développeurs de MathALEA.',
-      { couleur }
+      { couleur },
     )
     return [0, 0, 0]
   }
@@ -517,7 +552,7 @@ function convertHexToRGB (couleur = '000000') {
  * @return {[string,string]}
  */
 // JSDOC Validee par EE Juin 2022
-export function colorToLatexOrHTML (couleur: string): [string, string] {
+export function colorToLatexOrHTML(couleur: string): [string, string] {
   let rgb = []
   if (Array.isArray(couleur) && couleur.length === 2) {
     if (couleur[1] === 'none') couleur[1] = '' // pas de 'none' comme couleur en latex !
@@ -526,7 +561,7 @@ export function colorToLatexOrHTML (couleur: string): [string, string] {
     } else {
       window.notify(
         'Une couleur est mal formée. Veuillez le signaler aux développeurs de MathALEA.',
-        { couleur }
+        { couleur },
       )
       return ['', '']
     }
@@ -535,7 +570,7 @@ export function colorToLatexOrHTML (couleur: string): [string, string] {
   } else if (couleur === undefined || couleur === '') {
     window.notify(
       'Une couleur est undefined ou bien une chaine vide. Veuillez le signaler aux développeurs de MathALEA.',
-      { couleur }
+      { couleur },
     )
     return ['', '']
   } else if (couleur === 'none') {
@@ -562,11 +597,16 @@ export function colorToLatexOrHTML (couleur: string): [string, string] {
  * @return {boolean||string} Retourne false si le code couleur ne peut pas être converti car non trouvé dans la liste
  */
 // JSDOC Validee par EE Novembre 2022
-export function convertCodeCouleurToHex (color: ColourNames) {
+export function convertCodeCouleurToHex(color: ColourNames) {
   if (typeof colours[color] !== 'undefined') {
     return colours[color]
   }
-  window.notify('La couleur ' + color + ' n\'a pas été trouvée dans la liste des couleurs prédéfinies.', { color })
+  window.notify(
+    'La couleur ' +
+      color +
+      " n'a pas été trouvée dans la liste des couleurs prédéfinies.",
+    { color },
+  )
   return '#ffffff'
 }
 
@@ -580,7 +620,10 @@ export function convertCodeCouleurToHex (color: ColourNames) {
  * @return {string} Retourne le code hexadecimal de la nouvelle couleur
  */
 // JSDOC Validee par EE Novembre 2022
-export function assombrirOuEclaircir (couleur: ColourNames, coefficient: number) {
+export function assombrirOuEclaircir(
+  couleur: ColourNames,
+  coefficient: number,
+) {
   let convertCodeCouleur = convertCodeCouleurToHex(couleur) ?? couleur
   convertCodeCouleur = convertCodeCouleur.replace('#', '')
   if (convertCodeCouleur.length === 6) {
@@ -718,15 +761,9 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
  * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
  * @return {{xmin: number, ymin:number, xmax:number, ymax:number}}
  */
-export function fixeBordures (
+export function fixeBordures(
   objets: NestedObjetMathalea2dArray,
-  {
-    rxmin = -0.5,
-    rymin = -0.5,
-    rxmax = 0.5,
-    rymax = 0.5,
-    rzoom = 1
-  } = {}
+  { rxmin = -0.5, rymin = -0.5, rxmax = 0.5, rymax = 0.5, rzoom = 1 } = {},
 ) {
   /**
    *
@@ -738,66 +775,82 @@ export function fixeBordures (
    * @param bordures
    * @returns {[number,number,number,number,boolean]}
    */
-  const majBordures: (xmin: number, ymin: number, xmax: number, ymax: number, objets: ObjetMathalea2D | NestedObjetMathalea2dArray, borduresTrouvees: boolean) => [number, number, number, number, boolean] =
-    (xmin: number, ymin: number, xmax: number, ymax: number, objets: ObjetMathalea2D | NestedObjetMathalea2dArray, borduresTrouvees: boolean) => {
-      if (objets == null) return [xmin, ymin, xmax, ymax, borduresTrouvees]
-      if (!Array.isArray(objets)) {
-        const bordures = objets.bordures ?? null
-        if (bordures === null || isNaN(bordures[0])) {
-          window.notify(
-            `Ìl y a un problème avec les bordures de ${objets.constructor.name}... elles ne sont pas définies !`
-            , { objets })
-        } else if (!Array.isArray(bordures)) {
-          window.notify(
-            `Les bordures de ${objets.constructor.name} ne sont pas un array : ${JSON.stringify(bordures)}`
-            , { ...objets })
-        } else if (bordures.filter((el) => isNaN(el)).length > 0) {
-          window.notify(
-            `Les bordures de ${objets.constructor.name} sont bien un array mais contiennent autre chose que des nombres : ${bordures}`
-            , { ...objets })
-        } else {
-          xmin = Math.min(xmin, bordures[0])
-          xmax = Math.max(xmax, bordures[2])
-          ymin = Math.min(ymin, bordures[1])
-          ymax = Math.max(ymax, bordures[3])
-          borduresTrouvees = true
-        }
+  const majBordures: (
+    xmin: number,
+    ymin: number,
+    xmax: number,
+    ymax: number,
+    objets: ObjetMathalea2D | NestedObjetMathalea2dArray,
+    borduresTrouvees: boolean,
+  ) => [number, number, number, number, boolean] = (
+    xmin: number,
+    ymin: number,
+    xmax: number,
+    ymax: number,
+    objets: ObjetMathalea2D | NestedObjetMathalea2dArray,
+    borduresTrouvees: boolean,
+  ) => {
+    if (objets == null) return [xmin, ymin, xmax, ymax, borduresTrouvees]
+    if (!Array.isArray(objets)) {
+      const bordures = objets.bordures ?? null
+      if (bordures === null || isNaN(bordures[0])) {
+        window.notify(
+          `Ìl y a un problème avec les bordures de ${objets.constructor.name}... elles ne sont pas définies !`,
+          { objets },
+        )
+      } else if (!Array.isArray(bordures)) {
+        window.notify(
+          `Les bordures de ${objets.constructor.name} ne sont pas un array : ${JSON.stringify(bordures)}`,
+          { ...objets },
+        )
+      } else if (bordures.filter((el) => isNaN(el)).length > 0) {
+        window.notify(
+          `Les bordures de ${objets.constructor.name} sont bien un array mais contiennent autre chose que des nombres : ${bordures}`,
+          { ...objets },
+        )
       } else {
-        for (const objet of objets) {
-          [xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            objet,
-            borduresTrouvees
-          )
-        }
+        xmin = Math.min(xmin, bordures[0])
+        xmax = Math.max(xmax, bordures[2])
+        ymin = Math.min(ymin, bordures[1])
+        ymax = Math.max(ymax, bordures[3])
+        borduresTrouvees = true
       }
-      return [xmin, ymin, xmax, ymax, borduresTrouvees]
+    } else {
+      for (const objet of objets) {
+        ;[xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          objet,
+          borduresTrouvees,
+        )
+      }
     }
+    return [xmin, ymin, xmax, ymax, borduresTrouvees]
+  }
   let xmin = 1000
   let ymin = 1000
   let xmax = -1000
   let ymax = -1000
   let borduresTrouvees = false
-    ;[xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(
+  ;[xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(
     xmin,
     ymin,
     xmax,
     ymax,
     objets,
-    borduresTrouvees
+    borduresTrouvees,
   )
   if (!borduresTrouvees) {
     window.notify('fixeBordures : aucun objet ne définit de bordures valides', {
-      ...objets
+      ...objets,
     })
   }
   return {
     xmin: xmin + rxmin * rzoom,
     xmax: xmax + rxmax * rzoom,
     ymin: ymin + rymin * rzoom,
-    ymax: ymax + rymax * rzoom
+    ymax: ymax + rymax * rzoom,
   }
 }

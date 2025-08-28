@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 import type {
   AlphanumericPages,
-  BlockForKeyboard
+  BlockForKeyboard,
 } from '../types/keyboardContent'
 
 export const keyboardState = writable<{
@@ -15,5 +15,5 @@ export const keyboardState = writable<{
   isInLine: !('ontouchstart' in window),
   idMathField: '',
   alphanumericLayout: 'AlphaLow',
-  blocks: ['numbers', 'fullOperations']
+  blocks: ['numbers', 'fullOperations'],
 })

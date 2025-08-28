@@ -1,15 +1,16 @@
 import DivisionEuclidienneMultiplesDiviseursCriteres from '../3e/3A10'
-export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
+export const titre =
+  'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
 export const dateDeModifImportante = '29/10/2021'
 export const interactifReady = false
 export const uuid = '098db'
 
 export const refs = {
   'fr-fr': ['2N20-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DivisionEuclidienneMultiplesDiviseursCriteres2nde extends DivisionEuclidienneMultiplesDiviseursCriteres {
-  constructor () {
+  constructor() {
     super()
     this.sup = '3'
     this.sup2 = '12'

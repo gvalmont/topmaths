@@ -5,20 +5,21 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Déterminer un coefficient multiplicateur ou un taux d\'évolution'
+export const titre =
+  "Déterminer un coefficient multiplicateur ou un taux d'évolution"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '2462a'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class CoeffMultiplicateur extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -27,7 +28,7 @@ export default class CoeffMultiplicateur extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'Multiplier par $0,8$ revient à faire une baisse de : '
       this.correction = `Comme $0,8=1-0,2=1-\\dfrac{20}{100}$, multiplier par $0,8$ revient à baisser de $${miseEnEvidence('20')}\\,\\%$. `

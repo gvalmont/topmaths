@@ -7,10 +7,10 @@ export const interactifType = 'qcm'
 export const uuid = '9926a'
 export const refs = {
   'fr-fr': ['5S11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LectureDiagrammeBarre5e extends LectureDiagrammeBaton {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
     this.sup2 = 2

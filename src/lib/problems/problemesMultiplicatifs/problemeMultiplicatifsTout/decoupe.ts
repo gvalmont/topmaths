@@ -9,11 +9,13 @@ import ProblemeMultiplicatifs from './problemesMultiplicatifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function decoupe1 (decimal = false): Probleme {
+export function decoupe1(decimal = false): Probleme {
   const objet = choice(['ficelle', 'corde', 'tissu', 'cartoline', 'bois'])
   const personnage = prenomPronom()
   const nbFois = randint(5, 12)
-  const longueur = decimal ? (randint(6, 14, 10) * 2 + 1) * 0.5 : randint(6, 15, 10)
+  const longueur = decimal
+    ? (randint(6, 14, 10) * 2 + 1) * 0.5
+    : randint(6, 15, 10)
   const data = { nbFois, facteur: longueur }
   const enonce = `${personnage.prenom} a découpé ${nbFois} morceaux de ${objet} de longueur $${texNombre(longueur, 1)}$ cm. Quelle est la longueur totale de ${objet} utilisé ?`
   const correction = `${personnage.prenom} a découpé ${nbFois} morceaux de ${objet} de longueur $${texNombre(longueur, 1)}$ cm. Donc, la longueur totale de ${objet} utilisé est de $${miseEnEvidence(texNombre(nbFois * longueur, 1))}$ cm.`

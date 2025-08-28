@@ -2,7 +2,8 @@ import ProprietesParallelesPerpendiculaires from '../5e/5G33-2'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const titre = 'Utiliser les propriétés des droites parallèles et perpendiculaires'
+export const titre =
+  'Utiliser les propriétés des droites parallèles et perpendiculaires'
 
 /**
  * Exercice déréférencé au profit de 6G52-2 qui est rangé dans la bonne catégorie
@@ -12,7 +13,6 @@ export const uuid = '6a336'
 // J'ajoute des réfs vide pour éviter le message rouge dans le updateMenuInternationnal (au pnpm start, ça fait peur)
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class ProprietesParallelesPerpendiculaires2 extends ProprietesParallelesPerpendiculaires {
-}
+export default class ProprietesParallelesPerpendiculaires2 extends ProprietesParallelesPerpendiculaires {}

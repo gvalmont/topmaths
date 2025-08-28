@@ -2,14 +2,20 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1, simpleDeveloppement } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  rienSi1,
+  simpleDeveloppement,
+} from '../../../lib/outils/ecritures'
 export const titre = 'Développer et réduire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '0aeb9'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +23,7 @@ export const refs = {
 
 */
 export default class DevelopperEtReduire extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +33,7 @@ export default class DevelopperEtReduire extends ExerciceSimple {
     this.optionsDeComparaison = { expressionsForcementReduites: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const fac1 = this.canOfficielle ? 5 : randint(2, 7)
     const fac2 = this.canOfficielle ? 1 : randint(-5, 5, [0, fac1, -fac1])
     const a = randint(1, 2)
@@ -39,7 +45,9 @@ export default class DevelopperEtReduire extends ExerciceSimple {
                &=${miseEnEvidence(reduireAxPlusB(fac1 * a + fac2, fac1 * b))}
                \\end{aligned}$`
 
-    this.reponse = { reponse: { value: reduireAxPlusB(fac1 * a + fac2, fac1 * b) } }
+    this.reponse = {
+      reponse: { value: reduireAxPlusB(fac1 * a + fac2, fac1 * b) },
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

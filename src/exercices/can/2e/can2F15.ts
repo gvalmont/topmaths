@@ -1,6 +1,13 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
-import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  simplificationDeFractionAvecEtapes,
+  texFractionReduite,
+} from '../../../lib/outils/deprecatedFractions'
+import {
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -21,18 +28,18 @@ export const uuid = 'a3e06'
 
 export const refs = {
   'fr-fr': ['can2F15'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class VariationFA extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, d, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       a = randint(-10, 10, 0) // coefficient a de la fonction affine
       b = randint(-10, 10) // coefficient b de la fonction affine
       d = choice([abs(a) + 1, abs(b) + 1]) // dénominateur
@@ -41,10 +48,7 @@ export default class VariationFA extends Exercice {
         b = randint(-10, 10) // coefficient b de la fonction affine
         d = choice([abs(a) + 1, abs(b) + 1])
       } // dénominateur
-      const nom = [
-        ['f'], ['g'], ['h'], ['u'],
-        ['v'], ['w']
-      ]
+      const nom = [['f'], ['g'], ['h'], ['u'], ['v'], ['w']]
       const nomF = choice(nom)
       switch (choice([1, 1, 2, 2, 3])) {
         case 1:
@@ -61,17 +65,17 @@ export default class VariationFA extends Exercice {
               propositions: [
                 {
                   texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -80,17 +84,17 @@ export default class VariationFA extends Exercice {
               propositions: [
                 {
                   texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           props = propositionsQcm(this, i)
@@ -121,17 +125,17 @@ export default class VariationFA extends Exercice {
               propositions: [
                 {
                   texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -140,17 +144,17 @@ export default class VariationFA extends Exercice {
               propositions: [
                 {
                   texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
           props = propositionsQcm(this, i)
@@ -176,17 +180,17 @@ export default class VariationFA extends Exercice {
             propositions: [
               {
                 texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
-                statut: true
-              }
-            ]
+                statut: true,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)

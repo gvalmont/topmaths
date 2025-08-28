@@ -1,11 +1,19 @@
 import { clean } from '../../helpers/text'
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs.js'
 
-async function test (page: Page) {
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  const urlExercice = hostname + '?uuid=1d078&id=4C33-0&n=20&d=10&s=3&s2=3&s3=1&s4=3&i=1&cd=1'
+async function test(page: Page) {
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
+  const urlExercice =
+    hostname + '?uuid=1d078&id=4C33-0&n=20&d=10&s=3&s2=3&s3=1&s4=3&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -15,11 +23,13 @@ async function test (page: Page) {
       const mantisse = question.katex.elements[0][0]
       const exposant = question.katex.elements[0][1]
       let nombreARepeter
-      if (mantisse.startsWith('-')) { // cas négatif
+      if (mantisse.startsWith('-')) {
+        // cas négatif
         const mantisseSansLeMoins = mantisse.slice(1)
         reponse = '-'
         nombreARepeter = mantisseSansLeMoins
-      } else { // cas positif
+      } else {
+        // cas positif
         nombreARepeter = mantisse
       }
       reponse += nombreARepeter

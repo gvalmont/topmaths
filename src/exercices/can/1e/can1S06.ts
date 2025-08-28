@@ -1,8 +1,12 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-export const titre = 'Donner la forme explicite d’une suite arithmétique/géométrique'
+export const titre =
+  'Donner la forme explicite d’une suite arithmétique/géométrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -19,22 +23,24 @@ export const uuid = 'fba63'
 
 export const refs = {
   'fr-fr': ['can1S06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculTermeSuiteRec extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, u
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
-    switch (choice(['a', 'b', 'c', 'd'])) { //
-      case 'a':// suite arithmétique
+    switch (
+      choice(['a', 'b', 'c', 'd']) //
+    ) {
+      case 'a': // suite arithmétique
         if (!this.interactif) {
           a = randint(1, 15) * choice([-1, 1])
           u = randint(1, 15) * choice([-1, 1])
@@ -56,11 +62,17 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
         }
         this.correction = `Pour tout entier naturel $n$, $u_n=u_0+n\\times r$.<br>
         Avec $${s}_0=${u}$ et  $r=${a}$, on obtient $${s}_n=${u}+n\\times${ecritureParentheseSiNegatif(a)}=$`
-        if (a === 1) { this.correction += `$${u}+n$.` } else if (a === -1) { this.correction += `$${u}-n$.` } else { this.correction += `$${u}${ecritureAlgebrique(a)}n$.` }
+        if (a === 1) {
+          this.correction += `$${u}+n$.`
+        } else if (a === -1) {
+          this.correction += `$${u}-n$.`
+        } else {
+          this.correction += `$${u}${ecritureAlgebrique(a)}n$.`
+        }
 
         this.reponse = [`${u}+${a}n`, `${u}+${a}\\times n`]
         break
-      case 'b':// suite arithmétique pour n>=1
+      case 'b': // suite arithmétique pour n>=1
         if (!this.interactif) {
           a = randint(1, 15) * choice([-1, 1])
           u = randint(1, 15) * choice([-1, 1])
@@ -81,11 +93,17 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
         }
         this.correction = `Pour tout entier naturel $n$ non nul, $u_n=u_1+(n-1)\\times r$.<br>
         Avec $${s}_0=${u}$ et  $r=${a}$, on obtient $${s}_n=${u}+(n-1)\\times${ecritureParentheseSiNegatif(a)}=$`
-        if (a === 1) { this.correction += `$${u - 1}+n$.` } else if (a === -1) { this.correction += `$${u + 1}-n$.` } else { this.correction += `$${u - a}${ecritureAlgebrique(a)}n$.` }
+        if (a === 1) {
+          this.correction += `$${u - 1}+n$.`
+        } else if (a === -1) {
+          this.correction += `$${u + 1}-n$.`
+        } else {
+          this.correction += `$${u - a}${ecritureAlgebrique(a)}n$.`
+        }
 
         this.reponse = [`${u - a}+${a}n`, `${u - a}+${a}\\times n`]
         break
-      case 'c':// suite géométrique
+      case 'c': // suite géométrique
         if (!this.interactif) {
           a = randint(2, 15) * choice([-1, 1])
           u = randint(-15, 15, [0, 1, a, -a])
@@ -105,10 +123,11 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
         Avec $${s}_0=${u}$ et  $a=${a}$, on obtient $${s}_n=${u}\\times${ecritureParentheseSiNegatif(a)}^n$.`
         if (u === -1) {
           this.reponse = [`${u}\\times ${a}^n`, `-${a}^n`, `${a}^n\\times${u}`]
-        } else { this.reponse = [`${u}\\times ${a}^n`, `${a}^n\\times${u}`] }
+        } else {
+          this.reponse = [`${u}\\times ${a}^n`, `${a}^n\\times${u}`]
+        }
         break
-      case 'd':// suite géométrique sur N*
-
+      case 'd': // suite géométrique sur N*
         if (!this.interactif) {
           a = randint(2, 15) * choice([-1, 1])
           u = randint(-15, 15, [0, 1, -1, a, -a])
@@ -125,7 +144,10 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
         }
         this.correction = `Pour tout entier naturel $n$, $u_n=u_1\\times q^{n-1}$.<br>
         Avec $${s}_1=${u}$ et  $a=${a}$, on obtient $${s}_n=${u}\\times${ecritureParentheseSiNegatif(a)}^{n-1}$`
-        this.reponse = [`${u}\\times ${ecritureParentheseSiNegatif(a)}^{n-1}`, `${ecritureParentheseSiNegatif(a)}^{n-1}\\times${u}`]
+        this.reponse = [
+          `${u}\\times ${ecritureParentheseSiNegatif(a)}^{n-1}`,
+          `${ecritureParentheseSiNegatif(a)}^{n-1}\\times${u}`,
+        ]
         break
     }
     this.canEnonce = this.question

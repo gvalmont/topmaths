@@ -11,26 +11,31 @@ export const interactifType = 'mathLive'
 export const uuid = 'a8e1d'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter+  Gilles Mora
-*/
+ */
 export default class Convertir extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b
     switch (choice(['b', 'b'])) {
       case 'a':
         b = 2025
-        a = choice([new Decimal(b).div(10), new Decimal(b).div(10000), new Decimal(b).div(100), new Decimal(b).div(1000)])
+        a = choice([
+          new Decimal(b).div(10),
+          new Decimal(b).div(10000),
+          new Decimal(b).div(100),
+          new Decimal(b).div(1000),
+        ])
         this.reponse = texNombre(new Decimal(a).mul(1000), 4)
         this.question = ` $${texNombre(a)}$ m$^3 =$ `
         if (!this.interactif) {
@@ -44,7 +49,12 @@ export default class Convertir extends ExerciceSimple {
         break
       case 'b':
         b = 2025
-        a = choice([new Decimal(b), new Decimal(b).mul(10), new Decimal(b).mul(100), new Decimal(b).div(10)])
+        a = choice([
+          new Decimal(b),
+          new Decimal(b).mul(10),
+          new Decimal(b).mul(100),
+          new Decimal(b).div(10),
+        ])
         this.reponse = texNombre(new Decimal(a).div(1000), 4)
         this.question = `$${texNombre(a)}$  L $=$ `
         if (!this.interactif) {

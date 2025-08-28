@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '7a795'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025CE1Q4 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     let quidam = 'Zoé'
 
     if (a == null || b == null || c == null) {
@@ -31,7 +31,9 @@ export default class Can2025CE1Q4 extends ExerciceCan {
     this.question = `${quidam} est sur la case $${a}$ de la piste.<br>
 Elle avance de $${b}$ cases et tombe sur « recule de $${c}$ cases ».<br>
 ${quidam}  doit alors aller sur la case`
-    if (!this.interactif) { this.question += ' $\\ldots$' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots$'
+    }
     this.optionsChampTexte = { texteApres: '.' }
     this.correction = `$${a}+${b}-${c}=${a + b - c}$<br>
     ${quidam}  arrive donc sur la case $${miseEnEvidence(a + b - c)}$.`
@@ -40,7 +42,7 @@ Elle avance de $${b}$ cases et tombe sur «recule de $${c}$ cases».`
     this.canReponseACompleter = `${quidam} doit alors aller sur la case $\\ldots$`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(7, 5, 2) : this.enonce()
   }
 }

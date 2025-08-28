@@ -1,4 +1,8 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
@@ -26,21 +30,35 @@ export const uuid = '76343'
 
 export const refs = {
   'fr-fr': ['5R10-1'],
-  'fr-ch': ['9NO9-5']
+  'fr-ch': ['9NO9-5'],
 }
 export default class DevinerNombreRelatif extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.spacing = 2
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles: (1 | 2 | 3)[] = [1, 2, 3]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    let dixieme; let signe; let centieme; let unite; let somme; let produit; let facteurs; const type = ['négatif', 'nul', 'positif']
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    let dixieme
+    let signe
+    let centieme
+    let unite
+    let somme
+    let produit
+    let facteurs
+    const type = ['négatif', 'nul', 'positif']
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       signe = choice([-1, 1])
       switch (listeTypeDeQuestions[i]) {
         case 1:
@@ -57,7 +75,7 @@ export default class DevinerNombreRelatif extends Exercice {
           somme = randint(unite + 1, unite + 9)
           dixieme = somme - unite
           centieme = 0
-          texte = 'Je suis un nombre dont l\'opposé est compris entre '
+          texte = "Je suis un nombre dont l'opposé est compris entre "
           if (signe < 0) {
             texte += `$${unite}$ et $${unite + 1}$.<br>`
           } else {
@@ -78,9 +96,11 @@ export default class DevinerNombreRelatif extends Exercice {
           texte = `Je suis un nombre ${type[signe + 1]} dont la distance à zéro est comprise entre ${unite} et ${unite + 1}.<br>`
           texte += `Le produit de mes trois chiffres vaut ${produit}.<br>`
           if (dixieme < centieme) {
-            texte += 'Mon chiffre des centièmes est supérieur à mon chiffre des dixièmes.'
+            texte +=
+              'Mon chiffre des centièmes est supérieur à mon chiffre des dixièmes.'
           } else {
-            texte += 'Mon chiffre des centièmes est inférieur à mon chiffre des dixièmes.'
+            texte +=
+              'Mon chiffre des centièmes est inférieur à mon chiffre des dixièmes.'
           }
           texte += ' Qui suis-je ?'
           break
@@ -88,8 +108,14 @@ export default class DevinerNombreRelatif extends Exercice {
       texteCorr = `Je suis $${texNombre(signe * (unite + dixieme / 10 + centieme / 100))}$.`
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
-      setReponse(this, i, arrondi(signe * (unite + dixieme / 10 + centieme / 100), 3), { signe: true })
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      setReponse(
+        this,
+        i,
+        arrondi(signe * (unite + dixieme / 10 + centieme / 100), 3),
+        { signe: true },
+      )
+      if (this.questionJamaisPosee(i, texte)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

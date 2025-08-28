@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '97669'
 export const refs = {
   'fr-fr': ['TSP1-QCM07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,7 +29,7 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
       '$\\dfrac{7}{25}$', // Réponse correcte (c)
       '$\\dfrac{7}{10}$', // Mauvaise réponse (a)
       '$\\dfrac{3}{25}$', // Mauvaise réponse (b)
-      '$\\dfrac{24}{125}$' // Mauvaise réponse (d)
+      '$\\dfrac{24}{125}$', // Mauvaise réponse (d)
     ]
 
     this.enonce = this.sup3
@@ -44,17 +44,20 @@ $\\bullet~~$ $A$ :  "Le joueur choisit le monde A" ; <br>
 $\\bullet~~$ $B$ :  "Le joueur choisit le monde B"  ;<br>
 $\\bullet~~$ $G$ :  "Le joueur gagne la partie" .<br><br>`
       : ''
-    this.enonce += 'La probabilité que le joueur choisisse le monde A et gagne la partie est égale à :'
-    this.correction = 'On utilise la formule des probabilités conditionnelles :<br>'
-    this.correction += '$P(A \\cap G) = P(A) \\times P_A(G) = \\dfrac{2}{5} \\times \\dfrac{7}{10} = \\dfrac{7}{25}.$<br>'
+    this.enonce +=
+      'La probabilité que le joueur choisisse le monde A et gagne la partie est égale à :'
+    this.correction =
+      'On utilise la formule des probabilités conditionnelles :<br>'
+    this.correction +=
+      '$P(A \\cap G) = P(A) \\times P_A(G) = \\dfrac{2}{5} \\times \\dfrac{7}{10} = \\dfrac{7}{25}.$<br>'
     this.correction += `La bonne réponse est donc $${miseEnEvidence('\\dfrac{7}{25}')}$.`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: false, ordered: false }
     this.versionOriginale()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

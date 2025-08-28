@@ -10,21 +10,21 @@ export const interactifType = 'mathLive'
 export const uuid = '7977b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class calculPuissances extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = randint(1, 5)
     if (choix === 1) {
       this.reponse = -1
@@ -53,7 +53,9 @@ export default class calculPuissances extends ExerciceSimple {
               Ainsi, $(-1)^{${texNombre(2025)}}-(-1)^{${texNombre(2024)}}=-1-(-1)=${miseEnEvidence('0')}$.`
     }
 
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

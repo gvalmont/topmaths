@@ -14,11 +14,11 @@ export const uuid = '3cb1d'
 export const refs = {
   'fr-fr': ['auto6M1C-1'],
   'fr-2016': ['6M12'],
-  'fr-ch': ['9GM2-1']
+  'fr-ch': ['9GM2-1'],
 }
 
 export default class Reglages6M12 extends ExerciceConversionsLongueurs {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
     this.nbQuestions = 8

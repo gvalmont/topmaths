@@ -16,17 +16,17 @@ export const uuid = 'cb6b3'
 
 export const refs = {
   'fr-fr': ['can3L03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EquationAXPlusBEgalC extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-5, 5, [0, -1, 1])
     this.reponse = randint(-9, 9, [-1, 0, 1])
     const c = randint(-9, 9, [0])
@@ -45,7 +45,7 @@ export default class EquationAXPlusBEgalC extends ExerciceSimple {
     \\end{aligned}$<br>
     La solution de l'équation est : $${this.reponse}$.
     `
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

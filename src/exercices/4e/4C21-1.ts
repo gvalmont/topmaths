@@ -1,6 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
+import {
+  texFractionFromString,
+  simplificationDeFractionAvecEtapes,
+} from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd, ppcm } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
@@ -29,10 +32,10 @@ export const uuid = '5e8fc'
 
 export const refs = {
   'fr-fr': ['4C21-1', 'BP2AutoH10'],
-  'fr-ch': ['9NO13-7']
+  'fr-ch': ['9NO13-7'],
 }
 export default class ExerciceAdditionnerDesFractions extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.sup = 2 // Niveau de difficulté
     this.sup2 = false // Avec ou sans relatifs
@@ -42,22 +45,65 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
     this.spacingCorr = 2
     this.nbQuestions = 5
 
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      "1 : Un dénominateur multiple de l'autre\n2 : Cas général",
+    ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
     this.besoinFormulaire3CaseACocher = ['Fraction irréductible attendue']
   }
 
-  nouvelleVersion () {
-    const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
+  nouvelleVersion() {
+    const listeCouplesDeDenominateurs = [
+      [6, 9],
+      [4, 6],
+      [8, 12],
+      [9, 12],
+      [10, 15],
+      [10, 25],
+      [6, 21],
+      [12, 30],
+      [6, 8],
+      [50, 75],
+    ]
     this.consigne = `Calculer et donner le résultat sous la forme d'une fraction${this.sup3 ? ' simplifiée au maximum.' : '.'}`
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
-      typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
+      typesDeQuestionsDisponibles = [
+        'b_multiple_de_d',
+        'd_multiple_de_b',
+        'b_multiple_de_d',
+        'd_multiple_de_b',
+        'entier',
+      ]
     } else {
-      typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier']
+      typesDeQuestionsDisponibles = [
+        'ppcm',
+        'ppcm',
+        'premiers_entre_eux',
+        choice(['b_multiple_de_d', 'd_multiple_de_b']),
+        'entier',
+      ]
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, b, c, d, texte, texteCorr, reponse, couplesDeDenominateurs, typesDeQuestions; i < this.nbQuestions; i++) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0,
+        a,
+        b,
+        c,
+        d,
+        texte,
+        texteCorr,
+        reponse,
+        couplesDeDenominateurs,
+        typesDeQuestions;
+      i < this.nbQuestions;
+      i++
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       let k1 = 0
       let k2 = 0
@@ -105,7 +151,8 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
 
       a = randint(1, 9, [b])
       c = randint(1, 9, [d])
-      if (this.sup2) { // si les numérateurs sont relatifs
+      if (this.sup2) {
+        // si les numérateurs sont relatifs
         a = a * choice([-1, 1])
         c = c * choice([-1, 1])
       }
@@ -113,7 +160,10 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
       texteCorr = `$${texFractionFromString(a, b)}+${texFractionFromString(c, d)}`
 
       // a/b+c/d = num/den (résultat non simplifié)
-      if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
+      if (
+        typesDeQuestions === 'ppcm' ||
+        typesDeQuestions === 'premiers_entre_eux'
+      ) {
         texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}+${texFractionFromString(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
         // texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
         num = a * k1 + c * k2
@@ -175,16 +225,25 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
 
       reponse = fraction(num, den).simplifie()
       texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
-      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: reponse.toLatex(),
+          options: {
+            fractionEgale: !this.sup3,
+            fractionIrreductible: this.sup3,
+          },
+        },
+      })
 
       if (context.isAmc) {
-        texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+        texte =
+          'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
         this.autoCorrection[i] = {
           enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
           propositions: [
             {
-              texte: '' // Si vide, le texte est la correction de l'exercice.
-            }
+              texte: '', // Si vide, le texte est la correction de l'exercice.
+            },
           ],
           reponse: {
             // @ts-expect-error
@@ -193,9 +252,9 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
               digits: 5,
               digitsNum: 3,
               digitsDen: 2,
-              signe: true
-            }
-          }
+              signe: true,
+            },
+          },
         }
       }
 

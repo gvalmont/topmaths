@@ -22,17 +22,17 @@ export const uuid = 'ae712'
 
 export const refs = {
   'fr-fr': ['can4G07', 'BP2AutoR13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculLongueurThalesMilieu extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, A, B, C, D, E, objets, nom
     if (choice([true, false])) {
       nom = creerNomDePolygone(5, ['QD'])
@@ -44,8 +44,14 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
       D = point(2.5, 2, nom[3], 'above')
       E = point(3, 0, nom[4], 'below')
       objets = []
-      objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
-        codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
+      objets.push(
+        segment(A, B),
+        segment(D, E),
+        segment(A, C),
+        segment(B, C),
+        codageSegments('||', 'blue', A, D, D, C),
+        labelPoint(A, B, C, D, E),
+      )
 
       this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et
       $${nom[3]}${nom[4]}=${texNombre(a)}$.<br>
@@ -53,14 +59,26 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
       Calculer $${nom[1]}${nom[2]}$.<br>
 
      `
-      this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 5, pixelsParCm: 18, mainlevee: false, amplitude: 0.5, style: 'margin: auto' }, objets)
+      this.question += mathalea2d(
+        {
+          xmin: -1,
+          ymin: -1,
+          xmax: 8,
+          ymax: 5,
+          pixelsParCm: 18,
+          mainlevee: false,
+          amplitude: 0.5,
+          style: 'margin: auto',
+        },
+        objets,
+      )
       this.correction = ` Les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$ sont 2 fois plus grandes que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
       Le triangle $${nom[0]}${nom[1]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
       Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombre(a)}=${texNombre(2 * a)}$.
   `
 
       this.reponse = 2 * a
-      this.canEnonce = this.question// 'Compléter'
+      this.canEnonce = this.question // 'Compléter'
       this.canReponseACompleter = `$${nom[1]}${nom[2]}=\\ldots$`
     } else {
       nom = creerNomDePolygone(5, ['QD'])
@@ -71,8 +89,14 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
       D = point(2.5, 2, nom[3], 'above')
       E = point(3, 0, nom[4], 'below')
       objets = []
-      objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
-        codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
+      objets.push(
+        segment(A, B),
+        segment(D, E),
+        segment(A, C),
+        segment(B, C),
+        codageSegments('||', 'blue', A, D, D, C),
+        labelPoint(A, B, C, D, E),
+      )
 
       this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et
        $${nom[1]}${nom[2]}=${texNombre(a)}$. <br>
@@ -80,14 +104,26 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
          Calculer $${nom[3]}${nom[4]}$.<br>
          
          `
-      this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 5, pixelsParCm: 18, mainlevee: false, amplitude: 0.5, style: 'margin: auto' }, objets)
+      this.question += mathalea2d(
+        {
+          xmin: -1,
+          ymin: -1,
+          xmax: 8,
+          ymax: 5,
+          pixelsParCm: 18,
+          mainlevee: false,
+          amplitude: 0.5,
+          style: 'margin: auto',
+        },
+        objets,
+      )
       this.correction = ` Les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont 2 fois plus petites que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
       Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est une réduction du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
             Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombre(a)}\\div 2 =${texNombre(a / 2)}$.
      `
 
       this.reponse = a / 2
-      this.canEnonce = this.question// 'Compléter'
+      this.canEnonce = this.question // 'Compléter'
       this.canReponseACompleter = `$${nom[3]}${nom[4]}=\\ldots$`
     }
   }

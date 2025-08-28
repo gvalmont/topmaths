@@ -13,30 +13,39 @@ export const dateDePublication = '27/11/2022'
 /**
  * Distribultivité numérique
  * @author Sébastien LOZANO
-*/
+ */
 
 export const uuid = '1ebf7'
 
 export const refs = {
   'fr-fr': ['3G11-1'],
-  'fr-ch': ['11ES3-4']
+  'fr-ch': ['11ES3-4'],
 }
 export default class HomothetieRapport extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1 // Ici le nombre de questions
-    this.consigne = 'Compléter le tableau ci-dessous en cochant les bonnes cases.'
+    this.consigne =
+      'Compléter le tableau ci-dessous en cochant les bonnes cases.'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1] // tableau à compléter par valeurs possibles des types de questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
     if (this.nbQuestions > 1) {
-      this.consigne = 'Compléter les tableaux ci-dessous en cochant les bonnes cases.'
+      this.consigne =
+        'Compléter les tableaux ci-dessous en cochant les bonnes cases.'
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
 
@@ -52,7 +61,8 @@ export default class HomothetieRapport extends Exercice {
       const decimalPositifInferieurUn = new Decimal(randint(1, 9)).div(10)
       const entierNegatifModuleSuperieurUn = 0 - randint(2, 9)
       const decimalPositifSuperieurUn = new Decimal(randint(11, 49)).div(10)
-      const decimalNegatifModuleInferieurUn = 0 - new Decimal(randint(1, 9)).div(10)
+      const decimalNegatifModuleInferieurUn =
+        0 - new Decimal(randint(1, 9)).div(10)
       let numerateur = randint(2, 9)
       let denominateur = randint(2, 9, [numerateur])
       // Si le denominateur est inférieur au numérateur on inverse les deux
@@ -64,45 +74,50 @@ export default class HomothetieRapport extends Exercice {
       const fraction = new FractionEtendue(numerateur, denominateur)
       const numerateurFractionInverseOpposee = -1 * denominateur
       const denominateurFractionInverseOpposee = numerateur
-      const fractionInverseEtOpposee = new FractionEtendue(numerateurFractionInverseOpposee, denominateurFractionInverseOpposee)
+      const fractionInverseEtOpposee = new FractionEtendue(
+        numerateurFractionInverseOpposee,
+        denominateurFractionInverseOpposee,
+      )
 
       // On crée les objets
       const cas1 = {
         rapport: texNombre(decimalPositifInferieurUn, 1),
         correctionReduction: miseEnEvidence('\\times'),
-        correctionAgrandissement: ''
+        correctionAgrandissement: '',
       }
       const cas2 = {
         rapport: texNombre(entierNegatifModuleSuperieurUn, 0),
         correctionReduction: '',
-        correctionAgrandissement: miseEnEvidence('\\times')
+        correctionAgrandissement: miseEnEvidence('\\times'),
       }
       const cas3 = {
         rapport: texNombre(decimalPositifSuperieurUn, 1),
         correctionReduction: '',
-        correctionAgrandissement: miseEnEvidence('\\times')
+        correctionAgrandissement: miseEnEvidence('\\times'),
       }
       const cas4 = {
         rapport: texNombre(decimalNegatifModuleInferieurUn, 1),
         correctionReduction: miseEnEvidence('\\times'),
-        correctionAgrandissement: ''
+        correctionAgrandissement: '',
       }
       const cas5 = {
         rapport: fraction.texFraction,
         correctionReduction: miseEnEvidence('\\times'),
-        correctionAgrandissement: ''
+        correctionAgrandissement: '',
       }
       const cas6 = {
         rapport: fractionInverseEtOpposee.texFraction,
         correctionReduction: '',
-        correctionAgrandissement: miseEnEvidence('\\times')
+        correctionAgrandissement: miseEnEvidence('\\times'),
       }
 
       // On va remplir un tableau avec des objets contenant nombre et réponse
       const choixRapports = [cas1, cas2, cas3, cas4, cas5, cas6]
       const choixRapportsMelanges = shuffle(choixRapports)
 
-      switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 1 cas sont prévus...
+      switch (
+        listeTypeDeQuestions[i] // Chaque question peut être d'un type différent, ici 1 cas sont prévus...
+      ) {
         case 1:
           texte += `$
           \\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|c|c|}

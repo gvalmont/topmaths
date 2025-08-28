@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = '76dc1'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -21,7 +21,7 @@ export const refs = {
 
 */
 export default class Can2025CE1Q20 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,7 +29,7 @@ export default class Can2025CE1Q20 extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const valMin = this.canOfficielle ? 150 : randint(11, 19) * 10
     const absSol = this.canOfficielle ? 220 : valMin + randint(2, 8) * 10
     const d = droiteGraduee({
@@ -44,18 +44,24 @@ export default class Can2025CE1Q20 extends ExerciceSimple {
       pointCouleur: 'blue',
       pointStyle: context.isHtml ? 'x' : '',
       pointTaille: 7,
-      labelListe: [[valMin, String(valMin)], [valMin + 100, String(valMin + 100)]],
-      labelsPrincipaux: false
+      labelListe: [
+        [valMin, String(valMin)],
+        [valMin + 100, String(valMin + 100)],
+      ],
+      labelsPrincipaux: false,
     })
     this.reponse = absSol
-    this.question = mathalea2d({
-      xmin: -1,
-      ymin: -1.5,
-      xmax: 12,
-      ymax: 1.5,
-      scale: 0.6,
-      style: 'margin: auto'
-    }, d)
+    this.question = mathalea2d(
+      {
+        xmin: -1,
+        ymin: -1.5,
+        xmax: 12,
+        ymax: 1.5,
+        scale: 0.6,
+        style: 'margin: auto',
+      },
+      d,
+    )
     this.question += 'Quel nombre est repéré par la croix ? '
     this.correction = `Entre $${valMin}$ et $${valMin + 100}$, il y a $100$ unités. <br>
     Ces $100$ unités sont partagées en $10$ parts.<br>
@@ -63,14 +69,17 @@ export default class Can2025CE1Q20 extends ExerciceSimple {
       Ainsi, la croix repère le nombre $${miseEnEvidence(texNombre(absSol))}$.`
 
     this.canEnonce = `Place le nombre $${absSol}$.`
-    this.canReponseACompleter = mathalea2d({
-      xmin: -1,
-      ymin: -1.5,
-      xmax: 12.2,
-      ymax: 1.5,
-      scale: 0.38,
-      style: 'margin: auto'
-    }, d)
+    this.canReponseACompleter = mathalea2d(
+      {
+        xmin: -1,
+        ymin: -1.5,
+        xmax: 12.2,
+        ymax: 1.5,
+        scale: 0.38,
+        style: 'margin: auto',
+      },
+      d,
+    )
     if (this.interactif) {
       this.question += '<br>'
     }

@@ -5,10 +5,10 @@ export const titre = 'Calcul mental et calcul littéral'
 export const uuid = '74c5a'
 export const refs = {
   'fr-fr': ['2N40-8'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class IdentitesCalculs2e extends identitesCalculs {
-  constructor () {
+  constructor() {
     super()
     this.sup = 4
   }

@@ -20,7 +20,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathlive'
-export const titre = 'Résoudre graphiquement une inéquation avec une fonction de référence'
+export const titre =
+  'Résoudre graphiquement une inéquation avec une fonction de référence'
 export const dateDePublication = '14/02/2023'
 /**
  *
@@ -30,12 +31,16 @@ export const uuid = '277d3'
 
 export const refs = {
   'fr-fr': ['2F12-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResoudreGraphFonctionRef extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Avec la fonction carré\n2 : Avec la fonction inverse\n3 : Avec la fonction racine carrée\n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      4,
+      '1 : Avec la fonction carré\n2 : Avec la fonction inverse\n3 : Avec la fonction racine carrée\n4 : Mélange',
+    ]
 
     this.nbQuestions = 1
 
@@ -44,7 +49,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
     this.spacing = 1.5 // Interligne des questions
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2']
@@ -53,25 +58,46 @@ export default class ResoudreGraphFonctionRef extends Exercice {
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = ['typeE5', 'typeE6']
     } else {
-      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6']
+      typeDeQuestionsDisponibles = [
+        'typeE1',
+        'typeE2',
+        'typeE3',
+        'typeE4',
+        'typeE5',
+        'typeE6',
+      ]
     }
     //
     // variables communes à tous les cas et sortis des cases et même de la boucle.
     const o = latexParCoordonnees('O', -0.2, -0.3, 'black', 0, 0, '')
     const O = point(0, 0)
 
-    const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
       const estInegStrict = choice([true, false])
       let ensembleSolutions: string
-      function intervalleLaTex (borneGauche: string | number, borneDroite: string | number, ouvertGauche: boolean, ouvertDroite: boolean): string {
+      function intervalleLaTex(
+        borneGauche: string | number,
+        borneDroite: string | number,
+        ouvertGauche: boolean,
+        ouvertDroite: boolean,
+      ): string {
         const delimGauche = ouvertGauche ? '\\left]' : '\\left['
         const delimDroite = ouvertDroite ? '\\right[' : '\\right]'
         return `${delimGauche}${borneGauche} ; ${borneDroite}${delimDroite}`
       }
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'typeE1':// x^2<k
+      switch (
+        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
+        case 'typeE1': // x^2<k
           {
             const signeInegalité = estInegStrict ? '<' : ' \\leqslant '
             const a = randint(1, 30)
@@ -89,10 +115,42 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             sAxBx.epaisseur = 2
             sAxBx.styleExtremites = estInegStrict ? ']-[' : '[-]'
             sAxBx.tailleExtremites = 6
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.7, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=x^2', 3, 4.5, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`-\\sqrt{${a}}`, -1.73, -0.6, 'red', 0, 0, '')
-            const Texte4 = latexParCoordonnees(`\\sqrt{${a}}`, 1.73, -0.6, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(
+              `y=${a}`,
+              4,
+              2.7,
+              'green',
+              0,
+              0,
+              '',
+            )
+            const Texte2 = latexParCoordonnees(
+              'y=x^2',
+              3,
+              4.5,
+              'blue',
+              0,
+              0,
+              '',
+            )
+            const Texte3 = latexParCoordonnees(
+              `-\\sqrt{${a}}`,
+              -1.73,
+              -0.6,
+              'red',
+              0,
+              0,
+              '',
+            )
+            const Texte4 = latexParCoordonnees(
+              `\\sqrt{${a}}`,
+              1.73,
+              -0.6,
+              'red',
+              0,
+              0,
+              '',
+            )
             const r1 = repere({
               xMin: -4,
               yMin: -1,
@@ -107,33 +165,48 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               xThickListe: [0],
               yThickListe: [0],
               xLabelListe: [-6],
-              yLabelListe: [-6]
-
+              yLabelListe: [-6],
             })
             const f = (x: number) => Number(x) ** 2
             const Cg = droite(point(-3, 3), point(3, 3), '', 'green')
             Cg.epaisseur = 2
-            const graphique = mathalea2d({
-              xmin: -5,
-              xmax: 5,
-              ymin: -1,
-              ymax: 5,
-              pixelsParCm: 30,
-              scale: 0.7
-            }, r1, o)
-            const graphiqueC = mathalea2d({
-              xmin: -6,
-              xmax: 6,
-              ymin: -2,
-              ymax: 5,
-              pixelsParCm: 30,
-              scale: 1
-            }, courbe(f, {
-              repere: r1,
-              color: 'blue',
-              epaisseur: 2
-            }), Cg
-            , r1, o, sAAx, sBBx, sAxBx, Texte1, Texte2, Texte3, Texte4)
+            const graphique = mathalea2d(
+              {
+                xmin: -5,
+                xmax: 5,
+                ymin: -1,
+                ymax: 5,
+                pixelsParCm: 30,
+                scale: 0.7,
+              },
+              r1,
+              o,
+            )
+            const graphiqueC = mathalea2d(
+              {
+                xmin: -6,
+                xmax: 6,
+                ymin: -2,
+                ymax: 5,
+                pixelsParCm: 30,
+                scale: 1,
+              },
+              courbe(f, {
+                repere: r1,
+                color: 'blue',
+                epaisseur: 2,
+              }),
+              Cg,
+              r1,
+              o,
+              sAAx,
+              sBBx,
+              sAxBx,
+              Texte1,
+              Texte2,
+              Texte3,
+              Texte4,
+            )
             texte = `Résoudre graphiquement l'inéquation : $x^2${signeInegalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
@@ -147,18 +220,28 @@ export default class ResoudreGraphFonctionRef extends Exercice {
 
             if (a === 1 || a === 4 || a === 9 || a === 16 || a === 25) {
               const borne = arrondi(Math.sqrt(a), 0)
-              ensembleSolutions = intervalleLaTex(-borne, borne, estInegStrict, estInegStrict)
+              ensembleSolutions = intervalleLaTex(
+                -borne,
+                borne,
+                estInegStrict,
+                estInegStrict,
+              )
               texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$ et que $\\sqrt{${a}}=${borne}$, l'ensemble des solutions de l'inéquation $x^2${signeInegalité}${a}$ est :
              `
             } else {
               const borne = `\\sqrt{${a}}`
-              ensembleSolutions = intervalleLaTex('-' + borne, borne, estInegStrict, estInegStrict)
+              ensembleSolutions = intervalleLaTex(
+                '-' + borne,
+                borne,
+                estInegStrict,
+                estInegStrict,
+              )
               texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$, l'ensemble des solutions de l'inéquation $x^2${signeInegalité}${a}$ est : `
             }
           }
           break
 
-        case 'typeE2':// x^2>k
+        case 'typeE2': // x^2>k
           {
             const signeInegalité = estInegStrict ? '>' : ' \\geqslant '
             const a = randint(1, 30)
@@ -182,10 +265,42 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             sAxAxI.epaisseur = 2
             sAxAxI.styleExtremites = '[-'
             sAxAxI.tailleExtremites = 6
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.7, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=x^2', 3, 4.5, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`-\\sqrt{${a}}`, -1.73, -0.6, 'red', 0, 0, '')
-            const Texte4 = latexParCoordonnees(`\\sqrt{${a}}`, 1.73, -0.6, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(
+              `y=${a}`,
+              4,
+              2.7,
+              'green',
+              0,
+              0,
+              '',
+            )
+            const Texte2 = latexParCoordonnees(
+              'y=x^2',
+              3,
+              4.5,
+              'blue',
+              0,
+              0,
+              '',
+            )
+            const Texte3 = latexParCoordonnees(
+              `-\\sqrt{${a}}`,
+              -1.73,
+              -0.6,
+              'red',
+              0,
+              0,
+              '',
+            )
+            const Texte4 = latexParCoordonnees(
+              `\\sqrt{${a}}`,
+              1.73,
+              -0.6,
+              'red',
+              0,
+              0,
+              '',
+            )
             const r1 = repere({
               xMin: -4,
               yMin: -1,
@@ -200,33 +315,49 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               xThickListe: [-6],
               yThickListe: [-6],
               xLabelListe: [-6],
-              yLabelListe: [-6]
+              yLabelListe: [-6],
             })
             const f = (x: number) => Number(x) ** 2
             const Cg = droite(point(-6, 3), point(6, 3), '', 'green')
             Cg.epaisseur = 2
-            const graphique = mathalea2d({
-              xmin: -5,
-              xmax: 6,
-              ymin: -1,
-              ymax: 5,
-              pixelsParCm: 30,
-              scale: 0.7
-            }, r1, o)
-            const graphiqueC = mathalea2d({
-              xmin: -5,
-              xmax: 6,
-              ymin: -2,
-              ymax: 5.5,
-              pixelsParCm: 30,
-              scale: 1
-            }, courbe(f, {
-              repere: r1,
-              color: 'blue',
-              epaisseur: 2
-            }),
-            Cg
-            , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, Texte1, Texte2, Texte3, Texte4)
+            const graphique = mathalea2d(
+              {
+                xmin: -5,
+                xmax: 6,
+                ymin: -1,
+                ymax: 5,
+                pixelsParCm: 30,
+                scale: 0.7,
+              },
+              r1,
+              o,
+            )
+            const graphiqueC = mathalea2d(
+              {
+                xmin: -5,
+                xmax: 6,
+                ymin: -2,
+                ymax: 5.5,
+                pixelsParCm: 30,
+                scale: 1,
+              },
+              courbe(f, {
+                repere: r1,
+                color: 'blue',
+                epaisseur: 2,
+              }),
+              Cg,
+              r1,
+              o,
+              sAAx,
+              sBBx,
+              sAxAxI,
+              sBxBxI,
+              Texte1,
+              Texte2,
+              Texte3,
+              Texte4,
+            )
             texte = `Résoudre graphiquement l'inéquation : $x^2${signeInegalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
@@ -240,19 +371,23 @@ export default class ResoudreGraphFonctionRef extends Exercice {
 
             if (a === 1 || a === 4 || a === 9 || a === 16 || a === 25) {
               const borne = arrondi(Math.sqrt(a), 0)
-              ensembleSolutions = intervalleLaTex('-\\infty', -borne, true, estInegStrict) +
-                '\\cup' + intervalleLaTex(borne, '+\\infty', estInegStrict, true)
+              ensembleSolutions =
+                intervalleLaTex('-\\infty', -borne, true, estInegStrict) +
+                '\\cup' +
+                intervalleLaTex(borne, '+\\infty', estInegStrict, true)
               texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$ et que $\\sqrt{${a}}=${borne}$, l'ensemble des solutions de l'inéquation $x^2${signeInegalité}${a}$ est : `
             } else {
               const borne = `\\sqrt{${a}}`
-              ensembleSolutions = intervalleLaTex('-\\infty', '-' + borne, true, estInegStrict) +
-                '\\cup' + intervalleLaTex(borne, '+\\infty', estInegStrict, true)
+              ensembleSolutions =
+                intervalleLaTex('-\\infty', '-' + borne, true, estInegStrict) +
+                '\\cup' +
+                intervalleLaTex(borne, '+\\infty', estInegStrict, true)
               texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$, l'ensemble des solutions de l'inéquation $x^2${signeInegalité}${a}$ est : `
             }
           }
           break
 
-        case 'typeE3':// 1/x<k
+        case 'typeE3': // 1/x<k
           {
             const a = randint(-9, 9, [-1, 0, 1])
 
@@ -284,11 +419,51 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             sAxI2Ax.epaisseur = 2
             sAxI2Ax.tailleExtremites = 6
             sAxI2Ax.styleExtremites = estInegStrict ? ']-' : '[-'
-            const Texte1 = latexParCoordonnees(`y = ${a} `, 4, 2.3, 'green', 0, 0, '')
-            const Texte1B = latexParCoordonnees(`y = ${a} `, 4, -1.3, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=\\dfrac{1}{x}', 1.2, 3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`\\dfrac{ 1 } {${a} } `, 0.5, -1, 'red', 0, 0, '')
-            const Texte3B = latexParCoordonnees(`-\\dfrac{ 1 } {${-a} } `, -1.2, 1, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(
+              `y = ${a} `,
+              4,
+              2.3,
+              'green',
+              0,
+              0,
+              '',
+            )
+            const Texte1B = latexParCoordonnees(
+              `y = ${a} `,
+              4,
+              -1.3,
+              'green',
+              0,
+              0,
+              '',
+            )
+            const Texte2 = latexParCoordonnees(
+              'y=\\dfrac{1}{x}',
+              1.2,
+              3,
+              'blue',
+              0,
+              0,
+              '',
+            )
+            const Texte3 = latexParCoordonnees(
+              `\\dfrac{ 1 } {${a} } `,
+              0.5,
+              -1,
+              'red',
+              0,
+              0,
+              '',
+            )
+            const Texte3B = latexParCoordonnees(
+              `-\\dfrac{ 1 } {${-a} } `,
+              -1.2,
+              1,
+              'red',
+              0,
+              0,
+              '',
+            )
 
             const r1 = repere({
               xMin: -4,
@@ -304,52 +479,76 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               xThickListe: [0],
               yThickListe: [0],
               xLabelListe: [-6],
-              yLabelListe: [-6]
-
+              yLabelListe: [-6],
             })
             const f = (x: number) => 1 / Number(x)
             const Cg1 = droiteParPointEtPente(point(0, 2), 0, '', 'green')
             Cg1.epaisseur = 2
             const Cg2 = droiteParPointEtPente(point(0, -1), 0, '', 'green')
             Cg2.epaisseur = 2
-            const graphique = mathalea2d({
-              xmin: -5,
-              xmax: 5,
-              ymin: -3,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 0.7
-            }, r1, o)
+            const graphique = mathalea2d(
+              {
+                xmin: -5,
+                xmax: 5,
+                ymin: -3,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 0.7,
+              },
+              r1,
+              o,
+            )
 
-            const graphiqueC1 = mathalea2d({ // 1/x<k avec k>0
-              xmin: -6,
-              xmax: 6,
-              ymin: -3,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 1
-            }, courbe(f, {
-              repere: r1,
-              color: 'blue',
-              epaisseur: 2
-            }),
-            Cg1
-            , r1, o, sAAx, sAxIO, sAxI2Ax, Texte1, Texte2, Texte3)
+            const graphiqueC1 = mathalea2d(
+              {
+                // 1/x<k avec k>0
+                xmin: -6,
+                xmax: 6,
+                ymin: -3,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 1,
+              },
+              courbe(f, {
+                repere: r1,
+                color: 'blue',
+                epaisseur: 2,
+              }),
+              Cg1,
+              r1,
+              o,
+              sAAx,
+              sAxIO,
+              sAxI2Ax,
+              Texte1,
+              Texte2,
+              Texte3,
+            )
 
-            const graphiqueC2 = mathalea2d({ // 1/x<k avec k<0
-              xmin: -6,
-              xmax: 6,
-              ymin: -3,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 1
-            }, courbe(f, {
-              repere: r1,
-              color: 'blue',
-              epaisseur: 2
-            }),
-            Cg2
-            , r1, o, sA2A2x, sA2xO, Texte1B, Texte2, Texte3B)
+            const graphiqueC2 = mathalea2d(
+              {
+                // 1/x<k avec k<0
+                xmin: -6,
+                xmax: 6,
+                ymin: -3,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 1,
+              },
+              courbe(f, {
+                repere: r1,
+                color: 'blue',
+                epaisseur: 2,
+              }),
+              Cg2,
+              r1,
+              o,
+              sA2A2x,
+              sA2xO,
+              Texte1B,
+              Texte2,
+              Texte3B,
+            )
 
             const signeInégalité = estInegStrict ? ' < ' : ' \\leqslant '
             texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${signeInégalité}${a}$.<br>`
@@ -363,7 +562,10 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : $${borne}$.<br>
             $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             if (a > 0) {
-              ensembleSolutions = intervalleLaTex('-\\infty', 0, true, true) + '\\cup' + intervalleLaTex(borne, '+\\infty', estInegStrict, true)
+              ensembleSolutions =
+                intervalleLaTex('-\\infty', 0, true, true) +
+                '\\cup' +
+                intervalleLaTex(borne, '+\\infty', estInegStrict, true)
               texteCorr += `${graphiqueC1}<br>`
               texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${signeInégalité}${a}$ est : `
             } else {
@@ -375,7 +577,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
 
           break
 
-        case 'typeE4':// 1/x>k
+        case 'typeE4': // 1/x>k
           {
             const a = randint(-9, 9, [-1, 0, 1])
 
@@ -411,11 +613,51 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             sAxO.epaisseur = 2
             sAxO.tailleExtremites = 6
             sAxO.styleExtremites = estInegStrict ? ']-[' : '[-['
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.3, 'green', 0, 0, '')
-            const Texte1B = latexParCoordonnees(`y=${a}`, 4, -1.3, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=\\dfrac{1}{x}', 1.2, 3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`\\dfrac{1}{${a}}`, 0.5, -1, 'red', 0, 0, '')
-            const Texte3B = latexParCoordonnees(`-\\dfrac{1}{${-a}}`, -1.2, 1, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(
+              `y=${a}`,
+              4,
+              2.3,
+              'green',
+              0,
+              0,
+              '',
+            )
+            const Texte1B = latexParCoordonnees(
+              `y=${a}`,
+              4,
+              -1.3,
+              'green',
+              0,
+              0,
+              '',
+            )
+            const Texte2 = latexParCoordonnees(
+              'y=\\dfrac{1}{x}',
+              1.2,
+              3,
+              'blue',
+              0,
+              0,
+              '',
+            )
+            const Texte3 = latexParCoordonnees(
+              `\\dfrac{1}{${a}}`,
+              0.5,
+              -1,
+              'red',
+              0,
+              0,
+              '',
+            )
+            const Texte3B = latexParCoordonnees(
+              `-\\dfrac{1}{${-a}}`,
+              -1.2,
+              1,
+              'red',
+              0,
+              0,
+              '',
+            )
             const r1 = repere({
               xMin: -4,
               yMin: -3,
@@ -430,50 +672,76 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               xThickListe: [0],
               yThickListe: [0],
               xLabelListe: [-6],
-              yLabelListe: [-6]
-
+              yLabelListe: [-6],
             })
             const f = (x: number) => 1 / Number(x)
             const Cg1 = droiteParPointEtPente(point(0, 2), 0, '', 'green')
             Cg1.epaisseur = 2
             const Cg2 = droiteParPointEtPente(point(0, -1), 0, '', 'green')
             Cg2.epaisseur = 2
-            const graphique = mathalea2d({
-              xmin: -5,
-              xmax: 5,
-              ymin: -3,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 0.7
-            }, r1, o)
+            const graphique = mathalea2d(
+              {
+                xmin: -5,
+                xmax: 5,
+                ymin: -3,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 0.7,
+              },
+              r1,
+              o,
+            )
 
-            const graphiqueC1 = mathalea2d({ // 1/x>k avec a>0
-              xmin: -6,
-              xmax: 6,
-              ymin: -3,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 1
-            }, courbe(f, {
-              repere: r1,
-              color: 'blue',
-              epaisseur: 2
-            }),
-            Cg1, r1, o, sAAx, sAxO, Texte1, Texte2, Texte3)
+            const graphiqueC1 = mathalea2d(
+              {
+                // 1/x>k avec a>0
+                xmin: -6,
+                xmax: 6,
+                ymin: -3,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 1,
+              },
+              courbe(f, {
+                repere: r1,
+                color: 'blue',
+                epaisseur: 2,
+              }),
+              Cg1,
+              r1,
+              o,
+              sAAx,
+              sAxO,
+              Texte1,
+              Texte2,
+              Texte3,
+            )
 
-            const graphiqueC2 = mathalea2d({ // 1/x>k avec a<0
-              xmin: -6,
-              xmax: 6,
-              ymin: -3,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 1
-            }, courbe(f, {
-              repere: r1,
-              color: 'blue',
-              epaisseur: 2
-            }),
-            Cg2, r1, o, sA2A2x, sAxIA2x, sAxIPAx, Texte1B, Texte2, Texte3B)
+            const graphiqueC2 = mathalea2d(
+              {
+                // 1/x>k avec a<0
+                xmin: -6,
+                xmax: 6,
+                ymin: -3,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 1,
+              },
+              courbe(f, {
+                repere: r1,
+                color: 'blue',
+                epaisseur: 2,
+              }),
+              Cg2,
+              r1,
+              o,
+              sA2A2x,
+              sAxIA2x,
+              sAxIPAx,
+              Texte1B,
+              Texte2,
+              Texte3B,
+            )
             const signeInégalité = estInegStrict ? '>' : ' \\geqslant '
             texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${signeInégalité}${a}$.<br>`
             if (!context.isHtml) {
@@ -490,7 +758,10 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               texteCorr += `${graphiqueC1}<br>`
               texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${signeInégalité}${a}$ est : `
             } else {
-              ensembleSolutions = intervalleLaTex('-\\infty', borne, true, estInegStrict) + '\\cup' + intervalleLaTex(0, '+\\infty', true, true)
+              ensembleSolutions =
+                intervalleLaTex('-\\infty', borne, true, estInegStrict) +
+                '\\cup' +
+                intervalleLaTex(0, '+\\infty', true, true)
               texteCorr += `${graphiqueC2}<br>`
               texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${signeInégalité}${a}$ est : `
             }
@@ -498,7 +769,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
 
           break
 
-        case 'typeE5':// sqrt(x)<k
+        case 'typeE5': // sqrt(x)<k
           {
             const a = randint(1, 12)
             const A = point(2.25, 1.5)
@@ -510,9 +781,33 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             sAxBx.epaisseur = 2
             sAxBx.tailleExtremites = 6
             sAxBx.styleExtremites = estInegStrict ? '[-[' : '[-]'
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 1.2, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=\\sqrt{x}', 3, 2.3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`${a ** 2}`, 2.25, -0.6, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(
+              `y=${a}`,
+              4,
+              1.2,
+              'green',
+              0,
+              0,
+              '',
+            )
+            const Texte2 = latexParCoordonnees(
+              'y=\\sqrt{x}',
+              3,
+              2.3,
+              'blue',
+              0,
+              0,
+              '',
+            )
+            const Texte3 = latexParCoordonnees(
+              `${a ** 2}`,
+              2.25,
+              -0.6,
+              'red',
+              0,
+              0,
+              '',
+            )
             const r1 = repere({
               xMin: -1,
               yMin: -1,
@@ -527,34 +822,46 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               xThickListe: [0],
               yThickListe: [0],
               xLabelListe: [-6],
-              yLabelListe: [-6]
-
+              yLabelListe: [-6],
             })
             const f = (x: number) => Math.sqrt(Number(x))
             const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
             Cg.epaisseur = 2
-            const graphique = mathalea2d({
-              xmin: -2,
-              xmax: 6,
-              ymin: -1,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 0.7
-            }, r1, o)
-            const graphiqueC = mathalea2d({
-              xmin: -1,
-              xmax: 5,
-              ymin: -1,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 1
-            }, courbe(f, {
-              repere: r1,
-              color: 'blue',
-              epaisseur: 2
-            }),
-            Cg
-            , r1, o, sAAx, sAxBx, Texte1, Texte2, Texte3)
+            const graphique = mathalea2d(
+              {
+                xmin: -2,
+                xmax: 6,
+                ymin: -1,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 0.7,
+              },
+              r1,
+              o,
+            )
+            const graphiqueC = mathalea2d(
+              {
+                xmin: -1,
+                xmax: 5,
+                ymin: -1,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 1,
+              },
+              courbe(f, {
+                repere: r1,
+                color: 'blue',
+                epaisseur: 2,
+              }),
+              Cg,
+              r1,
+              o,
+              sAAx,
+              sAxBx,
+              Texte1,
+              Texte2,
+              Texte3,
+            )
             const signeInégalité = estInegStrict ? '<' : ' \\leqslant '
             texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${signeInégalité}${a}$.<br>`
             if (!context.isHtml) {
@@ -571,7 +878,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             texteCorr += `Comme la fonction racine carrée est définie sur $[0\\,;\\,+\\infty[$, l'ensemble des solutions de l'inéquation $\\sqrt{x}${signeInégalité}${a}$ est : `
           }
           break
-        case 'typeE6':// sqrt(x)>k
+        case 'typeE6': // sqrt(x)>k
         default:
           {
             const a = randint(1, 12)
@@ -589,9 +896,33 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             sAxAInf.epaisseur = 2
             sAxAInf.tailleExtremites = 6
             sAxAInf.styleExtremites = estInegStrict ? ']-' : '[-'
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 1.2, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=\\sqrt{x}', 3, 2.3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`${a ** 2}`, 2.25, -0.6, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(
+              `y=${a}`,
+              4,
+              1.2,
+              'green',
+              0,
+              0,
+              '',
+            )
+            const Texte2 = latexParCoordonnees(
+              'y=\\sqrt{x}',
+              3,
+              2.3,
+              'blue',
+              0,
+              0,
+              '',
+            )
+            const Texte3 = latexParCoordonnees(
+              `${a ** 2}`,
+              2.25,
+              -0.6,
+              'red',
+              0,
+              0,
+              '',
+            )
             const r1 = repere({
               xMin: -1,
               yMin: -1,
@@ -606,34 +937,46 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               xThickListe: [0],
               yThickListe: [0],
               xLabelListe: [-6],
-              yLabelListe: [-6]
-
+              yLabelListe: [-6],
             })
             const f = (x: number) => Math.sqrt(x)
             const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
             Cg.epaisseur = 2
-            const graphique = mathalea2d({
-              xmin: -2,
-              xmax: 6,
-              ymin: -1,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 0.7
-            }, r1, o)
-            const graphiqueC = mathalea2d({
-              xmin: -1,
-              xmax: 5,
-              ymin: -1,
-              ymax: 4,
-              pixelsParCm: 30,
-              scale: 1
-            }, courbe(f, {
-              repere: r1,
-              color: 'blue',
-              epaisseur: 2
-            }),
-            Cg
-            , r1, o, sAAx, sAxAInf, Texte1, Texte2, Texte3)
+            const graphique = mathalea2d(
+              {
+                xmin: -2,
+                xmax: 6,
+                ymin: -1,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 0.7,
+              },
+              r1,
+              o,
+            )
+            const graphiqueC = mathalea2d(
+              {
+                xmin: -1,
+                xmax: 5,
+                ymin: -1,
+                ymax: 4,
+                pixelsParCm: 30,
+                scale: 1,
+              },
+              courbe(f, {
+                repere: r1,
+                color: 'blue',
+                epaisseur: 2,
+              }),
+              Cg,
+              r1,
+              o,
+              sAAx,
+              sAxAInf,
+              Texte1,
+              Texte2,
+              Texte3,
+            )
 
             const signeInégalité = estInegStrict ? '>' : ' \\geqslant '
             texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${signeInégalité}${a}$.<br>`
@@ -642,7 +985,12 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               texte += `    ${graphique}`
             }
             const borne = a ** 2
-            ensembleSolutions = intervalleLaTex(borne, '+\\infty', estInegStrict, true)
+            ensembleSolutions = intervalleLaTex(
+              borne,
+              '+\\infty',
+              estInegStrict,
+              true,
+            )
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$. <br>
             $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${borne}$. <br>
@@ -654,15 +1002,22 @@ export default class ResoudreGraphFonctionRef extends Exercice {
       }
       texteCorr += `$${miseEnEvidence(ensembleSolutions)}$`
       if (this.interactif) {
-        texte += '<br>$S=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
+        texte +=
+          '<br>$S=$' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
       }
-      handleAnswers(this, i, {
-        reponse: {
-          value: ensembleSolutions,
-          compare: fonctionComparaison,
-          options: { intervalle: true }
-        }
-      }, { formatInteractif: 'calcul' })
+      handleAnswers(
+        this,
+        i,
+        {
+          reponse: {
+            value: ensembleSolutions,
+            compare: fonctionComparaison,
+            options: { intervalle: true },
+          },
+        },
+        { formatInteractif: 'calcul' },
+      )
       if (this.questionJamaisPosee(i, texteCorr)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte

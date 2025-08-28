@@ -15,7 +15,7 @@ export const uuid = 'd23db'
 
 */
 export default class PointsCourbe extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -25,7 +25,7 @@ export default class PointsCourbe extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let A: number
     let B: number
     let AinterB: number
@@ -56,14 +56,13 @@ export default class PointsCourbe extends ExerciceSimple {
       propositions: [
         {
           texte: 'Vrai',
-          statut: isEqual
+          statut: isEqual,
         },
         {
           texte: 'Faux',
-          statut: texNombre(AinterB, 2) !== texNombre(A * B, 2)
-        }
-      ]
-
+          statut: texNombre(AinterB, 2) !== texNombre(A * B, 2),
+        },
+      ],
     }
     const qcm = propositionsQcm(this, 0)
 

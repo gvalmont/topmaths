@@ -1,6 +1,10 @@
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { degCos } from '../../lib/mathFonctions/trigo'
-import { choice, combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle2tableaux,
+} from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { troncature } from '../../lib/outils/nombres'
@@ -28,14 +32,22 @@ export const uuid = 'ab793'
 export const refs = {
   'fr-fr': ['BP2AutoS7', '6N1K'],
   'fr-2016': ['6N31-3', 'BP2AutoS7'],
-  'fr-ch': ['9NO7-6']
+  'fr-ch': ['9NO7-6'],
 }
 export default class ArrondirUneValeur6e extends Exercice {
   version: number
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de nombres', 2, ' 1 : Nombres décimaux\n 2 : Fractions']
-    this.besoinFormulaire2Numerique = ['Choix de sortie AMC', 2, ' 1 : QCM\n 2 : Question ouverte']
+    this.besoinFormulaireNumerique = [
+      'Type de nombres',
+      2,
+      ' 1 : Nombres décimaux\n 2 : Fractions',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Choix de sortie AMC',
+      2,
+      ' 1 : QCM\n 2 : Question ouverte',
+    ]
     this.nbQuestions = 3
     this.sup = 1
     this.sup2 = 1
@@ -43,7 +55,7 @@ export default class ArrondirUneValeur6e extends Exercice {
     this.version = 6
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.version === 3) {
       this.sup = 3
     } else if (this.version === 4) {
@@ -54,19 +66,45 @@ export default class ArrondirUneValeur6e extends Exercice {
       this.spacing = 1.5
     }
     this.amcType = this.sup2 === 1 ? 'qcmMono' : 'AMCHybride'
-    this.spacing = (this.interactif && this.sup === 2) ? 3 : 1
+    this.spacing = this.interactif && this.sup === 2 ? 3 : 1
 
     if (!context.isAmc && !this.interactif) {
       this.consigne = 'Encadrer '
       this.consigne += this.nbQuestions > 1 ? 'chaque' : 'ce'
-      this.consigne += ' nombre à l\'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi.'
+      this.consigne +=
+        " nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."
     } else {
-      this.consigne = 'Quels sont les encadrements où la valeur orange est la valeur arrondie du nombre à l\'unité, au dixième et au centième ?'
+      this.consigne =
+        "Quels sont les encadrements où la valeur orange est la valeur arrondie du nombre à l'unité, au dixième et au centième ?"
     }
 
-    let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, nbSansDegree, rac, angle, v
-    const listeTypeDeQuestion = this.sup < 5 ? combinaisonListes([this.sup], this.nbQuestions) : combinaisonListes([1, 2, 3, 4], this.nbQuestions)
-    for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    let m,
+      c,
+      d,
+      u,
+      di,
+      ci,
+      mi,
+      me,
+      ce,
+      de,
+      n,
+      den,
+      num,
+      nb,
+      nbSansDegree,
+      rac,
+      angle,
+      v
+    const listeTypeDeQuestion =
+      this.sup < 5
+        ? combinaisonListes([this.sup], this.nbQuestions)
+        : combinaisonListes([1, 2, 3, 4], this.nbQuestions)
+    for (
+      let i = 0, texte = '', texteCorr = '', cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const tabrep = []
       const tabicone = []
       const preTabRep = []
@@ -84,28 +122,49 @@ export default class ArrondirUneValeur6e extends Exercice {
           me = randint(0, 1)
           ce = randint(0, 1)
           de = randint(0, 1)
-          n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + di * 0.1 + ci * 0.01 + mi * 0.001
+          n =
+            me * m * 1000 +
+            ce * c * 100 +
+            de * d * 10 +
+            u * 1 +
+            di * 0.1 +
+            ci * 0.01 +
+            mi * 0.001
           nb = texNombre(n)
           texte = `$${nb}$`
           break
         case 2: // arrondir une fraction
           den = choice([7, 9, 11, 13])
-          num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
+          num = randint(
+            1,
+            50,
+            [
+              7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44,
+              45, 49,
+            ],
+          )
           n = num / den
           nb = texFractionFromString(num, den)
-          di = 10 * (troncature(n - troncature(n, 0), 1))
-          ci = 100 * (troncature(n - troncature(n, 1), 2))
-          mi = 1000 * (troncature(n - troncature(n, 2), 3))
+          di = 10 * troncature(n - troncature(n, 0), 1)
+          ci = 100 * troncature(n - troncature(n, 1), 2)
+          mi = 1000 * troncature(n - troncature(n, 2), 3)
           texte = ` $${nb}$${sp(10)}(Quand on écrit sur la calculatrice $${num}\\div ${den}$, elle renvoie : $${texNombre(n)}$.)`
           break
         case 3: // arrondir une racine carrée
-          rac = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
+          rac = randint(
+            2,
+            300,
+            [
+              4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256,
+              289,
+            ],
+          )
           rac = choice([2, 28, 14, 15])
           n = Math.sqrt(rac)
           nb = `\\sqrt{${rac}}`
-          di = 10 * (troncature(n - troncature(n, 0), 1))
-          ci = 100 * (troncature(n - troncature(n, 1), 2))
-          mi = 1000 * (troncature(n - troncature(n, 2), 3))
+          di = 10 * troncature(n - troncature(n, 0), 1)
+          ci = 100 * troncature(n - troncature(n, 1), 2)
+          mi = 1000 * troncature(n - troncature(n, 2), 3)
           texte = ` $${nb}$${sp(10)}(Quand on écrit sur la calculatrice $${nb}$, elle renvoie : $${texNombre(n)}$.)`
           break
         case 4: // arrondir un calcul de longueur avec un cosinus
@@ -115,23 +174,24 @@ export default class ArrondirUneValeur6e extends Exercice {
           if (choice([true, false])) {
             n = v * degCos(angle)
             nb = `${texNombre(v)}\\cos(${angle}^\\circ)`
-            di = 10 * (troncature(n - troncature(n, 0), 1))
-            ci = 100 * (troncature(n - troncature(n, 1), 2))
-            mi = 1000 * (troncature(n - troncature(n, 2), 3))
+            di = 10 * troncature(n - troncature(n, 0), 1)
+            ci = 100 * troncature(n - troncature(n, 1), 2)
+            mi = 1000 * troncature(n - troncature(n, 2), 3)
             nbSansDegree = nb.replace('^\\circ', '')
-          } else { // arrondir un calcul de longueur avec une division par cosinus
+          } else {
+            // arrondir un calcul de longueur avec une division par cosinus
             n = v / degCos(angle)
             nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}^\\circ)}`
             nbSansDegree = nb.replace('^\\circ', '')
-            di = 10 * (troncature(n - troncature(n, 0), 1))
-            ci = 100 * (troncature(n - troncature(n, 1), 2))
-            mi = 1000 * (troncature(n - troncature(n, 2), 3))
+            di = 10 * troncature(n - troncature(n, 0), 1)
+            ci = 100 * troncature(n - troncature(n, 1), 2)
+            mi = 1000 * troncature(n - troncature(n, 2), 3)
           }
           texte = ` $${nb}$${sp(10)}(Quand on écrit sur la calculatrice $${nbSansDegree}$, elle renvoie : $${texNombre(n)}$.)`
           break
       }
 
-      texteCorr = 'Encadrement et arrondi à l\'unité : '
+      texteCorr = "Encadrement et arrondi à l'unité : "
       if (di < 5) {
         texteCorr += `$\\phantom{1234567}${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
         preTabRep[0] = `$${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
@@ -199,40 +259,41 @@ export default class ArrondirUneValeur6e extends Exercice {
         tabrep.push(preTabRep[0], preTabRep[1])
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
-      if (!context.isAmc || ((context.isAmc) && this.sup2 === 1)) {
-        this.autoCorrection[i].enonce = `Quels sont les encadrements où la valeur orange est l'arrondi de ${texte} ?\\\\ \n Réponses possibles`
+      if (!context.isAmc || (context.isAmc && this.sup2 === 1)) {
+        this.autoCorrection[i].enonce =
+          `Quels sont les encadrements où la valeur orange est l'arrondi de ${texte} ?\\\\ \n Réponses possibles`
         this.autoCorrection[i].options = { vertical: true, ordered: true }
         this.autoCorrection[i].propositions = [
           {
             texte: tabrep[0],
             statut: tabicone[0],
-            feedback: ''
+            feedback: '',
           },
           {
             texte: tabrep[1],
             statut: tabicone[1],
-            feedback: ''
+            feedback: '',
           },
           {
             texte: tabrep[2],
             statut: tabicone[2],
-            feedback: ''
+            feedback: '',
           },
           {
             texte: tabrep[3],
             statut: tabicone[3],
-            feedback: ''
+            feedback: '',
           },
           {
             texte: tabrep[4],
             statut: tabicone[4],
-            feedback: ''
+            feedback: '',
           },
           {
             texte: tabrep[5],
             statut: tabicone[5],
-            feedback: ''
-          }
+            feedback: '',
+          },
         ]
       }
       /* if (!context.isAmc) { // Cette façon de faire est totalement désuette... propositionQcm factorise le qcm et sa correction
@@ -247,33 +308,48 @@ export default class ArrondirUneValeur6e extends Exercice {
           }
         }
       } */
-      if ((context.isAmc) && this.sup2 !== 1) {
+      if (context.isAmc && this.sup2 !== 1) {
         this.autoCorrection[i] = {
           enonce: 'On s en moque !',
           enonceAvant: false,
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                enonce: 'Encadrer ' + texte + ' à l\'unité et entourer son arrondi à l\'unité.',
-                statut: 1
-              }]
+              propositions: [
+                {
+                  enonce:
+                    'Encadrer ' +
+                    texte +
+                    " à l'unité et entourer son arrondi à l'unité.",
+                  statut: 1,
+                },
+              ],
             },
             {
               type: 'AMCOpen',
-              propositions: [{
-                enonce: 'Encadrer ' + texte + ' au dixième et entourer son arrondi au dixième.',
-                statut: 1
-              }]
+              propositions: [
+                {
+                  enonce:
+                    'Encadrer ' +
+                    texte +
+                    ' au dixième et entourer son arrondi au dixième.',
+                  statut: 1,
+                },
+              ],
             },
             {
               type: 'AMCOpen',
-              propositions: [{
-                enonce: 'Encadrer ' + texte + ' au centième et entourer son arrondi au centième.',
-                statut: 1
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  enonce:
+                    'Encadrer ' +
+                    texte +
+                    ' au centième et entourer son arrondi au centième.',
+                  statut: 1,
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, di, ci, mi)) {

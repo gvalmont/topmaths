@@ -12,7 +12,7 @@ export const uuid = '3bdcd'
 export const refs = {
   'fr-fr': ['CM2N2D-1'],
   'fr-2016': ['6N20-3'],
-  'fr-ch': ['9NO11-3']
+  'fr-ch': ['9NO11-3'],
 }
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,21 +20,24 @@ export const dateDePublication = '14/12/2023'
 
 /**
  * @author Rémi Angot
-*/
+ */
 
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Compléter avec deux nombres entiers consécutifs.'
     this.nbQuestions = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     type TypeQuestionsDisponibles = 'dixieme' | 'centieme' | 'millieme'
     const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme']
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    ) as TypeQuestionsDisponibles[]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let den = 1
       let num = 1
       let texteEgaliteUnite: string
@@ -56,7 +59,12 @@ export default class nomExercice extends Exercice {
       do {
         num = randint(0, den * 10)
       } while (num % den === 0)
-      const texte = remplisLesBlancs(this, i, `%{champ1}~~ < ~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~ < ~~%{champ2}`, ' clavierDeBaseAvecFraction fillInTheBlank')
+      const texte = remplisLesBlancs(
+        this,
+        i,
+        `%{champ1}~~ < ~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~ < ~~%{champ2}`,
+        ' clavierDeBaseAvecFraction fillInTheBlank',
+      )
       const a = Math.floor(num / den)
       const b = a + 1
       texteCorr = ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} < \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} < \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}\\quad$ `
@@ -66,19 +74,30 @@ export default class nomExercice extends Exercice {
       } else {
         texteCorr += `Remarque : il faut ${texteEgaliteUnite} pour faire une unité donc $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} = ${a}$ et $\\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}} = ${b}$.`
       }
-      handleAnswers(this, i, {
-        bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-        feedback: (saisies: { champ1: string, champ2: string }) => {
-          const rep1 = saisies.champ1
-          const rep2 = saisies.champ2
-          // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
-          // consecutifsCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
-          const { feedback } = consecutiveCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, `${a}<${(a + b) / 2}<${b}`)
-          return feedback
+      handleAnswers(
+        this,
+        i,
+        {
+          bareme: (listePoints: number[]) => [
+            Math.min(listePoints[0], listePoints[1]),
+            1,
+          ],
+          feedback: (saisies: { champ1: string; champ2: string }) => {
+            const rep1 = saisies.champ1
+            const rep2 = saisies.champ2
+            // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
+            // consecutifsCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
+            const { feedback } = consecutiveCompare(
+              `${rep1}<${(num / den).toFixed(4)}<${rep2}`,
+              `${a}<${(a + b) / 2}<${b}`,
+            )
+            return feedback
+          },
+          champ1: { value: String(a) },
+          champ2: { value: String(b) },
         },
-        champ1: { value: String(a) },
-        champ2: { value: String(b) }
-      }, { formatInteractif: 'fillInTheBlank' })
+        { formatInteractif: 'fillInTheBlank' },
+      )
       if (this.questionJamaisPosee(i, num, den)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

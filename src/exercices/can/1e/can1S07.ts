@@ -19,22 +19,24 @@ export const uuid = 'cd45d'
 
 export const refs = {
   'fr-fr': ['can1S07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculRaison extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let u, i, v, r, q
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
-    switch (choice(['a', 'b'])) { // 'b', 'c', 'd'
-      case 'a':// suite arithmétique
+    switch (
+      choice(['a', 'b']) // 'b', 'c', 'd'
+    ) {
+      case 'a': // suite arithmétique
         u = randint(-15, 15, 0)
         r = randint(-15, 15, 0)
         v = u + r
@@ -55,7 +57,7 @@ Donner la raison $r$ de cette suite.`
         this.canEnonce = this.question
         this.canReponseACompleter = '$r=\\ldots$'
         break
-      case 'b':// suite géométrique
+      case 'b': // suite géométrique
         u = randint(-12, 12, 0)
         q = randint(-10, 10, [-1, 1, 0])
         v = u * q

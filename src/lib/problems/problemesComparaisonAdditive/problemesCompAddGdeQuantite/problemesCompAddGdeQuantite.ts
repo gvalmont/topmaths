@@ -8,36 +8,36 @@ import { coureur5 } from './coureur'
  * @author Jean-Claude Lhote
  */
 export default class ProblemeCompAddGdeQantite extends Probleme {
-  constructor (name: string = '', data?: { nb1: number, nb2: number }) {
+  constructor(name: string = '', data?: { nb1: number; nb2: number }) {
     data = data == null ? { nb1: randint(2, 25), nb2: randint(2, 25) } : data
     super(name, data)
     this.schema = new SchemaEnBoite({
       rightBraces: [],
-      lignes: [{
-        barres: [
-          {
-            content: `$${miseEnEvidence(texNombre(data.nb1 + data.nb2, 2))}$`,
-            length: 10,
-            color: 'lightgray'
-          }
-        ]
-      },
-      {
-        barres: [
-          {
-            content: `$${texNombre(data.nb1, 2)}$`,
-            length: 7,
-            color: 'lightgray'
-          },
-          {
-            content: `$${texNombre(data.nb2, 2)}$`,
-            length: 3,
-            color: 'lightgray'
-          }
-        ]
-      },
-
-      ]
+      lignes: [
+        {
+          barres: [
+            {
+              content: `$${miseEnEvidence(texNombre(data.nb1 + data.nb2, 2))}$`,
+              length: 10,
+              color: 'lightgray',
+            },
+          ],
+        },
+        {
+          barres: [
+            {
+              content: `$${texNombre(data.nb1, 2)}$`,
+              length: 7,
+              color: 'lightgray',
+            },
+            {
+              content: `$${texNombre(data.nb2, 2)}$`,
+              length: 3,
+              color: 'lightgray',
+            },
+          ],
+        },
+      ],
     })
 
     this.enonce = `On achète deux produits : un à $${data.nb1}$ € et un autre à $${data.nb2}$ €.
@@ -46,6 +46,4 @@ De combien le 2e produit est-t-il ${data.nb2 > data.nb1 ? 'plus' : 'moins'} cher
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }
 }
-export const listeDeProblemesCompAddGdeQuantite = [
-  coureur5
-]
+export const listeDeProblemesCompAddGdeQuantite = [coureur5]

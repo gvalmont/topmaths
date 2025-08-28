@@ -14,7 +14,7 @@ export const uuid = '1b6cc'
 
 */
 export default class BillesMultiplieesCM2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -24,7 +24,7 @@ export default class BillesMultiplieesCM2 extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let coeff: number
     let nbBilles: number
     let quidams: string[] = []
@@ -47,7 +47,8 @@ export default class BillesMultiplieesCM2 extends ExerciceSimple {
     this.reponse = texNombre(coeff * nbBilles, 0)
     this.question = `${quidams[0]} a ${texNombre(nbBilles, 0)} billes.<br>${pronom} en a ${coeff} fois moins que ${quidams[1]}.<br>`
     this.canEnonce = this.question
-    this.question += `${quidams[1]} a ` + (this.interactif ? '' : '$\\ldots$ billes.')
+    this.question +=
+      `${quidams[1]} a ` + (this.interactif ? '' : '$\\ldots$ billes.')
     this.canReponseACompleter = `${quidams[1]} a $\\ldots$ billes.`
     this.correction = `${quidams[1]} a $${coeff}$ fois plus de billes que ${quidams[0]}.<br>
     Comme $${coeff}\\times ${nbBilles}=${this.reponse}$, ${quidams[1]} a donc $${miseEnEvidence(this.reponse)}$ billes.`

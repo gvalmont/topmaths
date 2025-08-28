@@ -32,7 +32,8 @@ describe('BoutonMonter Component', () => {
     fireEvent.click(button)
     for (let i = 0; i < exercices.length; i++) {
       if (i === clickedIndex) expect(exercices[i].uuid).toBe(`uuid${i - 1}`)
-      else if (i === clickedIndex - 1) expect(exercices[i].uuid).toBe(`uuid${i + 1}`)
+      else if (i === clickedIndex - 1)
+        expect(exercices[i].uuid).toBe(`uuid${i + 1}`)
       else expect(exercices[i].uuid).toBe(`uuid${i}`)
     }
   })

@@ -6,7 +6,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '9802c'
 export const refs = {
   'fr-fr': ['3L1QCM-07', 'BP2AutoI4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,11 +21,11 @@ export const dateDePublication = '06/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class MetropoleSep22Ex1Q3 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b: number, c:number): void {
+  private appliquerLesValeurs(a: number, b: number, c: number): void {
     this.reponses = [
       `$${String(b)}x^2${ecritureAlgebriqueSauf1(c - a * b)}x-${String(a * c)}$`,
       `$${String(b)}x^2${ecritureAlgebriqueSauf1(c - a * b)}x+${String(c - a)}$`,
-      `$${String(b)}x^2${ecritureAlgebriqueSauf1(c + a * b)}x+${String(a * c)}$`
+      `$${String(b)}x^2${ecritureAlgebriqueSauf1(c + a * b)}x+${String(a * c)}$`,
     ]
     this.enonce = `Une expression développée de $A=(x-${String(a)})(${String(b)}x+${String(c)})$ est :`
     this.correction = `$\\begin{aligned}A=(x-${String(a)})(${String(b)}x+${String(c)})&=x\\times ${String(b)}x+x\\times ${String(c)}-${String(a)}\\times ${String(b)}x-${String(a)}\\times ${String(c)}\\\\
@@ -48,7 +48,7 @@ export default class MetropoleSep22Ex1Q3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

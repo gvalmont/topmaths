@@ -1,13 +1,19 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-import { doubleDeveloppement, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import {
+  doubleDeveloppement,
+  reduirePolynomeDegre3,
+} from '../../lib/outils/ecritures'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Additionner des expressions à développer'
@@ -25,21 +31,38 @@ export const uuid = 'd28ff'
 
 export const refs = {
   'fr-fr': ['3L11-3b', 'BP2AutoI6'],
-  'fr-ch': [''] // déjà référencé dans un autre exercice
+  'fr-ch': [''], // déjà référencé dans un autre exercice
 }
 
 export default class MultipleDistributivite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de la première expression', 4, '1 : c(ax+b)\n2 : cx(ax+b) \n3 : (cx+d)(ax+b)\n4 : Au hasard']
-    this.besoinFormulaire2Numerique = ['Type de la seconde expression', 4, '1 : c(ax+b)\n2 : cx(ax+b) \n3 : (cx+d)(ax+b)\n4 : Au hasard']
-    this.besoinFormulaire3Numerique = ['Signe entre les expressions', 3, '1 : Plus\n2 : Moins \n3 : Au hasard']
-    this.besoinFormulaire4CaseACocher = ['Uniquement avec la variable $x$', false]
+    this.besoinFormulaireNumerique = [
+      'Type de la première expression',
+      4,
+      '1 : c(ax+b)\n2 : cx(ax+b) \n3 : (cx+d)(ax+b)\n4 : Au hasard',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Type de la seconde expression',
+      4,
+      '1 : c(ax+b)\n2 : cx(ax+b) \n3 : (cx+d)(ax+b)\n4 : Au hasard',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Signe entre les expressions',
+      3,
+      '1 : Plus\n2 : Moins \n3 : Au hasard',
+    ]
+    this.besoinFormulaire4CaseACocher = [
+      'Uniquement avec la variable $x$',
+      false,
+    ]
     this.sup = 4
     this.sup2 = 4
     this.sup3 = 3
-    this.comment = 'Les expressions sont toutes de la forme $(ax+b)(cx+d)+(ex+f)(gx+h)$ .<br>'
-    this.comment += 'Le paramétrage permet de choisir le type des expressions de la somme et de choisir si c\'est une somme ou bien une différence. On peut aussi choisir si $x$ est le nom de la variable ou bien une autre lettre.'
+    this.comment =
+      'Les expressions sont toutes de la forme $(ax+b)(cx+d)+(ex+f)(gx+h)$ .<br>'
+    this.comment +=
+      "Le paramétrage permet de choisir le type des expressions de la somme et de choisir si c'est une somme ou bien une différence. On peut aussi choisir si $x$ est le nom de la variable ou bien une autre lettre."
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 4
@@ -47,15 +70,26 @@ export default class MultipleDistributivite extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Développer et réduire les expressions suivantes.'
+        : "Développer et réduire l'expression suivante."
 
-    for (let i = 0, reponse, a, b, c, d, e, f, g, h, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, reponse, a, b, c, d, e, f, g, h, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let texteCorr = ''
       let texte = ''
-      const variable = this.sup4 ? 'x' : choice(['x', 'y', 'z', 'a', 'b', 'c', 'n', 'k'])
+      const variable = this.sup4
+        ? 'x'
+        : choice(['x', 'y', 'z', 'a', 'b', 'c', 'n', 'k'])
 
-      switch (this.sup) { // 1ère expression
+      switch (
+        this.sup // 1ère expression
+      ) {
         case 1:
           a = 0
           b = randint(-9, 9, [0, 1, -1])
@@ -68,7 +102,7 @@ export default class MultipleDistributivite extends Exercice {
           a = randint(-9, 9, [0])
           b = randint(-9, 9, [0])
           break
-        default :
+        default:
           a = choice([0, randint(-9, 9, [0])])
           b = randint(-9, 9, [0, 1, -1, a])
           break
@@ -76,7 +110,9 @@ export default class MultipleDistributivite extends Exercice {
       c = randint(1, 9) * choice([1, -1])
       d = randint(1, 9) * choice([1, -1])
 
-      switch (this.sup2) { // 2ème expression
+      switch (
+        this.sup2 // 2ème expression
+      ) {
         case 1:
           e = 0
           f = randint(-9, 9, [0, 1, -1])
@@ -89,14 +125,15 @@ export default class MultipleDistributivite extends Exercice {
           e = randint(-9, 9, [0])
           f = randint(-9, 9, [0])
           break
-        default :
+        default:
           e = randint(-9, 9)
           f = randint(-9, 9, [0, 1, -1, e])
           break
       }
       g = randint(1, 9, [c]) * choice([1, -1])
       h = randint(1, 9, [d]) * choice([1, -1])
-      const signe = this.sup3 === 1 ? '+' : this.sup3 === 2 ? '-' : choice(['+', '-'])
+      const signe =
+        this.sup3 === 1 ? '+' : this.sup3 === 2 ? '-' : choice(['+', '-'])
 
       let expression1 = a === 0 || b === 0 ? '' : '('
       expression1 += `${reduirePolynomeDegre3(0, 0, a, b, variable)}`
@@ -116,7 +153,7 @@ export default class MultipleDistributivite extends Exercice {
       const ligne1 = `=${doubleDeveloppement({ a, b, c, d, x: variable })[1]}${miseEnEvidence(sp() + signe + '\\Big(', 'blue')}${doubleDeveloppement({ a: e, b: f, c: g, d: h, x: variable })[1]}${miseEnEvidence('\\Big)', 'blue')}`
       texteCorr += ligne1
       const ligne2 = `=${reduirePolynomeDegre3(0, a * c, a * d + b * c, b * d, variable)}${miseEnEvidence(sp() + signe + '\\Big(', 'blue')}${reduirePolynomeDegre3(0, e * g, e * h + f * g, f * h, variable)}${miseEnEvidence('\\Big)', 'blue')}`
-      texteCorr += (ligne1.replace(/\s+/g, '') === ligne2 ? '' : ligne2)
+      texteCorr += ligne1.replace(/\s+/g, '') === ligne2 ? '' : ligne2
       let reponse21 = e * g
       let reponse22 = e * h + f * g
       let reponse23 = f * h
@@ -125,7 +162,8 @@ export default class MultipleDistributivite extends Exercice {
         reponse22 = -reponse22
         reponse23 = -reponse23
       }
-      const signe2 = reponse21 !== 0 ? (reponse21 > 0 ? '+' : '') : (reponse22 > 0 ? '+' : '')
+      const signe2 =
+        reponse21 !== 0 ? (reponse21 > 0 ? '+' : '') : reponse22 > 0 ? '+' : ''
 
       texteCorr += `=${reduirePolynomeDegre3(0, a * c, a * d + b * c, b * d, variable)}${signe2}${reduirePolynomeDegre3(0, reponse21, reponse22, reponse23, variable)}`
       const reponse1 = a * c + reponse21
@@ -142,7 +180,10 @@ export default class MultipleDistributivite extends Exercice {
       texteCorr = ''
       for (const etape of etapes) {
         const etapeModifiee = etape.replace('$', '')
-        texteCorr += etapeModifiee === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
+        texteCorr +=
+          etapeModifiee === lettreDepuisChiffre(i + 1)
+            ? ''
+            : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
       }
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
@@ -157,8 +198,18 @@ export default class MultipleDistributivite extends Exercice {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      handleAnswers(this, i, { reponse: { value: reponse, options: { expressionsForcementReduites: true } } })
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
+      handleAnswers(this, i, {
+        reponse: {
+          value: reponse,
+          options: { expressionsForcementReduites: true },
+        },
+      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecVariable,
+        { texteAvant: ' $=$' },
+      )
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -168,64 +219,72 @@ export default class MultipleDistributivite extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: texteCorr,
-                enonce: `${texte}<br>`,
-                statut: 4
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: `${texte}<br>`,
+                  statut: 4,
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
-                  valeur: reponse1,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                    valeur: reponse1,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
-                  valeur: reponse2,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                    valeur: reponse2,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
-                  valeur: reponse3,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                    valeur: reponse3,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, a, b, c, d, e, f, g, h)) {

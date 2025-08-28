@@ -31,7 +31,7 @@
           class="bx {resultsByQuestion[current]
             ? 'bxs-check-square text-coopmaths-warn-800 dark:text-green-500'
             : 'bxs-x-square text-red-500 dark:text-coopmathsdark-warn'}"
-        />
+        ></i>
       </div>
     {/if}
   </div>

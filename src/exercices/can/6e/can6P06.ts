@@ -4,7 +4,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 export const amcReady = true
-export const titre = 'Résoudre un problème de calcul de pourcentage par complément à 100%'
+export const titre =
+  'Résoudre un problème de calcul de pourcentage par complément à 100%'
 
 export const dateDePublication = '15/11/2022'
 
@@ -18,10 +19,10 @@ export const uuid = 'fb422'
 
 export const refs = {
   'fr-fr': ['can6P06', '6N3O-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculerUnPourcentageCAN extends CalculerUnPourcentage {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.can = true

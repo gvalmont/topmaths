@@ -3,7 +3,11 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -22,177 +26,180 @@ export const uuid = '63cdb'
 
 export const refs = {
   'fr-fr': ['4P16'],
-  'fr-ch': ['10FA4-4']
+  'fr-ch': ['10FA4-4'],
 }
 export default class NomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : m/h\n2 : m$^3$/h\n3 : L/h\n4 : L/m$^2$\n5 : m$^2$/h\n6 : Wh\n7 : VA\n8 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Choix des problèmes',
+      'Nombres séparés par des tirets :\n1 : m/h\n2 : m$^3$/h\n3 : L/h\n4 : L/m$^2$\n5 : m$^2$/h\n6 : Wh\n7 : VA\n8 : Mélange',
+    ]
     this.sup = 8
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const valMaxParametre = 8
     const listeDesProblemes = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
       melange: valMaxParametre,
       max: valMaxParametre - 1,
-      defaut: 1
+      defaut: 1,
     })
 
     type Unite = {
-      unite: string,
+      unite: string
       coef: number
     }
 
     const unitesLongueur: Unite[] = [
       {
         unite: 'mm',
-        coef: 1
+        coef: 1,
       },
       {
         unite: 'cm',
-        coef: 10 ** 1
+        coef: 10 ** 1,
       },
       {
         unite: 'dm',
-        coef: 10 ** 2
+        coef: 10 ** 2,
       },
       {
         unite: 'm',
-        coef: 10 ** 3
+        coef: 10 ** 3,
       },
       {
         unite: 'dam',
-        coef: 10 ** 4
+        coef: 10 ** 4,
       },
       {
         unite: 'hm',
-        coef: 10 ** 5
+        coef: 10 ** 5,
       },
       {
         unite: 'km',
-        coef: 10 ** 6
-      }
+        coef: 10 ** 6,
+      },
     ]
     const unitesSurface: Unite[] = [
       {
         unite: 'mm$^2$',
-        coef: 1
+        coef: 1,
       },
       {
         unite: 'cm$^2$',
-        coef: 10 ** 2
+        coef: 10 ** 2,
       },
       {
         unite: 'dm$^2$',
-        coef: 10 ** 4
+        coef: 10 ** 4,
       },
       {
         unite: 'm$^2$',
-        coef: 10 ** 6
+        coef: 10 ** 6,
       },
       {
         unite: 'dam$^2$',
-        coef: 10 ** 8
+        coef: 10 ** 8,
       },
       {
         unite: 'hm$^2$',
-        coef: 10 ** 10
+        coef: 10 ** 10,
       },
       {
         unite: 'km$^2$',
-        coef: 10 ** 12
-      }
+        coef: 10 ** 12,
+      },
     ]
     const unitesVolume: Unite[] = [
       {
         unite: 'mm$^3$',
-        coef: 1
+        coef: 1,
       },
       {
         unite: 'cm$^3$',
-        coef: 10 ** 3
+        coef: 10 ** 3,
       },
       {
         unite: 'dm$^3$',
-        coef: 10 ** 6
+        coef: 10 ** 6,
       },
       {
         unite: 'm$^3$',
-        coef: 10 ** 9
-      }
+        coef: 10 ** 9,
+      },
     ]
     const unitesContenance: Unite[] = [
       {
         unite: 'mL',
-        coef: 1
+        coef: 1,
       },
       {
         unite: 'cL',
-        coef: 10 ** 1
+        coef: 10 ** 1,
       },
       {
         unite: 'dL',
-        coef: 10 ** 2
+        coef: 10 ** 2,
       },
       {
         unite: 'L',
-        coef: 10 ** 3
-      }
+        coef: 10 ** 3,
+      },
     ]
     const unitesTemps: Unite[] = [
       {
         unite: 's',
-        coef: 1
+        coef: 1,
       },
       {
         unite: 'min',
-        coef: 60
+        coef: 60,
       },
       {
         unite: 'h',
-        coef: 3600
-      }
+        coef: 3600,
+      },
     ]
     const unitesPuissance: Unite[] = [
       {
         unite: 'mW',
-        coef: 1
+        coef: 1,
       },
       {
         unite: 'W',
-        coef: 10 ** 3
+        coef: 10 ** 3,
       },
       {
         unite: 'kW',
-        coef: 10 ** 6
-      }
+        coef: 10 ** 6,
+      },
     ]
     const unitesTension: Unite[] = [
       {
         unite: 'mV',
-        coef: 1
+        coef: 1,
       },
       {
         unite: 'V',
-        coef: 10 ** 3
+        coef: 10 ** 3,
       },
       {
         unite: 'kV',
-        coef: 10 ** 6
-      }
+        coef: 10 ** 6,
+      },
     ]
     const unitesIntensite: Unite[] = [
       {
         unite: 'mA',
-        coef: 1
+        coef: 1,
       },
       {
         unite: 'A',
-        coef: 10 ** 3
-      }
+        coef: 10 ** 3,
+      },
     ]
     let unite1Depart: Unite = { unite: '', coef: 1 }
     let unite2Depart: Unite = { unite: '', coef: 1 }
@@ -206,7 +213,7 @@ export default class NomExercice extends Exercice {
     let precision = 0
     let operateur, cfrac, times
 
-    function fixeUnites (unite1: Unite[], unite2: Unite[]) {
+    function fixeUnites(unite1: Unite[], unite2: Unite[]) {
       let index1Depart
       let index2Depart
       let index1Arrivee: number
@@ -228,42 +235,62 @@ export default class NomExercice extends Exercice {
           cfrac = ' \\cfrac '
           times = ''
           valeurArrivee = valeurArrivee.div(coef2)
-          precision = Math.log10(coef1.div(coef2).toNumber()) < 0 ? -Math.floor(Math.log10(coef1.div(coef2).toNumber())) : 0
+          precision =
+            Math.log10(coef1.div(coef2).toNumber()) < 0
+              ? -Math.floor(Math.log10(coef1.div(coef2).toNumber()))
+              : 0
         } else {
           operateur = '.'
           cfrac = ''
           times = ' \\times '
           valeurArrivee = valeurArrivee.times(coef2)
-          precision = Math.log10(coef1.mul(coef2).toNumber()) < 0 ? -Math.floor(Math.log10(coef1.mul(coef2).toNumber())) : 0
+          precision =
+            Math.log10(coef1.mul(coef2).toNumber()) < 0
+              ? -Math.floor(Math.log10(coef1.mul(coef2).toNumber()))
+              : 0
         }
       } while (Math.abs(Math.log10(valeurArrivee.toNumber())) > 6)
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       valeurDepart = randint(1, 80) * 9 // Comme ça même si on doit diviser par 3600 le résultat restera décimal
       typeDeComposition = 'quotient'
-      if (listeDesProblemes[i] === 1) { // Vitesse
+      if (listeDesProblemes[i] === 1) {
+        // Vitesse
         fixeUnites(unitesLongueur, unitesTemps)
-      } else if (listeDesProblemes[i] === 2) { // Débit (m$^3$)
+      } else if (listeDesProblemes[i] === 2) {
+        // Débit (m$^3$)
         fixeUnites(unitesVolume, unitesTemps)
-      } else if (listeDesProblemes[i] === 3) { // Débit (L)
+      } else if (listeDesProblemes[i] === 3) {
+        // Débit (L)
         fixeUnites(unitesContenance, unitesTemps)
-      } else if (listeDesProblemes[i] === 4) { // L/m$^2$
+      } else if (listeDesProblemes[i] === 4) {
+        // L/m$^2$
         fixeUnites(unitesContenance, unitesSurface)
-      } else if (listeDesProblemes[i] === 5) { // m$^2$/h
+      } else if (listeDesProblemes[i] === 5) {
+        // m$^2$/h
         fixeUnites(unitesSurface, unitesTemps)
-      } else if (listeDesProblemes[i] === 6) { // Wh
+      } else if (listeDesProblemes[i] === 6) {
+        // Wh
         typeDeComposition = 'produit'
         fixeUnites(unitesPuissance, unitesTemps)
-      } else if (listeDesProblemes[i] === 7) { // VA
+      } else if (listeDesProblemes[i] === 7) {
+        // VA
         typeDeComposition = 'produit'
         fixeUnites(unitesTension, unitesIntensite)
       } else {
-        window.notify('listeDesProblemes[i] a une valeur inattendue.\nPeut-être que valMaxParametre est incorrect ?', {
-          listeDesProblemes,
-          i,
-          valMaxParametre
-        })
+        window.notify(
+          'listeDesProblemes[i] a une valeur inattendue.\nPeut-être que valMaxParametre est incorrect ?',
+          {
+            listeDesProblemes,
+            i,
+            valMaxParametre,
+          },
+        )
       }
       texte = `Convertir $${valeurDepart}$ ${unite1Depart.unite}${operateur}${unite2Depart.unite} en ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}.`
       texteCorr = `$${valeurDepart}\\text{ ${unite1Depart.unite}${operateur}${unite2Depart.unite}}

@@ -1,9 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
-import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite'
+import {
+  listeDesDiviseurs,
+  premiersEntreBornes,
+} from '../../lib/outils/primalite'
 import ExerciceSimple from '../ExerciceSimple'
 
-export const titre = 'Lister tous les diviseurs d\'un entier'
+export const titre = "Lister tous les diviseurs d'un entier"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -13,7 +16,7 @@ export const uuid = '15fd6'
 
 export const refs = {
   'fr-fr': ['200A1-01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -22,7 +25,7 @@ export const refs = {
 
  */
 export default class ModeleAutomatisme2nde extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -31,7 +34,7 @@ export default class ModeleAutomatisme2nde extends ExerciceSimple {
     this.besoinFormulaireNumerique = ['Niveau', 3]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // Dans ce modèle, j'ai pris la première question du fichier Doc-Automatismes-2de-acOT-GTCAN-2023.pdf.
     // La question posée est de lister tous les diviseurs d'un entier.
     // Selon le niveau choisi, on augmente la difficulté de l'entier choisi.

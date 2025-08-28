@@ -18,17 +18,17 @@ export const uuid = '864ba'
 
 export const refs = {
   'fr-fr': ['can3C15'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculPuissance10B extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse, n1, n2, n3
     switch (choice([1, 2, 3])) {
       case 1:
@@ -58,7 +58,7 @@ export default class CalculPuissance10B extends ExerciceSimple {
         break
     }
     this.reponse = reponse
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

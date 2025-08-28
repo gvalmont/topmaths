@@ -9,12 +9,17 @@ describe('<liste-deroulante>', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
     el = document.createElement('liste-deroulante')
-    el.setAttribute('choices', encodeURIComponent(JSON.stringify([
-      { label: 'Choisir une des réponses suivantes :', value: '' },
-      { label: 'admet une unique solution', value: 'aucune' },
-      { label: 'n\'admet pas de solution', value: 'unique' },
-      { label: 'admet une infinité de solutions', value: 'inf' }
-    ])))
+    el.setAttribute(
+      'choices',
+      encodeURIComponent(
+        JSON.stringify([
+          { label: 'Choisir une des réponses suivantes :', value: '' },
+          { label: 'admet une unique solution', value: 'aucune' },
+          { label: "n'admet pas de solution", value: 'unique' },
+          { label: 'admet une infinité de solutions', value: 'inf' },
+        ]),
+      ),
+    )
     document.body.appendChild(el)
   })
 

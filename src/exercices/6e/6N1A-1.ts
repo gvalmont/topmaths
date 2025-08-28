@@ -1,17 +1,29 @@
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDe,
+} from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 
-export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
+export const titre =
+  "Donner l'écriture décimale d'un nombre à partir de différents textes"
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
@@ -34,30 +46,39 @@ export const uuid = 'e8e24'
 export const refs = {
   'fr-fr': ['6N1A-1'],
   'fr-2016': ['6N23-4'],
-  'fr-ch': ['9NO10-3']
+  'fr-ch': ['9NO10-3'],
 }
 export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 5
-    this.besoinFormulaireTexte = ['Type des textes', 'Nombres séparés par des tirets :\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : Du genre 128/10\n5 : Du genre 8+5/100+7/100\n6 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type des textes',
+      'Nombres séparés par des tirets :\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : Du genre 128/10\n5 : Du genre 8+5/100+7/100\n6 : Mélange',
+    ]
     this.sup = 6
   }
 
-  nouvelleVersion () {
-    this.consigne = "Donner l'écriture décimale de " + (this.nbQuestions > 1 ? 'chaque' : 'ce') + ' nombre.'
+  nouvelleVersion() {
+    this.consigne =
+      "Donner l'écriture décimale de " +
+      (this.nbQuestions > 1 ? 'chaque' : 'ce') +
+      ' nombre.'
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,
       defaut: 6,
       melange: 6,
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
-      shuffle: false
+      shuffle: false,
     })
 
     for (
-      let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, n, choix; i < this.nbQuestions && cpt < 50;) {
+      let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, n, choix;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       a = randint(2, 9)
       b = randint(2, 9, a)
       c = randint(2, 9, [a, b])
@@ -122,9 +143,12 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
       if (context.isAmc) {
         const choixDigit = randint(0, 1)
         setReponse(this, i, reponseAMC, {
-          digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
-          decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
-          signe: false
+          digits:
+            nombreDeChiffresDe(reponseAMC) +
+            randint(choixDigit, choixDigit + 1),
+          decimals:
+            nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+          signe: false,
         })
       }
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
@@ -141,10 +165,13 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
 
       // Fin de cette uniformisation
 
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteAvant: sp() + '=' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteAvant: sp() + '=',
+      })
       handleAnswers(this, i, { reponse: { value: reponseAMC } })
 
-      if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a, b, c)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         if (!context.isHtml && i === 0) {

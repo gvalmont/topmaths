@@ -1,5 +1,8 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, fractionSimplifiee } from '../../lib/outils/deprecatedFractions'
+import {
+  texFractionFromString,
+  fractionSimplifiee,
+} from '../../lib/outils/deprecatedFractions'
 import { abs } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
@@ -17,13 +20,14 @@ export const uuid = '8e72e'
 
 export const refs = {
   'fr-fr': ['TEC1-01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EquationDuPremierDegreDansC extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations ci-dessous. On écrira les solutions sous forme algébrique.'
+    this.consigne =
+      'Résoudre dans $\\mathbb{C}$ les équations ci-dessous. On écrira les solutions sous forme algébrique.'
     this.nbQuestions = 2
 
     this.sup = 1 // Niveau de difficulté
@@ -31,8 +35,12 @@ export default class EquationDuPremierDegreDansC extends Exercice {
     this.spacingCorr = 2
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, z2, z1, z1m, z2m, z2n, z1c, fr, fi, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, z2, z1, z1m, z2m, z2n, z1c, fr, fi, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
 
       z1 = complex(randint(-20, 20, 0), randint(-20, 20, 0)) // L'énoncé est du type z1 * z + z2 = 0
@@ -48,7 +56,7 @@ export default class EquationDuPremierDegreDansC extends Exercice {
       // Enoncé
       texte = `$(${z1})z${'+'.repeat(z2.re > 0)}${z2}=0$` // ajout d'un signe + si partie réelle positive
       // Corrigé
-      texteCorr = 'Passons le terme constant du côté droit de l\'équation :'
+      texteCorr = "Passons le terme constant du côté droit de l'équation :"
       texteCorr += `<br>$(${z1})z=${z2n}$`
       texteCorr += `<br>Ce qui donne : $z = \\dfrac{${z2n}}{${z1}}$`
       texteCorr += `<br>Pour faire disparaître le $i$ du dénominateur, utilisons le conjugué $\\overline{${z1}}=${z1c}$ du dénominateur :`

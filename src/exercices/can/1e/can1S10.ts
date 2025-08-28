@@ -1,6 +1,10 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -22,30 +26,34 @@ export const uuid = 'd1261'
 
 export const refs = {
   'fr-fr': ['can1S10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SensVariationSuite extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nomSuite = ['u', 'v', 'w', 't']
     const s = choice(nomSuite)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const variables : number[] = []
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const variables: number[] = []
       let monQcmTexte = ''
       let texte = ''
       let texteCorr = ''
-      switch (choice([1, 2, 3, 4])) { // 1
-        case 1 :
-          { let a = 0
+      switch (
+        choice([1, 2, 3, 4]) // 1
+      ) {
+        case 1:
+          {
+            let a = 0
             let b = 0
-            const choix = choice([1, 2, 3])// 1,2
-            if (choix === 1) { // suite explicite avec fonction racine carrée
+            const choix = choice([1, 2, 3]) // 1,2
+            if (choix === 1) {
+              // suite explicite avec fonction racine carrée
               a = randint(1, 10) * choice([-1, 1])
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${rienSi1(a)}\\sqrt{n} $.<br>
          
@@ -57,17 +65,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -78,17 +86,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -97,8 +105,13 @@ export default class SensVariationSuite extends Exercice {
               texteCorr = `La suite est définie de manière explicite. Le sens de variation de la fonction $f$ associée donne le sens de variation de la suite.<br>
              La fonction racine carrée définie sur $[0;+\\infty[$ est strictement croissante.<br>`
               texteCorr += `On en déduit que la fonction $x \\longmapsto ${rienSi1(a)}\\sqrt{x}$ est strictement `
-              if (a > 0) { texteCorr += `croissante sur $[0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `décroissante sur $[0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement décroissante. ` }
-            } else if (choix === 2) { // suite explicite avec fonction inverse
+              if (a > 0) {
+                texteCorr += `croissante sur $[0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement croissante. `
+              } else {
+                texteCorr += `décroissante sur $[0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement décroissante. `
+              }
+            } else if (choix === 2) {
+              // suite explicite avec fonction inverse
               a = randint(1, 10) * choice([-1, 1])
               // u = randint(1, 10) * choice([-1, 1])
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}^*$ par $${s}_{n} =\\dfrac{${a}}{n}$.<br>
@@ -111,17 +124,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -132,17 +145,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -151,8 +164,13 @@ export default class SensVariationSuite extends Exercice {
               texteCorr = `La suite est définie de manière explicite. Le sens de variation de la fonction $f$ associée donne le sens de variation de la suite.<br>
              La fonction inverse définie sur $]0;+\\infty[$ est strictement décroissante.<br>`
               texteCorr += `On en déduit que la fonction $x \\longmapsto \\dfrac{${a}}{x}=${a}\\times \\dfrac{1}{x}$ est strictement `
-              if (a > 0) { texteCorr += `décroissante sur $]0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement décroissante. ` } else { texteCorr += `croissante sur $]0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement croissante. ` }
-            } else { // suite explicite avec fonction affine
+              if (a > 0) {
+                texteCorr += `décroissante sur $]0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement décroissante. `
+              } else {
+                texteCorr += `croissante sur $]0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement croissante. `
+              }
+            } else {
+              // suite explicite avec fonction affine
               a = randint(1, 10) * choice([-1, 1])
               b = randint(1, 10) * choice([-1, 1])
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${rienSi1(a)}n${ecritureAlgebrique(b)}$.<br>
@@ -165,17 +183,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -186,17 +204,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -204,16 +222,21 @@ export default class SensVariationSuite extends Exercice {
               }
               texteCorr = `La suite est définie de manière explicite. Le sens de variation de la fonction $f$ associée donne le sens de variation de la suite.<br>
              La fonction affine $f$ définie sur $[0;+\\infty[$ par $f(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$ est strictement  `
-              if (a > 0) { texteCorr += `croissante sur $[0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `décroissante sur $[0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement décroissante. ` }
+              if (a > 0) {
+                texteCorr += `croissante sur $[0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement croissante. `
+              } else {
+                texteCorr += `décroissante sur $[0;+\\infty[$ et donc la suite $(${s}_{n})$ est strictement décroissante. `
+              }
             }
             variables.push(a, b)
           }
           break
-        case 2 :
+        case 2:
           {
-            const choix = choice([1, 2, 3])//
+            const choix = choice([1, 2, 3]) //
             let q = 0
-            if (choix === 1) { // suite géométrique directe avec q>1 ou q<0
+            if (choix === 1) {
+              // suite géométrique directe avec q>1 ou q<0
               q = randint(-10, 10, [0, 1])
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${ecritureParentheseSiNegatif(q)}^n$.<br>
             
@@ -225,17 +248,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -246,26 +269,31 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=1$. <br>`
-              if (q > 0) { texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. ` }
-            } else if (choix === 2) { // suite géométrique q^n avec 0<q<1
-              q = (randint(1, 9) / 10)
+              if (q > 0) {
+                texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. `
+              } else {
+                texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. `
+              }
+            } else if (choix === 2) {
+              // suite géométrique q^n avec 0<q<1
+              q = randint(1, 9) / 10
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${texNombre(q)}^n$.<br>
             
             Alors, $(${s}_n)$ est une suite ...`
@@ -275,17 +303,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'décroissante',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: 'croissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -293,7 +321,8 @@ export default class SensVariationSuite extends Exercice {
 
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombre(q)}$ et de premier terme $${s}_0=1$. <br>`
               texteCorr += `Comme $0 < q < 1$ et que le premier terme est  positif, la suite $(${s}_{n})$ est strictement décroissante. `
-            } else { // suite géométrique avec q<0
+            } else {
+              // suite géométrique avec q<0
               q = choice([randint(-9, -1) / 10, randint(-10, -1)])
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${texNombre(q)})^n$.<br>
            
@@ -305,17 +334,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'croissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'décroissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: true
-                  }
-                ]
+                    statut: true,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -326,14 +355,32 @@ export default class SensVariationSuite extends Exercice {
             }
           }
           break
-        case 3 :
+        case 3:
           {
             let q = 0
-            const choix = choice([1, 2, 3, 4, 5, 6, 7, 8])//
-            if (choix === 1) { // suite géométrique (a/b)^n avec 0<a/b<1
-              const listeFractions1 = [[1, 2], [2, 3], [3, 4], [2, 5], [4, 5],
-                [5, 6], [2, 7], [4, 7], [6, 7], [3, 8], [7, 8],
-                [2, 9], [5, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+            const choix = choice([1, 2, 3, 4, 5, 6, 7, 8]) //
+            if (choix === 1) {
+              // suite géométrique (a/b)^n avec 0<a/b<1
+              const listeFractions1 = [
+                [1, 2],
+                [2, 3],
+                [3, 4],
+                [2, 5],
+                [4, 5],
+                [5, 6],
+                [2, 7],
+                [4, 7],
+                [6, 7],
+                [3, 8],
+                [7, 8],
+                [2, 9],
+                [5, 9],
+                [8, 9],
+                [1, 10],
+                [3, 10],
+                [7, 10],
+                [9, 10],
+              ]
               const fraction1 = choice(listeFractions1)
               const n1 = fraction1[0]
               const d1 = fraction1[1]
@@ -346,17 +393,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'croissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'décroissante',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -364,10 +411,28 @@ export default class SensVariationSuite extends Exercice {
 
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFractionFromString(n1, d1)}$ et de premier terme $${s}_0=1$. <br>`
               texteCorr += `Comme $ 0 < q < 1$ et que le premier terme est positif, la suite $(${s}_{n})$ est  décroissante. `
-            } else if (choix === 2) { // suite géométrique (a/b)^n avec a/b>1
-              const listeFractions1 = [[1, 2], [2, 3], [3, 4], [2, 5], [4, 5],
-                [5, 6], [2, 7], [4, 7], [6, 7], [3, 8], [7, 8],
-                [2, 9], [5, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+            } else if (choix === 2) {
+              // suite géométrique (a/b)^n avec a/b>1
+              const listeFractions1 = [
+                [1, 2],
+                [2, 3],
+                [3, 4],
+                [2, 5],
+                [4, 5],
+                [5, 6],
+                [2, 7],
+                [4, 7],
+                [6, 7],
+                [3, 8],
+                [7, 8],
+                [2, 9],
+                [5, 9],
+                [8, 9],
+                [1, 10],
+                [3, 10],
+                [7, 10],
+                [9, 10],
+              ]
               const fraction1 = choice(listeFractions1)
               const n1 = fraction1[0]
               const d1 = fraction1[1]
@@ -380,17 +445,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'croissante',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: 'décroissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -398,7 +463,8 @@ export default class SensVariationSuite extends Exercice {
 
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFractionFromString(d1, n1)}$ et de premier terme $${s}_0=1$. <br>`
               texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est  croissante. `
-            } else if (choix === 3) { // suite géométrique a*q^n avec q>1 ou q<0  et a>0
+            } else if (choix === 3) {
+              // suite géométrique a*q^n avec q>1 ou q<0  et a>0
               const q = randint(-10, 10, [0, 1])
               const a = randint(2, 10)
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times ${ecritureParentheseSiNegatif(q)}^n$.<br>
@@ -411,17 +477,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -432,25 +498,30 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=${a}$. <br>`
-              if (q > 0) { texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. ` }
-            } else if (choix === 4) { // suite géométrique a*q^n avec q>1 ou q<0 et a<0
+              if (q > 0) {
+                texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. `
+              } else {
+                texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. `
+              }
+            } else if (choix === 4) {
+              // suite géométrique a*q^n avec q>1 ou q<0 et a<0
               q = randint(-10, 10, [0, 1])
               const a = randint(-10, -2)
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${a})\\times ${ecritureParentheseSiNegatif(q)}^n$.<br>
@@ -463,17 +534,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -484,25 +555,30 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=${a}$. <br>`
-              if (q > 0) { texteCorr += `Comme $q>1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement décroissante. ` } else { texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. ` }
-            } else if (choix === 5) { // suite géométrique a*q^n avec 0<q <1 et a>0
+              if (q > 0) {
+                texteCorr += `Comme $q>1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement décroissante. `
+              } else {
+                texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. `
+              }
+            } else if (choix === 5) {
+              // suite géométrique a*q^n avec 0<q <1 et a>0
               q = randint(1, 9) / 10
               const a = randint(2, 10)
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times ${texNombre(q)}^n$.<br>
@@ -514,17 +590,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'croissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'décroissante',
-                    statut: true
-                  }
-                ]
+                    statut: true,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -532,7 +608,8 @@ export default class SensVariationSuite extends Exercice {
 
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=${a}$. <br>`
               texteCorr += `Comme $0 < q <1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement décroissante. `
-            } else if (choix === 6) { // suite géométrique a*q^n avec 0<q <1 et a<0
+            } else if (choix === 6) {
+              // suite géométrique a*q^n avec 0<q <1 et a<0
               q = randint(1, 9) / 10
               const a = randint(-10, -2)
               texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${a})\\times ${texNombre(q)}^n$.<br>
@@ -544,17 +621,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'croissante',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: 'décroissante',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -562,10 +639,28 @@ export default class SensVariationSuite extends Exercice {
 
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombre(q)}$ et de premier terme $${s}_{0}=${a}$. <br>`
               texteCorr += `Comme $0 < q <1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement croissante. `
-            } else if (choix === 7) { // suite géométrique a*q^n q fraction comprise entre 0 et 1 et a >0
-              const listeFractions1 = [[1, 2], [2, 3], [3, 4], [2, 5], [4, 5],
-                [5, 6], [2, 7], [4, 7], [6, 7], [3, 8], [7, 8],
-                [2, 9], [5, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+            } else if (choix === 7) {
+              // suite géométrique a*q^n q fraction comprise entre 0 et 1 et a >0
+              const listeFractions1 = [
+                [1, 2],
+                [2, 3],
+                [3, 4],
+                [2, 5],
+                [4, 5],
+                [5, 6],
+                [2, 7],
+                [4, 7],
+                [6, 7],
+                [3, 8],
+                [7, 8],
+                [2, 9],
+                [5, 9],
+                [8, 9],
+                [1, 10],
+                [3, 10],
+                [7, 10],
+                [9, 10],
+              ]
               const fraction1 = choice(listeFractions1)
               const n1 = fraction1[0]
               const d1 = fraction1[1]
@@ -579,17 +674,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'croissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'décroissante',
-                    statut: true
-                  }
-                ]
+                    statut: true,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -597,10 +692,28 @@ export default class SensVariationSuite extends Exercice {
 
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=${a}$. <br>`
               texteCorr += `Comme $0 < q <1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement décroissante. `
-            } else { // suite géométrique a*q^n q fraction >1
-              const listeFractions1 = [[1, 2], [2, 3], [3, 4], [2, 5], [4, 5],
-                [5, 6], [2, 7], [4, 7], [6, 7], [3, 8], [7, 8],
-                [2, 9], [5, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+            } else {
+              // suite géométrique a*q^n q fraction >1
+              const listeFractions1 = [
+                [1, 2],
+                [2, 3],
+                [3, 4],
+                [2, 5],
+                [4, 5],
+                [5, 6],
+                [2, 7],
+                [4, 7],
+                [6, 7],
+                [3, 8],
+                [7, 8],
+                [2, 9],
+                [5, 9],
+                [8, 9],
+                [1, 10],
+                [3, 10],
+                [7, 10],
+                [9, 10],
+              ]
               const fraction1 = choice(listeFractions1)
               const n1 = fraction1[0]
               const d1 = fraction1[1]
@@ -615,17 +728,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -636,33 +749,38 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'décroissante',
-                      statut: true
-                    }
-                  ]
+                      statut: true,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFractionFromString(d1, n1)}$ et de premier terme $${s}_{0}=${a}$. <br>`
-              if (a > 0) { texteCorr += `Comme $q > 1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `Comme $q > 1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement décroissante. ` }
+              if (a > 0) {
+                texteCorr += `Comme $q > 1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. `
+              } else {
+                texteCorr += `Comme $q > 1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement décroissante. `
+              }
             }
           }
           break
 
-        case 4 :
+        case 4:
         default:
           {
-            const choix = choice([1, 2, 3, 4, 5, 6, 7, 8])//,
-            if (choix === 1) { // suite recurrente u(n+1)=u(n)+bn+c avec bn+c >0
+            const choix = choice([1, 2, 3, 4, 5, 6, 7, 8]) //,
+            if (choix === 1) {
+              // suite recurrente u(n+1)=u(n)+bn+c avec bn+c >0
               const a = randint(1, 10) * choice([-1, 1])
               const b = randint(1, 10)
               const c = randint(1, 10)
@@ -675,17 +793,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'décroissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'croissante',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -693,7 +811,8 @@ export default class SensVariationSuite extends Exercice {
 
               texteCorr = `L'égalité $${s}_{n+1} =${s}_n+${rienSi1(b)}n+${c}$ s'écrit $${s}_{n+1} -${s}_n=${rienSi1(b)}n+${c} >0$. <br>
             On en déduit que la suite $(${s}_n)$ est coissante.`
-            } else if (choix === 2) { // suite recurrente u(n+1)=u(n)+bn+c avec bn+c <0
+            } else if (choix === 2) {
+              // suite recurrente u(n+1)=u(n)+bn+c avec bn+c <0
               const a = randint(1, 10) * choice([-1, 1])
               const b = randint(-10, -2)
               const c = randint(-10, -1)
@@ -706,17 +825,17 @@ export default class SensVariationSuite extends Exercice {
                 propositions: [
                   {
                     texte: 'décroissante',
-                    statut: true
+                    statut: true,
                   },
                   {
                     texte: 'croissante',
-                    statut: false
+                    statut: false,
                   },
                   {
                     texte: 'ni croissante, ni décroissante',
-                    statut: false
-                  }
-                ]
+                    statut: false,
+                  },
+                ],
               }
               const monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
@@ -724,7 +843,8 @@ export default class SensVariationSuite extends Exercice {
 
               texteCorr = `L'égalité $${s}_{n+1} =${s}_n+${rienSi1(b)}n+${c}$ s'écrit $${s}_{n+1} -${s}_n=${ecritureAlgebrique(b)}n${ecritureAlgebrique(c)}<0$. <br>
             On en déduit que la suite $(${s}_n)$ est décoissante.`
-            } else if (choix === 3) { // suite recurrente u(n+1)=u(n)+b
+            } else if (choix === 3) {
+              // suite recurrente u(n+1)=u(n)+b
               const a = randint(1, 10) * choice([-1, 1])
               const b = randint(-10, 10, 0)
 
@@ -738,17 +858,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -759,25 +879,30 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la relation de récurrence d'une suite arithmétique de raison $${b}$.<br>`
-              if (b > 0) { texteCorr += `Comme $${b}>0$, la suite $(${s}_n)$ est croissante. ` } else { texteCorr += `Comme $${b}<0$, la suite $(${s}_n)$ est décroissante. ` }
-            } else if (choix === 4) { // suite recurrente u(n+1)=q*u(n) avec q>1 ou q<0 et a>0
+              if (b > 0) {
+                texteCorr += `Comme $${b}>0$, la suite $(${s}_n)$ est croissante. `
+              } else {
+                texteCorr += `Comme $${b}<0$, la suite $(${s}_n)$ est décroissante. `
+              }
+            } else if (choix === 4) {
+              // suite recurrente u(n+1)=q*u(n) avec q>1 ou q<0 et a>0
               const a = randint(1, 10)
               const q = randint(-10, 10, [0, 1, -1])
 
@@ -791,17 +916,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -812,25 +937,30 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: true
-                    }
-                  ]
+                      statut: true,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${q}$.<br>`
-              if (q > 0) { texteCorr += `Comme $${q}>1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est croissante. ` } else { texteCorr += `Comme $${q}<0$, la suite $(${s}_n)$ est ni croissante, ni décroissante. ` }
-            } else if (choix === 5) { // suite recurrente u(n+1)=q*u(n) avec q>1 ou q<0 et a<0
+              if (q > 0) {
+                texteCorr += `Comme $${q}>1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est croissante. `
+              } else {
+                texteCorr += `Comme $${q}<0$, la suite $(${s}_n)$ est ni croissante, ni décroissante. `
+              }
+            } else if (choix === 5) {
+              // suite recurrente u(n+1)=q*u(n) avec q>1 ou q<0 et a<0
               const a = randint(-10, -2)
               const q = randint(-10, 10, [0, 1, -1])
 
@@ -844,17 +974,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -865,25 +995,30 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: true
-                    }
-                  ]
+                      statut: true,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${q}$.<br>`
-              if (q > 0) { texteCorr += `Comme $${q}>1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $${q}<0$, la suite $(${s}_n)$ est ni croissante, ni décroissante. ` }
-            } else if (choix === 6) { // suite recurrente u(n+1)=q*u(n) avec 0<q<1
+              if (q > 0) {
+                texteCorr += `Comme $${q}>1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. `
+              } else {
+                texteCorr += `Comme $${q}<0$, la suite $(${s}_n)$ est ni croissante, ni décroissante. `
+              }
+            } else if (choix === 6) {
+              // suite recurrente u(n+1)=q*u(n) avec 0<q<1
               const a = randint(-10, 10, [-1, 0, 1])
               const q = arrondi(randint(1, 9) / 10)
 
@@ -897,17 +1032,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -918,29 +1053,51 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${q}$.<br>`
-              if (a > 0) { texteCorr += `Comme $ 0< ${texNombre(q)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $ 0< ${texNombre(q)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. ` }
-            } else if (choix === 7) { // suite recurrente u(n+1)=q*u(n) avec 0<q<1 fraction
+              if (a > 0) {
+                texteCorr += `Comme $ 0< ${texNombre(q)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. `
+              } else {
+                texteCorr += `Comme $ 0< ${texNombre(q)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. `
+              }
+            } else if (choix === 7) {
+              // suite recurrente u(n+1)=q*u(n) avec 0<q<1 fraction
               const a = randint(-10, 10, [-1, 0, 1])
-              const listeFractions1 = [[1, 2], [2, 3], [3, 4], [2, 5], [4, 5],
-                [5, 6], [2, 7], [4, 7], [6, 7], [3, 8], [7, 8],
-                [2, 9], [5, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+              const listeFractions1 = [
+                [1, 2],
+                [2, 3],
+                [3, 4],
+                [2, 5],
+                [4, 5],
+                [5, 6],
+                [2, 7],
+                [4, 7],
+                [6, 7],
+                [3, 8],
+                [7, 8],
+                [2, 9],
+                [5, 9],
+                [8, 9],
+                [1, 10],
+                [3, 10],
+                [7, 10],
+                [9, 10],
+              ]
               const fraction1 = choice(listeFractions1)
               const n1 = fraction1[0]
               const d1 = fraction1[1]
@@ -954,17 +1111,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -975,29 +1132,51 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${texFractionFromString(n1, d1)}$.<br>`
-              if (a > 0) { texteCorr += `Comme $ 0< ${texFractionFromString(n1, d1)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $ 0< ${texFractionFromString(n1, d1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. ` }
-            } else { // suite recurrente u(n+1)=q*u(n) avec q>1 fraction
+              if (a > 0) {
+                texteCorr += `Comme $ 0< ${texFractionFromString(n1, d1)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. `
+              } else {
+                texteCorr += `Comme $ 0< ${texFractionFromString(n1, d1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. `
+              }
+            } else {
+              // suite recurrente u(n+1)=q*u(n) avec q>1 fraction
               const a = randint(-10, 10, [-1, 0, 1])
-              const listeFractions1 = [[1, 2], [2, 3], [3, 4], [2, 5], [4, 5],
-                [5, 6], [2, 7], [4, 7], [6, 7], [3, 8], [7, 8],
-                [2, 9], [5, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+              const listeFractions1 = [
+                [1, 2],
+                [2, 3],
+                [3, 4],
+                [2, 5],
+                [4, 5],
+                [5, 6],
+                [2, 7],
+                [4, 7],
+                [6, 7],
+                [3, 8],
+                [7, 8],
+                [2, 9],
+                [5, 9],
+                [8, 9],
+                [1, 10],
+                [3, 10],
+                [7, 10],
+                [9, 10],
+              ]
               const fraction1 = choice(listeFractions1)
               const n1 = fraction1[0]
               const d1 = fraction1[1]
@@ -1011,17 +1190,17 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'croissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
@@ -1032,24 +1211,28 @@ export default class SensVariationSuite extends Exercice {
                   propositions: [
                     {
                       texte: 'décroissante',
-                      statut: true
+                      statut: true,
                     },
                     {
                       texte: 'croissante',
-                      statut: false
+                      statut: false,
                     },
                     {
                       texte: 'ni croissante, ni décroissante',
-                      statut: false
-                    }
-                  ]
+                      statut: false,
+                    },
+                  ],
                 }
                 const monQcm = propositionsQcm(this, i)
                 texte += monQcm.texte
                 monQcmTexte = monQcm.texte
               }
               texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${texFractionFromString(d1, n1)}$.<br>`
-              if (a > 0) { texteCorr += `Comme $  ${texFractionFromString(d1, n1)} >1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est croissante. ` } else { texteCorr += `Comme $ 0< ${texFractionFromString(d1, n1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. ` }
+              if (a > 0) {
+                texteCorr += `Comme $  ${texFractionFromString(d1, n1)} >1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est croissante. `
+              } else {
+                texteCorr += `Comme $ 0< ${texFractionFromString(d1, n1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. `
+              }
             }
           }
           break

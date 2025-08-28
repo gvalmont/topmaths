@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'ccf1d'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class Can2025CE2Q12 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     let puissance = 10
     if (a == null || b == null) {
       puissance = choice([10, 100])
@@ -28,7 +28,7 @@ export default class Can2025CE2Q12 extends ExerciceCan {
     }
     this.reponse = a * b
     this.question = 'Calcule : '
-    this.correction = `$${a}\\times ${b}=${Math.round(a / puissance)}\\times ${b}\\times${puissance}=${Math.round(a * b / puissance)}\\times ${puissance}=${miseEnEvidence(texNombre(a * b, 0))}$.`
+    this.correction = `$${a}\\times ${b}=${Math.round(a / puissance)}\\times ${b}\\times${puissance}=${Math.round((a * b) / puissance)}\\times ${puissance}=${miseEnEvidence(texNombre(a * b, 0))}$.`
     this.canEnonce = this.question
     this.question += `$${a}\\times ${b}$`
     if (this.interactif) {
@@ -38,7 +38,7 @@ export default class Can2025CE2Q12 extends ExerciceCan {
     this.canEnonce = 'Calcule.'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(40, 4) : this.enonce()
   }
 }

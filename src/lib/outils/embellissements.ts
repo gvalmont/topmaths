@@ -11,7 +11,10 @@ import FractionEtendue from '../../modules/FractionEtendue'
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function miseEnEvidence (texte: string | FractionEtendue | number, couleur: string = '#f15929') {
+export function miseEnEvidence(
+  texte: string | FractionEtendue | number,
+  couleur: string = '#f15929',
+) {
   if (texte instanceof FractionEtendue) texte = texte.texFraction
   if (typeof texte === 'number') texte = String(texte)
   if (isArray(couleur)) couleur = couleur[0]
@@ -57,10 +60,10 @@ export function miseEnEvidence (texte: string | FractionEtendue | number, couleu
  *   Le reste du nombre est laissé tel quel.
  */
 
-export function coloreUnSeulChiffre (
+export function coloreUnSeulChiffre(
   texte: string | FractionEtendue | number,
   couleur: string = '#f15929',
-  position: number = 1
+  position: number = 1,
 ): string {
   if (texte instanceof FractionEtendue) texte = texte.texFraction
   if (typeof texte === 'number') texte = String(texte)
@@ -79,20 +82,22 @@ export function coloreUnSeulChiffre (
   }
 
   const indexGauche = new Map<number, number>([
-    [1, -1],    // unités
-    [10, -2],   // dizaines
-    [100, -3],   // centaines
-    [1000, -6]   // milliers -6 à cause du séparateur de milliers
+    [1, -1], // unités
+    [10, -2], // dizaines
+    [100, -3], // centaines
+    [1000, -6], // milliers -6 à cause du séparateur de milliers
   ])
 
   const indexDroite = new Map<number, number>([
-    [0.1, 0],    // dixièmes
-    [0.01, 1],   // centièmes
-    [0.001, 2]   // millièmes
+    [0.1, 0], // dixièmes
+    [0.01, 1], // centièmes
+    [0.001, 2], // millièmes
   ])
 
   const estDroite = position < 1
-  const index = estDroite ? indexDroite.get(position) : indexGauche.get(position)
+  const index = estDroite
+    ? indexDroite.get(position)
+    : indexGauche.get(position)
   if (index === undefined) return texte // sécurité
 
   // Cas avec virgule
@@ -141,7 +146,10 @@ export function coloreUnSeulChiffre (
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Guillaume Valmont d'apres MiseEnEvidence() de Rémi Angot
  */
-export function miseEnCouleur (texte: string | number, couleur: string = '#f15929') {
+export function miseEnCouleur(
+  texte: string | number,
+  couleur: string = '#f15929',
+) {
   texte = typeof texte === 'number' ? String(texte) : texte
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -163,7 +171,7 @@ export function miseEnCouleur (texte: string | number, couleur: string = '#f1592
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function texteEnCouleur (texte: string | number, couleur = '#f15929') {
+export function texteEnCouleur(texte: string | number, couleur = '#f15929') {
   texte = typeof texte === 'number' ? String(texte) : texte
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -185,7 +193,10 @@ export function texteEnCouleur (texte: string | number, couleur = '#f15929') {
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function texteEnCouleurEtGras (texte: string | number, couleur = '#f15929') {
+export function texteEnCouleurEtGras(
+  texte: string | number,
+  couleur = '#f15929',
+) {
   if (typeof texte === 'number') texte = String(texte)
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -200,7 +211,7 @@ export function texteEnCouleurEtGras (texte: string | number, couleur = '#f15929
   return `{\\bfseries \\color{${couleur.replace('#', '')}}${texte}}`
 }
 
-export function barreTexte (text: string) {
+export function barreTexte(text: string) {
   if (context.isHtml) {
     return `<span class="oblique-strike">${text}</span>`
   } else {
@@ -213,8 +224,17 @@ export function barreTexte (text: string) {
  *
  * @author Rémi Angot
  */
-export function couleurAleatoire () {
-  return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])
+export function couleurAleatoire() {
+  return choice([
+    'white',
+    'black',
+    'red',
+    'green',
+    'blue',
+    'cyan',
+    'magenta',
+    'yellow',
+  ])
 }
 
 /**
@@ -225,7 +245,7 @@ export function couleurAleatoire () {
  * @example couleurTab(0) renverra de façon certaine ['black','noir','noire'].
  * @author Eric Elter
  */
-export function couleurTab (choixCouleur = 999) {
+export function couleurTab(choixCouleur = 999) {
   const panelCouleurs = [
     ['black', 'noir', 'noire'],
     ['red', 'rouge', 'rouge'],
@@ -234,21 +254,42 @@ export function couleurTab (choixCouleur = 999) {
     ['HotPink', 'rose', 'rose'],
     ['Sienna', 'marron', 'marron'],
     ['darkgray', 'gris', 'grise'],
-    ['DarkOrange', 'orange', 'orange']
+    ['DarkOrange', 'orange', 'orange'],
   ]
-  return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
+  return choixCouleur === 999 ||
+    choixCouleur >= panelCouleurs.length ||
+    !isInteger(choixCouleur)
+    ? choice(panelCouleurs)
+    : panelCouleurs[choixCouleur]
 }
 
-export function arcenciel (i: number, fondblanc = true) {
+export function arcenciel(i: number, fondblanc = true) {
   let couleurs
-  if (fondblanc) couleurs = ['violet', 'purple', 'blue', 'green', 'lime', '#f15929', 'red']
-  else couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
+  if (fondblanc)
+    couleurs = ['violet', 'purple', 'blue', 'green', 'lime', '#f15929', 'red']
+  else
+    couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
   return couleurs[i % 7]
 }
 
-export function texcolors (i: number, fondblanc = true) {
-  const couleurs = ['black', 'blue', 'brown', 'green', 'cyan', 'darkgray', 'pink', 'orange', 'red', 'magenta', 'purple', 'violet', 'white', 'yellow']
-  if (fondblanc && (i % couleurs.length) >= (couleurs.length - 2)) i += 2
+export function texcolors(i: number, fondblanc = true) {
+  const couleurs = [
+    'black',
+    'blue',
+    'brown',
+    'green',
+    'cyan',
+    'darkgray',
+    'pink',
+    'orange',
+    'red',
+    'magenta',
+    'purple',
+    'violet',
+    'white',
+    'yellow',
+  ]
+  if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
   return couleurs[i % couleurs.length]
 }
 
@@ -257,7 +298,7 @@ export function texcolors (i: number, fondblanc = true) {
  * @param {string} texte à mettre en gras
  * @author Rémi Angot
  */
-export function texteGras (texte: string) {
+export function texteGras(texte: string) {
   if (context.isHtml) {
     return `<b>${texte}</b>`
   } else {
@@ -268,7 +309,7 @@ export function texteGras (texte: string) {
 /**
  * Texte en italique
  */
-export function texteItalique (texte: string) {
+export function texteItalique(texte: string) {
   if (context.isHtml) {
     return `<i>${texte}</i>`
   } else {
@@ -276,7 +317,7 @@ export function texteItalique (texte: string) {
   }
 }
 
-export function blocCode (texte: string) {
+export function blocCode(texte: string) {
   if (context.isHtml) {
     return `<pre style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-family: Courier New, monospace; white-space: pre-wrap;">
     ${texte}</pre>`
@@ -289,14 +330,14 @@ export function blocCode (texte: string) {
     }\\newline`
 }
 
-export function texteCode (texte: string) {
+export function texteCode(texte: string) {
   if (context.isHtml) {
     return `<span style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; font-family: Courier New, monospace; white-space: pre-wrap;">${texte}</span>`
   }
   return `\\colorbox{lightgray}{\\texttt{${texte}}}`
 }
 
-export function texteEnBoite (texte: string) {
+export function texteEnBoite(texte: string) {
   if (context.isHtml) {
     return `<div style="display: inline-block; max-width: fit-content; border: 2px solid #444; border-radius: 4px; padding: 10px;">${texte}</div>`
   }

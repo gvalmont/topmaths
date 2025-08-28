@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  reduirePolynomeDegre3,
+} from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer un discriminant'
@@ -16,17 +19,17 @@ export const uuid = 'd0042'
 
 export const refs = {
   'fr-fr': ['can1L01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Discriminant extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 5) * choice([-1, 1, 1, 1])
     const b = randint(-5, 5)
     const c = randint(-5, 5)

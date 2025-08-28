@@ -4,8 +4,11 @@
 import { runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
 
-async function test (page: Page) {
-  const uuid = Object.entries(process.env).filter(([key]) => key === 'uuid').map(el => el[1])[0] ?? 'ace0a'
+async function test(page: Page) {
+  const uuid =
+    Object.entries(process.env)
+      .filter(([key]) => key === 'uuid')
+      .map((el) => el[1])[0] ?? 'ace0a'
   const urlExercice = `http://localhost:5173/alea/?uuid=${uuid}`
   await page.goto(urlExercice)
   await page.screenshot({ path: `screenshots/${uuid}/prof.png` })
@@ -44,7 +47,7 @@ async function test (page: Page) {
   await page.screenshot({ path: `screenshots/${uuid}/diaporama1corrQ.png` })
   await page.screenshot({ path: 'screenshots/last/diaporama1corrQ.png' })
   await page.locator('.bx-show').click()
-  if (await page.locator('.step').count() > 1) {
+  if ((await page.locator('.step').count()) > 1) {
     await page.locator('.bx-skip-next').click()
     await page.screenshot({ path: `screenshots/${uuid}/diaporama2.png` })
     await page.screenshot({ path: 'screenshots/last/diaporama2.png' })
@@ -53,7 +56,10 @@ async function test (page: Page) {
   await page.goto(urlLatex)
   await page.click('text=ProfMaquette')
   await page.waitForTimeout(1500)
-  await page.screenshot({ path: `screenshots/${uuid}/latex.png`, fullPage: true })
+  await page.screenshot({
+    path: `screenshots/${uuid}/latex.png`,
+    fullPage: true,
+  })
   await page.screenshot({ path: 'screenshots/last/latex.png', fullPage: true })
   const urlCan = urlExercice + '&v=can'
   await page.goto(urlCan)

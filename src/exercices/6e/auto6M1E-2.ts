@@ -1,5 +1,9 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -7,7 +11,8 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Calculer mentalement le périmètre de carrés, rectangles et cercles'
+export const titre =
+  'Calculer mentalement le périmètre de carrés, rectangles et cercles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '13/12/2024'
@@ -17,34 +22,36 @@ export const uuid = 'e9252'
 export const refs = {
   'fr-fr': ['auto6M1E-2'],
   'fr-2016': ['6M25-1'],
-  'fr-ch': ['9GM1-18']
+  'fr-ch': ['9GM1-18'],
 }
 /**
  * Les longueurs sont choisies de telle sorte que le calcul mental soit possible.
  * @author Rémi Angot
-*/
+ */
 export default class PerimetresCalculMental extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 4
     this.spacingCorr = 2
     this.besoinFormulaireTexte = [
-      'Type de figures', [
+      'Type de figures',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Carré',
         '2 : Rectangle',
         '3 : Cercle avec rayon',
         '4 : Cercle avec diamètre',
-        '5 : Mélange'
-      ].join('\n')
+        '5 : Mélange',
+      ].join('\n'),
     ]
     this.sup = 5
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1
-      ? 'Calculer le périmètre exact de la figure suivante.'
-      : 'Calculer le périmètre exact des figures suivantes.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Calculer le périmètre exact de la figure suivante.'
+        : 'Calculer le périmètre exact des figures suivantes.'
 
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -53,10 +60,10 @@ export default class PerimetresCalculMental extends Exercice {
       min: 1,
       max: 4,
       melange: 5,
-      defaut: 5
+      defaut: 5,
     }).map(String)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let texteInteractif = ''
@@ -68,7 +75,15 @@ export default class PerimetresCalculMental extends Exercice {
             texteCorr = '$\\mathcal{P}_\\text{carré} = 4 \\times c$'
             texteCorr += `<br>$\\mathcal{P}_\\text{carré} = 4 \\times ${texNombre(c)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{carré} = ${miseEnEvidence(texNombre(4 * c))}~\\text{cm}$`
-            texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{carré} =$', texteApres: '$~\\text{cm}$' })
+            texteInteractif += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.college6eme,
+              {
+                texteAvant: '$\\mathcal{P}_\\text{carré} =$',
+                texteApres: '$~\\text{cm}$',
+              },
+            )
             handleAnswers(this, i, { reponse: { value: texNombre(4 * c) } })
           }
           break
@@ -81,29 +96,65 @@ export default class PerimetresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = 2 \\times (${texNombre(L)} + ${texNombre(l)})~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = 2 \\times ${texNombre(L + l)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = ${miseEnEvidence(texNombre(2 * (L + l)))}~\\text{cm}$`
-            texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{rectangle} =$', texteApres: '$~\\text{cm}$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(2 * L + 2 * l) } })
+            texteInteractif += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.college6eme,
+              {
+                texteAvant: '$\\mathcal{P}_\\text{rectangle} =$',
+                texteApres: '$~\\text{cm}$',
+              },
+            )
+            handleAnswers(this, i, {
+              reponse: { value: texNombre(2 * L + 2 * l) },
+            })
           }
           break
         case 'cercleRayon':
           {
             const r = randint(2, 9)
             texte = `Cercle de rayon $${texNombre(r)}$ cm`
-            texteCorr = '$\\mathcal{P}_\\text{cercle} = 2 \\times r \\times \\pi$'
+            texteCorr =
+              '$\\mathcal{P}_\\text{cercle} = 2 \\times r \\times \\pi$'
             texteCorr += `<br>$\\mathcal{P}_\\text{cercle} = 2 \\times ${texNombre(r)}~\\text{cm} \\times \\pi$`
             texteCorr += `<br>$\\mathcal{P}_\\text{cercle} = ${miseEnEvidence(`${texNombre(2 * r)}\\pi`)}~\\text{cm}$`
-            texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{cercle} =$', texteApres: '$~\\text{cm}$' })
-            handleAnswers(this, i, { reponse: { value: `${2 * r}\\pi`, options: { exclusifFactorisation: true } } })
+            texteInteractif += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.college6eme,
+              {
+                texteAvant: '$\\mathcal{P}_\\text{cercle} =$',
+                texteApres: '$~\\text{cm}$',
+              },
+            )
+            handleAnswers(this, i, {
+              reponse: {
+                value: `${2 * r}\\pi`,
+                options: { exclusifFactorisation: true },
+              },
+            })
           }
           break
-        case 'cercleDiametre':
-        {
+        case 'cercleDiametre': {
           const d = randint(2, 9)
           texte = `Cercle de diamètre $${texNombre(d)}$ cm`
           texteCorr = '$\\mathcal{P}_\\text{cercle} = d \\times \\pi$'
           texteCorr += `<br>$\\mathcal{P}_\\text{cercle} = ${miseEnEvidence(`${texNombre(d)}\\pi`)}~\\text{cm}$`
-          texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{cercle} =$', texteApres: '$~\\text{cm}$' })
-          handleAnswers(this, i, { reponse: { value: `${d}\\pi`, options: { exclusifFactorisation: true } } })
+          texteInteractif += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.college6eme,
+            {
+              texteAvant: '$\\mathcal{P}_\\text{cercle} =$',
+              texteApres: '$~\\text{cm}$',
+            },
+          )
+          handleAnswers(this, i, {
+            reponse: {
+              value: `${d}\\pi`,
+              options: { exclusifFactorisation: true },
+            },
+          })
         }
       }
       if (this.questionJamaisPosee(i, texte)) {

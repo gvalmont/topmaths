@@ -15,7 +15,7 @@ export const uuid = '36031'
 
 */
 export default class AbscisseEnDemisCM2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -24,7 +24,7 @@ export default class AbscisseEnDemisCM2 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a1: number
     let a2: number
     const delta = 1
@@ -38,10 +38,25 @@ export default class AbscisseEnDemisCM2 extends ExerciceSimple {
 
     const x = a2 + 0.5
     this.reponse = { reponse: { value: `\\frac{${2 * a2 + 1}}{2}` } } // this.reponse = String(x)
-    const drGrad = new DroiteGraduee({ Unite: 2, Min: a1, Max: a2 + 2, thickSec: true, thickSecDist: 0.5, labelsPrincipaux: false, labelListe: [[a2, String(a2)], [a2 + 1, String(a2 + 1)]], pointListe: [[x, 'A']] })
+    const drGrad = new DroiteGraduee({
+      Unite: 2,
+      Min: a1,
+      Max: a2 + 2,
+      thickSec: true,
+      thickSecDist: 0.5,
+      labelsPrincipaux: false,
+      labelListe: [
+        [a2, String(a2)],
+        [a2 + 1, String(a2 + 1)],
+      ],
+      pointListe: [[x, 'A']],
+    })
     const objets = [drGrad]
     this.question = 'Donner le nombre qui repère le point A.<br>'
-    this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    this.question += mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.correction = `Le nombre qui repère le point A est : $${miseEnEvidence(texNombre(x, 1))}$.`

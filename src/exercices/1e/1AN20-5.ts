@@ -1,11 +1,16 @@
-import { carreParfait, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  carreParfait,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  rienSi1
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
@@ -15,21 +20,25 @@ import { context } from '../../modules/context'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { factorisation } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions'
-export const titre = 'Étudier le sens de variation d\'une fonction rationnelle'
+export const titre = "Étudier le sens de variation d'une fonction rationnelle"
 export const dateDePublication = '05/05/2025'
 export const interactifReady = false
 export const uuid = 'b0576'
 export const refs = {
   'fr-fr': ['1AN20-5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
  * Étudier le sens de variations d'une fonction polynôme du troisième degré'
  * @author Gilles Mora avec l'aide précieuse de Jean-Claude Lhote
-*/
+ */
 
-function rationnelleDegre2 (simple = false, choix = true, deltaPositif = true): { a: number, b: number, c: number, d: number, e: number } {
+function rationnelleDegre2(
+  simple = false,
+  choix = true,
+  deltaPositif = true,
+): { a: number; b: number; c: number; d: number; e: number } {
   const elements = [
     { nb: 12, decomp: [2, 2, 3] },
     { nb: 18, decomp: [2, 3, 3] },
@@ -37,7 +46,7 @@ function rationnelleDegre2 (simple = false, choix = true, deltaPositif = true): 
     { nb: 28, decomp: [2, 2, 7] },
     { nb: 30, decomp: [2, 3, 5] },
     { nb: 42, decomp: [2, 3, 7] },
-    { nb: 45, decomp: [3, 3, 5] }
+    { nb: 45, decomp: [3, 3, 5] },
   ]
   const elementsSimple = [
     { nb: 4, decomp: [2, 2] },
@@ -45,14 +54,14 @@ function rationnelleDegre2 (simple = false, choix = true, deltaPositif = true): 
     { nb: 9, decomp: [3, 3] },
     { nb: 10, decomp: [2, 5] },
     { nb: 14, decomp: [2, 7] },
-    { nb: 15, decomp: [3, 5] }
+    { nb: 15, decomp: [3, 5] },
   ]
   let a: number
   let b: number
   let c: number
   let d: number
   let e: number
-  let deltaIsOk : boolean
+  let deltaIsOk: boolean
   let tropGrand = false
   do {
     const signe1 = choice([-1, 1])
@@ -70,7 +79,8 @@ function rationnelleDegre2 (simple = false, choix = true, deltaPositif = true): 
     n1 = Number(facteurs.pop())
     n2 = nombre / n1
     if (deltaPositif) {
-      if (choix) { // 1er choix (true) : be=cd
+      if (choix) {
+        // 1er choix (true) : be=cd
         if (simple) {
           n3 = 1
           n4 = nombre
@@ -82,27 +92,39 @@ function rationnelleDegre2 (simple = false, choix = true, deltaPositif = true): 
         n2 *= signe2
         n3 *= signe3
         n4 *= signe4
-        const [couple1, couple2] = shuffle([shuffle([n1, n2]), shuffle([n3, n4])])
-         ;[b, e] = couple1
+        const [couple1, couple2] = shuffle([
+          shuffle([n1, n2]),
+          shuffle([n3, n4]),
+        ])
+        ;[b, e] = couple1
         ;[c, d] = couple2
         a = randint(1, 5) * choice([-1, 1])
-      } else { // 2e choix (false) ae = bd avec ac carré parfait
-        if (simple) { // on n'a pas le choix, n1 et n2 sont les deux facteurs n1*n2 peut être un carré
+      } else {
+        // 2e choix (false) ae = bd avec ac carré parfait
+        if (simple) {
+          // on n'a pas le choix, n1 et n2 sont les deux facteurs n1*n2 peut être un carré
           n3 = 1
           n4 = nombre
-          if (carreParfait(nombre)) { // ça veut dire n1=n2 !
-            if (choice([true, false])) { // bd=n3*n4
+          if (carreParfait(nombre)) {
+            // ça veut dire n1=n2 !
+            if (choice([true, false])) {
+              // bd=n3*n4
               ;[b, d] = shuffle([n3 * signe3, n4 * signe4])
               a = n1 * signe1
               e = n2 * signe2
               c = n1 * signe1 * choice([1, 4, 9])
-            } else { // bd = n1*n2 ce qui veut dire que a sera ou 1 ou nombre qui sont des carrés à signe3 près
+            } else {
+              // bd = n1*n2 ce qui veut dire que a sera ou 1 ou nombre qui sont des carrés à signe3 près
               ;[b, d] = shuffle([n1 * signe1, n2 * signe2])
               ;[a, e] = shuffle([n3 * signe3, n4 * signe4])
-              c = (a > 1 ? choice([1, 4]) : choice([1, 4, 9, 16])) * (a > 0 ? 1 : -1)
+              c =
+                (a > 1 ? choice([1, 4]) : choice([1, 4, 9, 16])) *
+                (a > 0 ? 1 : -1)
             }
-          } else { // nombre n'est pas un carré parfait
-            if (choice([true, false])) { // bd=n3*n4 soit 1*nombre n1 et n2 sont les deux facteurs premiers différents
+          } else {
+            // nombre n'est pas un carré parfait
+            if (choice([true, false])) {
+              // bd=n3*n4 soit 1*nombre n1 et n2 sont les deux facteurs premiers différents
               const avecUn = choice([true, false])
               if (avecUn) {
                 n3 = 1
@@ -114,13 +136,18 @@ function rationnelleDegre2 (simple = false, choix = true, deltaPositif = true): 
               ;[b, d] = shuffle([n3 * signe3, n4 * signe4])
               ;[a, e] = shuffle([n1 * signe1, n2 * signe2])
               c = signe1 * Math.abs(a) * choice([1, 4, 9])
-            } else { // bd = n1*n2 ce qui veut dire que a sera ou 1 ou nombre qui n'est pas un carré
+            } else {
+              // bd = n1*n2 ce qui veut dire que a sera ou 1 ou nombre qui n'est pas un carré
               ;[b, d] = shuffle([n1 * signe1, n2 * signe2])
               ;[a, e] = shuffle([n3 * signe3, n4 * signe4])
-              c = (a !== 1 ? choice([1, 4]) * Math.abs(a) : choice([1, 4, 9, 16])) * (a > 0 ? 1 : -1) // a*c doit être un carré donc positif
+              c =
+                (a !== 1
+                  ? choice([1, 4]) * Math.abs(a)
+                  : choice([1, 4, 9, 16])) * (a > 0 ? 1 : -1) // a*c doit être un carré donc positif
             }
           }
-        } else { // ici la décomposition a plus de deux facteurs
+        } else {
+          // ici la décomposition a plus de deux facteurs
           const avecUn = choice([true, false])
           const el = choice(elements)
           const nombre = el.nb
@@ -139,16 +166,23 @@ function rationnelleDegre2 (simple = false, choix = true, deltaPositif = true): 
           n2 *= signe2
           n3 *= signe3
           n4 *= signe4
-          const [couple1, couple2] = shuffle([shuffle([n1, n2]), shuffle([n3, n4])])
+          const [couple1, couple2] = shuffle([
+            shuffle([n1, n2]),
+            shuffle([n3, n4]),
+          ])
           ;[b, d] = couple1
           ;[a, e] = couple2
           if (Math.abs(a) === 1) {
             c = choice([1, 4, 9, 16]) * (a > 0 ? 1 : -1) // a=1 ou -1 donc on choisit un carré avec le signe de a devant
           } else {
             // a différent de 1 ou -1
-          // On doit extraire le plus grand carré de Math.abs(a)
-            const decompo = factorisation(Math.abs(a)).filter((el) => el[1] % 2 !== 0) // on ne conserve que les facteurs avec un exposant impair
-            const facteurComp = decompo.map(el => el[0]).reduce((acc, el) => acc * el, 1) // on multiplie les facteurs
+            // On doit extraire le plus grand carré de Math.abs(a)
+            const decompo = factorisation(Math.abs(a)).filter(
+              (el) => el[1] % 2 !== 0,
+            ) // on ne conserve que les facteurs avec un exposant impair
+            const facteurComp = decompo
+              .map((el) => el[0])
+              .reduce((acc, el) => acc * el, 1) // on multiplie les facteurs
             c = (a > 0 ? 1 : -1) * facteurComp
           }
         }
@@ -163,39 +197,44 @@ function rationnelleDegre2 (simple = false, choix = true, deltaPositif = true): 
     }
 
     const deltaSur4 = a * a * e * e - d * a * (b * e - d * c)
-    deltaIsOk = deltaPositif
-      ? deltaSur4 > 0
-      : deltaSur4 <= 0
-    tropGrand = Math.max(...([d * a, b * e - d * c, 2 * a * e].map(Math.abs))) > 100
-  } while ((!deltaIsOk || tropGrand))
+    deltaIsOk = deltaPositif ? deltaSur4 > 0 : deltaSur4 <= 0
+    tropGrand =
+      Math.max(...[d * a, b * e - d * c, 2 * a * e].map(Math.abs)) > 100
+  } while (!deltaIsOk || tropGrand)
   return { a, b, c, d, e }
 }
 
 export default class EtudeFctRatio extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', '\n1 : Fonction (ax+b)/(cx+d)\n2 : Fonction a/(cx+d)\n3 : Fonction a/(bx^2+c) sur R\n4: Fonction (ax^2+bx+c)/(dx+e)\n5: Mélange']
+    this.besoinFormulaireTexte = [
+      'Choix des questions',
+      '\n1 : Fonction (ax+b)/(cx+d)\n2 : Fonction a/(cx+d)\n3 : Fonction a/(bx^2+c) sur R\n4: Fonction (ax^2+bx+c)/(dx+e)\n5: Mélange',
+    ]
     this.sup = '1'
     this.spacing = 1.5
     this.spacingCorr = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 4,
       melange: 5,
       defaut: 5,
-      nbQuestions: this.nbQuestions
-
+      nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, ligne1, ligne2, ligne3, ligneVar, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, ligne1, ligne2, ligne3, ligneVar, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let texte = ''
       let texteCorr = ''
       switch (listeDeQuestions[i]) {
-        case 1://
+        case 1: //
           {
             let a = randint(-5, 8, 0)
             let b = randint(-5, 10, 0)
@@ -208,15 +247,14 @@ export default class EtudeFctRatio extends Exercice {
               b = randint(-5, 10)
               c = randint(-3, 3, 0)
               d = randint(-5, 5, 0) * c
-            }
-            while
-            (a * d - b * c === 0)
+            } while (a * d - b * c === 0)
             if (a * d - b * c > 0) {
               ligne1 = lignePP
               ligne2 = lignePP
               ligne3 = lignePP
               ligneVar = ['Var', 10, '-/', 20, '+D-/ /', 20, '+/', 10]
-            } else { // Sinon, la deuxième ligne change de signe en premier
+            } else {
+              // Sinon, la deuxième ligne change de signe en premier
               ligne1 = ligneMM
               ligne2 = lignePP
               ligne3 = ligneMM
@@ -225,7 +263,8 @@ export default class EtudeFctRatio extends Exercice {
 
             texte = `On considère la fonction $f$ définie sur $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$ par : $f(x)=\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}$.<br>
       Étudier le sens de variations de la fonction $f$ sur son ensemble de définition.<br>`
-            texteCorr += `$f$ est le quotient de deux fonctions dérivables sur  $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$ dont le dénominateur ne s'annule pas $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$.<br>
+            texteCorr +=
+              `$f$ est le quotient de deux fonctions dérivables sur  $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$ dont le dénominateur ne s'annule pas $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$.<br>
             On en déduit que $f$ est dérivable sur  $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$.<br>
             Pour tout $x\\in\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$, <br>
             $\\begin{aligned}
@@ -234,24 +273,35 @@ export default class EtudeFctRatio extends Exercice {
             &=\\dfrac{${a * d - c * b}}{(${reduireAxPlusB(c, d)})^2}
             \\end{aligned}$<br>
             On en déduit le tableau de variations suivant : <br><br> ` +
-            tableauDeVariation({
-              tabInit: [
-                [
-                  ['$x$', 1.5, 20], [`$${a * d - c * b}$`, 2, 25], [`$(${reduireAxPlusB(c, d)})^2$`, 2, 25], ['$f\'(x)$', 2, 25], ['$f(x)$', 4, 200]
+              tableauDeVariation({
+                tabInit: [
+                  [
+                    ['$x$', 1.5, 20],
+                    [`$${a * d - c * b}$`, 2, 25],
+                    [`$(${reduireAxPlusB(c, d)})^2$`, 2, 25],
+                    ["$f'(x)$", 2, 25],
+                    ['$f(x)$', 4, 200],
+                  ],
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${texNombre(-d / c, 0)}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
-                ['$-\\infty$', 30, `$${texNombre(-d / c, 0)}$`, 20, '$+\\infty$', 30]
-              ],
-              tabLines: [ligne1, ligne2, ligne3, ligneVar],
-              espcl: 6,
-              deltacl: 0.8,
-              lgt: 6,
-              scale: context.isHtml ? 1 : 0.4
-            })
+                tabLines: [ligne1, ligne2, ligne3, ligneVar],
+                espcl: 6,
+                deltacl: 0.8,
+                lgt: 6,
+                scale: context.isHtml ? 1 : 0.4,
+              })
           }
 
           break
 
-        case 2://
+        case 2: //
           {
             const a = randint(-10, 10, 0)
             const c = randint(-2, 6, 0)
@@ -263,7 +313,8 @@ export default class EtudeFctRatio extends Exercice {
               ligne2 = lignePP
               ligne3 = lignePP
               ligneVar = ['Var', 10, '-/', 20, '+D-/ /', 20, '+/', 10]
-            } else { // Sinon, la deuxième ligne change de signe en premier
+            } else {
+              // Sinon, la deuxième ligne change de signe en premier
               ligne1 = ligneMM
               ligne2 = lignePP
               ligne3 = ligneMM
@@ -272,7 +323,8 @@ export default class EtudeFctRatio extends Exercice {
 
             texte = `On considère la fonction $f$ définie sur $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$ par : $f(x)=\\dfrac{${a}}{${reduireAxPlusB(c, d)}}$.<br>
       Étudier le sens de variations de la fonction $f$ sur son ensemble de définition.<br>`
-            texteCorr += `$f$ est le quotient de deux fonctions dérivables sur  $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$ dont le dénominateur ne s'annule pas $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$.<br>
+            texteCorr +=
+              `$f$ est le quotient de deux fonctions dérivables sur  $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$ dont le dénominateur ne s'annule pas $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$.<br>
             On en déduit que $f$ est dérivable sur  $\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$.<br>
             Comme $f(x)=${a}\\times \\dfrac{1}{${reduireAxPlusB(c, d)}}$, on calcule  $f'(x)$ en utilisant la formule $${a}\\times \\left(\\dfrac{1}{u}\\right)'=${a}\\times\\left(-\\dfrac{u'}{u^2}\\right)$.<br>
             Pour tout $x\\in\\mathbb{R}\\smallsetminus\\{${texNombre(-d / c, 0)}\\}$, <br>
@@ -281,23 +333,34 @@ export default class EtudeFctRatio extends Exercice {
             &=\\dfrac{${-a * c}}{(${reduireAxPlusB(c, d)})^2}\
             \\end{aligned}$<br>
             On en déduit le tableau de variations suivant : <br><br> ` +
-            tableauDeVariation({
-              tabInit: [
-                [
-                  ['$x$', 1.5, 20], [`$${-a * c}$`, 2, 25], [`$(${reduireAxPlusB(c, d)})^2$`, 2, 25], ['$f\'(x)$', 2, 25], ['$f(x)$', 4, 200]
+              tableauDeVariation({
+                tabInit: [
+                  [
+                    ['$x$', 1.5, 20],
+                    [`$${-a * c}$`, 2, 25],
+                    [`$(${reduireAxPlusB(c, d)})^2$`, 2, 25],
+                    ["$f'(x)$", 2, 25],
+                    ['$f(x)$', 4, 200],
+                  ],
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${texNombre(-d / c, 0)}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
-                ['$-\\infty$', 30, `$${texNombre(-d / c, 0)}$`, 20, '$+\\infty$', 30]
-              ],
-              tabLines: [ligne1, ligne2, ligne3, ligneVar],
-              espcl: 6,
-              deltacl: 0.8,
-              lgt: 6,
-              scale: context.isHtml ? 1 : 0.4
-            })
+                tabLines: [ligne1, ligne2, ligne3, ligneVar],
+                espcl: 6,
+                deltacl: 0.8,
+                lgt: 6,
+                scale: context.isHtml ? 1 : 0.4,
+              })
           }
           break
 
-        case 3://
+        case 3: //
           {
             const a = randint(-10, 10, 0)
             const c = randint(1, 6, 0)
@@ -310,17 +373,37 @@ export default class EtudeFctRatio extends Exercice {
               ligne1 = ligneMP
               ligne2 = lignePP
               ligne3 = ligneMP
-              ligneVar = ['Var', 10, '+/', 10, `-/$${ext.texFSD}$`, 10, '+/', 10]
-            } else { // Sinon, la deuxième ligne change de signe en premier
+              ligneVar = [
+                'Var',
+                10,
+                '+/',
+                10,
+                `-/$${ext.texFSD}$`,
+                10,
+                '+/',
+                10,
+              ]
+            } else {
+              // Sinon, la deuxième ligne change de signe en premier
               ligne1 = lignePM
               ligne2 = lignePP
               ligne3 = lignePM
-              ligneVar = ['Var', 10, '-/', 10, `+/$${ext.texFSD}$`, 10, '-/', 10]
+              ligneVar = [
+                'Var',
+                10,
+                '-/',
+                10,
+                `+/$${ext.texFSD}$`,
+                10,
+                '-/',
+                10,
+              ]
             }
 
             texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=\\dfrac{${a}}{${rienSi1(c)}x^2${ecritureAlgebrique(d)}}$.<br>
      Étudier le sens de variations de la fonction $f$ sur son ensemble de définition.<br>`
-            texteCorr += `$f$ est le quotient de deux fonctions dérivables sur  $\\mathbb{R}$ dont le dénominateur ne s'annule pas $\\mathbb{R}$.<br>
+            texteCorr +=
+              `$f$ est le quotient de deux fonctions dérivables sur  $\\mathbb{R}$ dont le dénominateur ne s'annule pas $\\mathbb{R}$.<br>
            On en déduit que $f$ est dérivable sur  $\\mathbb{R}$.<br>
            Comme $f(x)=${a}\\times \\dfrac{1}{${rienSi1(c)}x^2${ecritureAlgebrique(d)}}$, on calcule  $f'(x)$ en utilisant la formule $${a}\\times \\left(\\dfrac{1}{u}\\right)'=${a}\\times\\left(-\\dfrac{u'}{u^2}\\right)$.<br>
            Pour tout $x\\in\\mathbb{R}$, <br>
@@ -329,42 +412,116 @@ export default class EtudeFctRatio extends Exercice {
            &=\\dfrac{${-2 * a * c}x}{(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2}\
            \\end{aligned}$<br>
            On en déduit le tableau de variations suivant : <br><br> ` +
-           tableauDeVariation({
-             tabInit: [
-               [
-                 ['$x$', 1.5, 20], [`$${-2 * a * c}x$`, 2, 25], [`$(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2$`, 2, 25], ['$f\'(x)$', 2, 25], ['$f(x)$', 4, 200]
-               ],
-               ['$-\\infty$', 30, '$0$', 20, '$+\\infty$', 30]
-             ],
-             tabLines: [ligne1, ligne2, ligne3, ligneVar],
-             espcl: 6,
-             deltacl: 0.8,
-             lgt: 6,
-             scale: context.isHtml ? 1 : 0.4
-           })
+              tableauDeVariation({
+                tabInit: [
+                  [
+                    ['$x$', 1.5, 20],
+                    [`$${-2 * a * c}x$`, 2, 25],
+                    [`$(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2$`, 2, 25],
+                    ["$f'(x)$", 2, 25],
+                    ['$f(x)$', 4, 200],
+                  ],
+                  ['$-\\infty$', 30, '$0$', 20, '$+\\infty$', 30],
+                ],
+                tabLines: [ligne1, ligne2, ligne3, ligneVar],
+                espcl: 6,
+                deltacl: 0.8,
+                lgt: 6,
+                scale: context.isHtml ? 1 : 0.4,
+              })
           }
           break
 
-        case 4://
-
+        case 4: //
           switch (randint(1, 2)) {
-            case 1 :
+            case 1:
               {
-                const { a, b, c, d, e } = rationnelleDegre2(choice([true, false]), choice([true, false]), true)
+                const { a, b, c, d, e } = rationnelleDegre2(
+                  choice([true, false]),
+                  choice([true, false]),
+                  true,
+                )
                 const image = function (r: FractionEtendue) {
                   const dxpluse = r.multiplieEntier(d).ajouteEntier(e)
                   const denominateur = dxpluse
-                  const numerateur = r.produitFraction(r).multiplieEntier(a).sommeFraction(r.multiplieEntier(b)).ajouteEntier(c)
+                  const numerateur = r
+                    .produitFraction(r)
+                    .multiplieEntier(a)
+                    .sommeFraction(r.multiplieEntier(b))
+                    .ajouteEntier(c)
                   return numerateur.diviseFraction(denominateur).simplifie()
                 }
                 const p = new Trinome(a, b, c)
                 const valInterdite = new FractionEtendue(-e, d).simplifie()
                 const pPrime = new Trinome(a * d, 2 * a * e, b * e - d * c)
-                const lignePMMP = ['Line', 30, '', 0, '+', 20, 'z', 5, '-', 5, 'd', 5, '-', 5, 'z', 5, '+', 20]
-                const ligneMPPM = ['Line', 30, '', 0, '-', 20, 'z', 5, '+', 5, 'd', 5, '+', 5, 'z', 5, '-', 20]
-                const lignePPPP = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 5, 'd', 5, '+', 5, 't', 5, '+', 20]
-                const x1 = pPrime.x1 instanceof FractionEtendue ? pPrime.x1 : fraction(Number(pPrime.x1), 1)
-                const x2 = pPrime.x2 instanceof FractionEtendue ? pPrime.x2 : fraction(Number(pPrime.x2), 1)
+                const lignePMMP = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  'z',
+                  5,
+                  '-',
+                  5,
+                  'd',
+                  5,
+                  '-',
+                  5,
+                  'z',
+                  5,
+                  '+',
+                  20,
+                ]
+                const ligneMPPM = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  5,
+                  '+',
+                  5,
+                  'd',
+                  5,
+                  '+',
+                  5,
+                  'z',
+                  5,
+                  '-',
+                  20,
+                ]
+                const lignePPPP = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  't',
+                  5,
+                  '+',
+                  5,
+                  'd',
+                  5,
+                  '+',
+                  5,
+                  't',
+                  5,
+                  '+',
+                  20,
+                ]
+                const x1 =
+                  pPrime.x1 instanceof FractionEtendue
+                    ? pPrime.x1
+                    : fraction(Number(pPrime.x1), 1)
+                const x2 =
+                  pPrime.x2 instanceof FractionEtendue
+                    ? pPrime.x2
+                    : fraction(Number(pPrime.x2), 1)
                 const val1 = image(x1)
                 const val2 = image(x2)
 
@@ -372,12 +529,39 @@ export default class EtudeFctRatio extends Exercice {
                   ligne1 = lignePMMP
                   ligne2 = lignePPPP
                   ligne3 = lignePMMP
-                  ligneVar = ['Var', 10, '-/', 10, `+/$${val1.texFraction}$`, 20, '-D+/ /', 30, `-/$${val2.texFraction}$`, 10, '+/', 10]
-                } else { // Sinon, la deuxième ligne change de signe en premier
+                  ligneVar = [
+                    'Var',
+                    10,
+                    '-/',
+                    10,
+                    `+/$${val1.texFraction}$`,
+                    20,
+                    '-D+/ /',
+                    30,
+                    `-/$${val2.texFraction}$`,
+                    10,
+                    '+/',
+                    10,
+                  ]
+                } else {
+                  // Sinon, la deuxième ligne change de signe en premier
                   ligne1 = ligneMPPM
                   ligne2 = lignePPPP
                   ligne3 = lignePMMP
-                  ligneVar = ['Var', 10, '+/', 10, `-/$${val1.texFraction}$`, 20, '+D-/ /', 30, `+/$${val2.texFraction}$`, 10, '-/', 10]
+                  ligneVar = [
+                    'Var',
+                    10,
+                    '+/',
+                    10,
+                    `-/$${val1.texFraction}$`,
+                    20,
+                    '+D-/ /',
+                    30,
+                    `+/$${val2.texFraction}$`,
+                    10,
+                    '-/',
+                    10,
+                  ]
                 }
                 texte = `On considère la fonction $f$ définie sur $\\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFSD}\\right\\}$ par : $f(x)=\\dfrac{${p}}{${reduireAxPlusB(d, e)}}$.<br>
        Étudier le sens de variations de la fonction $f$ sur son ensemble de définition.<br>`
@@ -400,27 +584,51 @@ export default class EtudeFctRatio extends Exercice {
  $${pPrime.texCalculRacine1(true)}$<br>
  $${pPrime.texCalculRacine2(true)}$<br>`
                 }
-                texteCorr += `Un polynôme du second degré est du signe de $a$ sauf entre ses racines. <br>
+                texteCorr +=
+                  `Un polynôme du second degré est du signe de $a$ sauf entre ses racines. <br>
             Ici, $a=${a * d}$, ainsi :<br>` +
-           tableauDeVariation({
-             tabInit: [
-               [
-                 ['$x$', 2, 20], [`$${pPrime}$`, 2, 25], [`$(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2$`, 2, 25], ['$f\'(x)$', 2, 25], ['$f(x)$', 4, 200]
-               ],
-               ['$-\\infty$', 30, `$${pPrime.x1.simplifie().texFSD}$`, 20, `$${valInterdite.texFSD}$`, 20, `$${pPrime.x2.simplifie().texFSD}$`, 20, '$+\\infty$', 30]
-             ],
-             tabLines: [ligne1, ligne2, ligne3, ligneVar],
-             espcl: 5,
-             deltacl: 0.8,
-             lgt: 6,
-             scale: context.isHtml ? 1 : 0.5
-           })
+                  tableauDeVariation({
+                    tabInit: [
+                      [
+                        ['$x$', 2, 20],
+                        [`$${pPrime}$`, 2, 25],
+                        [
+                          `$(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2$`,
+                          2,
+                          25,
+                        ],
+                        ["$f'(x)$", 2, 25],
+                        ['$f(x)$', 4, 200],
+                      ],
+                      [
+                        '$-\\infty$',
+                        30,
+                        `$${pPrime.x1.simplifie().texFSD}$`,
+                        20,
+                        `$${valInterdite.texFSD}$`,
+                        20,
+                        `$${pPrime.x2.simplifie().texFSD}$`,
+                        20,
+                        '$+\\infty$',
+                        30,
+                      ],
+                    ],
+                    tabLines: [ligne1, ligne2, ligne3, ligneVar],
+                    espcl: 5,
+                    deltacl: 0.8,
+                    lgt: 6,
+                    scale: context.isHtml ? 1 : 0.5,
+                  })
               }
               break
 
-            case 2 :
+            case 2:
               {
-                const { a, b, c, d, e } = rationnelleDegre2(choice([true, false]), choice([true, false]), false)
+                const { a, b, c, d, e } = rationnelleDegre2(
+                  choice([true, false]),
+                  choice([true, false]),
+                  false,
+                )
 
                 const p = new Trinome(a, b, c)
                 const valInterdite = new FractionEtendue(-e, d).simplifie()
@@ -432,7 +640,8 @@ export default class EtudeFctRatio extends Exercice {
                   ligne2 = lignePP
                   ligne3 = lignePP
                   ligneVar = ['Var', 10, '-/', 20, '+D-/ /', 20, '+/', 10]
-                } else { // Sinon, la deuxième ligne change de signe en premier
+                } else {
+                  // Sinon, la deuxième ligne change de signe en premier
                   ligne1 = ligneMM
                   ligne2 = lignePP
                   ligne3 = ligneMM
@@ -450,22 +659,38 @@ export default class EtudeFctRatio extends Exercice {
             &=\\dfrac{${pPrime}}{(${reduireAxPlusB(d, e)})^2}
             \\end{aligned}$<br><br>
             Le numérateur est un polynôme du second degré. <br>`
-                texteCorr += `  $\\Delta=b^2-4ac=${pPrime.texCalculDiscriminant} < 0$. <br>
+                texteCorr +=
+                  `  $\\Delta=b^2-4ac=${pPrime.texCalculDiscriminant} < 0$. <br>
                   On en déduit $${pPrime}$ est toujours du signe de $a$. <br>
             Ici, $a=${a * d}$, ainsi :<br>` +
-           tableauDeVariation({
-             tabInit: [
-               [
-                 ['$x$', 2, 20], [`$${pPrime}$`, 2, 25], [`$(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2$`, 2, 25], ['$f\'(x)$', 2, 25], ['$f(x)$', 4, 200]
-               ],
-               ['$-\\infty$', 30, `$${valInterdite.texFSD}$`, 20, '$+\\infty$', 30]
-             ],
-             tabLines: [ligne1, ligne2, ligne3, ligneVar],
-             espcl: 5,
-             deltacl: 0.8,
-             lgt: 7,
-             scale: context.isHtml ? 1 : 0.5
-           })
+                  tableauDeVariation({
+                    tabInit: [
+                      [
+                        ['$x$', 2, 20],
+                        [`$${pPrime}$`, 2, 25],
+                        [
+                          `$(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2$`,
+                          2,
+                          25,
+                        ],
+                        ["$f'(x)$", 2, 25],
+                        ['$f(x)$', 4, 200],
+                      ],
+                      [
+                        '$-\\infty$',
+                        30,
+                        `$${valInterdite.texFSD}$`,
+                        20,
+                        '$+\\infty$',
+                        30,
+                      ],
+                    ],
+                    tabLines: [ligne1, ligne2, ligne3, ligneVar],
+                    espcl: 5,
+                    deltacl: 0.8,
+                    lgt: 7,
+                    scale: context.isHtml ? 1 : 0.5,
+                  })
               }
               break
           }

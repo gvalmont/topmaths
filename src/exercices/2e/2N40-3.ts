@@ -7,7 +7,6 @@ export const interactifType = 'qcm'
 export const uuid = 'a16a0'
 export const refs = {
   'fr-fr': ['2N40-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class EcrireUneExpressionLitterale2e extends ÉcrireUneExpressionLitterale {
-}
+export default class EcrireUneExpressionLitterale2e extends ÉcrireUneExpressionLitterale {}

@@ -3,10 +3,10 @@
   export let text: string = ''
   export let indice: number
 
-  function remove () {
+  function remove() {
     exercicesParams.update((l) => [
       ...l.slice(0, indice),
-      ...l.slice(indice + 1)
+      ...l.slice(indice + 1),
     ])
   }
 </script>
@@ -38,11 +38,11 @@
   </div>
   <button
     class="ml-2 w-2/12 bg-transparent hover focus:outline-none cursor-pointer"
-    on:click={remove}
+    on:click="{remove}"
   >
     <i
       class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-x font-semibold text-base"
-    />
+    ></i>
   </button>
 </div>
 

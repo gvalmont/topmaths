@@ -5,18 +5,18 @@ export type ResultOfExerciceInteractif = {
   numberOfQuestions: number
 }
 
-export function afficheScore (
+export function afficheScore(
   exercice: Exercice,
   nbBonnesReponses: number,
   nbMauvaisesReponses: number,
   divScore?: HTMLDivElement,
-  divButton?: HTMLButtonElement
+  divButton?: HTMLButtonElement,
 ): ResultOfExerciceInteractif {
   if (divButton != null) {
     divButton.classList.add(
       'cursor-not-allowed',
       'opacity-50',
-      'pointer-events-none'
+      'pointer-events-none',
     )
   }
   if (divScore != null) {
@@ -28,6 +28,6 @@ export function afficheScore (
   }
   return {
     numberOfPoints: nbBonnesReponses,
-    numberOfQuestions: nbBonnesReponses + nbMauvaisesReponses
+    numberOfQuestions: nbBonnesReponses + nbMauvaisesReponses,
   }
 }

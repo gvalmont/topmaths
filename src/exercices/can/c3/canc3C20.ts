@@ -17,10 +17,10 @@ export const uuid = '416be'
 
 export const refs = {
   'fr-fr': ['canc3C20'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class problemeDivision extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,8 +29,10 @@ export default class problemeDivision extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
-    switch (randint(1, 6)) { // 1,2, 3
+  nouvelleVersion() {
+    switch (
+      randint(1, 6) // 1,2, 3
+    ) {
       case 1:
         {
           const a = randint(4, 10)
@@ -138,6 +140,8 @@ Quel est le prix d'une place pour ce concert ?`
         }
         break
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 }

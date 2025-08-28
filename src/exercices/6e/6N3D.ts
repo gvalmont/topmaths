@@ -1,6 +1,10 @@
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { context } from '../../modules/context'
 import Figure from 'apigeom'
 import { arrondi } from '../../lib/outils/nombres'
@@ -13,7 +17,8 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { bleuMathalea } from '../../lib/colors'
 
 export const dateDePublication = '09/07/2025'
-export const titre = 'Lire une abscisse fractionnaire grâce à des graduations régulièrement espacées'
+export const titre =
+  'Lire une abscisse fractionnaire grâce à des graduations régulièrement espacées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -27,32 +32,34 @@ export const uuid = 'cff03'
 export const refs = {
   'fr-fr': ['6N3D'],
   'fr-2016': ['6N21-4'],
-  'fr-ch': ['']
+  'fr-ch': [''],
 }
 
 export default class DonnerSensDefinitionQuotient extends Exercice {
   figuresApiGeom!: Figure[]
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 5
     this.exoCustomResultat = true
 
     this.besoinFormulaireNumerique = [
-      'Nombre d\'abscisses présentes (autres que l\'origine)', 20
+      "Nombre d'abscisses présentes (autres que l'origine)",
+      20,
     ]
     this.sup = 1
-    this.comment = 'Un paramètre permet de choisir si on complique ou pas l\'exercice, par l\'augmentation du nombre d\'abscisses présentes.'
+    this.comment =
+      "Un paramètre permet de choisir si on complique ou pas l'exercice, par l'augmentation du nombre d'abscisses présentes."
     this.correctionDetaillee = true
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.figuresApiGeom = []
 
     const NbAbscissesAutreQueOrigine = contraindreValeur(1, 20, this.sup, 1)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       this.consigne = this.nbQuestions
         ? 'Sur cette droite, '
         : 'Sur chaque droite, '
@@ -66,15 +73,37 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
 
       const reponse = new FractionEtendue(num, den).texFraction
       texte = `Par quel nombre, le point $${label}$, sur cette droite graduée, est-il repéré ?`
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction) + '<br>'
+      texte +=
+        ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+        ) + '<br>'
       handleAnswers(this, i, { reponse: { value: reponse } })
 
       const xMax = NbAbscissesAutreQueOrigine * num
       const stepBis = arrondi(num / den, 4)
 
-      const figureEnonce = apigeomGraduatedLineEE({ xMin: 0, xMax, step: num, stepBis })
-      figureEnonce.figure.create('Point', { label: miseEnEvidence('?', 'black'), x: stepBis, y: -1.25, shape: '', labelDxInPixels: 0 })
-      figureEnonce.figure.create('Point', { label, x: stepBis, y: 0.15, shape: '', labelDxInPixels: 0 })
+      const figureEnonce = apigeomGraduatedLineEE({
+        xMin: 0,
+        xMax,
+        step: num,
+        stepBis,
+      })
+      figureEnonce.figure.create('Point', {
+        label: miseEnEvidence('?', 'black'),
+        x: stepBis,
+        y: -1.25,
+        shape: '',
+        labelDxInPixels: 0,
+      })
+      figureEnonce.figure.create('Point', {
+        label,
+        x: stepBis,
+        y: 0.15,
+        shape: '',
+        labelDxInPixels: 0,
+      })
       figureEnonce.figure.options.labelAutomaticBeginsWith = label
       figureEnonce.figure.options.pointDescriptionWithCoordinates = false
       figureEnonce.figure.options.labelIsVisible = false
@@ -91,9 +120,26 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
         }
       }
 
-      const figureCorrection = apigeomGraduatedLineEE({ xMin: 0, xMax, step: num, stepBis: num / den })
-      figureCorrection.figure.create('Point', { label: miseEnEvidence(new FractionEtendue(num, den).texFraction), x: stepBis, y: -1.4, shape: '', labelDxInPixels: 0 })
-      figureCorrection.figure.create('Point', { label, x: stepBis, y: 0.15, shape: '', labelDxInPixels: 0 })
+      const figureCorrection = apigeomGraduatedLineEE({
+        xMin: 0,
+        xMax,
+        step: num,
+        stepBis: num / den,
+      })
+      figureCorrection.figure.create('Point', {
+        label: miseEnEvidence(new FractionEtendue(num, den).texFraction),
+        x: stepBis,
+        y: -1.4,
+        shape: '',
+        labelDxInPixels: 0,
+      })
+      figureCorrection.figure.create('Point', {
+        label,
+        x: stepBis,
+        y: 0.15,
+        shape: '',
+        labelDxInPixels: 0,
+      })
 
       if (context.isHtml) {
         texte += '<br>' + figureEnonce.figure.getStaticHtml()
@@ -116,11 +162,11 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
                   texte: texteCorr,
                   statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                   enonce: texte,
-                  sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }
-          ]
+                  sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, num, den)) {
@@ -136,18 +182,34 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
   }
 }
 
-function apigeomGraduatedLineEE ({ xMin, xMax, points, step = 1, stepBis = 0.25, snapGrid }: {
-  xMin: number,
-  xMax: number,
-  step?: number,
-  stepBis?: number,
-  snapGrid?: boolean,
-  points?: Array<{ x: number, label: string }>
-}): { figure: Figure, latex: string } {
+function apigeomGraduatedLineEE({
+  xMin,
+  xMax,
+  points,
+  step = 1,
+  stepBis = 0.25,
+  snapGrid,
+}: {
+  xMin: number
+  xMax: number
+  step?: number
+  stepBis?: number
+  snapGrid?: boolean
+  points?: Array<{ x: number; label: string }>
+}): { figure: Figure; latex: string } {
   const width = 750
   const height = 80
   const scale = xMax < 9 ? 1 : 8 / xMax // Permet que l'échelle soit la plus grande (sans dépasser) pour tout xMax >= 9.
-  const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: stepBis, xScale: 3 * scale, snapGrid: false })
+  const figure = new Figure({
+    xMin: xMin - 0.2 / scale,
+    yMin: -1.5,
+    width,
+    height,
+    dy: 10,
+    dx: stepBis,
+    xScale: 3 * scale,
+    snapGrid: false,
+  })
   const d = new GraduatedLine(figure, { min: xMin, max: xMax, step, stepBis })
   d.draw()
   let latex = `\n\\bigskip

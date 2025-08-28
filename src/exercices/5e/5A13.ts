@@ -27,12 +27,16 @@ export const uuid = '7f50c'
 
 export const refs = {
   'fr-fr': ['5A13'],
-  'fr-ch': ['9NO4-10']
+  'fr-ch': ['9NO4-10'],
 }
 export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : 3 facteurs\n2 : 4 facteurs\n3 : 5 facteurs']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : 3 facteurs\n2 : 4 facteurs\n3 : 5 facteurs',
+    ]
     this.besoinFormulaire2CaseACocher = ['Grands nombres (une fois sur quatre)']
 
     this.spacing = 2
@@ -45,8 +49,11 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
     this.correctionDetaillee = true // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers." : "Écrire le nombre suivant sous la forme d'un produit de facteurs premiers."
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers."
+        : "Écrire le nombre suivant sous la forme d'un produit de facteurs premiers."
     let grandNombres
     let listeFacteurs1, listeFacteurs2
     if (this.sup3) {
@@ -57,7 +64,10 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
       listeFacteurs2 = [2, 5, 7, 11]
     }
     if (this.sup2 && this.sup3) {
-      grandNombres = combinaisonListes([true, true, false, true], this.nbQuestions)
+      grandNombres = combinaisonListes(
+        [true, true, false, true],
+        this.nbQuestions,
+      )
     } else if (this.sup2) {
       switch (this.nbQuestions) {
         case 1:
@@ -67,15 +77,36 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
           grandNombres = combinaisonListes([true, false], this.nbQuestions)
           break
         case 3:
-          grandNombres = combinaisonListes([true, false, false], this.nbQuestions)
+          grandNombres = combinaisonListes(
+            [true, false, false],
+            this.nbQuestions,
+          )
           break
         default:
-          grandNombres = combinaisonListes([true, false, false, false], this.nbQuestions)
+          grandNombres = combinaisonListes(
+            [true, false, false, false],
+            this.nbQuestions,
+          )
       }
     } else {
-      grandNombres = combinaisonListes([false, false, false, false], this.nbQuestions)
+      grandNombres = combinaisonListes(
+        [false, false, false, false],
+        this.nbQuestions,
+      )
     }
-    for (let i = 0, n, facteurs = [], nbFacteurs, texte, reponse, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+    for (
+      let i = 0,
+        n,
+        facteurs = [],
+        nbFacteurs,
+        texte,
+        reponse,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      // On limite le nombre d'essais pour chercher des valeurs nouvelles
       facteurs = []
       nbFacteurs = this.sup + 2
       for (let k = 0; k < nbFacteurs; k++) {
@@ -85,13 +116,18 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
           } else if (nbFacteurs > 4 && k === 1) {
             this.sup3 ? facteurs.push(choice([2, 3])) : facteurs.push(2)
           } else {
-            this.sup3 ? facteurs.push(choice(listeFacteurs1.concat(7))) : facteurs.push(choice(listeFacteurs1))
+            this.sup3
+              ? facteurs.push(choice(listeFacteurs1.concat(7)))
+              : facteurs.push(choice(listeFacteurs1))
           }
         } else {
-          this.sup3 ? facteurs.push(choice(listeFacteurs2.concat([3, 13]))) : facteurs.push(choice(listeFacteurs2))
+          this.sup3
+            ? facteurs.push(choice(listeFacteurs2.concat([3, 13])))
+            : facteurs.push(choice(listeFacteurs2))
         }
       }
-      if (this.sup2 && grandNombres[i]) { // Une fois sur 4 on multilie le nombre par 100 (par 60 pour le niveau 2nde)
+      if (this.sup2 && grandNombres[i]) {
+        // Une fois sur 4 on multilie le nombre par 100 (par 60 pour le niveau 2nde)
         this.sup3 ? facteurs.push(2, 2, 3, 5) : facteurs.push(2, 2, 5, 5)
       }
       n = 1
@@ -100,7 +136,8 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
       }
       texte = '$ ' + texNombre(n) + '$'
       texteCorr = ''
-      if (!this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' = $' + sp()
+      if (!this.correctionDetaillee)
+        texteCorr += '$ ' + texNombre(n) + ' = $' + sp()
 
       reponse = ''
       facteurs.sort(compareNombres) // classe les facteurs dans l'ordre croissant
@@ -118,7 +155,8 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
         } else {
           produitAvecPuissances += `${facteur}`
         }
-        if (k !== ensembleDeFacteurs.length - 1) produitAvecPuissances += ' \\times '
+        if (k !== ensembleDeFacteurs.length - 1)
+          produitAvecPuissances += ' \\times '
       }
       let produitRestant = 1
       let debutDecomposition = ''
@@ -134,7 +172,13 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
           for (let j = k + 1; j < facteurs.length; j++) {
             produitRestant = produitRestant * facteurs[j]
           }
-          texteCorr += '$' + texNombre(n) + ' = ' + debutDecomposition + produitRestant + '$<br>'
+          texteCorr +=
+            '$' +
+            texNombre(n) +
+            ' = ' +
+            debutDecomposition +
+            produitRestant +
+            '$<br>'
           decompositionFinale = sp() + debutDecomposition + produitRestant
           produitRestant = 1
         }
@@ -146,7 +190,8 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
           texteCorr += `$${miseEnEvidence(facteurs[facteurs.length - 1])}$`
         }
       } else {
-        if (this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' =' + sp() + ' $'
+        if (this.correctionDetaillee)
+          texteCorr += '$ ' + texNombre(n) + ' =' + sp() + ' $'
         decompositionFinale = sp() + texFactorisation(n, true)
         texteCorr += `$${miseEnEvidence(decompositionFinale)}$`
         if (this.correctionDetaillee) texteCorr += '<br>'
@@ -159,16 +204,35 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + '\n',
-          propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 5,
+              sanscadre: false,
+              pointilles: true,
+              feedback: '',
+            },
+          ],
         }
       }
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets, { texteAvant: ' $=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+        { texteAvant: ' $=$' },
+      )
       /* if (!context.isAmc) {
         setReponse(this, i, [reponse, produitAvecPuissances])
       } */
-      handleAnswers(this, i, { reponse: { value: [reponse, produitAvecPuissances], options: { exclusifFactorisation: true } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: [reponse, produitAvecPuissances],
+          options: { exclusifFactorisation: true },
+        },
+      })
 
-      if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, ...facteurs)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 

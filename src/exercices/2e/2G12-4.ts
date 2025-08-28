@@ -1,5 +1,9 @@
 import { point, TracePoint, tracePoint } from '../../lib/2d/points'
-import { NommePolygone, Polygone, polygoneAvecNom } from '../../lib/2d/polygones'
+import {
+  NommePolygone,
+  Polygone,
+  polygoneAvecNom,
+} from '../../lib/2d/polygones'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { repere } from '../../lib/2d/reperes'
@@ -10,9 +14,12 @@ import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texteParPosition } from '../../lib/2d/textes'
 import Exercice from '../Exercice'
-import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-export const titre = 'Déterminer la nature d\'un polygone avec les coordonnées'
+export const titre = "Déterminer la nature d'un polygone avec les coordonnées"
 export const dateDeModifImportante = '30/11/2023'
 /**
  * 2G12
@@ -22,19 +29,23 @@ export const uuid = 'd633a'
 
 export const refs = {
   'fr-fr': ['2G12-4'],
-  'fr-ch': ['11GM1-7']
+  'fr-ch': ['11GM1-7'],
 }
 export default class NaturePolygone extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Situations', 3, '1 : Triangles \n2 : Quadrilétères\n3 : Mélange ']
+    this.besoinFormulaireNumerique = [
+      'Situations',
+      3,
+      '1 : Triangles \n2 : Quadrilétères\n3 : Mélange ',
+    ]
 
     this.nbQuestions = 1
 
     this.sup = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let XMIN, XMAX, YMIN, YMAX
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
@@ -46,20 +57,34 @@ export default class NaturePolygone extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const objets: NestedObjetMathalea2dArray = []
       const typesDeQuestions = listeTypeDeQuestions[i]
-      let xA: number, yA: number, ux: number, uy: number, xB: number, yB: number, xC: number, yC: number, xD: number, yD: number, nom: string
+      let xA: number,
+        yA: number,
+        ux: number,
+        uy: number,
+        xB: number,
+        yB: number,
+        xC: number,
+        yC: number,
+        xD: number,
+        yD: number,
+        nom: string
       switch (typesDeQuestions) {
         case 1: // Triangle
           xA = randint(0, 6) * choice([-1, 1])
           yA = randint(0, 6) * choice([-1, 1])
           ux = randint(1, 5) * choice([-1, 1])
           uy = randint(1, 5) * choice([-1, 1])
-          while (ux === uy || ux === -uy) { // ajout d'une condition pour éviter des points alignés (Jean-claude Lhote)
+          while (ux === uy || ux === -uy) {
+            // ajout d'une condition pour éviter des points alignés (Jean-claude Lhote)
             uy = randint(1, 5) * choice([-1, 1])
-          }// empêcher ux=uy pour éviter B=C
+          } // empêcher ux=uy pour éviter B=C
           xB = xA + ux
           yB = yA + uy
           xC = xA + uy
@@ -149,7 +174,12 @@ export default class NaturePolygone extends Exercice {
       const I = texteParPosition('I', 1, -0.5, 0, 'black', 1)
       const J = texteParPosition('J', -0.5, 1, 0, 'black', 1)
       const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-      let s1: Segment, s2: Segment, s3: Segment, s4: Segment, T: TracePoint, P: [Polygone, NommePolygone]
+      let s1: Segment,
+        s2: Segment,
+        s3: Segment,
+        s4: Segment,
+        T: TracePoint,
+        P: [Polygone, NommePolygone]
       let texte = ''
       let texteCorr = ''
       switch (typesDeQuestions) {
@@ -163,21 +193,37 @@ export default class NaturePolygone extends Exercice {
           T = tracePoint(A, B, C) // Repère les points avec une croix
           P = polygoneAvecNom(A, B, C)
           objets.push(P[1])
-          objets.push(repere({
-            xMin: XMIN,
-            yMin: YMIN,
-            xMax: XMAX,
-            yMax: YMAX,
-            yLabelEcart: 0.6,
-            xLabelEcart: 0.6,
-            yLabelDistance: 2,
-            xLabelDistance: 2
-          }), I, J, o, T, s1, s2, s3)
-          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          objets.push(
+            repere({
+              xMin: XMIN,
+              yMin: YMIN,
+              xMax: XMAX,
+              yMax: YMAX,
+              yLabelEcart: 0.6,
+              xLabelEcart: 0.6,
+              yLabelDistance: 2,
+              xLabelDistance: 2,
+            }),
+            I,
+            J,
+            o,
+            T,
+            s1,
+            s2,
+            s3,
+          )
+          texte =
+            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.`
           texte += `<br>Déterminer la nature du triangle $${A.nom}${B.nom}${C.nom}$.`
-          texteCorr = 'On commence par réaliser un graphique permettant de visualiser la situation.<br>'
-          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr =
+            'On commence par réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr +=
+            '<br>' +
+            mathalea2d(
+              { xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX },
+              objets,
+            )
           texteCorr += `<br> On calcule séparément les distances $${A.nom}${B.nom}$, $${A.nom}${C.nom}$ et $${B.nom}${C.nom}$.<br><br>`
           texteCorr += `$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
           =\\sqrt{${texNombre(xAbCarre + yAbCarre)}}${extraireRacineCarree(abCarre)[0] === 1 ? '' : `=${texRacineCarree(abCarre)}`}$<br>`
@@ -185,7 +231,11 @@ export default class NaturePolygone extends Exercice {
           =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}${extraireRacineCarree(acCarre)[0] === 1 ? '' : `=${texRacineCarree(acCarre)}`}$<br>`
           texteCorr += `$\\bullet$  $${B.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}=\\sqrt{${xBcCarre}+${yBcCarre}}
           =\\sqrt{${texNombre(xBcCarre + yBcCarre)}}${extraireRacineCarree(bcCarre)[0] === 1 ? '' : `=${texRacineCarree(bcCarre)}`}$<br>`
-          if (xBcCarre + yBcCarre === xAbCarre + yAbCarre) { texteCorr += `<br>On observe que $${A.nom}${B.nom}=${A.nom}${C.nom}=${B.nom}${C.nom}$ donc le triangle $${A.nom}${B.nom}${C.nom}$ est équilatéral.` } else { texteCorr += `<br>On observe que $${A.nom}${B.nom}=${A.nom}${C.nom}$ et que $${B.nom}${C.nom} \\ne ${A.nom}${B.nom}$ donc le triangle $${A.nom}${B.nom}${C.nom}$ est isocèle (il n'est pas équilatéral).` }
+          if (xBcCarre + yBcCarre === xAbCarre + yAbCarre) {
+            texteCorr += `<br>On observe que $${A.nom}${B.nom}=${A.nom}${C.nom}=${B.nom}${C.nom}$ donc le triangle $${A.nom}${B.nom}${C.nom}$ est équilatéral.`
+          } else {
+            texteCorr += `<br>On observe que $${A.nom}${B.nom}=${A.nom}${C.nom}$ et que $${B.nom}${C.nom} \\ne ${A.nom}${B.nom}$ donc le triangle $${A.nom}${B.nom}${C.nom}$ est isocèle (il n'est pas équilatéral).`
+          }
           break
         case 2: // ABC isocèle triangle rectangle
           s1 = segment(A, B, 'blue')
@@ -197,22 +247,38 @@ export default class NaturePolygone extends Exercice {
           T = tracePoint(A, B, C) // Repère les points avec une croix
           P = polygoneAvecNom(A, B, C)
           objets.push(P[1])
-          objets.push(repere({
-            xMin: XMIN,
-            yMin: YMIN,
-            xMax: XMAX,
-            yMax: YMAX,
-            yLabelEcart: 0.6,
-            xLabelEcart: 0.6,
-            yLabelDistance: 2,
-            xLabelDistance: 2
-          }), I, J, o, T, s1, s2, s3)
-          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          objets.push(
+            repere({
+              xMin: XMIN,
+              yMin: YMIN,
+              xMax: XMAX,
+              yMax: YMAX,
+              yLabelEcart: 0.6,
+              xLabelEcart: 0.6,
+              yLabelDistance: 2,
+              xLabelDistance: 2,
+            }),
+            I,
+            J,
+            o,
+            T,
+            s1,
+            s2,
+            s3,
+          )
+          texte =
+            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.`
           texte += `<br>Déterminer la nature du triangle $${A.nom}${B.nom}${C.nom}$.`
 
-          texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'
-          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr =
+            'On peut réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr +=
+            '<br>' +
+            mathalea2d(
+              { xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX },
+              objets,
+            )
           texteCorr += `<br> On calcule séparément les distances $${A.nom}${B.nom}$, $${A.nom}${C.nom}$ et $${B.nom}${C.nom}$.<br><br>`
           texteCorr += `$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
           =\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
@@ -224,7 +290,9 @@ export default class NaturePolygone extends Exercice {
           texteCorr += `D'autre part : $${A.nom}${B.nom}^{2}+${A.nom}${C.nom}^{2}=${texNombre(xAcCarre + yAcCarre)}+${texNombre(xAbCarre + yAbCarre)}=${texNombre(xBcCarre + yBcCarre)}$`
           texteCorr += `<br><br>On en déduit que $${B.nom}${C.nom}^{2}=${A.nom}${C.nom}^{2}+${A.nom}${B.nom}^{2}$.`
           texteCorr += `<br><br>D'après la réciproque du théorème de Pythagore,  le triangle $${A.nom}${B.nom}${C.nom}$ est rectangle en $${A.nom}$.`
-          if (xAbCarre + yAbCarre === xAcCarre + yAcCarre) { texteCorr += `<br>On observe en plus que $${A.nom}${B.nom}=${A.nom}${C.nom}$. <br> Le triangle $${A.nom}${B.nom}${C.nom}$ est donc isocèle rectangle en $${A.nom}$.` }
+          if (xAbCarre + yAbCarre === xAcCarre + yAcCarre) {
+            texteCorr += `<br>On observe en plus que $${A.nom}${B.nom}=${A.nom}${C.nom}$. <br> Le triangle $${A.nom}${B.nom}${C.nom}$ est donc isocèle rectangle en $${A.nom}$.`
+          }
           break
         case 3: // Dq ABDC losange
           T = tracePoint(A, B, C, D) // Repère les points avec une croix
@@ -240,21 +308,38 @@ export default class NaturePolygone extends Exercice {
           s2.epaisseur = 2
           s3.epaisseur = 2
           s4.epaisseur = 2
-          objets.push(repere({
-            xMin: XMIN,
-            yMin: YMIN,
-            xMax: XMAX,
-            yMax: YMAX,
-            yLabelEcart: 0.6,
-            xLabelEcart: 0.6,
-            yLabelDistance: 2,
-            xLabelDistance: 2
-          }), I, J, o, T, s1, s2, s3, s4)
-          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          objets.push(
+            repere({
+              xMin: XMIN,
+              yMin: YMIN,
+              xMax: XMAX,
+              yMax: YMAX,
+              yLabelEcart: 0.6,
+              xLabelEcart: 0.6,
+              yLabelDistance: 2,
+              xLabelDistance: 2,
+            }),
+            I,
+            J,
+            o,
+            T,
+            s1,
+            s2,
+            s3,
+            s4,
+          )
+          texte =
+            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
           texte += `<br>Démontrer que $${A.nom}${B.nom}${C.nom}${D.nom}$ est un losange.`
-          texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'
-          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr =
+            'On peut réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr +=
+            '<br>' +
+            mathalea2d(
+              { xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX },
+              objets,
+            )
           texteCorr += `<br>Il y a plusieurs méthodes  pour prouver  que le quadrilatère $${A.nom}${B.nom}${C.nom}${D.nom}$ est un losange.<br>
           Dans ce qui suit, nous démontrons que $${A.nom}${B.nom}${C.nom}${D.nom}$ est un parallélogramme avec deux côtés consécutifs de même longueur.<br>`
           texteCorr += `<br>On commence par prouver  que $${A.nom}${B.nom}${C.nom}${D.nom}$ est un parallélogramme.<br>`
@@ -265,7 +350,8 @@ export default class NaturePolygone extends Exercice {
           texteCorr += `<br><br>$\\bullet$ On note $K$ le milieu de $[${B.nom}${D.nom}]$ :<br>
          $\\begin{cases}x_K=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xB + xD)}}{2}=${texNombre((xB + xD) / 2, 1)} \\\\[0.8em] y_K=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yB + yD)}}{2}=${texNombre((yB + yD) / 2, 1)}\\end{cases}$`
           texteCorr += `<br><br>On en déduit :  $K(${texNombre((xB + xD) / 2, 1)}\\,;\\,${texNombre((yB + yD) / 2, 1)})$.`
-          texteCorr += '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
+          texteCorr +=
+            '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += `<br>$${A.nom}${B.nom}${C.nom}${D.nom}$ est donc un parallélogramme.`
           texteCorr += `<br><br>On calcule maintenant les longueurs de deux cotés consécutifs : $[${A.nom}${B.nom}]$ et $[${A.nom}${D.nom}]$ par exemple.`
           texteCorr += `<br>$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
@@ -277,7 +363,7 @@ export default class NaturePolygone extends Exercice {
 
           texteCorr += `<br><br>${texteGras('Remarque :')} Pour montrer que  $${A.nom}${B.nom}${C.nom}${D.nom}$ est un losange on pouvait aussi montrer que le quadrilatère $${A.nom}${B.nom}${C.nom}${D.nom}$ a quatre côtés de même longueur.`
           break
-        case 4://  Dq rectangle
+        case 4: //  Dq rectangle
           T = tracePoint(A, B, C, D) // Repère les points avec une croix
           P = polygoneAvecNom(A, B, C, D)
           objets.push(P[1])
@@ -290,22 +376,39 @@ export default class NaturePolygone extends Exercice {
           s2.epaisseur = 2
           s3.epaisseur = 2
           s4.epaisseur = 2
-          objets.push(repere({
-            xMin: XMIN,
-            yMin: YMIN,
-            xMax: XMAX,
-            yMax: YMAX,
-            yLabelEcart: 0.6,
-            xLabelEcart: 0.6,
-            yLabelDistance: 2,
-            xLabelDistance: 2
-          }), I, J, o, T, s1, s2, s3, s4)
+          objets.push(
+            repere({
+              xMin: XMIN,
+              yMin: YMIN,
+              xMax: XMAX,
+              yMax: YMAX,
+              yLabelEcart: 0.6,
+              xLabelEcart: 0.6,
+              yLabelDistance: 2,
+              xLabelDistance: 2,
+            }),
+            I,
+            J,
+            o,
+            T,
+            s1,
+            s2,
+            s3,
+            s4,
+          )
 
-          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          texte =
+            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
           texte += `<br>Démontrer que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un rectangle.`
-          texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'
-          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr =
+            'On peut réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr +=
+            '<br>' +
+            mathalea2d(
+              { xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX },
+              objets,
+            )
           texteCorr += `<br>Il y a plusieurs méthodes  pour prouver  que le quadrilatère $${A.nom}${C.nom}${D.nom}${B.nom}$ est un rectangle.<br>
           Dans ce qui suit, nous démontrons que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme avec des diagonales de même longueur.<br>`
           texteCorr += `<br>On commence par prouver  que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme.<br>`
@@ -316,7 +419,8 @@ export default class NaturePolygone extends Exercice {
           texteCorr += `<br><br>$\\bullet$ On note $K$ le milieu de $[${B.nom}${C.nom}]$ :<br>
          $\\begin{cases}x_K=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xB + xC)}}{2}=${texNombre((xB + xC) / 2, 1)} \\\\[0.8em] y_K=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yB + yC)}}{2}=${texNombre((yB + yC) / 2, 1)}\\end{cases}$`
           texteCorr += `<br><br>On en déduit :  $K(${texNombre((xB + xC) / 2, 1)}\\,;\\,${texNombre((yB + yC) / 2, 1)})$.`
-          texteCorr += '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
+          texteCorr +=
+            '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += `<br>$${A.nom}${C.nom}${D.nom}${B.nom}$ est donc un parallélogramme.`
           texteCorr += `<br><br>On calcule maintenant les longueurs des deux diagonales : $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ par exemple.`
           texteCorr += `<br>$\\bullet$  $${A.nom}${D.nom}=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAdCarre}+${yAdCarre}}
@@ -329,8 +433,7 @@ export default class NaturePolygone extends Exercice {
           texteCorr += `<br><br>${texteGras('Remarque :')} Pour montrer que  $${A.nom}${C.nom}${D.nom}${B.nom}$ est un rectangle on pouvait aussi montrer que le parallélogramme $${A.nom}${C.nom}${D.nom}${B.nom}$ a un angle droit (en utilisant la réciproque du théorème de Pythagore).`
           break
 
-        case 5:// carré
-
+        case 5: // carré
           T = tracePoint(A, B, C, D) // Repère les points avec une croix
           P = polygoneAvecNom(A, B, C, D)
           objets.push(P[1])
@@ -343,22 +446,39 @@ export default class NaturePolygone extends Exercice {
           s2.epaisseur = 2
           s3.epaisseur = 2
           s4.epaisseur = 2
-          objets.push(repere({
-            xMin: XMIN,
-            yMin: YMIN,
-            xMax: XMAX,
-            yMax: YMAX,
-            yLabelEcart: 0.6,
-            xLabelEcart: 0.6,
-            yLabelDistance: 2,
-            xLabelDistance: 2
-          }), I, J, o, T, s1, s2, s3, s4)
+          objets.push(
+            repere({
+              xMin: XMIN,
+              yMin: YMIN,
+              xMax: XMAX,
+              yMax: YMAX,
+              yLabelEcart: 0.6,
+              xLabelEcart: 0.6,
+              yLabelDistance: 2,
+              xLabelDistance: 2,
+            }),
+            I,
+            J,
+            o,
+            T,
+            s1,
+            s2,
+            s3,
+            s4,
+          )
 
-          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          texte =
+            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
           texte += `<br>Démontrer que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un carré.`
-          texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'
-          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr =
+            'On peut réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr +=
+            '<br>' +
+            mathalea2d(
+              { xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX },
+              objets,
+            )
           texteCorr += `<br>Il y a plusieurs méthodes  pour prouver  que le quadrilatère $${A.nom}${C.nom}${D.nom}${B.nom}$ est un carré.<br>
           Dans ce qui suit, nous démontrons que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme avec des diagonales de même longueur et deux côtés consécutifs de même longueur.<br>`
 
@@ -370,7 +490,8 @@ export default class NaturePolygone extends Exercice {
           texteCorr += `<br><br>$\\bullet$ On note $K$ le milieu de $[${B.nom}${C.nom}]$ :<br>
          $\\begin{cases}x_K=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xB + xC)}}{2}=${texNombre((xB + xC) / 2, 1)} \\\\[0.8em] y_K=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yB + yC)}}{2}=${texNombre((yB + yC) / 2, 1)}\\end{cases}$`
           texteCorr += `<br><br>On en déduit :  $K(${texNombre((xB + xC) / 2, 1)}\\,;\\,${texNombre((yB + yC) / 2, 1)})$.`
-          texteCorr += '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
+          texteCorr +=
+            '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += `<br>$${A.nom}${C.nom}${D.nom}${B.nom}$ est donc un parallélogramme.`
           texteCorr += `<br><br>On calcule maintenant les longueurs des deux diagonales : $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ par exemple.`
           texteCorr += `<br>$\\bullet$  $${A.nom}${D.nom}=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAdCarre}+${yAdCarre}}
@@ -394,7 +515,13 @@ export default class NaturePolygone extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, [xA, yA, xB, yB, typesDeQuestions].map(String).join(''))) { // Si la question n'a jamais été posée, on en créé une autre
+      if (
+        this.questionJamaisPosee(
+          i,
+          [xA, yA, xB, yB, typesDeQuestions].map(String).join(''),
+        )
+      ) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

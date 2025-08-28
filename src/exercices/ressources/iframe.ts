@@ -12,7 +12,7 @@ class ressourceVideo extends Exercice {
   fieldUrl: HTMLInputElement
   button: HTMLButtonElement
   url: URL = new URL('https://coopmaths.fr/alea')
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'html'
     this.container = document.createElement('div')
@@ -28,8 +28,11 @@ class ressourceVideo extends Exercice {
     this.button.addEventListener('click', () => {
       this.iframe.src = this.fieldUrl.value
       this.sup = encodeURIComponent(this.fieldUrl.value)
-      exercicesParams.update(l => {
-        if (this.numeroExercice !== undefined && l[this.numeroExercice] !== undefined) {
+      exercicesParams.update((l) => {
+        if (
+          this.numeroExercice !== undefined &&
+          l[this.numeroExercice] !== undefined
+        ) {
           l[this.numeroExercice].sup = encodeURIComponent(this.fieldUrl.value)
         }
         return l
@@ -42,12 +45,12 @@ class ressourceVideo extends Exercice {
     updateIframeSize(this.container, this.iframe)
   }
 
-  destroy () {
+  destroy() {
     window.removeEventListener('resize', this.updateSize)
     this.container.removeEventListener('addedToDom', this.updateSize)
   }
 
-  get html () {
+  get html() {
     if (get(globalOptions).v === 'eleve') {
       this.fieldUrl.remove()
       this.button.remove()
@@ -56,7 +59,11 @@ class ressourceVideo extends Exercice {
       let iframeUrl: string | URL
       try {
         iframeUrl = new URL(decodeURIComponent(this.sup))
-        if (iframeUrl.protocol === 'http:' || iframeUrl.protocol === 'https:' || iframeUrl.protocol === 'ftp:') {
+        if (
+          iframeUrl.protocol === 'http:' ||
+          iframeUrl.protocol === 'https:' ||
+          iframeUrl.protocol === 'ftp:'
+        ) {
           iframeUrl = iframeUrl.href
         } else {
           iframeUrl = 'data:text/html,Erreur'

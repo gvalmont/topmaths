@@ -20,10 +20,10 @@ export const uuid = '4b11f'
 
 export const refs = {
   'fr-fr': ['can2C10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TauxCoeff extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.optionsChampTexte = { texteApres: '.' }
     this.typeExercice = 'simple'
@@ -32,7 +32,7 @@ export default class TauxCoeff extends ExerciceSimple {
     this.versionQcmDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let taux
 
     const corrA = (taux: number, coefficient: number) => {
@@ -51,21 +51,41 @@ export default class TauxCoeff extends ExerciceSimple {
 
     switch (choice(['a', 'a', 'b', 'b', 'c'])) {
       case 'a':
-        taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
+        taux = choice([
+          randint(1, 9) * 10,
+          randint(1, 9),
+          randint(1, 9) * 10 + randint(1, 9),
+        ])
         this.question = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par : `
         this.correction = corrA(taux, 1 + taux / 100)
-        this.reponse = this.versionQcm ? `$${texNombre(1 + taux / 100, 4)}$` : arrondi(1 + taux / 100)
-        this.distracteurs = [`$${texNombre(1 - taux / 100, 4)}$`, `$${texNombre(taux / 100, 4)}$`, `$${texNombre(1 + taux / 1000, 4)}$`]
+        this.reponse = this.versionQcm
+          ? `$${texNombre(1 + taux / 100, 4)}$`
+          : arrondi(1 + taux / 100)
+        this.distracteurs = [
+          `$${texNombre(1 - taux / 100, 4)}$`,
+          `$${texNombre(taux / 100, 4)}$`,
+          `$${texNombre(1 + taux / 1000, 4)}$`,
+        ]
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`
         break
 
       case 'b':
-        taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
+        taux = choice([
+          randint(1, 9) * 10,
+          randint(1, 9),
+          randint(1, 9) * 10 + randint(1, 9),
+        ])
         this.question = `Diminuer une valeur de $${taux}~\\%$ revient à la multiplier par :`
         this.correction = corrD(taux, 1 - taux / 100)
-        this.reponse = this.versionQcm ? `$${texNombre(1 - taux / 100, 4)}$` : arrondi(1 - taux / 100)
-        this.distracteurs = [`$${texNombre(1 + taux / 1000, 4)}$`, `$${texNombre(taux / 100, 4)}$`, `$${texNombre(1 - taux / 1000, 4)}$`]
+        this.reponse = this.versionQcm
+          ? `$${texNombre(1 - taux / 100, 4)}$`
+          : arrondi(1 - taux / 100)
+        this.distracteurs = [
+          `$${texNombre(1 + taux / 1000, 4)}$`,
+          `$${texNombre(taux / 100, 4)}$`,
+          `$${texNombre(1 - taux / 1000, 4)}$`,
+        ]
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Diminuer une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`
         break
@@ -74,8 +94,14 @@ export default class TauxCoeff extends ExerciceSimple {
         taux = randint(10, 40) * 10
         this.question = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par : `
         this.correction = corrA(taux, 1 + taux / 100)
-        this.reponse = this.versionQcm ? `$${texNombre(1 + taux / 100, 4)}$` : arrondi(1 + taux / 100)
-        this.distracteurs = [`$${texNombre(taux / 100, 4)}$`, `$${texNombre(taux / 1000, 4)}$`, `$${texNombre(10 - taux / 100, 4)}$`]
+        this.reponse = this.versionQcm
+          ? `$${texNombre(1 + taux / 100, 4)}$`
+          : arrondi(1 + taux / 100)
+        this.distracteurs = [
+          `$${texNombre(taux / 100, 4)}$`,
+          `$${texNombre(taux / 1000, 4)}$`,
+          `$${texNombre(10 - taux / 100, 4)}$`,
+        ]
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`
         break

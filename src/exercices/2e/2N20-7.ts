@@ -6,10 +6,10 @@ export const uuid = 'c3c84'
 
 export const refs = {
   'fr-fr': ['2N20-7'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PpcmEngrenages2nde extends ppcmEngrenages {
-  constructor () {
+  constructor() {
     super()
     this.sup = true
     this.besoinFormulaireCaseACocher = false

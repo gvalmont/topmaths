@@ -9,7 +9,7 @@ export const uuid = '939af'
 // Author Stéphane Guyon
 export const refs = {
   'fr-fr': ['1A-P2-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,48 +29,47 @@ export default class Puissances extends ExerciceQcmA {
       visible: false,
       alter: '',
       enfants: [
-        new Arbre(
-          {
-            rationnel,
-            nom: 'A',
-            proba: 0.3,
-            visible: false,
-            enfants: [new Arbre(
-              {
-                rationnel,
-                nom: 'C',
-                proba: 0.6,
-                visible: false
-              }),
-            new Arbre(
-              {
-                rationnel,
-                nom: '\\bar C',
-                proba: 0.4
-              })
-            ]
-          }),
+        new Arbre({
+          rationnel,
+          nom: 'A',
+          proba: 0.3,
+          visible: false,
+          enfants: [
+            new Arbre({
+              rationnel,
+              nom: 'C',
+              proba: 0.6,
+              visible: false,
+            }),
+            new Arbre({
+              rationnel,
+              nom: '\\bar C',
+              proba: 0.4,
+            }),
+          ],
+        }),
         new Arbre({
           rationnel,
           nom: '\\bar A',
           proba: 0.7,
-          enfants: [new Arbre({
-            rationnel,
-            nom: 'C',
-            proba: 0.4,
-            visible: true,
-            alter: ''
-          }),
-          new Arbre({
-            rationnel,
-            nom: '\\bar C',
-            proba: 0.6,
-            visible: false,
-            alter: ''
-          })
-          ]
-        })
-      ]
+          enfants: [
+            new Arbre({
+              rationnel,
+              nom: 'C',
+              proba: 0.4,
+              visible: true,
+              alter: '',
+            }),
+            new Arbre({
+              rationnel,
+              nom: '\\bar C',
+              proba: 0.6,
+              visible: false,
+              alter: '',
+            }),
+          ],
+        }),
+      ],
     })
 
     omega.setTailles() // On calcule les tailles des arbres.
@@ -80,8 +79,11 @@ export default class Puissances extends ExerciceQcmA {
     let distracteur3: number
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :'
-    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
+    this.enonce += mathalea2d(
+      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce += '$P(A \\cap C)=\\ldots$'
     this.correction = `On sait que <br>$\\begin{aligned}
         P(A \\cap C) &= P(A) \\times P_A(C)\\\\
@@ -120,47 +122,46 @@ export default class Puissances extends ExerciceQcmA {
       visible: false,
       alter: '',
       enfants: [
-        new Arbre(
-          {
-            rationnel,
-            nom: 'A',
-            proba: pA,
-            visible: false,
-            enfants: [new Arbre(
-              {
-                rationnel,
-                nom: 'C',
-                proba: pAC,
-                visible: false
-              }),
-            new Arbre(
-              {
-                rationnel,
-                nom: '\\bar C',
-                proba: pAC.entierMoinsFraction(1)
-              })
-            ]
-          }),
+        new Arbre({
+          rationnel,
+          nom: 'A',
+          proba: pA,
+          visible: false,
+          enfants: [
+            new Arbre({
+              rationnel,
+              nom: 'C',
+              proba: pAC,
+              visible: false,
+            }),
+            new Arbre({
+              rationnel,
+              nom: '\\bar C',
+              proba: pAC.entierMoinsFraction(1),
+            }),
+          ],
+        }),
         new Arbre({
           rationnel,
           nom: '\\bar A',
           proba: pA.entierMoinsFraction(1),
-          enfants: [new Arbre({
-            rationnel,
-            nom: 'C',
-            proba: pBC,
-            visible: true,
-          }),
-          new Arbre({
-            rationnel,
-            nom: '\\bar C',
-            proba: pBC.entierMoinsFraction(1),
-            visible: false,
-            alter: ''
-          })
-          ]
-        })
-      ]
+          enfants: [
+            new Arbre({
+              rationnel,
+              nom: 'C',
+              proba: pBC,
+              visible: true,
+            }),
+            new Arbre({
+              rationnel,
+              nom: '\\bar C',
+              proba: pBC.entierMoinsFraction(1),
+              visible: false,
+              alter: '',
+            }),
+          ],
+        }),
+      ],
     })
 
     omega.setTailles() // On calcule les tailles des arbres.
@@ -170,8 +171,11 @@ export default class Puissances extends ExerciceQcmA {
 
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :'
-    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
+    this.enonce += mathalea2d(
+      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce += '$P(A \\cap C)=\\ldots$'
 
     this.correction = `On sait que <br>$\\begin{aligned}
@@ -181,20 +185,19 @@ export default class Puissances extends ExerciceQcmA {
         \\end{aligned}$`
 
     this.reponses = [
-            `$${pC1.texFractionSimplifiee}$`,
-            `$${pAC.texFractionSimplifiee}$`,
-           `$${pBC.entierMoinsFraction(1).texFractionSimplifiee}$`,
-            `$${distracteur.texFractionSimplifiee}$`,
-           `$${pAC.texFractionSimplifiee}$`
-
+      `$${pC1.texFractionSimplifiee}$`,
+      `$${pAC.texFractionSimplifiee}$`,
+      `$${pBC.entierMoinsFraction(1).texFractionSimplifiee}$`,
+      `$${distracteur.texFractionSimplifiee}$`,
+      `$${pAC.texFractionSimplifiee}$`,
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }
 }
-function Do (arg0: number) {
+function Do(arg0: number) {
   throw new Error('Function not implemented.')
 }

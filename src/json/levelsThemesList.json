@@ -1549,9 +1549,8 @@
   },
   "6I1D": {
     "titre": "Programmer la construction d'un chemin simple"
-  }
-,
-   "5C1": {
+  },
+  "5C1": {
     "titre": "Calculs",
     "sousThemes": {
       "5C10": "Calculer le quotient et le reste dans une division euclidienne",
@@ -2117,7 +2116,7 @@
   "1A-E": {
     "titre": "Évolutions et variations"
   },
-  "1A-F" :{
+  "1A-F": {
     "titre": "Fonctions et représentations"
   },
   "1A-S": {
@@ -2169,41 +2168,41 @@
     "titre": "Les suites numériques"
   },
   "TSA2": {
-    "titre":"Compléments sur la dérivation"
+    "titre": "Compléments sur la dérivation"
   },
-      "TSA3": {
-        "titre":"Limites de fonctions"
-      },
-      "TSA4": {
-      "titre":"Continuité des fonctions"
-    },
-      "TSA5": {
-        "titre":"Fonction logarithme népérien"
-      },
-      "TSA6": {
-      "titre":"Primitives et équations différentielles"
-    },
-      "TSA7": {
-        "titre":"Intégration"
-      },
-      "TSA8": {
-      "titre":"Fonction sinus et cosinus"
-    },
-      "TSP1": {
-        "titre":"Variables aléatoires discrètes finies"
-      },
-      "TSP2": {
-      "titre":"Sommes de variables aléatoires"
-    },
-      "TSP3": {
-        "titre":"Concentration, loi des grands nombres"
-      },
-      "TSG1": {
-      "titre":"Combinatoire et dénombrement"
-    },
-      "TSG2": {
-        "titre":"Géométrie dans l'espace"
-      },
+  "TSA3": {
+    "titre": "Limites de fonctions"
+  },
+  "TSA4": {
+    "titre": "Continuité des fonctions"
+  },
+  "TSA5": {
+    "titre": "Fonction logarithme népérien"
+  },
+  "TSA6": {
+    "titre": "Primitives et équations différentielles"
+  },
+  "TSA7": {
+    "titre": "Intégration"
+  },
+  "TSA8": {
+    "titre": "Fonction sinus et cosinus"
+  },
+  "TSP1": {
+    "titre": "Variables aléatoires discrètes finies"
+  },
+  "TSP2": {
+    "titre": "Sommes de variables aléatoires"
+  },
+  "TSP3": {
+    "titre": "Concentration, loi des grands nombres"
+  },
+  "TSG1": {
+    "titre": "Combinatoire et dénombrement"
+  },
+  "TSG2": {
+    "titre": "Géométrie dans l'espace"
+  },
   "TEC1": {
     "titre": "Nombres complexes : algèbre",
     "sousThemes": {}

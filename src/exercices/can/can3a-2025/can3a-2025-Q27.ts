@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '71b1f'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class MultiplierAstuce extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,9 +29,11 @@ export default class MultiplierAstuce extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '$=$', texteApres: '' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const Val1 = this.canOfficielle ? 4 : 4
-    const Val2 = this.canOfficielle ? 0.47 : new Decimal(randint(15, 49, [20, 30, 40])).div(100)
+    const Val2 = this.canOfficielle
+      ? 0.47
+      : new Decimal(randint(15, 49, [20, 30, 40])).div(100)
     const Val3 = this.canOfficielle ? 2.5 : choice([0.25, 2.5, 25])
 
     const reponse = new Decimal(Val1).mul(Val2).mul(Val3)

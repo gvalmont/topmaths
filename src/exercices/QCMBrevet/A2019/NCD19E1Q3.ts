@@ -5,13 +5,14 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '96444'
 export const refs = {
   'fr-fr': ['3C1QCM-07', 'BP2AutoU1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Puissances de 10 et ordre de grandeur  (12/2019 Nouvelle-Calédonie)'
+export const titre =
+  'Puissances de 10 et ordre de grandeur  (12/2019 Nouvelle-Calédonie)'
 export const dateDePublication = '12/11/2024'
 
 /**
@@ -21,24 +22,30 @@ export const dateDePublication = '12/11/2024'
  */
 export default class NelleCaledoniep19Ex1Q3 extends ExerciceQcmA {
   planetes = [
-    { nom: 'Mercure', masse: 3.30e23 },
+    { nom: 'Mercure', masse: 3.3e23 },
     { nom: 'Vénus', masse: 4.87e24 },
     { nom: 'Terre', masse: 5.97e24 },
     { nom: 'Mars', masse: 6.42e23 },
-    { nom: 'Jupiter', masse: 1.90e27 },
+    { nom: 'Jupiter', masse: 1.9e27 },
     { nom: 'Saturne', masse: 5.68e26 },
     { nom: 'Uranus', masse: 8.68e25 },
-    { nom: 'Neptune', masse: 1.02e26 }
+    { nom: 'Neptune', masse: 1.02e26 },
   ]
 
-  private appliquerLesValeurs ({ nom, masse }: { nom: string, masse: number }): void {
+  private appliquerLesValeurs({
+    nom,
+    masse,
+  }: {
+    nom: string
+    masse: number
+  }): void {
     const ordreDeGrandeur = Math.round(Math.log10(masse))
     const expo1 = ordreDeGrandeur - 22
     const expo2 = ordreDeGrandeur - 41
     this.reponses = [
       `$10^{${ordreDeGrandeur}}$ kg`,
       `$10^{${expo1}}$ kg`,
-      `$10^{${expo2}}$ kg`
+      `$10^{${expo2}}$ kg`,
     ]
     this.enonce = `La masse de la planète ${nom} est de l'ordre de :`
     this.correction = `$10^{${expo2}}$ kg, c'est beaucoup moins que $1$ kg, c'est donc une réponse incohérente.<br>
@@ -57,7 +64,7 @@ export default class NelleCaledoniep19Ex1Q3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

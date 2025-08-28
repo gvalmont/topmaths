@@ -3,11 +3,19 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { prenom } from '../../lib/outils/Personne'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import engine from '../../lib/interactif/comparisonFunctions'
-import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
+import {
+  parseExpression,
+  type Expression,
+  type Operator,
+} from '../../lib/types/expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -17,33 +25,43 @@ export const dateDePublication = '31/05/2024'
 /**
  *
  * @author Guillaume Valmont
-*/
+ */
 export const uuid = '2z3e5'
 export const refs = {
   'fr-fr': ['5C12-2'],
   'fr-2016': ['6C33-2'],
-  'fr-ch': ['9NO6-8', '10NO6-6']
+  'fr-ch': ['9NO6-8', '10NO6-6'],
 }
 export default class ExpressionsDepuisCalculs extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.sup = false
     this.sup2 = '2'
     this.sup3 = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
-    this.besoinFormulaire2Texte = ['Nombre d\'opérations de 2 à 4', 'nombres séparés par des tirets :']
+    this.besoinFormulaire2Texte = [
+      "Nombre d'opérations de 2 à 4",
+      'nombres séparés par des tirets :',
+    ]
     this.besoinFormulaire3CaseACocher = ['Sans parenthèses inutiles', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const avecDivision = !!this.sup
 
     // const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
     // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    const nbOps = gestionnaireFormulaireTexte({ defaut: 2, saisie: this.sup2, min: 2, max: 4, melange: 5, nbQuestions: this.nbQuestions }) as number[]
+    const nbOps = gestionnaireFormulaireTexte({
+      defaut: 2,
+      saisie: this.sup2,
+      min: 2,
+      max: 4,
+      melange: 5,
+      nbQuestions: this.nbQuestions,
+    }) as number[]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200; cpt++) {
       const A = randint(2, 9)
       const B = randint(2, 9, [A])
@@ -51,12 +69,14 @@ export default class ExpressionsDepuisCalculs extends Exercice {
       const D = randint(2, 12, [A, B, C])
       const E = randint(2, 20, [A, B, C, D])
       const nombres = shuffle([A, B, C, D, E])
-      const signes = avecDivision ? shuffle(['+', '-', '\\times', '\\div']) : combinaisonListes(['+', '-', '\\times'], 4)
+      const signes = avecDivision
+        ? shuffle(['+', '-', '\\times', '\\div'])
+        : combinaisonListes(['+', '-', '\\times'], 4)
       const calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
-      const calcul1EN : Expression = {
+      const calcul1EN: Expression = {
         operator: signes[0] as Operator,
         left: nombres[0],
-        right: nombres[1]
+        right: nombres[1],
       }
       const resultat1 = engine.parse(calcul1).simplify().latex
       const calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
@@ -66,9 +86,9 @@ export default class ExpressionsDepuisCalculs extends Exercice {
       const calcul4 = `${resultat3} ${signes[3]} ${nombres[4]}`
       const resultat4 = engine.parse(calcul4).simplify().latex
 
-      let calculRedaction : Expression = ''
+      let calculRedaction: Expression = ''
       let nombreCible: string
-      let redaction:string
+      let redaction: string
       let cd: string = '' // correction détaillée
 
       switch (Number(nbOps[i])) {
@@ -78,9 +98,15 @@ export default class ExpressionsDepuisCalculs extends Exercice {
           calculRedaction = {
             operator: signes[1] as Operator,
             left: calcul1EN,
-            right: nombres[2]
+            right: nombres[2],
           }
-          if (!checkValue(Number(nombreCible), [nombres[1], nombres[2], nombres[0]], [Number(resultat1)])) {
+          if (
+            !checkValue(
+              Number(nombreCible),
+              [nombres[1], nombres[2], nombres[0]],
+              [Number(resultat1)],
+            )
+          ) {
             continue
           }
           if (this.sup3) redaction = parseExpression(calculRedaction) // sans parenthèse inutile
@@ -95,17 +121,27 @@ En supprimant les parenthèses inutiles, on peut écrire :<br> $${miseEnEvidence
           break
         case 3:
           nombreCible = resultat3
-          redaction = rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[2], nombres[3].toString())
+          redaction = rediger(
+            rediger(calcul1, signes[1], nombres[2].toString()),
+            signes[2],
+            nombres[3].toString(),
+          )
           calculRedaction = {
             operator: signes[2] as Operator,
             left: {
               operator: signes[1] as Operator,
               left: calcul1EN,
-              right: nombres[2]
+              right: nombres[2],
             },
-            right: nombres[3]
+            right: nombres[3],
           }
-          if (!checkValue(Number(nombreCible), [nombres[1], nombres[2], nombres[0], nombres[3]], [Number(resultat1), Number(resultat2)])) {
+          if (
+            !checkValue(
+              Number(nombreCible),
+              [nombres[1], nombres[2], nombres[0], nombres[3]],
+              [Number(resultat1), Number(resultat2)],
+            )
+          ) {
             continue
           }
           if (this.sup3) redaction = parseExpression(calculRedaction) // sans parenthèse inutile
@@ -122,7 +158,15 @@ En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidenc
         case 4:
         default:
           nombreCible = resultat4
-          redaction = rediger(rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[2], nombres[3].toString()), signes[3], nombres[4].toString())
+          redaction = rediger(
+            rediger(
+              rediger(calcul1, signes[1], nombres[2].toString()),
+              signes[2],
+              nombres[3].toString(),
+            ),
+            signes[3],
+            nombres[4].toString(),
+          )
           calculRedaction = {
             operator: signes[3] as Operator,
             left: {
@@ -130,13 +174,19 @@ En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidenc
               left: {
                 operator: signes[1] as Operator,
                 left: calcul1EN,
-                right: nombres[2]
+                right: nombres[2],
               },
-              right: nombres[3]
+              right: nombres[3],
             },
-            right: nombres[4]
+            right: nombres[4],
           }
-          if (!checkValue(Number(nombreCible), [nombres[1], nombres[2], nombres[0], nombres[3], nombres[3]], [Number(resultat1), Number(resultat2), Number(resultat3)])) {
+          if (
+            !checkValue(
+              Number(nombreCible),
+              [nombres[1], nombres[2], nombres[0], nombres[3], nombres[3]],
+              [Number(resultat1), Number(resultat2), Number(resultat3)],
+            )
+          ) {
             continue
           }
           if (this.sup3) redaction = parseExpression(calculRedaction) // sans parenthèse inutile
@@ -153,22 +203,34 @@ En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidenc
           break
       }
 
-      const texteCorr = this.correctionDetaillee ? cd : `$${miseEnEvidence(redaction)} = ${nombreCible}$`
+      const texteCorr = this.correctionDetaillee
+        ? cd
+        : `$${miseEnEvidence(redaction)} = ${nombreCible}$`
 
-      const enonce = [`$${calcul1} = ${resultat1}$<br>`,
+      const enonce = [
+        `$${calcul1} = ${resultat1}$<br>`,
         `$${calcul2} = ${resultat2}$<br>`,
         `$${calcul3} = ${resultat3}$<br>`,
-        `$${calcul4} = ${resultat4}$<br>`]
+        `$${calcul4} = ${resultat4}$<br>`,
+      ]
       const tirage = nombres.slice(0, nbOps[i] + 1)
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${tirage.join(' ; ')}.<br>
 Voici ses calculs :<br>${enonce.slice(0, nbOps[i]).join('\n')}
 Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6eme')}`
-      handleAnswers(this, i, { reponse: { value: redaction, options: { operationSeulementEtNonResultat: true } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: redaction,
+          options: { operationSeulementEtNonResultat: true },
+        },
+      })
       //   if (!this.correctionDetaillee) texteCorr = ''
       //   texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
 
       const nombreCibleValide = Number(nombreCible) < 100 * Number(nbOps[i])
-      if (this.questionJamaisPosee(i, ...nombres, ...signes, redaction) && nombreCibleValide) {
+      if (
+        this.questionJamaisPosee(i, ...nombres, ...signes, redaction) &&
+        nombreCibleValide
+      ) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -176,12 +238,20 @@ Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6em
     }
     listeQuestionsToContenu(this)
 
-    function rediger (expression1: string, signe: string, expression2: string): string {
+    function rediger(
+      expression1: string,
+      signe: string,
+      expression2: string,
+    ): string {
       if (isNaN(Number(expression2))) expression2 = `( ${expression2} )`
       return `(${expression1}) ${signe} ${expression2}`
     }
 
-    function checkValue (nombreCible: number, nombresUtilises: number[], resultat: number[]) : boolean {
+    function checkValue(
+      nombreCible: number,
+      nombresUtilises: number[],
+      resultat: number[],
+    ): boolean {
       if (nombreCible < 2) {
         return false
       }

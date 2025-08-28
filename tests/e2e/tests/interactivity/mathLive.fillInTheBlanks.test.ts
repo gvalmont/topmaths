@@ -1,9 +1,16 @@
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs.js'
 
-async function test6N203 (page: Page) {
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+async function test6N203(page: Page) {
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
   const urlExercice = hostname + '?uuid=3bdcd&id=6N20-3&alea=vBuv&i=1'
   const questions = await getQuestions(page, urlExercice)
 
@@ -12,10 +19,14 @@ async function test6N203 (page: Page) {
     const signe = mathField.includes('&lt') ? '<' : '>'
     const cleanMathField = mathField.replaceAll('\\,', '')
     const regex = /(\d+)/g
-    const [, numString, denString] = cleanMathField.match(regex) as [string, string, string]
+    const [, numString, denString] = cleanMathField.match(regex) as [
+      string,
+      string,
+      string,
+    ]
     const num = Number(numString)
     const den = Number(denString)
-    let a, b : number
+    let a, b: number
     if (question.isCorrect) {
       a = Math.floor(num / den)
       b = Math.ceil(num / den)
@@ -23,23 +34,31 @@ async function test6N203 (page: Page) {
       a = Math.floor(num / den) - 1
       b = Math.floor(num / den) + 1
     }
-    const reponse = signe === '<' ? [a.toString(), b.toString()] : [b.toString(), a.toString()] // J'ai inversé l'ordre parce que le focus se place automatiquement sur le deuxième placeholder !
+    const reponse =
+      signe === '<'
+        ? [a.toString(), b.toString()]
+        : [b.toString(), a.toString()] // J'ai inversé l'ordre parce que le focus se place automatiquement sur le deuxième placeholder !
     await inputAnswer(page, question, reponse)
   }
   await checkFeedback(page, questions)
   return true
 }
 
-async function test5R211 (page: Page) {
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+async function test5R211(page: Page) {
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
   const urlExercice = hostname + '?uuid=f2db1&alea=1iCO&i=1' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
   const questions = await getQuestions(page, urlExercice)
   for (const question of questions) {
-    const innerText = question.innerText.replaceAll(' ', '').replaceAll('\n', '').split('=')[0]
+    const innerText = question.innerText
+      .replaceAll(' ', '')
+      .replaceAll('\n', '')
+      .split('=')[0]
     let [stringA, stringB] = innerText.split(')-(')
     stringA = stringA.replace('(', '')
     stringB = stringB.replace(')', '')
-    let a, b, c : number
+    let a, b, c: number
     if (question.isCorrect) {
       a = Number(stringA)
       b = Number(stringB)

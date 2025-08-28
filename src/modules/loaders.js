@@ -17,8 +17,8 @@ const apps = {
   slick: [
     '/assets/externalJs/semantic-ui/semantic.min.css',
     '/assets/externalJs/semantic-ui/semantic.min',
-    '/assets/externalJs/semantic-ui/components/state.min'
-  ]
+    '/assets/externalJs/semantic-ui/components/state.min',
+  ],
 }
 
 /**
@@ -27,12 +27,14 @@ const apps = {
  * @param {string} name
  * @return {Promise<undefined, Error>} promesse de chargement
  */
-async function load (name) {
+async function load(name) {
   // on est dans une fct async, si l'une de ces deux lignes plantent ça va retourner une promesse rejetée avec l'erreur
   if (!apps[name]) throw UserFriendlyError(`application ${name} inconnue`)
   // cf https://github.com/muicss/loadjs
   try {
-    if (!loadjs.isDefined(name)) { await loadjs(apps[name], name, { returnPromise: true }) }
+    if (!loadjs.isDefined(name)) {
+      await loadjs(apps[name], name, { returnPromise: true })
+    }
   } catch (error) {
     console.error(error)
     throw new UserFriendlyError(`Le chargement de ${name} a échoué`)
@@ -43,7 +45,7 @@ async function load (name) {
       success: resolve,
       // si le chargement précédent a réussi on voit pas trop comment on pourrait arriver là, mais ça reste plus prudent de gérer l'erreur éventuelle
       error: () =>
-        reject(new UserFriendlyError(`Le chargement de ${name} a échoué`))
+        reject(new UserFriendlyError(`Le chargement de ${name} a échoué`)),
     })
   })
 }
@@ -54,12 +56,12 @@ async function load (name) {
  * @param {string} xml Le script xml de l'animation ou son url absolue
  * @return {Promise<iepApp>} L'appli iep
  */
-export async function loadIep (elt, xml) {
+export async function loadIep(elt, xml) {
   try {
     const { default: iepLoadPromise } = await import('instrumenpoche')
     const iepApp = await iepLoadPromise(elt, xml, {
       zoom: true,
-      autostart: false
+      autostart: false,
     })
     return iepApp
   } catch (error) {
@@ -75,10 +77,12 @@ export async function loadIep (elt, xml) {
  * @param {Object} mtgOptions Options pour l'appli (boutons, menus, etc., cf {@link https://www.mathgraph32.org/documentation/loading/global.html#MtgOptions}
  * @return {Promise<MtgApp>} l'appli mathgraph {@link https://www.mathgraph32.org/documentation/loading/MtgApp.html}
  */
-export async function loadMG32 (elt, svgOptions, mtgOptions) {
+export async function loadMG32(elt, svgOptions, mtgOptions) {
   try {
     if (typeof window.mtgLoad !== 'function') await load('mathgraph')
-    if (typeof window.mtgLoad !== 'function') { throw Error('mtgLoad n’existe pas') }
+    if (typeof window.mtgLoad !== 'function') {
+      throw Error('mtgLoad n’existe pas')
+    }
     // cf https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad
     // la syntaxe qui retourne une promesse fonctionne avec un import seulement (il faudrait mettre mathgraph dans nos dépendances et l'importer)
     // avec le chargement du js via un tag script il faut fournir une callback
@@ -99,7 +103,7 @@ export async function loadMG32 (elt, svgOptions, mtgOptions) {
  * Charge prism
  * @return {Promise<undefined>}
  */
-export function loadPrism () {
+export function loadPrism() {
   return load('prism')
 }
 
@@ -107,7 +111,7 @@ export function loadPrism () {
  * Charge scratchblocks
  * @return {Promise} qui peut échouer…
  */
-export function loadScratchblocks () {
+export function loadScratchblocks() {
   return load('scratchblocks')
 }
 
@@ -115,7 +119,7 @@ export function loadScratchblocks () {
  * Charge MathLive et personnalise les réglages
  * MathLive est chargé dès qu'un tag math-field est créé
  */
-export async function loadMathLive (divExercice) {
+export async function loadMathLive(divExercice) {
   await import('mathlive')
   let champs
   if (divExercice) {
@@ -154,30 +158,31 @@ export async function loadMathLive (divExercice) {
     // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
     if (context.vue === 'exMoodle') {
       const hauteurExercice =
-      window.document.querySelector('section').scrollHeight
+        window.document.querySelector('section').scrollHeight
       window.parent.postMessage(
         {
           hauteurExercice,
           iMoodle: parseInt(
-            new URLSearchParams(window.location.search).get('iMoodle')
-          )
+            new URLSearchParams(window.location.search).get('iMoodle'),
+          ),
         },
-        '*'
+        '*',
       )
       const domExerciceInteractifReady = new window.Event(
         'domExerciceInteractifReady',
-        { bubbles: true }
+        { bubbles: true },
       )
       document.dispatchEvent(domExerciceInteractifReady)
     }
   }
 }
 
-function handleFocusMathField (event) {
+function handleFocusMathField(event) {
   const mf = event.target
   const isFillInTheBlanks = mf.classList.contains('fillInTheBlanks')
   const isNotFillInTheBlanksAndReadOnly = !isFillInTheBlanks && mf.readOnly
-  const isCorrected = isNotFillInTheBlanksAndReadOnly || mf.classList.contains('corrected')
+  const isCorrected =
+    isNotFillInTheBlanksAndReadOnly || mf.classList.contains('corrected')
   getKeyboardShortcusts(mf)
   keyboardState.update((value) => {
     return {
@@ -185,12 +190,15 @@ function handleFocusMathField (event) {
       isInLine: value.isInLine,
       idMathField: event.target.id,
       alphanumericLayout: value.alphanumericLayout,
-      blocks: 'keyboard' in mf.dataset ? mf.dataset.keyboard.split(' ') : ['numbers', 'fullOperations', 'variables']
+      blocks:
+        'keyboard' in mf.dataset
+          ? mf.dataset.keyboard.split(' ')
+          : ['numbers', 'fullOperations', 'variables'],
     }
   })
 }
 
-function handleFocusOutMathField () {
+function handleFocusOutMathField() {
   // Si le focus est sur un autre élément que mathfield, on cache le clavier
   // On utilise setTimeout pour être sûr que le focus soit bien sur le nouvel élément
   // car au focusout, le focus est sur body
@@ -206,7 +214,7 @@ function handleFocusOutMathField () {
   }, 200)
 }
 
-function setMathfield (mf) {
+function setMathfield(mf) {
   if ('mathVirtualKeyboardPolicy' in mf) mf.mathVirtualKeyboardPolicy = 'manual'
   if ('menuItems' in mf) mf.menuItems = []
   if ('virtualKeyboardMode' in mf) mf.virtualKeyboardMode = 'manual'

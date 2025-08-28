@@ -9,7 +9,6 @@ export const uuid = 'cb572'
 
 export const refs = {
   'fr-fr': ['2N30-4', 'BP2AutoH3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class ExerciceDiviserFractions2nde extends ExerciceDiviserFractions {
-}
+export default class ExerciceDiviserFractions2nde extends ExerciceDiviserFractions {}

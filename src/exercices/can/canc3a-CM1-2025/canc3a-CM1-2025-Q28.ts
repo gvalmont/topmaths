@@ -3,20 +3,20 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Calculer d\'un entier avec un décimal'
+export const titre = "Calculer d'un entier avec un décimal"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '48568'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025CM1Q28 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class Can2025CM1Q28 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '$=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 3 : randint(3, 9)
     const b = this.canOfficielle ? 8 : randint(6, 9)
     this.reponse = a * b * 10

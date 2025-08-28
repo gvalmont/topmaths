@@ -19,32 +19,38 @@ export const dateDePublication = '21/10/2022'
 /**
  * Connaissance du vocabulaire de base des polygones : nom, côté, sommet, diagonale
  * @author Guillaume Valmont
-*/
+ */
 export const uuid = '18672'
 
 export const refs = {
   'fr-fr': ['6G0-6'],
   'fr-2016': ['6G20-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class VocabulaireDeBaseDesPolygones extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.correctionDetailleeDisponible = true
     this.nbQuestions = 4
     this.nbQuestionsModifiable = false
-    this.besoinFormulaireTexte = ['Texte de la 4ème possibilité', 'Retire la 4ème possibilité si le champ est vide']
+    this.besoinFormulaireTexte = [
+      'Texte de la 4ème possibilité',
+      'Retire la 4ème possibilité si le champ est vide',
+    ]
     this.sup = ''
   }
 
-  nouvelleVersion () {
-    const propositionsAMC:{
-      type: string,
-      enonce: string,
+  nouvelleVersion() {
+    const propositionsAMC: {
+      type: string
+      enonce: string
       propositions: any
     }[] = []
     const typeQuestionsDisponibles = ['nom', 'sommet', 'cote', 'diagonale']
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     const objets2d = []
     const O = point(0, 0, 'O')
     const points = []
@@ -66,7 +72,13 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
     }
     // On crée les points autour d'un point O à partir des angles précédemment créés
     for (let i = 0; i < nbSommets; i++) {
-      points.push(pointSurCercle(cercle(O, randint(20, 50) / 10), anglesPoints[i], lettreDepuisChiffre(numerosNomsPoints[i])))
+      points.push(
+        pointSurCercle(
+          cercle(O, randint(20, 50) / 10),
+          anglesPoints[i],
+          lettreDepuisChiffre(numerosNomsPoints[i]),
+        ),
+      )
     }
     const polygon = polygoneAvecNom(...points)
     objets2d.push(polygon[0], polygon[1])
@@ -81,14 +93,25 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
     const xmax = Math.max(...pointsX) + 2
     const ymin = Math.min(...pointsY) - 2
     const ymax = Math.max(...pointsY) + 2
-    const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: context.isAmc ? 0.5 : 1 }
+    const parametres2d = {
+      xmin,
+      ymin,
+      xmax,
+      ymax,
+      pixelsParCm: 20,
+      scale: context.isAmc ? 0.5 : 1,
+    }
     this.introduction = '' + mathalea2d(parametres2d, objets2d)
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
       // On construit les questions
-      const indiceA = randint(0, (nbSommets - 1))
+      const indiceA = randint(0, nbSommets - 1)
       const indiceB = (indiceA + 1) % nbSommets
       const indiceC = (indiceA + 2) % nbSommets
       const A = points[indiceA].nom
@@ -114,51 +137,61 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
       let questionReponse
       switch (listeTypeQuestions[i]) {
         case 'nom':
-          questionReponse =
-          {
-            question: 'Parmi les noms ci-dessous, lesquels sont les noms possibles de ce polygone ?',
-            propositions: [nomDirectCorrect, nomDirectIncorrect, nomIndirectCorrect, nomIndirrectIncorrect],
+          questionReponse = {
+            question:
+              'Parmi les noms ci-dessous, lesquels sont les noms possibles de ce polygone ?',
+            propositions: [
+              nomDirectCorrect,
+              nomDirectIncorrect,
+              nomIndirectCorrect,
+              nomIndirrectIncorrect,
+            ],
             reponses: [nomDirectCorrect, nomIndirectCorrect],
             explications: `On peut le nommer de plein de façons différentes.<br>
-              Il faut partir d'un point (n'importe lequel) et nommer les points qu'on rencontre lorsqu'on fait le tour de la figure dans un sens ou dans l'autre.`
+              Il faut partir d'un point (n'importe lequel) et nommer les points qu'on rencontre lorsqu'on fait le tour de la figure dans un sens ou dans l'autre.`,
           }
           break
         case 'sommet':
-          questionReponse =
-          {
+          questionReponse = {
             question: `$${A}$ est :`,
             propositions: ['un sommet', 'un côté', 'une diagonale'],
             reponses: ['un sommet'],
-            explications: 'Les sommets sont les extrémités des côtés.'
+            explications: 'Les sommets sont les extrémités des côtés.',
           }
 
           break
         case 'cote':
-          questionReponse =
-          {
+          questionReponse = {
             question: `$[${B}${C}]$ est :`,
             propositions: ['un sommet', 'un côté', 'une diagonale'],
             reponses: ['un côté'],
-            explications: 'Les côtés sont les segments qui forment le polygone.'
+            explications:
+              'Les côtés sont les segments qui forment le polygone.',
           }
 
           break
         case 'diagonale':
         default:
-          questionReponse =
-          {
+          questionReponse = {
             question: `$[${C}${A}]$ est :`,
             propositions: ['un sommet', 'un côté', 'une diagonale'],
             reponses: ['une diagonale'],
-            explications: 'Une diagonale est un segment qui a pour extrémités deux sommets non consécutifs (deux côtés qui ne se suivent pas).'
+            explications:
+              'Une diagonale est un segment qui a pour extrémités deux sommets non consécutifs (deux côtés qui ne se suivent pas).',
           }
 
           break
       }
-      if (this.sup !== '' && this.sup !== undefined && this.sup !== 'NaN' && listeTypeQuestions[i] !== 'nom') questionReponse.propositions.push(this.sup)
-      const propositions:{
-        texte: string,
-        statut: boolean,
+      if (
+        this.sup !== '' &&
+        this.sup !== undefined &&
+        this.sup !== 'NaN' &&
+        listeTypeQuestions[i] !== 'nom'
+      )
+        questionReponse.propositions.push(this.sup)
+      const propositions: {
+        texte: string
+        statut: boolean
         feedback: string
       }[] = []
       for (const proposition of questionReponse.propositions) {
@@ -169,30 +202,39 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
         propositions.push({
           texte: proposition,
           statut,
-          feedback: ''
+          feedback: '',
         })
       }
       this.autoCorrection[i] = {
         enonce: questionReponse.question,
         options: { ordered: false },
-        propositions
+        propositions,
       }
       const monQcm = propositionsQcm(this, i)
       texte += questionReponse.question + '<br>'
       texte += monQcm.texte
       texteCorr += questionReponse.question + '<br>'
       texteCorr += monQcm.texteCorr
-      this.correctionDetaillee ? texteCorr += questionReponse.explications + '<br><br>' : texteCorr += '<br>'
+      this.correctionDetaillee
+        ? (texteCorr += questionReponse.explications + '<br><br>')
+        : (texteCorr += '<br>')
 
       if (context.isAmc) {
         propositionsAMC[i] = {
           type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
           enonce: questionReponse.question,
-          propositions
+          propositions,
         }
       }
 
-      if (this.questionJamaisPosee(i, ...pointsX, ...pointsY, listeTypeQuestions[i])) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          ...pointsX,
+          ...pointsY,
+          listeTypeQuestions[i],
+        )
+      ) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
@@ -202,7 +244,7 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
             enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
             enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
             // options: { ordered: false },
-            propositions: propositionsAMC
+            propositions: propositionsAMC,
           }
         }
 

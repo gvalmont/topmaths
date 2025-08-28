@@ -1,5 +1,9 @@
 import { abs, random, round } from 'mathjs'
-import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  ObjetMathalea2D,
+} from '../../modules/2dGeneralites'
 import { arc, cercle, Cercle } from './cercle'
 import { afficheCoteSegment } from './codages'
 import { Point, point, pointAdistance } from './points'
@@ -15,7 +19,15 @@ import { homothetie, rotation, translation } from './transformations'
  *
  */
 export class Pave extends ObjetMathalea2D {
-  constructor (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDeFuite = 30, coefficientDeFuite = 0.5) {
+  constructor(
+    L = 10,
+    l = 5,
+    h = 5,
+    origine = point(0, 0),
+    cote = true,
+    angleDeFuite = 30,
+    coefficientDeFuite = 0.5,
+  ) {
     super()
     this.objets = []
     const A = origine
@@ -45,11 +57,16 @@ export class Pave extends ObjetMathalea2D {
       this.objets.push(afficheCoteSegment(segment(A, D), '', 1))
       this.objets.push(afficheCoteSegment(segment(F, B), h + ' cm', 1))
     }
-    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
+    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, {
+      rxmin: 0,
+      rxmax: 0,
+      rymin: 0,
+      rymax: 0,
+    })
     this.bordures = [xmin, ymin, xmax, ymax]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -59,7 +76,7 @@ export class Pave extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -69,7 +86,15 @@ export class Pave extends ObjetMathalea2D {
   }
 }
 
-export function pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDeFuite = 30, coefficientDeFuite = 0.5) {
+export function pave(
+  L = 10,
+  l = 5,
+  h = 5,
+  origine = point(0, 0),
+  cote = true,
+  angleDeFuite = 30,
+  coefficientDeFuite = 0.5,
+) {
   return new Pave(L, l, h, origine, cote, angleDeFuite, coefficientDeFuite)
 }
 
@@ -99,7 +124,7 @@ export class Ellipse extends ObjetMathalea2D {
   ry: number
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
-  constructor (O:Point, rx: number, ry: number, color = 'black') {
+  constructor(O: Point, rx: number, ry: number, color = 'black') {
     super()
     this.color = colorToLatexOrHTML(color)
     this.centre = O
@@ -110,7 +135,7 @@ export class Ellipse extends ObjetMathalea2D {
     this.bordures = [O.x - rx, O.y - ry, O.x + rx, O.y + ry]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -135,7 +160,10 @@ export class Ellipse extends ObjetMathalea2D {
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
-    if (this.couleurDeRemplissage[0] === '' || this.couleurDeRemplissage[0] === 'none') {
+    if (
+      this.couleurDeRemplissage[0] === '' ||
+      this.couleurDeRemplissage[0] === 'none'
+    ) {
       this.style += ' fill="none" '
     } else {
       this.style += ` fill="${this.couleurDeRemplissage[0]}" `
@@ -145,7 +173,7 @@ export class Ellipse extends ObjetMathalea2D {
     return `<ellipse cx="${this.centre.xSVG(coeff)}" cy="${this.centre.ySVG(coeff)}" rx="${this.rx * coeff}" ry="${this.ry * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }
 
-  tikz () {
+  tikz() {
     let optionsDraw = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
@@ -178,8 +206,14 @@ export class Ellipse extends ObjetMathalea2D {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage[1] !== '' && this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage[1] !== '') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
+    if (
+      this.couleurDeRemplissage[1] !== '' &&
+      this.couleurDeRemplissage[1] !== 'none' &&
+      this.couleurDeRemplissage[1] !== ''
+    ) {
+      tableauOptions.push(
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]}}`,
+      )
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -187,7 +221,7 @@ export class Ellipse extends ObjetMathalea2D {
     return `\\draw${optionsDraw} (${this.centre.x},${this.centre.y}) ellipse (${this.rx}cm and ${this.ry}cm);`
   }
 
-  svgml (coeff:number, amp:number) {
+  svgml(coeff: number, amp: number) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -199,16 +233,17 @@ export class Ellipse extends ObjetMathalea2D {
     let code = `<path d="M ${this.centre.xSVG(coeff) + this.rx * coeff} ${this.centre.ySVG(coeff)} C ${this.centre.xSVG(coeff) + this.rx * coeff} ${this.centre.ySVG(coeff)}, `
     let compteur = 1
     for (let k = 1, variation; k < 181; k++) {
-      variation = (random(0, 2) - 1) * amp / 10
-      code += `${this.centre.xSVG(coeff) + round((this.rx + variation) * Math.cos(2 * k * Math.PI / 180) * coeff, 2)} ${this.centre.ySVG(coeff) + round((this.ry + variation) * Math.sin(2 * k * Math.PI / 180) * coeff, 2)}, `
+      variation = ((random(0, 2) - 1) * amp) / 10
+      code += `${this.centre.xSVG(coeff) + round((this.rx + variation) * Math.cos((2 * k * Math.PI) / 180) * coeff, 2)} ${this.centre.ySVG(coeff) + round((this.ry + variation) * Math.sin((2 * k * Math.PI) / 180) * coeff, 2)}, `
       compteur++
     }
-    if (compteur % 2 === 0) code += ` ${this.centre.xSVG(coeff) + this.rx * coeff} ${this.centre.ySVG(coeff)}, `
+    if (compteur % 2 === 0)
+      code += ` ${this.centre.xSVG(coeff) + this.rx * coeff} ${this.centre.ySVG(coeff)}, `
     code += ` ${this.centre.xSVG(coeff) + this.rx * coeff} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}"/>`
     return code
   }
 
-  tikzml (amp:number) {
+  tikzml(amp: number) {
     let optionsDraw = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
@@ -221,7 +256,9 @@ export class Ellipse extends ObjetMathalea2D {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
+    tableauOptions.push(
+      `decorate,decoration={random steps , amplitude = ${amp}pt}`,
+    )
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
     const code = `\\draw${optionsDraw} (${this.centre.x},${this.centre.y}) ellipse (${this.rx}cm and ${this.ry}cm);`
@@ -240,7 +277,7 @@ export class Ellipse extends ObjetMathalea2D {
  * @return {Ellipse}
  */
 // JSDOC Validee par EE Aout 2022
-export function ellipse (O: Point, rx: number, ry: number, color = 'black') {
+export function ellipse(O: Point, rx: number, ry: number, color = 'black') {
   return new Ellipse(O, rx, ry, color)
 }
 
@@ -273,7 +310,7 @@ export class SemiEllipse extends ObjetMathalea2D {
   angle: number
   large: number
   sweep: number
-  constructor ({
+  constructor({
     centre,
     rx,
     ry,
@@ -284,7 +321,7 @@ export class SemiEllipse extends ObjetMathalea2D {
     color = 'black',
     opaciteDeRemplissage = 0.2,
     hachures = false,
-    anglesAxe = 0
+    anglesAxe = 0,
   }: {
     centre: Point
     rx: number
@@ -314,7 +351,11 @@ export class SemiEllipse extends ObjetMathalea2D {
     this.anglesAxe = anglesAxe
     this.angle = hemisphere === 'nord' ? 180 : -180
     this.M = point(centre.x + rx, centre.y)
-    const med = homothetie(rotation(this.M, centre, this.angle / 2), centre, ry / rx)
+    const med = homothetie(
+      rotation(this.M, centre, this.angle / 2),
+      centre,
+      ry / rx,
+    )
 
     this.large = 0
     this.sweep = 0
@@ -330,20 +371,30 @@ export class SemiEllipse extends ObjetMathalea2D {
     }
     this.N = rotation(this.M, centre, this.angle)
     // reglage des bordures intégrant les rotation
-    const [bxmin, bymin, bxmax, bymax] = [Math.min(this.M.x, this.N.x, med.x) - 0.1, Math.min(this.M.y, this.N.y, med.y) - 0.1, Math.max(this.M.x, this.N.x, med.x) + 0.1, Math.max(this.M.y, this.N.y, med.y) + 0.1]
+    const [bxmin, bymin, bxmax, bymax] = [
+      Math.min(this.M.x, this.N.x, med.x) - 0.1,
+      Math.min(this.M.y, this.N.y, med.y) - 0.1,
+      Math.max(this.M.x, this.N.x, med.x) + 0.1,
+      Math.max(this.M.y, this.N.y, med.y) + 0.1,
+    ]
     let bA = point(bxmin, bymin) // (xmin, yMin)
-    let bB = point(bxmax, bymin)// (xmax, yMin)
-    let bC = point(bxmax, bymax)  // (xmax, yMax)
+    let bB = point(bxmax, bymin) // (xmax, yMin)
+    let bC = point(bxmax, bymax) // (xmax, yMax)
     let bD = point(bxmin, bymax) // (xmiSn, yMax)
     const bCentre = point((bA.x + bB.x) / 2, (bA.y + bB.y) / 2)
     bA = rotation(bA, bCentre, this.anglesAxe)
     bB = rotation(bB, bCentre, this.anglesAxe)
     bC = rotation(bC, bCentre, this.anglesAxe)
     bD = rotation(bD, bCentre, this.anglesAxe)
-    this.bordures = [Math.min(bA.x, bB.x, bC.x, bD.x), Math.min(bA.y, bB.y, bC.y, bD.y), Math.max(bA.x, bB.x, bC.x, bD.x), Math.max(bA.y, bB.y, bC.y, bD.y)]
+    this.bordures = [
+      Math.min(bA.x, bB.x, bC.x, bD.x),
+      Math.min(bA.y, bB.y, bC.y, bD.y),
+      Math.max(bA.x, bB.x, bC.x, bD.x),
+      Math.max(bA.y, bB.y, bC.y, bD.y),
+    ]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     if (this.rayon) {
       this.style = ''
       if (this.epaisseur !== 1) {
@@ -373,20 +424,26 @@ export class SemiEllipse extends ObjetMathalea2D {
           this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
 
-        return pattern({
-          motif: String(this.hachures),
-          id: (typeof this.id === 'string') ? this.id : undefined,
-          distanceDesHachures: this.distanceDesHachures,
-          epaisseurDesHachures: this.epaisseurDesHachures,
-          couleurDesHachures: this.couleurDesHachures[0],
-          couleurDeRemplissage: this.couleurDeRemplissage[0],
-          opaciteDeRemplissage: this.opaciteDeRemplissage
-        }) + `<g transform="rotate(${-this.anglesAxe}, ${this.centre.xSVG(coeff)}, ${this.centre.xSVG(coeff)})"><path d="M${this.M.xSVG(coeff)} ${this.M.ySVG(coeff)} A ${this.rx * coeff} ${this.ry * coeff} 0 ${this.large} ${this.sweep} ${this.N.xSVG(coeff)} ${this.N.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+        return (
+          pattern({
+            motif: String(this.hachures),
+            id: typeof this.id === 'string' ? this.id : undefined,
+            distanceDesHachures: this.distanceDesHachures,
+            epaisseurDesHachures: this.epaisseurDesHachures,
+            couleurDesHachures: this.couleurDesHachures[0],
+            couleurDeRemplissage: this.couleurDeRemplissage[0],
+            opaciteDeRemplissage: this.opaciteDeRemplissage,
+          }) +
+          `<g transform="rotate(${-this.anglesAxe}, ${this.centre.xSVG(coeff)}, ${this.centre.xSVG(coeff)})"><path d="M${this.M.xSVG(coeff)} ${this.M.ySVG(coeff)} A ${this.rx * coeff} ${this.ry * coeff} 0 ${this.large} ${this.sweep} ${this.N.xSVG(coeff)} ${this.N.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+        )
       } else {
         if (this.opacite !== 1) {
           this.style += ` stroke-opacity="${this.opacite}" `
         }
-        if (this.couleurDeRemplissage[0] !== 'none' && this.couleurDeRemplissage[0] !== '') {
+        if (
+          this.couleurDeRemplissage[0] !== 'none' &&
+          this.couleurDeRemplissage[0] !== ''
+        ) {
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
 
@@ -424,7 +481,7 @@ export class SemiEllipse extends ObjetMathalea2D {
     }
   }
 
-  tikz () {
+  tikz() {
     let optionsDraw = ''
     const tableauOptions = []
     if (this.anglesAxe !== 0) {
@@ -458,29 +515,39 @@ export class SemiEllipse extends ObjetMathalea2D {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
 
-    if (this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage[1] !== '') {
+    if (
+      this.couleurDeRemplissage[1] !== 'none' &&
+      this.couleurDeRemplissage[1] !== ''
+    ) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
       tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
     }
 
     if (this.hachures) {
-      tableauOptions.push(pattern({
-        motif: String(this.hachures),
-        id: (typeof this.id === 'string') ? this.id : undefined,
-        distanceDesHachures: this.distanceDesHachures,
-        couleurDesHachures: this.couleurDesHachures[1],
-        couleurDeRemplissage: this.couleurDeRemplissage[1],
-        opaciteDeRemplissage: this.opaciteDeRemplissage
-      }))
+      tableauOptions.push(
+        pattern({
+          motif: String(this.hachures),
+          id: typeof this.id === 'string' ? this.id : undefined,
+          distanceDesHachures: this.distanceDesHachures,
+          couleurDesHachures: this.couleurDesHachures[1],
+          couleurDeRemplissage: this.couleurDeRemplissage[1],
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
+        }),
+      )
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    if (this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage[1] !== '') return `\\filldraw  ${optionsDraw} (${this.M.x},${this.M.y}) arc [start angle=0, end angle = ${this.angle}, x radius = ${this.rx}, y radius = ${this.ry}]; -- cycle ;`
-    else return `\\draw${optionsDraw} (${this.M.x},${this.M.y}) arc [start angle=0, end angle = ${this.angle}, x radius = ${this.rx}, y radius = ${this.ry}];`
+    if (
+      this.couleurDeRemplissage[1] !== 'none' &&
+      this.couleurDeRemplissage[1] !== ''
+    )
+      return `\\filldraw  ${optionsDraw} (${this.M.x},${this.M.y}) arc [start angle=0, end angle = ${this.angle}, x radius = ${this.rx}, y radius = ${this.ry}]; -- cycle ;`
+    else
+      return `\\draw${optionsDraw} (${this.M.x},${this.M.y}) arc [start angle=0, end angle = ${this.angle}, x radius = ${this.rx}, y radius = ${this.ry}];`
   }
 
-  svgml (coeff:number, amp:number) {
+  svgml(coeff: number, amp: number) {
     this.style = ''
     let P: Point
     if (this.epaisseur !== 1) {
@@ -494,9 +561,17 @@ export class SemiEllipse extends ObjetMathalea2D {
     code += `<path d="M${this.M.xSVG(coeff)} ${this.M.ySVG(coeff)} S ${this.M.xSVG(coeff)} ${this.M.ySVG(coeff)}, `
     let compteur = 1
     const r = longueur(this.centre, this.M)
-    for (let k = 0, variation; abs(k) <= abs(this.angle) - 2; k += this.angle < 0 ? -2 : 2) {
-      variation = (random(0, 2) - 1) / r * amp / 10
-      P = rotation(homothetie(this.M, this.centre, 1 + variation), this.centre, k)
+    for (
+      let k = 0, variation;
+      abs(k) <= abs(this.angle) - 2;
+      k += this.angle < 0 ? -2 : 2
+    ) {
+      variation = (((random(0, 2) - 1) / r) * amp) / 10
+      P = rotation(
+        homothetie(this.M, this.centre, 1 + variation),
+        this.centre,
+        k,
+      )
       code += `${round(P.xSVG(coeff), 2)} ${round(P.ySVG(coeff), 2)}, `
       compteur++
     }
@@ -508,7 +583,7 @@ export class SemiEllipse extends ObjetMathalea2D {
     return code
   }
 
-  tikzml (amp:number) {
+  tikzml(amp: number) {
     let optionsDraw = ''
     const tableauOptions = []
     if (this.anglesAxe !== 0) {
@@ -524,11 +599,15 @@ export class SemiEllipse extends ObjetMathalea2D {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
 
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
+    tableauOptions.push(
+      `decorate,decoration={random steps , amplitude = ${amp}pt}`,
+    )
 
     optionsDraw = '[' + tableauOptions.join(',') + ']'
-    if (this.couleurDeRemplissage[1] !== 'none') return `\\filldraw  ${optionsDraw} (${this.M.x},${this.M.y}) arc [start angle=0, end angle = ${this.angle}, x radius = ${this.rx}, y radius = ${this.ry}]; -- cycle ;`
-    else return `\\draw${optionsDraw} (${this.M.x},${this.M.y}) arc [start angle=0, end angle = ${this.angle}, x radius = ${this.rx}, y radius = ${this.ry}];`
+    if (this.couleurDeRemplissage[1] !== 'none')
+      return `\\filldraw  ${optionsDraw} (${this.M.x},${this.M.y}) arc [start angle=0, end angle = ${this.angle}, x radius = ${this.rx}, y radius = ${this.ry}]; -- cycle ;`
+    else
+      return `\\draw${optionsDraw} (${this.M.x},${this.M.y}) arc [start angle=0, end angle = ${this.angle}, x radius = ${this.rx}, y radius = ${this.ry}];`
   }
 }
 
@@ -545,7 +624,7 @@ export class SemiEllipse extends ObjetMathalea2D {
  * @author Jean-Claude Lhote
  * @return {SemiEllipse} Objet SemiEllipse
  */
-export function semiEllipse ({
+export function semiEllipse({
   centre,
   rx,
   ry,
@@ -556,7 +635,7 @@ export function semiEllipse ({
   color = 'black',
   opaciteDeRemplissage = 0.2,
   hachures = false,
-  anglesAxe = 0
+  anglesAxe = 0,
 }: {
   centre: Point
   rx: number
@@ -580,7 +659,7 @@ export function semiEllipse ({
     couleurDeRemplissage,
     color,
     opaciteDeRemplissage,
-    anglesAxe
+    anglesAxe,
   })
 }
 
@@ -601,14 +680,14 @@ export class Cone extends ObjetMathalea2D {
   couleurDeRemplissage: string
   opaciteDeRemplissage: number
   stringColor: string
-  constructor ({
+  constructor({
     centre,
     rx,
     hauteur,
     couleurDeRemplissage = 'none',
     color = 'black',
-    opaciteDeRemplissage = 0.2
-  }:{
+    opaciteDeRemplissage = 0.2,
+  }: {
     centre: Point
     rx: number
     hauteur: number
@@ -633,7 +712,7 @@ export class Cone extends ObjetMathalea2D {
         pointilles: 1,
         couleurDeRemplissage,
         color,
-        opaciteDeRemplissage
+        opaciteDeRemplissage,
       }),
       semiEllipse({
         centre,
@@ -644,10 +723,10 @@ export class Cone extends ObjetMathalea2D {
         pointilles: 0,
         couleurDeRemplissage,
         color,
-        opaciteDeRemplissage
+        opaciteDeRemplissage,
       }),
       segment(point(centre.x + rx, centre.y + 0.1), sommet, color),
-      segment(point(centre.x - rx, centre.y + 0.1), sommet, color)
+      segment(point(centre.x - rx, centre.y + 0.1), sommet, color),
     ]
     let xMin = 1000
     let yMin = 1000
@@ -662,7 +741,7 @@ export class Cone extends ObjetMathalea2D {
     this.bordures = [xMin, yMin, xMax, yMax]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -672,7 +751,7 @@ export class Cone extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -687,13 +766,13 @@ export class Sphere2d extends ObjetMathalea2D {
   centre: Point
   couleurDeRemplissage: string
   opaciteDeRemplissage: number
-  constructor ({
+  constructor({
     centre,
     rx,
     couleurDeRemplissage = 'none',
     color = 'black',
-    opaciteDeRemplissage = 0.2
-  }:{
+    opaciteDeRemplissage = 0.2,
+  }: {
     centre: Point
     rx: number
     couleurDeRemplissage?: string
@@ -706,7 +785,8 @@ export class Sphere2d extends ObjetMathalea2D {
     this.color = colorToLatexOrHTML(color)
     this.couleurDeRemplissage = couleurDeRemplissage
     this.opaciteDeRemplissage = opaciteDeRemplissage
-    this.objets = [grandCercle,
+    this.objets = [
+      grandCercle,
       semiEllipse({
         centre,
         rx,
@@ -716,7 +796,7 @@ export class Sphere2d extends ObjetMathalea2D {
         pointilles: 1,
         couleurDeRemplissage,
         color,
-        opaciteDeRemplissage
+        opaciteDeRemplissage,
       }),
       semiEllipse({
         centre,
@@ -727,8 +807,8 @@ export class Sphere2d extends ObjetMathalea2D {
         pointilles: 0,
         couleurDeRemplissage,
         color,
-        opaciteDeRemplissage
-      })
+        opaciteDeRemplissage,
+      }),
     ]
     let xMin = 1000
     let yMin = 1000
@@ -743,7 +823,7 @@ export class Sphere2d extends ObjetMathalea2D {
     this.bordures = [xMin, yMin, xMax, yMax]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -753,7 +833,7 @@ export class Sphere2d extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -764,31 +844,37 @@ export class Sphere2d extends ObjetMathalea2D {
   }
 }
 
-export function sphere2d ({
+export function sphere2d({
   centre,
   rx,
   couleurDeRemplissage = 'none',
   color = 'black',
-  opaciteDeRemplissage = 0.2
-}:{
+  opaciteDeRemplissage = 0.2,
+}: {
   centre: Point
   rx: number
   couleurDeRemplissage?: string
   color?: string
   opaciteDeRemplissage?: number
 }) {
-  return new Sphere2d({ centre, rx, couleurDeRemplissage, color, opaciteDeRemplissage })
+  return new Sphere2d({
+    centre,
+    rx,
+    couleurDeRemplissage,
+    color,
+    opaciteDeRemplissage,
+  })
 }
 
 // Cette fonction donne un rendu correct que si la hauteur est suffisamment grande
-export function cone ({
+export function cone({
   centre,
   rx,
   hauteur,
   couleurDeRemplissage = 'none',
   color = 'black',
-  opaciteDeRemplissage = 0.2
-}:{
+  opaciteDeRemplissage = 0.2,
+}: {
   centre: Point
   rx: number
   hauteur: number
@@ -796,30 +882,37 @@ export function cone ({
   color?: string
   opaciteDeRemplissage?: number
 }) {
-  return new Cone({ centre, rx, hauteur, couleurDeRemplissage, color, opaciteDeRemplissage })
+  return new Cone({
+    centre,
+    rx,
+    hauteur,
+    couleurDeRemplissage,
+    color,
+    opaciteDeRemplissage,
+  })
 }
 
 /**
-* Trace un cylindre
-* @param {Point} centre Centre de la base
-* @param {number} rx Rayon sur l'axe des abscisses
-* @param {number} hauteur Distance verticale entre le centre et le sommet.
-* @param {string} [position = 'DeboutVuDessus'] Facultatif, 'DeboutVuDessus' par défaut, ou 'baseAvantCoucheVuGauche' a faire : baseCoteCoucheVuDroite
-* @param {string} [color = 'black'] Facultatif, 'black' par défaut
-* @param {string} [couleurDeRemplissage = 'none'] none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
-* @param {number} [opaciteDeRemplissage = 0.2] Taux d'opacité du remplissage
-* @param {number} [angleDeFuite = 30] pour 'baseAvantCoucheVuDroite'
-* @param {number} [coefficientDeFuite = 0.5] 'baseAvantCoucheVuDroite'
-* @author Olivier Mimeau // d'après Cone de Jean-Claude Lhote
-* @private
-*/
+ * Trace un cylindre
+ * @param {Point} centre Centre de la base
+ * @param {number} rx Rayon sur l'axe des abscisses
+ * @param {number} hauteur Distance verticale entre le centre et le sommet.
+ * @param {string} [position = 'DeboutVuDessus'] Facultatif, 'DeboutVuDessus' par défaut, ou 'baseAvantCoucheVuGauche' a faire : baseCoteCoucheVuDroite
+ * @param {string} [color = 'black'] Facultatif, 'black' par défaut
+ * @param {string} [couleurDeRemplissage = 'none'] none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {number} [opaciteDeRemplissage = 0.2] Taux d'opacité du remplissage
+ * @param {number} [angleDeFuite = 30] pour 'baseAvantCoucheVuDroite'
+ * @param {number} [coefficientDeFuite = 0.5] 'baseAvantCoucheVuDroite'
+ * @author Olivier Mimeau // d'après Cone de Jean-Claude Lhote
+ * @private
+ */
 export class Cylindre extends ObjetMathalea2D {
   centre: Point
   centre2: Point
   couleurDeRemplissage: string
   opaciteDeRemplissage: number
   stringColor: string
-  constructor ({
+  constructor({
     centre,
     rx,
     hauteur,
@@ -828,8 +921,8 @@ export class Cylindre extends ObjetMathalea2D {
     color = 'black',
     opaciteDeRemplissage = 0.2,
     angleDeFuite = 30,
-    coefficientDeFuite = 0.5
-  }:{
+    coefficientDeFuite = 0.5,
+  }: {
     centre: Point
     rx: number
     hauteur: number
@@ -837,8 +930,8 @@ export class Cylindre extends ObjetMathalea2D {
     couleurDeRemplissage?: string
     color?: string
     opaciteDeRemplissage?: number
-    angleDeFuite ?: number,
-    coefficientDeFuite ?: number
+    angleDeFuite?: number
+    coefficientDeFuite?: number
   }) {
     super()
     let centre2 = point(centre.x + hauteur, centre.y)
@@ -862,7 +955,7 @@ export class Cylindre extends ObjetMathalea2D {
             color,
             opaciteDeRemplissage,
             hachures: false,
-            anglesAxe: 90
+            anglesAxe: 90,
           }),
           semiEllipse({
             centre,
@@ -875,27 +968,66 @@ export class Cylindre extends ObjetMathalea2D {
             color,
             opaciteDeRemplissage,
             hachures: false,
-            anglesAxe: 90
+            anglesAxe: 90,
           }),
           ellipse(centre2, rx / 3, rx, color),
-          segment(point(centre.x - 0.1, centre.y + rx), point(centre2.x + 0.1, centre2.y + rx), color),
-          segment(point(centre.x - 0.1, centre.y - rx), point(centre2.x + 0.1, centre2.y - rx), color)
+          segment(
+            point(centre.x - 0.1, centre.y + rx),
+            point(centre2.x + 0.1, centre2.y + rx),
+            color,
+          ),
+          segment(
+            point(centre.x - 0.1, centre.y - rx),
+            point(centre2.x + 0.1, centre2.y - rx),
+            color,
+          ),
         ]
         break
-      case 'baseAvantCoucheVuGauche':{
-        centre2 = pointAdistance(centre, hauteur * coefficientDeFuite, angleDeFuite)
-        const ey = -rx * Math.cos(angleDeFuite * Math.PI / 180)
-        const ex = rx * Math.sin(angleDeFuite * Math.PI / 180)
+      case 'baseAvantCoucheVuGauche': {
+        centre2 = pointAdistance(
+          centre,
+          hauteur * coefficientDeFuite,
+          angleDeFuite,
+        )
+        const ey = -rx * Math.cos((angleDeFuite * Math.PI) / 180)
+        const ex = rx * Math.sin((angleDeFuite * Math.PI) / 180)
         const debutArc = point(centre2.x + ex, centre2.y + ey)
-        const demiCerclePlein = arc(debutArc, centre2, 180, false, couleurDeRemplissage, color, opaciteDeRemplissage, 'none')
-        const demiCerclePointille = arc(debutArc, centre2, -180, false, couleurDeRemplissage, color, opaciteDeRemplissage, 'none')
+        const demiCerclePlein = arc(
+          debutArc,
+          centre2,
+          180,
+          false,
+          couleurDeRemplissage,
+          color,
+          opaciteDeRemplissage,
+          'none',
+        )
+        const demiCerclePointille = arc(
+          debutArc,
+          centre2,
+          -180,
+          false,
+          couleurDeRemplissage,
+          color,
+          opaciteDeRemplissage,
+          'none',
+        )
         demiCerclePointille.pointilles = 1
         this.objets = [
           cercle(centre, rx),
           // cercle(centre, rx, color, couleurDeRemplissage, 'none', 1, 0, opaciteDeRemplissage, 1, 10),
-          demiCerclePlein, demiCerclePointille,
-          segment(point(centre.x + ex, centre.y + ey), point(centre2.x + ex, centre2.y + ey), color),
-          segment(point(centre.x - ex, centre.y - ey), point(centre2.x - ex, centre2.y - ey), color)
+          demiCerclePlein,
+          demiCerclePointille,
+          segment(
+            point(centre.x + ex, centre.y + ey),
+            point(centre2.x + ex, centre2.y + ey),
+            color,
+          ),
+          segment(
+            point(centre.x - ex, centre.y - ey),
+            point(centre2.x - ex, centre2.y - ey),
+            color,
+          ),
         ]
 
         break
@@ -913,7 +1045,7 @@ export class Cylindre extends ObjetMathalea2D {
             pointilles: 1,
             couleurDeRemplissage,
             color,
-            opaciteDeRemplissage
+            opaciteDeRemplissage,
           }),
           semiEllipse({
             centre,
@@ -924,11 +1056,19 @@ export class Cylindre extends ObjetMathalea2D {
             pointilles: 0,
             couleurDeRemplissage,
             color,
-            opaciteDeRemplissage
+            opaciteDeRemplissage,
           }),
           ellipse(centre2, rx, rx / 3, color),
-          segment(point(centre.x + rx, centre.y - 0.1), point(centre2.x + rx, centre2.y + 0.1), color),
-          segment(point(centre.x - rx, centre.y - 0.1), point(centre2.x - rx, centre2.y + 0.1), color)
+          segment(
+            point(centre.x + rx, centre.y - 0.1),
+            point(centre2.x + rx, centre2.y + 0.1),
+            color,
+          ),
+          segment(
+            point(centre.x - rx, centre.y - 0.1),
+            point(centre2.x - rx, centre2.y + 0.1),
+            color,
+          ),
         ]
         break
     }
@@ -946,7 +1086,7 @@ export class Cylindre extends ObjetMathalea2D {
     this.bordures = [xMin, yMin, xMax, yMax]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -956,7 +1096,7 @@ export class Cylindre extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -967,7 +1107,7 @@ export class Cylindre extends ObjetMathalea2D {
   }
 }
 
-export function cylindre ({
+export function cylindre({
   centre,
   rx,
   hauteur,
@@ -976,8 +1116,8 @@ export function cylindre ({
   color = 'black',
   opaciteDeRemplissage = 0.2,
   angleDeFuite = 30,
-  coefficientDeFuite = 0.5
-}:{
+  coefficientDeFuite = 0.5,
+}: {
   centre: Point
   rx: number
   hauteur: number
@@ -985,8 +1125,18 @@ export function cylindre ({
   couleurDeRemplissage?: string
   color?: string
   opaciteDeRemplissage?: number
-  angleDeFuite ?: number,
-  coefficientDeFuite ?: number
+  angleDeFuite?: number
+  coefficientDeFuite?: number
 }) {
-  return new Cylindre({ centre, rx, hauteur, position, couleurDeRemplissage, color, opaciteDeRemplissage, angleDeFuite, coefficientDeFuite })
+  return new Cylindre({
+    centre,
+    rx,
+    hauteur,
+    position,
+    couleurDeRemplissage,
+    color,
+    opaciteDeRemplissage,
+    angleDeFuite,
+    coefficientDeFuite,
+  })
 }

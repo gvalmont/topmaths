@@ -13,7 +13,7 @@ export const uuid = 'dcd81'
 
 */
 export default class SoustractionPasFacile extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class SoustractionPasFacile extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: Decimal
     let b: Decimal
     let partieEntiere: number

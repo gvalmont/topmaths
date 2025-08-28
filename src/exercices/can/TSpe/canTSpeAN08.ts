@@ -1,4 +1,9 @@
-import { ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -15,7 +20,7 @@ export const dateDePublication = '13/5/2025'
 export const uuid = 'f6ac7'
 export const refs = {
   'fr-fr': ['canTSpeAN08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -24,18 +29,18 @@ export const refs = {
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-5, 5, 0)
     const b = randint(-5, 5)
     let c = 1
     const fonction = choice(['\\sin', '\\cos'])
-    const derivee = fonction === '\\sin' ? '\\cos' : (c = -1, '\\sin')
+    const derivee = fonction === '\\sin' ? '\\cos' : ((c = -1), '\\sin')
 
     this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${fonction}\\left(${reduireAxPlusB(a, b)}\\right)$. <br> Déterminer l'expression de $f'(x)$.`
     this.correction = `On sait que $\\left(${fonction}(u)\\right)'=${rienSi1(c)}u'${derivee}\\left(u\\right)$.<br>`
@@ -43,6 +48,6 @@ export default class NomExercice extends ExerciceSimple {
     this.correction += `Donc $u'(x)=${a}$.<br>`
     this.correction += `Il vient alors $f'(x)=${rienSi1(a * c)}${derivee}\\left(${reduireAxPlusB(a, b)}\\right)$`
     this.reponse = `${rienSi1(a * c)}${derivee}\\left(${reduireAxPlusB(a, b)}\\right)`
-    this.optionsChampTexte = { texteAvant: '<br>$f\'(x)=~$' }
+    this.optionsChampTexte = { texteAvant: "<br>$f'(x)=~$" }
   }
 }

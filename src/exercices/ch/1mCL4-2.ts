@@ -1,4 +1,8 @@
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
 
@@ -18,17 +22,20 @@ export const interactifType = 'mathLive'
 export const uuid = '5f5fa'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['1mCL4-2']
+  'fr-ch': ['1mCL4-2'],
 }
 
 /**
  * @author Nathan Scheinmann
-*/
+ */
 
 export default class ExerciceEquationSecondDegre extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Type des solutions', '1 : Entières\n2 : Au moins une fractionnaire\n3 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type des solutions',
+      '1 : Entières\n2 : Au moins une fractionnaire\n3 : Mélange',
+    ]
     this.besoinFormulaire2CaseACocher = ['Coefficient dominant égal à 1', false]
     this.besoinFormulaire3CaseACocher = ['Mélanger les termes', false]
     this.sup = 3
@@ -39,7 +46,7 @@ export default class ExerciceEquationSecondDegre extends Exercice {
     this.correctionDetaillee = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -48,19 +55,23 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       defaut: 3,
       listeOfCase: ['entier', 'fraction'],
       nbQuestions: this.nbQuestions,
-      shuffle: true
+      shuffle: true,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre dans $\\mathbb{R}$ l\'équation suivante.'
+      this.consigne = "Résoudre dans $\\mathbb{R}$ l'équation suivante."
     } else {
       this.consigne = 'Résoudre $\\mathbb{R}$ les équations suivantes.'
     }
     if (this.interactif) {
-      this.consigne += ' Entrer l\'ensembles des solutions en séparant les éléments par un point-virgule. Si une équation n\'a pas de solution entrer l\'ensemble vide.'
+      this.consigne +=
+        " Entrer l'ensembles des solutions en séparant les éléments par un point-virgule. Si une équation n'a pas de solution entrer l'ensemble vide."
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let a = new FractionEtendue(1, 1)
@@ -71,7 +82,7 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       let f = new FractionEtendue(1, 1)
       do {
         if (listeTypeDeQuestions[i] === 'fraction') {
-        // do {
+          // do {
           c = new FractionEtendue(randint(-5, 5, [0]), 1)
           d = new FractionEtendue(randint(-5, 5, [0]), 1)
           e = new FractionEtendue(randint(-5, 5, [0]), 1)
@@ -92,13 +103,28 @@ export default class ExerciceEquationSecondDegre extends Exercice {
             a = c
           }
         } while (a === b)
-      } while (f.diviseFraction(e).oppose().texFractionSimplifiee === d.diviseFraction(c).oppose().texFractionSimplifiee)
-      const axP = PolynomePlusieursVariables.createPolynomeFromMonome(new MonomePlusieursVariables(a, { variables: ['x'], exposants: [1] }))
-      const bP = PolynomePlusieursVariables.createPolynomeFromMonome(new MonomePlusieursVariables(b, { variables: ['x'], exposants: [0] }))
-      const cxP = PolynomePlusieursVariables.createPolynomeFromMonome(new MonomePlusieursVariables(c, { variables: ['x'], exposants: [1] }))
-      const dP = PolynomePlusieursVariables.createPolynomeFromMonome(new MonomePlusieursVariables(d, { variables: ['x'], exposants: [0] }))
-      const exP = PolynomePlusieursVariables.createPolynomeFromMonome(new MonomePlusieursVariables(e, { variables: ['x'], exposants: [1] }))
-      const fP = PolynomePlusieursVariables.createPolynomeFromMonome(new MonomePlusieursVariables(f, { variables: ['x'], exposants: [0] }))
+      } while (
+        f.diviseFraction(e).oppose().texFractionSimplifiee ===
+        d.diviseFraction(c).oppose().texFractionSimplifiee
+      )
+      const axP = PolynomePlusieursVariables.createPolynomeFromMonome(
+        new MonomePlusieursVariables(a, { variables: ['x'], exposants: [1] }),
+      )
+      const bP = PolynomePlusieursVariables.createPolynomeFromMonome(
+        new MonomePlusieursVariables(b, { variables: ['x'], exposants: [0] }),
+      )
+      const cxP = PolynomePlusieursVariables.createPolynomeFromMonome(
+        new MonomePlusieursVariables(c, { variables: ['x'], exposants: [1] }),
+      )
+      const dP = PolynomePlusieursVariables.createPolynomeFromMonome(
+        new MonomePlusieursVariables(d, { variables: ['x'], exposants: [0] }),
+      )
+      const exP = PolynomePlusieursVariables.createPolynomeFromMonome(
+        new MonomePlusieursVariables(e, { variables: ['x'], exposants: [1] }),
+      )
+      const fP = PolynomePlusieursVariables.createPolynomeFromMonome(
+        new MonomePlusieursVariables(f, { variables: ['x'], exposants: [0] }),
+      )
 
       // Compute (ax + b)^2
       const axPlusB = axP.somme(bP)
@@ -114,10 +140,16 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       const mdgInit = axPlusB.reduire()
       const sol2 = f.diviseFraction(e).oppose()
       const sol1 = d.diviseFraction(c).oppose()
-      let polySup = new MonomePlusieursVariables(0, { variables: ['x'], exposants: [2] })
+      let polySup = new MonomePlusieursVariables(0, {
+        variables: ['x'],
+        exposants: [2],
+      })
       if (this.sup3) {
         const choix = randint(0, 1)
-        polySup = new MonomePlusieursVariables(mdg.monomes[choix].coefficient, mdg.monomes[choix].partieLitterale)
+        polySup = new MonomePlusieursVariables(
+          mdg.monomes[choix].coefficient,
+          mdg.monomes[choix].partieLitterale,
+        )
         mdg = mdg.difference(polySup).reduire()
         texte += `$${mdg.toString()}=${polySup.oppose().toString()}+\\sqrt{${mdd.toString()}}$`
       } else {
@@ -140,9 +172,19 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       } else {
         numDen2 = texRacineMdd2.match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)
       }
-      const vSubSol1Mdd = (new FractionEtendue(Number(numDen1[0]), Number(numDen1[1]))).sommeFraction(polySup.oppose().evaluer({ x: sol1 })).texFractionSimplifiee
+      const vSubSol1Mdd = new FractionEtendue(
+        Number(numDen1[0]),
+        Number(numDen1[1]),
+      ).sommeFraction(
+        polySup.oppose().evaluer({ x: sol1 }),
+      ).texFractionSimplifiee
       const vSubSol2Mdg = mdg.evaluer({ x: sol2 }).texFractionSimplifiee
-      const vSubSol2Mdd = (new FractionEtendue(Number(numDen2[0]), Number(numDen2[1]))).sommeFraction(polySup.oppose().evaluer({ x: sol2 })).texFractionSimplifiee
+      const vSubSol2Mdd = new FractionEtendue(
+        Number(numDen2[0]),
+        Number(numDen2[1]),
+      ).sommeFraction(
+        polySup.oppose().evaluer({ x: sol2 }),
+      ).texFractionSimplifiee
       let ensembleSol = '\\left\\{'
       // on considère les solutions qui valent pareilles pour les deux membres de l'équation
       if (vSubSol1Mdg === vSubSol1Mdd) {
@@ -158,7 +200,12 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       if (ensembleSol === '\\left\\{\\right\\}') {
         ensembleSol = '\\emptyset'
       }
-      texte += '<br><br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'clavierFullOperations', { texteAvant: 'Donner l\'ensemble des solutions en séparant chaque solution par un point-virgule $S=$' })
+      texte +=
+        '<br><br>' +
+        ajouteChampTexteMathLive(this, 2 * i + 1, 'clavierFullOperations', {
+          texteAvant:
+            "Donner l'ensemble des solutions en séparant chaque solution par un point-virgule $S=$",
+        })
       texteCorr += ' '
       texteCorr += '$\\begin{aligned}'
       if (this.sup3) {
@@ -179,12 +226,17 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       texteCorr += `On vérifie à présent les solutions obtenues.
       <br>
       Pour $x=${sol1.texFractionSimplifiee}$ :<br>
-      $${mdg.toStringEvaluate({ x: sol1 })}=${miseEnEvidence(vSubSol1Mdg, bleuMathalea)}$ ${vSubSol1Mdg === vSubSol1Mdd ? 'et' : 'tandis que'} $${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol1 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol1 })}}=${miseEnEvidence(vSubSol1Mdd, `${vSubSol1Mdg === vSubSol1Mdd ? bleuMathalea : vertMathalea}`)}$, donc $${sol1.texFractionSimplifiee}$ ${vSubSol1Mdd === vSubSol1Mdg ? 'est' : 'n\'est pas'} solution de l'équation.<br>
+      $${mdg.toStringEvaluate({ x: sol1 })}=${miseEnEvidence(vSubSol1Mdg, bleuMathalea)}$ ${vSubSol1Mdg === vSubSol1Mdd ? 'et' : 'tandis que'} $${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol1 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol1 })}}=${miseEnEvidence(vSubSol1Mdd, `${vSubSol1Mdg === vSubSol1Mdd ? bleuMathalea : vertMathalea}`)}$, donc $${sol1.texFractionSimplifiee}$ ${vSubSol1Mdd === vSubSol1Mdg ? 'est' : "n'est pas"} solution de l'équation.<br>
       Pour $x=${sol2.texFractionSimplifiee}$ :<br>
-      $${mdg.toStringEvaluate({ x: sol2 })}=${miseEnEvidence(vSubSol2Mdg, bleuMathalea)}$ ${vSubSol2Mdg === vSubSol2Mdd ? 'et' : 'tandis que'} $${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol2 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol2 })}}=${miseEnEvidence(vSubSol2Mdd, `${vSubSol2Mdg === vSubSol2Mdd ? bleuMathalea : vertMathalea}`)}$, donc $${sol2.texFractionSimplifiee}$ ${vSubSol2Mdd === vSubSol2Mdg ? 'est' : 'n\'est pas'} solution de l'équation.<br>
+      $${mdg.toStringEvaluate({ x: sol2 })}=${miseEnEvidence(vSubSol2Mdg, bleuMathalea)}$ ${vSubSol2Mdg === vSubSol2Mdd ? 'et' : 'tandis que'} $${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol2 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol2 })}}=${miseEnEvidence(vSubSol2Mdd, `${vSubSol2Mdg === vSubSol2Mdd ? bleuMathalea : vertMathalea}`)}$, donc $${sol2.texFractionSimplifiee}$ ${vSubSol2Mdd === vSubSol2Mdg ? 'est' : "n'est pas"} solution de l'équation.<br>
       Ainsi, l'ensemble des solutions de l'équation est $S=${miseEnEvidence(ensembleSol)}$.`
 
-      handleAnswers(this, i, { reponse: { value: `${ensembleSol}`, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: `${ensembleSol}`,
+          options: { ensembleDeNombres: true },
+        },
+      })
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -23,19 +23,21 @@ export const uuid = 'ba5d4'
 
 export const refs = {
   'fr-fr': ['canc3N07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DecompositionNombre extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, c, d, u, n, um
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2])) { // 2
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2]) // 2
+      ) {
         case 1:
           u = randint(1, 9)
           d = randint(1, 9)
@@ -44,13 +46,20 @@ export default class DecompositionNombre extends Exercice {
           if (choice([true, false])) {
             this.consigne = 'Compléter : '
             if (this.interactif) {
-              texte = remplisLesBlancs(this, i, `${texNombre(n)}= \\, %{champ1}  \\text{ centaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`, KeyboardType.clavierDeBase)
-              handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-                champ1: { value: c },
-                champ2: { value: d * 10 + u }
-              }
+              texte = remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(n)}= \\, %{champ1}  \\text{ centaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`,
+                KeyboardType.clavierDeBase,
               )
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
+                champ1: { value: c },
+                champ2: { value: d * 10 + u },
+              })
             } else {
               texte = `Compléter : <br>
       $${n}=\\ldots$ centaine(s)  $\\ldots$ unité(s)
@@ -61,13 +70,20 @@ export default class DecompositionNombre extends Exercice {
             this.canReponseACompleter = `$${n}=\\ldots$ centaine(s)  $\\ldots$ unité(s)`
           } else {
             if (this.interactif) {
-              texte = remplisLesBlancs(this, i, `${texNombre(n)}= \\, %{champ1}  \\text{ dizaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`, KeyboardType.clavierDeBase)
-              handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-                champ1: { value: c * 10 + d },
-                champ2: { value: u }
-              }
+              texte = remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(n)}= \\, %{champ1}  \\text{ dizaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`,
+                KeyboardType.clavierDeBase,
               )
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
+                champ1: { value: c * 10 + d },
+                champ2: { value: u },
+              })
             } else {
               texte = `Compléter : <br>
       $${n}=\\ldots$ dizaine(s)  $\\ldots$ unité(s)
@@ -88,13 +104,20 @@ export default class DecompositionNombre extends Exercice {
           this.consigne = 'Compléter : '
           if (choice([true, false])) {
             if (this.interactif) {
-              texte = remplisLesBlancs(this, i, `${texNombre(n)}= \\, %{champ1}  \\text{ centaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`, KeyboardType.clavierDeBase)
-              handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-                champ1: { value: um * 10 + c },
-                champ2: { value: d * 10 + u }
-              }
+              texte = remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(n)}= \\, %{champ1}  \\text{ centaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`,
+                KeyboardType.clavierDeBase,
               )
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
+                champ1: { value: um * 10 + c },
+                champ2: { value: d * 10 + u },
+              })
             } else {
               texte = `Compléter : <br>
       $${texNombre(n)}=\\ldots$ centaine(s)  $\\ldots$ unité(s)
@@ -105,13 +128,20 @@ export default class DecompositionNombre extends Exercice {
             this.canReponseACompleter = `$${texNombre(n)}=\\ldots$ centaine(s)  $\\ldots$ unité(s)`
           } else {
             if (this.interactif) {
-              texte = remplisLesBlancs(this, i, `${texNombre(n)}= \\, %{champ1}  \\text{ dizaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`, KeyboardType.clavierDeBase)
-              handleAnswers(this, i, {
-                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-                champ1: { value: um * 100 + c * 10 + d },
-                champ2: { value: u }
-              }
+              texte = remplisLesBlancs(
+                this,
+                i,
+                `${texNombre(n)}= \\, %{champ1}  \\text{ dizaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`,
+                KeyboardType.clavierDeBase,
               )
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
+                champ1: { value: um * 100 + c * 10 + d },
+                champ2: { value: u },
+              })
             } else {
               texte = `Compléter : <br>
     $${texNombre(n)}=\\ldots$ dizaine(s)  $\\ldots$ unité(s)

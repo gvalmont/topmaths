@@ -17,10 +17,10 @@ export const uuid = '41030'
 
 export const refs = {
   'fr-fr': ['can6N15', '6N1C-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EcrirePetitsNombresEntiersCan extends EcrirePetitsNombresEntiers {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1 // on en fait un exo qui n'aura qu'une question

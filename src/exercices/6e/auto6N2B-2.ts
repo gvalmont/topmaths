@@ -5,12 +5,18 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import {
+  barre3d,
+  cube3d,
+  paveLPH3d,
+  plaque3d,
+} from '../../lib/3d/3dProjectionMathalea2d/solides'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
 
-export const titre = 'Recomposer un nombre décimal représenté par des fractions du cube unité'
+export const titre =
+  'Recomposer un nombre décimal représenté par des fractions du cube unité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -23,10 +29,10 @@ export const uuid = '63f03'
 export const refs = {
   'fr-fr': ['auto6N2B-2'],
   'fr-2016': ['6N23-7'],
-  'fr-ch': ['9NO10-8']
+  'fr-ch': ['9NO10-8'],
 }
 export default class RecompositionDecimale extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1 // Ici le nombre de questions
@@ -35,16 +41,29 @@ export default class RecompositionDecimale extends Exercice {
     this.correctionDetaillee = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const cubeUnite = paveLPH3d(0, 0, 0, 0.6, 10, 10, 10, 'black')
     const reponses = []
-    this.consigne = 'Voici un cube représentant une unité, une plaque représentant $\\dfrac{1}{10}$, une barre représentant $\\dfrac{1}{100}$ et un petit cube représentant $\\dfrac{1}{1000}$.<br>'
+    this.consigne =
+      'Voici un cube représentant une unité, une plaque représentant $\\dfrac{1}{10}$, une barre représentant $\\dfrac{1}{100}$ et un petit cube représentant $\\dfrac{1}{1000}$.<br>'
     let objets = []
-    objets.push(...cubeUnite.c2d, ...plaque3d(9, 0, 0, 0.5, 10, 10).c2d, ...barre3d(9, 0, 3, 0.5, 10).c2d, ...cube3d(12, 0, 5, 0.5).c2d)
-    this.introduction = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
-    for (let q = 0, cpt = 0, e, d, c, m, texte, texteCorr, xDecal; q < this.nbQuestions && cpt < 50;) {
+    objets.push(
+      ...cubeUnite.c2d,
+      ...plaque3d(9, 0, 0, 0.5, 10, 10).c2d,
+      ...barre3d(9, 0, 3, 0.5, 10).c2d,
+      ...cube3d(12, 0, 5, 0.5).c2d,
+    )
+    this.introduction = mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
+    for (
+      let q = 0, cpt = 0, e, d, c, m, texte, texteCorr, xDecal;
+      q < this.nbQuestions && cpt < 50;
+
+    ) {
       e = choice([0, 1])
       d = choice([0, randint(0, 5), randint(0, 7)])
       c = choice([0, randint(0, 5), randint(5, 9)])
@@ -52,7 +71,8 @@ export default class RecompositionDecimale extends Exercice {
       xDecal = 0
 
       texteCorr = ''
-      texte = 'Quel est le nombre décimal représenté par cet ensemble de solides ?<br>'
+      texte =
+        'Quel est le nombre décimal représenté par cet ensemble de solides ?<br>'
       objets = []
       if (e === 1) {
         objets.push(...cubeUnite.c2d)
@@ -76,22 +96,32 @@ export default class RecompositionDecimale extends Exercice {
         }
       }
       xDecal += m * 0.8
-      texte += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+      texte += mathalea2d(
+        Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+        objets,
+      )
       if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, '')
 
       if (this.correctionDetaillee) {
         if (e === 1) texteCorr += 'Il y a 1 cube unité.<br>'
         if (d !== 0) {
-          if (d === 1) texteCorr += 'Il y a 1 plaque représentant $\\dfrac{1}{10}$.<br>'
-          else texteCorr += `Il y a ${d} plaques représentant chacune $\\dfrac{1}{10}$, soit $\\dfrac{${d}}{10}$.<br>`
+          if (d === 1)
+            texteCorr += 'Il y a 1 plaque représentant $\\dfrac{1}{10}$.<br>'
+          else
+            texteCorr += `Il y a ${d} plaques représentant chacune $\\dfrac{1}{10}$, soit $\\dfrac{${d}}{10}$.<br>`
         }
         if (c !== 0) {
-          if (c === 1) texteCorr += 'Il y a 1 barre représentant $\\dfrac{1}{100}$.<br>'
-          else texteCorr += `Il y a ${c} barres représentant chacune $\\dfrac{1}{100}$, soit $\\dfrac{${c}}{100}$.<br>`
+          if (c === 1)
+            texteCorr += 'Il y a 1 barre représentant $\\dfrac{1}{100}$.<br>'
+          else
+            texteCorr += `Il y a ${c} barres représentant chacune $\\dfrac{1}{100}$, soit $\\dfrac{${c}}{100}$.<br>`
         }
         if (m !== 0) {
-          if (m === 1) texteCorr += 'Il y a 1 petit cube représentant $\\dfrac{1}{1000}$.<br>'
-          else texteCorr += `Il y a ${m} cubes représentant chacun $\\dfrac{1}{1000}$, soit $\\dfrac{${m}}{1000}$.<br>`
+          if (m === 1)
+            texteCorr +=
+              'Il y a 1 petit cube représentant $\\dfrac{1}{1000}$.<br>'
+          else
+            texteCorr += `Il y a ${m} cubes représentant chacun $\\dfrac{1}{1000}$, soit $\\dfrac{${m}}{1000}$.<br>`
         }
         texteCorr += `Le nombre représenté ci-dessus est donc : $${texNombre(e + d / 10 + c / 100 + m / 1000)}$.`
       } else {

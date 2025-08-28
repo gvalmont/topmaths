@@ -166,7 +166,7 @@ const baseVilles = [
   { latitude: -27.5954, longitude: -48.548, label: 'Florianopolis' },
 ]
 
-function choisirNVillesAssezLointaines (n) {
+function choisirNVillesAssezLointaines(n) {
   const villes = []
   let latBasse, latHaute, longOuest, longEst
   do {
@@ -195,13 +195,13 @@ function choisirNVillesAssezLointaines (n) {
     })
 
     let cpt = 0
-    for (let i = 0; i < n && cpt < 100;) {
+    for (let i = 0; i < n && cpt < 100; ) {
       const ville = choice(listeVilles)
       if (
         !villes.some(
           (v) =>
             Math.abs(v.latitude - ville.latitude) < 10 &&
-            Math.abs(v.longitude - ville.longitude) < 10
+            Math.abs(v.longitude - ville.longitude) < 10,
         )
       ) {
         villes.push(ville)
@@ -214,7 +214,7 @@ function choisirNVillesAssezLointaines (n) {
   return { villes, latBasse, latHaute, longOuest, longEst }
 }
 
-function buildSceneContent (villes, points, points2, points3) {
+function buildSceneContent(villes, points, points2, points3) {
   return {
     objects: [
       // voie lactée
@@ -289,27 +289,27 @@ function buildSceneContent (villes, points, points2, points3) {
 export default class ReperageSurLaTerre extends Exercice {
   destroyers = []
 
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['3D dynamique', true]
     this.sup = true
     this.nbQuestions = 4
   }
 
-  destroy () {
+  destroy() {
     // MGu quan l'exercice est supprimé par svelte : bouton supprimé
     this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
     this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
 
     const correctionTexte = (
       choix,
-      ville
+      ville,
     ) => `   En effet, la ${choix === 'latitude' ? 'latitude' : 'longitude'} est la ${choix === 'latitude' ? 'première' : 'deuxième'} coordonnée GPS, soit $${
       choix === 'latitude'
         ? `${texNombre(ville.latitude, 3)}\\approx ${texNombre(ville.latitude, 0)}`
@@ -344,7 +344,7 @@ export default class ReperageSurLaTerre extends Exercice {
         latCenter,
         longCenter,
         radius,
-        [0, 0, 0]
+        [0, 0, 0],
       )
 
       // Position de la caméra  2x plus loin sur la même direction

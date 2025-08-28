@@ -1,5 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
@@ -16,34 +20,43 @@ export const titre = 'Résoudre des équations avec un quotient'
 
 /**
  * Mettre au même dénominateur des expressions littérales
-* @author Gilles Mora
-* 2N41-8
-*/
+ * @author Gilles Mora
+ * 2N41-8
+ */
 export const uuid = 'b5828'
 
 export const refs = {
   'fr-fr': ['2N52-5', 'BP2RES32'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResoudreEquationsQuotient extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type d\'équations', 3, '1 : A(x)/B(x)=0\n 2 : A(x)/B(x)=a ou a/A(x)=b/B(x)\n 3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      "Type d'équations",
+      3,
+      '1 : A(x)/B(x)=0\n 2 : A(x)/B(x)=a ou a/A(x)=b/B(x)\n 3 : Mélange',
+    ]
 
     this.nbQuestions = 2
     this.sup = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2]
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [3, 4]
-    } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] } // 1, 2, 3, 4, 5, 6, 7
+    } else {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4]
+    } // 1, 2, 3, 4, 5, 6, 7
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let a: number
@@ -56,14 +69,15 @@ export default class ResoudreEquationsQuotient extends Exercice {
       let e: number
       let f: number
       const typesDeQuestions = listeTypeDeQuestions[i]
-      const consigne1 = 'Préciser les valeurs interdites éventuelles, puis résoudre l\'équation : '
+      const consigne1 =
+        "Préciser les valeurs interdites éventuelles, puis résoudre l'équation : "
       let ensValeursInterdites: string
       let ensSolutions: string
       let valInterdite: FractionEtendue
       let valInterdite2: FractionEtendue
       let valSolution: FractionEtendue
       switch (typesDeQuestions) {
-        case 1:// (ax+b)/(cx+d)=0
+        case 1: // (ax+b)/(cx+d)=0
           a = randint(-3, 9, 0)
           b = randint(-9, 9)
           c = randint(-9, 9, 0)
@@ -85,9 +99,11 @@ export default class ResoudreEquationsQuotient extends Exercice {
             texteCorr = ''
           } else {
             if (b === 0) {
-              texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
+              texteCorr =
+                "Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n'existe pas.<br>"
             } else {
-              texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
+              texteCorr =
+                "Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n'existe pas.<br>"
             }
           }
           // Constantes utiles
@@ -116,7 +132,7 @@ x&= ${valSolution.texFractionSimplifiee}
 
           texteCorr += ` $${valSolution.texFractionSimplifiee}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.`
           break
-        case 2:// (ax^2+/-b)/(cx+d)=0
+        case 2: // (ax^2+/-b)/(cx+d)=0
           a = randint(1, 4)
           k1 = randint(1, 10)
           b = a * k1 * k1
@@ -132,7 +148,8 @@ x&= ${valSolution.texFractionSimplifiee}
             if (context.isDiaporama) {
               texteCorr = ''
             } else {
-              texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
+              texteCorr =
+                "Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n'existe pas.<br>"
             }
             // Constantes utiles
             valInterdite = new FractionEtendue(-k2, 1)
@@ -169,7 +186,8 @@ x&= ${valSolution.texFractionSimplifiee}
             if (context.isDiaporama) {
               texteCorr = ''
             } else {
-              texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
+              texteCorr =
+                "Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n'existe pas.<br>"
             }
             // Constantes utiles
             ensValeursInterdites = `\\left\\{${-k2}\\right\\}`
@@ -189,13 +207,13 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
           }
 
           break
-        case 3:// (ax+b)/(cx+d)=e
+        case 3: // (ax+b)/(cx+d)=e
           a = randint(-3, 5, 0)
           b = randint(-9, 9)
           c = randint(-9, 9, 0)
           d = randint(-9, 9)
           e = randint(-9, 9, 0)
-          while ((a * d - b * c === 0) || (a - e * c === 0)) {
+          while (a * d - b * c === 0 || a - e * c === 0) {
             a = randint(-3, 5)
             b = randint(-9, 9)
             c = randint(-9, 9, 0)
@@ -204,12 +222,16 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
           }
           choix = choice([true, false])
           texte = consigne1
-          if (b === 0) { texte += `$\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}=${e}$.` } else {
+          if (b === 0) {
+            texte += `$\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}=${e}$.`
+          } else {
             texte += `${choix ? `$\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}=${e}$` : `$\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${reduireAxPlusB(c, d)}}=${e}$`}.`
-          } if (context.isDiaporama) {
+          }
+          if (context.isDiaporama) {
             texteCorr = ''
           } else {
-            texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
+            texteCorr =
+              "Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n'existe pas.<br>"
           }
           valInterdite = new FractionEtendue(-d, c)
           ensValeursInterdites = `\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}`
@@ -246,7 +268,7 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
           }
           break
 
-        case 4:// e/(ax+b)=f/(cx+d)
+        case 4: // e/(ax+b)=f/(cx+d)
         default:
           a = randint(-3, 9, 0)
           b = randint(-9, 9)
@@ -254,7 +276,11 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
           d = randint(-9, 9)
           e = randint(-9, 9, 0)
           f = randint(-9, 9, 0)
-          while ((c * (f * b - a * d) === -d * (e * c - f * a)) || (a * (f * b - a * d) === -b * (e * c - f * a))) { // pas de VI sol enfin normalement :-)
+          while (
+            c * (f * b - a * d) === -d * (e * c - f * a) ||
+            a * (f * b - a * d) === -b * (e * c - f * a)
+          ) {
+            // pas de VI sol enfin normalement :-)
             a = randint(-3, 9, 0)
             b = randint(-9, 9)
             c = randint(-2, 9, [0, a])
@@ -263,14 +289,17 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
             f = randint(-9, 9, 0)
           }
 
-          if (e * c - f * a === 0) { e = e + 10 }
+          if (e * c - f * a === 0) {
+            e = e + 10
+          }
           choix = choice([true, false])
           texte = consigne1
           texte += `$\\dfrac{${e}}{${reduireAxPlusB(a, b)}}=\\dfrac{${f}}{${reduireAxPlusB(c, d)}}$.`
           if (context.isDiaporama) {
             texteCorr = ''
           } else {
-            texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent les dénominateurs des quotients, puisque la division par $0$ n\'existe pas.<br>'
+            texteCorr =
+              "Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent les dénominateurs des quotients, puisque la division par $0$ n'existe pas.<br>"
           }
           valInterdite = new FractionEtendue(-d, c)
           valInterdite2 = new FractionEtendue(-b, a)
@@ -306,20 +335,30 @@ ${rienSi1(-e * c + f * a)}x&= ${e * d - f * b}${-e * c + f * a === 1 ? '' : '\\\
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierEnsemble, { texteAvant: '<br>Ensemble des valeurs interdites : ' })
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierEnsemble, { texteAvant: '<br>Ensemble des solutions : ' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          2 * i,
+          KeyboardType.clavierEnsemble,
+          { texteAvant: '<br>Ensemble des valeurs interdites : ' },
+        )
+        texte += ajouteChampTexteMathLive(
+          this,
+          2 * i + 1,
+          KeyboardType.clavierEnsemble,
+          { texteAvant: '<br>Ensemble des solutions : ' },
+        )
       }
       handleAnswers(this, 2 * i, {
         reponse: {
           value: ensValeursInterdites,
-          options: { ensembleDeNombres: true }
-        }
+          options: { ensembleDeNombres: true },
+        },
       })
       handleAnswers(this, 2 * i + 1, {
         reponse: {
           value: ensSolutions,
-          options: { ensembleDeNombres: true }
-        }
+          options: { ensembleDeNombres: true },
+        },
       })
       if (this.questionJamaisPosee(i, a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre

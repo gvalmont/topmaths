@@ -11,14 +11,14 @@ export const interactifType = 'mathLive'
 export const uuid = '2820d'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class AntecedentFonction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,16 +28,20 @@ export default class AntecedentFonction extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const x = this.canOfficielle ? 1 : randint(-5, 5, [0, 1, -1])
     const m = this.canOfficielle ? 3 : randint(2, 5)
     const y = this.canOfficielle ? -1 : randint(-5, 5, [x, 0])
-    const nomF = this.canOfficielle ? 'f' : choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
+    const nomF = this.canOfficielle
+      ? 'f'
+      : choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
     this.question = `Antécédent de $${m * x + y}$ par $${nomF}$ : $x \\longmapsto ${m}x${ecritureAlgebrique(y)}$`
     this.correction = `L'antécédent de $${m * x + y}$ est le nombre $x$ qui a pour image $${m * x + y}$. <br>
        On cherche donc $x$ tel que : $${m}x${ecritureAlgebrique(y)}=${m * x + y}$ <br>Soit $x=\\dfrac{${m * x + y}${ecritureAlgebrique(-y)}}{${m}}=${miseEnEvidence(x)}$.`
     this.reponse = x
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

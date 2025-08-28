@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a343t'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,11 +17,15 @@ export const refs = {
 
 */
 export default class Can2025N5Q14 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     if (a == null || b == null || c == null) {
       const facteur = (randint(1, 7) * 2 + 1) * 5
-      const liste1: [number, number, number] = choice([[2, 3, 4], [1, 2, 3], [3, 4, 5]]) as [number, number, number]
-      [a, b, c] = liste1.map((x:number) => x * facteur)
+      const liste1: [number, number, number] = choice([
+        [2, 3, 4],
+        [1, 2, 3],
+        [3, 4, 5],
+      ]) as [number, number, number]
+      ;[a, b, c] = liste1.map((x: number) => x * facteur)
     }
     const liste = [a, b, c, '$\\ldots$'].map((el) => `$${el}$`).join(' ; ')
     this.reponse = c + b - a
@@ -39,7 +43,7 @@ export default class Can2025N5Q14 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(75, 150, 225) : this.enonce()
   }
 }

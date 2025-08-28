@@ -9,7 +9,7 @@ export const uuid = '66bd7'
 
 export const refs = {
   'fr-fr': ['BP2CCF11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceBP2CCF11 extends Exercice2S112 {
   onlyMoney = true

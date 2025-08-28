@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'e24f0'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025NCE2Q17 extends ExerciceCan {
-  enonce (a?: number) {
+  enonce(a?: number) {
     if (a == null) {
       a = randint(2, 29, [10, 20]) * 10
     }
@@ -33,7 +33,7 @@ export default class Can2025NCE2Q17 extends ExerciceCan {
     this.canReponseACompleter = `$10 \\times \\ldots\\ldots = ${texNombre(a * 10)}$`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(20) : this.enonce()
   }
 }

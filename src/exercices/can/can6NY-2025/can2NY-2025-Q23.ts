@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '71793'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class calcAvecChiffresRel extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -28,7 +28,7 @@ export default class calcAvecChiffresRel extends ExerciceSimple {
     this.compare = functionCompare
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-2, 2, 0)
     this.reponse = `${reduireAxPlusB(a, 0)}`
     this.question = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2025, 0)})=${texNombre(a * 2025, 0)}$.<br>

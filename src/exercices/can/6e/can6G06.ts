@@ -15,11 +15,11 @@ export const uuid = '86ea3'
 
 export const refs = {
   'fr-fr': ['can6G06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NombreDeFacesEtDAretesExo extends NombreDeFacesEtDAretes {
   version: number
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.version = 3

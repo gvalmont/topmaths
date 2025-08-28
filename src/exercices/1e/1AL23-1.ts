@@ -2,7 +2,7 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
-  rienSi1
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -13,7 +13,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Déterminer la forme canonique d\'un polynôme du second degré'
+export const titre =
+  "Déterminer la forme canonique d'un polynôme du second degré"
 
 /**
  * Déterminer la forme canonique d'un polynôme du second degré
@@ -23,10 +24,10 @@ export const uuid = '60504'
 
 export const refs = {
   'fr-fr': ['1AL23-1'],
-  'fr-ch': ['1mF3-2']
+  'fr-ch': ['1mF3-2'],
 }
 export default class Formacanonique extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 4
@@ -36,13 +37,20 @@ export default class Formacanonique extends Exercice {
     this.besoinFormulaireCaseACocher = ['Le coefficient de $x^2$ est 1', false]
   }
 
-  nouvelleVersion () {
-    this.consigne = 'Déterminer la forme canonique ' + (this.nbQuestions === 1 ? 'du polynôme' : 'de chacun des polynômes') + ' $P$, défini pour tout $x \\in \\mathbb{R}$ par : '
+  nouvelleVersion() {
+    this.consigne =
+      'Déterminer la forme canonique ' +
+      (this.nbQuestions === 1 ? 'du polynôme' : 'de chacun des polynômes') +
+      ' $P$, défini pour tout $x \\in \\mathbb{R}$ par : '
     if (this.interactif) {
       // this.consigne += '<br> '
     }
 
-    for (let i = 0, texte, texteCorr, a, b, c, alpha, beta, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, a, b, c, alpha, beta, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // k(x-x1)(x-x2)
       alpha = randint(-5, 5, [0])
       beta = randint(-5, 5, [0])
@@ -58,13 +66,15 @@ export default class Formacanonique extends Exercice {
       }
 
       texte = `$P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
-      texteCorr = 'On sait que si le polynôme, sous forme développée, s\'écrit $P(x)=ax^2+bx+c$, '
-      texteCorr += 'alors sa forme canonique est de la forme $P(x)=a(x-\\alpha)^2+\\beta$,'
+      texteCorr =
+        "On sait que si le polynôme, sous forme développée, s'écrit $P(x)=ax^2+bx+c$, "
+      texteCorr +=
+        'alors sa forme canonique est de la forme $P(x)=a(x-\\alpha)^2+\\beta$,'
 
       texteCorr += '<br>avec $\\alpha=\\dfrac{-b}{2a}$ et $\\beta=P(\\alpha).$'
       texteCorr += `<br>Avec l'énoncé : $a=${a}$ et $b=${b}$, on en déduit que $\\alpha=${alpha}$.`
       texteCorr += `<br>On calcule alors $\\beta=P(${alpha})$, et on obtient au final que $\\beta=${beta}$.`
-      texteCorr += `<br>d'où, $P(x)=${(a)}\\big(x-${ecritureParentheseSiNegatif(alpha)}\\big)^2+${ecritureParentheseSiNegatif(beta)}$`
+      texteCorr += `<br>d'où, $P(x)=${a}\\big(x-${ecritureParentheseSiNegatif(alpha)}\\big)^2+${ecritureParentheseSiNegatif(beta)}$`
       texteCorr += '<br>Au final, $P(x)='
       let texteCorrSolution = ''
       if (a === 1 || a === -1) {
@@ -101,7 +111,9 @@ export default class Formacanonique extends Exercice {
         }
       }
 
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${sp()}=${sp()}$` })
+      texte += ajouteChampTexteMathLive(this, i, ' ', {
+        texteAvant: `$${sp()}=${sp()}$`,
+      })
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

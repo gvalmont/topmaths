@@ -5,17 +5,16 @@
   export let zoomPlus: () => void
   export let zoomMinus: () => void
   export let BUTTONS_CLASS: string
-
 </script>
 
-<FullscreenButton/>
+<FullscreenButton />
 <ButtonIcon
   icon="bx-plus {BUTTONS_CLASS}"
   title="Raccourci clavier : +"
-  on:click={zoomPlus}
+  on:click="{zoomPlus}"
 />
 <ButtonIcon
   icon="bx-minus {BUTTONS_CLASS}"
   title="Raccourci clavier : -"
-  on:click={zoomMinus}
+  on:click="{zoomMinus}"
 />

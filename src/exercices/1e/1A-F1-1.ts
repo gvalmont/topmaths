@@ -15,10 +15,10 @@ export const uuid = '4969a'
 
 export const refs = {
   'fr-fr': ['1A-F1-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF1a extends CalculImageParFonctionAffine {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

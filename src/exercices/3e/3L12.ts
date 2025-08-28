@@ -1,7 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import { context } from '../../modules/context'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { fraction } from '../../modules/fractions'
@@ -27,13 +30,20 @@ export const uuid = '81fd2'
 
 export const refs = {
   'fr-fr': ['3L12', 'BP2AutoI23'],
-  'fr-ch': ['11FA3-4']
+  'fr-ch': ['11FA3-4'],
 }
 export default class FactoriserIdentitesRemarquables3 extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas précédents']
-    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas précédents',
+    ]
+    this.besoinFormulaire2CaseACocher = [
+      'Présentation des corrections en colonnes',
+      false,
+    ]
     context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
 
     this.nbQuestions = 4
@@ -41,8 +51,11 @@ export default class FactoriserIdentitesRemarquables3 extends Exercice {
     this.sup2 = true
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Factoriser les expressions suivantes.'
+        : "Factoriser l'expression suivante."
     const Fractions = [
       [1, 2],
       [1, 3],
@@ -74,7 +87,7 @@ export default class FactoriserIdentitesRemarquables3 extends Exercice {
       [5, 9],
       [7, 9],
       [8, 9],
-      [1, 10]
+      [1, 10],
     ]
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
@@ -86,8 +99,23 @@ export default class FactoriserIdentitesRemarquables3 extends Exercice {
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3]
     } // mélange des questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte: string, texteCorr: string, cpt = 0, a, b, ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0,
+        texte: string,
+        texteCorr: string,
+        cpt = 0,
+        a,
+        b,
+        ns,
+        ds,
+        typesDeQuestions;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
         a = randint(1, 9)
@@ -101,21 +129,37 @@ export default class FactoriserIdentitesRemarquables3 extends Exercice {
         case 1:
           texte = `$${lettreDepuisChiffre(i + 1)} = x^2-${a * a}$` // (x-a)(x+a)
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = x^2-${a * a}=x^2-${a}^2=(x-${a})(x+${a})$`
-          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(1, -a)})(${reduireAxPlusB(1, a)})`, options: { factorisation: true } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: `(${reduireAxPlusB(1, -a)})(${reduireAxPlusB(1, a)})`,
+              options: { factorisation: true },
+            },
+          })
           break
         case 2:
           texte = `$${lettreDepuisChiffre(i + 1)} = ${b * b}x^2-${a * a}$` // b>1
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
-          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(b, -a)})(${reduireAxPlusB(b, a)})`, options: { factorisation: true } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: `(${reduireAxPlusB(b, -a)})(${reduireAxPlusB(b, a)})`,
+              options: { factorisation: true },
+            },
+          })
           break
         case 3:
-        default:{
-          const dfrac = fraction(ns, ds).texFraction
-          const dfrac2 = fraction(ns * ns, ds * ds).texFraction
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${dfrac2}x^2-${a * a}$` // b>1
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${dfrac2}x^2-${a * a}=\\left(${dfrac}x\\right)^2-${a}^2=\\left(${dfrac}x-${a}\\right)\\left(${dfrac}x+${a}\\right)$`
-          handleAnswers(this, i, { reponse: { value: `(${dfrac}x+${a})(${dfrac}x-${a})`, options: { factorisation: true } } })
-        }
+        default:
+          {
+            const dfrac = fraction(ns, ds).texFraction
+            const dfrac2 = fraction(ns * ns, ds * ds).texFraction
+            texte = `$${lettreDepuisChiffre(i + 1)} = ${dfrac2}x^2-${a * a}$` // b>1
+            texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${dfrac2}x^2-${a * a}=\\left(${dfrac}x\\right)^2-${a}^2=\\left(${dfrac}x-${a}\\right)\\left(${dfrac}x+${a}\\right)$`
+            handleAnswers(this, i, {
+              reponse: {
+                value: `(${dfrac}x+${a})(${dfrac}x-${a})`,
+                options: { factorisation: true },
+              },
+            })
+          }
           break
       }
       if (this.sup2) {
@@ -126,10 +170,18 @@ export default class FactoriserIdentitesRemarquables3 extends Exercice {
         texteCorr = ''
         etapes.forEach(function (etape) {
           etape = etape.replace('$', '')
-          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+          texteCorr +=
+            etape === lettreDepuisChiffre(i + 1)
+              ? ''
+              : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
         })
       }
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecVariable,
+        { texteAvant: ' $=$' },
+      )
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
       const textCorrSplit = texteCorr.split('=')

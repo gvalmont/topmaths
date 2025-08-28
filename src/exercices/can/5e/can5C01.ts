@@ -16,16 +16,16 @@ export const uuid = '102f4'
 
 export const refs = {
   'fr-fr': ['can5C01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProduitEntiers5e extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const b = randint(5, 9)
     const a = randint(12, 19)
     this.reponse = a * b
@@ -35,7 +35,7 @@ export default class ProduitEntiers5e extends ExerciceSimple {
     On décompose le calcul $${a} \\times ${b}$ en  $(10+${a - 10})\\times ${b}=10\\times ${b} +${a - 10}\\times ${b}$.<br>
        Cela donne :  $${10 * b}+${(a - 10) * b}=${this.reponse}$.
       `)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

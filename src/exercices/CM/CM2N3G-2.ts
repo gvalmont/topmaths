@@ -16,10 +16,10 @@ export const uuid = '7fa0e'
 export const refs = {
   'fr-fr': ['CM2N3G-2'],
   'fr-2016': ['c3C30'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class MultiplierDecimauxPar101001000C3 extends MultiplierDecimauxPar101001000 {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
     this.sup = '1'

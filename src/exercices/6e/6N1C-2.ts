@@ -5,14 +5,18 @@ import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  fixeBordures,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { PointCliquable, pointCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
 import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '16/09/2024'
-export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
+export const titre = "Placer un point d'abscisse entière (grands nombres)"
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -28,17 +32,17 @@ export const uuid = '4f2a3'
 export const refs = {
   'fr-fr': ['6N1C-2'],
   'fr-2016': ['6N11-2'],
-  'fr-ch': ['9NO2-2']
+  'fr-ch': ['9NO2-2'],
 }
 export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
   pointsNonSolutions: PointCliquable[][]
   pointsSolutions: PointCliquable[][]
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : Ordre de grandeur : centaines de mille\n4 : Mélange'
+      '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : Ordre de grandeur : centaines de mille\n4 : Mélange',
     ]
 
     this.nbQuestions = 5
@@ -48,7 +52,7 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
     this.pointsSolutions = []
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.interactif) {
       this.consigne = 'Placer un point sur un axe gradué.'
     } else {
@@ -60,23 +64,52 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
     this.pointsNonSolutions = []
     this.pointsSolutions = []
 
-    if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
-      typesDeQuestions = combinaisonListes(
-        [this.sup],
-        this.nbQuestions
-      )
+    if (this.sup === 4) {
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+    } else {
+      typesDeQuestions = combinaisonListes([this.sup], this.nbQuestions)
     }
     const tailleUnite = 4
     const d = []
     let abscisse = []
     this.contenu = this.consigne
-    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, traceA, traceB, traceC, labels, pas1, texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
+    for (
+      let i = 0,
+        abs0,
+        l1,
+        l2,
+        l3,
+        x1,
+        x2,
+        x3,
+        x11,
+        x22,
+        x33,
+        A,
+        B,
+        C,
+        traceA,
+        traceB,
+        traceC,
+        labels,
+        pas1,
+        texte = '',
+        texteCorr = '';
+      i < this.nbQuestions;
+      i++
+    ) {
       l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
       l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
       l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
-      this.autoCorrection[3 * i] = { propositions: [{ texte: '', statut: 4, feedback: '' }] }
-      this.autoCorrection[3 * i + 1] = { propositions: [{ texte: '', statut: 4, feedback: '' }] }
-      this.autoCorrection[3 * i + 2] = { propositions: [{ texte: '', statut: 4, feedback: '' }] }
+      this.autoCorrection[3 * i] = {
+        propositions: [{ texte: '', statut: 4, feedback: '' }],
+      }
+      this.autoCorrection[3 * i + 1] = {
+        propositions: [{ texte: '', statut: 4, feedback: '' }],
+      }
+      this.autoCorrection[3 * i + 2] = {
+        propositions: [{ texte: '', statut: 4, feedback: '' }],
+      }
       switch (typesDeQuestions[i]) {
         case 1: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
@@ -100,7 +133,11 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
       x11 = abs0 + x1 * pas1
       x22 = abs0 + x2 * pas1
       x33 = abs0 + x3 * pas1
-      abscisse = shuffle([[x1, x11], [x2, x22], [x3, x33]])
+      abscisse = shuffle([
+        [x1, x11],
+        [x2, x22],
+        [x3, x33],
+      ])
       d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
@@ -111,7 +148,10 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, `${texNombre(abs0, 0)}`], [1, `${texNombre((abs0 + pas1))}`]]
+        labelListe: [
+          [0, `${texNombre(abs0, 0)}`],
+          [1, `${texNombre(abs0 + pas1)}`],
+        ],
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -124,15 +164,19 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
         labelListe: [
           [x1, `\\boldsymbol{${texNombre(x11, 0)}}`],
           [x2, `\\boldsymbol{${texNombre(x22, 0)}}`],
-          [x3, `\\boldsymbol{${texNombre(x33, 0)}}`]
+          [x3, `\\boldsymbol{${texNombre(x33, 0)}}`],
         ],
         labelColor: '#F15929',
         thickSec: true,
         step1: 10,
-        labelCustomDistance: 1.5
+        labelCustomDistance: 1.5,
       })
-      const label1 = latex2d(`${texNombre(abs0, 0)}`, 0, -0.7, { letterSize: 'scriptsize' })
-      const label2 = latex2d(`${texNombre(abs0 + pas1, 0)}`, 4, -0.7, { letterSize: 'scriptsize' })
+      const label1 = latex2d(`${texNombre(abs0, 0)}`, 0, -0.7, {
+        letterSize: 'scriptsize',
+      })
+      const label2 = latex2d(`${texNombre(abs0 + pas1, 0)}`, 4, -0.7, {
+        letterSize: 'scriptsize',
+      })
 
       const mesObjets: NestedObjetMathalea2dArray = [d[2 * i]]
       if (this.interactif) {
@@ -144,16 +188,33 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
       this.pointsSolutions[i] = []
       if (this.interactif) {
         for (let indicePoint = 0, monPoint; indicePoint < 70; indicePoint++) {
-          monPoint = pointCliquable(indicePoint / 10 * tailleUnite, 0, { size: 5, width: 3, color: 'blue', radius: tailleUnite / 25 })
+          monPoint = pointCliquable((indicePoint / 10) * tailleUnite, 0, {
+            size: 5,
+            width: 3,
+            color: 'blue',
+            radius: tailleUnite / 25,
+          })
           mesObjets.push(monPoint)
-          if (egal(indicePoint * pas1 / 10 + abs0, abscisse[0][1])) {
+          if (egal((indicePoint * pas1) / 10 + abs0, abscisse[0][1])) {
             this.pointsSolutions[i][0] = monPoint
           } else {
             this.pointsNonSolutions[i].push(monPoint)
           }
         }
       }
-      texte += (context.isHtml ? '' : '\\\\') + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, ...mesObjets)
+      texte +=
+        (context.isHtml ? '' : '\\\\') +
+        mathalea2d(
+          {
+            xmin: -2,
+            ymin: -1,
+            xmax: 30,
+            ymax: 1,
+            pixelsParCm: 20,
+            scale: 0.5,
+          },
+          ...mesObjets,
+        )
       if (this.interactif) {
         texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
@@ -176,22 +237,49 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
         labels = labelPoint(A, B, C)
       }
       if (this.interactif) {
-        texteCorr = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([d[2 * i + 1], traceA, labels])), d[2 * i + 1], traceA, labels)
+        texteCorr = mathalea2d(
+          Object.assign(
+            { pixelsParCm: 20, scale: 0.5 },
+            fixeBordures([d[2 * i + 1], traceA, labels]),
+          ),
+          d[2 * i + 1],
+          traceA,
+          labels,
+        )
       } else {
-        texteCorr = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([d[2 * i + 1], traceA, traceB!, traceC!, labels, label1, label2])), d[2 * i + 1], traceA, traceB!, traceC!, labels, label1, label2)
+        texteCorr = mathalea2d(
+          Object.assign(
+            { pixelsParCm: 20, scale: 0.5 },
+            fixeBordures([
+              d[2 * i + 1],
+              traceA,
+              traceB!,
+              traceC!,
+              labels,
+              label1,
+              label2,
+            ]),
+          ),
+          d[2 * i + 1],
+          traceA,
+          traceB!,
+          traceC!,
+          labels,
+          label1,
+          label2,
+        )
       }
       if (context.isAmc) {
-        this.autoCorrection[i] =
-          {
-            enonce: texte + '<br>',
-            propositions: [
-              {
-                texte: texteCorr,
-                statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                sanscadre: true
-              }
-            ]
-          }
+        this.autoCorrection[i] = {
+          enonce: texte + '<br>',
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: true,
+            },
+          ],
+        }
       }
 
       this.listeQuestions.push(texte)
@@ -207,7 +295,9 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
   correctionInteractive = (i: number) => {
     let resultat = ''
     let aucunMauvaisPointsCliques = true
-    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+    const spanResultat = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${i}`,
+    )
     this.pointsSolutions[i][0].stopCliquable()
     for (const monPoint of this.pointsNonSolutions[i]) {
       if (monPoint.etat) aucunMauvaisPointsCliques = false

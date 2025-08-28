@@ -8,7 +8,7 @@ import ProblemeMultiplicatifs from './problemesMultiplicatifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function cantine (decimal = false): Probleme {
+export function cantine(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nbFois = randint(2, 5)
   const facteur = decimal ? randint(11, 25, 20) / 10 : randint(12, 25, [10, 20])

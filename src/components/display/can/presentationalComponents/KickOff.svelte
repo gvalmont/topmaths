@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { assignmentDataFromCapytale } from "../../../../lib/handleCapytale"
-  import type { CanState } from "../../../../lib/types/can"
-  import ButtonTextAction from "../../../shared/forms/ButtonTextAction.svelte"
+  import { assignmentDataFromCapytale } from '../../../../lib/handleCapytale'
+  import type { CanState } from '../../../../lib/types/can'
+  import ButtonTextAction from '../../../shared/forms/ButtonTextAction.svelte'
   export let state: CanState
-  export let title = "Course aux Nombres"
-  export let subTitle = "2023"
+  export let title = 'Course aux Nombres'
+  export let subTitle = '2023'
 
   /**
    * Construit la chaîne qui sera affichée pour le score
@@ -15,7 +15,7 @@
     if (assignmentDataFromCapytale?.resultsByQuestion !== undefined) {
       return `Meilleur score : ${score} / ${assignmentDataFromCapytale?.resultsByQuestion.length} en ${assignmentDataFromCapytale?.duration} s`
     } else {
-      return ""
+      return ''
     }
   }
 
@@ -46,14 +46,14 @@
   </div>
   <div class="pt-10">
     {#if state === 'start'}
-    <ButtonTextAction
-      class="py-3 px-6 text-3xl rounded-xl flex flex-row-reverse items-center space-x-6 font-bold animate-pulse"
-      text="Démarrer"
-      icon="bx-play bx-lg pl-1"
-      on:click={() => {
-        state = "countdown"
-      }}
-    />
+      <ButtonTextAction
+        class="py-3 px-6 text-3xl rounded-xl flex flex-row-reverse items-center space-x-6 font-bold animate-pulse"
+        text="Démarrer"
+        icon="bx-play bx-lg pl-1"
+        on:click="{() => {
+          state = 'countdown'
+        }}"
+      />
     {/if}
   </div>
   <slot />

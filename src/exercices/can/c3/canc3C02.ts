@@ -18,10 +18,10 @@ export const uuid = '913e9'
 
 export const refs = {
   'fr-fr': ['canc3C02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CompositionDeNombreEntier extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,7 +29,7 @@ export default class CompositionDeNombreEntier extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

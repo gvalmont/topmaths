@@ -25,7 +25,7 @@ export const interactifType = 'custom'
 export const uuid = 'e2024'
 export const refs = {
   'fr-fr': ['EN-SquarO'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 class squaro extends ExerciceSimple {
@@ -38,7 +38,7 @@ class squaro extends ExerciceSimple {
   largeur: number
   blueButton!: HTMLElement
 
-  constructor () {
+  constructor() {
     super()
     this.goodAnswers = []
     this.nbSommets = []
@@ -50,16 +50,18 @@ class squaro extends ExerciceSimple {
     this.exoCustomResultat = true
     this.besoinFormulaireTexte = [
       'Longueur de la grille',
-      'Choisir un nombre entier entre 2 et 15.'
+      'Choisir un nombre entier entre 2 et 15.',
     ]
     this.besoinFormulaire2Texte = [
       'Hauteur de la grille',
-      'Choisir un nombre entier entre 2 et 15.'
+      'Choisir un nombre entier entre 2 et 15.',
     ]
-    this.besoinFormulaire3CaseACocher = ['Aide sur le nombre total de points bleus']
+    this.besoinFormulaire3CaseACocher = [
+      'Aide sur le nombre total de points bleus',
+    ]
     this.besoinFormulaire4Texte = [
       'Nombre de points bleus déjà affichés',
-      '1 : Un seul point\n2 : Deux points\n3 : Trois points\n4 : Le quart des points\n5 : Le tiers des points\n6 : La moitié des points\n7 : Aucun'
+      '1 : Un seul point\n2 : Deux points\n3 : Trois points\n4 : Le quart des points\n5 : Le tiers des points\n6 : La moitié des points\n7 : Aucun',
     ]
     this.sup = 5
     this.sup2 = 5
@@ -69,11 +71,16 @@ class squaro extends ExerciceSimple {
     this.largeur = this.sup2
   }
 
-  nouvelleVersion (): void {
-    this.consigne = 'Cette grille de SquarO est à compléter en plaçant un certain nombre de points bleus dans les ronds vides qui sont sur les sommets des cases. '
-    this.consigne += 'Le chiffre présent dans chaque case indique le nombre de points bleus qui l’entourent parmi les 4 sommets.'
-    this.consigne += this.interactif ? '<br>Si vous le souhaitez, vous pouvez placer les points rouges en forme de croix pour signaler des positions impossibles des points bleus.' : ''
-    this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille et grâce à l\'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposées.'
+  nouvelleVersion(): void {
+    this.consigne =
+      'Cette grille de SquarO est à compléter en plaçant un certain nombre de points bleus dans les ronds vides qui sont sur les sommets des cases. '
+    this.consigne +=
+      'Le chiffre présent dans chaque case indique le nombre de points bleus qui l’entourent parmi les 4 sommets.'
+    this.consigne += this.interactif
+      ? '<br>Si vous le souhaitez, vous pouvez placer les points rouges en forme de croix pour signaler des positions impossibles des points bleus.'
+      : ''
+    this.comment =
+      "Grâce au choix de la longueur et de la hauteur de la grille et grâce à l'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposées."
     this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
     // Quand on duplique un exercice le numeroExercice ne semble pas se mettre à jour
@@ -82,7 +89,7 @@ class squaro extends ExerciceSimple {
       yMin: -0.25,
       width: this.longueur * 30 + 20, // On ajoute 20 pixels
       height: this.largeur * 30 + 20,
-      border: false
+      border: false,
     })
     this.figure.create('Grid', {
       strokeWidthGrid: 1,
@@ -94,7 +101,7 @@ class squaro extends ExerciceSimple {
       axeX: false,
       axeY: false,
       labelX: false,
-      labelY: false
+      labelY: false,
     })
     this.figure.snapGrid = true
     this.figure.options.color = 'blue'
@@ -108,7 +115,7 @@ class squaro extends ExerciceSimple {
       yMin: -0.25,
       width: this.longueur * 30 + 20,
       height: this.largeur * 30 + 20,
-      border: false
+      border: false,
     })
     this.figureCorrection.create('Grid', {
       strokeWidthGrid: 1,
@@ -120,7 +127,7 @@ class squaro extends ExerciceSimple {
       axeX: false,
       axeY: false,
       labelX: false,
-      labelY: false
+      labelY: false,
     })
     this.figureCorrection.snapGrid = true
     this.figureCorrection.options.color = orangeMathalea
@@ -140,7 +147,11 @@ class squaro extends ExerciceSimple {
     }
     const eraseAllPoints = () => {
       for (const element of this.figure.elements.values()) {
-        if (element.type === 'Point' && element instanceof Element2D && element.isVisible) {
+        if (
+          element.type === 'Point' &&
+          element instanceof Element2D &&
+          element.isVisible
+        ) {
           element.remove()
         }
       }
@@ -157,23 +168,23 @@ class squaro extends ExerciceSimple {
       action: drawBluePoint,
       tooltip: 'Placer un point bleu',
       userMessage: 'Cliquer pour placer un point bleu',
-      url: bluePoint
+      url: bluePoint,
     })
     this.figure.addCustomButton({
       action: drawRedPoint,
       tooltip: 'Placer une croix rouge',
       userMessage: 'Cliquer pour placer une croix rouge',
-      url: redPoint
+      url: redPoint,
     })
     this.figure.addCustomButton({
       action: eraseAllPoints,
       tooltip: 'Effacer tous les points',
-      url: remove
+      url: remove,
     })
     const emplacementPourFigure = figureApigeom({
       exercice: this,
       i: 0,
-      figure: this.figure
+      figure: this.figure,
     })
     this.goodAnswers = []
     const codagePoints = []
@@ -193,26 +204,44 @@ class squaro extends ExerciceSimple {
     this.nbSommets = []
     for (let j = 0; j < this.largeur; j++) {
       for (let i = 0; i < this.longueur; i++) {
-        const nbPoints = 4 - (codagePoints[i + j * (this.longueur + 1)] + codagePoints[i + 1 + j * (this.longueur + 1)] + codagePoints[i + (j + 1) * (this.longueur + 1)] + codagePoints[i + 1 + (j + 1) * (this.longueur + 1)])
+        const nbPoints =
+          4 -
+          (codagePoints[i + j * (this.longueur + 1)] +
+            codagePoints[i + 1 + j * (this.longueur + 1)] +
+            codagePoints[i + (j + 1) * (this.longueur + 1)] +
+            codagePoints[i + 1 + (j + 1) * (this.longueur + 1)])
         this.nbSommets.push(nbPoints)
         this.figure.create('TextByPosition', {
           anchor: 'middleCenter',
           text: nbPoints.toString(),
           x: i + 0.5,
-          y: this.largeur - j - 0.5
+          y: this.largeur - j - 0.5,
         })
         this.figureCorrection.create('TextByPosition', {
           anchor: 'middleCenter',
           text: nbPoints.toString(),
           x: i + 0.5,
-          y: this.largeur - j - 0.5
+          y: this.largeur - j - 0.5,
         })
       }
     }
     for (let j = 0; j <= this.largeur; j++) {
       for (let i = 0; i <= this.longueur; i++) {
-        const center = this.figure.create('Point', { x: i, y: j, isVisible: false, color: 'white', isSelectable: false }) // Il ne faut pas qu'ils soient bleus.
-        this.figure.create('Circle', { center, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1, isSelectable: false })
+        const center = this.figure.create('Point', {
+          x: i,
+          y: j,
+          isVisible: false,
+          color: 'white',
+          isSelectable: false,
+        }) // Il ne faut pas qu'ils soient bleus.
+        this.figure.create('Circle', {
+          center,
+          radius: 0.2,
+          fillColor: 'white',
+          color: 'black',
+          fillOpacity: 1,
+          isSelectable: false,
+        })
       }
     }
     this.figure.elements.forEach((ele) => {
@@ -223,26 +252,35 @@ class squaro extends ExerciceSimple {
 
     let nbPointsAide = 0
     switch (this.sup4) {
-      case '1' :
-      case '2' :
-      case '3' :
+      case '1':
+      case '2':
+      case '3':
         nbPointsAide = parseInt(this.sup4)
         break
-      case '4' :
+      case '4':
         nbPointsAide = this.goodAnswers.length / 4
         break
-      case '5' :
+      case '5':
         nbPointsAide = this.goodAnswers.length / 3
         break
-      case '6' :
+      case '6':
         nbPointsAide = this.goodAnswers.length / 2
         break
     }
     let bonnesReponsesEncoreDispo = this.goodAnswers.slice()
     for (let i = 0; i < nbPointsAide; i++) {
-      const unBonPoint = choice(bonnesReponsesEncoreDispo) as { x: number; y: number }
-      this.figure.create('Point', { x: unBonPoint.x, y: unBonPoint.y, color: 'blue' })
-      bonnesReponsesEncoreDispo = bonnesReponsesEncoreDispo.filter(obj => !(obj.x === unBonPoint.x && obj.y === unBonPoint.y))
+      const unBonPoint = choice(bonnesReponsesEncoreDispo) as {
+        x: number
+        y: number
+      }
+      this.figure.create('Point', {
+        x: unBonPoint.x,
+        y: unBonPoint.y,
+        color: 'blue',
+      })
+      bonnesReponsesEncoreDispo = bonnesReponsesEncoreDispo.filter(
+        (obj) => !(obj.x === unBonPoint.x && obj.y === unBonPoint.y),
+      )
     }
 
     // Besoin de l'aide sur l'affichage du nombre de points
@@ -259,7 +297,8 @@ class squaro extends ExerciceSimple {
       }
       const label = document.createElement('label')
       label.htmlFor = `${this.numeroExercice}checkboxAide`
-      label.textContent = 'Afficher le nombre de points bleus présents sur la grille'
+      label.textContent =
+        'Afficher le nombre de points bleus présents sur la grille'
       label.classList.add('m-2')
       divCheckbox.classList.add('mt-4', 'text-coopmaths-struct')
       divNbPoints.classList.add('mt-4', 'text-coopmaths-struct')
@@ -269,14 +308,17 @@ class squaro extends ExerciceSimple {
       this.figure.divFigureAndUserMessage.appendChild(divNbPoints)
       this.figure.onChange(() => {
         const nbBluePoints = [...this.figure.elements.values()].filter(
-        // @ts-expect-error e est un point donc a de la couleur
-          (e) => e.type === 'Point' && e.color === 'blue'
+          // @ts-expect-error e est un point donc a de la couleur
+          (e) => e.type === 'Point' && e.color === 'blue',
         ).length
         divNbPoints.innerHTML = `Cette grille contient actuellement ${nbBluePoints} point${nbBluePoints === 1 ? '' : 's'} bleu${nbBluePoints === 1 ? '' : 's'}.`
       })
       const handleExercicesAffiches = () => {
         this.blueButton.click()
-        document.removeEventListener('exercicesAffiches', handleExercicesAffiches)
+        document.removeEventListener(
+          'exercicesAffiches',
+          handleExercicesAffiches,
+        )
       }
       document.addEventListener('exercicesAffiches', handleExercicesAffiches)
     } else {
@@ -296,7 +338,9 @@ class squaro extends ExerciceSimple {
       }
       persoSquaro += codagePoints[codagePoints.length - 1]
 
-      this.question = (this.sup3 ? ('<br>' + enonce) : '') + `<br><br>\\SquarO[Largeur=${this.largeur},Longueur=${this.longueur},Perso]{`
+      this.question =
+        (this.sup3 ? '<br>' + enonce : '') +
+        `<br><br>\\SquarO[Largeur=${this.largeur},Longueur=${this.longueur},Perso]{`
       this.question += persoSquaro
       this.question += '}'
 
@@ -310,7 +354,9 @@ class squaro extends ExerciceSimple {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figure.id] = this.figure.json
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${0}`,
+    ) as HTMLDivElement
     let isValid = true
     let validUnPoint = true
     let compteurPointsOK = 0
@@ -327,18 +373,31 @@ class squaro extends ExerciceSimple {
     for (let j = 0; j < this.largeur; j++) {
       for (let i = 0; i < this.longueur; i++) {
         const nbPointsValides =
-        (this.figure.checkCoords({ x: i, y: this.largeur - j, color: 'blue' }).isValid
-          ? 1
-          : 0) +
-        (this.figure.checkCoords({ x: i, y: this.largeur - j - 1, color: 'blue' }).isValid
-          ? 1
-          : 0) +
-        (this.figure.checkCoords({ x: i + 1, y: this.largeur - j, color: 'blue' }).isValid
-          ? 1
-          : 0) +
-        (this.figure.checkCoords({ x: i + 1, y: this.largeur - j - 1, color: 'blue' }).isValid
-          ? 1
-          : 0)
+          (this.figure.checkCoords({ x: i, y: this.largeur - j, color: 'blue' })
+            .isValid
+            ? 1
+            : 0) +
+          (this.figure.checkCoords({
+            x: i,
+            y: this.largeur - j - 1,
+            color: 'blue',
+          }).isValid
+            ? 1
+            : 0) +
+          (this.figure.checkCoords({
+            x: i + 1,
+            y: this.largeur - j,
+            color: 'blue',
+          }).isValid
+            ? 1
+            : 0) +
+          (this.figure.checkCoords({
+            x: i + 1,
+            y: this.largeur - j - 1,
+            color: 'blue',
+          }).isValid
+            ? 1
+            : 0)
         validUnPoint = nbPointsValides === this.nbSommets[i + j * this.longueur]
         if (validUnPoint) compteurPointsOK++
         isValid &&= validUnPoint
@@ -351,7 +410,7 @@ class squaro extends ExerciceSimple {
     this.figure.buttons.get('SHAKE')?.click()
     const nbPoints = [...this.figure.elements.values()].filter(
       // @ts-expect-error e est un point donc a de la couleur
-      (e) => e.type !== 'pointer' && e.type === 'Point' && e.color === 'blue'
+      (e) => e.type !== 'pointer' && e.type === 'Point' && e.color === 'blue',
     ).length
     isValid &&= nbPoints === this.goodAnswers.length
     let message: string
@@ -360,13 +419,17 @@ class squaro extends ExerciceSimple {
       return ['OK']
     }
     if (nbPoints === this.goodAnswers.length) {
-      message = 'Le nombre de points placés est correct mais ' + (compteurPointsOK === 1
-        ? 'seul 1 est bien placé.'
-        : `seuls ${compteurPointsOK} sont bien placés.`)
+      message =
+        'Le nombre de points placés est correct mais ' +
+        (compteurPointsOK === 1
+          ? 'seul 1 est bien placé.'
+          : `seuls ${compteurPointsOK} sont bien placés.`)
     } else if (nbPoints > this.goodAnswers.length) {
-      message = 'Le nombre de points placés est trop important par rapport à ce qui est attendu.'
+      message =
+        'Le nombre de points placés est trop important par rapport à ce qui est attendu.'
     } else {
-      message = "Le nombre de points placés n'est pas assez important par rapport à ce qui est attendu."
+      message =
+        "Le nombre de points placés n'est pas assez important par rapport à ce qui est attendu."
     }
     divFeedback.innerHTML = message
     return ['KO']

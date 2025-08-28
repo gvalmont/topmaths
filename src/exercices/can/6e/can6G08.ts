@@ -6,9 +6,16 @@ import { ajouteQuestionMathlive } from '../../../lib/interactif/questionMathLive
 import { choisitNombresEntreMetN } from '../../../lib/outils/aleatoires'
 import { shuffle } from '../../../lib/outils/arrayOutils'
 import { range } from '../../../lib/outils/nombres'
-import { colorToLatexOrHTML, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+} from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 export const titre = 'Trouver le symétrique'
@@ -28,16 +35,19 @@ export const uuid = '85dfc'
 
 export const refs = {
   'fr-fr': ['can6G08', '6G7B-flash3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class TrouverLeSym extends Exercice {
   croix: TracePoint[] = []
 
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Axes de symétrie', 'Nombres séparé par des tirets :\n1 : Vertical\n2 : Horizontal\n3 : Oblique 1\n4 : Oblique 2\n:Mélange']
+    this.besoinFormulaireTexte = [
+      'Axes de symétrie',
+      'Nombres séparé par des tirets :\n1 : Vertical\n2 : Horizontal\n3 : Oblique 1\n4 : Oblique 2\n:Mélange',
+    ]
     this.sup = '1'
     this.besoinFormulaire2Numerique = ['Nombre de points à afficher', 3]
     this.sup2 = 1
@@ -53,36 +63,58 @@ export default class TrouverLeSym extends Exercice {
     }
   }
 
-  nouvelleVersion () {
-    const typeAxe = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, nbQuestions: this.nbQuestions, defaut: 1 }).map(Number)
+  nouvelleVersion() {
+    const typeAxe = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      nbQuestions: this.nbQuestions,
+      defaut: 1,
+    }).map(Number)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       // on remet à vide tous les tableaux utilisés pour la question suivante
       let indexNumerosChoisis: number[] = []
-      const numerosAEviter = typeAxe[i] === 1
-        ? [3, 10, 17, 24, 31, 38, 45, 0, 7, 14, 21, 28, 35, 42, 6, 13, 20, 27, 34, 41, 48]
-        : typeAxe[i] === 2
-          ? [21, 22, 23, 24, 25, 26, 27, 0, 1, 2, 3, 4, 5, 6, 42, 43, 44, 45, 46, 47, 48]
-          : typeAxe[i] === 3
-            ? [35, 42, 43, 5, 6, 13]
-            : [0, 1, 7, 41, 47, 48]
+      const numerosAEviter =
+        typeAxe[i] === 1
+          ? [
+              3, 10, 17, 24, 31, 38, 45, 0, 7, 14, 21, 28, 35, 42, 6, 13, 20,
+              27, 34, 41, 48,
+            ]
+          : typeAxe[i] === 2
+            ? [
+                21, 22, 23, 24, 25, 26, 27, 0, 1, 2, 3, 4, 5, 6, 42, 43, 44, 45,
+                46, 47, 48,
+              ]
+            : typeAxe[i] === 3
+              ? [35, 42, 43, 5, 6, 13]
+              : [0, 1, 7, 41, 47, 48]
 
-      indexNumerosChoisis = choisitNombresEntreMetN(0, 48, this.sup2, numerosAEviter)
-      const numeros = this.sup3
-        ? shuffle(range(49))
-        : range(49)
+      indexNumerosChoisis = choisitNombresEntreMetN(
+        0,
+        48,
+        this.sup2,
+        numerosAEviter,
+      )
+      const numeros = this.sup3 ? shuffle(range(49)) : range(49)
       const nums: Latex2d[] = []
       for (let j = 0; j < 49; j++) {
-        nums.push(latex2d(`${numeros[j]}`, j % 7 - 0.2, Math.floor(j / 7) - 0.2, { letterSize: 'scriptsize' }))
+        nums.push(
+          latex2d(`${numeros[j]}`, (j % 7) - 0.2, Math.floor(j / 7) - 0.2, {
+            letterSize: 'scriptsize',
+          }),
+        )
       }
-      const numerosChoisis = indexNumerosChoisis.map(n => numeros[n])
-      const d = typeAxe[i] === 1
-        ? droite(point(3, 0), point(3, 6))
-        : typeAxe[i] === 2
-          ? droite(point(0, 3), point(6, 3))
-          : typeAxe[i] === 3
-            ? droite(point(0, 0), point(6, 6))
-            : droite(point(0, 6), point(6, 0))
+      const numerosChoisis = indexNumerosChoisis.map((n) => numeros[n])
+      const d =
+        typeAxe[i] === 1
+          ? droite(point(3, 0), point(3, 6))
+          : typeAxe[i] === 2
+            ? droite(point(0, 3), point(6, 3))
+            : typeAxe[i] === 3
+              ? droite(point(0, 0), point(6, 6))
+              : droite(point(0, 6), point(6, 0))
       d.color = colorToLatexOrHTML('blue')
       d.epaisseur = 2
       const numerosSymChoisis: number[] = []
@@ -94,7 +126,7 @@ export default class TrouverLeSym extends Exercice {
           m = 2 * milieu - n
           numerosSymChoisis.push(numeros[m])
         } else if (typeAxe[i] === 2) {
-          const milieu = 21 + n % 7
+          const milieu = 21 + (n % 7)
           m = 2 * milieu - n
           numerosSymChoisis.push(numeros[m])
         } else if (typeAxe[i] === 3) {
@@ -120,8 +152,8 @@ export default class TrouverLeSym extends Exercice {
       let texte = this.interactif
         ? questionInteractive
         : `Donner ${this.sup2 > 1 ? 'les' : 'le'} symétrique${this.sup2 > 1 ? 's' : ''} ${this.sup2 > 1 ? 'des' : 'du'} point${this.sup2 > 1 ? 's' : ''} ${numerosChoisis.map(String).join(', ')} par rapport à $(d)$.<br>`
-      const objetsEnonce:NestedObjetMathalea2dArray = [this.croix, nums, d]
-      const objetsCorrection:NestedObjetMathalea2dArray = [this.croix, nums, d]
+      const objetsEnonce: NestedObjetMathalea2dArray = [this.croix, nums, d]
+      const objetsCorrection: NestedObjetMathalea2dArray = [this.croix, nums, d]
       const pointsChoisis = []
       for (let j = 0; j < this.sup2; j++) {
         const n = indexNumerosChoisis[j]
@@ -142,24 +174,36 @@ export default class TrouverLeSym extends Exercice {
         pSymAffiche.color = colorToLatexOrHTML('orange')
         objetsCorrection.push(pSymAffiche)
       }
-      texte += mathalea2d({
-        xmin: -0.5,
-        ymin: -0.5,
-        xmax: 6.5,
-        ymax: 6.5,
-        scale: 1,
-        pixelsParCm: 40
-      }, ...objetsEnonce)
+      texte += mathalea2d(
+        {
+          xmin: -0.5,
+          ymin: -0.5,
+          xmax: 6.5,
+          ymax: 6.5,
+          scale: 1,
+          pixelsParCm: 40,
+        },
+        ...objetsEnonce,
+      )
       let texteCorr = `${this.sup2 > 1 ? 'Les' : 'Le'} symétrique${this.sup2 > 1 ? 's' : ''} ${this.sup2 > 1 ? 'des' : 'du'} point${this.sup2 > 1 ? 's' : ''} ${numerosChoisis.map(String).join(', ')} par rapport à $(d)$ ${this.sup2 > 1 ? 'sont' : 'est'} ${numerosSymChoisis.map((el) => String(numeros[el])).join(', ')}.<br>`
-      texteCorr += mathalea2d({
-        xmin: -0.5,
-        ymin: -0.5,
-        xmax: 6.5,
-        ymax: 6.5,
-        scale: 1,
-        pixelsParCm: 40
-      }, ...objetsEnonce, ...objetsCorrection)
-      if (this.questionJamaisPosee(i, numerosChoisis.sort((a, b) => a - b).join('-'))) {
+      texteCorr += mathalea2d(
+        {
+          xmin: -0.5,
+          ymin: -0.5,
+          xmax: 6.5,
+          ymax: 6.5,
+          scale: 1,
+          pixelsParCm: 40,
+        },
+        ...objetsEnonce,
+        ...objetsCorrection,
+      )
+      if (
+        this.questionJamaisPosee(
+          i,
+          numerosChoisis.sort((a, b) => a - b).join('-'),
+        )
+      ) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

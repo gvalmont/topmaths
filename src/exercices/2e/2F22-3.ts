@@ -3,15 +3,23 @@ import { texteParPosition } from '../../lib/2d/textes'
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { Spline, spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
-import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import type FractionEtendue from '../../modules/FractionEtendue'
-export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
+export const titre =
+  "Déterminer le tableau de signes d'une fonction graphiquement"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -20,10 +28,11 @@ export const uuid = 'a7860' // @todo à changer dans un nouvel exo (utiliser pnp
 
 export const refs = {
   'fr-fr': ['2F22-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 // une liste de nœuds pour définir une fonction Spline
-const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
+const noeuds1 = [
+  { x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
   { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   { x: -2, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -32,10 +41,11 @@ const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisibl
   { x: 2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-  { x: 5, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true }
+  { x: 5, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
 ]
 // une autre liste de nœuds...
-const noeuds2 = [{ x: -6, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
+const noeuds2 = [
+  { x: -6, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
   { x: -5, y: 0, deriveeGauche: 2, deriveeDroit: 3, isVisible: true },
   { x: -4, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: -3, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -47,27 +57,29 @@ const noeuds2 = [{ x: -6, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: t
   { x: 3, y: 4, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
   { x: 4, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 5, y: 4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-  { x: 6, y: 5, deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true }
+  { x: 6, y: 5, deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true },
 ]
 
-const noeuds3 = [{ x: -6, y: -4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+const noeuds3 = [
+  { x: -6, y: -4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   { x: -2, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   { x: 2, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 4, y: 0, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
-  { x: 6, y: -3, deriveeGauche: -1, deriveeDroit: -1, isVisible: true }
+  { x: 6, y: -3, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
 ]
 
-const noeuds4 = [{ x: -6, y: 3, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+const noeuds4 = [
+  { x: -6, y: 3, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   { x: -5, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: -4, y: 2, deriveeGauche: -1.5, deriveeDroit: -1.5, isVisible: true },
   { x: -2, y: 0, deriveeGauche: -1, deriveeDroit: -1.5, isVisible: true },
   { x: 0, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 1, y: -1, deriveeGauche: 1.5, deriveeDroit: 1.5, isVisible: true },
   { x: 2, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-  { x: 3, y: -3, deriveeGauche: -2, deriveeDroit: -2, isVisible: true }
+  { x: 3, y: -3, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
 ]
 // une liste des listes
-const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4]//, , noeuds2noeuds1, noeuds2,
+const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4] //, , noeuds2noeuds1, noeuds2,
 
 let coeffX
 let coeffY
@@ -79,13 +91,13 @@ let deltaY
  * @returns {{coeffX: -1|1, deltaX: int, deltaY: int, coeffY: -1|1}}
  */
 
-function aleatoiriseCourbe (choix: number) {
+function aleatoiriseCourbe(choix: number) {
   coeffX = choice([-1, 1]) // symétries ou pas
   coeffY = choice([-1, 1])
   deltaX = randint(-2, +2) // translations
   switch (choix) {
     case 1:
-      deltaY = 0// randint(-2, +2)
+      deltaY = 0 // randint(-2, +2)
       break
     case 2:
       deltaY = randint(-2, +2)
@@ -104,37 +116,41 @@ function aleatoiriseCourbe (choix: number) {
  */
 export default class BetaModeleSpline extends Exercice {
   spline?: Spline
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: '1', // @fixme à modifier dés qu'on aura une recherche fiable des zéros.
       min: 1,
       max: 3,
       melange: 3,
       defaut: 1,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     // boucle de création des différentes questions
     for (let i = 0; i < this.nbQuestions; i++) {
-      const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe(Number(typeDeQuestions[i]))
+      const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe(
+        Number(typeDeQuestions[i]),
+      )
       // la liste des noeuds de notre fonction
 
-      const nuage = choice(mesFonctions).map((noeud) => Object({
-        x: (noeud.x + deltaX) * coeffX,
-        y: (noeud.y + deltaY) * coeffY,
-        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-        isVisible: noeud.isVisible
-      }))
+      const nuage = choice(mesFonctions).map((noeud) =>
+        Object({
+          x: (noeud.x + deltaX) * coeffX,
+          y: (noeud.y + deltaY) * coeffY,
+          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+          isVisible: noeud.isVisible,
+        }),
+      )
       const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const maSpline = spline(nuage)
-      const fonctionD = (x:number) => maSpline.derivee(x)
+      const fonctionD = (x: number) => maSpline.derivee(x)
       const choixInteractif = randint(0, 1)
       const { xMin, xMax, yMin, yMax } = maSpline.trouveMaxes()
       this.spline = maSpline
@@ -148,29 +164,53 @@ export default class BetaModeleSpline extends Exercice {
         grilleY: false,
         grilleSecondaire: true,
         grilleSecondaireYDistance: 1,
-        grilleSecondaireXDistance: 1
+        grilleSecondaireXDistance: 1,
       })
       const courbe1 = maSpline.courbe({
         epaisseur: 1.5,
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
-        color: 'blue'
+        color: 'blue',
       })
 
-      const objetsEnonce = [...(repere1.objets as NestedObjetMathalea2dArray), /* courbe2, */ courbe1]
+      const objetsEnonce = [
+        ...(repere1.objets as NestedObjetMathalea2dArray),
+        /* courbe2, */ courbe1,
+      ]
       let texteEnonce
 
       const tableau = maSpline.tableauSignes()
-      const tableauB = tableauSignesFonction(fonctionD as (x: number | FractionEtendue)=>number, xMin, xMax, { step: 1, tolerance: 0.1 })
+      const tableauB = tableauSignesFonction(
+        fonctionD as (x: number | FractionEtendue) => number,
+        xMin,
+        xMax,
+        { step: 1, tolerance: 0.1 },
+      )
 
       const tableauChoisi = [tableau, tableauB][choixInteractif]
-      handleAnswers(this, i, { reponse: { value: choixInteractif === 0 ? ['oui'] : ['non'], options: { texteSansCasse: true } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: choixInteractif === 0 ? ['oui'] : ['non'],
+          options: { texteSansCasse: true },
+        },
+      })
 
-      const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+      const figure = mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.6, style: 'margin: auto' },
+          { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 },
+        ),
+        objetsEnonce,
+        o,
+      )
 
-      texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' + figure
-      if (this.interactif) { // || this.can
-        texteEnonce = 'Voici la représentation graphique d\'une fonction $f$ :<br>'
+      texteEnonce =
+        'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
+        figure
+      if (this.interactif) {
+        // || this.can
+        texteEnonce =
+          "Voici la représentation graphique d'une fonction $f$ :<br>"
         texteEnonce += figure
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
         texteEnonce += tableauChoisi
@@ -197,7 +237,7 @@ export default class BetaModeleSpline extends Exercice {
 
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
-      this.canEnonce = texteEnonce// 'Compléter'
+      this.canEnonce = texteEnonce // 'Compléter'
       this.canReponseACompleter = ''
     }
 

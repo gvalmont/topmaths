@@ -8,7 +8,6 @@ export const interactifType = 'mathLive'
 export const uuid = 'b51ec'
 export const refs = {
   'fr-fr': ['2N30-2', 'BP2AutoH1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class ExerciceAdditionnerOuSoustraireDesFractions2nde extends ExerciceAdditionnerOuSoustraireDesFractions {
-}
+export default class ExerciceAdditionnerOuSoustraireDesFractions2nde extends ExerciceAdditionnerOuSoustraireDesFractions {}

@@ -7,16 +7,16 @@ import { afficheLongueurSegment } from '../../../lib/2d/codages'
 import { codageAngle } from '../../../lib/2d/angles'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Calculer l\'aire d\'un triangle rectangle'
+export const titre = "Calculer l'aire d'un triangle rectangle"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '1e8ea'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.optionsChampTexte = { texteApres: 'cm$^2$' }
     let tri
     if (this.canOfficielle) {
@@ -39,7 +39,19 @@ export default class NomExercice extends ExerciceSimple {
       const lb = afficheLongueurSegment(A, C)
       this.reponse = 6
       objets.push(pol[0], la, lb, lc, codageAngle(A, B, C))
-      this.question = 'Aire du triangle <br>' + mathalea2d({ xmin: -1, xmax: 5, ymin: -1, ymax: 4, scale: 0.6, style: 'margin: auto' }, objets)
+      this.question =
+        'Aire du triangle <br>' +
+        mathalea2d(
+          {
+            xmin: -1,
+            xmax: 5,
+            ymin: -1,
+            ymax: 4,
+            scale: 0.6,
+            style: 'margin: auto',
+          },
+          objets,
+        )
       this.correction = `L'aire est donnée par le produit des deux plus petits côtés divisé par $2$, soit : $\\dfrac{3\\times 4}{2}=${miseEnEvidence(this.reponse)}$ cm$^2$.`
       this.canReponseACompleter = ''
     } else {

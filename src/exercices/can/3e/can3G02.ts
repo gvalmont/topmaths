@@ -14,10 +14,10 @@ export const uuid = '8e651'
 
 export const refs = {
   'fr-fr': ['can3G02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ImageD1Point extends Transformations {
-  constructor () {
+  constructor() {
     super()
     this.can = true
     this.sup = 4

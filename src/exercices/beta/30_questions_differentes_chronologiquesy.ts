@@ -1,13 +1,13 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
-export const titre = 'Nom de l\'exercice'
+export const titre = "Nom de l'exercice"
 
 export const dateDePublication = '4/5/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const uuid = 'a309b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,14 +17,14 @@ export const refs = {
 
 */
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Consigne'
     this.nbQuestions = 3
     this.nbQuestionsModifiable = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let question1 = 'Question 1'
     question1 += '<br>'
     let correction1 = 'Correction 1'

@@ -2,13 +2,17 @@ import { tracePoint } from '../../../lib/2d/points'
 import { labelPoint } from '../../../lib/2d/textes'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
-import { point3d, polygone3d, vecteur3d } from '../../../lib/3d/3dProjectionMathalea2d/elements'
+import {
+  point3d,
+  polygone3d,
+  vecteur3d,
+} from '../../../lib/3d/3dProjectionMathalea2d/elements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = '46593'
 export const refs = {
   'fr-fr': ['TSG2-QCM10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -33,7 +37,7 @@ export default class SujetZero2024Ex4Q1 extends ExerciceQcm {
       point3d(0, 0, 0, true, 'A', 'below left'),
       point3d(5, 0, 0, true, 'B', 'below left'),
       point3d(5, 0, 5, true, 'F', 'below left'),
-      point3d(0, 0, 10, true, 'E', 'below left')
+      point3d(0, 0, 10, true, 'E', 'below left'),
     ]
     const base = polygone3d(...basePoints)
     for (const arete of base.aretes) {
@@ -41,7 +45,12 @@ export default class SujetZero2024Ex4Q1 extends ExerciceQcm {
     }
 
     const vecteurExtrusion = vecteur3d(0, 5, 0)
-    const lePrisme = prisme3d(base, vecteurExtrusion, 'black', true, 'DCGH', ['above right', 'below right', 'above right', 'above left'])
+    const lePrisme = prisme3d(base, vecteurExtrusion, 'black', true, 'DCGH', [
+      'above right',
+      'below right',
+      'above right',
+      'above left',
+    ])
     const pointJ = point3d(0, 0, 5, true, 'J', 'right').c2d
     const pointI = point3d(2.5, 0, 7.5, true, 'I', 'above').c2d
     const tracIJ = tracePoint(pointI, pointJ)
@@ -50,7 +59,7 @@ export default class SujetZero2024Ex4Q1 extends ExerciceQcm {
       '$\\begin{pmatrix}0 \\\\ -1 \\\\ 1\\end{pmatrix}$',
       '$\\begin{pmatrix}-1 \\\\ 1 \\\\ 1\\end{pmatrix}$',
       '$\\begin{pmatrix}1 \\\\ 1 \\\\ 1\\end{pmatrix}$',
-      '$\\begin{pmatrix}0 \\\\ 0 \\\\ 1\\end{pmatrix}$'
+      '$\\begin{pmatrix}0 \\\\ 0 \\\\ 1\\end{pmatrix}$',
     ]
     const objets = [lePrisme.c2d, tracIJ, labels]
     const figure = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
@@ -75,7 +84,7 @@ $\\overrightarrow{n}\\cdot\\overrightarrow{AB}= 0\\times 1+(-1)\\times 0+1\\time
 $\\overrightarrow{n}\\cdot\\overrightarrow{BG}= 0\\times 0+(-1)\\times 1+1\\times 1=0$ donc $\\overrightarrow{n}\\perp \\overrightarrow{BG}$`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

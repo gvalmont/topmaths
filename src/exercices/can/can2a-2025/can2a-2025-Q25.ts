@@ -11,14 +11,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'fdadd'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Proportionnalite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,7 +28,7 @@ export default class Proportionnalite extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 8 : randint(1, 5) * 2
     const k = this.canOfficielle ? 2.5 : choice([1.5, 2.5])
     const k1 = this.canOfficielle ? 1.5 : choice([1.5, 2.5])
@@ -47,6 +47,8 @@ export default class Proportionnalite extends ExerciceSimple {
     if (this.interactif) {
       this.question += '<br>'
       this.optionsChampTexte = { texteApres: '€' }
-    } else { this.question += '<br>$\\ldots$ €' }
+    } else {
+      this.question += '<br>$\\ldots$ €'
+    }
   }
 }

@@ -1,5 +1,8 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -12,7 +15,7 @@ export const uuid = '28d47'
  */
 export const refs = {
   'fr-fr': ['1A-R3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -22,7 +25,8 @@ export const titre = 'Comparer des proportions (sous différentes formes)'
 
 export default class ElectionPourcentages extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'Lors d\'une élection, le quart des électeurs a voté pour A, $20\\,\\%$ a voté pour B, un tiers a voté pour C, et le reste a voté pour D.<br>Le candidat ayant recueilli le moins de votes est :'
+    this.enonce =
+      "Lors d'une élection, le quart des électeurs a voté pour A, $20\\,\\%$ a voté pour B, un tiers a voté pour C, et le reste a voté pour D.<br>Le candidat ayant recueilli le moins de votes est :"
     this.spacingCorr = 2.5
     this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
     • Candidat A : $\\dfrac{1}{4}$<br>
@@ -36,22 +40,22 @@ export default class ElectionPourcentages extends ExerciceQcmA {
       'Le candidat B',
       'Le candidat A',
       'Le candidat C',
-      'Le candidat D'
+      'Le candidat D',
     ]
   }
 
   // Fonction pour convertir une fraction en fraction de dénominateur 60
-  private convertirVers60 (numerateur: number, denominateur: number): number {
+  private convertirVers60(numerateur: number, denominateur: number): number {
     return (numerateur * 60) / denominateur
   }
 
   // Fonction pour convertir un pourcentage en fraction de dénominateur 60
-  private convertirPourcentageVers60 (pourcentage: number): number {
+  private convertirPourcentageVers60(pourcentage: number): number {
     return (pourcentage * 60) / 100
   }
 
   // Fonction pour formater l'affichage d'un pourcentage avec étape intermédiaire si nécessaire
-  private formaterPourcentage (pourcentage: number): string {
+  private formaterPourcentage(pourcentage: number): string {
     if (pourcentage % 5 === 0) {
       // Pourcentage se terminant par 5 (ou 0) : ajouter l'étape intermédiaire
       const fractionSur100 = `\\dfrac{${pourcentage}}{100}`
@@ -75,7 +79,7 @@ export default class ElectionPourcentages extends ExerciceQcmA {
       { tex: 'deux cinquièmes', frac: [2, 5], val: 0.4, singulier: false },
       { tex: 'trois cinquièmes', frac: [3, 5], val: 0.6, singulier: false },
       { tex: 'un tiers', frac: [1, 3], val: 1 / 3, singulier: true },
-      { tex: 'un quart', frac: [1, 4], val: 0.25, singulier: true }
+      { tex: 'un quart', frac: [1, 4], val: 0.25, singulier: true },
     ]
 
     // Fonction pour vérifier que les valeurs sont différentes
@@ -89,21 +93,26 @@ export default class ElectionPourcentages extends ExerciceQcmA {
     }
 
     // Fonction pour créer la comparaison des fractions avec dénominateur 60
-    const creerComparaison = (fractions: FractionEtendue[], candidats: string[]) => {
+    const creerComparaison = (
+      fractions: FractionEtendue[],
+      candidats: string[],
+    ) => {
       const fractionsAvecCandidats = fractions.map((frac, index) => ({
         fraction: frac,
         candidat: candidats[index],
-        valeur: frac.valeurDecimale
+        valeur: frac.valeurDecimale,
       }))
 
       // Trier par valeur croissante
       fractionsAvecCandidats.sort((a, b) => a.valeur - b.valeur)
 
       // Créer la chaîne de comparaison avec dénominateur 60
-      const comparaison = fractionsAvecCandidats.map(item => {
-        const numSur60 = Math.round(item.valeur * 60)
-        return `\\dfrac{${numSur60}}{60}`
-      }).join(' < ')
+      const comparaison = fractionsAvecCandidats
+        .map((item) => {
+          const numSur60 = Math.round(item.valeur * 60)
+          return `\\dfrac{${numSur60}}{60}`
+        })
+        .join(' < ')
 
       return comparaison
     }
@@ -115,25 +124,43 @@ export default class ElectionPourcentages extends ExerciceQcmA {
         let propA, pB, propC, fA, fB, fC, fD
 
         do {
-          propA = choice(proportions.filter(p => p.val < 0.25)) // A doit être petit
+          propA = choice(proportions.filter((p) => p.val < 0.25)) // A doit être petit
           pB = choice([20, 25, 30])
-          propC = choice(proportions.filter(p => p.val > 0.3)) // C doit être grand
+          propC = choice(proportions.filter((p) => p.val > 0.3)) // C doit être grand
 
           fA = new FractionEtendue(propA.frac[0], propA.frac[1])
           fB = new FractionEtendue(pB, 100)
           fC = new FractionEtendue(propC.frac[0], propC.frac[1])
-          fD = new FractionEtendue(1, 1).differenceFraction(fA).differenceFraction(fB).differenceFraction(fC)
-        } while (!sontDifferentes([propA.val, pB / 100, propC.val, fD.valeurDecimale]) ||
-           fD.valeurDecimale <= 0 ||
-           fA.valeurDecimale > Math.min(pB / 100, propC.val, fD.valeurDecimale) ||
-           propC.val < Math.max(propA.val, pB / 100, fD.valeurDecimale))
+          fD = new FractionEtendue(1, 1)
+            .differenceFraction(fA)
+            .differenceFraction(fB)
+            .differenceFraction(fC)
+        } while (
+          !sontDifferentes([
+            propA.val,
+            pB / 100,
+            propC.val,
+            fD.valeurDecimale,
+          ]) ||
+          fD.valeurDecimale <= 0 ||
+          fA.valeurDecimale >
+            Math.min(pB / 100, propC.val, fD.valeurDecimale) ||
+          propC.val < Math.max(propA.val, pB / 100, fD.valeurDecimale)
+        )
 
         this.enonce = `Lors d'une élection, ${propA.tex} des électeurs ${propA.singulier ? 'a' : 'ont'} voté pour A, $${pB}\\,\\%$ ont voté pour B, ${propC.tex} ${propC.singulier ? 'a' : 'ont'} voté pour C, et le reste a voté pour D.<br>Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est :`
 
-        const comparaison1 = creerComparaison([fA, fB, fC, fD], ['A', 'B', 'C', 'D'])
+        const comparaison1 = creerComparaison(
+          [fA, fB, fC, fD],
+          ['A', 'B', 'C', 'D'],
+        )
 
-        const numA60 = Math.round(this.convertirVers60(propA.frac[0], propA.frac[1]))
-        const numC60 = Math.round(this.convertirVers60(propC.frac[0], propC.frac[1]))
+        const numA60 = Math.round(
+          this.convertirVers60(propA.frac[0], propA.frac[1]),
+        )
+        const numC60 = Math.round(
+          this.convertirVers60(propC.frac[0], propC.frac[1]),
+        )
         const numD60 = Math.round(fD.valeurDecimale * 60)
 
         this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
@@ -144,7 +171,9 @@ export default class ElectionPourcentages extends ExerciceQcmA {
 En comparant les fractions : $${comparaison1}$<br>
 Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc le candidat ${texteEnCouleurEtGras(choix ? 'A' : 'C')}.`
 
-        this.reponses = choix ? ['Le candidat A', 'Le candidat B', 'Le candidat C', 'Le candidat D'] : ['Le candidat C', 'Le candidat B', 'Le candidat A', 'Le candidat D']
+        this.reponses = choix
+          ? ['Le candidat A', 'Le candidat B', 'Le candidat C', 'Le candidat D']
+          : ['Le candidat C', 'Le candidat B', 'Le candidat A', 'Le candidat D']
 
         break
       }
@@ -155,24 +184,41 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
 
         do {
           pB = choice([10, 15]) // B doit être petit
-          propA = choice(proportions.filter(p => p.val > 0.15 && p.val < 0.4)) // A intermédiaire
-          propC = choice(proportions.filter(p => p.val > 0.15 && p.val < 0.4)) // C intermédiaire
+          propA = choice(proportions.filter((p) => p.val > 0.15 && p.val < 0.4)) // A intermédiaire
+          propC = choice(proportions.filter((p) => p.val > 0.15 && p.val < 0.4)) // C intermédiaire
 
           fA = new FractionEtendue(propA.frac[0], propA.frac[1])
           fB = new FractionEtendue(pB, 100)
           fC = new FractionEtendue(propC.frac[0], propC.frac[1])
-          fD = new FractionEtendue(1, 1).differenceFraction(fA).differenceFraction(fB).differenceFraction(fC)
-        } while (!sontDifferentes([propA.val, pB / 100, propC.val, fD.valeurDecimale]) ||
-           fD.valeurDecimale <= 0 ||
-           pB / 100 >= Math.min(propA.val, propC.val, fD.valeurDecimale) ||
-           fD.valeurDecimale <= Math.max(propA.val, pB / 100, propC.val))
+          fD = new FractionEtendue(1, 1)
+            .differenceFraction(fA)
+            .differenceFraction(fB)
+            .differenceFraction(fC)
+        } while (
+          !sontDifferentes([
+            propA.val,
+            pB / 100,
+            propC.val,
+            fD.valeurDecimale,
+          ]) ||
+          fD.valeurDecimale <= 0 ||
+          pB / 100 >= Math.min(propA.val, propC.val, fD.valeurDecimale) ||
+          fD.valeurDecimale <= Math.max(propA.val, pB / 100, propC.val)
+        )
 
         this.enonce = `Lors d'une élection, ${propA.tex} des électeurs ${propA.singulier ? 'a' : 'ont'} voté pour A, $${pB}\\,\\%$ ont voté pour B, ${propC.tex} ${propC.singulier ? 'a' : 'ont'} voté pour C, et le reste a voté pour D.<br>Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est :`
 
-        const comparaison2 = creerComparaison([fA, fB, fC, fD], ['A', 'B', 'C', 'D'])
+        const comparaison2 = creerComparaison(
+          [fA, fB, fC, fD],
+          ['A', 'B', 'C', 'D'],
+        )
 
-        const numA60Case2 = Math.round(this.convertirVers60(propA.frac[0], propA.frac[1]))
-        const numC60Case2 = Math.round(this.convertirVers60(propC.frac[0], propC.frac[1]))
+        const numA60Case2 = Math.round(
+          this.convertirVers60(propA.frac[0], propA.frac[1]),
+        )
+        const numC60Case2 = Math.round(
+          this.convertirVers60(propC.frac[0], propC.frac[1]),
+        )
         const numD60Case2 = Math.round(fD.valeurDecimale * 60)
 
         this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
@@ -183,7 +229,9 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
 En comparant les fractions : $${comparaison2}$<br>
 Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc le candidat ${texteEnCouleurEtGras(choix ? 'B' : 'D')}.`
 
-        this.reponses = choix ? ['Le candidat B', 'Le candidat A', 'Le candidat C', 'Le candidat D'] : ['Le candidat D', 'Le candidat B', 'Le candidat A', 'Le candidat C']
+        this.reponses = choix
+          ? ['Le candidat B', 'Le candidat A', 'Le candidat C', 'Le candidat D']
+          : ['Le candidat D', 'Le candidat B', 'Le candidat A', 'Le candidat C']
         break
       }
       case 3: {
@@ -192,25 +240,42 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
         let propA, pB, propC, fA, fB, fC, fD
 
         do {
-          propA = choice(proportions.filter(p => p.val > 0.15 && p.val < 0.4)) // A intermédiaire
+          propA = choice(proportions.filter((p) => p.val > 0.15 && p.val < 0.4)) // A intermédiaire
           pB = choice([35, 40]) // B doit être grand
-          propC = choice(proportions.filter(p => p.val < 0.2)) // C doit être petit
+          propC = choice(proportions.filter((p) => p.val < 0.2)) // C doit être petit
 
           fA = new FractionEtendue(propA.frac[0], propA.frac[1])
           fB = new FractionEtendue(pB, 100)
           fC = new FractionEtendue(propC.frac[0], propC.frac[1])
-          fD = new FractionEtendue(1, 1).differenceFraction(fA).differenceFraction(fB).differenceFraction(fC)
-        } while (!sontDifferentes([propA.val, pB / 100, propC.val, fD.valeurDecimale]) ||
-           fD.valeurDecimale <= 0 ||
-           propC.val >= Math.min(propA.val, pB / 100, fD.valeurDecimale) ||
-           pB / 100 <= Math.max(propA.val, propC.val, fD.valeurDecimale))
+          fD = new FractionEtendue(1, 1)
+            .differenceFraction(fA)
+            .differenceFraction(fB)
+            .differenceFraction(fC)
+        } while (
+          !sontDifferentes([
+            propA.val,
+            pB / 100,
+            propC.val,
+            fD.valeurDecimale,
+          ]) ||
+          fD.valeurDecimale <= 0 ||
+          propC.val >= Math.min(propA.val, pB / 100, fD.valeurDecimale) ||
+          pB / 100 <= Math.max(propA.val, propC.val, fD.valeurDecimale)
+        )
 
         this.enonce = `Lors d'une élection, ${propA.tex} des électeurs ${propA.singulier ? 'a' : 'ont'} voté pour A, $${pB}\\,\\%$ ont voté pour B, ${propC.tex} ${propC.singulier ? 'a' : 'ont'} voté pour C, et le reste a voté pour D.<br>Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est :`
 
-        const comparaison3 = creerComparaison([fA, fB, fC, fD], ['A', 'B', 'C', 'D'])
+        const comparaison3 = creerComparaison(
+          [fA, fB, fC, fD],
+          ['A', 'B', 'C', 'D'],
+        )
 
-        const numA60Case3 = Math.round(this.convertirVers60(propA.frac[0], propA.frac[1]))
-        const numC60Case3 = Math.round(this.convertirVers60(propC.frac[0], propC.frac[1]))
+        const numA60Case3 = Math.round(
+          this.convertirVers60(propA.frac[0], propA.frac[1]),
+        )
+        const numC60Case3 = Math.round(
+          this.convertirVers60(propC.frac[0], propC.frac[1]),
+        )
         const numD60Case3 = Math.round(fD.valeurDecimale * 60)
 
         this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
@@ -221,7 +286,9 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
 En comparant les fractions : $${comparaison3}$<br>
 Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc le candidat ${texteEnCouleurEtGras(choix ? 'C' : 'B')}.`
 
-        this.reponses = choix ? ['Le candidat C', 'Le candidat A', 'Le candidat B', 'Le candidat D'] : ['Le candidat B', 'Le candidat C', 'Le candidat A', 'Le candidat D']
+        this.reponses = choix
+          ? ['Le candidat C', 'Le candidat A', 'Le candidat B', 'Le candidat D']
+          : ['Le candidat B', 'Le candidat C', 'Le candidat A', 'Le candidat D']
         break
       }
       case 4:
@@ -231,25 +298,42 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
         let propA, pB, propC, fA, fB, fC, fD
 
         do {
-          propA = choice(proportions.filter(p => p.val > 0.3)) // A doit être grand
+          propA = choice(proportions.filter((p) => p.val > 0.3)) // A doit être grand
           pB = choice([20, 25, 30]) // B intermédiaire
-          propC = choice(proportions.filter(p => p.val > 0.15 && p.val < 0.4)) // C intermédiaire
+          propC = choice(proportions.filter((p) => p.val > 0.15 && p.val < 0.4)) // C intermédiaire
 
           fA = new FractionEtendue(propA.frac[0], propA.frac[1])
           fB = new FractionEtendue(pB, 100)
           fC = new FractionEtendue(propC.frac[0], propC.frac[1])
-          fD = new FractionEtendue(1, 1).differenceFraction(fA).differenceFraction(fB).differenceFraction(fC)
-        } while (!sontDifferentes([propA.val, pB / 100, propC.val, fD.valeurDecimale]) ||
-           fD.valeurDecimale <= 0 ||
-           fD.valeurDecimale >= Math.min(propA.val, pB / 100, propC.val) ||
-           propA.val <= Math.max(pB / 100, propC.val, fD.valeurDecimale))
+          fD = new FractionEtendue(1, 1)
+            .differenceFraction(fA)
+            .differenceFraction(fB)
+            .differenceFraction(fC)
+        } while (
+          !sontDifferentes([
+            propA.val,
+            pB / 100,
+            propC.val,
+            fD.valeurDecimale,
+          ]) ||
+          fD.valeurDecimale <= 0 ||
+          fD.valeurDecimale >= Math.min(propA.val, pB / 100, propC.val) ||
+          propA.val <= Math.max(pB / 100, propC.val, fD.valeurDecimale)
+        )
 
         this.enonce = `Lors d'une élection, ${propA.tex} des électeurs ${propA.singulier ? 'a' : 'ont'} voté pour A, $${pB}\\,\\%$ ont voté pour B, ${propC.tex} ${propC.singulier ? 'a' : 'ont'} voté pour C, et le reste a voté pour D.<br>Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est :`
 
-        const comparaison4 = creerComparaison([fA, fB, fC, fD], ['A', 'B', 'C', 'D'])
+        const comparaison4 = creerComparaison(
+          [fA, fB, fC, fD],
+          ['A', 'B', 'C', 'D'],
+        )
 
-        const numA60Case4 = Math.round(this.convertirVers60(propA.frac[0], propA.frac[1]))
-        const numC60Case4 = Math.round(this.convertirVers60(propC.frac[0], propC.frac[1]))
+        const numA60Case4 = Math.round(
+          this.convertirVers60(propA.frac[0], propA.frac[1]),
+        )
+        const numC60Case4 = Math.round(
+          this.convertirVers60(propC.frac[0], propC.frac[1]),
+        )
         const numD60Case4 = Math.round(fD.valeurDecimale * 60)
 
         this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
@@ -260,13 +344,15 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
 En comparant les fractions : $${comparaison4}$<br>
 Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc le candidat ${texteEnCouleurEtGras(choix ? 'D' : 'A')}.`
 
-        this.reponses = choix ? ['Le candidat D', 'Le candidat A', 'Le candidat B', 'Le candidat C'] : ['Le candidat A', 'Le candidat D', 'Le candidat B', 'Le candidat C']
+        this.reponses = choix
+          ? ['Le candidat D', 'Le candidat A', 'Le candidat B', 'Le candidat C']
+          : ['Le candidat A', 'Le candidat D', 'Le candidat B', 'Le candidat C']
         break
       }
     }
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
     this.spacingCorr = 2.5

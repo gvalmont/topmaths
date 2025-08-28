@@ -1,5 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
@@ -28,10 +32,10 @@ export const uuid = '5f5a6'
 
 export const refs = {
   'fr-fr': ['3L11-4', 'BP2AutoI21'],
-  'fr-ch': ['11FA3-2']
+  'fr-ch': ['11FA3-2'],
 }
 export default class FactoriserParNombreOux extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = 4
@@ -39,45 +43,108 @@ export default class FactoriserParNombreOux extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 2
 
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     this.listeAvecNumerotation = false
-    this.besoinFormulaireNumerique = ['Type d\'expressions', 4, '1 : Expressions de type 7a+21b\n2 : Expressions de type 14a+21b\n3 : Expressions de type 14x+21x²\n4 : Mélange']
-    this.besoinFormulaire3CaseACocher = ['Signe $\\times$ dans la reponse finale', false]
-    this.besoinFormulaire2CaseACocher = ['Avec uniquement les mêmes lettres', true]
+    this.besoinFormulaireNumerique = [
+      "Type d'expressions",
+      4,
+      '1 : Expressions de type 7a+21b\n2 : Expressions de type 14a+21b\n3 : Expressions de type 14x+21x²\n4 : Mélange',
+    ]
+    this.besoinFormulaire3CaseACocher = [
+      'Signe $\\times$ dans la reponse finale',
+      false,
+    ]
+    this.besoinFormulaire2CaseACocher = [
+      'Avec uniquement les mêmes lettres',
+      true,
+    ]
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Factoriser les expressions suivantes.'
+        : "Factoriser l'expression suivante."
 
     let typesDeQuestionsDisponibles
     switch (this.sup) {
-      case 1 :
+      case 1:
         typesDeQuestionsDisponibles = ['ka+nkb', '-ka+nkb']
         break
-      case 2 :
+      case 2:
         typesDeQuestionsDisponibles = ['nka+mkb', 'nka-mkb']
         break
-      case 3 :
-        typesDeQuestionsDisponibles = ['nkx+mkx2', 'nkx-mkx2', 'nx2+x', 'nx2+mx']
+      case 3:
+        typesDeQuestionsDisponibles = [
+          'nkx+mkx2',
+          'nkx-mkx2',
+          'nx2+x',
+          'nx2+mx',
+        ]
         break
-      default :
-        typesDeQuestionsDisponibles = ['ka+nkb', '-ka+nkb', 'nka+mkb', 'nka-mkb', 'nkx+mkx2', 'nkx-mkx2', 'nx2+x', 'nx2+mx']
+      default:
+        typesDeQuestionsDisponibles = [
+          'ka+nkb',
+          '-ka+nkb',
+          'nka+mkb',
+          'nka-mkb',
+          'nkx+mkx2',
+          'nkx-mkx2',
+          'nx2+x',
+          'nx2+mx',
+        ]
         break
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, reponse, n, m, couplenm, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0, texte, texteCorr, reponse, n, m, couplenm, k, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
       reponse = ''
       k = choice([2, 3, 5, 7, 11])
-      couplenm = choice([[2, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux
+      couplenm = choice([
+        [2, 3],
+        [3, 4],
+        [2, 5],
+        [3, 5],
+        [4, 5],
+        [5, 6],
+        [2, 7],
+        [3, 7],
+        [4, 7],
+        [5, 7],
+        [6, 7],
+        [3, 8],
+        [5, 8],
+        [7, 8],
+        [2, 9],
+        [4, 9],
+        [5, 9],
+        [7, 9],
+        [8, 9],
+        [3, 10],
+        [7, 10],
+        [9, 10],
+      ]) // n et m sont premiers entre eux
       n = couplenm[0]
       m = couplenm[1]
       n = choice([n, n, -n])
-      const a = this.sup2 ? 'a' : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'])
-      const b = this.sup2 ? 'b' : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'], [a])
-      const x = this.sup2 ? 'x' : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'])
+      const a = this.sup2
+        ? 'a'
+        : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'])
+      const b = this.sup2
+        ? 'b'
+        : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'], [a])
+      const x = this.sup2
+        ? 'x'
+        : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'])
 
       switch (listeTypeDeQuestions[i]) {
         case 'ka+nkb':
@@ -149,12 +216,19 @@ export default class FactoriserParNombreOux extends Exercice {
       texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${reponse}$`
 
       if (!context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
-        handleAnswers(this, i, { reponse: { value: reponse, options: { factorisation: true } } })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecVariable,
+          { texteAvant: ' $=$' },
+        )
+        handleAnswers(this, i, {
+          reponse: { value: reponse, options: { factorisation: true } },
+        })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,
-          propositions: [{ texte: texteCorr, statut: 3, feedback: '' }]
+          propositions: [{ texte: texteCorr, statut: 3, feedback: '' }],
         }
       }
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
@@ -169,7 +243,8 @@ export default class FactoriserParNombreOux extends Exercice {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      if (this.questionJamaisPosee(i, k, n, m)) { // Si la question n'${a} jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, k, n, m)) {
+        // Si la question n'${a} jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

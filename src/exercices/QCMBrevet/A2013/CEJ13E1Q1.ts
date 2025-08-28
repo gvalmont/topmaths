@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '67e1a'
 export const refs = {
   'fr-fr': ['3L1QCM-02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,13 +21,13 @@ export const dateDePublication = '30/10/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class EtrangersJuin13Exo1Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b: number, c: number): void {
+  private appliquerLesValeurs(a: number, b: number, c: number): void {
     const s1 = -a
     const s2 = c / b
     this.reponses = [
       `$${String(s1)}$ et $${texNombre(s2, 2)}$`,
       `$${String(-s1)}$ et $${texNombre(-s2, 2)}$`,
-      `$${String(s1)}$ et $${String(c - b)}$`
+      `$${String(s1)}$ et $${String(c - b)}$`,
     ]
     this.enonce = `Les solutions de l'équation  $(x+${String(a)})(${String(b)}x-${String(c)})=0$ sont :`
     this.correction = `Un produit de facteurs est nul si l'un des facteurs est nul , soit <br>
@@ -62,7 +62,7 @@ export default class EtrangersJuin13Exo1Q1 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

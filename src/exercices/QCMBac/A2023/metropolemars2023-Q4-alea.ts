@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'ef507'
 export const refs = {
   'fr-fr': ['TSP1-QCM10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -42,21 +42,24 @@ $\\bullet~~$ $G$ :  "Le joueur gagne la partie" .<br><br>`
       '$n = 3$', // Réponse correcte (b)
       '$n = 2$', // Mauvaise réponse (a)
       '$n = 4$', // Mauvaise réponse (c)
-      '$n = 5$' // Mauvaise réponse (d)
+      '$n = 5$', // Mauvaise réponse (d)
     ]
 
-    this.enonce += 'On considère un entier naturel $n$ pour lequel la probabilité, arrondie au millième,<br> que le joueur gagne au plus $n$ parties est de $0,207$. Alors :'
+    this.enonce +=
+      'On considère un entier naturel $n$ pour lequel la probabilité, arrondie au millième,<br> que le joueur gagne au plus $n$ parties est de $0,207$. Alors :'
 
-    this.correction = 'On cherche $n$ tel que $P(X \\leq n) \\approx 0,207$.<br>'
-    this.correction += 'En utilisant la loi binomiale avec $n = 10$ et $p = \\dfrac{12}{25}$, on trouve que $n = 3$.<br>'
+    this.correction =
+      'On cherche $n$ tel que $P(X \\leq n) \\approx 0,207$.<br>'
+    this.correction +=
+      'En utilisant la loi binomiale avec $n = 10$ et $p = \\dfrac{12}{25}$, on trouve que $n = 3$.<br>'
     this.correction += `La bonne réponse est donc $${miseEnEvidence('n = 3')}$.`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: false, ordered: false }
     this.versionOriginale()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

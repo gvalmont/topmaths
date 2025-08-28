@@ -17,16 +17,16 @@ export const uuid = '73d76'
 
 export const refs = {
   'fr-fr': ['can6N08', '6N1A-flash5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NombreDeDizaines extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(0, 4)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
@@ -38,7 +38,8 @@ export default class NombreDeDizaines extends ExerciceSimple {
       if (m === 'centaines') {
         this.correction = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${a * 10 + b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
         this.reponse = a * 10 + b
-      } if (m === 'dizaines') {
+      }
+      if (m === 'dizaines') {
         this.correction = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 100 + b * 10 + c}\\times 10+${d}$, il y a $${a * 100 + b * 10 + c}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
         this.reponse = a * 100 + b * 10 + c
       }
@@ -46,7 +47,8 @@ export default class NombreDeDizaines extends ExerciceSimple {
       if (m === 'centaines') {
         this.correction = `Comme  $${b * 100 + c * 10 + d}=${b}\\times 100+${c * 10 + d}$, il y a $${b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
         this.reponse = b
-      } if (m === 'dizaines') {
+      }
+      if (m === 'dizaines') {
         this.correction = `Comme $${b * 100 + c * 10 + d}=${b * 10 + c}\\times 10+${d}$, il y a $${b * 10 + c}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
         this.reponse = b * 10 + c
       }

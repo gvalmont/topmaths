@@ -17,17 +17,17 @@ export const uuid = '59365'
 
 export const refs = {
   'fr-fr': ['can3C11'],
-  'fr-ch': ['10NO3-6a']
+  'fr-ch': ['10NO3-6a'],
 }
 export default class calculsRacinesCarresPafaits extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.spacing = 1.5
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let a, b
@@ -40,14 +40,18 @@ export default class calculsRacinesCarresPafaits extends Exercice {
           reponse = texNombre(a, 0)
           texte = 'Compléter.<br>'
           if (this.interactif) {
-            handleAnswers(this, i,
-              {
-                champ1: { value: reponse }
-
-              }
+            handleAnswers(this, i, {
+              champ1: { value: reponse },
+            })
+            texte += remplisLesBlancs(
+              this,
+              i,
+              `\\sqrt{${texNombre(b, 0)}} = %{champ1}`,
+              KeyboardType.clavierNumbers,
             )
-            texte += remplisLesBlancs(this, i, `\\sqrt{${texNombre(b, 0)}} = %{champ1}`, KeyboardType.clavierNumbers)
-          } else { texte += `$\\sqrt{${texNombre(b, 0)}} = \\ldots$` }
+          } else {
+            texte += `$\\sqrt{${texNombre(b, 0)}} = \\ldots$`
+          }
           texteCorr = `$\\sqrt{${texNombre(b, 0)}} =${miseEnEvidence(texNombre(a, 0))}$`
 
           this.canEnonce = 'Compléter.'
@@ -62,13 +66,18 @@ export default class calculsRacinesCarresPafaits extends Exercice {
           reponse = texNombre(b, 0)
           texte = 'Compléter.<br>'
           if (this.interactif) {
-            handleAnswers(this, i,
-              {
-                champ1: { value: reponse }
-              }
+            handleAnswers(this, i, {
+              champ1: { value: reponse },
+            })
+            texte += remplisLesBlancs(
+              this,
+              i,
+              `\\sqrt{%{champ1}} = ${texNombre(a, 0)}`,
+              KeyboardType.clavierDeBaseAvecFraction,
             )
-            texte += remplisLesBlancs(this, i, `\\sqrt{%{champ1}} = ${texNombre(a, 0)}`, KeyboardType.clavierDeBaseAvecFraction)
-          } else { texte += `$\\sqrt{\\ldots} =${texNombre(a, 0)} $` }
+          } else {
+            texte += `$\\sqrt{\\ldots} =${texNombre(a, 0)} $`
+          }
           texteCorr = `$\\sqrt{${miseEnEvidence(texNombre(b, 0))}} =${texNombre(a, 0)}$`
 
           this.canEnonce = 'Compléter.'

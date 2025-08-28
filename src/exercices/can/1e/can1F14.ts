@@ -4,7 +4,8 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  reduirePolynomeDegre3, rienSi1
+  reduirePolynomeDegre3,
+  rienSi1,
 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
@@ -22,20 +23,22 @@ export const uuid = 'a1ba2'
 
 export const refs = {
   'fr-fr': ['can1F14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NombreDerivee extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, nbre
-    switch (choice([1, 2, 3])) { //
-      case 1:// second degre ax^2+bx+c
+    switch (
+      choice([1, 2, 3]) //
+    ) {
+      case 1: // second degre ax^2+bx+c
         a = randint(-5, 5, [0])
         b = randint(-5, 5, [0])
         c = randint(-10, 10, [0])
@@ -51,7 +54,7 @@ export default class NombreDerivee extends ExerciceSimple {
         this.reponse = 2 * a * nbre + b
         break
 
-      case 2:// second degre bx+c+ax^2 ou c+ax^2+bx
+      case 2: // second degre bx+c+ax^2 ou c+ax^2+bx
         a = randint(-5, 5, [0])
         b = randint(-5, 5, [0])
         c = randint(-10, 10, [0])
@@ -77,7 +80,7 @@ export default class NombreDerivee extends ExerciceSimple {
 
         break
 
-      case 3:// second degre ax^2+c ou c+ax^2
+      case 3: // second degre ax^2+c ou c+ax^2
         a = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
         nbre = randint(-5, 5)
@@ -102,6 +105,8 @@ export default class NombreDerivee extends ExerciceSimple {
         this.reponse = 2 * a * nbre
         break
     }
-    if (this.interactif) { this.question += '<br>' + `$f'(${nbre})=$` }
+    if (this.interactif) {
+      this.question += '<br>' + `$f'(${nbre})=$`
+    }
   }
 }

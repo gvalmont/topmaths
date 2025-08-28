@@ -4,7 +4,10 @@ import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -26,13 +29,20 @@ export const uuid = 'be157'
 
 export const refs = {
   'fr-fr': ['3L12-1', 'BP2AutoI9'],
-  'fr-ch': ['11FA2-12']
+  'fr-ch': ['11FA2-12'],
 }
 export default class DevelopperIdentitesRemarquables3 extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
-    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange',
+    ]
+    this.besoinFormulaire2CaseACocher = [
+      'Présentation des corrections en colonnes',
+      false,
+    ]
 
     this.spacing = context.isHtml ? 3 : 2
     this.spacingCorr = context.isHtml ? 3 : 2
@@ -43,14 +53,63 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Développer et réduire les expressions suivantes.'
+        : "Développer et réduire l'expression suivante."
 
-    const Fractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
-      [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
-      [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+    const Fractions = [
+      [1, 2],
+      [1, 3],
+      [2, 3],
+      [1, 4],
+      [3, 4],
+      [1, 5],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [1, 6],
+      [5, 6],
+      [1, 7],
+      [2, 7],
+      [3, 7],
+      [4, 7],
+      [5, 7],
+      [6, 7],
+      [1, 8],
+      [3, 8],
+      [5, 8],
+      [7, 8],
+      [1, 9],
+      [2, 9],
+      [4, 9],
+      [5, 9],
+      [7, 9],
+      [8, 9],
+      [1, 10],
+      [3, 10],
+      [7, 10],
+      [9, 10],
+    ]
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']
-    for (let i = 0, ns, ds, texte, texteCorr: string, reponse, reponse1, choixLettre, choixPossible, cpt = 0, a, b, fraction = []; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        ns,
+        ds,
+        texte,
+        texteCorr: string,
+        reponse,
+        reponse1,
+        choixLettre,
+        choixPossible,
+        cpt = 0,
+        a,
+        b,
+        fraction = [];
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       choixLettre = choice(lettresPossibles)
       choixPossible = this.sup === 4 ? choice(range1(3)) : this.sup
       b = 0
@@ -69,7 +128,8 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
         texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${b}${choixLettre}-${a})(${b}${choixLettre}+${a})=(${b}${choixLettre})^2-${a}^2=${b * b}${choixLettre}^2-${a * a}$`
         reponse1 = b * b
         reponse = reduirePolynomeDegre3(0, reponse1, 0, -a * a, choixLettre)
-      } else { //  (bx-a)(bx+a) avec a entier et b rationnel simple
+      } else {
+        //  (bx-a)(bx+a) avec a entier et b rationnel simple
         a = randint(1, 9)
         fraction = choice(Fractions)
         ns = fraction[0]
@@ -87,12 +147,18 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
         texteCorr = ''
         etapes.forEach(function (etape) {
           etape = etape.replace('$', '')
-          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+          texteCorr +=
+            etape === lettreDepuisChiffre(i + 1)
+              ? ''
+              : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
         })
       }
       if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
+        texte += this.interactif
+          ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
+            ajouteChampTexteMathLive(this, i, ' ')
+          : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',
@@ -101,67 +167,81 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: texteCorr,
-                enonce: texte + '<br>',
-                statut: 4
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: texte + '<br>',
+                  statut: 4,
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
-                  valeur: reponse1,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                    valeur: reponse1,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
-                  valeur: 0,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                    valeur: 0,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
-                  valeur: -a * a,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                    valeur: -a * a,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
-      if (this.sup === 1 ? this.questionJamaisPosee(i, a) : this.sup === 2 ? this.questionJamaisPosee(i, a, b) : this.questionJamaisPosee(i, a, ns, ds)) {
+      if (
+        this.sup === 1
+          ? this.questionJamaisPosee(i, a)
+          : this.sup === 2
+            ? this.questionJamaisPosee(i, a, b)
+            : this.questionJamaisPosee(i, a, ns, ds)
+      ) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -22,20 +22,20 @@ export const uuid = '73ab4'
 
 export const refs = {
   'fr-fr': ['can2F06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TableauSignes extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, ligne1, props, debutEnonce
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(1, 6) * choice([-1, 1])// coefficient a de la fonction affine
-      b = randint(1, 6) * choice([-1, 1])// coefficient b de la fonction affine
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      a = randint(1, 6) * choice([-1, 1]) // coefficient a de la fonction affine
+      b = randint(1, 6) * choice([-1, 1]) // coefficient b de la fonction affine
       texteCorr = `$f$ est une fonction affine. Elle s’annule en $x_0=${texFractionReduite(-b, a)}$. `
 
       if (this.interactif) {
@@ -53,10 +53,18 @@ export default class TableauSignes extends Exercice {
                 tabInit: [
                   [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ['$x$', 2, 30],
+                    ['$f(x)$', 2, 50],
                   ],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${texFractionReduite(-b, a)}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
                 tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
@@ -64,19 +72,27 @@ export default class TableauSignes extends Exercice {
                 espcl: 3.5, // taille en cm entre deux antécédents
                 deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 5,
-                scale: 1
+                scale: 1,
               }),
-              statut: true
+              statut: true,
             },
             {
               texte: tableauDeVariation({
                 tabInit: [
                   [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ['$x$', 2, 30],
+                    ['$f(x)$', 2, 50],
                   ],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(b, a)}$`, 20, '$+\\infty$', 30]
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${texFractionReduite(b, a)}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
                 tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
@@ -84,19 +100,27 @@ export default class TableauSignes extends Exercice {
                 espcl: 3.5, // taille en cm entre deux antécédents
                 deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 5,
-                scale: 1
+                scale: 1,
               }),
-              statut: false
+              statut: false,
             },
             {
               texte: tableauDeVariation({
                 tabInit: [
                   [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ['$x$', 2, 30],
+                    ['$f(x)$', 2, 50],
                   ],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${texFractionReduite(-b, a)}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
                 tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
@@ -104,11 +128,11 @@ export default class TableauSignes extends Exercice {
                 espcl: 3.5, // taille en cm entre deux antécédents
                 deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 5, // taille de la première colonne en cm
-                scale: 1
+                scale: 1,
               }),
-              statut: false
-            }
-          ]
+              statut: false,
+            },
+          ],
         }
         texteCorr += `<br>Comme $${a}>0~$, $~f(x)$ est positif pour $~x>${texFractionReduite(-b, a)} ~$ et négatif pour $~x<${texFractionReduite(-b, a)} $.<br>`
         ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']
@@ -122,10 +146,18 @@ export default class TableauSignes extends Exercice {
                 tabInit: [
                   [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ['$x$', 2, 30],
+                    ['$f(x)$', 2, 50],
                   ],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${texFractionReduite(-b, a)}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
                 tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
@@ -133,19 +165,27 @@ export default class TableauSignes extends Exercice {
                 espcl: 3.5, // taille en cm entre deux antécédents
                 deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 5, // taille de la première colonne en cm
-                scale: 1
+                scale: 1,
               }),
-              statut: true
+              statut: true,
             },
             {
               texte: tableauDeVariation({
                 tabInit: [
                   [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ['$x$', 2, 30],
+                    ['$f(x)$', 2, 50],
                   ],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(b, a)}$`, 20, '$+\\infty$', 30]
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${texFractionReduite(b, a)}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
                 tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
@@ -153,19 +193,27 @@ export default class TableauSignes extends Exercice {
                 espcl: 3.5, // taille en cm entre deux antécédents
                 deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 5, // taille de la première colonne en cm
-                scale: 1
+                scale: 1,
               }),
-              statut: false
+              statut: false,
             },
             {
               texte: tableauDeVariation({
                 tabInit: [
                   [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ['$x$', 2, 30],
+                    ['$f(x)$', 2, 50],
                   ],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+                  [
+                    '$-\\infty$',
+                    30,
+                    `$${texFractionReduite(-b, a)}$`,
+                    20,
+                    '$+\\infty$',
+                    30,
+                  ],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
                 tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
@@ -173,11 +221,11 @@ export default class TableauSignes extends Exercice {
                 espcl: 3.5, // taille en cm entre deux antécédents
                 deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 5, // taille de la première colonne en cm
-                scale: 1
+                scale: 1,
               }),
-              statut: false
-            }
-          ]
+              statut: false,
+            },
+          ],
         }
         texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $.<br>`
         ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
@@ -189,17 +237,25 @@ export default class TableauSignes extends Exercice {
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-            ['$x$', 2, 30], ['$f(x)$', 2, 50]
+            ['$x$', 2, 30],
+            ['$f(x)$', 2, 50],
           ],
           // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-          ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+          [
+            '$-\\infty$',
+            30,
+            `$${texFractionReduite(-b, a)}$`,
+            20,
+            '$+\\infty$',
+            30,
+          ],
         ],
         // tabLines ci-dessous contient les autres lignes du tableau.
         tabLines: [ligne1],
         colorBackground: '',
         espcl: 3.5, // taille en cm entre deux antécédents
         deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-        lgt: 5 // taille de la première colonne en cm
+        lgt: 5, // taille de la première colonne en cm
       })
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions

@@ -11,7 +11,7 @@ export const dateDePublication = '15/09/2024'
 export const uuid = '1abca'
 export const refs = {
   'fr-fr': ['can2C19'],
-  'fr-ch': ['9NO14-14']
+  'fr-ch': ['9NO14-14'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class CalculAstucePourcentage extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -29,12 +29,19 @@ export default class CalculAstucePourcentage extends ExerciceSimple {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
-    const listeValeurs = [[25, randint(1, 15, 10), 4], [50, randint(21, 49, [30, 40]), 2], [75, randint(1, 12, [5, 10]), 4]]
+  nouvelleVersion() {
+    const listeValeurs = [
+      [25, randint(1, 15, 10), 4],
+      [50, randint(21, 49, [30, 40]), 2],
+      [75, randint(1, 12, [5, 10]), 4],
+    ]
     const choix = choice(listeValeurs)
-    this.reponse = choix[0] === 75 ? texNombre(choix[1] * 3, 1) : texNombre(choix[1], 1)
+    this.reponse =
+      choix[0] === 75 ? texNombre(choix[1] * 3, 1) : texNombre(choix[1], 1)
     this.question = `Calculer $${choix[2] * choix[1]}\\,\\%$ de $${choix[0]}$.`
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.correction = `Calculer $${choix[2] * choix[1]}\\,\\%$ de $${choix[0]}$ revient à calculer $${choix[0]}\\,\\%$ de $${choix[2] * choix[1]}$.<br>

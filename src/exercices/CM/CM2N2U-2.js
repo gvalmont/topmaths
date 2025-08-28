@@ -9,10 +9,10 @@ export const uuid = 'b2f66'
 export const refs = {
   'fr-fr': ['CM2N2U-2'],
   'fr-2016': ['c3N23'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LireUneAbscisseAvecZoomCM extends LireUneAbscisseAvecZoom {
-  constructor () {
+  constructor() {
     super()
     this.niveau = 'CM'
     this.sup = 1

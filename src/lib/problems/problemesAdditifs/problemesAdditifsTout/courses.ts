@@ -10,7 +10,7 @@ import ProblemeAdditif from './problemesAdditifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function courses1 (decimal = true): Probleme {
+export function courses1(decimal = true): Probleme {
   const personnage = prenomPronom()
   const objets = choice(troisObjetsAVendre)
   const objet1 = objets[0]

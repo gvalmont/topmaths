@@ -11,14 +11,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'b2be1'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025CM1Q26 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,16 +26,27 @@ export default class Can2025CM1Q26 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a1 = 0
     const a2 = 2
 
     const x = this.canOfficielle ? 3 : randint(1, 7, 4)
     this.reponse = { reponse: { value: `\\frac{${x}}{4}` } } // this.reponse = String(x)
-    const drGrad = new DroiteGraduee({ Unite: 4, Min: a1, Max: a2, thickSec: true, thickSecDist: 0.25, labelsPrincipaux: true, pointListe: [[x / 4, 'A']] })
+    const drGrad = new DroiteGraduee({
+      Unite: 4,
+      Min: a1,
+      Max: a2,
+      thickSec: true,
+      thickSecDist: 0.25,
+      labelsPrincipaux: true,
+      pointListe: [[x / 4, 'A']],
+    })
     const objets = [drGrad]
     this.question = 'Quel nombre repère le point $A$ ?<br>'
-    this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    this.question += mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.correction = `L'unité est partagée en $4$. Ainsi, chaque part correspond à $0,25$.<br>

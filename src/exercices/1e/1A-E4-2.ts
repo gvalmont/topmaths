@@ -15,10 +15,10 @@ export const uuid = '6edc6'
 
 export const refs = {
   'fr-fr': ['1A-E4-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AE4b extends TauxGlobal {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

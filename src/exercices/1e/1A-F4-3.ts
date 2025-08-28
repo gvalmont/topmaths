@@ -1,5 +1,6 @@
 import LectureGraphiqueParaboleA from '../can/1e/can1F24'
-export const titre = 'Lire graphiquement les valeurs de $a$ et de $b$ dans $ax^2+b$'
+export const titre =
+  'Lire graphiquement les valeurs de $a$ et de $b$ dans $ax^2+b$'
 export const dateDePublication = '01/08/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +16,10 @@ export const uuid = '2f147'
 
 export const refs = {
   'fr-fr': ['1A-F4-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF4c extends LectureGraphiqueParaboleA {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

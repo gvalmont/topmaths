@@ -38,12 +38,12 @@ export const uuid = 'af62a'
 export const dateDePublication = '08/12/2024'
 export const refs = {
   'fr-fr': ['can2a-NY2025'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Annales CAN 2025
  * @author
-*/
+ */
 
 const questions = [
   Question1,
@@ -75,11 +75,11 @@ const questions = [
   Question27,
   Question28,
   Question29,
-  Question30
+  Question30,
 ]
 
 export default class Can2aNY2025 extends MetaExercice {
-  constructor () {
+  constructor() {
     super(questions)
   }
 }

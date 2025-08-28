@@ -1,9 +1,17 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { point } from '../../lib/2d/points'
 import { droite } from '../../lib/2d/droites'
-import { codageAngleDroit, codageAngle, CodageAngleDroit } from '../../lib/2d/angles'
+import {
+  codageAngleDroit,
+  codageAngle,
+  CodageAngleDroit,
+} from '../../lib/2d/angles'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -20,7 +28,7 @@ export const interactifReady = false
 export const uuid = '4f81e'
 export const refs = {
   'fr-ch': ['1mG3-6'],
-  'fr-fr': []
+  'fr-fr': [],
 }
 
 /**
@@ -29,12 +37,13 @@ export const refs = {
  */
 
 export default class RelationsMetriquesTriangleRectangle extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
 
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : BD-BA',
         '2 : BD-AD',
@@ -48,8 +57,9 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
         '10 : AB-EB',
         '11 : BD-EB',
         '12 : ED-BD',
-        '13 : Mélange'
-      ].join('\n')]
+        '13 : Mélange',
+      ].join('\n'),
+    ]
     this.besoinFormulaire2CaseACocher = ['Nom des sommets qui changent']
     this.besoinFormulaire3CaseACocher = ['Appliquer une rotation aux triangles']
     this.correctionDetaillee = false
@@ -68,30 +78,38 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
     A-----B-----D <pre>`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 12,
       melange: 13,
       defaut: 1,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     this.consigne = ''
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
 
       let objetsEnonce = []
       const listeDeNomsDePolygones: string[] = []
       // Helper function to adjust the label anchor based on the quadrant of angle2
-      function adjustedAnchor (base:string, angle2:number) : string {
+      function adjustedAnchor(base: string, angle2: number): string {
         // Define the order of anchors (clockwise order):
         // For no rotation (angle2=0), these positions mean:
         // "above right": top-right, "above left": top-left, "below left": bottom-left, "below right": bottom-right.
-        const anchors = ['above right', 'above left', 'below left', 'below right']
+        const anchors = [
+          'above right',
+          'above left',
+          'below left',
+          'below right',
+        ]
         const baseIndex = anchors.indexOf(base)
         if (baseIndex === -1) return base // fallback if base label isn't recognized
 
@@ -163,26 +181,130 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
 
       objetsEnonce = [ADE, sEB, codageDroitABE, codageDroitAED, labels]
       const objetsCorr1 = [ADE, sEB, codageDroitABE, codageDroitAED, labels]
-      const codageEAB = codageAngle(E, A, B, 2, '|', 'black', 0.5, 0.2, 'blue', 0.8, false, false)
-      const codageEDB = codageAngle(E, D, B, 2, '||', 'black', 0.5, 0.2, 'red', 0.8, false, false)
-      const codageAEB = codageAngle(A, E, B, 2, '||', 'black', 0.5, 0.2, 'red', 0.8, false, false)
-      const codageBED = codageAngle(B, E, D, 2, '|', 'black', 0.5, 0.2, 'blue', 0.8, false, false)
+      const codageEAB = codageAngle(
+        E,
+        A,
+        B,
+        2,
+        '|',
+        'black',
+        0.5,
+        0.2,
+        'blue',
+        0.8,
+        false,
+        false,
+      )
+      const codageEDB = codageAngle(
+        E,
+        D,
+        B,
+        2,
+        '||',
+        'black',
+        0.5,
+        0.2,
+        'red',
+        0.8,
+        false,
+        false,
+      )
+      const codageAEB = codageAngle(
+        A,
+        E,
+        B,
+        2,
+        '||',
+        'black',
+        0.5,
+        0.2,
+        'red',
+        0.8,
+        false,
+        false,
+      )
+      const codageBED = codageAngle(
+        B,
+        E,
+        D,
+        2,
+        '|',
+        'black',
+        0.5,
+        0.2,
+        'blue',
+        0.8,
+        false,
+        false,
+      )
       objetsCorr1.push(codageEAB as CodageAngleDroit)
       objetsCorr1.push(codageEDB as CodageAngleDroit)
       objetsCorr1.push(codageDroitDBE as CodageAngleDroit)
       if (this.correctionDetaillee) {
         texteCorr += `Les trois triangles sont rectangles. Les deux triangles inscrits dans le triangle $\\triangle ${A.nom}${E.nom}${D.nom}$ partage un angle avec ce même triangle, l'angle $\\widehat{${E.nom}${A.nom}${D.nom}}$ pour le triangle $\\triangle ${A.nom}${E.nom}${B.nom}$ (en bleu ci-dessous) et l'angle $\\widehat{${E.nom}${D.nom}${A.nom}}$ pour le triangle $\\triangle ${E.nom}${D.nom}${B.nom}$ (en rouge ci-dessous).`
-        texteCorr += '<br>' + mathalea2d(Object.assign({ pixelParCm: 25, scale: 0.4 }, fixeBordures(objetsCorr1)), objetsCorr1)
+        texteCorr +=
+          '<br>' +
+          mathalea2d(
+            Object.assign(
+              { pixelParCm: 25, scale: 0.4 },
+              fixeBordures(objetsCorr1),
+            ),
+            objetsCorr1,
+          )
         texteCorr += `Deux triangles qui ont deux paires d'angles égaux ont également leur troisième paire d'angles égaux. Par conséquent, les trois triangles $\\triangle ${A.nom}${E.nom}${D.nom}$, $\\triangle ${A.nom}${E.nom}${B.nom}$ et $\\triangle ${E.nom}${D.nom}${B.nom}$ sont semblables. On identifie les côtés correspondants comme ci-dessous.`
         const labelsAED = labelPoint(A, E, D)
         const labelsABE = labelPoint(A, E, B)
         const labelsEDB = labelPoint(E, D, B)
-        const objetsTrAED = [ADESAD, ADESAE, ADESED, labelsAED, codageDroitAED, codageEDB, codageEAB]
-        const objetsTrAEB = [AEBSAB, AEBSEA, AEBSEB, labelsABE, codageDroitABE, codageAEB, codageEAB]
-        const objetsTrEDB = [DEBSBD, DEBSEB, DEBSED, labelsEDB, codageDroitDBE, codageEDB, codageBED]
-        texteCorr += '<br>' + mathalea2d(Object.assign({ pixelParCm: 25, scale: 0.4, style: 'display: inline-block' }, fixeBordures(objetsTrAED)), objetsTrAED)
-        texteCorr += mathalea2d(Object.assign({ pixelParCm: 25, scale: 0.4, style: 'display: inline-block' }, fixeBordures(objetsTrAEB)), objetsTrAEB)
-        texteCorr += mathalea2d(Object.assign({ pixelParCm: 25, scale: 0.4, style: 'display: inline-block' }, fixeBordures(objetsTrEDB)), objetsTrEDB)
+        const objetsTrAED = [
+          ADESAD,
+          ADESAE,
+          ADESED,
+          labelsAED,
+          codageDroitAED,
+          codageEDB,
+          codageEAB,
+        ]
+        const objetsTrAEB = [
+          AEBSAB,
+          AEBSEA,
+          AEBSEB,
+          labelsABE,
+          codageDroitABE,
+          codageAEB,
+          codageEAB,
+        ]
+        const objetsTrEDB = [
+          DEBSBD,
+          DEBSEB,
+          DEBSED,
+          labelsEDB,
+          codageDroitDBE,
+          codageEDB,
+          codageBED,
+        ]
+        texteCorr +=
+          '<br>' +
+          mathalea2d(
+            Object.assign(
+              { pixelParCm: 25, scale: 0.4, style: 'display: inline-block' },
+              fixeBordures(objetsTrAED),
+            ),
+            objetsTrAED,
+          )
+        texteCorr += mathalea2d(
+          Object.assign(
+            { pixelParCm: 25, scale: 0.4, style: 'display: inline-block' },
+            fixeBordures(objetsTrAEB),
+          ),
+          objetsTrAEB,
+        )
+        texteCorr += mathalea2d(
+          Object.assign(
+            { pixelParCm: 25, scale: 0.4, style: 'display: inline-block' },
+            fixeBordures(objetsTrEDB),
+          ),
+          objetsTrEDB,
+        )
         texteCorr += `<br>Par le théorème de Thalès, on a les rapports suivants : 
       <br><br>
       $\\begin{aligned}    
@@ -202,8 +324,12 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           texte += `$${A.nom}${E.nom}, ${E.nom}${D.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
           texte += `$${A.nom + B.nom} = ${abVal}~\\text{cm}$ et $${B.nom + D.nom} = ${bdVal}~\\text{cm}$.`
           const racineExtraite1 = extraireRacineCarree(abVal * bdVal)
-          const racineExtraite2 = extraireRacineCarree(abVal * bdVal + bdVal * bdVal)
-          const racineExtraite3 = extraireRacineCarree(abVal * bdVal + abVal * abVal)
+          const racineExtraite2 = extraireRacineCarree(
+            abVal * bdVal + bdVal * bdVal,
+          )
+          const racineExtraite3 = extraireRacineCarree(
+            abVal * bdVal + abVal * abVal,
+          )
 
           texteCorr += `<br> 
           On commence par déterminer $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom} = ${abVal} + ${bdVal} = ${miseEnEvidence(`${abVal + bdVal}~\\text{cm}`)}$.
@@ -221,19 +347,22 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
         // Cas 2 – Données : BD et AD
         case 2: {
           const lVal = randint(12, 20)
-          let abVal : number
-          let bdVal : number
+          let abVal: number
+          let bdVal: number
           do {
             bdVal = randint(2, lVal - 2)
             abVal = lVal - bdVal
-          }
-          while (abVal === bdVal)
+          } while (abVal === bdVal)
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${E.nom}${B.nom}$ et $${E.nom}${D.nom}$, si `
           texte += `$${B.nom + D.nom} = ${bdVal}~\\text{cm}$ et $${A.nom + D.nom} = ${lVal}~\\text{cm}$.`
 
           const racineExtraite1 = extraireRacineCarree(abVal * bdVal)
-          const racineExtraite2 = extraireRacineCarree(abVal * bdVal + bdVal * bdVal)
-          const racineExtraite3 = extraireRacineCarree(abVal * bdVal + abVal * abVal)
+          const racineExtraite2 = extraireRacineCarree(
+            abVal * bdVal + bdVal * bdVal,
+          )
+          const racineExtraite3 = extraireRacineCarree(
+            abVal * bdVal + abVal * abVal,
+          )
 
           texteCorr += `<br>
   On commence par déterminer $${A.nom + B.nom}$. On a 
@@ -271,30 +400,33 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
     $${A.nom + E.nom} = \\sqrt{{${A.nom + B.nom}}^2 + {${E.nom + B.nom}}^2} = \\sqrt{${abVal * abVal} + ${abVal * bdVal}} = \\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}$,
   d'où 
   $${A.nom + E.nom} = ${
-      racineExtraite3[1] === abVal * abVal + abVal * bdVal
-        ? miseEnEvidence(`\\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}`)
-        : `\\sqrt{${abVal * abVal + abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}~\\text{cm}`)}$`
-    }.`
+    racineExtraite3[1] === abVal * abVal + abVal * bdVal
+      ? miseEnEvidence(`\\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}`)
+      : `\\sqrt{${abVal * abVal + abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}~\\text{cm}`)}$`
+  }.`
           break
         }
 
         // Cas 3 – Données : AB et AD
         case 3: {
           const lVal = randint(12, 20)
-          let abVal : number
-          let bdVal : number
+          let abVal: number
+          let bdVal: number
           do {
             bdVal = randint(2, lVal - 2)
             abVal = lVal - bdVal
-          }
-          while (abVal === bdVal)
+          } while (abVal === bdVal)
           texte += `$${A.nom}${E.nom}, ${E.nom}${D.nom}, ${E.nom}${B.nom}$ et $${B.nom}${D.nom}$, si `
           texte += `$${A.nom + B.nom} = ${abVal}~\\text{cm}$ et $${A.nom + D.nom} = ${lVal}~\\text{cm}$.`
 
           // Calcul des racines extraites pour simplifier les résultats :
           const racineExtraite1 = extraireRacineCarree(abVal * bdVal)
-          const racineExtraite2 = extraireRacineCarree(abVal * bdVal + bdVal * bdVal)
-          const racineExtraite3 = extraireRacineCarree(abVal * abVal + abVal * bdVal)
+          const racineExtraite2 = extraireRacineCarree(
+            abVal * bdVal + bdVal * bdVal,
+          )
+          const racineExtraite3 = extraireRacineCarree(
+            abVal * abVal + abVal * bdVal,
+          )
 
           texteCorr += `<br>
   On commence par déterminer $${B.nom + D.nom}$ : comme $${B.nom + D.nom} = ${A.nom + D.nom} - ${A.nom + B.nom}$, on a $${B.nom + D.nom} = ${lVal} - ${abVal} = ${miseEnEvidence(`${bdVal}~\\text{cm}`)}$. 
@@ -329,17 +461,17 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
     $${A.nom + E.nom} = \\sqrt{{${A.nom + B.nom}}^2 + {${E.nom + B.nom}}^2} = \\sqrt{${abVal * abVal} + ${abVal * bdVal}} = \\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}$,
   d'où 
   $${A.nom + E.nom} = ${
-      racineExtraite3[1] === abVal * abVal + abVal * bdVal
-        ? miseEnEvidence(`\\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}`)
-        : `\\sqrt{${abVal * abVal + abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}~\\text{cm}`)}$`
-    }.`
+    racineExtraite3[1] === abVal * abVal + abVal * bdVal
+      ? miseEnEvidence(`\\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}`)
+      : `\\sqrt{${abVal * abVal + abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}~\\text{cm}`)}$`
+  }.`
           break
         }
 
         // Cas 4 – Données : AE et AB
         case 4: {
           const a = randint(6, 20)
-          const abVal = randint(3, a - 1)  // on demande a > AB
+          const abVal = randint(3, a - 1) // on demande a > AB
           texte += `$${E.nom}${D.nom}, ${B.nom}${D.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
           texte += `$${A.nom + E.nom} = ${a}~\\text{cm}$ et $${A.nom + B.nom} = ${abVal}~\\text{cm}$.`
           const racineExtraite1 = extraireRacineCarree(a * a - abVal * abVal)
@@ -359,11 +491,19 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
         // Cas 5 – Données : AE et ED
         case 5: {
           const aeVal = randint(3, 20)
-          const edVal = randint(3, 20, [aeVal])  // on demande a > d
-          const racineExtraite1 = extraireRacineCarree(aeVal * aeVal + edVal * edVal)
-          const ebCarreVal = new FractionEtendue(aeVal * aeVal * edVal * edVal, aeVal * aeVal + edVal * edVal)
+          const edVal = randint(3, 20, [aeVal]) // on demande a > d
+          const racineExtraite1 = extraireRacineCarree(
+            aeVal * aeVal + edVal * edVal,
+          )
+          const ebCarreVal = new FractionEtendue(
+            aeVal * aeVal * edVal * edVal,
+            aeVal * aeVal + edVal * edVal,
+          )
           const adCarreVal = aeVal * aeVal + edVal * edVal
-          const abCarreVal = new FractionEtendue(aeVal * aeVal * aeVal * aeVal, adCarreVal)
+          const abCarreVal = new FractionEtendue(
+            aeVal * aeVal * aeVal * aeVal,
+            adCarreVal,
+          )
           texte += `$${A.nom}${B.nom}, ${B.nom}${D.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
           texte += `$${A.nom + E.nom} = ${aeVal}~\\text{cm}$ et $${E.nom + D.nom} = ${edVal}~\\text{cm}$.`
           texteCorr += `
@@ -379,12 +519,21 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
         // Cas 6 – Données : AE et AD
         case 6: {
           const aeVal = randint(6, 15)
-          const adVal = randint(aeVal + 2, aeVal + 10)  // on demande AD > AE
+          const adVal = randint(aeVal + 2, aeVal + 10) // on demande AD > AE
           const edValCarre = adVal * adVal - aeVal * aeVal
           const racineExtraite1 = extraireRacineCarree(edValCarre)
-          const ebValCarre = new FractionEtendue(aeVal * aeVal * edValCarre, adVal * adVal).simplifie()
-          const bdValCarre = new FractionEtendue(edValCarre, 1).differenceFraction(ebValCarre)
-          const abValCarre = new FractionEtendue(aeVal * aeVal, 1).differenceFraction(ebValCarre)
+          const ebValCarre = new FractionEtendue(
+            aeVal * aeVal * edValCarre,
+            adVal * adVal,
+          ).simplifie()
+          const bdValCarre = new FractionEtendue(
+            edValCarre,
+            1,
+          ).differenceFraction(ebValCarre)
+          const abValCarre = new FractionEtendue(
+            aeVal * aeVal,
+            1,
+          ).differenceFraction(ebValCarre)
           texte += `$${A.nom}${B.nom}, ${E.nom}${D.nom}, ${E.nom}${B.nom}$ et $${B.nom}${D.nom}$, si `
           texte += `$${A.nom + E.nom} = ${aeVal}~\\text{cm}$ et $${A.nom + D.nom} = ${adVal}~\\text{cm}$.`
           texteCorr += `<br> Par le théorème de Pythagore, on a $${E.nom + D.nom} = \\sqrt{${A.nom + D.nom}^2 - ${A.nom + E.nom}^2}$, d'où $${E.nom + D.nom} = \\sqrt{${adVal}^2 - ${aeVal}^2} = ${racineExtraite1[1] === adVal * adVal - aeVal * aeVal ? miseEnEvidence(`\\sqrt{${adVal * adVal - aeVal * aeVal}}~\\text{cm}`) : `\\sqrt{${adVal * adVal - aeVal * aeVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}~\\text{cm}`)}`}$.
@@ -402,12 +551,17 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
         // ==================================================
         case 7: {
           // 1) Données aléatoires pour ED (edVal) et AD (adVal)
-          const edVal = randint(5, 12)      // ED
+          const edVal = randint(5, 12) // ED
           const adVal = randint(edVal + 2, edVal + 10) // AD > ED
           const aeCarre = adVal * adVal - edVal * edVal
           const aeSimpl = extraireRacineCarree(aeCarre)
-          const ebValCarre = new FractionEtendue(edVal * edVal * aeCarre, adVal * adVal)
-          const abValCarre = new FractionEtendue(aeCarre, 1).differenceFraction(ebValCarre).simplifie()
+          const ebValCarre = new FractionEtendue(
+            edVal * edVal * aeCarre,
+            adVal * adVal,
+          )
+          const abValCarre = new FractionEtendue(aeCarre, 1)
+            .differenceFraction(ebValCarre)
+            .simplifie()
           // 2) On prépare l'énoncé
           texte += `$${A.nom}${B.nom}, ${A.nom}${E.nom}, ${E.nom}${B.nom}$ et $${B.nom}${D.nom}$,`
           texte += ` si $${E.nom + D.nom} = ${edVal}~\\text{cm}$ et $${A.nom + D.nom} = ${adVal}~\\text{cm}$.`
@@ -435,7 +589,14 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
     $${A.nom + B.nom} = \\sqrt{${A.nom + E.nom}^2 - ${E.nom + B.nom}^2}$ d'où $${A.nom + B.nom} = \\sqrt{${aeCarre} - ${ebValCarre.simplifie().texFractionSimplifiee}} = ${miseEnEvidence(abValCarre.texRacineCarree() + '~\\text{cm}')}.$
 
     <br>
-    Enfin, $${B.nom + D.nom} = ${A.nom + D.nom} - ${A.nom + B.nom}=${miseEnEvidence(ebValCarre.multiplieEntier(edVal * edVal).diviseEntier(aeCarre).inverse().simplifie().texRacineCarree() + '~cm')}.$ 
+    Enfin, $${B.nom + D.nom} = ${A.nom + D.nom} - ${A.nom + B.nom}=${miseEnEvidence(
+      ebValCarre
+        .multiplieEntier(edVal * edVal)
+        .diviseEntier(aeCarre)
+        .inverse()
+        .simplifie()
+        .texRacineCarree() + '~cm',
+    )}.$ 
   `
           break
         }
@@ -444,9 +605,18 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           const aeVal = randint(6, 20)
           const ebVal = randint(2, aeVal - 1)
           const abValCarre = aeVal * aeVal - ebVal * ebVal
-          const bdValCarre = new FractionEtendue(ebVal * ebVal * ebVal * ebVal, abValCarre)
-          const edValCarre = new FractionEtendue(ebVal * ebVal, 1).sommeFraction(bdValCarre)
-          const adVal = edValCarre.ajouteEntier(aeVal * aeVal).simplifie().texRacineCarree()
+          const bdValCarre = new FractionEtendue(
+            ebVal * ebVal * ebVal * ebVal,
+            abValCarre,
+          )
+          const edValCarre = new FractionEtendue(
+            ebVal * ebVal,
+            1,
+          ).sommeFraction(bdValCarre)
+          const adVal = edValCarre
+            .ajouteEntier(aeVal * aeVal)
+            .simplifie()
+            .texRacineCarree()
           texte += `$${A.nom}${B.nom}, ${E.nom}${D.nom}, ${B.nom}${D.nom}$ et $${A.nom}${D.nom}$, si `
           texte += `$${A.nom + E.nom} = ${aeVal}~\\text{cm}$ et $${E.nom + B.nom} = ${ebVal}~\\text{cm}$.`
           texteCorr += `<br> On commence par déterminer $${A.nom + B.nom}$. Par le théorème de Pythagore, on a $${A.nom + B.nom} = \\sqrt{${A.nom + E.nom}^2 - ${E.nom + B.nom}^2}$, d'où $${A.nom + B.nom} = \\sqrt{${aeVal}^2 - ${ebVal}^2} = ${miseEnEvidence(new FractionEtendue(abValCarre, 1).texRacineCarree() + '~\\text{cm}')}$.<br>
@@ -462,9 +632,18 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           const edVal = randint(3, 20)
           const ebVal = randint(2, edVal - 1)
           const bdValCarre = edVal * edVal - ebVal * ebVal
-          const abValCarre = new FractionEtendue(ebVal * ebVal * ebVal * ebVal, bdValCarre)
-          const aeValCarre = new FractionEtendue(ebVal * ebVal, 1).sommeFraction(abValCarre)
-          const adVal = aeValCarre.ajouteEntier(edVal * edVal).simplifie().texRacineCarree()
+          const abValCarre = new FractionEtendue(
+            ebVal * ebVal * ebVal * ebVal,
+            bdValCarre,
+          )
+          const aeValCarre = new FractionEtendue(
+            ebVal * ebVal,
+            1,
+          ).sommeFraction(abValCarre)
+          const adVal = aeValCarre
+            .ajouteEntier(edVal * edVal)
+            .simplifie()
+            .texRacineCarree()
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${B.nom}${D.nom}$ et $${A.nom}${D.nom}$, si `
           texte += `$${E.nom + D.nom} = ${edVal}~\\text{cm}, ${E.nom + B.nom} = ${ebVal}~\\text{cm}$.`
           texteCorr += `
@@ -482,9 +661,18 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           const abVal = randint(5, 20)
           const ebVal = randint(2, abVal - 1)
           const aeValCarre = abVal * abVal + ebVal * ebVal
-          const bdValCarre = new FractionEtendue(ebVal * ebVal * ebVal * ebVal, abVal * abVal)
-          const edValCarre = new FractionEtendue(ebVal * ebVal, 1).sommeFraction(bdValCarre)
-          const adVal = edValCarre.ajouteEntier(aeValCarre).simplifie().texRacineCarree()
+          const bdValCarre = new FractionEtendue(
+            ebVal * ebVal * ebVal * ebVal,
+            abVal * abVal,
+          )
+          const edValCarre = new FractionEtendue(
+            ebVal * ebVal,
+            1,
+          ).sommeFraction(bdValCarre)
+          const adVal = edValCarre
+            .ajouteEntier(aeValCarre)
+            .simplifie()
+            .texRacineCarree()
 
           texte += `$${A.nom}${E.nom}, ${E.nom}${D.nom}, ${B.nom}${D.nom}$ et $${A.nom}${D.nom}$, si `
           texte += `$${A.nom + B.nom} = ${abVal}~\\text{cm}, ${E.nom + B.nom} = ${ebVal}~\\text{cm}$.`
@@ -502,9 +690,15 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           const ebVal = randint(3, 20, [dbVal])
           const ebCarreVal = ebVal * ebVal
           const edCarreVal = dbVal * dbVal + ebVal * ebVal
-          const abCarreVal = new FractionEtendue(ebCarreVal * ebCarreVal, dbVal * dbVal)
+          const abCarreVal = new FractionEtendue(
+            ebCarreVal * ebCarreVal,
+            dbVal * dbVal,
+          )
           const aeCarreVal = abCarreVal.ajouteEntier(ebCarreVal)
-          const adVal = aeCarreVal.ajouteEntier(edCarreVal).simplifie().texRacineCarree()
+          const adVal = aeCarreVal
+            .ajouteEntier(edCarreVal)
+            .simplifie()
+            .texRacineCarree()
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${E.nom}${D.nom}$ et $${A.nom}${D.nom}$, si `
           texte += `$${B.nom + D.nom} = ${dbVal}~\\text{cm}, ${E.nom + B.nom} = ${new FractionEtendue(ebCarreVal, 1).simplifie().texRacineCarree()}~\\text{cm}$.`
           texteCorr += `<br> Par le théorème de Pythagore, on a $${E.nom + D.nom}=\\sqrt{${B.nom + D.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${E.nom + D.nom} = \\sqrt{${dbVal}^2 + ${new FractionEtendue(ebCarreVal, 1).simplifie().texRacineCarree()}^2} = ${miseEnEvidence(new FractionEtendue(edCarreVal, 1).texRacineCarree() + '~\\text{cm}')}$. <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${A.nom + B.nom}=\\dfrac{${E.nom + B.nom}^2}{${B.nom + D.nom}}=${miseEnEvidence(abCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$.<br> Par le théorème de Pythagore, on a $${A.nom + E.nom} = \\sqrt{${A.nom + B.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${A.nom + E.nom} = \\sqrt{${abCarreVal.simplifie().texFractionSimplifiee} + ${ebCarreVal}} = ${miseEnEvidence(aeCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$.<br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '~\\text{cm}')}$.
@@ -516,9 +710,17 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
         case 12: {
           const edVal = randint(3, 15)
           const bdVal = randint(2, edVal - 1)
-          const ebCarreVal = new FractionEtendue(edVal * edVal - bdVal * bdVal, 1)
-          const abCarreVal = ebCarreVal.produitFraction(ebCarreVal).produitFraction(new FractionEtendue(bdVal * bdVal, 1).inverse())
-          const adCarreVal = new FractionEtendue(edVal * edVal * edVal * edVal, 1).produitFraction(new FractionEtendue(bdVal * bdVal, 1).inverse())
+          const ebCarreVal = new FractionEtendue(
+            edVal * edVal - bdVal * bdVal,
+            1,
+          )
+          const abCarreVal = ebCarreVal
+            .produitFraction(ebCarreVal)
+            .produitFraction(new FractionEtendue(bdVal * bdVal, 1).inverse())
+          const adCarreVal = new FractionEtendue(
+            edVal * edVal * edVal * edVal,
+            1,
+          ).produitFraction(new FractionEtendue(bdVal * bdVal, 1).inverse())
           const aeCarreVal = adCarreVal.ajouteEntier(-edVal * edVal)
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
           texte += `$${E.nom + D.nom} = ${edVal}~\\text{cm}$ et $${B.nom + D.nom} = ${bdVal}~\\text{cm}$.`
@@ -576,7 +778,15 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           break
         } */
 
-      texte += '<br>' + mathalea2d(Object.assign({ pixelParCm: 25, scale: 0.4 }, fixeBordures(objetsEnonce)), objetsEnonce)
+      texte +=
+        '<br>' +
+        mathalea2d(
+          Object.assign(
+            { pixelParCm: 25, scale: 0.4 },
+            fixeBordures(objetsEnonce),
+          ),
+          objetsEnonce,
+        )
 
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte

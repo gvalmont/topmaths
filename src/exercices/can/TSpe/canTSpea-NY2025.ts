@@ -38,12 +38,12 @@ export const uuid = '90dad'
 export const dateDePublication = '08/12/2024'
 export const refs = {
   'fr-fr': ['canTSpea-NY2025'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Annales CAN 2025
  * @author Gilles Mora
-*/
+ */
 
 const questions = [
   Question1,
@@ -75,11 +75,11 @@ const questions = [
   Question27,
   Question28,
   Question29,
-  Question30
+  Question30,
 ]
 
 export default class CanTSpeaNY2025 extends MetaExercice {
-  constructor () {
+  constructor() {
     super(questions)
   }
 }

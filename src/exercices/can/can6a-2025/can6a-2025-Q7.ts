@@ -6,7 +6,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'dce62'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -14,7 +14,7 @@ export const refs = {
 
 */
 export default class Can2025N62Q7 extends Can2025CE2Q5 {
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(2, 16) : this.enonce()
   }
 }

@@ -13,10 +13,14 @@ import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
-export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
+export const titre =
+  "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -32,15 +36,31 @@ export const uuid = '056fa'
 
 export const refs = {
   'fr-fr': ['3F21-3'],
-  'fr-ch': ['11FA8-12']
+  'fr-ch': ['11FA8-12'],
 }
 export default class PenteEtOrdonneeOrigineDroite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaire2Numerique = ['Signe du coefficient directeur ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
-    this.besoinFormulaireNumerique = ['Coefficient directeur ', 3, '1 : Entier\n2 : Décimal\n3: Peu importe']
-    this.besoinFormulaire3Numerique = ['Signe de l\'ordonnée à l\'origine ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
-    this.besoinFormulaire4Numerique = ['Type de fonctions ', 3, '1 : Linéaires\n2 : Affines et non linéaires\n3: Affines ou linéaires']
+    this.besoinFormulaire2Numerique = [
+      'Signe du coefficient directeur ',
+      3,
+      '1 : Positif\n2 : Négatif\n3: Peu importe',
+    ]
+    this.besoinFormulaireNumerique = [
+      'Coefficient directeur ',
+      3,
+      '1 : Entier\n2 : Décimal\n3: Peu importe',
+    ]
+    this.besoinFormulaire3Numerique = [
+      "Signe de l'ordonnée à l'origine ",
+      3,
+      '1 : Positif\n2 : Négatif\n3: Peu importe',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Type de fonctions ',
+      3,
+      '1 : Linéaires\n2 : Affines et non linéaires\n3: Affines ou linéaires',
+    ]
 
     this.nbQuestions = 2
     // this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -52,23 +72,33 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
     this.sup4 = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let questionInteractif = 0
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const signeNum = (this.sup2 === 3 ? choice([-1, 1]) : (this.sup2 === 2 ? -1 : 1))
-      const num = (this.sup === 2 ? choice([1, 3, 5]) : randint(1, 5)) * signeNum
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      const signeNum =
+        this.sup2 === 3 ? choice([-1, 1]) : this.sup2 === 2 ? -1 : 1
+      const num =
+        (this.sup === 2 ? choice([1, 3, 5]) : randint(1, 5)) * signeNum
       const den = this.sup === 3 ? randint(1, 2) : this.sup
       const a = num / den
-      const b = this.sup4 === 1 ? 0 : ((this.sup3 === 3 ? choice([-1, 1]) : (this.sup3 === 2 ? -1 : 1)) * randint(this.sup4 === 2 ? 1 : 0, 4))
+      const b =
+        this.sup4 === 1
+          ? 0
+          : (this.sup3 === 3 ? choice([-1, 1]) : this.sup3 === 2 ? -1 : 1) *
+            randint(this.sup4 === 2 ? 1 : 0, 4)
       const vocabulaire = b === 0 ? 'linéaire' : 'affine'
       let xMin
-      context.isHtml ? xMin = -10 : xMin = -8
+      context.isHtml ? (xMin = -10) : (xMin = -8)
       const xMax = -xMin
       const yMin = xMin
       const yMax = -yMin
 
       const r = repere({ xMin, yMin, xMax, yMax })
-      const f = (x:number):number => a * x + b
+      const f = (x: number): number => a * x + b
 
       const d = droite(a, -1, b)
       d.color = colorToLatexOrHTML('blue')
@@ -76,7 +106,13 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       const c = cercle(point(0, b), 0.8, '#f15929')
       c.epaisseur = 2
       let x0 = -7
-      while (!Number.isInteger(f(x0)) || f(x0) <= yMin || f(x0) >= yMax || x0 === -1 || x0 === 0) {
+      while (
+        !Number.isInteger(f(x0)) ||
+        f(x0) <= yMin ||
+        f(x0) >= yMax ||
+        x0 === -1 ||
+        x0 === 0
+      ) {
         x0 += 1
         if (x0 >= xMax) {
           // pour éviter une boucle infinie
@@ -103,50 +139,111 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
 
       const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])
 
-      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br>` + mathalea2d({
-        xmin: xMin,
-        xmax: xMax,
-        ymin: yMin,
-        ymax: yMax,
-        scale: context.isHtml ? 1 : 0.5
-      }, r, d)
-      const consigneCorrection = mathalea2d({
-        xmin: xMin,
-        xmax: xMax,
-        ymin: yMin,
-        ymax: yMax
-      }, r, d, c, s1, s2, t1, t2)
+      const introduction =
+        `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br>` +
+        mathalea2d(
+          {
+            xmin: xMin,
+            xmax: xMax,
+            ymin: yMin,
+            ymax: yMax,
+            scale: context.isHtml ? 1 : 0.5,
+          },
+          r,
+          d,
+        )
+      const consigneCorrection = mathalea2d(
+        {
+          xmin: xMin,
+          xmax: xMax,
+          ymin: yMin,
+          ymax: yMax,
+        },
+        r,
+        d,
+        c,
+        s1,
+        s2,
+        t1,
+        t2,
+      )
       let question1
       let question2
       let question3
       let indice = 0
       let correction1, correction2, correction3
       if (vocabulaire === 'affine') {
-        question1 = numAlpha(indice) + `Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
+        question1 =
+          numAlpha(indice) +
+          `Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
         question1 += ajouteChampTexteMathLive(this, questionInteractif, ' ')
         correction1 = consigneCorrection + '<br>'
-        correction1 += numAlpha(indice) + `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$. L'ordonnée de $${nomFonction}$ à l'origine est donc $${b}$.`
+        correction1 +=
+          numAlpha(indice) +
+          `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$. L'ordonnée de $${nomFonction}$ à l'origine est donc $${b}$.`
         indice++
       }
-      question2 = numAlpha(indice) + `Quel est le coefficient directeur de $${nomFonction}$ ?`
-      question2 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, ' ')
-      correction2 = numAlpha(indice) + `À chaque fois que l'on avance de 1 unité d'abscisses, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ unité${Math.abs(a) >= 2 ? 's' : ''} d'ordonnées. `
+      question2 =
+        numAlpha(indice) +
+        `Quel est le coefficient directeur de $${nomFonction}$ ?`
+      question2 += ajouteChampTexteMathLive(
+        this,
+        (vocabulaire === 'affine' ? 1 : 0) + questionInteractif,
+        ' ',
+      )
+      correction2 =
+        numAlpha(indice) +
+        `À chaque fois que l'on avance de 1 unité d'abscisses, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ unité${Math.abs(a) >= 2 ? 's' : ''} d'ordonnées. `
       correction2 += `Le coefficient directeur de $${nomFonction}$ est donc $${texNombre(a)}$.`
       indice++
-      question3 = numAlpha(indice) + `En déduire l'expression algébrique de $${nomFonction}$.`
-      question3 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, ' ', { texteAvant: `$${sp(10)}${nomFonction} : x \\mapsto $` })
-      correction3 = numAlpha(indice) + `$${nomFonction}$ étant une fonction ${vocabulaire}, on a $${nomFonction} : x \\mapsto $` +
-                ((vocabulaire === 'affine')
-                  ? '$ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l\'origine.'
-                  : '$ax$ avec $a$ son coefficient directeur (ou pente).')
-      correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${(rienSi1(a) as string).toString().replace('.', ',')}x$` + (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
+      question3 =
+        numAlpha(indice) +
+        `En déduire l'expression algébrique de $${nomFonction}$.`
+      question3 += ajouteChampTexteMathLive(
+        this,
+        (vocabulaire === 'affine' ? 2 : 1) + questionInteractif,
+        ' ',
+        { texteAvant: `$${sp(10)}${nomFonction} : x \\mapsto $` },
+      )
+      correction3 =
+        numAlpha(indice) +
+        `$${nomFonction}$ étant une fonction ${vocabulaire}, on a $${nomFonction} : x \\mapsto $` +
+        (vocabulaire === 'affine'
+          ? "$ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l'origine."
+          : '$ax$ avec $a$ son coefficient directeur (ou pente).')
+      correction3 +=
+        `<br>Finalement, $${nomFonction} : x \\mapsto ${(rienSi1(a) as string).toString().replace('.', ',')}x$` +
+        (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
 
       if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)
-      handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}` } })
-      handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, options: { variable: 'x' }, compare: functionCompare } })
+      handleAnswers(
+        this,
+        (vocabulaire === 'affine' ? 1 : 0) + questionInteractif,
+        { reponse: { value: `\\frac{${num}}{${den}}` } },
+      )
+      handleAnswers(
+        this,
+        (vocabulaire === 'affine' ? 2 : 1) + questionInteractif,
+        {
+          reponse: {
+            value: `\\frac{${num}}{${den}}x+${b}`,
+            options: { variable: 'x' },
+            compare: functionCompare,
+          },
+        },
+      )
 
-      texte = introduction + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
-      texteCorr = (vocabulaire === 'affine' ? (correction1 + '<br>') : '') + correction2 + '<br>' + correction3
+      texte =
+        introduction +
+        (vocabulaire === 'affine' ? question1 + '<br>' : '') +
+        question2 +
+        '<br>' +
+        question3
+      texteCorr =
+        (vocabulaire === 'affine' ? correction1 + '<br>' : '') +
+        correction2 +
+        '<br>' +
+        correction3
 
       if (this.questionJamaisPosee(i, a, b, num, den)) {
         this.listeQuestions[i] = texte
@@ -160,49 +257,53 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
             // enonceCentre: false, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
             enonceApresNumQuestion: true, // New (12/2022) EE : ce champ est facultatif et permet (si true) de mettre le champ 'enonce' à côté du numéro de question (et non avant par défaut). Ne fonctionne (pour l'instant) que si la première question est AMCNum (pas de besoin autre pour l'instant).
             options: { multicolsAll: true },
-            propositions: []
+            propositions: [],
           }
           if (vocabulaire === 'affine') {
-            this.autoCorrection[i].propositions?.push(
-              {
-                type: 'AMCNum',
-                propositions: [{
+            this.autoCorrection[i].propositions?.push({
+              type: 'AMCNum',
+              propositions: [
+                {
                   texte: '',
                   statut: '',
                   reponse: {
                     texte: question1,
                     valeur: [b],
                     param: {
-                      signe: true
-                    }
-                  }
-                }]
-              }
-            )
+                      signe: true,
+                    },
+                  },
+                },
+              ],
+            })
           }
           this.autoCorrection[i].propositions?.push(
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: question2,
-                  valeur: [a],
-                  param: {
-                    signe: true
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: question2,
+                    valeur: [a],
+                    param: {
+                      signe: true,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: '',
-                enonce: question3 + '<br>',
-                statut: 1
-              }]
-            }
+              propositions: [
+                {
+                  texte: '',
+                  enonce: question3 + '<br>',
+                  statut: 1,
+                },
+              ],
+            },
           )
         }
         i++

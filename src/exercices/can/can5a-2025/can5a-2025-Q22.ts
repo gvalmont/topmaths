@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a343b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q14 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     let coeff
     let pu
     if (a == null || b == null || c == null) {
@@ -44,10 +44,12 @@ export default class Can2025N5Q14 extends ExerciceCan {
     this.optionsChampTexte = { texteApres: ' euros.' }
     if (this.interactif) {
       this.question += ''
-    } else { this.question += '$\\ldots$ euros' }
+    } else {
+      this.question += '$\\ldots$ euros'
+    }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(4, 5, 10) : this.enonce()
   }
 }

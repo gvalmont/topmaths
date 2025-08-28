@@ -9,14 +9,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'e6edd'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -26,11 +26,14 @@ export default class NomExercice extends ExerciceSimple {
     this.optionsDeComparaison = { developpementEgal: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'Développer $(2-3x)^2$'
-      if (this.interactif) { this.question += '<br>$(2-3x)^2=$' }
-      this.correction = 'On utilise l\'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=2$ et $b=3x$.<br>'
+      if (this.interactif) {
+        this.question += '<br>$(2-3x)^2=$'
+      }
+      this.correction =
+        "On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=2$ et $b=3x$.<br>"
       this.correction += `$\\begin{aligned}
       (2-3x)^2&=2^2-2\\times 2\\times 3x+ (3x)^2\\\\
        &=${miseEnEvidence('9x^2-12x+4')}
@@ -42,7 +45,9 @@ export default class NomExercice extends ExerciceSimple {
       const b = randint(2, 6, a)
 
       this.question = `Développer  $(${a}-${b}x)^2$.<br>`
-      if (this.interactif) { this.question += `<br>$(${a}-${b}x)^2=$` }
+      if (this.interactif) {
+        this.question += `<br>$(${a}-${b}x)^2=$`
+      }
       this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${a}$ et $b=${b}x$.<br>`
       this.correction += `$\\begin{aligned}
        (${a}-${b}x)^2&=${a}^2-2\\times ${a}\\times ${b}x+ (${b}x)^2\\\\

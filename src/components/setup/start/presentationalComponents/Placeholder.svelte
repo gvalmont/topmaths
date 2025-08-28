@@ -3,7 +3,6 @@
   import Advertising from './Advertising.svelte'
 
   export let text: string
-
 </script>
 
 <div class="relative flex-1 h-full">
@@ -21,10 +20,10 @@
     >
       <div class="mt-[10px]">
         <div class="hidden md:inline-flex">
-          <i class="bx bx-chevron-left text-[50px]" />
+          <i class="bx bx-chevron-left text-[50px]"></i>
         </div>
         <div class="inline-flex md:hidden">
-          <i class="bx bx-chevron-up text-[50px]" />
+          <i class="bx bx-chevron-up text-[50px]"></i>
         </div>
       </div>
       <div class="font-extralight text-[50px]">

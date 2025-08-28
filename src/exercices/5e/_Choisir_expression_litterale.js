@@ -1,4 +1,7 @@
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
+import {
+  texFractionFromString,
+  simplificationDeFractionAvecEtapes,
+} from '../../lib/outils/deprecatedFractions'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
@@ -15,12 +18,27 @@ import { estentier, randint } from '../../modules/outils'
 
  * Ajout de la structure de l'expression le 14/08/2021 : Guillaume Valmont
  */
-export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 = 1, val2 = 2, timesOn = true) {
-  let expf; let expl; let expc; const arrondir = Math.log10(decimal)
+export default function ChoisirExpressionLitterale(
+  nbOperations,
+  decimal,
+  val1 = 1,
+  val2 = 2,
+  timesOn = true,
+) {
+  let expf
+  let expl
+  let expc
+  const arrondir = Math.log10(decimal)
   let a = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
-  let b = arrondi(randint(2 * decimal, 10 * decimal, [a * decimal]) / decimal, arrondir)
+  let b = arrondi(
+    randint(2 * decimal, 10 * decimal, [a * decimal]) / decimal,
+    arrondir,
+  )
   let c = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
-  let d = arrondi(randint(2 * decimal, 10 * decimal, [c * decimal]) / decimal, arrondir)
+  let d = arrondi(
+    randint(2 * decimal, 10 * decimal, [c * decimal]) / decimal,
+    arrondir,
+  )
   let e = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
   let souscas
   const l1 = 'x'
@@ -54,16 +72,19 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           break
         case 2: // produit de deux nombres
           expf = `Le produit de $${l1}$ par $${nombreAvecEspace(b)}$`
-          expl = timesOn ? `$${l1}\\times ${texNombre(b)}$` : `$${texNombre(b)}${l1}$`
+          expl = timesOn
+            ? `$${l1}\\times ${texNombre(b)}$`
+            : `$${texNombre(b)}${l1}$`
           expc = `$${texNombre(b)}${l1} = ${texNombre(b)}\\times ${val1}=${texNombre(b * val1)}$`
           lastOp = 'multiplication'
           break
         case 3: // quotient de deux nombres
-
           expf = `Le quotient de $${l1}$ par $${nombreAvecEspace(b)}$`
           expl = `$${l1}\\div ${texNombre(b)}$`
-          if (estentier(val1 / b * 1000)) expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)} = ${texNombre(val1 / b)}$`
-          else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${texFractionFromString(val1, texNombre(b))}${Number.isInteger(b) ? simplificationDeFractionAvecEtapes(val1, b) : ''}$`
+          if (estentier((val1 / b) * 1000))
+            expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)} = ${texNombre(val1 / b)}$`
+          else
+            expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${texFractionFromString(val1, texNombre(b))}${Number.isInteger(b) ? simplificationDeFractionAvecEtapes(val1, b) : ''}$`
           lastOp = 'division'
           break
       }
@@ -118,21 +139,21 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
         case 6: // a + bc
           expf = `La somme de $${nombreAvecEspace(a)}$ et du produit de $${nombreAvecEspace(b)}$ et $${l1}$`
           expl = `$${texNombre(a)}+${texNombre(b)}${l1}$`
-          expc = `$${texNombre(a)}+${texNombre(b)}${l1}=${texNombre(a)}+${texNombre(b)}\\times ${val1}=${texNombre(a)}+${texNombre(b * val1)} = ${texNombre(a + (b * val1))}$`
+          expc = `$${texNombre(a)}+${texNombre(b)}${l1}=${texNombre(a)}+${texNombre(b)}\\times ${val1}=${texNombre(a)}+${texNombre(b * val1)} = ${texNombre(a + b * val1)}$`
           lastOp = 'addition'
           break
         case 7: // a - bc
           a = arrondi(a + b * val1)
           expf = `La différence entre $${nombreAvecEspace(a)}$ et le produit de $${nombreAvecEspace(b)}$ et $${l1}$`
           expl = `$${texNombre(a)}-${texNombre(b)}${l1}$`
-          expc = `$${texNombre(a)}-${texNombre(b)}${l1}=${texNombre(a)}-${texNombre(b)}\\times ${val1}=${texNombre(a)}-${texNombre(b * val1)} = ${texNombre(a - (b * val1))}$`
+          expc = `$${texNombre(a)}-${texNombre(b)}${l1}=${texNombre(a)}-${texNombre(b)}\\times ${val1}=${texNombre(a)}-${texNombre(b * val1)} = ${texNombre(a - b * val1)}$`
           lastOp = 'soustraction'
           break
         case 8: // a + b/c
           b = arrondi(b * val1)
           expf = `La somme de $${nombreAvecEspace(a)}$ et du quotient de $${nombreAvecEspace(b)}$ par $${l1}$`
           expl = `$${texNombre(a)}+${texNombre(b)}\\div ${l1}$ ou $${texNombre(a)}+\\dfrac{${texNombre(b)}}{${l1}}$`
-          expc = `$${texNombre(a)}+${texNombre(b)}\\div ${l1}=${texNombre(a)}+${texNombre(b)}\\div ${val1}=${texNombre(a)}+${texNombre(b / val1)} = ${texNombre(a + (b / val1))}$`
+          expc = `$${texNombre(a)}+${texNombre(b)}\\div ${l1}=${texNombre(a)}+${texNombre(b)}\\div ${val1}=${texNombre(a)}+${texNombre(b / val1)} = ${texNombre(a + b / val1)}$`
           lastOp = 'addition'
           break
         case 9: // a - b/c
@@ -140,7 +161,7 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           a = arrondi(a + b / val1)
           expf = `La différence entre $${nombreAvecEspace(a)}$ et le quotient de $${nombreAvecEspace(b)}$ par $${l1}$`
           expl = `$${texNombre(a)}-${texNombre(b)}\\div ${l1}$ ou $${texNombre(a)}-\\dfrac{${texNombre(b)}}{${l1}}$`
-          expc = `$${texNombre(a)}-${texNombre(b)}\\div ${l1}=${texNombre(a)}-${texNombre(b)}\\div ${val1}=${texNombre(a)}-${texNombre(b / val1)} = ${texNombre(a - (b / val1))}$`
+          expc = `$${texNombre(a)}-${texNombre(b)}\\div ${l1}=${texNombre(a)}-${texNombre(b)}\\div ${val1}=${texNombre(a)}-${texNombre(b / val1)} = ${texNombre(a - b / val1)}$`
           lastOp = 'soustraction'
           break
       }
@@ -197,7 +218,8 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
         case 5: // (a-b)/(c+d)
           d = val1
           b = val2
-          if (a - b <= 0 || !estentier((a - b) / (c + d))) a = arrondi(a * (c + d) + b)
+          if (a - b <= 0 || !estentier((a - b) / (c + d)))
+            a = arrondi(a * (c + d) + b)
           expf = `Le quotient de la différence de $${nombreAvecEspace(a)}$ et $${l2}$ par la somme de $${nombreAvecEspace(c)}$ et $${l1}$`
           expl = `$(${texNombre(a)}-${l2})\\div (${texNombre(c)}+${l1})$ ou $\\dfrac{${texNombre(a)}-${l2}}{${texNombre(c)}+${l1}}$`
           expc = `$(${texNombre(a)}-${l2})\\div (${texNombre(c)}+${l1})=(${texNombre(a)}-${texNombre(b)})\\div (${texNombre(c)}+${texNombre(d)}) = ${texNombre(a - b)}\\div ${texNombre(c + d)} = ${texNombre((a - b) / (c + d))}$`
@@ -302,11 +324,11 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
         case 1: // 3(a+b)/c
           b = val1
           c = val2
-          if (!estentier(3 * (a + b) / c)) a = arrondi(a * c - b)
+          if (!estentier((3 * (a + b)) / c)) a = arrondi(a * c - b)
           while (a < b) a = arrondi(a * c - b)
           expf = `Le triple du quotient de la somme de $${nombreAvecEspace(a)}$ et $${l1}$ par $${l2}$`
           expl = `$3${signex}(${texNombre(a)}+${l1})\\div ${l2}$ ou $3\\times \\dfrac{${texNombre(a)}+${l1}}{${l2}}$`
-          expc = `$3${signex}(${texNombre(a)}+${l1})\\div ${l2}=3${signex}(${texNombre(a)}+${texNombre(b)})\\div ${texNombre(c)} = 3\\times  ${texNombre(a + b)}\\div ${texNombre(c)} = ${texNombre(3 * (a + b))}\\div ${texNombre(c)} = ${texNombre(3 * (a + b) / c)}$`
+          expc = `$3${signex}(${texNombre(a)}+${l1})\\div ${l2}=3${signex}(${texNombre(a)}+${texNombre(b)})\\div ${texNombre(c)} = 3\\times  ${texNombre(a + b)}\\div ${texNombre(c)} = ${texNombre(3 * (a + b))}\\div ${texNombre(c)} = ${texNombre((3 * (a + b)) / c)}$`
           lastOp = 'division'
           break
         case 2: // (a-b)/3
@@ -325,7 +347,7 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           if (!estentier((a - b) / 3)) a = arrondi(3 * a + b)
           expf = `Le produit du tiers de la différence de $${nombreAvecEspace(a)}$ et $${l2}$ par le double de la somme de $${l1}$ et $${nombreAvecEspace(d)}$`
           expl = `$\\left((${texNombre(a)}-${l2})\\div  3\\right)\\times  2${signex}(${l1}+${texNombre(d)})$`
-          expc = `$\\left((${texNombre(a)}-${l2})\\div  3\\right)\\times  2${signex}(${l1}+${texNombre(d)})=\\left((${texNombre(a)}-${texNombre(b)})\\div  3\\right)\\times  2${signex}(${texNombre(c)}+${texNombre(d)}) = ${texNombre(a - b)}\\div  3 \\times  2 \\times ${texNombre(c + d)} = ${texNombre((a - b) / 3)} \\times  2 \\times  ${texNombre(c + d)} =  ${texNombre(2 * (a - b) / 3)} \\times  ${texNombre(c + d)} = ${texNombre(2 * (c + d) * (a - b) / 3)}$`
+          expc = `$\\left((${texNombre(a)}-${l2})\\div  3\\right)\\times  2${signex}(${l1}+${texNombre(d)})=\\left((${texNombre(a)}-${texNombre(b)})\\div  3\\right)\\times  2${signex}(${texNombre(c)}+${texNombre(d)}) = ${texNombre(a - b)}\\div  3 \\times  2 \\times ${texNombre(c + d)} = ${texNombre((a - b) / 3)} \\times  2 \\times  ${texNombre(c + d)} =  ${texNombre((2 * (a - b)) / 3)} \\times  ${texNombre(c + d)} = ${texNombre((2 * (c + d) * (a - b)) / 3)}$`
           lastOp = 'multiplication'
           break
         case 4: // 3(a+b)-2(c+d)
@@ -355,7 +377,8 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
         case 1: // (a+b)/(c(d+e))
           b = val1
           e = val2
-          if (!estentier((a + b) / (c * (d + e)))) a = arrondi(a * c * (d + e) - b)
+          if (!estentier((a + b) / (c * (d + e))))
+            a = arrondi(a * c * (d + e) - b)
           expf = `Le quotient de la somme de $${nombreAvecEspace(a)}$ et $${l1}$ par le produit de $${nombreAvecEspace(c)}$ par la somme de $${nombreAvecEspace(d)}$ et $${l2}$`
           expl = `$(${texNombre(a)}+${l1})\\div (${texNombre(c)}${signex}(${texNombre(d)}+${l2}))$ ou $\\dfrac{${texNombre(a)}+${l1}}{${texNombre(c)}${signex}(${texNombre(d)}+${l2})}$`
           expc = `$(${texNombre(a)}+${l1})\\div (${texNombre(c)}${signex}(${texNombre(d)}+${l2}))=(${texNombre(a)}+${texNombre(b)})\\div (${texNombre(c)}${signex}(${texNombre(d)}+${texNombre(e)})) = ${texNombre(a + b)} \\div  (${texNombre(c)} \\times  ${texNombre(d + e)}) = ${texNombre(a + b)} \\div  ${texNombre(c * (d + e))} = ${texNombre((a + b) / (c * (d + e)))}$`
@@ -373,19 +396,23 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
         case 3: // ab+cd/e
           d = val2
           b = val1
-          if (!estentier(c * d / e)) c = arrondi(c * e)
+          if (!estentier((c * d) / e)) c = arrondi(c * e)
           expf = `La somme du produit de $${nombreAvecEspace(a)}$ par $${l1}$ et du quotient du produit de $${nombreAvecEspace(c)}$ et $${l2}$ par $${nombreAvecEspace(e)}$`
           expl = `$${texNombre(a)}${l1}+${texNombre(c)}${l2}\\div ${texNombre(e)}$ ou $${texNombre(a)}${l1}+\\dfrac{${texNombre(c)}${l2}}{${texNombre(e)}}$`
-          expc = `$${texNombre(a)}${l1}+${texNombre(c)}${l2}\\div ${texNombre(e)}=${texNombre(a)}\\times ${texNombre(b)}+${texNombre(c)}\\times ${texNombre(d)}\\div ${texNombre(e)} = ${texNombre(a * b)} + ${texNombre(c * d)} \\div  ${texNombre(e)} = ${texNombre(a * b)} + ${texNombre(c * d / e)} = ${texNombre(a * b + c * d / e)}$`
+          expc = `$${texNombre(a)}${l1}+${texNombre(c)}${l2}\\div ${texNombre(e)}=${texNombre(a)}\\times ${texNombre(b)}+${texNombre(c)}\\times ${texNombre(d)}\\div ${texNombre(e)} = ${texNombre(a * b)} + ${texNombre(c * d)} \\div  ${texNombre(e)} = ${texNombre(a * b)} + ${texNombre((c * d) / e)} = ${texNombre(a * b + (c * d) / e)}$`
           lastOp = 'addition'
           break
       }
       break
   }
   let pos1 = 0
-  for (; pos1 < expc.length; pos1++) { if (expc[pos1] === '=') break }
+  for (; pos1 < expc.length; pos1++) {
+    if (expc[pos1] === '=') break
+  }
   let pos2 = pos1 + 1
-  for (; pos2 < expc.length; pos2++) { if (expc[pos2] === '=') break }
+  for (; pos2 < expc.length; pos2++) {
+    if (expc[pos2] === '=') break
+  }
   const expn = '$' + expc.substring(pos1 + 1, pos2 - 1) + '$'
   let structureExpression
   switch (lastOp) {

@@ -59,7 +59,7 @@ export interface KeyboardBlock {
 export class Keyboard {
   blocks: KeyboardBlock[] = [specialKeys]
 
-  constructor (kb?: KeyboardBlock) {
+  constructor(kb?: KeyboardBlock) {
     if (kb) {
       this.blocks.push(kb)
     }
@@ -111,7 +111,9 @@ export class Keyboard {
    * (utile dans la cas de clavier cotenant très peu de touches)
    */
   checkSmallLayoutAllowed = (): void => {
-    const maximumNbKeysPerBlock = this.numberOfKeysPerBlock().slice(1).reduce((prev, current) => prev < current ? current : prev, 0)
+    const maximumNbKeysPerBlock = this.numberOfKeysPerBlock()
+      .slice(1)
+      .reduce((prev, current) => (prev < current ? current : prev), 0)
     if (maximumNbKeysPerBlock <= 2) {
       // le premier bloc est celui des touches spéciales, on le passe en deux colonnes.
       this.blocks[0].cols = 2
@@ -121,7 +123,7 @@ export class Keyboard {
 
 export const inLineBlockWidth = (
   block: KeyboardBlock,
-  mode: 'sm' | 'md' | 'lg' | 'xl'
+  mode: 'sm' | 'md' | 'lg' | 'xl',
 ): number => {
   // 3G30-1 renvoie un keycaps undefined, pourquoi ?
   const numberOfKeys = block?.keycaps?.inline?.length || 0
@@ -133,8 +135,11 @@ export const inLineBlockWidth = (
 }
 export const usualBlockWidth = (
   block: KeyboardBlock,
-  mode: 'sm' | 'md' | 'lg' | 'xl'
+  mode: 'sm' | 'md' | 'lg' | 'xl',
 ): number => {
   const numberOfCols = block.cols
-  return numberOfCols * KEYCAP_WIDTH[mode] + (numberOfCols - 1) * GAP_BETWEEN_KEYS[mode]
+  return (
+    numberOfCols * KEYCAP_WIDTH[mode] +
+    (numberOfCols - 1) * GAP_BETWEEN_KEYS[mode]
+  )
 }

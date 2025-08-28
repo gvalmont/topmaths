@@ -1,43 +1,58 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  texteEnCouleur,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { texNombre } from '../../lib/outils/texNombre'
 import { choice } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { sp } from '../../lib/outils/outilString'
 
-export const titre = 'Étude d\'une suite par récurrence'
+export const titre = "Étude d'une suite par récurrence"
 export const dateDePublication = '25/10/2024'
 
 /**
  * @author Rémi Angot
  * Étude d\'une suite par récurrence
-*/
+ */
 
 export const uuid = '7f24e'
 export const refs = {
   'fr-fr': ['TSA1-01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 const bleuMathalea = context.isHtml ? '#216D9A' : 'black'
 
 export default class EtudeSuiteRecurrence extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.sup = 5
-    this.besoinFormulaireNumerique = ['Type de question', 5, '1 : a + 1/un\n2 : aun + b croissante\n3 : aun + b décroissante\n4 : racine(aun + b) décroissante\n5: Aléatoire']
+    this.besoinFormulaireNumerique = [
+      'Type de question',
+      5,
+      '1 : a + 1/un\n2 : aun + b croissante\n3 : aun + b décroissante\n4 : racine(aun + b) décroissante\n5: Aléatoire',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte = ''
     let texteCorr = ''
-    const typesDeQuestionsDisponibles = ['a + 1/un', 'aun + b croissante', 'aun + b décroissante', 'sqrt(aun + b) décroissante']
-    const typeDeQuestion = this.sup <= typesDeQuestionsDisponibles.length ? typesDeQuestionsDisponibles[this.sup - 1] : choice(typesDeQuestionsDisponibles)
+    const typesDeQuestionsDisponibles = [
+      'a + 1/un',
+      'aun + b croissante',
+      'aun + b décroissante',
+      'sqrt(aun + b) décroissante',
+    ]
+    const typeDeQuestion =
+      this.sup <= typesDeQuestionsDisponibles.length
+        ? typesDeQuestionsDisponibles[this.sup - 1]
+        : choice(typesDeQuestionsDisponibles)
     switch (typeDeQuestion) {
       case 'a + 1/un':
         {
@@ -58,7 +73,8 @@ export default class EtudeSuiteRecurrence extends Exercice {
           texteCorr += `<br><br>Comme $\\dfrac{${u0 ** 2 - 2 * u0 + 2}}{${u0 - 1}} \\leqslant ${u0}$ et $\\dfrac{${u0 ** 2 - u0 + 1}}{${u0}} \\geqslant ${u0 - 1}$, on a bien :`
           texteCorr += `<br><br>$${u0 - 1} \\leqslant u_{n+1} \\leqslant ${u0}$.`
           texteCorr += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
-          texteCorr += '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
+          texteCorr +=
+            '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
         }
         break
       case 'aun + b croissante':
@@ -67,7 +83,11 @@ export default class EtudeSuiteRecurrence extends Exercice {
           const numA = randint(1, denA - 1)
           const a = new FractionEtendue(numA, denA)
           const b = randint(1, 9)
-          const l = a.multiplieEntier(-1).ajouteEntier(1).inverse().multiplieEntier(b)
+          const l = a
+            .multiplieEntier(-1)
+            .ajouteEntier(1)
+            .inverse()
+            .multiplieEntier(b)
           const u0 = randint(1, Math.ceil(l.toNumber()) - 1)
 
           texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,${sp()};${sp()};$u_{n+1} = ${a.texFraction}u_n + ${b}$. `
@@ -88,7 +108,8 @@ export default class EtudeSuiteRecurrence extends Exercice {
           texteCorr += `<br><br>Comme $ ${u0} \\leqslant ${a.multiplieEntier(u0).ajouteEntier(b).texFractionSimplifiee}$, on a bien :`
           texteCorr += `<br<br> $${u0} \\leqslant u_{n+1} \\leqslant u_{n+2} \\leqslant ${l.texFractionSimplifiee}$.`
           texteCorr += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
-          texteCorr += '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
+          texteCorr +=
+            '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
         }
         break
       case 'aun + b décroissante':
@@ -97,8 +118,15 @@ export default class EtudeSuiteRecurrence extends Exercice {
           const numA = randint(1, denA - 1)
           const a = new FractionEtendue(numA, denA)
           const b = randint(1, 9)
-          const l = a.multiplieEntier(-1).ajouteEntier(1).inverse().multiplieEntier(b)
-          const u0 = randint(Math.floor(l.toNumber()) + 1, Math.floor(l.toNumber()) + 10)
+          const l = a
+            .multiplieEntier(-1)
+            .ajouteEntier(1)
+            .inverse()
+            .multiplieEntier(b)
+          const u0 = randint(
+            Math.floor(l.toNumber()) + 1,
+            Math.floor(l.toNumber()) + 10,
+          )
 
           texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,${sp()};${sp()};$u_{n+1} = ${a.texFraction}u_n + ${b}$. `
           texte += `<br>Démontrer par récurrence que, pour tout entier naturel $n$, ${sp()}; $${u0} \\geqslant u_n \\geqslant u_{n+1} \\geqslant ${l.texFractionSimplifiee}$.`
@@ -118,7 +146,8 @@ export default class EtudeSuiteRecurrence extends Exercice {
           texteCorr += `<br><br>Comme $ ${u0} \\geqslant ${a.multiplieEntier(u0).ajouteEntier(b).texFractionSimplifiee}$, on a bien :`
           texteCorr += `<br<br> $${u0} \\geqslant u_{n+1} \\geqslant u_{n+2} \\geqslant ${l.texFractionSimplifiee}$.`
           texteCorr += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
-          texteCorr += '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
+          texteCorr +=
+            '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
         }
         break
       case 'sqrt(aun + b) décroissante':
@@ -136,8 +165,10 @@ export default class EtudeSuiteRecurrence extends Exercice {
           texteCorr += '<br><br>On a bien $0 \\leqslant u_1 \\leqslant u_0$.'
           texteCorr += '<br><br>La propriété est donc vraie pour $n=0$.'
           texteCorr += `<br><br>${texteEnCouleurEtGras('Hérédité :', bleuMathalea)}`
-          texteCorr += '<br><br>Soit $n$ un entier naturel. Supposons que : $0 \\leqslant u_{n+1} \\leqslant u_{n}$.'
-          texteCorr += '<br><br> Montrons alors que : $0 \\leqslant u_{n+2} \\leqslant u_{n+1}$.'
+          texteCorr +=
+            '<br><br>Soit $n$ un entier naturel. Supposons que : $0 \\leqslant u_{n+1} \\leqslant u_{n}$.'
+          texteCorr +=
+            '<br><br> Montrons alors que : $0 \\leqslant u_{n+2} \\leqslant u_{n+1}$.'
           texteCorr += `<br><br>$0 \\leqslant u_{n+1} \\leqslant u_{n} \\qquad$ ${texteEnCouleur('Par hypothèse de récurrence.', 'forestgreen')}`
           texteCorr += `<br><br>$${a}\\times0 \\leqslant ${a}u_{n+1} \\leqslant ${a}u_{n} \\qquad$ ${texteEnCouleur('Multiplication par un nombre strictement positif.', 'forestgreen')}`
           texteCorr += `<br><br>$0 + ${b} \\leqslant ${a}u_{n+1} + ${b} \\leqslant ${a}u_{n} + ${b} \\qquad$ ${texteEnCouleur(`On ajoute ${b}.`, 'forestgreen')}`
@@ -146,7 +177,8 @@ export default class EtudeSuiteRecurrence extends Exercice {
           texteCorr += `<br><br>Comme $0 \\leqslant \\sqrt{${b}}$, on a bien :`
           texteCorr += '<br><br>$0 \\leqslant u_{n+2} \\leqslant u_{n+1}$.'
           texteCorr += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
-          texteCorr += '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
+          texteCorr +=
+            '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
         }
         break
     }

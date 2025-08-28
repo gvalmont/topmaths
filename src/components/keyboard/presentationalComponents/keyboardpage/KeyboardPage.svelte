@@ -19,13 +19,15 @@
 
   beforeUpdate(() => {
     // if (debug) console.log('beforeUpdate KeyboardPage)
-    blocks = unitsBlocks.length > 1 ? [...usualBlocks] : [...unitsBlocks, ...usualBlocks]
+    blocks =
+      unitsBlocks.length > 1
+        ? [...usualBlocks]
+        : [...unitsBlocks, ...usualBlocks]
   })
 
   afterUpdate(() => {
     // if (debug) console.log('afterUpdate KeyboardPage)
   })
-
 </script>
 
 <div
@@ -39,9 +41,9 @@
       {/each}
     </div>
   {:else}
-    <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
+    <div class="{unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}">
       <BlockOfKeycapsWithPagination
-        blocksList={unitsBlocks}
+        blocksList="{unitsBlocks}"
         {isInLine}
         {clickKeycap}
       />

@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a343m'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q7 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     if (a == null || b == null) {
       a = randint(2, 9)
       b = choice([15, 30, 45])
@@ -35,10 +35,12 @@ export default class Can2025N5Q7 extends ExerciceCan {
     this.canReponseACompleter = '$\\ldots\\ldots$ min'
     if (this.interactif) {
       this.question += ' $=$ '
-    } else { this.question += ' $=\\ldots$ min' }
+    } else {
+      this.question += ' $=\\ldots$ min'
+    }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(2, 30) : this.enonce()
   }
 }

@@ -12,7 +12,8 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const titre = 'Résoudre une équation du premier degré à solutions entières'
+export const titre =
+  'Résoudre une équation du premier degré à solutions entières'
 
 /**
  * Équation du premier degré
@@ -29,16 +30,16 @@ export const uuid = '515b0'
 
 export const refs = {
   'fr-fr': ['4L20-0', 'BP2RES9'],
-  'fr-ch': ['10FA3-6']
+  'fr-ch': ['10FA3-6'],
 }
 export default class ExerciceEquationASolutionEntiere extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
     this.besoinFormulaire2Numerique = [
       "Type d'équations",
       4,
-      '1 : ax=d ou x+b=d ou x-b=d\n2: ax+b=d\n3: ax+b=cx+d\n4: Mélange'
+      '1 : ax=d ou x+b=d ou x-b=d\n2: ax+b=d\n3: ax+b=cx+d\n4: Mélange',
     ]
 
     this.consigne = 'Résoudre les équations suivantes.'
@@ -55,8 +56,14 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
     this.nbQuestions = 6
   }
 
-  nouvelleVersion () {
-    let listeTypeDeQuestions: ('ax+b=0' | 'ax+b=d' | 'ax=d' | 'x+b=d' | 'ax+b=cx+d')[] = []
+  nouvelleVersion() {
+    let listeTypeDeQuestions: (
+      | 'ax+b=0'
+      | 'ax+b=d'
+      | 'ax=d'
+      | 'x+b=d'
+      | 'ax+b=cx+d'
+    )[] = []
     switch (this.sup2.toString()) {
       case '1':
         listeTypeDeQuestions = ['ax=d', 'x+b=d']
@@ -73,18 +80,24 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
           'ax+b=d',
           'ax=d',
           'x+b=d',
-          'ax+b=cx+d'
+          'ax+b=cx+d',
         ]
         break
     }
     listeTypeDeQuestions = combinaisonListes(
       listeTypeDeQuestions,
-      this.nbQuestions
+      this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const equation = equation1erDegre1Inconnue({ valeursRelatives: this.sup, type: listeTypeDeQuestions[i] })
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const equation = equation1erDegre1Inconnue({
+        valeursRelatives: this.sup,
+        type: listeTypeDeQuestions[i],
+      })
       const texte = `$${equation.egalite}$ ${ajouteChampTexteMathLive(this, i, '', { texteAvant: sp(10) + '<br>La solution est $x=$' })}`
-      const texteCorr = texte + '<br>' + this.correctionDetaillee ? equation.correctionDetaillee : equation.correction
+      const texteCorr =
+        texte + '<br>' + this.correctionDetaillee
+          ? equation.correctionDetaillee
+          : equation.correction
       setReponse(this, i, equation.reponse, { signe: !!this.sup })
       if (this.questionJamaisPosee(i, equation.a, equation.b, equation.c)) {
         this.listeQuestions[i] = texte
@@ -95,12 +108,12 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
     }
     listeQuestionsToContenu(this)
     if (!context.isHtml) {
-      this.canEnonce = 'Résoudre l\'équation ' + this.listeQuestions[0] + '.'
+      this.canEnonce = "Résoudre l'équation " + this.listeQuestions[0] + '.'
       this.correction = this.listeCorrections[0]
       this.canReponseACompleter = ''
 
       for (const enonce of this.listeQuestions) {
-        this.listeCanEnonces.push('Résoudre l\'équation ' + enonce + '.')
+        this.listeCanEnonces.push("Résoudre l'équation " + enonce + '.')
       }
     }
   }

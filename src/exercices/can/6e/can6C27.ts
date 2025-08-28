@@ -16,15 +16,15 @@ export const dateDePublication = '21/10/2021'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora & Jean-Claude Lhote
-*/
+ */
 export const uuid = '02170'
 
 export const refs = {
   'fr-fr': ['can6C27', '6N2A-flash4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RenduMonnaie extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -32,10 +32,14 @@ export default class RenduMonnaie extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeviennoiserie = [
       ['pains au chocolat', ' un pain au chocolat'],
-      ['chocolatines', 'une chocolatine'], ['pains aux raisins', 'un pain aux raisins'], ['cookies', 'un cookie'], ['brioches', 'une brioche']]
+      ['chocolatines', 'une chocolatine'],
+      ['pains aux raisins', 'un pain aux raisins'],
+      ['cookies', 'un cookie'],
+      ['brioches', 'une brioche'],
+    ]
     let a, b, e, prenom1, v, p, pu, t, nbre
 
     switch (choice([1, 2, 3, 4])) {
@@ -48,20 +52,24 @@ export default class RenduMonnaie extends ExerciceSimple {
 
         Combien me rend-on ?`
         this.correction = `On doit me rendre $${50 + 2 * e}-${b}=${miseEnEvidence(this.reponse)}$ €.`
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ' €' }
+        }
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\dots$ €'
         break
 
       case 2:
-        a = randint(1, 6) + (randint(1, 9)) / 10
+        a = randint(1, 6) + randint(1, 9) / 10
         this.reponse = 10 - a
         this.question = `Chez le boulanger, je dois payer  $${texPrix(a)}$ €. <br>
         Je donne un billet de $10$  €. <br>
 
 Combien me rend-on ?`
         this.correction = `On doit me rendre $10-${texNombre(a)}=${miseEnEvidence(texNombre(10 - a))}$ €.`
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ' €' }
+        }
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\dots$ €'
         break
@@ -83,7 +91,9 @@ Combien me rend-on ?`
   Le coût est donc $${a}\\times ${texPrix(pu)} =${texPrix(a * Number(pu))}$ €.<br>
   On doit lui rendre : $${t}-${texPrix(a * Number(pu))}=${miseEnEvidence(texPrix(Number(this.reponse)))}$ €.
  `
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ' €' }
+        }
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\dots$ €'
         break
@@ -110,7 +120,9 @@ Combien me rend-on ?`
           this.correction = `On lui a rendu $${60 - a * nbre}$ €, donc les mangas ont coûté $(60-${60 - a * nbre})$ €, soit $${a * nbre}$ € .<br>
           Le prix d'un manga est  $${a}$ €, donc  le nombre de  mangas est  donné par $${a * nbre}\\div ${a}=${miseEnEvidence(nbre)}$.`
         }
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' mangas' } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ' mangas' }
+        }
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\dots$ mangas'
         break

@@ -8,7 +8,7 @@ import { context } from '../../modules/context'
  * @param {number} [largeur1=50] Largeur de la première colonne
  * @return {string}
  */
-export function deuxColonnes (cont1, cont2, largeur1 = 50) {
+export function deuxColonnes(cont1, cont2, largeur1 = 50) {
   if (context.isHtml) {
     return `
     <div>
@@ -42,7 +42,13 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
  * @param {number} [largeur2=33] Largeur de la première colonne
  * @return {string}
  */
-export function troisColonnes (cont1, cont2, cont3, largeur1 = 33, largeur2 = 33) {
+export function troisColonnes(
+  cont1,
+  cont2,
+  cont3,
+  largeur1 = 33,
+  largeur2 = 33,
+) {
   if (context.isHtml) {
     return `
     <div>
@@ -84,7 +90,7 @@ export function troisColonnes (cont1, cont2, cont3, largeur1 = 33, largeur2 = 33
  *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: '400px', widthmincol2: '200px'})
  * @return {string}
  */
-export function deuxColonnesResp (cont1, cont2, options) {
+export function deuxColonnesResp(cont1, cont2, options) {
   if (options === undefined) {
     options = { largeur1: 50 }
   } else if (typeof options === 'number') {
@@ -146,19 +152,21 @@ export function deuxColonnesResp (cont1, cont2, options) {
  * @returns le texte centré dans la page selon le contexte.
  * @author Jean-Claude Lhote
  */
-export function centrage (texte) {
-  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n \t${texte}\n \\end{center}\n`
+export function centrage(texte) {
+  return context.isHtml
+    ? `<center>${texte}</center>`
+    : `\\begin{center}\n \t${texte}\n \\end{center}\n`
 }
 
 /**
  * Renvoie un environnent LaTeX multicolonnes
  * @author Rémi Angot
  */
-export function texMulticols (texte, nbCols = 2) {
+export function texMulticols(texte, nbCols = 2) {
   let result
   if (nbCols > 1) {
-    result = '\\begin{multicols}{' + nbCols + '}\n' +
-      texte + '\n\\end{multicols}'
+    result =
+      '\\begin{multicols}{' + nbCols + '}\n' + texte + '\n\\end{multicols}'
   } else {
     result = texte
   }
@@ -170,7 +178,7 @@ export function texMulticols (texte, nbCols = 2) {
  *
  * @author Rémi Angot
  */
-export function texteCentre (texte) {
+export function texteCentre(texte) {
   if (context.isHtml) {
     return `<p style="text-align: center">${texte}</p>`
   } else {

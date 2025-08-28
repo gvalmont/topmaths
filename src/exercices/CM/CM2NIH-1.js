@@ -9,10 +9,10 @@ export const uuid = '40ae0'
 export const refs = {
   'fr-fr': ['CM2NIH-1'],
   'fr-2016': ['c3C10-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LabyrintheDeMultiplesCM extends ExerciceLabyrintheMultiples {
-  constructor () {
+  constructor() {
     super()
     this.niveau = 'CM'
     this.sup = 4

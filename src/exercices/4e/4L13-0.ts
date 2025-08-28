@@ -1,14 +1,26 @@
-import { afficheCoteSegment, codageCarre, codageSegments } from '../../lib/2d/codages'
+import {
+  afficheCoteSegment,
+  codageCarre,
+  codageSegments,
+} from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
-import { nommePolygone, polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
+import {
+  nommePolygone,
+  polygoneRegulierParCentreEtRayon,
+} from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne'
 import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-export const titre = 'Mettre en équation un problème sans objectif de résolution'
+export const titre =
+  'Mettre en équation un problème sans objectif de résolution'
 export const dateDeModifImportante = '28/03/2025'
 
 /**
@@ -20,14 +32,14 @@ export const uuid = '5a6f2'
 
 export const refs = {
   'fr-fr': ['4L13-0', 'BP2RES1'],
-  'fr-ch': ['10FA3-9']
+  'fr-ch': ['10FA3-9'],
 }
 
 const myPolyName = function (n: number) {
   const sortie = {
     article: '',
     name: '',
-    nameParSommets: ''
+    nameParSommets: '',
   }
   switch (n) {
     case 3:
@@ -43,16 +55,16 @@ const myPolyName = function (n: number) {
       sortie.name = 'pentagone régulier'
       break
     case 6:
-      sortie.article = 'de l\''
+      sortie.article = "de l'"
       sortie.name = 'hexagone régulier'
       break
     case 7:
-      sortie.article = 'de l\''
+      sortie.article = "de l'"
       sortie.name = 'heptagone régulier'
       break
     case 8:
     default:
-      sortie.article = 'de l\''
+      sortie.article = "de l'"
       sortie.name = 'octogone régulier'
       break
   }
@@ -61,10 +73,11 @@ const myPolyName = function (n: number) {
 }
 
 export default class MettreEnEquationSansResoudre extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Type de polygones', [
+      'Type de polygones',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Triangle',
         '2 : Quadrilatère',
@@ -72,30 +85,31 @@ export default class MettreEnEquationSansResoudre extends Exercice {
         '4 : Hexagone',
         '5 : Heptagone',
         '6 : Octogone',
-        '7 : Mélange'
-      ].join('\n')
+        '7 : Mélange',
+      ].join('\n'),
     ]
 
     this.sup = 7
     this.nbQuestions = 2
 
-    this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
+    this.consigne =
+      "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 6,
       melange: 7,
       defaut: 7,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
     const variables = ['t', 'u', 'v', 'w', 'y', 'z']
     const unites = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       // une fonction pour dire le nom du polygone
 
       // on choisit le nombre de côtés su polygone
@@ -124,7 +138,7 @@ export default class MettreEnEquationSansResoudre extends Exercice {
         codageSegments('X', 'blue', po.listePoints),
         afficheCoteSegment(s, `${inc}`, 1, 'red', 2, 0.5, 'black'),
         nommePolygone(po, myPolyName(n).nameParSommets),
-        anglesDroitsIfIsCarre
+        anglesDroitsIfIsCarre,
       ]
       // on prépare l'objet polygone
       const polygone = {
@@ -141,10 +155,10 @@ export default class MettreEnEquationSansResoudre extends Exercice {
             xmax: 7,
             ymax: 5,
             pixelsParCm: 20,
-            scale: 0.5// 0.7
+            scale: 0.5, // 0.7
           },
-          mesAppels
-        )
+          mesAppels,
+        ),
       }
 
       const enonces = []
@@ -155,10 +169,11 @@ export default class MettreEnEquationSansResoudre extends Exercice {
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
         D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ ${polygone.unite}.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
-        $${miseEnEvidence(`${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}`)}$.`
+        $${miseEnEvidence(`${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}`)}$.`,
       })
 
-      if (this.questionJamaisPosee(i, n, inc)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, n, inc)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = `${enonces[0].enonce}`
         this.listeCorrections[i] = `${enonces[0].correction}`
         i++

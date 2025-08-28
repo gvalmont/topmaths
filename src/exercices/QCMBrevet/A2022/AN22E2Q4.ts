@@ -6,7 +6,7 @@ import { shuffle } from '../../../lib/outils/arrayOutils'
 export const uuid = '12ead'
 export const refs = {
   'fr-fr': ['5A1QCM-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,16 +21,16 @@ export const dateDePublication = '07/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class AmeriqueNordJuin22Ex1Q4 extends ExerciceQcmA {
-  private appliquerLesValeurs (liste: number[]): void {
+  private appliquerLesValeurs(liste: number[]): void {
     const produit = liste.reduce((acc, cur) => acc * cur, 1)
     const nbCent = Math.floor(produit / 100)
     const nbDiz = Math.floor((produit - 100 * nbCent) / 10)
     const unites = produit - nbDiz * 10 - nbCent * 100
     this.reponses = [
-        `$${liste.join('\\times ')}$`,
-        `$${nbCent > 0 ? `${nbCent}\\times 100+` : ''}${nbDiz > 0 ? `${nbDiz}\\times 10+` : ''}${unites}$`,
-        `$${liste[0]}\\times ${liste[1] * liste[2]}$`,
-        `$${liste[1]}\\times ${liste[0] * liste[2]}$`
+      `$${liste.join('\\times ')}$`,
+      `$${nbCent > 0 ? `${nbCent}\\times 100+` : ''}${nbDiz > 0 ? `${nbDiz}\\times 10+` : ''}${unites}$`,
+      `$${liste[0]}\\times ${liste[1] * liste[2]}$`,
+      `$${liste[1]}\\times ${liste[0] * liste[2]}$`,
     ]
 
     this.enonce = `La décomposition en produit de facteurs premiers de $${produit}$ est :`
@@ -47,13 +47,15 @@ export default class AmeriqueNordJuin22Ex1Q4 extends ExerciceQcmA {
     const n = 4
     let rond: boolean = false
     do {
-      const decompo = shuffle(listeNombresPremiersStrictJusqua(29)).slice(0, 3).sort((a, b) => a - b)
+      const decompo = shuffle(listeNombresPremiersStrictJusqua(29))
+        .slice(0, 3)
+        .sort((a, b) => a - b)
       rond = decompo.includes(2) && decompo.includes(5)
       this.appliquerLesValeurs(decompo)
     } while (rond || nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

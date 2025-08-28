@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'ccf0d'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025CE2Q1 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     if (a == null || b == null) {
       a = randint(2, 4) * 100 + randint(2, 6) * 10 + randint(1, 4)
       b = Math.round(Math.ceil(a / 10) * 10)
@@ -29,7 +29,7 @@ export default class Can2025CE2Q1 extends ExerciceCan {
     this.correction = `Pour trouver le nombre manquant, on peut calculer $${b}-${a}=${miseEnEvidence(texNombre(b - a, 0))}$.<br>
     On peut aussi procéder par complément :<br>`
     if (b - a > 10) {
-      const complementADix = a % 0 > 0 ? 10 - a % 10 : 0
+      const complementADix = a % 0 > 0 ? 10 - (a % 10) : 0
       const dizaine = a + complementADix
       const centaineSup = Math.ceil(dizaine / 100) * 100
       const complementACent = centaineSup - dizaine
@@ -44,7 +44,7 @@ export default class Can2025CE2Q1 extends ExerciceCan {
       }
       this.correction += `Donc au final, il a fallu ajouter : $${complementADix > 0 ? `${complementADix}+` : ''}${complementACent}${complementACent2 > 0 ? `+${complementACent2}` : ''}=${miseEnEvidence(b - a)}$.`
     } else {
-      const complementADix = 10 - a % 10
+      const complementADix = 10 - (a % 10)
       this.correction += ` $${a}+${miseEnEvidence(complementADix)}=${a + complementADix}$`
     }
     this.canEnonce = 'Complète.'
@@ -55,7 +55,7 @@ export default class Can2025CE2Q1 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(342, 350) : this.enonce()
   }
 }

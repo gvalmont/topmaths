@@ -18,22 +18,29 @@ export const uuid = 'debe7'
 
 export const refs = {
   'fr-fr': ['can3C02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class MoyenneEntiereDeDecimaux extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.reponse = randint(7, 15) // la moyenne attendue on la multiplie par 10 pour l'avoir en 1/10e
     const a = randint(4, this.reponse, [10, 20]) * 10 + randint(1, 9) // premier nombre à ajouter multiplié par 10 pour l'avoir en 1/10e
     let b, c
     do {
-      b = randint(a, this.reponse * 30 - a, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]) // deuxième nombre x 10
+      b = randint(
+        a,
+        this.reponse * 30 - a,
+        [
+          10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160,
+          170, 180, 190, 200,
+        ],
+      ) // deuxième nombre x 10
       if ((a + b) % 10 === 0) {
         if (b % 10 === 1) {
           b += 3
@@ -55,19 +62,24 @@ export default class MoyenneEntiereDeDecimaux extends ExerciceSimple {
     $${Math.floor(a / 10)}+${Math.floor(b / 10)}+${Math.floor(c / 10)}
     =${texNombre(Math.floor(a / 10) + Math.floor(b / 10) + Math.floor(c / 10))}$.<br>
     $\\bullet$ Puis celle de leurs dixièmes :
-    $${texNombre((a / 10) - Math.floor(a / 10))}+${texNombre((b / 10) - Math.floor(b / 10))}+${texNombre((c / 10) - Math.floor(c / 10))}=
-    ${texNombre((a / 10) - Math.floor(a / 10) + (b / 10) - Math.floor(b / 10) + (c / 10) - Math.floor(c / 10))}$
+    $${texNombre(a / 10 - Math.floor(a / 10))}+${texNombre(b / 10 - Math.floor(b / 10))}+${texNombre(c / 10 - Math.floor(c / 10))}=
+    ${texNombre(a / 10 - Math.floor(a / 10) + b / 10 - Math.floor(b / 10) + c / 10 - Math.floor(c / 10))}$
     <br>
     $\\bullet$ On les additionne :
     $${texNombre(Math.floor(a / 10) + Math.floor(b / 10) + Math.floor(c / 10))}
-    +${texNombre((a / 10) - Math.floor(a / 10) +
-      (b / 10) - Math.floor(b / 10) +
-      (c / 10) - Math.floor(c / 10))}=${texNombre(a / 10 + b / 10 + c / 10)}$
+    +${texNombre(
+      a / 10 -
+        Math.floor(a / 10) +
+        b / 10 -
+        Math.floor(b / 10) +
+        c / 10 -
+        Math.floor(c / 10),
+    )}=${texNombre(a / 10 + b / 10 + c / 10)}$
     <br>
 
     $\\bullet$ On divise par le nombre de valeurs (soit $3$) : $\\dfrac{${texNombre(a / 10 + b / 10 + c / 10)}}{3}= ${this.reponse}$  <br>
       `)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

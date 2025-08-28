@@ -1,4 +1,7 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  ObjetMathalea2D,
+} from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { lettreDepuisChiffre } from '../outils/outilString'
@@ -22,7 +25,13 @@ import { rotation, similitude } from './transformations'
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Aout 2022
-export function dansLaCibleCarree (x:number, y:number, rang:number, taille:number, cellule:string): [number, number] {
+export function dansLaCibleCarree(
+  x: number,
+  y: number,
+  rang: number,
+  taille: number,
+  cellule: string,
+): [number, number] {
   const lettre = cellule[0]
   const chiffrelettre = lettre.charCodeAt(0) - 64
   const chiffre = parseInt(cellule[1])
@@ -32,10 +41,19 @@ export function dansLaCibleCarree (x:number, y:number, rang:number, taille:numbe
   const dy = 0 // Devenu inutile
   const delta = taille / 2
   if (chiffre > rang || chiffrelettre > rang) {
-    window.notify('Cette cellule n\'existe pas dans la cible', { x, y, rang, taille, cellule })
+    window.notify("Cette cellule n'existe pas dans la cible", {
+      x,
+      y,
+      rang,
+      taille,
+      cellule,
+    })
     return [0, 0]
   } else {
-    return [x + dx - chiffrelettre * taille + delta + rang * delta, y + dy - chiffre * 2 * delta + (rang + 1) * delta]
+    return [
+      x + dx - chiffrelettre * taille + delta + rang * delta,
+      y + dy - chiffre * 2 * delta + (rang + 1) * delta,
+    ]
   }
 }
 
@@ -72,7 +90,7 @@ export class CibleCarree extends ObjetMathalea2D {
   colorNum: string
   opaciteNum: number
   stringColor: string
-  constructor ({
+  constructor({
     x = 0,
     y = 0,
     rang = 4,
@@ -81,9 +99,18 @@ export class CibleCarree extends ObjetMathalea2D {
     color = 'gray',
     opacite = 0.5,
     colorNum = color,
-    opaciteNum = 1
-  }:
-  { x?: number, y?: number, rang?: number, num?: number, taille?: number, color?: string, opacite?: number, colorNum?: string, opaciteNum?: number } = {}) {
+    opaciteNum = 1,
+  }: {
+    x?: number
+    y?: number
+    rang?: number
+    num?: number
+    taille?: number
+    color?: string
+    opacite?: number
+    colorNum?: string
+    opaciteNum?: number
+  } = {}) {
     super()
     this.stringColor = color
     this.x = x
@@ -97,8 +124,18 @@ export class CibleCarree extends ObjetMathalea2D {
     const objets: any[] = []
     let numero
     // Si un numéro est donné, alors on l'ajoute en filigrane.
-    if (typeof (num) !== 'undefined') {
-      numero = texteParPosition(String(num), this.x - this.rang * this.taille / 4, this.y - this.rang * this.taille / 4, 0, this.colorNum, 1, 'milieu', false, this.opaciteNum) as TexteParPoint
+    if (typeof num !== 'undefined') {
+      numero = texteParPosition(
+        String(num),
+        this.x - (this.rang * this.taille) / 4,
+        this.y - (this.rang * this.taille) / 4,
+        0,
+        this.colorNum,
+        1,
+        'milieu',
+        false,
+        this.opaciteNum,
+      ) as TexteParPoint
       // numero.opacite = 0.1 TOTALEMENT INUTILE CAR NON FONCTIONNEL
       numero.taille = 30 * this.taille
       numero.contour = true
@@ -106,10 +143,45 @@ export class CibleCarree extends ObjetMathalea2D {
     }
     let lettre, chiffre
     // la grille de la cible
-    objets.push(grille(arrondi(this.x - this.rang * this.taille / 2), arrondi(this.y - this.rang * this.taille / 2), arrondi(this.x + this.rang * this.taille / 2), arrondi(this.y + this.rang * this.taille / 2), this.stringColor, this.opacite, this.taille, 0))
+    objets.push(
+      grille(
+        arrondi(this.x - (this.rang * this.taille) / 2),
+        arrondi(this.y - (this.rang * this.taille) / 2),
+        arrondi(this.x + (this.rang * this.taille) / 2),
+        arrondi(this.y + (this.rang * this.taille) / 2),
+        this.stringColor,
+        this.opacite,
+        this.taille,
+        0,
+      ),
+    )
     for (let i = 0; i < rang; i++) {
-      lettre = texteParPosition(lettreDepuisChiffre(1 + i), this.x - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, this.y - (this.rang + 1) * this.taille / 2, 0, 'blue', 0.5, 'milieu', false, 0.2) as TexteParPoint
-      chiffre = texteParPosition(String(i + 1), this.x - (this.rang + 1) * this.taille / 2, this.y - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 0, 'blue', 0.5, 'milieu', false, 0.2) as TexteParPoint
+      lettre = texteParPosition(
+        lettreDepuisChiffre(1 + i),
+        this.x -
+          (this.rang * this.taille) / 2 +
+          ((2 * i + 1) * this.taille) / 2,
+        this.y - ((this.rang + 1) * this.taille) / 2,
+        0,
+        'blue',
+        0.5,
+        'milieu',
+        false,
+        0.2,
+      ) as TexteParPoint
+      chiffre = texteParPosition(
+        String(i + 1),
+        this.x - ((this.rang + 1) * this.taille) / 2,
+        this.y -
+          (this.rang * this.taille) / 2 +
+          ((2 * i + 1) * this.taille) / 2,
+        0,
+        'blue',
+        0.5,
+        'milieu',
+        false,
+        0.2,
+      ) as TexteParPoint
       lettre.taille = 10 * this.taille
       chiffre.taille = 10 * this.taille
       objets.push(lettre)
@@ -132,7 +204,7 @@ export class CibleCarree extends ObjetMathalea2D {
     this.objets = objets
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -141,7 +213,7 @@ export class CibleCarree extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -170,7 +242,7 @@ export class CibleCarree extends ObjetMathalea2D {
  * @return {CibleCarree}
  */
 // JSDOC Validee par EE Juin 2022
-export function cibleCarree ({
+export function cibleCarree({
   x = 0,
   y = 0,
   rang = 4,
@@ -179,9 +251,29 @@ export function cibleCarree ({
   color = 'gray',
   opacite = 0.5,
   colorNum = color,
-  opaciteNum = 1
-}: { x?: number, y?: number, rang?: number, num?: number, taille?: number, color?: string, opacite?: number, colorNum?: string, opaciteNum?: number } = {}) {
-  return new CibleCarree({ x, y, rang, num, taille, color, opacite, colorNum, opaciteNum })
+  opaciteNum = 1,
+}: {
+  x?: number
+  y?: number
+  rang?: number
+  num?: number
+  taille?: number
+  color?: string
+  opacite?: number
+  colorNum?: string
+  opaciteNum?: number
+} = {}) {
+  return new CibleCarree({
+    x,
+    y,
+    rang,
+    num,
+    taille,
+    color,
+    opacite,
+    colorNum,
+    opaciteNum,
+  })
 }
 
 /**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
@@ -196,7 +288,13 @@ export function cibleCarree ({
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Aout 2022
-export function dansLaCibleRonde (x: number, y:number, rang:number, taille:number, cellule:string) {
+export function dansLaCibleRonde(
+  x: number,
+  y: number,
+  rang: number,
+  taille: number,
+  cellule: string,
+) {
   const lettre = cellule[0]
   const chiffrelettre = lettre.charCodeAt(0) - 64
   const chiffre = parseInt(cellule[1])
@@ -208,7 +306,7 @@ export function dansLaCibleRonde (x: number, y:number, rang:number, taille:numbe
   P.x += x
   P.y += y
   if (chiffre > rang || chiffrelettre > 8) {
-    console.error('Cette cellule n\'existe pas dans la cible')
+    console.error("Cette cellule n'existe pas dans la cible")
     return [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]
   } else {
     return [P.x, P.y]
@@ -241,7 +339,23 @@ export class CibleRonde extends ObjetMathalea2D {
   y: number
   rang: number
   taille: number
-  constructor ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }: { x?: number, y?: number, rang?: number, num?: number, taille?: number, color?: string, opacite?: number }) {
+  constructor({
+    x = 0,
+    y = 0,
+    rang = 3,
+    num = 1,
+    taille = 0.3,
+    color = 'gray',
+    opacite = 0.5,
+  }: {
+    x?: number
+    y?: number
+    rang?: number
+    num?: number
+    taille?: number
+    color?: string
+    opacite?: number
+  }) {
     super()
     this.objets = []
     this.stringColor = color
@@ -256,27 +370,52 @@ export class CibleRonde extends ObjetMathalea2D {
     const centre = point(this.x, this.y)
     const azimut = point(this.x + this.rang * this.taille, this.y)
     // objets.push(labelPoint(centre))
-    const azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 0.3)
-    this.bordures = [this.x - this.rang * this.taille - 1, this.y - this.rang * this.taille - 1, this.x + this.rang * this.taille + 1, this.y + this.rang * this.taille + 1]
+    const azimut2 = pointSurSegment(
+      centre,
+      azimut,
+      longueur(centre, azimut) + 0.3,
+    )
+    this.bordures = [
+      this.x - this.rang * this.taille - 1,
+      this.y - this.rang * this.taille - 1,
+      this.x + this.rang * this.taille + 1,
+      this.y + this.rang * this.taille + 1,
+    ]
     for (let i = 0; i < 8; i++) {
-      rayon = segment(centre, rotation(azimut, centre, 45 * i), this.stringColor)
+      rayon = segment(
+        centre,
+        rotation(azimut, centre, 45 * i),
+        this.stringColor,
+      )
       rayon.opacite = this.opacite
       this.objets.push(rayon)
-      this.objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 0))
+      this.objets.push(
+        texteParPoint(
+          lettreDepuisChiffre(1 + i),
+          rotation(azimut2, centre, 45 * i + 22.5),
+          0,
+        ),
+      )
     }
     for (let i = 0; i < this.rang; i++) {
       c = cercle(centre, arrondi(this.taille * (1 + i)), this.stringColor)
       c.opacite = this.opacite
       this.objets.push(c)
     }
-    const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, this.stringColor) as TexteParPoint
+    const numero = texteParPosition(
+      nombreAvecEspace(num),
+      this.x,
+      this.y,
+      0,
+      this.stringColor,
+    ) as TexteParPoint
     numero.opacite = 0.5
     numero.taille = 30
     numero.contour = true
     this.objets.push(numero)
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -285,7 +424,7 @@ export class CibleRonde extends ObjetMathalea2D {
     return code
   }
 
-  ttikz () {
+  ttikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -311,9 +450,23 @@ export class CibleRonde extends ObjetMathalea2D {
  * @return {CibleRonde}
  */
 // JSDOC Validee par EE Juin 2022
-export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }:
-{ x?: number, y?: number, rang?: number, num?: number, taille?: number, color?: string, opacite?: number } = {}
-) {
+export function cibleRonde({
+  x = 0,
+  y = 0,
+  rang = 3,
+  num = 1,
+  taille = 0.3,
+  color = 'gray',
+  opacite = 0.5,
+}: {
+  x?: number
+  y?: number
+  rang?: number
+  num?: number
+  taille?: number
+  color?: string
+  opacite?: number
+} = {}) {
   return new CibleRonde({ x, y, rang, num, taille, color, opacite })
 }
 
@@ -352,7 +505,7 @@ export class CibleCouronne extends ObjetMathalea2D {
   objets: any[] = []
   stringColor: string
 
-  constructor ({
+  constructor({
     x = 0,
     y = 0,
     taille = 5,
@@ -363,8 +516,20 @@ export class CibleCouronne extends ObjetMathalea2D {
     semi = false,
     label = true,
     color = 'gray',
-    opacite = 0.5
-  }: { x?: number, y?: number, taille?: number, taille2?: number, depart?: number, nbDivisions?: number, nbSubDivisions?: number, semi?: boolean, label?: boolean, color?: string, opacite?: number } = {}) {
+    opacite = 0.5,
+  }: {
+    x?: number
+    y?: number
+    taille?: number
+    taille2?: number
+    depart?: number
+    nbDivisions?: number
+    nbSubDivisions?: number
+    semi?: boolean
+    label?: boolean
+    color?: string
+    opacite?: number
+  } = {}) {
     super()
     this.x = x
     this.stringColor = color
@@ -380,21 +545,52 @@ export class CibleCouronne extends ObjetMathalea2D {
     const arcPlein = semi ? 180 : 360
     const centre = point(this.x, this.y)
     azimut = rotation(point(this.x + this.taille, this.y), centre, this.depart)
-    let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + this.taille2)
+    let azimut2 = pointSurSegment(
+      centre,
+      azimut,
+      longueur(centre, azimut) + this.taille2,
+    )
     const rayons = []
-    const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', this.stringColor)
-    const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', this.stringColor)
+    const arc1 = arc(
+      azimut,
+      centre,
+      arcPlein - 0.1,
+      false,
+      'none',
+      this.stringColor,
+    )
+    const arc2 = arc(
+      azimut2,
+      centre,
+      arcPlein - 0.1,
+      false,
+      'none',
+      this.stringColor,
+    )
     rayon = segment(azimut, azimut2)
     this.objets.push(arc1, arc2, rayon)
     for (let i = 0; i < nbDivisions; i++) {
       for (let j = 1; j < nbSubDivisions; j++) {
-        rayons[j - 1] = rotation(rayon, centre, j * arcPlein / nbDivisions / nbSubDivisions, this.stringColor)
+        rayons[j - 1] = rotation(
+          rayon,
+          centre,
+          (j * arcPlein) / nbDivisions / nbSubDivisions,
+          this.stringColor,
+        )
         rayons[j - 1].pointilles = 5
         rayons[j - 1].opacite = this.opacite
         this.objets.push(rayons[j - 1])
       }
       if (label) {
-        numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 0, 'black', 1, 'milieu', true)
+        numero = texteParPoint(
+          lettreDepuisChiffre(1 + i),
+          rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2),
+          0,
+          'black',
+          1,
+          'milieu',
+          true,
+        )
         numero.contour = true
         this.objets.push(numero)
       }
@@ -408,10 +604,15 @@ export class CibleCouronne extends ObjetMathalea2D {
     if (semi) {
       this.objets.push(rayon)
     }
-    this.bordures = [this.x - taille - 1, this.y - this.taille - 1, this.x + this.taille + 1, this.y + this.taille + 1]
+    this.bordures = [
+      this.x - taille - 1,
+      this.y - this.taille - 1,
+      this.x + this.taille + 1,
+      this.y + this.taille + 1,
+    ]
   }
 
-  svg (coeff:number) {
+  svg(coeff: number) {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -420,7 +621,7 @@ export class CibleCouronne extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
@@ -453,7 +654,7 @@ export class CibleCouronne extends ObjetMathalea2D {
  * @return {CibleCouronne}
  */
 // JSDOC Validee par EE Juin 2022
-export function cibleCouronne ({
+export function cibleCouronne({
   x = 0,
   y = 0,
   taille = 5,
@@ -464,7 +665,19 @@ export function cibleCouronne ({
   semi = false,
   label = true,
   color = 'gray',
-  opacite = 0.5
+  opacite = 0.5,
 }) {
-  return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label, color, opacite })
+  return new CibleCouronne({
+    x,
+    y,
+    taille,
+    taille2,
+    depart,
+    nbDivisions,
+    nbSubDivisions,
+    semi,
+    label,
+    color,
+    opacite,
+  })
 }

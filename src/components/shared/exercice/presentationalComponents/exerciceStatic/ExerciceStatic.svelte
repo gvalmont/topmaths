@@ -1,10 +1,16 @@
 <script lang="ts">
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import { retrieveResourceFromUuid } from '../../../../../lib/components/refUtils'
-  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType, isStaticWithoutPngUrl } from '../../../../../lib/types/referentiels'
+  import {
+    resourceHasPlace,
+    isStaticType,
+    type JSONReferentielObject,
+    isCrpeType,
+    isStaticWithoutPngUrl,
+  } from '../../../../../lib/types/referentiels'
   /**
    * Gestion du référentiel pour la recherche de l'uuid
-  */
+   */
   import referentielStaticFR from '../../../../../json/referentielStaticFR.json'
   import referentielStaticCH from '../../../../../json/referentielStaticCH.json'
 
@@ -14,7 +20,7 @@
   const allStaticReferentiels: JSONReferentielObject = {
     ...referentielBibliotheque,
     ...referentielStaticFR,
-    ...referentielStaticCH
+    ...referentielStaticCH,
   }
   // on supprime les entrées par thème qui entraîne des doublons
   delete allStaticReferentiels['Brevet des collèges par thème - APMEP']
@@ -35,15 +41,22 @@
     foundResource.png = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
     foundResource.pngCor = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
   }
-  const resourceToDisplay = isStaticType(foundResource) || isCrpeType(foundResource)
-    ? { ...foundResource }
-    : null
+  const resourceToDisplay =
+    isStaticType(foundResource) || isCrpeType(foundResource)
+      ? { ...foundResource }
+      : null
   const exercice =
     resourceToDisplay === null
       ? null
       : {
-          png: typeof resourceToDisplay.png === 'string' ? [resourceToDisplay.png] : resourceToDisplay.png,
-          pngCor: typeof resourceToDisplay.pngCor === 'string' ? [resourceToDisplay.pngCor] : resourceToDisplay.pngCor
+          png:
+            typeof resourceToDisplay.png === 'string'
+              ? [resourceToDisplay.png]
+              : resourceToDisplay.png,
+          pngCor:
+            typeof resourceToDisplay.pngCor === 'string'
+              ? [resourceToDisplay.pngCor]
+              : resourceToDisplay.pngCor,
         }
   let isCorrectionVisible = false
   let isContentVisible = true
@@ -59,7 +72,7 @@
       indiceExercice,
       indiceLastExercice,
       randomReady: false,
-      correctionReady: isSolutionAccessible
+      correctionReady: isSolutionAccessible,
     }
     if (resourceHasPlace(resourceToDisplay)) {
       headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} ${
@@ -72,20 +85,22 @@
 
   let noCorrectionAvailable = false
 
-  function handleNoCorrectionAvailable () {
+  function handleNoCorrectionAvailable() {
     noCorrectionAvailable = true
   }
 </script>
 
 <HeaderExerciceVueProf
-  {...headerExerciceProps}{indiceExercice}{indiceLastExercice}
-  on:clickCorrection={(event) => {
+  {...headerExerciceProps}
+  {indiceExercice}
+  {indiceLastExercice}
+  on:clickCorrection="{(event) => {
     isCorrectionVisible = event.detail.isCorrectionVisible
-  }}
-  on:clickVisible={(event) => {
+  }}"
+  on:clickVisible="{(event) => {
     isContentVisible = event.detail.isVisible
     isCorrectionVisible = event.detail.isVisible
-  }}
+  }}"
   on:exerciseRemoved
 />
 
@@ -93,7 +108,12 @@
   {#if isContentVisible}
     {#if exercice}
       {#each exercice.png as url}
-        <img src={url} class="mb-6" style="width: calc(100% * {zoomFactor}" alt="énoncé" />
+        <img
+          src="{url}"
+          class="mb-6"
+          style="width: calc(100% * {zoomFactor}"
+          alt="énoncé"
+        />
       {/each}
     {/if}
   {/if}
@@ -110,13 +130,13 @@
               <p class="text-red-500">Aucune correction disponible</p>
             {:else}
               <img
-              src={url}
-              class="p-2"
-              style="width: calc(100% * {zoomFactor}"
-              alt="correction"
-              on:error={handleNoCorrectionAvailable}
+                src="{url}"
+                class="p-2"
+                style="width: calc(100% * {zoomFactor}"
+                alt="correction"
+                on:error="{handleNoCorrectionAvailable}"
               />
-              {/if}
+            {/if}
           {/each}
         {/if}
       </div>
@@ -128,7 +148,7 @@
       </div>
       <div
         class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
-      />
+      ></div>
     </div>
   {/if}
 </div>

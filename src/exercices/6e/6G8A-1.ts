@@ -2,7 +2,10 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-import { canvasEnonceCorrection, empilementCubes } from '../../lib/3d/3d_dynamique/empilementsCube'
+import {
+  canvasEnonceCorrection,
+  empilementCubes,
+} from '../../lib/3d/3d_dynamique/empilementsCube'
 import { createCubesProjections } from '../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -29,14 +32,26 @@ export const uuid = '5f115'
 export const refs = {
   'fr-fr': ['6G8A-1'],
   'fr-2016': ['6G43'],
-  'fr-ch': ['9ES7-6']
+  'fr-ch': ['9ES7-6'],
 }
 export default class DenombrerCubes extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
-    this.besoinFormulaire4Numerique = ['Volume', 2, '1 : Volume en cubes\n2 : Volume en cm³\n']
-    this.besoinFormulaire2Numerique = ["Taille de l'empilement", 5, 'De taille 3\nDe taille 4\nDe taille 5\nDe taille 6\nDe taille 7']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      3,
+      '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Volume',
+      2,
+      '1 : Volume en cubes\n2 : Volume en cm³\n',
+    ]
+    this.besoinFormulaire2Numerique = [
+      "Taille de l'empilement",
+      5,
+      'De taille 3\nDe taille 4\nDe taille 5\nDe taille 6\nDe taille 7',
+    ]
     this.besoinFormulaire3CaseACocher = ['3D dynamique', false]
     this.sup3 = false
     this.nbQuestions = 3 // Ici le nombre de questions
@@ -46,7 +61,7 @@ export default class DenombrerCubes extends Exercice {
     // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles: number[] = [] // tableau à compléter par valeurs possibles des types de questions
     switch (this.sup) {
       case 1:
@@ -61,46 +76,73 @@ export default class DenombrerCubes extends Exercice {
     }
     const unitesCubes = this.sup4 === 1
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     const longueur = 2 + parseInt(this.sup2) // longueur de l'empilement
     const largeur = longueur // largeur de l'empilement
     const hauteur = longueur // hauteur de l'empilement
 
-    for (let q = 0, texte, texteCorr, cpt = 0; q < this.nbQuestions && cpt < 50;) {
+    for (
+      let q = 0, texte, texteCorr, cpt = 0;
+      q < this.nbQuestions && cpt < 50;
+
+    ) {
       let figure, figureCorrection
       const L = empilementCubes(longueur, largeur, hauteur) // crée un empilement aléatoire
       texteCorr = '' // Idem pour le texte de la correction.
 
-      if (!this.sup3 || !context.isHtml) { // 3d Iso avec Mathalea2d
-        texte = 'Un empilement de cubes est représenté ci-dessous sous deux angles différents. <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
-        ; ({ figure, figureCorrection } = createCubesProjections(L, largeur, longueur, hauteur))
-      } else { // 3d dynamique avec Canvas3DElement
-        texte = 'Un empilement de cubes est représenté ci-dessous (on peut faire tourner l\'empilement en plein écran). <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
-        ; ({ canvasEnonce: figure, canvasCorrection: figureCorrection } = canvasEnonceCorrection(L, `scene3dEx${this.numeroExercice}Q${q}`))
+      if (!this.sup3 || !context.isHtml) {
+        // 3d Iso avec Mathalea2d
+        texte =
+          'Un empilement de cubes est représenté ci-dessous sous deux angles différents. <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
+        ;({ figure, figureCorrection } = createCubesProjections(
+          L,
+          largeur,
+          longueur,
+          hauteur,
+        ))
+      } else {
+        // 3d dynamique avec Canvas3DElement
+        texte =
+          "Un empilement de cubes est représenté ci-dessous (on peut faire tourner l'empilement en plein écran). <br>" // Nous utilisons souvent cette variable pour construire le texte de la question.
+        ;({ canvasEnonce: figure, canvasCorrection: figureCorrection } =
+          canvasEnonceCorrection(L, `scene3dEx${this.numeroExercice}Q${q}`))
       }
       // début de l'exercice
       texte += unitesCubes
-        ? 'L\'unité de volume étant le cube, '
+        ? "L'unité de volume étant le cube, "
         : 'Les cubes ayant des arêtes de $1\\text{cm}$ de longueur, '
       switch (listeTypeDeQuestions[q]) {
         case 1:
           texte += unitesCubes
-            ? 'combien de petits cubes contient cet empilement de cubes ?' + ajouteChampTexteMathLive(this, q, '')
-            : 'quel est le volume en $\\text{cm}^3$ de cet empilement de cubes ?' + ajouteChampTexteMathLive(this, q, KeyboardType.volume)
+            ? 'combien de petits cubes contient cet empilement de cubes ?' +
+              ajouteChampTexteMathLive(this, q, '')
+            : 'quel est le volume en $\\text{cm}^3$ de cet empilement de cubes ?' +
+              ajouteChampTexteMathLive(this, q, KeyboardType.volume)
           texte += '<br>' + figure
           // correction :
           texteCorr += "On peut représenter l'empilement par tranches : <br>"
           texteCorr += figureCorrection + '<br>'
           texteCorr += `Il y a au total ${L.length} cubes.`
-          handleAnswers(this, q, { reponse: { value: L.length, options: unitesCubes ? {} : { unite: true } } })
+          handleAnswers(this, q, {
+            reponse: {
+              value: L.length,
+              options: unitesCubes ? {} : { unite: true },
+            },
+          })
           break
         case 2:
           texte += unitesCubes
-            ? `combien de petits cubes manque-t-il pour reconstruire un grand cube de $${longueur}\\text{cm}$ d'arête ?` + ajouteChampTexteMathLive(this, q, '')
-            : `quel volume en $\\text{cm}^3$ manque-t-il pour reconstruire un cube de $${longueur}\\text{cm}$ d'arête ?` + ajouteChampTexteMathLive(this, q, KeyboardType.volume)
+            ? `combien de petits cubes manque-t-il pour reconstruire un grand cube de $${longueur}\\text{cm}$ d'arête ?` +
+              ajouteChampTexteMathLive(this, q, '')
+            : `quel volume en $\\text{cm}^3$ manque-t-il pour reconstruire un cube de $${longueur}\\text{cm}$ d'arête ?` +
+              ajouteChampTexteMathLive(this, q, KeyboardType.volume)
           texte += '<br>' + figure
           // correction :
-          texteCorr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
+          texteCorr +=
+            "On peut, par exemple, représenter l'empilement par tranches : <br>"
           texteCorr += figureCorrection + '<br>'
           texteCorr += unitesCubes
             ? `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur * largeur * hauteur}$. <br>`
@@ -108,10 +150,16 @@ export default class DenombrerCubes extends Exercice {
           texteCorr += unitesCubes
             ? `Il manque $${longueur * largeur * hauteur - L.length}$ cubes.`
             : `Il manque $${longueur * largeur * hauteur - L.length}$ cm³.`
-          handleAnswers(this, q, { reponse: { value: longueur * largeur * hauteur - L.length, options: unitesCubes ? {} : { unite: true } } })
+          handleAnswers(this, q, {
+            reponse: {
+              value: longueur * largeur * hauteur - L.length,
+              options: unitesCubes ? {} : { unite: true },
+            },
+          })
           break
       }
-      if (this.questionJamaisPosee(q, JSON.stringify(L))) { // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+      if (this.questionJamaisPosee(q, JSON.stringify(L))) {
+        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[q] = texte
         this.listeCorrections[q] = texteCorr

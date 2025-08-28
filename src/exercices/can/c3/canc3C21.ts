@@ -16,21 +16,31 @@ export const uuid = '416xx'
 
 export const refs = {
   'fr-fr': ['canc3C21'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AjouterDizainesAUnPres extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.sup = '5'
     this.nbQuestions = 1
     this.spacing = 1.5
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.besoinFormulaireTexte = ['Types de questions\nNombres séparés par des tirets :', '1: ajouter 9 ou 99\n2: soustraire 9 ou 99\n3: ajouter x9\n4: soustraire x9\n5: ajouter xx9\n6: soustraire xx9\n7: mélange']
+    this.besoinFormulaireTexte = [
+      'Types de questions\nNombres séparés par des tirets :',
+      '1: ajouter 9 ou 99\n2: soustraire 9 ou 99\n3: ajouter x9\n4: soustraire x9\n5: ajouter xx9\n6: soustraire xx9\n7: mélange',
+    ]
   }
 
-  nouvelleVersion () {
-    const typeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    const typeDeQuestion = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 6,
+      melange: 7,
+      defaut: 7,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let nb1: number
       let nb2: number
       let enonce: string
@@ -89,7 +99,12 @@ export default class AjouterDizainesAUnPres extends Exercice {
         &=${nb1 - nb2 - 1}+1\\\\
         &=${miseEnEvidence(reponse)}\\end{aligned}$`
       }
-      enonce += ajouteQuestionMathlive({ exercice: this, question: i, typeInteractivite: 'mathlive', objetReponse: { reponse: { value: reponse } } })
+      enonce += ajouteQuestionMathlive({
+        exercice: this,
+        question: i,
+        typeInteractivite: 'mathlive',
+        objetReponse: { reponse: { value: reponse } },
+      })
       if (this.questionJamaisPosee(i, nb1, nb2, typeDeQuestion[i])) {
         this.listeQuestions.push(enonce)
         this.listeCorrections.push(correction)

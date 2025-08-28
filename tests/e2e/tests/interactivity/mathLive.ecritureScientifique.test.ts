@@ -1,11 +1,19 @@
 import Decimal from 'decimal.js'
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs.js'
 
-async function test (page: Page) {
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  const urlExercice = hostname + '?uuid=a0d16&id=4C32&n=20&d=10&s=1&s2=3&alea=N1tD&i=1&cd=1'
+async function test(page: Page) {
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
+  const urlExercice =
+    hostname + '?uuid=a0d16&id=4C32&n=20&d=10&s=1&s2=3&alea=N1tD&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {

@@ -20,10 +20,10 @@ export const uuid = '4a157'
 
 export const refs = {
   'fr-fr': ['can6C45'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProblemeSoustractionDivision extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -31,7 +31,7 @@ export default class ProblemeSoustractionDivision extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 10)
     const b = choice([50, 100])
     const c = randint(2, 10)

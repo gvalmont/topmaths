@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
 export const uuid = '698bb'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025CM2Q19 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -26,7 +26,7 @@ export default class Can2025CM2Q19 extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const num1 = this.canOfficielle ? 38 : randint(31, 39)
     const num3 = this.canOfficielle ? 4 : randint(4, 5)
     const num2 = num3 * 10 - num1

@@ -11,22 +11,52 @@ export const interactifType = 'mathLive'
 export const uuid = 'f34d0'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 const objets = [
-  { sing: 'un paquet de gâteaux', plur: 'paquets de gâteaux', pMin: 3, pMax: 5, nbMax: 8 },
-  { sing: 'une brioche au chocolat', plur: 'brioches au chocolat', pMin: 2, pMax: 3, nbMax: 9 },
-  { sing: 'une barbe à papa', plur: 'barbes à papa', pMin: 2, pMax: 5, nbMax: 4 },
-  { sing: 'une bouteille de jus de fruit', plur: 'bouteilles de jus de fruit', pMin: 2, pMax: 4, nbMax: 8 },
-  { sing: 'une place de cinéma', plur: 'places de cinéma', pMin: 7, pMax: 10, nbMax: 5 }
+  {
+    sing: 'un paquet de gâteaux',
+    plur: 'paquets de gâteaux',
+    pMin: 3,
+    pMax: 5,
+    nbMax: 8,
+  },
+  {
+    sing: 'une brioche au chocolat',
+    plur: 'brioches au chocolat',
+    pMin: 2,
+    pMax: 3,
+    nbMax: 9,
+  },
+  {
+    sing: 'une barbe à papa',
+    plur: 'barbes à papa',
+    pMin: 2,
+    pMax: 5,
+    nbMax: 4,
+  },
+  {
+    sing: 'une bouteille de jus de fruit',
+    plur: 'bouteilles de jus de fruit',
+    pMin: 2,
+    pMax: 4,
+    nbMax: 8,
+  },
+  {
+    sing: 'une place de cinéma',
+    plur: 'places de cinéma',
+    pMin: 7,
+    pMax: 10,
+    nbMax: 5,
+  },
 ]
 /**
  * @author Jean-Claude Lhote
 
 */
 export default class Can2025CE2Q6 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     let quidam = 'Tom'
     let sexe = 'M'
     const objet = c != null ? objets[c] : choice(objets)
@@ -51,7 +81,7 @@ export default class Can2025CE2Q6 extends ExerciceCan {
     this.canEnonce = this.question
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(4, 32, 0) : this.enonce()
   }
 }

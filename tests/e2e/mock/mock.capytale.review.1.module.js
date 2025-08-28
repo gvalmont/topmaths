@@ -16,7 +16,7 @@ const rpc = new RPC({
   serviceId,
 
   // Optionally, allowlist the origin you want to talk to:
-  origin: '*'
+  origin: '*',
 })
 
 const activityParams = {
@@ -28,13 +28,13 @@ const activityParams = {
         uuid: '51242',
         id: 'canc3D04',
         interactif: '1',
-        alea: 'stG6'
+        alea: 'stG6',
       },
       {
         uuid: '6225c',
         id: '6M23',
         interactif: '1',
-        alea: 'Qlfa'
+        alea: 'Qlfa',
       },
       {
         uuid: '6225c',
@@ -47,13 +47,13 @@ const activityParams = {
         sup3: '2',
         sup4: 'false',
         cd: '1',
-        alea: '4JMh'
+        alea: '4JMh',
       },
       {
         uuid: 'f8dee',
         id: '6G2B',
         interactif: '1',
-        alea: 'XEP0'
+        alea: 'XEP0',
       },
       {
         uuid: '83763',
@@ -62,13 +62,13 @@ const activityParams = {
         nbQuestions: 2,
         duration: 10,
         cd: '1',
-        alea: 'AJha'
+        alea: 'AJha',
       },
       {
         uuid: 'e6f62',
         id: '6C13-2',
         interactif: '1',
-        alea: 'fdfj'
+        alea: 'fdfj',
       },
       {
         uuid: '0688e',
@@ -81,8 +81,8 @@ const activityParams = {
         sup3: '1',
         sup4: 'true',
         cd: '1',
-        alea: 'gFXm'
-      }
+        alea: 'gFXm',
+      },
     ],
     globalOptions: {
       v: '',
@@ -106,7 +106,7 @@ const activityParams = {
       recorder: 'capytale',
       beta: false,
       iframe: '',
-      answers: ''
+      answers: '',
     },
     canOptions: {
       durationInMinutes: 540,
@@ -117,22 +117,22 @@ const activityParams = {
       isInteractive: true,
       remainingTimeInSeconds: 0,
       questionGetAnswer: [],
-      state: 'start'
-    }
+      state: 'start',
+    },
   },
   studentAssignment: [
     {
       uuid: '51242',
-      title: 'Indiquer l\'heure sur une horloge',
+      title: "Indiquer l'heure sur une horloge",
       indice: 0,
       state: 'done',
       alea: 'stG6',
       answers: {
-        clockEx0Q0: '8h10'
+        clockEx0Q0: '8h10',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
-      bestScore: 1
+      bestScore: 1,
     },
     {
       uuid: '6225c',
@@ -145,11 +145,11 @@ const activityParams = {
         Ex1Q0R1: '0',
         Ex1Q0R2: '0',
         Ex1Q0R3: '1',
-        Ex1Q0R4: '0'
+        Ex1Q0R4: '0',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
-      bestScore: 1
+      bestScore: 1,
     },
     {
       uuid: '6225c',
@@ -158,11 +158,11 @@ const activityParams = {
       state: 'done',
       alea: '4JMh',
       answers: {
-        Ex2Q0: '600000'
+        Ex2Q0: '600000',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
-      bestScore: 1
+      bestScore: 1,
     },
     {
       uuid: 'f8dee',
@@ -208,7 +208,7 @@ const activityParams = {
             tmpFillOpacity: 0.2,
             tmpIsDashed: true,
             tmpThickness: 1,
-            tmpShape: 'x'
+            tmpShape: 'x',
           },
           point1: {
             color: 'currentColor',
@@ -227,7 +227,7 @@ const activityParams = {
             shape: 'x',
             sizeInPixels: 5,
             x: 1,
-            y: 2
+            y: 2,
           },
           point2: {
             color: 'currentColor',
@@ -246,7 +246,7 @@ const activityParams = {
             shape: 'x',
             sizeInPixels: 5,
             x: -3,
-            y: 2
+            y: 2,
           },
           element0: {
             color: 'blue',
@@ -261,7 +261,7 @@ const activityParams = {
             fillColor: 'none',
             fillOpacity: 0.2,
             idCenter: 'point1',
-            radius: '3.7'
+            radius: '3.7',
           },
           element1: {
             color: 'red',
@@ -276,13 +276,13 @@ const activityParams = {
             fillColor: 'red',
             fillOpacity: 0.2,
             idCenter: 'point2',
-            radius: '5'
-          }
-        })
+            radius: '5',
+          },
+        }),
       },
       numberOfPoints: 2,
       numberOfQuestions: 2,
-      bestScore: 2
+      bestScore: 2,
     },
     {
       uuid: '83763',
@@ -292,11 +292,11 @@ const activityParams = {
       alea: 'AJha',
       answers: {
         cliquefigure0Ex4Q0: '1',
-        cliquefigure3Ex4Q1: '1'
+        cliquefigure3Ex4Q1: '1',
       },
       numberOfPoints: 2,
       numberOfQuestions: 2,
-      bestScore: 2
+      bestScore: 2,
     },
     {
       uuid: 'e6f62',
@@ -308,11 +308,11 @@ const activityParams = {
         ex5Q0: 'produit',
         ex5Q1: 'somme',
         ex5Q2: 'différence',
-        ex5Q3: 'quotient'
+        ex5Q3: 'quotient',
       },
       numberOfPoints: 4,
       numberOfQuestions: 4,
-      bestScore: 4
+      bestScore: 4,
     },
     {
       uuid: '0688e',
@@ -321,13 +321,14 @@ const activityParams = {
       state: 'done',
       alea: 'gFXm',
       answers: {
-        rectangleDNDEx6Q0R1: 'etiquetteEx6Q0I23-clone-1740911812656;etiquetteEx6Q0I12-clone-1740911816311;etiquetteEx6Q0I7-clone-1740911820479;etiquetteEx6Q0I12-clone-1740911825887;etiquetteEx6Q0I22-clone-1740911829543;etiquetteEx6Q0I12-clone-1740911834455;etiquetteEx6Q0I41-clone-1740911838551;etiquetteEx6Q0I12-clone-1740911841007;etiquetteEx6Q0I37-clone-1740911842831;etiquetteEx6Q0I12-clone-1740911845127;etiquetteEx6Q0I21-clone-1740911849720'
+        rectangleDNDEx6Q0R1:
+          'etiquetteEx6Q0I23-clone-1740911812656;etiquetteEx6Q0I12-clone-1740911816311;etiquetteEx6Q0I7-clone-1740911820479;etiquetteEx6Q0I12-clone-1740911825887;etiquetteEx6Q0I22-clone-1740911829543;etiquetteEx6Q0I12-clone-1740911834455;etiquetteEx6Q0I41-clone-1740911838551;etiquetteEx6Q0I12-clone-1740911841007;etiquetteEx6Q0I37-clone-1740911842831;etiquetteEx6Q0I12-clone-1740911845127;etiquetteEx6Q0I21-clone-1740911849720',
       },
       numberOfPoints: 1,
       numberOfQuestions: 1,
-      bestScore: 1
-    }
-  ]
+      bestScore: 1,
+    },
+  ],
 }
 
 rpc.expose('toolGetActivityParams', () => activityParams)

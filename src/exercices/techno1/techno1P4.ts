@@ -18,10 +18,10 @@ export const uuid = 'f0c23'
 
 export const refs = {
   'fr-fr': ['techno1P4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProportiondeProportion extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,9 +29,18 @@ export default class ProportiondeProportion extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' %' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, g, tauxb, tauxc, tauxG
-    switch (choice(['association', 'lycee', 'lyceeBis', 'election', 'associationBis', 'electionBis'])) { //
+    switch (
+      choice([
+        'association',
+        'lycee',
+        'lyceeBis',
+        'election',
+        'associationBis',
+        'electionBis',
+      ]) //
+    ) {
       case 'association':
         b = randint(3, 80)
         tauxb = b / 100
@@ -39,8 +48,8 @@ export default class ProportiondeProportion extends ExerciceSimple {
         c = randint(20, 50)
         tauxc = c / 100
         d = randint(2, 15)
-        g = b * c / 100
-        tauxG = b * c / 10000
+        g = (b * c) / 100
+        tauxG = (b * c) / 10000
 
         this.question = `Dans une association,  $${b}\\,\\%$ des adhérents ont plus de $${a}$ ans. <br>
         Parmi eux,   $${c}\\,\\%$ ont plus de $${d}$ années d'ancienneté.<br>
@@ -61,8 +70,8 @@ export default class ProportiondeProportion extends ExerciceSimple {
         c = randint(20, 50)
         tauxc = c / 100
         d = randint(3, 15)
-        g = b * c / 100
-        tauxG = b * c / 10000
+        g = (b * c) / 100
+        tauxG = (b * c) / 10000
 
         this.question = `Dans une association,  $${b}\\,\\%$ des adhérents ont plus de  $${a}$ ans. <br>
        On dénombre également dans cette association  $${texNombre(g, 2)}\\,\\%$ d'adhérents de  plus $${a}$ ans ayant plus de $${d}$ années d'ancienneté.<br>
@@ -84,8 +93,8 @@ export default class ProportiondeProportion extends ExerciceSimple {
         a = randint(20, 50)
         c = randint(10, 70)
         tauxc = c / 100
-        g = b * c / 100
-        tauxG = b * c / 10000
+        g = (b * c) / 100
+        tauxG = (b * c) / 10000
         this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première. <br>
             Parmi eux,   $${c}\\,\\%$ sont en filière technologique.<br>
             Quel est le pourcentage d'élèves en première technologique de ce lycée ?<br>`
@@ -103,8 +112,8 @@ export default class ProportiondeProportion extends ExerciceSimple {
         a = randint(20, 50)
         c = randint(10, 70)
         tauxc = c / 100
-        g = b * c / 100
-        tauxG = b * c / 10000
+        g = (b * c) / 100
+        tauxG = (b * c) / 10000
         this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première et  $${texNombre(g, 2)}\\,\\%$ des lycéens sont en première technologique.<br>
               Quel est le pourcentage d'élèves en première technologique parmi les élèves du lycée ?<br>`
         this.correction = `La population de référence est celle des élèves du lycée.<br>
@@ -124,8 +133,8 @@ export default class ProportiondeProportion extends ExerciceSimple {
         a = randint(20, 50)
         c = randint(10, 70)
         tauxc = c / 100
-        g = b * c / 100
-        tauxG = b * c / 10000
+        g = (b * c) / 100
+        tauxG = (b * c) / 10000
 
         this.question = `Lors d'une élection,  la participation (suffrages exprimés) a été de $${b}\\,\\%$ des inscrits.<br>
                Un candidat a obtenu   $${c}\\,\\%$ des suffrages exprimés.<br>
@@ -145,8 +154,8 @@ export default class ProportiondeProportion extends ExerciceSimple {
         a = randint(20, 50)
         c = randint(10, 70)
         tauxc = c / 100
-        g = b * c / 100
-        tauxG = b * c / 10000
+        g = (b * c) / 100
+        tauxG = (b * c) / 10000
 
         this.question = `Lors d'une élection,  la participation (suffrages exprimés) a été de $${b}\\,\\%$ des inscrits.<br>
         Un candidat a obtenu $${texNombre(g, 2)}\\,\\%$ de voix parmi les inscrits.<br>

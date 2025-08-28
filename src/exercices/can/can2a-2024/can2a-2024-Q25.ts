@@ -14,18 +14,19 @@ export const uuid = '7e2a2'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
 
     this.compare = expressionDeveloppeeEtNonReduiteCompare
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 'x^2-8x+16'
       this.question = ' Développer $(x-4)^2$.<br>' // (x+a)²

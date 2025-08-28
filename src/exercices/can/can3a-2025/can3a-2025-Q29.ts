@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '14a1a'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class PrixApresReduction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,7 +28,7 @@ export default class PrixApresReduction extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '<br>', texteApres: 'euros.' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 150 : randint(9, 15) * 10
 
     const b = this.canOfficielle ? 20 : choice([20, 30, 40])
@@ -43,10 +43,10 @@ export default class PrixApresReduction extends ExerciceSimple {
         Pour calculer $${b}\\,\\%$  d'une quantité, on commence par calculer $10\\,\\%$  en divisant
         par $10$ :<br> $10\\,\\%$  de $${a}$ est égal à $${a}\\div 10=${texNombre(a / 10, 0)}$.<br>
         $${b}\\,\\%$  de $${a}$ est donc égal à $ ${texNombre(a / 10, 0)}\\times ${texNombre(b / 10, 0)}=${texNombre((a * b) / 100, 2)}$.<br>
-                     La réduction est donc de : $${texPrix(b * a / 100)}$ €.<br>
-             Le nouveau prix est de  $${a}-${texNombre(b * a / 100)}= ${miseEnEvidence(texPrix(a - (b * a) / 100))}$  €.`
+                     La réduction est donc de : $${texPrix((b * a) / 100)}$ €.<br>
+             Le nouveau prix est de  $${a}-${texNombre((b * a) / 100)}= ${miseEnEvidence(texPrix(a - (b * a) / 100))}$  €.`
 
-    this.reponse = (a - (b * a) / 100)
+    this.reponse = a - (b * a) / 100
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ euros'
     if (!this.interactif) {

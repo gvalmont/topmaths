@@ -10,7 +10,7 @@ export const dateDePublication = '19/02/2025'
 export const uuid = '667d6'
 export const refs = {
   'fr-fr': ['canTSpeS11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class recurrence extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -27,12 +27,13 @@ export default class recurrence extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierCompareAvecNombres
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const n = randint(2, 8)
     const p = randint(2, 8, n)
     let reponse = ''
     this.question = `Une propriété $\\mathcal{P}_n$ est vraie pour $n=${n}$ et est héréditaire pour tout entier $p\\geqslant ${p}$.`
-    this.question += '<br>Pour quelle(s) valeur(s) de $n$ la propriété $\\mathcal{P}_n$ est-elle vraie ?'
+    this.question +=
+      '<br>Pour quelle(s) valeur(s) de $n$ la propriété $\\mathcal{P}_n$ est-elle vraie ?'
     if (p < n) {
       this.correction = `Comme $n=${n}>p=${p}$, on peut dire que la propriété $\\mathcal{P}_n$ est vraie pour une valeur à partir de laquelle elle est héréditaire. `
       this.correction += `<br>$\\mathcal{P}_n$ est donc vraie à partir du rang $n=${n}$.`

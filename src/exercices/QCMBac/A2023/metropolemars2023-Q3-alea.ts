@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '41f8f'
 export const refs = {
   'fr-fr': ['TSP1-QCM09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,7 +29,7 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
       '$0,188$', // Réponse correcte (c)
       '$0,859$', // Mauvaise réponse (a)
       '$0,671$', // Mauvaise réponse (b)
-      '$0,187$' // Mauvaise réponse (d)
+      '$0,187$', // Mauvaise réponse (d)
     ]
 
     this.enonce = this.sup3
@@ -45,18 +45,21 @@ $\\bullet~~$ $B$ :  "Le joueur choisit le monde B"  ;<br>
 $\\bullet~~$ $G$ :  "Le joueur gagne la partie" .<br><br>`
       : ''
 
-    this.enonce += 'La probabilité, arrondie au millième, que le joueur gagne exactement $6$ parties est égale à :'
+    this.enonce +=
+      'La probabilité, arrondie au millième, que le joueur gagne exactement $6$ parties est égale à :'
 
-    this.correction = 'On utilise la loi binomiale avec $n = 10$ et $p = \\dfrac{12}{25}$ :<br>'
-    this.correction += '$P(X = 6) = \\binom{10}{6} \\left(\\dfrac{12}{25}\\right)^6 \\left(\\dfrac{13}{25}\\right)^4 \\approx 0,188.$<br>'
+    this.correction =
+      'On utilise la loi binomiale avec $n = 10$ et $p = \\dfrac{12}{25}$ :<br>'
+    this.correction +=
+      '$P(X = 6) = \\binom{10}{6} \\left(\\dfrac{12}{25}\\right)^6 \\left(\\dfrac{13}{25}\\right)^4 \\approx 0,188.$<br>'
     this.correction += `La bonne réponse est donc $${miseEnEvidence('0,188')}$.`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: false, ordered: false }
     this.versionOriginale()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

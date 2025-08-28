@@ -1,5 +1,11 @@
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
+import {
+  segment,
+  segmentAvecExtremites,
+} from '../../../lib/2d/segmentsVecteurs'
 import { stringNombre } from '../../../lib/outils/texNombre'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { milieu, point } from '../../../lib/2d/points'
@@ -25,10 +31,10 @@ export const uuid = '5da59'
 
 export const refs = {
   'fr-fr': ['can2C09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class MilieuEntre1EtFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -38,10 +44,27 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeFractions1 = [
-      [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7], [9, 7], [13, 7], [11, 8], [11, 9], [7, 6], [12, 11], [4, 3],
-      [7, 5], [13, 7], [13, 9], [13, 11], [13, 12], [14, 11]
+      [10, 3],
+      [5, 4],
+      [7, 4],
+      [10, 7],
+      [11, 7],
+      [12, 7],
+      [9, 7],
+      [13, 7],
+      [11, 8],
+      [11, 9],
+      [7, 6],
+      [12, 11],
+      [4, 3],
+      [7, 5],
+      [13, 7],
+      [13, 9],
+      [13, 11],
+      [13, 12],
+      [14, 11],
     ] // Couples de nombres premiers entre eux >1
     const fractionR = choice(listeFractions1)
     const n = fractionR[0]
@@ -57,10 +80,16 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
     const C = point(randint(8, 12), 0)
     const B = milieu(A, C, 'M', 'below')
     const objets = []
-    objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), codageSegments('||', 'blue', A, B, B, C))
+    objets.push(
+      segmentAvecExtremites(A, B),
+      segmentAvecExtremites(B, C),
+      codageSegments('||', 'blue', A, B, B, C),
+    )
     objets.push(texteParPosition(`${stringNombre(1)}`, 0, -0.6))
     objets.push(texteParPosition(`${stringNombre(n)}`, C.x, C.y - 0.5))
-    objets.push(segment(point(C.x - 0.3, C.y - 0.8), point(C.x + 0.3, C.y - 0.8)))
+    objets.push(
+      segment(point(C.x - 0.3, C.y - 0.8), point(C.x + 0.3, C.y - 0.8)),
+    )
     objets.push(texteParPosition('M', B.x, B.y - 0.5))
     // objets.push(texteParPosition(`---`,C.x ,C.y-0.7))
     objets.push(texteParPosition(`${stringNombre(d)}`, C.x, C.y - 1.1))
@@ -69,17 +98,20 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
 
     this.question = `Donner l'abscisse du point $M$ sous forme d’une fraction irréductible.<br>
     `
-    this.question += mathalea2d({
-      xmin: -0.5,
-      ymin: -2,
-      xmax: C.x + 1,
-      ymax: 1,
-      pixelsParCm: 30,
-      mainlevee: false,
-      amplitude: 0.4,
-      scale: 0.6,
-      style: 'margin: auto'
-    }, objets)
+    this.question += mathalea2d(
+      {
+        xmin: -0.5,
+        ymin: -2,
+        xmax: C.x + 1,
+        ymax: 1,
+        pixelsParCm: 30,
+        mainlevee: false,
+        amplitude: 0.4,
+        scale: 0.6,
+        style: 'margin: auto',
+      },
+      objets,
+    )
     /* Avant
     // this.correction = `On calcule la moyenne de $1$ et $${texFractionFromString(n, d)}$ :<br>
     $x_I=\\dfrac{1+${texFractionFromString(n, d)}}{2}=
@@ -101,7 +133,7 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
         On calcule d'abord $1+${bonneFraction.texFraction}$ en n'oubliant pas que $1=${un.texFraction}$, puis on multiplie le résultat par $${half.texFraction}$.`)
 
     this.reponse = resultat.simplifie()
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

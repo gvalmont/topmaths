@@ -8,36 +8,36 @@ import { coureur6 } from './coureur'
  * @author Jean-Claude Lhote
  */
 export default class ProblemeCompAddPteQantite extends Probleme {
-  constructor (name: string = '', data?: { nb1: number, nb2: number }) {
+  constructor(name: string = '', data?: { nb1: number; nb2: number }) {
     data = data == null ? { nb1: randint(2, 25), nb2: randint(2, 25) } : data
     super(name, data)
     this.schema = new SchemaEnBoite({
       rightBraces: [],
-      lignes: [{
-        barres: [
-          {
-            content: `$${miseEnEvidence(texNombre(data.nb1 + data.nb2, 2))}$`,
-            length: 10,
-            color: 'lightgray'
-          }
-        ]
-      },
-      {
-        barres: [
-          {
-            content: `$${miseEnEvidence(texNombre(data.nb1, 2))}$`,
-            length: 7,
-            color: 'lightgray'
-          },
-          {
-            content: `$${texNombre(data.nb2, 2)}$`,
-            length: 3,
-            color: 'lightgray'
-          }
-        ]
-      },
-
-      ]
+      lignes: [
+        {
+          barres: [
+            {
+              content: `$${miseEnEvidence(texNombre(data.nb1 + data.nb2, 2))}$`,
+              length: 10,
+              color: 'lightgray',
+            },
+          ],
+        },
+        {
+          barres: [
+            {
+              content: `$${miseEnEvidence(texNombre(data.nb1, 2))}$`,
+              length: 7,
+              color: 'lightgray',
+            },
+            {
+              content: `$${texNombre(data.nb2, 2)}$`,
+              length: 3,
+              color: 'lightgray',
+            },
+          ],
+        },
+      ],
     })
 
     this.enonce = `On achète deux produits pour un montant de $${texNombre(data.nb1 + data.nb2, 2)}$ €. Le deuxième coûte $${data.nb2}$ de plus que le premier.
@@ -46,6 +46,4 @@ Combien le premier produit coûte-t-il ?`
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }
 }
-export const listeDeProblemesCompAddPteQuantite = [
-  coureur6
-]
+export const listeDeProblemesCompAddPteQuantite = [coureur6]

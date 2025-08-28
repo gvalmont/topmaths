@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '8a20a'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,10 +17,13 @@ export const refs = {
 
 */
 export default class Can2025CE2Q5 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     if (a == null || b == null) {
       a = choice([2, 3])
-      b = a === 2 ? randint(1, 4) * 10 + randint(1, 4) : randint(1, 3) * 10 + randint(1, 3)
+      b =
+        a === 2
+          ? randint(1, 4) * 10 + randint(1, 4)
+          : randint(1, 3) * 10 + randint(1, 3)
     }
     const terme = a === 2 ? 'double' : 'triple'
     this.reponse = a * b
@@ -33,7 +36,7 @@ export default class Can2025CE2Q5 extends ExerciceCan {
     this.optionsChampTexte = { texteApres: '.' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(2, 45) : this.enonce()
   }
 }

@@ -31,13 +31,17 @@ export const uuid = '23c48'
 export const refs = {
   'fr-fr': ['6N1H-3'],
   'fr-2016': ['6N23-3'],
-  'fr-ch': ['9NO11-7']
+  'fr-ch': ['9NO11-7'],
 }
 export default class LireUneAbscisseAvecZoom extends Exercice {
   niveau: string
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Au dixième\n2 : Au centième\n3 : Au millième',
+    ]
     this.niveau = 'sixième'
     this.sup = 3
     if (context.isHtml) {
@@ -47,8 +51,12 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let reponse1
       let reponse2A
       let reponse2B
@@ -120,14 +128,21 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 4,
           labelsPrincipaux: false,
-          labelListe: [[origine, `${stringNombre(origine)}`], [extreme, `${stringNombre(extreme)}`]],
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(1 + x1), `${noms[2]}`]],
+          labelListe: [
+            [origine, `${stringNombre(origine)}`],
+            [extreme, `${stringNombre(extreme)}`],
+          ],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [Math.floor(x1), `${noms[0]}`],
+            [Math.floor(1 + x1), `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
 
         d2 = droiteGraduee({
@@ -144,13 +159,17 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 4,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(1 + x1), `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [Math.floor(x1), `${noms[0]}`],
+            [Math.floor(1 + x1), `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d1Corr = droiteGraduee({
           x: 0,
@@ -166,14 +185,21 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 4,
           labelsPrincipaux: true,
-          labelListe: [[origine, `${stringNombre(origine)}`], [extreme, `${stringNombre(extreme)}`]],
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.ceil(x1), `${noms[2]}`]],
+          labelListe: [
+            [origine, `${stringNombre(origine)}`],
+            [extreme, `${stringNombre(extreme)}`],
+          ],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [Math.floor(x1), `${noms[0]}`],
+            [Math.ceil(x1), `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d2Corr = droiteGraduee({
           x: Math.floor(x1) - xmin + 1.5,
@@ -191,13 +217,17 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           labelsPrincipaux: true,
           labelsSecondaires: true,
           // labelListe: [[x1.floor(), `${stringNombre(x1.floor())}`], [x1, `${stringNombre(x1)}`], [Math.ceil(x1), `${stringNombre(Math.ceil(x1))}`]],
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(1 + x1), `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [Math.floor(x1), `${noms[0]}`],
+            [Math.floor(1 + x1), `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
 
         pA1 = point((Math.floor(x1) - xmin) * 3, 3)
@@ -210,7 +240,14 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         sB.pointilles = 5
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
-        fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
+        fenetre = {
+          xmin: -1.5,
+          xmax: 35,
+          ymin: -1,
+          ymax: 4.5,
+          pixelsParCm: 25,
+          scale: 0.5,
+        }
 
         const partent = Math.floor(x1)
         const pardec = x1 - partent
@@ -254,14 +291,21 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           thickSecDist: 0.1,
           thickTerDist: 0.01,
           labelsPrincipaux: false,
-          labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+          labelListe: [
+            [Math.floor(x1), `${Math.floor(x1)}`],
+            [Math.ceil(x1), `${Math.ceil(x1)}`],
+          ],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x3, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
 
         d2 = droiteGraduee({
@@ -281,13 +325,17 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           thickSecDist: 0.01,
           thickTerDist: 0.001,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x2 + 0.1, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d1Corr = droiteGraduee({
           x: 0,
@@ -306,17 +354,24 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           thickSecDist: 0.1,
           thickTerDist: 0.01,
           labelsSecondaires: true,
-          labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+          labelListe: [
+            [Math.floor(x1), `${Math.floor(x1)}`],
+            [Math.ceil(x1), `${Math.ceil(x1)}`],
+          ],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x3, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d2Corr = droiteGraduee({
-          x: (x2 - xmin) + 6,
+          x: x2 - xmin + 6,
           y: 0,
           Min: x2,
           axePosition: 'H',
@@ -333,14 +388,22 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           thickTerDist: 0.001,
           labelsPrincipaux: false,
           labelsSecondaires: true,
-          labelListe: [[x2, `${stringNombre(x2)}`], [x1, `${stringNombre(x1)}`], [x3, `${stringNombre(x3)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
+          labelListe: [
+            [x2, `${stringNombre(x2)}`],
+            [x1, `${stringNombre(x1)}`],
+            [x3, `${stringNombre(x3)}`],
+          ],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x2 + 0.1, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
 
         pA1 = point((Math.floor(x1 * 10) / 10 - xmin) * 30, 3)
@@ -351,7 +414,14 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         sB = segment(pB1, pB2)
         sA.pointilles = 5
         sB.pointilles = 5
-        fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
+        fenetre = {
+          xmin: -1.5,
+          xmax: 35,
+          ymin: -1.5,
+          ymax: 4.5,
+          pixelsParCm: 25,
+          scale: 0.5,
+        }
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         const partent = Math.floor(x1)
@@ -362,7 +432,8 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         reponse2A = partent
         reponse2B = new FractionEtendue(pardec * 100, 100)
         reponse3 = new FractionEtendue(x1 * 100, 100)
-      } else { // this.sup === 3
+      } else {
+        // this.sup === 3
         if (this.niveau === 'CM') {
           xmin = 0
         } else {
@@ -399,14 +470,21 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 6,
           labelsPrincipaux: false,
-          labelListe: [[xmin, `${stringNombre(xmin)}`], [xmax, `${stringNombre(xmax)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+          labelListe: [
+            [xmin, `${stringNombre(xmin)}`],
+            [xmax, `${stringNombre(xmax)}`],
+          ],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x3, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 3,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d2 = droiteGraduee({
           x: 6.5,
@@ -425,13 +503,19 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 6,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x3, `${noms[2]}`],
+            [x21, `${noms[3]}`],
+            [x31, `${noms[4]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d3 = droiteGraduee({
           x: 6.5,
@@ -448,13 +532,17 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 6,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x21, `${noms[3]}`],
+            [x31, `${noms[4]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d1Corr = droiteGraduee({
           x: 0,
@@ -474,14 +562,21 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeHauteur: 6,
           labelsPrincipaux: false,
           labelsSecondaires: true,
-          labelListe: [[xmin, `${stringNombre(xmin)}`], [xmax, `${stringNombre(xmax)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+          labelListe: [
+            [xmin, `${stringNombre(xmin)}`],
+            [xmax, `${stringNombre(xmax)}`],
+          ],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x3, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 3,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d2Corr = droiteGraduee({
           x: 6.5,
@@ -501,14 +596,23 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeHauteur: 6,
           labelsPrincipaux: false,
           labelsSecondaires: true,
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
-          labelListe: [[x2, `${stringNombre(x2)}`], [x3, `${stringNombre(x3)}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x3, `${noms[2]}`],
+            [x21, `${noms[3]}`],
+            [x31, `${noms[4]}`],
+          ],
+          labelListe: [
+            [x2, `${stringNombre(x2)}`],
+            [x3, `${stringNombre(x3)}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         d3Corr = droiteGraduee({
           x: 6.5,
@@ -526,13 +630,17 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeHauteur: 6,
           labelsPrincipaux: false,
           labelsSecondaires: true,
-          pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x21, `${noms[3]}`],
+            [x31, `${noms[4]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
 
         pA1 = point((x2 - xmin) * 30, 6)
@@ -551,7 +659,14 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         sD = segment(pD1, pD2)
         sC.pointilles = 5
         sD.pointilles = 5
-        fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
+        fenetre = {
+          xmin: -1.5,
+          xmax: 35,
+          ymin: -1.5,
+          ymax: 7.5,
+          pixelsParCm: 25,
+          scale: 0.5,
+        }
         objets.push(d1, d2, d3, sA, sB, sC, sD)
         objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
         const partent = Math.floor(x1)
@@ -565,51 +680,87 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
       texte = `Donner l'abscisse de $${noms[1]} $sous `
       texte += context.isAmc ? 'deux ' : 'trois '
       texte += 'formes : en écriture décimale'
-      texte += context.isAmc ? '' : ', comme somme d\'un nombre entier et d\'une fraction décimale inférieure à 1,'
-      texte += ' et sous forme d\'une seule fraction décimale.<br>'
+      texte += context.isAmc
+        ? ''
+        : ", comme somme d'un nombre entier et d'une fraction décimale inférieure à 1,"
+      texte += " et sous forme d'une seule fraction décimale.<br>"
       texte += mathalea2d(fenetre, objets)
       if (this.interactif) {
         handleAnswers(this, 3 * i, { reponse: { value: reponse1 } })
-        handleAnswers(this, 3 * i + 1, { reponse: { value: `${reponse2A}+${reponse2B.toLatex()}`, options: { operationSeulementEtNonResultat: true } } })
-        handleAnswers(this, 3 * i + 2, { reponse: { value: reponse1, options: { fractionDecimale: true } } })
+        handleAnswers(this, 3 * i + 1, {
+          reponse: {
+            value: `${reponse2A}+${reponse2B.toLatex()}`,
+            options: { operationSeulementEtNonResultat: true },
+          },
+        })
+        handleAnswers(this, 3 * i + 2, {
+          reponse: { value: reponse1, options: { fractionDecimale: true } },
+        })
 
-        texte += ajouteChampTexteMathLive(this, i * 3, KeyboardType.clavierNumbers, {
-          texteAvant: `Abscisse de $${noms[1]}$ en écriture décimale : `
-        })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 1, KeyboardType.clavierDeBaseAvecFraction, {
-          texteAvant: `Abscisse de $${noms[1]}$ comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : `
-        })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 2, KeyboardType.clavierDeBaseAvecFraction, {
-          texteAvant: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i * 3,
+          KeyboardType.clavierNumbers,
+          {
+            texteAvant: `Abscisse de $${noms[1]}$ en écriture décimale : `,
+          },
+        )
+        texte +=
+          '<br><br>' +
+          ajouteChampTexteMathLive(
+            this,
+            i * 3 + 1,
+            KeyboardType.clavierDeBaseAvecFraction,
+            {
+              texteAvant: `Abscisse de $${noms[1]}$ comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : `,
+            },
+          )
+        texte +=
+          '<br><br>' +
+          ajouteChampTexteMathLive(
+            this,
+            i * 3 + 2,
+            KeyboardType.clavierDeBaseAvecFraction,
+            {
+              texteAvant: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `,
+            },
+          )
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
           // melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
-          options: { multicols: true, barreseparation: false, numerotationEnonce: true },
+          options: {
+            multicols: true,
+            barreseparation: false,
+            numerotationEnonce: true,
+          },
           propositions: [
             {
               type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-              propositions: [ // une ou plusieurs (Qcms) 'propositions'
+              propositions: [
+                // une ou plusieurs (Qcms) 'propositions'
                 {
-                  reponse: { // utilisé si type = 'AMCNum'
+                  reponse: {
+                    // utilisé si type = 'AMCNum'
                     texte: `Abscisse de $${noms[1]}$ en écriture décimale : `, // facultatif
                     valeur: reponse1, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                     alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                     param: {
                       digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
                       decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-                      signe: false // (présence d'une case + ou -)
-                    }
-                  }
-                }
-              ]
+                      signe: false, // (présence d'une case + ou -)
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum', // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-              propositions: [ // une ou plusieurs (Qcms) 'propositions'
+              propositions: [
+                // une ou plusieurs (Qcms) 'propositions'
                 {
-                  reponse: { // utilisé si type = 'AMCNum'
+                  reponse: {
+                    // utilisé si type = 'AMCNum'
                     texte: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `,
                     valeur: reponse3, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                     alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
@@ -618,13 +769,13 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
                       decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
                       signe: false, // (présence d'une case + ou -)
                       digitsNum: nombreDeChiffresDe(reponse3.num), // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
-                      digitsDen: nombreDeChiffresDe(reponse3.den) // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
-                    }
-                  }
-                }
-              ]
-            }
-          ]
+                      digitsDen: nombreDeChiffresDe(reponse3.den), // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       texteCorr += mathalea2d(fenetre, objetsCorr)

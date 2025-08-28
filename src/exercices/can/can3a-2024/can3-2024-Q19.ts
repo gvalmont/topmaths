@@ -5,7 +5,7 @@ import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Calculer une fraction d\'un entier'
+export const titre = "Calculer une fraction d'un entier"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '2a879'
@@ -15,7 +15,7 @@ export const uuid = '2a879'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 24
       this.question = '$\\dfrac{3}{5}$ de $40$ '

@@ -555,15 +555,15 @@
   }
 </script>
 
-<div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
+<div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this="{divExercice}">
   {#if $globalOptions.presMode !== 'recto' && $globalOptions.presMode !== 'verso'}
     <HeaderExerciceVueEleve
       {...headerExerciceProps}
-      indiceExercice={exerciseIndex}
-      showNumber={indiceLastExercice > 0 &&
-        $globalOptions.presMode !== 'un_exo_par_page'}
-      isMenuNeededForExercises={$isMenuNeededForExercises}
-      presMode={$globalOptions.presMode}
+      indiceExercice="{exerciseIndex}"
+      showNumber="{indiceLastExercice > 0 &&
+        $globalOptions.presMode !== 'un_exo_par_page'}"
+      isMenuNeededForExercises="{$isMenuNeededForExercises}"
+      presMode="{$globalOptions.presMode}"
     />
   {/if}
 
@@ -573,10 +573,10 @@
       id="exercice{exerciseIndex}"
     >
       <ExerciceVueEleveButtons
-        globalOptions={$globalOptions}
+        globalOptions="{$globalOptions}"
         {indiceLastExercice}
         {exercise}
-        isCorrectionVisible={isCorrectVisible}
+        isCorrectionVisible="{isCorrectVisible}"
         {newData}
         {switchCorrectionVisible}
         {isInteractif}
@@ -631,18 +631,18 @@
                 {exercise}
                 {questionIndex}
                 {exerciseIndex}
-                isCorrectionVisible={isCorrectVisible}
+                isCorrectionVisible="{isCorrectVisible}"
               />
             {/each}
-            <div bind:this={divScore} id="divScoreEx{exerciseIndex}" />
+            <div bind:this="{divScore}" id="divScoreEx{exerciseIndex}"></div>
           </ul>
         </div>
       </article>
       {#if isInteractif && !isCorrectVisible}
         <button
           type="submit"
-          on:click={verifExerciceVueEleve}
-          bind:this={buttonScore}
+          on:click="{verifExerciceVueEleve}"
+          bind:this="{buttonScore}"
           >Vérifier {numberOfAnswerFields > 1
             ? 'les réponses'
             : 'la réponse'}</button

@@ -9,7 +9,7 @@
     keyboardBlocks.lengths,
     keyboardBlocks.areas,
     keyboardBlocks.volumes,
-    keyboardBlocks.capacities
+    keyboardBlocks.capacities,
   ]
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   export let isInLine: boolean
@@ -23,7 +23,7 @@
   const toRegularCharacters = (s: string): string =>
     s.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   const possibleBlocks = [
-    ...blocksList.map((b) => toRegularCharacters(b.title))
+    ...blocksList.map((b) => toRegularCharacters(b.title)),
   ] as const
   $: currentBlock = possibleBlocks[0]
 
@@ -44,19 +44,22 @@
       <li role="presentation">
         <button
           type="button"
-          class="mb-1 block border-x-0 border-b-2 border-t-0 px-2 pb-1 text-[0.7rem] font-light leading-tight {currentBlock === toRegularCharacters(block.title) ? 'text-coopmaths-struct border-coopmaths-struct dark:text-coopmathsdark-struct dark:border-coopmathsdark-struct' : 'text-coopmaths-action dark:text-coopmathsdark-action border-transparent'}   hover:text-coopmaths-action-lightest active:border-coopmaths-struct active:text-coopmaths-struct dark:hover:bg-transparent dark:active:border-coopmathsdark-struct dark:active:text-coopmathsdark-struct"
+          class="mb-1 block border-x-0 border-b-2 border-t-0 px-2 pb-1 text-[0.7rem] font-light leading-tight {currentBlock ===
+          toRegularCharacters(block.title)
+            ? 'text-coopmaths-struct border-coopmaths-struct dark:text-coopmathsdark-struct dark:border-coopmathsdark-struct'
+            : 'text-coopmaths-action dark:text-coopmathsdark-action border-transparent'}   hover:text-coopmaths-action-lightest active:border-coopmaths-struct active:text-coopmaths-struct dark:hover:bg-transparent dark:active:border-coopmathsdark-struct dark:active:text-coopmathsdark-struct"
           id="tabs-{toRegularCharacters(block.title)}-tab"
           role="tab"
           aria-controls="tabs-{toRegularCharacters(block.title)}"
-          on:click={(e) => {
+          on:click="{(e) => {
             e.preventDefault()
             e.stopPropagation()
             switchToBlock(toRegularCharacters(block.title))
-          }}
-          on:mousedown={(e) => {
+          }}"
+          on:mousedown="{(e) => {
             e.preventDefault()
             e.stopPropagation()
-          }}
+          }}"
         >
           {block.title}
         </button>
@@ -64,7 +67,7 @@
     {/each}
   </ul>
   <!--Blocks content-->
-  <div class="flex  justify-center">
+  <div class="flex justify-center">
     {#each blocksList as block}
       <div
         class="{currentBlock === toRegularCharacters(block.title)

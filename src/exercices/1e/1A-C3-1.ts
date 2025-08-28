@@ -8,7 +8,7 @@ export const uuid = '6682b'
 
 export const refs = {
   'fr-fr': ['1A-C3-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -31,31 +31,39 @@ export default class Puissances extends ExerciceQcmA {
       '$N=4\\times 10^5$',
       '$N= 2^5$',
       `$N=${texNombre(20000)}$`,
-      '$N=\\dfrac{1}{10^5}$'
+      '$N=\\dfrac{1}{10^5}$',
     ]
   }
 
   versionAleatoire = () => {
-    const a = choice([[5, 2], [2, 5], [5, 3], [5, 3], [2, 3], [3, 2]])
+    const a = choice([
+      [5, 2],
+      [2, 5],
+      [5, 3],
+      [5, 3],
+      [2, 3],
+      [3, 2],
+    ])
     const n = randint(2, 4)
     const k = randint(2, 3)
     this.enonce = `
-        On considère le nombre $N=\\dfrac{${(a[0] * a[1])}^${n + k}}{${a[0]}^${n}}$. On a :<br>`
+        On considère le nombre $N=\\dfrac{${a[0] * a[1]}^${n + k}}{${a[0]}^${n}}$. On a :<br>`
     this.correction = `$\\begin{aligned}
-    N&=\\dfrac{${(a[0] * a[1])}^${n + k}}{${a[0]}^${n}}\\\\
+    N&=\\dfrac{${a[0] * a[1]}^${n + k}}{${a[0]}^${n}}\\\\
     &=\\dfrac{${a[0]}^${n + k}\\times ${a[1]}^${n + k} }{${a[0]}^${n}}\\\\
     &=${a[1]}^${n + k}\\times ${a[0]}^{${k}}\\\\
     &=${a[1] * a[0]}^${k}\\times ${a[1]}^{${n}}\\\\
     &=${miseEnEvidence(`${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}`)}
     \\end{aligned}$`
-    this.reponses = [` $N=${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}$`,
+    this.reponses = [
+      ` $N=${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}$`,
       `$N=${a[1]}^{${k}}$`,
-      `$N=${(a[0] * a[1])}^{${k}}$`,
-       `$N=${a[0] ** n}\\times ${a[0] * a[1]}^{${k}}$`
+      `$N=${a[0] * a[1]}^{${k}}$`,
+      `$N=${a[0] ** n}\\times ${a[0] * a[1]}^{${k}}$`,
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

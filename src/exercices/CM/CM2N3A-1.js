@@ -15,10 +15,10 @@ export const uuid = '4e27f'
 export const refs = {
   'fr-fr': ['CM2N3A-1'],
   'fr-2016': ['c3C10-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TablesDeMultiplicationsCM extends TablesDeMultiplications {
-  constructor () {
+  constructor() {
     super()
     this.sup2 = '1'
   }

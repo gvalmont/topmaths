@@ -14,7 +14,7 @@ export const uuid = 'abad7'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: FractionEtendue
     if (this.canOfficielle) {
       reponse = new FractionEtendue(4, 45)
@@ -34,8 +34,19 @@ export default class NomExercice extends ExerciceSimple {
       $\\dfrac{2}{9}$. <br>Ainsi, 
       $\\dfrac{2}{5}\\div\\dfrac{9}{2}=\\dfrac{2}{5}\\times\\dfrac{2}{9}=${miseEnEvidence(reponse.texFraction)}$.`
     } else {
-      const listeFractions = [[2, 3, 4, 5], [2, 3, 5, 7], [2, 9, 3, 8], [4, 5, 3, 2], [4, 3, 5, 7], [3, 5, 2, 9],
-        [4, 7, 2, 3], [1, 5, 3, 7], [4, 5, 1, 3], [3, 4, 9, 7], [8, 7, 2, 3]]
+      const listeFractions = [
+        [2, 3, 4, 5],
+        [2, 3, 5, 7],
+        [2, 9, 3, 8],
+        [4, 5, 3, 2],
+        [4, 3, 5, 7],
+        [3, 5, 2, 9],
+        [4, 7, 2, 3],
+        [1, 5, 3, 7],
+        [4, 5, 1, 3],
+        [3, 4, 9, 7],
+        [8, 7, 2, 3],
+      ]
       const frac = choice(listeFractions)
       const a = frac[0]
       const b = frac[1]

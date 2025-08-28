@@ -4,7 +4,11 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+  reduirePolynomeDegre3,
+} from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
 import { abs, signe } from '../../../lib/outils/nombres'
 export const titre = 'Développer une expression'
@@ -13,21 +17,21 @@ export const interactifType = 'mathLive'
 export const uuid = 'cfe2d'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class developper extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = choice([1, 2, 3])
     const a = randint(-2, 2, 0)
     const b = randint(-5, 5, 0)
@@ -61,7 +65,9 @@ export default class developper extends ExerciceSimple {
        &=${miseEnEvidence(reponse1)}
       \\end{aligned}$`
     }
-    if (this.interactif) { this.question += '<br>$A=$' }
+    if (this.interactif) {
+      this.question += '<br>$A=$'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

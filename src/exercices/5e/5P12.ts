@@ -10,7 +10,8 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Partager une quantité en deux ou trois parts selon un ratio donné'
+export const titre =
+  'Partager une quantité en deux ou trois parts selon un ratio donné'
 
 /**
  * Partager une quantité en deux ou trois parts selon un ratio donné.
@@ -22,21 +23,41 @@ export const uuid = '60910'
 
 export const refs = {
   'fr-fr': ['5P12'],
-  'fr-ch': ['9NO14-9']
+  'fr-ch': ['9NO14-9'],
 }
 export default class PartagerSelonUnRatio extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Partager en deux parts\n2 : Partager en trois parts']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Partager en deux parts\n2 : Partager en trois parts',
+    ]
 
     this.nbQuestions = 1
     this.sup = 1
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, objet1, prenom1, prenom2, prenom3, quantite1, quantite2, quantite3, facteur, total, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        objet1,
+        prenom1,
+        prenom2,
+        prenom3,
+        quantite1,
+        quantite2,
+        quantite3,
+        facteur,
+        total,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       objet1 = objet()
       prenom1 = prenomF()
       prenom2 = prenomM()
@@ -48,7 +69,8 @@ export default class PartagerSelonUnRatio extends Exercice {
       quantite2 = randint(2, 9, [quantite1])
       quantite3 = randint(2, 9, [quantite1, quantite2])
       facteur = randint(2, 9)
-      if (this.sup.toString() === '1') { // Partage en deux parts
+      if (this.sup.toString() === '1') {
+        // Partage en deux parts
         total = (quantite1 + quantite2) * facteur
         texte = `${prenom1} et ${prenom2} veulent se partager leurs $${total}$ ${objet1} en deux parts selon le ratio $${quantite1} : ${quantite2}$. <br>`
         texte += `Combien chacun recevra-t-il de ${objet1} ?`
@@ -72,7 +94,8 @@ export default class PartagerSelonUnRatio extends Exercice {
           texteCorr += `<br>$\\text{${prenom1}} : \\text{${prenom2}} = ${quantite1} : ${quantite2} = ${quantite1 * facteur} : ${quantite2 * facteur}  \\text{ (en multipliant par }${miseEnEvidence(facteur)}\\text{)}$ <br>`
         }
         texteCorr += `<br>${prenom1} recevra $${quantite1 * facteur}$ ${objet1} et ${prenom2} en recevra $${quantite2 * facteur}$. <br>`
-      } else { // Partage en trois parts
+      } else {
+        // Partage en trois parts
         total = (quantite1 + quantite2 + quantite3) * facteur
         texte = `${prenom1}, ${prenom2} et ${prenom3} veulent se partager leurs $${total}$ ${objet1} en trois parts selon le ratio $${quantite1} : ${quantite2} : ${quantite3}$. <br>`
         texte += `Combien chacun recevra-t-il de ${objet1} ?`
@@ -98,24 +121,52 @@ export default class PartagerSelonUnRatio extends Exercice {
         texteCorr += `<br>${prenom1} recevra $${quantite1 * facteur}$ ${objet1}, ${prenom2} en recevra $${quantite2 * facteur}$ et ${prenom3} en recevra $${quantite3 * facteur}$.`
       }
       if (this.interactif) {
-        if (this.sup.toString() === '1') { // Partage en deux parts
-          texte += '<BR>' + remplisLesBlancs(this, i, `\\text{${prenom1} recevra  }%{champ1}\\text{ ${objet1} et ${prenom2} en recevra  } %{champ2}.`, KeyboardType.clavierNumbers)
-          handleAnswers(this, i, {
-            bareme: (listePoints : number[]) => [Math.min(listePoints[0], listePoints[1]), 1], // 0 ou 1 point
-            champ1: { value: String(quantite1 * facteur) },
-            champ2: { value: String(quantite2 * facteur) }
-          },
-          { formatInteractif: 'fillInTheBlank' }
+        if (this.sup.toString() === '1') {
+          // Partage en deux parts
+          texte +=
+            '<BR>' +
+            remplisLesBlancs(
+              this,
+              i,
+              `\\text{${prenom1} recevra  }%{champ1}\\text{ ${objet1} et ${prenom2} en recevra  } %{champ2}.`,
+              KeyboardType.clavierNumbers,
+            )
+          handleAnswers(
+            this,
+            i,
+            {
+              bareme: (listePoints: number[]) => [
+                Math.min(listePoints[0], listePoints[1]),
+                1,
+              ], // 0 ou 1 point
+              champ1: { value: String(quantite1 * facteur) },
+              champ2: { value: String(quantite2 * facteur) },
+            },
+            { formatInteractif: 'fillInTheBlank' },
           )
-        } else { // Partage en trois parts
-          texte += '<BR>' + remplisLesBlancs(this, i, `\\text{${prenom1} recevra  }%{champ1}\\text{ ${objet1}, ${prenom2} en recevra }%{champ2}\\text{ et ${prenom3} en recevra }%{champ3}.`, KeyboardType.clavierNumbers)
-          handleAnswers(this, i, {
-            bareme: (listePoints : number[]) => [Math.min(listePoints[0], listePoints[1], listePoints[2]), 1],  // 0 ou 1 point
-            champ1: { value: String(quantite1 * facteur) },
-            champ2: { value: String(quantite2 * facteur) },
-            champ3: { value: String(quantite3 * facteur) }
-          },
-          { formatInteractif: 'fillInTheBlank' }
+        } else {
+          // Partage en trois parts
+          texte +=
+            '<BR>' +
+            remplisLesBlancs(
+              this,
+              i,
+              `\\text{${prenom1} recevra  }%{champ1}\\text{ ${objet1}, ${prenom2} en recevra }%{champ2}\\text{ et ${prenom3} en recevra }%{champ3}.`,
+              KeyboardType.clavierNumbers,
+            )
+          handleAnswers(
+            this,
+            i,
+            {
+              bareme: (listePoints: number[]) => [
+                Math.min(listePoints[0], listePoints[1], listePoints[2]),
+                1,
+              ], // 0 ou 1 point
+              champ1: { value: String(quantite1 * facteur) },
+              champ2: { value: String(quantite2 * facteur) },
+              champ3: { value: String(quantite3 * facteur) },
+            },
+            { formatInteractif: 'fillInTheBlank' },
           )
         }
       }

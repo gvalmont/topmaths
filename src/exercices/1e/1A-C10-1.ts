@@ -10,7 +10,7 @@ export const uuid = 'e1e6d'
 
 export const refs = {
   'fr-fr': ['1A-C10-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -19,7 +19,8 @@ export const amcType = 'qcmMono'
 export const titre = 'Résoudre une équation du type $x^2=a$'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'On note $S$ l’ensemble des solutions de l’équation $x^2=10$ sur $\\mathbb{R}$ . On a : '
+    this.enonce =
+      'On note $S$ l’ensemble des solutions de l’équation $x^2=10$ sur $\\mathbb{R}$ . On a : '
     this.correction = `On reconnaît une équation du type $x^2=k$ avec $k=10$.<br>
     Puisque $10$  est strictement positif, l'équation a deux solutions :
     $-\\sqrt{10}$ et $\\sqrt{10}$.<br>
@@ -29,7 +30,7 @@ export default class Puissances extends ExerciceQcmA {
       '$S=\\{-\\sqrt{10}\\,;\\,\\sqrt{10}\\}$',
       '$S=\\{-\\sqrt{5}\\,;\\,\\sqrt{5}\\}$',
       '$S=\\emptyset$',
-      '$S=\\{-5\\,;\\,5\\}$'
+      '$S=\\{-5\\,;\\,5\\}$',
     ]
   }
 
@@ -40,36 +41,42 @@ export default class Puissances extends ExerciceQcmA {
     const CorrNegatif = ` est strictement négatif, l'équation n'a pas de solution.<br>
           Ainsi, $S=${miseEnEvidence('\\emptyset')}$.`
 
-    const CorrPositif = ' est strictement positif, l\'équation a deux solutions : '
+    const CorrPositif =
+      " est strictement positif, l'équation a deux solutions : "
     const choix = choice([true, false])
     switch (choice([1, 1, 2, 3, 3, 4, 4])) {
-      case 1: {
-        const a = randint(1, 9)
-        this.enonce = `On note $S$ l’ensemble des solutions de l’équation ${choix ? `$x^{2}-${a * a}=0$` : `$${a * a}-x^2=0$`} sur $\\mathbb{R}$ . On a : `
-        this.correction = CorrCarre + ` $x^2=${a * a}$.<br>  
-        Puisque $${a * a}$` + CorrPositif
-        this.correction += `$-\\sqrt{${a * a}}=-${a}$ et $\\sqrt{${a * a}}=${a}$.<br>`
-        this.correction += `Ainsi, $S=${miseEnEvidence(`\\{-${a}\\,;\\,${a}\\}`)}$.`
-        this.reponses = [
-      `$S=\\{-${a}\\,;\\,${a}\\}$`,
-      `$S=\\{-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}\\}$`,
-      '$S=\\emptyset$',
-      `$S=\\{${a}\\}$`
-        ]
-      }
+      case 1:
+        {
+          const a = randint(1, 9)
+          this.enonce = `On note $S$ l’ensemble des solutions de l’équation ${choix ? `$x^{2}-${a * a}=0$` : `$${a * a}-x^2=0$`} sur $\\mathbb{R}$ . On a : `
+          this.correction =
+            CorrCarre +
+            ` $x^2=${a * a}$.<br>  
+        Puisque $${a * a}$` +
+            CorrPositif
+          this.correction += `$-\\sqrt{${a * a}}=-${a}$ et $\\sqrt{${a * a}}=${a}$.<br>`
+          this.correction += `Ainsi, $S=${miseEnEvidence(`\\{-${a}\\,;\\,${a}\\}`)}$.`
+          this.reponses = [
+            `$S=\\{-${a}\\,;\\,${a}\\}$`,
+            `$S=\\{-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}\\}$`,
+            '$S=\\emptyset$',
+            `$S=\\{${a}\\}$`,
+          ]
+        }
         break
       case 2:
         {
           const a = randint(1, 9)
           this.enonce = `On note $S$ l’ensemble des solutions de l’équation $x^{2}+${a * a}=0$ sur $\\mathbb{R}$ . On a : `
 
-          this.correction = `On isole le carré. L'équation s'écrit $x^{2}=-${a * a}$.<br>
+          this.correction =
+            `On isole le carré. L'équation s'écrit $x^{2}=-${a * a}$.<br>
           Comme  $-${a * a}$` + CorrNegatif
           this.reponses = [
             '$S=\\emptyset$',
-      `$S=\\{-${a}\\,;\\,${a}\\}$`,
-      `$S=\\{-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}\\}$`,
-      `$S=\\{${a}\\}$`
+            `$S=\\{-${a}\\,;\\,${a}\\}$`,
+            `$S=\\{-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}\\}$`,
+            `$S=\\{${a}\\}$`,
           ]
         }
         break
@@ -86,18 +93,18 @@ export default class Puissances extends ExerciceQcmA {
             this.correction += ` $-\\sqrt{${a}}=-${b}$ et $\\sqrt{${a}}=${b}$.<br>`
             this.correction += `Ainsi, $S=${miseEnEvidence(`\\{-${b}\\,;\\,${b}\\}`)}$.`
             this.reponses = [
-                     `$S=\\{-${b}\\,;\\,${b}\\}$`,
-                     '$S=\\emptyset$',
-      `$S=\\{${texNombre(-a / 2, 2)}\\,;\\,${texNombre(a / 2, 2)}\\}$`,
-      `$S=\\{${b}\\}$`
+              `$S=\\{-${b}\\,;\\,${b}\\}$`,
+              '$S=\\emptyset$',
+              `$S=\\{${texNombre(-a / 2, 2)}\\,;\\,${texNombre(a / 2, 2)}\\}$`,
+              `$S=\\{${b}\\}$`,
             ]
           } else {
             this.correction += `Puisque $${a}$ ` + CorrNegatif
             this.reponses = [
               '$S=\\emptyset$',
-      `$S=\\{-${b}\\,;\\,${b}\\}$`,
-      `$S=\\{\\sqrt{${-a}}\\}$`,
-      `$S=\\{-${b}\\}$`
+              `$S=\\{-${b}\\,;\\,${b}\\}$`,
+              `$S=\\{\\sqrt{${-a}}\\}$`,
+              `$S=\\{-${b}\\}$`,
             ]
           }
         }
@@ -115,19 +122,19 @@ export default class Puissances extends ExerciceQcmA {
             this.correction += `Puisque $${k}$ ` + CorrNegatif
             this.reponses = [
               '$S=\\emptyset$',
-      `$S=\\{-\\sqrt{${abs(b)}}\\,;\\,\\sqrt{${abs(b)}}\\}$`,
-      `$S=\\{-\\sqrt{${abs(k)}}\\,;\\,\\sqrt{${abs(k)}}\\}$`,
-      `$S=\\{\\sqrt{${abs(k)}}\\}$`
+              `$S=\\{-\\sqrt{${abs(b)}}\\,;\\,\\sqrt{${abs(b)}}\\}$`,
+              `$S=\\{-\\sqrt{${abs(k)}}\\,;\\,\\sqrt{${abs(k)}}\\}$`,
+              `$S=\\{\\sqrt{${abs(k)}}\\}$`,
             ]
           } else {
             this.correction += `Puisque $${k}$ ` + CorrPositif
             this.correction += ` $-\\sqrt{${k}}$ et $\\sqrt{${k}}$.<br>`
             this.correction += `Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${k}}\\,;\\,\\sqrt{${k}}\\}`)}$.`
             this.reponses = [
-            `$S=\\{-\\sqrt{${abs(k)}}\\,;\\,\\sqrt{${abs(k)}}\\}$`,
-      `$S=\\{\\sqrt{${abs(k)}}\\}$`,
-      `$S=\\{-${texNombre(abs(k) / 2, 2)}\\,;\\,${texNombre(abs(k) / 2, 2)}\\}$`,
-      '$S=\\emptyset$'
+              `$S=\\{-\\sqrt{${abs(k)}}\\,;\\,\\sqrt{${abs(k)}}\\}$`,
+              `$S=\\{\\sqrt{${abs(k)}}\\}$`,
+              `$S=\\{-${texNombre(abs(k) / 2, 2)}\\,;\\,${texNombre(abs(k) / 2, 2)}\\}$`,
+              '$S=\\emptyset$',
             ]
           }
         }
@@ -135,7 +142,7 @@ export default class Puissances extends ExerciceQcmA {
     }
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

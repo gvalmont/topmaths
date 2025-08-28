@@ -8,13 +8,14 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = 'bd806'
 export const refs = {
   'fr-fr': ['1A-S4-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer la valeur manquante d\'une série dont on connaît la moyenne.'
+export const titre =
+  "Déterminer la valeur manquante d'une série dont on connaît la moyenne."
 export const dateDePublication = '02/08/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
@@ -26,8 +27,7 @@ export const dateDePublication = '02/08/2025'
 export default class MoyenneQCM extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (p1: number, p2: number):
-  void {
+  private appliquerLesValeurs(p1: number, p2: number): void {
     const effectif = choice([4, 5])
     const valeurs = []
 
@@ -43,22 +43,24 @@ export default class MoyenneQCM extends ExerciceQcmA {
       moyenne = Math.floor(moyenne1) + 1
     }
     const x = moyenne * (effectif + 1) - somme
-    function genererDistracteurs (x: number): {
-      distracteur2: number,
-      distracteur3: number,
+    function genererDistracteurs(x: number): {
+      distracteur2: number
+      distracteur3: number
       distracteur4: number
     } {
       // Génère les valeurs autour de x (±1, ±2, ±3)
       const deltas = [-3, -2, -1, 1, 2, 3]
       const candidates = deltas
-        .map(delta => x + delta)
-        .filter(val => val > 0) // Garde seulement les positifs
+        .map((delta) => x + delta)
+        .filter((val) => val > 0) // Garde seulement les positifs
 
       // Mélange les candidats
       shuffleArray(candidates)
 
       if (candidates.length < 3) {
-        throw new Error('Pas assez de valeurs positives autour de x pour générer 3 distracteurs')
+        throw new Error(
+          'Pas assez de valeurs positives autour de x pour générer 3 distracteurs',
+        )
       }
 
       const [distracteur2, distracteur3, distracteur4] = candidates.slice(0, 3)
@@ -67,17 +69,17 @@ export default class MoyenneQCM extends ExerciceQcmA {
     }
 
     // Mélange un tableau (Fisher–Yates)
-    function shuffleArray<T> (array: T[]): void {
+    function shuffleArray<T>(array: T[]): void {
       for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[array[i], array[j]] = [array[j], array[i]]
       }
     }
     const { distracteur2, distracteur3, distracteur4 } = genererDistracteurs(x)
     this.reponses = [
-     `$${texNombre(x)}$`,
-    `$${texNombre(distracteur2)}$`,
-`$${texNombre(distracteur3)}$`,
+      `$${texNombre(x)}$`,
+      `$${texNombre(distracteur2)}$`,
+      `$${texNombre(distracteur3)}$`,
       `$${texNombre(distracteur4)}$`,
     ]
 
@@ -107,14 +109,14 @@ export default class MoyenneQCM extends ExerciceQcmA {
     const n = 4 // nombre de réponses différentes voulues (on rappelle que la première réponse est la bonne)
     do {
       const p1 = randint(-6, 6, 0) * 10
-      const p2 = randint(-6, 6, 0) * 10// On génère un polynôme de degré 2 ax^2+c
+      const p2 = randint(-6, 6, 0) * 10 // On génère un polynôme de degré 2 ax^2+c
 
       this.appliquerLesValeurs(p1, p2)
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: false, ordered: false }
     this.versionAleatoire()

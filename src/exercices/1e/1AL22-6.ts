@@ -1,45 +1,55 @@
-import { tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import {
+  tableauSignesFonction,
+  tableauVariationsFonction,
+} from '../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
-  ecritureParentheseSiNegatif
+  ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
-export const titre = 'Étudier le sens de variations d\'une fonction polynôme du second degré'
+export const titre =
+  "Étudier le sens de variations d'une fonction polynôme du second degré"
 export const dateDePublication = '04/08/2024'
 export const interactifReady = false
 export const uuid = '16f97'
 export const refs = {
   'fr-fr': ['1AL22-6'],
-  'fr-ch': ['1mF3-4']
+  'fr-ch': ['1mF3-4'],
 }
 
 /**
  *
  * @author Gilles Mora
-*/
+ */
 
 export default class variationPol2 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : Forme développée sur R\n2 : Forme développée sur un intervalle borné\n3 : Forme canonique sur R\n4 : Forme canonique sur un intervalle borné\n5 : Forme factorisée sur R \n6 : Forme factorisée sur un interavlle borné\n7 : Tableau de signes sur R\n8 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Choix des questions',
+      'Nombres séparés par des tirets :\n1 : Forme développée sur R\n2 : Forme développée sur un intervalle borné\n3 : Forme canonique sur R\n4 : Forme canonique sur un intervalle borné\n5 : Forme factorisée sur R \n6 : Forme factorisée sur un interavlle borné\n7 : Tableau de signes sur R\n8 : Mélange',
+    ]
     this.sup = '8'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 7,
       melange: 8,
       defaut: 8,
-      nbQuestions: this.nbQuestions
-
+      nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
 
@@ -47,31 +57,39 @@ export default class variationPol2 extends Exercice {
       let xMax // La borne droite de l'intervalle d'étude
       let substituts = [] // les valeur de substitution pour xMin ou xMax...
       let tolerance // la tolérance doit être réglée au cas par cas, car pour la dérivée de 1/x entre 17 et 19 par exemple, il y a trop peu de différence avec zéro !
-      const nomF = choice(['f'])//, 'g', 'h'
+      const nomF = choice(['f']) //, 'g', 'h'
       const a = randint(-5, 5, 0)
       const b = a * randint(-10, 10, 0)
       const c = randint(-10, 10, 0)
       const p = new Trinome(a, b, c)
-      const fonction = (x:number) => a * x ** 2 + b * x + c// forme développée
-      const derivee = (x:number) => 2 * a * x + b// Sa dérivée
+      const fonction = (x: number) => a * x ** 2 + b * x + c // forme développée
+      const derivee = (x: number) => 2 * a * x + b // Sa dérivée
       const a1 = randint(-3, 3, [-1, 0, 1])
       const rac1 = randint(-5, 5, 0)
       const rac2 = rac1 + 2 * randint(1, 4)
       const q = new Trinome(a1, -rac1 - rac2, rac1 * rac2)
-      q.defFormeFactorisee(a1, rac1, rac2)//
-      const fonctionFactorisee = (x:number) => a1 * x ** 2 - a1 * rac1 * x - a1 * rac2 * x + a1 * rac1 * rac2// Forme factorisée
-      const deriveeFactorisee = (x:number) => 2 * a1 * x - a1 * rac1 - a1 * rac2// Sa dérivée
+      q.defFormeFactorisee(a1, rac1, rac2) //
+      const fonctionFactorisee = (x: number) =>
+        a1 * x ** 2 - a1 * rac1 * x - a1 * rac2 * x + a1 * rac1 * rac2 // Forme factorisée
+      const deriveeFactorisee = (x: number) =>
+        2 * a1 * x - a1 * rac1 - a1 * rac2 // Sa dérivée
       const borneInf = randint(-5, 5, Math.floor(-b / (2 * a)))
       const borneSup = randint(borneInf + 1, 10, Math.floor(-b / (2 * a)))
-      const intervalle = listeDeQuestions[i] === 1 || listeDeQuestions[i] === 3 || listeDeQuestions[i] === 5 || listeDeQuestions[i] === 7 ? '\\mathbb{R}' : `[${borneInf}\\,;\\,${borneSup}]`
+      const intervalle =
+        listeDeQuestions[i] === 1 ||
+        listeDeQuestions[i] === 3 ||
+        listeDeQuestions[i] === 5 ||
+        listeDeQuestions[i] === 7
+          ? '\\mathbb{R}'
+          : `[${borneInf}\\,;\\,${borneSup}]`
       const texte1 = `On considère la fonction $${nomF}$ définie sur $${intervalle}$ par : `
       const texte2 = `Dresser le tableau de  variations de la fonction $${nomF}$ sur $${intervalle}$.`
       const CorrFormeD1 = `On reconnaît la forme développée d'une fonction polynôme du second degré $ax^2+bx+c$ avec $a=${a}$, $b=${b}$ et $c=${c}$.<br>
             Comme $a ${a > 0 ? '>' : '<'} 0$, la fonction est d'abord ${a > 0 ? 'décroissante' : 'croissante'} puis ${a > 0 ? 'croissante' : 'décroissante'}.<br>
             Le changement de variation s'opère en $\\alpha=-\\dfrac{b}{2a}=\\dfrac{-${ecritureParentheseSiNegatif(b)}}{2\\times ${ecritureParentheseSiNegatif(a)}}
-            =${p.alpha.simplifie().texFSD}$.<br><br>`// forme développée
+            =${p.alpha.simplifie().texFSD}$.<br><br>` // forme développée
       const CorrFormeD2 = `De plus, $${nomF}\\left(${p.alpha.simplifie().texFSD}\\right)=${p.texCalculImage(p.alpha.simplifie())}$.<br><br>
-           `// forme développée
+           ` // forme développée
       const CorrFormeD3 = `Comme $${p.alpha.simplifie().texFSD} \\notin [${borneInf}\\,;\\,${borneSup}]$, la fonction $${nomF}$ ne change pas de variation sur $[${borneInf}\\,;\\,${borneSup}]$.<br><br>
            `
       const CorrCalcImages = `On a $${nomF}(${borneInf})=${p.texCalculImage(borneInf)}$ et $${nomF}(${borneSup})=${p.texCalculImage(borneSup)}$.<br><br>`
@@ -94,29 +112,59 @@ export default class variationPol2 extends Exercice {
            $\\alpha=\\dfrac{${rac1}+${rac2}}{2}=${q.alpha.simplifie().texFSD}$ et $${nomF}\\left(${q.alpha.simplifie().texFSD}\\right)
            =${q.beta.simplifie().texFSD}$ (donné dans l'énoncé).<br><br>`
       switch (listeDeQuestions[i]) {
-        case 1:// cas forme développée
+        case 1: // cas forme développée
           tolerance = 0.005
           xMin = -100
           xMax = 100
-          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
-            { antVal: -b / (2 * a), antTex: p.alpha.simplifie().texFSD, imgVal: fonction(-b / (2 * a)), imgTex: `$${p.beta.simplifie().texFSD}$` },
-            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }]
+          substituts = [
+            { antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
+            {
+              antVal: -b / (2 * a),
+              antTex: p.alpha.simplifie().texFSD,
+              imgVal: fonction(-b / (2 * a)),
+              imgTex: `$${p.beta.simplifie().texFSD}$`,
+            },
+            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' },
+          ]
           texte = `${texte1}`
           texte += `$${nomF}(x)=${p}$.<br>`
           texte += `${texte2}`
           texteCorr = `${CorrFormeD1}`
           texteCorr += `${CorrFormeD2}`
           texteCorr += `${CorrToutesFormes}`
-          texteCorr += tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+          texteCorr += tableauVariationsFonction(
+            fonction,
+            derivee,
+            xMin,
+            xMax,
+            { ligneDerivee: false, substituts, step: 0.5, tolerance },
+          )
           break
 
-        case 2:// forme développée sur un intervalle
+        case 2: // forme développée sur un intervalle
           tolerance = 0.005
           xMin = borneInf
           xMax = borneSup
-          substituts = [{ antVal: borneInf, antTex: `$${borneInf}$`, imgVal: Number(p.image(borneInf)), imgTex: `$${p.image(borneInf).texFraction}$` },
-            { antVal: -b / (2 * a), antTex: p.alpha.simplifie().texFSD, imgVal: fonction(-b / (2 * a)), imgTex: `$${p.beta.simplifie().texFSD}$` },
-            { antVal: borneSup, antTex: `${borneSup}`, imgVal: Number(p.image(borneSup)), imgTex: `$${p.image(borneSup).texFraction}$` }]
+          substituts = [
+            {
+              antVal: borneInf,
+              antTex: `$${borneInf}$`,
+              imgVal: Number(p.image(borneInf)),
+              imgTex: `$${p.image(borneInf).texFraction}$`,
+            },
+            {
+              antVal: -b / (2 * a),
+              antTex: p.alpha.simplifie().texFSD,
+              imgVal: fonction(-b / (2 * a)),
+              imgTex: `$${p.beta.simplifie().texFSD}$`,
+            },
+            {
+              antVal: borneSup,
+              antTex: `${borneSup}`,
+              imgVal: Number(p.image(borneSup)),
+              imgTex: `$${p.image(borneSup).texFraction}$`,
+            },
+          ]
           texte = `${texte1}`
           texte += `$${nomF}(x)=${p}$.<br>`
           texte += `${texte2}`
@@ -130,31 +178,67 @@ export default class variationPol2 extends Exercice {
             texteCorr += ` ${CorrCalcImages}`
             texteCorr += `${CorrToutesFormes}`
           }
-          texteCorr += tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+          texteCorr += tableauVariationsFonction(
+            fonction,
+            derivee,
+            xMin,
+            xMax,
+            { ligneDerivee: false, substituts, step: 0.5, tolerance },
+          )
           break
 
-        case 3:// Forme canonique sur R
+        case 3: // Forme canonique sur R
           tolerance = 0.005
           xMin = -100
           xMax = 100
-          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
-            { antVal: -b / (2 * a), antTex: p.alpha.simplifie().texFSD, imgVal: fonction(-b / (2 * a)), imgTex: `$${p.beta.simplifie().texFSD}$` },
-            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }]
+          substituts = [
+            { antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
+            {
+              antVal: -b / (2 * a),
+              antTex: p.alpha.simplifie().texFSD,
+              imgVal: fonction(-b / (2 * a)),
+              imgTex: `$${p.beta.simplifie().texFSD}$`,
+            },
+            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' },
+          ]
           texte = `${texte1}`
           texte += `$${nomF}(x)=${p.texFormeCanonique}$.<br>`
           texte += `${texte2}`
           texteCorr = `${CorrFormeC}`
           texteCorr += `${CorrToutesFormes}`
-          texteCorr += tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+          texteCorr += tableauVariationsFonction(
+            fonction,
+            derivee,
+            xMin,
+            xMax,
+            { ligneDerivee: false, substituts, step: 0.5, tolerance },
+          )
           break
 
-        case 4:// Forme canonique sur un intervalle
+        case 4: // Forme canonique sur un intervalle
           tolerance = 0.005
           xMin = borneInf
           xMax = borneSup
-          substituts = [{ antVal: borneInf, antTex: `$${borneInf}$`, imgVal: Number(p.image(borneInf)), imgTex: `$${p.image(borneInf).texFraction}$` },
-            { antVal: -b / (2 * a), antTex: p.alpha.simplifie().texFSD, imgVal: fonction(-b / (2 * a)), imgTex: `$${p.beta.simplifie().texFSD}$` },
-            { antVal: borneSup, antTex: `${borneSup}`, imgVal: Number(p.image(borneSup)), imgTex: `$${p.image(borneSup).texFraction}$` }]
+          substituts = [
+            {
+              antVal: borneInf,
+              antTex: `$${borneInf}$`,
+              imgVal: Number(p.image(borneInf)),
+              imgTex: `$${p.image(borneInf).texFraction}$`,
+            },
+            {
+              antVal: -b / (2 * a),
+              antTex: p.alpha.simplifie().texFSD,
+              imgVal: fonction(-b / (2 * a)),
+              imgTex: `$${p.beta.simplifie().texFSD}$`,
+            },
+            {
+              antVal: borneSup,
+              antTex: `${borneSup}`,
+              imgVal: Number(p.image(borneSup)),
+              imgTex: `$${p.image(borneSup).texFraction}$`,
+            },
+          ]
 
           texte = `${texte1}`
           texte += `$${nomF}(x)=${p.texFormeCanonique}$.<br>`
@@ -168,29 +252,65 @@ export default class variationPol2 extends Exercice {
             texteCorr += ` ${CorrCalcImages}`
             texteCorr += `${CorrToutesFormes}`
           }
-          texteCorr += tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+          texteCorr += tableauVariationsFonction(
+            fonction,
+            derivee,
+            xMin,
+            xMax,
+            { ligneDerivee: false, substituts, step: 0.5, tolerance },
+          )
           break
-        case 5:// Forme factorisée sur R
+        case 5: // Forme factorisée sur R
           tolerance = 0.005
           xMin = -100
           xMax = 100
-          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
-            { antVal: (rac1 + rac2) / 2, antTex: q.alpha.simplifie().texFSD, imgVal: fonctionFactorisee((rac1 + rac2) / 2), imgTex: `$${q.beta.simplifie().texFSD}$` },
-            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }]
+          substituts = [
+            { antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
+            {
+              antVal: (rac1 + rac2) / 2,
+              antTex: q.alpha.simplifie().texFSD,
+              imgVal: fonctionFactorisee((rac1 + rac2) / 2),
+              imgTex: `$${q.beta.simplifie().texFSD}$`,
+            },
+            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' },
+          ]
           texte = `${texte1}`
           texte += `$${nomF}(x)=${q.texFormeFactorisee}$.<br>`
           texte += `${texte2}`
           texteCorr = `${CorrFormeF}`
           texteCorr += `${CorrToutesFormes}`
-          texteCorr += tableauVariationsFonction(fonctionFactorisee, deriveeFactorisee, xMin, xMax, { ligneDerivee: false, substituts, step: 1, tolerance })
+          texteCorr += tableauVariationsFonction(
+            fonctionFactorisee,
+            deriveeFactorisee,
+            xMin,
+            xMax,
+            { ligneDerivee: false, substituts, step: 1, tolerance },
+          )
           break
-        case 6:// Forme factorisée sur intervalle
+        case 6: // Forme factorisée sur intervalle
           tolerance = 0.005
           xMin = borneInf
           xMax = borneSup
-          substituts = [{ antVal: borneInf, antTex: `$${borneInf}$`, imgVal: Number(q.image(borneInf)), imgTex: `$${q.image(borneInf).texFraction}$` },
-            { antVal: (rac1 + rac2) / 2, antTex: q.alpha.simplifie().texFSD, imgVal: fonction((rac1 + rac2) / 2), imgTex: `$${q.beta.simplifie().texFSD}$` },
-            { antVal: borneSup, antTex: `${borneSup}`, imgVal: Number(q.image(borneSup)), imgTex: `$${q.image(borneSup).texFraction}$` }]
+          substituts = [
+            {
+              antVal: borneInf,
+              antTex: `$${borneInf}$`,
+              imgVal: Number(q.image(borneInf)),
+              imgTex: `$${q.image(borneInf).texFraction}$`,
+            },
+            {
+              antVal: (rac1 + rac2) / 2,
+              antTex: q.alpha.simplifie().texFSD,
+              imgVal: fonction((rac1 + rac2) / 2),
+              imgTex: `$${q.beta.simplifie().texFSD}$`,
+            },
+            {
+              antVal: borneSup,
+              antTex: `${borneSup}`,
+              imgVal: Number(q.image(borneSup)),
+              imgTex: `$${q.image(borneSup).texFraction}$`,
+            },
+          ]
 
           texte = `${texte1}`
           texte += `$${nomF}(x)=${q.texFormeFactorisee}$.<br>`
@@ -205,32 +325,52 @@ export default class variationPol2 extends Exercice {
             texteCorr += ` ${CorrCalcImagesF}`
             texteCorr += `${CorrToutesFormes}`
           }
-          texteCorr += tableauVariationsFonction(fonctionFactorisee, deriveeFactorisee, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+          texteCorr += tableauVariationsFonction(
+            fonctionFactorisee,
+            deriveeFactorisee,
+            xMin,
+            xMax,
+            { ligneDerivee: false, substituts, step: 0.5, tolerance },
+          )
           break
-        case 7:// avec tableau de signes sur R
+        case 7: // avec tableau de signes sur R
           tolerance = 0.005
           xMin = -100
           xMax = 100
-          texte = 'Le tableau suivant est le tableau de signes d\'une fonction polynôme du second degré.<br><br>' +
-          tableauSignesFonction(fonctionFactorisee,
-            -100,
-            100,
-            {
+          texte =
+            "Le tableau suivant est le tableau de signes d'une fonction polynôme du second degré.<br><br>" +
+            tableauSignesFonction(fonctionFactorisee, -100, 100, {
               step: 0.1,
               tolerance: 0.001,
-              substituts: [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' }, { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }]
+              substituts: [
+                { antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
+                { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' },
+              ],
             })
           texte += `<br>Dresser le tableau de variations de la fonction $${nomF}$ sur $\\mathbb{R}$ sachant que son extrémum vaut $${q.beta.simplifie().texFSD}$.`
           texteCorr = `${CorrTableauSignes}`
           texteCorr += `${CorrToutesFormes}`
-          texteCorr += tableauVariationsFonction(fonctionFactorisee, deriveeFactorisee, xMin, xMax, {
-            ligneDerivee: false,
-            substituts: [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
-              { antVal: (rac1 + rac2) / 2, antTex: q.alpha.simplifie().texFSD, imgVal: fonctionFactorisee((rac1 + rac2) / 2), imgTex: `$${q.beta.simplifie().texFSD}$` },
-              { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }],
-            step: 0.5,
-            tolerance: 0.001
-          })
+          texteCorr += tableauVariationsFonction(
+            fonctionFactorisee,
+            deriveeFactorisee,
+            xMin,
+            xMax,
+            {
+              ligneDerivee: false,
+              substituts: [
+                { antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
+                {
+                  antVal: (rac1 + rac2) / 2,
+                  antTex: q.alpha.simplifie().texFSD,
+                  imgVal: fonctionFactorisee((rac1 + rac2) / 2),
+                  imgTex: `$${q.beta.simplifie().texFSD}$`,
+                },
+                { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' },
+              ],
+              step: 0.5,
+              tolerance: 0.001,
+            },
+          )
           break
       }
       if (this.questionJamaisPosee(i, texte)) {

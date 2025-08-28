@@ -1,21 +1,30 @@
 import { texPrix } from '../../lib/format/style'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice, combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle2tableaux,
+} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
-  rangeMinMax
+  rangeMinMax,
 } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { context } from '../../modules/context'
-import { checkSum, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  checkSum,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
+export const titre =
+  'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -32,27 +41,27 @@ export const uuid = 'c511f'
 export const refs = {
   'fr-fr': ['BP2AutoL6', '6P3C-1'],
   'fr-2016': ['6P11-1', 'BP2AutoL6'],
-  'fr-ch': ['9FA3-10']
+  'fr-ch': ['9FA3-10'],
 }
 
 type Situation = {
-  lieu: string,
-  achat_sing: string,
-  achat_plur: string,
+  lieu: string
+  achat_sing: string
+  achat_plur: string
   pu: number
 }
 export default class ProportionnaliteParLineariteBis extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
 
     /*  if (context.isAmc) {
     titre = 'Résoudre un problème relevant de la proportionnalité'
   } */
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const tabHash = []
     const sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions)
     const prenomliste = prenom(6)
@@ -61,37 +70,41 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
         lieu: 'À la boulangerie',
         achat_sing: 'pain au chocolat',
         achat_plur: 'pains au chocolat',
-        pu: choice([0.7, 0.75, 0.8, 0.85])
+        pu: choice([0.7, 0.75, 0.8, 0.85]),
       },
       {
         lieu: 'À la boulangerie',
         achat_sing: 'croissant',
         achat_plur: 'croissants',
-        pu: choice([1.05, 1.15, 0.95, 1.25])
+        pu: choice([1.05, 1.15, 0.95, 1.25]),
       },
       {
         lieu: 'À la boulangerie',
         achat_sing: 'baguette',
         achat_plur: 'baguettes',
-        pu: choice([0.9, 1.3, 1.1, 1.2])
+        pu: choice([0.9, 1.3, 1.1, 1.2]),
       },
       {
         lieu: 'Au supermarché',
         achat_sing: 'bouteille de jus de fruits',
         achat_plur: 'bouteilles de jus de fruits',
-        pu: choice([1.8, 1.9, 2.1, 2.3])
+        pu: choice([1.8, 1.9, 2.1, 2.3]),
       },
       {
         lieu: 'À la charcuterie',
         achat_sing: 'tranche de jambon',
         achat_plur: 'tranches de jambon',
-        pu: choice([1.6, 1.7, 2.2, 2.4])
-      }
+        pu: choice([1.6, 1.7, 2.2, 2.4]),
+      },
     ]
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // une fonction pour gérer le pluriel
-      const pluriel = function (n:number, obj: Situation) {
+      const pluriel = function (n: number, obj: Situation) {
         if (n > 1) {
           return obj.achat_plur
         } else {
@@ -130,70 +143,84 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
       const propositionsAMC = [
         {
           type: 'AMCNum',
-          propositions: [{
-            texte: texteCorr,
-            statut: '',
-            reponse: {
-              texte: enonceAMC,
-              valeur: arrondi(consigneQuestions[0] * situation.pu, 2),
-              param: {
-                digits: nombreDeChiffresDe(arrondi(consigneQuestions[0] * situation.pu, 2)),
-                decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(consigneQuestions[0] * situation.pu, 2)),
-                signe: false,
-                approx: 0
-              }
-            }
-          }]
-        }
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: '',
+              reponse: {
+                texte: enonceAMC,
+                valeur: arrondi(consigneQuestions[0] * situation.pu, 2),
+                param: {
+                  digits: nombreDeChiffresDe(
+                    arrondi(consigneQuestions[0] * situation.pu, 2),
+                  ),
+                  decimals: nombreDeChiffresDansLaPartieDecimale(
+                    arrondi(consigneQuestions[0] * situation.pu, 2),
+                  ),
+                  signe: false,
+                  approx: 0,
+                },
+              },
+            },
+          ],
+        },
       ]
       enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomlisteEE[1]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 1, '', { texteApres: sp(2) + '€' })}`
       texte += '<br>' + enonceAMC
-      propositionsAMC.push(
-        {
-          type: 'AMCNum',
-          propositions: [{
+      propositionsAMC.push({
+        type: 'AMCNum',
+        propositions: [
+          {
             texte: '',
             statut: '',
             reponse: {
               texte: enonceAMC,
               valeur: arrondi(consigneQuestions[1] * situation.pu, 2),
               param: {
-                digits: nombreDeChiffresDe(arrondi(consigneQuestions[1] * situation.pu, 2)),
-                decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(consigneQuestions[1] * situation.pu, 2)),
+                digits: nombreDeChiffresDe(
+                  arrondi(consigneQuestions[1] * situation.pu, 2),
+                ),
+                decimals: nombreDeChiffresDansLaPartieDecimale(
+                  arrondi(consigneQuestions[1] * situation.pu, 2),
+                ),
                 signe: false,
-                approx: 0
-              }
-            }
-          }]
-        }
-      )
+                approx: 0,
+              },
+            },
+          },
+        ],
+      })
       enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomlisteEE[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 2, '', { texteApres: sp(2) + '€' })}`
       texte += '<br>' + enonceAMC
-      propositionsAMC.push(
-        {
-          type: 'AMCNum',
-          propositions: [{
+      propositionsAMC.push({
+        type: 'AMCNum',
+        propositions: [
+          {
             texte: '',
             statut: '',
             reponse: {
               texte: enonceAMC,
               valeur: arrondi(consigneQuestions[2] * situation.pu, 2),
               param: {
-                digits: nombreDeChiffresDe(arrondi(consigneQuestions[2] * situation.pu, 2)),
-                decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(consigneQuestions[2] * situation.pu, 2)),
+                digits: nombreDeChiffresDe(
+                  arrondi(consigneQuestions[2] * situation.pu, 2),
+                ),
+                decimals: nombreDeChiffresDansLaPartieDecimale(
+                  arrondi(consigneQuestions[2] * situation.pu, 2),
+                ),
                 signe: false,
-                approx: 0
-              }
-            }
-          }]
-        }
-      )
+                approx: 0,
+              },
+            },
+          },
+        ],
+      })
       enonceAMC = `${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$${sp()}€ ? ${ajouteChampTexteMathLive(this, 4 * i + 3, '', { texteApres: sp(2) + situation.achat_plur })}`
       texte += '<br>' + enonceAMC
-      propositionsAMC.push(
-        {
-          type: 'AMCNum',
-          propositions: [{
+      propositionsAMC.push({
+        type: 'AMCNum',
+        propositions: [
+          {
             texte: '',
             statut: '',
             reponse: {
@@ -203,12 +230,12 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
                 digits: 2,
                 decimals: 0,
                 signe: false,
-                approx: 0
-              }
-            }
-          }]
-        }
-      )
+                approx: 0,
+              },
+            },
+          },
+        ],
+      })
       texteCorr = `
         C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
         <br>C'est ce que nous allons faire pour les trois premières questions.
@@ -234,13 +261,13 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
       for (let kk = 0; kk < 3; kk++) {
         texteCorr += `<br>${numAlpha(kCorr++)} ` + texteCorrInit
         switch (consigneQuestions[kk]) {
-          case n3 :
+          case n3:
             texteCorr += texteCorrn3
             break
-          case n4 :
+          case n4:
             texteCorr += texteCorrn4
             break
-          case n5 :
+          case n5:
             texteCorr += texteCorrn5
             break
         }
@@ -252,19 +279,32 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
         <br> Pour $${texPrix(nMax * situation.pu)}$${sp()}€, nous aurons donc $${texPrix(nMax * situation.pu)}$ ${sp()}€ $\\div ${texPrix(situation.pu)}$${sp()}€ $= ${nMax}$.
         <br> Avec $${miseEnEvidence(texPrix(nMax * situation.pu))}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`
 
-      if (tabHash.indexOf(checkSum(prenomliste[3], n3, n2, nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (tabHash.indexOf(checkSum(prenomliste[3], n3, n2, nMax)) === -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
         tabHash.push(checkSum(prenomliste[3], n3, n2, nMax))
         if (!context.isAmc) {
-          setReponse(this, 4 * i, arrondi(consigneQuestions[0] * situation.pu, 2))
-          setReponse(this, 4 * i + 1, arrondi(consigneQuestions[1] * situation.pu, 2))
-          setReponse(this, 4 * i + 2, arrondi(consigneQuestions[2] * situation.pu, 2))
+          setReponse(
+            this,
+            4 * i,
+            arrondi(consigneQuestions[0] * situation.pu, 2),
+          )
+          setReponse(
+            this,
+            4 * i + 1,
+            arrondi(consigneQuestions[1] * situation.pu, 2),
+          )
+          setReponse(
+            this,
+            4 * i + 2,
+            arrondi(consigneQuestions[2] * situation.pu, 2),
+          )
           setReponse(this, 4 * i + 3, nMax)
         } else {
           this.autoCorrection[i] = {
             enonce: '',
             enonceAvant: false,
             options: { barreseparation: true, multicolsAll: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
-            propositions: propositionsAMC
+            propositions: propositionsAMC,
           }
         }
         this.listeQuestions[i] = texte

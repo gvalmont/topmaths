@@ -9,7 +9,8 @@ import { personne } from '../../lib/outils/Personne'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { texNombre } from '../../lib/outils/texNombre'
 
-export const titre = 'Trouver une probabilité sous forme fractionnaire, décimale et en pourcentage'
+export const titre =
+  'Trouver une probabilité sous forme fractionnaire, décimale et en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -22,26 +23,33 @@ export const uuid = 'b8296'
 export const refs = {
   'fr-fr': ['6P2B'],
   'fr-2016': ['6S12'],
-  'fr-ch': ['']
+  'fr-ch': [''],
 }
 export default class Probabilites6e extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.spacing = 2
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
-    const fracPossible : [number, number, number][] = [ // Numérateur, Dénominateur, Pourcentage
-      [1, 2, 50], [1, 4, 25], [3, 4, 75], [1, 5, 20], [2, 5, 40], [3, 5, 60], [4, 5, 80], [1, 10, 10], [3, 10, 30], [7, 10, 70], [9, 10, 90]
+  nouvelleVersion() {
+    const fracPossible: [number, number, number][] = [
+      // Numérateur, Dénominateur, Pourcentage
+      [1, 2, 50],
+      [1, 4, 25],
+      [3, 4, 75],
+      [1, 5, 20],
+      [2, 5, 40],
+      [3, 5, 60],
+      [4, 5, 80],
+      [1, 10, 10],
+      [3, 10, 30],
+      [7, 10, 70],
+      [9, 10, 90],
     ]
     const couleur = ['noire', 'blanche', 'rouge', 'bleue', 'verte', 'jaune']
-    for (
-      let i = 0, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
-      const frac : [number, number, number] = choice(fracPossible)
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const frac: [number, number, number] = choice(fracPossible)
       const choix = choice([true, false])
       const choixCouleur = [choice(couleur)]
       choixCouleur.push(choice(couleur, choixCouleur[0]))
@@ -51,23 +59,52 @@ export default class Probabilites6e extends Exercice {
       let texte = `${quidam.prenom} veut piocher une boule dans un sac contenant $${choix ? boule1 : boule2}$ boule${(choix ? boule1 : boule2) === 1 ? '' : 's'} ${choixCouleur[0]}${(choix ? boule1 : boule2) === 1 ? '' : 's'}
       et $${!choix ? boule1 : boule2}$ boule${(!choix ? boule1 : boule2) === 1 ? '' : 's'} ${choixCouleur[1]}${(!choix ? boule1 : boule2) === 1 ? '' : 's'}.<br>
       Quelle est la probabilité que ${quidam.prenom} pioche une boule ${choixCouleur[choix ? 0 : 1]} ?`
-      texte += '<br>Donner la réponse sous forme d\'une fraction'
+      texte += "<br>Donner la réponse sous forme d'une fraction"
       texte += this.interactif
-        ? ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: ' : ', texteApres: '.' })
+        ? ajouteChampTexteMathLive(
+            this,
+            3 * i,
+            KeyboardType.clavierDeBaseAvecFraction,
+            { texteAvant: ' : ', texteApres: '.' },
+          )
         : '.'
-      texte += '<br>Donner la réponse sous forme d\'un nombre décimal'
+      texte += "<br>Donner la réponse sous forme d'un nombre décimal"
       texte += this.interactif
-        ? ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.clavierNumbers, { texteAvant: ' : ', texteApres: '.' })
+        ? ajouteChampTexteMathLive(
+            this,
+            3 * i + 1,
+            KeyboardType.clavierNumbers,
+            { texteAvant: ' : ', texteApres: '.' },
+          )
         : '.'
-      texte += '<br>Donner la réponse sous forme d\'un pourcentage'
+      texte += "<br>Donner la réponse sous forme d'un pourcentage"
       texte += this.interactif
-        ? ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierNumbers, { texteAvant: ' : ', texteApres: '%.' })
+        ? ajouteChampTexteMathLive(
+            this,
+            3 * i + 2,
+            KeyboardType.clavierNumbers,
+            { texteAvant: ' : ', texteApres: '%.' },
+          )
         : '.'
-      const reponseFrac = new FractionEtendue(boule1, boule1 + boule2).texFraction
-      const reponseDecimale = new FractionEtendue(boule1, boule1 + boule2).valeurDecimale
-      handleAnswers(this, 3 * i, { reponse: { value: reponseFrac, options: { fractionEgale: true } } })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: reponseDecimale, options: { nombreDecimalSeulement: true } } })
-      handleAnswers(this, 3 * i + 2, { reponse: { value: frac[2].toString(), options: { nombreDecimalSeulement: true } } })
+      const reponseFrac = new FractionEtendue(boule1, boule1 + boule2)
+        .texFraction
+      const reponseDecimale = new FractionEtendue(boule1, boule1 + boule2)
+        .valeurDecimale
+      handleAnswers(this, 3 * i, {
+        reponse: { value: reponseFrac, options: { fractionEgale: true } },
+      })
+      handleAnswers(this, 3 * i + 1, {
+        reponse: {
+          value: reponseDecimale,
+          options: { nombreDecimalSeulement: true },
+        },
+      })
+      handleAnswers(this, 3 * i + 2, {
+        reponse: {
+          value: frac[2].toString(),
+          options: { nombreDecimalSeulement: true },
+        },
+      })
       const texteCorr = `La probabilité que ${quidam.prenom} pioche une boule ${choixCouleur[choix ? 0 : 1]} est de $${miseEnEvidence(reponseFrac)}$, soit $${miseEnEvidence(texNombre(reponseDecimale))}$, soit encore $${miseEnEvidence(texNombre(frac[2]))}$ %.`
 
       if (this.questionJamaisPosee(i, ...frac)) {

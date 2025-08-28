@@ -14,7 +14,7 @@ export const uuid = '4adca'
 */
 
 export default class DivisionParQuatreCM2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class DivisionParQuatreCM2 extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let dividende: number
     let diviseur: number
     if (this.canOfficielle) {
@@ -39,7 +39,8 @@ export default class DivisionParQuatreCM2 extends ExerciceSimple {
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = texNombre(dividende / diviseur, 0)
-    this.correction = 'Pour diviser par $4$, on peut diviser par $2$ puis diviser le résultat par $2$ :<br>'
+    this.correction =
+      'Pour diviser par $4$, on peut diviser par $2$ puis diviser le résultat par $2$ :<br>'
     this.correction += `
     $\\begin{aligned}
     ${texNombre(dividende, 0)}\\div 4&=(${texNombre(dividende, 0)}\\div 2)\\div 2\\\\

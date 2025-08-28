@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '41aff'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class ResoudreEquation extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +27,7 @@ export default class ResoudreEquation extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '<br> $x=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 5 : randint(3, 7)
     const reponse = this.canOfficielle ? 5 : randint(-7, 7, [-1, 0, 1])
     const c = this.canOfficielle ? 22 : randint(-9, 9, [0, a * reponse])

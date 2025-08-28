@@ -1,8 +1,18 @@
 import { Point, point, TracePoint, tracePoint } from '../lib/2d/points'
-import { barycentre, Polygone, polygone, polygoneRegulier } from '../lib/2d/polygones'
+import {
+  barycentre,
+  Polygone,
+  polygone,
+  polygoneRegulier,
+} from '../lib/2d/polygones'
 import { vecteur } from '../lib/2d/segmentsVecteurs'
 import { TexteParPoint, texteParPosition } from '../lib/2d/textes'
-import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations'
+import {
+  homothetie,
+  rotation,
+  similitude,
+  translation,
+} from '../lib/2d/transformations'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { egal } from './outils'
 
@@ -22,17 +32,17 @@ export class Pavage {
   Ny: number
   echelle: number
   fenetre!: {
-    xmin: number,
-    xmax: number,
-    ymin: number,
-    ymax: number,
-    pixelsParCm: number,
+    xmin: number
+    xmax: number
+    ymin: number
+    ymax: number
+    pixelsParCm: number
     scale: number
   }
 
   nb_polygones: number
 
-  constructor () {
+  constructor() {
     this.type = 1
     this.polygones = []
     this.barycentres = []
@@ -45,14 +55,22 @@ export class Pavage {
     this.nb_polygones = 0
   }
 
-  construit (type: 1 | 2 | 3 | 4 | 5 | 6 | 7 = 1, Nx: number = 1, Ny:number = 1, taille:number = 3): Pavage {
-    const nettoieObjets = function (objets:Polygone[]) {
+  construit(
+    type: 1 | 2 | 3 | 4 | 5 | 6 | 7 = 1,
+    Nx: number = 1,
+    Ny: number = 1,
+    taille: number = 3,
+  ): Pavage {
+    const nettoieObjets = function (objets: Polygone[]) {
       let barywhite, baryblack // c'est drôle non ?
       for (let i = 0; i < objets.length; i++) {
         barywhite = barycentre(objets[i])
-        for (let j = i + 1; j < objets.length;) {
+        for (let j = i + 1; j < objets.length; ) {
           baryblack = barycentre(objets[j])
-          if (egal(barywhite.x, baryblack.x, 0.1) && egal(barywhite.y, baryblack.y, 0.1)) {
+          if (
+            egal(barywhite.x, baryblack.x, 0.1) &&
+            egal(barywhite.y, baryblack.y, 0.1)
+          ) {
             objets.splice(j, 1)
           } else {
             j++
@@ -243,7 +261,20 @@ export class Pavage {
             P5 = rotation(P4, B, -150)
             P8 = rotation(P3, A, 150)
 
-            this.polygones.push(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12)
+            this.polygones.push(
+              P1,
+              P2,
+              P3,
+              P4,
+              P5,
+              P6,
+              P7,
+              P8,
+              P9,
+              P10,
+              P11,
+              P12,
+            )
 
             for (const p of P1.listePoints) {
               XMIN = Math.min(XMIN, p.x)
@@ -479,8 +510,14 @@ export class Pavage {
             A = translation(A, vecteur(w.x + v.x, w.y + v.y))
             B = translation(B, vecteur(w.x + v.x, w.y + v.y))
           }
-          A = translation(A, vecteur(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y))
-          B = translation(B, vecteur(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y))
+          A = translation(
+            A,
+            vecteur(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y),
+          )
+          B = translation(
+            B,
+            vecteur(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y),
+          )
         }
         break
       case 7:
@@ -552,7 +589,7 @@ export class Pavage {
       xmax: XMAX + 0.5,
       ymax: YMAX + 0.5,
       pixelsParCm: this.echelle,
-      scale: this.echelle / 30
+      scale: this.echelle / 30,
     }
     nettoieObjets(this.polygones) // On supprime les doublons éventuels (grâce à leur barycentre)
     // On ajoute les N°
@@ -564,12 +601,23 @@ export class Pavage {
       this.tracesCentres[i].opacite = 0.5
       this.tracesCentres[i].taille = 2
       this.coordonnees.push([this.barycentres[i].x, this.barycentres[i].y])
-      this.numeros.push(texteParPosition(nombreAvecEspace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 0, 'black', 50 / this.echelle, 'milieu', true) as TexteParPoint)
+      this.numeros.push(
+        texteParPosition(
+          nombreAvecEspace(i + 1),
+          this.barycentres[i].x + 0.5,
+          this.barycentres[i].y,
+          0,
+          'black',
+          50 / this.echelle,
+          'milieu',
+          true,
+        ) as TexteParPoint,
+      )
     }
     return this
   }
 }
 
-export function pavage (): Pavage {
+export function pavage(): Pavage {
   return new Pavage()
 }

@@ -19,10 +19,10 @@ export const uuid = '140ad'
 
 export const refs = {
   'fr-fr': ['can3C13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Pyramide3EtagesAdditionFractions extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.nbQuestions = 1
@@ -30,8 +30,17 @@ export default class Pyramide3EtagesAdditionFractions extends ExerciceSimple {
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
-    const pyr = new Pyramide({ operation: '+', nombreEtages: 3, rangeData: [[-3, 3], [5, 10]], exclusions: [0], fractionOn: true })
+  nouvelleVersion() {
+    const pyr = new Pyramide({
+      operation: '+',
+      nombreEtages: 3,
+      rangeData: [
+        [-3, 3],
+        [5, 10],
+      ],
+      exclusions: [0],
+      fractionOn: true,
+    })
     pyr.isVisible = [[false], [false, false], [true, true, true]]
     this.question = `Chaque case contient la somme des deux cases sur lesquelles elle repose. Quel est le nombre qui correspond à * ?<br>
     
@@ -41,7 +50,7 @@ export default class Pyramide3EtagesAdditionFractions extends ExerciceSimple {
     this.correction = `Le nombre qui se trouve au sommet de la pyramide est : $${this.reponse}$<br>
     
     ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 7, scale: 0.7 }, pyr.representeMoi(0, 0))}`
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

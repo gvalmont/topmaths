@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '94d92'
 export const refs = {
   'fr-fr': ['TSA1-QCM02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,19 +28,20 @@ export default class metropoleSept2023Q2 extends ExerciceQcm {
       'géométrique de raison $\\mathrm{e}^2$',
       'arithmétique de raison 2 ',
       'géométrique de raison $\\mathrm{e}$',
-      'convergente vers $\\mathrm{e}$'
-
+      'convergente vers $\\mathrm{e}$',
     ]
 
     this.enonce = `On considère la suite $\\left(u_n\\right)$ définie pour tout entier naturel $n$ par: $u_n = \\mathrm{e}^{2n+1}.$
 <br>La suite $\\left(u_n\\right)$ est:`
 
     this.correction = 'Si pour tout entier naturel $n$, :<br>'
-    this.correction += '$u_n = \\mathrm{e}^{2n+1}$, alors $u_{n+1} = \\mathrm{e}^{2(n+1)+ 1} = \\mathrm{e}^{2n + 2 + 1} = \\mathrm{e}^{2} \\times \\mathrm{e}^{2n + 1} = \\mathrm{e}^{2} \\times u_n$. <br>'
-    this.correction += ' Cette égalité montre que la suite $\\left(u_n\\right)$ est géométrique de raison $\\mathrm{e}^{2}$ '
+    this.correction +=
+      '$u_n = \\mathrm{e}^{2n+1}$, alors $u_{n+1} = \\mathrm{e}^{2(n+1)+ 1} = \\mathrm{e}^{2n + 2 + 1} = \\mathrm{e}^{2} \\times \\mathrm{e}^{2n + 1} = \\mathrm{e}^{2} \\times u_n$. <br>'
+    this.correction +=
+      ' Cette égalité montre que la suite $\\left(u_n\\right)$ est géométrique de raison $\\mathrm{e}^{2}$ '
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

@@ -1,15 +1,29 @@
 import { milieu, plot, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
+import {
+  segment,
+  segmentAvecExtremites,
+} from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites'
+import {
+  formatMinute,
+  stringNombre,
+  texNombre,
+} from '../../../lib/outils/texNombre'
+import {
+  mathalea2d,
+  fixeBordures,
+  colorToLatexOrHTML,
+} from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { context } from '../../../modules/context'
 import { egal, randint } from '../../../modules/outils'
@@ -19,10 +33,10 @@ export const titre = 'Classe CAN C3'
 /**
  * Essai de classe Can pour le sujet cm2 2023
  * @author Sébastien LOZANO: number
-*/
+ */
 
 export default class ClasseCan2023 {
-  compareNombres (a: number, b: number) {
+  compareNombres(a: number, b: number) {
     return a - b
   }
 
@@ -35,13 +49,18 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  produitDeDeuxFacteurs (minFacteur0: number, maxFacteur0: number, minFacteur1: number, maxFacteur1: number) {
+  produitDeDeuxFacteurs(
+    minFacteur0: number,
+    maxFacteur0: number,
+    minFacteur1: number,
+    maxFacteur1: number,
+  ) {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const a = randint(minFacteur0, maxFacteur0)
     const b = randint(minFacteur1, maxFacteur1)
@@ -58,22 +77,28 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  ajouterDizaineMoinsUn () {
+  ajouterDizaineMoinsUn() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const a = randint(23, 38, [20, 30, 31, 29])
     const b = choice([19, 29, 39])
 
     sortie.texte = `$${a}+${b}$`
     sortie.reponse = String(a + b)
-    if (b === 19) { sortie.texteCorr = `$${a}+${b}=${a}+20-1=${a + 20}-1=${miseEnEvidence(sortie.reponse)}$` }
-    if (b === 29) { sortie.texteCorr = `$${a}+${b}=${a}+30-1=${a + 30}-1=${miseEnEvidence(sortie.reponse)}$` }
-    if (b === 39) { sortie.texteCorr = `$${a}+${b}=${a}+40-1=${a + 40}-1=${miseEnEvidence(sortie.reponse)}$` }
+    if (b === 19) {
+      sortie.texteCorr = `$${a}+${b}=${a}+20-1=${a + 20}-1=${miseEnEvidence(sortie.reponse)}$`
+    }
+    if (b === 29) {
+      sortie.texteCorr = `$${a}+${b}=${a}+30-1=${a + 30}-1=${miseEnEvidence(sortie.reponse)}$`
+    }
+    if (b === 39) {
+      sortie.texteCorr = `$${a}+${b}=${a}+40-1=${a + 40}-1=${miseEnEvidence(sortie.reponse)}$`
+    }
     sortie.canEnonce = sortie.texte
     sortie.canReponseACompleter = ''
     return sortie
@@ -84,19 +109,25 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  denombrementProduit () {
+  denombrementProduit() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const k = randint(5, 8)
     const b = randint(2, 5) * k
     const d = []
     for (let n = 0; n < b; n++) {
-      d.push(plot(n % k, -Math.floor(n / k), { rayon: 0.2, couleur: 'black', couleurDeRemplissage: 'black' }))
+      d.push(
+        plot(n % k, -Math.floor(n / k), {
+          rayon: 0.2,
+          couleur: 'black',
+          couleurDeRemplissage: 'black',
+        }),
+      )
     }
     sortie.texte = 'Combien y a-t-il de boules noires ? <br> \n'
 
@@ -113,13 +144,13 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  moitieDouble () {
+  moitieDouble() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     let a
     if (choice([true, false])) {
@@ -142,13 +173,13 @@ export default class ClasseCan2023 {
    * Méthode pour la lecture d'abscisse entière
    * @returns {object}
    */
-  lectureAbscisseEntiere () {
+  lectureAbscisseEntiere() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     // Variables pour l'affichage LaTeX
     let pas, valeurOrigine, valeurUnitex, gradLaTeX
@@ -156,9 +187,9 @@ export default class ClasseCan2023 {
     if (choice([true, false])) {
       a = randint(42, 52, [40, 45, 50]) * 2 // choix de la produit = écart entre deux graduations
       pas = 5
-      valeurOrigine = a - a % 10
+      valeurOrigine = a - (a % 10)
       valeurUnitex = valeurOrigine + 10
-      gradLaTeX = Math.floor(a % 10 / 2)
+      gradLaTeX = Math.floor((a % 10) / 2)
       d = droiteGraduee({
         Unite: 0.5,
         Min: 81,
@@ -173,12 +204,12 @@ export default class ClasseCan2023 {
         pointListe: [[a, '?']],
         pointCouleur: 'blue',
         pointStyle: 'x',
-        labelsPrincipaux: true
+        labelsPrincipaux: true,
       })
     } else {
-      a = choice([75, 85, 95, 105, 115])// choix de la produit = écart entre deux graduations
+      a = choice([75, 85, 95, 105, 115]) // choix de la produit = écart entre deux graduations
       pas = 2
-      valeurOrigine = a - a % 10
+      valeurOrigine = a - (a % 10)
       valeurUnitex = valeurOrigine + 10
       gradLaTeX = 1
       d = droiteGraduee({
@@ -195,11 +226,25 @@ export default class ClasseCan2023 {
         pointListe: [[a, '?']],
         pointCouleur: 'blue',
         pointStyle: 'x',
-        labelsPrincipaux: true
+        labelsPrincipaux: true,
       })
     }
     sortie.reponse = a.toString()
-    sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n' : `Complète \\\\ {\\Reperage[ValeurOrigine=${valeurOrigine},ValeurUnitex=${valeurUnitex},Pasx=${pas},AffichageAbs=3,AffichageGrad]{${gradLaTeX}/A}}`
+    sortie.texte = context.isHtml
+      ? "Quel est le nombre écrit sous le point d'interrogation ?<br>\n" +
+        mathalea2d(
+          {
+            xmin: -1,
+            ymin: -1,
+            xmax: 15,
+            ymax: 1.5,
+            scale: 0.6,
+            style: 'margin: auto',
+          },
+          d,
+        ) +
+        '\n'
+      : `Complète \\\\ {\\Reperage[ValeurOrigine=${valeurOrigine},ValeurUnitex=${valeurUnitex},Pasx=${pas},AffichageAbs=3,AffichageGrad]{${gradLaTeX}/A}}`
     // texte += context.isHtml ? '' : '\\\\\\smallskip'
     sortie.texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
     sortie.canEnonce = 'Complète.'
@@ -212,21 +257,21 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  trouverLesFacteursDUnProduit () {
+  trouverLesFacteursDUnProduit() {
     const sortie: {
-      texte: string,
-      texteCorr: string,
-      reponse: string | string[],
-      canEnonce: string,
+      texte: string
+      texteCorr: string
+      reponse: string | string[]
+      canEnonce: string
       canReponseACompleter: string
     } = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
-    function texteQ6 (valeurCible: number) {
+    function texteQ6(valeurCible: number) {
       const sortie = { texte: '', reponseACompleter: '' }
       sortie.texte = `Complète : ${context.isHtml ? sp(3) : ''} $\\ldots \\times \\ldots =${String(valeurCible)}$`
       sortie.reponseACompleter = `$\\ldots \\times \\ldots =${valeurCible}$`
@@ -261,7 +306,16 @@ export default class ClasseCan2023 {
     if (m === 4) {
       sortie.texte = texteQ6(42).texte
       sortie.canReponseACompleter = texteQ6(42).reponseACompleter
-      sortie.reponse = ['6;7', '1;42', '2;21', '3;14', '7;6', '42;1', '21;2', '14;3']
+      sortie.reponse = [
+        '6;7',
+        '1;42',
+        '2;21',
+        '3;14',
+        '7;6',
+        '42;1',
+        '21;2',
+        '14;3',
+      ]
       sortie.texteCorr = `Quatre réponses possibles (avec des entiers) : <br>
             $${miseEnEvidence(6)}\\times ${miseEnEvidence(7)}=42$<br>
             $${miseEnEvidence(2)}\\times ${miseEnEvidence(21)}=42$ <br>
@@ -277,19 +331,19 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  sommeDeDurees () {
+  sommeDeDurees() {
     const sortie: {
-      texte: string,
-      texteCorr: string,
-      reponse: string | string[],
-      canEnonce: string,
+      texte: string
+      texteCorr: string
+      reponse: string | string[]
+      canEnonce: string
       canReponseACompleter: string
     } = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     let b, c
     if (choice([true, false])) {
@@ -299,7 +353,9 @@ export default class ClasseCan2023 {
       b = choice([20, 25, 30, 35])
       c = choice([45, 50, 55])
     }
-    sortie.texte = context.isHtml ? `$${b}\\text{ min }+${c} \\text{ min }=\\ldots \\text{ h } \\ldots \\text{ min }$` : `\\Temps{;;;;${b};}+ \\Temps{;;;;${c};}`
+    sortie.texte = context.isHtml
+      ? `$${b}\\text{ min }+${c} \\text{ min }=\\ldots \\text{ h } \\ldots \\text{ min }$`
+      : `\\Temps{;;;;${b};}+ \\Temps{;;;;${c};}`
     sortie.reponse = String(b + c - 60)
     if (b > c) {
       sortie.texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
@@ -319,13 +375,13 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  partages () {
+  partages() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const choix = choice(['a', 'b', 'c', 'd'])
     let a
@@ -363,13 +419,13 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  ordreDeGrandeur () {
+  ordreDeGrandeur() {
     const sortie: {
-      texte: string,
-      texteCorr: string,
-      reponse: string | string[],
-      canEnonce: string,
-      reponseUnite: string,
+      texte: string
+      texteCorr: string
+      reponse: string | string[]
+      canEnonce: string
+      reponseUnite: string
       canReponseACompleter: string
     } = {
       texte: '',
@@ -377,9 +433,15 @@ export default class ClasseCan2023 {
       reponse: '0',
       reponseUnite: '',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
-    const taille1: [string, number, number, string][] = [['falaise', 15, 25, 'm'], ['girafe', 40, 50, 'dm'], ['échelle', 200, 300, 'cm'], ['bouteille', 28, 35, 'cm'], ['télévision', 50, 60, 'cm']]
+    const taille1: [string, number, number, string][] = [
+      ['falaise', 15, 25, 'm'],
+      ['girafe', 40, 50, 'dm'],
+      ['échelle', 200, 300, 'cm'],
+      ['bouteille', 28, 35, 'cm'],
+      ['télévision', 50, 60, 'cm'],
+    ]
 
     const a = randint(0, 4)
     const b = randint(taille1[a][1] as number, taille1[a][2] as number)
@@ -387,7 +449,7 @@ export default class ClasseCan2023 {
       context.isHtml ? `$${b}$ m` : `\\Lg[m]{${b}}`,
       context.isHtml ? `$${b}$ dm` : `\\Lg[dm]{${b}}`,
       context.isHtml ? `$${b}$ cm` : `\\Lg[cm]{${b}}`,
-      context.isHtml ? `$${b}$ mm` : `\\Lg[mm]{${b}}`
+      context.isHtml ? `$${b}$ mm` : `\\Lg[mm]{${b}}`,
     ])
     sortie.reponse = String(b)
     sortie.reponseUnite = taille1[a][3] as string
@@ -405,43 +467,83 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  ecrireUnNombreEnChiffres () {
+  ecrireUnNombreEnChiffres() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
-    let chiffre: [string, number][] = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-    let chiffre2: [string, number][] = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
+    let chiffre: [string, number][] = [
+      ['un', 1],
+      ['deux', 2],
+      ['trois', 3],
+      ['cinq', 5],
+      ['quatre', 4],
+      ['six', 6],
+      ['sept', 7],
+      ['huit', 8],
+      ['neuf', 9],
+    ]
+    let chiffre2: [string, number][] = [
+      ['vingt', 20],
+      ['trente', 30],
+      ['quarante', 40],
+      ['cinquante', 50],
+      ['soixante', 60],
+    ]
     let a = randint(0, 8)
     let b = randint(0, 4)
     let c = randint(0, 8)
     const d = randint(0, 4)
     if (choice([true, false])) {
-      chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-      chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
+      chiffre = [
+        ['un', 1],
+        ['deux', 2],
+        ['trois', 3],
+        ['cinq', 5],
+        ['quatre', 4],
+        ['six', 6],
+        ['sept', 7],
+        ['huit', 8],
+        ['neuf', 9],
+      ]
+      chiffre2 = [
+        ['vingt', 20],
+        ['trente', 30],
+        ['quarante', 40],
+        ['cinquante', 50],
+        ['soixante', 60],
+      ]
       a = randint(0, 8)
       b = randint(0, 4)
       c = randint(0, 8)
       if (a === 0) {
         sortie.texte = `Écris en chiffres le nombre ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}.`
-        sortie.reponse = String((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1])
+        sortie.reponse = String(
+          (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1],
+        )
         sortie.texteCorr = `${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]} = $${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)}$ + ${chiffre[c][1]} = $${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]))}$ `
       } else {
         sortie.texte = `Écris en chiffres le nombre ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]}.`
-        sortie.reponse = String((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1])
+        sortie.reponse = String(
+          (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1],
+        )
         sortie.texteCorr = `${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]} = $${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)}$ + ${chiffre[c][1]} = $${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]))}$ `
       }
     } else {
       if (a === 0) {
         sortie.texte = `Écris en chiffres le nombre : <br> ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
-        sortie.reponse = String((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1])
+        sortie.reponse = String(
+          (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1],
+        )
         sortie.texteCorr = `$\\text{${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]}} = ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre2[d][1]} =${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]))}$ `
       } else {
         sortie.texte = `Écris en chiffres le nombre : <br> ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
-        sortie.reponse = String((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1])
+        sortie.reponse = String(
+          (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1],
+        )
         sortie.texteCorr = `$\\text{${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]}} = ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre2[d][1]} =${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]))}$ `
       }
     }
@@ -456,7 +558,7 @@ export default class ClasseCan2023 {
    * @returns {object}
    */
 
-  dePlusDeMoins (type: 'billes' | 'ages') {
+  dePlusDeMoins(type: 'billes' | 'ages') {
     const sortie = {
       texte: '',
       texteCorr: '',
@@ -464,7 +566,7 @@ export default class ClasseCan2023 {
       canEnonce: '',
       canReponseACompleter: '',
       champTexteApres: {},
-      texteApres: ''
+      texteApres: '',
     }
     const prenom1 = prenomF()
     const prenom2 = prenomM()
@@ -500,15 +602,15 @@ export default class ClasseCan2023 {
 
   /**
    * Méthode pour demander l'écriture d'un produit d'un entier par un nombre entier de dixièmes/centièmes
-  * @returns {object}
- */
-  ecritureDecimaleProduitEntierParDixiemesOuCentiemes () {
+   * @returns {object}
+   */
+  ecritureDecimaleProduitEntierParDixiemesOuCentiemes() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     let a, b, c
     if (choice([true, false])) {
@@ -535,13 +637,13 @@ export default class ClasseCan2023 {
    * Méthode pour la lecture d'abscisse entière
    * @returns {object}
    */
-  lectureAbscisseEntiereOrigineZero () {
+  lectureAbscisseEntiereOrigineZero() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const facteur = randint(2, 9)
     const table = randint(2, 9)
@@ -571,14 +673,28 @@ export default class ClasseCan2023 {
       thickOffset: 0,
       axeStyle: '->',
       pointListe: [[a, '?']],
-      labelListe: [[0, '0'], [table, `${table}`], [10 * table, `${10 * table}`]],
+      labelListe: [
+        [0, '0'],
+        [table, `${table}`],
+        [10 * table, `${10 * table}`],
+      ],
       pointCouleur: 'blue',
       pointStyle: 'x',
-      labelsPrincipaux: false
+      labelsPrincipaux: false,
     })
     sortie.reponse = a.toString()
     sortie.canReponseACompleter = `{\\Reperage[DemiDroite,Pasx=1,Unitex=0.4,ValeurUnitex=${table},AffichageAbs=2]{${facteur}/3*A,10/B}}`
-    sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d(Object.assign({ scale: 0.6, style: 'margin: auto' }, fixeBordures([d])), d) + '\n' : `Complète \\\\ ${sortie.canReponseACompleter}`
+    sortie.texte = context.isHtml
+      ? "Quel est le nombre écrit sous le point d'interrogation ?<br>\n" +
+        mathalea2d(
+          Object.assign(
+            { scale: 0.6, style: 'margin: auto' },
+            fixeBordures([d]),
+          ),
+          d,
+        ) +
+        '\n'
+      : `Complète \\\\ ${sortie.canReponseACompleter}`
     // texte += context.isHtml ? '' : '\\\\\\smallskip'
     sortie.texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
     sortie.canEnonce = 'Complète.'
@@ -589,13 +705,13 @@ export default class ClasseCan2023 {
    * Méthode pour déterminer un terme décimal inconnu
    * @returns {object}
    */
-  trouverUnTermeDecimalInconnu () {
+  trouverUnTermeDecimalInconnu() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const a = randint(1, 9) / 10
     const b = randint(1, 9) + a
@@ -614,19 +730,19 @@ export default class ClasseCan2023 {
    * Méthode pour décomposer un nombre à 3 chiffres en ... dizaines et ... unités
    * @returns {object}
    */
-  decomposerUnNombreATroisChiffresEnDizainesUnites () {
-    const sortie:{
-      texte: string,
-      texteCorr: string,
-      reponse: string[] | string,
-      canEnonce: string,
+  decomposerUnNombreATroisChiffresEnDizainesUnites() {
+    const sortie: {
+      texte: string
+      texteCorr: string
+      reponse: string[] | string
+      canEnonce: string
       canReponseACompleter: string
     } = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const nombreDeDizaines = randint(10, 99)
     const nombreDUnites = randint(2, 9)
@@ -644,13 +760,13 @@ export default class ClasseCan2023 {
    * Méthode pour déterminer une fraction à partir d'une figure
    * @returns {object}
    */
-  determinerUneFractionAPartirDUneFigure () {
+  determinerUneFractionAPartirDUneFigure() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const b = randint(2, 4)
     const a = randint(b + 1, 6)
@@ -658,15 +774,39 @@ export default class ClasseCan2023 {
     const d = randint(1, b)
     const e = randint(0, c - 1)
     const f = randint(d, b)
-    const A = polygone([point(0, 0), point(c, 0), point(c, d), point(e, d), point(e, f), point(0, f)], 'black')
+    const A = polygone(
+      [
+        point(0, 0),
+        point(c, 0),
+        point(c, d),
+        point(e, d),
+        point(e, f),
+        point(0, f),
+      ],
+      'black',
+    )
     A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
     const C = grille(0, 0, a, b, 'black', 1, 1, 0)
     // const D = point(1 + a, 4 - b)
     sortie.texte = `Quelle fraction de la surface totale représente la surface grisée ?
     <br>`
-    sortie.texte += mathalea2d({ xmin: -0.5, ymin: -0.1, xmax: 6.1, ymax: b + 0.5, scale: 0.7, style: 'margin: auto' }, A, C)
+    sortie.texte += mathalea2d(
+      {
+        xmin: -0.5,
+        ymin: -0.1,
+        xmax: 6.1,
+        ymax: b + 0.5,
+        scale: 0.7,
+        style: 'margin: auto',
+      },
+      A,
+      C,
+    )
     sortie.texteCorr = `Il y a $${c * d + e * f - e * d}$ ${c * d + e * f - e * d > 1 ? 'carrés' : 'carré'} gris sur un total de $${a * b}$ carrés, la surface grisée représente donc $\\dfrac{${miseEnEvidence(c * d + e * f - e * d)}}{${miseEnEvidence(a * b)}}$ de la surface totale.`
-    sortie.reponse = new FractionEtendue(c * d + e * f - e * d, a * b).texFraction
+    sortie.reponse = new FractionEtendue(
+      c * d + e * f - e * d,
+      a * b,
+    ).texFraction
     sortie.canEnonce = sortie.texte
     sortie.canReponseACompleter = ''
     return sortie
@@ -676,13 +816,13 @@ export default class ClasseCan2023 {
    * Méthode pour déterminer un quotient
    * @returns {object}
    */
-  determinerUnQuotient () {
+  determinerUnQuotient() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const a = randint(5, 9)
     const b = randint(4, 9)
@@ -700,14 +840,14 @@ export default class ClasseCan2023 {
    * @param {string} type type d'énoncé
    * @returns {object}
    */
-  proportionnaliteParAddition (type: 'pieces' | 'cahiers') {
+  proportionnaliteParAddition(type: 'pieces' | 'cahiers') {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
       canReponseACompleter: '',
-      uniteInteractif: ''
+      uniteInteractif: '',
     }
     let a, b, k
     switch (type) {
@@ -741,16 +881,34 @@ export default class ClasseCan2023 {
    * Méthode pour déterminer une longueur en unité de longueur donnée
    * @returns {object}
    */
-  determinerUnNombreDUnitesDeLongueur () {
+  determinerUnNombreDUnitesDeLongueur() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
-    let a, b, A, B, C, D, E, G, H, s1, s2, s3, s4, s5, xmin, ymin, xmax, ymax, objets
-    const choix = choice(['a', 'b', 'c'])//, 'b', 'd', 'e'
+    let a,
+      b,
+      A,
+      B,
+      C,
+      D,
+      E,
+      G,
+      H,
+      s1,
+      s2,
+      s3,
+      s4,
+      s5,
+      xmin,
+      ymin,
+      xmax,
+      ymax,
+      objets
+    const choix = choice(['a', 'b', 'c']) //, 'b', 'd', 'e'
     sortie.texte = 'Quelle est la longueur de la ligne en pointillé ? <br>'
     if (choix === 'a') {
       a = grille(-2, 0, 7, 4, 'gray', 1, 1)
@@ -775,10 +933,35 @@ export default class ClasseCan2023 {
       ymax = 5
       objets = []
       objets.push(
-        texteParPosition('1 ul', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
-        a, s1, s2, s3)
+        texteParPosition(
+          '1 ul',
+          milieu(G, H).x,
+          milieu(G, H).y + 0.7,
+          0,
+          'black',
+          context.isHtml ? 1 : 0.7,
+        ),
+        a,
+        s1,
+        s2,
+        s3,
+      )
       sortie.reponse = new FractionEtendue(2, b).texFraction
-      sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+      sortie.texte +=
+        mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 20,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.5,
+            style: 'margin: auto',
+          },
+          objets,
+        ) + '<br>'
       sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $2$ carreaux, soit $\\dfrac{${miseEnEvidence(2)}}{${miseEnEvidence(b)}}$ ul.`
     }
     if (choix === 'b') {
@@ -808,10 +991,36 @@ export default class ClasseCan2023 {
       ymax = 5
       objets = []
       objets.push(
-        texteParPosition('1 ul', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
-        a, s1, s2, s3, s4)
+        texteParPosition(
+          '1 ul',
+          milieu(G, H).x,
+          milieu(G, H).y + 0.7,
+          0,
+          'black',
+          context.isHtml ? 1 : 0.7,
+        ),
+        a,
+        s1,
+        s2,
+        s3,
+        s4,
+      )
       sortie.reponse = new FractionEtendue(3, b).texFraction
-      sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+      sortie.texte +=
+        mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 20,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.5,
+            style: 'margin: auto',
+          },
+          objets,
+        ) + '<br>'
       sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $3$ carreaux, soit $\\dfrac{${miseEnEvidence(3)}}{${miseEnEvidence(b)}}$ ul `
     }
     if (choix === 'c') {
@@ -845,10 +1054,37 @@ export default class ClasseCan2023 {
       ymax = 5
       objets = []
       objets.push(
-        texteParPosition('1 ul', milieu(G, H).x, milieu(G, H).y + 0.7, 0, 'black', context.isHtml ? 1 : 0.7),
-        a, s1, s2, s3, s4, s5)
+        texteParPosition(
+          '1 ul',
+          milieu(G, H).x,
+          milieu(G, H).y + 0.7,
+          0,
+          'black',
+          context.isHtml ? 1 : 0.7,
+        ),
+        a,
+        s1,
+        s2,
+        s3,
+        s4,
+        s5,
+      )
       sortie.reponse = new FractionEtendue(4, b).texFraction
-      sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+      sortie.texte +=
+        mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 20,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.5,
+            style: 'margin: auto',
+          },
+          objets,
+        ) + '<br>'
       sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $4$ carreaux, soit $\\dfrac{${miseEnEvidence(4)}}{${miseEnEvidence(b)}}$ ul `
     }
     sortie.canEnonce = sortie.texte
@@ -860,13 +1096,13 @@ export default class ClasseCan2023 {
    * Méthode pour multiplier par 5
    * @returns {object}
    */
-  multiplierParCinq () {
+  multiplierParCinq() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const a = randint(11, 99, [20, 30, 40, 50, 60, 70, 80, 90])
     const b = 5 // randint(2, 7) * 100
@@ -883,11 +1119,11 @@ export default class ClasseCan2023 {
    * Méthode pour choisir une vitesse commune
    * @returns {object}
    */
-  vitesseCommune () {
+  vitesseCommune() {
     const sortie = {
       diviseurDeLHeure: 0,
       vitesse: 0,
-      nombreDeMinutes: 0
+      nombreDeMinutes: 0,
     }
     sortie.diviseurDeLHeure = choice([2, 4]) // diviseur de l'heure
     if (sortie.diviseurDeLHeure === 4) {
@@ -906,32 +1142,46 @@ export default class ClasseCan2023 {
    * @param {object} vitesseCommune éléments communs à deux questions liées
    * @returns {object}
    */
-  proportionnaliteEtVitesse (type: 'premiere' | 'seconde', vitesseCommune: { diviseurDeLHeure: number, vitesse: number, nombreDeMinutes: number }) {
+  proportionnaliteEtVitesse(
+    type: 'premiere' | 'seconde',
+    vitesseCommune: {
+      diviseurDeLHeure: number
+      vitesse: number
+      nombreDeMinutes: number
+    },
+  ) {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     switch (type) {
       case 'premiere':
-        sortie.reponse = texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2)
+        sortie.reponse = texNombre(
+          vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure,
+          2,
+        )
         sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}$ km/h à vitesse constante. <br>Combien de kilomètres parcourt-elle en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
         sortie.texteCorr = `En $1$ h, la voiture parcourt $${vitesseCommune.vitesse}$ km.<br>
         En $${vitesseCommune.nombreDeMinutes}$ minutes, elle parcourt $${vitesseCommune.diviseurDeLHeure}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${vitesseCommune.vitesse}}{${vitesseCommune.diviseurDeLHeure}}=
         ${miseEnEvidence(texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2))}$ km.`
         sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
         break
-      case 'seconde':{
-        const d = randint(1, 3)
-        sortie.reponse = String(d * vitesseCommune.vitesse + (vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse)
-        sortie.texte = `Une voiture roule à  $${vitesseCommune.vitesse}$ km/h à vitesse constante.<br> Combien de kilomètres parcourt-elle en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
-        sortie.texteCorr = `En $${d}$ h, elle parcourt $${d * vitesseCommune.vitesse}$ km.<br>
+      case 'seconde':
+        {
+          const d = randint(1, 3)
+          sortie.reponse = String(
+            d * vitesseCommune.vitesse +
+              (vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse,
+          )
+          sortie.texte = `Une voiture roule à  $${vitesseCommune.vitesse}$ km/h à vitesse constante.<br> Combien de kilomètres parcourt-elle en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
+          sortie.texteCorr = `En $${d}$ h, elle parcourt $${d * vitesseCommune.vitesse}$ km.<br>
         En $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt $${texNombre((vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse, 2)}$ km.<br>
         Ainsi, en en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt donc $${miseEnEvidence(sortie.reponse)}$ km.`
-        sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
-      }
+          sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
+        }
         break
     }
     sortie.canEnonce = `Une voiture roule à la vitesse constante de $${vitesseCommune.vitesse}$ \\Vitesse{}.`
@@ -942,13 +1192,13 @@ export default class ClasseCan2023 {
    * Méthode pour travailler la question clef de la division
    * @returns {object}
    */
-  dansNCombienDeFoisP () {
+  dansNCombienDeFoisP() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const a = randint(3, 9)
     const b = randint(3, 9)
@@ -966,13 +1216,13 @@ export default class ClasseCan2023 {
    * Méthode pour décomposer un nombre à 3 chiffres en ... dizaines et ... unités
    * @returns {object}
    */
-  determinerUnNombreDeDizainesDansUnEntierATroisChiffres () {
+  determinerUnNombreDeDizainesDansUnEntierATroisChiffres() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const nombreDeDizaines = randint(1, 9)
     const nombreDeCentaines = randint(1, 9)
@@ -993,31 +1243,57 @@ export default class ClasseCan2023 {
    * @param {string} niveau Pour pouvoir être utilisé en 6e et en cm2
    * @returns {object}
    */
-  tracerUneFigureAireDonneeEnFonctionUniteAire (niveau: 'cm2' | '6e') {
+  tracerUneFigureAireDonneeEnFonctionUniteAire(niveau: 'cm2' | '6e') {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     let f, prenom1, a, A, B, C
     let nombreDUnitesDAire
     const choix = choice([true, false])
     switch (niveau) {
       case 'cm2':
-        f = [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [7, 1], [8, 1]]
+        f = [
+          [1, 1],
+          [2, 1],
+          [3, 1],
+          [4, 1],
+          [5, 1],
+          [6, 1],
+          [7, 1],
+          [8, 1],
+        ]
         a = randint(0, 7)
         // b = randint(2, 4)
         nombreDUnitesDAire = f[a][0]
         break
       case '6e':
         if (choix) {
-          f = [[3, 5], [6, 5], [7, 5], [8, 5], [3, 2], [5, 2], [9, 5], [7, 2]]
+          f = [
+            [3, 5],
+            [6, 5],
+            [7, 5],
+            [8, 5],
+            [3, 2],
+            [5, 2],
+            [9, 5],
+            [7, 2],
+          ]
           a = randint(0, 7)
           // b = randint(2, 4)
         } else {
-          f = [[5, 4], [7, 4], [3, 2], [5, 2], [7, 2], [3, 4], [9, 4]]
+          f = [
+            [5, 4],
+            [7, 4],
+            [3, 2],
+            [5, 2],
+            [7, 2],
+            [3, 4],
+            [9, 4],
+          ]
           a = randint(0, 6)
           // b = randint(2, 4)
         }
@@ -1026,7 +1302,10 @@ export default class ClasseCan2023 {
     }
     if (choix) {
       prenom1 = prenomF()
-      A = polygone([point(1, 5), point(11, 5), point(11, 4), point(1, 4)], 'black')
+      A = polygone(
+        [point(1, 5), point(11, 5), point(11, 4), point(1, 4)],
+        'black',
+      )
       A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
       B = texteParPosition('1 uA', 6, 4.5, 0, 'black', 1, 'milieu', false)
       C = grille(0, 0, 12, 5, 'black', 1, 1, 0)
@@ -1035,14 +1314,32 @@ export default class ClasseCan2023 {
       sortie.texte = `${prenom1} veut construire une figure d'aire ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire (uA).<br>
       Combien de petits carreaux doit-elle contenir ?<br>`
 
-      sortie.texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 5.5, scale: 1, style: 'margin: auto' }, C, A, B)
+      sortie.texte += mathalea2d(
+        {
+          xmin: -1,
+          ymin: -0.1,
+          xmax: 12.1,
+          ymax: 5.5,
+          scale: 1,
+          style: 'margin: auto',
+        },
+        C,
+        A,
+        B,
+      )
       sortie.texteCorr = '$1$ uA est représentée par $10$ petits carreaux. <br>'
-      sortie.texteCorr += f[a][1] === 1 ? '' : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésentée par $${texNombre(10 / f[a][1], 0)}$ petits carreaux. <br>`
-      sortie.texteCorr += `Ainsi, une figure de ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire se représente par une figure de $${miseEnEvidence(texNombre(10 / f[a][1] * f[a][0], 0))}$ petits carreaux.`
-      sortie.reponse = texNombre(10 / f[a][1] * f[a][0], 2)
+      sortie.texteCorr +=
+        f[a][1] === 1
+          ? ''
+          : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésentée par $${texNombre(10 / f[a][1], 0)}$ petits carreaux. <br>`
+      sortie.texteCorr += `Ainsi, une figure de ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire se représente par une figure de $${miseEnEvidence(texNombre((10 / f[a][1]) * f[a][0], 0))}$ petits carreaux.`
+      sortie.reponse = texNombre((10 / f[a][1]) * f[a][0], 2)
     } else {
       prenom1 = prenomF()
-      A = polygone([point(1, 5), point(3, 5), point(3, 3), point(1, 3)], 'black')
+      A = polygone(
+        [point(1, 5), point(3, 5), point(3, 3), point(1, 3)],
+        'black',
+      )
       A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
       B = texteParPosition('1 uA', 2, 5.4, 0, 'black', 1, 'milieu', false)
       C = grille(0, 0, 12, 5, 'black', 1, 1, 0)
@@ -1052,25 +1349,59 @@ export default class ClasseCan2023 {
       Combien de petits carreaux doit-elle contenir ?<br>
 
     `
-      sortie.texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 1, style: 'margin: auto' }, A, C, B)
+      sortie.texte += mathalea2d(
+        {
+          xmin: -1,
+          ymin: -0.1,
+          xmax: 12.1,
+          ymax: 6,
+          scale: 1,
+          style: 'margin: auto',
+        },
+        A,
+        C,
+        B,
+      )
       if (f[a][1] === 4) {
-        sortie.texteCorr = '$1$ uA est représentée par  $4$ petits carreaux. <br>'
-        sortie.texteCorr += f[a][1] === 1 ? '' : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par un petit carreau.<br>`
+        sortie.texteCorr =
+          '$1$ uA est représentée par  $4$ petits carreaux. <br>'
+        sortie.texteCorr +=
+          f[a][1] === 1
+            ? ''
+            : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par un petit carreau.<br>`
         sortie.texteCorr += `Ainsi, une figure de ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire se représente par une figure de  `
-        sortie.texteCorr += f[a][1] === 1 ? `$${miseEnEvidence(4 * f[a][0])}$` : `$${miseEnEvidence(f[a][0])}$`
+        sortie.texteCorr +=
+          f[a][1] === 1
+            ? `$${miseEnEvidence(4 * f[a][0])}$`
+            : `$${miseEnEvidence(f[a][0])}$`
         sortie.texteCorr += ' petits carreaux.'
         sortie.reponse = String(f[a][1] === 1 ? 4 * f[a][0] : f[a][0])
       } else {
-        sortie.texteCorr = '$1$ uA est représentée par $4$ petits carreaux. <br>'
-        sortie.texteCorr += f[a][1] === 1 ? '' : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par deux petits carreaux.<br>`
+        sortie.texteCorr =
+          '$1$ uA est représentée par $4$ petits carreaux. <br>'
+        sortie.texteCorr +=
+          f[a][1] === 1
+            ? ''
+            : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par deux petits carreaux.<br>`
         sortie.texteCorr += `Ainsi, une figure de ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire se représente par une figure de `
-        sortie.texteCorr += f[a][1] === 1 ? `$${miseEnEvidence(4 * f[a][0])}$` : `$${miseEnEvidence(2 * f[a][0])}$`
+        sortie.texteCorr +=
+          f[a][1] === 1
+            ? `$${miseEnEvidence(4 * f[a][0])}$`
+            : `$${miseEnEvidence(2 * f[a][0])}$`
         sortie.texteCorr += ' petits carreaux.'
         sortie.reponse = String(f[a][1] === 1 ? 4 * f[a][0] : 2 * f[a][0])
       }
     }
-    sortie.canEnonce = `${prenom1} veut construire une figure d'aire \\\\ ${nombreDUnitesDAire} ${f[a][0] / f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>` + mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 0.3 }, A, C, B)
-    sortie.canReponseACompleter = 'La figure doit contenir $\\ldots$ petits carreaux.'
+    sortie.canEnonce =
+      `${prenom1} veut construire une figure d'aire \\\\ ${nombreDUnitesDAire} ${f[a][0] / f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>` +
+      mathalea2d(
+        { xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 0.3 },
+        A,
+        C,
+        B,
+      )
+    sortie.canReponseACompleter =
+      'La figure doit contenir $\\ldots$ petits carreaux.'
     return sortie
   }
 
@@ -1078,14 +1409,14 @@ export default class ClasseCan2023 {
    * Méthode pour déterminer le nombre de dixièmes dans un décimal
    * @returns {object}
    */
-  nombreDeDixiemesDansUnDecimal () {
+  nombreDeDixiemesDansUnDecimal() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
       canReponseACompleter: '',
-      nombre: 0
+      nombre: 0,
     }
     const unites = randint(1, 9)
     const dixiemes = randint(1, 9) / 10
@@ -1107,19 +1438,19 @@ export default class ClasseCan2023 {
    * @param {string} type pour le type d'énoncé
    * @returns {object}
    */
-  proportionnaliteEtDiviseur (type:'stylos' | 'cahiers') {
+  proportionnaliteEtDiviseur(type: 'stylos' | 'cahiers') {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     let a, prix, k
     switch (type) {
       case 'stylos':
         a = randint(2, 6)
-        prix = (2 + randint(1, 3) / 10) + 0.05
+        prix = 2 + randint(1, 3) / 10 + 0.05
         k = randint(2, 4)
         sortie.reponse = String(prix * 100 * k)
         sortie.texte = `$${a}$ stylos identiques coûtent  $${texPrix(prix)}$ €. <br>
@@ -1129,10 +1460,10 @@ Combien coûtent $${k * a}$ de ces mêmes stylos ?`
       case 'cahiers':
         prix = choice([1.2, 1.8, 2.4])
         k = randint(3, 4)
-        sortie.reponse = String(100 * prix / k)
+        sortie.reponse = String((100 * prix) / k)
         sortie.texte = `$${k * 2}$ cahiers coûtent  $${texPrix(prix)}$ €. <br>
 Combien coûtent $2$ cahiers ?`
-        sortie.texteCorr = `$${k * 2}$ cahiers coûtent  $${texPrix(prix)}$ €, donc $2$ de ces mêmes cahiers coûtent  $${k}$ fois moins, soit $ ${texPrix(prix)}\\div${k}=${texPrix(prix / k)}$ € $=${miseEnEvidence(texNombre(100 * prix / k, 0))}$ centimes.`
+        sortie.texteCorr = `$${k * 2}$ cahiers coûtent  $${texPrix(prix)}$ €, donc $2$ de ces mêmes cahiers coûtent  $${k}$ fois moins, soit $ ${texPrix(prix)}\\div${k}=${texPrix(prix / k)}$ € $=${miseEnEvidence(texNombre((100 * prix) / k, 0))}$ centimes.`
         break
     }
     sortie.canEnonce = sortie.texte
@@ -1145,15 +1476,33 @@ Combien coûtent $2$ cahiers ?`
    * @param {string} type pour le type d'énoncé
    * @returns {object}
    */
-  trouverUneDimensionAgrandieOuReduite (type:'agrandissement' | 'reduction') {
+  trouverUneDimensionAgrandieOuReduite(type: 'agrandissement' | 'reduction') {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
-    let l, k, L, l2, A, B, C, D, E, F, G, H, xmin, ymin, xmax, ymax, pol, pol2, objets
+    let l,
+      k,
+      L,
+      l2,
+      A,
+      B,
+      C,
+      D,
+      E,
+      F,
+      G,
+      H,
+      xmin,
+      ymin,
+      xmax,
+      ymax,
+      pol,
+      pol2,
+      objets
     switch (type) {
       case 'agrandissement':
         l = randint(2, 8)
@@ -1180,15 +1529,50 @@ Combien coûtent $2$ cahiers ?`
         objets = []
         objets.push(pol[0]) //, pol[1]
         objets.push(pol2[0])
-        objets.push(texteParPosition(`${stringNombre(l)} cm`, milieu(F, G).x + 0.7, milieu(F, G).y, 0, 'black', context.isHtml ? 1 : 0.7),
-          texteParPosition(`${stringNombre(L)} cm`, milieu(E, F).x, milieu(E, F).y - 0.3, 0, 'black', context.isHtml ? 1 : 0.7),
-          texteParPosition(`${stringNombre(l2)} cm`, milieu(A, D).x - 0.6, milieu(A, D).y, 0, 'black', context.isHtml ? 1 : 0.7),
+        objets.push(
+          texteParPosition(
+            `${stringNombre(l)} cm`,
+            milieu(F, G).x + 0.7,
+            milieu(F, G).y,
+            0,
+            'black',
+            context.isHtml ? 1 : 0.7,
+          ),
+          texteParPosition(
+            `${stringNombre(L)} cm`,
+            milieu(E, F).x,
+            milieu(E, F).y - 0.3,
+            0,
+            'black',
+            context.isHtml ? 1 : 0.7,
+          ),
+          texteParPosition(
+            `${stringNombre(l2)} cm`,
+            milieu(A, D).x - 0.6,
+            milieu(A, D).y,
+            0,
+            'black',
+            context.isHtml ? 1 : 0.7,
+          ),
           texteParPosition('A ', milieu(F, G).x - 1.2, milieu(F, G).y),
-          texteParPosition('B ', milieu(B, C).x - 2, milieu(B, C).y)
+          texteParPosition('B ', milieu(B, C).x - 2, milieu(B, C).y),
         )
         sortie.reponse = String(l2 * k)
         sortie.texte = `Le rectangle B est un agrandissement du rectangle A.${context.isHtml ? '' : '\\\\'} Quelle est la longueur du rectangle B ?<br>`
-        sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+        sortie.texte += mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 40,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.7,
+            style: 'margin: auto',
+          },
+          objets,
+        )
         sortie.texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
 Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm.`
         break
@@ -1197,7 +1581,7 @@ Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm
         l = randint(2, 5) // Largeur grand rectngle
         k = L - randint(1, 2)
         // L = k * l
-        l2 = L / 2// long petit
+        l2 = L / 2 // long petit
         A = point(0, 0)
         B = point(2.5, 0)
         C = point(2.5, 1)
@@ -1215,15 +1599,64 @@ Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm
         objets = []
         objets.push(pol[0]) //, pol[1]
         objets.push(pol2[0])
-        objets.push(texteParPosition(`${stringNombre(l)} cm`, milieu(F, G).x + 0.7, milieu(F, G).y, 0, 'black', context.isHtml ? 1 : 0.7),
-          texteParPosition(`${stringNombre(L)} cm`, milieu(E, F).x, milieu(E, F).y - 0.3, 0, 'black', context.isHtml ? 1 : 0.7),
-          texteParPosition(`${stringNombre(l2)} cm`, milieu(A, B).x, milieu(A, B).y - 0.3, 0, 'black', context.isHtml ? 1 : 0.7),
-          texteParPosition('A ', milieu(E, F).x, milieu(F, G).y, 0, 'black', context.isHtml ? 1 : 0.7),
-          texteParPosition('B ', milieu(A, B).x, milieu(B, C).y, 0, 'black', context.isHtml ? 1 : 0.7)
+        objets.push(
+          texteParPosition(
+            `${stringNombre(l)} cm`,
+            milieu(F, G).x + 0.7,
+            milieu(F, G).y,
+            0,
+            'black',
+            context.isHtml ? 1 : 0.7,
+          ),
+          texteParPosition(
+            `${stringNombre(L)} cm`,
+            milieu(E, F).x,
+            milieu(E, F).y - 0.3,
+            0,
+            'black',
+            context.isHtml ? 1 : 0.7,
+          ),
+          texteParPosition(
+            `${stringNombre(l2)} cm`,
+            milieu(A, B).x,
+            milieu(A, B).y - 0.3,
+            0,
+            'black',
+            context.isHtml ? 1 : 0.7,
+          ),
+          texteParPosition(
+            'A ',
+            milieu(E, F).x,
+            milieu(F, G).y,
+            0,
+            'black',
+            context.isHtml ? 1 : 0.7,
+          ),
+          texteParPosition(
+            'B ',
+            milieu(A, B).x,
+            milieu(B, C).y,
+            0,
+            'black',
+            context.isHtml ? 1 : 0.7,
+          ),
         )
         sortie.reponse = texNombre(l / 2, 1)
         sortie.texte = `Le rectangle B est une réduction du rectangle A.${context.isHtml ? '' : '\\\\'} Quelle est la largeur du rectangle B ?<br>`
-        sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+        sortie.texte += mathalea2d(
+          {
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 40,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.7,
+            style: 'margin: auto',
+          },
+          objets,
+        )
         sortie.texteCorr = `La longueur du rectangle A est $2$ fois plus grande que la longueur du rectangle B. On en déduit que la largeur  du rectangle B est aussi $2$ fois plus petite que la largeur du rectangle A.<br>
 Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}$ cm.
                         `
@@ -1238,13 +1671,13 @@ Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}$ cm.
    * Méthode pour ajouter deux décimaux
    * @returns {object}
    */
-  ajouterDeuxDecimaux () {
+  ajouterDeuxDecimaux() {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     const a = randint(101, 199) / 100
     const b = randint(4, 9) / 10
@@ -1262,13 +1695,13 @@ Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}$ cm.
    * @param {string} type type entrée/plat, entrée/plat/dessert
    * @returns {object}
    */
-  nombreDeCombinaisons (type: 'platDessert' | 'entreePlatDessert') {
+  nombreDeCombinaisons(type: 'platDessert' | 'entreePlatDessert') {
     const sortie = {
       texte: '',
       texteCorr: '',
       reponse: '0',
       canEnonce: '',
-      canReponseACompleter: ''
+      canReponseACompleter: '',
     }
     let a, b, c
     switch (type) {

@@ -8,7 +8,11 @@ import { prenom } from '../../lib/outils/Personne'
 import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes de courses au marché'
@@ -28,17 +32,20 @@ export const uuid = '96b94'
 export const refs = {
   'fr-fr': ['6N5-9'],
   'fr-2016': ['6C32'],
-  'fr-ch': ['9FA3-7']
+  'fr-ch': ['9FA3-7'],
 }
 
-function probleme4 (calculFacile: boolean): { texte: string, texteCorr: string, reponse: string } {
+function probleme4(calculFacile: boolean): {
+  texte: string
+  texteCorr: string
+  reponse: string
+} {
   const quidam = prenom()
   let masseEnKgDeAliment1
   if (calculFacile) {
     masseEnKgDeAliment1 = randint(2, 5)
   } else {
-    masseEnKgDeAliment1 =
-        randint(2, 5) + randint(1, 9) / 10
+    masseEnKgDeAliment1 = randint(2, 5) + randint(1, 9) / 10
   }
   const prixAliment1 = randint(2, 4) + randint(1, 9) / 10
   const aliment1 = choice(['courgettes', 'carottes', 'pommes'])
@@ -63,78 +70,80 @@ function probleme4 (calculFacile: boolean): { texte: string, texteCorr: string, 
         text: `${aliment1} à $${texNombre(prixAliment1, 2)}$ €/kg`,
         start: 1,
         end: 2 * Math.round(masseEnKgDeAliment1) + 1,
-        type: 'flèche'
-      }
+        type: 'flèche',
+      },
     ],
     lignes: [
       {
         spacing: 1,
         barres: [
-          ...range1(Math.round(masseEnKgDeAliment1)).map(el => ({
+          ...range1(Math.round(masseEnKgDeAliment1)).map((el) => ({
             content: `$${texNombre(prixAliment1, 2)}$ €`,
             length: 2,
-            color: 'lightgray'
-          }))
-        ]
+            color: 'lightgray',
+          })),
+        ],
       },
       {
         barres:
-              masseEnGdeAliment2 === 750
-                ? [
-                    ...range1(3).map(el => ({
-                      content: '$250$ g',
-                      length: 2,
-                      color: 'lightgray'
-                    })),
-                    {
-                      content: '',
-                      length: 2,
-                      color: 'white'
-                    }
-                  ]
-                : masseEnGdeAliment2 === 500
-                  ? [
-                      {
-                        content: '$500$ g',
-                        length: 4,
-                        color: 'lightgray'
-                      },
-                      {
-                        content: '',
-                        length: 4,
-                        color: 'white'
-                      }
-                    ]
-                  : [{
+          masseEnGdeAliment2 === 750
+            ? [
+                ...range1(3).map((el) => ({
+                  content: '$250$ g',
+                  length: 2,
+                  color: 'lightgray',
+                })),
+                {
+                  content: '',
+                  length: 2,
+                  color: 'white',
+                },
+              ]
+            : masseEnGdeAliment2 === 500
+              ? [
+                  {
+                    content: '$500$ g',
+                    length: 4,
+                    color: 'lightgray',
+                  },
+                  {
+                    content: '',
+                    length: 4,
+                    color: 'white',
+                  },
+                ]
+              : [
+                  {
+                    content: `$${texNombre(masseEnGdeAliment2, 0)}$ g`,
+                    length: 2,
+                    color: 'lightgray',
+                  },
+                  ...range1(Math.round(1000 / masseEnGdeAliment2 - 1)).map(
+                    (el) => ({
                       content: `$${texNombre(masseEnGdeAliment2, 0)}$ g`,
                       length: 2,
-                      color: 'lightgray'
-                    }, ...range1(Math.round(1000 / masseEnGdeAliment2 - 1)).map(el => (
-                      {
-                        content: `$${texNombre(masseEnGdeAliment2, 0)}$ g`,
-                        length: 2,
-                        color: 'white'
-                      }
-                    ))
-                    ]
-      }
+                      color: 'white',
+                    }),
+                  ),
+                ],
+      },
     ],
     bottomBraces: [
       {
         text: `1 kg de ${aliment2} : $${texNombre(prixAliment2, 2)}$ €`,
         start: 1,
         end: masseEnGdeAliment2 === 200 ? 11 : 9,
-        type: 'accolade'
-      }
+        type: 'accolade',
+      },
     ],
     rightBraces: [
       {
         text: `Prix total : $${texNombre(prixTotal, 2)}$ €`,
         start: 2,
         end: 5,
-        type: 'accolade'
-      }
-    ]
+        type: 'accolade',
+      },
+    ],
   })
   let texte = `${quidam} achète $${texNombre(masseEnKgDeAliment1, 3)}$ kg de ${aliment1} à $${texPrix(prixAliment1)}$ €/kg `
   texte += `et $${texNombre(masseEnGdeAliment2, 0)}$ g de ${aliment2} à $${texPrix(prixAliment2)}$ €/kg. Quel est le prix total à payer ?`
@@ -152,57 +161,73 @@ function probleme4 (calculFacile: boolean): { texte: string, texteCorr: string, 
   return {
     texte,
     texteCorr,
-    reponse
+    reponse,
   }
 }
 
-function probleme3 (calculFacile: boolean): { texte: string, texteCorr: string, reponse: string } {
+function probleme3(calculFacile: boolean): {
+  texte: string
+  texteCorr: string
+  reponse: string
+} {
   const quidam = prenom()
   const prixAliment1 = randint(6, 10) + (calculFacile ? 0 : randint(5, 19) / 20)
-  const aliment1 = 'une cagette de ' + choice(['poires', 'pêches', 'pommes', 'abricots'])
+  const aliment1 =
+    'une cagette de ' + choice(['poires', 'pêches', 'pommes', 'abricots'])
   const prixAliment2 = randint(2, 4) + (calculFacile ? 0 : randint(5, 19) / 20)
   const aliment2 = choice(['tomates', 'carottes', 'courgettes'])
-  const masseEnKgDeAliment2 = calculFacile ? randint(2, 5) : randint(1, 3) + randint(1, 9) / 10
+  const masseEnKgDeAliment2 = calculFacile
+    ? randint(2, 5)
+    : randint(1, 3) + randint(1, 9) / 10
   const prixTotalAliment2 = masseEnKgDeAliment2 * prixAliment2
   const texte = `${quidam} achète ${aliment1} à $${texNombre(prixAliment1, 2)}$ € et $${texNombre(masseEnKgDeAliment2, 3)}$ kg de ${aliment2} à $${texNombre(prixAliment2, 2)}$ € le kg. Quel est le prix total à payer ?`
   let texteCorr = `Prix des $${texNombre(masseEnKgDeAliment2, 3, true)}$ kg de ${aliment2} : $${texNombre(masseEnKgDeAliment2, 2, true)}\\text{ kg}\\times ${texNombre(prixAliment2, 2, true)}\\text{ €/kg} ${egalOuApprox(prixTotalAliment2, 2)} ${texPrix(prixTotalAliment2)}$ €<br>`
   texteCorr += `Prix total à payer : $${texNombre(prixTotalAliment2, 2, true)}\\text{ €}+ ${texNombre(prixAliment1, 2)}\\text{ €}=${texNombre(prixTotalAliment2 + prixAliment1, 2, true)}$ €<br>`
   if (calculFacile) {
     const schema = new SchemaEnBoite({
-      topBraces: [{
-        text: `${aliment1}`,
-        start: 1,
-        end: prixAliment1 + 1,
-        type: 'accolade'
-      }],
-      lignes: [{
-        spacing: 1,
-        barres: [
-          {
-            content: `$${texNombre(prixAliment1, 2)}$ €`,
-            length: prixAliment1,
-            color: 'lightgray'
-          }
-        ]
-      }, {
-        barres: range1(Math.round(masseEnKgDeAliment2)).map(() => ({
-          content: `${texNombre(prixAliment2, 2)} €`,
-          length: prixAliment2,
-          color: 'lightgray'
-        }))
-      }],
-      bottomBraces: [{
-        text: `${masseEnKgDeAliment2} kg de ${aliment2}`,
-        start: 1,
-        end: prixAliment2 * masseEnKgDeAliment2 + 1,
-        type: 'accolade'
-      }],
-      rightBraces: [{
-        text: `Prix total : $${texNombre(prixTotalAliment2 + prixAliment1, 2)}$ €`,
-        start: 2,
-        end: 5,
-        type: 'accolade'
-      }]
+      topBraces: [
+        {
+          text: `${aliment1}`,
+          start: 1,
+          end: prixAliment1 + 1,
+          type: 'accolade',
+        },
+      ],
+      lignes: [
+        {
+          spacing: 1,
+          barres: [
+            {
+              content: `$${texNombre(prixAliment1, 2)}$ €`,
+              length: prixAliment1,
+              color: 'lightgray',
+            },
+          ],
+        },
+        {
+          barres: range1(Math.round(masseEnKgDeAliment2)).map(() => ({
+            content: `${texNombre(prixAliment2, 2)} €`,
+            length: prixAliment2,
+            color: 'lightgray',
+          })),
+        },
+      ],
+      bottomBraces: [
+        {
+          text: `${masseEnKgDeAliment2} kg de ${aliment2}`,
+          start: 1,
+          end: prixAliment2 * masseEnKgDeAliment2 + 1,
+          type: 'accolade',
+        },
+      ],
+      rightBraces: [
+        {
+          text: `Prix total : $${texNombre(prixTotalAliment2 + prixAliment1, 2)}$ €`,
+          start: 2,
+          end: 5,
+          type: 'accolade',
+        },
+      ],
     })
     texteCorr += `<br>${schema.display()}<br>`
   }
@@ -211,32 +236,51 @@ function probleme3 (calculFacile: boolean): { texte: string, texteCorr: string, 
   return { texte, texteCorr, reponse }
 }
 
-function probleme2 (calculFacile: boolean): { texte: string, texteCorr: string, reponse: string } {
+function probleme2(calculFacile: boolean): {
+  texte: string
+  texteCorr: string
+  reponse: string
+} {
   const quidam = prenom()
   const prixAliment1 = randint(2, 5) + (calculFacile ? 0 : randint(5, 19) / 20)
-  const aliment1 = choice(['pastèques', 'barquettes de fraises', 'barquettes de framboises'])
+  const aliment1 = choice([
+    'pastèques',
+    'barquettes de fraises',
+    'barquettes de framboises',
+  ])
   const nombreDeAliment1 = randint(2, 7)
   const prixTotal = nombreDeAliment1 * prixAliment1
   const texte = `${quidam} achète ${nombreDeAliment1} ${aliment1} à $${texNombre(prixAliment1, 2)}$ € l'unité. Quel est le prix total à payer ?`
   let texteCorr = `Prix des ${nombreDeAliment1} ${aliment1} : $${nombreDeAliment1}\\times ${texNombre(prixAliment1, 2, true)}$ € $${egalOuApprox(prixTotal, 2)} ${texPrix(prixTotal)}$ €<br>`
   texteCorr += `Prix total à payer : $${nombreDeAliment1}\\times ${texNombre(prixAliment1, 2, true)}\\text{ €}=${texNombre(prixTotal, 2, true)}$ €<br>`
-  const longueur = nombreDeAliment1 === 2 ? 6 : nombreDeAliment1 === 3 ? 4 : nombreDeAliment1 === 4 ? 3 : 2
+  const longueur =
+    nombreDeAliment1 === 2
+      ? 6
+      : nombreDeAliment1 === 3
+        ? 4
+        : nombreDeAliment1 === 4
+          ? 3
+          : 2
   if (calculFacile) {
     const schema = new SchemaEnBoite({
-      topBraces: [{
-        text: `${nombreDeAliment1} ${aliment1}`,
-        start: 1,
-        end: longueur * nombreDeAliment1 + 1,
-        type: 'flèche'
-      }],
-      lignes: [{
-        spacing: 1,
-        barres: range1(nombreDeAliment1).map(() => ({
-          content: `$${texNombre(prixAliment1, 2)}$ €`,
-          length: longueur,
-          color: 'lightgray'
-        }))
-      }]
+      topBraces: [
+        {
+          text: `${nombreDeAliment1} ${aliment1}`,
+          start: 1,
+          end: longueur * nombreDeAliment1 + 1,
+          type: 'flèche',
+        },
+      ],
+      lignes: [
+        {
+          spacing: 1,
+          barres: range1(nombreDeAliment1).map(() => ({
+            content: `$${texNombre(prixAliment1, 2)}$ €`,
+            length: longueur,
+            color: 'lightgray',
+          })),
+        },
+      ],
     })
     texteCorr += `<br>${schema.display()}<br>`
   }
@@ -244,49 +288,64 @@ function probleme2 (calculFacile: boolean): { texte: string, texteCorr: string, 
   return { texte, texteCorr, reponse }
 }
 
-function probleme1 (calculFacile: boolean): { texte: string, texteCorr: string, reponse: string } {
+function probleme1(calculFacile: boolean): {
+  texte: string
+  texteCorr: string
+  reponse: string
+} {
   const quidam = prenom(1)
   const prixAliment1 = randint(6, 10) + (calculFacile ? 0 : randint(5, 19) / 20)
-  const aliment1 = 'une cagette de ' + choice(['poires', 'pêches', 'pommes', 'abricots'])
-  const prixAliment2 = randint(6, 10, Math.floor(prixAliment1)) + (calculFacile ? 0 : randint(5, 19) / 20)
-  const aliment2 = 'une cagette de ' + choice(['tomates', 'carottes', 'courgettes'])
+  const aliment1 =
+    'une cagette de ' + choice(['poires', 'pêches', 'pommes', 'abricots'])
+  const prixAliment2 =
+    randint(6, 10, Math.floor(prixAliment1)) +
+    (calculFacile ? 0 : randint(5, 19) / 20)
+  const aliment2 =
+    'une cagette de ' + choice(['tomates', 'carottes', 'courgettes'])
   const prixTotal = prixAliment1 + prixAliment2
   const texte = `${quidam} achète ${aliment1} à $${texNombre(prixAliment1, 2)}$ € et ${aliment2} à $${texNombre(prixAliment2, 2)}$ €. Quel est le prix total à payer ?`
   let texteCorr = `Prix total à payer : $${texNombre(prixAliment1, 2)}\\text{ €}+ ${texNombre(prixAliment2, 2)}\\text{ €}=${texNombre(prixAliment2 + prixAliment1, 2)}\\text{ €}$<br>`
   if (calculFacile) {
     const schema = new SchemaEnBoite({
-      topBraces: [{
-        text: `$${texNombre(prixTotal, 2)}$ €`,
-        start: 1,
-        end: prixAliment1 + prixAliment2 + 1,
-        type: 'accolade'
-      }],
-      lignes: [{
-        spacing: 1,
-        barres: [
-          {
-            content: `$${texNombre(prixAliment1, 2)}$ €`,
-            length: prixAliment1,
-            color: 'lightgray'
-          },
-          {
-            content: `$${texNombre(prixAliment2, 2)}$ €`,
-            length: prixAliment2,
-            color: 'lightgray'
-          }
-        ]
-      }],
-      bottomBraces: [{
-        text: `${aliment1}`,
-        start: 1,
-        end: prixAliment1 + 1,
-        type: 'accolade'
-      }, {
-        text: `${aliment2}`,
-        start: prixAliment1 + 1,
-        end: prixAliment1 + prixAliment2 + 1,
-        type: 'accolade'
-      }]
+      topBraces: [
+        {
+          text: `$${texNombre(prixTotal, 2)}$ €`,
+          start: 1,
+          end: prixAliment1 + prixAliment2 + 1,
+          type: 'accolade',
+        },
+      ],
+      lignes: [
+        {
+          spacing: 1,
+          barres: [
+            {
+              content: `$${texNombre(prixAliment1, 2)}$ €`,
+              length: prixAliment1,
+              color: 'lightgray',
+            },
+            {
+              content: `$${texNombre(prixAliment2, 2)}$ €`,
+              length: prixAliment2,
+              color: 'lightgray',
+            },
+          ],
+        },
+      ],
+      bottomBraces: [
+        {
+          text: `${aliment1}`,
+          start: 1,
+          end: prixAliment1 + 1,
+          type: 'accolade',
+        },
+        {
+          text: `${aliment2}`,
+          start: prixAliment1 + 1,
+          end: prixAliment1 + prixAliment2 + 1,
+          type: 'accolade',
+        },
+      ],
     })
     texteCorr += `<br>${schema.display()}<br>`
   }
@@ -295,10 +354,13 @@ function probleme1 (calculFacile: boolean): { texte: string, texteCorr: string, 
 }
 
 export default class ProblemeCourse extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Calculs faciles']
-    this.besoinFormulaire2Texte = ['Types de problèmes', 'Nombres séparés par des tirets :\n1 : Somme de deux prix\n2 : plusieurs produits au même prix\n3 : Un produit à l\'unité et un autre au poids\n4 : Deux produits au poids\n 5 : Mélange']
+    this.besoinFormulaire2Texte = [
+      'Types de problèmes',
+      "Nombres séparés par des tirets :\n1 : Somme de deux prix\n2 : plusieurs produits au même prix\n3 : Un produit à l'unité et un autre au poids\n4 : Deux produits au poids\n 5 : Mélange",
+    ]
     this.spacing = 2
     this.spacingCorr = 2
     // Modification de l'exercice pour avoir plusieurs question. On peut revenir à la version initiale en décommentant. Jean-Claude Lhote
@@ -307,29 +369,36 @@ export default class ProblemeCourse extends Exercice {
 
     this.sup = false
     this.sup2 = '5'
-  // this.listeAvecNumerotation = false
+    // this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    const listeTypesDeProblemes = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 4, melange: 5, defaut: 4, nbQuestions: this.nbQuestions }).map(Number)
+  nouvelleVersion() {
+    const listeTypesDeProblemes = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 4,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let reponse = ''
       switch (listeTypesDeProblemes[i]) {
         case 1:
-          ({ texte, texteCorr, reponse } = probleme1(this.sup))
+          ;({ texte, texteCorr, reponse } = probleme1(this.sup))
           break
         case 2:
-          ({ texte, texteCorr, reponse } = probleme2(this.sup))
+          ;({ texte, texteCorr, reponse } = probleme2(this.sup))
           break
         case 3:
-          ({ texte, texteCorr, reponse } = probleme3(this.sup))
+          ;({ texte, texteCorr, reponse } = probleme3(this.sup))
           break
         case 4:
         default:
-          ({ texte, texteCorr, reponse } = probleme4(this.sup))
+          ;({ texte, texteCorr, reponse } = probleme4(this.sup))
           break
       }
 
@@ -344,9 +413,9 @@ export default class ProblemeCourse extends Exercice {
       }
       if (this.interactif) {
         texte += `<br> ${ajouteChampTexteMathLive(this, i, '', {
-                texteApres: ' €',
-                texteAvant: 'Le prix total à payer sera de '
-            })}`
+          texteApres: ' €',
+          texteAvant: 'Le prix total à payer sera de ',
+        })}`
       }
       if (this.questionJamaisPosee(i, reponse)) {
         this.listeQuestions[i] = texte

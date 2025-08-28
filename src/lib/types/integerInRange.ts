@@ -7,21 +7,21 @@
  */
 
 export type IntegerInRange0to2 = 0 | 1 | 2
-export function isIntegerInRange0to2 (obj: unknown): obj is IntegerInRange0to2 {
+export function isIntegerInRange0to2(obj: unknown): obj is IntegerInRange0to2 {
   return obj === 0 || obj === 1 || obj === 2
 }
 
 export type IntegerInRange0to3 = 0 | 1 | 2 | 3
-export function isIntegerInRange0to3 (obj: unknown): obj is IntegerInRange0to3 {
+export function isIntegerInRange0to3(obj: unknown): obj is IntegerInRange0to3 {
   return obj === 0 || obj === 1 || obj === 2 || obj === 3
 }
 
 export type IntegerInRange0to4 = 0 | 1 | 2 | 3 | 4
-export function isIntegerInRange0to4 (obj: unknown): obj is IntegerInRange0to4 {
+export function isIntegerInRange0to4(obj: unknown): obj is IntegerInRange0to4 {
   return obj === 0 || obj === 1 || obj === 2 || obj === 3 || obj === 4
 }
 
 export type IntegerInRange1to4 = 1 | 2 | 3 | 4
-export function isIntegerInRange1to4 (obj: unknown): obj is IntegerInRange1to4 {
+export function isIntegerInRange1to4(obj: unknown): obj is IntegerInRange1to4 {
   return obj === 1 || obj === 2 || obj === 3 || obj === 4
 }

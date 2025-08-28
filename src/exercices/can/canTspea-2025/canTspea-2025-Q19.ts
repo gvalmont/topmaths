@@ -12,20 +12,20 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 
-export const titre = 'Déterminer le coefficient directeur d\'une droite'
+export const titre = "Déterminer le coefficient directeur d'une droite"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '58656'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025TQ19 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -35,28 +35,51 @@ export default class Can2025TQ19 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let lABx
     const xA = 0
     const yA = this.canOfficielle ? 1 : randint(1, 3)
     const xB = this.canOfficielle ? 3 : 3
     const yB = this.canOfficielle ? 3 : randint(-2, 2, [0, yA])
-    const o = latex2d('\\text{O}', -0.2, -0.3, { color: 'black', letterSize: 'scriptsize', backgroundColor: '' })
+    const o = latex2d('\\text{O}', -0.2, -0.3, {
+      color: 'black',
+      letterSize: 'scriptsize',
+      backgroundColor: '',
+    })
     const A = point(xA, yA)
     const B = point(xB, yB)
     const Bx = point(B.x, A.y)
     const sABx = segment(A, Bx)
     const sBBx = segment(B, Bx)
-    const m = new FractionEtendue((yB - yA), xB - xA)
+    const m = new FractionEtendue(yB - yA, xB - xA)
     sBBx.epaisseur = 2
     sBBx.pointilles = 5
     sABx.epaisseur = 2
     sABx.pointilles = 5
-    const lA = latex2d('A', xA + 0.1, yA - 0.2, { color: 'black', backgroundColor: '' })
+    const lA = latex2d('A', xA + 0.1, yA - 0.2, {
+      color: 'black',
+      backgroundColor: '',
+    })
     const traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
-    const lB = latex2d('B', xB, yB + 0.5, { color: 'black', backgroundColor: '' })
-    if (yA > yB) { lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, { color: 'red', backgroundColor: '' }) } else { lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y - 0.3, { color: 'red', backgroundColor: '' }) }
-    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, { color: 'blue', backgroundColor: '' })
+    const lB = latex2d('B', xB, yB + 0.5, {
+      color: 'black',
+      backgroundColor: '',
+    })
+    if (yA > yB) {
+      lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, {
+        color: 'red',
+        backgroundColor: '',
+      })
+    } else {
+      lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y - 0.3, {
+        color: 'red',
+        backgroundColor: '',
+      })
+    }
+    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, {
+      color: 'blue',
+      backgroundColor: '',
+    })
     const traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
     const d = droite(A, B, '', 'blue')
     d.epaisseur = 2
@@ -85,14 +108,56 @@ export default class Can2025TQ19 extends ExerciceSimple {
       yLabelDistance: 1,
       yLabelEcart: 0.4,
       grilleXDistance: 1,
-      grilleYDistance: 1
+      grilleYDistance: 1,
     })
-    const objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
-    const objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+    const objet = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceA,
+      lA,
+      lB,
+      traceB,
+      o,
+    )
+    const objetC = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceA,
+      lA,
+      lB,
+      traceB,
+      o,
+      sABx,
+      sBBx,
+      lABx,
+      lBBx,
+    )
     this.consigne = 'Équation réduite de cette droite.<br>'
     this.consigne += `${objet}`
     this.question = 'y=%{champ1}x+%{champ2}'
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: new FractionEtendue(yB - yA, 3).texFraction }, champ2: { value: yA } }
+    this.reponse = {
+      bareme: toutPourUnPoint,
+      champ1: { value: new FractionEtendue(yB - yA, 3).texFraction },
+      champ2: { value: yA },
+    }
 
     this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par :<br><br>
             $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}$.<br>

@@ -1,6 +1,6 @@
 import { choice, shuffle } from './arrayOutils'
 
-const prenoms: { prenom: string, pronom: string }[] = [
+const prenoms: { prenom: string; pronom: string }[] = [
   { prenom: 'Albert', pronom: 'il' },
   { prenom: 'Alice', pronom: 'elle' },
   { prenom: 'Benoît', pronom: 'il' },
@@ -87,14 +87,16 @@ const prenoms: { prenom: string, pronom: string }[] = [
   { prenom: 'Nassim', pronom: 'il' },
   { prenom: 'Pablo', pronom: 'il' },
   { prenom: 'Rémi', pronom: 'il' },
-  { prenom: 'Yazid', pronom: 'il' }
+  { prenom: 'Yazid', pronom: 'il' },
 ]
 /**
  * Renvoie un prénom féminin au hasard ou une liste de prénoms féminins au hasard
  * @author Rémi Angot
  */
-export function prenomF (n = 1) {
-  const prenomsFeminins = prenoms.filter(p => p.pronom === 'elle').map(p => p.prenom)
+export function prenomF(n = 1) {
+  const prenomsFeminins = prenoms
+    .filter((p) => p.pronom === 'elle')
+    .map((p) => p.prenom)
   if (n === 1) {
     return choice(prenomsFeminins)
   } else {
@@ -106,8 +108,10 @@ export function prenomF (n = 1) {
  * Renvoie un prénom masculin au hasard ou une liste de prénoms masculins au hasard
  * @author Rémi Angot
  */
-export function prenomM (n: number = 1): string | string[] {
-  const prenomsMasculinsArray = prenoms.filter(p => p.pronom === 'il').map(p => p.prenom)
+export function prenomM(n: number = 1): string | string[] {
+  const prenomsMasculinsArray = prenoms
+    .filter((p) => p.pronom === 'il')
+    .map((p) => p.prenom)
   if (n === 1) {
     return choice(prenomsMasculinsArray)
   } else {
@@ -119,8 +123,8 @@ export function prenomM (n: number = 1): string | string[] {
  * Renvoie un prénom au hasard ou une liste de prénoms
  * @author Rémi Angot
  */
-export function prenom (n = 1) {
-  const prenomsArray = prenoms.map(element => element.prenom) // Conversion de Set en tableau
+export function prenom(n = 1) {
+  const prenomsArray = prenoms.map((element) => element.prenom) // Conversion de Set en tableau
   if (n === 1) {
     return choice(prenomsArray)
   } else {
@@ -138,17 +142,19 @@ export class Personne {
   genre: string
   pronom: string
   Pronom: string
-  constructor ({ prenom = '', genre = '', pronom = '' } = {}) {
-    let choix: { prenom: string, pronom: string }
+  constructor({ prenom = '', genre = '', pronom = '' } = {}) {
+    let choix: { prenom: string; pronom: string }
     this.prenom = ''
     this.genre = ''
     this.pronom = ''
     this.Pronom = ''
-    if (prenom === '' || ((typeof prenom) === 'undefined')) { // On le/la baptise
+    if (prenom === '' || typeof prenom === 'undefined') {
+      // On le/la baptise
       choix = prenomPronom()
       this.prenom = choix.prenom
       this.pronom = choix.pronom
-    } else if (pronom === '') { // le pronom n'est pas précisé
+    } else if (pronom === '') {
+      // le pronom n'est pas précisé
       this.pronom = 'on'
       this.Pronom = 'On'
     }
@@ -169,7 +175,7 @@ export class Personne {
  * @author Jean-Claude Lhote
  * le 14/03/2021
  */
-export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
+export function personne({ prenom = '', genre = '', pronom = '' } = {}) {
   return new Personne({ prenom, genre, pronom })
 }
 
@@ -178,11 +184,11 @@ export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
  * @author Jean-Claude Lhote
  * le 14/03/2021
  */
-export function personnes (n: number) {
+export function personnes(n: number) {
   const liste = []
   let essai
   let trouve
-  for (let i = 0; i < n;) {
+  for (let i = 0; i < n; ) {
     essai = personne()
     trouve = false
     for (let j = 0; j < liste.length; j++) {
@@ -203,12 +209,14 @@ export function personnes (n: number) {
  * Renvoie un objet {prénom,pronom} où pronom='il' ou 'elle'
  *  @author Jean-Claue Lhote
  */
-export function prenomPronom (): { prenom: string, pronom: string } {
+export function prenomPronom(): { prenom: string; pronom: string } {
   const couple = choice(prenoms)
   return couple
 }
 
-export function prenomsPronoms (n: number): { prenom: string, pronom: string } | { prenom: string, pronom: string }[] {
+export function prenomsPronoms(
+  n: number,
+): { prenom: string; pronom: string } | { prenom: string; pronom: string }[] {
   if (n < 2) {
     return prenomPronom()
   } else {

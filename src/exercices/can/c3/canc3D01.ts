@@ -8,8 +8,11 @@ import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-export const titre = 'Lire l\'heure'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
+export const titre = "Lire l'heure"
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,10 +26,10 @@ export const uuid = '2ce11'
 
 export const refs = {
   'fr-fr': ['canc3D01', 'auto6M4A-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LireHeure extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -35,7 +38,7 @@ export default class LireHeure extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierHms
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const horloge = []
     const O = point(0, 0)
     const C = cercle(O, 2)
@@ -54,16 +57,30 @@ export default class LireHeure extends ExerciceSimple {
     const beta = 90 - m * 6
     const grandeAiguille = rotation(segment(O, point(1.5, 0)), O, beta)
     const petiteAiguille = rotation(segment(O, point(1, 0)), O, alpha)
-    grandeAiguille.color = context.isHtml ? colorToLatexOrHTML('red') : colorToLatexOrHTML('black')
+    grandeAiguille.color = context.isHtml
+      ? colorToLatexOrHTML('red')
+      : colorToLatexOrHTML('black')
     grandeAiguille.epaisseur = 2
-    petiteAiguille.color = context.isHtml ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('black')
+    petiteAiguille.color = context.isHtml
+      ? colorToLatexOrHTML('blue')
+      : colorToLatexOrHTML('black')
     petiteAiguille.epaisseur = 4
     horloge.push(petiteAiguille, grandeAiguille)
-    this.question = `Quelle est l'heure du matin indiquée par cette horloge ? <br>
+    this.question =
+      `Quelle est l'heure du matin indiquée par cette horloge ? <br>
     
     ` +
-
-      mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, style: 'margin: auto' }, horloge)
+      mathalea2d(
+        {
+          xmin: -3,
+          ymin: -3,
+          xmax: 3,
+          ymax: 3,
+          scale: 0.7,
+          style: 'margin: auto',
+        },
+        horloge,
+      )
     this.reponse = { reponse: { value: `${h}h ${m}`, options: { HMS: true } } }
     this.correction = `$${miseEnEvidence(h)}$ ${texteEnCouleurEtGras('h')} $${miseEnEvidence(m === 0 ? '' : m === 5 ? '0' + m : m)}$`
     if (context.isAmc) {
@@ -82,11 +99,11 @@ export default class LireHeure extends ExerciceSimple {
                     param: {
                       digits: 2,
                       decimals: 0,
-                      signe: false
-                    }
-                  }
-                }
-              ]
+                      signe: false,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
@@ -99,14 +116,14 @@ export default class LireHeure extends ExerciceSimple {
                     param: {
                       digits: 2,
                       decimals: 0,
-                      signe: false
-                    }
-                  }
-                }
-              ]
-            }
-          ]
-        }
+                      signe: false,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
       ]
     }
     this.canEnonce = this.question

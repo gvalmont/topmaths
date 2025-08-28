@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'afrce'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,13 +19,20 @@ export const refs = {
 
 */
 export default class Can2025N4Q14 extends ExerciceCan {
-  enonce (a?: number, b?: number, couleur1?: string, couleur2?: string) {
-    const listeCouleurs = ['noire', 'rouge', 'verte', 'bleue', 'jaune', 'blanche']
+  enonce(a?: number, b?: number, couleur1?: string, couleur2?: string) {
+    const listeCouleurs = [
+      'noire',
+      'rouge',
+      'verte',
+      'bleue',
+      'jaune',
+      'blanche',
+    ]
     if (a == null || b == null || couleur1 == null || couleur2 == null) {
       a = randint(5, 15)
       b = randint(20, 25, 2 * a) - a
       couleur1 = choice(listeCouleurs)
-      couleur2 = choice(listeCouleurs.filter(c => c !== couleur1))
+      couleur2 = choice(listeCouleurs.filter((c) => c !== couleur1))
     }
     const reponse = new FractionEtendue(b, a + b)
     this.reponse = reponse.texFraction
@@ -40,7 +47,7 @@ export default class Can2025N4Q14 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(12, 7, 'noire', 'rouge') : this.enonce()
   }
 }

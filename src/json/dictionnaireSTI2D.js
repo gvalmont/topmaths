@@ -1,12 +1,19 @@
 export const dictionnaireSTI2D = {
-
   sti2d_2025_06_metropole_maths: {
     annee: '2025',
     lieu: 'Métropole',
     mois: '06',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée', 'Équations différentielles', 'Exponentielle', 'Dérivation', 'Équation', 'Logarithme népérien']
+    tags: [
+      'Nombres complexes',
+      'Géométrie repérée',
+      'Équations différentielles',
+      'Exponentielle',
+      'Dérivation',
+      'Équation',
+      'Logarithme népérien',
+    ],
   },
   sti2d_2025_06_metropole_mq1: {
     annee: '2025',
@@ -14,7 +21,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée']
+    tags: ['Nombres complexes', 'Géométrie repérée'],
   },
   sti2d_2025_06_metropole_mq2: {
     annee: '2025',
@@ -22,7 +29,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Exponentielle', 'Dérivation']
+    tags: ['Équations différentielles', 'Exponentielle', 'Dérivation'],
   },
   sti2d_2025_06_metropole_mq3: {
     annee: '2025',
@@ -30,7 +37,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation']
+    tags: ['Exponentielle', 'Équation'],
   },
   sti2d_2025_06_metropole_mq4: {
     annee: '2025',
@@ -38,7 +45,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien']
+    tags: ['Logarithme népérien'],
   },
   sti2d_2025_06_metropole_pcm: {
     annee: '2025',
@@ -46,7 +53,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Dérivation', 'Trigonométrie', 'Intégration']
+    tags: ['Dérivation', 'Trigonométrie', 'Intégration'],
   },
 
   sti2d_2024_06_metropole_maths: {
@@ -55,7 +62,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Intégration']
+    tags: ['Équations différentielles', 'Intégration'],
   },
   sti2d_2024_06_metropole_mq1: {
     annee: '2024',
@@ -63,7 +70,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2024_06_metropole_mq2: {
     annee: '2024',
@@ -71,7 +78,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2024_06_metropole_mq3: {
     annee: '2024',
@@ -79,7 +86,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2024_06_metropole_mq4: {
     annee: '2024',
@@ -87,7 +94,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Intégration']
+    tags: ['Intégration'],
   },
   sti2d_2024_06_metropole_pcm: {
     annee: '2024',
@@ -95,7 +102,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Dérivation', 'Équation', 'Logarithme népérien']
+    tags: ['Dérivation', 'Équation', 'Logarithme népérien'],
   },
 
   sti2d_2021_03_sujet0v1_maths: {
@@ -104,7 +111,13 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Trigonométrie', 'Intégration', 'Équation', 'Exponentielle']
+    tags: [
+      'Équations différentielles',
+      'Trigonométrie',
+      'Intégration',
+      'Équation',
+      'Exponentielle',
+    ],
   },
   sti2d_2021_03_sujet0v1_mq1: {
     annee: '2021',
@@ -112,7 +125,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2021_03_sujet0v1_mq2: {
     annee: '2021',
@@ -120,7 +133,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Trigonométrie']
+    tags: ['Trigonométrie'],
   },
   sti2d_2021_03_sujet0v1_mq3: {
     annee: '2021',
@@ -128,7 +141,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Intégration']
+    tags: ['Intégration'],
   },
   sti2d_2021_03_sujet0v1_mq4: {
     annee: '2021',
@@ -136,7 +149,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Équation', 'Exponentielle']
+    tags: ['Équation', 'Exponentielle'],
   },
   sti2d_2021_03_sujet0v2_maths: {
     annee: '2021',
@@ -144,7 +157,16 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée', 'Équations différentielles', 'Logarithme népérien', 'Dérivation', 'Variations', 'Limites', 'Python']
+    tags: [
+      'Nombres complexes',
+      'Géométrie repérée',
+      'Équations différentielles',
+      'Logarithme népérien',
+      'Dérivation',
+      'Variations',
+      'Limites',
+      'Python',
+    ],
   },
   sti2d_2021_03_sujet0v2_mq1: {
     annee: '2021',
@@ -152,7 +174,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2021_03_sujet0v2_mq2: {
     annee: '2021',
@@ -160,7 +182,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2021_03_sujet0v2_mq3: {
     annee: '2021',
@@ -168,7 +190,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée']
+    tags: ['Nombres complexes', 'Géométrie repérée'],
   },
   sti2d_2021_03_sujet0v2_mq4: {
     annee: '2021',
@@ -176,7 +198,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2021_03_sujet0v2_mq5: {
     annee: '2021',
@@ -184,7 +206,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq5',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Dérivation', 'Variations']
+    tags: ['Logarithme népérien', 'Dérivation', 'Variations'],
   },
   sti2d_2021_03_sujet0v2_mq6: {
     annee: '2021',
@@ -192,7 +214,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq6',
     typeExercice: 'sti2d',
-    tags: ['Limites', 'Python']
+    tags: ['Limites', 'Python'],
   },
   sti2d_2021_03_sujet0v2_pcm: {
     annee: '2021',
@@ -200,7 +222,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Intégration']
+    tags: ['Exponentielle', 'Dérivation', 'Intégration'],
   },
   sti2d_2021_06_metropole_j1_maths: {
     annee: '2021',
@@ -208,7 +230,18 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J1 - maths',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Tangente', 'Équation', 'Exponentielle', 'Dérivation', 'Variations', 'Limites', 'Équations différentielles', 'Intégration', 'Trigonométrie']
+    tags: [
+      'Logarithme népérien',
+      'Tangente',
+      'Équation',
+      'Exponentielle',
+      'Dérivation',
+      'Variations',
+      'Limites',
+      'Équations différentielles',
+      'Intégration',
+      'Trigonométrie',
+    ],
   },
   sti2d_2021_06_metropole_j1_mq1: {
     annee: '2021',
@@ -216,7 +249,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J1 - mq1',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Tangente', 'Équation']
+    tags: ['Logarithme népérien', 'Tangente', 'Équation'],
   },
   sti2d_2021_06_metropole_j1_mq2: {
     annee: '2021',
@@ -224,7 +257,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J1 - mq2',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation']
+    tags: ['Exponentielle', 'Équation'],
   },
   sti2d_2021_06_metropole_j1_mq3: {
     annee: '2021',
@@ -232,7 +265,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J1 - mq3',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Dérivation', 'Variations', 'Limites']
+    tags: ['Logarithme népérien', 'Dérivation', 'Variations', 'Limites'],
   },
   sti2d_2021_06_metropole_j1_mq4: {
     annee: '2021',
@@ -240,7 +273,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J1 - mq4',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2021_06_metropole_j1_mq5: {
     annee: '2021',
@@ -248,7 +281,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J1 - mq5',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Intégration']
+    tags: ['Exponentielle', 'Dérivation', 'Intégration'],
   },
   sti2d_2021_06_metropole_j1_mq6: {
     annee: '2021',
@@ -256,7 +289,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J1 - mq6',
     typeExercice: 'sti2d',
-    tags: ['Trigonométrie']
+    tags: ['Trigonométrie'],
   },
   sti2d_2021_06_metropole_j1_pcm: {
     annee: '2021',
@@ -264,7 +297,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J1 - pcm',
     typeExercice: 'sti2d',
-    tags: ['Logarithme décimal']
+    tags: ['Logarithme décimal'],
   },
   sti2d_2021_06_metropole_j2_maths: {
     annee: '2021',
@@ -272,7 +305,17 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J2 - maths',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Dérivation', 'Tangente', 'Variations', 'Nombres complexes', 'Exponentielle', 'Géométrie repérée', 'Intégration', 'Trigonométrie']
+    tags: [
+      'Logarithme népérien',
+      'Dérivation',
+      'Tangente',
+      'Variations',
+      'Nombres complexes',
+      'Exponentielle',
+      'Géométrie repérée',
+      'Intégration',
+      'Trigonométrie',
+    ],
   },
   sti2d_2021_06_metropole_j2_mq1: {
     annee: '2021',
@@ -280,7 +323,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J2 - mq1',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Dérivation', 'Tangente']
+    tags: ['Logarithme népérien', 'Dérivation', 'Tangente'],
   },
   sti2d_2021_06_metropole_j2_mq2: {
     annee: '2021',
@@ -288,7 +331,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J2 - mq2',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Dérivation', 'Variations']
+    tags: ['Logarithme népérien', 'Dérivation', 'Variations'],
   },
   sti2d_2021_06_metropole_j2_mq3: {
     annee: '2021',
@@ -296,7 +339,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J2 - mq3',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation']
+    tags: ['Exponentielle', 'Équation'],
   },
   sti2d_2021_06_metropole_j2_mq4: {
     annee: '2021',
@@ -304,7 +347,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J2 - mq4',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée']
+    tags: ['Nombres complexes', 'Géométrie repérée'],
   },
   sti2d_2021_06_metropole_j2_mq5: {
     annee: '2021',
@@ -312,7 +355,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J2 - mq5',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Géométrie repérée', 'Intégration']
+    tags: ['Exponentielle', 'Géométrie repérée', 'Intégration'],
   },
   sti2d_2021_06_metropole_j2_mq6: {
     annee: '2021',
@@ -320,7 +363,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J2 - mq6',
     typeExercice: 'sti2d',
-    tags: ['Trigonométrie']
+    tags: ['Trigonométrie'],
   },
   sti2d_2021_06_metropole_j2_pcm: {
     annee: '2021',
@@ -328,7 +371,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'J2 - pcm',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites', 'Équations différentielles', 'Équation']
+    tags: ['Exponentielle', 'Limites', 'Équations différentielles', 'Équation'],
   },
   sti2d_2021_09_metropole_maths: {
     annee: '2021',
@@ -336,7 +379,16 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Variations', 'Logarithme népérien', 'Équation', 'Équations différentielles', 'Nombres complexes', 'Géométrie repérée']
+    tags: [
+      'Exponentielle',
+      'Dérivation',
+      'Variations',
+      'Logarithme népérien',
+      'Équation',
+      'Équations différentielles',
+      'Nombres complexes',
+      'Géométrie repérée',
+    ],
   },
   sti2d_2021_09_metropole_mq1: {
     annee: '2021',
@@ -344,7 +396,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Variations']
+    tags: ['Exponentielle', 'Dérivation', 'Variations'],
   },
   sti2d_2021_09_metropole_mq2: {
     annee: '2021',
@@ -352,7 +404,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Équation']
+    tags: ['Logarithme népérien', 'Équation'],
   },
   sti2d_2021_09_metropole_mq3: {
     annee: '2021',
@@ -360,7 +412,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation']
+    tags: ['Exponentielle', 'Équation'],
   },
   sti2d_2021_09_metropole_mq4: {
     annee: '2021',
@@ -368,7 +420,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2021_09_metropole_mq5: {
     annee: '2021',
@@ -376,7 +428,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq5',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2021_09_metropole_mq6: {
     annee: '2021',
@@ -384,7 +436,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq6',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée']
+    tags: ['Nombres complexes', 'Géométrie repérée'],
   },
   sti2d_2021_09_metropole_pcm: {
     annee: '2021',
@@ -392,7 +444,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Intégration']
+    tags: ['Intégration'],
   },
 
   sti2d_2022_05_etrangers_maths: {
@@ -401,7 +453,17 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Variations', 'Nombres complexes', 'Géométrie repérée', 'Logarithme népérien', 'Équation', 'Équations différentielles', 'Limites', 'Trigonométrie']
+    tags: [
+      'Exponentielle',
+      'Variations',
+      'Nombres complexes',
+      'Géométrie repérée',
+      'Logarithme népérien',
+      'Équation',
+      'Équations différentielles',
+      'Limites',
+      'Trigonométrie',
+    ],
   },
   sti2d_2022_05_etrangers_mq1: {
     annee: '2022',
@@ -409,7 +471,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Variations']
+    tags: ['Exponentielle', 'Variations'],
   },
   sti2d_2022_05_etrangers_mq2: {
     annee: '2022',
@@ -417,7 +479,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée']
+    tags: ['Nombres complexes', 'Géométrie repérée'],
   },
   sti2d_2022_05_etrangers_mq3: {
     annee: '2022',
@@ -425,7 +487,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Équation']
+    tags: ['Logarithme népérien', 'Équation'],
   },
   sti2d_2022_05_etrangers_mq4: {
     annee: '2022',
@@ -433,7 +495,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2022_05_etrangers_mq5: {
     annee: '2022',
@@ -441,7 +503,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq5',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites']
+    tags: ['Exponentielle', 'Limites'],
   },
   sti2d_2022_05_etrangers_mq6: {
     annee: '2022',
@@ -449,7 +511,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq6',
     typeExercice: 'sti2d',
-    tags: ['Trigonométrie', 'Équation']
+    tags: ['Trigonométrie', 'Équation'],
   },
   sti2d_2022_05_etrangers_pcm: {
     annee: '2022',
@@ -457,7 +519,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Limites', 'Exponentielle', 'Dérivation']
+    tags: ['Limites', 'Exponentielle', 'Dérivation'],
   },
   sti2d_2022_05_metropole_maths: {
     annee: '2022',
@@ -465,7 +527,16 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Nombres complexes', 'Équations différentielles', 'Exponentielle', 'Équation', 'Dérivation', 'Tangente', 'Variations']
+    tags: [
+      'Logarithme népérien',
+      'Nombres complexes',
+      'Équations différentielles',
+      'Exponentielle',
+      'Équation',
+      'Dérivation',
+      'Tangente',
+      'Variations',
+    ],
   },
   sti2d_2022_05_metropole_mq1: {
     annee: '2022',
@@ -473,7 +544,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien']
+    tags: ['Logarithme népérien'],
   },
   sti2d_2022_05_metropole_mq2: {
     annee: '2022',
@@ -481,7 +552,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2022_05_metropole_mq3: {
     annee: '2022',
@@ -489,7 +560,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2022_05_metropole_mq4: {
     annee: '2022',
@@ -497,7 +568,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation', 'Dérivation', 'Tangente']
+    tags: ['Exponentielle', 'Équation', 'Dérivation', 'Tangente'],
   },
   sti2d_2022_05_metropole_mq5: {
     annee: '2022',
@@ -505,7 +576,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq5',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Dérivation', 'Variations']
+    tags: ['Logarithme népérien', 'Dérivation', 'Variations'],
   },
   sti2d_2022_05_metropole_mq6: {
     annee: '2022',
@@ -513,7 +584,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq6',
     typeExercice: 'sti2d',
-    tags: ['Trigonométrie']
+    tags: ['Trigonométrie'],
   },
   sti2d_2022_05_metropole_pcm: {
     annee: '2022',
@@ -521,7 +592,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites', 'Équation']
+    tags: ['Exponentielle', 'Limites', 'Équation'],
   },
   sti2d_2022_05_polynesie_maths: {
     annee: '2022',
@@ -529,7 +600,15 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Nombres complexes', 'Exponentielle', 'Équation', 'Variations', 'Logarithme népérien', 'Limites']
+    tags: [
+      'Équations différentielles',
+      'Nombres complexes',
+      'Exponentielle',
+      'Équation',
+      'Variations',
+      'Logarithme népérien',
+      'Limites',
+    ],
   },
   sti2d_2022_05_polynesie_mq1: {
     annee: '2022',
@@ -537,7 +616,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2022_05_polynesie_mq2: {
     annee: '2022',
@@ -545,7 +624,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2022_05_polynesie_mq3: {
     annee: '2022',
@@ -553,7 +632,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation']
+    tags: ['Exponentielle', 'Équation'],
   },
   sti2d_2022_05_polynesie_mq4: {
     annee: '2022',
@@ -561,7 +640,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Variations']
+    tags: ['Variations'],
   },
   sti2d_2022_05_polynesie_mq5: {
     annee: '2022',
@@ -569,7 +648,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq5',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Équation']
+    tags: ['Logarithme népérien', 'Équation'],
   },
   sti2d_2022_05_polynesie_mq6: {
     annee: '2022',
@@ -577,7 +656,7 @@ export const dictionnaireSTI2D = {
     mois: '05',
     numeroInitial: 'mq6',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites']
+    tags: ['Exponentielle', 'Limites'],
   },
   sti2d_2022_09_metropole_maths: {
     annee: '2022',
@@ -585,7 +664,14 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Exponentielle', 'Équation', 'Équations différentielles', 'Nombres complexes', 'Trigonométrie']
+    tags: [
+      'Logarithme népérien',
+      'Exponentielle',
+      'Équation',
+      'Équations différentielles',
+      'Nombres complexes',
+      'Trigonométrie',
+    ],
   },
   sti2d_2022_09_metropole_mq1: {
     annee: '2022',
@@ -593,7 +679,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Exponentielle']
+    tags: ['Logarithme népérien', 'Exponentielle'],
   },
   sti2d_2022_09_metropole_mq2: {
     annee: '2022',
@@ -601,7 +687,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Équation']
+    tags: ['Logarithme népérien', 'Équation'],
   },
   sti2d_2022_09_metropole_mq3: {
     annee: '2022',
@@ -609,7 +695,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2022_09_metropole_mq4: {
     annee: '2022',
@@ -617,7 +703,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2022_09_metropole_mq5: {
     annee: '2022',
@@ -625,7 +711,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq5',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation']
+    tags: ['Exponentielle', 'Équation'],
   },
   sti2d_2022_09_metropole_mq6: {
     annee: '2022',
@@ -633,7 +719,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq6',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Trigonométrie']
+    tags: ['Équations différentielles', 'Trigonométrie'],
   },
   sti2d_2022_09_metropole_pcm: {
     annee: '2022',
@@ -641,7 +727,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation', 'Limites']
+    tags: ['Exponentielle', 'Équation', 'Limites'],
   },
   sti2d_2022_10_caledonie_maths: {
     annee: '2022',
@@ -649,7 +735,16 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Exponentielle', 'Dérivation', 'Tangente', 'Variations', 'Limites', 'Python', 'Équation']
+    tags: [
+      'Équations différentielles',
+      'Exponentielle',
+      'Dérivation',
+      'Tangente',
+      'Variations',
+      'Limites',
+      'Python',
+      'Équation',
+    ],
   },
   sti2d_2022_10_caledonie_mq1: {
     annee: '2022',
@@ -657,7 +752,7 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2022_10_caledonie_mq2: {
     annee: '2022',
@@ -665,7 +760,7 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Tangente']
+    tags: ['Exponentielle', 'Dérivation', 'Tangente'],
   },
   sti2d_2022_10_caledonie_mq3: {
     annee: '2022',
@@ -673,7 +768,7 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Variations']
+    tags: ['Exponentielle', 'Variations'],
   },
   sti2d_2022_10_caledonie_mq4: {
     annee: '2022',
@@ -681,7 +776,7 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites']
+    tags: ['Exponentielle', 'Limites'],
   },
   sti2d_2022_10_caledonie_mq5: {
     annee: '2022',
@@ -689,7 +784,7 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'mq5',
     typeExercice: 'sti2d',
-    tags: ['Python']
+    tags: ['Python'],
   },
   sti2d_2022_10_caledonie_mq6: {
     annee: '2022',
@@ -697,7 +792,7 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'mq6',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation']
+    tags: ['Exponentielle', 'Équation'],
   },
   sti2d_2022_10_caledonie_pcm: {
     annee: '2022',
@@ -705,7 +800,7 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Exponentielle', 'Équation']
+    tags: ['Équations différentielles', 'Exponentielle', 'Équation'],
   },
 
   sti2d_2023_03_metropole_maths: {
@@ -714,7 +809,13 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Nombres complexes', 'Logarithme népérien', 'Équation']
+    tags: [
+      'Exponentielle',
+      'Dérivation',
+      'Nombres complexes',
+      'Logarithme népérien',
+      'Équation',
+    ],
   },
   sti2d_2023_03_metropole_mq1: {
     annee: '2023',
@@ -722,7 +823,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle']
+    tags: ['Exponentielle'],
   },
   sti2d_2023_03_metropole_mq2: {
     annee: '2023',
@@ -730,7 +831,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   sti2d_2023_03_metropole_mq3: {
     annee: '2023',
@@ -738,7 +839,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2023_03_metropole_mq4: {
     annee: '2023',
@@ -746,7 +847,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Équation']
+    tags: ['Logarithme népérien', 'Équation'],
   },
   sti2d_2023_03_metropole_pcm: {
     annee: '2023',
@@ -754,7 +855,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Limites']
+    tags: ['Équations différentielles', 'Limites'],
   },
   sti2d_2023_03_polynesie_maths: {
     annee: '2023',
@@ -762,7 +863,13 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites', 'Dérivation', 'Variations', 'Nombres complexes']
+    tags: [
+      'Exponentielle',
+      'Limites',
+      'Dérivation',
+      'Variations',
+      'Nombres complexes',
+    ],
   },
   sti2d_2023_03_polynesie_mq1: {
     annee: '2023',
@@ -770,7 +877,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites', 'Dérivation', 'Variations']
+    tags: ['Exponentielle', 'Limites', 'Dérivation', 'Variations'],
   },
   sti2d_2023_03_polynesie_mq2: {
     annee: '2023',
@@ -778,7 +885,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2023_03_polynesie_pcm: {
     annee: '2023',
@@ -786,7 +893,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Limites', 'Équation']
+    tags: ['Exponentielle', 'Limites', 'Équation'],
   },
   sti2d_2023_03_reunion_maths: {
     annee: '2023',
@@ -794,7 +901,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Nombres complexes']
+    tags: ['Logarithme népérien', 'Nombres complexes'],
   },
   sti2d_2023_03_reunion_mq1: {
     annee: '2023',
@@ -802,7 +909,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien']
+    tags: ['Logarithme népérien'],
   },
   sti2d_2023_03_reunion_mq2: {
     annee: '2023',
@@ -810,7 +917,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2023_03_reunion_pcm: {
     annee: '2023',
@@ -818,7 +925,7 @@ export const dictionnaireSTI2D = {
     mois: '03',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2023_06_mexique_maths: {
     annee: '2023',
@@ -826,7 +933,13 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Exponentielle', 'Dérivation', 'Nombres complexes', 'Équation']
+    tags: [
+      'Équations différentielles',
+      'Exponentielle',
+      'Dérivation',
+      'Nombres complexes',
+      'Équation',
+    ],
   },
   sti2d_2023_06_mexique_mq1: {
     annee: '2023',
@@ -834,7 +947,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2023_06_mexique_mq2: {
     annee: '2023',
@@ -842,7 +955,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   sti2d_2023_06_mexique_mq3: {
     annee: '2023',
@@ -850,7 +963,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2023_06_mexique_mq4: {
     annee: '2023',
@@ -858,7 +971,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation']
+    tags: ['Exponentielle', 'Équation'],
   },
   sti2d_2023_06_mexique_pcm: {
     annee: '2023',
@@ -866,7 +979,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Tangente', 'Équation']
+    tags: ['Exponentielle', 'Dérivation', 'Tangente', 'Équation'],
   },
   sti2d_2023_09_caledonie_maths: {
     annee: '2023',
@@ -874,7 +987,13 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Exponentielle', 'Tangente', 'Variations', 'Équation']
+    tags: [
+      'Nombres complexes',
+      'Exponentielle',
+      'Tangente',
+      'Variations',
+      'Équation',
+    ],
   },
   sti2d_2023_09_caledonie_mq1: {
     annee: '2023',
@@ -882,7 +1001,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2023_09_caledonie_mq2: {
     annee: '2023',
@@ -890,7 +1009,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Tangente', 'Variations', 'Équation']
+    tags: ['Exponentielle', 'Tangente', 'Variations', 'Équation'],
   },
   sti2d_2023_09_caledonie_pcm: {
     annee: '2023',
@@ -898,7 +1017,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Exponentielle', 'Équation']
+    tags: ['Équations différentielles', 'Exponentielle', 'Équation'],
   },
   sti2d_2023_09_metropole_maths: {
     annee: '2023',
@@ -906,7 +1025,14 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Logarithme décimal', 'Logarithme népérien', 'Limites', 'Nombres complexes', 'Géométrie repérée', 'Équations différentielles']
+    tags: [
+      'Logarithme décimal',
+      'Logarithme népérien',
+      'Limites',
+      'Nombres complexes',
+      'Géométrie repérée',
+      'Équations différentielles',
+    ],
   },
   sti2d_2023_09_metropole_mq1: {
     annee: '2023',
@@ -914,7 +1040,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Logarithme décimal', 'Logarithme népérien']
+    tags: ['Logarithme décimal', 'Logarithme népérien'],
   },
   sti2d_2023_09_metropole_mq2: {
     annee: '2023',
@@ -922,7 +1048,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Limites']
+    tags: ['Limites'],
   },
   sti2d_2023_09_metropole_mq3: {
     annee: '2023',
@@ -930,7 +1056,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Géométrie repérée']
+    tags: ['Nombres complexes', 'Géométrie repérée'],
   },
   sti2d_2023_09_metropole_mq4: {
     annee: '2023',
@@ -938,7 +1064,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles']
+    tags: ['Équations différentielles'],
   },
   sti2d_2023_09_metropole_pcm: {
     annee: '2023',
@@ -946,7 +1072,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Équation', 'Dérivation']
+    tags: ['Exponentielle', 'Équation', 'Dérivation'],
   },
 
   sti2d_2024_06_polynesie_maths: {
@@ -955,7 +1081,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes', 'Logarithme décimal']
+    tags: ['Nombres complexes', 'Logarithme décimal'],
   },
   sti2d_2024_06_polynesie_mq1: {
     annee: '2024',
@@ -963,7 +1089,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2024_06_polynesie_mq2: {
     annee: '2024',
@@ -971,7 +1097,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2024_06_polynesie_mq3: {
     annee: '2024',
@@ -979,7 +1105,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Logarithme décimal']
+    tags: ['Logarithme décimal'],
   },
   sti2d_2024_06_polynesie_mq4: {
     annee: '2024',
@@ -987,7 +1113,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2024_06_polynesie_pcm: {
     annee: '2024',
@@ -995,7 +1121,7 @@ export const dictionnaireSTI2D = {
     mois: '06',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Équations différentielles', 'Limites', 'Exponentielle', 'Équation']
+    tags: ['Équations différentielles', 'Limites', 'Exponentielle', 'Équation'],
   },
   sti2d_2024_09_metropole_maths: {
     annee: '2024',
@@ -1003,7 +1129,12 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'maths',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien', 'Exponentielle', 'Dérivation', 'Nombres complexes']
+    tags: [
+      'Logarithme népérien',
+      'Exponentielle',
+      'Dérivation',
+      'Nombres complexes',
+    ],
   },
   sti2d_2024_09_metropole_mq1: {
     annee: '2024',
@@ -1011,7 +1142,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq1',
     typeExercice: 'sti2d',
-    tags: ['Logarithme népérien']
+    tags: ['Logarithme népérien'],
   },
   sti2d_2024_09_metropole_mq2: {
     annee: '2024',
@@ -1019,7 +1150,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   sti2d_2024_09_metropole_mq3: {
     annee: '2024',
@@ -1027,7 +1158,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Nombres complexes']
+    tags: ['Nombres complexes'],
   },
   sti2d_2024_09_metropole_mq4: {
     annee: '2024',
@@ -1035,7 +1166,7 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'mq4',
     typeExercice: 'sti2d',
-    tags: ['Intégration']
+    tags: ['Intégration'],
   },
   sti2d_2024_09_metropole_pcm: {
     annee: '2024',
@@ -1043,7 +1174,11 @@ export const dictionnaireSTI2D = {
     mois: '09',
     numeroInitial: 'pcm',
     typeExercice: 'sti2d',
-    tags: ['Logarithme décimal', 'Équation', 'Équations différentielles', 'Exponentielle']
+    tags: [
+      'Logarithme décimal',
+      'Équation',
+      'Équations différentielles',
+      'Exponentielle',
+    ],
   },
-
 }

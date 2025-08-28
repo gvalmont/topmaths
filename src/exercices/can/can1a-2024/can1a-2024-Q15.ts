@@ -2,8 +2,11 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-export const titre = 'Calculer un terme d\'une suite définie par récurrence'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../../lib/outils/ecritures'
+export const titre = "Calculer un terme d'une suite définie par récurrence"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'df70c'
@@ -13,7 +16,7 @@ export const uuid = 'df70c'
 
 */
 export default class termeSuite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +26,7 @@ export default class termeSuite extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: number
     let b: number
     let u0: number
@@ -41,7 +44,9 @@ export default class termeSuite extends ExerciceSimple {
     this.question = `Soit la suite $(u_n)$ définie  par $u_0 = ${u0}$ et pour $n \\in \\mathbb{N}$, 
     $u_{n+1} = ${a}u_n ${ecritureAlgebrique(b)}$.<br>
     $u_2=$`
-    if (!this.interactif) { this.question += ' $\\ldots$' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots$'
+    }
     this.correction = `On calcule d'abord $u_1$ : <br>   
       $\\begin{aligned}
       u_1&=${a}\\times u_0 ${ecritureAlgebrique(b)}\\\\

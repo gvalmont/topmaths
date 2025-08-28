@@ -14,14 +14,14 @@ export const dateDePublication = '17/10/2024'
 export const uuid = '49a2b'
 export const refs = {
   'fr-fr': ['can3C18'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class calculDansQuotient extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,8 +29,18 @@ export default class calculDansQuotient extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
-    const inconnue = choice(['AB', 'AC', 'BC', 'EF', 'HT', 'CD', 'RT', 'GR', 'JK'])
+  nouvelleVersion() {
+    const inconnue = choice([
+      'AB',
+      'AC',
+      'BC',
+      'EF',
+      'HT',
+      'CD',
+      'RT',
+      'GR',
+      'JK',
+    ])
     const f = choice(obtenirListeFractionsIrreductibles())
     const fraction = new FractionEtendue(f.n, f.d)
     const a = randint(2, 10, f.d)
@@ -52,19 +62,22 @@ export default class calculDansQuotient extends ExerciceSimple {
       reponse = new FractionEtendue(a * f.n, f.d).texFraction
       this.reponse = { reponse: { value: reponse } }
       this.question = `Calculer $${inconnue}$ sachant que ${choix2 === true ? `$\\dfrac{${inconnue}}{${a}}=${fraction.texFraction}$.` : `$${fraction.texFraction}=\\dfrac{${inconnue}}{${a}}$.`}`
-      this.correction = this.correction = `Les produits en croix sont égaux :<br>
+      this.correction =
+        this.correction = `Les produits en croix sont égaux :<br>
     $\\begin{aligned}
     ${inconnue}\\times${f.d}&=${a}\\times ${f.n}\\\\
     ${inconnue}&=${pgcd(a * f.n, f.d) === 1 ? `${miseEnEvidence(reponse)}` : `${reponse}`}
     \\end{aligned}$<br>
     ${pgcd(a * f.n, f.d) === 1 ? '' : `On peut simplifier : $${inconnue}=${reponse}${new FractionEtendue(a * f.n, f.d).texSimplificationAvecEtapes(false, '#f15929')}$`}`
     }
-    if (this.interactif) { this.question += `<br> $${inconnue}=$` }
+    if (this.interactif) {
+      this.question += `<br> $${inconnue}=$`
+    }
 
     this.correction += `
          `
 
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = `$${inconnue}=\\ldots$`
   }
 }

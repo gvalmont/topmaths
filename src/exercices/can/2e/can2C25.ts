@@ -19,10 +19,10 @@ export const uuid = '7d3d1'
 
 export const refs = {
   'fr-fr': ['can2C25'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EvolSuccessives extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.optionsChampTexte = { texteApres: '$\\%$' }
     this.typeExercice = 'simple'
@@ -31,7 +31,7 @@ export default class EvolSuccessives extends ExerciceSimple {
     this.versionQcmDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const estAugmentation = choice([true, false, false])
     const taux = estAugmentation ? choice([10, 20, 30]) : randint(1, 9) * 10
     const CM = estAugmentation ? 1 + taux / 100 : 1 - taux / 100
@@ -55,11 +55,11 @@ export default class EvolSuccessives extends ExerciceSimple {
     this.distracteurs = [
       `$${texNombre(2 * taux, 2)}\\,\\%$`,
       `$${texNombre(taux, 2)}\\,\\%$`,
-      `$${texNombre(variationPourcent + 5, 2)}\\,\\%$`
+      `$${texNombre(variationPourcent + 5, 2)}\\,\\%$`,
     ]
 
     this.canEnonce = `Le prix d’un article connait deux ${typeTexte} successives de $${taux}\\,\\%$.`
-    this.canReponseACompleter = 'L\'évolution globale est :  $\\ldots\\,\\%$'
+    this.canReponseACompleter = "L'évolution globale est :  $\\ldots\\,\\%$"
     if (!this.interactif && !this.versionQcm) {
       this.question += ' $\\ldots$'
     }

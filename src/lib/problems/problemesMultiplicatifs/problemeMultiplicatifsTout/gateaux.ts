@@ -9,7 +9,7 @@ import ProblemeMultiplicatifs from './problemesMultiplicatifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function gateaux1 (decimal = false): Probleme {
+export function gateaux1(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nbPaquets = randint(2, 9)
   const nbGateauxParPaquet = choice([10, 12, 15, 16, 18, 20, 24, 30])

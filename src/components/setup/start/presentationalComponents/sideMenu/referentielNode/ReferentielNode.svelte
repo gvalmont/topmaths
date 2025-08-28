@@ -1,24 +1,24 @@
 <script lang="ts">
-  import { slide } from "svelte/transition"
+  import { slide } from 'svelte/transition'
   import {
     isExamItemInReferentiel,
     isJSONReferentielEnding,
     type JSONReferentielObject,
-  } from "../../../../../../lib/types/referentiels"
-  import { codeToLevelTitle } from "../../../../../../lib/components/refUtils"
-  import codeToLevelList from "../../../../../../json/codeToLevelList.json"
-  import { toMap } from "../../../../../../lib/components/toMap"
-  import themesList from "../../../../../../json/levelsThemesList.json"
-  import themesListCH from "../../../../../../json/levelsThemesListCH.json"
+  } from '../../../../../../lib/types/referentiels'
+  import { codeToLevelTitle } from '../../../../../../lib/components/refUtils'
+  import codeToLevelList from '../../../../../../json/codeToLevelList.json'
+  import { toMap } from '../../../../../../lib/components/toMap'
+  import themesList from '../../../../../../json/levelsThemesList.json'
+  import themesListCH from '../../../../../../json/levelsThemesListCH.json'
   const themes = toMap(themesList)
   const themesCH = toMap(themesListCH)
-  import ReferentielEnding from "./ReferentielEnding.svelte"
-  import { onMount } from "svelte"
+  import ReferentielEnding from './ReferentielEnding.svelte'
+  import { onMount } from 'svelte'
   import {
     exercicesParams,
     bibliothequeDisplayedContent,
-  } from "../../../../../../lib/stores/generalStore"
-  import { monthes } from "../../../../../../lib/components/handleDate"
+  } from '../../../../../../lib/stores/generalStore'
+  import { monthes } from '../../../../../../lib/components/handleDate'
 
   export let subset: JSONReferentielObject
   export let unfold: boolean = false
@@ -38,11 +38,11 @@
    */
   function themeTitle(themeCode: string) {
     if (themes.has(themeCode)) {
-      return [" : ", themes.get(themeCode).get("titre")].join("")
+      return [' : ', themes.get(themeCode).get('titre')].join('')
     } else if (themesCH.has(themeCode)) {
-      return [" : ", themesCH.get(themeCode).get("titre")].join("")
+      return [' : ', themesCH.get(themeCode).get('titre')].join('')
     } else {
-      return ""
+      return ''
     }
   }
 
@@ -56,42 +56,46 @@
       // console.log(pathToThisNode)
       // console.log(s)
       // classement entrées CAN
-      if (pathToThisNode[pathToThisNode.length - 1].includes("CAN")) {
+      if (pathToThisNode[pathToThisNode.length - 1].includes('CAN')) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
           return levels.indexOf(keyA) - levels.indexOf(keyB)
         })
       }
       // classement des entrées par années décroissantes
-      const key = pathToThisNode[pathToThisNode.length - 1] as keyof typeof codeToLevelList
-      if (codeToLevelList[key]?.includes("année")) {
+      const key = pathToThisNode[
+        pathToThisNode.length - 1
+      ] as keyof typeof codeToLevelList
+      if (codeToLevelList[key]?.includes('année')) {
         return Object.entries(s).reverse()
       }
       // classement des entrées par années décroissantes
-      if (pathToThisNode[pathToThisNode.length - 1].includes("année")) {
+      if (pathToThisNode[pathToThisNode.length - 1].includes('année')) {
         return Object.entries(s).reverse()
       }
-      
+
       // classement des thèmes dans l'ordre alphabétique
-      const key2 = pathToThisNode[pathToThisNode.length - 1] as keyof typeof codeToLevelList
-      if (codeToLevelList[key2]?.includes("thème")) {
+      const key2 = pathToThisNode[
+        pathToThisNode.length - 1
+      ] as keyof typeof codeToLevelList
+      if (codeToLevelList[key2]?.includes('thème')) {
         return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
-          return keyA.localeCompare(keyB, "fr")
+          return keyA.localeCompare(keyB, 'fr')
         })
       }
 
       // classement des thèmes dans l'ordre alphabétique
-      if (pathToThisNode[pathToThisNode.length - 1].includes("Tags")) {
+      if (pathToThisNode[pathToThisNode.length - 1].includes('Tags')) {
         return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
-          return keyA.localeCompare(keyB, "fr")
+          return keyA.localeCompare(keyB, 'fr')
         })
       }
 
       // classement des thèmes dans l'ordre alphabétique
-      if (pathToThisNode[pathToThisNode.length - 1].includes("thèmes")) {
+      if (pathToThisNode[pathToThisNode.length - 1].includes('thèmes')) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
-          return keyA.localeCompare(keyB, "fr")
+          return keyA.localeCompare(keyB, 'fr')
         })
       }
       // classement des entrées par années : sujets 1 et 2
@@ -109,10 +113,10 @@
             valueA.jour &&
             valueB.jour
           ) {
-            const jourA = parseInt(valueA.jour.replace("J", ""))
-            const jourB = parseInt(valueB.jour.replace("J", ""))
-            const moisA = monthes.indexOf(valueA.mois ?? "")
-            const moisB = monthes.indexOf(valueB.mois ?? "")
+            const jourA = parseInt(valueA.jour.replace('J', ''))
+            const jourB = parseInt(valueB.jour.replace('J', ''))
+            const moisA = monthes.indexOf(valueA.mois ?? '')
+            const moisB = monthes.indexOf(valueB.mois ?? '')
             return (
               moisB - moisA ||
               valueA.lieu.localeCompare(valueB.lieu) ||
@@ -126,9 +130,12 @@
       return Object.entries(s)
     } else {
       // classement dans l'ordre alphabétique
-      if ('Géométrie dynamique' === levelTitle || 'Vos ressources'  === levelTitle) {
+      if (
+        'Géométrie dynamique' === levelTitle ||
+        'Vos ressources' === levelTitle
+      ) {
         return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
-          return keyA.localeCompare(keyB, "fr")
+          return keyA.localeCompare(keyB, 'fr')
         })
       }
       return Object.entries(s)
@@ -156,7 +163,7 @@
   }
 
   onMount(() => {
-    if (nestedLevelCount === 1 && levelTitle === "Exercices aléatoires") {
+    if (nestedLevelCount === 1 && levelTitle === 'Exercices aléatoires') {
       unfold = true
     }
   })
@@ -181,11 +188,11 @@
   - **levelTitle** (_string_) : titre du niveau courant (clé du nœud retraduite sur la base des fichiers `levelsThemesList.json` et `codeToLevelList.json`).
 
  -->
-<div class={`${$$props.class || ""}`}>
+<div class="{`${$$props.class || ''}`}">
   <button
-    id={"titre-liste-" + indexBase}
+    id="{'titre-liste-' + indexBase}"
     type="button"
-    disabled={Object.keys(subset).length === 0}
+    disabled="{Object.keys(subset).length === 0}"
     class="w-full flex flex-row text-start items-center justify-between font-bold first-letter:first-linemarker
     {nestedLevelCount !== 1
       ? 'text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest'
@@ -197,12 +204,12 @@
       ? 'opacity-10'
       : 'opacity-100 cursor-pointer'}"
     style="padding-left: {(nestedLevelCount * 2) / 5}rem"
-    on:click={() => {
+    on:click="{() => {
       unfold = !unfold
-    }}
+    }}"
   >
     <div
-      id={"titre-liste-" + indexBase + "-content"}
+      id="{'titre-liste-' + indexBase + '-content'}"
       class=" {nestedLevelCount === 1 ? 'text-xl' : 'text-base'}"
     >
       <!-- on va chercher dans les fichiers JSON les significations des clés passées comme titre -->
@@ -218,35 +225,35 @@
         {unfold && nestedLevelCount !== 1
             ? 'bx bx-plus rotate-[225deg]'
             : 'bx bx-plus'}"
-        />
+        ></i>
       {/if}
 
       {#if nestedLevelCount === 1}
         <i
           class="flex text-sm text-coopmaths-action dark:text-coopmathsdark-action bg-transparent transition-transform duration-500 ease-in-out
         {unfold ? 'bx bxs-up-arrow' : 'bx bxs-up-arrow rotate-[180deg]'}"
-        />
+        ></i>
       {/if}
     </div>
   </button>
   <div>
     {#if unfold}
-      <ul transition:slide|global={{ duration: 500 }}>
+      <ul transition:slide|global="{{ duration: 500 }}">
         {#each items as [key, obj], i}
           <li>
             {#if isJSONReferentielEnding(obj)}
               <ReferentielEnding
-                ending={obj}
-                nestedLevelCount={nestedLevelCount + 1}
-                class={i === items.length - 1 ? "pb-6" : ""}
+                ending="{obj}"
+                nestedLevelCount="{nestedLevelCount + 1}"
+                class="{i === items.length - 1 ? 'pb-6' : ''}"
               />
             {:else}
               <svelte:self
-                indexBase={`${indexBase}-${i.toString()}`}
-                levelTitle={key}
-                nestedLevelCount={nestedLevelCount + 1}
-                pathToThisNode={[...pathToThisNode, key]}
-                bind:subset={obj}
+                indexBase="{`${indexBase}-${i.toString()}`}"
+                levelTitle="{key}"
+                nestedLevelCount="{nestedLevelCount + 1}"
+                pathToThisNode="{[...pathToThisNode, key]}"
+                bind:subset="{obj}"
               />
             {/if}
           </li>

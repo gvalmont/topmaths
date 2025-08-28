@@ -4,7 +4,7 @@ import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-export const titre = 'Calculer un prix à partir d\'un prix au kg'
+export const titre = "Calculer un prix à partir d'un prix au kg"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -21,10 +21,10 @@ export const uuid = '7b350'
 
 export const refs = {
   'fr-fr': ['can5P09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculPrix extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -32,12 +32,22 @@ export default class CalculPrix extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' €' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, n, b1, b2, reponse
-    switch (choice([1, 2, 3])) { //,
+    switch (
+      choice([1, 2, 3]) //,
+    ) {
       case 1:
         a = randint(2, 6)
-        n = choice([' de pommes de terre', ' de carottes', ' de courgettes', 'de navets', 'de tomates', 'de poireaux', 'd\'aubergines'])
+        n = choice([
+          ' de pommes de terre',
+          ' de carottes',
+          ' de courgettes',
+          'de navets',
+          'de tomates',
+          'de poireaux',
+          "d'aubergines",
+        ])
         b = randint(1, 9) * 100
         b1 = b / 1000
         b2 = b1 * a
@@ -64,7 +74,9 @@ export default class CalculPrix extends ExerciceSimple {
   
 `)
           }
-        } else { this.correction += '' }
+        } else {
+          this.correction += ''
+        }
 
         this.reponse = reponse
         break
@@ -98,7 +110,9 @@ export default class CalculPrix extends ExerciceSimple {
   
 `)
           }
-        } else { this.correction += '' }
+        } else {
+          this.correction += ''
+        }
 
         this.reponse = reponse
         break
@@ -106,7 +120,17 @@ export default class CalculPrix extends ExerciceSimple {
       case 3:
       default:
         a = randint(16, 25)
-        n = choice(['du Costa Rica', 'du Kenya', 'de Colombie', 'd\'Ethiopie', 'du Salvador', 'du Nicaragua', 'du Mexique', 'du Honduras', 'du Guatemala'])
+        n = choice([
+          'du Costa Rica',
+          'du Kenya',
+          'de Colombie',
+          "d'Ethiopie",
+          'du Salvador',
+          'du Nicaragua',
+          'du Mexique',
+          'du Honduras',
+          'du Guatemala',
+        ])
         b = randint(1, 9) * 100
         b1 = b / 1000
         b2 = b1 * a
@@ -133,13 +157,15 @@ export default class CalculPrix extends ExerciceSimple {
     
   `)
           }
-        } else { this.correction += '' }
+        } else {
+          this.correction += ''
+        }
 
         this.reponse = reponse
         break
     }
     this.reponse = this.reponse.toFixed(2)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = '$\\ldots$ €'
   }
 }

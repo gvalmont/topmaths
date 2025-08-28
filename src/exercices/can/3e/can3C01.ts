@@ -22,27 +22,42 @@ export const uuid = '8d08f'
 
 export const refs = {
   'fr-fr': ['can3C01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculPuissanceSimple extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const bases = [2, 3, 5, 7]
-    for (let i = 0, a, b, c, index, texte, texteCorr; i < this.nbQuestions; i++) {
+    for (
+      let i = 0, a, b, c, index, texte, texteCorr;
+      i < this.nbQuestions;
+      i++
+    ) {
       this.autoCorrection[i] = {}
       index = randint(0, 3)
       a = bases[index]
       b = randint(20, 50)
-      c = [['e double', 'a moitié'], ['e triple', 'e tiers'], ['e quintuple', 'e cinquième'], ['e septuple', 'e septième']]
-      switch (choice(['a', 'b', 'c', 'd'])) { //
+      c = [
+        ['e double', 'a moitié'],
+        ['e triple', 'e tiers'],
+        ['e quintuple', 'e cinquième'],
+        ['e septuple', 'e septième'],
+      ]
+      switch (
+        choice(['a', 'b', 'c', 'd']) //
+      ) {
         case 'a':
-          texte = `Donner l${c[index][0]} de  $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, [`${a}^{${b + 1}}`], { formatInteractif: 'texte' })
+          texte =
+            `Donner l${c[index][0]} de  $${a}^{${b}}$. ` +
+            ajouteChampTexteMathLive(this, i, '')
+          setReponse(this, i, [`${a}^{${b + 1}}`], {
+            formatInteractif: 'texte',
+          })
           texteCorr = `L${c[index][0]} de $${a}^{${b}}$ se calcule  par
        : <br>
        $${a}\\times ${a}^{${b}}=${a}^{${b} + 1}=${a}^{${miseEnEvidence(b + 1)}}$`
@@ -60,8 +75,12 @@ export default class CalculPuissanceSimple extends Exercice {
           this.canEnonce = texte
           break
         case 'b':
-          texte = `Donner l${c[index][1]} de $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, [`${a}^{${b - 1}}`], { formatInteractif: 'texte' })
+          texte =
+            `Donner l${c[index][1]} de $${a}^{${b}}$. ` +
+            ajouteChampTexteMathLive(this, i, '')
+          setReponse(this, i, [`${a}^{${b - 1}}`], {
+            formatInteractif: 'texte',
+          })
           texteCorr = `L${c[index][1]} de $${a}^{${b}}$ se calcule  par
       : <br>
       
@@ -79,13 +98,17 @@ export default class CalculPuissanceSimple extends Exercice {
           }
           this.canEnonce = texte
           break
-        case 'c' :
+        case 'c':
           texte = `Calculer $${a ** 2}\\times ${a}^{${b}}$ `
           if (!context.isAmc) {
-            texte += `sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, '')
+            texte +=
+              `sous la forme d'une puissance de $${a}$.` +
+              ajouteChampTexteMathLive(this, i, '')
           }
 
-          setReponse(this, i, [`${a}^{${b + 2}}`], { formatInteractif: 'texte' })
+          setReponse(this, i, [`${a}^{${b + 2}}`], {
+            formatInteractif: 'texte',
+          })
           texteCorr = ` Comme $${a ** 2}=${a}^2$, alors $${a ** 2}\\times ${a}^{${b}}=${a}^2\\times ${a}^{${b}}=${a}^{${b}+2}=${a}^{${miseEnEvidence(2 + b)}}$`
           if (context.isAmc) {
             setReponse(this, i, a ** (b + 2), { formatInteractif: 'calcul' })
@@ -100,14 +123,18 @@ export default class CalculPuissanceSimple extends Exercice {
           }
           this.canEnonce = texte
           break
-        case 'd' :
+        case 'd':
         default:
           texte = `Calculer $${a}^{${b}}\\div ${a ** 2}$ `
           if (!context.isAmc) {
-            texte += `sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, '')
+            texte +=
+              `sous la forme d'une puissance de $${a}$.` +
+              ajouteChampTexteMathLive(this, i, '')
           }
 
-          setReponse(this, i, [`${a}^{${b - 2}}`], { formatInteractif: 'texte' })
+          setReponse(this, i, [`${a}^{${b - 2}}`], {
+            formatInteractif: 'texte',
+          })
           texteCorr = `Comme $${a ** 2}=${a}^2$, alors $${a}^{${b}}\\div ${a ** 2}=
         \\dfrac{${a}^{${b}}}{${a}^2}=${a}^{${b}-2}=${a}^{${miseEnEvidence(b - 2)}}$`
           if (context.isAmc) {
@@ -123,7 +150,7 @@ export default class CalculPuissanceSimple extends Exercice {
           }
           this.canEnonce = texte
           break
-                // this.optionsChampTexte = { texteApres: "(juste l'exposant)" }
+        // this.optionsChampTexte = { texteApres: "(juste l'exposant)" }
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

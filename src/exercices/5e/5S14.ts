@@ -5,7 +5,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { joursParMois } from '../../lib/outils/dateEtHoraires'
 import { arrondi } from '../../lib/outils/nombres'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { OutilsStats } from '../../modules/outilsStat'
 import Exercice from '../Exercice'
 
@@ -26,12 +30,15 @@ export const uuid = 'ab91d'
 
 export const refs = {
   'fr-fr': ['5S14', 'BP2AutoD1'],
-  'fr-ch': ['11NO2-4']
+  'fr-ch': ['11NO2-4'],
 }
 export default class CalculerDesMoyennes extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets :\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type de séries',
+      'Nombres séparés par des tirets :\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange',
+    ]
 
     this.nbQuestions = 1
 
@@ -40,18 +47,29 @@ export default class CalculerDesMoyennes extends Exercice {
     this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
       melange: 4,
       defaut: 4,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
-    for (let i = 0, reponse, nombreTemperatures, temperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (typeDeQuestions[i] === 1) { // ici on trie des notes
+    for (
+      let i = 0,
+        reponse,
+        nombreTemperatures,
+        temperatures,
+        texte,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      if (typeDeQuestions[i] === 1) {
+        // ici on trie des notes
         const nombreNotes = choice([8, 10, 12])
         const notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
         texte = OutilsStats.texteNotes(notes)
@@ -59,31 +77,52 @@ export default class CalculerDesMoyennes extends Exercice {
         const [, somme] = OutilsStats.computeMoyenne(notes)
         texteCorr = OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
         reponse = arrondi(somme / nombreNotes, 1)
-      } else if (typeDeQuestions[i] === 2) { // ici on relève des températures
+      } else if (typeDeQuestions[i] === 2) {
+        // ici on relève des températures
         const mois = randint(1, 12)
         const annee = randint(1980, 2019)
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
         nombreTemperatures = joursParMois(mois, annee)
-        temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // série brute de un mois de température
+        temperatures = unMoisDeTemperature(
+          temperaturesDeBase[mois - 1],
+          mois,
+          annee,
+        ) // série brute de un mois de température
         texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
         texte += '<br>Calculer la moyenne des températures.'
         const [, somme] = OutilsStats.computeMoyenne(temperatures)
-        texteCorr = OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
+        texteCorr = OutilsStats.texteCorrMoyenneNotes(
+          temperatures,
+          somme,
+          temperatures.length,
+          'températures',
+        )
         reponse = arrondi(somme / nombreTemperatures, 1)
-      } else { // pointures des membres du club de foot (moyenne pondérée)
+      } else {
+        // pointures des membres du club de foot (moyenne pondérée)
         const nombreNotes = 5 // 5 colonnes
         const min = randint(33, 35)
         const max = randint(min + nombreNotes, min + nombreNotes + 3)
         const notes = listeDeNotes(nombreNotes, min, max, true).sort() // on récupère une série de notes (pointures) distinctes et ordonnées
-        const effectifs = listeDeNotes(nombreNotes, randint(2, 4), randint(8, 12)) // on récupère une liste d'effectifs
+        const effectifs = listeDeNotes(
+          nombreNotes,
+          randint(2, 4),
+          randint(8, 12),
+        ) // on récupère une liste d'effectifs
         const pointures = Array.from(notes, (x, i) => [x, effectifs[i]])
         const effectifTotal = pointures.reduce((accumulator, currentValue) => {
           return accumulator + currentValue[1]
         }, 0)
         texte = OutilsStats.texteSalaires(pointures, [], 'pointures')
         texte += '<br>Calculer la pointure moyenne des membres de ce club.'
-        const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
-        texteCorr = OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
+        const [, somme, effectif] =
+          OutilsStats.computeMoyenneTirages2D(pointures)
+        texteCorr = OutilsStats.texteCorrMoyenneNotes(
+          pointures,
+          somme,
+          effectif,
+          'pointures',
+        )
         reponse = arrondi(somme / effectifTotal, 1)
       }
       if (this.interactif) {
@@ -93,7 +132,7 @@ export default class CalculerDesMoyennes extends Exercice {
           digits: 5,
           digitsNum: 3,
           digitsDen: 2,
-          signe: true
+          signe: true,
         })
       }
       if (context.isAmc) {
@@ -104,31 +143,36 @@ export default class CalculerDesMoyennes extends Exercice {
             {
               type: 'AMCOpen',
               // @ts-expect-error
-              propositions: [{
-                texte: texteCorr,
-                statut: 3
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 3,
+                },
+              ],
             },
             {
               type: 'AMCNum',
               // @ts-expect-error
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'Résultat (si besoin, on arrondira au dixième.)',
-                  valeur: [reponse],
-                  param: {
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Résultat (si besoin, on arrondira au dixième.)',
+                    valeur: [reponse],
+                    param: {
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 export const uuid = '28e39'
 export const refs = {
   'fr-fr': ['3S2QCM-2', 'BP2FLUC3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -17,14 +17,17 @@ export const titre = 'Probabilité simple (12/2020 Nouvelle Calédonie)'
 export const dateDePublication = '3/11/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
-* @author Matthieu DEVILLERS
-* matthieu.devillers@ac-rennes.fr
-*/
+ * @author Matthieu DEVILLERS
+ * matthieu.devillers@ac-rennes.fr
+ */
 
 export default class NouvelleCaledonieDec20Exo1Q5 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (nbreCartes : number, [nbre, typCartes, obt] : [number, string, string]): void {
+  private appliquerLesValeurs(
+    nbreCartes: number,
+    [nbre, typCartes, obt]: [number, string, string],
+  ): void {
     const frac1 = fraction(nbre, nbreCartes).simplifie()
     const frac20 = fraction(1, nbre)
     const frac2 = frac20.produitFraction(frac1).simplifie()
@@ -32,11 +35,7 @@ export default class NouvelleCaledonieDec20Exo1Q5 extends ExerciceQcmA {
     const resultat = frac1.texFSD
     const distrac1 = frac2.texFSD
     const distrac2 = frac3.texFSD
-    this.reponses = [
-      `$${resultat}$`,
-      `$${distrac1}$`,
-      `$${distrac2}$`
-    ]
+    this.reponses = [`$${resultat}$`, `$${distrac1}$`, `$${distrac2}$`]
 
     this.enonce = `Un jeu de ${nbreCartes} cartes comporte ${nbre} ${typCartes}.<br> On tire au hasard une carte du jeu.<br>
     Quelle est la probabilité d'obtenir ${obt} ?`
@@ -66,14 +65,14 @@ export default class NouvelleCaledonieDec20Exo1Q5 extends ExerciceQcmA {
         [4, 'as', 'un as'],
         [4, 'dames', 'une dame'],
         [4, 'valets', 'un valet'],
-        [8, 'cartes qui sont des valets ou des as', 'un valet ou un as']
+        [8, 'cartes qui sont des valets ou des as', 'un valet ou un as'],
       ])
       this.appliquerLesValeurs(nombreCartes, [nombre, typeCartes, obtenir])
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

@@ -118,8 +118,15 @@ export function svgEngrenages () {
  * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
  * @author Sébastien Lozano
  */
-export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpressions) {
-  const interligne = 10// w/80; //h/10; // unité d'espacement
+export function SvgMachineDiag3F12(
+  id_du_div,
+  w,
+  h,
+  nom,
+  xAnt,
+  etapesExpressions,
+) {
+  const interligne = 10 // w/80; //h/10; // unité d'espacement
   // if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
   // window.SVGExist[id_du_div] = setInterval(function () {
@@ -127,53 +134,184 @@ export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpression
   //   document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
   const style = 'display: block'
   let xTexte = arrondi((2.5 - 0) * interligne, 1)
-  let yTexte = arrondi(-(2 * h / 4 - h), 1)
+  let yTexte = arrondi(-((2 * h) / 4 - h), 1)
   const divAnt = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(xAnt)}</div>`
 
   xTexte = arrondi((9 - 0) * interligne, 1)
-  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  yTexte = arrondi(-((2 * h) / 4 - h), 1)
   const divFunc = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString('\\times' + etapesExpressions[0][0])}</div>`
 
   xTexte = arrondi((17 - 0) * interligne, 1)
-  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  yTexte = arrondi(-((2 * h) / 4 - h), 1)
   const divIm = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(etapesExpressions[0][0] + '\\times ' + xAnt)}</div>`
 
   xTexte = arrondi((25 - 0) * interligne, 1)
-  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  yTexte = arrondi(-((2 * h) / 4 - h), 1)
   const divFunc2 = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString('+' + etapesExpressions[1][0])}</div>`
 
   xTexte = arrondi((36 - 0) * interligne, 1)
-  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  yTexte = arrondi(-((2 * h) / 4 - h), 1)
   const divIm2 = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(nom + '(' + xAnt + ') = ' + etapesExpressions[0][0] + '\\times ' + xAnt + '+' + etapesExpressions[1][0])}</div>`
 
-  return `<div class="svgContainer" ${style ? `style="${style}"` : ''}><div style="position: relative;">
-                <svg class="mathalea2d" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + '" height="' + h + `">
+  return (
+    `<div class="svgContainer" ${style ? `style="${style}"` : ''}><div style="position: relative;">
+                <svg class="mathalea2d" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` +
+    w +
+    ' ' +
+    h +
+    '" width="' +
+    w +
+    '" height="' +
+    h +
+    `">
                   <g>
-                      <path d="M0 ` + 5 * interligne + 'L0 ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 7 * interligne + 'L0 ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <path d="M0 ` +
+    5 * interligne +
+    'L0 ' +
+    3 * interligne +
+    'L' +
+    5 * interligne +
+    ' ' +
+    3 * interligne +
+    'L' +
+    5 * interligne +
+    ' ' +
+    7 * interligne +
+    'L0 ' +
+    7 * interligne +
+    `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </path>                          
                   </g>
                   <g>
-                      <line x1="` + 5 * interligne + '" y1="' + 5 * interligne + '" x2="' + 7 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
+                      <line x1="` +
+    5 * interligne +
+    '" y1="' +
+    5 * interligne +
+    '" x2="' +
+    7 * interligne +
+    '" y2="' +
+    5 * interligne +
+    `" stroke-width="3" stroke="#f15929">
                       </line>
-                      <circle r="` + 2 * interligne + '" cx="' + 9 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <circle r="` +
+    2 * interligne +
+    '" cx="' +
+    9 * interligne +
+    '" cy="' +
+    5 * interligne +
+    `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </circle>
-                      <path d="M` + 11 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <path d="M` +
+    11 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    13 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    (13 * interligne - interligne / 2) +
+    ' ' +
+    (5 * interligne - interligne / 2) +
+    'M' +
+    13 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    (13 * interligne - interligne / 2) +
+    ' ' +
+    (5 * interligne + interligne / 2) +
+    ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </path>                          
                   </g>
                   <g>
-                      <path d="M` + 13 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 3 * interligne + 'L' + 21 * interligne + ' ' + 3 * interligne + 'L' + 21 * interligne + ' ' + 7 * interligne + 'L' + 13 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <path d="M` +
+    13 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    13 * interligne +
+    ' ' +
+    3 * interligne +
+    'L' +
+    21 * interligne +
+    ' ' +
+    3 * interligne +
+    'L' +
+    21 * interligne +
+    ' ' +
+    7 * interligne +
+    'L' +
+    13 * interligne +
+    ' ' +
+    7 * interligne +
+    `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </path>                          
                   </g>
                   <g>
-                      <line x1="` + 21 * interligne + '" y1="' + 5 * interligne + '" x2="' + 23 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
+                      <line x1="` +
+    21 * interligne +
+    '" y1="' +
+    5 * interligne +
+    '" x2="' +
+    23 * interligne +
+    '" y2="' +
+    5 * interligne +
+    `" stroke-width="3" stroke="#f15929">
                       </line>
-                      <circle r="` + 2 * interligne + '" cx="' + 25 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <circle r="` +
+    2 * interligne +
+    '" cx="' +
+    25 * interligne +
+    '" cy="' +
+    5 * interligne +
+    `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </circle>
-                      <path d="M` + 27 * interligne + ' ' + 5 * interligne + 'L' + 29 * interligne + ' ' + 5 * interligne + 'L' + (29 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 29 * interligne + ' ' + 5 * interligne + 'L' + (29 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <path d="M` +
+    27 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    29 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    (29 * interligne - interligne / 2) +
+    ' ' +
+    (5 * interligne - interligne / 2) +
+    'M' +
+    29 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    (29 * interligne - interligne / 2) +
+    ' ' +
+    (5 * interligne + interligne / 2) +
+    ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </path>                          
                   </g>
                   <g>
-                      <path d="M` + 29 * interligne + ' ' + 5 * interligne + 'L' + 29 * interligne + ' ' + 3 * interligne + 'L' + 44 * interligne + ' ' + 3 * interligne + 'L' + 44 * interligne + ' ' + 7 * interligne + 'L' + 29 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <path d="M` +
+    29 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    29 * interligne +
+    ' ' +
+    3 * interligne +
+    'L' +
+    44 * interligne +
+    ' ' +
+    3 * interligne +
+    'L' +
+    44 * interligne +
+    ' ' +
+    7 * interligne +
+    'L' +
+    29 * interligne +
+    ' ' +
+    7 * interligne +
+    `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </path>                  
                   </g>
               </svg>
@@ -185,44 +323,58 @@ export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpression
               </div>
               </div>
               `
+  )
   // clearInterval(window.SVGExist[id_du_div])// Arrête le timer
   // }
   // }, 100) // Vérifie toutes les 100ms
 }
 
 /**
-* Crée une flèche orange pour la fonction machine
-* @param {object} groupe groupe svg
-* @param {string} chemin path pour la ligne
-* @param {string} couleur couleur
-* @author Sébastien Lozano
-*/
-export function SVG_fleche_machine_maths (groupe, chemin, couleur) {
-  return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
+ * Crée une flèche orange pour la fonction machine
+ * @param {object} groupe groupe svg
+ * @param {string} chemin path pour la ligne
+ * @param {string} couleur couleur
+ * @author Sébastien Lozano
+ */
+export function SVG_fleche_machine_maths(groupe, chemin, couleur) {
+  return groupe
+    .path(chemin)
+    .fill(couleur)
+    .stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
 }
 
 /** Trace un chemin pour un groupe donné avec une couleur donnée
-  * @param {object} groupe groupe
-  * @param {string} chemin path
-  * @param {string} couleur couleur
-  * @author Sébastien Lozano
-  */
-export function SVG_chemin (groupe, chemin, couleur) {
-  return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
+ * @param {object} groupe groupe
+ * @param {string} chemin path
+ * @param {string} couleur couleur
+ * @author Sébastien Lozano
+ */
+export function SVG_chemin(groupe, chemin, couleur) {
+  return groupe
+    .path(chemin)
+    .fill('none')
+    .stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
 }
 
 /**
-   * Crée un diagramme pour une fonction arithmétique à une étape produit
-   * @param {string} id_du_div id du div contenant le SVG
-   * @param {number} w largeur du div du svg
-   * @param {numer} h hauteur du div du svg
-   * @param {string} nom nom de la fonction
-   * @param {string} xAnt antécédent de départ
-   * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
-   * @author Sébastien Lozano
-   */
-export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpressions) {
-  const interligne = 10// w/80; //h/10; // unité d'espacement
+ * Crée un diagramme pour une fonction arithmétique à une étape produit
+ * @param {string} id_du_div id du div contenant le SVG
+ * @param {number} w largeur du div du svg
+ * @param {numer} h hauteur du div du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} xAnt antécédent de départ
+ * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
+ * @author Sébastien Lozano
+ */
+export function SvgMachineDiag3F1ActMono(
+  id_du_div,
+  w,
+  h,
+  nom,
+  xAnt,
+  etapesExpressions,
+) {
+  const interligne = 10 // w/80; //h/10; // unité d'espacement
   // if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
   // window.SVGExist[id_du_div] = setInterval(function () {
@@ -231,33 +383,110 @@ export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpr
 
   const style = 'display: block'
   let xTexte = arrondi((2.5 - 0) * interligne, 1)
-  let yTexte = arrondi(-(2 * h / 4 - h), 1)
+  let yTexte = arrondi(-((2 * h) / 4 - h), 1)
   const divAnt = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(xAnt)}</div>`
 
   xTexte = arrondi((9 - 0) * interligne, 1)
-  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  yTexte = arrondi(-((2 * h) / 4 - h), 1)
   const divFunc = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString('\\times ' + etapesExpressions[0][0])}</div>`
 
   xTexte = arrondi((19 - 0) * interligne, 1)
-  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  yTexte = arrondi(-((2 * h) / 4 - h), 1)
   const divIm = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(nom + '(' + xAnt + ') = ' + etapesExpressions[0][0] + '\\times ' + xAnt)}</div>`
 
-  return `<div class="svgContainer" ${style ? `style="${style}"` : ''}><div style="position: relative;">
-              <svg class="mathalea2d" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + '" height="' + h + `">
+  return (
+    `<div class="svgContainer" ${style ? `style="${style}"` : ''}><div style="position: relative;">
+              <svg class="mathalea2d" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` +
+    w +
+    ' ' +
+    h +
+    '" width="' +
+    w +
+    '" height="' +
+    h +
+    `">
                   <g>
-                      <path d="M0 ` + 5 * interligne + 'L0 ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 7 * interligne + 'L0 ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <path d="M0 ` +
+    5 * interligne +
+    'L0 ' +
+    3 * interligne +
+    'L' +
+    5 * interligne +
+    ' ' +
+    3 * interligne +
+    'L' +
+    5 * interligne +
+    ' ' +
+    7 * interligne +
+    'L0 ' +
+    7 * interligne +
+    `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </path>
                   </g>
                   <g>
-                      <line x1="` + 5 * interligne + '" y1="' + 5 * interligne + '" x2="' + 7 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
+                      <line x1="` +
+    5 * interligne +
+    '" y1="' +
+    5 * interligne +
+    '" x2="' +
+    7 * interligne +
+    '" y2="' +
+    5 * interligne +
+    `" stroke-width="3" stroke="#f15929">
                       </line>
-                      <circle r="` + 2 * interligne + '" cx="' + 9 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <circle r="` +
+    2 * interligne +
+    '" cx="' +
+    9 * interligne +
+    '" cy="' +
+    5 * interligne +
+    `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </circle>
-                      <path d="M` + 11 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <path d="M` +
+    11 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    13 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    (13 * interligne - interligne / 2) +
+    ' ' +
+    (5 * interligne - interligne / 2) +
+    'M' +
+    13 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    (13 * interligne - interligne / 2) +
+    ' ' +
+    (5 * interligne + interligne / 2) +
+    ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </path>                
                   </g>
                   <g>
-                      <path d="M` + 13 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 3 * interligne + 'L' + 27 * interligne + ' ' + 3 * interligne + 'L' + 27 * interligne + ' ' + 7 * interligne + 'L' + 13 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      <path d="M` +
+    13 * interligne +
+    ' ' +
+    5 * interligne +
+    'L' +
+    13 * interligne +
+    ' ' +
+    3 * interligne +
+    'L' +
+    27 * interligne +
+    ' ' +
+    3 * interligne +
+    'L' +
+    27 * interligne +
+    ' ' +
+    7 * interligne +
+    'L' +
+    13 * interligne +
+    ' ' +
+    7 * interligne +
+    `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
                       </path>                          
                   </g>
               </svg>
@@ -267,68 +496,118 @@ export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpr
               </div>
               </div>
                 `
+  )
   // clearInterval(window.SVGExist[id_du_div])// Arrête le timer
   // }
   // }, 100) // Vérifie toutes les 100ms
 }
 
 /**
-   * Fonction pour particulariser une police svg et ses paramètres
-   * @param {string} font
-   * @param {string} interligne
-   * @param {string} ancre
-   * @param {string} f_style
-   * @param {string} f_weight
-   * @author Sébastien Lozano
-   */
-export function my_svg_font (font, interligne, ancre, f_style, f_weight) {
+ * Fonction pour particulariser une police svg et ses paramètres
+ * @param {string} font
+ * @param {string} interligne
+ * @param {string} ancre
+ * @param {string} f_style
+ * @param {string} f_weight
+ * @author Sébastien Lozano
+ */
+export function my_svg_font(font, interligne, ancre, f_style, f_weight) {
   return {
     family: font,
     size: interligne,
     anchor: ancre,
     style: f_style,
     //, leading : 0.5
-    weight: f_weight
+    weight: f_weight,
   }
 }
 
 /**
-   * Fonction pour créer une machine mathématique SVG, une fonction!
-   * gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
-   * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
-   * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
-   * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
-   * @param {string} id_du_div id_du_div
-   * @param {number} w width du svg
-   * @param {number} h height du svg
-   * @param {string} nom nom de la fonction
-   * @param {string} etape1 etape 1 du procédé de calcul
-   * @param {string} etape2 etape 2 du procédé de calcul
-   * @param {string} etape3 etape 3 du procédé de calcul
-   * @param {string} xLigne1 antécédent ligne1
-   * @param {string} xLigne2 antécédent ligne2
-   * @param {string} yLigne1 image ligne1
-   * @param {string} yLigne2 image ligne2
-   * @author Sébastien Lozano
-   */
-export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
+ * Fonction pour créer une machine mathématique SVG, une fonction!
+ * gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
+ * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
+ * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
+ * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
+ * @param {string} id_du_div id_du_div
+ * @param {number} w width du svg
+ * @param {number} h height du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} etape1 etape 1 du procédé de calcul
+ * @param {string} etape2 etape 2 du procédé de calcul
+ * @param {string} etape3 etape 3 du procédé de calcul
+ * @param {string} xLigne1 antécédent ligne1
+ * @param {string} xLigne2 antécédent ligne2
+ * @param {string} yLigne1 image ligne1
+ * @param {string} yLigne2 image ligne2
+ * @author Sébastien Lozano
+ */
+export function SVG_machine_maths(
+  id_du_div,
+  w,
+  h,
+  nom,
+  etape1,
+  etape2,
+  etape3,
+  xLigne1,
+  xLigne2,
+  yLigne1,
+  yLigne2,
+) {
   const interligne = 15 // pour un interligne uniforme
-  const prop_font = my_svg_font('Helvetica', interligne, 'start', 'normal', 'normal')
-  const prop_font_nom = my_svg_font('Helvetica', interligne, 'start', 'normal', 'bold')
-  const prop_font_etape = my_svg_font('Helvetica', 4 * interligne / 5, 'start', 'normal', 'normal')
+  const prop_font = my_svg_font(
+    'Helvetica',
+    interligne,
+    'start',
+    'normal',
+    'normal',
+  )
+  const prop_font_nom = my_svg_font(
+    'Helvetica',
+    interligne,
+    'start',
+    'normal',
+    'bold',
+  )
+  const prop_font_etape = my_svg_font(
+    'Helvetica',
+    (4 * interligne) / 5,
+    'start',
+    'normal',
+    'normal',
+  )
 
-  if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
+  if (!window.SVGExist) {
+    window.SVGExist = {}
+  } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
   window.SVGExist[id_du_div] = setInterval(function () {
     if (document.querySelector(`#${id_du_div}`)) {
-      document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
+      document.querySelector(`#${id_du_div}`).innerHTML = '' // Vide le div pour éviter les SVG en doublon
       // const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
       const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h)
       // on trace un cadre pour le debug
       // mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
 
       // path pour créer des fleches
-      const path_fleche = 'm0,0 l-' + interligne / 2 + ',-' + interligne + ' l' + interligne + ',' + interligne + ' l-' + interligne + ',' + interligne + ' l' + interligne / 2 + ',-' + interligne + 'z'
+      const path_fleche =
+        'm0,0 l-' +
+        interligne / 2 +
+        ',-' +
+        interligne +
+        ' l' +
+        interligne +
+        ',' +
+        interligne +
+        ' l-' +
+        interligne +
+        ',' +
+        interligne +
+        ' l' +
+        interligne / 2 +
+        ',-' +
+        interligne +
+        'z'
 
       // On crée une timeline
       const timeline = new SVG.Timeline()
@@ -344,7 +623,8 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       // ------------Dimension Antécédent----------------------
       const ant_ligne1 = ant.text(xLigne1).font(prop_font)
       const ant_ligne2 = ant.text(xLigne2).font(prop_font)
-      const w_ant = Math.max(ant_ligne1.length(), ant_ligne2.length()) + interligne
+      const w_ant =
+        Math.max(ant_ligne1.length(), ant_ligne2.length()) + interligne
       ant_ligne1.clear()
       ant_ligne2.clear()
 
@@ -358,7 +638,14 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       // ------------Dimension Machine-------------------------
       // on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
       // pour ajuster celle de la machine.
-      let w_machine_nom, machine_nom, machine_etape1, w_machine_etape1, machine_etape2, w_machine_etape2, machine_etape3, w_machine_etape3
+      let w_machine_nom,
+        machine_nom,
+        machine_etape1,
+        w_machine_etape1,
+        machine_etape2,
+        w_machine_etape2,
+        machine_etape3,
+        w_machine_etape3
       if (nom !== '') {
         machine_nom = mon_svg.text(nom).font(prop_font_nom)
         w_machine_nom = machine_nom.length()
@@ -388,13 +675,29 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
         w_machine_etape3 = 0
       }
 
-      const w_etape_max = Math.max(w_machine_nom, w_machine_etape1, w_machine_etape2, w_machine_etape3, w_ant + interligne, w_im + interligne) + 1.5 * interligne
+      const w_etape_max =
+        Math.max(
+          w_machine_nom,
+          w_machine_etape1,
+          w_machine_etape2,
+          w_machine_etape3,
+          w_ant + interligne,
+          w_im + interligne,
+        ) +
+        1.5 * interligne
 
       // ------------GROUPE ANTECEDENT-------------------------
       const ant_ligne = ant.foreignObject(w_ant, h).attr({ x: '0', y: '0' })
-      const antDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
+      const antDiv = document.createElementNS(
+        'http://www.w3.org/1999/xhtml',
+        'div',
+      )
       katex.render(xLigne1 + '\\newline ' + xLigne2, antDiv, {
-        displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
+        displayMode: true,
+        throwOnError: true,
+        errorColor: '#CC0000',
+        strict: 'ignore',
+        trust: false,
       })
       ant_ligne.add(antDiv)
       ant_ligne.dmove(0, -antDiv.offsetHeight / 2)
@@ -405,9 +708,16 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
 
       // ------------GROUPE IMAGE-------------------------
       const im_ligne = im.foreignObject(w_im, h).attr({ x: '0', y: '0' })
-      const imDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
+      const imDiv = document.createElementNS(
+        'http://www.w3.org/1999/xhtml',
+        'div',
+      )
       katex.render(yLigne1 + '\\newline ' + yLigne2, imDiv, {
-        displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
+        displayMode: true,
+        throwOnError: true,
+        errorColor: '#CC0000',
+        strict: 'ignore',
+        trust: false,
       })
       im_ligne.add(imDiv)
       im_ligne.dmove(0, -imDiv.offsetHeight / 2)
@@ -418,15 +728,70 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
 
       // ------------GROUPE MACHINE-------------------------
       // const path_machine = 'M-5,0 L-5,-5 L-5,5 M-5,0 L10,0 L10,-40 L100,-40 L100,0 L120,0 L115,-5 L120,0 L115,5 L120,0 L100,0 L100,40 L10,40 L10,0';
-      const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-' + (h / 2 - 5) + ' L' + (w_etape_max + 20) + ',-' + (h / 2 - 5) + ' L' + (w_etape_max + 20) + ',0 L' + (w_etape_max + 40) + ',0 L' + (w_etape_max + 35) + ',-5 L' + (w_etape_max + 40) + ',0 L' + (w_etape_max + 35) + ',5 L' + (w_etape_max + 40) + ',0 L' + (w_etape_max + 20) + ',0 L' + (w_etape_max + 20) + ',' + (h / 2 - 5) + ' L10,' + (h / 2 - 5) + ' L10,0'
-      const machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin: 'round' })
+      const path_machine =
+        'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-' +
+        (h / 2 - 5) +
+        ' L' +
+        (w_etape_max + 20) +
+        ',-' +
+        (h / 2 - 5) +
+        ' L' +
+        (w_etape_max + 20) +
+        ',0 L' +
+        (w_etape_max + 40) +
+        ',0 L' +
+        (w_etape_max + 35) +
+        ',-5 L' +
+        (w_etape_max + 40) +
+        ',0 L' +
+        (w_etape_max + 35) +
+        ',5 L' +
+        (w_etape_max + 40) +
+        ',0 L' +
+        (w_etape_max + 20) +
+        ',0 L' +
+        (w_etape_max + 20) +
+        ',' +
+        (h / 2 - 5) +
+        ' L10,' +
+        (h / 2 - 5) +
+        ' L10,0'
+      const machine = mon_svg
+        .path(path_machine)
+        .fill('#fff')
+        .stroke({
+          color: '#f15929',
+          width: 3,
+          linecap: 'round',
+          linejoin: 'round',
+        })
       machine.dmove(w / 2 - w_etape_max / 2 - 20 + interligne / 2, h / 2) // w/2;  60 est la moitié de la taille de la machine en largeur
 
-      const fobj_machine = mon_svg.foreignObject(w_etape_max, h).attr({ x: w / 2 - w_etape_max / 2, y: '0' })
-      const machineDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
-      katex.render('\\mathbf{' + nom + '}\\newline ' + etape1 + '\\newline ' + etape2 + '\\newline ' + etape3, machineDiv, {
-        displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
-      })
+      const fobj_machine = mon_svg
+        .foreignObject(w_etape_max, h)
+        .attr({ x: w / 2 - w_etape_max / 2, y: '0' })
+      const machineDiv = document.createElementNS(
+        'http://www.w3.org/1999/xhtml',
+        'div',
+      )
+      katex.render(
+        '\\mathbf{' +
+          nom +
+          '}\\newline ' +
+          etape1 +
+          '\\newline ' +
+          etape2 +
+          '\\newline ' +
+          etape3,
+        machineDiv,
+        {
+          displayMode: true,
+          throwOnError: true,
+          errorColor: '#CC0000',
+          strict: 'ignore',
+          trust: false,
+        },
+      )
       fobj_machine.add(machineDiv)
       fobj_machine.dmove(0, h / 2 - interligne - machineDiv.offsetHeight / 2)
 
@@ -434,13 +799,15 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       ant.timeline(timeline)
       im.timeline(timeline)
 
-      const runner1 = ant.animate(8000, 0, 'absolute').dmove(w / 2 - w_ant / 2, 0)
+      const runner1 = ant
+        .animate(8000, 0, 'absolute')
+        .dmove(w / 2 - w_ant / 2, 0)
       const runner2 = im.animate(8000, 0, 'after').dmove(w - w_im / 2, 0)
 
       runner1.loop(true, false, 8000)
       runner2.loop(true, false, 8000)
 
-      clearInterval(window.SVGExist[id_du_div])// Arrête le timer
+      clearInterval(window.SVGExist[id_du_div]) // Arrête le timer
     }
   }, 100) // Vérifie toutes les 100ms
 }

@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'e12d9'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -20,7 +20,7 @@ export const refs = {
 
 */
 export default class SommeEntierFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -31,11 +31,18 @@ export default class SommeEntierFraction extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeFraction = this.canOfficielle
       ? [[1, 4]]
       : [
-          [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
+          [1, 3],
+          [2, 3],
+          [1, 4],
+          [3, 4],
+          [1, 5],
+          [2, 5],
+          [3, 5],
+          [4, 5],
         ]
     const maFraction = choice(listeFraction)
     const a = this.canOfficielle ? 2 : randint(1, 4)
@@ -49,20 +56,33 @@ export default class SommeEntierFraction extends ExerciceSimple {
     const denD = choix ? d.den : e.den
 
     const callback = (exercice: Exercice, question: number) => {
-      const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
-      if (mfe == null) return { isOk: false, feedback: '', score: { nbBonnesReponses: 0, nbReponses: 0 } }
+      const mfe = document.querySelector(
+        `#champTexteEx${exercice.numeroExercice}Q${question}`,
+      ) as MathfieldElement
+      if (mfe == null)
+        return {
+          isOk: false,
+          feedback: '',
+          score: { nbBonnesReponses: 0, nbReponses: 0 },
+        }
       const num = Number(mfe.getPromptValue('champ1') || 0)
       const den = Number(mfe.getPromptValue('champ2') || 0)
-      const isOk = (num * denD === numD * den)
+      const isOk = num * denD === numD * den
       if (isOk) {
         mfe.setPromptState('champ1', 'correct', true)
         mfe.setPromptState('champ2', 'correct', true)
       }
-      const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+      const spanReponseLigne = document.querySelector(
+        `#resultatCheckEx${exercice.numeroExercice}Q${question}`,
+      )
       if (spanReponseLigne != null) {
         spanReponseLigne.innerHTML = isOk ? '😎' : '☹️'
       }
-      return { isOk, feedback: '', score: { nbBonnesReponses: (isOk ? 1 : 0), nbReponses: 1 } }
+      return {
+        isOk,
+        feedback: '',
+        score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 },
+      }
     }
     if (choix === true) {
       this.question = `${a}+${f.texFraction}=\\dfrac{%{champ1}}{%{champ2}}`

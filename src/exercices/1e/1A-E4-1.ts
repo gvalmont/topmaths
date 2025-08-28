@@ -15,10 +15,10 @@ export const uuid = 'a7d80'
 
 export const refs = {
   'fr-fr': ['1A-E4-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AE4a extends EvolSuccessives {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

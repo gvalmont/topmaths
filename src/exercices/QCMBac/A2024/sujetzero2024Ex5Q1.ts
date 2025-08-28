@@ -2,7 +2,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'e6d46'
 export const refs = {
   'fr-fr': ['TA8-QCM01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -27,19 +27,20 @@ export default class SujetZero2024Ex5Q1 extends ExerciceQcm {
       'deux solutions',
       'zéro solution',
       'une solution',
-      'quatre solutions'
-
+      'quatre solutions',
     ]
 
     this.enonce = `Sur l'intervalle $[0~;~2 \\pi]$, l'équation 
     $\\sin (x) = 0,1$
     admet :`
 
-    this.correction += 'On peut par exemple dire que la courbe représentant la fonction sinus et la droite d\'équation $y=0,1$<br>'
-    this.correction += 'ont deux points d\'intersection sur l\'intervalle   $[ 0~;~ 2\\pi]$.'
+    this.correction +=
+      "On peut par exemple dire que la courbe représentant la fonction sinus et la droite d'équation $y=0,1$<br>"
+    this.correction +=
+      "ont deux points d'intersection sur l'intervalle   $[ 0~;~ 2\\pi]$."
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

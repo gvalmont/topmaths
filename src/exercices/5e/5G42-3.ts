@@ -10,11 +10,21 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  fixeBordures,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
+import {
+  egal,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Déterminer les coordonnées du centre ou de sommets d\'un parallèlogramme'
+export const titre =
+  "Déterminer les coordonnées du centre ou de sommets d'un parallèlogramme"
 export const dateDePublication = '25/05/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,67 +36,83 @@ export const uuid = '37e39'
 
 export const refs = {
   'fr-fr': ['5G42-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 const couplesVecteursEntiers = [
   [
-    [5, -2], [1, 3]
+    [5, -2],
+    [1, 3],
   ],
   [
-    [-3, 4], [1, 2]
+    [-3, 4],
+    [1, 2],
   ],
   [
-    [2, 3], [4, -1]
+    [2, 3],
+    [4, -1],
   ],
   [
-    [-2, -3], [4, 2]
+    [-2, -3],
+    [4, 2],
   ],
   [
-    [3, -1], [-1, 4]
+    [3, -1],
+    [-1, 4],
   ],
   [
-    [-1, -4], [3, 2]
+    [-1, -4],
+    [3, 2],
   ],
   [
-    [4, 3], [-2, 1]
+    [4, 3],
+    [-2, 1],
   ],
   [
-    [-3, 2], [2, 4]
-  ]
+    [-3, 2],
+    [2, 4],
+  ],
 ]
 const couplesVecteursRationnels = [
   [
-    [3.5, -2], [1, 2.5]
+    [3.5, -2],
+    [1, 2.5],
   ],
   [
-    [-2.5, 4], [1.5, 2.5]
+    [-2.5, 4],
+    [1.5, 2.5],
   ],
   [
-    [4.5, 1], [1.5, -2],
+    [4.5, 1],
+    [1.5, -2],
   ],
   [
-    [4, -1.5], [-2.5, 3.5]
+    [4, -1.5],
+    [-2.5, 3.5],
   ],
   [
-    [-1.5, -2.5], [3, 1.5]
+    [-1.5, -2.5],
+    [3, 1.5],
   ],
   [
-    [2.5, -1], [-1.5, 3]
+    [2.5, -1],
+    [-1.5, 3],
   ],
   [
-    [-2, 3.5], [4, -1.5]
+    [-2, 3.5],
+    [4, -1.5],
   ],
   [
-    [2.5, -3], [2, 2.5]
-  ]
+    [2.5, -3],
+    [2, 2.5],
+  ],
 ]
 
 export default class ConstructionsParallelogrammesParticuliers extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Choix des questions',
-      'Nombres séparés par des tirets :\n1 : Coordonnées du centre (4 sommets)\n2 : Coordonnées du centre (3 sommets)\n3 : Coordonnées de 2 points (centre donné)\n4 Mélange'
+      'Nombres séparés par des tirets :\n1 : Coordonnées du centre (4 sommets)\n2 : Coordonnées du centre (3 sommets)\n3 : Coordonnées de 2 points (centre donné)\n4 Mélange',
     ]
     this.sup = '1'
     this.besoinFormulaire2CaseACocher = ['Avec des fractions', false]
@@ -101,10 +127,17 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
-    const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 1, nbQuestions: this.nbQuestions }).map(Number)
+  nouvelleVersion() {
+    const listeTypeDeQuestion = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 1,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
 
@@ -117,27 +150,63 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
       const withRelatifs = this.sup3
       const withSides = this.sup4
       const choix = listeTypeDeQuestion[i] // 1, 2, ou 3
-      const sommets: { x: number, y: number, nom: string, visible: boolean, p?: Point }[] = []
+      const sommets: {
+        x: number
+        y: number
+        nom: string
+        visible: boolean
+        p?: Point
+      }[] = []
       let v1: Vecteur
       let v2: Vecteur
       let den: number
       do {
-        const couplesVecteurs = choice(withFractions ? couplesVecteursRationnels : couplesVecteursEntiers)
+        const couplesVecteurs = choice(
+          withFractions ? couplesVecteursRationnels : couplesVecteursEntiers,
+        )
         const swap = randint(0, 1)
         const swap2 = randint(0, 1)
         let entier: boolean = true
         do {
-          v1 = vecteur(couplesVecteurs[swap][swap2], couplesVecteurs[swap][1 - swap2])
-          v2 = vecteur(couplesVecteurs[1 - swap][swap2], couplesVecteurs[1 - swap][1 - swap2])
+          v1 = vecteur(
+            couplesVecteurs[swap][swap2],
+            couplesVecteurs[swap][1 - swap2],
+          )
+          v2 = vecteur(
+            couplesVecteurs[1 - swap][swap2],
+            couplesVecteurs[1 - swap][1 - swap2],
+          )
           entier = !withFractions
-        } while (entier && !(Number.isInteger((v1.x + v2.x)) && Number.isInteger((v1.y + v2.y))))
+        } while (
+          entier &&
+          !(Number.isInteger(v1.x + v2.x) && Number.isInteger(v1.y + v2.y))
+        )
         if (withFractions) den = 2
         else den = 1
-      } while (egal(v1.x * v2.y - v1.y * v2.x, 0, 0.0000001))// On s'assure que les vecteurs ne sont pas colinéaires
-      const choixSommetsVisibles = choix === 1 ? [0, 1, 2, 3] : choix === 2 ? choice([[0, 1, 2], [1, 2, 3], [0, 2, 3]]) : choice([[0, 1], [1, 2], [2, 3], [3, 0]])
+      } while (egal(v1.x * v2.y - v1.y * v2.x, 0, 0.0000001)) // On s'assure que les vecteurs ne sont pas colinéaires
+      const choixSommetsVisibles =
+        choix === 1
+          ? [0, 1, 2, 3]
+          : choix === 2
+            ? choice([
+                [0, 1, 2],
+                [1, 2, 3],
+                [0, 2, 3],
+              ])
+            : choice([
+                [0, 1],
+                [1, 2],
+                [2, 3],
+                [3, 0],
+              ])
       sommets.push({ x: 0, y: 0, nom: noms[0], visible: choix !== 4 })
       sommets.push({ x: v1.x, y: v1.y, nom: noms[1], visible: choix !== 3 })
-      sommets.push({ x: v1.x + v2.x, y: v1.y + v2.y, nom: noms[2], visible: choix !== 2 })
+      sommets.push({
+        x: v1.x + v2.x,
+        y: v1.y + v2.y,
+        nom: noms[2],
+        visible: choix !== 2,
+      })
       sommets.push({ x: v2.x, y: v2.y, nom: noms[3], visible: choix !== 1 })
       sommets.forEach((s, index) => {
         s.visible = choixSommetsVisibles.includes(index)
@@ -146,19 +215,18 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
       let yMin: number
       let xMax: number
       let yMax: number
-      xMin = Math.min(...sommets.map(s => s.x))
-      yMin = Math.min(...sommets.map(s => s.y))
-      xMax = Math.max(...sommets.map(s => s.x))
-      yMax = Math.max(...sommets.map(s => s.y))
+      xMin = Math.min(...sommets.map((s) => s.x))
+      yMin = Math.min(...sommets.map((s) => s.y))
+      xMax = Math.max(...sommets.map((s) => s.x))
+      yMax = Math.max(...sommets.map((s) => s.y))
 
       if (withRelatifs) {
         const deltaX = randint(-2 * den, 2 * den, 0) / den
         const deltaY = randint(-2 * den, 2 * den, 0) / den
-        sommets.forEach(s => {
+        sommets.forEach((s) => {
           s.x += deltaX
           s.y += deltaY
-        }
-        )
+        })
         xMin += deltaX
         yMin += deltaY
         xMax += deltaX
@@ -166,7 +234,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
       } else {
         const deltaX = xMin <= 0 ? -xMin + randint(0, 2 * den) / den : 0
         const deltaY = yMin <= 0 ? -yMin + randint(0, 2 * den) / den : 0
-        sommets.forEach(s => {
+        sommets.forEach((s) => {
           s.x += deltaX
           s.y += deltaY
         })
@@ -178,16 +246,61 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
       for (let j = 0; j < 4; j++) {
         sommets[j].p = point(sommets[j].x, sommets[j].y, sommets[j].nom)
       }
-      const repbuilder = new RepereBuilder({ xMin: Math.min(Math.floor(xMin - 1), 0), yMin: Math.min(Math.floor(yMin - 1), 0), xMax: Math.max(Math.ceil(xMax + 1) + 0.5, 1.5), yMax: Math.max(Math.ceil(yMax + 1) + 0.5, 1.5) })
-        .setThickX({ xMin: withRelatifs ? xMin - 1.1 : 0, xMax: xMax + 1.1, dx: 1 })
-        .setThickY({ yMin: withRelatifs ? yMin - 1.1 : 0, yMax: yMax + 1.1, dy: 1 })
-        .setGrille({ grilleX: { xMin: withRelatifs ? Math.floor(xMin - 1) : 0, xMax: Math.ceil(xMax + 1), dx: 1 }, grilleY: { yMin: withRelatifs ? Math.floor(yMin - 1) : 0, yMax: Math.ceil(yMax + 1), dy: 1 } })
-      repbuilder.setGrilleSecondaire({ grilleX: { xMin: withRelatifs ? Math.floor(xMin - 1) : 0, xMax: Math.ceil(xMax + 1), dx: 1 / 2 }, grilleY: { yMin: withRelatifs ? Math.floor(yMin - 1) : 0, yMax: Math.ceil(yMax + 1), dy: 1 / 2 } })
+      const repbuilder = new RepereBuilder({
+        xMin: Math.min(Math.floor(xMin - 1), 0),
+        yMin: Math.min(Math.floor(yMin - 1), 0),
+        xMax: Math.max(Math.ceil(xMax + 1) + 0.5, 1.5),
+        yMax: Math.max(Math.ceil(yMax + 1) + 0.5, 1.5),
+      })
+        .setThickX({
+          xMin: withRelatifs ? xMin - 1.1 : 0,
+          xMax: xMax + 1.1,
+          dx: 1,
+        })
+        .setThickY({
+          yMin: withRelatifs ? yMin - 1.1 : 0,
+          yMax: yMax + 1.1,
+          dy: 1,
+        })
+        .setGrille({
+          grilleX: {
+            xMin: withRelatifs ? Math.floor(xMin - 1) : 0,
+            xMax: Math.ceil(xMax + 1),
+            dx: 1,
+          },
+          grilleY: {
+            yMin: withRelatifs ? Math.floor(yMin - 1) : 0,
+            yMax: Math.ceil(yMax + 1),
+            dy: 1,
+          },
+        })
+      repbuilder.setGrilleSecondaire({
+        grilleX: {
+          xMin: withRelatifs ? Math.floor(xMin - 1) : 0,
+          xMax: Math.ceil(xMax + 1),
+          dx: 1 / 2,
+        },
+        grilleY: {
+          yMin: withRelatifs ? Math.floor(yMin - 1) : 0,
+          yMax: Math.ceil(yMax + 1),
+          dy: 1 / 2,
+        },
+      })
       const rep = repbuilder.buildCustom()
       objetsEnonce.push(rep)
       objetsCorrection.push(rep)
-      const centre: Point = point((sommets[0].x + sommets[2].x) / 2, (sommets[0].y + sommets[2].y) / 2, noms[4])
-      sommets.push({ x: centre.x, y: centre.y, nom: noms[4], visible: choix === 3, p: centre })
+      const centre: Point = point(
+        (sommets[0].x + sommets[2].x) / 2,
+        (sommets[0].y + sommets[2].y) / 2,
+        noms[4],
+      )
+      sommets.push({
+        x: centre.x,
+        y: centre.y,
+        nom: noms[4],
+        visible: choix === 3,
+        p: centre,
+      })
       const traceCentre = tracePoint(centre, orangeMathalea)
       traceCentre.epaisseur = 2
       traceCentre.taille = 4
@@ -203,7 +316,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           }
         }
       }
-      const sommetsPara = sommets.slice(0, 4).map(s => point(s.x, s.y, s.nom))
+      const sommetsPara = sommets.slice(0, 4).map((s) => point(s.x, s.y, s.nom))
       objetsCorrection.push(polygone(...sommetsPara))
       const diag1 = segment(sommetsPara[0], sommetsPara[2], 'green')
       const diag2 = segment(sommetsPara[1], sommetsPara[3], 'green')
@@ -230,22 +343,33 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         const trace = tracePoint(...pointsVisibles)
         trace.epaisseur = 2
         trace.taille = 4
-        const labels = pointsVisibles.map(p => {
-          return latex2d(p.nom, p.x + 0.3 * (p.x > centre.x ? 1 : -1), p.y + 0.3 * (p.y > centre.y ? 1 : -1), { color: 'black', letterSize: 'small' })
+        const labels = pointsVisibles.map((p) => {
+          return latex2d(
+            p.nom,
+            p.x + 0.3 * (p.x > centre.x ? 1 : -1),
+            p.y + 0.3 * (p.y > centre.y ? 1 : -1),
+            { color: 'black', letterSize: 'small' },
+          )
         })
         objetsEnonce.push(trace, labels)
         objetsCorrection.push(trace, labels)
         const trace2 = tracePoint(...pointsInvisibles, orangeMathalea)
-        const labels2 = pointsInvisibles.map(p => {
-          return latex2d(p.nom, p.x + 0.3 * (p.x > centre.x ? 1 : -1), p.y + 0.3 * (p.y > centre.y ? 1 : -1), { color: orangeMathalea, letterSize: 'small' })
+        const labels2 = pointsInvisibles.map((p) => {
+          return latex2d(
+            p.nom,
+            p.x + 0.3 * (p.x > centre.x ? 1 : -1),
+            p.y + 0.3 * (p.y > centre.y ? 1 : -1),
+            { color: orangeMathalea, letterSize: 'small' },
+          )
         })
         trace2.epaisseur = 2
         trace2.taille = 4
         objetsCorrection.push(trace2, labels2)
       }
-      texte += choix === 1 || choix === 2
-        ? `Dans le repère ci-dessous, donner les coordonnées du centre $${noms[4]}$ du parallélogramme $${nom}$${choix === 2 ? ' dont on a placé $3$ sommets' : ''}.<br>`
-        : `Dans le repère ci-dessous, donner les coordonnées des points manquants pour que $${nom}$ soit un parallélogramme de centre $${noms[4]}$.<br>`
+      texte +=
+        choix === 1 || choix === 2
+          ? `Dans le repère ci-dessous, donner les coordonnées du centre $${noms[4]}$ du parallélogramme $${nom}$${choix === 2 ? ' dont on a placé $3$ sommets' : ''}.<br>`
+          : `Dans le repère ci-dessous, donner les coordonnées des points manquants pour que $${nom}$ soit un parallélogramme de centre $${noms[4]}$.<br>`
       if (pointsInvisibles) {
         if (choix === 3) {
           texte += ajouteQuestionMathlive({
@@ -259,9 +383,13 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
               champ3: { value: pointsInvisibles[1].x },
               champ4: { value: pointsInvisibles[1].y },
               bareme: (listePoints: number[]) => {
-                return [Math.min(listePoints[0], listePoints[1]) + Math.min(listePoints[2], listePoints[3]), 2]
-              }
-            }
+                return [
+                  Math.min(listePoints[0], listePoints[1]) +
+                    Math.min(listePoints[2], listePoints[3]),
+                  2,
+                ]
+              },
+            },
           })
         } else {
           texte += ajouteQuestionMathlive({
@@ -272,12 +400,18 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
             objetReponse: {
               champ1: { value: centre.x },
               champ2: { value: centre.y },
-              bareme: toutAUnPoint
-            }
+              bareme: toutAUnPoint,
+            },
           })
         }
-        texte += mathalea2d(Object.assign({ pixelsParCm: 30 }, fixeBordures(objetsEnonce)), objetsEnonce)
-        texteCorr += mathalea2d(Object.assign({ pixelsParCm: 30 }, fixeBordures(objetsCorrection)), objetsCorrection)
+        texte += mathalea2d(
+          Object.assign({ pixelsParCm: 30 }, fixeBordures(objetsEnonce)),
+          objetsEnonce,
+        )
+        texteCorr += mathalea2d(
+          Object.assign({ pixelsParCm: 30 }, fixeBordures(objetsCorrection)),
+          objetsCorrection,
+        )
         if (this.correctionDetaillee) {
           let dx: number
           let dy: number
@@ -305,16 +439,27 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
               break
             case 2:
               for (let j = 0; j < choixSommetsVisibles.length; j++) {
-                if (choixSommetsVisibles.includes((choixSommetsVisibles[j] + 2 % 4))) {
-                  indicesSommetsVisibles = [choixSommetsVisibles[j], (choixSommetsVisibles[j] + 2) % 4]
+                if (
+                  choixSommetsVisibles.includes(
+                    choixSommetsVisibles[j] + (2 % 4),
+                  )
+                ) {
+                  indicesSommetsVisibles = [
+                    choixSommetsVisibles[j],
+                    (choixSommetsVisibles[j] + 2) % 4,
+                  ]
                   break
                 }
               }
               if (indicesSommetsVisibles.length !== 2) {
                 throw new Error('Indices des sommets visibles incorrects')
               }
-              dx = sommets[indicesSommetsVisibles[1]].x - sommets[indicesSommetsVisibles[0]].x
-              dy = sommets[indicesSommetsVisibles[1]].y - sommets[indicesSommetsVisibles[0]].y
+              dx =
+                sommets[indicesSommetsVisibles[1]].x -
+                sommets[indicesSommetsVisibles[0]].x
+              dy =
+                sommets[indicesSommetsVisibles[1]].y -
+                sommets[indicesSommetsVisibles[0]].y
               sensX = dx > 0 ? 'droite' : 'gauche'
               sensY = dy > 0 ? 'haut' : 'bas'
               plurielX = Math.abs(dx) > 1 ? 's' : ''
@@ -340,9 +485,10 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
               break
           }
         }
-        texteCorr += choix === 3
-          ? `Les coordonnées des points manquants sont $${miseEnEvidence(`${pointsInvisibles.map(p => `${p.nom}(${texNombre(p.x)}, ${texNombre(p.y)})`).join('\\text{~et~}')}`)}$.`
-          : `Les coordonnées du centre $${noms[4]}$ du parallélogramme $${nom}$ sont : $${miseEnEvidence(`(~${texNombre(centre.x, 2)}~;~${texNombre(centre.y, 2)})`)}$.`
+        texteCorr +=
+          choix === 3
+            ? `Les coordonnées des points manquants sont $${miseEnEvidence(`${pointsInvisibles.map((p) => `${p.nom}(${texNombre(p.x)}, ${texNombre(p.y)})`).join('\\text{~et~}')}`)}$.`
+            : `Les coordonnées du centre $${noms[4]}$ du parallélogramme $${nom}$ sont : $${miseEnEvidence(`(~${texNombre(centre.x, 2)}~;~${texNombre(centre.y, 2)})`)}$.`
       }
       if (this.questionJamaisPosee(i, nom)) {
         this.listeQuestions.push(texte)

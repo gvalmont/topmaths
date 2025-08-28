@@ -5,12 +5,17 @@ import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { equation1erDegre1Inconnue } from '../../lib/outils/equations'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Résoudre un problème mêlant équations et périmètre et aire d\'un rectangle'
+export const titre =
+  "Résoudre un problème mêlant équations et périmètre et aire d'un rectangle"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -19,39 +24,47 @@ export const dateDeModifImportante = '11/06/2025'
 export const uuid = 'cd2f2'
 export const refs = {
   'fr-fr': ['3L13-4', 'BP2RES15'],
-  'fr-ch': ['11FA6-9']
+  'fr-ch': ['11FA6-9'],
 }
 /**
  * @author Guillaume Valmont
  */
 export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 2
     this.sup = '1-2'
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets :',
         '1 : Deux longueurs identiques',
         '2 : Deux longueurs différentes',
-        '3 : Mélange'
-      ].join('\n')
+        '3 : Mélange',
+      ].join('\n'),
     ]
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 2,
       melange: 3,
       defaut: 3,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, cpt = 0, texte, texteCorr;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const objets = []
-      const rectangle = rectangle1Point2Longueurs(point(0, 0), 5, 3.5, { angleRotation: randint(-20, 20), avecCodageSegments: false })
+      const rectangle = rectangle1Point2Longueurs(point(0, 0), 5, 3.5, {
+        angleRotation: randint(-20, 20),
+        avecCodageSegments: false,
+      })
       const [A, B, C, D] = rectangle[0].listePoints
       const nomRectangle = A.nom + B.nom + C.nom + D.nom
       objets.push(rectangle)
@@ -60,11 +73,15 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
       let longueur: number, largeur: number, longCote: string, largeCote: string
       texte = `$${nomRectangle}$ est un rectangle.<br>`
       switch (typesDeQuestionsDisponibles[i]) {
-        case 1: { // Deux longueurs identiques
+        case 1: {
+          // Deux longueurs identiques
           let longueurConnue = -1
           const longueurInconnue = randint(20, 80)
           do {
-            equation = equation1erDegre1Inconnue({ valeursRelatives: false, type: 'ax+b=cx+d' })
+            equation = equation1erDegre1Inconnue({
+              valeursRelatives: false,
+              type: 'ax+b=cx+d',
+            })
             longueurConnue = equation.a * equation.reponse + equation.b
           } while (longueurConnue < 0)
           const a = equation.a
@@ -100,7 +117,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
           texte += `$x$ est un nombre tel que $${segment1}=${equation.membreDeGauche}$ et $${segment2}=${equation.membreDeDroite}$ (en cm).<br>`
           texteCorr = `${nomRectangle} est un rectangle donc ses côtés opposés sont de la même longueur donc $${A.nom}${B.nom}=${C.nom}${D.nom}$ et $${B.nom}${C.nom}=${D.nom}${A.nom}$.<br>
             Ainsi $${equation.egalite}$.<br><br>
-            ${texteGras('Résolution de l\'équation.')}<br>
+            ${texteGras("Résolution de l'équation.")}<br>
             ${this.correctionDetaillee ? equation.correctionDetaillee : equation.correction}<br><br>
             ${texteGras(`Calcul de $${segment1}$ en cm.`)}<br>
             $${segment1}=${equation.membreDeGauche}$<br>
@@ -109,10 +126,12 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             ${texteGras(`Calcul de $${coteInconnu}$ en cm.`)}<br>
             $\\mathcal{P} = 2 \\times ${longueurConnue} + 2 \\times ${coteInconnu}$<br>
             $${perimetre} = ${2 * longueurConnue} + 2 ${coteInconnu}$<br>`
-          if (this.correctionDetaillee) texteCorr += `On soustrait $${2 * longueurConnue}$ aux deux membres.<br>`
+          if (this.correctionDetaillee)
+            texteCorr += `On soustrait $${2 * longueurConnue}$ aux deux membres.<br>`
           texteCorr += `$${perimetre} ${miseEnEvidence(`- ${2 * longueurConnue}`)} = 2 ${coteInconnu} ${miseEnEvidence(`- ${2 * longueurConnue}`)}$<br>
             $${perimetre - 2 * longueurConnue} = 2 ${coteInconnu}$<br>`
-          if (this.correctionDetaillee) texteCorr += 'On divise les deux membres par $2$.<br>'
+          if (this.correctionDetaillee)
+            texteCorr += 'On divise les deux membres par $2$.<br>'
           texteCorr += `$${perimetre - 2 * longueurConnue} ${miseEnEvidence('\\div 2')} = 2 ${coteInconnu} ${miseEnEvidence('\\div 2')}$<br>
             $${longueurInconnue} = ${coteInconnu}$<br><br>
             ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm².`)}<br>
@@ -127,13 +146,22 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
         default: {
           let a1: number, a2: number, b1: number, b2: number
           do {
-            equation = equation1erDegre1Inconnue({ valeursRelatives: false, divisiblePar: 2, type: 'ax+b=d' })
+            equation = equation1erDegre1Inconnue({
+              valeursRelatives: false,
+              divisiblePar: 2,
+              type: 'ax+b=d',
+            })
             a1 = randint(1, equation.a / 2)
             a2 = equation.a / 2 - a1
             b1 = randint(1, equation.b / 2)
             b2 = equation.b / 2 - b1
             longueur = a1 * equation.reponse + b1
-          } while (a1 * equation.reponse + b1 <= 0 || a2 * equation.reponse + b2 <= 0 || equation.d === 4 || a2 === 0)
+          } while (
+            a1 * equation.reponse + b1 <= 0 ||
+            a2 * equation.reponse + b2 <= 0 ||
+            equation.d === 4 ||
+            a2 === 0
+          )
           perimetre = equation.d
           const expression1 = `${rienSi1(a1)}x${b1 === 0 ? '' : ecritureAlgebrique(b1)}`
           const expression2 = `${rienSi1(a2)}x${b2 === 0 ? '' : ecritureAlgebrique(b2)}`
@@ -169,7 +197,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             $\\mathcal{P} = 2 \\times ${segment1} + 2 \\times ${segment2}$<br>
             $${perimetre} = 2 \\times ${a1 === 0 || b1 === 0 ? expression1 : `(${expression1})`} + 2 \\times ${a2 === 0 || b2 === 0 ? expression2 : `(${expression2})`}$<br>
             $${perimetre} = ${equation.membreDeGauche}$<br><br>
-            ${texteGras('Résolution de l\'équation.')}<br>
+            ${texteGras("Résolution de l'équation.")}<br>
             ${this.correctionDetaillee ? equation.correctionDetaillee : equation.correction}<br><br>
             ${texteGras(`Calcul de $${segment1}$ en cm.`)}<br>
             $${segment1} = ${a1} \\times ${equation.reponse}${b1 === 0 ? '' : ecritureAlgebrique(b1)}$<br>
@@ -186,13 +214,20 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
           break
         }
       }
-      texte += `Le périmètre de $${nomRectangle}$ mesure $${perimetre}$ cm.<br>
+      texte +=
+        `Le périmètre de $${nomRectangle}$ mesure $${perimetre}$ cm.<br>
       Déterminer son aire en cm².` + ajouteChampTexteMathLive(this, i, 'inline')
       handleAnswers(this, i, { reponse: { value: reponse } })
-      texte += mathalea2d(Object.assign({
-        pixelsParCm: 20,
-        scale: 0.5
-      }, fixeBordures(objets)), objets)
+      texte += mathalea2d(
+        Object.assign(
+          {
+            pixelsParCm: 20,
+            scale: 0.5,
+          },
+          fixeBordures(objets),
+        ),
+        objets,
+      )
       if (this.questionJamaisPosee(i, i)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

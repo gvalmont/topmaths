@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'f0064'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class ValeurRemarquable extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
@@ -26,7 +26,7 @@ export default class ValeurRemarquable extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierFullOperations
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = choice([1, 2, 3, 4, 5])
     if (choix === 1) {
       this.question = `$\\cos(${texNombre(2025, 0)}\\pi)$ `
@@ -55,7 +55,9 @@ export default class ValeurRemarquable extends ExerciceSimple {
       this.reponse = '\\dfrac{\\sqrt2}{2}'
       this.canReponseACompleter = `$\\cos\\left(\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)=\\ldots$`
     }
-    if (!this.interactif) { this.question += '$=\\ldots$' }
+    if (!this.interactif) {
+      this.question += '$=\\ldots$'
+    }
 
     this.canEnonce = 'Compléter.'
   }

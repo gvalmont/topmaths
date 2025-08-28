@@ -1,5 +1,8 @@
 import { combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { Triangle } from '../../modules/Triangle'
 import Exercice from '../Exercice'
@@ -12,7 +15,8 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const titre = 'Constructibilité des triangles via les longueurs ou les angles'
+export const titre =
+  'Constructibilité des triangles via les longueurs ou les angles'
 export const dateDeModifImportante = '11/1/2025' // Rémi Angot : modification de la rédaction de l'inégalité triangulaire
 
 /**
@@ -20,50 +24,62 @@ export const dateDeModifImportante = '11/1/2025' // Rémi Angot : modification d
  * @author Sébastien Lozano
  */
 export default class ConstructibiliteDesTriangles extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème\n3 : Mélange',
+    ]
     this.besoinFormulaire2CaseACocher = ['Accepter triangle plat', false]
     this.sup = 1
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
 
     let consigneAMC
-    if (this.exo === '5G21-1') { // via longueurs
-      consigneAMC = !this.interactif || context.isAmc
-        ? 'Justifier si les longueurs données permettent de construire le triangle'
-        : 'Indiquer si, avec les informations fournies, le triangle est constructible'
-        // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
-    } else { // via angles
-      consigneAMC = !this.interactif || context.isAmc
-        ? 'Justifier si les angles donnés permettent de construire le triangle'
-        : 'Indiquer si, avec les informations fournies, le triangle est constructible'
-        // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
+    if (this.exo === '5G21-1') {
+      // via longueurs
+      consigneAMC =
+        !this.interactif || context.isAmc
+          ? 'Justifier si les longueurs données permettent de construire le triangle'
+          : 'Indiquer si, avec les informations fournies, le triangle est constructible'
+      // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
+    } else {
+      // via angles
+      consigneAMC =
+        !this.interactif || context.isAmc
+          ? 'Justifier si les angles donnés permettent de construire le triangle'
+          : 'Indiquer si, avec les informations fournies, le triangle est constructible'
+      // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
     }
     this.consigne = consigneAMC + '.'
-    if (this.exo === '5G21-1') { // via longueurs
+    if (this.exo === '5G21-1') {
+      // via longueurs
       if (this.sup === 1) {
         typesDeQuestionsDisponibles = [1, 2, 3]
       } else if (this.sup === 3) {
         const a = randint(1, 3)
         if (this.nbQuestions === 1) typesDeQuestionsDisponibles = [4]
         else if (this.nbQuestions === 2) typesDeQuestionsDisponibles = [4, a]
-        else if (this.nbQuestions === 3) typesDeQuestionsDisponibles = [4, a, a % 3 + 1]
+        else if (this.nbQuestions === 3)
+          typesDeQuestionsDisponibles = [4, a, (a % 3) + 1]
         else typesDeQuestionsDisponibles = [4, 1, 2, 3]
       } else {
         typesDeQuestionsDisponibles = [4]
       }
-    } else if (this.exo === '5G31-1') { // via angles
+    } else if (this.exo === '5G31-1') {
+      // via angles
       if (this.sup === 1) {
         typesDeQuestionsDisponibles = [5, 6, 7]
       } else if (this.sup === 3) {
         const a = randint(5, 7)
         if (this.nbQuestions === 1) typesDeQuestionsDisponibles = [8]
         else if (this.nbQuestions === 2) typesDeQuestionsDisponibles = [8, a]
-        else if (this.nbQuestions === 3) typesDeQuestionsDisponibles = [8, a, (a - 4) % 3 + 5]
+        else if (this.nbQuestions === 3)
+          typesDeQuestionsDisponibles = [8, a, ((a - 4) % 3) + 5]
         else typesDeQuestionsDisponibles = [8, 5, 6, 7]
       } else {
         typesDeQuestionsDisponibles = [8]
@@ -76,9 +92,16 @@ export default class ConstructibiliteDesTriangles extends Exercice {
       enleveElement(typesDeQuestionsDisponibles, 2)
       enleveElement(typesDeQuestionsDisponibles, 6)
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, l1, l2, l3, a1, a2, a3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, l1, l2, l3, a1, a2, a3, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // on fixe longueur min et max en cm
       const lMin = 2
       const lMax = 20
@@ -105,7 +128,11 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
-            currentTriangle.push({ longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i], valeur: triangle.getLongueursValeurs()[i] })
+            currentTriangle.push({
+              longueur: triangle.getLongueurs()[i],
+              cote: triangle.getCotes()[i],
+              valeur: triangle.getLongueursValeurs()[i],
+            })
           }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
@@ -129,7 +156,11 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
-            currentTriangle.push({ longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i], valeur: triangle.getLongueursValeurs()[i] })
+            currentTriangle.push({
+              longueur: triangle.getLongueurs()[i],
+              cote: triangle.getCotes()[i],
+              valeur: triangle.getLongueursValeurs()[i],
+            })
           }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
@@ -137,7 +168,10 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           })
           texteCorr = `${triangle.getNom()}, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
           texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${currentTriangle[2].valeur}$ cm aussi.`
-          texteCorr += `<br> Les points ${triangle.stringSommets} sont donc alignés. ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` + `${texteEnCouleurEtGras(', c\'est un triangle plat.')}`
+          texteCorr +=
+            `<br> Les points ${triangle.stringSommets} sont donc alignés. ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` +
+            `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` +
+            `${texteEnCouleurEtGras(", c'est un triangle plat.")}`
 
           break
         case 3: // 3 longueurs non constructible
@@ -149,7 +183,10 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           triangle.l2 = l2
           triangle.l3 = l3
 
-          while (triangle.isTrueTriangleLongueurs() || triangle.isPlatTriangleLongueurs()) {
+          while (
+            triangle.isTrueTriangleLongueurs() ||
+            triangle.isPlatTriangleLongueurs()
+          ) {
             l1 = randint(lMin, lMax)
             l2 = randint(lMin, lMax)
             l3 = randint(lMin, lMax)
@@ -161,7 +198,11 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
-            currentTriangle.push({ longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i], valeur: triangle.getLongueursValeurs()[i] })
+            currentTriangle.push({
+              longueur: triangle.getLongueurs()[i],
+              cote: triangle.getCotes()[i],
+              valeur: triangle.getLongueursValeurs()[i],
+            })
           }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
@@ -187,7 +228,11 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et dont le périmètre vaut $${triangle.getPerimetre()}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
-            currentTriangle.push({ longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i], valeur: triangle.getLongueursValeurs()[i] })
+            currentTriangle.push({
+              longueur: triangle.getLongueurs()[i],
+              cote: triangle.getCotes()[i],
+              valeur: triangle.getLongueursValeurs()[i],
+            })
           }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
@@ -214,15 +259,21 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texte += `${triangle.getAngles()[1]} $= ${triangle.a2}^\\circ$ et ${triangle.getAngles()[2]} $= ${triangle.a3}^\\circ$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
-            currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
+            currentTriangle.push({
+              angle: triangle.getAngles()[i],
+              valeur: triangle.getAnglesValeurs()[i],
+            })
           }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
           texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
-          texteCorr += '<br> On constate que la somme des trois angles vaut bien $180^\\circ$.'
-          texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
+          texteCorr +=
+            '<br> On constate que la somme des trois angles vaut bien $180^\\circ$.'
+          texteCorr +=
+            `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` +
+            `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           break
         case 6: // 3 angles plat
           while (!triangle.isPlatTriangleAngles()) {
@@ -239,16 +290,25 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texte += `${triangle.getAngles()[1]} $= ${triangle.a2}^\\circ$ et ${triangle.getAngles()[2]} $= ${triangle.a3}^\\circ$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
-            currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
+            currentTriangle.push({
+              angle: triangle.getAngles()[i],
+              valeur: triangle.getAnglesValeurs()[i],
+            })
           }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
           texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
-          texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180^\\circ$.'
-          texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
-          texteCorr += '<br> Deux des trois angles du triangle valent $0^\\circ$, ' + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` + texteEnCouleurEtGras(' est donc un triangle plat.')
+          texteCorr +=
+            '<br> On constate que la somme des trois angles du triangle vaut bien $180^\\circ$.'
+          texteCorr +=
+            `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` +
+            `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
+          texteCorr +=
+            '<br> Deux des trois angles du triangle valent $0^\\circ$, ' +
+            `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` +
+            texteEnCouleurEtGras(' est donc un triangle plat.')
           break
         case 7: // 3 angles non constructible
           // on initialise les angles sinon la méthode isTrueTriangleAngles() renvoie false!
@@ -270,18 +330,25 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texte += `${triangle.getAngles()[1]} $= ${triangle.a2}^\\circ$ et ${triangle.getAngles()[2]} $= ${triangle.a3}^\\circ$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
-            currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
+            currentTriangle.push({
+              angle: triangle.getAngles()[i],
+              valeur: triangle.getAnglesValeurs()[i],
+            })
           }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
           texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
-          texteCorr += '<br> Si le triangle était constructible, la somme des trois angles vaudrait $180^\\circ$,'
-          texteCorr += ' or ce n\'est pas le cas.'
-          texteCorr += `<br> ${texteEnCouleurEtGras('On ne peut donc pas construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1) + '.')}$`
+          texteCorr +=
+            '<br> Si le triangle était constructible, la somme des trois angles vaudrait $180^\\circ$,'
+          texteCorr += " or ce n'est pas le cas."
+          texteCorr +=
+            `<br> ${texteEnCouleurEtGras('On ne peut donc pas construire le triangle ')}` +
+            `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1) + '.')}$`
           break
-        case 8: { // 2 angles et le 3e fonction du 1er ou du 2eme
+        case 8: {
+          // 2 angles et le 3e fonction du 1er ou du 2eme
           const angleRg = randint(0, 1)
           const operationsPossibles = ['triple', 'quadruple', 'quart']
           let operation = ''
@@ -304,7 +371,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
                   a3 = 4 * a2
                   break
                 case 'quart':
-                  a2 = 4 * (180 - a1) / 5
+                  a2 = (4 * (180 - a1)) / 5
                   a3 = a2 / 4
                   break
               }
@@ -313,7 +380,10 @@ export default class ConstructibiliteDesTriangles extends Exercice {
               texte += `${triangle.getAngles()[1]} $= ${texNombre(triangle.a2)}^\\circ$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`
               // on crée l'objet longueurs + valeurs des côtés du triangle
               for (let i = 0; i < 3; i++) {
-                currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
+                currentTriangle.push({
+                  angle: triangle.getAngles()[i],
+                  valeur: triangle.getAnglesValeurs()[i],
+                })
               }
               texteCorr += `${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[1].angle} = $${texNombre(currentTriangle[1].valeur)}^\\circ$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}^\\circ$.`
               break
@@ -332,7 +402,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
                   a3 = 4 * a1
                   break
                 case 'quart':
-                  a1 = 4 * (180 - a2) / 5
+                  a1 = (4 * (180 - a2)) / 5
                   a3 = a1 / 4
                   break
               }
@@ -341,34 +411,53 @@ export default class ConstructibiliteDesTriangles extends Exercice {
               texte += `${triangle.getAngles()[0]} $= ${texNombre(triangle.a1)}^\\circ$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[0]}.`
               // on crée l'objet longueurs + valeurs des côtés du triangle
               for (let i = 0; i < 3; i++) {
-                currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
+                currentTriangle.push({
+                  angle: triangle.getAngles()[i],
+                  valeur: triangle.getAnglesValeurs()[i],
+                })
               }
               texteCorr += `${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[0].angle} = $${texNombre(currentTriangle[0].valeur)}^\\circ$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}^\\circ$.`
               break
           }
           texteCorr += `<br>Donc ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${texNombre(currentTriangle[0].valeur)}^\\circ + ${texNombre(currentTriangle[1].valeur)}^\\circ + ${texNombre(currentTriangle[2].valeur)}^\\circ = ${texNombre(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
-          texteCorr += '<br> On constate que la somme des trois angles vaut bien $180^\\circ$.'
-          texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
+          texteCorr +=
+            '<br> On constate que la somme des trois angles vaut bien $180^\\circ$.'
+          texteCorr +=
+            `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` +
+            `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           break
         }
       }
-      if (this.questionJamaisPosee(i, triangle.getNom())) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, triangle.getNom())) {
+        // Si la question n'a jamais été posée, on en créé une autre
         const propositionsDuQcm = [
           {
             texte: `Le triangle ${triangle.getNom()} est constructible`,
-            statut: !(listeTypeDeQuestions[i] === 3 || listeTypeDeQuestions[i] === 7),
-            feedback: (this.exo === '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
+            statut: !(
+              listeTypeDeQuestions[i] === 3 || listeTypeDeQuestions[i] === 7
+            ),
+            feedback:
+              this.exo === '5G21-1'
+                ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.'
+                : 'Effectue la somme des angles du triangle.',
           },
           {
             texte: `Le triangle ${triangle.getNom()} n'est pas constructible`,
-            statut: (listeTypeDeQuestions[i] === 3 || listeTypeDeQuestions[i] === 7),
-            feedback: (this.exo === '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
+            statut:
+              listeTypeDeQuestions[i] === 3 || listeTypeDeQuestions[i] === 7,
+            feedback:
+              this.exo === '5G21-1'
+                ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.'
+                : 'Effectue la somme des angles du triangle.',
           },
           {
             texte: `On ne peut pas savoir si le triangle ${triangle.getNom()} est constructible ou pas`,
             statut: false,
-            feedback: (this.exo === '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
-          }
+            feedback:
+              this.exo === '5G21-1'
+                ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.'
+                : 'Effectue la somme des angles du triangle.',
+          },
         ]
 
         this.autoCorrection[i] = {
@@ -377,8 +466,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           options: {
             vertical: true,
             ordered: false, // (si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
-            lastChoice: 2 // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
-          }
+            lastChoice: 2, // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
+          },
         }
         if (context.isAmc) {
           this.autoCorrection[i] = {
@@ -392,21 +481,22 @@ export default class ConstructibiliteDesTriangles extends Exercice {
                     texte: '',
                     numQuestionVisible: false,
                     statut: 2, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                    feedback: ''
+                    feedback: '',
                     //   enonce: ' Justifier la réponse.' // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  }
-                ]
+                  },
+                ],
               },
               {
                 type: 'qcmMono',
-                enonce: 'Suite à votre justification, noircir la case adéquate parmi les suivantes :',
+                enonce:
+                  'Suite à votre justification, noircir la case adéquate parmi les suivantes :',
                 propositions: propositionsDuQcm,
                 options: {
                   ordered: false, // (si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
-                  lastChoice: 2 // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
-                }
-              }
-            ]
+                  lastChoice: 2, // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
+                },
+              },
+            ],
           }
         }
         const props = propositionsQcm(this, i)

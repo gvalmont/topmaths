@@ -4,9 +4,9 @@ import ProblemeCompMulPteQuantite from './problemeCompMulTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function chocolats6 (decimal = false): Probleme {
+export function chocolats6(decimal = false): Probleme {
   const nbFois = randint(2, 5)
-  const nb1 = (decimal ? randint(81, 159, [100, 120, 140]) / 20 : randint(4, 8))
+  const nb1 = decimal ? randint(81, 159, [100, 120, 140]) / 20 : randint(4, 8)
   const data = { nbFois, nb1 }
   const probleme = new ProblemeCompMulPteQuantite('chocolats6', data)
   return probleme

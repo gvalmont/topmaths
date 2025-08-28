@@ -12,7 +12,7 @@ export const uuid = '5a91c'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,10 +23,21 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeValeurs = this.canOfficielle
       ? [[25, 4]]
-      : [[15, 3], [20, 5], [30, 4], [30, 5], [25, 6], [30, 3], [20, 6], [20, 7], [25, 5], [25, 3]]
+      : [
+          [15, 3],
+          [20, 5],
+          [30, 4],
+          [30, 5],
+          [25, 6],
+          [30, 3],
+          [20, 6],
+          [20, 7],
+          [25, 5],
+          [25, 3],
+        ]
     const valeurs = choice(listeValeurs)
 
     this.reponse = valeurs[1]

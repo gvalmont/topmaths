@@ -18,10 +18,10 @@ export const uuid = 'b850a'
 
 export const refs = {
   'fr-fr': ['can5N02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.versionQcmDisponible = true
@@ -29,14 +29,18 @@ export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' <br>$A=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, choix
-    switch (choice(['a', 'b'])) { //,
+    switch (
+      choice(['a', 'b']) //,
+    ) {
       case 'a':
         a = randint(1, 19, [10])
         b = randint(11, 59, [20, 30, 40, 50])
         choix = choice([true, false])
-        this.reponse = this.versionQcm ? `$A=${texNombre(a * 0.1 + b * 0.01, 2)}$` : arrondi(a * 0.1 + b * 0.01, 2)
+        this.reponse = this.versionQcm
+          ? `$A=${texNombre(a * 0.1 + b * 0.01, 2)}$`
+          : arrondi(a * 0.1 + b * 0.01, 2)
         this.question = this.versionQcm
           ? `On considère ${choix ? `$A=\\dfrac{${a}}{10}+\\dfrac{${b}}{100}$.<br>` : `$A=\\dfrac{${b}}{100}+\\dfrac{${a}}{10}$.<br>`}
           On a :`
@@ -48,9 +52,9 @@ export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
           \\end{aligned}$`
 
         this.distracteurs = [
-                  `$A=${texNombre(a * 0.1 + b * 0.001, 5)}$`,
-                  `$A=${texNombre(a * 0.01 + b * 0.01, 4)}$`,
-                  `$A=${texNombre((a + b) * 0.001, 4)}$`
+          `$A=${texNombre(a * 0.1 + b * 0.001, 5)}$`,
+          `$A=${texNombre(a * 0.01 + b * 0.01, 4)}$`,
+          `$A=${texNombre((a + b) * 0.001, 4)}$`,
         ]
         break
       case 'b':
@@ -58,7 +62,9 @@ export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
         c = randint(1, 29, [10, 20])
         choix = choice([true, false])
 
-        this.reponse = this.versionQcm ? `$A=${texNombre(b * 0.01 + c * 0.001, 3)}$` : arrondi(b * 0.01 + c * 0.001, 3)
+        this.reponse = this.versionQcm
+          ? `$A=${texNombre(b * 0.01 + c * 0.001, 3)}$`
+          : arrondi(b * 0.01 + c * 0.001, 3)
 
         this.question = this.versionQcm
           ? `On considère ${choix ? `$A=\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}$.<br>` : `$A=\\dfrac{${b}}{100}+\\dfrac{${c}}{${texNombre(1000)}}$.<br>`}
@@ -72,13 +78,13 @@ export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
     \\end{aligned}$`
 
         this.distracteurs = [
-    `$A=${texNombre(b * 0.01 + c * 0.0001, 6)}$`,
-    `$A=${texNombre(b * 0.001 + c * 0.001, 4)}$`,
-    `$A=${texNombre((b + c) * 0.0001, 4)}$`
+          `$A=${texNombre(b * 0.01 + c * 0.0001, 6)}$`,
+          `$A=${texNombre(b * 0.001 + c * 0.001, 4)}$`,
+          `$A=${texNombre((b + c) * 0.0001, 4)}$`,
         ]
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

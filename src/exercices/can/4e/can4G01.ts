@@ -24,10 +24,10 @@ export const uuid = 'f0b9b'
 
 export const refs = {
   'fr-fr': ['can4G01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LongueurPythagore extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -35,9 +35,8 @@ export default class LongueurPythagore extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' cm' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const triplet = choice([
-
       [6, 8, 10],
       [9, 12, 15],
       [12, 16, 20],
@@ -46,7 +45,7 @@ export default class LongueurPythagore extends ExerciceSimple {
       [21, 28, 35],
       [24, 32, 40],
       [27, 36, 45],
-      [30, 40, 50]
+      [30, 40, 50],
     ])
     const nom = creerNomDePolygone(3, ['QD'])
     const [a, b, c] = triplet
@@ -67,10 +66,22 @@ export default class LongueurPythagore extends ExerciceSimple {
       Calculer la longueur $${nom[0]}${nom[1]}$.<br>
       
       `
-        this.question += mathalea2d({ xmin: -b / 10 - 1, xmax: b + b / 10 + 1, ymin: -b / 10 - 1, ymax: C.y + b / 10 + 1, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
+        this.question +=
+          mathalea2d(
+            {
+              xmin: -b / 10 - 1,
+              xmax: b + b / 10 + 1,
+              ymin: -b / 10 - 1,
+              ymax: C.y + b / 10 + 1,
+              pixelsParCm: 140 / b,
+              scale: 4 / b,
+              style: 'margin: auto',
+            },
+            objets,
+          ) + '<br>'
         this.correction = ` $${nom[0]}${nom[1]}=${b}$ cm.`
         this.reponse = b
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = ` $${nom[0]}${nom[1]}=\\ldots$ cm.`
         break
       case 1: // calcul du côté vertical de l'angle droit
@@ -79,10 +90,22 @@ export default class LongueurPythagore extends ExerciceSimple {
         Calculer la longueur $${nom[1]}${nom[2]}$.<br>
         
         `
-        this.question += mathalea2d({ xmin: -b / 10 - 1, xmax: b + b / 10 + 1, ymin: -b / 10 - 1, ymax: C.y + b / 10 + 1, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
+        this.question +=
+          mathalea2d(
+            {
+              xmin: -b / 10 - 1,
+              xmax: b + b / 10 + 1,
+              ymin: -b / 10 - 1,
+              ymax: C.y + b / 10 + 1,
+              pixelsParCm: 140 / b,
+              scale: 4 / b,
+              style: 'margin: auto',
+            },
+            objets,
+          ) + '<br>'
         this.correction = ` $${nom[1]}${nom[2]}=${a}$ cm.`
         this.reponse = a
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = ` $${nom[1]}${nom[2]}=\\ldots$ cm.`
         break
       case 2: // calcul de l'hypoténuse.
@@ -91,11 +114,23 @@ export default class LongueurPythagore extends ExerciceSimple {
        Calculer la longueur $${nom[0]}${nom[2]}$.<br>
        
        `
-        this.question += mathalea2d({ xmin: -b / 10 - 1, xmax: b + b / 10 + 1, ymin: -b / 10 - 1, ymax: C.y + b / 10 + 1, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
+        this.question +=
+          mathalea2d(
+            {
+              xmin: -b / 10 - 1,
+              xmax: b + b / 10 + 1,
+              ymin: -b / 10 - 1,
+              ymax: C.y + b / 10 + 1,
+              pixelsParCm: 140 / b,
+              scale: 4 / b,
+              style: 'margin: auto',
+            },
+            objets,
+          ) + '<br>'
 
         this.correction = ` $${nom[0]}${nom[2]}=${c}$ cm.`
         this.reponse = c
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = ` $${nom[0]}${nom[2]}=\\ldots$ cm.`
         break
     }

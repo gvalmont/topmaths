@@ -24,35 +24,67 @@ export const uuid = '1b057'
 
 export const refs = {
   'fr-fr': ['can1P07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculProbaTableauEff extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = true
-    this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
+    this.keyboard = [
+      'numbers',
+      'fullOperations',
+      'variables',
+      'trigo',
+      'advanced',
+    ]
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0, reponse, tableau, choix, F, V, T, FinterV, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0,
+        cpt = 0,
+        reponse,
+        tableau,
+        choix,
+        F,
+        V,
+        T,
+        FinterV,
+        texte,
+        texteCorr;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // On choisit les probas de l'arbre
       F = randint(27, 80)
       V = randint(41, 70)
       FinterV = randint(5, 20)
       T = randint(160, 180)
       choix = choice([true, false])
-      tableau = tableauColonneLigne(['', 'F', '\\overline{F}', '\\text{Total}'],
+      tableau = tableauColonneLigne(
+        ['', 'F', '\\overline{F}', '\\text{Total}'],
         ['V', '\\overline{V}', '\\text{Total}'],
-        [`${texNombre(FinterV, 2)}`, `${texNombre(V - FinterV, 2)}`, `${texNombre(V, 2)}`, `${texNombre(F - FinterV)}`, `${texNombre(T - F - V + FinterV)}`, `${texNombre(T - V)}`, `${texNombre(F)}`, `${texNombre(T - F)}`, `${texNombre(T)}`])
+        [
+          `${texNombre(FinterV, 2)}`,
+          `${texNombre(V - FinterV, 2)}`,
+          `${texNombre(V, 2)}`,
+          `${texNombre(F - FinterV)}`,
+          `${texNombre(T - F - V + FinterV)}`,
+          `${texNombre(T - V)}`,
+          `${texNombre(F)}`,
+          `${texNombre(T - F)}`,
+          `${texNombre(T)}`,
+        ],
+      )
       texte = `Dans ce tableau, on note  :<br>
       $F$ : « La personne est une fille » et $V$ : « La personne a plus de $20$ ans ».<br>
       On choisit une personne au hasard.<br>`
       this.canEnonce = texte
       switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) {
-        case 1:// p(F)
+        case 1: // p(F)
           texte += `${tableau}`
           if (choice([true, false])) {
             if (this.interactif) {
@@ -66,7 +98,8 @@ export default class CalculProbaTableauEff extends Exercice {
               texte += '<br>Quelle est la probabilité de choisir une fille ?'
               texte += ajouteChampTexteMathLive(this, i, ' lycee')
             } else {
-              texte += '<br>Quelle est la probabilité de choisir une fille ?<br>'
+              texte +=
+                '<br>Quelle est la probabilité de choisir une fille ?<br>'
             }
           }
           texteCorr = ` $P(F)=\\dfrac{\\text{Nombre de filles}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(F)}}{${texNombre(T)}}$
@@ -78,7 +111,7 @@ export default class CalculProbaTableauEff extends Exercice {
           this.canReponseACompleter = ''
           break
 
-        case 2:// p(FinterV)
+        case 2: // p(FinterV)
           texte += `${tableau}`
           if (choice([true, false])) {
             if (this.interactif) {
@@ -91,10 +124,12 @@ export default class CalculProbaTableauEff extends Exercice {
             }
           } else {
             if (this.interactif) {
-              texte += '<br>Quelle est la probabilité de choisir une fille qui a plus de $20$ ans ?'
+              texte +=
+                '<br>Quelle est la probabilité de choisir une fille qui a plus de $20$ ans ?'
               texte += ajouteChampTexteMathLive(this, i, ' lycee')
             } else {
-              texte += '<br> Quelle est la probabilité de choisir une fille de plus de $20$ ans ?<br>'
+              texte +=
+                '<br> Quelle est la probabilité de choisir une fille de plus de $20$ ans ?<br>'
               this.canEnonce += `${tableau}<br>
             Quelle est la probabilité de choisir une fille de plus de $20$ ans ?`
               this.canReponseACompleter = ''
@@ -107,7 +142,7 @@ export default class CalculProbaTableauEff extends Exercice {
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           break
 
-        case 3:// p_V(F)
+        case 3: // p_V(F)
           texte += `${tableau}`
           if (choice([true, false])) {
             if (this.interactif) {
@@ -119,14 +154,18 @@ export default class CalculProbaTableauEff extends Exercice {
               this.canReponseACompleter = '$P_V(F)=\\ldots$'
             }
           } else {
-            texte += `${choix
-                            ? '<br>Quelle est la probabilité de choisir une fille sachant qu’elle a plus de $20$ ans ?'
-                            : '<br>La personne choisie a plus de $20$ ans. Quelle est la probabilité que ce soit une fille ?'}`
+            texte += `${
+              choix
+                ? '<br>Quelle est la probabilité de choisir une fille sachant qu’elle a plus de $20$ ans ?'
+                : '<br>La personne choisie a plus de $20$ ans. Quelle est la probabilité que ce soit une fille ?'
+            }`
             texte += ajouteChampTexteMathLive(this, i, ' lycee')
             this.canEnonce += `${tableau}<br>
-            ${choix
-                            ? 'Quelle est la probabilité de choisir une fille sachant qu’elle a plus de $20$ ans ?'
-                            : 'La personne choisie a plus de $20$ ans. Quelle est la probabilité que ce soit une fille ?'}`
+            ${
+              choix
+                ? 'Quelle est la probabilité de choisir une fille sachant qu’elle a plus de $20$ ans ?'
+                : 'La personne choisie a plus de $20$ ans. Quelle est la probabilité que ce soit une fille ?'
+            }`
             this.canReponseACompleter = ''
           }
           texteCorr = `La probabilité est donnée par : <br>
@@ -136,7 +175,7 @@ export default class CalculProbaTableauEff extends Exercice {
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           break
 
-        case 4:// p(FinterVbarre))
+        case 4: // p(FinterVbarre))
           texte += `${tableau}`
           if (choice([true, false])) {
             if (this.interactif) {
@@ -149,10 +188,12 @@ export default class CalculProbaTableauEff extends Exercice {
             }
           } else {
             if (this.interactif) {
-              texte += '<br>Quelle est la probabilité de choisir une fille de moins de $20$ ans ?'
+              texte +=
+                '<br>Quelle est la probabilité de choisir une fille de moins de $20$ ans ?'
               texte += ajouteChampTexteMathLive(this, i, ' lycee')
             } else {
-              texte += '<br>Quelle est la probabilité de choisir une fille de moins de $20$ ans ?<br>'
+              texte +=
+                '<br>Quelle est la probabilité de choisir une fille de moins de $20$ ans ?<br>'
               this.canEnonce += `${tableau}<br>
               Quelle est la probabilité de choisir une fille de moins de $20$ ans ?`
               this.canReponseACompleter = ''
@@ -166,7 +207,7 @@ export default class CalculProbaTableauEff extends Exercice {
 
           break
 
-        case 5:// p_Vbarre(Fbarre)
+        case 5: // p_Vbarre(Fbarre)
           texte += `${tableau}`
           if (choice([true, false])) {
             if (this.interactif) {
@@ -176,17 +217,22 @@ export default class CalculProbaTableauEff extends Exercice {
               texte += `<br>
             Déterminer $P_{\\overline{V}}(\\overline{F})$. `
               this.canEnonce += `${tableau}<br>`
-              this.canReponseACompleter = '$P_{\\overline{V}}(\\overline{F})=\\ldots$'
+              this.canReponseACompleter =
+                '$P_{\\overline{V}}(\\overline{F})=\\ldots$'
             }
           } else {
-            texte += `${choix
-                            ? '<br>Quelle est la probabilité de choisir un garçon sachant qu’il a moins de $20$ ans ?'
-                            : '<br> La personne choisie a moins de $20$ ans. Quelle est la probabilité que ce soit un garçon ?'}`
+            texte += `${
+              choix
+                ? '<br>Quelle est la probabilité de choisir un garçon sachant qu’il a moins de $20$ ans ?'
+                : '<br> La personne choisie a moins de $20$ ans. Quelle est la probabilité que ce soit un garçon ?'
+            }`
             texte += ajouteChampTexteMathLive(this, i, ' lycee')
             this.canEnonce += `${tableau}<br>
-            ${choix
-                            ? 'Quelle est la probabilité de choisir un garçon sachant qu’il a moins de $20$ ans ?'
-                            : ' La personne choisie a moins de $20$ ans. Quelle est la probabilité que ce soit un garçon ?'}`
+            ${
+              choix
+                ? 'Quelle est la probabilité de choisir un garçon sachant qu’il a moins de $20$ ans ?'
+                : ' La personne choisie a moins de $20$ ans. Quelle est la probabilité que ce soit un garçon ?'
+            }`
             this.canReponseACompleter = ''
           }
           texteCorr = `La probabilité est donnée par : <br>
@@ -196,7 +242,7 @@ export default class CalculProbaTableauEff extends Exercice {
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           break
 
-        case 6:// p_F(V)
+        case 6: // p_F(V)
           texte += `${tableau}`
           if (choice([true, false])) {
             if (this.interactif) {
@@ -208,14 +254,18 @@ export default class CalculProbaTableauEff extends Exercice {
               this.canReponseACompleter = '$P_{F}(V)=\\ldots$'
             }
           } else {
-            texte += `${choix
-                            ? '<br> Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est une fille ?'
-                            : '<br> La personne choisie est une fille. Quelle est la probabilité qu’elle ait plus de $20$ ans  ?'}`
+            texte += `${
+              choix
+                ? '<br> Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est une fille ?'
+                : '<br> La personne choisie est une fille. Quelle est la probabilité qu’elle ait plus de $20$ ans  ?'
+            }`
             texte += ajouteChampTexteMathLive(this, i, ' lycee')
             this.canEnonce += `${tableau}<br>
-            ${choix
-                            ? ' Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est une fille ?'
-                            : 'La personne choisie est une fille. Quelle est la probabilité qu’elle ait plus de $20$ ans  ?'}`
+            ${
+              choix
+                ? ' Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est une fille ?'
+                : 'La personne choisie est une fille. Quelle est la probabilité qu’elle ait plus de $20$ ans  ?'
+            }`
             this.canReponseACompleter = ''
           }
           texteCorr = `La probabilité est donnée par : <br>
@@ -226,7 +276,7 @@ export default class CalculProbaTableauEff extends Exercice {
 
           break
 
-        case 7:// p_Farre(V)
+        case 7: // p_Farre(V)
           texte += `${tableau}`
           if (choice([true, false])) {
             if (this.interactif) {
@@ -238,14 +288,18 @@ export default class CalculProbaTableauEff extends Exercice {
               this.canReponseACompleter = '$P_{\\overline{F}}(V)=\\ldots$'
             }
           } else {
-            texte += `${choix
-                            ? '<br>Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est un garçon ?'
-                            : '<br>La personne choisie est un garçon. Quelle est la probabilité qu’il ait plus de $20$ ans  ?'}`
+            texte += `${
+              choix
+                ? '<br>Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est un garçon ?'
+                : '<br>La personne choisie est un garçon. Quelle est la probabilité qu’il ait plus de $20$ ans  ?'
+            }`
             texte += ajouteChampTexteMathLive(this, i, ' lycee')
             this.canEnonce += `${tableau}<br>
-            ${choix
-                            ? 'Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est un garçon ?'
-                            : 'La personne choisie est un garçon. Quelle est la probabilité qu’il ait plus de $20$ ans  ?'}`
+            ${
+              choix
+                ? 'Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est un garçon ?'
+                : 'La personne choisie est un garçon. Quelle est la probabilité qu’il ait plus de $20$ ans  ?'
+            }`
             this.canReponseACompleter = ''
           }
 
@@ -257,7 +311,7 @@ export default class CalculProbaTableauEff extends Exercice {
 
           break
 
-        case 8:// p(Vbarre)
+        case 8: // p(Vbarre)
           texte += `${tableau}`
           if (choice([true, false])) {
             if (this.interactif) {
@@ -270,10 +324,12 @@ export default class CalculProbaTableauEff extends Exercice {
             }
           } else {
             if (this.interactif) {
-              texte += '<br>Quelle est la probabilité de choisir une personne de moins de $20$ ans ?'
+              texte +=
+                '<br>Quelle est la probabilité de choisir une personne de moins de $20$ ans ?'
               texte += ajouteChampTexteMathLive(this, i, ' lycee')
             } else {
-              texte += '<br>  Quelle est la probabilité de choisir une personne de moins de $20$ ans ?'
+              texte +=
+                '<br>  Quelle est la probabilité de choisir une personne de moins de $20$ ans ?'
               this.canEnonce += `${tableau}<br>
               Quelle est la probabilité de choisir une personne de moins de $20$ ans ?`
               this.canReponseACompleter = ''

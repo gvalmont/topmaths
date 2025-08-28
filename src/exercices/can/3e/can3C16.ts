@@ -1,5 +1,5 @@
 import NotationScientifique from '../../4e/4C32'
-export const titre = 'Donner l\'écriture scientifique'
+export const titre = "Donner l'écriture scientifique"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,11 +14,11 @@ export const uuid = '74fc9'
 
 export const refs = {
   'fr-fr': ['can3C16'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 class NotSci extends NotationScientifique {
   can: boolean
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.sup2 = 3

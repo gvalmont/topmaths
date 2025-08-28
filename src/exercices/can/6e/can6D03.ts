@@ -1,5 +1,8 @@
 import { bleuMathalea } from '../../../lib/colors'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomM } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils'
@@ -19,10 +22,10 @@ export const uuid = '05b2e'
 
 export const refs = {
   'fr-fr': ['can6D03', '6M4B-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculDureeMinutes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
@@ -31,7 +34,7 @@ export default class CalculDureeMinutes extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' minutes' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(13, 15)
     const b = a + 1
     const c = randint(1, 4) * 10
@@ -42,12 +45,15 @@ export default class CalculDureeMinutes extends ExerciceSimple {
 
     Combien de temps a duré son trajet ?`
     this.correction = `$${b}$h${sp(1)}$${d}-${a}$h${sp(1)}$${c}=${miseEnEvidence(this.reponse)}$ min`
-    this.correction += texteEnCouleur(`<br> Mentalement : <br>
+    this.correction += texteEnCouleur(
+      `<br> Mentalement : <br>
       On part de $${a}$h${sp(1)}$${c}$ et  on complète par $${(a + 1) * 60 - (a * 60 + c)}$ min pour arriver
       à $${a + 1}$h. <br>
       Puis on ajoute  les $${d}$ minutes pour arriver à $${b}$h${sp(1)}$${d}$.<br>
       Le résultat est donc donné par $${(a + 1) * 60 - (a * 60 + c)}+${d}=${this.reponse}$ min.
-          `, bleuMathalea)
+          `,
+      bleuMathalea,
+    )
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ minutes'
   }

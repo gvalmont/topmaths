@@ -6,7 +6,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'c82d0'
 export const refs = {
   'fr-fr': ['3L1QCM-08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,12 +21,12 @@ export const dateDePublication = '07/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class MetropoleSep22Ex1Q4 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b: number, c: number): void {
+  private appliquerLesValeurs(a: number, b: number, c: number): void {
     const s1 = `-\\dfrac{${String(b)}}{${String(a)}}`
     this.reponses = [
-        `$${s1}$ et $${String(c)}$`,
-        `$${String(-b)}$ et $${String(-c)}$`,
-        `$${String(a)}$ et $${String(-c)}$`
+      `$${s1}$ et $${String(c)}$`,
+      `$${String(-b)}$ et $${String(-c)}$`,
+      `$${String(a)}$ et $${String(-c)}$`,
     ]
     this.enonce = `Les solutions de l'équation  $(${String(a)}x+${String(b)})(-x+${String(c)})$ sont :`
     this.correction = `Un produit de facteurs est nul si l'un des facteurs est nul , soit <br>
@@ -61,7 +61,7 @@ export default class MetropoleSep22Ex1Q4 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

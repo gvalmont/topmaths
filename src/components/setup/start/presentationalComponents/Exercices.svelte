@@ -13,11 +13,11 @@
 >
   <div class="flex flex-col md:mt-9 xl:mt-0">
     {#each exercicesParams as paramsExercice, i (paramsExercice)}
-      <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+      <div id="exo{i}" animate:flip="{{ duration: (d) => 30 * Math.sqrt(d) }}">
         <Exercice
           {paramsExercice}
-          indiceExercice={i}
-          indiceLastExercice={exercicesParams.length - 1}
+          indiceExercice="{i}"
+          indiceLastExercice="{exercicesParams.length - 1}"
           on:exerciseRemoved
         />
       </div>

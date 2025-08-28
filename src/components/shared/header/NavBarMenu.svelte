@@ -7,7 +7,7 @@
   export let id: string
   export let isNavBarVisible: boolean
 
-  function handleClickOnEntry (i: number) {
+  function handleClickOnEntry(i: number) {
     isMenuOpen = false
     isNavBarVisible = false
     const action = actions[i]
@@ -41,16 +41,16 @@ https://codesandbox.io/s/tailwind-dropdown-with-group-hover-gm9k9?file=/tailwind
     class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl font-extrabold relative flex lg:block py-6 px-2 lg:px-8 items-center"
   >
     <span class="mr-1">{titre}</span>
-    <i class="bx bx-chevron-down" />
+    <i class="bx bx-chevron-down"></i>
   </button>
   <ul class="absolute hidden group-hover:block z-10">
     {#each entrees as entree, i}
       <li>
         <a
           class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-darkest text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest py-2 px-4 block whitespace-no-wrap cursor-pointer"
-          id={[id, '-entree-', i + 1].join('')}
-          on:click={() => handleClickOnEntry(i)}
-          on:keydown={() => handleClickOnEntry(i)}
+          id="{[id, '-entree-', i + 1].join('')}"
+          on:click="{() => handleClickOnEntry(i)}"
+          on:keydown="{() => handleClickOnEntry(i)}"
           role="button"
           tabindex="0"
         >

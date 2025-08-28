@@ -1,11 +1,30 @@
-import { Point, point, pointSurDroite, TracePoint, tracePoint } from '../../lib/2d/points'
+import {
+  Point,
+  point,
+  pointSurDroite,
+  TracePoint,
+  tracePoint,
+} from '../../lib/2d/points'
 import { DemiDroite, demiDroite, longueur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, translation2Points } from '../../lib/2d/transformations'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { Droite, droite, droiteParPointEtPente, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
-import { angleOriente, codageAngle, CodageAngleDroit } from '../../lib/2d/angles'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import {
+  Droite,
+  droite,
+  droiteParPointEtPente,
+  droiteParPointEtPerpendiculaire,
+} from '../../lib/2d/droites'
+import {
+  angleOriente,
+  codageAngle,
+  CodageAngleDroit,
+} from '../../lib/2d/angles'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
@@ -30,21 +49,23 @@ export const dateDeModifImportante = '24/12/2024'
 export const uuid = '1f334'
 export const refs = {
   'fr-fr': ['5G30-3'],
-  'fr-ch': ['1mG1-3', '11ES2-4']
+  'fr-ch': ['1mG1-3', '11ES2-4'],
 }
 
 // Fonction pour vérifier si tous les points sont dans l'intervalle
-function tousDansIntervalle (points: Point[]): boolean {
-  return points.every(point => point.x >= -8 && point.x <= 8 && point.y >= -8 && point.y <= 8)
+function tousDansIntervalle(points: Point[]): boolean {
+  return points.every(
+    (point) => point.x >= -8 && point.x <= 8 && point.y >= -8 && point.y <= 8,
+  )
 }
 
 export default class VocabulaireAngles extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
     this.besoinFormulaireTexte = [
-      'Vocabulaire de l\'exercice',
-        `Nombres séparés par des tirets :
+      "Vocabulaire de l'exercice",
+      `Nombres séparés par des tirets :
     1 : Correspondants
     2 : Alternes-internes
     3 : Supplémentaires
@@ -53,36 +74,49 @@ export default class VocabulaireAngles extends Exercice {
     6 : Côté
     7 : Sommet
     8 : Adjacent
-    9 : Mélange`
+    9 : Mélange`,
     ]
     this.besoinFormulaire2CaseACocher = ['Avec distracteur', false]
     this.besoinFormulaire3CaseACocher = ['En noir et blanc', false]
     this.sup = 9
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 8,
       melange: 9,
       defaut: 9,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texteCorr = ''
       const objets = []
 
       const origine = point(0, 0)
 
-      let ARot, BRot, CRot, DRot, IRot, JRot, E, F, G, H, d1Rot, d2Rot, d3Rot, d4Rot
+      let ARot,
+        BRot,
+        CRot,
+        DRot,
+        IRot,
+        JRot,
+        E,
+        F,
+        G,
+        H,
+        d1Rot,
+        d2Rot,
+        d3Rot,
+        d4Rot
       const distracteur = this.sup2
       do {
         const xA = randint(4, 8)
         const yA = randint(4, 8)
-        const xB = xA * (-1)
-        const yB = yA * (-1)
+        const xB = xA * -1
+        const yB = yA * -1
 
         const A = point(xA, yA)
         const B = point(xB, yB)
@@ -116,13 +150,29 @@ export default class VocabulaireAngles extends Exercice {
         // J = pointSurDroite(d4, ((C.x + E.x) / 2), 'J')
         // IRot = rotation(I, origine, choix)
         // JRot = rotation(J, origine, choix)
-        IRot = pointSurDroite(d4Rot, ((CRot.x + ARot.x) / 2), 'I')
-        JRot = pointSurDroite(d4Rot, ((CRot.x + E.x) / 2), 'I')
+        IRot = pointSurDroite(d4Rot, (CRot.x + ARot.x) / 2, 'I')
+        JRot = pointSurDroite(d4Rot, (CRot.x + E.x) / 2, 'I')
       } while (!tousDansIntervalle([ARot, BRot, CRot, DRot, E, F, G, H])) // Afin de ne pas avoir de placements de points qui puissent changer le format de la fenêtre prévue
-      const tracePts = tracePoint(ARot, BRot, CRot, DRot, E, F, G, H, IRot, JRot, this.sup3 ? 'black' : 'red') // Variable qui trace les points avec une croix
+      const tracePts = tracePoint(
+        ARot,
+        BRot,
+        CRot,
+        DRot,
+        E,
+        F,
+        G,
+        H,
+        IRot,
+        JRot,
+        this.sup3 ? 'black' : 'red',
+      ) // Variable qui trace les points avec une croix
       tracePts.epaisseur = 2
 
-      const tabAngles : [CodageAngle | CodageAngleDroit, CodageAngle | CodageAngleDroit | Point | DemiDroite, CodageAngle | CodageAngleDroit][] = []
+      const tabAngles: [
+        CodageAngle | CodageAngleDroit,
+        CodageAngle | CodageAngleDroit | Point | DemiDroite,
+        CodageAngle | CodageAngleDroit,
+      ][] = []
       const choixQuestion = number(typesDeQuestionsDisponibles[i]) - 1
       let texteSousFigure = ''
       switch (choixQuestion) {
@@ -131,75 +181,335 @@ export default class VocabulaireAngles extends Exercice {
           texteCorr = `Ce sont des angles ${texteEnCouleurEtGras('correspondants')}.`
           // tabAngles contient deux angles correspondants puis un angle droit qui ne chevauche pas ces angles
           tabAngles.push([
-            codageAngle(E, CRot, G, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(BRot, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              E,
+              CRot,
+              G,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              BRot,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(E, CRot, DRot, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(BRot, DRot, H, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              E,
+              CRot,
+              DRot,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              BRot,
+              DRot,
+              H,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea),
           ])
           tabAngles.push([
-            codageAngle(ARot, CRot, DRot, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(F, DRot, H, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              ARot,
+              CRot,
+              DRot,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              F,
+              DRot,
+              H,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea),
           ])
           tabAngles.push([
-            codageAngle(ARot, CRot, G, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(F, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              ARot,
+              CRot,
+              G,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              F,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce qui caractérise les angles qui ne sont pas des angles droits ? '
-            : 'Qu\'est-ce qui caractérise les angles bleu et rouge ? '
+            ? "Qu'est-ce qui caractérise les angles qui ne sont pas des angles droits ? "
+            : "Qu'est-ce qui caractérise les angles bleu et rouge ? "
           break
         case 1:
           // Angles alternes-internes
           texteCorr = `Ce sont des angles ${texteEnCouleurEtGras('alternes-internes')}.`
           // tabAngles contient deux angles alternes-internes puis un angle droit qui ne chevauche pas ces angles
           tabAngles.push([
-            codageAngle(ARot, CRot, DRot, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(BRot, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              ARot,
+              CRot,
+              DRot,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              BRot,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea),
           ])
           tabAngles.push([
-            codageAngle(E, CRot, DRot, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(CRot, DRot, F, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              E,
+              CRot,
+              DRot,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              CRot,
+              DRot,
+              F,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea),
           ])
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce qui caractérise les angles qui ne sont pas des angles droits ? '
-            : 'Qu\'est-ce qui caractérise les angles bleu et rouge ? '
+            ? "Qu'est-ce qui caractérise les angles qui ne sont pas des angles droits ? "
+            : "Qu'est-ce qui caractérise les angles bleu et rouge ? "
           break
         case 2:
           // Angles supplémentaires
           texteCorr = `Ce sont des angles  ${texteEnCouleurEtGras('supplémentaires')} car la somme de leurs mesures est égale à 180° (angle plat).`
           // tabAngles contient deux angles supplémentaires puis un angle droit qui ne chevauche pas ces angles
           tabAngles.push([
-            codageAngle(G, DRot, BRot, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(F, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              G,
+              DRot,
+              BRot,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              F,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(F, DRot, H, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(F, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              F,
+              DRot,
+              H,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              F,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(ARot, CRot, G, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(ARot, CRot, DRot, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+            codageAngle(
+              ARot,
+              CRot,
+              G,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              ARot,
+              CRot,
+              DRot,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
             //  codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
-            codageAngle(DRot, CRot, -90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              DRot,
+              CRot,
+              -90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(ARot, CRot, G, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(E, CRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              ARot,
+              CRot,
+              G,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              E,
+              CRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce qui caractérise les angles adjacents qui ne sont pas des angles droits ? '
-            : 'Qu\'est-ce qui caractérise les angles adjacents bleu et rouge ? '
+            ? "Qu'est-ce qui caractérise les angles adjacents qui ne sont pas des angles droits ? "
+            : "Qu'est-ce qui caractérise les angles adjacents bleu et rouge ? "
           break
         case 3:
           // Angles opposés par le sommet
@@ -207,128 +517,543 @@ export default class VocabulaireAngles extends Exercice {
           // tabAngles contient deux angles opposés par le sommet puis un angle droit qui ne chevauche pas ces angles
           if (Math.abs(angleOriente(G, CRot, ARot)) < 90) {
             tabAngles.push([
-              codageAngle(G, CRot, ARot, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-              codageAngle(E, CRot, H, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-              codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              codageAngle(
+                G,
+                CRot,
+                ARot,
+                2.25,
+                '',
+                this.sup3 ? 'black' : 'red',
+                2,
+                1,
+                this.sup3 ? 'black' : 'red',
+              ),
+              codageAngle(
+                E,
+                CRot,
+                H,
+                1.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+              ),
+              codageAngle(
+                DRot,
+                CRot,
+                90,
+                1,
+                '',
+                vertMathalea,
+                2,
+                1,
+                vertMathalea,
+              ),
             ])
           }
           tabAngles.push([
-            codageAngle(F, DRot, G, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-            codageAngle(BRot, DRot, H, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              F,
+              DRot,
+              G,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ),
+            codageAngle(
+              BRot,
+              DRot,
+              H,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(F, DRot, H, 2.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'), // OK
-            codageAngle(BRot, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              F,
+              DRot,
+              H,
+              2.25,
+              '',
+              this.sup3 ? 'black' : 'red',
+              2,
+              1,
+              this.sup3 ? 'black' : 'red',
+            ), // OK
+            codageAngle(
+              BRot,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce qui caractérise les angles qui ne sont pas des angles droits ? '
-            : 'Qu\'est-ce qui caractérise les angles bleu et rouge ? '
+            ? "Qu'est-ce qui caractérise les angles qui ne sont pas des angles droits ? "
+            : "Qu'est-ce qui caractérise les angles bleu et rouge ? "
           break
         case 4:
           // Angles complémentaires
           texteCorr = `Ce sont des angles  ${texteEnCouleurEtGras('complémentaires')} car la somme de leurs mesures est égale à 90° (angle droit).`
           // tabAngles contient deux angles complémentaires puis un angle droit qui chevauche ou pas ces angles selon si c'est un distracteur ou pas
-          if (arrondi(Math.abs(angleOriente(IRot, CRot, ARot)) + Math.abs(angleOriente(G, CRot, ARot)), 0) === 90) {
+          if (
+            arrondi(
+              Math.abs(angleOriente(IRot, CRot, ARot)) +
+                Math.abs(angleOriente(G, CRot, ARot)),
+              0,
+            ) === 90
+          ) {
             tabAngles.push([
-              codageAngle(IRot, CRot, ARot, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-              codageAngle(G, CRot, ARot, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-              codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              codageAngle(
+                IRot,
+                CRot,
+                ARot,
+                3.25,
+                '',
+                this.sup3 ? 'black' : 'red',
+                2,
+                1,
+                this.sup3 ? 'black' : 'red',
+              ),
+              codageAngle(
+                G,
+                CRot,
+                ARot,
+                2.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+              ),
+              codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea),
             ])
-          } else if (arrondi(Math.abs(angleOriente(IRot, CRot, ARot)) + Math.abs(angleOriente(DRot, CRot, ARot)), 0) === 90) {
+          } else if (
+            arrondi(
+              Math.abs(angleOriente(IRot, CRot, ARot)) +
+                Math.abs(angleOriente(DRot, CRot, ARot)),
+              0,
+            ) === 90
+          ) {
             tabAngles.push([
-              codageAngle(DRot, CRot, ARot, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-              codageAngle(IRot, CRot, ARot, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-              codageAngle(DRot, CRot, -90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              codageAngle(
+                DRot,
+                CRot,
+                ARot,
+                3.25,
+                '',
+                this.sup3 ? 'black' : 'red',
+                2,
+                1,
+                this.sup3 ? 'black' : 'red',
+              ),
+              codageAngle(
+                IRot,
+                CRot,
+                ARot,
+                2.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+              ),
+              codageAngle(
+                DRot,
+                CRot,
+                -90,
+                1,
+                '',
+                vertMathalea,
+                2,
+                1,
+                vertMathalea,
+              ),
             ])
-          } else // if (Math.abs(angleOriente(DRot, CRot, E)) < 90) {
-            if (Math.abs(angleOriente(JRot, CRot, E)) < Math.abs(angleOriente(IRot, CRot, E))) {
-              tabAngles.push([
-                codageAngle(DRot, CRot, E, 3, '', 'black', 2, 1, this.sup3 ? 'white' : 'red'),
-                // codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-                codageAngle(JRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-                codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
-              ])
-            } else {
-              tabAngles.push([
-                codageAngle(DRot, CRot, E, 3, '', 'black', 2, 1, this.sup3 ? 'white' : 'red'),
-                // codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-                codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-                codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
-              ])
-              // }
-            }
+          } else if (
+            Math.abs(angleOriente(JRot, CRot, E)) <
+            Math.abs(angleOriente(IRot, CRot, E))
+          ) {
+            // if (Math.abs(angleOriente(DRot, CRot, E)) < 90) {
+            tabAngles.push([
+              codageAngle(
+                DRot,
+                CRot,
+                E,
+                3,
+                '',
+                'black',
+                2,
+                1,
+                this.sup3 ? 'white' : 'red',
+              ),
+              // codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+              codageAngle(
+                JRot,
+                CRot,
+                E,
+                2.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+              ),
+              codageAngle(
+                DRot,
+                CRot,
+                90,
+                1,
+                '',
+                vertMathalea,
+                2,
+                1,
+                vertMathalea,
+              ),
+            ])
+          } else {
+            tabAngles.push([
+              codageAngle(
+                DRot,
+                CRot,
+                E,
+                3,
+                '',
+                'black',
+                2,
+                1,
+                this.sup3 ? 'white' : 'red',
+              ),
+              // codageAngle(IRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+              codageAngle(
+                IRot,
+                CRot,
+                E,
+                2.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+              ),
+              codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea),
+            ])
+            // }
+          }
           if (distracteur) {
             if (Math.abs(angleOriente(G, CRot, ARot)) > 90) {
               tabAngles.push([
-                codageAngle(IRot, CRot, ARot, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-                codageAngle(DRot, CRot, ARot, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-                codageAngle(DRot, CRot, -90, 1, '', vertMathalea, 2, 1, vertMathalea)
+                codageAngle(
+                  IRot,
+                  CRot,
+                  ARot,
+                  3.25,
+                  '',
+                  this.sup3 ? 'black' : 'red',
+                  2,
+                  1,
+                  this.sup3 ? 'black' : 'red',
+                ),
+                codageAngle(
+                  DRot,
+                  CRot,
+                  ARot,
+                  2.75,
+                  '',
+                  this.sup3 ? 'black' : bleuMathalea,
+                  2,
+                  1,
+                  this.sup3 ? 'black' : bleuMathalea,
+                ),
+                codageAngle(
+                  DRot,
+                  CRot,
+                  -90,
+                  1,
+                  '',
+                  vertMathalea,
+                  2,
+                  1,
+                  vertMathalea,
+                ),
               ])
             } else if (Math.abs(angleOriente(JRot, CRot, E)) > 90) {
               tabAngles.push([
-                codageAngle(IRot, CRot, E, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-                codageAngle(DRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-                codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+                codageAngle(
+                  IRot,
+                  CRot,
+                  E,
+                  3.25,
+                  '',
+                  this.sup3 ? 'black' : 'red',
+                  2,
+                  1,
+                  this.sup3 ? 'black' : 'red',
+                ),
+                codageAngle(
+                  DRot,
+                  CRot,
+                  E,
+                  2.75,
+                  '',
+                  this.sup3 ? 'black' : bleuMathalea,
+                  2,
+                  1,
+                  this.sup3 ? 'black' : bleuMathalea,
+                ),
+                codageAngle(
+                  DRot,
+                  CRot,
+                  90,
+                  1,
+                  '',
+                  vertMathalea,
+                  2,
+                  1,
+                  vertMathalea,
+                ),
               ])
             } else if (Math.abs(angleOriente(IRot, CRot, E)) > 90) {
               tabAngles.push([
-                codageAngle(JRot, CRot, E, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-                codageAngle(DRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
-                codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+                codageAngle(
+                  JRot,
+                  CRot,
+                  E,
+                  3.25,
+                  '',
+                  this.sup3 ? 'black' : 'red',
+                  2,
+                  1,
+                  this.sup3 ? 'black' : 'red',
+                ),
+                codageAngle(
+                  DRot,
+                  CRot,
+                  E,
+                  2.75,
+                  '',
+                  this.sup3 ? 'black' : bleuMathalea,
+                  2,
+                  1,
+                  this.sup3 ? 'black' : bleuMathalea,
+                ),
+                codageAngle(
+                  DRot,
+                  CRot,
+                  90,
+                  1,
+                  '',
+                  vertMathalea,
+                  2,
+                  1,
+                  vertMathalea,
+                ),
               ])
             }
           }
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce qui caractérise les angles adjacents qui ne sont pas des angles droits ? '
-            : 'Qu\'est-ce qui caractérise les angles adjacents bleu et rouge ? '
+            ? "Qu'est-ce qui caractérise les angles adjacents qui ne sont pas des angles droits ? "
+            : "Qu'est-ce qui caractérise les angles adjacents bleu et rouge ? "
           break
         case 5:
           // Côté de l'angle
           texteCorr = `C'est un  ${texteEnCouleurEtGras('côté')} de l'angle, une demi-droite.`
           // tabAngles contient un angle et un de ses côtés puis un angle droit qui ne chevauche pas l'angle
           tabAngles.push([
-            codageAngle(BRot, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+            codageAngle(
+              BRot,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
             demiDroite(DRot, BRot, this.sup3 ? 'black' : 'red'),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(BRot, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+            codageAngle(
+              BRot,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
             demiDroite(DRot, G, this.sup3 ? 'black' : 'red'),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(E, CRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+            codageAngle(
+              E,
+              CRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
             demiDroite(CRot, G, this.sup3 ? 'black' : 'red'),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(E, CRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+            codageAngle(
+              E,
+              CRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
             demiDroite(CRot, E, this.sup3 ? 'black' : 'red'),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce que caractérise la demi-droite (plus épaisse que les autres) pour l\'angle ? '
-            : 'Qu\'est-ce que caractérise la demi-droite en couleur pour l\'angle ? '
+            ? "Qu'est-ce que caractérise la demi-droite (plus épaisse que les autres) pour l'angle ? "
+            : "Qu'est-ce que caractérise la demi-droite en couleur pour l'angle ? "
           break
         case 6:
           // Sommet de  l'angle
           texteCorr = `C'est le  ${texteEnCouleurEtGras('sommet')} de l'angle, un point.`
           // tabAngles contient un angle et le sommet de l'angle puis un angle droit qui ne chevauche pas l'angle
           tabAngles.push([
-            codageAngle(BRot, DRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+            codageAngle(
+              BRot,
+              DRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
             point(DRot.x, DRot.y),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           tabAngles.push([
-            codageAngle(E, CRot, G, 1.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea),
+            codageAngle(
+              E,
+              CRot,
+              G,
+              1.75,
+              '',
+              this.sup3 ? 'black' : bleuMathalea,
+              2,
+              1,
+              this.sup3 ? 'black' : bleuMathalea,
+            ),
             point(CRot.x, CRot.y),
-            codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+            codageAngle(
+              DRot,
+              CRot,
+              90,
+              1,
+              '',
+              vertMathalea,
+              2,
+              1,
+              vertMathalea,
+            ),
           ])
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce que caractérise le point pour l\'angle ? '
-            : 'Qu\'est-ce que caractérise le point en couleur pour l\'angle ? '
+            ? "Qu'est-ce que caractérise le point pour l'angle ? "
+            : "Qu'est-ce que caractérise le point en couleur pour l'angle ? "
           break
         case 7:
           // Angles adjacents (non complémentaires)
@@ -336,19 +1061,118 @@ export default class VocabulaireAngles extends Exercice {
           // tabAngles contient deux angles adjacents (non complémentaires) puis un angle droit qui ne chevauche pas ces angles
           if (Math.abs(angleOriente(G, CRot, ARot)) > 90) {
             tabAngles.push([
-              codageAngle(G, CRot, E, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-              codageAngle(JRot, CRot, E, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea, undefined, undefined, true),
-              codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              codageAngle(
+                G,
+                CRot,
+                E,
+                3.25,
+                '',
+                this.sup3 ? 'black' : 'red',
+                2,
+                1,
+                this.sup3 ? 'black' : 'red',
+              ),
+              codageAngle(
+                JRot,
+                CRot,
+                E,
+                2.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+                undefined,
+                undefined,
+                true,
+              ),
+              codageAngle(
+                DRot,
+                CRot,
+                90,
+                1,
+                '',
+                vertMathalea,
+                2,
+                1,
+                vertMathalea,
+              ),
             ])
             tabAngles.push([
-              codageAngle(G, CRot, E, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-              codageAngle(IRot, CRot, G, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea, undefined, undefined, true),
-              codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              codageAngle(
+                G,
+                CRot,
+                E,
+                3.25,
+                '',
+                this.sup3 ? 'black' : 'red',
+                2,
+                1,
+                this.sup3 ? 'black' : 'red',
+              ),
+              codageAngle(
+                IRot,
+                CRot,
+                G,
+                2.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+                undefined,
+                undefined,
+                true,
+              ),
+              codageAngle(
+                DRot,
+                CRot,
+                90,
+                1,
+                '',
+                vertMathalea,
+                2,
+                1,
+                vertMathalea,
+              ),
             ])
             tabAngles.push([
-              codageAngle(IRot, CRot, ARot, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-              codageAngle(IRot, CRot, G, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea, undefined, undefined, true),
-              codageAngle(DRot, CRot, -90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              codageAngle(
+                IRot,
+                CRot,
+                ARot,
+                3.25,
+                '',
+                this.sup3 ? 'black' : 'red',
+                2,
+                1,
+                this.sup3 ? 'black' : 'red',
+              ),
+              codageAngle(
+                IRot,
+                CRot,
+                G,
+                2.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+                undefined,
+                undefined,
+                true,
+              ),
+              codageAngle(
+                DRot,
+                CRot,
+                -90,
+                1,
+                '',
+                vertMathalea,
+                2,
+                1,
+                vertMathalea,
+              ),
             ])
           } else {
             /*
@@ -359,25 +1183,68 @@ export default class VocabulaireAngles extends Exercice {
               codageAngle(JRot, CRot, -90, 1, '', vertMathalea, 2, 1, vertMathalea)
             ]) */
             tabAngles.push([
-              codageAngle(JRot, CRot, E, 3.25, '', this.sup3 ? 'black' : 'red', 2, 1, this.sup3 ? 'black' : 'red'),
-              codageAngle(JRot, CRot, G, 2.75, '', this.sup3 ? 'black' : bleuMathalea, 2, 1, this.sup3 ? 'black' : bleuMathalea, undefined, undefined, true),
+              codageAngle(
+                JRot,
+                CRot,
+                E,
+                3.25,
+                '',
+                this.sup3 ? 'black' : 'red',
+                2,
+                1,
+                this.sup3 ? 'black' : 'red',
+              ),
+              codageAngle(
+                JRot,
+                CRot,
+                G,
+                2.75,
+                '',
+                this.sup3 ? 'black' : bleuMathalea,
+                2,
+                1,
+                this.sup3 ? 'black' : bleuMathalea,
+                undefined,
+                undefined,
+                true,
+              ),
               // codageAngle(DRot, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
               // codageAngle(G, CRot, 90, 1, '', vertMathalea, 2, 1, vertMathalea)
-              codageAngle(IRot, CRot, -90, 1, '', vertMathalea, 2, 1, vertMathalea)
+              codageAngle(
+                IRot,
+                CRot,
+                -90,
+                1,
+                '',
+                vertMathalea,
+                2,
+                1,
+                vertMathalea,
+              ),
             ])
           }
           texteSousFigure = this.sup3
-            ? 'Qu\'est-ce qui caractérise les angles qui ne sont pas des angles droits ? '
-            : 'Qu\'est-ce qui caractérise les angles bleu et rouge ? '
+            ? "Qu'est-ce qui caractérise les angles qui ne sont pas des angles droits ? "
+            : "Qu'est-ce qui caractérise les angles bleu et rouge ? "
           break
           break
       }
       const choixPossibilitesAngles = range(tabAngles.length - 1)
       const choixAngle = choice(choixPossibilitesAngles)
       const ang1 = tabAngles[choixAngle][0]
-      let objet2 = tabAngles[choixAngle][1] as Point | CodageAngle | CodageAngleDroit | DemiDroite | TracePoint
-      if (choixQuestion === 5 && !(objet2 instanceof Point) && !(objet2 instanceof CodageAngleDroit)) objet2.epaisseur = 3
-      else if (choixQuestion === 6 && (objet2 instanceof Point)) {
+      let objet2 = tabAngles[choixAngle][1] as
+        | Point
+        | CodageAngle
+        | CodageAngleDroit
+        | DemiDroite
+        | TracePoint
+      if (
+        choixQuestion === 5 &&
+        !(objet2 instanceof Point) &&
+        !(objet2 instanceof CodageAngleDroit)
+      )
+        objet2.epaisseur = 3
+      else if (choixQuestion === 6 && objet2 instanceof Point) {
         objet2 = tracePoint(objet2, this.sup3 ? 'black' : 'red')
         objet2.epaisseur = 2
         objet2.taille = 5
@@ -401,28 +1268,28 @@ export default class VocabulaireAngles extends Exercice {
       */
 
       switch (choixQuestion) {
-        case 0 :
-        case 1 :
+        case 0:
+        case 1:
           if (distracteur) {
             objets.push(ang3, d4Rot)
           }
           objets.push(d1Rot, d2Rot)
           break
-        case 2 :
+        case 2:
           if (choixAngle < 2) objets.push(d2Rot)
           else objets.push(d1Rot)
           if (distracteur) {
             objets.push(ang3, d1Rot, d2Rot, d4Rot)
           }
           break
-        case 3 :
+        case 3:
           if (distracteur) {
             objets.push(ang3, d1Rot, d2Rot, d4Rot)
           }
           if (choixAngle === 0 && tabAngles.length === 3) objets.push(d1Rot)
           else objets.push(d2Rot)
           break
-        case 4 :
+        case 4:
           if (distracteur) {
             objets.push(d2Rot)
           }
@@ -442,7 +1309,7 @@ export default class VocabulaireAngles extends Exercice {
             objets.push(ang3, d4Rot)
           }
           break
-        case 7 :
+        case 7:
           if (distracteur) {
             objets.push(ang3, d2Rot)
           }
@@ -452,29 +1319,64 @@ export default class VocabulaireAngles extends Exercice {
       objets.push(ang1, objet2, d3Rot)
 
       const choixTypeAngles = [
-        { label: 'Choisir le type d\'angles', value: '' },
+        { label: "Choisir le type d'angles", value: '' },
         { label: 'correspondants', value: 'correspondants' },
         { label: 'alternes-internes', value: 'alternes-internes' },
         { label: 'supplémentaires', value: 'supplémentaires' },
         { label: 'opposés par le sommet', value: 'opposés par le sommet' },
         { label: 'complémentaires', value: 'complémentaires' },
         { label: 'côté', value: 'côté' },
-        { label: 'sommet', value: 'sommet' }
+        { label: 'sommet', value: 'sommet' },
       ]
-      if (choixQuestion !== 2 && choixQuestion !== 4) choixTypeAngles.push({ label: 'adjacents', value: 'adjacents' })
+      if (choixQuestion !== 2 && choixQuestion !== 4)
+        choixTypeAngles.push({ label: 'adjacents', value: 'adjacents' })
       if (this.interactif) {
         texteSousFigure += choixDeroulant(this, i, choixTypeAngles)
-        handleAnswers(this, i, {
-          bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          reponse: { value: choixTypeAngles[choixQuestion + 1].value, options: { texteSansCasse: true } }
-        }, { formatInteractif: 'listeDeroulante' })
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: (listePoints: number[]) => [
+              Math.min(listePoints[0], listePoints[1]),
+              1,
+            ],
+            reponse: {
+              value: choixTypeAngles[choixQuestion + 1].value,
+              options: { texteSansCasse: true },
+            },
+          },
+          { formatInteractif: 'listeDeroulante' },
+        )
       }
 
       // On impose xmin et le reste pour avoir toujours la même taille de fenêtre.
       let texte = context.isHtml ? '<br>' : ''
-      texte += mathalea2d({ zoom: 1, scale: 0.25, xmin: -8, xmax: 8, ymin: -8, ymax: 8, optionsTikz: ['baseline=(current bounding box.north)'] }, objets) // On trace le graphique
+      texte += mathalea2d(
+        {
+          zoom: 1,
+          scale: 0.25,
+          xmin: -8,
+          xmax: 8,
+          ymin: -8,
+          ymax: 8,
+          optionsTikz: ['baseline=(current bounding box.north)'],
+        },
+        objets,
+      ) // On trace le graphique
       texte += texteSousFigure
-      if (this.questionJamaisPosee(i, ARot.x, ARot.y, BRot.x, BRot.y, CRot.x, CRot.y, choixQuestion)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (
+        this.questionJamaisPosee(
+          i,
+          ARot.x,
+          ARot.y,
+          BRot.x,
+          BRot.y,
+          CRot.x,
+          CRot.y,
+          choixQuestion,
+        )
+      ) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

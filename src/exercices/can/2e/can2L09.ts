@@ -18,10 +18,10 @@ export const uuid = '05bc2'
 
 export const refs = {
   'fr-fr': ['can2L09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ÉcrireUnQuotient extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: '<br> ', texteApres: ' ' }
@@ -29,7 +29,7 @@ export default class ÉcrireUnQuotient extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) {
       case 1:
         {
@@ -125,7 +125,7 @@ export default class ÉcrireUnQuotient extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

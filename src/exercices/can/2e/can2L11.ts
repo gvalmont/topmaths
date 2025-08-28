@@ -1,11 +1,16 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Exprimer une variable en fonction d\'une autre'
+export const titre = "Exprimer une variable en fonction d'une autre"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '12/01/2023'
@@ -13,16 +18,16 @@ export const dateDeModifImportante = '08/06/2024'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora (distracteurs avec ia)
-*/
+ */
 
 export const uuid = 'b5c9c'
 
 export const refs = {
   'fr-fr': ['can2L11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExprimerVariable extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.typeExercice = 'simple'
@@ -30,7 +35,7 @@ export default class ExprimerVariable extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     {
       const a = randint(-9, 9, [0, 1, -1])
       const b = a * choice([-1, 1]) + choice([-1, 1])
@@ -56,19 +61,38 @@ export default class ExprimerVariable extends ExerciceSimple {
           this.correction = `${corr1}<br>`
           this.correction += `${corr2}<br>`
           this.correction += ` que l'on peut écrire également : $${var1}=`
-          this.correction += a === -1 ? `${-c}${ecritureAlgebriqueSauf1(b)}${var2}$.` : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(b)}${var2}}{${-a}}$`
+          this.correction +=
+            a === -1
+              ? `${-c}${ecritureAlgebriqueSauf1(b)}${var2}$.`
+              : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(b)}${var2}}{${-a}}$`
         }
         // 08/06/2024 : customCanonical empêche actuellement d'accepter (3x+5)/6 pour (-3x-5)/(-6). Qd ce sera fait, on enlevera un des deux cas ci-dessous (qui seront équivalents).
-        if (this.versionQcm) { this.reponse = a < 0 ? `$${var1}=\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}$` : `$${var1}=\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}$` } else { this.reponse = a < 0 ? `\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}` : `\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}` }
+        if (this.versionQcm) {
+          this.reponse =
+            a < 0
+              ? `$${var1}=\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}$`
+              : `$${var1}=\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}$`
+        } else {
+          this.reponse =
+            a < 0
+              ? `\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}`
+              : `\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`
+        }
         this.distracteurs = [
           // Erreur : oubli de diviser par le coefficient
-          a < 0 ? `$${var1}=${reduireAxPlusB(b, -c, var2)}$` : `$${var1}=${reduireAxPlusB(-b, c, var2)}$`,
+          a < 0
+            ? `$${var1}=${reduireAxPlusB(b, -c, var2)}$`
+            : `$${var1}=${reduireAxPlusB(-b, c, var2)}$`,
 
           // Erreur de signe dans le numérateur
-          a < 0 ? `$${var1}=\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${-a}}$` : `$${var1}=\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${a}}$`,
+          a < 0
+            ? `$${var1}=\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${-a}}$`
+            : `$${var1}=\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${a}}$`,
 
           // Erreur : inversion complète (comme si on isolait var2)
-          a < 0 ? `$${var1}=-\\dfrac{${c}}{${-a}}${ecritureAlgebriqueSauf1(-b)}${var2}$` : `$${var1}=\\dfrac{${c}}{${a}}${ecritureAlgebriqueSauf1(-b)}${var2}$`
+          a < 0
+            ? `$${var1}=-\\dfrac{${c}}{${-a}}${ecritureAlgebriqueSauf1(-b)}${var2}$`
+            : `$${var1}=\\dfrac{${c}}{${a}}${ecritureAlgebriqueSauf1(-b)}${var2}$`,
         ]
       } else {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
@@ -84,21 +108,38 @@ export default class ExprimerVariable extends ExerciceSimple {
           this.correction = `${corr3}<br>`
           this.correction += `${corr4}`
           this.correction += ` que l'on peut écrire également : $${var2}=`
-          this.correction += a === -1 ? `${-c}${ecritureAlgebriqueSauf1(a)}${var1}$.` : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(a)}${var1}}{${-b}}$`
+          this.correction +=
+            a === -1
+              ? `${-c}${ecritureAlgebriqueSauf1(a)}${var1}$.`
+              : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(a)}${var1}}{${-b}}$`
         }
         // 08/06/2024 : customCanonical empêche actuellement d'accepter (3x+5)/6 pour (-3x-5)/(-6). Qd ce sera fait, on enlevera un des deux cas ci-dessous (qui seront équivalents).
         if (this.versionQcm) {
-          this.reponse = b < 0 ? `$${var2}=\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}$` : `$${var2}=\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}$`
-        } else { this.reponse = b < 0 ? `\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}` : `\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}` }
+          this.reponse =
+            b < 0
+              ? `$${var2}=\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}$`
+              : `$${var2}=\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}$`
+        } else {
+          this.reponse =
+            b < 0
+              ? `\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}`
+              : `\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`
+        }
         this.distracteurs = [
           // Erreur : oubli de diviser par le coefficient
-          b < 0 ? `$${var2}=${reduireAxPlusB(a, -c, var1)}$` : `$${var2}=${reduireAxPlusB(-a, c, var1)}$`,
+          b < 0
+            ? `$${var2}=${reduireAxPlusB(a, -c, var1)}$`
+            : `$${var2}=${reduireAxPlusB(-a, c, var1)}$`,
 
           // Erreur de signe dans le numérateur
-          b < 0 ? `$${var2}=\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${-b}}$` : `$${var2}=\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${b}}$`,
+          b < 0
+            ? `$${var2}=\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${-b}}$`
+            : `$${var2}=\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${b}}$`,
 
           // Erreur : inversion complète (comme si on isolait var2)
-          a < 0 ? `$${var2}=-\\dfrac{${c}}{${-a}}${ecritureAlgebriqueSauf1(-b)}${var1}$` : `$${var2}=\\dfrac{${c}}{${a}}${ecritureAlgebriqueSauf1(-b)}${var1}$`
+          a < 0
+            ? `$${var2}=-\\dfrac{${c}}{${-a}}${ecritureAlgebriqueSauf1(-b)}${var1}$`
+            : `$${var2}=\\dfrac{${c}}{${a}}${ecritureAlgebriqueSauf1(-b)}${var1}$`,
         ]
       }
     }
@@ -115,7 +156,7 @@ export default class ExprimerVariable extends ExerciceSimple {
     // Fin de cette uniformisation
     this.correction += '.'
 
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

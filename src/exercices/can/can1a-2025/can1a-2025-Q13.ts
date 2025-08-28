@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '9b711'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q13 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +27,7 @@ export default class Can2025N5Q13 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 7 : randint(4, 8)
     const b = this.canOfficielle ? 11 : randint(9, 13)
     const c = 20 - a
@@ -35,7 +35,11 @@ export default class Can2025N5Q13 extends ExerciceSimple {
     const moy = (a + b + c + d) / 4
     this.reponse = d
     this.question = `La moyenne de $${a}$, $${b}$, $${c}$ et d'un nombre inconnu $n$ est égale à $${moy}$.<br>`
-    if (this.interactif) { this.question += '$n=$' } else { this.question += '$n=\\ldots$' }
+    if (this.interactif) {
+      this.question += '$n=$'
+    } else {
+      this.question += '$n=\\ldots$'
+    }
     this.correction = `Puisque la moyenne de ces quatre nombres est $${moy}$, la somme de ces quatre nombres est $4\\times ${moy}=${4 * moy}$.<br>
              La valeur de $n$ est donnée par :  $${4 * moy}-${a}-${b}-${c}=${miseEnEvidence(texNombre(this.reponse))}$.`
 

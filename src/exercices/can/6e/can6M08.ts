@@ -21,16 +21,16 @@ export const uuid = 'bae27'
 
 export const refs = {
   'fr-fr': ['can6M08', '6M2C-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class QuestionDAires extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const a = randint(2, 9)
       const b = randint(2, 9, a)
       const c = randint(1, 3)
@@ -50,12 +50,12 @@ export default class QuestionDAires extends Exercice {
         propositions: [
           {
             texte: 'Vrai',
-            statut: VF === 'V'
+            statut: VF === 'V',
           },
           {
             texte: 'Faux',
-            statut: VF === 'F'
-          }
+            statut: VF === 'F',
+          },
         ],
         options: { ordered: true, radio: true },
       }

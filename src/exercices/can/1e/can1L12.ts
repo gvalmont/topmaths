@@ -1,11 +1,16 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 
-export const titre = 'Résoudre une inéquation du second degré (avec une forme factorisée)'
+export const titre =
+  'Résoudre une inéquation du second degré (avec une forme factorisée)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -21,22 +26,32 @@ export const uuid = '7c76a'
 
 export const refs = {
   'fr-fr': ['can1L12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TableauSignesSecondDegre extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const coul0 = 'blue'
-    let texte, texteCorr, a, b, c, solution1, solution2, solution3, solution4, inegalite, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(1, 9) * choice([-1, 1])// coefficient a
-      b = randint(1, 9) * choice([-1, 1])// racine1
-      c = randint(1, 9, [b, -b]) * choice([-1, 1])// racine2
+    let texte,
+      texteCorr,
+      a,
+      b,
+      c,
+      solution1,
+      solution2,
+      solution3,
+      solution4,
+      inegalite,
+      props
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      a = randint(1, 9) * choice([-1, 1]) // coefficient a
+      b = randint(1, 9) * choice([-1, 1]) // racine1
+      c = randint(1, 9, [b, -b]) * choice([-1, 1]) // racine2
       texteCorr = `$${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)})
         =\\mathbf{\\color{${coul0}}{${rienSi1(a)}}}\\color{black}(x-\\mathbf{\\color{${coul0}}{${ecritureParentheseSiNegatif(b)}}}\\color{black})(x-\\mathbf{\\color{${coul0}}{${ecritureParentheseSiNegatif(c)}}}\\color{black})$ 
         est de la forme $${miseEnEvidence('a(x-x_1)(x-x_2)', 'blue')}$
@@ -45,24 +60,32 @@ export default class TableauSignesSecondDegre extends Exercice {
         Cette expression est du signe de $a$ sauf entre ses racines.<br>
        `
       switch (choice([1, 2])) {
-        case 1 :// cas a(x-x1)(x-x2)>0
+        case 1: // cas a(x-x1)(x-x2)>0
           inegalite = choice(['>', '\\geqslant'])
           if (inegalite === '>') {
-            solution1 = `${a > 0
-? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`
-            solution2 = `${a < 0
-? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`
+            solution1 = `${
+              a > 0
+                ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
+                : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`
+            }`
+            solution2 = `${
+              a < 0
+                ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
+                : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`
+            }`
             solution3 = `$[${b > c ? `${-b}` : `${-c}`}\\,;\\,${b > c ? `${-c}` : `${-b}`}]$`
             solution4 = `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
           } else {
-            solution1 = `${a > 0
-            ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                      : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`
-            solution2 = `${a < 0
-            ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                      : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`
+            solution1 = `${
+              a > 0
+                ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
+                : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`
+            }`
+            solution2 = `${
+              a < 0
+                ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
+                : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`
+            }`
             solution3 = `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`
             solution4 = `$]-\\infty\\,;\\,${b > c ? `${-b}` : `${-c}`}]\\cup[${b > c ? `${-c}` : `${-b}`}\\,;\\,+\\infty[$`
           }
@@ -74,22 +97,21 @@ export default class TableauSignesSecondDegre extends Exercice {
             propositions: [
               {
                 texte: solution1,
-                statut: true
+                statut: true,
               },
               {
                 texte: solution2,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution3,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution4,
-                statut: false
-              }
-            ]
-
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -106,36 +128,48 @@ export default class TableauSignesSecondDegre extends Exercice {
 Il est donc positif entre ses racines. On en déduit que l'ensemble des solutions est `
             if (inegalite === '>') {
               texteCorr += `$${miseEnEvidence(']')}${b > c ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}\\,${miseEnEvidence(';')}\\,${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}${miseEnEvidence('[')}$. `
-            } else { texteCorr += `$${miseEnEvidence('[')}${b > c ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}\\,${miseEnEvidence(';')}\\,${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}${miseEnEvidence(']')}$. ` }
+            } else {
+              texteCorr += `$${miseEnEvidence('[')}${b > c ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}\\,${miseEnEvidence(';')}\\,${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}${miseEnEvidence(']')}$. `
+            }
           } else {
             texteCorr += `Ici, $a$ est positif, donc $${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)})$ est positif sauf entre ses racines  $${b > c ? `\\mathbf{\\color{${coul0}}{${c}}}` : `\\mathbf{\\color{${coul0}}{${b}}}`}$ et  $${b > c ? `\\mathbf{\\color{${coul0}}{${b}}}` : `\\mathbf{\\color{${coul0}}{${c}}}`}$.<br>
 On en déduit que l'ensemble des solutions est `
             if (inegalite === '>') {
               texteCorr += `$${miseEnEvidence(']-\\infty \\,;')}\\,${c < b ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}${miseEnEvidence('[\\cup ]')}${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}\\,${miseEnEvidence(';\\, +\\infty[')}$.`
-            } else { texteCorr += `$${miseEnEvidence(']-\\infty \\,;')}\\,${c < b ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}${miseEnEvidence(']\\cup [')}${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}\\,${miseEnEvidence(';\\, +\\infty[')}$.` }
+            } else {
+              texteCorr += `$${miseEnEvidence(']-\\infty \\,;')}\\,${c < b ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}${miseEnEvidence(']\\cup [')}${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}\\,${miseEnEvidence(';\\, +\\infty[')}$.`
+            }
           }
 
           break
 
-        case 2 :// cas a(x-x1)(x-x2)<0
+        case 2: // cas a(x-x1)(x-x2)<0
         default:
           inegalite = choice(['<', '\\leqslant'])
           if (inegalite === '<') {
-            solution1 = `${a < 0
+            solution1 = `${
+              a < 0
                 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`
-            solution2 = `${a > 0
+                : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`
+            }`
+            solution2 = `${
+              a > 0
                 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`
+                : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`
+            }`
             solution3 = `$[${b > c ? `${-b}` : `${-c}`}\\,;\\,${b > c ? `${-c}` : `${-b}`}]$`
             solution4 = `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
           } else {
-            solution1 = `${a < 0
+            solution1 = `${
+              a < 0
                 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                          : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`
-            solution2 = `${a > 0
+                : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`
+            }`
+            solution2 = `${
+              a > 0
                 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                          : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`
+                : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`
+            }`
             solution3 = `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`
             solution4 = `$]-\\infty\\,;\\,${b > c ? `${-b}` : `${-c}`}]\\cup[${b > c ? `${-c}` : `${-b}`}\\,;\\,+\\infty[$`
           }
@@ -147,22 +181,21 @@ On en déduit que l'ensemble des solutions est `
             propositions: [
               {
                 texte: solution1,
-                statut: true
+                statut: true,
               },
               {
                 texte: solution2,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution3,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution4,
-                statut: false
-              }
-            ]
-
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -179,13 +212,17 @@ On en déduit que l'ensemble des solutions est `
  On en déduit que l'ensemble des solutions est `
             if (inegalite === '<') {
               texteCorr += `$${miseEnEvidence(']-\\infty \\,;')}\\,${c < b ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}${miseEnEvidence('[\\cup ]')}${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}\\,${miseEnEvidence(';\\, +\\infty[')}$.`
-            } else { texteCorr += `$${miseEnEvidence(']-\\infty \\,;')}\\,${c < b ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}${miseEnEvidence(']\\cup [')}${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}\\,${miseEnEvidence(';\\, +\\infty[')}$.` }
+            } else {
+              texteCorr += `$${miseEnEvidence(']-\\infty \\,;')}\\,${c < b ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}${miseEnEvidence(']\\cup [')}${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}\\,${miseEnEvidence(';\\, +\\infty[')}$.`
+            }
           } else {
             texteCorr += `Ici, $a$ est positif, donc $${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)})$ est positif sauf entre ses racines  $${b > c ? `\\mathbf{\\color{${coul0}}{${c}}}` : `\\mathbf{\\color{${coul0}}{${b}}}`}$ et  $${b > c ? `\\mathbf{\\color{${coul0}}{${b}}}` : `\\mathbf{\\color{${coul0}}{${c}}}`}$.<br>
 Il est donc négatif entre ses racines. On en déduit que l'ensemble des solutions est `
             if (inegalite === '<') {
               texteCorr += `$${miseEnEvidence(']')}${b > c ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}\\,${miseEnEvidence(';')}\\,${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}${miseEnEvidence('[')}$. `
-            } else { texteCorr += `$${miseEnEvidence('[')}${b > c ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}\\,${miseEnEvidence(';')}\\,${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}${miseEnEvidence(']')}$. ` }
+            } else {
+              texteCorr += `$${miseEnEvidence('[')}${b > c ? `${miseEnEvidence(c)}` : `${miseEnEvidence(b)}`}\\,${miseEnEvidence(';')}\\,${b > c ? `${miseEnEvidence(b)}` : `${miseEnEvidence(c)}`}${miseEnEvidence(']')}$. `
+            }
           }
 
           break

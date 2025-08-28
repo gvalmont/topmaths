@@ -8,7 +8,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'cccb1'
 export const refs = {
   'fr-fr': ['3C1QCM-01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,7 +23,7 @@ export const dateDePublication = '28/10/2024'
  */
 
 export default class MetropoleJuin24Exo4Q2 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b: number): void {
+  private appliquerLesValeurs(a: number, b: number): void {
     const produit: string[] = []
     for (let i = 0; i < b; i++) {
       produit.push(String(-a))
@@ -31,7 +31,7 @@ export default class MetropoleJuin24Exo4Q2 extends ExerciceQcmA {
     this.reponses = [
       `$${texNombre(a ** b, 0)}$`,
       `$${texNombre(a * b, 0)}$`,
-      `$${texNombre(-(a ** b), 0)}$`
+      `$${texNombre(-(a ** b), 0)}$`,
     ]
     this.enonce = `Combien vaut $(${a})^${b}$ ?`
     this.correction = `$(${a})^${b}$ est un produit de $${b}$ facteurs négatifs.<br>$${b}$ est un nombre impair, donc un tel produit est négatif.<br>`
@@ -53,7 +53,7 @@ export default class MetropoleJuin24Exo4Q2 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

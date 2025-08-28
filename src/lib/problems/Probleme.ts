@@ -1,4 +1,7 @@
-import type { CompareFunction, OptionsComparaisonType } from '../interactif/comparisonFunctions'
+import type {
+  CompareFunction,
+  OptionsComparaisonType,
+} from '../interactif/comparisonFunctions'
 import SchemaEnBoite from '../outils/SchemaEnBoite'
 
 type Donnees = Record<string, string | number | boolean>
@@ -21,7 +24,7 @@ export default class Probleme {
   data: Donnees
   private _enonce: string = ''
   private _correction: string = ''
-  constructor (name: string, data: Donnees) {
+  constructor(name: string, data: Donnees) {
     this.data = data
     this.name = name
     this.reponse = ''
@@ -29,32 +32,32 @@ export default class Probleme {
       topBraces: [],
       bottomBraces: [],
       rightBraces: [],
-      lignes: []
+      lignes: [],
     })
   }
   // Constructeur avec un schéma modèle
 
-  get enonce (): string {
+  get enonce(): string {
     return this._enonce
   }
 
-  set enonce (enonce: string) {
+  set enonce(enonce: string) {
     this._enonce = enonce
   }
 
-  get correction (): string {
+  get correction(): string {
     return this._correction
   }
 
-  set correction (correction: string) {
+  set correction(correction: string) {
     this._correction = correction
   }
 
-  get schema (): SchemaEnBoite {
+  get schema(): SchemaEnBoite {
     return this.schemaModele
   }
 
-  set schema (schema: SchemaEnBoite) {
+  set schema(schema: SchemaEnBoite) {
     this.schemaModele = schema
   }
 }

@@ -13,7 +13,10 @@ import { randint } from '../../modules/outils'
  * @return {Polygone}
  * @author Jean-Claude Lhote
  */
-export function flatArrayToPolygone (flat: number[], noms: string | string[] = '') {
+export function flatArrayToPolygone(
+  flat: number[],
+  noms: string | string[] = '',
+) {
   const sommets = []
   for (let i = 0; i < flat.length; i += 2) {
     sommets.push(point(flat[i], flat[i + 1]))
@@ -33,19 +36,19 @@ export function flatArrayToPolygone (flat: number[], noms: string | string[] = '
  */
 export default class Shikaku {
   /**
-     *
-     * @param {number} largeur
-     * @param {number} hauteur
-     */
+   *
+   * @param {number} largeur
+   * @param {number} hauteur
+   */
   largeur: number
   hauteur: number
   aireTotale: number
   marqueurs: boolean[][]
-  dimMax: { xMax: number, yMax: number }
-  pavage: { aireTotale: number, rectangles: any[] }
+  dimMax: { xMax: number; yMax: number }
+  pavage: { aireTotale: number; rectangles: any[] }
   dimPossibles: number[][]
 
-  constructor (largeur: number, hauteur:number) {
+  constructor(largeur: number, hauteur: number) {
     this.largeur = largeur
     this.hauteur = hauteur
     this.aireTotale = largeur * hauteur
@@ -56,9 +59,10 @@ export default class Shikaku {
         this.marqueurs[i][j] = false
       }
     }
-    this.dimMax = { // une propriété qui permet de limiter la largeur max et la hauteur max d'un rectangle en fonction de celles de la grille
+    this.dimMax = {
+      // une propriété qui permet de limiter la largeur max et la hauteur max d'un rectangle en fonction de celles de la grille
       xMax: Math.min(largeur, Math.ceil(Math.sqrt(this.aireTotale))),
-      yMax: Math.min(hauteur, Math.ceil(Math.sqrt(this.aireTotale)))
+      yMax: Math.min(hauteur, Math.ceil(Math.sqrt(this.aireTotale))),
     }
     // this.pavage.aireTotale contient l'aire recalculée à chaque ajout de rectangle
     // this.pavage.rectangles est un tableau des objets 'rectangle' ajoutés
@@ -75,8 +79,9 @@ export default class Shikaku {
   }
 
   // la méthode récursive du Shikaku qui va progressivement remplir les trous laissés jusqu'à ce que l'aire du pavage soit égale à celle de la grille
-  paver () {
-    if (this.pavage.aireTotale < this.aireTotale) { // Le pavage est incomplet
+  paver() {
+    if (this.pavage.aireTotale < this.aireTotale) {
+      // Le pavage est incomplet
       this.ajouteUnRectangle()
       this.paver()
     }
@@ -84,33 +89,60 @@ export default class Shikaku {
 
   // la méthode qui fournit (en Html ou en Latex) la représentation graphique du Shikaku
   // si type === 'solution', alors les rectangles sont tracés.
-  represente (type: string) {
+  represente(type: string) {
     const objets = []
     objets.push(grille(0, 0, this.largeur, this.hauteur))
     for (let i = 0; i < this.pavage.rectangles.length; i++) {
       const rectangle = this.pavage.rectangles[i]
-      objets.push(texteParPosition(rectangle.aire, rectangle.placeNom.x + rectangle.x + 0.5, rectangle.placeNom.y + rectangle.y + 0.5))
+      objets.push(
+        texteParPosition(
+          rectangle.aire,
+          rectangle.placeNom.x + rectangle.x + 0.5,
+          rectangle.placeNom.y + rectangle.y + 0.5,
+        ),
+      )
       if (type === 'solution') {
         /* const box = boite({ Xmin: rectangle.x, Ymin: rectangle.y, Xmax: rectangle.x + rectangle.largeur, Ymax: rectangle.y + rectangle.hauteur, color: 'blue' })
-                                         */
+         */
         const box = new BoiteBuilder({
           xMin: rectangle.x,
           yMin: rectangle.y,
           xMax: rectangle.x + rectangle.largeur,
-          yMax: rectangle.y + rectangle.hauteur
+          yMax: rectangle.y + rectangle.hauteur,
         }).addColor({ color: 'blue' })
         objets.push(box.render())
       }
     }
-    const cadre = flatArrayToPolygone([0, 0, this.largeur, 0, this.largeur, this.hauteur, 0, this.hauteur])
+    const cadre = flatArrayToPolygone([
+      0,
+      0,
+      this.largeur,
+      0,
+      this.largeur,
+      this.hauteur,
+      0,
+      this.hauteur,
+    ])
     objets.push(cadre)
-    return mathalea2d(Object.assign({}, fixeBordures(objets), { scale: 0.75 }), objets)
+    return mathalea2d(
+      Object.assign({}, fixeBordures(objets), { scale: 0.75 }),
+      objets,
+    )
   }
 
   // la méthode appelée par Shikaku.paver() pour ajouter un rectangle au pavage
-  ajouteUnRectangle () {
+  ajouteUnRectangle() {
     this.dimPossibles = shuffle(this.dimPossibles) // On brasse les dimensions possibles et on les teste du premier au dernier afin de ne pas toujours avoir des rectangles 1x1
-    let trouvé: boolean | { x: number, y: number, largeur: any, hauteur: any, aire: number, placeNom: { x: number, y: number } } = false
+    let trouvé:
+      | boolean
+      | {
+          x: number
+          y: number
+          largeur: any
+          hauteur: any
+          aire: number
+          placeNom: { x: number; y: number }
+        } = false
 
     let choix = 0
     do {
@@ -132,7 +164,7 @@ export default class Shikaku {
 
   // la méthode qui essaye de trouver une place au rectangle choisi (ce n'est pas parce que la différence d'aire le permet, que ça rentre dans un trou restant !)
   // C'est sans doute la partie du code la plus compliquée !
-  trouvePlace (largeur:number, hauteur:number) {
+  trouvePlace(largeur: number, hauteur: number) {
     let x = 0
     let y
     let empiete
@@ -146,12 +178,25 @@ export default class Shikaku {
               empiete = false
               for (let i = 0; i < largeur; i++) {
                 for (let j = 0; j < hauteur; j++) {
-                  if (this.marqueurs[x + i][y + j] || x + i >= this.largeur || y + j >= this.hauteur) empiete = true
+                  if (
+                    this.marqueurs[x + i][y + j] ||
+                    x + i >= this.largeur ||
+                    y + j >= this.hauteur
+                  )
+                    empiete = true
                 }
               }
-              if (!empiete) { // C'est bon ! ça rentre dans un trou, on retourne l'objet rectangle.
+              if (!empiete) {
+                // C'est bon ! ça rentre dans un trou, on retourne l'objet rectangle.
                 const placeNom = this.choisitPlaceNom(largeur, hauteur)
-                return { x, y, largeur, hauteur, aire: largeur * hauteur, placeNom }
+                return {
+                  x,
+                  y,
+                  largeur,
+                  hauteur,
+                  aire: largeur * hauteur,
+                  placeNom,
+                }
               }
             }
             y++
@@ -164,12 +209,15 @@ export default class Shikaku {
   }
 
   // une fonction qui choisit aléatoirement la position du nombre dans le rectangle pour ne pas qu'il soit systématiquement en bas à droite.
-  choisitPlaceNom (largeur: number, hauteur:number) {
+  choisitPlaceNom(largeur: number, hauteur: number) {
     if (largeur < 1 || hauteur < 1) {
-      window.notify('erreur de largeur ou de hauteur dans choisitPlaceNom(Shikaku)', {
-        largeur,
-        hauteur
-      })
+      window.notify(
+        'erreur de largeur ou de hauteur dans choisitPlaceNom(Shikaku)',
+        {
+          largeur,
+          hauteur,
+        },
+      )
     }
     const x = largeur <= 1 ? 0 : randint(0, largeur - 1)
     const y = hauteur <= 1 ? 0 : randint(0, hauteur - 1)

@@ -10,7 +10,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Lire l\'abscisse décimale d\'un point'
+export const titre = "Lire l'abscisse décimale d'un point"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -26,15 +26,15 @@ export const uuid = 'c1888'
 export const refs = {
   'fr-fr': ['6N1H'],
   'fr-2016': ['6N30'],
-  'fr-ch': ['9NO7-1']
+  'fr-ch': ['9NO7-1'],
 }
 export default class LireAbscisseDecimale extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      '1 : Une seule décimale\n2 : Deux décimales \n3 : Trois décimales\n4 : Mélange'
+      '1 : Une seule décimale\n2 : Deux décimales \n3 : Trois décimales\n4 : Mélange',
     ]
     this.consigne = "Lire l'abscisse de chacun des points suivants."
     this.nbQuestions = 3
@@ -43,26 +43,50 @@ export default class LireAbscisseDecimale extends Exercice {
     this.interactif = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
 
     if (this.sup === 4) {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
-      typesDeQuestions = combinaisonListes(
-        [this.sup],
-        this.nbQuestions
-      )
+      typesDeQuestions = combinaisonListes([this.sup], this.nbQuestions)
     }
 
     this.contenu = this.consigne
-    for (let i = 0, d = [], abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        d = [],
+        abs0,
+        l1,
+        l2,
+        l3,
+        x1,
+        x2,
+        x3,
+        x11,
+        x22,
+        x33,
+        xA,
+        xB,
+        xC,
+        pas1,
+        pas2,
+        thick1,
+        thick2,
+        texte = '',
+        texteCorr = '',
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
       if (context.isAmc) {
-        this.autoCorrection[i] = { propositions: [{ texte: '', statut: 4, feedback: '' }] }
+        this.autoCorrection[i] = {
+          propositions: [{ texte: '', statut: 4, feedback: '' }],
+        }
       }
       switch (typesDeQuestions[i]) {
         case 1: // Placer des décimaux sur un axe (1 décimale)
@@ -106,9 +130,22 @@ export default class LireAbscisseDecimale extends Exercice {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[thick1, `${stringNombre(abs0 + thick1 / pas1, 1 + Math.log10(pas1))}`], [thick2, `${stringNombre(abs0 + thick2 / pas1, 1 + Math.log10(pas1))}`]],
-        pointListe: [[xA, l1], [xB, l2], [xC, l3]],
-        labelCustomDistance: 1
+        labelListe: [
+          [
+            thick1,
+            `${stringNombre(abs0 + thick1 / pas1, 1 + Math.log10(pas1))}`,
+          ],
+          [
+            thick2,
+            `${stringNombre(abs0 + thick2 / pas1, 1 + Math.log10(pas1))}`,
+          ],
+        ],
+        pointListe: [
+          [xA, l1],
+          [xB, l2],
+          [xC, l3],
+        ],
+        labelCustomDistance: 1,
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -122,26 +159,62 @@ export default class LireAbscisseDecimale extends Exercice {
         thickSecDist: 1 / pas2,
         labelListe: [
           // [0, `${stringNombre(abs0)}`],
-          [xA, `\\boldsymbol{${texNombre(xA / pas1 + abs0, 1 + Math.log10(pas1))}}`],
-          [xB, `\\boldsymbol{${texNombre(xB / pas1 + abs0, 1 + Math.log10(pas1))}}`],
-          [xC, `\\boldsymbol{${texNombre(xC / pas1 + abs0, 1 + Math.log10(pas1))}}`]
+          [
+            xA,
+            `\\boldsymbol{${texNombre(xA / pas1 + abs0, 1 + Math.log10(pas1))}}`,
+          ],
+          [
+            xB,
+            `\\boldsymbol{${texNombre(xB / pas1 + abs0, 1 + Math.log10(pas1))}}`,
+          ],
+          [
+            xC,
+            `\\boldsymbol{${texNombre(xC / pas1 + abs0, 1 + Math.log10(pas1))}}`,
+          ],
         ],
         labelColor: '#f15929',
         labelDistance: 1.5,
-        pointListe: [[xA, l1], [xB, l2], [xC, l3]],
-        labelCustomDistance: 1
+        pointListe: [
+          [xA, l1],
+          [xB, l2],
+          [xC, l3],
+        ],
+        labelCustomDistance: 1,
       })
 
-      texte = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([d[2 * i]])), d[2 * i])
-      texteCorr = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([d[2 * i + 1]])), d[2 * i + 1])
+      texte = mathalea2d(
+        Object.assign(
+          { pixelsParCm: 20, scale: 0.5 },
+          fixeBordures([d[2 * i]]),
+        ),
+        d[2 * i],
+      )
+      texteCorr = mathalea2d(
+        Object.assign(
+          { pixelsParCm: 20, scale: 0.5 },
+          fixeBordures([d[2 * i + 1]]),
+        ),
+        d[2 * i + 1],
+      )
 
       if (this.interactif && context.isHtml) {
         setReponse(this, 3 * i, arrondi(xA / pas1 + abs0, 1 + Math.log10(pas1)))
-        setReponse(this, 3 * i + 1, arrondi(xB / pas1 + abs0, 1 + Math.log10(pas1)))
-        setReponse(this, 3 * i + 2, arrondi(xC / pas1 + abs0, 1 + Math.log10(pas1)))
-        texte += `<br><br>$${l1}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i)
-        texte += sp(6) + `$${l2}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i + 1)
-        texte += sp(6) + `$${l3}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i + 2)
+        setReponse(
+          this,
+          3 * i + 1,
+          arrondi(xB / pas1 + abs0, 1 + Math.log10(pas1)),
+        )
+        setReponse(
+          this,
+          3 * i + 2,
+          arrondi(xC / pas1 + abs0, 1 + Math.log10(pas1)),
+        )
+        texte +=
+          `<br><br>$${l1}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i)
+        texte +=
+          sp(6) + `$${l2}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i + 1)
+        texte +=
+          sp(6) + `$${l3}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i + 2)
       } else {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte

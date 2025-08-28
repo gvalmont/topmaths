@@ -6,13 +6,15 @@
   export let setCurrentVue: (value: number) => void
   export let setQuestionsVisible: (value: boolean) => void
   export let setCorrectionVisible: (value: boolean) => void
-  export let handleCorrectionsStepsClick: (button: 'backward' | 'forward') => void
+  export let handleCorrectionsStepsClick: (
+    button: 'backward' | 'forward',
+  ) => void
   export let newDataForAll: () => void
   export let backToSettings: () => void
-
 </script>
 
-<div class="flex flex-col items-center w-14 min-h-screen py-4
+<div
+  class="flex flex-col items-center w-14 min-h-screen py-4
   bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
   text-coopmaths-struct dark:text-coopmathsdark-struct"
 >
@@ -21,18 +23,18 @@
     class="pb-8
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-    on:click={backToSettings}
+    on:click="{backToSettings}"
   >
-    <i class="bx bx-sm bx-arrow-back" />
+    <i class="bx bx-sm bx-arrow-back"></i>
   </button>
   <button
     type="button"
     class="pb-8
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-    on:click={newDataForAll}
+    on:click="{newDataForAll}"
   >
-    <i class="bx bx-sm bx-refresh" />
+    <i class="bx bx-sm bx-refresh"></i>
   </button>
 
   <span
@@ -44,14 +46,14 @@
   </span>
   <button
     type="button"
-    on:click={() => setQuestionsVisible(!isQuestionsVisible)}
+    on:click="{() => setQuestionsVisible(!isQuestionsVisible)}"
   >
     <i
       class="bx bx-sm cursor-pointer
       {isQuestionsVisible ? 'bx-toggle-right' : 'bx-toggle-left'}
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-    />
+    ></i>
   </button>
   <span
     class="text-xs pt-2
@@ -62,34 +64,37 @@
   </span>
   <button
     type="button"
-    on:click={() => setCorrectionVisible(!isCorrectionVisible)}
+    on:click="{() => setCorrectionVisible(!isCorrectionVisible)}"
   >
-    <i class="mb-8 bx bx-sm cursor-pointer
+    <i
+      class="mb-8 bx bx-sm cursor-pointer
       {isCorrectionVisible ? 'bx-toggle-right' : 'bx-toggle-left'}
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-    />
+    ></i>
   </button>
-  <span class="text-xs font-bold pt-2
+  <span
+    class="text-xs font-bold pt-2
     text-coopmaths-struct dark:text-coopmathsdark-struct"
   >
     Pas à pas
   </span>
-  <div class="flex flex-row justify-center items-center mb-8
+  <div
+    class="flex flex-row justify-center items-center mb-8
     text-coopmaths-action dark:text-coopmathsdark-action
     hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
   >
     <button
       type="button"
-      on:click={() => handleCorrectionsStepsClick('backward')}
+      on:click="{() => handleCorrectionsStepsClick('backward')}"
     >
-      <i class="bx bxs-left-arrow mr-2 cursor-pointer" />
+      <i class="bx bxs-left-arrow mr-2 cursor-pointer"></i>
     </button>
     <button
       type="button"
-      on:click={() => handleCorrectionsStepsClick('forward')}
+      on:click="{() => handleCorrectionsStepsClick('forward')}"
     >
-      <i class="bx bxs-right-arrow cursor-pointer" />
+      <i class="bx bxs-right-arrow cursor-pointer"></i>
     </button>
   </div>
 
@@ -99,9 +104,9 @@
       <input
         type="radio"
         id="tab{i + 1}"
-        value={i}
-        bind:group={currentVue}
-        on:change={() => setCurrentVue(i)}
+        value="{i}"
+        bind:group="{currentVue}"
+        on:change="{() => setCurrentVue(i)}"
         class="peer/tab{i + 1} items-center justify-center hidden"
       />
       <label
@@ -112,8 +117,11 @@
           bg-coopmaths-canvas-dark font-bold dark:bg-coopmathsdark-canvas-dark
           text-coopmaths-action dark:text-coopmathsdark-action
           hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest
-          peer-checked/tab{i + 1}:bg-coopmaths-canvas dark:peer-checked/tab{i + 1}:bg-coopmathsdark-canvas
-          peer-checked/tab{i + 1}:text-coopmaths-struct dark:peer-checked/tab{i + 1}:text-coopmathsdark-struct"
+          peer-checked/tab{i + 1}:bg-coopmaths-canvas dark:peer-checked/tab{i +
+          1}:bg-coopmathsdark-canvas
+          peer-checked/tab{i +
+          1}:text-coopmaths-struct dark:peer-checked/tab{i +
+          1}:text-coopmathsdark-struct"
         for="tab{i + 1}"
       >
         {i + 1}
@@ -122,9 +130,9 @@
     <input
       type="radio"
       id="tab5"
-      value={4}
-      bind:group={currentVue}
-      on:change={() => setCurrentVue(4)}
+      value="{4}"
+      bind:group="{currentVue}"
+      on:change="{() => setCurrentVue(4)}"
       class="hidden peer/tab5 items-center justify-center"
     />
     <label

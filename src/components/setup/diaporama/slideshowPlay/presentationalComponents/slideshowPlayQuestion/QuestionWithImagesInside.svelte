@@ -2,7 +2,6 @@
   import type { Vue } from '../../../types'
 
   export let slideView: Vue
-
 </script>
 
 <div class="flex flex-col">

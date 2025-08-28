@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Déterminer l\'écriture scientifique'
+export const titre = "Déterminer l'écriture scientifique"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '70846'
@@ -14,23 +14,24 @@ export const uuid = '70846'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '5,4\\times 10^{4}'
       this.question = `Écriture  scientifique de $${texNombre(54000)}$<br>`
       this.correction = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
             Ici : $${texNombre(54000)}=\\underbrace{${miseEnEvidence(texNombre(5.4))}}_{1\\leqslant 5,4 <10}${miseEnEvidence('\\times')} ${miseEnEvidence('10^4')}$.`
     } else {
-      const choix = choice(['a', 'b', 'c'])//
+      const choix = choice(['a', 'b', 'c']) //
       if (choix === 'a') {
         const a = randint(11, 39, [10, 20, 30]) / 1000
         const truc = a * 100

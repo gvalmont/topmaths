@@ -3,7 +3,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
-export const titre = 'Déterminer un effectif à partir d\'une proportion'
+export const titre = "Déterminer un effectif à partir d'une proportion"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,10 +18,10 @@ export const uuid = '5b5c0'
 
 export const refs = {
   'fr-fr': ['techno1P5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Effectif extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,13 +30,13 @@ export default class Effectif extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' €' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c
     switch (choice(['association', 'lycée', 'election'])) {
       case 'association':
-        b = randint(3, 80)/* Pourcentage */
-        a = randint(20, 50)/* Valeur */
-        c = randint(20, 100)/* effectif sous population */
+        b = randint(3, 80) /* Pourcentage */
+        a = randint(20, 50) /* Valeur */
+        c = randint(20, 100) /* effectif sous population */
 
         this.question = `Dans une association,  environ $${b}\\%$ des adhérents ont plus de  de $${a}$ ans. <br>
        Sachant qu'ils représentent $${c}$ personnes, combien de personnes sont adhérentes à l'association ?<br>`
@@ -49,14 +49,14 @@ export default class Effectif extends ExerciceSimple {
         D'après le cours, on sait que $p=\\dfrac{\\text{effectif étudié}}{\\text{effectif total}}=\\dfrac{n}{N}=\\dfrac{${c}}{N}$.
         <br><br>Ainsi,  $p=\\dfrac{${b}}{${100}}= \\dfrac{${c}}{N}$.<br>
         Avec un produit en croix, on en déduit que : $${b}\\times N= 100\\times ${c}$.<br>
-        On en déduit que $N=\\dfrac{100\\times ${c}}{${b}}\\approx ${arrondi(100 * c / b, 0)}$.<br>
-      Il y a  $${arrondi(100 * c / b, 0)}$ adhérents dans ce club.`
-        this.reponse = texNombre(b * c / 100, 0)
+        On en déduit que $N=\\dfrac{100\\times ${c}}{${b}}\\approx ${arrondi((100 * c) / b, 0)}$.<br>
+      Il y a  $${arrondi((100 * c) / b, 0)}$ adhérents dans ce club.`
+        this.reponse = texNombre((b * c) / 100, 0)
         break
       case 'lycée':
-        b = randint(25, 35)/* Pourcentage */
-        a = randint(20, 50)/* Valeur */
-        c = randint(25, 200)/* Dénominateur fraction */
+        b = randint(25, 35) /* Pourcentage */
+        a = randint(20, 50) /* Valeur */
+        c = randint(25, 200) /* Dénominateur fraction */
         this.question = `Dans une lycée,  $${b}\\%$ des lycéens sont en classe de 1ère. <br>
             Sachant qu'il y a  $${c}$ élèves en classe de 1ère,
             déterminer le nombre total d'élèves de ce lycée ?`
@@ -68,14 +68,14 @@ export default class Effectif extends ExerciceSimple {
             D'après le cours, on sait que $p=\\dfrac{\\text{effectif étudié}}{\\text{effectif total}}=\\dfrac{n}{N}=\\dfrac{${c}}{N}$.
             <br><br>Ainsi,  $p=\\dfrac{${b}}{${100}}= \\dfrac{${c}}{N}$.<br>
             Avec un produit en croix, on en déduit que : $${b}\\times N= 100\\times ${c}$.<br>
-            On en déduit que $N=\\dfrac{100\\times ${c}}{${b}}\\approx ${arrondi(100 * c / b, 0)}$.<br>
-          Il y a  $${arrondi(100 * c / b, 0)}$ élèves dans ce lycée.`
-        this.reponse = texNombre(b * c / 100, 0)
+            On en déduit que $N=\\dfrac{100\\times ${c}}{${b}}\\approx ${arrondi((100 * c) / b, 0)}$.<br>
+          Il y a  $${arrondi((100 * c) / b, 0)}$ élèves dans ce lycée.`
+        this.reponse = texNombre((b * c) / 100, 0)
         break
       case 'election':
-        b = randint(20, 40)/* Pourcentage */
-        a = randint(20, 50)/* Valeur */
-        c = randint(10, 70)/* Dénominateur fraction */
+        b = randint(20, 40) /* Pourcentage */
+        a = randint(20, 50) /* Valeur */
+        c = randint(10, 70) /* Dénominateur fraction */
         this.question = `Lors d'une élection,  un candidat a obtenu environ $${b}\\%$ des suffrages exprimés, soit un total de $${c}$ voix.<br>
   Calculer le nombre de suffrages exprimés lors de cette élection.`
         this.correction = `La population de référence est celle des suffrages exprimés.<br>
@@ -86,9 +86,9 @@ export default class Effectif extends ExerciceSimple {
             D'après le cours, on sait que $p=\\dfrac{\\text{effectif étudié}}{\\text{effectif total}}=\\dfrac{n}{N}=\\dfrac{${c}}{N}$.
             <br><br>Ainsi,  $p=\\dfrac{${b}}{${100}}= \\dfrac{${c}}{N}$.<br>
             Avec un produit en croix, on en déduit que : $${b}\\times N= 100\\times ${c}$.<br>
-            On en déduit que $N=\\dfrac{100\\times ${c}}{${b}}\\approx ${arrondi(100 * c / b, 0)}$.<br>
-          Il y a eu $${arrondi(100 * c / b, 0)}$ suffrages exprimés lors de cette élection.`
-        this.reponse = texNombre(b * c / 100, 0)
+            On en déduit que $N=\\dfrac{100\\times ${c}}{${b}}\\approx ${arrondi((100 * c) / b, 0)}$.<br>
+          Il y a eu $${arrondi((100 * c) / b, 0)}$ suffrages exprimés lors de cette élection.`
+        this.reponse = texNombre((b * c) / 100, 0)
         break
     }
   }

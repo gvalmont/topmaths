@@ -11,7 +11,7 @@ export const titre = 'Droites graduées avec zoom'
 
 export const refs = {
   'fr-fr': ['P004'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = 'ad5f6'
 
@@ -21,20 +21,44 @@ export const uuid = 'ad5f6'
  * @author Jean-Claude Lhote
  */
 export default class FeuilleDeZooms extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.besoinFormulaireNumerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom']
+    this.besoinFormulaireNumerique = [
+      'Nombre de zoom',
+      2,
+      '1 : Un seul zoom\n2 : Deux niveaux de zoom',
+    ]
 
     this.sup = 1
 
     this.nbQuestionsModifiable = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte = ''
     const noms = choisitLettresDifferentes(5, 'QFN')
-    let xmin, origine, xmax, x1, x2, x3, x21, x31, pA1, pA2, pB1, pB2, pC1, pC2, pD1, pD2, sA, sB, sC, sD, extremite,
+    let xmin,
+      origine,
+      xmax,
+      x1,
+      x2,
+      x3,
+      x21,
+      x31,
+      pA1,
+      pA2,
+      pB1,
+      pB2,
+      pC1,
+      pC2,
+      pD1,
+      pD2,
+      sA,
+      sB,
+      sC,
+      sD,
+      extremite,
       fenetre
     const objets = []
     for (let n = 0; n < 8 / parseInt(this.sup); n++) {
@@ -63,13 +87,17 @@ export default class FeuilleDeZooms extends Exercice {
           axeHauteur: 4,
           labelsPrincipaux: false,
           // labelListe: [[origine, `$${texNombre(origine)}$`], [extreme, `$${texNombre(extreme)}$`]],
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [Math.floor(x1), `${noms[0]}`],
+            [Math.floor(x1 + 1), `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         const d2 = droiteGraduee({
           x: Math.floor(x1) - xmin + 1.5,
@@ -85,13 +113,17 @@ export default class FeuilleDeZooms extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 4,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [Math.floor(x1), `${noms[0]}`],
+            [Math.floor(x1 + 1), `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
 
         pA1 = point((Math.floor(x1) - xmin) * 3, 3)
@@ -103,11 +135,22 @@ export default class FeuilleDeZooms extends Exercice {
         sA.pointilles = 5
         sB.pointilles = 5
         objets.push(d1, d2, sA, sB)
-        fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
+        fenetre = {
+          xmin: -1.5,
+          xmax: 35,
+          ymin: -1,
+          ymax: 4.5,
+          pixelsParCm: 25,
+          scale: 0.5,
+        }
       } else {
         xmin = randint(1, 15)
         xmax = xmin + 1
-        x1 = xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001
+        x1 =
+          xmin +
+          randint(2, 8) / 10 +
+          randint(2, 8) / 100 +
+          randint(2, 8) * 0.001
         x2 = troncature(x1, 1)
         x21 = troncature(x1, 2)
         x3 = arrondi(x2 + 0.1)
@@ -134,13 +177,17 @@ export default class FeuilleDeZooms extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 6,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x3, `${noms[2]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 3,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         const d2 = droiteGraduee({
           x: 6.5,
@@ -159,13 +206,19 @@ export default class FeuilleDeZooms extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 6,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x2, `${noms[0]}`],
+            [x3, `${noms[2]}`],
+            [x21, `${noms[3]}`],
+            [x31, `${noms[4]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
         const d3 = droiteGraduee({
           x: 6.5,
@@ -182,13 +235,17 @@ export default class FeuilleDeZooms extends Exercice {
           axeCouleur: 'black',
           axeHauteur: 6,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+          pointListe: [
+            [x1, `${noms[1]}`],
+            [x21, `${noms[3]}`],
+            [x31, `${noms[4]}`],
+          ],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
           pointStyle: '|',
           pointEpaisseur: 2,
-          axeStyle: extremite
+          axeStyle: extremite,
         })
 
         pA1 = point((x2 - xmin) * 30, 6)
@@ -207,7 +264,14 @@ export default class FeuilleDeZooms extends Exercice {
         sD = segment(pD1, pD2)
         sC.pointilles = 5
         sD.pointilles = 5
-        fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
+        fenetre = {
+          xmin: -1.5,
+          xmax: 35,
+          ymin: -1.5,
+          ymax: 7.5,
+          pixelsParCm: 25,
+          scale: 0.5,
+        }
         objets.push(d1, d2, d3, sA, sB, sC, sD)
       }
       texte = mathalea2d(fenetre, objets)

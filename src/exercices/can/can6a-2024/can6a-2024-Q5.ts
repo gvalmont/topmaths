@@ -14,7 +14,7 @@ export const uuid = 'e56b3'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 7 : randint(5, 9)
     const b = this.canOfficielle ? 3 : randint(2, 6)
     const c = this.canOfficielle ? 2 : randint(2, 6)

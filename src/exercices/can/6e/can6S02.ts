@@ -18,10 +18,10 @@ export const uuid = '2a91a'
 
 export const refs = {
   'fr-fr': ['can6S02', '6P2A-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ChancesSurEtProbabilites extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
@@ -29,7 +29,7 @@ export default class ChancesSurEtProbabilites extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nbChances = randint(1, 3)
     const nbTotal = nbChances + randint(1, 3)
     this.reponse = new FractionEtendue(nbChances, nbTotal).texFraction

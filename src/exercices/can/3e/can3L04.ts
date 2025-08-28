@@ -1,6 +1,10 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import Exercice from '../../Exercice'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
@@ -19,19 +23,25 @@ export const uuid = 'e7754'
 
 export const refs = {
   'fr-fr': ['can3L04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SolutionInequation extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d
-    for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice(['a', 'b', 'c'])) { //
+    for (
+      let i = 0, texte, texteCorr, monQcm, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      switch (
+        choice(['a', 'b', 'c']) //
+      ) {
         case 'a':
           a = randint(1, 4)
           b = randint(1, 4)
@@ -44,31 +54,41 @@ export default class SolutionInequation extends Exercice {
             propositions: [
               {
                 texte: 'V',
-                statut: a * d + b > c
+                statut: a * d + b > c,
               },
               {
                 texte: 'F',
-                statut: a * d + b <= c
-              }
+                statut: a * d + b <= c,
+              },
             ],
-            options: { ordered: true }
+            options: { ordered: true },
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
           if (a * d + b > c) {
             if (a === 1) {
-              texteCorr = monQcm.texteCorr + `<br>$${d}$ est solution car : $${ecritureParentheseSiNegatif(d)}+${b}=${d + b}$ et $${d + b}>${c}$.`
+              texteCorr =
+                monQcm.texteCorr +
+                `<br>$${d}$ est solution car : $${ecritureParentheseSiNegatif(d)}+${b}=${d + b}$ et $${d + b}>${c}$.`
             } else {
-              texteCorr = monQcm.texteCorr + `<br>$${d}$ est solution car : $${a}\\times ${ecritureParentheseSiNegatif(d)}+${b}=${a * d + b}$ et $${a * d + b}>${c}$.`
+              texteCorr =
+                monQcm.texteCorr +
+                `<br>$${d}$ est solution car : $${a}\\times ${ecritureParentheseSiNegatif(d)}+${b}=${a * d + b}$ et $${a * d + b}>${c}$.`
             }
           } else {
             if (a === 1) {
-              texteCorr = monQcm.texteCorr + `<br>$${d}$ n'est pas  solution car : $ ${ecritureParentheseSiNegatif(d)}+${b}=${d + b}$ et $${d + b}\\leqslant${c}$.`
-            } else { texteCorr = monQcm.texteCorr + `<br>$${d}$ n'est pas solution car : $${a}\\times ${ecritureParentheseSiNegatif(d)}+${b}=${a * d + b}$ et $${a * d + b}\\leqslant${c}$.` }
+              texteCorr =
+                monQcm.texteCorr +
+                `<br>$${d}$ n'est pas  solution car : $ ${ecritureParentheseSiNegatif(d)}+${b}=${d + b}$ et $${d + b}\\leqslant${c}$.`
+            } else {
+              texteCorr =
+                monQcm.texteCorr +
+                `<br>$${d}$ n'est pas solution car : $${a}\\times ${ecritureParentheseSiNegatif(d)}+${b}=${a * d + b}$ et $${a * d + b}\\leqslant${c}$.`
+            }
           }
 
           break
-        case 'b' :
+        case 'b':
           a = randint(1, 4)
           b = randint(1, 4)
           c = randint(2, 5)
@@ -80,32 +100,40 @@ export default class SolutionInequation extends Exercice {
             propositions: [
               {
                 texte: 'V',
-                statut: (a * d * d - b > c)
+                statut: a * d * d - b > c,
               },
               {
                 texte: 'F',
-                statut: (a * d * d - b <= c)
-              }
+                statut: a * d * d - b <= c,
+              },
             ],
-            options: { ordered: true }
+            options: { ordered: true },
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
           if (a * d * d - b > c) {
             if (a === 1) {
-              texteCorr = monQcm.texteCorr + `<br>$${d}$ est solution car : $ ${ecritureParentheseSiNegatif(d)}^2-${b}=${d ** 2 - b}$ et $${d ** 2 - b}>${c}$.`
+              texteCorr =
+                monQcm.texteCorr +
+                `<br>$${d}$ est solution car : $ ${ecritureParentheseSiNegatif(d)}^2-${b}=${d ** 2 - b}$ et $${d ** 2 - b}>${c}$.`
             } else {
-              texteCorr = monQcm.texteCorr + `<br>$${d}$ est solution car : $${a}\\times${ecritureParentheseSiNegatif(d)}^2-${b}=${a * d ** 2 - b}$ et $${a * d ** 2 - b}>${c}$.`
+              texteCorr =
+                monQcm.texteCorr +
+                `<br>$${d}$ est solution car : $${a}\\times${ecritureParentheseSiNegatif(d)}^2-${b}=${a * d ** 2 - b}$ et $${a * d ** 2 - b}>${c}$.`
             }
           } else {
             if (a === 1) {
-              texteCorr = monQcm.texteCorr + `<br>$${d}$ n'est pas  solution car : $ ${ecritureParentheseSiNegatif(d)}^2-${b}=${d ** 2 - b}$ et $${d ** 2 - b}\\leqslant${c}$.`
+              texteCorr =
+                monQcm.texteCorr +
+                `<br>$${d}$ n'est pas  solution car : $ ${ecritureParentheseSiNegatif(d)}^2-${b}=${d ** 2 - b}$ et $${d ** 2 - b}\\leqslant${c}$.`
             } else {
-              texteCorr = monQcm.texteCorr + `<br>$${d}$ n'est pas solution car : $${a}\\times${ecritureParentheseSiNegatif(d)}^2-${b}=${a * d ** 2 - b}$ et $${a * d ** 2 - b}\\leqslant${c}$.`
+              texteCorr =
+                monQcm.texteCorr +
+                `<br>$${d}$ n'est pas solution car : $${a}\\times${ecritureParentheseSiNegatif(d)}^2-${b}=${a * d ** 2 - b}$ et $${a * d ** 2 - b}\\leqslant${c}$.`
             }
           }
           break
-        case 'c' :
+        case 'c':
         default:
           a = randint(2, 5)
           b = randint(-2, 4, 0)
@@ -118,19 +146,21 @@ export default class SolutionInequation extends Exercice {
             propositions: [
               {
                 texte: 'V',
-                statut: (d ** 2 <= a * d + b)
+                statut: d ** 2 <= a * d + b,
               },
               {
                 texte: 'F',
-                statut: (d ** 2 > a * d + b)
-              }
+                statut: d ** 2 > a * d + b,
+              },
             ],
-            options: { ordered: true }
+            options: { ordered: true },
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
           if (d ** 2 <= a * d + b) {
-            texteCorr = monQcm.texteCorr + `<br>$${d}$ est  solution car : $${d ** 2}\\leqslant${a * d + b}$<br>
+            texteCorr =
+              monQcm.texteCorr +
+              `<br>$${d}$ est  solution car : $${d ** 2}\\leqslant${a * d + b}$<br>
           `
             texteCorr += texteEnCouleur(`<br> Mentalement : <br>
           Faites deux calculs séparés puis comparez les résultats :<br>
@@ -139,7 +169,9 @@ export default class SolutionInequation extends Exercice {
           et $${d ** 2}$ est  inférieur ou égal à $${a * d + b}$.
             `)
           } else {
-            texteCorr = monQcm.texteCorr + `<br>$${d}$ n'est pas solution car : $${d ** 2}>${a * d + b}$<br>
+            texteCorr =
+              monQcm.texteCorr +
+              `<br>$${d}$ n'est pas solution car : $${d ** 2}>${a * d + b}$<br>
          `
             texteCorr += texteEnCouleur(`<br> Mentalement : <br>
           Faites deux calculs séparés puis comparez les résultats :<br>
@@ -152,7 +184,7 @@ export default class SolutionInequation extends Exercice {
           break
       }
       if (this.questionJamaisPosee(i, a, b, c, d)) {
-      // Si la question n'a jamais été posée, on en crée une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

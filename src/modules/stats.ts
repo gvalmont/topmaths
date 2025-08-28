@@ -4,17 +4,17 @@ import { logDebug, log, getIntrus } from './statsUtils'
 
 declare global {
   interface Window {
-    _paq: any[];
-    logDebug: number;
+    _paq: any[]
+    logDebug: number
   }
 }
 
 // pour pour pouvoir le déactiver en mode debug...
 // eslint-disable-next-line prefer-const
-let activeStats = (document.location.hostname === 'coopmaths.fr')
+let activeStats = document.location.hostname === 'coopmaths.fr'
 
 if (activeStats) {
-  const _paq = window._paq = window._paq || []
+  const _paq = (window._paq = window._paq || [])
   _paq.push(['trackPageView'])
   ;(function () {
     const u = '//ynh.coopmaths.fr/matomo/'
@@ -23,20 +23,39 @@ if (activeStats) {
     const d = document
     const g = d.createElement('script')
     const s = d.getElementsByTagName('script')[0]
-    g.async = true; g.src = u + 'matomo.js'; if (s.parentNode) { s.parentNode.insertBefore(g, s) }
+    g.async = true
+    g.src = u + 'matomo.js'
+    if (s.parentNode) {
+      s.parentNode.insertBefore(g, s)
+    }
   })()
 }
 
 logDebug('Matomo loaded')
 
-const paramExos : string[] = []
-const uuids : string[] = []
-const vueUuids : string[] = []
-const vue : string [] = ['']
-const recorder : string[] = ['']
+const paramExos: string[] = []
+const uuids: string[] = []
+const vueUuids: string[] = []
+const vue: string[] = ['']
+const recorder: string[] = ['']
 
-function paraConvert (param: InterfaceParams) {
-  const par: { nb?: number; uuid: string, t?: string, e?: string | number, c?: string, et?: string | number, s1?: string, s2?: string, s3?: string, s4?: string, s5?: string, a?: string, i?: string, s?: number } = { uuid: param.uuid }
+function paraConvert(param: InterfaceParams) {
+  const par: {
+    nb?: number
+    uuid: string
+    t?: string
+    e?: string | number
+    c?: string
+    et?: string | number
+    s1?: string
+    s2?: string
+    s3?: string
+    s4?: string
+    s5?: string
+    a?: string
+    i?: string
+    s?: number
+  } = { uuid: param.uuid }
   if (param.nbQuestions) par.nb = param.nbQuestions
   if (param.type) par.t = param.type
   if (param.exo) par.e = param.exo
@@ -70,15 +89,22 @@ globalOptions.subscribe((options) => {
     if (options.recorder) recorder[0] = options.recorder
     log('recorder', recorder[0])
     // if (window._paq) window._paq.push(['setCustomDimension', 2, recorder[0]])
-    if (window._paq && options.recorder) window._paq.push(['setCustomDimension', 1, options.recorder])
+    if (window._paq && options.recorder)
+      window._paq.push(['setCustomDimension', 1, options.recorder])
 
     // changement de vue
-    const vueUuids1 : string[] = []
+    const vueUuids1: string[] = []
     for (let i = 0; i < paramExos.length; i++) {
       const parsedExo = JSON.parse(paramExos[i])
       // if (window._paq) window._paq.push(['trackEvent', 'VueExo', vue[0] + '-' + parsedExo.uuid, paramExos[i]])
       log(vue[0] + '-' + parsedExo.uuid, 'par:', paramExos[i])
-      if (vue[0] !== '') vueUuids1.push(vue[0] + '-' + parsedExo.uuid + (recorder[0] ? '-' + recorder[0] : ''))
+      if (vue[0] !== '')
+        vueUuids1.push(
+          vue[0] +
+            '-' +
+            parsedExo.uuid +
+            (recorder[0] ? '-' + recorder[0] : ''),
+        )
     }
 
     // changement de vue pour les exercices
@@ -87,7 +113,8 @@ globalOptions.subscribe((options) => {
         for (let j = 0; j < intrus.difference; j++) {
           vueUuids.push(intrus.value)
           log('Ajout de', intrus.value, 'dans vueUuids')
-          if (window._paq) window._paq.push(['trackEvent', 'VueUuid', intrus.value])
+          if (window._paq)
+            window._paq.push(['trackEvent', 'VueUuid', intrus.value])
         }
       } else if (intrus.difference < 0) {
         for (let j = 0; j < Math.abs(intrus.difference); j++) {
@@ -106,7 +133,7 @@ globalOptions.subscribe((options) => {
 exercicesParams.subscribe((params) => {
   logDebug('exercicesParams', params)
   if (params) {
-    const vueUuids1 : string[] = []
+    const vueUuids1: string[] = []
     params.forEach((param) => {
       // on met à jour la liste des exercices
       if (uuids.includes(param.uuid)) {
@@ -117,26 +144,34 @@ exercicesParams.subscribe((params) => {
         log('Uuids-' + param.uuid)
       }
       // on met à jour la liste des paramètres avec la vue et le recorder:
-      if (vue[0] !== '') vueUuids1.push(vue[0] + '-' + param.uuid + (recorder[0] ? '-' + param.recorder : ''))
+      if (vue[0] !== '')
+        vueUuids1.push(
+          vue[0] + '-' + param.uuid + (recorder[0] ? '-' + param.recorder : ''),
+        )
       const par = paraConvert(param)
       if (paramExos.includes(JSON.stringify(par))) {
         logDebug('déjà chargé:', param.uuid)
       } else {
         paramExos.push(JSON.stringify(par))
         // if (window._paq && vue[0] !== '') window._paq.push(['trackEvent', 'VueExo', vue[0] + '-' + par.uuid, JSON.stringify(par)])
-        if (vue[0] !== '') log(vue[0] + '-' + par.uuid, 'par:', JSON.stringify(par))
+        if (vue[0] !== '')
+          log(vue[0] + '-' + par.uuid, 'par:', JSON.stringify(par))
       }
     })
     // Supprimer les éléments qui ne sont pas dans la référence
     for (let i = paramExos.length - 1; i >= 0; i--) {
-      if (!params.some(param => JSON.stringify(paraConvert(param)) === paramExos[i])) {
+      if (
+        !params.some(
+          (param) => JSON.stringify(paraConvert(param)) === paramExos[i],
+        )
+      ) {
         const ele = paramExos.splice(i, 1)
         log('exercice supprimé', ele)
       }
     }
     logDebug('paramExos:', paramExos)
     for (let i = uuids.length - 1; i >= 0; i--) {
-      if (!params.some(param => param.uuid === uuids[i])) {
+      if (!params.some((param) => param.uuid === uuids[i])) {
         const ele = uuids.splice(i, 1)
         log('uuid supprimé', ele)
       }
@@ -147,7 +182,8 @@ exercicesParams.subscribe((params) => {
         for (let j = 0; j < intrus.difference; j++) {
           vueUuids.push(intrus.value)
           log('Ajout de', intrus.value, 'dans vueUuids')
-          if (window._paq) window._paq.push(['trackEvent', 'VueUuid', intrus.value])
+          if (window._paq)
+            window._paq.push(['trackEvent', 'VueUuid', intrus.value])
         }
       } else if (intrus.difference < 0) {
         for (let j = 0; j < Math.abs(intrus.difference); j++) {
@@ -163,13 +199,17 @@ exercicesParams.subscribe((params) => {
   }
 })
 
-export function statsCanTracker (recorder:string, vue: string) {
+export function statsCanTracker(recorder: string, vue: string) {
   logDebug('Tracking can stats...')
   for (let i = 0; i < vueUuids.length; i++) {
     const uuid = vueUuids[i].split('-')[1]
     if (window._paq) {
-      window._paq.push(['trackEvent', 'CheckCan', vue + '-' + uuid + (recorder ? '-' + recorder : '')])
+      window._paq.push([
+        'trackEvent',
+        'CheckCan',
+        vue + '-' + uuid + (recorder ? '-' + recorder : ''),
+      ])
     }
-    log(vue + '-' + uuid, 'CheckCan', (recorder ? '-' + recorder : ''))
+    log(vue + '-' + uuid, 'CheckCan', recorder ? '-' + recorder : '')
   }
 }

@@ -2,7 +2,10 @@ import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
-import { orangeMathalea, orangeMathaleaLight } from 'apigeom/src/elements/defaultValues'
+import {
+  orangeMathalea,
+  orangeMathaleaLight,
+} from 'apigeom/src/elements/defaultValues'
 import type { Coords } from 'apigeom/src/elements/calculus/Coords'
 import bluePolygon from './svg/bluePolygon.svg'
 import remove from 'apigeom/src/assets/svg/restart.svg'
@@ -24,17 +27,17 @@ export const interactifType = 'custom'
 export const uuid = 'ccf19'
 export const refs = {
   'fr-fr': ['EN-Shikaku'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 type Cell = {
-  value: number | string;
-  regionId: number;
+  value: number | string
+  regionId: number
 }
 
 type Rectangle = {
-  topLeft: [number, number];
-  bottomRight: [number, number];
+  topLeft: [number, number]
+  bottomRight: [number, number]
 }
 
 export default class shikaku extends ExerciceSimple {
@@ -45,7 +48,7 @@ export default class shikaku extends ExerciceSimple {
   longueur: number
   largeur: number
 
-  constructor () {
+  constructor() {
     super()
     this.goodAnswers = []
     this.typeExercice = 'simple'
@@ -56,15 +59,15 @@ export default class shikaku extends ExerciceSimple {
     this.exoCustomResultat = true
     this.besoinFormulaireTexte = [
       'Hauteur de la grille',
-      'Choisir un nombre entier entre 2 et 15.'
+      'Choisir un nombre entier entre 2 et 15.',
     ]
     this.besoinFormulaire2Texte = [
       'Longueur de la grille',
-      'Choisir un nombre entier entre 2 et 15.'
+      'Choisir un nombre entier entre 2 et 15.',
     ]
     this.besoinFormulaire3Texte = [
       'Nombre minimum de rectangles ou carrés',
-      ' Choisir un nombre entier.'
+      ' Choisir un nombre entier.',
     ]
     this.sup = 5
     this.sup2 = 5
@@ -73,12 +76,17 @@ export default class shikaku extends ExerciceSimple {
     this.largeur = this.sup2
   }
 
-  nouvelleVersion (): void {
-    this.consigne = 'Cette grille de Shikaku doit être divisée en rectangles ou carrés, chacun contenant un seul nombre. Le nombre indique le nombre de cases que doit contenir le rectangle ou le carré. '
-    this.consigne += 'Tous les rectangles et carrés doivent se toucher par leurs côtés et remplir la grille entière sans chevauchement. '
-    this.consigne += '<br>Pour être certain que rien ne se chevauche, les rectangles et carrés doivent tous avoir strictement la même couleur de fond. '
-    this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille, vous pouvez graduer la difficulté des grilles SquarO proposés.'
-    this.comment += '<br>Si vous précisez un nombre minimum de rectangles ou carrés, alors si ce nombre minimum est trop élevé pour créer une grille pertinente pour la taille demandée, il ne sera pas pris en compte.'
+  nouvelleVersion(): void {
+    this.consigne =
+      'Cette grille de Shikaku doit être divisée en rectangles ou carrés, chacun contenant un seul nombre. Le nombre indique le nombre de cases que doit contenir le rectangle ou le carré. '
+    this.consigne +=
+      'Tous les rectangles et carrés doivent se toucher par leurs côtés et remplir la grille entière sans chevauchement. '
+    this.consigne +=
+      '<br>Pour être certain que rien ne se chevauche, les rectangles et carrés doivent tous avoir strictement la même couleur de fond. '
+    this.comment =
+      'Grâce au choix de la longueur et de la hauteur de la grille, vous pouvez graduer la difficulté des grilles SquarO proposés.'
+    this.comment +=
+      '<br>Si vous précisez un nombre minimum de rectangles ou carrés, alors si ce nombre minimum est trop élevé pour créer une grille pertinente pour la taille demandée, il ne sera pas pris en compte.'
     this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
     // Quand on duplique un exercice le numeroExercice ne semble pas se mettre à jour
@@ -89,7 +97,7 @@ export default class shikaku extends ExerciceSimple {
       // height: this.largeur * 30 + 20,
       height: this.longueur * 30 + 20, // On ajoute 20 pixels
       width: this.largeur * 30 + 20,
-      border: false
+      border: false,
     })
     this.figure.create('Grid', {
       strokeWidthGrid: 1,
@@ -103,7 +111,7 @@ export default class shikaku extends ExerciceSimple {
       axeX: false,
       axeY: false,
       labelX: false,
-      labelY: false
+      labelY: false,
     })
     this.figure.snapGrid = true
     this.figure.options.color = 'blue'
@@ -120,7 +128,7 @@ export default class shikaku extends ExerciceSimple {
       // height: this.largeur * 30 + 20,
       height: this.longueur * 30 + 20, // On ajoute 20 pixels
       width: this.largeur * 30 + 20,
-      border: false
+      border: false,
     })
     this.figureCorrection.create('Grid', {
       strokeWidthGrid: 1,
@@ -134,7 +142,7 @@ export default class shikaku extends ExerciceSimple {
       axeX: false,
       axeY: false,
       labelX: false,
-      labelY: false
+      labelY: false,
     })
     this.figureCorrection.snapGrid = true
     this.figureCorrection.options.color = 'red'
@@ -163,17 +171,17 @@ export default class shikaku extends ExerciceSimple {
     this.figure.addCustomButton({
       action: drawBluePolygon,
       tooltip: 'Dessiner un polygone bleu',
-      url: bluePolygon
+      url: bluePolygon,
     })
     this.figure.addCustomButton({
       action: eraseAllPoints,
       tooltip: 'Effacer tous les points',
-      url: remove
+      url: remove,
     })
     const emplacementPourFigure = figureApigeom({
       exercice: this,
       i: 0,
-      figure: this.figure
+      figure: this.figure,
     })
     this.goodAnswers = []
     const rows = this.largeur
@@ -184,7 +192,12 @@ export default class shikaku extends ExerciceSimple {
     let grid: Cell[][]
     let rectangles: Rectangle[]
 
-    function isValidPlacement (row: number, col: number, height: number, width: number): boolean {
+    function isValidPlacement(
+      row: number,
+      col: number,
+      height: number,
+      width: number,
+    ): boolean {
       if (row + height > rows || col + width > cols) return false
       for (let r = row; r < row + height; r++) {
         for (let c = col; c < col + width; c++) {
@@ -193,22 +206,33 @@ export default class shikaku extends ExerciceSimple {
       }
       return true
     }
-    function placeRegion (row: number, col: number, height: number, width: number): void {
+    function placeRegion(
+      row: number,
+      col: number,
+      height: number,
+      width: number,
+    ): void {
       const value = height * width
       const dejaMis = [] as number[]
       for (let r = row; r < row + height; r++) {
         for (let c = col; c < col + width; c++) {
           const pourComparerAAire = choice(range1(value, dejaMis))
-          grid[r][c] = { value: pourComparerAAire === value ? value : '', regionId: regionIdCounter }
+          grid[r][c] = {
+            value: pourComparerAAire === value ? value : '',
+            regionId: regionIdCounter,
+          }
           dejaMis.push(pourComparerAAire)
         }
       }
       // rectangles.push({ topLeft: [col, row], bottomRight: [col + width - 1, row + height - 1] })
-      rectangles.push({ topLeft: [row, col], bottomRight: [row + height - 1, col + width - 1] })
+      rectangles.push({
+        topLeft: [row, col],
+        bottomRight: [row + height - 1, col + width - 1],
+      })
       regionIdCounter++
     }
 
-    function generateGrid (): void {
+    function generateGrid(): void {
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
           if (grid[row][col].value === -1) {
@@ -228,9 +252,10 @@ export default class shikaku extends ExerciceSimple {
 
     // Génération de la grille
     let compteur = 0
-    do { // Cette boucle doit tourner 1O fois maximum et s'arrêter dès que le nb de découpes est supérieur ou égal à this.sup3
+    do {
+      // Cette boucle doit tourner 1O fois maximum et s'arrêter dès que le nb de découpes est supérieur ou égal à this.sup3
       grid = Array.from({ length: rows }, () =>
-        Array.from({ length: cols }, () => ({ value: -1, regionId: -1 }))
+        Array.from({ length: cols }, () => ({ value: -1, regionId: -1 })),
       )
       rectangles = []
       generateGrid()
@@ -239,76 +264,100 @@ export default class shikaku extends ExerciceSimple {
 
     // Rotation des grilles pour éviter d'avoir toujours les gros nombres en bas à gauche.
 
-    function rotate90 (grid: Cell[][], rectangles: Rectangle[]): { grid: Cell[][], rectangles: Rectangle[] } {
+    function rotate90(
+      grid: Cell[][],
+      rectangles: Rectangle[],
+    ): { grid: Cell[][]; rectangles: Rectangle[] } {
       const n = grid.length
-      const newGrid: Cell[][] = Array.from({ length: n }, () => Array(n).fill({ value: ' ', regionId: -1 }))
+      const newGrid: Cell[][] = Array.from({ length: n }, () =>
+        Array(n).fill({ value: ' ', regionId: -1 }),
+      )
       for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
           newGrid[j][n - 1 - i] = grid[i][j]
         }
       }
-      const newRectangles = rectangles.map(rect => ({
+      const newRectangles = rectangles.map((rect) => ({
         // topLeft: [n - 1 - rect.bottomRight[1], rect.topLeft[0]],
         // bottomRight: [n - 1 - rect.topLeft[1], rect.bottomRight[0]]
         topLeft: [rect.topLeft[1], n - 1 - rect.bottomRight[0]],
-        bottomRight: [rect.bottomRight[1], n - 1 - rect.topLeft[0]]
+        bottomRight: [rect.bottomRight[1], n - 1 - rect.topLeft[0]],
       })) as Rectangle[]
       return { grid: newGrid, rectangles: newRectangles }
     }
 
-    function rotate180Carree (grid: Cell[][], rectangles: Rectangle[]): { grid: Cell[][], rectangles: Rectangle[] } {
+    function rotate180Carree(
+      grid: Cell[][],
+      rectangles: Rectangle[],
+    ): { grid: Cell[][]; rectangles: Rectangle[] } {
       const n = grid.length
-      const newGrid: Cell[][] = Array.from({ length: n }, () => Array(n).fill({ value: ' ', regionId: -1 }))
+      const newGrid: Cell[][] = Array.from({ length: n }, () =>
+        Array(n).fill({ value: ' ', regionId: -1 }),
+      )
       for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
           newGrid[n - 1 - i][n - 1 - j] = grid[i][j]
         }
       }
-      const newRectangles = rectangles.map(rect => ({
+      const newRectangles = rectangles.map((rect) => ({
         topLeft: [n - 1 - rect.bottomRight[0], n - 1 - rect.bottomRight[1]],
-        bottomRight: [n - 1 - rect.topLeft[0], n - 1 - rect.topLeft[1]]
+        bottomRight: [n - 1 - rect.topLeft[0], n - 1 - rect.topLeft[1]],
       })) as Rectangle[]
       return { grid: newGrid, rectangles: newRectangles }
     }
 
-    function rotate180NonCarree (grid: Cell[][], rectangles: Rectangle[]): { grid: Cell[][], rectangles: Rectangle[] } {
+    function rotate180NonCarree(
+      grid: Cell[][],
+      rectangles: Rectangle[],
+    ): { grid: Cell[][]; rectangles: Rectangle[] } {
       const rows = grid.length
       const cols = grid[0].length
-      const newGrid: Cell[][] = Array.from({ length: rows }, () => Array(cols).fill({ value: ' ', regionId: -1 }))
+      const newGrid: Cell[][] = Array.from({ length: rows }, () =>
+        Array(cols).fill({ value: ' ', regionId: -1 }),
+      )
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
           newGrid[rows - 1 - i][cols - 1 - j] = grid[i][j]
         }
       }
-      const newRectangles = rectangles.map(rect => ({
-        topLeft: [rows - 1 - rect.bottomRight[0], cols - 1 - rect.bottomRight[1]],
-        bottomRight: [rows - 1 - rect.topLeft[0], cols - 1 - rect.topLeft[1]]
+      const newRectangles = rectangles.map((rect) => ({
+        topLeft: [
+          rows - 1 - rect.bottomRight[0],
+          cols - 1 - rect.bottomRight[1],
+        ],
+        bottomRight: [rows - 1 - rect.topLeft[0], cols - 1 - rect.topLeft[1]],
         // bottomRight: [rows - 1 - rect.bottomRight[0], cols - 1 - rect.bottomRight[1]],
         // topLeft: [rows - 1 - rect.topLeft[0], cols - 1 - rect.topLeft[1]]
       })) as Rectangle[]
       return { grid: newGrid, rectangles: newRectangles }
     }
 
-    function rotate270 (grid: Cell[][], rectangles: Rectangle[]): { grid: Cell[][], rectangles: Rectangle[] } {
+    function rotate270(
+      grid: Cell[][],
+      rectangles: Rectangle[],
+    ): { grid: Cell[][]; rectangles: Rectangle[] } {
       const n = grid.length
-      const newGrid: Cell[][] = Array.from({ length: n }, () => Array(n).fill({ value: ' ', regionId: -1 }))
+      const newGrid: Cell[][] = Array.from({ length: n }, () =>
+        Array(n).fill({ value: ' ', regionId: -1 }),
+      )
       for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
           newGrid[n - 1 - j][i] = grid[i][j]
         }
       }
-      const newRectangles = rectangles.map(rect => ({
+      const newRectangles = rectangles.map((rect) => ({
         //  topLeft: [rect.topLeft[1], n - 1 - rect.bottomRight[0]],
         // bottomRight: [rect.bottomRight[1], n - 1 - rect.topLeft[0]]
         bottomRight: [n - 1 - rect.topLeft[1], rect.bottomRight[0]],
-        topLeft: [n - 1 - rect.bottomRight[1], rect.topLeft[0]]
+        topLeft: [n - 1 - rect.bottomRight[1], rect.topLeft[0]],
       })) as Rectangle[]
       return { grid: newGrid, rectangles: newRectangles }
     }
 
     let result = { grid, rectangles }
 
-    if (this.largeur === this.longueur) { // Si la grille est carrée, 3 rotations + l'identité sont possibles
+    if (this.largeur === this.longueur) {
+      // Si la grille est carrée, 3 rotations + l'identité sont possibles
       const choixRotation = choice(range1(4))
       switch (choixRotation) {
         case 2: {
@@ -365,7 +414,7 @@ export default class shikaku extends ExerciceSimple {
           //  x: i + 0.5,
           //  y: this.largeur - j - 0.5
           y: i + 0.5,
-          x: this.largeur - j - 0.5
+          x: this.largeur - j - 0.5,
         })
         this.figureCorrection.create('TextByPosition', {
           anchor: 'middleCenter',
@@ -373,19 +422,45 @@ export default class shikaku extends ExerciceSimple {
           // x: i + 0.5,
           // y: this.largeur - j - 0.5
           y: i + 0.5,
-          x: this.largeur - j - 0.5
+          x: this.largeur - j - 0.5,
         })
       }
     }
     for (let k = 0; k < newRectangles.length; k++) {
-      const A = this.figure.create('Point', { x: newRectangles[k].bottomRight[0] + 1, y: newRectangles[k].bottomRight[1] + 1, isVisible: false })
-      const B = this.figure.create('Point', { x: newRectangles[k].bottomRight[0] + 1, y: newRectangles[k].topLeft[1], isVisible: false })
-      const C = this.figure.create('Point', { x: newRectangles[k].topLeft[0], y: newRectangles[k].topLeft[1], isVisible: false })
-      const D = this.figure.create('Point', { x: newRectangles[k].topLeft[0], y: newRectangles[k].bottomRight[1] + 1, isVisible: false })
-      this.goodAnswers.push([{ x: A.x, y: A.y }, { x: B.x, y: B.y }, { x: C.x, y: C.y }, { x: D.x, y: D.y }])
-      this.figureCorrection.create('Polygon', { points: [A, B, C, D], thickness: 3, color: orangeMathalea, fillColor: orangeMathaleaLight })
+      const A = this.figure.create('Point', {
+        x: newRectangles[k].bottomRight[0] + 1,
+        y: newRectangles[k].bottomRight[1] + 1,
+        isVisible: false,
+      })
+      const B = this.figure.create('Point', {
+        x: newRectangles[k].bottomRight[0] + 1,
+        y: newRectangles[k].topLeft[1],
+        isVisible: false,
+      })
+      const C = this.figure.create('Point', {
+        x: newRectangles[k].topLeft[0],
+        y: newRectangles[k].topLeft[1],
+        isVisible: false,
+      })
+      const D = this.figure.create('Point', {
+        x: newRectangles[k].topLeft[0],
+        y: newRectangles[k].bottomRight[1] + 1,
+        isVisible: false,
+      })
+      this.goodAnswers.push([
+        { x: A.x, y: A.y },
+        { x: B.x, y: B.y },
+        { x: C.x, y: C.y },
+        { x: D.x, y: D.y },
+      ])
+      this.figureCorrection.create('Polygon', {
+        points: [A, B, C, D],
+        thickness: 3,
+        color: orangeMathalea,
+        fillColor: orangeMathaleaLight,
+      })
     }
-    function handleExercicesAffiches () {
+    function handleExercicesAffiches() {
       drawBluePolygon()
       document.removeEventListener('exercicesAffiches', handleExercicesAffiches)
     }
@@ -401,8 +476,18 @@ export default class shikaku extends ExerciceSimple {
     for (let j = 0; j < this.largeur; j++) {
       for (let i = 0; i < this.longueur; i++) {
         let contenuCasePC: string = ''
-        if (i !== 0 && newGrid[this.largeur - j - 1][i].regionId !== newGrid[this.largeur - j - 1][i - 1].regionId) contenuCasePC = '1'
-        if (j !== this.largeur - 1 && newGrid[this.largeur - j - 1][i].regionId !== newGrid[this.largeur - j - 2][i].regionId) contenuCasePC += 'b'
+        if (
+          i !== 0 &&
+          newGrid[this.largeur - j - 1][i].regionId !==
+            newGrid[this.largeur - j - 1][i - 1].regionId
+        )
+          contenuCasePC = '1'
+        if (
+          j !== this.largeur - 1 &&
+          newGrid[this.largeur - j - 1][i].regionId !==
+            newGrid[this.largeur - j - 2][i].regionId
+        )
+          contenuCasePC += 'b'
         contenuCasePC += '/' + newGrid[this.largeur - j - 1][i].value.toString()
         tabProfCollege.push(contenuCasePC)
       }
@@ -418,25 +503,30 @@ export default class shikaku extends ExerciceSimple {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figure.id] = this.figure.json
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${0}`,
+    ) as HTMLDivElement
     let validUnPolygone = true
     const nbPolygon = [...this.figure.elements.values()].filter(
-      (e) => e.type === 'Polygon'
+      (e) => e.type === 'Polygon',
     ).length
 
     let isValid = nbPolygon === this.goodAnswers.length
     let message: string
 
     if (!isValid) {
-      if (nbPolygon > this.goodAnswers.length) message = 'Trop de polygones ont été tracés.'
+      if (nbPolygon > this.goodAnswers.length)
+        message = 'Trop de polygones ont été tracés.'
       else if (nbPolygon > 0) message = 'Trop peu de polygones ont été tracés.'
-      else message = 'Aucun polygone n\'a été tracé.'
+      else message = "Aucun polygone n'a été tracé."
       divFeedback.innerHTML = message
       return ['KO']
     }
 
     for (let i = 0; i < this.goodAnswers.length; i++) {
-      validUnPolygone = this.figure.checkPolygon({ points: this.goodAnswers[i] }).isValid
+      validUnPolygone = this.figure.checkPolygon({
+        points: this.goodAnswers[i],
+      }).isValid
       isValid &&= validUnPolygone
     }
 
@@ -448,7 +538,7 @@ export default class shikaku extends ExerciceSimple {
       divFeedback.innerHTML = 'Bravo !'
       return ['OK']
     }
-    divFeedback.innerHTML = 'Au moins un polygone n\'a pas la bonne aire.'
+    divFeedback.innerHTML = "Au moins un polygone n'a pas la bonne aire."
     return ['KO']
   }
 }

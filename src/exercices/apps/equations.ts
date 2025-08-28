@@ -4,7 +4,7 @@ export const uuid = 'equations'
 export const titre = 'Équations'
 
 class equations extends ExternalApp {
-  constructor () {
+  constructor() {
     super('https://coopmaths.fr/apps/equations/?mathalea')
   }
 }

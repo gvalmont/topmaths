@@ -13,7 +13,7 @@ import { exp } from 'mathjs'
 export const uuid = 'zert'
 export const refs = {
   'fr-fr': ['TSA2-QCM07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -30,7 +30,7 @@ export const dateDePublication = '08/11/2024'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (a: number, b: number): void {
+  private appliquerLesValeurs(a: number, b: number): void {
     const r = repere({
       xMin: -5,
       yMin: -5,
@@ -54,7 +54,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
       grilleSecondaireYMin: 0,
       grilleSecondaireYMax: 1,
       grilleSecondaireXMin: 0,
-      grilleSecondaireXMax: 1
+      grilleSecondaireXMax: 1,
     })
     const yA = 5
     const yB = 20
@@ -65,9 +65,9 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
     const tB = tracePoint(B, 'red') // Variable qui trace les points avec une croix
     const tC = tracePoint(C, 'red') // Variable qui trace les points avec une croix
-    const lA = labelPoint(A, 'red')// Variable qui trace les nom s A et B
-    const lB = labelPoint(B, 'red')// Variable qui trace les nom s A et B
-    const lC = labelPoint(C, 'red')// Variable qui trace les nom s A et B
+    const lA = labelPoint(A, 'red') // Variable qui trace les nom s A et B
+    const lB = labelPoint(B, 'red') // Variable qui trace les nom s A et B
+    const lC = labelPoint(C, 'red') // Variable qui trace les nom s A et B
     tA.taille = 5
     tA.epaisseur = 2
     tB.taille = 5
@@ -78,24 +78,43 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     droiteAB.color = colorToLatexOrHTML('red')
     droiteAB.epaisseur = 2
 
-    const f = (x:number) => (a * x + b) * exp(x)
-    const graphique = mathalea2d({
-      xmin: -5,
-      xmax: 2,
-      ymin: -2,
-      ymax: 9,
-      pixelsParCm: 30,
-      scale: 1,
-      style: 'margin: auto'
-    },
-    [courbe(f, { repere: r, xMin: -5, xMax: 0.6, color: 'blue', epaisseur: 2 }), r, o, tA, tB, lA, lB, tC, lC, droiteAB]
+    const f = (x: number) => (a * x + b) * exp(x)
+    const graphique = mathalea2d(
+      {
+        xmin: -5,
+        xmax: 2,
+        ymin: -2,
+        ymax: 9,
+        pixelsParCm: 30,
+        scale: 1,
+        style: 'margin: auto',
+      },
+      [
+        courbe(f, {
+          repere: r,
+          xMin: -5,
+          xMax: 0.6,
+          color: 'blue',
+          epaisseur: 2,
+        }),
+        r,
+        o,
+        tA,
+        tB,
+        lA,
+        lB,
+        tC,
+        lC,
+        droiteAB,
+      ],
     )
 
     this.reponses = [
-      '$f\'(0) = 15$',
-      '$f\'(-0,5) = 0$',
-      'si $x \\in ]- \\infty~;~-0,5[$, alors $f\'(x) < 0$',
-      'La fonction dérivée $f\'$ ne change pas de signe sur $\\mathbb{R}.$']
+      "$f'(0) = 15$",
+      "$f'(-0,5) = 0$",
+      "si $x \\in ]- \\infty~;~-0,5[$, alors $f'(x) < 0$",
+      "La fonction dérivée $f'$ ne change pas de signe sur $\\mathbb{R}.$",
+    ]
 
     this.enonce = this.sup3
       ? `Le graphique ci-contre donne la représentation graphique $\\mathcal{C}_f$ dans un repère orthogonal d'une fonction $f$ définie et dérivable sur $\\mathbb{R}$.<br>
@@ -125,11 +144,11 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

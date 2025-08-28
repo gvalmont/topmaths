@@ -7,10 +7,10 @@ export const uuid = 'c14e8'
 
 export const refs = {
   'fr-fr': ['2N20-5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceDecomposerEnFacteursPremiers2nde extends ExerciceDecomposerEnFacteursPremiers {
-  constructor () {
+  constructor() {
     super()
     this.sup3 = true
     this.sup = 3

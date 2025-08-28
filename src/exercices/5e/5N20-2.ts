@@ -12,7 +12,8 @@ import { context } from '../../modules/context'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Effectuer des calculs de fractions (à dénominateurs multiples) un peu complexes'
+export const titre =
+  'Effectuer des calculs de fractions (à dénominateurs multiples) un peu complexes'
 
 export const dateDePublication = '12/05/2023'
 export const dateDeModifImportante = '07/04/2024'
@@ -31,10 +32,10 @@ export const uuid = '75f80'
 
 export const refs = {
   'fr-fr': ['5N20-2', 'BP2AutoH23'],
-  'fr-ch': ['10NO5-3']
+  'fr-ch': ['10NO5-3'],
 }
 export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
-  constructor (max = 5) {
+  constructor(max = 5) {
     super()
     this.sup = max // Correspond au facteur commun
     this.sup3 = false // Si false alors le résultat n'est pas en fraction simplifiée
@@ -44,19 +45,29 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
     this.nbQuestions = 4
     this.nbColsCorr = 2
     this.interactif = true
-    this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
-    this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
+    this.besoinFormulaireNumerique = [
+      'Valeur maximale du coefficient multiplicateur',
+      99999,
+    ]
+    this.besoinFormulaire3CaseACocher = [
+      "Avec l'écriture simplifiée de la fraction résultat",
+    ]
     this.besoinFormulaire4CaseACocher = ['Avec uniquement des nombres positifs']
-    this.comment = 'Calculs de la forme : <br>a/b + n ✕ c/bk<br> a/b - n ✕ c/bk<br>a/b - (c/b + e/bk)<br>a/b + n<br>a/b - n<br>a/b - c/bk + e/b'
+    this.comment =
+      'Calculs de la forme : <br>a/b + n ✕ c/bk<br> a/b - n ✕ c/bk<br>a/b - (c/b + e/bk)<br>a/b + n<br>a/b - n<br>a/b - c/bk + e/b'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.sup3) {
       this.consigne = 'Calculer'
-      this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final simplifié au maximum.' : ' et simplifier au maximum le résultat.'
+      this.consigne += this.interactif
+        ? ' au brouillon et indiquer seulement le résultat final simplifié au maximum.'
+        : ' et simplifier au maximum le résultat.'
     } else {
       this.consigne = 'Calculer'
-      this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final.' : '.'
+      this.consigne += this.interactif
+        ? ' au brouillon et indiquer seulement le résultat final.'
+        : '.'
     }
 
     if (context.isDiaporama) {
@@ -65,8 +76,29 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4'] // On crée 4 types de questions
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, b, c, d, e, k, n, s, ordreDesFractions, negOuPos, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0,
+        a,
+        b,
+        c,
+        d,
+        e,
+        k,
+        n,
+        s,
+        ordreDesFractions,
+        negOuPos,
+        texte,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      // Boucle principale où i+1 correspond au numéro de la question
       // les numérateurs
       let reponse
       a = randint(1, 9)
@@ -81,11 +113,14 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
       n = randint(2, 5)
       ordreDesFractions = randint(1, 2) // Quand ordreDesFractions = 1, alors le premier dénominateur est le plus petit.
       negOuPos = randint(1, 2)
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'type1': // Calculs du type a/b + n * c/bk lorsque negOuPos === 1 et du type a/b - n * c/bk lorsque negOuPos === 2
           if (this.sup4) negOuPos = 1
           if (negOuPos === 1) {
-            if (ordreDesFractions === 1) { // La fraction de dénominateur plus grand est la deuxième
+            if (ordreDesFractions === 1) {
+              // La fraction de dénominateur plus grand est la deuxième
               //     texte = `$${new FractionEtendue(a, b)}+ ${n} \\times  ${new FractionEtendue(c, d)}$`
               texte = `$${new FractionEtendue(a, b).texFSD}+ ${n} \\times  ${new FractionEtendue(c, d).texFSD}$`
             } else {
@@ -116,13 +151,21 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
                 if (s !== 1) {
                   texteCorr += `$=${texFraction((a * k + n * c) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a * k + n * c) / s, d / s)}$`
                 }
-                reponse = { num: a * k + n * c, den: d, options: { fractionIrreductible: true } }
+                reponse = {
+                  num: a * k + n * c,
+                  den: d,
+                  options: { fractionIrreductible: true },
+                }
               } else {
                 s = pgcd(n * a * k + c, d)
                 if (s !== 1) {
                   texteCorr += `$=${texFraction((n * a * k + c) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((n * a * k + c) / s, d / s)}$`
                 }
-                reponse = { num: n * a * k + c, den: d, options: { fractionIrreductible: true } }
+                reponse = {
+                  num: n * a * k + c,
+                  den: d,
+                  options: { fractionIrreductible: true },
+                }
               }
             } else {
               if (ordreDesFractions === 1) {
@@ -162,17 +205,29 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
               if (ordreDesFractions === 1) {
                 s = pgcd(a * k - n * c, d)
                 if (s !== 1 && a * k - n * c !== 0) {
-                  if (a * k - n * c > 0) texteCorr += `$=${texFraction((a * k - n * c) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a * k - n * c) / s, (d / s))}$`
-                  else texteCorr += `$=-${texFraction((-(a * k - n * c) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a * k - n * c) / s), (d / s))}$`
+                  if (a * k - n * c > 0)
+                    texteCorr += `$=${texFraction((a * k - n * c) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a * k - n * c) / s, d / s)}$`
+                  else
+                    texteCorr += `$=-${texFraction(-(a * k - n * c) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite(-(a * k - n * c) / s, d / s)}$`
                 }
-                reponse = { num: a * k - n * c, den: d, options: { fractionIrreductible: true } }
+                reponse = {
+                  num: a * k - n * c,
+                  den: d,
+                  options: { fractionIrreductible: true },
+                }
               } else {
                 s = pgcd(n * a * k - c, d)
                 if (s !== 1 && c - n * a * k !== 0) {
-                  if (c - n * a * k > 0) texteCorr += `$=${texFraction(((c - n * a * k) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((c - n * a * k) / s), (d / s))}$`
-                  else texteCorr += `$=-${texFraction((-(c - n * a * k) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(c - n * a * k) / s), (d / s))}$`
+                  if (c - n * a * k > 0)
+                    texteCorr += `$=${texFraction((c - n * a * k) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((c - n * a * k) / s, d / s)}$`
+                  else
+                    texteCorr += `$=-${texFraction(-(c - n * a * k) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite(-(c - n * a * k) / s, d / s)}$`
                 }
-                reponse = { num: c - n * a * k, den: d, options: { fractionIrreductible: true } }
+                reponse = {
+                  num: c - n * a * k,
+                  den: d,
+                  options: { fractionIrreductible: true },
+                }
               }
             } else {
               if (ordreDesFractions === 1) {
@@ -231,17 +286,29 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
             if (ordreDesFractions === 2) {
               s = pgcd(a * k - c * k - e, d)
               if (s !== 1 && a * k - c * k - e !== 0) {
-                if (a * k - c * k - e > 0) texteCorr += `$=${texFraction(((a * k - c * k - e) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a * k - c * k - e) / s), (d / s))}$`
-                else texteCorr += `$=-${texFraction((-(a * k - c * k - e) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a * k - c * k - e) / s), (d / s))}$`
+                if (a * k - c * k - e > 0)
+                  texteCorr += `$=${texFraction((a * k - c * k - e) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a * k - c * k - e) / s, d / s)}$`
+                else
+                  texteCorr += `$=-${texFraction(-(a * k - c * k - e) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite(-(a * k - c * k - e) / s, d / s)}$`
               }
-              reponse = { num: a * k - c * k - e, den: d, options: { fractionIrreductible: true } }
+              reponse = {
+                num: a * k - c * k - e,
+                den: d,
+                options: { fractionIrreductible: true },
+              }
             } else {
               s = pgcd(a * k - c - k * e, d)
               if (s !== 1 && a * k - c - k * e !== 0) {
-                if (a * k - c - k * e > 0) texteCorr += `$=${texFraction(((a * k - c - k * e) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a * k - c - k * e) / s), (d / s))}$`
-                else texteCorr += `$=-${texFraction((-(a * k - c - k * e) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a * k - c - k * e) / s), (d / s))}$`
+                if (a * k - c - k * e > 0)
+                  texteCorr += `$=${texFraction((a * k - c - k * e) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a * k - c - k * e) / s, d / s)}$`
+                else
+                  texteCorr += `$=-${texFraction(-(a * k - c - k * e) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite(-(a * k - c - k * e) / s, d / s)}$`
               }
-              reponse = { num: a * k - c - k * e, den: d, options: { fractionIrreductible: true } }
+              reponse = {
+                num: a * k - c - k * e,
+                den: d,
+                options: { fractionIrreductible: true },
+              }
             }
           } else {
             if (ordreDesFractions === 2) {
@@ -262,9 +329,13 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
             if (this.sup3) {
               s = pgcd(a + n * b, b)
               if (s !== 1) {
-                texteCorr += `$=${texFraction(((a + n * b) / s) + miseEnEvidence('\\times ' + s, 'blue'), (b / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a + n * b) / s), (b / s))}$`
+                texteCorr += `$=${texFraction((a + n * b) / s + miseEnEvidence('\\times ' + s, 'blue'), b / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a + n * b) / s, b / s)}$`
               }
-              reponse = { num: a + n * b, den: b, options: { fractionIrreductible: true } }
+              reponse = {
+                num: a + n * b,
+                den: b,
+                options: { fractionIrreductible: true },
+              }
             } else {
               reponse = { num: a + n * b, den: b }
             }
@@ -277,10 +348,16 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
             if (this.sup3) {
               s = pgcd(a - n * b, b)
               if (s !== 1 && a - n * b !== 0) {
-                if (a - n * b > 0) texteCorr += `$=${texFraction(((a - n * b) / s) + miseEnEvidence('\\times ' + s, 'blue'), (b / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a - n * b) / s), (b / s))}$`
-                else texteCorr += `$=-${texFraction((-(a - n * b) / s) + miseEnEvidence('\\times ' + s, 'blue'), (b / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a - n * b) / s), (b / s))}$`
+                if (a - n * b > 0)
+                  texteCorr += `$=${texFraction((a - n * b) / s + miseEnEvidence('\\times ' + s, 'blue'), b / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a - n * b) / s, b / s)}$`
+                else
+                  texteCorr += `$=-${texFraction(-(a - n * b) / s + miseEnEvidence('\\times ' + s, 'blue'), b / s + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite(-(a - n * b) / s, b / s)}$`
               }
-              reponse = { num: a - n * b, den: b, options: { fractionIrreductible: true } }
+              reponse = {
+                num: a - n * b,
+                den: b,
+                options: { fractionIrreductible: true },
+              }
             } else {
               reponse = { num: a - n * b, den: b }
             }
@@ -307,18 +384,34 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
           if (this.sup3) {
             s = pgcd(a * k - c + e * k, d)
             if (s !== 1 && a * k - c + e * k !== 0) {
-              if (a * k - c + e * k > 0) texteCorr += `$=${texFraction(((a * k - c + e * k) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite(((a * k - c + e * k) / s), (d / s))}$`
-              else texteCorr += `$=-${texFraction((-(a * k - c + e * k) / s) + miseEnEvidence('\\times ' + s, 'blue'), (d / s) + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite((-(a * k - c + e * k) / s), (d / s))}$`
+              if (a * k - c + e * k > 0)
+                texteCorr += `$=${texFraction((a * k - c + e * k) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=${texFractionReduite((a * k - c + e * k) / s, d / s)}$`
+              else
+                texteCorr += `$=-${texFraction(-(a * k - c + e * k) / s + miseEnEvidence('\\times ' + s, 'blue'), d / s + miseEnEvidence('\\times ' + s, 'blue'))}=-${texFractionReduite(-(a * k - c + e * k) / s, d / s)}$`
             }
-            reponse = { num: a * k - c + e * k, den: d, options: { fractionIrreductible: true } }
+            reponse = {
+              num: a * k - c + e * k,
+              den: d,
+              options: { fractionIrreductible: true },
+            }
           } else {
             reponse = { num: a * k - c + e * k, den: d }
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        '  clavierDeBaseAvecFraction',
+        { texteAvant: sp() + '$=$' },
+      )
       if (!context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: new FractionEtendue(reponse.num, reponse.den).simplifie().texFSD } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: new FractionEtendue(reponse.num, reponse.den).simplifie()
+              .texFSD,
+          },
+        })
       } else {
         // Ici mettre le code pour AMC
       }
@@ -345,11 +438,11 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
   }
 }
 
-function texFraction (n:string, d:string) {
+function texFraction(n: string, d: string) {
   return `\\dfrac{${n}}{${d}}`
 }
 
-function texFractionReduite (n:number, d:number) {
+function texFractionReduite(n: number, d: number) {
   const fraction = new FractionEtendue(n, d)
   return fraction.simplifie().texFSD
 }

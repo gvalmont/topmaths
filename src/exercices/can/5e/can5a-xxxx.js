@@ -1,7 +1,11 @@
 import { droiteGraduee } from '../../../lib/2d/reperes'
 import { texPrix } from '../../../lib/format/style'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListesSansChangerOrdre,
+  shuffle,
+} from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/2dGeneralites'
@@ -28,13 +32,14 @@ export const uuid = '9e40d'
 
 export const refs = {
   'fr-fr': ['can5a-xxxx'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CourseAuxNombres5e extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Choix des questions',
-  `Nombres séparés par des tirets :\n1 : Multiplication (facteur 12 à 19)\n
+    this.besoinFormulaireTexte = [
+      'Choix des questions',
+      `Nombres séparés par des tirets :\n1 : Multiplication (facteur 12 à 19)\n
 2 : Somme à abc + de\n
 3 : Différence abc - de\n
 4 : Somme de deux décimaux avec retenue\n
@@ -63,14 +68,15 @@ export default class CourseAuxNombres5e extends Exercice {
 27 :  Calcul de distance à vitesse constante\n
 28 :  Comparaison de périmètre\n
 29 :  Repérage fraction\n
-30 : Proportionnalité par linéarité\n`]
+30 : Proportionnalité par linéarité\n`,
+    ]
     this.nbQuestions = 30
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.sup = 1 // Niveau de difficulté
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, resultat, propositions
     const fruits = [
       ['pêches', 4, 10, 30],
@@ -80,14 +86,14 @@ export default class CourseAuxNombres5e extends Exercice {
       ['framboises', 15, 1, 5],
       ['fraises', 6, 5, 10],
       ['citrons', 1.5, 15, 30],
-      ['bananes', 1.5, 15, 25]
+      ['bananes', 1.5, 15, 25],
     ]
     const hauteurs = [
       ['chaise', 75, 115, 'cm'],
       ['grue', 120, 250, 'dm'],
       ['tour', 50, 180, 'm'],
       ['girafe', 40, 50, 'dm'],
-      ['coline', 75, 150, 'm']
+      ['coline', 75, 150, 'm'],
     ]
     const typeQuestionsDisponibles = [
       'q1', // produit d'entiers
@@ -119,12 +125,21 @@ export default class CourseAuxNombres5e extends Exercice {
       'q27', // Soustraction/ordre de grandeur
       'q28', // Proportionnalité
       'q29', // quotient d'un entier par un décimal
-      'q30' // produit stratégique
+      'q30', // produit stratégique
     ] // On créé 3 types de questions
-    const listeTypeQuestions = combinaisonListesSansChangerOrdre(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListesSansChangerOrdre(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'q1':
           a = randint(12, 19)
           b = randint(2, 5)
@@ -309,9 +324,9 @@ export default class CourseAuxNombres5e extends Exercice {
           a = randint(0, 7)
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
-          resultat = arrondi(c / 50 * b)
-          texte = `$${texNombre(c / 100)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 100 * b)}$ €, combien coûtent $${texNombre(c / 50)}$ kg de ${fruits[a][0]} ?`
-          texteCorr = `$${texNombre(c / 100 * b)} \\times 2 = ${texNombre(resultat)}$`
+          resultat = arrondi((c / 50) * b)
+          texte = `$${texNombre(c / 100)}$ kg de ${fruits[a][0]} coûtent $${texNombre((c / 100) * b)}$ €, combien coûtent $${texNombre(c / 50)}$ kg de ${fruits[a][0]} ?`
+          texteCorr = `$${texNombre((c / 100) * b)} \\times 2 = ${texNombre(resultat)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q21':
@@ -321,7 +336,11 @@ export default class CourseAuxNombres5e extends Exercice {
           d = randint(5, 9) * choice([10, 100])
           resultat = arrondi((a * 100 + b * 10 + c) * d)
           texte = `$${texNombre(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
-          propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombre((a * 1000 + b * 100 + c) * d)}$`])
+          propositions = shuffle([
+            `$${texNombre(resultat)}$`,
+            `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`,
+            `$${texNombre((a * 1000 + b * 100 + c) * d)}$`,
+          ])
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `$${texNombre(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -366,12 +385,14 @@ export default class CourseAuxNombres5e extends Exercice {
           texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}.`
-          setReponse(this, i, new Grandeur(b, hauteurs[a][3]), { formatInteractif: 'unites' })
+          setReponse(this, i, new Grandeur(b, hauteurs[a][3]), {
+            formatInteractif: 'unites',
+          })
           break
         case 'q26':
           a = randint(2, 9) * 5
           b = randint(2, 9, a) * 10
-          resultat = arrondi(a * b / 100)
+          resultat = arrondi((a * b) / 100)
           texte = `$${a}\\%$ de $${b}$`
           texteCorr = `$${a}\\%$ de $${b} = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -382,7 +403,9 @@ export default class CourseAuxNombres5e extends Exercice {
           resultat = arrondi(a * (b + 0.25))
           texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 20 min`
           texteCorr = `$${a}\\times ${arrondi(b + 0.5)} = ${resultat}$`
-          setReponse(this, i, new Grandeur(resultat, 'km'), { formatInteractif: 'unites' })
+          setReponse(this, i, new Grandeur(resultat, 'km'), {
+            formatInteractif: 'unites',
+          })
           break
         case 'q28':
           a = randint(3, 9)
@@ -402,38 +425,59 @@ export default class CourseAuxNombres5e extends Exercice {
           c = new FractionEtendue(b, a)
           resultat = arrondi(b / a)
 
-          texte = 'Déterminer l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({
-            xmin: -1,
-            ymin: -1,
-            xmax: 14,
-            ymax: 1.5,
-            scale: 0.5
-          }, droiteGraduee({
-            Unite: 3,
-            Min: 0,
-            Max: 4.2,
-            x: 0,
-            y: 0,
-            thickSecDist: 1 / a,
-            thickSec: true,
-            thickoffset: 0,
-            axeStyle: '|->',
-            pointListe: [[b / a, 'A']],
-            pointCouleur: 'blue',
-            labelsPrincipaux: true,
-            step1: 1,
-            step2: 1
-          }))
+          texte =
+            "Déterminer l'abscisse du point A situé ci-dessous :<br>" +
+            mathalea2d(
+              {
+                xmin: -1,
+                ymin: -1,
+                xmax: 14,
+                ymax: 1.5,
+                scale: 0.5,
+              },
+              droiteGraduee({
+                Unite: 3,
+                Min: 0,
+                Max: 4.2,
+                x: 0,
+                y: 0,
+                thickSecDist: 1 / a,
+                thickSec: true,
+                thickoffset: 0,
+                axeStyle: '|->',
+                pointListe: [[b / a, 'A']],
+                pointCouleur: 'blue',
+                labelsPrincipaux: true,
+                step1: 1,
+                step2: 1,
+              }),
+            )
           texteCorr = `L'abscisse du point A est $\\dfrac{${b}}{${a}}$.`
           if (a === 3) {
-            setReponse(this, i, [c.texFraction, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`], { formatInteractif: 'calcul' })
+            setReponse(
+              this,
+              i,
+              [c.texFraction, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`],
+              { formatInteractif: 'calcul' },
+            )
           } else {
-            setReponse(this, i, [c.texFraction, resultat, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`], { formatInteractif: 'calcul' })
+            setReponse(
+              this,
+              i,
+              [
+                c.texFraction,
+                resultat,
+                `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`,
+              ],
+              { formatInteractif: 'calcul' },
+            )
           }
           break
         case 'q30':
           a = randint(0, 7) // index du fruit
-          b = arrondi(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
+          b = arrondi(
+            fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1),
+          ) // prix au kg
           c = Math.round(randint(fruits[a][2], fruits[a][3]) / 10) // nombre de kg première valeur
           d = randint(2, 6) // nombre de kg supplémentaires
           resultat = arrondi(d * b)
@@ -445,7 +489,9 @@ export default class CourseAuxNombres5e extends Exercice {
       if (listeTypeQuestions[i] === 'q22') {
         texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' m' })
       } else if (listeTypeQuestions[i] === 'q25') {
-        texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ` ${hauteurs[a][3]}` })
+        texte += ajouteChampTexteMathLive(this, i, '', {
+          texteApres: ` ${hauteurs[a][3]}`,
+        })
       } else if (listeTypeQuestions[i] === 'q27') {
         texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]')
       } else {

@@ -7,7 +7,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -25,7 +25,7 @@ export const uuid = '29b40'
 export const refs = {
   'fr-fr': ['6N0A-9'],
   'fr-2016': ['6N11-3'],
-  'fr-ch': ['9NO2-3']
+  'fr-ch': ['9NO2-3'],
 }
 
 // selon la precision on veut certains chiffres plus souvant que d'autres ...
@@ -45,8 +45,8 @@ function myNombres(nbChiffres: number) {
       randint(0, 9),
       randint(0, 9),
       randint(0, 9),
-      randint(0, 9)
-    ]
+      randint(0, 9),
+    ],
   ])
   mmc = N[0]
   mmd = N[1]
@@ -127,18 +127,18 @@ function encadrementCorr(nb: number, precision: number) {
   if (precision === 1) {
     return [
       Math.trunc(nb / precision) * precision - precision,
-      Math.trunc(nb / precision) * precision + precision
+      Math.trunc(nb / precision) * precision + precision,
     ]
   } else {
     if (nb % precision === 0) {
       return [
         Math.trunc(nb / precision) * precision - precision,
-        Math.trunc(nb / precision) * precision + precision
+        Math.trunc(nb / precision) * precision + precision,
       ]
     } else {
       return [
         Math.trunc(nb / precision) * precision,
-        Math.trunc(nb / precision) * precision + precision
+        Math.trunc(nb / precision) * precision + precision,
       ]
     }
   }
@@ -154,16 +154,16 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
     this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
       'Type de question',
-      'Nombres séparés par des tirets :\n1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples de 10\n3 : Encadrer entre deux multiples de 100\n4 : Encadrer entre deux multiples de 10, forcément consécutifs\n5 : Encadrer entre deux multiples de 100, forcément consécutifs\n6 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples de 10\n3 : Encadrer entre deux multiples de 100\n4 : Encadrer entre deux multiples de 10, forcément consécutifs\n5 : Encadrer entre deux multiples de 100, forcément consécutifs\n6 : Mélange',
     ]
     this.besoinFormulaire2Texte = [
       'Difficulté',
-      'Nombres séparés par des tirets :\n1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange'
+      'Nombres séparés par des tirets :\n1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange',
     ]
     this.besoinFormulaire3Numerique = [
       'Énoncé',
       2,
-      '1 : Multiple\n2 : Dizaine, centaine'
+      '1 : Multiple\n2 : Dizaine, centaine',
     ]
   }
 
@@ -174,7 +174,7 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
       max: 7,
       defaut: 3,
       nbQuestions: this.nbQuestions,
-      melange: 7
+      melange: 7,
     }).map(Number)
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -182,11 +182,11 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
       max: 5,
       defaut: 1,
       nbQuestions: this.nbQuestions,
-      melange: 6
+      melange: 6,
     }).map(Number)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
@@ -239,12 +239,12 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
         this,
         i,
         `%{champ1}<${texNombre(nombre, 0)}<%{champ2}`,
-        KeyboardType.clavierDeBase
+        KeyboardType.clavierDeBase,
       )
       texteCorr = `$${miseEnEvidence(texNombre(inf, 0))}<${texNombre(nombre, 0)}<${miseEnEvidence(texNombre(sup, 0))}$`
       handleAnswers(this, i, {
         champ1: { value: String(inf) },
-        champ2: { value: String(sup) }
+        champ2: { value: String(sup) },
       })
 
       if (this.questionJamaisPosee(i, nombre)) {

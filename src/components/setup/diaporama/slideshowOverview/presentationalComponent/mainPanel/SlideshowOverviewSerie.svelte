@@ -8,27 +8,29 @@
   export let order: number[]
   export let series: Serie[]
   export let correctionsSteps: number[]
-
 </script>
 
-<div class="p-6 pb-2 text-3xl font-black
+<div
+  class="p-6 pb-2 text-3xl font-black
   text-coopmaths-struct dark:text-coopmathsdark-struct"
 >
   {#if series.length > 1}
-      Série {seriesIndex + 1}
+    Série {seriesIndex + 1}
   {:else}
     {isQuestionsVisible ? 'Questions' : ''}
     {isCorrectionVisible && isQuestionsVisible ? ' / ' : ''}
     {isCorrectionVisible ? 'Réponses' : ''}
   {/if}
 </div>
-<div class="mt-2
+<div
+  class="mt-2
   mx-2 lg:mx-6"
 >
   {#each order as i, index}
     <div class="flex flex-row my-4">
       <div class="pr-2">
-        <span class="font-black
+        <span
+          class="font-black
           text-coopmaths-struct dark:text-coopmathsdark-struct"
         >
           {index + 1})
@@ -62,7 +64,7 @@
             <div
               class="absolute bottom-0 left-0 border-b-[3px] w-4
                 border-coopmaths-struct dark:border-coopmathsdark-struct"
-            />
+            ></div>
           </div>
         {/if}
       </div>

@@ -18,10 +18,10 @@ export const uuid = '47142'
 
 export const refs = {
   'fr-fr': ['can3S01', 'BP2FLUC15'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculProbaSimple extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,20 +29,30 @@ export default class CalculProbaSimple extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
-    const parfums = ['au citron', 'à la fraise', 'à la menthe', "à l'orange", 'à la cerise', 'à la framboise', 'au cassis']
+  nouvelleVersion() {
+    const parfums = [
+      'au citron',
+      'à la fraise',
+      'à la menthe',
+      "à l'orange",
+      'à la cerise',
+      'à la framboise',
+      'au cassis',
+    ]
     const a = randint(3, 10)
     const k = choice([1, 3, 4, 9])
     const parfum1 = choice(parfums)
     let parfum2 = choice(parfums)
-    while (parfum1 === parfum2) { parfum2 = choice(parfums) }
+    while (parfum1 === parfum2) {
+      parfum2 = choice(parfums)
+    }
     this.reponse = fraction(1, k + 1).texFraction
     this.question = `Un sachet de bonbons contient ${a} bonbons ${parfum1} et ${k * a} bonbons ${parfum2}.<br>
      On choisit un bonbon au hasard. <br>
      
     Quelle est la probabilité de choisir un bonbon ${parfum1} ?`
     this.correction = `Il y a en tout : $${a} + ${k * a} = ${a * (k + 1)}$ bonbons.<br>La probabilité de choisir un bonbon ${parfum1} est de $\\dfrac{${a}}{${a + k * a}}=\\dfrac{1}{${k + 1}}$.`
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

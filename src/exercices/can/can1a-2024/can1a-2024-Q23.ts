@@ -14,7 +14,7 @@ export const uuid = 'f0f67'
  * @author Gilles Mora
  */
 export default class solutionInequation extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.canOfficielle = false
     this.typeExercice = 'simple'
@@ -22,7 +22,7 @@ export default class solutionInequation extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse
     let b1: number
     let b2: number
@@ -42,7 +42,10 @@ export default class solutionInequation extends ExerciceSimple {
       b2 = randint(-9, 9, [0, b1])
       choix = choice(['>', '<'])
       if (choix === '>') {
-        reponse = -b1 > -b2 ? `]-\\infty;${-b2}[\\cup]${-b1};+\\infty[` : `]-\\infty;${-b1}[\\cup]${-b2};+\\infty[`
+        reponse =
+          -b1 > -b2
+            ? `]-\\infty;${-b2}[\\cup]${-b1};+\\infty[`
+            : `]-\\infty;${-b1}[\\cup]${-b2};+\\infty[`
       } else {
         reponse = -b1 > -b2 ? `]${-b2}\\,;\\,${-b1}[` : `]${-b1}\\,;\\,${-b2}[`
       }
@@ -56,8 +59,8 @@ export default class solutionInequation extends ExerciceSimple {
     this.reponse = {
       reponse: {
         value: reponse,
-        options: { intervalle: true }
-      }
+        options: { intervalle: true },
+      },
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

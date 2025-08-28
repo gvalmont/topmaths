@@ -14,7 +14,7 @@ export const uuid = 'd7ce2'
 */
 
 export default class QuestionDeDifference extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class QuestionDeDifference extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let nbCarteGagnee: number
     let nbCarteTotale: number
     if (this.canOfficielle) {
@@ -35,7 +35,7 @@ export default class QuestionDeDifference extends ExerciceSimple {
     }
     this.question = `À midi, j'ai gagné $${nbCarteGagnee}$ cartes.<br>J'en ai maintenant $${nbCarteTotale}$.<br>Combien en avais-je ce matin ?`
     this.canEnonce = this.question
-    this.canReponseACompleter = 'Ce matin, j\'avais $\\ldots$ cartes'
+    this.canReponseACompleter = "Ce matin, j'avais $\\ldots$ cartes"
     this.reponse = texNombre(nbCarteTotale - nbCarteGagnee, 0)
     this.correction = `Ce matin, j'avais $${miseEnEvidence(this.reponse)}$ cartes.<br>`
     this.correction += `En effet, $${miseEnEvidence(this.reponse)}+${texNombre(nbCarteGagnee, 0)} = ${texNombre(nbCarteTotale, 0)}$.`

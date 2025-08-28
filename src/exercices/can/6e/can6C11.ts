@@ -2,7 +2,10 @@ import Decimal from 'decimal.js'
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -20,10 +23,10 @@ export const uuid = '50fc4'
 
 export const refs = {
   'fr-fr': ['can6C11', '6N2E-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DoubleOuTripleDecimal extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -31,34 +34,40 @@ export default class DoubleOuTripleDecimal extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
     const e = a * 10 + b
-    const d = (new Decimal(randint(1, 9))).div(10)
+    const d = new Decimal(randint(1, 9)).div(10)
     const c = d.add(e)
     if (choice([true, false])) {
       this.reponse = c.mul(3)
       this.question = `Quel est le triple de $${texNombre(c, 1)}$ ?`
       this.correction = `Le triple de $${texNombre(c, 1)}$ est $3 \\times ${texNombre(c, 1)}=${miseEnEvidence(texNombre(Number(this.reponse), 1))}$.<br>`
-      this.correction += texteEnCouleur(`
+      this.correction += texteEnCouleur(
+        `
       <br> Mentalement : <br>
   On décompose $${texNombre(c, 1)}$ en $${e}+${texNombre(d, 1)}$. <br>
   On calcule le triple de $${e}$, soit $3\\times ${e}= ${3 * e}$
   puis le triple de $${texNombre(d, 1)}$, soit $3\\times ${texNombre(d, 1)}=${texNombre(d.mul(3), 1)}$.<br>
   On en fait la somme : $${3 * e}+${texNombre(d.mul(3), 1)}$, ce qui donne le résultat $${texNombre(Number(this.reponse), 1)}$.
-      `, bleuMathalea)
+      `,
+        bleuMathalea,
+      )
     } else {
       this.reponse = c.mul(2)
       this.question = `Quel est le double de $${texNombre(c, 1)}$ ?`
       this.correction = `Le double de $${texNombre(c, 1)}$ est $2 \\times ${texNombre(c, 1)}=${miseEnEvidence(texNombre(Number(this.reponse), 1))}$.<br>`
-      this.correction += texteEnCouleur(`
+      this.correction += texteEnCouleur(
+        `
       <br> Mentalement : <br>
   On décompose $${texNombre(c, 1)}$ en $${e}+${texNombre(d, 1)}$. <br>
   On calcule le double de $${e}$, soit $2\\times ${e}= ${2 * e}$
   puis le double de $${texNombre(d, 1)}$, soit $2\\times ${texNombre(d, 1)}=${texNombre(d.mul(2), 1)}$.<br>
   On en fait la somme : $${2 * e}+${texNombre(d.mul(2), 1)}$, ce qui donne le résultat $${texNombre(Number(this.reponse), 1)}$.
-      `, bleuMathalea)
+      `,
+        bleuMathalea,
+      )
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

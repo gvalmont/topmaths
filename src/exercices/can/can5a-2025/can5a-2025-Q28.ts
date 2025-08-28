@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a3f3b'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q26 extends ExerciceCan {
-  enonce (a?: number) {
+  enonce(a?: number) {
     if (a == null) {
       a = randint(1, 9) / 10
     }
@@ -28,10 +28,12 @@ export default class Can2025N5Q26 extends ExerciceCan {
     this.optionsChampTexte = { texteApres: ' $\\text{ cm}^3$' }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ cm}^3$'
-    if (!this.interactif) { this.question += '$\\ldots\\text{ cm}^3$' }
+    if (!this.interactif) {
+      this.question += '$\\ldots\\text{ cm}^3$'
+    }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(0.5) : this.enonce()
   }
 }

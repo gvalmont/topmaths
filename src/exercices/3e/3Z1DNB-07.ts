@@ -8,7 +8,11 @@ import { homothetie } from '../../lib/2d/transformations'
 import { createList } from '../../lib/format/lists'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras, texteItalique } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+  texteItalique,
+} from '../../lib/outils/embellissements'
 import { prenomM } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
@@ -19,7 +23,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = 'fb6e2'
 export const refs = {
   'fr-fr': ['3Z1DNB-07'],
-  'fr-ch': ['1mT-8']
+  'fr-ch': ['1mT-8'],
 }
 export const titre = 'Préparation DNB : Pythagore, Thales, trigonométrie'
 export const dateDePublication = '06/04/2025'
@@ -33,22 +37,36 @@ export const dateDePublication = '06/04/2025'
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
 export default class ExercicePythThalTrigo extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.introduction = texteItalique('D\'après l\'exercice 3 du brevet Antilles 2024.<br>')
+    this.introduction = texteItalique(
+      "D'après l'exercice 3 du brevet Antilles 2024.<br>",
+    )
 
     this.versionAleatoire()
   }
 
-  private appliquerLesValeurs (dk: number, dj:number, kj:number, kl: number, prenom: string, angle: number) : void {
-    const da = (dk + kl) * dj / dk
+  private appliquerLesValeurs(
+    dk: number,
+    dj: number,
+    kj: number,
+    kl: number,
+    prenom: string,
+    angle: number,
+  ): void {
+    const da = ((dk + kl) * dj) / dk
     this.enonce = `Sur la figure ci-après, qui n'est pas à l'échelle, on a représenté le trajet de la course que doit faire ${prenom}.<br>`
     const flecheDL = segment(point(0, 0.7), point(5, 6))
     flecheDL.styleExtremites = '<->'
     flecheDL.pointilles = 2
-    const lDL = placeLatexSurSegment(`${dk + kl}~\\text{m}`, flecheDL.extremite1, flecheDL.extremite2, { distance: 0.5 })
+    const lDL = placeLatexSurSegment(
+      `${dk + kl}~\\text{m}`,
+      flecheDL.extremite1,
+      flecheDL.extremite2,
+      { distance: 0.5 },
+    )
     const D = point(1, 0, 'D', 'below')
     const L = point(6, 5.5, 'L', 'above')
     const K = homothetie(L, D, 0.6, 'K', 'above left')
@@ -68,45 +86,65 @@ export default class ExercicePythThalTrigo extends ExerciceBrevetA {
     const flecheJA = segment(J, A)
     flecheJA.styleExtremites = '->'
     flecheJA.epaisseur = 2
-    const objets = [triangle, ad, flecheDL, flecheDK, flecheKJ, flecheJA, labelPoint(D, L, K, A, J), lDL, lKJ, lDJ, lKL]
-    const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1 }, fixeBordures(objets)), objets)
+    const objets = [
+      triangle,
+      ad,
+      flecheDL,
+      flecheDK,
+      flecheKJ,
+      flecheJA,
+      labelPoint(D, L, K, A, J),
+      lDL,
+      lKJ,
+      lDJ,
+      lKL,
+    ]
+    const figure = mathalea2d(
+      Object.assign({ pixelsParCm: 30, scale: 1 }, fixeBordures(objets)),
+      objets,
+    )
 
     this.enonce += `Dans le triangle $DLA$ rectangle en $L$, le point $J$ appartient au segment $[DA]$ et le point $K$ appartient au segment $[DL]$.<br>
-${deuxColonnesResp(`On donne :
+${deuxColonnesResp(
+  `On donne :
 $\\begin{array}{l}
 DL = ${texNombre(dk + kl, 1)}~\\text{m} ;\\\\
 KJ = ${texNombre(kj, 1)}~\\text{m} ;\\\\
 DJ = ${texNombre(dj, 1)}~\\text{m} ;\\\\
 KL = ${texNombre(kl, 1)}~\\text{m}.
-\\end{array}$`, figure, { largeur1: 30, eleId: '', widthmincol1: '200px', widthmincol2: '400px' })}<br>`
+\\end{array}$`,
+  figure,
+  { largeur1: 30, eleId: '', widthmincol1: '200px', widthmincol2: '400px' },
+)}<br>`
     const question1 = `Montrer que la longueur $DK$ est égale à $${texNombre(dk, 0)}~\\text{m}$.`
     const question2 = 'Montrer que le triangle $DKJ$ est rectangle en $K$.'
-    const question3 = 'Justifier que les droites $(KJ)$ et $(LA)$ sont parallèles.'
+    const question3 =
+      'Justifier que les droites $(KJ)$ et $(LA)$ sont parallèles.'
     const question4 = `Montrer que le segment $[DA]$ mesure $${texNombre(da, 0)}~\\text{m}$.`
-    const question5 = 'Calculer la longueur du trajet $DKJA$, fléché sur la figure.'
+    const question5 =
+      'Calculer la longueur du trajet $DKJA$, fléché sur la figure.'
     const question6 = `Un photographe place une caméra au point $D$.<br>Afin de filmer l'ensemble de la course sans bouger la caméra, l'angle $\\widehat{\\text{LDA}}$ doit être inférieur à $${angle}^\\circ$.<br>Est-ce le cas ?`
     const listeQuestions = createList({
-      items: [
-        question1,
-        question2,
-        question3,
-        question4,
-        question5,
-        question6
-      ],
-      style: 'nombres'
+      items: [question1, question2, question3, question4, question5, question6],
+      style: 'nombres',
     })
     this.enonce += listeQuestions
     const correction1 = `On a $DK + KL = DL$ soit $DK + ${kl} = ${dk + kl}$, d'où $DK = ${dk + kl} - ${kl} = ${miseEnEvidence(`${dk}~\\text{m}`)}$.`
-    const correction2 = `On a $DK^2 + KJ^2 = ${dk}^2 + ${kj}^2 = ${texNombre(dk ** 2, 0)} + ${texNombre(kj ** 2, 0)} = ${texNombre(dk ** 2 + kj ** 2, 0)}$ et $DJ^2 = ${texNombre(dj, 0)}^2 = ${texNombre(dj ** 2, 0)}$.<br>
-On a donc $DK^2 + KJ^2 = DJ^2$ : ` + texteEnCouleurEtGras('d\'après la réciproque du théorème de Pythagore le triangle $DKJ$ est rectangle en $K$.')
-    const correction3 = 'Les droites $(LA)$ et $(KJ)$ sont perpendiculaires à la même droite $(DL)$ : ' + texteEnCouleurEtGras('elles sont donc parallèles.')
+    const correction2 =
+      `On a $DK^2 + KJ^2 = ${dk}^2 + ${kj}^2 = ${texNombre(dk ** 2, 0)} + ${texNombre(kj ** 2, 0)} = ${texNombre(dk ** 2 + kj ** 2, 0)}$ et $DJ^2 = ${texNombre(dj, 0)}^2 = ${texNombre(dj ** 2, 0)}$.<br>
+On a donc $DK^2 + KJ^2 = DJ^2$ : ` +
+      texteEnCouleurEtGras(
+        "d'après la réciproque du théorème de Pythagore le triangle $DKJ$ est rectangle en $K$.",
+      )
+    const correction3 =
+      'Les droites $(LA)$ et $(KJ)$ sont perpendiculaires à la même droite $(DL)$ : ' +
+      texteEnCouleurEtGras('elles sont donc parallèles.')
     const correction4 = `Les droites $(LA)$ et $(KJ)$ sont  parallèles, les points $D$, $K$ et $L$ sont alignés et les points $D$, $J$ et $A$ le sont aussi.<br>
     On a donc une configuration de Thalès, et on peut donc écrire l'égalité :<br>
 $\\dfrac{DK}{DL} = \\dfrac{DJ}{DA}$, soit $\\dfrac{${dk}}{${dk + kl}} = \\dfrac{${dj}}{\\text{DA}}$, d'où $DA\\times ${dk} = ${dk + kl} \\times ${dj}$ puis $DA = \\dfrac{${dk + kl} \\times ${dj}}{${dk}} = ${miseEnEvidence(`${da}~\\text{m}`)}$.`
     const correction5 = `La longueur du trajet fléché est :
 $DK + KJ + JA = ${dk} + ${kj} + (${da} - ${dj}) = ${dk + kj}+${da - dj}=${miseEnEvidence(`${dk + kj + (da - dj)}~\\text{m}`)}$.`
-    const alpha = Math.acos((dk + kl) / da) * 180 / Math.PI
+    const alpha = (Math.acos((dk + kl) / da) * 180) / Math.PI
     const correction6 = `Dans le triangle rectangle LDA on a : $\\cos \\widehat{LDA} = \\dfrac{\\text{long. côté adjacent}}{\\text{long. hypoténuse}} = \\dfrac{${dk + kl}}{${da}}=${fraction(dk + kl, da).texFractionSimplifiee}$.<br>
 La calculatrice donne $\\widehat{LDA} \\approx ${texNombre(alpha, 0)}$ (en degres).<br>
 Cette valeur est ${alpha < angle ? 'inférieure' : 'supérieure'} à ${angle} : ${texteEnCouleurEtGras(`le photographe  ${alpha < angle ? 'pourra' : 'ne pourra pas'} tout filmer sans bouger sa caméra.`)}`
@@ -117,9 +155,9 @@ Cette valeur est ${alpha < angle ? 'inférieure' : 'supérieure'} à ${angle} : 
         correction3,
         correction4,
         correction5,
-        correction6
+        correction6,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
     this.correction = listeCorrections
   }
@@ -135,15 +173,22 @@ Cette valeur est ${alpha < angle ? 'inférieure' : 'supérieure'} à ${angle} : 
       [16, 12, 20],
       [24, 7, 25],
       [40, 9, 41],
-      [63, 16, 65]
+      [63, 16, 65],
     ]
     const [dk, kj, dj] = choice(listeTripletsPythagoriciens).map((v) => v * 20)
     const kl = choice([true, false])
-      ? randint(1, 3) * dk / 4
-      : randint(1, 4) * dk / 5
+      ? (randint(1, 3) * dk) / 4
+      : (randint(1, 4) * dk) / 5
 
     const angle = choice([20, 25, 30])
     const prenom = prenomM()
-    this.appliquerLesValeurs(dk, dj, kj, kl, Array.isArray(prenom) ? prenom[0] : prenom, angle)
+    this.appliquerLesValeurs(
+      dk,
+      dj,
+      kj,
+      kl,
+      Array.isArray(prenom) ? prenom[0] : prenom,
+      angle,
+    )
   }
 }

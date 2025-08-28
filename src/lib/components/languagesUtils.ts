@@ -15,7 +15,7 @@ type RefUuidPairs =
 
 const allReferencesToUuids: Record<Language, RefUuidPairs> = {
   'fr-FR': REFERENCES_TO_UUIDS_FR,
-  'fr-CH': REFERENCES_TO_UUIDS_CH
+  'fr-CH': REFERENCES_TO_UUIDS_CH,
 }
 
 /**
@@ -25,13 +25,13 @@ export const languages: LanguageDisplay = {
   'fr-FR': {
     short: 'FR',
     long: 'français',
-    country: 'France'
+    country: 'France',
   },
   'fr-CH': {
     short: 'CH',
     long: 'suisse',
-    country: 'Suisse'
-  }
+    country: 'Suisse',
+  },
 }
 
 /**
@@ -42,7 +42,7 @@ export const languages: LanguageDisplay = {
 export const buildLangIconPath = (country: string): string => {
   if (country.length !== 2) {
     throw new Error(
-      `ISO country name "${country}" should have exactly two characters.`
+      `ISO country name "${country}" should have exactly two characters.`,
     )
   } else {
     return `assets/svg/flags/${country.toLowerCase()}.svg`
@@ -60,20 +60,20 @@ export const buildLangIconPath = (country: string): string => {
  */
 export const uuidToLocaleRef = (
   uuid: string,
-  locale: Language = 'fr-FR'
+  locale: Language = 'fr-FR',
 ): string => {
   let reference = ''
   if (locale !== 'fr-FR') {
     // on regarde si la référence existe dans le référentiel local
     const values = Object.fromEntries(
-      Object.entries(allReferencesToUuids[locale]).map(([k, v]) => [v, k])
+      Object.entries(allReferencesToUuids[locale]).map(([k, v]) => [v, k]),
     )
     reference = values[uuid] // undefined si la référence n'existe pas
   }
   if (reference === undefined || locale === 'fr-FR') {
     // la recherche précédente n'a rien donné : on cherche dans le référentiel français
     const values = Object.fromEntries(
-      Object.entries(allReferencesToUuids['fr-FR']).map(([k, v]) => [v, k])
+      Object.entries(allReferencesToUuids['fr-FR']).map(([k, v]) => [v, k]),
     )
     reference = values[uuid]
   }

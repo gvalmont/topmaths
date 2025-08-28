@@ -16,29 +16,66 @@ export const interactifType = 'mathLive'
 
 /**
  * Factoriser en utilisant les 3 identités remarquables
-* @author Jean-Claude Lhote
-*/
+ * @author Jean-Claude Lhote
+ */
 export const uuid = '0bd00'
 
 export const refs = {
   'fr-fr': ['2N41-7', 'BP2AutoI18'],
-  'fr-ch': ['11FA3-5']
+  'fr-ch': ['11FA3-5'],
 }
 
 export default class FactoriserIdentitesRemarquables2 extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange',
+    ]
 
     this.nbQuestions = 5
     this.sup = 1
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1 ? 'Factoriser l\'expression suivante.' : 'Factoriser les expressions suivantes.'
-    const listeFractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
-      [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
-      [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? "Factoriser l'expression suivante."
+        : 'Factoriser les expressions suivantes.'
+    const listeFractions = [
+      [1, 2],
+      [1, 3],
+      [2, 3],
+      [1, 4],
+      [3, 4],
+      [1, 5],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [1, 6],
+      [5, 6],
+      [1, 7],
+      [2, 7],
+      [3, 7],
+      [4, 7],
+      [5, 7],
+      [6, 7],
+      [1, 8],
+      [3, 8],
+      [5, 8],
+      [7, 8],
+      [1, 9],
+      [2, 9],
+      [4, 9],
+      [5, 9],
+      [7, 9],
+      [8, 9],
+      [1, 10],
+      [3, 10],
+      [7, 10],
+      [9, 10],
+    ]
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3] // coef de x = 1
@@ -50,8 +87,15 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, texte, texteCorr, cpt = 0, a, b, ns, ds, typesDeQuestions;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 9)
       b = randint(2, 9)
@@ -118,7 +162,6 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           reponseAttendue = `(${b}x-${a})(${b}x+${a})`
           break
         case 7:
-
           texte = `$${fraC.texFraction}x^2+${fraD.texFraction}x+${a * a}$` // (kx+a)² k rationnel
           texteCorr = `$${fraC.texFraction}x^2+${fraD.texFraction}x+${a * a}=\\left(${fra.texFraction}x\\right)^2+2 \\times ${fra.texFraction}x \\times ${a} + ${a}^2=\\left(${fra.texFraction}x+${a}\\right)^2$`
           reponseAttendue = `(${fra.texFraction}x+${a})^2`
@@ -137,7 +180,12 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           break
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecVariable,
+        { texteAvant: ' $=$' },
+      )
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
       const textCorrSplit = texteCorr.split('=')
       let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
@@ -150,7 +198,12 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      handleAnswers(this, i, { reponse: { value: reponseAttendue, options: { exclusifFactorisation: true } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: reponseAttendue,
+          options: { exclusifFactorisation: true },
+        },
+      })
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

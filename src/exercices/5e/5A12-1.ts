@@ -1,4 +1,7 @@
-import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  combinaisonListesSansChangerOrdre,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
@@ -25,17 +28,17 @@ export const uuid = '36074'
 
 export const refs = {
   'fr-fr': ['5A12-1'],
-  'fr-ch': ['9NO4-13']
+  'fr-ch': ['9NO4-13'],
 }
 export default class PremierOuPas5e extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     // pas de différence entre la version html et la version latex pour la consigne
     this.consigne = 'Justifier que les nombres suivants sont premiers ou pas.'
     // this.consigne += `<br>`;
-    context.isHtml ? this.spacing = 3 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     this.nbQuestions = 7
     // this.correctionDetailleeDisponible = true;
     this.nbCols = 2
@@ -43,23 +46,32 @@ export default class PremierOuPas5e extends Exercice {
     this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestions
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
 
     // let typesDeQuestionsDisponibles = [1];
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    let stringRappel = 'Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>' + cribleEratostheneN(100)[0]
+    let stringRappel =
+      'Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>' +
+      cribleEratostheneN(100)[0]
     for (let k = 1; k < cribleEratostheneN(30).length; k++) {
       stringRappel += ', ' + cribleEratostheneN(30)[k]
     }
     stringRappel += '.'
     this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       let N // le nombre de la question
@@ -69,13 +81,16 @@ export default class PremierOuPas5e extends Exercice {
           N = 2 * randint(51, 4999)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme ${nombreAvecEspace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
-        case 2: { // Multiple de 3
+        case 2: {
+          // Multiple de 3
           let sum3 = 0 // pour la valeur de la somme;
           N = 3 * randint(34, 3333) // on initialise avant la boucle car on a peut être de la chance
-          while ((N % 2 === 0) || (N % 5 === 0)) {
+          while (N % 2 === 0 || N % 5 === 0) {
             N = 3 * randint(34, 3333)
           }
           texte = nombreAvecEspace(N)
@@ -86,7 +101,9 @@ export default class PremierOuPas5e extends Exercice {
             sum3 += Number(N.toString().charAt(k))
           }
           texteCorr += ` = ${sum3} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         }
@@ -94,14 +111,18 @@ export default class PremierOuPas5e extends Exercice {
           N = 5 * randint(20, 1999)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est divisible par 5, `
-          texteCorr += 'il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, '
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr +=
+            'il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, '
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
-        case 4: { // Multiple de 9
+        case 4: {
+          // Multiple de 9
           let sum9 = 0 // pour la valeur de la somme;
           N = 9 * randint(12, 1111) // on initialise avant la boucle car on a peut être de la chance
-          while ((N % 2 === 0) || (N % 5 === 0)) {
+          while (N % 2 === 0 || N % 5 === 0) {
             N = 9 * randint(34, 3333)
           }
           texte = nombreAvecEspace(N)
@@ -112,7 +133,9 @@ export default class PremierOuPas5e extends Exercice {
             sum9 += Number(N.toString().charAt(k))
           }
           texteCorr += ` = ${sum9} est un multiple de 9 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 9 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         }
@@ -120,11 +143,15 @@ export default class PremierOuPas5e extends Exercice {
           N = 10 * randint(10, 999)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme le nombre ${nombreAvecEspace(N)} se termine par un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est un multiple de 10, `
-          texteCorr += 'il admet donc au moins trois diviseurs qui sont 1, 10 et lui-même, '
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr +=
+            'il admet donc au moins trois diviseurs qui sont 1, 10 et lui-même, '
+          texteCorr += texteEnCouleurEtGras(
+            nombreAvecEspace(N) + " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
-        case 6: { // produit de deux nombres premiers inférieurs à 30
+        case 6: {
+          // produit de deux nombres premiers inférieurs à 30
           // rang du premier facteur premier
           const r1 = randint(0, cribleEratostheneN(30).length - 1)
           // rang du second facteur premier
@@ -139,13 +166,17 @@ export default class PremierOuPas5e extends Exercice {
           } else {
             texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
           }
-          texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(
+            `${N} = ` +
+              nombreAvecEspace(prime1 * prime2) +
+              " n'est donc pas premier.",
+          )
           bonneReponse = 'non'
           break
         }
         case 7:
-        default:
-        { // nombre premier inférieur à 29
+        default: {
+          // nombre premier inférieur à 29
           // rang du nombre premier choisi
           const r = randint(0, cribleEratostheneN(29).length - 1)
           N = cribleEratostheneN(29)[r] // on choisit un nombre premier inférieur à 29
@@ -179,8 +210,12 @@ export default class PremierOuPas5e extends Exercice {
           for (let k = 1; k < tabPremiersATester.length; k++) {
             texteCorr += ', ' + tabPremiersATester[k]
           }
-          texteCorr += ', le reste n\'est jamais nul.'
-          texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += ", le reste n'est jamais nul."
+          texteCorr +=
+            '<br>' +
+            texteEnCouleurEtGras(
+              nombreAvecEspace(N) + ' est donc un nombre premier.',
+            )
           texteCorr += '<hr>'
           texteCorr += '<b>Proposition de correction 2 :</b> <br>'
           texteCorr += `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $${N}$, c'est-à-dire par ${stringNbCorr2} `
@@ -188,8 +223,12 @@ export default class PremierOuPas5e extends Exercice {
           for (let k = 1; k < tabPremiersToTest.length - 1; k++) {
             texteCorr += ', ' + tabPremiersToTest[k]
           }
-          texteCorr += ', le reste n\'est jamais nul.'
-          texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += ", le reste n'est jamais nul."
+          texteCorr +=
+            '<br>' +
+            texteEnCouleurEtGras(
+              nombreAvecEspace(N) + ' est donc un nombre premier.',
+            )
           bonneReponse = 'oui'
           break
         }
@@ -200,19 +239,20 @@ export default class PremierOuPas5e extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: 'est premier',
-          statut: bonneReponse !== 'non'
+          statut: bonneReponse !== 'non',
         },
         {
-          texte: 'n\'est pas premier',
-          statut: bonneReponse !== 'oui'
-        }
+          texte: "n'est pas premier",
+          statut: bonneReponse !== 'oui',
+        },
       ]
       const props = propositionsQcm(this, i)
       if (this.interactif) {
         texte += props.texte
       }
 
-      if (this.questionJamaisPosee(i, texteCorr)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texteCorr)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

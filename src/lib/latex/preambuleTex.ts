@@ -1,6 +1,6 @@
 import type { LatexFileInfos, contentsType } from '../Latex'
 
-export function loadFonts (latexFileInfos: LatexFileInfos) {
+export function loadFonts(latexFileInfos: LatexFileInfos) {
   return `\n\\usepackage{etoolbox}
 \\newbool{dys}
 \\setbool{dys}{${latexFileInfos.fontOption === 'DysFont' ? 'true' : 'false'}}          
@@ -59,7 +59,7 @@ export function loadFonts (latexFileInfos: LatexFileInfos) {
 }`
 }
 
-function loadNoteBasExercices (contents: contentsType) {
+function loadNoteBasExercices(contents: contentsType) {
   const noteBas = `
 \\newcounter{customfootnote}
 \\newcounter{tempreset}%
@@ -97,14 +97,17 @@ function loadNoteBasExercices (contents: contentsType) {
   testIfLoaded(['\\anote{'], noteBas, contents)
 }
 
-export function loadPreambule (latexFileInfos : LatexFileInfos, contents : contentsType) {
+export function loadPreambule(
+  latexFileInfos: LatexFileInfos,
+  contents: contentsType,
+) {
   if (latexFileInfos.style === 'Can') {
     contents.preamble += loadPreambuleCan()
   }
   loadPackagesFromContent(contents)
 }
 
-function loadPreambuleCan () {
+function loadPreambuleCan() {
   return `
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SPÉCIFIQUE SUJETS CAN                  %
@@ -227,75 +230,182 @@ export const logPDF = (str: string) => {
   if (debug) console.log('PACKAGETEST:' + str)
 }
 
-export function loadProfCollegeIfNeed (contents: contentsType) {
-  testIfLoaded(['\\Engrenages[', '\\Proba[', '\\Propor[', '\\Fraction[', '\\Reperage[', '\\Pythagore', '\\Prix', '\\SquarO[', 'begin{Scratch}', 'begin{Tableur}', '\\pointilles'], '\\usepackage{ProfCollege}', contents)
+export function loadProfCollegeIfNeed(contents: contentsType) {
+  testIfLoaded(
+    [
+      '\\Engrenages[',
+      '\\Proba[',
+      '\\Propor[',
+      '\\Fraction[',
+      '\\Reperage[',
+      '\\Pythagore',
+      '\\Prix',
+      '\\SquarO[',
+      'begin{Scratch}',
+      'begin{Tableur}',
+      '\\pointilles',
+    ],
+    '\\usepackage{ProfCollege}',
+    contents,
+  )
 }
 
-function testIfLoaded (values : string[], valueToPut : string, contents: contentsType, display? : string) {
+function testIfLoaded(
+  values: string[],
+  valueToPut: string,
+  contents: contentsType,
+  display?: string,
+) {
   for (const value of values) {
-    if (contents.content.includes(value) || contents.contentCorr.includes(value)) {
-      if (!contents.preamble.includes(valueToPut)) contents.preamble += `\n${valueToPut}`
-      logPDF(`${display === undefined ? valueToPut : display}: ${window.location.href}`)
+    if (
+      contents.content.includes(value) ||
+      contents.contentCorr.includes(value)
+    ) {
+      if (!contents.preamble.includes(valueToPut))
+        contents.preamble += `\n${valueToPut}`
+      logPDF(
+        `${display === undefined ? valueToPut : display}: ${window.location.href}`,
+      )
     }
   }
 }
 
-export function loadPackagesFromContent (contents: contentsType) {
+export function loadPackagesFromContent(contents: contentsType) {
   contents.preamble += '\n% loadPackagesFromContent'
   loadProfCollegeIfNeed(contents)
   loadNoteBasExercices(contents)
   testIfLoaded(['\\twemoji'], '\\usepackage{twemojis}', contents)
   testIfLoaded(['ifthenelse'], '\\usepackage{ifthen}', contents)
-  testIfLoaded(['pspicture', '\\rput', '\\pscurve', '\\psset', '\\psframe'], '\\usepackage{pstricks}', contents)
-  testIfLoaded(['\\PstPolygon', '\\PstStarFive'], '\\usepackage{pst-poly}', contents)
+  testIfLoaded(
+    ['pspicture', '\\rput', '\\pscurve', '\\psset', '\\psframe'],
+    '\\usepackage{pstricks}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\PstPolygon', '\\PstStarFive'],
+    '\\usepackage{pst-poly}',
+    contents,
+  )
   testIfLoaded(['\\pstext'], '\\usepackage{pst-text}', contents)
-  testIfLoaded(['\\pstGeonode', '\\pstLine', '\\pstLabelAB', '\\PstTriangle'], '\\usepackage{pst-eucl}', contents)
-  testIfLoaded(['\\psaxes', '\\psline', '\\pspolygon', '\\psplot'], '\\usepackage{pst-plot}', contents)
+  testIfLoaded(
+    ['\\pstGeonode', '\\pstLine', '\\pstLabelAB', '\\PstTriangle'],
+    '\\usepackage{pst-eucl}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\psaxes', '\\psline', '\\pspolygon', '\\psplot'],
+    '\\usepackage{pst-plot}',
+    contents,
+  )
   testIfLoaded(['\\psbcurve'], '\\usepackage{pst-bezier}', contents)
   testIfLoaded(['\\psBspline'], '\\usepackage{pst-bspline}', contents)
-  testIfLoaded(['\\pstThreeDLine', 'pstThreeDCoor'], '\\usepackage{pst-3dplot}', contents)
+  testIfLoaded(
+    ['\\pstThreeDLine', 'pstThreeDCoor'],
+    '\\usepackage{pst-3dplot}',
+    contents,
+  )
   testIfLoaded(['\\multido'], '\\usepackage{multido}', contents)
-  testIfLoaded(['\\gradangle{', 'fillstyle=gradient'], '\\usepackage{pst-grad}', contents)
+  testIfLoaded(
+    ['\\gradangle{', 'fillstyle=gradient'],
+    '\\usepackage{pst-grad}',
+    contents,
+  )
   testIfLoaded(['\\pstree{', '\\pstree['], '\\usepackage{pst-tree}', contents)
-  testIfLoaded(['\\pnode', '\\ncline', '\\nccurve', '\\ncarc'], '\\usepackage{pst-node}', contents)
-  testIfLoaded(['\\red', '\\blue', '\\white'], '\\usepackage{pst-fun}', contents)
+  testIfLoaded(
+    ['\\pnode', '\\ncline', '\\nccurve', '\\ncarc'],
+    '\\usepackage{pst-node}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\red', '\\blue', '\\white'],
+    '\\usepackage{pst-fun}',
+    contents,
+  )
   testIfLoaded(['\\euro'], '\\usepackage[gen]{eurosym}', contents)
   testIfLoaded(['\\tkzTabInit'], '\\usepackage{tkz-tab}', contents)
   testIfLoaded(['{tabularx}', '{tabular}'], '\\usepackage{tabularx}', contents)
   testIfLoaded(['\\ang', '\\num{'], '\\usepackage{siunitx}', contents)
   testIfLoaded(['\\begin{multicols}'], '\\usepackage{multicol}', contents)
-  testIfLoaded(['\\opadd', '\\opsub', '\\opmul', '\\opdiv', '\\opidiv'], '\\usepackage{xlop}', contents)
+  testIfLoaded(
+    ['\\opadd', '\\opsub', '\\opmul', '\\opdiv', '\\opidiv'],
+    '\\usepackage{xlop}',
+    contents,
+  )
   testIfLoaded(['\\cancel'], '\\usepackage{cancel}', contents)
-  testIfLoaded(['\\draw[color={'], '\\usepackage[table,svgnames]{xcolor}', contents)
-  testIfLoaded(['\\np{', '\\np[', '\\numprint{'], '\\usepackage[autolanguage,np]{numprint}', contents)
+  testIfLoaded(
+    ['\\draw[color={'],
+    '\\usepackage[table,svgnames]{xcolor}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\np{', '\\np[', '\\numprint{'],
+    '\\usepackage[autolanguage,np]{numprint}',
+    contents,
+  )
   testIfLoaded(['\\mathscr'], '\\usepackage{mathrsfs}', contents)
-  testIfLoaded(['\\fcolorbox{nombres}'], '\\definecolor{nombres}{cmyk}{0,.8,.95,0}', contents)
+  testIfLoaded(
+    ['\\fcolorbox{nombres}'],
+    '\\definecolor{nombres}{cmyk}{0,.8,.95,0}',
+    contents,
+  )
   testIfLoaded(['\\begin{tikzpicture}'], '\\usepackage{tikz}', contents)
   testIfLoaded(['\\begin{bclogo}'], '\\usepackage[tikz]{bclogo}', contents)
   if (contents.content.includes('\\begin{bclogo}')) {
     logPDF(`definecolor{nombres} : ${window.location.href}`)
-    if (!contents.preamble.includes('definecolor{nombres}')) contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
+    if (!contents.preamble.includes('definecolor{nombres}'))
+      contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
   }
   testIfLoaded(['\\begin{axis}'], '\\usepackage{pgfplots}', contents)
-  testIfLoaded(['pgfmathsetmacro'], '\\usetikzlibrary{decorations,decorations.text}', contents)
-  testIfLoaded(['decorate,decoration=', 'decorate, decoration='], '\\usetikzlibrary{decorations.pathmorphing}', contents)
-  testIfLoaded(['decoration=brace', 'decoration={brace}', 'decoration={brace,'], '\\usetikzlibrary {decorations.pathreplacing}', contents)
+  testIfLoaded(
+    ['pgfmathsetmacro'],
+    '\\usetikzlibrary{decorations,decorations.text}',
+    contents,
+  )
+  testIfLoaded(
+    ['decorate,decoration=', 'decorate, decoration='],
+    '\\usetikzlibrary{decorations.pathmorphing}',
+    contents,
+  )
+  testIfLoaded(
+    ['decoration=brace', 'decoration={brace}', 'decoration={brace,'],
+    '\\usetikzlibrary {decorations.pathreplacing}',
+    contents,
+  )
   testIfLoaded(['\\tkzText'], '\\usepackage{tkz-fct}', contents)
   testIfLoaded(['pic['], '\\usetikzlibrary{quotes}', contents)
   testIfLoaded(['angle eccentricity'], '\\usetikzlibrary{angles}', contents)
-  testIfLoaded(['name intersections'], '\\usetikzlibrary{intersections}', contents)
+  testIfLoaded(
+    ['name intersections'],
+    '\\usetikzlibrary{intersections}',
+    contents,
+  )
   testIfLoaded(['\\begin{wrapfigure}'], '\\usepackage{wrapfig}', contents)
   testIfLoaded(['needspace'], '\\usepackage{needspace}', contents)
   testIfLoaded(['\\ovaloperator{'], '\\usepackage{scratch3}', contents)
   testIfLoaded(['\\begin{scratch}'], '\\usepackage{scratch3}', contents)
-  testIfLoaded(['\\begin{Scratch}'], '\\usepackage{unicode-math}\n\\newfontfamily\\myfontScratch[]{FreeSans}', contents)
-  testIfLoaded(['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'], '\\usepackage[french]{babel}', contents)
+  testIfLoaded(
+    ['\\begin{Scratch}'],
+    '\\usepackage{unicode-math}\n\\newfontfamily\\myfontScratch[]{FreeSans}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'],
+    '\\usepackage[french]{babel}',
+    contents,
+  )
   testIfLoaded(['\\degree'], '\\usepackage{gensymb}', contents)
   testIfLoaded(['\\tblr'], '\\usepackage{tabularray}', contents)
   testIfLoaded(['\\multirow{'], '\\usepackage{multirow}', contents)
-  testIfLoaded(['\\dotfills'], '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}', contents)
+  testIfLoaded(
+    ['\\dotfills'],
+    '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}',
+    contents,
+  )
 
-  if (contents.content.includes('\\ovalbox{') || contents.content.includes('\\txtbox{')) {
+  if (
+    contents.content.includes('\\ovalbox{') ||
+    contents.content.includes('\\txtbox{')
+  ) {
     // gestion pour les sujets DNB : 2021
     contents.preamble += '\n\\usepackage{fancybox}'
     logPDF(`usepackage{fancybox}: ${window.location.href}`)
@@ -304,7 +414,9 @@ export function loadPackagesFromContent (contents: contentsType) {
       contents.preamble += '\n\\newcommand{\\txtbox}{\\ovalnum}'
     }
   }
-  testIfLoaded(['\\begin{figure}'], `\n% supprime les figures flottantes du DNB
+  testIfLoaded(
+    ['\\begin{figure}'],
+    `\n% supprime les figures flottantes du DNB
 \\makeatletter
 \\def\\provideenvironment{\\@star@or@long\\provide@environment}
 \\def\\provide@environment#1{%
@@ -315,66 +427,248 @@ export function loadPackagesFromContent (contents: contentsType) {
 }
 \\def\\dummy@environ{}
 \\makeatother
-\\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`, contents, 'begin{figure}')
+\\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`,
+    contents,
+    'begin{figure}',
+  )
   if (contents.content.includes('\\selectarrownum')) {
     logPDF(`\\selectarrownum : ${window.location.href}`)
     // gestion des commandes pour les sujets DNB : dnb_2018_06_ameriquenord_4
-    contents.preamble += '\n\\newcommand*\\selectarrownum{% le petit triangle vers le bas à côté d\'un _nombre_'
-    contents.preamble += '\n  \\unskip\\hskip0.125em \\tikz[baseline=-1.25ex,x=1ex,y=1ex,rounded corners=0pt]\\draw[fill=black!70,draw=none](0,0)--(1,0)--(0.5,-0.6)--cycle;'
+    contents.preamble +=
+      "\n\\newcommand*\\selectarrownum{% le petit triangle vers le bas à côté d'un _nombre_"
+    contents.preamble +=
+      '\n  \\unskip\\hskip0.125em \\tikz[baseline=-1.25ex,x=1ex,y=1ex,rounded corners=0pt]\\draw[fill=black!70,draw=none](0,0)--(1,0)--(0.5,-0.6)--cycle;'
     contents.preamble += '\n}'
   }
-  testIfLoaded(['\\R ', '\\R{', '\\R)', '\\R.', '\\R^', '\\R\\', '\\R$', '\\R_+', '\\in \\R', '\\N ', '\\N*', '\\N^*', '\\N,', '\\N{', '\\N^{', '\\N$', '\\N}'], '\\usepackage{amsfonts}', contents)
-  testIfLoaded(['\\R ', '\\R{', '\\R.', '\\R)', '\\R_+', '\\R$', '\\R^', '\\R\\', '\\in \\R'], '\\newcommand\\R{\\mathbb{R}}', contents)
-  testIfLoaded(['\\N ', '\\N,', '\\N^*', '\\N{', '\\N^{', '\\N$', '\\N*', '\\N}'], '\\newcommand\\N{\\mathbb{N}}', contents)
-  testIfLoaded(['\\vect', '\\Oij', '\\Oijk', '\\Ouv'], '\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}', contents)
-  testIfLoaded(['\\vectt'], '\\newcommand{\\vectt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}}', contents)
-  testIfLoaded(['\\vv'], '\\newcommand{\\vv}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}', contents)
-  testIfLoaded(['\\vvt'], '\\newcommand{\\vvt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}}', contents)
-  testIfLoaded(['\\Oij'], '\\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}', contents)
-  testIfLoaded(['\\Oijk'], '\\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}', contents)
-  testIfLoaded(['\\Ouv'], '\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}', contents)
+  testIfLoaded(
+    [
+      '\\R ',
+      '\\R{',
+      '\\R)',
+      '\\R.',
+      '\\R^',
+      '\\R\\',
+      '\\R$',
+      '\\R_+',
+      '\\in \\R',
+      '\\N ',
+      '\\N*',
+      '\\N^*',
+      '\\N,',
+      '\\N{',
+      '\\N^{',
+      '\\N$',
+      '\\N}',
+    ],
+    '\\usepackage{amsfonts}',
+    contents,
+  )
+  testIfLoaded(
+    [
+      '\\R ',
+      '\\R{',
+      '\\R.',
+      '\\R)',
+      '\\R_+',
+      '\\R$',
+      '\\R^',
+      '\\R\\',
+      '\\in \\R',
+    ],
+    '\\newcommand\\R{\\mathbb{R}}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\N ', '\\N,', '\\N^*', '\\N{', '\\N^{', '\\N$', '\\N*', '\\N}'],
+    '\\newcommand\\N{\\mathbb{N}}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\vect', '\\Oij', '\\Oijk', '\\Ouv'],
+    '\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\vectt'],
+    '\\newcommand{\\vectt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\vv'],
+    '\\newcommand{\\vv}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\vvt'],
+    '\\newcommand{\\vvt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\Oij'],
+    '\\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\Oijk'],
+    '\\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\Ouv'],
+    '\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}',
+    contents,
+  )
   testIfLoaded(['\\e'], '\\newcommand{\\e}{\\text{e}}', contents)
-  testIfLoaded(['\\ldots', '\\cdots', '\\dots', '\\makebox', '\\framebox', '\\parbox', '\\mbox', '\\fbox', '\\sbox', '\\pbox'], '\\usepackage{amsmath}', contents)
-  testIfLoaded(['\\leadsto', '\\square', '\\blacktriangleright', '\\blacktriangleleft', '\\mathbb', '\\geqslant', '\\leqslant', '\\curvearrowleft', '\\Box', '\\checkmark', '\\fbox'], '\\usepackage{amssymb}', contents)
-  testIfLoaded(['\\columncolor{', '\\cellcolor', '\\rowcolor'], '\\usepackage{colortbl}', contents)
-  testIfLoaded(['\\ovalnum{\\ovalnum'], '\\definecolor{scrmovedddd}    {HTML}{3373cc}', contents)
-  testIfLoaded(['\\ding{', '\\textding', '\\decoone'], '\\usepackage{pifont}', contents)
+  testIfLoaded(
+    [
+      '\\ldots',
+      '\\cdots',
+      '\\dots',
+      '\\makebox',
+      '\\framebox',
+      '\\parbox',
+      '\\mbox',
+      '\\fbox',
+      '\\sbox',
+      '\\pbox',
+    ],
+    '\\usepackage{amsmath}',
+    contents,
+  )
+  testIfLoaded(
+    [
+      '\\leadsto',
+      '\\square',
+      '\\blacktriangleright',
+      '\\blacktriangleleft',
+      '\\mathbb',
+      '\\geqslant',
+      '\\leqslant',
+      '\\curvearrowleft',
+      '\\Box',
+      '\\checkmark',
+      '\\fbox',
+    ],
+    '\\usepackage{amssymb}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\columncolor{', '\\cellcolor', '\\rowcolor'],
+    '\\usepackage{colortbl}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\ovalnum{\\ovalnum'],
+    '\\definecolor{scrmovedddd}    {HTML}{3373cc}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\ding{', '\\textding', '\\decoone'],
+    '\\usepackage{pifont}',
+    contents,
+  )
   testIfLoaded(['\\decoone'], '\\newcommand{\\decoone}{\\ding{87}}', contents)
-  testIfLoaded(['\\textding'], '\\newcommand{\\textding}[1]{\\text{\\Large \\ding{#1}}}', contents)
-  testIfLoaded(['\\starredbullet'], '\\usepackage{MnSymbol}\n\\newcommand\\starredbullet{\\medstar}', contents)
-  testIfLoaded(['\\decosix'], '\\providecommand\\decosix{}\n\\renewcommand\\decosix{$\\bullet$}', contents)
-  testIfLoaded(['\\toprule', '\\midrule', '\\bottomrule'], '\\usepackage{booktabs}', contents)
-  testIfLoaded(['\\backslashbox', '\\diagbox{'], '\\usepackage{diagbox}', contents)
+  testIfLoaded(
+    ['\\textding'],
+    '\\newcommand{\\textding}[1]{\\text{\\Large \\ding{#1}}}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\starredbullet'],
+    '\\usepackage{MnSymbol}\n\\newcommand\\starredbullet{\\medstar}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\decosix'],
+    '\\providecommand\\decosix{}\n\\renewcommand\\decosix{$\\bullet$}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\toprule', '\\midrule', '\\bottomrule'],
+    '\\usepackage{booktabs}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\backslashbox', '\\diagbox{'],
+    '\\usepackage{diagbox}',
+    contents,
+  )
   testIfLoaded(['\\ds'], '\\newcommand{\\ds}{\\displaystyle}', contents)
   testIfLoaded(['\\EUR{'], '\\usepackage{marvosym}', contents)
-  testIfLoaded(['\\hautab'], '\\newcommand\\hautab[1]{\\renewcommand{\\arraystretch}{#1}}', contents)
-  testIfLoaded(['|C{', '{C{'], '\\newcolumntype{C}[1]{>{\\centering\\arraybackslash}p{#1cm}}', contents)
+  testIfLoaded(
+    ['\\hautab'],
+    '\\newcommand\\hautab[1]{\\renewcommand{\\arraystretch}{#1}}',
+    contents,
+  )
+  testIfLoaded(
+    ['|C{', '{C{'],
+    '\\newcolumntype{C}[1]{>{\\centering\\arraybackslash}p{#1cm}}',
+    contents,
+  )
   testIfLoaded(['pattern'], '\\usetikzlibrary{patterns.meta}', contents)
   testIfLoaded(['framed'], '\\usetikzlibrary{backgrounds}', contents)
-  testIfLoaded(['single arrow', 'ellipse,'], '\\usetikzlibrary{shapes}', contents)
+  testIfLoaded(
+    ['single arrow', 'ellipse,'],
+    '\\usetikzlibrary{shapes}',
+    contents,
+  )
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
   testIfLoaded(['Stealth'], '\\usetikzlibrary{arrows.meta}', contents)
-  testIfLoaded(['\\llbracket', '\\rrbracket'], '\\usepackage{stmaryrd}', contents)
+  testIfLoaded(
+    ['\\llbracket', '\\rrbracket'],
+    '\\usepackage{stmaryrd}',
+    contents,
+  )
   testIfLoaded(['\\newcommandtwoopt{'], '\\usepackage{twoopt}', contents)
-  testIfLoaded(['\\interval'], '\\usepackage{interval}\n \\intervalconfig{separator symbol=;}', contents)
-  testIfLoaded(['\\getprime{', '\\primedecomp{'], decompDNB(), contents, 'decompNombresPremiersDNB')
+  testIfLoaded(
+    ['\\interval'],
+    '\\usepackage{interval}\n \\intervalconfig{separator symbol=;}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\getprime{', '\\primedecomp{'],
+    decompDNB(),
+    contents,
+    'decompNombresPremiersDNB',
+  )
   testIfLoaded(['\\SquarO['], squareO(), contents)
-  testIfLoaded(['\\con{'], '\\newcommand{\\con}[1]{\\textcolor{violet}{#1}}', contents)
-  testIfLoaded(['\\Coord'], `\\newcommand*{\\Coord}[4]{% 
+  testIfLoaded(
+    ['\\con{'],
+    '\\newcommand{\\con}[1]{\\textcolor{violet}{#1}}',
+    contents,
+  )
+  testIfLoaded(
+    ['\\Coord'],
+    `\\newcommand*{\\Coord}[4]{% 
 \\ensuremath{\\vect{#1}\\, 
       \\begin{pmatrix} 
         #2\\\\ 
         #3\\\\
         #4
-\\end{pmatrix}}}`, contents, '\\Coord')
+\\end{pmatrix}}}`,
+    contents,
+    '\\Coord',
+  )
   testIfLoaded(['\\widearc{', '\\eurologo'], '\\usepackage{fourier}', contents)
   testIfLoaded(['\\tkzAxeXY'], '\\usepackage{tkz-base}', contents)
   testIfLoaded(['\\tkz', '\\pic['], '\\usepackage{tkz-euclide}', contents)
-  testIfLoaded(['\\pstEllipse[linewidth='], '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}', contents, '\\pstEllipse')
+  testIfLoaded(
+    ['\\pstEllipse[linewidth='],
+    '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}',
+    contents,
+    '\\pstEllipse',
+  )
   testIfLoaded(['\\makecell'], '\\usepackage{makecell}', contents)
-  testIfLoaded(['\\includegraphicsembedded'], '\\usepackage{luaimageembed}', contents)
+  testIfLoaded(
+    ['\\includegraphicsembedded'],
+    '\\usepackage{luaimageembed}',
+    contents,
+  )
 
-  if (contents.content.includes('\\begin{forest}') || contents.contentCorr.includes('\\begin{forest}')) {
+  if (
+    contents.content.includes('\\begin{forest}') ||
+    contents.contentCorr.includes('\\begin{forest}')
+  ) {
     logPDF(`usepackage{forest} : ${window.location.href}`)
     // gestion des commandes pour les sujets DNB : 2023
     contents.preamble += `\n\\usetikzlibrary{trees} % arbre en proba
@@ -386,7 +680,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   }
 }
 
-function decompDNB () {
+function decompDNB() {
   return `%%% Table des nombres premiers  %%%%
 \\usepackage{xlop}
 \\newcount\\primeindex
@@ -488,7 +782,7 @@ Je refuse de décomposer zéro.
 }`
 }
 
-function squareO () {
+function squareO() {
   return `%%%
   % Squaro
   %%% 

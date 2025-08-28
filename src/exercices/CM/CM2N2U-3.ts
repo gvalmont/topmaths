@@ -4,7 +4,7 @@ export const uuid = '14b84'
 export const refs = {
   'fr-fr': ['CM2N2U-3'],
   'fr-2016': ['c3N11-1'],
-  'fr-ch': ['9NO2-7']
+  'fr-ch': ['9NO2-7'],
 }
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,13 +16,14 @@ export const dateDeModifImportante = '15/06/2025'
  */
 
 class ReperageEntierC3 extends ReperageEntiersOuDecimaux {
-  constructor () {
+  constructor() {
     super()
     this.version = 'cm'
     this.nbQuestions = 4
     this.besoinFormulaireTexte = [
       'Niveaux de difficulté ',
-      'Nombres séparés par des tirets :\n1 : 10 graduations secondaires\n2 : 2 graduations secondaires\n3 : 5 graduations secondaires\n4 : Pas secondaire plus compliqué\n5 : Mélange']
+      'Nombres séparés par des tirets :\n1 : 10 graduations secondaires\n2 : 2 graduations secondaires\n3 : 5 graduations secondaires\n4 : Pas secondaire plus compliqué\n5 : Mélange',
+    ]
     this.sup3 = false
   }
 }

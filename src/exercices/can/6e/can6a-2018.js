@@ -1,7 +1,10 @@
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { droiteGraduee } from '../../../lib/2d/reperes'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
+import {
+  segment,
+  segmentAvecExtremites,
+} from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -20,7 +23,10 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { min, round } from 'mathjs'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -37,7 +43,7 @@ export const dateDePublication = '30/03/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
@@ -45,10 +51,10 @@ export const uuid = '5c46d'
 
 export const refs = {
   'fr-fr': ['can6a-2018'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN20186ieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 30 // 10,20,30
     this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
@@ -59,20 +65,86 @@ En choisissant un nombre de questions inférieur à 30, on fabrique une « mini 
 Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 7 / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 7) / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 23)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 10]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([3, 8, 9,
-      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-    const listeFractions1 = [[5, 3], [7, 3], [10, 3], [11, 3], [17, 3],
-      [13, 6], [17, 6], [23, 6], [8, 7], [15, 7], [20, 7],
-      [14, 3], [22, 3], [25, 3]]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction1 = [], propositions, choix, truc, chiffre, chiffre2, a, b, c, d, m, n, k, j, A, B, C, D, E, F, G, H, pol, n1, d1, pol2, l, L, l2, prenom1, xmin, xmax, ymin, ymax, objets, fleurs, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 10])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      3, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+      27, 28, 29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
+    const listeFractions1 = [
+      [5, 3],
+      [7, 3],
+      [10, 3],
+      [11, 3],
+      [17, 3],
+      [13, 6],
+      [17, 6],
+      [23, 6],
+      [8, 7],
+      [15, 7],
+      [20, 7],
+      [14, 3],
+      [22, 3],
+      [25, 3],
+    ]
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        texte,
+        texteCorr,
+        reponse,
+        fraction1 = [],
+        propositions,
+        choix,
+        truc,
+        chiffre,
+        chiffre2,
+        a,
+        b,
+        c,
+        d,
+        m,
+        n,
+        k,
+        j,
+        A,
+        B,
+        C,
+        D,
+        E,
+        F,
+        G,
+        H,
+        pol,
+        n1,
+        d1,
+        pol2,
+        l,
+        L,
+        l2,
+        prenom1,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        fleurs,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typeQuestionsDisponibles[i]) {
-        case 1 :
+        case 1:
           a = randint(4, 8)
           b = randint(4, 9)
           texte = `$${a} \\times ${b}=$ `
@@ -92,7 +164,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           break
 
-        case 2 :
+        case 2:
           a = randint(21, 29)
           b = randint(11, 19)
 
@@ -114,8 +186,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 3 :
-
+        case 3:
           a = randint(0, 3)
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
@@ -153,8 +224,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 4 :
-
+        case 4:
           a = randint(1, 3) * 100 + randint(1, 10)
           b = choice([11, 12, 13])
           texte = `$${a}-${b}=$ `
@@ -174,7 +244,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 5 :
+        case 5:
           a = randint(2, 9)
           b = randint(4, 10)
           c = a * b
@@ -199,7 +269,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
-        case 6 :
+        case 6:
           a = randint(2, 5)
           b = choice([10, 15, 20, 25, 30, 35, 40])
           reponse = b + 15
@@ -207,8 +277,17 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${miseEnEvidence(a)}$ h $${miseEnEvidence(b + 15)}$ min.`
 
-          texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: reponse }).toString(), options: { HMS: true } } })
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.clavierHms,
+          )
+          handleAnswers(this, index, {
+            reponse: {
+              value: new Hms({ hour: a, minute: reponse }).toString(),
+              options: { HMS: true },
+            },
+          })
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -217,7 +296,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           break
 
-        case 7 :
+        case 7:
           a = randint(13, 35) * 2
 
           reponse = Math.round(a / 2)
@@ -238,38 +317,48 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 8 :
+        case 8:
           a = randint(3, 6)
           b = choice([1, a - 1])
-          reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({
-            xmin: -0.5,
-            ymin: -1,
-            xmax: 10,
-            ymax: 1.5,
-            scale: 0.8,
-            style: 'margin: auto'
-          }, texteParPosition('?', 8 * b / a, 0.7, 'milieu', 'blue', 2)
-          , droiteGraduee({
-            Unite: 8,
-            Min: 0,
-            Max: 1,
-            x: 0,
-            y: 0,
-            thickSecDist: 1 / a,
-            thickSec: true,
-            thickoffset: 0,
-            axeStyle: '|->',
-            // pointListe: [[b / a, '?']],
-            labelPointTaille: 15,
-            pointCouleur: 'blue',
-            pointStyle: 'x',
-            labelsPrincipaux: true,
-            step1: 1,
-            step2: 1
-          }))
+          reponse = fraction(b, a) // .simplifie()
+          texte =
+            'Quelle est la fraction repérée par le point d’interrogation ?<br>' +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1,
+                xmax: 10,
+                ymax: 1.5,
+                scale: 0.8,
+                style: 'margin: auto',
+              },
+              texteParPosition('?', (8 * b) / a, 0.7, 'milieu', 'blue', 2),
+              droiteGraduee({
+                Unite: 8,
+                Min: 0,
+                Max: 1,
+                x: 0,
+                y: 0,
+                thickSecDist: 1 / a,
+                thickSec: true,
+                thickoffset: 0,
+                axeStyle: '|->',
+                // pointListe: [[b / a, '?']],
+                labelPointTaille: 15,
+                pointCouleur: 'blue',
+                pointStyle: 'x',
+                labelsPrincipaux: true,
+                step1: 1,
+                step2: 1,
+              }),
+            )
           texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: true } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse.toLatex(),
+              options: { fractionEgale: true },
+            },
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }
@@ -280,7 +369,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 9 :
+        case 9:
           a = randint(11, 15)
           b = randint(2, 5) * 10
           k = randint(2, 3)
@@ -293,7 +382,10 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += `$${a * k}$ ${truc} pèsent ` + ajouteChampTexteMathLive(this, index, ' ') + ' g'
+            texte +=
+              `$${a * k}$ ${truc} pèsent ` +
+              ajouteChampTexteMathLive(this, index, ' ') +
+              ' g'
           } else {
             texte += `$${a * k}$ ${truc} pèsent ....... g.`
           }
@@ -305,7 +397,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 10 :
+        case 10:
           a = randint(2, 4) * 12
           k = choice([3, 4, 6])
           reponse = Math.round(a / k)
@@ -326,7 +418,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
-        case 11 :
+        case 11:
           a = randint(2, 9)
           b = randint(2, 9)
           texte = `Donne l'écriture décimale de $(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)$.`
@@ -343,7 +435,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
-        case 12 :
+        case 12:
           a = randint(3, 9)
           b = randint(11, 29, 20)
           reponse = a * 10 + b
@@ -365,35 +457,47 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 13 :
+        case 13:
           a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
           reponse = arrondi(a / 5, 1)
-          texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({
-            xmin: -1,
-            ymin: -1,
-            xmax: 14,
-            ymax: 1.5,
-            scale: 0.7,
-            style: 'margin: auto'
-          },
-          texteParPosition('A', 3 * a / 5, 0.7, 'milieu', 'blue', context.isHtml ? 2 : 1), droiteGraduee({
-            Unite: 3,
-            Min: 0,
-            Max: 3.2,
-            x: 0,
-            y: 0,
-            thickSecDist: 1 / 5,
-            thickSec: true,
-            thickoffset: 0,
-            axeStyle: '|->',
-            pointListe: [[a / 5, '']],
-            pointCouleur: 'blue',
-            pointTaille: 4,
-            pointStyle: 'x',
-            labelsPrincipaux: true,
-            step1: 1,
-            step2: 1
-          }))
+          texte =
+            "Détermine l'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>" +
+            mathalea2d(
+              {
+                xmin: -1,
+                ymin: -1,
+                xmax: 14,
+                ymax: 1.5,
+                scale: 0.7,
+                style: 'margin: auto',
+              },
+              texteParPosition(
+                'A',
+                (3 * a) / 5,
+                0.7,
+                'milieu',
+                'blue',
+                context.isHtml ? 2 : 1,
+              ),
+              droiteGraduee({
+                Unite: 3,
+                Min: 0,
+                Max: 3.2,
+                x: 0,
+                y: 0,
+                thickSecDist: 1 / 5,
+                thickSec: true,
+                thickoffset: 0,
+                axeStyle: '|->',
+                pointListe: [[a / 5, '']],
+                pointCouleur: 'blue',
+                pointTaille: 4,
+                pointStyle: 'x',
+                labelsPrincipaux: true,
+                step1: 1,
+                step2: 1,
+              }),
+            )
           texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point $A$ est $\\dfrac{${a}}{5}=${miseEnEvidence(texNombre(reponse))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -407,7 +511,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 14 :
+        case 14:
           a = choice([4, 8, 12, 16])
           b = choice([0.5, 0.25])
           reponse = Math.round(a * b)
@@ -433,7 +537,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 15 :
+        case 15:
           fleurs = choice(['roses', 'tulipes', 'pâquerettes', 'mufliers'])
           k = randint(3, 7)
 
@@ -456,8 +560,13 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 16 :
-          a = choice(['du quart', 'du cinquième', 'des trois quarts', 'de la moitié'])
+        case 16:
+          a = choice([
+            'du quart',
+            'du cinquième',
+            'des trois quarts',
+            'de la moitié',
+          ])
           texte = `L'écriture décimale ${a} de $1$ est : `
           if (a === 'du quart') {
             reponse = '0.25' // ça c'est un mon moyen d'éviter d'avoir des chiffres qui viennent s'ajouter à la fin du nombre.
@@ -487,8 +596,12 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
-        case 17 :
-          truc = [['dixièmes', 0.1], ['centièmes', 0.01], ['millièmes', 0.001]]
+        case 17:
+          truc = [
+            ['dixièmes', 0.1],
+            ['centièmes', 0.01],
+            ['millièmes', 0.001],
+          ]
           a = choice([10, 100, 1000])
           b = randint(2, 9)
           c = choice([0, 2])
@@ -497,7 +610,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `Quel est le nombre $${texNombre(a, 0)}$ fois plus grand que $${b}$ ${truc[c][0]} ?`
           texteCorr = `Le nombre $${texNombre(a, 0)}$ fois plus grand que $${b}$ ${truc[c][0]} est $${texNombre(a, 0)}\\times ${b}\\times ${texNombre(truc[c][1])}=${miseEnEvidence(texNombre(a * b * truc[c][1]))}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -508,7 +623,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 18 :
+        case 18:
           j = randint(3, 8)
           A = point(0, 0)
           B = point(j, 0)
@@ -526,25 +641,40 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           for (let indice = 0; indice < j; indice++) {
             objets.push(segment(indice, 0, indice, 1.5))
           }
-          objets.push(segmentAvecExtremites(-0.3, 0, -0.3, 1.5), segmentAvecExtremites(0, 1.8, j, 1.8))
+          objets.push(
+            segmentAvecExtremites(-0.3, 0, -0.3, 1.5),
+            segmentAvecExtremites(0, 1.8, j, 1.8),
+          )
 
-          objets.push(texteParPosition(`${stringNombre(j)} cm`, milieu(D, C).x, milieu(D, C).y + 0.5),
-            texteParPosition(`${stringNombre(1.5)} cm`, milieu(D, A).x - 1.1, milieu(D, A).y),
-            segment(0, 0.5, j, 0.5)
+          objets.push(
+            texteParPosition(
+              `${stringNombre(j)} cm`,
+              milieu(D, C).x,
+              milieu(D, C).y + 0.5,
+            ),
+            texteParPosition(
+              `${stringNombre(1.5)} cm`,
+              milieu(D, A).x - 1.1,
+              milieu(D, A).y,
+            ),
+            segment(0, 0.5, j, 0.5),
           )
           reponse = arrondi(j * 1.5, 1)
-          texte = 'Quelle est l\'aire du rectangle ?<br>'
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 30,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.7,
-            style: 'margin: auto'
-          }, objets)
+          texte = "Quelle est l'aire du rectangle ?<br>"
+          texte += mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 30,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.7,
+              style: 'margin: auto',
+            },
+            objets,
+          )
 
           texteCorr = `Le rectangle est constitué de  $${j}$ carrés d'aire $1$ cm$^2$ et de $${j}$ rectangles d'aire $0,5$ cm$^2$.<br>
             Son aire totale est donc :  $ ${j} \\times 1 \\text{ cm}^2+ ${j} \\times 0,5\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 2))}$ cm$^2$.
@@ -561,7 +691,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 19 :
+        case 19:
           reponse = 2 * randint(3, 12) + 1
           a = arrondi(reponse / 2, 1)
           texte = `Le double de $${texNombre(a)}$ est égal à : `
@@ -580,7 +710,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 20 :
+        case 20:
           fraction1 = choice(listeFractions1)
           n1 = fraction1[0]
           d1 = fraction1[1]
@@ -591,7 +721,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `$${miseEnEvidence(a)} < \\dfrac{${n1}}{${d1}} < ${miseEnEvidence(a + 1)}$`
           texteCorr += `$\\quad$  car $\\quad ${a}=\\dfrac{${a * d1}}{${d1}}\\quad$ et $\\quad${a + 1}=\\dfrac{${(a + 1) * d1}}{${d1}}$ `
 
-          handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
+          handleAnswers(this, index, {
+            reponse: { value: reponse, options: { suiteDeNombres: true } },
+          })
           if (this.interactif) {
             texte += '<br>Écrire les entiers séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, '')
@@ -603,8 +735,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 21 :
-
+        case 21:
           a = randint(1, 4) * 12
           if (choice([true, false])) {
             texte = `Le tiers de $${a}$ œufs est `
@@ -629,8 +760,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 22 :
-
+        case 22:
           a = randint(1, 4) * 120
           if (choice([true, false])) {
             texte = `Le tiers de $${a}$ g est `
@@ -656,15 +786,27 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 23 :
-          chiffre = [['deux', 2], ['trois', 3], ['cinq', 5]]
-          chiffre2 = [['vingt', 20], ['trente', 30], ['cinquante', 50]]
+        case 23:
+          chiffre = [
+            ['deux', 2],
+            ['trois', 3],
+            ['cinq', 5],
+          ]
+          chiffre2 = [
+            ['vingt', 20],
+            ['trente', 30],
+            ['cinquante', 50],
+          ]
           a = randint(0, 2)
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
             texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} `
-            reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]
+            reponse =
+              2 * 1000000 +
+              chiffre[a][1] * 100000 +
+              chiffre[a][1] * 1000 +
+              chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} $=
             ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000 + chiffre[a][1] * 1000)}  + ${texNombre(chiffre[a][1])}
                         =${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]))}$. `
@@ -717,7 +859,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 24 :
+        case 24:
           a = arrondi(randint(4, 9) / 10, 1)
           k = randint(2, 5)
           reponse = a
@@ -740,7 +882,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 25 :
+        case 25:
           l = randint(2, 8)
           k = randint(2, 5)
           L = k * l
@@ -764,25 +906,41 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           objets = []
           objets.push(pol[0]) //, pol[1]
           objets.push(pol2[0])
-          objets.push(texteParPosition(`${stringNombre(l)} cm`, milieu(F, G).x + 0.5, milieu(F, G).y),
-            texteParPosition(`${stringNombre(L)} cm`, milieu(E, F).x, milieu(E, F).y - 0.3),
-            texteParPosition(`${stringNombre(l2)} cm`, milieu(B, C).x + 0.5, milieu(B, C).y),
+          objets.push(
+            texteParPosition(
+              `${stringNombre(l)} cm`,
+              milieu(F, G).x + 0.5,
+              milieu(F, G).y,
+            ),
+            texteParPosition(
+              `${stringNombre(L)} cm`,
+              milieu(E, F).x,
+              milieu(E, F).y - 0.3,
+            ),
+            texteParPosition(
+              `${stringNombre(l2)} cm`,
+              milieu(B, C).x + 0.5,
+              milieu(B, C).y,
+            ),
             texteParPosition('A ', milieu(F, G).x - 1.2, milieu(F, G).y),
-            texteParPosition('B ', milieu(B, C).x - 2, milieu(B, C).y)
+            texteParPosition('B ', milieu(B, C).x - 2, milieu(B, C).y),
           )
           reponse = l2 * k
           texte = 'Le rectangle B est un agrandissement du rectangle A.<br>'
           texte += 'Quelle est la longueur du rectangle B ?<br>'
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 50,
-            mainlevee: false,
-            scale: 1,
-            style: 'margin: auto'
-          }, objets)
+          texte += mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 50,
+              mainlevee: false,
+              scale: 1,
+              style: 'margin: auto',
+            },
+            objets,
+          )
 
           texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
           Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}$ cm.
@@ -799,7 +957,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 26 :
+        case 26:
           a = randint(2, 9)
           b = randint(1, 9) / 10
           reponse = Math.round((a + b) * 1000)
@@ -819,7 +977,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 27 :
+        case 27:
           prenom1 = prenomF()
 
           b = randint(3, 5)
@@ -840,7 +998,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 28 :
+        case 28:
           a = randint(2, 9)
           texte = `Complète : $${a}$ m$^3=$ `
           texteCorr = `$1$ m$^3$ est égal à $${texNombre(1000)}$ litres. Ainsi, $${a}$ m$^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
@@ -859,11 +1017,18 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 29 :
+        case 29:
           a = 2 + randint(6, 9) / 10
           b = arrondi(2 + randint(1, 7) / 10 + randint(1, 9) / 100, 2)
-          c = arrondi(2 + randint(0, 7) / 10 + randint(7, 9) / 100 + randint(1, 9) / 1000, 3)
-          propositions = shuffle([`$${texNombre(a)}$`, `$${texNombre(b)}$`, `$${texNombre(c)}$`])
+          c = arrondi(
+            2 + randint(0, 7) / 10 + randint(7, 9) / 100 + randint(1, 9) / 1000,
+            3,
+          )
+          propositions = shuffle([
+            `$${texNombre(a)}$`,
+            `$${texNombre(b)}$`,
+            `$${texNombre(c)}$`,
+          ])
           reponse = arrondi(Math.max(a, b, c), 3)
           texte = 'Recopie  le plus grand nombre : <br>'
 
@@ -882,7 +1047,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 30 :
+        case 30:
           a = randint(2, 3)
           b = randint(2, 3)
           c = randint(2, 3)
@@ -902,7 +1067,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

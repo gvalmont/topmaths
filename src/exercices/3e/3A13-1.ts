@@ -16,10 +16,10 @@ export const uuid = '8741f'
 
 export const refs = {
   'fr-fr': ['3A13-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DivisionsEuclidiennes3e extends DivisionsEuclidiennesEgaliteFondamentale {
-  constructor () {
+  constructor() {
     super()
     this.classe = 3
     this.sup = 2

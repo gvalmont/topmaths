@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
   import { afterUpdate, onMount } from 'svelte'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { setSizeWithinSvgContainer } from '../../../../lib/components/sizeTools'
@@ -22,7 +22,7 @@
 
   onDestroy(() => {
     const mf = questionContainer?.querySelector(
-      'math-field'
+      'math-field',
     ) as MathfieldElement
     if (mf) {
       mf.removeEventListener('keyup', handleKeyUp)
@@ -31,7 +31,7 @@
   })
   onMount(() => {
     const questionContent = document.getElementById(
-      `question-content-${index}`
+      `question-content-${index}`,
     ) as HTMLDivElement
     if (questionContent) {
       mathaleaRenderDiv(questionContent)
@@ -44,7 +44,7 @@
     if (visible) {
       updateInteractivity()
       const questionContent = document.getElementById(
-        `question-content-${index}`
+        `question-content-${index}`,
       ) as HTMLDivElement
       setSizeWithinSvgContainer(questionContent)
     }
@@ -72,7 +72,9 @@
 
   function updateInteractivity() {
     if (questionContainer) {
-      const mf = questionContainer?.querySelector('math-field') as MathfieldElement
+      const mf = questionContainer?.querySelector(
+        'math-field',
+      ) as MathfieldElement
       if (mf) {
         if (!mf.dataset.listenerAdded) {
           mf.dataset.listenerAdded = 'true' // Marquer comme ajouté
@@ -86,10 +88,13 @@
           // Mgu je n'ai pas reproduit le problème ...
           // $keyboardState.isVisible = true
         }, 0)
-        return 
+        return
       }
-      
-      const figureCliquables = questionContainer?.querySelectorAll<HTMLInputElement>('[id^="cliquefigure"]')
+
+      const figureCliquables =
+        questionContainer?.querySelectorAll<HTMLInputElement>(
+          '[id^="cliquefigure"]',
+        )
       if (figureCliquables.length > 0) {
         $keyboardState.isVisible = false
         for (const figureCliquable of figureCliquables) {
@@ -112,8 +117,9 @@
         }
         return
       }
-        
-      const clocks = questionContainer?.querySelectorAll<HTMLInputElement>('[id^="clockEx"]')
+
+      const clocks =
+        questionContainer?.querySelectorAll<HTMLInputElement>('[id^="clockEx"]')
       if (clocks.length > 0) {
         $keyboardState.isVisible = false
         if (!clocks[0].dataset.listenerAdded) {
@@ -126,9 +132,11 @@
         }
         return
       }
-      
-      const qcm = questionContainer?.querySelectorAll<HTMLInputElement>('input[id^="checkEx"]')
-      if (qcm.length > 0 ){
+
+      const qcm = questionContainer?.querySelectorAll<HTMLInputElement>(
+        'input[id^="checkEx"]',
+      )
+      if (qcm.length > 0) {
         $keyboardState.isVisible = false
         for (const box of qcm) {
           if (!box.dataset.listenerAdded) {
@@ -150,33 +158,39 @@
         return
       }
 
-      const apigeoms = questionContainer?.querySelectorAll<HTMLElement>('[id^="apigeom"]')
+      const apigeoms =
+        questionContainer?.querySelectorAll<HTMLElement>('[id^="apigeom"]')
       if (apigeoms.length > 0) {
         $keyboardState.isVisible = false
         if (!apigeoms[0].dataset.listenerAdded) {
-          apigeoms[0].dataset.listenerAdded = 'true'; // Marquer comme ajouté
-          
-          function handleApigeomClick(this: HTMLElement, ev : Event) {
+          apigeoms[0].dataset.listenerAdded = 'true' // Marquer comme ajouté
+
+          function handleApigeomClick(this: HTMLElement, ev: Event) {
             // MGu: il faudrait faire mieux mais bon...
             // Un click sur la figure ne fonctionne pas car dans apigeom, il ne se propage pas...
             // donc on surveille mouseleave ou touchend est suffisant pour valider la question
             if ($canOptions.questionGetAnswer[index] !== true) {
-               $canOptions.questionGetAnswer[index] = true
+              $canOptions.questionGetAnswer[index] = true
             }
           }
-          apigeoms[0].querySelector('#divFigure > svg')?.addEventListener('pointerleave', handleApigeomClick)
+          apigeoms[0]
+            .querySelector('#divFigure > svg')
+            ?.addEventListener('pointerleave', handleApigeomClick)
         }
         return
       }
 
-      const selects = questionContainer?.querySelectorAll<HTMLSelectElement>('select[id^="ex"]')
+      const selects =
+        questionContainer?.querySelectorAll<HTMLSelectElement>(
+          'select[id^="ex"]',
+        )
       if (selects.length > 0) {
         $keyboardState.isVisible = false
         for (const select of selects) {
           if (!select.dataset.listenerAdded) {
-            select.dataset.listenerAdded = 'true'; // Marquer comme ajouté
+            select.dataset.listenerAdded = 'true' // Marquer comme ajouté
             select.addEventListener('change', function () {
-              if (select.selectedIndex > 0 ) {
+              if (select.selectedIndex > 0) {
                 if ($canOptions.questionGetAnswer[index] !== true) {
                   $canOptions.questionGetAnswer[index] = true
                 }
@@ -191,14 +205,16 @@
         return
       }
 
-      const rectangles = questionContainer?.querySelectorAll<HTMLInputElement>('[id^="rectangle"].rectangleDND')
+      const rectangles = questionContainer?.querySelectorAll<HTMLInputElement>(
+        '[id^="rectangle"].rectangleDND',
+      )
       if (rectangles.length > 0) {
         $keyboardState.isVisible = false
         for (const rectangle of rectangles) {
           if (!rectangle.dataset.listenerAdded) {
-            rectangle.dataset.listenerAdded = 'true'; // Marquer comme ajouté
+            rectangle.dataset.listenerAdded = 'true' // Marquer comme ajouté
             const onHoverEnd = function () {
-              const divCount = rectangle.querySelectorAll(":scope > div").length
+              const divCount = rectangle.querySelectorAll(':scope > div').length
               if (divCount > 0) {
                 if ($canOptions.questionGetAnswer[index] !== true) {
                   $canOptions.questionGetAnswer[index] = true
@@ -209,7 +225,7 @@
                 }
               }
             }
-            rectangle.addEventListener("mouseleave", onHoverEnd);
+            rectangle.addEventListener('mouseleave', onHoverEnd)
             rectangle.addEventListener('touchend', onHoverEnd)
           }
         }
@@ -220,19 +236,22 @@
 </script>
 
 <div
-  id='question-content-{index}'
-  class={visible
+  id="question-content-{index}"
+  class="{visible
     ? 'px-4 md:px-20 lg:px-32 flex flex-col justify-center items-center font-normal leading-relaxed h-[100%]  w-[100%] text-center'
-    : 'hidden'}
-  bind:this={questionContainer}
+    : 'hidden'}"
+  bind:this="{questionContainer}"
 >
   {#if mode === 'display' || mode === 'correction'}
-    <div style='padding:15px;' class='flex flex-col overflow-x-auto overflow-y-auto'>
-      <div class='text-pretty'>
+    <div
+      style="padding:15px;"
+      class="flex flex-col overflow-x-auto overflow-y-auto"
+    >
+      <div class="text-pretty">
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html consigne}
       </div>
-      <div class='text-pretty' style=''>
+      <div class="text-pretty" style="">
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html question}
       </div>
@@ -241,18 +260,18 @@
 
   {#if mode === 'correction'}
     <div
-      class='relative flex p-4 mt-10 bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus'
+      class="relative flex p-4 mt-10 bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus"
     >
-      <div class='text-pretty'>
+      <div class="text-pretty">
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html consigneCorrection}
       </div>
-      <div class='text-pretty'>
+      <div class="text-pretty">
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html correction}
       </div>
       <div
-        class='flex absolute top-8 -left-12 font-bold text-xl text-coopmaths-warn-1000 dark:text-coopmathsdark-warn-dark -rotate-90'
+        class="flex absolute top-8 -left-12 font-bold text-xl text-coopmaths-warn-1000 dark:text-coopmathsdark-warn-dark -rotate-90"
       >
         Solution
       </div>

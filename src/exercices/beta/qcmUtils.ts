@@ -6,7 +6,9 @@ import type { QcmJsonData } from './QcmJsonGenerator'
  * @param jsonData - Les données JSON contenant les questions
  * @returns Une classe d'exercice QCM prête à être utilisée
  */
-export function createQcmFromJson (jsonData: QcmJsonData): typeof QcmJsonGenerator {
+export function createQcmFromJson(
+  jsonData: QcmJsonData,
+): typeof QcmJsonGenerator {
   // Valider les données JSON
   if (!QcmJsonGenerator.validateJsonData(jsonData)) {
     throw new Error('Les données JSON ne sont pas valides pour créer un QCM')
@@ -14,7 +16,7 @@ export function createQcmFromJson (jsonData: QcmJsonData): typeof QcmJsonGenerat
 
   // Créer une classe d'exercice personnalisée
   class QcmPersonnalise extends QcmJsonGenerator {
-    constructor () {
+    constructor() {
       super(jsonData)
 
       // Configuration par défaut
@@ -26,7 +28,9 @@ export function createQcmFromJson (jsonData: QcmJsonData): typeof QcmJsonGenerat
       if (jsonData.questions.length > 1) {
         this.versionAleatoire = () => {
           // Choisir une question aléatoire
-          const questionIndex = Math.floor(Math.random() * jsonData.questions.length)
+          const questionIndex = Math.floor(
+            Math.random() * jsonData.questions.length,
+          )
           const question = jsonData.questions[questionIndex]
 
           this.enonce = question.enonce
@@ -52,7 +56,7 @@ export function createQcmFromJson (jsonData: QcmJsonData): typeof QcmJsonGenerat
  * @param jsonContent - Le contenu JSON sous forme de chaîne
  * @returns Les données validées
  */
-export function parseQcmJson (jsonContent: string): QcmJsonData {
+export function parseQcmJson(jsonContent: string): QcmJsonData {
   try {
     const data = JSON.parse(jsonContent)
 
@@ -77,11 +81,11 @@ export function parseQcmJson (jsonContent: string): QcmJsonData {
  * @param titre - Le titre de l'exercice
  * @returns Une classe d'exercice QCM
  */
-export function createSimpleQcm (
+export function createSimpleQcm(
   enonce: string,
   reponses: string[],
   corrections?: string[],
-  titre: string = 'QCM'
+  titre: string = 'QCM',
 ): typeof QcmJsonGenerator {
   const qcmData: QcmJsonData = {
     titre,
@@ -89,9 +93,9 @@ export function createSimpleQcm (
       {
         enonce,
         reponses,
-        corrections
-      }
-    ]
+        corrections,
+      },
+    ],
   }
 
   return createQcmFromJson(qcmData)
@@ -106,12 +110,12 @@ export function createSimpleQcm (
  * @param titre - Le titre de l'exercice
  * @returns Une classe d'exercice QCM
  */
-export function createMultipleChoiceQcm (
+export function createMultipleChoiceQcm(
   enonce: string,
   reponses: string[],
   bonnesReponses: boolean[],
   corrections?: string[],
-  titre: string = 'QCM à réponses multiples'
+  titre: string = 'QCM à réponses multiples',
 ): typeof QcmJsonGenerator {
   const qcmData: QcmJsonData = {
     titre,
@@ -120,9 +124,9 @@ export function createMultipleChoiceQcm (
         enonce,
         reponses,
         bonnesReponses,
-        corrections
-      }
-    ]
+        corrections,
+      },
+    ],
   }
 
   return createQcmFromJson(qcmData)

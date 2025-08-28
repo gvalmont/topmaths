@@ -17,7 +17,10 @@ import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'CAN 4e sujet 2022'
 export const interactifReady = true
@@ -32,7 +35,7 @@ export const dateDePublication = '01/05/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
@@ -40,12 +43,12 @@ export const uuid = 'cf47f'
 
 export const refs = {
   'fr-fr': ['can4a-2022'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN2022quatrieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.nbQuestions = 30// 10,20,30
+    this.nbQuestions = 30 // 10,20,30
     this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
@@ -54,22 +57,108 @@ export default class SujetCAN2022quatrieme extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-    const listeFractions18 = [[8, 14], [6, 14], [4, 14], [6, 16], [10, 16],
-      [8, 12], [8, 10], [10, 12], [6, 18], [4, 18], [12, 16], [14, 16], [14, 18], [2, 18], [2, 14]
+    const typeQuestionsDisponiblesNiv1 = shuffle([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    ])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
+    const listeFractions18 = [
+      [8, 14],
+      [6, 14],
+      [4, 14],
+      [6, 16],
+      [10, 16],
+      [8, 12],
+      [8, 10],
+      [10, 12],
+      [6, 18],
+      [4, 18],
+      [12, 16],
+      [14, 16],
+      [14, 18],
+      [2, 18],
+      [2, 14],
     ]
-    const listeFractions12 = [[1, 4], [3, 4], [3, 2], [5, 2], [1, 5], [2, 5], [3, 5],
-      [4, 5], [6, 5], [5, 4], [7, 4], [9, 4]
+    const listeFractions12 = [
+      [1, 4],
+      [3, 4],
+      [3, 2],
+      [5, 2],
+      [1, 5],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [6, 5],
+      [5, 4],
+      [7, 4],
+      [9, 4],
     ]
-    const listeFractions24 = [[5, 3], [7, 9], [3, 7], [5, 7], [9, 7], [2, 9], [4, 7], [11, 5], [11, 3]
+    const listeFractions24 = [
+      [5, 3],
+      [7, 9],
+      [3, 7],
+      [5, 7],
+      [9, 7],
+      [2, 9],
+      [4, 7],
+      [11, 5],
+      [11, 3],
     ]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction18, lA, traceA, indice, o, r, poly, propositions, chiffre, chiffre2, u, k1, k2, e, f, choix, a, b, c, k, A, B, C, D, d, triplet, pol, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        texte,
+        texteCorr,
+        reponse,
+        fraction18,
+        lA,
+        traceA,
+        indice,
+        o,
+        r,
+        poly,
+        propositions,
+        chiffre,
+        chiffre2,
+        u,
+        k1,
+        k2,
+        e,
+        f,
+        choix,
+        a,
+        b,
+        c,
+        k,
+        A,
+        B,
+        C,
+        D,
+        d,
+        triplet,
+        pol,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -88,15 +177,47 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 2:
-          chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-          chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
+          chiffre = [
+            ['un', 1],
+            ['deux', 2],
+            ['trois', 3],
+            ['cinq', 5],
+            ['quatre', 4],
+            ['six', 6],
+            ['sept', 7],
+            ['huit', 8],
+            ['neuf', 9],
+          ]
+          chiffre2 = [
+            ['vingt', 20],
+            ['trente', 30],
+            ['quarante', 40],
+            ['cinquante', 50],
+            ['soixante', 60],
+          ]
           a = randint(0, 8)
           b = randint(0, 4)
           c = randint(0, 8)
           d = randint(0, 4)
           if (choice([true, false])) {
-            chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-            chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
+            chiffre = [
+              ['un', 1],
+              ['deux', 2],
+              ['trois', 3],
+              ['cinq', 5],
+              ['quatre', 4],
+              ['six', 6],
+              ['sept', 7],
+              ['huit', 8],
+              ['neuf', 9],
+            ]
+            chiffre2 = [
+              ['vingt', 20],
+              ['trente', 30],
+              ['quarante', 40],
+              ['cinquante', 50],
+              ['soixante', 60],
+            ]
             a = randint(0, 8)
             b = randint(0, 4)
             c = randint(0, 8)
@@ -277,12 +398,16 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 9:
-          choix = choice(['a', 'b', 'c'])//, 'b'
+          choix = choice(['a', 'b', 'c']) //, 'b'
           if (choix === 'a') {
             a = randint(45, 49) + randint(1, 9) / 10
             b = randint(2, 5) + randint(1, 9) / 10
 
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
+            propositions = shuffle([
+              `$${texNombre((a * b) / 10, 3)}$`,
+              `$${texNombre(a * b * 10, 1)}$`,
+              `$${texNombre(a * b, 2)}$`,
+            ])
             reponse = arrondi(a * b, 3)
             texte = `Recopie  le résultat de  :
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
@@ -293,7 +418,11 @@ export default class SujetCAN2022quatrieme extends Exercice {
           if (choix === 'b') {
             a = randint(3, 9) + randint(1, 9) / 10
             b = randint(2, 5) + randint(1, 9) / 10
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
+            propositions = shuffle([
+              `$${texNombre((a * b) / 10, 3)}$`,
+              `$${texNombre(a * b * 10, 1)}$`,
+              `$${texNombre(a * b, 2)}$`,
+            ])
             reponse = arrondi(a * b, 3)
             texte = `Recopie  le résultat de  :
                 $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
@@ -304,13 +433,18 @@ export default class SujetCAN2022quatrieme extends Exercice {
           if (choix === 'c') {
             a = randint(45, 49) + randint(1, 9) / 10
             b = randint(25, 29) + randint(1, 9) / 10
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
+            propositions = shuffle([
+              `$${texNombre((a * b) / 10, 3)}$`,
+              `$${texNombre(a * b * 10, 1)}$`,
+              `$${texNombre(a * b, 2)}$`,
+            ])
             reponse = arrondi(a * b, 3)
             texte = `Recopie  le résultat de  :
                     $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr = 'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
+            texteCorr =
+              'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -356,13 +490,12 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 11:
-
           a = choice([1, 10])
           b = randint(2, 199)
           texte = `$${a}\\,\\%$ de $${b} =$
          `
 
-          texteCorr = `$${a}\\,\\%$ de $${b} =${texNombre(a / 100, 2)}\\times ${b}=${texNombre(b * a / 100, 2)}$.
+          texteCorr = `$${a}\\,\\%$ de $${b} =${texNombre(a / 100, 2)}\\times ${b}=${texNombre((b * a) / 100, 2)}$.
           `
 
           reponse = arrondi((a / 100) * b, 2)
@@ -376,7 +509,6 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 12:
-
           a = choice(listeFractions12)
           b = fraction(a[0], a[1])
 
@@ -406,13 +538,19 @@ export default class SujetCAN2022quatrieme extends Exercice {
           poly.epaisseur = 1
 
           texte = 'Calcule le périmètre du parallélogramme $ABCD$.<br> '
-          texte += mathalea2d({
-            xmin: -1.5,
-            ymin: -1,
-            xmax: 8,
-            ymax: 5,
-            scale: 0.8
-          }, poly, labelPoint(A, B, C, D), d, e)
+          texte += mathalea2d(
+            {
+              xmin: -1.5,
+              ymin: -1,
+              xmax: 8,
+              ymax: 5,
+              scale: 0.8,
+            },
+            poly,
+            labelPoint(A, B, C, D),
+            d,
+            e,
+          )
           texteCorr = `Le périmètre en cm est donné par :
             $2\\times ${a}+2\\times ${b} =2\\times(${a}+${b})=${reponse}$ cm`
 
@@ -427,7 +565,6 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 14:
-
           a = randint(2, 9)
 
           texte = 'Complète :<br>'
@@ -450,7 +587,9 @@ export default class SujetCAN2022quatrieme extends Exercice {
               texte += `$${a}\\times\\ldots=1$`
               texte += ajouteChampTexteMathLive(this, index, '')
             }
-            setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+            setReponse(this, index, reponse, {
+              formatInteractif: 'fractionEgale',
+            })
             texteCorr = `$${a}\\times\\dfrac{1}{${a}}=1$. Les nombres $${a}$ et $\\dfrac{1}{${a}}$ sont inverses.`
           }
 
@@ -458,7 +597,6 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 15:
-
           a = (randint(0, 12) * 2 + 1) / 10
 
           texte = `La moitié de $${texNombre(a, 2)}$ est égale à : `
@@ -476,7 +614,6 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 16:
-
           a = choice([1, 1.5, 2])
           b = choice([5, 10, 20, 30, 40, 25, 35, 45, 50, 55, 60])
           texte = `J'ouvre une bouteille de jus d'orange de  $${texNombre(a, 1)}$ L. Je verse $${b}$ cL dans un verre.<br>
@@ -565,7 +702,7 @@ export default class SujetCAN2022quatrieme extends Exercice {
            $ ${a.texFraction}=\\dfrac{\\ldots}{${texNombre(1.5 * fraction18[1], 0)}}$`
 
           texteCorr = `$${a.texFraction}=\\dfrac{${texNombre(fraction18[0] / 2, 0)}}{${texNombre(fraction18[1] / 2, 0)}}=
-          \\dfrac{3\\times ${texNombre(fraction18[0] / 2, 0)}}{3\\times${texNombre(fraction18[1] / 2, 0)}}=\\dfrac{${texNombre(3 * fraction18[0] / 2, 0)}}{${texNombre(3 * fraction18[1] / 2, 0)}}$`
+          \\dfrac{3\\times ${texNombre(fraction18[0] / 2, 0)}}{3\\times${texNombre(fraction18[1] / 2, 0)}}=\\dfrac{${texNombre((3 * fraction18[0]) / 2, 0)}}{${texNombre((3 * fraction18[1]) / 2, 0)}}$`
 
           reponse = arrondi(1.5 * fraction18[0], 0)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -576,7 +713,6 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 19:
-
           k2 = choice([3, 4, 5])
           k1 = choice([3, 4, 5])
           b = randint(-k2 + 1, k2 - 1)
@@ -596,37 +732,52 @@ export default class SujetCAN2022quatrieme extends Exercice {
             grilleSecondaireXDistance: 1 / k1,
             grilleSecondaireYDistance: 1 / k2,
             axeXStyle: '->',
-            axeYStyle: '->'
+            axeYStyle: '->',
           })
 
           A = point(a, b)
-          o = texteParPosition('O', -0.4, -0.6, 'milieu', 'black')//, context.isHtml ? 1 : 0.7
+          o = texteParPosition('O', -0.4, -0.6, 'milieu', 'black') //, context.isHtml ? 1 : 0.7
           // o = latexParCoordonnees('\\text{O}', -0.3, -0.4, 'black', 15, 10, '', 7)
-          lA = texteParPosition('A', a - 0.4, b - 0.2, 'milieu', 'red', context.isHtml ? 2 : 0.7)//
+          lA = texteParPosition(
+            'A',
+            a - 0.4,
+            b - 0.2,
+            'milieu',
+            'red',
+            context.isHtml ? 2 : 0.7,
+          ) //
           traceA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
           traceA.taille = 4
           traceA.epaisseur = 2
 
           if (choice([true, false])) {
-            texte = 'L\'abscisse du point $A$ est :<br>'
+            texte = "L'abscisse du point $A$ est :<br>"
             texteCorr = `L'abscisse du point $A$ se lit sur l'axe horizontal. L'unité (sur l'axe des abscisses) est divisée en $${k1}$. <br>
             Le point $A$ a pour abscisse $\\dfrac{${a}}{${k1}}${simplificationDeFractionAvecEtapes(a, k1)}$.`
             reponse = fraction(a, k1)
           } else {
-            texte = 'L\'ordonnée du point $A$ est :<br>'
+            texte = "L'ordonnée du point $A$ est :<br>"
             texteCorr = `L'ordonnée du point $A$ se lit sur l'axe vertical. L'unité (sur l'axe des ordonnées) est divisée en $${k2}$. <br>
             Le point $A$ a pour ordonnée $\\dfrac{${b}}{${k2}}${simplificationDeFractionAvecEtapes(b, k2)}$.`
             reponse = fraction(b, k2)
           }
-          texte += mathalea2d({
-            xmin: -k1 - 1,
-            xmax: k1 + 1,
-            ymin: -k2 - 1,
-            ymax: k2 + 1,
-            scale: 0.7,
-            pixelsParCm: 20
-          }, r, o, lA, traceA)
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          texte += mathalea2d(
+            {
+              xmin: -k1 - 1,
+              xmax: k1 + 1,
+              ymin: -k2 - 1,
+              ymax: k2 + 1,
+              scale: 0.7,
+              pixelsParCm: 20,
+            },
+            r,
+            o,
+            lA,
+            traceA,
+          )
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -712,7 +863,12 @@ export default class SujetCAN2022quatrieme extends Exercice {
           texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
 
           reponse = fraction(b.n, b.d).simplifie()
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse.toLatex(),
+              options: { fractionIrreductible: true },
+            },
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -796,7 +952,10 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
 
         case 28:
-          triplet = [[3, 4, 5], [6, 8, 10]]
+          triplet = [
+            [3, 4, 5],
+            [6, 8, 10],
+          ]
           a = choice(triplet)
 
           C = point(0, 0, 'C', 'below')
@@ -813,24 +972,37 @@ export default class SujetCAN2022quatrieme extends Exercice {
           if (choix === 'a') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.3)
-              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.6, milieu(B, C).y)
+              texteParPosition(
+                `${stringNombre(a[0])} cm`,
+                milieu(A, C).x,
+                milieu(A, C).y - 0.3,
+              ),
+              texteParPosition(
+                `${stringNombre(a[2])} cm`,
+                milieu(B, C).x - 0.6,
+                milieu(B, C).y,
+              ),
 
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
+              labelPoint(A, B, C),
+              codageAngleDroit(B, A, C),
+            )
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -840,23 +1012,36 @@ export default class SujetCAN2022quatrieme extends Exercice {
           if (choix === 'b') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.5, milieu(A, B).y)
-              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.6, milieu(B, C).y)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
+              texteParPosition(
+                `${stringNombre(a[1])} cm`,
+                milieu(A, B).x + 0.5,
+                milieu(A, B).y,
+              ),
+              texteParPosition(
+                `${stringNombre(a[2])} cm`,
+                milieu(B, C).x - 0.6,
+                milieu(B, C).y,
+              ),
+              labelPoint(A, B, C),
+              codageAngleDroit(B, A, C),
+            )
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -866,23 +1051,36 @@ export default class SujetCAN2022quatrieme extends Exercice {
           if (choix === 'c') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.5, milieu(A, B).y)
-              , texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.3)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
+              texteParPosition(
+                `${stringNombre(a[1])} cm`,
+                milieu(A, B).x + 0.5,
+                milieu(A, B).y,
+              ),
+              texteParPosition(
+                `${stringNombre(a[0])} cm`,
+                milieu(A, C).x,
+                milieu(A, C).y - 0.3,
+              ),
+              labelPoint(A, B, C),
+              codageAngleDroit(B, A, C),
+            )
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -912,7 +1110,9 @@ export default class SujetCAN2022quatrieme extends Exercice {
           if (a * c + b * d === 0) {
             setReponse(this, index, '0', { formatInteractif: 'texte' })
           } else {
-            setReponse(this, index, a * c + b * d, { formatInteractif: 'calcul' })
+            setReponse(this, index, a * c + b * d, {
+              formatInteractif: 'calcul',
+            })
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
@@ -942,7 +1142,8 @@ export default class SujetCAN2022quatrieme extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

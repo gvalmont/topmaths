@@ -1,5 +1,8 @@
 import type { Figure2D } from '../../lib/2d/Figures2D'
-import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
+import {
+  listeFigures2d,
+  type Forme,
+} from '../../lib/2d/figures2d/listeFigures2d'
 import { point } from '../../lib/2d/points'
 import { Segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -9,7 +12,12 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -29,14 +37,17 @@ export const uuid = '328b2'
 export const refs = {
   'fr-fr': ['auto6G1C'],
   'fr-2016': ['6G25-4'],
-  'fr-ch': ['9ES6-30', '10ES2-17']
+  'fr-ch': ['9ES6-30', '10ES2-17'],
 }
 
 export default class NbAxesDeSymetrie extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
-    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets :\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type de figures',
+      'Nombres séparés par des tirets :\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange',
+    ]
     this.sup = '6'
     this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
     this.sup2 = 3
@@ -46,19 +57,34 @@ export default class NbAxesDeSymetrie extends Exercice {
     this.sup4 = true
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     let nbFigures = this.sup2
     const factor = this.sup4 ? 2 : 1
-    const typeDeFigures = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: this.nbQuestions }).map(Number)
+    const typeDeFigures = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 5,
+      defaut: 1,
+      melange: 6,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
     const numerosChoisis: number[] = []
-    for (let i = 0; i < this.nbQuestions;) {
+    for (let i = 0; i < this.nbQuestions; ) {
       let texte = ''
       let texteCorr = ''
       const objets: NestedObjetMathalea2dArray = []
       const objetsCorr: NestedObjetMathalea2dArray = []
 
-      const typeDeFigureChoisie = ['panneau', 'geometrique', 'lego', 'lettre', 'chiffre'][typeDeFigures[i] - 1]
-      const listeFigs = listeFigures2d.filter(el => el.type === typeDeFigureChoisie).filter(el => !numerosChoisis.includes(el.numero))
+      const typeDeFigureChoisie = [
+        'panneau',
+        'geometrique',
+        'lego',
+        'lettre',
+        'chiffre',
+      ][typeDeFigures[i] - 1]
+      const listeFigs = listeFigures2d
+        .filter((el) => el.type === typeDeFigureChoisie)
+        .filter((el) => !numerosChoisis.includes(el.numero))
       if (listeFigs.length === 0) {
         this.listeQuestions.push('Aucune figure disponible')
         this.listeCorrections.push('Aucune figure disponible')
@@ -70,7 +96,9 @@ export default class NbAxesDeSymetrie extends Exercice {
       }
       const figures = []
       for (let j = 0; j < nbFigures; j++) {
-        const choix = listeFigs.filter(el => !numerosChoisis.includes(el.numero))
+        const choix = listeFigs.filter(
+          (el) => !numerosChoisis.includes(el.numero),
+        )
         if (choix.length === 0) {
           nbFigures = j
           break
@@ -88,31 +116,67 @@ export default class NbAxesDeSymetrie extends Exercice {
         const alpha = randint(-30, 30, 0)
         const figure = figures[j]
         const options = figure.options ?? {}
-        const forme = figure.figure2d(options).dilate(factor).translate(j * 6.5 * factor * scale, 0)
+        const forme = figure
+          .figure2d(options)
+          .dilate(factor)
+          .translate(j * 6.5 * factor * scale, 0)
         forme.name = figure.name.replace(/ /g, '_')
         if (this.sup3) forme.rotate(alpha)
         formes.push(forme)
 
-        const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6.5 * factor * scale, 2.8 * factor)
+        const formeTexte = texteParPosition(
+          `figure ${j + 1}`,
+          j * 6.5 * factor * scale,
+          2.8 * factor,
+        )
         objets.push(forme, formeTexte)
         let axes: Segment[] = []
         if (forme.nbAxes !== 0) {
           const formeBis = forme.copy(forme.name + 'Bis')
           formeBis.opacite = 0.3
-          const formeCorr = forme.autoReflectionAnimee(`${forme.name}Corr_${i * this.sup2 + j}`, forme.x, forme.y)
-          axes = formeCorr.Axes.map(el => factor > 1 ? homothetie(el, point(0, 0), factor) : el)
+          const formeCorr = forme.autoReflectionAnimee(
+            `${forme.name}Corr_${i * this.sup2 + j}`,
+            forme.x,
+            forme.y,
+          )
+          axes = formeCorr.Axes.map((el) =>
+            factor > 1 ? homothetie(el, point(0, 0), factor) : el,
+          )
           objetsCorr.push(formeBis, formeCorr, formeTexte)
         } else {
           if (forme.nonAxe) {
             const formeBis = forme.copy(forme.name + 'Bis')
             formeBis.opacite = 0.3
-            const formeCorr = forme.autoReflectionAnimee(`${forme.name}Corr_${i * this.sup2 + j}`, forme.x, forme.y)
+            const formeCorr = forme.autoReflectionAnimee(
+              `${forme.name}Corr_${i * this.sup2 + j}`,
+              forme.x,
+              forme.y,
+            )
             const axe = formeCorr.nonAxe
             if (axe) {
               const seg = translation(axe, vecteur(j * 6.5 * factor * scale, 0))
               seg.epaisseur = 1.5
               seg.color = colorToLatexOrHTML(orangeMathalea)
-              objetsCorr.push(formeBis, formeCorr, formeTexte, seg, texteParPosition(`Il n'y a pas d'axe ${sp(2)} de symétrie ici !`, j * 6.5 * factor * scale, 0, 45, 'red'), texteParPosition(`Il n'y a pas d'axe ${sp(2)} de symétrie ici !`, j * 6.5 * factor * scale, 0, -45, 'red'))
+              objetsCorr.push(
+                formeBis,
+                formeCorr,
+                formeTexte,
+                seg,
+                texteParPosition(
+                  `Il n'y a pas d'axe ${sp(2)} de symétrie ici !`,
+                  j * 6.5 * factor * scale,
+                  0,
+                  45,
+                  'red',
+                ),
+                texteParPosition(
+                  `Il n'y a pas d'axe ${sp(2)} de symétrie ici !`,
+                  j * 6.5 * factor * scale,
+                  0,
+                  -45,
+                  'red',
+                ),
+              )
             } else {
               objetsCorr.push(forme, formeTexte)
             }
@@ -122,14 +186,23 @@ export default class NbAxesDeSymetrie extends Exercice {
         }
         if (axes.length > 0) {
           for (let k = 0; k < axes.length; k++) {
-            const seg = translation(axes[k], vecteur(j * 6.5 * factor * scale, 0))
+            const seg = translation(
+              axes[k],
+              vecteur(j * 6.5 * factor * scale, 0),
+            )
             seg.epaisseur = 1.5
             seg.color = colorToLatexOrHTML(orangeMathalea)
             objetsCorr.push(seg)
           }
         }
       }
-      texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale }, fixeBordures(objets)), objets)
+      texte += mathalea2d(
+        Object.assign(
+          { pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale },
+          fixeBordures(objets),
+        ),
+        objets,
+      )
       if (this.interactif) {
         for (let j = 0; j < nbFigures; j++) {
           this.autoCorrection[i * nbFigures + j] = {
@@ -141,23 +214,38 @@ export default class NbAxesDeSymetrie extends Exercice {
               { texte: '4', statut: formes[j].nbAxes === 4 },
               { texte: '5', statut: formes[j].nbAxes === 5 },
               { texte: '6', statut: formes[j].nbAxes === 6 },
-              { texte: 'une infinité', statut: Number.isFinite(formes[j].nbAxes) === false },
+              {
+                texte: 'une infinité',
+                statut: Number.isFinite(formes[j].nbAxes) === false,
+              },
             ],
             options: {
-              ordered: true
-            }
+              ordered: true,
+            },
           }
           // const monQcm = propositionsQcm(this, i * nbFigures + j, { style: 'inline-block', format: 'case', radio: true })
-          const monQcm = propositionsQcm(this, i * nbFigures + j, { style: 'inline-block', format: 'case' })
+          const monQcm = propositionsQcm(this, i * nbFigures + j, {
+            style: 'inline-block',
+            format: 'case',
+          })
           texte += `figure ${j + 1} : ${monQcm.texte}`
         }
       }
 
-      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale }, fixeBordures(objetsCorr)), objetsCorr)
-      texteCorr += `${formes.map((el, j) => Number.isFinite(el.nbAxes)
-       ? `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède $${miseEnEvidence(el.nbAxes)}$ axe${el.nbAxes > 1 ? 's' : ''} de symétrie`
-       : `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède une infinité d'axes de symétrie`
-    ).join(', ')}.`
+      texteCorr += mathalea2d(
+        Object.assign(
+          { pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale },
+          fixeBordures(objetsCorr),
+        ),
+        objetsCorr,
+      )
+      texteCorr += `${formes
+        .map((el, j) =>
+          Number.isFinite(el.nbAxes)
+            ? `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède $${miseEnEvidence(el.nbAxes)}$ axe${el.nbAxes > 1 ? 's' : ''} de symétrie`
+            : `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède une infinité d'axes de symétrie`,
+        )
+        .join(', ')}.`
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       i++

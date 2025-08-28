@@ -16,10 +16,10 @@ export const uuid = '1db82'
 
 export const refs = {
   'fr-fr': ['can6D01', '6M4C-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ConversionHeuresEtMinutesVersMinutes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -27,7 +27,7 @@ export default class ConversionHeuresEtMinutesVersMinutes extends ExerciceSimple
     this.optionsChampTexte = { texteApres: ' minutes' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 4)
     const b = randint(10, 59)
     const d = a * 60 + b

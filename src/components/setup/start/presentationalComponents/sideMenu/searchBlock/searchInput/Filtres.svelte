@@ -1,6 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  import { FILTER_SECTIONS_TITLES, type FilterType } from '../../../../../../../lib/types'
+  import {
+    FILTER_SECTIONS_TITLES,
+    type FilterType,
+  } from '../../../../../../../lib/types'
   import type { Level } from '../../../../../../../lib/types/referentiels'
   import { allFilters, filtersHaveChanged } from '../../filtersStore'
   import { getUniqueStringBasedOnTimeStamp } from '../../../../../../../lib/components/time'
@@ -14,7 +17,7 @@
    * `allFilters` soit appelée, on ajoute 1 à la propriété `clicked`
    * @param selectedEntry
    */
-  function handleFiltersChanges (selectedEntry: Level | string) {
+  function handleFiltersChanges(selectedEntry: Level | string) {
     $filtersHaveChanged = true
     if (filterType === 'levels') {
       switch (selectedEntry) {
@@ -28,7 +31,7 @@
               } else {
                 $allFilters.levels[level].isSelected = false
               }
-            }
+            },
           )
           $allFilters.levels[selectedEntry].clicked++
           break
@@ -54,7 +57,7 @@
   }
 </script>
 
-<div class={`${$$props.class || ''} flex flex-col`}>
+<div class="{`${$$props.class || ''} flex flex-col`}">
   <div
     class="text-coopmaths-struct font-semibold text-sm px-1 border-b w-full border-coopmaths-struct"
   >
@@ -63,18 +66,20 @@
   <div>
     <ul class="w-full columns-[175px] gap-4 mt-2">
       {#each Object.entries($allFilters[filterType]) as [key, filter], i}
-        <li class="flex-row justify-start items-center pr-4 pl-6 py-0 my-0 line-clamp-1 leading-none">
+        <li
+          class="flex-row justify-start items-center pr-4 pl-6 py-0 my-0 line-clamp-1 leading-none"
+        >
           <input
             id="checkbox-{key}-{i}-{timeTag}"
             aria-describedby="checkbox-{key}-{i}-{timeTag}"
             type="checkbox"
             class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-0 rounded"
-            value={key}
-            bind:checked={filter.isSelected}
-            on:change={() => {
+            value="{key}"
+            bind:checked="{filter.isSelected}"
+            on:change="{() => {
               handleFiltersChanges(key)
               dispatch('filters-change')
-            }}
+            }}"
           />
           <label
             for="checkbox-{key}-{i}-{timeTag}"

@@ -17,14 +17,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'e45ab'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class perimetreCalcul extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -32,7 +32,7 @@ export default class perimetreCalcul extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const objets = []
     const diviseur = choice([1, 10, 100, 1000])
     const a = new Decimal(2025).div(diviseur)
@@ -46,19 +46,44 @@ export default class perimetreCalcul extends ExerciceSimple {
     const s4 = segment(A, D)
 
     objets.push(
-      latex2d(`${texNombre(new Decimal(a), 3)} \\text{ cm}`, 8, milieu(B, C).y + 0.7, { letterSize: 'scriptsize' }),
-      codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
-      codageSegments('||', 'blue', C, D), codageSegments('||', 'blue', A, D),
-      codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
+      latex2d(
+        `${texNombre(new Decimal(a), 3)} \\text{ cm}`,
+        8,
+        milieu(B, C).y + 0.7,
+        { letterSize: 'scriptsize' },
+      ),
+      codageSegments('||', 'blue', A, B),
+      codageSegments('||', 'blue', B, C),
+      codageSegments('||', 'blue', C, D),
+      codageSegments('||', 'blue', A, D),
+      codageAngleDroit(D, A, B),
+      codageAngleDroit(A, B, C),
+      codageAngleDroit(B, C, D),
+      codageAngleDroit(C, D, A),
+      s1,
+      s2,
+      s3,
+      s4,
+    )
     this.question = 'Quel est le périmètre de ce carré ? '
 
-    this.question += '<br>' + mathalea2d(Object.assign({ scale: 0.4, style: 'margin: auto' }, fixeBordures(objets)), objets)
+    this.question +=
+      '<br>' +
+      mathalea2d(
+        Object.assign(
+          { scale: 0.4, style: 'margin: auto' },
+          fixeBordures(objets),
+        ),
+        objets,
+      )
     this.reponse = texNombre(new Decimal(a).mul(4), 4)
     this.correction = `Il s'agit d'un carré. <br>
           Son périmètre est donc
          $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a)}=${miseEnEvidence(this.reponse)}$ cm.`
 
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ cm'
   }

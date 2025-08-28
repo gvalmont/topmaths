@@ -26,22 +26,26 @@ export const uuid = '87479'
 export const refs = {
   'fr-fr': ['CM2N2A-2'],
   'fr-2016': ['6N14'],
-  'fr-ch': ['9NO10-1']
+  'fr-ch': ['9NO10-1'],
 }
 export default class RepresenterUneFraction extends Exercice {
   figures: Figure[] = []
   numerators: number[] = []
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 4
     this.nbCols = 2
     this.nbColsCorr = 2
     this.sup = 3
-    this.besoinFormulaireNumerique = ['Type de fractions', 6, '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe']
+    this.besoinFormulaireNumerique = [
+      'Type de fractions',
+      6,
+      '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let sc
     const ppc = 20
     if (context.isHtml) {
@@ -56,21 +60,28 @@ export default class RepresenterUneFraction extends Exercice {
       xmax: 18,
       ymax: 3,
       pixelsParCm: ppc,
-      scale: sc
-    }; let den; let num; let f
+      scale: sc,
+    }
+    let den
+    let num
+    let f
 
     const liste = combinaisonListes([2, 3, 4, 5, 6], this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       den = liste[i]
       switch (this.sup) {
-        case 1 :
+        case 1:
           num = randint(1, den - 1)
           break
-        case 2 :
+        case 2:
           num = randint(den + 1, den * 3)
           break
-        default :
+        default:
           num = randint(1, den * 3)
           break
       }
@@ -78,13 +89,28 @@ export default class RepresenterUneFraction extends Exercice {
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
       this.numerators[i] = num
       if (this.interactif) {
-        const figure = new Figure({ xMin: -1.6, yMin: -1.6, width: 336, height: 95 })
+        const figure = new Figure({
+          xMin: -1.6,
+          yMin: -1.6,
+          width: 336,
+          height: 95,
+        })
         figure.options.color = 'blue'
         figure._scale = context.isHtml ? 1 : 0.6
         this.figures[i] = figure
-        figure.create('CircleFractionDiagram', { denominator: den, numberOfCircle: 3, radius: 1.5 })
+        figure.create('CircleFractionDiagram', {
+          denominator: den,
+          numberOfCircle: 3,
+          radius: 1.5,
+        })
         figure.setToolbar({ tools: ['FILL'], position: 'top' })
-        texte += figureApigeom({ exercice: this, figure, isDynamic: true, i, defaultAction: 'FILL' })
+        texte += figureApigeom({
+          exercice: this,
+          figure,
+          isDynamic: true,
+          i,
+          defaultAction: 'FILL',
+        })
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
         figure.divUserMessage.style.display = 'none'
       } else {
@@ -94,17 +120,32 @@ export default class RepresenterUneFraction extends Exercice {
         //   texte += figure.tikz()
         // }
         const f2 = fraction(den * 3, den)
-        texte += mathalea2d(params, f2.representation(0, 0, 2, 0, 'gateau', 'white'))
+        texte += mathalea2d(
+          params,
+          f2.representation(0, 0, 2, 0, 'gateau', 'white'),
+        )
       }
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
       if (this.interactif) {
-        const figureCorr = new Figure({ xMin: -2, yMin: -2, width: 600, height: 95 })
+        const figureCorr = new Figure({
+          xMin: -2,
+          yMin: -2,
+          width: 600,
+          height: 95,
+        })
         figureCorr.options.color = 'blue'
-        const diagrammeCorr = figureCorr.create('CircleFractionDiagram', { denominator: den, numberOfCircle: 3, radius: 1 })
+        const diagrammeCorr = figureCorr.create('CircleFractionDiagram', {
+          denominator: den,
+          numberOfCircle: 3,
+          radius: 1,
+        })
         diagrammeCorr.numerator = num
         texteCorr += figureCorr.getStaticHtml()
       } else {
-        texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'))
+        texteCorr += mathalea2d(
+          params,
+          f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'),
+        )
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -119,11 +160,11 @@ export default class RepresenterUneFraction extends Exercice {
                   texte: texteCorr,
                   statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                   enonce: texte,
-                  sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }
-          ]
+                  sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, num, den)) {
@@ -142,10 +183,17 @@ export default class RepresenterUneFraction extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figures[i].id] = this.figures[i].json
     let result = 'KO'
-    const divCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
-    const diagramme = this.figures[i].elements.get('element0') as CircleFractionDiagram
-    if (diagramme.type !== 'CircleFractionDiagram') throw new Error('On attendait un diagramme circulaire de fractions')
+    const divCheck = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${i}`,
+    )
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${i}`,
+    )
+    const diagramme = this.figures[i].elements.get(
+      'element0',
+    ) as CircleFractionDiagram
+    if (diagramme.type !== 'CircleFractionDiagram')
+      throw new Error('On attendait un diagramme circulaire de fractions')
     if (diagramme.numerator === this.numerators[i]) {
       if (divCheck) divCheck.innerHTML = '😎'
       result = 'OK'

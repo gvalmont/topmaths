@@ -8,7 +8,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Transformer une écriture de puissance en écriture décimale ou fractionnaire'
+export const titre =
+  'Transformer une écriture de puissance en écriture décimale ou fractionnaire'
 
 export const dateDePublication = '14/06/2022'
 export const interactifReady = true
@@ -23,51 +24,87 @@ export const uuid = '125bd'
 
 export const refs = {
   'fr-fr': ['4C35'],
-  'fr-ch': ['10NO2-12']
+  'fr-ch': ['10NO2-12'],
 }
 export default class PuissanceDecimaleOuFractionnaire extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants.'
+    this.consigne =
+      "Calculer de tête l'écriture décimale ou fractionnaire des nombres suivants."
     this.nbQuestions = 8
     this.nbCols = 2
     this.nbColsCorr = 2
     this.sup = false
     this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
-    this.besoinFormulaire2CaseACocher = ['Avec que des exposants positifs (incontournable pour AMC)']
+    this.besoinFormulaire2CaseACocher = [
+      'Avec que des exposants positifs (incontournable pour AMC)',
+    ]
   }
 
-  nouvelleVersion () {
-    const typeQuestionsDisponibles = ['puissancePos', 'puissanceNeg', 'negPuissancePaire', 'negPuissanceImpaire', 'negParenthesePuissancePaire', 'negParenthesePuissanceImpaire', 'puissance0', 'puissance1', 'negParenthesePuissancePaireNeg', 'negParenthesePuissanceImpaireNeg'] // On créé 3 types de questions
-    const typesDeQuestions = this.sup2 || context.isAmc // Ici on ne prends que les exposants positifs pour ne pas influencer par le format de réponse AMC
-      ? ['puissance0', 'puissance1', 'puissancePos', 'puissancePos', 'puissancePos', 'puissancePos']
-      : this.sup
-        ? typeQuestionsDisponibles
-        : ['puissance0', 'puissance1', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg']
-    const listeTypeQuestions = combinaisonListes(typesDeQuestions, this.nbQuestions)
-    let texte/** string */, texteCorr
+  nouvelleVersion() {
+    const typeQuestionsDisponibles = [
+      'puissancePos',
+      'puissanceNeg',
+      'negPuissancePaire',
+      'negPuissanceImpaire',
+      'negParenthesePuissancePaire',
+      'negParenthesePuissanceImpaire',
+      'puissance0',
+      'puissance1',
+      'negParenthesePuissancePaireNeg',
+      'negParenthesePuissanceImpaireNeg',
+    ] // On créé 3 types de questions
+    const typesDeQuestions =
+      this.sup2 || context.isAmc // Ici on ne prends que les exposants positifs pour ne pas influencer par le format de réponse AMC
+        ? [
+            'puissance0',
+            'puissance1',
+            'puissancePos',
+            'puissancePos',
+            'puissancePos',
+            'puissancePos',
+          ]
+        : this.sup
+          ? typeQuestionsDisponibles
+          : [
+              'puissance0',
+              'puissance1',
+              'puissancePos',
+              'puissanceNeg',
+              'puissancePos',
+              'puissanceNeg',
+              'puissancePos',
+              'puissanceNeg',
+              'puissancePos',
+              'puissanceNeg',
+            ]
+    const listeTypeQuestions = combinaisonListes(
+      typesDeQuestions,
+      this.nbQuestions,
+    )
+    let texte /** string */, texteCorr
     /** string */
-    let a /** number */, n /** number */, reponse/** any */
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    let a /** number */, n /** number */, reponse /** any */
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       switch (listeTypeQuestions[i]) {
         case 'puissancePos':
           a = choice([2, 3, randint(4, 9)])
-          n = (a === 2) ? randint(2, 8) : (a < 4) ? randint(2, 3) : 2
+          n = a === 2 ? randint(2, 8) : a < 4 ? randint(2, 3) : 2
           texte = `$${a}^{${n}} = $`
           texteCorr = `$${a}^{${n}} = ${puissanceEnProduit(a, n)} = ${a ** n}$`
           reponse = new FractionEtendue(a ** n, 1)
           break
         case 'puissanceNeg':
           a = choice([2, 3, randint(4, 9)])
-          n = (a === 2) ? randint(2, 8) : (a < 4) ? randint(2, 3) : 2
+          n = a === 2 ? randint(2, 8) : a < 4 ? randint(2, 3) : 2
           texte = `$${a}^{${-n}} = $`
           texteCorr = `$${a}^{${-n}} =  \\dfrac{1}{${a}^{${n}}} = ${puissanceEnProduit(a, -n)} = \\dfrac{1}{${a ** n}}$`
           reponse = new FractionEtendue(1, a ** n)
           break
         case 'negPuissancePaire':
           a = choice([2, 3, randint(4, 9)])
-          n = (a === 2) ? choice([2, 4, 6, 8]) : 2
+          n = a === 2 ? choice([2, 4, 6, 8]) : 2
           texte = `$${-a}^{${n}} = $`
           texteCorr = `$${-a}^{${n}} = - (${puissanceEnProduit(a, n)}) = - ${a ** n}$`
           reponse = new FractionEtendue(-(a ** n), 1)
@@ -81,14 +118,14 @@ export default class PuissanceDecimaleOuFractionnaire extends Exercice {
           break
         case 'negParenthesePuissancePaire':
           a = choice([2, 3, randint(4, 9)])
-          n = (a === 2) ? choice([2, 4, 6, 8]) : 2
+          n = a === 2 ? choice([2, 4, 6, 8]) : 2
           texte = `$(${-a})^{${n}} = $`
           texteCorr = `$(${-a})^{${n}} = ${puissanceEnProduit(-a, n)} = ${a ** n}$`
           reponse = new FractionEtendue(a ** n, 1)
           break
         case 'negParenthesePuissanceImpaire':
           a = choice([2, 3, randint(4, 5)])
-          n = (a === 2) ? choice([3, 5, 7, 9]) : 3
+          n = a === 2 ? choice([3, 5, 7, 9]) : 3
           texte = `$(${-a})^{${n}} = $`
           texteCorr = `$(${-a})^{${n}} = ${puissanceEnProduit(-a, n)} = -${a ** n}$`
           reponse = new FractionEtendue(-(a ** n), 1)
@@ -116,7 +153,7 @@ export default class PuissanceDecimaleOuFractionnaire extends Exercice {
           break
         case 'negParenthesePuissancePaireNeg':
           a = choice([2, 3, randint(4, 9)])
-          n = (a === 2) ? choice([2, 4, 6, 8]) : 2
+          n = a === 2 ? choice([2, 4, 6, 8]) : 2
           texte = `$(${-a})^{${-n}} = $`
           texteCorr = `$(${-a})^{${-n}} = ${puissanceEnProduit(-a, -n)} = \\dfrac{1}{${a ** n}}$`
           reponse = new FractionEtendue(1, a ** n)
@@ -124,13 +161,14 @@ export default class PuissanceDecimaleOuFractionnaire extends Exercice {
         case 'negParenthesePuissanceImpaireNeg':
         default:
           a = choice([2, 3, randint(4, 5)])
-          n = (a === 2) ? choice([3, 5, 7, 9]) : 3
+          n = a === 2 ? choice([3, 5, 7, 9]) : 3
           texte = `$(${-a})^{${-n}} = $`
           texteCorr = `$(${-a})^{${-n}} = ${puissanceEnProduit(-a, -n)} = \\dfrac{-1}{${a ** n}}$`
           reponse = new FractionEtendue(-1, a ** n)
           break
       }
-      if (!context.isAmc) setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+      if (!context.isAmc)
+        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       else setReponse(this, i, Number(reponse), { formatInteractif: 'calcul' })
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras

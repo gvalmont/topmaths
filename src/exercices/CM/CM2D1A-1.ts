@@ -3,11 +3,18 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
+import {
+  numAlpha,
+  premiereLettreEnMajuscule,
+} from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -30,15 +37,21 @@ export const uuid = '99d95'
 export const refs = {
   'fr-fr': ['CM2D1A-1'],
   'fr-2016': ['6S11'],
-  'fr-ch': ['9FA1-3']
+  'fr-ch': ['9FA1-3'],
 }
 export default class OrganiserDonneesDepuisTexte extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaire2Numerique = ['Nombre de fruits différents', 4]
-    this.besoinFormulaire3Numerique = ['Nombre d\'amis', 4]
-    this.besoinFormulaireCaseACocher = ['Pour utiliser des nombres décimaux et des masses', false]
-    this.besoinFormulaire4CaseACocher = ['Avec au moins un fruit de chaque', false]
+    this.besoinFormulaire3Numerique = ["Nombre d'amis", 4]
+    this.besoinFormulaireCaseACocher = [
+      'Pour utiliser des nombres décimaux et des masses',
+      false,
+    ]
+    this.besoinFormulaire4CaseACocher = [
+      'Avec au moins un fruit de chaque',
+      false,
+    ]
 
     this.consigne = "Répondre aux questions à l'aide du texte."
     this.nbQuestions = 4
@@ -51,14 +64,14 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
     this.spacingCorr = context.isHtml ? 2 : 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nbAmis = contraindreValeur(2, 4, this.sup3, 4) // min = 2;
     let texte
     let texteCorr
     let m
     let S
     const nbFruits = contraindreValeur(2, 4, this.sup2, 4) // min = 2
-    const lstPrenomExo:string[] = []
+    const lstPrenomExo: string[] = []
     while (lstPrenomExo.length < nbAmis) {
       const p = prenom() as string
       if (!lstPrenomExo.includes(p)) {
@@ -66,7 +79,17 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
       }
     }
 
-    const lstFruit = ['pomme', 'poire', 'kiwi', 'pêche', 'coing', 'melon', 'citron', 'banane', 'mangue']
+    const lstFruit = [
+      'pomme',
+      'poire',
+      'kiwi',
+      'pêche',
+      'coing',
+      'melon',
+      'citron',
+      'banane',
+      'mangue',
+    ]
     const lstFruitExo: string[] = []
     // Choisir les fruits :
     for (let i = 0; i < nbFruits; i++) {
@@ -91,7 +114,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
       L = []
     }
     // Affiche l'énoncé :
-    texte = 'Plusieurs amis reviennent du marché. Il s\'agit de '
+    texte = "Plusieurs amis reviennent du marché. Il s'agit de "
     for (let i = 0; i < nbAmis - 2; i++) {
       texte += `${lstPrenomExo[i]}, `
     }
@@ -114,17 +137,28 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
           texte += `$${texNombre(L[k][0])}$ kg de ${L[k][1]}s`
         } else {
           texte += `$${texNombre(L[k][0])}$ ${L[k][1]}`
-          if (L[k][0] > 1) { texte += 's' }
+          if (L[k][0] > 1) {
+            texte += 's'
+          }
         }
-        if (k < m - 2) { texte += ', ' }
-        if (k === m - 2) { texte += ' et ' }
+        if (k < m - 2) {
+          texte += ', '
+        }
+        if (k === m - 2) {
+          texte += ' et '
+        }
       }
       texte += '. <br>'
     }
     texte += '<br>'
     texte += `${numAlpha(0)} Remplir le tableau suivant. <br>`
-    const tabEntetesColonnes = ['Amis\\textbackslash fruits'].concat(lstFruitExo.map(el => premiereLettreEnMajuscule(el))).concat(['TOTAL']).map(el => `\\text{${el}}`)
-    const tabEntetesLignes = lstPrenomExo.concat(['TOTAL']).map(el => `\\text{${el}}`)
+    const tabEntetesColonnes = ['Amis\\textbackslash fruits']
+      .concat(lstFruitExo.map((el) => premiereLettreEnMajuscule(el)))
+      .concat(['TOTAL'])
+      .map((el) => `\\text{${el}}`)
+    const tabEntetesLignes = lstPrenomExo
+      .concat(['TOTAL'])
+      .map((el) => `\\text{${el}}`)
     const tabLines = new Array((nbAmis + 1) * (nbFruits + 1)).fill('')
 
     // CORRECTION (je la mets là, parce qu'on a besoin de nmax ef fmax pour les qcm)
@@ -144,7 +178,7 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
       tabLines2.push(sommeUnFruit)
     }
     tabLines2.push(sommeTotale)
-    const tabLinesCorr = tabLines2.map(el => texNombre(el, 2))
+    const tabLinesCorr = tabLines2.map((el) => texNombre(el, 2))
     let objetReponse = {}
     for (let i = 0; i < tabLinesCorr.length; i++) {
       const ligne = Math.floor(i / (nbFruits + 1))
@@ -155,12 +189,16 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
       objetReponse = Object.assign(objetReponse, cellule)
     }
     objetReponse = Object.assign(objetReponse, {
-      bareme: (listePoints:number[]) => {
+      bareme: (listePoints: number[]) => {
         return [listePoints.reduce((a, b) => a + b, 0), listePoints.length]
-      }
+      },
     })
     texteCorr = `${numAlpha(0)} Voici le tableau complet. <br>`
-    texteCorr += tableauColonneLigne(tabEntetesColonnes, tabEntetesLignes, tabLinesCorr)
+    texteCorr += tableauColonneLigne(
+      tabEntetesColonnes,
+      tabEntetesLignes,
+      tabLinesCorr,
+    )
     texteCorr += '<br>'
 
     // Question 2 :
@@ -250,12 +288,14 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
     texte += `${numAlpha(2)} Qui a rapporté le plus de fruits ?<br>`
     // qcm pour cette question
     this.autoCorrection[2] = {
-      propositions: [
-      ]
+      propositions: [],
     }
     for (const p of lstPrenomExo) {
       // @ts-expect-error
-      this.autoCorrection[2].propositions.push({ texte: p, statut: lstmax.includes(p) })
+      this.autoCorrection[2].propositions.push({
+        texte: p,
+        statut: lstmax.includes(p),
+      })
     }
     const qcm1 = propositionsQcm(this, 2)
     if (this.interactif) {
@@ -264,12 +304,14 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
 
     texte += `${numAlpha(3)} Quel fruit a été rapporté en la plus grosse quantité ?<br>`
     this.autoCorrection[3] = {
-      propositions: [
-      ]
+      propositions: [],
     }
     for (const f of lstFruitExo) {
       // @ts-expect-error
-      this.autoCorrection[3].propositions.push({ texte: f, statut: fmax.includes(f) })
+      this.autoCorrection[3].propositions.push({
+        texte: f,
+        statut: fmax.includes(f),
+      })
     }
     const qcm2 = propositionsQcm(this, 3)
     if (this.interactif) {
@@ -277,14 +319,39 @@ export default class OrganiserDonneesDepuisTexte extends Exercice {
     }
     // qcm pour cette quesstion
     if (this.interactif) {
-      const tableau = AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLines)
-      const leTableau = AddTabDbleEntryMathlive.create(this.numeroExercice ?? 0, 0, tableau, 'tableauMathlive', true, {})
+      const tableau = AddTabDbleEntryMathlive.convertTclToTableauMathlive(
+        tabEntetesColonnes,
+        tabEntetesLignes,
+        tabLines,
+      )
+      const leTableau = AddTabDbleEntryMathlive.create(
+        this.numeroExercice ?? 0,
+        0,
+        tableau,
+        'tableauMathlive',
+        true,
+        {},
+      )
       texte += leTableau.output
     } else {
-      texte += tableauColonneLigne(tabEntetesColonnes, tabEntetesLignes, tabLines, 1, true, 0, 0, false)
+      texte += tableauColonneLigne(
+        tabEntetesColonnes,
+        tabEntetesLignes,
+        tabLines,
+        1,
+        true,
+        0,
+        0,
+        false,
+      )
     }
     handleAnswers(this, 0, objetReponse)
-    handleAnswers(this, 1, { reponse: { value: `${sommeTotale}${this.sup ? ' kg' : ''}`, options: this.sup ? { unite: true } : { nombreDecimalSeulement: true } } })
+    handleAnswers(this, 1, {
+      reponse: {
+        value: `${sommeTotale}${this.sup ? ' kg' : ''}`,
+        options: this.sup ? { unite: true } : { nombreDecimalSeulement: true },
+      },
+    })
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)

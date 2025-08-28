@@ -8,7 +8,7 @@ export const uuid = 'b41f1'
 
 export const refs = {
   'fr-fr': ['1A-R2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -18,7 +18,7 @@ export const titre = 'Calculer un pourcentage (opération)'
 
 export default class Pourcentages extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = 'L\'opération qui permet de calculer $25\\,\\%$ de $480$ est :'
+    this.enonce = "L'opération qui permet de calculer $25\\,\\%$ de $480$ est :"
     this.correction = `Pour calculer $25$\\,% de $480$, on peut utiliser la formule :<br>
     $\\text{Pourcentage} = \\dfrac{\\text{taux}}{100} \\times \\text{nombre}$<br><br>
     Donc : $25\\,\\% \\text{ de } 480 = \\dfrac{25}{100} \\times 480 = ${miseEnEvidence('\\dfrac{25 \\times 480}{100}')}$<br><br>
@@ -29,17 +29,22 @@ export default class Pourcentages extends ExerciceQcmA {
       '$\\dfrac{480}{25\\times 100}$',
       '$25 \\times 480 \\times 0,1$',
       '$\\dfrac{480\\times 100}{25}$',
-      '$\\dfrac{1}{4} \\times 480$'
+      '$\\dfrac{1}{4} \\times 480$',
     ]
   }
 
   versionAleatoire = () => {
     // Génération d'un pourcentage multiple de 5 ou 10
-    const pourcentagesMultiples = [5, 10, 15, 20, 25, 30, 35, 40, 45, 55, 60, 65, 70, 75, 80, 90]
+    const pourcentagesMultiples = [
+      5, 10, 15, 20, 25, 30, 35, 40, 45, 55, 60, 65, 70, 75, 80, 90,
+    ]
     const pourcentage = choice(pourcentagesMultiples)
 
     // Génération d'un nombre multiple de 10
-    const multiples10 = [120, 140, 160, 180, 200, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600]
+    const multiples10 = [
+      120, 140, 160, 180, 200, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420,
+      440, 460, 480, 500, 520, 540, 560, 580, 600,
+    ]
     const nombre = choice(multiples10)
 
     // Calcul de la fraction simplifiée si possible
@@ -62,12 +67,14 @@ export default class Pourcentages extends ExerciceQcmA {
     const bonnesReponses = [
       `$\\dfrac{${pourcentage} \\times ${texNombre(nombre)}}{100}$`,
       `$\\dfrac{${pourcentage}}{100} \\times ${texNombre(nombre)}$`,
-      `$${texNombre(pourcentage / 100, 2)} \\times ${texNombre(nombre)}$`
+      `$${texNombre(pourcentage / 100, 2)} \\times ${texNombre(nombre)}$`,
     ]
 
     // Ajouter la fraction simplifiée si elle existe
     if (denSimp !== 100) {
-      bonnesReponses.push(`$\\dfrac{${numSimp}}{${denSimp}} \\times ${texNombre(nombre)}$`)
+      bonnesReponses.push(
+        `$\\dfrac{${numSimp}}{${denSimp}} \\times ${texNombre(nombre)}$`,
+      )
     }
 
     // Ajouter d'autres formes équivalentes selon le pourcentage
@@ -110,21 +117,26 @@ export default class Pourcentages extends ExerciceQcmA {
       `$\\dfrac{${texNombre(nombre)}}{${pourcentage} \\times 100}$`, // Division au lieu de multiplication
       `$\\dfrac{${texNombre(nombre)} \\times 100}{${pourcentage}}$`, // Formule inversée
       `$${pourcentage} \\times ${texNombre(nombre)} \\times 0,1$`, // Multiplication par 0,1 au lieu de division par 100
-      `$${pourcentage} \\times ${texNombre(nombre)} \\times 0,01$`, // Multiplication par 0,01 (confusion avec décimal)
+      `$${texNombre(pourcentage,2)} \\times ${texNombre(nombre)}\\times 100$`, // Multiplication par 0,01 (confusion avec décimal)
       `$\\dfrac{${texNombre(nombre)}}{${pourcentage}}$`, // Oubli du facteur 100
       `$${texNombre(nombre)} \\times ${texNombre(pourcentage / 1000)}$`, // Confusion avec les millièmes
       `$\\dfrac{${pourcentage}}{${texNombre(nombre)}} \\times 100$`, // Ordre inversé
-      `$${texNombre(nombre)} \\times ${pourcentage} \\times 0,001$` // Facteur complètement faux
+      `$${texNombre(nombre)} \\times ${pourcentage} \\times 0,001$`, // Facteur complètement faux
     ]
 
     // Sélection d'une bonne réponse
     const bonneReponse = choice(bonnesReponses)
 
     // Sélection de 3 mauvaises réponses distinctes
-    const mauvaisesReponsesFiltrees = mauvaisesReponses.filter(rep => rep !== bonneReponse)
+    const mauvaisesReponsesFiltrees = mauvaisesReponses.filter(
+      (rep) => rep !== bonneReponse,
+    )
     const troisMauvaisesReponses: string[] = []
 
-    while (troisMauvaisesReponses.length < 3 && mauvaisesReponsesFiltrees.length > 0) {
+    while (
+      troisMauvaisesReponses.length < 3 &&
+      mauvaisesReponsesFiltrees.length > 0
+    ) {
       const mauvaise = choice(mauvaisesReponsesFiltrees)
       if (!troisMauvaisesReponses.includes(mauvaise)) {
         troisMauvaisesReponses.push(mauvaise)
@@ -134,13 +146,22 @@ export default class Pourcentages extends ExerciceQcmA {
       mauvaisesReponsesFiltrees.splice(index, 1)
     }
 
-    this.correction = `Pour calculer $${pourcentage}\\,\\%$ de $${texNombre(nombre)}$, on effectue le calcul $${texNombre(pourcentage / 100, 2)} \\times ${texNombre(nombre)}$ soit encore $${miseEnEvidence(bonneReponse.replace(/\$/g, ''))}$.`
+    const calculDeBase = `${texNombre(pourcentage / 100, 2)} \\times ${texNombre(nombre)}`
+const bonneReponseSansSymboles = bonneReponse.replace(/\$/g, '')
 
+// Vérifier si la bonne réponse est différente du calcul de base
+if (bonneReponseSansSymboles === calculDeBase) {
+  // Si c'est la même chose, pas besoin de "soit encore"
+  this.correction = `Pour calculer $${pourcentage}\\,\\%$ de $${texNombre(nombre)}$, on effectue le calcul $${miseEnEvidence(calculDeBase)}$.`
+} else {
+  // Si c'est différent, alors on peut dire "soit encore"
+  this.correction = `Pour calculer $${pourcentage}\\,\\%$ de $${texNombre(nombre)}$, on effectue le calcul $${texNombre(pourcentage / 100, 2)} \\times ${texNombre(nombre)}$, soit encore $${miseEnEvidence(bonneReponseSansSymboles)}$.`
+}
     // Construction du tableau final avec exactement 4 réponses
     this.reponses = [bonneReponse, ...troisMauvaisesReponses]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

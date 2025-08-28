@@ -19,10 +19,10 @@ export const uuid = 'd5acf'
 
 export const refs = {
   'fr-fr': ['1AN43'],
-  'fr-ch': ['1mT-13']
+  'fr-ch': ['1mT-13'],
 }
 export default class IntegraleAffine extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,22 +30,30 @@ export default class IntegraleAffine extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-9, 9, 0)
-    const solution = (100 - (a * a)) / 100
-    const choix = choice([1, 2])// Choix entre cos (1) et sin (2)
+    const solution = (100 - a * a) / 100
+    const choix = choice([1, 2]) // Choix entre cos (1) et sin (2)
     const ICos = choice(['\\left[-\\pi;0\\right[', '\\left[0;\\pi\\right[']) // Intervalle pour le sinus
-    const ISin = choice(['\\left[-\\dfrac{\\pi}{2};\\dfrac{\\pi}{2}\\right[', '\\left[\\dfrac{\\pi}{2};\\dfrac{3\\pi}{2}\\right[']) // Intervalle pour le cosinus
+    const ISin = choice([
+      '\\left[-\\dfrac{\\pi}{2};\\dfrac{\\pi}{2}\\right[',
+      '\\left[\\dfrac{\\pi}{2};\\dfrac{3\\pi}{2}\\right[',
+    ]) // Intervalle pour le cosinus
 
     this.formatChampTexte = KeyboardType.clavierFullOperations
-    this.question = choix === 1
-      ? `Soit $x\\in ${ISin}$. <br>On donne $\\sin(x)=${texNombre(a / 10)}$.<br> Déterminer la valeur exacte de $\\cos(x)$.`
-      : `Soit $x\\in ${ICos}$. <br>On donne $\\cos(x)=${texNombre(a / 10)}$.<br> Déterminer la valeur exacte de $\\sin(x)$.`
+    this.question =
+      choix === 1
+        ? `Soit $x\\in ${ISin}$. <br>On donne $\\sin(x)=${texNombre(a / 10)}$.<br> Déterminer la valeur exacte de $\\cos(x)$.`
+        : `Soit $x\\in ${ICos}$. <br>On donne $\\cos(x)=${texNombre(a / 10)}$.<br> Déterminer la valeur exacte de $\\sin(x)$.`
 
-    if (this.interactif) this.question += choix === 1 ? '<br>$\\cos(x)=$ ' : '<br>$\\sin(x)=$ '
-    this.correction = 'On sait que pour tout $x\\in \\mathbb{R}$, $\\sin^2(x)+\\cos^2(x)=1$.<br>'
-    if (choix === 1) { // On cherche le cos
-      this.correction += ' Donc $\\cos^2(x)=1-\\sin^2(x)$.<br> Ce qui donne deux solutions :<br> $\\cos(x)=\\sqrt{1-\\sin^2(x)}$ ou $\\cos(x)=-\\sqrt{1-\\sin^2(x)}$.<br>'
+    if (this.interactif)
+      this.question += choix === 1 ? '<br>$\\cos(x)=$ ' : '<br>$\\sin(x)=$ '
+    this.correction =
+      'On sait que pour tout $x\\in \\mathbb{R}$, $\\sin^2(x)+\\cos^2(x)=1$.<br>'
+    if (choix === 1) {
+      // On cherche le cos
+      this.correction +=
+        ' Donc $\\cos^2(x)=1-\\sin^2(x)$.<br> Ce qui donne deux solutions :<br> $\\cos(x)=\\sqrt{1-\\sin^2(x)}$ ou $\\cos(x)=-\\sqrt{1-\\sin^2(x)}$.<br>'
       this.correction += ` Comme $x\\in ${ISin}$, on a $\\cos(x)\\leqslant 0$.<br>`
       this.correction += `On en déduit que : <br>$\\begin{aligned}
         \\cos(x)&=-\\sqrt{1-\\sin^2(x)}\\\\`
@@ -61,8 +69,10 @@ export default class IntegraleAffine extends ExerciceSimple {
         <br>On peut conclure que   $\\cos(x)=${miseEnEvidence(`-\\sqrt{${texNombre(solution)}}`)}$$.`
         this.reponse = `-\\sqrt{${solution}}`
       }
-    } else { // On cherche le sin
-      this.correction += ' Donc $\\sin(x)=\\sqrt{1-\\cos^2(x)}$ ou $\\sin(x)=-\\sqrt{1-\\cos^2(x)}$.<br>'
+    } else {
+      // On cherche le sin
+      this.correction +=
+        ' Donc $\\sin(x)=\\sqrt{1-\\cos^2(x)}$ ou $\\sin(x)=-\\sqrt{1-\\cos^2(x)}$.<br>'
       this.correction += ` Comme $x\\in ${ICos}$, on a $\\sin(x)\\geqslant 0$.<br>`
       this.correction += `On en déduit que : <br>$\\begin{aligned}
             \\sin(x)&=\\sqrt{1-\\cos^2(x)}\\\\

@@ -9,8 +9,21 @@ type zeroToNine = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 /**
  * Years
  */
-export const YEARS = [...Array(199).keys()].map(x => (x + 1900).toString())
-export const MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+export const YEARS = [...Array(199).keys()].map((x) => (x + 1900).toString())
+export const MONTHS = [
+  'janvier',
+  'février',
+  'mars',
+  'avril',
+  'mai',
+  'juin',
+  'juillet',
+  'août',
+  'septembre',
+  'octobre',
+  'novembre',
+  'décembre',
+]
 type YYYY = `19${zeroToNine}${zeroToNine}` | `20${zeroToNine}${zeroToNine}`
 export const isYYYYType = (obj: any): obj is YYYY =>
   obj !== null &&
@@ -37,8 +50,8 @@ export type FrenchDateString = `${DD}/${MM}/${YYYY}`
  * @remark La date passée entre paramètre doit être comprise entre `01/01/1900` et `31/12/2099`
  * @returns {boolean} `true` si moins d'un mois s'est écoulé depuis la date jusqu'à l'appel de la fonction
  */
-export function isLessThan3Months (
-  dateString: FrenchDateString | undefined
+export function isLessThan3Months(
+  dateString: FrenchDateString | undefined,
 ): boolean {
   if (dateString === undefined) return false
   const [jour, mois, annee] = dateString.split('/')

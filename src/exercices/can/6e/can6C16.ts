@@ -1,5 +1,8 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 
@@ -19,10 +22,10 @@ export const uuid = '88435'
 
 export const refs = {
   'fr-fr': ['can6C16', 'auto6P3A-flash3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DoubleEtMoitie extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
@@ -30,15 +33,18 @@ export default class DoubleEtMoitie extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 25) // variables aléatoires
     this.question = `Le double d'un nombre vaut $${4 * a}$, combien vaut sa moitié ?`
     this.correction = `Sa moitié vaut : $${miseEnEvidence(texNombre(a))}$.<br>`
-    this.correction += texteEnCouleur(`
+    this.correction += texteEnCouleur(
+      `
     <br> Mentalement : <br>
     Si le double du nombre est $${4 * a}$, ce nombre est : $${4 * a}\\div 2=${2 * a}$.<br>
     Puisqu'on cherche sa moitié, on le divise par $2$, soit  $${2 * a}\\div 2=${a}$.<br>
-     `, bleuMathalea)
+     `,
+      bleuMathalea,
+    )
     this.reponse = a
     this.canEnonce = this.question
     this.canReponseACompleter = ''

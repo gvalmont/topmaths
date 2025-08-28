@@ -23,19 +23,23 @@ export class PointCliquable extends ObjetMathalea2D {
   over: Partial<CSSStyleDeclaration>
   click: Partial<CSSStyleDeclaration>
 
-  constructor (x: number, y: number, options: {
-    over?: Partial<CSSStyleDeclaration>,
-    out?: Partial<CSSStyleDeclaration>,
-    click?: Partial<CSSStyleDeclaration>,
-    radius?: number,
-    width?: number,
-    color?: string,
-    opacite?: number,
-    size?: number,
-    style?: string,
-    taille?: number,
-    couleur?: string
-  }) {
+  constructor(
+    x: number,
+    y: number,
+    options: {
+      over?: Partial<CSSStyleDeclaration>
+      out?: Partial<CSSStyleDeclaration>
+      click?: Partial<CSSStyleDeclaration>
+      radius?: number
+      width?: number
+      color?: string
+      opacite?: number
+      size?: number
+      style?: string
+      taille?: number
+      couleur?: string
+    },
+  ) {
     super()
     this.point = point(x, y)
     this.width = options.width ?? options.size ?? 1
@@ -61,8 +65,13 @@ export class PointCliquable extends ObjetMathalea2D {
           try {
             if (this.out[key] != null) this.groupe!.style[key] = this.out[key]
           } catch (error) {
-            const err = error instanceof Error ? error : new Error('Erreur inconnue')
-            window.notify(err.message + `\nProblème pour modifier groupe.style.${key} sur ${this}`, { element: this, key })
+            const err =
+              error instanceof Error ? error : new Error('Erreur inconnue')
+            window.notify(
+              err.message +
+                `\nProblème pour modifier groupe.style.${key} sur ${this}`,
+              { element: this, key },
+            )
           }
         }
       }
@@ -71,14 +80,19 @@ export class PointCliquable extends ObjetMathalea2D {
           try {
             if (this.over[key] != null) this.groupe!.style[key] = this.over[key]
           } catch (error) {
-            const err = error instanceof Error ? error : new Error('Erreur inconnue')
-            window.notify(err.message + `\nProblème pour modifier groupe.style.${key} sur ${this}`, { element: this, key })
+            const err =
+              error instanceof Error ? error : new Error('Erreur inconnue')
+            window.notify(
+              err.message +
+                `\nProblème pour modifier groupe.style.${key} sur ${this}`,
+              { element: this, key },
+            )
           }
         }
       }
       const mouseClick = () => {
         if (this.etat && this.groupe) {
-        // On désactive le point
+          // On désactive le point
           this.groupe.addEventListener('mouseover', mouseOverEffect)
           this.groupe.addEventListener('mouseout', mouseOutEffect)
           // On lui remet le style de out
@@ -86,24 +100,35 @@ export class PointCliquable extends ObjetMathalea2D {
             try {
               if (this.out[key] != null) this.groupe!.style[key] = this.out[key]
             } catch (error) {
-              const err = error instanceof Error ? error : new Error('Erreur inconnue')
-              window.notify(err.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
+              const err =
+                error instanceof Error ? error : new Error('Erreur inconnue')
+              window.notify(
+                err.message +
+                  `\nProblème pour modifier style.${key} sur ${this}`,
+                { element: this, key },
+              )
             }
           }
           this.etat = false
           changeEtatPoint(false)
         } else {
-        // On désactive les listeners
+          // On désactive les listeners
           if (this.groupe) {
             this.groupe.removeEventListener('mouseover', mouseOverEffect)
             this.groupe.removeEventListener('mouseout', mouseOutEffect)
             // On applique le style de click
             for (const key in this.click) {
               try {
-                if (this.click[key] != null) this.groupe!.style[key] = this.click[key]
+                if (this.click[key] != null)
+                  this.groupe!.style[key] = this.click[key]
               } catch (error) {
-                const err = error instanceof Error ? error : new Error('Erreur inconnue')
-                window.notify(err.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
+                const err =
+                  error instanceof Error ? error : new Error('Erreur inconnue')
+                window.notify(
+                  err.message +
+                    `\nProblème pour modifier style.${key} sur ${this}`,
+                  { element: this, key },
+                )
               }
             }
             this.etat = true
@@ -117,8 +142,13 @@ export class PointCliquable extends ObjetMathalea2D {
           try {
             if (this.out[key] != null) this.groupe!.style[key] = this.out[key]
           } catch (error) {
-            const err = error instanceof Error ? error : new Error('Erreur inconnue')
-            window.notify(err.message + `\nProblème pour modifier style.${key} sur ${this.groupe}`, { element: this.groupe, key })
+            const err =
+              error instanceof Error ? error : new Error('Erreur inconnue')
+            window.notify(
+              err.message +
+                `\nProblème pour modifier style.${key} sur ${this.groupe}`,
+              { element: this.groupe, key },
+            )
           }
         }
         this.groupe.addEventListener('mouseover', mouseOverEffect)
@@ -133,7 +163,7 @@ export class PointCliquable extends ObjetMathalea2D {
     }
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code
     const trace = tracePoint(this.point, this.stringColor)
     trace.epaisseur = this.width ?? this.epaisseur ?? 1
@@ -148,24 +178,29 @@ export class PointCliquable extends ObjetMathalea2D {
     return code
   }
 
-  tikz () { // PointCliquable n'a pas vocation à être utilisé en TikZ cependant, est-ce que ça peut être utile ?
+  tikz() {
+    // PointCliquable n'a pas vocation à être utilisé en TikZ cependant, est-ce que ça peut être utile ?
     return ''
   }
 }
 
-export function pointCliquable (x: number, y: number, options: {
-  over?: Partial<CSSStyleDeclaration>,
-  out?: Partial<CSSStyleDeclaration>,
-  click?: Partial<CSSStyleDeclaration>,
-  radius?: number,
-  width?: number,
-  color?: string,
-  opacite?: number,
-  size?: number,
-  style?: string,
-  taille?: number,
-  couleur?: string
-}) {
+export function pointCliquable(
+  x: number,
+  y: number,
+  options: {
+    over?: Partial<CSSStyleDeclaration>
+    out?: Partial<CSSStyleDeclaration>
+    click?: Partial<CSSStyleDeclaration>
+    radius?: number
+    width?: number
+    color?: string
+    opacite?: number
+    size?: number
+    style?: string
+    taille?: number
+    couleur?: string
+  },
+) {
   return new PointCliquable(x, y, options)
 }
 
@@ -186,18 +221,24 @@ export class RectangleCliquable extends ObjetMathalea2D {
   cliquable: boolean
   groupe: null | HTMLElement
   stopCliquable: () => void
-  constructor (x1: number, y1: number, x2: number, y2: number, options:{
-    over?: Partial<CSSStyleDeclaration>,
-    out?: Partial<CSSStyleDeclaration>,
-    click?: Partial<CSSStyleDeclaration>,
-    couleur?: string,
-    cliquable?: boolean,
-    hachures?: boolean | string,
-    epaisseur?: number,
-    etat?: boolean,
-    couleurDeRemplissage?: string,
-    epaisseurDesHachures?: number,
-  }) {
+  constructor(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    options: {
+      over?: Partial<CSSStyleDeclaration>
+      out?: Partial<CSSStyleDeclaration>
+      click?: Partial<CSSStyleDeclaration>
+      couleur?: string
+      cliquable?: boolean
+      hachures?: boolean | string
+      epaisseur?: number
+      etat?: boolean
+      couleurDeRemplissage?: string
+      epaisseurDesHachures?: number
+    },
+  ) {
     super()
     const A = point(x1, y1)
     const B = point(x2, y1)
@@ -210,7 +251,7 @@ export class RectangleCliquable extends ObjetMathalea2D {
     this.over = options.over ?? { opacity: '0.2' }
     this.click = options.click ?? { opacity: '1' }
     this.stringColor = options.couleur ?? '#f15929'
-    this.cliquable = (options.cliquable !== undefined) ? options.cliquable : true
+    this.cliquable = options.cliquable !== undefined ? options.cliquable : true
     this.rectangle.hachures = options.hachures ?? false
     this.rectangle.couleurDesHachures = colorToLatexOrHTML('black')
     this.rectangle.epaisseurDesHachures = options.epaisseurDesHachures ?? 4
@@ -218,7 +259,7 @@ export class RectangleCliquable extends ObjetMathalea2D {
     this.etat = options.etat ?? false // Pour récupérer si le rectangle est cliqué ou pas
     this.groupe = null // il sera initialiser lorsque les exercices seront affichés.
     this.stopCliquable = () => {
-    // On retire tous les listener en le remplaçant par un clone
+      // On retire tous les listener en le remplaçant par un clone
       this.groupe!.replaceWith(this.groupe!.cloneNode(true))
     }
     const gestionDeLaSouris = () => {
@@ -230,11 +271,16 @@ export class RectangleCliquable extends ObjetMathalea2D {
         // On initialise avec le style de out ou de click suivant l'état
         for (const key in this.out) {
           try {
-            const opacite = (this.etat) ? this.click[key] : this.out[key]
+            const opacite = this.etat ? this.click[key] : this.out[key]
             if (opacite != null) this.groupe!.style[key] = opacite
           } catch (error) {
-            const err = error instanceof Error ? error : new Error('Erreur inconnue')
-            window.notify(err.message + `\nProblème pour modifier style.${key} sur ${this.groupe}`, { element: this.groupe, key })
+            const err =
+              error instanceof Error ? error : new Error('Erreur inconnue')
+            window.notify(
+              err.message +
+                `\nProblème pour modifier style.${key} sur ${this.groupe}`,
+              { element: this.groupe, key },
+            )
           }
         }
       }
@@ -243,8 +289,12 @@ export class RectangleCliquable extends ObjetMathalea2D {
           try {
             if (this.out[key] != null) this.groupe!.style[key] = this.out[key]
           } catch (error) {
-            const err = error instanceof Error ? error : new Error('Erreur inconnue')
-            window.notify(err.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
+            const err =
+              error instanceof Error ? error : new Error('Erreur inconnue')
+            window.notify(
+              err.message + `\nProblème pour modifier style.${key} sur ${this}`,
+              { element: this, key },
+            )
           }
         }
       }
@@ -253,8 +303,12 @@ export class RectangleCliquable extends ObjetMathalea2D {
           try {
             if (this.out[key] != null) this.groupe!.style[key] = this.out[key]
           } catch (error) {
-            const err = error instanceof Error ? error : new Error('Erreur inconnue')
-            window.notify(err.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
+            const err =
+              error instanceof Error ? error : new Error('Erreur inconnue')
+            window.notify(
+              err.message + `\nProblème pour modifier style.${key} sur ${this}`,
+              { element: this, key },
+            )
           }
         }
       }
@@ -268,8 +322,13 @@ export class RectangleCliquable extends ObjetMathalea2D {
             try {
               if (this.out[key] != null) this.groupe.style[key] = this.out[key]
             } catch (error) {
-              const err = error instanceof Error ? error : new Error('Erreur inconnue')
-              window.notify(err.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
+              const err =
+                error instanceof Error ? error : new Error('Erreur inconnue')
+              window.notify(
+                err.message +
+                  `\nProblème pour modifier style.${key} sur ${this}`,
+                { element: this, key },
+              )
             }
           }
           this.etat = false
@@ -282,10 +341,16 @@ export class RectangleCliquable extends ObjetMathalea2D {
             // On applique le style de click
             for (const key in this.click) {
               try {
-                if (this.click[key] != null) this.groupe.style[key] = this.click[key]
+                if (this.click[key] != null)
+                  this.groupe.style[key] = this.click[key]
               } catch (error) {
-                const err = error instanceof Error ? error : new Error('Erreur inconnue')
-                window.notify(err.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
+                const err =
+                  error instanceof Error ? error : new Error('Erreur inconnue')
+                window.notify(
+                  err.message +
+                    `\nProblème pour modifier style.${key} sur ${this}`,
+                  { element: this, key },
+                )
               }
             }
             this.etat = true
@@ -301,9 +366,11 @@ export class RectangleCliquable extends ObjetMathalea2D {
     document.addEventListener('exercicesAffiches', gestionDeLaSouris)
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code
-    this.rectangle.couleurDeRemplissage = colorToLatexOrHTML(this.stringColor ?? 'black')
+    this.rectangle.couleurDeRemplissage = colorToLatexOrHTML(
+      this.stringColor ?? 'black',
+    )
     this.rectangle.epaisseur = 0
     code = `<g id="rectangle${this.id}">\n`
     code += this.rectangle.svg(coeff) + '\n'
@@ -312,43 +379,55 @@ export class RectangleCliquable extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
-    if (this.etat) this.bordure.couleurDeRemplissage = colorToLatexOrHTML(this.stringColor)
+  tikz() {
+    if (this.etat)
+      this.bordure.couleurDeRemplissage = colorToLatexOrHTML(this.stringColor)
     this.bordure.couleurDesHachures = colorToLatexOrHTML('white')
     this.bordure.hachures = this.rectangle.hachures
     return this.bordure.tikz()
   }
 }
 
-export function rectangleCliquable (x1: number, y1: number, x2: number, y2: number, options:{
-  over?: Partial<CSSStyleDeclaration>,
-  out?: Partial<CSSStyleDeclaration>,
-  click?: Partial<CSSStyleDeclaration>,
-  couleur?: string,
-  cliquable?: boolean,
-  hachures?: boolean | string,
-  epaisseur?: number,
-  etat?: boolean,
-  couleurDeRemplissage?: string,
-  epaisseurDesHachures?: number,
-}) {
+export function rectangleCliquable(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  options: {
+    over?: Partial<CSSStyleDeclaration>
+    out?: Partial<CSSStyleDeclaration>
+    click?: Partial<CSSStyleDeclaration>
+    couleur?: string
+    cliquable?: boolean
+    hachures?: boolean | string
+    epaisseur?: number
+    etat?: boolean
+    couleurDeRemplissage?: string
+    epaisseurDesHachures?: number
+  },
+) {
   return new RectangleCliquable(x1, y1, x2, y2, options)
 }
 
 export class FractionCliquable extends ObjetMathalea2D {
-  constructor (x: number, y: number, unites: number, denominateur: number, options: {
-    longueur?: number,
-    ecart?: number,
-    hauteur?: number,
-    liste1?: number[],
-    liste2?: number[],
-    couleur1?: string,
-    couleur2?: string,
-    hachures1?: boolean,
-    hachures2?: boolean,
-    couleur?: string,
-    cliquable?: boolean
-  } = {}
+  constructor(
+    x: number,
+    y: number,
+    unites: number,
+    denominateur: number,
+    options: {
+      longueur?: number
+      ecart?: number
+      hauteur?: number
+      liste1?: number[]
+      liste2?: number[]
+      couleur1?: string
+      couleur2?: string
+      hachures1?: boolean
+      hachures2?: boolean
+      couleur?: string
+      cliquable?: boolean
+    } = {},
   ) {
     super()
     this.objets = []
@@ -366,38 +445,67 @@ export class FractionCliquable extends ObjetMathalea2D {
     }
     const hachures1 = options.hachures1 ?? false
     const hachures2 = options.hachures2 ?? false
-    const couleur = options.couleur ?? (liste1.length === 0 ? couleur1 : 'white')
-    const cliquable = (options.cliquable !== undefined) ? options.cliquable : true
+    const couleur =
+      options.couleur ?? (liste1.length === 0 ? couleur1 : 'white')
+    const cliquable = options.cliquable !== undefined ? options.cliquable : true
     let O
     for (let i = 0; i < unites; i++) {
       O = point(x + i * (longueur + ecart), y)
       for (let j = 0; j < denominateur; j++) {
         if (liste1.includes(i * denominateur + j + 1)) {
-          this.objets.push(rectangleCliquable(O.x + j * longueur / denominateur, y, O.x + (j + 1) * longueur / denominateur, y + hauteur,
-            { cliquable, etat: true, couleur: couleur1, hachures: hachures1 }))
+          this.objets.push(
+            rectangleCliquable(
+              O.x + (j * longueur) / denominateur,
+              y,
+              O.x + ((j + 1) * longueur) / denominateur,
+              y + hauteur,
+              { cliquable, etat: true, couleur: couleur1, hachures: hachures1 },
+            ),
+          )
         } else if (liste2.includes(i * denominateur + j + 1)) {
-          this.objets.push(rectangleCliquable(O.x + j * longueur / denominateur, y, O.x + (j + 1) * longueur / denominateur, y + hauteur,
-            { cliquable, etat: true, couleur: couleur2, hachures: hachures2 }))
+          this.objets.push(
+            rectangleCliquable(
+              O.x + (j * longueur) / denominateur,
+              y,
+              O.x + ((j + 1) * longueur) / denominateur,
+              y + hauteur,
+              { cliquable, etat: true, couleur: couleur2, hachures: hachures2 },
+            ),
+          )
         } else {
-          this.objets.push(rectangleCliquable(O.x + j * longueur / denominateur, y, O.x + (j + 1) * longueur / denominateur, y + hauteur, { cliquable, couleur, etat: false }))
+          this.objets.push(
+            rectangleCliquable(
+              O.x + (j * longueur) / denominateur,
+              y,
+              O.x + ((j + 1) * longueur) / denominateur,
+              y + hauteur,
+              { cliquable, couleur, etat: false },
+            ),
+          )
         }
       }
     }
   }
 }
 
-export function fractionCliquable (x: number, y: number, unites: number, denominateur: number, options: {
-  longueur?: number,
-  ecart?: number,
-  hauteur?: number,
-  liste1?: number[],
-  liste2?: number[],
-  couleur1?: string,
-  couleur2?: string,
-  hachures1?: boolean,
-  hachures2?: boolean,
-  couleur?: string,
-  cliquable?: boolean
-}) {
+export function fractionCliquable(
+  x: number,
+  y: number,
+  unites: number,
+  denominateur: number,
+  options: {
+    longueur?: number
+    ecart?: number
+    hauteur?: number
+    liste1?: number[]
+    liste2?: number[]
+    couleur1?: string
+    couleur2?: string
+    hachures1?: boolean
+    hachures2?: boolean
+    couleur?: string
+    cliquable?: boolean
+  },
+) {
   return new FractionCliquable(x, y, unites, denominateur, options)
 }

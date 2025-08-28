@@ -9,7 +9,7 @@ import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Déterminer la mesure d\'un angle sur un rapporteur'
+export const titre = "Déterminer la mesure d'un angle sur un rapporteur"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ddd9d'
@@ -19,7 +19,7 @@ export const uuid = 'ddd9d'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,7 +30,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const objetsEnonce = []
     const tailleRapporteur = 6
     const a = this.canOfficielle ? 7 : randint(4, 8)
@@ -40,8 +40,12 @@ export default class NomExercice extends ExerciceSimple {
     const posA = 'below' // posA est la position de A autour du point. Ici, 'below' (en dessous)
     const A = point(0, 0, 'C', posA) // Le point A se nomme C dans ton cas.
 
-    const angRapporteurAvecHorizontale = this.canOfficielle ? 20 : randint(5, 25)
-    const angB = this.canOfficielle ? 50 : angRapporteurAvecHorizontale + choice([10, 20, 30, 40, 50, 70, 80]) // angB est l'angle de A avec l'horizontale.
+    const angRapporteurAvecHorizontale = this.canOfficielle
+      ? 20
+      : randint(5, 25)
+    const angB = this.canOfficielle
+      ? 50
+      : angRapporteurAvecHorizontale + choice([10, 20, 30, 40, 50, 70, 80]) // angB est l'angle de A avec l'horizontale.
     const B1 = rotation(point(tailleRapporteur + 0.5, 0), A, angB)
     const posB = 'right'
     const B = pointSurSegment(A, B1, tailleRapporteur + 0.5, 'A', posB) // Le point B se nomme A dans ton cas
@@ -63,12 +67,37 @@ export default class NomExercice extends ExerciceSimple {
       avecNombre: 'unSens',
       precisionAuDegre: 10,
       stepGraduation: 90,
-      rayonsVisibles: false
+      rayonsVisibles: false,
     })
-    objetsEnonce.push(R, AB, AC, codageAngle(B, A, angC, 1, '', 'black', 2, 1, 'none', 0, false, true, '?', 2)) // , labelPoint(A, B, C), tracePoint(A, B, C)
+    objetsEnonce.push(
+      R,
+      AB,
+      AC,
+      codageAngle(
+        B,
+        A,
+        angC,
+        1,
+        '',
+        'black',
+        2,
+        1,
+        'none',
+        0,
+        false,
+        true,
+        '?',
+        2,
+      ),
+    ) // , labelPoint(A, B, C), tracePoint(A, B, C)
     this.question = 'Donne la mesure de cet angle.'
 
-    this.question += '<br>' + mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objetsEnonce)), objetsEnonce)
+    this.question +=
+      '<br>' +
+      mathalea2d(
+        Object.assign({ scale: 0.5 }, fixeBordures(objetsEnonce)),
+        objetsEnonce,
+      )
     // Object.assign({}, fixeBordures(objetsEnonce))
 
     this.reponse = a * 10

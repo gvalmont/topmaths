@@ -19,18 +19,24 @@ export const uuid = '109ae'
 
 export const refs = {
   'fr-fr': ['can6C32'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Pyramide3Etages extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
-    const pyr = new Pyramide({ operation: '+', nombreEtages: 3, rangeData: [3, 10], exclusions: [0], fractionOn: false })
+  nouvelleVersion() {
+    const pyr = new Pyramide({
+      operation: '+',
+      nombreEtages: 3,
+      rangeData: [3, 10],
+      exclusions: [0],
+      fractionOn: false,
+    })
     pyr.isVisible = [[false], [false, false], [true, true, true]]
     this.question = `Chaque case contient la somme des deux cases sur lesquelles elle repose. Quel est le nombre qui correspond à * ?<br>
     ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 3.5, scale: 0.6 }, pyr.representeMoi(0, 0), texteParPosition('*', 6, 2.5))}`

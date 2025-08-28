@@ -5,7 +5,8 @@ import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
-export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de Pythagore'
+export const titre =
+  "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de Pythagore"
 
 export const dateDePublication = '1/11/2021'
 
@@ -17,19 +18,23 @@ export const uuid = 'b752a'
 
 export const refs = {
   'fr-fr': ['PEG22'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RacineCarrAvecTheoremePythagore extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Avec un seul triangle, \n2 : Nécessite de construire 2 triangles']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : Avec un seul triangle, \n2 : Nécessite de construire 2 triangles',
+    ]
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.sup = 2
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion(numeroExercice) {
     let AB, BC, r
     AB = randint(2, 5)
     BC = randint(2, 5)
@@ -38,7 +43,14 @@ export default class RacineCarrAvecTheoremePythagore extends Exercice {
     } else {
       r = AB * AB + BC * BC + 1
     }
-    while (r === 9 || r === 16 || r === 25 || r === 10 || r === 17 || r === 26) {
+    while (
+      r === 9 ||
+      r === 16 ||
+      r === 25 ||
+      r === 10 ||
+      r === 17 ||
+      r === 26
+    ) {
       AB = randint(2, 5)
       BC = randint(2, 5)
       r = AB * AB + BC * BC + 1
@@ -74,7 +86,11 @@ export default class RacineCarrAvecTheoremePythagore extends Exercice {
         anim.pointCreer(B, { tempo: 10, dx: 0.2, dy: -0.2 })
       }
     }
-    anim.mediatriceAuCompas(Ax[AB - 1], Ax[AB + 1], { coderFigure: false, longueur1: 3.5, longueur2: -3.5 })
+    anim.mediatriceAuCompas(Ax[AB - 1], Ax[AB + 1], {
+      coderFigure: false,
+      longueur1: 3.5,
+      longueur2: -3.5,
+    })
     anim.crayonMasquer()
     const Bx = [B]
     anim.compasEcarter2Points(u1, u2)
@@ -100,7 +116,11 @@ export default class RacineCarrAvecTheoremePythagore extends Exercice {
       anim.compasEcarter(2)
       anim.compasTracerArcCentrePoint(C, C1)
       anim.compasTracerArcCentrePoint(C, C2)
-      anim.mediatriceAuCompas(C1, C2, { coderFigure: false, longueur1: 3.5, longueur2: -3.5 })
+      anim.mediatriceAuCompas(C1, C2, {
+        coderFigure: false,
+        longueur1: 3.5,
+        longueur2: -3.5,
+      })
       anim.compasEcarter2Points(u1, u2)
       const D = similitude(A, C, -90, 1 / longueur(A, C))
       D.nom = 'D'
@@ -124,24 +144,30 @@ export default class RacineCarrAvecTheoremePythagore extends Exercice {
     if (this.sup === 1) {
       texteCorr += `<br>On remarque que $${r}=${AB}^2+${BC}^2$`
       texteCorr += `<br>On trace un segment $[AB]$ tel que $AB=${AB}u$.`
-      texteCorr += '<br>On trace la perpendiculaire à $(AB)$ passant par $B$ (pour cela on choisit 2 points $M$ et $N$ sur $[AB)$ tels que $B$ soit le milieu de $[MN]$ puis on trace la médiatrice de $[MN]$).'
+      texteCorr +=
+        '<br>On trace la perpendiculaire à $(AB)$ passant par $B$ (pour cela on choisit 2 points $M$ et $N$ sur $[AB)$ tels que $B$ soit le milieu de $[MN]$ puis on trace la médiatrice de $[MN]$).'
       texteCorr += `<br>On place le point $C$ sur cette perpendiculaire tel que $BC=${BC}u$.`
       texteCorr += '<br>On trace $[AC]$.'
       texteCorr += '<br><br>' + texteGras('Justification :')
-      texteCorr += '<br> Le triangle $ABC$ est rectangle en $B$, donc d\'après le théorème de Pythagore, on a :'
+      texteCorr +=
+        "<br> Le triangle $ABC$ est rectangle en $B$, donc d'après le théorème de Pythagore, on a :"
       texteCorr += `<br> $AC^2=AB^2+BC^2=${AB}^2+${BC}^2=${r}$.`
       texteCorr += `<br> Finalement, on a $AC=\\sqrt{${r}}$.`
     }
     if (this.sup === 2) {
       texteCorr += `<br>On remarque que $${r}=${AB}^2+${BC}^2+1$`
       texteCorr += `<br>On trace un triangle $ABC$ rectangle en $B$ tel que $AB=${AB}u$ et $BC=${BC}u$.`
-      texteCorr += '<br>On trace la perpendiculaire à $(AC)$ passant par $C$ (pour cela on choisit 2 points $M$ et $N$ sur $(AC)$ tels que $C$ soit le milieu de $[MN]$ puis on trace la médiatrice de $[MN]$).'
-      texteCorr += '<br>On place le point $D$ sur cette perpendiculaire tel que $CD=1u$.'
+      texteCorr +=
+        '<br>On trace la perpendiculaire à $(AC)$ passant par $C$ (pour cela on choisit 2 points $M$ et $N$ sur $(AC)$ tels que $C$ soit le milieu de $[MN]$ puis on trace la médiatrice de $[MN]$).'
+      texteCorr +=
+        '<br>On place le point $D$ sur cette perpendiculaire tel que $CD=1u$.'
       texteCorr += '<br>On trace $[AD]$.'
       texteCorr += '<br><br>' + texteGras('Justification :')
-      texteCorr += '<br> Le triangle $ABC$ est rectangle en $B$, donc d\'après le théorème de Pythagore, on a :'
+      texteCorr +=
+        "<br> Le triangle $ABC$ est rectangle en $B$, donc d'après le théorème de Pythagore, on a :"
       texteCorr += `<br> $AC^2=AB^2+BC^2=${AB}^2+${BC}^2=${r - 1}$.`
-      texteCorr += '<br> Le triangle $ACD$ est rectangle en $C$, donc d\'après le théorème de Pythagore, on a :'
+      texteCorr +=
+        "<br> Le triangle $ACD$ est rectangle en $C$, donc d'après le théorème de Pythagore, on a :"
       texteCorr += `<br> $AD^2=AC^2+CD^2=${r - 1}+1^2=${r}$.`
       texteCorr += `<br> Finalement, on a $AD=\\sqrt{${r}}$.`
     }

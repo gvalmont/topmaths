@@ -20,10 +20,10 @@ export const uuid = '26f3b'
 
 export const refs = {
   'fr-fr': ['can2G10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RelationChasles1 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -31,13 +31,13 @@ export default class RelationChasles1 extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const nom = creerNomDePolygone(6, ['QD'])
       const choix = choice([1, 2, 3, 4, 5, 6])
       switch (choix) {
-        case 1 :
+        case 1:
           texte = `$\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[2]}${nom[5]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -45,17 +45,17 @@ export default class RelationChasles1 extends Exercice {
             propositions: [
               {
                 texte: `$\\overrightarrow{${nom[2]}${nom[0]}}$ `,
-                statut: true
+                statut: true,
               },
               {
                 texte: '$\\overrightarrow{0}$ ',
-                statut: false
+                statut: false,
               },
               {
                 texte: `$\\overrightarrow{${nom[0]}${nom[5]}}$ `,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -64,7 +64,7 @@ export default class RelationChasles1 extends Exercice {
             texte = `Écrire à l'aide d'un seul vecteur : <br>
         $\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[2]}${nom[5]}}=$`
           }
-          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = "Écrire à l'aide d'un seul vecteur."
           this.canReponseACompleter = `$\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[2]}${nom[5]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles :<br>
         $\\begin{aligned}
@@ -75,7 +75,7 @@ export default class RelationChasles1 extends Exercice {
         `
 
           break
-        case 2 :
+        case 2:
           texte = `$\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[1]}${nom[0]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -83,17 +83,17 @@ export default class RelationChasles1 extends Exercice {
             propositions: [
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-                statut: true
+                statut: true,
               },
               {
                 texte: '$\\overrightarrow{0}$ ',
-                statut: false
+                statut: false,
               },
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -102,7 +102,7 @@ export default class RelationChasles1 extends Exercice {
             texte = `Écrire à l'aide d'un seul vecteur : <br>
         $\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[1]}${nom[0]}}=$`
           }
-          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = "Écrire à l'aide d'un seul vecteur."
           this.canReponseACompleter = `$\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[1]}${nom[0]}}=\\ldots$`
           texteCorr = `
             $\\begin{aligned}
@@ -113,7 +113,7 @@ export default class RelationChasles1 extends Exercice {
             `
 
           break
-        case 3 :
+        case 3:
           texte = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -121,17 +121,17 @@ export default class RelationChasles1 extends Exercice {
             propositions: [
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
-                statut: true
+                statut: true,
               },
               {
                 texte: '$\\overrightarrow{0}$ ',
-                statut: false
+                statut: false,
               },
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -140,7 +140,7 @@ export default class RelationChasles1 extends Exercice {
             texte = `Écrire à l'aide d'un seul vecteur : <br>
         $-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           }
-          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = "Écrire à l'aide d'un seul vecteur."
           this.canReponseACompleter = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=\\ldots$`
           texteCorr = `
             $\\begin{aligned}
@@ -151,7 +151,7 @@ export default class RelationChasles1 extends Exercice {
             `
 
           break
-        case 4 :
+        case 4:
           texte = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -159,17 +159,17 @@ export default class RelationChasles1 extends Exercice {
             propositions: [
               {
                 texte: '$\\overrightarrow{0}$ ',
-                statut: true
+                statut: true,
               },
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -178,7 +178,7 @@ export default class RelationChasles1 extends Exercice {
             texte = `Écrire à l'aide d'un seul vecteur : <br>
         $-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}=$`
           }
-          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = "Écrire à l'aide d'un seul vecteur."
           this.canReponseACompleter = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}=\\ldots$`
           texteCorr = `
                 $\\begin{aligned}
@@ -190,7 +190,7 @@ export default class RelationChasles1 extends Exercice {
 
           break
 
-        case 5 :
+        case 5:
           texte = `$\\overrightarrow{${nom[4]}${nom[1]}}-\\overrightarrow{${nom[4]}${nom[2]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -198,17 +198,17 @@ export default class RelationChasles1 extends Exercice {
             propositions: [
               {
                 texte: `$\\overrightarrow{${nom[2]}${nom[1]}}$ `,
-                statut: true
+                statut: true,
               },
               {
                 texte: '$\\overrightarrow{0}$ ',
-                statut: false
+                statut: false,
               },
               {
                 texte: `$\\overrightarrow{${nom[1]}${nom[2]}}$ `,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -217,7 +217,7 @@ export default class RelationChasles1 extends Exercice {
             texte = `Écrire à l'aide d'un seul vecteur : <br>
         $\\overrightarrow{${nom[4]}${nom[1]}}-\\overrightarrow{${nom[4]}${nom[2]}}=$`
           }
-          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = "Écrire à l'aide d'un seul vecteur."
           this.canReponseACompleter = `$\\overrightarrow{${nom[4]}${nom[1]}}-\\overrightarrow{${nom[4]}${nom[2]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles :<br>
             $\\begin{aligned}
@@ -228,7 +228,7 @@ export default class RelationChasles1 extends Exercice {
             `
 
           break
-        case 6 :
+        case 6:
           texte = `$\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -236,17 +236,17 @@ export default class RelationChasles1 extends Exercice {
             propositions: [
               {
                 texte: '$\\overrightarrow{0}$ ',
-                statut: true
+                statut: true,
               },
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
 
           props = propositionsQcm(this, i)
@@ -255,7 +255,7 @@ export default class RelationChasles1 extends Exercice {
             texte = `Écrire à l'aide d'un seul vecteur : <br>
         $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           }
-          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = "Écrire à l'aide d'un seul vecteur."
           this.canReponseACompleter = ` $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=\\ldots$`
           texteCorr = `
                 $\\begin{aligned}

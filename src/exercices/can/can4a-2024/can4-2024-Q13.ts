@@ -14,7 +14,7 @@ export const uuid = '88a19'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(3, 8).texFraction
       this.question = `On tire une boule au hasard dans une urne contenant $3$ boules rouges et $5$ boules noires. <br>

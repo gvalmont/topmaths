@@ -20,22 +20,24 @@ export const uuid = 'baa9f'
 
 export const refs = {
   'fr-fr': ['can1S08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculRaison2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let u, i, v, r, q, n, choix
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
-    switch (choice(['a', 'b'])) { // 'b', 'c', 'd'
-      case 'a':// suite arithmétique
+    switch (
+      choice(['a', 'b']) // 'b', 'c', 'd'
+    ) {
+      case 'a': // suite arithmétique
         u = randint(-12, 12, 0)
         r = randint(-10, 10, 0)
         n = randint(2, 10)
@@ -58,9 +60,10 @@ Donner la raison $r$ de cette suite.`
         this.canEnonce = this.question
         this.canReponseACompleter = '$r=\\ldots$'
         break
-      case 'b':// suite géométrique
-        choix = choice([1, 2, 3])//
-        if (choix === 1) { // q>0 avec q=2,3,10
+      case 'b': // suite géométrique
+        choix = choice([1, 2, 3]) //
+        if (choix === 1) {
+          // q>0 avec q=2,3,10
           u = randint(1, 10)
           q = choice([2, 3, 10])
           // n = 2
@@ -84,7 +87,8 @@ Donner la raison $q$ de cette suite.`
           this.canEnonce = this.question
           this.canReponseACompleter = '$q=\\ldots$'
         }
-        if (choix === 2) { // q<0 avec q=-2,-3,-10
+        if (choix === 2) {
+          // q<0 avec q=-2,-3,-10
           u = randint(1, 10)
           q = choice([2, 3, 10])
           // n = 2
@@ -108,7 +112,8 @@ Donner la raison $q$ de cette suite.`
           this.canEnonce = this.question
           this.canReponseACompleter = '$q=\\ldots$'
         }
-        if (choix === 3) { // q^3
+        if (choix === 3) {
+          // q^3
           u = randint(1, 3) * choice([-1, 1])
           q = choice([-3, -2, 2, 3])
           v = u * q ** 3

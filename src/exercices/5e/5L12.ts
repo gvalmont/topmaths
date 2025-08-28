@@ -18,26 +18,29 @@ export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '04/11/2023'
 
 /**
-* Réduire une expression
-*
-* * ax+bx+c
-* * ax+b+x+c
-* * ax^2+bx+c+dx^2+x
-* * a+x+b+c+dx
-* * ax+y+bx+c+dy
-* * ax+b-cx
-* @author Rémi Angot
-*/
+ * Réduire une expression
+ *
+ * * ax+bx+c
+ * * ax+b+x+c
+ * * ax^2+bx+c+dx^2+x
+ * * a+x+b+c+dx
+ * * ax+y+bx+c+dy
+ * * ax+b-cx
+ * @author Rémi Angot
+ */
 export const uuid = '85d2d'
 
 export const refs = {
   'fr-fr': ['5L12', 'BP2AutoI13'],
-  'fr-ch': ['10FA1-12']
+  'fr-ch': ['10FA1-12'],
 }
 export default class ReduireUneExpressionLitterale extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Valeur maximale des coefficients (sup. à 1)', 999]
+    this.besoinFormulaireNumerique = [
+      'Valeur maximale des coefficients (sup. à 1)',
+      999,
+    ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
     this.nbQuestions = 5
 
@@ -45,14 +48,24 @@ export default class ReduireUneExpressionLitterale extends Exercice {
     this.sup2 = false // avec des nombres décimaux
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1 ? 'Réduire l\'expression suivante.' : 'Réduire les expressions suivantes.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? "Réduire l'expression suivante."
+        : 'Réduire les expressions suivantes.'
 
     const typesDeQuestionsDisponibles = range1(7)
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const variables = ['x', 'y', 'z', 'a', 'b', 'c']
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let a, b, c, d
       this.sup = Math.max(this.sup, 2)
       const choixLettre = randint(0, variables.length - 1)
@@ -60,9 +73,15 @@ export default class ReduireUneExpressionLitterale extends Exercice {
       const inc2 = variables[randint(0, variables.length - 1, choixLettre)]
       if (this.sup2) {
         a = randint(2, this.sup) + randint(1, 9) / 10
-        b = choice([randint(2, 9) + randint(1, 9) / 10, randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100])
+        b = choice([
+          randint(2, 9) + randint(1, 9) / 10,
+          randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100,
+        ])
         c = randint(2, this.sup) + randint(1, 9) / 10
-        d = choice([randint(2, 9) + randint(1, 9) / 10, randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100])
+        d = choice([
+          randint(2, 9) + randint(1, 9) / 10,
+          randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100,
+        ])
       } else {
         a = randint(2, this.sup)
         b = randint(2, this.sup)
@@ -98,7 +117,7 @@ export default class ReduireUneExpressionLitterale extends Exercice {
           break
         case 6: // ax+b-cx
           if (c > a) {
-            [a, c] = [c, a] // pour s'assurer que a-c est positif
+            ;[a, c] = [c, a] // pour s'assurer que a-c est positif
           } else if (c === a) {
             a++
           }
@@ -109,7 +128,7 @@ export default class ReduireUneExpressionLitterale extends Exercice {
         case 7: // ax-cx
         default:
           if (c > a) {
-            [a, c] = [c, a] // pour s'assurer que a-c est positif
+            ;[a, c] = [c, a] // pour s'assurer que a-c est positif
           } else if (c === a) {
             a++
           }
@@ -119,24 +138,27 @@ export default class ReduireUneExpressionLitterale extends Exercice {
           break
       }
       texteCorr += `${sp()}${miseEnEvidence(reponse)}$`
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${sp()} = $` })
+      texte += ajouteChampTexteMathLive(this, i, ' ', {
+        texteAvant: `$${sp()} = $`,
+      })
       handleAnswers(this, i, { reponse: { value: reponse } })
-      if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: 'Réduire l\'expression ' + texte + '.',
+            enonce: "Réduire l'expression " + texte + '.',
             propositions: [
               {
                 texte: texteCorr,
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
                 // @ts-expect-error
-                pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
-              }
-            ]
+                pointilles: false, // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              },
+            ],
           }
         }
         i++

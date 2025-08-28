@@ -19,10 +19,10 @@ export const uuid = '7781a'
 export const refs = {
   'fr-fr': ['6N3M-2'],
   'fr-2016': ['6N22-1'],
-  'fr-ch': ['9NO10-6']
+  'fr-ch': ['9NO10-6'],
 }
 export default class RapportsSurUnSegment extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 2
@@ -30,16 +30,23 @@ export default class RapportsSurUnSegment extends Exercice {
     this.consigne = 'Sur tous les axes, les graduations sont régulières.'
 
     // this.nbQuestionsModifiable = false;
-    context.isHtml ? this.spacing = 3 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [0, 1]
 
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const entierMax = 9
       const m = randint(1, entierMax)
       const n = randint(1, entierMax, m) // on évite l'autre pour éviter la fraction 1
@@ -57,18 +64,90 @@ export default class RapportsSurUnSegment extends Exercice {
       // };
 
       // on choisit de façon aléatoire un triplet de noms pour les points
-      const nomsChoix = [['A', 'B', 'C'], ['D', 'E', 'F'], ['I', 'J', 'K'], ['L', 'M', 'N']]
+      const nomsChoix = [
+        ['A', 'B', 'C'],
+        ['D', 'E', 'F'],
+        ['I', 'J', 'K'],
+        ['L', 'M', 'N'],
+      ]
       const noms = nomsChoix[randint(0, nomsChoix.length - 1)]
 
       // pour les situations, autant de situations que de cas dans le switch !
-      const f0 = fraction(Math.min(m, n), Math.max(m, n)).representation(0, 0, rayon, 0, 'segment', 'none', noms[0], noms[1], 1, noms[2])
-      const f0Corr = fraction(Math.min(m, n), Math.max(m, n)).representation(0, yEnonce, rayon, 0, 'segment', 'red', noms[0], noms[1], 1, noms[2])
-      const f0Corr2 = fraction(Math.max(m, n), Math.min(m, n)).representation(0, yEnonce, (Math.min(m, n) / Math.max(m, n)) * rayon, 0, 'segment', 'blue', noms[0], noms[2], 1, noms[1])
-      const f1 = fraction(Math.max(m, n), Math.min(m, n)).representation(0, 0, 5, 0, 'segment', 'none', noms[0], noms[1], 1, noms[2])
-      const f1Corr = fraction(Math.max(m, n), Math.min(m, n)).representation(0, yEnonce, 5, 0, 'segment', 'red', noms[0], noms[1], 1, noms[2])
-      const f1Corr2 = fraction(Math.min(m, n), Math.max(m, n)).representation(0, yEnonce, (Math.max(m, n) / Math.min(m, n)) * 5, 0, 'segment', 'blue', noms[0], noms[2], 1, noms[1])
+      const f0 = fraction(Math.min(m, n), Math.max(m, n)).representation(
+        0,
+        0,
+        rayon,
+        0,
+        'segment',
+        'none',
+        noms[0],
+        noms[1],
+        1,
+        noms[2],
+      )
+      const f0Corr = fraction(Math.min(m, n), Math.max(m, n)).representation(
+        0,
+        yEnonce,
+        rayon,
+        0,
+        'segment',
+        'red',
+        noms[0],
+        noms[1],
+        1,
+        noms[2],
+      )
+      const f0Corr2 = fraction(Math.max(m, n), Math.min(m, n)).representation(
+        0,
+        yEnonce,
+        (Math.min(m, n) / Math.max(m, n)) * rayon,
+        0,
+        'segment',
+        'blue',
+        noms[0],
+        noms[2],
+        1,
+        noms[1],
+      )
+      const f1 = fraction(Math.max(m, n), Math.min(m, n)).representation(
+        0,
+        0,
+        5,
+        0,
+        'segment',
+        'none',
+        noms[0],
+        noms[1],
+        1,
+        noms[2],
+      )
+      const f1Corr = fraction(Math.max(m, n), Math.min(m, n)).representation(
+        0,
+        yEnonce,
+        5,
+        0,
+        'segment',
+        'red',
+        noms[0],
+        noms[1],
+        1,
+        noms[2],
+      )
+      const f1Corr2 = fraction(Math.min(m, n), Math.max(m, n)).representation(
+        0,
+        yEnonce,
+        (Math.max(m, n) / Math.min(m, n)) * 5,
+        0,
+        'segment',
+        'blue',
+        noms[0],
+        noms[2],
+        1,
+        noms[1],
+      )
       const situations = [
-        { // case 0 --> m < n
+        {
+          // case 0 --> m < n
           m: Math.min(m, n),
           n: Math.max(m, n),
           rapport: `\\dfrac{${noms[0] + noms[1]}}{${noms[0] + noms[2]}}`,
@@ -78,12 +157,19 @@ export default class RapportsSurUnSegment extends Exercice {
           longueur_corr1: `\\textcolor{red}{${noms[0] + noms[2]}}`,
           m_color_corr: `\\textcolor{red}{${Math.min(m, n)}}`,
           n_color_corr: `\\textcolor{blue}{${Math.max(m, n)}}`,
-          fig_corr1: mathalea2d(Object.assign({}, fixeBordures(f0Corr)), f0Corr),
+          fig_corr1: mathalea2d(
+            Object.assign({}, fixeBordures(f0Corr)),
+            f0Corr,
+          ),
           segment_corr2: `\\textcolor{blue}{[${noms[0] + noms[1]}]}`,
           longueur_corr2: `\\textcolor{blue}{${noms[0] + noms[1]}}`,
-          fig_corr2: mathalea2d(Object.assign({}, fixeBordures(f0Corr2)), f0Corr2),
+          fig_corr2: mathalea2d(
+            Object.assign({}, fixeBordures(f0Corr2)),
+            f0Corr2,
+          ),
         },
-        { // case 1 --> m > n
+        {
+          // case 1 --> m > n
           m: Math.max(m, n),
           n: Math.min(m, n),
           rapport: `\\dfrac{${noms[0] + noms[1]}}{${noms[0] + noms[2]}}`,
@@ -93,12 +179,17 @@ export default class RapportsSurUnSegment extends Exercice {
           longueur_corr1: `\\textcolor{red}{${noms[0] + noms[2]}}`,
           m_color_corr: `\\textcolor{red}{${Math.max(m, n)}}`,
           n_color_corr: `\\textcolor{blue}{${Math.min(m, n)}}`,
-          fig_corr1: mathalea2d(Object.assign({}, fixeBordures(f1Corr)), f1Corr),
+          fig_corr1: mathalea2d(
+            Object.assign({}, fixeBordures(f1Corr)),
+            f1Corr,
+          ),
           segment_corr2: `\\textcolor{blue}{[${noms[0] + noms[1]}]}`,
           longueur_corr2: `\\textcolor{blue}{${noms[0] + noms[1]}}`,
-          fig_corr2: mathalea2d(Object.assign({}, fixeBordures(f1Corr2)), f1Corr2),
-        }
-
+          fig_corr2: mathalea2d(
+            Object.assign({}, fixeBordures(f1Corr2)),
+            f1Corr2,
+          ),
+        },
       ]
 
       const enonces = []
@@ -119,7 +210,7 @@ export default class RapportsSurUnSegment extends Exercice {
           $\\textbf{Donc}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr2}}{${situations[k].longueur_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}}$
           $\\textbf{et}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}}$<br><br>
           ${Remarque(situations[k].rapport, situations[k].rapport_inverse, situations[k].n, situations[k].m)}
-`
+`,
         })
       }
 
@@ -148,7 +239,8 @@ export default class RapportsSurUnSegment extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, texteCorr)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, texteCorr)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -160,14 +252,14 @@ export default class RapportsSurUnSegment extends Exercice {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }
-function singPlur (nombre:number, singulier: string, pluriel: string) {
+function singPlur(nombre: number, singulier: string, pluriel: string) {
   if (nombre > 1) {
     return pluriel
   } else {
     return singulier
   }
 }
-function etapeSimp (n: number, m: number) {
+function etapeSimp(n: number, m: number) {
   let sortie
   const rapport = fraction(n, m).n / fraction(n, m).numIrred
   if (rapport !== 1) {
@@ -177,7 +269,7 @@ function etapeSimp (n: number, m: number) {
   }
   return sortie
 }
-function Remarque (rapAlph: string, rapAlphI: string, n:number, m:number) {
+function Remarque(rapAlph: string, rapAlphI: string, n: number, m: number) {
   let sortie
   const rapport = fraction(n, m).n / fraction(n, m).numIrred
   if (rapport !== 1) {

@@ -1,10 +1,13 @@
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = '70139'
 export const refs = {
   'fr-fr': ['TSA6-QCM06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,20 +32,25 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$K(x) = \\dfrac{1}{2}H(2x)$', // Réponse correcte (c)
       '$K(x) = H(2x)$', // Mauvaise réponse (a)
       '$K(x) = 2H(2x)$', // Mauvaise réponse (b)
-      '$K(x) = 2H(x)$' // Mauvaise réponse (d)
+      '$K(x) = 2H(x)$', // Mauvaise réponse (d)
     ]
 
-    this.enonce = 'Si $H$ est une primitive d\'une fonction $h$ définie et continue sur $\\R$,<br>'
-    this.enonce += 'et si $k$ est la fonction définie sur $\\R$ par $k(x) = h(2x)$,<br>'
+    this.enonce =
+      "Si $H$ est une primitive d'une fonction $h$ définie et continue sur $\\R$,<br>"
+    this.enonce +=
+      'et si $k$ est la fonction définie sur $\\R$ par $k(x) = h(2x)$,<br>'
     this.enonce += 'alors, une primitive $K$ de $k$ est définie sur $\\R$ par :'
 
-    this.correction = 'On dérive la proposition $K(x) = \\dfrac{1}{2}H(2x)$ :<br>'
-    this.correction += '$K\'(x) = \\dfrac{1}{2} \\times 2H\'(2x) = H\'(2x) = h(2x) = k(x).$<br>'
-    this.correction += 'Ainsi, $K(x) = \\dfrac{1}{2}H(2x)$ est bien une primitive de $k$.<br>'
+    this.correction =
+      'On dérive la proposition $K(x) = \\dfrac{1}{2}H(2x)$ :<br>'
+    this.correction +=
+      "$K'(x) = \\dfrac{1}{2} \\times 2H'(2x) = H'(2x) = h(2x) = k(x).$<br>"
+    this.correction +=
+      'Ainsi, $K(x) = \\dfrac{1}{2}H(2x)$ est bien une primitive de $k$.<br>'
     this.correction += `La bonne réponse est donc $${miseEnEvidence('\\dfrac{1}{2}H(2x))')}$ `
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

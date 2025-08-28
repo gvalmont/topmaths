@@ -14,7 +14,7 @@ export const uuid = '34155'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,14 +25,14 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '7,4\\times 10^{-4}'
       this.question = `Écriture  scientifique de $${texNombre(0.00074)}$`
       this.correction = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
             Ici : $${texNombre(0.00074)}=\\underbrace{${miseEnEvidence(texNombre(7.4))}}_{1\\leqslant 7,4 <10}${miseEnEvidence('\\times')} ${miseEnEvidence('10^{-4}')}$.`
     } else {
-      const choix = choice(['a', 'b', 'c'])//
+      const choix = choice(['a', 'b', 'c']) //
       if (choix === 'a') {
         const a = randint(11, 39, [10, 20, 30]) / 1000
         const truc = a * 100

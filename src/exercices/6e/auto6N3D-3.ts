@@ -16,10 +16,11 @@ export const uuid = '57502'
 export const refs = {
   'fr-fr': ['auto6N3D-3'],
   'fr-2016': ['6C10-6'],
-  'fr-ch': ['9NO3-11']
+  'fr-ch': ['9NO3-11'],
 }
-export default class RoseMultiplicative extends ExoRose { // c'est l'ExoRose zéro contenu dans _Roses.js
-  constructor () {
+export default class RoseMultiplicative extends ExoRose {
+  // c'est l'ExoRose zéro contenu dans _Roses.js
+  constructor() {
     super()
     this.operation = 'multiplication'
     this.typeDonnees = 'entiers'

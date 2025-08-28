@@ -8,7 +8,7 @@ import {
   codageHauteurTriangle,
   codageMedianeTriangle,
   hauteurTriangle,
-  medianeTriangle
+  medianeTriangle,
 } from '../../lib/2d/triangle'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { Triangle } from '../../modules/Triangle'
@@ -16,7 +16,7 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-export const titre = 'Déterminer la nature d\'une droite remarquable'
+export const titre = "Déterminer la nature d'une droite remarquable"
 
 /**
  * 5G22
@@ -27,12 +27,16 @@ export const uuid = '796f3'
 
 export const refs = {
   'fr-fr': ['5G22'],
-  'fr-ch': ['9ES3-9']
+  'fr-ch': ['9ES3-9'],
 }
 export default class DroiteRemarquableDuTriangle extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de droites',
+      3,
+      '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Mélange',
+    ]
 
     this.spacing = 2
     this.nbQuestions = 1
@@ -40,9 +44,9 @@ export default class DroiteRemarquableDuTriangle extends Exercice {
     this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const triangles = []
-    const sommets:string[][] = []
+    const sommets: string[][] = []
     const A = []
     const B = []
     const C = []
@@ -56,8 +60,16 @@ export default class DroiteRemarquableDuTriangle extends Exercice {
     if (this.sup === 1) typesDeQuestionsDisponibles = [1, 2]
     else if (this.sup === 2) typesDeQuestionsDisponibles = [3, 4]
     else typesDeQuestionsDisponibles = [1, 2, 3, 4]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, angle, rapport, texte, texteCorr; i < this.nbQuestions;) { // this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, a, angle, rapport, texte, texteCorr;
+      i < this.nbQuestions;
+
+    ) {
+      // this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       triangles[i] = new Triangle()
       sommets[i] = triangles[i].getSommets(false)
 
@@ -72,7 +84,10 @@ export default class DroiteRemarquableDuTriangle extends Exercice {
       B[i] = rotation(B0, G, a, sommets[i][1], 'below right')
       C[i] = rotation(C0, G, a, sommets[i][2], 'above')
       t[i] = polygone(A[i], B[i], C[i])
-      n[i] = nommePolygone(t[i], `${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}`)
+      n[i] = nommePolygone(
+        t[i],
+        `${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}`,
+      )
       switch (listeTypeDeQuestions[i]) {
         case 1:
           d[i] = hauteurTriangle(C[i], B[i], A[i], 'blue')
@@ -109,16 +124,22 @@ export default class DroiteRemarquableDuTriangle extends Exercice {
           break
       }
 
-      texte = `Quelle est la nature de la droite tracée en bleu dans le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d({
-        xmin: -3,
-        ymin: -3,
-        xmax: 8,
-        ymax: 8,
-        scale: 0.5,
-        pixelsParCm: 20
-      }, ...objets[i])
+      texte =
+        `Quelle est la nature de la droite tracée en bleu dans le triangle ${triangles[i].getNom()} ?<br>` +
+        mathalea2d(
+          {
+            xmin: -3,
+            ymin: -3,
+            xmax: 8,
+            ymax: 8,
+            scale: 0.5,
+            pixelsParCm: 20,
+          },
+          ...objets[i],
+        )
 
-      if (this.questionJamaisPosee(i, angle, rapport, a)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, angle, rapport, a)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 

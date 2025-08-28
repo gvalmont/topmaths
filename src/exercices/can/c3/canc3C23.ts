@@ -1,4 +1,7 @@
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -21,10 +24,10 @@ export const uuid = 'cb93a'
 
 export const refs = {
   'fr-fr': ['can6C62'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComplementADixCentMille extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
@@ -33,18 +36,23 @@ export default class ComplementADixCentMille extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
-  nouvelleVersion () {
-    switch (choice([1, 1, 1, 2, 3, 3, 3, 3])) { //
+  nouvelleVersion() {
+    switch (
+      choice([1, 1, 1, 2, 3, 3, 3, 3]) //
+    ) {
       case 1: // complément à 100
         {
           const a = randint(11, 89, [20, 30, 40, 50, 60, 70, 80])
           this.question = `Calculer $100-${a}$.`
           this.correction = `$100-${a}=${miseEnEvidence(100 - a)}$<br>`
           this.reponse = 100 - a
-          this.correction += texteEnCouleur(`
+          this.correction += texteEnCouleur(
+            `
     <br> Mentalement : <br><br>
-    $${a} \\xrightarrow{+${10 - a % 10}} ${a + (10 - a % 10)} \\xrightarrow{+${100 - (a + (10 - a % 10))}} 100$.
-     `, bleuMathalea)
+    $${a} \\xrightarrow{+${10 - (a % 10)}} ${a + (10 - (a % 10))} \\xrightarrow{+${100 - (a + (10 - (a % 10)))}} 100$.
+     `,
+            bleuMathalea,
+          )
         }
         break
       case 2: // complément à 10
@@ -53,11 +61,14 @@ export default class ComplementADixCentMille extends ExerciceSimple {
           this.question = `Calculer $10-${a}$.`
           this.correction = `$10-${a}=${miseEnEvidence(10 - a)}$<br>`
           this.reponse = 10 - a
-          this.correction += texteEnCouleur(`
+          this.correction += texteEnCouleur(
+            `
     <br> Mentalement : <br>
     pour calculer $10-${a}$, on peut penser : « Combien faut-il ajouter à $${a}$ pour obtenir $10$ ? » <br>
      $${10 - a}$ car $${a}+${10 - a}=10$. <br><br>
-     `, bleuMathalea)
+     `,
+            bleuMathalea,
+          )
         }
         break
       case 3: // complément à 1000
@@ -91,10 +102,13 @@ export default class ComplementADixCentMille extends ExerciceSimple {
           const etapeVers1000 = 1000 - valeurCourante
           diagramme += ` \\xrightarrow{+${etapeVers1000}} ${texNombre(1000)}$.`
 
-          this.correction += texteEnCouleur(`
+          this.correction += texteEnCouleur(
+            `
     <br> Mentalement : <br><br>
     ${diagramme} <br><br>
-     `, bleuMathalea)
+     `,
+            bleuMathalea,
+          )
         }
         break
     }

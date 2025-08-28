@@ -9,7 +9,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '8cf80'
 export const refs = {
   'fr-fr': ['1A-C19'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -40,25 +40,28 @@ export default class Auto1C19 extends ExerciceQcmA {
                    \\end{aligned}$
                    `
 
-    this.reponses = ['$352{,}50-3{,}50\\times 85$',
+    this.reponses = [
+      '$352{,}50-3{,}50\\times 85$',
       '$\\dfrac{352{,}50}{3{,}50\\times 85}$',
       '$\\dfrac{3{,}50\\times 85}{352{,}50}$',
-      '$352{,}50+3{,}50\\times 85$']
+      '$352{,}50+3{,}50\\times 85$',
+    ]
   }
 
   versionAleatoire: () => void = () => {
     switch (choice([1, 2, 3])) {
-      case 1: {
-        const abo = new Decimal(randint(451, 691)).div(10)// abonnement
-        const p = new Decimal(randint(301, 399)).div(100)// prix du m3
-        const n = randint(70, 99)
-        const fac = new Decimal(p).mul(n).add(abo)
-        this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
+      case 1:
+        {
+          const abo = new Decimal(randint(451, 691)).div(10) // abonnement
+          const p = new Decimal(randint(301, 399)).div(100) // prix du m3
+          const n = randint(70, 99)
+          const fac = new Decimal(p).mul(n).add(abo)
+          this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
                     un abonnement annuel et $${texNombre(p, 2, true)}$ € par mètre cube consommé. <br>
                     Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}$ m$^3$.<br>
                   Le prix de l'abonnement est donné par le calcul :`
 
-        this.correction = `La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}$ m$^3$.<br>
+          this.correction = `La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}$ m$^3$.<br>
                          En notant $a$ le montant de l'abonnement, on obtient : <br>
                          $\\begin{aligned}
                          a+${texNombre(p, 2, true)}\\times ${n} &=${texNombre(fac, 3)}\\\\
@@ -66,13 +69,19 @@ export default class Auto1C19 extends ExerciceQcmA {
                          \\end{aligned}$
                          `
 
-        this.reponses = [`$${texNombre(fac, 3)}-${texNombre(p, 2, true)}\\times ${n}$`, `$\\dfrac{${texNombre(fac, 3)}}{${texNombre(p, 2, true)}\\times ${n}}$`, `$\\dfrac{${texNombre(p, 2, true)}\\times ${n}}{${texNombre(fac, 3)}}$`, `$${texNombre(fac, 3)}+${texNombre(p, 2, true)}\\times ${n}$`]
-      }
+          this.reponses = [
+            `$${texNombre(fac, 3)}-${texNombre(p, 2, true)}\\times ${n}$`,
+            `$\\dfrac{${texNombre(fac, 3)}}{${texNombre(p, 2, true)}\\times ${n}}$`,
+            `$\\dfrac{${texNombre(p, 2, true)}\\times ${n}}{${texNombre(fac, 3)}}$`,
+            `$${texNombre(fac, 3)}+${texNombre(p, 2, true)}\\times ${n}$`,
+          ]
+        }
         break
 
       case 2:
-        { const abo = new Decimal(randint(451, 691)).div(10)// abonnement
-          const p = new Decimal(randint(301, 399)).div(100)// prix du m3
+        {
+          const abo = new Decimal(randint(451, 691)).div(10) // abonnement
+          const p = new Decimal(randint(301, 399)).div(100) // prix du m3
           const n = randint(70, 99)
           const fac = new Decimal(p).mul(n).add(abo)
           this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
@@ -88,21 +97,27 @@ export default class Auto1C19 extends ExerciceQcmA {
                          \\end{aligned}$
                          `
 
-          this.reponses = [`$\\dfrac{${texNombre(fac, 3)}-${texNombre(abo, 2, true)}}{${n}}$`,
-            `$\\dfrac{${texNombre(fac, 3)}-${n}}{${texNombre(abo, 2, true)}}$`, `$${texNombre(fac, 3)}-${texNombre(abo, 2, true)}\\times ${n}$`, `$\\dfrac{${texNombre(p, 2, true)}\\times ${n}}{${texNombre(fac, 3)}}$`]
+          this.reponses = [
+            `$\\dfrac{${texNombre(fac, 3)}-${texNombre(abo, 2, true)}}{${n}}$`,
+            `$\\dfrac{${texNombre(fac, 3)}-${n}}{${texNombre(abo, 2, true)}}$`,
+            `$${texNombre(fac, 3)}-${texNombre(abo, 2, true)}\\times ${n}$`,
+            `$\\dfrac{${texNombre(p, 2, true)}\\times ${n}}{${texNombre(fac, 3)}}$`,
+          ]
         }
         break
       case 3:
-      default:{ const abo = new Decimal(randint(451, 691)).div(10)// abonnement
-        const p = new Decimal(randint(301, 399)).div(100)// prix du m3
-        const n = randint(70, 99)
-        const fac = new Decimal(p).mul(n).add(abo)
-        this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
+      default:
+        {
+          const abo = new Decimal(randint(451, 691)).div(10) // abonnement
+          const p = new Decimal(randint(301, 399)).div(100) // prix du m3
+          const n = randint(70, 99)
+          const fac = new Decimal(p).mul(n).add(abo)
+          this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
                   un abonnement annuel de $${texNombre(abo, 2, true)}$ € et $${texNombre(p, 2, true)}$ € par mètre cube consommé. <br>
                     Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour sa consommation annuelle.<br>
                   Le nombre de mètres cubes consommés est donné par le calcul :`
 
-        this.correction = `La facture s'élève à $${texNombre(fac, 3)}$ € pour la consommation annuelle.<br>
+          this.correction = `La facture s'élève à $${texNombre(fac, 3)}$ € pour la consommation annuelle.<br>
                          En notant $a$ le nombre de  mètres cubes consommés, on obtient : <br>
                          $\\begin{aligned}
                          ${texNombre(abo, 2)}+${texNombre(p, 2, true)}\\times a &=${texNombre(fac, 3)}\\\\
@@ -110,15 +125,19 @@ export default class Auto1C19 extends ExerciceQcmA {
                          \\end{aligned}$
                          `
 
-        this.reponses = [`$\\dfrac{${texNombre(fac, 3)}-${texNombre(abo, 2, true)}}{${texNombre(p, 2, true)}}$`,
-            `$\\dfrac{${texNombre(fac, 3)}-${texNombre(p, 2, true)}}{${texNombre(abo, 2, true)}}$`, `$${texNombre(fac, 3)}-${texNombre(abo, 2, true)}\\times ${texNombre(p, 2, true)}$`, `$${texNombre(abo, 2, true)}\\times${texNombre(p, 3)}-${texNombre(fac, 2, true)}$`]
-      }
+          this.reponses = [
+            `$\\dfrac{${texNombre(fac, 3)}-${texNombre(abo, 2, true)}}{${texNombre(p, 2, true)}}$`,
+            `$\\dfrac{${texNombre(fac, 3)}-${texNombre(p, 2, true)}}{${texNombre(abo, 2, true)}}$`,
+            `$${texNombre(fac, 3)}-${texNombre(abo, 2, true)}\\times ${texNombre(p, 2, true)}$`,
+            `$${texNombre(abo, 2, true)}\\times${texNombre(p, 3)}-${texNombre(fac, 2, true)}$`,
+          ]
+        }
         break
     }
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

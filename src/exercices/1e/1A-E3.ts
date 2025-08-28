@@ -15,10 +15,10 @@ export const uuid = 'c9efa'
 
 export const refs = {
   'fr-fr': ['1A-E3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AE3 extends PoucentageE2 {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

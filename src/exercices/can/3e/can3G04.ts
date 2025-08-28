@@ -24,10 +24,10 @@ export const uuid = '85416'
 
 export const refs = {
   'fr-fr': ['can3G04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RechercheValeurPythagore extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -35,13 +35,13 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, A, B, C, objets, nom, pol
 
     switch (choice(['b'])) {
       case 'a':
         nom = creerNomDePolygone(3, ['QD'])
-        a = randint(1, 5) * 2//
+        a = randint(1, 5) * 2 //
         A = point(0, 0, nom[0])
         B = point(4, 0, nom[1])
         C = point(1.58, 3.7, nom[2])
@@ -49,9 +49,17 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
         objets = []
         objets.push(segment(A, B), segment(B, C), segment(A, C))
         objets.push(pol[0], pol[1])
-        objets.push(latex2d(`${texNombre(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, { letterSize: 'scriptsize' }),
-          latex2d('x', milieu(A, C).x - 0.5, milieu(A, C).y, { letterSize: 'scriptsize' }),
-          latex2d('x', milieu(A, B).x, milieu(A, B).y - 0.5, { letterSize: 'scriptsize' }))
+        objets.push(
+          latex2d(`${texNombre(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, {
+            letterSize: 'scriptsize',
+          }),
+          latex2d('x', milieu(A, C).x - 0.5, milieu(A, C).y, {
+            letterSize: 'scriptsize',
+          }),
+          latex2d('x', milieu(A, B).x, milieu(A, B).y - 0.5, {
+            letterSize: 'scriptsize',
+          }),
+        )
         this.question = `${mathalea2d(Object.assign({ scale: 0.7, style: 'margin: auto; display: block' }, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
         if (this.interactif) {
           this.question += `Déterminer $x$ pour que le triangle soit rectangle.<br>
@@ -62,7 +70,7 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
         }
 
         this.correction = ` Le plus grand côté est $${a}$ (autrement il y aurait deux hypoténuses). On cherche $x$ tel que $x^2+x^2=${a}^2$, soit $2x^2=${a * a}$.<br>
-      En divisant par $2$ chacun des membres, on obtient : $x^2=${a * a / 2}$.<br>
+      En divisant par $2$ chacun des membres, on obtient : $x^2=${(a * a) / 2}$.<br>
       Comme la valeur de $x$ cherchée est positive, on a  $x=${miseEnEvidence(`\\sqrt{${texNombre(a ** 2 / 2)}}`)}$.`
 
         this.reponse = [`\\sqrt{${a ** 2 / 2}}`, `${Math.sqrt(a ** 2 / 2)}`]
@@ -77,9 +85,17 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
         objets = []
         objets.push(pol[0], pol[1])
         objets.push(segment(A, B), segment(B, C), segment(A, C))
-        objets.push(latex2d(`\\sqrt{${a}}`, milieu(B, C).x + 1, milieu(B, C).y, { letterSize: 'scriptsize' }),
-          latex2d('x', milieu(A, C).x - 0.5, milieu(A, C).y, { letterSize: 'scriptsize' }),
-          latex2d('x', milieu(A, B).x, milieu(A, B).y - 0.5, { letterSize: 'scriptsize' }))
+        objets.push(
+          latex2d(`\\sqrt{${a}}`, milieu(B, C).x + 1, milieu(B, C).y, {
+            letterSize: 'scriptsize',
+          }),
+          latex2d('x', milieu(A, C).x - 0.5, milieu(A, C).y, {
+            letterSize: 'scriptsize',
+          }),
+          latex2d('x', milieu(A, B).x, milieu(A, B).y - 0.5, {
+            letterSize: 'scriptsize',
+          }),
+        )
 
         this.question = `${mathalea2d(Object.assign({ scale: 0.7, style: 'margin: auto; display: block' }, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
         if (this.interactif) {
@@ -95,7 +111,7 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
         this.reponse = `\\sqrt{${a / 2}}`
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = '$x=\\ldots$'
   }
 }

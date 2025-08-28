@@ -1,7 +1,17 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheCoteSegment } from '../../lib/2d/codages'
-import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
-import { Point, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import {
+  droite,
+  droiteParPointEtParallele,
+  droiteParPointEtPerpendiculaire,
+} from '../../lib/2d/droites'
+import {
+  Point,
+  point,
+  pointIntersectionDD,
+  pointSurDroite,
+  tracePoint,
+} from '../../lib/2d/points'
 import { grille, seyes } from '../../lib/2d/reperes'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -33,11 +43,11 @@ export const uuid = 'd14bc'
 export const refs = {
   'fr-fr': ['CM2G2B-2'],
   'fr-2016': ['6G12-1'],
-  'fr-ch': ['9ES3-4']
+  'fr-ch': ['9ES3-4'],
 }
 export default class ParalleleEtPerpendiculaires extends Exercice {
   type: number
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
@@ -49,33 +59,38 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
     this.besoinFormulaireNumerique = [
       'Type de cahier',
       3,
-      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche',
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [this.type] // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
-    let Xmin; let Xmax; let Ymin; let Ymax; const ppc = 20; let sc
+    let Xmin
+    let Xmax
+    let Ymin
+    let Ymax
+    const ppc = 20
+    let sc
     let anim
 
     const hasAutoCorrection = this.sup2
 
-    let A : Point
-    let B : Point
-    let C : Point
-    let D : Point
+    let A: Point
+    let B: Point
+    let C: Point
+    let D: Point
     let xE
     let E
     let F
-    let BB : Point
-    let CC : Point
-    let DD : Point
-    let EE : Point
-    let FF : Point
+    let BB: Point
+    let CC: Point
+    let DD: Point
+    let EE: Point
+    let FF: Point
     let d
     let s1
     let s2
@@ -101,17 +116,17 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
     const objetsCorrection = []
 
     let p
-    for (
-      let i = 0, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       anim = new Alea2iep()
       anim.equerreZoom(150)
       objetsEnonce.length = 0
       objetsCorrection.length = 0
       correction = ''
-      if (this.sup === 2) { k = 0.8 } else { k = 0.5 }
+      if (this.sup === 2) {
+        k = 0.8
+      } else {
+        k = 0.5
+      }
       // if (this.sup === 3) { this.sup2 = false } // Pour obliger à enlever l'auto-correction sur papier blanc, car elle est alors impossible. Pb néanmoins avec la case à cocher qui ni bouge pas (Pb soulevé dans le Slack)
       switch (listeTypeDeQuestions[i]) {
         case 1:
@@ -145,7 +160,8 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           cC = codageAngleDroit(C, CC, B)
           cD = codageAngleDroit(D, DD, B)
           if (hasAutoCorrection) {
-            objetsCorrection.push(s1,
+            objetsCorrection.push(
+              s1,
               s2,
               dC,
               dD,
@@ -158,25 +174,26 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
               labelPoint(A, B, C, D, E, CC, DD),
               afficheCoteSegment(
                 segment(A, CC),
-              `${stringNombre(lC)} cm`,
-              0.5,
-              'red',
-              1,
-              0.5,
-              'red'
+                `${stringNombre(lC)} cm`,
+                0.5,
+                'red',
+                1,
+                0.5,
+                'red',
               ),
               afficheCoteSegment(
                 segment(A, DD),
-              `${stringNombre(lD)} cm`,
-              -0.5,
-              'red',
-              1,
-              -0.5,
-              'red'
-              )
+                `${stringNombre(lD)} cm`,
+                -0.5,
+                'red',
+                1,
+                -0.5,
+                'red',
+              ),
             )
           } else {
-            objetsCorrection.push(dC,
+            objetsCorrection.push(
+              dC,
               dD,
               dB,
               cB,
@@ -184,34 +201,37 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
               cD,
               d,
               tracePoint(A, B, C, D, CC, DD),
-              labelPoint(A, B, C, D, CC, DD)
+              labelPoint(A, B, C, D, CC, DD),
             )
           }
-          objetsEnonce.push(
-            tracePoint(A, B, C, D),
-            labelPoint(A, B, C, D),
-            d
-          )
-          if (context.isHtml) enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
-          else enonce = numAlpha(0) + ' Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>'
+          objetsEnonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D), d)
+          if (context.isHtml)
+            enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
+          else
+            enonce =
+              numAlpha(0) +
+              ' Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>'
           enonce +=
-          numAlpha(1) +
-          ' Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>'
+            numAlpha(1) +
+            ' Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>'
           enonce +=
-          numAlpha(2) +
-          ' Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nommer $M$ le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
+            numAlpha(2) +
+            " Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>"
           enonce +=
-          numAlpha(3) +
-          ' Tracer la droite perpendiculaire à $(AB)$ passant par $D$ et nommer $N$ le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
+            numAlpha(3) +
+            " Tracer la droite perpendiculaire à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>"
           if (hasAutoCorrection) {
             enonce +=
-          numAlpha(4) +
-          ' Mesurer ensuite les distances $AM$ et $AN$. Pour l\'auto-correction comparer ces mesures avec celles données dans la correction<br>'
+              numAlpha(4) +
+              " Mesurer ensuite les distances $AM$ et $AN$. Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>"
 
             correction = `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(
-          lC
-        )}$ cm et $AN \\approx ${texNombre(lD)}$ cm.<br>`
-            correction += this.sup < 3 ? 'Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>' : '<br>'
+              lC,
+            )}$ cm et $AN \\approx ${texNombre(lD)}$ cm.<br>`
+            correction +=
+              this.sup < 3
+                ? 'Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>'
+                : '<br>'
           }
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, CC.x, DD.x) + 1)
@@ -244,31 +264,98 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           lD = arrondi(longueur(DD, A) * k, 1)
           lE = arrondi(longueur(EE, A) * k, 1)
           if (hasAutoCorrection) {
-            objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${stringNombre(lC)} cm`, 0.2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${stringNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${stringNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
+            objetsCorrection.push(
+              dC,
+              dD,
+              dE,
+              d,
+              p,
+              tracePoint(A, B, C, D, E, F),
+              labelPoint(A, B, C, D, E, F, CC, DD, EE),
+              afficheCoteSegment(
+                segment(A, CC),
+                `${stringNombre(lC)} cm`,
+                0.2,
+                'red',
+                1,
+                0.5,
+                'red',
+              ),
+              afficheCoteSegment(
+                segment(DD, A),
+                `${stringNombre(lD)} cm`,
+                -0.2,
+                'green',
+                1,
+                -0.5,
+                'green',
+              ),
+              afficheCoteSegment(
+                segment(A, EE),
+                `${stringNombre(lE)} cm`,
+                -0.2,
+                'blue',
+                1,
+                -0.5,
+                'blue',
+              ),
+            )
           } else {
-            objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, F), labelPoint(A, B, C, D, E, F, CC, DD, EE))
+            objetsCorrection.push(
+              dC,
+              dD,
+              dE,
+              d,
+              p,
+              tracePoint(A, B, C, D, F),
+              labelPoint(A, B, C, D, E, F, CC, DD, EE),
+            )
           }
-          objetsEnonce.push(tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F), d, p)
+          objetsEnonce.push(
+            tracePoint(A, B, C, D, E, F),
+            labelPoint(A, B, C, D, E, F),
+            d,
+            p,
+          )
 
-          if (context.isHtml) enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
-          else enonce = numAlpha(0) + ' Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>'
-          enonce += numAlpha(1) + ' Tracer la droite parallèle à $(AB)$ passant par $C$ et nommer $M$, le point d\'intersection de cette droite avec la droite $(AF)$.<br>'
-          enonce += numAlpha(2) + ' Tracer la droite parallèle à $(AB)$ passant par $D$ et nommer $N$, le point d\'intersection de cette droite avec la droite $(AF)$.<br>'
-          enonce += numAlpha(3) + ' Tracer la droite parallèle à $(AB)$ passant par $E$ et nommer $O$, le point d\'intersection de cette droite avec la droite $(AF)$.<br>'
+          if (context.isHtml)
+            enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
+          else
+            enonce =
+              numAlpha(0) +
+              ' Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>'
+          enonce +=
+            numAlpha(1) +
+            " Tracer la droite parallèle à $(AB)$ passant par $C$ et nommer $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>"
+          enonce +=
+            numAlpha(2) +
+            " Tracer la droite parallèle à $(AB)$ passant par $D$ et nommer $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>"
+          enonce +=
+            numAlpha(3) +
+            " Tracer la droite parallèle à $(AB)$ passant par $E$ et nommer $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>"
           if (hasAutoCorrection) {
-            enonce += numAlpha(4) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.'
+            enonce +=
+              numAlpha(4) +
+              " Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction."
 
-            correction = `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(lC
-        )}$ cm, $AN \\approx ${texNombre(
-          lD
-        )}$ cm et $AO \\approx${texNombre(
-          lE
-        )}$ cm.<br>`
+            correction = `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(
+              lC,
+            )}$ cm, $AN \\approx ${texNombre(
+              lD,
+            )}$ cm et $AO \\approx${texNombre(lE)}$ cm.<br>`
           }
-          Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) - 1)
-          Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)
-          Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) - 1)
-          Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) + 1)
+          Xmin = Math.floor(
+            Math.min(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) - 1,
+          )
+          Xmax = Math.ceil(
+            Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1,
+          )
+          Ymin = Math.floor(
+            Math.min(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) - 1,
+          )
+          Ymax = Math.ceil(
+            Math.max(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) + 1,
+          )
           anim.recadre(Xmin - 3, Ymax)
           anim.pointsCreer(A, B, C, D, E)
           anim.regleDroite(A, B)
@@ -311,60 +398,113 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           cF = codageAngleDroit(C, EE, E, 'red')
           cG = codageAngleDroit(C, FF, D, 'red')
           if (hasAutoCorrection) {
-            objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), afficheCoteSegment(
-              segment(A, CC),
-          `${stringNombre(lC)} cm`,
-          0.5,
-          'red',
-          1,
-          0.5,
-          'red'
-            ),
-            afficheCoteSegment(
-              segment(A, DD),
-            `${stringNombre(lD)} cm`,
-            0,
-            'blue',
-            1,
-            -0.5,
-            'blue'
-            ),
-            afficheCoteSegment(
-              segment(A, EE),
-            `${stringNombre(lE)} cm`,
-            0,
-            'green',
-            1,
-            -0.5,
-            'green'
-            ))
+            objetsCorrection.push(
+              dC,
+              dD,
+              dB,
+              dE,
+              cB,
+              cC,
+              cD,
+              cE,
+              cF,
+              cG,
+              d,
+              tracePoint(A, B, C, D, E, CC, DD, EE),
+              labelPoint(A, B, C, D, E, CC, DD, EE),
+              afficheCoteSegment(
+                segment(A, CC),
+                `${stringNombre(lC)} cm`,
+                0.5,
+                'red',
+                1,
+                0.5,
+                'red',
+              ),
+              afficheCoteSegment(
+                segment(A, DD),
+                `${stringNombre(lD)} cm`,
+                0,
+                'blue',
+                1,
+                -0.5,
+                'blue',
+              ),
+              afficheCoteSegment(
+                segment(A, EE),
+                `${stringNombre(lE)} cm`,
+                0,
+                'green',
+                1,
+                -0.5,
+                'green',
+              ),
+            )
           } else {
-            objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE))
+            objetsCorrection.push(
+              dC,
+              dD,
+              dB,
+              dE,
+              cB,
+              cC,
+              cD,
+              cE,
+              cF,
+              cG,
+              d,
+              tracePoint(A, B, C, D, E, CC, DD, EE),
+              labelPoint(A, B, C, D, E, CC, DD, EE),
+            )
           }
-          objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d)
-          if (context.isHtml) enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
-          else enonce = numAlpha(0) + ' Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>'
-          enonce += numAlpha(1) + ' Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>'
-          enonce += numAlpha(2) + ' Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
-          enonce += numAlpha(3) + ' Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d\'intersection de cette droite avec la droite $(BE)$.<br>'
-          enonce += numAlpha(4) + ' Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d\'intersection de cette droite avec la droite $(CM)$.<br>'
+          objetsEnonce.push(
+            tracePoint(A, B, C, D, E),
+            labelPoint(A, B, C, D, E),
+            d,
+          )
+          if (context.isHtml)
+            enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
+          else
+            enonce =
+              numAlpha(0) +
+              ' Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>'
+          enonce +=
+            numAlpha(1) +
+            ' Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>'
+          enonce +=
+            numAlpha(2) +
+            " Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AB)$.<br>"
+          enonce +=
+            numAlpha(3) +
+            " Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(BE)$.<br>"
+          enonce +=
+            numAlpha(4) +
+            " Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(CM)$.<br>"
           if (hasAutoCorrection) {
-            enonce += numAlpha(5) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.'
+            enonce +=
+              numAlpha(5) +
+              " Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction."
 
             correction += `En auto-correction, on peut vérifier que : $AM \\approx ${texNombre(
-          lC
-        )}$ cm, $AN \\approx ${texNombre(
-          lD
-        )}$ cm et $AO \\approx${texNombre(
-          lE
-        )}$ cm.<br><br>`
+              lC,
+            )}$ cm, $AN \\approx ${texNombre(
+              lD,
+            )}$ cm et $AO \\approx${texNombre(lE)}$ cm.<br><br>`
           }
-          correction += `Les angles droits en rouge se justifient par la propriété :<br> ${texteEnCouleur('Si deux droites sont parallèles, alors toute droite perpendiculaire à l\'une est aussi perpendiculaire à l\'autre', 'red')}.<br>`
-          correction += 'Vérifier les angles droits à l\'équerre.<br><br>'
-          Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) - 1)
-          Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)
-          Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) - 1)
-          Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) + 1)
+          correction += `Les angles droits en rouge se justifient par la propriété :<br> ${texteEnCouleur("Si deux droites sont parallèles, alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre", 'red')}.<br>`
+          correction += "Vérifier les angles droits à l'équerre.<br><br>"
+          Xmin = Math.floor(
+            Math.min(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) - 1,
+          )
+          Xmax = Math.ceil(
+            Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1,
+          )
+          Ymin = Math.floor(
+            Math.min(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) - 1,
+          )
+          Ymax = Math.ceil(
+            Math.max(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) + 1,
+          )
           anim.recadre(Xmin - 3, Ymax)
           anim.pointsCreer(A, B, C, D, E)
           anim.regleDroite(A, B)
@@ -387,17 +527,19 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
       objetsEnonce.push(g, carreaux)
       objetsCorrection.push(g, carreaux)
 
-      enonce += '<br>' + mathalea2d(
-        {
-          xmin: Xmin,
-          ymin: Ymin,
-          xmax: Xmax,
-          ymax: Ymax,
-          pixelsParCm: ppc,
-          scale: sc
-        },
-        objetsEnonce
-      )
+      enonce +=
+        '<br>' +
+        mathalea2d(
+          {
+            xmin: Xmin,
+            ymin: Ymin,
+            xmax: Xmax,
+            ymax: Ymax,
+            pixelsParCm: ppc,
+            scale: sc,
+          },
+          objetsEnonce,
+        )
       correction += mathalea2d(
         {
           xmin: Xmin,
@@ -405,9 +547,9 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           xmax: Xmax,
           ymax: Ymax,
           pixelsParCm: ppc,
-          scale: sc
+          scale: sc,
         },
-        objetsCorrection
+        objetsCorrection,
       )
       /** ********************** AMC Open *****************************/
       this.autoCorrection[i] = {}
@@ -417,14 +559,14 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
         {
           texte: correction,
           statut: 3,
-          sanscadre: true
-        }
+          sanscadre: true,
+        },
       ]
       // this.autoCorrection = [{ enonce: enonce + '<br>', propositions: [{ texte: correction, statut: 3, sanscadre: true }] }]
       /****************************************************/
       correction += anim.htmlBouton(this.numeroExercice ?? 0, i)
       if (this.questionJamaisPosee(i, Xmax, Xmin, Ymax, Ymin)) {
-      // Si la question n'a jamais été posée, on en crée une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = enonce
         this.listeCorrections[i] = correction
         i++

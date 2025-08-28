@@ -5,7 +5,11 @@ import { choice, getRandomSubarray } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Développer une identité remarquable'
 export const dateDePublication = '04/09/2024'
@@ -13,23 +17,35 @@ export const dateDePublication = '04/09/2024'
 /**
  * Réduire une expression littérale
  * @author Nathan Scheinmann
-*/
+ */
 
 export const uuid = '6e472'
 export const refs = {
   'fr-fr': ['3L11-15', 'BP2AutoI8'],
-  'fr-ch': ['11FA1-11', '1mCL1-7']
+  'fr-ch': ['11FA1-11', '1mCL1-7'],
 }
 
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.consigne = 'Développer et réduire en utilisant les identités remarquables.'
+    this.consigne =
+      'Développer et réduire en utilisant les identités remarquables.'
 
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 - (x+a)^2\n2 - (x-a)^2\n3 - (x-a)(x-b)\n4 - (x+a)(x+b)\n5 - (ax+by)^2\n6 - (ax-by)^2\n7 - (ax+by)(ax-by)\n8 - (ax+b)(ax+c)\n9 - Mélange']
-    this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Choix des questions',
+      'Nombres séparés par des tirets :\n1 - (x+a)^2\n2 - (x-a)^2\n3 - (x-a)(x-b)\n4 - (x+a)(x+b)\n5 - (ax+by)^2\n6 - (ax-by)^2\n7 - (ax+by)(ax-by)\n8 - (ax+b)(ax+c)\n9 - Mélange',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Coefficients',
+      3,
+      'Entiers \n2 : Fractionnaires \n3 : Mélange',
+    ]
     this.besoinFormulaire3Numerique = ['Degré maximum', 5, '1\n2\n3\n4\n5']
-    this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']
+    this.besoinFormulaire4Numerique = [
+      'Nombre de variables différentes',
+      5,
+      '1\n2\n3\n4\n5',
+    ]
     // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
     // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
     this.sup = 9
@@ -39,8 +55,9 @@ export default class nomExercice extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = 'Développer et réduire en utilisant les identités remarquables.'
+  nouvelleVersion() {
+    this.consigne =
+      'Développer et réduire en utilisant les identités remarquables.'
 
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -48,10 +65,9 @@ export default class nomExercice extends Exercice {
       max: 8,
       melange: 9,
       defaut: 9,
-      nbQuestions: this.nbQuestions
-
+      nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       const degMax = max(this.sup3, 0)
@@ -63,10 +79,22 @@ export default class nomExercice extends Exercice {
       let p2: MonomePlusieursVariables
       let pSP1: MonomePlusieursVariables
       let pSP2: MonomePlusieursVariables
-      p1 = new MonomePlusieursVariables(new FractionEtendue(1, 1), { variables: [], exposants: [] })
-      p2 = new MonomePlusieursVariables(new FractionEtendue(1, 1), { variables: [], exposants: [] })
-      pSP1 = new MonomePlusieursVariables(new FractionEtendue(1, 1), { variables: [], exposants: [] })
-      pSP2 = new MonomePlusieursVariables(new FractionEtendue(1, 1), { variables: [], exposants: [] })
+      p1 = new MonomePlusieursVariables(new FractionEtendue(1, 1), {
+        variables: [],
+        exposants: [],
+      })
+      p2 = new MonomePlusieursVariables(new FractionEtendue(1, 1), {
+        variables: [],
+        exposants: [],
+      })
+      pSP1 = new MonomePlusieursVariables(new FractionEtendue(1, 1), {
+        variables: [],
+        exposants: [],
+      })
+      pSP2 = new MonomePlusieursVariables(new FractionEtendue(1, 1), {
+        variables: [],
+        exposants: [],
+      })
       if (this.sup2 === 1) {
         typeofCoeff = ['entier']
       } else if (this.sup2 === 2) {
@@ -74,28 +102,72 @@ export default class nomExercice extends Exercice {
       } else {
         typeofCoeff = typeCoeffListe
       }
-      if (listeDeQuestions[i] === 1 || listeDeQuestions[i] === 2 || listeDeQuestions[i] === 3 || listeDeQuestions[i] === 4) {
-        p1 = MonomePlusieursVariables.createRandomMonome(degMax, choice(typeofCoeff), variablesSelect)
-        p2 = MonomePlusieursVariables.createRandomMonome(0, choice(typeofCoeff), variablesSelect)
-        pSP1 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
+      if (
+        listeDeQuestions[i] === 1 ||
+        listeDeQuestions[i] === 2 ||
+        listeDeQuestions[i] === 3 ||
+        listeDeQuestions[i] === 4
+      ) {
+        p1 = MonomePlusieursVariables.createRandomMonome(
+          degMax,
+          choice(typeofCoeff),
+          variablesSelect,
+        )
+        p2 = MonomePlusieursVariables.createRandomMonome(
+          0,
+          choice(typeofCoeff),
+          variablesSelect,
+        )
+        pSP1 = MonomePlusieursVariables.createRandomMonome(
+          0,
+          'entier',
+          variablesSelect,
+        )
         do {
-          pSP2 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
+          pSP2 = MonomePlusieursVariables.createRandomMonome(
+            0,
+            'entier',
+            variablesSelect,
+          )
         } while (pSP2 === pSP1 || pSP2.oppose() === pSP1)
         p1.coefficient = new FractionEtendue(1, 1)
         if (p2.coefficient.signe < 0) {
           p2 = p2.oppose()
         }
       }
-      if (listeDeQuestions[i] === 5 || listeDeQuestions[i] === 6 || listeDeQuestions[i] === 7 || listeDeQuestions[i] === 8) {
-        p1 = MonomePlusieursVariables.createRandomMonome(randint(0, max(1, degMax)), choice(typeofCoeff), variablesSelect)
+      if (
+        listeDeQuestions[i] === 5 ||
+        listeDeQuestions[i] === 6 ||
+        listeDeQuestions[i] === 7 ||
+        listeDeQuestions[i] === 8
+      ) {
+        p1 = MonomePlusieursVariables.createRandomMonome(
+          randint(0, max(1, degMax)),
+          choice(typeofCoeff),
+          variablesSelect,
+        )
         do {
-          p2 = MonomePlusieursVariables.createRandomMonome(randint(0, max(1, degMax)), choice(typeofCoeff), variablesSelect)
-        }
-        while (p2.estSemblable(p1))
-        pSP1 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
+          p2 = MonomePlusieursVariables.createRandomMonome(
+            randint(0, max(1, degMax)),
+            choice(typeofCoeff),
+            variablesSelect,
+          )
+        } while (p2.estSemblable(p1))
+        pSP1 = MonomePlusieursVariables.createRandomMonome(
+          0,
+          'entier',
+          variablesSelect,
+        )
         do {
-          pSP2 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
-        } while (pSP2.coefficient.num === pSP1.coefficient.num || pSP2.coefficient.num === -pSP1.coefficient.num)
+          pSP2 = MonomePlusieursVariables.createRandomMonome(
+            0,
+            'entier',
+            variablesSelect,
+          )
+        } while (
+          pSP2.coefficient.num === pSP1.coefficient.num ||
+          pSP2.coefficient.num === -pSP1.coefficient.num
+        )
         // if p1 is negative, take its opposite
         if (p1.coefficient.signe < 0) {
           p1 = p1.oppose()
@@ -106,53 +178,57 @@ export default class nomExercice extends Exercice {
       }
       switch (listeDeQuestions[i]) {
         case 1:
-        case 5:
-        {
+        case 5: {
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}+${p2.toString()}\\right)^2$`
           if (listeDeQuestions[i] === 1) {
-            texteCorr = 'L\'expression à développer correspond à la première identité remarquable $\\left(a+b\\right)^2=a^2+2ab+b^2$.<br>'
+            texteCorr =
+              "L'expression à développer correspond à la première identité remarquable $\\left(a+b\\right)^2=a^2+2ab+b^2$.<br>"
           } else {
-            texteCorr = 'L\'expression à développer correspond à la première identité remarquable $\\left(ax+b\\right)^2=a^2x^2+2abx+b^2$.<br>'
+            texteCorr =
+              "L'expression à développer correspond à la première identité remarquable $\\left(ax+b\\right)^2=a^2x^2+2abx+b^2$.<br>"
           }
           texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.carreDuneSomme(p1, p2).toString())}$`
           break
         }
         case 2:
-        case 6:
-        {
+        case 6: {
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}-${p2.toString()}\\right)^2$`
           if (listeDeQuestions[i] === 2) {
-            texteCorr = 'L\'expression à développer correspond à la deuxième identité remarquable $\\left(a-b\\right)^2=a^2-2ab+b^2$.<br>'
+            texteCorr =
+              "L'expression à développer correspond à la deuxième identité remarquable $\\left(a-b\\right)^2=a^2-2ab+b^2$.<br>"
           } else {
-            texteCorr = 'L\'expression à développer correspond à la deuxième identité remarquable $\\left(ax-b\\right)^2=a^2x^2-2abx+b^2$.<br>'
+            texteCorr =
+              "L'expression à développer correspond à la deuxième identité remarquable $\\left(ax-b\\right)^2=a^2x^2-2abx+b^2$.<br>"
           }
           texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.carreDuneDifference(p1, p2).toString())}$`
           break
         }
         case 3:
-        case 7:
-        {
+        case 7: {
           const signe = ['+', '-']
           const choixSigne = randint(0, 1)
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)$`
           if (listeDeQuestions[i] === 3) {
-            texteCorr = 'L\'expression à développer correspond à la troisième identité remarquable $\\left(a-b\\right)(a+b)=a^2-b^2$.<br>'
+            texteCorr =
+              "L'expression à développer correspond à la troisième identité remarquable $\\left(a-b\\right)(a+b)=a^2-b^2$.<br>"
           } else {
-            texteCorr = 'L\'expression à développer correspond à la troisième identité remarquable $\\left(ax-b\\right)(ax+b)=a^2x^2-b^2$.<br>'
+            texteCorr =
+              "L'expression à développer correspond à la troisième identité remarquable $\\left(ax-b\\right)(ax+b)=a^2x^2-b^2$.<br>"
           }
           texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).toString())}$`
           break
         }
         case 4:
-        case 8:
-        {
+        case 8: {
           const signeT1 = pSP1.coefficient.signe < 0 ? '' : '+'
           const signeT2 = pSP2.coefficient.signe < 0 ? '' : '+'
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)$`
           if (listeDeQuestions[i] === 1) {
-            texteCorr = 'L\'expression à développer correspond à la quatrième identité remarquable $\\left(x+a\\right)(x+b)=x^2+(a+b)x+ab$ avec ${}<br>'
+            texteCorr =
+              "L'expression à développer correspond à la quatrième identité remarquable $\\left(x+a\\right)(x+b)=x^2+(a+b)x+ab$ avec ${}<br>"
           } else {
-            texteCorr = 'L\'expression à développer correspond à la quatrième identité remarquable $\\left(ax+b\\right)(ax+c)=a^2x^2+(b+c)ax+cb$.<br>'
+            texteCorr =
+              "L'expression à développer correspond à la quatrième identité remarquable $\\left(ax+b\\right)(ax+c)=a^2x^2+(b+c)ax+cb$.<br>"
           }
           texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).toString())}$`
           break

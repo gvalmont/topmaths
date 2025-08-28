@@ -18,10 +18,10 @@ export const uuid = '665a0'
 export const refs = {
   'fr-fr': ['CM2N3A-8'],
   'fr-2016': ['CM001'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TablesParametres extends TablesDeMultiplications {
-  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+  constructor(tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super(tablesParDefaut)
   }
 }

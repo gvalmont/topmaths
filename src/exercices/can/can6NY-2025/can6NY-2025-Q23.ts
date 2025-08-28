@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '9b8f9'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class TrouverUnPrix extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -27,7 +27,7 @@ export default class TrouverUnPrix extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const P = prenomF()
     const a = randint(11, 19) * 100 + 25
     this.question = `${P} a acheté un scooter électrique coûtant $${texNombre(2025, 0)}$ €.<br> 
@@ -40,7 +40,9 @@ export default class TrouverUnPrix extends ExerciceSimple {
               Ainsi, son dernier versement sera de $${miseEnEvidence(`${texNombre((2025 - a) / 2, 0)}`)}$ €.
                    `
     this.reponse = `${(2025 - a) / 2}`
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ €'
   }

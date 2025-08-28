@@ -18,13 +18,13 @@ export const dateDePublication = '04/05/2024'
 export const uuid = '1f55b'
 export const refs = {
   'fr-fr': ['can2L15'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * @author Gilles Mora
-*/
+ */
 export default class EquationsCarree extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.canOfficielle = false
     this.typeExercice = 'simple'
@@ -32,14 +32,34 @@ export default class EquationsCarree extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse
     const a = randint(1, 12)
-    const o = latex2d('\\text{O}', -0.2, -0.3, { color: 'black', letterSize: 'scriptsize', backgroundColor: '' })
-    const Texte1 = latex2d(`y=${a ** 2}`, 4, 2.7, { color: 'green', letterSize: 'scriptsize', backgroundColor: '' })
-    const Texte2 = latex2d('y=x^2', 3, 4.5, { color: 'blue', letterSize: 'scriptsize', backgroundColor: '' })
-    const Texte3 = latex2d(`-${a}`, -1.73, -0.6, { color: 'red', letterSize: 'scriptsize', backgroundColor: '' })
-    const Texte4 = latex2d(`${a}`, 1.73, -0.6, { color: 'red', letterSize: 'scriptsize', backgroundColor: '' })
+    const o = latex2d('\\text{O}', -0.2, -0.3, {
+      color: 'black',
+      letterSize: 'scriptsize',
+      backgroundColor: '',
+    })
+    const Texte1 = latex2d(`y=${a ** 2}`, 4, 2.7, {
+      color: 'green',
+      letterSize: 'scriptsize',
+      backgroundColor: '',
+    })
+    const Texte2 = latex2d('y=x^2', 3, 4.5, {
+      color: 'blue',
+      letterSize: 'scriptsize',
+      backgroundColor: '',
+    })
+    const Texte3 = latex2d(`-${a}`, -1.73, -0.6, {
+      color: 'red',
+      letterSize: 'scriptsize',
+      backgroundColor: '',
+    })
+    const Texte4 = latex2d(`${a}`, 1.73, -0.6, {
+      color: 'red',
+      letterSize: 'scriptsize',
+      backgroundColor: '',
+    })
     const A = point(1.73, 3)
     const Ax = point(A.x, 0)
     const sAAx = segment(A, Ax)
@@ -49,7 +69,7 @@ export default class EquationsCarree extends ExerciceSimple {
     const f = (x: number): number => x ** 2
     const Cg = droite(point(-6, 3), point(6, 3), '', 'green')
     switch (choice([1, 2])) {
-      case 1:// x^2<k
+      case 1: // x^2<k
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2
@@ -74,32 +94,44 @@ export default class EquationsCarree extends ExerciceSimple {
             xThickListe: [0],
             yThickListe: [0],
             xLabelListe: [-6],
-            yLabelListe: [-6]
-
+            yLabelListe: [-6],
           })
           Cg.epaisseur = 2
-          const graphiqueC = mathalea2d({
-            xmin: -6,
-            xmax: 6,
-            ymin: -1.5,
-            ymax: 5,
-            pixelsParCm: 30,
-            scale: 1
-          }, courbe(f, {
-            repere: r1,
-            color: 'blue',
-            epaisseur: 2
-          }), Cg
-          , r1, o, sAAx, sBBx, sAxBx, Texte1, Texte2, Texte3, Texte4)
+          const graphiqueC = mathalea2d(
+            {
+              xmin: -6,
+              xmax: 6,
+              ymin: -1.5,
+              ymax: 5,
+              pixelsParCm: 30,
+              scale: 1,
+            },
+            courbe(f, {
+              repere: r1,
+              color: 'blue',
+              epaisseur: 2,
+            }),
+            Cg,
+            r1,
+            o,
+            sAAx,
+            sBBx,
+            sAxBx,
+            Texte1,
+            Texte2,
+            Texte3,
+            Texte4,
+          )
           reponse = choix ? `]-${a};${a}[` : `[-${a};${a}]`
           this.question = `Donner l'ensemble $S$ des solutions de  l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a ** 2}$.`
-          this.correction = 'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
+          this.correction =
+            'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
           this.correction += `${graphiqueC}`
           this.correction += `L'ensemble des solutions de l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a ** 2}$ est :
             ${choix ? `$${miseEnEvidence(`]${-a}\\,;\\,${a}[`)}$.` : `$${miseEnEvidence(`[${-a}\\,;\\,${a}]`)}$.`}`
         }
         break
-      case 2:// x^2>k
+      case 2: // x^2>k
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2
@@ -130,27 +162,42 @@ export default class EquationsCarree extends ExerciceSimple {
             xThickListe: [-6],
             yThickListe: [-6],
             xLabelListe: [-6],
-            yLabelListe: [-6]
+            yLabelListe: [-6],
           })
 
           Cg.epaisseur = 2
-          const graphiqueC = mathalea2d({
-            xmin: -5,
-            xmax: 6,
-            ymin: -1.5,
-            ymax: 5.5,
-            pixelsParCm: 30,
-            scale: 1
-          }, courbe(f, {
-            repere: r1,
-            color: 'blue',
-            epaisseur: 2
-          }),
-          Cg
-          , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, Texte1, Texte2, Texte3, Texte4)
-          reponse = choix ? `]-\\infty;${-a}[\\cup]${a};+\\infty[` : `]-\\infty;${-a}]\\cup[${a};+\\infty[`
+          const graphiqueC = mathalea2d(
+            {
+              xmin: -5,
+              xmax: 6,
+              ymin: -1.5,
+              ymax: 5.5,
+              pixelsParCm: 30,
+              scale: 1,
+            },
+            courbe(f, {
+              repere: r1,
+              color: 'blue',
+              epaisseur: 2,
+            }),
+            Cg,
+            r1,
+            o,
+            sAAx,
+            sBBx,
+            sAxAxI,
+            sBxBxI,
+            Texte1,
+            Texte2,
+            Texte3,
+            Texte4,
+          )
+          reponse = choix
+            ? `]-\\infty;${-a}[\\cup]${a};+\\infty[`
+            : `]-\\infty;${-a}]\\cup[${a};+\\infty[`
           this.question = `Donner l'ensemble $S$ des solutions de  l'inéquation : $x^2${choix ? '>' : ' \\geqslant '}${a ** 2}$.`
-          this.correction = 'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
+          this.correction =
+            'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
           this.correction += `${graphiqueC}<br>`
           this.correction += `L'ensemble des solutions de l'inéquation 
         $x^2${choix ? '>' : ' \\geqslant '}${a}$ est : 
@@ -161,14 +208,14 @@ export default class EquationsCarree extends ExerciceSimple {
     this.reponse = {
       reponse: {
         value: reponse,
-        options: { intervalle: true }
-      }
+        options: { intervalle: true },
+      },
     }
     if (this.interactif) {
       this.question += `<br>
   $S=$`
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = '\\hspace{-2.5cm}$S=\\ldots$'
   }
 }

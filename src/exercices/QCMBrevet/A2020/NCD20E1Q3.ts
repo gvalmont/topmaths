@@ -8,13 +8,14 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'b87c3'
 export const refs = {
   'fr-fr': ['3S1QCM-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Médiane d\'une série d\'effectif impair (12/2020 Nouvelle Calédonie)'
+export const titre =
+  "Médiane d'une série d'effectif impair (12/2020 Nouvelle Calédonie)"
 export const dateDePublication = '1/11/2024'
 /**
  *
@@ -26,17 +27,24 @@ export const dateDePublication = '1/11/2024'
 export default class NouvelleCaledonieDec20Exo1Q3 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (valeur : Array<number>, mediane : number, effectif : number): void {
-    const moyenne = round(valeur.reduce((acc, curr) => acc + curr, 0) / valeur.length)
+  private appliquerLesValeurs(
+    valeur: Array<number>,
+    mediane: number,
+    effectif: number,
+  ): void {
+    const moyenne = round(
+      valeur.reduce((acc, curr) => acc + curr, 0) / valeur.length,
+    )
     this.reponses = [
       `$${String(mediane)}$`, // Réponse correcte.
       `$${String(valeur[(effectif - 1) / 2])}$`, // Valeur placée au bon rang mais dans la série non ordonnée.
-      `$${String(moyenne)}$` // moyenne de la série.
+      `$${String(moyenne)}$`, // moyenne de la série.
     ]
 
     this.enonce = 'Le médiane de la série ci-dessous est ... <br>'
     for (let i = 0; i < effectif; i++) {
-      this.enonce += (i === 0) ? `$${String(valeur[i])}$` : `$ ; ${String(valeur[i])}$`
+      this.enonce +=
+        i === 0 ? `$${String(valeur[i])}$` : `$ ; ${String(valeur[i])}$`
     }
     const valeurOrdonnee = valeur.sort(function (a, b) {
       return a - b
@@ -44,7 +52,10 @@ export default class NouvelleCaledonieDec20Exo1Q3 extends ExerciceQcmA {
     this.correction = `Il y a $${String(effectif)}$ valeurs dans la série. C'est un nombre impair.<br>
      Donc la médiane est la $ ${String((effectif + 1) / 2)}^{\\text{e}}$ valeur de la série rangée dans l'ordre croissant.<br>`
     for (let i = 0; i < effectif; i++) {
-      this.correction += (i === 0) ? `$${String(valeurOrdonnee[i])}$` : `$ ; ${String(valeurOrdonnee[i])}$`
+      this.correction +=
+        i === 0
+          ? `$${String(valeurOrdonnee[i])}$`
+          : `$ ; ${String(valeurOrdonnee[i])}$`
     }
     this.correction += `<br>La médiane de cette série est donc : $${miseEnEvidence(`${String(mediane)}`)}$`
   }
@@ -62,7 +73,7 @@ export default class NouvelleCaledonieDec20Exo1Q3 extends ExerciceQcmA {
       const effectif = 2 * randint(0, 4) + 5 // effectif impair compris entre 5 et 13
       const mediane = randint(0, 12) + 8 // médiane entière comprise entre 8 et 20
       const valeur = []
-      for (let i = 0; i < ((effectif - 1) / 2); i++) {
+      for (let i = 0; i < (effectif - 1) / 2; i++) {
         valeur[i] = randint(0, mediane - 2) + 1 // moitié des valeurs, entières et strictement comprises entre 0 et la médiane
         valeur[effectif - i - 1] = randint(1, 5 + effectif) + mediane // moitié des valeurs strictement supérieure à la médiane.
       }
@@ -73,7 +84,7 @@ export default class NouvelleCaledonieDec20Exo1Q3 extends ExerciceQcmA {
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

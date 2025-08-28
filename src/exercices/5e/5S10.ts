@@ -4,10 +4,10 @@ export const interactifReady = false
 export const uuid = '60eb8'
 export const refs = {
   'fr-fr': ['5S10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class OrganiserDonneesDepuisTexte5e extends OrganiserDonneesDepuisTexte {
-  constructor () {
+  constructor() {
     super()
     this.sup = false
     this.sup2 = 4

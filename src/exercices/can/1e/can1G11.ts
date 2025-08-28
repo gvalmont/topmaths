@@ -1,6 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Donner la mesure d\'un angle à partir des cosinus et sinus '
+export const titre =
+  "Donner la mesure d'un angle à partir des cosinus et sinus "
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '02/11/2022'
@@ -15,10 +16,10 @@ export const uuid = '18b46'
 
 export const refs = {
   'fr-fr': ['can1G11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class mesureAngleCosSin extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,11 +27,13 @@ export default class mesureAngleCosSin extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix1 = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]'])
     const choix2 = choice(['a', 'b', 'c', 'd'])
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])) { //
-      case 1:// pi/6
+    switch (
+      choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]) //
+    ) {
+      case 1: // pi/6
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=\\dfrac{\\sqrt{3}}{2}$ et $\\sin(\\alpha)=\\dfrac{1}{2}$. <br>
         
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -38,7 +41,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           $\\dfrac{\\pi}{6}\\in ${choix1}$, donc $\\alpha=\\dfrac{\\pi}{6}$.`
         this.reponse = '\\dfrac{\\pi}{6}'
         break
-      case 2:// pi/4
+      case 2: // pi/4
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=\\dfrac{\\sqrt{2}}{2}$ et $\\sin(\\alpha)=\\dfrac{\\sqrt{2}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -46,7 +49,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           $\\dfrac{\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{\\pi}{4}$.`
         this.reponse = '\\dfrac{\\pi}{4}'
         break
-      case 3:// pi/3
+      case 3: // pi/3
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=\\dfrac{1}{2}$ et $\\sin(\\alpha)=\\dfrac{\\sqrt{3}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -54,7 +57,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           $\\dfrac{\\pi}{3}\\in ${choix1}$, donc $\\alpha=\\dfrac{\\pi}{3}$.`
         this.reponse = '\\dfrac{\\pi}{3}'
         break
-      case 4:// 2pi/3
+      case 4: // 2pi/3
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=\\dfrac{1}{2}$ et $\\sin(\\alpha)=\\dfrac{\\sqrt{3}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -62,7 +65,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           $\\dfrac{2\\pi}{3}\\in ${choix1}$, donc $\\alpha=\\dfrac{2\\pi}{3}$.`
         this.reponse = '\\dfrac{2\\pi}{3}'
         break
-      case 5:// 3pi/4
+      case 5: // 3pi/4
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin(\\alpha)=\\dfrac{\\sqrt{2}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -70,7 +73,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           $\\dfrac{3\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{3\\pi}{4}$.`
         this.reponse = '\\dfrac{3\\pi}{4}'
         break
-      case 6:// 5pi/6
+      case 6: // 5pi/6
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=-\\dfrac{\\sqrt{3}}{2}$ et $\\sin(\\alpha)=\\dfrac{1}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -78,7 +81,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           $\\dfrac{5\\pi}{6}\\in ${choix1}$, donc $\\alpha=\\dfrac{5\\pi}{6}$.`
         this.reponse = '\\dfrac{5\\pi}{6}'
         break
-      case 7:// 7pi/6
+      case 7: // 7pi/6
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=-\\dfrac{\\sqrt{3}}{2}$ et $\\sin(\\alpha)=-\\dfrac{1}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -92,7 +95,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           this.reponse = '-\\dfrac{5\\pi}{6}'
         }
         break
-      case 8:// 5pi/4
+      case 8: // 5pi/4
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin(\\alpha)=-\\dfrac{\\sqrt{2}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -106,7 +109,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           this.reponse = '-\\dfrac{3\\pi}{4}'
         }
         break
-      case 9:// 4pi/3
+      case 9: // 4pi/3
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=-\\dfrac{1}{2}$ et $\\sin(\\alpha)=-\\dfrac{\\sqrt{3}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -120,7 +123,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           this.reponse = '-\\dfrac{2\\pi}{3}'
         }
         break
-      case 10:// 5pi/3
+      case 10: // 5pi/3
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=\\dfrac{1}{2}$ et $\\sin(\\alpha)=-\\dfrac{\\sqrt{3}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -134,7 +137,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           this.reponse = '-\\dfrac{\\pi}{3}'
         }
         break
-      case 11:// 7pi/4
+      case 11: // 7pi/4
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=\\dfrac{\\sqrt{2}}{2}$ et $\\sin(\\alpha)=-\\dfrac{\\sqrt{2}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -148,7 +151,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           this.reponse = '-\\dfrac{\\pi}{4}'
         }
         break
-      case 12:// 11pi/6
+      case 12: // 11pi/6
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=\\dfrac{\\sqrt{3}}{2}$ et $\\sin(\\alpha)=-\\dfrac{1}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
@@ -163,7 +166,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
         }
         break
 
-      case 13:// 0, pi/2, pi, 3pi/2
+      case 13: // 0, pi/2, pi, 3pi/2
         if (choix2 === 'a') {
           this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=1$. <br>
        

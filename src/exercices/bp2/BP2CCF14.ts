@@ -10,7 +10,7 @@ export const uuid = 'cd246'
 
 export const refs = {
   'fr-fr': ['BP2CCF14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceBP2CCF14 extends AppliquerUnPourcentage6N3Q {
   onlyMoney = true

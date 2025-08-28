@@ -4,7 +4,6 @@ export const interactifReady = false
 export const uuid = 'eab10'
 export const refs = {
   'fr-fr': ['2G11-2', 'BP2G22'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class ProblemesThales2nde extends ProblemesThales {
-}
+export default class ProblemesThales2nde extends ProblemesThales {}

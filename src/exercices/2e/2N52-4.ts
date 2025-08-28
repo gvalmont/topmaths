@@ -1,6 +1,9 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions'
+import {
+  texFractionReduite,
+  texFractionSigne,
+} from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -14,17 +17,17 @@ export const titre = 'Résoudre des équations se ramenant au produit-nul'
 
 /**
  * Résoudre des équations se ramenant au produit-nul
-* @author Stéphane Guyon
-* 2N52-4 (ex 2L12-2)
-*/
+ * @author Stéphane Guyon
+ * 2N52-4 (ex 2L12-2)
+ */
 export const uuid = '93432'
 
 export const refs = {
   'fr-fr': ['2N52-4'],
-  'fr-ch': ['11FA10-3']
+  'fr-ch': ['11FA10-3'],
 }
 export default class Equationspresqueproduitnulle extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 3
@@ -34,16 +37,24 @@ export default class Equationspresqueproduitnulle extends Exercice {
     this.correctionDetaillee = true
   }
 
-  nouvelleVersion () {
-    this.consigne = `Résoudre dans $\\mathbb R$ ${this.nbQuestions > 1 ? 'les équations suivantes' : 'l\'équation suivante'} :`
+  nouvelleVersion() {
+    this.consigne = `Résoudre dans $\\mathbb R$ ${this.nbQuestions > 1 ? 'les équations suivantes' : "l'équation suivante"} :`
     if (this.interactif) {
-      this.consigne += "<br>On donnera la réponse sous forme d'un ensemble de solution."
+      this.consigne +=
+        "<br>On donnera la réponse sous forme d'un ensemble de solution."
     }
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     let valeursSolution
 
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       const a = randint(-9, 9, [-1, 0, 1]) // on évite a=1, -1 ou 0
       const b = randint(-9, 9, 0)
@@ -67,7 +78,8 @@ export default class Equationspresqueproduitnulle extends Exercice {
             texteCorr += `$x=${texFractionSigne(-b, a)}$<br>`
             texteCorr += `L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`
           } else {
-            texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
+            texteCorr +=
+              'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
             texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c + e, d + f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d - f, c + e)}$<br>
@@ -90,15 +102,18 @@ export default class Equationspresqueproduitnulle extends Exercice {
             texteCorr += ` $\\phantom{\\iff} (\\underline{${reduireAxPlusB(a, b)}})( ${reduireAxPlusB(c, d)})- (\\underline{${reduireAxPlusB(a, b)})}( ${reduireAxPlusB(e, f)})=0$<br>`
             texteCorr += ` $\\iff (\\underline{${reduireAxPlusB(a, b)}})\\Big(( ${reduireAxPlusB(c, d)})-( ${reduireAxPlusB(e, f)})\\Big)=0$<br>`
           }
-          if (e > 0) texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}${reduireAxPlusB(-e, -f)})=0$<br>`
-          else texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}+${reduireAxPlusB(-e, -f)})=0$<br>`
+          if (e > 0)
+            texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}${reduireAxPlusB(-e, -f)})=0$<br>`
+          else
+            texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}+${reduireAxPlusB(-e, -f)})=0$<br>`
           texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c - e, d - f)})=0$<br>`
           if (c - e === 0) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$<br>`
             texteCorr += `$x=${texFractionSigne(-b, a)}$<br>`
             texteCorr += `L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`
           } else {
-            texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
+            texteCorr +=
+              'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
             texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c - e, d - f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + f, c - e)}$<br>
@@ -120,15 +135,18 @@ export default class Equationspresqueproduitnulle extends Exercice {
             texteCorr += ` $\\phantom{\\iff} (\\underline{${reduireAxPlusB(a, b)}})(${reduireAxPlusB(a, b)})+(\\underline{${reduireAxPlusB(a, b)})}( ${reduireAxPlusB(e, f)})=0$<br>`
             texteCorr += ` $\\iff (\\underline{${reduireAxPlusB(a, b)}})\\Big((${reduireAxPlusB(a, b)})+(${reduireAxPlusB(e, f)})\\Big)=0$<br>`
           }
-          if (e < 0) texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(a, b)})${reduireAxPlusB(e, f)})=0$<br>`
-          else texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(a, b)})+${reduireAxPlusB(e, f)})=0$<br>`
+          if (e < 0)
+            texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(a, b)})${reduireAxPlusB(e, f)})=0$<br>`
+          else
+            texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(a, b)})+${reduireAxPlusB(e, f)})=0$<br>`
           texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(a + e, b + f)})=0$<br>`
           if (a + e === 0) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$<br>`
             texteCorr += `$x=${texFractionSigne(-b, a)}$<br>`
             texteCorr += `L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`
           } else {
-            texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
+            texteCorr +=
+              'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
             texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(a + e, b + f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-b - f, a + e)}$<br>
@@ -150,15 +168,18 @@ export default class Equationspresqueproduitnulle extends Exercice {
             texteCorr += ` $\\phantom{\\iff} (\\underline{${reduireAxPlusB(a, b)}})( ${reduireAxPlusB(c, d)})-(\\underline{${reduireAxPlusB(a, b)})}( ${reduireAxPlusB(a, b)})=0$<br>`
             texteCorr += ` $\\iff (\\underline{${reduireAxPlusB(a, b)}})\\Big(( ${reduireAxPlusB(c, d)})-( ${reduireAxPlusB(a, b)})\\Big)=0$<br>`
           }
-          if (a > 0) texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}${reduireAxPlusB(-a, -b)}))=0$<br>`
-          else texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}+${reduireAxPlusB(-a, -b)}))=0$<br>`
+          if (a > 0)
+            texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}${reduireAxPlusB(-a, -b)}))=0$<br>`
+          else
+            texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c, d)}+${reduireAxPlusB(-a, -b)}))=0$<br>`
           texteCorr += ` $\\iff (${reduireAxPlusB(a, b)})( ${reduireAxPlusB(c - a, d - b)})=0$<br>`
           if (c - a === 0) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$<br>`
             texteCorr += `$x=${texFractionSigne(-b, a)}$<br>`
             texteCorr += `L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`
           } else {
-            texteCorr += 'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
+            texteCorr +=
+              'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
             texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
             texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c - a, d - b)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + b, c - a)}$<br>
@@ -176,7 +197,8 @@ export default class Equationspresqueproduitnulle extends Exercice {
         default:
           {
             texte = `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})$`
-            texteCorr = 'Deux nombres sont égaux si et seulement si leur différence est nulle.<br>'
+            texteCorr =
+              'Deux nombres sont égaux si et seulement si leur différence est nulle.<br>'
             texteCorr += `$\\phantom{\\iff}(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})$<br>`
             texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})-(${reduireAxPlusB(a, b)})(${reduireAxPlusB(e, f)})=0$<br>`
             if (this.correctionDetaillee) {
@@ -194,7 +216,8 @@ export default class Equationspresqueproduitnulle extends Exercice {
         ${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
             texteCorr += `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c - e, d - f)})=0$<br>`
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$ ou $${reduireAxPlusB(c - e, d - f)}=0$<br>`
-            if (this.correctionDetaillee) { // on ajoute les étapes de résolution si la correction détaillée est cochée.
+            if (this.correctionDetaillee) {
+              // on ajoute les étapes de résolution si la correction détaillée est cochée.
               texteCorr += `$\\iff ${reduireAxPlusB(a, 0)}=${-b}$ ou $ ${reduireAxPlusB(c - e, 0)}=${-d + f}$<br>`
             }
             const f1 = fraction(-b, a)
@@ -217,8 +240,8 @@ export default class Equationspresqueproduitnulle extends Exercice {
       handleAnswers(this, i, {
         reponse: {
           value: `\\{${valeursSolution}\\}`,
-          options: { ensembleDeNombres: true }
-        }
+          options: { ensembleDeNombres: true },
+        },
       })
       if (this.questionJamaisPosee(a, b, c, d, e, f)) {
         // Si la question n'a jamais été posée, on en créé une autre

@@ -1,4 +1,8 @@
-import { afficheCoteSegment, codageSegments, texteSurSegment } from '../../../lib/2d/codages'
+import {
+  afficheCoteSegment,
+  codageSegments,
+  texteSurSegment,
+} from '../../../lib/2d/codages'
 import { point } from '../../../lib/2d/points'
 import { polygoneRegulier } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -8,7 +12,11 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { personne, prenom } from '../../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -31,13 +39,14 @@ export const uuid = '32a0f'
 
 export const refs = {
   'fr-fr': ['canc3a'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CourseAuxNombresCM extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Choix des questions',
-  ` Nombres séparés par des tirets :\n1 : Somme d'entiers\n
+    this.besoinFormulaireTexte = [
+      'Choix des questions',
+      ` Nombres séparés par des tirets :\n1 : Somme d'entiers\n
 2 : Différence d'entiers\n
 3 : Somme d'entiers avec retenue\n
 4 : Différence d'entiers avec retenue\n
@@ -67,13 +76,14 @@ export default class CourseAuxNombresCM extends Exercice {
 28 : Durée\n
 29 : Proportionnalité\n
 30 : Addition d'entiers mesures\n
-31 : Mélange`]
+31 : Mélange`,
+    ]
     this.nbQuestions = 30
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, resultat, objets, A, B, C
 
     const listeIndex = gestionnaireFormulaireTexte({
@@ -82,7 +92,7 @@ export default class CourseAuxNombresCM extends Exercice {
       max: 30,
       defaut: 31,
       melange: 31,
-      shuffle: false
+      shuffle: false,
     }).map((index) => index - 1)
 
     const fruits2 = [
@@ -93,9 +103,10 @@ export default class CourseAuxNombresCM extends Exercice {
       ['framboises', 10.5, 1, 5],
       ['fraises', 7.5, 5, 10],
       ['citrons', 1.8, 15, 30],
-      ['bananes', 1.7, 15, 25]
+      ['bananes', 1.7, 15, 25],
     ]
-    const typeQuestionsDisponibles = [ // Les dix premières sont identiques dans le fichier betaCaNCM2
+    const typeQuestionsDisponibles = [
+      // Les dix premières sont identiques dans le fichier betaCaNCM2
       'q1', // Somme d'entiers
       'q2', // Différence d'entiers
       'q3', // Somme d'entiers avec retenue
@@ -125,14 +136,20 @@ export default class CourseAuxNombresCM extends Exercice {
       'q27', // Soustraction entiers mesures
       'q28', // Durée
       'q29', // Proportionnalité
-      'q30' // Addition d'entiers mesures
+      'q30', // Addition d'entiers mesures
     ]
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
       // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
       // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
       // texNombre(expression) fait les deux choses ci-dessus.
-      switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        typeQuestionsDisponibles[listeIndex[i]] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'q1': // somme d'entiers à deux chiffres sans retenue
           a = randint(1, 3) * 10 + randint(1, 5)
           b = randint(1, 5) * 10 + randint(1, 4)
@@ -149,14 +166,14 @@ export default class CourseAuxNombresCM extends Exercice {
           break
         case 'q3': // somme d'entiers à deux chiffres avec retenue
           a = randint(1, 3) * 10 + randint(5, 9)
-          b = randint(1, 5) * 10 + randint(11 - a % 10, 9)
+          b = randint(1, 5) * 10 + randint(11 - (a % 10), 9)
           texte = `$${a}+${b}$`
           texteCorr = `$${a}+${b}=${a + b}$`
           setReponse(this, i, a + b, { formatInteractif: 'calcul' })
           break
         case 'q4': // difference avec retenue
           a = randint(1, 3) * 10 + randint(5, 9)
-          b = randint(1, 5) * 10 + randint(11 - a % 10, 9)
+          b = randint(1, 5) * 10 + randint(11 - (a % 10), 9)
           texte = `$${a + b}-${a}$`
           texteCorr = `$${a + b}-${a}=${b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
@@ -205,7 +222,7 @@ export default class CourseAuxNombresCM extends Exercice {
           texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
-        case 'q11' : // Divisions d'entiers
+        case 'q11': // Divisions d'entiers
           a = choice([2, 3, 4, 5])
           b = randint(3, 9)
           c = prenom()
@@ -213,16 +230,18 @@ export default class CourseAuxNombresCM extends Exercice {
           texteCorr = `L'âge de ${c} est : $${arrondi(a * b)} \\div ${a}=${b}$ ans.`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
-        case 'q12' : // Addition d'entiers
+        case 'q12': // Addition d'entiers
           a = randint(1, 2) * 10 + randint(1, 9)
           b = randint(1, 2) * 10 + randint(1, 5)
           c = randint(1, 2) * 10 + randint(1, 9)
           d = personne()
           texte = `${d.prenom} participe à une course par étapes. La première étape fait $${a}$ km, la deuxième fait $${b}$ km et la dernière fait $${c}$ km.<br>Combien de kilomètres ${d.prenom} a-t-${d.pronom} parcourus ?`
           texteCorr = `${d.prenom} a parcouru : $${a} + ${b} + ${c} = ${a + b + c}$ km.`
-          setReponse(this, i, arrondi(a + b + c), { formatInteractif: 'calcul' })
+          setReponse(this, i, arrondi(a + b + c), {
+            formatInteractif: 'calcul',
+          })
           break
-        case 'q13' : // Différence d'entiers
+        case 'q13': // Différence d'entiers
           a = randint(11, 19)
           b = randint(3, 8)
           c = arrondi(a - b)
@@ -239,7 +258,7 @@ export default class CourseAuxNombresCM extends Exercice {
           }
           setReponse(this, i, arrondi(a - b), { formatInteractif: 'calcul' })
           break
-        case 'q14' : // Produit d'entiers
+        case 'q14': // Produit d'entiers
           a = randint(2, 6)
           b = randint(7, 12)
           d = personne()
@@ -283,14 +302,16 @@ export default class CourseAuxNombresCM extends Exercice {
           }
           setReponse(this, i, arrondi(a + b), { formatInteractif: 'calcul' })
           break
-        case 'q17' : // fait numérique table de multiplication
+        case 'q17': // fait numérique table de multiplication
           a = randint(2, 9)
           b = randint(5, 9)
           switch (randint(1, 3)) {
             case 1:
               texte = `$${a} \\times ${b}$`
               texteCorr = `$${a} \\times ${b}=${arrondi(a * b)}$`
-              setReponse(this, i, arrondi(a * b), { formatInteractif: 'calcul' })
+              setReponse(this, i, arrondi(a * b), {
+                formatInteractif: 'calcul',
+              })
               break
             case 2:
               texte = `$${a} \\times \\ldots = ${arrondi(a * b)}$`
@@ -304,7 +325,7 @@ export default class CourseAuxNombresCM extends Exercice {
               break
           }
           break
-        case 'q18' : // fait numérique multiplication par 4
+        case 'q18': // fait numérique multiplication par 4
           a = randint(6, 19)
           switch (randint(1, 3)) {
             case 1:
@@ -341,19 +362,33 @@ export default class CourseAuxNombresCM extends Exercice {
               objets = []
               objets[0] = segment(A, B)
               objets[0].styleExtremites = '|-|'
-              objets[1] = texteSurSegment(`${stringNombre(c)}`, B, A, 'black', -0.5)
+              objets[1] = texteSurSegment(
+                `${stringNombre(c)}`,
+                B,
+                A,
+                'black',
+                -0.5,
+              )
               objets[2] = segment(A, C)
               objets[2].styleExtremites = '|-|'
-              objets[3] = afficheCoteSegment(segment(A, C), `${stringNombre(a)}`, -1, 'blue')
+              objets[3] = afficheCoteSegment(
+                segment(A, C),
+                `${stringNombre(a)}`,
+                -1,
+                'blue',
+              )
               objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
-              texte = mathalea2d({
-                xmin: -0.1,
-                xmax: 5.1,
-                ymin: -1.5,
-                ymax: 1.5,
-                pixelsParCm: 20,
-                scale: 1
-              }, objets)
+              texte = mathalea2d(
+                {
+                  xmin: -0.1,
+                  xmax: 5.1,
+                  ymin: -1.5,
+                  ymax: 1.5,
+                  pixelsParCm: 20,
+                  scale: 1,
+                },
+                objets,
+              )
               texteCorr = `$${texNombre(c)} - ${texNombre(a)}=${texNombre(b)}$`
               break
           }
@@ -382,29 +417,44 @@ export default class CourseAuxNombresCM extends Exercice {
               objets[1] = afficheCoteSegment(objets[0], '?', 0.5, 'red')
               objets[2] = segment(A, C)
               objets[2].styleExtremites = '|-|'
-              objets[3] = afficheCoteSegment(objets[2], `${stringNombre(a)}`, -1, 'blue')
-              objets[4] = afficheCoteSegment(segment(C, B), `${stringNombre(b)}`, -1, 'green')
-              texte = mathalea2d({
-                xmin: -0.1,
-                xmax: 5.1,
-                ymin: -1.5,
-                ymax: 1.5,
-                pixelsParCm: 20,
-                scale: 1
-              }, objets)
+              objets[3] = afficheCoteSegment(
+                objets[2],
+                `${stringNombre(a)}`,
+                -1,
+                'blue',
+              )
+              objets[4] = afficheCoteSegment(
+                segment(C, B),
+                `${stringNombre(b)}`,
+                -1,
+                'green',
+              )
+              texte = mathalea2d(
+                {
+                  xmin: -0.1,
+                  xmax: 5.1,
+                  ymin: -1.5,
+                  ymax: 1.5,
+                  pixelsParCm: 20,
+                  scale: 1,
+                },
+                objets,
+              )
               texteCorr = `$${miseEnEvidence(texNombre(a))} + ${texNombre(b)}=${texNombre(c)}$`
               break
           }
           setReponse(this, i, c, { formatInteractif: 'calcul' })
           break
-        case 'q21' : // fait numérique multiplication par 8
+        case 'q21': // fait numérique multiplication par 8
           a = randint(4, 15)
           switch (randint(1, 3)) {
             case 1:
               texte = choice([`$${a} \\times 8$`, `$8 \\times ${a}$`])
               texteCorr = `$${a} \\times 8=${arrondi(a * 8)}$`
 
-              setReponse(this, i, arrondi(a * 8), { formatInteractif: 'calcul' })
+              setReponse(this, i, arrondi(a * 8), {
+                formatInteractif: 'calcul',
+              })
               break
             case 2:
               texte = `$\\ldots \\times 8=${arrondi(a * 8)}$`
@@ -414,7 +464,9 @@ export default class CourseAuxNombresCM extends Exercice {
             case 3:
               texte = `Le quadruple du double de $${a}$`
               texteCorr = `$${a} \\times 4=${arrondi(a * 4)}$`
-              setReponse(this, i, arrondi(a * 4), { formatInteractif: 'calcul' })
+              setReponse(this, i, arrondi(a * 4), {
+                formatInteractif: 'calcul',
+              })
               break
           }
           break
@@ -435,14 +487,17 @@ export default class CourseAuxNombresCM extends Exercice {
               objets[1] = texteSurSegment(`${stringNombre(a)} cm`, B, A)
               objets[2] = codageSegments('//', 'red', C.listePoints)
               texte = 'Quel est le périmètre de ce polygone ?<br>'
-              texte += mathalea2d({
-                xmin: -2.5,
-                xmax: 3,
-                ymin: -1,
-                ymax: 5,
-                pixelsParCm: 20,
-                scale: 0.8
-              }, objets)
+              texte += mathalea2d(
+                {
+                  xmin: -2.5,
+                  xmax: 3,
+                  ymin: -1,
+                  ymax: 5,
+                  pixelsParCm: 20,
+                  scale: 0.8,
+                },
+                objets,
+              )
               texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}$ cm $=${texNombre(a * b)}$ cm.`
               break
             case 2:
@@ -462,13 +517,18 @@ export default class CourseAuxNombresCM extends Exercice {
           }
           setReponse(this, i, arrondi(a * b), { formatInteractif: 'calcul' })
           break
-        case 'q23' : // multiplication par 20
+        case 'q23': // multiplication par 20
           a = arrondi(randint(1, 9) + randint(1, 5) / 10)
           switch (randint(1, 2)) {
             case 1:
-              texte = choice([`$${texNombre(a)} \\times 20$`, `$20 \\times ${texNombre(a)}$`])
+              texte = choice([
+                `$${texNombre(a)} \\times 20$`,
+                `$20 \\times ${texNombre(a)}$`,
+              ])
               texteCorr = `$${texNombre(a)} \\times 20=${texNombre(a * 20)}$`
-              setReponse(this, i, arrondi(a * 20), { formatInteractif: 'calcul' })
+              setReponse(this, i, arrondi(a * 20), {
+                formatInteractif: 'calcul',
+              })
               break
             case 2:
               texte = `$\\ldots \\times 20=${texNombre(a * 20)}$`
@@ -484,9 +544,11 @@ export default class CourseAuxNombresCM extends Exercice {
           d = randint(2, 5)
           texte = `$${c}$ kg de ${fruits2[a][0]} coûtent $${texNombre(c * b)}$ €, combien coûtent $${c * d}$ kg de ${fruits2[a][0]} ?`
           texteCorr = `$${c * d}$ kg de ${fruits2[a][0]} coûtent : $${texNombre(c * b)} \\times ${d} = ${texPrix(c * b * d)}$ €.`
-          setReponse(this, i, arrondi(c * d * b), { formatInteractif: 'calcul' })
+          setReponse(this, i, arrondi(c * d * b), {
+            formatInteractif: 'calcul',
+          })
           break
-        case 'q25' : // quotient par 4
+        case 'q25': // quotient par 4
           a = randint(4, 15)
           switch (randint(1, 3)) {
             case 1:
@@ -504,7 +566,7 @@ export default class CourseAuxNombresCM extends Exercice {
           }
           setReponse(this, i, a, { formatInteractif: 'calcul' })
           break
-        case 'q26' : // double d'entiers
+        case 'q26': // double d'entiers
           a = randint(11, 99)
           switch (randint(1, 3)) {
             case 1:
@@ -537,14 +599,17 @@ export default class CourseAuxNombresCM extends Exercice {
           objets[2].styleExtremites = '|-|'
           objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
           objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
-          texte = mathalea2d({
-            xmin: -0.1,
-            xmax: 5.1,
-            ymin: -1.5,
-            ymax: 1.5,
-            pixelsParCm: 20,
-            scale: 1
-          }, objets)
+          texte = mathalea2d(
+            {
+              xmin: -0.1,
+              xmax: 5.1,
+              ymin: -1.5,
+              ymax: 1.5,
+              pixelsParCm: 20,
+              scale: 1,
+            },
+            objets,
+          )
           texteCorr = `$${miseEnEvidence(c)} - ${a}=${b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
@@ -552,7 +617,7 @@ export default class CourseAuxNombresCM extends Exercice {
           a = randint(17, 21) // heure pleine de début
           b = randint(5, 6) * 5 // minutes de début
           c = randint(17, 23) * 5 // durée en minutes
-          d = a + ((b + c) / 60 >> 0) // heure pleine de fin
+          d = a + (((b + c) / 60) >> 0) // heure pleine de fin
           resultat = arrondi((b + c) % 60) // minutes de fin
           if (resultat !== 0) {
             if (resultat !== 5) {
@@ -563,14 +628,18 @@ export default class CourseAuxNombresCM extends Exercice {
           } else {
             texte = `Le film a commencé à $${a}$ h $${b}$. Il s'est terminé à $${d}$ h.<br> Combien de minutes a-t-il duré ?`
           }
-          texteCorr = `Le film a duré $${arrondi(c / 60 >> 0)}$ h $${c % 60}$ min soit $${c}$ minutes.`
+          texteCorr = `Le film a duré $${arrondi((c / 60) >> 0)}$ h $${c % 60}$ min soit $${c}$ minutes.`
           setReponse(this, i, c, { formatInteractif: 'calcul' })
           break
         case 'q29': // proportionnalité
           a = choice([2, 3, 4, 5]) // choix du coefficient
           b = randint(3, 10) // donnée 1
           c = randint(2, 10, b) // donnée 2
-          d = choice([['un train électrique', 'il', 'ce train électrique'], ['une voiture électrique', 'elle', 'cette voiture électrique'], ['un manège', 'il', 'ce manège']])
+          d = choice([
+            ['un train électrique', 'il', 'ce train électrique'],
+            ['une voiture électrique', 'elle', 'cette voiture électrique'],
+            ['un manège', 'il', 'ce manège'],
+          ])
           texte = `En $${a * b}$ minutes, ${d[0]} fait $${a * c}$ tours.<br>En $${b}$ minutes ${d[1]} fait \\ldots tours.`
           texteCorr = `En $${a}$ fois moins de temps, ${d[2]} fait $${a}$ fois moins de tours, soit : $${a * c}$ tours $\\div ${a}=${c}$ tours.`
           setReponse(this, i, c, { formatInteractif: 'calcul' })
@@ -590,21 +659,32 @@ export default class CourseAuxNombresCM extends Exercice {
           objets[2].styleExtremites = '|-|'
           objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
           objets[4] = afficheCoteSegment(segment(C, B), b, -1, 'green')
-          texte = mathalea2d({
-            xmin: -0.1,
-            xmax: 5.1,
-            ymin: -1.5,
-            ymax: 1.5,
-            pixelsParCm: 20,
-            scale: 1
-          }, objets)
+          texte = mathalea2d(
+            {
+              xmin: -0.1,
+              xmax: 5.1,
+              ymin: -1.5,
+              ymax: 1.5,
+              pixelsParCm: 20,
+              scale: 1,
+            },
+            objets,
+          )
           texteCorr = `$${a} + ${b}=${c}$`
           setReponse(this, i, c, { formatInteractif: 'calcul' })
           break
       }
 
       texte += ajouteChampTexteMathLive(this, i)
-      if (this.questionJamaisPosee(i, typeQuestionsDisponibles[listeIndex[i]], a, b, c)) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          typeQuestionsDisponibles[listeIndex[i]],
+          a,
+          b,
+          c,
+        )
+      ) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

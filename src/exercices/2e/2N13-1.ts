@@ -6,10 +6,10 @@ export const dateDeModifImportante = '27/10/2021'
 export const uuid = 'bba9b'
 export const refs = {
   'fr-fr': ['2N13-1', 'BP2AutoS1'],
-  'fr-ch': ['10NO3-7']
+  'fr-ch': ['10NO3-7'],
 }
 export default class ArrondirUneValeur2nde extends ArrondirUneValeur6e {
-  constructor () {
+  constructor() {
     super()
     this.sup = 5
   }

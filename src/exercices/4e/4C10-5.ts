@@ -2,22 +2,23 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-export const titre = 'Multiplications de deux entiers relatifs dans un tableau à double entrée'
+export const titre =
+  'Multiplications de deux entiers relatifs dans un tableau à double entrée'
 
 /**
-* Effectuer des multiplications de relatifs dans un tableau à double entrée
-*
-* @author Rémi Angot
-* 4C10-5
-*/
+ * Effectuer des multiplications de relatifs dans un tableau à double entrée
+ *
+ * @author Rémi Angot
+ * 4C10-5
+ */
 export const uuid = 'c8f4b'
 
 export const refs = {
   'fr-fr': ['4C10-5'],
-  'fr-ch': ['10NO4-7']
+  'fr-ch': ['10NO4-7'],
 }
 export default class ExerciceTableauMultiplicationsRelatifs extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = false
@@ -28,7 +29,7 @@ export default class ExerciceTableauMultiplicationsRelatifs extends Exercice {
     this.nbQuestionsModifiable = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeSignes1 = combinaisonListes([-1, 1], 4)
     let a1 = randint(2, 9)
     let a2 = randint(2, 9, a1)

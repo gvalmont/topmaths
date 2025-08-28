@@ -12,7 +12,7 @@ import Exercice from '../Exercice'
 
 export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '03/05/2024'
-export const titre = 'Placer des points d\'abscisses fractionnaires'
+export const titre = "Placer des points d'abscisses fractionnaires"
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -26,24 +26,28 @@ export const uuid = '2ba53'
 export const refs = {
   'fr-fr': ['CM2N2E-2'],
   'fr-2016': ['6N21'],
-  'fr-ch': ['9NO11-4']
+  'fr-ch': ['9NO11-4'],
 }
 
-type goodAnswer = { label: string, x: number }[]
+type goodAnswer = { label: string; x: number }[]
 
 class PlacerPointsAbscissesFractionnaires extends Exercice {
   goodAnswers!: goodAnswer[]
   figuresApiGeom!: Figure[]
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 5
     this.sup = 1
     this.exoCustomResultat = true
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.figuresApiGeom = []
     this.goodAnswers = []
     let typeDeQuestions
@@ -54,10 +58,10 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     }
     const fractionsUtilisees: Array<[number, number]> = [] // Pour s'assurer de ne pas poser 2 fois la même question
     const tableUtilisées: [number[], number[], number[]] = [[], [], []]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      let origine, num, den : number
+      let origine, num, den: number
       const scale = 2
       switch (typeDeQuestions[i]) {
         case 1: // Placer des demis aux quarts sur un axe
@@ -83,7 +87,11 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
       }
 
       const num2 = randint(origine * den + 1, (origine + 4) * den, [num, den])
-      const num3 = randint(origine * den + 1, (origine + 4) * den, [num, num2, den])
+      const num3 = randint(origine * den + 1, (origine + 4) * den, [
+        num,
+        num2,
+        den,
+      ])
 
       const label1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
       const label2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
@@ -92,22 +100,60 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
       this.goodAnswers[i] = [
         { label: label1, x: arrondi(num / den, 4) },
         { label: label2, x: arrondi(num2 / den, 4) },
-        { label: label3, x: arrondi(num3 / den, 4) }
+        { label: label3, x: arrondi(num3 / den, 4) },
       ]
 
       texte = `Placer les points $${label1}\\left(${fraction(num, den).texFraction}\\right)$, $~${label2}\\left(${fraction(num2, den).texFraction}\\right)$ et $~${label3}\\left(${fraction(num3, den).texFraction}\\right)$.`
-      const { figure, latex } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: 1 / den })
+      const { figure, latex } = apigeomGraduatedLine({
+        xMin: origine,
+        xMax: origine + 4,
+        scale,
+        stepBis: 1 / den,
+      })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
       this.figuresApiGeom[i] = figure
-      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: arrondi(1 / den, 6), points: this.goodAnswers[i] })
-      figureCorr.create('Point', { label: label1, x: arrondi(num / den, 4), color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
-      figureCorr.create('Point', { label: label2, x: arrondi(num2 / den, 4), color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
-      figureCorr.create('Point', { label: label3, x: arrondi(num3 / den, 4), color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
+      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({
+        xMin: origine,
+        xMax: origine + 4,
+        scale,
+        stepBis: arrondi(1 / den, 6),
+        points: this.goodAnswers[i],
+      })
+      figureCorr.create('Point', {
+        label: label1,
+        x: arrondi(num / den, 4),
+        color: orangeMathalea,
+        colorLabel: orangeMathalea,
+        shape: 'x',
+        labelDxInPixels: 0,
+      })
+      figureCorr.create('Point', {
+        label: label2,
+        x: arrondi(num2 / den, 4),
+        color: orangeMathalea,
+        colorLabel: orangeMathalea,
+        labelDxInPixels: 0,
+      })
+      figureCorr.create('Point', {
+        label: label3,
+        x: arrondi(num3 / den, 4),
+        color: orangeMathalea,
+        colorLabel: orangeMathalea,
+        labelDxInPixels: 0,
+      })
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, i, idAddendum: refs['fr-fr'][0], figure, defaultAction: 'POINT' })
+          texte +=
+            '<br>' +
+            figureApigeom({
+              exercice: this as Exercice,
+              i,
+              idAddendum: refs['fr-fr'][0],
+              figure,
+              defaultAction: 'POINT',
+            })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -133,11 +179,11 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
                   texte: texteCorr,
                   statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                   enonce: texte,
-                  sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }
-          ]
+                  sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                },
+              ],
+            },
+          ],
         }
       }
       if (!isArrayInArray(fractionsUtilisees, [num, den])) {
@@ -166,11 +212,18 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
     const goodAnswer = this.goodAnswers[i]
-    const divFeedback = document.querySelector(`#feedback${`Ex${this.numeroExercice}Q${i}`}`)
+    const divFeedback = document.querySelector(
+      `#feedback${`Ex${this.numeroExercice}Q${i}`}`,
+    )
     for (let j = 0; j < goodAnswer.length; j++) {
       const label = goodAnswer[j].label
       const x = goodAnswer[j].x
-      const { isValid, points } = figure.checkCoords({ checkOnlyAbscissa: true, label, x, y: 0 })
+      const { isValid, points } = figure.checkCoords({
+        checkOnlyAbscissa: true,
+        label,
+        x,
+        y: 0,
+      })
       const point = points[0]
       if (isValid) {
         result.push('OK')
@@ -206,7 +259,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
  * @param {array} item
  * @returns {boolean}
  */
-function isArrayInArray (arr: Array<[number, number]>, item: [number, number]) {
+function isArrayInArray(arr: Array<[number, number]>, item: [number, number]) {
   const itemAsString = JSON.stringify(item)
   const contains = arr.some(function (ele) {
     return JSON.stringify(ele) === itemAsString
@@ -214,17 +267,33 @@ function isArrayInArray (arr: Array<[number, number]>, item: [number, number]) {
   return contains
 }
 
-function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points, step = 1, stepBis = 0.25 }: {
-  xMin: number,
-  xMax: number,
-  scale?: number,
-  step?: number,
-  stepBis?: number,
-  points?: Array<{ x: number, label: string }>
-}): { figure: Figure, latex: string } {
+function apigeomGraduatedLine({
+  xMin,
+  xMax,
+  scale = 1,
+  points,
+  step = 1,
+  stepBis = 0.25,
+}: {
+  xMin: number
+  xMax: number
+  scale?: number
+  step?: number
+  stepBis?: number
+  points?: Array<{ x: number; label: string }>
+}): { figure: Figure; latex: string } {
   const width = 750
   const height = 80
-  const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: stepBis, xScale: 3 * scale, snapGrid: true })
+  const figure = new Figure({
+    xMin: xMin - 0.2 / scale,
+    yMin: -1.5,
+    width,
+    height,
+    dy: 10,
+    dx: stepBis,
+    xScale: 3 * scale,
+    snapGrid: true,
+  })
   figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
 
   const d = new GraduatedLine(figure, { min: xMin, max: xMax, step, stepBis })

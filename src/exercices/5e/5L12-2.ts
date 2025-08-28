@@ -5,14 +5,15 @@ import Exercice from '../Exercice'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint
+  randint,
 } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 
-export const titre = 'Réduire et simplifier une expression littérale (somme et produit)'
+export const titre =
+  'Réduire et simplifier une expression littérale (somme et produit)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -40,15 +41,16 @@ export const uuid = 'a8ad0'
 
 export const refs = {
   'fr-fr': ['5L12-2', 'BP2AutoI14'],
-  'fr-ch': ['10FA1-10']
+  'fr-ch': ['10FA1-10'],
 }
 export default class ReduireUneExpressionLitterale extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
     this.besoinFormulaire3Texte = [
-      'Type de questions ', [
+      'Type de questions ',
+      [
         'Nombres séparés par des tirets  :',
         '1 : ax+bx+c',
         '2 : ax+b+x+c',
@@ -59,8 +61,8 @@ export default class ReduireUneExpressionLitterale extends Exercice {
         '7 : ax+c',
         '8 : ax × b',
         '9 : ax+bx',
-        '10 : Mélange'
-      ].join('\n')
+        '10 : Mélange',
+      ].join('\n'),
     ]
     this.nbQuestions = 5
 
@@ -69,28 +71,41 @@ export default class ReduireUneExpressionLitterale extends Exercice {
     this.sup3 = '6-7-8-9' // Type de question
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1 ? 'Réduire et simplifier l\'expression suivante' : 'Réduire et simplifier les expressions suivantes'
-    this.consigne += ', si c\'est possible.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? "Réduire et simplifier l'expression suivante"
+        : 'Réduire et simplifier les expressions suivantes'
+    this.consigne += ", si c'est possible."
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       max: 9,
       defaut: 10,
       melange: 10,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     const variables = ['x', 'y', 'z', 'a', 'b', 'c']
 
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, reponse, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let a, b, c, d
       const choixLettre = randint(0, variables.length - 1)
       const inc = variables[choixLettre]
       const inc2 = variables[randint(0, variables.length - 1, choixLettre)]
       if (this.sup2) {
         a = randint(2, this.sup) + randint(1, 9) / 10
-        b = choice([randint(2, 9) + randint(1, 9) / 10, randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100])
+        b = choice([
+          randint(2, 9) + randint(1, 9) / 10,
+          randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100,
+        ])
         c = randint(2, this.sup) + randint(1, 9) / 10
-        d = choice([randint(2, 9) + randint(1, 9) / 10, randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100])
+        d = choice([
+          randint(2, 9) + randint(1, 9) / 10,
+          randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100,
+        ])
       } else {
         a = randint(2, this.sup)
         b = randint(2, this.sup)
@@ -152,23 +167,29 @@ export default class ReduireUneExpressionLitterale extends Exercice {
       */
       texteCorr += `=${miseEnEvidence(reponse)}$`
       handleAnswers(this, i, { reponse: { value: reponse } })
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: sp() + '= ' })
-      if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      texte += ajouteChampTexteMathLive(this, i, ' ', {
+        texteAvant: sp() + '= ',
+      })
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: 'Réduire l\'expression ' + texte + '. Si ce n\'est pas possible, recopier juste l\'expression.<br>',
+            enonce:
+              "Réduire l'expression " +
+              texte +
+              ". Si ce n'est pas possible, recopier juste l'expression.<br>",
             propositions: [
               {
                 texte: texteCorr,
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
                 // @ts-expect-error
-                pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
-              }
-            ]
+                pointilles: false, // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              },
+            ],
           }
         }
         i++

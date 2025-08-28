@@ -9,7 +9,7 @@ export default class KatexSandbox {
   // titre: string
   container: HTMLDivElement
 
-  constructor () {
+  constructor() {
     this.typeExercice = 'html'
 
     this.container = document.createElement('div')
@@ -28,7 +28,8 @@ export default class KatexSandbox {
     renduKatexDiv.id = 'rendu-katex'
     this.container.appendChild(renduKatexDiv)
     this.container.querySelector('#rendre')!.textContent = 'Valider'
-    this.container.querySelector('#rendu-katex')!.textContent = 'Le rendu s\'affichera ici :'
+    this.container.querySelector('#rendu-katex')!.textContent =
+      "Le rendu s'affichera ici :"
     const katexZone = document.createElement('div')
     katexZone.id = 'KatexZone'
     katexZone.style.display = 'block'
@@ -40,14 +41,17 @@ export default class KatexSandbox {
       renduKatex.appendChild(katexZone)
     }
 
-    (this.container.querySelector('#rendre') as HTMLButtonElement)!.onclick = () => {
-      const stringLatex = (this.container.querySelector('#latex') as HTMLTextAreaElement)!.value
-      const htmlKatex = katex.renderToString(`${stringLatex}`)
-      this.container.querySelector('#KatexZone')!.innerHTML = htmlKatex
-    }
+    ;(this.container.querySelector('#rendre') as HTMLButtonElement)!.onclick =
+      () => {
+        const stringLatex = (this.container.querySelector(
+          '#latex',
+        ) as HTMLTextAreaElement)!.value
+        const htmlKatex = katex.renderToString(`${stringLatex}`)
+        this.container.querySelector('#KatexZone')!.innerHTML = htmlKatex
+      }
   }
 
-  get html () {
+  get html() {
     return this.container
   }
 }

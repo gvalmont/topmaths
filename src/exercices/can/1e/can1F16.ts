@@ -1,14 +1,19 @@
 import { courbe } from '../../../lib/2d/courbes'
 import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { deuxColonnesResp } from '../../../lib/format/miseEnPage'
 import RepereBuilder from '../../../lib/2d/RepereBuilder'
 
-export const titre = 'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
+export const titre =
+  'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -25,29 +30,33 @@ export const uuid = '6f32d'
 
 export const refs = {
   'fr-fr': ['can1F16'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LectureGraphiqueTangente extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    let f, F, nbre, alpha:number, beta:number
-    switch (choice([1, 2])) { //, 2
-      case 1:// second degré (x-alpha)^2+beta
+  nouvelleVersion() {
+    let f, F, nbre, alpha: number, beta: number
+    switch (
+      choice([1, 2]) //, 2
+    ) {
+      case 1: // second degré (x-alpha)^2+beta
         {
           if (choice([true, false])) {
             nbre = randint(0, 3)
             alpha = randint(0, 2)
             beta = randint(-2, 2)
-            f = function (x:number) { // fonction dérivée
+            f = function (x: number) {
+              // fonction dérivée
               return 2 * x - 2 * alpha
             }
-            F = function (x:number) { // fonction
+            F = function (x: number) {
+              // fonction
               return (x - alpha) ** 2 + beta
             }
             while (f(nbre) === 0) {
@@ -59,10 +68,12 @@ export default class LectureGraphiqueTangente extends ExerciceSimple {
             nbre = randint(-2, 1)
             alpha = randint(-2, 0)
             beta = randint(-2, 2)
-            f = function (x:number) { // fonction dérivée
+            f = function (x: number) {
+              // fonction dérivée
               return 2 * x - 2 * alpha
             }
-            F = function (x:number) { // fonction
+            F = function (x: number) {
+              // fonction
               return (x - alpha) ** 2 + beta
             }
             while (f(nbre) === 0) {
@@ -74,13 +85,24 @@ export default class LectureGraphiqueTangente extends ExerciceSimple {
 
           const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
-          const r1 = new RepereBuilder({ xMin: -3, xMax: 3, yMin: -3, yMax: 12 })
+          const r1 = new RepereBuilder({
+            xMin: -3,
+            xMax: 3,
+            yMin: -3,
+            yMax: 12,
+          })
             .setUniteX(1.5)
             .setUniteY(1.5)
             .setLabelX({ xMin: -3, xMax: 3, dx: 3 })
             .setLabelY({ yMin: -3, yMax: 11, dy: 3 })
-            .setGrille({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 1, yMin: -3, yMax: 12 } })
-            .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 0.5, yMin: -3, yMax: 12, style: undefined } })
+            .setGrille({
+              grilleX: { dx: 1, xMin: -3, xMax: 3 },
+              grilleY: { dy: 1, yMin: -3, yMax: 12 },
+            })
+            .setGrilleSecondaire({
+              grilleX: { dx: 1, xMin: -3, xMax: 3 },
+              grilleY: { dy: 0.5, yMin: -3, yMax: 12, style: undefined },
+            })
             .setThickX({ xMin: -3, xMax: 3, dx: 1.5 })
             .setThickY({ yMin: -3, yMax: 12, dy: 1.5 })
             .buildStandard()
@@ -90,22 +112,66 @@ export default class LectureGraphiqueTangente extends ExerciceSimple {
             .setUniteY(1.5)
             .setLabelX({ xMin: -3, xMax: 3, dx: 3 })
             .setLabelY({ yMin: -3, yMax: 12, dy: 3 })
-            .setGrille({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 1, yMin: -5, yMax: 8 } })
-            .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 0.5, yMin: -5, yMax: 8, style: undefined } })
+            .setGrille({
+              grilleX: { dx: 1, xMin: -3, xMax: 3 },
+              grilleY: { dy: 1, yMin: -5, yMax: 8 },
+            })
+            .setGrilleSecondaire({
+              grilleX: { dx: 1, xMin: -3, xMax: 3 },
+              grilleY: { dy: 0.5, yMin: -5, yMax: 8, style: undefined },
+            })
             .setThickX({ xMin: -3, xMax: 3, dx: 1.5 })
             .setThickY({ yMin: -3, yMax: 8, dy: 1.5 })
             .buildStandard()
 
-          const courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 10, 'blue', 1, 20, '', 8)
-          const courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 6, 'red', 1, 20, '', 8)
+          const courbef = latexParCoordonnees(
+            '\\Large \\cal C_f',
+            3,
+            10,
+            'blue',
+            1,
+            20,
+            '',
+            8,
+          )
+          const courbefp = latexParCoordonnees(
+            '\\Large\\cal C_f\\prime',
+            3,
+            6,
+            'red',
+            1,
+            20,
+            '',
+            8,
+          )
 
-          const objets1 = [r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })]
-          const objets2 = [r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })]
-          const colonne2 = mathalea2d(Object.assign({}, fixeBordures(objets2)), objets2)
-          const colonne1 = mathalea2d(Object.assign({}, fixeBordures(objets1)), objets1)
+          const objets1 = [
+            r1,
+            o,
+            courbef,
+            courbe(F, { repere: r1, color: 'blue', epaisseur: 2 }),
+          ]
+          const objets2 = [
+            r2,
+            o,
+            courbefp,
+            courbe(f, { repere: r2, color: 'red', epaisseur: 2 }),
+          ]
+          const colonne2 = mathalea2d(
+            Object.assign({}, fixeBordures(objets2)),
+            objets2,
+          )
+          const colonne1 = mathalea2d(
+            Object.assign({}, fixeBordures(objets1)),
+            objets1,
+          )
           this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
-          this.question += deuxColonnesResp(colonne1, colonne2, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px' })
+          this.question += deuxColonnesResp(colonne1, colonne2, {
+            largeur1: 50,
+            widthmincol1: '100px',
+            widthmincol2: '100px',
+          })
 
           this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
         On lit graphiquement $f(${nbre})=${F(nbre)}$ et $f'(${nbre})=${f(nbre)}$.<br>
@@ -127,19 +193,21 @@ export default class LectureGraphiqueTangente extends ExerciceSimple {
         }
         break
 
-      case 2:// second degré -(x-alpha)^2+beta
-      {
+      case 2: { // second degré -(x-alpha)^2+beta
         if (choice([true, false])) {
           nbre = randint(0, 2)
           alpha = randint(0, 2)
           beta = randint(1, 4)
-          f = function (x:number) { // fonction dérivée
-            return 2 * x * (-1) + 2 * alpha
+          f = function (x: number) {
+            // fonction dérivée
+            return 2 * x * -1 + 2 * alpha
           }
-          F = function (x:number) { // fonction
-            return (-1) * (x - alpha) ** 2 + beta
+          F = function (x: number) {
+            // fonction
+            return -1 * (x - alpha) ** 2 + beta
           }
-          while (f(nbre) === 0) { // pas de tangente horizontales à chercher
+          while (f(nbre) === 0) {
+            // pas de tangente horizontales à chercher
             nbre = randint(0, 2)
             alpha = randint(0, 2)
             beta = randint(1, 4)
@@ -149,13 +217,16 @@ export default class LectureGraphiqueTangente extends ExerciceSimple {
           alpha = randint(-2, 0)
           beta = randint(0, 3)
         }
-        f = function (x:number) { // fonction dérivée
-          return 2 * x * (-1) + 2 * alpha
+        f = function (x: number) {
+          // fonction dérivée
+          return 2 * x * -1 + 2 * alpha
         }
-        F = function (x:number) { // fonction
-          return (-1) * (x - alpha) ** 2 + beta
+        F = function (x: number) {
+          // fonction
+          return -1 * (x - alpha) ** 2 + beta
         }
-        while (f(nbre) === 0) { // pas de tangente horizontales à chercher
+        while (f(nbre) === 0) {
+          // pas de tangente horizontales à chercher
           nbre = randint(-2, 0)
           alpha = randint(-2, 0)
           beta = randint(0, 3)
@@ -167,8 +238,14 @@ export default class LectureGraphiqueTangente extends ExerciceSimple {
           .setUniteY(2)
           .setLabelX({ xMin: -4, xMax: 4, dx: 2 })
           .setLabelY({ yMin: -8, yMax: 6, dy: 2 })
-          .setGrille({ grilleX: { dx: 1, xMin: -4, xMax: 4 }, grilleY: { dy: 1, yMin: -8, yMax: 6 } })
-          .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -4, xMax: 4 }, grilleY: { dy: 0.5, yMin: -8, yMax: 6 } })
+          .setGrille({
+            grilleX: { dx: 1, xMin: -4, xMax: 4 },
+            grilleY: { dy: 1, yMin: -8, yMax: 6 },
+          })
+          .setGrilleSecondaire({
+            grilleX: { dx: 1, xMin: -4, xMax: 4 },
+            grilleY: { dy: 0.5, yMin: -8, yMax: 6 },
+          })
           .setThickX({ xMin: -4, xMax: 4, dx: 2 })
           .setThickY({ yMin: -8, yMax: 6, dy: 2 })
           .buildStandard()
@@ -178,25 +255,69 @@ export default class LectureGraphiqueTangente extends ExerciceSimple {
           .setUniteY(2)
           .setLabelX({ xMin: -4, xMax: 4, dx: 2 })
           .setLabelY({ yMin: -8, yMax: 5, dy: 2 })
-          .setGrille({ grilleX: { dx: 1, xMin: -4, xMax: 4 }, grilleY: { dy: 1, yMin: -8, yMax: 6 } })
-          .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -4, xMax: 4 }, grilleY: { dy: 0.5, yMin: -8, yMax: 6 } })
+          .setGrille({
+            grilleX: { dx: 1, xMin: -4, xMax: 4 },
+            grilleY: { dy: 1, yMin: -8, yMax: 6 },
+          })
+          .setGrilleSecondaire({
+            grilleX: { dx: 1, xMin: -4, xMax: 4 },
+            grilleY: { dy: 0.5, yMin: -8, yMax: 6 },
+          })
           .setThickX({ xMin: -4, xMax: 4, dx: 2 })
           .setThickY({ yMin: -8, yMax: 6, dy: 2 })
           .buildStandard()
 
-        const courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 4, 'blue', 1, 20, '', 8)
-        const courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 4, 'red', 1, 20, '', 8)
+        const courbef = latexParCoordonnees(
+          '\\Large \\cal C_f',
+          3,
+          4,
+          'blue',
+          1,
+          20,
+          '',
+          8,
+        )
+        const courbefp = latexParCoordonnees(
+          '\\Large\\cal C_f\\prime',
+          3,
+          4,
+          'red',
+          1,
+          20,
+          '',
+          8,
+        )
 
         f = (x: number): number => -2 * x + 2 * alpha
-        F = (x: number): number => (-1) * (x - alpha) ** 2 + beta
-        const objets1 = [r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })]
-        const objets2 = [r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })]
+        F = (x: number): number => -1 * (x - alpha) ** 2 + beta
+        const objets1 = [
+          r1,
+          o,
+          courbef,
+          courbe(F, { repere: r1, color: 'blue', epaisseur: 2 }),
+        ]
+        const objets2 = [
+          r2,
+          o,
+          courbefp,
+          courbe(f, { repere: r2, color: 'red', epaisseur: 2 }),
+        ]
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
       Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
-        const colonne1 = mathalea2d(Object.assign({}, fixeBordures(objets1)), objets1)
-        const colonne2 = mathalea2d(Object.assign({}, fixeBordures(objets2)), objets2)
+        const colonne1 = mathalea2d(
+          Object.assign({}, fixeBordures(objets1)),
+          objets1,
+        )
+        const colonne2 = mathalea2d(
+          Object.assign({}, fixeBordures(objets2)),
+          objets2,
+        )
 
-        this.question += deuxColonnesResp(colonne1, colonne2, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px' })
+        this.question += deuxColonnesResp(colonne1, colonne2, {
+          largeur1: 50,
+          widthmincol1: '100px',
+          widthmincol2: '100px',
+        })
         this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
       On lit graphiquement $f(${nbre})=${F(nbre)}$ et $f'(${nbre})=${f(nbre)}$.<br>
       L'équation réduite de la tangente est donc donnée par :

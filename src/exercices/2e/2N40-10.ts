@@ -1,6 +1,10 @@
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { simplify } from 'mathjs'
@@ -9,7 +13,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { calculer, toTex } from '../../modules/outilsMathjs'
 
-export const titre = 'Calculer la valeur d\'une expression littérale à une variable pour une valeur donnée'
+export const titre =
+  "Calculer la valeur d'une expression littérale à une variable pour une valeur donnée"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '4/5/2024'
@@ -17,7 +22,7 @@ export const uuid = '76926'
 
 export const refs = {
   'fr-fr': ['2N40-10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -39,8 +44,10 @@ export const refs = {
  *
  * @requires randint - Fonction qui retourne un entier aléatoire entre min et max inclus
  */
-function garantirUnNegatif (...args: number[]) {
-  const indexPositifs = args.map((val, index) => (val > 0 ? index : -1)).filter(val => val !== -1)
+function garantirUnNegatif(...args: number[]) {
+  const indexPositifs = args
+    .map((val, index) => (val > 0 ? index : -1))
+    .filter((val) => val !== -1)
   indexPositifs.sort(() => Math.random() - 0.5)
   const nbNegatifs = randint(1, indexPositifs.length)
   for (let i = 0; i < nbNegatifs; i++) {
@@ -49,22 +56,29 @@ function garantirUnNegatif (...args: number[]) {
   return args
 }
 export default class SubstituerDansUneExpressionLitterale extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
 
-    this.besoinFormulaireTexte = ['Type d\'expression', 'Nombres séparés par des tirets :\n1: a+bx\n2: (a+cx)b\n3: ax^2+bx+c\n4: Mélange']
-    this.besoinFormulaire2Texte = ['Type de nombres', 'Nombres séparés par des tirets :\n1: Entiers positifs\n2: Entiers relatifs (au moins 1 coeff/x négatifs)\n3: Mélange']
+    this.besoinFormulaireTexte = [
+      "Type d'expression",
+      'Nombres séparés par des tirets :\n1: a+bx\n2: (a+cx)b\n3: ax^2+bx+c\n4: Mélange',
+    ]
+    this.besoinFormulaire2Texte = [
+      'Type de nombres',
+      'Nombres séparés par des tirets :\n1: Entiers positifs\n2: Entiers relatifs (au moins 1 coeff/x négatifs)\n3: Mélange',
+    ]
     this.besoinFormulaire3CaseACocher = ['Rendre les questions plus variées']
     this.sup = 4
     this.sup2 = 1
     this.sup3 = true
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1
-      ? 'Calculer, pour la valeur donnée de $x$, le résultat de l\'expression suivante'
-      : 'Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? "Calculer, pour la valeur donnée de $x$, le résultat de l'expression suivante"
+        : 'Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes'
 
     const typeExpression = ['a+b*x', 'b*(a+c*x)', 'a*x^2+b*x+c']
     const typeDeNombres = ['entiers positifs', 'entiers relatifs']
@@ -76,7 +90,7 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
       defaut: 1,
       listeOfCase: typeExpression,
       nbQuestions: this.nbQuestions,
-      melange: 4
+      melange: 4,
     })
 
     const listeTypeDeNombres = gestionnaireFormulaireTexte({
@@ -86,10 +100,14 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
       defaut: 1,
       listeOfCase: typeDeNombres,
       nbQuestions: this.nbQuestions,
-      melange: 3
+      melange: 3,
     })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let [a, b, x, c]: number[] = []
       let expressionABCX = listeTypeExpression[i] as string
       let max
@@ -99,7 +117,8 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
         case 'a+b*x':
           if (this.sup3) {
             diversificationListe = ['a+b*x', 'x*b+a', 'b*x+a', 'a+x*b']
-            expressionABCX = diversificationListe[randint(0, diversificationListe.length - 1)]
+            expressionABCX =
+              diversificationListe[randint(0, diversificationListe.length - 1)]
           }
           max = 10
           a = randint(1, max)
@@ -109,9 +128,22 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
           break
         case 'b*(a+c*x)':
           if (this.sup3) {
-            diversificationListe = ['b*(a+c*x)', 'b*(c*x+a)', 'b*(a+x*c)', 'b*(x*c+a)', 'b*(c*x+a)', 'b*(a+c*x)',
-              '(a+c*x)*b', '(c*x+a)*b', '(a+x*c)*b', '(x*c+a)*b', '(c*x+a)*b', '(a+c*x)*b']
-            expressionABCX = diversificationListe[randint(0, diversificationListe.length - 1)]
+            diversificationListe = [
+              'b*(a+c*x)',
+              'b*(c*x+a)',
+              'b*(a+x*c)',
+              'b*(x*c+a)',
+              'b*(c*x+a)',
+              'b*(a+c*x)',
+              '(a+c*x)*b',
+              '(c*x+a)*b',
+              '(a+x*c)*b',
+              '(x*c+a)*b',
+              '(c*x+a)*b',
+              '(a+c*x)*b',
+            ]
+            expressionABCX =
+              diversificationListe[randint(0, diversificationListe.length - 1)]
           }
           max = 5
           a = randint(1, max)
@@ -121,11 +153,34 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
           break
         case 'a*x^2+b*x+c':
           if (this.sup3) {
-            diversificationListe = ['a*x^2+b*x+c', 'a*x^2+c+b*x', 'b*x+a*x^2+c', 'b*x+c+a*x^2', 'c+a*x^2+b*x', 'c+b*x+a*x^2',
-              'a*x^2+b*x+c', 'a*x^2+c+b*x', 'b*x+a*x^2+c', 'b*x+c+a*x^2', 'c+a*x^2+b*x', 'c+b*x+a*x^2',
-              'x^2*a+x*b+c', 'x^2*a+c+b*x', 'b*x+x^2*a+c', 'b*x+c+x^2*a', 'c+x^2*a+b*x', 'c+b*x+x^2*a',
-              'a*x^2+x*b+c', 'a*x^2+c+b*x', 'b*x+a*x^2+c', 'b*x+c+a*x^2', 'c+a*x^2+x*b', 'c+b*x+a*x^2']
-            expressionABCX = diversificationListe[randint(0, diversificationListe.length - 1)]
+            diversificationListe = [
+              'a*x^2+b*x+c',
+              'a*x^2+c+b*x',
+              'b*x+a*x^2+c',
+              'b*x+c+a*x^2',
+              'c+a*x^2+b*x',
+              'c+b*x+a*x^2',
+              'a*x^2+b*x+c',
+              'a*x^2+c+b*x',
+              'b*x+a*x^2+c',
+              'b*x+c+a*x^2',
+              'c+a*x^2+b*x',
+              'c+b*x+a*x^2',
+              'x^2*a+x*b+c',
+              'x^2*a+c+b*x',
+              'b*x+x^2*a+c',
+              'b*x+c+x^2*a',
+              'c+x^2*a+b*x',
+              'c+b*x+x^2*a',
+              'a*x^2+x*b+c',
+              'a*x^2+c+b*x',
+              'b*x+a*x^2+c',
+              'b*x+c+a*x^2',
+              'c+a*x^2+x*b',
+              'c+b*x+a*x^2',
+            ]
+            expressionABCX =
+              diversificationListe[randint(0, diversificationListe.length - 1)]
           }
           max = 5
           a = randint(1, max, [0])
@@ -136,7 +191,7 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
       }
 
       if (listeTypeDeNombres[i] === 'entiers relatifs') {
-        [a, b, x, c] = garantirUnNegatif(a, b, x, c)
+        ;[a, b, x, c] = garantirUnNegatif(a, b, x, c)
       }
 
       const expressionX = simplify(expressionABCX, [], { a, b, c }).toString()
@@ -154,8 +209,8 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
 
       handleAnswers(this, i, {
         reponse: {
-          value: corrDetails.result
-        }
+          value: corrDetails.result,
+        },
       })
 
       if (this.questionJamaisPosee(i, a, b, x, c)) {

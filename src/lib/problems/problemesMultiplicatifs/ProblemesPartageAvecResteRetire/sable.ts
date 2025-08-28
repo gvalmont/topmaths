@@ -6,10 +6,11 @@ import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
-export function sable (decimal = false): Probleme {
+export function sable(decimal = false): Probleme {
   const nbFois = randint(3, 7)
   const quotité = decimal ? 1 + randint(1, 4) * 0.1 : randint(2, 5) * 100
-  const total = nbFois * quotité + (decimal ? randint(1, 8) * 0.01 : randint(1, 8) * 10)
+  const total =
+    nbFois * quotité + (decimal ? randint(1, 8) * 0.01 : randint(1, 8) * 10)
   const reste = total - nbFois * quotité
   const data = { nbFois, quotité, reste }
   const uniteComplete = decimal ? 'tonnes' : 'kilogrammes'

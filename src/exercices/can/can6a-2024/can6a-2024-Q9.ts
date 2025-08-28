@@ -12,7 +12,7 @@ export const uuid = '9f648'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 1 : randint(1, 2)
     const b = this.canOfficielle ? 20 : randint(1, 11) * 5
 
@@ -32,7 +32,9 @@ export default class NomExercice extends ExerciceSimple {
      `
     this.question += `$${a}$ h $${b}$ min  `
     this.correction = `Le nombre de minutes est  : $${a}\\times 60 +${b}=${miseEnEvidence(this.reponse)}$.`
-    if (!this.interactif) { this.question += '$= \\ldots$ min ' }
+    if (!this.interactif) {
+      this.question += '$= \\ldots$ min '
+    }
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$${a}$ h $${b}$ min $=\\ldots$ min `
   }

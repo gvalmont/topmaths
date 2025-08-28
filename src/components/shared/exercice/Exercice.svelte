@@ -2,7 +2,7 @@
   import {
     mathaleaHandleParamOfOneExercice,
     mathaleaLoadExerciceFromUuid,
-    getSvelteComponent
+    getSvelteComponent,
   } from '../../../lib/mathalea'
   import { SvelteComponent, onMount } from 'svelte'
   import { globalOptions } from '../../../lib/stores/generalStore'
@@ -19,7 +19,12 @@
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
 
-  type ExerciseType = 'mathaleaVueProf' | 'mathaleaVueEleve' | 'static' | 'html' | 'svelte'
+  type ExerciseType =
+    | 'mathaleaVueProf'
+    | 'mathaleaVueEleve'
+    | 'static'
+    | 'html'
+    | 'svelte'
 
   let exercise: Exercice
   let exerciseType: ExerciseType
@@ -42,7 +47,9 @@
     return urlExercice && urlExercice.includes('.svelte')
   }
 
-  async function getExercise(paramsExercice: InterfaceParams): Promise<Exercice> {
+  async function getExercise(
+    paramsExercice: InterfaceParams,
+  ): Promise<Exercice> {
     const exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
     exercise.numeroExercice = indiceExercice
     mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
@@ -56,7 +63,8 @@
     } else {
       if (
         $globalOptions.v === 'eleve' ||
-        ($globalOptions.v === 'myriade' || $globalOptions.v === 'indices')
+        $globalOptions.v === 'myriade' ||
+        $globalOptions.v === 'indices'
       ) {
         return 'mathaleaVueEleve'
       } else {
@@ -70,26 +78,30 @@
   <ExerciceStatic
     {indiceExercice}
     {indiceLastExercice}
-    uuid={paramsExercice.uuid}
-    zoomFactor={$globalOptions.z ?? '1'}
-    isSolutionAccessible={!!$globalOptions.isSolutionAccessible}
+    uuid="{paramsExercice.uuid}"
+    zoomFactor="{$globalOptions.z ?? '1'}"
+    isSolutionAccessible="{!!$globalOptions.isSolutionAccessible}"
     on:exerciseRemoved
   />
 {:else if exerciseType === 'html'}
   <ExerciceHtml
-    vue={$globalOptions.v}
+    vue="{$globalOptions.v}"
     {exercise}
     {indiceExercice}
     {indiceLastExercice}
     on:exerciseRemoved
   />
 {:else if exerciseType === 'svelte'}
-  <svelte:component this={ComponentExercice} {indiceExercice} {indiceLastExercice} />
+  <svelte:component
+    this="{ComponentExercice}"
+    {indiceExercice}
+    {indiceLastExercice}
+  />
 {:else if exerciseType === 'mathaleaVueEleve'}
   <ExerciceMathalea
     vue="eleve"
     {exercise}
-    exerciseIndex={indiceExercice}
+    exerciseIndex="{indiceExercice}"
     {indiceLastExercice}
     {isCorrectionVisible}
     on:exerciseRemoved
@@ -98,7 +110,7 @@
   <ExerciceMathalea
     vue="prof"
     {exercise}
-    exerciseIndex={indiceExercice}
+    exerciseIndex="{indiceExercice}"
     {indiceLastExercice}
     {isCorrectionVisible}
     on:exerciseRemoved

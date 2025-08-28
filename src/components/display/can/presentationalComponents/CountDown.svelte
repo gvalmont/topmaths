@@ -1,27 +1,27 @@
 <script lang="ts">
-  import { onMount } from "svelte"
-  import type { CanState } from "../../../../lib/types/can"
-  import { canOptions } from "../../../../lib/stores/canStore"
+  import { onMount } from 'svelte'
+  import type { CanState } from '../../../../lib/types/can'
+  import { canOptions } from '../../../../lib/stores/canStore'
   export let state: CanState
   export let count: number = 6
   onMount(() => {
-    const counter = document.getElementById("counter")
+    const counter = document.getElementById('counter')
     if (counter) {
       const interval = window.setInterval(() => {
         const nextcount = --count
         if (nextcount === 0) {
           window.clearInterval(interval)
           canOptions.update((options) => {
-            options.state = "race"
+            options.state = 'race'
             return options
           })
-          state = "race"
+          state = 'race'
         }
         requestAnimationFrame(() => {
           counter.textContent = nextcount.toString()
-          counter.classList.remove("big")
+          counter.classList.remove('big')
           requestAnimationFrame(() => {
-            counter.classList.add("big")
+            counter.classList.add('big')
           })
         })
       }, 1000)

@@ -3,7 +3,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Arrondir à l\'unité'
+export const titre = "Arrondir à l'unité"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,10 +18,10 @@ export const uuid = 'de7d5'
 
 export const refs = {
   'fr-fr': ['canc3N04', 'BP2AutoS10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ArrondiUnite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,7 +30,7 @@ export default class ArrondiUnite extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 20)
     const b = randint(0, 9, 5)
     const c = randint(0, 9, b)

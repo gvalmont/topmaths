@@ -4,7 +4,11 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { Triangle } from '../../modules/Triangle'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, texEnumerateSansNumero } from '../../modules/outils'
+import {
+  listeQuestionsToContenu,
+  randint,
+  texEnumerateSansNumero,
+} from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const dateDeModifImportante = '25/07/2023'
 export const titre = 'Utiliser le vocabulaire des triangles'
@@ -17,11 +21,11 @@ export const uuid = 'c3781'
 
 export const refs = {
   'fr-fr': ['5G20-1'],
-  'fr-ch': ['9ES2-7']
+  'fr-ch': ['9ES2-7'],
 }
 export default class VocabulaireDesTriangles extends Exercice {
   classe: number
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
     this.consigne = 'Donner la nature des triangles en justifiant.'
@@ -31,28 +35,42 @@ export default class VocabulaireDesTriangles extends Exercice {
     this.nbQuestions = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texteIntro = ''
-    if (this.classe === 6) { this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs'] }
+    if (this.classe === 6) {
+      this.besoinFormulaireNumerique = [
+        'Niveau de difficulté',
+        2,
+        '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs',
+      ]
+    }
     let typeDeQuestionsDisponibles
 
     if (context.isHtml) {
       if (this.classe === 6) {
-        texteIntro += '- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.'
+        texteIntro +=
+          '- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.'
         texteIntro += '<br>'
-        texteIntro += '- Un <b>triangle isocèle</b> est un triangle qui a deux côtés de même longueur.'
+        texteIntro +=
+          '- Un <b>triangle isocèle</b> est un triangle qui a deux côtés de même longueur.'
         texteIntro += '<br>'
-        texteIntro += '- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés de même longueur.'
+        texteIntro +=
+          '- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés de même longueur.'
         texteIntro += '<br>'
-        texteIntro += '- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.'
+        texteIntro +=
+          '- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.'
       } else if (this.classe === 5) {
-        texteIntro += '- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.'
+        texteIntro +=
+          '- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.'
         texteIntro += '<br>'
-        texteIntro += '- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles de même mesure.'
+        texteIntro +=
+          '- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles de même mesure.'
         texteIntro += '<br>'
-        texteIntro += '- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles de même mesure.'
+        texteIntro +=
+          '- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles de même mesure.'
         texteIntro += '<br>'
-        texteIntro += '- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.'
+        texteIntro +=
+          '- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.'
       }
     } else {
       if (this.classe === 6) {
@@ -61,9 +79,9 @@ export default class VocabulaireDesTriangles extends Exercice {
             '- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.',
             '- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés de même longueur.',
             '- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés de même longueur.',
-            '- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.'
+            '- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.',
           ],
-          1
+          1,
         )
       } else if (this.classe === 5) {
         texteIntro = texEnumerateSansNumero(
@@ -71,16 +89,16 @@ export default class VocabulaireDesTriangles extends Exercice {
             '- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.',
             '- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles de même mesure.',
             '- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles de même mesure.',
-            '- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.'
+            '- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.',
           ],
-          1
+          1,
         )
       }
 
       this.introduction = lampeMessage({
         titre: 'Quelques définitions',
         texte: texteIntro,
-        couleur: 'nombres'
+        couleur: 'nombres',
       })
     }
 
@@ -98,16 +116,20 @@ export default class VocabulaireDesTriangles extends Exercice {
         choice([3, 4, 10]),
         choice([5, 6, 11]),
         7,
-        choice([8, 9])
+        choice([8, 9]),
       ] // 5e : tout sauf les basiques de 6e, on ajoute la caractéisation par les angles
     }
     const listeTypeDeQuestions = combinaisonListes(
       typeDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     // let listeTypeDeQuestions = typesDeQuestionsDisponibles // Tous les types de questions sont posées --> à remettre comme ci-dessus
-    for (let i = 0, texte, texteCorr, l1, l2, l3, a1, a2, a3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, l1, l2, l3, a1, a2, a3, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // on fixe longueur min et max en cm
       const longueurMin = 2
       const longueurMax = 20
@@ -123,9 +145,9 @@ export default class VocabulaireDesTriangles extends Exercice {
       const triangleIsoceleRectangle = new Triangle()
       let partieDecimale1, partieDecimale2, partieDecimale3
       if (this.sup2) {
-        partieDecimale1 = randint(1, 9) / 10 * randint(0, 1)
-        partieDecimale2 = randint(1, 9) / 10 * randint(0, 1)
-        partieDecimale3 = randint(1, 9) / 10 * randint(0, 1)
+        partieDecimale1 = (randint(1, 9) / 10) * randint(0, 1)
+        partieDecimale2 = (randint(1, 9) / 10) * randint(0, 1)
+        partieDecimale3 = (randint(1, 9) / 10) * randint(0, 1)
       } else {
         partieDecimale1 = 0
         partieDecimale2 = 0
@@ -144,7 +166,8 @@ export default class VocabulaireDesTriangles extends Exercice {
 
           texte = `${triangleQuelconque.getNom()} est un triangle tel que ${triangleQuelconque.getLongueurs()[0]} $= ${texNombre(triangleQuelconque.l1)}$ cm ; `
           texte += `${triangleQuelconque.getLongueurs()[1]} $= ${texNombre(triangleQuelconque.l2)}$ cm et ${triangleQuelconque.getLongueurs()[2]} $= ${texNombre(
-            triangleQuelconque.l3)}$ cm.`
+            triangleQuelconque.l3,
+          )}$ cm.`
           texteCorr = `Les 3 côtés du triangle ${triangleQuelconque.getNom()} sont différents et nous n'avons aucune information sur les angles donc ${triangleQuelconque.getNom()} est un triangle ${texteEnCouleurEtGras('quelconque')}.`
           break
         case 2: // triangle quelconque par les angles
@@ -206,7 +229,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           }
           texte = `${triangleEquilateral.getNom()} est un triangle tel que ${triangleEquilateral.getLongueurs()[0]} $= ${texNombre(triangleEquilateral.l1)}$ cm ; `
           texte += `${triangleEquilateral.getLongueurs()[1]} $= ${texNombre(triangleEquilateral.l2 * 10)}$ mm et ${triangleEquilateral.getLongueurs()[2]} $= ${texNombre(
-            triangleEquilateral.l3 / 10
+            triangleEquilateral.l3 / 10,
           )}$ dm.`
           texteCorr = `${triangleEquilateral.getLongueurs()[1]} $= ${texNombre(triangleEquilateral.l2 * 10)}$ mm $= ${triangleEquilateral.l2}$ cm.`
           texteCorr += `<br> ${triangleEquilateral.getLongueurs()[2]} $= ${texNombre(triangleEquilateral.l3 / 10)}$ dm $= ${texNombre(triangleEquilateral.l3)}$ cm.`
@@ -216,7 +239,8 @@ export default class VocabulaireDesTriangles extends Exercice {
         case 7: // triangle rectangle pas de conversion nécessaire
           l1 = randint(longueurMin, longueurMax)
           triangleRectangle.l1 = l1 + partieDecimale1
-          triangleRectangle.l2 = randint(longueurMin, longueurMax, l1) + partieDecimale2
+          triangleRectangle.l2 =
+            randint(longueurMin, longueurMax, l1) + partieDecimale2
           triangleRectangle.a1 = 90
 
           texte = `${triangleRectangle.getNom()} est un triangle tel que ${triangleRectangle.getLongueurs()[0]} $= ${texNombre(triangleRectangle.l1)}$ cm ; `

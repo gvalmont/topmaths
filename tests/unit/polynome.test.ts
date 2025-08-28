@@ -5,8 +5,14 @@ const p0 = new Polynome({ coeffs: [0] })
 const p1 = new Polynome({ coeffs: [1] })
 
 test('Somme et multiplication de polynômes', () => {
-  const p = new Polynome({ rand: true, coeffs: [[10, true], [10, true], [10, true], 0, [10, true]] })
-  const pp = new Polynome({ rand: true, coeffs: [[10, true], [10, true], [10, true], 0, [10, true]] })
+  const p = new Polynome({
+    rand: true,
+    coeffs: [[10, true], [10, true], [10, true], 0, [10, true]],
+  })
+  const pp = new Polynome({
+    rand: true,
+    coeffs: [[10, true], [10, true], [10, true], 0, [10, true]],
+  })
   const p2 = p.multiply(p1)
   const p3 = p.add(p0)
   const pFoisPp = p.multiply(pp)

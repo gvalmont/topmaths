@@ -16,17 +16,17 @@ export const uuid = '87ceb'
 
 export const refs = {
   'fr-fr': ['can3S06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Mediane extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(10, 15)
     const n = randint(1, 4)
     const c = a * 2 * n + 1
@@ -42,7 +42,7 @@ $\\underbrace{x_1 ${sp(2)} ; ${sp(2)} x_2 ${sp(2)} ; ${sp(2)} ..... ; ${sp(2)}
     
     Puisque la série comporte un nombre impair de valeurs, la médiane se situe au rang $\\dfrac{${c}+1}{2}=${texFractionReduite(c + 1, 2)}$.`
     this.reponse = (c + 1) / 2
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

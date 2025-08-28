@@ -1,10 +1,22 @@
 import type Grandeur from '../modules/Grandeur'
-import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
-import type { AutoCorrection, clickFigures, ReponseComplexe } from '../lib/interactif/gestionInteractif'
+import {
+  exportedApplyNewSeed,
+  exportedNouvelleVersionWrapper,
+  exportedQuestionJamaisPosee,
+  exportedReinit,
+} from './exerciseMethods'
+import type {
+  AutoCorrection,
+  clickFigures,
+  ReponseComplexe,
+} from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
-import { KeyboardType, type PartialKbType } from '../lib/interactif/claviers/keyboard'
+import {
+  KeyboardType,
+  type PartialKbType,
+} from '../lib/interactif/claviers/keyboard'
 
 /**
  *
@@ -47,10 +59,19 @@ export default class Exercice {
   canReponseACompleter: string = '' // Seulement pour les exercices de type simple
   canNumeroLie: number = 0 //  Pour la sortie LaTeX des CAN dont les énoncés sont liées, cette variable contient le numéro de la question actuelle.
   canLiee: number[] = [] //  Pour la sortie LaTeX des CAN dont les énoncés sont liées, cette variable contient, dans un tableau, les numéros des CAN liées à l'actuelle.
-  formatChampTexte: string | undefined | PartialKbType = KeyboardType.clavierDeBase // Seulement pour les exercices de type simple
+  formatChampTexte: string | undefined | PartialKbType =
+    KeyboardType.clavierDeBase // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   // tailleDiaporama?: number // Pour fixer un zoom de base en mode diaporama
-  compare?: ((input: string, goodAnswer: string) => { isOk: boolean, feedback?: string }) | ((input: string, goodAnswer: Grandeur) => { isOk: boolean, feedback?: string }) // Seulement pour les exercices de type simple
+  compare?:
+    | ((
+        input: string,
+        goodAnswer: string,
+      ) => { isOk: boolean; feedback?: string })
+    | ((
+        input: string,
+        goodAnswer: Grandeur,
+      ) => { isOk: boolean; feedback?: string }) // Seulement pour les exercices de type simple
   // optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
   optionsDeComparaison?: Partial<OptionsComparaisonType>
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
@@ -85,19 +106,34 @@ export default class Exercice {
   interactifObligatoire: boolean
   interactifReady: boolean // flag pour indiquer si l'exercice est dispo en interactif ou pas
   interactifType?: string
-  besoinFormulaireNumerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaireNumerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
   besoinFormulaireTexte: boolean | [string, string]
   besoinFormulaireCaseACocher: boolean | [string] | [string, boolean]
-  besoinFormulaire2Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire2Numerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
   besoinFormulaire2Texte: boolean | [string, string]
   besoinFormulaire2CaseACocher: boolean | [string] | [string, boolean]
-  besoinFormulaire3Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire3Numerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
   besoinFormulaire3Texte: boolean | [string, string]
   besoinFormulaire3CaseACocher: boolean | [string] | [string, boolean]
-  besoinFormulaire4Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire4Numerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
   besoinFormulaire4Texte: boolean | [string, string]
   besoinFormulaire4CaseACocher: boolean | [string] | [string, boolean]
-  besoinFormulaire5Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire5Numerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
   besoinFormulaire5Texte: boolean | [string, string]
   besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
   mg32Editable: boolean
@@ -117,10 +153,10 @@ export default class Exercice {
   score?: number
   vspace?: number // Ajoute un \vspace{[number]cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
 
-  constructor () {
-  // ////////////////////////////////////////////////
-  // Autour de l'exercice
-  // ////////////////////////////////////////////////
+  constructor() {
+    // ////////////////////////////////////////////////
+    // Autour de l'exercice
+    // ////////////////////////////////////////////////
     this.titre = '' // Chaîne de caractère sans point à la fin. C'est le titre de l'exercice qui sera affiché avec la référence dans le générateur d'exercices.
 
     // ///////////////////////////////////////////////
@@ -212,23 +248,23 @@ export default class Exercice {
     this.listeAvecNumerotation = true
   }
 
-  get html (): HTMLElement {
+  get html(): HTMLElement {
     return this._html
   }
 
-  set html (value: HTMLElement) {
+  set html(value: HTMLElement) {
     this._html = value
   }
 
-  destroy (): void {
+  destroy(): void {
     // Nécessaire pour éviter les fuites de mémoire des exercices HTML
   }
 
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
 
-  correctionInteractive? (i: number): string | string[]
+  correctionInteractive?(i: number): string | string[]
 
-  nouvelleVersion (numeroExercice?: number, numeroQuestion?: number): void {
+  nouvelleVersion(numeroExercice?: number, numeroQuestion?: number): void {
     console.info(numeroExercice)
   }
 

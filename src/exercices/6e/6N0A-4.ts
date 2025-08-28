@@ -6,7 +6,11 @@ import { choice, creerCouples } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const amcReady = true
@@ -14,7 +18,8 @@ export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
-export const titre = 'Utiliser tables de multiplication pour effectuer produits avec multiple de 10'
+export const titre =
+  'Utiliser tables de multiplication pour effectuer produits avec multiple de 10'
 
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
@@ -26,10 +31,10 @@ export const uuid = '23bc8'
 export const refs = {
   'fr-fr': ['6N0A-4'],
   'fr-2016': ['6C10-2'],
-  'fr-ch': ['9NO3-15']
+  'fr-ch': ['9NO3-15'],
 }
 export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exercice {
-  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+  constructor(tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super()
     // Multiplier deux nombres
     this.sup = tablesParDefaut
@@ -37,12 +42,25 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
     this.consigne = 'Calculer.'
     this.spacing = 2
 
-    this.besoinFormulaireTexte = ['Choix des tables (entre 2 et 9)', 'Nombres séparés par des tirets :'] // Texte, tooltip
-    if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+    this.besoinFormulaireTexte = [
+      'Choix des tables (entre 2 et 9)',
+      'Nombres séparés par des tirets :',
+    ] // Texte, tooltip
+    if (context.isHtml)
+      this.besoinFormulaire2Numerique = [
+        'Exercice interactif',
+        2,
+        '1 : QCM\n2 : Numérique',
+      ] // Texte, tooltip
   }
 
-  nouvelleVersion () {
-    if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  nouvelleVersion() {
+    if (context.isHtml)
+      this.besoinFormulaire2Numerique = [
+        'Exercice interactif',
+        2,
+        '1 : QCM\n2 : Numérique',
+      ] // Texte, tooltip
     else this.besoinFormulaire2Numerique = false
 
     this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
@@ -53,17 +71,19 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
       defaut: randint(2, 9),
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
-      melange: 11
+      melange: 11,
     })
 
     const couples = creerCouples(
       tables.map(Number),
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
-      this.nbQuestions
+      this.nbQuestions,
     ) // Liste tous les couples possibles (2,3)≠(3,2)
     for (
       let i = 0, cpt = 0, a, b, k1, k2, texte, texteCorr, melange;
-      i < this.nbQuestions && cpt < 100;) {
+      i < this.nbQuestions && cpt < 100;
+
+    ) {
       this.autoCorrection[i] = {}
       a = couples[i][0]
       b = couples[i][1]
@@ -82,48 +102,47 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
         a = b
         b = c
       }
-      texte =
-                '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' =  $'
+      texte = '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' =  $'
       texteCorr =
-                '$ ' +
-                texNombre(a) +
-                ' \\times ' +
-                texNombre(b) +
-                ' = ' +
-                texNombre(a * b) +
-                ' $'
+        '$ ' +
+        texNombre(a) +
+        ' \\times ' +
+        texNombre(b) +
+        ' = ' +
+        texNombre(a * b) +
+        ' $'
 
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
           texte: `$${texNombre2(a * b)}$`,
           statut: true,
-          feedback: 'Correct !'
+          feedback: 'Correct !',
         },
         {
-          texte: `$${texNombre2(arrondi(a * b / 10))}$`,
+          texte: `$${texNombre2(arrondi((a * b) / 10))}$`,
           statut: false,
-          feedback: 'Compte le nombre de zéros dans chaque facteur'
+          feedback: 'Compte le nombre de zéros dans chaque facteur',
         },
         {
           texte: `$${texNombre2(arrondi(a * b * 10))}$`,
           statut: false,
-          feedback: 'Compte le nombre de zéros dans chaque facteur'
+          feedback: 'Compte le nombre de zéros dans chaque facteur',
         },
         {
-          texte: `$${texNombre2(arrondi(a * b / 100))}$`,
+          texte: `$${texNombre2(arrondi((a * b) / 100))}$`,
           statut: false,
-          feedback: 'Compte le nombre de zéros dans chaque facteur'
+          feedback: 'Compte le nombre de zéros dans chaque facteur',
         },
         {
           texte: `$${texNombre2(arrondi(a * b * 100))}$`,
           statut: false,
-          feedback: 'Compte le nombre de zéros dans chaque facteur'
-        }
+          feedback: 'Compte le nombre de zéros dans chaque facteur',
+        },
       ]
       this.autoCorrection[i].options = {
         ordered: false,
-        lastChoice: 5
+        lastChoice: 5,
       }
       const props = propositionsQcm(this, i)
 

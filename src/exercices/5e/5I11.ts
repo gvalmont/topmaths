@@ -6,10 +6,10 @@ export const dateDeModifImportante = '27/12/2023'
 export const uuid = 'a7650'
 export const refs = {
   'fr-fr': ['5I11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NoteLaCouleur5e extends NoteLaCouleur6e {
-  constructor () {
+  constructor() {
     super()
     this.relatif = true
   }

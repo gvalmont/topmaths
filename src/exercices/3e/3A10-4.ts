@@ -1,17 +1,18 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
-import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite'
+import {
+  cribleEratostheneN,
+  listeDesDiviseurs,
+} from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { choice } from '../../lib/outils/arrayOutils'
 
-export const titre = 'Compter et lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
+export const titre =
+  "Compter et lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers"
 
 /**
  * Compter et lister les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
@@ -22,25 +23,31 @@ export const uuid = '4117b'
 
 export const refs = {
   'fr-fr': ['3A10-4'],
-  'fr-ch': ['9NO4-8']
+  'fr-ch': ['9NO4-8'],
 }
 export default class ListerDiviseursParDecompositionFacteursPremiers extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.sup = false
     // pas de différence entre la version html et la version latex pour la consigne
-    this.consigne = 'Sans la calculatrice, compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers.'
+    this.consigne =
+      "Sans la calculatrice, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers."
     // this.consigne += `<br>`;
-    context.isHtml ? this.spacing = 2 : this.spacing = 1
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     this.nbQuestions = 2
     // this.correctionDetailleeDisponible = true;
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      texte = 'Lister/compter les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      texte =
+        "Lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers"
       // let premiers_dispos = premiersEntreBornes(2,11);
       // on fixe le nombre de facteurs premier à 3
       const nbDePremiersb = 3
@@ -53,7 +60,7 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
       // on choisit les rangs pour les nombres premiers
       const tabRangsb = []
       const tabRangsExclusb: number[] = []
-      for (let k = 0; k < (nbDePremiersb); k++) {
+      for (let k = 0; k < nbDePremiersb; k++) {
         for (let m = 0; m < k; m++) {
           tabRangsExclusb.push(tabRangsb[m])
         }
@@ -78,7 +85,11 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
         }
       } else {
         // S'il y a 3 facteurs premiers, on fixe à 12, 16 ou 18 le nombre de diviseurs
-        tabMultiplicitesb = choice([[2, 1, 1], [3, 1, 1], [2, 2, 1]]).sort(() => Math.random() - 0.5)
+        tabMultiplicitesb = choice([
+          [2, 1, 1],
+          [3, 1, 1],
+          [2, 2, 1],
+        ]).sort(() => Math.random() - 0.5)
       }
 
       texte = ''
@@ -116,13 +127,28 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
       let entColonnes = ['\\times']
       // les entetes des lignes
       for (let k = 0; k < tabMultiplicitesb[0] + 1; k++) {
-        entLignes.push('\\phantom{plusLarge}' + tabPremiersb[0] + '^{' + k + '}\\phantom{plusLarge}')
+        entLignes.push(
+          '\\phantom{plusLarge}' +
+            tabPremiersb[0] +
+            '^{' +
+            k +
+            '}\\phantom{plusLarge}',
+        )
       }
 
       // les entetes des colonnes
       for (let m = 0; m < tabMultiplicitesb[1] + 1; m++) {
         for (let l = 0; l < tabMultiplicitesb[2] + 1; l++) {
-          entColonnes.push(tabPremiersb[1] + '^{' + m + '}\\times' + tabPremiersb[2] + '^{' + l + '}')
+          entColonnes.push(
+            tabPremiersb[1] +
+              '^{' +
+              m +
+              '}\\times' +
+              tabPremiersb[2] +
+              '^{' +
+              l +
+              '}',
+          )
         }
       }
 
@@ -137,22 +163,38 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
       // on remet le x en colonnes et on ajoute le reste
       entColonnes = ['\\times'].concat(tabTemp)
       // le contenu des lignes
-      for (let l = 0; l < (tabMultiplicitesb[0] + 1); l++) {
-        for (let c = 1; c < (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1) + 1; c++) {
+      for (let l = 0; l < tabMultiplicitesb[0] + 1; l++) {
+        for (
+          let c = 1;
+          c < (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1) + 1;
+          c++
+        ) {
           // contenuLignes.push(`l : `+l+`, c : `+Number(c));
           contenuLignes.push('')
         }
       }
 
       texte += '<br>'
-      texte += tableauColonneLigne(entColonnes, entLignes, contenuLignes, 1, true, this.numeroExercice, i)
+      texte += tableauColonneLigne(
+        entColonnes,
+        entLignes,
+        contenuLignes,
+        1,
+        true,
+        this.numeroExercice,
+        i,
+      )
       if (!context.isHtml) {
         texte += '$\\medskip$'
       }
 
       texte += '<br>'
-      texte += numAlpha(1) + ` En déduire le nombre de diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
-      texte += numAlpha(2) + ` Enfin, dresser la liste des diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
+      texte +=
+        numAlpha(1) +
+        ` En déduire le nombre de diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
+      texte +=
+        numAlpha(2) +
+        ` Enfin, dresser la liste des diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
 
       // correction
       texteCorr = `Avec la décomposition en facteurs premiers de $${texNombre(nombreADecomposerb)}$ qui est : $`
@@ -188,7 +230,16 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
       // les entetes des colonnes
       for (let m = 0; m < tabMultiplicitesb[1] + 1; m++) {
         for (let l = 0; l < tabMultiplicitesb[2] + 1; l++) {
-          entColonnesCorr.push(tabPremiersb[1] + '^{' + m + '}\\times' + tabPremiersb[2] + '^{' + l + '}')
+          entColonnesCorr.push(
+            tabPremiersb[1] +
+              '^{' +
+              m +
+              '}\\times' +
+              tabPremiersb[2] +
+              '^{' +
+              l +
+              '}',
+          )
           entColonnesCorrRes.push(tabPremiersb[1] ** m * tabPremiersb[2] ** l)
         }
       }
@@ -207,15 +258,35 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
       entColonnesCorr = ['\\times'].concat(tabTempCorr)
       entColonnesCorrRes = [1].concat(tab1TempCorr)
       // le contenu des lignes
-      for (let l = 0; l < (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1); l++) {
-        for (let c = 1; c < (tabMultiplicitesb[0] + 2); c++) {
+      for (
+        let l = 0;
+        l < (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1);
+        l++
+      ) {
+        for (let c = 1; c < tabMultiplicitesb[0] + 2; c++) {
           // contenuLignesCorr.push(`l : `+l+`, c : `+Number(c));
-          contenuLignesCorr.push(entLignesCorr[l] + '\\times' + entColonnesCorr[c] + '=' + miseEnEvidence(texNombre(entLignesCorrRes[l] * entColonnesCorrRes[c])))
+          contenuLignesCorr.push(
+            entLignesCorr[l] +
+              '\\times' +
+              entColonnesCorr[c] +
+              '=' +
+              miseEnEvidence(
+                texNombre(entLignesCorrRes[l] * entColonnesCorrRes[c]),
+              ),
+          )
         }
       }
 
       texteCorr += '<br>'
-      texteCorr += tableauColonneLigne(entColonnesCorr, entLignesCorr, contenuLignesCorr, 1, true, this.numeroExercice, i)
+      texteCorr += tableauColonneLigne(
+        entColonnesCorr,
+        entLignesCorr,
+        contenuLignesCorr,
+        1,
+        true,
+        this.numeroExercice,
+        i,
+      )
       texteCorr += '<br>'
       texteCorr += numAlpha(1) + ` $${texNombre(nombreADecomposerb)}$ a donc `
       texteCorr += `$(${tabMultiplicitesb[0]}+1)\\times(${tabMultiplicitesb[1]}+1)\\times(${tabMultiplicitesb[2]}+1) = `
@@ -228,7 +299,10 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
         texteCorr += `$${tabPremiersb[0]}^{` + k + '}$ ou '
       }
 
-      texteCorr += `$${tabPremiersb[0]}^{` + tabMultiplicitesb[0] + `}$ d'où le facteur $(${tabMultiplicitesb[0]}+1)$.`
+      texteCorr +=
+        `$${tabPremiersb[0]}^{` +
+        tabMultiplicitesb[0] +
+        `}$ d'où le facteur $(${tabMultiplicitesb[0]}+1)$.`
 
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[1]}$ avec la multiplicité $${tabMultiplicitesb[1]}$`
       texteCorr += `, le facteur $${tabPremiersb[1]}$ apparaît donc sous les formes : `
@@ -236,7 +310,10 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
         texteCorr += `$${tabPremiersb[1]}^{` + k + '}$ ou '
       }
 
-      texteCorr += `$${tabPremiersb[1]}^{` + tabMultiplicitesb[1] + `}$ d'où le facteur $(${tabMultiplicitesb[1]}+1)$.`
+      texteCorr +=
+        `$${tabPremiersb[1]}^{` +
+        tabMultiplicitesb[1] +
+        `}$ d'où le facteur $(${tabMultiplicitesb[1]}+1)$.`
 
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[2]}$ avec la multiplicité $${tabMultiplicitesb[2]}$`
       texteCorr += `, le facteur $${tabPremiersb[2]}$ apparaît donc sous les formes : `
@@ -244,19 +321,26 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
         texteCorr += `$${tabPremiersb[2]}^{` + k + '}$ ou '
       }
 
-      texteCorr += `$${tabPremiersb[2]}^{` + tabMultiplicitesb[2] + `}$ d'où le facteur $(${tabMultiplicitesb[2]}+1)$.`
+      texteCorr +=
+        `$${tabPremiersb[2]}^{` +
+        tabMultiplicitesb[2] +
+        `}$ d'où le facteur $(${tabMultiplicitesb[2]}+1)$.`
       texteCorr += '<br>'
-      texteCorr += numAlpha(2) + ` Enfin, voici la liste des $${(tabMultiplicitesb[0] + 1) * (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1)}$ diviseurs de $${texNombre(nombreADecomposerb)}$ issus du tableau ci-dessus : `
+      texteCorr +=
+        numAlpha(2) +
+        ` Enfin, voici la liste des $${(tabMultiplicitesb[0] + 1) * (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1)}$ diviseurs de $${texNombre(nombreADecomposerb)}$ issus du tableau ci-dessus : `
       texteCorr += '$1'
       for (let w = 1; w < listeDesDiviseurs(nombreADecomposerb).length; w++) {
-        texteCorr += '\\text{ ; }' + texNombre(listeDesDiviseurs(nombreADecomposerb)[w])
+        texteCorr +=
+          '\\text{ ; }' + texNombre(listeDesDiviseurs(nombreADecomposerb)[w])
       }
 
       texteCorr += '.$'
       //   break
       // };
 
-      if (this.questionJamaisPosee(i, ...tabPremiersb)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, ...tabPremiersb)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

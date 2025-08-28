@@ -24,20 +24,22 @@ export const uuid = '3f032'
 
 export const refs = {
   'fr-fr': ['can1S02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculTermeSuiteRec extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, k, u, listeFractions1, fraction1, n1, d1
-    switch (choice(['a', 'b', 'c', 'd', 'e'])) { //
-      case 'a':// suite arithmétique
+    switch (
+      choice(['a', 'b', 'c', 'd', 'e']) //
+    ) {
+      case 'a': // suite arithmétique
         a = randint(1, 10) * choice([-1, 1])
         u = randint(1, 10) * choice([-1, 1])
         k = 1
@@ -47,7 +49,9 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
           Calculer $u_{${k}}$.`
           this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = u_n ${ecritureAlgebrique(a)}$.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
-        } else { this.question += `<br> $u_{${k}}=$` }
+        } else {
+          this.question += `<br> $u_{${k}}=$`
+        }
 
         if (a > 0) {
           for (let indice = 0; indice < k; indice++) {
@@ -63,7 +67,7 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
         }
         this.reponse = u + a
         break
-      case 'b':// suite géométrique
+      case 'b': // suite géométrique
         a = randint(2, 10) * choice([-1, 1])
         u = randint(1, 10) * choice([-1, 1])
         k = 1
@@ -76,7 +80,9 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
           Calculer $u_{${k}}$.`
           this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${a}u_n $.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
-        } else { this.question += `<br> $u_{${k}}=$` }
+        } else {
+          this.question += `<br> $u_{${k}}=$`
+        }
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
             this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
@@ -91,10 +97,27 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
         this.reponse = u * a
         break
 
-      case 'c':// suite géométrique avec fraction
-        listeFractions1 = [[1, 2], [2, 3], [3, 4], [2, 5], [4, 5],
-          [5, 6], [2, 7], [4, 7], [6, 7], [3, 8], [7, 8],
-          [2, 9], [5, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+      case 'c': // suite géométrique avec fraction
+        listeFractions1 = [
+          [1, 2],
+          [2, 3],
+          [3, 4],
+          [2, 5],
+          [4, 5],
+          [5, 6],
+          [2, 7],
+          [4, 7],
+          [6, 7],
+          [3, 8],
+          [7, 8],
+          [2, 9],
+          [5, 9],
+          [8, 9],
+          [1, 10],
+          [3, 10],
+          [7, 10],
+          [9, 10],
+        ]
         fraction1 = choice(listeFractions1)
         k = 1
         n1 = fraction1[0]
@@ -108,7 +131,9 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
           Calculer $u_{${k}}$.`
           this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFractionFromString(n1, d1)}u_n $.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
-        } else { this.question += `<br> $u_{${k}}=$` }
+        } else {
+          this.question += `<br> $u_{${k}}=$`
+        }
 
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
@@ -124,7 +149,7 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
         this.reponse = n1 * a
         break
 
-      case 'd':// suite arithmético-géométrique
+      case 'd': // suite arithmético-géométrique
         a = randint(2, 10) * choice([-1, 1])
         b = randint(1, 5) * choice([-1, 1])
         u = randint(1, 10) * choice([-1, 1])
@@ -135,9 +160,12 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
           <br>Calculer $u_{${k}}$.`
           this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecritureAlgebrique(b)}$.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
-        } else { this.question += `<br> $u_{${k}}=$` }
+        } else {
+          this.question += `<br> $u_{${k}}=$`
+        }
 
-        this.correction = 'En utilisant la relation de récurrence pour $n=0$, on obtient :<br>'
+        this.correction =
+          'En utilisant la relation de récurrence pour $n=0$, on obtient :<br>'
 
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
@@ -155,7 +183,7 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
         this.reponse = u * a + b
         break
 
-      case 'e':// suite de la forme u(n+1) = a +- u(n)^2
+      case 'e': // suite de la forme u(n+1) = a +- u(n)^2
         a = randint(1, 10) * choice([-1, 1])
         b = choice([-1, 1])
         u = randint(1, 10) * choice([-1, 1])
@@ -168,7 +196,9 @@ export default class CalculTermeSuiteRec extends ExerciceSimple {
           Calculer $u_{${k}}$.`
           this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} ${signe(b)} u_n^2$.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
-        } else { this.question += `<br> $u_{${k}}=$` }
+        } else {
+          this.question += `<br> $u_{${k}}=$`
+        }
 
         this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :
        `

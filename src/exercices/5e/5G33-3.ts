@@ -12,7 +12,7 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
-export const titre = 'Mesurer la distance d\'un point à une droite'
+export const titre = "Mesurer la distance d'un point à une droite"
 
 export const dateDePublication = '01/03/2023'
 
@@ -26,25 +26,37 @@ export const uuid = '29c3b'
 export const refs = {
   'fr-fr': ['5G33-3'],
   'fr-2016': ['6G53'],
-  'fr-ch': ['9ES3-8']
+  'fr-ch': ['9ES3-8'],
 }
 export default class MesurerDistancePointDroite extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const objetsEnonce = []
       const objetsCorrection = []
       const O = point(0, 0)
       const B = point(randint(-4, 4, [0]), randint(-3, 4, [0]))
       const d = droite(O, B, '(d)')
-      let A = point(randint(-4, 4), randint(-3, 4), choisitLettresDifferentes(1, 'OH')[0])
+      let A = point(
+        randint(-4, 4),
+        randint(-3, 4),
+        choisitLettresDifferentes(1, 'OH')[0],
+      )
       while (distancePointDroite(A, d) < 1) {
-        A = point(randint(-4, 4), randint(-3, 4), choisitLettresDifferentes(1, 'OH')[0])
+        A = point(
+          randint(-4, 4),
+          randint(-3, 4),
+          choisitLettresDifferentes(1, 'OH')[0],
+        )
       }
       const traceA = tracePoint(A)
       traceA.taille = context.isHtml ? 2 : 1
@@ -55,7 +67,12 @@ export default class MesurerDistancePointDroite extends Exercice {
       const segmentAH = segment(A, H)
       segmentAH.pointilles = 5
       const AH = polygoneAvecNom(A, H)
-      objetsCorrection.push(AH[0], AH[1], afficheLongueurSegment(A, H), codageAngleDroit(A, H, B))
+      objetsCorrection.push(
+        AH[0],
+        AH[1],
+        afficheLongueurSegment(A, H),
+        codageAngleDroit(A, H, B),
+      )
       const xmin = -5
       const xmax = 5
       const ymin = -4

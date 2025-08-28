@@ -16,20 +16,24 @@ export const uuid = '8a835'
 
 export const refs = {
   'fr-fr': ['can5C26'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AdditionRelatifBisCAN extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 10
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a = randint(1, this.sup)
     let b = randint(1, this.sup)
-    const k = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
+    const k = choice([
+      [-1, -1],
+      [-1, 1],
+      [1, -1],
+    ]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
     a = a * k[0]
     b = b * k[1]
     if (this.interactif) {
@@ -40,7 +44,7 @@ export default class AdditionRelatifBisCAN extends ExerciceSimple {
 
     this.correction = `$ ${a}${ecritureAlgebrique(b)} = ${a + b} $`
     this.reponse = a + b
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

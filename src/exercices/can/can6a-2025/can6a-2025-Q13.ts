@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '37a4e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N62Q13 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -27,7 +27,7 @@ export default class Can2025N62Q13 extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: 'g.' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const prefixes = ['km', 'hm', 'dam', 'm', 'dm', 'cm', 'mm']
 
     const a = this.canOfficielle ? 25 : choice([3, 5, 7, 9, 11]) * 5

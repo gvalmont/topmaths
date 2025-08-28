@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '3422i'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q24 extends ExerciceCan {
-  enonce (a?: string, b?:string, c?:number) {
+  enonce(a?: string, b?: string, c?: number) {
     let parts = 3
     if (a == null || b == null || c == null) {
       a = prenomF() as string
@@ -34,15 +34,15 @@ export default class Can2025N4Q24 extends ExerciceCan {
     $\\dfrac{1}{${parts}}\\times ${c}=${texNombre(c / parts, 0)}$<br>
     Elle utilise donc $${texNombre(c / parts, 0)}$ L.<br>
 $${c}-${texNombre(c / parts, 0)}=${texNombre(c - c / parts, 0)}$<br>
-    Il reste $${miseEnEvidence(reste * c / parts)}$ L.`
+    Il reste $${miseEnEvidence((reste * c) / parts)}$ L.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ L}$'
-    this.reponse = `${Math.round(reste * c / parts)}`
+    this.reponse = `${Math.round((reste * c) / parts)}`
     this.optionsChampTexte = { texteApres: ' L' }
     this.question += this.interactif ? '<br>' : ''
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce('Jeanne', 'tiers', 15) : this.enonce()
   }
 }

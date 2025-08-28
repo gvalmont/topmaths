@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '9e8a8'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class SommeEntierFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -27,10 +27,13 @@ export default class SommeEntierFraction extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.optionsDeComparaison = { fractionEgale: true, nombreDecimalSeulement: true }
+    this.optionsDeComparaison = {
+      fractionEgale: true,
+      nombreDecimalSeulement: true,
+    }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(2, 5).texFraction
       this.question = '$1-\\dfrac{3}{5}$ '
@@ -40,7 +43,22 @@ export default class SommeEntierFraction extends ExerciceSimple {
       &  =${miseEnEvidence('\\dfrac{2}{5}')}
       \\end{aligned}$`
     } else {
-      const listeFractions2 = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [5, 3], [4, 7], [1, 5], [3, 5], [1, 7], [2, 9], [1, 9], [7, 9], [1, 8], [5, 8]
+      const listeFractions2 = [
+        [1, 3],
+        [2, 3],
+        [3, 7],
+        [2, 7],
+        [4, 3],
+        [5, 3],
+        [4, 7],
+        [1, 5],
+        [3, 5],
+        [1, 7],
+        [2, 9],
+        [1, 9],
+        [7, 9],
+        [1, 8],
+        [5, 8],
       ]
       const frac = choice(listeFractions2)
       const a = randint(1, 2)

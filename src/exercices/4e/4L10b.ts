@@ -7,7 +7,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'b87a5'
 export const refs = {
   'fr-fr': ['4L10b'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 export const titre = 'Effectuer la simple distributivité'
 export default class SimpleDistributivite4e extends SimpleDistributivite {
-  constructor () {
+  constructor() {
     super()
     this.sup = '1-2'
     this.sup2 = 1

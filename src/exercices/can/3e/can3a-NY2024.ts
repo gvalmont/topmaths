@@ -7,7 +7,7 @@ export const uuid = '64c10'
 
 export const refs = {
   'fr-fr': ['can3a-NY2024'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '01/01/2024'
 
@@ -18,7 +18,7 @@ export const dateDePublication = '01/01/2024'
  */
 
 export default class CourseAuxNombresSpeciale20243e extends CourseAuxNombresSpeciale2024 {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
     this.besoinFormulaireTexte = false

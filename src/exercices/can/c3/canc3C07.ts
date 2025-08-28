@@ -18,10 +18,10 @@ export const uuid = '02561'
 
 export const refs = {
   'fr-fr': ['canc3C07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PlusOuMoins extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,17 +30,37 @@ export default class PlusOuMoins extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeObjets = [
-      ['biscuits'], ['billes'], ['bonbons'], ['ballons'], ['vis'], ['clous'], ['bandes dessinées']
+      ['biscuits'],
+      ['billes'],
+      ['bonbons'],
+      ['ballons'],
+      ['vis'],
+      ['clous'],
+      ['bandes dessinées'],
     ]
     const listeClubs = [
-      ['judo'], ['tennis'], ['tennis de table'], ['musique'], ['théâtre'], ['danse']
-
+      ['judo'],
+      ['tennis'],
+      ['tennis de table'],
+      ['musique'],
+      ['théâtre'],
+      ['danse'],
     ]
-    let choix, a, b, prenom1, prenom2, choix1, reponse1, reponse2, objets, choix2, clubs
+    let choix,
+      a,
+      b,
+      prenom1,
+      prenom2,
+      choix1,
+      reponse1,
+      reponse2,
+      objets,
+      choix2,
+      clubs
     switch (choice([1, 2, 3])) {
-      case 1:// âge
+      case 1: // âge
         choix = choice(['a', 'b'])
         if (choix === 'a') {
           choix1 = choice([true, false])
@@ -66,7 +86,9 @@ export default class PlusOuMoins extends ExerciceSimple {
             }
             this.correction = `${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ années ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
                 Il a donc  (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ans, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ans. `
-            if (this.interactif) { this.optionsChampTexte = { texteApres: ' ans' } }
+            if (this.interactif) {
+              this.optionsChampTexte = { texteApres: ' ans' }
+            }
           } else {
             reponse1 = a + b
             reponse2 = a - b
@@ -83,7 +105,9 @@ export default class PlusOuMoins extends ExerciceSimple {
             }
             this.correction = `${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.
            Il a donc  (${choix1 ? `$${a}+${b}$` : `$${a}-${b}$`}) ans, soit  ${choix1 ? `$${a + b}$` : `$${a - b}$`} ans. `
-            if (this.interactif) { this.optionsChampTexte = { texteApres: ' ans' } }
+            if (this.interactif) {
+              this.optionsChampTexte = { texteApres: ' ans' }
+            }
           }
         }
 
@@ -126,7 +150,9 @@ export default class PlusOuMoins extends ExerciceSimple {
             this.correction = `${prenom1} a $${a}$ ans et sa sœur  a $${b}$ ans de ${choix1 ? 'de plus' : ' de moins '}.<br>
                             Elle a donc  (${choix1 ? `$${a}+${b}$` : `$${a}-${b}$`}) ans, soit  ${choix1 ? `$${a + b}$` : `$${a - b}$`} ans. `
           }
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ' ans' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteApres: ' ans' }
+          }
         }
 
         break
@@ -200,7 +226,9 @@ export default class PlusOuMoins extends ExerciceSimple {
            Il en a donc  (${choix1 ? `$${a}+${b}$` : `$${a}-${b}$`}), soit  ${choix1 ? `$${a + b}$` : `$${a - b}$`}. `
           }
         }
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ` ${objets}` } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ` ${objets}` }
+        }
         break
 
       case 3:
@@ -227,7 +255,11 @@ export default class PlusOuMoins extends ExerciceSimple {
           this.correction = ` Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
             que de ${choix2 ? ' garçons ' : ' filles'}.<br>
                       Il y a donc  (${choix1 ? `$${a}+${b}$` : `$${a}-${b}$`}) ${choix2 ? ' filles' : ' garçons'}, soit  ${choix1 ? `$${a + b}$` : `$${a - b}$`} ${choix2 ? ' filles ' : ' garçons'}. `
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ` ${choix2 ? ' filles' : ' garçons'}` } }
+          if (this.interactif) {
+            this.optionsChampTexte = {
+              texteApres: ` ${choix2 ? ' filles' : ' garçons'}`,
+            }
+          }
         }
         if (choix === 'b') {
           choix1 = choice([true, false])
@@ -251,7 +283,11 @@ export default class PlusOuMoins extends ExerciceSimple {
                       que de ${choix2 ? ' filles ' : ' garçons'}.<br>
                      Il y a (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ${choix2 ? ' garçons' : ' filles'}, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ${choix2 ? ' garçons' : ' filles'} dans ce club.<br>
      `
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ` ${choix2 ? ' garçons' : ' filles'}` } }
+          if (this.interactif) {
+            this.optionsChampTexte = {
+              texteApres: ` ${choix2 ? ' garçons' : ' filles'}`,
+            }
+          }
         }
 
         break

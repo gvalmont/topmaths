@@ -7,10 +7,10 @@ export const amcType = 'qcmMono'
 export const uuid = 'bdb18'
 export const refs = {
   'fr-fr': ['4A10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PremierOuPas4e extends PremierOuPas {
-  constructor () {
+  constructor() {
     super()
     this.sup2 = false
   }

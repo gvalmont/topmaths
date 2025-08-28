@@ -16,10 +16,10 @@ export const uuid = '385b7'
 
 export const refs = {
   'fr-fr': ['canc3C01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculsAutomatiques extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -27,7 +27,7 @@ export default class CalculsAutomatiques extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = choice([50, 100, 40, 10, 20, 60, 200, 1000, 500])
     if (choice([true, false])) {
       switch (choice([1, 2, 3])) {

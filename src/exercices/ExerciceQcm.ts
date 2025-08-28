@@ -29,9 +29,9 @@ export default class ExerciceQcm extends Exercice {
   reponses!: string[]
   bonnesReponses?: boolean[]
   corrections?: string[]
-  options: { vertical?: boolean, ordered: boolean, lastChoice?: number }
-  versionAleatoire?: ()=>void
-  versionOriginale?: ()=>void = undefined /* () => {
+  options: { vertical?: boolean; ordered: boolean; lastChoice?: number }
+  versionAleatoire?: () => void
+  versionOriginale?: () => void = undefined /* () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
     this.enonce = 'Enoncé de la question'
     // Ici, on colle les différentes réponses prise dans le latex : attention !!! mettre la bonne en premier (elles seront brassées par propositionsQcm)
@@ -45,7 +45,7 @@ export default class ExerciceQcm extends Exercice {
   }
     */
 
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaire2CaseACocher = ['Consigne augmentée', false]
     this.sup2 = false
@@ -59,12 +59,13 @@ export default class ExerciceQcm extends Exercice {
     if (this.versionOriginale != null) this.versionOriginale()
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.sup2) {
-      this.consigne = this.bonnesReponses == null
-        ? `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
+      this.consigne =
+        this.bonnesReponses == null
+          ? `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
 ${this.interactif || context.isAmc ? 'Cocher la case correspondante' : 'Donner la lettre correspondante'}${this.sup4 ? ', ou choisir « Je ne sais pas ».' : '.'}`
-        : `Parmi les ${this.reponses.length} réponses ci-dessous, il peut y avoir plusieurs bonnes réponses.<br>
+          : `Parmi les ${this.reponses.length} réponses ci-dessous, il peut y avoir plusieurs bonnes réponses.<br>
 ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(s)' : 'Donner la (ou les) lettre(s) correspondante(s)'}${this.sup4 ? ', ou choisir « Je ne sais pas ».' : '.'}`
     } else {
       this.consigne = ''
@@ -79,7 +80,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
       }
     }
     if (this.versionAleatoire != null) {
-      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
+      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30; ) {
         if (this.sup && this.versionOriginale != null) this.versionOriginale()
         else this.versionAleatoire()
 
@@ -95,20 +96,34 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
           for (let j = 0; j < this.reponses.length; j++) {
             autoCorr.propositions.push({
               texte: this.reponses[j],
-              statut: statuts[j]
+              statut: statuts[j],
             })
           }
           if (this.sup4) {
             autoCorr.propositions.push({
               texte: 'Je ne sais pas',
-              statut: false
+              statut: false,
             })
             if (autoCorr.options) {
               autoCorr.options.lastChoice = this.reponses.length - 1
             }
           }
-          const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
-          const monQcm = propositionsQcm(this, i, { style: 'margin:0 3px 0 3px;', format: this.interactif ? 'case' : 'lettre' })
+          const lettres = [
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+          ].slice(0, this.reponses.length)
+          const monQcm = propositionsQcm(this, i, {
+            style: 'margin:0 3px 0 3px;',
+            format: this.interactif ? 'case' : 'lettre',
+          })
           texte += `<br>${monQcm.texte}`
           let messageBonnesReponses: string
           if (this.corrections && autoCorr.propositions != null) {
@@ -116,35 +131,56 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
             const correctionsList: string[] = new Array(this.reponses.length)
             const props = autoCorr.propositions
             for (let n = 0; n < this.reponses.length; n++) {
-              const index = this.reponses.findIndex(el => el === props[n].texte)
-              if (this.corrections[index] != null && this.corrections[index] !== '') {
-                correctionsList[n] = `réponse ${lettres[n]} : ${this.corrections[index]}${context.isHtml
-              ? props[n].statut
-                ? '\u2705' // ✅
-                : '\u274C' // ❌
-              : props[n].statut
-                ? '${\\bf \\color[cmyk]{.63,.23,.93,.06}\\boldsymbol{\\checkmark}}$' // ✅
-                : '${\\bf \\color[rgb]{1,.1,.1}\\boldsymbol{\\times}}$'// ❌
-                }<br>`
+              const index = this.reponses.findIndex(
+                (el) => el === props[n].texte,
+              )
+              if (
+                this.corrections[index] != null &&
+                this.corrections[index] !== ''
+              ) {
+                correctionsList[n] =
+                  `réponse ${lettres[n]} : ${this.corrections[index]}${
+                    context.isHtml
+                      ? props[n].statut
+                        ? '\u2705' // ✅
+                        : '\u274C' // ❌
+                      : props[n].statut
+                        ? '${\\bf \\color[cmyk]{.63,.23,.93,.06}\\boldsymbol{\\checkmark}}$' // ✅
+                        : '${\\bf \\color[rgb]{1,.1,.1}\\boldsymbol{\\times}}$' // ❌
+                  }<br>`
               }
             }
-            const listeAffichable = correctionsList.filter(el => el != null && el !== '')
+            const listeAffichable = correctionsList.filter(
+              (el) => el != null && el !== '',
+            )
             if (listeAffichable.length !== 0) {
               this.correction = createList({
                 items: listeAffichable,
-                style: 'fleches'
+                style: 'fleches',
               })
             } else {
-              this.correction += this.correction.endsWith('\\end{tikzpicture}') ? '\n\n' : this.correction !== '' ? '<br>' : ''
+              this.correction += this.correction.endsWith('\\end{tikzpicture}')
+                ? '\n\n'
+                : this.correction !== ''
+                  ? '<br>'
+                  : ''
             }
           } else {
-            this.correction += this.correction?.endsWith('\\end{tikzpicture}') ? '\n\n' : this.correction !== '' ? '<br>' : ''
+            this.correction += this.correction?.endsWith('\\end{tikzpicture}')
+              ? '\n\n'
+              : this.correction !== ''
+                ? '<br>'
+                : ''
           }
           if (this.bonnesReponses) {
-            const lesBonnesLettres = autoCorr.propositions.map((el, i) => Object.assign({}, { prop: el, index: i })).filter(obj => obj.prop.statut).map(obj => lettres[obj.index])
+            const lesBonnesLettres = autoCorr.propositions
+              .map((el, i) => Object.assign({}, { prop: el, index: i }))
+              .filter((obj) => obj.prop.statut)
+              .map((obj) => lettres[obj.index])
             messageBonnesReponses = `Les bonnes réponses sont les réponses ${texteEnCouleurEtGras(lesBonnesLettres.join(' ; '))}.`
           } else {
-            const laBonneLettre = lettres[autoCorr.propositions.findIndex(el => el.statut)]
+            const laBonneLettre =
+              lettres[autoCorr.propositions.findIndex((el) => el.statut)]
             messageBonnesReponses = `La bonne réponse est la réponse ${texteEnCouleurEtGras(laBonneLettre)}.`
           }
           // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
@@ -169,14 +205,21 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
       for (let j = 0; j < this.reponses.length; j++) {
         autoCorr.propositions.push({
           texte: this.reponses[j],
-          statut: statuts[j]
+          statut: statuts[j],
         })
       }
-      const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
-      const monQcm = propositionsQcm(this, 0, { style: 'margin:0 3px 0 3px;', format: this.interactif ? 'case' : 'lettre' })
+      const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(
+        0,
+        this.reponses.length,
+      )
+      const monQcm = propositionsQcm(this, 0, {
+        style: 'margin:0 3px 0 3px;',
+        format: this.interactif ? 'case' : 'lettre',
+      })
       texte += `<br>${monQcm.texte}`
 
-      const laBonneLettre = lettres[autoCorr.propositions.findIndex(el => el.statut)]
+      const laBonneLettre =
+        lettres[autoCorr.propositions.findIndex((el) => el.statut)]
       // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
       const texteCorr = `${this.correction}<br>${this.interactif ? '' : `La bonne réponse est la réponse ${texteEnCouleurEtGras(laBonneLettre)}.`}`
 
@@ -186,7 +229,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
   }
 
   // Pour permettre d'exporter tous les qcm pour en faire des séries de questions pour QcmCam. Ne pas y toucher
-  qcmCamExport (): { question: string, reponse: string }[] {
+  qcmCamExport(): { question: string; reponse: string }[] {
     return qcmCamExport(this)
   }
 }

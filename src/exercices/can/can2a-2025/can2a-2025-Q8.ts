@@ -11,14 +11,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'ee42f'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class ProprietePuissances extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -28,7 +28,7 @@ export default class ProprietePuissances extends ExerciceSimple {
     this.formatInteractif = 'fillInTheBlank'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = '\\dfrac{2^5}{2^7}=2^{%{champ1}}'
       this.reponse = { champ1: { value: '-2' } }
@@ -39,7 +39,9 @@ export default class ProprietePuissances extends ExerciceSimple {
       this.canReponseACompleter = ' $2^{\\ldots}$'
     } else {
       let a, p, s, n
-      switch (choice(['a', 'b'])) { //, 'b', 'c', 'd', 'e', 'f'
+      switch (
+        choice(['a', 'b']) //, 'b', 'c', 'd', 'e', 'f'
+      ) {
         case 'a':
           a = randint(2, 3)
           n = randint(2, 5)

@@ -13,14 +13,14 @@ export const dateDeModifImportante = '12/07/2025'
 /**
  * utilisation des égalités remarquables pour développer
  * @author Gilles Mora, Nicolas Talabardon (création des distracteurs, finalisation de la version QCM et quelques mises en forme)
-*/
+ */
 export const uuid = '4c675'
 export const refs = {
   'fr-fr': ['can2L06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DevelopperEgalitesRemarquables extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.versionQcmDisponible = true
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
@@ -29,7 +29,7 @@ export default class DevelopperEgalitesRemarquables extends ExerciceSimple {
     this.optionsDeComparaison = { developpementEgal: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const inconnue = choice(['x', 'y', 'a'])
     const a = randint(1, 9)
     const b = randint(2, 5)
@@ -39,8 +39,10 @@ export default class DevelopperEgalitesRemarquables extends ExerciceSimple {
     const expression4 = `$(${b}${inconnue}+${a})^2$` // (bx+a)^2 avec b>1
     const expression5 = `$(${b}${inconnue}-${a})^2$` // (bx-a)^2 avec b>1
     const expression6 = `$(${b}${inconnue}-${a})(${b}${inconnue}+${a})$` // (bx-a)(bx+a) avec b>1
-    switch (randint(1, 6)) { //, 'b'
-      case 1 :
+    switch (
+      randint(1, 6) //, 'b'
+    ) {
+      case 1:
         if (this.versionQcm) {
           this.question = `La forme développée de ${expression1} est :` // (x+a)²
         } else {
@@ -55,10 +57,10 @@ $\\begin{aligned}
         this.distracteurs = [
           `$${reduirePolynomeDegre3(0, 1, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, -2 * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`
+          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`,
         ]
         break
-      case 2 :
+      case 2:
         if (this.versionQcm) {
           this.question = `La forme développée de ${expression2} est :` // (x-a)²
         } else {
@@ -74,10 +76,10 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, 1, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, -2 * a, -a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, 2 * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`
+          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`,
         ]
         break
-      case 3 :
+      case 3:
         if (this.versionQcm) {
           this.question = `La forme développée de ${expression3} est :` // (x-a)(x+a)
         } else {
@@ -93,11 +95,11 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, 1, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, -2 * a, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, 2 * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, 1, -2 * a, -a * a, inconnue)}$`
+          `$${reduirePolynomeDegre3(0, 1, -2 * a, -a * a, inconnue)}$`,
         ]
         break
 
-      case 4 :
+      case 4:
         if (this.versionQcm) {
           this.question = `La forme développée de ${expression4} est :` // (bx+a)²  b>1
         } else {
@@ -113,10 +115,10 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, b * b, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, a * b, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, 2 * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`
+          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`,
         ]
         break
-      case 5 :
+      case 5:
         if (this.versionQcm) {
           this.question = `La forme développée de ${expression5} est :` // (bx-a)² b>1
         } else {
@@ -133,10 +135,10 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, b * b, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, 2 * b * a, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, b * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, b * b, -2 * b * a, a * a, inconnue)}$`
+          `$${reduirePolynomeDegre3(0, b * b, -2 * b * a, a * a, inconnue)}$`,
         ]
         break
-      case 6 :
+      case 6:
       default:
         if (this.versionQcm) {
           this.question = `La forme développée de ${expression6} est :` // (bx-a)(bx+a) b>1
@@ -153,7 +155,7 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, b * b, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, -2 * a * b, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, 2 * a * b, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, b * b, -2 * a * b, -a * a, inconnue)}$`
+          `$${reduirePolynomeDegre3(0, b * b, -2 * a * b, -a * a, inconnue)}$`,
         ]
         break
     }

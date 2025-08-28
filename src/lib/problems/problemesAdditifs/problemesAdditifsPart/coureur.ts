@@ -8,10 +8,10 @@ import ProblemeAdditif from './problemesAdditifsPart'
 /**
  * @author Jean-Claude Lhote
  */
-export function coureur3 (decimal = true): Probleme {
+export function coureur3(decimal = true): Probleme {
   const personnage = prenomPronom()
-  const nb1 = randint(350, 700) * 10 / (decimal ? 1000 : 1)
-  const nb2 = randint(350, 700) * 10 / (decimal ? 1000 : 1)
+  const nb1 = (randint(350, 700) * 10) / (decimal ? 1000 : 1)
+  const nb2 = (randint(350, 700) * 10) / (decimal ? 1000 : 1)
   const data = { nb1, nb2 }
   const unite = decimal ? 'km' : 'm'
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'

@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '47d36'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -22,21 +22,26 @@ export const dateDePublication = '27/05/2025'
  */
 
 export default class MetropoleJ25EX3Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b:number, c:number, fruit: string): void {
+  private appliquerLesValeurs(
+    a: number,
+    b: number,
+    c: number,
+    fruit: string,
+  ): void {
     const pe = Math.floor(b)
     const peu = Math.floor(b / a)
     this.reponses = [
-      `$${texNombre(c * b / a, 2, true)}$ €`,
+      `$${texNombre((c * b) / a, 2, true)}$ €`,
       `$${texNombre(b * c, 2, true)}$ €`,
-       `$${texNombre(peu * c + b - pe, 2, true)}$ €`,
-        `$${texNombre(pe * (c - a) + b - pe, 2, true)}$ €`,
+      `$${texNombre(peu * c + b - pe, 2, true)}$ €`,
+      `$${texNombre(pe * (c - a) + b - pe, 2, true)}$ €`,
     ]
     this.enonce = `Le prix de ${a} ${fruit} est $${texNombre(b, 2, true)}$ €. Combien coûtent $${c}$ ${fruit} ?<br>`
 
     this.correction = `Le prix de ${a} ${fruit} est $${texNombre(b, 2, true)}$ €.<br>
     Donc le prix d'un ${fruit} est : $\\dfrac{${texNombre(b, 2, true)}\\text{ €}}{${a}}=${texNombre(b / a, 2, true)}$ €.<br>
-    Ainsi, le prix de ${c} ${fruit} est : $${c}\\times ${texNombre(b, 2, true)}\\text{ €}=${texNombre(b / a * c, 2, true)}$ €.<br>
-    Donc le prix de ${c} ${fruit} est $${texNombre(b * c / a, 2, true)}$ €.`
+    Ainsi, le prix de ${c} ${fruit} est : $${c}\\times ${texNombre(b, 2, true)}\\text{ €}=${texNombre((b / a) * c, 2, true)}$ €.<br>
+    Donc le prix de ${c} ${fruit} est $${texNombre((b * c) / a, 2, true)}$ €.`
   }
 
   versionOriginale: () => void = () => {
@@ -46,7 +51,13 @@ export default class MetropoleJ25EX3Q1 extends ExerciceQcmA {
   versionAleatoire: () => void = () => {
     const n = 4
     do {
-      const fruit = choice(['melons', 'pastèques', 'goyaves', 'mangues', 'papayes'])
+      const fruit = choice([
+        'melons',
+        'pastèques',
+        'goyaves',
+        'mangues',
+        'papayes',
+      ])
       const a = choice([2, 3, 4, 5])
       const pu = randint(1, 9) / 10 + 2
       const b = a * pu
@@ -55,7 +66,7 @@ export default class MetropoleJ25EX3Q1 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

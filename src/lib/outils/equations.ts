@@ -1,12 +1,22 @@
 import Decimal from 'decimal.js'
 import { randint } from '../../modules/outils'
 import { texFractionFromString } from './deprecatedFractions'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from './ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from './ecritures'
 import { miseEnEvidence } from './embellissements'
 import { abs, signe } from './nombres'
 import { texNombre } from './texNombre'
 
-export const equation1erDegre1Inconnue = (options: { valeursRelatives?: boolean, divisiblePar?: number, type?: 'x+b=d' | 'ax=d' | 'ax+b=0' | 'ax+b=d' | 'ax+b=cx+d' } = { valeursRelatives: false, divisiblePar: 1, type: 'ax+b=cx+d' }) => {
+export const equation1erDegre1Inconnue = (
+  options: {
+    valeursRelatives?: boolean
+    divisiblePar?: number
+    type?: 'x+b=d' | 'ax=d' | 'ax+b=0' | 'ax+b=d' | 'ax+b=cx+d'
+  } = { valeursRelatives: false, divisiblePar: 1, type: 'ax+b=cx+d' },
+) => {
   let a: Decimal, b: Decimal, c: Decimal, d: Decimal, reponse: Decimal
   switch (options.type) {
     case 'x+b=d':
@@ -41,7 +51,9 @@ export const equation1erDegre1Inconnue = (options: { valeursRelatives?: boolean,
           d = new Decimal(randint(-9, 9, [0])).times(options.divisiblePar ?? 1)
         }
         reponse = new Decimal(randint(-5, 5, [0, -1, 1]))
-        a = new Decimal(randint(-5, 5, [-1, 0, 1])).times(options.divisiblePar ?? 1)
+        a = new Decimal(randint(-5, 5, [-1, 0, 1])).times(
+          options.divisiblePar ?? 1,
+        )
         if (!options.valeursRelatives) {
           reponse = reponse.abs()
           a = a.abs()
@@ -53,20 +65,30 @@ export const equation1erDegre1Inconnue = (options: { valeursRelatives?: boolean,
     case 'ax+b=cx+d':
     default:
       d = new Decimal(randint(-15, 15, 0)).times(options.divisiblePar ?? 1)
-      c = new Decimal(randint(-5, 5, [-1, 0, 1])).times(options.divisiblePar ?? 1)
+      c = new Decimal(randint(-5, 5, [-1, 0, 1])).times(
+        options.divisiblePar ?? 1,
+      )
       if (!options.valeursRelatives) {
         c = c.abs()
         a = new Decimal(randint(2, 5)).times(options.divisiblePar ?? 1).plus(c)
-        reponse = (new Decimal(randint(-9, 9, [0, -1, 1, -d.div(c.minus(a))]))).abs()
+        reponse = new Decimal(
+          randint(-9, 9, [0, -1, 1, -d.div(c.minus(a))]),
+        ).abs()
       } else {
-        a = new Decimal(randint(-5, 5, [-c, -c + 1, -c - 1, 0])).times(options.divisiblePar ?? 1).plus(c)
+        a = new Decimal(randint(-5, 5, [-c, -c + 1, -c - 1, 0]))
+          .times(options.divisiblePar ?? 1)
+          .plus(c)
         reponse = new Decimal(randint(-9, 9, [0, -1, 1, -d.div(c.minus(a))]))
       }
-      b = (c.minus(a)).times(reponse).plus(d)
+      b = c.minus(a).times(reponse).plus(d)
       break
   }
-  const membreDeGauche = a.equals(0) ? b : `${rienSi1(a)}x${b.equals(0) ? '' : ecritureAlgebrique(b)}`
-  const membreDeDroite = c.equals(0) ? d : `${rienSi1(c)}x${d.equals(0) ? '' : ecritureAlgebrique(d)}`
+  const membreDeGauche = a.equals(0)
+    ? b
+    : `${rienSi1(a)}x${b.equals(0) ? '' : ecritureAlgebrique(b)}`
+  const membreDeDroite = c.equals(0)
+    ? d
+    : `${rienSi1(c)}x${d.equals(0) ? '' : ecritureAlgebrique(d)}`
   const egalite = `${membreDeGauche}=${membreDeDroite}`
   let correction = ''
   let correctionDetaillee = ''

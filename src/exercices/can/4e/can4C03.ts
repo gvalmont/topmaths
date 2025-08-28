@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -20,10 +23,10 @@ export const uuid = '22c4c'
 
 export const refs = {
   'fr-fr': ['can4C03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class QuotientEntierQuiVaBienParFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -31,7 +34,7 @@ export default class QuotientEntierQuiVaBienParFraction extends ExerciceSimple {
     this.optionsDeComparaison = { fractionEgale: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
     const b = a.n * c

@@ -14,11 +14,14 @@
   export let canOptions: CanOptions
   export let toggleCan: () => void
   export let buildUrlAndOpenItInNewTab: (status: 'eleve' | 'usual') => void
-  export let updateParams: (params: { globalOptions: InterfaceGlobalOptions, canOptions: CanOptions }) => void
+  export let updateParams: (params: {
+    globalOptions: InterfaceGlobalOptions
+    canOptions: CanOptions
+  }) => void
 
   const params = {
     globalOptions,
-    canOptions
+    canOptions,
   }
 
   $: if (globalOptions || canOptions) {
@@ -26,19 +29,16 @@
     params.canOptions = canOptions
   }
 
-  function setInteractivity (value: string) {
+  function setInteractivity(value: string) {
     params.globalOptions.setInteractive = value
   }
-
 </script>
 
 <BasicClassicModal
-  bind:isDisplayed={isSettingsDialogDisplayed}
-  on:close={() => updateParams(params)}
+  bind:isDisplayed="{isSettingsDialogDisplayed}"
+  on:close="{() => updateParams(params)}"
 >
-  <div slot="header">
-    Réglages de l'affichage des exercices
-  </div>
+  <div slot="header">Réglages de l'affichage des exercices</div>
   <div
     slot="content"
     class="pt-2 pl-2 grid grid-flow-row text-justify
@@ -46,32 +46,28 @@
   >
     <div class="pb-2">
       <ModalCapytalSettingsInteractivity
-        setInteractive={params.globalOptions.setInteractive ?? '2'}
+        setInteractive="{params.globalOptions.setInteractive ?? '2'}"
         {setInteractivity}
-        bind:oneShot={params.globalOptions.oneShot}
-        bind:isDisabled={params.canOptions.isChoosen}
+        bind:oneShot="{params.globalOptions.oneShot}"
+        bind:isDisabled="{params.canOptions.isChoosen}"
       />
     </div>
     <div class="pb-2">
       <ModalCapytalSettingsCan
-        bind:canOptions={params.canOptions}
-        bind:toggleCan={toggleCan}
+        bind:canOptions="{params.canOptions}"
+        bind:toggleCan
       />
     </div>
     <div class="pb-2">
-      <ModalCapytalSettingsData
-        bind:globalOptions={params.globalOptions}
-      />
+      <ModalCapytalSettingsData bind:globalOptions="{params.globalOptions}" />
     </div>
     <div class="pb-2">
-      <ModalCapytalSettingsTitles
-        bind:globalOptions={params.globalOptions}
-      />
+      <ModalCapytalSettingsTitles bind:globalOptions="{params.globalOptions}" />
     </div>
     <div class="pb-2">
       <ModalCapytalSettingsCorrection
-        bind:globalOptions={params.globalOptions}
-        bind:canOptions={params.canOptions}
+        bind:globalOptions="{params.globalOptions}"
+        bind:canOptions="{params.canOptions}"
       />
     </div>
   </div>
@@ -79,18 +75,18 @@
     <div class="pt-4 pb-8 px-4">
       <ButtonTextAction
         class="text-sm py-1 px-2 rounded-md h-7"
-        on:click={() => {
+        on:click="{() => {
           isSettingsDialogDisplayed = false
-        }}
+        }}"
         text="Valider"
       />
     </div>
     <div class="pt-4 pb-8 px-4">
       <ButtonTextAction
         class="text-sm py-1 px-2 rounded-md h-7"
-        on:click={() => {
+        on:click="{() => {
           buildUrlAndOpenItInNewTab('eleve')
-        }}
+        }}"
         text="Aperçu"
       />
     </div>

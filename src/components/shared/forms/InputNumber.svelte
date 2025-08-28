@@ -12,12 +12,12 @@
 <span class="flex justify-center">
   <input
     type="number"
-    id={id}
-    min={min}
-    max={max}
-    step={$$props.step || 1}
-    bind:value={value}
-    on:change={() => dispatch('change', value)}
+    {id}
+    {min}
+    {max}
+    step="{$$props.step || 1}"
+    bind:value
+    on:change="{() => dispatch('change', value)}"
     class="{$$props.class} ml-3 w-16 h-8
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
       border-1
@@ -25,6 +25,6 @@
       focus:border-1 focus:outline-0 focus:ring-0
       focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest
       disabled:opacity-30"
-    disabled={isDisabled}
+    disabled="{isDisabled}"
   />
 </span>

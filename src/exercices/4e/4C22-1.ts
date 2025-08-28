@@ -1,5 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import {
+  texFractionFromString,
+  texFractionReduite,
+} from '../../lib/outils/deprecatedFractions'
 import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -9,7 +12,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Trouver l\'inverse d\'un nombre'
+export const titre = "Trouver l'inverse d'un nombre"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -28,26 +31,26 @@ export const uuid = '43cea'
 
 export const refs = {
   'fr-fr': ['4C22-1'],
-  'fr-ch': ['10NO5-5']
+  'fr-ch': ['10NO5-5'],
 }
 export default class ExerciceTrouverInverse extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      ' 1 : Nombres entiers\n 2 : Nombres décimaux\n 3 : Fractions\n 4 : Mélange'
+      ' 1 : Nombres entiers\n 2 : Nombres décimaux\n 3 : Fractions\n 4 : Mélange',
     ]
     this.sup = 1 // Avec ou sans relatifs
 
     this.consigne =
-        "Calculer l'inverse et donner la réponse sous forme décimale ou de fraction simplifiée quand c'est impossible"
+      "Calculer l'inverse et donner la réponse sous forme décimale ou de fraction simplifiée quand c'est impossible"
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
     const listeEntiers = [
       [1, 1],
@@ -67,7 +70,7 @@ export default class ExerciceTrouverInverse extends Exercice {
       [15, 0],
       [20, 0.05],
       [50, 0.02],
-      [100, 0.01]
+      [100, 0.01],
     ]
     // [n,0] si l'inverse de n n'est pas décimal [n,1/n] si il est décimal.
     const listeDecimaux = [
@@ -84,7 +87,7 @@ export default class ExerciceTrouverInverse extends Exercice {
       [2.5, 10, 25],
       [3.5, 10, 35],
       [4.8, 10, 48],
-      [7.5, 10, 75]
+      [7.5, 10, 75],
     ]
     // [x,n,d] n/d = inverse de x fraction à réduire si besoin ... d=1 si l'inverse de x est entier.
     const listeFractions: [number, number, boolean][] = [
@@ -101,28 +104,32 @@ export default class ExerciceTrouverInverse extends Exercice {
       [5, 9, true],
       [9, 7, false],
       [13, 6, false],
-      [7, 2, false]
+      [7, 2, false],
     ]
     // [n,d,bol] inverse d/n à simplifier si besoin. si bol = true, alors d/n est décimal.
     let couplesDInverses
     if (this.sup === 4) {
-      typesDeQuestionsDisponibles = [1, 1, 2, 2, 3]// nombre entier,fraction,décimal]
+      typesDeQuestionsDisponibles = [1, 1, 2, 2, 3] // nombre entier,fraction,décimal]
     } else {
       typesDeQuestionsDisponibles = [parseInt(this.sup)]
     }
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
-    for (let i = 0,
-      nombreChoisi,
-      nombreInverse,
-      nombreInverseNum,
-      nombreInverseDen,
-      texte,
-      texteCorr,
-      typesDeQuestions,
-      cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        nombreChoisi,
+        nombreInverse,
+        nombreInverseNum,
+        nombreInverseDen,
+        texte,
+        texteCorr,
+        typesDeQuestions,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 1: // inverse d'entier
@@ -134,19 +141,19 @@ export default class ExerciceTrouverInverse extends Exercice {
             if (nombreInverse !== 0) {
               // inverse décimal
               texteCorr = `L'inverse de $${nombreChoisi}$ est $${texNombre(
-                                nombreInverse
-                            )} \\:$ car $\\: ${nombreChoisi}   \\times   ${texNombre(
-                                nombreInverse
-                            )} =  1$.`
+                nombreInverse,
+              )} \\:$ car $\\: ${nombreChoisi}   \\times   ${texNombre(
+                nombreInverse,
+              )} =  1$.`
             } else {
               // inverse non décimal
               texteCorr = `L'inverse de $${nombreChoisi}$ est $${texFractionFromString(
-                                1,
-                                nombreChoisi
-                            )} \\:$ car $\\: ${nombreChoisi}   \\times   ${texFractionFromString(
-                                1,
-                                nombreChoisi
-                            )} =  1$.`
+                1,
+                nombreChoisi,
+              )} \\:$ car $\\: ${nombreChoisi}   \\times   ${texFractionFromString(
+                1,
+                nombreChoisi,
+              )} =  1$.`
             }
           } else {
             // nombre entier négatif
@@ -154,24 +161,26 @@ export default class ExerciceTrouverInverse extends Exercice {
             if (nombreInverse !== 0) {
               // inverse décimal
               texteCorr = `L'inverse de $${nombreChoisi}$ est $${texNombre(
-                                -nombreInverse
-                            )} \\:$`
+                -nombreInverse,
+              )} \\:$`
               texteCorr += ` car $\\: ${nombreChoisi}  \\times  \\left(-${texNombre(
-                                nombreInverse
-                            )}\\right)  =  1$.`
+                nombreInverse,
+              )}\\right)  =  1$.`
             } else {
               // inverse non décimal
               texteCorr = `L'inverse de $${nombreChoisi}$ est $-${texFractionFromString(
-                                1,
-                                -nombreChoisi
-                            )} \\:$ car $\\: ${nombreChoisi}   \\times   \\left(-${texFractionFromString(
-                                1,
-                                -nombreChoisi
-                            )}\\right) =  1$.`
+                1,
+                -nombreChoisi,
+              )} \\:$ car $\\: ${nombreChoisi}   \\times   \\left(-${texFractionFromString(
+                1,
+                -nombreChoisi,
+              )}\\right) =  1$.`
             }
           }
           texte = `Quel est l'inverse de $${texNombre(nombreChoisi)}$ ?`
-          setReponse(this, i, new FractionEtendue(1, nombreChoisi), { formatInteractif: 'fractionEgale' })
+          setReponse(this, i, new FractionEtendue(1, nombreChoisi), {
+            formatInteractif: 'fractionEgale',
+          })
           break
         case 2:
           couplesDInverses = choice(listeDecimaux)
@@ -180,101 +189,111 @@ export default class ExerciceTrouverInverse extends Exercice {
           nombreInverseDen = couplesDInverses[2]
           if (choice([true, false])) {
             // nombre positif
-            setReponse(this, i, new FractionEtendue(nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
+            setReponse(
+              this,
+              i,
+              new FractionEtendue(nombreInverseNum, nombreInverseDen),
+              { formatInteractif: 'fractionEgale' },
+            )
             if (pgcd(nombreInverseNum, nombreInverseDen) === 1) {
               // non simplifiable après inversion
               texteCorr = `Comme $${texNombre(nombreChoisi)}=${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}$, l'inverse de $${texNombre(
-                                nombreChoisi
-                            )}$ est $${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )} \\:$ car $\\: ${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}   \\times   ${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )} =  1$.`
+                nombreInverseDen,
+                nombreInverseNum,
+              )}$, l'inverse de $${texNombre(
+                nombreChoisi,
+              )}$ est $${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )} \\:$ car $\\: ${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}   \\times   ${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )} =  1$.`
             } else {
               // à simplifier après inversion
               texteCorr = `Comme $${texNombre(nombreChoisi)}=${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}=${texFractionReduite(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}$, l'inverse de $${texNombre(
-                                nombreChoisi
-                            )}$ est $${texFractionReduite(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )} \\:$ car $\\: ${texFractionReduite(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}  \\times   ${texFractionReduite(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )} =  1$.`
+                nombreInverseDen,
+                nombreInverseNum,
+              )}=${texFractionReduite(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}$, l'inverse de $${texNombre(
+                nombreChoisi,
+              )}$ est $${texFractionReduite(
+                nombreInverseNum,
+                nombreInverseDen,
+              )} \\:$ car $\\: ${texFractionReduite(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}  \\times   ${texFractionReduite(
+                nombreInverseNum,
+                nombreInverseDen,
+              )} =  1$.`
             }
           } else {
             // nombre négatif
             nombreChoisi = -nombreChoisi
-            setReponse(this, i, new FractionEtendue(-nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
+            setReponse(
+              this,
+              i,
+              new FractionEtendue(-nombreInverseNum, nombreInverseDen),
+              { formatInteractif: 'fractionEgale' },
+            )
             if (pgcd(nombreInverseNum, nombreInverseDen) === 1) {
               // non simplifiable après inversion
               texteCorr = `L'inverse de $${texNombre(
-                                nombreChoisi
-                            )}$ est $-${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )} \\:$ car $\\: ${texNombre(
-                                nombreChoisi
-                            )}   \\times   \\left(-${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}\\right) =  1$.`
+                nombreChoisi,
+              )}$ est $-${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )} \\:$ car $\\: ${texNombre(
+                nombreChoisi,
+              )}   \\times   \\left(-${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )}\\right) =  1$.`
               texteCorr = `Comme $${texNombre(
-                                nombreChoisi
-                            )}=-${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}$, l'inverse de $${texNombre(
-                                nombreChoisi
-                            )}$ est $-${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )} \\:$ car $\\: -${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}   \\times  \\left(- ${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}\\right) =  1$.`
+                nombreChoisi,
+              )}=-${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}$, l'inverse de $${texNombre(
+                nombreChoisi,
+              )}$ est $-${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )} \\:$ car $\\: -${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}   \\times  \\left(- ${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )}\\right) =  1$.`
             } else {
               // à simplifier après inversion
               texteCorr = `Comme $${texNombre(
-                                nombreChoisi
-                            )}=-${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}=-${texFractionReduite(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}$, l'inverse de $${texNombre(
-                                nombreChoisi
-                            )}$ est $-${texFractionReduite(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )} \\:$ car $\\: -${texFractionReduite(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}  \\times  \\left(- ${texFractionReduite(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )} \\right)=  1$.`
+                nombreChoisi,
+              )}=-${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}=-${texFractionReduite(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}$, l'inverse de $${texNombre(
+                nombreChoisi,
+              )}$ est $-${texFractionReduite(
+                nombreInverseNum,
+                nombreInverseDen,
+              )} \\:$ car $\\: -${texFractionReduite(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}  \\times  \\left(- ${texFractionReduite(
+                nombreInverseNum,
+                nombreInverseDen,
+              )} \\right)=  1$.`
             }
           }
           texte = `Quel est l'inverse de $${texNombre(nombreChoisi)}$ ?`
@@ -286,85 +305,95 @@ export default class ExerciceTrouverInverse extends Exercice {
           nombreInverseDen = couplesDInverses[1]
           nombreChoisi = nombreInverseNum / nombreInverseDen
           if (choice([true, false])) {
-            setReponse(this, i, new FractionEtendue(nombreInverseDen, nombreInverseNum), { formatInteractif: 'fractionEgale' })
+            setReponse(
+              this,
+              i,
+              new FractionEtendue(nombreInverseDen, nombreInverseNum),
+              { formatInteractif: 'fractionEgale' },
+            )
             // fraction positive
             if (couplesDInverses[2] === true) {
               // inverse décimal
               texteCorr = `L'inverse de $${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}$ est $${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}=${texNombre(
-                                nombreInverseDen / nombreInverseNum
-                            )} \\:$ car $\\: ${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}   \\times   ${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )} =  1$.`
+                nombreInverseNum,
+                nombreInverseDen,
+              )}$ est $${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}=${texNombre(
+                nombreInverseDen / nombreInverseNum,
+              )} \\:$ car $\\: ${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )}   \\times   ${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )} =  1$.`
             } else {
               // inverse non décimal
               texteCorr = `L'inverse de $${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}$ est $${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )} \\:$ car $\\: ${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}   \\times   ${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )} =  1$.`
+                nombreInverseNum,
+                nombreInverseDen,
+              )}$ est $${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )} \\:$ car $\\: ${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )}   \\times   ${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )} =  1$.`
             }
             texte = `Quel est l'inverse de $${texFractionFromString(
-                            nombreInverseNum,
-                            nombreInverseDen
-                        )}$ ?`
+              nombreInverseNum,
+              nombreInverseDen,
+            )}$ ?`
           } else {
             // fraction négative
-            setReponse(this, i, new FractionEtendue(-nombreInverseDen, nombreInverseNum), { formatInteractif: 'fractionEgale' })
+            setReponse(
+              this,
+              i,
+              new FractionEtendue(-nombreInverseDen, nombreInverseNum),
+              { formatInteractif: 'fractionEgale' },
+            )
             if (couplesDInverses[2] === true) {
               // inverse décimal
               texteCorr = `L'inverse de $-${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}$ est $-${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}=-${texNombre(
-                                nombreInverseDen / nombreInverseNum
-                            )} \\:$ car $\\: -${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}   \\times  \\left(- ${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )}\\right) =  1$.`
+                nombreInverseNum,
+                nombreInverseDen,
+              )}$ est $-${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}=-${texNombre(
+                nombreInverseDen / nombreInverseNum,
+              )} \\:$ car $\\: -${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )}   \\times  \\left(- ${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )}\\right) =  1$.`
             } else {
               // inverse non décimal
               texteCorr = `L'inverse de $-${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}$ est $-${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )} \\:$ car $\\: -${texFractionFromString(
-                                nombreInverseNum,
-                                nombreInverseDen
-                            )}   \\times  \\left(- ${texFractionFromString(
-                                nombreInverseDen,
-                                nombreInverseNum
-                            )} \\right)=  1$.`
+                nombreInverseNum,
+                nombreInverseDen,
+              )}$ est $-${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )} \\:$ car $\\: -${texFractionFromString(
+                nombreInverseNum,
+                nombreInverseDen,
+              )}   \\times  \\left(- ${texFractionFromString(
+                nombreInverseDen,
+                nombreInverseNum,
+              )} \\right)=  1$.`
             }
             texte = `Quel est l'inverse de $-${texFractionFromString(
-                            nombreInverseNum,
-                            nombreInverseDen
-                        )}$ ?`
+              nombreInverseNum,
+              nombreInverseDen,
+            )}$ ?`
           }
           break
       }

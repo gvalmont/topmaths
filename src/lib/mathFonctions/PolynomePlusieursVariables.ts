@@ -7,21 +7,25 @@ import MonomePlusieursVariables from './MonomePlusieursVariables'
 class PolynomePlusieursVariables {
   monomes: MonomePlusieursVariables[]
 
-  constructor (monomes: MonomePlusieursVariables[] | MonomePlusieursVariables) {
+  constructor(monomes: MonomePlusieursVariables[] | MonomePlusieursVariables) {
     this.monomes = Array.isArray(monomes) ? monomes : [monomes]
   }
 
-  static PolynomeNonReduit (monomes: MonomePlusieursVariables[]): PolynomePlusieursVariables {
+  static PolynomeNonReduit(
+    monomes: MonomePlusieursVariables[],
+  ): PolynomePlusieursVariables {
     return new PolynomePlusieursVariables(monomes)
   }
 
-  static PolynomeReduit (monomes: MonomePlusieursVariables[]): PolynomePlusieursVariables {
+  static PolynomeReduit(
+    monomes: MonomePlusieursVariables[],
+  ): PolynomePlusieursVariables {
     const monomesNew: MonomePlusieursVariables[] = []
 
-    monomes.forEach(monome => ajouterMonome(monome))
+    monomes.forEach((monome) => ajouterMonome(monome))
 
-    function ajouterMonome (monome: MonomePlusieursVariables): void {
-      const index = monomesNew.findIndex(m => m.estSemblable(monome))
+    function ajouterMonome(monome: MonomePlusieursVariables): void {
+      const index = monomesNew.findIndex((m) => m.estSemblable(monome))
       if (index !== -1) {
         monomesNew[index] = monomesNew[index].somme(monome)
         if (monomesNew[index].coefficient.num === 0) {
@@ -40,16 +44,32 @@ class PolynomePlusieursVariables {
   }
 
   // Créer un polynome aléatoire de degré donné avec le nombre de terme donné en paramètre. Il faudrait également ajouter un paramètre pour le type de coefficient, les variables et si on veut spécifier un ou plusieurs monômes (parties littérales) particuliers qui doivent être inclus dans le polynôme
-  static createRandomPolynome (degMin: number, degMax: number, nbTermes: number, typeCoeff: string, variables: string[], monomes: MonomePlusieursVariables[] = []): PolynomePlusieursVariables {
+  static createRandomPolynome(
+    degMin: number,
+    degMax: number,
+    nbTermes: number,
+    typeCoeff: string,
+    variables: string[],
+    monomes: MonomePlusieursVariables[] = [],
+  ): PolynomePlusieursVariables {
     const monomesListe = []
     // Add a check to make sure that all the monomials have a different literal part
     while (monomesListe.length < nbTermes) {
       if (monomes.length > monomesListe.length) {
-        monomesListe.push(MonomePlusieursVariables.createMonomeFromPartieLitterale(typeCoeff, monomes[monomesListe.length].partieLitterale))
+        monomesListe.push(
+          MonomePlusieursVariables.createMonomeFromPartieLitterale(
+            typeCoeff,
+            monomes[monomesListe.length].partieLitterale,
+          ),
+        )
       } else {
         let isSemblable = false
         do {
-          const m = MonomePlusieursVariables.createRandomMonome(randint(0, degMax), typeCoeff, variables)
+          const m = MonomePlusieursVariables.createRandomMonome(
+            randint(0, degMax),
+            typeCoeff,
+            variables,
+          )
           isSemblable = false
           // check if m is not sembable with any of the monomes in monomesListe
           for (let j = 0; j < monomesListe.length; j++) {
@@ -68,18 +88,22 @@ class PolynomePlusieursVariables {
     return new PolynomePlusieursVariables(monomesListe)
   }
 
-  static createPolynomeFromMonome (monome: MonomePlusieursVariables): PolynomePlusieursVariables {
+  static createPolynomeFromMonome(
+    monome: MonomePlusieursVariables,
+  ): PolynomePlusieursVariables {
     return new PolynomePlusieursVariables(monome)
   }
 
   // Ajoute un monome au PolynomePlusieursVariables, en combinant avec les monomes semblables
 
   // Additionne deux PolynomePlusieursVariabless ou un PolynomePlusieursVariables et un monome
-  somme (p: PolynomePlusieursVariables | MonomePlusieursVariables): PolynomePlusieursVariables {
+  somme(
+    p: PolynomePlusieursVariables | MonomePlusieursVariables,
+  ): PolynomePlusieursVariables {
     const nouveauxMonomes = [...this.monomes]
 
     if (p instanceof PolynomePlusieursVariables) {
-      p.monomes.forEach(monome => nouveauxMonomes.push(monome))
+      p.monomes.forEach((monome) => nouveauxMonomes.push(monome))
     } else {
       nouveauxMonomes.push(p)
     }
@@ -87,12 +111,12 @@ class PolynomePlusieursVariables {
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
 
-  oppose (): PolynomePlusieursVariables {
-    const nouveauxMonomes = this.monomes.map(monome => monome.oppose())
+  oppose(): PolynomePlusieursVariables {
+    const nouveauxMonomes = this.monomes.map((monome) => monome.oppose())
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
 
-  melangerTermes (melange : boolean): PolynomePlusieursVariables {
+  melangerTermes(melange: boolean): PolynomePlusieursVariables {
     if (melange) {
       let nouveauxMonomes = shuffle(this.monomes)
       if (this.monomes.length === 1) {
@@ -100,8 +124,10 @@ class PolynomePlusieursVariables {
       } else {
         do {
           nouveauxMonomes = shuffle(this.monomes)
-        }
-        while (nouveauxMonomes.map(m => m.toString()).join('') === this.monomes.map(m => m.toString()).join(''))
+        } while (
+          nouveauxMonomes.map((m) => m.toString()).join('') ===
+          this.monomes.map((m) => m.toString()).join('')
+        )
         return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
       }
     } else {
@@ -109,12 +135,15 @@ class PolynomePlusieursVariables {
     }
   }
 
-  toStringSansLeDernierTerme (): string {
+  toStringSansLeDernierTerme(): string {
     let result = ''
     if (this.monomes.length === 0) {
       result = '\\ldots\\ldots'
     } else {
-      const polynomeSansDernierTerme = PolynomePlusieursVariables.PolynomeNonReduit(this.monomes.slice(0, this.monomes.length - 1))
+      const polynomeSansDernierTerme =
+        PolynomePlusieursVariables.PolynomeNonReduit(
+          this.monomes.slice(0, this.monomes.length - 1),
+        )
       result += polynomeSansDernierTerme.toString()
       if (this.monomes[this.monomes.length - 1].coefficient.signe === 1) {
         result += ' + \\ldots\\ldots'
@@ -125,12 +154,15 @@ class PolynomePlusieursVariables {
     return result
   }
 
-  toStringAvecDernierTermeEnEvidence (): string {
+  toStringAvecDernierTermeEnEvidence(): string {
     let result = ''
     if (this.monomes.length === 0) {
       result = ''
     } else {
-      const polynomeSansDernierTerme = PolynomePlusieursVariables.PolynomeNonReduit(this.monomes.slice(0, this.monomes.length - 1))
+      const polynomeSansDernierTerme =
+        PolynomePlusieursVariables.PolynomeNonReduit(
+          this.monomes.slice(0, this.monomes.length - 1),
+        )
       result += polynomeSansDernierTerme.toString()
       if (this.monomes[this.monomes.length - 1].coefficient.signe === 1) {
         result += ' + '
@@ -149,12 +181,12 @@ class PolynomePlusieursVariables {
 
   // Une méthode pour déterminer si un terme est un carré
   // Pas encore terminée
-  contientCarre (): boolean {
-    return this.monomes.some(monome => monome.estCarre())
+  contientCarre(): boolean {
+    return this.monomes.some((monome) => monome.estCarre())
   }
 
   // Une méthode pour déterminer la mise en facteur commun
-  miseEnFacteurCommun (): MonomePlusieursVariables {
+  miseEnFacteurCommun(): MonomePlusieursVariables {
     const monomes = this.monomes
     if (monomes.length === 0) {
       return new MonomePlusieursVariables(0, { variables: [], exposants: [] })
@@ -168,29 +200,37 @@ class PolynomePlusieursVariables {
   }
 
   // une méthode pour diviser un polynome par un monome
-  diviserParMonome (m: MonomePlusieursVariables): PolynomePlusieursVariables {
+  diviserParMonome(m: MonomePlusieursVariables): PolynomePlusieursVariables {
     // un nouveau polynome dont tous les termes sont divisés par le monome
-    const nouveauxMonomes = this.monomes.map(monome => monome.diviserPar(m))
+    const nouveauxMonomes = this.monomes.map((monome) => monome.diviserPar(m))
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
 
   // Générer des identités remarquables sans avoir de carré dans les termes de départ
 
-  difference (p: PolynomePlusieursVariables | MonomePlusieursVariables): PolynomePlusieursVariables {
+  difference(
+    p: PolynomePlusieursVariables | MonomePlusieursVariables,
+  ): PolynomePlusieursVariables {
     const nouveauxMonomes = [...this.monomes]
 
     if (p instanceof PolynomePlusieursVariables) {
       // Negate each monomial in the polynomial and add to nouveauxMonomes
-      p.monomes.forEach(monome => {
+      p.monomes.forEach((monome) => {
         const negatedMonome = monome.produit(
-          new MonomePlusieursVariables(new FractionEtendue(-1, 1), { variables: [], exposants: [] })
+          new MonomePlusieursVariables(new FractionEtendue(-1, 1), {
+            variables: [],
+            exposants: [],
+          }),
         )
         nouveauxMonomes.push(negatedMonome)
       })
     } else {
       // Negate the single monomial and add to nouveauxMonomes
       const negatedMonome = p.produit(
-        new MonomePlusieursVariables(new FractionEtendue(-1, 1), { variables: [], exposants: [] })
+        new MonomePlusieursVariables(new FractionEtendue(-1, 1), {
+          variables: [],
+          exposants: [],
+        }),
       )
       nouveauxMonomes.push(negatedMonome)
     }
@@ -200,17 +240,19 @@ class PolynomePlusieursVariables {
   }
 
   // Multiplie deux PolynomePlusieursVariabless ou un PolynomePlusieursVariables et un monome
-  produit (p: PolynomePlusieursVariables | MonomePlusieursVariables): PolynomePlusieursVariables {
+  produit(
+    p: PolynomePlusieursVariables | MonomePlusieursVariables,
+  ): PolynomePlusieursVariables {
     const nouveauxMonomes: MonomePlusieursVariables[] = []
 
     if (p instanceof PolynomePlusieursVariables) {
-      this.monomes.forEach(monome1 => {
-        p.monomes.forEach(monome2 => {
+      this.monomes.forEach((monome1) => {
+        p.monomes.forEach((monome2) => {
           nouveauxMonomes.push(monome1.produit(monome2))
         })
       })
     } else {
-      this.monomes.forEach(monome => {
+      this.monomes.forEach((monome) => {
         nouveauxMonomes.push(monome.produit(p))
       })
     }
@@ -218,12 +260,12 @@ class PolynomePlusieursVariables {
   }
 
   // Réduit le PolynomePlusieursVariables en combinant les monomes semblables
-  reduire (): PolynomePlusieursVariables {
+  reduire(): PolynomePlusieursVariables {
     const reduit = PolynomePlusieursVariables.PolynomeReduit(this.monomes)
     return reduit
   }
 
-  ordonner (): PolynomePlusieursVariables {
+  ordonner(): PolynomePlusieursVariables {
     const monomes = this.monomes
     monomes.sort((a, b) => {
       return -a.degre + b.degre
@@ -231,12 +273,15 @@ class PolynomePlusieursVariables {
     return PolynomePlusieursVariables.PolynomeNonReduit(monomes)
   }
 
-  evaluer (valeurs: { [key: string]: FractionEtendue }): FractionEtendue {
-    return this.monomes.reduce((acc, monome) => acc.sommeFraction(monome.evaluer(valeurs)), new FractionEtendue(0, 1))
+  evaluer(valeurs: { [key: string]: FractionEtendue }): FractionEtendue {
+    return this.monomes.reduce(
+      (acc, monome) => acc.sommeFraction(monome.evaluer(valeurs)),
+      new FractionEtendue(0, 1),
+    )
   }
 
   // should do the same as to string, but with the values of the variables replaced by the values in the object valeurs
-  toStringEvaluate (valeurs: { [key: string]: FractionEtendue }): string {
+  toStringEvaluate(valeurs: { [key: string]: FractionEtendue }): string {
     if (this.monomes.length === 0) return '0'
     let result = ''
     this.monomes.forEach((monome, index) => {
@@ -261,7 +306,7 @@ class PolynomePlusieursVariables {
   }
 
   // Convertit le polynome en une chaîne de caractères
-  toString (): string {
+  toString(): string {
     if (this.monomes.length === 0) return '0'
     let result = ''
     this.monomes.forEach((monome, index) => {

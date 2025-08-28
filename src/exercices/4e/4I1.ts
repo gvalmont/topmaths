@@ -4,7 +4,12 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
-import { avance, baisseCrayon, creerLutin, tournerD } from '../../modules/2dLutin'
+import {
+  avance,
+  baisseCrayon,
+  creerLutin,
+  tournerD,
+} from '../../modules/2dLutin'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { range } from '../../lib/outils/nombres'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
@@ -25,35 +30,52 @@ export const uuid = '33c9a'
 
 export const refs = {
   'fr-fr': ['4I1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TracerAvecScratch extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
+    this.consigne =
+      'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
     this.typeExercice = 'Scratch'
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 
-    const fenetreMathalea2D = { style: 'display: inline-block', xmin: -4, ymin: -13.5, xmax: 10, ymax: 0.5, pixelsParCm: 10, scale: 0.2, id: 'ADeterminerPlusTard' }
+    const fenetreMathalea2D = {
+      style: 'display: inline-block',
+      xmin: -4,
+      ymin: -13.5,
+      xmax: 10,
+      ymax: 0.5,
+      pixelsParCm: 10,
+      scale: 0.2,
+      id: 'ADeterminerPlusTard',
+    }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     this.figures = [[], [], [], []]
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // une fonction pour gérer la sortie HTML/LaTeX
       // code est un string contenant le code svg ou tikz
 
       // une fonction pour dire le nom du polygone
-      const myPolyName = (n:number) => {
+      const myPolyName = (n: number) => {
         const sortie = {
           name: '',
           nameParSommets: '',
-          nbPas: 0
+          nbPas: 0,
         }
         switch (n) {
           case 2:
@@ -94,9 +116,10 @@ export default class TracerAvecScratch extends Exercice {
 
       // une fonction pour renvoyer une situation
       // n définit le nombre de côtés du polygone régulier
-      const mySituation = (n:number) => {
+      const mySituation = (n: number) => {
         const situations = [
-          { // polygones réguliers
+          {
+            // polygones réguliers
             nbCotes: n,
             nom: myPolyName(n).name,
             codeScratch: `\\begin{scratch}
@@ -109,8 +132,8 @@ export default class TracerAvecScratch extends Exercice {
 }
 \\end{scratch}`,
             fig: '',
-            fig_corr: ''
-          }
+            fig_corr: '',
+          },
         ]
 
         const lutinEnonce = []
@@ -123,15 +146,28 @@ export default class TracerAvecScratch extends Exercice {
           lutinEnonce[indiceLutin].stringColor = bleuMathalea
           baisseCrayon(lutinEnonce[indiceLutin])
           for (let k = 1; k < tabNbCote[indiceLutin] + 1; k++) {
-            avance(myPolyName(tabNbCote[indiceLutin]).nbPas, lutinEnonce[indiceLutin])
-            tournerD(360 / tabNbCote[indiceLutin] - (indiceLutin === 3 ? 10 : 0), lutinEnonce[indiceLutin])
+            avance(
+              myPolyName(tabNbCote[indiceLutin]).nbPas,
+              lutinEnonce[indiceLutin],
+            )
+            tournerD(
+              360 / tabNbCote[indiceLutin] - (indiceLutin === 3 ? 10 : 0),
+              lutinEnonce[indiceLutin],
+            )
           }
 
           fenetreMathalea2D.id = `cliquefigure${indiceLutin}Ex${this.numeroExercice}Q${i}`
-          figLutinEnonce[indiceLutin] = mathalea2d(fenetreMathalea2D, lutinEnonce[indiceLutin])
+          figLutinEnonce[indiceLutin] = mathalea2d(
+            fenetreMathalea2D,
+            lutinEnonce[indiceLutin],
+          )
         }
         const ordre = shuffle(range(3))
-        situations[0].fig = figLutinEnonce[ordre[0]] + figLutinEnonce[ordre[1]] + figLutinEnonce[ordre[2]] + figLutinEnonce[ordre[3]]
+        situations[0].fig =
+          figLutinEnonce[ordre[0]] +
+          figLutinEnonce[ordre[1]] +
+          figLutinEnonce[ordre[2]] +
+          figLutinEnonce[ordre[3]]
 
         const lutinCorr = creerLutin()
         lutinCorr.stringColor = orangeMathalea
@@ -157,15 +193,16 @@ export default class TracerAvecScratch extends Exercice {
           La figure tracée par le programme a ${situations[0].nbCotes} côtés de même longueur et ${situations[0].nbCotes} angles de même mesure, c'est un ${texteEnCouleurEtGras(situations[0].nom, bleuMathalea)}.
           <br><br>
           ${situations[0].fig_corr}
-          `
+          `,
         })
 
         return enonces
       }
-      this.figures[i] = [{ id: `cliquefigure0Ex${this.numeroExercice}Q${i}`, solution: true },
+      this.figures[i] = [
+        { id: `cliquefigure0Ex${this.numeroExercice}Q${i}`, solution: true },
         { id: `cliquefigure1Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `cliquefigure2Ex${this.numeroExercice}Q${i}`, solution: false },
-        { id: `cliquefigure3Ex${this.numeroExercice}Q${i}`, solution: false }
+        { id: `cliquefigure3Ex${this.numeroExercice}Q${i}`, solution: false },
       ]
 
       const enonces = []

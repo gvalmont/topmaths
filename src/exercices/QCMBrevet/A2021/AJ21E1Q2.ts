@@ -1,5 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
@@ -8,13 +12,13 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '47d32'
 export const refs = {
   'fr-fr': ['3F1QCM-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Fonction calcul d\'image (06/2021 Asie)'
+export const titre = "Fonction calcul d'image (06/2021 Asie)"
 export const dateDePublication = '09/11/2024'
 /**
  *
@@ -23,11 +27,11 @@ export const dateDePublication = '09/11/2024'
  */
 
 export default class AsieJuin21Exo1Q2 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b:number): void {
+  private appliquerLesValeurs(a: number, b: number): void {
     this.reponses = [
       `$f(0)=${String(b)}$`,
       `$f(${String(b)})=0$`,
-      `l'image de $${String(-b)}$ par $f$ est $${String(b)}$.`
+      `l'image de $${String(-b)}$ par $f$ est $${String(b)}$.`,
     ]
     this.enonce = `On considère la fonction $f$ définie par $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(b)}$.`
     this.correction = `l'image de $${String(-b)}$ par $f$ est : $${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}${ecritureParentheseSiNegatif(-b)}^2${ecritureAlgebrique(b)}=${texNombre(a * b ** 2 + b, 0)}$.<br>
@@ -48,7 +52,7 @@ export default class AsieJuin21Exo1Q2 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

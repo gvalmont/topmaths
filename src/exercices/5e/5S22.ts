@@ -10,10 +10,10 @@ export const uuid = 'df72b'
 
 export const refs = {
   'fr-fr': ['5S22'],
-  'fr-ch': ['11NO2-8']
+  'fr-ch': ['11NO2-8'],
 }
 export default class FonctionsVocabulaireProbabilite5e extends FonctionsProbabilite1 {
-  constructor () {
+  constructor() {
     super()
     this.niveau = 2
     this.spacingCorr = 2

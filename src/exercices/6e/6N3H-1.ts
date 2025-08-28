@@ -30,16 +30,26 @@ export const uuid = 'f8a4d'
 export const refs = {
   'fr-fr': ['BP2AutoG5', '6N3H-1'],
   'fr-2016': ['6N41-1', 'BP2AutoG5'],
-  'fr-ch': ['9NO12-2']
+  'fr-ch': ['9NO12-2'],
 }
 export default class ExerciceLabyrintheFractionsEgales extends Exercice {
   niveau: string
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Facteur maximum', 20]
-    this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
-    this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
-    this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.besoinFormulaire2Numerique = [
+      'Niveau de rapidité',
+      6,
+      '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)',
+      8,
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)',
+      8,
+    ]
     this.niveau = '6e'
     this.nbQuestions = 1
 
@@ -57,13 +67,18 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const tailleChiffre = context.isAmc ? 1.1 : 0.7
     this.sup = Math.max(2, this.sup)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const mesfractions = []
       const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
-      const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
+      const nbC =
+        this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
       const laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
       laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       const monchemin = laby.choisitChemin(laby.niveau) // on choisit un chemin
@@ -83,35 +98,83 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
       listeMultiples = combinaisonListes(listeMultiples, nbC * nbL)
 
       for (let i = 0; i < nbC * nbL; i++) {
-        mesfractions.push(new FractionEtendue(num * listeMultiples[i], table * listeMultiples[i]))
+        mesfractions.push(
+          new FractionEtendue(
+            num * listeMultiples[i],
+            table * listeMultiples[i],
+          ),
+        )
       }
       for (let i = 0; i < nbC * nbL; i++) {
         switch (randint(1, 3)) {
-          case 1: mesfractions.push(new FractionEtendue(table, num).multiplieEntier(listeMultiples[i]))
+          case 1:
+            mesfractions.push(
+              new FractionEtendue(table, num).multiplieEntier(
+                listeMultiples[i],
+              ),
+            )
             break
           case 2:
-          case 3 : mesfractions.push(new FractionEtendue(num * listeMultiples[i], table * Math.abs(listeMultiples[i] - table)))
+          case 3:
+            mesfractions.push(
+              new FractionEtendue(
+                num * listeMultiples[i],
+                table * Math.abs(listeMultiples[i] - table),
+              ),
+            )
             break
         }
       }
 
       // Le tableau de nombre étant fait, on place les objets nombres.
-      laby.nombres2d = laby.placeNombres(monchemin, mesfractions.slice(0, nbC * nbL - 1), mesfractions.slice(nbC * nbL), tailleChiffre)
-      const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
-      if (context.isAmc) texte += ' Laisser dans le labyrinthe les traces du chemin parcouru.'
+      laby.nombres2d = laby.placeNombres(
+        monchemin,
+        mesfractions.slice(0, nbC * nbL - 1),
+        mesfractions.slice(nbC * nbL),
+        tailleChiffre,
+      )
+      const params = {
+        xmin: -4,
+        ymin: 0,
+        xmax: 5 + 3 * nbC,
+        ymax: 2 + 3 * nbL,
+        pixelsParCm: 20,
+        scale: 0.7,
+      }
+      if (context.isAmc)
+        texte += ' Laisser dans le labyrinthe les traces du chemin parcouru.'
       texte += '<br>' + mathalea2d(params, laby.murs2d, laby.nombres2d)
       texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
-      texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
+      texteCorr += mathalea2d(
+        params,
+        laby.murs2d,
+        laby.nombres2d,
+        laby.chemin2d,
+      )
       if (this.interactif) {
         /* texte += '<br>La sortie porte le numéro : ' + ajouteChampTexteMathLive(this, 2 * i, '  clavierDeBase')
         handleAnswers(this, 2 * i, { reponse: { value: nbL - monchemin[monchemin.length - 1][1] } })
         texte += `<br><br>Combien de cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ contient le chemin pour sortir ? ` + ajouteChampTexteMathLive(this, 2 * i + 1, '  clavierDeBase')
         handleAnswers(this, 2 * i + 1, { reponse: { value: monchemin.length } })
         texteCorr += `<br>Il y a $${miseEnEvidence(monchemin.length)}$ cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ dans le chemin pour sortir.` */
-        texte += ajouteChampTexteMathLive(this, 2 * 0, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
-        handleAnswers(this, 2 * 0, { reponse: { value: `${nbL - monchemin[monchemin.length - 1][1]}` } })
-        texte += ajouteChampTexteMathLive(this, 2 * 0 + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
-        handleAnswers(this, 2 * 0 + 1, { reponse: { value: `${laby.chemin2d.length - 1}` } })
+        texte += ajouteChampTexteMathLive(
+          this,
+          2 * 0,
+          KeyboardType.clavierNumbers,
+          { texteAvant: 'Indiquer le numéro de la bonne sortie :' },
+        )
+        handleAnswers(this, 2 * 0, {
+          reponse: { value: `${nbL - monchemin[monchemin.length - 1][1]}` },
+        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          2 * 0 + 1,
+          KeyboardType.clavierNumbers,
+          { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' },
+        )
+        handleAnswers(this, 2 * 0 + 1, {
+          reponse: { value: `${laby.chemin2d.length - 1}` },
+        })
       }
       if (context.isAmc) {
         this.autoCorrection[0] = {
@@ -126,11 +189,11 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
                   texte: texteCorr,
                   statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                   enonce: texte,
-                  sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }
-          ]
+                  sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, texte)) {

@@ -19,10 +19,10 @@ export const uuid = 'b119b'
 
 export const refs = {
   'fr-fr': ['can1S04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NatureSuiteRec extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -30,13 +30,15 @@ export default class NatureSuiteRec extends Exercice {
     this.spacing = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, u, props
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3])) { //
-        case 1 :// suite arithmétique simple
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2, 3]) //
+      ) {
+        case 1: // suite arithmétique simple
           a = randint(1, 10) * choice([-1, 1])
           u = randint(1, 10) * choice([-1, 1])
 
@@ -48,17 +50,17 @@ export default class NatureSuiteRec extends Exercice {
             propositions: [
               {
                 texte: `arithmétique de raison $${a}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `arithmétique de raison $${u}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `géométrique de raison $${a}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -75,7 +77,7 @@ export default class NatureSuiteRec extends Exercice {
 
           break
 
-        case 2 :// suite géo simple
+        case 2: // suite géo simple
           a = randint(2, 10) * choice([-1, 1])
           u = randint(1, 10) * choice([-1, 1])
 
@@ -87,17 +89,17 @@ export default class NatureSuiteRec extends Exercice {
             propositions: [
               {
                 texte: `géométrique de raison $${a}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `géométrique de raison $${u}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `arithmétique de raison $${a}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -114,7 +116,7 @@ export default class NatureSuiteRec extends Exercice {
 
           break
 
-        case 3 :// suite géo u_n/a
+        case 3: // suite géo u_n/a
           a = randint(2, 10)
           u = randint(1, 10) * choice([-1, 1])
           b = choice([-1, 1])
@@ -127,17 +129,17 @@ export default class NatureSuiteRec extends Exercice {
               propositions: [
                 {
                   texte: `géométrique de raison $-\\dfrac{1}{${a}}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `géométrique de raison $-${a}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `arithmétique de raison $-${a}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             props = propositionsQcm(this, i)
             if (this.interactif) texte += props.texte
@@ -159,17 +161,17 @@ export default class NatureSuiteRec extends Exercice {
               propositions: [
                 {
                   texte: `géométrique de raison $\\dfrac{1}{${a}}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `géométrique de raison $${a}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `arithmétique de raison $${a}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             props = propositionsQcm(this, i)
             if (this.interactif) texte += props.texte

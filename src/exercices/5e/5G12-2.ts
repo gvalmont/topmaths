@@ -8,10 +8,10 @@ export const dateDePublication = '4/12/2021'
 export const uuid = 'dbc1d'
 export const refs = {
   'fr-fr': ['5G12-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SerieDeTransformations5e extends SerieDeTransformations {
-  constructor () {
+  constructor() {
     super()
     this.version = 2
     this.nbQuestions = 1

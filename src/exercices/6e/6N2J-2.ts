@@ -8,17 +8,17 @@ export const titre = 'Effectuer divisions euclidiennes - Niveau 2'
 
 /**
  * @author Rémi Angot
-*/
+ */
 
 export const uuid = 'bbcac'
 
 export const refs = {
   'fr-fr': ['6N2J-2'],
   'fr-2016': ['6C21'],
-  'fr-ch': ['9NO3-4']
+  'fr-ch': ['9NO3-4'],
 }
 export default class DivisionsEuclidiennesNiv2 extends DivisionsEuclidiennesEgaliteFondamentale {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
   }

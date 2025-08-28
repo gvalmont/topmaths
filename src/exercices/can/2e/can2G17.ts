@@ -1,9 +1,14 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
-export const titre = 'Déterminer un vecteur directeur avec une équation cartésienne'
+export const titre =
+  'Déterminer un vecteur directeur avec une équation cartésienne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '08/07/2022'
@@ -17,10 +22,10 @@ export const uuid = 'dacc1'
 
 export const refs = {
   'fr-fr': ['can2G17'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class VecteurDirEqCart extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +34,7 @@ export default class VecteurDirEqCart extends ExerciceSimple {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-9, 9, 0)
     const b = randint(-9, 9, 0)
     const c = randint(-5, 5, 0)

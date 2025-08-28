@@ -1,5 +1,6 @@
 import ExerciceConversions from '../6e/_Exercice_conversions'
-export const titre = "Conversion d'unités des préfixes k,h,da vers unité de référence"
+export const titre =
+  "Conversion d'unités des préfixes k,h,da vers unité de référence"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,10 +19,10 @@ export const uuid = 'c9ba6'
 export const refs = {
   'fr-fr': ['BP2AutoQ3'],
   'fr-2016': ['c3N30', 'BP2AutoQ3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ConversionsC3 extends ExerciceConversions {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
     this.nbQuestions = 5

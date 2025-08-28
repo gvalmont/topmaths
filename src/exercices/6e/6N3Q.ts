@@ -3,7 +3,11 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -13,7 +17,7 @@ export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Calculer mentalement le pourcentage d\'un nombre'
+export const titre = "Calculer mentalement le pourcentage d'un nombre"
 
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre
@@ -25,10 +29,10 @@ export const uuid = '66756'
 export const refs = {
   'fr-fr': ['6N3Q'],
   'fr-2016': ['6N33-1'],
-  'fr-ch': ['9NO14-3']
+  'fr-ch': ['9NO14-3'],
 }
 export default class PourcentageDunNombre extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.consigne = 'Calculer.'
@@ -40,7 +44,9 @@ export default class PourcentageDunNombre extends Exercice {
     this.interactif = false
     this.sup2 = '1-2-4-5'
     this.besoinFormulaireCaseACocher = ['Plusieurs méthodes']
-    this.besoinFormulaire2Texte = ['Choix des pourcentages', `Nombres séparés par des tirets
+    this.besoinFormulaire2Texte = [
+      'Choix des pourcentages',
+      `Nombres séparés par des tirets
 1 : 10%
 2 : 20%
 3 : 25%
@@ -50,10 +56,11 @@ export default class PourcentageDunNombre extends Exercice {
 7 : 60%
 8 : 75%
 9 : 90%
-10 : Mélange`]
+10 : Mélange`,
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const pourcentages = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -61,29 +68,34 @@ export default class PourcentageDunNombre extends Exercice {
       defaut: 10,
       melange: 10,
       nbQuestions: this.nbQuestions,
-      listeOfCase: [10, 20, 25, 30, 40, 50, 60, 75, 90]
+      listeOfCase: [10, 20, 25, 30, 40, 50, 60, 75, 90],
     }).map(Number)
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       const p = pourcentages[i]
-      let n = choice([randint(2, 9), randint(2, 9) * 10, randint(1, 9) * 10 + randint(1, 2)])
+      let n = choice([
+        randint(2, 9),
+        randint(2, 9) * 10,
+        randint(1, 9) * 10 + randint(1, 2),
+      ])
       if (p === 25 || p === 75) {
         n = randint(1, 10) * choice([4, 40])
       }
       texte = `$${p}~\\%~\\text{de }${n}$`
       switch (p) {
-        case 50 :
+        case 50:
           texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2} = ${texNombre(n / 2)}$` // calcul de n/2 si p = 50%
           break
-        case 25 :
+        case 25:
           texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${4} = ${texNombre(n / 4)}$` // calcul de n/4 si p = 25%
           break
-        case 75 :
-          texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div 4\\times 3 = ${texNombre(n / 4)} \\times 3 = ${texNombre(n / 4 * 3)}$` // calcul de n/4 * 3 si p = 75%
+        case 75:
+          texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div 4\\times 3 = ${texNombre(n / 4)} \\times 3 = ${texNombre((n / 4) * 3)}$` // calcul de n/4 * 3 si p = 75%
           break
-        default :
+        default:
           texteCorr = `$${p}~\\%~\\text{de }${n}=${texFractionFromString(p, 100)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(p * n)}\\div100=${texNombre((p * n) / 100)}$`
           if (this.sup2) {
             texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFractionFromString(p, 100)}\\times${n}=(${n}\\div100)\\times${p}=${texNombre(n / 100)}\\times${p}=${texNombre((p * n) / 100)}$`
@@ -102,11 +114,14 @@ $${p}~\\%~\\text{de }${n}= ${p / 10} \\times ${n}\\div${10} =  ${texNombre((p * 
             }
           }
       }
-      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
-      setReponse(this, i, n * p / 100)
+      if (context.isHtml && this.interactif)
+        texte += ajouteChampTexteMathLive(this, i, '')
+      setReponse(this, i, (n * p) / 100)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte + '='
-        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: false }]
+        this.autoCorrection[i].propositions = [
+          { texte: texteCorr, statut: false },
+        ]
         // @ts-expect-error
         this.autoCorrection[i].reponse.param.digits = 3
         // @ts-expect-error

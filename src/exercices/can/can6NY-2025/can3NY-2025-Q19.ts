@@ -12,21 +12,21 @@ export const interactifType = 'mathLive'
 export const uuid = '77432'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class reduireExpression extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = randint(1, 2)
     const a = randint(5, 10)
     const c = 2025 - a
@@ -46,7 +46,9 @@ export default class reduireExpression extends ExerciceSimple {
       this.correction = `On remarque que $${texNombre(2025, 0)}=${texNombre(2025 - a)}+${a}$ et $${texNombre(2025 - 2 * a, 0)}=${texNombre(2025 - a, 0)}-${a}$, donc la moyenne est $${miseEnEvidence(`${texNombre(2025 - a)}`)}$.`
       this.reponse = 2025 - a
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

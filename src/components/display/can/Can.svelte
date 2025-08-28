@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
   import type { CanState } from '../../../lib/types/can'
   import type TypeExercice from '../../../exercices/Exercice'
   import { canOptions } from '../../../lib/stores/canStore'
@@ -52,48 +52,48 @@
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   onMount(async () => {
-  // handleCapytale peut changer la valeur du store pour que le
-  // professeur aille directement aux solutions de l'élève ou pour l'empêcher de recommencer
-  canOptions.subscribe((value) => {
-    state = value.state
-    if (value.state !== 'solutions' && value.state !== 'canHomeScreen') return
-    if (answersFromCapytale.length === 0) {
-      return
-    }
-    for (const param of exercises) {
-      param.interactif = false
-    }
-
-    for (const exercice of answersFromCapytale) {
-      if (exercice.answers === undefined) {
-        answers.push('')
-        continue
+    // handleCapytale peut changer la valeur du store pour que le
+    // professeur aille directement aux solutions de l'élève ou pour l'empêcher de recommencer
+    canOptions.subscribe((value) => {
+      state = value.state
+      if (value.state !== 'solutions' && value.state !== 'canHomeScreen') return
+      if (answersFromCapytale.length === 0) {
+        return
       }
-      const keys = Object.keys(exercice.answers)
-      if (keys.length > 1) {
-        const regex = /^Ex\d+Q\d+$/
-        const key = keys.find((k) => regex.test(k))
-        answers.push(key ? exercice.answers[key] : '')
-      } else if (keys.length === 1) {
-        const value = exercice.answers[keys[0]]
-        if (value?.includes('apiGeomVersion')) {
-          answers.push('Voir figure')
-          const event = new CustomEvent(keys[0], { detail: value })
-          document.dispatchEvent(event)
-        } else {
-          answers.push(value ? exercice.answers[keys[0]] : '')
+      for (const param of exercises) {
+        param.interactif = false
+      }
+
+      for (const exercice of answersFromCapytale) {
+        if (exercice.answers === undefined) {
+          answers.push('')
+          continue
         }
-      } else {
-        answers.push('')
+        const keys = Object.keys(exercice.answers)
+        if (keys.length > 1) {
+          const regex = /^Ex\d+Q\d+$/
+          const key = keys.find((k) => regex.test(k))
+          answers.push(key ? exercice.answers[key] : '')
+        } else if (keys.length === 1) {
+          const value = exercice.answers[keys[0]]
+          if (value?.includes('apiGeomVersion')) {
+            answers.push('Voir figure')
+            const event = new CustomEvent(keys[0], { detail: value })
+            document.dispatchEvent(event)
+          } else {
+            answers.push(value ? exercice.answers[keys[0]] : '')
+          }
+        } else {
+          answers.push('')
+        }
       }
-    }
-    console.log('answers', answers)
+      console.log('answers', answers)
 
-    if (assignmentDataFromCapytale?.resultsByQuestion !== undefined)
-      resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
-    if (assignmentDataFromCapytale?.duration !== undefined)
-      recordedTimeFromCapytale = assignmentDataFromCapytale.duration
-  })
+      if (assignmentDataFromCapytale?.resultsByQuestion !== undefined)
+        resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
+      if (assignmentDataFromCapytale?.duration !== undefined)
+        recordedTimeFromCapytale = assignmentDataFromCapytale.duration
+    })
     context.isDiaporama = true
     // force le mode interactif
     globalOptions.update((gOpt) => {
@@ -125,7 +125,15 @@
   })
 
   type answerType = {
-    type: 'mathlive' | 'fillInTheBlank' | 'dnd' | 'qcm' | 'listeDeroulante' | 'custom' | 'cliqueFigure' | 'unknown'
+    type:
+      | 'mathlive'
+      | 'fillInTheBlank'
+      | 'dnd'
+      | 'qcm'
+      | 'listeDeroulante'
+      | 'custom'
+      | 'cliqueFigure'
+      | 'unknown'
     index: number
     answers?: { [key: string]: string }
     answerTxt: string
@@ -133,143 +141,225 @@
 
   function checkAnswers() {
     statsCanTracker($globalOptions.recorder ?? '', $globalOptions.v ?? '')
-    const answersType : answerType[] = []
+    const answersType: answerType[] = []
     for (let i = 0; i < questions.length; i++) {
       const exercice = exercises[indiceExercice[i]]
-      const type =  exercice.autoCorrection?.[indiceQuestionInExercice[i]]?.reponse?.param?.formatInteractif ?? exercice.interactifType
+      const type =
+        exercice.autoCorrection?.[indiceQuestionInExercice[i]]?.reponse?.param
+          ?.formatInteractif ?? exercice.interactifType
       if (type === 'mathlive' || type === 'fillInTheBlank') {
-        resultsByQuestion[i] = Boolean(verifQuestionMathLive(exercice, indiceQuestionInExercice[i])?.isOk)
+        resultsByQuestion[i] = Boolean(
+          verifQuestionMathLive(exercice, indiceQuestionInExercice[i])?.isOk,
+        )
         // récupération de la réponse
         answersType[i] = {
           type,
-          index : i,
-          answers: { [`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`]: exercice.answers![`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`] },
-          answerTxt: exercice.answers![`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`]
-        }
-        answers[i] = answersType[i].answerTxt          
-      } else if (type === 'dnd') {
-        resultsByQuestion[i] = verifDragAndDrop(exercice, indiceQuestionInExercice[i]).isOk
-        // récupération de la réponse
-        answersType[i] = {
-          type,
-          index : i,
-          answers: Object.keys(exercice.answers ?? {}).
-            filter((key: string) => key.startsWith(`rectangleDNDEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`) ||
-                                    key.startsWith(`texteDNDEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)).
-              reduce((result: { [key: string]: any }, k) => {
-                result[k] = exercice.answers![k]
-                return result;
-              }, {}),
-          answerTxt: Object.keys(exercice.answers ?? {}).
-            filter((key: string) => key.startsWith(`texteDNDEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)).
-              reduce((result: string, k) => {
-                result = exercice.answers![k]
-                return result;
-              }, '')
+          index: i,
+          answers: {
+            [`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`]:
+              exercice.answers![
+                `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
+              ],
+          },
+          answerTxt:
+            exercice.answers![
+              `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
+            ],
         }
         answers[i] = answersType[i].answerTxt
-        answersType[i].answers![`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`] = answersType[i].answerTxt
-      } else if (type === 'qcm') {
-        resultsByQuestion[i] = verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
+      } else if (type === 'dnd') {
+        resultsByQuestion[i] = verifDragAndDrop(
+          exercice,
+          indiceQuestionInExercice[i],
+        ).isOk
         // récupération de la réponse
-        const propositions = exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
+        answersType[i] = {
+          type,
+          index: i,
+          answers: Object.keys(exercice.answers ?? {})
+            .filter(
+              (key: string) =>
+                key.startsWith(
+                  `rectangleDNDEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+                ) ||
+                key.startsWith(
+                  `texteDNDEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+                ),
+            )
+            .reduce((result: { [key: string]: any }, k) => {
+              result[k] = exercice.answers![k]
+              return result
+            }, {}),
+          answerTxt: Object.keys(exercice.answers ?? {})
+            .filter((key: string) =>
+              key.startsWith(
+                `texteDNDEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+              ),
+            )
+            .reduce((result: string, k) => {
+              result = exercice.answers![k]
+              return result
+            }, ''),
+        }
+        answers[i] = answersType[i].answerTxt
+        answersType[i].answers![
+          `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
+        ] = answersType[i].answerTxt
+      } else if (type === 'qcm') {
+        resultsByQuestion[i] =
+          verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
+        // récupération de la réponse
+        const propositions =
+          exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
         const qcmAnswers: string[] = []
         propositions!.forEach((proposition, indice: number) => {
-          if (exercice.answers![`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}R${indice}`] === '1') {
+          if (
+            exercice.answers![
+              `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}R${indice}`
+            ] === '1'
+          ) {
             if (proposition.texte !== undefined) {
               qcmAnswers.push(proposition.texte)
             }
           }
         })
         answers[i] = qcmAnswers.join(' ; ')
-        exercice.answers![`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`] = answers[i]
+        exercice.answers![
+          `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
+        ] = answers[i]
         answersType[i] = {
           type,
-          index : i,
-          answers: Object.keys(exercice.answers ?? {}).
-            filter((key: string) => key.startsWith(`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)).
-              reduce((result: { [key: string]: any }, k) => {
-                result[k] = exercice.answers![k]
-                return result;
-              }, {}),
-          answerTxt: answers[i]
+          index: i,
+          answers: Object.keys(exercice.answers ?? {})
+            .filter((key: string) =>
+              key.startsWith(
+                `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+              ),
+            )
+            .reduce((result: { [key: string]: any }, k) => {
+              result[k] = exercice.answers![k]
+              return result
+            }, {}),
+          answerTxt: answers[i],
         }
       } else if (type === 'listeDeroulante') {
-        resultsByQuestion[i] = verifQuestionListeDeroulante(exercice, indiceQuestionInExercice[i]) === 'OK'
+        resultsByQuestion[i] =
+          verifQuestionListeDeroulante(
+            exercice,
+            indiceQuestionInExercice[i],
+          ) === 'OK'
         answers[i] =
           exercice.answers?.[
             `ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
-          ] ?? exercice.answers?.[
+          ] ??
+          exercice.answers?.[
             `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
-          ] ?? ''
+          ] ??
+          ''
         answersType[i] = {
           type,
-          index : i,
-          answers: Object.keys(exercice.answers ?? {}).
-            filter((key: string) => key.startsWith(`ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`) || 
-                                    key.startsWith(`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)).
-              reduce((result: { [key: string]: any }, k) => {
-                result[k] = exercice.answers![k]
-                return result;
-              }, {}),
-          answerTxt: answers[i]
+          index: i,
+          answers: Object.keys(exercice.answers ?? {})
+            .filter(
+              (key: string) =>
+                key.startsWith(
+                  `ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+                ) ||
+                key.startsWith(
+                  `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+                ),
+            )
+            .reduce((result: { [key: string]: any }, k) => {
+              result[k] = exercice.answers![k]
+              return result
+            }, {}),
+          answerTxt: answers[i],
         }
       } else if (type === 'cliqueFigure') {
-        resultsByQuestion[i] = verifQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]) === 'OK'
-        answers[i] = indexQuestionCliqueFigure(exercice, indiceQuestionInExercice[i] )
+        resultsByQuestion[i] =
+          verifQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]) ===
+          'OK'
+        answers[i] = indexQuestionCliqueFigure(
+          exercice,
+          indiceQuestionInExercice[i],
+        )
         answersType[i] = {
           type,
-          index : i,
-          answers: Object.keys(exercice.answers ?? {}).
-            filter((key: string) => key.endsWith(`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)).
-              reduce((result: { [key: string]: any }, k) => {
-                result[k] = exercice.answers![k]
-                return result;
-              }, {}),
-          answerTxt: answers[i]
+          index: i,
+          answers: Object.keys(exercice.answers ?? {})
+            .filter((key: string) =>
+              key.endsWith(
+                `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+              ),
+            )
+            .reduce((result: { [key: string]: any }, k) => {
+              result[k] = exercice.answers![k]
+              return result
+            }, {}),
+          answerTxt: answers[i],
         }
       } else if (type === 'custom') {
         // si le type est `custom` on est sûr que `correctionInteractive` existe
         // d'où le ! après `correctionInteractive`
         if (exercice instanceof MetaExercice) {
-          const result = exercice.correctionInteractives[indiceQuestionInExercice[i]](indiceQuestionInExercice[i])
-          Array.isArray(result) ? resultsByQuestion[i] = result.includes('OK') : resultsByQuestion[i] = result === 'OK'
+          const result = exercice.correctionInteractives[
+            indiceQuestionInExercice[i]
+          ](indiceQuestionInExercice[i])
+          Array.isArray(result)
+            ? (resultsByQuestion[i] = result.includes('OK'))
+            : (resultsByQuestion[i] = result === 'OK')
         } else {
-          const result = exercice.correctionInteractive!(indiceQuestionInExercice[i])
-          Array.isArray(result) ? resultsByQuestion[i] = result.includes('OK') : resultsByQuestion[i] = result === 'OK'
+          const result = exercice.correctionInteractive!(
+            indiceQuestionInExercice[i],
+          )
+          Array.isArray(result)
+            ? (resultsByQuestion[i] = result.includes('OK'))
+            : (resultsByQuestion[i] = result === 'OK')
         }
         answersType[i] = {
           type,
-          index : i,
-          answers: Object.keys(exercice.answers ?? {}).
-            filter((key: string) => key.endsWith(`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`) || 
-                                    key.startsWith(`apigeomEx${indiceExercice[i]}F${indiceQuestionInExercice[i]}`)).
-              reduce((result: { [key: string]: any }, k) => {
-                result[k] = exercice.answers![k]
-                return result;
-              }, {}),
-          answerTxt: ''
+          index: i,
+          answers: Object.keys(exercice.answers ?? {})
+            .filter(
+              (key: string) =>
+                key.endsWith(
+                  `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+                ) ||
+                key.startsWith(
+                  `apigeomEx${indiceExercice[i]}F${indiceQuestionInExercice[i]}`,
+                ),
+            )
+            .reduce((result: { [key: string]: any }, k) => {
+              result[k] = exercice.answers![k]
+              return result
+            }, {}),
+          answerTxt: '',
         }
-        answersType[i].answerTxt = Object.keys(answersType[i].answers ?? {}).
-                                          filter((key: string, index : number) => index === 0 ).
-                                          reduce((result: string, k) => {
-                                            result = answersType[i].answers![k]
-                                            return result;
-                                          }, '')
-        answers[i] = answersType[i].answerTxt.includes('apiGeomVersion') ? 'Voir figure' : answersType[i].answerTxt
+        answersType[i].answerTxt = Object.keys(answersType[i].answers ?? {})
+          .filter((key: string, index: number) => index === 0)
+          .reduce((result: string, k) => {
+            result = answersType[i].answers![k]
+            return result
+          }, '')
+        answers[i] = answersType[i].answerTxt.includes('apiGeomVersion')
+          ? 'Voir figure'
+          : answersType[i].answerTxt
       } else {
         answersType[i] = {
           type: 'unknown',
-          index : i,
-          answers: Object.keys(exercice.answers ?? {}).
-            filter((key: string) => key.endsWith(`Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)).
-              reduce((result: { [key: string]: any }, k) => {
-                result[k] = exercice.answers![k]
-                return result;
-              }, {}),
-          answerTxt: ''
+          index: i,
+          answers: Object.keys(exercice.answers ?? {})
+            .filter((key: string) =>
+              key.endsWith(
+                `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`,
+              ),
+            )
+            .reduce((result: { [key: string]: any }, k) => {
+              result[k] = exercice.answers![k]
+              return result
+            }, {}),
+          answerTxt: '',
         }
-
       }
       // Pour Capytale, on a besoin du score de l'exercice et non de la question
       // donc on sauvegarde le score dans l'exercice
@@ -310,24 +400,24 @@
       l = resultsByExerciceArray
       return l
     })
-    if ($globalOptions.recorder === "moodle") {
-      const url = new URL(window.location.href);
-      const iframe = url.searchParams.get("iframe");
+    if ($globalOptions.recorder === 'moodle') {
+      const url = new URL(window.location.href)
+      const iframe = url.searchParams.get('iframe')
       console.info({
         resultsByExercice: $resultsByExercice,
         duration: getDuration(),
-        action: "mathalea:score",
+        action: 'mathalea:score',
         iframe,
-      });
+      })
       window.parent.postMessage(
         {
           resultsByExercice: $resultsByExercice,
           duration: getDuration(),
-          action: "mathalea:score",
+          action: 'mathalea:score',
           iframe,
         },
-        "*",
-      );
+        '*',
+      )
     } else if ($globalOptions.recorder === 'capytale') {
       if (
         getRecordedScore() > getScoreTotal() ||
@@ -400,19 +490,19 @@
 </script>
 
 <div
-  class='{$darkMode.isActive
+  class="{$darkMode.isActive
     ? 'dark'
-    : ''} relative w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'
+    : ''} relative w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
   {#if state === 'start' || state === 'canHomeScreen'}
-    <KickOff subTitle={$canOptions.subTitle} bind:state />
+    <KickOff subTitle="{$canOptions.subTitle}" bind:state />
   {/if}
   {#if state === 'countdown'}
     <CountDown bind:state />
   {/if}
   {#if state === 'race'}
     <Race
-      numberOfSeconds={$canOptions.durationInMinutes * 60}
+      numberOfSeconds="{$canOptions.durationInMinutes * 60}"
       bind:state
       {questions}
       {consignes}
@@ -420,7 +510,7 @@
     />
   {/if}
   {#if state === 'end'}
-    <End bind:state score={buildStringScore()} time={buildTime()} />
+    <End bind:state score="{buildStringScore()}" time="{buildTime()}" />
   {/if}
   {#if state === 'solutions'}
     <Solutions
@@ -430,25 +520,25 @@
       {consignesCorrections}
       {answers}
       {resultsByQuestion}
-      score={buildStringScore()}
-      time={buildTime()}
+      score="{buildStringScore()}"
+      time="{buildTime()}"
     />
   {/if}
-  <div class='fixed flex bottom-2 right-2'>
+  <div class="fixed flex bottom-2 right-2">
     <label
-      class='swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest'
+      class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
     >
       <!-- this hidden checkbox controls the state -->
       <input
-        id='hidden-checkbox-for-darkmode'
-        type='checkbox'
-        class='invisible'
-        bind:checked={$darkMode.isActive}
+        id="hidden-checkbox-for-darkmode"
+        type="checkbox"
+        class="invisible"
+        bind:checked="{$darkMode.isActive}"
       />
       <!-- sun icon -->
-      <div class='swap-on'><i class='bx bx-sm bx-sun' /></div>
+      <div class="swap-on"><i class="bx bx-sm bx-sun"></i></div>
       <!-- moon icon -->
-      <div class='swap-off'><i class='bx bx-sm bx-moon' /></div>
+      <div class="swap-off"><i class="bx bx-sm bx-moon"></i></div>
     </label>
   </div>
 </div>

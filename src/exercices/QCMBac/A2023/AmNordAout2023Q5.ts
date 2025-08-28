@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '48bb3'
 export const refs = {
   'fr-fr': ['TSP1-QCM02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,17 +28,20 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$p = \\dfrac{4}{5}$',
       '$p = \\dfrac{1}{5}$',
       '$p(X = 1) =\\dfrac{124}{125}$',
-      '$p(X= 1) =\\dfrac{4}{5}$'
+      '$p(X= 1) =\\dfrac{4}{5}$',
     ]
 
-    this.enonce = 'On considère la variable aléatoire $X$ suivant la loi binomiale $\\mathcal{B}(3~;~p)$.<br> On sait que $P(X = 0) = \\dfrac{1}{125}$.<br>'
+    this.enonce =
+      'On considère la variable aléatoire $X$ suivant la loi binomiale $\\mathcal{B}(3~;~p)$.<br> On sait que $P(X = 0) = \\dfrac{1}{125}$.<br>'
     this.enonce += 'On peut affirmer que :'
-    this.correction = '$P(X=0) = \\displaystyle\\binom{3}{0}\\times p^0 \\times (1-p)^{3-0} =  (1-p)^3$<br>'
-    this.correction += 'On a donc $(1-p)^3 = \\dfrac{1}{125} \\iff (1-p)^3 = \\left ( \\dfrac{1}{5}\\right )^3 \\iff 1-p=\\dfrac{1}{5}$;<br>'
+    this.correction =
+      '$P(X=0) = \\displaystyle\\binom{3}{0}\\times p^0 \\times (1-p)^{3-0} =  (1-p)^3$<br>'
+    this.correction +=
+      'On a donc $(1-p)^3 = \\dfrac{1}{125} \\iff (1-p)^3 = \\left ( \\dfrac{1}{5}\\right )^3 \\iff 1-p=\\dfrac{1}{5}$;<br>'
     this.correction += ' donc $p=\\dfrac{4}{5}$.'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

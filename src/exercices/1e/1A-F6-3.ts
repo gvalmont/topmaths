@@ -15,13 +15,14 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '5b9d0'
 export const refs = {
   'fr-fr': ['1A-F6-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer le coefficient directeur d\'une droite à partir de sa représentation graphique'
+export const titre =
+  "Déterminer le coefficient directeur d'une droite à partir de sa représentation graphique"
 export const dateDePublication = '10/07/2025'
 
 export default class Auto1AF6c extends ExerciceQcmA {
@@ -44,8 +45,14 @@ export default class Auto1AF6c extends ExerciceQcmA {
     const lA = latex2d('A', xA, yA + 0.5, { letterSize: 'scriptsize' })
     const traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
     const lB = latex2d('B', xB, yB + 0.5, { letterSize: 'scriptsize' })
-    const lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, { color: 'red', letterSize: 'scriptsize' })
-    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, { color: 'blue', letterSize: 'scriptsize' })
+    const lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, {
+      color: 'red',
+      letterSize: 'scriptsize',
+    })
+    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, {
+      color: 'blue',
+      letterSize: 'scriptsize',
+    })
     const traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
     const d = droite(A, B, '', 'blue')
     d.epaisseur = 2
@@ -79,10 +86,45 @@ export default class Auto1AF6c extends ExerciceQcmA {
       grilleSecondaireYMin: ymin - 0.1,
       grilleSecondaireYMax: ymax + 0.1,
       grilleSecondaireXMin: xmin - 0.1,
-      grilleSecondaireXMax: xmax + 0.1
+      grilleSecondaireXMax: xmax + 0.1,
     })
-    const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
-    const objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+    const objet = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin: ymin - 0.25,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceB,
+      o,
+    )
+    const objetC = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceA,
+      lA,
+      lB,
+      traceB,
+      o,
+      sABx,
+      sBBx,
+      lABx,
+      lBBx,
+    )
 
     this.enonce = `${objet}<br><br>`
     this.enonce += 'Le coefficient directeur de cette droite est : '
@@ -93,9 +135,7 @@ export default class Auto1AF6c extends ExerciceQcmA {
        `
     this.correction += `<br>
           ${objetC}<br>  `
-    this.reponses = ['$-1$',
-      '$1$',
-      '$3$', '$2$']
+    this.reponses = ['$-1$', '$1$', '$3$', '$2$']
   }
 
   versionAleatoire: () => void = () => {
@@ -117,8 +157,14 @@ export default class Auto1AF6c extends ExerciceQcmA {
     const lA = latex2d('A', xA, yA + 0.5, { letterSize: 'scriptsize' })
     const traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
     const lB = latex2d('B', xB, yB + 0.5, { letterSize: 'scriptsize' })
-    const lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, { color: 'red', letterSize: 'scriptsize' })
-    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, { color: 'blue', letterSize: 'scriptsize' })
+    const lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, {
+      color: 'red',
+      letterSize: 'scriptsize',
+    })
+    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, {
+      color: 'blue',
+      letterSize: 'scriptsize',
+    })
     const traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
     const d = droite(A, B, '', 'blue')
     d.epaisseur = 2
@@ -152,10 +198,45 @@ export default class Auto1AF6c extends ExerciceQcmA {
       grilleSecondaireYMin: ymin - 0.1,
       grilleSecondaireYMax: ymax + 0.1,
       grilleSecondaireXMin: xmin - 0.1,
-      grilleSecondaireXMax: xmax + 0.1
+      grilleSecondaireXMax: xmax + 0.1,
     })
-    const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
-    const objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+    const objet = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin: ymin - 0.25,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceB,
+      o,
+    )
+    const objetC = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.75,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceA,
+      lA,
+      lB,
+      traceB,
+      o,
+      sABx,
+      sBBx,
+      lABx,
+      lBBx,
+    )
 
     this.enonce = `${objet}<br><br>`
     this.enonce += 'Le coefficient directeur de cette droite est : '
@@ -164,9 +245,12 @@ export default class Auto1AF6c extends ExerciceQcmA {
       // this.reponse = this.versionQcm ? `$y= ${yA}$` : [`y=${maFraction.texFraction}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`, `y=\\frac{${yA - yB}}{${xA - xB}}x + ${yA}`]
       this.correction = `La droite est horizontale. On en déduit que son coefficient directeur est $m=${miseEnEvidence('0')}$.<br>
        `
-      this.reponses = ['$0$',
-                `${yA !== 1 && yA !== -1 ? `$${yA}$` : '$2$'}`,
-                '$1$', '$-1$']
+      this.reponses = [
+        '$0$',
+        `${yA !== 1 && yA !== -1 ? `$${yA}$` : '$2$'}`,
+        '$1$',
+        '$-1$',
+      ]
     } else {
       this.correction = `En prenant deux points sur la droite, on obtient :<br>
      
@@ -174,14 +258,17 @@ export default class Auto1AF6c extends ExerciceQcmA {
        `
       this.correction += `<br>
           ${objetC}<br>  `
-      this.reponses = [`$${maFraction.texFractionSimplifiee}$`,
-                `${yB - yA !== xB - xA && yB - yA !== -(xB - xA) ? `$${maFraction.inverse().texFractionSimplifiee}$` : '$0$'}`,
-                 `$${maFraction.oppose().texFractionSimplifiee}$`, `${(yB - yA) / (xB - xA) !== yA ? `$${yA}$` : `$${xB}$`}`]
+      this.reponses = [
+        `$${maFraction.texFractionSimplifiee}$`,
+        `${yB - yA !== xB - xA && yB - yA !== -(xB - xA) ? `$${maFraction.inverse().texFractionSimplifiee}$` : '$0$'}`,
+        `$${maFraction.oppose().texFractionSimplifiee}$`,
+        `${(yB - yA) / (xB - xA) !== yA ? `$${yA}$` : `$${xB}$`}`,
+      ]
     }
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

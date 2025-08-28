@@ -9,14 +9,18 @@ export const uuid = 'fb1a4'
 
 export const refs = {
   'fr-fr': ['2N31-9'],
-  'fr-ch': ['11NO1-3']
+  'fr-ch': ['11NO1-3'],
 }
 export default class NotationPuissanceEn2nde extends NotationPuissance {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
     this.sup3 = 3
     this.classe = 2
-    this.besoinFormulaire3Numerique = ['Exposant', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
+    this.besoinFormulaire3Numerique = [
+      'Exposant',
+      3,
+      '1 : Positif\n2 : Négatif\n3 : Mélange',
+    ]
   }
 }

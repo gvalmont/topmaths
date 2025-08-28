@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'b66e5'
 export const refs = {
   'fr-fr': ['TSG1-QCM01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -24,7 +24,7 @@ export const dateDePublication = '20/04/2025'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private generateProduct (n: number, p: number): string {
+  private generateProduct(n: number, p: number): string {
     let product = ''
 
     for (let i = 0; i < p; i++) {
@@ -37,7 +37,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     return `$${product}$`
   }
 
-  private generateSum (n: number, p: number): string {
+  private generateSum(n: number, p: number): string {
     let sum = ''
 
     for (let i = 0; i < p; i++) {
@@ -50,12 +50,13 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     return `$${sum}$`
   }
 
-  private appliquerLesValeurs (nn: number, p: number): void {
+  private appliquerLesValeurs(nn: number, p: number): void {
     this.reponses = [
       `$\\dbinom{${nn}}{${p}}$`,
       this.generateProduct(nn, p),
       this.generateSum(nn, p),
-       `$${String(nn)} ^ ${String(p)}$`]
+      `$${String(nn)} ^ ${String(p)}$`,
+    ]
 
     this.enonce = `Une professeure enseigne la spécialité mathématiques dans une classe de ${nn} élèves de terminale.<br>
 Elle veut former un groupe de ${p} élèves.<br> De combien de façons différentes peut-elle former
@@ -80,7 +81,7 @@ un tel groupe de ${p} élèves ?`
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': [],
 }
 export default class VolumePaveCubes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.besoinFormulaireCaseACocher = ['3D dynamique', false]
@@ -36,7 +36,7 @@ export default class VolumePaveCubes extends ExerciceSimple {
     this.sup = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const l = randint(2, 5)
     const L = randint(2, 4)
     const h = randint(2, 6, [l, L])
@@ -87,7 +87,7 @@ export default class VolumePaveCubes extends ExerciceSimple {
       const pave = paveLPH3d(0, 0, 0, 0.75, L, l, h)
       this.question += mathalea2d(
         Object.assign({}, fixeBordures(pave.c2d)),
-        pave.c2d
+        pave.c2d,
       )
     }
     this.reponse = L * l * h

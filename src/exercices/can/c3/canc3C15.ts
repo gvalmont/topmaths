@@ -19,10 +19,10 @@ export const uuid = 'aa8af'
 
 export const refs = {
   'fr-fr': ['canc3C15'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TablesPhrase extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -31,7 +31,7 @@ export default class TablesPhrase extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(3, 9)
     const b = randint(3, 9)
     const c = a * b

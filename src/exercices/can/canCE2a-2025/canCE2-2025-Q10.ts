@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '76efb'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025CE2Q10 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     if (a == null || b == null || c == null) {
       a = randint(4, 9)
       b = randint(2, a - 1)
@@ -29,7 +29,7 @@ export default class Can2025CE2Q10 extends ExerciceCan {
       b * 100 + a * 10 + c,
       b * 100 + c * 10 + a,
       c * 100 + a * 10 + b,
-      c * 100 + b * 10 + a
+      c * 100 + b * 10 + a,
     ]
     this.reponse = Math.max(...nombres)
     const nombresOrd = [a, b, c].sort((x, y) => y - x)
@@ -39,7 +39,7 @@ export default class Can2025CE2Q10 extends ExerciceCan {
     this.canEnonce = this.question
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(0, 1, 9) : this.enonce()
   }
 }

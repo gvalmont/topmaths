@@ -3,7 +3,7 @@ import {
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
   reduirePolynomeDegre3,
-  rienSi1
+  rienSi1,
 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
@@ -21,20 +21,22 @@ export const uuid = 'a3e7a'
 
 export const refs = {
   'fr-fr': ['can1F10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DeriveePoly2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c
-    switch (choice([1, 2, 3])) { //
-      case 1:// second degre ax^2+bx+c
+    switch (
+      choice([1, 2, 3]) //
+    ) {
+      case 1: // second degre ax^2+bx+c
         a = randint(-10, 10, [0])
         b = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
@@ -52,11 +54,11 @@ export default class DeriveePoly2 extends ExerciceSimple {
      Comme $u'(x)=${2 * a}x$ et $v'(x)=${b}$, on obtient  $f'(x)=${reduireAxPlusB(2 * a, b)}$. `
         this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
      $f(x)= ${reduirePolynomeDegre3(0, a, b, c)}$.`
-        this.canReponseACompleter = '$f\'(x)=\\ldots$'
+        this.canReponseACompleter = "$f'(x)=\\ldots$"
         this.reponse = [`${2 * a}x+${b}`]
         break
 
-      case 2:// second degre bx+c+ax^2 ou c+ax^2+bx
+      case 2: // second degre bx+c+ax^2 ou c+ax^2+bx
         a = randint(-10, 10, [0])
         b = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
@@ -70,7 +72,7 @@ export default class DeriveePoly2 extends ExerciceSimple {
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
             this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
         $f(x)=  ${reduireAxPlusB(b, c)}${ecritureAlgebriqueSauf1(a)}x^2$.`
-            this.canReponseACompleter = '$f\'(x)=\\ldots$'
+            this.canReponseACompleter = "$f'(x)=\\ldots$"
           }
         } else {
           if (!this.interactif) {
@@ -82,7 +84,7 @@ export default class DeriveePoly2 extends ExerciceSimple {
       La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
             this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
         $f(x)=  ${c}${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$.`
-            this.canReponseACompleter = '$f\'(x)=\\ldots$'
+            this.canReponseACompleter = "$f'(x)=\\ldots$"
           }
         }
         this.correction = `$f$ est une fonction polynôme du second degré de la forme $f(x)=ax^2+bx+c$.<br>
@@ -90,7 +92,7 @@ export default class DeriveePoly2 extends ExerciceSimple {
      Comme $u'(x)=${2 * a}x$ et $v'(x)=${b}$, on obtient  $f'(x)=${reduireAxPlusB(2 * a, b)}$. `
         this.reponse = [`${2 * a}x+${b}`]
         break
-      case 3:// second degre ax^2+c ou c+ax^2
+      case 3: // second degre ax^2+c ou c+ax^2
         a = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
         if (choice([true, false])) {
@@ -103,7 +105,7 @@ export default class DeriveePoly2 extends ExerciceSimple {
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
             this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
         $f(x)= ${reduirePolynomeDegre3(0, a, 0, c)}$.`
-            this.canReponseACompleter = '$f\'(x)=\\ldots$'
+            this.canReponseACompleter = "$f'(x)=\\ldots$"
           }
         } else {
           if (!this.interactif) {
@@ -115,7 +117,7 @@ export default class DeriveePoly2 extends ExerciceSimple {
       La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
             this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
         $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2$.`
-            this.canReponseACompleter = '$f\'(x)=\\ldots$'
+            this.canReponseACompleter = "$f'(x)=\\ldots$"
           }
         }
         this.correction = `$f$ est une fonction polynôme du second degré de la forme $f(x)=ax^2+b$.<br>

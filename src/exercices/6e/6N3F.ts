@@ -2,14 +2,19 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { texNombre } from '../../lib/outils/texNombre'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
 import { sp } from '../../lib/outils/outilString'
 
-export const titre = 'Savoir que la fraction peut représenter un nombre entier, un nombre décimal non entier ou un nombre non décimal'
+export const titre =
+  'Savoir que la fraction peut représenter un nombre entier, un nombre décimal non entier ou un nombre non décimal'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
@@ -23,7 +28,7 @@ export const uuid = '28e58'
 export const refs = {
   'fr-fr': ['6N3F'],
   'fr-2016': ['6N22-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -39,7 +44,7 @@ export const refs = {
  * getDiviseursSansUn(1);  // []
  */
 
-function getDiviseursSansUn (n: number): number[] {
+function getDiviseursSansUn(n: number): number[] {
   if (n <= 1) return []
 
   const diviseurs: number[] = []
@@ -70,7 +75,7 @@ function getDiviseursSansUn (n: number): number[] {
  * estDecimal(7, 8); // true (0.875)
  * estDecimal(1, 6); // false (0.1666...)
  */
-function estDecimal (num: number, den: number): boolean {
+function estDecimal(num: number, den: number): boolean {
   let b = arrondi(den / pgcd(num, den))
 
   // On enlève tous les facteurs 2 et 5 du dénominateur
@@ -82,24 +87,33 @@ function estDecimal (num: number, den: number): boolean {
 }
 
 export default class FractionRepresenteNb extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.consigne = 'Pour chaque cas, indiquer si la fraction représente un nombre entier, un nombre décimal non entier ou bien un nombre non décimal.'
+    this.consigne =
+      'Pour chaque cas, indiquer si la fraction représente un nombre entier, un nombre décimal non entier ou bien un nombre non décimal.'
     this.nbQuestions = 5
 
     this.sup = 1
     this.sup2 = 1
     this.spacing = 2
     this.spacingCorr = 2
-    this.besoinFormulaireNumerique = ['Choix du numérateur le plus petit possible', 500]
-    this.besoinFormulaire2Numerique = ['Choix du numérateur le plus grand possible', 500]
+    this.besoinFormulaireNumerique = [
+      'Choix du numérateur le plus petit possible',
+      500,
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Choix du numérateur le plus grand possible',
+      500,
+    ]
     this.besoinFormulaire3Numerique = [
-      'Choix du dénominateur', 3, [
+      'Choix du dénominateur',
+      3,
+      [
         '1 : Plus petit que 10',
         '2 : Plus petit que 100',
         '3 : Plus petit que 500',
-      ].join('\n')
+      ].join('\n'),
     ]
 
     this.sup = 1
@@ -107,10 +121,11 @@ export default class FractionRepresenteNb extends Exercice {
     this.sup3 = 1
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1
-      ? 'Pour chaque cas, indiquer si la fraction représente un nombre entier, un nombre décimal non entier ou bien un nombre non décimal.'
-      : 'Indiquer si la fraction représente un nombre entier, un nombre décimal non entier ou bien un nombre non décimal.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Pour chaque cas, indiquer si la fraction représente un nombre entier, un nombre décimal non entier ou bien un nombre non décimal.'
+        : 'Indiquer si la fraction représente un nombre entier, un nombre décimal non entier ou bien un nombre non décimal.'
     let choixDenominateurNbDecimal = true
     const listeTypeDeQuestions = []
     for (let ee = 0; ee < Math.ceil(this.nbQuestions / 3); ee++) {
@@ -124,59 +139,91 @@ export default class FractionRepresenteNb extends Exercice {
       numerateurMax = numerateurMin
       numerateurMin = tampon
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let typeNombre = ''
-      let tabDenominateurNbDecimal = combinaisonListes([2, 4, 5, 8, 10, 20, 50, 100, 200, 500], this.nbQuestions)
-      let tabDenominateurNbNonDecimal = combinaisonListes([3, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 30, 60, 150, 300], this.nbQuestions)
+      let tabDenominateurNbDecimal = combinaisonListes(
+        [2, 4, 5, 8, 10, 20, 50, 100, 200, 500],
+        this.nbQuestions,
+      )
+      let tabDenominateurNbNonDecimal = combinaisonListes(
+        [3, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 30, 60, 150, 300],
+        this.nbQuestions,
+      )
       if (this.sup3 === 1) {
-        tabDenominateurNbDecimal = combinaisonListes([2, 4, 5, 8], this.nbQuestions)
-        tabDenominateurNbNonDecimal = combinaisonListes([3, 6, 7, 9], this.nbQuestions)
+        tabDenominateurNbDecimal = combinaisonListes(
+          [2, 4, 5, 8],
+          this.nbQuestions,
+        )
+        tabDenominateurNbNonDecimal = combinaisonListes(
+          [3, 6, 7, 9],
+          this.nbQuestions,
+        )
       } else if (this.sup3 === 2) {
-        tabDenominateurNbDecimal = combinaisonListes([2, 4, 5, 8, 10, 20, 50], this.nbQuestions)
-        tabDenominateurNbNonDecimal = combinaisonListes([3, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 30, 60], this.nbQuestions)
+        tabDenominateurNbDecimal = combinaisonListes(
+          [2, 4, 5, 8, 10, 20, 50],
+          this.nbQuestions,
+        )
+        tabDenominateurNbNonDecimal = combinaisonListes(
+          [3, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 30, 60],
+          this.nbQuestions,
+        )
       }
       let numerateur = choice(rangeMinMax(numerateurMin, numerateurMax))
-      const denominateurNbNonDecimal = tabDenominateurNbNonDecimal[indiceNonDecimal]
-      const denominateurNbDecimal = tabDenominateurNbDecimal[i - indiceNonDecimal]
+      const denominateurNbNonDecimal =
+        tabDenominateurNbNonDecimal[indiceNonDecimal]
+      const denominateurNbDecimal =
+        tabDenominateurNbDecimal[i - indiceNonDecimal]
       let denominateur = 1
       let compteur = 0
       switch (listeTypeDeQuestions[i]) {
-        case 1 :  // Un entier
+        case 1: // Un entier
           if (choixDenominateurNbDecimal) {
             denominateur = denominateurNbNonDecimal
-            while (arrondi(numerateur / denominateur) % 1 !== 0 && compteur < 100) {
+            while (
+              arrondi(numerateur / denominateur) % 1 !== 0 &&
+              compteur < 100
+            ) {
               numerateur = choice(rangeMinMax(numerateurMin, numerateurMax))
               compteur++
             }
           } else {
             denominateur = denominateurNbDecimal
-            while (arrondi(numerateur / denominateur) % 1 !== 0 && compteur < 100) {
+            while (
+              arrondi(numerateur / denominateur) % 1 !== 0 &&
+              compteur < 100
+            ) {
               numerateur = choice(rangeMinMax(numerateurMin, numerateurMax))
               compteur++
             }
           }
-          if (compteur === 100) { // Nombre entier non trouvé alors on en impose un.
+          if (compteur === 100) {
+            // Nombre entier non trouvé alors on en impose un.
             denominateur = choice(getDiviseursSansUn(numerateur))
           }
           choixDenominateurNbDecimal = !choixDenominateurNbDecimal
           typeNombre = 'entier'
           break
 
-        case 2 :  // Un décimal non entier
+        case 2: // Un décimal non entier
           denominateur = denominateurNbDecimal
-          while (arrondi(numerateur / denominateur) % 1 === 0 && compteur < 100) {
+          while (
+            arrondi(numerateur / denominateur) % 1 === 0 &&
+            compteur < 100
+          ) {
             numerateur = choice(rangeMinMax(numerateurMin, numerateurMax))
             compteur++
           }
-          if (compteur === 100) { // Nombre décimal non entier non trouvé alors on en impose un.
+          if (compteur === 100) {
+            // Nombre décimal non entier non trouvé alors on en impose un.
             denominateur = choice([2, 4, 5, 8, 10]) * numerateur
           }
           typeNombre = 'decimal'
           break
 
-        case 3 : { // Un décimal non entier
+        case 3: {
+          // Un décimal non entier
           denominateur = denominateurNbNonDecimal
           let b = arrondi(denominateur / pgcd(numerateur, denominateur))
           // On enlève tous les facteurs 2 et 5 du dénominateur
@@ -188,7 +235,8 @@ export default class FractionRepresenteNb extends Exercice {
             numerateur = choice(rangeMinMax(numerateurMin, numerateurMax))
             compteur++
           }
-          if (compteur === 100) { // Nombre décimal non entier non trouvé alors on en impose un.
+          if (compteur === 100) {
+            // Nombre décimal non entier non trouvé alors on en impose un.
             denominateur = numerateur + randint(-2, 2, [0])
           }
           typeNombre = 'non decimal'
@@ -196,15 +244,19 @@ export default class FractionRepresenteNb extends Exercice {
         }
       }
 
-      const fractionUtile = new FractionEtendue(numerateur, denominateur).texFraction
+      const fractionUtile = new FractionEtendue(numerateur, denominateur)
+        .texFraction
 
       texte += `$${fractionUtile}$`
       if (typeNombre !== 'non decimal') {
         texteCorr = `Par calcul mental ou en posant la division $${numerateur}\\div${denominateur}$, on obtient que $${fractionUtile}=${texNombre(numerateur / denominateur)}$ et est donc un `
-        texteCorr += typeNombre === 'entier'
-          ? `${texteEnCouleurEtGras('nombre entier')}.<br>`
-          : `${texteEnCouleurEtGras('nombre décimal non entier')}.<br>`
-        if (tabDenominateurNbDecimal.includes(denominateur)) { texteCorr += `De manière générale, toute division d'un nombre entier par $${denominateur}$ aboutit à un nombre décimal, parfois entier.` }
+        texteCorr +=
+          typeNombre === 'entier'
+            ? `${texteEnCouleurEtGras('nombre entier')}.<br>`
+            : `${texteEnCouleurEtGras('nombre décimal non entier')}.<br>`
+        if (tabDenominateurNbDecimal.includes(denominateur)) {
+          texteCorr += `De manière générale, toute division d'un nombre entier par $${denominateur}$ aboutit à un nombre décimal, parfois entier.`
+        }
       } else {
         texteCorr = `Par calcul mental ou en posant la division $${numerateur}\\div${denominateur}$, on se rend compte que cette division ne se «${sp()}termine${sp()}» pas ($${fractionUtile}\\approx${texNombre(numerateur / denominateur, 3)}$) et $${fractionUtile}$ est donc un ${texteEnCouleurEtGras('nombre non décimal')}.`
       }
@@ -213,16 +265,16 @@ export default class FractionRepresenteNb extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: 'Nombre entier',
-          statut: typeNombre === 'entier'
+          statut: typeNombre === 'entier',
         },
         {
           texte: 'Nombre décimal non entier',
-          statut: typeNombre === 'decimal'
+          statut: typeNombre === 'decimal',
         },
         {
           texte: 'Nombre non décimal',
-          statut: typeNombre === 'non decimal'
-        }
+          statut: typeNombre === 'non decimal',
+        },
       ]
       this.autoCorrection[i].options = { ordered: true, radio: true } // On ne mélange pas les propositions
       const props = propositionsQcm(this, i)
@@ -233,7 +285,11 @@ export default class FractionRepresenteNb extends Exercice {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-        if (listeTypeDeQuestions[i] === 3 || (listeTypeDeQuestions[i] === 1 && choixDenominateurNbDecimal)) indiceNonDecimal++
+        if (
+          listeTypeDeQuestions[i] === 3 ||
+          (listeTypeDeQuestions[i] === 1 && choixDenominateurNbDecimal)
+        )
+          indiceNonDecimal++
         i++
       }
       cpt++

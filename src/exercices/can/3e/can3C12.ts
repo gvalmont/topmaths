@@ -17,10 +17,10 @@ export const uuid = '0ad86'
 
 export const refs = {
   'fr-fr': ['can3C12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EncadreRacine extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.spacing = 1.5
@@ -28,18 +28,25 @@ export default class EncadreRacine extends Exercice {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.spacingCorr = 1.5
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
 
       const a = randint(3, 125, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121])
 
       texte = 'Compléter par deux entiers consécutifs.<br>'
       if (this.interactif) {
-        texte += remplisLesBlancs(this, i, ` %{champ1} < \\sqrt{${a}} <  %{champ2}`, KeyboardType.clavierDeBase)
-      } else { texte += `$\\ldots < \\sqrt{${a}} < \\ldots$` }
+        texte += remplisLesBlancs(
+          this,
+          i,
+          ` %{champ1} < \\sqrt{${a}} <  %{champ2}`,
+          KeyboardType.clavierDeBase,
+        )
+      } else {
+        texte += `$\\ldots < \\sqrt{${a}} < \\ldots$`
+      }
       this.correction = `On encadre $${a}$ par deux carrés d'entiers : <br>
 $${Math.floor(Math.sqrt(a))}^2< ${a} < ${Math.ceil(Math.sqrt(a))}^2$<br>`
 
@@ -53,9 +60,8 @@ $${Math.floor(Math.sqrt(a))}^2< ${a} < ${Math.ceil(Math.sqrt(a))}^2$<br>`
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: `${Math.floor(Math.sqrt(a))}` },
-        champ2: { value: `${Math.ceil(Math.sqrt(a))}` }
-      }
-      )
+        champ2: { value: `${Math.ceil(Math.sqrt(a))}` },
+      })
 
       this.canEnonce = 'Compléter par deux entiers consécutifs.'
       this.canReponseACompleter = `$\\ldots < \\sqrt{${a}} <\\ldots$`

@@ -8,7 +8,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Déterminer un taux d\'évolution global'
+export const titre = "Déterminer un taux d'évolution global"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/01/2022'
@@ -28,19 +28,23 @@ export const uuid = '018f3'
 
 export const refs = {
   'fr-fr': ['2S12-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EvolutionsSuccesives extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      4,
+      '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange',
+    ]
 
     this.nbQuestions = 1
 
     this.sup = 1 // type de question
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles: number[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]
@@ -52,12 +56,36 @@ export default class EvolutionsSuccesives extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let typesDeQuestions, CM1, CM2, CM, p1, p2, p, verbe1, nom1, verbe2, verbe3, nom2, nom, nom3, taux, t1, t2, t
-    for (let i = 0, texte, texteCorr, taux1, taux2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestions,
+      CM1,
+      CM2,
+      CM,
+      p1,
+      p2,
+      p,
+      verbe1,
+      nom1,
+      verbe2,
+      verbe3,
+      nom2,
+      nom,
+      nom3,
+      taux,
+      t1,
+      t2,
+      t
+    for (
+      let i = 0, texte, texteCorr, taux1, taux2, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
-        case 1 :
+        case 1:
           taux1 = randint(-80, 80, 0)
           taux2 = randint(-80, 80, 0)
           if (taux1 > 0) {
@@ -91,8 +119,10 @@ export default class EvolutionsSuccesives extends Exercice {
           }
           texte = `Le prix d'un article subit une ${nom1} de $${t1}~\\%$ puis une ${nom2} de $${t2}~\\%$.<br>Déterminer le taux d'évolution global du prix de cet article.`
           texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
-          texteCorr = 'Pour déterminer le taux d\'évolution global, on commence par calculer le coefficient multiplicateur global.'
-          texteCorr += '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
+          texteCorr =
+            "Pour déterminer le taux d'évolution global, on commence par calculer le coefficient multiplicateur global."
+          texteCorr +=
+            '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br>
           ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
@@ -118,7 +148,7 @@ export default class EvolutionsSuccesives extends Exercice {
           texteCorr += `<br><br><br>Le prix de l'article a subi une ${nom} globale de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$.`
           handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
           break
-        case 2 :
+        case 2:
           taux1 = randint(-20, 20, 0)
           taux2 = randint(-20, 20, 0)
           if (taux1 > 0) {
@@ -152,8 +182,10 @@ export default class EvolutionsSuccesives extends Exercice {
           }
           texte = `La population d'une ville a ${nom1} de $${t1}~\\%$ en $2021$ puis a ${nom2} de $${t2}~\\%$ en $2022$.<br>Quel est le taux d'évolution global ?`
           texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
-          texteCorr = 'Pour déterminer le taux d\'évolution global, on commence par calculer le coefficient multiplicateur global.'
-          texteCorr += '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
+          texteCorr =
+            "Pour déterminer le taux d'évolution global, on commence par calculer le coefficient multiplicateur global."
+          texteCorr +=
+            '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br>
            ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
@@ -179,7 +211,7 @@ export default class EvolutionsSuccesives extends Exercice {
           texteCorr += `<br><br>Le nombre d'habitants de cette ville a ${nom} de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$ entre $2021$ et $2022$.`
           handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
           break
-        case 3 :
+        case 3:
           taux1 = randint(-40, 40, 0)
           taux2 = randint(-40, 40, 0)
           if (taux1 > 0) {
@@ -213,8 +245,10 @@ export default class EvolutionsSuccesives extends Exercice {
           }
           texte = `Le nombre d'adhérents d'une association a ${nom1} de $${t1}~\\%$ entre $2020$ et $2021$ puis a ${nom2} de $${t2}~\\%$ entre $2021$ et $2022$.<br>Quel est le taux d'évolution global du nombre d'adhérents ?`
           texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
-          texteCorr = 'Pour déterminer le taux d\'évolution global, on commence par calculer le coefficient multiplicateur global.'
-          texteCorr += '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
+          texteCorr =
+            "Pour déterminer le taux d'évolution global, on commence par calculer le coefficient multiplicateur global."
+          texteCorr +=
+            '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
             texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
@@ -240,7 +274,7 @@ export default class EvolutionsSuccesives extends Exercice {
           handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
           break
 
-        case 4 :
+        case 4:
           taux1 = randint(-80, 80, 0)
           taux2 = randint(-80, 80, 0)
           if (taux1 > 0) {
@@ -282,7 +316,8 @@ export default class EvolutionsSuccesives extends Exercice {
           Quelle est la valeur de $t$ ?`
           texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
 
-          texteCorr = 'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
+          texteCorr =
+            'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
             texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
@@ -309,7 +344,7 @@ export default class EvolutionsSuccesives extends Exercice {
           handleAnswers(this, i, { reponse: { value: texNombre(t2) } })
           break
 
-        case 5 :
+        case 5:
           taux1 = randint(-20, 20, 0)
           taux2 = randint(-20, 20, 0)
           if (taux1 > 0) {
@@ -352,7 +387,8 @@ export default class EvolutionsSuccesives extends Exercice {
           Quelle est la valeur de $t$ ?`
           texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
 
-          texteCorr = 'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
+          texteCorr =
+            'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
             texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
@@ -381,7 +417,7 @@ export default class EvolutionsSuccesives extends Exercice {
           handleAnswers(this, i, { reponse: { value: texNombre(t2) } })
           break
 
-        case 6 :
+        case 6:
         default:
           taux1 = randint(-40, 40, 0)
           taux2 = randint(-40, 40, 0)
@@ -428,7 +464,8 @@ export default class EvolutionsSuccesives extends Exercice {
           `
           texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
 
-          texteCorr = 'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
+          texteCorr =
+            'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
           if (taux1 > 0) {
             texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`

@@ -19,10 +19,10 @@ export const uuid = '6a3da'
 
 export const refs = {
   'fr-fr': ['can5P11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculPartieAvecTout extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,7 +30,7 @@ export default class CalculPartieAvecTout extends ExerciceSimple {
     this.versionQcmDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let taux, total, matiere
 
     switch (randint(1, 2)) {
@@ -48,16 +48,16 @@ export default class CalculPartieAvecTout extends ExerciceSimple {
     }
 
     // Calcul de la partie
-    const partie = total * taux / 100
+    const partie = (total * taux) / 100
 
     const correctionCommune = `$${taux}\\,\\%$ de $${texNombre(total, 0)}  = ${texNombre(taux / 100, 2)} \\times ${texNombre(total, 0)} = ${miseEnEvidence(`${texNombre(partie, 0)}`)}$<br>
     Donc $${miseEnEvidence(`${texNombre(partie, 0)}`)}$ élèves étudient ${matiere}.`
 
     const distracteursCommuns = [
       `$${texNombre(total * (1 - taux / 100), 0)}$`,
-      `${taux === 10 ? `$${texNombre(partie + 10, 0)}$` : `$${texNombre(total / taux, 0)}$`}`,  // erreur division au lieu de multiplication
-      `$${texNombre(partie + 50, 0)}$`,  // erreur +50
-      `$${texNombre(taux, 0)}$`
+      `${taux === 10 ? `$${texNombre(partie + 10, 0)}$` : `$${texNombre(total / taux, 0)}$`}`, // erreur division au lieu de multiplication
+      `$${texNombre(partie + 50, 0)}$`, // erreur +50
+      `$${texNombre(taux, 0)}$`,
     ]
 
     this.question = `Dans un lycée, il y a $${texNombre(total, 0)}$ élèves inscrits. <br>

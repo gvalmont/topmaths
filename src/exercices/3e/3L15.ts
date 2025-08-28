@@ -1,15 +1,24 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Résoudre une équation du second degré se ramenant au premier degré'
+export const titre =
+  'Résoudre une équation du second degré se ramenant au premier degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '21/06/2023' // EE : Rajout d'un paramètre, correction de coquilles, création interactivité et meilleure conclusion des corrections
@@ -26,12 +35,15 @@ export const uuid = '231d2'
 
 export const refs = {
   'fr-fr': ['3L15'],
-  'fr-ch': ['11FA10-4']
+  'fr-ch': ['11FA10-4'],
 }
 export default class ExerciceEquations extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ["Type d'équations", 'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: (ax+b)2=0\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange']
+    this.besoinFormulaireTexte = [
+      "Type d'équations",
+      'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: (ax+b)2=0\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange',
+    ]
     this.besoinFormulaire2CaseACocher = ['Niveau plus facile']
     this.nbQuestions = 6
     this.nbCols = 2
@@ -40,12 +52,19 @@ export default class ExerciceEquations extends Exercice {
     this.sup2 = true
     this.spacingCorr = 3
 
-    this.comment = 'Dans le niveau plus facile, l\'énoncé contient un maximum d\'entiers positifs. <br>'
-    this.comment += 'Dans le niveau moins facile, l\'énoncé contient aléatoirement des entiers positifs ou négatifs. <br>'
+    this.comment =
+      "Dans le niveau plus facile, l'énoncé contient un maximum d'entiers positifs. <br>"
+    this.comment +=
+      "Dans le niveau moins facile, l'énoncé contient aléatoirement des entiers positifs ou négatifs. <br>"
   }
 
-  nouvelleVersion () {
-    this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
+  nouvelleVersion() {
+    this.consigne =
+      'Résoudre ' +
+      (this.nbQuestions !== 1
+        ? 'les équations suivantes'
+        : "l'équation suivante") +
+      '.'
 
     const typeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -54,26 +73,62 @@ export default class ExerciceEquations extends Exercice {
       defaut: 8,
       melange: 8,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['ax2+bx', 'ax2+bxAvec1', 'ax2-b2', 'ax2=b2', '(ax+b)2=0', 'bcx2+a=bx(cx+d)', '(ax+b)(cx+d)=acx2', 'mélange']
+      listeOfCase: [
+        'ax2+bx',
+        'ax2+bxAvec1',
+        'ax2-b2',
+        'ax2=b2',
+        '(ax+b)2=0',
+        'bcx2+a=bx(cx+d)',
+        '(ax+b)(cx+d)=acx2',
+        'mélange',
+      ],
     })
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, indiceQ = 0, fracReponse, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0,
+        indiceQ = 0,
+        fracReponse,
+        a,
+        b,
+        c,
+        d,
+        texte,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
       a = 0
       b = 0
       let increment = 0
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'ax2+bx':
           a = this.sup2 ? randint(2, 9) : randint(-9, 9, [0, -1, 1]) // Le cas 1 (ou -1) est traité ensuite
           b = this.sup2 ? randint(2, 9) : randint(-9, 9, [0, -1, 1])
           texte = ax2plusbx(a, b)[0]
           texteCorr = ax2plusbx(a, b)[1]
           fracReponse = new FractionEtendue(-b, a)
-          setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
+          setReponse(
+            this,
+            fracReponse.signe === -1 ? indiceQ : indiceQ + 1,
+            fracReponse,
+            { formatInteractif: 'fractionEgale' },
+          )
           setReponse(this, fracReponse.signe === 1 ? indiceQ : indiceQ + 1, 0)
-          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', { texteAvant: `<br>${sp(5)} Solution la plus petite : ` })
-          texte += ajouteChampTexteMathLive(this, indiceQ + 1, ' ', { texteAvant: `<br>${sp(5)} Solution la plus grande : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', {
+            texteAvant: `<br>${sp(5)} Solution la plus petite : `,
+          })
+          texte += ajouteChampTexteMathLive(this, indiceQ + 1, ' ', {
+            texteAvant: `<br>${sp(5)} Solution la plus grande : `,
+          })
           increment = 2
           break
         case 'ax2+bxAvec1':
@@ -91,19 +146,34 @@ export default class ExerciceEquations extends Exercice {
           texte = ax2plusbx(a, b)[0]
           texteCorr = ax2plusbx(a, b)[1]
           fracReponse = new FractionEtendue(-b, a)
-          setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
+          setReponse(
+            this,
+            fracReponse.signe === -1 ? indiceQ : indiceQ + 1,
+            fracReponse,
+            { formatInteractif: 'fractionEgale' },
+          )
           setReponse(this, fracReponse.signe === 1 ? indiceQ : indiceQ + 1, 0)
-          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', { texteAvant: `<br>${sp(5)} Solution la plus petite : ` })
-          texte += ajouteChampTexteMathLive(this, indiceQ + 1, ' ', { texteAvant: `<br>${sp(5)} Solution la plus grande : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', {
+            texteAvant: `<br>${sp(5)} Solution la plus petite : `,
+          })
+          texte += ajouteChampTexteMathLive(this, indiceQ + 1, ' ', {
+            texteAvant: `<br>${sp(5)} Solution la plus grande : `,
+          })
           increment = 2
           break
         case 'ax2-b2':
           a = randint(1, 10)
           b = randint(1, 10)
-          texte = this.sup2 ? `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ ` : choice([`$ -${rienSi1(a ** 2)}x^2 + ${b ** 2} = 0 $ `, `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `])
+          texte = this.sup2
+            ? `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
+            : choice([
+                `$ -${rienSi1(a ** 2)}x^2 + ${b ** 2} = 0 $ `,
+                `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `,
+              ])
           texteCorr = `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
           texteCorr += '<br>'
-          texteCorr += a !== 1 ? `$ (${a}x)^2 - ${b}^2 = 0 $ ` : `$ x^2 - ${b}^2 = 0 $ `
+          texteCorr +=
+            a !== 1 ? `$ (${a}x)^2 - ${b}^2 = 0 $ ` : `$ x^2 - ${b}^2 = 0 $ `
           texteCorr += '<br>'
           texteCorr += `$ (${rienSi1(a)}x+${b})(${rienSi1(a)}x-${b}) = 0 $ `
           texteCorr += '<br>'
@@ -121,21 +191,41 @@ export default class ExerciceEquations extends Exercice {
           }
           texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(fracReponse.simplifie().oppose().texFSD)}$ et $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
           fracReponse = fracReponse.oppose()
-          setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
-          setReponse(this, fracReponse.signe !== -1 ? indiceQ : indiceQ + 1, new FractionEtendue(b, a), { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', { texteAvant: `<br>${sp(5)} Solution la plus petite : ` })
-          texte += ajouteChampTexteMathLive(this, indiceQ + 1, ' ', { texteAvant: `<br>${sp(5)} Solution la plus grande : ` })
+          setReponse(
+            this,
+            fracReponse.signe === -1 ? indiceQ : indiceQ + 1,
+            fracReponse,
+            { formatInteractif: 'fractionEgale' },
+          )
+          setReponse(
+            this,
+            fracReponse.signe !== -1 ? indiceQ : indiceQ + 1,
+            new FractionEtendue(b, a),
+            { formatInteractif: 'fractionEgale' },
+          )
+          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', {
+            texteAvant: `<br>${sp(5)} Solution la plus petite : `,
+          })
+          texte += ajouteChampTexteMathLive(this, indiceQ + 1, ' ', {
+            texteAvant: `<br>${sp(5)} Solution la plus grande : `,
+          })
           increment = 2
           break
         case 'ax2=b2':
           a = randint(1, 10)
           b = randint(1, 10)
-          texte = this.sup2 ? `$ ${rienSi1(a ** 2)}x^2 = ${b ** 2}$ ` : choice([`$ -${rienSi1(a ** 2)}x^2 = -${b ** 2}$ `, `$ ${rienSi1(a ** 2)}x^2 = ${b ** 2}$ `])
+          texte = this.sup2
+            ? `$ ${rienSi1(a ** 2)}x^2 = ${b ** 2}$ `
+            : choice([
+                `$ -${rienSi1(a ** 2)}x^2 = -${b ** 2}$ `,
+                `$ ${rienSi1(a ** 2)}x^2 = ${b ** 2}$ `,
+              ])
           texteCorr = `$ ${rienSi1(a ** 2)}x^2 = ${b ** 2}$ `
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
           texteCorr += '<br>'
-          texteCorr += a !== 1 ? `$ (${a}x)^2 - ${b}^2 = 0 $ ` : `$ x^2 - ${b}^2 = 0 $ `
+          texteCorr +=
+            a !== 1 ? `$ (${a}x)^2 - ${b}^2 = 0 $ ` : `$ x^2 - ${b}^2 = 0 $ `
           texteCorr += '<br>'
           texteCorr += `$ (${rienSi1(a)}x+${b})(${rienSi1(a)}x-${b}) = 0 $ `
           texteCorr += '<br>'
@@ -153,10 +243,24 @@ export default class ExerciceEquations extends Exercice {
           }
           texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$ et $${miseEnEvidence(fracReponse.simplifie().oppose().texFSD)}$.`
           fracReponse = new FractionEtendue(-b, a)
-          setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
-          setReponse(this, fracReponse.signe !== -1 ? indiceQ : indiceQ + 1, new FractionEtendue(b, a), { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', { texteAvant: `<br>${sp(5)} Solution la plus petite : ` })
-          texte += ajouteChampTexteMathLive(this, indiceQ + 1, ' ', { texteAvant: `<br>${sp(5)} Solution la plus grande : ` })
+          setReponse(
+            this,
+            fracReponse.signe === -1 ? indiceQ : indiceQ + 1,
+            fracReponse,
+            { formatInteractif: 'fractionEgale' },
+          )
+          setReponse(
+            this,
+            fracReponse.signe !== -1 ? indiceQ : indiceQ + 1,
+            new FractionEtendue(b, a),
+            { formatInteractif: 'fractionEgale' },
+          )
+          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', {
+            texteAvant: `<br>${sp(5)} Solution la plus petite : `,
+          })
+          texte += ajouteChampTexteMathLive(this, indiceQ + 1, ' ', {
+            texteAvant: `<br>${sp(5)} Solution la plus grande : `,
+          })
           increment = 2
           break
         case 'bcx2+a=bx(cx+d)':
@@ -192,8 +296,12 @@ export default class ExerciceEquations extends Exercice {
           }
           texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
 
-          setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', { texteAvant: `<br>${sp(5)} Solution : ` })
+          setReponse(this, indiceQ, fracReponse, {
+            formatInteractif: 'fractionEgale',
+          })
+          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', {
+            texteAvant: `<br>${sp(5)} Solution : `,
+          })
           increment = 1
           break
         case '(ax+b)2=0':
@@ -212,8 +320,12 @@ export default class ExerciceEquations extends Exercice {
             texteCorr += ` $ x = ${fracReponse.simplifie().texFSD} $`
           }
           texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
-          setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', { texteAvant: `<br>${sp(5)} Solution : ` })
+          setReponse(this, indiceQ, fracReponse, {
+            formatInteractif: 'fractionEgale',
+          })
+          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', {
+            texteAvant: `<br>${sp(5)} Solution : `,
+          })
           increment = 1
           break
         case '(ax+b)(cx+d)=acx2':
@@ -234,13 +346,20 @@ export default class ExerciceEquations extends Exercice {
           texteCorr += `$ ${rienSi1(a * d + b * c)}x = ${-b * d}$ `
           texteCorr += '<br>'
           texteCorr += `$ x = ${fracReponse.texFSD}$`
-          if ((-b * d < 0 && a * d + b * c < 0) || pgcd(-b * d, a * d + b * c) !== 1) {
+          if (
+            (-b * d < 0 && a * d + b * c < 0) ||
+            pgcd(-b * d, a * d + b * c) !== 1
+          ) {
             texteCorr += '<br>'
             texteCorr += `$ x = ${fracReponse.simplifie().texFSD}$`
           }
           texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
-          setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', { texteAvant: `<br>${sp(5)} Solution : ` })
+          setReponse(this, indiceQ, fracReponse, {
+            formatInteractif: 'fractionEgale',
+          })
+          texte += ajouteChampTexteMathLive(this, indiceQ, ' ', {
+            texteAvant: `<br>${sp(5)} Solution : `,
+          })
           increment = 1
           break
       }
@@ -260,7 +379,7 @@ export default class ExerciceEquations extends Exercice {
   // this.besoinFormulaireTexte = ["Type d'équations", "Nombres séparés par des tirets : \n1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
 }
 
-function ax2plusbx (a:number, b:number) {
+function ax2plusbx(a: number, b: number) {
   const texte = `$ ${rienSi1(a)} x^2 ${ecritureAlgebriqueSauf1(b)} x=0$`
   let texteCorr = `$ ${rienSi1(a)} x^2 ${ecritureAlgebriqueSauf1(b)} x=0$`
   texteCorr += '<br>'

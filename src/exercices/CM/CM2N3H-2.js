@@ -21,10 +21,10 @@ export const uuid = 'fc635'
 export const refs = {
   'fr-fr': ['CM2N3H-2'],
   'fr-2016': ['CM017'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DiviserDecimalPar101001000 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -33,23 +33,22 @@ export default class DiviserDecimalPar101001000 extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       a = choice([
         randint(1, 9),
         randint(11, 99),
         arrondi(randint(11, 99) / 10),
         arrondi(randint(101, 999) / 100),
-        arrondi(randint(1, 9) / 10)
+        arrondi(randint(1, 9) / 10),
       ])
       b = choice([10, 100, 1000])
       texte = `$${texNombre(a)}\\div${texNombre(b)}=$`
-      texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(
-                a / b
-            )}$`
+      texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(a / b)}$`
       setReponse(this, i, arrondi(a / b))
       if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
 

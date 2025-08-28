@@ -1,10 +1,20 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
+import {
+  texFractionFromString,
+  texFractionReduite,
+} from '../../lib/outils/deprecatedFractions'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -27,21 +37,30 @@ export const uuid = 'ecf62'
 
 export const refs = {
   'fr-fr': ['3L14', 'BP2RES16'],
-  'fr-ch': ['11FA10-1']
+  'fr-ch': ['11FA10-1'],
 }
 export default class ResoudreUneEquationProduitNul extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 8, '1 : Coefficients de x = 1\n2 : Un coefficient de x > 1 et l\'autre = 1\n3 : Coefficient de x > 1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      8,
+      "1 : Coefficients de x = 1\n2 : Un coefficient de x > 1 et l'autre = 1\n3 : Coefficient de x > 1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout",
+    ]
 
     this.nbQuestions = 5
 
     this.sup = 2
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
   }
 
-  nouvelleVersion () {
-    this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
+  nouvelleVersion() {
+    this.consigne =
+      'Résoudre ' +
+      (this.nbQuestions !== 1
+        ? 'les équations suivantes'
+        : "l'équation suivante") +
+      '.'
     let listeTypeDeQuestions: number[] = []
     switch (contraindreValeur(1, 8, this.sup, 1)) {
       case 1:
@@ -57,19 +76,32 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
         listeTypeDeQuestions = combinaisonListes([5, 6], this.nbQuestions) // coefficients > 1 solutions rationnelles (simplifiables ou pas)
         break
       case 5:
-        listeTypeDeQuestions = combinaisonListes([1, 2, 13, 42], this.nbQuestions) // Mélange cas 1 et 2
+        listeTypeDeQuestions = combinaisonListes(
+          [1, 2, 13, 42],
+          this.nbQuestions,
+        ) // Mélange cas 1 et 2
         break
       case 6:
-        listeTypeDeQuestions = combinaisonListes([13, 42, 3, 4], this.nbQuestions) // Mélange cas 2 et 3
+        listeTypeDeQuestions = combinaisonListes(
+          [13, 42, 3, 4],
+          this.nbQuestions,
+        ) // Mélange cas 2 et 3
         break
       case 7:
         listeTypeDeQuestions = combinaisonListes([3, 4, 5, 6], this.nbQuestions) // Mélange cas 3 et 4
         break
       case 8:
-        listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 13, 42], this.nbQuestions)
+        listeTypeDeQuestions = combinaisonListes(
+          [1, 2, 3, 4, 5, 6, 13, 42],
+          this.nbQuestions,
+        )
         break
     }
-    for (let i = 0, a, b, c, d, solution1, solution2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, a, b, c, d, solution1, solution2, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // initialisation des variables pour this.questionJamaisPosee
       a = 0
       c = 0
@@ -78,31 +110,47 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           b = randint(1, context.isAmc ? 9 : 20)
           d = randint(1, context.isAmc ? 9 : 20, [b])
           texte = `$(x+${b})(x+${d})=0$`
-          texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+          texteCorr =
+            "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + `$(x+${b})(x+${d})=0$`
-          texteCorr += '<br> Soit ' + `$x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$x=${0 - b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=${0 - d}$`
+          texteCorr +=
+            '<br> Soit ' +
+            `$x+${b}=0$` +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$x+${d}=0$`
+          texteCorr +=
+            '<br> Donc ' +
+            `$x=${0 - b}$` +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$x=${0 - d}$`
           setReponse(this, i, [`${-b};${-d}`, `${-d};${-b}`])
           solution1 = Math.min(-b, -d)
           solution2 = Math.max(-b, -d)
           break
-        case 2: // (x-b)(x+d)=0  ou (x+d)(x-b)=0 avec b et d entiers
-        {
+        case 2: { // (x-b)(x+d)=0  ou (x+d)(x-b)=0 avec b et d entiers
           b = randint(1, context.isAmc ? 9 : 20)
           d = randint(1, context.isAmc ? 9 : 20, [b])
           const choix = choice([0, 1])
           texte = [`$(x-${b})(x+${d})=0$`, `$(x+${d})(x-${b})=0$`][choix]
-          texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+          texteCorr =
+            "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + (choix === 0 ? `$x-${b}=0$` : `$x+${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x+${d}=0$` : `$x-${b}=0$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d}$` : `$x=${b}$`)
+          texteCorr +=
+            '<br> Soit ' +
+            (choix === 0 ? `$x-${b}=0$` : `$x+${d}=0$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$x+${d}=0$` : `$x-${b}=0$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$x=${b}$` : `$x=${-d}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$x=${-d}$` : `$x=${b}$`)
           setReponse(this, i, [`${b};${-d}`, `${-d};${b}`])
           solution1 = Math.min(b, -d)
           solution2 = Math.max(b, -d)
           break
         }
-        case 13: // (x+b)(cx+d)=0  avec b/a et d/c entiers.
-        {
+        case 13: { // (x+b)(cx+d)=0  avec b/a et d/c entiers.
           a = randint(2, 6)
           b = randint(1, 5) * a
           do {
@@ -111,13 +159,34 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           } while (-b * c === -d)
 
           const choix = choice([0, 1])
-          texte = [`$(x+${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x+${b})=0$`][choix]
-          texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+          texte = [`$(x+${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x+${b})=0$`][
+            choix
+          ]
+          texteCorr =
+            "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + (choix === 0 ? `$x+${b}=0$` : `$${c}x+${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x+${d}=0$` : `$x+${b}=0$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$${c}x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${-d}$` : `$x=${-b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=-${texFractionFromString(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${-b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=${-d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d / c}$` : `$x=${-b}$`)
+          texteCorr +=
+            '<br> Soit ' +
+            (choix === 0 ? `$x+${b}=0$` : `$${c}x+${d}=0$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$${c}x+${d}=0$` : `$x+${b}=0$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$x=${-b}$` : `$${c}x=${-d}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$${c}x=${-d}$` : `$x=${-b}$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0
+              ? `$x=${-b}$`
+              : `$x=-${texFractionFromString(d, c)}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${-b}$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$x=${-b}$` : `$x=${-d / c}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$x=${-d / c}$` : `$x=${-b}$`)
           /* if (-b * c === -d) {
             setReponse(this, i, `${-b}`)
             solution1 = -b
@@ -129,19 +198,37 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           // }
           break
         }
-        case 42: // (x-b)(cx+d)=0  ou (cx+d)(x-b)=0 avec d/c entiers.
-        {
+        case 42: { // (x-b)(cx+d)=0  ou (cx+d)(x-b)=0 avec d/c entiers.
           b = randint(1, context.isAmc ? 9 : 20)
           c = randint(2, 8, [b])
           d = randint(1, 6) * c
           const choix = choice([0, 1])
-          texte = [`$(x-${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x-${b})=0$`][choix]
-          texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+          texte = [`$(x-${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x-${b})=0$`][
+            choix
+          ]
+          texteCorr =
+            "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + (choix === 0 ? `$x-${b}=0$` : `$${c}x+${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x+${d}=0$` : `$x-${b}=0$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$${c}x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${-d}$` : `$x=${b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=-${texFractionFromString(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=${-d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d / c}$` : `$x=${b}$`)
+          texteCorr +=
+            '<br> Soit ' +
+            (choix === 0 ? `$x-${b}=0$` : `$${c}x+${d}=0$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$${c}x+${d}=0$` : `$x-${b}=0$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$x=${b}$` : `$${c}x=${-d}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$${c}x=${-d}$` : `$x=${b}$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$x=${b}$` : `$x=-${texFractionFromString(d, c)}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${b}$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$x=${b}$` : `$x=${-d / c}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$x=${-d / c}$` : `$x=${b}$`)
           // il ne peut y avoir de solution double, il y a un positif et un négatif
           setReponse(this, i, [`${b};${-d / c}`, `${-d / c};${b}`])
           solution1 = -d / c // la négative en premier
@@ -156,12 +243,29 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             d = randint(1, 5) * c
           } while (-b * c === -d)
           texte = `$(${a}x+${b})(${c}x+${d})=0$`
-          texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+          texteCorr =
+            "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
-          texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$${a}x=${-b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x=${-d}$`
-          texteCorr += '<br> Donc ' + `$x=-${texFractionFromString(b, a)}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${texFractionFromString(d, c)}$`
-          texteCorr += '<br> Donc ' + `$x=${-b / a}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=${-d / c}$`
+          texteCorr +=
+            '<br> Soit ' +
+            `$${a}x+${b}=0$` +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$${c}x+${d}=0$`
+          texteCorr +=
+            '<br> Donc ' +
+            `$${a}x=${-b}$` +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$${c}x=${-d}$`
+          texteCorr +=
+            '<br> Donc ' +
+            `$x=-${texFractionFromString(b, a)}$` +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$x=-${texFractionFromString(d, c)}$`
+          texteCorr +=
+            '<br> Donc ' +
+            `$x=${-b / a}$` +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$x=${-d / c}$`
           /* if (-b * c === -d * a) {
             setReponse(this, i, `${-b / a}`)
             solution1 = -b / a
@@ -172,20 +276,43 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           solution2 = Math.max(-b / a, -d / c)
           // }
           break
-        case 4: // (ax+b)(cx-d)=0  avec b/a et d/c entiers.
-        {
+        case 4: { // (ax+b)(cx-d)=0  avec b/a et d/c entiers.
           a = randint(2, 6)
           b = Math.round(randint(1, 5) * a)
           c = randint(2, 6, [a])
           d = Math.round(randint(1, 5) * c)
           const choix = choice([0, 1])
-          texte = [`$(${a}x+${b})(${c}x-${d})=0$`, `$(${c}x-${d})(${a}x+${b})=0$`][choix]
-          texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+          texte = [
+            `$(${a}x+${b})(${c}x-${d})=0$`,
+            `$(${c}x-${d})(${a}x+${b})=0$`,
+          ][choix]
+          texteCorr =
+            "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$${a}x=${-b}$` : `$${c}x=${d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${-b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=-${texFractionFromString(b, a)}$` : `$x=${texFractionFromString(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${texFractionFromString(d, c)}$` : `$x=-${texFractionFromString(b, a)}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b / a}$` : `$x=${d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${d / c}$` : `$x=${-b / a}$`)
+          texteCorr +=
+            '<br> Soit ' +
+            (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$${a}x=${-b}$` : `$${c}x=${d}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${-b}$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0
+              ? `$x=-${texFractionFromString(b, a)}$`
+              : `$x=${texFractionFromString(d, c)}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0
+              ? `$x=${texFractionFromString(d, c)}$`
+              : `$x=-${texFractionFromString(b, a)}$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$x=${-b / a}$` : `$x=${d / c}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$x=${d / c}$` : `$x=${-b / a}$`)
           // il ne peut y avoir de solution double, il y a un positif et un négatif
           setReponse(this, i, [`${-b / a};${d / c}`, `${d / c};${-b / a}`])
           solution1 = -b / a // la négative en premier
@@ -200,15 +327,26 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             d = randint(1, context.isAmc ? 9 : 20, [b, c])
           } while (b * c === d * a)
           texte = `$(${a}x+${b})(${c}x+${d})=0$`
-          texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+          texteCorr =
+            "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
-          texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x=${0 - d}$`
+          texteCorr +=
+            '<br> Soit ' +
+            `$${a}x+${b}=0$` +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$${c}x+${d}=0$`
+          texteCorr +=
+            '<br> Donc ' +
+            `$${a}x=${0 - b}$` +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$${c}x=${0 - d}$`
           texteCorr += '<br> Donc ' + `$x=-${texFractionFromString(b, a)}$`
           if (texFractionFromString(b, a) !== texFractionReduite(b, a)) {
             texteCorr += `$=-${texFractionReduite(b, a)}$`
           }
-          texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${texFractionFromString(d, c)}$`
+          texteCorr +=
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            `$x=-${texFractionFromString(d, c)}$`
           if (texFractionFromString(d, c) !== texFractionReduite(d, c)) {
             texteCorr += `$=-${texFractionReduite(d, c)}$`
           }
@@ -217,7 +355,16 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             solution1 = fraction(-d, c).simplifie()
             solution2 = fraction(-d, c).simplifie()
           } else { */
-          setReponse(this, i, FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
+          setReponse(
+            this,
+            i,
+            FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(
+              -b,
+              a,
+              -d,
+              c,
+            ),
+          )
           if (-b / a < -d / c) {
             solution1 = fraction(-b, a).simplifie()
             solution2 = fraction(-d, c).simplifie()
@@ -234,12 +381,28 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           c = randint(2, 9, [a])
           d = randint(1, context.isAmc ? 9 : 20, [b, c])
           const choix = choice([0, 1])
-          texte = [`$(${a}x+${b})(${c}x-${d})=0$`, `$(${c}x-${d})(${a}x+${b})=0$`][choix]
-          texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+          texte = [
+            `$(${a}x+${b})(${c}x-${d})=0$`,
+            `$(${c}x-${d})(${a}x+${b})=0$`,
+          ][choix]
+          texteCorr =
+            "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$${a}x=${0 - b}$` : `$${c}x=${d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${0 - b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=-${texFractionFromString(b, a)}$` : `$x=${texFractionFromString(d, c)}$`)
+          texteCorr +=
+            '<br> Soit ' +
+            (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0 ? `$${a}x=${0 - b}$` : `$${c}x=${d}$`) +
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${0 - b}$`)
+          texteCorr +=
+            '<br> Donc ' +
+            (choix === 0
+              ? `$x=-${texFractionFromString(b, a)}$`
+              : `$x=${texFractionFromString(d, c)}$`)
           if (choix === 0) {
             if (texFractionFromString(b, a) !== texFractionReduite(b, a)) {
               texteCorr += `$=-${texFractionReduite(b, a)}$`
@@ -249,7 +412,11 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
               texteCorr += `$=${texFractionReduite(d, c)}$`
             }
           }
-          texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${texFractionFromString(d, c)}$` : `$x=-${texFractionFromString(b, a)}$`)
+          texteCorr +=
+            ` ${texteEnCouleurEtGras('ou', 'black')} ` +
+            (choix === 0
+              ? `$x=${texFractionFromString(d, c)}$`
+              : `$x=-${texFractionFromString(b, a)}$`)
           if (choix === 1) {
             if (texFractionFromString(b, a) !== texFractionReduite(b, a)) {
               texteCorr += `$=-${texFractionReduite(b, a)}$`
@@ -261,23 +428,41 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           }
 
           // il ne peut y avoir de solution double, il y a un positif et un négatif
-          setReponse(this, i, FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, d, c))
+          setReponse(
+            this,
+            i,
+            FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(
+              -b,
+              a,
+              d,
+              c,
+            ),
+          )
           solution1 = fraction(-b, a).simplifie() // la négative en premier
           solution2 = fraction(d, c).simplifie()
           break
         }
       }
-      if (listeTypeDeQuestions[i] !== 5 && listeTypeDeQuestions[i] !== 6) texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(solution1)}$ et $${miseEnEvidence(solution2)}$.`
-      else texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence('-' + texFractionReduite(b, a))}$ et $${miseEnEvidence((listeTypeDeQuestions[i] === 5 ? '-' : '') + texFractionReduite(d, c))}$.`
+      if (listeTypeDeQuestions[i] !== 5 && listeTypeDeQuestions[i] !== 6)
+        texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(solution1)}$ et $${miseEnEvidence(solution2)}$.`
+      else
+        texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence('-' + texFractionReduite(b, a))}$ et $${miseEnEvidence((listeTypeDeQuestions[i] === 5 ? '-' : '') + texFractionReduite(d, c))}$.`
       texte += ajouteChampTexteMathLive(this, i, '')
-      this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>" : ''
-      if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
+      this.introduction =
+        this.interactif && context.isHtml
+          ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>"
+          : ''
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: 'Résoudre l\'équation : ' + texte + '\\\\\nSi il n\'y a qu\'une solution double, il faut la coder dans solution1 et solution2.\\\\\nLes fractions doivent être simplifiées au maximum.',
+            enonce:
+              "Résoudre l'équation : " +
+              texte +
+              "\\\\\nSi il n'y a qu'une solution double, il faut la coder dans solution1 et solution2.\\\\\nLes fractions doivent être simplifiées au maximum.",
             enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
             enonceAvantUneFois: true, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
             enonceCentre: false, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
@@ -288,27 +473,31 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
               barreseparation: false,
               multicolsAll: false,
               avecSymboleMult: false,
-              numerotationEnonce: false
+              numerotationEnonce: false,
             }, // facultatif.
             propositions: [
               {
                 type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-                propositions: [ // une ou plusieurs (Qcms) 'propositions'
+                propositions: [
+                  // une ou plusieurs (Qcms) 'propositions'
                   {
                     texte: texteCorr,
                     statut: 5,
                     feedback: '',
                     enonce: '',
                     sanscadre: false,
-                    pointilles: false
-                  }]
+                    pointilles: false,
+                  },
+                ],
               },
               {
                 type: 'AMCNum', // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-                propositions: [ // une ou plusieurs (Qcms) 'propositions'
+                propositions: [
+                  // une ou plusieurs (Qcms) 'propositions'
                   {
                     texte: '',
-                    reponse: { // utilisé si type = 'AMCNum'
+                    reponse: {
+                      // utilisé si type = 'AMCNum'
                       texte: 'solution 1',
                       valeur: solution1,
                       alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
@@ -318,18 +507,20 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
                         signe: true, // obligatoire pour AMC (présence d'une case + ou -)
                         approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
                         vertical: false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
-                        aussiCorrect: solution2
-                      }
-                    }
-                  }
-                ]
+                        aussiCorrect: solution2,
+                      },
+                    },
+                  },
+                ],
               },
               {
                 type: 'AMCNum', // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-                propositions: [ // une ou plusieurs (Qcms) 'propositions'
+                propositions: [
+                  // une ou plusieurs (Qcms) 'propositions'
                   {
                     texte: '',
-                    reponse: { // utilisé si type = 'AMCNum'
+                    reponse: {
+                      // utilisé si type = 'AMCNum'
                       texte: 'solution 2',
                       valeur: solution2,
                       alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
@@ -339,13 +530,13 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
                         signe: true, // obligatoire pour AMC (présence d'une case + ou -)
                         approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
                         vertical: false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
-                        aussiCorrect: solution1
-                      }
-                    }
-                  }
-                ]
-              }
-            ]
+                        aussiCorrect: solution1,
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
           }
         }
 

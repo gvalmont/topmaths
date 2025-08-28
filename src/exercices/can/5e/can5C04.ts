@@ -17,17 +17,17 @@ export const uuid = '52336'
 
 export const refs = {
   'fr-fr': ['can5C04', 'auto6P3A-flash5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TripleEtMoitie extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(3, 20)
     this.question = `Le triple d'un nombre vaut $${3 * a}$, combien vaut sa moitié ?`
     this.correction = `Le nombre est $${a}$, sa moitié est ${texNombre(a / 2)}.`
@@ -37,7 +37,7 @@ export default class TripleEtMoitie extends ExerciceSimple {
     Puisqu'on cherche sa moitié, on le divise par $2$, soit  $${a}\\div 2=${texNombre(a / 2)}$.<br>
      `)
     this.reponse = a / 2
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -3,8 +3,10 @@ import type { Page } from 'playwright'
 import { runTest } from '../../helpers/run'
 import prefs from '../../helpers/prefs.js'
 
-async function test (page: Page) {
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+async function test(page: Page) {
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
   const urlExercice = hostname + '?uuid=2eee3&i=1&n=1'
   // const questions = await getQuestions(page, urlExercice)
   await page.goto(urlExercice)
@@ -12,7 +14,10 @@ async function test (page: Page) {
   await page.locator('liste-deroulante').click()
 
   // Clique sur l’option voulue
-  await page.locator('liste-deroulante').getByText('admet pas de solution').click()
+  await page
+    .locator('liste-deroulante')
+    .getByText('admet pas de solution')
+    .click()
 
   // Vérifie la valeur sélectionnée
   const value = await page.evaluate(() => {

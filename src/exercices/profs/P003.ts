@@ -1,13 +1,16 @@
 import { droiteGraduee } from '../../lib/2d/reperes'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenuSansNumero,
+} from '../../modules/outils'
 
 export const titre = 'Tracer des droites graduées'
 
 export const refs = {
   'fr-fr': ['P003'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = 'ad5f5'
 
@@ -19,9 +22,12 @@ export const uuid = 'ad5f5'
  * Réécrit le 14/08/2021 avec mathalea2d
  */
 export default class FeuilleDAxesGradues extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Nombres de parts', '1: unité\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n6: sixièmes\n7: septièmes\n8: huitièmes\n9: neuvièmes\n10: dixièmes\n11: mélange']
+    this.besoinFormulaireTexte = [
+      'Nombres de parts',
+      '1: unité\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n6: sixièmes\n7: septièmes\n8: huitièmes\n9: neuvièmes\n10: dixièmes\n11: mélange',
+    ]
 
     this.nbQuestions = 1
 
@@ -30,11 +36,20 @@ export default class FeuilleDAxesGradues extends Exercice {
     this.nbQuestions = 4
   }
 
-  nouvelleVersion () {
-    const pas = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, defaut: 10, melange: 11, nbQuestions: this.nbQuestions, shuffle: false }).map(Number)
+  nouvelleVersion() {
+    const pas = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 10,
+      defaut: 10,
+      melange: 11,
+      nbQuestions: this.nbQuestions,
+      shuffle: false,
+    }).map(Number)
 
     for (let i = 0, texte; i < this.nbQuestions; i++) {
-      texte = mathalea2d({ xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 },
+      texte = mathalea2d(
+        { xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 },
         droiteGraduee({
           Unite: 4,
           Min: 0,
@@ -44,8 +59,9 @@ export default class FeuilleDAxesGradues extends Exercice {
           thickSecDist: 1 / pas[i],
           thickSec: true,
           labelsPrincipaux: false,
-          thickDistance: 1
-        }))
+          thickDistance: 1,
+        }),
+      )
       this.listeQuestions.push(texte)
     }
     listeQuestionsToContenuSansNumero(this)

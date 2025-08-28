@@ -5,14 +5,14 @@ import { emojisSvgData } from './emojisSvgData'
 
 export class Emoji extends Shape2D {
   static readonly type = 'emojis'
-  constructor ({
+  constructor({
     codeSvg,
     codeTikz,
     shapeDef,
     name,
     unicode,
     width = 1,
-    height = 1
+    height = 1,
   }: {
     codeSvg: string
     codeTikz: string
@@ -21,9 +21,7 @@ export class Emoji extends Shape2D {
     unicode: string
     width?: number
     height?: number
-  }
-
-  ) {
+  }) {
     super({ codeSvg, codeTikz, width, height })
     this.name = name
     this.unicode = unicode
@@ -32,12 +30,17 @@ export class Emoji extends Shape2D {
     this.shapeDef = shapeDef
   }
 
-  get unicodeValue (): string {
+  get unicodeValue(): string {
     return this.unicode
   }
 }
 
-export function emoji (name: string, unicode: string, width: number = 1, height: number = 1): Emoji {
+export function emoji(
+  name: string,
+  unicode: string,
+  width: number = 1,
+  height: number = 1,
+): Emoji {
   if (!name || !unicode) {
     throw new Error('Emoji name and unicode must be provided')
   }
@@ -66,7 +69,6 @@ export function emoji (name: string, unicode: string, width: number = 1, height:
     name,
     unicode,
     width,
-    height
-  }
-  )
+    height,
+  })
 }

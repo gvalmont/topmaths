@@ -1,4 +1,7 @@
-import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
 import TrouverSolutionMathador from '../5e/_TrouverSolutionMathador'
 import Exercice from '../Exercice'
 export const titre = 'Jouer au "compte est bon" en version semi-aléatoire'
@@ -13,28 +16,28 @@ export const uuid = 'fec06'
 export const refs = {
   'fr-fr': ['CM2N4B-2'],
   'fr-2016': ['CM020'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LeCompteEstBonV4 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Choix des nombres du tirage (de aucun à cinq)',
-      'Nombres séparés par des tirets :'
+      'Nombres séparés par des tirets :',
     ] // Texte, tooltip
     this.besoinFormulaire2Texte = [
       'Intervalle pour la cible (ou rien pour cible non contrainte)',
-      'Minimum-Maximum (éviter de trop contraindre la cible, cela peut bloquer le programme)'
+      'Minimum-Maximum (éviter de trop contraindre la cible, cela peut bloquer le programme)',
     ] // Texte, tooltip
     this.consigne =
-    'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
+      'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
     this.nbQuestions = 1
     this.nbCols = 2
     this.nbColsCorr = 2
     this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let solutionMathador = []
     let tirage, min, max, texteCorr
     let minmax = []

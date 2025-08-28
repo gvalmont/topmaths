@@ -23,10 +23,10 @@ export const uuid = 'bbdd6'
 export const refs = {
   'fr-fr': ['auto6N3D'],
   'fr-2016': ['6N43-3'],
-  'fr-ch': ['9NO4-2']
+  'fr-ch': ['9NO4-2'],
 }
 
-function justification (N:number, a:number, booleen: boolean) {
+function justification(N: number, a: number, booleen: boolean) {
   let result
   if (booleen === true) {
     if (N === 2) {
@@ -43,13 +43,14 @@ function justification (N:number, a:number, booleen: boolean) {
   }
   if (booleen === false) {
     if (N === 2) {
-      result = ", car son chiffre des unités n'est pas $0$, $2$, $4$, $6$ ou $8$."
+      result =
+        ", car son chiffre des unités n'est pas $0$, $2$, $4$, $6$ ou $8$."
     } else if (N === 5) {
       result = ", car son chiffre des unités n'est pas $0$, ou $5$."
     } else if (N === 3 || N === 9) {
       result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui n'est pas divisible par $${N}$.`
     } else if (N === 10) {
-      result = ', car son chiffre des unités n\'est pas $0$.'
+      result = ", car son chiffre des unités n'est pas $0$."
     } else {
       result = `, car $${texNombre(a)} = ${N}\\times ${Math.floor(a / N)}+ ${a % N}$.`
     }
@@ -57,25 +58,49 @@ function justification (N:number, a:number, booleen: boolean) {
   return result
 }
 export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Critères de divisibilité par 2 et 5\n2 : Critères de divisibilité par 2, 3, 5 et 9\n3 : Sans critère de divisibilité\n4 : Critère de divisibilité par 10']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Critères de divisibilité par 2 et 5\n2 : Critères de divisibilité par 2, 3, 5 et 9\n3 : Sans critère de divisibilité\n4 : Critère de divisibilité par 10',
+    ]
 
-    this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
+    this.consigne =
+      'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
     this.nbQuestions = 5
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.sup = 1 // Niveau de difficulté
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.sup2 = parseInt(this.sup2)
 
-    let typeDeQuestionsDisponibles = ['Ndiviseur', 'divisibleParN', 'multipleDeN', 'NdiviseurF', 'divisibleParNF', 'multipleDeNF', 'NdiviseurEnvers', 'divisibleParNEnvers', 'multipleDeNEnvers']
+    let typeDeQuestionsDisponibles = [
+      'Ndiviseur',
+      'divisibleParN',
+      'multipleDeN',
+      'NdiviseurF',
+      'divisibleParNF',
+      'multipleDeNF',
+      'NdiviseurEnvers',
+      'divisibleParNEnvers',
+      'multipleDeNEnvers',
+    ]
     if (this.nbQuestions < 8) {
-      typeDeQuestionsDisponibles = [choice(['Ndiviseur', 'divisibleParN']), 'multipleDeN', choice(['NdiviseurF', 'divisibleParNF']), 'multipleDeNF', choice(['NdiviseurEnvers', 'divisibleParNEnvers', 'multipleDeNEnvers'])]
+      typeDeQuestionsDisponibles = [
+        choice(['Ndiviseur', 'divisibleParN']),
+        'multipleDeN',
+        choice(['NdiviseurF', 'divisibleParNF']),
+        'multipleDeNF',
+        choice(['NdiviseurEnvers', 'divisibleParNEnvers', 'multipleDeNEnvers']),
+      ]
     }
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let listeDeNDisponibles
     if (this.sup === 1) {
       listeDeNDisponibles = [2, 5]
@@ -87,7 +112,11 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
       listeDeNDisponibles = [10]
     }
     const listeDeN = combinaisonListes(listeDeNDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, N, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, N, a, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
       N = listeDeN[i]
       a = randint(199, 999) * N
@@ -96,19 +125,21 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
       this.autoCorrection[i].propositions = [
         {
           texte: 'Vrai',
-          statut: false
+          statut: false,
         },
         {
           texte: 'Faux',
-          statut: false
+          statut: false,
         },
         {
           texte: 'Je ne sais pas',
-          statut: false
-        }
+          statut: false,
+        },
       ]
       this.autoCorrection[i].options = { ordered: true, radio: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
-      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeDeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'Ndiviseur':
           texte = `$${N}$ est un diviseur de $${texNombre(a)}$.`
           texteCorr = texte.replace('.', ' ') + ' : Vrai'

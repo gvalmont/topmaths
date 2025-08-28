@@ -19,10 +19,10 @@ export const uuid = 'fbd32'
 export const refs = {
   'fr-fr': ['CM2N3A-16'],
   'fr-2016': ['CM015'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeDeDeuxNombresMaries extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -31,10 +31,11 @@ export default class SommeDeDeuxNombresMaries extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (
       let i = 0, texte, texteCorr, a, b, u1, u2, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       u1 = randint(1, 9)
       u2 = 10 - u1

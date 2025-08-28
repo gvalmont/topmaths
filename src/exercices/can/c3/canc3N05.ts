@@ -20,10 +20,10 @@ export const uuid = '42453'
 
 export const refs = {
   'fr-fr': ['canc3N05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CompositionDeNombreDecimalC3 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -32,7 +32,7 @@ export default class CompositionDeNombreDecimalC3 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'e4f38'
 export const refs = {
   'fr-fr': ['TSA5-QCM07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,21 +29,27 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$S = ]1~;~+ \\infty[$ ',
       '$S = ]- \\infty~;~-2[ \\cup ]1~;~+\\infty[$',
       '$S = \\emptyset$',
-      '$S = ]- 1~;~1[$'
+      '$S = ]- 1~;~1[$',
     ]
 
-    this.enonce = ' L\'ensemble $S$ des solutions dans $\\mathbb {R}$ de l\'inéquation $\\ln (x + 3) < 2\\ln (x + 1)$ est :<br>'
-    this.correction = 'D\'après l\'énoncé il faut que $x > -3$ et que $x > - 1$. '
-    this.correction += '<br>Il faut donc résoudre l\'inéquation dans l\'intervalle $]- 1~;~+ \\infty[$.'
-    this.correction += '<br>On a :<br>$\\begin{aligned}\\phantom{\\iff}&\\ln (x + 3) < 2\\ln (x + 1)\\\\ \\iff& \\ln (x + 3) < \\ln (x + 1)^2 \\\\ \\iff& x + 3 <  (x + 1)^2 \\\\ \\iff & 0 < x^2 + 2x + 1 - x - 3 \\\\ \\iff& 0< x^2 + x - 2 \\end{aligned}$.'
-    this.correction += '<br>Le trinôme $x^2 + x - 2$ a une racine évidente $1$ ; comme le produit des racines est égal à $- 2$, l\'autre racine est $- 2$.'
-    this.correction += '<br>On aurait pu calculer le discriminant : $\\Delta = 1^2 - 4 \\times 1 \\times (- 2) = 1 + 8 = 9 > 0$.'
+    this.enonce =
+      " L'ensemble $S$ des solutions dans $\\mathbb {R}$ de l'inéquation $\\ln (x + 3) < 2\\ln (x + 1)$ est :<br>"
+    this.correction = "D'après l'énoncé il faut que $x > -3$ et que $x > - 1$. "
+    this.correction +=
+      "<br>Il faut donc résoudre l'inéquation dans l'intervalle $]- 1~;~+ \\infty[$."
+    this.correction +=
+      '<br>On a :<br>$\\begin{aligned}\\phantom{\\iff}&\\ln (x + 3) < 2\\ln (x + 1)\\\\ \\iff& \\ln (x + 3) < \\ln (x + 1)^2 \\\\ \\iff& x + 3 <  (x + 1)^2 \\\\ \\iff & 0 < x^2 + 2x + 1 - x - 3 \\\\ \\iff& 0< x^2 + x - 2 \\end{aligned}$.'
+    this.correction +=
+      "<br>Le trinôme $x^2 + x - 2$ a une racine évidente $1$ ; comme le produit des racines est égal à $- 2$, l'autre racine est $- 2$."
+    this.correction +=
+      '<br>On aurait pu calculer le discriminant : $\\Delta = 1^2 - 4 \\times 1 \\times (- 2) = 1 + 8 = 9 > 0$.'
     this.correction += '<br>On retrouverait les mêmes racines $1$ et $- 2$.'
-    this.correction += '<br>On a donc : le trinôme est du signe de $a$, donc positif (ce que l\'on cherche) sauf entre les racines.'
+    this.correction +=
+      "<br>On a donc : le trinôme est du signe de $a$, donc positif (ce que l'on cherche) sauf entre les racines."
     this.correction += `<br> D'après la remarque préliminaire  $${miseEnEvidence('S = \\left]1~;~+ \\infty\\right[')}$. `
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

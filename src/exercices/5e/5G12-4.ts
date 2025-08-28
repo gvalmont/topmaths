@@ -1,5 +1,8 @@
 import type { Figure2D } from '../../lib/2d/Figures2D'
-import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
+import {
+  listeFigures2d,
+  type Forme,
+} from '../../lib/2d/figures2d/listeFigures2d'
 import { tracePoint } from '../../lib/2d/points'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -7,7 +10,12 @@ import { translation } from '../../lib/2d/transformations'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -27,15 +35,17 @@ export const uuid = '428b2'
 
 export const refs = {
   'fr-fr': ['5G12-4'],
-  'fr-ch': ['9ES6-29', '10ES2-16']
-
+  'fr-ch': ['9ES6-29', '10ES2-16'],
 }
 
 export default class NbAxesDeSymetrie extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
-    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets :\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type de figures',
+      'Nombres séparés par des tirets :\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange',
+    ]
     this.sup = '6'
     this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
     this.sup2 = 3
@@ -45,19 +55,34 @@ export default class NbAxesDeSymetrie extends Exercice {
     this.sup4 = true
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     let nbFigures = this.sup2
     const factor = this.sup4 ? 2 : 1
-    const typeDeFigures = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: this.nbQuestions }).map(Number)
+    const typeDeFigures = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 5,
+      defaut: 1,
+      melange: 6,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
     const numerosChoisis: number[] = []
-    for (let i = 0; i < this.nbQuestions;) {
+    for (let i = 0; i < this.nbQuestions; ) {
       let texte = ''
       let texteCorr = ''
       const objets: NestedObjetMathalea2dArray = []
       const objetsCorr: NestedObjetMathalea2dArray = []
 
-      const typeDeFigureChoisie = ['panneau', 'geometrique', 'lego', 'lettre', 'chiffre'][typeDeFigures[i] - 1]
-      const listeFigs = listeFigures2d.filter(el => el.type === typeDeFigureChoisie).filter(el => !numerosChoisis.includes(el.numero))
+      const typeDeFigureChoisie = [
+        'panneau',
+        'geometrique',
+        'lego',
+        'lettre',
+        'chiffre',
+      ][typeDeFigures[i] - 1]
+      const listeFigs = listeFigures2d
+        .filter((el) => el.type === typeDeFigureChoisie)
+        .filter((el) => !numerosChoisis.includes(el.numero))
       if (listeFigs.length === 0) {
         this.listeQuestions.push('Aucune figure disponible')
         this.listeCorrections.push('Aucune figure disponible')
@@ -69,7 +94,9 @@ export default class NbAxesDeSymetrie extends Exercice {
       }
       const figures = []
       for (let j = 0; j < nbFigures; j++) {
-        const choix = listeFigs.filter(el => !numerosChoisis.includes(el.numero))
+        const choix = listeFigs.filter(
+          (el) => !numerosChoisis.includes(el.numero),
+        )
         if (choix.length === 0) {
           nbFigures = j
           break
@@ -87,17 +114,31 @@ export default class NbAxesDeSymetrie extends Exercice {
         const alpha = randint(-30, 30, 0)
         const figure = figures[j]
         const options = figure.options ?? {}
-        const forme = figure.figure2d(options).dilate(factor).translate(j * 6.5 * factor * scale, 0)
+        const forme = figure
+          .figure2d(options)
+          .dilate(factor)
+          .translate(j * 6.5 * factor * scale, 0)
         forme.name = figure.name.replace(/ /g, '_')
         if (this.sup3) forme.rotate(alpha)
         formes.push(forme)
 
-        const formeTexte = texteParPosition(`figure ${j + 1}`, j * 6.5 * factor * scale, 2.8 * factor)
+        const formeTexte = texteParPosition(
+          `figure ${j + 1}`,
+          j * 6.5 * factor * scale,
+          2.8 * factor,
+        )
         objets.push(forme, formeTexte)
 
         const formeBis = forme.copy(forme.name + 'Bis')
         formeBis.opacite = 0.3
-        const formeCorr = forme.rotationAnimee({ angleStart: 0, angleEnd: 180, cx: (forme.centre?.x ?? 0) + j * 6.5 * factor * scale, cy: (forme.centre?.y ?? 0), loop: true, duration: '4s' })
+        const formeCorr = forme.rotationAnimee({
+          angleStart: 0,
+          angleEnd: 180,
+          cx: (forme.centre?.x ?? 0) + j * 6.5 * factor * scale,
+          cy: forme.centre?.y ?? 0,
+          loop: true,
+          duration: '4s',
+        })
         formeCorr.opacite = 0.5
         if (context.isHtml) {
           objetsCorr.push(formeBis, formeCorr, formeTexte)
@@ -105,38 +146,75 @@ export default class NbAxesDeSymetrie extends Exercice {
           objetsCorr.push(formeBis, formeTexte)
         }
         if (forme.centre != null) {
-          const centre = translation(forme.centre, vecteur(j * 6.5 * factor * scale, 0))
+          const centre = translation(
+            forme.centre,
+            vecteur(j * 6.5 * factor * scale, 0),
+          )
           const trace = tracePoint(centre)
           trace.epaisseur = 3
           trace.color = colorToLatexOrHTML('red')
           trace.taille = 5
           objetsCorr.push(trace)
         } else {
-          objetsCorr.push(texteParPosition(`Pas de centre ${sp(2)} de symétrie !`, j * 6.5 * factor * scale, 0, 45, 'red'), texteParPosition(`Pas de centre ${sp(2)} de symétrie !`, j * 6.5 * factor * scale, 0, -45, 'red'))
+          objetsCorr.push(
+            texteParPosition(
+              `Pas de centre ${sp(2)} de symétrie !`,
+              j * 6.5 * factor * scale,
+              0,
+              45,
+              'red',
+            ),
+            texteParPosition(
+              `Pas de centre ${sp(2)} de symétrie !`,
+              j * 6.5 * factor * scale,
+              0,
+              -45,
+              'red',
+            ),
+          )
         }
       }
-      texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale }, fixeBordures(objets)), objets)
+      texte += mathalea2d(
+        Object.assign(
+          { pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale },
+          fixeBordures(objets),
+        ),
+        objets,
+      )
       if (this.interactif) {
         for (let j = 0; j < nbFigures; j++) {
           this.autoCorrection[i * nbFigures + j] = {
             propositions: [
               { texte: 'oui', statut: formes[j].centre != null },
-              { texte: 'non', statut: formes[j].centre == null }
+              { texte: 'non', statut: formes[j].centre == null },
             ],
             options: {
               ordered: true,
-              radio: true
-            }
+              radio: true,
+            },
           }
-          const monQcm = propositionsQcm(this, i * nbFigures + j, { style: 'inline-block', format: 'case' })
+          const monQcm = propositionsQcm(this, i * nbFigures + j, {
+            style: 'inline-block',
+            format: 'case',
+          })
           texte += `figure ${j + 1} : ${monQcm.texte}`
         }
       }
 
-      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale }, fixeBordures(objets)), objetsCorr)
-      texteCorr += `${formes.map((el, j) => el.centre != null
-         ? `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède un centre de symétrie.<br>`
-            : `${j === 0 ? 'L' : 'l'}a figure ${j + 1} ne possède pas de centre de symétrie.<br>`).join('')}`
+      texteCorr += mathalea2d(
+        Object.assign(
+          { pixelsParCm: 20, scale: factor === 1 ? scale : 0.7 * scale },
+          fixeBordures(objets),
+        ),
+        objetsCorr,
+      )
+      texteCorr += `${formes
+        .map((el, j) =>
+          el.centre != null
+            ? `${j === 0 ? 'L' : 'l'}a figure ${j + 1} possède un centre de symétrie.<br>`
+            : `${j === 0 ? 'L' : 'l'}a figure ${j + 1} ne possède pas de centre de symétrie.<br>`,
+        )
+        .join('')}`
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       i++

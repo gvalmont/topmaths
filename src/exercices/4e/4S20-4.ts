@@ -9,7 +9,7 @@ export const dateDePublication = '02/08/2024' // La date de publication initiale
 export const uuid = '24db8'
 export const refs = {
   'fr-fr': ['4S20-4', 'BP2FLUC12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class ExerciceQcmStatistiques extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.nbQuestionsModifiable = false
@@ -28,16 +28,31 @@ export default class ExerciceQcmStatistiques extends Exercice {
     this.sup = false
   }
 
-  nouvelleVersion () {
-    this.consigne = 'On tire une carte dans un jeu de 32 cartes.<br>Calculer la probabilité d\'obtenir chacun des événements suivants.'
+  nouvelleVersion() {
+    this.consigne =
+      "On tire une carte dans un jeu de 32 cartes.<br>Calculer la probabilité d'obtenir chacun des événements suivants."
     if (context.isHtml && this.sup) {
-      const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
+      const imageCartes =
+        '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
       this.consigne += imageCartes
     }
-    const typeDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8']
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque cycle
+    const typeDeQuestionsDisponibles = [
+      'type1',
+      'type2',
+      'type3',
+      'type4',
+      'type5',
+      'type6',
+      'type7',
+      'type8',
+    ]
+    const listeTypeDeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque cycle
     let texte = ''
-    let texteCorr = 'On est dans une situation d\'équiprobabilité.<br> Donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total.'
+    let texteCorr =
+      "On est dans une situation d'équiprobabilité.<br> Donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total."
     const a = fraction(1, 2)
     const b = fraction(16, 32)
     const c = fraction(1, 4)
@@ -53,13 +68,33 @@ export default class ExerciceQcmStatistiques extends Exercice {
     const m = fraction(5, 8)
     const n = fraction(30, 32)
     const o = fraction(15, 16)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const famille = choice(['Carreau', 'Coeur', 'Pique', 'Trèfle'])
       const couleur = choice(['Rouge', 'Noire'])
-      const valeur = choice(['un As', 'un Sept', 'un Huit', 'un Neuf', 'un Dix', 'un Valet', 'une Dame', 'un Roi'])
-      const valeur2 = choice(['l\'As', 'le Sept', 'le Huit', 'le Neuf', 'le Dix', 'le Valet', 'la Dame', 'le Roi'])
+      const valeur = choice([
+        'un As',
+        'un Sept',
+        'un Huit',
+        'un Neuf',
+        'un Dix',
+        'un Valet',
+        'une Dame',
+        'un Roi',
+      ])
+      const valeur2 = choice([
+        "l'As",
+        'le Sept',
+        'le Huit',
+        'le Neuf',
+        'le Dix',
+        'le Valet',
+        'la Dame',
+        'le Roi',
+      ])
 
-      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeDeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'type1':
           texte = `Tirer une carte de couleur ${couleur}.<br>`
           texteCorr += `La moitié des cartes est de couleur ${couleur}.<br>Il y en a donc 16 sur 32.<br>`
@@ -92,7 +127,8 @@ export default class ExerciceQcmStatistiques extends Exercice {
           break
         case 'type7':
           texte = 'Tirer une carte qui ne soit pas une figure.<br>'
-          texteCorr += 'Il y a 12 cartes qui sont des figures, donc 20 qui ne sont pas des figures.<br>'
+          texteCorr +=
+            'Il y a 12 cartes qui sont des figures, donc 20 qui ne sont pas des figures.<br>'
           texteCorr += `Donc la probabilité de tirer une carte qui ne soit pas une figure est de $${l.texFraction}$ ou encore $${m.texFraction}$.`
           break
         case 'type8':

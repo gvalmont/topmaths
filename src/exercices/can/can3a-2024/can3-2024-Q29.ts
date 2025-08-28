@@ -19,7 +19,7 @@ export const uuid = '4dc1d'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,7 +30,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const A = point(0, 0, '', 'below')
     const B = point(3, 0, '', 'below')
     const segAB = segment(A, B)
@@ -40,19 +40,52 @@ export default class NomExercice extends ExerciceSimple {
 
     this.reponse = k.toFixed(1)
     this.question = ' Complète. <br>'
-    this.question += mathalea2d({ xmin: -1.6, ymin: -1, xmax: 5, ymax: 1, pixelsParCm: 30, scale: 0.7 }, labelPoint(A, B),
-      latexParCoordonnees(this.interactif ? '\\times\\text{ ?}' : '\\times \\ldots', 1.5, 0.5, 'black', 1, 20, '', 8),
-      latexParCoordonnees(`\\fbox{ ${a} }`, -0.7, 0, 'black', 1, 20, '', 8), segAB,
-      latexParCoordonnees(`\\fbox{ ${texNombre(k * a, 0)} }`, 3.7, 0, 'black', 1, 20, '', 8)
+    this.question += mathalea2d(
+      { xmin: -1.6, ymin: -1, xmax: 5, ymax: 1, pixelsParCm: 30, scale: 0.7 },
+      labelPoint(A, B),
+      latexParCoordonnees(
+        this.interactif ? '\\times\\text{ ?}' : '\\times \\ldots',
+        1.5,
+        0.5,
+        'black',
+        1,
+        20,
+        '',
+        8,
+      ),
+      latexParCoordonnees(`\\fbox{ ${a} }`, -0.7, 0, 'black', 1, 20, '', 8),
+      segAB,
+      latexParCoordonnees(
+        `\\fbox{ ${texNombre(k * a, 0)} }`,
+        3.7,
+        0,
+        'black',
+        1,
+        20,
+        '',
+        8,
+      ),
     )
     this.correction = `Le nombre qui multiplié par $${a}$ donne $${texNombre(k * a, 0)}$ est  $${miseEnEvidence(texNombre(k, 1))}$.
      `
 
     this.canEnonce = ' Complète.'
-    this.canReponseACompleter = mathalea2d({ xmin: -1.6, ymin: -1, xmax: 5, ymax: 1, pixelsParCm: 30, scale: 0.7 }, labelPoint(A, B),
-      latexParCoordonnees(this.interactif ? '\\times\\text{ ?}' : '\\times \\ldots', 1.5, 0.5, 'black', 1, 20, '', 8),
-      latexParCoordonnees('\\fbox{ 2 }', -0.7, 0, 'black', 1, 20, '', 8), segAB,
-      latexParCoordonnees('\\fbox{ 3 }', 3.7, 0, 'black', 1, 20, '', 8)
+    this.canReponseACompleter = mathalea2d(
+      { xmin: -1.6, ymin: -1, xmax: 5, ymax: 1, pixelsParCm: 30, scale: 0.7 },
+      labelPoint(A, B),
+      latexParCoordonnees(
+        this.interactif ? '\\times\\text{ ?}' : '\\times \\ldots',
+        1.5,
+        0.5,
+        'black',
+        1,
+        20,
+        '',
+        8,
+      ),
+      latexParCoordonnees('\\fbox{ 2 }', -0.7, 0, 'black', 1, 20, '', 8),
+      segAB,
+      latexParCoordonnees('\\fbox{ 3 }', 3.7, 0, 'black', 1, 20, '', 8),
     )
   }
 }

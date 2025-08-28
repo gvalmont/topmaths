@@ -16,7 +16,7 @@ export const uuid = 'fe2e1'
 
 */
 export default class probaArbre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,14 +26,22 @@ export default class probaArbre extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
-    const pA = this.canOfficielle ? new Decimal(0.4) : (new Decimal(randint(1, 9, 5))).div(10)
-    const pAbarre = (new Decimal((pA)).mul(-1)).add(1)
-    const pBsachantA = this.canOfficielle ? new Decimal(0.5) : (new Decimal(randint(1, 9, 5))).div(10)
+  nouvelleVersion() {
+    const pA = this.canOfficielle
+      ? new Decimal(0.4)
+      : new Decimal(randint(1, 9, 5)).div(10)
+    const pAbarre = new Decimal(pA).mul(-1).add(1)
+    const pBsachantA = this.canOfficielle
+      ? new Decimal(0.5)
+      : new Decimal(randint(1, 9, 5)).div(10)
 
-    const pBsachantAbarre = this.canOfficielle ? new Decimal(0.1) : (new Decimal(randint(1, 9, 5))).div(10)
+    const pBsachantAbarre = this.canOfficielle
+      ? new Decimal(0.1)
+      : new Decimal(randint(1, 9, 5)).div(10)
 
-    this.reponse = new Decimal((pA)).mul(pBsachantA).add((pAbarre).mul(pBsachantAbarre))
+    this.reponse = new Decimal(pA)
+      .mul(pBsachantA)
+      .add(pAbarre.mul(pBsachantAbarre))
 
     const omega = new Arbre({
       racine: true,
@@ -43,63 +51,65 @@ export default class probaArbre extends ExerciceSimple {
       visible: false,
       alter: '',
       enfants: [
-        new Arbre(
-          {
-            rationnel: false,
-            nom: 'A',
-            proba: pA,
-            visible: true,
-            alter: '',
-            enfants: [new Arbre(
-              {
-                rationnel: false,
-                nom: 'B',
-                proba: pBsachantA,
-                visible: true,
-                alter: ''
-              }),
-            new Arbre(
-              {
-                rationnel: false,
-                visible: false,
-                nom: '\\overline{B}',
-                proba: 1
-              })
-            ]
-          }),
+        new Arbre({
+          rationnel: false,
+          nom: 'A',
+          proba: pA,
+          visible: true,
+          alter: '',
+          enfants: [
+            new Arbre({
+              rationnel: false,
+              nom: 'B',
+              proba: pBsachantA,
+              visible: true,
+              alter: '',
+            }),
+            new Arbre({
+              rationnel: false,
+              visible: false,
+              nom: '\\overline{B}',
+              proba: 1,
+            }),
+          ],
+        }),
         new Arbre({
           rationnel: false,
           nom: '\\overline{A}',
           proba: 1,
           visible: false,
-          enfants: [new Arbre({
-            rationnel: false,
-            visible: true,
-            nom: 'B',
-            proba: new Decimal(pBsachantAbarre)
-          }),
-          new Arbre({
-            rationnel: false,
-            visible: false,
-            nom: '\\overline{B}',
-            proba: new Decimal(pBsachantAbarre).sub(1).mul(-1)
-          })
-          ]
-        })
-      ]
+          enfants: [
+            new Arbre({
+              rationnel: false,
+              visible: true,
+              nom: 'B',
+              proba: new Decimal(pBsachantAbarre),
+            }),
+            new Arbre({
+              rationnel: false,
+              visible: false,
+              nom: '\\overline{B}',
+              proba: new Decimal(pBsachantAbarre).sub(1).mul(-1),
+            }),
+          ],
+        }),
+      ],
     })
 
     omega.setTailles() // On calcule les tailles des arbres.
     const objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-    this.question = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-    this.question += mathalea2d({
-      xmin: -0.1,
-      xmax: 14,
-      ymin: 1.5,
-      ymax: 7,
-      style: 'inline',
-      scale: 0.8
-    }, ...objets)
+    this.question = "On donne l'arbre de probabilités ci-dessous :<br>"
+    this.question += mathalea2d(
+      {
+        xmin: -0.1,
+        xmax: 14,
+        ymin: 1.5,
+        ymax: 7,
+        style: 'inline',
+        scale: 0.8,
+      },
+      ...objets,
+    )
 
     if (this.interactif) {
       this.question += '<br> $P(B)=$ '
@@ -114,14 +124,19 @@ export default class probaArbre extends ExerciceSimple {
 &=${miseEnEvidence(texNombre(this.reponse, 2))}
           \\end{aligned}$
       `
-    this.canEnonce = 'On donne l\'arbre de probabilités ci-dessous :<br>' + mathalea2d({
-      xmin: -0.1,
-      xmax: 14,
-      ymin: 1,
-      ymax: 7,
-      style: 'inline',
-      scale: 0.7
-    }, ...objets)
+    this.canEnonce =
+      "On donne l'arbre de probabilités ci-dessous :<br>" +
+      mathalea2d(
+        {
+          xmin: -0.1,
+          xmax: 14,
+          ymin: 1,
+          ymax: 7,
+          style: 'inline',
+          scale: 0.7,
+        },
+        ...objets,
+      )
 
     this.canReponseACompleter = '$P(B)=\\ldots$'
   }

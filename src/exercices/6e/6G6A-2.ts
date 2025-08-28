@@ -8,10 +8,10 @@ export const uuid = 'a07bb'
 export const refs = {
   'fr-fr': ['6G6A-2'],
   'fr-2016': ['6G21-1'],
-  'fr-ch': ['9ES4-8']
+  'fr-ch': ['9ES4-8'],
 }
 export default class ConstruireUnTriangleAvecCible6e extends ConstruireUnTriangleAvecCible {
-  constructor () {
+  constructor() {
     super()
     this.classe = 6
   }

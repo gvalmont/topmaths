@@ -16,7 +16,8 @@ import { pavage } from '../../modules/Pavage'
 import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
+export const titre =
+  "Trouver l'image d'une figure par une rotation dans un pavage"
 export const dateDePublication = '16/12/2020'
 export const dateDeModifImportante = '01/04/2025'
 export const interactifReady = true
@@ -33,15 +34,23 @@ export const uuid = '442e0'
 
 export const refs = {
   'fr-fr': ['3G12'],
-  'fr-ch': ['10ES2-11']
+  'fr-ch': ['10ES2-11'],
 }
 export default class PavageEtRotation2D extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
+    this.besoinFormulaireNumerique = [
+      'Taille du pavage (la grande est automatique au-delà de 5 questions)',
+      2,
+      ' 1 : Taille modeste\n 2 : Grande taille',
+    ]
     this.besoinFormulaire2CaseACocher = ['Montrer les centres']
-    this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
-    this.besoinFormulaire4CaseACocher = ['Ignorer l\'angle de 180$^\\circ$']
+    this.besoinFormulaire3Numerique = [
+      'Choix du pavage',
+      8,
+      "1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard",
+    ]
+    this.besoinFormulaire4CaseACocher = ["Ignorer l'angle de 180$^\\circ$"]
     this.nbQuestions = 3
 
     this.correctionDetailleeDisponible = true
@@ -55,7 +64,7 @@ export default class PavageEtRotation2D extends Exercice {
     context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const videcouples = function (tableau) {
       for (let k = 0; k < tableau.length; k++) {
         if (tableau[k][0] === tableau[k][1]) {
@@ -151,7 +160,15 @@ export default class PavageEtRotation2D extends Exercice {
     const propositionsAMC = []
     let texteAMC
     let sensdirect, M, N, trace, label, P1, P2, P3, t
-    const alphas = [[60, 120, 180], [90, 180], [60, 120, 180], [60, 120, 90], [45, 90, 135, 180], [60, 120, 180], [60, 120, 180]]
+    const alphas = [
+      [60, 120, 180],
+      [90, 180],
+      [60, 120, 180],
+      [60, 120, 90],
+      [45, 90, 135, 180],
+      [60, 120, 180],
+      [60, 120, 180],
+    ]
     let alpha
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
@@ -161,25 +178,62 @@ export default class PavageEtRotation2D extends Exercice {
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0
       monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
-      tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2], [3, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2], [5, 3]]]
+      tailles = [
+        [
+          [3, 2],
+          [3, 2],
+          [2, 2],
+          [2, 2],
+          [2, 2],
+          [2, 2],
+          [3, 2],
+        ],
+        [
+          [4, 3],
+          [4, 3],
+          [3, 3],
+          [3, 3],
+          [3, 3],
+          [3, 2],
+          [5, 3],
+        ],
+      ]
 
       Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
       Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
       monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
       fenetre = monpavage.fenetre
-      while (couples.length < this.nbQuestions + 2 && nombreTentatives < 30) { // On cherche d pour avoir suffisamment de couples
+      while (couples.length < this.nbQuestions + 2 && nombreTentatives < 30) {
+        // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
 
-        index1 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3)) // On choisit 1 point dans un des polygones
+        index1 = randint(
+          Math.floor(monpavage.nb_polygones / 3),
+          Math.ceil((monpavage.nb_polygones * 2) / 3),
+        ) // On choisit 1 point dans un des polygones
         if (choice([true, false])) {
-          A = monpavage.polygones[index1].listePoints[randint(0, monpavage.polygones[index1].listePoints.length - 1)] // On choisit un sommet
+          A =
+            monpavage.polygones[index1].listePoints[
+              randint(0, monpavage.polygones[index1].listePoints.length - 1)
+            ] // On choisit un sommet
         } else {
           A = monpavage.barycentres[index1] // Ou on choisit un barycentre
         }
-        while (A.x - 5 < fenetre.xmin || A.x + 5 > fenetre.xmax || A.y - 5 < fenetre.ymin || A.y + 5 > fenetre.ymax) {
-          index1 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3)) // On choisit 1 point dans un des polygones
+        while (
+          A.x - 5 < fenetre.xmin ||
+          A.x + 5 > fenetre.xmax ||
+          A.y - 5 < fenetre.ymin ||
+          A.y + 5 > fenetre.ymax
+        ) {
+          index1 = randint(
+            Math.floor(monpavage.nb_polygones / 3),
+            Math.ceil((monpavage.nb_polygones * 2) / 3),
+          ) // On choisit 1 point dans un des polygones
           if (choice([true, false])) {
-            A = monpavage.polygones[index1].listePoints[randint(0, monpavage.polygones[index1].listePoints.length - 1)] // On choisit un sommet
+            A =
+              monpavage.polygones[index1].listePoints[
+                randint(0, monpavage.polygones[index1].listePoints.length - 1)
+              ] // On choisit un sommet
           } else {
             A = monpavage.barycentres[index1] // Ou on choisit un barycentre
           }
@@ -193,9 +247,11 @@ export default class PavageEtRotation2D extends Exercice {
 
         alpha = choice(alphas[typeDePavage - 1], this.sup4 ? 180 : 0)
         sensdirect = choice([1, -1])
-        for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
+        for (let i = 1; i <= monpavage.nb_polygones; i++) {
+          // on crée une liste des couples (antécédents, images)
           image = rotaccion(monpavage, A, alpha * sensdirect, i)
-          if (image !== -1) { // si l'image du polygone i existe, on ajoute le couple à la liste
+          if (image !== -1) {
+            // si l'image du polygone i existe, on ajoute le couple à la liste
             couples.push([i, image])
           }
         }
@@ -204,13 +260,15 @@ export default class PavageEtRotation2D extends Exercice {
       }
       if (couples.length < this.nbQuestions) {
         if (this.sup3 === 7) {
-          typeDePavage = (typeDePavage + 1) % 5 + 1
+          typeDePavage = ((typeDePavage + 1) % 5) + 1
         }
         nombrePavageTestes++
       }
     }
     if (couples.length < this.nbQuestions) {
-      console.error(`Trop de questions (${this.nbQuestions} questions pour ${couples.length} couple(s) trouvé(s) seulement), augmentez la taille du pavage !`)
+      console.error(
+        `Trop de questions (${this.nbQuestions} questions pour ${couples.length} couple(s) trouvé(s) seulement), augmentez la taille du pavage !`,
+      )
       return
     }
 
@@ -220,33 +278,60 @@ export default class PavageEtRotation2D extends Exercice {
     const texteNoir = []
     const texteGris = []
     for (let i = 0; i < monpavage.nb_polygones; i++) {
-      texteNoir.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.5, 'milieu', 'black', 1, 0, true))
-      texteGris.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.5, 'milieu', 'gray', 1, 0, true))
+      texteNoir.push(
+        texteParPosition(
+          nombreAvecEspace(i + 1),
+          monpavage.barycentres[i].x,
+          monpavage.barycentres[i].y + 0.5,
+          'milieu',
+          'black',
+          1,
+          0,
+          true,
+        ),
+      )
+      texteGris.push(
+        texteParPosition(
+          nombreAvecEspace(i + 1),
+          monpavage.barycentres[i].x,
+          monpavage.barycentres[i].y + 0.5,
+          'milieu',
+          'gray',
+          1,
+          0,
+          true,
+        ),
+      )
     }
-    if (this.sup2) { // Doit-on montrer les centres des figures ?
+    if (this.sup2) {
+      // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
         objets.push(monpavage.tracesCentres[i])
       }
     }
-    for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
+    for (let i = 0; i < monpavage.nb_polygones; i++) {
+      // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
     texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte += `Soit la rotation de centre $A$ et d'angle ${alpha}$^\\circ$ dans le sens `
     if (sensdirect === 1) {
-      texte += 'contraire des aiguilles d\'une montre.<br>'
+      texte += "contraire des aiguilles d'une montre.<br>"
     } else {
-      texte += 'des aiguilles d\'une montre.<br>'
+      texte += "des aiguilles d'une montre.<br>"
     }
     texteCorr += `Soit la rotation de centre $A$ et d'angle ${alpha}$^\\circ$ dans le sens `
     if (sensdirect === 1) {
-      texteCorr += 'contraire des aiguilles d\'une montre. <br>'
+      texteCorr += "contraire des aiguilles d'une montre. <br>"
     } else {
-      texteCorr += 'des aiguilles d\'une montre. <br>'
+      texteCorr += "des aiguilles d'une montre. <br>"
     }
     const consigneAMC = texte
     for (let i = 0; i < this.nbQuestions; i++) {
-      texteAMC = `Quelle est l'image de la figure $${couples[i][0]}$ ?` + ajouteChampTexteMathLive(this, i, '') + '<br>'
+      texteAMC =
+        `Quelle est l'image de la figure $${couples[i][0]}$ ?` +
+        ajouteChampTexteMathLive(this, i, '') +
+        '<br>'
       texte += texteAMC
       texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
 
@@ -262,12 +347,11 @@ export default class PavageEtRotation2D extends Exercice {
                 param: {
                   signe: false,
                   digits: 2,
-                  decimals: 0
-                }
-              }
-            }
-          ]
-
+                  decimals: 0,
+                },
+              },
+            },
+          ],
         })
       } else {
         setReponse(this, i, couples[i][1])
@@ -287,12 +371,24 @@ export default class PavageEtRotation2D extends Exercice {
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
         if (context.isHtml) {
-          P3 = rotationAnimee(P1, A, alpha * sensdirect, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
+          P3 = rotationAnimee(
+            P1,
+            A,
+            alpha * sensdirect,
+            `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`,
+          )
           P3.color = colorToLatexOrHTML(texcolors(i))
           P3.epaisseur = 2
           objetsCorrection.push(P3)
         }
-        objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codageAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2)
+        objetsCorrection.push(
+          tracePoint(M, N),
+          segment(A, M, texcolors(i)),
+          segment(A, N, arcenciel(i)),
+          codageAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true),
+          P1,
+          P2,
+        )
       }
     }
     if (this.correctionDetaillee) {
@@ -302,7 +398,7 @@ export default class PavageEtRotation2D extends Exercice {
       this.autoCorrection[0] = {
         options: { multicols: true },
         enonce: consigneAMC,
-        propositions: propositionsAMC
+        propositions: propositionsAMC,
       }
     }
 

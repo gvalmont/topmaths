@@ -1,10 +1,15 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer un produit, une somme ou une différence d\'images par une fonction affine'
+export const titre =
+  "Calculer un produit, une somme ou une différence d'images par une fonction affine"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -19,10 +24,10 @@ export const uuid = '2bbd1'
 
 export const refs = {
   'fr-fr': ['can3F14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
     this.nbQuestions = 1
@@ -32,15 +37,17 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
     this.spacingCorr = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typeOperation = choice([3]) // 1 = produit, 2 = somme 3=différence
 
     // Paramètres selon le type d'opération
     let a, b
-    if (typeOperation === 1) { // Produit
+    if (typeOperation === 1) {
+      // Produit
       a = randint(-2, 2, [0])
       b = randint(-5, 5, 0)
-    } else { // Somme
+    } else {
+      // Somme
       a = randint(-6, 6, [0])
       b = randint(-6, 6, [0])
     }
@@ -57,7 +64,6 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
 
     switch (typeOperation) {
       case 1: // Produit
-
         if (this.versionQcm) {
           this.question += `$${nomF}(${x1})\\times ${nomF}(${x2})$ est égal à :`
         } else {
@@ -70,10 +76,10 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
 
         this.reponse = this.versionQcm ? `$${fx1 * fx2}$` : fx1 * fx2
         this.distracteurs = [
-            `$${fx1 + fx2}$`,
-            `$${(x1 + b) + (x2 + b)}$`,
-            `$${x1 * x2}$`,
-            `$${a * (x1 * x2) + b}$`
+          `$${fx1 + fx2}$`,
+          `$${x1 + b + (x2 + b)}$`,
+          `$${x1 * x2}$`,
+          `$${a * (x1 * x2) + b}$`,
         ]
         this.canEnonce = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$.`
         this.canReponseACompleter = `$${nomF}(${x1})\\times ${nomF}(${x2})=\\ldots$`
@@ -92,11 +98,10 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
 
         this.reponse = this.versionQcm ? `$${fx1 + fx2}$` : fx1 + fx2
         this.distracteurs = [
-            `$${fx1 * fx2}$`,
-            `$${(x1 + b) * (x2 + b)}$`,
-            `$${x1 + x2}$`,
-            `$${a * (x1 + x2) + b}$`
-
+          `$${fx1 * fx2}$`,
+          `$${(x1 + b) * (x2 + b)}$`,
+          `$${x1 + x2}$`,
+          `$${a * (x1 + x2) + b}$`,
         ]
         this.canEnonce = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$.`
         this.canReponseACompleter = `$${nomF}(${x1})+${nomF}(${x2})=\\ldots$`
@@ -115,16 +120,17 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
 
         this.reponse = this.versionQcm ? `$${fx1 - fx2}$` : fx1 - fx2
         this.distracteurs = [
-            `$${fx1 + fx2}$`,
-            `$${(x1 - b) * (x2 - b)}$`,
-            `$${x1 - x2}$`,
-            `$${a * (x1 - x2) + b}$`
-
+          `$${fx1 + fx2}$`,
+          `$${(x1 - b) * (x2 - b)}$`,
+          `$${x1 - x2}$`,
+          `$${a * (x1 - x2) + b}$`,
         ]
         this.canEnonce = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$.`
         this.canReponseACompleter = `$${nomF}(${x1})-${nomF}(${x2})=\\ldots$`
         break
     }
-    if (!this.interactif && !this.versionQcm) { this.question += ' $\\ldots$' }
+    if (!this.interactif && !this.versionQcm) {
+      this.question += ' $\\ldots$'
+    }
   }
 }

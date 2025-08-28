@@ -16,10 +16,10 @@ export const uuid = 'd5c88'
 
 export const refs = {
   'fr-fr': ['can6M09', 'CM1M1I-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PerimetreCarreRectangle extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -27,7 +27,7 @@ export default class PerimetreCarreRectangle extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' cm' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b
     switch (choice(['a', 'b'])) {
       case 'a':

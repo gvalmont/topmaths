@@ -1,13 +1,19 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-import { ecritureAlgebriqueSauf1, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebriqueSauf1,
+  reduirePolynomeDegre3,
+} from '../../lib/outils/ecritures'
 
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
@@ -24,13 +30,20 @@ export const uuid = '4197c'
 
 export const refs = {
   'fr-fr': ['3L11-1'],
-  'fr-ch': ['11FA2-3']
+  'fr-ch': ['11FA2-3'],
 }
 export default class DoubleDistributivite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
-    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange',
+    ]
+    this.besoinFormulaire2CaseACocher = [
+      'Présentation des corrections en colonnes',
+      false,
+    ]
 
     this.spacing = context.isHtml ? 3 : 2
     this.spacingCorr = context.isHtml ? 3 : 2
@@ -41,8 +54,11 @@ export default class DoubleDistributivite extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Développer et réduire les expressions suivantes.'
+        : "Développer et réduire l'expression suivante."
 
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {
@@ -52,8 +68,15 @@ export default class DoubleDistributivite extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0, a, b, c, d, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, cpt = 0, a, b, c, d, typesDeQuestions;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let texte = ''
       let texteCorr = ''
       let reponse = ''
@@ -112,7 +135,10 @@ export default class DoubleDistributivite extends Exercice {
         texteCorr = ''
         for (const etape of etapes) {
           const etapeModifiee = etape.replace('$', '')
-          texteCorr += etapeModifiee === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
+          texteCorr +=
+            etapeModifiee === lettreDepuisChiffre(i + 1)
+              ? ''
+              : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
         }
       }
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
@@ -128,7 +154,12 @@ export default class DoubleDistributivite extends Exercice {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, options: { expressionsForcementReduites: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: reponse,
+            options: { expressionsForcementReduites: true },
+          },
+        })
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
       } else {
         this.autoCorrection[i] = {
@@ -138,64 +169,72 @@ export default class DoubleDistributivite extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: texteCorr,
-                enonce: `${texte}<br>`,
-                statut: 4
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: `${texte}<br>`,
+                  statut: 4,
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
-                  valeur: reponse1,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                    valeur: reponse1,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
-                  valeur: reponse2,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                    valeur: reponse2,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
-                  valeur: reponse3,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                    valeur: reponse3,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {

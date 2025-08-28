@@ -14,9 +14,9 @@ export const uuid = '7eb06'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '55'
       this.question = `Eugène part à la piscine à $8$ h $10$ min et arrive à $9$ h $05$ min.<br>
@@ -48,7 +48,9 @@ export default class NomExercice extends ExerciceSimple {
     }
     if (this.interactif) {
       this.optionsChampTexte = { texteApres: 'min.' }
-    } else { this.question += `${context.isHtml ? '$\\ldots$ min.' : ''}` }
+    } else {
+      this.question += `${context.isHtml ? '$\\ldots$ min.' : ''}`
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ' $\\ldots$ min'
   }

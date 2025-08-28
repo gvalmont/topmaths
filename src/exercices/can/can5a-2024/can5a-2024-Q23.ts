@@ -17,7 +17,7 @@ export const uuid = '5191d'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     context.anglePerspective = 40
@@ -27,7 +27,7 @@ export default class NomExercice extends ExerciceSimple {
     // this.formatInteractif = 'mathlive'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       const objets = []
       const nbEtages = 5
@@ -36,8 +36,12 @@ export default class NomExercice extends ExerciceSimple {
         const plaque = plaque3d(i * 0.8, i * 0.8, i * 0.805, 0.8, l, l, 'gray')
         objets.push(plaque.c2d)
       }
-      this.question = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
-      this.question += 'Les étages de cette construction sont pleins.<br>Le nombre total de cubes est : '
+      this.question = mathalea2d(
+        Object.assign({}, fixeBordures(objets)),
+        objets,
+      )
+      this.question +=
+        'Les étages de cette construction sont pleins.<br>Le nombre total de cubes est : '
       this.reponse = '35'
       this.correction = `Il y a $1+3\\times 3+5\\times 5=${miseEnEvidence(35)}$ petits cubes.`
     } else {
@@ -48,20 +52,31 @@ export default class NomExercice extends ExerciceSimple {
         const plaque = plaque3d(i * 0.4, i * 0.4, i * 0.765, 0.7, l, l, 'gray')
         objets.push(plaque.c2d)
       }
-      this.question = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
-      this.question += 'Les étages de cette construction sont pleins.<br>Le nombre total de cubes est : '
-      this.reponse = String(nbEtages * (nbEtages + 1) * (nbEtages * 2 + 1) / 6)
-      this.correction = 'Chaque étage de la pyramide est un pavé droit de section carrée.<br>'
-      this.correction += 'Si on part du haut, on a $1$ cube de côté, ce qui fait $1$ cube, puis $2$ cubes de côtés ce qui fait $2\\times2=4$ cubes...<br>'
+      this.question = mathalea2d(
+        Object.assign({}, fixeBordures(objets)),
+        objets,
+      )
+      this.question +=
+        'Les étages de cette construction sont pleins.<br>Le nombre total de cubes est : '
+      this.reponse = String(
+        (nbEtages * (nbEtages + 1) * (nbEtages * 2 + 1)) / 6,
+      )
+      this.correction =
+        'Chaque étage de la pyramide est un pavé droit de section carrée.<br>'
+      this.correction +=
+        'Si on part du haut, on a $1$ cube de côté, ce qui fait $1$ cube, puis $2$ cubes de côtés ce qui fait $2\\times2=4$ cubes...<br>'
       this.correction += `Le nombre total de cubes est la somme des ${nbEtages} premiers carrés d'entier :<br>$`
       for (let i = 1; i <= nbEtages; i++) {
         this.correction += `${i}^2+`
       }
-      this.correction = this.correction.substring(0, this.correction.length - 1) + '='
+      this.correction =
+        this.correction.substring(0, this.correction.length - 1) + '='
       for (let i = 1; i <= nbEtages; i++) {
         this.correction += `${i ** 2}+`
       }
-      this.correction = this.correction.substring(0, this.correction.length - 1) + `=${this.reponse}$`
+      this.correction =
+        this.correction.substring(0, this.correction.length - 1) +
+        `=${this.reponse}$`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$'

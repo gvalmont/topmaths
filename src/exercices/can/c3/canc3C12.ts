@@ -17,10 +17,10 @@ export const uuid = '9e7c7'
 
 export const refs = {
   'fr-fr': ['canc3C12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProgrammeCalculInverse extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +29,7 @@ export default class ProgrammeCalculInverse extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 20)
     const b = randint(2, 5)
     const res = randint(b + 1, 15)

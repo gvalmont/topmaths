@@ -19,17 +19,17 @@ export const uuid = '6f13a'
 
 export const refs = {
   'fr-fr': ['can2F04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ValeurInterdite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, n
     if (choice([true, false])) {
       a = randint(-10, 10, 0)
@@ -55,7 +55,7 @@ export default class ValeurInterdite extends ExerciceSimple {
                La plus petite valeur interdite est donc : $${miseEnEvidence(`-${b}`)}$. `
       this.reponse = -b
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

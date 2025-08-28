@@ -22,10 +22,10 @@ export const uuid = 'b434c'
 export const refs = {
   'fr-fr': ['auto6P3A-2'],
   'fr-2016': ['CM011'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Quart extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -34,15 +34,16 @@ export default class Quart extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = range1(5)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 4
@@ -56,8 +57,9 @@ export default class Quart extends Exercice {
           a = randint(2, 9)
           b = choice([1, 2, 3])
           texte = `$\\text{Le quart de }${a * 4 + b}$`
-          texteCorr = `$\\text{Le quart de }${a * 4 + b
-                    } \\text{ est } ${texNombre(a + b / 4)}$`
+          texteCorr = `$\\text{Le quart de }${
+            a * 4 + b
+          } \\text{ est } ${texNombre(a + b / 4)}$`
           setReponse(this, i, arrondi(a + b / 4))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
@@ -65,8 +67,8 @@ export default class Quart extends Exercice {
           a = randint(2, 9)
           texte = `$\\text{Le quart de }${texNombre(a * 4 * 100)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
-                        a * 4 * 100
-                    )} \\text{ est } ${texNombre(a * 100)}$`
+            a * 4 * 100,
+          )} \\text{ est } ${texNombre(a * 100)}$`
           setReponse(this, i, a * 100)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
@@ -74,8 +76,8 @@ export default class Quart extends Exercice {
           a = randint(2, 9)
           texte = `$\\text{Le quart de }${texNombre(a * 4 * 10)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
-                        a * 4 * 10
-                    )} \\text{ est } ${texNombre(a * 10)}$`
+            a * 4 * 10,
+          )} \\text{ est } ${texNombre(a * 10)}$`
           setReponse(this, i, a * 10)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
@@ -84,8 +86,8 @@ export default class Quart extends Exercice {
           b = randint(2, 9)
           texte = `$\\text{Le quart de }${texNombre(a * 4 + (b * 4) / 100)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
-                        a * 4 + (b * 4) / 100
-                    )} \\text{ est } ${texNombre(a + b / 100)}$`
+            a * 4 + (b * 4) / 100,
+          )} \\text{ est } ${texNombre(a + b / 100)}$`
           setReponse(this, i, arrondi(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break

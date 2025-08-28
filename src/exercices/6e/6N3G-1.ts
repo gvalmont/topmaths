@@ -16,10 +16,10 @@ export const uuid = '704ee'
 export const refs = {
   'fr-fr': ['6N3G-1'],
   'fr-2016': ['6N22-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FractionsCalculsSimples2 extends FractionsCalculsSimples {
-  constructor () {
+  constructor() {
     super()
     this.sup2 = 4
     this.besoinFormulaire2Texte = false

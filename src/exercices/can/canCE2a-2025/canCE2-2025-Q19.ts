@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'c9c44'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,27 +19,27 @@ export const refs = {
 
 */
 export default class Can2025CE2Q19 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     if (a == null || b == null) {
-      a = (choice([-1, 1]) + randint(1, 4) * 10)
+      a = choice([-1, 1]) + randint(1, 4) * 10
       b = randint(3, 6) * 10
     }
     this.autoCorrection[0] = {
       propositions: [
         {
           texte: `$${texNombre(Math.round(a / 10) * 10 * b)}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$${texNombre(b * 100 + a)}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${a + b}$`,
-          statut: false
+          statut: false,
         },
       ],
-      options: { vertical: true }
+      options: { vertical: true },
     }
     const monQcm = propositionsQcm(this, 0)
     this.formatInteractif = 'qcm'
@@ -49,7 +49,7 @@ export default class Can2025CE2Q19 extends ExerciceCan {
     this.question = `<br>\n${monQcm.texte}`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(11, 50) : this.enonce()
   }
 }

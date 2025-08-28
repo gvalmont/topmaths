@@ -8,7 +8,7 @@ import { fraction } from '../../modules/fractions'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
-export const titre = 'Représenter une fraction de l\'unité'
+export const titre = "Représenter une fraction de l'unité"
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
@@ -25,12 +25,12 @@ export const uuid = 'c28e5'
 export const refs = {
   'fr-fr': ['CM2N2A-1'],
   'fr-2016': ['6N32'],
-  'fr-ch': ['9NO10-12']
+  'fr-ch': ['9NO10-12'],
 }
 export default class FractionsDunite extends Exercice {
   goodAnswers: number[] = []
   figuresApigeom: Figure[] = []
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.consigne = 'Colorier en bleu un segment de longueur ...'
@@ -38,20 +38,31 @@ export default class FractionsDunite extends Exercice {
     context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
     this.sup = 1
     this.sup2 = 1
-    this.besoinFormulaireNumerique = ['Type  de questions', 4, '1 : Fraction inférieure à 1\n2 : Demis, tiers et quarts\n3 : Quarts, cinquièmes, sixièmes et dixièmes\n4 : Toutes les fractions supérieures à 1']
-    this.besoinFormulaire2Numerique = ['Type de cahier', 2, '1 : Cahier à petits carreaux\n2 : Cahier à gros carreaux (Seyes)']
+    this.besoinFormulaireNumerique = [
+      'Type  de questions',
+      4,
+      '1 : Fraction inférieure à 1\n2 : Demis, tiers et quarts\n3 : Quarts, cinquièmes, sixièmes et dixièmes\n4 : Toutes les fractions supérieures à 1',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      2,
+      '1 : Cahier à petits carreaux\n2 : Cahier à gros carreaux (Seyes)',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles, g, carreaux, sc, unit
     let listeTypeDeQuestions = []
-    if (this.sup < 5) { typesDeQuestionsDisponibles = [parseInt(this.sup)] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
-    listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (
-      let i = 0, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+    if (this.sup < 5) {
+      typesDeQuestionsDisponibles = [parseInt(this.sup)]
+    } else {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4]
+    }
+    listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let den = 1
       let num = 1
       let texte = ''
@@ -81,7 +92,7 @@ export default class FractionsDunite extends Exercice {
       else if (den % 5 === 0) unit = 10
       else unit = 8
       const frac = fraction(num, den)
-      this.goodAnswers[i] = Math.round(num / den * unit)
+      this.goodAnswers[i] = Math.round((num / den) * unit)
       if (this.interactif) {
         texte = `$${frac.texFraction}$ unité.`
       } else {
@@ -98,17 +109,36 @@ export default class FractionsDunite extends Exercice {
       }
 
       if (this.interactif) {
-        const figure = new Figure({ xMin: -0.5, yMin: -0.3, height: 60, width: 600 })
+        const figure = new Figure({
+          xMin: -0.5,
+          yMin: -0.3,
+          height: 60,
+          width: 600,
+        })
         this.figuresApigeom[i] = figure
         figure.setToolbar({ position: 'top', tools: ['FILL'] })
         figure.options.color = 'blue'
-        figure.create('LineFractionDiagram', { denominator: unit, max: 3, width: 6 })
-        texte += figureApigeom({ exercice: this, figure, defaultAction: 'FILL', i })
+        figure.create('LineFractionDiagram', {
+          denominator: unit,
+          max: 3,
+          width: 6,
+        })
+        texte += figureApigeom({
+          exercice: this,
+          figure,
+          defaultAction: 'FILL',
+          i,
+        })
         figure.divButtons.style.display = 'none'
         figure.divUserMessage.style.display = 'none'
       }
 
-      texteCorr = mathalea2d({ xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc }, frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1), g, carreaux)
+      texteCorr = mathalea2d(
+        { xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc },
+        frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1),
+        g,
+        carreaux,
+      )
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
@@ -123,11 +153,11 @@ export default class FractionsDunite extends Exercice {
                   statut: 2, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                   enonce: this.consigne.split('.')[0] + ' ' + texte,
                   pointilles: false,
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }
-          ]
+                  sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, num, den)) {
@@ -148,10 +178,15 @@ export default class FractionsDunite extends Exercice {
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
-    const divFeedback = document.querySelector(`#feedback${`Ex${this.numeroExercice}Q${i}`}`)
+    const divFeedback = document.querySelector(
+      `#feedback${`Ex${this.numeroExercice}Q${i}`}`,
+    )
     let result = false
     figure.elements.forEach((ele) => {
-      if (ele.type === 'LineFractionDiagram' && ele instanceof LineFractionDiagram) {
+      if (
+        ele.type === 'LineFractionDiagram' &&
+        ele instanceof LineFractionDiagram
+      ) {
         // result = (ele.numerator === this.goodAnswers[i] && ele.numerator === ele.indiceLastInColor) // On n'impose plus que le segment soit colorié depuis le début
         const bonNombreDeCasesColoriees = ele.numerator === this.goodAnswers[i]
         const indicesArray = Array.from(ele.indicesRectanglesInColor)
@@ -159,7 +194,7 @@ export default class FractionsDunite extends Exercice {
         const lastElement = indicesArray[indicesArray.length - 1]
         const difference = lastElement - firstElement
         const segmentEnUnSeulBloc = difference === indicesArray.length - 1
-        result = (bonNombreDeCasesColoriees && segmentEnUnSeulBloc)
+        result = bonNombreDeCasesColoriees && segmentEnUnSeulBloc
       }
     })
     if (divFeedback != null) {

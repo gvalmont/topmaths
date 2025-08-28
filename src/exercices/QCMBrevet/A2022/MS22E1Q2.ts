@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 export const uuid = '3337c'
 export const refs = {
   'fr-fr': ['4C2QCM-02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -22,7 +22,7 @@ export const dateDePublication = '06/11/2024'
  */
 
 export default class MetropoleSep22Ex1Q2 extends ExerciceQcmA {
-  private appliquerLesValeurs (decompo1: number[], decompo2: number[]): void {
+  private appliquerLesValeurs(decompo1: number[], decompo2: number[]): void {
     const num = decompo1.reduce((acc, val) => acc * val, 1)
     const den = decompo2.reduce((acc, val) => acc * val, 1)
     const fracDepart = new FractionEtendue(num, den)
@@ -32,7 +32,7 @@ export default class MetropoleSep22Ex1Q2 extends ExerciceQcmA {
     this.reponses = [
       `$${fracReduite}$`,
       `$${fracReduite2}$`,
-      `$${fracReduite3}$`
+      `$${fracReduite3}$`,
     ]
     this.enonce = `La fraction irréductible égale à $${fracDepart.texFraction}$ est :`
     this.correction = ` $${fracDepart.texSimplificationAvecEtapes(true, orangeMathalea)}$`
@@ -45,13 +45,25 @@ export default class MetropoleSep22Ex1Q2 extends ExerciceQcmA {
   versionAleatoire = () => {
     const n = 3
     do {
-      const decompo1 = [2, choice([7, 11, 13]), choice([2, 3, 5]), choice([2, 3, 5]), choice([5, 7])]
-      const decompo2 = [2, decompo1[1], decompo1[2], decompo1[3], choice([5, 7], [decompo1[4]])]
+      const decompo1 = [
+        2,
+        choice([7, 11, 13]),
+        choice([2, 3, 5]),
+        choice([2, 3, 5]),
+        choice([5, 7]),
+      ]
+      const decompo2 = [
+        2,
+        decompo1[1],
+        decompo1[2],
+        decompo1[3],
+        choice([5, 7], [decompo1[4]]),
+      ]
       this.appliquerLesValeurs(decompo1, decompo2)
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

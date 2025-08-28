@@ -4,7 +4,8 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
-export const titre = 'Passer d’un calcul de fractions décimales à une écriture décimale'
+export const titre =
+  'Passer d’un calcul de fractions décimales à une écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,25 +19,30 @@ export const uuid = '93bb5'
 
 export const refs = {
   'fr-fr': ['can6N10', 'auto6N2B-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FractionDecimaleEcritureDecimale1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, u
-    switch (choice(['a', 'b', 'c', 'd', 'e'])) { //,
+    switch (
+      choice(['a', 'b', 'c', 'd', 'e']) //,
+    ) {
       case 'a':
         a = randint(1, 9)
         b = randint(1, 9)
         c = randint(1, 9)
 
-        this.reponse = new Decimal(a).div(10).add(new Decimal(b).div(100)).add(new Decimal(c).div(1000))
+        this.reponse = new Decimal(a)
+          .div(10)
+          .add(new Decimal(b).div(100))
+          .add(new Decimal(c).div(1000))
 
         if (choice([true, false])) {
           this.question = `Calculer $\\dfrac{${b}}{100}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ sous forme décimale. `
@@ -51,7 +57,10 @@ export default class FractionDecimaleEcritureDecimale1 extends ExerciceSimple {
         a = randint(1, 9, [20, 30, 40, 50])
         c = randint(1, 9)
 
-        this.reponse = new Decimal(a).div(10).add(u).add(new Decimal(c).div(1000))
+        this.reponse = new Decimal(a)
+          .div(10)
+          .add(u)
+          .add(new Decimal(c).div(1000))
 
         if (choice([true, false])) {
           this.question = `Calculer  $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ sous forme décimale. `
@@ -67,7 +76,10 @@ export default class FractionDecimaleEcritureDecimale1 extends ExerciceSimple {
         b = randint(1, 9)
         c = randint(1, 9)
 
-        this.reponse = new Decimal(b).div(100).add(u).add(new Decimal(c).div(1000))
+        this.reponse = new Decimal(b)
+          .div(100)
+          .add(u)
+          .add(new Decimal(c).div(1000))
 
         if (choice([true, false])) {
           this.question = `Calculer  $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ sous forme décimale. `
@@ -98,7 +110,10 @@ export default class FractionDecimaleEcritureDecimale1 extends ExerciceSimple {
         c = randint(1, 9)
         this.reponse = u + b * 0.01 + c * 0.001
 
-        this.reponse = new Decimal(b).div(100).add(u).add(new Decimal(c).div(1000))
+        this.reponse = new Decimal(b)
+          .div(100)
+          .add(u)
+          .add(new Decimal(c).div(1000))
 
         if (choice([true, false])) {
           this.question = `Calculer  $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ sous forme décimale. `

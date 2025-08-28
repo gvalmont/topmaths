@@ -3,33 +3,49 @@ import type TypeExercice from '../exercices/Exercice'
 window.logDebug = window.logDebug || 0
 
 const url = new URL(window.location.href)
-const debug = url.searchParams.get('log') === '3' || window.logDebug !== 0 ? 1 : 0
+const debug =
+  url.searchParams.get('log') === '3' || window.logDebug !== 0 ? 1 : 0
 
-export function log (message?: any, ...optionalParams: any[]) {
+export function log(message?: any, ...optionalParams: any[]) {
   if (debug) {
     console.info(message, ...optionalParams)
   }
 }
 
-export function logDebug (message?: any, ...optionalParams: any[]) {
-  if (debug > 1 || window.logDebug > 1) log('DEBUG:', message, ...optionalParams)
+export function logDebug(message?: any, ...optionalParams: any[]) {
+  if (debug > 1 || window.logDebug > 1)
+    log('DEBUG:', message, ...optionalParams)
 }
 
-export function statsTracker (exercise: TypeExercice, recorder:string, vue: string) {
+export function statsTracker(
+  exercise: TypeExercice,
+  recorder: string,
+  vue: string,
+) {
   logDebug('Tracking stats...')
   if (window._paq) {
-    window._paq.push(['trackEvent', 'CheckExo', vue + '-' + exercise.uuid + (recorder ? '-' + recorder : '')])
+    window._paq.push([
+      'trackEvent',
+      'CheckExo',
+      vue + '-' + exercise.uuid + (recorder ? '-' + recorder : ''),
+    ])
   }
-  log(vue + '-' + exercise.uuid, 'CheckExo', (recorder ? '-' + recorder : ''))
+  log(vue + '-' + exercise.uuid, 'CheckExo', recorder ? '-' + recorder : '')
 }
 
 let oldUrl = ''
 
-export function statsPageTracker () {
+export function statsPageTracker() {
   logDebug('Tracking pages...')
   // Informer Matomo
   if (window.location.href !== oldUrl) {
-    if (window._paq) window._paq.push(['trackEvent', 'PageTracking', 'VisitedURL', window.location.href])
+    if (window._paq)
+      window._paq.push([
+        'trackEvent',
+        'PageTracking',
+        'VisitedURL',
+        window.location.href,
+      ])
     oldUrl = window.location.href
     log('statsPageTracker called with URL:', window.location.href)
   }
@@ -53,15 +69,16 @@ Modifier
 ]
   */
 
-export function getIntrus (list1: string[], list2: string[]) {
+export function getIntrus(list1: string[], list2: string[]) {
   interface CountMap {
-    [key: string]: number;
+    [key: string]: number
   }
 
-  const count = (arr: string[]): CountMap => arr.reduce((acc: CountMap, val: string) => {
-    acc[val] = (acc[val] || 0) + 1
-    return acc
-  }, {})
+  const count = (arr: string[]): CountMap =>
+    arr.reduce((acc: CountMap, val: string) => {
+      acc[val] = (acc[val] || 0) + 1
+      return acc
+    }, {})
 
   const count1 = count(list1)
   const count2 = count(list2)

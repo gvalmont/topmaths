@@ -8,7 +8,7 @@ import * as En from 'blockly/msg/en'
 import { context } from '../../modules/context'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
-export const titre = 'Programmer le déplacement d\'un bus'
+export const titre = "Programmer le déplacement d'un bus"
 export const dateDePublication = '15/07/2025'
 
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const interactifType = 'custom'
 
 declare module 'blockly/core' {
   interface Workspace {
-    idkey?: string;
+    idkey?: string
   }
 }
 
@@ -30,49 +30,90 @@ export const uuid = 'f320c'
 export const refs = {
   'fr-fr': ['6I1D'],
   'fr-2016': ['6I15'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceLabyrintheChemin extends Exercice {
   destroyers: (() => void)[] = []
 
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 2
-    this.besoinFormulaireNumerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
-    this.besoinFormulaire2Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.besoinFormulaireNumerique = [
+      'Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)',
+      8,
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)',
+      8,
+    ]
     this.sup = 5
     this.sup2 = 4
   }
 
-  destroy () {
+  destroy() {
     // MGu quan l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
-    for (let q = 0, cpt = 0, texte, texteCorr : string; q < this.nbQuestions && cpt < 50; cpt++) {
-      const nbL = this.sup === 1 ? randint(2, 5) : Math.min(Math.max(2, this.sup), 5)
-      const nbC = this.sup === 1 ? randint(3, 5) : Math.min(Math.max(3, this.sup2), 5)
+    for (
+      let q = 0, cpt = 0, texte, texteCorr: string;
+      q < this.nbQuestions && cpt < 50;
+      cpt++
+    ) {
+      const nbL =
+        this.sup === 1 ? randint(2, 5) : Math.min(Math.max(2, this.sup), 5)
+      const nbC =
+        this.sup === 1 ? randint(3, 5) : Math.min(Math.max(3, this.sup2), 5)
       const startCol = randint(0, nbC - 1)
       const endCol = randint(0, nbC - 1, [startCol])
       const parcours = this.generatePath(nbC, nbL, 0, startCol, nbL - 1, endCol)
-      const villeDepart = parcours.villeParCoord[startCol][0] || 'Ville de départ'
-      const villeArrivee = parcours.villeParCoord[endCol][nbL - 1] || 'Ville d\'arrivée'
+      const villeDepart =
+        parcours.villeParCoord[startCol][0] || 'Ville de départ'
+      const villeArrivee =
+        parcours.villeParCoord[endCol][nbL - 1] || "Ville d'arrivée"
       texte = `Retrouver les instructions pour représenter le parcours d'un bus entre ${villeDepart} et ${villeArrivee}.<br>`
 
       if (context.isHtml) {
-        texte += this.generateGrapheSVG(`${this.numeroExercice}_${q}`, nbC, nbL, 0, startCol, nbL - 1, endCol, parcours)
+        texte += this.generateGrapheSVG(
+          `${this.numeroExercice}_${q}`,
+          nbC,
+          nbL,
+          0,
+          startCol,
+          nbL - 1,
+          endCol,
+          parcours,
+        )
       } else {
-        texte += this.generateGrapheTikz(`${this.numeroExercice}_${q}`, nbC, nbL, 0, startCol, nbL - 1, endCol, parcours)
+        texte += this.generateGrapheTikz(
+          `${this.numeroExercice}_${q}`,
+          nbC,
+          nbL,
+          0,
+          startCol,
+          nbL - 1,
+          endCol,
+          parcours,
+        )
       }
-      texteCorr = 'Le bus part du lieu : ' + parcours.villeParCoord[startCol][0] + ' et arrive au lieu : ' + parcours.villeParCoord[endCol][nbL - 1] + '.<br>'
+      texteCorr =
+        'Le bus part du lieu : ' +
+        parcours.villeParCoord[startCol][0] +
+        ' et arrive au lieu : ' +
+        parcours.villeParCoord[endCol][nbL - 1] +
+        '.<br>'
       texteCorr += 'Le bus suit le chemin suivant :<br>'
-      texteCorr += parcours.path.map(p => `${parcours.villeParCoord[p[0]][p[1]]}`).join(' → ') + '<br>'
-      texteCorr += 'Voici une solution possible des instructions pour le trajet du bus :<br>'
+      texteCorr +=
+        parcours.path
+          .map((p) => `${parcours.villeParCoord[p[0]][p[1]]}`)
+          .join(' → ') + '<br>'
+      texteCorr +=
+        'Voici une solution possible des instructions pour le trajet du bus :<br>'
       createSolutionStr(parcours.edges).forEach((instruction, index) => {
         const parts = instruction.split('-')
         const lieu = parts.length > 1 ? parts[1].trim() : instruction.trim()
@@ -93,14 +134,47 @@ export default class ExerciceLabyrintheChemin extends Exercice {
     }
   }
 
-  generatePath (cols : number, rows: number, rowsStart: number, colsStart: number, rowsEnd: number, colsEnd : number) : { path: number[][]; edges: { from: number[]; to: number[]; }[]; villeParCoord: string[][] } {
-    const start :[number, number] = [colsStart, rowsStart]
-    const end : [number, number] = [colsEnd, rowsEnd]
+  generatePath(
+    cols: number,
+    rows: number,
+    rowsStart: number,
+    colsStart: number,
+    rowsEnd: number,
+    colsEnd: number,
+  ): {
+    path: number[][]
+    edges: { from: number[]; to: number[] }[]
+    villeParCoord: string[][]
+  } {
+    const start: [number, number] = [colsStart, rowsStart]
+    const end: [number, number] = [colsEnd, rowsEnd]
 
     const cityList = [
-      'le stade', 'la boulangerie', 'la patisserie', 'l\'école', 'la poste', 'la mairie', 'le fleuriste', 'le garagiste',
-      'la gare', 'la piscine', 'la pharmacie', 'l\'hôpital', 'la banque', 'la librairie', 'le cinéma', 'le musée',
-      'les pompiers', 'le marché', 'le restaurant', 'l\'hôtel', 'la laverie', 'le parking', 'la caserne', 'la station-service', 'le Bar'
+      'le stade',
+      'la boulangerie',
+      'la patisserie',
+      "l'école",
+      'la poste',
+      'la mairie',
+      'le fleuriste',
+      'le garagiste',
+      'la gare',
+      'la piscine',
+      'la pharmacie',
+      "l'hôpital",
+      'la banque',
+      'la librairie',
+      'le cinéma',
+      'le musée',
+      'les pompiers',
+      'le marché',
+      'le restaurant',
+      "l'hôtel",
+      'la laverie',
+      'le parking',
+      'la caserne',
+      'la station-service',
+      'le Bar',
     ]
 
     const getCityName = (() => {
@@ -115,7 +189,10 @@ export default class ExerciceLabyrintheChemin extends Exercice {
       }
     })()
 
-    function generateSimplePath (start: [number, number], end: [number, number]) {
+    function generateSimplePath(
+      start: [number, number],
+      end: [number, number],
+    ) {
       let [x, y] = start
       const [targetX, targetY] = end
       const result = [[x, y]]
@@ -152,16 +229,19 @@ export default class ExerciceLabyrintheChemin extends Exercice {
       return result
     }
 
-    let path : number[][]
+    let path: number[][]
     const paths2 = runAStar(rows, cols, rowsStart, colsStart, rowsEnd, colsEnd)
     if (paths2) {
       paths2.sort((a, b) => b.length - a.length) // On trie les chemins du plus court au plus long...
-      path = paths2[randint(0, paths2.length - 1)].map(node => [node.x, node.y])
+      path = paths2[randint(0, paths2.length - 1)].map((node) => [
+        node.x,
+        node.y,
+      ])
     } else {
       path = generateSimplePath(start, end)
     }
 
-    const edges : { from: number[]; to: number[]; }[] = []
+    const edges: { from: number[]; to: number[] }[] = []
     for (let i = 0; i < path.length - 1; i++) {
       const from = path[i]
       const to = path[i + 1]
@@ -179,11 +259,11 @@ export default class ExerciceLabyrintheChemin extends Exercice {
     return {
       path,
       edges,
-      villeParCoord
+      villeParCoord,
     }
   }
 
-  generateGrapheTikz (
+  generateGrapheTikz(
     id: string,
     cols: number,
     rows: number,
@@ -191,7 +271,11 @@ export default class ExerciceLabyrintheChemin extends Exercice {
     colsStart: number,
     rowsEnd: number,
     colsEnd: number,
-    parcours: { path: number[][]; edges: { from: number[]; to: number[]; }[]; villeParCoord: string[][] }
+    parcours: {
+      path: number[][]
+      edges: { from: number[]; to: number[] }[]
+      villeParCoord: string[][]
+    },
   ): string {
     const flattenByRows = function (): string[] {
       const result: string[] = []
@@ -203,7 +287,7 @@ export default class ExerciceLabyrintheChemin extends Exercice {
       return result
     }
 
-    const pathsString = parcours.path.map(p => `${p[0]}/${p[1]}`).join(', ')
+    const pathsString = parcours.path.map((p) => `${p[0]}/${p[1]}`).join(', ')
 
     return `
     \\begingroup
@@ -220,8 +304,8 @@ export default class ExerciceLabyrintheChemin extends Exercice {
 
   % Liste des villes (au moins rows × cols)
   \\def\\citylist{{${flattenByRows()
-  .map(v => `"${v}"`)
-  .join(', ')}}}
+    .map((v) => `"${v}"`)
+    .join(', ')}}}
 
   % Chemin donné par une suite de coordonnées (x,y)
   \\def\\pathcoords{${pathsString}}
@@ -316,7 +400,7 @@ ou
  `
   }
 
-  generateGrapheSVG (
+  generateGrapheSVG(
     id: string,
     cols: number,
     rows: number,
@@ -324,19 +408,23 @@ ou
     colsStart: number,
     rowsEnd: number,
     colsEnd: number,
-    parcours: { path: number[][]; edges: { from: number[]; to: number[]; }[]; villeParCoord: string[][] }
+    parcours: {
+      path: number[][]
+      edges: { from: number[]; to: number[] }[]
+      villeParCoord: string[][]
+    },
   ): string {
     const svgWidth = cols * 100
     const svgHeight = rows * 100
-    const start :[number, number] = [colsStart, rowsStart]
+    const start: [number, number] = [colsStart, rowsStart]
     const orientation = { angle: 0 }
-    const end : [number, number] = [colsEnd, rowsEnd]
+    const end: [number, number] = [colsEnd, rowsEnd]
     const pos = { x: start[0], y: start[1] }
     const edges = parcours.edges
     const path = parcours.path
     const villeParCoord = parcours.villeParCoord
 
-    function resizeBlockly (event: Event) {
+    function resizeBlockly(event: Event) {
       if (event instanceof CustomEvent && event.detail.uuid !== uuid) {
         return
       }
@@ -351,13 +439,20 @@ ou
       }
     }
 
-    function destroyerListener () {
+    function destroyerListener() {
       document.removeEventListener('questionDisplay', resizeBlockly)
     }
     this.destroyers.push(destroyerListener)
 
-    function drawArrow (svg: SVGSVGElement, x1 :number, y1: number, x2: number, y2: number) {
-      const rx = 40; const ry = 20
+    function drawArrow(
+      svg: SVGSVGElement,
+      x1: number,
+      y1: number,
+      x2: number,
+      y2: number,
+    ) {
+      const rx = 40
+      const ry = 20
       const dx = x2 - x1
       const dy = y2 - y1
       const angle = Math.atan2(dy, dx)
@@ -366,7 +461,10 @@ ou
       const endX = x2 - rx * Math.cos(angle)
       const endY = y2 - ry * Math.sin(angle)
 
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+      const line = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'line',
+      )
       line.setAttribute('x1', String(startX))
       line.setAttribute('y1', String(startY))
       line.setAttribute('x2', String(endX))
@@ -396,13 +494,19 @@ ou
     for (let x = 0; x < cols; x++) {
       for (let y = 0; y < rows; y++) {
         const [cx, cy] = positions[`${x},${y}`]
-        const directions = [[1, 0], [0, 1]]
+        const directions = [
+          [1, 0],
+          [0, 1],
+        ]
         for (const [dx, dy] of directions) {
           const nx = x + dx
           const ny = y + dy
           if (nx < cols && ny < rows) {
             const [ncx, ncy] = positions[`${nx},${ny}`]
-            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+            const line = document.createElementNS(
+              'http://www.w3.org/2000/svg',
+              'line',
+            )
             line.setAttribute('x1', `${cx}`)
             line.setAttribute('y1', `${cy}`)
             line.setAttribute('x2', `${ncx}`)
@@ -419,7 +523,10 @@ ou
       for (let y = 0; y < rows; y++) {
         // cercle gris pour voisins
         const [cx, cy] = positions[`${x},${y}`]
-        const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse')
+        const ellipse = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'ellipse',
+        )
         ellipse.setAttribute('cx', `${cx}`)
         ellipse.setAttribute('cy', `${cy}`)
         ellipse.setAttribute('rx', '40')
@@ -434,7 +541,10 @@ ou
         svg.appendChild(ellipse)
 
         const name = villeParCoord[x][y] || 'Ville inconnue'
-        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+        const text = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'text',
+        )
         text.setAttribute('x', `${cx}`)
         text.setAttribute('y', `${cy + 5}`)
         text.setAttribute('text-anchor', 'middle')
@@ -454,27 +564,38 @@ ou
     // Positionner à la case de départ
     const [px, py] = positions[`${start[0]},${start[1]}`]
     const scale = 1.2
-    robot.setAttribute('transform', `translate(${px}, ${py}) rotate(${orientation.angle}) scale(${scale})`)
+    robot.setAttribute(
+      'transform',
+      `translate(${px}, ${py}) rotate(${orientation.angle}) scale(${scale})`,
+    )
     svg.appendChild(robot)
 
-    function moveDir (dx :number, dy: number) : boolean {
+    function moveDir(dx: number, dy: number): boolean {
       const target = [pos.x + dx, pos.y + dy]
-      const exists = edges.find(edge =>
-        edge.from[0] === pos.x && edge.from[1] === pos.y &&
-        edge.to[0] === target[0] && edge.to[1] === target[1]
+      const exists = edges.find(
+        (edge) =>
+          edge.from[0] === pos.x &&
+          edge.from[1] === pos.y &&
+          edge.to[0] === target[0] &&
+          edge.to[1] === target[1],
       )
       if (exists) {
         pos.x += dx
         pos.y += dy
         const [cx, cy] = positions[`${pos.x},${pos.y}`]
         const btn = document.getElementById(id)
-        btn?.querySelector('#robot')?.setAttribute('transform', `translate(${cx}, ${cy}) rotate(${orientation.angle}) scale(${scale})`)
+        btn
+          ?.querySelector('#robot')
+          ?.setAttribute(
+            'transform',
+            `translate(${cx}, ${cy}) rotate(${orientation.angle}) scale(${scale})`,
+          )
         return true
       }
       return false
     }
 
-    function avancer () {
+    function avancer() {
       const debug = 0
       if (orientation.angle === 0) {
         const bg = moveDir(1, 0) // droite
@@ -491,7 +612,7 @@ ou
       }
     }
 
-    function tourner (num : number) {
+    function tourner(num: number) {
       const debug = 0
       // num = 1 → droite, -1 → gauche
       if (num === 1) {
@@ -500,14 +621,14 @@ ou
       } else {
         orientation.angle = (orientation.angle - 90) % 360
         if (orientation.angle < 0) {
-          orientation.angle += 360  // Assurer que l'angle reste positif
+          orientation.angle += 360 // Assurer que l'angle reste positif
         }
         if (debug) ajouterBlocALaSuite('turn_left')
       }
       rotate(orientation.angle)
     }
 
-    function rotate (angle :number) {
+    function rotate(angle: number) {
       // 0 → droite
       // 90 → bas
       // 180 → gauche
@@ -523,7 +644,7 @@ ou
 
     let workspace: Blockly.Workspace
 
-    function createBlockLy () {
+    function createBlockLy() {
       Blockly.setLocale(En as unknown as { [key: string]: string })
       Blockly.Msg['CONTROLS_REPEAT_TITLE'] = 'répéter %1 fois'
       Blockly.Msg['CONTROLS_REPEAT_INPUT_DO'] = 'faire'
@@ -534,29 +655,29 @@ ou
             message0: 'Démarrer',
             nextStatement: null,
             colour: 20,
-            hat: 'true'
+            hat: 'true',
           },
           {
             type: 'move_forward',
             message0: 'avancer',
             previousStatement: null,
             nextStatement: null,
-            colour: 160
+            colour: 160,
           },
           {
             type: 'turn_left',
             message0: 'tourner à gauche',
             previousStatement: null,
             nextStatement: null,
-            colour: 210
+            colour: 210,
           },
           {
             type: 'turn_right',
             message0: 'tourner à droite',
             previousStatement: null,
             nextStatement: null,
-            colour: 210
-          }
+            colour: 210,
+          },
         ])
       }
 
@@ -564,7 +685,10 @@ ou
         const next = javascriptGenerator.statementToCode(block, '')
         return next
       }
-      javascriptGenerator.forBlock['move_forward'] = function (block, generator) {
+      javascriptGenerator.forBlock['move_forward'] = function (
+        block,
+        generator,
+      ) {
         return 'avancer();\n'
       }
 
@@ -605,24 +729,29 @@ ou
           minScale: 0.3,
           scaleSpeed: 1.2,
           pinch: false,
-        }
+        },
       })
       // Après injection, on masque le bouton "reset"
-      const zoomControls = document.querySelector(`#blocklyDiv${id} .blocklyZoomReset`)
+      const zoomControls = document.querySelector(
+        `#blocklyDiv${id} .blocklyZoomReset`,
+      )
       if (zoomControls) {
-        (zoomControls as HTMLElement).style.display = 'none'
+        ;(zoomControls as HTMLElement).style.display = 'none'
       }
       workspace.idkey = `blocklyDiv${id}` // Set the id for later retrieval
 
       // Charger le bloc de démarrage
-      Blockly.Xml.domToWorkspace(Blockly.utils.xml.textToDom(startXml), workspace)
+      Blockly.Xml.domToWorkspace(
+        Blockly.utils.xml.textToDom(startXml),
+        workspace,
+      )
       // window.Blockly = Blockly // Expose Blockly globally for debugging
       Blockly.ContextMenuRegistry.registry.reset() // supprime le menu contextuel
 
       document.addEventListener('questionDisplay', resizeBlockly)
     }
 
-    function ajouterBlocALaSuite (type : string) {
+    function ajouterBlocALaSuite(type: string) {
       // const workspace = Blockly.getMainWorkspace()
       const workspace = retrieveWorkspace(`blocklyDiv${id}`)
       if (!workspace) {
@@ -643,9 +772,12 @@ ou
       }
 
       // Créer le nouveau bloc
-      const childBlock = Blockly.serialization.blocks.append({
-        type,
-      }, workspace)
+      const childBlock = Blockly.serialization.blocks.append(
+        {
+          type,
+        },
+        workspace,
+      )
 
       // Connecter à la suite
       if (lastBlock.nextConnection && childBlock.previousConnection) {
@@ -653,7 +785,7 @@ ou
       }
     }
 
-    function resetRobot () {
+    function resetRobot() {
       // Positionner à la case de départ
       const btn = document.getElementById(id)
       if (btn) {
@@ -661,31 +793,39 @@ ou
         pos.x = start[0]
         pos.y = start[1]
         orientation.angle = 0 // Réinitialiser l'orientation
-        btn?.querySelector('#robot')?.setAttribute('transform', `translate(${px}, ${py}) rotate(${orientation.angle}) scale(${scale})`)
+        btn
+          ?.querySelector('#robot')
+          ?.setAttribute(
+            'transform',
+            `translate(${px}, ${py}) rotate(${orientation.angle}) scale(${scale})`,
+          )
       }
-      const btn2 = document.getElementById(id)?.querySelector('#message-correct')
+      const btn2 = document
+        .getElementById(id)
+        ?.querySelector('#message-correct')
       if (btn2) {
-        (btn2 as HTMLElement).style.display = 'none'
+        ;(btn2 as HTMLElement).style.display = 'none'
       }
       const btn3 = document.getElementById(id)?.querySelector('#message-faux')
       if (btn3) {
-        (btn3 as HTMLElement).style.display = 'none'
+        ;(btn3 as HTMLElement).style.display = 'none'
       }
     }
 
     // Reset workspace (supprime tous les blocs)
-    function resetWorkspace () {
+    function resetWorkspace() {
       const workspace = retrieveWorkspace(`blocklyDiv${id}`)
       if (workspace) {
         workspace.clear()
         // Facultatif : remettre un bloc "start" par défaut
-        const xmlText = '<xml><block type="start" deletable="false" movable="false" x="20" y="20"></block></xml>'
+        const xmlText =
+          '<xml><block type="start" deletable="false" movable="false" x="20" y="20"></block></xml>'
         const dom = Blockly.utils.xml.textToDom(xmlText)
         Blockly.Xml.domToWorkspace(dom, workspace)
       }
     }
 
-    function runCode () {
+    function runCode() {
       const workspace = retrieveWorkspace(`blocklyDiv${id}`)
       if (!workspace) {
         return
@@ -694,7 +834,7 @@ ou
       // Important : initialiser le générateur
       javascriptGenerator.init(workspace)
       const blocks = workspace.getTopBlocks(true)
-      const startBlock = blocks.find(b => b.type === 'start')
+      const startBlock = blocks.find((b) => b.type === 'start')
       if (!startBlock) {
         alert('Ajoutez un bloc "Démarrer"')
         return
@@ -711,22 +851,24 @@ ou
       }
       const btn = document.getElementById(id)?.querySelector('#message-encours')
       if (btn) {
-        (btn as HTMLElement).style.display = 'none'
+        ;(btn as HTMLElement).style.display = 'none'
       }
       if (checkIfSolution()) {
-        const btn = document.getElementById(id)?.querySelector('#message-correct')
+        const btn = document
+          .getElementById(id)
+          ?.querySelector('#message-correct')
         if (btn) {
-          (btn as HTMLElement).style.display = 'block'
+          ;(btn as HTMLElement).style.display = 'block'
         }
       } else {
         const btn = document.getElementById(id)?.querySelector('#message-faux')
         if (btn) {
-          (btn as HTMLElement).style.display = 'block'
+          ;(btn as HTMLElement).style.display = 'block'
         }
       }
     }
 
-    async function runCodeWithDelay () {
+    async function runCodeWithDelay() {
       const workspace = retrieveWorkspace(`blocklyDiv${id}`)
       if (!workspace) {
         return
@@ -735,7 +877,7 @@ ou
       // Important : initialiser le générateur
       javascriptGenerator.init(workspace)
       const blocks = workspace.getTopBlocks(true)
-      const startBlock = blocks.find(b => b.type === 'start')
+      const startBlock = blocks.find((b) => b.type === 'start')
       if (!startBlock) {
         alert('Ajoutez un bloc "Démarrer"')
         return
@@ -744,15 +886,21 @@ ou
       if (Array.isArray(code)) {
         code = code[0]
       }
-      const btnCorrect = document.getElementById(id)?.querySelector<HTMLElement>('#message-correct')
+      const btnCorrect = document
+        .getElementById(id)
+        ?.querySelector<HTMLElement>('#message-correct')
       if (btnCorrect) {
         btnCorrect.style.display = 'none'
       }
-      const btnFaux = document.getElementById(id)?.querySelector<HTMLElement>('#message-faux')
+      const btnFaux = document
+        .getElementById(id)
+        ?.querySelector<HTMLElement>('#message-faux')
       if (btnFaux) {
         btnFaux.style.display = 'none'
       }
-      const btnEncours = document.getElementById(id)?.querySelector<HTMLElement>('#message-encours')
+      const btnEncours = document
+        .getElementById(id)
+        ?.querySelector<HTMLElement>('#message-encours')
       if (btnEncours) {
         btnEncours.style.display = 'block'
       }
@@ -760,9 +908,9 @@ ou
         const delayMs = 1000 // délai en millisecondes entre chaque ligne
 
         // Découpe du code ligne par ligne et insertion d'un sleep
-        const lines = code.split('\n').filter(line => line.trim() !== '')
+        const lines = code.split('\n').filter((line) => line.trim() !== '')
         const delayedCode = lines
-          .map(line => `  ${line}\n  await sleep(${delayMs});`)
+          .map((line) => `  ${line}\n  await sleep(${delayMs});`)
           .join('\n')
 
         const asyncWrapper = `(async () => {
@@ -787,7 +935,7 @@ ou
       }
     }
 
-    function checkIfSolution () {
+    function checkIfSolution() {
       const lastEdge = edges.at(-1)
       if (!lastEdge) {
         return false
@@ -802,7 +950,7 @@ ou
       return false
     }
 
-    function createSolution () {
+    function createSolution() {
       resetRobot()
       resetWorkspace()
       for (const edge of edges) {
@@ -887,16 +1035,28 @@ ou
     }
 
     const listener = function () {
-      const btn = document.getElementById(id) as (HTMLElement & { _eventsBound?: boolean })
+      const btn = document.getElementById(id) as HTMLElement & {
+        _eventsBound?: boolean
+      }
       if (btn && !btn._eventsBound) {
         btn.querySelector('#btn-av')?.addEventListener('click', () => avancer())
-        btn.querySelector('#btn-left')?.addEventListener('click', () => tourner(-1))
-        btn.querySelector('#btn-right')?.addEventListener('click', () => tourner(1))
+        btn
+          .querySelector('#btn-left')
+          ?.addEventListener('click', () => tourner(-1))
+        btn
+          .querySelector('#btn-right')
+          ?.addEventListener('click', () => tourner(1))
         btn.querySelector('#resetRobot')?.addEventListener('click', resetRobot)
-        btn.querySelector('#resetWorkspace')?.addEventListener('click', resetWorkspace)
-        btn.querySelector('#showSolution')?.addEventListener('click', createSolution)
+        btn
+          .querySelector('#resetWorkspace')
+          ?.addEventListener('click', resetWorkspace)
+        btn
+          .querySelector('#showSolution')
+          ?.addEventListener('click', createSolution)
         btn.querySelector('#runCode')?.addEventListener('click', runCode)
-        btn.querySelector('#runCodeWithDelay')?.addEventListener('click', runCodeWithDelay)
+        btn
+          .querySelector('#runCodeWithDelay')
+          ?.addEventListener('click', runCodeWithDelay)
         createBlockLy()
         btn._eventsBound = true // marquer comme attaché
       }
@@ -979,7 +1139,7 @@ ou
     if (i === undefined) return ''
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'
-    const id : string = `${this.numeroExercice}_${i}`
+    const id: string = `${this.numeroExercice}_${i}`
     const ws = retrieveWorkspace(`blocklyDiv${id}`)
     if (ws) {
       const jsonStr = exportBlocklyJSONUltraLight(ws)
@@ -988,13 +1148,17 @@ ou
       // Blockly.serialization.workspaces.load(json, ws)
     }
 
-    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-    const divFeedback = document.querySelector<HTMLElement>(`#feedbackEx${this.numeroExercice}Q${i}`)
+    const spanResultat = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${i}`,
+    )
+    const divFeedback = document.querySelector<HTMLElement>(
+      `#feedbackEx${this.numeroExercice}Q${i}`,
+    )
     if (spanResultat) spanResultat.innerHTML = ''
 
     const btn = document.getElementById(id)
     if (btn) {
-      (btn.querySelector<HTMLElement>('#runCode'))?.click()
+      btn.querySelector<HTMLElement>('#runCode')?.click()
       const message = btn.querySelector<HTMLElement>('#message-correct')
       if (message?.style.display !== 'none') {
         result = 'OK'
@@ -1002,7 +1166,7 @@ ou
       } else {
         if (spanResultat) spanResultat.innerHTML = '☹️'
         if (divFeedback) {
-          divFeedback.innerHTML = 'Le bus n\'est pas arrivé à destination'
+          divFeedback.innerHTML = "Le bus n'est pas arrivé à destination"
           divFeedback.style.display = 'block'
         }
       }
@@ -1011,7 +1175,7 @@ ou
   }
 }
 
-function retrieveWorkspace (name: string) {
+function retrieveWorkspace(name: string) {
   const workspacesAll = Blockly.Workspace.getAll()
   for (let k = 0; k < workspacesAll.length; k++) {
     const ws = workspacesAll[k]
@@ -1022,18 +1186,29 @@ function retrieveWorkspace (name: string) {
   return null
 }
 
-function exportBlocklyJSONUltraLight (workspace: Blockly.Workspace): string {
+function exportBlocklyJSONUltraLight(workspace: Blockly.Workspace): string {
   const fullJson = Blockly.serialization.workspaces.save(workspace)
 
   // Liste noire des clés à supprimer
   const keysToRemove = new Set([
-    'id', 'x', 'y', 'collapsed', 'deletable', 'movable',
-    'editable', 'enabled', 'inline', 'inputsInline',
-    'data', 'extraState', 'isShadow', 'disabled'
+    'id',
+    'x',
+    'y',
+    'collapsed',
+    'deletable',
+    'movable',
+    'editable',
+    'enabled',
+    'inline',
+    'inputsInline',
+    'data',
+    'extraState',
+    'isShadow',
+    'disabled',
   ])
 
   // Fonction récursive pour nettoyer l'objet
-  function clean (obj: any): any {
+  function clean(obj: any): any {
     if (Array.isArray(obj)) {
       return obj.map(clean)
     } else if (obj && typeof obj === 'object') {
@@ -1052,14 +1227,16 @@ function exportBlocklyJSONUltraLight (workspace: Blockly.Workspace): string {
   return JSON.stringify(cleanedJson, null, 2)
 }
 
-function removeFirstWord (city : string) {
+function removeFirstWord(city: string) {
   const town = city.replace(/^(les|la|le|l’|l')\s*/i, '').trim()
   return town.charAt(0).toUpperCase() + town.slice(1).toLowerCase()
 }
 
-function createSolutionStr (edges: { from: number[]; to: number[]; }[]) : string[] {
+function createSolutionStr(
+  edges: { from: number[]; to: number[] }[],
+): string[] {
   const orientation = { angle: 0 }
-  const result : string[] = []
+  const result: string[] = []
   for (const edge of edges) {
     const from = edge.from
     const to = edge.to

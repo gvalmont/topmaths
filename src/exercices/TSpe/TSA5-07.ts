@@ -7,7 +7,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { sp } from '../../lib/outils/outilString'
 
-export const titre = 'Résolution d\'équations du type $x^a = b$'
+export const titre = "Résolution d'équations du type $x^a = b$"
 export const dateDePublication = '28/08/2024'
 export const dateDeModifImportante = '28/08/2024'
 export const uuid = '364dd'
@@ -15,7 +15,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['TSA5-07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -24,20 +24,27 @@ export const refs = {
 
  */
 export default class EquationsLog extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre dans $\\R$ l\'équation suivante.'
+      this.consigne = "Résoudre dans $\\R$ l'équation suivante."
     } else {
       this.consigne = 'Résoudre dans $\\R$ les équations suivantes.'
     }
     this.spacingCorr = 3
-    this.besoinFormulaireTexte = ['Type de correction', '1 : Correction avec la racine \n2 : Correction avec le log  \n3 : Correction avec le ln']
+    this.besoinFormulaireTexte = [
+      'Type de correction',
+      '1 : Correction avec la racine \n2 : Correction avec le log  \n3 : Correction avec le ln',
+    ]
     this.sup = '1'
   }
 
-  estRationnel (a: number, b: number, tolerance: number = 1e-5): number | [number, number] | null {
+  estRationnel(
+    a: number,
+    b: number,
+    tolerance: number = 1e-5,
+  ): number | [number, number] | null {
     const racinenieme = b ** (1 / a)
     const maxDenominator = 100 // Précision
     let bestNumerator = 0
@@ -67,8 +74,8 @@ export default class EquationsLog extends Exercice {
     return null // N'est pas une fraction selon la tolérance
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let racinenieme = ''
@@ -127,18 +134,26 @@ export default class EquationsLog extends Exercice {
 
       if (this.sup === '1') {
         if (a % 2 === 0) {
-          texteCorr = 'Pour tous réels $a$ et $b$ strictement positifs, on sait que, si $a$ est pair, alors l\'équation $x^a=b$ admet deux solutions : $\\sqrt[a]{b}$ et $-\\sqrt[a]{b}$ .'
+          texteCorr =
+            "Pour tous réels $a$ et $b$ strictement positifs, on sait que, si $a$ est pair, alors l'équation $x^a=b$ admet deux solutions : $\\sqrt[a]{b}$ et $-\\sqrt[a]{b}$ ."
           if (a === 2) {
             texteCorr += `<br> Ainsi, $x^${a} = ${b} \\iff x=- \\sqrt{${b}}$ ou $x=\\sqrt{${b}}$`
           } else {
             texteCorr += `<br> Ainsi, ${sp()} $x^${a} = ${b} \\iff x=-${racinenieme}$ ou $x= ${racinenieme}$`
           }
-          texteCorr += result1 == null ? '' : `<br> Or, ${sp()} $-${racinenieme} = - ${strResult1} $ et $ ${racinenieme}= ${strResult1} $`
+          texteCorr +=
+            result1 == null
+              ? ''
+              : `<br> Or, ${sp()} $-${racinenieme} = - ${strResult1} $ et $ ${racinenieme}= ${strResult1} $`
           texteCorr += `<br> D'où, ${sp()} $S=${reponse}$`
         } else {
-          texteCorr = 'Pour tous réels $a$ et $b$ strictement positifs, on sait que, si $a$ est impair, alors l\'équation $x^a=b$ admet une unique solution qui est $\\sqrt[a]{b}$.'
+          texteCorr =
+            "Pour tous réels $a$ et $b$ strictement positifs, on sait que, si $a$ est impair, alors l'équation $x^a=b$ admet une unique solution qui est $\\sqrt[a]{b}$."
           texteCorr += `<br> Ainsi, ${sp()} $x^${a} = ${b} \\iff x=${racinenieme}$`
-          texteCorr += result1 == null ? '' : `<br> Or, ${sp()} $${racinenieme} = ${strResult1}. $`
+          texteCorr +=
+            result1 == null
+              ? ''
+              : `<br> Or, ${sp()} $${racinenieme} = ${strResult1}. $`
           texteCorr += `<br> D'où, ${sp()} $S=${reponse}$`
         }
       } else {
@@ -150,9 +165,15 @@ export default class EquationsLog extends Exercice {
         texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff ${typeLog}(x) = ${sp()} ${typeLog}(${b}^{\\frac{1}{${a}}})$`
         texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${b}^{\\frac{1}{${a}}}$`
         if (a === 2) {
-          texteCorr += result1 == null ? '' : `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$ ${sp()} car ${sp()} $${b}^{\\frac{1}{${a}}} = ${racinenieme} =${strResult1}$.`
+          texteCorr +=
+            result1 == null
+              ? ''
+              : `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$ ${sp()} car ${sp()} $${b}^{\\frac{1}{${a}}} = ${racinenieme} =${strResult1}$.`
         } else {
-          texteCorr += result1 == null ? '' : `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$ ${sp()} car ${sp()} $${b}^{\\frac{1}{${a}}} = ${strResult1}$.`
+          texteCorr +=
+            result1 == null
+              ? ''
+              : `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$ ${sp()} car ${sp()} $${b}^{\\frac{1}{${a}}} = ${strResult1}$.`
         }
         if (result1 === null && a === 2) {
           texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$`
@@ -166,11 +187,19 @@ export default class EquationsLog extends Exercice {
       }
 
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, options: { ensembleDeNombres: true } } })
+        handleAnswers(this, i, {
+          reponse: { value: answer, options: { ensembleDeNombres: true } },
+        })
         texte += '<br>'
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '$S=$' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFonctionsTerminales,
+          { texteAvant: '$S=$' },
+        )
       }
-      if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a, b)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

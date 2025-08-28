@@ -5,7 +5,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const amcReady = true
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer le signe d\'une puissance'
+export const titre = "Déterminer le signe d'une puissance"
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const dateDePublication = '30/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -14,30 +14,40 @@ export const dateDePublication = '30/06/2022' // La date de publication initiale
  * Déterminer le signe d'une puissance, on choisira la possibilité d'avoir un nombre positif ou négatif et un
  * exposant positif ou négatif
  * @author Delphine David
-*/
+ */
 export const uuid = '67432'
 
 export const refs = {
   'fr-fr': ['4C37'],
-  'fr-ch': ['10NO2-10']
+  'fr-ch': ['10NO2-10'],
 }
 export default class SignePuissance extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
 
     this.interactif = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = 'Déterminer le signe '
-    this.consigne += this.nbQuestions > 1 ? 'des expressions suivantes.' : 'de l\'expression suivante.'
+    this.consigne +=
+      this.nbQuestions > 1
+        ? 'des expressions suivantes.'
+        : "de l'expression suivante."
 
     let listeTypeDeQuestions = ['a^n', '-a^n', '(-a)^n', '-(-a)^n']
-    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
+    listeTypeDeQuestions = combinaisonListes(
+      listeTypeDeQuestions,
+      this.nbQuestions,
+    )
     let a = 0
     let n = 0
-    for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, monQcm, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (listeTypeDeQuestions[i]) {
         case 'a^n':
           a = randint(2, 9)
@@ -49,12 +59,12 @@ export default class SignePuissance extends Exercice {
           this.autoCorrection[i].propositions = [
             {
               texte: 'Positif',
-              statut: true
+              statut: true,
             },
             {
               texte: 'Négatif',
-              statut: false
-            }
+              statut: false,
+            },
           ]
           break
         case '-a^n':
@@ -67,12 +77,12 @@ export default class SignePuissance extends Exercice {
           this.autoCorrection[i].propositions = [
             {
               texte: 'Positif',
-              statut: false
+              statut: false,
             },
             {
               texte: 'Négatif',
-              statut: true
-            }
+              statut: true,
+            },
           ]
           break
         case '(-a)^n':
@@ -86,12 +96,12 @@ export default class SignePuissance extends Exercice {
             this.autoCorrection[i].propositions = [
               {
                 texte: 'Positif',
-                statut: true
+                statut: true,
               },
               {
                 texte: 'Négatif',
-                statut: false
-              }
+                statut: false,
+              },
             ]
           } else {
             texteCorr = `$(-${a})^{${n}}$ est ${texteEnCouleurEtGras('négatif')} car l'exposant est impair et -${a} est négatif.`
@@ -100,12 +110,12 @@ export default class SignePuissance extends Exercice {
             this.autoCorrection[i].propositions = [
               {
                 texte: 'Positif',
-                statut: false
+                statut: false,
               },
               {
                 texte: 'Négatif',
-                statut: true
-              }
+                statut: true,
+              },
             ]
           }
           break
@@ -121,12 +131,12 @@ export default class SignePuissance extends Exercice {
             this.autoCorrection[i].propositions = [
               {
                 texte: 'Positif',
-                statut: false
+                statut: false,
               },
               {
                 texte: 'Négatif',
-                statut: true
-              }
+                statut: true,
+              },
             ]
           } else {
             texteCorr = `$-(-${a})^{${n}}$ est ${texteEnCouleurEtGras('positif')}. L' exposant est impair et -${a} est négatif donc $(-${a})^{${n}}$ est négatif et son opposé est positif.`
@@ -135,12 +145,12 @@ export default class SignePuissance extends Exercice {
             this.autoCorrection[i].propositions = [
               {
                 texte: 'Positif',
-                statut: true
+                statut: true,
               },
               {
                 texte: 'Négatif',
-                statut: false
-              }
+                statut: false,
+              },
             ]
           }
           break

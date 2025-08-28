@@ -1,13 +1,20 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
-import { scientifiqueToDecimal, stringNombre, texNombre } from '../../lib/outils/texNombre'
+import {
+  scientifiqueToDecimal,
+  stringNombre,
+  texNombre,
+} from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -26,14 +33,22 @@ export const uuid = 'a0d16'
 
 export const refs = {
   'fr-fr': ['4C32', 'BP2AutoF1'],
-  'fr-ch': ['10NO2-16']
+  'fr-ch': ['10NO2-16'],
 }
 export default class NotationScientifique extends Exercice {
   can: boolean
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions', 2, '1 : Traduire en notation scientifique\n2 : Traduire en notation décimale']
-    this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      2,
+      '1 : Traduire en notation scientifique\n2 : Traduire en notation décimale',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Facile\n2 : Moyen\n3 : Difficile',
+    ]
     this.sup = 1
     this.sup2 = 1
     this.nbQuestions = 5
@@ -41,19 +56,41 @@ export default class NotationScientifique extends Exercice {
     this.can = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     Decimal.set({ toExpNeg: -15, toExpPos: 20 })
     let reponse
-    if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner la notation scientifique du nombre suivant.' : 'Donner la notation scientifique des nombres suivants.'
-    else this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture décimale du nombre suivant.' : 'Donner l\'écriture décimale des nombres suivants.'
+    if (this.sup === 1)
+      this.consigne =
+        this.nbQuestions === 1
+          ? 'Donner la notation scientifique du nombre suivant.'
+          : 'Donner la notation scientifique des nombres suivants.'
+    else
+      this.consigne =
+        this.nbQuestions === 1
+          ? "Donner l'écriture décimale du nombre suivant."
+          : "Donner l'écriture décimale des nombres suivants."
     let typesDeQuestionsDisponibles
     if (this.sup2 === 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1]
     else if (this.sup2 === 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2]
     else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3]
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texteAMC, texte, texteCorr, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
-      i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0,
+        texteAMC,
+        texte,
+        texteCorr,
+        mantisse,
+        exp,
+        decimalstring,
+        scientifiquestring,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (listeTypeDeQuestions[i]) {
         case 0:
           mantisse = new Decimal(randint(1, 9))
@@ -73,8 +110,12 @@ export default class NotationScientifique extends Exercice {
           }
           break
         case 2:
-          if (choice([false, true])) mantisse = new Decimal(randint(111, 999)).div(100)
-          else mantisse = new Decimal(randint(1, 9)).plus(randint(1, 9) * 100).div(100)
+          if (choice([false, true]))
+            mantisse = new Decimal(randint(111, 999)).div(100)
+          else
+            mantisse = new Decimal(randint(1, 9))
+              .plus(randint(1, 9) * 100)
+              .div(100)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
           } else {
@@ -83,7 +124,10 @@ export default class NotationScientifique extends Exercice {
           break
         case 3:
         default:
-          if (choice([true, false])) mantisse = new Decimal(randint(1, 19) * 5).plus(randint(1, 9) * 1000).div(1000)
+          if (choice([true, false]))
+            mantisse = new Decimal(randint(1, 19) * 5)
+              .plus(randint(1, 9) * 1000)
+              .div(1000)
           else mantisse = new Decimal(randint(1111, 9999)).div(1000)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
@@ -108,7 +152,14 @@ export default class NotationScientifique extends Exercice {
       }
       texte = texteAMC + `$${sp()}=$`
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, '  ' + (this.sup === 2 ? KeyboardType.clavierDeBase : KeyboardType.clavierFullOperations))
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          '  ' +
+            (this.sup === 2
+              ? KeyboardType.clavierDeBase
+              : KeyboardType.clavierFullOperations),
+        )
       } else {
         texte += `$${sp()}\\dots$`
       }
@@ -119,23 +170,35 @@ export default class NotationScientifique extends Exercice {
 
         if (this.sup === 1) {
           if (context.isAmc) {
-            setReponse(this, i, String(reponse).replace(/\\thickspace /g, '').replace(/ /g, ''), {
-              // formatInteractif: 'ecritureScientifique',
-              digits: listeTypeDeQuestions[i] + 1,
-              decimals: listeTypeDeQuestions[i],
-              signe: false,
-              exposantNbChiffres: 1,
-              exposantSigne: true,
-              approx: 0
-            })
+            setReponse(
+              this,
+              i,
+              String(reponse)
+                .replace(/\\thickspace /g, '')
+                .replace(/ /g, ''),
+              {
+                // formatInteractif: 'ecritureScientifique',
+                digits: listeTypeDeQuestions[i] + 1,
+                decimals: listeTypeDeQuestions[i],
+                signe: false,
+                exposantNbChiffres: 1,
+                exposantSigne: true,
+                approx: 0,
+              },
+            )
           } else {
-            handleAnswers(this, i, { reponse: { value: reponse, options: { ecritureScientifique: true } } })
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse,
+                options: { ecritureScientifique: true },
+              },
+            })
           }
         } else {
           if (context.isAmc) {
             setReponse(this, i, reponse, {
-            // formatInteractif: 'nombreDecimal',
-              decimals: Math.max(0, listeTypeDeQuestions[i] - exp)
+              // formatInteractif: 'nombreDecimal',
+              decimals: Math.max(0, listeTypeDeQuestions[i] - exp),
             })
           } else {
             handleAnswers(this, i, { reponse: { value: reponse } })
@@ -145,34 +208,38 @@ export default class NotationScientifique extends Exercice {
         if (context.isAmc) {
           texteAMC += '.'
           // @ts-expect-error
-          this.autoCorrection[i].reponse.valeur = [mantisse.mul(Decimal.pow(10, exp)).toString()]
+          this.autoCorrection[i].reponse.valeur = [
+            mantisse.mul(Decimal.pow(10, exp)).toString(),
+          ]
           if (this.sup === 1) {
             this.amcType = 'AMCNum'
-            this.autoCorrection[i].enonce = 'Donner la notation scientifique du nombre ' + texteAMC
+            this.autoCorrection[i].enonce =
+              'Donner la notation scientifique du nombre ' + texteAMC
           } else {
             this.amcType = 'qcmMono'
-            this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texteAMC
+            this.autoCorrection[i].enonce =
+              "Donner l'écriture décimale du nombre " + texteAMC
             this.autoCorrection[i].options = {
               ordered: false,
-              lastChoice: 5
+              lastChoice: 5,
             }
             this.autoCorrection[i].propositions = [
               {
                 texte: `$${decimalstring}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `$${texNombre(mantisse.mul(Decimal.pow(10, exp - 1)), 20)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${texNombre(mantisse.mul(Decimal.pow(10, exp + 1)), 20)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `$${texNombre(mantisse.mul(Decimal.pow(10, -exp)), 20)}$`,
-                statut: false
-              }
+                statut: false,
+              },
             ]
           }
         }

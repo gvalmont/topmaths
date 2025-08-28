@@ -17,10 +17,10 @@ export const uuid = '82123'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 
 export default class EquationReduite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -28,13 +28,23 @@ export default class EquationReduite extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const xA = 0
     const yA = this.canOfficielle ? -1 : randint(-1, 2)
     const xB = 3
     const yB = this.canOfficielle ? 1 : yA + randint(-2, 2, 0)
     const coeffDir = new FractionEtendue(yB - yA, xB - xA)
-    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1, 'milieu', true, 1)
+    const o = texteParPosition(
+      'O',
+      -0.3,
+      -0.3,
+      0,
+      'black',
+      1,
+      'milieu',
+      true,
+      1,
+    )
     const A = point(xA, yA, 'A', 'above left')
     const B = point(xB, yB, 'B')
     const Bx = point(B.x, A.y)
@@ -76,19 +86,43 @@ export default class EquationReduite extends ExerciceSimple {
       grilleSecondaireYMin: ymin,
       grilleSecondaireYMax: ymax,
       grilleSecondaireXMin: xmin,
-      grilleSecondaireXMax: xmax
+      grilleSecondaireXMax: xmax,
     })
-    const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, o, d, r1, traceB, traceA, labelPoint(A), labelPoint(B))
-    this.question = 'Déterminer l\'équation réduite de la droite $(AB)$.<br>    '
+    const objet = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin: ymin - 0.25,
+        ymax: ymax + 0.25,
+        pixelsParCm: 30,
+        scale: 0.6,
+        style: 'margin: auto',
+      },
+      o,
+      d,
+      r1,
+      traceB,
+      traceA,
+      labelPoint(A),
+      labelPoint(B),
+    )
+    this.question = "Déterminer l'équation réduite de la droite $(AB)$.<br>    "
     this.question += `${objet}<br>`
-    this.reponse = { reponse: { value: `y=${`${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`}`, options: { egaliteExpression: true } } }
+    this.reponse = {
+      reponse: {
+        value: `y=${`${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`}`,
+        options: { egaliteExpression: true },
+      },
+    }
     this.correction = `En utilisant les deux points $A$ et $B$, on détermine le coefficient directeur $m$ de la droite : <br>
     $m=\\dfrac{y_B-y_A}{x_B-x_A}=${coeffDir.texFractionSimplifiee}$.<br>
          L' ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est `
 
-    this.correction += `${yA !== 0
-      ? `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`)}$.`
-      : `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x`)}$.`}
+    this.correction += `${
+      yA !== 0
+        ? `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`)}$.`
+        : `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x`)}$.`
+    }
 `
     this.canEnonce = this.question
     this.canReponseACompleter = ''

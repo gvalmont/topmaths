@@ -3,14 +3,18 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { Pavage } from '../../modules/Pavage'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
 
 export const refs = {
   'fr-fr': ['P007'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = 'ad5f8'
 
@@ -21,11 +25,18 @@ export const uuid = 'ad5f8'
  * Ref : P007
  */
 export default class PavagesMathalea2d extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.besoinFormulaireNumerique = ['Type de pavage', 7, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d\'écolier\n7 : Pavage 6.3.6.3\n8 : Mélange']
-    this.besoinFormulaire2Texte = ['Nombre de répétitions du motif (2 entiers séparés par un tiret)', '']
+    this.besoinFormulaireNumerique = [
+      'Type de pavage',
+      7,
+      "1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d'écolier\n7 : Pavage 6.3.6.3\n8 : Mélange",
+    ]
+    this.besoinFormulaire2Texte = [
+      'Nombre de répétitions du motif (2 entiers séparés par un tiret)',
+      '',
+    ]
     this.besoinFormulaire3CaseACocher = ['Présence de numéros']
 
     this.nbQuestions = 1
@@ -39,38 +50,64 @@ export default class PavagesMathalea2d extends Exercice {
     context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const objets = []
     let Nx, Ny // nombres de dalles en x et en y
-    if (!this.sup2) { // On fixe le nombre de dalles en x et en y
+    if (!this.sup2) {
+      // On fixe le nombre de dalles en x et en y
       // Si aucune grandeur n'est saisie
-      [Nx, Ny] = [1, 1]
+      ;[Nx, Ny] = [1, 1]
     } else {
-      [Nx, Ny] = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 10, defaut: 1, melange: 1, nbQuestions: 2, shuffle: false }).map(Number)
+      ;[Nx, Ny] = gestionnaireFormulaireTexte({
+        saisie: this.sup2,
+        min: 1,
+        max: 10,
+        defaut: 1,
+        melange: 1,
+        nbQuestions: 2,
+        shuffle: false,
+      }).map(Number)
     }
 
     const monpavage: Pavage = new Pavage() // On crée l'objet Pavage qui va s'appeler monpavage
     const typeDePavage = this.sup === 8 ? randint(1, 7) : this.sup
     monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
-    if (this.sup3) { // Doit-on afficher les Numéros ?
+    if (this.sup3) {
+      // Doit-on afficher les Numéros ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
-        objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.3, monpavage.barycentres[i].y, 0, 'black', 0.04 * monpavage.echelle, 'milieu', true))
+        objets.push(
+          texteParPosition(
+            nombreAvecEspace(i + 1),
+            monpavage.barycentres[i].x + 0.3,
+            monpavage.barycentres[i].y,
+            0,
+            'black',
+            0.04 * monpavage.echelle,
+            'milieu',
+            true,
+          ),
+        )
       }
     }
-    if (this.correctionDetaillee) { // Doit-on montrer les centres des figures ?
+    if (this.correctionDetaillee) {
+      // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
         objets.push(monpavage.tracesCentres[i])
       }
     }
-    for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
+    for (let i = 0; i < monpavage.nb_polygones; i++) {
+      // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
     const texte = mathalea2d(monpavage.fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
 
     let texteComment = 'Le premier paramètre permet de choisir le pavage.<br>'
-    texteComment += 'Le deuxième permet de choisir le nombre de répétitions en x et y. Exemple : 3-2<br>'
-    texteComment += "Le troisième permet d'afficher un Numéro distinct sur chaque figure.<br>"
-    texteComment += 'En activant la correction détaillée, on affiche les barycentres de celles-ci.'
+    texteComment +=
+      'Le deuxième permet de choisir le nombre de répétitions en x et y. Exemple : 3-2<br>'
+    texteComment +=
+      "Le troisième permet d'afficher un Numéro distinct sur chaque figure.<br>"
+    texteComment +=
+      'En activant la correction détaillée, on affiche les barycentres de celles-ci.'
 
     this.listeQuestions.push(texte)
     // this.listeCorrections.push(texteCorr)

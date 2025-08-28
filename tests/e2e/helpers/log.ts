@@ -12,7 +12,10 @@ const __dirname = dirname(__filename)
 
 // fcts privées
 const hasJSHandle = (args: unknown[]) => args.some(isJSHandle)
-const isJSHandle = (arg: unknown) => arg && typeof (arg as JSHandle).asElement === 'function' && typeof (arg as JSHandle).evaluate === 'function'
+const isJSHandle = (arg: unknown) =>
+  arg &&
+  typeof (arg as JSHandle).asElement === 'function' &&
+  typeof (arg as JSHandle).evaluate === 'function'
 
 // une promesse qui sert à gérer la file d'attente des logs
 // (sinon les appels sync passés après d'autres async se retrouvent dans la console avant)
@@ -26,7 +29,10 @@ let lastLog = Promise.resolve()
  * @param {boolean} [options.append=false] Passer true pour ne pas vider le fichier s'il existe
  * @return {Logger} Le logger (chaque argument sortira sur une ligne dans le log, le premier sera préfixé avec le moment)
  */
-export function getFileLogger (fileName: string, options: { append?: boolean } = {}): Logger {
+export function getFileLogger(
+  fileName: string,
+  options: { append?: boolean } = {},
+): Logger {
   // on prépare le log
   const logDir = resolve(__dirname, '..', 'logs')
   // avec recursive, ça ne gêne pas si ça existe déjà (https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_fs_mkdir_path_options_callback)
@@ -52,12 +58,13 @@ export function getFileLogger (fileName: string, options: { append?: boolean } =
  * @param {unknown[]} ...args
  * @return {Promise} qui sera résolue lorsque cet appel sera sorti en console
  */
-function logSerializer (logger: Logger, ...args: unknown[]) {
+function logSerializer(logger: Logger, ...args: unknown[]) {
   if (prefs.silent) return
   const fileLogger = store.get('fileLogger') as (...args: unknown[]) => void
   const datePrefix = (args: unknown[]) => {
     const prefix = `[${getCurrentTime()}]`
-    if (!Array.isArray(args) || !args.length) return logger(Error('fonction de log appelée sans argument'))
+    if (!Array.isArray(args) || !args.length)
+      return logger(Error('fonction de log appelée sans argument'))
     args.unshift(prefix)
     logger(...args)
     if (fileLogger) fileLogger(...args)
@@ -65,29 +72,33 @@ function logSerializer (logger: Logger, ...args: unknown[]) {
 
   // on veut passer après les appels précédents (pas forcément terminés si on mix sync/async),
   // pour garder les messages de log dans l'ordre où ils ont été envoyés
-  lastLog = lastLog.then(() => {
-    if (hasJSHandle(args)) {
-    // il faut décoder en async
-      return Promise.all(args.map(arg => {
-        if (isJSHandle(arg)) {
-          return (arg as JSHandle).evaluate((arg) => {
-            if (arg && (arg as HTMLElement).outerHTML) return (arg as HTMLElement).outerHTML
-            if (arg instanceof Error) return arg.stack
+  lastLog = lastLog
+    .then(() => {
+      if (hasJSHandle(args)) {
+        // il faut décoder en async
+        return Promise.all(
+          args.map((arg) => {
+            if (isJSHandle(arg)) {
+              return (arg as JSHandle).evaluate((arg) => {
+                if (arg && (arg as HTMLElement).outerHTML)
+                  return (arg as HTMLElement).outerHTML
+                if (arg instanceof Error) return arg.stack
+                return arg
+              })
+            }
             return arg
-          })
-        }
-        return arg
-      }))
-    }
-    // sinon rien à décoder
-    return args
-  })
+          }),
+        )
+      }
+      // sinon rien à décoder
+      return args
+    })
     .then(datePrefix)
-    .catch(error => console.error(error))
+    .catch((error) => console.error(error))
   return lastLog
 }
 
-function getCurrentTime () {
+function getCurrentTime() {
   const currentDate = new Date()
   const hours = currentDate.getHours()
   const minutes = currentDate.getMinutes()

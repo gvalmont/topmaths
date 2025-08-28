@@ -1,4 +1,7 @@
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -18,10 +21,10 @@ export const uuid = 'd656b'
 
 export const refs = {
   'fr-fr': ['can6C19'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComplementACent extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
@@ -29,16 +32,19 @@ export default class ComplementACent extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(11, 49, [20, 30, 40])
     this.question = `Calculer $100-${a}$.`
     this.correction = `$100-${a}=${miseEnEvidence(100 - a)}$<br>`
     this.reponse = 100 - a
-    this.correction += texteEnCouleur(`
+    this.correction += texteEnCouleur(
+      `
     <br> Mentalement : <br>
-    On décompose $${a}$ en $${a - a % 10}+${a % 10}$. Retrancher $${a}$ revient à retrancher d'abord  $${a - a % 10}$  puis $${a % 10}$. <br>
-    Ainsi, $100-${a}=\\underbrace{100-${a - a % 10}}_{${100 - (a - a % 10)}}-${a % 10}=${100 - (a - a % 10)}-${a % 10}=${100 - a}$.
-     `, bleuMathalea)
+    On décompose $${a}$ en $${a - (a % 10)}+${a % 10}$. Retrancher $${a}$ revient à retrancher d'abord  $${a - (a % 10)}$  puis $${a % 10}$. <br>
+    Ainsi, $100-${a}=\\underbrace{100-${a - (a % 10)}}_{${100 - (a - (a % 10))}}-${a % 10}=${100 - (a - (a % 10))}-${a % 10}=${100 - a}$.
+     `,
+      bleuMathalea,
+    )
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

@@ -22,10 +22,10 @@ export const uuid = 'a8f1f'
 export const refs = {
   'fr-fr': ['6G0-8'],
   'fr-2016': ['6G51-2'],
-  'fr-ch': ['9ES1-6']
+  'fr-ch': ['9ES1-6'],
 }
 export default class UtilerAppartientA extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Compléter en utilisant les symboles $\\in$ et $\\notin$.'
@@ -34,7 +34,7 @@ export default class UtilerAppartientA extends Exercice {
     this.nbColsCorr = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const objetsEnonce = []
     const lettres = choisitLettresDifferentes(6)
     let rayon = 3
@@ -44,9 +44,17 @@ export default class UtilerAppartientA extends Exercice {
     const B = pointAdistance(A, rayon, angle, lettres[1])
     const D = pointAdistance(A, rayon, angle + 60, lettres[3])
     const CentreBD = randint(4, 6) / 10
-    const C = point(B.x * CentreBD + D.x * (1 - CentreBD), B.y * CentreBD + D.y * (1 - CentreBD), lettres[2])
+    const C = point(
+      B.x * CentreBD + D.x * (1 - CentreBD),
+      B.y * CentreBD + D.y * (1 - CentreBD),
+      lettres[2],
+    )
     const EentreAC = randint(4, 6) / 10
-    const E = point(A.x * EentreAC + C.x * (1 - EentreAC), A.y * EentreAC + C.y * (1 - EentreAC), lettres[4])
+    const E = point(
+      A.x * EentreAC + C.x * (1 - EentreAC),
+      A.y * EentreAC + C.y * (1 - EentreAC),
+      lettres[4],
+    )
     const F = pointIntersectionDD(droite(B, E), droite(A, D), lettres[5])
     const polyABE = polygoneAvecNom(A, B, E)
     const polyCFD = polygoneAvecNom(C, F, D)
@@ -56,7 +64,16 @@ export default class UtilerAppartientA extends Exercice {
     const demiDroiteBE = demiDroite(B, E)
     const demiDroiteAF = demiDroite(A, F)
     const demiDroiteBC = demiDroite(B, C)
-    objetsEnonce.push(polyCFD[1], polyABE[1], segmentAB, segmentBC, segmentAC, demiDroiteBE, demiDroiteAF, demiDroiteBC)
+    objetsEnonce.push(
+      polyCFD[1],
+      polyABE[1],
+      segmentAB,
+      segmentBC,
+      segmentAC,
+      demiDroiteBE,
+      demiDroiteAF,
+      demiDroiteBC,
+    )
     const lisdeDesPossibilites = [
       {
         point: E,
@@ -64,7 +81,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: C,
         borne1: '[',
         borne2: ']',
-        reponse: '$\\in$'
+        reponse: '$\\in$',
       },
       {
         point: D,
@@ -72,7 +89,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: F,
         borne1: '[',
         borne2: ']',
-        reponse: '$\\notin$'
+        reponse: '$\\notin$',
       },
       {
         point: D,
@@ -80,7 +97,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: F,
         borne1: '[',
         borne2: ')',
-        reponse: '$\\in$'
+        reponse: '$\\in$',
       },
       {
         point: F,
@@ -88,7 +105,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: E,
         borne1: '(',
         borne2: ')',
-        reponse: '$\\in$'
+        reponse: '$\\in$',
       },
       {
         point: A,
@@ -96,7 +113,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: D,
         borne1: '[',
         borne2: ')',
-        reponse: '$\\notin$'
+        reponse: '$\\notin$',
       },
       {
         point: E,
@@ -104,7 +121,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: C,
         borne1: '[',
         borne2: ']',
-        reponse: '$\\in$'
+        reponse: '$\\in$',
       },
       {
         point: D,
@@ -112,7 +129,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: C,
         borne1: '(',
         borne2: ')',
-        reponse: '$\\notin$'
+        reponse: '$\\notin$',
       },
       {
         point: E,
@@ -120,7 +137,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: F,
         borne1: '[',
         borne2: ']',
-        reponse: '$\\in$'
+        reponse: '$\\in$',
       },
       {
         point: C,
@@ -128,7 +145,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: B,
         borne1: '[',
         borne2: ']',
-        reponse: '$\\in$'
+        reponse: '$\\in$',
       },
       {
         point: A,
@@ -136,7 +153,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: C,
         borne1: '(',
         borne2: ')',
-        reponse: '$\\in$'
+        reponse: '$\\in$',
       },
       {
         point: C,
@@ -144,7 +161,7 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: E,
         borne1: '(',
         borne2: ')',
-        reponse: '$\\notin$'
+        reponse: '$\\notin$',
       },
       {
         point: E,
@@ -152,8 +169,8 @@ export default class UtilerAppartientA extends Exercice {
         extremite2: D,
         borne1: '[',
         borne2: ')',
-        reponse: '$\\notin$'
-      }
+        reponse: '$\\notin$',
+      },
     ]
     const possibilites = shuffle(lisdeDesPossibilites)
     const xmin = Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 2
@@ -162,13 +179,26 @@ export default class UtilerAppartientA extends Exercice {
     const ymax = Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 2
     const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
     this.introduction = '' + mathalea2d(paramsEnonce, objetsEnonce)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       if (possibilites[i] === undefined) break
       texte = ''
       texteCorr = ''
       texte += `$${possibilites[i].point.nom}$ $\\ldots{}$ ${possibilites[i].borne1}$${possibilites[i].extremite1.nom + possibilites[i].extremite2.nom}$${possibilites[i].borne2}`
       texteCorr += `$${possibilites[i].point.nom}$ ${possibilites[i].reponse} ${possibilites[i].borne1}$${possibilites[i].extremite1.nom + possibilites[i].extremite2.nom}$${possibilites[i].borne2}`
-      if (this.questionJamaisPosee(i, possibilites[i].point.nom, possibilites[i].extremite1.nom, possibilites[i].extremite2.nom, possibilites[i].borne1, possibilites[i].borne2)) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          possibilites[i].point.nom,
+          possibilites[i].extremite1.nom,
+          possibilites[i].extremite2.nom,
+          possibilites[i].borne1,
+          possibilites[i].borne2,
+        )
+      ) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

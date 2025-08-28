@@ -8,13 +8,13 @@
 <button
   type="button"
   {title}
-  id = "{$$props.id}"
+  id="{$$props.id}"
   class="{$$props.class || 'rounded-lg py-1 px-2'}"
   {disabled}
   on:click
 >
   {#if icon !== ''}
-    <i class="bx {icon}" />
+    <i class="bx {icon}"></i>
   {/if}
   {text}
 </button>

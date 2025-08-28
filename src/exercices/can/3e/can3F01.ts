@@ -19,25 +19,26 @@ export const uuid = '966a6'
 
 export const refs = {
   'fr-fr': ['can3F01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 type Noeud = {
-  x: number;
-  y: number;
-  deriveeGauche: number;
-  deriveeDroit: number;
-  isVisible: boolean;
+  x: number
+  y: number
+  deriveeGauche: number
+  deriveeDroit: number
+  isVisible: boolean
 }
 export default class ImageSpline extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    const noeuds1 : Noeud[] = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+  nouvelleVersion() {
+    const noeuds1: Noeud[] = [
+      { x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -45,9 +46,10 @@ export default class ImageSpline extends ExerciceSimple {
       { x: 2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
       { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-      { x: 5, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+      { x: 5, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     ]
-    const noeuds2: Noeud[] = [{ x: -4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+    const noeuds2: Noeud[] = [
+      { x: -4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -55,22 +57,24 @@ export default class ImageSpline extends ExerciceSimple {
       { x: 2, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 3, y: 0, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
       { x: 4, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-      { x: 5, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+      { x: 5, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     ]
     const mesFonctions = [noeuds1, noeuds2]
-    function aleatoiriseCourbe (listeFonctions: Noeud[][]) {
+    function aleatoiriseCourbe(listeFonctions: Noeud[][]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-2, +2) // translations
-      const deltaY = randint(-1, 1)// randint(-2, +2)
+      const deltaY = randint(-1, 1) // randint(-2, +2)
       const choix = choice(listeFonctions)
-      return choix.map((noeud) => Object({
-        x: (noeud.x + deltaX) * coeffX,
-        y: (noeud.y + deltaY) * coeffY,
-        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-        isVisible: noeud.isVisible
-      }))
+      return choix.map((noeud) =>
+        Object({
+          x: (noeud.x + deltaX) * coeffX,
+          y: (noeud.y + deltaY) * coeffY,
+          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+          isVisible: noeud.isVisible,
+        }),
+      )
     }
     let bornes = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
     const antecedent = randint(0, 8)
@@ -92,34 +96,62 @@ export default class ImageSpline extends ExerciceSimple {
       grilleSecondaireYMin: bornes.yMin - 1,
       grilleSecondaireYMax: bornes.yMax + 1,
       grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1
+      grilleSecondaireXMax: bornes.xMax + 1,
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'blue'
+      color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]
 
     this.reponse = theSpline.y[antecedent]
     this.distracteurs = [
-                  `$${theSpline.x[antecedent]}$`,
-                  `L\'image de $${theSpline.x[antecedent]}$ n'existe pas`,
-                  `$${theSpline.y[0]}$`
+      `$${theSpline.x[antecedent]}$`,
+      `L\'image de $${theSpline.x[antecedent]}$ n'existe pas`,
+      `$${theSpline.y[0]}$`,
     ]
     if (this.versionQcm) {
-      this.question = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) + '<br>'+
-     `L'image de $${theSpline.x[antecedent]}$ est : `
-    }// fixeBordures(objetsEnonce))
+      this.question =
+        mathalea2d(
+          Object.assign(
+            { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
+            {
+              xmin: bornes.xMin - 1,
+              ymin: bornes.yMin - 1,
+              xmax: bornes.xMax + 1,
+              ymax: bornes.yMax + 1,
+            },
+          ),
+          objetsEnonce,
+          o,
+        ) +
+        '<br>' +
+        `L'image de $${theSpline.x[antecedent]}$ est : `
+    } // fixeBordures(objetsEnonce))
     else {
-      this.question = `Quelle est l'image de $${theSpline.x[antecedent]}$ ?
-    ` + mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)
+      this.question =
+        `Quelle est l'image de $${theSpline.x[antecedent]}$ ?
+    ` +
+        mathalea2d(
+          Object.assign(
+            { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
+            {
+              xmin: bornes.xMin - 1,
+              ymin: bornes.yMin - 1,
+              xmax: bornes.xMax + 1,
+              ymax: bornes.yMax + 1,
+            },
+          ),
+          objetsEnonce,
+          o,
+        )
     }
     this.correction = `Pour lire l'image de $${theSpline.x[antecedent]}$, on place la valeur de $${theSpline.x[antecedent]}$ sur l'axe des abscisses (axe de lecture  des antécédents) et on lit
     son image  sur l'axe des ordonnées (axe de lecture des images). On obtient :  $f(${theSpline.x[antecedent]})=${miseEnEvidence(theSpline.y[antecedent])}$`
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -12,13 +12,13 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '35c0e'
 export const refs = {
   'fr-fr': ['1A-F6-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Retrouver la représentation graphique d\'une droite'
+export const titre = "Retrouver la représentation graphique d'une droite"
 export const dateDePublication = '02/08/2025'
 //
 /**
@@ -51,7 +51,7 @@ export default class Auto1AF6b extends ExerciceQcmA {
     xThickListe: [0],
     yThickListe: [0],
     xLabelListe: [-6],
-    yLabelListe: [-6]
+    yLabelListe: [-6],
   }
 
   readonly configGraphique = {
@@ -60,38 +60,47 @@ export default class Auto1AF6b extends ExerciceQcmA {
     ymin: -3,
     ymax: 3,
     pixelsParCm: 15,
-    scale: 1
+    scale: 1,
   }
 
   // Fonctions des droites
   readonly fonctions: FonctionLineaire[] = [
-    (x: number) => x - 1,    // a>0 et b<0
-    (x: number) => -x + 1,   // a<0 et b>0
-    (x: number) => -x - 1,   // a<0 et b<0
-    (x: number) => x + 1     // a>0 et b>0
+    (x: number) => x - 1, // a>0 et b<0
+    (x: number) => -x + 1, // a<0 et b>0
+    (x: number) => -x - 1, // a<0 et b<0
+    (x: number) => x + 1, // a>0 et b>0
   ]
 
   // Génère les éléments communs (repère, origine, graphiques)
-  genererElementsCommuns () {
+  genererElementsCommuns() {
     const r = repere(this.configRepere)
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const indice = shuffle([1, 2, 3, 4])
 
-    const graphiques = this.fonctions.map(f =>
-      mathalea2d(this.configGraphique, courbe(f, {
-        repere: r,
-        color: 'blue',
-        epaisseur: 2
-      }), o, r)
+    const graphiques = this.fonctions.map((f) =>
+      mathalea2d(
+        this.configGraphique,
+        courbe(f, {
+          repere: r,
+          color: 'blue',
+          epaisseur: 2,
+        }),
+        o,
+        r,
+      ),
     )
 
     return { r, o, indice, graphiques }
   }
 
   // Génère les réponses dans l'ordre voulu
-  genererReponses (indice: number[], graphiques: string[], bonneReponseIndex: number): string[] {
-    const reponses = graphiques.map((graphique, i) =>
-      `La droite $D_${indice[i]}$ <br>${graphique}`
+  genererReponses(
+    indice: number[],
+    graphiques: string[],
+    bonneReponseIndex: number,
+  ): string[] {
+    const reponses = graphiques.map(
+      (graphique, i) => `La droite $D_${indice[i]}$ <br>${graphique}`,
     )
 
     // Place la bonne réponse en premier
@@ -102,7 +111,12 @@ export default class Auto1AF6b extends ExerciceQcmA {
   }
 
   // Génère la correction
-  genererCorrection (a: number, b: number, indice: number[], bonneReponseIndex: number): string {
+  genererCorrection(
+    a: number,
+    b: number,
+    indice: number[],
+    bonneReponseIndex: number,
+  ): string {
     const signeB = b > 0 ? '>' : '<'
     const signeA = a > 0 ? '>' : '<'
     const positionY = b > 0 ? 'au-dessus' : 'en-dessous'
@@ -114,16 +128,16 @@ export default class Auto1AF6b extends ExerciceQcmA {
   }
 
   // Détermine l'index du graphique correct selon les signes de a et b
-  obtenirIndexGraphique (a: number, b: number): number {
-    if (a > 0 && b < 0) return 0  // f1: x - 1
-    if (a < 0 && b > 0) return 1  // f2: -x + 1
-    if (a < 0 && b < 0) return 2  // f3: -x - 1
-    if (a > 0 && b > 0) return 3  // f4: x + 1
+  obtenirIndexGraphique(a: number, b: number): number {
+    if (a > 0 && b < 0) return 0 // f1: x - 1
+    if (a < 0 && b > 0) return 1 // f2: -x + 1
+    if (a < 0 && b < 0) return 2 // f3: -x - 1
+    if (a > 0 && b > 0) return 3 // f4: x + 1
     return 0 // fallback
   }
 
   // Version commune utilisée par les deux méthodes
-  genererExercice (a: number, b: number): void {
+  genererExercice(a: number, b: number): void {
     const { indice, graphiques } = this.genererElementsCommuns()
     const bonneReponseIndex = this.obtenirIndexGraphique(a, b)
 
@@ -138,17 +152,37 @@ export default class Auto1AF6b extends ExerciceQcmA {
 
   versionAleatoire: () => void = () => {
     const cas: CasEquation[] = [
-      { a: randint(1, 10), b: randint(1, 10), description: 'a>0, b>0', graphiqueIndex: 3 },
-      { a: randint(1, 10), b: randint(-10, -1), description: 'a>0, b<0', graphiqueIndex: 0 },
-      { a: randint(-10, -1), b: randint(1, 10), description: 'a<0, b>0', graphiqueIndex: 1 },
-      { a: randint(-10, -1), b: randint(-10, -1), description: 'a<0, b<0', graphiqueIndex: 2 }
+      {
+        a: randint(1, 10),
+        b: randint(1, 10),
+        description: 'a>0, b>0',
+        graphiqueIndex: 3,
+      },
+      {
+        a: randint(1, 10),
+        b: randint(-10, -1),
+        description: 'a>0, b<0',
+        graphiqueIndex: 0,
+      },
+      {
+        a: randint(-10, -1),
+        b: randint(1, 10),
+        description: 'a<0, b>0',
+        graphiqueIndex: 1,
+      },
+      {
+        a: randint(-10, -1),
+        b: randint(-10, -1),
+        description: 'a<0, b<0',
+        graphiqueIndex: 2,
+      },
     ]
 
     const casChoisi = choice(cas)
     this.genererExercice(casChoisi.a, casChoisi.b)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

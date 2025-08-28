@@ -12,9 +12,9 @@ export const uuid = '00625'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: FractionEtendue
     if (this.canOfficielle) {
       reponse = new FractionEtendue(5, 3)
@@ -32,8 +32,17 @@ export default class NomExercice extends ExerciceSimple {
       this.correction = `$\\dfrac{25}{15}=\\dfrac{\\cancel{5}\\times 5}{\\cancel{5}\\times 3}=${miseEnEvidence(reponse.texFraction)}$`
     } else {
       const k = randint(2, 5)
-      const listeFractions = [[4, 15], [3, 11], [2, 9], [5, 11], [3, 13],
-        [10, 9], [4, 11], [7, 15], [2, 15], [5, 12]
+      const listeFractions = [
+        [4, 15],
+        [3, 11],
+        [2, 9],
+        [5, 11],
+        [3, 13],
+        [10, 9],
+        [4, 11],
+        [7, 15],
+        [2, 15],
+        [5, 12],
       ]
       const fraction = choice(listeFractions)
       const a = new FractionEtendue(fraction[0] * k, fraction[1] * k)

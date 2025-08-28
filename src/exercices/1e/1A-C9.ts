@@ -15,10 +15,10 @@ export const uuid = 'c4664'
 
 export const refs = {
   'fr-fr': ['1A-C9'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC9 extends FatorisationEgR {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

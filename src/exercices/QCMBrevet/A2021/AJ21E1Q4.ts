@@ -8,7 +8,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'ae6d3'
 export const refs = {
   'fr-fr': ['3L1QCM-09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,11 +23,11 @@ export const dateDePublication = '09/11/2024'
  */
 
 export default class AsieJuin21Exo1Q4 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number): void {
+  private appliquerLesValeurs(a: number): void {
     this.reponses = [
       `$${texNombre(-a, 1)}$ et $${texNombre(a, 1)}$`,
       `$${texNombre(-2 * a * a, 2)}$ et $${texNombre(2 * a * a, 2)}$`,
-      `$${texNombre(-a * a / 2, 3)}$ et $${texNombre(a * a / 2, 3)}$`
+      `$${texNombre((-a * a) / 2, 3)}$ et $${texNombre((a * a) / 2, 3)}$`,
     ]
     this.enonce = `Les solutions de l'équation $x^2=${texNombre(a ** 2, 2)}$ sont :`
     this.correction = `Nous cherchons les nombres dont le carré vaut $${texNombre(a ** 2, 2)}$.<br>
@@ -41,12 +41,14 @@ export default class AsieJuin21Exo1Q4 extends ExerciceQcmA {
   versionAleatoire: () => void = () => {
     const n = 3
     do {
-      const a = choice(rangeMinMax(3, 9).concat(rangeMinMax(3, 9).map(n => n / 10)))
+      const a = choice(
+        rangeMinMax(3, 9).concat(rangeMinMax(3, 9).map((n) => n / 10)),
+      )
       this.appliquerLesValeurs(a)
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

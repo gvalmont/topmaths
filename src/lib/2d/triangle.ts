@@ -1,17 +1,21 @@
 import { floor } from 'mathjs'
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  ObjetMathalea2D,
+} from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import { CodageAngleDroit, codageAngleDroit } from './angles'
 import { cercle } from './cercle'
 import { CodageMilieu } from './codages'
 import { Droite, droite, mediatrice } from './droites'
 import {
-  milieu, Point,
+  milieu,
+  Point,
   point,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
-  pointSurSegment
+  pointSurSegment,
 } from './points'
 import { Polygone, polygone } from './polygones'
 import { longueur } from './segmentsVecteurs'
@@ -28,7 +32,14 @@ import type { PointAbstrait } from './points-abstraits'
  * @author Jean-Claude Lhote
  * @return {objet} {triangle, pied}
  */
-export function triangle2points1hauteur (A: Point, B: Point, h: number, d: number, n = 1, color = 'black') {
+export function triangle2points1hauteur(
+  A: Point,
+  B: Point,
+  h: number,
+  d: number,
+  n = 1,
+  color = 'black',
+) {
   if (d === undefined) {
     d = randint(0, floor(longueur(A, B)))
   }
@@ -48,7 +59,14 @@ export function triangle2points1hauteur (A: Point, B: Point, h: number, d: numbe
  * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
  */
-export function triangle2points2longueurs (A: Point, B: Point, l1: number, l2: number, n = 1, color = 'black') {
+export function triangle2points2longueurs(
+  A: Point,
+  B: Point,
+  l1: number,
+  l2: number,
+  n = 1,
+  color = 'black',
+) {
   const c1 = cercle(A, l1)
   const c2 = cercle(B, l2)
   let C: Point
@@ -66,7 +84,14 @@ export function triangle2points2longueurs (A: Point, B: Point, l1: number, l2: n
  * t = triangle2points2angles(A,B,40,60,2) // Trace le triangle ABC tel que CAB = -40° et CBA = 60°
  * @author Rémi Angot
  */
-export function triangle2points2angles (A: Point, B: Point, a1: number, a2: number, n = 1, color = 'black') {
+export function triangle2points2angles(
+  A: Point,
+  B: Point,
+  a1: number,
+  a2: number,
+  n = 1,
+  color = 'black',
+) {
   if (n === 1) {
     a2 *= -1
   } else {
@@ -92,7 +117,14 @@ export function triangle2points2angles (A: Point, B: Point, a1: number, a2: numb
  * t = triangle2points1angle1longueur(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et AC=6
  * @author Jean-Claude Lhote
  */
-export function triangle2points1angle1longueur (A: Point, B: Point, a:number, l:number, n = 1, color = 'black') {
+export function triangle2points1angle1longueur(
+  A: Point,
+  B: Point,
+  a: number,
+  l: number,
+  n = 1,
+  color = 'black',
+) {
   if (n === 1) {
     a = Math.abs(a) % 180
   } else {
@@ -115,7 +147,14 @@ export function triangle2points1angle1longueur (A: Point, B: Point, a:number, l:
  * t = triangle2points1angle1longueurOppose(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et BC=6 Le point C est celui des deux points possible le plus près de A
  * @author Jean-Claude Lhote
  */
-export function triangle2points1angle1longueurOppose (A:Point, B:Point, a: number, l: number, n = 1, color = 'black') {
+export function triangle2points1angle1longueurOppose(
+  A: Point,
+  B: Point,
+  a: number,
+  l: number,
+  n = 1,
+  color = 'black',
+) {
   let M: Point
   if (n % 2 === 1) {
     a = Math.abs(a) % 180
@@ -139,7 +178,7 @@ export function triangle2points1angle1longueurOppose (A:Point, B:Point, a: numbe
  * @return {boolean|number}
  */
 // JSDOC Validee par EE Juin 2022
-export function aireTriangle (p: Polygone) {
+export function aireTriangle(p: Polygone) {
   if (p.listePoints.length !== 3) return false
   const A = p.listePoints[0]
   const B = p.listePoints[1]
@@ -157,7 +196,7 @@ export function aireTriangle (p: Polygone) {
  * @param {Point} C
  * @param {string} color
  */
-export function medianeTriangle (A:Point, B:Point, C:Point, color = 'black') {
+export function medianeTriangle(A: Point, B: Point, C: Point, color = 'black') {
   const I = milieu(B, C)
   return droite(A, I, '', color)
 }
@@ -177,7 +216,13 @@ export function medianeTriangle (A:Point, B:Point, C:Point, color = 'black') {
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function centreGraviteTriangle (A:Point, B:Point, C:Point, nom = '', positionLabel = 'above') {
+export function centreGraviteTriangle(
+  A: Point,
+  B: Point,
+  C: Point,
+  nom = '',
+  positionLabel = 'above',
+) {
   const d = medianeTriangle(B, A, C)
   const e = medianeTriangle(A, B, C)
   const p = pointIntersectionDD(d, e)
@@ -197,7 +242,7 @@ export function centreGraviteTriangle (A:Point, B:Point, C:Point, nom = '', posi
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function hauteurTriangle (A:Point, B:Point, C:Point, color = 'black') {
+export function hauteurTriangle(A: Point, B: Point, C: Point, color = 'black') {
   const d = droite(B, C)
   const p = projectionOrtho(A, d)
   return new Droite(p, A, '', color)
@@ -219,7 +264,7 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
   traceD: boolean
   c: CodageAngleDroit
   d: Droite
-  constructor (A:Point, B:Point, C:Point, color = 'black') {
+  constructor(A: Point, B: Point, C: Point, color = 'black') {
     super()
     this.color = colorToLatexOrHTML(color)
     this.d = droite(B, C)
@@ -250,7 +295,7 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
     this.c = codageAngleDroit(A, p, q, color)
   }
 
-  svg (coeff:number) {
+  svg(coeff: number) {
     if (this.traceD) {
       return this.c.svg(coeff) + '\n\t' + this.d.svg(coeff)
     } else {
@@ -258,7 +303,7 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
     }
   }
 
-  tikz () {
+  tikz() {
     if (this.traceD) {
       return this.c.tikz() + '\n\t' + this.d.tikz()
     } else {
@@ -278,7 +323,12 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
  * @return {CodageHauteurTriangle}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageHauteurTriangle (A:Point, B:Point, C:Point, color = 'black') {
+export function codageHauteurTriangle(
+  A: Point,
+  B: Point,
+  C: Point,
+  color = 'black',
+) {
   return new CodageHauteurTriangle(A, B, C, color)
 }
 
@@ -294,7 +344,13 @@ export function codageHauteurTriangle (A:Point, B:Point, C:Point, color = 'black
  * @return {CodageSegments}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageMedianeTriangle (A: Point, B: Point, color = 'black', mark = '×', mil = false) {
+export function codageMedianeTriangle(
+  A: Point,
+  B: Point,
+  color = 'black',
+  mark = '×',
+  mil = false,
+) {
   return new CodageMilieu(A, B, color, mark, mil)
 }
 
@@ -306,7 +362,13 @@ export function codageMedianeTriangle (A: Point, B: Point, color = 'black', mark
  * @param {Point} C
  * @param {string} nom
  */
-export function orthoCentre (A:Point, B:Point, C:Point, nom = '', positionLabel = 'above') {
+export function orthoCentre(
+  A: Point,
+  B: Point,
+  C: Point,
+  nom = '',
+  positionLabel = 'above',
+) {
   const d = hauteurTriangle(B, A, C)
   const e = hauteurTriangle(A, B, C)
   const p = pointIntersectionDD(d, e)
@@ -330,7 +392,13 @@ export function orthoCentre (A:Point, B:Point, C:Point, nom = '', positionLabel 
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function centreCercleCirconscrit (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, nom = '', positionLabel = 'above') {
+export function centreCercleCirconscrit(
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+  nom = '',
+  positionLabel = 'above',
+) {
   const d = mediatrice(A, B)
   const e = mediatrice(B, C)
   const p = pointIntersectionDD(d, e)

@@ -19,16 +19,16 @@ export const uuid = '82d4a'
 
 export const refs = {
   'fr-fr': ['can2F05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AntecedentFonctionRacine extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (context.isHtml) this.spacingCorr = 2
     const m = randint(2, 5)
     const p = randint(1, 4) * m

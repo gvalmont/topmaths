@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 export const uuid = '8d5cb'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -20,7 +20,7 @@ export const refs = {
 
 */
 export default class aSimplifier extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -28,7 +28,7 @@ export default class aSimplifier extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = choice([1, 2])
     const a = choice([-5, 3, 5, -3, 9, -9])
     const b = randint(-10, 10, 0)
@@ -38,7 +38,9 @@ export default class aSimplifier extends ExerciceSimple {
       this.reponse = 2025 + a
       this.canEnonce = this.question
       this.canReponseACompleter = `$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}=\\ldots$`
-      if (this.interactif) { this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}$` }
+      if (this.interactif) {
+        this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}$`
+      }
     } else if (choix === 2) {
       this.reponse = `\\dfrac{1}{${2025 + b}}`
       this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}$.`
@@ -46,7 +48,9 @@ export default class aSimplifier extends ExerciceSimple {
 
       this.canEnonce = this.question
       this.canReponseACompleter = `$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}=\\ldots$`
-      if (this.interactif) { this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}$` }
+      if (this.interactif) {
+        this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}$`
+      }
     }
   }
 }

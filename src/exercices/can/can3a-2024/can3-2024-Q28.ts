@@ -13,7 +13,7 @@ export const uuid = 'c49da'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 44
       this.question = ` Dans mon bouquet, il y a $25$ fleurs dont $11$ tulipes.<br>
@@ -33,8 +33,20 @@ export default class NomExercice extends ExerciceSimple {
       On en déduit que le pourcentage de tulipes est $${miseEnEvidence(this.reponse)}\\,\\%$.
      `
     } else {
-      const listeValeurs = [[11, 25, 44], [15, 25, 60], [7, 25, 28], [9, 25, 36], [9, 20, 45], [7, 20, 35],
-        [8, 20, 40], [12, 20, 60], [4, 25, 16], [11, 20, 55], [6, 25, 24], [6, 20, 30]]
+      const listeValeurs = [
+        [11, 25, 44],
+        [15, 25, 60],
+        [7, 25, 28],
+        [9, 25, 36],
+        [9, 20, 45],
+        [7, 20, 35],
+        [8, 20, 40],
+        [12, 20, 60],
+        [4, 25, 16],
+        [11, 20, 55],
+        [6, 25, 24],
+        [6, 20, 30],
+      ]
       const valeurs = choice(listeValeurs)
 
       this.reponse = valeurs[2]

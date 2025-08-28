@@ -16,16 +16,16 @@ export const uuid = '48334'
 
 export const refs = {
   'fr-fr': ['can4C08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommePuissancesDeDix extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = combinaisonListes([0, 1, 2, 3, 4, 5, 6], 3)
     this.question = `Calculer $10^${a[0]}+10^${a[1]}+10^${a[2]}$.`
     this.correction = `$10^${a[0]}+10^${a[1]}+10^${a[2]}=

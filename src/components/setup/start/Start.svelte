@@ -406,22 +406,22 @@
   <div class="flex-1 flex flex-col w-full md:overflow-hidden">
     <Header
       {isNavBarVisible}
-      isExerciseDisplayed={$exercicesParams.length !== 0}
+      isExerciseDisplayed="{$exercicesParams.length !== 0}"
       {zoomUpdate}
       {setAllInteractive}
       {newDataForAll}
       {trash}
       {setFullScreen}
       {handleExport}
-      handleRecorder={sendActivityParams}
-      locale={localeValue}
+      handleRecorder="{sendActivityParams}"
+      locale="{localeValue}"
       {handleLanguage}
-      isCapytale={$globalOptions.recorder === 'capytale'}
-      isRecorder={!!$globalOptions.recorder}
+      isCapytale="{$globalOptions.recorder === 'capytale'}"
+      isRecorder="{!!$globalOptions.recorder}"
       {buildUrlAndOpenItInNewTab}
       {showSettingsDialog}
       {importExercises}
-      isExercisesListEmpty={$exercicesParams.length === 0}
+      isExercisesListEmpty="{$exercicesParams.length === 0}"
       {isSidenavOpened}
       {toggleSidenav}
       {exportQcmCam}
@@ -436,7 +436,7 @@
       >
         {#if $globalOptions.recorder}
           <SideMenuWrapper
-            isRecorder={$globalOptions.recorder === 'capytale'}
+            isRecorder="{$globalOptions.recorder === 'capytale'}"
             {isSidenavOpened}
             {toggleSidenav}
           />
@@ -467,12 +467,12 @@
         >
           {#if $exercicesParams.length !== 0}
             <Exercices
-              exercicesParams={$exercicesParams}
-              on:exerciseRemoved={() => {
+              exercicesParams="{$exercicesParams}"
+              on:exerciseRemoved="{() => {
                 if ($exercicesParams.length === 0) {
                   toggleSidenav(true)
                 }
-              }}
+              }}"
             />
           {:else}
             <Placeholder text="Sélectionner les exercices" />
@@ -506,7 +506,7 @@
               </div>
               <i
                 class="bx bxs-up-arrow rotate-0 group-[[data-te-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
-              />
+              ></i>
             </button>
             <div
               id="choiceMenuWrapper"
@@ -540,7 +540,7 @@
             class="flex w-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
           >
             {#if $exercicesParams.length !== 0}
-              <Exercices exercicesParams={$exercicesParams} />
+              <Exercices exercicesParams="{$exercicesParams}" />
             {:else}
               <Placeholder text="Sélectionner les exercices" />
             {/if}
@@ -556,12 +556,12 @@
 <ModalThirdApps
   {thirdAppsChoiceModal}
   {showThirdAppsChoiceDialog}
-  appsTierceInExercisesList={selectedThirdApps}
+  appsTierceInExercisesList="{selectedThirdApps}"
 />
 <ModalCapytalSettings
   bind:isSettingsDialogDisplayed
-  globalOptions={$globalOptions}
-  canOptions={$canOptions}
+  globalOptions="{$globalOptions}"
+  canOptions="{$canOptions}"
   {toggleCan}
   {buildUrlAndOpenItInNewTab}
   {updateParams}

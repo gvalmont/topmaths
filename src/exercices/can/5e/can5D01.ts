@@ -7,11 +7,15 @@ import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Convertir des heures décimales en heures/minutes et inversement'
+export const titre =
+  'Convertir des heures décimales en heures/minutes et inversement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -25,20 +29,25 @@ export const uuid = 'd8797'
 
 export const refs = {
   'fr-fr': ['can5D01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ConversionHeuresDecimalesMinutes extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, d, texte, texteCorr
-    for (let i = 0, index = 0, nbChamps = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2])) { //, 'b'
-        case 1 :
+    for (
+      let i = 0, index = 0, nbChamps = 0, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
+    ) {
+      switch (
+        choice([1, 2]) //, 'b'
+      ) {
+        case 1:
           a = randint(1, 5)
           b = choice([0.25, 0.5, 0.75])
           d = b * 60
@@ -48,7 +57,12 @@ export default class ConversionHeuresDecimalesMinutes extends Exercice {
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
-            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
+            handleAnswers(this, i, {
+              reponse: {
+                value: new Hms({ hour: a, minute: d }).toString(),
+                options: { HMS: true },
+              },
+            })
             texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
             nbChamps = 2
           }
@@ -56,9 +70,8 @@ export default class ConversionHeuresDecimalesMinutes extends Exercice {
           this.canReponseACompleter = `$${texNombre(a + b)}$ h = $\\ldots$ h $\\ldots$ min`
           break
 
-        case 2 :
+        case 2:
         default:
-
           a = randint(1, 5)
           b = choice([0.25, 0.5, 0.75])
           d = b * 60
@@ -68,7 +81,9 @@ export default class ConversionHeuresDecimalesMinutes extends Exercice {
           Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
           } else {
             texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$`
-            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: sp(5) + 'h' })
+            texte += ajouteChampTexteMathLive(this, index, '', {
+              texteApres: sp(5) + 'h',
+            })
             texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>
           Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
             setReponse(this, index, a + b)

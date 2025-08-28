@@ -25,16 +25,16 @@ export const uuid = '6d698'
 export const refs = {
   'fr-fr': ['CM2N3A-7'],
   'fr-2016': ['CM000'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TablesAdditionsSoustractions extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Valeur maximale', 9999] // Texte, tooltip
     this.besoinFormulaire2Numerique = [
       'Style de questions',
       6,
-      '1 : Additions\n2: Additions à trous\n3: Soustractions\n4 : Soustractions à trous\n5 : Additions et soustractions \n6 : Additions et soustractions avec ou sans trous'
+      '1 : Additions\n2: Additions à trous\n3: Soustractions\n4 : Soustractions à trous\n5 : Additions et soustractions \n6 : Additions et soustractions avec ou sans trous',
     ]
     this.sup = 20
     this.sup2 = 6 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
@@ -42,43 +42,40 @@ export default class TablesAdditionsSoustractions extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.sup2 = parseInt(this.sup2)
     let listeTypeDeQuestions = []
     if (this.sup2 === 1) {
-      listeTypeDeQuestions = combinaisonListes(
-        ['addition'],
-        this.nbQuestions
-      )
+      listeTypeDeQuestions = combinaisonListes(['addition'], this.nbQuestions)
     }
     if (this.sup2 === 2) {
       listeTypeDeQuestions = combinaisonListes(
         ['addition_a_trou'],
-        this.nbQuestions
+        this.nbQuestions,
       )
     }
     if (this.sup2 === 3) {
       listeTypeDeQuestions = combinaisonListes(
         ['soustraction'],
-        this.nbQuestions
+        this.nbQuestions,
       )
     }
     if (this.sup2 === 4) {
       listeTypeDeQuestions = combinaisonListes(
         ['soustraction_a_trou'],
-        this.nbQuestions
+        this.nbQuestions,
       )
     }
     if (this.sup2 === 5) {
       listeTypeDeQuestions = combinaisonListes(
         ['addition', 'soustraction'],
-        this.nbQuestions
+        this.nbQuestions,
       )
     }
     if (this.sup2 === 6) {
       listeTypeDeQuestions = combinaisonListes(
         ['addition', 'addition_a_trou', 'soustraction', 'soustraction_a_trou'],
-        this.nbQuestions
+        this.nbQuestions,
       )
     }
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
@@ -90,7 +87,7 @@ export default class TablesAdditionsSoustractions extends Exercice {
           texte = `$${a} + ${b} =$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${a} + ${b} = $`
+              texteAvant: `$${a} + ${b} = $`,
             })
           }
           texteCorr = `$${a} + ${b} = ${a + b}$`
@@ -101,7 +98,7 @@ export default class TablesAdditionsSoustractions extends Exercice {
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, '', {
               texteAvant: `$${a}~+ $`,
-              texteApres: `$= ${a + b}$`
+              texteApres: `$= ${a + b}$`,
             })
           }
           texteCorr = `$${a} + ${miseEnEvidence(b)} = ${a + b}$`
@@ -117,7 +114,7 @@ export default class TablesAdditionsSoustractions extends Exercice {
           texte = `$${a} - ${b} =$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${a} - ${b} = $`
+              texteAvant: `$${a} - ${b} = $`,
             })
           }
           texteCorr = `$${a} - ${b} = ${a - b}$`
@@ -134,7 +131,7 @@ export default class TablesAdditionsSoustractions extends Exercice {
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, '', {
               texteAvant: `$${a}~- $`,
-              texteApres: `$= ${a - b}$`
+              texteApres: `$= ${a - b}$`,
             })
           }
           texteCorr = `$${a} - ${miseEnEvidence(b)} = ${a - b}$`
@@ -143,13 +140,15 @@ export default class TablesAdditionsSoustractions extends Exercice {
       }
 
       this.autoCorrection[i].reponse.param = {
-        digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur.reponse.value),
+        digits: nombreDeChiffresDansLaPartieEntiere(
+          this.autoCorrection[i].reponse.valeur.reponse.value,
+        ),
         decimals: 0,
         signe: false,
         exposantNbChiffres: 0,
         exposantSigne: false,
         approx: 0,
-        formatInteractif: 'calcul'
+        formatInteractif: 'calcul',
       }
       this.autoCorrection[i].enonce = texte
       this.listeQuestions.push(texte)

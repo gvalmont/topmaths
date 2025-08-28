@@ -19,10 +19,10 @@ export const uuid = '9fe43'
 export const refs = {
   'fr-fr': ['CM2N3A-12'],
   'fr-2016': ['CM007'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Ajouter11 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -31,10 +31,11 @@ export default class Ajouter11 extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       a = randint(0, 9) * 10 + randint(1, 9)
       texte = `$${a}+11 = $`

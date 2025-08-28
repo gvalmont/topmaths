@@ -1,5 +1,6 @@
 import ProportiondeProportion from '../techno1/techno1P4'
-export const titre = 'Travailler sur des situations mettant en jeu des pourcentages de pourcentages'
+export const titre =
+  'Travailler sur des situations mettant en jeu des pourcentages de pourcentages'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,7 +16,6 @@ export const uuid = '0f1d1'
 
 export const refs = {
   'fr-fr': ['2S10-3', 'BP2AutoB1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class ProportiondeProportionS extends ProportiondeProportion {
-}
+export default class ProportiondeProportionS extends ProportiondeProportion {}

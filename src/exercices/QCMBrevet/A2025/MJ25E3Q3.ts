@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '47f36'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -22,12 +22,12 @@ export const dateDePublication = '27/05/2025'
  */
 
 export default class MetropoleJ25EX3Q3 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b:number): void {
+  private appliquerLesValeurs(a: number, b: number): void {
     this.reponses = [
       `$${texNombre(a * (1 + b / 100), 0)}$ €`,
       `$${texNombre(a - b, 0)}$ €`,
-       `$${texNombre(a + b, 0)}$ €`,
-        `$${texNombre(a * (1 - b / 100), 2)}$ €`,
+      `$${texNombre(a + b, 0)}$ €`,
+      `$${texNombre(a * (1 - b / 100), 2)}$ €`,
     ]
     this.enonce = `Un article coûte ${a} €. Son prix augmente de $${texNombre(b, 0)}\\,\\%$. Quel est son nouveau prix ?<br>`
 
@@ -49,7 +49,7 @@ export default class MetropoleJ25EX3Q3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

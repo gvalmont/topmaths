@@ -3,7 +3,7 @@ import ExerciceQcm from '../ExerciceQcm'
 export const uuid = '6eaec'
 export const refs = {
   'fr-fr': ['TSA2-QCM03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,18 +28,21 @@ export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
       '$(T_A)$ et $(T_B)$ sont au dessus de $\\mathcal {C_f}$, et $[AB]$ en dessous de $\\mathcal {C_f}$.',
       '$(T_A)$ et $(T_B)$ sont en dessous de $\\mathcal {C_f}$, et $[AB]$ en dessous de $\\mathcal {C_f}$.',
       '$(T_A)$ et $(T_B)$ sont au dessus de $\\mathcal {C_f}$, et $[AB]$ au dessus de $\\mathcal {C_f}$.',
-      '$(T_A)$ et $(T_B)$ sont en dessous de $\\mathcal {C_f}$, et $[AB]$ au dessus de $\\mathcal {C_f}$.'
-
+      '$(T_A)$ et $(T_B)$ sont en dessous de $\\mathcal {C_f}$, et $[AB]$ au dessus de $\\mathcal {C_f}$.',
     ]
 
-    this.enonce = 'Soit $f$ deux fois dérivable et une fonction concave sur un intervalle $[a;b]$.<br> Dans un repère orthonormé, on place deux points $A$ et $B$ de $\\mathcal {C_f}$, la courbe représentative de $f$ sur cet intervalle.<br>'
-    this.enonce += 'On appelle $(T_A)$ et $(T_B)$ les deux tangentes à $\\mathcal {C_f}$, respectivement au point $A$ et au point $B$.'
-    this.enonce += '<br> On appelle $[AB]$ la corde représentant le segment $[AB]$.<br>'
+    this.enonce =
+      'Soit $f$ deux fois dérivable et une fonction concave sur un intervalle $[a;b]$.<br> Dans un repère orthonormé, on place deux points $A$ et $B$ de $\\mathcal {C_f}$, la courbe représentative de $f$ sur cet intervalle.<br>'
+    this.enonce +=
+      'On appelle $(T_A)$ et $(T_B)$ les deux tangentes à $\\mathcal {C_f}$, respectivement au point $A$ et au point $B$.'
+    this.enonce +=
+      '<br> On appelle $[AB]$ la corde représentant le segment $[AB]$.<br>'
 
-    this.correction = 'C\'est un résultat de cours. La fonction étant concave sur l\'intervalle $[a;b]$, les tangentes sont au dessous de la courbe $\\mathcal {C_f}$ et les cordes en dessous de $\\mathcal {C_f}$.<br> '
+    this.correction =
+      "C'est un résultat de cours. La fonction étant concave sur l'intervalle $[a;b]$, les tangentes sont au dessous de la courbe $\\mathcal {C_f}$ et les cordes en dessous de $\\mathcal {C_f}$.<br> "
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

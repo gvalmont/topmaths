@@ -15,10 +15,10 @@ export const uuid = '8a682'
 
 export const refs = {
   'fr-fr': ['1A-C19-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC19a extends ProblemeFractions {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

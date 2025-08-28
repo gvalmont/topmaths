@@ -16,12 +16,16 @@ export const uuid = '837cd'
 export const refs = {
   'fr-fr': ['BP2CCF7', '6N3Q-3'],
   'fr-2016': ['6P13-1', 'BP2CCF7'],
-  'fr-ch': ['9FA3-14']
+  'fr-ch': ['9FA3-14'],
 }
 export default class CompleterUneFacture extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans réduction\n2 : Avec réduction']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : Sans réduction\n2 : Avec réduction',
+    ]
 
     this.consigne = 'Compléter le tableau suivant.'
     this.nbQuestions = 1
@@ -31,15 +35,33 @@ export default class CompleterUneFacture extends Exercice {
     // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   }
 
-  nouvelleVersion () {
-    for (let i = 0, article1, q1, p1: number, article2, q2, p2: number, article3, q3, p3:number, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const listeArticles:[string, number][] = [['Feuilletés au fromage', (randint(50, 80) / 10)],
-        ['Feuilletés à la viande', (randint(50, 80) / 10)],
-        ['Pizzas', (randint(80, 140) / 10)],
-        ['Glaces à la vanille', (randint(20, 60) / 10)],
-        ['Glaces au chocolat', (randint(20, 60) / 10)],
-        ['Filets de saumon', (randint(150, 200) / 10)],
-        ['Aiguillettes de poulet', (randint(400, 700) / 10)]
+  nouvelleVersion() {
+    for (
+      let i = 0,
+        article1,
+        q1,
+        p1: number,
+        article2,
+        q2,
+        p2: number,
+        article3,
+        q3,
+        p3: number,
+        r,
+        texte,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      const listeArticles: [string, number][] = [
+        ['Feuilletés au fromage', randint(50, 80) / 10],
+        ['Feuilletés à la viande', randint(50, 80) / 10],
+        ['Pizzas', randint(80, 140) / 10],
+        ['Glaces à la vanille', randint(20, 60) / 10],
+        ['Glaces au chocolat', randint(20, 60) / 10],
+        ['Filets de saumon', randint(150, 200) / 10],
+        ['Aiguillettes de poulet', randint(400, 700) / 10],
       ]
       article1 = choice(listeArticles)
       article2 = choice(listeArticles, [article1])
@@ -59,7 +81,8 @@ export default class CompleterUneFacture extends Exercice {
           texte = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texte += '\\hline\n'
-        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
+        texte +=
+          '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texte += '\\hline\n'
         texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += '\\hline\n'
@@ -81,7 +104,8 @@ export default class CompleterUneFacture extends Exercice {
           texteCorr = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texteCorr += '\\hline\n'
-        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
+        texteCorr +=
+          '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texteCorr += '\\hline\n'
         texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(p1 * q1)} \\\\ \n`
         texteCorr += '\\hline\n'
@@ -104,7 +128,8 @@ export default class CompleterUneFacture extends Exercice {
           texte = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texte += '\\hline\n'
-        texte += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
+        texte +=
+          '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texte += '\\hline\n'
         texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += '\\hline\n'
@@ -130,7 +155,8 @@ export default class CompleterUneFacture extends Exercice {
           texteCorr = '$\\begin{array}{|c|c|c|c|}\n'
         }
         texteCorr += '\\hline\n'
-        texteCorr += '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
+        texteCorr +=
+          '\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants} \\\\ \n'
         texteCorr += '\\hline\n'
         texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(p1 * q1)} \\\\ \n`
         texteCorr += '\\hline\n'
@@ -140,7 +166,7 @@ export default class CompleterUneFacture extends Exercice {
         texteCorr += '\\hline\n'
         texteCorr += `\\text{Prix total brut (H.T.)} & & & ${texPrix(p1 * q1 + p2 * q2 + p3 * q3)} \\\\ \n`
         texteCorr += '\\hline\n'
-        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${texPrix((p1 * q1 + p2 * q2 + p3 * q3) * r / 100)} \\\\ \n`
+        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${texPrix(((p1 * q1 + p2 * q2 + p3 * q3) * r) / 100)} \\\\ \n`
         texteCorr += '\\hline\n'
         texteCorr += `\\text{Prix total net (H.T.)} & & & ${texPrix((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100))} \\\\ \n`
         texteCorr += '\\hline\\hline\n'

@@ -37,13 +37,17 @@ export const uuid = '2da81'
 export const refs = {
   'fr-fr': ['6N2J'],
   'fr-2016': ['6C11'],
-  'fr-ch': ['9NO3-3']
+  'fr-ch': ['9NO3-3'],
 }
 export default class DivisionsEuclidiennes extends Exercice {
   classe: number
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Divisions par 2, 3, 4 ou 5\n2 : Diviseur à 1 chiffre\n3 : Diviseur à 2 chiffres']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Divisions par 2, 3, 4 ou 5\n2 : Diviseur à 1 chiffre\n3 : Diviseur à 2 chiffres',
+    ]
     this.sup = 2
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
@@ -51,9 +55,12 @@ export default class DivisionsEuclidiennes extends Exercice {
     this.classe = 6
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = 'Poser et effectuer '
-    this.consigne += this.nbQuestions === 1 ? 'la division euclidienne suivante' : 'les divisions euclidiennes suivantes'
+    this.consigne +=
+      this.nbQuestions === 1
+        ? 'la division euclidienne suivante'
+        : 'les divisions euclidiennes suivantes'
     this.consigne += '.'
 
     let typesDeQuestionsDisponibles, typesDeQuestions
@@ -62,12 +69,13 @@ export default class DivisionsEuclidiennes extends Exercice {
     else typesDeQuestionsDisponibles = [4, 4, 5, 6]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (
       let i = 0, texte = '', texteCorr = '', cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
       // this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 4, feedback: '' }] }
@@ -107,31 +115,48 @@ export default class DivisionsEuclidiennes extends Exercice {
       a = b * q + r
       texte = `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
       if (r === 0) {
-        texteCorr = Operation({
-          operande1: a,
-          operande2: b,
-          type: 'divisionE'
-        }) + `$${texNombre(a)}=${b}\\times${texNombre(q)}$`
+        texteCorr =
+          Operation({
+            operande1: a,
+            operande2: b,
+            type: 'divisionE',
+          }) + `$${texNombre(a)}=${b}\\times${texNombre(q)}$`
       } else {
-        texteCorr = Operation({
-          operande1: a,
-          operande2: b,
-          type: 'divisionE'
-        }) + (this.classe !== 6
-          ? `$${texNombre(a)}=${b}\\times${miseEnEvidence(texNombre(q))}+${miseEnEvidence(String(r))}$`
-          : `$${texNombre(a)}=(${b}\\times${miseEnEvidence(texNombre(q))})+${miseEnEvidence(String(r))}$`)
+        texteCorr =
+          Operation({
+            operande1: a,
+            operande2: b,
+            type: 'divisionE',
+          }) +
+          (this.classe !== 6
+            ? `$${texNombre(a)}=${b}\\times${miseEnEvidence(texNombre(q))}+${miseEnEvidence(String(r))}$`
+            : `$${texNombre(a)}=(${b}\\times${miseEnEvidence(texNombre(q))})+${miseEnEvidence(String(r))}$`)
       }
-      texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierNumbers, { texteAvant: `<br>Quel est le quotient de la division euclidienne de $${texNombre(a)}$ par $${b}$ ?` })
+      texte += ajouteChampTexteMathLive(
+        this,
+        2 * i,
+        KeyboardType.clavierNumbers,
+        {
+          texteAvant: `<br>Quel est le quotient de la division euclidienne de $${texNombre(a)}$ par $${b}$ ?`,
+        },
+      )
       handleAnswers(this, 2 * i, {
         reponse: {
-          value: `${q}`
-        }
+          value: `${q}`,
+        },
       })
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierNumbers, { texteAvant: `<br>Quel est le reste de la division euclidienne de $${texNombre(a)}$ par $${b}$ ?` })
+      texte += ajouteChampTexteMathLive(
+        this,
+        2 * i + 1,
+        KeyboardType.clavierNumbers,
+        {
+          texteAvant: `<br>Quel est le reste de la division euclidienne de $${texNombre(a)}$ par $${b}$ ?`,
+        },
+      )
       handleAnswers(this, 2 * i + 1, {
         reponse: {
-          value: `${r}`
-        }
+          value: `${r}`,
+        },
       })
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -1,17 +1,20 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  reduirePolynomeDegre3,
+} from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { texNombre } from '../../../lib/outils/texNombre'
-export const titre = 'Trouver l\'extremum à partir d\'une forme canonique'
+export const titre = "Trouver l'extremum à partir d'une forme canonique"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '71604'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +22,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q29 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +32,7 @@ export default class Can2025N5Q29 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 2 : randint(1, 2)
     const b = this.canOfficielle ? -7 : randint(-9, 9)
     const c = this.canOfficielle ? 5 : randint(-10, 10)

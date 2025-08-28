@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'c3202'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,24 +18,32 @@ export const refs = {
 
 */
 export default class Can2025N5Q17 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.canOfficielle = true
-    this.optionsChampTexte = { texteAvant: ' <br>$f\'(x)=$' }
+    this.optionsChampTexte = { texteAvant: " <br>$f'(x)=$" }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 2 : randint(3, 6)
-    this.reponse = { reponse: { value: `\\dfrac{-${a}x^{${a - 1}}}{x^{${2 * a}}}`, compare: functionCompare, options: { variable: 'x' } } }
+    this.reponse = {
+      reponse: {
+        value: `\\dfrac{-${a}x^{${a - 1}}}{x^{${2 * a}}}`,
+        compare: functionCompare,
+        options: { variable: 'x' },
+      },
+    }
     this.question = `Soit $f$ : $x\\longmapsto \\dfrac{1}{x^${a}}$<br>`
-    if (!this.interactif) { this.question += '$f\'(x)=\\ldots$' }
+    if (!this.interactif) {
+      this.question += "$f'(x)=\\ldots$"
+    }
     this.correction = `D'après le cours, si $f=\\dfrac{1}{u}$ alors $f'=\\dfrac{-u'}{u^2}$.<br>
     $f'(x)=\\dfrac{-${a}x^{${rienSi1(a - 1)}}}{x^{${2 * a}}}=${miseEnEvidence(`-\\dfrac{${a}}{x^{${a + 1}}}`)}$.`
     this.canEnonce = `Soit $f$ : $x\\longmapsto \\dfrac{1}{x^${a}}$`
-    this.canReponseACompleter = '$f\'(x)=\\ldots$'
+    this.canReponseACompleter = "$f'(x)=\\ldots$"
   }
 }

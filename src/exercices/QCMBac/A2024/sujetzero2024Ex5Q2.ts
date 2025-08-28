@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '6d32'
 export const refs = {
   'fr-fr': ['TSG1-QCM03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -24,7 +24,7 @@ export const dateDePublication = '20/04/2025'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private generateFraction (n: number, factors: number): string {
+  private generateFraction(n: number, factors: number): string {
     let numerator = ''
     let denominator = ''
 
@@ -40,7 +40,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     return `$\\dfrac{${numerator}}{${denominator}}$`
   }
 
-  private generateProduct (p: number): string {
+  private generateProduct(p: number): string {
     let product = ''
 
     for (let i = 1; i <= p; i++) {
@@ -53,7 +53,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     return `$${product}$`
   }
 
-  private generateProduct2 (n: number, p: number): string {
+  private generateProduct2(n: number, p: number): string {
     let product2 = ''
 
     for (let i = 0; i < p; i++) {
@@ -66,20 +66,22 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     return `$${product2}$`
   }
 
-  private appliquerLesValeurs (n: number, p: number): void {
+  private appliquerLesValeurs(n: number, p: number): void {
     // const factors = 3 // Nombre de facteurs souhaités
     this.reponses = [
       this.generateFraction(n, p), // Réponse correcte
       `$${String(n)} ^ ${String(p)}$`, // Réponse incorrecte
       this.generateProduct(p), // Réponse incorrecte
-      this.generateProduct2(n, p)  // Réponse incorrecte
+      this.generateProduct2(n, p), // Réponse incorrecte
     ]
     this.enonce = `Une urne contient ${n} boules numérotées de 1 à ${n}.<br> On tire successivement ${p} boules dans cette urne, ${texteEnCouleurEtGras('sans remise')}. <br>
           On appelle  "tirage" la liste non ordonnée des numéros des ${p} boules tirées. <br> Quel est le nombre de tirages possibles, sans tenir compte de l'ordre des numéros ?`
 
     this.correction = `Il n'y a pas d'ordre dans le tirage, on cherche donc le nombre de combinaisons de ${p} éléments d'un ensemble parmi ${n}. <br>`
     this.correction += `<br>$\\displaystyle\\binom{${n}}{${p}}=\\dfrac{${n}~!}{(${n}-${p})~!\\times${p}~!}$`
-    this.correction += `$=\\dfrac{${n}~!}{${n - p}~!\\times${p}~!}=$` + this.generateFraction(n, p)
+    this.correction +=
+      `$=\\dfrac{${n}~!}{${n - p}~!\\times${p}~!}=$` +
+      this.generateFraction(n, p)
   }
 
   // S'occupe de passser les données originales à la fonction appliquerLesValeurs
@@ -99,7 +101,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

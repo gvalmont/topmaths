@@ -13,7 +13,7 @@ export const uuid = '6d9c8'
 
 */
 export default class SoustractionDecimauxCM2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class SoustractionDecimauxCM2 extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: number
     let b: number
     let c: number
@@ -32,7 +32,14 @@ export default class SoustractionDecimauxCM2 extends ExerciceSimple {
       b = 4
       c = 5
     } else {
-      const [aa, cc] = choice([[25, 4], [50, 2], [250, 4], [500, 2], [200, 5], [2, 5]])
+      const [aa, cc] = choice([
+        [25, 4],
+        [50, 2],
+        [250, 4],
+        [500, 2],
+        [200, 5],
+        [2, 5],
+      ])
       a = aa
       c = cc
       b = randint(6, 9) * 2 + 1

@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '3ed97'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q15 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number, precision?: string) {
+  enonce(a?: number, b?: number, c?: number, precision?: string) {
     let val = 24.286
     if (a == null || b == null || c == null || precision == null) {
       a = randint(1, 9) * 10 + randint(1, 9) + randint(1, 8) / 10
@@ -44,7 +44,7 @@ export default class Can2025N4Q15 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(24.2, 8, 6, 'centième') : this.enonce()
   }
 }

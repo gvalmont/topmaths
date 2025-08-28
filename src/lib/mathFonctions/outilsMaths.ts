@@ -10,7 +10,7 @@ import engine, { generateCleaner } from '../interactif/comparisonFunctions'
  * delta(false) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c <0
  * @author Jean-Claude Lhote
  */
-export function choisiDelta (positif) {
+export function choisiDelta(positif) {
   let d, a, b, c
   do {
     a = randint(-5, 5, 0)
@@ -28,7 +28,7 @@ export function choisiDelta (positif) {
  * @param {number} c
  * @returns {string}
  */
-export function expTrinome (a, b, c) {
+export function expTrinome(a, b, c) {
   let expr = ''
   if (typeof a === 'number') {
     switch (a) {
@@ -89,17 +89,23 @@ export function expTrinome (a, b, c) {
  * @param {{x:number,y:number}[]} listePoints
  * @return {Polynome}
  */
-export function interpolationDeLagrange (listePoints: { x: number, y: number }[]): Polynome {
+export function interpolationDeLagrange(
+  listePoints: { x: number; y: number }[],
+): Polynome {
   // tout d'abord vérifier qu'il n'y a pas de doublons en x !
   const listeOrdonnee = listePoints.sort((el1, el2) => el1.x - el2.x)
   const setPoints = []
   for (let i = 1; i < listeOrdonnee.length; i++) {
     // si deux points qui se suivent dans la liste ordonnée ont des abscisses différentes, alors on peut stocker le plus petit
-    if (listeOrdonnee[i - 1].x !== listeOrdonnee[i].x) setPoints.push(listeOrdonnee[i - 1])
+    if (listeOrdonnee[i - 1].x !== listeOrdonnee[i].x)
+      setPoints.push(listeOrdonnee[i - 1])
   }
   // comme on n'a pas stocké le dernier, on le fait
   setPoints.push(listeOrdonnee[listeOrdonnee.length - 1])
-  if (setPoints.length < 2) throw Error('Pour une interpolation de Lagrange, il faut au moins deux points d\'abscisses différentes')
+  if (setPoints.length < 2)
+    throw Error(
+      "Pour une interpolation de Lagrange, il faut au moins deux points d'abscisses différentes",
+    )
   const n = setPoints.length - 1
   // On initialise à zéro
   let result: Polynome = new Polynome({ coeffs: [0] })
@@ -109,7 +115,9 @@ export function interpolationDeLagrange (listePoints: { x: number, y: number }[]
     for (let i = 0; i <= n; i++) {
       if (j !== i) {
         const den = setPoints[j].x - setPoints[i].x
-        prod = new Polynome({ coeffs: [-setPoints[i].x / den, 1 / den] }).multiply(prod)
+        prod = new Polynome({
+          coeffs: [-setPoints[i].x / den, 1 / den],
+        }).multiply(prod)
       }
     }
     prod = (prod as Polynome).multiply(setPoints[j].y)
@@ -128,10 +136,16 @@ export function interpolationDeLagrange (listePoints: { x: number, y: number }[]
  * @return {[[number,number],[number,number]]}
  * @author Jean-Claude Lhote
  */
-export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
-  const maMatrice = matrice([[x1 ** 2, x1], [x2 ** 2, x2]])
+export function resolutionSystemeLineaire2x2(x1, x2, fx1, fx2, c) {
+  const maMatrice = matrice([
+    [x1 ** 2, x1],
+    [x2 ** 2, x2],
+  ])
   if (maMatrice.determinant() === 0) return [0, 0]
-  const [a, b] = maMatrice.inverse().multiply([fx1 - c, fx2 - c]).toArray()
+  const [a, b] = maMatrice
+    .inverse()
+    .multiply([fx1 - c, fx2 - c])
+    .toArray()
   return [a, b]
 }
 
@@ -140,8 +154,20 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
  * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
  * @author Jean-Claude Lhote
  */
-export function resolutionSystemeLineaire3x3 (x1: number, x2: number, x3: number, fx1: number, fx2: number, fx3: number, d: number): [Number, Number, number] {
-  const maMatrice = matrice([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
+export function resolutionSystemeLineaire3x3(
+  x1: number,
+  x2: number,
+  x3: number,
+  fx1: number,
+  fx2: number,
+  fx3: number,
+  d: number,
+): [Number, Number, number] {
+  const maMatrice = matrice([
+    [x1 ** 3, x1 ** 2, x1],
+    [x2 ** 3, x2 ** 2, x2],
+    [x3 ** 3, x3 ** 2, x3],
+  ])
   const y1 = fx1 - d
   const y2 = fx2 - d
   const y3 = fx3 - d
@@ -159,8 +185,9 @@ export function resolutionSystemeLineaire3x3 (x1: number, x2: number, x3: number
  * @param isColored
  * @return {string|*}
  */
-const miseEnForme = (str, color, isColored) => isColored ? miseEnEvidence(str, color) : str
-function neg (expr) {
+const miseEnForme = (str, color, isColored) =>
+  isColored ? miseEnEvidence(str, color) : str
+function neg(expr) {
   if (expr.head !== 'Add') return engine.function('Multiply', [expr, '-1'])
   return engine.function('Add', expr.ops.map(neg), { canonical: false })
 }
@@ -170,7 +197,7 @@ function neg (expr) {
  * @param expr
  * @return {*|BoxedExpression}
  */
-function flattenAdd (expr) {
+function flattenAdd(expr) {
   if (expr.head === 'Negate') {
     const oppose = neg(expr.op1)
     const newExpr = engine.function('Add', [oppose], { canonical: false })
@@ -178,7 +205,9 @@ function flattenAdd (expr) {
   }
   if (expr.head === 'Subtract') {
     const oppose = neg(expr.op2)
-    const newExpr = engine.function('Add', [expr.op1, oppose], { canonical: false })
+    const newExpr = engine.function('Add', [expr.op1, oppose], {
+      canonical: false,
+    })
     return flattenAdd(newExpr)
   }
 
@@ -187,7 +216,8 @@ function flattenAdd (expr) {
   const ops = []
   for (let op of expr.ops) {
     op = flattenAdd(op)
-    if (op.head === 'Add' || op.head === 'Delimiter') ops.push(...op.ops.map(flattenAdd))
+    if (op.head === 'Add' || op.head === 'Delimiter')
+      ops.push(...op.ops.map(flattenAdd))
     else ops.push(op)
   }
   return engine.function('Add', ops, { canonical: false })
@@ -198,10 +228,24 @@ function flattenAdd (expr) {
  * @param {string} exp
  * @param {{color: boolean}} options
  */
-export function suppressionParentheses (exp, options) {
-  const couleurs = options.couleurs ?? ['red', 'blue', 'green', 'black', 'red', 'blue', 'green', 'black']
+export function suppressionParentheses(exp, options) {
+  const couleurs = options.couleurs ?? [
+    'red',
+    'blue',
+    'green',
+    'black',
+    'red',
+    'blue',
+    'green',
+    'black',
+  ]
   const isColored = options?.isColored
-  const clean = generateCleaner(['parentheses', 'espaces', 'virgules', 'fractions'])
+  const clean = generateCleaner([
+    'parentheses',
+    'espaces',
+    'virgules',
+    'fractions',
+  ])
   exp = clean(exp)
   const arbre = engine.parse(exp, { canonical: false })
   const sp = flattenAdd(flattenAdd(arbre))
@@ -233,7 +277,11 @@ export function suppressionParentheses (exp, options) {
       }
     }
 
-    expressionFinale += miseEnForme(latex, couleurs[Math.max(0, 2 - deg)], isColored)
+    expressionFinale += miseEnForme(
+      latex,
+      couleurs[Math.max(0, 2 - deg)],
+      isColored,
+    )
   }
   return expressionFinale
 }
@@ -242,10 +290,24 @@ export function suppressionParentheses (exp, options) {
  * une fonction pour trier les termes d'une somme algébrique selon l'exposant de la puissance
  * @param {string} exp
  */
-export function regroupeTermesMemeDegre (exp, options) {
-  const couleurs = options.couleurs ?? ['red', 'blue', 'green', 'black', 'red', 'blue', 'green', 'black']
+export function regroupeTermesMemeDegre(exp, options) {
+  const couleurs = options.couleurs ?? [
+    'red',
+    'blue',
+    'green',
+    'black',
+    'red',
+    'blue',
+    'green',
+    'black',
+  ]
   const isColored = options?.isColored
-  const clean = generateCleaner(['parentheses', 'espaces', 'virgules', 'fractions'])
+  const clean = generateCleaner([
+    'parentheses',
+    'espaces',
+    'virgules',
+    'fractions',
+  ])
   exp = clean(exp)
   if (exp.length === 0) return ''
   const arbre = engine.parse(exp, { canonical: false })
@@ -287,7 +349,9 @@ export function regroupeTermesMemeDegre (exp, options) {
         if (term.startsWith('+') && parcel === '') term = term.substring(1)
         parcel += term
       }
-      expressionFinale.push(`(${miseEnForme(parcel, couleurs[Math.max(0, 2 - (i - 1))], isColored)})`)
+      expressionFinale.push(
+        `(${miseEnForme(parcel, couleurs[Math.max(0, 2 - (i - 1))], isColored)})`,
+      )
     }
   }
   return expressionFinale.join('+')
@@ -299,19 +363,34 @@ export function regroupeTermesMemeDegre (exp, options) {
  * @param {{isColored: boolean, colorOffset: number, level: 0|1}} options
  * @return {string}
  */
-export function developpe (expr: string, options:{ isColored: boolean, colorOffset?: number, level?: 0 | 1 | 2 }): string {
+export function developpe(
+  expr: string,
+  options: { isColored: boolean; colorOffset?: number; level?: 0 | 1 | 2 },
+): string {
   const isColored = options?.isColored
   const colorOffset = options.colorOffset ?? 0
   const level = options?.level ?? 0
   const clean = generateCleaner(['parentheses', 'fractions'])
-  const couleurs = options.isColored ?? ['red', 'blue', 'green', 'black', 'red', 'blue', 'green', 'black']
+  const couleurs = options.isColored ?? [
+    'red',
+    'blue',
+    'green',
+    'black',
+    'red',
+    'blue',
+    'green',
+    'black',
+  ]
   expr = clean(expr)
   const arbre = engine.parse(expr)
-  if (!['Square', 'Multiply', 'Power'].includes(arbre.head)) { // On ne développe que les produits où les carrés ici
+  if (!['Square', 'Multiply', 'Power'].includes(arbre.head)) {
+    // On ne développe que les produits où les carrés ici
     return expr.replaceAll('\\frac', '\\dfrac')
   }
-  if (arbre.head === 'Square' || arbre.head === 'Power') { // on est sans doute en présence d'une égalité remarquable ?
-    if (arbre.op2.numericValue !== 2) return expr.replaceAll('\\frac', '\\dfrac')
+  if (arbre.head === 'Square' || arbre.head === 'Power') {
+    // on est sans doute en présence d'une égalité remarquable ?
+    if (arbre.op2.numericValue !== 2)
+      return expr.replaceAll('\\frac', '\\dfrac')
     const interior = arbre.op1
     const somme = interior.head === 'Add'
     const terme1 = interior.op1
@@ -326,24 +405,35 @@ export function developpe (expr: string, options:{ isColored: boolean, colorOffs
         ? `\\left( ${terme2.latex}\\right) ^2`
         : `${terme2.latex}^2`
       : `\\left( ${terme2.latex}\\right) ^2`
-    const dbleProd = `2\\times ${terme1.isConstant
+    const dbleProd = `2\\times ${
+      terme1.isConstant
         ? terme1.latex.startsWith('-')
-            ? `\\left( ${terme1.latex}\\right) `
-            : `${terme1.latex}`
-        : `\\left( ${terme1.latex}\\right) `}\\times ${terme2.isConstant
+          ? `\\left( ${terme1.latex}\\right) `
+          : `${terme1.latex}`
+        : `\\left( ${terme1.latex}\\right) `
+    }\\times ${
+      terme2.isConstant
         ? terme2.latex.startsWith('-')
-            ? `\\left( ${terme2.latex}\\right) `
-            : `${terme2.latex}`
-        : `${terme2.latex}`}`
+          ? `\\left( ${terme2.latex}\\right) `
+          : `${terme2.latex}`
+        : `${terme2.latex}`
+    }`
     if (level === 2) {
-      return `${miseEnForme(carre1, couleurs[colorOffset], isColored)}${somme ? '+' : '-'}${miseEnForme(dbleProd, couleurs[colorOffset + 1], isColored)}+${miseEnForme(carre2, couleurs[colorOffset + 2], isColored)}`.replaceAll('\\frac', '\\dfrac')
+      return `${miseEnForme(carre1, couleurs[colorOffset], isColored)}${somme ? '+' : '-'}${miseEnForme(dbleProd, couleurs[colorOffset + 1], isColored)}+${miseEnForme(carre2, couleurs[colorOffset + 2], isColored)}`.replaceAll(
+        '\\frac',
+        '\\dfrac',
+      )
     } else {
       const dp = engine.parse(dbleProd).simplify().latex
       const c1 = engine.box(['Multiply', terme1, terme1]).evaluate().latex
       const c2 = engine.box(['Multiply', terme2, terme2]).evaluate().latex
-      return `${miseEnForme(c1, couleurs[colorOffset], isColored)}${somme ? '+' : '-'}${miseEnForme(dp, couleurs[colorOffset + 1], isColored)}+${miseEnForme(c2, couleurs[colorOffset + 2], isColored)}`.replaceAll('\\frac', '\\dfrac')
+      return `${miseEnForme(c1, couleurs[colorOffset], isColored)}${somme ? '+' : '-'}${miseEnForme(dp, couleurs[colorOffset + 1], isColored)}+${miseEnForme(c2, couleurs[colorOffset + 2], isColored)}`.replaceAll(
+        '\\frac',
+        '\\dfrac',
+      )
     }
-  } else { // Ici c'est un produit classique.
+  } else {
+    // Ici c'est un produit classique.
     const facteur1 = arbre.op1
     const facteur2 = arbre.op2
     const terme1 = facteur1.op1
@@ -369,12 +459,27 @@ export function developpe (expr: string, options:{ isColored: boolean, colorOffs
       return `${miseEnForme(t1, couleurs[colorOffset], isColored)}\\times ${miseEnForme(t3, couleurs[colorOffset], isColored)}
     ${somme2 ? '+' : '-'}${miseEnForme(t1, couleurs[colorOffset + 1], isColored)}\\times ${miseEnForme(t4, couleurs[colorOffset + 1], isColored)}
     ${somme1 ? '+' : '-'}${miseEnForme(t2, couleurs[colorOffset + 1], isColored)}\\times ${miseEnForme(t3, couleurs[colorOffset + 1], isColored)}
-    ${somme1 === somme2 ? '+' : '-'}${miseEnForme(t2, couleurs[colorOffset + 2], isColored)}\\times ${miseEnForme(t4, couleurs[colorOffset + 2], isColored)}`.replaceAll('\\frac', '\\dfrac')
+    ${somme1 === somme2 ? '+' : '-'}${miseEnForme(t2, couleurs[colorOffset + 2], isColored)}\\times ${miseEnForme(t4, couleurs[colorOffset + 2], isColored)}`.replaceAll(
+        '\\frac',
+        '\\dfrac',
+      )
     } else {
-      const prod1 = engine.box(['Multiply', terme1, terme3]).evaluate().simplify().latex
-      const prod2 = engine.box(['Multiply', terme1, terme4]).evaluate().simplify().latex
-      const prod3 = engine.box(['Multiply', terme2, terme3]).evaluate().simplify().latex
-      const prod4 = engine.box(['Multiply', terme2, terme4]).evaluate().simplify().latex
+      const prod1 = engine
+        .box(['Multiply', terme1, terme3])
+        .evaluate()
+        .simplify().latex
+      const prod2 = engine
+        .box(['Multiply', terme1, terme4])
+        .evaluate()
+        .simplify().latex
+      const prod3 = engine
+        .box(['Multiply', terme2, terme3])
+        .evaluate()
+        .simplify().latex
+      const prod4 = engine
+        .box(['Multiply', terme2, terme4])
+        .evaluate()
+        .simplify().latex
       if (level === 1) {
         const p2 = prod2.startsWith('-') ? `\\left( ${prod2}\\right)` : prod2
         const p3 = prod3.startsWith('-') ? `\\left( ${prod3}\\right)` : prod3
@@ -382,7 +487,10 @@ export function developpe (expr: string, options:{ isColored: boolean, colorOffs
         return `${miseEnForme(prod1, couleurs[colorOffset], isColored)}
         ${somme2 ? '+' : '-'}${miseEnForme(p2, couleurs[colorOffset + 1], isColored)}
         ${somme1 ? '+' : '-'}${miseEnForme(p3, couleurs[colorOffset + 1], isColored)}
-        ${somme1 === somme2 ? '+' : '-'}${miseEnForme(p4, couleurs[colorOffset + 1], isColored)}`.replaceAll('\\frac', '\\dfrac')
+        ${somme1 === somme2 ? '+' : '-'}${miseEnForme(p4, couleurs[colorOffset + 1], isColored)}`.replaceAll(
+          '\\frac',
+          '\\dfrac',
+        )
       } else {
         const p2 = prod2.startsWith('-')
           ? somme2
@@ -409,7 +517,10 @@ export function developpe (expr: string, options:{ isColored: boolean, colorOffs
         return `${miseEnForme(prod1, couleurs[colorOffset], isColored)}
         ${miseEnForme(p2, couleurs[colorOffset + 1], isColored)}
         ${miseEnForme(p3, couleurs[colorOffset + 2], isColored)}
-        ${miseEnForme(p4, couleurs[colorOffset + 3], isColored)}`.replaceAll('\\frac', '\\dfrac')
+        ${miseEnForme(p4, couleurs[colorOffset + 3], isColored)}`.replaceAll(
+          '\\frac',
+          '\\dfrac',
+        )
       }
     }
   }

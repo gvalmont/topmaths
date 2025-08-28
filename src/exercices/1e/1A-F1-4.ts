@@ -1,5 +1,6 @@
 import CalculProduitSommeImageParFonctionAffine from '../can/3e/can3F14'
-export const titre = 'Calculer un produit ou une somme d\'images par une fonction affine'
+export const titre =
+  "Calculer un produit ou une somme d'images par une fonction affine"
 export const dateDePublication = '23/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +16,10 @@ export const uuid = 'e251e'
 
 export const refs = {
   'fr-fr': ['1A-F1-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF1d extends CalculProduitSommeImageParFonctionAffine {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

@@ -3,7 +3,7 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
-  rienSi1
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import { texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
@@ -11,7 +11,8 @@ import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'
+export const titre =
+  "Utiliser les propriétés de conservation du sens d'une inégalité"
 export const dateDePublication = '14/02/2023'
 /**
  *
@@ -22,12 +23,16 @@ export const uuid = 'e32f3'
 
 export const refs = {
   'fr-fr': ['2N60-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProprietesInegalites extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Encadrer des expressions avec des racines carrées\n2 : Encadrer une expression avec une inconnue\n3 : Encadrer une expression avec deux inconnues\n4 : Mélange des cas précédents']
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      4,
+      '1 : Encadrer des expressions avec des racines carrées\n2 : Encadrer une expression avec une inconnue\n3 : Encadrer une expression avec deux inconnues\n4 : Mélange des cas précédents',
+    ]
 
     this.nbQuestions = 1
 
@@ -37,7 +42,7 @@ export default class ProprietesInegalites extends Exercice {
     this.spacingCorr = 2 // Interligne des réponses
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']
@@ -49,23 +54,34 @@ export default class ProprietesInegalites extends Exercice {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4']
     }
     //
-    const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let a: number
       let m: number
       let p: number
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'typeE1'://
+      switch (
+        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
+        case 'typeE1': //
           {
             a = randint(2, 30, [4, 9, 16, 25])
             const rac = Math.sqrt(a)
             m = randint(-10, 10, 0)
             p = randint(-10, 10, 0)
-            const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
-            const choix2 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
+            const choix1 = choice([
+              ['<', '>'],
+              ['\\leqslant', '\\geqslant'],
+            ])
+            const choix2 = choice([
+              ['<', '>'],
+              ['\\leqslant', '\\geqslant'],
+            ])
             texte = ` Sachant que $${texNombre(Math.floor(100 * rac) / 100, 2)} ${choix1[0]} \\sqrt{${a}} ${choix2[0]} ${texNombre(Math.ceil(100 * rac) / 100, 2)}$,
             encadrer le plus précisément possible  $${rienSi1(m)}\\sqrt{${a}}${ecritureAlgebrique(p)}$.
                 `
@@ -75,13 +91,13 @@ on forme, avec des opérations successives, $${rienSi1(m)}\\sqrt{${a}}${ecriture
 $\\begin{aligned}
 ${texNombre(Math.floor(100 * rac) / 100, 2)}${choix1[0]}&\\sqrt{${a}}${choix2[0]}${texNombre(Math.ceil(100 * rac) / 100, 2)}\\\\`
             texteCorr += `${m}\\times ${texNombre(Math.floor(100 * rac) / 100, 2)}${m > 0 ? `${choix1[0]}` : `${choix1[1]}`}&${m}\\times \\sqrt{${a}} ${m > 0 ? `${choix2[0]}` : `${choix2[1]}`} ${m}\\times ${texNombre(Math.ceil(100 * rac) / 100, 2)}   ${sp(7)}\\text{ On multiplie par ${m > 0 ? `$${m}> 0$ ` : `$${m}< 0 $`}, le sens des inégalités ${m > 0 ? 'ne change pas' : 'change'}.}\\\\`
-            texteCorr += `${texNombre(m * Math.floor(100 * rac) / 100, 2)}${m > 0 ? `${choix1[0]}` : `${choix1[1]}`}& ${m}\\sqrt{${a}} ${m > 0 ? `${choix2[0]}` : `${choix2[1]}`}${texNombre(m * Math.ceil(100 * rac) / 100, 2)} \\\\`
-            texteCorr += `${texNombre(m * Math.floor(100 * rac) / 100, 2)} ${ecritureAlgebrique(p)}${m > 0 ? `${choix1[0]}` : `${choix1[1]}`}& ${m}\\sqrt{${a}} ${ecritureAlgebrique(p)} ${m > 0 ? `${choix2[0]}` : `${choix2[1]}`}  ${texNombre(m * Math.ceil(100 * rac) / 100, 2)} ${ecritureAlgebrique(p)} ${sp(7)}\\text{ On  ${p > 0 ? 'ajoute' : 'retranche'} ${abs(p)}.} \\\\`
-            texteCorr += `${texNombre(m * Math.floor(100 * rac) / 100 + p, 2)}  ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`}&${m}\\sqrt{${a}} ${ecritureAlgebrique(p)}  ${m > 0 ? `${choix2[0]}` : `${choix2[1]}`} ${texNombre(m * Math.ceil(100 * rac) / 100 + p, 2)} \\\\`
+            texteCorr += `${texNombre((m * Math.floor(100 * rac)) / 100, 2)}${m > 0 ? `${choix1[0]}` : `${choix1[1]}`}& ${m}\\sqrt{${a}} ${m > 0 ? `${choix2[0]}` : `${choix2[1]}`}${texNombre((m * Math.ceil(100 * rac)) / 100, 2)} \\\\`
+            texteCorr += `${texNombre((m * Math.floor(100 * rac)) / 100, 2)} ${ecritureAlgebrique(p)}${m > 0 ? `${choix1[0]}` : `${choix1[1]}`}& ${m}\\sqrt{${a}} ${ecritureAlgebrique(p)} ${m > 0 ? `${choix2[0]}` : `${choix2[1]}`}  ${texNombre((m * Math.ceil(100 * rac)) / 100, 2)} ${ecritureAlgebrique(p)} ${sp(7)}\\text{ On  ${p > 0 ? 'ajoute' : 'retranche'} ${abs(p)}.} \\\\`
+            texteCorr += `${texNombre((m * Math.floor(100 * rac)) / 100 + p, 2)}  ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`}&${m}\\sqrt{${a}} ${ecritureAlgebrique(p)}  ${m > 0 ? `${choix2[0]}` : `${choix2[1]}`} ${texNombre((m * Math.ceil(100 * rac)) / 100 + p, 2)} \\\\`
             texteCorr += '\\end{aligned}$'
             if (m < 0) {
               texteCorr += `<br>
-           Ainsi,  $ ${texNombre(m * Math.ceil(100 * rac) / 100 + p, 2)}  ${choix2[0]} ${m}\\sqrt{${a}} ${ecritureAlgebrique(p)} ${choix1[0]} ${texNombre(m * Math.floor(100 * rac) / 100 + p, 2)}  $.`
+           Ainsi,  $ ${texNombre((m * Math.ceil(100 * rac)) / 100 + p, 2)}  ${choix2[0]} ${m}\\sqrt{${a}} ${ecritureAlgebrique(p)} ${choix1[0]} ${texNombre((m * Math.floor(100 * rac)) / 100 + p, 2)}  $.`
             }
           }
           break
@@ -91,7 +107,12 @@ ${texNombre(Math.floor(100 * rac) / 100, 2)}${choix1[0]}&\\sqrt{${a}}${choix2[0]
             a = randint(-10, 10, 0)
             m = randint(-10, 10, [0, 1])
             p = randint(-10, 10, 0)
-            const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant'], ['>', '<'], ['\\geqslant', '\\leqslant']])
+            const choix1 = choice([
+              ['<', '>'],
+              ['\\leqslant', '\\geqslant'],
+              ['>', '<'],
+              ['\\geqslant', '\\leqslant'],
+            ])
             texte = ` Si $x${choix1[0]} ${a}$, que peut-on dire de $${rienSi1(m)}x${ecritureAlgebrique(p)}$ ?
                 `
             texteCorr = `${texteGras('Méthode :')} en partant de l'inégalité vérifiée par $x$, on forme, avec des opérations successives, $${rienSi1(m)}x${ecritureAlgebrique(p)}$.<br>
@@ -110,8 +131,14 @@ x &${choix1[0]} ${a}\\\\`
             const b = a + randint(1, 10, 0)
             m = randint(-10, 10, [0, 1])
             p = randint(-10, 10, 0)
-            const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
-            const choix2 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
+            const choix1 = choice([
+              ['<', '>'],
+              ['\\leqslant', '\\geqslant'],
+            ])
+            const choix2 = choice([
+              ['<', '>'],
+              ['\\leqslant', '\\geqslant'],
+            ])
             texte = ` Sachant que $${a} ${choix1[0]} x ${choix2[0]} ${b}$,
             encadrer le plus précisément possible  $${rienSi1(m)}x${ecritureAlgebrique(p)}$.
                 `
@@ -142,7 +169,10 @@ ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`} ${m}\\times x &${m > 0 ? `${choix2[0]
             const d = c + randint(1, 10, 0)
             m = randint(-10, 10, [0, 1])
             p = randint(-10, 10, [0, 1])
-            const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
+            const choix1 = choice([
+              ['<', '>'],
+              ['\\leqslant', '\\geqslant'],
+            ])
             texte = `Soit $x$ et $y$ deux réels tels que $${a} ${choix1[0]} x ${choix1[0]} ${b}$ et $${c} ${choix1[0]} y ${choix1[0]} ${d}$.<br>`
             if (m > 0 && p > 0) {
               texte += `Démontrer que  $${m * a + p * c} ${choix1[0]} ${rienSi1(m)}x${ecritureAlgebriqueSauf1(p)}y ${choix1[0]} ${m * b + p * d}$.`

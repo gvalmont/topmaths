@@ -8,13 +8,14 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '5d700'
 export const refs = {
   'fr-fr': ['3C1QCM-02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Écriture scientifique d\'un nombre (12/2020 Nouvelle Calédonie)'
+export const titre =
+  "Écriture scientifique d'un nombre (12/2020 Nouvelle Calédonie)"
 export const dateDePublication = '01/11/2024'
 /**
  *
@@ -25,11 +26,15 @@ export const dateDePublication = '01/11/2024'
 export default class NouvelleCaledonieDecembre2023Exo1Q2 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (a: number, exposant: number, decalage: number): void {
+  private appliquerLesValeurs(
+    a: number,
+    exposant: number,
+    decalage: number,
+  ): void {
     this.reponses = [
-      `$${texNombre(a / (10 ** decalage))} \\times 10^{${String(exposant + decalage)}} $`,
+      `$${texNombre(a / 10 ** decalage)} \\times 10^{${String(exposant + decalage)}} $`,
       `$${String(a)} \\times ${String(exposant > 0 ? exposant : -exposant)} $`,
-      `$${texNombre(a / (10 ** decalage))} \\times 10^{${String(exposant - decalage)}}$`
+      `$${texNombre(a / 10 ** decalage)} \\times 10^{${String(exposant - decalage)}}$`,
     ]
 
     // times 10^(exposant-decalage))}$`,
@@ -61,7 +66,7 @@ export default class NouvelleCaledonieDecembre2023Exo1Q2 extends ExerciceQcmA {
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

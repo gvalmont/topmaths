@@ -7,10 +7,10 @@ export const dateDeModifImportante = '29/10/2024'
 export const uuid = '05079'
 export const refs = {
   'fr-fr': ['5A12-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceLabyrinthePremiers5e extends ExerciceLabyrinthePremiers3e {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
   }

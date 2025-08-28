@@ -18,17 +18,17 @@ export const uuid = 'f8f99'
 
 export const refs = {
   'fr-fr': ['can5N01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeDecimale5e extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
@@ -43,7 +43,7 @@ export default class SommeDecimale5e extends ExerciceSimple {
 $${texNombre(b * 0.1 + c * 0.01)}+${texNombre(d * 0.1)}=${texNombre(b * 0.1 + c * 0.01 + d * 0.1)}$.<br>
 Ainsi, $${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}=${texNombre(10 + (b + d) * 0.1 + c * 0.01)}$.
     `)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

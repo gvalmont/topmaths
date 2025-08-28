@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import {
   texFractionFromString,
   simplificationDeFractionAvecEtapes,
-  texFractionReduite
+  texFractionReduite,
 } from '../../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -22,20 +22,22 @@ export const uuid = 'd86be'
 
 export const refs = {
   'fr-fr': ['can3S03', 'BP2FLUC17'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculsProbabilite2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b
     const choix = choice([true, false])
-    switch (choice(['a', 'a', 'b'])) { //, 'a', 'b'
+    switch (
+      choice(['a', 'a', 'b']) //, 'a', 'b'
+    ) {
       case 'a':
         a = randint(2, 9)
         b = randint(5, 15)
@@ -53,7 +55,9 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
         $\\dfrac{\\text{Nombre de boules ${choix ? 'noire' : 'blanche'}s}}{\\text{Nombre total de boules}}
              =${choix ? texFractionFromString(a, a + b) : texFractionFromString(b, a + b)}  ${choix ? simplificationDeFractionAvecEtapes(a, a + b) : simplificationDeFractionAvecEtapes(b, a + b)}$
         `
-        this.reponse = choix ? texFractionReduite(a, a + b) : texFractionReduite(b, a + b)
+        this.reponse = choix
+          ? texFractionReduite(a, a + b)
+          : texFractionReduite(b, a + b)
         break
       case 'b':
         if (choice([true, false])) {
@@ -95,7 +99,7 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

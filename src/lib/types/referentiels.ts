@@ -216,7 +216,7 @@ export type ReferentielInMenu = {
 //
 // ===========================================================================
 export const isExerciceItemInReferentiel = (
-  obj: any
+  obj: any,
 ): obj is ExerciceItemInReferentiel =>
   obj !== null &&
   typeof obj !== 'undefined' &&
@@ -226,7 +226,7 @@ export const isExerciceItemInReferentiel = (
   obj.features !== undefined
 
 export const isExamItemInReferentiel = (
-  obj: any
+  obj: any,
 ): obj is ExamItemInReferentiel =>
   obj !== null &&
   typeof obj !== 'undefined' &&
@@ -236,7 +236,7 @@ export const isExamItemInReferentiel = (
   obj.annee !== undefined
 
 export const isJSONReferentielEnding = (
-  obj: any
+  obj: any,
 ): obj is JSONReferentielEnding =>
   obj !== null &&
   typeof obj !== 'undefined' &&
@@ -250,7 +250,7 @@ export const isTool = (obj: any): obj is ToolItemInReferentiel =>
   (obj.typeExercice === 'outil' || obj.typeExercice === 'html')
 
 export const resourceHasPlace = (
-  obj: any
+  obj: any,
 ): obj is ExamItemInReferentiel | crpeItemInreferentiel =>
   obj !== null &&
   typeof obj !== 'undefined' &&
@@ -283,7 +283,7 @@ export const isFeatures = (obj: any): obj is Features => {
  * @param value objet à examiner
  * @returns {boolean}
  */
-export function isNonEmptyArrayOfStrings (value: unknown): value is string[] {
+export function isNonEmptyArrayOfStrings(value: unknown): value is string[] {
   return (
     Array.isArray(value) &&
     value.length > 0 &&
@@ -326,7 +326,10 @@ export const isStaticWithoutPngUrl = (obj: any): obj is ExamItemInReferentiel =>
   Object.keys(obj).includes('typeExercice') &&
   obj.annee !== undefined &&
   obj.lieu !== undefined &&
-  (obj.typeExercice === 'sti2d' || obj.typeExercice === 'dnb' || obj.typeExercice === 'dnbpro' || obj.typeExercice === 'bac')
+  (obj.typeExercice === 'sti2d' ||
+    obj.typeExercice === 'dnb' ||
+    obj.typeExercice === 'dnbpro' ||
+    obj.typeExercice === 'bac')
 
 /**
  * Détecte si la terminaison d'un référentiel est un exercice de géométrie dynamique ou pas.
@@ -341,9 +344,13 @@ export const isGeoDynamic = (obj: JSONReferentielEnding): boolean => {
     typeof obj !== 'undefined' &&
     Object.keys(obj).includes('url') &&
     // À ce stade, on est sûr que l'objet ne peu tpas être de type StaticItemInreferentiel car il a la propriété `url`
-    (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url !== undefined &&
-    typeof (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url === 'string' &&
-    (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url.match(geoDynRegExp) !== null
+    (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url !==
+      undefined &&
+    typeof (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>)
+      .url === 'string' &&
+    (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url.match(
+      geoDynRegExp,
+    ) !== null
   ) {
     return true
   } else {

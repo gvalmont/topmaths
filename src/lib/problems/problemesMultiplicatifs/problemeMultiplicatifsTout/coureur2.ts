@@ -9,13 +9,17 @@ import ProblemeMultiplicatifs from './problemesMultiplicatifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function coureur2 (decimal = false): Probleme {
+export function coureur2(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nbFois = randint(2, 12, 10)
-  const facteur = decimal ? choice([11, 12, 14, 16, 18]) * choice([0.1, 0.2, 0.3]) : choice([11, 12, 15, 16, 18]) * 20
+  const facteur = decimal
+    ? choice([11, 12, 14, 16, 18]) * choice([0.1, 0.2, 0.3])
+    : choice([11, 12, 15, 16, 18]) * 20
   const unite = decimal ? 'km' : 'm'
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'
-  const coin = decimal ? choice(['parc', 'village', 'bois']) : choice(['terrain de sport', 'parc', 'quartier', 'stade'])
+  const coin = decimal
+    ? choice(['parc', 'village', 'bois'])
+    : choice(['terrain de sport', 'parc', 'quartier', 'stade'])
   const data = { nbFois, facteur }
   const enonce = `${personnage.prenom} a couru ${nbFois} tours du ${coin}, chacun mesurant $${texNombre(facteur, 1)}$ ${uniteComplete}. Quelle distance totale a-t-${personnage.pronom} parcourue ?`
   const correction = `${personnage.prenom} a couru ${nbFois} tours de $${texNombre(facteur, 1)}$ ${uniteComplete}.

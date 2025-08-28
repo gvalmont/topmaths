@@ -13,12 +13,12 @@ import { expect } from '@playwright/test'
 const logPDF = getFileLogger('exportPDF', { append: true })
 const logPackage = getFileLogger('exportPackage', { append: true })
 
-function log (...args: unknown[]) {
+function log(...args: unknown[]) {
   lg(args)
   logPDF(args)
 }
 
-function logError (...args: unknown[]) {
+function logError(...args: unknown[]) {
   lgE(args)
   logPDF(args)
 }
@@ -27,31 +27,45 @@ const UPLOAD_FOLDER = 'updatefile'
 const UPLOAD_SUBFOLDER = 'output'
 
 // file parameter retrieved from an input type=file
-async function readZip (file: fs.FileHandle): Promise<Map<string, string | ArrayBuffer>> {
+async function readZip(
+  file: fs.FileHandle,
+): Promise<Map<string, string | ArrayBuffer>> {
   const buffer = await fs.readFile(file)
-  const files : Map<string, string | ArrayBuffer> = new Map<string, string | ArrayBuffer>()
+  const files: Map<string, string | ArrayBuffer> = new Map<
+    string,
+    string | ArrayBuffer
+  >()
   const zipper = new JSZip()
   const unzippedFiles = await zipper.loadAsync(buffer)
   const entries = Object.keys(unzippedFiles.files)
   for (const _filename of entries) {
     if (_filename !== 'images/') {
       if (_filename.includes('eps')) {
-        files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('string'))
+        files.set(
+          _filename.replace('images/', ''),
+          await unzippedFiles.files[_filename].async('string'),
+        )
       } else if (_filename.includes('png')) {
-        files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('arraybuffer'))
+        files.set(
+          _filename.replace('images/', ''),
+          await unzippedFiles.files[_filename].async('arraybuffer'),
+        )
       } else {
-        files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('string'))
+        files.set(
+          _filename.replace('images/', ''),
+          await unzippedFiles.files[_filename].async('string'),
+        )
       }
     }
   }
   return files
 }
 
-function getFilenameWithoutExtension (filename : string) {
+function getFilenameWithoutExtension(filename: string) {
   return filename.replace(/\.[^/.]+$/, '')
 }
 
-async function getLatexFile (page: Page, urlExercice: string) {
+async function getLatexFile(page: Page, urlExercice: string) {
   // Coopmaths
   // Classique
   // ProfMaquette
@@ -80,7 +94,13 @@ async function getLatexFile (page: Page, urlExercice: string) {
         return 'KO'
       }
       const urlPage = page.url()
-      if (urlPage.includes('dnb') || urlPage.includes('crpe') || urlPage.includes('sti2d') || urlPage.includes('bac') || urlPage.includes('e3c')) {
+      if (
+        urlPage.includes('dnb') ||
+        urlPage.includes('crpe') ||
+        urlPage.includes('sti2d') ||
+        urlPage.includes('bac') ||
+        urlPage.includes('e3c')
+      ) {
         return 'OK'
       }
       const resu3 = await getLatexFileStyle(page, urlExercice, 'Can')
@@ -95,28 +115,32 @@ async function getLatexFile (page: Page, urlExercice: string) {
         return 'KO'
       }
       log('Retrying...')
-      await new Promise(resolve => setTimeout(resolve, 2000)) // Attendre 2 secondes avant de réessayer
+      await new Promise((resolve) => setTimeout(resolve, 2000)) // Attendre 2 secondes avant de réessayer
     }
   }
 }
 
-async function getLatexFileStyle (page: Page, urlExercice: string, style: string) {
+async function getLatexFileStyle(
+  page: Page,
+  urlExercice: string,
+  style: string,
+) {
   log('style=' + style)
   let styleLocator = ''
   switch (style) {
-    case 'Coopmaths' :
+    case 'Coopmaths':
       styleLocator = 'input#Style0'
       break
-    case 'Classique' :
+    case 'Classique':
       styleLocator = 'input#Style1'
       break
-    case 'ProfMaquette' :
+    case 'ProfMaquette':
       styleLocator = 'input#Style2'
       break
-    case 'ProfMaquetteAvecQrCode' :
+    case 'ProfMaquetteAvecQrCode':
       styleLocator = 'input#Style3'
       break
-    case 'Can' :
+    case 'Can':
       styleLocator = 'input#Style4'
       break
     default:
@@ -141,12 +165,12 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
 
   log(download.suggestedFilename())
 
-  const uuid = (new URL(urlExercice)).searchParams.get('uuid')
+  const uuid = new URL(urlExercice).searchParams.get('uuid')
 
-  let idPath = (new URL(urlExercice)).searchParams.get('id')
+  let idPath = new URL(urlExercice).searchParams.get('id')
   idPath = idPath?.substring(0, idPath?.lastIndexOf('.')) || idPath
   const id = idPath?.split('/').reverse()[0]
-  const startedPath = (idPath?.split('/')[0].split('_')[0] || 'test')
+  const startedPath = idPath?.split('/')[0].split('_')[0] || 'test'
   // console.log(uuid)
 
   try {
@@ -167,18 +191,52 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
     await fs.mkdir(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath)
   }
 
-  await download.saveAs(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename())
+  await download.saveAs(
+    UPLOAD_FOLDER +
+      '/' +
+      UPLOAD_SUBFOLDER +
+      '/' +
+      startedPath +
+      '/' +
+      id +
+      style +
+      (id === uuid ? '_' : '_' + uuid + '_') +
+      download.suggestedFilename(),
+  )
 
-  const zip = await fs.open(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename())
+  const zip = await fs.open(
+    UPLOAD_FOLDER +
+      '/' +
+      UPLOAD_SUBFOLDER +
+      '/' +
+      startedPath +
+      '/' +
+      id +
+      style +
+      (id === uuid ? '_' : '_' + uuid + '_') +
+      download.suggestedFilename(),
+  )
 
-  const unzipfiles : Map<string, string | ArrayBuffer> = await readZip(zip)
+  const unzipfiles: Map<string, string | ArrayBuffer> = await readZip(zip)
 
   zip.close()
 
-  const folder = UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + Date.now() + '-' + Math.round(Math.random() * 1E9)
+  const folder =
+    UPLOAD_FOLDER +
+    '/' +
+    UPLOAD_SUBFOLDER +
+    '/' +
+    startedPath +
+    '/' +
+    id +
+    style +
+    (id === uuid ? '_' : '_' + uuid + '_') +
+    Date.now() +
+    '-' +
+    Math.round(Math.random() * 1e9)
   await fs.mkdir(folder)
 
-  const filesPromise : Promise<unknown>[] = []
+  const filesPromise: Promise<unknown>[] = []
   unzipfiles.forEach((value, key) => {
     if (value instanceof ArrayBuffer) {
       const buffer = Buffer.from(value)
@@ -189,18 +247,40 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
   })
   await Promise.all(filesPromise)
 
-  await fs.rm(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename(), { recursive: true, force: true })
+  await fs.rm(
+    UPLOAD_FOLDER +
+      '/' +
+      UPLOAD_SUBFOLDER +
+      '/' +
+      startedPath +
+      '/' +
+      id +
+      style +
+      (id === uuid ? '_' : '_' + uuid + '_') +
+      download.suggestedFilename(),
+    { recursive: true, force: true },
+  )
 
-  const file = Array.from(unzipfiles.keys()).find(ele => ele === 'main.tex' || ele === 'test.tex')
+  const file = Array.from(unzipfiles.keys()).find(
+    (ele) => ele === 'main.tex' || ele === 'test.tex',
+  )
 
   const controller = new AbortController()
   const signal = controller.signal
 
-  const trace : string[] = []
+  const trace: string[] = []
   const launch = new Promise((resolve, reject) => {
     log(folder + '/' + file)
-    const xelatex = spawn('lualatex', ['--halt-on-error', '' + file], { cwd: folder + '/', signal })
-    const timer = setTimeout(() => { controller.abort() }, 5 * 60 * 1000)
+    const xelatex = spawn('lualatex', ['--halt-on-error', '' + file], {
+      cwd: folder + '/',
+      signal,
+    })
+    const timer = setTimeout(
+      () => {
+        controller.abort()
+      },
+      5 * 60 * 1000,
+    )
     xelatex.stdout.on('data', function (result) {
       const out = Buffer.from(result, 'utf-8').toString()
       trace.push(out.replaceAll('\r\n', ''))
@@ -213,8 +293,10 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
       const out = Buffer.from(result, 'utf-8').toString()
       log(out)
     })
-    xelatex.on('error', function (err) { reject(err) })
-    xelatex.on('close', (code : number) => {
+    xelatex.on('error', function (err) {
+      reject(err)
+    })
+    xelatex.on('close', (code: number) => {
       clearTimeout(timer)
       if (code !== 0) {
         log(code)
@@ -225,13 +307,26 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
     })
   })
 
-  const code = await launch.catch(err => {
+  const code = await launch.catch((err) => {
     log(err)
     return -1
   })
   log('code:' + code)
   if (code === 0) {
-    await fs.copyFile(folder + '/' + getFilenameWithoutExtension('' + file) + '.pdf', UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + getFilenameWithoutExtension(download.suggestedFilename()) + '.pdf')
+    await fs.copyFile(
+      folder + '/' + getFilenameWithoutExtension('' + file) + '.pdf',
+      UPLOAD_FOLDER +
+        '/' +
+        UPLOAD_SUBFOLDER +
+        '/' +
+        startedPath +
+        '/' +
+        id +
+        style +
+        (id === uuid ? '_' : '_' + uuid + '_') +
+        getFilenameWithoutExtension(download.suggestedFilename()) +
+        '.pdf',
+    )
     await fs.rm(folder + '/', { recursive: true, force: true })
     return 'OK'
   } else {
@@ -274,34 +369,50 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
   // })
 }
 
-async function testRunAllLots (filter: string) {
+async function testRunAllLots(filter: string) {
   // return testAll(page, '6e/6G23')
-  const uuids = filter.includes('dnb') || filter.includes('crpe') || filter.includes('sti2d') || filter.includes('bac') || filter.includes('e3c') ? await findStatic(filter) : await findUuid(filter)
+  const uuids =
+    filter.includes('dnb') ||
+    filter.includes('crpe') ||
+    filter.includes('sti2d') ||
+    filter.includes('bac') ||
+    filter.includes('e3c')
+      ? await findStatic(filter)
+      : await findUuid(filter)
   for (let i = 0; i < uuids.length && i < 300; i += 20) {
-    const ff : ((page: Page) => Promise<boolean>)[] = []
+    const ff: ((page: Page) => Promise<boolean>)[] = []
     for (let k = i; k < i + 20 && k < uuids.length; k++) {
       const myName = 'test' + uuids[k][1]
       const f = async function (page: Page) {
         // Listen for all console logs
         if (k === i) {
           // seulement sur la première page Web, les autres c'est la même en faite
-          page.on('console', msg => {
+          page.on('console', (msg) => {
             logPDF(msg.text())
             if (msg.text().includes('PACKAGETEST:')) {
               logPackage(msg.text())
             }
           })
         }
-        const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+        const hostname = local
+          ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+          : 'https://coopmaths.fr/alea/'
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
-        const resultReq = await getLatexFile(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex&testCI`)
+        const resultReq = await getLatexFile(
+          page,
+          `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex&testCI`,
+        )
         log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[k][1]}`)
         return resultReq === 'OK'
       }
       Object.defineProperty(f, 'name', { value: myName, writable: false })
       ff.push(f)
     }
-    runSeveralTests(ff, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+    runSeveralTests(ff, import.meta.url, {
+      pauseOnError: false,
+      silent: false,
+      debug: false,
+    })
   }
 }
 /**
@@ -312,22 +423,38 @@ async function testRunAllLots (filter: string) {
 const alea = 'e906e'
 const local = true
 
-if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined) {
+if (
+  process.env.CI &&
+  process.env.NIV !== null &&
+  process.env.NIV !== undefined
+) {
   // utiliser pour les tests d'intégration
   const filter = (process.env.NIV as string).replaceAll(' ', '')
   prefs.headless = true
   log(filter)
   testRunAllLots(filter)
-} else if (process.env.CI && process.env.CHANGED_FILES !== null && process.env.CHANGED_FILES !== undefined) {
+} else if (
+  process.env.CI &&
+  process.env.CHANGED_FILES !== null &&
+  process.env.CHANGED_FILES !== undefined
+) {
   const changedFiles = process.env.CHANGED_FILES?.split('\n') ?? []
   log(changedFiles)
   prefs.headless = true
-  const filtered = changedFiles.filter(file => file.startsWith('src/exercices/') &&
-    !file.includes('ressources') &&
-    !file.includes('apps') &&
-    file.replace('src/exercices/', '').split('/').length >= 2).map(file =>
-    file.replace(/^src\/exercices\//, '').replace(/\.ts$/, '.').replace(/\.js$/, '.')
-  )
+  const filtered = changedFiles
+    .filter(
+      (file) =>
+        file.startsWith('src/exercices/') &&
+        !file.includes('ressources') &&
+        !file.includes('apps') &&
+        file.replace('src/exercices/', '').split('/').length >= 2,
+    )
+    .map((file) =>
+      file
+        .replace(/^src\/exercices\//, '')
+        .replace(/\.ts$/, '.')
+        .replace(/\.js$/, '.'),
+    )
   log(filtered)
   if (filtered.length === 0) {
     // aucun fichier concerné.. on sort
@@ -337,7 +464,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
       })
     })
   } else {
-    filtered.forEach(file => {
+    filtered.forEach((file) => {
       const filter = file.replaceAll(' ', '')
       testRunAllLots(filter)
     })

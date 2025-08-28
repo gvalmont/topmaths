@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '8eb0d'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N62Q6 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +29,7 @@ export default class Can2025N62Q6 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const h = this.canOfficielle ? 4 : randint(1, 9)
     const min = this.canOfficielle ? 55 : randint(3, 5) * 10 + 5
     this.reponse = new Hms({ hour: h + 1, minute: min - 30 }).toString()

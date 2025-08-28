@@ -1,7 +1,12 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+  reduirePolynomeDegre3,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer $f(x+a)$ avec $f$ affine'
@@ -21,10 +26,10 @@ export const uuid = 'f3e87'
 
 export const refs = {
   'fr-fr': ['can2L20'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculCompose extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.versionQcmDisponible = true
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
@@ -33,7 +38,7 @@ export default class CalculCompose extends ExerciceSimple {
     this.optionsDeComparaison = { developpementEgal: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-3, 3, [0, 1])
     const b = randint(-10, 10, 0)
     const c = randint(-3, 3, 0)
@@ -43,15 +48,23 @@ export default class CalculCompose extends ExerciceSimple {
       ? ` $${nomF}(x${ecritureAlgebrique(c)})$ est égal à : `
       : `Exprimer $${nomF}(x${ecritureAlgebrique(c)})$ sous forme développée. `
 
-    this.reponse = this.versionQcm ? `$${reduireAxPlusB(a, a * c + b)}$` : `${reduireAxPlusB(a, a * c + b)}`
-    this.distracteurs = [`$${reduireAxPlusB(a, c + b)}$`, `$${reduireAxPlusB(a + 1, c + b)}$`, `$${reduirePolynomeDegre3(0, a, b + a * c, b * c)}$`]
+    this.reponse = this.versionQcm
+      ? `$${reduireAxPlusB(a, a * c + b)}$`
+      : `${reduireAxPlusB(a, a * c + b)}`
+    this.distracteurs = [
+      `$${reduireAxPlusB(a, c + b)}$`,
+      `$${reduireAxPlusB(a + 1, c + b)}$`,
+      `$${reduirePolynomeDegre3(0, a, b + a * c, b * c)}$`,
+    ]
     this.correction = `On remplace $x$ par $x${ecritureAlgebrique(c)}$ dans l'expression de $${nomF}$ :<br>
          $\\begin{aligned}
         ${nomF}(x${ecritureAlgebrique(c)})&=${rienSi1(a)}(x${ecritureAlgebrique(c)})${ecritureAlgebrique(b)} \\\\
         &=${rienSi1(a)}x${ecritureAlgebrique(a * c)}${ecritureAlgebrique(b)}\\\\
         &=${miseEnEvidence(reduireAxPlusB(a, a * c + b))}
         \\end{aligned}$`
-    if (this.interactif && !this.versionQcm) { this.question += `<br> $${nomF}(x${ecritureAlgebrique(c)})=$` }
+    if (this.interactif && !this.versionQcm) {
+      this.question += `<br> $${nomF}(x${ecritureAlgebrique(c)})=$`
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

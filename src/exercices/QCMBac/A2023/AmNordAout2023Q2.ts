@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'f5387'
 export const refs = {
   'fr-fr': ['TSA4-QCM01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,10 +25,10 @@ export const dateDePublication = '05/11/2024'
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      'il existe au moins un nombre réel $a$ dans l\'intervalle $[1~;~3]$ tel que $h(a) = 1$.',
-      'la fonction $h$ est croissante sur l\'intervalle $[-1~;~1]$.',
-      'la fonction $h$ est positive sur l\'intervalle $[-1~;~1]$.',
-      'l\'équation $h(x)=1$ admet exactement deux solutions dans l\'intervalle '
+      "il existe au moins un nombre réel $a$ dans l'intervalle $[1~;~3]$ tel que $h(a) = 1$.",
+      "la fonction $h$ est croissante sur l'intervalle $[-1~;~1]$.",
+      "la fonction $h$ est positive sur l'intervalle $[-1~;~1]$.",
+      "l'équation $h(x)=1$ admet exactement deux solutions dans l'intervalle ",
     ]
 
     this.enonce = ` On considère une fonction $h$ continue sur l'intervalle $[-2 ; 4]$ telle que :
@@ -36,10 +36,11 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
 $h(-1)=0, \\qquad h(1) = 4, \\qquad h(3) = -1.$<br>
 
 On peut affirmer que :`
-    this.correction = 'C\'est l\'application du théorème des valeurs intermédiaires sur l\'intervalle $[1~;~3]$.'
+    this.correction =
+      "C'est l'application du théorème des valeurs intermédiaires sur l'intervalle $[1~;~3]$."
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

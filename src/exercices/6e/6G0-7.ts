@@ -21,21 +21,28 @@ export const uuid = '02320'
 export const refs = {
   'fr-fr': ['6G0-7'],
   'fr-2016': ['6G51-1'],
-  'fr-ch': ['9ES1-4']
+  'fr-ch': ['9ES1-4'],
 }
 export default class ReconnaitreDesPointsAlignes extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = ['oui', 'non']
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     let A, B, C, D, d
     let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       objetsEnonce = []
       objetsCorrection = []
 
@@ -45,7 +52,13 @@ export default class ReconnaitreDesPointsAlignes extends Exercice {
       A = pointSurDroite(d, 0, lettres[0], positionLabel)
       B = pointSurDroite(d, randint(10, 30) / 10, lettres[1], positionLabel)
       C = pointSurDroite(d, randint(40, 60) / 10, lettres[2], positionLabel)
-      D = pointAdistance(C, 0.5, positionLabel === 'above' ? 90 : -90, lettres[3], positionLabel)
+      D = pointAdistance(
+        C,
+        0.5,
+        positionLabel === 'above' ? 90 : -90,
+        lettres[3],
+        positionLabel,
+      )
       const traceA = tracePoint(A)
       traceA.taille = context.isHtml ? 2 : 1
       const traceB = tracePoint(B)
@@ -71,7 +84,7 @@ export default class ReconnaitreDesPointsAlignes extends Exercice {
       }
       d.pointilles = 5
       objetsCorrection.push(d)
-      objetsEnonce.forEach(objet => {
+      objetsEnonce.forEach((objet) => {
         objetsCorrection.push(objet)
       })
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
@@ -86,7 +99,15 @@ export default class ReconnaitreDesPointsAlignes extends Exercice {
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, A.nom, B.nom, typesDeQuestionsDisponibles[i] === 'oui' ? C.nom : D.nom)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (
+        this.questionJamaisPosee(
+          i,
+          A.nom,
+          B.nom,
+          typesDeQuestionsDisponibles[i] === 'oui' ? C.nom : D.nom,
+        )
+      ) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

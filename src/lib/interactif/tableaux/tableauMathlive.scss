@@ -1,20 +1,20 @@
 table.tableauMathlive {
- // margin-left: auto;
- // margin-right: auto;
- // margin-top: 0.5rem;
+  // margin-left: auto;
+  // margin-right: auto;
+  // margin-top: 0.5rem;
   border-collapse: collapse;
   text-align: center;
-  border: 2px solid rgb(0,0,0);
+  border: 2px solid rgb(0, 0, 0);
 
   tbody {
     tr {
-      border: 1px solid #1F2429;
+      border: 1px solid #1f2429;
       padding: 2px 5px 2px 5px;
       margin: 3px;
       text-align: center;
 
       td {
-        border: 1px solid #1F2429;
+        border: 1px solid #1f2429;
         padding: 2px 5px 2px 5px;
         margin: 3px;
         text-align: center;
@@ -22,9 +22,9 @@ table.tableauMathlive {
     }
 
     th {
-      border: 1px solid #1F2429;
+      border: 1px solid #1f2429;
       background-color: rgb(33, 109, 154, 0.4);
-      color: #1F2429;
+      color: #1f2429;
       padding: 2px 5px 2px 5px;
       text-align: center;
       min-width: 75px;
@@ -43,6 +43,6 @@ table.tableauMathlive {
 @media (prefers-color-scheme: dark) {
   /* custom css */
   table.tableauMathlive {
-    border: 2px solid rgb(100,100,100);
+    border: 2px solid rgb(100, 100, 100);
   }
 }

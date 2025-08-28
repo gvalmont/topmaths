@@ -1,5 +1,6 @@
 import CoeffDirecteurDroite from '../can/2e/can2G06'
-export const titre = 'Déterminer le coefficient directeur d\'une droite à partir de son équation réduite'
+export const titre =
+  "Déterminer le coefficient directeur d'une droite à partir de son équation réduite"
 export const dateDePublication = '25/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +16,10 @@ export const uuid = '4a79c'
 
 export const refs = {
   'fr-fr': ['1A-F6-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF6a extends CoeffDirecteurDroite {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

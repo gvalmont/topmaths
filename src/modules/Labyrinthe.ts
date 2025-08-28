@@ -1,6 +1,14 @@
 import { point } from '../lib/2d/points'
 import { Segment, segment } from '../lib/2d/segmentsVecteurs'
-import { Latex2d, latex2d, TexteParPoint, texteParPoint, TexteParPointEchelle, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes'
+import {
+  Latex2d,
+  latex2d,
+  TexteParPoint,
+  texteParPoint,
+  TexteParPointEchelle,
+  texteParPointEchelle,
+  texteParPositionEchelle,
+} from '../lib/2d/textes'
 import { combinaisonListesSansChangerOrdre } from '../lib/outils/arrayOutils'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { runAStar } from './findPath'
@@ -26,10 +34,18 @@ export class Labyrinthe {
   chemin2d: Segment[]
   nombres2d: (Latex2d | TexteParPointEchelle)[]
   choisitChemin: (niveau: number) => LabyrintheChemin
-  construitMurs: (chemin: LabyrintheChemin, taille?: number) => (Segment | TexteParPoint)[]
+  construitMurs: (
+    chemin: LabyrintheChemin,
+    taille?: number,
+  ) => (Segment | TexteParPoint)[]
   traceChemin: (monchemin: LabyrintheChemin, color?: string) => Segment[]
-  placeNombres: (monChemin: LabyrintheChemin, bonnesReponses: (number | string | FractionEtendue)[], mauvaisesReponses: (number | string | FractionEtendue)[], taille: number) => (TexteParPointEchelle | Latex2d)[]
-  constructor ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = {}) {
+  placeNombres: (
+    monChemin: LabyrintheChemin,
+    bonnesReponses: (number | string | FractionEtendue)[],
+    mauvaisesReponses: (number | string | FractionEtendue)[],
+    taille: number,
+  ) => (TexteParPointEchelle | Latex2d)[]
+  constructor({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = {}) {
     this.niveau = 1
     this.murs2d = []
     this.chemin2d = []
@@ -171,26 +187,31 @@ export class Labyrinthe {
     // Gestion des vitesses : Escargot, ..., Guépard
     let tableauDeVitesses = [] // Plus la vitesse est grande, moins le trajet est long
     const vitessePetite = cheminTableauSimple[0].length
-    const vitesseGrande = cheminTableauSimple[cheminTableauSimple.length - 1].length
+    const vitesseGrande =
+      cheminTableauSimple[cheminTableauSimple.length - 1].length
     const ecartVitesse = (vitessePetite - vitesseGrande) / 4
     for (let k = 0; k < 4; k++) {
-      tableauDeVitesses.push(cheminTableauSimple.findIndex((element) => element.length < vitessePetite - k * ecartVitesse))
+      tableauDeVitesses.push(
+        cheminTableauSimple.findIndex(
+          (element) => element.length < vitessePetite - k * ecartVitesse,
+        ),
+      )
     }
     tableauDeVitesses[4] = cheminTableauSimple.length
-    tableauDeVitesses = tableauDeVitesses.map(element => element - 1)
+    tableauDeVitesses = tableauDeVitesses.map((element) => element - 1)
 
     // Fin de la fonction Labytinthe()
 
     // Mise en place des méthodes de cette fonction
 
     /**
-   * Retourne un chemin en fonction du niveau de rapidité
-   * @memberof Labyrinthe
-   * @param {number} niveau Niveau de résolution du labyrinthe entre 1 (le plus lent) et 6 (le plus rapide).
-   * @example monCheminChoisi = laby.traceChemin(3) // Renvoie un chemin parmi tous ceux possibles, du labyrinthe laby, dont le niveau de rapidité est 3
-   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
-   * @return {Array.number[]}
-   */
+     * Retourne un chemin en fonction du niveau de rapidité
+     * @memberof Labyrinthe
+     * @param {number} niveau Niveau de résolution du labyrinthe entre 1 (le plus lent) et 6 (le plus rapide).
+     * @example monCheminChoisi = laby.traceChemin(3) // Renvoie un chemin parmi tous ceux possibles, du labyrinthe laby, dont le niveau de rapidité est 3
+     * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+     * @return {Array.number[]}
+     */
     // JSDOC Validee par EE Octobre 2022
     this.choisitChemin = function (niveau: number): LabyrintheChemin {
       let choixchemin
@@ -202,38 +223,48 @@ export class Labyrinthe {
         case 3:
         case 4:
         case 5:
-          choixchemin = randint(tableauDeVitesses[niveau - 2] + 1, tableauDeVitesses[niveau - 1])
+          choixchemin = randint(
+            tableauDeVitesses[niveau - 2] + 1,
+            tableauDeVitesses[niveau - 1],
+          )
           break
         case 6:
           choixchemin = randint(0, cheminTableauSimple.length - 1)
           break
       }
       if (typeof choixchemin === 'undefined') {
-        window.notify('choisitChemin(niveau) doit être appelé avec un niveau entre 1 et 6.', { niveau })
+        window.notify(
+          'choisitChemin(niveau) doit être appelé avec un niveau entre 1 et 6.',
+          { niveau },
+        )
         return chemins[0] // On renvoie le premier chemin par défaut
       }
       return chemins[choixchemin]
     }
 
     /**
-   * Retourne un ensemble d'objets correspondant aux murs du labyrinthe, par rapport à un chemin choisi
-   * @memberof Labyrinthe
-   * @param {Array.number[]} chemin Un chemin choisi parmi tous les chemins possibles.
-   * @param {number} [taille = 1] Taille des éléments de départ et de sortie
-   * @example lesMursDeMonLabyrinthe = laby.construitMurs(monCheminChoisi)
-   * // Renvoie les murs du labyrinthe laby correspondants au chemin monCheminChoisi.
-   * // Penser à faire mathalea2d(param, lesMursDeMonLabyrinthe) ensuite
-   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
-   * @return {ObjecMathalea2d[]}
-   */
+     * Retourne un ensemble d'objets correspondant aux murs du labyrinthe, par rapport à un chemin choisi
+     * @memberof Labyrinthe
+     * @param {Array.number[]} chemin Un chemin choisi parmi tous les chemins possibles.
+     * @param {number} [taille = 1] Taille des éléments de départ et de sortie
+     * @example lesMursDeMonLabyrinthe = laby.construitMurs(monCheminChoisi)
+     * // Renvoie les murs du labyrinthe laby correspondants au chemin monCheminChoisi.
+     * // Penser à faire mathalea2d(param, lesMursDeMonLabyrinthe) ensuite
+     * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+     * @return {ObjecMathalea2d[]}
+     */
     // JSDOC Validee par EE Octobre 2022
-    this.construitMurs = function (chemin: LabyrintheChemin, taille?: number): (Segment | TexteParPoint)[] {
+    this.construitMurs = function (
+      chemin: LabyrintheChemin,
+      taille?: number,
+    ): (Segment | TexteParPoint)[] {
       const objets = []
       let s1
       let s2
       const choix = chemin[0][1]
-      for (let i = 0; i < nbColonnes; i++) { // Construction des T supérieurs et inférieurs
-      // T inférieurs
+      for (let i = 0; i < nbColonnes; i++) {
+        // Construction des T supérieurs et inférieurs
+        // T inférieurs
         s1 = segment(point(i * 3, 1), point(i * 3, 2))
         s1.epaisseur = 2
         objets.push(s1)
@@ -261,23 +292,47 @@ export class Labyrinthe {
       s1 = segment(point(-3, 4 + choix * 3), point(0, 4 + choix * 3), 'green')
       s1.epaisseur = 3
       objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 2.5 + choix * 3), 0, 'blue', taille, 'milieu', false))
+      objets.push(
+        texteParPoint(
+          'Départ',
+          point(-1.5, 2.5 + choix * 3),
+          0,
+          'blue',
+          taille,
+          'milieu',
+          false,
+        ),
+      )
 
       // les croix centrales communes à A et B
       for (let i = 1; i < nbColonnes; i++) {
         for (let k = 0; k < nbLignes - 1; k++) {
-          s1 = segment(point(i * 3, 5 + 3 * k), point(i * 3, 3 + 3 * k), 'black')
+          s1 = segment(
+            point(i * 3, 5 + 3 * k),
+            point(i * 3, 3 + 3 * k),
+            'black',
+          )
           s1.epaisseur = 2
-          s2 = segment(point(i * 3 - 0.5, 4 + 3 * k), point(i * 3 + 0.5, 4 + 3 * k), 'black')
+          s2 = segment(
+            point(i * 3 - 0.5, 4 + 3 * k),
+            point(i * 3 + 0.5, 4 + 3 * k),
+            'black',
+          )
           s2.epaisseur = 2
           objets.push(s2, s1)
         }
       }
       // le pourtour commun
-      s1 = segment(point(0, 1 + 3 * nbLignes), point(3 * nbColonnes, 1 + 3 * nbLignes))
+      s1 = segment(
+        point(0, 1 + 3 * nbLignes),
+        point(3 * nbColonnes, 1 + 3 * nbLignes),
+      )
       s1.epaisseur = 3
       objets.push(s1)
-      s1 = segment(point(3 * nbColonnes, 1 + 3 * nbLignes - 1), point(3 * nbColonnes, 1 + 3 * nbLignes))
+      s1 = segment(
+        point(3 * nbColonnes, 1 + 3 * nbLignes - 1),
+        point(3 * nbColonnes, 1 + 3 * nbLignes),
+      )
       s1.epaisseur = 3
       objets.push(s1)
       s1 = segment(point(3 * nbColonnes, 1), point(3 * nbColonnes, 2))
@@ -290,34 +345,53 @@ export class Labyrinthe {
       // les sorties
       // La partie verticale
       for (let i = 0; i < nbLignes - 1; i++) {
-        s1 = segment(point(3 * nbColonnes, 3 + i * 3), point(3 * nbColonnes, 5 + i * 3))
+        s1 = segment(
+          point(3 * nbColonnes, 3 + i * 3),
+          point(3 * nbColonnes, 5 + i * 3),
+        )
         s1.epaisseur = 3
         objets.push(s1)
       }
       // La partie horizontale
       for (let i = 0; i < nbLignes; i++) {
-        s1 = segment(point(3 * nbColonnes, 2 + i * 3), point(3 * nbColonnes + 2, 2 + i * 3))
+        s1 = segment(
+          point(3 * nbColonnes, 2 + i * 3),
+          point(3 * nbColonnes + 2, 2 + i * 3),
+        )
         s1.epaisseur = 3
-        s2 = segment(point(3 * nbColonnes, 3 + i * 3), point(3 * nbColonnes + 2, 3 + i * 3))
+        s2 = segment(
+          point(3 * nbColonnes, 3 + i * 3),
+          point(3 * nbColonnes + 2, 3 + i * 3),
+        )
         s2.epaisseur = 3
         objets.push(s1, s2)
       }
       // Le texte
       for (let i = 1; i <= nbLignes; i++) {
-        objets.push(texteParPoint(`Sortie ${i}`, point(3 * nbColonnes + 1.5, 2.5 + 3 * nbLignes - 3 * i), 0, 'blue', taille, 'milieu', false))
+        objets.push(
+          texteParPoint(
+            `Sortie ${i}`,
+            point(3 * nbColonnes + 1.5, 2.5 + 3 * nbLignes - 3 * i),
+            0,
+            'blue',
+            taille,
+            'milieu',
+            false,
+          ),
+        )
       }
       return objets
     }
 
     /**
-   * Retourne les traits signifiant le chemin correction
-   * @memberof Labyrinthe
-   * @param {Array.number[]} monchemin Un chemin choisi parmi tous les chemins possibles.
-   * @param {string} [color = 'brown'] Couleur du tracé de la correction : du type 'blue' ou du type '#f15929'
-   * @example laCorrectionDeMonLabyrinthe = laby.traceChemin(monCheminChoisi) // Renvoie les traits signifiant le chemin correction du labyrinthe laby correspondant au chemin monCheminChoisi
-   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
-   * @return {ObjecMathalea2d[]}
-   */
+     * Retourne les traits signifiant le chemin correction
+     * @memberof Labyrinthe
+     * @param {Array.number[]} monchemin Un chemin choisi parmi tous les chemins possibles.
+     * @param {string} [color = 'brown'] Couleur du tracé de la correction : du type 'blue' ou du type '#f15929'
+     * @example laCorrectionDeMonLabyrinthe = laby.traceChemin(monCheminChoisi) // Renvoie les traits signifiant le chemin correction du labyrinthe laby correspondant au chemin monCheminChoisi
+     * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+     * @return {ObjecMathalea2d[]}
+     */
     // JSDOC Validee par EE Octobre 2022
     this.traceChemin = function (monchemin: LabyrintheChemin, color = 'brown') {
       let y = monchemin[0][1]
@@ -325,7 +399,11 @@ export class Labyrinthe {
       const chemin2d = []
       let s1
       for (let j = 0; j < monchemin.length; j++) {
-        s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(monchemin[j][0] * 3 - 1.5, monchemin[j][1] * 3 + 2.5), color)
+        s1 = segment(
+          point(x * 3 - 1.5, y * 3 + 2.5),
+          point(monchemin[j][0] * 3 - 1.5, monchemin[j][1] * 3 + 2.5),
+          color,
+        )
         s1.pointilles = 5
         s1.stylePointilles = 2
         s1.epaisseur = 5
@@ -334,7 +412,11 @@ export class Labyrinthe {
         x = monchemin[j][0]
         y = monchemin[j][1]
       }
-      s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(x * 3 + 1.5, y * 3 + 2.5), color)
+      s1 = segment(
+        point(x * 3 - 1.5, y * 3 + 2.5),
+        point(x * 3 + 1.5, y * 3 + 2.5),
+        color,
+      )
       s1.pointilles = 5
       s1.stylePointilles = 2
       s1.epaisseur = 5
@@ -344,23 +426,37 @@ export class Labyrinthe {
     }
 
     /**
-   * Retourne la position convenable de tous les éléments (bons ou faux) du labyrinthe (nombre, texte, fraction)
-   * @memberof Labyrinthe
-   * @param {Array.number[]} monchemin Un chemin choisi parmi tous les chemins possibles.
-   * @param {number[]|string[]|Fraction[]} bonnesReponses Tableau de bonnes réponses
-   * @param {number[]|string[]|Fraction[]} mauvaisesReponses Tableau de mauvaises réponses
-   * @param {number} taille Taille des écritures dans les cases du labyrinthe
-   * @example aVotrePlace = laby.placeNombres(monCheminChoisi,reponsesOK,reponsesPasOK,1)
-   * // Place les bonnes (reponsesOK) et les mauvaises (reponsesPasOK) réponses dans les cases adéquates du labyrinthe laby correspondant au chemin monCheminChoisi
-   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
-   * @return {ObjecMathalea2d[]}
-   */
+     * Retourne la position convenable de tous les éléments (bons ou faux) du labyrinthe (nombre, texte, fraction)
+     * @memberof Labyrinthe
+     * @param {Array.number[]} monchemin Un chemin choisi parmi tous les chemins possibles.
+     * @param {number[]|string[]|Fraction[]} bonnesReponses Tableau de bonnes réponses
+     * @param {number[]|string[]|Fraction[]} mauvaisesReponses Tableau de mauvaises réponses
+     * @param {number} taille Taille des écritures dans les cases du labyrinthe
+     * @example aVotrePlace = laby.placeNombres(monCheminChoisi,reponsesOK,reponsesPasOK,1)
+     * // Place les bonnes (reponsesOK) et les mauvaises (reponsesPasOK) réponses dans les cases adéquates du labyrinthe laby correspondant au chemin monCheminChoisi
+     * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+     * @return {ObjecMathalea2d[]}
+     */
     // JSDOC Validee par EE Octobre 2022
-    this.placeNombres = function (monChemin: LabyrintheChemin, bonnesReponses: (number | string | FractionEtendue)[], mauvaisesReponses: (number | string | FractionEtendue)[], taille: number) {
-      bonnesReponses = combinaisonListesSansChangerOrdre(bonnesReponses, monChemin.length)
-      mauvaisesReponses = combinaisonListesSansChangerOrdre(mauvaisesReponses, nbColonnes * nbLignes - monChemin.length)
+    this.placeNombres = function (
+      monChemin: LabyrintheChemin,
+      bonnesReponses: (number | string | FractionEtendue)[],
+      mauvaisesReponses: (number | string | FractionEtendue)[],
+      taille: number,
+    ) {
+      bonnesReponses = combinaisonListesSansChangerOrdre(
+        bonnesReponses,
+        monChemin.length,
+      )
+      mauvaisesReponses = combinaisonListesSansChangerOrdre(
+        mauvaisesReponses,
+        nbColonnes * nbLignes - monChemin.length,
+      )
       const objets = []
-      const nombres: [number | string | FractionEtendue, number | string | FractionEtendue][] = []
+      const nombres: [
+        number | string | FractionEtendue,
+        number | string | FractionEtendue,
+      ][] = []
       let trouve
       let indexBonnesRep = 0
       let indexMauvaisesRep = 0
@@ -386,12 +482,42 @@ export class Labyrinthe {
       for (let a = 1; a < nbColonnes + 1; a++) {
         for (let b = 0; b < nbLignes; b++) {
           const nombre = nombres[a - 1][b]
-          if (typeof (nombre) === 'number') {
-            objets.push(texteParPointEchelle(nombreAvecEspace(nombre), point(-1.5 + a * 3, 2.5 + b * 3), 0, 'black', taille, 'milieu', true, scaleFigure))
-          } else if (typeof (nombre) === 'string') { // écriture mode Maths
-            objets.push(texteParPositionEchelle(nombre, -1.5 + a * 3, 2.5 + b * 3, 0, 'black', taille, 'milieu', true, scaleFigure))
+          if (typeof nombre === 'number') {
+            objets.push(
+              texteParPointEchelle(
+                nombreAvecEspace(nombre),
+                point(-1.5 + a * 3, 2.5 + b * 3),
+                0,
+                'black',
+                taille,
+                'milieu',
+                true,
+                scaleFigure,
+              ),
+            )
+          } else if (typeof nombre === 'string') {
+            // écriture mode Maths
+            objets.push(
+              texteParPositionEchelle(
+                nombre,
+                -1.5 + a * 3,
+                2.5 + b * 3,
+                0,
+                'black',
+                taille,
+                'milieu',
+                true,
+                scaleFigure,
+              ),
+            )
           } else {
-            objets.push(latex2d(nombre.texFraction, -1.5 + a * 3, 2.5 + b * 3, { color: 'black', backgroundColor: 'white', letterSize: 'scriptsize' }))
+            objets.push(
+              latex2d(nombre.texFraction, -1.5 + a * 3, 2.5 + b * 3, {
+                color: 'black',
+                backgroundColor: 'white',
+                letterSize: 'scriptsize',
+              }),
+            )
           }
         }
       }
@@ -411,6 +537,10 @@ export class Labyrinthe {
  * @return {Labyrinthe}
  */
 // JSDOC Validee par EE Septembre 2022
-export function labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = {}) {
+export function labyrinthe({
+  nbLignes = 3,
+  nbColonnes = 6,
+  scaleFigure = 1,
+} = {}) {
   return new Labyrinthe({ nbLignes, nbColonnes, scaleFigure })
 }

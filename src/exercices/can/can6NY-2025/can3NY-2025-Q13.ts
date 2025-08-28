@@ -15,14 +15,14 @@ export const interactifType = 'mathLive'
 export const uuid = '90ae3'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class longueurDansTriangle extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -30,7 +30,7 @@ export default class longueurDansTriangle extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const objets = []
     const a = randint(11, 15) * 100
     const b = 2025
@@ -41,10 +41,22 @@ export default class longueurDansTriangle extends ExerciceSimple {
     const s2 = segment(B, C)
     const s3 = segment(A, C)
 
-    objets.push(codageSegments('||', 'blue', B, C),
+    objets.push(
+      codageSegments('||', 'blue', B, C),
       codageSegments('||', 'blue', C, A),
-      latex2d(`${texNombre(b, 0)} \\text{ cm}`, milieu(A, B).x, milieu(A, B).y - 0.7, { letterSize: 'scriptsize' }),
-      latex2d('?', milieu(B, C).x + 1, milieu(B, C).y + 0.5, { letterSize: 'scriptsize' }), s1, s2, s3)
+      latex2d(
+        `${texNombre(b, 0)} \\text{ cm}`,
+        milieu(A, B).x,
+        milieu(A, B).y - 0.7,
+        { letterSize: 'scriptsize' },
+      ),
+      latex2d('?', milieu(B, C).x + 1, milieu(B, C).y + 0.5, {
+        letterSize: 'scriptsize',
+      }),
+      s1,
+      s2,
+      s3,
+    )
 
     this.question = `Le périmètre de ce triangle est  $${texNombre(2 * a + b)}$ cm. <br>
         Que vaut la longueur indiquée par le point d'interrogation ?`
@@ -52,9 +64,23 @@ export default class longueurDansTriangle extends ExerciceSimple {
     this.correction = `Le triangle est isocèle, il possède donc deux longueurs égales.<br>
             Puisque le périmètre est  $${texNombre(2 * a + b)}$ cm, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${texNombre(2 * a + b)}-${texNombre(b)}=${texNombre(2 * a)}$ cm.<br>
             On obtient la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a)}\\div 2=${miseEnEvidence(texNombre(a))}$ cm.`
-    this.question += '<br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
+    this.question +=
+      '<br>' +
+      mathalea2d(
+        {
+          xmin: -0.5,
+          ymin: -1,
+          xmax: 6,
+          ymax: 2.5,
+          scale: 0.7,
+          style: 'margin: auto',
+        },
+        objets,
+      )
 
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ cm'
   }

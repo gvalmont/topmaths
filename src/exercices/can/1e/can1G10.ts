@@ -9,7 +9,8 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-export const titre = 'Associer une mesure d\'angle à un  point du cercle trigonométrique '
+export const titre =
+  "Associer une mesure d'angle à un  point du cercle trigonométrique "
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '31/10/2022'
@@ -25,10 +26,10 @@ export const uuid = '33ae8'
 
 export const refs = {
   'fr-fr': ['can1G10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PointSurCercleTrigo extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -36,7 +37,7 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let choix
     const r = 5
     const O = point(0, 0, 'O', 'below left')
@@ -84,11 +85,57 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
     sF1F2.epaisseur = 1
     sF1F2.pointilles = 5
     const g = grille(-5, -5, 5, 5, 'black', 0.4, 2.5)
-    const nom = polygoneAvecNom(A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2, I, J, K, L)[1]
-    const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, o, nom)
-    switch (randint(1, 16)) { //, 2, 3, 4, 5
-      case 1:// point I
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+    const nom = polygoneAvecNom(
+      A1,
+      A2,
+      B1,
+      B2,
+      C1,
+      C2,
+      D1,
+      D2,
+      E1,
+      E2,
+      F1,
+      F2,
+      I,
+      J,
+      K,
+      L,
+    )[1]
+    const objet = mathalea2d(
+      {
+        xmin: -r - 3,
+        xmax: r + 3,
+        ymin: -r - 1.5,
+        ymax: r + 1,
+        pixelsParCm: 15,
+        scale: 0.45,
+        style: 'margin: auto',
+      },
+      c,
+      s1,
+      s2,
+      sA1A2,
+      sB1B2,
+      sC1C2,
+      sD1D2,
+      sE1E2,
+      sF1F2,
+      g,
+      o,
+      nom,
+    )
+    switch (
+      randint(1, 16) //, 2, 3, 4, 5
+    ) {
+      case 1: // point I
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$  a pour point-image le point $I$ ?<br>
 
         `
@@ -102,8 +149,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
         }
 
         break
-      case 2:// point A
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 2: // point A
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $A$ ?<br>
 
         `
@@ -124,8 +176,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
         }
         break
 
-      case 3:// point B
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 3: // point B
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $B$ ?<br>
 
         `
@@ -147,8 +204,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 4:// point C
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 4: // point C
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $C$ ?<br>
 
         `
@@ -170,8 +232,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 5:// point J
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 5: // point J
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$  a pour point-image le point $J$ ?<br>
 
         `
@@ -193,8 +260,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 6:// point D
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 6: // point D
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $D$ ?<br>
 
         `
@@ -216,8 +288,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 7:// point E
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 7: // point E
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $E$ ?<br>
 
         `
@@ -239,8 +316,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 8:// point F
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 8: // point F
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $F$ ?<br>
 
         `
@@ -262,8 +344,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 9:// point K
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 9: // point K
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $K$ ?<br>
 
         `
@@ -278,8 +365,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 10:// point G
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
+      case 10: // point G
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\,;\\,0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $G$ ?<br>
 
         `
@@ -295,8 +387,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
         }
 
         break
-      case 11:// point H
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+      case 11: // point H
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\;\\ 0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $H$ ?<br>
 
         `
@@ -313,8 +410,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 12:// point M
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+      case 12: // point M
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\;\\ 0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $M$ ?<br>
 
         `
@@ -331,8 +433,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 13:// point L
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+      case 13: // point L
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\;\\ 0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $L$ ?<br>
 
         `
@@ -347,8 +454,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 14:// point N
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+      case 14: // point N
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\;\\ 0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $N$ ?<br>
 
         `
@@ -365,8 +477,13 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 15:// point P
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+      case 15: // point P
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\;\\ 0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $P$ ?<br>
 
         `
@@ -383,9 +500,14 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
 
         break
 
-      case 16:// point Q
+      case 16: // point Q
       default:
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice([
+          '[0\\,;\\,2\\pi[',
+          ']-\\pi\\,;\\,\\pi]',
+          '[\\pi\\,;\\,3\\pi[',
+          ']-2\\pi\\;\\ 0]',
+        ])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $Q$ ?<br>
 
         `

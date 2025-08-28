@@ -4,7 +4,10 @@
   import type TypeExercice from '../../../../../exercices/Exercice'
   import HeaderExerciceVueEleve from '../shared/HeaderExerciceVueEleve.svelte'
   import type { VueType } from '../../../../../lib/types'
-  import { globalOptions, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
+  import {
+    globalOptions,
+    isMenuNeededForExercises,
+  } from '../../../../../lib/stores/generalStore'
   export let vue: VueType | undefined
   export let exercise: TypeExercice
   export let indiceExercice: number
@@ -21,7 +24,7 @@
     randomReady: false,
     settingsReady: false,
     correctionReady: false,
-    isHidable: false
+    isHidable: false,
   }
 
   onMount(async () => {
@@ -47,12 +50,12 @@
 {#if vue === 'eleve'}
   <HeaderExerciceVueEleve
     {...headerExerciceProps}
-    isMenuNeededForExercises={$isMenuNeededForExercises}
-    presMode={$globalOptions.presMode ?? 'liste_exos'}
+    isMenuNeededForExercises="{$isMenuNeededForExercises}"
+    presMode="{$globalOptions.presMode ?? 'liste_exos'}"
   />
 {:else}
-  <HeaderExerciceVueProf {...headerExerciceProps} on:exerciseRemoved/>
+  <HeaderExerciceVueProf {...headerExerciceProps} on:exerciseRemoved />
 {/if}
 <section id="insert-html-{indiceExercice}" class="mt-6 mb-2 ml-2 lg:mx-5">
-  <div bind:this={divExercice} />
+  <div bind:this="{divExercice}"></div>
 </section>

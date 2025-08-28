@@ -15,10 +15,10 @@ export const uuid = '029b7'
 
 export const refs = {
   'fr-fr': ['1A-F1-5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF1e extends seuilFctAff {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

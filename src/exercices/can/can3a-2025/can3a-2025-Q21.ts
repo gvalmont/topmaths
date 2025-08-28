@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = '1381e'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -21,7 +21,7 @@ export const refs = {
 
 */
 export default class CalculLongueurThales extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -31,12 +31,12 @@ export default class CalculLongueurThales extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: 'cm' }
   }
 
-  nouvelleVersion () {
-    const a = this.canOfficielle ? 4 : randint(3, 5)// longueur IT
+  nouvelleVersion() {
+    const a = this.canOfficielle ? 4 : randint(3, 5) // longueur IT
     const k = this.canOfficielle ? 3 : randint(3, 5)
     const b = k * a // longueur IS
-    const c = a + 1// longueur IQ
-    const d = k * c// longueur IR
+    const c = a + 1 // longueur IQ
+    const d = k * c // longueur IR
     const A = point(0, 0, 'I', 'below')
     const B = point(2.6, -0.29, 'Q', 'below')
     const C = point(9, -1, 'R', 'below')
@@ -49,20 +49,30 @@ export default class CalculLongueurThales extends ExerciceSimple {
 
     const objets = []
     objets.push(
-      segment(A, C), segment(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C))
+      segment(A, C),
+      segment(A, D),
+      labelPoint(A, B, C, D, E),
+      segment(A, D),
+      segment(A, C),
+      segment(B, E),
+      segment(D, C),
+    )
     this.reponse = d
 
-    this.question = mathalea2d({
-      xmin,
-      ymin,
-      xmax,
-      ymax,
-      pixelsParCm: 30,
-      mainlevee: false,
-      amplitude: 0.5,
-      scale: 0.6,
-      style: 'margin: auto'
-    }, objets)
+    this.question = mathalea2d(
+      {
+        xmin,
+        ymin,
+        xmax,
+        ymax,
+        pixelsParCm: 30,
+        mainlevee: false,
+        amplitude: 0.5,
+        scale: 0.6,
+        style: 'margin: auto',
+      },
+      objets,
+    )
     this.question += `$(TQ)//(SR)$<br>
               $IT=${a}$ cm<br>
               $IS=${b}$ cm <br>

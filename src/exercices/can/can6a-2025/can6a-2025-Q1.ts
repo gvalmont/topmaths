@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f343g'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -16,9 +16,18 @@ export const refs = {
 
 */
 export default class Can2025N6Q1 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     if (a == null || b == null) {
-      const paire = shuffle(choice([[6, 7], [8, 9], [6, 8], [7, 9], [6, 9], [7, 8]]))
+      const paire = shuffle(
+        choice([
+          [6, 7],
+          [8, 9],
+          [6, 8],
+          [7, 9],
+          [6, 9],
+          [7, 8],
+        ]),
+      )
       const dizaine = choice([1, 2, 3, 4, 5]) * 10
       a = dizaine + paire[0]
       b = paire[1]
@@ -33,7 +42,7 @@ export default class Can2025N6Q1 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(17, 8) : this.enonce()
   }
 }

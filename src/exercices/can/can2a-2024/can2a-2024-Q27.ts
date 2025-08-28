@@ -12,9 +12,9 @@ export const uuid = 'c5768'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -23,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 31 : choice([19, 23, 29, 31])
     const b = this.canOfficielle ? 12 : randint(5, 15)
     const f = new FractionEtendue(a - b, a)

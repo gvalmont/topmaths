@@ -11,14 +11,14 @@ export const interactifType = 'mathLive'
 export const uuid = '00198'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class SommeDeProduitsCompleter extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -26,7 +26,7 @@ export default class SommeDeProduitsCompleter extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const den = choice([10, 100, 1000])
     const a = new Decimal(2025).div(den)
     this.reponse = texNombre(a, 3)

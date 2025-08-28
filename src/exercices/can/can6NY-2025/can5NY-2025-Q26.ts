@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'da6a3'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class nbreMinutes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -28,8 +28,8 @@ export default class nbreMinutes extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
-    this.consigne = 'Compléter l\'égalité.<br>'
+  nouvelleVersion() {
+    this.consigne = "Compléter l'égalité.<br>"
     switch (randint(1, 4)) {
       case 1:
         this.reponse = texNombre(15, 0)
@@ -47,17 +47,21 @@ export default class nbreMinutes extends ExerciceSimple {
         break
       case 3:
         this.reponse = texNombre(20.25, 2)
-        this.question = '20 \\text{ h } 15 \\text{ min } = ~%{champ1} \\text{ h }'
+        this.question =
+          '20 \\text{ h } 15 \\text{ min } = ~%{champ1} \\text{ h }'
         this.correction = `$20 \\text{ h } 15 \\text{ min }= 20 \\text{ h } + \\dfrac14 \\text{ h } =20 \\text{ h } + ${texNombre(0.25, 2)} \\text{ h }= ${miseEnEvidence(this.reponse)} \\text{ h. }$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = '$20 \\text{ h } 15 \\text{ min }= \\ldots \\text{ h }$'
+        this.canReponseACompleter =
+          '$20 \\text{ h } 15 \\text{ min }= \\ldots \\text{ h }$'
         break
       case 4:
         this.reponse = texNombre(202.5, 1)
-        this.question = '202 \\text{ h } 30 \\text{ min } = ~%{champ1} \\text{ h }'
+        this.question =
+          '202 \\text{ h } 30 \\text{ min } = ~%{champ1} \\text{ h }'
         this.correction = `$202 \\text{ h } 30 \\text{ min }= 202 \\text{ h } + \\dfrac12 \\text{ h } =202 \\text{ h } + ${texNombre(0.5, 1)} \\text{ h } = ${miseEnEvidence(this.reponse)} \\text{ h. }$`
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = '$202 \\text{ h } 30 \\text{ min }= \\ldots \\text{ h }$'
+        this.canReponseACompleter =
+          '$202 \\text{ h } 30 \\text{ min }= \\ldots \\text{ h }$'
         break
     }
     this.canEnonce = this.consigne

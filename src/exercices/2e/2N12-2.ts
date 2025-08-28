@@ -6,16 +6,16 @@ export const interactifType = 'mathLive'
 export const uuid = '8f56e'
 export const refs = {
   'fr-fr': ['2N12-2', 'BP2AutoE1'],
-  'fr-ch': ['10NO2-8']
+  'fr-ch': ['10NO2-8'],
 }
 export default class PuissancesEncadrement2nde extends PuissancesEncadrement {
-  constructor () {
+  constructor() {
     super()
     this.sup = 4
     this.classe = 2
     this.besoinFormulaireTexte = [
       'Niveau de difficulté',
-      'Nombres séparés par des tirets :\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Nombre relatif \n5 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Nombre relatif \n5 : Mélange',
     ]
   }
 }

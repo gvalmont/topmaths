@@ -3,7 +3,10 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Déterminer la valeur de $p$ dans une fonction affine'
@@ -13,7 +16,7 @@ export const dateDePublication = '30/11/2024'
 export const uuid = '25d1f'
 export const refs = {
   'fr-fr': ['can2F23'],
-  'fr-ch': ['1mF2-20', '11FA8-25']
+  'fr-ch': ['1mF2-20', '11FA8-25'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -21,7 +24,7 @@ export const refs = {
 
 */
 export default class TrouverpFonctionAffine extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +32,7 @@ export default class TrouverpFonctionAffine extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nom = ['f', 'g', 'h']
     const nomF = choice(nom)
     const a = randint(-10, 10, 0)
@@ -45,7 +48,9 @@ export default class TrouverpFonctionAffine extends ExerciceSimple {
     ${m * a}+p&=${b}\\\\
     p&=${miseEnEvidence(this.reponse)}
     \\end{aligned}$`
-    if (this.interactif) { this.question += '<br>$p=$' }
+    if (this.interactif) {
+      this.question += '<br>$p=$'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$p=\\ldots$'
   }

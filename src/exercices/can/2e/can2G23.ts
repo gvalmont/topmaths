@@ -3,17 +3,20 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 
 import { texNombre } from '../../../lib/outils/texNombre'
-export const titre = 'Déterminer p dans l\'équation réduite d\'une droite'
+export const titre = "Déterminer p dans l'équation réduite d'une droite"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '30/11/2024'
 export const uuid = 'fddc6'
 export const refs = {
   'fr-fr': ['can2G23'],
-  'fr-ch': ['1mF2-21', '11FA8-26']
+  'fr-ch': ['1mF2-21', '11FA8-26'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -21,7 +24,7 @@ export const refs = {
 
 */
 export default class TrouverpDroite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +32,7 @@ export default class TrouverpDroite extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nom = ['A', 'B', 'C']
     const nomP = choice(nom)
     const a = randint(-10, 10, 0)
@@ -45,7 +48,9 @@ export default class TrouverpDroite extends ExerciceSimple {
     ${b}&= ${m * a}+p\\\\
     p&=${miseEnEvidence(this.reponse)}
     \\end{aligned}$`
-    if (this.interactif) { this.question += '<br>$p=$' }
+    if (this.interactif) {
+      this.question += '<br>$p=$'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$p=\\ldots$'
   }

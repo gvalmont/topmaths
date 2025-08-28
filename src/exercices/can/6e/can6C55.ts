@@ -9,14 +9,14 @@ export const dateDePublication = '05/07/2025'
 export const uuid = 'c0043'
 export const refs = {
   'fr-fr': ['can6C55', 'auto6N3B-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora avec IA
-*/
+ */
 export default class FractionsSimplesEgalite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -24,18 +24,22 @@ export default class FractionsSimplesEgalite extends ExerciceSimple {
     this.formatInteractif = 'fillInTheBlank'
   }
 
-  nouvelleVersion () {
-    const tex = (n: number, d: number) => (d === 1 ? '1' : (n === d ? '1' : `\\dfrac{${n}}{${d}}`))
+  nouvelleVersion() {
+    const tex = (n: number, d: number) =>
+      d === 1 ? '1' : n === d ? '1' : `\\dfrac{${n}}{${d}}`
     const setExercice = (
       f1: { num: number; den: number },
       f2: { num: number; den: number },
       resultat: { num: number; den: number } | string,
       operation: '+' | '-',
-      trou: 'resultat' | 'terme1' | 'terme2'
+      trou: 'resultat' | 'terme1' | 'terme2',
     ) => {
       const texF1 = tex(f1.num, f1.den)
       const texF2 = tex(f2.num, f2.den)
-      const texRes = typeof resultat === 'string' ? resultat : tex(resultat.num, resultat.den)
+      const texRes =
+        typeof resultat === 'string'
+          ? resultat
+          : tex(resultat.num, resultat.den)
 
       this.consigne = 'Compléter.'
       this.canEnonce = this.consigne
@@ -61,7 +65,7 @@ export default class FractionsSimplesEgalite extends ExerciceSimple {
           this.reponse = texF2
           this.correction = `$${texF1} ${operation} ${miseEnEvidence(texF2)} = ${texRes}$`
           this.canReponseACompleter = `$${texF1} ${operation} \\ldots = ${texRes}$`
-        }
+        },
       }
 
       baseExpr[trou]()
@@ -99,9 +103,21 @@ $\\dfrac{1}{2} = \\dfrac{2}{4}$ donc $\\dfrac{2}{4} + \\dfrac{1}{4} = ${miseEnEv
       case 3: {
         const trou = choice(['resultat', 'terme1', 'terme2'] as const)
         const cas = choice([
-          { f1: { num: 1, den: 1 }, f2: { num: 1, den: 4 }, res: { num: 3, den: 4 } },
-          { f1: { num: 1, den: 1 }, f2: { num: 1, den: 2 }, res: { num: 1, den: 2 } },
-          { f1: { num: 1, den: 1 }, f2: { num: 3, den: 4 }, res: { num: 1, den: 4 } }
+          {
+            f1: { num: 1, den: 1 },
+            f2: { num: 1, den: 4 },
+            res: { num: 3, den: 4 },
+          },
+          {
+            f1: { num: 1, den: 1 },
+            f2: { num: 1, den: 2 },
+            res: { num: 1, den: 2 },
+          },
+          {
+            f1: { num: 1, den: 1 },
+            f2: { num: 3, den: 4 },
+            res: { num: 1, den: 4 },
+          },
         ])
         setExercice(cas.f1, cas.f2, cas.res, '-', trou)
         break

@@ -15,28 +15,30 @@ export const interactifType = 'mathLive'
 /**
  *
  * @author Stéphane Guyon
-*/
+ */
 
 export const uuid = '8977b'
 export const refs = {
   'fr-fr': ['canTSpeE01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class MilieuSegment extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       const choixLettre = randint(1, 23, [9, 10, 11, 15])
       const pointA = lettreDepuisChiffre(choixLettre)
-      const pointB = lettreDepuisChiffre(randint(1, 23, [9, 10, 11, 15, choixLettre]))
+      const pointB = lettreDepuisChiffre(
+        randint(1, 23, [9, 10, 11, 15, choixLettre]),
+      )
       const xA = randint(-6, 6)
       const yA = randint(-6, 6)
       const zA = randint(-6, 6)
@@ -51,10 +53,16 @@ export default class MilieuSegment extends Exercice {
       texte += `Déterminer les coordonnées du point $I$ milieu du segment $[${pointA}${pointB}]$`
 
       if (this.interactif) {
-        texte += ': ' + remplisLesBlancs(this, i, 'I(%{champ1};%{champ2};%{champ3}).')
+        texte +=
+          ': ' + remplisLesBlancs(this, i, 'I(%{champ1};%{champ2};%{champ3}).')
       } else texte += '.'
-      handleAnswers(this, i, { champ1: { value: texNombre(xV, 1) }, champ2: { value: texNombre(yV, 1) }, champ3: { value: texNombre(zV, 1) } })
-      texteCorr = 'On calcule la demi-somme des coordonnées des deux points :<br>'
+      handleAnswers(this, i, {
+        champ1: { value: texNombre(xV, 1) },
+        champ2: { value: texNombre(yV, 1) },
+        champ3: { value: texNombre(zV, 1) },
+      })
+      texteCorr =
+        'On calcule la demi-somme des coordonnées des deux points :<br>'
       texteCorr += 'On obtient :  '
       texteCorr += `$I\\left( \\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2} ; \\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}; \\dfrac{${zA}+${ecritureParentheseSiNegatif(zB)}}{2}\\right)$<br>`
       texteCorr += `ce qui donne finalement : $I(${miseEnEvidence(`${texNombre((xA + xB) / 2, 1)}~;~${texNombre((yA + yB) / 2, 1)}~;~${texNombre((zA + zB) / 2, 1)} `)})$`

@@ -11,7 +11,12 @@ import { rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Nommer des faces dans un pavé droit'
@@ -32,22 +37,25 @@ export const uuid = '6809f'
 export const refs = {
   'fr-fr': ['BP2G1', 'CM2G5B-2'],
   'fr-2016': ['6G42-1', 'BP2G1'],
-  'fr-ch': ['9ES7-5']
+  'fr-ch': ['9ES7-5'],
 }
 
 /**
-     * Inverse une chaîne de caractères
-     * @param {string} str Chaîne à inverser
-     * @author Eric Elter
-     * @example inverseChaine('laval') renvoie 'laval' /// Hihihihi...
-     * @example inverseChaine('parfait') renvoie 'tiafrap'
-     * @example inverseChaine('1234') renvoie '4321'
-     */
-function inverseChaine (str: string): string {
-  return (str === '') ? '' : inverseChaine(str.substr(1)) + str.charAt(0)
+ * Inverse une chaîne de caractères
+ * @param {string} str Chaîne à inverser
+ * @author Eric Elter
+ * @example inverseChaine('laval') renvoie 'laval' /// Hihihihi...
+ * @example inverseChaine('parfait') renvoie 'tiafrap'
+ * @example inverseChaine('1234') renvoie '4321'
+ */
+function inverseChaine(str: string): string {
+  return str === '' ? '' : inverseChaine(str.substr(1)) + str.charAt(0)
 }
 
-function differentsNomsPossiblesDUneFace (face: string, nomSolide: string): string[] {
+function differentsNomsPossiblesDUneFace(
+  face: string,
+  nomSolide: string,
+): string[] {
   let nouvelleFaceChiffree = ''
   let nouvelleFace = ''
   const tabChiffre: string[] = [face, inverseChaine(face)]
@@ -66,12 +74,25 @@ function differentsNomsPossiblesDUneFace (face: string, nomSolide: string): stri
   return tab
 }
 export default class LireFacePaveDroit extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Nombre de faces à trouver (entre 1 et 6)', 6]
-    this.besoinFormulaire2Texte = ['Faces à exclure du choix', 'Nombres séparés par des tirets :\n1 : de devant\n2 : de derrière\n3 : de gauche\n4 : de droite\n5 : du dessus\n6 : du dessous\n7 : aucune à exclure']
-    this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique']
-    this.besoinFormulaire4Numerique = ['Nombre de réponses dans le QCM (entre 2 et 6)', 6]
+    this.besoinFormulaireNumerique = [
+      'Nombre de faces à trouver (entre 1 et 6)',
+      6,
+    ]
+    this.besoinFormulaire2Texte = [
+      'Faces à exclure du choix',
+      'Nombres séparés par des tirets :\n1 : de devant\n2 : de derrière\n3 : de gauche\n4 : de droite\n5 : du dessus\n6 : du dessous\n7 : aucune à exclure',
+    ]
+    this.besoinFormulaire3Numerique = [
+      "Type d'exercice interactif ou AMC",
+      2,
+      '1 : QCM\n2 : Numérique',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Nombre de réponses dans le QCM (entre 2 et 6)',
+      6,
+    ]
     this.nbQuestions = 1
     this.sup = 3
     this.sup2 = 7
@@ -79,7 +100,7 @@ export default class LireFacePaveDroit extends Exercice {
     this.sup4 = 6
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.sup4 = contraindreValeur(2, 6, this.sup4, 6)
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
 
@@ -90,10 +111,10 @@ export default class LireFacePaveDroit extends Exercice {
       shuffle: false,
       saisie: this.sup2,
       enleveDoublons: true,
-      melange: 0
+      melange: 0,
     }).map(Number)
 
-    function comparerNombres (a: number, b: number): number {
+    function comparerNombres(a: number, b: number): number {
       return a - b
     }
 
@@ -105,8 +126,29 @@ export default class LireFacePaveDroit extends Exercice {
     choixFace = combinaisonListes(choixFace, choixFace.length)
     let indiceQuestion
 
-    for (let i = 0, texte, texteCorr, objetsEnonce, A, B, D, E, solideDessine, nomSolide, enonceAMC, enonceFigure,
-      L, p, choixProfondeur, facesPossibles, h, resultatsPossibles, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        objetsEnonce,
+        A,
+        B,
+        D,
+        E,
+        solideDessine,
+        nomSolide,
+        enonceAMC,
+        enonceFigure,
+        L,
+        p,
+        choixProfondeur,
+        facesPossibles,
+        h,
+        resultatsPossibles,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
       objetsEnonce = []
@@ -126,12 +168,23 @@ export default class LireFacePaveDroit extends Exercice {
       solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
       objetsEnonce.push(...solideDessine.c2d)
       // enonceFigure = (context.isAmc ? '' : '<br>') + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.2, style: 'block' }), objetsEnonce) + '<br>'
-      enonceFigure = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
-        scale: context.isHtml ? 0.7 : 0.3,
-        style: 'block'
-      }), objetsEnonce) + '<br>'
+      enonceFigure =
+        mathalea2d(
+          Object.assign({}, fixeBordures(objetsEnonce), {
+            scale: context.isHtml ? 0.7 : 0.3,
+            style: 'block',
+          }),
+          objetsEnonce,
+        ) + '<br>'
       texte += enonceFigure
-      facesPossibles = [['de devant', '0123'], ['de derrière', '4567'], ['de gauche', '0374'], ['de droite', '1265'], ['du dessus', '2376'], ['du dessous', '0154']]
+      facesPossibles = [
+        ['de devant', '0123'],
+        ['de derrière', '4567'],
+        ['de gauche', '0374'],
+        ['de droite', '1265'],
+        ['du dessus', '2376'],
+        ['du dessous', '0154'],
+      ]
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -139,8 +192,8 @@ export default class LireFacePaveDroit extends Exercice {
           // @ts-expect-error
           enonceCentre: false,
           options: {
-            ordered: false
-          }
+            ordered: false,
+          },
         }
         this.autoCorrection[i].propositions = []
       }
@@ -148,37 +201,62 @@ export default class LireFacePaveDroit extends Exercice {
       for (let ee = 0; ee < Math.min(choixFace.length, this.sup); ee++) {
         indiceQuestion = i * Math.min(choixFace.length, this.sup) + ee
 
-        enonceAMC = this.sup === 1 ? '' : (((ee === 0 || context.isAmc) ? '' : '<br>') + numAlpha(ee))
+        enonceAMC =
+          this.sup === 1
+            ? ''
+            : (ee === 0 || context.isAmc ? '' : '<br>') + numAlpha(ee)
 
         enonceAMC += `Comment peut se nommer la face ${facesPossibles[choixFace[ee]][0]} du pavé droit ${nomSolide} ?`
         texte += enonceAMC
-        resultatsPossibles = combinaisonListes(differentsNomsPossiblesDUneFace(facesPossibles[choixFace[ee]][1], nomSolide))
+        resultatsPossibles = combinaisonListes(
+          differentsNomsPossiblesDUneFace(
+            facesPossibles[choixFace[ee]][1],
+            nomSolide,
+          ),
+        )
         texteCorr += this.sup === 1 ? '' : numAlpha(ee)
         texteCorr += `La face ${facesPossibles[choixFace[ee]][0]} du pavé droit ${nomSolide} peut se nommer ${texteEnCouleurEtGras(resultatsPossibles[0])} mais aussi `
-        for (let j = 1; j < resultatsPossibles.length - 2; j++) texteCorr += `${resultatsPossibles[j]}, `
+        for (let j = 1; j < resultatsPossibles.length - 2; j++)
+          texteCorr += `${resultatsPossibles[j]}, `
         texteCorr += `${resultatsPossibles[resultatsPossibles.length - 2]} ou ${resultatsPossibles[resultatsPossibles.length - 1]}.<br>`
 
-        if ((this.interactifType && this.interactifType === 'qcm') || context.isAmc) {
+        if (
+          (this.interactifType && this.interactifType === 'qcm') ||
+          context.isAmc
+        ) {
           resultatsImpossibles = []
           for (let j = 0; j < 6; j++) {
             if (j !== choixFace[ee]) {
-              resultatsImpossibles.push(combinaisonListes(differentsNomsPossiblesDUneFace(facesPossibles[j][1], nomSolide))[0])
+              resultatsImpossibles.push(
+                combinaisonListes(
+                  differentsNomsPossiblesDUneFace(
+                    facesPossibles[j][1],
+                    nomSolide,
+                  ),
+                )[0],
+              )
             }
           }
         }
         this.autoCorrection[indiceQuestion] = {}
         if (this.interactifType === 'qcm') {
           this.autoCorrection[indiceQuestion].enonce = `${texte}\n`
-          this.autoCorrection[indiceQuestion].propositions = [{
-            texte: `${resultatsPossibles[0]}`,
-            statut: true
-          }]
-          for (let j = 0; j < Math.min(resultatsImpossibles.length, this.sup4 - 1); j++) {
+          this.autoCorrection[indiceQuestion].propositions = [
+            {
+              texte: `${resultatsPossibles[0]}`,
+              statut: true,
+            },
+          ]
+          for (
+            let j = 0;
+            j < Math.min(resultatsImpossibles.length, this.sup4 - 1);
+            j++
+          ) {
             const props = this.autoCorrection[indiceQuestion].propositions
             if (props) {
               props.push({
                 texte: `${resultatsImpossibles[j]}`,
-                statut: false
+                statut: false,
               })
             }
           }
@@ -186,32 +264,39 @@ export default class LireFacePaveDroit extends Exercice {
           this.autoCorrection[indiceQuestion].options = {}
           texte += propositionsQcm(this, indiceQuestion).texte
         } else {
-          setReponse(this, indiceQuestion, resultatsPossibles, { formatInteractif: 'texte' })
-          texte += ajouteChampTexteMathLive(this, indiceQuestion, ' ') + KeyboardType.alphanumeric + '<br>'
+          setReponse(this, indiceQuestion, resultatsPossibles, {
+            formatInteractif: 'texte',
+          })
+          texte +=
+            ajouteChampTexteMathLive(this, indiceQuestion, ' ') +
+            KeyboardType.alphanumeric +
+            '<br>'
         }
         if (context.isAmc) {
           // @ts-expect-error
-          this.autoCorrection[i].propositions.push(
-            {
-              type: 'qcmMono',
-              // @ts-expect-error
-              enonce: enonceAMC,
-              propositions: [
-                {
-                  texte: `${resultatsPossibles[0]}`,
-                  statut: true
-                }
-              ]
-            }
-          )
-          for (let j = 0; j < Math.min(resultatsImpossibles.length, this.sup4 - 1); j++) {
+          this.autoCorrection[i].propositions.push({
+            type: 'qcmMono',
+            // @ts-expect-error
+            enonce: enonceAMC,
+            propositions: [
+              {
+                texte: `${resultatsPossibles[0]}`,
+                statut: true,
+              },
+            ],
+          })
+          for (
+            let j = 0;
+            j < Math.min(resultatsImpossibles.length, this.sup4 - 1);
+            j++
+          ) {
             const props = this.autoCorrection[i].propositions
             if (props) {
               // @ts-expect-error
               const props2 = props[ee].propositions
               props2.push({
                 texte: `${resultatsImpossibles[j]}`,
-                statut: false
+                statut: false,
               })
             }
           }

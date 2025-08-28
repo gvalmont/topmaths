@@ -1,14 +1,34 @@
 import { texPrix } from '../../lib/format/style'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { jourAuHasard, minToHeuresMinutes, minToHoraire, minToHour, nomDuMois } from '../../lib/outils/dateEtHoraires'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
+import {
+  jourAuHasard,
+  minToHeuresMinutes,
+  minToHoraire,
+  minToHour,
+  nomDuMois,
+} from '../../lib/outils/dateEtHoraires'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDe,
+} from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -34,12 +54,15 @@ export const uuid = '529ad'
 export const refs = {
   'fr-fr': ['6N5-4'],
   'fr-2016': ['6C12-4'],
-  'fr-ch': ['9NO16-3']
+  'fr-ch': ['9NO16-3'],
 }
 export default class ExerciceInformationsProblemes extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : Livres\n2 : Haricots\n3 : Villages de montagne\n4 : Manga\n5 : Film\n6 : Vélo\n7 : Taille\n8 : Gare\n9 : Livreur\n10 : Cargo\n11 : Tous les problèmes\n']
+    this.besoinFormulaireTexte = [
+      'Choix des problèmes',
+      'Nombres séparés par des tirets :\n1 : Livres\n2 : Haricots\n3 : Villages de montagne\n4 : Manga\n5 : Film\n6 : Vélo\n7 : Taille\n8 : Gare\n9 : Livreur\n10 : Cargo\n11 : Tous les problèmes\n',
+    ]
     this.nbQuestions = 4
     // Multiplier deux nombres
     this.sup = 11
@@ -47,7 +70,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // Ebauche de la consigne en fonction des possibilités
     const chaqueCe = ['chaque', 'ce']
     this.consigne = 'Résoudre '
@@ -58,23 +81,45 @@ export default class ExerciceInformationsProblemes extends Exercice {
       defaut: 11,
       nbQuestions: this.nbQuestions,
       melange: 11,
-      saisie: this.sup
+      saisie: this.sup,
     })
 
     const FamilleH = ['père', 'frère', 'cousin', 'grand-père', 'voisin']
-    const FamilleF = ['mère', 'sœur', 'cousine', 'grand-mère', 'tante', 'voisine']
+    const FamilleF = [
+      'mère',
+      'sœur',
+      'cousine',
+      'grand-mère',
+      'tante',
+      'voisine',
+    ]
 
     let choixVersion = 0
     for (
-      let i = 0, nb, nb1, nb2, nb3, nb4, nb5, quidam, quidam2, personnage1, texte, texteCorr, reponse, reponse1, reponse2;
-      i < this.nbQuestions; i++
+      let i = 0,
+        nb,
+        nb1,
+        nb2,
+        nb3,
+        nb4,
+        nb5,
+        quidam,
+        quidam2,
+        personnage1,
+        texte,
+        texteCorr,
+        reponse,
+        reponse1,
+        reponse2;
+      i < this.nbQuestions;
+      i++
     ) {
       reponse = 0 // Initialisation de la réponse pour éviter le type undefined mais mis à jour dans les case
       choixVersion = choice([1, 2])
       texte = ''
       texteCorr = ''
       switch (listeDesProblemes[i]) {
-        case 1 :
+        case 1:
           nb1 = randint(17, 35)
           nb2 = randint(7, 15)
           nb4 = randint(3, 10)
@@ -85,25 +130,46 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 1:
               texte += 'Quel est le nombre total de livres distribués ?'
               reponse = nb1 * nb4
-              texteCorr += `$${miseEnEvidence(nb1, 'blue')} \\times ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' livres', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' livres', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb1, 'blue')} \\times ${miseEnEvidence(nb4, 'blue')}$` +
+                texteEnCouleurEtGras(' livres', 'blue') +
+                `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` +
+                texteEnCouleurEtGras(' livres', 'blue') +
+                '<br>'
               texteCorr += `$${miseEnEvidence(reponse)}$ livres sont distribués par le professeur.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'livres'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'livres',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               break
             case 2:
             default:
-              texte += 'Quelle est la masse totale des livres distribués à chaque enfant ?'
+              texte +=
+                'Quelle est la masse totale des livres distribués à chaque enfant ?'
               reponse = nb5 * nb4
-              texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' g', 'blue') + `$${sp()}\\times${sp()}${miseEnEvidence(nb4, 'blue')}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' g', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb5, 'blue')}$` +
+                texteEnCouleurEtGras(' g', 'blue') +
+                `$${sp()}\\times${sp()}${miseEnEvidence(nb4, 'blue')}=${miseEnEvidence(texNombre(reponse), 'blue')}$` +
+                texteEnCouleurEtGras(' g', 'blue') +
+                '<br>'
               texteCorr += `La masse totale des livres distribués à chaque enfant est de $${miseEnEvidence(texNombre(reponse))}$ g.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'g'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'g',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               break
@@ -114,32 +180,39 @@ export default class ExerciceInformationsProblemes extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  propositions: [{
-                    enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                    sanscadre: true,
-                    texte: texteCorr,
-                    statut: 3
-                  }]
+                  propositions: [
+                    {
+                      enonce:
+                        texte +
+                        '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                      sanscadre: true,
+                      texte: texteCorr,
+                      statut: 3,
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
+                  propositions: [
+                    {
                       texte: '',
-                      valeur: [reponse],
-                      alignement: 'flushright',
-                      param: {
-                        digits: nombreDeChiffresDe(reponse),
-                        decimals: nombreDeChiffresDansLaPartieDecimale(reponse),
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
-                }
-              ]
+                      statut: '',
+                      reponse: {
+                        texte: '',
+                        valeur: [reponse],
+                        alignement: 'flushright',
+                        param: {
+                          digits: nombreDeChiffresDe(reponse),
+                          decimals:
+                            nombreDeChiffresDansLaPartieDecimale(reponse),
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
           break
@@ -160,12 +233,22 @@ export default class ExerciceInformationsProblemes extends Exercice {
           switch (choixVersion) {
             case 1:
               texte += 'Quel est le prix total des fruits achetés ?'
-              texteCorr += `$${miseEnEvidence(nb4, 'blue')} \\times ${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb4, 'blue')} \\times ${miseEnEvidence(nb5, 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                `$${sp()}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                '<br>'
               texteCorr += `Le prix total des fruits achetés est de $${miseEnEvidence(texPrix(reponse1))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + '€'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + '€',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse1 } })
               }
               if (context.isAmc) {
@@ -174,44 +257,61 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse1],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse1),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse1),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse1],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse1),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse1),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
             case 2:
             default:
               texte += 'Quel est le prix total des légumes achetés ?'
-              texteCorr += `$${miseEnEvidence(nb1, 'blue')} \\times ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb1, 'blue')} \\times ${miseEnEvidence(nb3, 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                `$${sp()}=${miseEnEvidence(texPrix(reponse2), 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                '<br>'
               texteCorr += `Le prix total des légumes achetés est de $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + '€'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + '€',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse2 } })
               }
               if (context.isAmc) {
@@ -220,32 +320,39 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse1],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse2),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse2),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse1],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse2),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse2),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
@@ -265,12 +372,24 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 1:
               texte += `Combien d'habitants compte le village de Saint-${quidam}-Le-Bouquetin ?`
               reponse = nb1 - nb5
-              texteCorr += `$${miseEnEvidence(nb1, 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb1, 'blue')}$` +
+                texteEnCouleurEtGras(' habitants', 'blue') +
+                `$${sp()}-${sp()} ${miseEnEvidence(nb5, 'blue')}$` +
+                texteEnCouleurEtGras(' habitants', 'blue') +
+                `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` +
+                texteEnCouleurEtGras(' habitants', 'blue') +
+                '<br>'
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin compte $${miseEnEvidence(texNombre(reponse))}$ habitants.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'habitants'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'habitants',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               break
@@ -278,12 +397,24 @@ export default class ExerciceInformationsProblemes extends Exercice {
             default:
               texte += `À quelle altitude se situe le village de Saint-${quidam}-Le-Bouquetin ?`
               reponse = nb2 + nb4
-              texteCorr += `$${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()} ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb2, 'blue')}$` +
+                texteEnCouleurEtGras(' m', 'blue') +
+                `$${sp()}+${sp()} ${miseEnEvidence(nb4, 'blue')}$` +
+                texteEnCouleurEtGras(' m', 'blue') +
+                `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` +
+                texteEnCouleurEtGras(' m', 'blue') +
+                '<br>'
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin se situe à $${miseEnEvidence(texNombre(reponse))}$ m d'altitude.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'm'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'm',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               break
@@ -294,32 +425,39 @@ export default class ExerciceInformationsProblemes extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  propositions: [{
-                    enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                    sanscadre: true,
-                    texte: texteCorr,
-                    statut: 3
-                  }]
+                  propositions: [
+                    {
+                      enonce:
+                        texte +
+                        '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                      sanscadre: true,
+                      texte: texteCorr,
+                      statut: 3,
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
+                  propositions: [
+                    {
                       texte: '',
-                      valeur: [reponse],
-                      alignement: 'flushright',
-                      param: {
-                        digits: nombreDeChiffresDe(reponse),
-                        decimals: nombreDeChiffresDansLaPartieDecimale(reponse),
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
-                }
-              ]
+                      statut: '',
+                      reponse: {
+                        texte: '',
+                        valeur: [reponse],
+                        alignement: 'flushright',
+                        param: {
+                          digits: nombreDeChiffresDe(reponse),
+                          decimals:
+                            nombreDeChiffresDansLaPartieDecimale(reponse),
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
           break
@@ -340,12 +478,23 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 1:
               texte += `Combien y a-t-il de cases dans le manga de ${quidam2} ?`
               reponse1 = nb3 * nb5
-              texteCorr += `$${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' cases', 'blue') + `$${sp()}\\times${sp()} ${miseEnEvidence(nb5, 'blue')}$` + `$${sp()}=${miseEnEvidence(texNombre(reponse1), 'blue')}$` + texteEnCouleurEtGras(' cases', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb3, 'blue')}$` +
+                texteEnCouleurEtGras(' cases', 'blue') +
+                `$${sp()}\\times${sp()} ${miseEnEvidence(nb5, 'blue')}$` +
+                `$${sp()}=${miseEnEvidence(texNombre(reponse1), 'blue')}$` +
+                texteEnCouleurEtGras(' cases', 'blue') +
+                '<br>'
               texteCorr += `Il y a $${miseEnEvidence(texNombre(reponse1))}$ cases dans le manga de ${quidam2}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'cases'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'cases',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse1 } })
               }
               if (context.isAmc) {
@@ -354,44 +503,63 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse1],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse1),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse1),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse1],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse1),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse1),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
             case 2:
             default:
               texte += `Lorsqu'elle a acheté son manga, quelle somme d'argent a-t-on rendu à ${quidam2} ?`
-              texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb4, 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                `$${sp()}-${sp()} ${miseEnEvidence(nb2, 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                `$${sp()}=${miseEnEvidence(texPrix(reponse2), 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                '<br>'
               texteCorr += `On a rendu à ${quidam2} $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + '€'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + '€',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse2 } })
               }
               if (context.isAmc) {
@@ -400,39 +568,49 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse2],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse2),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse2),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse2],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse2),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse2),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
           }
           break
         case 5:
-          personnage1 = randint(1, 2) === 1 ? 'sa ' + choice(FamilleF) : 'son ' + choice(FamilleH)
+          personnage1 =
+            randint(1, 2) === 1
+              ? 'sa ' + choice(FamilleF)
+              : 'son ' + choice(FamilleH)
           if (randint(1, 2) === 1) {
             quidam = prenomM()
             quidam2 = 'il'
@@ -441,7 +619,12 @@ export default class ExerciceInformationsProblemes extends Exercice {
             quidam2 = 'elle'
           }
           nb = randint(13, 21)
-          nb1 = jourAuHasard() + ' ' + randint(2, 29) + ' ' + nomDuMois(randint(1, 12))
+          nb1 =
+            jourAuHasard() +
+            ' ' +
+            randint(2, 29) +
+            ' ' +
+            nomDuMois(randint(1, 12))
           nb2 = nb * 60 + 5 * randint(2, 11)
           nb3 = (nb + 2) * 60 + 5 * randint(2, 11)
           reponse1 = minToHeuresMinutes(nb3 - nb2)
@@ -456,14 +639,31 @@ export default class ExerciceInformationsProblemes extends Exercice {
           switch (choixVersion) {
             case 1:
               texte += 'Quelle est la durée prévue du film ?'
-              texteCorr += texteEnCouleurEtGras(nb3, 'blue') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2, 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1]), 'blue') + '<br>'
+              texteCorr +=
+                texteEnCouleurEtGras(nb3, 'blue') +
+                `$${sp()}-${sp()}$` +
+                texteEnCouleurEtGras(nb2, 'blue') +
+                `${sp()}=${sp()}` +
+                texteEnCouleurEtGras(
+                  minToHour(reponse1[0] * 60 + reponse1[1]),
+                  'blue',
+                ) +
+                '<br>'
               texteCorr += `La durée prévue du film est de ${texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1]))}.`
               if (this.interactif) {
-                texte += remplisLesBlancs(this, i, '%{champ1} ~\\text{h}~%{champ2}~\\text{min}', KeyboardType.clavierDeBase)
+                texte += remplisLesBlancs(
+                  this,
+                  i,
+                  '%{champ1} ~\\text{h}~%{champ2}~\\text{min}',
+                  KeyboardType.clavierDeBase,
+                )
                 handleAnswers(this, i, {
-                  bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
+                  bareme: (listePoints: number[]) => [
+                    Math.min(listePoints[0], listePoints[1]),
+                    1,
+                  ],
                   champ1: { value: reponse1[0] },
-                  champ2: { value: reponse1[1] }
+                  champ2: { value: reponse1[1] },
                 })
               }
               if (context.isAmc) {
@@ -472,64 +672,89 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
-                          texte: `\\begin{flushright}heures ${sp(65)} \\end{flushright}`,
-                          valeur: [reponse1[0]],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse1[0]),
-                            decimals: 0,
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
+                      propositions: [
+                        {
+                          texte: '',
+                          statut: '',
+                          reponse: {
+                            texte: `\\begin{flushright}heures ${sp(65)} \\end{flushright}`,
+                            valeur: [reponse1[0]],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse1[0]),
+                              decimals: 0,
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
-                          texte: `\\begin{flushright}minutes ${sp(65)} \\end{flushright}`,
-                          valeur: [reponse1[1]],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse1[1]),
-                            decimals: 0,
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                      propositions: [
+                        {
+                          texte: '',
+                          statut: '',
+                          reponse: {
+                            texte: `\\begin{flushright}minutes ${sp(65)} \\end{flushright}`,
+                            valeur: [reponse1[1]],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse1[1]),
+                              decimals: 0,
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
             case 2:
             default:
-              texte += 'À quelle heure se termine l\'émission ?'
-              texteCorr += texteEnCouleurEtGras(nb4, 'blue') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' minutes', 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1]), 'blue') + '<br>'
+              texte += "À quelle heure se termine l'émission ?"
+              texteCorr +=
+                texteEnCouleurEtGras(nb4, 'blue') +
+                `$${sp()}+${sp()}$` +
+                texteEnCouleurEtGras(nb5 + ' minutes', 'blue') +
+                `${sp()}=${sp()}` +
+                texteEnCouleurEtGras(
+                  minToHour(reponse2[0] * 60 + reponse2[1]),
+                  'blue',
+                ) +
+                '<br>'
               texteCorr += `L'émission se termine à ${texteEnCouleurEtGras(minToHoraire(reponse2[0] * 60 + reponse2[1]))}.`
               if (this.interactif) {
-                texte += remplisLesBlancs(this, i, '%{champ1} ~\\text{h}~%{champ2}~\\text{min}', KeyboardType.clavierDeBase)
+                texte += remplisLesBlancs(
+                  this,
+                  i,
+                  '%{champ1} ~\\text{h}~%{champ2}~\\text{min}',
+                  KeyboardType.clavierDeBase,
+                )
                 handleAnswers(this, i, {
-                  bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
+                  bareme: (listePoints: number[]) => [
+                    Math.min(listePoints[0], listePoints[1]),
+                    1,
+                  ],
                   champ1: { value: reponse2[0] },
-                  champ2: { value: reponse2[1] }
+                  champ2: { value: reponse2[1] },
                 })
               }
               if (context.isAmc) {
@@ -538,50 +763,58 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
-                          texte: `\\begin{flushright}heures ${sp(65)} \\end{flushright}`,
-                          valeur: [reponse2[0]],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse2[0]),
-                            decimals: 0,
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
+                      propositions: [
+                        {
+                          texte: '',
+                          statut: '',
+                          reponse: {
+                            texte: `\\begin{flushright}heures ${sp(65)} \\end{flushright}`,
+                            valeur: [reponse2[0]],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse2[0]),
+                              decimals: 0,
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
-                          texte: `\\begin{flushright}minutes ${sp(65)} \\end{flushright}`,
-                          valeur: [reponse2[1]],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse2[1]),
-                            decimals: 0,
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                      propositions: [
+                        {
+                          texte: '',
+                          statut: '',
+                          reponse: {
+                            texte: `\\begin{flushright}minutes ${sp(65)} \\end{flushright}`,
+                            valeur: [reponse2[1]],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse2[1]),
+                              decimals: 0,
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
@@ -596,7 +829,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb3 = randint(15, 18)
           nb4 = arrondi(randint(2054, 3298) / 100)
           nb5 = choice([2, 3, 4, 6, 12])
-          while ((100 * nb2 % nb5) !== 0) {
+          while ((100 * nb2) % nb5 !== 0) {
             nb2 = randint(214, 625)
           }
           reponse2 = nb4 + nb2
@@ -608,12 +841,22 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 1:
               texte += `Quel est le montant de chaque versement que payera la ${personnage1} de ${quidam2} ?`
               reponse1 = arrondi(nb2 / nb5)
-              texteCorr += `$${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}\\div${sp()}${miseEnEvidence(nb5, 'blue')}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb2, 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                `$${sp()}\\div${sp()}${miseEnEvidence(nb5, 'blue')}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                '<br>'
               texteCorr += `La ${personnage1} de ${quidam2} payera $${nb5}$ fois, la somme de $${miseEnEvidence(texPrix(reponse1))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + '€'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + '€',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse1 } })
               }
               if (context.isAmc) {
@@ -622,44 +865,63 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse1],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse1),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse1),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse1],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse1),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse1),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
             case 2:
             default:
               texte += `Quel est le montant total des cadeaux offerts à ${quidam2} ?`
-              texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb4, 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                `$${sp()}+${sp()}${miseEnEvidence(nb2, 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                `$${sp()}=${sp()}${miseEnEvidence(texPrix(reponse2), 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                '<br>'
               texteCorr += `Le montant total des cadeaux offerts à ${quidam2} est de $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + '€'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + '€',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse2 } })
               }
               if (context.isAmc) {
@@ -668,32 +930,39 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse2],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse2),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse2),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse2],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse2),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse2),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
@@ -717,12 +986,24 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 1:
               texte += `Quel est l'âge de ${quidam2} ?`
               reponse1 = nb1 + 2 + nb3
-              texteCorr += `$${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb1 + 2, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + `$${sp()}=${miseEnEvidence(reponse1, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb3, 'blue')}$` +
+                texteEnCouleurEtGras(' ans', 'blue') +
+                `$${sp()}+${sp()}${miseEnEvidence(nb1 + 2, 'blue')}$` +
+                texteEnCouleurEtGras(' ans', 'blue') +
+                `$${sp()}=${miseEnEvidence(reponse1, 'blue')}$` +
+                texteEnCouleurEtGras(' ans', 'blue') +
+                '<br>'
               texteCorr += `${quidam2} a $${miseEnEvidence(reponse1)}$ ans.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'ans'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'ans',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse1 } })
               }
               if (context.isAmc) {
@@ -731,44 +1012,67 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse1],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse1),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse1),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse1],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse1),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse1),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
             case 2:
             default:
               texte += `Combien mesure ${quidam2} ?`
-              texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' cm', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(texNombre(arrondi(nb5 / 100)), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(texNombre(reponse2), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb4, 'blue')}$` +
+                texteEnCouleurEtGras(' m', 'blue') +
+                `$${sp()}+${sp()}${miseEnEvidence(nb5, 'blue')}$` +
+                texteEnCouleurEtGras(' cm', 'blue') +
+                `$${sp()}=${sp()}${miseEnEvidence(nb4, 'blue')}$` +
+                texteEnCouleurEtGras(' m', 'blue') +
+                `$${sp()}+${sp()}${miseEnEvidence(texNombre(arrondi(nb5 / 100)), 'blue')}$` +
+                texteEnCouleurEtGras(' m', 'blue') +
+                `$${sp()}=${sp()}${miseEnEvidence(texNombre(reponse2), 'blue')}$` +
+                texteEnCouleurEtGras(' m', 'blue') +
+                '<br>'
               texteCorr += `${quidam2} mesure $${miseEnEvidence(texNombre(reponse2))}$ m.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'm'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'm',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse2 } })
               }
               if (context.isAmc) {
@@ -777,32 +1081,39 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse2],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse2),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse2),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse2],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse2),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse2),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
@@ -826,12 +1137,22 @@ export default class ExerciceInformationsProblemes extends Exercice {
           switch (choixVersion) {
             case 1:
               texte += `Combien le ${personnage1} de ${quidam} dépense-t-il chaque semaine pour son journal ?`
-              texteCorr += `$${miseEnEvidence(nb2, 'blue')} \\times ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb2, 'blue')} \\times ${miseEnEvidence(nb4, 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                `$${sp()}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` +
+                texteEnCouleurEtGras(' €', 'blue') +
+                '<br>'
               texteCorr += `Le ${personnage1} de ${quidam} dépense chaque semaine $${miseEnEvidence(texPrix(reponse1))}$ € pour son journal.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + '€'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + '€',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse1 } })
               }
               if (context.isAmc) {
@@ -840,46 +1161,70 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse1],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse1),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse1),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse1],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse1),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse1),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
             case 2:
             default:
               texte += `À quelle heure le ${personnage1} de ${quidam} arrive-t-il à son travail ?`
-              texteCorr += texteEnCouleurEtGras(nb3, 'blue') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' min', 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1]), 'blue') + '<br>'
+              texteCorr +=
+                texteEnCouleurEtGras(nb3, 'blue') +
+                `$${sp()}+${sp()}$` +
+                texteEnCouleurEtGras(nb5 + ' min', 'blue') +
+                `${sp()}=${sp()}` +
+                texteEnCouleurEtGras(
+                  minToHour(reponse2[0] * 60 + reponse2[1]),
+                  'blue',
+                ) +
+                '<br>'
               texteCorr += `Le ${personnage1} de ${quidam} arrive à son travail ${texteEnCouleurEtGras(minToHoraire(reponse2[0] * 60 + reponse2[1]))}.`
               if (this.interactif) {
-                texte += remplisLesBlancs(this, i, '%{champ1} ~\\text{h}~%{champ2}~\\text{min}', KeyboardType.clavierDeBase)
+                texte += remplisLesBlancs(
+                  this,
+                  i,
+                  '%{champ1} ~\\text{h}~%{champ2}~\\text{min}',
+                  KeyboardType.clavierDeBase,
+                )
                 handleAnswers(this, i, {
-                  bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
+                  bareme: (listePoints: number[]) => [
+                    Math.min(listePoints[0], listePoints[1]),
+                    1,
+                  ],
                   champ1: { value: reponse2[0] },
-                  champ2: { value: reponse2[1] }
+                  champ2: { value: reponse2[1] },
                 })
               }
               if (context.isAmc) {
@@ -888,50 +1233,58 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
-                          texte: `\\begin{flushright}heures ${sp(65)} \\end{flushright}`,
-                          valeur: [reponse2[0]],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse2[0]),
-                            decimals: 0,
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
+                      propositions: [
+                        {
+                          texte: '',
+                          statut: '',
+                          reponse: {
+                            texte: `\\begin{flushright}heures ${sp(65)} \\end{flushright}`,
+                            valeur: [reponse2[0]],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse2[0]),
+                              decimals: 0,
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
-                          texte: `\\begin{flushright}minutes ${sp(65)} \\end{flushright}`,
-                          valeur: [reponse2[1]],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse2[1]),
-                            decimals: 0,
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                      propositions: [
+                        {
+                          texte: '',
+                          statut: '',
+                          reponse: {
+                            texte: `\\begin{flushright}minutes ${sp(65)} \\end{flushright}`,
+                            valeur: [reponse2[1]],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse2[1]),
+                              decimals: 0,
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
@@ -951,27 +1304,52 @@ export default class ExerciceInformationsProblemes extends Exercice {
 
           switch (choixVersion) {
             case 1:
-              texte += 'Quelle distance sépare l\'entrepôt du premier arrêt ?'
+              texte += "Quelle distance sépare l'entrepôt du premier arrêt ?"
               reponse = nb5 - nb3
-              texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb5, 'blue')}$` +
+                texteEnCouleurEtGras(' km', 'blue') +
+                `$${sp()}-${sp()} ${miseEnEvidence(nb3, 'blue')}$` +
+                texteEnCouleurEtGras(' km', 'blue') +
+                `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` +
+                texteEnCouleurEtGras(' km', 'blue') +
+                '<br>'
               texteCorr += `La distance séparant l'entrepôt du premier arrêt est de $${miseEnEvidence(reponse)}$ km.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'km'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'km',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               break
             case 2:
             default:
-              texte += 'Combien de colis le livreur a-t-il déposé à son deuxième arrêt ?'
+              texte +=
+                'Combien de colis le livreur a-t-il déposé à son deuxième arrêt ?'
               reponse = nb1 - nb2
-              texteCorr += `$${miseEnEvidence(nb1, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb1, 'blue')}$` +
+                texteEnCouleurEtGras(' colis', 'blue') +
+                `$${sp()}-${sp()} ${miseEnEvidence(nb2, 'blue')}$` +
+                texteEnCouleurEtGras(' colis', 'blue') +
+                `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` +
+                texteEnCouleurEtGras(' colis', 'blue') +
+                '<br>'
               texteCorr += `Le livreur a déposé $${miseEnEvidence(reponse)}$ colis à son deuxième arrêt.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'colis'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'colis',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               break
@@ -982,39 +1360,58 @@ export default class ExerciceInformationsProblemes extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  propositions: [{
-                    enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                    sanscadre: true,
-                    texte: texteCorr,
-                    statut: 3
-                  }]
+                  propositions: [
+                    {
+                      enonce:
+                        texte +
+                        '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                      sanscadre: true,
+                      texte: texteCorr,
+                      statut: 3,
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
+                  propositions: [
+                    {
                       texte: '',
-                      valeur: [reponse],
-                      alignement: 'flushright',
-                      param: {
-                        digits: nombreDeChiffresDe(reponse),
-                        decimals: nombreDeChiffresDansLaPartieDecimale(reponse),
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
-                }
-              ]
+                      statut: '',
+                      reponse: {
+                        texte: '',
+                        valeur: [reponse],
+                        alignement: 'flushright',
+                        param: {
+                          digits: nombreDeChiffresDe(reponse),
+                          decimals:
+                            nombreDeChiffresDansLaPartieDecimale(reponse),
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           }
           break
         case 10:
         default:
-          quidam = choice(['du Havre', 'de Rotterdam', 'de Hambourg', 'de Marseille', 'de Lisbonne'])
-          quidam2 = choice(['Hong-Kong', 'Rio de Janeiro', 'Auckland', 'Sidney', 'Kuala Lumpur'])
+          quidam = choice([
+            'du Havre',
+            'de Rotterdam',
+            'de Hambourg',
+            'de Marseille',
+            'de Lisbonne',
+          ])
+          quidam2 = choice([
+            'Hong-Kong',
+            'Rio de Janeiro',
+            'Auckland',
+            'Sidney',
+            'Kuala Lumpur',
+          ])
           nb1 = randint(85, 153)
           nb2 = randint(67, 86)
           nb3 = randint(23, 30) // Masse d'un gros conteneur
@@ -1029,14 +1426,27 @@ export default class ExerciceInformationsProblemes extends Exercice {
 
           switch (choixVersion) {
             case 1:
-              texte += 'Quelle est la masse, en kg, de chacun des petits conteneurs, sachant qu\'ils ont tous la même masse ?'
+              texte +=
+                "Quelle est la masse, en kg, de chacun des petits conteneurs, sachant qu'ils ont tous la même masse ?"
               reponse1 = arrondi(reponse2 * 1000, 0)
-              texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}\\div${sp()}${miseEnEvidence(nb4, 'blue')}=${miseEnEvidence(texNombre(reponse2), 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse1), 'blue')}$` + texteEnCouleurEtGras(' kg', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb5, 'blue')}$` +
+                texteEnCouleurEtGras(' tonnes', 'blue') +
+                `$${sp()}\\div${sp()}${miseEnEvidence(nb4, 'blue')}=${miseEnEvidence(texNombre(reponse2), 'blue')}$` +
+                texteEnCouleurEtGras(' tonnes', 'blue') +
+                `$${sp()}=${miseEnEvidence(texNombre(reponse1), 'blue')}$` +
+                texteEnCouleurEtGras(' kg', 'blue') +
+                '<br>'
               texteCorr += `La masse de chacun des petits conteneurs est de $${miseEnEvidence(texNombre(reponse1))}$ kg.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'kg'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'kg',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse1 } })
               }
               if (context.isAmc) {
@@ -1045,45 +1455,63 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse1],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse1),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse1),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse1],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse1),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse1),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break
             case 2:
             default:
-              texte += 'Quelle est la masse totale, en tonnes, des gros conteneurs ?'
+              texte +=
+                'Quelle est la masse totale, en tonnes, des gros conteneurs ?'
               reponse = nb2 * nb3
-              texteCorr += `$${miseEnEvidence(nb2, 'blue')} \\times ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + '<br>'
+              texteCorr +=
+                `$${miseEnEvidence(nb2, 'blue')} \\times ${miseEnEvidence(nb3, 'blue')}$` +
+                texteEnCouleurEtGras(' tonnes', 'blue') +
+                `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` +
+                texteEnCouleurEtGras(' tonnes', 'blue') +
+                '<br>'
               texteCorr += `La masse totale des gros conteneurs est de $${miseEnEvidence(texNombre(reponse))}$ tonnes.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-                  texteApres: sp(3) + 'tonnes'
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteApres: sp(3) + 'tonnes',
+                  },
+                )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
               if (context.isAmc) {
@@ -1092,32 +1520,39 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   propositions: [
                     {
                       type: 'AMCOpen',
-                      propositions: [{
-                        enonce: texte + '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
-                        sanscadre: true,
-                        texte: texteCorr,
-                        statut: 3
-                      }]
+                      propositions: [
+                        {
+                          enonce:
+                            texte +
+                            '<br><br>Indique, ci-dessous, le(s) calcul(s) effectué(s) et code ensuite le résultat.',
+                          sanscadre: true,
+                          texte: texteCorr,
+                          statut: 3,
+                        },
+                      ],
                     },
                     {
                       type: 'AMCNum',
-                      propositions: [{
-                        texte: '',
-                        statut: '',
-                        reponse: {
+                      propositions: [
+                        {
                           texte: '',
-                          valeur: [reponse],
-                          alignement: 'flushright',
-                          param: {
-                            digits: nombreDeChiffresDe(reponse),
-                            decimals: nombreDeChiffresDansLaPartieDecimale(reponse),
-                            signe: false,
-                            approx: 0
-                          }
-                        }
-                      }]
-                    }
-                  ]
+                          statut: '',
+                          reponse: {
+                            texte: '',
+                            valeur: [reponse],
+                            alignement: 'flushright',
+                            param: {
+                              digits: nombreDeChiffresDe(reponse),
+                              decimals:
+                                nombreDeChiffresDansLaPartieDecimale(reponse),
+                              signe: false,
+                              approx: 0,
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 }
               }
               break

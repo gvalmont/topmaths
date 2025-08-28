@@ -4,7 +4,7 @@ export const uuid = 'challengeTables'
 export const titre = 'Challenge tables'
 
 class challengeTables extends ExternalApp {
-  constructor () {
+  constructor() {
     super('https://coopmaths.fr/challenge/?mathalea&type=tables')
   }
 }

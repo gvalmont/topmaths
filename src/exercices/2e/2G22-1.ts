@@ -3,14 +3,14 @@ import { repere } from '../../lib/2d/reperes'
 import {
   longueur,
   nomVecteurParPosition,
-  vecteur
+  vecteur,
 } from '../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
   latex2d,
   latexParPoint,
   TexteParPoint,
-  texteParPosition
+  texteParPosition,
 } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -21,10 +21,14 @@ import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import type VectorByPoints from 'apigeom/src/elements/vector/VectorByPoints'
 
-export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées'
+export const titre =
+  'Représenter un vecteur dans un repère, à partir de ses coordonnées'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDeModifImportante = '06/08/2024'
@@ -39,7 +43,7 @@ export const uuid = '3a3ec'
 
 export const refs = {
   'fr-fr': ['2G22-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class RepresenterUnVecteur extends Exercice {
@@ -51,7 +55,7 @@ export default class RepresenterUnVecteur extends Exercice {
   yA: number[]
   yB: number[]
 
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 2
 
@@ -59,7 +63,7 @@ export default class RepresenterUnVecteur extends Exercice {
     this.besoinFormulaireNumerique = [
       'Situations différentes',
       3,
-      '1 : Avec un point origine\n2 : Avec un point extrémité\n3 : Mélange'
+      '1 : Avec un point origine\n2 : Avec un point extrémité\n3 : Mélange',
     ]
     this.figures = []
     this.xA = []
@@ -68,7 +72,7 @@ export default class RepresenterUnVecteur extends Exercice {
     this.yB = []
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.longueur = 10
     this.largeur = 10
     this.figures = []
@@ -77,12 +81,13 @@ export default class RepresenterUnVecteur extends Exercice {
     this.yA = []
     this.yB = []
     let listeQuestions = []
-    if (this.sup === 1) listeQuestions = combinaisonListes([1], this.nbQuestions)
-    else if (this.sup === 2) listeQuestions = combinaisonListes([2], this.nbQuestions)
+    if (this.sup === 1)
+      listeQuestions = combinaisonListes([1], this.nbQuestions)
+    else if (this.sup === 2)
+      listeQuestions = combinaisonListes([2], this.nbQuestions)
     else listeQuestions = combinaisonListes([1, 2], this.nbQuestions)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;
-    ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       this.figures[i] = new Figure({
@@ -91,19 +96,31 @@ export default class RepresenterUnVecteur extends Exercice {
         width: 0.65 * (this.longueur * 2 * 30 + 20), // On ajoute 20 pixels
         height: 0.65 * (this.largeur * 2 * 30 + 20),
         border: false,
-        scale: 0.65
+        scale: 0.65,
       })
 
-      const OVecteur = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false })
-      const IVecteur = this.figures[i].create('Point', { x: 1, y: 0, isVisible: false })
-      const JVecteur = this.figures[i].create('Point', { x: 0, y: 1, isVisible: false })
+      const OVecteur = this.figures[i].create('Point', {
+        x: 0,
+        y: 0,
+        isVisible: false,
+      })
+      const IVecteur = this.figures[i].create('Point', {
+        x: 1,
+        y: 0,
+        isVisible: false,
+      })
+      const JVecteur = this.figures[i].create('Point', {
+        x: 0,
+        y: 1,
+        isVisible: false,
+      })
       this.figures[i].create('TextByPosition', {
         text: '$O$',
         x: -0.15,
         y: -0.15,
         anchor: 'topRight',
         color: orangeMathalea,
-        fontSize: '8pt'
+        fontSize: '8pt',
       })
       this.figures[i].create('Grid', {
         strokeWidthGrid: 1,
@@ -115,7 +132,7 @@ export default class RepresenterUnVecteur extends Exercice {
         axeX: true,
         axeY: true,
         labelX: true,
-        labelY: true
+        labelY: true,
       })
       this.figures[i].create('TextByPosition', {
         text: '$\\vec \\imath$',
@@ -123,7 +140,7 @@ export default class RepresenterUnVecteur extends Exercice {
         y: 0,
         anchor: 'topRight',
         color: orangeMathalea,
-        fontSize: '1.5em'
+        fontSize: '1.5em',
       })
       this.figures[i].create('TextByPosition', {
         text: '$\\vec \\jmath$',
@@ -131,13 +148,25 @@ export default class RepresenterUnVecteur extends Exercice {
         y: 0,
         anchor: 'bottomRight',
         color: orangeMathalea,
-        fontSize: '1.5em'
+        fontSize: '1.5em',
       })
-      this.figures[i].create('VectorByPoints', { point1: OVecteur, point2: IVecteur, color: orangeMathalea, thickness: 3, isSelectable: false })
-      this.figures[i].create('VectorByPoints', { point1: OVecteur, point2: JVecteur, color: orangeMathalea, thickness: 3, isSelectable: false })
+      this.figures[i].create('VectorByPoints', {
+        point1: OVecteur,
+        point2: IVecteur,
+        color: orangeMathalea,
+        thickness: 3,
+        isSelectable: false,
+      })
+      this.figures[i].create('VectorByPoints', {
+        point1: OVecteur,
+        point2: JVecteur,
+        color: orangeMathalea,
+        thickness: 3,
+        isSelectable: false,
+      })
       this.figures[i].snapGrid = true
       this.figures[i].setToolbar({
-        tools: ['DRAG', 'REMOVE', 'VECTOR', 'POINT', 'SET_OPTIONS']
+        tools: ['DRAG', 'REMOVE', 'VECTOR', 'POINT', 'SET_OPTIONS'],
         // position: 'top'
       })
       this.figures[i].options.thickness = 3
@@ -177,10 +206,29 @@ export default class RepresenterUnVecteur extends Exercice {
       const s = AB.representant(A) // On trace en rouge [AB]
       const h1 = vecteur(A, H).representant(A, 'blue')
       const h2 = vecteur(H, B).representant(H, 'blue')
-      const longueurAH = latex2d(String(ux), milieu(A, H).x, milieu(A, H).y + 0.5, { color: 'blue', letterSize: 'footnotesize' })
-      const longueurBH = latex2d(String(uy), milieu(B, H).x + 0.5, milieu(B, H).y, { color: 'blue', letterSize: 'footnotesize' })
+      const longueurAH = latex2d(
+        String(ux),
+        milieu(A, H).x,
+        milieu(A, H).y + 0.5,
+        { color: 'blue', letterSize: 'footnotesize' },
+      )
+      const longueurBH = latex2d(
+        String(uy),
+        milieu(B, H).x + 0.5,
+        milieu(B, H).y,
+        { color: 'blue', letterSize: 'footnotesize' },
+      )
       const O = point(0, 0) // On définit et on trace le point O
-      const o = texteParPosition('O', -0.3, -0.3, 0, 'blue', 0.75, 'milieu', true)
+      const o = texteParPosition(
+        'O',
+        -0.3,
+        -0.3,
+        0,
+        'blue',
+        0.75,
+        'milieu',
+        true,
+      )
       const I = point(1, 0) // On définit sans tracer le point I
       const J = point(0, 1) // On définit sans tracer le point J
       const k = vecteur(O, I).representant(O, 'blue') // Variable qui trace [OI] en bleu
@@ -196,7 +244,7 @@ export default class RepresenterUnVecteur extends Exercice {
       const nomAB = AB.representantNomme(A, 'u', 0.7, 'red')
       let l: TexteParPoint[]
       if (listeQuestions[i] === 1) {
-        l = labelPoint(A, 'red') as TexteParPoint[]// Variable qui trace les nom s A et B
+        l = labelPoint(A, 'red') as TexteParPoint[] // Variable qui trace les nom s A et B
 
         // texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur de coordonnées $\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
@@ -206,7 +254,7 @@ export default class RepresenterUnVecteur extends Exercice {
           y: this.yA[i],
           label: nomPoint1,
           isFree: false,
-          isSelectable: false
+          isSelectable: false,
         })
         this.figures[i].options.color = 'green'
         texteCorr = "On sait qu'un vecteur mesure un déplacement."
@@ -220,20 +268,21 @@ export default class RepresenterUnVecteur extends Exercice {
           y: this.yB[i],
           label: nomPoint2,
           isFree: false,
-          isSelectable: false
+          isSelectable: false,
         })
         texteCorr = "On sait qu'un vecteur mesure un déplacement."
         texteCorr += `<br> On cherche donc un point $${nomPoint1}$, à partir duquel en traçant le déplacement correspondant à $${ux}$ unités horizontalement puis $${uy}$ unités verticalement, on arrive au point $${nomPoint2}$.`
         l = labelPoint(A, B, 'red') as TexteParPoint[] // Variable qui trace les noms A et B
       }
-      texteCorr +=
-          `<br> Voir les déplacements dans le repère ci-dessous et le tracé en orange du vecteur-solution $${miseEnEvidence('\\vec{u}')}$.<br>`
-      texte += this.interactif ? `<br>Pour vous aider, vous pouvez créer autant de vecteurs que vous souhaitez mais pour valider votre réponse, ${texteEnCouleurEtGras('il faut que le vecteur-solution soit en vert')} et que seul ce vecteur-solution doit être en vert.` : ''
+      texteCorr += `<br> Voir les déplacements dans le repère ci-dessous et le tracé en orange du vecteur-solution $${miseEnEvidence('\\vec{u}')}$.<br>`
+      texte += this.interactif
+        ? `<br>Pour vous aider, vous pouvez créer autant de vecteurs que vous souhaitez mais pour valider votre réponse, ${texteEnCouleurEtGras('il faut que le vecteur-solution soit en vert')} et que seul ce vecteur-solution doit être en vert.`
+        : ''
       texte += figureApigeom({
         exercice: this,
         figure: this.figures[i],
         i,
-        defaultAction: 'VECTOR'
+        defaultAction: 'VECTOR',
       })
 
       texteCorr += mathalea2d(
@@ -242,7 +291,7 @@ export default class RepresenterUnVecteur extends Exercice {
           ymin: -10,
           xmax: 10,
           ymax: 10,
-          scale: 0.4
+          scale: 0.4,
         },
         r,
         l,
@@ -258,10 +307,18 @@ export default class RepresenterUnVecteur extends Exercice {
         labelA,
         labelB,
         longueurAH,
-        longueurBH
+        longueurBH,
       ) // On trace le graphique
 
-      if (this.questionJamaisPosee(i, this.xA[i], this.yA[i], this.xB[i], this.yB[i])) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          this.xA[i],
+          this.yA[i],
+          this.xB[i],
+          this.yB[i],
+        )
+      ) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
@@ -277,7 +334,7 @@ export default class RepresenterUnVecteur extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figures[i].id] = this.figures[i].json
     const divFeedback = document.querySelector(
-      `#feedbackEx${this.numeroExercice}Q${i}`
+      `#feedbackEx${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
     this.figures[i].isDynamic = false
     this.figures[i].divButtons.style.display = 'none'
@@ -288,11 +345,12 @@ export default class RepresenterUnVecteur extends Exercice {
       xOrigin: this.xA[i],
       x: this.xB[i] - this.xA[i],
       yOrigin: this.yA[i],
-      y: this.yB[i] - this.yA[i]
+      y: this.yB[i] - this.yA[i],
     })
 
     const nbVecteurs = [...this.figures[i].elements.values()].filter(
-      (e) => e.type === 'VectorByPoints' && (e as VectorByPoints).color === 'green'
+      (e) =>
+        e.type === 'VectorByPoints' && (e as VectorByPoints).color === 'green',
     ).length
 
     isValid &&= nbVecteurs === 1
@@ -306,7 +364,7 @@ export default class RepresenterUnVecteur extends Exercice {
     }
 
     const wrongVectors = [...this.figures[i].elements.values()].filter(
-      (e) => e.type === 'VectorByPoints' && (e as VectorByPoints).isSelectable
+      (e) => e.type === 'VectorByPoints' && (e as VectorByPoints).isSelectable,
     ) as VectorByPoints[]
     for (const vector of wrongVectors) {
       vector.color = 'red'

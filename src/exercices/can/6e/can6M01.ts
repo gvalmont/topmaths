@@ -18,16 +18,16 @@ export const uuid = '79035'
 
 export const refs = {
   'fr-fr': ['can6M01', 'CM1M1H-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class QuestionDePerimetres extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const a = randint(3, 25)
       const b = randint(0, 1)
       const VF = [false, true]
@@ -38,12 +38,12 @@ export default class QuestionDePerimetres extends Exercice {
         propositions: [
           {
             texte: 'Vrai',
-            statut: VF[b]
+            statut: VF[b],
           },
           {
             texte: 'Faux',
-            statut: VF[1 - b]
-          }
+            statut: VF[1 - b],
+          },
         ],
         options: { ordered: true, radio: true },
       }

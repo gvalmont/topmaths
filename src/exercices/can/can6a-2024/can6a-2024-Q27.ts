@@ -1,6 +1,10 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { point } from '../../../lib/2d/points'
 import { polygone, Polygone } from '../../../lib/2d/polygones'
@@ -8,7 +12,7 @@ import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Déterminer une fraction d\'aire'
+export const titre = "Déterminer une fraction d'aire"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '32d25'
@@ -19,7 +23,7 @@ export const uuid = '32d25'
 */
 
 export default class FractionDeRectangle extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -29,7 +33,7 @@ export default class FractionDeRectangle extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const hauteur = 3
     let cas: number
     let factor: number
@@ -56,16 +60,14 @@ export default class FractionDeRectangle extends ExerciceSimple {
     rectangle.epaisseur = 2
     const segments: Segment[] = []
     for (let i = 0; i < nbCase; i++) {
-      const s = segment(point((i + 1) * hauteur, 0), point((i + 1) * hauteur, hauteur))
+      const s = segment(
+        point((i + 1) * hauteur, 0),
+        point((i + 1) * hauteur, hauteur),
+      )
       s.pointilles = 2
       segments.push(s)
     }
-    const triangle0 = polygone(
-      [point(0, 0),
-        O,
-        point(hauteur, 0)
-      ]
-    )
+    const triangle0 = polygone([point(0, 0), O, point(hauteur, 0)])
     switch (cas) {
       case 1:
         triangle = similitude(triangle0, A, 45, Math.sqrt(2))
@@ -93,13 +95,18 @@ export default class FractionDeRectangle extends ExerciceSimple {
         break
     }
     triangle.couleurDeRemplissage = colorToLatexOrHTML('gray')
-    const objets = this.canOfficielle ? [rectangle, ...segments, triangle, diag1] : [rectangle, ...segments, triangle, diag1, diag2]
-    this.question = 'Quelle fraction de l\'aire du rectangle est grisée ?<br>'
-    this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    const objets = this.canOfficielle
+      ? [rectangle, ...segments, triangle, diag1]
+      : [rectangle, ...segments, triangle, diag1, diag2]
+    this.question = "Quelle fraction de l'aire du rectangle est grisée ?<br>"
+    this.question += mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = `\\dfrac{1}{${nbCase * factor}}`
     this.correction = `La fraction de l'aire du rectangle qui est grisée est $${miseEnEvidence(`\\dfrac{1}{${nbCase * factor}}`)}$.<br>`
-    this.correction += `En effet, il y a ${nbCase} carrés dans le rectangle et la zone grisée couvre ${factor === 2 ? 'la moitié d\'un carré' : 'le quart d\'un carré'}.<br>Il y a donc  $${nbCase}\\times ${factor === 2 ? 2 : 4} = ${nbCase * factor}$ fois l'aire grisée dans le rectangle.<br> On en déduit que l'aire grisée est égale à $\\dfrac{1}{${nbCase * factor}}$ de l'aire du rectangle.`
+    this.correction += `En effet, il y a ${nbCase} carrés dans le rectangle et la zone grisée couvre ${factor === 2 ? "la moitié d'un carré" : "le quart d'un carré"}.<br>Il y a donc  $${nbCase}\\times ${factor === 2 ? 2 : 4} = ${nbCase * factor}$ fois l'aire grisée dans le rectangle.<br> On en déduit que l'aire grisée est égale à $\\dfrac{1}{${nbCase * factor}}$ de l'aire du rectangle.`
   }
 }

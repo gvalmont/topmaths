@@ -12,15 +12,15 @@ export const dateDeModifImportante = '13/08/2024'
 
 /**
  * @author Gilles Mora
-*/
+ */
 export const uuid = 'e31d1'
 
 export const refs = {
   'fr-fr': ['can2N02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PlusPetitEnsemble extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,10 +30,23 @@ export default class PlusPetitEnsemble extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierEnsemblePredefini
   }
 
-  nouvelleVersion () {
-    let a, b, c, d, listeFractions1, listeFractions2, fraction1, fraction2, choix, choix2, N
-    this.question = 'Parmi $\\mathbb{R}$, $\\mathbb{Q}$, $\\mathbb{D}$, $\\mathbb{Z}$ et $\\mathbb{N}$, quel est le plus petit ensemble de nombres auquel appartient '
-    switch (choice(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'])) { //
+  nouvelleVersion() {
+    let a,
+      b,
+      c,
+      d,
+      listeFractions1,
+      listeFractions2,
+      fraction1,
+      fraction2,
+      choix,
+      choix2,
+      N
+    this.question =
+      'Parmi $\\mathbb{R}$, $\\mathbb{Q}$, $\\mathbb{D}$, $\\mathbb{Z}$ et $\\mathbb{N}$, quel est le plus petit ensemble de nombres auquel appartient '
+    switch (
+      choice(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']) //
+    ) {
       case 'a':
         a = randint(0, 150)
         this.question += `$${a}$ ?`
@@ -41,7 +54,7 @@ export default class PlusPetitEnsemble extends ExerciceSimple {
         this.reponse = '\\mathbb{N}'
         break
       case 'b':
-        a = randint(0, 150) * (-1)
+        a = randint(0, 150) * -1
         this.question += `$${a}$ ?`
         this.correction = `$${a}$ est un entier relatif. On a donc $${a}\\in \\mathbb{Z}$.`
         this.reponse = '\\mathbb{Z}'
@@ -77,10 +90,41 @@ export default class PlusPetitEnsemble extends ExerciceSimple {
       case 'f':
         choix = choice([true, false])
         choix2 = choice([true, false])
-        listeFractions1 = [[1, 3], [2, 3], [5, 3], [7, 3], [10, 3], [11, 3], [1, 7], [2, 7],
-          [3, 7], [4, 7], [6, 7], [5, 7]]
-        listeFractions2 = [[1, 2], [1, 4], [3, 4], [1, 5],
-          [2, 5], [3, 5], [4, 5], [6, 5], [7, 5], [8, 5], [9, 5], [5, 4], [7, 4], [1, 10], [3, 10], [7, 10], [9, 10], [17, 100], [23, 100]]
+        listeFractions1 = [
+          [1, 3],
+          [2, 3],
+          [5, 3],
+          [7, 3],
+          [10, 3],
+          [11, 3],
+          [1, 7],
+          [2, 7],
+          [3, 7],
+          [4, 7],
+          [6, 7],
+          [5, 7],
+        ]
+        listeFractions2 = [
+          [1, 2],
+          [1, 4],
+          [3, 4],
+          [1, 5],
+          [2, 5],
+          [3, 5],
+          [4, 5],
+          [6, 5],
+          [7, 5],
+          [8, 5],
+          [9, 5],
+          [5, 4],
+          [7, 4],
+          [1, 10],
+          [3, 10],
+          [7, 10],
+          [9, 10],
+          [17, 100],
+          [23, 100],
+        ]
         fraction1 = choice(listeFractions1)
         fraction2 = choice(listeFractions2)
         a = fraction1[0]
@@ -96,8 +140,21 @@ export default class PlusPetitEnsemble extends ExerciceSimple {
         break
       case 'g':
         choix = choice([true, false])
-        listeFractions1 = [[1, 2], [1, 4], [3, 4], [1, 5],
-          [2, 5], [3, 5], [4, 5], [6, 5], [7, 5], [8, 5], [9, 5], [5, 4], [7, 4]]
+        listeFractions1 = [
+          [1, 2],
+          [1, 4],
+          [3, 4],
+          [1, 5],
+          [2, 5],
+          [3, 5],
+          [4, 5],
+          [6, 5],
+          [7, 5],
+          [8, 5],
+          [9, 5],
+          [5, 4],
+          [7, 4],
+        ]
         fraction1 = choice(listeFractions1)
         a = fraction1[0]
         b = fraction1[1]
@@ -118,12 +175,12 @@ export default class PlusPetitEnsemble extends ExerciceSimple {
           this.reponse = '\\mathbb{R}'
         } else {
           a = randint(1, 12, 10)
-          this.question += `$\\sqrt{${texNombre(a * a / 100)}}$ ?`
-          this.correction = `$\\sqrt{${texNombre(a * a / 100)}}=${texNombre(a / 10)}$  est un nombre décimal. On a donc $\\sqrt{${texNombre(a * a / 100)}}\\in \\mathbb{D}$.`
+          this.question += `$\\sqrt{${texNombre((a * a) / 100)}}$ ?`
+          this.correction = `$\\sqrt{${texNombre((a * a) / 100)}}=${texNombre(a / 10)}$  est un nombre décimal. On a donc $\\sqrt{${texNombre((a * a) / 100)}}\\in \\mathbb{D}$.`
           this.reponse = '\\mathbb{D}'
         }
         break
-      case 'i':// un peu de tout
+      case 'i': // un peu de tout
         choix = choice([true, false])
         N = choice([1, 2, 3])
         if (N === 1) {
@@ -144,12 +201,12 @@ export default class PlusPetitEnsemble extends ExerciceSimple {
           a = randint(1, 4)
           b = randint(1, 9)
           this.question += `$${b}\\times 10^{${choix ? '-' : ''}${a}}$ ?`
-          this.correction = `$${b}\\times 10^{${choix ? '-' : ''}${a}}=${choix ? `${texNombre(b * 10 ** (-a))}` : `${texNombre(b * 10 ** a)}`}$   est un nombre ${choix ? 'décimal' : 'entier naturel'}. On a donc $${b}\\times 10^{${choix ? '-' : ''}${a}} \\in ${choix ? '\\mathbb{D}' : '\\mathbb{N}'}$. `
+          this.correction = `$${b}\\times 10^{${choix ? '-' : ''}${a}}=${choix ? `${texNombre(b * 10 ** -a)}` : `${texNombre(b * 10 ** a)}`}$   est un nombre ${choix ? 'décimal' : 'entier naturel'}. On a donc $${b}\\times 10^{${choix ? '-' : ''}${a}} \\in ${choix ? '\\mathbb{D}' : '\\mathbb{N}'}$. `
           this.reponse = choix ? '\\mathbb{D}' : '\\mathbb{N}'
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

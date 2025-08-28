@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '10fbc'
 export const refs = {
   'fr-fr': ['TSP1-QCM10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -42,21 +42,23 @@ $\\bullet~~$ $G$ :  "Le joueur gagne la partie" .<br><br>`
       '$1 - \\left(\\dfrac{13}{25}\\right)^{10}$', // Réponse correcte (d)
       '$1 - \\left(\\dfrac{12}{25}\\right)^{10}$', // Mauvaise réponse (a)
       '$\\left(\\dfrac{13}{25}\\right)^{10}$', // Mauvaise réponse (b)
-      '$\\left(\\dfrac{12}{25}\\right)^{10}$' // Mauvaise réponse (c)
+      '$\\left(\\dfrac{12}{25}\\right)^{10}$', // Mauvaise réponse (c)
     ]
 
-    this.enonce += 'La probabilité que le joueur gagne au moins une partie est égale à :'
+    this.enonce +=
+      'La probabilité que le joueur gagne au moins une partie est égale à :'
 
-    this.correction = 'On utilise l\'événement complémentaire :<br>'
-    this.correction += '$P(X \\geq 1) = 1 - P(X = 0) = 1 - \\left(\\dfrac{13}{25}\\right)^{10}.$<br>'
+    this.correction = "On utilise l'événement complémentaire :<br>"
+    this.correction +=
+      '$P(X \\geq 1) = 1 - P(X = 0) = 1 - \\left(\\dfrac{13}{25}\\right)^{10}.$<br>'
     this.correction += `La bonne réponse est donc $${miseEnEvidence('1 - \\left(\\dfrac{13}{25}\\right)^{10}')}$.`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: false, ordered: false }
     this.versionOriginale()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

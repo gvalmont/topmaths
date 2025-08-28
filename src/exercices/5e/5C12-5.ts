@@ -19,44 +19,53 @@ export const dateDePublication = '23/11/2024'
 export const uuid = '1cd63'
 export const refs = {
   'fr-fr': ['5C12-5', 'BP2AutoH21'],
-  'fr-ch': ['11NO5-13', '1mCN-16']
+  'fr-ch': ['11NO5-13', '1mCN-16'],
 }
 /**
  * @author Rémi Angot
-*/
+ */
 export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Calculer.'
     this.nbQuestions = 6
-    this.comment = '6 types de calculs différents avec une division d\'un entier par 10 et 5 quotients entiers.'
+    this.comment =
+      "6 types de calculs différents avec une division d'un entier par 10 et 5 quotients entiers."
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    const typeQuestionsDisponibles = ['a/b*c-d', '(a-b)/(c+d)+e', 'a/b+c', 'a/(b+c)+d', '(a+b)/10+c', 'a+b*(c+d)/(e*f)']
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    const typeQuestionsDisponibles = [
+      'a/b*c-d',
+      '(a-b)/(c+d)+e',
+      'a/b+c',
+      'a/(b+c)+d',
+      '(a+b)/10+c',
+      'a+b*(c+d)/(e*f)',
+    ]
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let answer = Number.NaN
       switch (listeTypeQuestions[i]) {
-        case 'a/b*c-d':
-        {
+        case 'a/b*c-d': {
           const b = randint(2, 9)
           const a = b * randint(2, 9)
           const c = randint(2, 9, [a, b])
-          const d = randint(2, Math.min(a / b * c - 1, 11))
+          const d = randint(2, Math.min((a / b) * c - 1, 11))
           texte = `$${lettreDepuisChiffre(i + 1)} = \\dfrac{${a}}{${b}} \\times ${c} - ${d}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${calculPrioritaire(`\\dfrac{${a}}{${b}}`)} \\times ${c} - ${d}$`
-          answer = a / b * c - d
+          answer = (a / b) * c - d
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${calculPrioritaire(`${a / b} \\times ${c}`)} - ${d}$`
-          texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${calculPrioritaire(`${a / b * c} - ${d}`)}$`
+          texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${calculPrioritaire(`${(a / b) * c} - ${d}`)}$`
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(answer.toString())}$`
           break
         }
-        case '(a-b)/(c+d)+e':
-        {
+        case '(a-b)/(c+d)+e': {
           const c = randint(2, 9)
           const d = randint(1, 11 - c)
           const numerateur = (c + d) * randint(2, 9)
@@ -71,8 +80,7 @@ export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(answer.toString())}$`
           break
         }
-        case 'a/b+c':
-        {
+        case 'a/b+c': {
           const b = randint(4, 9)
           const a = b * randint(2, 9)
           const c = randint(2, 9, [a, b])
@@ -83,8 +91,7 @@ export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(answer.toString())}$`
           break
         }
-        case 'a/(b+c)+d':
-        {
+        case 'a/(b+c)+d': {
           const b = randint(1, 8)
           const c = randint(2, 11 - b, [b])
           const a = (b + c) * randint(2, 9)
@@ -97,8 +104,7 @@ export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(answer.toString())}$`
           break
         }
-        case '(a+b)/10+c':
-        {
+        case '(a+b)/10+c': {
           const a = randint(1, 9)
           const b = randint(1, 10 - a)
           const k = randint(1, 6)
@@ -112,29 +118,37 @@ export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(texNombre(answer))}$`
           break
         }
-        case 'a+b*(c+d)/(e*f)':
-        {
+        case 'a+b*(c+d)/(e*f)': {
           const a = randint(1, 9)
           const b = randint(2, 10)
           const e = randint(2, 3)
           const f = randint(2, 3)
-          const numerateur = (e * f) * randint(2, 9)
+          const numerateur = e * f * randint(2, 9)
           const d = randint(1, Math.min(numerateur - 1, 11))
           const c = numerateur - d
-          answer = a + b * (c + d) / (e * f)
+          answer = a + (b * (c + d)) / (e * f)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${a} + ${b} \\times \\dfrac{${c} + ${d}}{${e} \\times ${f}}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a} + ${b} \\times \\dfrac{${calculPrioritaire(`${c} + ${d}`)}}{${calculPrioritaire(`${e} \\times ${f}`)}}$`
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${a} + ${b} \\times ${calculPrioritaire(`\\dfrac{${c + d}}{${e * f}}`)}$`
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${a} + ${calculPrioritaire(`${b} \\times ${(c + d) / (e * f)}`)}$`
-          texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} =  ${calculPrioritaire(`${a} +  ${b * (c + d) / (e * f)}`)}$`
+          texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} =  ${calculPrioritaire(`${a} +  ${(b * (c + d)) / (e * f)}`)}$`
           texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(answer.toString())}$`
           break
         }
       }
       if (this.interactif) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: `$${lettreDepuisChiffre(i + 1)} = $` })
+        texte +=
+          '<br><br>' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
+            texteAvant: `$${lettreDepuisChiffre(i + 1)} = $`,
+          })
         // @ts-expect-error typage handleanswer
-        handleAnswers(this, i, { reponse: { value: answer, options: { resultatSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: answer,
+            options: { resultatSeulementEtNonOperation: true },
+          },
+        })
       }
       if (this.questionJamaisPosee(i, answer)) {
         this.listeQuestions[i] = texte
@@ -147,6 +161,6 @@ export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
   }
 }
 
-function calculPrioritaire (text: string) {
+function calculPrioritaire(text: string) {
   return miseEnEvidence(text, bleuMathalea)
 }

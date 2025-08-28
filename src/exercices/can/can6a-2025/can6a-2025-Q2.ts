@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f3a3g'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -16,10 +16,28 @@ export const refs = {
 
 */
 export default class Can2025N6Q2 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     let produit = 32
     if (a == null || b == null) {
-      const paire = shuffle(choice([[6, 7], [8, 9], [6, 8], [7, 9], [6, 9], [7, 8], [3, 8], [4, 8], [5, 7], [6, 6], [7, 5], [9, 3], [8, 5], [9, 4], [7, 3]]))
+      const paire = shuffle(
+        choice([
+          [6, 7],
+          [8, 9],
+          [6, 8],
+          [7, 9],
+          [6, 9],
+          [7, 8],
+          [3, 8],
+          [4, 8],
+          [5, 7],
+          [6, 6],
+          [7, 5],
+          [9, 3],
+          [8, 5],
+          [9, 4],
+          [7, 3],
+        ]),
+      )
       a = paire[0]
       b = paire[1]
       produit = a * b
@@ -36,7 +54,7 @@ export default class Can2025N6Q2 extends ExerciceCan {
     this.canReponseACompleter = `$${a}\\times \\ldots=${produit}$`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(8, 4) : this.enonce()
   }
 }

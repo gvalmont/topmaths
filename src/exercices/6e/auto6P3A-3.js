@@ -21,10 +21,10 @@ export const uuid = '9d994'
 export const refs = {
   'fr-fr': ['auto6P3A-3'],
   'fr-2016': ['CM014'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DoubleMoitieTiersTriple extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Calculer.'
@@ -34,15 +34,16 @@ export default class DoubleMoitieTiersTriple extends Exercice {
     this.sup = 1 // niveau de difficulté
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = range1(4)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Double

@@ -8,7 +8,7 @@ import { ecritureParentheseSiNegatif } from './ecritures'
  * @param n {number} exposant
  * @author Erwan Duplessy
  */
-export function puissance (b: number, n: number) {
+export function puissance(b: number, n: number) {
   switch (b) {
     case 0:
       return '0'
@@ -29,14 +29,17 @@ export function puissance (b: number, n: number) {
   }
 }
 
-export function ecriturePuissance (a: number, b: number, n: number) {
+export function ecriturePuissance(a: number, b: number, n: number) {
   switch (a) {
     case 0:
       return '$0$'
     case 1:
       return `$${puissance(b, n)}$`
     default:
-      return `$${String(round(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
+      return `$${String(round(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace(
+        '.',
+        '{,}',
+      )
   }
 }
 
@@ -49,7 +52,7 @@ export function ecriturePuissance (a: number, b: number, n: number) {
  * @param e exposant
  * @author Sébastien Lozano
  */
-export function simpNotPuissance (b: number, e: number) {
+export function simpNotPuissance(b: number, e: number) {
   // on switch sur la base
   switch (b) {
     case -1: // si la base vaut -1 on teste la parité de l'exposant
@@ -69,7 +72,8 @@ export function simpNotPuissance (b: number, e: number) {
         case 1: // si l'exposant vaut 1 on renvoit toujours la base
           return ` ${b}`
         default: // sinon on teste le signe de la base et la parité de l'exposant
-          if (b < 0 && e % 2 === 0) { // si la base est négative et que l'exposant est pair, le signe est inutile
+          if (b < 0 && e % 2 === 0) {
+            // si la base est négative et que l'exposant est pair, le signe est inutile
             return ` ${b * -1}^{${e}}`
             // break;
           } else {
@@ -88,7 +92,11 @@ export function simpNotPuissance (b: number, e: number) {
  * @param couleur
  * @author Sébastien Lozano
  */
-export function eclatePuissance (b: number | string, e: number, couleur: string) {
+export function eclatePuissance(
+  b: number | string,
+  e: number,
+  couleur: string,
+) {
   let str
   switch (e) {
     case 0:
@@ -111,7 +119,7 @@ export function eclatePuissance (b: number | string, e: number, couleur: string)
  * @author Rémi Angot
  * @return string
  */
-export function puissanceEnProduit (b: number, e: number): string {
+export function puissanceEnProduit(b: number, e: number): string {
   let str = ''
   if (e === 0) {
     return '1'
@@ -136,7 +144,7 @@ export function puissanceEnProduit (b: number, e: number): string {
  * @param e exposant
  * @author Sébastien Lozano
  */
-export function simpExp (b: string | number, e: number) {
+export function simpExp(b: string | number, e: number) {
   switch (e) {
     case 1:
       return ` ${String(b)}`

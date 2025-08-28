@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Calculer la moitié d\'une fracion'
+export const titre = "Calculer la moitié d'une fracion"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '36c4e'
@@ -15,7 +15,7 @@ export const uuid = '36c4e'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: FractionEtendue
     if (this.canOfficielle) {
       reponse = new FractionEtendue(1, 16)
@@ -40,7 +40,18 @@ export default class NomExercice extends ExerciceSimple {
         this.correction = `Pour obtenir la moitié d'un nombre, on le multiplie par $\\dfrac{1}{2}$.<br>
         Ainsi, la moitié de $\\dfrac{1}{${a}}$ est $\\dfrac{1}{${a}}\\times \\dfrac{1}{2}$, soit $${miseEnEvidence(reponse.texFraction)}$.`
       } else {
-        const listeFractions = [[3, 5], [7, 5], [9, 7], [3, 4], [5, 3], [7, 9], [9, 7], [5, 6], [3, 11], [5, 11]]
+        const listeFractions = [
+          [3, 5],
+          [7, 5],
+          [9, 7],
+          [3, 4],
+          [5, 3],
+          [7, 9],
+          [9, 7],
+          [5, 6],
+          [3, 11],
+          [5, 11],
+        ]
         const frac = choice(listeFractions)
         const a = new FractionEtendue(frac[0], frac[1])
 

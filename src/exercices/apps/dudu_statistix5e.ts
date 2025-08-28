@@ -4,7 +4,7 @@ export const uuid = 'duduStatistix5e'
 export const titre = 'Statistix 5e'
 
 class duduStatistix5e extends ExternalApp {
-  constructor () {
+  constructor() {
     super('https://mathix.org/statistix/5e/index.html?suivi=1&mathalea=1')
   }
 }

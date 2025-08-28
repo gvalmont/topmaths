@@ -5,7 +5,11 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
-import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import {
+  formatMinute,
+  stringNombre,
+  texNombre,
+} from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
@@ -14,7 +18,10 @@ import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { prenomM } from '../../../lib/outils/Personne'
@@ -34,7 +41,7 @@ export const dateDePublication = '19/04/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
@@ -42,13 +49,13 @@ export const uuid = '6a087'
 
 export const refs = {
   'fr-fr': ['can3a-2022'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN2022troisieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.nbQuestions = 30// 10,20,30
+    this.nbQuestions = 30 // 10,20,30
 
     this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
@@ -58,19 +65,92 @@ export default class SujetCAN2022troisieme extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-    const listeFractions23 = [[3, 2], [1, 2], [3, 4], [1, 4], [2, 5],
-      [3, 5], [4, 5], [11, 2], [7, 2], [9, 2]
+    const typeQuestionsDisponiblesNiv1 = shuffle([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    ])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
+    const listeFractions23 = [
+      [3, 2],
+      [1, 2],
+      [3, 4],
+      [1, 4],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [11, 2],
+      [7, 2],
+      [9, 2],
     ]
-    const listeFractions11 = [[2, 3], [5, 8], [3, 5], [5, 6], [5, 7], [5, 9], [3, 7], [6, 7], [5, 4], [4, 5]
+    const listeFractions11 = [
+      [2, 3],
+      [5, 8],
+      [3, 5],
+      [5, 6],
+      [5, 7],
+      [5, 9],
+      [3, 7],
+      [6, 7],
+      [5, 4],
+      [4, 5],
     ]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction23, poly, propositions, partieDec1, partieDec2, chiffre, chiffre2, u, moy, a3, k1, k2, e, f, g, choix, a, b, c, d, p, k, A, B, C, D, I, J, K, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        texte,
+        texteCorr,
+        reponse,
+        fraction23,
+        poly,
+        propositions,
+        partieDec1,
+        partieDec2,
+        chiffre,
+        chiffre2,
+        u,
+        moy,
+        a3,
+        k1,
+        k2,
+        e,
+        f,
+        g,
+        choix,
+        a,
+        b,
+        c,
+        d,
+        p,
+        k,
+        A,
+        B,
+        C,
+        D,
+        I,
+        J,
+        K,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -89,15 +169,47 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
 
         case 2:
-          chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-          chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
+          chiffre = [
+            ['un', 1],
+            ['deux', 2],
+            ['trois', 3],
+            ['cinq', 5],
+            ['quatre', 4],
+            ['six', 6],
+            ['sept', 7],
+            ['huit', 8],
+            ['neuf', 9],
+          ]
+          chiffre2 = [
+            ['vingt', 20],
+            ['trente', 30],
+            ['quarante', 40],
+            ['cinquante', 50],
+            ['soixante', 60],
+          ]
           a = randint(0, 8)
           b = randint(0, 4)
           c = randint(0, 8)
           d = randint(0, 4)
           if (choice([true, false])) {
-            chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-            chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
+            chiffre = [
+              ['un', 1],
+              ['deux', 2],
+              ['trois', 3],
+              ['cinq', 5],
+              ['quatre', 4],
+              ['six', 6],
+              ['sept', 7],
+              ['huit', 8],
+              ['neuf', 9],
+            ]
+            chiffre2 = [
+              ['vingt', 20],
+              ['trente', 30],
+              ['quarante', 40],
+              ['cinquante', 50],
+              ['soixante', 60],
+            ]
             a = randint(0, 8)
             b = randint(0, 4)
             c = randint(0, 8)
@@ -158,7 +270,7 @@ export default class SujetCAN2022troisieme extends Exercice {
         case 4:
           if (choice([true, false])) {
             a = randint(1, 13) * 50
-            reponse = (new Decimal(a)).div(100)
+            reponse = new Decimal(a).div(100)
             texte = `$${a}$ cm  $=$`
 
             texteCorr = `
@@ -172,7 +284,7 @@ export default class SujetCAN2022troisieme extends Exercice {
               texte += '  $\\ldots$ m'
             }
           } else {
-            a = (new Decimal(randint(1, 9))).div(10).plus(randint(1, 9))
+            a = new Decimal(randint(1, 9)).div(10).plus(randint(1, 9))
             reponse = a.mul(100)
             texte = `$${texNombre(a, 1)}$ m  $=$ `
             texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
@@ -284,23 +396,28 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
 
         case 9:
-          choix = choice(['a', 'b', 'c'])//, 'b'
+          choix = choice(['a', 'b', 'c']) //, 'b'
           if (choix === 'a') {
-            a = (new Decimal(randint(1, 9))).div(10).plus(randint(45, 49))
-            b = (new Decimal(randint(1, 9))).div(10).plus(randint(2, 5))
+            a = new Decimal(randint(1, 9)).div(10).plus(randint(45, 49))
+            b = new Decimal(randint(1, 9)).div(10).plus(randint(2, 5))
             texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${b.round()}=${b.round().mul(50)}$.`
           }
           if (choix === 'b') {
-            a = (new Decimal(randint(1, 9))).div(10).plus(randint(3, 9))
-            b = (new Decimal(randint(1, 9))).div(10).plus(randint(2, 5))
+            a = new Decimal(randint(1, 9)).div(10).plus(randint(3, 9))
+            b = new Decimal(randint(1, 9)).div(10).plus(randint(2, 5))
             texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $${a.round()}\\times ${b.round()}=${a.round().mul(b.round())}$.`
           }
           if (choix === 'c') {
-            a = (new Decimal(randint(1, 9))).div(10).plus(randint(45, 49))
-            b = (new Decimal(randint(1, 9))).div(10).plus(randint(25, 29))
-            texteCorr = 'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
+            a = new Decimal(randint(1, 9)).div(10).plus(randint(45, 49))
+            b = new Decimal(randint(1, 9)).div(10).plus(randint(25, 29))
+            texteCorr =
+              'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
           }
-          propositions = shuffle([`$${texNombre(a.mul(b).div(10), 3)}$`, `$${texNombre(a.mul(b).mul(10), 1)}$`, `$${texNombre(a.mul(b), 2)}$`])
+          propositions = shuffle([
+            `$${texNombre(a.mul(b).div(10), 3)}$`,
+            `$${texNombre(a.mul(b).mul(10), 1)}$`,
+            `$${texNombre(a.mul(b), 2)}$`,
+          ])
           reponse = a.mul(b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           texte = `Recopie  le résultat de  :
@@ -318,7 +435,11 @@ export default class SujetCAN2022troisieme extends Exercice {
           b = randint(1, 9, a)
           c = randint(1, 9, b)
           f = a * 100 + b * 10 + c
-          d = choice([new Decimal('0.1'), new Decimal('0.01'), new Decimal('0.001')])
+          d = choice([
+            new Decimal('0.1'),
+            new Decimal('0.01'),
+            new Decimal('0.001'),
+          ])
           reponse = d.mul(f)
           texte = `$${f}\\times ${texNombre(d, 3)}=$`
           texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(reponse, 3)}$<br>`
@@ -333,7 +454,6 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
 
         case 11:
-
           a = choice(listeFractions11)
           b = fraction(a[0], a[1])
           k = randint(4, 9)
@@ -369,9 +489,8 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
 
         case 13:
-
           reponse = randint(1, 25)
-          a = (new Decimal(reponse)).div(100)
+          a = new Decimal(reponse).div(100)
           texte = `Complète :<br>
           $${texNombre(a, 2)}=$`
 
@@ -389,7 +508,7 @@ export default class SujetCAN2022troisieme extends Exercice {
 
         case 14:
           if (choice([true, false])) {
-            a = (new Decimal(randint(1, 9))).div(10).plus(randint(2, 9))
+            a = new Decimal(randint(1, 9)).div(10).plus(randint(2, 9))
             b = randint(2, 9, 5)
             c = 10 - b
             texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$
@@ -424,7 +543,6 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
 
         case 15:
-
           moy = randint(10, 15)
           k1 = choice([1.5, 2.5, 3.5])
           k2 = choice([4.5, 5.5, 6.5])
@@ -448,7 +566,6 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
 
         case 16:
-
           a = randint(3, 6)
           b = randint(4, 5)
           c = a * b
@@ -464,13 +581,20 @@ export default class SujetCAN2022troisieme extends Exercice {
           reponse = b
           texte = 'On donne la figure suivante :<br>'
 
-          texte += mathalea2d({
-            xmin: -1.5,
-            ymin: -1,
-            xmax: 7.1,
-            ymax: 5,
-            scale: 1
-          }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
+          texte += mathalea2d(
+            {
+              xmin: -1.5,
+              ymin: -1,
+              xmax: 7.1,
+              ymax: 5,
+              scale: 1,
+            },
+            poly,
+            labelPoint(A, B, C),
+            codageAngleDroit(B, A, C),
+            d,
+            e,
+          )
           texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
           On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
           texte += ' $AC= $'
@@ -485,16 +609,29 @@ export default class SujetCAN2022troisieme extends Exercice {
 
         case 17:
           a = randint(1, 5)
-          b = choice([new Decimal('0.25'), new Decimal('0.5'), new Decimal('0.75')])
+          b = choice([
+            new Decimal('0.25'),
+            new Decimal('0.5'),
+            new Decimal('0.75'),
+          ])
           d = arrondi(b.mul(60))
           if (!this.interactif) {
             texte = `Convertir en heures/minutes : <br>$${texNombre(b.plus(a), 2)}$ h $=$ .....  h ..... min`
             texteCorr = `$${texNombre(b.plus(a), 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${texNombre(d, 0)}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(b.plus(a), 2)}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierHms,
+            )
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
+            handleAnswers(this, index, {
+              reponse: {
+                value: new Hms({ hour: a, minute: d }).toString(),
+                options: { HMS: true },
+              },
+            })
             texteCorr = `$${texNombre(b.plus(a), 2)}\\text{ h } = ${a}\\text{ h }+${texNombre(b, 2)} \\times 60\\text{ min } = ${a}\\text{ h }${texNombre(d, 0)}\\text{ min }$`
 
             nbChamps = 1
@@ -502,7 +639,6 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
 
         case 18:
-
           a = randint(1, 9)
           p = randint(2, 9, 5)
           reponse = a * p
@@ -524,7 +660,6 @@ export default class SujetCAN2022troisieme extends Exercice {
           nbChamps = 1
           break
         case 19:
-
           a = randint(1, 9) * 10 + 5
           b = 100 - a
           c = randint(6, 39, [a, 10, 20, 30])
@@ -575,7 +710,7 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
 
         case 21:
-          a = (new Decimal(randint(1, 9))).div(10).plus(randint(3, 5))
+          a = new Decimal(randint(1, 9)).div(10).plus(randint(3, 5))
           b = a.mul(-1).plus(randint(6, 10))
           c = b.mul(10)
           A = point(0, 0, 'A', 'below')
@@ -589,13 +724,19 @@ export default class SujetCAN2022troisieme extends Exercice {
           poly.epaisseur = 1
 
           texte = 'Périmètre du parallélogramme $ABCD$ :<br> '
-          texte += mathalea2d({
-            xmin: -1.5,
-            ymin: -1,
-            xmax: 7.6,
-            ymax: 6,
-            scale: 0.7
-          }, poly, labelPoint(A, B, C, D), d, e)
+          texte += mathalea2d(
+            {
+              xmin: -1.5,
+              ymin: -1,
+              xmax: 7.6,
+              ymax: 6,
+              scale: 0.7,
+            },
+            poly,
+            labelPoint(A, B, C, D),
+            d,
+            e,
+          )
           texteCorr = `Le périmètre en cm est donné par :
           $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${texNombre(reponse, 0)}$ cm`
 
@@ -622,7 +763,8 @@ export default class SujetCAN2022troisieme extends Exercice {
             texte = `Calcule : <br>
             $\\dfrac{${a}}{${b}}\\times\\dfrac{${c}}{${d}}\\times\\dfrac{0}{${e}}\\times\\dfrac{${f}}{${g}}$ `
             reponse = fraction(0, 1)
-            texteCorr = 'Il s\'agit d\'un produit avec un facteur nul, donc la résultat est 0.'
+            texteCorr =
+              "Il s'agit d'un produit avec un facteur nul, donc la résultat est 0."
           }
           if (choix === 'b') {
             if (choice([true, false])) {
@@ -654,7 +796,9 @@ export default class SujetCAN2022troisieme extends Exercice {
     $\\dfrac{${a}}{${a}}\\times\\dfrac{${b}}{${b}}\\times\\dfrac{${d}}{${d}}\\times\\dfrac{${e}}{${f}}=\\dfrac{${e}}{${f}}${simplificationDeFractionAvecEtapes(e, f)}$ .`
             }
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }
@@ -663,7 +807,6 @@ export default class SujetCAN2022troisieme extends Exercice {
 
           break
         case 23:
-
           fraction23 = choice(listeFractions23)
           a = fraction(fraction23[0], fraction23[1])
           k = randint(3, 9)
@@ -700,7 +843,7 @@ export default class SujetCAN2022troisieme extends Exercice {
 
         case 25:
           a = choice([2, 3, 6]) // diviseur de l'heure
-          b = (new Decimal(60)).div(a) // nombre de minutes de l'énoncé
+          b = new Decimal(60).div(a) // nombre de minutes de l'énoncé
           c = new Decimal(choice([30, 60, 90, 120]))
           reponse = c.div(a)
           texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. Combien de km parcourt-il en $${b}$ minutes ?`
@@ -730,25 +873,43 @@ export default class SujetCAN2022troisieme extends Exercice {
             objets = []
             objets.push(poly[0])
             objets.push(
-              texteParPosition(`${stringNombre(a)} cm`, milieu(I, K).x, milieu(I, K).y - 0.3)
-              , texteParPosition(`${stringNombre(b)} cm`, milieu(J, K).x + 0.7, milieu(J, K).y)
-              , labelPoint(I, J, K), codageAngleDroit(J, I, K))
-            propositions = shuffle([`$IJ=\\sqrt{${a ** 2 + b ** 2}}$`, `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`, `$IJ=\\sqrt{${a + b}}$`, `$IJ=${b - a}$`])
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(I, K).x,
+                milieu(I, K).y - 0.3,
+              ),
+              texteParPosition(
+                `${stringNombre(b)} cm`,
+                milieu(J, K).x + 0.7,
+                milieu(J, K).y,
+              ),
+              labelPoint(I, J, K),
+              codageAngleDroit(J, I, K),
+            )
+            propositions = shuffle([
+              `$IJ=\\sqrt{${a ** 2 + b ** 2}}$`,
+              `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`,
+              `$IJ=\\sqrt{${a + b}}$`,
+              `$IJ=${b - a}$`,
+            ])
 
             reponse = [`\\sqrt{${b ** 2 - a ** 2}}`]
             texte = 'Recopie la bonne réponse. <br>'
             texte += `${propositions[0]} ${sp(7)} ${propositions[1]} ${sp(7)} ${propositions[2]}${sp(7)} ${propositions[3]}<br>`
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 25,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 0.7,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 25,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 0.7,
+                style: 'margin: auto',
+              },
+              objets,
+            )
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $IJK$ :<br>
               On a $IJ^2=JK^2-IK^2$, soit $IJ^2=${b}^2-${a}^2=${b ** 2 - a ** 2}$.<br>
@@ -768,25 +929,43 @@ export default class SujetCAN2022troisieme extends Exercice {
             objets = []
             objets.push(poly[0])
             objets.push(
-              texteParPosition(`${stringNombre(a)} cm`, milieu(I, K).x, milieu(I, K).y - 0.3)
-              , texteParPosition(`${stringNombre(b)} cm`, milieu(J, I).x - 0.8, milieu(J, I).y)
-              , labelPoint(I, J, K), codageAngleDroit(J, I, K))
-            propositions = shuffle([`$IJ=\\sqrt{${a ** 2 + b ** 2}}$`, `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`, `$IJ=\\sqrt{${a + b}}$`, `$IJ=${b - a}$`])
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(I, K).x,
+                milieu(I, K).y - 0.3,
+              ),
+              texteParPosition(
+                `${stringNombre(b)} cm`,
+                milieu(J, I).x - 0.8,
+                milieu(J, I).y,
+              ),
+              labelPoint(I, J, K),
+              codageAngleDroit(J, I, K),
+            )
+            propositions = shuffle([
+              `$IJ=\\sqrt{${a ** 2 + b ** 2}}$`,
+              `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`,
+              `$IJ=\\sqrt{${a + b}}$`,
+              `$IJ=${b - a}$`,
+            ])
 
             reponse = [`\\sqrt{${b ** 2 + a ** 2}}`]
             texte = 'Recopie la bonne réponse. <br>'
             texte += `${propositions[0]} ${sp(7)} ${propositions[1]} ${sp(7)} ${propositions[2]}${sp(7)} ${propositions[3]}<br>`
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 25,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 0.7,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 25,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 0.7,
+                style: 'margin: auto',
+              },
+              objets,
+            )
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $IJK$ :<br>
                     On a $IJ^2=JK^2+IK^2$, soit $IJ^2=${b}^2+${a}^2=${b ** 2 + a ** 2}$.<br>
@@ -799,7 +978,7 @@ export default class SujetCAN2022troisieme extends Exercice {
           }
           nbChamps = 1
           break
-        case 27:{
+        case 27: {
           a = randint(7, 10)
           b = choice([25, 30, 35, 40, 45])
           c = randint(36, 58)
@@ -813,9 +992,18 @@ export default class SujetCAN2022troisieme extends Exercice {
             texte = `${Benoît} prend le départ d'un marathon à $${a}$h $${b}$. <br>
             Il parcourt la distance en $3$ h  $${c}$ min. <br>
             À quelle heure arrive-t-il ?<br>`
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierHms,
+            )
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 4, minute: c - 60 + b }).toString(), options: { HMS: true } } })
+            handleAnswers(this, index, {
+              reponse: {
+                value: new Hms({ hour: a + 4, minute: c - 60 + b }).toString(),
+                options: { HMS: true },
+              },
+            })
 
             nbChamps = 1
           }
@@ -826,14 +1014,13 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
         }
         case 28:
-
           a = choice([10, 20, 25, 50])
           if (a === 10) {
             b = randint(4, 9)
           } else {
             b = randint(11, 19)
           }
-          reponse = 100 / a * b
+          reponse = (100 / a) * b
           texte = `Sur $${a}$ élèves, $${b}$ ont voté pour Sylvie.<br>
           Quel est le pourcentage de voix de Sylvie ?
       `
@@ -851,7 +1038,10 @@ export default class SujetCAN2022troisieme extends Exercice {
 
         case 29:
           a = choice([-3, -2, -1, 2, 3])
-          b = choice([['double', 2], ['triple', 3]])
+          b = choice([
+            ['double', 2],
+            ['triple', 3],
+          ])
 
           reponse = b[1] * 10 ** a
           texte = `Le ${b[0]} de $10^{${a}}$ est : `
@@ -927,7 +1117,8 @@ export default class SujetCAN2022troisieme extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

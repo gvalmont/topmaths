@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDansLaPartieEntiere
+  nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -38,24 +38,25 @@ export const uuid = '294bb'
 export const refs = {
   'fr-fr': ['6N2H'],
   'fr-2016': ['6C31'],
-  'fr-ch': ['9NO8-14']
+  'fr-ch': ['9NO8-14'],
 }
 export default class DivisionDecimale extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Type de questions',
       2,
-      '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au millième près'
+      '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au millième près',
     ]
-    this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
+    this.consigne =
+      'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
     this.nbQuestions = 4
     this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
 
     parseInt(this.sup) === 1
@@ -63,12 +64,13 @@ export default class DivisionDecimale extends Exercice {
       : (typesDeQuestionsDisponibles = [7, 8, 9])
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let typesDeQuestions
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
@@ -84,30 +86,47 @@ export default class DivisionDecimale extends Exercice {
           break
         case 3: // entier divisé par 6 quotient : xxx,5
           b = 6
-          q = arrondi(randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5, 6)
+          q = arrondi(
+            randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5,
+            6,
+          )
           a = q * 6
           break
         case 4: // quotient xx,xx division par 2, 3 , 4 ou 5
-          q = arrondi(randint(2, 5) * 10 + randint(2, 5) + randint(2, 5) / 10 + randint(2, 5) / 100, 6)
+          q = arrondi(
+            randint(2, 5) * 10 +
+              randint(2, 5) +
+              randint(2, 5) / 10 +
+              randint(2, 5) / 100,
+            6,
+          )
           b = randint(2, 5)
           a = b * q
           break
         case 5: // quotient x,xxx division par 6 à 9
           q = arrondi(
             randint(6, 9) +
-                        randint(5, 9) / 10 +
-                        randint(6, 9) / 100 +
-                        randint(6, 9) / 1000, 6)
+              randint(5, 9) / 10 +
+              randint(6, 9) / 100 +
+              randint(6, 9) / 1000,
+            6,
+          )
           b = randint(6, 9)
           a = b * q
           break
         case 6: // un 0 dans le quotient
           if (randint(1, 2) === 1) {
             // x0x,x
-            q = arrondi(randint(2, 9) * 100 + randint(2, 9) + randint(2, 9) / 10, 6)
+            q = arrondi(
+              randint(2, 9) * 100 + randint(2, 9) + randint(2, 9) / 10,
+              6,
+            )
           } else {
             // xx0,x
-            q = arrondi(randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) / 10, 6)
+            q = arrondi(
+              randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) / 10,
+              6,
+            )
           }
           b = randint(7, 9)
           a = b * q
@@ -130,29 +149,43 @@ export default class DivisionDecimale extends Exercice {
       }
       if (this.sup === 2) {
         this.consigne =
-                    'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
+          'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
       }
       texte = `$${texNombre(a)}\\div${b}`
       if (this.sup === 1) {
-        texteCorr = Operation({ operande1: arrondi(a, 6), operande2: b, type: 'division', precision: 3 })
+        texteCorr = Operation({
+          operande1: arrondi(a, 6),
+          operande2: b,
+          type: 'division',
+          precision: 3,
+        })
         texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
-        texte += (this.interactif) ? '=$' : '$'
+        texte += this.interactif ? '=$' : '$'
       } else {
-        texteCorr = Operation({ operande1: arrondi(a, 6), operande2: b, type: 'division', precision: 4 })
+        texteCorr = Operation({
+          operande1: arrondi(a, 6),
+          operande2: b,
+          type: 'division',
+          precision: 4,
+        })
         texteCorr += `<br>$${texNombre(a)}\\div${b}\\approx${texNombre(q)}$`
-        texte += (this.interactif) ? '\\approx$' : '$'
+        texte += this.interactif ? '\\approx$' : '$'
       }
       handleAnswers(this, i, { reponse: { value: q } })
-      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+      if (context.isHtml && this.interactif)
+        texte += ajouteChampTexteMathLive(this, i, '')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr }]
         // @ts-expect-error trop compliqué à typer
         this.autoCorrection[i].reponse.param = {
-          digits: nombreDeChiffresDansLaPartieEntiere(q) + nombreDeChiffresDansLaPartieDecimale(q) + 2,
+          digits:
+            nombreDeChiffresDansLaPartieEntiere(q) +
+            nombreDeChiffresDansLaPartieDecimale(q) +
+            2,
           decimals: nombreDeChiffresDansLaPartieDecimale(q) + 1,
           signe: false,
-          exposantNbChiffres: 0
+          exposantNbChiffres: 0,
         }
       }
       if (this.questionJamaisPosee(i, a, b)) {

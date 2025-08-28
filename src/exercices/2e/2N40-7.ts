@@ -16,10 +16,10 @@ export const uuid = '80c0e'
 
 export const refs = {
   'fr-fr': ['2N40-7'],
-  'fr-ch': ['1mCL1-3', '11FA2-18']
+  'fr-ch': ['1mCL1-3', '11FA2-18'],
 }
 export default class MultipleDistributiviteSeconde extends MultipleDistributivite {
-  constructor () {
+  constructor() {
     super()
     this.sup = 4
     this.sup2 = 4

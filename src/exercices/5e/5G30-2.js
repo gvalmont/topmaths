@@ -8,11 +8,23 @@ import { labelPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, translation } from '../../lib/2d/transformations'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+  texteGras,
+} from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
 export const dateDePublication = '15/01/2022'
@@ -22,7 +34,7 @@ export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-function aleaName (names = [], n = names.length, result = []) {
+function aleaName(names = [], n = names.length, result = []) {
   const r = Math.floor(Math.random() * names.length)
   result.push(names[r])
   names.splice(r, 1)
@@ -33,7 +45,7 @@ function aleaName (names = [], n = names.length, result = []) {
   }
 }
 
-function anglesSecantes (A, rot = { O: 60, A: 0 }) {
+function anglesSecantes(A, rot = { O: 60, A: 0 }) {
   const s = rotation(translation(A, vecteur(1, 0)), A, rot.A)
   const S = rotation(translation(A, vecteur(3, 0)), A, rot.A)
   const t = rotation(s, A, 180)
@@ -58,10 +70,42 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
     As: droite(A, s),
     Ax: droite(A, x),
     A,
-    labela: texteSurArc((rot.O - rot.A) % 180 + '°', s, x, rot.O - rot.A, 'black', 0.7, true),
-    labelb: texteSurArc((180 - (rot.O - rot.A)) % 180 + '°', x, t, 180 - (rot.O - rot.A), 'black', 0.7, true),
-    labelc: texteSurArc((rot.O - rot.A) % 180 + '°', t, Ox, rot.O - rot.A, 'black', 0.7, true),
-    labeld: texteSurArc((180 - (rot.O - rot.A)) % 180 + '°', Ox, s, 180 - (rot.O - rot.A), 'black', 0.7, true)
+    labela: texteSurArc(
+      ((rot.O - rot.A) % 180) + '°',
+      s,
+      x,
+      rot.O - rot.A,
+      'black',
+      0.7,
+      true,
+    ),
+    labelb: texteSurArc(
+      ((180 - (rot.O - rot.A)) % 180) + '°',
+      x,
+      t,
+      180 - (rot.O - rot.A),
+      'black',
+      0.7,
+      true,
+    ),
+    labelc: texteSurArc(
+      ((rot.O - rot.A) % 180) + '°',
+      t,
+      Ox,
+      rot.O - rot.A,
+      'black',
+      0.7,
+      true,
+    ),
+    labeld: texteSurArc(
+      ((180 - (rot.O - rot.A)) % 180) + '°',
+      Ox,
+      s,
+      180 - (rot.O - rot.A),
+      'black',
+      0.7,
+      true,
+    ),
   }
 }
 
@@ -69,30 +113,33 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
  * Effectuer des liens entre angles et parallélisme
  * @author Frédéric PIOU
  * rendu interactif par Guillaume Valmont le 21/01/2024
-*/
+ */
 export const uuid = '19812'
 
 export const refs = {
   'fr-fr': ['5G30-2'],
-  'fr-ch': ['11ES2-2', '1mG1-4']
+  'fr-ch': ['11ES2-2', '1mG1-4'],
 }
 export default class ExercicesAnglesAIC extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     const formulaire = [
       '1 : Angles marqués alternes-internes ou correspondants ?',
       '2 : Déterminer si des droites sont parallèles (angles marqués).',
       '3 : Déterminer si des droites sont parallèles (angles nommés).',
-      '4 : Calculer la mesure d\'un angle (angles marqués).',
-      '5 : Calculer la mesure d\'un angle (angles nommés).',
+      "4 : Calculer la mesure d'un angle (angles marqués).",
+      "5 : Calculer la mesure d'un angle (angles nommés).",
       '6 : Marquer un angle alterne-interne ou correspondant à un angle marqué.',
       '7 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
-      '8 : Mélange'
+      '8 : Mélange',
     ]
 
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets :\n' + formulaire.join('\n')]
+    this.besoinFormulaireTexte = [
+      'Type de questions',
+      'Nombres séparés par des tirets :\n' + formulaire.join('\n'),
+    ]
 
     this.nbCols = 2
     this.nbColsCorr = 2
@@ -103,20 +150,23 @@ export default class ExercicesAnglesAIC extends Exercice {
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nquestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 7,
       defaut: 8,
       melange: 8,
       nbQuestions: this.nbQuestions,
-      shuffle: true
+      shuffle: true,
     })
 
-    for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
+      // Boucle principale où i+1 correspond au numéro de la question
       const propositions = []
       let options = { ordered: true }
-      switch (nquestion[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      switch (
+        nquestion[i] // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      ) {
         case 1: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
@@ -127,28 +177,43 @@ export default class ExercicesAnglesAIC extends Exercice {
               A,
               B,
               r1: choice([1.5, 2]),
-              r2: choice([1.5, 2])
+              r2: choice([1.5, 2]),
             })
 
             param = createVariables(
               randint(0, 90),
               randint(-90, 0),
-              randint(-90, 0)
+              randint(-90, 0),
             )
-          } while (!(abs(param.O - abs(param.A)) > 30 && abs(param.O - abs(param.B)) > 30))
+          } while (
+            !(
+              abs(param.O - abs(param.A)) > 30 &&
+              abs(param.O - abs(param.B)) > 30
+            )
+          )
           const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
+          const anglesA = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O), O, param.r1),
+            { O: param.O, A: param.A },
+          )
+          const anglesB = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2),
+            { O: param.O, A: param.B },
+          )
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesA[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.7
-            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesB[i].opaciteDeRemplissage = 0.7
           }
           const ab = choice([
             choice(['aa', 'bb', 'cc', 'dd']),
             choice(['ca', 'db']),
-            choice(['a', 'b', 'c', 'd']) + choice(['a', 'b', 'c', 'd'])
+            choice(['a', 'b', 'c', 'd']) + choice(['a', 'b', 'c', 'd']),
           ])
           const a = ab[0]
           const b = ab[1]
@@ -160,19 +225,24 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesB.As,
             anglesB.Ax,
             anglesA['label' + a],
-            anglesB['label' + b]
+            anglesB['label' + b],
           )
 
           const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
+            ...Object.keys(anglesA).map((key) => {
+              return anglesA[key]
+            }),
+            ...Object.keys(anglesB).map((key) => {
+              return anglesB[key]
+            }),
           ])
           // On copie tout le contenu de objetsEnonce dans objetsCorrection
-          objetsEnonce.forEach(objet => {
+          objetsEnonce.forEach((objet) => {
             objetsCorrection.push(objet)
           })
           // ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
-          let texte = 'Les angles marqués sont-ils alternes-internes, correspondants ou ni l\'un, ni l\'autre ?<br>'
+          let texte =
+            "Les angles marqués sont-ils alternes-internes, correspondants ou ni l'un, ni l'autre ?<br>"
           let reponse
           let reponseCorrecte
           if (a === b) {
@@ -183,22 +253,25 @@ export default class ExercicesAnglesAIC extends Exercice {
             reponseCorrecte = 'alternes-internes'
           } else {
             reponse = `ne sont ${texteEnCouleurEtGras('ni alternes-internes')}, ${texteEnCouleurEtGras('ni correspondants')}`
-            reponseCorrecte = 'ni l\'un ni l\'autre'
+            reponseCorrecte = "ni l'un ni l'autre"
           }
           const texteCorr = `Par définition, les angles marqués ${reponse}.`
-          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsEnonce,
+          )
           exercice = { texte, texteCorr }
           propositions.push({
             texte: 'alternes-internes',
-            statut: reponseCorrecte === 'alternes-internes'
+            statut: reponseCorrecte === 'alternes-internes',
           })
           propositions.push({
             texte: 'correspondants',
-            statut: reponseCorrecte === 'correspondants'
+            statut: reponseCorrecte === 'correspondants',
           })
           propositions.push({
-            texte: 'ni l\'un ni l\'autre',
-            statut: reponseCorrecte === 'ni l\'un ni l\'autre'
+            texte: "ni l'un ni l'autre",
+            statut: reponseCorrecte === "ni l'un ni l'autre",
           })
           break
         }
@@ -222,13 +295,10 @@ export default class ExercicesAnglesAIC extends Exercice {
               A,
               B: A,
               r1: choice([1.5, 2]),
-              r2: choice([1.5, 2])
+              r2: choice([1.5, 2]),
             })
 
-            param = createVariables(
-              randint(0, 90),
-              randint(-90, 90)
-            )
+            param = createVariables(randint(0, 90), randint(-90, 90))
           } while (!(param.O - param.A < 70 && param.O - param.A > 30))
 
           /* const ab = aleaVariables(
@@ -242,22 +312,35 @@ export default class ExercicesAnglesAIC extends Exercice {
           do {
             const createVariables = (a, b) => ({
               a,
-              b
+              b,
             })
 
-            ab = createVariables(
-              randint(0, 3),
-              randint(0, 3)
+            ab = createVariables(randint(0, 3), randint(0, 3))
+          } while (
+            !(
+              ab.a !== ab.b &&
+              (ab.a !== 2 || ab.b !== 0) &&
+              (ab.a !== 3 || ab.b !== 1)
             )
-          } while (!(ab.a !== ab.b && (ab.a !== 2 || ab.b !== 0) && (ab.a !== 3 || ab.b !== 1)))
+          )
 
           const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
+          const anglesA = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O), O, param.r1),
+            { O: param.O, A: param.A },
+          )
+          const anglesB = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2),
+            { O: param.O, A: param.B },
+          )
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesA[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.7
-            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesB[i].opaciteDeRemplissage = 0.7
           }
           anglesA.As.color = colorToLatexOrHTML('red')
@@ -265,14 +348,78 @@ export default class ExercicesAnglesAIC extends Exercice {
           const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
           const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
           const epsilon = choice([pickRandom([-2, -1, 1, 2]), 0])
-          anglesA.labela = texteSurArc(((param.O - param.A) % 180 + epsilon) + '°', anglesA.s, anglesA.x, param.O - param.A, 'black', 0.7, true)
-          anglesA.labelb = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.x, anglesA.t, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesA.labelc = texteSurArc((param.O - param.A + epsilon) % 180 + '°', anglesA.t, anglesA.Ox, param.O - param.A, 'black', 0.7, true)
-          anglesA.labeld = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.Ox, anglesA.s, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesB.labela = texteSurArc(((param.O - param.A) % 180) + '°', anglesB.s, anglesB.x, param.O - param.A, 'black', 0.7, true)
-          anglesB.labelb = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesB.labelc = texteSurArc((param.O - param.A) % 180 + '°', anglesB.t, anglesB.Ox, param.O - param.A, 'black', 0.7, true)
-          anglesB.labeld = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black', 0.7, true)
+          anglesA.labela = texteSurArc(
+            ((param.O - param.A) % 180) + epsilon + '°',
+            anglesA.s,
+            anglesA.x,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labelb = texteSurArc(
+            ((180 - (param.O - param.A) + epsilon) % 180) + '°',
+            anglesA.x,
+            anglesA.t,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labelc = texteSurArc(
+            ((param.O - param.A + epsilon) % 180) + '°',
+            anglesA.t,
+            anglesA.Ox,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labeld = texteSurArc(
+            ((180 - (param.O - param.A) + epsilon) % 180) + '°',
+            anglesA.Ox,
+            anglesA.s,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labela = texteSurArc(
+            ((param.O - param.A) % 180) + '°',
+            anglesB.s,
+            anglesB.x,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labelb = texteSurArc(
+            ((180 - (param.O - param.A)) % 180) + '°',
+            anglesB.x,
+            anglesB.t,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labelc = texteSurArc(
+            ((param.O - param.A) % 180) + '°',
+            anglesB.t,
+            anglesB.Ox,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labeld = texteSurArc(
+            ((180 - (param.O - param.A)) % 180) + '°',
+            anglesB.Ox,
+            anglesB.s,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
           objetsEnonce.push(
             anglesA[a],
             anglesA.As,
@@ -281,13 +428,15 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesB.As,
             anglesB.Ax,
             anglesA['label' + a],
-            anglesB['label' + b]
+            anglesB['label' + b],
           )
-          objetsEnonce.forEach(objet => {
+          objetsEnonce.forEach((objet) => {
             objetsCorrection.push(objet)
           })
           let angles, calculs
-          anglesA[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('red')
+          anglesA[a].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML('red')
           anglesA.labela.color = 'red'
           anglesA.labelb.color = 'red'
           anglesA.labelc.color = 'red'
@@ -300,55 +449,71 @@ export default class ExercicesAnglesAIC extends Exercice {
           switch (a + b) {
             case 'ab':
             case 'ad':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°-${miseEnEvidence(anglesB.labelb.texte, 'blue')} = ${miseEnEvidence(anglesB.labela.texte, 'green')}$`
               break
             case 'ac':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               break
             case 'ba':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${miseEnEvidence(anglesB.labela.texte, 'blue')} = ${miseEnEvidence(anglesB.labelb.texte, 'green')}$`
               break
             case 'bc':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${miseEnEvidence(anglesB.labelc.texte, 'blue')} = ${miseEnEvidence(anglesB.labelb.texte, 'green')}$`
               break
             case 'bd':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               break
             case 'cb':
             case 'cd':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°-${miseEnEvidence(anglesB.labelb.texte, 'blue')} = ${miseEnEvidence(anglesB.labela.texte, 'green')}$`
               break
             case 'da':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
               calculs = `$180°-${miseEnEvidence(anglesB.labela.texte, 'blue')} = ${miseEnEvidence(anglesB.labelb.texte, 'green')}$`
               break
             case 'dc':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               calculs = `$180°-${miseEnEvidence(anglesB.labelc.texte, 'blue')} = ${miseEnEvidence(anglesB.labelb.texte, 'green')}$`
@@ -356,8 +521,12 @@ export default class ExercicesAnglesAIC extends Exercice {
               break
           }
           const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
+            ...Object.keys(anglesA).map((key) => {
+              return anglesA[key]
+            }),
+            ...Object.keys(anglesB).map((key) => {
+              return anglesB[key]
+            }),
           ])
           let texte = 'Les droites rouges sont-elles parallèles ?<br>'
           let sont, coord
@@ -368,19 +537,27 @@ export default class ExercicesAnglesAIC extends Exercice {
             coord = 'et'
             sont = 'sont'
           }
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection) + `
+          const texteCorr =
+            mathalea2d(
+              Object.assign({ scale: 0.4 }, paramsEnonce),
+              objetsCorrection,
+            ) +
+            `
           ${calculs !== undefined ? calculs : 'Les angles bleu et vert sont opposés par le sommet donc ils sont de même mesure.<br>'}
           Les angles rouge et vert sont ${angles} ${texteGras(coord + ' de même mesure')}.<br>
           Donc les droites rouges ${texteEnCouleurEtGras(sont + ' parallèles')}.`
-          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsEnonce,
+          )
           exercice = { texte, texteCorr }
           propositions.push({
             texte: 'Oui',
-            statut: epsilon === 0
+            statut: epsilon === 0,
           })
           propositions.push({
             texte: 'Non',
-            statut: epsilon !== 0
+            statut: epsilon !== 0,
           })
           break
         }
@@ -404,13 +581,10 @@ export default class ExercicesAnglesAIC extends Exercice {
               A,
               B: A,
               r1: choice([1.5, 2]),
-              r2: choice([1.5, 2])
+              r2: choice([1.5, 2]),
             })
 
-            param = createVariables(
-              randint(0, 90),
-              randint(-90, 90)
-            )
+            param = createVariables(randint(0, 90), randint(-90, 90))
           } while (!(param.O - param.A < 70 && param.O - param.A > 30))
           /* const ab = aleaVariables(
             {
@@ -423,21 +597,34 @@ export default class ExercicesAnglesAIC extends Exercice {
           do {
             const createVariables = (a, b) => ({
               a,
-              b
+              b,
             })
 
-            ab = createVariables(
-              randint(0, 3),
-              randint(0, 3)
+            ab = createVariables(randint(0, 3), randint(0, 3))
+          } while (
+            !(
+              ab.a !== ab.b &&
+              (ab.a !== 2 || ab.b !== 0) &&
+              (ab.a !== 3 || ab.b !== 1)
             )
-          } while (!(ab.a !== ab.b && (ab.a !== 2 || ab.b !== 0) && (ab.a !== 3 || ab.b !== 1)))
+          )
 
           const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
+          const anglesA = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O), O, param.r1),
+            { O: param.O, A: param.A },
+          )
+          const anglesB = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2),
+            { O: param.O, A: param.B },
+          )
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
-            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesA[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.7
             anglesB[i].opaciteDeRemplissage = 0.7
           }
@@ -446,14 +633,78 @@ export default class ExercicesAnglesAIC extends Exercice {
           anglesA.As.color = colorToLatexOrHTML('red')
           anglesB.As.color = colorToLatexOrHTML('red')
           const epsilon = 0
-          anglesA.labela = texteSurArc(((param.O - param.A) % 180 + epsilon) + '°', anglesA.s, anglesA.x, param.O - param.A, 'black', 0.7, true)
-          anglesA.labelb = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.x, anglesA.t, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesA.labelc = texteSurArc((param.O - param.A + epsilon) % 180 + '°', anglesA.t, anglesA.Ox, param.O - param.A, 'black', 0.7, true)
-          anglesA.labeld = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.Ox, anglesA.s, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesB.labela = texteSurArc(((param.O - param.A) % 180) + '°', anglesB.s, anglesB.x, param.O - param.A, 'black', 0.7, true)
-          anglesB.labelb = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesB.labelc = texteSurArc((param.O - param.A) % 180 + '°', anglesB.t, anglesB.Ox, param.O - param.A, 'black', 0.7, true)
-          anglesB.labeld = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black', 0.7, true)
+          anglesA.labela = texteSurArc(
+            ((param.O - param.A) % 180) + epsilon + '°',
+            anglesA.s,
+            anglesA.x,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labelb = texteSurArc(
+            ((180 - (param.O - param.A) + epsilon) % 180) + '°',
+            anglesA.x,
+            anglesA.t,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labelc = texteSurArc(
+            ((param.O - param.A + epsilon) % 180) + '°',
+            anglesA.t,
+            anglesA.Ox,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labeld = texteSurArc(
+            ((180 - (param.O - param.A) + epsilon) % 180) + '°',
+            anglesA.Ox,
+            anglesA.s,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labela = texteSurArc(
+            ((param.O - param.A) % 180) + '°',
+            anglesB.s,
+            anglesB.x,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labelb = texteSurArc(
+            ((180 - (param.O - param.A)) % 180) + '°',
+            anglesB.x,
+            anglesB.t,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labelc = texteSurArc(
+            ((param.O - param.A) % 180) + '°',
+            anglesB.t,
+            anglesB.Ox,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labeld = texteSurArc(
+            ((180 - (param.O - param.A)) % 180) + '°',
+            anglesB.Ox,
+            anglesB.s,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
           objetsEnonce.push(
             anglesA[a],
             anglesA.As,
@@ -461,14 +712,16 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesB[b],
             anglesB.As,
             anglesB.Ax,
-            anglesA['label' + a]
+            anglesA['label' + a],
           )
-          objetsEnonce.forEach(objet => {
+          objetsEnonce.forEach((objet) => {
             objetsCorrection.push(objet)
           })
           objetsCorrection.push(anglesB['label' + b])
           let angles, calculs, mesure
-          anglesA[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('red')
+          anglesA[a].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML('red')
           anglesA.labela.color = 'red'
           anglesA.labelb.color = 'red'
           anglesA.labelc.color = 'red'
@@ -480,7 +733,9 @@ export default class ExercicesAnglesAIC extends Exercice {
 
           switch (a + b) {
             case 'ab':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
@@ -488,14 +743,18 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labelb.texte
               break
             case 'ac':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               mesure = anglesB.labela.texte
               break
             case 'ad':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
@@ -503,7 +762,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labeld.texte
               break
             case 'ba':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
@@ -511,7 +772,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labela.texte
               break
             case 'bc':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
@@ -519,14 +782,18 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labelc.texte
               break
             case 'bd':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               mesure = anglesB.labelb.texte
               break
             case 'cb':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
@@ -534,7 +801,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labelb.texte
               break
             case 'cd':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
@@ -542,7 +811,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labeld.texte
               break
             case 'da':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
@@ -550,7 +821,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labela.texte
               break
             case 'dc':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               calculs = `$180°-${miseEnEvidence(anglesB.labelb.texte, 'blue')} = ${miseEnEvidence(anglesB.labelc.texte, 'green')}$`
@@ -559,39 +832,54 @@ export default class ExercicesAnglesAIC extends Exercice {
               break
           }
           const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
+            ...Object.keys(anglesA).map((key) => {
+              return anglesA[key]
+            }),
+            ...Object.keys(anglesB).map((key) => {
+              return anglesB[key]
+            }),
           ])
-          let texte = 'Sachant que les droites rouges sont parallèles, en déduire la mesure de l\'angle bleu.'
+          let texte =
+            "Sachant que les droites rouges sont parallèles, en déduire la mesure de l'angle bleu."
           texte += this.interactif ? '<br>' : ' Justifier.<br>'
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection) +
-          `Les angles rouge et vert sont ${texteGras(angles)} et formés par des droites ${texteGras('parallèles')}.<br>
+          const texteCorr =
+            mathalea2d(
+              Object.assign({ scale: 0.4 }, paramsEnonce),
+              objetsCorrection,
+            ) +
+            `Les angles rouge et vert sont ${texteGras(angles)} et formés par des droites ${texteGras('parallèles')}.<br>
           Donc ils sont ${texteGras('de même mesure')}.<br>De plus,
           ${calculs !== undefined ? calculs : ' les angles bleu et vert sont opposés par le sommet donc ils sont de même mesure.'}<br>
           L'angle bleu mesure donc $${miseEnEvidence(mesure)}$.`
-          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsEnonce,
+          )
           exercice = { texte, texteCorr }
           const valMesure = Number(mesure.slice(0, mesure.length - 1))
           const valSupplementaireMesure = 180 - valMesure
           const valMesureDizaines = Math.floor(valMesure / 10)
-          const valMesuresUnites = (valMesure % 10)
-          const valDistracteur = valMesure % 10 === 5 ? valMesure + choice([-1, 1]) * randint(1, 4) : (valMesureDizaines * 10) + (10 - valMesuresUnites)
+          const valMesuresUnites = valMesure % 10
+          const valDistracteur =
+            valMesure % 10 === 5
+              ? valMesure + choice([-1, 1]) * randint(1, 4)
+              : valMesureDizaines * 10 + (10 - valMesuresUnites)
           const supplementaireDistracteur = 180 - valDistracteur
           propositions.push({
             texte: mesure,
-            statut: true
+            statut: true,
           })
           propositions.push({
             texte: valSupplementaireMesure.toString() + '°',
-            statut: false
+            statut: false,
           })
           propositions.push({
             texte: valDistracteur.toString() + '°',
-            statut: false
+            statut: false,
           })
           propositions.push({
             texte: supplementaireDistracteur.toString() + '°',
-            statut: false
+            statut: false,
           })
           options = { ordered: false }
           break
@@ -616,19 +904,33 @@ export default class ExercicesAnglesAIC extends Exercice {
               A,
               B,
               r1: choice([1.5, 2]),
-              r2: choice([1.5, 2])
+              r2: choice([1.5, 2]),
             })
 
             param = createVariables(
               randint(0, 90),
               randint(-90, 90),
-              randint(-90, 90)
+              randint(-90, 90),
             )
-          } while (!(param.O - param.A > 40 && param.O - param.A < 140 && param.O - param.B > 30 && param.O - param.B < 140 && abs(param.B - param.A) < 20))
+          } while (
+            !(
+              param.O - param.A > 40 &&
+              param.O - param.A < 140 &&
+              param.O - param.B > 30 &&
+              param.O - param.B < 140 &&
+              abs(param.B - param.A) < 20
+            )
+          )
 
           const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
+          const anglesA = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O), O, param.r1),
+            { O: param.O, A: param.A },
+          )
+          const anglesB = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2),
+            { O: param.O, A: param.B },
+          )
           const nomsPoints = aleaName(['A', 'B', 'C', 'D', 'E', 'F'], 2)
           anglesA.A.nom = nomsPoints[0]
           anglesB.A.nom = nomsPoints[1]
@@ -641,7 +943,12 @@ export default class ExercicesAnglesAIC extends Exercice {
           anglesB.T.nom = nomsDirections[4]
           anglesB.OX.nom = nomsDirections[5]
           anglesB.X.nom = anglesA.A.nom
-          const nameAngles = ['S A X'.split(' '), 'X A T'.split(' '), 'T A OX'.split(' '), 'OX A S'.split(' ')]
+          const nameAngles = [
+            'S A X'.split(' '),
+            'X A T'.split(' '),
+            'T A OX'.split(' '),
+            'OX A S'.split(' '),
+          ]
           nameAngles.forEach(function (n, i) {
             anglesA[['a', 'b', 'c', 'd'][i]].nom = ''
             anglesB[['a', 'b', 'c', 'd'][i]].nom = ''
@@ -663,13 +970,15 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesB.OX.positionLabel = 'left'
           }
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesA[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.4
             anglesB[i].opaciteDeRemplissage = 0.7
           }
           const ab = choice([
             choice(['aa', 'bb', 'cc', 'dd']),
-            choice(['ca', 'db'])
+            choice(['ca', 'db']),
           ])
           const a = ab[0]
           const b = ab[1]
@@ -678,7 +987,7 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesA.As,
             anglesA.Ax,
             anglesB.As,
-            anglesB.Ax/*,
+            anglesB.Ax /*,
             labelPoint(anglesA.S),
             labelPoint(anglesA.T),
             labelPoint(anglesA.X),
@@ -686,24 +995,41 @@ export default class ExercicesAnglesAIC extends Exercice {
             labelPoint(anglesB.T),
             labelPoint(anglesB.OX),
             labelPoint(anglesA.A),
-            labelPoint(anglesB.A) */
+            labelPoint(anglesB.A) */,
           )
-          const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
-          ], { rzoom: 1.5 })
+          const paramsEnonce = fixeBordures(
+            [
+              ...Object.keys(anglesA).map((key) => {
+                return anglesA[key]
+              }),
+              ...Object.keys(anglesB).map((key) => {
+                return anglesB[key]
+              }),
+            ],
+            { rzoom: 1.5 },
+          )
           // On copie tout le contenu de objetsEnonce dans objetsCorrection
-          objetsEnonce.forEach(objet => {
+          objetsEnonce.forEach((objet) => {
             objetsCorrection.push(objet)
           })
           const angleCorrection = anglesB[b]
-          angleCorrection.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('#f15929')
+          angleCorrection.couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML('#f15929')
           objetsCorrection.push(angleCorrection)
           const couleurAngles = shuffle(['green', 'red', 'blue', 'gray'])
-          anglesB['a'].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML(couleurAngles[0])
-          anglesB['b'].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML(couleurAngles[1])
-          anglesB['c'].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML(couleurAngles[2])
-          anglesB['d'].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML(couleurAngles[3])
+          anglesB['a'].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML(couleurAngles[0])
+          anglesB['b'].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML(couleurAngles[1])
+          anglesB['c'].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML(couleurAngles[2])
+          anglesB['d'].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML(couleurAngles[3])
           // ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
           let reponse
           if (a === b) {
@@ -717,31 +1043,77 @@ export default class ExercicesAnglesAIC extends Exercice {
             for (const i of ['a', 'b', 'c', 'd']) {
               objetsEnonce.push(anglesB[i])
             }
-            objetsEnonce.push(texteSurArc('1', anglesB.s, anglesB.x, param.O - param.A, 'black', 0.4, true))
-            objetsEnonce.push(texteSurArc('2', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black', 0.4, true))
-            objetsEnonce.push(texteSurArc('3', anglesB.t, anglesB.Ox, param.O - param.A, 'black', 0.4, true))
-            objetsEnonce.push(texteSurArc('4', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black', 0.4, true))
+            objetsEnonce.push(
+              texteSurArc(
+                '1',
+                anglesB.s,
+                anglesB.x,
+                param.O - param.A,
+                'black',
+                0.4,
+                true,
+              ),
+            )
+            objetsEnonce.push(
+              texteSurArc(
+                '2',
+                anglesB.x,
+                anglesB.t,
+                180 - (param.O - param.A),
+                'black',
+                0.4,
+                true,
+              ),
+            )
+            objetsEnonce.push(
+              texteSurArc(
+                '3',
+                anglesB.t,
+                anglesB.Ox,
+                param.O - param.A,
+                'black',
+                0.4,
+                true,
+              ),
+            )
+            objetsEnonce.push(
+              texteSurArc(
+                '4',
+                anglesB.Ox,
+                anglesB.s,
+                180 - (param.O - param.A),
+                'black',
+                0.4,
+                true,
+              ),
+            )
           } else {
             texte = `Marquer en rouge l'angle ${reponse} à l'angle marqué en bleu.<br>`
           }
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection)
-          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
+          const texteCorr = mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsCorrection,
+          )
+          texte += mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsEnonce,
+          )
           exercice = { texte, texteCorr }
           propositions.push({
             texte: 1,
-            statut: b === 'a'
+            statut: b === 'a',
           })
           propositions.push({
             texte: 2,
-            statut: b === 'b'
+            statut: b === 'b',
           })
           propositions.push({
             texte: 3,
-            statut: b === 'c'
+            statut: b === 'c',
           })
           propositions.push({
             texte: 4,
-            statut: b === 'd'
+            statut: b === 'd',
           })
           break
         }
@@ -765,19 +1137,33 @@ export default class ExercicesAnglesAIC extends Exercice {
               A,
               B,
               r1: choice([1.5, 2]),
-              r2: choice([1.5, 2])
+              r2: choice([1.5, 2]),
             })
 
             param = createVariables(
               randint(0, 90),
               randint(-90, 90),
-              randint(-90, 90)
+              randint(-90, 90),
             )
-          } while (!(param.O - param.A > 40 && param.O - param.A < 140 && param.O - param.B > 30 && param.O - param.B < 140 && abs(param.B - param.A) < 20))
+          } while (
+            !(
+              param.O - param.A > 40 &&
+              param.O - param.A < 140 &&
+              param.O - param.B > 30 &&
+              param.O - param.B < 140 &&
+              abs(param.B - param.A) < 20
+            )
+          )
 
           const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
+          const anglesA = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O), O, param.r1),
+            { O: param.O, A: param.A },
+          )
+          const anglesB = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2),
+            { O: param.O, A: param.B },
+          )
           const nomsPoints = aleaName(['A', 'B', 'C', 'D', 'E', 'F'], 2)
           anglesA.A.nom = nomsPoints[0]
           anglesB.A.nom = nomsPoints[1]
@@ -790,7 +1176,12 @@ export default class ExercicesAnglesAIC extends Exercice {
           anglesB.T.nom = nomsDirections[4]
           anglesB.OX.nom = nomsDirections[5]
           anglesB.X.nom = anglesA.A.nom
-          const nameAngles = ['S A X'.split(' '), 'X A T'.split(' '), 'T A OX'.split(' '), 'OX A S'.split(' ')]
+          const nameAngles = [
+            'S A X'.split(' '),
+            'X A T'.split(' '),
+            'T A OX'.split(' '),
+            'OX A S'.split(' '),
+          ]
           nameAngles.forEach(function (n, i) {
             anglesA[['a', 'b', 'c', 'd'][i]].nom = ''
             anglesB[['a', 'b', 'c', 'd'][i]].nom = ''
@@ -812,14 +1203,18 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesB.OX.positionLabel = 'left'
           }
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesA[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.7
-            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesB[i].opaciteDeRemplissage = 0.7
           }
           const ab = choice([
             choice(['aa', 'bb', 'cc', 'dd']),
-            choice(['ca', 'db'])
+            choice(['ca', 'db']),
           ])
           const a = ab[0]
           const b = ab[1]
@@ -836,18 +1231,27 @@ export default class ExercicesAnglesAIC extends Exercice {
             labelPoint(anglesB.T),
             labelPoint(anglesB.OX),
             labelPoint(anglesA.A),
-            labelPoint(anglesB.A)
+            labelPoint(anglesB.A),
           )
-          const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
-          ], { rzoom: 1.5 })
+          const paramsEnonce = fixeBordures(
+            [
+              ...Object.keys(anglesA).map((key) => {
+                return anglesA[key]
+              }),
+              ...Object.keys(anglesB).map((key) => {
+                return anglesB[key]
+              }),
+            ],
+            { rzoom: 1.5 },
+          )
           // On copie tout le contenu de objetsEnonce dans objetsCorrection
-          objetsEnonce.forEach(objet => {
+          objetsEnonce.forEach((objet) => {
             objetsCorrection.push(objet)
           })
 
-          anglesB[b].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('#f15929')
+          anglesB[b].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML('#f15929')
           objetsCorrection.push(anglesB[b])
           objetsCorrection.push(anglesA[a])
 
@@ -859,25 +1263,31 @@ export default class ExercicesAnglesAIC extends Exercice {
             reponse = 'alterne-interne'
           }
           let texte = `Quel est l'angle ${reponse} à l'angle $\\widehat{${anglesA[a].nom}}$ ?<br>`
-          let texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection)
+          let texteCorr = mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsCorrection,
+          )
           texteCorr += `L'angle ${reponse} à l'angle $${miseEnEvidence('\\widehat{' + anglesA[a].nom + '}', 'blue')}$ est $${miseEnEvidence('\\widehat{' + anglesB[b].nom + '}')}$.`
-          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsEnonce,
+          )
           exercice = { texte, texteCorr }
           propositions.push({
             texte: `$\\widehat{${anglesB.a.nom}}$`,
-            statut: anglesB[b].nom === anglesB.a.nom
+            statut: anglesB[b].nom === anglesB.a.nom,
           })
           propositions.push({
             texte: `$\\widehat{${anglesB.b.nom}}$`,
-            statut: anglesB[b].nom === anglesB.b.nom
+            statut: anglesB[b].nom === anglesB.b.nom,
           })
           propositions.push({
             texte: `$\\widehat{${anglesB.c.nom}}$`,
-            statut: anglesB[b].nom === anglesB.c.nom
+            statut: anglesB[b].nom === anglesB.c.nom,
           })
           propositions.push({
             texte: `$\\widehat{${anglesB.d.nom}}$`,
-            statut: anglesB[b].nom === anglesB.d.nom
+            statut: anglesB[b].nom === anglesB.d.nom,
           })
           break
         }
@@ -901,13 +1311,10 @@ export default class ExercicesAnglesAIC extends Exercice {
               A,
               B: A,
               r1: choice([1.5, 2]),
-              r2: choice([1.5, 2])
+              r2: choice([1.5, 2]),
             })
 
-            param = createVariables(
-              randint(0, 90),
-              randint(-90, 90)
-            )
+            param = createVariables(randint(0, 90), randint(-90, 90))
           } while (!(param.O - param.A < 70 && param.O - param.A > 30))
           /* const ab = aleaVariables(
             {
@@ -920,18 +1327,27 @@ export default class ExercicesAnglesAIC extends Exercice {
           do {
             const createVariables = (a, b) => ({
               a,
-              b
+              b,
             })
 
-            ab = createVariables(
-              randint(0, 3),
-              randint(0, 3)
+            ab = createVariables(randint(0, 3), randint(0, 3))
+          } while (
+            !(
+              ab.a !== ab.b &&
+              (ab.a !== 2 || ab.b !== 0) &&
+              (ab.a !== 3 || ab.b !== 1)
             )
-          } while (!(ab.a !== ab.b && (ab.a !== 2 || ab.b !== 0) && (ab.a !== 3 || ab.b !== 1)))
+          )
 
           const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
+          const anglesA = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O), O, param.r1),
+            { O: param.O, A: param.A },
+          )
+          const anglesB = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2),
+            { O: param.O, A: param.B },
+          )
           const nomsPoints = aleaName(['A', 'B', 'C', 'D', 'E', 'F'], 2)
           anglesA.A.nom = nomsPoints[0]
           anglesB.A.nom = nomsPoints[1]
@@ -944,7 +1360,12 @@ export default class ExercicesAnglesAIC extends Exercice {
           anglesB.T.nom = nomsDirections[4]
           anglesB.OX.nom = nomsDirections[5]
           anglesB.X.nom = anglesA.A.nom
-          const nameAngles = ['S A X'.split(' '), 'X A T'.split(' '), 'T A OX'.split(' '), 'OX A S'.split(' ')]
+          const nameAngles = [
+            'S A X'.split(' '),
+            'X A T'.split(' '),
+            'T A OX'.split(' '),
+            'OX A S'.split(' '),
+          ]
           nameAngles.forEach(function (n, i) {
             anglesA[['a', 'b', 'c', 'd'][i]].nom = ''
             anglesB[['a', 'b', 'c', 'd'][i]].nom = ''
@@ -966,22 +1387,90 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesB.OX.positionLabel = 'left'
           }
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesA[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.4
-            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesB[i].opaciteDeRemplissage = 0.4
           }
           const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
           const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
           const epsilon = choice([pickRandom([-2, -1, 1, 2]), 0])
-          anglesA.labela = texteSurArc(((param.O - param.A) % 180 + epsilon) + '°', anglesA.s, anglesA.x, param.O - param.A, 'black', 0.7, true)
-          anglesA.labelb = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.x, anglesA.t, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesA.labelc = texteSurArc((param.O - param.A + epsilon) % 180 + '°', anglesA.t, anglesA.Ox, param.O - param.A, 'black', 0.7, true)
-          anglesA.labeld = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.Ox, anglesA.s, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesB.labela = texteSurArc(((param.O - param.A) % 180) + '°', anglesB.s, anglesB.x, param.O - param.A, 'black', 0.7, true)
-          anglesB.labelb = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesB.labelc = texteSurArc((param.O - param.A) % 180 + '°', anglesB.t, anglesB.Ox, param.O - param.A, 'black', 0.7, true)
-          anglesB.labeld = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black', 0.7, true)
+          anglesA.labela = texteSurArc(
+            ((param.O - param.A) % 180) + epsilon + '°',
+            anglesA.s,
+            anglesA.x,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labelb = texteSurArc(
+            ((180 - (param.O - param.A) + epsilon) % 180) + '°',
+            anglesA.x,
+            anglesA.t,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labelc = texteSurArc(
+            ((param.O - param.A + epsilon) % 180) + '°',
+            anglesA.t,
+            anglesA.Ox,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labeld = texteSurArc(
+            ((180 - (param.O - param.A) + epsilon) % 180) + '°',
+            anglesA.Ox,
+            anglesA.s,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labela = texteSurArc(
+            ((param.O - param.A) % 180) + '°',
+            anglesB.s,
+            anglesB.x,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labelb = texteSurArc(
+            ((180 - (param.O - param.A)) % 180) + '°',
+            anglesB.x,
+            anglesB.t,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labelc = texteSurArc(
+            ((param.O - param.A) % 180) + '°',
+            anglesB.t,
+            anglesB.Ox,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labeld = texteSurArc(
+            ((180 - (param.O - param.A)) % 180) + '°',
+            anglesB.Ox,
+            anglesB.s,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
           objetsEnonce.push(
             anglesA[a],
             anglesA.As,
@@ -998,13 +1487,15 @@ export default class ExercicesAnglesAIC extends Exercice {
             labelPoint(anglesB.T),
             labelPoint(anglesB.OX),
             labelPoint(anglesA.A),
-            labelPoint(anglesB.A)
+            labelPoint(anglesB.A),
           )
-          objetsEnonce.forEach(objet => {
+          objetsEnonce.forEach((objet) => {
             objetsCorrection.push(objet)
           })
           let angles, calculs
-          anglesA[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('red')
+          anglesA[a].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML('red')
           anglesA.labela.color = 'red'
           anglesA.labelb.color = 'red'
           anglesA.labelc.color = 'red'
@@ -1016,55 +1507,71 @@ export default class ExercicesAnglesAIC extends Exercice {
           switch (a + b) {
             case 'ab':
             case 'ad':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°-${miseEnEvidence(anglesB.labelb.texte, 'blue')} = ${miseEnEvidence(anglesB.labela.texte, 'green')}$`
               break
             case 'ac':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               break
             case 'ba':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${miseEnEvidence(anglesB.labela.texte, 'blue')} = ${miseEnEvidence(anglesB.labelb.texte, 'green')}$`
               break
             case 'bc':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${miseEnEvidence(anglesB.labelc.texte, 'blue')} = ${miseEnEvidence(anglesB.labelb.texte, 'green')}$`
               break
             case 'bd':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               break
             case 'cb':
             case 'cd':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°-${miseEnEvidence(anglesB.labelb.texte, 'blue')} = ${miseEnEvidence(anglesB.labela.texte, 'green')}$`
               break
             case 'da':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
               calculs = `$180°-${miseEnEvidence(anglesB.labela.texte, 'blue')} = ${miseEnEvidence(anglesB.labelb.texte, 'green')}$`
               break
             case 'dc':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               calculs = `$180°-${miseEnEvidence(anglesB.labelc.texte, 'blue')} = ${miseEnEvidence(anglesB.labelb.texte, 'green')}$`
@@ -1073,8 +1580,12 @@ export default class ExercicesAnglesAIC extends Exercice {
           }
 
           const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
+            ...Object.keys(anglesA).map((key) => {
+              return anglesA[key]
+            }),
+            ...Object.keys(anglesB).map((key) => {
+              return anglesB[key]
+            }),
           ])
           let texte = `Les droites $(${anglesA.S.nom}${anglesA.T.nom})$ et $(${anglesB.S.nom}${anglesB.T.nom})$ sont-elles parallèles ?<br>`
           let sont, coord
@@ -1085,20 +1596,32 @@ export default class ExercicesAnglesAIC extends Exercice {
             coord = 'et'
             sont = 'sont'
           }
-          const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection) +
-          `${calculs !== undefined ? calculs : `Les angles $\\widehat{${anglesB[a].nom}}$ et $\\widehat{${anglesB[b].nom}}$ sont opposés par le sommet, donc ils sont de même mesure.`}<br>
+          const nomAngleSolution =
+            angles !== 'alternes-internes'
+              ? anglesB[a].nom
+              : a === 'c'
+                ? anglesB.a.nom
+                : anglesB.b.nom
+          const texteCorr =
+            mathalea2d(
+              Object.assign({ scale: 0.4 }, paramsEnonce),
+              objetsCorrection,
+            ) +
+            `${calculs !== undefined ? calculs : `Les angles $\\widehat{${anglesB[a].nom}}$ et $\\widehat{${anglesB[b].nom}}$ sont opposés par le sommet, donc ils sont de même mesure.`}<br>
           Donc les angles $${miseEnEvidence('\\widehat{' + anglesA[a].nom + '}', 'red')}$ et $${miseEnEvidence('\\widehat{' + nomAngleSolution + '}', 'green')}$ sont ${angles} ${texteGras(coord + ' de même mesure')}.<br>
           Donc les droites $(${anglesA.S.nom}${anglesA.T.nom})$ et $(${anglesB.S.nom}${anglesB.T.nom})$ ${texteEnCouleurEtGras(sont + ' parallèles')}.`
-          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsEnonce,
+          )
           exercice = { texte, texteCorr }
           propositions.push({
             texte: 'Oui',
-            statut: epsilon === 0
+            statut: epsilon === 0,
           })
           propositions.push({
             texte: 'Non',
-            statut: epsilon !== 0
+            statut: epsilon !== 0,
           })
           break
         }
@@ -1122,13 +1645,10 @@ export default class ExercicesAnglesAIC extends Exercice {
               A,
               B: A,
               r1: choice([1.5, 2]),
-              r2: choice([1.5, 2])
+              r2: choice([1.5, 2]),
             })
 
-            param = createVariables(
-              randint(0, 90),
-              randint(-90, 90)
-            )
+            param = createVariables(randint(0, 90), randint(-90, 90))
           } while (!(param.O - param.A < 70 && param.O - param.A > 30))
           /* const ab = aleaVariables(
             {
@@ -1141,18 +1661,27 @@ export default class ExercicesAnglesAIC extends Exercice {
           do {
             const createVariables = (a, b) => ({
               a,
-              b
+              b,
             })
 
-            ab = createVariables(
-              randint(0, 3),
-              randint(0, 3)
+            ab = createVariables(randint(0, 3), randint(0, 3))
+          } while (
+            !(
+              ab.a !== ab.b &&
+              (ab.a !== 2 || ab.b !== 0) &&
+              (ab.a !== 3 || ab.b !== 1)
             )
-          } while (!(ab.a !== ab.b && (ab.a !== 2 || ab.b !== 0) && (ab.a !== 3 || ab.b !== 1)))
+          )
 
           const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
+          const anglesA = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O), O, param.r1),
+            { O: param.O, A: param.A },
+          )
+          const anglesB = anglesSecantes(
+            homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2),
+            { O: param.O, A: param.B },
+          )
           const nomsPoints = aleaName(['A', 'B', 'C', 'D', 'E', 'F'], 2)
           anglesA.A.nom = nomsPoints[0]
           anglesB.A.nom = nomsPoints[1]
@@ -1165,7 +1694,12 @@ export default class ExercicesAnglesAIC extends Exercice {
           anglesB.T.nom = nomsDirections[4]
           anglesB.OX.nom = nomsDirections[5]
           anglesB.X.nom = anglesA.A.nom
-          const nameAngles = ['S A X'.split(' '), 'X A T'.split(' '), 'T A OX'.split(' '), 'OX A S'.split(' ')]
+          const nameAngles = [
+            'S A X'.split(' '),
+            'X A T'.split(' '),
+            'T A OX'.split(' '),
+            'OX A S'.split(' '),
+          ]
           nameAngles.forEach(function (n, i) {
             anglesA[['a', 'b', 'c', 'd'][i]].nom = ''
             anglesB[['a', 'b', 'c', 'd'][i]].nom = ''
@@ -1187,22 +1721,90 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesB.OX.positionLabel = 'left'
           }
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesA[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.4
-            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = context.isAmc
+              ? ''
+              : colorToLatexOrHTML('blue')
             anglesB[i].opaciteDeRemplissage = 0.4
           }
           const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
           const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
           const epsilon = 0
-          anglesA.labela = texteSurArc(((param.O - param.A) % 180 + epsilon) + '°', anglesA.s, anglesA.x, param.O - param.A, 'black', 0.7, true)
-          anglesA.labelb = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.x, anglesA.t, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesA.labelc = texteSurArc((param.O - param.A + epsilon) % 180 + '°', anglesA.t, anglesA.Ox, param.O - param.A, 'black', 0.7, true)
-          anglesA.labeld = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.Ox, anglesA.s, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesB.labela = texteSurArc(((param.O - param.A) % 180) + '°', anglesB.s, anglesB.x, param.O - param.A, 'black', 0.7, true)
-          anglesB.labelb = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black', 0.7, true)
-          anglesB.labelc = texteSurArc((param.O - param.A) % 180 + '°', anglesB.t, anglesB.Ox, param.O - param.A, 'black', 0.7, true)
-          anglesB.labeld = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black', 0.7, true)
+          anglesA.labela = texteSurArc(
+            ((param.O - param.A) % 180) + epsilon + '°',
+            anglesA.s,
+            anglesA.x,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labelb = texteSurArc(
+            ((180 - (param.O - param.A) + epsilon) % 180) + '°',
+            anglesA.x,
+            anglesA.t,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labelc = texteSurArc(
+            ((param.O - param.A + epsilon) % 180) + '°',
+            anglesA.t,
+            anglesA.Ox,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesA.labeld = texteSurArc(
+            ((180 - (param.O - param.A) + epsilon) % 180) + '°',
+            anglesA.Ox,
+            anglesA.s,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labela = texteSurArc(
+            ((param.O - param.A) % 180) + '°',
+            anglesB.s,
+            anglesB.x,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labelb = texteSurArc(
+            ((180 - (param.O - param.A)) % 180) + '°',
+            anglesB.x,
+            anglesB.t,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labelc = texteSurArc(
+            ((param.O - param.A) % 180) + '°',
+            anglesB.t,
+            anglesB.Ox,
+            param.O - param.A,
+            'black',
+            0.7,
+            true,
+          )
+          anglesB.labeld = texteSurArc(
+            ((180 - (param.O - param.A)) % 180) + '°',
+            anglesB.Ox,
+            anglesB.s,
+            180 - (param.O - param.A),
+            'black',
+            0.7,
+            true,
+          )
           objetsEnonce.push(
             anglesA[a],
             anglesA.As,
@@ -1217,16 +1819,18 @@ export default class ExercicesAnglesAIC extends Exercice {
             labelPoint(anglesB.T),
             labelPoint(anglesB.OX),
             labelPoint(anglesA.A),
-            labelPoint(anglesB.A)
+            labelPoint(anglesB.A),
             // anglesB['label' + b]
           )
-          objetsEnonce.forEach(objet => {
+          objetsEnonce.forEach((objet) => {
             objetsCorrection.push(objet)
           })
           objetsCorrection.push(anglesB['label' + b])
           objetsCorrection.push(anglesB[b])
           let angles, calculs, mesure
-          anglesA[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('red')
+          anglesA[a].couleurDeRemplissage = context.isAmc
+            ? ''
+            : colorToLatexOrHTML('red')
           anglesA.labela.color = 'red'
           anglesA.labelb.color = 'red'
           anglesA.labelc.color = 'red'
@@ -1238,7 +1842,9 @@ export default class ExercicesAnglesAIC extends Exercice {
 
           switch (a + b) {
             case 'ab':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
@@ -1246,14 +1852,18 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labelb.texte
               break
             case 'ac':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               mesure = anglesB.labela.texte
               break
             case 'ad':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
@@ -1261,7 +1871,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labeld.texte
               break
             case 'ba':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
@@ -1269,7 +1881,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labela.texte
               break
             case 'bc':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
@@ -1277,14 +1891,18 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labelc.texte
               break
             case 'bd':
-              anglesB[a].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB[a].couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               mesure = anglesB.labelb.texte
               break
             case 'cb':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
@@ -1292,7 +1910,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labelb.texte
               break
             case 'cd':
-              anglesB.a.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.a.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'a'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
@@ -1300,7 +1920,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labeld.texte
               break
             case 'da':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
@@ -1308,7 +1930,9 @@ export default class ExercicesAnglesAIC extends Exercice {
               mesure = anglesB.labela.texte
               break
             case 'dc':
-              anglesB.b.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
+              anglesB.b.couleurDeRemplissage = context.isAmc
+                ? ''
+                : colorToLatexOrHTML('green')
               anglesB['label' + 'b'].color = 'green'
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               calculs = `$180°-${miseEnEvidence(anglesB.labelb.texte, 'blue')} = ${miseEnEvidence(anglesB.labelc.texte, 'green')}$`
@@ -1317,39 +1941,57 @@ export default class ExercicesAnglesAIC extends Exercice {
               break
           }
           const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
+            ...Object.keys(anglesA).map((key) => {
+              return anglesA[key]
+            }),
+            ...Object.keys(anglesB).map((key) => {
+              return anglesB[key]
+            }),
           ])
           let texte = `Sachant que les droites $(${anglesA.S.nom}${anglesA.T.nom})$ et $(${anglesB.S.nom}${anglesB.T.nom})$ sont parallèles, en déduire la mesure de l'angle $\\widehat{${anglesB[b].nom}}$.<br>`
-          const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
-          let texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection)
+          const nomAngleSolution =
+            angles !== 'alternes-internes'
+              ? anglesB[a].nom
+              : a === 'c'
+                ? anglesB.a.nom
+                : anglesB.b.nom
+          let texteCorr = mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsCorrection,
+          )
           texteCorr += `Les angles $${miseEnEvidence('\\widehat{' + anglesA[a].nom + '}', 'red')}$ et $${miseEnEvidence('\\widehat{' + nomAngleSolution + '}', 'green')}$ sont ${texteGras(angles)} et formés par des droites ${texteGras('parallèles')}.
           Donc ils sont ${texteGras('de même mesure')}.<br>
           De plus,${calculs !== undefined ? calculs : ` les angles $\\widehat{${anglesB[a].nom}}$ et $\\widehat{${anglesB[b].nom}}$ et vert sont opposés par le sommet.<br> Donc ils sont de même mesure.`}<br>
           Donc l'angle $${miseEnEvidence('\\widehat{' + anglesB[b].nom + '}', 'blue')}$ mesure $${miseEnEvidence(mesure)}$.`
-          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(
+            Object.assign({ scale: 0.4 }, paramsEnonce),
+            objetsEnonce,
+          )
           exercice = { texte, texteCorr }
           const valMesure = Number(mesure.slice(0, mesure.length - 1))
           const valSupplementaireMesure = 180 - valMesure
           const valMesureDizaines = Math.floor(valMesure / 10)
-          const valMesuresUnites = (valMesure % 10)
-          const valDistracteur = valMesure % 10 === 5 ? valMesure + choice([-1, 1]) * randint(1, 4) : (valMesureDizaines * 10) + (10 - valMesuresUnites)
+          const valMesuresUnites = valMesure % 10
+          const valDistracteur =
+            valMesure % 10 === 5
+              ? valMesure + choice([-1, 1]) * randint(1, 4)
+              : valMesureDizaines * 10 + (10 - valMesuresUnites)
           const supplementaireDistracteur = 180 - valDistracteur
           propositions.push({
             texte: mesure,
-            statut: true
+            statut: true,
           })
           propositions.push({
             texte: valSupplementaireMesure.toString() + '°',
-            statut: false
+            statut: false,
           })
           propositions.push({
             texte: valDistracteur.toString() + '°',
-            statut: false
+            statut: false,
           })
           propositions.push({
             texte: supplementaireDistracteur.toString() + '°',
-            statut: false
+            statut: false,
           })
           options = { ordered: false }
           break
@@ -1368,20 +2010,20 @@ export default class ExercicesAnglesAIC extends Exercice {
                   {
                     texte: '',
                     numQuestionVisible: false,
-                    statut: (nquestion[i] < 6) && (nquestion[i] > 1) ? 3 : 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    statut: nquestion[i] < 6 && nquestion[i] > 1 ? 3 : 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                     feedback: '',
                     //    enonce: figure[3][0] + mathalea2d(figure[1], figure[0]) + '<br>' + figure[3][1] + ' Justifier la réponse.' // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                    enonce: exercice.texte // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  }
-                ]
-              }
-            ]
+                    enonce: exercice.texte, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                  },
+                ],
+              },
+            ],
           }
         } else {
           this.autoCorrection[i] = {
             enonce: exercice.texte,
             propositions,
-            options
+            options,
           }
         }
         const monQcm = propositionsQcm(this, i)

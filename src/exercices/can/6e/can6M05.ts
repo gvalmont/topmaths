@@ -19,16 +19,16 @@ export const uuid = 'a39f6'
 
 export const refs = {
   'fr-fr': ['can6M05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ConversionM3EtLitres extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, resultat
     switch (choice(['a', 'b'])) {
       case 'a':

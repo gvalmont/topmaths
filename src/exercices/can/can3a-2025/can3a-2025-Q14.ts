@@ -3,13 +3,13 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Déterminer l\'inverse ou l\'opposé d\'une fraction'
+export const titre = "Déterminer l'inverse ou l'opposé d'une fraction"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '83663'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class InverseOuOppose extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,13 +28,23 @@ export default class InverseOuOppose extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: FractionEtendue
 
     const listeFractions = this.canOfficielle
       ? [[5, 7]]
-      : [[1, 3], [1, 7], [5, 7], [3, 7],
-          [5, 3], [7, 9], [7, 3], [4, 7], [7, 13], [1, 9]]
+      : [
+          [1, 3],
+          [1, 7],
+          [5, 7],
+          [3, 7],
+          [5, 3],
+          [7, 9],
+          [7, 3],
+          [4, 7],
+          [7, 13],
+          [1, 9],
+        ]
     const a = choice(listeFractions)
     const choix = this.canOfficielle ? true : choice([true, false])
     if (choix === false) {

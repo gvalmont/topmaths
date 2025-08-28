@@ -6,7 +6,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const uuid = '64ccf'
 export const refs = {
   'fr-fr': ['4C2QCM-01', 'BP2AutoH6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -24,7 +24,7 @@ export default class NouvelleCaledonieDec23Exo1Q2 extends ExerciceQcmA {
     this.reponses = [
       '$-\\dfrac{1}{10}$',
       '$\\dfrac{7}{20}$',
-      '$\\dfrac{2}{10}$'
+      '$\\dfrac{2}{10}$',
     ]
     this.enonce = 'Calculer $\\dfrac{3}{5}-\\dfrac{2}{5} \\times \\dfrac{7}{4}$'
     this.correction = ` $\\begin{aligned}
@@ -47,7 +47,7 @@ export default class NouvelleCaledonieDec23Exo1Q2 extends ExerciceQcmA {
     this.reponses = [
       `$${resultat}$`,
       `$\\dfrac{${(num1 - num2) * num3}}{20}$`,
-      `$\\dfrac{${num2 * num3 - num1}}{15}$`
+      `$\\dfrac{${num2 * num3 - num1}}{15}$`,
     ]
     this.enonce = `$${frac1.texFraction}-${frac2.texFraction} \\times ${frac3.texFraction}$`
     this.correction = ` $\\begin{aligned}
@@ -57,7 +57,7 @@ export default class NouvelleCaledonieDec23Exo1Q2 extends ExerciceQcmA {
                                                         \\end{aligned} $`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

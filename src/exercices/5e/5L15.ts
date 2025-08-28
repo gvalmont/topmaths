@@ -6,7 +6,10 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 
 export const titre = 'Tester une égalité'
@@ -17,26 +20,34 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
-* Tester une égalité pour 2 valeurs données (une vraie et une fausse)
-*
-* * 3x-a=2x+b
-* * 3x+a=5x-b
-* * ax+b=(a+1)x-c
-* * a-2x=b+2x
-* @author Rémi Angot
-*/
+ * Tester une égalité pour 2 valeurs données (une vraie et une fausse)
+ *
+ * * 3x-a=2x+b
+ * * 3x+a=5x-b
+ * * ax+b=(a+1)x-c
+ * * a-2x=b+2x
+ * @author Rémi Angot
+ */
 export const uuid = 'd88d6'
 
 export const refs = {
   'fr-fr': ['5L15'],
-  'fr-ch': ['10FA3-1']
+  'fr-ch': ['10FA3-1'],
 }
 export default class TesterUneEgalite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Entiers naturels\n2 : Entiers relatifs']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : Entiers naturels\n2 : Entiers relatifs',
+    ]
     this.besoinFormulaire2CaseACocher = ['Avec des expressions du second degré']
-    this.besoinFormulaire3Numerique = ['Type d\'exercices AMC', 2, '1 : Question ouverte\n2 : Réponses numériques']
+    this.besoinFormulaire3Numerique = [
+      "Type d'exercices AMC",
+      2,
+      '1 : Question ouverte\n2 : Réponses numériques',
+    ]
 
     this.nbQuestions = 3
 
@@ -45,13 +56,24 @@ export default class TesterUneEgalite extends Exercice {
     this.sup3 = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles // = range1(5)
 
-    if (!this.sup2) { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] } else { typesDeQuestionsDisponibles = [6, 7, 3] }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    if (!this.sup2) {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+    } else {
+      typesDeQuestionsDisponibles = [6, 7, 3]
+    }
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, expression, rep1, rep2, rep3, rep4, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, expression, rep1, rep2, rep3, rep4, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let a, b, c, d, x1, x2, x3
       switch (listeTypeDeQuestions[i]) {
         case 1: // 3x-a=2x+b   x=a+b
@@ -69,10 +91,10 @@ export default class TesterUneEgalite extends Exercice {
           expression = `$${sp(2)}3x-${ecritureParentheseSiNegatif(a)}=2x+${ecritureParentheseSiNegatif(b)}${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `D'une part, $3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(3 * x1 - a)}$. <br>D'autre part,  $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(2 * x1 + b)}$.<br>`
-          texteCorr += `$${3 * x1 - a}\\not=${2 * x1 + b}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.<br><br>`
+          texteCorr += `$${3 * x1 - a}\\not=${2 * x1 + b}$ donc ${texteEnCouleurEtGras("l'égalité n'est pas vraie")}.<br><br>`
           texteCorr += `Pour $x=${ecritureParentheseSiNegatif(x2)}$ : <br>`
           texteCorr += `D'une part, $3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(3 * x2 - a)}$. <br>D'autre part,  $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(2 * x2 + b)}$.<br>`
-          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras("l'égalité est vraie")}.`
           rep1 = 3 * x1 - a
           rep2 = 2 * x1 + b
           rep3 = 3 * x2 - a
@@ -81,22 +103,22 @@ export default class TesterUneEgalite extends Exercice {
         case 2: // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière
           if (this.sup === 1) {
             a = randint(1, 9)
-            b = randint(0, 4) * 2 + a % 2
+            b = randint(0, 4) * 2 + (a % 2)
             x1 = (a + b) / 2
             x2 = randint(1, 9, x1)
           } else {
             a = randint(-9, 9, [0])
-            b = randint(-4, 4, [a, 0]) * 2 + a % 2
+            b = randint(-4, 4, [a, 0]) * 2 + (a % 2)
             x1 = (a + b) / 2
             x2 = randint(-9, 9, [0, x1])
           }
           expression = `$${sp(2)}3x+${ecritureParentheseSiNegatif(a)}=5x-${ecritureParentheseSiNegatif(b)}${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `D'une part, $3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(3 * x1 + a)}$. <br>D'autre part, $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(5 * x1 - b)}$.<br>`
-          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras("l'égalité est vraie")}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
           texteCorr += `D'une part, $3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(3 * x2 + a)}$. <br>D'autre part, $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(5 * x2 - b)}$.<br>`
-          texteCorr += `$${3 * x2 + a}\\not=${5 * x2 - b}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.`
+          texteCorr += `$${3 * x2 + a}\\not=${5 * x2 - b}$ donc ${texteEnCouleurEtGras("l'égalité n'est pas vraie")}.`
           rep1 = 3 * x1 + a
           rep2 = 5 * x1 - b
           rep3 = 3 * x2 + a
@@ -117,10 +139,10 @@ export default class TesterUneEgalite extends Exercice {
           expression = `$${sp(2)}10(x-${ecritureParentheseSiNegatif(a)})=4(2x+${ecritureParentheseSiNegatif(b)})${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `D'une part, $10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x1 - a}=${miseEnEvidence(10 * (x1 - a))}$. <br>D'autre part, $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x1 + b}=${miseEnEvidence(4 * (2 * x1 + b))}$.<br>`
-          texteCorr += `$${10 * (x1 - a)}\\not=${4 * (2 * x1 + b)}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.<br><br>`
+          texteCorr += `$${10 * (x1 - a)}\\not=${4 * (2 * x1 + b)}$ donc ${texteEnCouleurEtGras("l'égalité n'est pas vraie")}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
           texteCorr += `D'une part, $10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x2 - a}=${miseEnEvidence(10 * (x2 - a))}$. <br>D'autre part, $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x2 + b}=${miseEnEvidence(4 * (2 * x2 + b))}$.<br>`
-          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras("l'égalité est vraie")}.`
           rep1 = 10 * (x1 - a)
           rep2 = 4 * (2 * x1 + b)
           rep3 = 10 * (x2 - a)
@@ -143,10 +165,10 @@ export default class TesterUneEgalite extends Exercice {
           expression = `$${sp(2)}${ecritureParentheseSiNegatif(a)}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `D'une part, $${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(a * x1 + b)}$. <br>D'autre part, $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(c)}=${miseEnEvidence((a + 1) * x1 - c)}$.<br>`
-          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras("l'égalité est vraie")}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
           texteCorr += `D'une part, $${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(a * x2 + b)}$. <br>D'autre part, $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(c)}=${miseEnEvidence((a + 1) * x2 - c)}$.<br>`
-          texteCorr += `$${a * x2 + b}\\not=${(a + 1) * x2 - c}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.`
+          texteCorr += `$${a * x2 + b}\\not=${(a + 1) * x2 - c}$ donc ${texteEnCouleurEtGras("l'égalité n'est pas vraie")}.`
           rep1 = a * x1 + b
           rep2 = (a + 1) * x1 - c
           rep3 = a * x2 + b
@@ -167,10 +189,10 @@ export default class TesterUneEgalite extends Exercice {
           expression = `$${sp(2)}${a}-2x=${b}+2x${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `D'une part, $${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x1)}=${miseEnEvidence(a - 2 * x1)}$. <br>D'autre part, $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x1)}=${miseEnEvidence(b + 2 * x1)}$.<br>`
-          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras("l'égalité est vraie")}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
           texteCorr += `D'une part, $${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x2)}=${miseEnEvidence(a - 2 * x2)}$. <br>D'autre part, $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x2)}=${miseEnEvidence(b + 2 * x2)}$.<br>`
-          texteCorr += `$${a - 2 * x2}\\not=${b + 2 * x2}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.`
+          texteCorr += `$${a - 2 * x2}\\not=${b + 2 * x2}$ donc ${texteEnCouleurEtGras("l'égalité n'est pas vraie")}.`
           rep1 = a - 2 * x1
           rep2 = b + 2 * x1
           rep3 = a - 2 * x2
@@ -193,10 +215,10 @@ export default class TesterUneEgalite extends Exercice {
           expression = `$${sp(2)}${a}x-${ecritureParentheseSiNegatif(a * b)}=x^2-${ecritureParentheseSiNegatif(b)}x${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `D'une part, $${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a * b)}=${miseEnEvidence(a * x1 - a * b)}$. <br>D'autre part, $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${miseEnEvidence(x1 * x1 - b * x1)}$.<br>`
-          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras("l'égalité est vraie")}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
           texteCorr += `D'une part, $${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a * b)}=${miseEnEvidence(a * x2 - a * b)}$. <br>D'autre part, $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x2)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x2)}=${x2 * x2}-${ecritureParentheseSiNegatif(b * x2)}=${miseEnEvidence(x2 * x2 - b * x2)}$.<br>`
-          texteCorr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.<br><br>`
+          texteCorr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc ${texteEnCouleurEtGras("l'égalité n'est pas vraie")}.<br><br>`
           rep1 = a * x1 - a * b
           rep2 = x1 * x1 - b * x1
           rep3 = a * x2 - a * b
@@ -228,10 +250,10 @@ export default class TesterUneEgalite extends Exercice {
           expression = `$${sp(2)}${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `D'une part, $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b * d)}=${miseEnEvidence(a * d * x1 - d * b)}$. <br>D'autre part, $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x1)}=${a * c * x1 * x1}-${ecritureParentheseSiNegatif(b * c * x1)}=${miseEnEvidence(a * c * x1 * x1 - b * c * x1)}$.<br>`
-          texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.<br><br>`
+          texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc ${texteEnCouleurEtGras("l'égalité n'est pas vraie")}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
           texteCorr += `D'une part, $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(b * d)}=${miseEnEvidence(a * d * x2 - d * b)}$. <br>D'autre part, $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x2)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x2)}=${a * c * x2 * x2}-${ecritureParentheseSiNegatif(b * c * x2)}=${miseEnEvidence(a * c * x2 * x2 - b * c * x2)}$.<br>`
-          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras("l'égalité est vraie")}.<br><br>`
           rep1 = a * d * x1 - d * b
           rep2 = a * c * x1 * x1 - b * c * x1
           rep3 = a * d * x2 - d * b
@@ -248,60 +270,78 @@ export default class TesterUneEgalite extends Exercice {
       if (this.interactif && !context.isAmc) {
         setReponse(this, 6 * i, rep1)
         setReponse(this, 6 * i + 1, rep2)
-        setReponse(this, 6 * i + 2, rep1 === rep2 ? ['Oui', 'oui', 'OUI'] : ['Non', 'non', 'NON'], { formatInteractif: 'texte' })
+        setReponse(
+          this,
+          6 * i + 2,
+          rep1 === rep2 ? ['Oui', 'oui', 'OUI'] : ['Non', 'non', 'NON'],
+          { formatInteractif: 'texte' },
+        )
         setReponse(this, 6 * i + 3, rep3)
         setReponse(this, 6 * i + 4, rep4)
-        setReponse(this, 6 * i + 5, rep3 === rep4 ? ['Oui', 'oui', 'OUI'] : ['Non', 'non', 'NON'], { formatInteractif: 'texte' })
-        texte += `<br> ${sp(10)}Pour $x=${x1}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` + ajouteChampTexteMathLive(this, 6 * i, ' ')
-        texte += `<br> ${sp(10)}Pour $x=${x1}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` + ajouteChampTexteMathLive(this, 6 * i + 1, ' ')
-        texte += `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x1}${sp(1)}$ ? (Oui/Non) ` + ajouteChampTexteMathLive(this, 6 * i + 2, ' alphanumeric')
-        texte += `<br><br> ${sp(10)}Pour $x=${x2}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` + ajouteChampTexteMathLive(this, 6 * i + 3, ' ')
-        texte += `<br> ${sp(10)}Pour $x=${x2}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` + ajouteChampTexteMathLive(this, 6 * i + 4, ' ')
-        texte += `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x2}${sp(1)}$ ? (Oui/Non)  ` + ajouteChampTexteMathLive(this, 6 * i + 5, ' alphanumeric')
+        setReponse(
+          this,
+          6 * i + 5,
+          rep3 === rep4 ? ['Oui', 'oui', 'OUI'] : ['Non', 'non', 'NON'],
+          { formatInteractif: 'texte' },
+        )
+        texte +=
+          `<br> ${sp(10)}Pour $x=${x1}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` +
+          ajouteChampTexteMathLive(this, 6 * i, ' ')
+        texte +=
+          `<br> ${sp(10)}Pour $x=${x1}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` +
+          ajouteChampTexteMathLive(this, 6 * i + 1, ' ')
+        texte +=
+          `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x1}${sp(1)}$ ? (Oui/Non) ` +
+          ajouteChampTexteMathLive(this, 6 * i + 2, ' alphanumeric')
+        texte +=
+          `<br><br> ${sp(10)}Pour $x=${x2}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` +
+          ajouteChampTexteMathLive(this, 6 * i + 3, ' ')
+        texte +=
+          `<br> ${sp(10)}Pour $x=${x2}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` +
+          ajouteChampTexteMathLive(this, 6 * i + 4, ' ')
+        texte +=
+          `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x2}${sp(1)}$ ? (Oui/Non)  ` +
+          ajouteChampTexteMathLive(this, 6 * i + 5, ' alphanumeric')
       }
 
       if (context.isAmc) {
         if (this.sup3 === 1) {
-          this.autoCorrection[i] =
-        {
-          enonce: '',
-          enonceAvant: false,
-          enonceAvantUneFois: true,
-          options: { numerotationEnonce: true },
-          propositions: [(
-            {
-              type: 'AMCOpen',
-              // @ts-expect-error
-              propositions: [
-                {
-                  texte: ' ',
-                  numQuestionVisible: false,
-                  statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  enonce: `Tester l'égalité ${expression} pour $${sp(1)}x=${x1}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }
-          ),
-          (
-            {
-              type: 'AMCOpen',
-              // @ts-expect-error
-              propositions: [
-                {
-                  texte: ' ',
-                  numQuestionVisible: false,
-                  statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  enonce: `Tester l'égalité ${expression} pour pour $${sp(1)}x=${x2}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }
-          )
-          ]
-        }
+          this.autoCorrection[i] = {
+            enonce: '',
+            enonceAvant: false,
+            enonceAvantUneFois: true,
+            options: { numerotationEnonce: true },
+            propositions: [
+              {
+                type: 'AMCOpen',
+                // @ts-expect-error
+                propositions: [
+                  {
+                    texte: ' ',
+                    numQuestionVisible: false,
+                    statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    feedback: '',
+                    enonce: `Tester l'égalité ${expression} pour $${sp(1)}x=${x1}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                    sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  },
+                ],
+              },
+              {
+                type: 'AMCOpen',
+                // @ts-expect-error
+                propositions: [
+                  {
+                    texte: ' ',
+                    numQuestionVisible: false,
+                    statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    feedback: '',
+                    enonce: `Tester l'égalité ${expression} pour pour $${sp(1)}x=${x2}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                    sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  },
+                ],
+              },
+            ],
+          }
         } else {
           this.autoCorrection.push({
             enonce: texte,
@@ -312,40 +352,48 @@ export default class TesterUneEgalite extends Exercice {
               {
                 type: 'AMCNum',
                 // @ts-expect-error
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  multicolsBegin: true,
-                  reponse: {
-                    texte: `Pour $x=${x1}$, que vaut ${expression.split('=')[0]}$ ?`,
-                    valeur: rep1,
-                    param: {
-                      digits: Math.max(nombreDeChiffresDansLaPartieEntiere(rep1, rep2)),
-                      decimals: 0,
-                      signe: true,
-                      approx: 0
-                    }
-                  }
-                }]
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    multicolsBegin: true,
+                    reponse: {
+                      texte: `Pour $x=${x1}$, que vaut ${expression.split('=')[0]}$ ?`,
+                      valeur: rep1,
+                      param: {
+                        digits: Math.max(
+                          nombreDeChiffresDansLaPartieEntiere(rep1, rep2),
+                        ),
+                        decimals: 0,
+                        signe: true,
+                        approx: 0,
+                      },
+                    },
+                  },
+                ],
               },
               {
                 type: 'AMCNum',
                 // @ts-expect-error
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  multicolsEnd: true,
-                  reponse: {
-                    texte: `Pour $x=${x1}$, que vaut $${expression.split('=')[1]} ?`,
-                    valeur: rep2,
-                    param: {
-                      digits: Math.max(nombreDeChiffresDansLaPartieEntiere(rep1, rep2)),
-                      decimals: 0,
-                      signe: true,
-                      approx: 0
-                    }
-                  }
-                }]
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    multicolsEnd: true,
+                    reponse: {
+                      texte: `Pour $x=${x1}$, que vaut $${expression.split('=')[1]} ?`,
+                      valeur: rep2,
+                      param: {
+                        digits: Math.max(
+                          nombreDeChiffresDansLaPartieEntiere(rep1, rep2),
+                        ),
+                        decimals: 0,
+                        signe: true,
+                        approx: 0,
+                      },
+                    },
+                  },
+                ],
               },
               {
                 type: 'qcmMono',
@@ -353,50 +401,59 @@ export default class TesterUneEgalite extends Exercice {
                 propositions: [
                   {
                     texte: 'Oui',
-                    statut: rep1 === rep2
+                    statut: rep1 === rep2,
                   },
                   {
                     texte: 'Non',
-                    statut: rep1 !== rep2
-                  }]
+                    statut: rep1 !== rep2,
+                  },
+                ],
               },
               {
                 type: 'AMCNum',
                 // @ts-expect-error
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  multicolsBegin: true,
-                  reponse: {
-                    texte: `Pour $x=${x2}$, que vaut ${expression.split('=')[0]}$ ?`,
-                    valeur: rep3,
-                    param: {
-                      digits: Math.max(nombreDeChiffresDansLaPartieEntiere(rep3, rep4)),
-                      decimals: 0,
-                      signe: true,
-                      approx: 0
-                    }
-                  }
-                }]
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    multicolsBegin: true,
+                    reponse: {
+                      texte: `Pour $x=${x2}$, que vaut ${expression.split('=')[0]}$ ?`,
+                      valeur: rep3,
+                      param: {
+                        digits: Math.max(
+                          nombreDeChiffresDansLaPartieEntiere(rep3, rep4),
+                        ),
+                        decimals: 0,
+                        signe: true,
+                        approx: 0,
+                      },
+                    },
+                  },
+                ],
               },
               {
                 type: 'AMCNum',
                 // @ts-expect-error
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  multicolsEnd: true,
-                  reponse: {
-                    texte: `Pour $x=${x2}$, que vaut $${expression.split('=')[1]} ?`,
-                    valeur: rep4,
-                    param: {
-                      digits: Math.max(nombreDeChiffresDansLaPartieEntiere(rep3, rep4)),
-                      decimals: 0,
-                      signe: true,
-                      approx: 0
-                    }
-                  }
-                }]
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    multicolsEnd: true,
+                    reponse: {
+                      texte: `Pour $x=${x2}$, que vaut $${expression.split('=')[1]} ?`,
+                      valeur: rep4,
+                      param: {
+                        digits: Math.max(
+                          nombreDeChiffresDansLaPartieEntiere(rep3, rep4),
+                        ),
+                        decimals: 0,
+                        signe: true,
+                        approx: 0,
+                      },
+                    },
+                  },
+                ],
               },
               {
                 type: 'qcmMono',
@@ -405,18 +462,20 @@ export default class TesterUneEgalite extends Exercice {
                 propositions: [
                   {
                     texte: 'Oui',
-                    statut: rep3 === rep4
+                    statut: rep3 === rep4,
                   },
                   {
                     texte: 'Non',
-                    statut: rep3 !== rep4
-                  }]
-              }]
-          }
-          )
+                    statut: rep3 !== rep4,
+                  },
+                ],
+              },
+            ],
+          })
         }
       }
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, texte)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

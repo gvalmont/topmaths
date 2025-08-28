@@ -11,7 +11,8 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-export const titre = 'Construire l\'image d\'un point par une rotation avec cible auto-corrective'
+export const titre =
+  "Construire l'image d'un point par une rotation avec cible auto-corrective"
 
 /**
  * Construction d'images par rotation avec dispositif d'auto-correction aléatoire
@@ -23,10 +24,10 @@ export const uuid = '19ce6'
 
 export const refs = {
   'fr-fr': ['3G10-3'],
-  'fr-ch': ['10ES2-8']
+  'fr-ch': ['10ES2-8'],
 }
 export default class ConstruireRotationPoint3e extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
     // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
@@ -37,10 +38,12 @@ export default class ConstruireRotationPoint3e extends Exercice {
     this.sup = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let nontrouve, assezloin, cible
     const angle = randint(-8, 8, 0) * 10
-    let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
+    let result = [0, 0]
+    let texteCorr = ''
+    const nbpoints = parseInt(this.sup)
     const celluleAlea = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, rang))
       const chiffre = Number(randint(1, rang)).toString()
@@ -55,13 +58,28 @@ export default class ConstruireRotationPoint3e extends Exercice {
     }
     this.consigne += ` et $${noms[nbpoints - 1]}$ par la rotation de centre $O$`
     this.consigne += ` et d'angle $${Math.abs(angle)}^\\circ$`
-    if (angle < 0) { this.consigne += ' dans le sens des aiguilles d\'une montre.' } else { this.consigne += ' dans le sens contraire des aiguilles d\'une montre.' }
-    const cibles = []; const M = []; const N = []; const objetsEnonce = []; const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
+    if (angle < 0) {
+      this.consigne += " dans le sens des aiguilles d'une montre."
+    } else {
+      this.consigne += " dans le sens contraire des aiguilles d'une montre."
+    }
+    const cibles = []
+    const M = []
+    const N = []
+    const objetsEnonce = []
+    const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
     const cellules = []
-    let xMin, yMin, xMax, yMax;
-    [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
-    for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(randint(-80, 80, 0) / 10, randint(-80, 80, 0) / 10, noms[i] + "'"))
+    let xMin, yMin, xMax, yMax
+    ;[xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
+    for (let i = 0; i < nbpoints; i++) {
+      // On place les cibles.
+      N.push(
+        point(
+          randint(-80, 80, 0) / 10,
+          randint(-80, 80, 0) / 10,
+          noms[i] + "'",
+        ),
+      )
       nontrouve = true
       while (longueur(N[i], O) < 3 || nontrouve) {
         nontrouve = true
@@ -71,12 +89,17 @@ export default class ConstruireRotationPoint3e extends Exercice {
         } else {
           assezloin = true
           for (let j = 0; j < i; j++) {
-            if (longueur(N[i], N[j]) < 4.5) { assezloin = false }
+            if (longueur(N[i], N[j]) < 4.5) {
+              assezloin = false
+            }
           }
-          if (assezloin === false) { // éloigner les points donc les grilles
+          if (assezloin === false) {
+            // éloigner les points donc les grilles
             N[i].x = randint(-80, 80, 0) / 10
             N[i].y = randint(-80, 80, 0) / 10
-          } else { nontrouve = false }
+          } else {
+            nontrouve = false
+          }
         }
       }
     }
@@ -87,15 +110,28 @@ export default class ConstruireRotationPoint3e extends Exercice {
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
       result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
-      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: '#f15929' })
+      cible = cibleCarree({
+        x: result[0],
+        y: result[1],
+        rang: 4,
+        num: i + 1,
+        taille: 0.6,
+        color: '#f15929',
+      })
       cible.opacite = 0.7
       cibles.push(cible)
     }
     for (let i = 0; i < nbpoints; i++) {
       M.push(rotation(N[i], O, -angle, noms[i]))
       objetsEnonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i])
-      objetsCorrection.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
-      objetsCorrection.push(arcPointPointAngle(M[i], N[i], angle, true, arcenciel(i), 'gray', 0.2))
+      objetsCorrection.push(
+        tracePoint(M[i], N[i]),
+        labelPoint(M[i], N[i]),
+        cibles[i],
+      )
+      objetsCorrection.push(
+        arcPointPointAngle(M[i], N[i], angle, true, arcenciel(i), 'gray', 0.2),
+      )
       texteCorr += `$${noms[i]}'$, l'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
     }
 
@@ -108,8 +144,33 @@ export default class ConstruireRotationPoint3e extends Exercice {
 
     context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
-    this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 18 / Math.max((xMax - xMin), (yMax - yMin)) }, objetsEnonce))
-    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 18 / Math.max((xMax - xMin), (yMax - yMin)) }, objetsCorrection))
+    this.listeQuestions.push(
+      mathalea2d(
+        {
+          xmin: xMin,
+          ymin: yMin,
+          xmax: xMax,
+          ymax: yMax,
+          pixelsParCm: 20,
+          scale: 18 / Math.max(xMax - xMin, yMax - yMin),
+        },
+        objetsEnonce,
+      ),
+    )
+    this.listeCorrections.push(
+      texteCorr +
+        mathalea2d(
+          {
+            xmin: xMin,
+            ymin: yMin,
+            xmax: xMax,
+            ymax: yMax,
+            pixelsParCm: 20,
+            scale: 18 / Math.max(xMax - xMin, yMax - yMin),
+          },
+          objetsCorrection,
+        ),
+    )
     listeQuestionsToContenu(this)
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos

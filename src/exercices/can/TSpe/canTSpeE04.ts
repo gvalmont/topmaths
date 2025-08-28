@@ -1,4 +1,7 @@
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
@@ -17,10 +20,10 @@ export const uuid = '4a643'
 
 export const refs = {
   'fr-fr': ['canTSpeE04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProduitScalaireCoordonnees extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,7 +31,7 @@ export default class ProduitScalaireCoordonnees extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const ux = randint(-10, 10)
     const uy = randint(-10, 10, 0)
     const uz = randint(-10, 10, 0)
@@ -40,7 +43,9 @@ export default class ProduitScalaireCoordonnees extends ExerciceSimple {
     $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\\\ ${sp(1)}${uz}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\\\ ${sp(1)}${vz}\\end{pmatrix}$<br>
 
     Alors $\\vec{u}\\cdot\\vec{v}=$`
-    if (!this.interactif) { this.question += ' ....' }
+    if (!this.interactif) {
+      this.question += ' ....'
+    }
     this.correction = `$\\begin{aligned}
     \\vec{u}\\cdot\\vec{v}&=${ux}\\times ${ecritureParentheseSiNegatif(vx)}+${ecritureParentheseSiNegatif(uy)}\\times ${ecritureParentheseSiNegatif(vy)}+${ecritureParentheseSiNegatif(uz)}\\times ${ecritureParentheseSiNegatif(vz)}\\\\
     &=${ux * vx} ${ecritureAlgebrique(uy * vy)}${ecritureAlgebrique(uz * vz)}\\\\

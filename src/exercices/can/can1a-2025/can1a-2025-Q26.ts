@@ -3,13 +3,13 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
-export const titre = 'Déterminer un taux global d\'évolution'
+export const titre = "Déterminer un taux global d'évolution"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '54342'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q26 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,14 +27,16 @@ export default class Can2025N5Q26 extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: '$\\%$.' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const dim = this.canOfficielle ? 10 : randint(2, 6) * 10
     const coeffmul = this.canOfficielle ? 0.9 : 1 - dim / 100
 
     this.reponse = texNombre((1 - coeffmul ** 2) * 100, 2)
     this.question = `Deux diminutions successives de  $${dim}\\,\\%$ correspondent à une diminution globale de `
     this.canEnonce = this.question
-    if (!this.interactif) { this.question += ' $\\ldots \\,\\%$.' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots \\,\\%$.'
+    }
     this.correction = ` Le coefficient multiplicateur  associé à une baisse de $${dim}\\,\\%$ est $${texNombre(coeffmul, 2)}$.<br>
     Le coefficient multiplicateur global associé à ces deux diminutions est $${texNombre(coeffmul, 2)}\\times ${texNombre(coeffmul, 2)}= ${texNombre(coeffmul ** 2, 2)}$.<br>
     On en déduit que le taux d'évolution globale est $${texNombre(coeffmul ** 2, 2)}-1=${texNombre(coeffmul ** 2 - 1, 2)}$.<br>

@@ -15,10 +15,10 @@ export const uuid = 'e6f62'
 export const refs = {
   'fr-fr': ['6N0B-3'],
   'fr-2016': ['6C13-2'],
-  'fr-ch': ['9NO4-19']
+  'fr-ch': ['9NO4-19'],
 }
 export default class TraduireUneExpressionParUnePhrase6eme extends EcrireUneExpressionNumerique {
-  constructor () {
+  constructor() {
     super()
     this.version = 2
     this.nbQuestions = 4

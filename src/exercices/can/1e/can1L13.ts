@@ -5,7 +5,8 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 
-export const titre = 'Résoudre une inéquation du second degré (cas particuliers)'
+export const titre =
+  'Résoudre une inéquation du second degré (cas particuliers)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -21,20 +22,31 @@ export const uuid = 'b53ea'
 
 export const refs = {
   'fr-fr': ['can1L13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class InequationCasParticuliers extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    let texte, texteCorr, a, b, solution1, solution2, solution3, solution4, inegalite, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3])) { //, 2, 3
-        case 1 :// cas ax^2+b> ou <0 solution ensemble vide ou R
+  nouvelleVersion() {
+    let texte,
+      texteCorr,
+      a,
+      b,
+      solution1,
+      solution2,
+      solution3,
+      solution4,
+      inegalite,
+      props
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2, 3]) //, 2, 3
+      ) {
+        case 1: // cas ax^2+b> ou <0 solution ensemble vide ou R
           a = randint(1, 3)
           b = randint(1, 5)
           inegalite = choice(['>', '\\geqslant', '<', '\\leqslant'])
@@ -55,21 +67,21 @@ export default class InequationCasParticuliers extends Exercice {
             propositions: [
               {
                 texte: solution1,
-                statut: true
+                statut: true,
               },
               {
                 texte: solution2,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution3,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution4,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -81,11 +93,15 @@ export default class InequationCasParticuliers extends Exercice {
           texteCorr = `Pour tout réel $x$, $x^2$ est positif. <br>Ainsi, pour tout réel $x$, 
           $${rienSi1(a)}x^2+${b * b * a}$ est strictement positif. <br>
           L'ensemble des solutions de l'inéquation est `
-          if (inegalite === '>' || inegalite === '\\geqslant') { texteCorr += `$${miseEnEvidence('\\mathbb{R}')}$.` } else { texteCorr += `$${miseEnEvidence('\\emptyset')}$.` }
+          if (inegalite === '>' || inegalite === '\\geqslant') {
+            texteCorr += `$${miseEnEvidence('\\mathbb{R}')}$.`
+          } else {
+            texteCorr += `$${miseEnEvidence('\\emptyset')}$.`
+          }
 
           break
 
-        case 2 :// cas ax^2-b> ou <0 solution intervalle ou réunion d'intervalles
+        case 2: // cas ax^2-b> ou <0 solution intervalle ou réunion d'intervalles
           a = randint(-2, 2, 0)
           b = randint(1, 8)
           inegalite = choice(['>', '\\geqslant', '<', '\\leqslant'])
@@ -152,21 +168,21 @@ export default class InequationCasParticuliers extends Exercice {
             propositions: [
               {
                 texte: solution1,
-                statut: true
+                statut: true,
               },
               {
                 texte: solution2,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution3,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution4,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -177,7 +193,7 @@ export default class InequationCasParticuliers extends Exercice {
 
           break
 
-        case 3 :// cas a(x+b)^2> ou <0
+        case 3: // cas a(x+b)^2> ou <0
           a = randint(-5, 5, 0)
           b = randint(-10, 10, 0)
           inegalite = choice(['>', '\\geqslant', '<', '\\leqslant'])
@@ -194,7 +210,8 @@ export default class InequationCasParticuliers extends Exercice {
             solution3 = `$]${b}\\,;\\,+\\infty[$`
             solution4 = '$\\mathbb{R}$'
             texteCorr += ` $${miseEnEvidence(`\\mathbb{R}\\smallsetminus\\{${b}\\}`)}$.`
-          } if (inegalite === '\\geqslant' && a > 0) {
+          }
+          if (inegalite === '\\geqslant' && a > 0) {
             solution1 = '$\\mathbb{R}$'
             solution2 = '$\\emptyset$'
             solution3 = `$[${b}\\,;\\,+\\infty[$`
@@ -221,7 +238,8 @@ export default class InequationCasParticuliers extends Exercice {
             solution3 = `$]${b}\\,;\\,+\\infty[$`
             solution4 = '$\\mathbb{R}$'
             texteCorr += ` $${miseEnEvidence('\\emptyset')}$.`
-          } if (inegalite === '\\geqslant' && a < 0) {
+          }
+          if (inegalite === '\\geqslant' && a < 0) {
             solution1 = `$\\{${b}\\}$`
             solution2 = '$\\emptyset$'
             solution3 = `$\\mathbb{R}\\smallsetminus\\{${b}\\}$`
@@ -251,21 +269,21 @@ export default class InequationCasParticuliers extends Exercice {
             propositions: [
               {
                 texte: solution1,
-                statut: true
+                statut: true,
               },
               {
                 texte: solution2,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution3,
-                statut: false
+                statut: false,
               },
               {
                 texte: solution4,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte

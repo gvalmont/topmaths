@@ -1,8 +1,11 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+} from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Résoudre $|z-z\'|=|z-z\'\'|$'
+export const titre = "Résoudre $|z-z'|=|z-z''|$"
 export const interactifReady = false
 export const interactifType = 'mathLive'
 
@@ -11,7 +14,7 @@ export const dateDePublication = '05/02/2025'
 export const uuid = '9772d'
 export const refs = {
   'fr-fr': ['canTEC2-02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -20,13 +23,13 @@ export const refs = {
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-7, 7, 0)
     const b = randint(-7, 7, 0)
     const c = randint(-7, 7, [0, a])
@@ -39,7 +42,8 @@ export default class NomExercice extends ExerciceSimple {
     this.correction += `<br>On sait que $AM=\\vert z-z_A\\vert=\\vert z${ecritureAlgebrique(-a)}${ecritureAlgebriqueSauf1(-b)}\\text{i}\\vert$.<br>`
     this.correction += `<br>et que  $BM=\\vert z-z_B\\vert=\\vert z${ecritureAlgebrique(-c)}${ecritureAlgebriqueSauf1(-d)}\\text{i}\\vert$.<br>`
     this.correction += `<br>On a : $\\vert z${ecritureAlgebrique(-a)}${ecritureAlgebriqueSauf1(-b)}\\text{i}\\vert=\\vert z${ecritureAlgebrique(-c)}${ecritureAlgebriqueSauf1(-d)}\\text{i}\\vert\\iff AM=MB$.`
-    this.correction += '<br>La solution est donc l\'ensemble des points $M$ qui sont équidistants des points $A$ et $B$.<br>'
+    this.correction +=
+      "<br>La solution est donc l'ensemble des points $M$ qui sont équidistants des points $A$ et $B$.<br>"
     this.correction += `<br>L'ensemble solution est donc $${miseEnEvidence('\\text{la médiatrice du segment [AB]}')}$.`
     this.reponse = ''
   }

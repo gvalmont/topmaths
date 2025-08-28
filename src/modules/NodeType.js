@@ -5,10 +5,12 @@
 export const NodeType = {}
 
 NodeType.isOperator = function (node, operator = null) {
-  return node.type === 'OperatorNode' &&
-         node.fn !== 'unaryMinus' &&
-         '*+-/^'.includes(node.op) &&
-         (operator ? node.op === operator : true)
+  return (
+    node.type === 'OperatorNode' &&
+    node.fn !== 'unaryMinus' &&
+    '*+-/^'.includes(node.op) &&
+    (operator ? node.op === operator : true)
+  )
 }
 
 NodeType.isParenthesis = function (node) {
@@ -56,15 +58,20 @@ NodeType.isConstant = function (node, allowUnaryMinus = false) {
 
 NodeType.isConstantFraction = function (node, allowUnaryMinus = false) {
   if (NodeType.isOperator(node, '/')) {
-    return node.args.every(n => NodeType.isConstant(n, allowUnaryMinus))
+    return node.args.every((n) => NodeType.isConstant(n, allowUnaryMinus))
   } else {
     return false
   }
 }
 
-NodeType.isConstantOrConstantFraction = function (node, allowUnaryMinus = false) {
-  if (NodeType.isConstant(node, allowUnaryMinus) ||
-      NodeType.isConstantFraction(node, allowUnaryMinus)) {
+NodeType.isConstantOrConstantFraction = function (
+  node,
+  allowUnaryMinus = false,
+) {
+  if (
+    NodeType.isConstant(node, allowUnaryMinus) ||
+    NodeType.isConstantFraction(node, allowUnaryMinus)
+  ) {
     return true
   } else {
     return false
@@ -85,6 +92,8 @@ NodeType.isIntegerFraction = function (node, allowUnaryMinus = false) {
       denominator = denominator.args[0]
     }
   }
-  return (Number.isInteger(parseFloat(numerator.value)) &&
-          Number.isInteger(parseFloat(denominator.value)))
+  return (
+    Number.isInteger(parseFloat(numerator.value)) &&
+    Number.isInteger(parseFloat(denominator.value))
+  )
 }

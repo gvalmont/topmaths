@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  reduirePolynomeDegre3,
+} from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -26,18 +29,18 @@ export const uuid = '7a950'
 
 export const refs = {
   'fr-fr': ['can1L04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResoudreEquationSecondDegre extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, c, d, x1, x2
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       x1 = randint(-5, 5, 0)
       x2 = randint(-5, 5, [0, x1, -x1])
       a = randint(1, 3) * choice([-1, 1])
@@ -55,13 +58,22 @@ export default class ResoudreEquationSecondDegre extends Exercice {
 
       texte = `$${reduirePolynomeDegre3(0, a, b, c)}=0$.<br>
        Sachant que  $\\Delta=${d}$, donner les solutions de cette équation`
-      handleAnswers(this, i, { reponse: { value: `${Math.min(x1, x2)};${Math.max(x1, x2)}`, options: { suiteDeNombres: true } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: `${Math.min(x1, x2)};${Math.max(x1, x2)}`,
+          options: { suiteDeNombres: true },
+        },
+      })
 
       if (!this.interactif) {
         texte += '.'
       } else {
         texte += ', séparées par un point-virgule : '
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+        )
         /* texte += 'dans l\'ordre croissant :<br>'
         texte += remplisLesBlancs(this, i, ' %{champ1}  \\text{ et  }  %{champ2} ', KeyboardType.clavierDeBaseAvecFraction)
         handleAnswers(this, i, {
@@ -71,7 +83,10 @@ export default class ResoudreEquationSecondDegre extends Exercice {
         }
         ) */
       }
-      texteCorr = context.isHtml ? '<br>' : '' + '$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
+      texteCorr = context.isHtml
+        ? '<br>'
+        : '' +
+          "$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$"
       texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b - Math.sqrt(d)) / (2 * a), 0))}$ et
        $x_2 = \\dfrac{${-b} +\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b + Math.sqrt(d)) / (2 * a), 0))}$`
       if (this.questionJamaisPosee(i, a, x1, x2)) {

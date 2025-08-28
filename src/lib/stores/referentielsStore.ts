@@ -12,27 +12,29 @@ import type {
   ActivationName,
   JSONReferentielObject,
   ReferentielInMenu,
-  ResourceAndItsPath
+  ResourceAndItsPath,
 } from '../types/referentiels'
 import { get, writable } from 'svelte/store'
 import {
   buildReferentiel,
   getAllEndings,
-  getRecentExercices
+  getRecentExercices,
 } from '../components/refUtils'
 import {
   sortArrayOfResourcesBasedOnProp,
-  triAnnales
+  triAnnales,
 } from '../components/sorting'
 import type { Language } from '../types/languages'
 
-function createoriginalReferentielsFR () {
+function createoriginalReferentielsFR() {
   /**
    * Constitutions des référentiels français
    */
   // on trie les examens dans l'ordre inverse des années/mois
   const examsReferentiel: JSONReferentielObject = { ...referentielExams }
-  const activations: Record<ActivationName, boolean> = { ...referentielsActivation }
+  const activations: Record<ActivationName, boolean> = {
+    ...referentielsActivation,
+  }
   const examens = getAllEndings(examsReferentiel)
   // MGu: c'est trié dans ReferentielNode
   // examens = triAnnales(examens, 'ascStringdescNumber')
@@ -40,14 +42,19 @@ function createoriginalReferentielsFR () {
   const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
   const referentielOutils: JSONReferentielObject = { ...referentielProfs }
   const referentielHtml: JSONReferentielObject = { ...referentielRessources }
-  const biblioReferentiel: JSONReferentielObject = { ...referentielBibliotheque }
-  const baseGeometrieDynamiqueReferentiel: JSONReferentielObject = { ...referentielGeometrieDynamique }
+  const biblioReferentiel: JSONReferentielObject = {
+    ...referentielBibliotheque,
+  }
+  const baseGeometrieDynamiqueReferentiel: JSONReferentielObject = {
+    ...referentielGeometrieDynamique,
+  }
   // on ajoute les nouveautés
   const newExercises: ResourceAndItsPath[] = getRecentExercices(baseReferentiel)
   const newExercisesReferentiel: JSONReferentielObject = {}
   for (const item of newExercises) {
-    newExercisesReferentiel[item.pathToResource[item.pathToResource.length - 1]] =
-    { ...item.resource }
+    newExercisesReferentiel[
+      item.pathToResource[item.pathToResource.length - 1]
+    ] = { ...item.resource }
   }
 
   // on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
@@ -58,53 +65,57 @@ function createoriginalReferentielsFR () {
 
   const baseAndNewsReferentiel: JSONReferentielObject = {
     Nouveautés: { ...newExercisesReferentiel },
-    ...baseReferentiel
+    ...baseReferentiel,
   }
   let exercices = getAllEndings(baseAndNewsReferentiel)
   exercices = [...sortArrayOfResourcesBasedOnProp(exercices, 'id')]
 
   const aleaReferentiel = buildReferentiel(exercices)
 
-  const exercicesGeometrieDynamique = getAllEndings(baseGeometrieDynamiqueReferentiel)
-  const geometrieDynamiqueReferentiel = buildReferentiel(exercicesGeometrieDynamique)
+  const exercicesGeometrieDynamique = getAllEndings(
+    baseGeometrieDynamiqueReferentiel,
+  )
+  const geometrieDynamiqueReferentiel = buildReferentiel(
+    exercicesGeometrieDynamique,
+  )
   // référentiel original
   const allReferentielsInMenus: ReferentielInMenu[] = [
     {
       title: 'Exercices aléatoires',
       name: 'aleatoires',
       searchable: true,
-      referentiel: aleaReferentiel
+      referentiel: aleaReferentiel,
     },
     {
       title: 'Annales examens',
       name: 'examens',
       searchable: true,
-      referentiel: orderedExamsReferentiel
+      referentiel: orderedExamsReferentiel,
     },
     {
       title: 'Géométrie dynamique',
       name: 'geometrieDynamique',
       searchable: false,
-      referentiel: geometrieDynamiqueReferentiel
+      referentiel: geometrieDynamiqueReferentiel,
     },
     {
       title: 'Outils',
       name: 'outils',
       searchable: false,
-      referentiel: referentielOutils
+      referentiel: referentielOutils,
     },
     {
       title: 'Vos ressources',
       name: 'ressources',
       searchable: false,
-      referentiel: referentielHtml
+      referentiel: referentielHtml,
     },
     {
       title: 'Bibliothèque',
       name: 'statiques',
       searchable: false,
-      referentiel: biblioReferentiel
-    }
+      referentiel: biblioReferentiel,
+    },
   ]
   const activatedReferentielsInMenu: ReferentielInMenu[] = []
   for (const ref of allReferentielsInMenus) {
@@ -116,32 +127,42 @@ function createoriginalReferentielsFR () {
   return originalReferentiels
 }
 
-function createoriginalReferentielsCH () {
-/**
- * Constitutions des référentiels suisses
- */
+function createoriginalReferentielsCH() {
+  /**
+   * Constitutions des référentiels suisses
+   */
   // on trie les examens dans l'ordre inverse des années/mois
   const examsReferentielCH: JSONReferentielObject = { ...referentielExamsCH }
-  const activations: Record<ActivationName, boolean> = { ...referentielsActivation }
+  const activations: Record<ActivationName, boolean> = {
+    ...referentielsActivation,
+  }
   let examensCH = getAllEndings(examsReferentielCH)
   examensCH = [...triAnnales(examensCH, 'desc')]
   const referentielHtml: JSONReferentielObject = { ...referentielRessources }
   const referentielOutils: JSONReferentielObject = { ...referentielProfs }
-  const baseGeometrieDynamiqueReferentiel: JSONReferentielObject = { ...referentielGeometrieDynamique }
-  const exercicesGeometrieDynamique = getAllEndings(baseGeometrieDynamiqueReferentiel)
-  const geometrieDynamiqueReferentiel = buildReferentiel(exercicesGeometrieDynamique)
+  const baseGeometrieDynamiqueReferentiel: JSONReferentielObject = {
+    ...referentielGeometrieDynamique,
+  }
+  const exercicesGeometrieDynamique = getAllEndings(
+    baseGeometrieDynamiqueReferentiel,
+  )
+  const geometrieDynamiqueReferentiel = buildReferentiel(
+    exercicesGeometrieDynamique,
+  )
 
   const orderedExamsReferentielCH = buildReferentiel(examensCH)
   const baseReferentielCH: JSONReferentielObject = { ...referentielAleaCH }
-  const newExercisesCH: ResourceAndItsPath[] = getRecentExercices(baseReferentielCH)
+  const newExercisesCH: ResourceAndItsPath[] =
+    getRecentExercices(baseReferentielCH)
   const newExercisesReferentielCH: JSONReferentielObject = {}
   for (const item of newExercisesCH) {
-    newExercisesReferentielCH[item.pathToResource[item.pathToResource.length - 1]] =
-    { ...item.resource }
+    newExercisesReferentielCH[
+      item.pathToResource[item.pathToResource.length - 1]
+    ] = { ...item.resource }
   }
   const baseAndNewsReferentielCH: JSONReferentielObject = {
     Nouveautés: { ...newExercisesReferentielCH },
-    ...baseReferentielCH
+    ...baseReferentielCH,
   }
   // on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
   let exercicesCH = getAllEndings(baseAndNewsReferentielCH)
@@ -152,32 +173,32 @@ function createoriginalReferentielsCH () {
       title: 'Exercices aléatoires',
       name: 'aleatoires',
       searchable: true,
-      referentiel: aleaReferentielCH
+      referentiel: aleaReferentielCH,
     },
     {
       title: 'EVACOM et TAF',
       name: 'examens',
       searchable: true,
-      referentiel: orderedExamsReferentielCH
+      referentiel: orderedExamsReferentielCH,
     },
     {
       title: 'Géométrie dynamique',
       name: 'geometrieDynamique',
       searchable: false,
-      referentiel: geometrieDynamiqueReferentiel
+      referentiel: geometrieDynamiqueReferentiel,
     },
     {
       title: 'Outils',
       name: 'outils',
       searchable: false,
-      referentiel: referentielOutils
+      referentiel: referentielOutils,
     },
     {
       title: 'Vos ressources',
       name: 'ressources',
       searchable: false,
-      referentiel: referentielHtml
-    }
+      referentiel: referentielHtml,
+    },
   ]
   const activatedReferentielsInMenuCH: ReferentielInMenu[] = []
   for (const ref of allReferentielsInMenusCH) {
@@ -197,7 +218,7 @@ function createoriginalReferentielsCH () {
  * @returns {ReferentielInMenu[]} liste des copies des référentiels
  */
 export const deepReferentielInMenuCopy = (
-  originals: ReferentielInMenu[]
+  originals: ReferentielInMenu[],
 ): ReferentielInMenu[] => {
   const copy: ReferentielInMenu[] = []
   for (const item of originals) {
@@ -205,7 +226,7 @@ export const deepReferentielInMenuCopy = (
       title: item.title,
       name: item.name,
       searchable: item.searchable,
-      referentiel: { ...item.referentiel }
+      referentiel: { ...item.referentiel },
     }
     copy.push(ref)
   }
@@ -219,7 +240,7 @@ export const deepReferentielInMenuCopy = (
 // Une variable globale aurait le même effet.
 const referentiels = writable<ReferentielInMenu[]>([])
 
-let localeLangLoaded : Language
+let localeLangLoaded: Language
 
 export const getReferentiels = (lang: Language) => {
   // console.log('getReferentiels', lang)

@@ -4,7 +4,14 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 export const titre = 'Développer avec la double distributivité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,7 +19,7 @@ export const dateDePublication = '07/04/2024'
 export const uuid = '69fed'
 export const refs = {
   'fr-fr': ['can2L13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -20,7 +27,7 @@ export const refs = {
 
 */
 export default class DeveloppementDouble extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -30,9 +37,9 @@ export default class DeveloppementDouble extends ExerciceSimple {
     this.versionQcmDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2, 3])) {
-      case 1:// (ax+b)(cx+d) avec a et c =1
+      case 1: // (ax+b)(cx+d) avec a et c =1
         {
           const a = 1
           const b = randint(-10, 10, 0)
@@ -41,8 +48,9 @@ export default class DeveloppementDouble extends ExerciceSimple {
           this.reponse = `$x^2${ecritureAlgebriqueSauf1(b + d)}x${ecritureAlgebriqueSauf1(b * d)}$`
           let tableau = [
             `$x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b * d)}$`,
-             `$x^2${ecritureAlgebriqueSauf1(b + d)}x${ecritureAlgebrique(b + d)}$`,
-             `$2x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`]
+            `$x^2${ecritureAlgebriqueSauf1(b + d)}x${ecritureAlgebrique(b + d)}$`,
+            `$2x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`,
+          ]
           tableau = shuffle(tableau)
           this.distracteurs = tableau.slice(0, 3)
           this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.<br>`
@@ -55,20 +63,23 @@ export default class DeveloppementDouble extends ExerciceSimple {
           this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
         }
         break
-      case 2:// (ax+b)(cx+d) avec a et c différent de 1
+      case 2: // (ax+b)(cx+d) avec a et c différent de 1
         {
           const a = randint(2, 4)
           const b = randint(-3, 3, 0)
           let c = randint(2, 4)
           const d = randint(-10, 10, [0, b, -b])
-          if (a === 2 && c === 2) { c = 3 } // pour éviter a=c=2 car a+b=a*c
+          if (a === 2 && c === 2) {
+            c = 3
+          } // pour éviter a=c=2 car a+b=a*c
           this.reponse = `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebriqueSauf1(b * d)}$`
           let tableau = [
             `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b * d)}$`,
             `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
             `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b * d)}$`,
             `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
-            `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`]
+            `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`,
+          ]
           tableau = shuffle(tableau)
           this.distracteurs = tableau.slice(0, 3)
           this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.<br>`
@@ -81,18 +92,20 @@ export default class DeveloppementDouble extends ExerciceSimple {
           this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
         }
         break
-      case 3:// (b+ax)(d+cx) avec a et c différent de 1
+      case 3: // (b+ax)(d+cx) avec a et c différent de 1
         {
           const a = randint(1, 2)
           const b = randint(-3, 3, 0)
           const c = randint(1, 2)
           const d = randint(-10, 10, [0, b, -b])
           this.reponse = `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b * d)}$`
-          let tableau = [`$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b * d)}$`,
-             `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
-              `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b * d)}$`,
-               `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
-                `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`]
+          let tableau = [
+            `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b * d)}$`,
+            `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
+            `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b * d)}$`,
+            `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
+            `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`,
+          ]
           tableau = shuffle(tableau)
           this.distracteurs = tableau.slice(0, 3)
           this.question = `Développer et réduire l'expression $(${b}${ecritureAlgebriqueSauf1(a)}x)(${reduireAxPlusB(c, d)})$.<br>`
@@ -106,7 +119,7 @@ export default class DeveloppementDouble extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

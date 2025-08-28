@@ -8,7 +8,7 @@ import ProblemeAdditif from './problemesAdditifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function lecture (): Probleme {
+export function lecture(): Probleme {
   const personnage = prenomPronom()
   const nb1 = randint(5, 20)
   const nb2 = randint(5, 20, nb1)

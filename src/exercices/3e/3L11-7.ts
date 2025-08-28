@@ -3,7 +3,10 @@ import { reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -24,12 +27,14 @@ export const uuid = '7cf81'
 
 export const refs = {
   'fr-fr': ['3L11-7', 'BP2AutoI7'],
-  'fr-ch': ['11FA2-8']
+  'fr-ch': ['11FA2-8'],
 }
 export default class CarreDoubleDistributivite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireCaseACocher = ['Écrire toutes les multiplications dans la correction']
+    this.besoinFormulaireCaseACocher = [
+      'Écrire toutes les multiplications dans la correction',
+    ]
 
     this.nbQuestions = 4
 
@@ -40,13 +45,38 @@ export default class CarreDoubleDistributivite extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Développer et réduire les expressions suivantes.'
+        : "Développer et réduire l'expression suivante."
 
-    const typesDeQuestionsDisponibles = ['(ax+b)2', '(b+ax)2', '(ax-b)2', '(b-ax)2']
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const typesDeQuestionsDisponibles = [
+      '(ax+b)2',
+      '(b+ax)2',
+      '(ax-b)2',
+      '(b-ax)2',
+    ]
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']
-    for (let i = 0, texte, texteCorr, reponse, reponse1, reponse2, reponse3, choixLettre, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        reponse,
+        reponse1,
+        reponse2,
+        reponse3,
+        choixLettre,
+        a,
+        b,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
       reponse = ''
@@ -107,12 +137,21 @@ export default class CarreDoubleDistributivite extends Exercice {
           reponse3 = b * b
           break
       }
-      reponse = reduirePolynomeDegre3(0, reponse1, reponse2, reponse3, choixLettre)
+      reponse = reduirePolynomeDegre3(
+        0,
+        reponse1,
+        reponse2,
+        reponse3,
+        choixLettre,
+      )
       texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reponse}$`
 
       if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
+        texte += this.interactif
+          ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
+            ajouteChampTexteMathLive(this, i, ' ')
+          : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',
@@ -121,68 +160,77 @@ export default class CarreDoubleDistributivite extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: texteCorr,
-                enonce: texte + '<br>',
-                statut: 4
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: texte + '<br>',
+                  statut: 4,
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
-                  valeur: reponse1,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                    valeur: reponse1,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
-                  valeur: reponse2,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                    valeur: reponse2,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
-                  valeur: reponse3,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                    valeur: reponse3,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
 
-      if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

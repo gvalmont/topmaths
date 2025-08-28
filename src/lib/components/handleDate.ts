@@ -6,13 +6,26 @@
  * @param dateString chaine représentant la date
  * @returns `true` si aujourd'hui - date < un mois
  */
-export function isRecent (dateString: string) {
+export function isRecent(dateString: string) {
   if (dateString === undefined) return false
   const [jour, mois, annee] = dateString.split('/').map((s) => parseInt(s))
   const date = new Date(annee, mois - 1, jour)
   const elapsedTime = Date.now() - date.getTime()
   const unMois = 3600 * 24 * 30 * 1000
-  return (elapsedTime < unMois)
+  return elapsedTime < unMois
 }
 
-export const monthes = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+export const monthes = [
+  'Janvier',
+  'Février',
+  'Mars',
+  'Avril',
+  'Mai',
+  'Juin',
+  'Juillet',
+  'Août',
+  'Septembre',
+  'Octobre',
+  'Novembre',
+  'Décembre',
+]

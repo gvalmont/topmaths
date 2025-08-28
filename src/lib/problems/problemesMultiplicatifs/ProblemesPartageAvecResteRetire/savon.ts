@@ -6,7 +6,7 @@ import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
-export function savon (decimal = false): Probleme {
+export function savon(decimal = false): Probleme {
   const nbFois = randint(3, 7)
   const quotité = decimal ? randint(5, 19, 10) * 0.1 : randint(5, 19, 10) * 10
   const total = nbFois * quotité + randint(11, 29, 20) * (decimal ? 0.01 : 1)

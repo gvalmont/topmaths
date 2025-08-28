@@ -41,7 +41,13 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Calcul numérique', 'Arithmétique', "Géométrie dans l'espace", 'Thalès']
+    tags: [
+      'Vrai/Faux',
+      'Calcul numérique',
+      'Arithmétique',
+      "Géométrie dans l'espace",
+      'Thalès',
+    ],
   },
   dnb_2013_04_pondichery_2: {
     annee: '2013',
@@ -49,7 +55,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnb_2013_04_pondichery_3: {
     annee: '2013',
@@ -57,7 +63,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Trigonométrie', 'Pourcentages']
+    tags: ['Proportionnalité', 'Trigonométrie', 'Pourcentages'],
   },
   dnb_2013_04_pondichery_4: {
     annee: '2013',
@@ -65,7 +71,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Calcul littéral', 'Équations']
+    tags: ['Tableur', 'Calcul littéral', 'Équations'],
   },
   dnb_2013_04_pondichery_5: {
     annee: '2013',
@@ -73,7 +79,12 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Aires et périmètres', 'Agrandissement-réduction', 'Pythagore']
+    tags: [
+      'Volumes',
+      'Aires et périmètres',
+      'Agrandissement-réduction',
+      'Pythagore',
+    ],
   },
   dnb_2013_04_pondichery_6: {
     annee: '2013',
@@ -81,7 +92,13 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Proportionnalité', 'Durées', 'Vitesses', 'Puissances']
+    tags: [
+      "Prise d'initiatives",
+      'Proportionnalité',
+      'Durées',
+      'Vitesses',
+      'Puissances',
+    ],
   },
   dnb_2013_06_ameriquenord_1: {
     annee: '2013',
@@ -89,7 +106,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Aires et périmètres']
+    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Aires et périmètres'],
   },
   dnb_2013_06_ameriquenord_2: {
     annee: '2013',
@@ -97,7 +114,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Hors programme']
+    tags: ['Hors programme'],
   },
   dnb_2013_06_ameriquenord_3: {
     annee: '2013',
@@ -105,7 +122,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Pourcentages']
+    tags: ['Probabilités', 'Pourcentages'],
   },
   dnb_2013_06_ameriquenord_4: {
     annee: '2013',
@@ -113,7 +130,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2013_06_ameriquenord_5: {
     annee: '2013',
@@ -121,7 +138,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral']
+    tags: ['Calcul littéral'],
   },
   dnb_2013_06_ameriquenord_6: {
     annee: '2013',
@@ -129,7 +146,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Fonctions', 'Volumes']
+    tags: ['Calcul littéral', 'Fonctions', 'Volumes'],
   },
   dnb_2013_06_ameriquenord_7: {
     annee: '2013',
@@ -137,7 +154,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Aires et périmètres', 'Pythagore', 'Trigonométrie']
+    tags: [
+      'Géométrie plane',
+      'Aires et périmètres',
+      'Pythagore',
+      'Trigonométrie',
+    ],
   },
   dnb_2013_06_ameriquenord_8: {
     annee: '2013',
@@ -145,7 +167,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres']
+    tags: ['Aires et périmètres'],
   },
   dnb_2013_06_asie_1: {
     annee: '2013',
@@ -153,7 +175,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2013_06_asie_2: {
     annee: '2013',
@@ -161,7 +183,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Arithmétique', 'Calcul numérique', 'Calcul littéral']
+    tags: ['Vrai/Faux', 'Arithmétique', 'Calcul numérique', 'Calcul littéral'],
   },
   dnb_2013_06_asie_3: {
     annee: '2013',
@@ -169,7 +191,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Statistiques']
+    tags: ['Trigonométrie', 'Statistiques'],
   },
   dnb_2013_06_asie_4: {
     annee: '2013',
@@ -177,7 +199,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Fonctions', 'Équations', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Fonctions', 'Équations', 'Programme de calculs'],
   },
   dnb_2013_06_asie_5: {
     annee: '2013',
@@ -185,7 +207,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité']
+    tags: ['Proportionnalité'],
   },
   dnb_2013_06_asie_6: {
     annee: '2013',
@@ -193,7 +215,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Pourcentages']
+    tags: ['Pourcentages'],
   },
   dnb_2013_06_asie_7: {
     annee: '2013',
@@ -201,7 +223,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Agrandissement-réduction']
+    tags: ['Volumes', 'Agrandissement-réduction'],
   },
   dnb_2013_06_asie_8: {
     annee: '2013',
@@ -209,7 +231,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Thalès', 'Pythagore', 'Aires et périmètres']
+    tags: ["Prise d'initiatives", 'Thalès', 'Pythagore', 'Aires et périmètres'],
   },
   dnb_2013_06_etrangers_1: {
     annee: '2013',
@@ -217,7 +239,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul littéral', 'Équations', 'Volumes', "Géométrie dans l'espace"]
+    tags: [
+      'QCM',
+      'Calcul littéral',
+      'Équations',
+      'Volumes',
+      "Géométrie dans l'espace",
+    ],
   },
   dnb_2013_06_etrangers_2: {
     annee: '2013',
@@ -225,7 +253,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Statistiques']
+    tags: ['Probabilités', 'Statistiques'],
   },
   dnb_2013_06_etrangers_3: {
     annee: '2013',
@@ -233,7 +261,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Géométrie plane']
+    tags: ['Trigonométrie', 'Géométrie plane'],
   },
   dnb_2013_06_etrangers_4: {
     annee: '2013',
@@ -241,7 +269,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Proportionnalité']
+    tags: ['Fonctions', 'Proportionnalité'],
   },
   dnb_2013_06_etrangers_5: {
     annee: '2013',
@@ -249,7 +277,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2013_06_etrangers_6: {
     annee: '2013',
@@ -257,7 +285,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Thalès', 'Calcul littéral']
+    tags: ["Prise d'initiatives", 'Thalès', 'Calcul littéral'],
   },
   dnb_2013_06_etrangers_7: {
     annee: '2013',
@@ -265,7 +293,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', "Recherche d'informations"]
+    tags: ['Calcul numérique', "Recherche d'informations"],
   },
   dnb_2013_06_metropole_1: {
     annee: '2013',
@@ -273,7 +301,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2013_06_metropole_2: {
     annee: '2013',
@@ -281,7 +309,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Fonctions']
+    tags: ['Tableur', 'Fonctions'],
   },
   dnb_2013_06_metropole_3: {
     annee: '2013',
@@ -289,7 +317,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2013_06_metropole_4: {
     annee: '2013',
@@ -297,7 +325,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Trigonométrie']
+    tags: ['Géométrie plane', 'Trigonométrie'],
   },
   dnb_2013_06_metropole_5: {
     annee: '2013',
@@ -305,7 +333,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", "Recherche d'informations", 'Volumes', 'Proportionnalité']
+    tags: [
+      "Prise d'initiatives",
+      "Recherche d'informations",
+      'Volumes',
+      'Proportionnalité',
+    ],
   },
   dnb_2013_06_metropole_6: {
     annee: '2013',
@@ -313,7 +346,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Volumes']
+    tags: ['Thalès', 'Volumes'],
   },
   dnb_2013_06_metropole_7: {
     annee: '2013',
@@ -321,7 +354,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Calcul numérique', 'Pourcentages', 'Calcul littéral']
+    tags: ['Vrai/Faux', 'Calcul numérique', 'Pourcentages', 'Calcul littéral'],
   },
   dnb_2013_06_polynesie_1: {
     annee: '2013',
@@ -329,7 +362,15 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul numérique', 'Proportionnalité', 'Vitesses', 'Durées', 'Agrandissement-réduction', 'Calcul littéral']
+    tags: [
+      'QCM',
+      'Calcul numérique',
+      'Proportionnalité',
+      'Vitesses',
+      'Durées',
+      'Agrandissement-réduction',
+      'Calcul littéral',
+    ],
   },
   dnb_2013_06_polynesie_2: {
     annee: '2013',
@@ -337,7 +378,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2013_06_polynesie_3: {
     annee: '2013',
@@ -345,7 +386,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pourcentages']
+    tags: ['Pourcentages'],
   },
   dnb_2013_06_polynesie_4: {
     annee: '2013',
@@ -353,7 +394,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Géométrie plane']
+    tags: ['Pythagore', 'Géométrie plane'],
   },
   dnb_2013_06_polynesie_5: {
     annee: '2013',
@@ -361,7 +402,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2013_06_polynesie_6: {
     annee: '2013',
@@ -369,7 +410,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Aires et périmètres']
+    tags: ['Volumes', 'Aires et périmètres'],
   },
   dnb_2013_06_polynesie_7: {
     annee: '2013',
@@ -377,7 +418,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Thalès']
+    tags: ["Prise d'initiatives", 'Thalès'],
   },
   dnb_2013_06_polynesie_8: {
     annee: '2013',
@@ -385,7 +426,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Tableur', 'Statistiques']
+    tags: ['Probabilités', 'Tableur', 'Statistiques'],
   },
   dnb_2013_09_metropole_1: {
     annee: '2013',
@@ -393,7 +434,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2013_09_metropole_2: {
     annee: '2013',
@@ -401,7 +442,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Probabilités']
+    tags: ['Tableur', 'Probabilités'],
   },
   dnb_2013_09_metropole_3: {
     annee: '2013',
@@ -409,7 +450,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Calcul littéral', 'Équations']
+    tags: ['Aires et périmètres', 'Calcul littéral', 'Équations'],
   },
   dnb_2013_09_metropole_4: {
     annee: '2013',
@@ -417,7 +458,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Pourcentages']
+    tags: ['Calcul numérique', 'Pourcentages'],
   },
   dnb_2013_09_metropole_5: {
     annee: '2013',
@@ -425,7 +466,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Aires et périmètres']
+    tags: ['Thalès', 'Aires et périmètres'],
   },
   dnb_2013_09_metropole_6: {
     annee: '2013',
@@ -433,7 +474,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie']
+    tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie'],
   },
   dnb_2013_09_metropole_7: {
     annee: '2013',
@@ -441,7 +482,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Vitesses', 'Calcul littéral', 'Statistiques']
+    tags: ['Vrai/Faux', 'Vitesses', 'Calcul littéral', 'Statistiques'],
   },
   dnb_2013_09_metropole_8: {
     annee: '2013',
@@ -449,7 +490,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Volumes']
+    tags: ["Prise d'initiatives", 'Volumes'],
   },
   dnb_2013_09_polynesie_1: {
     annee: '2013',
@@ -457,7 +498,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur']
+    tags: ['Statistiques', 'Tableur'],
   },
   dnb_2013_09_polynesie_2: {
     annee: '2013',
@@ -465,7 +506,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Volumes']
+    tags: ['Calcul numérique', 'Volumes'],
   },
   dnb_2013_09_polynesie_3: {
     annee: '2013',
@@ -473,7 +514,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Probabilités']
+    tags: ['Statistiques', 'Probabilités'],
   },
   dnb_2013_09_polynesie_4: {
     annee: '2013',
@@ -481,7 +522,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Aires et périmètres', 'Durées', 'Proportionnalité', 'Vitesses']
+    tags: [
+      'Pythagore',
+      'Aires et périmètres',
+      'Durées',
+      'Proportionnalité',
+      'Vitesses',
+    ],
   },
   dnb_2013_09_polynesie_5: {
     annee: '2013',
@@ -489,7 +536,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Thalès', 'Calcul littéral']
+    tags: ["Prise d'initiatives", 'Thalès', 'Calcul littéral'],
   },
   dnb_2013_09_polynesie_6: {
     annee: '2013',
@@ -497,7 +544,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Proportionnalité']
+    tags: ["Prise d'initiatives", 'Proportionnalité'],
   },
   dnb_2013_11_ameriquesud_1: {
     annee: '2013',
@@ -505,7 +552,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Statistiques', "Recherche d'informations", 'Pourcentages']
+    tags: ['Statistiques', "Recherche d'informations", 'Pourcentages'],
   },
   dnb_2013_11_ameriquesud_2: {
     annee: '2013',
@@ -513,7 +560,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Pythagore', 'Proportionnalité']
+    tags: ['Aires et périmètres', 'Pythagore', 'Proportionnalité'],
   },
   dnb_2013_11_ameriquesud_3: {
     annee: '2013',
@@ -521,7 +568,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Hors programme']
+    tags: ['Arithmétique', 'Hors programme'],
   },
   dnb_2013_11_ameriquesud_4: {
     annee: '2013',
@@ -529,7 +576,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Proportionnalité', 'Grandeurs composées']
+    tags: ["Prise d'initiatives", 'Proportionnalité', 'Grandeurs composées'],
   },
   dnb_2013_11_ameriquesud_5: {
     annee: '2013',
@@ -537,7 +584,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Géométrie plane']
+    tags: ['Probabilités', 'Géométrie plane'],
   },
   dnb_2013_11_ameriquesud_6: {
     annee: '2013',
@@ -545,7 +592,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Calcul littéral', 'Fonctions']
+    tags: ['Aires et périmètres', 'Calcul littéral', 'Fonctions'],
   }, // amerique sud secours nov 2013
   dnb_2013_11_ameriquesud_secours_1: {
     annee: '2013',
@@ -553,7 +600,13 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul numérique', 'Calcul littéral', 'Statistiques', 'Hors programme']
+    tags: [
+      'QCM',
+      'Calcul numérique',
+      'Calcul littéral',
+      'Statistiques',
+      'Hors programme',
+    ],
   },
   dnb_2013_11_ameriquesud_secours_2: {
     annee: '2013',
@@ -561,7 +614,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Calcul littéral', 'Équations']
+    tags: ['Calcul numérique', 'Calcul littéral', 'Équations'],
   },
   dnb_2013_11_ameriquesud_secours_3: {
     annee: '2013',
@@ -569,7 +622,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Vitesses']
+    tags: ['Pythagore', 'Trigonométrie', 'Vitesses'],
   },
   dnb_2013_11_ameriquesud_secours_4: {
     annee: '2013',
@@ -577,7 +630,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Volumes']
+    tags: ['Volumes'],
   },
   dnb_2013_11_ameriquesud_secours_5: {
     annee: '2013',
@@ -585,7 +638,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Tableur', 'Fonctions']
+    tags: ['Aires et périmètres', 'Tableur', 'Fonctions'],
   },
   dnb_2013_11_ameriquesud_secours_6: {
     annee: '2013',
@@ -593,7 +646,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives"]
+    tags: ["Prise d'initiatives"],
   }, // fin amerique sud secours nov 2013
   dnb_2013_12_caledonie_1: {
     annee: '2013',
@@ -601,7 +654,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Calcul numérique']
+    tags: ['QCM', 'Puissances', 'Calcul numérique'],
   },
   dnb_2013_12_caledonie_2: {
     annee: '2013',
@@ -609,7 +662,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Équations']
+    tags: ['Équations'],
   },
   dnb_2013_12_caledonie_3: {
     annee: '2013',
@@ -617,7 +670,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Aires et périmètres']
+    tags: ['Probabilités', 'Aires et périmètres'],
   },
   dnb_2013_12_caledonie_4: {
     annee: '2013',
@@ -625,7 +678,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Géométrie plane']
+    tags: ['Pythagore', 'Géométrie plane'],
   },
   dnb_2013_12_caledonie_5: {
     annee: '2013',
@@ -633,7 +686,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Thalès']
+    tags: ['Thalès'],
   },
   dnb_2013_12_caledonie_6: {
     annee: '2013',
@@ -641,7 +694,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Équations']
+    tags: ['Volumes', 'Équations'],
   },
   dnb_2013_12_caledonie_7: {
     annee: '2013',
@@ -649,7 +702,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2013_12_caledonie_8: {
     annee: '2013',
@@ -657,7 +710,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Fonctions']
+    tags: ['Calcul numérique', 'Fonctions'],
   }, // Calédonie mars 2014
   dnb_2014_03_caledonie_1: {
     annee: '2014',
@@ -665,7 +718,13 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Thalès', 'Calcul numérique', 'Fonctions', 'Lecture graphique']
+    tags: [
+      'QCM',
+      'Thalès',
+      'Calcul numérique',
+      'Fonctions',
+      'Lecture graphique',
+    ],
   },
   dnb_2014_03_caledonie_2: {
     annee: '2014',
@@ -673,7 +732,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Aires et périmètres']
+    tags: ['Pythagore', 'Aires et périmètres'],
   },
   dnb_2014_03_caledonie_3: {
     annee: '2014',
@@ -681,7 +740,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Hors programme', 'Arithmétique', 'Probabilités']
+    tags: ['Hors programme', 'Arithmétique', 'Probabilités'],
   },
   dnb_2014_03_caledonie_4: {
     annee: '2014',
@@ -689,7 +748,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Calcul littéral']
+    tags: ['Calcul numérique', 'Calcul littéral'],
   },
   dnb_2014_03_caledonie_5: {
     annee: '2014',
@@ -697,7 +756,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2014_03_caledonie_6: {
     annee: '2014',
@@ -705,7 +764,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Hors programme', 'Géométrie plane', 'Pythagore']
+    tags: ['Hors programme', 'Géométrie plane', 'Pythagore'],
   },
   dnb_2014_03_caledonie_7: {
     annee: '2014',
@@ -713,7 +772,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux']
+    tags: ['Vrai/Faux'],
   },
   dnb_2014_03_caledonie_8: {
     annee: '2014',
@@ -721,7 +780,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Tableur']
+    tags: ['QCM', 'Tableur'],
   }, // Fin Calédonie mars 2014
   dnb_2014_04_pondichery_1: {
     annee: '2014',
@@ -729,7 +788,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2014_04_pondichery_2: {
     annee: '2014',
@@ -737,7 +796,14 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul numérique', 'Aires et périmètres', 'Fonctions', 'Probabilités', 'Calcul littéral']
+    tags: [
+      'QCM',
+      'Calcul numérique',
+      'Aires et périmètres',
+      'Fonctions',
+      'Probabilités',
+      'Calcul littéral',
+    ],
   },
   dnb_2014_04_pondichery_3: {
     annee: '2014',
@@ -745,7 +811,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Programme de calculs'],
   },
   dnb_2014_04_pondichery_4: {
     annee: '2014',
@@ -753,7 +819,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie'],
   },
   dnb_2014_04_pondichery_5: {
     annee: '2014',
@@ -761,7 +827,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Agrandissement-réduction', 'Fonctions']
+    tags: ['Volumes', 'Agrandissement-réduction', 'Fonctions'],
   },
   dnb_2014_04_pondichery_6: {
     annee: '2014',
@@ -769,7 +835,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur', 'Pourcentages']
+    tags: ['Statistiques', 'Tableur', 'Pourcentages'],
   },
   dnb_2014_06_ameriquenord_1: {
     annee: '2014',
@@ -777,7 +843,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul numérique', 'Arithmétique', 'Équations']
+    tags: ['QCM', 'Calcul numérique', 'Arithmétique', 'Équations'],
   },
   dnb_2014_06_ameriquenord_2: {
     annee: '2014',
@@ -785,7 +851,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Volumes']
+    tags: ['Volumes'],
   },
   dnb_2014_06_ameriquenord_3: {
     annee: '2014',
@@ -793,7 +859,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Vitesses', 'Volumes', 'Pourcentages']
+    tags: ['Proportionnalité', 'Vitesses', 'Volumes', 'Pourcentages'],
   },
   dnb_2014_06_ameriquenord_4: {
     annee: '2014',
@@ -801,7 +867,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Tableur']
+    tags: ['Tableur'],
   },
   dnb_2014_06_ameriquenord_5: {
     annee: '2014',
@@ -809,7 +875,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ["Géométrie dans l'espace", 'Pythagore']
+    tags: ["Géométrie dans l'espace", 'Pythagore'],
   },
   dnb_2014_06_ameriquenord_6: {
     annee: '2014',
@@ -817,7 +883,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2014_06_ameriquenord_7: {
     annee: '2014',
@@ -825,7 +891,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Équations']
+    tags: ['Fonctions', 'Équations'],
   },
   dnb_2014_06_ameriquenord_8: {
     annee: '2014',
@@ -833,7 +899,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Aires et périmètres', 'Proportionnalité', 'Durées']
+    tags: [
+      'Grandeurs composées',
+      'Aires et périmètres',
+      'Proportionnalité',
+      'Durées',
+    ],
   },
   dnb_2014_06_ameriquenord_9: {
     annee: '2014',
@@ -841,7 +912,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '9',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie']
+    tags: ['Trigonométrie'],
   },
   dnb_2014_06_asie_1: {
     annee: '2014',
@@ -849,7 +920,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Puissances']
+    tags: ['Calcul numérique', 'Puissances'],
   },
   dnb_2014_06_asie_2: {
     annee: '2014',
@@ -857,7 +928,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2014_06_asie_3: {
     annee: '2014',
@@ -865,7 +936,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Agrandissement-réduction']
+    tags: ['Agrandissement-réduction'],
   },
   dnb_2014_06_asie_4: {
     annee: '2014',
@@ -873,7 +944,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Pourcentages', 'Arithmétique', 'Programme de calculs', 'Calcul littéral']
+    tags: [
+      'Vrai/Faux',
+      'Pourcentages',
+      'Arithmétique',
+      'Programme de calculs',
+      'Calcul littéral',
+    ],
   },
   dnb_2014_06_asie_5: {
     annee: '2014',
@@ -881,7 +958,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane']
+    tags: ['Géométrie plane'],
   },
   dnb_2014_06_asie_6: {
     annee: '2014',
@@ -889,7 +966,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Probabilités']
+    tags: ['Statistiques', 'Probabilités'],
   },
   dnb_2014_06_asie_7: {
     annee: '2014',
@@ -897,7 +974,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie']
+    tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie'],
   },
   dnb_2014_06_etrangers_1: {
     annee: '2014',
@@ -905,7 +982,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Arithmétique']
+    tags: ['Tableur', 'Arithmétique'],
   },
   dnb_2014_06_etrangers_2: {
     annee: '2014',
@@ -913,7 +990,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore']
+    tags: ['Pythagore'],
   },
   dnb_2014_06_etrangers_3: {
     annee: '2014',
@@ -921,7 +998,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Géométrie plane', 'Trigonométrie']
+    tags: ['Vrai/Faux', 'Géométrie plane', 'Trigonométrie'],
   },
   dnb_2014_06_etrangers_4: {
     annee: '2014',
@@ -929,7 +1006,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Agrandissement-réduction', 'Proportionnalité']
+    tags: ['Volumes', 'Agrandissement-réduction', 'Proportionnalité'],
   },
   dnb_2014_06_etrangers_5: {
     annee: '2014',
@@ -937,7 +1014,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral']
+    tags: ['Calcul littéral'],
   },
   dnb_2014_06_etrangers_6: {
     annee: '2014',
@@ -945,7 +1022,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Vitesses', 'Proportionnalité']
+    tags: ['Vitesses', 'Proportionnalité'],
   },
   dnb_2014_06_etrangers_7: {
     annee: '2014',
@@ -953,7 +1030,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2014_06_metropole_1: {
     annee: '2014',
@@ -961,7 +1038,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane']
+    tags: ['Géométrie plane'],
   },
   dnb_2014_06_metropole_2: {
     annee: '2014',
@@ -969,7 +1046,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ["Recherche d'informations", 'Pourcentages']
+    tags: ["Recherche d'informations", 'Pourcentages'],
   },
   dnb_2014_06_metropole_3: {
     annee: '2014',
@@ -977,7 +1054,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations'],
   },
   dnb_2014_06_metropole_4: {
     annee: '2014',
@@ -985,7 +1062,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur', 'Probabilités']
+    tags: ['Statistiques', 'Tableur', 'Probabilités'],
   },
   dnb_2014_06_metropole_5: {
     annee: '2014',
@@ -993,7 +1070,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Agrandissement-réduction', 'Vitesses', 'Calcul numérique', 'Puissances']
+    tags: [
+      'QCM',
+      'Agrandissement-réduction',
+      'Vitesses',
+      'Calcul numérique',
+      'Puissances',
+    ],
   },
   dnb_2014_06_metropole_6: {
     annee: '2014',
@@ -1001,7 +1084,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Trigonométrie']
+    tags: ['Thalès', 'Trigonométrie'],
   },
   dnb_2014_06_metropole_7: {
     annee: '2014',
@@ -1009,7 +1092,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Proportionnalité', 'Pythagore']
+    tags: ['Volumes', 'Proportionnalité', 'Pythagore'],
   },
   dnb_2014_06_polynesie_1: {
     annee: '2014',
@@ -1017,7 +1100,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2014_06_polynesie_2: {
     annee: '2014',
@@ -1025,7 +1108,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnb_2014_06_polynesie_3: {
     annee: '2014',
@@ -1033,7 +1116,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur']
+    tags: ['Fonctions', 'Tableur'],
   },
   dnb_2014_06_polynesie_4: {
     annee: '2014',
@@ -1041,7 +1124,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Arithmétique', 'Calcul numérique']
+    tags: ['Vrai/Faux', 'Arithmétique', 'Calcul numérique'],
   },
   dnb_2014_06_polynesie_5: {
     annee: '2014',
@@ -1049,7 +1132,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Tableur']
+    tags: ['Tableur'],
   },
   dnb_2014_06_polynesie_6: {
     annee: '2014',
@@ -1057,7 +1140,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Proportionnalité', "Recherche d'informations", 'Durées']
+    tags: ['Volumes', 'Proportionnalité', "Recherche d'informations", 'Durées'],
   },
   dnb_2014_06_polynesie_7: {
     annee: '2014',
@@ -1065,7 +1148,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane']
+    tags: ['Géométrie plane'],
   },
   dnb_2014_09_metropole_1: {
     annee: '2014',
@@ -1073,7 +1156,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Vitesses']
+    tags: ['Fonctions', 'Vitesses'],
   },
   dnb_2014_09_metropole_2: {
     annee: '2014',
@@ -1081,7 +1164,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Volumes', 'Géométrie plane', 'Pythagore', 'Fonctions']
+    tags: ['Vrai/Faux', 'Volumes', 'Géométrie plane', 'Pythagore', 'Fonctions'],
   },
   dnb_2014_09_metropole_3: {
     annee: '2014',
@@ -1089,7 +1172,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Pourcentages']
+    tags: ['Probabilités', 'Pourcentages'],
   },
   dnb_2014_09_metropole_4: {
     annee: '2014',
@@ -1097,7 +1180,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie']
+    tags: ['Pythagore', 'Trigonométrie'],
   },
   dnb_2014_09_metropole_5: {
     annee: '2014',
@@ -1105,7 +1188,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Tableur', 'Équations']
+    tags: ['Calcul littéral', 'Tableur', 'Équations'],
   },
   dnb_2014_09_metropole_6: {
     annee: '2014',
@@ -1113,7 +1196,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Agrandissement-réduction', 'Aires et périmètres']
+    tags: ['Thalès', 'Agrandissement-réduction', 'Aires et périmètres'],
   },
   dnb_2014_09_metropole_7: {
     annee: '2014',
@@ -1121,7 +1204,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ["Recherche d'informations", 'Durées', 'Proportionnalité']
+    tags: ["Recherche d'informations", 'Durées', 'Proportionnalité'],
   },
   dnb_2014_09_polynesie_1: {
     annee: '2014',
@@ -1129,7 +1212,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique']
+    tags: ['Calcul numérique'],
   },
   dnb_2014_09_polynesie_2: {
     annee: '2014',
@@ -1137,7 +1220,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Pythagore']
+    tags: ['Proportionnalité', 'Pythagore'],
   },
   dnb_2014_09_polynesie_3: {
     annee: '2014',
@@ -1145,7 +1228,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2014_09_polynesie_4: {
     annee: '2014',
@@ -1153,7 +1236,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Thalès', 'Aires et périmètres']
+    tags: ['Pythagore', 'Trigonométrie', 'Thalès', 'Aires et périmètres'],
   },
   dnb_2014_09_polynesie_5: {
     annee: '2014',
@@ -1161,7 +1244,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2014_09_polynesie_6: {
     annee: '2014',
@@ -1169,7 +1252,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Aires et périmètres', 'Équations']
+    tags: ['Pythagore', 'Aires et périmètres', 'Équations'],
   },
   dnb_2014_09_polynesie_7: {
     annee: '2014',
@@ -1177,7 +1260,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations'],
   },
   dnb_2014_09_polynesie_8: {
     annee: '2014',
@@ -1185,7 +1268,12 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ["Recherche d'informations", 'Statistiques', 'Pourcentages', 'Équations']
+    tags: [
+      "Recherche d'informations",
+      'Statistiques',
+      'Pourcentages',
+      'Équations',
+    ],
   },
   dnb_2014_11_ameriquesud_1: {
     annee: '2014',
@@ -1193,7 +1281,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul numérique', 'Vitesses']
+    tags: ['QCM', 'Calcul numérique', 'Vitesses'],
   },
   dnb_2014_11_ameriquesud_2: {
     annee: '2014',
@@ -1201,7 +1289,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', "Géométrie dans l'espace", 'Volumes']
+    tags: ['Aires et périmètres', "Géométrie dans l'espace", 'Volumes'],
   },
   dnb_2014_11_ameriquesud_3: {
     annee: '2014',
@@ -1209,7 +1297,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ["Recherche d'informations"]
+    tags: ["Recherche d'informations"],
   },
   dnb_2014_11_ameriquesud_4: {
     annee: '2014',
@@ -1217,7 +1305,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2014_11_ameriquesud_5: {
     annee: '2014',
@@ -1225,7 +1313,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Durées', 'Tableur', 'Fonctions']
+    tags: ['Durées', 'Tableur', 'Fonctions'],
   },
   dnb_2014_11_ameriquesud_6: {
     annee: '2014',
@@ -1233,7 +1321,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Équations', 'Pourcentages']
+    tags: ['Calcul littéral', 'Équations', 'Pourcentages'],
   },
   dnb_2014_11_ameriquesud_7: {
     annee: '2014',
@@ -1241,7 +1329,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Thalès']
+    tags: ['Thalès'],
   },
   dnb_2014_12_caledonie_1: {
     annee: '2014',
@@ -1249,7 +1337,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul numérique', 'Pourcentages']
+    tags: ['QCM', 'Calcul numérique', 'Pourcentages'],
   },
   dnb_2014_12_caledonie_2: {
     annee: '2014',
@@ -1257,7 +1345,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2014_12_caledonie_3: {
     annee: '2014',
@@ -1265,7 +1353,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Thalès']
+    tags: ['Géométrie plane', 'Thalès'],
   },
   dnb_2014_12_caledonie_4: {
     annee: '2014',
@@ -1273,7 +1361,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Vitesses', "Recherche d'informations"]
+    tags: ['Vitesses', "Recherche d'informations"],
   },
   dnb_2014_12_caledonie_5: {
     annee: '2014',
@@ -1281,7 +1369,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2014_12_caledonie_6: {
     annee: '2014',
@@ -1289,7 +1377,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Pythagore']
+    tags: ['Géométrie plane', 'Pythagore'],
   },
   dnb_2014_12_caledonie_7: {
     annee: '2014',
@@ -1297,7 +1385,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Équations']
+    tags: ['Fonctions', 'Tableur', 'Équations'],
   },
   dnb_2014_12_caledonie_8: {
     annee: '2014',
@@ -1305,7 +1393,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Proportionnalité']
+    tags: ['Volumes', 'Proportionnalité'],
   },
   dnb_2015_04_pondichery_1: {
     annee: '2015',
@@ -1313,7 +1401,14 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul littéral', 'Équations', 'Fonctions', 'Agrandissement-réduction', 'Tableur']
+    tags: [
+      'QCM',
+      'Calcul littéral',
+      'Équations',
+      'Fonctions',
+      'Agrandissement-réduction',
+      'Tableur',
+    ],
   },
   dnb_2015_04_pondichery_2: {
     annee: '2015',
@@ -1321,7 +1416,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2015_04_pondichery_3: {
     annee: '2015',
@@ -1329,7 +1424,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Calcul numérique', 'Pourcentages']
+    tags: ["Prise d'initiatives", 'Calcul numérique', 'Pourcentages'],
   },
   dnb_2015_04_pondichery_4: {
     annee: '2015',
@@ -1337,7 +1432,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Agrandissement-réduction']
+    tags: ['Volumes', 'Agrandissement-réduction'],
   },
   dnb_2015_04_pondichery_5: {
     annee: '2015',
@@ -1345,7 +1440,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2015_04_pondichery_6: {
     annee: '2015',
@@ -1353,7 +1448,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Aires et périmètres']
+    tags: ['Pythagore', 'Trigonométrie', 'Aires et périmètres'],
   },
   dnb_2015_04_pondichery_7: {
     annee: '2015',
@@ -1361,7 +1456,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Aires et périmètres', 'Calcul littéral']
+    tags: ["Prise d'initiatives", 'Aires et périmètres', 'Calcul littéral'],
   },
   dnb_2015_06_ameriquenord_1: {
     annee: '2015',
@@ -1369,7 +1464,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Calcul littéral', 'Pourcentages', 'Agrandissement-réduction']
+    tags: [
+      'QCM',
+      'Puissances',
+      'Calcul littéral',
+      'Pourcentages',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2015_06_ameriquenord_2: {
     annee: '2015',
@@ -1377,7 +1478,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Proportionnalité']
+    tags: ['Fonctions', 'Proportionnalité'],
   },
   dnb_2015_06_ameriquenord_3: {
     annee: '2015',
@@ -1385,7 +1486,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Probabilités']
+    tags: ['Statistiques', 'Probabilités'],
   },
   dnb_2015_06_ameriquenord_4: {
     annee: '2015',
@@ -1393,7 +1494,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Programme de calculs'],
   },
   dnb_2015_06_ameriquenord_5: {
     annee: '2015',
@@ -1401,7 +1502,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Thalès']
+    tags: ['Thalès'],
   },
   dnb_2015_06_ameriquenord_6: {
     annee: '2015',
@@ -1409,7 +1510,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Durées']
+    tags: ['Statistiques', 'Durées'],
   },
   dnb_2015_06_asie_1: {
     annee: '2015',
@@ -1417,7 +1518,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Calcul littéral', 'Calcul numérique']
+    tags: ['QCM', 'Puissances', 'Calcul littéral', 'Calcul numérique'],
   },
   dnb_2015_06_asie_2: {
     annee: '2015',
@@ -1425,7 +1526,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Proportionnalité']
+    tags: ['Pythagore', 'Proportionnalité'],
   },
   dnb_2015_06_asie_3: {
     annee: '2015',
@@ -1433,7 +1534,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2015_06_asie_4: {
     annee: '2015',
@@ -1441,7 +1542,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Arithmétique']
+    tags: ["Prise d'initiatives", 'Arithmétique'],
   },
   dnb_2015_06_asie_5: {
     annee: '2015',
@@ -1449,7 +1550,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Proportionnalité']
+    tags: ['Trigonométrie', 'Proportionnalité'],
   },
   dnb_2015_06_asie_6: {
     annee: '2015',
@@ -1457,7 +1558,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Équations']
+    tags: ['Fonctions', 'Tableur', 'Équations'],
   },
   dnb_2015_06_asie_7: {
     annee: '2015',
@@ -1465,7 +1566,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Volumes']
+    tags: ['Volumes'],
   },
   dnb_2015_06_etrangers_1: {
     annee: '2015',
@@ -1473,7 +1574,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2015_06_etrangers_2: {
     annee: '2015',
@@ -1481,7 +1582,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Vitesses']
+    tags: ['Proportionnalité', 'Vitesses'],
   },
   dnb_2015_06_etrangers_3: {
     annee: '2015',
@@ -1489,7 +1590,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Géométrie plane', 'Pythagore']
+    tags: ['Aires et périmètres', 'Géométrie plane', 'Pythagore'],
   },
   dnb_2015_06_etrangers_4: {
     annee: '2015',
@@ -1497,7 +1598,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Équations', 'Tableur', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Équations', 'Tableur', 'Programme de calculs'],
   },
   dnb_2015_06_etrangers_5: {
     annee: '2015',
@@ -1505,7 +1606,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Proportionnalité', 'Équations']
+    tags: ['Fonctions', 'Proportionnalité', 'Équations'],
   },
   dnb_2015_06_etrangers_6: {
     annee: '2015',
@@ -1513,7 +1614,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Grandeurs composées']
+    tags: ['Volumes', 'Grandeurs composées'],
   }, // Maroc
   dnb_2015_06_etrangers_maroc_1: {
     annee: '2015',
@@ -1521,7 +1622,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2015_06_etrangers_maroc_2: {
     annee: '2015',
@@ -1529,7 +1630,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Équations', 'Puissances', 'Calcul numérique']
+    tags: ['QCM', 'Équations', 'Puissances', 'Calcul numérique'],
   },
   dnb_2015_06_etrangers_maroc_3: {
     annee: '2015',
@@ -1537,7 +1638,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2015_06_etrangers_maroc_4: {
     annee: '2015',
@@ -1545,7 +1646,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Tableur', 'Statistiques']
+    tags: ['Trigonométrie', 'Tableur', 'Statistiques'],
   },
   dnb_2015_06_etrangers_maroc_5: {
     annee: '2015',
@@ -1553,7 +1654,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Pourcentages', 'Fonctions', 'Thalès']
+    tags: ['Vrai/Faux', 'Pourcentages', 'Fonctions', 'Thalès'],
   },
   dnb_2015_06_etrangers_maroc_6: {
     annee: '2015',
@@ -1561,7 +1662,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Équations', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Équations', 'Programme de calculs'],
   },
   dnb_2015_06_etrangers_maroc_7: {
     annee: '2015',
@@ -1569,7 +1670,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Aires et périmètres', 'Grandeurs composées']
+    tags: ['Volumes', 'Aires et périmètres', 'Grandeurs composées'],
   },
   dnb_2015_06_metropole_1: {
     annee: '2015',
@@ -1577,7 +1678,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur', 'Pourcentages']
+    tags: ['Statistiques', 'Tableur', 'Pourcentages'],
   },
   dnb_2015_06_metropole_2: {
     annee: '2015',
@@ -1585,7 +1686,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Programme de calculs'],
   },
   dnb_2015_06_metropole_3: {
     annee: '2015',
@@ -1593,7 +1694,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnb_2015_06_metropole_4: {
     annee: '2015',
@@ -1601,7 +1702,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Probabilités', 'Puissances', 'Arithmétique', 'Équations']
+    tags: [
+      'Fonctions',
+      'Probabilités',
+      'Puissances',
+      'Arithmétique',
+      'Équations',
+    ],
   },
   dnb_2015_06_metropole_5: {
     annee: '2015',
@@ -1609,7 +1716,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Aires et périmètres', 'Calcul numérique', 'Proportionnalité']
+    tags: [
+      "Prise d'initiatives",
+      'Aires et périmètres',
+      'Calcul numérique',
+      'Proportionnalité',
+    ],
   },
   dnb_2015_06_metropole_6: {
     annee: '2015',
@@ -1617,7 +1729,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Fonctions', 'Vitesses']
+    tags: ['Proportionnalité', 'Fonctions', 'Vitesses'],
   },
   dnb_2015_06_metropole_7: {
     annee: '2015',
@@ -1625,7 +1737,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Calcul numérique']
+    tags: ['Trigonométrie', 'Calcul numérique'],
   },
   dnb_2015_06_polynesie_1: {
     annee: '2015',
@@ -1633,7 +1745,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2015_06_polynesie_2: {
     annee: '2015',
@@ -1641,7 +1753,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2015_06_polynesie_3: {
     annee: '2015',
@@ -1649,7 +1761,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Thalès']
+    tags: ['Pythagore', 'Trigonométrie', 'Thalès'],
   },
   dnb_2015_06_polynesie_4: {
     annee: '2015',
@@ -1657,7 +1769,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Puissances', 'Calcul littéral']
+    tags: ['Pourcentages', 'Puissances', 'Calcul littéral'],
   },
   dnb_2015_06_polynesie_5: {
     annee: '2015',
@@ -1665,7 +1777,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Vitesses']
+    tags: ['Proportionnalité', 'Vitesses'],
   },
   dnb_2015_06_polynesie_6: {
     annee: '2015',
@@ -1673,7 +1785,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Tableur', 'Équations', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Tableur', 'Équations', 'Programme de calculs'],
   },
   dnb_2015_06_polynesie_7: {
     annee: '2015',
@@ -1681,7 +1793,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Proportionnalité', 'Aires et périmètres']
+    tags: ["Prise d'initiatives", 'Proportionnalité', 'Aires et périmètres'],
   },
   dnb_2015_09_metropole_1: {
     annee: '2015',
@@ -1689,7 +1801,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Équations', 'Programme de calculs']
+    tags: ['Fonctions', 'Tableur', 'Équations', 'Programme de calculs'],
   },
   dnb_2015_09_metropole_2: {
     annee: '2015',
@@ -1697,7 +1809,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Aires et périmètres']
+    tags: ['Pythagore', 'Thalès', 'Aires et périmètres'],
   },
   dnb_2015_09_metropole_3: {
     annee: '2015',
@@ -1705,7 +1817,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Proportionnalité', 'Durées', 'Vitesses']
+    tags: ["Prise d'initiatives", 'Proportionnalité', 'Durées', 'Vitesses'],
   },
   dnb_2015_09_metropole_4: {
     annee: '2015',
@@ -1713,7 +1825,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Équations']
+    tags: ['Équations'],
   },
   dnb_2015_09_metropole_5: {
     annee: '2015',
@@ -1721,7 +1833,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Programme de calculs'],
   },
   dnb_2015_09_metropole_6: {
     annee: '2015',
@@ -1729,7 +1841,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Durées', 'Pourcentages', 'Probabilités', 'Statistiques']
+    tags: ['Durées', 'Pourcentages', 'Probabilités', 'Statistiques'],
   },
   dnb_2015_09_metropole_7: {
     annee: '2015',
@@ -1737,7 +1849,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie']
+    tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie'],
   },
   dnb_2015_09_polynesie_1: {
     annee: '2015',
@@ -1745,7 +1857,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Équations']
+    tags: ['Calcul littéral', 'Équations'],
   },
   dnb_2015_09_polynesie_2: {
     annee: '2015',
@@ -1753,7 +1865,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Trigonométrie', 'Équations', 'Pourcentages', 'Probabilités']
+    tags: [
+      'Vrai/Faux',
+      'Trigonométrie',
+      'Équations',
+      'Pourcentages',
+      'Probabilités',
+    ],
   },
   dnb_2015_09_polynesie_3: {
     annee: '2015',
@@ -1761,7 +1879,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Calcul numérique']
+    tags: ['Fonctions', 'Calcul numérique'],
   },
   dnb_2015_09_polynesie_4: {
     annee: '2015',
@@ -1769,7 +1887,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Hors programme']
+    tags: ['Hors programme'],
   },
   dnb_2015_09_polynesie_5: {
     annee: '2015',
@@ -1777,7 +1895,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Proportionnalité', 'Volumes']
+    tags: ['Aires et périmètres', 'Proportionnalité', 'Volumes'],
   },
   dnb_2015_09_polynesie_6: {
     annee: '2015',
@@ -1785,7 +1903,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnb_2015_09_polynesie_7: {
     annee: '2015',
@@ -1793,7 +1911,12 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Grandeurs composées', 'Tableur', 'Calcul numérique']
+    tags: [
+      'Proportionnalité',
+      'Grandeurs composées',
+      'Tableur',
+      'Calcul numérique',
+    ],
   },
   dnb_2015_12_ameriquesud_1: {
     annee: '2015',
@@ -1801,7 +1924,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul numérique', 'Arithmétique', 'Hors programme']
+    tags: ['QCM', 'Calcul numérique', 'Arithmétique', 'Hors programme'],
   },
   dnb_2015_12_ameriquesud_2: {
     annee: '2015',
@@ -1809,7 +1932,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur']
+    tags: ['Fonctions', 'Tableur'],
   },
   dnb_2015_12_ameriquesud_3: {
     annee: '2015',
@@ -1817,7 +1940,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2015_12_ameriquesud_4: {
     annee: '2015',
@@ -1825,7 +1948,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie'],
   },
   dnb_2015_12_ameriquesud_5: {
     annee: '2015',
@@ -1833,7 +1956,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Calcul littéral', 'Proportionnalité']
+    tags: ['Vrai/Faux', 'Calcul littéral', 'Proportionnalité'],
   },
   dnb_2015_12_ameriquesud_6: {
     annee: '2015',
@@ -1841,7 +1964,12 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Volumes', 'Pourcentages', 'Proportionnalité']
+    tags: [
+      "Prise d'initiatives",
+      'Volumes',
+      'Pourcentages',
+      'Proportionnalité',
+    ],
   },
   dnb_2015_12_ameriquesud_7: {
     annee: '2015',
@@ -1849,7 +1977,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Agrandissement-réduction', 'Pythagore']
+    tags: ['Volumes', 'Agrandissement-réduction', 'Pythagore'],
   },
   dnb_2015_12_ameriquesud_8: {
     annee: '2015',
@@ -1857,7 +1985,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Équations']
+    tags: ["Prise d'initiatives", 'Équations'],
   },
   dnb_2015_12_caledonie_1: {
     annee: '2015',
@@ -1865,7 +1993,13 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Aires et périmètres', 'Probabilités', 'Volumes', 'Équations']
+    tags: [
+      'QCM',
+      'Aires et périmètres',
+      'Probabilités',
+      'Volumes',
+      'Équations',
+    ],
   },
   dnb_2015_12_caledonie_2: {
     annee: '2015',
@@ -1873,7 +2007,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie']
+    tags: ['Trigonométrie'],
   },
   dnb_2015_12_caledonie_3: {
     annee: '2015',
@@ -1881,7 +2015,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pourcentages']
+    tags: ['Pourcentages'],
   },
   dnb_2015_12_caledonie_4: {
     annee: '2015',
@@ -1889,7 +2023,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Pythagore']
+    tags: ["Prise d'initiatives", 'Pythagore'],
   },
   dnb_2015_12_caledonie_5: {
     annee: '2015',
@@ -1897,7 +2031,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2015_12_caledonie_6: {
     annee: '2015',
@@ -1905,7 +2039,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Aires et périmètres']
+    tags: ['Géométrie plane', 'Aires et périmètres'],
   },
   dnb_2015_12_caledonie_7: {
     annee: '2015',
@@ -1913,7 +2047,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Hors programme']
+    tags: ['Hors programme'],
   },
   dnb_2015_12_caledonie_8: {
     annee: '2015',
@@ -1921,7 +2055,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2015_12_caledonie_9: {
     annee: '2015',
@@ -1929,7 +2063,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '9',
     typeExercice: 'dnb',
-    tags: ['Thalès']
+    tags: ['Thalès'],
   },
   dnb_2016_04_pondichery_1: {
     annee: '2016',
@@ -1937,7 +2071,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Durées', 'Vitesses']
+    tags: ['Grandeurs composées', 'Durées', 'Vitesses'],
   },
   dnb_2016_04_pondichery_2: {
     annee: '2016',
@@ -1945,7 +2079,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Statistiques', 'Tableur']
+    tags: ['Pourcentages', 'Statistiques', 'Tableur'],
   },
   dnb_2016_04_pondichery_3: {
     annee: '2016',
@@ -1953,7 +2087,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Probabilités']
+    tags: ['Arithmétique', 'Probabilités'],
   },
   dnb_2016_04_pondichery_4: {
     annee: '2016',
@@ -1961,7 +2095,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Pythagore', 'Thalès']
+    tags: ['Grandeurs composées', 'Pythagore', 'Thalès'],
   },
   dnb_2016_04_pondichery_5: {
     annee: '2016',
@@ -1969,7 +2103,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Fonctions']
+    tags: ['Calcul littéral', 'Fonctions'],
   },
   dnb_2016_04_pondichery_6: {
     annee: '2016',
@@ -1977,7 +2111,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Pourcentages']
+    tags: ['Pourcentages'],
   },
   dnb_2016_04_pondichery_7: {
     annee: '2016',
@@ -1985,7 +2119,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Hors programme', 'QCM']
+    tags: ['Calcul littéral', 'Hors programme', 'QCM'],
   },
   dnb_2016_04_pondichery_8: {
     annee: '2016',
@@ -1993,7 +2127,7 @@ export const dictionnaireDNB = {
     mois: 'Avril',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Aires et périmètres', 'Volumes']
+    tags: ['Proportionnalité', 'Aires et périmètres', 'Volumes'],
   },
   dnb_2016_06_ameriquenord_1: {
     annee: '2016',
@@ -2001,7 +2135,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Équations', 'Pourcentages', 'Pythagore']
+    tags: ['Calcul numérique', 'Équations', 'Pourcentages', 'Pythagore'],
   },
   dnb_2016_06_ameriquenord_2: {
     annee: '2016',
@@ -2009,7 +2143,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2016_06_ameriquenord_3: {
     annee: '2016',
@@ -2017,7 +2151,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur']
+    tags: ['Statistiques', 'Tableur'],
   },
   dnb_2016_06_ameriquenord_4: {
     annee: '2016',
@@ -2025,7 +2159,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Trigonométrie', 'Durées']
+    tags: ['Grandeurs composées', 'Trigonométrie', 'Durées'],
   },
   dnb_2016_06_ameriquenord_5: {
     annee: '2016',
@@ -2033,7 +2167,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Proportionnalité']
+    tags: ['Fonctions', 'Proportionnalité'],
   },
   dnb_2016_06_ameriquenord_6: {
     annee: '2016',
@@ -2041,7 +2175,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Volumes']
+    tags: ['Pythagore', 'Thalès', 'Volumes'],
   },
   dnb_2016_06_ameriquenord_7: {
     annee: '2016',
@@ -2049,7 +2183,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Fonctions', "Recherche d'informations"]
+    tags: ['Fonctions', "Recherche d'informations"],
   },
   dnb_2016_06_metropole_1: {
     annee: '2016',
@@ -2057,7 +2191,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Probabilités']
+    tags: ['Pourcentages', 'Probabilités'],
   },
   dnb_2016_06_metropole_2: {
     annee: '2016',
@@ -2065,7 +2199,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs']
+    tags: ['Programme de calculs'],
   },
   dnb_2016_06_metropole_3: {
     annee: '2016',
@@ -2073,7 +2207,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Pythagore', 'Géométrie plane', "Prise d'initiatives"]
+    tags: [
+      'Trigonométrie',
+      'Pythagore',
+      'Géométrie plane',
+      "Prise d'initiatives",
+    ],
   },
   dnb_2016_06_metropole_4: {
     annee: '2016',
@@ -2081,7 +2220,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pourcentages']
+    tags: ['Pourcentages'],
   },
   dnb_2016_06_metropole_5: {
     annee: '2016',
@@ -2089,7 +2228,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Aires et périmètres', 'Thalès']
+    tags: ['Grandeurs composées', 'Aires et périmètres', 'Thalès'],
   },
   dnb_2016_06_metropole_6: {
     annee: '2016',
@@ -2097,7 +2236,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Aires et périmètres']
+    tags: ['Fonctions', 'Aires et périmètres'],
   },
   dnb_2016_06_metropole_7: {
     annee: '2016',
@@ -2105,7 +2244,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Volumes']
+    tags: ['Proportionnalité', 'Volumes'],
   },
   dnb_2016_06_asie_1: {
     annee: '2016',
@@ -2113,7 +2252,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Équations', 'Probabilités', 'Agrandissement-réduction', 'Hors programme']
+    tags: [
+      'Équations',
+      'Probabilités',
+      'Agrandissement-réduction',
+      'Hors programme',
+    ],
   },
   dnb_2016_06_asie_2: {
     annee: '2016',
@@ -2121,7 +2265,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Pythagore', 'Thalès']
+    tags: ['Trigonométrie', 'Pythagore', 'Thalès'],
   },
   dnb_2016_06_asie_3: {
     annee: '2016',
@@ -2129,7 +2273,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2016_06_asie_4: {
     annee: '2016',
@@ -2137,7 +2281,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Aires et périmètres', 'Vitesses', "Recherche d'informations"]
+    tags: [
+      'Grandeurs composées',
+      'Aires et périmètres',
+      'Vitesses',
+      "Recherche d'informations",
+    ],
   },
   dnb_2016_06_asie_5: {
     annee: '2016',
@@ -2145,7 +2294,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur']
+    tags: ['Fonctions', 'Tableur'],
   },
   dnb_2016_06_asie_6: {
     annee: '2016',
@@ -2153,7 +2302,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Calcul numérique', 'Pourcentages']
+    tags: ['Arithmétique', 'Calcul numérique', 'Pourcentages'],
   },
   dnb_2016_06_asie_7: {
     annee: '2016',
@@ -2161,7 +2310,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Proportionnalité', 'Volumes']
+    tags: ['Grandeurs composées', 'Proportionnalité', 'Volumes'],
   },
   dnb_2016_06_etrangers_1: {
     annee: '2016',
@@ -2169,7 +2318,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Fonctions', 'Trigonométrie', 'QCM']
+    tags: ['Calcul numérique', 'Fonctions', 'Trigonométrie', 'QCM'],
   },
   dnb_2016_06_etrangers_2: {
     annee: '2016',
@@ -2177,7 +2326,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Pourcentages', 'Proportionnalité', 'Vrai/Faux', 'Vitesses']
+    tags: [
+      'Grandeurs composées',
+      'Pourcentages',
+      'Proportionnalité',
+      'Vrai/Faux',
+      'Vitesses',
+    ],
   },
   dnb_2016_06_etrangers_3: {
     annee: '2016',
@@ -2185,7 +2340,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur']
+    tags: ['Statistiques', 'Tableur'],
   },
   dnb_2016_06_etrangers_4: {
     annee: '2016',
@@ -2193,7 +2348,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Volumes']
+    tags: ['Volumes'],
   },
   dnb_2016_06_etrangers_5: {
     annee: '2016',
@@ -2201,7 +2356,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Équations']
+    tags: ['Équations'],
   },
   dnb_2016_06_etrangers_6: {
     annee: '2016',
@@ -2209,7 +2364,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2016_06_etrangers_7: {
     annee: '2016',
@@ -2217,7 +2372,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Volumes']
+    tags: ['Proportionnalité', 'Volumes'],
   },
   dnb_2016_06_etrangers_8: {
     annee: '2016',
@@ -2225,7 +2380,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Proportionnalité', 'Volumes']
+    tags: ['Fonctions', 'Proportionnalité', 'Volumes'],
   },
   dnb_2016_06_etrangers_9: {
     annee: '2016',
@@ -2233,7 +2388,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '9',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', "Recherche d'informations"]
+    tags: ['Pourcentages', "Recherche d'informations"],
   },
   dnb_2016_06_polynesie_1: {
     annee: '2016',
@@ -2241,7 +2396,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2016_06_polynesie_2: {
     annee: '2016',
@@ -2249,7 +2404,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs']
+    tags: ['Programme de calculs'],
   },
   dnb_2016_06_polynesie_3: {
     annee: '2016',
@@ -2257,7 +2412,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Pythagore', 'Thalès', 'Hors programme', 'Géométrie plane']
+    tags: [
+      'Trigonométrie',
+      'Pythagore',
+      'Thalès',
+      'Hors programme',
+      'Géométrie plane',
+    ],
   },
   dnb_2016_06_polynesie_4: {
     annee: '2016',
@@ -2265,7 +2426,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Statistiques', 'Tableur', 'Durées', 'Vitesses', "Recherche d'informations"]
+    tags: [
+      'Grandeurs composées',
+      'Statistiques',
+      'Tableur',
+      'Durées',
+      'Vitesses',
+      "Recherche d'informations",
+    ],
   },
   dnb_2016_06_polynesie_5: {
     annee: '2016',
@@ -2273,7 +2441,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Volumes', "Géométrie dans l'espace"]
+    tags: ['Volumes', "Géométrie dans l'espace"],
   },
   dnb_2016_06_polynesie_6: {
     annee: '2016',
@@ -2281,7 +2449,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Proportionnalité', "Recherche d'informations"]
+    tags: ['Fonctions', 'Proportionnalité', "Recherche d'informations"],
   },
   dnb_2016_06_polynesie_7: {
     annee: '2016',
@@ -2289,7 +2457,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Fractions', 'Grandeurs composées']
+    tags: ['Fractions', 'Grandeurs composées'],
   },
   dnb_2016_09_metropole_1: {
     annee: '2016',
@@ -2297,7 +2465,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Grandeurs composées', 'Durées']
+    tags: ['Fonctions', 'Grandeurs composées', 'Durées'],
   },
   dnb_2016_09_metropole_2: {
     annee: '2016',
@@ -2305,7 +2473,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnb_2016_09_metropole_3: {
     annee: '2016',
@@ -2313,7 +2481,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Proportionnalité', 'Tableur']
+    tags: ['Pourcentages', 'Proportionnalité', 'Tableur'],
   },
   dnb_2016_09_metropole_4: {
     annee: '2016',
@@ -2321,7 +2489,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Fonctions', 'Fractions', 'Hors programme', 'Vitesses']
+    tags: [
+      'Calcul littéral',
+      'Fonctions',
+      'Fractions',
+      'Hors programme',
+      'Vitesses',
+    ],
   },
   dnb_2016_09_metropole_5: {
     annee: '2016',
@@ -2329,7 +2503,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Hors programme', 'Géométrie plane', "Prise d'initiatives"]
+    tags: ['Hors programme', 'Géométrie plane', "Prise d'initiatives"],
   },
   dnb_2016_09_metropole_6: {
     annee: '2016',
@@ -2337,7 +2511,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Pourcentages', 'Proportionnalité', 'Trigonométrie', 'Aires et périmètres']
+    tags: [
+      'Grandeurs composées',
+      'Pourcentages',
+      'Proportionnalité',
+      'Trigonométrie',
+      'Aires et périmètres',
+    ],
   },
   dnb_2016_09_metropole_7: {
     annee: '2016',
@@ -2345,7 +2525,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Équations', 'Aires et périmètres']
+    tags: ['Équations', 'Aires et périmètres'],
   },
   dnb_2016_12_ameriquesud_1: {
     annee: '2016',
@@ -2353,7 +2533,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Probabilités', 'Puissances', 'QCM']
+    tags: ['Pourcentages', 'Probabilités', 'Puissances', 'QCM'],
   },
   dnb_2016_12_ameriquesud_2: {
     annee: '2016',
@@ -2361,7 +2541,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Fractions', 'Vitesses', "Recherche d'informations"]
+    tags: ['Fonctions', 'Fractions', 'Vitesses', "Recherche d'informations"],
   },
   dnb_2016_12_ameriquesud_3: {
     annee: '2016',
@@ -2369,7 +2549,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2016_12_ameriquesud_4: {
     annee: '2016',
@@ -2377,7 +2557,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Thalès']
+    tags: ['Thalès'],
   },
   dnb_2016_12_ameriquesud_5: {
     annee: '2016',
@@ -2385,7 +2565,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', "Recherche d'informations"]
+    tags: ['Fonctions', "Recherche d'informations"],
   },
   dnb_2016_12_ameriquesud_6: {
     annee: '2016',
@@ -2393,7 +2573,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Aires et périmètres']
+    tags: ['Proportionnalité', 'Aires et périmètres'],
   },
   dnb_2016_12_ameriquesud_7: {
     annee: '2016',
@@ -2401,7 +2581,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Statistiques', 'Trigonométrie', 'Tableur']
+    tags: ['Grandeurs composées', 'Statistiques', 'Trigonométrie', 'Tableur'],
   },
   dnb_2017_05_pondichery_1: {
     annee: '2017',
@@ -2409,7 +2589,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral']
+    tags: ['Calcul littéral'],
   },
   dnb_2017_05_pondichery_2: {
     annee: '2017',
@@ -2417,7 +2597,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique']
+    tags: ['Probabilités', 'Arithmétique'],
   },
   dnb_2017_05_pondichery_3: {
     annee: '2017',
@@ -2425,7 +2605,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations']
+    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations'],
   },
   dnb_2017_05_pondichery_4: {
     annee: '2017',
@@ -2433,7 +2613,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Fonctions']
+    tags: ['Probabilités', 'Fonctions'],
   },
   dnb_2017_05_pondichery_5: {
     annee: '2017',
@@ -2441,7 +2621,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Proportionnalité', 'Volumes']
+    tags: ['Calcul numérique', 'Proportionnalité', 'Volumes'],
   },
   dnb_2017_05_pondichery_6: {
     annee: '2017',
@@ -2449,7 +2629,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie']
+    tags: ['Pythagore', 'Trigonométrie'],
   },
   dnb_2017_05_pondichery_7: {
     annee: '2017',
@@ -2457,7 +2637,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Aires et périmètres']
+    tags: ['Proportionnalité', 'Aires et périmètres'],
   },
   dnb_2017_06_ameriquenord_1: {
     annee: '2017',
@@ -2465,7 +2645,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Fractions', 'Équations']
+    tags: ['QCM', 'Fractions', 'Équations'],
   },
   dnb_2017_06_ameriquenord_2: {
     annee: '2017',
@@ -2473,7 +2653,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Pythagore', 'Aires et périmètres']
+    tags: ['Géométrie plane', 'Pythagore', 'Aires et périmètres'],
   },
   dnb_2017_06_ameriquenord_3: {
     annee: '2017',
@@ -2481,7 +2661,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique']
+    tags: ['Probabilités', 'Arithmétique'],
   },
   dnb_2017_06_ameriquenord_4: {
     annee: '2017',
@@ -2489,7 +2669,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité']
+    tags: ['Proportionnalité'],
   },
   dnb_2017_06_ameriquenord_5: {
     annee: '2017',
@@ -2497,7 +2677,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2017_06_ameriquenord_6: {
     annee: '2017',
@@ -2505,7 +2685,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Calcul littéral', 'Tableur']
+    tags: ['Aires et périmètres', 'Calcul littéral', 'Tableur'],
   },
   dnb_2017_06_asie_1: {
     annee: '2017',
@@ -2513,7 +2693,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Fonctions']
+    tags: ['Tableur', 'Fonctions'],
   },
   dnb_2017_06_asie_2: {
     annee: '2017',
@@ -2521,7 +2701,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Fractions', 'Proportionnalité']
+    tags: ['Statistiques', 'Fractions', 'Proportionnalité'],
   },
   dnb_2017_06_asie_3: {
     annee: '2017',
@@ -2529,7 +2709,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie'],
   },
   dnb_2017_06_asie_4: {
     annee: '2017',
@@ -2537,7 +2717,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2017_06_asie_5: {
     annee: '2017',
@@ -2545,7 +2725,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Proportionnalité']
+    tags: ['Volumes', 'Proportionnalité'],
   },
   dnb_2017_06_asie_6: {
     annee: '2017',
@@ -2553,7 +2733,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral']
+    tags: ['Calcul littéral'],
   },
   dnb_2017_06_asie_7: {
     annee: '2017',
@@ -2561,7 +2741,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2017_06_asie_8: {
     annee: '2017',
@@ -2569,7 +2749,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Volumes', "Géométrie dans l'espace"]
+    tags: ['Volumes', "Géométrie dans l'espace"],
   },
   dnb_2017_06_etrangers_1: {
     annee: '2017',
@@ -2577,7 +2757,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Fractions', 'Proportionnalité']
+    tags: ['Pythagore', 'Trigonométrie', 'Fractions', 'Proportionnalité'],
   },
   dnb_2017_06_etrangers_2: {
     annee: '2017',
@@ -2585,7 +2765,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fractions', 'Équations', 'Fonctions']
+    tags: ['Fractions', 'Équations', 'Fonctions'],
   },
   dnb_2017_06_etrangers_3: {
     annee: '2017',
@@ -2593,7 +2773,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Volumes']
+    tags: ['Volumes'],
   },
   dnb_2017_06_etrangers_4: {
     annee: '2017',
@@ -2601,7 +2781,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Probabilités']
+    tags: ['Statistiques', 'Probabilités'],
   },
   dnb_2017_06_etrangers_5: {
     annee: '2017',
@@ -2609,7 +2789,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Proportionnalité']
+    tags: ['Volumes', 'Proportionnalité'],
   },
   dnb_2017_06_etrangers_6: {
     annee: '2017',
@@ -2617,7 +2797,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Algorithmique-programmation']
+    tags: ['Pythagore', 'Trigonométrie', 'Algorithmique-programmation'],
   },
   dnb_2017_06_etrangers_7: {
     annee: '2017',
@@ -2625,7 +2805,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Proportionnalité']
+    tags: ['Aires et périmètres', 'Proportionnalité'],
   },
   dnb_2017_06_metropole_1: {
     annee: '2017',
@@ -2633,7 +2813,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2017_06_metropole_2: {
     annee: '2017',
@@ -2641,7 +2821,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2017_06_metropole_3: {
     annee: '2017',
@@ -2649,7 +2829,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Fonctions']
+    tags: ['Proportionnalité', 'Fonctions'],
   },
   dnb_2017_06_metropole_4: {
     annee: '2017',
@@ -2657,7 +2837,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Trigonométrie', 'Pythagore']
+    tags: ['Proportionnalité', 'Trigonométrie', 'Pythagore'],
   },
   dnb_2017_06_metropole_5: {
     annee: '2017',
@@ -2665,7 +2845,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Fonctions']
+    tags: ['Calcul littéral', 'Fonctions'],
   },
   dnb_2017_06_metropole_6: {
     annee: '2017',
@@ -2673,7 +2853,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2017_06_metropole_7: {
     annee: '2017',
@@ -2681,7 +2861,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Proportionnalité']
+    tags: ['Volumes', 'Proportionnalité'],
   },
   dnb_2017_06_polynesie_1: {
     annee: '2017',
@@ -2689,7 +2869,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Pythagore', 'Équations', 'Fractions', 'Tableur']
+    tags: ['QCM', 'Pythagore', 'Équations', 'Fractions', 'Tableur'],
   },
   dnb_2017_06_polynesie_2: {
     annee: '2017',
@@ -2697,7 +2877,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Vitesses']
+    tags: ['Vitesses'],
   },
   dnb_2017_06_polynesie_3: {
     annee: '2017',
@@ -2705,7 +2885,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Pythagore']
+    tags: ['Géométrie plane', 'Pythagore'],
   },
   dnb_2017_06_polynesie_4: {
     annee: '2017',
@@ -2713,7 +2893,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2017_06_polynesie_5: {
     annee: '2017',
@@ -2721,7 +2901,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Équations']
+    tags: ['Algorithmique-programmation', 'Équations'],
   },
   dnb_2017_06_polynesie_6: {
     annee: '2017',
@@ -2729,7 +2909,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Durées', 'Arithmétique']
+    tags: ['Durées', 'Arithmétique'],
   },
   dnb_2017_09_metropole_1: {
     annee: '2017',
@@ -2737,7 +2917,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2017_09_metropole_2: {
     annee: '2017',
@@ -2745,7 +2925,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnb_2017_09_metropole_3: {
     annee: '2017',
@@ -2753,7 +2933,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2017_09_metropole_4: {
     annee: '2017',
@@ -2761,7 +2941,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Proportionnalité', 'Pythagore']
+    tags: ['Aires et périmètres', 'Proportionnalité', 'Pythagore'],
   },
   dnb_2017_09_metropole_5: {
     annee: '2017',
@@ -2769,7 +2949,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Fractions', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Fractions', 'Programme de calculs'],
   },
   dnb_2017_09_metropole_6: {
     annee: '2017',
@@ -2777,7 +2957,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Proportionnalité']
+    tags: ['Volumes', 'Proportionnalité'],
   },
   dnb_2017_09_metropole_7: {
     annee: '2017',
@@ -2785,7 +2965,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Fonctions']
+    tags: ['Proportionnalité', 'Fonctions'],
   },
   dnb_2017_09_polynesie_1: {
     annee: '2017',
@@ -2793,7 +2973,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Statistiques', 'Calcul numérique']
+    tags: ['Tableur', 'Statistiques', 'Calcul numérique'],
   },
   dnb_2017_09_polynesie_2: {
     annee: '2017',
@@ -2801,7 +2981,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Durées', 'Vitesses', 'Fonctions']
+    tags: ['Durées', 'Vitesses', 'Fonctions'],
   },
   dnb_2017_09_polynesie_3: {
     annee: '2017',
@@ -2809,7 +2989,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Durées']
+    tags: ['Volumes', 'Durées'],
   },
   dnb_2017_09_polynesie_4: {
     annee: '2017',
@@ -2817,7 +2997,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Géométrie plane']
+    tags: ['Trigonométrie', 'Géométrie plane'],
   },
   dnb_2017_09_polynesie_5: {
     annee: '2017',
@@ -2825,7 +3005,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Vitesses', 'Durées']
+    tags: ['Vitesses', 'Durées'],
   },
   dnb_2017_09_polynesie_6: {
     annee: '2017',
@@ -2833,7 +3013,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations']
+    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations'],
   },
   dnb_2017_11_ameriquesud_1: {
     annee: '2017',
@@ -2841,7 +3021,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2017_11_ameriquesud_2: {
     annee: '2017',
@@ -2849,7 +3029,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Géométrie plane']
+    tags: ["Prise d'initiatives", 'Géométrie plane'],
   },
   dnb_2017_11_ameriquesud_3: {
     annee: '2017',
@@ -2857,7 +3037,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Équations']
+    tags: ['Programme de calculs', 'Équations'],
   },
   dnb_2017_11_ameriquesud_4: {
     annee: '2017',
@@ -2865,7 +3045,13 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Fractions', 'Calcul numérique', 'Pythagore', 'Vrai/Faux']
+    tags: [
+      'Arithmétique',
+      'Fractions',
+      'Calcul numérique',
+      'Pythagore',
+      'Vrai/Faux',
+    ],
   },
   dnb_2017_11_ameriquesud_5: {
     annee: '2017',
@@ -2873,7 +3059,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Fonctions', 'Équations']
+    tags: ['Statistiques', 'Fonctions', 'Équations'],
   },
   dnb_2017_11_ameriquesud_6: {
     annee: '2017',
@@ -2881,7 +3067,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2017_11_ameriquesud_7: {
     annee: '2017',
@@ -2889,7 +3075,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique']
+    tags: ['Calcul numérique'],
   },
   dnb_2017_12_caledonie_1: {
     annee: '2017',
@@ -2897,7 +3083,14 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Aires et périmètres', 'Calcul littéral', 'Calcul numérique', 'Fractions', 'Thalès']
+    tags: [
+      'QCM',
+      'Aires et périmètres',
+      'Calcul littéral',
+      'Calcul numérique',
+      'Fractions',
+      'Thalès',
+    ],
   },
   dnb_2017_12_caledonie_2: {
     annee: '2017',
@@ -2905,7 +3098,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Fonctions']
+    tags: ['Programme de calculs', 'Fonctions'],
   },
   dnb_2017_12_caledonie_3: {
     annee: '2017',
@@ -2913,7 +3106,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Arithmétique']
+    tags: ['Tableur', 'Arithmétique'],
   },
   dnb_2017_12_caledonie_4: {
     annee: '2017',
@@ -2921,7 +3114,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Vitesses', 'Fractions']
+    tags: ['Vitesses', 'Fractions'],
   },
   dnb_2017_12_caledonie_5: {
     annee: '2017',
@@ -2929,7 +3122,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2017_12_caledonie_6: {
     annee: '2017',
@@ -2937,7 +3130,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie']
+    tags: ['Trigonométrie'],
   },
   dnb_2017_12_caledonie_7: {
     annee: '2017',
@@ -2945,7 +3138,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2017_12_caledonie_8: {
     annee: '2017',
@@ -2953,7 +3146,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Pythagore']
+    tags: ['Pythagore'],
   },
   dnb_2017_12_wallisfutuna_1: {
     annee: '2017',
@@ -2961,7 +3154,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Fractions', 'Volumes', 'Arithmétique', 'Fonctions']
+    tags: ['QCM', 'Fractions', 'Volumes', 'Arithmétique', 'Fonctions'],
   },
   dnb_2017_12_wallisfutuna_2: {
     annee: '2017',
@@ -2969,7 +3162,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2017_12_wallisfutuna_3: {
     annee: '2017',
@@ -2977,7 +3170,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2017_12_wallisfutuna_4: {
     annee: '2017',
@@ -2985,7 +3178,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2017_12_wallisfutuna_5: {
     annee: '2017',
@@ -2993,7 +3186,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Fractions']
+    tags: ['Fonctions', 'Fractions'],
   },
   dnb_2017_12_wallisfutuna_6: {
     annee: '2017',
@@ -3001,7 +3194,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Fractions', 'Arithmétique']
+    tags: ['Fractions', 'Arithmétique'],
   },
   dnb_2017_12_wallisfutuna_7: {
     annee: '2017',
@@ -3009,7 +3202,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnb_2018_05_pondichery_1: {
     annee: '2018',
@@ -3017,7 +3210,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2018_05_pondichery_2: {
     annee: '2018',
@@ -3025,7 +3218,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Transformations', 'Agrandissement-réduction']
+    tags: ['Transformations', 'Agrandissement-réduction'],
   },
   dnb_2018_05_pondichery_3: {
     annee: '2018',
@@ -3033,7 +3226,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Fractions', "Géométrie dans l'espace"]
+    tags: ['QCM', 'Puissances', 'Fractions', "Géométrie dans l'espace"],
   },
   dnb_2018_05_pondichery_4: {
     annee: '2018',
@@ -3041,8 +3234,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Équations', 'Calcul littéral', 'Programme de calculs']
-
+    tags: ['Tableur', 'Équations', 'Calcul littéral', 'Programme de calculs'],
   },
   dnb_2018_05_pondichery_5: {
     annee: '2018',
@@ -3050,7 +3242,12 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Pythagore', 'Probabilités', 'Géométrie plane']
+    tags: [
+      'Algorithmique-programmation',
+      'Pythagore',
+      'Probabilités',
+      'Géométrie plane',
+    ],
   },
   dnb_2018_05_pondichery_6: {
     annee: '2018',
@@ -3058,7 +3255,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Durées', 'Grandeurs composées']
+    tags: ['Durées', 'Grandeurs composées'],
   },
   dnb_2018_05_pondichery_7: {
     annee: '2018',
@@ -3066,7 +3263,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Trigonométrie', 'Agrandissement-réduction']
+    tags: ['Géométrie plane', 'Trigonométrie', 'Agrandissement-réduction'],
   },
   dnb_2018_06_ameriquenord_1: {
     annee: '2018',
@@ -3074,7 +3271,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Proportionnalité']
+    tags: ['Tableur', 'Proportionnalité'],
   },
   dnb_2018_06_ameriquenord_2: {
     annee: '2018',
@@ -3082,7 +3279,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Thalès', 'Pythagore']
+    tags: ['Géométrie plane', 'Thalès', 'Pythagore'],
   },
   dnb_2018_06_ameriquenord_3: {
     annee: '2018',
@@ -3090,7 +3287,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique']
+    tags: ['Probabilités', 'Arithmétique'],
   },
   dnb_2018_06_ameriquenord_4: {
     annee: '2018',
@@ -3098,7 +3295,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2018_06_ameriquenord_5: {
     annee: '2018',
@@ -3106,8 +3303,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Transformations']
-
+    tags: ['Transformations'],
   },
   dnb_2018_06_ameriquenord_6: {
     annee: '2018',
@@ -3115,7 +3311,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Volumes', "Prise d'initiatives"]
+    tags: ['Trigonométrie', 'Volumes', "Prise d'initiatives"],
   },
   dnb_2018_06_ameriquenord_7: {
     annee: '2018',
@@ -3123,7 +3319,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Équations', 'Fonctions']
+    tags: ['Calcul littéral', 'Équations', 'Fonctions'],
   },
   dnb_2018_06_ameriquenord_8: {
     annee: '2018',
@@ -3131,7 +3327,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Durées']
+    tags: ['Proportionnalité', 'Durées'],
   },
   dnb_2018_06_asie_1: {
     annee: '2018',
@@ -3139,7 +3335,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnb_2018_06_asie_2: {
     annee: '2018',
@@ -3147,7 +3343,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Agrandissement-réduction']
+    tags: ['Volumes', 'Agrandissement-réduction'],
   },
   dnb_2018_06_asie_3: {
     annee: '2018',
@@ -3155,7 +3351,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Probabilités', 'Équations', 'Calcul littéral', 'Fractions']
+    tags: [
+      'QCM',
+      'Puissances',
+      'Probabilités',
+      'Équations',
+      'Calcul littéral',
+      'Fractions',
+    ],
   },
   dnb_2018_06_asie_4: {
     annee: '2018',
@@ -3163,7 +3366,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Aires et périmètres']
+    tags: ['Algorithmique-programmation', 'Aires et périmètres'],
   },
   dnb_2018_06_asie_5: {
     annee: '2018',
@@ -3171,7 +3374,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Calcul littéral', 'Équations']
+    tags: ['Aires et périmètres', 'Calcul littéral', 'Équations'],
   },
   dnb_2018_06_asie_6: {
     annee: '2018',
@@ -3179,7 +3382,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Transformations', 'Agrandissement-réduction']
+    tags: ['Transformations', 'Agrandissement-réduction'],
   },
   dnb_2018_06_asie_7: {
     annee: '2018',
@@ -3187,7 +3390,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Aires et périmètres']
+    tags: ["Prise d'initiatives", 'Aires et périmètres'],
   },
   dnb_2018_06_asie_8: {
     annee: '2018',
@@ -3195,7 +3398,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Proportionnalité']
+    tags: ['Fonctions', 'Tableur', 'Proportionnalité'],
   },
   dnb_2018_06_etrangers_1: {
     annee: '2018',
@@ -3203,7 +3406,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Fractions', 'Calcul littéral', 'Programme de calculs']
+    tags: ['Vrai/Faux', 'Fractions', 'Calcul littéral', 'Programme de calculs'],
   },
   dnb_2018_06_etrangers_2: {
     annee: '2018',
@@ -3211,7 +3414,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Vitesses', 'Calcul littéral', 'Lecture graphique']
+    tags: ['Vitesses', 'Calcul littéral', 'Lecture graphique'],
   },
   dnb_2018_06_etrangers_3: {
     annee: '2018',
@@ -3219,7 +3422,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2018_06_etrangers_4: {
     annee: '2018',
@@ -3227,7 +3430,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Volumes']
+    tags: ['Statistiques', 'Volumes'],
   },
   dnb_2018_06_etrangers_5: {
     annee: '2018',
@@ -3235,7 +3438,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Fonctions', 'Équations']
+    tags: ['Pourcentages', 'Fonctions', 'Équations'],
   },
   dnb_2018_06_etrangers_6: {
     annee: '2018',
@@ -3243,7 +3446,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Algorithmique-programmation']
+    tags: ['Thalès', 'Algorithmique-programmation'],
   },
   dnb_2018_06_metropole_1: {
     annee: '2018',
@@ -3251,7 +3454,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', "Géométrie dans l'espace", 'Volumes']
+    tags: ['Proportionnalité', "Géométrie dans l'espace", 'Volumes'],
   },
   dnb_2018_06_metropole_2: {
     annee: '2018',
@@ -3259,7 +3462,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2018_06_metropole_3: {
     annee: '2018',
@@ -3267,7 +3470,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2018_06_metropole_4: {
     annee: '2018',
@@ -3275,7 +3478,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Pythagore', 'Trigonométrie', 'Triangles semblables']
+    tags: [
+      'Géométrie plane',
+      'Pythagore',
+      'Trigonométrie',
+      'Triangles semblables',
+    ],
   },
   dnb_2018_06_metropole_5: {
     annee: '2018',
@@ -3283,7 +3491,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Équations', 'Programme de calculs']
+    tags: ['Calcul littéral', 'Équations', 'Programme de calculs'],
   },
   dnb_2018_06_metropole_6: {
     annee: '2018',
@@ -3291,7 +3499,11 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Transformations', 'Aires et périmètres', 'Algorithmique-programmation']
+    tags: [
+      'Transformations',
+      'Aires et périmètres',
+      'Algorithmique-programmation',
+    ],
   },
   dnb_2018_06_metropole_7: {
     annee: '2018',
@@ -3299,7 +3511,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Proportionnalité', 'Équations']
+    tags: ['Fonctions', 'Proportionnalité', 'Équations'],
   },
   dnb_2018_07_polynesie_1: {
     annee: '2018',
@@ -3307,8 +3519,14 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Puissances', 'Pourcentages', 'Probabilités', 'Arithmétique', 'Équations', 'Vrai/Faux']
-
+    tags: [
+      'Puissances',
+      'Pourcentages',
+      'Probabilités',
+      'Arithmétique',
+      'Équations',
+      'Vrai/Faux',
+    ],
   },
   dnb_2018_07_polynesie_2: {
     annee: '2018',
@@ -3316,7 +3534,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Pourcentages']
+    tags: ['Proportionnalité', 'Pourcentages'],
   },
   dnb_2018_07_polynesie_3: {
     annee: '2018',
@@ -3324,7 +3542,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2018_07_polynesie_4: {
     annee: '2018',
@@ -3332,7 +3550,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnb_2018_07_polynesie_5: {
     annee: '2018',
@@ -3340,7 +3558,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Proportionnalité']
+    tags: ['Aires et périmètres', 'Proportionnalité'],
   },
   dnb_2018_07_polynesie_6: {
     annee: '2018',
@@ -3348,7 +3566,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Équations']
+    tags: ['Algorithmique-programmation', 'Équations'],
   },
   dnb_2018_09_metropole_1: {
     annee: '2018',
@@ -3356,7 +3574,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Statistiques', 'Pourcentages', 'Tableur']
+    tags: ['Probabilités', 'Statistiques', 'Pourcentages', 'Tableur'],
   },
   dnb_2018_09_metropole_2: {
     annee: '2018',
@@ -3364,7 +3582,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2018_09_metropole_3: {
     annee: '2018',
@@ -3372,7 +3590,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Vitesses', 'Fonctions']
+    tags: ['Vitesses', 'Fonctions'],
   },
   dnb_2018_09_metropole_4: {
     annee: '2018',
@@ -3380,7 +3598,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Volumes', 'Pourcentages']
+    tags: ['Proportionnalité', 'Volumes', 'Pourcentages'],
   },
   dnb_2018_09_metropole_5: {
     annee: '2018',
@@ -3388,7 +3606,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2018_09_metropole_6: {
     annee: '2018',
@@ -3396,7 +3614,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral']
+    tags: ['Programme de calculs', 'Calcul littéral'],
   },
   dnb_2018_09_metropole_7: {
     annee: '2018',
@@ -3404,7 +3622,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Durées']
+    tags: ['Pythagore', 'Trigonométrie', 'Durées'],
   },
   dnb_2018_09_polynesie_1: {
     annee: '2018',
@@ -3412,7 +3630,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Puissances', 'Pourcentages', 'Probabilités', 'Arithmétique', 'Équations', 'Vrai/Faux']
+    tags: [
+      'Puissances',
+      'Pourcentages',
+      'Probabilités',
+      'Arithmétique',
+      'Équations',
+      'Vrai/Faux',
+    ],
   },
   dnb_2018_09_polynesie_2: {
     annee: '2018',
@@ -3420,7 +3645,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnb_2018_09_polynesie_3: {
     annee: '2018',
@@ -3428,7 +3653,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Fonctions']
+    tags: ['Fonctions'],
   },
   dnb_2018_09_polynesie_4: {
     annee: '2018',
@@ -3436,7 +3661,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Grandeurs composées']
+    tags: ['Aires et périmètres', 'Grandeurs composées'],
   },
   dnb_2018_09_polynesie_5: {
     annee: '2018',
@@ -3444,7 +3669,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Proportionnalité']
+    tags: ['Aires et périmètres', 'Proportionnalité'],
   },
   dnb_2018_09_polynesie_6: {
     annee: '2018',
@@ -3452,7 +3677,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Équations']
+    tags: ['Algorithmique-programmation', 'Équations'],
   },
   dnb_2018_09_polynesie_7: {
     annee: '2018',
@@ -3460,7 +3685,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Thalès', 'Pythagore']
+    tags: ['Aires et périmètres', 'Thalès', 'Pythagore'],
   },
   dnb_2018_11_ameriquesud_1: {
     annee: '2018',
@@ -3468,7 +3693,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Trigonométrie', 'Transformations']
+    tags: ['QCM', 'Trigonométrie', 'Transformations'],
   },
   dnb_2018_11_ameriquesud_2: {
     annee: '2018',
@@ -3476,7 +3701,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fractions', 'Pourcentages']
+    tags: ['Fractions', 'Pourcentages'],
   },
   dnb_2018_11_ameriquesud_3: {
     annee: '2018',
@@ -3484,7 +3709,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Équations', 'Tableur', 'Calcul littéral']
+    tags: ['Programme de calculs', 'Équations', 'Tableur', 'Calcul littéral'],
   },
   dnb_2018_11_ameriquesud_4: {
     annee: '2018',
@@ -3492,7 +3717,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', "Prise d'initiatives"]
+    tags: ['Pythagore', "Prise d'initiatives"],
   },
   dnb_2018_11_ameriquesud_5: {
     annee: '2018',
@@ -3500,7 +3725,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2018_11_ameriquesud_6: {
     annee: '2018',
@@ -3508,7 +3733,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2018_11_ameriquesud_7: {
     annee: '2018',
@@ -3516,7 +3741,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Grandeurs composées']
+    tags: ['Vrai/Faux', 'Grandeurs composées'],
   },
   dnb_2018_12_caledonie_1: {
     annee: '2018',
@@ -3524,7 +3749,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul littéral', 'Trigonométrie', 'Arithmétique', 'Thalès']
+    tags: ['QCM', 'Calcul littéral', 'Trigonométrie', 'Arithmétique', 'Thalès'],
   },
   dnb_2018_12_caledonie_2: {
     annee: '2018',
@@ -3532,7 +3757,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2018_12_caledonie_3: {
     annee: '2018',
@@ -3540,7 +3765,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2018_12_caledonie_4: {
     annee: '2018',
@@ -3548,7 +3773,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Fonctions', 'Vitesses']
+    tags: ['Proportionnalité', 'Fonctions', 'Vitesses'],
   },
   dnb_2018_12_caledonie_5: {
     annee: '2018',
@@ -3556,7 +3781,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Pythagore']
+    tags: ["Prise d'initiatives", 'Pythagore'],
   },
   dnb_2018_12_caledonie_6: {
     annee: '2018',
@@ -3564,7 +3789,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Statistiques', 'Proportionnalité']
+    tags: ['Tableur', 'Statistiques', 'Proportionnalité'],
   },
   dnb_2018_12_caledonie_7: {
     annee: '2018',
@@ -3572,7 +3797,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Grandeurs composées']
+    tags: ['Vrai/Faux', 'Grandeurs composées'],
   },
   dnb_2018_12_caledonie_8: {
     annee: '2018',
@@ -3580,7 +3805,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2019_03_caledonie_1: {
     annee: '2019',
@@ -3588,7 +3813,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Arithmétique', 'Thalès', 'Calcul littéral']
+    tags: ['QCM', 'Arithmétique', 'Thalès', 'Calcul littéral'],
   },
   dnb_2019_03_caledonie_2: {
     annee: '2019',
@@ -3596,7 +3821,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Grandeurs composées', 'Proportionnalité']
+    tags: ['Volumes', 'Grandeurs composées', 'Proportionnalité'],
   },
   dnb_2019_03_caledonie_3: {
     annee: '2019',
@@ -3604,7 +3829,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Équations']
+    tags: ['Fonctions', 'Équations'],
   },
   dnb_2019_03_caledonie_4: {
     annee: '2019',
@@ -3612,7 +3837,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Vitesses', 'Pourcentages']
+    tags: ['Grandeurs composées', 'Vitesses', 'Pourcentages'],
   },
   dnb_2019_03_caledonie_5: {
     annee: '2019',
@@ -3620,7 +3845,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur', 'Probabilités']
+    tags: ['Statistiques', 'Tableur', 'Probabilités'],
   },
   dnb_2019_03_caledonie_6: {
     annee: '2019',
@@ -3628,7 +3853,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2019_03_caledonie_7: {
     annee: '2019',
@@ -3636,7 +3861,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Pythagore', 'Agrandissement-réduction']
+    tags: ['Vrai/Faux', 'Pythagore', 'Agrandissement-réduction'],
   },
   dnb_2019_03_caledonie_8: {
     annee: '2019',
@@ -3644,7 +3869,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées']
+    tags: ['Grandeurs composées'],
   },
   dnb_2019_06_ameriquenord_1: {
     annee: '2019',
@@ -3652,7 +3877,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Thalès']
+    tags: ['Pythagore', 'Trigonométrie', 'Thalès'],
   },
   dnb_2019_06_ameriquenord_2: {
     annee: '2019',
@@ -3660,8 +3885,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Fractions', 'Fonctions', 'Probabilités', 'Calcul littéral']
-
+    tags: [
+      'Vrai/Faux',
+      'Fractions',
+      'Fonctions',
+      'Probabilités',
+      'Calcul littéral',
+    ],
   },
   dnb_2019_06_ameriquenord_3: {
     annee: '2019',
@@ -3669,7 +3899,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Calcul numérique', 'Proportionnalité']
+    tags: ['Tableur', 'Calcul numérique', 'Proportionnalité'],
   },
   dnb_2019_06_ameriquenord_4: {
     annee: '2019',
@@ -3677,7 +3907,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2019_06_ameriquenord_5: {
     annee: '2019',
@@ -3685,7 +3915,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Transformations']
+    tags: ['Transformations'],
   },
   dnb_2019_06_ameriquenord_6: {
     annee: '2019',
@@ -3693,7 +3923,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Calcul numérique']
+    tags: ['Fonctions', 'Calcul numérique'],
   },
   dnb_2019_06_ameriquenord_7: {
     annee: '2019',
@@ -3701,7 +3931,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Grandeurs composées', 'Volumes']
+    tags: ['Calcul numérique', 'Grandeurs composées', 'Volumes'],
   },
   dnb_2019_06_ameriquenord_8: {
     annee: '2019',
@@ -3709,7 +3939,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnb_2019_06_antilles_1: {
     annee: '2019',
@@ -3717,7 +3947,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Calcul numérique']
+    tags: ['Probabilités', 'Calcul numérique'],
   },
   dnb_2019_06_antilles_2: {
     annee: '2019',
@@ -3725,7 +3955,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Transformations']
+    tags: ['Algorithmique-programmation', 'Transformations'],
   },
   dnb_2019_06_antilles_3: {
     annee: '2019',
@@ -3733,7 +3963,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Statistiques', 'Tableur']
+    tags: ['Pourcentages', 'Statistiques', 'Tableur'],
   },
   dnb_2019_06_antilles_4: {
     annee: '2019',
@@ -3741,7 +3971,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Thalès']
+    tags: ['Trigonométrie', 'Thalès'],
   },
   dnb_2019_06_antilles_5: {
     annee: '2019',
@@ -3749,7 +3979,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Calcul numérique']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Calcul numérique'],
   },
   dnb_2019_06_antilles_6: {
     annee: '2019',
@@ -3757,7 +3987,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Fonctions', 'Volumes']
+    tags: ['Proportionnalité', 'Fonctions', 'Volumes'],
   },
   dnb_2019_06_asie_1: {
     annee: '2019',
@@ -3765,8 +3995,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral']
-
+    tags: ['Programme de calculs', 'Calcul littéral'],
   },
   dnb_2019_06_asie_2: {
     annee: '2019',
@@ -3774,7 +4003,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Fractions']
+    tags: ['Pourcentages', 'Fractions'],
   },
   dnb_2019_06_asie_3: {
     annee: '2019',
@@ -3782,7 +4011,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2019_06_asie_4: {
     annee: '2019',
@@ -3790,7 +4019,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Grandeurs composées']
+    tags: ['Volumes', 'Grandeurs composées'],
   },
   dnb_2019_06_asie_5: {
     annee: '2019',
@@ -3798,7 +4027,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Pythagore']
+    tags: ['Géométrie plane', 'Pythagore'],
   },
   dnb_2019_06_asie_6: {
     annee: '2019',
@@ -3806,7 +4035,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Calcul numérique']
+    tags: ['Proportionnalité', 'Calcul numérique'],
   },
   dnb_2019_06_asie_7: {
     annee: '2019',
@@ -3814,7 +4043,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur']
+    tags: ['Fonctions', 'Tableur'],
   },
   dnb_2019_06_etrangers_1: {
     annee: '2019',
@@ -3822,7 +4051,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Arithmétique', 'Pourcentages', 'Trigonométrie', 'Statistiques', 'Transformations']
+    tags: [
+      'QCM',
+      'Arithmétique',
+      'Pourcentages',
+      'Trigonométrie',
+      'Statistiques',
+      'Transformations',
+    ],
   },
   dnb_2019_06_etrangers_2: {
     annee: '2019',
@@ -3830,7 +4066,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Tableur']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Tableur'],
   },
   dnb_2019_06_etrangers_3: {
     annee: '2019',
@@ -3838,7 +4074,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Équations', 'Algorithmique-programmation']
+    tags: ['Calcul littéral', 'Équations', 'Algorithmique-programmation'],
   },
   dnb_2019_06_etrangers_4: {
     annee: '2019',
@@ -3846,7 +4082,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2019_06_etrangers_5: {
     annee: '2019',
@@ -3854,7 +4090,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Pythagore']
+    tags: ['Thalès', 'Pythagore'],
   },
   dnb_2019_06_etrangers_6: {
     annee: '2019',
@@ -3862,7 +4098,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Lecture graphique', 'Vitesses']
+    tags: ['Lecture graphique', 'Vitesses'],
   },
   dnb_2019_06_etrangers_7: {
     annee: '2019',
@@ -3870,7 +4106,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Calcul numérique', 'Volumes']
+    tags: ["Prise d'initiatives", 'Calcul numérique', 'Volumes'],
   },
   dnb_2019_06_grece_1: {
     annee: '2019',
@@ -3878,7 +4114,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2019_06_grece_2: {
     annee: '2019',
@@ -3886,7 +4122,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Géométrie plane', 'Agrandissement-réduction', 'Triangles semblables']
+    tags: [
+      'Trigonométrie',
+      'Géométrie plane',
+      'Agrandissement-réduction',
+      'Triangles semblables',
+    ],
   },
   dnb_2019_06_grece_3: {
     annee: '2019',
@@ -3894,7 +4135,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Vitesses', 'Grandeurs composées']
+    tags: ['Vitesses', 'Grandeurs composées'],
   },
   dnb_2019_06_grece_4: {
     annee: '2019',
@@ -3902,7 +4143,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Transformations']
+    tags: ['Algorithmique-programmation', 'Transformations'],
   },
   dnb_2019_06_grece_5: {
     annee: '2019',
@@ -3910,7 +4151,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions'],
   },
   dnb_2019_06_grece_6: {
     annee: '2019',
@@ -3918,7 +4159,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Agrandissement-réduction', 'Volumes', 'Pourcentages', "Prise d'initiatives"]
+    tags: [
+      'Agrandissement-réduction',
+      'Volumes',
+      'Pourcentages',
+      "Prise d'initiatives",
+    ],
   },
   dnb_2019_07_metropole_1: {
     annee: '2019',
@@ -3926,7 +4172,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2019_07_metropole_2: {
     annee: '2019',
@@ -3934,7 +4180,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Proportionnalité', 'Agrandissement-réduction']
+    tags: ['Trigonométrie', 'Proportionnalité', 'Agrandissement-réduction'],
   },
   dnb_2019_07_metropole_3: {
     annee: '2019',
@@ -3942,7 +4188,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Grandeurs composées', 'Statistiques']
+    tags: ['Volumes', 'Grandeurs composées', 'Statistiques'],
   },
   dnb_2019_07_metropole_4: {
     annee: '2019',
@@ -3950,7 +4196,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Probabilités']
+    tags: ['Algorithmique-programmation', 'Probabilités'],
   },
   dnb_2019_07_metropole_5: {
     annee: '2019',
@@ -3958,7 +4204,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Transformations']
+    tags: ['Transformations'],
   },
   dnb_2019_07_metropole_6: {
     annee: '2019',
@@ -3966,7 +4212,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Fonctions', 'Équations', 'Calcul littéral']
+    tags: ['Programme de calculs', 'Fonctions', 'Équations', 'Calcul littéral'],
   },
   dnb_2019_07_polynesie_1: {
     annee: '2019',
@@ -3974,7 +4220,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Arithmétique', 'Thalès']
+    tags: ['QCM', 'Arithmétique', 'Thalès'],
   },
   dnb_2019_07_polynesie_2: {
     annee: '2019',
@@ -3982,7 +4228,14 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: [
+      'Fonctions',
+      'Tableur',
+      'Algorithmique-programmation',
+      'Programme de calculs',
+      'Calcul littéral',
+      'Équations',
+    ],
   },
   dnb_2019_07_polynesie_3: {
     annee: '2019',
@@ -3990,7 +4243,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2019_07_polynesie_4: {
     annee: '2019',
@@ -3998,7 +4251,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Agrandissement-réduction', 'Volumes']
+    tags: ['Agrandissement-réduction', 'Volumes'],
   },
   dnb_2019_07_polynesie_5: {
     annee: '2019',
@@ -4006,7 +4259,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Pythagore']
+    tags: ['Trigonométrie', 'Pythagore'],
   },
   dnb_2019_07_polynesie_6: {
     annee: '2019',
@@ -4014,7 +4267,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Vitesses', 'Statistiques']
+    tags: ['Vitesses', 'Statistiques'],
   },
   dnb_2019_07_polynesie_7: {
     annee: '2019',
@@ -4022,7 +4275,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Lecture graphique', 'Grandeurs composées', "Prise d'initiatives"]
+    tags: ['Lecture graphique', 'Grandeurs composées', "Prise d'initiatives"],
   },
   dnb_2019_09_metropole_1: {
     annee: '2019',
@@ -4030,7 +4283,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Vitesses']
+    tags: ['Pythagore', 'Thalès', 'Vitesses'],
   },
   dnb_2019_09_metropole_2: {
     annee: '2019',
@@ -4038,7 +4291,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Puissances']
+    tags: ['Arithmétique', 'Puissances'],
   },
   dnb_2019_09_metropole_3: {
     annee: '2019',
@@ -4046,7 +4299,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Lecture graphique', 'Fonctions', 'Pourcentages']
+    tags: ['Lecture graphique', 'Fonctions', 'Pourcentages'],
   },
   dnb_2019_09_metropole_4: {
     annee: '2019',
@@ -4054,7 +4307,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Volumes']
+    tags: ['Proportionnalité', 'Volumes'],
   },
   dnb_2019_09_metropole_5: {
     annee: '2019',
@@ -4062,7 +4315,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations'],
   },
   dnb_2019_09_metropole_6: {
     annee: '2019',
@@ -4070,7 +4323,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Algorithmique-programmation']
+    tags: ['Probabilités', 'Algorithmique-programmation'],
   },
   dnb_2019_09_polynesie_1: {
     annee: '2019',
@@ -4078,7 +4331,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Vitesses', 'Arithmétique', 'Fonctions', 'Agrandissement-réduction']
+    tags: [
+      'QCM',
+      'Puissances',
+      'Vitesses',
+      'Arithmétique',
+      'Fonctions',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2019_09_polynesie_2: {
     annee: '2019',
@@ -4086,7 +4346,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Grandeurs composées']
+    tags: ['Probabilités', 'Grandeurs composées'],
   },
   dnb_2019_09_polynesie_3: {
     annee: '2019',
@@ -4094,7 +4354,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur', 'Calcul numérique']
+    tags: ['Statistiques', 'Tableur', 'Calcul numérique'],
   },
   dnb_2019_09_polynesie_4: {
     annee: '2019',
@@ -4102,7 +4362,12 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Transformations', 'Agrandissement-réduction', 'Thalès', 'Trigonométrie']
+    tags: [
+      'Transformations',
+      'Agrandissement-réduction',
+      'Thalès',
+      'Trigonométrie',
+    ],
   },
   dnb_2019_09_polynesie_5: {
     annee: '2019',
@@ -4110,7 +4375,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Grandeurs composées', 'Volumes']
+    tags: ['Pythagore', 'Grandeurs composées', 'Volumes'],
   },
   dnb_2019_09_polynesie_6: {
     annee: '2019',
@@ -4118,7 +4383,12 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Lecture graphique', 'Pourcentages', 'Grandeurs composées']
+    tags: [
+      'Proportionnalité',
+      'Lecture graphique',
+      'Pourcentages',
+      'Grandeurs composées',
+    ],
   },
   dnb_2019_09_polynesie_7: {
     annee: '2019',
@@ -4126,7 +4396,12 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: [
+      'Algorithmique-programmation',
+      'Programme de calculs',
+      'Calcul littéral',
+      'Équations',
+    ],
   },
   dnb_2019_11_ameriquesud_1: {
     annee: '2019',
@@ -4134,7 +4409,13 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Statistiques', 'Arithmétique', 'Transformations', 'Agrandissement-réduction']
+    tags: [
+      'Vrai/Faux',
+      'Statistiques',
+      'Arithmétique',
+      'Transformations',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2019_11_ameriquesud_2: {
     annee: '2019',
@@ -4142,7 +4423,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Pourcentages']
+    tags: ['Tableur', 'Pourcentages'],
   },
   dnb_2019_11_ameriquesud_3: {
     annee: '2019',
@@ -4150,7 +4431,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Équations']
+    tags: ['Calcul littéral', 'Équations'],
   },
   dnb_2019_11_ameriquesud_4: {
     annee: '2019',
@@ -4158,7 +4439,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes'],
   },
   dnb_2019_11_ameriquesud_5: {
     annee: '2019',
@@ -4166,7 +4447,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', "Prise d'initiatives"]
+    tags: ['Calcul numérique', "Prise d'initiatives"],
   },
   dnb_2019_11_ameriquesud_6: {
     annee: '2019',
@@ -4174,7 +4455,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2019_12_caledonie_1: {
     annee: '2019',
@@ -4182,7 +4463,13 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Grandeurs composées', 'Durées', 'Puissances', 'Calcul littéral']
+    tags: [
+      'QCM',
+      'Grandeurs composées',
+      'Durées',
+      'Puissances',
+      'Calcul littéral',
+    ],
   },
   dnb_2019_12_caledonie_2: {
     annee: '2019',
@@ -4190,7 +4477,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Pourcentages']
+    tags: ['Probabilités', 'Pourcentages'],
   },
   dnb_2019_12_caledonie_3: {
     annee: '2019',
@@ -4198,7 +4485,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Agrandissement-réduction']
+    tags: ['Agrandissement-réduction'],
   },
   dnb_2019_12_caledonie_4: {
     annee: '2019',
@@ -4206,7 +4493,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès']
+    tags: ['Pythagore', 'Thalès'],
   },
   dnb_2019_12_caledonie_5: {
     annee: '2019',
@@ -4214,7 +4501,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Lecture graphique']
+    tags: ['Lecture graphique'],
   },
   dnb_2019_12_caledonie_6: {
     annee: '2019',
@@ -4222,7 +4509,13 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Calcul numérique', 'Fonctions', 'Équations', 'Lecture graphique']
+    tags: [
+      'Grandeurs composées',
+      'Calcul numérique',
+      'Fonctions',
+      'Équations',
+      'Lecture graphique',
+    ],
   },
   dnb_2019_12_caledonie_7: {
     annee: '2019',
@@ -4230,7 +4523,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Grandeurs composées', 'Proportionnalité', "Prise d'initiatives"]
+    tags: ['Grandeurs composées', 'Proportionnalité', "Prise d'initiatives"],
   },
   dnb_2019_12_caledonie_8: {
     annee: '2019',
@@ -4238,7 +4531,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2020_09_antilles_1: {
     annee: '2020',
@@ -4246,7 +4539,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie'],
   },
   dnb_2020_09_antilles_2: {
     annee: '2020',
@@ -4254,7 +4547,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Agrandissement-réduction', 'Calcul littéral', 'Puissances', 'Fractions']
+    tags: [
+      'QCM',
+      'Agrandissement-réduction',
+      'Calcul littéral',
+      'Puissances',
+      'Fractions',
+    ],
   },
   dnb_2020_09_antilles_3: {
     annee: '2020',
@@ -4262,7 +4561,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Transformations', 'Arithmétique']
+    tags: ['Transformations', 'Arithmétique'],
   },
   dnb_2020_09_antilles_4: {
     annee: '2020',
@@ -4270,7 +4569,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages', 'Tableur']
+    tags: ['Statistiques', 'Pourcentages', 'Tableur'],
   },
   dnb_2020_09_antilles_5: {
     annee: '2020',
@@ -4278,7 +4577,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique', 'Algorithmique-programmation']
+    tags: ['Probabilités', 'Arithmétique', 'Algorithmique-programmation'],
   },
   dnb_2020_09_metropole_1: {
     annee: '2020',
@@ -4286,7 +4585,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Statistiques', 'Probabilités', 'Arithmétique', 'Volumes', 'Transformations']
+    tags: [
+      'QCM',
+      'Statistiques',
+      'Probabilités',
+      'Arithmétique',
+      'Volumes',
+      'Transformations',
+    ],
   },
   dnb_2020_09_metropole_2: {
     annee: '2020',
@@ -4294,7 +4600,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations'],
   },
   dnb_2020_09_metropole_3: {
     annee: '2020',
@@ -4302,7 +4608,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Pourcentages', 'Trigonométrie', "Recherche d'informations"]
+    tags: [
+      'Pythagore',
+      'Thalès',
+      'Pourcentages',
+      'Trigonométrie',
+      "Recherche d'informations",
+    ],
   },
   dnb_2020_09_metropole_4: {
     annee: '2020',
@@ -4310,7 +4622,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Fonctions']
+    tags: ['Tableur', 'Fonctions'],
   },
   dnb_2020_09_metropole_5: {
     annee: '2020',
@@ -4318,7 +4630,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Algorithmique-programmation']
+    tags: ['Géométrie plane', 'Algorithmique-programmation'],
   },
   dnb_2020_09_polynesie_1: {
     annee: '2020',
@@ -4326,7 +4638,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Programme de calculs', 'Thalès', 'Statistiques', 'Pourcentages', 'Arithmétique']
+    tags: [
+      'Calcul littéral',
+      'Programme de calculs',
+      'Thalès',
+      'Statistiques',
+      'Pourcentages',
+      'Arithmétique',
+    ],
   },
   dnb_2020_09_polynesie_2: {
     annee: '2020',
@@ -4334,7 +4653,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2020_09_polynesie_3: {
     annee: '2020',
@@ -4342,7 +4661,12 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Transformations', 'Pythagore', 'Aires et périmètres', 'Agrandissement-réduction']
+    tags: [
+      'Transformations',
+      'Pythagore',
+      'Aires et périmètres',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2020_09_polynesie_4: {
     annee: '2020',
@@ -4350,7 +4674,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2020_09_polynesie_5: {
     annee: '2020',
@@ -4358,7 +4682,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Équations']
+    tags: ['Fonctions', 'Équations'],
   },
   dnb_2020_12_caledonie_1: {
     annee: '2020',
@@ -4366,7 +4690,14 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Calcul numérique', 'Puissances', 'Statistiques', 'Probabilités', "Géométrie dans l'espace"]
+    tags: [
+      'QCM',
+      'Calcul numérique',
+      'Puissances',
+      'Statistiques',
+      'Probabilités',
+      "Géométrie dans l'espace",
+    ],
   },
   dnb_2020_12_caledonie_2: {
     annee: '2020',
@@ -4374,7 +4705,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Tableur']
+    tags: ['Pourcentages', 'Tableur'],
   },
   dnb_2020_12_caledonie_3: {
     annee: '2020',
@@ -4382,7 +4713,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations'],
   },
   dnb_2020_12_caledonie_4: {
     annee: '2020',
@@ -4390,7 +4721,14 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Pythagore', 'Trigonométrie', 'Proportionnalité', 'Durées', 'Vitesses']
+    tags: [
+      'Thalès',
+      'Pythagore',
+      'Trigonométrie',
+      'Proportionnalité',
+      'Durées',
+      'Vitesses',
+    ],
   },
   dnb_2020_12_caledonie_5: {
     annee: '2020',
@@ -4398,7 +4736,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Pythagore']
+    tags: ["Prise d'initiatives", 'Pythagore'],
   },
   dnb_2020_12_caledonie_6: {
     annee: '2020',
@@ -4406,7 +4744,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2020_12_caledonie_7: {
     annee: '2020',
@@ -4414,7 +4752,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Calcul littéral', 'Fonctions']
+    tags: ['Volumes', 'Calcul littéral', 'Fonctions'],
   },
   dnb_2020_12_caledonie_8: {
     annee: '2020',
@@ -4422,7 +4760,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2021_06_ameriquenord_1: {
     annee: '2021',
@@ -4430,7 +4768,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Calcul littéral', 'Arithmétique', 'Probabilités', 'Trigonométrie', 'Pythagore']
+    tags: [
+      'Fonctions',
+      'Calcul littéral',
+      'Arithmétique',
+      'Probabilités',
+      'Trigonométrie',
+      'Pythagore',
+    ],
   },
   dnb_2021_06_ameriquenord_2: {
     annee: '2021',
@@ -4438,7 +4783,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Lecture graphique', 'Vitesses']
+    tags: ['Lecture graphique', 'Vitesses'],
   },
   dnb_2021_06_ameriquenord_3: {
     annee: '2021',
@@ -4446,7 +4791,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Transformations']
+    tags: ['Transformations'],
   },
   dnb_2021_06_ameriquenord_4: {
     annee: '2021',
@@ -4454,7 +4799,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives"]
+    tags: ["Prise d'initiatives"],
   },
   dnb_2021_06_ameriquenord_5: {
     annee: '2021',
@@ -4462,7 +4807,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ["Prise d'initiatives", 'Pourcentages', 'Proportionnalité', 'Aires et périmètres']
+    tags: [
+      "Prise d'initiatives",
+      'Pourcentages',
+      'Proportionnalité',
+      'Aires et périmètres',
+    ],
   },
   dnb_2021_06_etrangers_1: {
     annee: '2021',
@@ -4470,7 +4820,15 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Transformations', 'Fractions', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Aires et périmètres']
+    tags: [
+      'Arithmétique',
+      'Transformations',
+      'Fractions',
+      'Calcul numérique',
+      'Volumes',
+      'Trigonométrie',
+      'Aires et périmètres',
+    ],
   },
   dnb_2021_06_etrangers_2: {
     annee: '2021',
@@ -4478,7 +4836,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique']
+    tags: ['Probabilités', 'Arithmétique'],
   },
   dnb_2021_06_etrangers_3: {
     annee: '2021',
@@ -4486,7 +4844,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations']
+    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations'],
   },
   dnb_2021_06_etrangers_4: {
     annee: '2021',
@@ -4494,7 +4852,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Grandeurs composées', 'Trigonométrie']
+    tags: ['Thalès', 'Grandeurs composées', 'Trigonométrie'],
   },
   dnb_2021_06_etrangers_5: {
     annee: '2021',
@@ -4502,7 +4860,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Lecture graphique', 'Équations']
+    tags: ['Fonctions', 'Lecture graphique', 'Équations'],
   },
   dnb_2021_06_metropole_1: {
     annee: '2021',
@@ -4510,7 +4868,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur']
+    tags: ['Statistiques', 'Tableur'],
   },
   dnb_2021_06_metropole_2: {
     annee: '2021',
@@ -4518,7 +4876,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Thalès']
+    tags: ['Arithmétique', 'Thalès'],
   },
   dnb_2021_06_metropole_3: {
     annee: '2021',
@@ -4526,7 +4884,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Transformations', 'Agrandissement-réduction', 'QCM']
+    tags: [
+      'Probabilités',
+      'Transformations',
+      'Agrandissement-réduction',
+      'QCM',
+    ],
   },
   dnb_2021_06_metropole_4: {
     annee: '2021',
@@ -4534,7 +4897,11 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Algorithmique-programmation', 'Calcul littéral']
+    tags: [
+      'Programme de calculs',
+      'Algorithmique-programmation',
+      'Calcul littéral',
+    ],
   },
   dnb_2021_06_metropole_5: {
     annee: '2021',
@@ -4542,7 +4909,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Volumes', 'Pythagore']
+    tags: ['Pourcentages', 'Volumes', 'Pythagore'],
   },
   dnb_2021_06_asie_1: {
     annee: '2021',
@@ -4550,7 +4917,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Fonctions', 'Tableur', 'Équations', 'Puissances']
+    tags: ['QCM', 'Fonctions', 'Tableur', 'Équations', 'Puissances'],
   },
   dnb_2021_06_asie_2: {
     annee: '2021',
@@ -4560,7 +4927,12 @@ export const dictionnaireDNB = {
     pngCorApmep: 'static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png',
     typeExercice: 'dnb',
     urlcorApmep: 'static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex',
-    tags: ['Pythagore', 'Transformations', 'Agrandissement-réduction', 'Trigonométrie']
+    tags: [
+      'Pythagore',
+      'Transformations',
+      'Agrandissement-réduction',
+      'Trigonométrie',
+    ],
   },
   dnb_2021_06_asie_3: {
     annee: '2021',
@@ -4568,7 +4940,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Probabilités']
+    tags: ['Algorithmique-programmation', 'Probabilités'],
   },
   dnb_2021_06_asie_4: {
     annee: '2021',
@@ -4576,7 +4948,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Vitesses', 'Statistiques', 'Grandeurs composées', 'Vrai/Faux']
+    tags: ['Vitesses', 'Statistiques', 'Grandeurs composées', 'Vrai/Faux'],
   },
   dnb_2021_06_asie_5: {
     annee: '2021',
@@ -4584,7 +4956,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ["Géométrie dans l'espace", 'Volumes', "Prise d'initiatives"]
+    tags: ["Géométrie dans l'espace", 'Volumes', "Prise d'initiatives"],
   },
   dnb_2021_09_metropole_1: {
     annee: '2021',
@@ -4592,7 +4964,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fractions', 'Probabilités', 'Transformations', 'Arithmétique', 'Puissances', 'QCM']
+    tags: [
+      'Fractions',
+      'Probabilités',
+      'Transformations',
+      'Arithmétique',
+      'Puissances',
+      'QCM',
+    ],
   },
   dnb_2021_09_metropole_2: {
     annee: '2021',
@@ -4600,7 +4979,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages', 'Coordonnées terrestres']
+    tags: ['Statistiques', 'Pourcentages', 'Coordonnées terrestres'],
   },
   dnb_2021_09_metropole_3: {
     annee: '2021',
@@ -4608,7 +4987,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Tableur']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Tableur'],
   },
   dnb_2021_09_metropole_4: {
     annee: '2021',
@@ -4616,7 +4995,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Calcul littéral', 'Géométrie plane']
+    tags: ['Algorithmique-programmation', 'Calcul littéral', 'Géométrie plane'],
   },
   dnb_2021_09_metropole_5: {
     annee: '2021',
@@ -4624,7 +5003,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Pourcentages', 'Thalès', 'Pythagore']
+    tags: ['Pourcentages', 'Thalès', 'Pythagore'],
   },
   dnb_2015_03_caledonie_1: {
     annee: '2015',
@@ -4632,8 +5011,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Équations', 'Arithmétique', 'Calcul numérique']
-
+    tags: ['QCM', 'Équations', 'Arithmétique', 'Calcul numérique'],
   },
   dnb_2015_03_caledonie_2: {
     annee: '2015',
@@ -4641,7 +5019,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane']
+    tags: ['Géométrie plane'],
   },
   dnb_2015_03_caledonie_3: {
     annee: '2015',
@@ -4649,7 +5027,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2015_03_caledonie_4: {
     annee: '2015',
@@ -4657,7 +5035,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Système d\'équations', 'Hors programme']
+    tags: ["Système d'équations", 'Hors programme'],
   },
   dnb_2015_03_caledonie_5: {
     annee: '2015',
@@ -4665,7 +5043,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2015_03_caledonie_6: {
     annee: '2015',
@@ -4673,7 +5051,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Aires et périmètres', 'Trigonométrie']
+    tags: ['Volumes', 'Aires et périmètres', 'Trigonométrie'],
   },
   dnb_2015_03_caledonie_7: {
     annee: '2015',
@@ -4681,7 +5059,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Fonctions', 'Lecture graphique']
+    tags: ['Tableur', 'Fonctions', 'Lecture graphique'],
   },
   dnb_2015_03_caledonie_8: {
     annee: '2015',
@@ -4689,7 +5067,7 @@ export const dictionnaireDNB = {
     mois: 'Mars',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Pythagore', 'Géométrie plane']
+    tags: ['Thalès', 'Pythagore', 'Géométrie plane'],
   },
   dnb_2015_06_ameriquenord_7: {
     annee: '2015',
@@ -4697,7 +5075,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Pythagore', 'Agrandissement-réduction', 'Géométrie dans l\'espace']
+    tags: [
+      'Volumes',
+      'Pythagore',
+      'Agrandissement-réduction',
+      "Géométrie dans l'espace",
+    ],
   },
   dnb_2021_11_ameriquesud_1: {
     annee: '2021',
@@ -4705,7 +5088,14 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Arithmétique', 'Calcul littéral', 'Fonctions', 'Pythagore', 'Thalès']
+    tags: [
+      'Vrai/Faux',
+      'Arithmétique',
+      'Calcul littéral',
+      'Fonctions',
+      'Pythagore',
+      'Thalès',
+    ],
   },
   dnb_2021_11_ameriquesud_2: {
     annee: '2021',
@@ -4713,7 +5103,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Lecture graphique', 'Vitesses']
+    tags: ['Fonctions', 'Lecture graphique', 'Vitesses'],
   },
   dnb_2021_11_ameriquesud_3: {
     annee: '2021',
@@ -4721,7 +5111,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Proportionnalité', 'Ratio', 'Probabilités']
+    tags: ['Tableur', 'Proportionnalité', 'Ratio', 'Probabilités'],
   },
   dnb_2021_11_ameriquesud_4: {
     annee: '2021',
@@ -4729,7 +5119,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2021_11_ameriquesud_5: {
     annee: '2021',
@@ -4737,7 +5127,7 @@ export const dictionnaireDNB = {
     mois: 'Novembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Recherche d\'informations', 'Volumes', 'Pourcentages']
+    tags: ["Recherche d'informations", 'Volumes', 'Pourcentages'],
   },
   dnb_2022_06_ameriquenord_1: {
     annee: '2022',
@@ -4745,7 +5135,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Transformations', 'Agrandissement-réduction']
+    tags: [
+      'Pythagore',
+      'Thalès',
+      'Trigonométrie',
+      'Transformations',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2022_06_ameriquenord_2: {
     annee: '2022',
@@ -4753,7 +5149,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Probabilités', 'Ratio', 'Fonctions', 'Arithmétique', 'Volumes']
+    tags: [
+      'QCM',
+      'Probabilités',
+      'Ratio',
+      'Fonctions',
+      'Arithmétique',
+      'Volumes',
+    ],
   },
   dnb_2022_06_ameriquenord_3: {
     annee: '2022',
@@ -4761,7 +5164,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2022_06_ameriquenord_4: {
     annee: '2022',
@@ -4769,7 +5172,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Probabilités']
+    tags: ['Algorithmique-programmation', 'Probabilités'],
   },
   dnb_2022_06_ameriquenord_5: {
     annee: '2022',
@@ -4777,7 +5180,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral']
+    tags: ['Programme de calculs', 'Calcul littéral'],
   },
   dnb_2022_06_asie_1: {
     annee: '2022',
@@ -4785,7 +5188,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Volumes']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Volumes'],
   },
   dnb_2022_06_asie_2: {
     annee: '2022',
@@ -4793,7 +5196,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Pythagore', 'Transformations', 'Agrandissement-réduction']
+    tags: [
+      'Thalès',
+      'Pythagore',
+      'Transformations',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2022_06_asie_3: {
     annee: '2022',
@@ -4801,7 +5209,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur', 'Pourcentages']
+    tags: ['Statistiques', 'Tableur', 'Pourcentages'],
   },
   dnb_2022_06_asie_4: {
     annee: '2022',
@@ -4809,7 +5217,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul numérique', 'Algorithmique-programmation', 'Pourcentages']
+    tags: ['Calcul numérique', 'Algorithmique-programmation', 'Pourcentages'],
   },
   dnb_2022_06_asie_5: {
     annee: '2022',
@@ -4817,7 +5225,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Coordonnées terrestres', 'Aires et périmètres', 'Vitesses']
+    tags: ['Coordonnées terrestres', 'Aires et périmètres', 'Vitesses'],
   },
   dnb_2022_06_etrangers_1: {
     annee: '2022',
@@ -4825,7 +5233,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Fonctions', 'Tableur', 'Calcul littéral', 'Pythagore']
+    tags: ['QCM', 'Fonctions', 'Tableur', 'Calcul littéral', 'Pythagore'],
   },
   dnb_2022_06_etrangers_2: {
     annee: '2022',
@@ -4833,7 +5241,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages', 'Durées', 'Vitesses']
+    tags: ['Statistiques', 'Pourcentages', 'Durées', 'Vitesses'],
   },
   dnb_2022_06_etrangers_3: {
     annee: '2022',
@@ -4841,7 +5249,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Thalès', 'Pythagore']
+    tags: ['Trigonométrie', 'Thalès', 'Pythagore'],
   },
   dnb_2022_06_etrangers_4: {
     annee: '2022',
@@ -4849,7 +5257,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2022_06_etrangers_5: {
     annee: '2022',
@@ -4857,7 +5265,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Volumes']
+    tags: ['Arithmétique', 'Volumes'],
   },
   dnb_2022_06_polynesie_1: {
     annee: '2022',
@@ -4865,7 +5273,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Calcul numérique', 'Thalès', 'Arithmétique', 'Ratio']
+    tags: ['Vrai/Faux', 'Calcul numérique', 'Thalès', 'Arithmétique', 'Ratio'],
   },
   dnb_2022_06_polynesie_2: {
     annee: '2022',
@@ -4873,7 +5281,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Lecture graphique']
+    tags: ['Fonctions', 'Lecture graphique'],
   },
   dnb_2022_06_polynesie_3: {
     annee: '2022',
@@ -4881,7 +5289,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Probabilités', 'Volumes', 'Équations']
+    tags: ['Statistiques', 'Probabilités', 'Volumes', 'Équations'],
   },
   dnb_2022_06_polynesie_4: {
     annee: '2022',
@@ -4889,7 +5297,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral']
+    tags: ['Programme de calculs', 'Calcul littéral'],
   },
   dnb_2022_06_polynesie_5: {
     annee: '2022',
@@ -4897,7 +5305,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Prise d\'initiatives', 'Pythagore', 'Trigonométrie']
+    tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie'],
   },
   dnb_2022_06_metropole_mathalea_1: {
     annee: '2022',
@@ -4905,7 +5313,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Pythagore', 'Vitesses']
+    tags: ['Thalès', 'Pythagore', 'Vitesses'],
   },
   dnb_2022_06_metropole_mathalea_2: {
     annee: '2022',
@@ -4913,7 +5321,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Transformations', 'Fonctions', 'Statistiques', 'Agrandissement-réduction']
+    tags: [
+      'QCM',
+      'Transformations',
+      'Fonctions',
+      'Statistiques',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2022_06_metropole_mathalea_3: {
     annee: '2022',
@@ -4921,7 +5335,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Probabilités']
+    tags: ['Arithmétique', 'Probabilités'],
   },
   dnb_2022_06_metropole_mathalea_4: {
     annee: '2022',
@@ -4929,7 +5343,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Algorithmique-programmation', 'Équations']
+    tags: ['Calcul littéral', 'Algorithmique-programmation', 'Équations'],
   },
   dnb_2022_06_metropole_mathalea_5: {
     annee: '2022',
@@ -4937,7 +5351,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Pourcentages', 'Proportionnalité']
+    tags: ['Volumes', 'Pourcentages', 'Proportionnalité'],
   },
   dnb_2022_09_metropole_1: {
     annee: '2022',
@@ -4945,7 +5359,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Arithmétique', 'Calcul littéral', 'Équations', 'Probabilités']
+    tags: [
+      'QCM',
+      'Puissances',
+      'Arithmétique',
+      'Calcul littéral',
+      'Équations',
+      'Probabilités',
+    ],
   },
   dnb_2022_09_metropole_2: {
     annee: '2022',
@@ -4953,7 +5374,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Équations', 'Lecture graphique']
+    tags: ['Fonctions', 'Équations', 'Lecture graphique'],
   },
   dnb_2022_09_metropole_3: {
     annee: '2022',
@@ -4961,7 +5382,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Transformations']
+    tags: ['Algorithmique-programmation', 'Transformations'],
   },
   dnb_2022_09_metropole_4: {
     annee: '2022',
@@ -4969,7 +5390,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Statistiques', 'Vitesses', 'Grandeurs composées']
+    tags: ['Tableur', 'Statistiques', 'Vitesses', 'Grandeurs composées'],
   },
   dnb_2022_09_metropole_5: {
     annee: '2022',
@@ -4977,7 +5398,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Pythagore', 'Thalès', 'Volumes']
+    tags: ['Trigonométrie', 'Pythagore', 'Thalès', 'Volumes'],
   },
   dnb_2022_09_polynesie_1: {
     annee: '2022',
@@ -4985,7 +5406,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fractions', 'Arithmétique', 'Calcul littéral', 'Volumes', 'Pourcentages']
+    tags: [
+      'Fractions',
+      'Arithmétique',
+      'Calcul littéral',
+      'Volumes',
+      'Pourcentages',
+    ],
   },
   dnb_2022_09_polynesie_2: {
     annee: '2022',
@@ -4993,7 +5420,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Vitesses', 'Thalès']
+    tags: ['Pythagore', 'Trigonométrie', 'Vitesses', 'Thalès'],
   },
   dnb_2022_09_polynesie_3: {
     annee: '2022',
@@ -5001,7 +5428,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Transformations']
+    tags: ['Algorithmique-programmation', 'Transformations'],
   },
   dnb_2022_09_polynesie_4: {
     annee: '2022',
@@ -5009,7 +5436,12 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Programme de calculs', 'Équations', 'Lecture graphique']
+    tags: [
+      'Fonctions',
+      'Programme de calculs',
+      'Équations',
+      'Lecture graphique',
+    ],
   },
   dnb_2022_09_polynesie_5: {
     annee: '2022',
@@ -5017,7 +5449,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Statistiques']
+    tags: ['Probabilités', 'Statistiques'],
   },
   dnb_2023_05_ameriquenord_1: {
     annee: '2023',
@@ -5025,7 +5457,13 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Probabilités', 'Calcul littéral', 'Volumes', 'Agrandissement-réduction']
+    tags: [
+      'Arithmétique',
+      'Probabilités',
+      'Calcul littéral',
+      'Volumes',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2023_05_ameriquenord_2: {
     annee: '2023',
@@ -5033,7 +5471,13 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Aires et périmètres', 'Proportionnalité']
+    tags: [
+      'Pythagore',
+      'Thalès',
+      'Trigonométrie',
+      'Aires et périmètres',
+      'Proportionnalité',
+    ],
   },
   dnb_2023_05_ameriquenord_3: {
     annee: '2023',
@@ -5041,7 +5485,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2023_05_ameriquenord_4: {
     annee: '2023',
@@ -5049,7 +5493,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Géométrie plane']
+    tags: ['Algorithmique-programmation', 'Géométrie plane'],
   },
   dnb_2023_05_ameriquenord_5: {
     annee: '2023',
@@ -5057,7 +5501,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Vitesses', 'Proportionnalité']
+    tags: ['Aires et périmètres', 'Vitesses', 'Proportionnalité'],
   },
   dnb_2023_06_asie_1: {
     annee: '2023',
@@ -5065,7 +5509,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Proportionnalité', 'Aires et périmètres']
+    tags: ['Pythagore', 'Thalès', 'Proportionnalité', 'Aires et périmètres'],
   },
   dnb_2023_06_asie_2: {
     annee: '2023',
@@ -5073,7 +5517,15 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Transformations', 'Fonctions', 'Puissances', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Probabilités',
+      'Pourcentages',
+      'Transformations',
+      'Fonctions',
+      'Puissances',
+      'Trigonométrie',
+    ],
   },
   dnb_2023_06_asie_3: {
     annee: '2023',
@@ -5081,7 +5533,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Tableur']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Tableur'],
   },
   dnb_2023_06_asie_4: {
     annee: '2023',
@@ -5089,7 +5541,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2023_06_asie_5: {
     annee: '2023',
@@ -5097,7 +5549,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Recherche d\'informations', 'Statistiques', 'Pourcentages', 'Volumes']
+    tags: [
+      "Recherche d'informations",
+      'Statistiques',
+      'Pourcentages',
+      'Volumes',
+    ],
   },
   dnb_2023_06_etrangers_1: {
     annee: '2023',
@@ -5105,7 +5562,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Algorithmique-programmation', 'Calcul numérique', 'Puissances', 'Statistiques']
+    tags: [
+      'QCM',
+      'Algorithmique-programmation',
+      'Calcul numérique',
+      'Puissances',
+      'Statistiques',
+    ],
   },
   dnb_2023_06_etrangers_2: {
     annee: '2023',
@@ -5113,7 +5576,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Pythagore', 'Thalès', 'Volumes', 'Recherche d\'informations']
+    tags: [
+      'Trigonométrie',
+      'Pythagore',
+      'Thalès',
+      'Volumes',
+      "Recherche d'informations",
+    ],
   },
   dnb_2023_06_etrangers_3: {
     annee: '2023',
@@ -5121,7 +5590,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations'],
   },
   dnb_2023_06_etrangers_4: {
     annee: '2023',
@@ -5129,7 +5598,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique']
+    tags: ['Probabilités', 'Arithmétique'],
   },
   dnb_2023_06_etrangers_5: {
     annee: '2023',
@@ -5137,7 +5606,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité']
+    tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité'],
   },
   dnb_2023_06_metropole_1: {
     annee: '2023',
@@ -5145,7 +5614,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Statistiques']
+    tags: ['Statistiques'],
   },
   dnb_2023_06_metropole_2: {
     annee: '2023',
@@ -5153,7 +5622,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Pythagore', 'Thalès']
+    tags: ['Aires et périmètres', 'Pythagore', 'Thalès'],
   },
   dnb_2023_06_metropole_3: {
     annee: '2023',
@@ -5161,7 +5630,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Pourcentages', 'Probabilités', 'Transformations', 'Volumes']
+    tags: ['QCM', 'Pourcentages', 'Probabilités', 'Transformations', 'Volumes'],
   },
   dnb_2023_06_metropole_4: {
     annee: '2023',
@@ -5169,7 +5638,11 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Recherche d\'informations', 'Trigonométrie', 'Algorithmique-programmation']
+    tags: [
+      "Recherche d'informations",
+      'Trigonométrie',
+      'Algorithmique-programmation',
+    ],
   },
   dnb_2023_06_metropole_5: {
     annee: '2023',
@@ -5177,7 +5650,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Équations']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Équations'],
   },
   dnb_2023_06_polynesie_1: {
     annee: '2023',
@@ -5185,7 +5658,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Fonctions', 'Tableur', 'Calcul littéral']
+    tags: ['QCM', 'Fonctions', 'Tableur', 'Calcul littéral'],
   },
   dnb_2023_06_polynesie_2: {
     annee: '2023',
@@ -5193,7 +5666,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Recherche d\'informations', 'Pythagore', 'Pourcentages', 'Trigonométrie', 'Thalès']
+    tags: [
+      "Recherche d'informations",
+      'Pythagore',
+      'Pourcentages',
+      'Trigonométrie',
+      'Thalès',
+    ],
   },
   dnb_2023_06_polynesie_3: {
     annee: '2023',
@@ -5201,7 +5680,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2023_06_polynesie_4: {
     annee: '2023',
@@ -5209,7 +5688,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Calcul littéral', 'Programme de calculs', 'Équations']
+    tags: [
+      'Algorithmique-programmation',
+      'Calcul littéral',
+      'Programme de calculs',
+      'Équations',
+    ],
   },
   dnb_2023_06_polynesie_5: {
     annee: '2023',
@@ -5217,7 +5701,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Vitesses', 'Arithmétique']
+    tags: ['Aires et périmètres', 'Vitesses', 'Arithmétique'],
   },
   dnb_2023_09_metropole_1: {
     annee: '2023',
@@ -5225,7 +5709,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Arithmétique', 'Agrandissement-réduction', 'Équations', 'Probabilités', 'Transformations']
+    tags: [
+      'QCM',
+      'Arithmétique',
+      'Agrandissement-réduction',
+      'Équations',
+      'Probabilités',
+      'Transformations',
+    ],
   },
   dnb_2023_09_metropole_2: {
     annee: '2023',
@@ -5233,7 +5724,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2023_09_metropole_3: {
     annee: '2023',
@@ -5241,7 +5732,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Équations', 'Statistiques']
+    tags: ['Fonctions', 'Équations', 'Statistiques'],
   },
   dnb_2023_09_metropole_4: {
     annee: '2023',
@@ -5249,7 +5740,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Recherche d\'informations', 'Pourcentages', 'Proportionnalité']
+    tags: ["Recherche d'informations", 'Pourcentages', 'Proportionnalité'],
   },
   dnb_2023_09_metropole_5: {
     annee: '2023',
@@ -5257,7 +5748,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Aires et périmètres']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Aires et périmètres'],
   },
   dnb_2023_09_polynesie_1: {
     annee: '2023',
@@ -5265,7 +5756,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Pourcentages', 'Thalès', 'Probabilités']
+    tags: ['QCM', 'Pourcentages', 'Thalès', 'Probabilités'],
   },
   dnb_2023_09_polynesie_2: {
     annee: '2023',
@@ -5273,7 +5764,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Tableur']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Tableur'],
   },
   dnb_2023_09_polynesie_3: {
     annee: '2023',
@@ -5281,7 +5772,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2023_09_polynesie_4: {
     annee: '2023',
@@ -5289,7 +5780,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Pythagore', 'Volumes']
+    tags: ['Trigonométrie', 'Pythagore', 'Volumes'],
   },
   dnb_2023_09_polynesie_5: {
     annee: '2023',
@@ -5297,7 +5788,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Coordonnées terrestres', 'Durées', 'Statistiques', 'Vitesses']
+    tags: ['Coordonnées terrestres', 'Durées', 'Statistiques', 'Vitesses'],
   },
 
   dnb_2023_11_amsud_1: {
@@ -5306,7 +5797,13 @@ export const dictionnaireDNB = {
     mois: 'Octobre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Géométrie plane', 'Agrandissement-réduction', 'Aires et périmètres']
+    tags: [
+      'Pythagore',
+      'Trigonométrie',
+      'Géométrie plane',
+      'Agrandissement-réduction',
+      'Aires et périmètres',
+    ],
   },
   dnb_2023_11_amsud_2: {
     annee: '2023',
@@ -5314,7 +5811,13 @@ export const dictionnaireDNB = {
     mois: 'Octobre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Calcul littéral', 'Fonctions', 'Tableur', 'Lecture graphique']
+    tags: [
+      'Aires et périmètres',
+      'Calcul littéral',
+      'Fonctions',
+      'Tableur',
+      'Lecture graphique',
+    ],
   },
   dnb_2023_11_amsud_3: {
     annee: '2023',
@@ -5322,7 +5825,7 @@ export const dictionnaireDNB = {
     mois: 'Octobre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Proportionnalité', 'Arithmétique', 'Calcul littéral']
+    tags: ['Vrai/Faux', 'Proportionnalité', 'Arithmétique', 'Calcul littéral'],
   },
   dnb_2023_11_amsud_4: {
     annee: '2023',
@@ -5330,7 +5833,7 @@ export const dictionnaireDNB = {
     mois: 'Octobre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Grandeurs composées', 'Proportionnalité']
+    tags: ['Volumes', 'Grandeurs composées', 'Proportionnalité'],
   },
   dnb_2023_11_amsud_5: {
     annee: '2023',
@@ -5338,7 +5841,7 @@ export const dictionnaireDNB = {
     mois: 'Octobre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Algorithmique-programmation']
+    tags: ['Probabilités', 'Algorithmique-programmation'],
   },
   dnb_2023_12_caledonie_1: {
     annee: '2023',
@@ -5346,7 +5849,14 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Probabilités', 'Puissances', 'Calcul numérique', 'Transformations', 'Statistiques']
+    tags: [
+      'QCM',
+      'Probabilités',
+      'Puissances',
+      'Calcul numérique',
+      'Transformations',
+      'Statistiques',
+    ],
   },
   dnb_2023_12_caledonie_2: {
     annee: '2023',
@@ -5354,7 +5864,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Arithmétique']
+    tags: ['Arithmétique'],
   },
   dnb_2023_12_caledonie_3: {
     annee: '2023',
@@ -5362,7 +5872,13 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Aires et périmètres', 'Pythagore', 'Volumes', 'Grandeurs composées']
+    tags: [
+      'Trigonométrie',
+      'Aires et périmètres',
+      'Pythagore',
+      'Volumes',
+      'Grandeurs composées',
+    ],
   },
   dnb_2023_12_caledonie_4: {
     annee: '2023',
@@ -5370,7 +5886,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Thalès', 'Vitesses', 'Durées']
+    tags: ['Géométrie plane', 'Thalès', 'Vitesses', 'Durées'],
   },
   dnb_2023_12_caledonie_5: {
     annee: '2023',
@@ -5378,7 +5894,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations']
+    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations'],
   },
   dnb_2023_12_caledonie_6: {
     annee: '2023',
@@ -5386,7 +5902,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Algorithmique-programmation']
+    tags: ['Géométrie plane', 'Algorithmique-programmation'],
   },
 
   dnb_2021_12_caledonie_1: {
@@ -5396,8 +5912,15 @@ export const dictionnaireDNB = {
     numeroInitial: '1',
     typeExercice: 'dnb',
     tags: [
-      'Pourcentages', 'Fractions', 'Calcul littéral', 'Équations', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Géométrie plane'
-    ]
+      'Pourcentages',
+      'Fractions',
+      'Calcul littéral',
+      'Équations',
+      'Calcul numérique',
+      'Volumes',
+      'Trigonométrie',
+      'Géométrie plane',
+    ],
   },
   dnb_2021_12_caledonie_2: {
     annee: '2021',
@@ -5405,9 +5928,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: [
-      'Statistiques', 'Pourcentages'
-    ]
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnb_2021_12_caledonie_3: {
     annee: '2021',
@@ -5415,9 +5936,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: [
-      'Géométrie plane', 'Pythagore'
-    ]
+    tags: ['Géométrie plane', 'Pythagore'],
   },
   dnb_2021_12_caledonie_4: {
     annee: '2021',
@@ -5425,9 +5944,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: [
-      'Arithmétique', 'Pourcentages'
-    ]
+    tags: ['Arithmétique', 'Pourcentages'],
   },
   dnb_2021_12_caledonie_5: {
     annee: '2021',
@@ -5435,9 +5952,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: [
-      'Probabilités', 'Fractions'
-    ]
+    tags: ['Probabilités', 'Fractions'],
   },
   dnb_2021_12_caledonie_6: {
     annee: '2021',
@@ -5445,9 +5960,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: [
-      'Proportionnalité', 'Lecture graphique', 'Tableur'
-    ]
+    tags: ['Proportionnalité', 'Lecture graphique', 'Tableur'],
   },
   dnb_2021_12_caledonie_7: {
     annee: '2021',
@@ -5455,9 +5968,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: [
-      "Recherche d'informations", 'Aires et périmètres'
-    ]
+    tags: ["Recherche d'informations", 'Aires et périmètres'],
   },
   dnb_2021_12_caledonie_8: {
     annee: '2021',
@@ -5465,9 +5976,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: [
-      'Géométrie plane', 'Thalès', 'Algorithmique-programmation'
-    ]
+    tags: ['Géométrie plane', 'Thalès', 'Algorithmique-programmation'],
   },
 
   dnb_2021_06_polynesie_1: {
@@ -5476,7 +5985,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Transformations', 'Calcul littéral', 'Équations', 'Arithmétique', 'Fractions', 'Coordonnées terrestres']
+    tags: [
+      'Transformations',
+      'Calcul littéral',
+      'Équations',
+      'Arithmétique',
+      'Fractions',
+      'Coordonnées terrestres',
+    ],
   },
   dnb_2021_06_polynesie_2: {
     annee: '2021',
@@ -5484,7 +6000,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Fractions', 'Équations']
+    tags: ['Probabilités', 'Fractions', 'Équations'],
   },
   dnb_2021_06_polynesie_3: {
     annee: '2021',
@@ -5492,7 +6008,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Aires et périmètres', 'Trigonométrie', 'Géométrie plane']
+    tags: [
+      'Pythagore',
+      'Aires et périmètres',
+      'Trigonométrie',
+      'Géométrie plane',
+    ],
   },
   dnb_2021_06_polynesie_4: {
     annee: '2021',
@@ -5500,7 +6021,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2021_06_polynesie_5: {
     annee: '2021',
@@ -5508,7 +6029,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Lecture graphique', 'Proportionnalité', 'Fonctions', 'Équations']
+    tags: ['Lecture graphique', 'Proportionnalité', 'Fonctions', 'Équations'],
   },
 
   dnb_2024_05_ameriquenord_1: {
@@ -5517,7 +6038,13 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Vrai/Faux', 'Statistiques', 'Vitesses', 'Probabilités', 'Agrandissement-réduction']
+    tags: [
+      'Vrai/Faux',
+      'Statistiques',
+      'Vitesses',
+      'Probabilités',
+      'Agrandissement-réduction',
+    ],
   },
   dnb_2024_05_ameriquenord_2: {
     annee: '2024',
@@ -5525,7 +6052,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations'],
   },
   dnb_2024_05_ameriquenord_3: {
     annee: '2024',
@@ -5533,7 +6060,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité']
+    tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité'],
   },
   dnb_2024_05_ameriquenord_4: {
     annee: '2024',
@@ -5541,7 +6068,12 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Pourcentages', 'Proportionnalité', 'Aires et périmètres']
+    tags: [
+      'Géométrie plane',
+      'Pourcentages',
+      'Proportionnalité',
+      'Aires et périmètres',
+    ],
   },
   dnb_2024_05_ameriquenord_5: {
     annee: '2024',
@@ -5549,7 +6081,7 @@ export const dictionnaireDNB = {
     mois: 'Mai',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Programme de calculs']
+    tags: ['Thalès', 'Programme de calculs'],
   },
 
   dnb_2024_06_asie_1: {
@@ -5558,7 +6090,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Aires et périmètres', 'Calcul littéral', 'Ratio', 'Statistiques', 'QCM']
+    tags: [
+      'Arithmétique',
+      'Aires et périmètres',
+      'Calcul littéral',
+      'Ratio',
+      'Statistiques',
+      'QCM',
+    ],
   },
   dnb_2024_06_asie_2: {
     annee: '2024',
@@ -5566,7 +6105,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ["Géométrie dans l'espace", 'Thalès', 'Probabilités']
+    tags: ["Géométrie dans l'espace", 'Thalès', 'Probabilités'],
   },
   dnb_2024_06_asie_3: {
     annee: '2024',
@@ -5574,7 +6113,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Aires et périmètres', 'Trigonométrie', 'Géométrie plane']
+    tags: [
+      'Pythagore',
+      'Aires et périmètres',
+      'Trigonométrie',
+      'Géométrie plane',
+    ],
   },
   dnb_2024_06_asie_4: {
     annee: '2024',
@@ -5582,7 +6126,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Fonctions', "Recherche d'informations", 'Équations', 'Lecture graphique']
+    tags: [
+      'Fonctions',
+      "Recherche d'informations",
+      'Équations',
+      'Lecture graphique',
+    ],
   },
   dnb_2024_06_asie_5: {
     annee: '2024',
@@ -5590,7 +6139,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2024_06_etrangers_1: {
     annee: '2024',
@@ -5598,7 +6147,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Vitesses', 'Probabilités', 'Fractions', 'Statistiques']
+    tags: [
+      'QCM',
+      'Puissances',
+      'Vitesses',
+      'Probabilités',
+      'Fractions',
+      'Statistiques',
+    ],
   },
   dnb_2024_06_etrangers_2: {
     annee: '2024',
@@ -5606,7 +6162,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', "Prise d'initiatives"]
+    tags: ['Arithmétique', "Prise d'initiatives"],
   },
   dnb_2024_06_etrangers_3: {
     annee: '2024',
@@ -5614,7 +6170,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Algorithmique-programmation', 'Fonctions', 'Calcul littéral', 'Équations']
+    tags: [
+      'Programme de calculs',
+      'Algorithmique-programmation',
+      'Fonctions',
+      'Calcul littéral',
+      'Équations',
+    ],
   },
   dnb_2024_06_etrangers_4: {
     annee: '2024',
@@ -5622,7 +6184,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Thalès', 'Transformations']
+    tags: ['Pythagore', 'Trigonométrie', 'Thalès', 'Transformations'],
   },
   dnb_2024_06_etrangers_5: {
     annee: '2024',
@@ -5630,7 +6192,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Aires et périmètres', 'Proportionnalité', 'Volumes', 'Agrandissement-réduction']
+    tags: [
+      'Pythagore',
+      'Aires et périmètres',
+      'Proportionnalité',
+      'Volumes',
+      'Agrandissement-réduction',
+    ],
   },
 
   dnb_2020_02_caledonie_1: {
@@ -5639,7 +6207,7 @@ export const dictionnaireDNB = {
     mois: 'Février',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Thalès', 'Géométrie plane']
+    tags: ['Fonctions', 'Thalès', 'Géométrie plane'],
   },
   dnb_2020_02_caledonie_2: {
     annee: '2020',
@@ -5647,7 +6215,12 @@ export const dictionnaireDNB = {
     mois: 'Février',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: [
+      'Algorithmique-programmation',
+      'Programme de calculs',
+      'Calcul littéral',
+      'Équations',
+    ],
   },
   dnb_2020_02_caledonie_3: {
     annee: '2020',
@@ -5655,7 +6228,7 @@ export const dictionnaireDNB = {
     mois: 'Février',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Lecture graphique', 'Statistiques']
+    tags: ['Proportionnalité', 'Lecture graphique', 'Statistiques'],
   },
   dnb_2020_02_caledonie_4: {
     annee: '2020',
@@ -5663,7 +6236,7 @@ export const dictionnaireDNB = {
     mois: 'Février',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Pythagore', 'Grandeurs composées']
+    tags: ['Volumes', 'Pythagore', 'Grandeurs composées'],
   },
   dnb_2020_02_caledonie_5: {
     annee: '2020',
@@ -5671,7 +6244,7 @@ export const dictionnaireDNB = {
     mois: 'Février',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Pourcentages']
+    tags: ['Proportionnalité', 'Pourcentages'],
   },
   dnb_2020_02_caledonie_6: {
     annee: '2020',
@@ -5679,7 +6252,7 @@ export const dictionnaireDNB = {
     mois: 'Février',
     numeroInitial: '6',
     typeExercice: 'dnb',
-    tags: ['Tableur', 'Statistiques', 'Probabilités']
+    tags: ['Tableur', 'Statistiques', 'Probabilités'],
   },
   dnb_2020_02_caledonie_7: {
     annee: '2020',
@@ -5687,7 +6260,7 @@ export const dictionnaireDNB = {
     mois: 'Février',
     numeroInitial: '7',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Trigonométrie', "Prise d'initiatives"]
+    tags: ['Géométrie plane', 'Trigonométrie', "Prise d'initiatives"],
   },
   dnb_2020_02_caledonie_8: {
     annee: '2020',
@@ -5695,7 +6268,7 @@ export const dictionnaireDNB = {
     mois: 'Février',
     numeroInitial: '8',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', "Recherche d'informations"]
+    tags: ['Algorithmique-programmation', "Recherche d'informations"],
   },
 
   dnb_2024_06_polynesie_1: {
@@ -5704,7 +6277,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Fonctions', 'Transformations', 'Ratio', 'Arithmétique', 'QCM']
+    tags: [
+      'Pythagore',
+      'Fonctions',
+      'Transformations',
+      'Ratio',
+      'Arithmétique',
+      'QCM',
+    ],
   },
   dnb_2024_06_polynesie_2: {
     annee: '2024',
@@ -5712,7 +6292,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages'],
   },
   dnb_2024_06_polynesie_3: {
     annee: '2024',
@@ -5720,7 +6300,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes', 'Aires et périmètres', 'Grandeurs composées']
+    tags: [
+      'Pythagore',
+      'Thalès',
+      'Trigonométrie',
+      'Volumes',
+      'Aires et périmètres',
+      'Grandeurs composées',
+    ],
   },
   dnb_2024_06_polynesie_4: {
     annee: '2024',
@@ -5728,7 +6315,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2024_06_polynesie_5: {
     annee: '2024',
@@ -5736,7 +6323,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Équations', 'Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral']
+    tags: [
+      'Fonctions',
+      'Tableur',
+      'Équations',
+      'Algorithmique-programmation',
+      'Programme de calculs',
+      'Calcul littéral',
+    ],
   },
   dnb_2024_07_antilles_1: {
     annee: '2024',
@@ -5744,7 +6338,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique']
+    tags: ['Probabilités', 'Arithmétique'],
   },
   dnb_2024_07_antilles_2: {
     annee: '2024',
@@ -5752,7 +6346,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Statistiques', 'Transformations', 'Fonctions']
+    tags: ['QCM', 'Puissances', 'Statistiques', 'Transformations', 'Fonctions'],
   },
   dnb_2024_07_antilles_3: {
     annee: '2024',
@@ -5760,7 +6354,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie'],
   },
   dnb_2024_07_antilles_4: {
     annee: '2024',
@@ -5768,7 +6362,12 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Algorithmique-programmation', 'Équations']
+    tags: [
+      'Programme de calculs',
+      'Calcul littéral',
+      'Algorithmique-programmation',
+      'Équations',
+    ],
   },
   dnb_2024_07_antilles_5: {
     annee: '2024',
@@ -5776,7 +6375,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Volumes', 'Grandeurs composées']
+    tags: ['Aires et périmètres', 'Volumes', 'Grandeurs composées'],
   },
   dnb_2024_09_polynesie_1: {
     annee: '2024',
@@ -5784,7 +6383,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Puissances', 'Grandeurs composées', 'Équations', 'Fonctions', 'Thalès']
+    tags: [
+      'Arithmétique',
+      'Puissances',
+      'Grandeurs composées',
+      'Équations',
+      'Fonctions',
+      'Thalès',
+    ],
   },
   dnb_2024_09_polynesie_2: {
     annee: '2024',
@@ -5792,7 +6398,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Tableur', 'Probabilités', 'Pourcentages']
+    tags: ['Statistiques', 'Tableur', 'Probabilités', 'Pourcentages'],
   },
   dnb_2024_09_polynesie_3: {
     annee: '2024',
@@ -5800,7 +6406,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Pythagore', 'Triangles égaux', 'Agrandissement-réduction', 'Aires et périmètres']
+    tags: [
+      'Trigonométrie',
+      'Pythagore',
+      'Triangles égaux',
+      'Agrandissement-réduction',
+      'Aires et périmètres',
+    ],
   },
   dnb_2024_09_polynesie_4: {
     annee: '2024',
@@ -5808,7 +6420,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Transformations']
+    tags: ['Algorithmique-programmation', 'Transformations'],
   },
   dnb_2024_09_polynesie_5: {
     annee: '2024',
@@ -5816,7 +6428,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Volumes', 'Fonctions', 'Vitesses', 'Grandeurs composées']
+    tags: ['Volumes', 'Fonctions', 'Vitesses', 'Grandeurs composées'],
   },
   dnb_2024_07_metropole_1: {
     annee: '2024',
@@ -5824,7 +6436,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2024_07_metropole_2: {
     annee: '2024',
@@ -5832,7 +6444,12 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Algorithmique-programmation', 'Programme de calculs', 'Équations']
+    tags: [
+      'Calcul littéral',
+      'Algorithmique-programmation',
+      'Programme de calculs',
+      'Équations',
+    ],
   },
   dnb_2024_07_metropole_3: {
     annee: '2024',
@@ -5840,7 +6457,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Aires et périmètres', 'Pourcentages']
+    tags: ['Pythagore', 'Thalès', 'Aires et périmètres', 'Pourcentages'],
   },
   dnb_2024_07_metropole_4: {
     annee: '2024',
@@ -5848,7 +6465,14 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Puissances', 'Fonctions', 'QCM', 'Transformations', 'Statistiques', 'Trigonométrie']
+    tags: [
+      'Puissances',
+      'Fonctions',
+      'QCM',
+      'Transformations',
+      'Statistiques',
+      'Trigonométrie',
+    ],
   },
   dnb_2024_07_metropole_5: {
     annee: '2024',
@@ -5856,7 +6480,7 @@ export const dictionnaireDNB = {
     mois: 'Juillet',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Volumes', 'Fractions']
+    tags: ['Arithmétique', 'Volumes', 'Fractions'],
   },
 
   dnb_2024_09_metropole_1: {
@@ -5865,7 +6489,14 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Vrai/Faux', 'Probabilités', 'Équations', 'Volumes', 'Vitesses']
+    tags: [
+      'Arithmétique',
+      'Vrai/Faux',
+      'Probabilités',
+      'Équations',
+      'Volumes',
+      'Vitesses',
+    ],
   },
   dnb_2024_09_metropole_2: {
     annee: '2024',
@@ -5873,7 +6504,13 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Thalès', 'Pythagore', 'Aires et périmètres', 'Géométrie plane', 'Proportionnalité']
+    tags: [
+      'Thalès',
+      'Pythagore',
+      'Aires et périmètres',
+      'Géométrie plane',
+      'Proportionnalité',
+    ],
   },
   dnb_2024_09_metropole_3: {
     annee: '2024',
@@ -5881,7 +6518,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages', 'Trigonométrie']
+    tags: ['Statistiques', 'Pourcentages', 'Trigonométrie'],
   },
   dnb_2024_09_metropole_4: {
     annee: '2024',
@@ -5889,7 +6526,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations']
+    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations'],
   },
   dnb_2024_09_metropole_5: {
     annee: '2024',
@@ -5897,7 +6534,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Algorithmique-programmation']
+    tags: ['Géométrie plane', 'Algorithmique-programmation'],
   },
   dnb_2024_12_ameriquesud_1: {
     annee: '2024',
@@ -5905,7 +6542,13 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Probabilités', 'Géométrie dans l\'espace', 'Thalès', 'Transformations']
+    tags: [
+      'QCM',
+      'Probabilités',
+      "Géométrie dans l'espace",
+      'Thalès',
+      'Transformations',
+    ],
   },
   dnb_2024_12_ameriquesud_2: {
     annee: '2024',
@@ -5913,7 +6556,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations']
+    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations'],
   },
   dnb_2024_12_ameriquesud_3: {
     annee: '2024',
@@ -5921,7 +6564,12 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Vitesses', 'Pourcentages', 'Coordonnées terrestres']
+    tags: [
+      'Probabilités',
+      'Vitesses',
+      'Pourcentages',
+      'Coordonnées terrestres',
+    ],
   },
   dnb_2024_12_ameriquesud_4: {
     annee: '2024',
@@ -5929,7 +6577,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Volumes']
+    tags: ['Pythagore', 'Trigonométrie', 'Volumes'],
   },
   dnb_2024_12_ameriquesud_5: {
     annee: '2024',
@@ -5937,7 +6585,7 @@ export const dictionnaireDNB = {
     mois: 'Décembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
 
   dnb_2025_06_ameriquenord_1: {
@@ -5946,7 +6594,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique', 'Pourcentages', 'Agrandissement-réduction', 'Statistiques']
+    tags: [
+      'Probabilités',
+      'Arithmétique',
+      'Pourcentages',
+      'Agrandissement-réduction',
+      'Statistiques',
+    ],
   },
   dnb_2025_06_ameriquenord_2: {
     annee: '2025',
@@ -5954,7 +6608,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Aires et périmètres', 'Géométrie plane']
+    tags: ['Pythagore', 'Thalès', 'Aires et périmètres', 'Géométrie plane'],
   },
   dnb_2025_06_ameriquenord_3: {
     annee: '2025',
@@ -5962,7 +6616,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations'],
   },
   dnb_2025_06_ameriquenord_4: {
     annee: '2025',
@@ -5970,7 +6624,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Lecture graphique', 'Vitesses', 'Grandeurs composées']
+    tags: [
+      'Proportionnalité',
+      'Lecture graphique',
+      'Vitesses',
+      'Grandeurs composées',
+    ],
   },
   dnb_2025_06_ameriquenord_5: {
     annee: '2025',
@@ -5978,7 +6637,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Probabilités', 'statistiques']
+    tags: ['Algorithmique-programmation', 'Probabilités', 'statistiques'],
   },
 
   dnb_2025_06_asie_1: {
@@ -5987,7 +6646,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Statistiques', 'Fonctions']
+    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Statistiques', 'Fonctions'],
   },
   dnb_2025_06_asie_2: {
     annee: '2025',
@@ -5995,7 +6654,12 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Aires et périmètres', 'Thalès', 'Triangles semblables']
+    tags: [
+      'Pythagore',
+      'Aires et périmètres',
+      'Thalès',
+      'Triangles semblables',
+    ],
   },
   dnb_2025_06_asie_3: {
     annee: '2025',
@@ -6003,7 +6667,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Aires et périmètres', 'Géométrie plane', 'Tableur', 'Calcul littéral', 'Équations']
+    tags: [
+      'Aires et périmètres',
+      'Géométrie plane',
+      'Tableur',
+      'Calcul littéral',
+      'Équations',
+    ],
   },
   dnb_2025_06_asie_4: {
     annee: '2025',
@@ -6011,7 +6681,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation']
+    tags: ['Algorithmique-programmation'],
   },
   dnb_2025_06_asie_5: {
     annee: '2025',
@@ -6019,7 +6689,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aritmétique', 'Pourcentages', 'Volumes']
+    tags: ['Aritmétique', 'Pourcentages', 'Volumes'],
   },
   dnb_2025_06_etrangers_1: {
     annee: '2025',
@@ -6027,7 +6697,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Aritmétique', 'Tableur', 'Transformations', 'Calcul littéral', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Aritmétique',
+      'Tableur',
+      'Transformations',
+      'Calcul littéral',
+      'Trigonométrie',
+    ],
   },
   dnb_2025_06_etrangers_2: {
     annee: '2025',
@@ -6035,7 +6712,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Probabilités', 'Volumes', 'Grandeurs composées']
+    tags: ['Statistiques', 'Probabilités', 'Volumes', 'Grandeurs composées'],
   },
   dnb_2025_06_etrangers_3: {
     annee: '2025',
@@ -6043,7 +6720,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Fonctions']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Fonctions'],
   },
   dnb_2025_06_etrangers_4: {
     annee: '2025',
@@ -6051,7 +6728,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Géométrie plane', 'Thalès', 'Aires et périmètres', 'Ratio', 'Recherche d\'informations']
+    tags: [
+      'Pythagore',
+      'Géométrie plane',
+      'Thalès',
+      'Aires et périmètres',
+      'Ratio',
+      "Recherche d'informations",
+    ],
   },
   dnb_2025_06_etrangers_5: {
     annee: '2025',
@@ -6059,7 +6743,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Arithmétique', 'Algorithmique-programmation']
+    tags: ['Probabilités', 'Arithmétique', 'Algorithmique-programmation'],
   },
 
   dnb_2025_06_metropole_1: {
@@ -6068,7 +6752,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   dnb_2025_06_metropole_2: {
     annee: '2025',
@@ -6076,7 +6760,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie'],
   },
   dnb_2025_06_metropole_3: {
     annee: '2025',
@@ -6084,7 +6768,15 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Proportionnalité', 'Transformations', 'Pourcentages', 'Aires et périmètres', 'Calcul littéral', 'Volumes', 'QCM']
+    tags: [
+      'Proportionnalité',
+      'Transformations',
+      'Pourcentages',
+      'Aires et périmètres',
+      'Calcul littéral',
+      'Volumes',
+      'QCM',
+    ],
   },
   dnb_2025_06_metropole_4: {
     annee: '2025',
@@ -6092,7 +6784,11 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Algorithmique-programmation']
+    tags: [
+      'Programme de calculs',
+      'Calcul littéral',
+      'Algorithmique-programmation',
+    ],
   },
   dnb_2025_06_metropole_5: {
     annee: '2025',
@@ -6100,7 +6796,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Fonctions', 'Tableur', 'Lecture graphique']
+    tags: ['Fonctions', 'Tableur', 'Lecture graphique'],
   },
 
   dnb_2025_06_polynesie_1: {
@@ -6109,7 +6805,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages', 'Tableur']
+    tags: ['Statistiques', 'Pourcentages', 'Tableur'],
   },
   dnb_2025_06_polynesie_2: {
     annee: '2025',
@@ -6117,7 +6813,13 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Trigonométrie', 'Thalès', 'Vitesses', 'Grandeurs composées']
+    tags: [
+      'Pythagore',
+      'Trigonométrie',
+      'Thalès',
+      'Vitesses',
+      'Grandeurs composées',
+    ],
   },
   dnb_2025_06_polynesie_3: {
     annee: '2025',
@@ -6125,7 +6827,14 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['QCM', 'Puissances', 'Arithmétique', 'Aires et périmètres', 'Calcul littéral', 'Transformations']
+    tags: [
+      'QCM',
+      'Puissances',
+      'Arithmétique',
+      'Aires et périmètres',
+      'Calcul littéral',
+      'Transformations',
+    ],
   },
   dnb_2025_06_polynesie_4: {
     annee: '2025',
@@ -6133,7 +6842,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['Calcul littéral', 'Fonctions', 'Équations']
+    tags: ['Calcul littéral', 'Fonctions', 'Équations'],
   },
   dnb_2025_06_polynesie_5: {
     annee: '2025',
@@ -6141,7 +6850,6 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Probabilités', 'Algorithmique-programmation']
+    tags: ['Probabilités', 'Algorithmique-programmation'],
   },
-
 }

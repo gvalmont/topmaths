@@ -27,14 +27,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'f3f71'
 export const refs = {
   'fr-fr': ['canCE1a-2025'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '01/05/2025'
 
 /**
  * Annales CAN 2025
  * @author Jean-Claude Lhote
-*/
+ */
 
 const questions = [
   Question1,
@@ -56,11 +56,11 @@ const questions = [
   Question17,
   Question18,
   Question19,
-  Question20
+  Question20,
 ]
 
 export default class Can5CE12025 extends MetaExercice {
-  constructor () {
+  constructor() {
     super(questions)
   }
 }

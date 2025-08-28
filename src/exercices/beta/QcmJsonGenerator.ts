@@ -26,7 +26,7 @@ const qcmData: QcmJsonData = {
   options: {
     vertical: false,
     ordered: false,
-    lastChoice: 8
+    lastChoice: 8,
   },
   questions: [
     {
@@ -35,14 +35,14 @@ const qcmData: QcmJsonData = {
         '$4$', // Bonne réponse (toujours en premier)
         '$3$',
         '$5$',
-        '$22$'
+        '$22$',
       ],
       corrections: [
         'Correct ! $2 + 2 = 4$',
         'Erreur : vérifiez votre calcul',
         'Erreur : $2 + 2 \\neq 5$',
-        'Erreur : ce n\'est pas une concaténation'
-      ]
+        "Erreur : ce n'est pas une concaténation",
+      ],
     },
     {
       enonce: 'Quelle est la racine carrée de $16$ ?',
@@ -50,14 +50,14 @@ const qcmData: QcmJsonData = {
         '$4$', // Bonne réponse
         '$8$',
         '$2$',
-        '$6$'
+        '$6$',
       ],
       corrections: [
         'Correct ! $\\sqrt{16} = 4$ car $4^2 = 16$',
         'Erreur : $8^2 = 64$',
         'Erreur : $2^2 = 4$',
-        'Erreur : $6^2 = 36$'
-      ]
+        'Erreur : $6^2 = 36$',
+      ],
     },
     {
       enonce: 'Quelle est la valeur de $\\pi$ (approximation) ?',
@@ -65,24 +65,23 @@ const qcmData: QcmJsonData = {
         '$3,14$', // Bonne réponse
         '$3,41$',
         '$2,71$',
-        '$1,41$'
+        '$1,41$',
       ],
       corrections: [
         'Correct ! $\\pi \\approx 3,14159...$',
         'Erreur : vous avez inversé les chiffres',
-        'Erreur : c\'est l\'approximation de $e$',
-        'Erreur : c\'est l\'approximation de $\\sqrt{2}$'
-      ]
-    }
-  ]
+        "Erreur : c'est l'approximation de $e$",
+        "Erreur : c'est l'approximation de $\\sqrt{2}$",
+      ],
+    },
+  ],
 }
-export const titre = 'Générateur d\'exercices QCM à partir de JSON'
+export const titre = "Générateur d'exercices QCM à partir de JSON"
 export const dateDePublication = '3/7/2025'
-export const refs =
-  {
-    'fr-fr': [],
-    'fr-ch': []
-  }
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': [],
+}
 export const uuid = 'QcmGen'
 /**
  * Générateur d'exercices QCM basé sur des données JSON
@@ -93,7 +92,7 @@ export default class QcmJsonGenerator extends ExerciceQcm {
   private jsonData: QcmJsonData
   private questionsDisponibles: QuestionQcm[]
 
-  constructor (jsonData: QcmJsonData) {
+  constructor(jsonData: QcmJsonData) {
     super()
     this.jsonData = jsonData ?? qcmData // Utiliser les données par défaut si aucune donnée n'est fournie
     this.questionsDisponibles = [...this.jsonData.questions]
@@ -178,7 +177,7 @@ export default class QcmJsonGenerator extends ExerciceQcm {
    * Méthode pour charger des données JSON depuis un objet
    * @param jsonData - Les données JSON à charger
    */
-  static fromJson (jsonData: QcmJsonData): QcmJsonGenerator {
+  static fromJson(jsonData: QcmJsonData): QcmJsonGenerator {
     return new QcmJsonGenerator(jsonData)
   }
 
@@ -187,15 +186,17 @@ export default class QcmJsonGenerator extends ExerciceQcm {
    * @param data - Les données à valider
    * @returns true si les données sont valides
    */
-  static validateJsonData (data: any): data is QcmJsonData {
+  static validateJsonData(data: any): data is QcmJsonData {
     if (!data || typeof data !== 'object') return false
     if (!data.titre || typeof data.titre !== 'string') return false
-    if (!Array.isArray(data.questions) || data.questions.length === 0) return false
+    if (!Array.isArray(data.questions) || data.questions.length === 0)
+      return false
 
     // Vérifier chaque question
     for (const question of data.questions) {
       if (!question.enonce || typeof question.enonce !== 'string') return false
-      if (!Array.isArray(question.reponses) || question.reponses.length < 2) return false
+      if (!Array.isArray(question.reponses) || question.reponses.length < 2)
+        return false
 
       // Vérifier que toutes les réponses sont des strings
       for (const reponse of question.reponses) {
@@ -213,7 +214,8 @@ export default class QcmJsonGenerator extends ExerciceQcm {
       // Vérifier les bonnes réponses si présentes
       if (question.bonnesReponses) {
         if (!Array.isArray(question.bonnesReponses)) return false
-        if (question.bonnesReponses.length !== question.reponses.length) return false
+        if (question.bonnesReponses.length !== question.reponses.length)
+          return false
         for (const statut of question.bonnesReponses) {
           if (typeof statut !== 'boolean') return false
         }
@@ -228,9 +230,11 @@ export default class QcmJsonGenerator extends ExerciceQcm {
    * @param questionsDejaUtilisees - Liste des questions déjà utilisées
    * @returns Une nouvelle question ou null si toutes ont été utilisées
    */
-  private getQuestionAleatoire (questionsDejaUtilisees: QuestionQcm[]): QuestionQcm | null {
+  private getQuestionAleatoire(
+    questionsDejaUtilisees: QuestionQcm[],
+  ): QuestionQcm | null {
     const questionsRestantes = this.questionsDisponibles.filter(
-      q => !questionsDejaUtilisees.includes(q)
+      (q) => !questionsDejaUtilisees.includes(q),
     )
 
     if (questionsRestantes.length === 0) {
@@ -243,7 +247,7 @@ export default class QcmJsonGenerator extends ExerciceQcm {
   /**
    * Redéfinition pour gérer les questions multiples de façon aléatoire
    */
-  nouvelleVersion () {
+  nouvelleVersion() {
     // Utiliser la version originale par défaut
     this.versionOriginale()
     super.nouvelleVersion()

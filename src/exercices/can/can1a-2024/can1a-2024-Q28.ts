@@ -15,7 +15,7 @@ export const uuid = '5c582'
 
 */
 export default class calculProba extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class calculProba extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: number
     if (this.canOfficielle) {
       a = 9

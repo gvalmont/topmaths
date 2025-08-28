@@ -13,7 +13,7 @@ export const uuid = 'f66e7'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -23,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 6
       this.question = '$20\\,\\%$ de $30$'
@@ -35,7 +35,7 @@ export default class NomExercice extends ExerciceSimple {
     } else {
       const a = randint(2, 9) * 10
       const p = randint(1, 4) * 10
-      this.reponse = a * p / 100
+      this.reponse = (a * p) / 100
       this.question = `$${p}\\,\\%$ de $${a}$`
       if (p === 10) {
         this.correction = `$10\\,\\%$ de $${a} = 0,1 \\times ${a}=${miseEnEvidence(texNombre(this.reponse))}$`

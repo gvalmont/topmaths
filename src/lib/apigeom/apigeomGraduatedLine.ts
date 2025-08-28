@@ -2,26 +2,49 @@ import Figure from 'apigeom'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
 import { arrondi } from '../outils/nombres'
 
-export function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points }: {
-  xMin: number,
-  xMax: number,
-  scale?: number,
-  points?: Array<{ x: number, label: string }>
-}): { figure: Figure, latex: string } {
+export function apigeomGraduatedLine({
+  xMin,
+  xMax,
+  scale = 1,
+  points,
+}: {
+  xMin: number
+  xMax: number
+  scale?: number
+  points?: Array<{ x: number; label: string }>
+}): { figure: Figure; latex: string } {
   //  const width = 900
   const width = 650
   const height = 80
-  const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: arrondi(1 / (10 * scale), 6), xScale: 3 * scale, snapGrid: true })
+  const figure = new Figure({
+    xMin: xMin - 0.2 / scale,
+    yMin: -1.5,
+    width,
+    height,
+    dy: 10,
+    dx: arrondi(1 / (10 * scale), 6),
+    xScale: 3 * scale,
+    snapGrid: true,
+  })
   figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
 
-  const figureXMaxInPIxels = figure.xMax * figure.pixelsPerUnit * figure.scale * figure.xScale
-  const lineXMaxInPIxels = xMax * figure.pixelsPerUnit * figure.scale * figure.xScale
+  const figureXMaxInPIxels =
+    figure.xMax * figure.pixelsPerUnit * figure.scale * figure.xScale
+  const lineXMaxInPIxels =
+    xMax * figure.pixelsPerUnit * figure.scale * figure.xScale
   const ecart = figureXMaxInPIxels - lineXMaxInPIxels
   if (ecart < 15) {
-    xMax = (figureXMaxInPIxels - 15) / (figure.pixelsPerUnit * figure.scale * figure.xScale)
+    xMax =
+      (figureXMaxInPIxels - 15) /
+      (figure.pixelsPerUnit * figure.scale * figure.xScale)
   }
 
-  const d = new GraduatedLine(figure, { min: xMin, max: xMax, step: arrondi(1 / scale, 6), stepBis: arrondi(1 / (10 * scale), 6) })
+  const d = new GraduatedLine(figure, {
+    min: xMin,
+    max: xMax,
+    step: arrondi(1 / scale, 6),
+    stepBis: arrondi(1 / (10 * scale), 6),
+  })
   d.draw()
   let latex = `\n\\bigskip
     \\begin{tikzpicture}[x=2.2mm]

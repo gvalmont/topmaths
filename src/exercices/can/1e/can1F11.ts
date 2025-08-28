@@ -3,7 +3,8 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
-  reduirePolynomeDegre3, rienSi1
+  reduirePolynomeDegre3,
+  rienSi1,
 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
@@ -21,20 +22,22 @@ export const uuid = 'ffbf6'
 
 export const refs = {
   'fr-fr': ['can1F11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DeriveePoly3 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d
-    switch (choice([1, 2, 3, 4, 5, 6])) { //
-      case 1:// troisième degre ax^3+bx^2+cx+d
+    switch (
+      choice([1, 2, 3, 4, 5, 6]) //
+    ) {
+      case 1: // troisième degre ax^3+bx^2+cx+d
         a = randint(-10, 10, [0])
         b = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
@@ -57,7 +60,7 @@ export default class DeriveePoly3 extends ExerciceSimple {
         this.reponse = [`${3 * a}x^2+${2 * b}x+${c}`]
         break
 
-      case 2:// troisième degre bx^2+ax^3+cx+d ou cx+bx^2+d+ax^3
+      case 2: // troisième degre bx^2+ax^3+cx+d ou cx+bx^2+d+ax^3
         a = randint(-10, 10, [0])
         b = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
@@ -94,7 +97,7 @@ export default class DeriveePoly3 extends ExerciceSimple {
         this.reponse = [`${3 * a}x^2+${2 * b}x+${c}`]
 
         break
-      case 3:// troisième degre ax^3+bx^2+c ou ax^3+c+bx^2
+      case 3: // troisième degre ax^3+bx^2+c ou ax^3+c+bx^2
         a = randint(-10, 10, [0])
         b = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
@@ -133,7 +136,7 @@ export default class DeriveePoly3 extends ExerciceSimple {
 
         break
 
-      case 4:// troisième degre ax^3+bx+c ou bx+c+ax^3
+      case 4: // troisième degre ax^3+bx+c ou bx+c+ax^3
         a = randint(-10, 10, [0])
         b = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
@@ -172,7 +175,7 @@ export default class DeriveePoly3 extends ExerciceSimple {
 
         break
 
-      case 5:// troisième degre ax^3+b ou b+ax^3
+      case 5: // troisième degre ax^3+b ou b+ax^3
         a = randint(-10, 10, [0])
         b = randint(-10, 10, [0])
 
@@ -207,7 +210,7 @@ export default class DeriveePoly3 extends ExerciceSimple {
         this.reponse = [`${3 * a}x^2`]
 
         break
-      case 6:// troisième degre bx^2+ax^3 ou bx+ax^3
+      case 6: // troisième degre bx^2+ax^3 ou bx+ax^3
         a = randint(-10, 10, [0])
         b = randint(-10, 10, [0])
 

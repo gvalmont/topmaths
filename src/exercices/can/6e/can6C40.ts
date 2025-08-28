@@ -21,10 +21,10 @@ export const uuid = 'bfec4'
 
 export const refs = {
   'fr-fr': ['can6C40', '6N2H-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculMoitieDecimal extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -32,8 +32,11 @@ export default class CalculMoitieDecimal extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
-    const a = choice([new Decimal(randint(1, 10) * 2 + 1).div(2), new Decimal(randint(0, 10) * 2 + 1).div(10)])
+  nouvelleVersion() {
+    const a = choice([
+      new Decimal(randint(1, 10) * 2 + 1).div(2),
+      new Decimal(randint(0, 10) * 2 + 1).div(10),
+    ])
     this.reponse = new Decimal(a).div(2)
     this.question = `Calculer la moitié de $${texNombre(a, 1)}$.`
     this.correction = `$${texNombre(a, 1)}\\div 2=${miseEnEvidence(texNombre(Number(this.reponse), 2))}$

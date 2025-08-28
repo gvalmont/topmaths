@@ -2,16 +2,20 @@
   import katex from 'katex/dist/katex'
   import { onDestroy } from 'svelte'
   import {
-      isExerciceItemInReferentiel,
-      isGeoDynamic,
-      isTool,
-      resourceHasMonth,
-      resourceHasPlace,
-      type JSONReferentielEnding
+    isExerciceItemInReferentiel,
+    isGeoDynamic,
+    isTool,
+    resourceHasMonth,
+    resourceHasPlace,
+    type JSONReferentielEnding,
   } from '../../../../../../lib/types/referentiels'
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   import { mathaleaGenerateSeed } from '../../../../../../lib/mathalea'
-  import { changes, exercicesParams, globalOptions } from '../../../../../../lib/stores/generalStore'
+  import {
+    changes,
+    exercicesParams,
+    globalOptions,
+  } from '../../../../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../../../../lib/types'
   import { isLessThan3Months } from '../../../../../../lib/types/dates'
   import NoInteractivityIcon from '../../../../../shared/icons/NoInteractivityIcon.svelte'
@@ -54,8 +58,11 @@
       if (endingTitre.includes('$')) {
         const regexp = /(['$])(.*?)\1/g
         const matchs = endingTitre.match(regexp)
-        matchs?.forEach(match => {
-          endingTitre = endingTitre.replace(match, katex.renderToString(match.replaceAll('$', '')))
+        matchs?.forEach((match) => {
+          endingTitre = endingTitre.replace(
+            match,
+            katex.renderToString(match.replaceAll('$', '')),
+          )
         })
       }
     }
@@ -67,16 +74,19 @@
   /**
    * Ajouter l'exercice courant à la liste
    */
-  function addToList () {
+  function addToList() {
     const newExercise = {
       uuid: ending.uuid,
       alea: mathaleaGenerateSeed(),
-      interactif: isGeoDynamic(ending) ? '1' : '0'
+      interactif: isGeoDynamic(ending) ? '1' : '0',
     } as InterfaceParams
     if (isExerciceItemInReferentiel(ending) || isTool(ending)) {
       newExercise.id = ending.id
     }
-    if ($globalOptions.recorder === 'capytale' || $globalOptions.setInteractive === '1') {
+    if (
+      $globalOptions.recorder === 'capytale' ||
+      $globalOptions.setInteractive === '1'
+    ) {
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
@@ -86,13 +96,13 @@
    * Retirer l'exercice de la liste (si plusieurs occurences
    * la première est retirée)
    */
-  function removeFromList () {
+  function removeFromList() {
     const matchingIndex = $exercicesParams
       .map((item) => item.uuid)
       .findIndex(compareCodes)
     exercicesParams.update((list) => [
       ...list.slice(0, matchingIndex),
-      ...list.slice(matchingIndex + 1)
+      ...list.slice(matchingIndex + 1),
     ])
     $changes--
   }
@@ -103,12 +113,12 @@
   let icon = 'bxs-message-alt'
   let rotation = '-rotate-90'
   let mouseIsOut = true
-  function handleMouseOver () {
+  function handleMouseOver() {
     icon = 'bx-trash'
     rotation = 'rotate-0'
     mouseIsOut = false
   }
-  function handleMouseOut () {
+  function handleMouseOut() {
     icon = 'bxs-message-alt'
     rotation = '-rotate-90'
     mouseIsOut = true
@@ -124,7 +134,7 @@
   **nestedLevelCount** (_number_) : compteur du niveau d'imbrication (utilisé pour la mise en page)
  -->
 <div
-  class={`${$$props.class || ''} w-full flex flex-row mr-4 text-start items-start text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}
+  class="{`${$$props.class || ''} w-full flex flex-row mr-4 text-start items-start text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}"
   style="padding-left: {(nestedLevelCount * 2) / 6}rem"
 >
   <div
@@ -132,10 +142,10 @@
   >
     <button
       type="button"
-      on:click={addToList}
+      on:click="{addToList}"
       class="ml-[3px] pl-2 pr-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1"
     >
-      <div bind:this={nomDeExercice} class="flex flex-row justify-start">
+      <div bind:this="{nomDeExercice}" class="flex flex-row justify-start">
         {#if isExerciceItemInReferentiel(ending)}
           <!-- Exercice MathALÉA -->
           <div
@@ -162,7 +172,7 @@
                 data-tip="{ending.dateModification}"
               >
                 <span
-                class="tooltip tooltip-bottom tooltip-neutral
+                  class="tooltip tooltip-bottom tooltip-neutral
                   inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
                 >
                   MAJ
@@ -199,7 +209,8 @@
               {#if resourceHasMonth(ending)}
                 {ending.mois}
               {/if}
-              {ending.annee} {ending.lieu}
+              {ending.annee}
+              {ending.lieu}
               {#if ending.jour !== undefined}
                 [{ending.jour === 'J1' ? 'Sujet 1' : 'Sujet 2'}]
               {/if}
@@ -239,16 +250,16 @@
       <button
         type="button"
         class="absolute -left-4 -top-[0.15rem]"
-        on:mouseover={handleMouseOver}
-        on:focus={handleMouseOver}
-        on:mouseout={handleMouseOut}
-        on:blur={handleMouseOut}
-        on:click={removeFromList}
-        on:keydown={removeFromList}
+        on:mouseover="{handleMouseOver}"
+        on:focus="{handleMouseOver}"
+        on:mouseout="{handleMouseOut}"
+        on:blur="{handleMouseOut}"
+        on:click="{removeFromList}"
+        on:keydown="{removeFromList}"
       >
         <i
           class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}"
-        />
+        ></i>
       </button>
     {/if}
     {#if selectedCount >= 2 && mouseIsOut}

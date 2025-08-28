@@ -12,7 +12,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '39ed1'
 export const refs = {
   'fr-fr': ['3G1QCM-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -26,7 +26,12 @@ export const dateDePublication = '8/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class MetropoleSeptembre21Exo1Q3 extends ExerciceQcmA {
-  private appliquerLesValeurs (azimut:number, angle1: number, angle2: number, angle3: number): void {
+  private appliquerLesValeurs(
+    azimut: number,
+    angle1: number,
+    angle2: number,
+    angle3: number,
+  ): void {
     const nuage = [
       point(0.5, 0.5),
       point(1.6, 0.5),
@@ -34,7 +39,7 @@ export default class MetropoleSeptembre21Exo1Q3 extends ExerciceQcmA {
       point(2, 0.75),
       point(1.6, 1.2),
       point(1.6, 1),
-      point(0.5, 1)
+      point(0.5, 1),
     ]
     const centre = point(0, 0, 'O', 'above right')
 
@@ -53,17 +58,37 @@ export default class MetropoleSeptembre21Exo1Q3 extends ExerciceQcmA {
     const objets3 = [traceO, label, fleche, flecheF2]
     const objets4 = [traceO, label, fleche, flecheV, flecheAnimee]
     this.enonce = `Sur quelle figure a-t-on représenté une flèche et son image par une rotation de centre $O$ et d'angle $${Math.abs(angle1)}^\\circ$ ?`
-    const fig1 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1, style: 'display: inline-block' }, fixeBordures(objets1)), objets1)
-    const fig2 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1, style: 'display: inline-block' }, fixeBordures(objets2)), objets2)
-    const fig3 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1, style: 'display: inline-block' }, fixeBordures(objets3)), objets3)
-    const fig4 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1, style: 'display: inline-block' }, fixeBordures(objets4)), objets4)
+    const fig1 = mathalea2d(
+      Object.assign(
+        { pixelsParCm: 30, scale: 1, style: 'display: inline-block' },
+        fixeBordures(objets1),
+      ),
+      objets1,
+    )
+    const fig2 = mathalea2d(
+      Object.assign(
+        { pixelsParCm: 30, scale: 1, style: 'display: inline-block' },
+        fixeBordures(objets2),
+      ),
+      objets2,
+    )
+    const fig3 = mathalea2d(
+      Object.assign(
+        { pixelsParCm: 30, scale: 1, style: 'display: inline-block' },
+        fixeBordures(objets3),
+      ),
+      objets3,
+    )
+    const fig4 = mathalea2d(
+      Object.assign(
+        { pixelsParCm: 30, scale: 1, style: 'display: inline-block' },
+        fixeBordures(objets4),
+      ),
+      objets4,
+    )
 
     this.correction = fig4
-    this.reponses = [
-      fig1,
-      fig2,
-      fig3
-    ]
+    this.reponses = [fig1, fig2, fig3]
   }
 
   versionOriginale: () => void = () => {
@@ -81,7 +106,7 @@ export default class MetropoleSeptembre21Exo1Q3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

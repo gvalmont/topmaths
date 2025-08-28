@@ -6,10 +6,13 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
-  rienSi1
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
+import {
+  premierMultipleInferieur,
+  premierMultipleSuperieur,
+} from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
@@ -28,13 +31,17 @@ export const uuid = '392b3'
 
 export const refs = {
   'fr-fr': ['1AL23-7'],
-  'fr-ch': ['1mF3-6']
+  'fr-ch': ['1mF3-6'],
 }
 export default class TrouverEquationParabole extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Passant par trois points à coordonnées entières 1\n2 : Connaissant le sommet et un point de passage\n3 : Connaissant les deux racines et un point de passage\n4 : Mélange des trois type de questions']
+    this.besoinFormulaireNumerique = [
+      'Type de questions ',
+      4,
+      '1 : Passant par trois points à coordonnées entières 1\n2 : Connaissant le sommet et un point de passage\n3 : Connaissant les deux racines et un point de passage\n4 : Mélange des trois type de questions',
+    ]
 
     this.nbQuestions = 5
 
@@ -43,16 +50,25 @@ export default class TrouverEquationParabole extends Exercice {
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = "Trouver l'expression de "
-    this.consigne += this.nbQuestions > 1 ? 'chacune des fonctions suivantes.' : 'la fonction suivante.'
+    this.consigne +=
+      this.nbQuestions > 1
+        ? 'chacune des fonctions suivantes.'
+        : 'la fonction suivante.'
     const pixelsParCm = 20
     let typesDeQuestionsDisponibles
     if (this.sup < 4) typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else typesDeQuestionsDisponibles = [1, 2, 2, 3, 3]
-    const fName = []; let Ymin; let Yscale; let Ymax
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const fName = []
+    let Ymin
+    let Yscale
+    let Ymax
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let a: number, b: number, c: number
@@ -62,7 +78,7 @@ export default class TrouverEquationParabole extends Exercice {
       texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré `
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
-        case 1 : // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
+        case 1: // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
           a = randint(-4, 4, 0)
           b = randint(-6, 6, 0)
           c = randint(-10, 10, 0)
@@ -75,7 +91,8 @@ export default class TrouverEquationParabole extends Exercice {
           texte += `qui passe par les points de coordonnées $(${-x1};${f(-x1)})$, $(0;${f(0)})$ et $(${x1};${f(x1)})$ ?<br>`
           texteCorr = `Soit $\\mathscr{${fName[i]}}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, comme $\\mathscr{${fName[i]}}(0)=${f(0)}$ nous en déduisons que $c=${miseEnEvidence(f(0), 'red')}$.<br>`
           texteCorr += `Donc $\\mathscr{${fName[i]}}(x)=ax^2+bx${miseEnEvidence(ecritureAlgebrique(f(0)), 'red')}$.<br>`
-          texteCorr += 'En substituant dans cette expression les valeurs de l\'énoncé, nous obtenons :<br>'
+          texteCorr +=
+            "En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>"
           texteCorr += `$\\begin{cases}
 ${f(x1)}=a\\times${x1}^2+b\\times${x1}${ecritureAlgebrique(f(0))}=${rienSi1(x1 ** 2)}a ${ecritureAlgebriqueSauf1(x1)}b ${ecritureAlgebrique(f(0))} \\\\
 ${f(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecritureAlgebrique(f(0))}=${rienSi1(x1 ** 2)}a ${ecritureAlgebriqueSauf1(-x1)}b ${ecritureAlgebrique(f(0))}
@@ -95,7 +112,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
           texteCorr += `D'où $\\mathscr{${fName[i]}}(x)=${a !== 1 ? miseEnEvidence(String(rienSi1(a)), 'blue') : ''}x^2 ${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x  ${miseEnEvidence(ecritureAlgebrique(c), 'red')}$<br>`
 
           break
-        case 2 : // Passant par le sommet (x1,y1) et par le point (x2,y2)
+        case 2: // Passant par le sommet (x1,y1) et par le point (x2,y2)
           a = randint(-3, 3, 0)
           b = randint(-3, 3, 0) * 2 * a
           c = randint(-10, 10)
@@ -112,7 +129,11 @@ ${f(x1) - f(-x1)}=${2 * x1}b
           if (this.correctionDetaillee) {
             texteCorr += ` donc $a(${x2}${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}=${f(x2)}$ `
             texteCorr += `soit $${x2 ** 2}a ${ecritureAlgebrique(-2 * x1 * x2)}a ${ecritureAlgebrique(x1 ** 2)}a ${ecritureAlgebrique(f(x1))}=${f(x2)}$.<br>`
-            if (x2 ** 2 - 2 * x1 * x2 + x1 ** 2 !== 1) { texteCorr += `On en déduit que $a=\\dfrac{${f(x2)}${ecritureAlgebrique(-f(x1))}}{${(x2 ** 2 - 2 * x1 * x2 + x1 ** 2)}}=${a}$.<br>` } else { texteCorr += `On en déduit que $a=${f(x2)}${ecritureAlgebrique(-f(x1))}=${a}$.<br>` }
+            if (x2 ** 2 - 2 * x1 * x2 + x1 ** 2 !== 1) {
+              texteCorr += `On en déduit que $a=\\dfrac{${f(x2)}${ecritureAlgebrique(-f(x1))}}{${x2 ** 2 - 2 * x1 * x2 + x1 ** 2}}=${a}$.<br>`
+            } else {
+              texteCorr += `On en déduit que $a=${f(x2)}${ecritureAlgebrique(-f(x1))}=${a}$.<br>`
+            }
           } else texteCorr += ` donc $a=${a}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `Développons la forme canonique : $\\mathscr{${fName[i]}}(x)=
@@ -154,7 +175,9 @@ ${f(x1) - f(-x1)}=${2 * x1}b
       }
 
       if (Ymax - Ymin < 10) Yscale = 2
-      else Yscale = Math.max(1, Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5) * 2
+      else
+        Yscale =
+          Math.max(1, Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5) * 2
       const r = repere({
         xMin: -10,
         yMin: premierMultipleInferieur(Yscale, Ymin) - Yscale,
@@ -163,13 +186,30 @@ ${f(x1) - f(-x1)}=${2 * x1}b
         yUnite: 1 / Yscale,
         yThickDistance: Yscale,
         grilleYDistance: Yscale,
-        yLabelEcart: 0.8
+        yLabelEcart: 0.8,
       })
 
       const svgYmin = Math.min(Ymin / Yscale, -1)
       const svgYmax = Math.max(Ymax / Yscale, 1)
-      const F = (x:number) => a * x ** 2 + b * x + c
-      texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm, scale: 0.6 }, courbe(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
+      const F = (x: number) => a * x ** 2 + b * x + c
+      texte += mathalea2d(
+        {
+          xmin: -10,
+          xmax: 11,
+          ymin: svgYmin,
+          ymax: svgYmax + 2,
+          pixelsParCm,
+          scale: 0.6,
+        },
+        courbe(F, {
+          repere: r,
+          xMin: -10,
+          xMax: 10,
+          color: 'blue',
+          epaisseur: 1.5,
+        }),
+        r,
+      )
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

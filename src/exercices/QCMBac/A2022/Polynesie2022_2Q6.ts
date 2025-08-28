@@ -1,10 +1,13 @@
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'faefb'
 export const refs = {
   'fr-fr': ['TSA5-QCM18'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,23 +32,27 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$n \\geqslant 5$', // Réponse correcte (d)
       '$n \\leqslant 4$', // Mauvaise réponse (a)
       '$n \\leqslant 5$', // Mauvaise réponse (b)
-      '$n \\geqslant 4$' // Mauvaise réponse (c)
+      '$n \\geqslant 4$', // Mauvaise réponse (c)
     ]
 
-    this.enonce = 'Les nombres entiers $n$ solutions de l\'inéquation '
+    this.enonce = "Les nombres entiers $n$ solutions de l'inéquation "
     this.enonce += '$(0,2)^n < 0,001$<br>'
     this.enonce += 'sont tous les nombres entiers $n$ tels que :'
 
-    this.correction = 'On résout l\'inéquation :<br>'
-    this.correction += '$(0,2)^n < 0,001 \\iff \\ln(0,2^n) < \\ln(0,001) \\iff n\\ln(0,2) < \\ln(0,001).$<br>'
-    this.correction += 'Comme $\\ln(0,2) < 0$, on divise par un nombre négatif, ce qui inverse l\'inégalité :<br>'
+    this.correction = "On résout l'inéquation :<br>"
+    this.correction +=
+      '$(0,2)^n < 0,001 \\iff \\ln(0,2^n) < \\ln(0,001) \\iff n\\ln(0,2) < \\ln(0,001).$<br>'
+    this.correction +=
+      "Comme $\\ln(0,2) < 0$, on divise par un nombre négatif, ce qui inverse l'inégalité :<br>"
     this.correction += '$n > \\dfrac{\\ln(0,001)}{\\ln(0,2)}.$<br>'
-    this.correction += 'On calcule $\\dfrac{\\ln(0,001)}{\\ln(0,2)} \\approx 4,3$.<br>'
-    this.correction += 'Ainsi, les solutions sont les entiers $n \\geqslant 5$.<br>'
+    this.correction +=
+      'On calcule $\\dfrac{\\ln(0,001)}{\\ln(0,2)} \\approx 4,3$.<br>'
+    this.correction +=
+      'Ainsi, les solutions sont les entiers $n \\geqslant 5$.<br>'
     this.correction += `La bonne réponse est donc $${miseEnEvidence('n \\geqslant 5')}$.`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

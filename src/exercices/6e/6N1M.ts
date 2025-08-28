@@ -4,7 +4,11 @@ import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -24,30 +28,31 @@ export const amcType = 'AMCHybride'
 export const refs = {
   'fr-fr': ['6N1M'],
   'fr-2016': ['6N31-5'],
-  'fr-ch': ['9NO7-8']
+  'fr-ch': ['9NO7-8'],
 }
 export const uuid = 'a8c21'
 export default class EncadrerUnDecimal extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
-        '1 : Encadrer à l\'unité',
+        "1 : Encadrer à l'unité",
         '2 : Encadrer au dixième',
         '3 : Encadrer au centième',
-        '4 : Mélange'
-      ].join('\n')
+        '4 : Mélange',
+      ].join('\n'),
     ]
     this.sup = 4 // Type de questions
     this.nbQuestions = 4
     this.consigneCorrection = 'Encadrer'
 
-    context.isHtml ? this.spacing = 1.5 : this.spacing = 1.5
-    context.isHtml ? this.spacingCorr = 1.2 : this.spacingCorr = 1.5
+    context.isHtml ? (this.spacing = 1.5) : (this.spacing = 1.5)
+    context.isHtml ? (this.spacingCorr = 1.2) : (this.spacingCorr = 1.5)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     /*
         let listeTypeDeQuestions = []
         if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
@@ -70,17 +75,28 @@ export default class EncadrerUnDecimal extends Exercice {
       defaut: 4,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
+      saisie: this.sup,
     })
 
-    for (let i = 0, indexQ = 0, texte, typesDeQuestions, texteCorr, reponseMin, reponseMax, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (
+      let i = 0,
+        indexQ = 0,
+        texte,
+        typesDeQuestions,
+        texteCorr,
+        reponseMin,
+        reponseMax,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+      cpt++
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const m = randint(1, 9)
       const c = randint(1, 9)
       const d = randint(1, 9)
-      const u = (typesDeQuestions === 1 ? randint(7, 9) : randint(1, 9))
-      const di = (typesDeQuestions === 2 ? randint(7, 9) : randint(1, 9))
-      const ci = (typesDeQuestions === 3 ? randint(7, 9) : randint(1, 9))
+      const u = typesDeQuestions === 1 ? randint(7, 9) : randint(1, 9)
+      const di = typesDeQuestions === 2 ? randint(7, 9) : randint(1, 9)
+      const ci = typesDeQuestions === 3 ? randint(7, 9) : randint(1, 9)
       const mi = randint(1, 9)
 
       if (!this.questionJamaisPosee(i, m, c, u, di, ci, mi)) {
@@ -88,8 +104,10 @@ export default class EncadrerUnDecimal extends Exercice {
       }
 
       switch (typesDeQuestions) {
-        case 3: { // encadrement au centième
-          reponseMin = m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01)
+        case 3: {
+          // encadrement au centième
+          reponseMin =
+            m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01)
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au centième.<br>`
           if (this.interactif) {
@@ -101,7 +119,12 @@ export default class EncadrerUnDecimal extends Exercice {
           }
           indexQ++
           texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
-          reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + (ci + 1) * 0.01)
+          reponseMax =
+            m * 1000 +
+            c * 100 +
+            d * 10 +
+            u * 1 +
+            arrondi(di * 0.1 + (ci + 1) * 0.01)
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
             texte += '$' + ajouteChampTexteMathLive(this, indexQ, ' ')
@@ -111,11 +134,18 @@ export default class EncadrerUnDecimal extends Exercice {
             texte += ' \\ldots\\ldots\\ldots $'
           }
           indexQ++
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + 0 * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(ci))
+          const nombreStr = texNombre(
+            m * 1000 +
+              c * 100 +
+              d * 10 +
+              u * 1 +
+              arrondi(di * 0.1 + 0 * 0.01 + mi * 0.001),
+          ).replace('0', miseEnEvidence(ci))
           texteCorr = `au centième: $ ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01)))} < ${nombreStr} <  ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + (ci + 1) * 0.01)))}$`
           break
         }
-        case 2: { // encadrement au dixième
+        case 2: {
+          // encadrement au dixième
           reponseMin = m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1)
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au dixième.<br>`
@@ -128,7 +158,8 @@ export default class EncadrerUnDecimal extends Exercice {
           }
           indexQ++
           texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
-          reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + arrondi((di + 1) * 0.1)
+          reponseMax =
+            m * 1000 + c * 100 + d * 10 + u * 1 + arrondi((di + 1) * 0.1)
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
             texte += '$' + ajouteChampTexteMathLive(this, indexQ, ' ')
@@ -138,13 +169,19 @@ export default class EncadrerUnDecimal extends Exercice {
             texte += '\\ldots\\ldots\\ldots $ '
           }
           indexQ++
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(0 * 0.1 + ci * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(di))
+          const nombreStr = texNombre(
+            m * 1000 +
+              c * 100 +
+              d * 10 +
+              u * 1 +
+              arrondi(0 * 0.1 + ci * 0.01 + mi * 0.001),
+          ).replace('0', miseEnEvidence(di))
           texteCorr = `au dixième: $ ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1)))} < ${nombreStr} <  ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi((di + 1) * 0.1)))}$`
           break
         }
         case 1:
-        default:
-        { // encadrement à l'unité
+        default: {
+          // encadrement à l'unité
           reponseMin = m * 1000 + c * 100 + d * 10 + u * 1
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))}$ à l'unité.<br>`
@@ -167,7 +204,13 @@ export default class EncadrerUnDecimal extends Exercice {
             texte += '\\ldots\\ldots\\ldots $ '
           }
           indexQ++
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 0 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(u))
+          const nombreStr = texNombre(
+            m * 1000 +
+              c * 100 +
+              d * 10 +
+              u * 0 +
+              arrondi(di * 0.1 + ci * 0.01 + mi * 0.001),
+          ).replace('0', miseEnEvidence(u))
           texteCorr = `à l'unité: $ ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${nombreStr} <  ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + (u + 1) * 1))}$`
           break
         }
@@ -188,11 +231,11 @@ export default class EncadrerUnDecimal extends Exercice {
                     param: {
                       signe: false,
                       digits: nombreDeChiffresDe(reponseMin) + 2,
-                      decimals: 3
-                    }
-                  }
-                }
-              ]
+                      decimals: 3,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
@@ -205,13 +248,13 @@ export default class EncadrerUnDecimal extends Exercice {
                     param: {
                       signe: false,
                       digits: nombreDeChiffresDe(reponseMax) + 2,
-                      decimals: 3
-                    }
-                  }
-                }
-              ]
-            }
-          ]
+                      decimals: 3,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       this.listeQuestions.push(texte)

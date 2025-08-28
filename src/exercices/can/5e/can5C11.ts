@@ -16,17 +16,17 @@ export const uuid = '606fd'
 
 export const refs = {
   'fr-fr': ['can5C11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DifferenceNegative extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(8, 15)
     const b = randint(18, 30)
     this.question = `Calculer $${a}-${b}$.`
@@ -36,7 +36,7 @@ export default class DifferenceNegative extends ExerciceSimple {
     On décompose $${b}$ en $${a}+${b - a}$, ce qui donne :<br>
      $${a}-${b}=${a}-${a}-${b - a}=${a - b}$.
        `)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

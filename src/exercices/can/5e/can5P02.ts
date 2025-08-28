@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
@@ -22,10 +25,10 @@ export const uuid = 'bd5d1'
 
 export const refs = {
   'fr-fr': ['can5P02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PoucentageP2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -34,8 +37,12 @@ export default class PoucentageP2 extends ExerciceSimple {
     this.versionQcmDisponible = true
   }
 
-  nouvelleVersion () {
-    const listeCarac2 = [['maisons', 'T2'], ['maisons', 'T3'], ['appartements', 'T2'], ['appartements', 'T3']
+  nouvelleVersion() {
+    const listeCarac2 = [
+      ['maisons', 'T2'],
+      ['maisons', 'T3'],
+      ['appartements', 'T2'],
+      ['appartements', 'T3'],
     ]
     let a, b, c, n, d, carac2, choix
 
@@ -50,21 +57,31 @@ export default class PoucentageP2 extends ExerciceSimple {
         if (n === 'maisons') {
           this.question = `
         Parmi les $${texNombre(a, 0)}$ logements que compte une ville, $${b}\\,\\%$   sont des ${n} et $${c}\\,\\%$  de celles-ci sont des ${d}.<br> `
-          if (!this.versionQcm) { this.question += `Quel est le nombre de ${n} de type ${d} dans cette ville ?` } else { this.question += ` Le nombre de ${n} de type ${d} dans cette ville est :` }
+          if (!this.versionQcm) {
+            this.question += `Quel est le nombre de ${n} de type ${d} dans cette ville ?`
+          } else {
+            this.question += ` Le nombre de ${n} de type ${d} dans cette ville est :`
+          }
         } else {
           this.question = `Parmi les $${texNombre(a, 0)}$ logements que compte une ville, $${b}\\,\\%$   sont des ${n} et $${c}\\,\\%$  de ceux-ci sont des ${d}.<br>`
-          if (!this.versionQcm) { this.question += ` Quel est le nombre d' ${n} de type ${d} dans cette ville ?` } else { this.question += ` Le nombre d' ${n} de type ${d} dans cette ville est :` }
+          if (!this.versionQcm) {
+            this.question += ` Quel est le nombre d' ${n} de type ${d} dans cette ville ?`
+          } else {
+            this.question += ` Le nombre d' ${n} de type ${d} dans cette ville est :`
+          }
         }
-        this.distracteurs = [`$${texNombre(c * b * a / 1000, 2)}$`,
-         `$${texNombre(a * c * b / 100000, 2)}$`,
-         `$${texNombre(a - b - c, 2)}$`]
+        this.distracteurs = [
+          `$${texNombre((c * b * a) / 1000, 2)}$`,
+          `$${texNombre((a * c * b) / 100000, 2)}$`,
+          `$${texNombre(a - b - c, 2)}$`,
+        ]
         this.optionsChampTexte = { texteAvant: '<br>', texteApres: '' }
         this.correction = `Les ${n}  représentent $${b}\\%$   des logements.<br>
-        Il y en a donc : $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre(b * a / 100)}$.<br>
-        Dans cette ville, il y a  $${texNombre(b * a / 100, 2)}$ ${n}.<br>
+        Il y en a donc : $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre((b * a) / 100)}$.<br>
+        Dans cette ville, il y a  $${texNombre((b * a) / 100, 2)}$ ${n}.<br>
         Parmi ces ${n}, il y a $${c}\\,\\%$  de ${d}.<br>
-        $${c}\\,\\%$  de $${texNombre(b * a / 100)}=${texNombre(c / 100, 2)}\\times ${texNombre(b * a / 100, 2)}=${texNombre(c * b * a / 10000, 2)}$.<br>
-        Il y a donc $${miseEnEvidence(texNombre(c * b * a / 10000, 2))}$ ${n} de type ${d} dans cette ville.
+        $${c}\\,\\%$  de $${texNombre((b * a) / 100)}=${texNombre(c / 100, 2)}\\times ${texNombre((b * a) / 100, 2)}=${texNombre((c * b * a) / 10000, 2)}$.<br>
+        Il y a donc $${miseEnEvidence(texNombre((c * b * a) / 10000, 2))}$ ${n} de type ${d} dans cette ville.
         `
         this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
@@ -73,9 +90,11 @@ export default class PoucentageP2 extends ExerciceSimple {
        commence par calculer  $10\\,\\%$  de cette quantité en la divisant par $10$, puis on multiplie
        par $2$ ce résultat si on veut en calculer $20\\, \\%$, par $3$ si on veut en calculer $30\\,\\%$, ....<br>
                            `)
-        this.reponse = this.versionQcm ? `$${texNombre(c * b * a / 10000, 2)}$` : arrondi(c * b * a / 10000)
+        this.reponse = this.versionQcm
+          ? `$${texNombre((c * b * a) / 10000, 2)}$`
+          : arrondi((c * b * a) / 10000)
 
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = ''
         break
 
@@ -85,7 +104,11 @@ export default class PoucentageP2 extends ExerciceSimple {
         b = randint(10, 30)
         choix = choice([true, false])
         this.question = ` Une ${choix ? ' réduction' : 'augmentation'} de $${a}~\\%$  d'un article entraîne une ${choix ? 'réduction' : 'augmentation'} du prix de $${b}$ €.<br>`
-        if (!this.versionQcm) { this.question += `Quel était le prix de cet article avant ${choix ? '  la réduction' : 'l’augmentation'} ?  ` } else { this.question += ` Le prix de cet article avant ${choix ? '  la réduction' : 'l’augmentation'} est :  ` }
+        if (!this.versionQcm) {
+          this.question += `Quel était le prix de cet article avant ${choix ? '  la réduction' : 'l’augmentation'} ?  `
+        } else {
+          this.question += ` Le prix de cet article avant ${choix ? '  la réduction' : 'l’augmentation'} est :  `
+        }
 
         this.optionsChampTexte = { texteAvant: '<br>', texteApres: '€' }
         if (a === 25) {
@@ -104,12 +127,16 @@ export default class PoucentageP2 extends ExerciceSimple {
           this.correction = ` $50\\,\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $2$ fois plus que $${b}$ € (car $2\\times 50=100$).<br>
            Le prix de l'article était donc : $2\\times${b}=${miseEnEvidence(2 * b)}$ €.  `
         }
-        this.distracteurs = [`$${texNombre(b + b * a / 100, 2)}$ €`,
-         `$${texNombre(b - b * a / 100, 2)}$ €`,
-         `$${texNombre(a + b, 2)}$ €`]
-        this.reponse = this.versionQcm ? `$${texNombre(100 * b / a, 2)}$ €` : arrondi(100 * b / a)
+        this.distracteurs = [
+          `$${texNombre(b + (b * a) / 100, 2)}$ €`,
+          `$${texNombre(b - (b * a) / 100, 2)}$ €`,
+          `$${texNombre(a + b, 2)}$ €`,
+        ]
+        this.reponse = this.versionQcm
+          ? `$${texNombre((100 * b) / a, 2)}$ €`
+          : arrondi((100 * b) / a)
 
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = '$\\ldots$ €'
         break
     }

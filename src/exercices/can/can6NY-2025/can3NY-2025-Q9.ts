@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f08fe'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,14 +18,14 @@ export const refs = {
 
 */
 export default class calcAvecChiffresPrio extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const b = choice([2, 5, 10, 20, 100, 1000])
     if (choice([true, false])) {
       this.question = `Quel est le plus grand entier multiple de $${texNombre(b)}$ strictement inférieur à $${texNombre(2025, 0)}$ ?`
@@ -35,7 +35,7 @@ export default class calcAvecChiffresPrio extends ExerciceSimple {
       } else {
         this.reponse = texNombre(Math.floor(2025 / b) * b, 0)
         this.correction = `Comme $${texNombre(b, 0)}\\times ${texNombre(Math.floor(2025 / b))} =${texNombre(Math.floor(2025 / b) * b, 0)} < ${texNombre(2025, 0)}$ et
-  $ ${texNombre(b, 0)}\\times${texNombre(Math.floor(2025 / b) + 1, 0)}=${texNombre((Math.floor(2025 / b + 1)) * b, 0)} > ${texNombre(2025, 0)}$,
+  $ ${texNombre(b, 0)}\\times${texNombre(Math.floor(2025 / b) + 1, 0)}=${texNombre(Math.floor(2025 / b + 1) * b, 0)} > ${texNombre(2025, 0)}$,
   alors le plus grand multiple cherché est $${miseEnEvidence(this.reponse)}$.`
 
         // EE : Elle est chaude cette correction ci-dessus.... On pourrait la simplifier.
@@ -48,11 +48,13 @@ export default class calcAvecChiffresPrio extends ExerciceSimple {
       } else {
         this.reponse = texNombre(Math.ceil(2025 / b) * b, 0)
         this.correction = ` Comme $${b}\\times ${texNombre(Math.ceil(2025 / b) - 1)} =${texNombre(Math.ceil(2025 / b) * b - b, 0)} < ${texNombre(2025, 0)}$ et
-        $ ${b}\\times${texNombre(Math.ceil(2025 / b))}=${texNombre((Math.ceil(2025 / b)) * b, 0)} > ${texNombre(2025, 0)}$,
+        $ ${b}\\times${texNombre(Math.ceil(2025 / b))}=${texNombre(Math.ceil(2025 / b) * b, 0)} > ${texNombre(2025, 0)}$,
         alors le plus petit multiple cherché est $${miseEnEvidence(this.reponse)}$.`
       }
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

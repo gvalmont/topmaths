@@ -5,21 +5,21 @@ import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-export const titre = 'Résoudre un problème d\'économie'
+export const titre = "Résoudre un problème d'économie"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/04/2024'
 export const uuid = 'b40d5'
 export const refs = {
   'fr-fr': ['can6C48', '6N2G-flash1'],
-  'fr-ch': ['9NO8-18']
+  'fr-ch': ['9NO8-18'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class problemeEconomie extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,7 +28,7 @@ export default class problemeEconomie extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nbreL = randint(2, 5) * 10
     const eco = new Decimal(randint(2, 9))
     const ecoEuro = eco.div(100)

@@ -14,7 +14,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { arrondi } from '../../lib/outils/nombres'
 
-export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
+export const titre =
+  "Construire le symétrique d'un point avec cible auto-corrective"
 
 /**
  * Construction de symétrique avec dispositif d'auto-correction aléatoire
@@ -26,10 +27,10 @@ export const uuid = '34032'
 
 export const refs = {
   'fr-fr': ['5G11-3'],
-  'fr-ch': ['9ES6-8']
+  'fr-ch': ['9ES6-8'],
 }
 export default class ConstruireSymetriquePoint5e extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
 
@@ -39,8 +40,10 @@ export default class ConstruireSymetriquePoint5e extends Exercice {
     this.sup = 3
   }
 
-  nouvelleVersion () {
-    let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
+  nouvelleVersion() {
+    let result = [0, 0]
+    let texteCorr = ''
+    const nbpoints = parseInt(this.sup)
     const celluleAlea = function (rang: number) {
       const lettre = lettreDepuisChiffre(randint(1, rang))
       const chiffre = Number(randint(1, rang)).toString()
@@ -55,12 +58,23 @@ export default class ConstruireSymetriquePoint5e extends Exercice {
       this.consigne += `, $${noms[i]}$`
     }
     this.consigne += ` et $${noms[nbpoints - 1]}$ par rapport à $O$.`
-    const cibles = []; const M = []; const N = []; const objetsEnonce = []; const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
+    const cibles = []
+    const M = []
+    const N = []
+    const objetsEnonce = []
+    const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
     const cellules = []
-    let xMin, yMin, xMax, yMax, nontrouve, assezloin;
-    [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
-    for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[i] + "'"))
+    let xMin, yMin, xMax, yMax, nontrouve, assezloin
+    ;[xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
+    for (let i = 0; i < nbpoints; i++) {
+      // On place les cibles.
+      N.push(
+        point(
+          arrondi(randint(-80, 80, 0) / 10),
+          arrondi(randint(-80, 80, 0) / 10),
+          noms[i] + "'",
+        ),
+      )
       nontrouve = true
       while (longueur(N[i], O) < 3 || nontrouve) {
         nontrouve = true
@@ -70,12 +84,17 @@ export default class ConstruireSymetriquePoint5e extends Exercice {
         } else {
           assezloin = true
           for (let j = 0; j < i; j++) {
-            if (longueur(N[i], N[j]) < 4.5) { assezloin = false }
+            if (longueur(N[i], N[j]) < 4.5) {
+              assezloin = false
+            }
           }
-          if (assezloin === false) { // éloigner les points donc les grilles
+          if (assezloin === false) {
+            // éloigner les points donc les grilles
             N[i].x = arrondi(randint(-80, 80, 0) / 10)
             N[i].y = arrondi(randint(-80, 80, 0) / 10)
-          } else { nontrouve = false }
+          } else {
+            nontrouve = false
+          }
         }
       }
     }
@@ -86,7 +105,14 @@ export default class ConstruireSymetriquePoint5e extends Exercice {
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
       result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
-      const cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: '#f15929' })
+      const cible = cibleCarree({
+        x: result[0],
+        y: result[1],
+        rang: 4,
+        num: i + 1,
+        taille: 0.6,
+        color: '#f15929',
+      })
       cible.taille = 0.6
       cible.opacite = 0.7
       cibles.push(cible)
@@ -94,8 +120,15 @@ export default class ConstruireSymetriquePoint5e extends Exercice {
     for (let i = 0; i < nbpoints; i++) {
       M.push(rotation(N[i], O, 180, noms[i]))
       objetsEnonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i])
-      objetsCorrection.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
-      objetsCorrection.push(segment(M[i], N[i], arcenciel(i)), codageMilieu(M[i], N[i], arcenciel(i + 5), marks[i]))
+      objetsCorrection.push(
+        tracePoint(M[i], N[i]),
+        labelPoint(M[i], N[i]),
+        cibles[i],
+      )
+      objetsCorrection.push(
+        segment(M[i], N[i], arcenciel(i)),
+        codageMilieu(M[i], N[i], arcenciel(i + 5), marks[i]),
+      )
       objetsCorrection.push(traceCompas(O, N[i], 20))
       texteCorr += `$${noms[i]}'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
     }
@@ -109,8 +142,33 @@ export default class ConstruireSymetriquePoint5e extends Exercice {
 
     context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
-    this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce))
-    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection))
+    this.listeQuestions.push(
+      mathalea2d(
+        {
+          xmin: xMin,
+          ymin: yMin,
+          xmax: xMax,
+          ymax: yMax,
+          pixelsParCm: 20,
+          scale: 0.7,
+        },
+        objetsEnonce,
+      ),
+    )
+    this.listeCorrections.push(
+      texteCorr +
+        mathalea2d(
+          {
+            xmin: xMin,
+            ymin: yMin,
+            xmax: xMax,
+            ymax: yMax,
+            pixelsParCm: 20,
+            scale: 0.7,
+          },
+          objetsCorrection,
+        ),
+    )
     listeQuestionsToContenu(this)
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos

@@ -11,7 +11,8 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence'
+export const titre =
+  "Déterminer l'image d'un nombre par une fonction de référence"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -30,11 +31,11 @@ export const uuid = 'b6cc0'
 
 export const refs = {
   'fr-fr': ['2F11-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ImageFonctionsRefs extends Exercice {
   can: boolean
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 8
@@ -53,7 +54,7 @@ export default class ImageFonctionsRefs extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typeQuestionsDisponibles = []
     this.sup && typeQuestionsDisponibles.push('carré')
     this.sup2 && typeQuestionsDisponibles.push('cube')
@@ -64,9 +65,12 @@ export default class ImageFonctionsRefs extends Exercice {
       typeQuestionsDisponibles.push('carré')
     }
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     const listePhrases = combinaisonListes([0, 1], this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       // choix du nom de la fonction : f, g, h, p, q, r si trois questions ou moins, sinon f_1, g_1, h_1, p_1, q_1, r_1, s_1, f_2, g_2, h_2, ...
@@ -100,7 +104,10 @@ export default class ImageFonctionsRefs extends Exercice {
             nombre = choice([2, 4, 5, 10])
           } else {
             const expo1 = randint(0, 5)
-            nombre = this.can ? choice([2, 4, 5, 10]) : Math.pow(2, expo1) * Math.pow(5, expo1 === 0 ? randint(1, 5) : randint(0, 5))
+            nombre = this.can
+              ? choice([2, 4, 5, 10])
+              : Math.pow(2, expo1) *
+                Math.pow(5, expo1 === 0 ? randint(1, 5) : randint(0, 5))
           }
           Math.random() < 0.25 && (nombre = arrondi(1 / nombre, 6))
           Math.random() < 0.5 && (nombre *= -1)
@@ -108,15 +115,19 @@ export default class ImageFonctionsRefs extends Exercice {
           texteCorr = `$${nom}(${texNombre(nombre, 0)}) = ${miseEnEvidence(texFractionFromString(1, nombre))} = ${miseEnEvidence(solution.valeurDecimale)}$`
           break
       }
-      const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre, 6)})$` : `l'image de $${texNombre(nombre, 6)}$ par la fonction $${nom}$`
-      listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre, 0)}$ par la fonction $${nom}$ est donc $${miseEnEvidence(solution.texFractionSimplifiee)}$.`)
+      const phrase = listePhrases[i]
+        ? `$${nom}(${texNombre(nombre, 6)})$`
+        : `l'image de $${texNombre(nombre, 6)}$ par la fonction $${nom}$`
+      listePhrases[i] &&
+        (texteCorr += `<br>L'image de $${texNombre(nombre, 0)}$ par la fonction $${nom}$ est donc $${miseEnEvidence(solution.texFractionSimplifiee)}$.`)
       texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}.<br>
       
       Calculer ${phrase}.`
       texte += ajouteChampTexteMathLive(this, i, '')
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, listeTypeQuestions[i], nombre)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, listeTypeQuestions[i], nombre)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 

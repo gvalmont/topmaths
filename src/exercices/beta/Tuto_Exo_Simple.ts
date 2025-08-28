@@ -56,7 +56,8 @@ Pour uniformiser le projet, le titre doit :
         - commencer par un verbe à l'infinitif avec son initiale en majuscule
         - ne doit pas comporter de point final.
 */
-export const titre = 'Mettre le titre souhaité (assez descriptif mais pas trop long)'
+export const titre =
+  'Mettre le titre souhaité (assez descriptif mais pas trop long)'
 /*
 Si votre titre contient une apostrophe, alors mettre cette chaîne entre " " et non entre apostrophes.
 Ce titre peut être changé à tout moment donc vous pourrez mettre le titre qu'à la fin.
@@ -91,14 +92,14 @@ Selon que c'est une CAN ou un exercice plus classique, les référentiels ne son
 export const uuid = 'AchangerOBLIGATOIREMENT'
 export const refs = {
   'fr-fr': [], // A changer obligatoirement, ne rien mettre si on ne veut pas que cet exercice soit référencé, donc trouvable dans le menu de gauche de MathALÉA
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 // Les lignes suivantes, bien qu'entre commentaires, sont obligatoires pour décrire l'exercice et nommer son auteur.
 /**
  * Ici, on décrit rapidement l'enjeu pédagogique de l'exercice
  * @author Ici, on indique l'auteur de l'exercice
-*/
+ */
 
 /*
  Les 3 lignes suivantes sont obligatoires.
@@ -108,7 +109,8 @@ export const refs = {
       - NomExercice doit commencer par une majuscule et être écrit en CamelCase
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () { // Inutile de comprendre. Le moteur fonctionne ainsi.
+  constructor() {
+    // Inutile de comprendre. Le moteur fonctionne ainsi.
     super() // Inutile de comprendre. Le moteur fonctionne ainsi.
 
     /*
@@ -140,7 +142,8 @@ $    Le this indique que ces paramétrages sont liés à l'objet Exercice.
   Ici, le code est évidemment différent d'un exercice à l'autre mais on y retrouve quelques principes expliqués au fur et à mesure.
   */
 
-  nouvelleVersion () { // Ligne obligatoire et identique pour tous les exercices.
+  nouvelleVersion() {
+    // Ligne obligatoire et identique pour tous les exercices.
     const a = 5
     const b = 6
     this.question = a + '+' + b // this.question contient le texte visible en HTML et en PDF (LaTeX).

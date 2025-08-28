@@ -6,7 +6,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '79c98'
 export const refs = {
   'fr-fr': ['TSP1-QCM04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,12 +23,18 @@ export const dateDePublication = '08/11/2024'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (nn: number, p: number, a: number, b: number): void {
+  private appliquerLesValeurs(
+    nn: number,
+    p: number,
+    a: number,
+    b: number,
+  ): void {
     this.reponses = [
       `$p(X \\leqslant ${b}) - p(X \\leqslant ${a})$`,
       `$p(X \\leqslant ${b}) - p(X > ${a})$`,
       `$p(X < ${b}) - p(X > ${a})$`,
-       `$p(X < ${b}) - p(X \\geqslant ${a})$`]
+      `$p(X < ${b}) - p(X \\geqslant ${a})$`,
+    ]
 
     this.enonce = this.sup3
       ? `Une chaîne de fabrication produit des pièces mécaniques.<br>
@@ -67,11 +73,11 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

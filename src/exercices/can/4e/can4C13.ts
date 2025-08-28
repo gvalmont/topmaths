@@ -21,16 +21,16 @@ export const uuid = '7a0b1'
 
 export const refs = {
   'fr-fr': ['can4C13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculFractionDecimal extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const n = randint(1, 9)
     const a = choice([2, 4, 8])
     const d = new Decimal(a).div(10)

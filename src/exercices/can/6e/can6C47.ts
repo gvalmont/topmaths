@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
+import {
+  texteEnCouleur,
+  miseEnEvidence,
+} from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -19,10 +22,10 @@ export const uuid = '792c3'
 
 export const refs = {
   'fr-fr': ['can6C47'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AdditionnerAstucieusement extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,7 +33,7 @@ export default class AdditionnerAstucieusement extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const A = randint(2, 4) * 100
     const B = randint(1, 2) * 100
     const a = randint(1, 5) * 5
@@ -38,7 +41,10 @@ export default class AdditionnerAstucieusement extends ExerciceSimple {
     const b = randint(1, B)
     const d = B - b
     const e = randint(1, 40)
-    const correction = texteEnCouleur('Mentalement : <br>On regroupe astucieusement les termes pour les additionner plus simplement. <br><br><br>', bleuMathalea)
+    const correction = texteEnCouleur(
+      'Mentalement : <br>On regroupe astucieusement les termes pour les additionner plus simplement. <br><br><br>',
+      bleuMathalea,
+    )
     switch (choice([1, 2, 3, 4])) {
       case 1:
         this.reponse = A + e
@@ -88,7 +94,7 @@ export default class AdditionnerAstucieusement extends ExerciceSimple {
         \\end{aligned}$`
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -3,7 +3,17 @@ import type { Locator, Page } from 'playwright'
 import { clean } from '../../helpers/text'
 import { log } from '../../helpers/log'
 import prefs from '../../helpers/prefs'
-import { type AMCVariation, type LatexVariation, type View, type Variation, testAllViews, isLatexVariation, isAMCVariation, isStudentVariation, getLatexFromPage } from '../../helpers/testAllViews'
+import {
+  type AMCVariation,
+  type LatexVariation,
+  type View,
+  type Variation,
+  testAllViews,
+  isLatexVariation,
+  isAMCVariation,
+  isStudentVariation,
+  getLatexFromPage,
+} from '../../helpers/testAllViews'
 
 type ExerciseType = 'classique' | 'simple'
 
@@ -19,44 +29,63 @@ const questionsNb = 20
 
 let exerciseType: ExerciseType = 'classique'
 
-function logState () {
-  states.forEach(state => {
+function logState() {
+  states.forEach((state) => {
     console.log(state)
   })
 }
 
-async function test (page: Page) {
+async function test(page: Page) {
   await page.setDefaultTimeout(100000) // Set timeout to 100 seconds
-  const classicExerciseParams = 'uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true&uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true'
+  const classicExerciseParams =
+    'uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true&uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true'
   exerciseType = 'classique'
   log('Testing classic exercise')
-  await testAllViews(page, { params: classicExerciseParams, onlyOnce: true, isFullViews: true }, callback)
+  await testAllViews(
+    page,
+    { params: classicExerciseParams, onlyOnce: true, isFullViews: true },
+    callback,
+  )
   logState()
-  const simpleExerciseParams = 'uuid=4ba86&id=canc3C04&n=10&d=10&cd=1&uuid=4ba86&id=canc3C04&n=10&d=10&cd=1'
+  const simpleExerciseParams =
+    'uuid=4ba86&id=canc3C04&n=10&d=10&cd=1&uuid=4ba86&id=canc3C04&n=10&d=10&cd=1'
   exerciseType = 'simple'
   log('Testing simple exercise')
-  await testAllViews(page, { params: simpleExerciseParams, onlyOnce: true, isFullViews: true }, callback)
+  await testAllViews(
+    page,
+    { params: simpleExerciseParams, onlyOnce: true, isFullViews: true },
+    callback,
+  )
   logState()
   log('Check differences')
   return isConsistent()
 }
 
-const callback = async (page: Page, description: string, view: View, variation: Variation) => {
+const callback = async (
+  page: Page,
+  description: string,
+  view: View,
+  variation: Variation,
+) => {
   log(`Testing ${view} ${variation} ${description}`)
   if (view === 'diaporama') {
     await diaporamaStatePush(page, view)
   } else if (view === 'LaTeX' || view === 'AMC') {
-    if (!isLatexVariation(variation) && !isAMCVariation(variation)) throw new Error('LaTeX or AMC callback called with invalid variation')
-    if (view === 'LaTeX' && !isLatexVariation(variation)) throw new Error('LaTeX invalid variation')
-    if (view === 'AMC' && !isAMCVariation(variation)) throw new Error('AMC invalid variation')
+    if (!isLatexVariation(variation) && !isAMCVariation(variation))
+      throw new Error('LaTeX or AMC callback called with invalid variation')
+    if (view === 'LaTeX' && !isLatexVariation(variation))
+      throw new Error('LaTeX invalid variation')
+    if (view === 'AMC' && !isAMCVariation(variation))
+      throw new Error('AMC invalid variation')
     await LatexStatePush(page, view, variation)
   } else {
-    if (view === 'eleve' && !isStudentVariation(variation)) throw new Error('Student callback called with invalid view')
+    if (view === 'eleve' && !isStudentVariation(variation))
+      throw new Error('Student callback called with invalid view')
     await defaultViewStatePush(page, view, variation)
   }
 }
 
-async function diaporamaStatePush (page: Page, view: View) {
+async function diaporamaStatePush(page: Page, view: View) {
   const url = page.url()
   const numbers: string[] = []
   const maxQuestionsNb = await page.locator('#stepsUl > button').count()
@@ -69,11 +98,11 @@ async function diaporamaStatePush (page: Page, view: View) {
     url,
     view,
     numbers,
-    exerciseType
+    exerciseType,
   })
 }
 
-async function getSlideshowNumbers (page: Page) {
+async function getSlideshowNumbers(page: Page) {
   await page.waitForSelector('#question0')
   const locator = page.locator('#question0')
   const innerText = await locator.innerText()
@@ -81,7 +110,11 @@ async function getSlideshowNumbers (page: Page) {
   return number
 }
 
-async function LatexStatePush (page: Page, view: 'LaTeX' | 'AMC', variation: LatexVariation | AMCVariation) {
+async function LatexStatePush(
+  page: Page,
+  view: 'LaTeX' | 'AMC',
+  variation: LatexVariation | AMCVariation,
+) {
   const url = page.url()
   const latex = await getLatexFromPage(page)
   const numbers = getLatexNumbers(latex, view, variation)
@@ -89,29 +122,51 @@ async function LatexStatePush (page: Page, view: 'LaTeX' | 'AMC', variation: Lat
     url,
     view: view + ':' + variation,
     numbers,
-    exerciseType
+    exerciseType,
   })
 }
 
-function getLatexNumbers (latex: string, view: 'LaTeX' | 'AMC', model: LatexVariation | AMCVariation) {
-  const lineRegex: RegExp = view === 'LaTeX' ? model === 'Can' ? /\\CompteurTC\s+&[^\r\n]*/g : /\\item[^\r\n]*/g : /\$ [^\r\n]*/g
+function getLatexNumbers(
+  latex: string,
+  view: 'LaTeX' | 'AMC',
+  model: LatexVariation | AMCVariation,
+) {
+  const lineRegex: RegExp =
+    view === 'LaTeX'
+      ? model === 'Can'
+        ? /\\CompteurTC\s+&[^\r\n]*/g
+        : /\\item[^\r\n]*/g
+      : /\$ [^\r\n]*/g
   const rawLines: string[] = latex.match(lineRegex) || []
   if (model === 'Can') {
-    const rawNumbers = rawLines.map(line => line.replace(/\D/g, ''))
+    const rawNumbers = rawLines.map((line) => line.replace(/\D/g, ''))
     // const cleanNumbers = rawNumbers.map(number => number.slice(1))
     const cleanNumbers = rawNumbers
-    return cleanNumbers.map(number => number + number)
+    return cleanNumbers.map((number) => number + number)
   } else {
-    const numbersQuestionsAnswers = rawLines.map(line => line.replace(/\D/g, '') + line.replace(/\D/g, ''))
+    const numbersQuestionsAnswers = rawLines.map(
+      (line) => line.replace(/\D/g, '') + line.replace(/\D/g, ''),
+    )
     return removeAnswers(numbersQuestionsAnswers, view, model, rawLines.length)
   }
 }
 
-function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 'AMC', model: LatexVariation | AMCVariation, linesNumber: number): string[] {
+function removeAnswers(
+  calculationsQuestionsAnswers: string[],
+  view: 'LaTeX' | 'AMC',
+  model: LatexVariation | AMCVariation,
+  linesNumber: number,
+): string[] {
   if (view === 'LaTeX') {
     if (model === 'ProfMaquette' || model === 'ProfMaquetteQrcode') {
-      const firstExercise = calculationsQuestionsAnswers.slice(0, questionsNb / 2)
-      const secondExercise = calculationsQuestionsAnswers.slice(questionsNb, questionsNb + questionsNb / 2)
+      const firstExercise = calculationsQuestionsAnswers.slice(
+        0,
+        questionsNb / 2,
+      )
+      const secondExercise = calculationsQuestionsAnswers.slice(
+        questionsNb,
+        questionsNb + questionsNb / 2,
+      )
       return [...firstExercise, ...secondExercise]
     } else {
       return calculationsQuestionsAnswers.slice(0, linesNumber / 2) // Supprime la deuxième moitié qui correspond aux réponses
@@ -121,18 +176,31 @@ function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 
   }
 }
 
-async function defaultViewStatePush (page: Page, view: View, variation: Variation) {
+async function defaultViewStatePush(
+  page: Page,
+  view: View,
+  variation: Variation,
+) {
   const url = page.url()
   await page.waitForSelector('.katex')
   const locators = await page.locator('.katex').all()
   const numbers = await getNumbers(locators)
-  if (view === 'eleve' && (variation === 'Une page par exercice' || variation === 'Course aux nombres' || variation === 'Une page par question')) {
+  if (
+    view === 'eleve' &&
+    (variation === 'Une page par exercice' ||
+      variation === 'Course aux nombres' ||
+      variation === 'Une page par question')
+  ) {
     // Bizarrement, les nombres se répètent 3 fois à partir du deuxième exercice dans ces vues au lieu de 2 partout ailleurs
     // À modifier lorsque ce problème de duplication sera réglé
-    const duplicationBeginningIndex = variation === 'Une page par exercice' ? numbers.length / 2 : 1
+    const duplicationBeginningIndex =
+      variation === 'Une page par exercice' ? numbers.length / 2 : 1
     for (let i = 0; i < numbers.length; i++) {
       if (i >= duplicationBeginningIndex) {
-        numbers[i] = numbers[i].slice(0, Math.round(numbers[i].length * 2 / 3))
+        numbers[i] = numbers[i].slice(
+          0,
+          Math.round((numbers[i].length * 2) / 3),
+        )
       }
     }
     if (variation === 'Course aux nombres') {
@@ -143,11 +211,11 @@ async function defaultViewStatePush (page: Page, view: View, variation: Variatio
     url,
     view,
     numbers,
-    exerciseType
+    exerciseType,
   })
 }
 
-async function getNumbers (locators: Locator[]) {
+async function getNumbers(locators: Locator[]) {
   const numbers: string[] = []
   for (const locator of locators) {
     const innerText = await locator.innerText()
@@ -157,11 +225,13 @@ async function getNumbers (locators: Locator[]) {
   return numbers
 }
 
-function isConsistent () {
+function isConsistent() {
   const differenceIndexes = getDifferencesIndexes()
   if (differenceIndexes.length > 0) {
     for (const differenceIndex of differenceIndexes) {
-      console.log(`Il y a une différence entre la vue ${states[differenceIndex - 1].view} et la vue ${states[differenceIndex].view} pour les exercices de type ${states[differenceIndex].exerciseType}`)
+      console.log(
+        `Il y a une différence entre la vue ${states[differenceIndex - 1].view} et la vue ${states[differenceIndex].view} pour les exercices de type ${states[differenceIndex].exerciseType}`,
+      )
       console.log(states[differenceIndex - 1], states[differenceIndex])
     }
     return false
@@ -169,14 +239,18 @@ function isConsistent () {
   return true
 }
 
-function getDifferencesIndexes () {
+function getDifferencesIndexes() {
   const differenceIndexes: number[] = []
   for (let i = 1; i < states.length; i++) {
     for (let j = 0; j < states[i].numbers.length; j++) {
       if (
         states[i].exerciseType === states[i - 1].exerciseType &&
-          states[i].numbers[j] !== states[i - 1].numbers[j] &&
-          !(states[i].exerciseType === 'simple' && (states[i].view.startsWith('AMC:') || states[i - 1].view.startsWith('AMC:'))) // Les exercices simples n'ont pas de sortie AMC
+        states[i].numbers[j] !== states[i - 1].numbers[j] &&
+        !(
+          states[i].exerciseType === 'simple' &&
+          (states[i].view.startsWith('AMC:') ||
+            states[i - 1].view.startsWith('AMC:'))
+        ) // Les exercices simples n'ont pas de sortie AMC
       ) {
         differenceIndexes.push(i)
         break

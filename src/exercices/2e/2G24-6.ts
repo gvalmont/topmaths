@@ -3,7 +3,8 @@ import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 
-export const titre = 'Calculer les coordonnées du 4e sommet d\'un parallélogramme'
+export const titre =
+  "Calculer les coordonnées du 4e sommet d'un parallélogramme"
 export const dateDePublication = '11/11/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,18 +17,18 @@ export const uuid = '6b705'
 
 export const refs = {
   'fr-fr': ['2G24-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 class CoordonneesParallelogramme extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.spacingCorr = 3
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     // Lettre entre A et W mais pas L, M, N ou O pour ne pas avoir O dans les 4 points
     const indiceFirstLetter = randint(65, 87, [76, 77, 78, 79])
     const nomA = String.fromCharCode(indiceFirstLetter)

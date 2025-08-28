@@ -11,7 +11,7 @@ import {
   isStaticType,
   EXAMS,
   isExamItemInReferentiel,
-  resourceHasMonth
+  resourceHasMonth,
 } from '../types/referentiels'
 import { stringWithNoAccent } from './textUtils'
 
@@ -41,7 +41,7 @@ export interface Criterion<T> {
 export class MultiCriteria<T> implements Criterion<T> {
   private criteriaList: Criterion<T>[] = []
 
-  addCriterion (criterion: Criterion<T> | Criterion<T>[]): MultiCriteria<T> {
+  addCriterion(criterion: Criterion<T> | Criterion<T>[]): MultiCriteria<T> {
     if (Array.isArray(criterion)) {
       for (const item of criterion) {
         this.criteriaList.push(item)
@@ -52,7 +52,7 @@ export class MultiCriteria<T> implements Criterion<T> {
     return this
   }
 
-  meetCriterion (items: T[]): T[] {
+  meetCriterion(items: T[]): T[] {
     let result: T[] = items
     for (const criterion of this.criteriaList) {
       result = criterion.meetCriterion(result)
@@ -72,12 +72,12 @@ export class MultiCriteria<T> implements Criterion<T> {
 export class OrCriteria<T> implements Criterion<T> {
   private firstCriterion: Criterion<T>
   private secondCriterion: Criterion<T>
-  constructor (firstCriterion: Criterion<T>, secondCriterion: Criterion<T>) {
+  constructor(firstCriterion: Criterion<T>, secondCriterion: Criterion<T>) {
     this.firstCriterion = firstCriterion
     this.secondCriterion = secondCriterion
   }
 
-  meetCriterion (items: T[]): T[] {
+  meetCriterion(items: T[]): T[] {
     const firstResult = this.firstCriterion.meetCriterion(items)
     const secondResult = this.secondCriterion.meetCriterion(items)
     return Array.from(new Set([...firstResult, ...secondResult]))
@@ -97,12 +97,12 @@ export class OrCriteria<T> implements Criterion<T> {
 export class AtLeastOneOfCriteria<T> implements Criterion<T> {
   private criteriaList: [Criterion<T>, Criterion<T>, ...Criterion<T>[]]
   // au moins deux critères sont demandés par le constructeur
-  constructor (criteriaList: [Criterion<T>, Criterion<T>, ...Criterion<T>[]]) {
+  constructor(criteriaList: [Criterion<T>, Criterion<T>, ...Criterion<T>[]]) {
     this.criteriaList = [...criteriaList]
   }
 
-  addCriterion (
-    criterion: Criterion<T> | Criterion<T>[]
+  addCriterion(
+    criterion: Criterion<T> | Criterion<T>[],
   ): AtLeastOneOfCriteria<T> {
     if (Array.isArray(criterion)) {
       for (const item of criterion) {
@@ -114,7 +114,7 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
     return this
   }
 
-  meetCriterion (items: T[]): T[] {
+  meetCriterion(items: T[]): T[] {
     const [firstCriterion, secondCriterion, ...list] = [...this.criteriaList]
     let resultCriterion = new OrCriteria<T>(firstCriterion, secondCriterion)
     for (const criterion of list) {
@@ -138,12 +138,12 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
   const filteredReferentiel = buildReferentiel(filteredList)  // reconstitution du référentiel
   ```
  */
-export function featuresCriteria (
-  specs: ('interactif' | 'amc' | 'qcm' | 'qcmcam')[]
+export function featuresCriteria(
+  specs: ('interactif' | 'amc' | 'qcm' | 'qcmcam')[],
 ): Criterion<ResourceAndItsPath> {
   // construction du critère pour la spécification `amc`
   const amcCriterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]): ResourceAndItsPath[] {
+    meetCriterion(items: ResourceAndItsPath[]): ResourceAndItsPath[] {
       return items.filter((item: ResourceAndItsPath) => {
         if (isExerciceItemInReferentiel(item.resource)) {
           if (
@@ -158,11 +158,11 @@ export function featuresCriteria (
           return false
         }
       })
-    }
+    },
   }
   // construction du critère pour la spécification `qcm`
   const qcmCriterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]): ResourceAndItsPath[] {
+    meetCriterion(items: ResourceAndItsPath[]): ResourceAndItsPath[] {
       return items.filter((item: ResourceAndItsPath) => {
         if (isExerciceItemInReferentiel(item.resource)) {
           if (
@@ -177,11 +177,11 @@ export function featuresCriteria (
           return false
         }
       })
-    }
+    },
   }
   // construction du critère pour la spécification `qcmcam`
   const qcmcamCriterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]): ResourceAndItsPath[] {
+    meetCriterion(items: ResourceAndItsPath[]): ResourceAndItsPath[] {
       return items.filter((item: ResourceAndItsPath) => {
         if (isExerciceItemInReferentiel(item.resource)) {
           if (
@@ -196,11 +196,11 @@ export function featuresCriteria (
           return false
         }
       })
-    }
+    },
   }
   // construction du critère pour la spécification `interactif`
   const interactifCriterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]): ResourceAndItsPath[] {
+    meetCriterion(items: ResourceAndItsPath[]): ResourceAndItsPath[] {
       return items.filter((item: ResourceAndItsPath) => {
         if (isExerciceItemInReferentiel(item.resource)) {
           if (
@@ -219,14 +219,14 @@ export function featuresCriteria (
           return false
         }
       })
-    }
+    },
   }
   // on trie en fonction de ce que contient la liste des spécifications
   if (specs.length < 2) {
     if (specs.length === 0) {
       // la liste ne peut pas être vide
       throw new Error(
-        'La liste des spécifications passée en paramètre est vide !'
+        'La liste des spécifications passée en paramètre est vide !',
       )
     }
     // une seule spécification est présente : on renvoie le critère correspondant
@@ -270,12 +270,12 @@ export function featuresCriteria (
  * @param {boolean} [considerCAN=false] doit-on inclure les exos CAN ou pas ?
  * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
  */
-export function levelCriterion (
+export function levelCriterion(
   level: Level,
-  considerCAN: boolean = true
+  considerCAN: boolean = true,
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]) {
+    meetCriterion(items: ResourceAndItsPath[]) {
       return items.filter((item) => {
         // static est considéré comme un niveau particulier
         if (level === 'alea') {
@@ -298,7 +298,7 @@ export function levelCriterion (
           return item.pathToResource[0] === level
         }
       })
-    }
+    },
   }
   return criterion
 }
@@ -309,63 +309,67 @@ export function levelCriterion (
  * @param {string} selectedTag le sujet recherché dans les tags
  * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
  */
-export function tagCriterion (
-  selectedTag: string
+export function tagCriterion(
+  selectedTag: string,
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]) {
+    meetCriterion(items: ResourceAndItsPath[]) {
       return items.filter(
         (item: ResourceAndItsPath) =>
           item.resource.tags &&
           item.resource.tags
             .map((t) => stringWithNoAccent(t.toLowerCase()))
-            .find((t) => t.includes(stringWithNoAccent(selectedTag.toLowerCase())))
+            .find((t) =>
+              t.includes(stringWithNoAccent(selectedTag.toLowerCase())),
+            ),
       )
-    }
+    },
   }
   return criterion
 }
 
-export function monthCriterion (
-  monthToMatch: string
+export function monthCriterion(
+  monthToMatch: string,
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]) {
+    meetCriterion(items: ResourceAndItsPath[]) {
       return items.filter(
         (item: ResourceAndItsPath) =>
           MONTHS.find((t) => t.includes(monthToMatch.toLowerCase())) &&
           resourceHasMonth(item.resource) &&
           item.resource.mois &&
-          item.resource.mois.toLowerCase().includes(monthToMatch.toLowerCase())
+          item.resource.mois.toLowerCase().includes(monthToMatch.toLowerCase()),
       )
-    }
+    },
   }
   return criterion
 }
 
-export function idCriterion (idToMatch: string): Criterion<ResourceAndItsPath> {
+export function idCriterion(idToMatch: string): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]) {
+    meetCriterion(items: ResourceAndItsPath[]) {
       return items.filter((item: ResourceAndItsPath) => {
         if (
           isExerciceItemInReferentiel(item.resource) ||
           isTool(item.resource)
         ) {
-          return item.resource.id.toLowerCase().includes(idToMatch.toLowerCase())
+          return item.resource.id
+            .toLowerCase()
+            .includes(idToMatch.toLowerCase())
         } else {
           return false
         }
       })
-    }
+    },
   }
   return criterion
 }
 
-export function examCriterion (
-  examToMatch: string
+export function examCriterion(
+  examToMatch: string,
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]) {
+    meetCriterion(items: ResourceAndItsPath[]) {
       return items.filter((item: ResourceAndItsPath) => {
         // console.log('examToMatch.toLowerCase()')
         // console.log(examToMatch.toLowerCase())
@@ -374,16 +378,16 @@ export function examCriterion (
           item.resource.uuid.startsWith(examToMatch.toLowerCase())
         )
       })
-    }
+    },
   }
   return criterion
 }
 
-export function yearCriterion (
-  yearToMatch: string
+export function yearCriterion(
+  yearToMatch: string,
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]) {
+    meetCriterion(items: ResourceAndItsPath[]) {
       return items.filter((item: ResourceAndItsPath) => {
         return (
           YEARS.includes(yearToMatch) &&
@@ -391,7 +395,7 @@ export function yearCriterion (
           item.resource.annee === yearToMatch
         )
       })
-    }
+    },
   }
   return criterion
 }
@@ -403,14 +407,16 @@ export function yearCriterion (
  * @param {boolean} [isCanIncluded=false] doit-on inclure les exercices CAN dans le critère de la recherche
  * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
  */
-export function subjectCriterion (
+export function subjectCriterion(
   subject: string,
-  isCanIncluded: boolean = true
+  isCanIncluded: boolean = true,
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
-    meetCriterion (items: ResourceAndItsPath[]) {
+    meetCriterion(items: ResourceAndItsPath[]) {
       return items.filter((item) => {
-        const subjectToLowerCaseWithoutAccent = stringWithNoAccent(subject.toLowerCase())
+        const subjectToLowerCaseWithoutAccent = stringWithNoAccent(
+          subject.toLowerCase(),
+        )
         if (item.pathToResource.includes('CAN') && !isCanIncluded) {
           return false
         }
@@ -418,14 +424,17 @@ export function subjectCriterion (
         let placeMatch = false
         if (resourceHasPlace(item.resource)) {
           // si le sujet est un lieu et que la ressource a `lieu` dans ses propriété, on compare
-          placeMatch = stringWithNoAccent(item.resource.lieu.toLowerCase())
-            .includes(subjectToLowerCaseWithoutAccent)
+          placeMatch = stringWithNoAccent(
+            item.resource.lieu.toLowerCase(),
+          ).includes(subjectToLowerCaseWithoutAccent)
         }
         // on rechercher dans le titre
         if (isExerciceItemInReferentiel(item.resource)) {
           // la ressource est un exercice : elle a donc un titre
           if (
-            stringWithNoAccent(item.resource.titre.toLowerCase()).includes(subjectToLowerCaseWithoutAccent)
+            stringWithNoAccent(item.resource.titre.toLowerCase()).includes(
+              subjectToLowerCaseWithoutAccent,
+            )
           ) {
             return true
           } else {
@@ -435,7 +444,7 @@ export function subjectCriterion (
           return false || placeMatch
         }
       })
-    }
+    },
   }
   return criterion
 }
@@ -445,9 +454,9 @@ export function subjectCriterion (
  * @param isCanIncluded flag pour l'inclusion des CAN
  * @returns liste d'objets du type {connector: 'ET'|'OU', filter: Criterion<ResourceAndItsPath>}
  */
-export function buildCriteriaFromString (
+export function buildCriteriaFromString(
   input: string,
-  isCanIncluded: boolean = true
+  isCanIncluded: boolean = true,
 ): Array<{ connector: 'ET' | 'OU'; filter: Criterion<ResourceAndItsPath> }> {
   const criteria: Array<{
     connector: 'ET' | 'OU'
@@ -511,7 +520,7 @@ export function buildCriteriaFromString (
         // console.log('found level')
         criteria.push({
           connector,
-          filter: levelCriterion(realWord, isCanIncluded)
+          filter: levelCriterion(realWord, isCanIncluded),
         })
         continue
       }
@@ -533,8 +542,8 @@ export function buildCriteriaFromString (
           subjectCriterion(realWord, isCanIncluded),
           tagCriterion(realWord),
           idCriterion(realWord),
-          monthCriterion(realWord)
-        ])
+          monthCriterion(realWord),
+        ]),
       })
     }
   }
@@ -549,9 +558,9 @@ export function buildCriteriaFromString (
  * @param isCanIncluded flag pour inclure les CAN
  * @returns un critère unique
  */
-export function stringToCriterion (
+export function stringToCriterion(
   input: string,
-  isCanIncluded: boolean = true
+  isCanIncluded: boolean = true,
 ): Criterion<ResourceAndItsPath> {
   if (input.length === 0) {
     // la chaîne explorée ne doit pas être vide
@@ -606,7 +615,7 @@ export function stringToCriterion (
           const orCriteriaUnion = new AtLeastOneOfCriteria<ResourceAndItsPath>([
             first,
             second,
-            ...others
+            ...others,
           ])
           justAndCriteria.push(orCriteriaUnion)
         }

@@ -14,10 +14,10 @@ export const uuid = '7cfbe'
 
 export const refs = {
   'fr-fr': ['2N10-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PlacerPointsAbscissesFractionnaires2nde extends PlacerPointsAbscissesFractionnaires {
-  constructor () {
+  constructor() {
     super()
     this.sup = 5
   }

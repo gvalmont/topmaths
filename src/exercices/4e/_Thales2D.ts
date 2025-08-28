@@ -32,9 +32,13 @@ export const titre = 'Calculer des longueurs avec le théorème de Thalès'
 export default class Thales2D extends Exercice {
   vspace: number // je ne sais pas pourquoi maintenir cette propriété qui est assignée mais jamais utilisée ???
   level: number
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Configuration',
+      3,
+      '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange',
+    ]
 
     this.nbQuestions = 1
 
@@ -47,9 +51,13 @@ export default class Thales2D extends Exercice {
     this.level = 4
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion(numeroExercice: number) {
     if (this.level === 3) {
-      this.besoinFormulaire2Numerique = ['Correction', 2, '1 : Triangles imbriqués\n2 : Droites sécantes']
+      this.besoinFormulaire2Numerique = [
+        'Correction',
+        2,
+        '1 : Triangles imbriqués\n2 : Droites sécantes',
+      ]
     }
     let listeDeNomsDePolygones: string[] = []
 
@@ -60,9 +68,14 @@ export default class Thales2D extends Exercice {
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
     let reponse, reponse2
 
-    for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte = '', texteCorr = '', cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // this.autoCorrection[i] = {}
-      if (i % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
+      if (i % 3 === 0) {
+        // Toutes les 3 questions, on repart à zéro sur les noms des polygones
         listeDeNomsDePolygones = ['QD']
       }
       const nomDesPoints = creerNomDePolygone(5, listeDeNomsDePolygones)
@@ -86,7 +99,10 @@ export default class Thales2D extends Exercice {
         k *= -1
         this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
-      if (parseInt(this.sup) === 3 && ((i + premiereQuestionPapillon) % 2 === 0)) {
+      if (
+        parseInt(this.sup) === 3 &&
+        (i + premiereQuestionPapillon) % 2 === 0
+      ) {
         k *= -1
         this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
@@ -98,26 +114,42 @@ export default class Thales2D extends Exercice {
       let posM
       if (k > 0) {
         if (angleOriente(M, C, N) > 0) {
-          posM = similitude(C, M, 90, 1 / longueur(C, M) * 0.5)
+          posM = similitude(C, M, 90, (1 / longueur(C, M)) * 0.5)
         } else {
-          posM = similitude(C, M, -90, 1 / longueur(C, M) * 0.5)
+          posM = similitude(C, M, -90, (1 / longueur(C, M)) * 0.5)
         }
       } else {
         posM = pointSurSegment(M, N, -0.5)
       }
-      const marqueNomM = texteParPoint(nomM, posM, 0, 'black', 1, 'milieu', true)
+      const marqueNomM = texteParPoint(
+        nomM,
+        posM,
+        0,
+        'black',
+        1,
+        'milieu',
+        true,
+      )
 
       let posN
       if (k > 0) {
         if (angleOriente(M, C, N) > 0) {
-          posN = similitude(C, N, -90, 1 / longueur(C, N) * 0.5)
+          posN = similitude(C, N, -90, (1 / longueur(C, N)) * 0.5)
         } else {
-          posN = similitude(C, N, 90, 1 / longueur(C, N) * 0.5)
+          posN = similitude(C, N, 90, (1 / longueur(C, N)) * 0.5)
         }
       } else {
         posN = pointSurSegment(N, M, -0.5)
       }
-      const marqueNomN = texteParPoint(nomN, posN, 0, 'black', 1, 'milieu', true)
+      const marqueNomN = texteParPoint(
+        nomN,
+        posN,
+        0,
+        'black',
+        1,
+        'milieu',
+        true,
+      )
 
       const a = pointSurSegment(A, B, -0.5)
       const b = pointSurSegment(B, A, -0.5)
@@ -125,30 +157,56 @@ export default class Thales2D extends Exercice {
       const marqueNomB = texteParPoint(nomB, b, 0, 'black', 1, 'milieu', true)
       let posC
       if (k < 0) {
-        posC = similitude(A, C, -angleOriente(N, C, A) / 2, 1 / longueur(A, C) * 0.5)
+        posC = similitude(
+          A,
+          C,
+          -angleOriente(N, C, A) / 2,
+          (1 / longueur(A, C)) * 0.5,
+        )
       } else {
-        posC = similitude(A, C, -180 + angleOriente(A, C, B) / 2, 1 / longueur(A, C) * 0.5)
+        posC = similitude(
+          A,
+          C,
+          -180 + angleOriente(A, C, B) / 2,
+          (1 / longueur(A, C)) * 0.5,
+        )
       }
-      const marqueNomC = texteParPoint(nomC, posC, 0, 'black', 1, 'milieu', true)
+      const marqueNomC = texteParPoint(
+        nomC,
+        posC,
+        0,
+        'black',
+        1,
+        'milieu',
+        true,
+      )
 
       texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombre(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombre(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
       if (!this.interactif) {
         texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`
       }
 
-      texte += mathalea2d({
-        xmin: Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
-        ymin: Math.min(A.y, B.y, C.y, M.y, N.y) - 0.8,
-        xmax: Math.max(A.x, B.x, C.x, M.x, N.x) + 1.5,
-        ymax: Math.max(A.y, B.y, C.y, M.y, N.y) + 0.8,
-        scale: 0.5
-      },
-      ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
+      texte += mathalea2d(
+        {
+          xmin: Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
+          ymin: Math.min(A.y, B.y, C.y, M.y, N.y) - 0.8,
+          xmax: Math.max(A.x, B.x, C.x, M.x, N.x) + 1.5,
+          ymax: Math.max(A.y, B.y, C.y, M.y, N.y) + 0.8,
+          scale: 0.5,
+        },
+        ABC,
+        MNC,
+        marqueNomA,
+        marqueNomB,
+        marqueNomC,
+        marqueNomM,
+        marqueNomN,
       )
 
-      const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
-      const boutonAideMathalea2d = ajouterBoutonMathalea2d(numeroExercice + '_' + i,
-                `if (!document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == 'false')){
+      const epaisseurTriangle = k < 0 ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
+      const boutonAideMathalea2d = ajouterBoutonMathalea2d(
+        numeroExercice + '_' + i,
+        `if (!document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == 'false')){
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.stroke = 'blue';
           document.getElementById('M2D_${numeroExercice}_${i}_2').style.stroke = 'red';
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.opacity = .5;
@@ -169,7 +227,8 @@ export default class Thales2D extends Exercice {
   
         }
         `,
-                'Mettre en couleur les 2 triangles')
+        'Mettre en couleur les 2 triangles',
+      )
 
       if (k > 0 && this.sup2 === 1) {
         texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :
@@ -177,10 +236,14 @@ export default class Thales2D extends Exercice {
        <br> $\\leadsto$ $${nomN}\\in${'[' + nomC + nomB + ']'}$,
        <br> $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,
        <br> donc d'après le théorème de Thalès, `
-        texteCorr += this.correctionDetaillee ? `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.` : 'on a:'
+        texteCorr += this.correctionDetaillee
+          ? `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
+          : 'on a:'
       } else {
         texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, `
-        texteCorr += this.correctionDetaillee ? `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.` : 'on a:'
+        texteCorr += this.correctionDetaillee
+          ? `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
+          : 'on a:'
       }
       texteCorr += '<br><br>'
       if (context.isHtml) {
@@ -227,11 +290,18 @@ export default class Thales2D extends Exercice {
       if (this.interactif && context.isHtml) {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
-        handleAnswers(this, i * 2, { reponse: { value: new Grandeur(Math.abs(k) * ab, 'cm'), options: { unite: true } } }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
+        handleAnswers(this, i * 2, {
+          reponse: {
+            value: new Grandeur(Math.abs(k) * ab, 'cm'),
+            options: { unite: true },
+          },
+        }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
         texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] ')
         texte += `<br>$${nomC + nomB} = $`
         texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] ')
-        handleAnswers(this, i * 2 + 1, { reponse: { value: new Grandeur(bc, 'cm'), options: { unite: true } } })
+        handleAnswers(this, i * 2 + 1, {
+          reponse: { value: new Grandeur(bc, 'cm'), options: { unite: true } },
+        })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -244,50 +314,66 @@ export default class Thales2D extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
-                propositions: [{
-                  enonce: texte,
-                  texte: texteCorr,
-                  statut: 4,
-                  pointilles: true
-                }]
+                propositions: [
+                  {
+                    enonce: texte,
+                    texte: texteCorr,
+                    statut: 4,
+                    pointilles: true,
+                  },
+                ],
               },
               {
                 type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: `$\\hspace{21pt}${nomM + nomN}$`,
-                    valeur: [reponse.toFixed(1)],
-                    param: {
-                      digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(Math.round(reponse))) + 1,
-                      decimals: 1,
-                      approx: 0,
-                      signe: false,
-                      exposantNbChiffres: 0
-                    }
-                  }
-                }]
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: `$\\hspace{21pt}${nomM + nomN}$`,
+                      valeur: [reponse.toFixed(1)],
+                      param: {
+                        digits:
+                          Math.max(
+                            2,
+                            nombreDeChiffresDansLaPartieEntiere(
+                              Math.round(reponse),
+                            ),
+                          ) + 1,
+                        decimals: 1,
+                        approx: 0,
+                        signe: false,
+                        exposantNbChiffres: 0,
+                      },
+                    },
+                  },
+                ],
               },
               {
                 type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: `$\\hspace{21pt}${nomC + nomB}$`,
-                    valeur: [reponse2.toFixed(1)],
-                    param: {
-                      digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse2)) + 1,
-                      decimals: 1,
-                      approx: 0,
-                      signe: false,
-                      exposantNbChiffres: 0
-                    }
-                  }
-                }]
-              }
-            ]
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: `$\\hspace{21pt}${nomC + nomB}$`,
+                      valeur: [reponse2.toFixed(1)],
+                      param: {
+                        digits:
+                          Math.max(
+                            2,
+                            nombreDeChiffresDansLaPartieEntiere(reponse2),
+                          ) + 1,
+                        decimals: 1,
+                        approx: 0,
+                        signe: false,
+                        exposantNbChiffres: 0,
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
           }
         }
         // Si la question n'a jamais été posée, on en créé une autre

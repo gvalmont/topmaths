@@ -15,7 +15,7 @@ export const uuid = '3e52d'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: number
     if (this.canOfficielle) {
       reponse = 11.8
@@ -39,12 +39,16 @@ export default class NomExercice extends ExerciceSimple {
         const b = 10 - a
         const c = randint(21, 59, [30, 40, 50]) / 10
         reponse = a + b + c
-        this.question = `${choix1
-          ? `$${texNombre(c, 2)}+${texNombre(a, 2)}+${texNombre(b, 2)}=$`
-          : `$${texNombre(a, 2)}+${texNombre(c, 2)}+${texNombre(b, 2)}$`}`
-        this.correction = `${choix1
-          ? `$${texNombre(c, 2)}+\\underbrace{${texNombre(a, 2)}+${texNombre(b, 2)}}_{=10}=${miseEnEvidence(texNombre(reponse, 2))}$`
-          : `$${texNombre(a, 2)}+${texNombre(c, 2)}+${texNombre(b, 2)}=${texNombre(c, 2)}+\\underbrace{${texNombre(a, 2)}+${texNombre(b, 2)}}_{=1}=${miseEnEvidence(texNombre(reponse, 2))}$`}`
+        this.question = `${
+          choix1
+            ? `$${texNombre(c, 2)}+${texNombre(a, 2)}+${texNombre(b, 2)}=$`
+            : `$${texNombre(a, 2)}+${texNombre(c, 2)}+${texNombre(b, 2)}$`
+        }`
+        this.correction = `${
+          choix1
+            ? `$${texNombre(c, 2)}+\\underbrace{${texNombre(a, 2)}+${texNombre(b, 2)}}_{=10}=${miseEnEvidence(texNombre(reponse, 2))}$`
+            : `$${texNombre(a, 2)}+${texNombre(c, 2)}+${texNombre(b, 2)}=${texNombre(c, 2)}+\\underbrace{${texNombre(a, 2)}+${texNombre(b, 2)}}_{=1}=${miseEnEvidence(texNombre(reponse, 2))}$`
+        }`
       } else {
         const a = randint(11, 49, [20, 30, 40]) / 100
         const b = 1 - a

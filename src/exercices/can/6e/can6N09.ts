@@ -18,16 +18,16 @@ export const uuid = 'cc882'
 
 export const refs = {
   'fr-fr': ['can6N09', '6N2A-flash8'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PositionDesChiffres extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const f = choice([1, 10, 100])
     const a = randint(1, 9) * 10 + randint(1, 9)
     this.question = ` Compléter la suite logique : <br>$${texNombre((a + 0.6) / f)}$ ${sp(1)} ; ${sp(1)}$${texNombre((a + 0.7) / f)}$ ${sp(1)} ; ${sp(1)}$${texNombre((a + 0.8) / f)}$ ${sp(1)} ; ${sp(1)}$${texNombre((a + 0.9) / f)}$ ${sp(1)} ; ${sp(1)} .....`

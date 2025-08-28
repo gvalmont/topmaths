@@ -1,7 +1,11 @@
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduirePolynomeDegre3,
+} from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un point sur une courbe'
 export const interactifReady = true
@@ -13,7 +17,7 @@ export const uuid = '5157a'
 
 */
 export default class PointsCourbe extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,11 +27,13 @@ export default class PointsCourbe extends ExerciceSimple {
     this.versionQcm = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     // const [aa, bb, cc] = this.canOfficielle ? [5, 'dixièmes', 10] : choice([[randint(2, 50), 'dixièmes', 10], [randint(20, 500), 'centièmes', 100], [randint(200, 5000), 'millièmes', 1000]])
     const a = this.canOfficielle ? -1 : randint(-5, 5, 0)
     const abs = this.canOfficielle ? -2 : randint(-3, 3, 0)
-    const ord = this.canOfficielle ? 3 : choice([abs ** 2 + a, abs ** 2 + a + choice([-1, 1])])
+    const ord = this.canOfficielle
+      ? 3
+      : choice([abs ** 2 + a, abs ** 2 + a + choice([-1, 1])])
     // ça sert à rien c'est un qcm, les réponses sont gérées par les cases à cocher.
     /*
     if (this.canOfficielle) {
@@ -42,9 +48,11 @@ export default class PointsCourbe extends ExerciceSimple {
         &=${abs ** 2 + a}
         \\end{aligned}$
         <br>
-        ${abs ** 2 + a === ord
-? `Le point $A$ est bien sur la parabole.<br> L'affirmation est ${texteEnCouleurEtGras('Vraie')}`
-        : `Puisque $${abs ** 2 + a} \\neq ${ord}$, le point $A$ n'est pas sur la parabole. <br>L'affirmation est ${texteEnCouleurEtGras('FAUSSE')}`}`
+        ${
+          abs ** 2 + a === ord
+            ? `Le point $A$ est bien sur la parabole.<br> L'affirmation est ${texteEnCouleurEtGras('Vraie')}`
+            : `Puisque $${abs ** 2 + a} \\neq ${ord}$, le point $A$ n'est pas sur la parabole. <br>L'affirmation est ${texteEnCouleurEtGras('FAUSSE')}`
+        }`
 
     this.question = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
@@ -55,6 +63,7 @@ export default class PointsCourbe extends ExerciceSimple {
 
     this.canEnonce = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
-    this.canReponseACompleter = '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
+    this.canReponseACompleter =
+      '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
   }
 }

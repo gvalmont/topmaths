@@ -20,15 +20,10 @@
   export let currentSlideDuration: number
 
   const BUTTONS_CLASS = 'mx-1.5 bx-sm md:bx-lg'
-
 </script>
 
 <div class="flex flex-row justify-start items-center ml-7 w-[33%]">
-  <SlideshowPlayDisplaySettings
-    {BUTTONS_CLASS}
-    {zoomPlus}
-    {zoomMinus}
-  />
+  <SlideshowPlayDisplaySettings {BUTTONS_CLASS} {zoomPlus} {zoomMinus} />
 </div>
 <div class="flex flex-row justify-center items-center w-[33%]">
   <SlideshowPlayControlSettings

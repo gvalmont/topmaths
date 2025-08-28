@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '26491'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class MultiplierEntierDecimal extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -28,7 +28,7 @@ export default class MultiplierEntierDecimal extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = texNombre(5.6, 1)
       this.question = '$0,7\\times 8$ '

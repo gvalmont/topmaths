@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '836b0'
 export const refs = {
   'fr-fr': ['TSA1-QCM01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,16 +28,17 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       'la suite $\\left(\\dfrac{v_{n}}{u_{n}}\\right)$ converge.',
       'la suite $\\left(u_{n}\\right)$ est croissante.',
       'la suite $\\left(\\dfrac{1}{v_{n}}\\right)$ converge.',
-      '$\\displaystyle\\lim _{n \\rightarrow+\\infty}\\left(-u_{n}\\right)^{n}=-\\infty$. '
+      '$\\displaystyle\\lim _{n \\rightarrow+\\infty}\\left(-u_{n}\\right)^{n}=-\\infty$. ',
     ]
 
     this.enonce = `  On considère deux suites $\\left(u_{n}\\right)$ et $\\left(v_{n}\\right)$ à termes strictement positifs<br> telles que 
     $\\displaystyle\\lim _{n \\rightarrow+\\infty} u_{n}=+\\infty$ et $\\left(v_{n}\\right)$ converge vers 0 .<br>
     On peut affirmer que :`
-    this.correction = 'On calcule la limite du quotient de deux suites.<br>  $\\dfrac{0}{+\\infty}\\to 0$'
+    this.correction =
+      'On calcule la limite du quotient de deux suites.<br>  $\\dfrac{0}{+\\infty}\\to 0$'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

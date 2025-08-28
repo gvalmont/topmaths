@@ -9,54 +9,60 @@ import { chocolats6 } from './chocolats'
  * @author Jean-Claude Lhote
  */
 export default class ProblemeCompMulTout extends Probleme {
-  constructor (name: string = '', data?: { nb1: number, nbFois: number }) {
+  constructor(name: string = '', data?: { nb1: number; nbFois: number }) {
     const personnage = prenomPronom()
     data = data == null ? { nb1: randint(4, 8), nbFois: randint(2, 5) } : data
     const nb2 = data.nb1 * data.nbFois
     super(name, data)
     this.schema = new SchemaEnBoite({
-      topBraces: [{
-        start: 1,
-        end: 16,
-        text: `$${miseEnEvidence(texNombre((data.nbFois + 1) * data.nb1, 2))}\\text{\\,€}$`
-      }],
-      lignes: [{
-        barres: [
-          {
-            content: `$${texNombre(data.nb1, 2)}\\text{\\,€}$`,
-            length: 3,
-            color: 'lightgray'
-          },
-          {
-            content: `$${texNombre(data.nb1, 2)}\\text{\\,€}$`,
-            length: 3,
-            color: 'lightgray'
-          },
-          {
-            content: '\\ldots',
-            length: 6,
-            color: 'white',
-            options: {
-              justify: 'start'
-            }
-          },
-          {
-            content: `$${texNombre(data.nb1, 2)}\\text{\\,€}$`,
-            length: 3,
-            color: 'lightgray'
-          }
-        ]
-      }],
-      bottomBraces: [{
-        start: 1,
-        end: 4,
-        text: 'sachet',
-      },
-      {
-        start: 4,
-        end: 16,
-        text: 'boite'
-      }]
+      topBraces: [
+        {
+          start: 1,
+          end: 16,
+          text: `$${miseEnEvidence(texNombre((data.nbFois + 1) * data.nb1, 2))}\\text{\\,€}$`,
+        },
+      ],
+      lignes: [
+        {
+          barres: [
+            {
+              content: `$${texNombre(data.nb1, 2)}\\text{\\,€}$`,
+              length: 3,
+              color: 'lightgray',
+            },
+            {
+              content: `$${texNombre(data.nb1, 2)}\\text{\\,€}$`,
+              length: 3,
+              color: 'lightgray',
+            },
+            {
+              content: '\\ldots',
+              length: 6,
+              color: 'white',
+              options: {
+                justify: 'start',
+              },
+            },
+            {
+              content: `$${texNombre(data.nb1, 2)}\\text{\\,€}$`,
+              length: 3,
+              color: 'lightgray',
+            },
+          ],
+        },
+      ],
+      bottomBraces: [
+        {
+          start: 1,
+          end: 4,
+          text: 'sachet',
+        },
+        {
+          start: 4,
+          end: 16,
+          text: 'boite',
+        },
+      ],
     })
 
     this.enonce = `Un chocolatier vend ses chocolats selon deux types de conditionnement : en sachets à $${texNombre(data.nb1, 2, true)}$ € ou en boites qui coûtent $${texNombre(data.nbFois, 0)}$ fois plus cher qu'un sachet.<br>
@@ -66,6 +72,4 @@ ${personnage.prenom} décide d'acheter un sachet et une boite. Combien va-t-${pe
     this.reponse = texNombre(nb2 + data.nb1, 2)
   }
 }
-export const listeDeProblemesCompMulTout = [
-  chocolats6
-]
+export const listeDeProblemesCompMulTout = [chocolats6]

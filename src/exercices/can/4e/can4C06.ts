@@ -16,16 +16,16 @@ export const uuid = '11f3c'
 
 export const refs = {
   'fr-fr': ['can4C06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NombreDeNombresEntiersEntreDeuxValeurs extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 15)
     const b = randint(18, 35)
     this.question = `Donner le nombre d'entiers strictement compris entre $${a}$ et $${b}$.`

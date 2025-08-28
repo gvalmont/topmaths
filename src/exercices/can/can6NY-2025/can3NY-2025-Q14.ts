@@ -12,21 +12,21 @@ export const interactifType = 'mathLive'
 export const uuid = 'f9915'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class calcAvecChiffresPrio extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = choice([true, false])
     const a = randint(1, 4)
     const val = new Decimal(2025).div(choice([10, 100, 1000]))
@@ -47,7 +47,9 @@ export default class calcAvecChiffresPrio extends ExerciceSimple {
       this.reponse = texNombre(new Decimal(val).mul(10), 3)
       this.correction = `  $${choix ? `4 \\times ${texNombre(val, 3)}\\times 2,5` : `2,5 \\times ${texNombre(val, 3)}\\times 4`}=10 \\times ${texNombre(val, 3)}=${miseEnEvidence(this.reponse)}$`
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

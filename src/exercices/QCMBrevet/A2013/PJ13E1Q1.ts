@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '67e16'
 export const refs = {
   'fr-fr': ['3C1QCM-03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,17 +21,22 @@ export const dateDePublication = '30/10/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class PolynesieJuin12Exo1Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b: number, e1:number, e2:number): void {
+  private appliquerLesValeurs(
+    a: number,
+    b: number,
+    e1: number,
+    e2: number,
+  ): void {
     this.reponses = [
-      `$${texNombre(2 * (a - b * 10 ** (-e1)), 4)}\\times 10^{${-e2 - 1}}$`,
-      `$${texNombre((a - b * 10 ** (-e1) / 5 * 10 ** e2), 2)}$`,
-      `$${texNombre((a - b) / 5, 1)}\\times 10^{${-e1 - e2}}$`
+      `$${texNombre(2 * (a - b * 10 ** -e1), 4)}\\times 10^{${-e2 - 1}}$`,
+      `$${texNombre(a - ((b * 10 ** -e1) / 5) * 10 ** e2, 2)}$`,
+      `$${texNombre((a - b) / 5, 1)}\\times 10^{${-e1 - e2}}$`,
     ]
     this.enonce = `$\\dfrac{${a}-${b}\\times10^{-${e1}}}{5\\times 10^${e2}}= ?$`
-    this.correction = `D'une part : $${a}-${b}\\times10^{-${e1}}=${a}-${texNombre(b * 10 ** (-e1))}=${texNombre(a - b * 10 ** (-e1))}$.<br>`
+    this.correction = `D'une part : $${a}-${b}\\times10^{-${e1}}=${a}-${texNombre(b * 10 ** -e1)}=${texNombre(a - b * 10 ** -e1)}$.<br>`
     this.correction += `D'autre part : $5\\times 10^${e2}=5\\times${texNombre(10 ** e2)}=${texNombre(5 * 10 ** e2)}$.<br>`
-    this.correction += `Donc : $\\dfrac{${a}-${b}\\times10^{-${e1}}}{5\\times 10^${e2}}=\\dfrac{${texNombre(a - b * 10 ** (-e1))}}{${texNombre(5 * 10 ** e2)}}=${texNombre((a - b * 10 ** (-e1)) / (5 * 10 ** e2))}$.<br>`
-    this.correction += `Enfin : $${texNombre((a - b * 10 ** (-e1)) / (5 * 10 ** e2))}=${miseEnEvidence(`${texNombre(2 * (a - b * 10 ** (-e1)))}\\times 10^{${-e2 - 1}}`)}$.`
+    this.correction += `Donc : $\\dfrac{${a}-${b}\\times10^{-${e1}}}{5\\times 10^${e2}}=\\dfrac{${texNombre(a - b * 10 ** -e1)}}{${texNombre(5 * 10 ** e2)}}=${texNombre((a - b * 10 ** -e1) / (5 * 10 ** e2))}$.<br>`
+    this.correction += `Enfin : $${texNombre((a - b * 10 ** -e1) / (5 * 10 ** e2))}=${miseEnEvidence(`${texNombre(2 * (a - b * 10 ** -e1))}\\times 10^{${-e2 - 1}}`)}$.`
   }
 
   versionOriginale: () => void = () => {
@@ -49,7 +54,7 @@ export default class PolynesieJuin12Exo1Q1 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

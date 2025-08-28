@@ -11,9 +11,9 @@ export const uuid = '60d7b'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -23,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatInteractif = 'fillInTheBlank'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = '\\left(2^3\\right)^4=2^{%{champ1}}'
       this.reponse = '12'
@@ -32,10 +32,12 @@ export default class NomExercice extends ExerciceSimple {
         $\\left(2^3\\right)^4 =2^{3\\times 4}=2^{${miseEnEvidence(this.reponse)}}$`
       this.canEnonce = '$\\left(2^3\\right)^4$'
       this.canReponseACompleter = ' $2^{\\ldots}$'
-      this.consigne = 'Écrire sous la forme d\'une puissance de $2$ : '
+      this.consigne = "Écrire sous la forme d'une puissance de $2$ : "
     } else {
       let a, p, s, n
-      switch (choice(['a', 'b'])) { //, 'b', 'c', 'd', 'e', 'f'
+      switch (
+        choice(['a', 'b']) //, 'b', 'c', 'd', 'e', 'f'
+      ) {
         case 'a':
           a = randint(2, 3)
           n = randint(2, 5)

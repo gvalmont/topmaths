@@ -11,20 +11,20 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 
-export const titre = 'Déterminer le coefficient directeur d\'une droite'
+export const titre = "Déterminer le coefficient directeur d'une droite"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'b18a9'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class CoeffDirecteurGraphique extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -34,13 +34,17 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let lABx
     const xA = this.canOfficielle ? 0 : randint(-4, 0)
     const yA = this.canOfficielle ? -1 : randint(-4, 4)
     const xB = this.canOfficielle ? 3 : xA + randint(3, 4)
     const yB = this.canOfficielle ? 1 : randint(-4, 4, [0, yA])
-    const o = latex2d('\\text{O}', -0.2, -0.3, { color: 'black', letterSize: 'scriptsize', backgroundColor: '' })
+    const o = latex2d('\\text{O}', -0.2, -0.3, {
+      color: 'black',
+      letterSize: 'scriptsize',
+      backgroundColor: '',
+    })
     const A = point(xA, yA)
     const B = point(xB, yB)
     const Bx = point(B.x, A.y)
@@ -51,11 +55,30 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
     sBBx.pointilles = 5
     sABx.epaisseur = 2
     sABx.pointilles = 5
-    const lA = latex2d('A', xA + 0.1, yA - 0.2, { color: 'black', backgroundColor: '' })
+    const lA = latex2d('A', xA + 0.1, yA - 0.2, {
+      color: 'black',
+      backgroundColor: '',
+    })
     const traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
-    const lB = latex2d('B', xB, yB + 0.5, { color: 'black', backgroundColor: '' })
-    if (yA > yB) { lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, { color: 'red', backgroundColor: '' }) } else { lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y - 0.3, { color: 'red', backgroundColor: '' }) }
-    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, { color: 'blue', backgroundColor: '' })
+    const lB = latex2d('B', xB, yB + 0.5, {
+      color: 'black',
+      backgroundColor: '',
+    })
+    if (yA > yB) {
+      lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, {
+        color: 'red',
+        backgroundColor: '',
+      })
+    } else {
+      lABx = latex2d(`${xB - xA}`, milieu(A, Bx).x, A.y - 0.3, {
+        color: 'red',
+        backgroundColor: '',
+      })
+    }
+    const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, {
+      color: 'blue',
+      backgroundColor: '',
+    })
     const traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
     const d = droite(A, B, '', 'blue')
     d.epaisseur = 2
@@ -84,10 +107,48 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
       yLabelDistance: 1,
       yLabelEcart: 0.6,
       grilleXDistance: 1,
-      grilleYDistance: 1
+      grilleYDistance: 1,
     })
-    const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
-    const objetC = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+    const objet = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin: ymin - 0.25,
+        ymax: ymax + 0.25,
+        pixelsParCm: 25,
+        scale: 0.6,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceA,
+      lA,
+      lB,
+      traceB,
+      o,
+    )
+    const objetC = mathalea2d(
+      {
+        xmin,
+        xmax,
+        ymin: ymin - 0.25,
+        ymax: ymax + 0.25,
+        pixelsParCm: 25,
+        scale: 0.6,
+        style: 'margin: auto',
+      },
+      d,
+      r1,
+      traceA,
+      lA,
+      lB,
+      traceB,
+      o,
+      sABx,
+      sBBx,
+      lABx,
+      lBBx,
+    )
 
     this.question = 'Coefficient directeur de la droite $(AB)$.<br>'
     this.question += `${objet}`

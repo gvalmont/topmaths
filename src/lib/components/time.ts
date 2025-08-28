@@ -3,7 +3,7 @@
  * @param {number} nbOfSeconds durée en secondes
  * @return {string} durée en h min s
  */
-export function formattedTimeStamp (nbOfSeconds: number): string {
+export function formattedTimeStamp(nbOfSeconds: number): string {
   const nbOfHours = Math.floor(nbOfSeconds / 3600)
   const nbOfMinutes = Math.floor((nbOfSeconds - nbOfHours * 3600) / 60)
   const nbOfSecondsLeft = nbOfSeconds - nbOfHours * 3600 - nbOfMinutes * 60
@@ -26,7 +26,7 @@ export function formattedTimeStamp (nbOfSeconds: number): string {
  * Gestion du message dans le modal de réglage de la durée de projection
  * @param duree valeur de la durée en secondes retournée par le curseur
  */
-export function setPhraseDuree (duree: number) {
+export function setPhraseDuree(duree: number) {
   if (duree >= 2) return duree + ' secondes'
   else if (duree === 0) return 'Défilement manuel'
   else return duree + ' seconde'
@@ -38,11 +38,11 @@ export function setPhraseDuree (duree: number) {
  * @returns {string} La chaîne de caractère unique
  * @author sylvain
  */
-export function getUniqueStringBasedOnTimeStamp (prefix: string = '') {
+export function getUniqueStringBasedOnTimeStamp(prefix: string = '') {
   // /!\ ATTENTION new Date().getTime() est en ms et n'est pas assez précis pour donner des chaînes uniques
   // const timeStamp = String(new Date().getTime())
   const timeStamp = String(
-    performance.now().toString().replace('.', '') + Math.random()
+    performance.now().toString().replace('.', '') + Math.random(),
   ).replace('.', '')
   return `${prefix}${timeStamp}`
 }
@@ -56,10 +56,14 @@ export function getUniqueStringBasedOnTimeStamp (prefix: string = '') {
  * @param immediate flag pour court-circuiter le délai
  * @returns {void}
  */
-export function debounce<T extends (...args: any[])=> void> (callback: T, delay:number = 20, immediate: boolean = false) {
+export function debounce<T extends (...args: any[]) => void>(
+  callback: T,
+  delay: number = 20,
+  immediate: boolean = false,
+) {
   let timeout: ReturnType<typeof setTimeout> | null
 
-  return function <U> (this: U, ...args: Parameters<typeof callback>) {
+  return function <U>(this: U, ...args: Parameters<typeof callback>) {
     const later = () => {
       timeout = null
 
@@ -86,8 +90,8 @@ export function debounce<T extends (...args: any[])=> void> (callback: T, delay:
  * @param time {number} le temps à décompter en ms
  * @returns promise
  */
-export function delay (time: number) {
-  return new Promise(resolve => setTimeout(resolve, time))
+export function delay(time: number) {
+  return new Promise((resolve) => setTimeout(resolve, time))
 }
 
 /**
@@ -96,7 +100,7 @@ export function delay (time: number) {
  * @param milliseconds durée en millisecondes
  * @returns un objet constitué du nombre de minutes et du nombre de secondes
  */
-export function millisecondToMinSec (milliseconds: number): {
+export function millisecondToMinSec(milliseconds: number): {
   minutes: number
   seconds: number
 } {

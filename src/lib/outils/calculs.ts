@@ -8,19 +8,26 @@ import { texNombre } from './texNombre'
  * sommeDesChiffres(123)
  * // [ 6, '1+2+3']
  * @author Rémi Angot (Rajout Tableau par EE)
- */export function sommeDesChiffres (n: number) {
+ */ export function sommeDesChiffres(n: number) {
   let nString: string
   if (Array.isArray(n)) nString = n.join('').toString()
   else nString = n.toString()
   let somme = 0
   let sommeString = ''
   for (let i = 0; i < nString.length - 1; i++) {
-    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[i]) !== -1) {
+    if (
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[i]) !==
+      -1
+    ) {
       sommeString += nString[i] + '+'
       somme += Number(nString[i])
     }
   }
-  if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[nString.length - 1]) !== -1) {
+  if (
+    ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(
+      nString[nString.length - 1],
+    ) !== -1
+  ) {
     sommeString += nString[nString.length - 1]
     somme += Number(nString[nString.length - 1])
   }
@@ -33,7 +40,11 @@ import { texNombre } from './texNombre'
  * @author Jean-Claude Lhote
  */
 
-export function produitsEnCroix ([[a, b], [c, d]]: [[number | string, number | string], [number | string, number | string]]): string { // écrit une chaine pour a*d=b*c
+export function produitsEnCroix([[a, b], [c, d]]: [
+  [number | string, number | string],
+  [number | string, number | string],
+]): string {
+  // écrit une chaine pour a*d=b*c
   let result = ''
   result += `$${a}\\times${d}=${b}\\times${c}$`
   return result
@@ -45,9 +56,15 @@ export function produitsEnCroix ([[a, b], [c, d]]: [[number | string, number | s
  * @author Jean-Claude Lhote
  */
 
-export function quatriemeProportionnelle (a: number | string, b: number | string, c: number | string, precision = 0): string { // calcul de b*c/a
+export function quatriemeProportionnelle(
+  a: number | string,
+  b: number | string,
+  c: number | string,
+  precision = 0,
+): string {
+  // calcul de b*c/a
   let result = ''
-  if ((typeof a) === 'number' && (typeof b) === 'number' && (typeof c) === 'number') {
+  if (typeof a === 'number' && typeof b === 'number' && typeof c === 'number') {
     if (a === 0) {
       result = '=erreur : division par zéro'
       return result
@@ -70,7 +87,7 @@ export function quatriemeProportionnelle (a: number | string, b: number | string
  * retourne le résulat [a, b] pour a²b=n
  * @author Jean-Claude Lhote
  */
-export function extraireRacineCarree (n: number): [number, number] {
+export function extraireRacineCarree(n: number): [number, number] {
   if (n === 1) return [1, 1]
   const facto = factorisation(n) as number[][]
   let radical = 1
@@ -90,7 +107,7 @@ export function extraireRacineCarree (n: number): [number, number] {
  * Renvoie un tableau (somme des termes positifs, somme des termes négatifs)
  * @author Rémi Angot
  */
-export function sommeDesTermesParSigne (liste: number[]) {
+export function sommeDesTermesParSigne(liste: number[]) {
   let sommeDesPositifs = 0
   let sommeDesNegatifs = 0
   for (let i = 0; i < liste.length; i++) {

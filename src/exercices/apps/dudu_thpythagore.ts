@@ -4,7 +4,7 @@ export const uuid = 'duduThpythagore'
 export const titre = 'Théorème de Pythagore'
 
 class duduThpythagore extends ExternalApp {
-  constructor () {
+  constructor() {
     super('https://mathix.org/thpythagore/index.html?suivi=1&mathalea=1')
   }
 }

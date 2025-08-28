@@ -5,7 +5,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Calculer avec des fractions (calcul littéral)'
 export const uuid = '2cb9a'
@@ -14,50 +18,59 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '20/02/2025'
 export const refs = {
   'fr-fr': ['2N41-9', 'BP2AutoI2'],
-  'fr-ch': ['1mCN-13']
+  'fr-ch': ['1mCN-13'],
 }
 export default class CalculFractionLitteral extends Exercice {
-  constructor () {
+  constructor() {
     super()
     // this.consigne = 'Calculer '
     this.sup = 5
     this.nbQuestions = 1
     this.spacingCorr = 2
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets :',
         '1 : Sommes/différences (simples)',
         '2 : Sommes/différences (moins simples)',
         '3 : Produits',
         '4 : Quotients',
-        '5 : Mélange'
-      ].join('\n')
+        '5 : Mélange',
+      ].join('\n'),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 4,
       melange: 5,
       defaut: 5,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const NomVar = [['a', 'b'], ['x', 'y'], ['n', 'z']]
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const NomVar = [
+        ['a', 'b'],
+        ['x', 'y'],
+        ['n', 'z'],
+      ]
       const pm = choice(['+', '-'])
       const Nom = choice(NomVar)
       const v1 = Nom[0]
       const v2 = Nom[1]
       const choix = choice([true, false])
-      this.consigne = 'Écrire sous la forme d\'une fraction la plus simple possible (les variables sont supposées non nulles).'
+      this.consigne =
+        "Écrire sous la forme d'une fraction la plus simple possible (les variables sont supposées non nulles)."
       let texte = ''
       let texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
-        case 1:// somme 1
+        case 1: // somme 1
           {
             const Question = randint(1, 3)
             if (Question === 1) {
@@ -68,7 +81,11 @@ export default class CalculFractionLitteral extends Exercice {
          \\dfrac{${a}}{${v1}}${pm}\\dfrac{${b}}{${v2}}&=\\dfrac{${a}\\times ${v2}}{${v1}\\times ${v2}}${pm}\\dfrac{${b}\\times ${v1}}{${v2}\\times ${v1}}\\\\
           &=${miseEnEvidence(`\\dfrac{${rienSi1(a)}${v2}${pm}${rienSi1(b)}${v1}}{${v1}${v2}}`)}
           \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${rienSi1(a)}${v2}${pm}${rienSi1(b)}${v1}}{${v1}${v2}}` } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${rienSi1(a)}${v2}${pm}${rienSi1(b)}${v1}}{${v1}${v2}}`,
+                },
+              })
             } else if (Question === 2) {
               const a = randint(-9, 9, 0)
               const b = randint(1, 9)
@@ -79,7 +96,12 @@ export default class CalculFractionLitteral extends Exercice {
           &=${miseEnEvidence(`\\dfrac{${rienSi1(a)}${v1}${pm}${b}}{${v1}}`)}
           \\end{aligned}$ `
 
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${a}${v1}${pm}${b}}{${v1}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${a}${v1}${pm}${b}}{${v1}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             } else {
               let a = randint(2, 9)
               let b = randint(2, 9, a)
@@ -92,13 +114,17 @@ export default class CalculFractionLitteral extends Exercice {
          \\dfrac{${v1}}{${a}}${pm}\\dfrac{${v2}}{${b}}&=\\dfrac{ ${v1}\\times ${b}}{${a}\\times ${b}}${pm}\\dfrac{ ${v2}\\times ${a}}{${b}\\times ${a}}\\\\
           &=${miseEnEvidence(`\\dfrac{${b}${v1}${pm}${a}${v2}}{${a * b}}`)}
           \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${b}${v1}${pm}${a}${v2}}{${a * b}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${b}${v1}${pm}${a}${v2}}{${a * b}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             }
           }
           break
 
-        case 2:// somme 2
-
+        case 2: // somme 2
           {
             const Question = randint(1, 3)
             if (Question === 1) {
@@ -109,7 +135,12 @@ export default class CalculFractionLitteral extends Exercice {
           ${rienSi1(a)}${v1}${pm}\\dfrac{${b}}{${v1}}&=\\dfrac{${rienSi1(a)}${v1}\\times ${v1}}{${v1}}${pm}\\dfrac{${b}}{${v1}}\\\\
           &=${miseEnEvidence(`\\dfrac{${rienSi1(a)}${v1}^{2}${pm}${b}}{${v1}}`)}
           \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${a}${v1}^2${pm}${b}}{${v1}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${a}${v1}^2${pm}${b}}{${v1}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             } else if (Question === 2) {
               const a = randint(2, 9)
               const b = randint(1, 9)
@@ -118,7 +149,12 @@ export default class CalculFractionLitteral extends Exercice {
           \\dfrac{${v1}}{${a}}${pm}\\dfrac{${b}}{${v1}}&=\\dfrac{${v1}\\times ${v1}}{${a}\\times ${v1}}${pm}\\dfrac{${b}\\times ${a}}{${v1}\\times ${a}}\\\\
             &=${miseEnEvidence(`\\dfrac{${v1}^2${pm}${a * b}}{${a}${v1}}`)}
             \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${v1}^2${pm}${a * b}}{${a}${v1}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${v1}^2${pm}${a * b}}{${a}${v1}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             } else {
               let c = randint(2, 9)
               let a = randint(1, 9)
@@ -133,13 +169,19 @@ export default class CalculFractionLitteral extends Exercice {
           &=${miseEnEvidence(`\\dfrac{${a} ${v2}${pm}${b * c}${v1}}{${c}${v1}${v2}}`)}
           \\end{aligned}$ `
 
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${a} ${v2}${pm}${b * c}${v1}}{${c}${v1}${v2}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${a} ${v2}${pm}${b * c}${v1}}{${c}${v1}${v2}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             }
           }
           break
 
-        case 3:// produit
-          { const Question = randint(1, 4)
+        case 3: // produit
+          {
+            const Question = randint(1, 4)
             if (Question === 1) {
               let c = randint(2, 9)
               let a = randint(1, 9)
@@ -154,7 +196,12 @@ export default class CalculFractionLitteral extends Exercice {
        \\dfrac{${rienSi1(a)}${v1}}{${v2}}\\times \\dfrac{${b}${v2}}{${c}}&=\\dfrac{${rienSi1(a)}${v1}\\times ${b}\\cancel{${v2}}}{${c}\\cancel{${v2}}}\\\\
           &=${miseEnEvidence(`\\dfrac{${a * b}${v1}}{${c}}`)}
           \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${a * b}${v1}}{${c}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${a * b}${v1}}{${c}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             } else if (Question === 2) {
               let a = randint(2, 9)
               let b = randint(1, 9)
@@ -167,7 +214,12 @@ export default class CalculFractionLitteral extends Exercice {
 \\dfrac{${v1}}{${a}}\\times \\dfrac{${b}}{${v2}}&=\\dfrac{${v1}\\times ${b}}{${a}\\times ${v2}}\\\\
 &=${miseEnEvidence(`\\dfrac{${rienSi1(b)}${v1}}{${a}${v2}}`)}
 \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${b}${v1}}{${a}${v2}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${b}${v1}}{${a}${v2}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             } else if (Question === 3) {
               const a = randint(1, 10)
 
@@ -176,7 +228,12 @@ export default class CalculFractionLitteral extends Exercice {
 ${choix ? `${v1}\\times \\dfrac{${a}}{${v2}}` : `\\dfrac{${a}}{${v2}}\\times ${v2}`}&=${choix ? `\\dfrac{${v1}\\times${a}}{${v2}}` : `\\dfrac{${a}\\times ${v1}}{${v2}}`}\\\\
   &=${miseEnEvidence(`\\dfrac{${rienSi1(a)}${v1}}{${v2}}`)}
   \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: `\\dfrac{${a}${v1}}{${v2}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: `\\dfrac{${a}${v1}}{${v2}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             } else {
               const a = randint(2, 10)
               const b = randint(2, 10)
@@ -186,13 +243,21 @@ ${choix ? `${v1}\\times \\dfrac{${a}}{${v2}}` : `\\dfrac{${a}}{${v2}}\\times ${v
 ${choix ? `\\dfrac{${v1}}{${a}}\\times \\dfrac{${v1}}{${b}}` : `\\dfrac{${v1}}{${a}}\\times \\dfrac{${v2}}{${b}}`}&=${choix ? `\\dfrac{${v1}\\times ${v1}}{${a}\\times ${b}}` : `\\dfrac{${v1}\\times ${v2}}{${a}\\times ${b}}`}\\\\
   &=${choix ? `${miseEnEvidence(`\\dfrac{${v1}^2}{${a * b}}`)}` : `${miseEnEvidence(`\\dfrac{${v1}${v2}}{${a * b}}`)}`}
   \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: choix ? `\\dfrac{${v1}^2}{${a * b}}` : `\\dfrac{${v1}${v2}}{${a * b}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: choix
+                    ? `\\dfrac{${v1}^2}{${a * b}}`
+                    : `\\dfrac{${v1}${v2}}{${a * b}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             }
           }
           break
 
-        case 4:// division
-          { const Question = randint(1, 2)
+        case 4: // division
+          {
+            const Question = randint(1, 2)
 
             if (Question === 1) {
               const a = randint(2, 10)
@@ -201,7 +266,14 @@ ${choix ? `\\dfrac{${v1}}{${a}}\\times \\dfrac{${v1}}{${b}}` : `\\dfrac{${v1}}{$
             ${choix ? `${v1}\\div \\dfrac{${v2}}{${a}}` : ` \\dfrac{${v2}}{${a}} \\div ${v1}`}&= ${choix ? `${v1}\\times \\dfrac{${a}}{${v2}}` : ` \\dfrac{${v2}}{${a}} \\times \\dfrac{1}{${v1}}`}\\\\
           &=${choix ? `${miseEnEvidence(` \\dfrac{${a}${v1}}{${v2}}`)}` : `${miseEnEvidence(` \\dfrac{${v2}}{${a}${v1}}`)}`}
 \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: choix ? `\\dfrac{${a}${v1}}{${v2}}` : `\\dfrac{${v2}}{${a}${v1}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: choix
+                    ? `\\dfrac{${a}${v1}}{${v2}}`
+                    : `\\dfrac{${v2}}{${a}${v1}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             } else {
               let a = randint(2, 9)
               let b = randint(1, 9)
@@ -214,12 +286,24 @@ ${choix ? `\\dfrac{${v1}}{${a}}\\times \\dfrac{${v1}}{${b}}` : `\\dfrac{${v1}}{$
           ${choix ? `\\dfrac{${v1}}{${a}}\\div\\dfrac{${b}}{${v2}}` : `\\dfrac{${v1}}{${a}}\\div\\dfrac{${v2}}{${b}}`}&=${choix ? `\\dfrac{${v1}}{${a}}\\times \\dfrac{${v2}}{${b}}` : `\\dfrac{${v1}}{${a}}\\times \\dfrac{${b}}{${v2}}`}\\\\
             &=${choix ? `${miseEnEvidence(`\\dfrac{${v1}${v2}}{${a * b}}`)}` : `${miseEnEvidence(`\\dfrac{${b}${v1}}{${a}${v2}}`)}`}
             \\end{aligned}$ `
-              handleAnswers(this, i, { reponse: { value: choix ? `\\dfrac{${v1}${v2}}{${a * b}}` : `\\dfrac{${b}${v1}}{${a}${v2}}`, options: { avecSigneMultiplier: false } } })
+              handleAnswers(this, i, {
+                reponse: {
+                  value: choix
+                    ? `\\dfrac{${v1}${v2}}{${a * b}}`
+                    : `\\dfrac{${b}${v1}}{${a}${v2}}`,
+                  options: { avecSigneMultiplier: false },
+                },
+              })
             }
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecVariable,
+        { texteAvant: ' $=$' },
+      )
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

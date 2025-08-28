@@ -13,7 +13,7 @@ export const uuid = '40cd8'
 
 */
 export default class FractionAvecPi extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -23,8 +23,20 @@ export default class FractionAvecPi extends ExerciceSimple {
     this.formatInteractif = 'mathlive'
   }
 
-  nouvelleVersion () {
-    const listeValeurs = this.canOfficielle ? [[2, 5, 6]] : [[2, 2, 5], [3, 5, 6], [5, 2, 3], [2, 3, 5], [4, 2, 3], [2, 6, 7], [2, 5, 7], [2, 4, 7], [2, 3, 7]]//
+  nouvelleVersion() {
+    const listeValeurs = this.canOfficielle
+      ? [[2, 5, 6]]
+      : [
+          [2, 2, 5],
+          [3, 5, 6],
+          [5, 2, 3],
+          [2, 3, 5],
+          [4, 2, 3],
+          [2, 6, 7],
+          [2, 5, 7],
+          [2, 4, 7],
+          [2, 3, 7],
+        ] //
     const val = choice(listeValeurs)
     const nbrepi = val[0]
     const num = val[1]
@@ -38,7 +50,9 @@ export default class FractionAvecPi extends ExerciceSimple {
       &=${nbrepi}\\pi+${miseEnEvidence(`\\dfrac{${num}\\pi}{${den}}`)}
       \\end{aligned}$`
 
-    if (!this.interactif) { this.question += ' $\\ldots$' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots$'
+    }
     this.canEnonce = 'Compléter.'
     this.canReponseACompleter = ''
   }

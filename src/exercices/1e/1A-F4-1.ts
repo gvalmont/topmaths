@@ -1,5 +1,6 @@
 import EquationsGSplineNombre from '../can/2e/can2F24'
-export const titre = 'Déterminer le nombre de solutions d\'une équation (graphique)'
+export const titre =
+  "Déterminer le nombre de solutions d'une équation (graphique)"
 export const dateDePublication = '29/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +16,10 @@ export const uuid = '21516'
 
 export const refs = {
   'fr-fr': ['1A-F4-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AF4a extends EquationsGSplineNombre {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

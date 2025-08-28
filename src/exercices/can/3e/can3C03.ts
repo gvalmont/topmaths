@@ -1,8 +1,6 @@
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
-import {
-  obtenirListeFractionsIrreductibles
-} from '../../../lib/outils/deprecatedFractions'
+import { obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions'
 import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -14,16 +12,16 @@ export const amcType = 'AMCNum'
 
 /**
  * @author Jean-Claude Lhote
-  * Créé pendant l'été 2021
-*/
+ * Créé pendant l'été 2021
+ */
 export const uuid = 'f1208'
 
 export const refs = {
   'fr-fr': ['can3C03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FractionIrreductibleCan extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -33,7 +31,7 @@ export default class FractionIrreductibleCan extends ExerciceSimple {
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const maFraction = choice(obtenirListeFractionsIrreductibles())
     const k = choice([2, 3, 4, 5, 9, 10, 20])
     const a = k * maFraction[0]
@@ -42,8 +40,10 @@ export default class FractionIrreductibleCan extends ExerciceSimple {
     this.reponse = new FractionEtendue(maFraction[0], maFraction[1]).simplifie()
     this.question = `Rendre  la fraction $\\dfrac{${a}}{${b}}$ irréductible.`
     this.correction = `$\\dfrac{${a}}{${b}} ${frac.texSimplificationAvecEtapes(false, '#f15929')}$`
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 }

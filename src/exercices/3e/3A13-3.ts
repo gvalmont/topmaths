@@ -1,5 +1,6 @@
 import VocabulaireDivisionEuclidienne from '../6e/6N2J-2'
-export const titre = "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne"
+export const titre =
+  "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne"
 export const amcReady = true
 export const amcType = 'qcmMult'
 export const interactifReady = true
@@ -18,10 +19,10 @@ export const uuid = 'd9cf3'
 
 export const refs = {
   'fr-fr': ['3A13-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class VocabulaireDivisionEuclidienne3e extends VocabulaireDivisionEuclidienne {
-  constructor () {
+  constructor() {
     super()
     this.sup4 = 1
   }

@@ -1,6 +1,7 @@
 import PavagesEtTransformations from './_Pavages_et_transformations'
 
-export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage carré'
+export const titre =
+  "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -17,10 +18,10 @@ export const uuid = 'f5569'
 export const refs = {
   'fr-fr': ['6G7B-6'],
   'fr-2016': ['6G25-2'],
-  'fr-ch': ['9ES6-19']
+  'fr-ch': ['9ES6-19'],
 }
 export default class PavagesEtSymetries extends PavagesEtTransformations {
-  constructor () {
+  constructor() {
     super()
     this.level = 6
     this.besoinFormulaireNumerique = false

@@ -19,19 +19,19 @@ export const uuid = 'de779'
 
 export const refs = {
   'fr-fr': ['can6C01', '6N2F-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class OrdreDeGrandeur extends Exercice {
   nbQuestions: number
 
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const a = randint(3, 7)
       const b = randint(2, 9)
       const c = randint(1, 9)
@@ -48,17 +48,17 @@ export default class OrdreDeGrandeur extends Exercice {
         propositions: [
           {
             texte: `$${texNombre(resultat, 0)}$`,
-            statut: true
+            statut: true,
           },
           {
             texte: `$${texNombre(d * 1000 + nombre, 0)}$`,
-            statut: false
+            statut: false,
           },
           {
             texte: `$${texNombre((a * 1000 + b * 100 + c) * d, 0)}$`,
-            statut: false
-          }
-        ]
+            statut: false,
+          },
+        ],
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
@@ -70,7 +70,7 @@ export default class OrdreDeGrandeur extends Exercice {
         texteCorr += texteEnCouleur(`
     Mentalement : <br>
 On remplace le premier facteur $${texNombre(nombre, 0)}$ par $${(a + 1) * 100}$, on calcule
-$${(a + 1) * 100}\\times ${d}=${texNombre(((a + 1) * 100) * d, 0)}$ et on sélectionne le résultat qui s'en rapproche le plus.
+$${(a + 1) * 100}\\times ${d}=${texNombre((a + 1) * 100 * d, 0)}$ et on sélectionne le résultat qui s'en rapproche le plus.
     `)
       } else {
         texteCorr += texteEnCouleur(`
@@ -80,7 +80,7 @@ $${(a + 1) * 100}\\times ${d}=${texNombre(((a + 1) * 100) * d, 0)}$ et on sélec
            `)
       }
       if (this.questionJamaisPosee(i, a, nombre)) {
-      // Si la question n'a jamais été posée, on en crée une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

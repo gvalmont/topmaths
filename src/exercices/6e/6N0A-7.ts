@@ -6,7 +6,10 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
@@ -26,13 +29,21 @@ export const uuid = '6babf'
 export const refs = {
   'fr-fr': ['6N0A-7'],
   'fr-2016': ['6N10-0'],
-  'fr-ch': ['9NO1-2']
+  'fr-ch': ['9NO1-2'],
 }
 export default class ÉcrireNombresEntiers extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
-    this.besoinFormulaire2Numerique = ['Niveau', 4, '1 : Élémentaire (jusqu\'à la classe des milliers) \n2 : Facile (jusqu\'à la classe des millions)\n3 : Moyen (jusqu\'à la classe des milliards)\n4 : Difficile']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      3,
+      "1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d'une écriture à l'autre",
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Niveau',
+      4,
+      "1 : Élémentaire (jusqu'à la classe des milliers) \n2 : Facile (jusqu'à la classe des millions)\n3 : Moyen (jusqu'à la classe des milliards)\n4 : Difficile",
+    ]
 
     this.nbQuestions = 5
 
@@ -40,7 +51,7 @@ export default class ÉcrireNombresEntiers extends Exercice {
     this.sup2 = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeDeConsigne: number[] = []
     if (this.sup === 1) {
       this.consigne = 'Écrire le nombre en lettres.'
@@ -48,9 +59,11 @@ export default class ÉcrireNombresEntiers extends Exercice {
     } else if (this.sup === 2) {
       this.consigne = 'Écrire le nombre en chiffres.'
       typeDeConsigne = combinaisonListes([2], this.nbQuestions)
-      if (this.interactif) this.consigne = 'Écrire le nombre en chiffres sans oublier les espaces.'
+      if (this.interactif)
+        this.consigne = 'Écrire le nombre en chiffres sans oublier les espaces.'
     } else if (this.sup === 3) {
-      this.consigne = 'Passer de l\'écriture en chiffres à celle en lettres et inversement.'
+      this.consigne =
+        "Passer de l'écriture en chiffres à celle en lettres et inversement."
       typeDeConsigne = combinaisonListes([1, 2], this.nbQuestions)
     }
     let typesDeQuestionsDisponibles
@@ -61,11 +74,12 @@ export default class ÉcrireNombresEntiers extends Exercice {
 
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, a, b, c, nombre, tranche, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       nombre = 0
       tranche = []
@@ -75,7 +89,20 @@ export default class ÉcrireNombresEntiers extends Exercice {
           a = randint(1, 9)
           b = randint(1, 9)
           c = randint(1, 9)
-          tranche.push(choice([0, 100, 20, 80, a, a * 100, a * 100 + b * 10 + c, a * 100 + 80 + b, a * 10, a * 100 + b * 10 + 1]))
+          tranche.push(
+            choice([
+              0,
+              100,
+              20,
+              80,
+              a,
+              a * 100,
+              a * 100 + b * 10 + c,
+              a * 100 + 80 + b,
+              a * 10,
+              a * 100 + b * 10 + 1,
+            ]),
+          )
         }
         for (let j = 0; j < listeTypeDeQuestions[i]; j++) {
           nombre += tranche[j] * 10 ** (j * 3)
@@ -84,16 +111,25 @@ export default class ÉcrireNombresEntiers extends Exercice {
       }
       if (typeDeConsigne[i] === 1) {
         setReponse(this, i, nombreEnLettres(nombre))
-        if (context.vue !== 'diap') texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'alphanumeric')}`
+        if (context.vue !== 'diap')
+          texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'alphanumeric')}`
         else texte = `$${texNombre(nombre)}$`
-        if (context.vue !== 'diap') texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
+        if (context.vue !== 'diap')
+          texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
         else texteCorr = `${nombreEnLettres(nombre)}`
       } else {
         setReponse(this, i, texNombre(nombre), { formatInteractif: 'texte' })
-        handleAnswers(this, i, { reponse: { value: texNombre(nombre), options: { nombreAvecEspace: true } } })
-        if (context.vue !== 'diap') texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  ' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
+        handleAnswers(this, i, {
+          reponse: {
+            value: texNombre(nombre),
+            options: { nombreAvecEspace: true },
+          },
+        })
+        if (context.vue !== 'diap')
+          texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  ' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
         else texte = `${nombreEnLettres(nombre)}`
-        if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
+        if (context.vue !== 'diap')
+          texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
         else texteCorr = `$${texNombre(nombre)}$`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

@@ -14,7 +14,7 @@ export const uuid = '973bb'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,10 +25,10 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '\\pi'
-      this.question = 'L\'aire exacte d\'un disque  de diamètre $2$ cm est :'
+      this.question = "L'aire exacte d'un disque  de diamètre $2$ cm est :"
       this.correction = `L'aire d'un disque de rayon $r$ est $\\pi\\times r^2$. <br>
       Comme $r=1$, l'aire exacte d'un disque  de diamètre $2$ cm est : $${miseEnEvidence('\\pi')}$ cm$^2$.`
     } else {

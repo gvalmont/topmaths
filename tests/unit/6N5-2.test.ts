@@ -5,11 +5,11 @@ import { verifQuestionMathLive } from '../../src/lib/interactif/mathLive'
 
 // Mock avant l'import
 vi.mock('../../src/lib/renderScratch', () => ({
-  renderScratch: vi.fn(() => 'mocked value')
+  renderScratch: vi.fn(() => 'mocked value'),
 }))
 
 vi.mock('../../src/lib/components/version', () => ({
-  checkForServerUpdate: vi.fn(() => 'mocked value')
+  checkForServerUpdate: vi.fn(() => 'mocked value'),
 }))
 
 describe('QuestionsMasses', () => {

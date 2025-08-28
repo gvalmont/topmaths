@@ -23,12 +23,12 @@
 
   afterUpdate(() => {
     const exercicesAffiches = new window.Event('exercicesAffiches', {
-      bubbles: true
+      bubbles: true,
     })
     document.dispatchEvent(exercicesAffiches)
   })
 
-  function endTimer (e: CustomEvent) {
+  function endTimer(e: CustomEvent) {
     const du = parseInt(e.detail.duration)
     const el = parseInt(e.detail.elapsed)
     $canOptions.remainingTimeInSeconds =
@@ -40,14 +40,14 @@
    * si le mode interactif est présent, on vérifie les questions
    * et on bascule sur l'état `end`
    */
-  function handleEndOfRace () {
+  function handleEndOfRace() {
     if ($canOptions.isInteractive) {
       checkAnswers()
     }
     state = 'end'
   }
 
-  function nextQuestion () {
+  function nextQuestion() {
     if (current < numberOfQuestions - 1) {
       current += 1
     }
@@ -59,37 +59,37 @@
 >
   <div class="w-full flex flex-col">
     <Timer
-      bind:this={timerComponent}
-      durationInMilliSeconds={numberOfSeconds * 1000}
-      on:message={endTimer}
+      bind:this="{timerComponent}"
+      durationInMilliSeconds="{numberOfSeconds * 1000}"
+      on:message="{endTimer}"
     />
     <Pagination
       bind:current
       {numberOfQuestions}
-      state={'race'}
-      resultsByQuestion={[]}
+      state="{'race'}"
+      resultsByQuestion="{[]}"
     />
   </div>
   <div
     id="questions-container"
     class="flex flex-col justify-center items-center font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus text-3xl md:text-5xl
      {$keyboardState.isVisible && !$keyboardState.isInLine
-       ? 'h-[calc(100%-30rem)]'
-       : ''}
+      ? 'h-[calc(100%-30rem)]'
+      : ''}
      {$keyboardState.isVisible && $keyboardState.isInLine
-       ? 'h-[calc(100%-20rem)]'
-       : ''}
+      ? 'h-[calc(100%-20rem)]'
+      : ''}
      {!$keyboardState.isVisible ? 'h-full' : ''} w-full"
   >
     {#each [...Array(numberOfQuestions).keys()] as i}
       <Question
-        consigne={consignes[i]}
-        question={questions[i]}
-        consigneCorrection={''}
-        correction={''}
-        mode={'display'}
-        visible={current === i}
-        index={i}
+        consigne="{consignes[i]}"
+        question="{questions[i]}"
+        consigneCorrection="{''}"
+        correction="{''}"
+        mode="{'display'}"
+        visible="{current === i}"
+        index="{i}"
         {nextQuestion}
       />
     {/each}
@@ -99,17 +99,17 @@
     $keyboardState.isInLine
       ? 'mb-20'
       : ''} {$keyboardState.isVisible && !$keyboardState.isInLine
-        ? 'mb-52'
-        : ''}"
+      ? 'mb-52'
+      : ''}"
   >
     <NavigationButtons
       bind:current
       {numberOfQuestions}
-      handleEndOfRace={() => {
+      handleEndOfRace="{() => {
         timerComponent.terminateTimer()
-      }}
+      }}"
       {state}
-      resultsByQuestion={[]}
+      resultsByQuestion="{[]}"
     />
   </div>
   <Keyboard />

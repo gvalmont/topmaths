@@ -7,10 +7,10 @@ export const amcType = 'qcmMono'
 export const uuid = 'd7e11'
 export const refs = {
   'fr-fr': ['4C20', 'BP2AutoG1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceComparerDeuxFractions4e extends ExerciceComparerDeuxFractions {
-  constructor () {
+  constructor() {
     super()
     this.sup = 11
     this.sup2 = true

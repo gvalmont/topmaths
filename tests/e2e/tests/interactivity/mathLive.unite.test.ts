@@ -1,10 +1,17 @@
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 import Grandeur from '../../../../src/modules/Grandeur'
 import prefs from '../../helpers/prefs.js'
 
-async function test (page: Page) {
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+async function test(page: Page) {
+  const hostname = local
+    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    : 'https://coopmaths.fr/alea/'
   const urlExercice = hostname + '?uuid=04b0d&i=1&n=20'
   const questions = await getQuestions(page, urlExercice)
 
@@ -45,7 +52,7 @@ async function test (page: Page) {
 /**
  * '4cm' -> [4, 'cm']
  */
-function getNumberAndUnit (text: string): [number, string] {
+function getNumberAndUnit(text: string): [number, string] {
   const parts = text.split(/(\d+)/)
   if (parts.length < 3) {
     return [0, text]

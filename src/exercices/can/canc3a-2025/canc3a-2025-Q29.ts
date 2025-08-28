@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
 export const uuid = '1217e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025CM2Q29 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class Can2025CM2Q29 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 54 : randint(51, 69, 60)
     this.reponse = texNombre(a * 10, 0)
     this.question = `Complète : <br> $${a}$ cm $=$ `
@@ -35,7 +35,9 @@ export default class Can2025CM2Q29 extends ExerciceSimple {
     this.canReponseACompleter = ` $${a}$ cm $=\\ldots$ mm`
     if (this.interactif) {
       this.optionsChampTexte = { texteApres: 'mm' }
-    } else { this.question += `${context.isHtml ? '$\\ldots$ mm' : ''}` }
+    } else {
+      this.question += `${context.isHtml ? '$\\ldots$ mm' : ''}`
+    }
 
     this.canEnonce = 'Complète.'
   }

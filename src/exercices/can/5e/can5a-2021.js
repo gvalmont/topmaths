@@ -5,19 +5,32 @@ import { droiteGraduee } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
-import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import {
+  formatMinute,
+  stringNombre,
+  texNombre,
+} from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
+import {
+  fraction,
+  obtenirListeFractionsIrreductibles,
+} from '../../../modules/fractions'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
@@ -35,7 +48,7 @@ export const dateDePublication = '30/03/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
@@ -43,10 +56,10 @@ export const uuid = '339a1'
 
 export const refs = {
   'fr-fr': ['can5a-2021'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN20215ieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 30
 
@@ -58,29 +71,144 @@ export default class SujetCAN20215ieme extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 22)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([9, 10,
-      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-    const listeFractions13 = [[12, 5], [11, 5], [13, 5], [17, 5], [19, 5],
-      [27, 5], [18, 5], [29, 5], [10, 3], [19, 3], [17, 3], [16, 3], [23, 3],
-      [29, 3], [29, 7], [17, 7], [15, 7], [13, 7], [17, 7]]
-    const listeFractions22 = [[1, 4], [3, 4], [1, 25], [2, 25], [3, 25],
-      [4, 25], [1, 20], [3, 20], [7, 20], [5, 4]
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+      28, 29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
+    const listeFractions13 = [
+      [12, 5],
+      [11, 5],
+      [13, 5],
+      [17, 5],
+      [19, 5],
+      [27, 5],
+      [18, 5],
+      [29, 5],
+      [10, 3],
+      [19, 3],
+      [17, 3],
+      [16, 3],
+      [23, 3],
+      [29, 3],
+      [29, 7],
+      [17, 7],
+      [15, 7],
+      [13, 7],
+      [17, 7],
+    ]
+    const listeFractions22 = [
+      [1, 4],
+      [3, 4],
+      [1, 25],
+      [2, 25],
+      [3, 25],
+      [4, 25],
+      [1, 20],
+      [3, 20],
+      [7, 20],
+      [5, 4],
     ]
 
-    const listeFractions25 = [[8, 5, 2, 3], [3, 4, 4, 3], [7, 3, 5, 6], [7, 9, 11, 8],
-      [11, 9, 7, 8], [1, 3, 7, 6], [11, 7, 12, 13]
+    const listeFractions25 = [
+      [8, 5, 2, 3],
+      [3, 4, 4, 3],
+      [7, 3, 5, 6],
+      [7, 9, 11, 8],
+      [11, 9, 7, 8],
+      [1, 3, 7, 6],
+      [11, 7, 12, 13],
     ]
-    const listeFractions25B = [[2, 7, 3, 8], [8, 3, 13, 6], [9, 7, 5, 4], [4, 7, 5, 8],
-      [11, 9, 4, 3], [1, 3, 6, 7], [11, 7, 9, 5]
+    const listeFractions25B = [
+      [2, 7, 3, 8],
+      [8, 3, 13, 6],
+      [9, 7, 5, 4],
+      [4, 7, 5, 8],
+      [11, 9, 4, 3],
+      [1, 3, 6, 7],
+      [11, 7, 9, 5],
     ]
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, nombre, a1, b1, f, fraction1 = [], fraction2 = [], propositions, prix, choix, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, code1, code2, code3, code4, code5, code6, code7, code8, code9, code10, code11, code12, truc, a, b, c, d, e, m, p, k, A, B, C, D, E, F, G, H, I, J, K, L, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        texte,
+        texteCorr,
+        reponse,
+        nombre,
+        a1,
+        b1,
+        f,
+        fraction1 = [],
+        fraction2 = [],
+        propositions,
+        prix,
+        choix,
+        s1,
+        s2,
+        s3,
+        s4,
+        s5,
+        s6,
+        s7,
+        s8,
+        s9,
+        s10,
+        s11,
+        s12,
+        code1,
+        code2,
+        code3,
+        code4,
+        code5,
+        code6,
+        code7,
+        code8,
+        code9,
+        code10,
+        code11,
+        code12,
+        truc,
+        a,
+        b,
+        c,
+        d,
+        e,
+        m,
+        p,
+        k,
+        A,
+        B,
+        C,
+        D,
+        E,
+        F,
+        G,
+        H,
+        I,
+        J,
+        K,
+        L,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -90,7 +218,11 @@ export default class SujetCAN20215ieme extends Exercice {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -118,7 +250,11 @@ export default class SujetCAN20215ieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -126,7 +262,6 @@ export default class SujetCAN20215ieme extends Exercice {
           break
 
         case 3:
-
           a = randint(101, 121)
           b = randint(21, 45)
 
@@ -136,7 +271,11 @@ export default class SujetCAN20215ieme extends Exercice {
           reponse = arrondi(a - b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -144,7 +283,6 @@ export default class SujetCAN20215ieme extends Exercice {
           break
 
         case 4:
-
           a = arrondi(randint(3, 9) + randint(1, 4) / 10)
           b = arrondi(randint(1, 5) / 10 + randint(2, 9) / 100)
           texte = `$${texNombre(a)}+${texNombre(b)}=$ `
@@ -153,7 +291,11 @@ export default class SujetCAN20215ieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -174,14 +316,23 @@ export default class SujetCAN20215ieme extends Exercice {
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
 
         case 6:
-          a = arrondi(randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100)
-          b = arrondi(randint(1, 9) * 10 + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
+          a = arrondi(
+            randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100,
+          )
+          b = arrondi(
+            randint(1, 9) * 10 +
+              randint(1, 9) / 10 +
+              0.09 +
+              randint(1, 9) / 1000,
+          )
 
           if (choice([true, false])) {
             texte = `Quel nombre obtient-on si on ajoute un dixième à $${texNombre(a)}$ ?`
@@ -194,7 +345,11 @@ export default class SujetCAN20215ieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -232,7 +387,11 @@ export default class SujetCAN20215ieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -257,7 +416,11 @@ export default class SujetCAN20215ieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -278,13 +441,19 @@ export default class SujetCAN20215ieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' €' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: ' €' },
+              )
           }
           nbChamps = 1
           break
 
         case 10:
-
           a = randint(11, 24, 20)
           reponse = arrondi(101 * a)
           texte = `$${a}\\times 101=$`
@@ -294,7 +463,11 @@ export default class SujetCAN20215ieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -306,7 +479,7 @@ export default class SujetCAN20215ieme extends Exercice {
           if (choix === 'a') {
             a = randint(1, 5) * 10
             p = randint(2, 9, 5) * 10
-            reponse = arrondi(a * p / 100)
+            reponse = arrondi((a * p) / 100)
             texte = `$${p}\\,\\%$ de $${a}= $`
 
             texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
@@ -316,7 +489,7 @@ export default class SujetCAN20215ieme extends Exercice {
           } else {
             a = choice([10, 20, 40, 60, 120])
             p = 25
-            reponse = arrondi(a * p / 100)
+            reponse = arrondi((a * p) / 100)
             texte = `$${p}\\,\\%$ de $${a}= $`
 
             texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre le quart  de $${a}$.<br>
@@ -325,7 +498,11 @@ export default class SujetCAN20215ieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -341,7 +518,11 @@ export default class SujetCAN20215ieme extends Exercice {
           texteCorr = `Le produit de $${a}$ par la somme de $${b}$ et de $${c}$ est égal à : $${a}\\times \\underbrace{(${b}+${c})}_{\\text{Somme de } ${b} \\text{ et } ${c}}=${a}\\times ${b + c}=${miseEnEvidence(a * b + a * c)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -357,10 +538,16 @@ export default class SujetCAN20215ieme extends Exercice {
           \\dfrac{${Math.floor(fraction1[0] / fraction1[1])}\\times ${fraction1[1]}}{${fraction1[1]}}+\\dfrac{${fraction1[0] - Math.floor(fraction1[0] / fraction1[1]) * fraction1[1]}}{${fraction1[1]}}
           =\\dfrac{${Math.floor(fraction1[0] / fraction1[1]) * fraction1[1]}}{${fraction1[1]}}+\\dfrac{${fraction1[0] - Math.floor(fraction1[0] / fraction1[1]) * fraction1[1]}}{${fraction1[1]}}$ donc ?$=${miseEnEvidence(fraction1[0] - Math.floor(fraction1[0] / fraction1[1]) * fraction1[1])}$.
             `
-          reponse = fraction1[0] - Math.floor(fraction1[0] / fraction1[1]) * fraction1[1]
+          reponse =
+            fraction1[0] -
+            Math.floor(fraction1[0] / fraction1[1]) * fraction1[1]
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -413,21 +600,52 @@ export default class SujetCAN20215ieme extends Exercice {
             ymax = 1.2
             objets = []
             objets.push(
-              texteParPosition(`${stringNombre(a)} cm`, milieu(B, C).x - 0.5, milieu(B, C).y),
-              s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, s7, s8, s9, s10, s11, s12, code7, code8, code9, code10, code11, code12)
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(B, C).x - 0.5,
+                milieu(B, C).y,
+              ),
+              s1,
+              s2,
+              s3,
+              s4,
+              s5,
+              s6,
+              code1,
+              code2,
+              code3,
+              code4,
+              code5,
+              code6,
+              s7,
+              s8,
+              s9,
+              s10,
+              s11,
+              s12,
+              code7,
+              code8,
+              code9,
+              code10,
+              code11,
+              code12,
+            )
             reponse = 12 * a
             texte = 'Quel est le périmètre de cette figure ?<br>'
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1.4,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1.4,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `La figure est composée de $12$ segments de longueur $${a}$ cm.<br>
               Le périmètre de cette figure est donc : $12\\times\\times ${a}=${miseEnEvidence(12 * a)}$ cm.   `
           }
@@ -460,23 +678,51 @@ export default class SujetCAN20215ieme extends Exercice {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`${stringNombre(a)} cm`, milieu(B, C).x, milieu(B, C).y + 0.3),
-              texteParPosition(`${stringNombre(b)} cm`, milieu(D, E).x + 0.5, milieu(D, E).y),
-              texteParPosition(`${stringNombre(c)} cm`, milieu(D, C).x - 0.3, milieu(D, C).y + 0.2),
-              s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(B, C).x,
+                milieu(B, C).y + 0.3,
+              ),
+              texteParPosition(
+                `${stringNombre(b)} cm`,
+                milieu(D, E).x + 0.5,
+                milieu(D, E).y,
+              ),
+              texteParPosition(
+                `${stringNombre(c)} cm`,
+                milieu(D, C).x - 0.3,
+                milieu(D, C).y + 0.2,
+              ),
+              s1,
+              s2,
+              s3,
+              s4,
+              s5,
+              s6,
+              code1,
+              code2,
+              code3,
+              code4,
+              code5,
+              code6,
+              segment(D, E),
+            )
             reponse = 4 * a + 2 * c + b
             texte = 'Quel est le périmètre de cette figure ?<br>'
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1.4,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1.4,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `La figure est composée de $4$ segments de longueur $${a}$, de $2$ segments de longueur $${c}$ et d'un segment de longueur $${b}$.<br>
             Le périmètre de cette figure est donc : $4\\times ${a}+2\\times ${c}+${b}=${miseEnEvidence(4 * a + 2 * c + b)}$ cm.   `
           }
@@ -507,23 +753,49 @@ export default class SujetCAN20215ieme extends Exercice {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`${stringNombre(c)} cm`, milieu(B, C).x, milieu(B, C).y + 0.3),
-              texteParPosition(`${stringNombre(b)} cm`, milieu(D, E).x + 0.4, milieu(D, E).y),
-              texteParPosition(`${stringNombre(a)} cm`, milieu(D, C).x - 0.2, milieu(D, C).y + 0.2),
-              s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
+              texteParPosition(
+                `${stringNombre(c)} cm`,
+                milieu(B, C).x,
+                milieu(B, C).y + 0.3,
+              ),
+              texteParPosition(
+                `${stringNombre(b)} cm`,
+                milieu(D, E).x + 0.4,
+                milieu(D, E).y,
+              ),
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(D, C).x - 0.2,
+                milieu(D, C).y + 0.2,
+              ),
+              s1,
+              s2,
+              s4,
+              s5,
+              s6,
+              code1,
+              code2,
+              code4,
+              code5,
+              code6,
+              segment(D, E),
+            )
             reponse = 3 * c + 2 * a + b
             texte = 'Quel est le périmètre de cette figure ?<br>'
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1.4,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1.4,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `La figure est composée de $3$ segments de longueur $${c}$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
                     Le périmètre de cette figure est donc : $3\\times ${c}+2\\times ${a}+${b}=${miseEnEvidence(3 * c + 2 * a + b)}$ cm.   `
           }
@@ -531,21 +803,31 @@ export default class SujetCAN20215ieme extends Exercice {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '$\\mathscr{P}=$'
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: 'cm' },
+            )
           }
           nbChamps = 1
           break
 
         case 15:
           a = randint(2, 9)
-          choix = choice(['a', 'b', 'c', 'd'])//
+          choix = choice(['a', 'b', 'c', 'd']) //
           if (choix === 'a') {
             reponse = a * 100
             texte = `$${a}$ dm$^2=$`
             texteCorr = `$1$ dm$^2= 100$ cm$^2$, donc $${a}$ dm$^2=${a}\\times 100$ cm$^2=${miseEnEvidence(a * 100)}$ cm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm$^2$' })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: 'cm$^2$' },
+              )
             } else {
               texte += ' $\\ldots$ cm$^2$'
             }
@@ -556,7 +838,12 @@ export default class SujetCAN20215ieme extends Exercice {
             texteCorr = `$1$ cm$^2= 0,01$ dm$^2$, donc $${a}$ cm$^2=${a}\\times 0,01$ dm$^2=${miseEnEvidence(texNombre(a / 100))}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'dm$^2$' })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: 'dm$^2$' },
+              )
             } else {
               texte += ' $\\ldots$ dm$^2$'
             }
@@ -567,7 +854,12 @@ export default class SujetCAN20215ieme extends Exercice {
             texteCorr = `$1$ m$^2= 100$ dm$^2$, donc $${a}$ m$^2=${a}\\times 100$ dm$^2=${miseEnEvidence(a * 100)}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'dm$^2$' })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: 'dm$^2$' },
+              )
             } else {
               texte += '$\\ldots$ dm$^2$'
             }
@@ -578,7 +870,12 @@ export default class SujetCAN20215ieme extends Exercice {
             texteCorr = `$1$ dm$^2= 0,01$ m$^2$, donc $${a}$ dm$^2=${a}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(a / 100))}$ m$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'm$^2$' })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: 'm$^2$' },
+              )
             } else {
               texte += '$\\ldots$ m$^2$'
             }
@@ -589,25 +886,33 @@ export default class SujetCAN20215ieme extends Exercice {
 
         case 16:
           if (choice([true, false])) {
-            a = randint(1, 4)// AB
-            b = randint(5, 10)// AC
-            c = randint(b - a, b - 1) + randint(1, 5) / 10// BC possible
-            d = randint(1, b - a) - randint(1, 5) / 10// BC impossible
-            e = randint(a + b + 1, 16)// BC impossible
+            a = randint(1, 4) // AB
+            b = randint(5, 10) // AC
+            c = randint(b - a, b - 1) + randint(1, 5) / 10 // BC possible
+            d = randint(1, b - a) - randint(1, 5) / 10 // BC impossible
+            e = randint(a + b + 1, 16) // BC impossible
             reponse = c
-            propositions = shuffle([`$${texNombre(c)}$`, `$${texNombre(d)}$`, `$${texNombre(e)}$`])
+            propositions = shuffle([
+              `$${texNombre(c)}$`,
+              `$${texNombre(d)}$`,
+              `$${texNombre(e)}$`,
+            ])
             texte = `Dans le triangle $ABC$, on a $AB=${a}$ et $AC=${b}$. <br>
           Recopie la longueur possible de $[BC]$.<br>`
 
             texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           } else {
-            a = randint(2, 4)// AB
-            b = randint(5, 8)// AC
-            c = randint(b + 1, a + b - 1)// BC possible
-            d = randint(1, b - a) - randint(1, 5) / 10// BC impossible
-            e = randint(a + b + 1, 16)// BC impossible
+            a = randint(2, 4) // AB
+            b = randint(5, 8) // AC
+            c = randint(b + 1, a + b - 1) // BC possible
+            d = randint(1, b - a) - randint(1, 5) / 10 // BC impossible
+            e = randint(a + b + 1, 16) // BC impossible
             reponse = c
-            propositions = shuffle([`$${texNombre(c)}$`, `$${texNombre(d)}$`, `$${texNombre(e)}$`])
+            propositions = shuffle([
+              `$${texNombre(c)}$`,
+              `$${texNombre(d)}$`,
+              `$${texNombre(e)}$`,
+            ])
             texte = `Dans le triangle $ABC$, on a $AB=${a}$ et $AC=${b}$. <br>
           Recopie la longueur possible de $[BC]$.<br>`
 
@@ -617,7 +922,9 @@ export default class SujetCAN20215ieme extends Exercice {
           Seule la longueur $${miseEnEvidence(texNombre(c))}$ est possible pour $BC$. `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
@@ -626,35 +933,46 @@ export default class SujetCAN20215ieme extends Exercice {
           a = randint(3, 6)
           b = choice([-1, -a + 1])
           reponse = fraction(b, a)
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({
-            xmin: -2,
-            ymin: -1,
-            xmax: 8,
-            ymax: 1.5,
-            scale: 0.8,
-            style: 'margin: auto'
-          }, droiteGraduee({
-            Unite: 3,
-            Min: -1,
-            Max: 1,
-            x: 0,
-            y: 0,
-            thickSecDist: 1 / a,
-            thickSec: true,
-            thickoffset: 0,
-            axeStyle: '|->',
-            pointListe: [[b / a, '?']],
-            labelPointTaille: 15,
-            pointCouleur: 'blue',
-            pointStyle: 'x',
-            labelsPrincipaux: true,
-            step1: 1,
-            step2: 1
-          }))
+          texte =
+            'Quelle est la fraction repérée par le point d’interrogation ?<br>' +
+            mathalea2d(
+              {
+                xmin: -2,
+                ymin: -1,
+                xmax: 8,
+                ymax: 1.5,
+                scale: 0.8,
+                style: 'margin: auto',
+              },
+              droiteGraduee({
+                Unite: 3,
+                Min: -1,
+                Max: 1,
+                x: 0,
+                y: 0,
+                thickSecDist: 1 / a,
+                thickSec: true,
+                thickoffset: 0,
+                axeStyle: '|->',
+                pointListe: [[b / a, '?']],
+                labelPointTaille: 15,
+                pointCouleur: 'blue',
+                pointStyle: 'x',
+                labelsPrincipaux: true,
+                step1: 1,
+                step2: 1,
+              }),
+            )
           texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecFraction)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
           nbChamps = 1
 
@@ -670,7 +988,9 @@ export default class SujetCAN20215ieme extends Exercice {
             texte = `Donne un encadrement au dixième près du nombre $${texNombre(nombre)}$ :<br>`
             texte += `$\\ldots \\leqslant ${texNombre(nombre)} \\leqslant \\ldots$`
             texteCorr = `Le chiffre des dixièmes est le premier chiffre après la virgule. <br>Ainsi : $${miseEnEvidence(texNombre(a + b - 0.1))} \\leqslant ${texNombre(nombre)} \\leqslant ${miseEnEvidence(texNombre(a + b))}$.`
-            handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
+            handleAnswers(this, index, {
+              reponse: { value: reponse, options: { suiteDeNombres: true } },
+            })
             if (this.interactif) {
               texte += '<br>Écrire les entiers séparés par un point-virgule.'
               texte += ajouteChampTexteMathLive(this, index, '')
@@ -686,7 +1006,9 @@ export default class SujetCAN20215ieme extends Exercice {
             texte += `$\\ldots \\leqslant ${texNombre(nombre)} \\leqslant \\ldots$`
 
             texteCorr = `Le chiffre des centièmes est le deuxième chiffre après la virgule. <br>Ainsi : $${miseEnEvidence(texNombre(a + b + c - 0.01))} \\leqslant ${texNombre(nombre)} \\leqslant ${miseEnEvidence(texNombre(a + b + c))}$.`
-            handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
+            handleAnswers(this, index, {
+              reponse: { value: reponse, options: { suiteDeNombres: true } },
+            })
             if (this.interactif) {
               texte += '<br>Écrire les entiers séparés par un point-virgule.'
               texte += ajouteChampTexteMathLive(this, index, '')
@@ -704,7 +1026,12 @@ export default class SujetCAN20215ieme extends Exercice {
           Le montant de la remise est $${texNombre(0.1 * a)}$ €. La brioche coûtera donc après remise : $${a}-${texNombre(0.1 * a)}=${miseEnEvidence(texNombre(0.9 * a))}$ €.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' €' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: ' €' },
+            )
           }
           nbChamps = 1
           break
@@ -719,9 +1046,18 @@ export default class SujetCAN20215ieme extends Exercice {
 
           texteCorr = ` $${a}$ h $${b}$ min + $1$ h $${c}$ min est égal à $${miseEnEvidence(a + 2)}$ h $${miseEnEvidence(formatMinute(b + c - 60))}$ min.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierHms,
+            )
           }
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 2, minute: b + c - 60 }).toString(), options: { HMS: true } } })
+          handleAnswers(this, index, {
+            reponse: {
+              value: new Hms({ hour: a + 2, minute: b + c - 60 }).toString(),
+              options: { HMS: true },
+            },
+          })
 
           nbChamps = 1
           break
@@ -767,12 +1103,16 @@ export default class SujetCAN20215ieme extends Exercice {
           texte = `Complète $${a.texFraction} =\\dfrac{...}{100}$`
 
           texteCorr = ` Le dénominateur de $${a.texFraction}$ est multiplié par $${100 / fraction2[1]}$.<br>
-          Il faut donc multiplier le numérateur par $${100 / fraction2[1]}$. On obtient : $${fraction2[0]}\\times ${100 / fraction2[1]}=${miseEnEvidence(fraction2[0] * 100 / fraction2[1])}$.`
-          reponse = fraction2[0] * 100 / fraction2[1]
+          Il faut donc multiplier le numérateur par $${100 / fraction2[1]}$. On obtient : $${fraction2[0]}\\times ${100 / fraction2[1]}=${miseEnEvidence((fraction2[0] * 100) / fraction2[1])}$.`
+          reponse = (fraction2[0] * 100) / fraction2[1]
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$ \\ldots=$'
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -795,7 +1135,11 @@ export default class SujetCAN20215ieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -823,7 +1167,12 @@ export default class SujetCAN20215ieme extends Exercice {
               texteParPosition(`${stringNombre(a)}°`, 3.8, 0.8),
               texteParPosition(`${stringNombre(b)}°`, 1.2, 0.25),
               texteParPosition('?', 5.3, 0.3),
-              s1, s2, s3, codageAngle(B, C, A, 0.8, '|'), codageAngle(C, A, B, 0.8, '||'))
+              s1,
+              s2,
+              s3,
+              codageAngle(B, C, A, 0.8, '|'),
+              codageAngle(C, A, B, 0.8, '||'),
+            )
           } else {
             a = choice([100, 110, 120])
             b = choice([45, 50, 55])
@@ -843,28 +1192,41 @@ export default class SujetCAN20215ieme extends Exercice {
               texteParPosition(`${stringNombre(a)}°`, 2.1, 0.8),
               texteParPosition(`${stringNombre(b)}°`, 1.2, 0.25),
               texteParPosition('?', 5, 0.3),
-              s1, s2, s3, codageAngle(B, C, A, 0.8, '|'), codageAngle(C, A, B, 0.8, '||'))
+              s1,
+              s2,
+              s3,
+              codageAngle(B, C, A, 0.8, '|'),
+              codageAngle(C, A, B, 0.8, '||'),
+            )
           }
           reponse = 180 - a - b
           texte = 'On donne la figure suivante :<br>'
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 40,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 1.3,
-            style: 'margin: auto'
-          }, objets)
+          texte += mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1.3,
+              style: 'margin: auto',
+            },
+            objets,
+          )
           texte += ' <br>? $=$'
           texteCorr = `Dans un triangle, la somme des angles vaut $180°$.<br>
          ?$=180-${a}-${b}=${miseEnEvidence(180 - a - b)}^\\circ$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: '°' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '°' },
+            )
           } else {
             texte += ' $\\ldots ^\\circ$'
           }
@@ -884,12 +1246,19 @@ export default class SujetCAN20215ieme extends Exercice {
               texte = ' Complète avec $<$, $>$ ou $=$ :<br>'
             }
             texte += `$${a.texFraction} ...... ${b.texFraction}$`
-            texteCorr = 'Une des deux fractions  est un nombre supérieur à $1$ (numérateur plus grand que dénominateur) et l\'autre un nombre inférieur à $1$. <br> La plus grande est donc celle qui a le numérateur plus grand que le dénominateur.'
+            texteCorr =
+              "Une des deux fractions  est un nombre supérieur à $1$ (numérateur plus grand que dénominateur) et l'autre un nombre inférieur à $1$. <br> La plus grande est donc celle qui a le numérateur plus grand que le dénominateur."
           } else {
             a = fraction(fraction2[0], fraction2[1])
-            a1 = fraction(fraction2[0] * fraction2[3], fraction2[1] * fraction2[3])
+            a1 = fraction(
+              fraction2[0] * fraction2[3],
+              fraction2[1] * fraction2[3],
+            )
             b = fraction(fraction2[2], fraction2[3])
-            b1 = fraction(fraction2[2] * fraction2[1], fraction2[3] * fraction2[1])
+            b1 = fraction(
+              fraction2[2] * fraction2[1],
+              fraction2[3] * fraction2[1],
+            )
             if (this.interactif) {
               texte = ''
             } else {
@@ -909,13 +1278,17 @@ export default class SujetCAN20215ieme extends Exercice {
           }
           if (this.interactif) {
             texte += '<br>Indique le symbole qui convient : $<$, $>$ ou $=$'
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierCompare)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierCompare,
+            )
           }
           nbChamps = 1
           break
 
         case 26:
-          choix = choice(['a', 'b'])//, 'b', 'c', 'd'
+          choix = choice(['a', 'b']) //, 'b', 'c', 'd'
           if (choix === 'a') {
             a = randint(1, 5)
             b = randint(5, 9)
@@ -923,8 +1296,13 @@ export default class SujetCAN20215ieme extends Exercice {
             d = randint(1, 5)
             e = randint(3, 8)
             f = randint(1, 5)
-            texte = 'Quelle est la proportion d\'élèves ayant obtenu une note supérieure ou égale à $14$ ?<br>'
-            texte += tableauColonneLigne(['\\text{Note}', '7', '8', '10', '12', '14', '16'], ['\\text{Effectif}'], [a, b, c, d, e, f])
+            texte =
+              "Quelle est la proportion d'élèves ayant obtenu une note supérieure ou égale à $14$ ?<br>"
+            texte += tableauColonneLigne(
+              ['\\text{Note}', '7', '8', '10', '12', '14', '16'],
+              ['\\text{Effectif}'],
+              [a, b, c, d, e, f],
+            )
             texteCorr = `$${e}+${f}=${e + f}$ élèves ont une note supérieure ou égale à $14$.<br>
           Le nombre total d'élève est : $${a}+${b}+${c}+${d}+${e}+${f}=${a + b + c + d + e + f}$.<br>
            La proportion d'élèves ayant obtenu une note supérieure ou égale à $14$ est donc : $\\dfrac{${miseEnEvidence(e + f)}}{${miseEnEvidence(a + b + c + d + e + f)}}$<br>
@@ -938,23 +1316,33 @@ export default class SujetCAN20215ieme extends Exercice {
             d = randint(1, 5)
             e = randint(3, 8)
             f = randint(1, 5)
-            texte = 'Quelle est la proportion d\'élèves ayant obtenu une note inférieure ou égale à $10$ ?<br>'
-            texte += tableauColonneLigne(['\\text{Note}', '7', '8', '10', '12', '14', '16'], ['\\text{Effectif}'], [a, b, c, d, e, f])
+            texte =
+              "Quelle est la proportion d'élèves ayant obtenu une note inférieure ou égale à $10$ ?<br>"
+            texte += tableauColonneLigne(
+              ['\\text{Note}', '7', '8', '10', '12', '14', '16'],
+              ['\\text{Effectif}'],
+              [a, b, c, d, e, f],
+            )
             texteCorr = `$${a}+${b}+${c}=${a + b + c}$ élèves ont une note inférieure ou égale à $10$.<br>
             Le nombre total d'élève est : $${a}+${b}+${c}+${d}+${e}+${f}=${a + b + c + d + e + f}$.<br>
              La proportion d'élèves ayant obtenu une note inférieure ou égale à $10$ est donc : $\\dfrac{${miseEnEvidence(a + b + c)}}{${miseEnEvidence(a + b + c + d + e + f)}}$<br>
              La fraction simplifiée (ou la valeur décimale exacte) sont d'autres réponses correctes.`
             reponse = fraction(a + b + c, a + b + c + d + e + f)
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecFraction)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
           nbChamps = 1
           break
 
         case 27:
-
           a = randint(1, 4) * 3
           b = randint(9, 15) * 3
           A = point(0, 0, 'A', 'left')
@@ -979,52 +1367,99 @@ export default class SujetCAN20215ieme extends Exercice {
           objets = []
           if (a > (b - 2 * a) / 2) {
             objets.push(
-              texteParPosition(`${stringNombre(a)} cm`, milieu(A, C).x, milieu(A, C).y + 0.5),
-              s1, s2, s3, s4, s5, code1, code2, code3, code4, code5, labelPoint(A, C, D, E))
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(A, C).x,
+                milieu(A, C).y + 0.5,
+              ),
+              s1,
+              s2,
+              s3,
+              s4,
+              s5,
+              code1,
+              code2,
+              code3,
+              code4,
+              code5,
+              labelPoint(A, C, D, E),
+            )
             texte = `Le périmètre du quadrilatère $AEDC$ est égal à $${b}$ cm.<br>
           `
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1.3,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1.3,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = ` Le quadrilatère est composé de $2$ segments de $${a}$ cm et de deux autres segments de même longueur.<br>
           Ainsi, $CD=(${b}-2\\times ${a})\\div 2=${miseEnEvidence(texNombre((b - 2 * a) / 2))}$  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$CD=$'
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm' })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: 'cm' },
+              )
             } else {
               texte += '<br>$CD=\\ldots$ cm'
             }
           } else {
-            objets.push(texteParPosition(`${stringNombre(a)} cm`, milieu(D, C).x, milieu(D, C).y + 0.4),
-              s1, s2, s3, s4, s5, code1, code2, code3, code4, code5, labelPoint(A, C, D, E))
+            objets.push(
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(D, C).x,
+                milieu(D, C).y + 0.4,
+              ),
+              s1,
+              s2,
+              s3,
+              s4,
+              s5,
+              code1,
+              code2,
+              code3,
+              code4,
+              code5,
+              labelPoint(A, C, D, E),
+            )
             texte = `Le périmètre du quadrilatère $AEDC$ est égal à $${b}$ cm.<br>
           `
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = ` Le quadrilatère est composé de $2$ segments de $${a}$ cm et de deux autres segments de même longueur.<br>
           Ainsi, $AE=(${b}-2\\times ${a})\\div 2=${miseEnEvidence(texNombre((b - 2 * a) / 2))}$  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$AE=$'
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm' })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: 'cm' },
+              )
             } else {
               texte += '<br>$AE=\\ldots$ cm'
             }
@@ -1054,9 +1489,15 @@ export default class SujetCAN20215ieme extends Exercice {
           }
 
           reponse = a.sommeFraction(b)
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecFraction)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           } else {
             texte += '$\\ldots$ '
           }
@@ -1064,7 +1505,6 @@ export default class SujetCAN20215ieme extends Exercice {
           break
 
         case 29:
-
           a = randint(2, 9)
           b = randint(2, 9)
           c = randint(2, 9)
@@ -1075,7 +1515,13 @@ export default class SujetCAN20215ieme extends Exercice {
           reponse = `${rienSi1(a + c)}a${ecritureAlgebrique(b + d)}`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecVariable)
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecVariable,
+              )
           }
           nbChamps = 1
           break
@@ -1100,13 +1546,21 @@ export default class SujetCAN20215ieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm$^3$' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: 'cm$^3$' },
+              )
           }
           nbChamps = 1
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

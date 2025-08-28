@@ -7,9 +7,22 @@ import { arrondi } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin'
+import {
+  allerA,
+  angleScratchTo2d,
+  avance,
+  baisseCrayon,
+  creerLutin,
+  leveCrayon,
+  orienter,
+  tournerD,
+  tournerG,
+} from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 
@@ -27,11 +40,12 @@ export const uuid = '8ded2'
 
 export const refs = {
   'fr-fr': ['4I1-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default class AlgoTortue extends Exercice { // ça c'est la classe qui permet de créer cet exercice
+export default class AlgoTortue extends Exercice {
+  // ça c'est la classe qui permet de créer cet exercice
   indiceBonneFigure: number
-  constructor () {
+  constructor() {
     super() // la classe parente qui définit les attributs commun à tous les exercices
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
@@ -42,7 +56,8 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     this.indiceBonneFigure = 0
   }
 
-  nouvelleVersion (numeroExercice:number) { // la méthode qui crée une nouvelle version de l'exercice
+  nouvelleVersion(numeroExercice: number) {
+    // la méthode qui crée une nouvelle version de l'exercice
     this.figures = []
     const objetsCorrection = []
     this.autoCorrection[0] = {}
@@ -52,7 +67,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
       'spirales',
       'rosaces1',
       'roueDentee',
-      'frise1'
+      'frise1',
     ])
     let val1, val2, val3, n, n2
     const sens = choice(['turnright', 'turnleft'])
@@ -73,7 +88,8 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
 
     let texteCorr = '' // la chaine qui va contenir la correction
 
-    for (let i = 0; i < 4; i++) { // Ici on crée 4 instance de l'objet Lutin.
+    for (let i = 0; i < 4; i++) {
+      // Ici on crée 4 instance de l'objet Lutin.
       lutins[i] = creerLutin()
       lutins[i].color = colorToLatexOrHTML('green') // la couleur de la trace
       lutins[i].epaisseur = 3 // son epaisseur
@@ -84,10 +100,11 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     }
     // On écrit le début du programme dans l'attribut codeScratch du lutin... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
     // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutin..
-    lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.75]\n \\blockinit{quand \\greenflag est cliqué}\n '
+    lutins[0].codeScratch =
+      '\\begin{scratch}[print,fill,blocks,scale=0.75]\n \\blockinit{quand \\greenflag est cliqué}\n '
     lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n `
-    lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n '
+    lutins[0].codeScratch += "\\blockpen{stylo en position d'écriture}\n "
     switch (choix) {
       case 'polygonesReguliers':
         n = choice([3, 5, 6, 7, 8]) // Nombre de côtés
@@ -163,7 +180,8 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
         val3 = (8 - n2) * 4
         lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois} \n{`
         if (bonneReponse < 2) {
-          lutins[0].codeScratch += '\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}\n'
+          lutins[0].codeScratch +=
+            '\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}\n'
         }
         if (bonneReponse % 2 === 0) {
           lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
@@ -179,10 +197,12 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
             lutins[0].codeScratch += `\\blockmove{tourner \\turnright{} de \\ovalnum{${90 - 180 / n2}} degrés}\n`
             break
           case 1:
-            lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
+            lutins[0].codeScratch +=
+              '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
             break
           case 2:
-            lutins[0].codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
+            lutins[0].codeScratch +=
+              '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
             break
         }
         lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n2}} fois}
@@ -195,13 +215,16 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
             lutins[0].codeScratch += `\\blockmove{tourner \\turnleft{} de \\ovalnum{${90 - 180 / n2}} degrés}\n`
             break
           case 1:
-            lutins[0].codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
+            lutins[0].codeScratch +=
+              '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
             break
           case 2:
-            lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
+            lutins[0].codeScratch +=
+              '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
             break
           case 3:
-            lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}\n'
+            lutins[0].codeScratch +=
+              '\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}\n'
             break
         }
         lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${360 / n}} degrés}\n}\n`
@@ -261,16 +284,19 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
           {
           \\blockmove{avancer de \\ovalvariable{longueur} pas}\n`
         }
-        if (bonneReponse % 2 === 0) { // les lutins 0 et 2 tournent normalement
+        if (bonneReponse % 2 === 0) {
+          // les lutins 0 et 2 tournent normalement
           lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}\n`
         } else {
           if (bonneReponse === 1) {
-            if (sens === 'turnright') { // Le lutin 1 tourne dans le mauvais sens
+            if (sens === 'turnright') {
+              // Le lutin 1 tourne dans le mauvais sens
               lutins[0].codeScratch += `\\blockmove{tourner \\turnleft{} de \\ovalnum{${val3}} degrés}\n`
             } else {
               lutins[0].codeScratch += `\\blockmove{tourner \\turnright{} de \\ovalnum{${val3}} degrés}\n`
             }
-          } else { // le lutin 3 ne tourne pas assez
+          } else {
+            // le lutin 3 ne tourne pas assez
             lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3 - 10}} degrés}\n`
           }
         }
@@ -394,23 +420,49 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
         val3 = randint(2, 4) * 5
         sequenceFrise1 = [
           [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
-          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`, sens, n2],
+          [
+            `\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`,
+            sens,
+            n2,
+          ],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`, sens, n2],
+          [
+            `\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`,
+            sens,
+            n2,
+          ],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`, sensOppose, n2],
+          [
+            `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`,
+            sensOppose,
+            n2,
+          ],
           [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
-          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`, sensOppose, n2],
+          [
+            `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`,
+            sensOppose,
+            n2,
+          ],
           [`\\blockmove{avancer de \\ovalvariable{${val3}} pas}\n`, val3],
-          [`\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`, sensOppose, n2],
+          [
+            `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`,
+            sensOppose,
+            n2,
+          ],
           [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
-          [`\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`, sens, n2]
+          [
+            `\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`,
+            sens,
+            n2,
+          ],
         ]
         lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
 {\n`
         for (let i = 0; i < 6; i++) {
-          lutins[0].codeScratch += sequenceFrise1[(2 * (bonneReponse + i)) % 12][0]
-          lutins[0].codeScratch += sequenceFrise1[(2 * (bonneReponse + i) + 1) % 12][0]
+          lutins[0].codeScratch +=
+            sequenceFrise1[(2 * (bonneReponse + i)) % 12][0]
+          lutins[0].codeScratch +=
+            sequenceFrise1[(2 * (bonneReponse + i) + 1) % 12][0]
         }
         lutins[0].codeScratch += '}\n'
         for (let k = 0; k < n; k++) {
@@ -418,9 +470,15 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
             for (let j = 0; j < 4; j++) {
               avance(Number(sequenceFrise1[(2 * (j + i)) % 12][1]), lutins[j])
               if (sequenceFrise1[(2 * (j + i) + 1) % 12][1] === 'turnright') {
-                tournerD(Number(sequenceFrise1[(2 * (j + i) + 1) % 12][2]), lutins[j])
+                tournerD(
+                  Number(sequenceFrise1[(2 * (j + i) + 1) % 12][2]),
+                  lutins[j],
+                )
               } else {
-                tournerG(Number(sequenceFrise1[(2 * (j + i) + 1) % 12][2]), lutins[j])
+                tournerG(
+                  Number(sequenceFrise1[(2 * (j + i) + 1) % 12][2]),
+                  lutins[j],
+                )
               }
             }
           }
@@ -429,25 +487,30 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     }
     lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
     lutins[0].codeScratch += '\\end{scratch}'
-    let texte = 'Quelle figure est tracée par le stylo à l\'exécution du programme ci-dessous ?<br>Le tracé démarre à la croix bleue.<br>'
-    texte += "S'orienter à 90° signifie s'orienter vers la droite de l'écran.<br>"
+    let texte =
+      "Quelle figure est tracée par le stylo à l'exécution du programme ci-dessous ?<br>Le tracé démarre à la croix bleue.<br>"
+    texte +=
+      "S'orienter à 90° signifie s'orienter vers la droite de l'écran.<br>"
 
     let largeur = 1
     let hauteur = 1
-    for (let i = 0; i < 4; i++) { // on calcule la largeur et la hauteur maximale des parcours.
+    for (let i = 0; i < 4; i++) {
+      // on calcule la largeur et la hauteur maximale des parcours.
       leveCrayon(lutins[i])
       largeur = Math.max(largeur, lutins[i].xMax - lutins[i].xMin)
       hauteur = Math.max(hauteur, lutins[i].yMax - lutins[i].yMin)
     }
     largeur = Math.round(largeur + 1.5)
 
-    if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
+    if (context.isHtml) {
+      // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
     } else {
       texte += '\\begin{minipage}[b]{.25\\textwidth}'
     }
     texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
-    if (context.isHtml) { // on change de colonne...
+    if (context.isHtml) {
+      // on change de colonne...
       texte += '</td><td>'
       texte += '    '
       texte += '</td><td style="vertical-align: top; text-align: center">'
@@ -460,7 +523,8 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit-
 
     for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < lutins[i].listeTraces.length; j++) { // On recadre les traces des lutins...
+      for (let j = 0; j < lutins[i].listeTraces.length; j++) {
+        // On recadre les traces des lutins...
         lutins[i].listeTraces[j][0] -= Math.floor(lutins[i].xMin)
         lutins[i].listeTraces[j][2] -= Math.floor(lutins[i].xMin)
         lutins[i].listeTraces[j][1] -= Math.floor(lutins[i].yMin)
@@ -468,8 +532,11 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
       }
     }
     const depart = []
-    for (let i = 0; i < 4; i++) { // ajouter le point de départ de chaque tracé
-      depart[i] = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
+    for (let i = 0; i < 4; i++) {
+      // ajouter le point de départ de chaque tracé
+      depart[i] = tracePoint(
+        point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]),
+      )
       depart[i].taille = 5
       depart[i].color = colorToLatexOrHTML('blue')
       depart[i].epaisseur = 2
@@ -481,16 +548,45 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
     objetsCorrection.push(lutins[bonneReponse])
-    const paramsEnonces = { xmin: -0.5, ymin: -1.5, xmax: largeur, ymax: hauteur + 1, pixelsParCm: Math.round(400 / largeur), scale: 4 / largeur, style: 'display: inline-block' }
-    const paramsCorrection = { xmin: -0.5, ymin: -1.5, xmax: largeur, ymax: hauteur + 1, pixelsParCm: Math.round(400 / largeur), scale: 4 / largeur, style: 'display: inline-block' }
+    const paramsEnonces = {
+      xmin: -0.5,
+      ymin: -1.5,
+      xmax: largeur,
+      ymax: hauteur + 1,
+      pixelsParCm: Math.round(400 / largeur),
+      scale: 4 / largeur,
+      style: 'display: inline-block',
+    }
+    const paramsCorrection = {
+      xmin: -0.5,
+      ymin: -1.5,
+      xmax: largeur,
+      ymax: hauteur + 1,
+      pixelsParCm: Math.round(400 / largeur),
+      scale: 4 / largeur,
+      style: 'display: inline-block',
+    }
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     for (let i = 0; i < 4; i++) {
-      const param = { ...paramsEnonces, id: `cliquefigure${i}Ex${numeroExercice}Q0` }
-      texte += mathalea2d(param,
+      const param = {
+        ...paramsEnonces,
+        id: `cliquefigure${i}Ex${numeroExercice}Q0`,
+      }
+      texte += mathalea2d(
+        param,
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
-        texteParPoint(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.8), 0, 'black', 1)
+        texteParPoint(
+          `figure ${i + 1}`,
+          point(
+            (lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2,
+            -0.8,
+          ),
+          0,
+          'black',
+          1,
+        ),
       )
       if (i === 1) texte += '<br>'
     }
@@ -504,24 +600,26 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
       propositions: [
         {
           texte: 'figure 1',
-          statut: false
+          statut: false,
         },
         {
           texte: 'figure 2',
-          statut: false
+          statut: false,
         },
         {
           texte: 'figure 3',
-          statut: false
+          statut: false,
         },
         {
           texte: 'figure 4',
-          statut: false
-        }
+          statut: false,
+        },
       ],
-      options: { ordered: true }
+      options: { ordered: true },
     }
-    this.autoCorrection[0].propositions![ordreLutins.indexOf(bonneReponse)].statut = true
+    this.autoCorrection[0].propositions![
+      ordreLutins.indexOf(bonneReponse)
+    ].statut = true
     setCliqueFigure(this.autoCorrection[0])
     this.indiceBonneFigure = ordreLutins.indexOf(bonneReponse)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
@@ -529,10 +627,23 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     if (this.interactif && context.isHtml) {
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
     }
-    this.figures[0] = [{ id: `cliquefigure0Ex${this.numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 0) },
-      { id: `cliquefigure1Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 1) },
-      { id: `cliquefigure2Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 2) },
-      { id: `cliquefigure3Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 3) }
+    this.figures[0] = [
+      {
+        id: `cliquefigure0Ex${this.numeroExercice}Q0`,
+        solution: ordreLutins.indexOf(bonneReponse) === 0,
+      },
+      {
+        id: `cliquefigure1Ex${numeroExercice}Q0`,
+        solution: ordreLutins.indexOf(bonneReponse) === 1,
+      },
+      {
+        id: `cliquefigure2Ex${numeroExercice}Q0`,
+        solution: ordreLutins.indexOf(bonneReponse) === 2,
+      },
+      {
+        id: `cliquefigure3Ex${numeroExercice}Q0`,
+        solution: ordreLutins.indexOf(bonneReponse) === 3,
+      },
     ]
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions

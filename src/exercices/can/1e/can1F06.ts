@@ -27,21 +27,20 @@ export const uuid = '26b38'
 
 export const refs = {
   'fr-fr': ['can1F06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LectureGraphiqueParaboleB extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, o, f, r
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       switch (choice([1, 2])) {
-        case 1:// cas parabole a>0
-
+        case 1: // cas parabole a>0
           a = randint(1, 4)
           b = randint(-3, 3, 0)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
@@ -65,24 +64,31 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               // yLabelMin: -9,
               // yLabelListe:[-8,-6,-4,-2,2,4,6,8],
               axeXStyle: '->',
-              axeYStyle: '->'
+              axeYStyle: '->',
             })
 
-            f = x => a * x ** 2 + b
+            f = (x) => a * x ** 2 + b
 
             texte = ` $f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
                         `
-            texte += `Déterminer la valeur de  $b$.<br>
+            texte +=
+              `Déterminer la valeur de  $b$.<br>
             
-            ` + mathalea2d({
-                xmin: -6,
-                xmax: 6,
-                ymin: -1.5,
-                ymax: 8,
-                pixelsParCm: 25,
-                scale: 0.6,
-                style: 'margin: auto'
-              }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            ` +
+              mathalea2d(
+                {
+                  xmin: -6,
+                  xmax: 6,
+                  ymin: -1.5,
+                  ymax: 8,
+                  pixelsParCm: 25,
+                  scale: 0.6,
+                  style: 'margin: auto',
+                },
+                r,
+                o,
+                courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+              )
           } else {
             r = repere({
               yUnite: 1,
@@ -99,27 +105,36 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               // yLabelMin: -9,
               // yLabelListe:[-8,-6,-4,-2,2,4,6,8],
               axeXStyle: '->',
-              axeYStyle: '->'
+              axeYStyle: '->',
             })
 
-            f = x => a * x ** 2 + b
+            f = (x) => a * x ** 2 + b
 
             texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
             `
-            texte += `Déterminer la valeur de $b$.<br>
+            texte +=
+              `Déterminer la valeur de $b$.<br>
             
-            ` + mathalea2d({
-                xmin: -6,
-                xmax: 6,
-                ymin: -4.5,
-                ymax: 4,
-                pixelsParCm: 25,
-                scale: 0.6,
-                style: 'margin: auto'
-              }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            ` +
+              mathalea2d(
+                {
+                  xmin: -6,
+                  xmax: 6,
+                  ymin: -4.5,
+                  ymax: 4,
+                  pixelsParCm: 25,
+                  scale: 0.6,
+                  style: 'margin: auto',
+                },
+                r,
+                o,
+                courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+              )
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$b=$' })
+            texte += ajouteChampTexteMathLive(this, i, ' ', {
+              texteAvant: '$b=$',
+            })
             setReponse(this, i, b)
           }
 
@@ -129,8 +144,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
           `
           break
 
-        case 2:// cas parabole a<0
-
+        case 2: // cas parabole a<0
           a = randint(-4, -1)
           b = randint(-3, 3, 0)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
@@ -154,25 +168,31 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               // yLabelMin: -9,
               // yLabelListe:[-8,-6,-4,-2,2,4,6,8],
               axeXStyle: '->',
-              axeYStyle: '->'
+              axeYStyle: '->',
             })
 
-            f = x => a * x ** 2 + b
+            f = (x) => a * x ** 2 + b
 
             texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
             `
-            texte += `Déterminer la valeur de $b$.<br>
+            texte +=
+              `Déterminer la valeur de $b$.<br>
             
             ` +
-                            mathalea2d({
-                              xmin: -6,
-                              xmax: 6,
-                              ymin: -4.5,
-                              ymax: 4,
-                              pixelsParCm: 25,
-                              scale: 0.6,
-                              style: 'margin: auto'
-                            }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+              mathalea2d(
+                {
+                  xmin: -6,
+                  xmax: 6,
+                  ymin: -4.5,
+                  ymax: 4,
+                  pixelsParCm: 25,
+                  scale: 0.6,
+                  style: 'margin: auto',
+                },
+                r,
+                o,
+                courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+              )
           } else {
             r = repere({
               yUnite: 1,
@@ -189,27 +209,36 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               // yLabelMin: -9,
               // yLabelListe:[-8,-6,-4,-2,2,4,6,8],
               axeXStyle: '->',
-              axeYStyle: '->'
+              axeYStyle: '->',
             })
 
-            f = x => a * x ** 2 + b
+            f = (x) => a * x ** 2 + b
 
             texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
             `
-            texte += `Déterminer la valeur de $b$.<br>
+            texte +=
+              `Déterminer la valeur de $b$.<br>
             
-            ` + mathalea2d({
-                xmin: -6,
-                xmax: 6,
-                ymin: -7.1,
-                ymax: 1,
-                pixelsParCm: 25,
-                scale: 0.6,
-                style: 'margin: auto'
-              }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            ` +
+              mathalea2d(
+                {
+                  xmin: -6,
+                  xmax: 6,
+                  ymin: -7.1,
+                  ymax: 1,
+                  pixelsParCm: 25,
+                  scale: 0.6,
+                  style: 'margin: auto',
+                },
+                r,
+                o,
+                courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+              )
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$b=$' })
+            texte += ajouteChampTexteMathLive(this, i, ' ', {
+              texteAvant: '$b=$',
+            })
             setReponse(this, i, b)
           }
 

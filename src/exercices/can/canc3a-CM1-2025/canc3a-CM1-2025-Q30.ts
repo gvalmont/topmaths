@@ -3,20 +3,20 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Calculer le résultat d\'une division par 3 ou 4'
+export const titre = "Calculer le résultat d'une division par 3 ou 4"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'fec31'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class Can2025CM2Q30 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +25,7 @@ export default class Can2025CM2Q30 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '$=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const b = this.canOfficielle ? 11 : choice([11, 22])
     const a = this.canOfficielle ? 3 : randint(3, 4)
     this.question = ` $${b * a} \\div ${a}$`

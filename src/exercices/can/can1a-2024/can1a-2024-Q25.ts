@@ -11,9 +11,9 @@ export const uuid = 'fb465'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class puissances1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -24,7 +24,7 @@ export default class puissances1 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '$?=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'La moitié de $2^{30}=2^?$<br>'
       this.reponse = '29'
@@ -33,7 +33,9 @@ export default class puissances1 extends ExerciceSimple {
       this.canReponseACompleter = ' $2^{\\ldots}$'
     } else {
       let a
-      switch (choice(['a', 'b'])) { //, 'b', 'c', 'd', 'e', 'f'
+      switch (
+        choice(['a', 'b']) //, 'b', 'c', 'd', 'e', 'f'
+      ) {
         case 'a':
           a = randint(25, 35)
 
@@ -54,7 +56,9 @@ export default class puissances1 extends ExerciceSimple {
           this.canReponseACompleter = ' $2^{\\ldots}$'
           break
       }
-      if (!this.interactif) { this.question += '$?=\\ldots$' }
+      if (!this.interactif) {
+        this.question += '$?=\\ldots$'
+      }
     }
   }
 }

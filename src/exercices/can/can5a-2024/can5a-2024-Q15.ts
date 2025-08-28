@@ -5,7 +5,8 @@ import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Calculer une quatrième proportionnelle dans un tableau de proportionnalité'
+export const titre =
+  'Calculer une quatrième proportionnelle dans un tableau de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'b3169'
@@ -15,7 +16,7 @@ export const uuid = 'b3169'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -25,7 +26,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 35
       this.question = 'On donne le tableau de proportionnalité :<br>'
@@ -52,6 +53,8 @@ export default class NomExercice extends ExerciceSimple {
     this.canReponseACompleter = '? $=\\ldots$'
     if (!this.interactif) {
       this.question += '? $=\\ldots$'
-    } else { this.question += '? $=$' }
+    } else {
+      this.question += '? $=$'
+    }
   }
 }

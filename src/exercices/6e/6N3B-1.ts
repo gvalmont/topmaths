@@ -5,7 +5,7 @@ import Exercice from '../Exercice'
 import {
   listeQuestionsToContenu,
   randint,
-  gestionnaireFormulaireTexte
+  gestionnaireFormulaireTexte,
 } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -30,21 +30,35 @@ export const uuid = '4d0dd'
 export const refs = {
   'fr-fr': ['6N3B-1'],
   'fr-2016': ['6N23-5'],
-  'fr-ch': ['9NO10-4']
+  'fr-ch': ['9NO10-4'],
 }
 export default class SensDeLaFraction extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Type de questions', '1 : Le quotient de a par b\n2 : Le nombre qui, multiplié par b, donne a\n3 : L\'opération : a divisé par b\n4 : Nombre décimal\n5 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type de questions',
+      "1 : Le quotient de a par b\n2 : Le nombre qui, multiplié par b, donne a\n3 : L'opération : a divisé par b\n4 : Nombre décimal\n5 : Mélange",
+    ]
 
     this.nbQuestions = 4
     this.sup = '5'
   }
 
-  nouvelleVersion () {
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, defaut: 5, melange: 5, nbQuestions: this.nbQuestions })
+  nouvelleVersion() {
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      defaut: 5,
+      melange: 5,
+      nbQuestions: this.nbQuestions,
+    })
 
-    for (let i = 0, texte, texteCorr, a, b, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, a, b, f, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
 
@@ -53,33 +67,33 @@ export default class SensDeLaFraction extends Exercice {
           a = randint(10, 25)
           b = randint(10, 25, a)
           texte = `Le quotient de $${a}$ par $${b}$ s'écrit en écriture fractionnaire : $${texFractionFromString(
-              '\\dots',
-              '\\dots'
-            )}$`
+            '\\dots',
+            '\\dots',
+          )}$`
           texteCorr = `Le quotient de $${a}$ par $${b}$ s'écrit $${miseEnEvidence(new FractionEtendue(a, b).texFraction)}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${texFractionFromString(a, b)}$`,
-              statut: true
+              statut: true,
             },
             {
               texte: `$${texFractionFromString(b, a)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(Math.abs(a - b), b)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(a + b, b)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(a * 10, b)}$`,
-              statut: false
-            }
+              statut: false,
+            },
           ]
           break
 
@@ -87,9 +101,9 @@ export default class SensDeLaFraction extends Exercice {
           a = randint(10, 25)
           b = randint(10, 25, a)
           texte = `Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit en écriture fractionnaire : $${texFractionFromString(
-              '\\dots',
-              '\\dots'
-            )}$`
+            '\\dots',
+            '\\dots',
+          )}$`
           texteCorr = `Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit $${miseEnEvidence(new FractionEtendue(a, b).texFraction)}$.`
           texteCorr += `<br>$${b} \\times ${miseEnEvidence(new FractionEtendue(a, b).texFraction)} = ${a}$`
           this.autoCorrection[i] = {}
@@ -97,24 +111,24 @@ export default class SensDeLaFraction extends Exercice {
           this.autoCorrection[i].propositions = [
             {
               texte: `$${texFractionFromString(a, b)}$`,
-              statut: true
+              statut: true,
             },
             {
               texte: `$${texFractionFromString(b, a)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(Math.abs(a - b), b)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(a + b, b)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(a * 10, b)}$`,
-              statut: false
-            }
+              statut: false,
+            },
           ]
           break
 
@@ -122,38 +136,37 @@ export default class SensDeLaFraction extends Exercice {
           a = randint(10, 25)
           b = randint(10, 25, a)
           texte = `$${a}\\div ${b}$ s'écrit en écriture fractionnaire : $${texFractionFromString(
-              '\\dots',
-              '\\dots'
-            )}$`
+            '\\dots',
+            '\\dots',
+          )}$`
           texteCorr = `$${a}\\div ${b}$ s'écrit  $${miseEnEvidence(new FractionEtendue(a, b).texFraction)}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${texFractionFromString(a, b)}$`,
-              statut: true
+              statut: true,
             },
             {
               texte: `$${texFractionFromString(b, a)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(Math.abs(a - b), b)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(a + b, b)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(a * 10, b)}$`,
-              statut: false
-            }
+              statut: false,
+            },
           ]
           break
 
         case 4:
-
           a = randint(1, 5) * 2 + 1
           b = choice([2, 4, 5, 10])
           a += b
@@ -164,7 +177,7 @@ export default class SensDeLaFraction extends Exercice {
 
           texte = `Le nombre $${texNombre2(arrondi(a / b))}$ peut s'écrire en écriture fractionnaire : $${texFractionFromString(
             '\\dots',
-            '\\dots'
+            '\\dots',
           )}$`
           texteCorr = `Le nombre $${texNombre2(arrondi(a / b))}$ peut s'écrire  $${miseEnEvidence(f.fractionDecimale().texFraction)}$`
           if (f.fractionDecimale().texFraction !== f.texFractionSimplifiee) {
@@ -175,35 +188,38 @@ export default class SensDeLaFraction extends Exercice {
           this.autoCorrection[i].propositions = [
             {
               texte: `$${f.fractionDecimale().texFraction}$`,
-              statut: true
+              statut: true,
             },
             {
               texte: `$${texFractionFromString(b, a)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(a, b * 10)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texFractionFromString(a * 10, b)}$`,
-              statut: false
+              statut: false,
             },
             {
-              texte: `$${texFractionFromString(Math.floor(a / b), fraction(arrondi((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().n)}$`,
-              statut: false
-            }
+              texte: `$${texFractionFromString(Math.floor(a / b), fraction(arrondi(a / b - Math.floor(a / b)) * 100, 100).fractionDecimale().n)}$`,
+              statut: false,
+            },
           ]
           break
       }
       this.autoCorrection[i].options = {
         ordered: false,
-        lastChoice: 5
+        lastChoice: 5,
       }
       const props = propositionsQcm(this, i)
       if (this.interactif) {
         texte += '<br>' + props.texte
-        texte = texte.replace(`$${texFractionFromString('\\dots', '\\dots')}$`, '')
+        texte = texte.replace(
+          `$${texFractionFromString('\\dots', '\\dots')}$`,
+          '',
+        )
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions[i] = texte

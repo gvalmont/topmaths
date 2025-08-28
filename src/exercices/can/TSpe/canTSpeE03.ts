@@ -1,6 +1,11 @@
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { lettreDepuisChiffre } from '../../../lib/outils/outilString'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -14,23 +19,23 @@ export const interactifType = 'mathLive'
 /**
  *
  * @author Stéphane Guyon
-*/
+ */
 
 export const uuid = '58bb7'
 export const refs = {
   'fr-fr': ['canTSpeE03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 2
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       const choixLettre = randint(1, 23, [9, 10, 11, 15])
@@ -48,9 +53,18 @@ export default class nomExercice extends Exercice {
       texte += `<br>$${pointA}(${xA}~;~${yA}~;~${zA})$ et  $\\vec v\\begin{pmatrix}${xV}\\\\${yV}\\\\${zV}\\end{pmatrix}$.<br>`
       texte += `Déterminer une représentation paramétrique de la droite $(d)$, passant par le point $${pointA}$ et ayant comme vecteur directeur $\\vec v$.<br>`
 
-      if (this.interactif) texte += remplisLesBlancs(this, i, '\\begin{cases}x=%{champ1} \\\\y= %{champ2}\\\\z= %{champ3}\\end{cases}')
+      if (this.interactif)
+        texte += remplisLesBlancs(
+          this,
+          i,
+          '\\begin{cases}x=%{champ1} \\\\y= %{champ2}\\\\z= %{champ3}\\end{cases}',
+        )
       else texte += '.'
-      handleAnswers(this, i, { champ1: { value: `${rienSi1(xV)}t${ecritureAlgebrique(xA)}` }, champ2: { value: `${rienSi1(yV)}t${ecritureAlgebrique(yA)}` }, champ3: { value: `${rienSi1(zV)}t${ecritureAlgebrique(zA)}` } })
+      handleAnswers(this, i, {
+        champ1: { value: `${rienSi1(xV)}t${ecritureAlgebrique(xA)}` },
+        champ2: { value: `${rienSi1(yV)}t${ecritureAlgebrique(yA)}` },
+        champ3: { value: `${rienSi1(zV)}t${ecritureAlgebrique(zA)}` },
+      })
       texteCorr = 'Soit $M(x~;~y~;~z)$ un point de la droite $(d)$.<br>'
       texteCorr += `$M\\in (d)$ si et seulement si les vecteurs $\\overrightarrow{${pointA}M}$ et $\\vec v$ sont colinéaires. <br>`
       texteCorr += `Ce qui est équivalent à dire qu'il existe un réel $t$ tel que : $ \\overrightarrow{${pointA}M}=t \\times \\vec v$.<br>`

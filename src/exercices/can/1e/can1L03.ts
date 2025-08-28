@@ -22,18 +22,18 @@ export const uuid = 'a23a1'
 
 export const refs = {
   'fr-fr': ['can1L03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RacinesPoly extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const a = randint(-9, 9, 0)
       const x1 = randint(-9, 9)
       const x2 = randint(-9, 9, [0, x1])
@@ -45,10 +45,20 @@ export default class RacinesPoly extends Exercice {
         $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>`
       }
       texte += 'Déterminer les racines de $f$.'
-      handleAnswers(this, i, { reponse: { value: `${Math.min(x1, x2)};${Math.max(x1, x2)}`, options: { suiteDeNombres: true } } })
+      handleAnswers(this, i, {
+        reponse: {
+          value: `${Math.min(x1, x2)};${Math.max(x1, x2)}`,
+          options: { suiteDeNombres: true },
+        },
+      })
       if (this.interactif) {
         texte += '<br>Écrire ces racines séparées par un point-virgule : '
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations) + '.'
+        texte +=
+          ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierFullOperations,
+          ) + '.'
       }
 
       texteCorr = `$f$ est une fonction polynôme du second degré écrite sous forme factorisée $a(x-x_1)(x-x_2)$.<br>

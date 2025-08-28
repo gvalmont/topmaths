@@ -14,10 +14,10 @@ export const uuid = 'a77ed'
 
 export const refs = {
   'fr-fr': ['can4G02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SymetriqueD1Point extends Transformations {
-  constructor () {
+  constructor() {
     super()
     this.can = true
     this.sup = 3

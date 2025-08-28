@@ -13,7 +13,7 @@ export const uuid = 'ca76e'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -22,7 +22,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'Valeur de $9x+2$ pour $x=-2$<br>'
       this.correction = `Pour $x=-2$, on obtient :  <br>
@@ -42,7 +42,7 @@ export default class NomExercice extends ExerciceSimple {
             `
       this.reponse = a + b * truc
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

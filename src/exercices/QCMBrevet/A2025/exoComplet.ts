@@ -9,7 +9,7 @@ import Question6 from './MJ25E3Q6'
 export const uuid = '47a56'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = false
 export const titre = 'Métropole Juin 2025 - Exercice 3'
@@ -17,7 +17,7 @@ export const dateDePublication = '27/05/2025'
 
 export default class MetropoleJ25Exo3 extends Exercice {
   questions: ExerciceQcmA[] = []
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Version originale', true]
     this.nbQuestions = 6
@@ -28,11 +28,11 @@ export default class MetropoleJ25Exo3 extends Exercice {
       new Question3(),
       new Question4(),
       new Question5(),
-      new Question6()
+      new Question6(),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (const q of this.questions) {
       q.sup = this.sup
       q.interactif = this.interactif

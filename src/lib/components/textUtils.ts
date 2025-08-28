@@ -9,6 +9,6 @@
  * @param a chaîne à traiter
  * @returns chaîne débarassée de ses accents
  */
-export function stringWithNoAccent (a: string): string {
+export function stringWithNoAccent(a: string): string {
   return a.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 }

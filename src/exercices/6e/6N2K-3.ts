@@ -10,7 +10,8 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
+export const titre =
+  "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -26,26 +27,31 @@ export const uuid = '37267'
 export const refs = {
   'fr-fr': ['6N2K-3'],
   'fr-2016': ['6C11-1'],
-  'fr-ch': ['9NO3-5']
+  'fr-ch': ['9NO3-5'],
 }
 export default class DivisionsEuclidiennesEgalite extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       2,
-      "1 : L'égalité correspond à la division euclidienne.\n2 : L'égalité ne correspond pas nécessairement à la division euclidienne."
+      "1 : L'égalité correspond à la division euclidienne.\n2 : L'égalité ne correspond pas nécessairement à la division euclidienne.",
     ]
-    this.consigneCorrection = texteGras('Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b')
+    this.consigneCorrection = texteGras(
+      'Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b',
+    )
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
     this.nbQuestions = 4
     this.sup = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = 'Répondre  '
-    this.consigne += this.nbQuestions === 1 ? 'à la question suivante' : 'aux questions suivantes'
+    this.consigne +=
+      this.nbQuestions === 1
+        ? 'à la question suivante'
+        : 'aux questions suivantes'
     this.consigne += ' sans poser la division.'
 
     let typesDeQuestionsDisponibles, typesDeQuestions
@@ -56,11 +62,12 @@ export default class DivisionsEuclidiennesEgalite extends Exercice {
     }
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       q = randint(7, 75)
@@ -97,11 +104,17 @@ export default class DivisionsEuclidiennesEgalite extends Exercice {
           <br> On a donc : ${texteEnCouleurEtGras(String(q))} le quotient et ${texteEnCouleurEtGras(String(r))} le reste.`
           break
       }
-      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierDeBase, {
-        texteAvant: 'Quotient : ',
-        texteApres: sp(5)
-      })
-      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase, { texteAvant: ' Reste : ' })
+      texte +=
+        (this.interactif ? '<br>' : '') +
+        ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierDeBase, {
+          texteAvant: 'Quotient : ',
+          texteApres: sp(5),
+        })
+      texte +=
+        (this.interactif ? '<br>' : '') +
+        ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase, {
+          texteAvant: ' Reste : ',
+        })
       setReponse(this, 2 * i, q)
       setReponse(this, 2 * i + 1, r)
       if (context.isAmc) {
@@ -112,39 +125,43 @@ export default class DivisionsEuclidiennesEgalite extends Exercice {
           propositions: [
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: texte + '<br>Quotient',
-                  valeur: q,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: texte + '<br>Quotient',
+                    valeur: q,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'Reste',
-                  valeur: r,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Reste',
+                    valeur: r,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, a, b, q, r)) {

@@ -4,11 +4,11 @@
     { bxName: 'bx-zoom-out' },
     { bxName: 'bx-refresh' },
     { bxName: 'bx-trash' },
-    { bxName: 'bx-fullScreen' }
+    { bxName: 'bx-fullScreen' },
   ]
   export let exportButtonsList = [
     { bxName: 'bx-slideshow' },
-    { bxName: 'bxs-graduation' }
+    { bxName: 'bxs-graduation' },
   ]
 </script>
 
@@ -42,9 +42,9 @@
  -->
 
 <div
-  class={`${
+  class="{`${
     $$props.class || ''
-  } flex flex-col w-full md:flex-row justify-start items-start sm:justify-center sm:items-center`}
+  } flex flex-col w-full md:flex-row justify-start items-start sm:justify-center sm:items-center`}"
 >
   <div class="relative flex flex-col w-full">
     <div
@@ -55,7 +55,7 @@
           {#each setupButtonsList as button}
             <i
               class="bx bx-sm px-2 {button.bxName} hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            />
+            ></i>
           {/each}
         </slot>
       </div>
@@ -70,7 +70,7 @@
             {#each exportButtonsList as button}
               <i
                 class="bx bx-sm px-2 {button.bxName} hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-              />
+              ></i>
             {/each}
           </slot>
         </div>

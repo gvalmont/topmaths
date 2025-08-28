@@ -13,7 +13,7 @@ export const uuid = 'c69f0'
 
 */
 export default class SoustractionPasFacileCM2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class SoustractionPasFacileCM2 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: Decimal
     let b: Decimal
     let partieEntiere: number

@@ -14,7 +14,7 @@ export const uuid = 'd9478'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: FractionEtendue
     if (this.canOfficielle) {
       reponse = new FractionEtendue(11, 3)
@@ -32,8 +32,18 @@ export default class NomExercice extends ExerciceSimple {
       this.correction = `Les fractions ont le même dénominateur, ainsi :  <br>
       $\\dfrac{4}{3}+\\dfrac{7}{3}=${miseEnEvidence(reponse.texFraction)}$`
     } else {
-      const listeFractions = [[1, 3, 4, 3], [1, 7, 3, 7], [5, 7, 3, 7], [3, 8, 10, 8],
-        [5, 3, 2, 3], [7, 5, 2, 5], [7, 3, 10, 3], [4, 7, 9, 7], [7, 13, 2, 13], [1, 9, 4, 9]]
+      const listeFractions = [
+        [1, 3, 4, 3],
+        [1, 7, 3, 7],
+        [5, 7, 3, 7],
+        [3, 8, 10, 8],
+        [5, 3, 2, 3],
+        [7, 5, 2, 5],
+        [7, 3, 10, 3],
+        [4, 7, 9, 7],
+        [7, 13, 2, 13],
+        [1, 9, 4, 9],
+      ]
       const a = choice(listeFractions)
       const b = new FractionEtendue(a[0], a[1])
       const c = new FractionEtendue(a[2], a[3])

@@ -17,10 +17,10 @@ export const uuid = '55c60'
 
 export const refs = {
   'fr-fr': ['can2L07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Factoriser extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: '<br> ', texteApres: ' ' }
@@ -28,9 +28,32 @@ export default class Factoriser extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const r = choice([2, 3, 5])
-    const couplenm = choice([[2, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux
+    const couplenm = choice([
+      [2, 3],
+      [3, 4],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [5, 6],
+      [2, 7],
+      [3, 7],
+      [4, 7],
+      [5, 7],
+      [6, 7],
+      [3, 8],
+      [5, 8],
+      [7, 8],
+      [2, 9],
+      [4, 9],
+      [5, 9],
+      [7, 9],
+      [8, 9],
+      [3, 10],
+      [7, 10],
+      [9, 10],
+    ]) // n et m sont premiers entre eux
     const n = couplenm[0]
     const m = couplenm[1]
 
@@ -70,7 +93,7 @@ export default class Factoriser extends ExerciceSimple {
         this.reponse = `(${b}x-${a})(${b}x+${a})`
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -4,7 +4,7 @@ export const uuid = 'duduLigneBrisee'
 export const titre = 'Ligne brisée'
 
 class duduLigneBrisee extends ExternalApp {
-  constructor () {
+  constructor() {
     super('https://mathix.org/ligne_brisee/index.html?suivi=1&mathalea=1')
   }
 }

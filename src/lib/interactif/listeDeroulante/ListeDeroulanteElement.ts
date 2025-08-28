@@ -3,37 +3,37 @@ import ListeDeroulante, { type AllChoicesType } from './ListeDeroulante'
 class ListeDeroulanteElement extends HTMLElement {
   private _listeDeroulante?: ListeDeroulante
 
-  constructor () {
+  constructor() {
     super()
     this.attachShadow({ mode: 'open' })
   }
 
-  static get observedAttributes () {
+  static get observedAttributes() {
     return ['choices']
   }
 
-  attributeChangedCallback (name: string, oldValue: string, newValue: string) {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'choices' && oldValue !== newValue) {
       this.render()
     }
   }
 
-  connectedCallback () {
+  connectedCallback() {
     this.render()
   }
 
-  set choices (val: AllChoicesType) {
+  set choices(val: AllChoicesType) {
     this._choices = val
     this.render()
   }
 
-  get choices (): AllChoicesType {
+  get choices(): AllChoicesType {
     return this._choices
   }
 
   private _choices: AllChoicesType = []
 
-  render () {
+  render() {
     if (this.shadowRoot) this.shadowRoot.innerHTML = ''
 
     // Ajoute le CSS compilé directement ici (copie-colle le contenu du .css généré)
@@ -175,12 +175,17 @@ span.listeDeroulante ul li * {
   }
 
   // API JS pour récupérer la valeur sélectionnée
-  get value () {
+  get value() {
     return this._listeDeroulante?.reponse ?? ''
   }
 
-  set value (val) {
-    if (this._listeDeroulante) { this._listeDeroulante.select(this._listeDeroulante.choices.findIndex(el => el.value === val) + this._listeDeroulante._offset) }
+  set value(val) {
+    if (this._listeDeroulante) {
+      this._listeDeroulante.select(
+        this._listeDeroulante.choices.findIndex((el) => el.value === val) +
+          this._listeDeroulante._offset,
+      )
+    }
   }
 }
 

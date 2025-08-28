@@ -1,5 +1,9 @@
 import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { afficheLongueurSegment, afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
+import {
+  afficheLongueurSegment,
+  afficheMesureAngle,
+  texteSurSegment,
+} from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
@@ -23,7 +27,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/05/2024'
 export const dateDePublication = '01/02/2021'
-export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complexe'
+export const titre = "Calculer toutes les mesures d'angle d'une figure complexe"
 
 /**
  * Deux triangles rectangles accolés, on connaît deux longueurs et un angle, il faut déterminer tous les autres angles
@@ -33,10 +37,10 @@ export const uuid = '35e0b'
 
 export const refs = {
   'fr-fr': ['3G31-1'],
-  'fr-ch': ['1mT-6']
+  'fr-ch': ['1mT-6'],
 }
 export default class CalculDAngleFigureComplexe extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
     this.nbQuestions = 2
@@ -48,7 +52,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
     this.besoinFormulaireCaseACocher = ['Figure codée', false]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     for (let i = 0; i < this.nbQuestions; i++) {
       const typesDeQuestion = choice(['BA-AD-BAC', 'BA-AD-ACB'])
       let texte, texteCorr
@@ -85,49 +89,81 @@ export default class CalculDAngleFigureComplexe extends Exercice {
       const ACB = Math.round(angle(A, C, B))
 
       const objetsMathalea = [t1, t2, c1, c2, labels]
-      switch (typesDeQuestion) { // Suivant le type de question, le contenu sera différent
+      switch (
+        typesDeQuestion // Suivant le type de question, le contenu sera différent
+      ) {
         case 'BA-AD-BAC':
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)
           }
-          texte = mathalea2d({
-            xmin: -1,
-            scale: 0.6,
-            ymin: -1,
-            xmax: D.x + 1,
-            ymax: Math.max(C.y, D.y) + 1,
-            optionsTikz: 'baseline=(current bounding box.north)'
-          }, objetsMathalea)
+          texte = mathalea2d(
+            {
+              xmin: -1,
+              scale: 0.6,
+              ymin: -1,
+              xmax: D.x + 1,
+              ymax: Math.max(C.y, D.y) + 1,
+              optionsTikz: 'baseline=(current bounding box.north)',
+            },
+            objetsMathalea,
+          )
           if (!this.sup) {
             texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.`
           }
-          texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
+          texte += this.interactif
+            ? "<br><br>Les valeurs d'angle seront arrondis au degré près."
+            : ''
           texteCorr = ''
           if (this.correctionDetaillee) {
             const texte1 = texteSurSegment('hypoténuse', C, A)
             const texte2 = texteSurSegment('adjacent', A, B, 'black', 1)
-            texteCorr += mathalea2d({
-              xmin: -1,
-              scale: 0.6,
-              ymin: -2,
-              xmax: D.x + 1,
-              ymax: Math.max(C.y, D.y) + 1,
-              optionsTikz: 'baseline=(current bounding box.north)'
-            }, t1c, t2, c1, c2, a1, a2, labels, texte1, texte2)
+            texteCorr += mathalea2d(
+              {
+                xmin: -1,
+                scale: 0.6,
+                ymin: -2,
+                xmax: D.x + 1,
+                ymax: Math.max(C.y, D.y) + 1,
+                optionsTikz: 'baseline=(current bounding box.north)',
+              },
+              t1c,
+              t2,
+              c1,
+              c2,
+              a1,
+              a2,
+              labels,
+              texte1,
+              texte2,
+            )
           }
           texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$. <br> Donc $\\cos\\left(\\widehat{${B.nom + A.nom + C.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}$ <br>`
           texteCorr += `Soit $\\cos(${BAC}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}$ <br> $${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\cos(${BAC}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
           if (this.correctionDetaillee) {
             const texte3 = texteSurSegment('adjacent', C, A)
             const texte4 = texteSurSegment('opposé', A, D, 'black')
-            texteCorr += '<br><br>' + mathalea2d({
-              xmin: -1,
-              scale: 0.6,
-              ymin: -1,
-              xmax: D.x + 1,
-              ymax: Math.max(C.y, D.y) + 1,
-              optionsTikz: 'baseline=(current bounding box.north)'
-            }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
+            texteCorr +=
+              '<br><br>' +
+              mathalea2d(
+                {
+                  xmin: -1,
+                  scale: 0.6,
+                  ymin: -1,
+                  xmax: D.x + 1,
+                  ymax: Math.max(C.y, D.y) + 1,
+                  optionsTikz: 'baseline=(current bounding box.north)',
+                },
+                t1,
+                t2c,
+                c1,
+                c2,
+                a3,
+                a4,
+                a5,
+                labels,
+                texte3,
+                texte4,
+              )
           }
           texteCorr += `<br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$. <br> Donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}$ <br>`
           texteCorr += `Soit $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}$ <br> $\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${miseEnEvidence(ACD)}^\\circ$.<br>`
@@ -135,20 +171,30 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           texteCorr += `De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.<br>`
           if (this.interactif) {
             handleAnswers(this, 3 * i, { reponse: { value: String(ACD) } })
-            handleAnswers(this, 3 * i + 1, { reponse: { value: String(90 - BAC) } })
-            handleAnswers(this, 3 * i + 2, { reponse: { value: String(90 - ACD) } })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, ' ', {
-              texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
-              texteApres: '$^\\circ$'
+            handleAnswers(this, 3 * i + 1, {
+              reponse: { value: String(90 - BAC) },
             })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, ' ', {
-              texteAvant: `$\\widehat{${B.nom + C.nom + A.nom}}=$`,
-              texteApres: '$^\\circ$'
+            handleAnswers(this, 3 * i + 2, {
+              reponse: { value: String(90 - ACD) },
             })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, ' ', {
-              texteAvant: `$\\widehat{${C.nom + D.nom + A.nom}}=$`,
-              texteApres: '$^\\circ$'
-            })
+            texte +=
+              '<br><br>' +
+              ajouteChampTexteMathLive(this, 3 * i, ' ', {
+                texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
+                texteApres: '$^\\circ$',
+              })
+            texte +=
+              '<br><br>' +
+              ajouteChampTexteMathLive(this, 3 * i + 1, ' ', {
+                texteAvant: `$\\widehat{${B.nom + C.nom + A.nom}}=$`,
+                texteApres: '$^\\circ$',
+              })
+            texte +=
+              '<br><br>' +
+              ajouteChampTexteMathLive(this, 3 * i + 2, ' ', {
+                texteAvant: `$\\widehat{${C.nom + D.nom + A.nom}}=$`,
+                texteApres: '$^\\circ$',
+              })
           }
           break
         case 'BA-AD-ACB':
@@ -158,30 +204,46 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)
           }
-          texte = mathalea2d({
-            xmin: -1,
-            scale: 0.6,
-            ymin: -1,
-            xmax: D.x + 1,
-            ymax: Math.max(C.y, D.y) + 1,
-            optionsTikz: 'baseline=(current bounding box.north)'
-          }, objetsMathalea)
+          texte = mathalea2d(
+            {
+              xmin: -1,
+              scale: 0.6,
+              ymin: -1,
+              xmax: D.x + 1,
+              ymax: Math.max(C.y, D.y) + 1,
+              optionsTikz: 'baseline=(current bounding box.north)',
+            },
+            objetsMathalea,
+          )
           if (!this.sup) {
             texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.`
           }
-          texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
+          texte += this.interactif
+            ? "<br><br>Les valeurs d'angle seront arrondis au degré près."
+            : ''
           texteCorr = ''
           if (this.correctionDetaillee) {
             const texte1 = texteSurSegment('hypoténuse', C, A)
             const texte2 = texteSurSegment('opposé', A, B, 'black', 1)
-            texteCorr += mathalea2d({
-              xmin: -1,
-              scale: 0.6,
-              ymin: -2,
-              xmax: D.x + 1,
-              ymax: Math.max(C.y, D.y) + 1,
-              optionsTikz: 'baseline=(current bounding box.north)'
-            }, t1c, t2, c1, c2, a1, a2, labels, texte1, texte2)
+            texteCorr += mathalea2d(
+              {
+                xmin: -1,
+                scale: 0.6,
+                ymin: -2,
+                xmax: D.x + 1,
+                ymax: Math.max(C.y, D.y) + 1,
+                optionsTikz: 'baseline=(current bounding box.north)',
+              },
+              t1c,
+              t2,
+              c1,
+              c2,
+              a1,
+              a2,
+              labels,
+              texte1,
+              texte2,
+            )
             texteCorr += '<br>'
           }
           texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$.<br> Donc $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}$ <br>`
@@ -189,14 +251,28 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           if (this.correctionDetaillee) {
             const texte3 = texteSurSegment('adjacent', C, A)
             const texte4 = texteSurSegment('opposé', A, D, 'black')
-            texteCorr += '<br><br>' + mathalea2d({
-              xmin: -1,
-              scale: 0.6,
-              ymin: -1,
-              xmax: D.x + 1,
-              ymax: Math.max(C.y, D.y) + 1,
-              optionsTikz: 'baseline=(current bounding box.north)'
-            }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
+            texteCorr +=
+              '<br><br>' +
+              mathalea2d(
+                {
+                  xmin: -1,
+                  scale: 0.6,
+                  ymin: -1,
+                  xmax: D.x + 1,
+                  ymax: Math.max(C.y, D.y) + 1,
+                  optionsTikz: 'baseline=(current bounding box.north)',
+                },
+                t1,
+                t2c,
+                c1,
+                c2,
+                a3,
+                a4,
+                a5,
+                labels,
+                texte3,
+                texte4,
+              )
           }
           texteCorr += `<br><br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$. <br> $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}$<br>`
           texteCorr += `Soit $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}$ <br> $\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${miseEnEvidence(ACD)}^\\circ$.`
@@ -204,20 +280,30 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.`
           if (this.interactif) {
             handleAnswers(this, 3 * i, { reponse: { value: String(ACD) } })
-            handleAnswers(this, 3 * i + 1, { reponse: { value: String(90 - ACB) } })
-            handleAnswers(this, 3 * i + 2, { reponse: { value: String(90 - ACD) } })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, ' ', {
-              texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
-              texteApres: '$^\\circ$'
+            handleAnswers(this, 3 * i + 1, {
+              reponse: { value: String(90 - ACB) },
             })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, ' ', {
-              texteAvant: `$\\widehat{${B.nom + A.nom + C.nom}}=$`,
-              texteApres: '$^\\circ$'
+            handleAnswers(this, 3 * i + 2, {
+              reponse: { value: String(90 - ACD) },
             })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, ' ', {
-              texteAvant: `$\\widehat{${C.nom + D.nom + A.nom}}=$`,
-              texteApres: '$^\\circ$'
-            })
+            texte +=
+              '<br><br>' +
+              ajouteChampTexteMathLive(this, 3 * i, ' ', {
+                texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
+                texteApres: '$^\\circ$',
+              })
+            texte +=
+              '<br><br>' +
+              ajouteChampTexteMathLive(this, 3 * i + 1, ' ', {
+                texteAvant: `$\\widehat{${B.nom + A.nom + C.nom}}=$`,
+                texteApres: '$^\\circ$',
+              })
+            texte +=
+              '<br><br>' +
+              ajouteChampTexteMathLive(this, 3 * i + 2, ' ', {
+                texteAvant: `$\\widehat{${C.nom + D.nom + A.nom}}=$`,
+                texteApres: '$^\\circ$',
+              })
           }
           break
       }
@@ -231,62 +317,77 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           propositions: [
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                // multicolsBegin: true,
-                reponse: {
-                  texte: numAlpha(0) + `Valeur arrondie à l'unité de $\\widehat{${A.nom + C.nom + D.nom}}$`,
-                  valeur: ACD,
-                  alignement: 'center',
-                  param: {
-                    digits: 3,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  // multicolsBegin: true,
+                  reponse: {
+                    texte:
+                      numAlpha(0) +
+                      `Valeur arrondie à l'unité de $\\widehat{${A.nom + C.nom + D.nom}}$`,
+                    valeur: ACD,
+                    alignement: 'center',
+                    param: {
+                      digits: 3,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: numAlpha(1) + (typesDeQuestion === 'BA-AD-BAC' ? `Valeur arrondie à l'unité  de $\\widehat{${B.nom + C.nom + A.nom}}$` : `Valeur arrondie à l'unité de $\\widehat{${B.nom + A.nom + C.nom}}$`),
-                  valeur: typesDeQuestion === 'BA-AD-BAC' ? 90 - BAC : 90 - ACB,
-                  alignement: 'center',
-                  param: {
-                    digits: 3,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte:
+                      numAlpha(1) +
+                      (typesDeQuestion === 'BA-AD-BAC'
+                        ? `Valeur arrondie à l'unité  de $\\widehat{${B.nom + C.nom + A.nom}}$`
+                        : `Valeur arrondie à l'unité de $\\widehat{${B.nom + A.nom + C.nom}}$`),
+                    valeur:
+                      typesDeQuestion === 'BA-AD-BAC' ? 90 - BAC : 90 - ACB,
+                    alignement: 'center',
+                    param: {
+                      digits: 3,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                // multicolsEnd: true,
-                reponse: {
-                  texte: numAlpha(2) + `Valeur arrondie à l'unité  de $\\widehat{${C.nom + D.nom + A.nom}}$`,
-                  valeur: 90 - ACD,
-                  alignement: 'center',
-                  param: {
-                    digits: 3,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }]
-        }
-        )
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  // multicolsEnd: true,
+                  reponse: {
+                    texte:
+                      numAlpha(2) +
+                      `Valeur arrondie à l'unité  de $\\widehat{${C.nom + D.nom + A.nom}}$`,
+                    valeur: 90 - ACD,
+                    alignement: 'center',
+                    param: {
+                      digits: 3,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        })
       }
 
       if (this.questionJamaisPosee(i, nom, BAC)) {

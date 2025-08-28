@@ -17,21 +17,21 @@ export const interactifType = 'mathLive'
 export const uuid = '75151'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class calculerPythagore extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const choix = choice([true, false])
 
     const nom = creerNomDePolygone(3, ['QD'])
@@ -41,8 +41,15 @@ export default class calculerPythagore extends ExerciceSimple {
     const C = point(6, 2, nom[2], 'above')
     const objets = []
     if (choix === true) {
-      objets.push(segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C), codageAngleDroit(A, B, C),
-        latex2d('\\sqrt{2025}', 2.6, 2.1, {}), latex2d(`${a}`, 6.8, 1, {}))
+      objets.push(
+        segment(A, B),
+        segment(A, C),
+        segment(B, C),
+        labelPoint(A, B, C),
+        codageAngleDroit(A, B, C),
+        latex2d('\\sqrt{2025}', 2.6, 2.1, {}),
+        latex2d(`${a}`, 6.8, 1, {}),
+      )
       this.question = `Calculer $${nom[0]}${nom[1]}$.`
       this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
               On obtient :<br>
@@ -58,8 +65,15 @@ export default class calculerPythagore extends ExerciceSimple {
       this.canEnonce = this.question
       this.canReponseACompleter = `$${nom[0]}${nom[1]}=\\ldots$`
     } else {
-      objets.push(segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C), codageAngleDroit(A, B, C),
-        latex2d('\\sqrt{2025}', 2.6, -1, {}), latex2d(`${a}`, 6.8, 1, {}))
+      objets.push(
+        segment(A, B),
+        segment(A, C),
+        segment(B, C),
+        labelPoint(A, B, C),
+        codageAngleDroit(A, B, C),
+        latex2d('\\sqrt{2025}', 2.6, -1, {}),
+        latex2d(`${a}`, 6.8, 1, {}),
+      )
       this.question = `Calculer $${nom[0]}${nom[2]}$.`
       this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
                     On obtient :<br>
@@ -73,8 +87,26 @@ export default class calculerPythagore extends ExerciceSimple {
       this.reponse = `\\sqrt{${2025 + a * a}}`
       this.canReponseACompleter = `$${nom[0]}${nom[2]}=\\ldots$`
     }
-    this.question += '<br>' + mathalea2d({ xmin: -1, ymin: -1.4, xmax: 8, ymax: 3, scale: 0.6, pixelsParCm: 18, mainlevee: false, style: 'margin: auto' }, objets)
-    if (this.interactif) { choix === true ? this.question += `<br>$${nom[0]}${nom[1]}=$` : this.question += `<br>$${nom[0]}${nom[2]}=$` }
+    this.question +=
+      '<br>' +
+      mathalea2d(
+        {
+          xmin: -1,
+          ymin: -1.4,
+          xmax: 8,
+          ymax: 3,
+          scale: 0.6,
+          pixelsParCm: 18,
+          mainlevee: false,
+          style: 'margin: auto',
+        },
+        objets,
+      )
+    if (this.interactif) {
+      choix === true
+        ? (this.question += `<br>$${nom[0]}${nom[1]}=$`)
+        : (this.question += `<br>$${nom[0]}${nom[2]}=$`)
+    }
     this.canEnonce = this.question
   }
 }

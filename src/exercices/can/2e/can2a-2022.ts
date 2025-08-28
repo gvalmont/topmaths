@@ -9,13 +9,17 @@ import {
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
   reduirePolynomeDegre3,
-  rienSi1
+  rienSi1,
 } from '../../../lib/outils/ecritures'
 import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
+import {
+  fixeBordures,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -35,7 +39,7 @@ export const dateDePublication = '13/07/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a: number, b: number) {
+function compareNombres(a: number, b: number) {
   return a - b
 }
 
@@ -43,10 +47,10 @@ export const uuid = '2a4b1'
 
 export const refs = {
   'fr-fr': ['can2a-2022'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN2022Seconde extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 30
@@ -59,18 +63,42 @@ export default class SujetCAN2022Seconde extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 8, 9, 10, 15]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([3, 11,
-      12, 13, 14, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-    const listeFractions2 = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [3, 5], [4, 7], [1, 5], [3, 5], [3, 4], [2, 9], [1, 9], [7, 9], [1, 8], [5, 8]
+    const typeQuestionsDisponiblesNiv1 = shuffle([
+      1, 2, 4, 5, 6, 7, 8, 9, 10, 15,
+    ])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      3, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+      30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
+    const listeFractions2 = [
+      [1, 3],
+      [2, 3],
+      [3, 7],
+      [2, 7],
+      [4, 3],
+      [3, 5],
+      [4, 7],
+      [1, 5],
+      [3, 5],
+      [3, 4],
+      [2, 9],
+      [1, 9],
+      [7, 9],
+      [1, 8],
+      [5, 8],
     ]
 
-    for (let i = 0, index = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let a = 0
       let b = 0
       let c = 0
@@ -103,33 +131,36 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           break
 
-        case 2:{
-          a = randint(1, 9)
-          const b = choice(listeFractions2)
-          const f = new FractionEtendue(b[0], b[1])
-          if (choice([true, false])) {
-            reponse = new FractionEtendue(a * b[1] + b[0], b[1])
-            texte = `$${a}+${f.texFraction}= $`
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+        case 2:
+          {
+            a = randint(1, 9)
+            const b = choice(listeFractions2)
+            const f = new FractionEtendue(b[0], b[1])
+            if (choice([true, false])) {
+              reponse = new FractionEtendue(a * b[1] + b[0], b[1])
+              texte = `$${a}+${f.texFraction}= $`
+              if (this.interactif) {
+                texte += ajouteChampTexteMathLive(this, index, '')
+              } else {
+                texte += ' $\\ldots$'
+              }
+              texteCorr = `$${a}+${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}+${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
             } else {
-              texte += ' $\\ldots$'
+              reponse = new FractionEtendue(a * b[1] - b[0], b[1])
+              texte = `$${a}-${f.texFraction}= $`
+              if (this.interactif) {
+                texte += ajouteChampTexteMathLive(this, index, '')
+              } else {
+                texte += ' $\\ldots$'
+              }
+              texteCorr = `$${a}-${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}-${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
             }
-            texteCorr = `$${a}+${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}+${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
-          } else {
-            reponse = new FractionEtendue(a * b[1] - b[0], b[1])
-            texte = `$${a}-${f.texFraction}= $`
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
-            } else {
-              texte += ' $\\ldots$'
-            }
-            texteCorr = `$${a}-${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}-${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
-          }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+            setReponse(this, index, reponse, {
+              formatInteractif: 'fractionEgale',
+            })
 
-          nbChamps = 1
-        }
+            nbChamps = 1
+          }
 
           break
 
@@ -155,14 +186,14 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(2, 9)
             b = randint(2, 9)
             c = choice([-1, -2, -3])
-            reponse = (a * 10 ** (-c) + b) / (10 ** (-c))
+            reponse = (a * 10 ** -c + b) / 10 ** -c
             texte = `Donner l'écriture décimale de :  $${b}\\times10^{${c}}+${a}$.`
             texteCorr = `$${b}\\times10^{${c}}+${a}=${a}+${texNombre(b * 10 ** c, 3)}=${texNombre(reponse, 3)}$`
           } else {
             a = randint(2, 9)
             b = randint(2, 9)
             c = choice([-1, -2, -3])
-            reponse = (a * 10 ** (-c) + b) / (10 ** (-c))
+            reponse = (a * 10 ** -c + b) / 10 ** -c
             texte = `Donner l'écriture décimale de :  $${a}+${b}\\times10^{${c}}$`
             texteCorr = `$${a}+${b}\\times10^{${c}}=${a}+${texNombre(b * 10 ** c, 3)}=${texNombre(reponse, 3)}$`
           }
@@ -192,18 +223,20 @@ export default class SujetCAN2022Seconde extends Exercice {
             L'équation $${reduireAxPlusB(a, b)}=0$ a pour solution $x=${f.texFractionSimplifiee}$.`
           reponse = f
 
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           break
         case 6:
-          choix = choice(['a', 'b', 'c'])//
+          choix = choice(['a', 'b', 'c']) //
           if (choix === 'a') {
             a = randint(2, 5) * 2
             const prix = randint(7, 15) / 10
-            reponse = prix * a / 2
+            reponse = (prix * a) / 2
 
             if (a === 2) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûte $${texNombre(a / 2, 0)}$ croissant ?
@@ -221,7 +254,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           } else if (choix === 'b') {
             a = randint(1, 3) * 3
             const prix = randint(7, 15) / 10
-            reponse = prix * a / 3
+            reponse = (prix * a) / 3
 
             if (a === 3) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 3, 0)}$ croissant ?
@@ -239,7 +272,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           } else {
             a = randint(1, 3) * 4
             const prix = randint(7, 15) / 10
-            reponse = prix * a / 4
+            reponse = (prix * a) / 4
 
             if (a === 4) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 4, 0)}$ croissant ?
@@ -273,7 +306,9 @@ export default class SujetCAN2022Seconde extends Exercice {
           reponse = f
           texteCorr = `Puisqu'il s'agit d'une situation d'équiprobabilité, la probabilité  est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -326,7 +361,7 @@ export default class SujetCAN2022Seconde extends Exercice {
         case 10:
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
-          reponse = a * p / 100
+          reponse = (a * p) / 100
           texte = `$${p}$ $\\%$ de $${a}= $`
 
           texteCorr = `          Prendre $${p}$ $\\%$  de $${a}$ revient à prendre $${texNombre(p / 10, 0)}\\times 10\\%$  de $${a}$.<br>
@@ -401,7 +436,7 @@ export default class SujetCAN2022Seconde extends Exercice {
         case 12:
           choix = choice(['a', 'b', 'c', 'd', 'e'])
           if (choix === 'a') {
-            reponse = (randint(1, 9) * 10 + randint(1, 9))
+            reponse = randint(1, 9) * 10 + randint(1, 9)
             b = reponse / 10
             if (choice([true, false])) {
               texte = ` $0,25\\times ${texNombre(b, 1)}\\times 4\\times 10=$`
@@ -461,7 +496,6 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 13:
-
           a = randint(14, 29, 20)
           b = choice([a - 10, a - 1, a - 2])
           reponse = a ** 2 - b ** 2
@@ -480,7 +514,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 14:
-          choix = choice(['a', 'b', 'c', 'd', 'e', 'f', 'g'])//, 'b', 'c', 'd','e'
+          choix = choice(['a', 'b', 'c', 'd', 'e', 'f', 'g']) //, 'b', 'c', 'd','e'
           if (choix === 'a') {
             texte = `Vrai ou faux<br>
          Le volume d'un cube est proportionnel à la longueur de son arête.`
@@ -570,7 +604,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 15:
-          a = (randint(11, 49, [20, 30, 40]))
+          a = randint(11, 49, [20, 30, 40])
           f = new FractionEtendue(a, 100)
           reponse = 1 - a / 100
 
@@ -586,8 +620,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 16:
-
-          choix = choice(['a', 'b'])//, 'b', 'c'
+          choix = choice(['a', 'b']) //, 'b', 'c'
           if (choix === 'a') {
             a = randint(11, 39, [10, 20, 30]) + randint(1, 9) / 10
 
@@ -596,7 +629,9 @@ export default class SujetCAN2022Seconde extends Exercice {
 
             texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 1)}$ L`
           } else {
-            a = randint(11, 39, [10, 20, 30]) + randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
+            a =
+              randint(11, 39, [10, 20, 30]) +
+              randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
 
             reponse = a * 1000
             texte = `$${texNombre(a, 2)}$ m$^3=$`
@@ -606,32 +641,35 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'L' })
+            texte += ajouteChampTexteMathLive(this, index, '', {
+              texteApres: 'L',
+            })
           } else {
             texte += ' $\\ldots$ L'
           }
           nbChamps = 1
           break
 
-        case 17:{
-          const m = randint(-7, 7, 0)
-          const x = randint(1, 7)
-          p = randint(-7, 7, 0)
-          reponse = x
-          texte = `Déterminer l'antécédent de  $${m * x + p}$ par la fonction $f$ définie par $f(x)=${reduireAxPlusB(m, p)}$.`
-          texteCorr = `L'antécédent de $${m * x + p}$ par la fonction est la solution de l'équation $f(x)=${m * x + p}$.<br>
+        case 17:
+          {
+            const m = randint(-7, 7, 0)
+            const x = randint(1, 7)
+            p = randint(-7, 7, 0)
+            reponse = x
+            texte = `Déterminer l'antécédent de  $${m * x + p}$ par la fonction $f$ définie par $f(x)=${reduireAxPlusB(m, p)}$.`
+            texteCorr = `L'antécédent de $${m * x + p}$ par la fonction est la solution de l'équation $f(x)=${m * x + p}$.<br>
           $\\begin{aligned}
           ${reduireAxPlusB(m, p)}&=${m * x + p}\\\\
          ${m}x&=${m * x}\\\\
                               x&=${x}
          \\end{aligned}$<br>
           $${reduireAxPlusB(m, p)}=${m * x + p}$ a pour solution $${x}$ donc l'antécédent de $${m * x + p}$ par $f$ est $${x}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, '')
+            }
+            nbChamps = 1
           }
-          nbChamps = 1
-        }
 
           break
 
@@ -703,7 +741,9 @@ export default class SujetCAN2022Seconde extends Exercice {
              $\\dfrac{y_D-y_C}{x_D-x_C}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
             `
             reponse = new FractionEtendue(d - b, c - a)
-            setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+            setReponse(this, index, reponse, {
+              formatInteractif: 'fractionEgale',
+            })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
@@ -712,99 +752,144 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           break
 
-        case 21:{
-          const triplet = [[3, 4, 5], [6, 8, 10]]
-          const a = choice(triplet)
-          const C = point(0, 0, 'C', 'below')
-          const A = point(2, 0, 'A', 'below')
-          const B = point(2, 3, 'B', 'above')
-          const pol = polygoneAvecNom(A, B, C)
-          const objets = []
-          choix = choice(['a', 'b', 'c'])
-          if (choix === 'a') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.3)
-              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.6, milieu(B, C).y)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[1]
-            texte = 'Calculer la longueur $AB$. <br>'
+        case 21:
+          {
+            const triplet = [
+              [3, 4, 5],
+              [6, 8, 10],
+            ]
+            const a = choice(triplet)
+            const C = point(0, 0, 'C', 'below')
+            const A = point(2, 0, 'A', 'below')
+            const B = point(2, 3, 'B', 'above')
+            const pol = polygoneAvecNom(A, B, C)
+            const objets = []
+            choix = choice(['a', 'b', 'c'])
+            if (choix === 'a') {
+              objets.push(pol[0])
+              objets.push(
+                texteParPosition(
+                  `${stringNombre(a[0])} cm`,
+                  milieu(A, C).x,
+                  milieu(A, C).y - 0.3,
+                ),
+                texteParPosition(
+                  `${stringNombre(a[2])} cm`,
+                  milieu(B, C).x - 0.6,
+                  milieu(B, C).y,
+                ),
+                labelPoint(A, B, C),
+                codageAngleDroit(B, A, C),
+              )
+              reponse = a[1]
+              texte = 'Calculer la longueur $AB$. <br>'
 
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
+              texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
               On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
               Par conséquent, $AB=${a[1]}$.`
-          } else if (choix === 'b') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.6, milieu(A, B).y)
-              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.6, milieu(B, C).y)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[0]
-            texte = 'Calculer la longueur $AC$. <br>'
+            } else if (choix === 'b') {
+              objets.push(pol[0])
+              objets.push(
+                texteParPosition(
+                  `${stringNombre(a[1])} cm`,
+                  milieu(A, B).x + 0.6,
+                  milieu(A, B).y,
+                ),
+                texteParPosition(
+                  `${stringNombre(a[2])} cm`,
+                  milieu(B, C).x - 0.6,
+                  milieu(B, C).y,
+                ),
+                labelPoint(A, B, C),
+                codageAngleDroit(B, A, C),
+              )
+              reponse = a[0]
+              texte = 'Calculer la longueur $AC$. <br>'
 
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
+              texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                 On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
                 Par conséquent, $AC=${a[0]}$.`
-          } else {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.5, milieu(A, B).y)
-              , texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.3)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[2]
-            texte = 'Calculer la longueur $BC$. <br>'
+            } else {
+              objets.push(pol[0])
+              objets.push(
+                texteParPosition(
+                  `${stringNombre(a[1])} cm`,
+                  milieu(A, B).x + 0.5,
+                  milieu(A, B).y,
+                ),
+                texteParPosition(
+                  `${stringNombre(a[0])} cm`,
+                  milieu(A, C).x,
+                  milieu(A, C).y - 0.3,
+                ),
+                labelPoint(A, B, C),
+                codageAngleDroit(B, A, C),
+              )
+              reponse = a[2]
+              texte = 'Calculer la longueur $BC$. <br>'
 
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
+              texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                   On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
                   Par conséquent, $BC=${a[2]}$.`
-          }
-          texte += mathalea2d(Object.assign({
-            pixelsParCm: 40,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 1,
-            style: 'margin: auto'
-          }, fixeBordures(objets)), objets)
+            }
+            texte += mathalea2d(
+              Object.assign(
+                {
+                  pixelsParCm: 40,
+                  mainlevee: false,
+                  amplitude: 0.5,
+                  scale: 1,
+                  style: 'margin: auto',
+                },
+                fixeBordures(objets),
+              ),
+              objets,
+            )
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += '<br>$BC=$'
-            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'cm' })
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += '<br>$BC=$'
+              texte += ajouteChampTexteMathLive(this, index, '', {
+                texteApres: 'cm',
+              })
+            }
+            nbChamps = 1
           }
-          nbChamps = 1
-        }
           break
 
-        case 22:{
-          const c = choice([true, false])
-          choix = choice(['a', 'b', 'c', 'd'])
-          if (choix === 'a') {
-            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
-            texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
+        case 22:
+          {
+            const c = choice([true, false])
+            choix = choice(['a', 'b', 'c', 'd'])
+            if (choix === 'a') {
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
+              texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $3$ issues qui comportent au moins une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
-            reponse = new FractionEtendue(3, 4)
-          } else if (choix === 'b') {
-            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
-            texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
+              reponse = new FractionEtendue(3, 4)
+            } else if (choix === 'b') {
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
+              texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $3$ issues qui comportent au plus une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
-            reponse = new FractionEtendue(3, 4)
-          } else if (choix === 'c') {
-            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
-            texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
+              reponse = new FractionEtendue(3, 4)
+            } else if (choix === 'c') {
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
+              texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $2$ issues qui comportent une seule fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{2}$.`
-            reponse = new FractionEtendue(1, 2)
-          } else {
-            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
-            texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
+              reponse = new FractionEtendue(1, 2)
+            } else {
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
+              texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $1$ issue qui comporte deux fois ${c ? 'piles' : 'faces'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{4}$.`
-            reponse = new FractionEtendue(1, 4)
+              reponse = new FractionEtendue(1, 4)
+            }
+            setReponse(this, index, reponse, {
+              formatInteractif: 'fractionEgale',
+            })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, '')
+            }
+            nbChamps = 1
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
-          }
-          nbChamps = 1
-        }
 
           break
 
@@ -876,7 +961,9 @@ export default class SujetCAN2022Seconde extends Exercice {
             let listeFacteurs24 = [2, 3, 5, 7]
             listeFacteurs24 = shuffle(listeFacteurs24)
 
-            reponse = [`${listeFacteurs24[0]}\\times${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}`]
+            reponse = [
+              `${listeFacteurs24[0]}\\times${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}`,
+            ]
             texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}$ en produit de facteurs premiers.`
 
             texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}$`
@@ -887,8 +974,10 @@ export default class SujetCAN2022Seconde extends Exercice {
               listeFacteurs24 = [2, 2, 3, 5]
               listeFacteurs24 = shuffle(listeFacteurs24)
             }
-            reponse = [`${listeFacteurs24[0]}\\times${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}`,
-                            `${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}`]
+            reponse = [
+              `${listeFacteurs24[0]}\\times${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}`,
+              `${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}`,
+            ]
             texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}$ en produit de facteurs premiers.`
 
             texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}=${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}^2$`
@@ -903,7 +992,6 @@ export default class SujetCAN2022Seconde extends Exercice {
           break
 
         case 25:
-
           choix = choice(['a', 'b'])
           if (choix === 'a') {
             a = randint(2, 9)
@@ -968,55 +1056,76 @@ export default class SujetCAN2022Seconde extends Exercice {
           nbChamps = 1
           break
 
-        case 28:{
-          a = randint(1, 5) * 2 + 1// AE
-          const k = choice([3, 5]) / 2
-          b = a + 1// BE
-          c = k * b// CE
-          d = k * a// DE
-          const A = point(6, 0, 'A', 'above right')
-          const D = point(0.46, 2.92, 'D', 'above left')
-          const E = point(4, 1, 'E', 'below')
-          const B = point(6.22, 2, 'B', 'above right')
-          const C = point(0, -1, 'C', 'left')
-          const xmin = -1
-          const ymin = -1.5
-          const xmax = 7.5
-          const ymax = 4
-          const objets:NestedObjetMathalea2dArray = []
-          objets.push(
-            texteParPosition(`${stringNombre(a)}`, milieu(A, E).x, milieu(A, E).y - 0.3),
-            texteParPosition('?', milieu(E, D).x, milieu(E, D).y + 0.5),
-            texteParPosition(`${stringNombre(b)}`, milieu(B, E).x, milieu(B, E).y + 0.2),
-            texteParPosition(`${stringNombre(c)}`, milieu(E, C).x, milieu(C, E).y - 0.5),
-            labelPoint(A, B, C, D, E), droite(B, C), droite(D, A), droite(C, D), droite(A, B))
-          reponse = d
-          texte = `$(AB)//(CD)$<br><br>
+        case 28:
+          {
+            a = randint(1, 5) * 2 + 1 // AE
+            const k = choice([3, 5]) / 2
+            b = a + 1 // BE
+            c = k * b // CE
+            d = k * a // DE
+            const A = point(6, 0, 'A', 'above right')
+            const D = point(0.46, 2.92, 'D', 'above left')
+            const E = point(4, 1, 'E', 'below')
+            const B = point(6.22, 2, 'B', 'above right')
+            const C = point(0, -1, 'C', 'left')
+            const xmin = -1
+            const ymin = -1.5
+            const xmax = 7.5
+            const ymax = 4
+            const objets: NestedObjetMathalea2dArray = []
+            objets.push(
+              texteParPosition(
+                `${stringNombre(a)}`,
+                milieu(A, E).x,
+                milieu(A, E).y - 0.3,
+              ),
+              texteParPosition('?', milieu(E, D).x, milieu(E, D).y + 0.5),
+              texteParPosition(
+                `${stringNombre(b)}`,
+                milieu(B, E).x,
+                milieu(B, E).y + 0.2,
+              ),
+              texteParPosition(
+                `${stringNombre(c)}`,
+                milieu(E, C).x,
+                milieu(C, E).y - 0.5,
+              ),
+              labelPoint(A, B, C, D, E),
+              droite(B, C),
+              droite(D, A),
+              droite(C, D),
+              droite(A, B),
+            )
+            reponse = d
+            texte = `$(AB)//(CD)$<br><br>
           `
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 25,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.8,
-            style: 'margin: auto'
-          }, objets)
-          texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $EC$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $EB$.
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 25,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 0.8,
+                style: 'margin: auto',
+              },
+              objets,
+            )
+            texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $EC$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $EB$.
           On en déduit que la longueur $DE$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $AE$.<br>
           Ainsi, $DE=${texNombre(k, 1)}\\times ${a}=${texNombre(reponse, 1)}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += '<br>$DE=$'
-            texte += ajouteChampTexteMathLive(this, index, '')
-          } else {
-            texte += '$DE=$ $\\ldots$ '
-          }
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += '<br>$DE=$'
+              texte += ajouteChampTexteMathLive(this, index, '')
+            } else {
+              texte += '$DE=$ $\\ldots$ '
+            }
 
-          nbChamps = 1
-        }
+            nbChamps = 1
+          }
 
           break
 
@@ -1056,7 +1165,9 @@ export default class SujetCAN2022Seconde extends Exercice {
             Ici, l'aire a été divisée par $16$, soit multipliée par $\\dfrac{1}{16}$. <br>
             On en déduit que le coefficient de réduction est $\\dfrac{1}{4}$. `
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -1064,39 +1175,49 @@ export default class SujetCAN2022Seconde extends Exercice {
           nbChamps = 1
           break
 
-        case 30:{
-          a = 0
-          b = randint(50, 300)
-          const q = randint(2, 5)
-          texte = 'On considère le script python : <br>$\\begin{array}{|l|}\n'
-          texte += '\\hline\n'
-          texte += '\\\n \\texttt{def fin(b):}  \\\n '
-          texte += `\\\\\n ${sp(6)} \\texttt{a=0}\\\n `
-          texte += `\\\\\n ${sp(6)} \\texttt{while a$<$b:}\\\n `
-          texte += `\\\\\n ${sp(12)} \\texttt{a=a+${q}}\\\n `
-          texte += `\\\\\n ${sp(6)} \\texttt{return a}\\\\\n `
-          texte += '\\hline\n'
-          texte += '\\end{array}\n$<br>'
-          texte += `Que renvoie l'instruction $\\texttt{fin(${b})}$ ?`
-          texteCorr = ` L'instruction $\\texttt{while a<${b}}$ signifie : tant que a<$${b}$.<br>
+        case 30:
+          {
+            a = 0
+            b = randint(50, 300)
+            const q = randint(2, 5)
+            texte = 'On considère le script python : <br>$\\begin{array}{|l|}\n'
+            texte += '\\hline\n'
+            texte += '\\\n \\texttt{def fin(b):}  \\\n '
+            texte += `\\\\\n ${sp(6)} \\texttt{a=0}\\\n `
+            texte += `\\\\\n ${sp(6)} \\texttt{while a$<$b:}\\\n `
+            texte += `\\\\\n ${sp(12)} \\texttt{a=a+${q}}\\\n `
+            texte += `\\\\\n ${sp(6)} \\texttt{return a}\\\\\n `
+            texte += '\\hline\n'
+            texte += '\\end{array}\n$<br>'
+            texte += `Que renvoie l'instruction $\\texttt{fin(${b})}$ ?`
+            texteCorr = ` L'instruction $\\texttt{while a<${b}}$ signifie : tant que a<$${b}$.<br>
           On a au départ, a=0 et l'algorithme s'arrête lorsque a dépasse $${b}$. La valeur retournée est donc le plus petit multiple de $${q}$ supérieur ou égal à $${b}$.`
 
-          while (a < b) {
-            a = q + a
+            while (a < b) {
+              a = q + a
+            }
+            texteCorr += ` Donc l'algorithme retourne $${a}$ `
+            reponse = a
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, '')
+            }
+            nbChamps = 1
           }
-          texteCorr += ` Donc l'algorithme retourne $${a}$ `
-          reponse = a
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
-          }
-          nbChamps = 1
-        }
 
           break
       }
 
-      if (this.questionJamaisPosee(i, a, b, c, reponse instanceof FractionEtendue ? reponse.texFraction : reponse)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (
+        this.questionJamaisPosee(
+          i,
+          a,
+          b,
+          c,
+          reponse instanceof FractionEtendue ? reponse.texFraction : reponse,
+        )
+      ) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

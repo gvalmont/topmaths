@@ -1,6 +1,11 @@
-import type { Browser, BrowserContextOptions, LaunchOptions, Locator } from 'playwright'
+import type {
+  Browser,
+  BrowserContextOptions,
+  LaunchOptions,
+  Locator,
+} from 'playwright'
 
-export type BrowserName = ('chromium' | 'firefox' | 'webkit')
+export type BrowserName = 'chromium' | 'firefox' | 'webkit'
 
 export type Prefs = {
   browserInstance: null | Browser // L'objet Browser courant, null s'il n'y en a pas d'instancié

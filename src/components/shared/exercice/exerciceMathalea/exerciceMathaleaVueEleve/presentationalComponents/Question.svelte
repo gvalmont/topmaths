@@ -4,13 +4,19 @@
 
   export let exercise: TypeExercice
   export let exerciseIndex: number
-  export let questionIndex:number
+  export let questionIndex: number
   export let isCorrectionVisible: boolean
-
 </script>
 
-<div style="break-inside:avoid" id="consigne{exerciseIndex}-{questionIndex}" class="container max-w-full text-justify grid grid-cols-1 auto-cols-min gap-4 mb-3 lg:mb-4">
-  <li id="exercice{exerciseIndex}Q{questionIndex}" style="line-height: {exercise.spacing || 1}">
+<div
+  style="break-inside:avoid"
+  id="consigne{exerciseIndex}-{questionIndex}"
+  class="container max-w-full text-justify grid grid-cols-1 auto-cols-min gap-4 mb-3 lg:mb-4"
+>
+  <li
+    id="exercice{exerciseIndex}Q{questionIndex}"
+    style="line-height: {exercise.spacing || 1}"
+  >
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html mathaleaFormatExercice(exercise.listeQuestions[questionIndex])}
   </li>
@@ -20,17 +26,28 @@
       id="correction-exo{exerciseIndex}Q{questionIndex}"
     >
       <div
-        class={exercise.consigneCorrection.length !== 0 ? 'container max-w-full text-justify bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3' : 'hidden'}
+        class="{exercise.consigneCorrection.length !== 0
+          ? 'container max-w-full text-justify bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3'
+          : 'hidden'}"
       >
-        <div class="{exercise.consigneCorrection.length !== 0 ? 'container max-w-full text-justify absolute top-4 -left-4' : 'hidden'} ">
-          <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+        <div
+          class="{exercise.consigneCorrection.length !== 0
+            ? 'container max-w-full text-justify absolute top-4 -left-4'
+            : 'hidden'} "
+        >
+          <i
+            class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark"
+          ></i>
         </div>
         <div class="">
           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           {@html exercise.consigneCorrection}
         </div>
       </div>
-      <div class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercise.spacingCorr || 1}; break-inside:avoid">
+      <div
+        class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto py-1"
+        style="line-height: {exercise.spacingCorr || 1}; break-inside:avoid"
+      >
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html mathaleaFormatExercice(exercise.listeCorrections[questionIndex])}
       </div>
@@ -39,7 +56,9 @@
       >
         Correction
       </div>
-      <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
+      <div
+        class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
+      ></div>
     </div>
   {/if}
 </div>

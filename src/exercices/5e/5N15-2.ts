@@ -1,6 +1,7 @@
 import ExerciceConversions from '../6e/_Exercice_conversions'
 
-export const titre = 'Convertir des longueurs, masses, capacités, prix ou unités informatiques'
+export const titre =
+  'Convertir des longueurs, masses, capacités, prix ou unités informatiques'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,10 +17,10 @@ export const uuid = '3eae0'
 export const refs = {
   'fr-fr': ['BP2AutoQ2', '5N15-2'],
   'fr-2016': ['6N13', 'BP2AutoQ2'],
-  'fr-ch': ['10GM3-7']
+  'fr-ch': ['10GM3-7'],
 }
 export default class Exercice6N13 extends ExerciceConversions {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
     this.nbQuestions = 5

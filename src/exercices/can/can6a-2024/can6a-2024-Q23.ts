@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
-export const titre = 'Calculer la moitié d\'un entier'
+export const titre = "Calculer la moitié d'un entier"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '21c40' // prochain uuid : 63897
@@ -15,7 +15,7 @@ export const uuid = '21c40' // prochain uuid : 63897
 */
 
 export default class Moitie extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -24,7 +24,7 @@ export default class Moitie extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let entier: number
     if (this.canOfficielle) {
       entier = 72

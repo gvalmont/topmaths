@@ -12,21 +12,21 @@ export const interactifType = 'mathLive'
 export const uuid = '936a4'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class InverseOppose extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const c = choice([2, 4, 5])
     const b = randint(1, c - 1)
     const maFraction = new FractionEtendue(b, c)
@@ -36,7 +36,9 @@ export default class InverseOppose extends ExerciceSimple {
     this.correction = `$${a}+${maFraction.texFraction} = ${a} + ${texNombre(maFraction.valeurDecimale)}= ${miseEnEvidence(texNombre(resultat, 2))}$`
     this.reponse = resultat
 
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'dd1ed'
 export const refs = {
   'fr-fr': ['TSG2-QCM08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,8 +28,7 @@ export default class metropoleSept2024Ex4Q4 extends ExerciceQcm {
       '$34^{\\circ}$',
       '$120^{\\circ}$',
       '$90^{\\circ}$',
-      '$0^{\\circ}$'
-
+      '$0^{\\circ}$',
     ]
     this.enonce = this.sup3
       ? `L'espace est rapporté à un repère orthonormé $(O;\\vec{\\imath};\\vec{\\jmath};\\vec{k})$.
@@ -54,11 +53,11 @@ $\\cos\\widehat{\\mathrm{ABC}}=\\dfrac{20}{2\\sqrt{145}}\\approx 0,83$.<br>
 $\\widehat{\\mathrm{ABC}}\\approx 34^{\\circ}$.<br>`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

@@ -1,16 +1,25 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { arcenciel } from '../../lib/format/style'
 import { signe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Déterminer les termes d\'une suite définie par récurrence'
+export const titre = "Déterminer les termes d'une suite définie par récurrence"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '11/10/2024'
@@ -22,45 +31,62 @@ export const uuid = 'b8c14'
 
 export const refs = {
   'fr-fr': ['1AL10-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TermeDUneSuiteDefinieParRecurrence extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Calcul de u(1)\n2 : Calcul de u(k)\n3 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Calcul de u(1)\n2 : Calcul de u(k)\n3 : Mélange',
+    ]
     this.nbQuestions = 1
     this.sup = 6
     this.sup2 = 3
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Suite arithmétique',
         '2 : Suite géométrique',
         '3 : Suite arithmético-géométrique',
         '4 : Suite de la forme u(n+1) = a+/-u(n)²',
         '5 : Suite de la forme u(n+1)=au(n)+/-bn',
-        '6 : Mélange'
-      ].join('\n')
+        '6 : Mélange',
+      ].join('\n'),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 5,
       melange: 6,
       defaut: 6,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, texte, texteCorr, cpt = 0, u, a, b, reponse, k; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0, u, a, b, reponse, k;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const nomSuite = ['u', 'v', 'w']
       const s = choice(nomSuite)
-      k = this.sup2 === 1 ? 1 : this.sup2 === 2 ? randint(2, 4) : choice([1, 1, 2, 3, 4])
+      k =
+        this.sup2 === 1
+          ? 1
+          : this.sup2 === 2
+            ? randint(2, 4)
+            : choice([1, 1, 2, 3, 4])
       switch (listeTypeDeQuestions[i]) {
         case 1: // suite arithmétique
           a = randint(1, 15) * choice([-1, 1])
@@ -159,8 +185,11 @@ export default class TermeDUneSuiteDefinieParRecurrence extends Exercice {
       }
       handleAnswers(this, i, { reponse: { value: reponse } })
 
-      texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${s}_{${k}}=$` })
-      if (this.questionJamaisPosee(i, a, u, k)) { // Si la question n'a jamais été posée, on en créé une autre
+      texte +=
+        '<br>' +
+        ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${s}_{${k}}=$` })
+      if (this.questionJamaisPosee(i, a, u, k)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++ // On passe à la question suivante

@@ -17,10 +17,10 @@ export const uuid = '0e6bd'
 export const refs = {
   'fr-fr': ['auto6N3D-1'],
   'fr-2016': ['6C10-1'],
-  'fr-ch': ['9NO3-8']
+  'fr-ch': ['9NO3-8'],
 }
 export default class TablesParametres extends TablesDeMultiplications {
-  constructor () {
+  constructor() {
     super()
     this.sup = '2-3-4-5-6-7-8-9-10'
   }

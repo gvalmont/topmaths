@@ -1,9 +1,14 @@
-import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
 import {
-  randint
-} from '../../../modules/outils'
+  texteEnCouleur,
+  miseEnEvidence,
+} from '../../../lib/outils/embellissements'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
+import ExerciceSimple from '../../ExerciceSimple'
+import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Calculer une image avec un quotient'
 export const interactifReady = true
@@ -19,10 +24,10 @@ export const uuid = '8b3a9'
 
 export const refs = {
   'fr-fr': ['can2F02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculImageQuotient extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -32,7 +37,7 @@ export default class CalculImageQuotient extends ExerciceSimple {
     // this.formatInteractif = 'fractionEgale'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, c
 
     a = randint(1, 5)
@@ -61,13 +66,16 @@ export default class CalculImageQuotient extends ExerciceSimple {
     this.correction = `$f(${x})=\\dfrac{${a === 1 ? `${x}` : `${a}\\times ${ecritureParentheseSiNegatif(x)}`}${ecritureAlgebrique(b)}}{${c === 1 ? `${x}` : `${c}\\times ${ecritureParentheseSiNegatif(x)}`}${ecritureAlgebrique(d)}}
           =${maFraction.texFraction}${maFraction.texSimplificationAvecEtapes()}$.<br>
           Ainsi, $f(${x})=${miseEnEvidence(maFraction.texFractionSimplifiee)}$.<br><br>`
-    this.correction += texteEnCouleur(` Mentalement : <br>
+    this.correction += texteEnCouleur(
+      ` Mentalement : <br>
           On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $ ${a}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$ et $${c}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
            On obtient le quotient que l'on simplifie éventuellement : $${maFraction.texFractionSimplifiee}$.
-    `, 'blue')
+    `,
+      'blue',
+    )
 
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

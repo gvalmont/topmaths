@@ -18,25 +18,34 @@ export const uuid = '22f41'
 
 export const refs = {
   'fr-fr': ['can6N05', '6N1A-flash4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ChiffreDes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
     const e = randint(1, 9, [a, b, c, d])
     const f = randint(1, 9, [a, b, c, d, e])
-    const chiffres = new Decimal(a * 100000 + b * 10000 + c * 1000 + d * 100 + e * 10 + f)
+    const chiffres = new Decimal(
+      a * 100000 + b * 10000 + c * 1000 + d * 100 + e * 10 + f,
+    )
     const n = chiffres.div(1000)
-    const m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes', 'unités'])
+    const m = choice([
+      'centaines',
+      'dizaines',
+      'dixièmes',
+      'centièmes',
+      'millièmes',
+      'unités',
+    ])
     this.question = `Quel est le chiffre des ${m} dans $${texNombre(n)}$ ? `
     switch (m) {
       case 'unités':
@@ -60,7 +69,8 @@ export default class ChiffreDes extends ExerciceSimple {
     }
     this.correction = `Le chiffre des ${m} est $${this.reponse}$.<br><br>$\\begin{array}{|c|c|c|c|c|c|c|}\n`
     this.correction += '\\hline\n'
-    this.correction += '\\text{Centaine} &  \\text{Dizaine} & \\text{Unité} &  \\Large{\\textbf{,}}& \\text{Dixième} & \\text{Centième} & \\text{Millième} \\\\ \n'
+    this.correction +=
+      '\\text{Centaine} &  \\text{Dizaine} & \\text{Unité} &  \\Large{\\textbf{,}}& \\text{Dixième} & \\text{Centième} & \\text{Millième} \\\\ \n'
     this.correction += '\\hline\n'
     this.correction += `${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f}\\\\ \n`
     this.correction += '\\hline\n'

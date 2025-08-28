@@ -17,18 +17,18 @@ export const dateDePublication = '09/05/2022'
 export const uuid = '1293c'
 
 export const refs = {
-  'fr-fr': ['can5C19','6N2A-flash10'],
-  'fr-ch': []
+  'fr-fr': ['can5C19', '6N2A-flash10'],
+  'fr-ch': [],
 }
 export default class Soustraire2Decimaux extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 15)
     const b = randint(1, a - 1)
     const d1 = randint(1, 6)
@@ -41,7 +41,7 @@ export default class Soustraire2Decimaux extends ExerciceSimple {
     <br> Mentalement : <br>
    On commence par soustraire les unités : $${texNombre(a + d1 / 10, 1)}-${b}=${texNombre(a - b + d1 / 10, 1)}$.<br>
     Puis les dixièmes : $${texNombre(a - b + d1 / 10, 1)}-${texNombre(d2 / 10)}=${texNombre(a + d1 / 10 - b - d2 / 10, 1)}$`)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

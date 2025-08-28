@@ -99,7 +99,7 @@
         bind:current
         {numberOfQuestions}
         {resultsByQuestion}
-        state={'solutions'}
+        state="{'solutions'}"
       />
     </div>
     <div
@@ -107,14 +107,14 @@
     >
       {#key current}
         <Question
-          consigne={consignes[current]}
-          question={questions[current]}
-          consigneCorrection={consignesCorrections[current]}
-          correction={corrections[current]}
-          mode={'correction'}
-          visible={true}
-          index={current}
-          nextQuestion={() => {}}
+          consigne="{consignes[current]}"
+          question="{questions[current]}"
+          consigneCorrection="{consignesCorrections[current]}"
+          correction="{corrections[current]}"
+          mode="{'correction'}"
+          visible="{true}"
+          index="{current}"
+          nextQuestion="{() => {}}"
         />
         {#if $canOptions.isInteractive}
           <div
@@ -135,9 +135,9 @@
     <NavigationButtons
       bind:current
       {numberOfQuestions}
-      state={'solutions'}
+      state="{'solutions'}"
       {resultsByQuestion}
-      handleEndOfRace={() => {}}
+      handleEndOfRace="{() => {}}"
     />
   {/if}
   {#if $canOptions.solutionsMode === 'gathered'}
@@ -171,11 +171,11 @@
       </div>
       <div class="flex justify-center text-center">
         <ButtonToggle
-          bind:value={displayCorrection}
-          titles={[
+          bind:value="{displayCorrection}"
+          titles="{[
             'Correction uniquement des mauvaises réponses',
             'Correction de toutes les questions',
-          ]}
+          ]}"
         />
       </div>
     </div>
@@ -191,40 +191,42 @@
             >
               Question {i + 1}
             </div>
-            <div class={$canOptions.isInteractive ? 'flex text-xl' : 'hidden'}>
+            <div
+              class="{$canOptions.isInteractive ? 'flex text-xl' : 'hidden'}"
+            >
               {#if resultsByQuestion[i]}
                 <button
                   type="button"
-                  on:click={() => {
+                  on:click="{() => {
                     solutionDisplayed[i] = !solutionDisplayed[i]
-                  }}
+                  }}"
                 >
                   <i
                     class="pl-2 bx bxs-check-square text-coopmaths-warn-800 dark:text-green-500"
-                  />
+                  ></i>
                 </button>
               {:else}
                 <i
                   class="pl-2 bx bxs-x-square text-red-500 dark:text-coopmathsdark-warn"
-                />
+                ></i>
               {/if}
             </div>
           </div>
           <div class="flex flex-col">
             <div
               class="p-2 text-pretty text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              hidden={!solutionDisplayed[i] &&
+              hidden="{!solutionDisplayed[i] &&
                 resultsByQuestion[i] &&
-                displayCorrection}
+                displayCorrection}"
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html removeMathField(questions[i], false)}
             </div>
             <div
               class="p-2 text-pretty bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus-darkest"
-              hidden={!solutionDisplayed[i] &&
+              hidden="{!solutionDisplayed[i] &&
                 resultsByQuestion[i] &&
-                displayCorrection}
+                displayCorrection}"
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html consignesCorrections[i]}

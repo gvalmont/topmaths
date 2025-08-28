@@ -10,18 +10,91 @@ export const interactifType = 'mathLive'
 export const uuid = 'e9cf0'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
-const objets: Record<string, { min: number, max: number, multiplicateur: number, billet: number, valeurExclue: number[] }>[] = [
-  { 'Une paire de baskets': { min: 7, max: 12, multiplicateur: 10, billet: 50, valeurExclue: [10] } },
-  { 'Un T-shirt': { min: 1, max: 3, multiplicateur: 5, billet: 20, valeurExclue: [2] } },
-  { 'Un sac à dos': { min: 3, max: 7, multiplicateur: 10, billet: 50, valeurExclue: [5] } },
-  { 'Un pantalon': { min: 3, max: 8, multiplicateur: 10, billet: 50, valeurExclue: [5] } },
-  { 'Un livre': { min: 1, max: 3, multiplicateur: 5, billet: 20, valeurExclue: [2] } },
-  { 'Un Jeu vidéo': { min: 5, max: 10, multiplicateur: 10, billet: 50, valeurExclue: [10] } },
-  { 'Un mini-robot': { min: 6, max: 12, multiplicateur: 10, billet: 50, valeurExclue: [10] } },
-  { 'Un drone': { min: 7, max: 15, multiplicateur: 5, billet: 50, valeurExclue: [10] } },
+const objets: Record<
+  string,
+  {
+    min: number
+    max: number
+    multiplicateur: number
+    billet: number
+    valeurExclue: number[]
+  }
+>[] = [
+  {
+    'Une paire de baskets': {
+      min: 7,
+      max: 12,
+      multiplicateur: 10,
+      billet: 50,
+      valeurExclue: [10],
+    },
+  },
+  {
+    'Un T-shirt': {
+      min: 1,
+      max: 3,
+      multiplicateur: 5,
+      billet: 20,
+      valeurExclue: [2],
+    },
+  },
+  {
+    'Un sac à dos': {
+      min: 3,
+      max: 7,
+      multiplicateur: 10,
+      billet: 50,
+      valeurExclue: [5],
+    },
+  },
+  {
+    'Un pantalon': {
+      min: 3,
+      max: 8,
+      multiplicateur: 10,
+      billet: 50,
+      valeurExclue: [5],
+    },
+  },
+  {
+    'Un livre': {
+      min: 1,
+      max: 3,
+      multiplicateur: 5,
+      billet: 20,
+      valeurExclue: [2],
+    },
+  },
+  {
+    'Un Jeu vidéo': {
+      min: 5,
+      max: 10,
+      multiplicateur: 10,
+      billet: 50,
+      valeurExclue: [10],
+    },
+  },
+  {
+    'Un mini-robot': {
+      min: 6,
+      max: 12,
+      multiplicateur: 10,
+      billet: 50,
+      valeurExclue: [10],
+    },
+  },
+  {
+    'Un drone': {
+      min: 7,
+      max: 15,
+      multiplicateur: 5,
+      billet: 50,
+      valeurExclue: [10],
+    },
+  },
 ]
 
 /**
@@ -29,7 +102,7 @@ const objets: Record<string, { min: number, max: number, multiplicateur: number,
 
 */
 export default class Can2025CE2Q13 extends ExerciceCan {
-  enonce (prix?:number, nbBillets?: number, billet?: number, objet?: string) {
+  enonce(prix?: number, nbBillets?: number, billet?: number, objet?: string) {
     let min = 2
     let max = 12
     let multiplicateur = 10
@@ -37,8 +110,14 @@ export default class Can2025CE2Q13 extends ExerciceCan {
     billet = 50
     if (prix == null || nbBillets == null || billet == null || objet == null) {
       const obj = choice(objets)
-      let value: { min: number, max: number, multiplicateur: number, billet: number, valeurExclue: number[] };
-      [objet, value] = Object.entries(obj)[0]
+      let value: {
+        min: number
+        max: number
+        multiplicateur: number
+        billet: number
+        valeurExclue: number[]
+      }
+      ;[objet, value] = Object.entries(obj)[0]
       min = value.min
       max = value.max
       multiplicateur = value.multiplicateur
@@ -58,7 +137,9 @@ export default class Can2025CE2Q13 extends ExerciceCan {
     this.optionsChampTexte = { texteApres: ' €' }
   }
 
-  nouvelleVersion () {
-    this.canOfficielle ? this.enonce(70, 2, 50, 'Une paire de basckets') : this.enonce()
+  nouvelleVersion() {
+    this.canOfficielle
+      ? this.enonce(70, 2, 50, 'Une paire de basckets')
+      : this.enonce()
   }
 }

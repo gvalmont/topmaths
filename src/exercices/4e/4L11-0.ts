@@ -1,9 +1,15 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenuSansNumero,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -31,51 +37,59 @@ export const refs = {
 }
 
 export default class FactoriserExpressionsNiv1 extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.sup = 4
     this.nbQuestions = 8
     this.nbCols = 2
     this.nbColsCorr = 2
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     this.listeAvecNumerotation = false
     this.besoinFormulaireTexte = [
-      'Type d\'expressions', [
+      "Type d'expressions",
+      [
         'Nombres séparés par des tirets  :',
         '1 : Expressions de type ax+ab',
         '2 : Expressions de type ax+b',
         '3 : Expressions de type ax²+b',
-        '4 : Mélange'
-      ].join('\n')
+        '4 : Mélange',
+      ].join('\n'),
     ]
     this.besoinFormulaire2Texte = [
-      'Nombre de facteurs négatifs', [
+      'Nombre de facteurs négatifs',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Aucun',
         '2 : Un seul',
         '3 : Deux',
-        '4 : Mélange'
-      ].join('\n')
+        '4 : Mélange',
+      ].join('\n'),
     ]
-    this.besoinFormulaire3CaseACocher = ['Signe $\\times$ dans la reponse finale', true]
+    this.besoinFormulaire3CaseACocher = [
+      'Signe $\\times$ dans la reponse finale',
+      true,
+    ]
     this.besoinFormulaire4CaseACocher = ['Avec uniquement la lettre $x$', true]
     this.sup2 = 4
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Factoriser les expressions suivantes.'
+        : "Factoriser l'expression suivante."
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
       listeOfCase: [
         'facteurVisible',
         'facteurInvisible',
-        'facteurInvisibleAvecX2'
+        'facteurInvisibleAvecX2',
       ],
       min: 1,
       max: 3,
       melange: 4,
-      defaut: 4
+      defaut: 4,
     }).map(String)
     const nombreDeSignesNegatifs = gestionnaireFormulaireTexte({
       saisie: this.sup2,
@@ -83,10 +97,10 @@ export default class FactoriserExpressionsNiv1 extends Exercice {
       min: 1,
       max: 3,
       melange: 4,
-      defaut: 4
+      defaut: 4,
     }).map(String)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let reponse = ''
@@ -112,28 +126,34 @@ export default class FactoriserExpressionsNiv1 extends Exercice {
           break
       }
 
-      const inconnue = this.sup4 ? 'x' : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'])
+      const inconnue = this.sup4
+        ? 'x'
+        : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'])
 
       // Variation dans l'ordre des termes
       const premierTermesX = choice([true, false]) // ordre aléatoire des termes
-      const terme = inconnue + (listeTypeDeQuestions[i] === 'facteurInvisibleAvecX2' ? '^2' : '')
-      const expr1 = listeTypeDeQuestions[i] === 'facteurVisible'
-        ? premierTermesX
-          ? `${var1}${terme}${ecritureAlgebrique(var2)}\\times${b}` // Expressions de type var1*x + var2*b où il faut mettre en évidence le facteur
-          : `${var1}\\times${b}${ecritureAlgebrique(var2)}${terme}`      // Expressions de type var1*b + var2*x où il faut mettre en évidence le facteur
-        : premierTermesX
-          ? `${var1}${terme}${ecritureAlgebrique(var2 * b)}` // Expressions de type var1*x + var2*b où il faut mettre en évidence le facteur
-          : `${var1 * b}${ecritureAlgebrique(var2)}${terme}`      // Expressions de type var1*b + var2*x où il faut mettre en évidence le facteur
+      const terme =
+        inconnue +
+        (listeTypeDeQuestions[i] === 'facteurInvisibleAvecX2' ? '^2' : '')
+      const expr1 =
+        listeTypeDeQuestions[i] === 'facteurVisible'
+          ? premierTermesX
+            ? `${var1}${terme}${ecritureAlgebrique(var2)}\\times${b}` // Expressions de type var1*x + var2*b où il faut mettre en évidence le facteur
+            : `${var1}\\times${b}${ecritureAlgebrique(var2)}${terme}` // Expressions de type var1*b + var2*x où il faut mettre en évidence le facteur
+          : premierTermesX
+            ? `${var1}${terme}${ecritureAlgebrique(var2 * b)}` // Expressions de type var1*x + var2*b où il faut mettre en évidence le facteur
+            : `${var1 * b}${ecritureAlgebrique(var2)}${terme}` // Expressions de type var1*b + var2*x où il faut mettre en évidence le facteur
       texte = `$${lettre}=${expr1}$`
       texteCorr = texte
 
       if (premierTermesX) {
         // Étape 1: Réécrivons avec les facteurs explicites
-        texteCorr += var1 > 0
-          ? (var1 === var2
+        texteCorr +=
+          var1 > 0
+            ? var1 === var2
               ? `<br>$${lettre}=${miseEnEvidence(var1, 'blue')}\\times ${terme}+${miseEnEvidence(var2, 'blue')}\\times${b}$`
-              : `<br>$${lettre}=${miseEnEvidence(var1, 'blue')}\\times ${terme}-${miseEnEvidence(-var2, 'blue')}\\times${b}$`)
-          : `<br>$${lettre}=${var1}\\times ${terme}${ecritureAlgebrique(var2)}\\times${b}$`
+              : `<br>$${lettre}=${miseEnEvidence(var1, 'blue')}\\times ${terme}-${miseEnEvidence(-var2, 'blue')}\\times${b}$`
+            : `<br>$${lettre}=${var1}\\times ${terme}${ecritureAlgebrique(var2)}\\times${b}$`
 
         // Si var2 est négatif ou var1 est négatif (mais pas les deux)
         if (var1 * var2 < 0) {
@@ -153,11 +173,12 @@ export default class FactoriserExpressionsNiv1 extends Exercice {
         }
       } else {
         // Étape 1: Réécrivons avec les facteurs explicites
-        texteCorr += var1 > 0
-          ? (var1 === var2
+        texteCorr +=
+          var1 > 0
+            ? var1 === var2
               ? `<br>$${lettre}=${miseEnEvidence(var1, 'blue')}\\times${b}+${miseEnEvidence(var2, 'blue')}\\times ${terme}$`
-              : `<br>$${lettre}=${miseEnEvidence(var1, 'blue')}\\times${b}-${miseEnEvidence(-var2, 'blue')}\\times ${terme}$`)
-          : `<br>$${lettre}=${var1}\\times${b}${ecritureAlgebrique(var2)}\\times ${terme}$`
+              : `<br>$${lettre}=${miseEnEvidence(var1, 'blue')}\\times${b}-${miseEnEvidence(-var2, 'blue')}\\times ${terme}$`
+            : `<br>$${lettre}=${var1}\\times${b}${ecritureAlgebrique(var2)}\\times ${terme}$`
 
         // Si var1 est négatif ou var2 est négatif (mais pas les deux)
         if (var1 * var2 < 0) {
@@ -184,12 +205,19 @@ export default class FactoriserExpressionsNiv1 extends Exercice {
       texteCorr += `<br>$${lettre}=${reponse}$`
 
       if (!context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
-        handleAnswers(this, i, { reponse: { value: reponse, options: { factorisation: true } } })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecVariable,
+          { texteAvant: ' $=$' },
+        )
+        handleAnswers(this, i, {
+          reponse: { value: reponse, options: { factorisation: true } },
+        })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,
-          propositions: [{ texte: texteCorr, statut: 3, feedback: '' }]
+          propositions: [{ texte: texteCorr, statut: 3, feedback: '' }],
         }
       }
 
@@ -206,7 +234,8 @@ export default class FactoriserExpressionsNiv1 extends Exercice {
 
       // texte += `<br>$${lettre}=${reponse}$` // Pour débuggage
 
-      if (this.questionJamaisPosee(i, a, b, k)) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, a, b, k)) {
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -11,10 +11,10 @@ const minVersion = {
   'Mobile Safari': 12,
   'Mobile Chrome': 63,
   'Chrome Headless': 80,
-  'Mobile Firefox': 136
+  'Mobile Firefox': 136,
 }
 
-export function checkBrowserVersion () {
+export function checkBrowserVersion() {
   const uap = new UAParser()
   const { browser, cpu, device, os, ua } = uap.getResult()
 
@@ -25,15 +25,37 @@ export function checkBrowserVersion () {
   const browserName = browser.name
   const browserVersion = browser.major ? parseInt(browser.major, 10) : 0
   let popupMessage = ''
-  if (browserName && minVersion[browserName as keyof typeof minVersion] && browserVersion < minVersion[browserName as keyof typeof minVersion]) {
+  if (
+    browserName &&
+    minVersion[browserName as keyof typeof minVersion] &&
+    browserVersion < minVersion[browserName as keyof typeof minVersion]
+  ) {
     popupMessage = `Votre navigateur (${browserName} ${browserVersion}) est trop vieux. Veuillez mettre à jour votre navigateur pour une meilleure expérience.`
   }
   if (!minVersion[browserName as keyof typeof minVersion]) {
-    window.notify('Navigateur inconnu', { browserName, browserVersion, browser, cpu, os, device, ua })
+    window.notify('Navigateur inconnu', {
+      browserName,
+      browserVersion,
+      browser,
+      cpu,
+      os,
+      device,
+      ua,
+    })
   }
   const url = new URL(window.location.href)
   if (url.hostname === 'localhost' && url.searchParams.get('log') === '2') {
-    popupMessage = Object.entries({ browserName, browserVersion, browser, cpu, os, device, ua }).map(([key, value]) => `${key}: ${value}`).join('<br>')
+    popupMessage = Object.entries({
+      browserName,
+      browserVersion,
+      browser,
+      cpu,
+      os,
+      device,
+      ua,
+    })
+      .map(([key, value]) => `${key}: ${value}`)
+      .join('<br>')
   }
   return { popupMessage, browserName, browserVersion }
 }

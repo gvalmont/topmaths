@@ -9,7 +9,7 @@ const qcmData: QcmJsonData = {
   options: {
     vertical: false,
     ordered: false,
-    lastChoice: 8
+    lastChoice: 8,
   },
   questions: [
     {
@@ -18,14 +18,14 @@ const qcmData: QcmJsonData = {
         '$4$', // Bonne réponse (toujours en premier)
         '$3$',
         '$5$',
-        '$22$'
+        '$22$',
       ],
       corrections: [
         'Correct ! $2 + 2 = 4$',
         'Erreur : vérifiez votre calcul',
         'Erreur : $2 + 2 \\neq 5$',
-        'Erreur : ce n\'est pas une concaténation'
-      ]
+        "Erreur : ce n'est pas une concaténation",
+      ],
     },
     {
       enonce: 'Quelle est la racine carrée de $16$ ?',
@@ -33,14 +33,14 @@ const qcmData: QcmJsonData = {
         '$4$', // Bonne réponse
         '$8$',
         '$2$',
-        '$6$'
+        '$6$',
       ],
       corrections: [
         'Correct ! $\\sqrt{16} = 4$ car $4^2 = 16$',
         'Erreur : $8^2 = 64$',
         'Erreur : $2^2 = 4$',
-        'Erreur : $6^2 = 36$'
-      ]
+        'Erreur : $6^2 = 36$',
+      ],
     },
     {
       enonce: 'Quelle est la valeur de $\\pi$ (approximation) ?',
@@ -48,16 +48,16 @@ const qcmData: QcmJsonData = {
         '$3,14$', // Bonne réponse
         '$3,41$',
         '$2,71$',
-        '$1,41$'
+        '$1,41$',
       ],
       corrections: [
         'Correct ! $\\pi \\approx 3,14159...$',
         'Erreur : vous avez inversé les chiffres',
-        'Erreur : c\'est l\'approximation de $e$',
-        'Erreur : c\'est l\'approximation de $\\sqrt{2}$'
-      ]
-    }
-  ]
+        "Erreur : c'est l'approximation de $e$",
+        "Erreur : c'est l'approximation de $\\sqrt{2}$",
+      ],
+    },
+  ],
 }
 
 // Export de la classe d'exercice configurée
@@ -69,12 +69,12 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 // Création de l'exercice
 export default class ExempleQcmJson extends QcmJsonGenerator {
-  constructor () {
+  constructor() {
     super(qcmData)
 
     // Configuration spécifique

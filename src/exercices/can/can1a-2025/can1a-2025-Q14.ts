@@ -3,13 +3,14 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-export const titre = 'Calculer la probabilité d\'une intersection d\'événements indépendants'
+export const titre =
+  "Calculer la probabilité d'une intersection d'événements indépendants"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '4b3b4'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q14 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +28,7 @@ export default class Can2025N5Q14 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 0.4 : randint(1, 9) / 10
     const b = this.canOfficielle ? 0.6 : randint(1, 9) / 10
     const pAinterB = a * b
@@ -47,6 +48,8 @@ P(A\\cap B)&=${miseEnEvidence(this.reponse)}
     this.canReponseACompleter = '$P(A\\cap B)=\\ldots$'
     if (!this.interactif) {
       this.question += '<br> $P(A\\cap B)=\\ldots$.'
-    } else { this.question += '<br>$P(A\\cap B)=$' }
+    } else {
+      this.question += '<br>$P(A\\cap B)=$'
+    }
   }
 }

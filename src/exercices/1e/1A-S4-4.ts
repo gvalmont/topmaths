@@ -9,13 +9,14 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '91cbe'
 export const refs = {
   'fr-fr': ['1A-S4-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer la valeur manquante d\'une série de valeurs pondérées dont on connaît la moyenne.'
+export const titre =
+  "Déterminer la valeur manquante d'une série de valeurs pondérées dont on connaît la moyenne."
 export const dateDePublication = '01/08/2025'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
@@ -28,7 +29,7 @@ export default class MoyennePondereeQCM extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
 
-  private appliquerLesValeurs (): void {
+  private appliquerLesValeurs(): void {
     let x: number
     let notes: number[]
     let coeffX: number
@@ -40,7 +41,7 @@ export default class MoyennePondereeQCM extends ExerciceQcmA {
     // let propositionImpossibleIncluse = false // Pour savoir si on inclut la proposition "Impossible" dans les distracteurs
 
     do {
-      effectif = randint(3, 4)// nombre de notes connues à coefficient 1
+      effectif = randint(3, 4) // nombre de notes connues à coefficient 1
       notes = Array.from({ length: effectif }, () => randint(8, 15))
       coeffX = choice([2, 3])
       moyenne = randint(10, 16)
@@ -53,26 +54,35 @@ export default class MoyennePondereeQCM extends ExerciceQcmA {
       x = (totalCible - sommeProduits) / coeffX // Calcul de x
 
       if (!Number.isInteger(x)) continue // Si x entier
-      estPossible = x >= 0 && x <= 20   // On veut vérifier que x dans l'intervalle [0, 20]
+      estPossible = x >= 0 && x <= 20 // On veut vérifier que x dans l'intervalle [0, 20]
     } while (!Number.isInteger(x) || (!estPossible && Math.random() < 0.8)) // On continue jusqu'à ce que x soit entier et dans l'intervalle [0, 20] ou qu'on ait une chance de 20% de ne pas respecter cette condition (pour avoir le cas impossible)
 
-    function shuffleArray<T> (array: T[]): void {
+    function shuffleArray<T>(array: T[]): void {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
+        ;[array[i], array[j]] = [array[j], array[i]]
       }
-    }// Fonction pour mélanger un tableau (je pense qu'elle ne sert à rien ici, mais je n'ose pas l'enlever)
+    } // Fonction pour mélanger un tableau (je pense qu'elle ne sert à rien ici, mais je n'ose pas l'enlever)
 
-    function genererDistracteurs (x: number, inclureImpossible: boolean): string[] {
+    function genererDistracteurs(
+      x: number,
+      inclureImpossible: boolean,
+    ): string[] {
       const numeriques = [-3, -2, -1, 1, 2, 3]
-        .map(delta => x + delta)
-        .filter(val => Number.isInteger(val) && val >= 0 && val <= 20 && val !== x)
+        .map((delta) => x + delta)
+        .filter(
+          (val) => Number.isInteger(val) && val >= 0 && val <= 20 && val !== x,
+        )
 
       shuffleArray(numeriques)
-      const distracteursTexte = numeriques.slice(0, inclureImpossible ? 2 : 3).map(val => `$x=${texNombre(val)}$`)
+      const distracteursTexte = numeriques
+        .slice(0, inclureImpossible ? 2 : 3)
+        .map((val) => `$x=${texNombre(val)}$`)
 
       if (inclureImpossible) {
-        distracteursTexte.push('Impossible, il faudrait une note supérieure à 20.')
+        distracteursTexte.push(
+          'Impossible, il faudrait une note supérieure à 20.',
+        )
       }
 
       shuffleArray(distracteursTexte)
@@ -83,24 +93,29 @@ export default class MoyennePondereeQCM extends ExerciceQcmA {
 
     //  En-têtes : 'Devoir', puis '1', '2', ..., jusqu'à la colonne de x
     const entetesColonnes = ['\\text{Devoir}'].concat(
-      Array.from({ length: nbColonnes }, (_, i) => `${i + 1}`)
+      Array.from({ length: nbColonnes }, (_, i) => `${i + 1}`),
     )
 
     const entetesLignes = ['\\text{Note}', '\\text{Coefficient}']
-    const ligneNotes = [...notes.map(n => `${n}`), 'x']
+    const ligneNotes = [...notes.map((n) => `${n}`), 'x']
     const ligneCoeffs = [...notes.map(() => '1'), `${coeffX}`]
     const contenu = [...ligneNotes, ...ligneCoeffs]
 
     //  Tableau KaTeX
     const tableau = tableauColonneLigne(entetesColonnes, entetesLignes, contenu)
-    const produits = notes.map(n => `${n} \\times 1`).join(' + ')
+    const produits = notes.map((n) => `${n} \\times 1`).join(' + ')
     const sommeLitterale = `${sommeProduits} + ${coeffX}x`
     const sommeCoeffsDetail = notes.map(() => '1').join(' + ') + ` + ${coeffX}`
     const coeffsErreur = Array.from({ length: notes.length }, (_, i) => i + 1)
-    const sommeCoeffsErreur = coeffsErreur.reduce((a, b) => a + b, 0) + (notes.length + 1) // x en dernière position
-    const sommeProduitsErreur = notes.reduce((acc, note, i) => acc + note * coeffsErreur[i], 0)
+    const sommeCoeffsErreur =
+      coeffsErreur.reduce((a, b) => a + b, 0) + (notes.length + 1) // x en dernière position
+    const sommeProduitsErreur = notes.reduce(
+      (acc, note, i) => acc + note * coeffsErreur[i],
+      0,
+    )
 
-    const xErreur = (moyenne * sommeCoeffsErreur - sommeProduitsErreur) / (notes.length + 1)
+    const xErreur =
+      (moyenne * sommeCoeffsErreur - sommeProduitsErreur) / (notes.length + 1)
 
     let distracteurErreur: string | null = null
 
@@ -126,10 +141,7 @@ On cherche ce que doit valoir $x$ pour que la moyenne de l'élève soit égale $
         distracteurs.push(distracteurErreur)
         shuffleArray(distracteurs)
       }
-      this.reponses = [
-      `$x=${texNombre(x)}$`,
-      ...distracteurs
-      ]
+      this.reponses = [`$x=${texNombre(x)}$`, ...distracteurs]
 
       this.correction = `
 Pour déterminer la moyenne de l'élève, on calcule :<br>
@@ -163,12 +175,14 @@ $
         distracteursSet.add(val)
       }
 
-      const distracteurs = Array.from(distracteursSet).map(val => `$x=${texNombre(val)}$`)
+      const distracteurs = Array.from(distracteursSet).map(
+        (val) => `$x=${texNombre(val)}$`,
+      )
       shuffleArray(distracteurs)
 
       this.reponses = [
         'Impossible, il faudrait une note supérieure à 20.',
-        ...distracteurs
+        ...distracteurs,
       ]
 
       this.correction = `
@@ -201,7 +215,7 @@ Mais cette valeur dépasse 20. Il est donc <strong>impossible</strong> d'obtenir
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: false, ordered: false }
     this.versionAleatoire()

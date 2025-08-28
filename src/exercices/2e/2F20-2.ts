@@ -5,7 +5,8 @@ import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  reduirePolynomeDegre3, rienSi1
+  reduirePolynomeDegre3,
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texteCentre } from '../../lib/format/miseEnPage'
@@ -13,44 +14,51 @@ import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 import {
-  listeQuestionsToContenu, randint
-} from '../../modules/outils'
+  fraction,
+  obtenirListeFractionsIrreductibles,
+  obtenirListeFractionsIrreductiblesFaciles,
+} from '../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-export const titre = 'Calculer des coordonnées de points appartenant à une courbe connaissant l\'abscisse ou l\'ordonnée'
+export const titre =
+  "Calculer des coordonnées de points appartenant à une courbe connaissant l'abscisse ou l'ordonnée"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '24/09/2022'
 export const dateDeModifImportante = '07/11/2023'
 /**
-* Répondre à des questions sur les fonctions.
-* @author Gilles Mora
-*/
+ * Répondre à des questions sur les fonctions.
+ * @author Gilles Mora
+ */
 
 export const uuid = 'ec059'
 
 export const refs = {
   'fr-fr': ['2F20-2'],
-  'fr-ch': ['11FA9-2']
+  'fr-ch': ['11FA9-2'],
 }
 export default class CalculPointSurCourbe extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
       'Choix des questions',
       4,
-      '1 : Fonction affine\n2 : Polynôme de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
+      '1 : Fonction affine\n2 : Polynôme de degré 2 \n3 : Fonction a/x+b \n4 : Mélange',
     ]
-    this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaire\n3 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Choix des questions',
+      3,
+      '1 : Valeurs entières\n2 : Valeurs fractionnaire\n3 : Mélange',
+    ]
     this.sup = 1
     this.sup2 = 1
 
     this.nbQuestions = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1:
@@ -67,9 +75,12 @@ export default class CalculPointSurCourbe extends Exercice {
         typesDeQuestionsDisponibles = ['affine', 'polynôme', 'a/x+b']
         break
 
-       //
+      //
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     let sousChoix
     if (this.sup2 === 1) {
       sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
@@ -79,21 +90,45 @@ export default class CalculPointSurCourbe extends Exercice {
       sousChoix = combinaisonListes([0, 1], this.nbQuestions)
     }
 
-    const nomF = [
-      ['f'], ['g'], ['h'], ['u'],
-      ['v'], ['w']
-    ]
-    const pointM = [
-      ['M'], ['N'], ['P'], ['R'],
-      ['S'], ['T']
-    ]
-    for (let i = 0, texte, texteCorr, nom, point, x, y, a, b, c, abs, f, ord, f1, fa, fb, fractionA, fractionB, fractionC, fractionb, fractionb2, fractionc, enonce, correction, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const nomF = [['f'], ['g'], ['h'], ['u'], ['v'], ['w']]
+    const pointM = [['M'], ['N'], ['P'], ['R'], ['S'], ['T']]
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        nom,
+        point,
+        x,
+        y,
+        a,
+        b,
+        c,
+        abs,
+        f,
+        ord,
+        f1,
+        fa,
+        fb,
+        fractionA,
+        fractionB,
+        fractionC,
+        fractionb,
+        fractionb2,
+        fractionc,
+        enonce,
+        correction,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // on ne choisit que des nombres compris entre 1 et 20
       x = randint(-9, 9, [0, 1, -1])
       y = randint(-9, 9, [x, 0])
       switch (listeTypeDeQuestions[i]) {
         case 'affine':
-          switch (sousChoix[i]) { // sousChoix[i]
+          switch (
+            sousChoix[i] // sousChoix[i]
+          ) {
             case 0:
               a = randint(-12, 12, [0, 1])
               b = randint(-12, 12, 0)
@@ -148,11 +183,11 @@ export default class CalculPointSurCourbe extends Exercice {
               a = randint(-10, 10, [0, 1])
               b = randint(-10, 10, 0)
               f = choice(obtenirListeFractionsIrreductibles())
-              f1 = new FractionEtendue(a * f.n + b * f.d, f.d)// ordonnée du point
+              f1 = new FractionEtendue(a * f.n + b * f.d, f.d) // ordonnée du point
               fractionb = new FractionEtendue(b * f1.d, f1.d)
               fractionA = new FractionEtendue(f.n - b * f.d, f.d)
               fractionB = new FractionEtendue(b * f.d, f.d)
-              fractionC = new FractionEtendue(f.n - b * f.d, a * f.d)// abscisse du point
+              fractionC = new FractionEtendue(f.n - b * f.d, a * f.d) // abscisse du point
               nom = choice(nomF)
               point = choice(pointM)
               if (choice([true, false])) {
@@ -219,7 +254,9 @@ export default class CalculPointSurCourbe extends Exercice {
 
           break
         case 'polynôme':
-          switch (sousChoix[i]) { // ax^2+bx+c
+          switch (
+            sousChoix[i] // ax^2+bx+c
+          ) {
             case 0:
               if (choice([true, false])) {
                 a = randint(-10, 10, 0)
@@ -278,31 +315,49 @@ Si oui, quelles sont les abscisses possibles de ces points ?<br>
                 } else if (abs < 0) {
                   correction += ` Cette équation n'a pas de solution.<br>
  On en déduit qu'il n'existe pas de point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$. `
-                  handleAnswers(this, i, { reponse: { value: '\\emptyset', options: { ensembleDeNombres: true } } })
+                  handleAnswers(this, i, {
+                    reponse: {
+                      value: '\\emptyset',
+                      options: { ensembleDeNombres: true },
+                    },
+                  })
                 } else {
                   if (abs === 1 || abs === 4 || abs === 9 || abs === 16) {
                     correction += ` Cette équation a deux solutions : $-\\sqrt{${abs}}=-${Math.sqrt(abs)}$ et $\\sqrt{${abs}}=${Math.sqrt(abs)}$.<br>
                 On en déduit qu'il existe deux points de $\\mathscr{C}$ ayant pour ordonnée $${ord}$.<br>
                 Les  abscisses de ces points sont : $${miseEnEvidence(`-${Math.sqrt(abs)}`)}$ et $${miseEnEvidence(Math.sqrt(abs))}$. `
-                    handleAnswers(this, i, { reponse: { value: `-${Math.sqrt(abs)};${Math.sqrt(abs)}`, options: { suiteDeNombres: true } } })
+                    handleAnswers(this, i, {
+                      reponse: {
+                        value: `-${Math.sqrt(abs)};${Math.sqrt(abs)}`,
+                        options: { suiteDeNombres: true },
+                      },
+                    })
                   } else {
                     correction += ` Cette équation a deux solutions : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$.<br>
 On en déduit qu'il existe deux points de $\\mathscr{C}$ ayant pour ordonnée $${ord}$.<br>
 Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $${miseEnEvidence(`\\sqrt{${abs}}`)}$. `
-                    handleAnswers(this, i, { reponse: { value: `-\\sqrt{${abs}};\\sqrt{${abs}}`, options: { suiteDeNombres: true } } })
+                    handleAnswers(this, i, {
+                      reponse: {
+                        value: `-\\sqrt{${abs}};\\sqrt{${abs}}`,
+                        options: { suiteDeNombres: true },
+                      },
+                    })
                   }
                 }
               }
 
               break
 
-            case 1:// ax^2+bx+c
+            case 1: // ax^2+bx+c
             default:
               a = randint(-2, 2, 0)
               b = randint(-3, 3)
               c = randint(-2, 2, 0)
               f = choice(obtenirListeFractionsIrreductiblesFaciles())
-              f1 = fraction(a * f.n ** 2 + b * f.n * f.d + c * f.d ** 2, f.d ** 2)// ordonnée de A
+              f1 = fraction(
+                a * f.n ** 2 + b * f.n * f.d + c * f.d ** 2,
+                f.d ** 2,
+              ) // ordonnée de A
               nom = choice(nomF)
               point = choice(pointM)
               fractionb = new FractionEtendue(b * f.n, f.d)
@@ -351,8 +406,9 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
 
         case 'a/x+b':
         default:
-
-          switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
+          switch (
+            sousChoix[i] // sousChoix[i] = randint(0, 5)
+          ) {
             case 0:
               if (choice([true, false])) {
                 a = randint(-9, 9, 0)
@@ -360,8 +416,10 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
                 abs = randint(-9, 9, [0, 1, -1])
                 nom = choice(nomF)
                 point = choice(pointM)
-                while (pgcd(a, abs) !== 1) { a = randint(-9, 9, 0) }
-                f1 = new FractionEtendue(a + b * abs, abs)// ordonnée de A
+                while (pgcd(a, abs) !== 1) {
+                  a = randint(-9, 9, 0)
+                }
+                f1 = new FractionEtendue(a + b * abs, abs) // ordonnée de A
                 fa = new FractionEtendue(a, abs)
                 fb = new FractionEtendue(b * abs, abs)
 
@@ -417,7 +475,7 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
                 b = randint(-9, 9, 0)
                 abs = choice(obtenirListeFractionsIrreductiblesFaciles())
 
-                f1 = new FractionEtendue(a * abs.d + b * abs.n, abs.n)// ordonnée de A
+                f1 = new FractionEtendue(a * abs.d + b * abs.n, abs.n) // ordonnée de A
                 fa = new FractionEtendue(a * abs.d, abs.n)
                 fb = new FractionEtendue(b * abs.n, abs.n)
 
@@ -475,10 +533,13 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
       }
 
       texte = enonce
-      texte += ' ' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
+      texte +=
+        ' ' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
       texteCorr = correction
 
-      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
+      if (
+        this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])
+      ) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

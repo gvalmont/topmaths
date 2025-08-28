@@ -2,7 +2,10 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  reduirePolynomeDegre3,
+} from '../../../lib/outils/ecritures'
 export const titre = 'Calculer un nombre dérivé'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,7 +16,7 @@ export const uuid = '88bc2'
 
 */
 export default class nombreDerive extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -22,7 +25,7 @@ export default class nombreDerive extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: number
     let b: number
     let nbre: number
@@ -46,6 +49,8 @@ export default class nombreDerive extends ExerciceSimple {
   \\end{aligned}$`
     this.canEnonce = `$f(x)=${reduirePolynomeDegre3(0, a, 0, b)}$`
     this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
-    if (!this.interactif) { this.question += ' $\\ldots$' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots$'
+    }
   }
 }

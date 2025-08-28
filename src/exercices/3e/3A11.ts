@@ -1,7 +1,10 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { warnMessage } from '../../lib/format/message'
 import { numAlpha } from '../../lib/outils/outilString'
-import { decompositionFacteursPremiersArray, premiersEntreBornes } from '../../lib/outils/primalite'
+import {
+  decompositionFacteursPremiersArray,
+  premiersEntreBornes,
+} from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
@@ -16,30 +19,44 @@ export const uuid = 'a6667'
 
 export const refs = {
   'fr-fr': ['3A11'],
-  'fr-ch': ['9NO12-8']
+  'fr-ch': ['9NO12-8'],
 }
 export default class FractionsIrreductibles extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Décomposition « simple »']
     // pas de différence entre la version html et la version latex pour la consigne
-    this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
-    context.isHtml ? this.spacing = 4 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2
+    this.consigne =
+      'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
+    context.isHtml ? (this.spacing = 4) : (this.spacing = 2)
+    context.isHtml ? (this.spacingCorr = 4) : (this.spacingCorr = 2)
     this.nbQuestions = 1
 
     this.sup = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestions
 
     const typesDeQuestionsDisponibles = [1]
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    this.introduction = warnMessage('À la question ' + numAlpha(3, true) + ', une observation judicieuse et argumentée pourra faire gagner du temps !', 'nombres', 'Coup de pouce')
+    this.introduction = warnMessage(
+      'À la question ' +
+        numAlpha(3, true) +
+        ', une observation judicieuse et argumentée pourra faire gagner du temps !',
+      'nombres',
+      'Coup de pouce',
+    )
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       texte = ''
       texteCorr = ''
@@ -47,7 +64,9 @@ export default class FractionsIrreductibles extends Exercice {
       let nb2 // nbre 2
 
       // on fixe le tableau de choix
-      const candidatsPremiersCommuns = this.sup ? [2, 3, 5] : premiersEntreBornes(2, 13) // tableau des candidats premiers communs
+      const candidatsPremiersCommuns = this.sup
+        ? [2, 3, 5]
+        : premiersEntreBornes(2, 13) // tableau des candidats premiers communs
       // on fixe le nombre de divisuers premiers communs
       const nbDivPremCommuns = this.sup ? 3 : 4 // nombre de diviseurs premiers communs
       // on initialise le tableau des diviseurs premiers communs
@@ -55,7 +74,7 @@ export default class FractionsIrreductibles extends Exercice {
       // on initialise le tableau des rangs
       const r = [] // tableau pour le choix des rangs des diviseurs premiers communs
       // on initialise le tableau des rangs déjà choisis
-      const rExclus : number[] = []// tableau pour la boucle de creation de r
+      const rExclus: number[] = [] // tableau pour la boucle de creation de r
       // on complète le tableau des rangs des rangs des diviseurs premiers choisis
       for (let k = 0; k < nbDivPremCommuns; k++) {
         for (let m = 0; m < k; m++) {
@@ -100,20 +119,24 @@ export default class FractionsIrreductibles extends Exercice {
       const maBorne = this.sup ? 13 : 30
       const rEx = randint(0, premiersEntreBornes(2, maBorne).length - 1) // pour exlcure le rang de nb1
       const nb1Dist = premiersEntreBornes(2, maBorne)[rEx] // diviseur unique du premier nombre
-      const nb2Dist = premiersEntreBornes(2, maBorne)[randint(0, premiersEntreBornes(2, maBorne).length - 1, rEx)] // diviseur unique du deuxième nombre
+      const nb2Dist = premiersEntreBornes(2, maBorne)[
+        randint(0, premiersEntreBornes(2, maBorne).length - 1, rEx)
+      ] // diviseur unique du deuxième nombre
       // on ajoute nb1_dist, nb2_dist dans les tableaux des diviseurs premiers du premier et du second nombre
       // nb1
       let bool = false
       let n = 0
       while (n < tabNb1.length && bool !== true) {
-        if (nb1Dist === tabNb1[n]) { // si le diviseur premier est déjà présent on incrémente sa multiplicité
+        if (nb1Dist === tabNb1[n]) {
+          // si le diviseur premier est déjà présent on incrémente sa multiplicité
           multiplicitesNb1[n]++
           bool = true
         }
         n++
       }
       // on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si nécessaire
-      if (!bool) { // il n'est pas présent on l'ajoute avec la multipplicité 1
+      if (!bool) {
+        // il n'est pas présent on l'ajoute avec la multipplicité 1
         tabNb1.push(nb1Dist)
         multiplicitesNb1.push(1)
         bool = true
@@ -122,14 +145,16 @@ export default class FractionsIrreductibles extends Exercice {
       bool = false
       n = 0
       while (n < tabNb2.length && !bool) {
-        if (nb2Dist === tabNb2[n]) { // si le diviseur premier est déjà présent on incrémente sa multiplicité
+        if (nb2Dist === tabNb2[n]) {
+          // si le diviseur premier est déjà présent on incrémente sa multiplicité
           multiplicitesNb2[n]++
           bool = true
         }
         n++
       }
       // on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si nécessaire
-      if (!bool) { // il n'est pas présent on l'ajoute avec la multipplicité 1
+      if (!bool) {
+        // il n'est pas présent on l'ajoute avec la multipplicité 1
         tabNb2.push(nb2Dist)
         multiplicitesNb2.push(1)
         bool = true
@@ -162,8 +187,12 @@ export default class FractionsIrreductibles extends Exercice {
 
       switch (typesDeQuestions) {
         case 1: // décomposition de A
-          texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers.`
-          texteCorr = numAlpha(0) + ' La décomposition en produit de facteurs premier de $A = '
+          texte =
+            numAlpha(0) +
+            ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers.`
+          texteCorr =
+            numAlpha(0) +
+            ' La décomposition en produit de facteurs premier de $A = '
           switch (tabPremMultNb1[0].mult) {
             case 1:
               texteCorr += `${tabPremMultNb1[0].prem}`
@@ -185,8 +214,14 @@ export default class FractionsIrreductibles extends Exercice {
           texteCorr += '$.'
           // break;
           // case 2 : // décomposition de B
-          texte += '<br>' + numAlpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers.`
-          texteCorr += '<br>' + numAlpha(1) + ' La décomposition en produit de facteurs premier de $B = '
+          texte +=
+            '<br>' +
+            numAlpha(1) +
+            ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers.`
+          texteCorr +=
+            '<br>' +
+            numAlpha(1) +
+            ' La décomposition en produit de facteurs premier de $B = '
           switch (tabPremMultNb2[0].mult) {
             case 1:
               texteCorr += `${tabPremMultNb2[0].prem}`
@@ -208,51 +243,127 @@ export default class FractionsIrreductibles extends Exercice {
           texteCorr += '$.'
           // break;
           // case 3 : // reduction de A sur B
-          texte += '<br>' + numAlpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `
+          texte +=
+            '<br>' +
+            numAlpha(2) +
+            ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `
           if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1, true) + '.'
+            texte +=
+              " à l'aide des décompositions obtenues au " +
+              numAlpha(0) +
+              'et au ' +
+              numAlpha(1, true) +
+              '.'
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1, true) + '.'
+            texte +=
+              " à l'aide des questions " +
+              numAlpha(0) +
+              'et ' +
+              numAlpha(1, true) +
+              '.'
           }
-          texteCorr += '<br>' + numAlpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `
+          texteCorr +=
+            '<br>' +
+            numAlpha(2) +
+            ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `
           texteCorr += '\\dfrac{'
-          texteCorr += '\\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] + '}'
-          for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length; k++) {
-            texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
+          texteCorr +=
+            '\\cancel{' +
+            decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] +
+            '}'
+          for (
+            let k = 1;
+            k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length;
+            k++
+          ) {
+            texteCorr +=
+              '\\times \\cancel{' +
+              decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] +
+              '}'
           }
           texteCorr += `\\times ${nb1Dist}}{`
-          texteCorr += '\\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] + '}'
-          for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length; k++) {
-            texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
+          texteCorr +=
+            '\\cancel{' +
+            decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] +
+            '}'
+          for (
+            let k = 1;
+            k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length;
+            k++
+          ) {
+            texteCorr +=
+              '\\times \\cancel{' +
+              decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] +
+              '}'
           }
           texteCorr += `\\times ${nb2Dist}} = `
           texteCorr += `\\dfrac{${nb1Dist}}{${nb2Dist}}$`
           // break;
           // case 4 : // reduction de B sur A
-          texte += '<br>' + numAlpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`
+          texte +=
+            '<br>' +
+            numAlpha(3) +
+            ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`
           if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1, true) + '.'
+            texte +=
+              " à l'aide des décompositions obtenues au " +
+              numAlpha(0) +
+              'et au ' +
+              numAlpha(1, true) +
+              '.'
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1, true) + '.'
+            texte +=
+              " à l'aide des questions " +
+              numAlpha(0) +
+              'et ' +
+              numAlpha(1, true) +
+              '.'
           }
-          texteCorr += '<br>' + numAlpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `
+          texteCorr +=
+            '<br>' +
+            numAlpha(3) +
+            ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `
           texteCorr += '\\dfrac{'
-          texteCorr += '\\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] + '}'
-          for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length; k++) {
-            texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
+          texteCorr +=
+            '\\cancel{' +
+            decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] +
+            '}'
+          for (
+            let k = 1;
+            k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length;
+            k++
+          ) {
+            texteCorr +=
+              '\\times \\cancel{' +
+              decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] +
+              '}'
           }
           texteCorr += `\\times ${nb2Dist}}{`
-          texteCorr += '\\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] + '}'
-          for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length; k++) {
-            texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
+          texteCorr +=
+            '\\cancel{' +
+            decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] +
+            '}'
+          for (
+            let k = 1;
+            k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length;
+            k++
+          ) {
+            texteCorr +=
+              '\\times \\cancel{' +
+              decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] +
+              '}'
           }
           texteCorr += `\\times ${nb1Dist}} = `
           texteCorr += `\\dfrac{${nb2Dist}}{${nb1Dist}}$.`
-          context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+          context.isHtml
+            ? (texteCorr += '<hr>')
+            : (texteCorr += '\\par \\hrulefill \\par')
           texteCorr += ` On peut judicieusement remarquer que $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$
           donc que rendre la fraction $\\dfrac{B}{A}$ irréductible revient à inverser la fraction irréductible
           obtenue pour $\\dfrac{A}{B}$ au ${numAlpha(2, true)}.`
-          context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+          context.isHtml
+            ? (texteCorr += '<hr>')
+            : (texteCorr += '\\par \\hrulefill \\par')
           // break;
           // case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
           // texte += `<br>`+numAlpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$.`;
@@ -262,7 +373,8 @@ export default class FractionsIrreductibles extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, typesDeQuestions, nb1, nb2)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, typesDeQuestions, nb1, nb2)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

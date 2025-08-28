@@ -3,13 +3,11 @@ import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  reduirePolynomeDegre3
+  reduirePolynomeDegre3,
 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
-import {
-  randint
-} from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une ordonnée à partir de l’abscisse d’un point'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,10 +23,10 @@ export const uuid = '1d7cc'
 
 export const refs = {
   'fr-fr': ['can2F14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculOrdonneePoint extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -36,17 +34,13 @@ export default class CalculOrdonneePoint extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    const nomF = [
-      ['f'], ['g'], ['h'], ['u'],
-      ['v'], ['w']
-    ]
-    const pointM = [
-      ['M'], ['N'], ['P'], ['R'],
-      ['S'], ['T']
-    ]
+  nouvelleVersion() {
+    const nomF = [['f'], ['g'], ['h'], ['u'], ['v'], ['w']]
+    const pointM = [['M'], ['N'], ['P'], ['R'], ['S'], ['T']]
     let a, b, c, abs, ord, nom, point
-    switch (choice([1, 2])) { //, , 'b', 'c', 'd'
+    switch (
+      choice([1, 2]) //, , 'b', 'c', 'd'
+    ) {
       case 1:
         a = randint(-10, 10, [0, 1])
         b = randint(-9, 9, 0)

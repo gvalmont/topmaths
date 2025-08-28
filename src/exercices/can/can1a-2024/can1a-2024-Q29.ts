@@ -13,7 +13,7 @@ export const uuid = '29eda'
 
 */
 export default class EvolutionPourcentages extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class EvolutionPourcentages extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 10 : randint(10, 30)
     const b = this.canOfficielle ? 20 : randint(35, 60)
     const choix = this.canOfficielle ? 1 : randint(1, 2)
@@ -44,14 +44,13 @@ export default class EvolutionPourcentages extends ExerciceSimple {
         propositions: [
           {
             texte: 'Vrai ',
-            statut: true
+            statut: true,
           },
           {
             texte: 'Faux',
-            statut: false
-          }
-        ]
-
+            statut: false,
+          },
+        ],
       }
       const qcm = propositionsQcm(this, 0)
 
@@ -59,7 +58,8 @@ export default class EvolutionPourcentages extends ExerciceSimple {
 
       this.canEnonce = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
     diminuer de $${b}\\,\\%$  puis à l’augmenter $${a}\\,\\%$.`
-      this.canReponseACompleter = '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
+      this.canReponseACompleter =
+        '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
     } else {
       question = `Un prix augmente de $${a}\\,\\%$. <br>Pour retrouver son prix initial, il suffit de lui appliquer une baisse  de $${a}\\,\\%$. `
       this.correction = `Une augmentation de $${a}\\,\\%$ n'est pas compensée par une baisse de $${a}\\,\\%$.<br>
@@ -71,21 +71,21 @@ export default class EvolutionPourcentages extends ExerciceSimple {
         propositions: [
           {
             texte: 'Vrai ',
-            statut: false
+            statut: false,
           },
           {
             texte: 'Faux',
-            statut: true
-          }
-        ]
-
+            statut: true,
+          },
+        ],
       }
       const qcm = propositionsQcm(this, 0)
 
       this.question = question + qcm.texte
 
       this.canEnonce = `Un prix augmente de $${a}\\,\\%$. <br>Pour retrouver son prix initial, il suffit de lui appliquer une baisse  de $${b}\\,\\%$. `
-      this.canReponseACompleter = '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
+      this.canReponseACompleter =
+        '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
     }
   }
 }

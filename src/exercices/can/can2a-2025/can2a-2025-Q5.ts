@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '7ab60'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class Mediane extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -27,7 +27,7 @@ export default class Mediane extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 9
       this.question = 'Médiane de la série :<br>'
@@ -49,6 +49,8 @@ export default class Mediane extends ExerciceSimple {
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 }

@@ -3,13 +3,13 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
-export const titre = 'Trouver l\'extremum à partir d\'une forme canonique'
+export const titre = "Trouver l'extremum à partir d'une forme canonique"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '83800'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q18 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,13 +26,15 @@ export default class Can2025N5Q18 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? -4 : randint(-5, 5, 0)
     const alpha = this.canOfficielle ? 3 : randint(-5, 5, 0)
     const beta = this.canOfficielle ? 12 : randint(-15, 15, 0)
     this.reponse = beta
     this.question = `Quel est l'extremum sur $\\mathbb{R}$ de  $x\\longmapsto ${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$ ?  `
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.correction = `On reconnaît la forme canonique d'une fonction polynôme du second degré :\\[f(x)=a(x-\\alpha)^2+\\beta\\] où $\\beta$ est l'extremum.<br>
     L'extremum de $f$ est $${miseEnEvidence(beta)}$.`
     this.canEnonce = this.question

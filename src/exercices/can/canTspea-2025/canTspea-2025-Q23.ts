@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '1216d'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,15 +18,16 @@ export const refs = {
 
 */
 
-function fact (nbr: number) {
-  let i; let f = 1
+function fact(nbr: number) {
+  let i
+  let f = 1
   for (i = 1; i <= nbr; i++) {
-    f = f * i   // ou f *= i;
+    f = f * i // ou f *= i;
   }
   return f
 }
 export default class Can2025TQ23 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -36,12 +37,14 @@ export default class Can2025TQ23 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const n = this.canOfficielle ? 4 : randint(3, 5)
     const k = this.canOfficielle ? 2 : choice([n - 1, n - 2])
     this.reponse = texNombre(fact(n) / (fact(k) * fact(n - k)), 0)
     this.question = `Le coefficient binomial $\\dbinom{${n}}{${k}}$ est égal à :`
-    if (!this.interactif) { this.question += ' $\\ldots$' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots$'
+    }
     this.correction = `$\\dbinom{${n}}{${k}}=\\dfrac{${n}!}{${k}!\\times (${n} - ${k})!}=${miseEnEvidence(this.reponse)}$.`
     this.canEnonce = `Le coefficient binomial $\\dbinom{${n}}{${k}}$ est égal à :`
     this.canReponseACompleter = '$\\ldots$'

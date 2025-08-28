@@ -7,10 +7,10 @@ export const interactifType = 'mathLive'
 export const uuid = 'b4c0d'
 export const refs = {
   'fr-fr': ['3F21'],
-  'fr-ch': ['11FA8-9']
+  'fr-ch': ['11FA8-9'],
 }
 export default class LectureExpressionFonctionsLineaires extends LectureExpressionFonctionsAffines {
-  constructor () {
+  constructor() {
     super()
     this.lineaire = true
   }

@@ -2,7 +2,11 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const amcReady = true
@@ -25,14 +29,20 @@ export const uuid = '9540b'
 export const refs = {
   'fr-fr': ['6N2C-3'],
   'fr-2016': ['6C30-8'],
-  'fr-ch': ['9NO8-16']
+  'fr-ch': ['9NO8-16'],
 }
 export default class DiviserPar101001000 extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireCaseACocher = ['Le dividende est un nombre entier', false]
+    this.besoinFormulaireCaseACocher = [
+      'Le dividende est un nombre entier',
+      false,
+    ]
     this.besoinFormulaire2CaseACocher = ['Trois décimales maximum', true]
-    this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : 10, 100 ou 1 000 à retrouver\n4 : Mélange']
+    this.besoinFormulaire3Texte = [
+      'Type de questions',
+      'Nombres séparés par des tirets :\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : 10, 100 ou 1 000 à retrouver\n4 : Mélange',
+    ]
 
     this.nbQuestions = 4 // Ici le nombre de questions
     this.consigne = 'Compléter les pointillés.'
@@ -41,11 +51,30 @@ export default class DiviserPar101001000 extends Exercice {
     this.sup3 = 4
   }
 
-  nouvelleVersion () {
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, saisie: this.sup3 })
+  nouvelleVersion() {
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup3,
+    })
     const rang = ['millièmes', 'centièmes', 'dixièmes']
 
-    for (let i = 0, texte, texteCorr, coef, nombre, nombreEntier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        coef,
+        nombre,
+        nombreEntier,
+        resultat,
+        exposant,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       coef = -randint(1, 3)
@@ -69,76 +98,78 @@ export default class DiviserPar101001000 extends Exercice {
       } else {
         exposant = this.sup ? 0 : -randint(1, 3)
       }
-      nombreEntier = (randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
-      nombre = (nombreEntier * 10 ** exposant)
-      resultat = (nombre * 10 ** coef)
-      switch (Number(listeTypeDeQuestions[i])) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      nombreEntier = randint(10, 1000) + randint(10, 999) * choice([0, 1000])
+      nombre = nombreEntier * 10 ** exposant
+      resultat = nombre * 10 ** coef
+      switch (
+        Number(listeTypeDeQuestions[i]) // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      ) {
         case 1:
-          texte = `$${texNombre2(nombre)}\\div ${texNombre2((10 ** -coef))}=\\ldots\\ldots\\ldots\\ldots$`
-          texteCorr = `Quand on divise par $${texNombre2((10 ** -coef))}$, chaque chiffre prend une valeur $${texNombre2((10 ** (-coef)))}$ fois plus petite.<br>`
+          texte = `$${texNombre2(nombre)}\\div ${texNombre2(10 ** -coef)}=\\ldots\\ldots\\ldots\\ldots$`
+          texteCorr = `Quand on divise par $${texNombre2(10 ** -coef)}$, chaque chiffre prend une valeur $${texNombre2(10 ** -coef)}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${texNombre2(nombre)}\\div ${texNombre2((10 ** -coef))}=${miseEnEvidence(texNombre2(resultat), 'blue')}$`
+          texteCorr += `$${texNombre2(nombre)}\\div ${texNombre2(10 ** -coef)}=${miseEnEvidence(texNombre2(resultat), 'blue')}$`
 
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${texNombre2(resultat)}$`,
-              statut: true
+              statut: true,
             },
             {
-              texte: `$${texNombre2(nombre * 10 ** (-coef))}$`,
-              statut: false
+              texte: `$${texNombre2(nombre * 10 ** -coef)}$`,
+              statut: false,
             },
             {
               texte: `$${texNombre2(nombre * 10 ** (coef - 1))}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texNombre2(nombre * 10 ** (-coef + 1))}$`,
-              statut: false
-            }
+              statut: false,
+            },
           ]
           this.autoCorrection[i].options = {
             ordered: false,
-            lastChoice: 5
+            lastChoice: 5,
           }
           break
 
         case 3:
           texte = `$${texNombre2(nombre)}\\div \\ldots\\ldots\\ldots=${texNombre2(resultat)}$`
           texteCorr = `Le chiffre des unités de $${texNombre2(nombre)}$ se positionne sur le chiffre des ${rang[3 + coef]} dans $${texNombre2(resultat)}$.<br>`
-          texteCorr += `Chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite, donc on divise par $${texNombre2(10 ** -coef)}$.<br>`
+          texteCorr += `Chaque chiffre prend une valeur $${texNombre2(10 ** -coef)}$ fois plus petite, donc on divise par $${texNombre2(10 ** -coef)}$.<br>`
           texteCorr += `$${texNombre2(nombre)}\\div ${miseEnEvidence(texNombre2(10 ** -coef), 'blue')}=${texNombre2(resultat)}$`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${texNombre2(10 ** 1)}$`,
-              statut: -coef === 1
+              statut: -coef === 1,
             },
             {
               texte: `$${texNombre2(10 ** 2)}$`,
-              statut: -coef === 2
+              statut: -coef === 2,
             },
             {
               texte: `$${texNombre2(10 ** 3)}$`,
-              statut: -coef === 3
+              statut: -coef === 3,
             },
             {
               texte: `$${texNombre2(10 ** 4)}$`,
-              statut: -coef === 4
-            }
+              statut: -coef === 4,
+            },
           ]
           this.autoCorrection[i].options = {
             ordered: false,
-            lastChoice: 5
+            lastChoice: 5,
           }
           break
 
         case 2:
           texte = `$\\ldots\\ldots\\ldots\\ldots\\div ${texNombre2(10 ** -coef)}=${texNombre2(resultat)}$`
-          texteCorr = `Quand on divise par $${texNombre2(10 ** -coef)}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
+          texteCorr = `Quand on divise par $${texNombre2(10 ** -coef)}$, chaque chiffre prend une valeur $${texNombre2(10 ** -coef)}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr += `$${miseEnEvidence(texNombre2(nombre), 'blue')}\\div ${texNombre2(10 ** -coef)}=${texNombre2(resultat)}$`
           this.autoCorrection[i] = {}
@@ -146,24 +177,24 @@ export default class DiviserPar101001000 extends Exercice {
           this.autoCorrection[i].propositions = [
             {
               texte: `$${texNombre2(nombre)}$`,
-              statut: true
+              statut: true,
             },
             {
               texte: `$${texNombre2(nombre / 10)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texNombre2(nombre * 10)}$`,
-              statut: false
+              statut: false,
             },
             {
               texte: `$${texNombre2(nombre * 10 ** (-coef + 1))}$`,
-              statut: false
-            }
+              statut: false,
+            },
           ]
           this.autoCorrection[i].options = {
             ordered: false,
-            lastChoice: 5
+            lastChoice: 5,
           }
           break
       }

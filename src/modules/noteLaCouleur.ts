@@ -17,26 +17,234 @@ import { randint } from './outils'
 import { BoiteBuilder } from '../lib/2d/polygones'
 
 export const thePlateau = [
-  ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
-  ['Blanc', 'Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir', 'Jaune', 'Blanc'],
-  ['Blanc', 'Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris', 'Rouge', 'Blanc'],
-  ['Blanc', 'Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert', 'Orange', 'Blanc'],
-  ['Blanc', 'Vert', 'Bleu', 'Rose', 'Vert', 'Bleu', 'Orange', 'Gris', 'Rouge', 'Orange', 'Jaune', 'Gris', 'Rouge', 'Rose', 'Bleu', 'Blanc'],
-  ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Blanc', 'Blanc', 'Noir', 'Gris', 'Orange', 'Noir', 'Jaune', 'Rose', 'Blanc'],
-  ['Blanc', 'Rose', 'Gris', 'Noir', 'Bleu', 'Vert', 'Bleu', 'Blanc', 'Blanc', 'Rouge', 'Bleu', 'Gris', 'Vert', 'Rouge', 'Noir', 'Blanc'],
-  ['Blanc', 'Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Vert', 'Jaune', 'Rose', 'Noir', 'Rose', 'Vert', 'Blanc'],
-  ['Blanc', 'Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Gris', 'Blanc'],
-  ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu', 'Orange', 'Blanc'],
-  ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
-  ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
+  [
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Noir',
+    'Jaune',
+    'Bleu',
+    'Vert',
+    'Orange',
+    'Rouge',
+    'Orange',
+    'Noir',
+    'Jaune',
+    'Gris',
+    'Vert',
+    'Rose',
+    'Noir',
+    'Jaune',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Rouge',
+    'Bleu',
+    'Orange',
+    'Jaune',
+    'Rose',
+    'Gris',
+    'Jaune',
+    'Rose',
+    'Gris',
+    'Jaune',
+    'Bleu',
+    'Rouge',
+    'Gris',
+    'Rouge',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Rose',
+    'Vert',
+    'Gris',
+    'Rouge',
+    'Noir',
+    'Bleu',
+    'Vert',
+    'Noir',
+    'Vert',
+    'Bleu',
+    'Rose',
+    'Gris',
+    'Vert',
+    'Orange',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Vert',
+    'Bleu',
+    'Rose',
+    'Vert',
+    'Bleu',
+    'Orange',
+    'Gris',
+    'Rouge',
+    'Orange',
+    'Jaune',
+    'Gris',
+    'Rouge',
+    'Rose',
+    'Bleu',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Noir',
+    'Orange',
+    'Rouge',
+    'Orange',
+    'Jaune',
+    'Rouge',
+    'Blanc',
+    'Blanc',
+    'Noir',
+    'Gris',
+    'Orange',
+    'Noir',
+    'Jaune',
+    'Rose',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Rose',
+    'Gris',
+    'Noir',
+    'Bleu',
+    'Vert',
+    'Bleu',
+    'Blanc',
+    'Blanc',
+    'Rouge',
+    'Bleu',
+    'Gris',
+    'Vert',
+    'Rouge',
+    'Noir',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Noir',
+    'Rouge',
+    'Rose',
+    'Vert',
+    'Orange',
+    'Rose',
+    'Noir',
+    'Orange',
+    'Vert',
+    'Jaune',
+    'Rose',
+    'Noir',
+    'Rose',
+    'Vert',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Orange',
+    'Gris',
+    'Rouge',
+    'Jaune',
+    'Noir',
+    'Vert',
+    'Rouge',
+    'Rose',
+    'Noir',
+    'Bleu',
+    'Vert',
+    'Jaune',
+    'Orange',
+    'Gris',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Bleu',
+    'Jaune',
+    'Orange',
+    'Vert',
+    'Gris',
+    'Jaune',
+    'Gris',
+    'Orange',
+    'Gris',
+    'Rose',
+    'Bleu',
+    'Rouge',
+    'Bleu',
+    'Orange',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Rose',
+    'Bleu',
+    'Jaune',
+    'Rose',
+    'Orange',
+    'Rouge',
+    'Bleu',
+    'Noir',
+    'Jaune',
+    'Gris',
+    'Vert',
+    'Jaune',
+    'Noir',
+    'Rouge',
+    'Blanc',
+  ],
+  [
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+    'Blanc',
+  ],
 ]
 /**
-         *
-         * @param {number} repetitions
-         * @param {string[]} codes la séquence d'instructions à répéter
-         * @returns {boolean} true si la boucle n'a à aucun moment fait sortir le lutin du plateau, false sinon
-         */
-export function testBoucle (repetitions: number, codes: string[], nlc: NoteLaCouleur) {
+ *
+ * @param {number} repetitions
+ * @param {string[]} codes la séquence d'instructions à répéter
+ * @returns {boolean} true si la boucle n'a à aucun moment fait sortir le lutin du plateau, false sinon
+ */
+export function testBoucle(
+  repetitions: number,
+  codes: string[],
+  nlc: NoteLaCouleur,
+) {
   let sortiboucle = false
   let test
   const pionfantome = noteLaCouleur({
@@ -47,36 +255,47 @@ export function testBoucle (repetitions: number, codes: string[], nlc: NoteLaCou
     relatif: nlc.relatif,
     nx: nlc.nx,
     ny: nlc.ny,
-    pas: nlc.pas
+    pas: nlc.pas,
   })
   pionfantome.currentPos.x = nlc.currentPos.x
   pionfantome.currentPos.y = nlc.currentPos.y
   pionfantome.currentOrientation = nlc.currentOrientation
   for (let i = 0; i < repetitions; i++) {
     test = testSequence(codes, pionfantome)
-    if (!test[0]) { // si le lutin est sorti pendant la séquence alors la boucle n'est pas valide.
+    if (!test[0]) {
+      // si le lutin est sorti pendant la séquence alors la boucle n'est pas valide.
       sortiboucle = true
       break
-    } else { // il n'est pas sorti, on continue le test à partir de la nouvelle position
+    } else {
+      // il n'est pas sorti, on continue le test à partir de la nouvelle position
       pionfantome.currentPos.x = test[1] as number
       pionfantome.currentPos.y = test[2] as number
       pionfantome.currentOrientation = test[3] as number
     }
   }
   // Si il est sorti, alors on retourne false en premier argument, sinon, on retourne true.
-  return [!sortiboucle, pionfantome.currentPos.x, pionfantome.currentPos.y, pionfantome.currentOrientation]
+  return [
+    !sortiboucle,
+    pionfantome.currentPos.x,
+    pionfantome.currentPos.y,
+    pionfantome.currentOrientation,
+  ]
 }
 /**
-         * Pour tester une instruction : retourne un tableau dont le premier élément indique si l'instruction est valide.
-         * c'est à dire qu'elle n'entraine pas une sortie de plateau.
-         * true -> l'instruction maintient le lutin sur le plateau
-         * false -> l'instruction le fait sortir du plateau
-         * Les autres éléments du tableau sont dans cet ordre :
-         * - les positions x et y du pion après l'instruction
-         * - son orientation après l'instruction
-         * - le code Latex de l'instruction
-         */
-export function testInstruction (code: string, lutin: ObjetLutin, nlc: NoteLaCouleur):[boolean, number, number, number, string, ObjetLutin] {
+ * Pour tester une instruction : retourne un tableau dont le premier élément indique si l'instruction est valide.
+ * c'est à dire qu'elle n'entraine pas une sortie de plateau.
+ * true -> l'instruction maintient le lutin sur le plateau
+ * false -> l'instruction le fait sortir du plateau
+ * Les autres éléments du tableau sont dans cet ordre :
+ * - les positions x et y du pion après l'instruction
+ * - son orientation après l'instruction
+ * - le code Latex de l'instruction
+ */
+export function testInstruction(
+  code: string,
+  lutin: ObjetLutin,
+  nlc: NoteLaCouleur,
+): [boolean, number, number, number, string, ObjetLutin] {
   const avancepion = function (d: number, x: number, y: number, s: number) {
     switch (s) {
       case 0:
@@ -104,63 +323,63 @@ export function testInstruction (code: string, lutin: ObjetLutin, nlc: NoteLaCou
   let latex
   switch (code) {
     case 'AV20':
-      [x, y] = avancepion(20, x, y, orientation)
+      ;[x, y] = avancepion(20, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{20} pas}'
       if (lutin !== undefined) {
         avance(20, lutin)
       }
       break
     case 'AV30':
-      [x, y] = avancepion(30, x, y, orientation)
+      ;[x, y] = avancepion(30, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{30} pas}'
       if (lutin !== undefined) {
         avance(30, lutin)
       }
       break
     case 'AV40':
-      [x, y] = avancepion(40, x, y, orientation)
+      ;[x, y] = avancepion(40, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{40} pas}'
       if (lutin !== undefined) {
         avance(40, lutin)
       }
       break
     case 'AV60':
-      [x, y] = avancepion(60, x, y, orientation)
+      ;[x, y] = avancepion(60, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{60} pas}'
       if (lutin !== undefined) {
         avance(60, lutin)
       }
       break
     case 'AV80':
-      [x, y] = avancepion(80, x, y, orientation)
+      ;[x, y] = avancepion(80, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{80} pas}'
       if (lutin !== undefined) {
         avance(80, lutin)
       }
       break
     case 'AV90':
-      [x, y] = avancepion(90, x, y, orientation)
+      ;[x, y] = avancepion(90, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{90} pas}'
       if (lutin !== undefined) {
         avance(90, lutin)
       }
       break
     case 'AV100':
-      [x, y] = avancepion(100, x, y, orientation)
+      ;[x, y] = avancepion(100, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{100} pas}'
       if (lutin !== undefined) {
         avance(100, lutin)
       }
       break
     case 'AV120':
-      [x, y] = avancepion(120, x, y, orientation)
+      ;[x, y] = avancepion(120, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{120} pas}'
       if (lutin !== undefined) {
         avance(120, lutin)
       }
       break
     case 'AV150':
-      [x, y] = avancepion(150, x, y, orientation)
+      ;[x, y] = avancepion(150, x, y, orientation)
       latex = '\\blockmove{avancer de \\ovalnum{150} pas}'
       if (lutin !== undefined) {
         avance(150, lutin)
@@ -201,16 +420,27 @@ export function testInstruction (code: string, lutin: ObjetLutin, nlc: NoteLaCou
   }
   if (nlc.testCoords(x, y)) {
     return [true, x, y, orientation, latex, lutin]
-  } else return [false, nlc.currentPos.x, nlc.currentPos.y, nlc.currentOrientation, latex, lutin]
+  } else
+    return [
+      false,
+      nlc.currentPos.x,
+      nlc.currentPos.y,
+      nlc.currentOrientation,
+      latex,
+      lutin,
+    ]
 }
 
 /**
-       * Pour tester une séquence : retourne
-       *
-       * [true,x,y,orientation] si la séquence reste dans le jeu
-       * [false,x,y,orientation] en cas de sortie de plateau.
-       */
-export function testSequence (codes: string[], nlc: NoteLaCouleur):[boolean, number, number, number] {
+ * Pour tester une séquence : retourne
+ *
+ * [true,x,y,orientation] si la séquence reste dans le jeu
+ * [false,x,y,orientation] en cas de sortie de plateau.
+ */
+export function testSequence(
+  codes: string[],
+  nlc: NoteLaCouleur,
+): [boolean, number, number, number] {
   let sorti = false
   let test
   const pionfantome = noteLaCouleur({
@@ -221,14 +451,15 @@ export function testSequence (codes: string[], nlc: NoteLaCouleur):[boolean, num
     relatif: nlc.relatif,
     nx: nlc.nx,
     ny: nlc.ny,
-    pas: nlc.pas
+    pas: nlc.pas,
   })
   pionfantome.currentPos.x = nlc.currentPos.x
   pionfantome.currentPos.y = nlc.currentPos.y
   pionfantome.currentOrientation = nlc.currentOrientation
   for (let i = 0; i < codes.length; i++) {
     test = testInstruction(codes[i], pionfantome.objetLutin, pionfantome)
-    if (!test[0]) { // si le lutin est sorti du plateau pendant l'instruction
+    if (!test[0]) {
+      // si le lutin est sorti du plateau pendant l'instruction
       sorti = true
       break
     } else {
@@ -238,9 +469,25 @@ export function testSequence (codes: string[], nlc: NoteLaCouleur):[boolean, num
     }
   }
   // si il est sorti, alors la séquence est false, sinon, elle est true.
-  return [!sorti, pionfantome.currentPos.x, pionfantome.currentPos.y, pionfantome.currentOrientation]
+  return [
+    !sorti,
+    pionfantome.currentPos.x,
+    pionfantome.currentPos.y,
+    pionfantome.currentOrientation,
+  ]
 }
-export function traducColor (couleur: 'Blanc' | 'Bleu' | 'Noir' | 'Rouge' | 'Jaune' | 'Rose' | 'Vert' | 'Orange' | 'Gris') {
+export function traducColor(
+  couleur:
+    | 'Blanc'
+    | 'Bleu'
+    | 'Noir'
+    | 'Rouge'
+    | 'Jaune'
+    | 'Rose'
+    | 'Vert'
+    | 'Orange'
+    | 'Gris',
+) {
   switch (couleur) {
     case 'Blanc':
       return 'white'
@@ -263,7 +510,18 @@ export function traducColor (couleur: 'Blanc' | 'Bleu' | 'Noir' | 'Rouge' | 'Jau
   }
 }
 
-export function traducNum (couleur: 'Blanc' | 'Bleu' | 'Noir' | 'Rouge' | 'Jaune' | 'Rose' | 'Vert' | 'Orange' | 'Gris') {
+export function traducNum(
+  couleur:
+    | 'Blanc'
+    | 'Bleu'
+    | 'Noir'
+    | 'Rouge'
+    | 'Jaune'
+    | 'Rose'
+    | 'Vert'
+    | 'Orange'
+    | 'Gris',
+) {
   switch (couleur) {
     case 'Blanc':
       return '0'
@@ -289,7 +547,7 @@ export function traducNum (couleur: 'Blanc' | 'Bleu' | 'Noir' | 'Rouge' | 'Jaune
 class NoteLaCouleur {
   objetLutin: ObjetLutin
   plateauNLC: string[][]
-  currentPos: { x: number, y: number }
+  currentPos: { x: number; y: number }
   currentOrientation: number
   codeScratch: string
   currentIndex: number
@@ -297,10 +555,24 @@ class NoteLaCouleur {
   pas: number
   nx: number
   ny: number
-  constructor ({
-    x = 15, y = 15, orientation = 90, relatif = true, nx = 16, ny = 12, pas = 30, plateau = thePlateau
-  }:{
-    x?: number, y?: number, orientation?: number, relatif?: boolean, nx?: number, ny?: number, pas?: number, plateau?: string[][]
+  constructor({
+    x = 15,
+    y = 15,
+    orientation = 90,
+    relatif = true,
+    nx = 16,
+    ny = 12,
+    pas = 30,
+    plateau = thePlateau,
+  }: {
+    x?: number
+    y?: number
+    orientation?: number
+    relatif?: boolean
+    nx?: number
+    ny?: number
+    pas?: number
+    plateau?: string[][]
   }) {
     this.plateauNLC = plateau
     this.currentPos = { x, y }
@@ -317,22 +589,46 @@ class NoteLaCouleur {
     this.objetLutin.orientation = orientation
   }
 
-  nlc () {
-    return this.plateauNLC[Math.ceil(((this.relatif ? (this.ny - 1) * this.pas >> 1 : (this.ny - 1) * this.pas) - this.currentPos.y) / this.pas)][Math.ceil(((this.relatif ? (this.nx - 1) * this.pas >> 1 : -this.pas >> 1) + this.currentPos.x) / this.pas)]
+  nlc() {
+    return this.plateauNLC[
+      Math.ceil(
+        ((this.relatif
+          ? ((this.ny - 1) * this.pas) >> 1
+          : (this.ny - 1) * this.pas) -
+          this.currentPos.y) /
+          this.pas,
+      )
+    ][
+      Math.ceil(
+        ((this.relatif ? ((this.nx - 1) * this.pas) >> 1 : -this.pas >> 1) +
+          this.currentPos.x) /
+          this.pas,
+      )
+    ]
   }
 
-  testCoords (x: number, y: number) {
-    if (x < (this.relatif ? (1 - this.nx) * this.pas >> 1 : this.pas >> 1) || x > (this.relatif ? this.nx * this.pas >> 1 : (this.nx - 0.5) * this.pas) || y < (this.relatif ? (1 - this.ny) * this.pas >> 1 : this.pas >> 1) || y > (this.relatif ? this.ny * this.pas >> 1 : (this.ny - 0.5) * this.pas)) return false
+  testCoords(x: number, y: number) {
+    if (
+      x < (this.relatif ? ((1 - this.nx) * this.pas) >> 1 : this.pas >> 1) ||
+      x >
+        (this.relatif
+          ? (this.nx * this.pas) >> 1
+          : (this.nx - 0.5) * this.pas) ||
+      y < (this.relatif ? ((1 - this.ny) * this.pas) >> 1 : this.pas >> 1) ||
+      y >
+        (this.relatif ? (this.ny * this.pas) >> 1 : (this.ny - 0.5) * this.pas)
+    )
+      return false
     return true
   }
 }
 
 /**
-  *
-  * @param {NoteLaCouleurParams} param0
-  * @returns
-  */
-export function noteLaCouleur ({
+ *
+ * @param {NoteLaCouleurParams} param0
+ * @returns
+ */
+export function noteLaCouleur({
   x = 15,
   y = 15,
   orientation = 90,
@@ -340,9 +636,16 @@ export function noteLaCouleur ({
   relatif = true,
   nx = 16,
   ny = 12,
-  pas = 30
-}:{
-  x?: number, y?: number, orientation?: number, plateau?: string[][], relatif?: boolean, nx?: number, ny?: number, pas?: number
+  pas = 30,
+}: {
+  x?: number
+  y?: number
+  orientation?: number
+  plateau?: string[][]
+  relatif?: boolean
+  nx?: number
+  ny?: number
+  pas?: number
 } = {}) {
   return new NoteLaCouleur({ x, y, orientation, relatif, plateau, nx, ny, pas })
 }
@@ -355,9 +658,15 @@ export class Plateau2dNLC extends ObjetMathalea2D {
   nx: number
   ny: number
   plateauNLC: string[][]
-  constructor ({
-    type = 1, melange = false, scale = 0.5, relatif = true, pas = 30, nx = 16, ny = 12,
-    plateau = thePlateau
+  constructor({
+    type = 1,
+    melange = false,
+    scale = 0.5,
+    relatif = true,
+    pas = 30,
+    nx = 16,
+    ny = 12,
+    plateau = thePlateau,
   } = {}) {
     super()
     this.relatif = relatif
@@ -385,17 +694,28 @@ export class Plateau2dNLC extends ObjetMathalea2D {
     for (let X = 0; X < this.nx; X++) {
       for (let Y = 0; Y < this.ny; Y++) {
         switch (type) {
-          case 1:// plateau couleur classique
+          case 1: // plateau couleur classique
             b = new BoiteBuilder({
               xMin: X * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
               yMin: Y * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
               xMax: (X + 1) * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
-              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0)
+              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
             }).addColor({
               color: 'black',
               opacity: 0.8,
               backgroudOpacity: 0.7,
-              colorBackground: traducColor(this.plateauNLC[ny - 1 - Y][X] as 'Blanc' | 'Bleu' | 'Noir' | 'Rouge' | 'Jaune' | 'Rose' | 'Vert' | 'Orange' | 'Gris')
+              colorBackground: traducColor(
+                this.plateauNLC[ny - 1 - Y][X] as
+                  | 'Blanc'
+                  | 'Bleu'
+                  | 'Noir'
+                  | 'Rouge'
+                  | 'Jaune'
+                  | 'Rose'
+                  | 'Vert'
+                  | 'Orange'
+                  | 'Gris',
+              ),
             })
             break
           case 2: // plateau couleur avec numéros
@@ -403,19 +723,41 @@ export class Plateau2dNLC extends ObjetMathalea2D {
               xMin: X * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
               yMin: Y * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
               xMax: (X + 1) * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
-              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0)
+              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
             })
               .addColor({
                 color: 'black',
                 opacity: 0.8,
                 backgroudOpacity: 0.7,
-                colorBackground: traducColor(this.plateauNLC[ny - 1 - Y][X] as 'Blanc' | 'Bleu' | 'Noir' | 'Rouge' | 'Jaune' | 'Rose' | 'Vert' | 'Orange' | 'Gris')
+                colorBackground: traducColor(
+                  this.plateauNLC[ny - 1 - Y][X] as
+                    | 'Blanc'
+                    | 'Bleu'
+                    | 'Noir'
+                    | 'Rouge'
+                    | 'Jaune'
+                    | 'Rose'
+                    | 'Vert'
+                    | 'Orange'
+                    | 'Gris',
+                ),
               })
               .addTextIn({
                 size: 1.2,
-                textIn: traducNum(this.plateauNLC[ny - 1 - Y][X] as 'Blanc' | 'Bleu' | 'Noir' | 'Rouge' | 'Jaune' | 'Rose' | 'Vert' | 'Orange' | 'Gris'),
+                textIn: traducNum(
+                  this.plateauNLC[ny - 1 - Y][X] as
+                    | 'Blanc'
+                    | 'Bleu'
+                    | 'Noir'
+                    | 'Rouge'
+                    | 'Jaune'
+                    | 'Rose'
+                    | 'Vert'
+                    | 'Orange'
+                    | 'Gris',
+                ),
                 color: 'black',
-                opacity: 0.8
+                opacity: 0.8,
               })
             break
           case 3: // plateau N&B avec nom des couleurs
@@ -423,18 +765,20 @@ export class Plateau2dNLC extends ObjetMathalea2D {
               xMin: X * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
               yMin: Y * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
               xMax: (X + 1) * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
-              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0)
-            }).addColor({
-              color: 'black',
-              opacity: 0.8,
-              backgroudOpacity: 1,
-              colorBackground: 'white'
-            }).addTextIn({
-              color: 'black',
-              opacity: 0.9,
-              textIn: this.plateauNLC[ny - 1 - Y][X],
-              size: 0.9
+              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
             })
+              .addColor({
+                color: 'black',
+                opacity: 0.8,
+                backgroudOpacity: 1,
+                colorBackground: 'white',
+              })
+              .addTextIn({
+                color: 'black',
+                opacity: 0.9,
+                textIn: this.plateauNLC[ny - 1 - Y][X],
+                size: 0.9,
+              })
             break
           case 4: // Plateau N&B avec numéros des couleurs
           default:
@@ -442,58 +786,243 @@ export class Plateau2dNLC extends ObjetMathalea2D {
               xMin: X * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
               yMin: Y * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
               xMax: (X + 1) * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
-              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0)
-            }).addColor({
-              color: 'black',
-              backgroudOpacity: 1,
-              colorBackground: 'white',
-              opacity: 0.8
-            }).addTextIn({
-              size: 1.2,
-              color: 'black',
-              opacity: 0.9,
-              textIn: traducNum(this.plateauNLC[ny - 1 - Y][X] as 'Blanc' | 'Bleu' | 'Noir' | 'Rouge' | 'Jaune' | 'Rose' | 'Vert' | 'Orange' | 'Gris')
+              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
             })
+              .addColor({
+                color: 'black',
+                backgroudOpacity: 1,
+                colorBackground: 'white',
+                opacity: 0.8,
+              })
+              .addTextIn({
+                size: 1.2,
+                color: 'black',
+                opacity: 0.9,
+                textIn: traducNum(
+                  this.plateauNLC[ny - 1 - Y][X] as
+                    | 'Blanc'
+                    | 'Bleu'
+                    | 'Noir'
+                    | 'Rouge'
+                    | 'Jaune'
+                    | 'Rose'
+                    | 'Vert'
+                    | 'Orange'
+                    | 'Gris',
+                ),
+              })
             break
         }
         const rendered = b.render()
         this.objets.push(...(Array.isArray(rendered) ? rendered : [rendered]))
       }
     }
-    if (this.relatif) this.objets.push(texteParPositionEchelle(`-${this.pas}`, -1.6, -0.4, 0, 'black', 1.2, 'milieu', true, scale))
-    this.objets.push(texteParPositionEchelle(`${this.pas}`, 1.5, -0.4, 0, 'black', 1.2, 'milieu', true, scale))
-    this.objets.push(texteParPositionEchelle('0', -0.3, -0.4, 0, 'black', 1.2, 'milieu', true, scale))
-    if (this.relatif) this.objets.push(texteParPositionEchelle(`-${this.pas}`, -0.5, -1.5, 0, 'black', 1.2, 'milieu', true, scale))
-    this.objets.push(texteParPositionEchelle(`${this.pas}`, -0.5, 1.5, 0, 'black', 1.2, 'milieu', true, scale))
-    this.objets.push(texteParPositionEchelle('x', this.nx * (this.relatif ? 0.75 : 1.5) + 0.7, -(this.relatif ? 0.6 : 0.6), 0, 'purple', 1.2, 'milieu', true, scale))
-    this.objets.push(texteParPositionEchelle('y', -0.4, this.ny * (this.relatif ? 0.75 : 1.5) + 0.7, 0, 'purple', 1.2, 'milieu', true, scale))
+    if (this.relatif)
+      this.objets.push(
+        texteParPositionEchelle(
+          `-${this.pas}`,
+          -1.6,
+          -0.4,
+          0,
+          'black',
+          1.2,
+          'milieu',
+          true,
+          scale,
+        ),
+      )
+    this.objets.push(
+      texteParPositionEchelle(
+        `${this.pas}`,
+        1.5,
+        -0.4,
+        0,
+        'black',
+        1.2,
+        'milieu',
+        true,
+        scale,
+      ),
+    )
+    this.objets.push(
+      texteParPositionEchelle(
+        '0',
+        -0.3,
+        -0.4,
+        0,
+        'black',
+        1.2,
+        'milieu',
+        true,
+        scale,
+      ),
+    )
+    if (this.relatif)
+      this.objets.push(
+        texteParPositionEchelle(
+          `-${this.pas}`,
+          -0.5,
+          -1.5,
+          0,
+          'black',
+          1.2,
+          'milieu',
+          true,
+          scale,
+        ),
+      )
+    this.objets.push(
+      texteParPositionEchelle(
+        `${this.pas}`,
+        -0.5,
+        1.5,
+        0,
+        'black',
+        1.2,
+        'milieu',
+        true,
+        scale,
+      ),
+    )
+    this.objets.push(
+      texteParPositionEchelle(
+        'x',
+        this.nx * (this.relatif ? 0.75 : 1.5) + 0.7,
+        -(this.relatif ? 0.6 : 0.6),
+        0,
+        'purple',
+        1.2,
+        'milieu',
+        true,
+        scale,
+      ),
+    )
+    this.objets.push(
+      texteParPositionEchelle(
+        'y',
+        -0.4,
+        this.ny * (this.relatif ? 0.75 : 1.5) + 0.7,
+        0,
+        'purple',
+        1.2,
+        'milieu',
+        true,
+        scale,
+      ),
+    )
     if (this.relatif) {
-      this.objets.push(texteParPositionEchelle('+', (this.nx >> 1) * 1.5 + 0.8, 0, 0, 'purple', 1.2, 'milieu', true, scale))
-      this.objets.push(texteParPositionEchelle('-', -(this.nx >> 1) * 1.5 - 0.5, 0.2, 0, 'purple', 1.2, 'milieu', true, scale))
-      this.objets.push(texteParPositionEchelle('+', 0, (this.ny >> 1) * 1.5 + 0.8, 0, 'purple', 1.2, 'milieu', true, scale))
-      this.objets.push(texteParPositionEchelle('-', 0, -(this.ny >> 1) * 1.5 - 0.5, 0, 'purple', 1.2, 'milieu', true, scale))
+      this.objets.push(
+        texteParPositionEchelle(
+          '+',
+          (this.nx >> 1) * 1.5 + 0.8,
+          0,
+          0,
+          'purple',
+          1.2,
+          'milieu',
+          true,
+          scale,
+        ),
+      )
+      this.objets.push(
+        texteParPositionEchelle(
+          '-',
+          -(this.nx >> 1) * 1.5 - 0.5,
+          0.2,
+          0,
+          'purple',
+          1.2,
+          'milieu',
+          true,
+          scale,
+        ),
+      )
+      this.objets.push(
+        texteParPositionEchelle(
+          '+',
+          0,
+          (this.ny >> 1) * 1.5 + 0.8,
+          0,
+          'purple',
+          1.2,
+          'milieu',
+          true,
+          scale,
+        ),
+      )
+      this.objets.push(
+        texteParPositionEchelle(
+          '-',
+          0,
+          -(this.ny >> 1) * 1.5 - 0.5,
+          0,
+          'purple',
+          1.2,
+          'milieu',
+          true,
+          scale,
+        ),
+      )
     }
-    const flechey = segment(0, (this.ny >> 1) * (this.relatif ? -1.5 : 0), 0, (this.ny >> 1) * (this.relatif ? 1.5 : 3) + 0.5, 'purple')
+    const flechey = segment(
+      0,
+      (this.ny >> 1) * (this.relatif ? -1.5 : 0),
+      0,
+      (this.ny >> 1) * (this.relatif ? 1.5 : 3) + 0.5,
+      'purple',
+    )
     flechey.styleExtremites = '->'
-    const flechex = segment((this.nx >> 1) * (this.relatif ? -1.5 : 0), 0, (this.nx >> 1) * (this.relatif ? 1.5 : 3) + 0.5, 0, 'purple')
+    const flechex = segment(
+      (this.nx >> 1) * (this.relatif ? -1.5 : 0),
+      0,
+      (this.nx >> 1) * (this.relatif ? 1.5 : 3) + 0.5,
+      0,
+      'purple',
+    )
     flechex.styleExtremites = '->'
     this.objets.push(flechey)
     this.objets.push(flechex)
   }
 }
 
-export function plateau2dNLC ({
-  type = 1, melange = false, scale = 0.5, relatif = true, pas = 30, nx = 16, ny = 12, plateau
-}:{
-  type?: number, melange?: boolean, scale?: number, relatif?: boolean, pas?: number, nx?: number, ny?: number, plateau?: string[][]
-} = {
-}) {
+export function plateau2dNLC({
+  type = 1,
+  melange = false,
+  scale = 0.5,
+  relatif = true,
+  pas = 30,
+  nx = 16,
+  ny = 12,
+  plateau,
+}: {
+  type?: number
+  melange?: boolean
+  scale?: number
+  relatif?: boolean
+  pas?: number
+  nx?: number
+  ny?: number
+  plateau?: string[][]
+} = {}) {
   if (plateau !== undefined) {
     return new Plateau2dNLC({
-      type, melange, scale, relatif, pas, nx, ny, plateau
+      type,
+      melange,
+      scale,
+      relatif,
+      pas,
+      nx,
+      ny,
+      plateau,
     })
   }
   return new Plateau2dNLC({
-    type, melange, scale, relatif, pas, nx, ny
+    type,
+    melange,
+    scale,
+    relatif,
+    pas,
+    nx,
+    ny,
   })
 }

@@ -6,7 +6,10 @@ import { parallelogramme2points1hauteur } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { projectionOrtho } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -34,10 +37,10 @@ export const uuid = 'd6cd1'
 
 export const refs = {
   'fr-fr': ['5M10', 'BP2AutoV1'],
-  'fr-ch': ['9GM1-5']
+  'fr-ch': ['9GM1-5'],
 }
 export default class AireDuParallelogramme extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.spacing = 2
@@ -45,15 +48,23 @@ export default class AireDuParallelogramme extends Exercice {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    if (this.nbQuestions === 1) this.consigne = "Calculer l'aire du parallélogramme suivant."
+  nouvelleVersion() {
+    if (this.nbQuestions === 1)
+      this.consigne = "Calculer l'aire du parallélogramme suivant."
     else this.consigne = "Calculer l'aire des parallélogrammes suivants."
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions
     const nom = creerNomDePolygone(this.nbQuestions * 4, 'QD')
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, c, h, A, B, P, C, I, H, s, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0, texte, texteCorr, c, h, A, B, P, C, I, H, s, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texteCorr = `Dans chaque parallélogramme, le segment en pointillés est ${texteEnCouleurEtGras('perpendiculaire', 'blue')} à deux côtés opposés, c'est donc une ${texteEnCouleurEtGras('hauteur', 'blue')}.<br>`
       texteCorr += `Pour obtenir l'aire, il faut multiplier cette ${texteEnCouleurEtGras('hauteur', 'blue')} par la longueur de la ${texteEnCouleurEtGras('base', 'blue')} correspondante.`
       switch (listeTypeQuestions[i]) {
@@ -62,7 +73,12 @@ export default class AireDuParallelogramme extends Exercice {
           h = randint(3, 5)
           A = point(0, 0, nom[i * 4])
           B = pointAdistance(A, c, randint(-20, 20), nom[i * 4 + 1])
-          P = parallelogramme2points1hauteur(nom.slice(i * 4, i * 4 + 4), A, B, h)
+          P = parallelogramme2points1hauteur(
+            nom.slice(i * 4, i * 4 + 4),
+            A,
+            B,
+            h,
+          )
           I = milieu(A, B)
           break
         case 'type2':
@@ -70,7 +86,12 @@ export default class AireDuParallelogramme extends Exercice {
           h = randint(3, 7)
           A = point(0, 0)
           B = pointAdistance(A, c, randint(-20, 20), nom[i * 4 + 1])
-          P = parallelogramme2points1hauteur(nom.slice(i * 4, i * 4 + 4), A, B, h)
+          P = parallelogramme2points1hauteur(
+            nom.slice(i * 4, i * 4 + 4),
+            A,
+            B,
+            h,
+          )
           I = milieu(A, B)
           break
         case 'type3':
@@ -79,7 +100,12 @@ export default class AireDuParallelogramme extends Exercice {
           h = randint(3, 5)
           A = point(0, 0)
           B = pointAdistance(A, c, randint(-20, 20), nom[i * 4 + 1])
-          P = parallelogramme2points1hauteur(nom.slice(i * 4, i * 4 + 4), A, B, h)
+          P = parallelogramme2points1hauteur(
+            nom.slice(i * 4, i * 4 + 4),
+            A,
+            B,
+            h,
+          )
           I = milieu(A, B)
           break
       }
@@ -91,10 +117,28 @@ export default class AireDuParallelogramme extends Exercice {
       C = P[0].listePoints[2]
       const D = P[0].listePoints[3]
 
-      const objets = [P[0], P[1], afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(I, H), s, codageAngleDroit(B, I, H), codageAngleDroit(D, H, I)]
+      const objets = [
+        P[0],
+        P[1],
+        afficheLongueurSegment(B, A),
+        afficheLongueurSegment(C, B),
+        afficheLongueurSegment(I, H),
+        s,
+        codageAngleDroit(B, I, H),
+        codageAngleDroit(D, H, I),
+      ]
       texte = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire, { texteAvant: `Aire de $${nom.slice(i * 4, i * 4 + 4)}$ : `, texteApres: sp(5) + '  Il faut penser à préciser l\'unité dans la réponse.' })
-      handleAnswers(this, i, { reponse: { value: new Grandeur(c * h, 'cm^2'), options: { unite: true } } })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire, {
+        texteAvant: `Aire de $${nom.slice(i * 4, i * 4 + 4)}$ : `,
+        texteApres:
+          sp(5) + "  Il faut penser à préciser l'unité dans la réponse.",
+      })
+      handleAnswers(this, i, {
+        reponse: {
+          value: new Grandeur(c * h, 'cm^2'),
+          options: { unite: true },
+        },
+      })
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
       const textCorrSplit = texteCorr.split('=')
       let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
@@ -108,7 +152,8 @@ export default class AireDuParallelogramme extends Exercice {
       // Fin de cette uniformisation
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, c, h)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, c, h)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -1,5 +1,11 @@
 import genericPreamble from '../lib/latex/preambule.tex?raw'
-import { loadFonts, loadPackagesFromContent, loadPreambule, loadProfCollegeIfNeed, logPDF } from '../lib/latex/preambuleTex'
+import {
+  loadFonts,
+  loadPackagesFromContent,
+  loadPreambule,
+  loadProfCollegeIfNeed,
+  logPDF,
+} from '../lib/latex/preambuleTex'
 import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
@@ -32,7 +38,12 @@ export type LatexFileInfos = {
   tailleFontOption: number
   durationCanOption: string
   titleOption: string
-  style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
+  style:
+    | 'Coopmaths'
+    | 'Classique'
+    | 'ProfMaquette'
+    | 'ProfMaquetteQrcode'
+    | 'Can'
   nbVersions: number
   fontOption: 'StandardFont' | 'DysFont'
   correctionOption: 'AvecCorrection' | 'SansCorrection'
@@ -63,7 +74,11 @@ interface ExoContent {
   title?: string
 }
 
-function testIfLoaded (values : string[], valuetoSearch :string, valueToPut : string) {
+function testIfLoaded(
+  values: string[],
+  valuetoSearch: string,
+  valueToPut: string,
+) {
   let search = false
   for (const value of values) {
     if (value.includes(valuetoSearch)) {
@@ -79,24 +94,35 @@ function testIfLoaded (values : string[], valuetoSearch :string, valueToPut : st
 
 class Latex {
   exercices: TypeExercice[]
-  constructor () {
+  constructor() {
     this.exercices = []
   }
 
-  isExerciceStaticInTheList () {
-    return this.exercices.some(e => e.typeExercice === 'statique')
+  isExerciceStaticInTheList() {
+    return this.exercices.some((e) => e.typeExercice === 'statique')
   }
 
-  addExercices (exercices: TypeExercice[]) {
+  addExercices(exercices: TypeExercice[]) {
     this.exercices.push(...exercices)
   }
 
-  getContentsForAVersion (
+  getContentsForAVersion(
     latexFileInfos: LatexFileInfos,
-    indiceVersion: number = 1
+    indiceVersion: number = 1,
   ): { content: string; contentCorr: string } {
-    if (latexFileInfos.style === 'ProfMaquette') return { content: this.getContentForAVersionProfMaquette(1, latexFileInfos.qrcodeOption === 'AvecQrcode'), contentCorr: '' }
-    if (latexFileInfos.style === 'ProfMaquetteQrcode') return { content: this.getContentForAVersionProfMaquette(1, true), contentCorr: '' }
+    if (latexFileInfos.style === 'ProfMaquette')
+      return {
+        content: this.getContentForAVersionProfMaquette(
+          1,
+          latexFileInfos.qrcodeOption === 'AvecQrcode',
+        ),
+        contentCorr: '',
+      }
+    if (latexFileInfos.style === 'ProfMaquetteQrcode')
+      return {
+        content: this.getContentForAVersionProfMaquette(1, true),
+        contentCorr: '',
+      }
     let content = ''
     let contentCorr = ''
     this.loadExercicesWithVersion(indiceVersion)
@@ -106,24 +132,46 @@ class Latex {
       for (const exercice of this.exercices) {
         if (exercice != null) {
           // Initalisation de questionLiee à rien pour toutes les questions
-          const questionLiee: { compteurQuestionsLiees: number, dejaLiee: boolean }[] = Array.from({ length: exercice.listeQuestions.length }, () => ({ compteurQuestionsLiees: 0, dejaLiee: false }))
+          const questionLiee: {
+            compteurQuestionsLiees: number
+            dejaLiee: boolean
+          }[] = Array.from({ length: exercice.listeQuestions.length }, () => ({
+            compteurQuestionsLiees: 0,
+            dejaLiee: false,
+          }))
 
           for (let i = 0; i < exercice.listeQuestions.length; i++) {
             // Enoncé de la question
-            const enonce = (exercice.listeCanEnonces != null && exercice.listeCanEnonces[i] !== undefined && exercice.listeCanEnonces[i].length !== 0)
-              ? exercice.listeCanEnonces[i]
-              : exercice.listeQuestions[i]
+            const enonce =
+              exercice.listeCanEnonces != null &&
+              exercice.listeCanEnonces[i] !== undefined &&
+              exercice.listeCanEnonces[i].length !== 0
+                ? exercice.listeCanEnonces[i]
+                : exercice.listeQuestions[i]
 
             // Ne fonctionne que pour les CAN
-            if (exercice.listeCanLiees != null && !exercice.listeCanLiees.every(subTab => subTab.length === 0)) {
+            if (
+              exercice.listeCanLiees != null &&
+              !exercice.listeCanLiees.every((subTab) => subTab.length === 0)
+            ) {
               // Recherche si la question est liée à la suivante et aux prochaines
-              if (exercice.listeCanLiees != null && exercice.listeCanLiees[i].length !== 0 && !(questionLiee[i].dejaLiee)) { // Recherche d'une question liée à d'autres
+              if (
+                exercice.listeCanLiees != null &&
+                exercice.listeCanLiees[i].length !== 0 &&
+                !questionLiee[i].dejaLiee
+              ) {
+                // Recherche d'une question liée à d'autres
                 let j = i + 1
                 let questionSuivante = j < exercice.listeQuestions.length
-                while (questionSuivante) { // Recherche des questions liées à la précédente
-                  questionLiee[j].dejaLiee = exercice.listeCanLiees[j].includes(exercice.listeCanNumerosLies[i])
-                  if (questionLiee[j].dejaLiee) questionLiee[i].compteurQuestionsLiees++
-                  questionSuivante = questionLiee[j] && j < exercice.listeQuestions.length - 1
+                while (questionSuivante) {
+                  // Recherche des questions liées à la précédente
+                  questionLiee[j].dejaLiee = exercice.listeCanLiees[j].includes(
+                    exercice.listeCanNumerosLies[i],
+                  )
+                  if (questionLiee[j].dejaLiee)
+                    questionLiee[i].compteurQuestionsLiees++
+                  questionSuivante =
+                    questionLiee[j] && j < exercice.listeQuestions.length - 1
                   j++
                 }
               }
@@ -131,18 +179,26 @@ class Latex {
 
             // L'énoncé des CAN est dépendant des questions liées ou pas
             content += '\\CompteurTC  &'
-            if (questionLiee[i].compteurQuestionsLiees !== 0) content += `\\SetCell[r=${questionLiee[i].compteurQuestionsLiees + 1}]{c}`
-            content += !questionLiee[i].dejaLiee ? ` { ${format(enonce)} }&` : '&'
+            if (questionLiee[i].compteurQuestionsLiees !== 0)
+              content += `\\SetCell[r=${questionLiee[i].compteurQuestionsLiees + 1}]{c}`
+            content += !questionLiee[i].dejaLiee
+              ? ` { ${format(enonce)} }&`
+              : '&'
 
             // La réponse à compléter des CAN est indépendante des questions liées
-            if (exercice.listeCanReponsesACompleter != null && exercice.listeCanReponsesACompleter[i] !== undefined) {
-              content += `{${format(
-             exercice.listeCanReponsesACompleter[i]
-              )} }`
+            if (
+              exercice.listeCanReponsesACompleter != null &&
+              exercice.listeCanReponsesACompleter[i] !== undefined
+            ) {
+              content += `{${format(exercice.listeCanReponsesACompleter[i])} }`
             }
             content += '&\\stepcounter{nbEx}\\\\'
 
-            if (i + 1 < exercice.listeQuestions.length && questionLiee[i + 1].dejaLiee) content += '*' // Cette étoile permet de gérer les sauts de page malencontreux
+            if (
+              i + 1 < exercice.listeQuestions.length &&
+              questionLiee[i + 1].dejaLiee
+            )
+              content += '*' // Cette étoile permet de gérer les sauts de page malencontreux
             content += '\n'
           }
           for (const correction of exercice.listeCorrections) {
@@ -158,11 +214,15 @@ class Latex {
       for (const exercice of this.exercices) {
         if (exercice.typeExercice === 'statique') {
           if (exercice.content === '') {
-            content += '% Cet exercice n\'est pas disponible au format LaTeX'
+            content += "% Cet exercice n'est pas disponible au format LaTeX"
           } else {
             content += `\n% @see : ${getUrlFromExercice(exercice)}`
             content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
-            content += testIfLoaded([exercice.content ?? ''], '\\anote{', '\n\\resetcustomnotes')
+            content += testIfLoaded(
+              [exercice.content ?? ''],
+              '\\anote{',
+              '\n\\resetcustomnotes',
+            )
             if (Number(exercice.nbCols) > 1) {
               content += `\\begin{multicols}{${exercice.nbCols}}\n`
             }
@@ -170,17 +230,33 @@ class Latex {
             if (Number(exercice.nbCols) > 1) {
               content += '\n\\end{multicols}\n'
             }
-            content += testIfLoaded([exercice.content ?? ''], '\\anote{', '\n\\printcustomnotes')
+            content += testIfLoaded(
+              [exercice.content ?? ''],
+              '\\anote{',
+              '\n\\printcustomnotes',
+            )
             content += '\n\\end{EXO}\n'
             contentCorr += '\n\\begin{EXO}{}{}\n'
-            contentCorr += testIfLoaded([exercice.contentCorr ?? ''], '\\anote{', '\n\\resetcustomnotes')
+            contentCorr += testIfLoaded(
+              [exercice.contentCorr ?? ''],
+              '\\anote{',
+              '\n\\resetcustomnotes',
+            )
             contentCorr += exercice.contentCorr
-            contentCorr += testIfLoaded([exercice.contentCorr ?? ''], '\\anote{', '\n\\printcustomnotes')
+            contentCorr += testIfLoaded(
+              [exercice.contentCorr ?? ''],
+              '\\anote{',
+              '\n\\printcustomnotes',
+            )
             contentCorr += '\n\\end{EXO}\n'
           }
         } else {
           contentCorr += '\n\\begin{EXO}{}{}\n'
-          contentCorr += testIfLoaded(exercice.listeCorrections, '\\anote{', '\n\\resetcustomnotes')
+          contentCorr += testIfLoaded(
+            exercice.listeCorrections,
+            '\\anote{',
+            '\n\\resetcustomnotes',
+          )
           if (Number(exercice.nbColsCorr) > 1) {
             contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
           }
@@ -198,17 +274,38 @@ class Latex {
               contentCorr += `\n${Number(exercice.nbQuestions) > 1 ? '\\item' : ''} ${format(correction)}`
             }
           }
-          if (Number(exercice.nbQuestions) > 1) contentCorr += '\n\\end{enumerate}\n'
+          if (Number(exercice.nbQuestions) > 1)
+            contentCorr += '\n\\end{enumerate}\n'
           if (Number(exercice.nbColsCorr) > 1) {
             contentCorr += '\\end{multicols}\n'
           }
-          contentCorr += testIfLoaded(exercice.listeCorrections, '\\anote{', '\n\\printcustomnotes')
+          contentCorr += testIfLoaded(
+            exercice.listeCorrections,
+            '\\anote{',
+            '\n\\printcustomnotes',
+          )
           contentCorr += '\n\\end{EXO}\n'
           content += `\n% @see : ${getUrlFromExercice(exercice)}`
           content += `\n\\begin{EXO}{${testIfLoaded([exercice.introduction, exercice.consigne, ...exercice.listeQuestions], '\\anote{', '\n\\resetcustomnotes ')}${format(exercice.consigne, false)}}{${String(exercice.id).replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
-          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
-          content += testIfLoaded([exercice.introduction, exercice.consigne, ...exercice.listeQuestions], '\\anote{', '\n\\printcustomnotes')
+          content += writeInCols(
+            writeQuestions(
+              exercice.listeQuestions,
+              exercice.spacing,
+              Boolean(exercice.listeAvecNumerotation),
+              Number(exercice.nbCols),
+            ),
+            Number(exercice.nbCols),
+          )
+          content += testIfLoaded(
+            [
+              exercice.introduction,
+              exercice.consigne,
+              ...exercice.listeQuestions,
+            ],
+            '\\anote{',
+            '\n\\printcustomnotes',
+          )
           content += '\n\\end{EXO}\n'
         }
       }
@@ -216,36 +313,47 @@ class Latex {
     return { content, contentCorr }
   }
 
-  loadExercicesWithVersion (indiceVersion: number = 1) {
+  loadExercicesWithVersion(indiceVersion: number = 1) {
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') {
         const serie = exercice?.examen?.toLowerCase()
         if (serie === 'crpe' && indiceVersion === 1) {
           exercice.content = exercice.content?.replaceAll('{Images/', '{')
-          exercice.contentCorr = exercice.contentCorr?.replaceAll('{Images/', '{')
+          exercice.contentCorr = exercice.contentCorr?.replaceAll(
+            '{Images/',
+            '{',
+          )
         }
         continue
       }
-      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
-      const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
+      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions'))
+        continue
+      const seed =
+        indiceVersion > 1
+          ? exercice.seed + indiceVersion.toString()
+          : exercice.seed
       exercice.seed = seed
       if (exercice.typeExercice === 'simple') {
         mathaleaHandleExerciceSimple(exercice, false)
       } else {
         seedrandom(seed, { global: true })
-        if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+        if (typeof exercice.nouvelleVersionWrapper === 'function')
+          exercice.nouvelleVersionWrapper()
       }
     }
   }
 
-  getContentForAVersionProfMaquette (indiceVersion: number = 1, withQrcode = false): string {
+  getContentForAVersionProfMaquette(
+    indiceVersion: number = 1,
+    withQrcode = false,
+  ): string {
     this.loadExercicesWithVersion(indiceVersion)
     let content = ''
     for (const exercice of this.exercices) {
       content += `\n% @see : ${getUrlFromExercice(exercice)}`
       if (exercice.typeExercice === 'statique') {
         if (exercice.content === '') {
-          content += '% Cet exercice n\'est pas disponible au format LaTeX'
+          content += "% Cet exercice n'est pas disponible au format LaTeX"
         } else {
           content += '\n\\needspace{10\\baselineskip}'
           content += '\n\\begin{exercice}\n'
@@ -267,7 +375,15 @@ Correction
       } else {
         content += '\n\\needspace{10\\baselineskip}'
         content += '\n\\begin{exercice}\n'
-        content += testIfLoaded([...exercice.listeQuestions, exercice.consigne, exercice.introduction], '\\anote{', '\n\\resetcustomnotes')
+        content += testIfLoaded(
+          [
+            ...exercice.listeQuestions,
+            exercice.consigne,
+            exercice.introduction,
+          ],
+          '\\anote{',
+          '\n\\resetcustomnotes',
+        )
         if (withQrcode) {
           content += `\\begin{wrapfigure}{r}{2cm}
 \\centering
@@ -279,26 +395,74 @@ Correction
         }
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
-        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
-        content += testIfLoaded([...exercice.listeQuestions, exercice.consigne, exercice.introduction], '\\anote{', '\n\\printcustomnotes')
+        content += writeInCols(
+          writeQuestions(
+            exercice.listeQuestions,
+            exercice.spacing,
+            Boolean(exercice.listeAvecNumerotation),
+            Number(exercice.nbCols),
+          ),
+          Number(exercice.nbCols),
+        )
+        content += testIfLoaded(
+          [
+            ...exercice.listeQuestions,
+            exercice.consigne,
+            exercice.introduction,
+          ],
+          '\\anote{',
+          '\n\\printcustomnotes',
+        )
         content += '\n\\end{exercice}\n'
         content += '\n\\begin{Solution}'
-        content += testIfLoaded([...exercice.listeCorrections], '\\anote{', '\n\\resetcustomnotes')
-        content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbColsCorr))
-        content += testIfLoaded([...exercice.listeCorrections], '\\anote{', '\n\\printcustomnotes')
+        content += testIfLoaded(
+          [...exercice.listeCorrections],
+          '\\anote{',
+          '\n\\resetcustomnotes',
+        )
+        content += writeInCols(
+          writeQuestions(
+            exercice.listeCorrections,
+            exercice.spacingCorr,
+            Boolean(exercice.listeAvecNumerotation),
+            Number(exercice.nbCols),
+          ),
+          Number(exercice.nbColsCorr),
+        )
+        content += testIfLoaded(
+          [...exercice.listeCorrections],
+          '\\anote{',
+          '\n\\printcustomnotes',
+        )
         content += '\n\\end{Solution}\n'
       }
     }
     return content
   }
 
-  async getContents (latexFileInfos : LatexFileInfos): Promise<contentsType> {
-    const contents: contentsType = { preamble: '', intro: '', content: '', contentCorr: '' }
-    if (latexFileInfos.style === 'ProfMaquette' || latexFileInfos.style === 'ProfMaquetteQrcode') {
+  async getContents(latexFileInfos: LatexFileInfos): Promise<contentsType> {
+    const contents: contentsType = {
+      preamble: '',
+      intro: '',
+      content: '',
+      contentCorr: '',
+    }
+    if (
+      latexFileInfos.style === 'ProfMaquette' ||
+      latexFileInfos.style === 'ProfMaquetteQrcode'
+    ) {
       if (latexFileInfos.style === 'ProfMaquette') {
         for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
-          if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
-          const contentVersion = this.getContentForAVersionProfMaquette(i, latexFileInfos.qrcodeOption === 'AvecQrcode')
+          if (latexFileInfos.signal?.aborted) {
+            throw new DOMException(
+              'Aborted in getContents of Latex.ts',
+              'AbortError',
+            )
+          }
+          const contentVersion = this.getContentForAVersionProfMaquette(
+            i,
+            latexFileInfos.qrcodeOption === 'AvecQrcode',
+          )
           contents.content += `\n\\begin{Maquette}[Fiche=true,IE=false]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'},Code= ,Calculatrice=true}\n`
           contents.content += contentVersion
           contents.content += '\n\\end{Maquette}'
@@ -307,7 +471,12 @@ Correction
         }
       } else if (latexFileInfos.style === 'ProfMaquetteQrcode') {
         for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
-          if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted2 in getContents of Latex.ts', 'AbortError') }
+          if (latexFileInfos.signal?.aborted) {
+            throw new DOMException(
+              'Aborted2 in getContents of Latex.ts',
+              'AbortError',
+            )
+          }
           const contentVersion = this.getContentForAVersionProfMaquette(i, true)
           contents.content += `\n\\begin{Maquette}[Fiche=true, IE=false, CorrigeApres=false, CorrigeFin=true]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'}}\n`
           contents.content += contentVersion
@@ -316,12 +485,22 @@ Correction
           contents.contentCorr = ''
         }
       }
-      if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted3 in getContents of Latex.ts', 'AbortError') }
+      if (latexFileInfos.signal?.aborted) {
+        throw new DOMException(
+          'Aborted3 in getContents of Latex.ts',
+          'AbortError',
+        )
+      }
       this.loadPreambuleFromContents(contents, latexFileInfos)
       contents.intro += '\n\\begin{document}'
     } else {
       for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
-        if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
+        if (latexFileInfos.signal?.aborted) {
+          throw new DOMException(
+            'Aborted in getContents of Latex.ts',
+            'AbortError',
+          )
+        }
         const contentVersion = this.getContentsForAVersion(latexFileInfos, i)
         if (i > 1) {
           contents.content += '\n\\clearpage'
@@ -341,10 +520,16 @@ Correction
         contents.content += contentVersion.content
         contents.contentCorr += contentVersion.contentCorr
       }
-      if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
+      if (latexFileInfos.signal?.aborted) {
+        throw new DOMException(
+          'Aborted in getContents of Latex.ts',
+          'AbortError',
+        )
+      }
       if (latexFileInfos.style === 'Can') {
         contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
-        contents.preamble += '% Pour les carrés des cases à cocher\n\\usepackage{fontawesome5}\n\n'
+        contents.preamble +=
+          '% Pour les carrés des cases à cocher\n\\usepackage{fontawesome5}\n\n'
         contents.preamble += '\n\\newbool{correctionDisplay}'
         contents.preamble += `\n\\setbool{correctionDisplay}{${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
         contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
@@ -362,26 +547,34 @@ Correction
     return contents
   }
 
-  private loadPreambuleFromContents (contents: contentsType, latexFileInfos: LatexFileInfos) {
+  private loadPreambuleFromContents(
+    contents: contentsType,
+    latexFileInfos: LatexFileInfos,
+  ) {
     contents.preamble = `% @see : ${window.location.href}`
     contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
     loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
     contents.preamble += '\n\\usepackage{xcolor}'
     contents.preamble += '\n\\usepackage{ProfMaquette}'
     contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
-    contents.preamble += '\n\\setKVdefault[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}'
+    contents.preamble +=
+      '\n\\setKVdefault[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}'
     contents.preamble += loadFonts(latexFileInfos)
-    contents.preamble += '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
+    contents.preamble +=
+      '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
     contents.preamble += '\n\\usepackage[luatex]{hyperref}'
     contents.preamble += '\n\\usepackage{tikz}'
     contents.preamble += '\n\\usetikzlibrary{calc}'
     contents.preamble += '\n\\usepackage{fancyhdr}'
     contents.preamble += '\n\\pagestyle{fancy}'
-    contents.preamble += '\n\\usepackage{fvextra} %EE: Pour la gestion de verb (police Python)'
-    contents.preamble += '\n\\usepackage{tabularray} %EE: Pour la gestion des tableaux tblr'
+    contents.preamble +=
+      '\n\\usepackage{fvextra} %EE: Pour la gestion de verb (police Python)'
+    contents.preamble +=
+      '\n\\usepackage{tabularray} %EE: Pour la gestion des tableaux tblr'
     contents.preamble += '\n\\renewcommand\\headrulewidth{0pt}'
     contents.preamble += '\n\\setlength{\\headheight}{18pt}'
-    contents.preamble += '\n\\fancyhead[R]{\\href{https://coopmaths.fr/alea}{Mathaléa}}'
+    contents.preamble +=
+      '\n\\fancyhead[R]{\\href{https://coopmaths.fr/alea}{Mathaléa}}'
     contents.preamble += '\n\\fancyfoot[C]{\\thepage}'
     contents.preamble += `\n\\fancyfoot[R]{%
 \\begin{tikzpicture}[remember picture,overlay]
@@ -435,7 +628,8 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
     for (const pack of latexPackages) {
       logPDF(`pack: ${pack} : ${window.location.href}`)
       if (pack === 'bclogo') {
-        if (!contents.preamble.includes('bclogo')) contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
+        if (!contents.preamble.includes('bclogo'))
+          contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
       } else {
         contents.preamble += '\n\\usepackage{' + pack + '}'
       }
@@ -445,7 +639,7 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
     }
   }
 
-  async getFile (latexFileInfos : LatexFileInfos): Promise<latexFileType> {
+  async getFile(latexFileInfos: LatexFileInfos): Promise<latexFileType> {
     const contents = await this.getContents(latexFileInfos)
     const preamble = contents?.preamble
     const intro = contents?.intro
@@ -454,21 +648,32 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
     let latexWithoutPreamble = ''
     latexWithoutPreamble += intro
     latexWithoutPreamble += content
-    if (latexFileInfos.style === 'ProfMaquette' || latexFileInfos.style === 'ProfMaquetteQrcode') {
+    if (
+      latexFileInfos.style === 'ProfMaquette' ||
+      latexFileInfos.style === 'ProfMaquetteQrcode'
+    ) {
       latexWithoutPreamble += '\n\\end{document}'
     } else if (latexFileInfos.style === 'Can') {
-      latexWithoutPreamble += '\n\n\\clearpage\n\n\\ifbool{correctionDisplay}{\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}}{}\n\\end{document}'
-      latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
+      latexWithoutPreamble +=
+        '\n\n\\clearpage\n\n\\ifbool{correctionDisplay}{\n\\begin{Correction}' +
+        contentCorr +
+        '\n\\clearpage\n\\end{Correction}}{}\n\\end{document}'
+      latexWithoutPreamble +=
+        '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     } else {
-      latexWithoutPreamble += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
-      latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
+      latexWithoutPreamble +=
+        '\n\n\\clearpage\n\n\\begin{Correction}' +
+        contentCorr +
+        '\n\\clearpage\n\\end{Correction}\n\\end{document}'
+      latexWithoutPreamble +=
+        '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     }
     const latexWithPreamble = preamble + latexWithoutPreamble
     return { contents, latexWithoutPreamble, latexWithPreamble }
   }
 
-  getContentLatex () {
-    const packLatex : string[] = []
+  getContentLatex() {
+    const packLatex: string[] = []
     for (const exo of this.exercices) {
       if (typeof exo.listePackages === 'string') {
         packLatex.push(exo.listePackages)
@@ -476,18 +681,22 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
         packLatex.push(...exo.listePackages)
       }
     }
-    const packageFiltered : string[] = packLatex.filter((value, index, array) => array.indexOf(value) === index)
-    const [latexCmds, latexPackages] = packageFiltered.reduce((result: [string[], string[]], element : string) => {
-      result[element.startsWith('cmd') ? 0 : 1].push(element)
-      return result
-    },
-    [[], []])
+    const packageFiltered: string[] = packLatex.filter(
+      (value, index, array) => array.indexOf(value) === index,
+    )
+    const [latexCmds, latexPackages] = packageFiltered.reduce(
+      (result: [string[], string[]], element: string) => {
+        result[element.startsWith('cmd') ? 0 : 1].push(element)
+        return result
+      },
+      [[], []],
+    )
 
     return [latexCmds, latexPackages]
   }
 }
 
-function writeIntroduction (introduction = ''): string {
+function writeIntroduction(introduction = ''): string {
   let content = ''
   if (introduction.length > 0) {
     content += '\n' + format(introduction)
@@ -495,11 +704,16 @@ function writeIntroduction (introduction = ''): string {
   return content
 }
 
-function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolean, nbCols: number = 1): string {
+function writeQuestions(
+  questions: string[],
+  spacing = 1,
+  numbersNeeded: boolean,
+  nbCols: number = 1,
+): string {
   let content = ''
   if (questions !== undefined && questions.length > 1) {
     content += '\n\\begin{enumerate}'
-    const specs:string[] = []
+    const specs: string[] = []
     if (spacing !== 0) {
       specs.push(`itemsep=${spacing}em`)
     }
@@ -527,7 +741,7 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
   return content
 }
 
-function writeInCols (text: string, nb: number): string {
+function writeInCols(text: string, nb: number): string {
   if (nb < 2) return text
   return `\\begin{multicols}{${nb}}${text}\n\\end{multicols}`
 }
@@ -540,7 +754,10 @@ function writeInCols (text: string, nb: number): string {
  * * Elle présuppose donc que les images sont toutes au format `eps` et qu'elles ne sont pas stockées ailleurs.
  * @author sylvain
  */
-export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: picFile[][]) {
+export function buildImagesUrlsList(
+  exosContentList: ExoContent[],
+  picsNames: picFile[][],
+) {
   const imagesFilesUrls = [] as string[]
   exosContentList.forEach((exo, i) => {
     if (picsNames[i].length !== 0) {
@@ -549,18 +766,28 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
       for (const file of picsNames[i]) {
         if (serie === 'crpe') {
           if (file.format) {
-            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
+            imagesFilesUrls.push(
+              `${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.${file.format}`,
+            )
           } else {
-            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.png`)
+            imagesFilesUrls.push(
+              `${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.png`,
+            )
           }
         } else if (serie != null) {
           if (file.format) {
-            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
+            imagesFilesUrls.push(
+              `${window.location.origin}/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`,
+            )
           } else {
-            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`)
+            imagesFilesUrls.push(
+              `${window.location.origin}/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`,
+            )
           }
         } else {
-          imagesFilesUrls.push(`${window.location.origin}/alea/${file.name}.${file.format}`)
+          imagesFilesUrls.push(
+            `${window.location.origin}/alea/${file.name}.${file.format}`,
+          )
         }
       }
     }
@@ -584,7 +811,7 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
  * @author sylvain
  */
 
-export function getExosContentList (exercices: TypeExercice[]) {
+export function getExosContentList(exercices: TypeExercice[]) {
   const exosContentList: ExoContent[] = []
   for (const exo of exercices) {
     let data: ExoContent = {}
@@ -593,24 +820,34 @@ export function getExosContentList (exercices: TypeExercice[]) {
     } else if (exo.typeExercice === 'simple') {
       Object.assign(data, {}, { content: exo.listeQuestions.join(' ') })
     } else {
-      data = { content: exo.content, contentCorr: exo.contentCorr, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
+      data = {
+        content: exo.content,
+        contentCorr: exo.contentCorr,
+        serie: exo.examen,
+        month: exo.mois,
+        year: exo.annee,
+        zone: exo.lieu,
+        title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' '),
+      }
     }
     exosContentList.push(data)
   }
   return exosContentList
 }
-export function getPicsNames (exosContentList: ExoContent[]) {
+export function getPicsNames(exosContentList: ExoContent[]) {
   const picsList = [] as RegExpMatchArray[][]
   const picsNames = [] as picFile[][]
   const regDeleteCommentaires = /^(?:(?!%))(.*?)$/gm
-  const regExpImage = /(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
+  const regExpImage =
+    /(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
   const regExpImageName = /(?<name>.*?)\.(?<format>.*)$/gm
   for (const exo of exosContentList) {
     if (exo.content) {
-      const pics : RegExpMatchArray [] = []
+      const pics: RegExpMatchArray[] = []
       // on supprime les phrases avec des commentaires
       const content = [...exo.content.matchAll(regDeleteCommentaires)]
-      if (exo.contentCorr) content.push(...exo.contentCorr.matchAll(regDeleteCommentaires))
+      if (exo.contentCorr)
+        content.push(...exo.contentCorr.matchAll(regDeleteCommentaires))
       content.forEach((list) => {
         // on recherche sur les lignes restantes si une image ou plusieurs images sont présentes
         const matchIm = Array.from(list[0].matchAll(regExpImage))
@@ -630,7 +867,12 @@ export function getPicsNames (exosContentList: ExoContent[]) {
         let imgObj
         if (item[1].match(regExpImageName)) {
           const imgFile = [...item[1].matchAll(regExpImageName)]
-          if (imgFile[0].groups != null) { imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format } }
+          if (imgFile[0].groups != null) {
+            imgObj = {
+              name: imgFile[0].groups.name,
+              format: imgFile[0].groups.format,
+            }
+          }
         } else {
           imgObj = { name: item[1], format: '' }
         }
@@ -646,16 +888,19 @@ export function getPicsNames (exosContentList: ExoContent[]) {
 /**
  * Détecter si le code LaTeX contient des images
  */
-export function doesLatexNeedsPics (contents: { content: string, contentCorr: string }) {
+export function doesLatexNeedsPics(contents: {
+  content: string
+  contentCorr: string
+}) {
   const exos: ExoContent = {
     content: contents.content,
-    contentCorr: contents.content
+    contentCorr: contents.content,
   }
   const imas = getPicsNames([exos])
-  return imas.some(e => e.length > 0)
+  return imas.some((e) => e.length > 0)
 }
 
-export function makeImageFilesUrls (exercices: TypeExercice[]) {
+export function makeImageFilesUrls(exercices: TypeExercice[]) {
   const exosContentList = getExosContentList(exercices)
   const picsNames = getPicsNames(exosContentList)
   return buildImagesUrlsList(exosContentList, picsNames)
@@ -667,7 +912,10 @@ export function makeImageFilesUrls (exercices: TypeExercice[]) {
  * * `<br><br>` est remplacé par un saut de paragraphe et un medskip (si AvecLesDoublesEspaces est vrai). Dans this.consigne, il ne faut pas sinon cela fait planter la sortie LaTeX.
  *  Le \\euro mange l'espace qui vient après lui, d'où la nécessité d'insérer un espace insécable s'il y en avait un avant le replacement.
  */
-export function format (text: string, AvecLesDoublesEspaces:boolean = true): string {
+export function format(
+  text: string,
+  AvecLesDoublesEspaces: boolean = true,
+): string {
   if (text === undefined) return ''
   const lang = getLang()
   let formattedText = AvecLesDoublesEspaces
@@ -693,12 +941,14 @@ export function format (text: string, AvecLesDoublesEspaces:boolean = true): str
   return formattedText
 }
 
-function getUrlFromExercice (ex: TypeExercice) {
+function getUrlFromExercice(ex: TypeExercice) {
   const url = new URL('https://coopmaths.fr/alea')
   url.searchParams.append('uuid', String(ex.uuid))
   if (ex.id !== undefined) url.searchParams.append('id', ex.id)
-  if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
-  if (ex.duration !== undefined) url.searchParams.append('d', ex.duration.toString())
+  if (ex.nbQuestions !== undefined)
+    url.searchParams.append('n', ex.nbQuestions.toString())
+  if (ex.duration !== undefined)
+    url.searchParams.append('d', ex.duration.toString())
   if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
   if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
   if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
@@ -706,12 +956,14 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.sup5 !== undefined) url.searchParams.append('s5', ex.sup5)
   if (ex.seed !== undefined) url.searchParams.append('alea', ex.seed)
   if (ex.interactif) url.searchParams.append('i', '1')
-  if (ex.correctionDetaillee !== undefined) url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
-  if (ex.nbCols !== undefined) url.searchParams.append('cols', ex.nbCols.toString())
+  if (ex.correctionDetaillee !== undefined)
+    url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
+  if (ex.nbCols !== undefined)
+    url.searchParams.append('cols', ex.nbCols.toString())
   return url.href.replaceAll('%', '\\%')
 }
 
-function addPackages (latexFileInfos : LatexFileInfos, contents: contentsType) {
+function addPackages(latexFileInfos: LatexFileInfos, contents: contentsType) {
   contents.preamble += genericPreamble
   contents.preamble += loadFonts(latexFileInfos)
   loadPreambule(latexFileInfos, contents)

@@ -4,19 +4,22 @@ import { globalOptions, exercicesParams } from '../stores/generalStore'
 import referentielStaticFR from '../../json/referentielStaticFR.json'
 import referentielStaticCH from '../../json/referentielStaticCH.json'
 import { retrieveResourceFromUuid } from '../../lib/components/refUtils'
-import { isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
+import {
+  isStaticType,
+  type JSONReferentielObject,
+} from '../../lib/types/referentiels'
 import {
   mathaleaFormatExercice,
   mathaleaHandleExerciceSimple,
   mathaleaHandleParamOfOneExercice,
-  mathaleaLoadExerciceFromUuid
+  mathaleaLoadExerciceFromUuid,
 } from '../mathalea'
 import seedrandom from 'seedrandom'
 import { get } from 'svelte/store'
 
 const allStaticReferentiels: JSONReferentielObject = {
   ...referentielStaticFR,
-  ...referentielStaticCH
+  ...referentielStaticCH,
 }
 
 // on supprime les entrées par thème qui entraîne des doublons
@@ -29,7 +32,9 @@ delete allStaticReferentiels['crpeTags']
  * Construit la liste des exercices basée sur le contenu du store exercicesParams
  * @returns liste des exercices EN PROMESSE
  */
-export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>[] => {
+export const buildExercisesList = (
+  filter: string[] = [],
+): Promise<TypeExercice>[] => {
   const promiseExos: Promise<TypeExercice>[] = []
   const options = get(globalOptions)
   const exosParams = get(exercicesParams)
@@ -45,11 +50,18 @@ export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>
         exo.listeQuestions[0] = `Uuid ${paramsExercice.uuid}<br>`
         exo.listeCorrections[0] = `Uuid ${paramsExercice.uuid}<br>`
         exo.nbQuestions = 1
-        const foundResource = retrieveResourceFromUuid(allStaticReferentiels, paramsExercice.uuid)
+        const foundResource = retrieveResourceFromUuid(
+          allStaticReferentiels,
+          paramsExercice.uuid,
+        )
         if (isStaticType(foundResource)) {
-          exo.listeQuestions[0] = exo.listeQuestions[0] + `<br>
+          exo.listeQuestions[0] =
+            exo.listeQuestions[0] +
+            `<br>
           <img src="${foundResource.png || ''}" style="width: calc(100% * {zoomFactor}" alt="énoncé" />`
-          exo.listeCorrections[0] = exo.listeCorrections[0] + `<br>
+          exo.listeCorrections[0] =
+            exo.listeCorrections[0] +
+            `<br>
           <img src="${foundResource.pngCor || ''}" style="width: calc(100% * {zoomFactor}" alt="correction" />`
         }
         mathaleaHandleParamOfOneExercice(exo, paramsExercice)
@@ -63,12 +75,12 @@ export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>
     } else {
       const p = new Promise<TypeExercice>((resolve) => {
         // console.log('id' + paramsExercice.id)
-        mathaleaLoadExerciceFromUuid(paramsExercice.uuid).then(exo => {
+        mathaleaLoadExerciceFromUuid(paramsExercice.uuid).then((exo) => {
           if (typeof exo === 'undefined') {
             throw new Error(
               "L'exercice correspondant à l'uuid " +
                 paramsExercice.uuid +
-                " n'est pas défini..."
+                " n'est pas défini...",
             )
           }
           mathaleaHandleParamOfOneExercice(exo, paramsExercice)
@@ -90,11 +102,12 @@ export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>
  * @param uuid
  * @returns boolean
  */
-export function isStatic (uuid: string | undefined) {
+export function isStatic(uuid: string | undefined) {
   if (uuid === undefined) {
     return false
   }
-  return uuid.startsWith('crpe-') ||
+  return (
+    uuid.startsWith('crpe-') ||
     uuid.startsWith('dnb_') ||
     uuid.startsWith('dnbpro_') ||
     uuid.startsWith('e3c_') ||
@@ -102,10 +115,11 @@ export function isStatic (uuid: string | undefined) {
     uuid.startsWith('sti2d_') ||
     uuid.startsWith('evacom_') ||
     uuid.startsWith('2nd_')
+  )
 }
 
 export const splitExercisesIntoQuestions = (
-  exercices: TypeExercice[]
+  exercices: TypeExercice[],
 ): {
   questions: string[]
   consignes: string[]
@@ -146,7 +160,9 @@ export const splitExercisesIntoQuestions = (
       exercice.listeCorrections = []
     }
     for (let i = 0; i < exercice.listeQuestions.length; i++) {
-      consignes.push(`${exercice?.consigne} ${exercice?.consigne && exercice?.introduction ? '<br>\n' : ''} ${exercice?.introduction}`)
+      consignes.push(
+        `${exercice?.consigne} ${exercice?.consigne && exercice?.introduction ? '<br>\n' : ''} ${exercice?.introduction}`,
+      )
       indiceExercice.push(k)
       indiceQuestionInExercice.push(i)
       if (exercice.consigneCorrection !== undefined) {
@@ -157,7 +173,7 @@ export const splitExercisesIntoQuestions = (
     corrections = [...corrections, ...exercice.listeCorrections]
     consignesCorrections = [
       ...consignesCorrections,
-      ...cumulConsignesCorrections
+      ...cumulConsignesCorrections,
     ]
     questions = questions.map(mathaleaFormatExercice)
     corrections = corrections.map(mathaleaFormatExercice)
@@ -172,6 +188,6 @@ export const splitExercisesIntoQuestions = (
     consignesCorrections,
     isCorrectionVisible,
     indiceExercice,
-    indiceQuestionInExercice
+    indiceQuestionInExercice,
   }
 }

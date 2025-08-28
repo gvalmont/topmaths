@@ -9,7 +9,7 @@ import ProblemePartageAvecResteRetire from './promblemePartageAvecResteRetire'
 /**
  * @author Jean-Claude Lhote
  */
-export function mariage1 (decimal = false): Probleme {
+export function mariage1(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nbFois = randint(3, 5) * 5
   const quotité = randint(5, 10)

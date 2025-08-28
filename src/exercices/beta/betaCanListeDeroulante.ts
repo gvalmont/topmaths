@@ -1,5 +1,8 @@
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante'
+import {
+  choixDeroulant,
+  listeDeroulanteToQcm,
+} from '../../lib/interactif/questionListeDeroulante'
 import { sp } from '../../lib/outils/outilString'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
@@ -11,10 +14,10 @@ export const interactifType = 'listeDeroulante'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TestListDeroulante extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatInteractif = 'listeDeroulante'
     this.typeExercice = 'simple'
@@ -22,7 +25,7 @@ export default class TestListDeroulante extends ExerciceSimple {
     this.nbQuestions = 3
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     const n = randint(10, 100)
     const choix = [
       { label: 'Choisissez bien !', value: '' },
@@ -30,10 +33,12 @@ export default class TestListDeroulante extends ExerciceSimple {
       { label: `${n + 1}`, value: `${n + 1}` },
       { label: `${n - 1}`, value: `${n - 1}` },
       { label: `${n + 10}`, value: `${n + 10}` },
-
     ]
     if (!this.interactif) {
-      listeDeroulanteToQcm(this, 0, choix, `${n + 10}`, { vertical: false, ordered: false })
+      listeDeroulanteToQcm(this, 0, choix, `${n + 10}`, {
+        vertical: false,
+        ordered: false,
+      })
       this.formatInteractif = 'qcm'
     } else {
       this.formatInteractif = 'listeDeroulante'

@@ -5,19 +5,32 @@ import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  simplificationDeFractionAvecEtapes,
+  texFractionReduite,
+} from '../../../lib/outils/deprecatedFractions'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { context } from '../../../modules/context'
-import { mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../../modules/FractionEtendue'
 
 export const titre = 'CAN Seconde sujet 2021'
@@ -32,7 +45,7 @@ export const dateDePublication = '05/04/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a: number, b: number) {
+function compareNombres(a: number, b: number) {
   return a - b
 }
 
@@ -40,10 +53,10 @@ export const uuid = '1f0cd'
 
 export const refs = {
   'fr-fr': ['can2a-2021'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN2021Seconde extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 30
@@ -56,25 +69,59 @@ export default class SujetCAN2021Seconde extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 22)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 8, 9]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([7, 10,
-      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 8, 9])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+      28, 29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
 
-    const listeFractions3 = [[1, 3, 1, 5], [1, 7, 1, 2], [1, 4, 1, 3], [1, 2, 1, 5], [1, 9, 1, 2], [1, 7, 1, 4],
-      [1, 11, 1, 2], [1, 5, 1, 6], [1, 10, 1, 3], [1, 3, 1, 8], [1, 9, 1, 4], [1, 5, 1, 9], [1, 7, 1, 10], [1, 6, 1, 7]
+    const listeFractions3 = [
+      [1, 3, 1, 5],
+      [1, 7, 1, 2],
+      [1, 4, 1, 3],
+      [1, 2, 1, 5],
+      [1, 9, 1, 2],
+      [1, 7, 1, 4],
+      [1, 11, 1, 2],
+      [1, 5, 1, 6],
+      [1, 10, 1, 3],
+      [1, 3, 1, 8],
+      [1, 9, 1, 4],
+      [1, 5, 1, 9],
+      [1, 7, 1, 10],
+      [1, 6, 1, 7],
     ]
-    const listeFractions7 = [[1, 5, 3, 2], [2, 5, 1, 3], [1, 5, 2, 3], [1, 3, 5, 2], [1, 3, 5, 4]
+    const listeFractions7 = [
+      [1, 5, 3, 2],
+      [2, 5, 1, 3],
+      [1, 5, 2, 3],
+      [1, 3, 5, 2],
+      [1, 3, 5, 4],
     ]
 
-    const listeFractions15 = [[5, 3], [7, 9], [3, 7], [5, 7], [9, 7], [2, 9], [4, 7], [11, 5], [11, 3]
+    const listeFractions15 = [
+      [5, 3],
+      [7, 9],
+      [3, 7],
+      [5, 7],
+      [9, 7],
+      [2, 9],
+      [4, 7],
+      [11, 5],
+      [11, 3],
     ]
 
-    for (let i = 0, index = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let a = 0
       let b = 0
       let p = 0
@@ -103,10 +150,9 @@ export default class SujetCAN2021Seconde extends Exercice {
           break
 
         case 2:
-
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
-          reponse = a * p / 100
+          reponse = (a * p) / 100
           texte = `$${p}\\,\\%$ de $${a}= $`
 
           texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
@@ -123,28 +169,31 @@ export default class SujetCAN2021Seconde extends Exercice {
           nbChamps = 1
           break
 
-        case 3:{
-          const a = choice(listeFractions3)
-          const b = fraction(a[0], a[1])
-          const c = fraction(a[2], a[3])
+        case 3:
+          {
+            const a = choice(listeFractions3)
+            const b = fraction(a[0], a[1])
+            const c = fraction(a[2], a[3])
 
-          texte = `$${b.texFraction} + ${c.texFraction}=$
+            texte = `$${b.texFraction} + ${c.texFraction}=$
              `
-          texteCorr = `Pour additionner des fractions, on les met au même dénominateur.<br>
+            texteCorr = `Pour additionner des fractions, on les met au même dénominateur.<br>
   
              Ainsi, $${b.texFraction} + ${c.texFraction}
              =\\dfrac{${b.n}\\times${c.d}}{${b.d}\\times${c.d}}+ \\dfrac{${c.n}\\times${b.d}}{${b.d}\\times${c.d}}
              =\\dfrac{${b.n * c.d}+${c.n * b.d}}{${c.d * b.d}}=\\dfrac{${b.n * c.d + c.n * b.d}}{${b.d * c.d}}$.`
 
-          reponse = fraction(b.n * c.d + c.n * b.d, b.d * c.d)
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          } else {
-            texte += '$\\ldots$'
+            reponse = fraction(b.n * c.d + c.n * b.d, b.d * c.d)
+            setReponse(this, index, reponse, {
+              formatInteractif: 'fractionEgale',
+            })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            } else {
+              texte += '$\\ldots$'
+            }
+            nbChamps = 1
           }
-          nbChamps = 1
-        }
 
           break
         case 4:
@@ -204,27 +253,30 @@ export default class SujetCAN2021Seconde extends Exercice {
           nbChamps = 1
           break
 
-        case 7:{
-          const a = choice(listeFractions7)
-          const b = fraction(a[0], a[1])
-          const c = fraction(a[2], a[3])
-          const k1 = 3
-          const k2 = 7
-          texte = `$\\dfrac{${b.n * k2}}{${b.d * k1}}\\times \\dfrac{${c.n * k1}}{${c.d * k2}}=$
+        case 7:
+          {
+            const a = choice(listeFractions7)
+            const b = fraction(a[0], a[1])
+            const c = fraction(a[2], a[3])
+            const k1 = 3
+            const k2 = 7
+            texte = `$\\dfrac{${b.n * k2}}{${b.d * k1}}\\times \\dfrac{${c.n * k1}}{${c.d * k2}}=$
              `
-          reponse = fraction(b.n * c.n, b.d * c.d)
-          texteCorr = `$\\dfrac{${b.n * k2}}{${b.d * k1}}\\times \\dfrac{${c.n * k1}}{${c.d * k2}}=
+            reponse = fraction(b.n * c.n, b.d * c.d)
+            texteCorr = `$\\dfrac{${b.n * k2}}{${b.d * k1}}\\times \\dfrac{${c.n * k1}}{${c.d * k2}}=
           \\dfrac{${b.n}\\times ${k2}}{${b.d}\\times${k1}}\\times \\dfrac{${c.n}\\times ${k1}}{${c.d}\\times ${k2}}=\\dfrac{${b.n}\\times ${k2}\\times ${c.n}\\times ${k1}}{${b.d}\\times${k1}\\times ${c.d}\\times ${k2}}=${texFractionReduite(b.n * c.n, b.d * c.d)}$`
 
-          reponse = fraction(b.n * c.n, b.d * c.d)
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          } else {
-            texte += '$\\ldots$'
+            reponse = fraction(b.n * c.n, b.d * c.d)
+            setReponse(this, index, reponse, {
+              formatInteractif: 'fractionEgale',
+            })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            } else {
+              texte += '$\\ldots$'
+            }
+            nbChamps = 1
           }
-          nbChamps = 1
-        }
 
           break
 
@@ -290,39 +342,40 @@ export default class SujetCAN2021Seconde extends Exercice {
           nbChamps = 1
           break
 
-        case 11:{
-          const choix = choice(['a', 'b', 'c'])//
-          if (choix === 'a') {
-            a = randint(11, 39, [10, 20, 30]) / 1000
-            const truc = a * 100
-            reponse = `${stringNombre(truc)}\\times 10^{-2}`
-            texte = `Écriture  scientifique de $${texNombre(a, 3)}$`
+        case 11:
+          {
+            const choix = choice(['a', 'b', 'c']) //
+            if (choix === 'a') {
+              a = randint(11, 39, [10, 20, 30]) / 1000
+              const truc = a * 100
+              reponse = `${stringNombre(truc)}\\times 10^{-2}`
+              texte = `Écriture  scientifique de $${texNombre(a, 3)}$`
 
-            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+              texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
             Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 3)}}_{1\\leqslant ${texNombre(truc, 3)} <10}\\times 10^{-2}$. `
-          } else if (choix === 'b') {
-            a = randint(111, 399, [200, 300]) / 100000
-            const truc = a * 1000
-            reponse = `${stringNombre(truc)}\\times 10^{-3}`
-            texte = `Écriture  scientifique de $${texNombre(a, 5)}$`
+            } else if (choix === 'b') {
+              a = randint(111, 399, [200, 300]) / 100000
+              const truc = a * 1000
+              reponse = `${stringNombre(truc)}\\times 10^{-3}`
+              texte = `Écriture  scientifique de $${texNombre(a, 5)}$`
 
-            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+              texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${texNombre(a, 5)}=\\underbrace{${texNombre(truc, 5)}}_{1\\leqslant ${texNombre(truc, 5)} <10}\\times 10^{-3}$. `
-          } else {
-            a = randint(111, 399, [200, 300]) / 1000000
-            const truc = a * 10000
-            reponse = `${stringNombre(truc)}\\times 10^{-4}`
-            texte = `Écriture  scientifique de $${texNombre(a, 6)}$`
+            } else {
+              a = randint(111, 399, [200, 300]) / 1000000
+              const truc = a * 10000
+              reponse = `${stringNombre(truc)}\\times 10^{-4}`
+              texte = `Écriture  scientifique de $${texNombre(a, 6)}$`
 
-            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+              texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
                 Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 6)}}_{1\\leqslant ${texNombre(truc, 6)} <10}\\times 10^{-4}$. `
+            }
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            }
+            nbChamps = 1
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          }
-          nbChamps = 1
-        }
 
           break
 
@@ -337,7 +390,9 @@ export default class SujetCAN2021Seconde extends Exercice {
        Comme $${Math.floor(Math.sqrt(a)) ** 2}=${Math.floor(Math.sqrt(a))}^2$, alors :
      $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}$.`
 
-          handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
+          handleAnswers(this, index, {
+            reponse: { value: reponse, options: { suiteDeNombres: true } },
+          })
           if (this.interactif) {
             texte += '<br>Écrire les entiers séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, '')
@@ -347,7 +402,6 @@ export default class SujetCAN2021Seconde extends Exercice {
           break
 
         case 13:
-
           a = randint(1, 5)
           b = randint(2, 5)
           if (choice([true, false])) {
@@ -369,83 +423,97 @@ export default class SujetCAN2021Seconde extends Exercice {
 
           break
 
-        case 14:{
-          const choix = choice(['a', 'b'])//, 'b', 'c'
-          if (choix === 'a') {
-            a = randint(11, 39, [10, 20, 30]) + randint(1, 9) / 10
+        case 14:
+          {
+            const choix = choice(['a', 'b']) //, 'b', 'c'
+            if (choix === 'a') {
+              a = randint(11, 39, [10, 20, 30]) + randint(1, 9) / 10
 
-            reponse = a * 1000
-            texte = `$${texNombre(a, 1)}$ m$^3=$`
+              reponse = a * 1000
+              texte = `$${texNombre(a, 1)}$ m$^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L$=${texNombre(a * 1000, 1)}$ L`
-          } else {
-            a = randint(11, 39, [10, 20, 30]) + randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
+              texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L$=${texNombre(a * 1000, 1)}$ L`
+            } else {
+              a =
+                randint(11, 39, [10, 20, 30]) +
+                randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
 
-            reponse = a * 1000
-            texte = `$${texNombre(a, 2)}$ m$^3=$`
+              reponse = a * 1000
+              texte = `$${texNombre(a, 2)}$ m$^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L$=${texNombre(a * 1000, 2)}$ L`
+              texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L$=${texNombre(a * 1000, 2)}$ L`
+            }
+
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ') + 'L'
+            } else {
+              texte += '$\\ldots$ L'
+            }
+            nbChamps = 1
           }
-
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'L'
-          } else {
-            texte += '$\\ldots$ L'
-          }
-          nbChamps = 1
-        }
 
           break
 
-        case 15:{
-          const a = choice(listeFractions15)
-          const b = fraction(a[0], a[1])
-          const k1 = choice([3, 5, 7, 9])
+        case 15:
+          {
+            const a = choice(listeFractions15)
+            const b = fraction(a[0], a[1])
+            const k1 = choice([3, 5, 7, 9])
 
-          texte = `Écrire $\\dfrac{${b.n * k1}}{${b.d * k1}}$ sous forme d'une fraction irréductible.
+            texte = `Écrire $\\dfrac{${b.n * k1}}{${b.d * k1}}$ sous forme d'une fraction irréductible.
              `
 
-          texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
+            texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
 
-          reponse = fraction(b.n, b.d).simplifie()
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
+            reponse = fraction(b.n, b.d).simplifie()
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse.toLatex(),
+                options: { fractionIrreductible: true },
+              },
+            })
 
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            }
+            nbChamps = 1
           }
-          nbChamps = 1
-        }
 
           break
 
-        case 16:{
-          const choix = choice(['a', 'b'])
-          if (choix === 'a') {
-            let listeFacteurs16 = [2, 3, 5, 7]
-            listeFacteurs16 = shuffle(listeFacteurs16)
+        case 16:
+          {
+            const choix = choice(['a', 'b'])
+            if (choix === 'a') {
+              let listeFacteurs16 = [2, 3, 5, 7]
+              listeFacteurs16 = shuffle(listeFacteurs16)
 
-            reponse = [`${listeFacteurs16[0]}\\times${listeFacteurs16[1]}\\times ${listeFacteurs16[2]}`]
-            texte = `Décomposer $${listeFacteurs16[0] * listeFacteurs16[1] * listeFacteurs16[2]}$ en produits de facteurs premiers.`
+              reponse = [
+                `${listeFacteurs16[0]}\\times${listeFacteurs16[1]}\\times ${listeFacteurs16[2]}`,
+              ]
+              texte = `Décomposer $${listeFacteurs16[0] * listeFacteurs16[1] * listeFacteurs16[2]}$ en produits de facteurs premiers.`
 
-            texteCorr = `$${listeFacteurs16[0] * listeFacteurs16[1] * listeFacteurs16[2]}=${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}\\times ${listeFacteurs16[2]}$`
-          } else {
-            let listeFacteurs16 = [2, 3, 5]
-            listeFacteurs16 = shuffle(listeFacteurs16)
+              texteCorr = `$${listeFacteurs16[0] * listeFacteurs16[1] * listeFacteurs16[2]}=${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}\\times ${listeFacteurs16[2]}$`
+            } else {
+              let listeFacteurs16 = [2, 3, 5]
+              listeFacteurs16 = shuffle(listeFacteurs16)
 
-            reponse = [`${listeFacteurs16[0]}\\times${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}`,
-                            `${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}`]
-            texte = `Décomposer $${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}$ en produits de facteurs premiers.`
+              reponse = [
+                `${listeFacteurs16[0]}\\times${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}`,
+                `${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}`,
+              ]
+              texte = `Décomposer $${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}$ en produits de facteurs premiers.`
 
-            texteCorr = `$${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}=${listeFacteurs16[0]}\\times ${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}=${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}$`
+              texteCorr = `$${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}=${listeFacteurs16[0]}\\times ${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}=${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}$`
+            }
+
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            }
+            nbChamps = 1
           }
-
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          }
-          nbChamps = 1
-        }
 
           break
 
@@ -471,7 +539,6 @@ export default class SujetCAN2021Seconde extends Exercice {
           break
 
         case 18:
-
           a = randint(1, 6)
           b = randint(3, 5)
           c = randint(2, 9)
@@ -484,119 +551,153 @@ export default class SujetCAN2021Seconde extends Exercice {
         \\left(\\dfrac{${a + b}}{2};\\dfrac{${c + d}}{2}\\right)=
         (${texNombre((a + b) / 2, 1)};${texNombre((c + d) / 2, 1)})$.`
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
-          texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ', { texteAvant: '$($', texteApres: '$)$' })
+          texte +=
+            '<br>' +
+            ajouteChampTexteMathLive(this, index, ' ', {
+              texteAvant: '$($',
+              texteApres: '$)$',
+            })
 
           nbChamps = 1
 
           break
 
-        case 19:{
-          a = randint(3, 9)// CB
-          const k = randint(2, 5)// coeff
-          b = k * a// AC
-          c = randint(1, a - 1)// EB
-          d = k * c// AD
-          const A = point(0, 4, 'A', 'above')
-          const D = point(3.75, 4, 'D', 'above')
-          const E = point(4, -1, 'E', 'below')
-          const B = point(6, -1, 'B', 'below')
-          const C = point(3.91, 0.74, 'C', 'left')
-          const xmin = -1
-          const ymin = -2.5
-          const xmax = 7
-          const ymax = 5
-          const objets: NestedObjetMathalea2dArray = []
-          objets.push(
-            texteParPosition(`${stringNombre(d)} cm`, milieu(A, D).x, milieu(A, D).y + 0.3),
-            texteParPosition(' ?', milieu(B, E).x, milieu(B, E).y - 0.3),
-            texteParPosition(`${stringNombre(b)} cm`, milieu(A, C).x - 0.6, milieu(A, C).y),
-            texteParPosition(`${stringNombre(a)} cm`, milieu(C, B).x + 0.5, milieu(C, B).y + 0.2),
-            labelPoint(A, B, C, D, E), segment(B, E), segment(D, E), segment(A, D), segment(A, B))
-          reponse = c
-          texte = `$A$, $C$ et $B$ sont alignés, et $D$, $C$ et $E$ sont alignés. De plus, $(AD)//(EB)$.
+        case 19:
+          {
+            a = randint(3, 9) // CB
+            const k = randint(2, 5) // coeff
+            b = k * a // AC
+            c = randint(1, a - 1) // EB
+            d = k * c // AD
+            const A = point(0, 4, 'A', 'above')
+            const D = point(3.75, 4, 'D', 'above')
+            const E = point(4, -1, 'E', 'below')
+            const B = point(6, -1, 'B', 'below')
+            const C = point(3.91, 0.74, 'C', 'left')
+            const xmin = -1
+            const ymin = -2.5
+            const xmax = 7
+            const ymax = 5
+            const objets: NestedObjetMathalea2dArray = []
+            objets.push(
+              texteParPosition(
+                `${stringNombre(d)} cm`,
+                milieu(A, D).x,
+                milieu(A, D).y + 0.3,
+              ),
+              texteParPosition(' ?', milieu(B, E).x, milieu(B, E).y - 0.3),
+              texteParPosition(
+                `${stringNombre(b)} cm`,
+                milieu(A, C).x - 0.6,
+                milieu(A, C).y,
+              ),
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(C, B).x + 0.5,
+                milieu(C, B).y + 0.2,
+              ),
+              labelPoint(A, B, C, D, E),
+              segment(B, E),
+              segment(D, E),
+              segment(A, D),
+              segment(A, B),
+            )
+            reponse = c
+            texte = `$A$, $C$ et $B$ sont alignés, et $D$, $C$ et $E$ sont alignés. De plus, $(AD)//(EB)$.
            <br>`
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 30,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.8,
-            style: 'margin: auto'
-          }, objets)
-          texteCorr = `Le triangle $ACD$ est un agrandissement du triangle $EBC$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${k}$.<br>
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 30,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 0.8,
+                style: 'margin: auto',
+              },
+              objets,
+            )
+            texteCorr = `Le triangle $ACD$ est un agrandissement du triangle $EBC$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${k}$.<br>
           On obtient donc la longueur $EB$ en divisant par $${k}$ la longueur $AD$.<br>
           $EB=\\dfrac{${d}}{${k}}=${c}$ cm.<br>`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += '<br>$EB=$'
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
-          } else {
-            texte += ' $EB=\\ldots$ cm'
-          }
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += '<br>$EB=$'
+              texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
+            } else {
+              texte += ' $EB=\\ldots$ cm'
+            }
 
-          nbChamps = 1
-        }
+            nbChamps = 1
+          }
 
           break
 
-        case 20:{
-          const choix = choice(['a', 'b'])
-          if (choix === 'a') {
-            a = randint(18, 25) * 10
-            b = choice([20, 25])
-            reponse = a * 100 / b
-            texte = `$${b}\\,\\%$ des élèves d'un lycée sont externes. <br>
+        case 20:
+          {
+            const choix = choice(['a', 'b'])
+            if (choix === 'a') {
+              a = randint(18, 25) * 10
+              b = choice([20, 25])
+              reponse = (a * 100) / b
+              texte = `$${b}\\,\\%$ des élèves d'un lycée sont externes. <br>
           Il y a $${a}$ externes. Combien y a-t-il d'élèves dans ce lycée ?
       `
-            texteCorr = ` Comme $100\\,\\%$ est égal à $${100 / b}$ fois $${b}\\,\\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
-          } else {
-            a = randint(8, 15) * 10
-            b = 10
-            reponse = a * 10
-            texte = `$${b}\\,\\%$ des élèves d'un lycée sont externes. <br>
+              texteCorr = ` Comme $100\\,\\%$ est égal à $${100 / b}$ fois $${b}\\,\\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
+            } else {
+              a = randint(8, 15) * 10
+              b = 10
+              reponse = a * 10
+              texte = `$${b}\\,\\%$ des élèves d'un lycée sont externes. <br>
             Il y a $${a}$ externes. Combien y a-t-il d'élèves dans ce lycée ?
         `
-            texteCorr = ` Comme $100\\,\\%$ est égal à $${100 / b}$ fois $${b}\\,\\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
+              texteCorr = ` Comme $100\\,\\%$ est égal à $${100 / b}$ fois $${b}\\,\\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
+            }
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            }
+            nbChamps = 1
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          }
-          nbChamps = 1
-        }
 
           break
 
-        case 21:{
-          const choix = choice(['a', 'b'])
-          if (choix === 'a') {
-            a = randint(2, 10)
-            b = randint(2, 10)
-            reponse = [`(${rienSi1(a)}x${ecritureAlgebrique(-b)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(a)}x${ecritureAlgebrique(-b)})`]
+        case 21:
+          {
+            const choix = choice(['a', 'b'])
+            if (choix === 'a') {
+              a = randint(2, 10)
+              b = randint(2, 10)
+              reponse = [
+                `(${rienSi1(a)}x${ecritureAlgebrique(-b)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`,
+                `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(a)}x${ecritureAlgebrique(-b)})`,
+              ]
 
-            texte = `Factoriser $${a ** 2}x^2-${b ** 2}$.
+              texte = `Factoriser $${a ** 2}x^2-${b ** 2}$.
       `
-            texteCorr = ` On reconnaît une différence de deux carrés : $a^2-b^2$ avec $a=${a}x$ et $b=${b}$.<br>
+              texteCorr = ` On reconnaît une différence de deux carrés : $a^2-b^2$ avec $a=${a}x$ et $b=${b}$.<br>
             Comme $a^2-b^2=(a-b)(a+b)$, alors $${a ** 2}x^2-${b ** 2}=(${a}x-${b})(${a}x+${b})$.`
-          } else {
-            a = randint(2, 10)
-            b = randint(2, 10)
-            reponse = [`(${b}${ecritureAlgebriqueSauf1(-a)}x)(${b}${ecritureAlgebriqueSauf1(a)}x)`, `(${b}${ecritureAlgebriqueSauf1(a)}x)(${b}${ecritureAlgebriqueSauf1(-a)}x)`]
+            } else {
+              a = randint(2, 10)
+              b = randint(2, 10)
+              reponse = [
+                `(${b}${ecritureAlgebriqueSauf1(-a)}x)(${b}${ecritureAlgebriqueSauf1(a)}x)`,
+                `(${b}${ecritureAlgebriqueSauf1(a)}x)(${b}${ecritureAlgebriqueSauf1(-a)}x)`,
+              ]
 
-            texte = `Factoriser $${b ** 2}-${a ** 2}x^2$.
+              texte = `Factoriser $${b ** 2}-${a ** 2}x^2$.
       `
-            texteCorr = ` On reconnaît une différence de deux carrés : $a^2-b^2$ avec $a=${b}$ et $b=${a}x$.<br>
+              texteCorr = ` On reconnaît une différence de deux carrés : $a^2-b^2$ avec $a=${b}$ et $b=${a}x$.<br>
             Comme $a^2-b^2=(a-b)(a+b)$, alors  $${b ** 2}-${a ** 2}x^2=(${b}-${a}x)(${b}+${a}x)$.`
+            }
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            }
+            nbChamps = 1
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          }
-          nbChamps = 1
-        }
 
           break
 
@@ -700,7 +801,9 @@ export default class SujetCAN2021Seconde extends Exercice {
            $\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
           `
           reponse = fraction(d - b, c - a)
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }
@@ -733,95 +836,120 @@ export default class SujetCAN2021Seconde extends Exercice {
           texteCorr = `Il y a $${b}$ boules rouges sur un total de $${a + b}$ boules. <br>
           La probabilité de tirer une boule rouge est donc : $\\dfrac{${a}}{${a + b}}${simplificationDeFractionAvecEtapes(a, a + b)}$`
 
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           break
 
-        case 26:{
-          const choix = choice(['a', 'b', 'c'])
-          if (choix === 'a') {
-            a = choice([40, 60, 80, 100, 120])
-            reponse = a / 4
-            texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+        case 26:
+          {
+            const choix = choice(['a', 'b', 'c'])
+            if (choix === 'a') {
+              a = choice([40, 60, 80, 100, 120])
+              reponse = a / 4
+              texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
             Combien de kilomètres a-t-elle parcourus en $15$ minutes ?
         `
-            texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la voiture aura parcouru $${a}\\div 4=${a / 4}$ km.<br>
+              texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la voiture aura parcouru $${a}\\div 4=${a / 4}$ km.<br>
             `
-          } else if (choix === 'b') {
-            a = choice([60, 90, 120])
-            reponse = a / 6
-            texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+            } else if (choix === 'b') {
+              a = choice([60, 90, 120])
+              reponse = a / 6
+              texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
                           Combien de kilomètres a-t-elle parcourus en $10$ minutes ?
                       `
-            texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la voiture aura parcouru $${a}\\div 6=${a / 6}$ km.
+              texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la voiture aura parcouru $${a}\\div 6=${a / 6}$ km.
                           `
-          } else {
-            a = choice([30, 60, 90, 120])
-            reponse = a / 3
-            texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+            } else {
+              a = choice([30, 60, 90, 120])
+              reponse = a / 3
+              texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
                                         Combien de kilomètres a-t-elle parcourus en $20$ minutes ?
                                     `
-            texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la voiture aura parcouru $${a}\\div 3=${a / 3}$ km.
+              texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la voiture aura parcouru $${a}\\div 3=${a / 3}$ km.
                                         `
+            }
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ') + 'km'
+            }
+            nbChamps = 1
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'km'
-          }
-          nbChamps = 1
-        }
 
           break
-        case 27:{
-          a = randint(1, 10)
+        case 27:
+          {
+            a = randint(1, 10)
 
-          const A = point(0, 0, 'A', 'below')
-          const B = point(4, 0, 'B', 'below')
-          const C = point(4, 4, 'C', 'above')
-          const D = point(0, 4, 'D', 'above')
-          const code1 = codageSegment(A, B, '|')
-          const code2 = codageSegment(B, C, '|')
-          const code3 = codageSegment(C, D, '|')
-          const code4 = codageSegment(A, D, '|')
-          const xmin = -1
-          const ymin = -1
-          const xmax = 5
-          const ymax = 5
-          const objets: NestedObjetMathalea2dArray = []
-          objets.push(
-            texteParPosition(`${stringNombre(a)} cm`, milieu(A, B).x, milieu(A, B).y - 0.4),
-            texteParPosition('?', milieu(D, B).x + 0.2, milieu(D, B).y + 0.1),
-            labelPoint(A, B, C, D), segment(A, B), segment(B, C), segment(C, D), segment(D, A), segment(B, D), code1, code2, code3, code4)
-          reponse = [`\\sqrt{${2 * a ** 2}}`, `${Math.sqrt(2 * a ** 2)}`, `${a}\\sqrt{2}`]
-          texte = `Compléter : <br>
+            const A = point(0, 0, 'A', 'below')
+            const B = point(4, 0, 'B', 'below')
+            const C = point(4, 4, 'C', 'above')
+            const D = point(0, 4, 'D', 'above')
+            const code1 = codageSegment(A, B, '|')
+            const code2 = codageSegment(B, C, '|')
+            const code3 = codageSegment(C, D, '|')
+            const code4 = codageSegment(A, D, '|')
+            const xmin = -1
+            const ymin = -1
+            const xmax = 5
+            const ymax = 5
+            const objets: NestedObjetMathalea2dArray = []
+            objets.push(
+              texteParPosition(
+                `${stringNombre(a)} cm`,
+                milieu(A, B).x,
+                milieu(A, B).y - 0.4,
+              ),
+              texteParPosition('?', milieu(D, B).x + 0.2, milieu(D, B).y + 0.1),
+              labelPoint(A, B, C, D),
+              segment(A, B),
+              segment(B, C),
+              segment(C, D),
+              segment(D, A),
+              segment(B, D),
+              code1,
+              code2,
+              code3,
+              code4,
+            )
+            reponse = [
+              `\\sqrt{${2 * a ** 2}}`,
+              `${Math.sqrt(2 * a ** 2)}`,
+              `${a}\\sqrt{2}`,
+            ]
+            texte = `Compléter : <br>
             `
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 30,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.8,
-            style: 'margin: auto'
-          }, objets)
-          texteCorr = `Le théorème de Pythagore dans le triangle rectangle $ADB$ donne : <br>
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 30,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 0.8,
+                style: 'margin: auto',
+              },
+              objets,
+            )
+            texteCorr = `Le théorème de Pythagore dans le triangle rectangle $ADB$ donne : <br>
             $DB^2=AD^2+AB^2$ soit $DB^2=${a}^2+${a}^2=2\\times ${a}^2=${2 * a ** 2}$.<br>
             Ainsi, $DB=\\sqrt{${2 * a ** 2}}$ ou encore $DB=${a}\\sqrt{2}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += '<br>$DB=$'
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
-          } else {
-            texte += ' $DB=\\ldots$ cm'
-          }
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += '<br>$DB=$'
+              texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
+            } else {
+              texte += ' $DB=\\ldots$ cm'
+            }
 
-          nbChamps = 1
-        }
+            nbChamps = 1
+          }
 
           break
 
@@ -843,55 +971,91 @@ export default class SujetCAN2021Seconde extends Exercice {
           nbChamps = 1
           break
 
-        case 29:{
-          a = randint(-1, 6)
-          b = randint(1, 4) + randint(1, 9) / 10
+        case 29:
+          {
+            a = randint(-1, 6)
+            b = randint(1, 4) + randint(1, 9) / 10
 
-          const r = repere({ xMin: -4, xMax: 4, yMin: -3, yMax: 8, xUnite: 2, yUnite: 1 })
-          // courbe(x => a * x + b, { repere: r, color: 'blue' })
-          const f = (x:number) => 0.5 * x ** 3 + b
-          const C = courbe(f, { repere: r, color: 'red' })
+            const r = repere({
+              xMin: -4,
+              xMax: 4,
+              yMin: -3,
+              yMax: 8,
+              xUnite: 2,
+              yUnite: 1,
+            })
+            // courbe(x => a * x + b, { repere: r, color: 'blue' })
+            const f = (x: number) => 0.5 * x ** 3 + b
+            const C = courbe(f, { repere: r, color: 'red' })
 
-          reponse = [Math.cbrt(2 * (a - b)) - 0.1, Math.cbrt(2 * (a - b)) + 0.1]
-          texte = `Voici la courbe d'une fonction $f$. <br>
+            reponse = [
+              Math.cbrt(2 * (a - b)) - 0.1,
+              Math.cbrt(2 * (a - b)) + 0.1,
+            ]
+            texte = `Voici la courbe d'une fonction $f$. <br>
 Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
-          texte += mathalea2d({ xmin: -8, xmax: 8.2, ymin: -3, ymax: 8, scale: 0.5 }, r, C)
-          texteCorr = `L'antécédent de $${a}$ par $f$ est l'abscisse du point de la courbe d'ordonnée $${a}$ : $${texNombre(Math.cbrt(2 * (a - b)), 1)}$ en est une valeur approchée. `
+            texte += mathalea2d(
+              { xmin: -8, xmax: 8.2, ymin: -3, ymax: 8, scale: 0.5 },
+              r,
+              C,
+            )
+            texteCorr = `L'antécédent de $${a}$ par $f$ est l'abscisse du point de la courbe d'ordonnée $${a}$ : $${texNombre(Math.cbrt(2 * (a - b)), 1)}$ en est une valeur approchée. `
 
-          setReponse(this, index, reponse, { formatInteractif: 'intervalle' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            setReponse(this, index, reponse, { formatInteractif: 'intervalle' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            }
+            nbChamps = 1
           }
-          nbChamps = 1
-        }
 
           break
 
-        case 30:{
-          c = choice([2, 3, 11, 12])
-          const p = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
-          const choix = choice(['a', 'b', 'b'])
-          if (choix === 'a') {
-            texte = "On lance deux fois de suite un dé cubique équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
-            texteCorr = "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
-            reponse = fraction(1, 6)
+        case 30:
+          {
+            c = choice([2, 3, 11, 12])
+            const p = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
+            const choix = choice(['a', 'b', 'b'])
+            if (choix === 'a') {
+              texte =
+                "On lance deux fois de suite un dé cubique équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
+              texteCorr =
+                "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
+              reponse = fraction(1, 6)
+            }
+            if (choix === 'b') {
+              texte = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
+              texteCorr = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
+              reponse = fraction(p[c - 2], 36).simplifie()
+            }
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse.toLatex(),
+                options: { fractionIrreductible: true },
+              },
+            })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            }
+            nbChamps = 1
           }
-          if (choix === 'b') {
-            texte = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
-            texteCorr = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
-            reponse = fraction(p[c - 2], 36).simplifie()
-          }
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          }
-          nbChamps = 1
-        }
 
           break
       }
 
-      if (this.questionJamaisPosee(i, a, b, c, d, p, k, nbChamps, reponse instanceof FractionEtendue ? reponse.texFraction : reponse)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (
+        this.questionJamaisPosee(
+          i,
+          a,
+          b,
+          c,
+          d,
+          p,
+          k,
+          nbChamps,
+          reponse instanceof FractionEtendue ? reponse.texFraction : reponse,
+        )
+      ) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

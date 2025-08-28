@@ -3,7 +3,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  reduirePolynomeDegre3
+  reduirePolynomeDegre3,
 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
@@ -27,56 +27,101 @@ export const uuid = '12089'
 
 export const refs = {
   'fr-fr': ['can1F17'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculFonctionDeriveeUnsurU extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
   }
 
-  nouvelleVersion () {
-    let m; let p
-    switch (choice([1, 2, 3])) { //, 2, 3
-      case 1:// //1/(mx+p)
+  nouvelleVersion() {
+    let m
+    let p
+    switch (
+      choice([1, 2, 3]) //, 2, 3
+    ) {
+      case 1: // //1/(mx+p)
         m = randint(-5, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par :
             $f(x)=\\dfrac{1}{${reduireAxPlusB(m, p)}}$.<br>`
-        if (this.interactif) { this.question += '$f\'(x)=$' } else { this.question += 'Déterminer  $f\'(x)$.' }
+        if (this.interactif) {
+          this.question += "$f'(x)=$"
+        } else {
+          this.question += "Déterminer  $f'(x)$."
+        }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduireAxPlusB(m, p)}$.<br>
                  Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
           On a $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>
           On en déduit, `
-        if (m < 0) { this.correction += `$f'(x)= \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=${miseEnEvidence(`\\dfrac{${-m}}{(${reduireAxPlusB(m, p)})^2}`)}$.` } else { this.correction += `$f'(x)= ${miseEnEvidence(`\\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}`)}$.` }
-        this.reponse = { reponse: { value: `\\dfrac{${-m}}{(${m}x+${p})^2}`, compare: functionCompare, options: { variable: 'x' } } }
+        if (m < 0) {
+          this.correction += `$f'(x)= \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=${miseEnEvidence(`\\dfrac{${-m}}{(${reduireAxPlusB(m, p)})^2}`)}$.`
+        } else {
+          this.correction += `$f'(x)= ${miseEnEvidence(`\\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}`)}$.`
+        }
+        this.reponse = {
+          reponse: {
+            value: `\\dfrac{${-m}}{(${m}x+${p})^2}`,
+            compare: functionCompare,
+            options: { variable: 'x' },
+          },
+        }
         break
 
-      case 2:// //1/(p+mx)
+      case 2: // //1/(p+mx)
         m = randint(-10, 10, 0)
         p = randint(5, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : $f(x)=\\dfrac{1}{${p}${ecritureAlgebriqueSauf1(m)}x}$.<br>`
-        if (this.interactif) { this.question += '$f\'(x)=$' } else { this.question += 'Déterminer  $f\'(x)$.' }
+        if (this.interactif) {
+          this.question += "$f'(x)=$"
+        } else {
+          this.question += "Déterminer  $f'(x)$."
+        }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduireAxPlusB(m, p)}$.<br>
                          Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
                   On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>
                   On en déduit, `
-        if (m < 0) { this.correction += `$f'(x)= \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${p}${ecritureAlgebriqueSauf1(m)}x)^2}=${miseEnEvidence(`\\dfrac{${-m}}{(${p}${ecritureAlgebriqueSauf1(m)}x)^2}`)}$.` } else { this.correction += `$f'(x)= ${miseEnEvidence(`\\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${p}${ecritureAlgebriqueSauf1(m)}x)^2}`)}$.` }
-        this.reponse = { reponse: { value: `\\dfrac{${-m}}{(${m}x+${p})^2}`, compare: functionCompare, options: { variable: 'x' } } }
+        if (m < 0) {
+          this.correction += `$f'(x)= \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${p}${ecritureAlgebriqueSauf1(m)}x)^2}=${miseEnEvidence(`\\dfrac{${-m}}{(${p}${ecritureAlgebriqueSauf1(m)}x)^2}`)}$.`
+        } else {
+          this.correction += `$f'(x)= ${miseEnEvidence(`\\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${p}${ecritureAlgebriqueSauf1(m)}x)^2}`)}$.`
+        }
+        this.reponse = {
+          reponse: {
+            value: `\\dfrac{${-m}}{(${m}x+${p})^2}`,
+            compare: functionCompare,
+            options: { variable: 'x' },
+          },
+        }
         break
-      case 3:// //1/(mx^2+p)
+      case 3: // //1/(mx^2+p)
       default:
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : $f(x)=\\dfrac{1}{${reduirePolynomeDegre3(0, m, 0, p)}}$.<br>`
-        if (this.interactif) { this.question += '$f\'(x)=$' } else { this.question += 'Déterminer  $f\'(x)$.' }
+        if (this.interactif) {
+          this.question += "$f'(x)=$"
+        } else {
+          this.question += "Déterminer  $f'(x)$."
+        }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$.<br>
                          Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
                   On a  $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $u'(x)=${2 * m}x$. <br>On en déduit, `
-        if (m < 0) { this.correction += `$f'(x)=\\dfrac{-(${2 * m}x)}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}=${miseEnEvidence(`\\dfrac{${ecritureParentheseSiNegatif(-2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`)}$.` } else { this.correction += `$f'(x)=${miseEnEvidence(`\\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`)}$.` }
-        this.reponse = { reponse: { value: `\\dfrac{${-2 * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, compare: functionCompare, options: { variable: 'x' } } }
+        if (m < 0) {
+          this.correction += `$f'(x)=\\dfrac{-(${2 * m}x)}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}=${miseEnEvidence(`\\dfrac{${ecritureParentheseSiNegatif(-2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`)}$.`
+        } else {
+          this.correction += `$f'(x)=${miseEnEvidence(`\\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`)}$.`
+        }
+        this.reponse = {
+          reponse: {
+            value: `\\dfrac{${-2 * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`,
+            compare: functionCompare,
+            options: { variable: 'x' },
+          },
+        }
         //  this.reponse = [`\\dfrac{${-2 * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, `\\dfrac{${-2 * m}x}{(${reduirePolynomeDegre3(0, -m, 0, -p)})^2}`]
         break
     }

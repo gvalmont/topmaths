@@ -8,7 +8,8 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale'
+export const titre =
+  'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/01/2022'
@@ -28,22 +29,27 @@ export const uuid = '12444'
 
 export const refs = {
   'fr-fr': ['2S11-2', 'BP2AutoB2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EvolutionsEnPourcentage extends Exercice {
   onlyMoney = false
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 4
     this.spacing = 1.5
 
     this.sup = 4 // type de questions
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une évolution en pourcentage\n2 : Calculer un taux d\'évolution\n3 : Calculer la valeur initiale en connaissant le taux d\'évolution et la valeur finale\n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      "1 : Déterminer le résultat après une évolution en pourcentage\n2 : Calculer un taux d'évolution\n3 : Calculer la valeur initiale en connaissant le taux d'évolution et la valeur finale\n4 : Mélange",
+    ]
   }
 
-  nouvelleVersion () {
-    let typesDeQuestionsDisponibles: ('finale' | 'evolution' | 'initiale')[] = []
+  nouvelleVersion() {
+    let typesDeQuestionsDisponibles: ('finale' | 'evolution' | 'initiale')[] =
+      []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['finale']
     }
@@ -56,11 +62,19 @@ export default class EvolutionsEnPourcentage extends Exercice {
     if (this.sup === 4) {
       typesDeQuestionsDisponibles = ['finale', 'evolution', 'initiale']
     }
-    const situationsDisponibles = this.onlyMoney ? ['prix', 'facture'] : ['prix', 'etablissement', 'facture', 'population']
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const situationsDisponibles = this.onlyMoney
+      ? ['prix', 'facture']
+      : ['prix', 'etablissement', 'facture', 'population']
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const typesDeSituations = combinaisonListes(
+      situationsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let date, cetteAnnee, anneeDerniere, etablissement, facture, nb
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let depart: number
       let taux: number
       let tauxDec: number
@@ -68,7 +82,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
       let arrive: number
       let texte = ''
       let texteCorr = ''
-      let reponse : number
+      let reponse: number
       switch (typesDeSituations[i]) {
         case 'prix':
           switch (randint(1, 3)) {
@@ -129,20 +143,24 @@ export default class EvolutionsEnPourcentage extends Exercice {
               if (taux > 0) {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €.<br>
                  Calculer le taux d'évolution du prix en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr =
+                  "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
                 texteCorr += `<br>L'évolution du  prix est $${miseEnEvidence(`${taux}`)}~\\%$.<br><br>`
-                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr +=
+                  'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
                 texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
                 $t = ${texNombre(coeff, 2)}-1= ${miseEnEvidence(`${taux}`)}~\\%$`
                 reponse = taux
               } else {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. <br>
                 Calculer le taux d'évolution du prix en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr =
+                  "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
                 texteCorr += `<br>L'évolution du  prix est $${miseEnEvidence(taux)}~\\%$.<br><br>`
-                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr +=
+                  'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
                 texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
@@ -217,18 +235,22 @@ export default class EvolutionsEnPourcentage extends Exercice {
               texte = `En ${anneeDerniere}, il y avait $${texNombre(depart, 0)}$ élèves dans un ${etablissement}. En ${cetteAnnee}, ils sont $${texNombre(arrive, 2)}$. <br>
               Déterminer le taux d'évolution du nombre d'élèves de cet établissement en pourcentage.`
               if (taux > 0) {
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr =
+                  "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
                 texteCorr += `<br>Le nombre d'élèves a donc augmenté de $${miseEnEvidence(`${taux}`)}~\\%$.<br><br>`
-                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr +=
+                  'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
                 texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               } else {
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr =
+                  "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
                 texteCorr += `<br>Le taux d'évolution est $${miseEnEvidence(taux)}~\\%$.<br><br>`
-                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr +=
+                  'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
                 texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
@@ -242,8 +264,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
           tauxDec = taux / 100
           coeff = tauxDec + 1
           arrive = coeff * depart
-          facture = choice(["ma facture annuelle d'électricité", 'ma facture annuelle de gaz', "ma taxe d'habitation", 'mon ordinateur', 'mon vélo électrique'])
-          const prixOuMontant = facture.substring(0, 2) === 'ma' ? 'montant' : 'prix'
+          facture = choice([
+            "ma facture annuelle d'électricité",
+            'ma facture annuelle de gaz',
+            "ma taxe d'habitation",
+            'mon ordinateur',
+            'mon vélo électrique',
+          ])
+          const prixOuMontant =
+            facture.substring(0, 2) === 'ma' ? 'montant' : 'prix'
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
               if (taux > 0) {
@@ -283,20 +312,24 @@ export default class EvolutionsEnPourcentage extends Exercice {
               if (taux > 0) {
                 texte = `Le ${prixOuMontant} de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €.<br>
                  Calculer le taux d'évolution du ${prixOuMontant} en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr =
+                  "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
                 texteCorr += `<br>Le taux d'évolution du ${prixOuMontant} est $${miseEnEvidence(taux)}~\\%$.<br><br>`
-                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr +=
+                  'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
                 texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               } else {
                 texte = `Le ${prixOuMontant} de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €. <br>
                 Calculer le taux d'évolution du ${prixOuMontant} en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr =
+                  "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
                 texteCorr += `<br>Le taux d'évolution du ${prixOuMontant} est $${miseEnEvidence(taux)}~\\%$.<br><br>`
-                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr +=
+                  'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
                 texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
@@ -350,19 +383,23 @@ export default class EvolutionsEnPourcentage extends Exercice {
               if (taux > 0) {
                 texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart, 0)}$ à $${texNombre(arrive, 2)}$ habitants.<br>
                  Calculer le taux d'évolution de la population de cette ville en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr =
+                  "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
                 texteCorr += `<br>Le taux d'évolution de la population est $${miseEnEvidence(taux)}~\\%$<br><br>`
-                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr +=
+                  'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
                 texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
               } else {
                 texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart, 0)}$ à $${texNombre(arrive, 2)}$ habitants. <br>
                 Calculer le taux d'évolution de la population de cette ville en pourcentage.`
-                texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$.'
+                texteCorr =
+                  "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
                 texteCorr += `<br>Le taux d'évolution de la population est $${miseEnEvidence(taux)}~\\%$<br><br>`
-                texteCorr += 'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+                texteCorr +=
+                  'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
                 texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
               }
@@ -378,7 +415,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
       } else {
         texte += ajouteChampTexteMathLive(this, i)
       }
-      if (this.questionJamaisPosee(i, depart, taux, typesDeSituations[i])) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, depart, taux, typesDeSituations[i])) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -15,7 +15,7 @@ export const uuid = '847a9'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -25,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '100.1'
       this.question = '$10^{-1}+10^{2}$'

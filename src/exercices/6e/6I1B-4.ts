@@ -9,7 +9,11 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Programmer des calculs sur tableur'
@@ -27,32 +31,36 @@ export const uuid = 'ae07c'
 export const refs = {
   'fr-fr': ['6I1B-4'],
   'fr-2016': ['6I16'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceTableur extends Exercice {
   destroyers: (() => void)[] = []
 
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 2
-    this.besoinFormulaireNumerique = ['Nombre d\'opérations (entre 2 et 5 ou bien 1 si vous laissez le hasard décider)', 5]
+    this.besoinFormulaireNumerique = [
+      "Nombre d'opérations (entre 2 et 5 ou bien 1 si vous laissez le hasard décider)",
+      5,
+    ]
     this.besoinFormulaire2Texte = [
-      'Type d\'opérations', [
+      "Type d'opérations",
+      [
         'Nombres séparés par des tirets  :',
         '1 : addition',
         '2 : soustraction',
         '3 : multiplication',
         '4 : division',
-        '5 : mélange'
-      ].join('\n')
+        '5 : mélange',
+      ].join('\n'),
     ]
     this.sup = 3
     this.sup2 = 5
   }
 
-  destroy () {
+  destroy() {
     // MGu quan l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
   }
 
@@ -62,64 +70,72 @@ export default class ExerciceTableur extends Exercice {
     jaune: '#e6e66a',
     bleu: '#8181e6',
     violet: '#f8a3f8',
-    rouge: '#eca2a2'
+    rouge: '#eca2a2',
   }
 
-  static readonly styles : StyleSheets = {
+  static readonly styles: StyleSheets = {
     style_id_rouge: {
       fs: 12,
       bg: ExerciceTableur.colors.rouge,
     },
     style_id_bleu: {
       fs: 12,
-      bg: ExerciceTableur.colors.bleu
+      bg: ExerciceTableur.colors.bleu,
     },
     style_id_orange: {
       fs: 12,
-      bg: ExerciceTableur.colors.orange
+      bg: ExerciceTableur.colors.orange,
     },
     style_id_violet: {
       fs: 12,
-      bg: ExerciceTableur.colors.violet
+      bg: ExerciceTableur.colors.violet,
     },
     style_id_vert: {
       fs: 12,
-      bg: ExerciceTableur.colors.vert
+      bg: ExerciceTableur.colors.vert,
     },
     style_id_jaune: {
       fs: 12,
-      bg: ExerciceTableur.colors.jaune
-    }
+      bg: ExerciceTableur.colors.jaune,
+    },
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
 
-    const nbOperations = this.sup === 1 ? randint(2, 5) : Math.min(Math.max(2, this.sup), 5)
+    const nbOperations =
+      this.sup === 1 ? randint(2, 5) : Math.min(Math.max(2, this.sup), 5)
     const typesDeOperations = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
       max: 4,
       melange: 5,
       defaut: 5,
-      nbQuestions: nbOperations
+      nbQuestions: nbOperations,
     })
-    for (let q = 0, cpt = 0, texte, texteCorr : string; q < this.nbQuestions && cpt < 50; cpt++) {
+    for (
+      let q = 0, cpt = 0, texte, texteCorr: string;
+      q < this.nbQuestions && cpt < 50;
+      cpt++
+    ) {
       const id = `univer${this.numeroExercice}_${q}`
       const { steps } = programmeCalcul(typesDeOperations as number[])
       const operStr = transformationsOper(steps)
-      const data : CellSheetData = {
+      const data: CellSheetData = {
         0: {
           0: { v: steps[0].oldn, s: 'style_id_orange', t: 2 },
-        }
+        },
       }
       const colorsArr = Object.entries(ExerciceTableur.colors)
       for (let i = 0; i < steps.length; i++) {
-        data[0][i + 1] = { v: '', s: `style_id_${colorsArr[(i + 1) % colorsArr.length][0]}` }
+        data[0][i + 1] = {
+          v: '',
+          s: `style_id_${colorsArr[(i + 1) % colorsArr.length][0]}`,
+        }
       }
-      const rect : Record<string, { bg?: string, v?: string }> = {
+      const rect: Record<string, { bg?: string; v?: string }> = {
         0: { v: steps[0].oldn.toString(), bg: colorsArr[0][1] },
       }
       for (let i = 0, k = 1; i < steps.length; i++, k += 2) {
@@ -151,11 +167,22 @@ export default class ExerciceTableur extends Exercice {
         </div>
         `
       } else {
-        const options: { formule?: boolean; formuleTexte?: string; formuleCellule?: string, firstColHeaderWidth?: string } = {}
+        const options: {
+          formule?: boolean
+          formuleTexte?: string
+          formuleCellule?: string
+          firstColHeaderWidth?: string
+        } = {}
         options.formule = true
         options.formuleTexte = '=?'
         options.formuleCellule = 'B1'
-        texte += createTableurLatex(4, steps.length + 1, data, ExerciceTableur.styles, options)
+        texte += createTableurLatex(
+          4,
+          steps.length + 1,
+          data,
+          ExerciceTableur.styles,
+          options,
+        )
       }
 
       if (this.interactif) {
@@ -169,20 +196,36 @@ export default class ExerciceTableur extends Exercice {
         texteCorr += `$${step.oldn} ${operStr[i]} = ${step.result}$ devient en cellule ${alphabet[i + 1]}1 la formule suivante : "=${alphabet[i]}1${operStr[i].replace('\\times', '*').replace('\\div', '/')}"<br>`
       }
 
-      function checkSolution () {
-        const btn = document.getElementById(id) as (UniverSheetElement)
+      function checkSolution() {
+        const btn = document.getElementById(id) as UniverSheetElement
         if (btn) {
-          const allMessages : string [] = []
-          const messages = btn?.parentElement?.parentElement?.querySelector<HTMLElement>('#message-faux')
+          const allMessages: string[] = []
+          const messages =
+            btn?.parentElement?.parentElement?.querySelector<HTMLElement>(
+              '#message-faux',
+            )
           for (let i = 0; i < steps.length; i++) {
             const step = steps[i]
             const value = btn.getA1NotationValue(`${alphabet.charAt(i + 1)}1`)
-            const formula = btn.getA1NotationFormula(`${alphabet.charAt(i + 1)}1`)
-            if (value !== step.result || (formula && formula.indexOf('=') !== 0) || (formula && /[A-Z]/.test(formula) === false)) {
+            const formula = btn.getA1NotationFormula(
+              `${alphabet.charAt(i + 1)}1`,
+            )
+            if (
+              value !== step.result ||
+              (formula && formula.indexOf('=') !== 0) ||
+              (formula && /[A-Z]/.test(formula) === false)
+            ) {
               if (value !== step.result) {
-                allMessages.push(`La cellule ${alphabet.charAt(i + 1)}1 est incorrecte : résultat incorrect`)
-              } else if ((formula && formula.indexOf('=') !== 0) || (formula && /[A-Z]/.test(formula) === false)) {
-                allMessages.push(`La cellule ${alphabet.charAt(i + 1)}1 est incorrecte : formule incorrecte`)
+                allMessages.push(
+                  `La cellule ${alphabet.charAt(i + 1)}1 est incorrecte : résultat incorrect`,
+                )
+              } else if (
+                (formula && formula.indexOf('=') !== 0) ||
+                (formula && /[A-Z]/.test(formula) === false)
+              ) {
+                allMessages.push(
+                  `La cellule ${alphabet.charAt(i + 1)}1 est incorrecte : formule incorrecte`,
+                )
               }
             }
           }
@@ -199,9 +242,13 @@ export default class ExerciceTableur extends Exercice {
       }
 
       const listener = function () {
-        const btn = document.getElementById(id) as (UniverSheetElement & { _eventsBound?: boolean })
+        const btn = document.getElementById(id) as UniverSheetElement & {
+          _eventsBound?: boolean
+        }
         if (btn && !btn._eventsBound) {
-          btn.parentElement?.parentElement?.querySelector('#runCode')?.addEventListener('click', checkSolution)
+          btn.parentElement?.parentElement
+            ?.querySelector('#runCode')
+            ?.addEventListener('click', checkSolution)
           btn._eventsBound = true
         }
         document.removeEventListener('exercicesAffiches', listener) // On retire l'écouteur pour éviter les doublons
@@ -223,27 +270,35 @@ export default class ExerciceTableur extends Exercice {
     if (i === undefined) return ''
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'
-    const id : string = `univer${this.numeroExercice}_${i}`
-    const tableur = document.getElementById(id) as (UniverSheetElement)
+    const id: string = `univer${this.numeroExercice}_${i}`
+    const tableur = document.getElementById(id) as UniverSheetElement
     if (tableur) {
       const jsonStr = tableur.toOneSheetJson() ?? '{ empty }'
       this.answers[`univerOneSheet${id}`] = jsonStr
     }
 
-    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-    const divFeedback = document.querySelector<HTMLElement>(`#feedbackEx${this.numeroExercice}Q${i}`)
+    const spanResultat = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${i}`,
+    )
+    const divFeedback = document.querySelector<HTMLElement>(
+      `#feedbackEx${this.numeroExercice}Q${i}`,
+    )
     if (spanResultat) spanResultat.innerHTML = ''
 
     if (tableur) {
-      tableur.parentElement?.parentElement?.querySelector<HTMLElement>('#runCode')?.click()
-      const messages = tableur.parentElement?.parentElement?.querySelector('#message-faux')
+      tableur.parentElement?.parentElement
+        ?.querySelector<HTMLElement>('#runCode')
+        ?.click()
+      const messages =
+        tableur.parentElement?.parentElement?.querySelector('#message-faux')
       if (messages?.innerHTML.includes('cellules sont correctes')) {
         result = 'OK'
         if (spanResultat) spanResultat.innerHTML = '😎'
       } else {
         if (spanResultat) spanResultat.innerHTML = '☹️'
         if (divFeedback) {
-          divFeedback.innerHTML = 'Il faut utiliser des formules avec des références'
+          divFeedback.innerHTML =
+            'Il faut utiliser des formules avec des références'
           divFeedback.style.display = 'block'
         }
       }
@@ -252,25 +307,29 @@ export default class ExerciceTableur extends Exercice {
   }
 }
 
-function transformationsOper (steps :{
-  oldn: number;
-  op: number;
-  val: number;
-  result: number;
-}[]) {
-  function stepsToSymbols (steps : {
-    oldn: number;
-    op: number;
-    val: number;
-    result: number;
-  }[]) {
+function transformationsOper(
+  steps: {
+    oldn: number
+    op: number
+    val: number
+    result: number
+  }[],
+) {
+  function stepsToSymbols(
+    steps: {
+      oldn: number
+      op: number
+      val: number
+      result: number
+    }[],
+  ) {
     const mapOps: Record<number, string> = {
       1: '+',
       2: '−', // tiret long pour la soustraction
       3: '\\times',
-      4: '\\div'
+      4: '\\div',
     }
-    return steps.map(step => (mapOps[step.op] || '?') + (step.val))
+    return steps.map((step) => (mapOps[step.op] || '?') + step.val)
   }
   return stepsToSymbols(steps)
 }
@@ -312,15 +371,15 @@ function transformationsOper (steps :{
  * }
  */
 
-function programmeCalcul (operations: number[] = [1, 2, 3, 4]) {
-  let steps : {
-    oldn: number;
-    op: number;
-    val: number;
-    result: number;
+function programmeCalcul(operations: number[] = [1, 2, 3, 4]) {
+  let steps: {
+    oldn: number
+    op: number
+    val: number
+    result: number
   }[] = []
   let final = null
-  let ops : number[] = operations
+  let ops: number[] = operations
 
   let k = 0
   let success = false
@@ -329,7 +388,7 @@ function programmeCalcul (operations: number[] = [1, 2, 3, 4]) {
     let n = randint(5, 20) // nombre de départ
     steps = [] // les étapes de calcul
     success = true
-    for (let ind = 0, tt = 0; ind < ops.length && tt < 4;) {
+    for (let ind = 0, tt = 0; ind < ops.length && tt < 4; ) {
       if (tt > 0) {
         // tt : le nombre de tentatives
         // on change l'ordre des opérations si ça bloque
@@ -339,9 +398,10 @@ function programmeCalcul (operations: number[] = [1, 2, 3, 4]) {
       }
       const op = ops[ind]
       const oldn = n
-      let val : number = 1
-      const oldval : number = ind > 0 ? steps[ind - 1].val : 1
-      if (op === 1) { // +
+      let val: number = 1
+      const oldval: number = ind > 0 ? steps[ind - 1].val : 1
+      if (op === 1) {
+        // +
         if (50 - n < 2 || (50 - n === 2 && oldval === 2)) {
           tt++
           continue
@@ -351,7 +411,8 @@ function programmeCalcul (operations: number[] = [1, 2, 3, 4]) {
           ind++
           tt = 0
         }
-      } else if (op === 2) { // -
+      } else if (op === 2) {
+        // -
         if (n < 2 || (n === 2 && oldval === 2)) {
           tt++
           continue
@@ -361,7 +422,8 @@ function programmeCalcul (operations: number[] = [1, 2, 3, 4]) {
           ind++
           tt = 0
         }
-      } else if (op === 3) { // ×
+      } else if (op === 3) {
+        // ×
         const maxMult = n < 1 ? 5 : Math.floor(50 / n)
         if (maxMult < 2 || (maxMult === 2 && oldval === 2)) {
           tt++
@@ -372,8 +434,9 @@ function programmeCalcul (operations: number[] = [1, 2, 3, 4]) {
           ind++
           tt = 0
         }
-      } else if (op === 4) { // ÷
-        const divs = listeDesDiviseurs(n).filter(d => d > 1 && d < n)
+      } else if (op === 4) {
+        // ÷
+        const divs = listeDesDiviseurs(n).filter((d) => d > 1 && d < n)
         if (divs.length === 0 || (divs.length === 1 && divs[0] === oldval)) {
           tt++
           continue
@@ -402,7 +465,10 @@ function programmeCalcul (operations: number[] = [1, 2, 3, 4]) {
   return { ops, steps, final }
 }
 
-function createDigramm (nbre : number, rects : Record<string, { bg?: string, v?: string }>) {
+function createDigramm(
+  nbre: number,
+  rects: Record<string, { bg?: string; v?: string }>,
+) {
   const longueur = 1.8
   const largeur = 1.5
   const gap = 0.8
@@ -420,7 +486,13 @@ function createDigramm (nbre : number, rects : Record<string, { bg?: string, v?:
     }
     objets.push(rectangle)
     if (rect && rect.v) {
-      const tex = latex2d(`${rect.v}`, (A.x + B.x) / 2, (A.y + D.y) / 2, { color: 'red', backgroundColor: 'none', letterSize: context.isHtml ? 'small' : 'normalsize', orientation: 0, opacity: 1 })
+      const tex = latex2d(`${rect.v}`, (A.x + B.x) / 2, (A.y + D.y) / 2, {
+        color: 'red',
+        backgroundColor: 'none',
+        letterSize: context.isHtml ? 'small' : 'normalsize',
+        orientation: 0,
+        opacity: 1,
+      })
       objets.push(tex)
     }
     if (i > 0) {
@@ -433,10 +505,33 @@ function createDigramm (nbre : number, rects : Record<string, { bg?: string, v?:
   const ymin = -0.5
   const xmax = +longueur * nbre + gap * (nbre - 1) + 0.5
   const ymax = largeur + 0.5
-  return mathalea2d({ xmin, ymin, xmax, ymax, mainlevee: false, scale: context.isHtml ? 1 : 0.5, style: 'margin: auto', optionsTikz: ['baseline=(current bounding box.north)'] }, objets)
+  return mathalea2d(
+    {
+      xmin,
+      ymin,
+      xmax,
+      ymax,
+      mainlevee: false,
+      scale: context.isHtml ? 1 : 0.5,
+      style: 'margin: auto',
+      optionsTikz: ['baseline=(current bounding box.north)'],
+    },
+    objets,
+  )
 }
 
-function createTableurLatex (rowNbr : number, colNbr: number, data: CellSheetData, styles: StyleSheets, options: { formule?: boolean, formuleTexte?: string, formuleCellule?: string, firstColHeaderWidth?: string } = {}) {
+function createTableurLatex(
+  rowNbr: number,
+  colNbr: number,
+  data: CellSheetData,
+  styles: StyleSheets,
+  options: {
+    formule?: boolean
+    formuleTexte?: string
+    formuleCellule?: string
+    firstColHeaderWidth?: string
+  } = {},
+) {
   let output = `\\begin{tabularx}{0.9\\linewidth}
   {|>{\\cellcolor{lightgray}}c|
   ${options.firstColHeaderWidth ? `>{\\centering \\arraybackslash}p{${options.firstColHeaderWidth}}|` : '>{\\centering \\arraybackslash}X|'}

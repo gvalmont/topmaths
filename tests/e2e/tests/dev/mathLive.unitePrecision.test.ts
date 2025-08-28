@@ -1,9 +1,15 @@
 import Decimal from 'decimal.js'
-import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import {
+  checkFeedback,
+  getQuestions,
+  inputAnswer,
+  runTest,
+} from '../../helpers/run'
 import type { Page } from 'playwright'
 
-async function test (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=bd660&id=4G20&n=20&d=10&s=3&s2=1&alea=vdiV&i=1&cd=1'
+async function test(page: Page) {
+  const urlExercice =
+    'http://localhost:5173/alea/?uuid=bd660&id=4G20&n=20&d=10&s=3&s2=1&alea=vdiV&i=1&cd=1'
   // 4G20 dans le cas où on ne cherche que l'hypoténuse
   const questions = await getQuestions(page, urlExercice)
 
@@ -29,7 +35,9 @@ async function test (page: Page) {
 
 runTest(test, import.meta.url)
 
-function getNumbers (text: string): Decimal[] {
+function getNumbers(text: string): Decimal[] {
   const matches = text.match(/\d+(,\d+)?/g)
-  return matches ? matches.map(match => new Decimal(parseFloat(match.replace(',', '.')))) : []
+  return matches
+    ? matches.map((match) => new Decimal(parseFloat(match.replace(',', '.'))))
+    : []
 }

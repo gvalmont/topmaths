@@ -16,7 +16,7 @@ export const uuid = '19067'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +27,7 @@ export default class NomExercice extends ExerciceSimple {
     // this.question += ajouteChampTexteMathLive(this, 0, ' ', { texteAvant: '$=$' })
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '205,037'
       this.question = `Écriture décimale de : <br> $205+\\dfrac{3}{100}+\\dfrac{7}{${texNombre(1000)}}$ `

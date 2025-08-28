@@ -10,7 +10,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'b57a9'
 export const refs = {
   'fr-fr': ['4G1QCM-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,7 +25,15 @@ export const dateDePublication = '28/10/2024'
  */
 
 export default class MetropoleJuin24Exo4Q3 extends ExerciceQcmA {
-  private appliquerLesValeurs (C:string, A:string, J:string, E:string, H:string, D:string, listeLettres: string[][]): void {
+  private appliquerLesValeurs(
+    C: string,
+    A: string,
+    J: string,
+    E: string,
+    H: string,
+    D: string,
+    listeLettres: string[][],
+  ): void {
     const nuage = [
       point(0, 0, listeLettres[0][0], 'above right'),
       point(2, 0, listeLettres[0][1], 'above right'),
@@ -38,13 +46,9 @@ export default class MetropoleJuin24Exo4Q3 extends ExerciceQcmA {
       point(0, 4, listeLettres[2][0], 'above right'),
       point(2, 4, listeLettres[2][1], 'above right'),
       point(4, 4, listeLettres[2][2], 'above right'),
-      point(6, 4, listeLettres[2][3], 'above right')
+      point(6, 4, listeLettres[2][3], 'above right'),
     ]
-    this.reponses = [
-      `$${E}$`,
-      `$${H}$`,
-      `$${D}$`
-    ]
+    this.reponses = [`$${E}$`, `$${H}$`, `$${D}$`]
 
     const points = tracePoint(...nuage)
     points.style = '.'
@@ -53,14 +57,21 @@ export default class MetropoleJuin24Exo4Q3 extends ExerciceQcmA {
     this.correction = `Si $${C}$ a pour image $${A}$ par $t_{\\overrightarrow{${C + A}}}$, alors $${J}$ a pour image $${miseEnEvidence(E)}$.`
 
     this.enonce = `Quelle est l'image du point $${J}$ par la translation qui transforme $${C}$ en $${A}$ ?<br>`
-    this.enonce += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([points, labels])), points, labels)
+    this.enonce += mathalea2d(
+      Object.assign(
+        { pixelsParCm: 20, scale: 0.5 },
+        fixeBordures([points, labels]),
+      ),
+      points,
+      labels,
+    )
   }
 
   versionOriginale: () => void = () => {
     const lettres = [
       ['F', 'E', 'L', 'K'],
       ['A', 'D', 'J', 'I'],
-      ['B', 'C', 'G', 'H']
+      ['B', 'C', 'G', 'H'],
     ]
     this.appliquerLesValeurs('C', 'A', 'J', 'E', 'H', 'D', lettres)
   }
@@ -69,7 +80,7 @@ export default class MetropoleJuin24Exo4Q3 extends ExerciceQcmA {
     const lettres = [
       ['F', 'E', 'L', 'K'],
       ['A', 'D', 'J', 'I'],
-      ['B', 'C', 'G', 'H']
+      ['B', 'C', 'G', 'H'],
     ]
     let A: string
     let C: string
@@ -120,7 +131,7 @@ export default class MetropoleJuin24Exo4Q3 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

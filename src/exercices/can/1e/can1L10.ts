@@ -16,17 +16,17 @@ export const uuid = 'cc9ee'
 
 export const refs = {
   'fr-fr': ['can1L10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SimplifierTauxVariations extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-12, 12, [0])
 
     this.question = `Simplifier le plus possible : $\\dfrac{(${a}+h)^2-${a ** 2}}{h}$.`

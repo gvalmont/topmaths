@@ -3,7 +3,8 @@ import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
-export const titre = 'Réaliser le quotient de deux longueurs à la règle non graduée et au compas'
+export const titre =
+  'Réaliser le quotient de deux longueurs à la règle non graduée et au compas'
 
 export const dateDePublication = '1/11/2021'
 
@@ -15,21 +16,29 @@ export const uuid = 'f9dd2'
 
 export const refs = {
   'fr-fr': ['PEG24'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class QuotientDeDeuxLongueurs extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Longueur de l\'unité en cm', 10]
-    this.besoinFormulaire2Numerique = ['Longueur de a en cm', 10, 'Valeur au hasard si laissé vide']
-    this.besoinFormulaire3Numerique = ['Longueur de b en cm', 10, 'Valeur au hasard si laissé vide']
+    this.besoinFormulaireNumerique = ["Longueur de l'unité en cm", 10]
+    this.besoinFormulaire2Numerique = [
+      'Longueur de a en cm',
+      10,
+      'Valeur au hasard si laissé vide',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Longueur de b en cm',
+      10,
+      'Valeur au hasard si laissé vide',
+    ]
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.sup = 1
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion(numeroExercice) {
     const anim = new Alea2iep()
     const unite = this.sup
     const a = this.sup2 === undefined ? randint(2, 5) : this.sup2
@@ -70,7 +79,7 @@ export default class QuotientDeDeuxLongueurs extends Exercice {
     anim.textePosition('b', bm.x - 0.2, bm.y + 0.8)
     const O = point(1, -2, 'O')
     const A = point(O.x + a, O.y, 'A')
-    const M = point(O.x + (a / b) / unite, O.y, 'M')
+    const M = point(O.x + a / b / unite, O.y, 'M')
     anim.regleMasquerGraduations()
     anim.regleDemiDroiteOriginePoint(O, M)
     anim.regleMasquer()
@@ -103,18 +112,22 @@ export default class QuotientDeDeuxLongueurs extends Exercice {
     anim.regleMasquer()
     anim.crayonMasquer()
 
-    const texte = 'À partir d\'un segment unité, d\'un segment de longueur $a$ et d\'un segment de longueur $b$, construire un segment de longueur $\\dfrac{a}{b}$.'
+    const texte =
+      "À partir d'un segment unité, d'un segment de longueur $a$ et d'un segment de longueur $b$, construire un segment de longueur $\\dfrac{a}{b}$."
     let texteCorr = texteGras('Programme de construction :')
     texteCorr += '<br>On trace une demi-droite $[OA)$ telle que $OA = a$.'
-    texteCorr += '<br>On trace une demi-droite de même origine $[OB)$ telle que $OB = b$.'
+    texteCorr +=
+      '<br>On trace une demi-droite de même origine $[OB)$ telle que $OB = b$.'
     texteCorr += '<br>On place le point $I$ sur $[OB)$ tel que $OI = 1u$.'
     texteCorr += '<br>On trace le segment $[BA]$.'
     texteCorr += '<br>On trace la parallèle à $(BA)$ passant par $I$.'
     texteCorr += '<br>Elle coupe $[OA)$ en $M$.'
 
     texteCorr += '<br><br>' + texteGras('Justification :')
-    texteCorr += '<br> Les droites $(BA)$ et $(IM)$ sont parallèles donc d\'après le théorème de Thalès, on a  :'
-    texteCorr += '<br> $\\dfrac{OM}{OA}=\\dfrac{OI}{OB}$ soit $\\dfrac{OM}{a}=\\dfrac{1}{b}$'
+    texteCorr +=
+      "<br> Les droites $(BA)$ et $(IM)$ sont parallèles donc d'après le théorème de Thalès, on a  :"
+    texteCorr +=
+      '<br> $\\dfrac{OM}{OA}=\\dfrac{OI}{OB}$ soit $\\dfrac{OM}{a}=\\dfrac{1}{b}$'
     texteCorr += '<br><br> Finalement, on a $OM=\\dfrac{a}{b}$.'
     texteCorr += anim.html(numeroExercice)
 

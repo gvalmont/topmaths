@@ -12,13 +12,13 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = 'cf226'
 export const refs = {
   'fr-fr': ['1A-F5'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer le tableau de signes d\'une fonction affine.'
+export const titre = "Déterminer le tableau de signes d'une fonction affine."
 export const dateDePublication = '27/08/2025'
 
 export default class Auto1AF5 extends ExerciceQcmA {
@@ -47,46 +47,46 @@ export default class Auto1AF5 extends ExerciceQcmA {
         tolerance: 0.1,
         substituts: [
           { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' }
-        ]
+          { antVal: 10, antTex: '+\\infty' },
+        ],
       }),
       tableauSignesFonction(fDistracteur1, -10, 10, {
         step: 1,
         tolerance: 0.1,
         substituts: [
           { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' }
-        ]
+          { antVal: 10, antTex: '+\\infty' },
+        ],
       }),
       tableauSignesFonction(fDistracteur2, -10, 10, {
         step: 1,
         tolerance: 0.1,
         substituts: [
           { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' }
-        ]
+          { antVal: 10, antTex: '+\\infty' },
+        ],
       }),
       tableauSignesFonction(fDistracteur3, -10, 10, {
         step: 1,
         tolerance: 0.1,
         substituts: [
           { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' }
-        ]
-      })
+          { antVal: 10, antTex: '+\\infty' },
+        ],
+      }),
     ]
 
     this.correction = `La fonction $f(x) = ${reduireAxPlusB(a, b)}$ est une fonction affine de coefficient directeur $a = ${a}$ et d'ordonnée à l'origine $b = ${b}$.<br>
     • La fonction s'annule quand ${reduireAxPlusB(a, b)} = 0$, soit $x = ${new FractionEtendue(-b, a).simplifie().texFraction}$.<br>
     • Comme $a = ${a} < 0$, la fonction est décroissante : elle est positive avant la racine et négative après.<br>Le tableau de signes de la fonction $f$ est donc le suivant :<br>
     ${tableauSignesFonction(fCorrecte, -20, 20, {
-        step: 1,
-        tolerance: 0.1,
-        substituts: [
-          { antVal: -20, antTex: '-\\infty' },
-          { antVal: 20, antTex: '+\\infty' }
-        ]
-      })}`
+      step: 1,
+      tolerance: 0.1,
+      substituts: [
+        { antVal: -20, antTex: '-\\infty' },
+        { antVal: 20, antTex: '+\\infty' },
+      ],
+    })}`
   }
 
   versionAleatoire: () => void = () => {
@@ -104,13 +104,13 @@ export default class Auto1AF5 extends ExerciceQcmA {
     const fCorrecte = (x: number | FractionEtendue) => a * Number(x) + b
 
     // Distracteur 1: coefficient directeur opposé (signes inversés)
-    const fDistracteur1 = (x: number | FractionEtendue) => (-a) * Number(x) + b
+    const fDistracteur1 = (x: number | FractionEtendue) => -a * Number(x) + b
 
     // Distracteur 2: ordonnée à l'origine opposée (racine déplacée)
-    const fDistracteur2 = (x: number | FractionEtendue) => a * Number(x) + (-b)
+    const fDistracteur2 = (x: number | FractionEtendue) => a * Number(x) + -b
 
     // Distracteur 3: les deux opposés
-    const fDistracteur3 = (x: number | FractionEtendue) => (-a) * Number(x) + (-b)
+    const fDistracteur3 = (x: number | FractionEtendue) => -a * Number(x) + -b
 
     this.reponses = [
       tableauSignesFonction(fCorrecte, -20, 20, {
@@ -118,55 +118,56 @@ export default class Auto1AF5 extends ExerciceQcmA {
         tolerance: 0.1,
         substituts: [
           { antVal: -20, antTex: '-\\infty' },
-          { antVal: 20, antTex: '+\\infty' }
-        ]
+          { antVal: 20, antTex: '+\\infty' },
+        ],
       }),
       tableauSignesFonction(fDistracteur1, -20, 20, {
         step: 1,
         tolerance: 0.1,
         substituts: [
           { antVal: -20, antTex: '-\\infty' },
-          { antVal: 20, antTex: '+\\infty' }
-        ]
+          { antVal: 20, antTex: '+\\infty' },
+        ],
       }),
       tableauSignesFonction(fDistracteur2, -20, 20, {
         step: 1,
         tolerance: 0.1,
         substituts: [
           { antVal: -20, antTex: '-\\infty' },
-          { antVal: 20, antTex: '+\\infty' }
-        ]
+          { antVal: 20, antTex: '+\\infty' },
+        ],
       }),
       tableauSignesFonction(fDistracteur3, -20, 20, {
         step: 1,
         tolerance: 0.1,
         substituts: [
           { antVal: -20, antTex: '-\\infty' },
-          { antVal: 20, antTex: '+\\infty' }
-        ]
-      })
+          { antVal: 20, antTex: '+\\infty' },
+        ],
+      }),
     ]
 
     const sensVariation = a > 0 ? 'croissante' : 'décroissante'
-    const explicationSignes = a > 0
-      ? 'elle est négative avant la racine et positive après'
-      : 'elle est positive avant la racine et négative après'
+    const explicationSignes =
+      a > 0
+        ? 'elle est négative avant la racine et positive après'
+        : 'elle est positive avant la racine et négative après'
 
     this.correction = `La fonction $f(x) = ${reduireAxPlusB(a, b)}$ est une fonction affine de coefficient directeur $a = ${a}$ et d'ordonnée à l'origine $b = ${b}$.<br>
     • La fonction s'annule quand $${reduireAxPlusB(a, b)} = 0$, soit $x = ${racineTexe}$.<br>
     • Comme $a = ${a} ${a > 0 ? '> 0' : '< 0'}$, la fonction est ${sensVariation} : ${explicationSignes}.<br>
     Le tableau de signes de la fonction $f$ est donc le suivant :<br>
     ${tableauSignesFonction(fCorrecte, -20, 20, {
-        step: 1,
-        tolerance: 0.1,
-        substituts: [
-          { antVal: -20, antTex: '-\\infty' },
-          { antVal: 20, antTex: '+\\infty' }
-        ]
-      })}`
+      step: 1,
+      tolerance: 0.1,
+      substituts: [
+        { antVal: -20, antTex: '-\\infty' },
+        { antVal: 20, antTex: '+\\infty' },
+      ],
+    })}`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

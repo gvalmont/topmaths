@@ -5,16 +5,16 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Effectuer une conversion d\'aires'
+export const titre = "Effectuer une conversion d'aires"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '6c739'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 2500
       this.question = '$25$ m$^2=$ '
@@ -38,7 +38,7 @@ export default class NomExercice extends ExerciceSimple {
       }
     } else {
       const a = randint(2, 9)
-      const choix = choice(['a', 'b', 'c', 'd'])//
+      const choix = choice(['a', 'b', 'c', 'd']) //
       if (choix === 'a') {
         this.reponse = a * 100
         this.question = `$${a}$ dm$^2=$`
@@ -83,7 +83,9 @@ export default class NomExercice extends ExerciceSimple {
         this.canReponseACompleter = `$${a}$ dm$^2=\\ldots$ m$^2$`
         if (!this.interactif) {
           this.question += '$\\ldots$ m$^2$'
-        } else { this.optionsChampTexte = { texteApres: 'm$^2$' } }
+        } else {
+          this.optionsChampTexte = { texteApres: 'm$^2$' }
+        }
       }
     }
   }

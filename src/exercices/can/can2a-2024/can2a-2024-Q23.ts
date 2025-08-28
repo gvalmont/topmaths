@@ -1,7 +1,11 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, rienSi1, ecritureAlgebriqueSauf1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  rienSi1,
+  ecritureAlgebriqueSauf1,
+} from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer un coefficient directeur'
@@ -14,7 +18,7 @@ export const uuid = '32d90'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -23,10 +27,11 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = '-2'
-      this.question = 'Coefficient directeur de la droite d’équation $y=-2x+3$<br>'
+      this.question =
+        'Coefficient directeur de la droite d’équation $y=-2x+3$<br>'
       this.correction = `L'équation de la droite est de la forme $y=mx+p$.<br>
      Le coefficient directeur est $m$ et l'ordonnée à l'origine est $p$. <br>
     Le coefficient directeur de la droite est donc $m=${miseEnEvidence('-2')}$.`

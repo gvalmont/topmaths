@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 export const uuid = '5c0ab'
 export const refs = {
   'fr-fr': ['4C2QCM-05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -22,14 +22,14 @@ export const dateDePublication = '09/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class AsieJuin21Ex1Q6 extends ExerciceQcmA {
-  private appliquerLesValeurs (l: number, h:number, h0: number): void {
-    const l0 = Math.round(l * h0 / h)
-    const l1 = h0 * h / l
+  private appliquerLesValeurs(l: number, h: number, h0: number): void {
+    const l0 = Math.round((l * h0) / h)
+    const l1 = (h0 * h) / l
     const l2 = 2 * (h0 - (l - h))
     this.reponses = [
-        `$${texNombre(l0, 0)}$ cm`,
-        `$${texNombre(l1, 4)}$ cm`,
-        `$${texNombre(l2, 0)}$ cm`
+      `$${texNombre(l0, 0)}$ cm`,
+      `$${texNombre(l1, 4)}$ cm`,
+      `$${texNombre(l2, 0)}$ cm`,
     ]
 
     this.enonce = `La hauteur et la largeur d'une télévision suivent le ratio $${l}$ : $${h}$.<br> 
@@ -52,7 +52,7 @@ export default class AsieJuin21Ex1Q6 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

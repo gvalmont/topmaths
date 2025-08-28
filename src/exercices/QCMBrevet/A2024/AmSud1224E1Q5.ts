@@ -14,7 +14,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'c6f47'
 export const refs = {
   'fr-fr': ['3G1QCM-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,15 +29,54 @@ export const dateDePublication = '05/12/2024'
  * Il est interactif et dispose d'un export AMC d'office
  */
 export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
-  private appliquerLesValeurs (noms: string, rapport:number, sensDirect: boolean, step: number, choix: boolean) : void {
+  private appliquerLesValeurs(
+    noms: string,
+    rapport: number,
+    sensDirect: boolean,
+    step: number,
+    choix: boolean,
+  ): void {
     const coef = sensDirect ? 1 : -1
     const A = point(0, 0, noms[0], coef > 0 ? 'above left' : 'below right')
-    const G = point(rapport * coef, 0, noms[1], coef > 0 ? 'above left' : 'below right')
-    const F = point(rapport * coef, rapport * coef, noms[2], coef > 0 ? 'below left' : 'above right')
-    const E = point(0, rapport * coef, noms[3], coef > 0 ? 'below right' : 'above left')
-    const D = homothetie(G, A, 1 / rapport, noms[4], coef < 0 ? 'above left' : 'below right')
-    const C = homothetie(F, A, 1 / rapport, noms[5], coef < 0 ? 'below left' : 'above right')
-    const B = homothetie(E, A, 1 / rapport, noms[6], coef < 0 ? 'below right' : 'above left')
+    const G = point(
+      rapport * coef,
+      0,
+      noms[1],
+      coef > 0 ? 'above left' : 'below right',
+    )
+    const F = point(
+      rapport * coef,
+      rapport * coef,
+      noms[2],
+      coef > 0 ? 'below left' : 'above right',
+    )
+    const E = point(
+      0,
+      rapport * coef,
+      noms[3],
+      coef > 0 ? 'below right' : 'above left',
+    )
+    const D = homothetie(
+      G,
+      A,
+      1 / rapport,
+      noms[4],
+      coef < 0 ? 'above left' : 'below right',
+    )
+    const C = homothetie(
+      F,
+      A,
+      1 / rapport,
+      noms[5],
+      coef < 0 ? 'below left' : 'above right',
+    )
+    const B = homothetie(
+      E,
+      A,
+      1 / rapport,
+      noms[6],
+      coef < 0 ? 'below right' : 'above left',
+    )
     const poly1 = polygone(A, G, F, E)
     const poly2 = polygone(A, D, C, B)
     const segGE = segment(G, E)
@@ -48,12 +87,15 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
 
     const g = grille(xmin, xmin, xmax, xmax, 'gray', 0.7, step)
     const objets = [g, poly1, poly2, segGE, segBD, labels]
-    const figure = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures([objets])), objets)
+    const figure = mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures([objets])),
+      objets,
+    )
 
     this.reponses = [
       `$${noms[6]}${noms[4]}${noms[5]}$`,
       `$${noms[0]}${noms[6]}${noms[4]}$`,
-      `$${noms[1]}${noms[3]}${choix ? noms[0] : noms[2]}$`
+      `$${noms[1]}${noms[3]}${choix ? noms[0] : noms[2]}$`,
     ]
     this.enonce = `${figure}${context.isHtml ? '' : '\n\n'}
     Le carré $${noms.substring(0, 4)}$ est l'image du carré $${noms[0]}${noms.substring(4)}$  par une homothétie de centre $${noms[0]}$.<br>
@@ -73,11 +115,17 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     do {
       const noms = choisitLettresDifferentes(7).join('')
       const rapport = choice([-3, -2])
-      this.appliquerLesValeurs(noms, rapport, choice([true, false]), 0.5, choice([true, false]))
+      this.appliquerLesValeurs(
+        noms,
+        rapport,
+        choice([true, false]),
+        0.5,
+        choice([true, false]),
+      )
     } while (nombreElementsDifferents(this.reponses) < nbReponses)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

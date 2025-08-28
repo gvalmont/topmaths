@@ -5,7 +5,11 @@ import { personne } from '../../lib/outils/Personne'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -31,26 +35,36 @@ export const uuid = 'b16c6'
 
 export const refs = {
   'fr-fr': ['4A12'],
-  'fr-ch': ['9NO4-22']
+  'fr-ch': ['9NO4-22'],
 }
 export default class ProblemesEvenementsRecurrents extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.sup = 1
-    this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : 1 facteur commun, 1 facteur spécifique\n2 : 2 facteurs communs, 1 facteur spécifique\n3 : 2 facteurs communs, 2 facteurs spécifiques']
-    this.besoinFormulaire2Texte = ['Type d\'énoncé', 'Nombres séparés par des tirets :\n1 : Guirlandes\n2 : Voiture\n3 : Fusée\n4 : Restau - ciné\n5 : Engrenages\n6 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Difficulté',
+      3,
+      '1 : 1 facteur commun, 1 facteur spécifique\n2 : 2 facteurs communs, 1 facteur spécifique\n3 : 2 facteurs communs, 2 facteurs spécifiques',
+    ]
+    this.besoinFormulaire2Texte = [
+      "Type d'énoncé",
+      'Nombres séparés par des tirets :\n1 : Guirlandes\n2 : Voiture\n3 : Fusée\n4 : Restau - ciné\n5 : Engrenages\n6 : Mélange',
+    ]
     this.sup2 = 6
     this.correctionDetailleeDisponible = true
     this.interactif = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const preListePremiers = listeNombresPremiersStrictJusqua(12)
-    const listePremiers = combinaisonListes(preListePremiers, this.nbQuestions * 5)
+    const listePremiers = combinaisonListes(
+      preListePremiers,
+      this.nbQuestions * 5,
+    )
 
     const valMaxParametre = 6
     const listeDesProblemes = gestionnaireFormulaireTexte({
@@ -59,20 +73,44 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
       max: valMaxParametre - 1,
       melange: valMaxParametre,
       nbQuestions: this.nbQuestions,
-      defaut: 1
+      defaut: 1,
     }).map(Number)
-    const listeDesSaveurs = ['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages']
+    const listeDesSaveurs = [
+      'guirlande',
+      'voiture',
+      'fusée',
+      'restau-ciné',
+      'engrenages',
+    ]
     const saveurs = []
     for (const probleme of listeDesProblemes) {
       saveurs.push(listeDesSaveurs[probleme - 1])
     }
-    for (let i = 0, texte, texteCorr, indicesFacteursCommuns, indicesFacteursA, indicesFacteursB, Commun, A, B, decompositionCommun, decompositionA, decompositionB, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        indicesFacteursCommuns,
+        indicesFacteursA,
+        indicesFacteursB,
+        Commun,
+        A,
+        B,
+        decompositionCommun,
+        decompositionA,
+        decompositionB,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       indicesFacteursCommuns = []
       switch (this.sup) {
         case 1:
           indicesFacteursCommuns = [randint(0, 2)]
           indicesFacteursA = [randint(0, 4, indicesFacteursCommuns)]
-          indicesFacteursB = [randint(0, 4, indicesFacteursCommuns.concat(indicesFacteursA))]
+          indicesFacteursB = [
+            randint(0, 4, indicesFacteursCommuns.concat(indicesFacteursA)),
+          ]
           Commun = listePremiers[indicesFacteursCommuns[0] + i * 5]
           A = listePremiers[indicesFacteursA[0] + i * 5]
           B = listePremiers[indicesFacteursB[0] + i * 5]
@@ -81,24 +119,42 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           indicesFacteursCommuns = [randint(0, 2), randint(0, 2)]
           indicesFacteursCommuns = indicesFacteursCommuns.sort()
           indicesFacteursA = [randint(3, 4, indicesFacteursCommuns)]
-          indicesFacteursB = [randint(3, 4, indicesFacteursCommuns.concat(indicesFacteursA))]
-          Commun = listePremiers[indicesFacteursCommuns[0] + i * 5] * listePremiers[indicesFacteursCommuns[1] + i * 5]
+          indicesFacteursB = [
+            randint(3, 4, indicesFacteursCommuns.concat(indicesFacteursA)),
+          ]
+          Commun =
+            listePremiers[indicesFacteursCommuns[0] + i * 5] *
+            listePremiers[indicesFacteursCommuns[1] + i * 5]
           A = listePremiers[indicesFacteursA[0] + i * 5]
           B = listePremiers[indicesFacteursB[0] + i * 5]
           break
         case 3:
           indicesFacteursCommuns = [randint(0, 2), randint(0, 2)]
           indicesFacteursCommuns = indicesFacteursCommuns.sort((a, b) => a - b)
-          indicesFacteursA = [randint(0, 2), randint(3, 4, indicesFacteursCommuns)]
-          indicesFacteursB = [randint(0, 2, indicesFacteursA), randint(3, 4, indicesFacteursCommuns.concat(indicesFacteursA))]
-          Commun = listePremiers[indicesFacteursCommuns[0] + i * 5] * listePremiers[indicesFacteursCommuns[1] + i * 5]
-          A = listePremiers[indicesFacteursA[0] + i * 5] * listePremiers[indicesFacteursA[1] + i * 5]
-          B = listePremiers[indicesFacteursB[0] + i * 5] * listePremiers[indicesFacteursB[1] + i * 5]
+          indicesFacteursA = [
+            randint(0, 2),
+            randint(3, 4, indicesFacteursCommuns),
+          ]
+          indicesFacteursB = [
+            randint(0, 2, indicesFacteursA),
+            randint(3, 4, indicesFacteursCommuns.concat(indicesFacteursA)),
+          ]
+          Commun =
+            listePremiers[indicesFacteursCommuns[0] + i * 5] *
+            listePremiers[indicesFacteursCommuns[1] + i * 5]
+          A =
+            listePremiers[indicesFacteursA[0] + i * 5] *
+            listePremiers[indicesFacteursA[1] + i * 5]
+          B =
+            listePremiers[indicesFacteursB[0] + i * 5] *
+            listePremiers[indicesFacteursB[1] + i * 5]
           break
         default: // identique au cas 1
           indicesFacteursCommuns = [randint(0, 2)]
           indicesFacteursA = [randint(0, 4, indicesFacteursCommuns)]
-          indicesFacteursB = [randint(0, 4, indicesFacteursCommuns.concat(indicesFacteursA))]
+          indicesFacteursB = [
+            randint(0, 4, indicesFacteursCommuns.concat(indicesFacteursA)),
+          ]
           Commun = listePremiers[indicesFacteursCommuns[0] + i * 5]
           A = listePremiers[indicesFacteursA[0] + i * 5]
           B = listePremiers[indicesFacteursB[0] + i * 5]
@@ -116,14 +172,17 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           if (this.interactif || context.isAmc) {
             switch (typeDeQuestion) {
               case 1:
-                texte += 'Au bout de combien de secondes ce phénomène se reproduira-t-il la prochaine fois ?'
+                texte +=
+                  'Au bout de combien de secondes ce phénomène se reproduira-t-il la prochaine fois ?'
                 uniteAMC = 'secondes'
                 break
               case 2:
-                texte += 'D\'ici la prochaine fois que ce phénomène se reproduira, les lumières rouges s\'allumeront combien de fois ?'
+                texte +=
+                  "D'ici la prochaine fois que ce phénomène se reproduira, les lumières rouges s'allumeront combien de fois ?"
                 break
               case 3:
-                texte += 'D\'ici la prochaine fois que ce phénomène se reproduira, les lumières vertes s\'allumeront combien de fois ?'
+                texte +=
+                  "D'ici la prochaine fois que ce phénomène se reproduira, les lumières vertes s'allumeront combien de fois ?"
                 break
             }
           } else {
@@ -136,8 +195,9 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           texte1 = 'Les lumières rouges seront allumées'
           texte2 = 'les lumières vertes'
           texte3 = 'Les lumières rouges et vertes seront allumées en même temps'
-          texte4 = 'le temps nécessaire pour qu\'elle se rallument la première fois simultanément'
-          texte5 = 's\'allumeront'
+          texte4 =
+            "le temps nécessaire pour qu'elle se rallument la première fois simultanément"
+          texte5 = "s'allumeront"
           break
         case 'voiture':
           texte = `Pour l'entretien de sa voiture, ${Robert.prenom} veut se tenir à un calendrier très précis :<br>
@@ -163,10 +223,12 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           unite = 'jours'
           phenomene1 = 'le nettoyage intérieur'
           phenomene2 = 'le nettoyage extérieur'
-          texte1 = 'L\'intérieur sera nettoyé'
-          texte2 = 'l\'extérieur'
-          texte3 = 'Les nettoyages intérieur et extérieur auront lieu le même jour'
-          texte4 = 'le nombre de jours avant un nettoyage intérieur et extérieur'
+          texte1 = "L'intérieur sera nettoyé"
+          texte2 = "l'extérieur"
+          texte3 =
+            'Les nettoyages intérieur et extérieur auront lieu le même jour'
+          texte4 =
+            'le nombre de jours avant un nettoyage intérieur et extérieur'
           texte5 = 'se fera'
           break
         case 'fusée':
@@ -195,8 +257,10 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           phenomene2 = 'le remplacement des boosters'
           texte1 = 'La coiffe sera remplacée'
           texte2 = 'les boosters'
-          texte3 = 'Le remplacement de la coiffe et des boosters auront lieu le même jour'
-          texte4 = 'le nombre de jours avant le remplacement de la coiffe et des boosters'
+          texte3 =
+            'Le remplacement de la coiffe et des boosters auront lieu le même jour'
+          texte4 =
+            'le nombre de jours avant le remplacement de la coiffe et des boosters'
           texte5 = 'se fera'
           break
         case 'restau-ciné':
@@ -230,7 +294,6 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           break
         case 'engrenages':
         default:
-
           texte = `Dans un engrenage, une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.
           Elles tournent jusqu'à revenir (pour la première fois) en position initiale.<br>`
           if (this.interactif || context.isAmc) {
@@ -260,7 +323,8 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           texte1 = 'La première fera un tour'
           texte2 = 'la seconde'
           texte3 = 'Elles reviendront en position initiale'
-          texte4 = 'le nombre de dents avant de revenir pour la première fois en position initiale'
+          texte4 =
+            'le nombre de dents avant de revenir pour la première fois en position initiale'
           break
       }
       /*
@@ -281,7 +345,10 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
       */
       switch (this.sup) {
         case 1:
-          decompositionCommun = texteEnCouleurEtGras(nombreAvecEspace(Commun), 'blue')
+          decompositionCommun = texteEnCouleurEtGras(
+            nombreAvecEspace(Commun),
+            'blue',
+          )
           decompositionA = texteEnCouleurEtGras(nombreAvecEspace(A), 'red')
           decompositionB = texteEnCouleurEtGras(nombreAvecEspace(B), 'green')
           break
@@ -297,7 +364,10 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           break
 
         default:
-          decompositionCommun = texteEnCouleurEtGras(nombreAvecEspace(Commun), 'blue')
+          decompositionCommun = texteEnCouleurEtGras(
+            nombreAvecEspace(Commun),
+            'blue',
+          )
           decompositionA = texteEnCouleurEtGras(nombreAvecEspace(A), 'red')
           decompositionB = texteEnCouleurEtGras(nombreAvecEspace(B), 'green')
           break
@@ -312,14 +382,20 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
       if (this.sup === 3) {
         if (indicesFacteursA[0] >= indicesFacteursCommuns[1]) {
           texteCorr += `${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} = ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[0] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[1] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursA[0] + i * 5], 'red')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursA[1] + i * 5], 'red')} <br>`
-        } else if (indicesFacteursA[0] >= indicesFacteursCommuns[0] && indicesFacteursA[0] < indicesFacteursCommuns[1]) {
+        } else if (
+          indicesFacteursA[0] >= indicesFacteursCommuns[0] &&
+          indicesFacteursA[0] < indicesFacteursCommuns[1]
+        ) {
           texteCorr += `${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} = ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[0] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursA[0] + i * 5], 'red')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[1] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursA[1] + i * 5], 'red')} <br>`
         } else if (indicesFacteursA[0] < indicesFacteursCommuns[0]) {
           texteCorr += `${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} = ${texteEnCouleurEtGras(listePremiers[indicesFacteursA[0] + i * 5], 'red')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[0] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[1] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursA[1] + i * 5], 'red')} <br>`
         }
         if (indicesFacteursB[0] >= indicesFacteursCommuns[1]) {
           texteCorr += `${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} = ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[0] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[1] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursB[0]], 'green')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursB[1] + i * 5], 'green')} <br>`
-        } else if (indicesFacteursB[0] >= indicesFacteursCommuns[0] && indicesFacteursB[0] < indicesFacteursCommuns[1]) {
+        } else if (
+          indicesFacteursB[0] >= indicesFacteursCommuns[0] &&
+          indicesFacteursB[0] < indicesFacteursCommuns[1]
+        ) {
           texteCorr += `${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} = ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[0] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursB[0]], 'green')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[1] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursB[1] + i * 5], 'green')} <br>`
         } else if (indicesFacteursB[0] < indicesFacteursCommuns[0]) {
           texteCorr += `${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} = ${texteEnCouleurEtGras(listePremiers[indicesFacteursB[0]], 'green')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[0] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursCommuns[1] + i * 5], 'blue')} $\\times$ ${texteEnCouleurEtGras(listePremiers[indicesFacteursB[1] + i * 5], 'green')} <br>`
@@ -329,7 +405,8 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} = ${decompositionCommun} $\\times$ ${decompositionB}<br>`
       }
       if (this.correctionDetaillee) {
-        texteCorr += 'On multiplie les facteurs communs aux deux décompositions avec les facteurs spécifiques à chaque décomposition :<br>'
+        texteCorr +=
+          'On multiplie les facteurs communs aux deux décompositions avec les facteurs spécifiques à chaque décomposition :<br>'
       }
       texteCorr += `${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} = ${nombreAvecEspace(Commun * A * B)}<br>
       Ce phénomène se produira à nouveau au bout de ${nombreAvecEspace(Commun * A * B)} ${unite}, `
@@ -363,15 +440,31 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
 
       setReponse(this, i, bonneReponse)
 
-      if (this.interactif && !context.isAmc) { // Si l'exercice est interactif
+      if (this.interactif && !context.isAmc) {
+        // Si l'exercice est interactif
         if (typeDeQuestion > 1) {
           if (saveurs[i] === 'engrenages') {
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' tours' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              { texteApres: ' tours' },
+            )
           } else {
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' fois' })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              { texteApres: ' fois' },
+            )
           }
         } else {
-          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' ' + unite })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+            { texteApres: ' ' + unite },
+          )
         }
       }
       if (context.isAmc) {
@@ -381,31 +474,35 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: texteCorr,
-                enonce: texte + '<br>',
-                statut: 4,
-                pointilles: false
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: texte + '<br>',
+                  statut: 4,
+                  pointilles: false,
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'Nombre de ' + uniteAMC + ' : ',
-                  valeur: [bonneReponse],
-                  param: {
-                    digits: Math.max(3, nombreDeChiffresDe(bonneReponse)),
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Nombre de ' + uniteAMC + ' : ',
+                    valeur: [bonneReponse],
+                    param: {
+                      digits: Math.max(3, nombreDeChiffresDe(bonneReponse)),
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
 

@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-export const titre = 'Justifier l\'existence d\'une racine carrée'
+export const titre = "Justifier l'existence d'une racine carrée"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '15/11/2023'
@@ -17,10 +17,10 @@ export const uuid = '55cc0'
 
 export const refs = {
   'fr-fr': ['2N32-1'],
-  'fr-ch': ['11NO1-4', '1mCN-6']
+  'fr-ch': ['11NO1-4', '1mCN-6'],
 }
 export default class ExistenceDUneRacineCarree extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 5
@@ -31,17 +31,25 @@ export default class ExistenceDUneRacineCarree extends Exercice {
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (!this.interactif) {
       this.consigne = ' Le nombre proposé existe-t-il ? Justifier.'
     } else {
       this.consigne = `Le nombre proposé existe-t-il ? <br>
     Répondre par Oui (saisir O) ou Non (saisir N).`
     }
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typesDeQuestions//,
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
+    let typesDeQuestions //,
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, texte, texteCorr, reponse, corr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, reponse, corr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const corrDetail = `${texteGras('Définition')} : $\\sqrt{a}$ est le nombre positif dont le carré est $a$.<br>
       Il vérifie donc $\\sqrt{a}\\times \\sqrt{a}=a$. <br>
@@ -66,7 +74,7 @@ export default class ExistenceDUneRacineCarree extends Exercice {
 
           break
         case 2:
-          a = randint(2, 9) * (-1)
+          a = randint(2, 9) * -1
           texte = `$\\sqrt{${a}}$`
           reponse = 'N'
           corr = `$${a}$ est un nombre négatif donc $\\sqrt{${a}}$ n'existe pas. `
@@ -78,7 +86,7 @@ export default class ExistenceDUneRacineCarree extends Exercice {
           }
           break
         case 3:
-          a = randint(2, 9) * (-1)
+          a = randint(2, 9) * -1
           texte = `$\\sqrt{\\left(${a}\\right)^{2}}$`
           reponse = 'O'
           corr = `On a $\\left(${a}\\right)^{2}=\\left(${a}\\right)\\times \\left(${a}\\right)=${a * a}$. <br>
@@ -105,7 +113,7 @@ export default class ExistenceDUneRacineCarree extends Exercice {
           }
           break
         case 5:
-          a = randint(2, 9) * (-1)
+          a = randint(2, 9) * -1
           texte = `$\\sqrt{-\\left(${a}\\right)^{2}}$`
           reponse = 'N'
           corr = `On a $-\\left(${a}\\right)^{2}=-\\left(${a}\\right)\\times \\left(${a}\\right)=-${a * a}$.<br>
@@ -164,7 +172,8 @@ export default class ExistenceDUneRacineCarree extends Exercice {
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.vFON)
       }
-      if (this.questionJamaisPosee(i, a, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, typesDeQuestions)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

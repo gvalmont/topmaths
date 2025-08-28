@@ -6,7 +6,7 @@ const config = {
   number: 'Fraction',
   precision: 64,
   predictable: false,
-  randomSeed: null
+  randomSeed: null,
 }
 const math = create(all, config)
 
@@ -20,7 +20,7 @@ const math = create(all, config)
  *  @author Jean-Claude Lhote
  */
 export class Matrice extends math.matrix {
-  constructor (table) {
+  constructor(table) {
     super(table)
     this.dim = this._size[0]
     this.determinant = function () {
@@ -50,7 +50,10 @@ export class Matrice extends math.matrix {
       return matrice(math.divide(this, k).valueOf()) // On repasse le tableau au constructeur pour ajouter les méthodes de cette classe
     }
     this.toTex = function () {
-      return math.parse(this.toString()).toTex().replaceAll('bmatrix', 'pmatrix')
+      return math
+        .parse(this.toString())
+        .toTex()
+        .replaceAll('bmatrix', 'pmatrix')
     }
     this.texDet = function () {
       let content = ''
@@ -67,8 +70,9 @@ export class Matrice extends math.matrix {
     }
   }
 }
-export function matrice (table) {
-  if (Array.isArray(table || typeof table === 'number')) return new Matrice(table)
+export function matrice(table) {
+  if (Array.isArray(table || typeof table === 'number'))
+    return new Matrice(table)
   else if (table._data != null) {
     return new Matrice(table._data)
   }

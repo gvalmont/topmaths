@@ -16,42 +16,44 @@ import { transports } from './transports'
  * @author Jean-Claude Lhote
  */
 export default class ProblemeAdditif extends Probleme {
-  constructor (name: string = '', data?: { nb1: number, nb2: number }) {
+  constructor(name: string = '', data?: { nb1: number; nb2: number }) {
     data = data == null ? { nb1: randint(2, 25), nb2: randint(2, 25) } : data
     super(name, data)
     this.schema = new SchemaEnBoite({
-      topBraces: [{
-        start: 1,
-        end: 11,
-        text: 'Total'
-      }],
+      topBraces: [
+        {
+          start: 1,
+          end: 11,
+          text: 'Total',
+        },
+      ],
       bottomBraces: [],
       rightBraces: [],
-      lignes: [{
-        barres: [
-          {
-            content: `$${miseEnEvidence(texNombre(data.nb1 + data.nb2, 2))}$`,
-            length: 10,
-            color: 'lightgray'
-          }
-        ]
-      },
-      {
-        barres: [
-          {
-            content: `$${texNombre(data.nb1, 2)}$`,
-            length: 5,
-            color: 'lightgray'
-          },
-          {
-            content: `$${texNombre(data.nb2, 2)}$`,
-            length: 5,
-            color: 'lightgray'
-          }
-        ]
-      },
-
-      ]
+      lignes: [
+        {
+          barres: [
+            {
+              content: `$${miseEnEvidence(texNombre(data.nb1 + data.nb2, 2))}$`,
+              length: 10,
+              color: 'lightgray',
+            },
+          ],
+        },
+        {
+          barres: [
+            {
+              content: `$${texNombre(data.nb1, 2)}$`,
+              length: 5,
+              color: 'lightgray',
+            },
+            {
+              content: `$${texNombre(data.nb2, 2)}$`,
+              length: 5,
+              color: 'lightgray',
+            },
+          ],
+        },
+      ],
     })
     this.enonce = `On achète deux produits : un à $${data.nb1}$ € et un autre à $${data.nb2}$ €.
 Combien cela coûte-t-il au total ?`
@@ -68,5 +70,5 @@ export const listeDeProblemesAdditifsTout = [
   transports,
   plantation,
   sportif,
-  lecture
+  lecture,
 ]

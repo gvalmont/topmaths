@@ -6,7 +6,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import Trinome from '../../modules/Trinome'
 import type FractionEtendue from '../../modules/FractionEtendue'
-export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
+export const titre =
+  "Utiliser les différentes formes d'un polynôme du second degré"
 export const interactifReady = false
 
 export const dateDePublication = '20/06/2023'
@@ -15,23 +16,27 @@ export const dateDeModifImportante = '5/11/2023'
 /**
  * Forme développée, factorisée ou canonique pour résoudre équations et inéquations
  * @author Gilles Mora
-*/
+ */
 export const uuid = '4dced'
 
 export const refs = {
   'fr-fr': ['2F23-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class EtudeTrinome extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.besoinFormulaireNumerique = ['Forme de la fonction', 3, '1 : Canonique a=1\n2 : Canonique a différent de 1\n3 : Factorisation non donnée']
+    this.besoinFormulaireNumerique = [
+      'Forme de la fonction',
+      3,
+      '1 : Canonique a=1\n2 : Canonique a différent de 1\n3 : Factorisation non donnée',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a = 1
     if (this.sup === 2) {
       a = randint(-4, 4, [0, 1])
@@ -49,7 +54,7 @@ export default class EtudeTrinome extends Exercice {
     p.defFormeFactorisee(a, x1, x2)
     this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${p.texFormeCanonique}$.<br>
     On note $\\mathscr{C}_f$ sa courbe représentative dans un repère.`
-    const question1 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${(p.c).texFractionSignee}`}$.`
+    const question1 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${p.c.texFractionSignee}`}$.`
     const etapesDeveloppement = p.arrayTexDevelopperFormeCanonique
     let correction1 = `On développe l'expression donnée : <br>$\\begin{aligned}
     f(x)&=${p.texFormeCanonique}\\\\
@@ -57,7 +62,7 @@ export default class EtudeTrinome extends Exercice {
    ${a !== 1 ? `&=${etapesDeveloppement[1]}\\\\` : '\\\\'}
  &=${etapesDeveloppement[2]}
  \\end{aligned}$`
-    correction1 += `<br>On en déduit que $f(x)$ peut s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${(p.c).texFractionSignee}`}$.`
+    correction1 += `<br>On en déduit que $f(x)$ peut s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${p.c.texFractionSignee}`}$.`
     let question2, correction2
     if (this.sup === 3) {
       question2 = 'Factoriser $f(x)$.'
@@ -69,7 +74,7 @@ export default class EtudeTrinome extends Exercice {
       correction2 += `<br> Une forme factorisée de $f(x)$ est donc :  $f(x)=${p.texFormeFactorisee}$.`
     } else {
       question2 = `Montrer que $f(x)$ se factorise sous la forme $f(x)=${p.texFormeFactorisee}$.`
-      correction2 = 'On développe l\'expression : '
+      correction2 = "On développe l'expression : "
       const etapesDeveloppement2 = p.arrayTexDevelopperFormeFactorisee
       if (p.a.isEqual(1)) {
         correction2 += `<br> $${p.texFormeFactorisee} = ${etapesDeveloppement2[0]}$`
@@ -83,10 +88,12 @@ export default class EtudeTrinome extends Exercice {
       }
       correction2 += `<br> On retrouve la même forme développée que celle de la question précédente donc on a bien $f(x)=${p.texFormeFactorisee}$.`
     }
-    let question3 = 'Répondre aux questions suivantes en utilisant l\'écriture de $f(x)$ la mieux adaptée :<br><br>'
+    let question3 =
+      "Répondre aux questions suivantes en utilisant l'écriture de $f(x)$ la mieux adaptée :<br><br>"
     let correction3 = ''
 
-    const q3a = 'Quelles sont les coordonnées du point d\'intersection entre $\\mathscr{C}_f$ et l\'axe des ordonnées ?'
+    const q3a =
+      "Quelles sont les coordonnées du point d'intersection entre $\\mathscr{C}_f$ et l'axe des ordonnées ?"
     let corr3a = `Les coordonnées du point d'intersection entre l'axe des ordonnées et la courbe $\\mathscr{C}_f$ sont $(0\\,;\\,f(0))$.<br>
     Pour déterminer $f(0)$, les calculs à partir de la forme développée sont plus rapides : `
     corr3a += `<br>$f(0)= ${p.texCalculImage(0)}$ `
@@ -94,7 +101,8 @@ export default class EtudeTrinome extends Exercice {
     corr3a += `<br>On en déduit que les coordonnées du point d'intersection entre l'axe des ordonnées et la courbe $\\mathscr{C}_f$ sont
     $(0\\, ;\\,${p.c.texFraction})$.`
 
-    const q3b = 'Quelles sont les coordonnées des points d\'intersection  entre $\\mathscr{C}_f$ et l\'axe des abscisses ?'
+    const q3b =
+      "Quelles sont les coordonnées des points d'intersection  entre $\\mathscr{C}_f$ et l'axe des abscisses ?"
     let corr3b = `Les coordonnées des points d'intersection entre l'axe des abscisses et la courbe $\\mathscr{C}_f$ sont
     de la forme $(x\\,;\\,0)$. Pour trouver les abscisses, il faut donc résoudre l'équation $f(x)=0$.<br>
     En utilisant la forme factorisée, cela revient à résoudre  une équation produit-nul.`
@@ -114,7 +122,8 @@ export default class EtudeTrinome extends Exercice {
     Démontrer cette conjecture et préciser en quelle valeur il est atteint.`
     }
     let corr3c = `En traçant la courbe à l'aide de la calculatrice par exemple, on conjecture que le ${a > 0 ? 'minimum' : 'maximum'} de $f$ est $${p.beta.simplifie().texFraction}$.`
-    corr3c += '<br> Pour le démontrer, on utilise la forme donnée dans la consigne.<br>'
+    corr3c +=
+      '<br> Pour le démontrer, on utilise la forme donnée dans la consigne.<br>'
     corr3c += `Pour tout réel $x$,<br>
 
 $\\begin{aligned}
@@ -152,7 +161,10 @@ ${a !== 1 ? `\\iff &${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppo
     $B(${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}\\,;\\,${p.c.simplifie().texFraction})$.
     `
 
-    const [sousQuestions, sousCorrections] = [[q3a, q3b, q3c, q3d], [corr3a, corr3b, corr3c, corr3d]]
+    const [sousQuestions, sousCorrections] = [
+      [q3a, q3b, q3c, q3d],
+      [corr3a, corr3b, corr3c, corr3d],
+    ]
     // shuffle2tableaux(sousQuestions, sousCorrections)
     for (let i = 0; i < 4; i++) {
       question3 += `${numAlpha(i)} ${sousQuestions[i]}<br><br>`

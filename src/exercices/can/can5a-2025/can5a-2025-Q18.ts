@@ -8,13 +8,13 @@ import { afficheMesureAngle } from '../../../lib/2d/codages'
 import { context } from '../../../modules/context'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 
-export const titre = 'Somme des angles d\'un triangle'
+export const titre = "Somme des angles d'un triangle"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'a343x'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -22,13 +22,19 @@ export const refs = {
 
 */
 export default class Can2025N5Q18 extends ExerciceCan {
-  enonce (a?: number) {
+  enonce(a?: number) {
     if (a == null) {
       a = randint(7, 12) * 5
     }
     const A = point(0, 0)
-    const B = a > 45 ? point(0, 5 * Math.sin(a * Math.PI / 180)) : point(5 * Math.cos(a * Math.PI / 180), 0)
-    const C = a > 45 ? point(5 * Math.cos(a * Math.PI / 180), 0) : point(0, 5 * Math.sin(a * Math.PI / 180))
+    const B =
+      a > 45
+        ? point(0, 5 * Math.sin((a * Math.PI) / 180))
+        : point(5 * Math.cos((a * Math.PI) / 180), 0)
+    const C =
+      a > 45
+        ? point(5 * Math.cos((a * Math.PI) / 180), 0)
+        : point(0, 5 * Math.sin((a * Math.PI) / 180))
     const triangle1 = polygone(A, B, C)
     const ad = codageAngleDroit(B, A, C)
     const am1 = afficheMesureAngle(A, B, C, 'black', 0.8)
@@ -47,7 +53,7 @@ export default class Can2025N5Q18 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(40) : this.enonce()
   }
 }

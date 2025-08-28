@@ -11,37 +11,38 @@ import Exercice from '../Exercice'
 export const interactifReady = true
 export const dateDePublication = '17/08/2024'
 export const interactifType = 'mathLive'
-export const titre = 'Calculer des mesures d\'angles adjacents, supplémentaires ou complémentaires'
+export const titre =
+  "Calculer des mesures d'angles adjacents, supplémentaires ou complémentaires"
 export const uuid = 'ed9f4'
 export const refs = {
   'fr-fr': ['5G30-0'],
-  'fr-ch': ['11ES2-3', '1mG1-6']
+  'fr-ch': ['11ES2-3', '1mG1-6'],
 }
 /**
  * Utiliser le vocabulaire complémentaires et supplémentaires pour qualifier des paires d'angles ou calculer des mesures d'angles
  * @author Jean-Claude Lhote
  */
 export default class AnglesEtVocabulaire extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.besoinFormulaireTexte = [
       'Type de questions',
-      'Nombres séparés par des tirets  :\n1 : Qcm vocabulaire\n2 : Calculer le complémentaire\n3 : Calculer le supplémentaire\n4 : Mélange'
+      'Nombres séparés par des tirets  :\n1 : Qcm vocabulaire\n2 : Calculer le complémentaire\n3 : Calculer le supplémentaire\n4 : Mélange',
     ]
     this.sup = '4'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
       defaut: 4,
       melange: 4,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    for (let i = 0; i < this.nbQuestions;) {
+    for (let i = 0; i < this.nbQuestions; ) {
       let a = randint(21, 79, [30, 40, 50, 60, 70])
       let b: number
       let texte: string
@@ -53,7 +54,12 @@ export default class AnglesEtVocabulaire extends Exercice {
             const choix = randint(1, 3)
             switch (choix) {
               case 1: // ni l'un ni l'autre
-                b = choice([90 - a + 10, 90 - a - 10, 180 - a + 110, 180 - a - 10])
+                b = choice([
+                  90 - a + 10,
+                  90 - a - 10,
+                  180 - a + 110,
+                  180 - a - 10,
+                ])
                 goodAnswer = 'aucun'
                 break
               case 2: // complémentaires
@@ -71,20 +77,20 @@ export default class AnglesEtVocabulaire extends Exercice {
               propositions: [
                 {
                   texte: 'complémentaires',
-                  statut: goodAnswer === 'complémentaires'
+                  statut: goodAnswer === 'complémentaires',
                 },
                 {
                   texte: 'supplémentaires',
-                  statut: goodAnswer === 'supplémentaires'
+                  statut: goodAnswer === 'supplémentaires',
                 },
                 {
                   texte: "ni l'un, ni l'autre",
-                  statut: goodAnswer === 'aucun'
-                }
+                  statut: goodAnswer === 'aucun',
+                },
               ],
               options: {
-                ordered: true
-              }
+                ordered: true,
+              },
             }
             const monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -97,7 +103,7 @@ export default class AnglesEtVocabulaire extends Exercice {
                 'Les deux angles sont supplémentaires car leurs côtés non communs forment un angle plat.'
             } else {
               texteCorr +=
-              'Les deux angles ne sont ni complémentaires ni supplémentaires car leurs côtés non communs ne forment ni un angle droit, ni un angle plat.'
+                'Les deux angles ne sont ni complémentaires ni supplémentaires car leurs côtés non communs ne forment ni un angle droit, ni un angle plat.'
             }
           }
           break
@@ -127,23 +133,19 @@ export default class AnglesEtVocabulaire extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             i,
-            ` ${KeyboardType.nombresEtDegre}`
+            ` ${KeyboardType.nombresEtDegre}`,
           )
         }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         if (listeTypesDeQuestions[i] !== 1) {
-          handleAnswers(
-            this,
-            i,
-            {
-              reponse: {
-                value: goodAnswer,
-                options: { unite: true }
-              }
-            }
-          )
+          handleAnswers(this, i, {
+            reponse: {
+              value: goodAnswer,
+              options: { unite: true },
+            },
+          })
         }
         i++
       }

@@ -1,8 +1,26 @@
 import { get, writable } from 'svelte/store'
-import type { DisplayedFilter, FilterObject, FilterType } from '../../../../../lib/types'
-import type { Features, JSONReferentielObject, Level, ResourceAndItsPath } from '../../../../../lib/types/referentiels'
-import { levelCriterion, type Criterion, AtLeastOneOfCriteria, featuresCriteria, MultiCriteria } from '../../../../../lib/components/filters'
-import { buildReferentiel, getAllEndings } from '../../../../../lib/components/refUtils'
+import type {
+  DisplayedFilter,
+  FilterObject,
+  FilterType,
+} from '../../../../../lib/types'
+import type {
+  Features,
+  JSONReferentielObject,
+  Level,
+  ResourceAndItsPath,
+} from '../../../../../lib/types/referentiels'
+import {
+  levelCriterion,
+  type Criterion,
+  AtLeastOneOfCriteria,
+  featuresCriteria,
+  MultiCriteria,
+} from '../../../../../lib/components/filters'
+import {
+  buildReferentiel,
+  getAllEndings,
+} from '../../../../../lib/components/refUtils'
 // pour sauvegarder les sélections de filtres
 export const allFilters = writable<
   Record<FilterType, DisplayedFilter<string | Level>>
@@ -12,128 +30,135 @@ export const allFilters = writable<
       title: 'Sixième',
       values: ['6e'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     '5e': {
       title: 'Cinquième',
       values: ['5e'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     '4e': {
       title: 'Quatrième',
       values: ['4e'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     '3e': {
       title: 'Troisième',
       values: ['3e'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     college: {
       title: 'Collège',
       values: ['6e', '5e', '4e', '3e'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     '2e': {
       title: 'Seconde',
       values: ['2e'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     '1e': {
       title: 'Première',
       values: ['1e'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     techno1: {
       title: 'Première Technologique',
       values: ['techno1'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     'Terminale Expert': {
       title: 'Terminale Expert',
       values: ['Terminale Expert'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     'Terminale Spé': {
       title: 'Terminale Spécialité',
       values: ['Terminale Spé'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     HP: {
       title: 'Hors-Programme (Lycée)',
       values: ['HP'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     lycee: {
       title: 'Lycée',
-      values: ['2e', '1e', 'techno1', 'Terminale Spé', 'Terminale Expert', 'HP'],
+      values: [
+        '2e',
+        '1e',
+        'techno1',
+        'Terminale Spé',
+        'Terminale Expert',
+        'HP',
+      ],
       isSelected: false,
-      clicked: 0
-    }
+      clicked: 0,
+    },
   },
   specs: {
     amc: {
       title: 'AMC (AutoMultipleChoice)',
       values: ['amc'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     interactif: {
       title: 'Interactif',
       values: ['interactif'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     qcm: {
       title: 'QCM',
       values: ['qcm'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     qcmcam: {
       title: 'exportable QcmCam',
       values: ['qcmcam'],
       isSelected: false,
-      clicked: 0
-    }
+      clicked: 0,
+    },
   },
   types: {
     alea: {
       title: 'Aléatoires seulement',
       values: ['alea'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     static: {
       title: 'Statiques seulement',
       values: ['static'],
       isSelected: false,
-      clicked: 0
+      clicked: 0,
     },
     CAN: {
       title: 'Course aux nombres',
       values: ['CAN'],
       isSelected: false,
-      clicked: 0
-    }
-  }
+      clicked: 0,
+    },
+  },
 })
 
 /**
  * Retourne la liste de tous les niveaux sélectionnés
  * @returns {Level[]} la liste des niveaux sélectionnés dans les filtres
  */
-export function getSelectedLevels (): Level[] {
+export function getSelectedLevels(): Level[] {
   const filters = get(allFilters)
   const selectedLevels: Level[] = []
   // on regarde les niveaux
@@ -156,7 +181,7 @@ export function getSelectedLevels (): Level[] {
  * Retourne la liste des filtres sélectionnés sous la forme d'objet comprenant le type, la clé et le contenu
  * @returns liste des filtres sélectionnés comme objects
  */
-export function getSelectedFiltersObjects (): FilterObject<string | Level>[] {
+export function getSelectedFiltersObjects(): FilterObject<string | Level>[] {
   const filters = get(allFilters)
   const levels: FilterObject<string | Level>[] = []
   // on regarde les niveaux
@@ -176,7 +201,7 @@ export function getSelectedFiltersObjects (): FilterObject<string | Level>[] {
  * Retourne la liste de toutes les fonctionnalités cochées (AMC, interactif)
  * @returns liste de toutes les fonctionnalités cochées
  */
-export function getSelectedFeatures (): (keyof Features)[] {
+export function getSelectedFeatures(): (keyof Features)[] {
   const filters = get(allFilters)
   const selectedFeatures: (keyof Features)[] = []
   Object.entries(filters.specs).forEach(([key, spec]) => {
@@ -191,12 +216,16 @@ export function getSelectedFeatures (): (keyof Features)[] {
  * Désélectionne les filtres lycée (ou collège) si une clé lycée (ou collège) est désélectionnée
  * @param {string} key clé à inspecter
  */
-export function handleUncheckingMutipleFilters (key: string) {
+export function handleUncheckingMutipleFilters(key: string) {
   const filters = get(allFilters)
   const clgKeys = [...filters.levels.college.values]
   const lyceeKeys = [...filters.levels.lycee.values]
-  if (clgKeys.includes(key)) { filters.levels.college.isSelected = false }
-  if (lyceeKeys.includes(key)) { filters.levels.lycee.isSelected = false }
+  if (clgKeys.includes(key)) {
+    filters.levels.college.isSelected = false
+  }
+  if (lyceeKeys.includes(key)) {
+    filters.levels.lycee.isSelected = false
+  }
 }
 
 /**
@@ -213,13 +242,13 @@ export function handleUncheckingMutipleFilters (key: string) {
  * @returns {JSONReferentielObject} le référentiel filtré
  * @author sylvain
  */
-export function updateReferentiel (
+export function updateReferentiel(
   isQcmCamOnlySelected: boolean,
   isQcmOnlySelected: boolean,
   originalReferentiel: JSONReferentielObject,
   isAmcOnlySelected: boolean,
   isInteractiveOnlySelected: boolean,
-  levelsSelected: Level[] // les seuls niveaux acceptés sont ceux stocké dans codeList
+  levelsSelected: Level[], // les seuls niveaux acceptés sont ceux stocké dans codeList
 ): JSONReferentielObject {
   // on récupère tous les exercices du référentiel passé en paramètre
   let filteredList: ResourceAndItsPath[] = getAllEndings(originalReferentiel)
@@ -251,7 +280,7 @@ export function updateReferentiel (
     case 1:
       // un seul critère, on l'applique à la liste
       filteredList = levelCriterion(levelsSelected[0]).meetCriterion(
-        filteredList
+        filteredList,
       )
       break
     default:
@@ -278,8 +307,8 @@ export function updateReferentiel (
  * @param {ResourceAndItsPath[]} original liste originelle
  * @author sylvain
  */
-export function applyFilters (
-  collection: ResourceAndItsPath[]
+export function applyFilters(
+  collection: ResourceAndItsPath[],
 ): ResourceAndItsPath[] {
   const original = [...collection]
   // on récupère dans le store les niveaux et les fonctionnalités cochés
@@ -306,7 +335,7 @@ export function applyFilters (
         finalLevelsCriterion = new AtLeastOneOfCriteria([
           first,
           second,
-          ...others
+          ...others,
         ])
       }
     }

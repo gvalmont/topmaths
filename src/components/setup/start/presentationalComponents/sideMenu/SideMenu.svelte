@@ -3,11 +3,11 @@
     type JSONReferentielObject,
     type ResourceAndItsPath,
     type ReferentielInMenu,
-    type ActivationName
+    type ActivationName,
   } from '../../../../../lib/types/referentiels'
   import {
     buildReferentiel,
-    getAllEndings
+    getAllEndings,
   } from '../../../../../lib/components/refUtils'
   import ReferentielNode from './referentielNode/ReferentielNode.svelte'
   import SearchBlock from './searchBlock/SearchBlock.svelte'
@@ -21,8 +21,11 @@
   import type { SvelteComponent } from 'svelte'
   import type { Language } from '../../../../../lib/types/languages'
   import { get } from 'svelte/store'
-  import { deepReferentielInMenuCopy, getReferentiels } from '../../../../../lib/stores/referentielsStore';
-    import { sortArrayOfResourcesBasedOnYearAndMonth } from '../../../../../lib/components/sorting';
+  import {
+    deepReferentielInMenuCopy,
+    getReferentiels,
+  } from '../../../../../lib/stores/referentielsStore'
+  import { sortArrayOfResourcesBasedOnYearAndMonth } from '../../../../../lib/components/sorting'
   interface SearchBlockType extends SvelteComponent {
     triggerUpdateFromSearchBlock: () => void
   }
@@ -36,7 +39,9 @@
 
   let localeValue: Language = get(referentielLocale)
 
-  let referentiels: ReferentielInMenu[] = getReferentiels(get(referentielLocale))
+  let referentiels: ReferentielInMenu[] = getReferentiels(
+    get(referentielLocale),
+  )
 
   /**
    * Souscription aux changements de langues.
@@ -45,13 +50,15 @@
    * -> changement du référentiel dans le store
    * -> mise à jour des entrées du menu
    */
-  const unsubscribeToReferentielLocale = referentielLocale.subscribe((value) => {
-    if (localeValue !== value) {
-      localeValue = value
-      referentiels = getReferentiels(value)
-      updateRepositories()
-    }
-  })
+  const unsubscribeToReferentielLocale = referentielLocale.subscribe(
+    (value) => {
+      if (localeValue !== value) {
+        localeValue = value
+        referentiels = getReferentiels(value)
+        updateRepositories()
+      }
+    },
+  )
 
   onMount(() => {
     updateRepositories()
@@ -60,16 +67,18 @@
     unsubscribeToReferentielLocale()
   })
 
-  function updateRepositories () {
+  function updateRepositories() {
     const updatedRepositories: ReferentielInMenu[] = []
-    const repositoriesInMenu: ReferentielInMenu[] = deepReferentielInMenuCopy(referentiels).filter((e) => {
+    const repositoriesInMenu: ReferentielInMenu[] = deepReferentielInMenuCopy(
+      referentiels,
+    ).filter((e) => {
       return !excludedReferentiels.includes(e.name)
     })
     for (const repositoryInMenu of repositoriesInMenu) {
       if (repositoryInMenu.searchable) {
         let filteredRepository: JSONReferentielObject =
           buildFilteredRepository(repositoryInMenu)
-       
+
         if (repositoryInMenu.name === 'aleatoires') {
           filteredRepository = orderFollowingSchoolLevel(filteredRepository)
         }
@@ -81,21 +90,21 @@
       }
     }
     referentielsForMenu = updatedRepositories
-
   }
 
-  function buildFilteredRepository (repositoryInMenu: ReferentielInMenu) {
+  function buildFilteredRepository(repositoryInMenu: ReferentielInMenu) {
     const allExercices = getAllEndings(repositoryInMenu.referentiel)
     // const filteredExercices: ResourceAndItsPath[] = applyFilters(allExercices) // EE : (15/05/025) Commenté et remplacé par la ligne ci-dessous car tri dans les annales incorrect
-    const filteredExercices: ResourceAndItsPath[] = sortArrayOfResourcesBasedOnYearAndMonth(
-      applyFilters(allExercices),
-      'desc'
-    )
+    const filteredExercices: ResourceAndItsPath[] =
+      sortArrayOfResourcesBasedOnYearAndMonth(
+        applyFilters(allExercices),
+        'desc',
+      )
     return buildReferentiel(filteredExercices)
   }
 
-  function orderFollowingSchoolLevel (
-    filteredRepository: JSONReferentielObject
+  function orderFollowingSchoolLevel(
+    filteredRepository: JSONReferentielObject,
   ) {
     for (const key of Object.keys(codeToLevelList).reverse()) {
       if (Object.keys(filteredRepository).includes(key)) {
@@ -107,7 +116,7 @@
   }
 
   const buildResourcesSet = (
-    refList: ReferentielInMenu[]
+    refList: ReferentielInMenu[],
   ): ResourceAndItsPath[] => {
     let result: ResourceAndItsPath[] = []
     const refList2 = deepReferentielInMenuCopy(refList)
@@ -125,27 +134,27 @@
         result.push(...getAllEndings(item.referentiel))
       }
     }
-    const clavier : ResourceAndItsPath = {
+    const clavier: ResourceAndItsPath = {
       resource: {
         uuid: 'clavier',
         url: 'clavier',
         id: 'clavier',
         titre: 'clavier',
         typeExercice: 'outil',
-        tags: []
+        tags: [],
       },
-      pathToResource: ['ClavierTest']
+      pathToResource: ['ClavierTest'],
     }
-    const version : ResourceAndItsPath = {
+    const version: ResourceAndItsPath = {
       resource: {
         uuid: 'version',
         url: 'version',
         id: 'version',
         titre: 'version',
         typeExercice: 'outil',
-        tags: []
+        tags: [],
       },
-      pathToResource: ['Version']
+      pathToResource: ['Version'],
     }
     result.push(clavier, version)
     return result
@@ -156,25 +165,25 @@
   class="flex w-full md:h-full md:min-h-full flex-col items-start pb-4 pt-0 md:pt-4 ml-0 md:mx-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
   <SearchBlock
-    bind:this={searchBlock}
+    bind:this="{searchBlock}"
     class="w-full flex flex-col justify-start pt-0 sm:"
-    resourcesSet={buildResourcesSet(referentielsForMenu)}
-    on:filters-change={() => {
+    resourcesSet="{buildResourcesSet(referentielsForMenu)}"
+    on:filters-change="{() => {
       updateRepositories()
       searchBlock.triggerUpdateFromSearchBlock()
-    }}
+    }}"
     {addExercise}
   />
   <div class="mt-4 w-full">
     <!-- Affichage de tous les référentiels -->
     {#each referentielsForMenu as item, i}
       <ReferentielNode
-        bind:subset={item.referentiel}
-        indexBase={i + 1}
-        levelTitle={item.title}
-        nestedLevelCount={1}
+        bind:subset="{item.referentiel}"
+        indexBase="{i + 1}"
+        levelTitle="{item.title}"
+        nestedLevelCount="{1}"
         class="w-full px-4 text-[10px]"
-        pathToThisNode={[]}
+        pathToThisNode="{[]}"
       />
     {/each}
     <!-- Bouton spécial pour les applications tierces -->

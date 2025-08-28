@@ -16,17 +16,17 @@ export const uuid = 'db589'
 
 export const refs = {
   'fr-fr': ['can3M01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CarreAire extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, c
     switch (choice(['a', 'b'])) {
       case 'a':
@@ -36,7 +36,7 @@ export default class CarreAire extends ExerciceSimple {
         this.reponse = a * a
         this.correction = `Le côté du carré est $${4 * a}\\div 4=${a}$, donc son aire est : $${a}\\times ${a}=${a ** 2}$ cm$^2$.`
         this.optionsChampTexte = { texteApres: ' cm$^2$' }
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = '$\\ldots$ cm$^2$'
         break
       case 'b':
@@ -46,7 +46,7 @@ export default class CarreAire extends ExerciceSimple {
         this.reponse = 4 * a
         this.correction = `Le côté du carré est $\\sqrt{${c}}=${a}$. Son périmètre est donc $4\\times ${a}=${4 * a}$ cm.`
         this.optionsChampTexte = { texteApres: ' cm' }
-        this.canEnonce = this.question// 'Compléter'
+        this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = '$\\ldots$ cm'
         break
     }

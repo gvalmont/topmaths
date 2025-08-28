@@ -4,7 +4,10 @@ import { degSin, degToRad } from '../../lib/mathFonctions/trigo'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { arete3d, point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -24,23 +27,32 @@ export const uuid = '9c916'
 
 export const refs = {
   'fr-fr': ['4G52'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ReperagePaveDroit extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.consigne = 'Dans le repère $(A;I;J;K)$ :'
     this.nbQuestions = 3
 
-    this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
+    this.besoinFormulaireNumerique = [
+      'Angle de la perspective',
+      3,
+      '1 : 30°\n2 : 45°\n3 : 60°',
+    ]
     this.sup = 1
 
-    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Type de questions',
+      3,
+      '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange',
+    ]
     this.sup2 = 1
   }
 
-  nouvelleVersion () { // c'est ici que les données sont relatives
+  nouvelleVersion() {
+    // c'est ici que les données sont relatives
     const hauteur = 12
     const largeur = 12
     const profondeur = 12
@@ -68,7 +80,7 @@ export default class ReperagePaveDroit extends Exercice {
     let nbgraduationx = randint(2, 4)
     let nbgraduationy = randint(2, 3)
     let nbgraduationz = randint(2, 4)
-    while ((nbgraduationx >= 3) && (nbgraduationy >= 3)) {
+    while (nbgraduationx >= 3 && nbgraduationy >= 3) {
       nbgraduationx = randint(2, 5)
       nbgraduationy = randint(2, 3, nbgraduationx)
       nbgraduationz = randint(2, 5, [nbgraduationx, nbgraduationy])
@@ -88,7 +100,7 @@ export default class ReperagePaveDroit extends Exercice {
         M = point3d(0, i * deltay, j * deltaz)
         N = point3d(largeur, i * deltay, j * deltaz)
 
-        if ((i === 0) || (j === nbgraduationz)) {
+        if (i === 0 || j === nbgraduationz) {
           s = arete3d(M, N, 'black', true)
         } else {
           s = arete3d(M, N, 'black', false)
@@ -100,7 +112,7 @@ export default class ReperagePaveDroit extends Exercice {
       for (let j = 0, M, N, s; j <= nbgraduationz; j++) {
         M = point3d(i * deltax, 0, j * deltaz)
         N = point3d(i * deltax, profondeur, j * deltaz)
-        if ((i === nbgraduationx) || (j === nbgraduationz)) {
+        if (i === nbgraduationx || j === nbgraduationz) {
           s = arete3d(M, N, 'black', true)
         } else {
           s = arete3d(M, N, 'black', false)
@@ -137,26 +149,70 @@ export default class ReperagePaveDroit extends Exercice {
     let typesDeQuestionsDisponibles = ['placer', 'lire']
     if (this.sup2 === 1) typesDeQuestionsDisponibles = ['placer']
     if (this.sup2 === 2) typesDeQuestionsDisponibles = ['lire']
-    const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    const coordExistantes = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, x, y, z, t, pointAplacer; i < this.nbQuestions && cpt < 50;) {
+    const listeTypesDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    const coordExistantes = [
+      [0, 0, 0],
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1],
+    ]
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        cpt = 0,
+        pointCoord,
+        s1,
+        s2,
+        s3,
+        x,
+        y,
+        z,
+        t,
+        pointAplacer;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       let exists
       const objetsAtracerCorr: NestedObjetMathalea2dArray = []
-      do { // Pour éviter d'avoir deux points avec les mêmes coordonnées que des points déjà présents
+      do {
+        // Pour éviter d'avoir deux points avec les mêmes coordonnées que des points déjà présents
         x = randint(0, nbgraduationx)
         y = randint(0, nbgraduationy)
         z = randint(0, nbgraduationz)
         const target = [x, y, z]
-        exists = coordExistantes.some(coord =>
-          coord.length === target.length && coord.every((val, index) => val === target[index])
+        exists = coordExistantes.some(
+          (coord) =>
+            coord.length === target.length &&
+            coord.every((val, index) => val === target[index]),
         )
       } while (exists)
       pointCoord = [x, y, z]
       coordExistantes[i + 4] = pointCoord
-      pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, true, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`)
+      pointAplacer = point3d(
+        pointCoord[0] * deltax,
+        pointCoord[1] * deltay,
+        pointCoord[2] * deltaz,
+        true,
+        lettreDepuisChiffre(i + 12),
+        `${lettreDepuisChiffre(i + 12)}`,
+      )
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'blue', true)
-      s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), 'green', true)
-      s3 = arete3d(point3d(pointAplacer.x, pointAplacer.y, 0), pointAplacer, 'red', true)
+      s2 = arete3d(
+        point3d(pointAplacer.x, 0, 0),
+        point3d(pointAplacer.x, pointAplacer.y, 0),
+        'green',
+        true,
+      )
+      s3 = arete3d(
+        point3d(pointAplacer.x, pointAplacer.y, 0),
+        pointAplacer,
+        'red',
+        true,
+      )
       s1.c2d.epaisseur = 3
       s2.c2d.epaisseur = 3
       s3.c2d.epaisseur = 3
@@ -164,96 +220,136 @@ export default class ReperagePaveDroit extends Exercice {
       t.epaisseur = 2
       t.taille = 6
       pointAplacer.c2d.positionLabel = 'above right'
-      objetsAtracerCorr.push(s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer.c2d), ...objetsAtracer)
+      objetsAtracerCorr.push(
+        s1.c2d,
+        s2.c2d,
+        s3.c2d,
+        t,
+        labelPoint(pointAplacer.c2d),
+        ...objetsAtracer,
+      )
       let propositionsAMC
       if (listeTypesDeQuestions[i] === 'placer') {
         texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
-        texteCorr = mathalea2d({
-          xmin: -1,
-          xmax: 1 + largeur + profondeur * Math.cos(degToRad(context.anglePerspective)),
-          ymin: -1,
-          ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
-          scale: 0.6,
-          style: 'display: block; margin-top:20px;'
-        }, objetsAtracerCorr)
+        texteCorr = mathalea2d(
+          {
+            xmin: -1,
+            xmax:
+              1 +
+              largeur +
+              profondeur * Math.cos(degToRad(context.anglePerspective)),
+            ymin: -1,
+            ymax:
+              1 +
+              hauteur +
+              profondeur *
+                context.coeffPerspective *
+                degSin(context.anglePerspective),
+            scale: 0.6,
+            style: 'display: block; margin-top:20px;',
+          },
+          objetsAtracerCorr,
+        )
         texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'green')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
         propositionsAMC = [
           {
             type: 'AMCOpen',
-            propositions: [{
-              texte: '',
-              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-              feedback: '',
-              enonce: `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées  ($${x}$ ; $${y}$ ; $${z}$ ).<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-              sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-              pointilles: true // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
-            }]
-          }
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                enonce: `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées  ($${x}$ ; $${y}$ ; $${z}$ ).<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: true, // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              },
+            ],
+          },
         ]
       } else {
         texte = `Donner les coordonnées du point $${lettreDepuisChiffre(i + 12)}$.`
-        objetsAtracer.push(tracePoint(pointAplacer, 'blue'), labelPoint(pointAplacer.c2d))
-        texteCorr = mathalea2d({
-          xmin: -1,
-          xmax: 1 + largeur + profondeur * Math.cos(degToRad(context.anglePerspective)),
-          ymin: -1,
-          ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
-          scale: 0.6,
-          style: 'display: block; margin-top:20px;'
-        }, objetsAtracerCorr)
+        objetsAtracer.push(
+          tracePoint(pointAplacer, 'blue'),
+          labelPoint(pointAplacer.c2d),
+        )
+        texteCorr = mathalea2d(
+          {
+            xmin: -1,
+            xmax:
+              1 +
+              largeur +
+              profondeur * Math.cos(degToRad(context.anglePerspective)),
+            ymin: -1,
+            ymax:
+              1 +
+              hauteur +
+              profondeur *
+                context.coeffPerspective *
+                degSin(context.anglePerspective),
+            scale: 0.6,
+            style: 'display: block; margin-top:20px;',
+          },
+          objetsAtracerCorr,
+        )
         texteCorr += `<br>Le point $${lettreDepuisChiffre(i + 12)}$ a pour coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'green')};${miseEnEvidence(pointCoord[2], 'red')})$.`
         propositionsAMC = [
           {
             type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: `Donner la première coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
-                valeur: pointCoord[0],
-                param: {
-                  digits: 1,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
-                }
-              }
-            }]
+            propositions: [
+              {
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `Donner la première coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
+                  valeur: pointCoord[0],
+                  param: {
+                    digits: 1,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0,
+                  },
+                },
+              },
+            ],
           },
           {
             type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: `Donner la deuxième coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
-                valeur: pointCoord[1],
-                param: {
-                  digits: 1,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
-                }
-              }
-            }]
+            propositions: [
+              {
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `Donner la deuxième coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
+                  valeur: pointCoord[1],
+                  param: {
+                    digits: 1,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0,
+                  },
+                },
+              },
+            ],
           },
           {
             type: 'AMCNum',
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: `Donner la troisième coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
-                valeur: pointCoord[2],
-                param: {
-                  digits: 1,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
-                }
-              }
-            }]
-          }
+            propositions: [
+              {
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `Donner la troisième coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
+                  valeur: pointCoord[2],
+                  param: {
+                    digits: 1,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0,
+                  },
+                },
+              },
+            ],
+          },
         ]
       }
       if (context.isAmc) {
@@ -262,12 +358,17 @@ export default class ReperagePaveDroit extends Exercice {
           enonceAvant: false,
           enonceAvantUneFois: this.nbQuestions > 1,
           enonceApresNumQuestion: this.nbQuestions === 1,
-          options: { multicols: true, barreseparation: true, multicolsAll: true },
-          propositions: propositionsAMC
+          options: {
+            multicols: true,
+            barreseparation: true,
+            multicolsAll: true,
+          },
+          propositions: propositionsAMC,
         }
       }
 
-      if (this.questionJamaisPosee(i, x, y, z)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, x, y, z)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -275,22 +376,51 @@ export default class ReperagePaveDroit extends Exercice {
       cpt++
     }
     if (context.isAmc) {
-      this.autoCorrection[0].enonce = mathalea2d({
-        xmin: -1,
-        xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(degToRad(context.anglePerspective)),
-        ymin: -1,
-        ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
-        scale: 0.4
-      }, objetsAtracer)
+      this.autoCorrection[0].enonce = mathalea2d(
+        {
+          xmin: -1,
+          xmax:
+            1 +
+            largeur +
+            profondeur *
+              context.coeffPerspective *
+              Math.cos(degToRad(context.anglePerspective)),
+          ymin: -1,
+          ymax:
+            1 +
+            hauteur +
+            profondeur *
+              context.coeffPerspective *
+              degSin(context.anglePerspective),
+          scale: 0.4,
+        },
+        objetsAtracer,
+      )
     }
-    this.introduction = (context.vue === 'diap' ? '<center>' : '') + mathalea2d({
-      xmin: -1,
-      xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(degToRad(context.anglePerspective)),
-      ymin: -1,
-      ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
-      scale: 0.6,
-      style: 'display: block; margin-top:20px;'
-    }, objetsAtracer) + (context.vue === 'diap' ? '</center>' : '')
+    this.introduction =
+      (context.vue === 'diap' ? '<center>' : '') +
+      mathalea2d(
+        {
+          xmin: -1,
+          xmax:
+            1 +
+            largeur +
+            profondeur *
+              context.coeffPerspective *
+              Math.cos(degToRad(context.anglePerspective)),
+          ymin: -1,
+          ymax:
+            1 +
+            hauteur +
+            profondeur *
+              context.coeffPerspective *
+              degSin(context.anglePerspective),
+          scale: 0.6,
+          style: 'display: block; margin-top:20px;',
+        },
+        objetsAtracer,
+      ) +
+      (context.vue === 'diap' ? '</center>' : '')
     listeQuestionsToContenu(this)
   }
 }

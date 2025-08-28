@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'd09fe'
 export const refs = {
   'fr-fr': ['TSA6-QCM01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,16 +28,17 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$F(x) = 1+x\\mathrm{e}^x$',
       '$F(x) = (1+x)\\mathrm{e}^x$',
       '$F(x) = (2 + x)\\mathrm{e}^x$',
-      '$F(x) = \\left(\\dfrac{x^2}{2}  + x\\right)\\mathrm{e}^x$'
+      '$F(x) = \\left(\\dfrac{x^2}{2}  + x\\right)\\mathrm{e}^x$',
     ]
 
     this.enonce = ` On considère la fonction $f$ définie sur $\\mathbb R$ par: $f(x) = (x + 1)\\mathrm{e}^x$. <br>
     Une primitive $F$ de $f$ sur $\\mathbb R$ est définie par:`
     this.correction = 'Si on dérive $F(x) = 1+x\\mathrm{e}^x$,<br>'
-    this.correction += 'on obtient : $F^{\\prime}(x) = 1 \\times \\mathrm{e}^x + x\\mathrm{e}^x= (1+x)\\mathrm{e}^x$.<br>'
+    this.correction +=
+      'on obtient : $F^{\\prime}(x) = 1 \\times \\mathrm{e}^x + x\\mathrm{e}^x= (1+x)\\mathrm{e}^x$.<br>'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

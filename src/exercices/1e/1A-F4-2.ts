@@ -3,7 +3,11 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
-import { Spline, spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
+import {
+  Spline,
+  spline,
+  type NoeudSpline,
+} from '../../lib/mathFonctions/Spline'
 import { mathalea2d } from '../../modules/2dGeneralites'
 
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -12,13 +16,14 @@ export const uuid = '0b1fc'
 
 export const refs = {
   'fr-fr': ['1A-F4-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Retrouver l\'affirmation correcte à partir de lectures graphiques'
+export const titre =
+  "Retrouver l'affirmation correcte à partir de lectures graphiques"
 export default class AutoF4b extends ExerciceQcmA {
   compteur = 0
   spline?: Spline
@@ -33,7 +38,7 @@ export default class AutoF4b extends ExerciceQcmA {
       { x: 2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 3, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
       { x: 4, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-      { x: 5, y: -1, deriveeGauche: -1, deriveeDroit: 0, isVisible: true }
+      { x: 5, y: -1, deriveeGauche: -1, deriveeDroit: 0, isVisible: true },
     ]
 
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
@@ -54,7 +59,7 @@ export default class AutoF4b extends ExerciceQcmA {
       grilleSecondaireYMin: bornes.yMin - 1,
       grilleSecondaireYMax: bornes.yMax + 1,
       grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1
+      grilleSecondaireXMax: bornes.xMax + 1,
     })
 
     const courbe1 = theSpline.courbe({
@@ -62,21 +67,35 @@ export default class AutoF4b extends ExerciceQcmA {
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'blue'
+      color: 'blue',
     })
 
     const objetsEnonce = [repere1, courbe1]
 
-    this.enonce = 'Voici la représentation graphique d\'une fonction $f$ définie sur $[-5\\,;\\,5]$.'
-    this.enonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) + '<br>'
+    this.enonce =
+      "Voici la représentation graphique d'une fonction $f$ définie sur $[-5\\,;\\,5]$."
+    this.enonce +=
+      mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          {
+            xmin: bornes.xMin - 1,
+            ymin: bornes.yMin - 1,
+            xmax: bornes.xMax + 1,
+            ymax: bornes.yMax + 1,
+          },
+        ),
+        objetsEnonce,
+        o,
+      ) + '<br>'
     this.enonce += 'Une seule affirmation est correcte :'
 
     // Questions fixes avec leurs corrections
     this.reponses = [
-      'L\'équation $f(x) = 0$ admet trois solutions dont deux sont opposées',
+      "L'équation $f(x) = 0$ admet trois solutions dont deux sont opposées",
       'Le maximum de $f$ est $5$',
       '$f$ est négative sur $[-5\\,;\\,-1]$',
-      'L\'inéquation $f(x) \\geqslant 0$ a pour ensemble de solutions $[-1\\,;\\,5]$'
+      "L'inéquation $f(x) \\geqslant 0$ a pour ensemble de solutions $[-1\\,;\\,5]$",
     ]
 
     this.correction = `
@@ -99,7 +118,8 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
 
   versionAleatoire = () => {
     const cas = randint(1, 2)
-    const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+    const noeuds1 = [
+      { x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -107,34 +127,37 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       { x: 2, y: -2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
       { x: 3, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 4, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-      { x: 5, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+      { x: 5, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     ]
-    const noeuds2 = [{ x: -6, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+    const noeuds2 = [
+      { x: -6, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -5, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -4, y: 2, deriveeGauche: -1.5, deriveeDroit: -1.5, isVisible: true },
       { x: -2, y: 0, deriveeGauche: -1, deriveeDroit: -1.5, isVisible: true },
       { x: 0, y: -4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 1, y: -1, deriveeGauche: 1.5, deriveeDroit: 1.5, isVisible: true },
       { x: 2, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: 3, y: -2, deriveeGauche: -2, deriveeDroit: -2, isVisible: true }
+      { x: 3, y: -2, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
     ]
 
     // Choisir les noeuds selon le cas
     const noeudsCourbe = cas === 1 ? noeuds1 : noeuds2
 
-    function aleatoiriseCourbe (noeudsChoisis: NoeudSpline[]) {
-      const coeffX = cas === 1 ? 1 : -1// choice([-1, 1]) // symétries ou pas
-      const coeffY = 1// choice([-1, 1])
-      const deltaX = 0// randint(-1, 1) // translations
-      const deltaY = 0// randint(-1, 1)// randint(-2, +2)
+    function aleatoiriseCourbe(noeudsChoisis: NoeudSpline[]) {
+      const coeffX = cas === 1 ? 1 : -1 // choice([-1, 1]) // symétries ou pas
+      const coeffY = 1 // choice([-1, 1])
+      const deltaX = 0 // randint(-1, 1) // translations
+      const deltaY = 0 // randint(-1, 1)// randint(-2, +2)
 
-      return noeudsChoisis.map((noeud: NoeudSpline) => Object({
-        x: (noeud.x + deltaX) * coeffX,
-        y: (noeud.y + deltaY) * coeffY,
-        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-        isVisible: noeud.isVisible
-      }))
+      return noeudsChoisis.map((noeud: NoeudSpline) =>
+        Object({
+          x: (noeud.x + deltaX) * coeffX,
+          y: (noeud.y + deltaY) * coeffY,
+          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+          isVisible: noeud.isVisible,
+        }),
+      )
     }
 
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
@@ -155,24 +178,47 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       grilleSecondaireYMin: bornes.yMin - 1,
       grilleSecondaireYMax: bornes.yMax + 1,
       grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1
+      grilleSecondaireXMax: bornes.xMax + 1,
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'blue'
+      color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]
-    const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin, bornes.yMax, true, true)
+    const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(
+      bornes.yMin,
+      bornes.yMax,
+      true,
+      true,
+    )
 
-    const nombreAntecedentCherches1 = choice([randint(1, nbAntecedentsEntiersMaximum), randint(0, nbAntecedentsEntiersMaximum), randint(1, nbAntecedentsEntiersMaximum)])
-    const y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
+    const nombreAntecedentCherches1 = choice([
+      randint(1, nbAntecedentsEntiersMaximum),
+      randint(0, nbAntecedentsEntiersMaximum),
+      randint(1, nbAntecedentsEntiersMaximum),
+    ])
+    const y1 = theSpline.trouveYPourNAntecedents(
+      nombreAntecedentCherches1,
+      bornes.yMin - 1,
+      bornes.yMax + 1,
+      true,
+      true,
+    )
     if (y1 === false) {
       this.compteur++
       if (this.compteur > 10) {
-        window.notify('Erreur dans la génération de l\'exercice : y1 === false', { spline: theSpline, nombreAntecedentCherches1, nbAntecedentsEntiersMaximum, bornes })
+        window.notify(
+          "Erreur dans la génération de l'exercice : y1 === false",
+          {
+            spline: theSpline,
+            nombreAntecedentCherches1,
+            nbAntecedentsEntiersMaximum,
+            bornes,
+          },
+        )
         return
       }
       this.nouvelleVersion()
@@ -196,101 +242,155 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
           const AFC = 'Cette affirmation est correcte : <br>'
           const AFF = 'Cette affirmation est fausse : <br>'
           this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.`
-          this.enonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) + '<br>'
+          this.enonce +=
+            mathalea2d(
+              Object.assign(
+                { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+                {
+                  xmin: bornes.xMin - 1,
+                  ymin: bornes.yMin - 1,
+                  xmax: bornes.xMax + 1,
+                  ymax: bornes.yMax + 1,
+                },
+              ),
+              objetsEnonce,
+              o,
+            ) + '<br>'
           this.enonce += 'Une seule affirmation est correcte :'
 
           // Définir toutes les réponses possibles avec leur correction
           const bonnesReponses = [
             {
               texte: `$f$ est positive sur $[${texNombre(v1, 1)}\\,;\\,${texNombre(v1 + 0.5, 1)}]$.`,
-              correction: AFC + `$f$ est positive sur $[${texNombre(v1, 1)}\\,;\\,${texNombre(v1 + 0.5, 1)}]$ car la courbe se situe au-dessus de l'axe des abscisses sur cet intervalle.`,
-              estCorrecte: true
+              correction:
+                AFC +
+                `$f$ est positive sur $[${texNombre(v1, 1)}\\,;\\,${texNombre(v1 + 0.5, 1)}]$ car la courbe se situe au-dessus de l'axe des abscisses sur cet intervalle.`,
+              estCorrecte: true,
             },
             {
-              texte: 'L\'équation $f(x)=0$ admet deux solutions de même signe.',
-              correction: AFC + 'L\'équation $f(x)=0$ admet effectivement deux solutions de même signe car la courbe coupe deux fois  l\'axe des abscisses pour des valeurs négatives.',
-              estCorrecte: true
+              texte: "L'équation $f(x)=0$ admet deux solutions de même signe.",
+              correction:
+                AFC +
+                "L'équation $f(x)=0$ admet effectivement deux solutions de même signe car la courbe coupe deux fois  l'axe des abscisses pour des valeurs négatives.",
+              estCorrecte: true,
             },
             {
               texte: 'Le minimum de $f$ est $-3$.',
-              correction: AFC + 'Le point le plus bas de la courbe a pour ordonnée $-3$. C\'est le minimum de $f$.',
-              estCorrecte: true
+              correction:
+                AFC +
+                "Le point le plus bas de la courbe a pour ordonnée $-3$. C'est le minimum de $f$.",
+              estCorrecte: true,
             },
             {
               texte: `${choix ? `$f(${texNombre(a, 2)}) > f(${texNombre(a + 0.01, 2)})$` : `$f(${texNombre(a + 0.01, 2)}) < f(${texNombre(a, 2)})$`}`,
-              correction: AFC + ` Comme la fonction est décroissante sur $[-2\\,;\\,3]$,${choix ? `$f(${texNombre(a, 2)}) > f(${texNombre(a + 0.01, 2)})$` : `$f(${texNombre(a + 0.01, 2)}) < f(${texNombre(a, 2)})$`} `,
-              estCorrecte: false
+              correction:
+                AFC +
+                ` Comme la fonction est décroissante sur $[-2\\,;\\,3]$,${choix ? `$f(${texNombre(a, 2)}) > f(${texNombre(a + 0.01, 2)})$` : `$f(${texNombre(a + 0.01, 2)}) < f(${texNombre(a, 2)})$`} `,
+              estCorrecte: false,
             },
             {
               texte: `${choix ? `$f(${texNombre(v1, 2)}) \\times f(${texNombre(v2, 2)}) < 0$` : `$f(${texNombre(b, 2)}) \\times  f(${texNombre(a, 2)}) > 0$`}`,
-              correction: AFC + `${choix ? `$f(${texNombre(v1, 2)}) >0$ et  $f(${texNombre(v2, 2)}) < 0$, donc le produit est négatif.` : `$f(${texNombre(b, 2)}) < 0$ et   $f(${texNombre(a, 2)}) > 0$, donc le produit est positif.`}`,
-              estCorrecte: false
+              correction:
+                AFC +
+                `${choix ? `$f(${texNombre(v1, 2)}) >0$ et  $f(${texNombre(v2, 2)}) < 0$, donc le produit est négatif.` : `$f(${texNombre(b, 2)}) < 0$ et   $f(${texNombre(a, 2)}) > 0$, donc le produit est positif.`}`,
+              estCorrecte: false,
             },
             {
-              texte: 'L\'inéquation $f(x) < 0$ a pour ensemble de solutions $[-4\\,;\\,-3[\\cup ]-1\\,;\\,5]$.',
-              correction: AFC + 'Les solutions de l\'inéquation $f(x) < 0$ sont les abscisses des points de la courbe situés strictement en dessous de l\'axe des abscissses.',
-              estCorrecte: true
-            }
+              texte:
+                "L'inéquation $f(x) < 0$ a pour ensemble de solutions $[-4\\,;\\,-3[\\cup ]-1\\,;\\,5]$.",
+              correction:
+                AFC +
+                "Les solutions de l'inéquation $f(x) < 0$ sont les abscisses des points de la courbe situés strictement en dessous de l'axe des abscissses.",
+              estCorrecte: true,
+            },
           ]
 
           const mauvaisesReponses = [
             {
               texte: `${choix ? `$f(${texNombre(a, 2)}) < f(${texNombre(a + 0.01, 2)})$` : `$f(${texNombre(a + 0.01, 2)}) > f(${texNombre(a, 2)})$`}`,
-              correction: AFF + ` $f(${texNombre(a, 2)}) > f(${texNombre(a + 0.01, 2)})$ puisque  la fonction est décroissante sur $[-2\\,;\\,3]$.`,
-              estCorrecte: false
+              correction:
+                AFF +
+                ` $f(${texNombre(a, 2)}) > f(${texNombre(a + 0.01, 2)})$ puisque  la fonction est décroissante sur $[-2\\,;\\,3]$.`,
+              estCorrecte: false,
             },
             {
               texte: 'Le minimum de $f$ est $-4$.',
-              correction: AFF + ' Le point le plus bas de la courbe a pour ordonnée $-3$, donc le minimum de $f$ est $-3$.',
-              estCorrecte: false
+              correction:
+                AFF +
+                ' Le point le plus bas de la courbe a pour ordonnée $-3$, donc le minimum de $f$ est $-3$.',
+              estCorrecte: false,
             },
             {
               texte: `L'équation $f(x) = ${texNombre(v4, 1)}$ a une unique solution.`,
-              correction: AFF + `La droite d'équation $y=${texNombre(v4, 1)}$ coupe plusieurs fois la courbe, donc l'équation n'a pas une unique solution.`,
-              estCorrecte: false
+              correction:
+                AFF +
+                `La droite d'équation $y=${texNombre(v4, 1)}$ coupe plusieurs fois la courbe, donc l'équation n'a pas une unique solution.`,
+              estCorrecte: false,
             },
             {
               texte: `${choix ? `$f(${texNombre(v1, 2)}) \\times f(${texNombre(v2b, 2)}) > 0$` : `$f(${texNombre(bBis, 2)}) \\times  f(${texNombre(aBis, 2)}) < 0$`}`,
-              correction: AFF + `${choix ? `$f(${texNombre(v1, 2)}) >0$ et  $f(${texNombre(v2b, 2)}) < 0$, donc le produit est négatif.` : `$f(${texNombre(bBis, 2)}) < 0$ et   $f(${texNombre(aBis, 2)}) < 0$, donc le produit est positif.`}`,
-              estCorrecte: false
+              correction:
+                AFF +
+                `${choix ? `$f(${texNombre(v1, 2)}) >0$ et  $f(${texNombre(v2b, 2)}) < 0$, donc le produit est négatif.` : `$f(${texNombre(bBis, 2)}) < 0$ et   $f(${texNombre(aBis, 2)}) < 0$, donc le produit est positif.`}`,
+              estCorrecte: false,
             },
             {
               texte: `$f$ est négative sur $[${texNombre(v3, 1)}\\,;\\,${texNombre(v3 + 0.5, 1)}]$.`,
-              correction: AFF + `$f$ est positive sur $[-3\\,;\\,-1]$, donc $f$ est positive sur $[${texNombre(v3, 1)}\\,;\\,${texNombre(v3 + 0.5, 1)}]$.`,
-              estCorrecte: false
+              correction:
+                AFF +
+                `$f$ est positive sur $[-3\\,;\\,-1]$, donc $f$ est positive sur $[${texNombre(v3, 1)}\\,;\\,${texNombre(v3 + 0.5, 1)}]$.`,
+              estCorrecte: false,
             },
             {
-              texte: 'L\'inéquation $f(x) < 0$ a pour ensemble de solutions $[-4\\,;\\,-3]\\cup [-1\\,;\\,5]$.',
-              correction: AFF + 'Les solutions de l\'inéquation $f(x) < 0$ sont les abscisses des points situés strictement en dessous de l\'axe des abscissses, ce qui n\'est pas le cas de $-3$ par exemple.',
-              estCorrecte: true
+              texte:
+                "L'inéquation $f(x) < 0$ a pour ensemble de solutions $[-4\\,;\\,-3]\\cup [-1\\,;\\,5]$.",
+              correction:
+                AFF +
+                "Les solutions de l'inéquation $f(x) < 0$ sont les abscisses des points situés strictement en dessous de l'axe des abscissses, ce qui n'est pas le cas de $-3$ par exemple.",
+              estCorrecte: true,
             },
             {
-              texte: 'L\'inéquation $f(x) \\geqslant 0$ a pour ensemble de solutions $]-3\\,;\\,-1[$.',
-              correction: AFF + `Les solutions de l'inéquation $f(x)\\geqslant 0$ sont les abscisses des points situés strictement au dessus ou sur  l'axe des abscissses.<br>
+              texte:
+                "L'inéquation $f(x) \\geqslant 0$ a pour ensemble de solutions $]-3\\,;\\,-1[$.",
+              correction:
+                AFF +
+                `Les solutions de l'inéquation $f(x)\\geqslant 0$ sont les abscisses des points situés strictement au dessus ou sur  l'axe des abscissses.<br>
               $-3$ et $-1$ sont donc solutions de l'inéquation.`,
-              estCorrecte: true
+              estCorrecte: true,
             },
             {
               texte: `Si $${theSpline.x[v5]}\\leqslant x \\leqslant 5$, alors $-1\\leqslant f(x) \\leqslant ${theSpline.y[v5]}$.`,
-              correction: AFF + `Le minimum de $f$ sur $[${theSpline.x[v5]}\\,;\\,5]$ est $-3$ et son maximum est $${theSpline.y[v5]}$, on en déduit l'encadrement $-3\\leqslant x \\leqslant ${theSpline.y[v5]}$.`,
-              estCorrecte: true
+              correction:
+                AFF +
+                `Le minimum de $f$ sur $[${theSpline.x[v5]}\\,;\\,5]$ est $-3$ et son maximum est $${theSpline.y[v5]}$, on en déduit l'encadrement $-3\\leqslant x \\leqslant ${theSpline.y[v5]}$.`,
+              estCorrecte: true,
             },
             {
               texte: 'Le maximum de $f$ est $5$.',
-              correction: AFF + 'Le point le plus haut de la courbe a pour ordonnée $1$, donc le maximum de $f$ est $1$.',
-              estCorrecte: false
-            }
+              correction:
+                AFF +
+                'Le point le plus haut de la courbe a pour ordonnée $1$, donc le maximum de $f$ est $1$.',
+              estCorrecte: false,
+            },
           ]
           // Choisir une bonne réponse et 3 mauvaises réponses distinctes
           const bonneReponseChoisie = choice(bonnesReponses)
-          const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(() => Math.random() - 0.5)
-          const mauvaisesReponsesChoisies = mauvaisesReponsesMelangees.slice(0, 3)
+          const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(
+            () => Math.random() - 0.5,
+          )
+          const mauvaisesReponsesChoisies = mauvaisesReponsesMelangees.slice(
+            0,
+            3,
+          )
 
           // Constituer le tableau des réponses (bonne réponse en premier)
-          const toutesLesReponses = [bonneReponseChoisie, ...mauvaisesReponsesChoisies]
+          const toutesLesReponses = [
+            bonneReponseChoisie,
+            ...mauvaisesReponsesChoisies,
+          ]
 
           // Extraire les textes pour this.reponses
-          this.reponses = toutesLesReponses.map(reponse => reponse.texte)
+          this.reponses = toutesLesReponses.map((reponse) => reponse.texte)
 
           // Construire la correction en analysant chaque réponse
           this.correction = ''
@@ -321,89 +421,134 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
           const AFC = 'Cette affirmation est correcte : <br>'
           const AFF = 'Cette affirmation est fausse : <br>'
           this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.`
-          this.enonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) + '<br>'
+          this.enonce +=
+            mathalea2d(
+              Object.assign(
+                { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+                {
+                  xmin: bornes.xMin - 1,
+                  ymin: bornes.yMin - 1,
+                  xmax: bornes.xMax + 1,
+                  ymax: bornes.yMax + 1,
+                },
+              ),
+              objetsEnonce,
+              o,
+            ) + '<br>'
           this.enonce += 'Une seule affirmation est correcte :'
 
           // Définir toutes les réponses possibles avec leur correction
           const bonnesReponses = [
             {
               texte: `$f$ est positive sur $[${texNombre(v6, 1)}\\,;\\,${texNombre(v7, 1)}]$`,
-              correction: AFC + `$f$ est positive sur $[${texNombre(v6, 1)}\\,;\\,${texNombre(v7, 1)}]$ car la courbe se situe au-dessus de l'axe des abscisses sur cet intervalle.`,
-              estCorrecte: true
+              correction:
+                AFC +
+                `$f$ est positive sur $[${texNombre(v6, 1)}\\,;\\,${texNombre(v7, 1)}]$ car la courbe se situe au-dessus de l'axe des abscisses sur cet intervalle.`,
+              estCorrecte: true,
             },
             {
-              texte: 'L\'équation $f(x)=0$ admet deux solutions opposées.',
-              correction: AFC + 'L\'équation $f(x)=0$ admet effectivement deux solutions opposées car la courbe coupe deux fois l\'axe des abscisses pour des valeurs opposées en $-2$ et $2$.',
-              estCorrecte: true
+              texte: "L'équation $f(x)=0$ admet deux solutions opposées.",
+              correction:
+                AFC +
+                "L'équation $f(x)=0$ admet effectivement deux solutions opposées car la courbe coupe deux fois l'axe des abscisses pour des valeurs opposées en $-2$ et $2$.",
+              estCorrecte: true,
             },
             {
               texte: 'Le minimum de $f$ est $-4$.',
-              correction: AFC + 'Le point le plus bas de la courbe a pour ordonnée $-4$. C\'est le minimum de $f$.',
-              estCorrecte: true
+              correction:
+                AFC +
+                "Le point le plus bas de la courbe a pour ordonnée $-4$. C'est le minimum de $f$.",
+              estCorrecte: true,
             },
             {
               texte: `${choix ? `$f(${texNombre(v8, 2)}) < f(${texNombre(v8 + 0.01, 2)})$` : `$f(${texNombre(v8 + 0.01, 2)}) > f(${texNombre(v8, 2)})$`}`,
-              correction: AFC + ` Comme la fonction est croissante sur $[0\\,;\\,5]$, ${choix ? `$f(${texNombre(v8, 2)}) < f(${texNombre(v8 + 0.01, 2)})$` : `$f(${texNombre(v8 + 0.01, 2)}) > f(${texNombre(v8, 2)})$`}`,
-              estCorrecte: false
+              correction:
+                AFC +
+                ` Comme la fonction est croissante sur $[0\\,;\\,5]$, ${choix ? `$f(${texNombre(v8, 2)}) < f(${texNombre(v8 + 0.01, 2)})$` : `$f(${texNombre(v8 + 0.01, 2)}) > f(${texNombre(v8, 2)})$`}`,
+              estCorrecte: false,
             },
             {
               texte: `${choix ? `$f(${texNombre(v9, 2)}) \\times f(${texNombre(v10, 2)}) > 0$` : `$f(${texNombre(v11, 2)}) \\times  f(${texNombre(v12, 2)}) > 0$`}`,
-              correction: AFC + `${choix ? `$f(${texNombre(v9, 2)}) <0$ et  $f(${texNombre(v10, 2)}) < 0$, donc le produit est positif.` : `$f(${texNombre(v11, 2)}) > 0$ et   $f(${texNombre(v12, 2)}) > 0$, donc le produit est positif.`}`,
-              estCorrecte: false
+              correction:
+                AFC +
+                `${choix ? `$f(${texNombre(v9, 2)}) <0$ et  $f(${texNombre(v10, 2)}) < 0$, donc le produit est positif.` : `$f(${texNombre(v11, 2)}) > 0$ et   $f(${texNombre(v12, 2)}) > 0$, donc le produit est positif.`}`,
+              estCorrecte: false,
             },
             {
-              texte: 'L\'inéquation $f(x) \\leqslant 0$ a pour ensemble de solutions $[-3\\,;\\,2]$.',
-              correction: AFC + 'Les solutions de l\'inéquation $f(x) \\leqslant 0$ sont les abscisses des points de la courbe situés en dessous ou sur l\'axe des abscissses.',
-              estCorrecte: true
+              texte:
+                "L'inéquation $f(x) \\leqslant 0$ a pour ensemble de solutions $[-3\\,;\\,2]$.",
+              correction:
+                AFC +
+                "Les solutions de l'inéquation $f(x) \\leqslant 0$ sont les abscisses des points de la courbe situés en dessous ou sur l'axe des abscissses.",
+              estCorrecte: true,
             },
             {
               texte: `Si $${theSpline.x[v13]}\\leqslant x \\leqslant ${theSpline.x[v14]}$, alors $-4\\leqslant f(x) \\leqslant 3$.`,
-              correction: AFC + `Le minimum de $f$ sur $[${theSpline.x[v13]}\\,;\\,${theSpline.x[v14]}]$ est $-4$ et son maximum est $3$, on en déduit l'encadrement $-4\\leqslant x \\leqslant 3$.`,
-              estCorrecte: true
-            }
+              correction:
+                AFC +
+                `Le minimum de $f$ sur $[${theSpline.x[v13]}\\,;\\,${theSpline.x[v14]}]$ est $-4$ et son maximum est $3$, on en déduit l'encadrement $-4\\leqslant x \\leqslant 3$.`,
+              estCorrecte: true,
+            },
           ]
 
           const mauvaisesReponses = [
             {
               texte: `$f$ est négative sur $[${texNombre(v6Bis, 1)}\\,;\\,${texNombre(v7Bis, 1)}]$.`,
-              correction: AFF + `$f$ est positive sur $[${texNombre(v6, 1)}\\,;\\,${texNombre(v7, 1)}]$ car la courbe se situe au-dessus de l'axe des abscisses sur cet intervalle.`,
-              estCorrecte: true
+              correction:
+                AFF +
+                `$f$ est positive sur $[${texNombre(v6, 1)}\\,;\\,${texNombre(v7, 1)}]$ car la courbe se situe au-dessus de l'axe des abscisses sur cet intervalle.`,
+              estCorrecte: true,
             },
             {
-              texte: 'L\'équation $f(x)=0$ admet une unique solution.',
-              correction: AFF + 'L\'équation $f(x)=0$ admet  deux solutions car la courbe coupe deux fois l\'axe des abscisses pour des valeurs opposées en $-2$ et $2$.',
-              estCorrecte: true
+              texte: "L'équation $f(x)=0$ admet une unique solution.",
+              correction:
+                AFF +
+                "L'équation $f(x)=0$ admet  deux solutions car la courbe coupe deux fois l'axe des abscisses pour des valeurs opposées en $-2$ et $2$.",
+              estCorrecte: true,
             },
             {
               texte: `Le minimum de $f$ est ${choix ? '$-3$' : '$0$'}.`,
-              correction: AFF + 'Le point le plus bas de la courbe a pour ordonnée $-4$. C\'est le minimum de $f$.',
-              estCorrecte: true
+              correction:
+                AFF +
+                "Le point le plus bas de la courbe a pour ordonnée $-4$. C'est le minimum de $f$.",
+              estCorrecte: true,
             },
             {
               texte: `Le maximum de $f$ est ${choix ? '$6$' : '$5$'}.`,
-              correction: AFF + 'Le point le plus haut de la courbe a pour ordonnée $3$. C\'est le maximum de $f$.',
-              estCorrecte: true
+              correction:
+                AFF +
+                "Le point le plus haut de la courbe a pour ordonnée $3$. C'est le maximum de $f$.",
+              estCorrecte: true,
             },
             {
               texte: `${choix ? `$f(${texNombre(v8, 2)}) > f(${texNombre(v8 + 0.01, 2)})$` : `$f(${texNombre(v8 + 0.01, 2)}) < f(${texNombre(v8, 2)})$`}`,
-              correction: AFF + ` Comme la fonction est croissante sur $[0\\,;\\,5]$, ${choix ? `$f(${texNombre(v8, 2)}) < f(${texNombre(v8 + 0.01, 2)})$` : `$f(${texNombre(v8 + 0.01, 2)}) > f(${texNombre(v8, 2)})$`}`,
-              estCorrecte: false
+              correction:
+                AFF +
+                ` Comme la fonction est croissante sur $[0\\,;\\,5]$, ${choix ? `$f(${texNombre(v8, 2)}) < f(${texNombre(v8 + 0.01, 2)})$` : `$f(${texNombre(v8 + 0.01, 2)}) > f(${texNombre(v8, 2)})$`}`,
+              estCorrecte: false,
             },
             {
               texte: `${choix ? `$f(${texNombre(-v9, 2)}) \\times f(${texNombre(-v10, 2)}) < 0$` : `$f(${texNombre(v11Bis, 2)}) \\times  f(${texNombre(v12Bis, 2)}) < 0$`}`,
-              correction: AFF + `${choix ? `$f(${texNombre(-v9, 2)}) <0$ et  $f(${texNombre(-v10, 2)}) < 0$, donc le produit est positif.` : `$f(${texNombre(v11Bis, 2)}) < 0$ et   $f(${texNombre(v12Bis, 2)}) < 0$, donc le produit est positif.`}`,
-              estCorrecte: false
+              correction:
+                AFF +
+                `${choix ? `$f(${texNombre(-v9, 2)}) <0$ et  $f(${texNombre(-v10, 2)}) < 0$, donc le produit est positif.` : `$f(${texNombre(v11Bis, 2)}) < 0$ et   $f(${texNombre(v12Bis, 2)}) < 0$, donc le produit est positif.`}`,
+              estCorrecte: false,
             },
             {
-              texte: 'L\'inéquation $f(x) \\leqslant 0$ a pour ensemble de solutions $[-3\\,;\\,-2[\\cup]-2\\,;\\,2]$.',
-              correction: AFF + 'Les solutions de l\'inéquation $f(x) \\leqslant 0$ sont les abscisses des points de la courbe situés en dessous ou sur l\'axe des abscissses.',
-              estCorrecte: true
+              texte:
+                "L'inéquation $f(x) \\leqslant 0$ a pour ensemble de solutions $[-3\\,;\\,-2[\\cup]-2\\,;\\,2]$.",
+              correction:
+                AFF +
+                "Les solutions de l'inéquation $f(x) \\leqslant 0$ sont les abscisses des points de la courbe situés en dessous ou sur l'axe des abscissses.",
+              estCorrecte: true,
             },
             {
               texte: `Si $${theSpline.x[v13]}\\leqslant x \\leqslant ${theSpline.x[v14]}$, alors $${theSpline.y[v13]}\\leqslant f(x) \\leqslant ${theSpline.y[v14]}$.`,
-              correction: AFF + `Le minimum de $f$ sur $[${theSpline.x[v13]}\\,;\\,${theSpline.x[v14]}]$ est $-4$ et son maximum est $3$, on en déduit l'encadrement $-4\\leqslant x \\leqslant 3$.`,
-              estCorrecte: true
-            }
+              correction:
+                AFF +
+                `Le minimum de $f$ sur $[${theSpline.x[v13]}\\,;\\,${theSpline.x[v14]}]$ est $-4$ et son maximum est $3$, on en déduit l'encadrement $-4\\leqslant x \\leqslant 3$.`,
+              estCorrecte: true,
+            },
           ]
           /* // ========== MODE TEST - AFFICHAGE DE TOUTES LES RÉPONSES ==========
     // Afficher TOUTES les bonnes réponses avec leurs corrections
@@ -437,14 +582,22 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
           // ========== FIN MODE TEST ==========
           // Choisir une bonne réponse et 3 mauvaises réponses distinctes
           const bonneReponseChoisie = choice(bonnesReponses)
-          const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(() => Math.random() - 0.5)
-          const mauvaisesReponsesChoisies = mauvaisesReponsesMelangees.slice(0, 3)
+          const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(
+            () => Math.random() - 0.5,
+          )
+          const mauvaisesReponsesChoisies = mauvaisesReponsesMelangees.slice(
+            0,
+            3,
+          )
 
           // Constituer le tableau des réponses (bonne réponse en premier)
-          const toutesLesReponses = [bonneReponseChoisie, ...mauvaisesReponsesChoisies]
+          const toutesLesReponses = [
+            bonneReponseChoisie,
+            ...mauvaisesReponsesChoisies,
+          ]
 
           // Extraire les textes pour this.reponses
-          this.reponses = toutesLesReponses.map(reponse => reponse.texte)
+          this.reponses = toutesLesReponses.map((reponse) => reponse.texte)
 
           // Construire la correction en analysant chaque réponse
           this.correction = ''
@@ -457,7 +610,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
     }
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
     this.options = { vertical: true, ordered: false }

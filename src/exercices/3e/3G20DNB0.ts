@@ -6,7 +6,11 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 import { texNombre } from '../../lib/outils/texNombre'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { randint } from '../../modules/outils'
-import { point, pointIntersectionCC, pointIntersectionDD } from '../../lib/2d/points'
+import {
+  point,
+  pointIntersectionCC,
+  pointIntersectionDD,
+} from '../../lib/2d/points'
 import { cercle } from '../../lib/2d/cercle'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { Droite, droite, droiteParPointEtParallele } from '../../lib/2d/droites'
@@ -17,7 +21,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 export const uuid = '4beb8'
 export const refs = {
   'fr-fr': ['3G20DNB0', '3Z1DNB-02'],
-  'fr-ch': ['1mG4-1']
+  'fr-ch': ['1mG4-1'],
 }
 export const titre = 'Préparation DNB : Thales, Pythagore, aire'
 export const dateDePublication = '26/11/2024'
@@ -31,16 +35,23 @@ export const dateDePublication = '26/11/2024'
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
 export default class Exercice3G2DNB0 extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
 
     this.versionAleatoire()
-    this.introduction = texteItalique('D\'après l\'exercice 3 du brevet Métropole 2024.')
+    this.introduction = texteItalique(
+      "D'après l'exercice 3 du brevet Métropole 2024.",
+    )
   }
 
-  private appliquerLesValeurs (listeNomsPoints: string[], triplet: [number, number, number], rayon: number, ratio: number): void {
+  private appliquerLesValeurs(
+    listeNomsPoints: string[],
+    triplet: [number, number, number],
+    rayon: number,
+    ratio: number,
+  ): void {
     const diametre = rayon * 2
     if (!this.sup) {
       if (choice([true, false])) {
@@ -50,8 +61,8 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
       }
     }
     const [O, A, B, D, E, F] = listeNomsPoints
-    const [AB, BD, DA] = triplet.map(e => e * diametre / triplet[0])
-    const aireTriangle = BD * DA / 2
+    const [AB, BD, DA] = triplet.map((e) => (e * diametre) / triplet[0])
+    const aireTriangle = (BD * DA) / 2
     const EF = diametre * ratio
     const AF = DA * ratio
     const rayonFrac = new FractionEtendue(rayon * 10, 10).simplifie()
@@ -69,17 +80,30 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     }
     const ABD = polygone([pointA, pointB, pointD])
 
-    const nomCercle = latex2d('\\mathscr{C}', rayon / 2, Math.sqrt((rayon + 0.5) ** 2 - (rayon / 2) ** 2), {})
+    const nomCercle = latex2d(
+      '\\mathscr{C}',
+      rayon / 2,
+      Math.sqrt((rayon + 0.5) ** 2 - (rayon / 2) ** 2),
+      {},
+    )
     const droiteAD = droite(pointA, pointD)
     const droiteBD = droite(pointB, pointD)
     const droiteEF: unknown = droiteParPointEtParallele(pointE, droiteBD)
-    const pointF = pointIntersectionDD(droiteAD, droiteEF as Droite, F, 'above right')
+    const pointF = pointIntersectionDD(
+      droiteAD,
+      droiteEF as Droite,
+      F,
+      'above right',
+    )
     const segEF = segment(pointE, pointF)
     const labels = labelPoint(pointO, pointA, pointB, pointD, pointE, pointF)
     const objets = [labels, C, nomCercle, ABD, segEF]
-    const ppcm = 40 * 4.5 / rayon
+    const ppcm = (40 * 4.5) / rayon
     const sc = 4.5 / rayon
-    const figure = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets)), objets)
+    const figure = mathalea2d(
+      Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets)),
+      objets,
+    )
     // enoncé
     const enonce = `Sur la figure ci-dessous, on a :<br>
   ${createList({
@@ -88,9 +112,9 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
       `$[${A}${B}]$ est un diamètre de ce cercle et $${D}$ est un point du cercle ;`,
       `les points $${B}$, $${E}$, $${A}$ sont alignés, ainsi que les points $${D}$, $${F}$, $${A}$ ;`,
       `les droites $(${B}${D})$ et $(${E}${F})$ sont parallèles ;`,
-      `$${B}${D} = ${texNombre(BD, 2)}$ cm ; $${D}${A} = ${texNombre(DA, 2)}$ cm et $${A}${E} = ${texNombre(EF, 2)}$ cm.`
+      `$${B}${D} = ${texNombre(BD, 2)}$ cm ; $${D}${A} = ${texNombre(DA, 2)}$ cm et $${A}${E} = ${texNombre(EF, 2)}$ cm.`,
     ],
-    style: 'fleches'
+    style: 'fleches',
   })}`
 
     const listePrincipale = createList({
@@ -101,13 +125,13 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
         createList({
           items: [
             `Justifier que l'aire du triangle $${A}${B}${D}$ est égale à $${texNombre(aireTriangle, 4)}~\\text{cm}^2$.`,
-            `Calculer l'aire du disque, arrondie au centième.<br>${texteItalique('Rappel')} : l'aire du disque est égale à $\\pi \\times R^2$, où $R$ est le rayon du disque.`
+            `Calculer l'aire du disque, arrondie au centième.<br>${texteItalique('Rappel')} : l'aire du disque est égale à $\\pi \\times R^2$, où $R$ est le rayon du disque.`,
           ],
-          style: 'alpha'
+          style: 'alpha',
         }),
-        `Quel pourcentage de l'aire du disque représente l'aire du triangle $${A}${B}${D}$ ?`
+        `Quel pourcentage de l'aire du disque représente l'aire du triangle $${A}${B}${D}$ ?`,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
     const listePrincipaleCorrection = createList({
       items: [
@@ -128,13 +152,13 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
         createList({
           items: [
             `Si $\\mathscr{A}$ est l'aire du triangle $${A}${B}${D}$ , on sait que $\\mathscr{A} = \\dfrac{${D}${B} \\times ${A}${D}}{2} = \\dfrac{${texNombre(BD, 2)} \\times ${texNombre(DA, 2)}}{2} = \\dfrac{${texNombre(DA * BD, 4)}}{2}= ${texNombre(aireTriangle, 4)}\\text{ cm}^2$.`,
-            `L'aire du disque est égale à $\\pi \\times R^2 = \\pi \\times ${texNombre(rayon, 1)}^2 = \\left(${rayonFrac.texFraction}\\right)^2 \\times \\pi  = ${rayonFracCarre.texFraction}\\pi \\approx ${texNombre(aireDisque, 3)}~\\text{cm}^2$, soit $${texNombre(aireDisque, 2)}$ au centième de $\\text{cm}^2$.`
+            `L'aire du disque est égale à $\\pi \\times R^2 = \\pi \\times ${texNombre(rayon, 1)}^2 = \\left(${rayonFrac.texFraction}\\right)^2 \\times \\pi  = ${rayonFracCarre.texFraction}\\pi \\approx ${texNombre(aireDisque, 3)}~\\text{cm}^2$, soit $${texNombre(aireDisque, 2)}$ au centième de $\\text{cm}^2$.`,
           ],
-          style: 'alpha'
+          style: 'alpha',
         }),
-        `L'aire du triangle $${A}${B}${D}$ représente pour l'aire du disque un pourcentage égal à environ : $\\dfrac{${texNombre(aireTriangle, 4)}}{${texNombre(aireDisque, 2)}} \\times 100$ soit environ $${texNombre(100 * aireTriangle / aireDisque, 1)}\\,\\%$.`
+        `L'aire du triangle $${A}${B}${D}$ représente pour l'aire du disque un pourcentage égal à environ : $\\dfrac{${texNombre(aireTriangle, 4)}}{${texNombre(aireDisque, 2)}} \\times 100$ soit environ $${texNombre((100 * aireTriangle) / aireDisque, 1)}\\,\\%$.`,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
 
     this.enonce = enonce + figure + listePrincipale
@@ -142,12 +166,24 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
   }
 
   versionOriginale: () => void = () => {
-    this.appliquerLesValeurs(['O', 'A', 'B', 'D', 'E', 'F'], [5, 3, 4], 4.5, 0.3)
+    this.appliquerLesValeurs(
+      ['O', 'A', 'B', 'D', 'E', 'F'],
+      [5, 3, 4],
+      4.5,
+      0.3,
+    )
   }
 
   versionAleatoire: () => void = () => {
     const listeNomsPoints = choisitLettresDifferentes(6)
-    const triplet = choice([[5, 3, 4], [5, 4, 3], [10, 8, 6], [15, 12, 9], [20, 16, 12], [25, 20, 15]]) as [number, number, number]
+    const triplet = choice([
+      [5, 3, 4],
+      [5, 4, 3],
+      [10, 8, 6],
+      [15, 12, 9],
+      [20, 16, 12],
+      [25, 20, 15],
+    ]) as [number, number, number]
     const hypo = triplet[0]
     const ratio = randint(2, 7, [5]) / 10
     let rapportPythagore: number
@@ -174,6 +210,15 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     }
 
     const rayon = Math.round(5 * hypo * rapportPythagore) / 10
-    this.appliquerLesValeurs(listeNomsPoints, triplet.map(el => Math.round(el * rapportPythagore * 10) / 10) as [number, number, number], rayon, ratio)
+    this.appliquerLesValeurs(
+      listeNomsPoints,
+      triplet.map((el) => Math.round(el * rapportPythagore * 10) / 10) as [
+        number,
+        number,
+        number,
+      ],
+      rayon,
+      ratio,
+    )
   }
 }

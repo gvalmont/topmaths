@@ -10,7 +10,7 @@ export const dateDePublication = '14/04/2024'
 export const uuid = '00f4a'
 export const refs = {
   'fr-fr': ['canc3N08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class SuitesRep extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -27,8 +27,10 @@ export default class SuitesRep extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.alphanumeric
   }
 
-  nouvelleVersion () {
-    switch (choice([1, 2])) { //, 2, 3
+  nouvelleVersion() {
+    switch (
+      choice([1, 2]) //, 2, 3
+    ) {
       case 1:
         {
           const n = randint(6, 19)
@@ -46,18 +48,30 @@ export default class SuitesRep extends ExerciceSimple {
         {
           const n = randint(6, 20)
           const choix = choice([3 * n, 3 * n + 1, 3 * n + 2])
-          if (choix === 3 * n) { this.reponse = 'C' }
-          if (choix === 3 * n + 1) { this.reponse = 'A' }
-          if (choix === 3 * n + 2) { this.reponse = 'B' }
+          if (choix === 3 * n) {
+            this.reponse = 'C'
+          }
+          if (choix === 3 * n + 1) {
+            this.reponse = 'A'
+          }
+          if (choix === 3 * n + 2) {
+            this.reponse = 'B'
+          }
           this.question = `Dans la suite répétitive « ABCABCABC$\\ldots$ », quelle est la $${choix}^{\\text{e}}$ lettre ?`
 
           this.canEnonce = this.question
           this.canReponseACompleter = ''
           this.correction = `Quand le rang de la lettre est un multiple de $3$, la lettre est C.<br>
   Comme `
-          if (choix === 3 * n) { this.correction += `$${choix}=3\\times ${n}$ alors la $${choix}^{\\text{e}}$ lettre est '${texteEnCouleurEtGras('C')}'.` }
-          if (choix === 3 * n + 1) { this.correction += `$${choix}=3\\times ${n}+1$ alors la $${choix}^{\\text{e}}$ lettre est '${texteEnCouleurEtGras('A')}'.` }
-          if (choix === 3 * n + 2) { this.correction += `$${choix}=3\\times ${n}+2$ alors la $${choix}^{\\text{e}}$ lettre est '${texteEnCouleurEtGras('B')}'.` }
+          if (choix === 3 * n) {
+            this.correction += `$${choix}=3\\times ${n}$ alors la $${choix}^{\\text{e}}$ lettre est '${texteEnCouleurEtGras('C')}'.`
+          }
+          if (choix === 3 * n + 1) {
+            this.correction += `$${choix}=3\\times ${n}+1$ alors la $${choix}^{\\text{e}}$ lettre est '${texteEnCouleurEtGras('A')}'.`
+          }
+          if (choix === 3 * n + 2) {
+            this.correction += `$${choix}=3\\times ${n}+2$ alors la $${choix}^{\\text{e}}$ lettre est '${texteEnCouleurEtGras('B')}'.`
+          }
         }
         break
     }

@@ -7,8 +7,13 @@ import { rotation, symetrieAxiale } from './transformations'
 
 // ne fonctionne qu'avec cx=0 et cy=0... je ne sais pas pourquoi.
 // Donc si cx = 0 et cy = 0, alors, il y a plein de code qui ne sert à rien.
-function computeSymmetryMatrix (progress: number, angleDeg: number, cx: number, cy: number) {
-  const angle = angleDeg * Math.PI / 180
+function computeSymmetryMatrix(
+  progress: number,
+  angleDeg: number,
+  cx: number,
+  cy: number,
+) {
+  const angle = (angleDeg * Math.PI) / 180
   const cosA = Math.cos(angle)
   const sinA = Math.sin(angle)
 
@@ -17,21 +22,21 @@ function computeSymmetryMatrix (progress: number, angleDeg: number, cx: number, 
   const a = cosA * cosA + sinA * sinA * sy
   const b = cosA * sinA * (1 - sy)
   const c = cosA * sinA * (1 - sy)
-  const d = (sinA * sinA + cosA * cosA * sy)
+  const d = sinA * sinA + cosA * cosA * sy
 
   const tx = cx - a * cx - c * cy
   const ty = cy - b * cx - d * cy
 
   return { a, b, c, d, tx, ty }
 }
-function rotatedBoundingBoxWithCenter (
+function rotatedBoundingBoxWithCenter(
   xmin: number,
   ymin: number,
   xmax: number,
   ymax: number,
   alpha: number,
   cx: number,
-  cy: number
+  cy: number,
 ): [number, number, number, number] {
   const w2 = (xmax - xmin) / 2
   const h2 = (ymax - ymin) / 2
@@ -62,13 +67,13 @@ export class Shape2D extends ObjetMathalea2D {
   x: number
   y: number
   angle: number
-  scale: { x: number, y: number }
+  scale: { x: number; y: number }
   width: number // laargeur en cm
   height: number // hauteur en cm
   pixelsParCm: number
   bordures: [number, number, number, number] // [xmin, ymin, xmax, ymax]
   opacite = 1
-  constructor ({
+  constructor({
     name = '',
     codeSvg,
     codeTikz,
@@ -80,19 +85,19 @@ export class Shape2D extends ObjetMathalea2D {
     height,
     pixelsParCm = context.pixelsParCm,
     opacite = 1,
-    bordures
+    bordures,
   }: {
-    name?: string,
-    codeSvg: string,
-    codeTikz: string,
-    x?: number,
-    y?: number,
-    angle?: number,
-    scale?: { x: number, y: number },
-    width: number,
-    height: number,
-    pixelsParCm?: number,
-    opacite?: number,
+    name?: string
+    codeSvg: string
+    codeTikz: string
+    x?: number
+    y?: number
+    angle?: number
+    scale?: { x: number; y: number }
+    width: number
+    height: number
+    pixelsParCm?: number
+    opacite?: number
     bordures?: [number, number, number, number]
   }) {
     super()
@@ -108,44 +113,60 @@ export class Shape2D extends ObjetMathalea2D {
     this.pixelsParCm = pixelsParCm
     this.opacite = opacite
     this.bordures = bordures ?? [
-      (this.x - this.width / 2),
-      (this.y - this.height / 2),
-      (this.x + this.width / 2),
-      (this.y + this.height / 2)
+      this.x - this.width / 2,
+      this.y - this.height / 2,
+      this.x + this.width / 2,
+      this.y + this.height / 2,
     ]
   }
 
-  svg (coeff: number) {
-    return `<g opacity=${this.opacite} transform="translate(${(this.x * coeff).toFixed(2)}, ${(-this.y * coeff).toFixed(2)}) ${this.scale.x !== 1 || this.scale.y !== 1 || coeff !== 20 ? `scale(${(this.scale.x * coeff / 20).toFixed(3)},${(this.scale.y * coeff / 20).toFixed(3)})` : ''} ${this.angle !== 0 ? `rotate(${(-this.angle).toFixed(2)})` : ''}">${this.codeSvg}</g>`
+  svg(coeff: number) {
+    return `<g opacity=${this.opacite} transform="translate(${(this.x * coeff).toFixed(2)}, ${(-this.y * coeff).toFixed(2)}) ${this.scale.x !== 1 || this.scale.y !== 1 || coeff !== 20 ? `scale(${((this.scale.x * coeff) / 20).toFixed(3)},${((this.scale.y * coeff) / 20).toFixed(3)})` : ''} ${this.angle !== 0 ? `rotate(${(-this.angle).toFixed(2)})` : ''}">${this.codeSvg}</g>`
   }
 
-  tikz () {
+  tikz() {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(2)},${(this.y).toFixed(2)})}${this.scale.x !== 1 ? `, xscale=${(this.scale.x).toFixed(3)}` : ''}${this.scale.y !== 1 ? `, yscale=${(this.scale.y).toFixed(3)}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${this.x.toFixed(2)},${this.y.toFixed(2)})}${this.scale.x !== 1 ? `, xscale=${this.scale.x.toFixed(3)}` : ''}${this.scale.y !== 1 ? `, yscale=${this.scale.y.toFixed(3)}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
     ${this.codeTikz}
     \\end{scope}`
   }
 
-  updateBordures () {
+  updateBordures() {
     this.bordures = [
-      (this.x - this.width / 2),
-      (this.y - this.height / 2),
-      (this.x + this.width / 2),
-      (this.y + this.height / 2)
+      this.x - this.width / 2,
+      this.y - this.height / 2,
+      this.x + this.width / 2,
+      this.y + this.height / 2,
     ]
     if (this.angle !== 0) {
-      this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], this.angle * Math.PI / 180, this.x, this.y)
+      this.bordures = rotatedBoundingBoxWithCenter(
+        this.bordures[0],
+        this.bordures[1],
+        this.bordures[2],
+        this.bordures[3],
+        (this.angle * Math.PI) / 180,
+        this.x,
+        this.y,
+      )
     }
   }
 
-  rotate (angle: number) {
+  rotate(angle: number) {
     this.angle += angle
-    this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], angle * Math.PI / 180, this.x, this.y)
+    this.bordures = rotatedBoundingBoxWithCenter(
+      this.bordures[0],
+      this.bordures[1],
+      this.bordures[2],
+      this.bordures[3],
+      (angle * Math.PI) / 180,
+      this.x,
+      this.y,
+    )
     return this
   }
 
-  dilate (factor: { x: number, y: number } | number) {
+  dilate(factor: { x: number; y: number } | number) {
     if (typeof factor === 'number') {
       factor = { x: factor, y: factor }
     }
@@ -161,28 +182,23 @@ export class Shape2D extends ObjetMathalea2D {
     ymin = (ymin - this.y) * factor.y + this.y
     xmax = (xmax - this.x) * factor.x + this.x
     ymax = (ymax - this.y) * factor.y + this.y
-    this.bordures = [
-      xmin,
-      ymin,
-      xmax,
-      ymax
-    ]
+    this.bordures = [xmin, ymin, xmax, ymax]
     return this
   }
 
-  translate (dx: number, dy: number) {
+  translate(dx: number, dy: number) {
     this.x += dx
     this.y += dy
     this.bordures = [
       this.bordures[0] + dx,
       this.bordures[1] + dy,
       this.bordures[2] + dx,
-      this.bordures[3] + dy
+      this.bordures[3] + dy,
     ]
     return this
   }
 
-  flip (axes:'x' | 'y' | 'xy' = 'x') {
+  flip(axes: 'x' | 'y' | 'xy' = 'x') {
     if (axes === 'x') {
       this.scale.x = -this.scale.x
       this.angle = -this.angle
@@ -196,7 +212,7 @@ export class Shape2D extends ObjetMathalea2D {
     return this
   }
 
-  clone () {
+  clone() {
     const codeTikz = String(this.codeTikz)
     const codeSvg = String(this.codeSvg)
     const x = Number(this.x)
@@ -217,7 +233,7 @@ export class Shape2D extends ObjetMathalea2D {
       height,
       pixelsParCm,
       opacite: this.opacite,
-      bordures: this.bordures
+      bordures: this.bordures,
     })
   }
 }
@@ -226,7 +242,7 @@ export class Shape2D extends ObjetMathalea2D {
 export class Figure2D extends Shape2D {
   codeSvg: string
   codeTikz: string
-  scale: { x: number, y: number }
+  scale: { x: number; y: number }
   angle: number
   width: number // laargeur en cm
   height: number // hauteur en cm
@@ -238,7 +254,7 @@ export class Figure2D extends Shape2D {
   name: string
   bordures: [number, number, number, number] // [xmin, ymin, xmax, ymax]
   opacite: number
-  constructor ({
+  constructor({
     codeSvg,
     codeTikz,
     x = 0,
@@ -254,17 +270,17 @@ export class Figure2D extends Shape2D {
     nbAxes,
     opacite = 1,
     name = Date.now().toString(),
-    bordures
+    bordures,
   }: {
-    codeSvg: string,
-    codeTikz: string,
-    x?: number,
-    y?: number,
-    angle?: number,
-    scale?: { x: number, y: number },
-    width: number,
-    height: number,
-    pixelsParCm?: number,
+    codeSvg: string
+    codeTikz: string
+    x?: number
+    y?: number
+    angle?: number
+    scale?: { x: number; y: number }
+    width: number
+    height: number
+    pixelsParCm?: number
     axes?: Segment[]
     centre?: Point | null
     nbAxes?: number
@@ -286,39 +302,55 @@ export class Figure2D extends Shape2D {
     this.codeTikz = codeTikz
     this.opacite = opacite
     this.bordures = [
-      (this.x - this.width / 2),
-      (this.y - this.height / 2),
-      (this.x + this.width / 2),
-      (this.y + this.height / 2)
+      this.x - this.width / 2,
+      this.y - this.height / 2,
+      this.x + this.width / 2,
+      this.y + this.height / 2,
     ]
     this.axes = axes
     this.nonAxe = nonAxe
     this.nbAxes = nbAxes ?? this.axes.length
     this.centre = centre
     if (this.angle !== 0) {
-      this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], this.angle * Math.PI / 180, this.x, this.y)
+      this.bordures = rotatedBoundingBoxWithCenter(
+        this.bordures[0],
+        this.bordures[1],
+        this.bordures[2],
+        this.bordures[3],
+        (this.angle * Math.PI) / 180,
+        this.x,
+        this.y,
+      )
     }
   }
 
-  svg (coeff: number) {
-    return `<g opacity=${this.opacite} transform="translate(${(this.x * coeff).toFixed(2)}, ${(-this.y * coeff).toFixed(2)}) scale(${(this.scale.x).toFixed(3)},${(this.scale.y).toFixed(3)}) rotate(${(-this.angle).toFixed(2)})">${this.codeSvg}</g>`
+  svg(coeff: number) {
+    return `<g opacity=${this.opacite} transform="translate(${(this.x * coeff).toFixed(2)}, ${(-this.y * coeff).toFixed(2)}) scale(${this.scale.x.toFixed(3)},${this.scale.y.toFixed(3)}) rotate(${(-this.angle).toFixed(2)})">${this.codeSvg}</g>`
   }
 
-  tikz () {
+  tikz() {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(2)},${(this.y).toFixed(2)})}, xscale=${this.scale.x.toFixed(3)}, yscale=${this.scale.y.toFixed(3)}, rotate around={${-this.angle.toFixed(2)}:(0,0)}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${this.x.toFixed(2)},${this.y.toFixed(2)})}, xscale=${this.scale.x.toFixed(3)}, yscale=${this.scale.y.toFixed(3)}, rotate around={${-this.angle.toFixed(2)}:(0,0)}]
     ${this.codeTikz}
     \\end{scope}`
   }
 
-  rotate (angle: number) {
+  rotate(angle: number) {
     this.angle += angle
-    this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], this.angle * Math.PI / 180, this.x, this.y)
+    this.bordures = rotatedBoundingBoxWithCenter(
+      this.bordures[0],
+      this.bordures[1],
+      this.bordures[2],
+      this.bordures[3],
+      (this.angle * Math.PI) / 180,
+      this.x,
+      this.y,
+    )
     return this
   }
 
-  dilate (factor: { x: number, y: number } | number) {
+  dilate(factor: { x: number; y: number } | number) {
     if (typeof factor === 'number') {
       factor = { x: factor, y: factor }
     }
@@ -334,28 +366,23 @@ export class Figure2D extends Shape2D {
     ymin = (ymin - this.y) * factor.y + this.y
     xmax = (xmax - this.x) * factor.x + this.x
     ymax = (ymax - this.y) * factor.y + this.y
-    this.bordures = [
-      xmin,
-      ymin,
-      xmax,
-      ymax
-    ]
+    this.bordures = [xmin, ymin, xmax, ymax]
     return this
   }
 
-  translate (dx: number, dy: number) {
+  translate(dx: number, dy: number) {
     this.x += dx
     this.y += dy
     this.bordures = [
       this.bordures[0] + dx,
       this.bordures[1] + dy,
       this.bordures[2] + dx,
-      this.bordures[3] + dy
+      this.bordures[3] + dy,
     ]
     return this
   }
 
-  flip (axes:'x' | 'y' | 'xy' = 'x') {
+  flip(axes: 'x' | 'y' | 'xy' = 'x') {
     if (axes === 'x') {
       this.scale.x = -this.scale.x
       this.angle = -this.angle
@@ -369,9 +396,10 @@ export class Figure2D extends Shape2D {
     return this
   }
 
-  symetrie (axe: Droite) {
+  symetrie(axe: Droite) {
     // Calcul de l'angle de l'axe par rapport à l'horizontale
-    const angleAxe = Math.atan2(axe.y1 - axe.y2, axe.x2 - axe.x1) * 180 / Math.PI
+    const angleAxe =
+      (Math.atan2(axe.y1 - axe.y2, axe.x2 - axe.x1) * 180) / Math.PI
     // Calcul du centre de symétrie (image de (this.x, this.y) par la symétrie d'axe 'axe')
     // Formule de la symétrie orthogonale d'un point (px, py) par rapport à la droite passant par (x1, y1), (x2, y2)
     const { a, b, c, d, tx, ty } = computeSymmetryMatrix(1, angleAxe, 0, 0)
@@ -398,19 +426,26 @@ export class Figure2D extends Shape2D {
       width: this.width,
       height: this.height,
       pixelsParCm: this.pixelsParCm,
-      axes: this.axes.map(el => symetrieAxiale(el, axe)),
+      axes: this.axes.map((el) => symetrieAxiale(el, axe)),
       nonAxe: this.nonAxe,
       centre: this.centre == null ? null : symetrieAxiale(this.centre, axe),
       nbAxes: this.nbAxes,
       opacite: this.opacite,
-      name: this.name + '_sym'
+      name: this.name + '_sym',
     })
     symForme.bordures = rotatedBoundingBoxWithCenter(
-      symForme.bordures[0], symForme.bordures[1], symForme.bordures[2], symForme.bordures[3], angleAxe * Math.PI / 180, xImg, yImg)
+      symForme.bordures[0],
+      symForme.bordures[1],
+      symForme.bordures[2],
+      symForme.bordures[3],
+      (angleAxe * Math.PI) / 180,
+      xImg,
+      yImg,
+    )
     return symForme
   }
 
-  copy (newName: string) {
+  copy(newName: string) {
     const codeTikz = String(this.codeTikz)
     const codeSvg = String(this.codeSvg)
     const x = Number(this.x)
@@ -420,7 +455,7 @@ export class Figure2D extends Shape2D {
     const width = Number(this.width)
     const height = Number(this.height)
     const pixelsParCm = Number(this.pixelsParCm)
-    const axes = this.axes.map(el => el)
+    const axes = this.axes.map((el) => el)
     const centre = this.centre
     const nbAxes = Number(this.nbAxes)
     const opacite = Number(this.opacite)
@@ -439,18 +474,27 @@ export class Figure2D extends Shape2D {
       centre,
       nbAxes,
       opacite,
-      name
+      name,
     })
   }
 
-  rotationAnimee ({ angleStart = 0, angleEnd = 180, cx, cy, duration = '2s', repeatCount = 'indefinite', loop = true, delay = 0 }: {
-    angleStart?: number,
-    angleEnd?: number,
-    duration?: string,
-    repeatCount?: string,
-    loop?: boolean,
-    delay?: number,
-    cx?: number,
+  rotationAnimee({
+    angleStart = 0,
+    angleEnd = 180,
+    cx,
+    cy,
+    duration = '2s',
+    repeatCount = 'indefinite',
+    loop = true,
+    delay = 0,
+  }: {
+    angleStart?: number
+    angleEnd?: number
+    duration?: string
+    repeatCount?: string
+    loop?: boolean
+    delay?: number
+    cx?: number
     cy?: number
   }) {
     if (cx === undefined) {
@@ -477,20 +521,31 @@ export class Figure2D extends Shape2D {
       codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
       width: this.width,
       height: this.height,
-      pixelsParCm: this.pixelsParCm
+      pixelsParCm: this.pixelsParCm,
     })
   }
 
-  dilatationAnimee ({ cx, cy, factorXStart = 1, factorXEnd = -1, factorYStart = 1, factorYEnd = 1, duration = '1s', repeatCount = 'infinite', loop = true, delay = 0 }: {
-    factorXStart?: number,
-    factorXEnd?: number,
-    factorYStart?: number,
-    factorYEnd?: number,
-    duration?: string,
-    repeatCount?: string,
-    loop?: boolean,
-    delay?: number,
-    cx?: number,
+  dilatationAnimee({
+    cx,
+    cy,
+    factorXStart = 1,
+    factorXEnd = -1,
+    factorYStart = 1,
+    factorYEnd = 1,
+    duration = '1s',
+    repeatCount = 'infinite',
+    loop = true,
+    delay = 0,
+  }: {
+    factorXStart?: number
+    factorXEnd?: number
+    factorYStart?: number
+    factorYEnd?: number
+    duration?: string
+    repeatCount?: string
+    loop?: boolean
+    delay?: number
+    cx?: number
     cy?: number
   }) {
     if (cx === undefined) {
@@ -519,16 +574,23 @@ export class Figure2D extends Shape2D {
       codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
       width: this.width,
       height: this.height,
-      pixelsParCm: this.pixelsParCm
+      pixelsParCm: this.pixelsParCm,
     })
   }
 
-  translationAnimee ({ dx, dy, duration = '1s', repeatCount = 'infinite', loop = true, delay = 0 }: {
-    dx: number,
-    dy: number,
-    duration?: string,
-    repeatCount?: string,
-    loop?: boolean,
+  translationAnimee({
+    dx,
+    dy,
+    duration = '1s',
+    repeatCount = 'infinite',
+    loop = true,
+    delay = 0,
+  }: {
+    dx: number
+    dy: number
+    duration?: string
+    repeatCount?: string
+    loop?: boolean
     delay?: number
   }) {
     return new Figure2D({
@@ -549,25 +611,35 @@ export class Figure2D extends Shape2D {
       codeTikz: `\\begin{scope}[shift={(${this.x},${this.y})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]${this.codeTikz}\\end{scope})`,
       width: this.width,
       height: this.height,
-      pixelsParCm: this.pixelsParCm
+      pixelsParCm: this.pixelsParCm,
     })
   }
 
-  get axesAngles () {
+  get axesAngles() {
     let angles: number[] = []
     if (this.Axes.length > 0) {
-      angles = this.Axes.map(el => {
-        const angle = Math.atan2(el.y1 - el.y2, el.x2 - el.x1) * 180 / Math.PI
+      angles = this.Axes.map((el) => {
+        const angle = (Math.atan2(el.y1 - el.y2, el.x2 - el.x1) * 180) / Math.PI
         return angle
       })
     } else if (this.nonAxe) {
-      const angle = Math.atan2(this.nonAxe.y1 - this.nonAxe.y2, this.nonAxe.x2 - this.nonAxe.x1) * 180 / Math.PI
+      const angle =
+        (Math.atan2(
+          this.nonAxe.y1 - this.nonAxe.y2,
+          this.nonAxe.x2 - this.nonAxe.x1,
+        ) *
+          180) /
+        Math.PI
       angles = [angle]
     }
     return angles
   }
 
-  loopReflectionAnimee (axe: Droite, id: string, onDirectionChange?: (direction: number) => void) {
+  loopReflectionAnimee(
+    axe: Droite,
+    id: string,
+    onDirectionChange?: (direction: number) => void,
+  ) {
     const copieAnimee = new Figure2D({
       codeSvg: `<g id="${id}" style="filter: drop-shadow(0px 0px 0px rgb(80, 80, 80))">
         ${this.svg(this.pixelsParCm)}
@@ -593,10 +665,16 @@ export class Figure2D extends Shape2D {
       const cx = (axe.x1 + axe.x2) / 2
       const cy = (axe.y1 + axe.y2) / 2
 
-      const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath')
+      const clipPath = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'clipPath',
+      )
       const clipId = 'clip-' + id
       clipPath.setAttribute('id', clipId)
-      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+      const rect = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'rect',
+      )
       rect.setAttribute('id', `clipingRect_${id}`)
       const largeur = 500
       const hauteur = 500
@@ -611,9 +689,10 @@ export class Figure2D extends Shape2D {
       let progress = 0
       let direction = 1
 
-      const angleAxe = Math.atan2(axe.y1 - axe.y2, axe.x2 - axe.x1) * 180 / Math.PI
+      const angleAxe =
+        (Math.atan2(axe.y1 - axe.y2, axe.x2 - axe.x1) * 180) / Math.PI
 
-      function animateLoop () {
+      function animateLoop() {
         if (figure == null) return
         progress += 0.004 * direction
         if (progress > 1) {
@@ -633,13 +712,27 @@ export class Figure2D extends Shape2D {
           }, 200)
           return
         }
-        const shadowOffsetX = (1 - Math.abs(Math.cos(progress * Math.PI))) * 5 * Math.cos(angleAxe * Math.PI / 180)
-        const shadowOffsetY = (1 - Math.abs(Math.cos(progress * Math.PI))) * 5 * Math.sin(angleAxe * Math.PI / 180)
+        const shadowOffsetX =
+          (1 - Math.abs(Math.cos(progress * Math.PI))) *
+          5 *
+          Math.cos((angleAxe * Math.PI) / 180)
+        const shadowOffsetY =
+          (1 - Math.abs(Math.cos(progress * Math.PI))) *
+          5 *
+          Math.sin((angleAxe * Math.PI) / 180)
         const shadowStyle = `drop-shadow(${shadowOffsetX}px ${shadowOffsetY}px 5px rgb(80, 80, 80))`
         figure.setAttribute('style', `filter: ${shadowStyle}`)
 
-        const { a, b, c, d, tx, ty } = computeSymmetryMatrix(progress, angleAxe, cx * ppcm, cy * ppcm)
-        figure.setAttribute('transform', `matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`)
+        const { a, b, c, d, tx, ty } = computeSymmetryMatrix(
+          progress,
+          angleAxe,
+          cx * ppcm,
+          cy * ppcm,
+        )
+        figure.setAttribute(
+          'transform',
+          `matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`,
+        )
 
         requestAnimationFrame(animateLoop)
       }
@@ -650,7 +743,7 @@ export class Figure2D extends Shape2D {
   }
 
   // Fonction pour créer une figure animée avec une réflexion automatique selon les axes de la figure
-  autoReflectionAnimee (id: string, cx: number, cy: number) {
+  autoReflectionAnimee(id: string, cx: number, cy: number) {
     const copieAnimee = new Figure2D({
       codeSvg: `<g id="${id}" style="filter: drop-shadow(0px 0px 0px rgb(80, 80, 80))"> 
       ${this.svg(20)}
@@ -667,7 +760,7 @@ export class Figure2D extends Shape2D {
       opacite: 1,
       axes: this.Axes,
       nonAxe: this.nonAxe,
-      centre: this.centre
+      centre: this.centre,
     })
 
     const ppcm = this.pixelsParCm
@@ -677,10 +770,16 @@ export class Figure2D extends Shape2D {
       // Création du clipPath
 
       const figure = document.getElementById(id)
-      const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath')
+      const clipPath = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'clipPath',
+      )
       const clipId = 'clip-' + id
       clipPath.setAttribute('id', clipId)
-      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+      const rect = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'rect',
+      )
       rect.setAttribute('id', `clipingRect_${id}`)
       const largeur = 500 // Suffisamment grand pour couvrir la figure
       const hauteur = 500
@@ -698,7 +797,7 @@ export class Figure2D extends Shape2D {
       let currentSymmetry = 0
       let animating = false
 
-      function animateSymmetry (angleDeg: number, onComplete: () => void) {
+      function animateSymmetry(angleDeg: number, onComplete: () => void) {
         // Création du rectangle bord gauche centré en (cx, cy) avec largeur et hauteur suffisantes
         const rect = document.getElementById(`clipingRect_${id}`)
         if (!rect) return
@@ -712,23 +811,37 @@ export class Figure2D extends Shape2D {
         // Rotation du rectangle autour de (cx, cy) pour orienter la coupe
         rect.setAttribute(
           'transform',
-  `rotate(${angleDeg + 90}, ${cx * ppcm}, ${cy * ppcm})`
+          `rotate(${angleDeg + 90}, ${cx * ppcm}, ${cy * ppcm})`,
         )
 
         // Application du clipPath à la copie
         progress = 0
 
-        function step () {
+        function step() {
           progress += 0.004
           if (progress > 1) progress = 1
-          const shadowOffsetX = (1 - Math.abs(Math.cos(progress * Math.PI))) * 5 * Math.cos(angleDeg * Math.PI / 180)
-          const shadowOffsetY = (1 - Math.abs(Math.cos(progress * Math.PI))) * 5 * Math.sin(angleDeg * Math.PI / 180)
+          const shadowOffsetX =
+            (1 - Math.abs(Math.cos(progress * Math.PI))) *
+            5 *
+            Math.cos((angleDeg * Math.PI) / 180)
+          const shadowOffsetY =
+            (1 - Math.abs(Math.cos(progress * Math.PI))) *
+            5 *
+            Math.sin((angleDeg * Math.PI) / 180)
           const shadowStyle = `drop-shadow(${shadowOffsetX}px ${shadowOffsetY}px 2px rgb(80, 80, 80))`
           const rect = document.getElementById(`${id}`)
           rect?.setAttribute('style', `filter: ${shadowStyle}`)
 
-          const { a, b, c, d, tx, ty } = computeSymmetryMatrix(progress, angleDeg, cx * ppcm, cy * ppcm)
-          figure?.setAttribute('transform', `matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`)
+          const { a, b, c, d, tx, ty } = computeSymmetryMatrix(
+            progress,
+            angleDeg,
+            cx * ppcm,
+            cy * ppcm,
+          )
+          figure?.setAttribute(
+            'transform',
+            `matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`,
+          )
 
           if (progress < 1) {
             requestAnimationFrame(step)
@@ -740,11 +853,11 @@ export class Figure2D extends Shape2D {
         requestAnimationFrame(step)
       }
 
-      function loopSymetries (symetries: number[]) {
+      function loopSymetries(symetries: number[]) {
         if (animating) return
         animating = true
 
-        function next () {
+        function next() {
           const angle = symetries[currentSymmetry]
           animateSymmetry(angle, () => {
             currentSymmetry = (currentSymmetry + 1) % symetries.length
@@ -764,17 +877,17 @@ export class Figure2D extends Shape2D {
     return copieAnimee
   }
 
-  set Axes (axes: Segment[]) {
+  set Axes(axes: Segment[]) {
     this.axes = axes
     this.nbAxes = axes.length
   }
 
-  get Axes () {
-    return this.axes.map(el => rotation(el, point(0, 0), this.angle))
+  get Axes() {
+    return this.axes.map((el) => rotation(el, point(0, 0), this.angle))
   }
 }
 
-export function shapeToFigure2D (shape: Shape2D): Figure2D {
+export function shapeToFigure2D(shape: Shape2D): Figure2D {
   return new Figure2D({
     codeSvg: shape.codeSvg,
     codeTikz: shape.codeTikz,
@@ -791,10 +904,10 @@ export function shapeToFigure2D (shape: Shape2D): Figure2D {
     nonAxe: null,
     centre: null,
     nbAxes: 0,
-    name: Date.now().toString()
+    name: Date.now().toString(),
   })
 }
-export function figure2DToShape (figure: Figure2D): Shape2D {
+export function figure2DToShape(figure: Figure2D): Shape2D {
   return new Shape2D({
     codeSvg: figure.codeSvg,
     codeTikz: figure.codeTikz,
@@ -806,6 +919,6 @@ export function figure2DToShape (figure: Figure2D): Shape2D {
     height: figure.height,
     pixelsParCm: figure.pixelsParCm,
     opacite: figure.opacite,
-    bordures: figure.bordures
+    bordures: figure.bordures,
   })
 }

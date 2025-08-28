@@ -19,19 +19,21 @@ export const uuid = 'c9d15'
 
 export const refs = {
   'fr-fr': ['can3S05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class MoyenneStat extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, e, f, N
-    switch (this.versionQcm ? choice([1, 2]) : choice([1, 2, 3, 3])) { //
+    switch (
+      this.versionQcm ? choice([1, 2]) : choice([1, 2, 3, 3]) //
+    ) {
       case 1:
         a = randint(2, 6)
         b = randint(8, 15)
@@ -44,7 +46,15 @@ export default class MoyenneStat extends ExerciceSimple {
         this.correction = `La somme des $4$ valeurs est : $${a}+${b}+${c}+${d} =${e}$.<br>
          La moyenne est donc $\\dfrac{${e}}{4}=${texFractionReduite(e, 4)}$.`
         this.reponse = e / 4
-        this.distracteurs = [`$${texNombre(e / 4 - 1)}$`, `$${texNombre((e + 1) / 4)}$`, `$${texNombre(e / 4 + 1)}$`, `$${texNombre(e / 4 + 2)}$`, `$${texNombre(e / 4 - 2)}$`, `$${texNombre(e / 4 - 0.5)}$`, `$${texNombre(e / 4 + 0.5)}$`]
+        this.distracteurs = [
+          `$${texNombre(e / 4 - 1)}$`,
+          `$${texNombre((e + 1) / 4)}$`,
+          `$${texNombre(e / 4 + 1)}$`,
+          `$${texNombre(e / 4 + 2)}$`,
+          `$${texNombre(e / 4 - 2)}$`,
+          `$${texNombre(e / 4 - 0.5)}$`,
+          `$${texNombre(e / 4 + 0.5)}$`,
+        ]
         break
       case 2:
         a = randint(1, 2) * 5
@@ -56,14 +66,22 @@ export default class MoyenneStat extends ExerciceSimple {
         this.question = `$${b}$${sp(2)} ; ${sp(2)} $${a}$ ${sp(2)} ; ${sp(2)}$${c}$${sp(2)} ; ${sp(2)}$${d}$ ${sp(2)} ; ${sp(2)}$${f}$<br>
        
         ${this.versionQcm ? 'La moyenne de cette série est :' : ' Quelle est la moyenne de cette série ?'}`
-        this.distracteurs = [`$${texNombre(e / 5 - 1)}$`, `$${texNombre((e + 1) / 5)}$`, `$${texNombre(e / 5 + 1)}$`, `$${texNombre(e / 5 + 2)}$`, `$${texNombre(e / 5 - 2)}$`, `$${texNombre(e / 5 - 0.5)}$`, `$${texNombre(e / 5 + 0.5)}$`]
+        this.distracteurs = [
+          `$${texNombre(e / 5 - 1)}$`,
+          `$${texNombre((e + 1) / 5)}$`,
+          `$${texNombre(e / 5 + 1)}$`,
+          `$${texNombre(e / 5 + 2)}$`,
+          `$${texNombre(e / 5 - 2)}$`,
+          `$${texNombre(e / 5 - 0.5)}$`,
+          `$${texNombre(e / 5 + 0.5)}$`,
+        ]
         this.correction = `La somme des $5$ valeurs est : $${b}+${a}+${c}+${d}+${f}= ${e}$.<br>
          La moyenne est donc $\\dfrac{${texNombre(e)}}{5}=${texFractionReduite(e, 5)}$.`
 
         this.reponse = e / 5
         break
       case 3:
-        N = choice(['a', 'b', 'c', 'd'])//
+        N = choice(['a', 'b', 'c', 'd']) //
         if (N === 'a') {
           a = randint(1, 10) + randint(31, 89, [40, 50, 60, 70, 80]) / 100
           e = randint(2, 9) / 100
@@ -148,7 +166,7 @@ export default class MoyenneStat extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

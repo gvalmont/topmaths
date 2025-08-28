@@ -14,10 +14,10 @@ export const uuid = 'e8f0b'
 export const refs = {
   'fr-fr': ['6G0-3'],
   'fr-2016': ['6G10-2'],
-  'fr-ch': ['9ES1-3']
+  'fr-ch': ['9ES1-3'],
 }
 export default class UtiliserLeCodagePourDecrire6e extends UtiliserLeCodagePourDecrire {
-  constructor () {
+  constructor() {
     super()
     this.classe = 6
   }

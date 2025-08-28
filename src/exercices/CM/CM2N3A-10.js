@@ -1,7 +1,15 @@
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  choice,
+  combinaisonListes,
+  creerCouples,
+} from '../../lib/outils/arrayOutils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Connaître les tables de multiplication et de divisions'
@@ -22,19 +30,19 @@ export const uuid = '9db38'
 export const refs = {
   'fr-fr': ['CM2N3A-10'],
   'fr-2016': ['CM003'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TablesMultiplicationsDivisions extends Exercice {
-  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+  constructor(tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super()
     this.besoinFormulaireTexte = [
       'Choix des tables',
-      'Nombres séparés par des tirets :'
+      'Nombres séparés par des tirets :',
     ] // Texte, tooltip
     this.besoinFormulaire2Numerique = [
       'Style de questions',
       3,
-      '1 : Classique\n2: À trous\n3: Mélangé'
+      '1 : Classique\n2: À trous\n3: Mélangé',
     ]
     // Multiplier ou diviser deux nombres
     this.sup = tablesParDefaut
@@ -43,7 +51,7 @@ export default class TablesMultiplicationsDivisions extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
@@ -54,16 +62,16 @@ export default class TablesMultiplicationsDivisions extends Exercice {
       defaut: 9,
       max: 9,
       min: 2,
-      enleveDoublons: true
+      enleveDoublons: true,
     })
     const couples = creerCouples(
       tables.map(Number),
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
-      this.nbQuestions
+      this.nbQuestions,
     ) // Liste tous les couples possibles (2,3)≠(3,2)
     const listeTypeDeQuestions = combinaisonListes(
       ['classique', 'a_trous'],
-      this.nbQuestions
+      this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const operation = combinaisonListes(['x', 'div'], this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let typesDeQuestions
@@ -83,23 +91,35 @@ export default class TablesMultiplicationsDivisions extends Exercice {
           // classique
           texte = '$ ' + a + ' \\times ' + b + ' = $'
           setReponse(this, i, a * b)
-          if (this.interactif) texte = `$${a} \\times ${b} = $` + ajouteChampTexteMathLive(this, i)
+          if (this.interactif)
+            texte = `$${a} \\times ${b} = $` + ajouteChampTexteMathLive(this, i)
           texteCorr = '$ ' + a + ' \\times ' + b + ' = ' + a * b + ' $'
         } else {
           if (tables.length > 2) {
             // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
             if (randint(1, 2) === 1) {
               texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
-              if (this.interactif) texte = `$ ${a} \\times $` + ajouteChampTexteMathLive(this, i) + `$ = ${a * b} $`
+              if (this.interactif)
+                texte =
+                  `$ ${a} \\times $` +
+                  ajouteChampTexteMathLive(this, i) +
+                  `$ = ${a * b} $`
             } else {
-              texte = '$ \\ldots\\ldots' + ' \\times ' + b + ' = ' + a * b + ' $'
-              if (this.interactif) texte = ajouteChampTexteMathLive(this, i) + `$ \\times ${b}  = ${a * b} $`
+              texte =
+                '$ \\ldots\\ldots' + ' \\times ' + b + ' = ' + a * b + ' $'
+              if (this.interactif)
+                texte =
+                  ajouteChampTexteMathLive(this, i) +
+                  `$ \\times ${b}  = ${a * b} $`
             }
             setReponse(this, i, a)
           } else {
             // Sinon on demande forcément le 2e facteur
             texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
-            if (this.interactif) texte = ajouteChampTexteMathLive(this, i) + `$ \\times ${b}  = ${a * b} $`
+            if (this.interactif)
+              texte =
+                ajouteChampTexteMathLive(this, i) +
+                `$ \\times ${b}  = ${a * b} $`
             setReponse(this, i, b)
           }
           texteCorr = '$ ' + a + ' \\times ' + b + ' = ' + a * b + ' $'
@@ -109,17 +129,24 @@ export default class TablesMultiplicationsDivisions extends Exercice {
           // classique
           texte = '$ ' + a * b + ' \\div ' + b + ' =$'
           setReponse(this, i, a)
-          if (this.interactif) texte = `$${a * b} \\div ${b} = $` + ajouteChampTexteMathLive(this, i)
+          if (this.interactif)
+            texte =
+              `$${a * b} \\div ${b} = $` + ajouteChampTexteMathLive(this, i)
         } else {
           // a trous
           if (choice([true, false])) {
             texte = `$ ${a * b} \\div \\ldots\\ldots = ${a}$`
             setReponse(this, i, b)
-            if (this.interactif) texte = `$${a * b} \\div $` + ajouteChampTexteMathLive(this, i) + `$ = ${a}$`
+            if (this.interactif)
+              texte =
+                `$${a * b} \\div $` +
+                ajouteChampTexteMathLive(this, i) +
+                `$ = ${a}$`
           } else {
             texte = `$ \\ldots\\ldots \\div ${b}  = ${a}$`
             setReponse(this, i, a * b)
-            if (this.interactif) texte = ajouteChampTexteMathLive(this, i) + `$\\div ${b} = ${a}$`
+            if (this.interactif)
+              texte = ajouteChampTexteMathLive(this, i) + `$\\div ${b} = ${a}$`
           }
         }
         texteCorr = `$ ${a * b} \\div ${b} = ${a}$`

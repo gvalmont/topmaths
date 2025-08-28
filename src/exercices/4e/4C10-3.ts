@@ -1,5 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureNombreRelatif,
+  ecritureNombreRelatifc,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -22,10 +26,10 @@ export const uuid = '153b9'
 
 export const refs = {
   'fr-fr': ['4C10-3'],
-  'fr-ch': ['10NO4-5']
+  'fr-ch': ['10NO4-5'],
 }
 export default class ExerciceMultiplicationsRelatifs extends Exercice {
-  constructor (max = 10) {
+  constructor(max = 10) {
     super()
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
@@ -36,11 +40,20 @@ export default class ExerciceMultiplicationsRelatifs extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
-    for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+  nouvelleVersion() {
+    for (
+      let i = 0, a, b, k, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup)
       b = randint(1, this.sup)
-      k = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
+      k = choice([
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+      ]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
       a = a * k[0]
       b = b * k[1]
       if (a === 1) {
@@ -51,15 +64,35 @@ export default class ExerciceMultiplicationsRelatifs extends Exercice {
       }
       if (this.sup2) {
         texte = '$ ' + a + ' \\times  ' + ecritureParentheseSiNegatif(b) + ' =$'
-        texteCorr = '$ ' + a + ' \\times  ' + ecritureParentheseSiNegatif(b) + ' = ' + (a * b) + ' $'
+        texteCorr =
+          '$ ' +
+          a +
+          ' \\times  ' +
+          ecritureParentheseSiNegatif(b) +
+          ' = ' +
+          a * b +
+          ' $'
       } else {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' \\times  ' + ecritureNombreRelatif(b) + ' =$'
-        texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' \\times  ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a * b) + ' $'
+        texte =
+          '$ ' +
+          ecritureNombreRelatif(a) +
+          ' \\times  ' +
+          ecritureNombreRelatif(b) +
+          ' =$'
+        texteCorr =
+          '$ ' +
+          ecritureNombreRelatifc(a) +
+          ' \\times  ' +
+          ecritureNombreRelatifc(b) +
+          ' = ' +
+          ecritureNombreRelatifc(a * b) +
+          ' $'
       }
       setReponse(this, i, a * b)
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
-      if (this.questionJamaisPosee(i, a, b, String(k))) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, String(k))) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

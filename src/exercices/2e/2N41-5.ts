@@ -20,13 +20,17 @@ export const uuid = '5a4ad'
 
 export const refs = {
   'fr-fr': ['2N41-5'],
-  'fr-ch': ['11FA2-11']
+  'fr-ch': ['11FA2-11'],
 }
 
 export default class DevelopperIdentitesRemarquables4 extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      5,
+      '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents',
+    ]
 
     this.correctionDetailleeDisponible = true
     this.spacingCorr = context.isHtml ? 3 : 2
@@ -37,10 +41,11 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
     this.sup = 5
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1
-      ? 'Développer puis réduire l\'expression suivante.'
-      : 'Développer puis réduire les expressions suivantes.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? "Développer puis réduire l'expression suivante."
+        : 'Développer puis réduire les expressions suivantes.'
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -72,7 +77,7 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
       [1, 10],
       [3, 10],
       [7, 10],
-      [9, 10]
+      [9, 10],
     ]
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
@@ -86,8 +91,15 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     } // mélange des questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, texteCorr2, cpt = 0, a, b, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0, texte, texteCorr, texteCorr2, cpt = 0, a, b, typesDeQuestions;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 12)
       b = randint(2, 12)
@@ -110,7 +122,9 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
           } else {
             texteCorr += `$\\left(x+${a} \\right)^2=x^2-${2 * a}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `x^2-${2 * a}x+${a * a}` },
+          })
           break
         case 2:
           texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
@@ -121,7 +135,9 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
           } else {
             texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2-${2 * b * a}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}` },
+          })
           break
         case 3:
           b = -b
@@ -131,14 +147,16 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
             texteCorr += `Et on développe l'expression en utilisant l'identité remarquable $\\left(a-b\\right)^2=a^2-2ab+b^2$, avec $\\color{blue} a = ${a}\\color{black}$ et $\\color{green} b = ${-b}x \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{green}${b}x\\color{black}+\\color{blue}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${a}\\color{black}-\\color{green}${-b}x\\color{black}\\right)^2 $ <br>`
             texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = \\color{blue}${a}\\color{black}^2 - 2 \\times \\color{blue}${a}\\color{black} \\times \\color{green}${-b}x \\color{black} + \\left(\\color{green} ${-b}x\\color{black}\\right)^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${a * a} -${2 * (-b) * a}x+${b * b}x^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2-${2 * (-b) * a}x+${a * a}$`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${a * a} -${2 * -b * a}x+${b * b}x^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2-${2 * -b * a}x+${a * a}$`
             texteCorr2 += `<br><br> Autre méthode possible : développer en utilisant $\\left(a+b\\right)^2$ avec $a = ${b}x$ et $ b = ${a} $. <br>`
           } else {
-            texteCorr = texte + `$= ${b * b}x^2-${2 * (-b) * a}x+${a * a}$`
+            texteCorr = texte + `$= ${b * b}x^2-${2 * -b * a}x+${a * a}$`
           }
 
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `${b * b}x^2-${2 * -b * a}x+${a * a}` },
+          })
           break
         case 4:
         default:
@@ -153,7 +171,9 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
           } else {
             texteCorr = texte + `$= ${dfrac2}x^2-${dbleProdFracRed}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}` } })
+          handleAnswers(this, i, {
+            reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}` },
+          })
           break
       }
 
@@ -170,7 +190,8 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
       // Fin de cette uniformisation
 
       texteCorr += texteCorr2
-      if (this.interactif) texte += '$=$' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
+      if (this.interactif)
+        texte += '$=$' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
       if (this.questionJamaisPosee(i, a, b, ns, ds, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

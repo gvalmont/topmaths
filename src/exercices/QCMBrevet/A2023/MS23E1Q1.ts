@@ -9,7 +9,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'fde1e'
 export const refs = {
   'fr-fr': ['3A1QCM-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,13 +23,17 @@ export const dateDePublication = '28/10/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class MetropoleSept23Exo1Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs (bonneReponse: number[], detrompeurs1:number[], detrompeurs2:number[]): void {
+  private appliquerLesValeurs(
+    bonneReponse: number[],
+    detrompeurs1: number[],
+    detrompeurs2: number[],
+  ): void {
     const premierAvec = detrompeurs1[1]
     detrompeurs1.sort((a, b) => a - b)
     this.reponses = [
       `$${bonneReponse[0]}$, $${bonneReponse[1]}$ et $${bonneReponse[2]}$`, // bonne réponse
       `$${detrompeurs1[0]}$, $${detrompeurs1[1]}$ et $${detrompeurs1[2]}$`,
-      `$${detrompeurs2[0]}$, $${detrompeurs2[1]}$ et $${detrompeurs2[2]}$`
+      `$${detrompeurs2[0]}$, $${detrompeurs2[1]}$ et $${detrompeurs2[2]}$`,
     ]
     this.enonce = `Citer trois diviseurs de $${detrompeurs2[0]}$.`
     this.correction = `$${premierAvec}$ ne divise pas $${detrompeurs2[0]}$ car $\\dfrac{${detrompeurs2[0]}}{${premierAvec}}${egalOuApprox(detrompeurs2[0] / premierAvec, 2)}${texNombre(detrompeurs2[0] / premierAvec, 2)}$.<br>
@@ -46,8 +50,8 @@ export default class MetropoleSept23Exo1Q1 extends ExerciceQcmA {
     do {
       let a = choice([2, 3, 5])
       let b = choice([2, 3, 4, 5, 7, 10], [a])
-      let c = choice([2, 3, 4, 5, 7, 10], [a, b]);
-      [a, b, c] = [a, b, c].sort((a, b) => a - b)
+      let c = choice([2, 3, 4, 5, 7, 10], [a, b])
+      ;[a, b, c] = [a, b, c].sort((a, b) => a - b)
       const pasPremierAvecResultat = choice([2, 3, 4, 5, 7], [a, b, c])
       const multiple = a * b * c * pasPremierAvecResultat
       const detrompeurs2 = [multiple, multiple * 2, multiple * 3]
@@ -58,7 +62,7 @@ export default class MetropoleSept23Exo1Q1 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

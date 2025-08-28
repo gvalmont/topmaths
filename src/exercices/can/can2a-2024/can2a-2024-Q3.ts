@@ -1,7 +1,14 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Développer une expression'
@@ -14,16 +21,17 @@ export const uuid = 'e5de9'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = 'Forme développée réduite de  $(x+7)(x+4)$<br>'
       this.correction = `$\\begin{aligned}
@@ -31,9 +39,12 @@ export default class NomExercice extends ExerciceSimple {
       &=${miseEnEvidence('x^2+11x+28')}
       \\end{aligned}$`
       this.correction += '<br>Le terme en $x^2$ vient de $x\\times x=x^2$.'
-      this.correction += '<br>Le terme en $x$ vient de la somme de $7 \\times x$ et de $4 \\times x$.'
+      this.correction +=
+        '<br>Le terme en $x$ vient de la somme de $7 \\times x$ et de $4 \\times x$.'
       this.correction += '<br>Le terme constant vient de $7\\times 4=28$.'
-      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, 1, 11, 28, 'x') } }
+      this.reponse = {
+        reponse: { value: reduirePolynomeDegre3(0, 1, 11, 28, 'x') },
+      }
     } else {
       const a = randint(1, 2)
       const b = randint(-3, 3, 0)
@@ -47,7 +58,11 @@ export default class NomExercice extends ExerciceSimple {
       this.correction += `<br>Le terme en $x^2$ vient de $${rienSi1(a)}x\\times ${ecritureParentheseSiNegatif(c)}x=${rienSi1(a * c)}x^2$.`
       this.correction += `<br>Le terme en $x$ vient de la somme de $${rienSi1(a)}x \\times ${ecritureParentheseSiNegatif(d)}$ et de $${b} \\times ${ecritureParentheseSiNegatif(c)}x$.`
       this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
-      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x') } }
+      this.reponse = {
+        reponse: {
+          value: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x'),
+        },
+      }
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

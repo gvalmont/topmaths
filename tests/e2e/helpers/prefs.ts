@@ -13,7 +13,7 @@ const prefs: Prefs = {
   headless: false,
   silent: false,
   slowMo: 0,
-  verbose: true
+  verbose: true,
 }
 
 export default prefs

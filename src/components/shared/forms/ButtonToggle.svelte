@@ -8,11 +8,11 @@
   export let classAddenda: string = ''
   export let textSize: string = 'sm'
   export let buttonSize: string = 'sm'
-  export let id:string = 'toggle-' + getUniqueStringBasedOnTimeStamp()
+  export let id: string = 'toggle-' + getUniqueStringBasedOnTimeStamp()
 
   const dispatch = createEventDispatcher()
 
-  function toggle () {
+  function toggle() {
     value = !value
     dispatch('toggle')
   }
@@ -44,8 +44,8 @@
     type="button"
     {id}
     class="flex justify-center items-center"
-    on:click={toggle}
-    disabled={isDisabled}
+    on:click="{toggle}"
+    disabled="{isDisabled}"
   >
     <i
       class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-{buttonSize} translate-y-[0.15rem] {value
@@ -53,14 +53,14 @@
         : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
       aria-describedby="{value ? titles[0] : titles[1]}"
-    />
+    ></i>
   </button>
   <div
     class="{textSize === 'xs'
       ? 'pl-1'
       : 'pl-2'} inline-block text-{textSize} font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled
-        ? 'text-opacity-10'
-        : 'text-opacity-70'}"
+      ? 'text-opacity-10'
+      : 'text-opacity-70'}"
   >
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html `${value ? titles[0] : titles[1]}`}

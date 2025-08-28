@@ -8,10 +8,12 @@ import ProblemeAdditif from './problemesAdditifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function soif (decimal = false): Probleme {
+export function soif(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nb1 = decimal ? randint(25, 35) / 10 : randint(10, 40) * 10
-  const nb2 = decimal ? randint(25, 45, Math.round(nb1 * 10)) / 10 : randint(10, 50, Math.round(nb1 / 10)) * 10
+  const nb2 = decimal
+    ? randint(25, 45, Math.round(nb1 * 10)) / 10
+    : randint(10, 50, Math.round(nb1 / 10)) * 10
   const unite = decimal ? 'L' : 'cL'
   const uniteComplete = decimal ? 'litres' : 'centilitres'
   const data = { nb1, nb2 }

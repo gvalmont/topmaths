@@ -7,10 +7,10 @@ export const dateDeModifImportante = '21/05/2023'
 export const uuid = 'c1961'
 export const refs = {
   'fr-fr': ['2F10-8'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FonctionsAffinesS extends FonctionsAffinesOuLineaires {
-  constructor () {
+  constructor() {
     super()
     this.lycee = true
   }

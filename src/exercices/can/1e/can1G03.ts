@@ -6,10 +6,10 @@ export const dateDePublication = '01/06/2022'
 export const uuid = '21c03'
 export const refs = {
   'fr-fr': ['can1G03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AnglesAssociesCAN extends MesurePrincipal {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.can = true

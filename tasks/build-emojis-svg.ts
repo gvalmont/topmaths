@@ -5,9 +5,25 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const emojisFile = path.join(__dirname, '..', 'src', 'lib', '2d', 'figures2d', 'listeEmojis.ts')
+const emojisFile = path.join(
+  __dirname,
+  '..',
+  'src',
+  'lib',
+  '2d',
+  'figures2d',
+  'listeEmojis.ts',
+)
 const svgDir = path.join(__dirname, '..', 'public', 'emojis', 'svg')
-const outputFile = path.join(__dirname, '..', 'src', 'lib', '2d', 'figures2d', 'emojisSvgData.ts')
+const outputFile = path.join(
+  __dirname,
+  '..',
+  'src',
+  'lib',
+  '2d',
+  'figures2d',
+  'emojisSvgData.ts',
+)
 // On extrait les unicodes des emojis définis dans Emojis.ts
 
 const emojisSource = fs.readFileSync(emojisFile, 'utf8')
@@ -28,7 +44,10 @@ for (const unicode of unicodes) {
   if (fs.existsSync(file)) {
     const svg = fs.readFileSync(file, 'utf8')
     // Retirer la balise <svg ...>...</svg>
-    const inner = svg.replace(/^<svg[^>]*>/i, '').replace(/<\/svg>\s*$/i, '').trim()
+    const inner = svg
+      .replace(/^<svg[^>]*>/i, '')
+      .replace(/<\/svg>\s*$/i, '')
+      .trim()
     svgData[unicode] = inner
   } else {
     console.warn(`SVG manquant pour ${unicode}`)

@@ -1,13 +1,19 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-import { doubleDeveloppement, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import {
+  doubleDeveloppement,
+  reduirePolynomeDegre3,
+} from '../../lib/outils/ecritures'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { abs } from '../../lib/outils/nombres'
 
@@ -26,23 +32,43 @@ export const uuid = '67396'
 
 export const refs = {
   'fr-fr': ['3L11-1b'],
-  'fr-ch': ['11FA2-17', '1mCL1-2']
+  'fr-ch': ['11FA2-17', '1mCL1-2'],
 }
 
 export default class MultipleDistributivite extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Signe de $a$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
-    this.besoinFormulaire2Numerique = ['Signe de $b$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
-    this.besoinFormulaire3Numerique = ['Signe de $c$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
-    this.besoinFormulaire4Numerique = ['Signe de $d$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
-    this.besoinFormulaire5CaseACocher = ['Uniquement avec la variable $x$', false]
+    this.besoinFormulaireNumerique = [
+      'Signe de $a$',
+      3,
+      '1 : Positif\n2 : Négatif \n3 : Hasard',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Signe de $b$',
+      3,
+      '1 : Positif\n2 : Négatif \n3 : Hasard',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Signe de $c$',
+      3,
+      '1 : Positif\n2 : Négatif \n3 : Hasard',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Signe de $d$',
+      3,
+      '1 : Positif\n2 : Négatif \n3 : Hasard',
+    ]
+    this.besoinFormulaire5CaseACocher = [
+      'Uniquement avec la variable $x$',
+      false,
+    ]
     this.sup = 3
     this.sup2 = 3
     this.sup3 = 3
     this.sup4 = 3
     this.comment = 'Les expressions sont toutes de la forme $(ax+b)(cx+d)$.<br>'
-    this.comment += 'Le paramétrage permet de choisir finement les signes des coefficients et de modifier le nom de la variable $x$.'
+    this.comment +=
+      'Le paramétrage permet de choisir finement les signes des coefficients et de modifier le nom de la variable $x$.'
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 4
@@ -50,20 +76,37 @@ export default class MultipleDistributivite extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Développer et réduire les expressions suivantes.'
+        : "Développer et réduire l'expression suivante."
 
-    for (let i = 0, reponse, cpt = 0, a, b, c, d; i < this.nbQuestions && cpt < 50;) {
-      a = randint(1, 9) * (this.sup === 1 ? 1 : this.sup === 2 ? -1 : choice([1, -1]))
-      b = randint(1, 9) * (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([1, -1]))
-      c = randint(1, 9, [abs(a)]) * (this.sup3 === 1 ? 1 : this.sup3 === 2 ? -1 : choice([1, -1]))
-      d = randint(1, 9, [abs(b)]) * (this.sup4 === 1 ? 1 : this.sup4 === 2 ? -1 : choice([1, -1]))
+    for (
+      let i = 0, reponse, cpt = 0, a, b, c, d;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      a =
+        randint(1, 9) *
+        (this.sup === 1 ? 1 : this.sup === 2 ? -1 : choice([1, -1]))
+      b =
+        randint(1, 9) *
+        (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([1, -1]))
+      c =
+        randint(1, 9, [abs(a)]) *
+        (this.sup3 === 1 ? 1 : this.sup3 === 2 ? -1 : choice([1, -1]))
+      d =
+        randint(1, 9, [abs(b)]) *
+        (this.sup4 === 1 ? 1 : this.sup4 === 2 ? -1 : choice([1, -1]))
       let reponse1 = 0
       let reponse2 = 0
       let reponse3 = 0
       let texteCorr = ''
       let texte = ''
-      const variable = this.sup5 ? 'x' : choice(['x', 'y', 'z', 'a', 'b', 'c', 'n', 'k'])
+      const variable = this.sup5
+        ? 'x'
+        : choice(['x', 'y', 'z', 'a', 'b', 'c', 'n', 'k'])
       texte = `$${lettreDepuisChiffre(i + 1)} = (${reduirePolynomeDegre3(0, 0, a, b, variable)})(${reduirePolynomeDegre3(0, 0, c, d, variable)})$`
       texteCorr = texte.slice(0, -1)
       texteCorr += `= ${doubleDeveloppement({ a, b, c, d, x: variable })[0]}`
@@ -82,7 +125,10 @@ export default class MultipleDistributivite extends Exercice {
       texteCorr = ''
       for (const etape of etapes) {
         const etapeModifiee = etape.replace('$', '')
-        texteCorr += etapeModifiee === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
+        texteCorr +=
+          etapeModifiee === lettreDepuisChiffre(i + 1)
+            ? ''
+            : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
       }
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
@@ -97,8 +143,18 @@ export default class MultipleDistributivite extends Exercice {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      handleAnswers(this, i, { reponse: { value: reponse, options: { expressionsForcementReduites: true } } })
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
+      handleAnswers(this, i, {
+        reponse: {
+          value: reponse,
+          options: { expressionsForcementReduites: true },
+        },
+      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecVariable,
+        { texteAvant: ' $=$' },
+      )
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -108,64 +164,72 @@ export default class MultipleDistributivite extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{
-                texte: texteCorr,
-                enonce: `${texte}<br>`,
-                statut: 4
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: `${texte}<br>`,
+                  statut: 4,
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
-                  valeur: reponse1,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                    valeur: reponse1,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
-                  valeur: reponse2,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                    valeur: reponse2,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
-                  valeur: reponse3,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: true,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                    valeur: reponse3,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: true,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       if (this.questionJamaisPosee(i, a, b, c, d)) {

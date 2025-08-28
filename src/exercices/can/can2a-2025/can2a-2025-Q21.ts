@@ -8,14 +8,14 @@ export const interactifType = 'mathLive'
 export const uuid = 'f0e17'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class MoyenneCalcul extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -24,7 +24,7 @@ export default class MoyenneCalcul extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a = this.canOfficielle ? 12 : randint(2, 19)
     let b = this.canOfficielle ? 18 : randint(2, 19)
     let c = this.canOfficielle ? 15 : randint(2, 19)
@@ -40,7 +40,9 @@ export default class MoyenneCalcul extends ExerciceSimple {
     this.reponse = (a + b + coeff2 * c) / (coeff1 + coeff1 + coeff2)
     this.question = `Sylvie a eu deux notes ($${a}$ et $${b}$) coefficient $${coeff1}$ et une note de $${c}$ coefficient $${coeff2}$.<br>
 Quelle est sa moyenne ?`
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.correction = `On calcule la moyenne $m$ en faisant le quotient de la somme des notes coefficientées par la somme des coefficients. <br>
         $m=\\dfrac{${a}+${b}+${coeff2}\\times ${c}}{1+1+${coeff2}}=\\dfrac{${a + b + coeff2 * c}}{${coeff2 + 2}}=${miseEnEvidence(this.reponse)}$`
     this.canEnonce = this.question

@@ -15,10 +15,10 @@ export const uuid = 'd34e5'
 
 export const refs = {
   'fr-fr': ['can6D04', '6M4C-flash3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ConvertirMinutesHeures extends ConversionHeuresMinutesOuMinutesEtSecondes {
-  constructor () {
+  constructor() {
     super(true)
     this.nbQuestions = 1
 

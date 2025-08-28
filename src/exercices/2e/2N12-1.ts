@@ -14,14 +14,17 @@ export const uuid = 'd309b'
 
 export const refs = {
   'fr-fr': ['2N12-1'],
-  'fr-ch': ['9NO11-9']
+  'fr-ch': ['9NO11-9'],
 }
 export default class EncadrerFractionEntre2Entiers2nde extends EncadrerFractionEntre2Entiers {
-  constructor () {
+  constructor() {
     super()
     this.lycee = true
     this.sup = false
     this.sup2 = '10'
-    this.besoinFormulaire2Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets :\nDe 2 à 9 pour les dénominateurs correspondants\n10 Mélange']
+    this.besoinFormulaire2Texte = [
+      'Dénominateurs à choisir',
+      'Nombres séparés par des tirets :\nDe 2 à 9 pour les dénominateurs correspondants\n10 Mélange',
+    ]
   }
 }

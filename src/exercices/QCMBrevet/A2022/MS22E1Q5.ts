@@ -8,7 +8,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 export const uuid = 'b07d9'
 export const refs = {
   'fr-fr': ['3S2QCM-3', 'BP2FLUC4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,20 +23,39 @@ export const dateDePublication = '07/11/2024'
  * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class MetropoleSep22Ex1Q5 extends ExerciceQcmA {
-  private appliquerLesValeurs (nbNoires: number, nbBlanches: number, nbRouges: number, couleur:string): void {
-    const autresCouleurs = couleur === 'noire' ? 'blanche ou rouge' : couleur === 'blanche' ? 'noire ou rouge' : 'noire ou blanche'
+  private appliquerLesValeurs(
+    nbNoires: number,
+    nbBlanches: number,
+    nbRouges: number,
+    couleur: string,
+  ): void {
+    const autresCouleurs =
+      couleur === 'noire'
+        ? 'blanche ou rouge'
+        : couleur === 'blanche'
+          ? 'noire ou rouge'
+          : 'noire ou blanche'
     const nbBoules = nbNoires + nbBlanches + nbRouges
-    const nbBonneCouleur = couleur === 'noire' ? nbNoires : couleur === 'blanche' ? nbBlanches : nbRouges
+    const nbBonneCouleur =
+      couleur === 'noire'
+        ? nbNoires
+        : couleur === 'blanche'
+          ? nbBlanches
+          : nbRouges
     const resultat = new FractionEtendue(nbBoules - nbBonneCouleur, nbBoules)
 
     this.reponses = [
-        `$${resultat.texFraction}$`,
-        `$\\dfrac{1}{${nbBonneCouleur}}$`,
-        `$\\dfrac{${nbBonneCouleur - 1}}{${nbBoules}}$`
+      `$${resultat.texFraction}$`,
+      `$\\dfrac{1}{${nbBonneCouleur}}$`,
+      `$\\dfrac{${nbBonneCouleur - 1}}{${nbBoules}}$`,
     ]
     const listeBoules = createList({
-      items: [`${nbNoires} boules noires,`, `${nbBlanches} boules blanches,`, `${nbRouges} boules rouges.`],
-      style: 'puces'
+      items: [
+        `${nbNoires} boules noires,`,
+        `${nbBlanches} boules blanches,`,
+        `${nbRouges} boules rouges.`,
+      ],
+      style: 'puces',
     })
 
     this.enonce = `Une urne contient $${nbBoules}$ boules indiscernables au toucher :<br>${listeBoules}Quelle est la probabilité de ne pas tirer de boule ${couleur} ?`
@@ -44,7 +63,9 @@ export default class MetropoleSep22Ex1Q5 extends ExerciceQcmA {
     this.correction += `La probabilité de ne pas tirer de boule ${couleur} est donc la probabilité de tirer une boule de couleur ${autresCouleurs}.<br>`
     this.correction += `Il y a ${nbBoules - nbBonneCouleur} boules de couleur ${autresCouleurs} et ${nbBoules} boules au total dans l'urne.<br>`
     this.correction += `La probabilité de ne pas tirer de boule ${couleur} est donc $${miseEnEvidence(resultat.texFraction)}$.`
-    this.correction += resultat.estIrreductible ? '' : `<br>On aurait pu simplifier cette probabilité en $${resultat.simplifie().texFraction}$.`
+    this.correction += resultat.estIrreductible
+      ? ''
+      : `<br>On aurait pu simplifier cette probabilité en $${resultat.simplifie().texFraction}$.`
   }
 
   versionOriginale: () => void = () => {
@@ -62,7 +83,7 @@ export default class MetropoleSep22Ex1Q5 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

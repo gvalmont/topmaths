@@ -19,10 +19,10 @@ export const uuid = '5e28d'
 
 export const refs = {
   'fr-fr': ['can6P02', '6P3C-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProportionnaliteCompliquee extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,7 +30,7 @@ export default class ProportionnaliteCompliquee extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: ' €' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const fruits = [
       ['pêches', 4, 3, 7],
       ['noix', 5, 4, 9],
@@ -39,11 +39,11 @@ export default class ProportionnaliteCompliquee extends ExerciceSimple {
       ['framboises', 15, 3, 6],
       ['fraises', 7, 4, 7],
       ['citrons', 1.5, 3, 7],
-      ['bananes', 1.5, 3, 8]
+      ['bananes', 1.5, 3, 8],
     ]
 
     const a = randint(0, 7) // index du fruit
-    const b = (fruits[a][1] as number) * (choice([1.1, 1.2, 1.3, 0.9, 0.8, 0.7])) // prix au kg
+    const b = (fruits[a][1] as number) * choice([1.1, 1.2, 1.3, 0.9, 0.8, 0.7]) // prix au kg
     // const b = new Decimal(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
     const c = randint(fruits[a][2] as number, fruits[a][3] as number) // nombre de kg première valeur
     const d = randint(3, 6, c) // nombre de kg supplémentaires

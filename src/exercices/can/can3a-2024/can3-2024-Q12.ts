@@ -16,7 +16,7 @@ export const uuid = '29066'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +27,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 0.01
       this.question = 'Écriture décimale de $\\dfrac{10^3}{10^5}$   '
@@ -47,7 +47,7 @@ export default class NomExercice extends ExerciceSimple {
 
         this.reponse = 10 ** (a - b)
         this.question = `Écriture décimale de $\\dfrac{10^${a}}{10^{${b}}}$   `
-        this.correction = `$\\dfrac{10^${a}}{10^${b}}=\\dfrac{1}{10^{${rienSi1(b - a)}}}=${miseEnEvidence(texNombre(10 ** (-k), 5))}$`
+        this.correction = `$\\dfrac{10^${a}}{10^${b}}=\\dfrac{1}{10^{${rienSi1(b - a)}}}=${miseEnEvidence(texNombre(10 ** -k, 5))}$`
       }
     }
     this.canEnonce = this.question

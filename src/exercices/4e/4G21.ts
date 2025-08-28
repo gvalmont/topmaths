@@ -1,4 +1,8 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  enleveElement,
+} from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
@@ -20,12 +24,16 @@ export const uuid = 'ab5d4'
 
 export const refs = {
   'fr-fr': ['4G21', 'BP2G9'],
-  'fr-ch': ['11GM1-3']
+  'fr-ch': ['11GM1-3'],
 }
 export default class ReciproquePythagore extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "]
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      3,
+      "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas ",
+    ]
 
     this.amcReady = amcReady
     this.amcType = amcType
@@ -36,14 +44,21 @@ export default class ReciproquePythagore extends Exercice {
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let listeTypeDeQuestions = []
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['rectangle'], this.nbQuestions)
     } else if (this.sup === 2) {
-      listeTypeDeQuestions = combinaisonListes(['pas_rectangle'], this.nbQuestions)
-    } else { // (this.sup === 3)
-      listeTypeDeQuestions = combinaisonListes(['rectangle', 'pas_rectangle'], this.nbQuestions)
+      listeTypeDeQuestions = combinaisonListes(
+        ['pas_rectangle'],
+        this.nbQuestions,
+      )
+    } else {
+      // (this.sup === 3)
+      listeTypeDeQuestions = combinaisonListes(
+        ['rectangle', 'pas_rectangle'],
+        this.nbQuestions,
+      )
     }
     const listeTripletsPythagoriciens = [
       [3, 4, 5],
@@ -97,7 +112,7 @@ export default class ReciproquePythagore extends Exercice {
       [57, 76, 95],
       [60, 63, 87],
       [60, 80, 100],
-      [65, 72, 97]
+      [65, 72, 97],
     ]
     let nomsTriangles: string[] = [] // on mémorise les noms des triangles pour ne pas les redonner
     for (
@@ -106,7 +121,10 @@ export default class ReciproquePythagore extends Exercice {
         texteCorr,
         a,
         b,
-        c, A, B, C,
+        c,
+        A,
+        B,
+        C,
         nomTriangle,
         triplet,
         ordreDesCotes,
@@ -121,12 +139,12 @@ export default class ReciproquePythagore extends Exercice {
         this.autoCorrection[i].propositions = [
           {
             texte: 'Oui',
-            statut: false
+            statut: false,
           },
           {
             texte: 'Non',
-            statut: false
-          }
+            statut: false,
+          },
         ]
       }
       if (i % 4 === 0) nomsTriangles = ['QD'] // toutes les 4 question on peut à nouveau choisir les mêms sauf Q et D (problème clavier mathLive)
@@ -144,7 +162,10 @@ export default class ReciproquePythagore extends Exercice {
         c = randint(Math.max(c - 3, b + 1), c + 3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
         let [c1, c2, c3] = [a, b, c].sort((a, b) => a - b)
         let cptWhile = 0
-        while ((a ** 2 + b ** 2 === c ** 2 || c3 >= c1 + c2) && cptWhile++ < 50) {
+        while (
+          (a ** 2 + b ** 2 === c ** 2 || c3 >= c1 + c2) &&
+          cptWhile++ < 50
+        ) {
           // si par hasard (est-ce possible ?) on retombe sur un triplet pythagoricien on change les valeurs
           // ou si le triangle n'est pas constructible
           c = randint(Math.max(c - 3, b + 1), c + 3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
@@ -160,51 +181,66 @@ export default class ReciproquePythagore extends Exercice {
       ordreDesCotes = randint(1, 3)
       switch (ordreDesCotes) {
         case 1:
-          texte = `Le triangle $${nomTriangle}$ est tel que $${A + B
-            }=${texNombre(c)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${B + C
-            }=${texNombre(a)}$ cm.`
+          texte = `Le triangle $${nomTriangle}$ est tel que $${
+            A + B
+          }=${texNombre(c)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${
+            B + C
+          }=${texNombre(a)}$ cm.`
           break
         case 2:
-          texte = `Le triangle $${nomTriangle}$ est tel que  $${B + C
-            }=${texNombre(a)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${A + B
-            }=${texNombre(c)}$ cm.`
+          texte = `Le triangle $${nomTriangle}$ est tel que  $${
+            B + C
+          }=${texNombre(a)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${
+            A + B
+          }=${texNombre(c)}$ cm.`
           break
         case 3:
         default:
-          texte = `Le triangle $${nomTriangle}$ est tel que $${A + C
-            }=${texNombre(b)}$ cm, $${A + B}=${texNombre(c)}$ cm,  et $${B + C
-            }=${texNombre(a)}$ cm.`
+          texte = `Le triangle $${nomTriangle}$ est tel que $${
+            A + C
+          }=${texNombre(b)}$ cm, $${A + B}=${texNombre(c)}$ cm,  et $${
+            B + C
+          }=${texNombre(a)}$ cm.`
           break
       }
       texte += '<br>Ce triangle est-il rectangle ?'
-      texteCorr = `Dans le triangle $${nomTriangle}$, le plus grand côté est $[${A + B
-        }]$.`
-      texteCorr += `<br>$${A + B}^2=${texNombre(c)}^2=${texNombre(
-        c ** 2
-      )}$`
+      texteCorr = `Dans le triangle $${nomTriangle}$, le plus grand côté est $[${
+        A + B
+      }]$.`
+      texteCorr += `<br>$${A + B}^2=${texNombre(c)}^2=${texNombre(c ** 2)}$`
       texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(
-        a
+        a,
       )}^2=${texNombre(b ** 2 + a ** 2)}$`
       if (listeTypeDeQuestions[i] === 'rectangle') {
-        if (!context.isAmc) this.autoCorrection[i].propositions![0].statut = true
-        texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
-          }^2$, l'égalité de Pythagore est vérifiée.<br> D'après la réciproque du théorème de Pythagore, le triangle $${nomTriangle}$ est rectangle en $${C}$.`
+        if (!context.isAmc)
+          this.autoCorrection[i].propositions![0].statut = true
+        texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${
+          B + C
+        }^2$, l'égalité de Pythagore est vérifiée.<br> D'après la réciproque du théorème de Pythagore, le triangle $${nomTriangle}$ est rectangle en $${C}$.`
       } else {
-        if (!context.isAmc) this.autoCorrection[i].propositions![1].statut = true
-        texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
-          }^2$, l'égalité de Pythagore n'est pas vérifiée.<br> D'après le théorème de Pythagore, le triangle  $${nomTriangle}$ n'est pas rectangle.`
+        if (!context.isAmc)
+          this.autoCorrection[i].propositions![1].statut = true
+        texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${
+          B + C
+        }^2$, l'égalité de Pythagore n'est pas vérifiée.<br> D'après le théorème de Pythagore, le triangle  $${nomTriangle}$ n'est pas rectangle.`
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: '',
           enonceAvant: false,
-          propositions:
-          [
+          propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{ texte: texteCorr, enonce: '<br>' + texte + '<br>', statut: 4, feedback: ' ' }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  enonce: '<br>' + texte + '<br>',
+                  statut: 4,
+                  feedback: ' ',
+                },
+              ],
+            },
+          ],
         }
       } else {
         this.autoCorrection[i].enonce = texte

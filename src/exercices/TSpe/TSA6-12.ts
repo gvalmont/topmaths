@@ -1,6 +1,10 @@
 import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+} from '../../lib/outils/ecritures'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -18,10 +22,10 @@ export const uuid = '0f7aa'
 
 export const refs = {
   'fr-fr': ['TSA6-12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class IntegraleAffine extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -29,7 +33,7 @@ export default class IntegraleAffine extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const c = randint(-5, 5, 0)
     const d = randint(-5, 5, 0)
     let a = 0
@@ -48,7 +52,9 @@ export default class IntegraleAffine extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.question = `Calculer $I=\\displaystyle\\int_{${a}}^{${b}} \\left(\\dfrac{${c}}{${reduireAxPlusB(c, d)}} \\right)\\mathrm{d}x$<br>`
 
-    if (this.interactif) { this.question += '<br>$I=$ ' }
+    if (this.interactif) {
+      this.question += '<br>$I=$ '
+    }
     this.correction = `Soit $x\\in [${a} ; ${b}]$. Posons $u(x)=${reduireAxPlusB(c, d)}$. On a alors $u'(x)=${c}$. <br>On observe que  $\\dfrac{u'(x)}{u(x)}=\\dfrac{${c}}{${reduireAxPlusB(c, d)}}$<br>`
     this.correction += `Comme pour tout $x\\in [${a} ; ${b}]$, $u(x)>0$, on en déduit qu'une primitive de $\\dfrac{u'(x)}{u(x)}$ est $\\ln(u)$.<br>`
     this.correction += ` $\\begin{aligned}\\displaystyle\\int_{${a}}^{${b}} \\left(\\dfrac{${c}}{${reduireAxPlusB(c, d)}} \\right)\\mathrm{d}x
@@ -59,7 +65,9 @@ export default class IntegraleAffine extends ExerciceSimple {
     &=\\ln\\left(${c * b + d}\\right)-\\ln\\left(${c * a + d}\\right)\\\\
     &=\\ln\\left(\\dfrac{${c * b + d}}{${c * a + d}}\\right)
     \\end{aligned}$<br>`
-    if (resultat.estIrreductible === false) { this.correction += `En simplifiant, on obtient $I=\\ln\\left(${resultat.texFractionSimplifiee}\\right)$<br>` }
+    if (resultat.estIrreductible === false) {
+      this.correction += `En simplifiant, on obtient $I=\\ln\\left(${resultat.texFractionSimplifiee}\\right)$<br>`
+    }
     this.correction += `On a donc $I=${miseEnEvidence(`\\ln\\left(${resultat.texFractionSimplifiee} \\right)`)}$`
     this.reponse = `$\\ln(${resultat.texFractionSimplifiee})$`
     this.canEnonce = this.question

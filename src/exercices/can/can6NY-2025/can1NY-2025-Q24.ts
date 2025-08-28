@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '9e17a'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,14 +19,14 @@ export const refs = {
 
 */
 export default class inequationAResoudre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let solution1
     const a = choice([-2025, 2025])
     const b = choice([-2025, 2025])
@@ -42,20 +42,31 @@ export default class inequationAResoudre extends ExerciceSimple {
             Ainsi, l'ensemble $S$ des solutions de l'inéquation est `
     }
     if ((inégalité === '>' && a > 0) || (inégalité === '<' && a < 0)) {
-      solution1 = [`$\\mathbb{R}\\\\{${b}\\}$`, `]-\\infty;${a}[ \\cup ]${a};+\\infty[`]
+      solution1 = [
+        `$\\mathbb{R}\\\\{${b}\\}$`,
+        `]-\\infty;${a}[ \\cup ]${a};+\\infty[`,
+      ]
       this.correction += ` $${miseEnEvidence(`\\mathbb{R}\\smallsetminus\\{${texNombre(b)}\\}`)}$.`
-    } else if ((inégalité === '\\geqslant' && a > 0) || (inégalité === '\\leqslant' && a < 0)) {
+    } else if (
+      (inégalité === '\\geqslant' && a > 0) ||
+      (inégalité === '\\leqslant' && a < 0)
+    ) {
       solution1 = ['$\\mathbb{R}$', ']-\\infty;+\\infty[']
       this.correction += ` $${miseEnEvidence('\\mathbb{R}')}$.`
     } else if ((inégalité === '<' && a > 0) || (inégalité === '>' && a < 0)) {
       solution1 = '$\\emptyset$'
       this.correction += ` $${miseEnEvidence('\\emptyset')}$.`
-    } else if ((inégalité === '\\leqslant' && a > 0) || (inégalité === '\\geqslant' && a < 0)) {
+    } else if (
+      (inégalité === '\\leqslant' && a > 0) ||
+      (inégalité === '\\geqslant' && a < 0)
+    ) {
       solution1 = `$\\left\\lbrace${b}\\right\\rbrace$`
       this.correction += ` $${miseEnEvidence(`\\{${texNombre(b)}\\}`)}$.`
     }
     this.reponse = solution1
-    if (this.interactif) { this.question += '<br>$S=$' }
+    if (this.interactif) {
+      this.question += '<br>$S=$'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

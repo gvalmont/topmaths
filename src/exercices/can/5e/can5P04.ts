@@ -19,22 +19,29 @@ export const uuid = 'eb6bc'
 
 export const refs = {
   'fr-fr': ['can5P04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PoucentageP1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let b, caractere
 
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) {
       case 'a':
         b = randint(3, 7) * 5
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice([
+          'des lunettes',
+          'un frère',
+          'un chien',
+          'un abonnement à une revue',
+          'une licence à l’UNSS',
+          'un sac à roulette',
+        ])
         this.question = `$\\dfrac{1}{5}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
         
               Quel est le nombre d'élèves n'en ayant pas ?`
@@ -45,11 +52,18 @@ export default class PoucentageP1 extends ExerciceSimple {
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Pour calculer $\\dfrac{1}{5}$ d'une quantité, on la divise par $5$. <br>
           Ainsi, $\\dfrac{1}{5}\\times ${b}=${b}\\div 5=${b / 5}$.`)
-        this.reponse = arrondi(4 * b / 5)
+        this.reponse = arrondi((4 * b) / 5)
         break
       case 'b':
         b = randint(3, 6) * 6
-        caractere = choice(['des lunettes', 'un frère', ' un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice([
+          'des lunettes',
+          'un frère',
+          ' un chien',
+          'un abonnement à une revue',
+          'une licence à l’UNSS',
+          'un sac à roulette',
+        ])
         this.question = `$\\dfrac{1}{6}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
 
             Quel est le nombre d'élèves n'en ayant pas ?`
@@ -60,11 +74,18 @@ export default class PoucentageP1 extends ExerciceSimple {
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Pour calculer $\\dfrac{1}{6}$ d'une quantité, on la divise par $6$. <br>
           Ainsi, $\\dfrac{1}{6}\\times ${b}=${b}\\div 6=${b / 6}$.`)
-        this.reponse = arrondi(5 * b / 6)
+        this.reponse = arrondi((5 * b) / 6)
         break
       case 'c':
         b = randint(2, 5) * 7
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice([
+          'des lunettes',
+          'un frère',
+          'un chien',
+          'un abonnement à une revue',
+          'une licence à l’UNSS',
+          'un sac à roulette',
+        ])
         this.question = `$\\dfrac{1}{7}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
 
         Quel est le nombre d'élèves n'en ayant pas ?`
@@ -75,11 +96,18 @@ export default class PoucentageP1 extends ExerciceSimple {
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Pour calculer $\\dfrac{1}{7}$ d'une quantité, on la divise par $7$. <br>
           Ainsi, $\\dfrac{1}{7}\\times ${b}=${b}\\div 7=${b / 7}$.`)
-        this.reponse = arrondi(6 * b / 7)
+        this.reponse = arrondi((6 * b) / 7)
         break
       case 'd':
         b = randint(3, 9) * 4
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice([
+          'des lunettes',
+          'un frère',
+          'un chien',
+          'un abonnement à une revue',
+          'une licence à l’UNSS',
+          'un sac à roulette',
+        ])
         this.question = `$\\dfrac{1}{4}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
 
             Quel est le nombre d'élèves n'en ayant pas ?`
@@ -90,11 +118,18 @@ export default class PoucentageP1 extends ExerciceSimple {
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
               Pour calculer $\\dfrac{1}{4}$ d'une quantité, on la divise par $4$. <br>
               Ainsi, $\\dfrac{1}{4}\\times ${b}=${b}\\div 4=${b / 4}$.`)
-        this.reponse = arrondi(3 * b / 4)
+        this.reponse = arrondi((3 * b) / 4)
         break
       case 'e':
         b = randint(3, 7) * 5
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice([
+          'des lunettes',
+          'un frère',
+          'un chien',
+          'un abonnement à une revue',
+          'une licence à l’UNSS',
+          'un sac à roulette',
+        ])
         this.question = `$20 \\%$  des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
               Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $20 \\%$  de $${b}$ .<br>
@@ -102,11 +137,18 @@ export default class PoucentageP1 extends ExerciceSimple {
               $20\\%$  de $${b}$ est égal à $\\dfrac{${b}}{5}=${texNombre(b / 5)}$.<br>
                             $${texNombre(b / 5)}$ élèves ont ${caractere} .<br>
                 Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombre(b / 5)}=${texNombre(b - b / 5)}$`
-        this.reponse = arrondi(8 * b / 10)
+        this.reponse = arrondi((8 * b) / 10)
         break
       case 'f':
         b = randint(3, 9) * 4
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice([
+          'des lunettes',
+          'un frère',
+          'un chien',
+          'un abonnement à une revue',
+          'une licence à l’UNSS',
+          'un sac à roulette',
+        ])
         this.question = `$25\\%$  des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
 
                   Quel est le nombre d'élèves n'en ayant pas ?`
@@ -118,7 +160,7 @@ export default class PoucentageP1 extends ExerciceSimple {
         this.reponse = arrondi(b - 0.25 * b)
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

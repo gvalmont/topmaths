@@ -1,5 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebriqueSauf1, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  reduirePolynomeDegre3,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
@@ -22,12 +27,16 @@ export const uuid = '641bc'
 
 export const refs = {
   'fr-fr': ['2N41-8'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class MettreAuMemeDenominateurLit extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : Niveau 1\n 2 : Niveau 2\n 3 : Mélange',
+    ]
 
     this.nbQuestions = 2
     this.sup = 3
@@ -35,7 +44,7 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
   Les expressions de niveau 2 sont plus complexes. Elles nécessitent par exemple un développement du numérateur et peuvent avoir deux valeurs interdites.`
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]
@@ -45,15 +54,32 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
     } // 1, 2, 3, 4, 5, 6, 7
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions, consigne1, consigne2, consigneI1, consigneI2; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (
+      let i = 0,
+        texte,
+        texteCorr,
+        cpt = 0,
+        typesDeQuestions,
+        consigne1,
+        consigne2,
+        consigneI1,
+        consigneI2;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      consigne1 = 'Préciser les valeurs interdites éventuelles, puis écrire l\'expression sous la forme d\'un quotient : '
-      consigne2 = 'Préciser les valeurs interdites éventuelles, puis écrire l\'expression sous la forme d\'un quotient (réduire le numérateur) : '
+      consigne1 =
+        "Préciser les valeurs interdites éventuelles, puis écrire l'expression sous la forme d'un quotient : "
+      consigne2 =
+        "Préciser les valeurs interdites éventuelles, puis écrire l'expression sous la forme d'un quotient (réduire le numérateur) : "
       consigneI1 = ' Écrire avec un seul quotient :<br>'
       consigneI2 = ' Écrire avec un seul quotient (réduire le numérateur) :<br>'
       switch (typesDeQuestions) {
-        case 1:// bx +/- a/x
+        case 1: // bx +/- a/x
           {
             const a = randint(1, 9)
             const b = randint(-9, 9, 0)
@@ -68,16 +94,19 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
            &= \\dfrac{${rienSi1(b)}x^2${choix ? '-' : '+'}${a}}{x}
            \\end{aligned}$
         `
-            const reponse = choix ? [`\\dfrac{${b}x^2-${a}}{x}`] : [`\\dfrac{${b}x^2+${a}}{x}`]
+            const reponse = choix
+              ? [`\\dfrac{${b}x^2-${a}}{x}`]
+              : [`\\dfrac{${b}x^2+${a}}{x}`]
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI1
-              texte += ` $${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}=$` +
-                            ajouteChampTexteMathLive(this, i, '')
+              texte +=
+                ` $${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}=$` +
+                ajouteChampTexteMathLive(this, i, '')
             }
           }
           break
-        case 2:// b +/- a/x
+        case 2: // b +/- a/x
           {
             const a = randint(1, 9)
             const b = randint(-9, 9, 0)
@@ -91,16 +120,20 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
             ${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}&=\\dfrac{${rienSi1(b)}x}{x}${choix ? '+' : '-'}\\dfrac{${a}}{x}\\\\
             &=\\dfrac{${rienSi1(b)}x${choix ? '+' : '-'}${a}}{x}
             \\end{aligned}$`
-            const reponse = choix ? [`\\dfrac{${b}x+${a}}{x}`] : [`\\dfrac{${b}x-${a}}{x}`]
+            const reponse = choix
+              ? [`\\dfrac{${b}x+${a}}{x}`]
+              : [`\\dfrac{${b}x-${a}}{x}`]
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI1
-              texte += ` $${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}=$` + ajouteChampTexteMathLive(this, i, '')
+              texte +=
+                ` $${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}=$` +
+                ajouteChampTexteMathLive(this, i, '')
             }
           }
           break
 
-        case 3:// a +/- b/(cx+d)
+        case 3: // a +/- b/(cx+d)
           {
             let b
             const a = randint(-5, 5, 0)
@@ -129,16 +162,26 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             &=\\dfrac{${reduireAxPlusB(a * c, a * d)}${choix ? '+' : '-'}${b}}{${reduireAxPlusB(c, d)}}\\\\
             &=\\dfrac{${choix ? `${reduireAxPlusB(a * c, a * d + b)}` : `${reduireAxPlusB(a * c, a * d - b)}`}}{${reduireAxPlusB(c, d)}}
             \\end{aligned}$`
-            const reponse = choix ? [`\\dfrac{${a * c}x+${a * d + b}}{${c}x+${d}}`, `\\dfrac{${-a * c}x+${-a * d - b}}{${-c}x+${-d}}`] : [`\\dfrac{${a * c}x+${a * d - b}}{${c}x+${d}}`, `\\dfrac{${-a * c}x+${-a * d + b}}{${-c}x+${-d}}`]
+            const reponse = choix
+              ? [
+                  `\\dfrac{${a * c}x+${a * d + b}}{${c}x+${d}}`,
+                  `\\dfrac{${-a * c}x+${-a * d - b}}{${-c}x+${-d}}`,
+                ]
+              : [
+                  `\\dfrac{${a * c}x+${a * d - b}}{${c}x+${d}}`,
+                  `\\dfrac{${-a * c}x+${-a * d + b}}{${-c}x+${-d}}`,
+                ]
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI1
-              texte += `$${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, '')
+              texte +=
+                `$${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
+                ajouteChampTexteMathLive(this, i, '')
             }
           }
           break
 
-        case 4:// a/x +/- b/(cx+d)
+        case 4: // a/x +/- b/(cx+d)
           {
             let b
             const a = randint(-5, 5, 0)
@@ -167,16 +210,26 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
            & =\\dfrac{${reduireAxPlusB(a * c, a * d)}${choix ? '+' : '-'}${rienSi1(b)}x}{x(${reduireAxPlusB(c, d)})}\\\\
            &=\\dfrac{${choix ? `${reduireAxPlusB(a * c + b, a * d)}` : `${reduireAxPlusB(a * c - b, a * d)}`}}{x(${reduireAxPlusB(c, d)})}
            \\end{aligned}$`
-            const reponse = choix ? [`\\dfrac{${a * c + b}x+${a * d}}{x(${c}x+${d})}`, `\\dfrac{${-a * c - b}x+${-a * d}}{x(${-c}x+${-d})}`] : [`\\dfrac{${a * c - b}x+${a * d}}{x(${c}x+${d})}`, `\\dfrac{${-a * c + b}x+${-a * d}}{x(${-c}x+${-d})}`]
+            const reponse = choix
+              ? [
+                  `\\dfrac{${a * c + b}x+${a * d}}{x(${c}x+${d})}`,
+                  `\\dfrac{${-a * c - b}x+${-a * d}}{x(${-c}x+${-d})}`,
+                ]
+              : [
+                  `\\dfrac{${a * c - b}x+${a * d}}{x(${c}x+${d})}`,
+                  `\\dfrac{${-a * c + b}x+${-a * d}}{x(${-c}x+${-d})}`,
+                ]
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
-              texte += `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, '')
+              texte +=
+                `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
+                ajouteChampTexteMathLive(this, i, '')
             }
           }
           break
 
-        case 5:// ax+b/(cx+d)
+        case 5: // ax+b/(cx+d)
           {
             let b
             const a = randint(-3, 9, 0)
@@ -210,12 +263,14 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
-              texte += `$${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, '')
+              texte +=
+                `$${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
+                ajouteChampTexteMathLive(this, i, '')
             }
           }
           break
 
-        case 6:// ax+e+b/(cx+d)
+        case 6: // ax+e+b/(cx+d)
           {
             let b
             const a = randint(-3, 9, 0)
@@ -246,16 +301,20 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             &=\\dfrac{(${reduirePolynomeDegre3(0, a * c, a * d + e * c, e * d)})+${b}}{${reduireAxPlusB(c, d)}}\\\\
            & =\\dfrac{${reduirePolynomeDegre3(0, a * c, a * d + e * c, e * d + b)}}{${reduireAxPlusB(c, d)}}
            \\end{aligned}$`
-            const reponse = [`\\dfrac{${a * c}x^2+${a * d + e * c}x+${e * d + b}}{${c}x+${d}}`]
+            const reponse = [
+              `\\dfrac{${a * c}x^2+${a * d + e * c}x+${e * d + b}}{${c}x+${d}}`,
+            ]
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
-              texte += `$${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, '')
+              texte +=
+                `$${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
+                ajouteChampTexteMathLive(this, i, '')
             }
           }
           break
 
-        case 7:// a/(ex+f) +/- b/(cx+d)
+        case 7: // a/(ex+f) +/- b/(cx+d)
         default:
           {
             let b
@@ -290,11 +349,23 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             &=\\dfrac{${a}(${reduireAxPlusB(c, d)})${choix ? `${ecritureAlgebriqueSauf1(b)}` : `${ecritureAlgebriqueSauf1(-b)}`}(${reduireAxPlusB(e, f)})}{(${reduireAxPlusB(e, f)})(${reduireAxPlusB(c, d)})}\\\\
             &=\\dfrac{${choix ? `${reduireAxPlusB(a * c + b * e, a * d + b * f)}` : `${reduireAxPlusB(a * c - b * e, a * d - b * f)}`}}{(${reduireAxPlusB(e, f)})(${reduireAxPlusB(c, d)})}
             \\end{aligned}$`
-            const reponse = choix ? [`\\dfrac{${a * c + b * e}x+${a * d + b * f}}{(${e}x+${f})(${c}x+${d})}`, `\\dfrac{${-a * c - b * e}x+${-a * d - b * f}}{(${-c}x+${-d})(${e}x+${f})}`, `\\dfrac{${-a * c - b * e}x+${-a * d - b * f}}{(${c}x+${d})(${-e}x+${-f})}`] : [`\\dfrac{${a * c - b * e}x+${a * d - b * f}}{(${e}x+${f})(${c}x+${d})}`, `\\dfrac{${-a * c + b * e}x+${-a * d + b * f}}{(${-e}x+${-f})(${c}x+${d})}`, `\\dfrac{${-a * c + b * e}x+${-a * d + b * f}}{(${e}x+${f})(${-c}x+${-d})}`]
+            const reponse = choix
+              ? [
+                  `\\dfrac{${a * c + b * e}x+${a * d + b * f}}{(${e}x+${f})(${c}x+${d})}`,
+                  `\\dfrac{${-a * c - b * e}x+${-a * d - b * f}}{(${-c}x+${-d})(${e}x+${f})}`,
+                  `\\dfrac{${-a * c - b * e}x+${-a * d - b * f}}{(${c}x+${d})(${-e}x+${-f})}`,
+                ]
+              : [
+                  `\\dfrac{${a * c - b * e}x+${a * d - b * f}}{(${e}x+${f})(${c}x+${d})}`,
+                  `\\dfrac{${-a * c + b * e}x+${-a * d + b * f}}{(${-e}x+${-f})(${c}x+${d})}`,
+                  `\\dfrac{${-a * c + b * e}x+${-a * d + b * f}}{(${e}x+${f})(${-c}x+${-d})}`,
+                ]
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
-              texte += `$\\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, '')
+              texte +=
+                `$\\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
+                ajouteChampTexteMathLive(this, i, '')
             }
           }
           break

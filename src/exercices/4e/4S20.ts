@@ -10,10 +10,10 @@ export const uuid = '7ba64'
 
 export const refs = {
   'fr-fr': ['4S20', 'BP2FLUC10'],
-  'fr-ch': ['11NO2-10']
+  'fr-ch': ['11NO2-10'],
 }
 export default class FonctionsVocabulaireProbabilite4e extends FonctionsProbabilite1 {
-  constructor () {
+  constructor() {
     super()
     this.niveau = 3
     this.spacingCorr = 2

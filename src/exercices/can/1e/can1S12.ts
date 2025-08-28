@@ -22,10 +22,10 @@ export const uuid = 'e7e0c'
 
 export const refs = {
   'fr-fr': ['can1S12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NatureSuiteRec extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -33,13 +33,15 @@ export default class NatureSuiteRec extends Exercice {
     this.spacing = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, u, listeFractions1, fraction1, n1, d1, props
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3, 4, 5])) { //
-        case 1 :// suite arith u_{n+1}-u_n=r
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      switch (
+        choice([1, 2, 3, 4, 5]) //
+      ) {
+        case 1: // suite arith u_{n+1}-u_n=r
           a = randint(1, 10) * choice([-1, 1])
           u = randint(1, 10) * choice([-1, 1])
 
@@ -51,17 +53,17 @@ export default class NatureSuiteRec extends Exercice {
             propositions: [
               {
                 texte: `arithmétique de raison $${a}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `arithmétique de raison $${-a}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `géométrique de raison $${a}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -77,7 +79,7 @@ export default class NatureSuiteRec extends Exercice {
         On en déduit que $(${s}_n)$ est une suite arithmétique de raison $${a}$ et de premier terme $${s}_0=${u}$.`
 
           break
-        case 2 :// suite arith u_n=u_{n+1}-r
+        case 2: // suite arith u_n=u_{n+1}-r
           a = randint(1, 10) * choice([-1, 1])
           u = randint(1, 10) * choice([-1, 1])
 
@@ -89,17 +91,17 @@ export default class NatureSuiteRec extends Exercice {
             propositions: [
               {
                 texte: `arithmétique de raison $${-a}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `arithmétique de raison $${a}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `géométrique de raison $${-a}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -115,7 +117,7 @@ export default class NatureSuiteRec extends Exercice {
         On en déduit que $(${s}_n)$ est une suite arithmétique de raison $${-a}$ et de premier terme $${s}_0=${u}$.`
 
           break
-        case 3 :// suite arith u_{n+1}=(au_n+a*r)/a
+        case 3: // suite arith u_{n+1}=(au_n+a*r)/a
           a = randint(1, 10) * choice([-1, 1])
           u = randint(1, 10) * choice([-1, 1])
           b = randint(1, 10) * choice([-1, 1])
@@ -128,17 +130,17 @@ export default class NatureSuiteRec extends Exercice {
             propositions: [
               {
                 texte: `arithmétique de raison $${a}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `arithmétique de raison $${-a}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `géométrique de raison $${a}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -157,7 +159,7 @@ export default class NatureSuiteRec extends Exercice {
 
           break
 
-        case 4 :// suite géo u_{n+1}-u_n=au_n
+        case 4: // suite géo u_{n+1}-u_n=au_n
           a = arrondi(randint(2, 99) * choice([-1, 1])) / 100
           u = randint(1, 10) * choice([-1, 1])
 
@@ -169,17 +171,17 @@ export default class NatureSuiteRec extends Exercice {
             propositions: [
               {
                 texte: `géométrique de raison $${texNombre(1 + a)}$`,
-                statut: true
+                statut: true,
               },
               {
                 texte: `géométrique de raison $${texNombre(a)}$`,
-                statut: false
+                statut: false,
               },
               {
                 texte: `arithmétique de raison $${texNombre(a)}$`,
-                statut: false
-              }
-            ]
+                statut: false,
+              },
+            ],
           }
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
@@ -196,10 +198,27 @@ export default class NatureSuiteRec extends Exercice {
         On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texNombre(1 + a)}$ et de premier terme $${s}_0=${u}$.`
 
           break
-        case 5 :// suite géo avec raison fraction
-          listeFractions1 = [[1, 2], [2, 3], [3, 4], [2, 5], [4, 5],
-            [5, 6], [2, 7], [4, 7], [6, 7], [3, 8], [7, 8],
-            [2, 9], [5, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
+        case 5: // suite géo avec raison fraction
+          listeFractions1 = [
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [2, 5],
+            [4, 5],
+            [5, 6],
+            [2, 7],
+            [4, 7],
+            [6, 7],
+            [3, 8],
+            [7, 8],
+            [2, 9],
+            [5, 9],
+            [8, 9],
+            [1, 10],
+            [3, 10],
+            [7, 10],
+            [9, 10],
+          ]
           fraction1 = choice(listeFractions1)
           n1 = fraction1[0]
           d1 = fraction1[1]
@@ -215,17 +234,17 @@ export default class NatureSuiteRec extends Exercice {
               propositions: [
                 {
                   texte: `géométrique de raison $${texFractionFromString(d1 - n1, d1)}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `géométrique de raison $${texFractionFromString(n1, d1)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `arithmétique de raison $-${texFractionFromString(n1, d1)}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             props = propositionsQcm(this, i)
             if (this.interactif) texte += props.texte
@@ -248,17 +267,17 @@ export default class NatureSuiteRec extends Exercice {
               propositions: [
                 {
                   texte: `géométrique de raison $${texFractionFromString(d1 + n1, d1)}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `géométrique de raison $${texFractionFromString(n1, d1)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `arithmétique de raison $${texFractionFromString(n1, d1)}$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
             props = propositionsQcm(this, i)
             if (this.interactif) texte += props.texte

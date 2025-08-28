@@ -14,7 +14,7 @@ export const uuid = 'd149d'
 
 */
 export default class SoustractionDecimaux extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -24,7 +24,7 @@ export default class SoustractionDecimaux extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: Decimal
     let b: Decimal
     let c: Decimal
@@ -33,7 +33,12 @@ export default class SoustractionDecimaux extends ExerciceSimple {
       b = new Decimal('3.5')
       c = new Decimal('2')
     } else {
-      const [aa, cc] = choice([[25, 4], [50, 2], [250, 4], [500, 2]])
+      const [aa, cc] = choice([
+        [25, 4],
+        [50, 2],
+        [250, 4],
+        [500, 2],
+      ])
       a = new Decimal(aa)
       c = new Decimal(cc)
       b = new Decimal(randint(2, 9) * 2 + 1).div(2)

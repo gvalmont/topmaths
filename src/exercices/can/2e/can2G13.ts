@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
+import {
+  texteEnCouleur,
+  miseEnEvidence,
+} from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -21,24 +24,35 @@ export const uuid = '3a0e1'
 
 export const refs = {
   'fr-fr': ['can2G13'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NormeVecteur extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, nom
     switch (choice(['a'])) {
       case 'a':
         a = randint(-9, 9)
         b = randint(-6, 6, a)
         nom = lettreMinusculeDepuisChiffre(randint(11, 26, [15, 24, 25]))
-        if (a ** 2 + b ** 2 === 1 || a ** 2 + b ** 2 === 4 || a ** 2 + b ** 2 === 9 || a ** 2 + b ** 2 === 16 || a ** 2 + b ** 2 === 25 || a ** 2 + b ** 2 === 36 || a ** 2 + b ** 2 === 49 || a ** 2 + b ** 2 === 64 || a ** 2 + b ** 2 === 81 || a ** 2 + b ** 2 === 100) {
+        if (
+          a ** 2 + b ** 2 === 1 ||
+          a ** 2 + b ** 2 === 4 ||
+          a ** 2 + b ** 2 === 9 ||
+          a ** 2 + b ** 2 === 16 ||
+          a ** 2 + b ** 2 === 25 ||
+          a ** 2 + b ** 2 === 36 ||
+          a ** 2 + b ** 2 === 49 ||
+          a ** 2 + b ** 2 === 64 ||
+          a ** 2 + b ** 2 === 81 ||
+          a ** 2 + b ** 2 === 100
+        ) {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{${nom}}(${a};${b})$.<br>
 
         Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br>
@@ -51,7 +65,10 @@ export default class NormeVecteur extends ExerciceSimple {
           \\sqrt{${a ** 2}+ ${b ** 2}}=
           \\sqrt{${a ** 2 + b ** 2}}=
           ${miseEnEvidence(`${Math.sqrt(a ** 2 + b ** 2)}`)}$.<br><br>`
-          this.correction += texteEnCouleur(`Comme $${a ** 2 + b ** 2}$ est un carré parfait, on simplifie la racine carrée.`, 'blue')
+          this.correction += texteEnCouleur(
+            `Comme $${a ** 2 + b ** 2}$ est un carré parfait, on simplifie la racine carrée.`,
+            'blue',
+          )
           this.reponse = Math.sqrt(a ** 2 + b ** 2)
         } else {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{${nom}}(${a};${b})$.<br>
@@ -64,8 +81,14 @@ export default class NormeVecteur extends ExerciceSimple {
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
           \\sqrt{${a ** 2} + ${b ** 2}}=
           ${miseEnEvidence(`\\sqrt{${a ** 2 + b ** 2}}`)}$<br><br>`
-          this.correction += texteEnCouleur(`Comme $${a ** 2 + b ** 2}$ n'est pas un carré parfait, on ne simplifie pas (la réponse doit être sous la forme $\\sqrt{a}$ ou d'un entier).<br>`, 'blue')
-          this.reponse = [`\\sqrt{${a ** 2 + b ** 2}}`, `${Math.sqrt(a ** 2 + b ** 2)}`]
+          this.correction += texteEnCouleur(
+            `Comme $${a ** 2 + b ** 2}$ n'est pas un carré parfait, on ne simplifie pas (la réponse doit être sous la forme $\\sqrt{a}$ ou d'un entier).<br>`,
+            'blue',
+          )
+          this.reponse = [
+            `\\sqrt{${a ** 2 + b ** 2}}`,
+            `${Math.sqrt(a ** 2 + b ** 2)}`,
+          ]
         }
         break
     }

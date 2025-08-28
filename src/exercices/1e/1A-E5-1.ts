@@ -7,7 +7,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '34543'
 export const refs = {
   'fr-fr': ['1A-E5-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -37,46 +37,75 @@ export default class TauxReciproqueP extends ExerciceQcmA {
 
   versionAleatoire: () => void = () => {
     switch (choice([1, 2])) {
-      case 1: {
-        const listeTaux = [[100, 2, 0.5, 50], [300, 4, 0.25, 75], [400, 5, 0.2, 80], [900, 10, 0.1, 90]]
-        const taux = choice(listeTaux)
-        const a = taux[0]
-        const b = taux[1]
-        const c = taux[2]
-        const d = taux[3]
+      case 1:
+        {
+          const listeTaux = [
+            [100, 2, 0.5, 50],
+            [300, 4, 0.25, 75],
+            [400, 5, 0.2, 80],
+            [900, 10, 0.1, 90],
+          ]
+          const taux = choice(listeTaux)
+          const a = taux[0]
+          const b = taux[1]
+          const c = taux[2]
+          const d = taux[3]
 
-        this.enonce = `Un prix augmente de $${texNombre(a)}\\,\\%$. <br>
+          this.enonce = `Un prix augmente de $${texNombre(a)}\\,\\%$. <br>
     Pour retrouver le prix initial, il faut une baisse de :`
-        this.correction = `Le coefficient multiplicateur associé à une augmentation de $${a}\\,\\%$ est $1+${texNombre(a / 100, 2)}=${texNombre(1 + a / 100, 4)}$.<br>
+          this.correction = `Le coefficient multiplicateur associé à une augmentation de $${a}\\,\\%$ est $1+${texNombre(a / 100, 2)}=${texNombre(1 + a / 100, 4)}$.<br>
     Comme $${b}\\times ${texNombre(c, 2)}=1$, il faut donc multiplier par $${texNombre(c, 2)}$ (coefficient multiplicateur réciproque) pour revenir au prix initial.<br>
       Un coefficient multiplicateur de $${texNombre(c, 2)}$ correspond à un taux d'évolution de $-${d}\\,\\%$.<br>
       On en déduit qu'il faut une baisse de $${miseEnEvidence(`${d}\\,\\%`)}$.`
-        this.reponses = a === 100 ? [`$${d}\\,\\%$`, `$${100 - a}\\,\\%$`, `$${a}\\,\\%$`, '$150\\,\\%$'] : [`$${d}\\,\\%$`, `$${100 - d}\\,\\%$`, `$${a}\\,\\%$`, '$100\\,\\%$']
-      }
+          this.reponses =
+            a === 100
+              ? [
+                  `$${d}\\,\\%$`,
+                  `$${100 - a}\\,\\%$`,
+                  `$${a}\\,\\%$`,
+                  '$150\\,\\%$',
+                ]
+              : [
+                  `$${d}\\,\\%$`,
+                  `$${100 - d}\\,\\%$`,
+                  `$${a}\\,\\%$`,
+                  '$100\\,\\%$',
+                ]
+        }
         break
 
       case 2:
-      default:{
-        const listeTaux = [[50, 0.5, 2, 100], [90, 0.1, 10, 900], [75, 0.25, 4, 300]]
-        const taux = choice(listeTaux)
-        const a = taux[0]
-        const b = taux[1]
-        const c = taux[2]
-        const d = taux[3]
+      default:
+        {
+          const listeTaux = [
+            [50, 0.5, 2, 100],
+            [90, 0.1, 10, 900],
+            [75, 0.25, 4, 300],
+          ]
+          const taux = choice(listeTaux)
+          const a = taux[0]
+          const b = taux[1]
+          const c = taux[2]
+          const d = taux[3]
 
-        this.enonce = `Un prix diminue de $${texNombre(a)}\\,\\%$. <br>
+          this.enonce = `Un prix diminue de $${texNombre(a)}\\,\\%$. <br>
     Pour retrouver le prix initial, il faut une augmentation de :`
-        this.correction = `Le coefficient multiplicateur associé à une baisse de $${a}\\,\\%$ est $1-${texNombre(a / 100, 2)}=${texNombre(1 - a / 100, 4)}$.<br>
+          this.correction = `Le coefficient multiplicateur associé à une baisse de $${a}\\,\\%$ est $1-${texNombre(a / 100, 2)}=${texNombre(1 - a / 100, 4)}$.<br>
     Comme $${texNombre(b, 2)}\\times ${texNombre(c, 2)}=1$, il faut donc multiplier par $${texNombre(c, 2)}$ (coefficient multiplicateur réciproque) pour revenir au prix initial.<br>
       Un coefficient multiplicateur de $${texNombre(c, 2)}$ correspond à un taux d'évolution de $${d}\\,\\%$.<br>
       On en déduit qu'il faut une augmentation de $${miseEnEvidence(`${d}\\,\\%`)}$.`
-        this.reponses = [`$${d}\\,\\%$`, `$${texNombre(100 + d)}\\,\\%$`, `$${a}\\,\\%$`, `$${a + 10}\\,\\%$`]
-      }
+          this.reponses = [
+            `$${d}\\,\\%$`,
+            `$${texNombre(100 + d)}\\,\\%$`,
+            `$${a}\\,\\%$`,
+            `$${a + 10}\\,\\%$`,
+          ]
+        }
         break
     }
   }
 
-  constructor () {
+  constructor() {
     super()
     // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

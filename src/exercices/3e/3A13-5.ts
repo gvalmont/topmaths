@@ -7,10 +7,14 @@ import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Jouer avec la compréhension des multiples d\'un nombre'
+export const titre = "Jouer avec la compréhension des multiples d'un nombre"
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -27,18 +31,23 @@ export const uuid = '2ae9b'
 
 export const refs = {
   'fr-fr': ['3A13-5'],
-  'fr-ch': ['9NO4-25']
+  'fr-ch': ['9NO4-25'],
 }
 export default class DivisionEuclidienneEtAjout extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Inclure la division euclidienne']
 
-    this.besoinFormulaire2Numerique = ['Type de questions', 3,
-      '1 : Ajouter un nombre\n2 : Soustraire un nombre\n3 : Mélange'
+    this.besoinFormulaire2Numerique = [
+      'Type de questions',
+      3,
+      '1 : Ajouter un nombre\n2 : Soustraire un nombre\n3 : Mélange',
     ]
 
-    this.besoinFormulaire3Texte = ['Nombre de dizaines dans le diviseur', 'Nombres séparés par des tirets :\nChoix entre 0 et 29\n30 : Mélange']
+    this.besoinFormulaire3Texte = [
+      'Nombre de dizaines dans le diviseur',
+      'Nombres séparés par des tirets :\nChoix entre 0 et 29\n30 : Mélange',
+    ]
 
     this.nbQuestions = 5
     this.sup = true
@@ -46,34 +55,76 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
     this.sup3 = '14-15-16-17'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const dizaineDiviseur = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       min: 0,
       max: 29,
       melange: 30,
       defaut: 20,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
     const signe = combinaisonListes(['+', '-'], this.nbQuestions)
-    for (let i = 0, dividende, quotient, reste, diviseur, reponse, texteDivAMC, texteNbAMC, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        dividende,
+        quotient,
+        reste,
+        diviseur,
+        reponse,
+        texteDivAMC,
+        texteNbAMC,
+        texte,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
-      const choixOperation = this.sup2 === 3 ? signe[i] : this.sup2 === 1 ? '+' : '-'
-      diviseur = dizaineDiviseur[i] === 0 ? randint(5, 9) : Number(dizaineDiviseur[i]) * 10 + randint(1, 9)
-      quotient = randint(26, 196, [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, diviseur])
+      const choixOperation =
+        this.sup2 === 3 ? signe[i] : this.sup2 === 1 ? '+' : '-'
+      diviseur =
+        dizaineDiviseur[i] === 0
+          ? randint(5, 9)
+          : Number(dizaineDiviseur[i]) * 10 + randint(1, 9)
+      quotient = randint(26, 196, [
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100,
+        110,
+        120,
+        130,
+        140,
+        150,
+        160,
+        170,
+        180,
+        190,
+        diviseur,
+      ])
       reste = randint(3, diviseur - 1, [20, 30, 40, 50])
       dividende = quotient * diviseur + reste
 
       if (this.sup) {
-        texteDivAMC = numAlpha(0) + `Effectuer la division euclidienne de $${texNombre(dividende)}$ par $${texNombre(diviseur)}$.`
+        texteDivAMC =
+          numAlpha(0) +
+          `Effectuer la division euclidienne de $${texNombre(dividende)}$ par $${texNombre(diviseur)}$.`
         texte += texteDivAMC + '<br>'
         texteNbAMC = numAlpha(1) + ' Quel '
-        texteCorr += numAlpha(0) + Operation({
-          operande1: dividende,
-          operande2: diviseur,
-          type: 'divisionE'
-        }) + `$${texNombre(dividende)}=${diviseur}\\times${quotient}+${reste}$`
+        texteCorr +=
+          numAlpha(0) +
+          Operation({
+            operande1: dividende,
+            operande2: diviseur,
+            type: 'divisionE',
+          }) +
+          `$${texNombre(dividende)}=${diviseur}\\times${quotient}+${reste}$`
         texteCorr += '<br><br>' + numAlpha(1)
       } else {
         texteNbAMC = `Sachant que $${texNombre(dividende)}=${diviseur}\\times${quotient}+${reste}$, quel `
@@ -97,7 +148,9 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
 
       if (this.interactif) {
         setReponse(this, i, reponse)
-        texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+        texte +=
+          '<br>' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       }
       if (context.isAmc) {
         this.autoCorrection[i] = this.sup
@@ -107,31 +160,35 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  propositions: [{
-                    enonce: texteDivAMC,
-                    texte: '',
-                    statut: 3,
-                    pointilles: false
-                  }]
+                  propositions: [
+                    {
+                      enonce: texteDivAMC,
+                      texte: '',
+                      statut: 3,
+                      pointilles: false,
+                    },
+                  ],
                 },
                 {
                   type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
-                      texte: texteNbAMC,
-                      valeur: [reponse],
-                      param: {
-                        digits: 2,
-                        decimals: 0,
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
-                }
-              ]
+                  propositions: [
+                    {
+                      texte: '',
+                      statut: '',
+                      reponse: {
+                        texte: texteNbAMC,
+                        valeur: [reponse],
+                        param: {
+                          digits: 2,
+                          decimals: 0,
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
           : {
               enonce: '',
@@ -139,22 +196,24 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
-                  propositions: [{
-                    texte: '',
-                    statut: '',
-                    reponse: {
-                      texte: texteNbAMC,
-                      valeur: [reponse],
-                      param: {
-                        digits: 2,
-                        decimals: 0,
-                        signe: false,
-                        approx: 0
-                      }
-                    }
-                  }]
-                }
-              ]
+                  propositions: [
+                    {
+                      texte: '',
+                      statut: '',
+                      reponse: {
+                        texte: texteNbAMC,
+                        valeur: [reponse],
+                        param: {
+                          digits: 2,
+                          decimals: 0,
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             }
       }
 

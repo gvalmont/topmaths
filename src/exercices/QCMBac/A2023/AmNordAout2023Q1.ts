@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = 'bd8e1'
 export const refs = {
   'fr-fr': ['TSA5-QCM01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -24,25 +24,25 @@ export const dateDePublication = '05/11/2024'
  */
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
-    this.reponses = [
-      '$0,05$',
-      '$+\\infty$',
-      '$-\\infty$',
-      '$0$'
-    ]
+    this.reponses = ['$0,05$', '$+\\infty$', '$-\\infty$', '$0$']
 
     this.enonce = ` On considère la fonction $f$ définie sur l'intervalle $]1~;~+\\infty[$ par 
 $f(x)= 0,05 - \\dfrac{\\ln x}{x - 1}.$<br>
 
 La limite de la fonction $f$ en $+\\infty$ est égale à :`
-    this.correction = '$f(x)= 0,05 - \\dfrac{\\ln x}{x - 1}= 0,05 - \\dfrac{\\ln x}{x}\\times \\dfrac{x}{x-1}$<br>'
-    this.correction += 'Or $\\displaystyle\\lim_{x\\to +\\infty} \\dfrac{\\ln x}{x}=0$<br>'
-    this.correction += 'et $\\displaystyle\\lim_{x\\to +\\infty}  \\dfrac{x}{x-1}=1$<br>'
-    this.correction += 'donc $\\displaystyle\\lim_{x\\to +\\infty} \\dfrac{\\ln x}{x}\\times \\dfrac{x}{x-1}=0$.<br>'
-    this.correction += 'On en déduit que $\\displaystyle\\lim_{x\\to +\\infty}f(x)=0,05$'
+    this.correction =
+      '$f(x)= 0,05 - \\dfrac{\\ln x}{x - 1}= 0,05 - \\dfrac{\\ln x}{x}\\times \\dfrac{x}{x-1}$<br>'
+    this.correction +=
+      'Or $\\displaystyle\\lim_{x\\to +\\infty} \\dfrac{\\ln x}{x}=0$<br>'
+    this.correction +=
+      'et $\\displaystyle\\lim_{x\\to +\\infty}  \\dfrac{x}{x-1}=1$<br>'
+    this.correction +=
+      'donc $\\displaystyle\\lim_{x\\to +\\infty} \\dfrac{\\ln x}{x}\\times \\dfrac{x}{x-1}=0$.<br>'
+    this.correction +=
+      'On en déduit que $\\displaystyle\\lim_{x\\to +\\infty}f(x)=0,05$'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

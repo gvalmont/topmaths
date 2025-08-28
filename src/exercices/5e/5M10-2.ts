@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
-export const titre = 'Connaitre le cours sur le périmètre et l\'aire'
+export const titre = "Connaitre le cours sur le périmètre et l'aire"
 
 /**
  * Citer des formules de périmètre, des formules d'aire ou la définition de π
@@ -13,16 +13,16 @@ export const uuid = 'dc7ba'
 export const refs = {
   'fr-fr': ['5M10-2'],
   'fr-2016': ['6M25'],
-  'fr-ch': ['10GM1-4']
+  'fr-ch': ['10GM1-4'],
 }
 export default class ConnaitreFormulesDePerimetreEtAires extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 4
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeDeQuestions = combinaisonListes(
       [
         'pi',
@@ -33,9 +33,9 @@ export default class ConnaitreFormulesDePerimetreEtAires extends Exercice {
         'pcercle',
         'acercle',
         'atrianglerectangle',
-        'atriangle'
+        'atriangle',
       ],
-      this.nbQuestions
+      this.nbQuestions,
     )
     for (
       let i = 0, texte, texteCorr, cpt = 0;
@@ -55,8 +55,7 @@ export default class ConnaitreFormulesDePerimetreEtAires extends Exercice {
           break
         case 'pcarre':
           texte = 'Donner une formule du périmètre du carré.'
-          texteCorr =
-            '$\\mathcal{P}_{\\text{carré}}=c\\times4=c+c+c+c$<br><br>'
+          texteCorr = '$\\mathcal{P}_{\\text{carré}}=c\\times4=c+c+c+c$<br><br>'
           texteCorr += 'Avec $c$ la longueur du côté du carré.'
           break
         case 'arectangle':

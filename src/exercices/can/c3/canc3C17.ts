@@ -16,10 +16,10 @@ export const uuid = 'a7a49'
 
 export const refs = {
   'fr-fr': ['canc3C17'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class problemeAddition extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,8 +28,10 @@ export default class problemeAddition extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
-    switch (randint(1, 7)) { // 1,2, 3
+  nouvelleVersion() {
+    switch (
+      randint(1, 7) // 1,2, 3
+    ) {
       case 1:
         {
           const a = randint(1, 3) * 10 + randint(4, 8)
@@ -146,6 +148,8 @@ Combien de billes a-t-il maintenant ? `
         }
         break
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 }

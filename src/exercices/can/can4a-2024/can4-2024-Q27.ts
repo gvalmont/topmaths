@@ -5,7 +5,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Donner l\'écriture décimale d\'une fraction'
+export const titre = "Donner l'écriture décimale d'une fraction"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '221a5'
@@ -15,7 +15,7 @@ export const uuid = '221a5'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: number
     if (this.canOfficielle) {
       reponse = 1.25

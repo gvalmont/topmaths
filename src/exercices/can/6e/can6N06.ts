@@ -18,16 +18,16 @@ export const uuid = 'ad44e'
 
 export const refs = {
   'fr-fr': ['can6N06', 'BP2AutoS9', '6N1K-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ArrondiDixiemeCentieme extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 20)
     const b = randint(0, 9, 5)
     const c = randint(1, 9, b)

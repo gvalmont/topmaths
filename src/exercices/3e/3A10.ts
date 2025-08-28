@@ -1,12 +1,22 @@
-import { combinaisonListesSansChangerOrdre, shuffle, shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import {
+  combinaisonListesSansChangerOrdre,
+  shuffle,
+  shuffle2tableaux,
+} from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, egal, randint, contraindreValeur } from '../../modules/outils'
+import {
+  listeQuestionsToContenu,
+  egal,
+  randint,
+  contraindreValeur,
+} from '../../modules/outils'
 
-export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
+export const titre =
+  'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
 
 /**
  * Division Euclidienne; diviseurs, multiples, critères de divisibilité
@@ -17,15 +27,21 @@ export const uuid = '5b60d'
 
 export const refs = {
   'fr-fr': ['3A10'],
-  'fr-ch': ['9NO4-1']
+  'fr-ch': ['9NO4-1'],
 }
 export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Nombres de chiffres de l\'entier de la question 5', 20]
-    this.besoinFormulaire2Numerique = ['Nombre maximum de diviseurs de l\'entier de la question 5', 20]
-    context.isHtml ? this.spacing = 1 : this.spacing = 2
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
+    this.besoinFormulaireNumerique = [
+      "Nombres de chiffres de l'entier de la question 5",
+      20,
+    ]
+    this.besoinFormulaire2Numerique = [
+      "Nombre maximum de diviseurs de l'entier de la question 5",
+      20,
+    ]
+    context.isHtml ? (this.spacing = 1) : (this.spacing = 2)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 2)
     this.nbQuestions = 5
 
     this.sup = 3
@@ -35,33 +51,57 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.sup3 = contraindreValeur(2, 16, this.sup3, 10)
     const nbChiffresMax = contraindreValeur(1, 5, this.sup, 2)
     const nbDiviseursMax = contraindreValeur(2, this.sup3, this.sup2, 6)
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, M, listeDiviseursM, nbDiviseursM, n1, n2, p1, p2, rgDiviseur, typeDeQuestion, multiples, textes, textesCorr, candidatsDiviseurs, dividende, diviseur, quotient, reste, quotients, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        M,
+        listeDiviseursM,
+        nbDiviseursM,
+        n1,
+        n2,
+        p1,
+        p2,
+        rgDiviseur,
+        typeDeQuestion,
+        multiples,
+        textes,
+        textesCorr,
+        candidatsDiviseurs,
+        dividende,
+        diviseur,
+        quotient,
+        reste,
+        quotients,
+        texte,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typeDeQuestion = listeTypeDeQuestions[i]
       texte = ''
       texteCorr = ''
       switch (typeDeQuestion) {
-        case 1: { // plus grand reste dans une division euclidienne
+        case 1: {
+          // plus grand reste dans une division euclidienne
           diviseur = randint(2, 99)
           const myTexte = {
-            vocabulaire: [
-              'reste',
-              'dividende',
-              'quotient',
-              'diviseur'
-            ],
+            vocabulaire: ['reste', 'dividende', 'quotient', 'diviseur'],
             correction: [
               `il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`,
-              'le dividende peut être quelconque, donc on peut le choisir aussi grand que l\'on veut.',
-              'le quotient dépendra du dividende, donc il sera d\'autant plus grand que le dividende l\'est.',
-              'c\'est que le diviseur est fixé, donc le plus grand c\'est lui-même !'
-            ]
+              "le dividende peut être quelconque, donc on peut le choisir aussi grand que l'on veut.",
+              "le quotient dépendra du dividende, donc il sera d'autant plus grand que le dividende l'est.",
+              "c'est que le diviseur est fixé, donc le plus grand c'est lui-même !",
+            ],
           }
 
           const myChoice = randint(0, 3)
@@ -93,9 +133,11 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           break
         case 3: // caractérisation des multiples et diviseurs par le reste de la division euclidienne
           dividende = randint(101, 9999)
-          if (listeDesDiviseurs(dividende).length % 2 === 0) { // si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
+          if (listeDesDiviseurs(dividende).length % 2 === 0) {
+            // si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
             rgDiviseur = listeDesDiviseurs(dividende).length / 2 + 1 // rang du diviseur choisi
-          } else { // il y a nbre impair de diviseurs on prend le ((n-1)/2 +1) eme
+          } else {
+            // il y a nbre impair de diviseurs on prend le ((n-1)/2 +1) eme
             rgDiviseur = (listeDesDiviseurs(dividende).length - 1) / 2 + 1
           }
           diviseur = listeDesDiviseurs(dividende)[rgDiviseur - 1] // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0
@@ -103,7 +145,8 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
 
           // Faut-il que je conditionne pour éviter le diviseur 1 ?
           candidatsDiviseurs = shuffle(candidatsDiviseurs) // on mélange le tableau
-          texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>'
+          texte =
+            'Les trois divisions euclidiennes suivantes sont exactes : <br>'
           texte += `${nombreAvecEspace(dividende)} = ${nombreAvecEspace(candidatsDiviseurs[0])}$\\times$${nombreAvecEspace(Math.trunc(dividende / candidatsDiviseurs[0]))} $+$ ${nombreAvecEspace(dividende % candidatsDiviseurs[0])}`
           texte += '<br>'
           texte += `${nombreAvecEspace(dividende)} = ${nombreAvecEspace(candidatsDiviseurs[1])}$\\times$${nombreAvecEspace(Math.trunc(dividende / candidatsDiviseurs[1]))} $+$ ${nombreAvecEspace(dividende % candidatsDiviseurs[1])}`
@@ -112,19 +155,22 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           texte += '<br>'
           texte += `Sans calculer, dire si les nombres ${nombreAvecEspace(candidatsDiviseurs[0])}; ${nombreAvecEspace(candidatsDiviseurs[1])}; ${nombreAvecEspace(candidatsDiviseurs[2])} sont des diviseurs de ${nombreAvecEspace(dividende)}. Justifier.`
           texteCorr = ''
-          if (egal(dividende % candidatsDiviseurs[0], 0)) { // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
+          if (egal(dividende % candidatsDiviseurs[0], 0)) {
+            // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
             texteCorr += `Le reste de la division euclidienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[0])} vaut 0 donc ${nombreAvecEspace(candidatsDiviseurs[0])} est un diviseur de ${nombreAvecEspace(dividende)}.`
           } else {
             texteCorr += `Le reste de la division euclidienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[0])} ne vaut pas 0 donc ${nombreAvecEspace(candidatsDiviseurs[0])} n'est pas un diviseur de ${nombreAvecEspace(dividende)}.`
           }
           texteCorr += '<br>'
-          if (egal(dividende % candidatsDiviseurs[1], 0)) { // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
+          if (egal(dividende % candidatsDiviseurs[1], 0)) {
+            // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
             texteCorr += `Le reste de la division euclidienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[1])} vaut 0 donc ${nombreAvecEspace(candidatsDiviseurs[1])} divise ${nombreAvecEspace(dividende)}.`
           } else {
             texteCorr += `Le reste de la division euclidienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[1])} ne vaut pas 0 donc ${nombreAvecEspace(candidatsDiviseurs[1])} ne divise pas ${nombreAvecEspace(dividende)}.`
           }
           texteCorr += '<br>'
-          if (egal(dividende % candidatsDiviseurs[2], 0)) { // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
+          if (egal(dividende % candidatsDiviseurs[2], 0)) {
+            // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
             texteCorr += `Le reste de la division euclidienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[2])} vaut 0 donc ${nombreAvecEspace(dividende)} est divisible par ${nombreAvecEspace(candidatsDiviseurs[2])}.`
           } else {
             texteCorr += `Le reste de la division euclidienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[2])} ne vaut pas 0 donc ${nombreAvecEspace(dividende)} n'est pas divisible par ${nombreAvecEspace(candidatsDiviseurs[2])}.`
@@ -132,20 +178,34 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           texteCorr += '<br>'
           break
 
-        case 4: // vocabulaire diviseurs et multiples
-        // on déclare des tableaux utiles
+        case 4: // on déclare des tableaux utiles // vocabulaire diviseurs et multiples
 
-        { textes = []
+        {
+          textes = []
           textesCorr = []
           // on tire au hasard 4 diviseurs différents entre 2 et 999 et 4 multiplicateurs différents entre 2 et 9
-          let diviseurs :number[] = []
-          let multiplicateurs :number[] = []
-          diviseurs = [randint(2, 999), randint(2, 999, [diviseurs[0]]), randint(2, 999, [diviseurs[0], diviseurs[1]]), randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2]])]
-          multiplicateurs = [randint(2, 9), randint(2, 9, [multiplicateurs[0]]), randint(2, 9, [multiplicateurs[0], multiplicateurs[1]]), randint(2, 9, [multiplicateurs[0], multiplicateurs[1], multiplicateurs[2]])]
+          let diviseurs: number[] = []
+          let multiplicateurs: number[] = []
+          diviseurs = [
+            randint(2, 999),
+            randint(2, 999, [diviseurs[0]]),
+            randint(2, 999, [diviseurs[0], diviseurs[1]]),
+            randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2]]),
+          ]
+          multiplicateurs = [
+            randint(2, 9),
+            randint(2, 9, [multiplicateurs[0]]),
+            randint(2, 9, [multiplicateurs[0], multiplicateurs[1]]),
+            randint(2, 9, [
+              multiplicateurs[0],
+              multiplicateurs[1],
+              multiplicateurs[2],
+            ]),
+          ]
           // on calcule les multiples
-          const texteDiviseurs:string[] = []
-          const texteMultiples:string[] = []
-          const texteQuotients:string[] = []
+          const texteDiviseurs: string[] = []
+          const texteMultiples: string[] = []
+          const texteQuotients: string[] = []
           multiples = []
           quotients = []
           for (let j = 0; j < 4; j++) {
@@ -166,9 +226,20 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           textesCorr[3] = `${texteMultiples[3]} est un multiple de ${texteDiviseurs[3]} car ${texteMultiples[3]}=${diviseurs[3]}$\\times$${texteQuotients[3]}.`
           // on ajoute deux cas ni multiple ni diviseur
           // on choisit deux nombres
-          n1 = randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3]])
+          n1 = randint(2, 999, [
+            diviseurs[0],
+            diviseurs[1],
+            diviseurs[2],
+            diviseurs[3],
+          ])
           const texteN1 = nombreAvecEspace(n1)
-          p1 = randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3], n1])
+          p1 = randint(2, 999, [
+            diviseurs[0],
+            diviseurs[1],
+            diviseurs[2],
+            diviseurs[3],
+            n1,
+          ])
           const texteP1 = nombreAvecEspace(p1)
           // on choisit un autre qui n'est pas dans la liste des diviseurs de n1
           n2 = randint(2, 999, listeDesDiviseurs(n1))
@@ -182,7 +253,8 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           textesCorr[5] = `${texteP2} n'est ni un multiple, ni un diviseur de ${texteP1} car ${texteP1}=${texteP2}$\\times$${Math.trunc(p1 / p2)}+${texteEnCouleur(p1 % p2)} et ${texteP2}=${texteP1}$\\times$${Math.trunc(p2 / p1)}+${texteEnCouleur(p2 % p1)}.`
           // on mélange pour que l'ordre change!
           shuffle2tableaux(textes, textesCorr)
-          texte = 'Après avoir testé avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n\'est ni un diviseur, ni un multiple de".'
+          texte =
+            'Après avoir testé avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n\'est ni un diviseur, ni un multiple de".'
           texte += '<br>'
           texteCorr = ''
           for (let j = 0; j < 5; j++) {
@@ -195,9 +267,10 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           // texte +=`<br>`;
           texteCorr += textesCorr[5]
           texteCorr += '<br>'
-          break }
+          break
+        }
         case 5:
-        default :
+        default:
           /* if (nbDiviseursMax > 10) { // les nombres de 2 chiffres ayant plus de 10 diviseurs étant peu nombreux, on force au moins 3 chiffres.
             nbChiffresMax = Math.max(nbChiffresMax, 3)
           } */
@@ -212,7 +285,9 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré est inférieur à ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times$${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
           texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times$${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteurs à ${Math.trunc(Math.sqrt(M))}.`
           if (this.correctionDetaillee) {
-            context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+            context.isHtml
+              ? (texteCorr += '<hr>')
+              : (texteCorr += '\\par \\hrulefill \\par')
             texteCorr += `$\\textbf{Preuve du propos précédent}$ <br>
             Supposons que ${M} soit le produit de deux entiers p$\\times$q avec p < q :`
             if (context.isHtml) {
@@ -225,18 +300,36 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
               \\end{itemize}`
             }
             texteCorr += `Donc il est bien suffisant d'arrêter la recherche lorsque le carré de p dépasse ${M}.`
-            context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+            context.isHtml
+              ? (texteCorr += '<hr>')
+              : (texteCorr += '\\par \\hrulefill \\par')
           }
-          context.isHtml ? texteCorr += '<br>' : texteCorr += '\\par'
-          if (listeDiviseursM.length % 2 === 0) { // si il y a un nombre pair de diviseurs
-            for (let m = 0; m < (listeDiviseursM.length / 2); m++) {
-              texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
+          context.isHtml ? (texteCorr += '<br>') : (texteCorr += '\\par')
+          if (listeDiviseursM.length % 2 === 0) {
+            // si il y a un nombre pair de diviseurs
+            for (let m = 0; m < listeDiviseursM.length / 2; m++) {
+              texteCorr +=
+                '' +
+                listeDiviseursM[m] +
+                '$\\times$' +
+                listeDiviseursM[listeDiviseursM.length - m - 1] +
+                ` = ${M}<br>`
             }
           } else {
-            for (let m = 0; m < ((listeDiviseursM.length - 1) / 2); m++) {
-              texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
+            for (let m = 0; m < (listeDiviseursM.length - 1) / 2; m++) {
+              texteCorr +=
+                '' +
+                listeDiviseursM[m] +
+                '$\\times$' +
+                listeDiviseursM[listeDiviseursM.length - m - 1] +
+                ` = ${M}<br>`
             }
-            texteCorr += '' + listeDiviseursM[(listeDiviseursM.length - 1) / 2] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - 1) / 2] + ` = ${M}<br>`
+            texteCorr +=
+              '' +
+              listeDiviseursM[(listeDiviseursM.length - 1) / 2] +
+              '$\\times$' +
+              listeDiviseursM[(listeDiviseursM.length - 1) / 2] +
+              ` = ${M}<br>`
           }
           texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${M}.<br>`
           texteCorr += `La liste des diviseurs de ${M} est donc `
@@ -248,7 +341,8 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           break
       }
 
-      if (this.questionJamaisPosee(i, typeDeQuestion, texte)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, typeDeQuestion, texte)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

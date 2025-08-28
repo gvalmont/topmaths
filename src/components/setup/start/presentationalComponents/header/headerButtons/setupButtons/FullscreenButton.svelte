@@ -3,16 +3,18 @@
   import TwoStatesIcon from '../../../../../../../components/shared/icons/TwoStatesIcon.svelte'
   import { onMount, onDestroy } from 'svelte'
 
-  export let callback: ((isFullScreen: boolean) => void) = () => {}
+  export let callback: (isFullScreen: boolean) => void = () => {}
 
   type FullscreenRequestEnabled = {
-    requestFullscreen?(): Promise<void>;
-    mozRequestFullScreen?(): Promise<void>;
-    webkitRequestFullscreen?(): Promise<void>;
-    msRequestFullscreen?(): Promise<void>;
+    requestFullscreen?(): Promise<void>
+    mozRequestFullScreen?(): Promise<void>
+    webkitRequestFullscreen?(): Promise<void>
+    msRequestFullscreen?(): Promise<void>
   }
 
-  const isFullscreenRequestEnabled = (element: HTMLElement): element is HTMLElement & FullscreenRequestEnabled => {
+  const isFullscreenRequestEnabled = (
+    element: HTMLElement,
+  ): element is HTMLElement & FullscreenRequestEnabled => {
     return (
       'requestFullscreen' in element ||
       'mozRequestFullScreen' in element ||
@@ -22,13 +24,15 @@
   }
 
   type FullscreenExitEnabled = {
-    exitFullscreen?(): Promise<void>;
-    mozCancelFullScreen?(): Promise<void>;
-    webkitExitFullscreen?(): Promise<void>;
-    msExitFullscreen?(): Promise<void>;
+    exitFullscreen?(): Promise<void>
+    mozCancelFullScreen?(): Promise<void>
+    webkitExitFullscreen?(): Promise<void>
+    msExitFullscreen?(): Promise<void>
   }
 
-  const isFullscreenExitEnabled = (doc: Document): doc is Document & FullscreenExitEnabled => {
+  const isFullscreenExitEnabled = (
+    doc: Document,
+  ): doc is Document & FullscreenExitEnabled => {
     return (
       'exitFullscreen' in doc ||
       'mozCancelFullScreen' in doc ||
@@ -89,12 +93,21 @@
     callback?.(isFullScreen)
   }
 
-  const requestFullScreen = async (element: HTMLElement & FullscreenRequestEnabled) => {
-    if (!(element instanceof HTMLElement) || !isFullscreenRequestEnabled(element)) {
+  const requestFullScreen = async (
+    element: HTMLElement & FullscreenRequestEnabled,
+  ) => {
+    if (
+      !(element instanceof HTMLElement) ||
+      !isFullscreenRequestEnabled(element)
+    ) {
       handleFullScreenError(new Error("Le plein écran n'est plus disponible"))
       return
     }
-    const method = element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen || element.msRequestFullscreen
+    const method =
+      element.requestFullscreen ||
+      element.mozRequestFullScreen ||
+      element.webkitRequestFullscreen ||
+      element.msRequestFullscreen
     if (method) {
       try {
         await method.call(element)
@@ -112,7 +125,11 @@
       handleFullScreenError(new Error("Le plein écran n'est plus disponible"))
       return
     }
-    const method = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen
+    const method =
+      document.exitFullscreen ||
+      document.mozCancelFullScreen ||
+      document.webkitExitFullscreen ||
+      document.msExitFullscreen
     if (method) {
       await method.call(document)
     } else {
@@ -129,23 +146,23 @@
 <button
   type="button"
   class="tooltip tooltip-bottom tooltip-neutral"
-  data-tip={isFullScreen ? 'Quitter le plein écran' : 'Plein écran'}
-  on:click={switchFullScreen}
+  data-tip="{isFullScreen ? 'Quitter le plein écran' : 'Plein écran'}"
+  on:click="{switchFullScreen}"
 >
   <div class="px-2">
-    <TwoStatesIcon isOnStateActive={isFullScreen}>
+    <TwoStatesIcon isOnStateActive="{isFullScreen}">
       <i
         slot="icon_to_switch_on"
         class="bx bx-fullscreen text-3xl
           text-coopmaths-action dark:text-coopmathsdark-action
           hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-      />
+      ></i>
       <i
         slot="icon_to_switch_off"
         class="bx bx-exit-fullscreen text-3xl
         text-coopmaths-action dark:text-coopmathsdark-action
         hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-      />
+      ></i>
     </TwoStatesIcon>
   </div>
 </button>

@@ -6,11 +6,11 @@ export const amcType = 'AMCHybride'
 export const uuid = '71dd8'
 export const refs = {
   'fr-fr': ['4L10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const titre = 'Utiliser la simple distributivité'
 export default class ExerciceDevelopper4e extends ExerciceDevelopper {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3 // difficulté
     this.sup2 = 1 // consigne

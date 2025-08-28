@@ -18,16 +18,16 @@ export const uuid = 'a630a'
 
 export const refs = {
   'fr-fr': ['can4C04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RegleDesSignes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a = randint(-5, 5, [-1, 0, 1])
     const b = randint(-4, 4, [-1, 0, 1, a])
     const c = randint(2, 3)

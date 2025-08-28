@@ -1,19 +1,31 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
-import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import {
+  longueur,
+  nomVecteurParPosition,
+  segment,
+  vecteur,
+} from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint, texteParPosition } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Calculer les coordonnées d\'un point par une translation'
+export const titre = "Calculer les coordonnées d'un point par une translation"
 export const dateDeModifImportante = '17/04/2024'
 
 /**
@@ -25,19 +37,23 @@ export const uuid = 'fa7b9'
 
 export const refs = {
   'fr-fr': ['2G23-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class TranslationEtCoordonnes extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
     this.sup = 2
     this.correctionDetailleeDisponible = true
-    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 :Calculer les coordonnées de l\'image d\'un point. \n 2 :Calculer les coordonnées de l\'antécédent d\'un point.\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      3,
+      "1 :Calculer les coordonnées de l'image d'un point. \n 2 :Calculer les coordonnées de l'antécédent d'un point.\n3 : Mélange",
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeQuestionsDisponibles: ('coorImage' | 'coorPre' | 'melange')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['coorImage']
@@ -47,8 +63,11 @@ export default class TranslationEtCoordonnes extends Exercice {
       typeQuestionsDisponibles = ['coorImage', 'coorPre']
     }
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let xA, yA, xB, yB, ux, uy, AbsRep, OrdRep
       const objets = []
       xA = randint(2, 8) * choice([-1, 1])
@@ -57,12 +76,14 @@ export default class TranslationEtCoordonnes extends Exercice {
       uy = randint(2, 8) * choice([-1, 1])
       xB = xA + ux
       yB = yA + uy
-      while (Math.abs(xB) < 2 || Math.abs(xB) > 8) { // On s'assure de choisir des points bien placés dans le repère.
+      while (Math.abs(xB) < 2 || Math.abs(xB) > 8) {
+        // On s'assure de choisir des points bien placés dans le repère.
         xA = randint(2, 8) * choice([-1, 1])
         ux = randint(2, 8) * choice([-1, 1])
         xB = xA + ux
       }
-      while (Math.abs(yB) < 2 || Math.abs(yB) > 8) { // Idem pour les ordonnées
+      while (Math.abs(yB) < 2 || Math.abs(yB) > 8) {
+        // Idem pour les ordonnées
         yA = randint(2, 8) * choice([-1, 1])
         uy = randint(2, 8) * choice([-1, 1])
         yB = yA + uy
@@ -79,7 +100,7 @@ export default class TranslationEtCoordonnes extends Exercice {
         yLabelEcart: 0.4,
         xLabelEcart: 0.3,
         axeXStyle: '->',
-        axeYStyle: '->'
+        axeYStyle: '->',
       }) // On définit le repère
       const A = point(xA, yA) // On définit et on trace le point A
       const B = point(xB, yB) // On définit et on trace le point B
@@ -114,13 +135,21 @@ export default class TranslationEtCoordonnes extends Exercice {
           OrdRep = yB
           texte = `Dans un repère orthonormé $\\big(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA}\\,;\\,${yA}\\right)$ par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
           if (this.interactif) {
-            texte += 'Le point $A\'$ est donné par' + remplisLesBlancs(this, i, 'A\'(%{champ1};{%{champ2}).')
-            handleAnswers(this, i, {
-              bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-              champ1: { value: String(AbsRep) },
-              champ2: { value: String(OrdRep) }
-            },
-            { formatInteractif: 'fillInTheBlank' }
+            texte +=
+              "Le point $A'$ est donné par" +
+              remplisLesBlancs(this, i, "A'(%{champ1};{%{champ2}).")
+            handleAnswers(
+              this,
+              i,
+              {
+                bareme: (listePoints: number[]) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
+                champ1: { value: String(AbsRep) },
+                champ2: { value: String(OrdRep) },
+              },
+              { formatInteractif: 'fillInTheBlank' },
             )
           }
           break
@@ -129,22 +158,33 @@ export default class TranslationEtCoordonnes extends Exercice {
           OrdRep = yA
           texte = `Dans un repère orthonormé $\\big(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ est le point $A'\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
           if (this.interactif) {
-            texte += 'Le point $A$ est donné par' + remplisLesBlancs(this, i, 'A(%{champ1};%{champ2})')
-            handleAnswers(this, i, {
-              bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-              champ1: { value: String(AbsRep) },
-              champ2: { value: String(OrdRep) }
-            },
-            { formatInteractif: 'fillInTheBlank' }
+            texte +=
+              'Le point $A$ est donné par' +
+              remplisLesBlancs(this, i, 'A(%{champ1};%{champ2})')
+            handleAnswers(
+              this,
+              i,
+              {
+                bareme: (listePoints: number[]) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
+                champ1: { value: String(AbsRep) },
+                champ2: { value: String(OrdRep) },
+              },
+              { formatInteractif: 'fillInTheBlank' },
             )
           }
           break
       }
       if (this.correctionDetaillee) {
-        texteCorr += 'On sait d\'après le cours que si $A\'$ est l\'image de $A$ par la translation de vecteur $\\vec{u}$, alors on a l\'égalité : $\\overrightarrow{AA\'}=\\vec{u}$.<br>'
-        texteCorr += 'On connaît les coordonnées de $\\vec{u}$ avec l\'énoncé, on calcule donc celles de $\\overrightarrow{AA\'}$.<br>'
-        texteCorr += 'On sait d\'après le cours que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
-        texteCorr += 'On applique ci-dessous aux données de l\'énoncé.<br><br>'
+        texteCorr +=
+          "On sait d'après le cours que si $A'$ est l'image de $A$ par la translation de vecteur $\\vec{u}$, alors on a l'égalité : $\\overrightarrow{AA'}=\\vec{u}$.<br>"
+        texteCorr +=
+          "On connaît les coordonnées de $\\vec{u}$ avec l'énoncé, on calcule donc celles de $\\overrightarrow{AA'}$.<br>"
+        texteCorr +=
+          "On sait d'après le cours que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>"
+        texteCorr += "On applique ci-dessous aux données de l'énoncé.<br><br>"
       }
 
       switch (listeTypeQuestions[i]) {
@@ -155,7 +195,8 @@ export default class TranslationEtCoordonnes extends Exercice {
           } else {
             texteCorr += '.<br>'
           }
-          texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
+          texteCorr +=
+            "Dire que $\\overrightarrow{AA'}=\\vec{u}$ équivaut à résoudre :<br><br>"
           texteCorr += '$\\left\\{\\begin{array}{l}'
           texteCorr += `x${ecritureAlgebrique(-xA)}=${ux} \\\\`
           texteCorr += `y${ecritureAlgebrique(-yA)}=${uy}`
@@ -177,7 +218,8 @@ export default class TranslationEtCoordonnes extends Exercice {
           break
         case 'coorPre':
           texteCorr += `Soit $(x\\,;\\,y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
-          texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
+          texteCorr +=
+            "Dire que $\\overrightarrow{AA'}=\\vec{u}$ équivaut à résoudre :<br><br>"
           texteCorr += '$\\left\\{\\begin{array}{l}'
           texteCorr += `${xB}-x=${ux} \\\\`
           texteCorr += `${yB}-y=${uy}`
@@ -200,13 +242,17 @@ export default class TranslationEtCoordonnes extends Exercice {
       }
 
       if (this.correctionDetaillee) {
-        texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objets)), objets) // On trace le graphique
+        texteCorr += mathalea2d(
+          Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objets)),
+          objets,
+        ) // On trace le graphique
       }
       // texte += ajouteChampTexteMathLive(this, 2 * i, '', {texteAvant: '<br><br>Abscisse du point :' })
       // texte += ajouteChampTexteMathLive(this, 2 * i + 1, '', {texteAvant: '<br><br>Ordonnée du point :' })
       // setReponse(this, 2 * i, AbsRep)
       // setReponse(this, 2 * i + 1, OrdRep)
-      if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, xA, yA, xB, yB)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

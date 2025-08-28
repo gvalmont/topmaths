@@ -21,10 +21,10 @@ export const uuid = '14145'
 
 export const refs = {
   'fr-fr': ['can3G03', 'BP2AutoR11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculLongueurThales2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -32,14 +32,14 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let nom, a, b, c, k, A, B, C, D, E, objets
     if (choice([true, false])) {
       nom = creerNomDePolygone(5, ['QD'])
       k = choice([1.5, 2, 2.5])
-      b = randint(2, 5) * 2//
+      b = randint(2, 5) * 2 //
       a = k * b
-      c = randint(2, 6, b)//
+      c = randint(2, 6, b) //
 
       A = point(0, 0, nom[0], 'above')
       B = pointAdistance(A, b, -30, nom[1], 'below')
@@ -50,10 +50,24 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
 
       // pol = polygoneAvecNom(A, D, C)
       objets = []
-      objets.push(segment(B, D), segment(D, E), segment(C, E), segment(B, C), labelPoint(A, B, C, D, E))
-      objets.push(latex2d(`${texNombre(b)}`, milieu(A, B).x, milieu(A, B).y - 0.7, { letterSize: 'scriptsize' }),
-        latex2d(`${texNombre(c)}`, milieu(B, C).x + 0.5, milieu(B, C).y, { letterSize: 'scriptsize' }),
-        latex2d(`${texNombre(a)}`, milieu(A, D).x + 0.5, milieu(A, D).y + 0.5, { letterSize: 'scriptsize' }))
+      objets.push(
+        segment(B, D),
+        segment(D, E),
+        segment(C, E),
+        segment(B, C),
+        labelPoint(A, B, C, D, E),
+      )
+      objets.push(
+        latex2d(`${texNombre(b)}`, milieu(A, B).x, milieu(A, B).y - 0.7, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d(`${texNombre(c)}`, milieu(B, C).x + 0.5, milieu(B, C).y, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d(`${texNombre(a)}`, milieu(A, D).x + 0.5, milieu(A, D).y + 0.5, {
+          letterSize: 'scriptsize',
+        }),
+      )
       this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles.
       
       Calculer $${nom[3]}${nom[4]}$.<br>
@@ -62,16 +76,16 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est un agrandissement du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
     Le coefficient d'agrandissement est  donné par :  $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombre(a)}}{${b}}=${texNombre(a / b)}$.<br>
     On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombre(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
-        Ainsi, $${nom[3]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${texNombre(a * c / b)}$.
+        Ainsi, $${nom[3]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${texNombre((a * c) / b)}$.
                   <br>`
-      this.reponse = a * c / b
+      this.reponse = (a * c) / b
       this.canReponseACompleter = `$${nom[3]}${nom[4]}=\\ldots$`
     } else {
       nom = creerNomDePolygone(5, ['QD'])
       k = choice([1.5, 2, 2.5])
-      b = randint(2, 5) * 2//
+      b = randint(2, 5) * 2 //
       a = k * b
-      c = randint(2, 6, b)//
+      c = randint(2, 6, b) //
 
       A = point(0, 0, nom[0], 'above')
       B = pointAdistance(A, c, -30, nom[1], 'below')
@@ -82,11 +96,24 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
 
       // pol = polygoneAvecNom(A, D, C)
       objets = []
-      objets.push(segment(B, D), segment(D, E), segment(C, E), segment(B, C), labelPoint(A, B, C, D, E))
       objets.push(
-        latex2d(`${texNombre(b)}`, milieu(B, C).x + 0.5, milieu(B, C).y, { letterSize: 'scriptsize' }),
-        latex2d(`${texNombre(c)}`, milieu(A, B).x, milieu(A, B).y - 0.5, { letterSize: 'scriptsize' }),
-        latex2d(`${texNombre(a)}`, milieu(D, E).x - 0.8, milieu(D, E).y, { letterSize: 'scriptsize' }))
+        segment(B, D),
+        segment(D, E),
+        segment(C, E),
+        segment(B, C),
+        labelPoint(A, B, C, D, E),
+      )
+      objets.push(
+        latex2d(`${texNombre(b)}`, milieu(B, C).x + 0.5, milieu(B, C).y, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d(`${texNombre(c)}`, milieu(A, B).x, milieu(A, B).y - 0.5, {
+          letterSize: 'scriptsize',
+        }),
+        latex2d(`${texNombre(a)}`, milieu(D, E).x - 0.8, milieu(D, E).y, {
+          letterSize: 'scriptsize',
+        }),
+      )
       this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles.<br>
       
       Calculer $${nom[3]}${nom[0]}$.<br>
@@ -95,13 +122,31 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est un agrandissement du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
        Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[3]}${nom[4]}}{${nom[2]}${nom[1]}}=\\dfrac{${texNombre(a)}}{${b}}=${texNombre(a / b)}$.<br>
        On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombre(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
-           Ainsi, $${nom[3]}${nom[0]}=${texNombre(a / b)}\\times ${c}=${texNombre(a * c / b)}$.
+           Ainsi, $${nom[3]}${nom[0]}=${texNombre(a / b)}\\times ${c}=${texNombre((a * c) / b)}$.
                      <br>`
-      this.reponse = a * c / b
+      this.reponse = (a * c) / b
       this.canReponseACompleter = `$${nom[3]}${nom[0]}=\\ldots$`
     }
 
-    this.question += mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.1 * c, rymin: -0.75 * c, rxmax: 0.1 * c, rymax: 0.1 * c }), { pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.2, style: 'margin: auto' }), objets)
-    this.canEnonce = this.question// 'Compléter'
+    this.question += mathalea2d(
+      Object.assign(
+        {},
+        fixeBordures(objets, {
+          rxmin: -0.1 * c,
+          rymin: -0.75 * c,
+          rxmax: 0.1 * c,
+          rymax: 0.1 * c,
+        }),
+        {
+          pixelsParCm: 15,
+          mainlevee: false,
+          amplitude: 0.5,
+          scale: 0.2,
+          style: 'margin: auto',
+        },
+      ),
+      objets,
+    )
+    this.canEnonce = this.question // 'Compléter'
   }
 }

@@ -1,13 +1,13 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
-export const titre = 'Trouver la moitié d\'un nombre'
+export const titre = "Trouver la moitié d'un nombre"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'c8515'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -15,7 +15,7 @@ export const refs = {
 
 */
 export default class Can2025CE1Q19 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     if (a == null || b == null || c == null) {
       a = randint(3, 6)
       b = randint(4, 9)
@@ -34,7 +34,7 @@ export default class Can2025CE1Q19 extends ExerciceCan {
     }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(4, 7, 28) : this.enonce()
   }
 }

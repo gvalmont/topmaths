@@ -1,5 +1,8 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -20,28 +23,28 @@ export const uuid = '65ce1'
 export const refs = {
   'fr-fr': ['auto6N2A'],
   'fr-2016': ['6C30-11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class TrouverFractionDecimale extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.consigne = 'Compléter.'
     this.nbQuestions = 3
     this.besoinFormulaireTexte = [
-      'Choix de l\'opération',
-        `Nombres séparés par des tirets :
+      "Choix de l'opération",
+      `Nombres séparés par des tirets :
     1 : Que des dénominateurs connus
     2 : Que des numérateurs connus
-    3 : Mélange`
+    3 : Mélange`,
     ]
     this.besoinFormulaire2Texte = [
       'Choix du dénominateur',
-        `Nombres séparés par des tirets :
+      `Nombres séparés par des tirets :
     1 : 10
     2 : 100
     3 : 1 000
-    4 : Mélange`
+    4 : Mélange`,
     ]
     this.besoinFormulaire3CaseACocher = ['Avec multiplication']
     this.sup = 3
@@ -49,56 +52,88 @@ export default class TrouverFractionDecimale extends Exercice {
     this.sup3 = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 2,
       melange: 3,
       defaut: 3,
-      nbQuestions: 50
+      nbQuestions: 50,
     })
     const denominateursPossibles = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       max: 3,
       melange: 4,
       defaut: 4,
-      nbQuestions: 6
+      nbQuestions: 6,
     })
     let reponse = 0
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       switch (denominateursPossibles[i]) {
-        case 1 :
+        case 1:
           reponse = 10
           break
-        case 2 :
+        case 2:
           reponse = 100
           break
-        case 3 :
+        case 3:
           reponse = 1000
           break
       }
 
-      if (this.questionJamaisPosee(i, reponse, listeQuestions[cpt])) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, reponse, listeQuestions[cpt])) {
+        // Si la question n'a jamais été posée, on en créé une autre
         let texte = '$1=$ '
         let texteCorr = '$1='
         if (this.sup3) {
-          texte += listeQuestions[i] === 1
-            ? remplisLesBlancs(this, i, `%{champ1} \\times \\dfrac{1}{${texNombre(reponse)}}`, KeyboardType.clavierNumbers, '\\ldots')
-            : remplisLesBlancs(this, i, `${texNombre(reponse)} \\times \\dfrac{1}{%{champ1}}`, KeyboardType.clavierNumbers, '\\ldots')
-          texteCorr += listeQuestions[i] === 1
-            ? `${miseEnEvidence(texNombre(reponse))} \\times ${texFractionFromString(1, texNombre(reponse))}$`
-            : `${texNombre(reponse)} \\times ${texFractionFromString(1, miseEnEvidence(texNombre(reponse)))}$`
+          texte +=
+            listeQuestions[i] === 1
+              ? remplisLesBlancs(
+                  this,
+                  i,
+                  `%{champ1} \\times \\dfrac{1}{${texNombre(reponse)}}`,
+                  KeyboardType.clavierNumbers,
+                  '\\ldots',
+                )
+              : remplisLesBlancs(
+                  this,
+                  i,
+                  `${texNombre(reponse)} \\times \\dfrac{1}{%{champ1}}`,
+                  KeyboardType.clavierNumbers,
+                  '\\ldots',
+                )
+          texteCorr +=
+            listeQuestions[i] === 1
+              ? `${miseEnEvidence(texNombre(reponse))} \\times ${texFractionFromString(1, texNombre(reponse))}$`
+              : `${texNombre(reponse)} \\times ${texFractionFromString(1, miseEnEvidence(texNombre(reponse)))}$`
         } else {
-          texte += listeQuestions[i] === 1
-            ? remplisLesBlancs(this, i, `\\dfrac{%{champ1}}{${texNombre(reponse)}}`, KeyboardType.clavierNumbers, '\\ldots')
-            : remplisLesBlancs(this, i, `\\dfrac{${texNombre(reponse)}}{%{champ1}}`, KeyboardType.clavierNumbers, '\\ldots')
-          texteCorr += listeQuestions[i] === 1
-            ? `${texFractionFromString(miseEnEvidence(texNombre(reponse)), texNombre(reponse))}$`
-            : `${texFractionFromString(texNombre(reponse), miseEnEvidence(texNombre(reponse)))}$`
+          texte +=
+            listeQuestions[i] === 1
+              ? remplisLesBlancs(
+                  this,
+                  i,
+                  `\\dfrac{%{champ1}}{${texNombre(reponse)}}`,
+                  KeyboardType.clavierNumbers,
+                  '\\ldots',
+                )
+              : remplisLesBlancs(
+                  this,
+                  i,
+                  `\\dfrac{${texNombre(reponse)}}{%{champ1}}`,
+                  KeyboardType.clavierNumbers,
+                  '\\ldots',
+                )
+          texteCorr +=
+            listeQuestions[i] === 1
+              ? `${texFractionFromString(miseEnEvidence(texNombre(reponse)), texNombre(reponse))}$`
+              : `${texFractionFromString(texNombre(reponse), miseEnEvidence(texNombre(reponse)))}$`
         }
-        handleAnswers(this, i, { champ1: { value: reponse } },
-          { formatInteractif: 'fillInTheBlank' }
+        handleAnswers(
+          this,
+          i,
+          { champ1: { value: reponse } },
+          { formatInteractif: 'fillInTheBlank' },
         )
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

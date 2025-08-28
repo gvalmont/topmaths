@@ -17,10 +17,10 @@ export const uuid = '4b600'
 
 export const refs = {
   'fr-fr': ['can3F04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAntecedentLineaire extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -28,7 +28,7 @@ export default class CalculAntecedentLineaire extends ExerciceSimple {
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let nomF, x, n, m
     switch (choice([1, 2])) {
       case 1:

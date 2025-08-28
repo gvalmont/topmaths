@@ -2,7 +2,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { randint } from '../../modules/outils'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
-import { Spline, spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
+import {
+  Spline,
+  spline,
+  type NoeudSpline,
+} from '../../lib/mathFonctions/Spline'
 import { mathalea2d } from '../../modules/2dGeneralites'
 
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -12,7 +16,7 @@ export const uuid = '3d696'
 
 export const refs = {
   'fr-fr': ['1A-F4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -33,7 +37,7 @@ export default class AutoF4 extends ExerciceQcmA {
       { x: 2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 3, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
       { x: 4, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-      { x: 5, y: 0, deriveeGauche: -1, deriveeDroit: 0, isVisible: true }
+      { x: 5, y: 0, deriveeGauche: -1, deriveeDroit: 0, isVisible: true },
     ]
 
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
@@ -54,7 +58,7 @@ export default class AutoF4 extends ExerciceQcmA {
       grilleSecondaireYMin: bornes.yMin - 1,
       grilleSecondaireYMax: bornes.yMax + 1,
       grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1
+      grilleSecondaireXMax: bornes.xMax + 1,
     })
 
     const courbe1 = theSpline.courbe({
@@ -62,21 +66,35 @@ export default class AutoF4 extends ExerciceQcmA {
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'blue'
+      color: 'blue',
     })
 
     const objetsEnonce = [repere1, courbe1]
 
-    this.enonce = 'Voici la représentation graphique d\'une fonction $f$ définie sur $[-5\\,;\\,5]$.'
-    this.enonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) + '<br>'
+    this.enonce =
+      "Voici la représentation graphique d'une fonction $f$ définie sur $[-5\\,;\\,5]$."
+    this.enonce +=
+      mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          {
+            xmin: bornes.xMin - 1,
+            ymin: bornes.yMin - 1,
+            xmax: bornes.xMax + 1,
+            ymax: bornes.yMax + 1,
+          },
+        ),
+        objetsEnonce,
+        o,
+      ) + '<br>'
     this.enonce += 'Une seule affirmation est correcte :'
 
     // Nouvelles questions inspirées des thèmes de la version aléatoire
     this.reponses = [
-      'Le produit des solutions de l\'équation $f(x) = 0$ est égal à $20$.',
-      'Soit $k \\in \\mathbb{R}$. L\'équation $f(x) = k$ a au moins une solution.',
-      'Pour tout réel $k \\in [1\\,;\\,2[$, l\'équation $f(x) = k$ admet exactement deux solutions.',
-      'Le produit des solutions de l\'équation $f(x) = 1$ est égal à $-20$.'
+      "Le produit des solutions de l'équation $f(x) = 0$ est égal à $20$.",
+      "Soit $k \\in \\mathbb{R}$. L'équation $f(x) = k$ a au moins une solution.",
+      "Pour tout réel $k \\in [1\\,;\\,2[$, l'équation $f(x) = k$ admet exactement deux solutions.",
+      "Le produit des solutions de l'équation $f(x) = 1$ est égal à $-20$.",
     ]
 
     this.correction = `
@@ -99,7 +117,8 @@ export default class AutoF4 extends ExerciceQcmA {
   }
 
   versionAleatoire = () => {
-    const noeuds1 = [{ x: -4, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+    const noeuds1 = [
+      { x: -4, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -108,22 +127,24 @@ export default class AutoF4 extends ExerciceQcmA {
       { x: 3, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: 5, y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-      { x: 6, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+      { x: 6, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     ]
     const noeudsCourbe = noeuds1
-    function aleatoiriseCourbe (noeudsChoisis: NoeudSpline[]) {
+    function aleatoiriseCourbe(noeudsChoisis: NoeudSpline[]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-1, 1) // translations
-      const deltaY = randint(-1, 1)// randint(-2, +2)
+      const deltaY = randint(-1, 1) // randint(-2, +2)
 
-      return noeudsChoisis.map((noeud: NoeudSpline) => Object({
-        x: (noeud.x + deltaX) * coeffX,
-        y: (noeud.y + deltaY) * coeffY,
-        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-        isVisible: noeud.isVisible
-      }))
+      return noeudsChoisis.map((noeud: NoeudSpline) =>
+        Object({
+          x: (noeud.x + deltaX) * coeffX,
+          y: (noeud.y + deltaY) * coeffY,
+          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+          isVisible: noeud.isVisible,
+        }),
+      )
     }
 
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
@@ -144,31 +165,68 @@ export default class AutoF4 extends ExerciceQcmA {
       grilleSecondaireYMin: bornes.yMin - 1,
       grilleSecondaireYMax: bornes.yMax + 1,
       grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1
+      grilleSecondaireXMax: bornes.xMax + 1,
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'blue'
+      color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]
-    const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin, bornes.yMax, true, true)
+    const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(
+      bornes.yMin,
+      bornes.yMax,
+      true,
+      true,
+    )
 
-    const nombreAntecedentCherches2 = 2// choice([randint(1, nbAntecedentsEntiersMaximum), randint(0, nbAntecedentsEntiersMaximum), randint(1, nbAntecedentsEntiersMaximum)])
+    const nombreAntecedentCherches2 = 2 // choice([randint(1, nbAntecedentsEntiersMaximum), randint(0, nbAntecedentsEntiersMaximum), randint(1, nbAntecedentsEntiersMaximum)])
     const nombreAntecedentCherches1 = 1
     const nombreAntecedentCherches3 = 3
 
-    const y2 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches2, bornes.yMin - 1, bornes.yMax + 1, true, true)
-    const y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
-    const y3 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches3, bornes.yMin - 1, bornes.yMax + 1, true, true)
-    const y0 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches3, bornes.yMin - 1, bornes.yMax + 1, true, true)
+    const y2 = theSpline.trouveYPourNAntecedents(
+      nombreAntecedentCherches2,
+      bornes.yMin - 1,
+      bornes.yMax + 1,
+      true,
+      true,
+    )
+    const y1 = theSpline.trouveYPourNAntecedents(
+      nombreAntecedentCherches1,
+      bornes.yMin - 1,
+      bornes.yMax + 1,
+      true,
+      true,
+    )
+    const y3 = theSpline.trouveYPourNAntecedents(
+      nombreAntecedentCherches3,
+      bornes.yMin - 1,
+      bornes.yMax + 1,
+      true,
+      true,
+    )
+    const y0 = theSpline.trouveYPourNAntecedents(
+      nombreAntecedentCherches3,
+      bornes.yMin - 1,
+      bornes.yMax + 1,
+      true,
+      true,
+    )
 
     if (y1 === false || y2 === false || y3 === false || y0 === false) {
       this.compteur++
       if (this.compteur > 10) {
-        window.notify('Erreur dans la génération de l\'exercice : y1 === false', { spline: theSpline, nombreAntecedentCherches2, nbAntecedentsEntiersMaximum, bornes })
+        window.notify(
+          "Erreur dans la génération de l'exercice : y1 === false",
+          {
+            spline: theSpline,
+            nombreAntecedentCherches2,
+            nbAntecedentsEntiersMaximum,
+            bornes,
+          },
+        )
         return
       }
 
@@ -184,122 +242,171 @@ export default class AutoF4 extends ExerciceQcmA {
     const AFC = 'Cette affirmation est correcte : <br>'
     const AFF = 'Cette affirmation est fausse : <br>'
     this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.`
-    this.enonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) + '<br>'
+    this.enonce +=
+      mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          {
+            xmin: bornes.xMin - 1,
+            ymin: bornes.yMin - 1,
+            xmax: bornes.xMax + 1,
+            ymax: bornes.yMax + 1,
+          },
+        ),
+        objetsEnonce,
+        o,
+      ) + '<br>'
     this.enonce += 'Une seule affirmation est correcte :'
 
     // Définir toutes les réponses possibles avec leur correction
     const bonnesReponses = [
       {
         texte: `Le produit des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] * solutions2[1]}$.`,
-        correction: AFC + `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
+        correction:
+          AFC +
+          `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
               Le produit de ces solutions est $${solutions2[0]}\\times ${ecritureParentheseSiNegatif(solutions2[1])}= ${solutions2[0] * solutions2[1]}$.`,
-        estCorrecte: true
+        estCorrecte: true,
       },
       {
         texte: `La somme  des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] + solutions2[1]}$.`,
-        correction: AFC + `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
+        correction:
+          AFC +
+          `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
               La somme de ces solutions est $${solutions2[0]}+ ${ecritureParentheseSiNegatif(solutions2[1])}= ${solutions2[0] + solutions2[1]}$.`,
-        estCorrecte: true
+        estCorrecte: true,
       },
       {
         texte: `La somme  des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
-        correction: AFC + `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
+        correction:
+          AFC +
+          `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
               La somme de ces solutions est $${solutions3[0]}+ ${ecritureParentheseSiNegatif(solutions3[1])}+${ecritureParentheseSiNegatif(solutions3[2])}= ${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
-        estCorrecte: true
+        estCorrecte: true,
       },
       {
         texte: `Le produit des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
-        correction: AFC + `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
+        correction:
+          AFC +
+          `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
               Le produit de ces solutions est $${solutions3[0]}\\times ${solutions3[1]}\\times ${ecritureParentheseSiNegatif(solutions3[2])}= ${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
-        estCorrecte: true
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in\\mathbb{R}$. <br>
               L'équation $f(x)=k$ a au plus $3$ solutions.`,
-        correction: AFC + 'Une droite horizontale coupe au plus trois fois la courbe, donc le nombre maximal de solutions est $3$.',
-        estCorrecte: true
+        correction:
+          AFC +
+          'Une droite horizontale coupe au plus trois fois la courbe, donc le nombre maximal de solutions est $3$.',
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
               L'équation $f(x)=k$ admet exactement deux solutions.`,
-        correction: AFC + `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
-        estCorrecte: true
+        correction:
+          AFC +
+          `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$. <br>
               L'équation $f(x)=k$ admet exactement deux solutions.`,
-        correction: AFC + `Si $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$,  la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
-        estCorrecte: true
+        correction:
+          AFC +
+          `Si $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$,  la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in\\mathbb{R}$. <br>
               Il existe une infinité de valeurs de $k$ pour lesquelles l'équation $f(x)=k$ admet exactement trois solutions.`,
-        correction: AFC + `Pour toutes les valeurs de $k$ comprises  entre $${Math.min(theSpline.y[0], theSpline.y[9])}$ et $${Math.max(theSpline.y[0], theSpline.y[9])}$, l'équation $f(x)=k$ admet exactement trois solutions.`,
-        estCorrecte: true
+        correction:
+          AFC +
+          `Pour toutes les valeurs de $k$ comprises  entre $${Math.min(theSpline.y[0], theSpline.y[9])}$ et $${Math.max(theSpline.y[0], theSpline.y[9])}$, l'équation $f(x)=k$ admet exactement trois solutions.`,
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$. <br>
               L'équation $f(x)=k$ admet exactement trois solutions.`,
-        correction: AFC + `Si $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$ la droite d'équation $y=k$ coupe bien trois la courbe.`,
-        estCorrecte: true
-      }
+        correction:
+          AFC +
+          `Si $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$ la droite d'équation $y=k$ coupe bien trois la courbe.`,
+        estCorrecte: true,
+      },
     ]
 
     const mauvaisesReponses = [
       {
         texte: `Le produit des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] + solutions2[1]}$.`,
-        correction: AFF + `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
+        correction:
+          AFF +
+          `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
               Le produit de ces solutions est $${solutions2[0]}\\times ${ecritureParentheseSiNegatif(solutions2[1])}= ${solutions2[0] * solutions2[1]}$.`,
-        estCorrecte: true
+        estCorrecte: true,
       },
       {
         texte: `La somme  des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] * solutions2[1]}$.`,
-        correction: AFF + `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
+        correction:
+          AFF +
+          `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
               La somme de ces solutions est $${solutions2[0]}+ ${ecritureParentheseSiNegatif(solutions2[1])}= ${solutions2[0] + solutions2[1]}$.`,
-        estCorrecte: true
+        estCorrecte: true,
       },
       {
         texte: `La somme  des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
-        correction: AFF + `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
+        correction:
+          AFF +
+          `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
               La somme de ces solutions est $${solutions3[0]}+ ${ecritureParentheseSiNegatif(solutions3[1])}+${ecritureParentheseSiNegatif(solutions3[2])}= ${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
-        estCorrecte: true
+        estCorrecte: true,
       },
       {
         texte: `Le produit des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
-        correction: AFF + `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
+        correction:
+          AFF +
+          `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
               Le produit de ces solutions est $${solutions3[0]}\\times ${solutions3[1]}\\times ${ecritureParentheseSiNegatif(solutions3[2])}= ${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
-        estCorrecte: true
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in\\mathbb{R}$. <br>
               L'équation $f(x)=k$ a au plus $4$ solutions.`,
-        correction: AFF + 'Une droite horizontale coupe au plus trois fois la courbe, donc le nombre maximal de solutions est $3$.',
-        estCorrecte: true
+        correction:
+          AFF +
+          'Une droite horizontale coupe au plus trois fois la courbe, donc le nombre maximal de solutions est $3$.',
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
               L'équation $f(x)=k$ admet exactement trois solutions.`,
-        correction: AFF + `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
-        estCorrecte: true
+        correction:
+          AFF +
+          `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$. <br>
               L'équation $f(x)=k$ admet exactement trois solutions.`,
-        correction: AFF + `Si $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$,  la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
-        estCorrecte: true
+        correction:
+          AFF +
+          `Si $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$,  la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in\\mathbb{R}$. <br>
               Il n'existe que deux valeurs de $k$ pour lesquelles l'équation $f(x)=k$ ait exactement trois solutions.`,
-        correction: AFC + `Pour toutes les valeurs de $k$ comprises  entre $${Math.min(theSpline.y[0], theSpline.y[9])}$ et $${Math.max(theSpline.y[0], theSpline.y[9])}$, l'équation $f(x)=k$ admet exactement trois solutions.`,
-        estCorrecte: true
+        correction:
+          AFC +
+          `Pour toutes les valeurs de $k$ comprises  entre $${Math.min(theSpline.y[0], theSpline.y[9])}$ et $${Math.max(theSpline.y[0], theSpline.y[9])}$, l'équation $f(x)=k$ admet exactement trois solutions.`,
+        estCorrecte: true,
       },
       {
         texte: `Soit $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$. <br>
               L'équation $f(x)=k$ admet exactement deux solutions.`,
-        correction: AFF + `Si $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$ la droite d'équation $y=k$ coupe  trois la courbe et donc l'équation a trois solutions.`,
-        estCorrecte: true
-      }
+        correction:
+          AFF +
+          `Si $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$ la droite d'équation $y=k$ coupe  trois la courbe et donc l'équation a trois solutions.`,
+        estCorrecte: true,
+      },
     ]
     /* // ========== MODE TEST - AFFICHAGE DE TOUTES LES RÉPONSES ==========
     // Afficher TOUTES les bonnes réponses avec leurs corrections
@@ -333,14 +440,19 @@ export default class AutoF4 extends ExerciceQcmA {
     // ========== FIN MODE TEST ========== */
     // Choisir une bonne réponse et 3 mauvaises réponses distinctes
     const bonneReponseChoisie = choice(bonnesReponses)
-    const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(() => Math.random() - 0.5)
+    const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(
+      () => Math.random() - 0.5,
+    )
     const mauvaisesReponsesChoisies = mauvaisesReponsesMelangees.slice(0, 3)
 
     // Constituer le tableau des réponses (bonne réponse en premier)
-    const toutesLesReponses = [bonneReponseChoisie, ...mauvaisesReponsesChoisies]
+    const toutesLesReponses = [
+      bonneReponseChoisie,
+      ...mauvaisesReponsesChoisies,
+    ]
 
     // Extraire les textes pour this.reponses
-    this.reponses = toutesLesReponses.map(reponse => reponse.texte)
+    this.reponses = toutesLesReponses.map((reponse) => reponse.texte)
 
     // Construire la correction en analysant chaque réponse
     this.correction = ''
@@ -350,7 +462,7 @@ export default class AutoF4 extends ExerciceQcmA {
     })
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
     this.options = { vertical: true, ordered: false }

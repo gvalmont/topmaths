@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '6d3cf'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q25 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,11 +27,13 @@ export default class Can2025N5Q25 extends ExerciceSimple {
     this.canOfficielle = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let solution1
     const a = this.canOfficielle ? -2025 : choice([-2025, 2025])
     const b = this.canOfficielle ? 2025 : choice([-2025, 2025])
-    const inégalité = this.canOfficielle ? '>' : choice(['>', '\\geqslant', '<', '\\leqslant'])
+    const inégalité = this.canOfficielle
+      ? '>'
+      : choice(['>', '\\geqslant', '<', '\\leqslant'])
     this.question = `$S$ est l'ensemble des  solutions  de l'inéquation
              $${texNombre(a, 0)}(x${ecritureAlgebrique(-b)})^2 ${inégalité} 0$.<br>`
 
@@ -43,20 +45,33 @@ export default class Can2025N5Q25 extends ExerciceSimple {
                Ainsi, l'ensemble $S$ des solutions de l'inéquation est `
     }
     if ((inégalité === '>' && a > 0) || (inégalité === '<' && a < 0)) {
-      solution1 = [`$\\mathbb{R}\\\\{${b}\\}$`, `]-\\infty;${a}[ \\cup ]${a};+\\infty[`]
+      solution1 = [
+        `$\\mathbb{R}\\\\{${b}\\}$`,
+        `]-\\infty;${a}[ \\cup ]${a};+\\infty[`,
+      ]
       this.correction += ` $${miseEnEvidence(`\\mathbb{R}\\smallsetminus\\{${texNombre(b)}\\}`)}$.`
-    } else if ((inégalité === '\\geqslant' && a > 0) || (inégalité === '\\leqslant' && a < 0)) {
+    } else if (
+      (inégalité === '\\geqslant' && a > 0) ||
+      (inégalité === '\\leqslant' && a < 0)
+    ) {
       solution1 = ['$\\mathbb{R}$', ']-\\infty;+\\infty[']
       this.correction += ` $${miseEnEvidence('\\mathbb{R}')}$.`
     } else if ((inégalité === '<' && a > 0) || (inégalité === '>' && a < 0)) {
       solution1 = '$\\emptyset$'
       this.correction += ` $${miseEnEvidence('\\emptyset')}$.`
-    } else if ((inégalité === '\\leqslant' && a > 0) || (inégalité === '\\geqslant' && a < 0)) {
+    } else if (
+      (inégalité === '\\leqslant' && a > 0) ||
+      (inégalité === '\\geqslant' && a < 0)
+    ) {
       solution1 = `$\\left\\lbrace${b}\\right\\rbrace$`
       this.correction += ` $${miseEnEvidence(`\\{${texNombre(b)}\\}`)}$.`
     }
     this.reponse = solution1
-    if (this.interactif) { this.question += '$S=$' } else { this.question += '$S=\\ldots$' }
+    if (this.interactif) {
+      this.question += '$S=$'
+    } else {
+      this.question += '$S=\\ldots$'
+    }
     this.canEnonce = `$S$ est l'ensemble des  solutions  de l'inéquation
              $${texNombre(a, 0)}(x${ecritureAlgebrique(-b)})^2 ${inégalité} 0$.`
     this.canReponseACompleter = '$S=\\ldots$'

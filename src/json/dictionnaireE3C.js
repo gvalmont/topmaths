@@ -28,7 +28,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen1_1.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen1_1_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2021_01_specimen1_2: {
     annee: '2021',
@@ -40,7 +40,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen1_2.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen1_2_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   e3c_2021_01_specimen1_3: {
     annee: '2021',
@@ -52,7 +52,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen1_3.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen1_3_cor.tex',
-    tags: ['Dérivation', 'Second degré', 'Polynômes']
+    tags: ['Dérivation', 'Second degré', 'Polynômes'],
   },
   e3c_2021_01_specimen1_4: {
     annee: '2021',
@@ -64,7 +64,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen1_4.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen1_4_cor.tex',
-    tags: ['Géométrie repérée']
+    tags: ['Géométrie repérée'],
   },
 
   e3c_2021_01_specimen2_1: {
@@ -77,7 +77,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen2_1.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen2_1_cor.tex',
-    tags: ['QCM', 'Polynômes', 'Second degré', 'Trigonométrie', 'Géométrie repérée']
+    tags: [
+      'QCM',
+      'Polynômes',
+      'Second degré',
+      'Trigonométrie',
+      'Géométrie repérée',
+    ],
   },
   e3c_2021_01_specimen2_2: {
     annee: '2021',
@@ -89,7 +95,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen2_2.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen2_2_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2021_01_specimen2_3: {
     annee: '2021',
@@ -101,7 +107,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen2_3.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen2_3_cor.tex',
-    tags: ['Variables aléatoires']
+    tags: ['Variables aléatoires'],
   },
   e3c_2021_01_specimen2_4: {
     annee: '2021',
@@ -113,7 +119,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen2_4.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen2_4_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2021_01_specimen3_1: {
     annee: '2021',
@@ -125,7 +131,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen3_1.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen3_1_cor.tex',
-    tags: ['QCM', 'Polynômes', 'Dérivation', 'Suites', 'Second degré', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Polynômes',
+      'Dérivation',
+      'Suites',
+      'Second degré',
+      'Trigonométrie',
+    ],
   },
   e3c_2021_01_specimen3_2: {
     annee: '2021',
@@ -137,7 +150,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen3_2.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen3_2_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2021_01_specimen3_3: {
     annee: '2021',
@@ -149,7 +162,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen3_3.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen3_3_cor.tex',
-    tags: ['Probabilités', 'Variables aléatoires']
+    tags: ['Probabilités', 'Variables aléatoires'],
   },
   e3c_2021_01_specimen3_4: {
     annee: '2021',
@@ -161,7 +174,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen3_4.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen3_4_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2021_01_specimen4_1: {
     annee: '2021',
@@ -173,7 +186,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen4_1.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen4_1_cor.tex',
-    tags: ['QCM', 'Exponentielle', 'Dérivation', 'Suites', 'Algorithmie']
+    tags: ['QCM', 'Exponentielle', 'Dérivation', 'Suites', 'Algorithmie'],
   },
   e3c_2021_01_specimen4_2: {
     annee: '2021',
@@ -185,7 +198,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen4_2.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen4_2_cor.tex',
-    tags: ['Polynômes', 'Exponentielle', 'Dérivation']
+    tags: ['Polynômes', 'Exponentielle', 'Dérivation'],
   },
   e3c_2021_01_specimen4_3: {
     annee: '2021',
@@ -197,7 +210,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen4_3.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen4_3_cor.tex',
-    tags: ['Probabilités', 'Variables aléatoires']
+    tags: ['Probabilités', 'Variables aléatoires'],
   },
   e3c_2021_01_specimen4_4: {
     annee: '2021',
@@ -209,7 +222,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_01_specimen4_4.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_01_specimen4_4_cor.tex',
-    tags: ['Géométrie repérée']
+    tags: ['Géométrie repérée'],
   },
   e3c_2021_06_ameriquenord_1: {
     annee: '2021',
@@ -221,7 +234,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_06_ameriquenord_1.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_06_ameriquenord_1_cor.tex',
-    tags: ['QCM', 'Exponentielle', 'Dérivation', 'Géométrie repérée', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Exponentielle',
+      'Dérivation',
+      'Géométrie repérée',
+      'Trigonométrie',
+    ],
   },
   e3c_2021_06_ameriquenord_2: {
     annee: '2021',
@@ -233,7 +252,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_06_ameriquenord_2.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_06_ameriquenord_2_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2021_06_ameriquenord_3: {
     annee: '2021',
@@ -245,7 +264,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_06_ameriquenord_3.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_06_ameriquenord_3_cor.tex',
-    tags: ['Polynômes', 'Dérivation']
+    tags: ['Polynômes', 'Dérivation'],
   },
   e3c_2021_06_ameriquenord_4: {
     annee: '2021',
@@ -257,7 +276,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2021/tex/e3c_2021_06_ameriquenord_4.tex',
     urlcor: 'static/e3c/2021/tex/e3c_2021_06_ameriquenord_4_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
 
   e3c_2020_00_sujet1_1: {
@@ -270,7 +289,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet1_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet1_1_cor.tex',
-    tags: ['QCM', 'Dérivation', 'Produit scalaire']
+    tags: ['QCM', 'Dérivation', 'Produit scalaire'],
   },
   e3c_2020_00_sujet1_2: {
     annee: '2020',
@@ -282,7 +301,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet1_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet1_2_cor.tex',
-    tags: ['Dérivation', 'Exponentielle']
+    tags: ['Dérivation', 'Exponentielle'],
   },
   e3c_2020_00_sujet1_3: {
     annee: '2020',
@@ -294,7 +313,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet1_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet1_3_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2020_00_sujet1_4: {
     annee: '2020',
@@ -306,7 +325,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet1_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet1_4_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   e3c_2020_00_sujet2_1: {
     annee: '2020',
@@ -318,7 +337,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet2_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet2_1_cor.tex',
-    tags: ['QCM', 'Dérivation', 'Exponentielle', 'Géométrie repérée']
+    tags: ['QCM', 'Dérivation', 'Exponentielle', 'Géométrie repérée'],
   },
   e3c_2020_00_sujet2_2: {
     annee: '2020',
@@ -330,7 +349,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet2_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet2_2_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   e3c_2020_00_sujet2_3: {
     annee: '2020',
@@ -342,7 +361,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet2_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet2_3_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2020_00_sujet2_4: {
     annee: '2020',
@@ -354,7 +373,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet2_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet2_4_cor.tex',
-    tags: ['Produit scalaire']
+    tags: ['Produit scalaire'],
   },
   e3c_2020_00_sujet3_1: {
     annee: '2020',
@@ -366,7 +385,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet3_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet3_1_cor.tex',
-    tags: ['QCM', 'Probabilités', 'Variables aléatoires', 'Algorithmie']
+    tags: ['QCM', 'Probabilités', 'Variables aléatoires', 'Algorithmie'],
   },
   e3c_2020_00_sujet3_2: {
     annee: '2020',
@@ -378,7 +397,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet3_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet3_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet3_3: {
     annee: '2020',
@@ -390,7 +409,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet3_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet3_3_cor.tex',
-    tags: ['Dérivation', 'Exponentielle']
+    tags: ['Dérivation', 'Exponentielle'],
   },
   e3c_2020_00_sujet3_4: {
     annee: '2020',
@@ -402,7 +421,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet3_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet3_4_cor.tex',
-    tags: ['Géométrie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet4_1: {
     annee: '2020',
@@ -414,7 +433,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet4_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet4_1_cor.tex',
-    tags: ['QCM', 'Polynômes', 'Dérivation', 'Exponentielle', 'Géométrie repérée', 'Produit scalaire']
+    tags: [
+      'QCM',
+      'Polynômes',
+      'Dérivation',
+      'Exponentielle',
+      'Géométrie repérée',
+      'Produit scalaire',
+    ],
   },
   e3c_2020_00_sujet4_2: {
     annee: '2020',
@@ -426,7 +452,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet4_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet4_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet4_3: {
     annee: '2020',
@@ -438,7 +464,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet4_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet4_3_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   e3c_2020_00_sujet4_4: {
     annee: '2020',
@@ -450,7 +476,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet4_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet4_4_cor.tex',
-    tags: ['Dérivation']
+    tags: ['Dérivation'],
   },
 
   e3c_2020_00_sujet5_1: {
@@ -463,7 +489,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet5_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet5_1_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Produit scalaire']
+    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet5_2: {
     annee: '2020',
@@ -475,7 +501,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet5_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet5_2_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   e3c_2020_00_sujet5_3: {
     annee: '2020',
@@ -487,7 +513,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet5_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet5_3_cor.tex',
-    tags: ['Dérivation']
+    tags: ['Dérivation'],
   },
   e3c_2020_00_sujet5_4: {
     annee: '2020',
@@ -499,7 +525,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet5_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet5_4_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
 
   e3c_2020_00_sujet6_1: {
@@ -512,7 +538,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet6_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet6_1_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Dérivation', 'Géométrie repérée', 'Produit scalaire']
+    tags: [
+      'QCM',
+      'Trigonométrie',
+      'Dérivation',
+      'Géométrie repérée',
+      'Produit scalaire',
+    ],
   },
   e3c_2020_00_sujet6_2: {
     annee: '2020',
@@ -524,7 +556,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet6_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet6_2_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   e3c_2020_00_sujet6_3: {
     annee: '2020',
@@ -536,7 +568,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet6_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet6_3_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2020_00_sujet6_4: {
     annee: '2020',
@@ -548,7 +580,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet6_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet6_4_cor.tex',
-    tags: ['Dérivation']
+    tags: ['Dérivation'],
   },
   e3c_2020_00_sujet7_1: {
     annee: '2020',
@@ -560,7 +592,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet7_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet7_1_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Produit scalaire']
+    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet7_2: {
     annee: '2020',
@@ -572,7 +604,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet7_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet7_2_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   e3c_2020_00_sujet7_3: {
     annee: '2020',
@@ -584,7 +616,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet7_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet7_3_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2020_00_sujet7_4: {
     annee: '2020',
@@ -596,7 +628,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet7_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet7_4_cor.tex',
-    tags: ['Polynômes', 'Dérivation']
+    tags: ['Polynômes', 'Dérivation'],
   },
   e3c_2020_00_sujet8_1: {
     annee: '2020',
@@ -608,7 +640,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet8_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet8_1_cor.tex',
-    tags: ['QCM', 'Suites', 'Trigonométrie', 'Exponentielle', 'Variables aléatoires', 'Probabilités']
+    tags: [
+      'QCM',
+      'Suites',
+      'Trigonométrie',
+      'Exponentielle',
+      'Variables aléatoires',
+      'Probabilités',
+    ],
   },
   e3c_2020_00_sujet8_2: {
     annee: '2020',
@@ -620,7 +659,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet8_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet8_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet8_3: {
     annee: '2020',
@@ -632,7 +671,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet8_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet8_3_cor.tex',
-    tags: ['Dérivation']
+    tags: ['Dérivation'],
   },
   e3c_2020_00_sujet8_4: {
     annee: '2020',
@@ -644,7 +683,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet8_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet8_4_cor.tex',
-    tags: ['Géométrie repérée']
+    tags: ['Géométrie repérée'],
   },
 
   e3c_2020_00_sujet10_1: {
@@ -657,7 +696,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet10_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet10_1_cor.tex',
-    tags: ['QCM', 'Probabilités', 'Second degré', 'Suites', 'Algorithmie', 'Produit scalaire']
+    tags: [
+      'QCM',
+      'Probabilités',
+      'Second degré',
+      'Suites',
+      'Algorithmie',
+      'Produit scalaire',
+    ],
   },
   e3c_2020_00_sujet10_2: {
     annee: '2020',
@@ -669,7 +715,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet10_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet10_2_cor.tex',
-    tags: ['Polynômes', 'Dérivation']
+    tags: ['Polynômes', 'Dérivation'],
   },
   e3c_2020_00_sujet10_3: {
     annee: '2020',
@@ -681,7 +727,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet10_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet10_3_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités'],
   },
   e3c_2020_00_sujet10_4: {
     annee: '2020',
@@ -693,7 +739,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet10_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet10_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet11_1: {
     annee: '2020',
@@ -705,7 +751,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet11_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet11_1_cor.tex',
-    tags: ['QCM', 'Probabilités', 'Variables aléatoires']
+    tags: ['QCM', 'Probabilités', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet11_2: {
     annee: '2020',
@@ -717,7 +763,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet11_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet11_2_cor.tex',
-    tags: ['Produit scalaire']
+    tags: ['Produit scalaire'],
   },
   e3c_2020_00_sujet11_3: {
     annee: '2020',
@@ -729,7 +775,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet11_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet11_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet11_4: {
     annee: '2020',
@@ -741,7 +787,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet11_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet11_4_cor.tex',
-    tags: ['Dérivation', 'Polynômes']
+    tags: ['Dérivation', 'Polynômes'],
   },
   e3c_2020_00_sujet12_1: {
     annee: '2020',
@@ -753,7 +799,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet12_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet12_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Suites', 'Dérivation', 'Géométrie repérée']
+    tags: ['QCM', 'Second degré', 'Suites', 'Dérivation', 'Géométrie repérée'],
   },
   e3c_2020_00_sujet12_2: {
     annee: '2020',
@@ -765,7 +811,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet12_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet12_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet12_3: {
     annee: '2020',
@@ -777,7 +823,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet12_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet12_3_cor.tex',
-    tags: ['Dérivation', 'Polynômes']
+    tags: ['Dérivation', 'Polynômes'],
   },
   e3c_2020_00_sujet12_4: {
     annee: '2020',
@@ -789,7 +835,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet12_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet12_4_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet13_1: {
     annee: '2020',
@@ -801,7 +847,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet13_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet13_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Dérivation', 'Géométrie repérée']
+    tags: ['QCM', 'Second degré', 'Dérivation', 'Géométrie repérée'],
   },
   e3c_2020_00_sujet13_2: {
     annee: '2020',
@@ -813,7 +859,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet13_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet13_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet13_3: {
     annee: '2020',
@@ -825,7 +871,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet13_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet13_3_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet13_4: {
     annee: '2020',
@@ -837,7 +883,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet13_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet13_4_cor.tex',
-    tags: ['Dérivation', 'Polynômes']
+    tags: ['Dérivation', 'Polynômes'],
   },
   e3c_2020_00_sujet14_1: {
     annee: '2020',
@@ -849,7 +895,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet14_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet14_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Produit scalaire', 'Probabilités conditionnelles', 'Suites', 'Dérivation']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Produit scalaire',
+      'Probabilités conditionnelles',
+      'Suites',
+      'Dérivation',
+    ],
   },
   e3c_2020_00_sujet14_2: {
     annee: '2020',
@@ -861,7 +914,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet14_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet14_2_cor.tex',
-    tags: ['Dérivation']
+    tags: ['Dérivation'],
   },
   e3c_2020_00_sujet14_3: {
     annee: '2020',
@@ -873,7 +926,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet14_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet14_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet14_4: {
     annee: '2020',
@@ -885,7 +938,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet14_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet14_4_cor.tex',
-    tags: ['Géométrie repérée']
+    tags: ['Géométrie repérée'],
   },
   e3c_2020_00_sujet9_1: {
     annee: '2020',
@@ -897,7 +950,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet9_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet9_1_cor.tex',
-    tags: ['QCM', 'Probabilités conditionnelles', 'Géométrie repérée', 'Trigonométrie', 'Dérivation']
+    tags: [
+      'QCM',
+      'Probabilités conditionnelles',
+      'Géométrie repérée',
+      'Trigonométrie',
+      'Dérivation',
+    ],
   },
   e3c_2020_00_sujet9_2: {
     annee: '2020',
@@ -909,7 +968,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet9_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet9_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet9_3: {
     annee: '2020',
@@ -921,7 +980,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet9_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet9_3_cor.tex',
-    tags: ['Géométrie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet9_4: {
     annee: '2020',
@@ -933,7 +992,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet9_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet9_4_cor.tex',
-    tags: ['Dérivation', 'Python', 'Algorithmie']
+    tags: ['Dérivation', 'Python', 'Algorithmie'],
   },
 
   e3c_2020_00_sujet15_1: {
@@ -946,7 +1005,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet15_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet15_1_cor.tex',
-    tags: ['Algorithmie', 'Dérivation', 'Suites', 'Variables aléatoires', 'QCM']
+    tags: [
+      'Algorithmie',
+      'Dérivation',
+      'Suites',
+      'Variables aléatoires',
+      'QCM',
+    ],
   },
   e3c_2020_00_sujet15_2: {
     annee: '2020',
@@ -958,7 +1023,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet15_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet15_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet15_3: {
     annee: '2020',
@@ -970,7 +1035,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet15_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet15_3_cor.tex',
-    tags: ['Produit scalaire']
+    tags: ['Produit scalaire'],
   },
   e3c_2020_00_sujet15_4: {
     annee: '2020',
@@ -982,7 +1047,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet15_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet15_4_cor.tex',
-    tags: ['Dérivation', 'Second degré']
+    tags: ['Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet16_1: {
     annee: '2020',
@@ -994,7 +1059,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet16_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet16_1_cor.tex',
-    tags: ['Dérivation', 'Trigonométrie', 'Géométrie repérée', 'QCM']
+    tags: ['Dérivation', 'Trigonométrie', 'Géométrie repérée', 'QCM'],
   },
   e3c_2020_00_sujet16_2: {
     annee: '2020',
@@ -1006,7 +1071,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet16_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet16_2_cor.tex',
-    tags: ['Dérivation', 'Second degré']
+    tags: ['Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet16_3: {
     annee: '2020',
@@ -1018,7 +1083,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet16_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet16_3_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires', 'QCM']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires', 'QCM'],
   },
   e3c_2020_00_sujet16_4: {
     annee: '2020',
@@ -1030,7 +1095,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet16_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet16_4_cor.tex',
-    tags: ['Algorithmie', 'Suites']
+    tags: ['Algorithmie', 'Suites'],
   },
   e3c_2020_00_sujet17_1: {
     annee: '2020',
@@ -1042,7 +1107,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet17_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet17_1_cor.tex',
-    tags: ['Géométrie repérée', 'Suites', 'Second degré', 'Variables aléatoires', 'QCM']
+    tags: [
+      'Géométrie repérée',
+      'Suites',
+      'Second degré',
+      'Variables aléatoires',
+      'QCM',
+    ],
   },
   e3c_2020_00_sujet17_2: {
     annee: '2020',
@@ -1054,7 +1125,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet17_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet17_2_cor.tex',
-    tags: ['Dérivation']
+    tags: ['Dérivation'],
   },
   e3c_2020_00_sujet17_3: {
     annee: '2020',
@@ -1066,7 +1137,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet17_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet17_3_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet17_4: {
     annee: '2020',
@@ -1078,7 +1149,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet17_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet17_4_cor.tex',
-    tags: ['Produit scalaire']
+    tags: ['Produit scalaire'],
   },
   e3c_2020_00_sujet18_1: {
     annee: '2020',
@@ -1090,7 +1161,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet18_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet18_1_cor.tex',
-    tags: ['Exponentielle', 'Probabilités conditionnelles', 'QCM']
+    tags: ['Exponentielle', 'Probabilités conditionnelles', 'QCM'],
   },
   e3c_2020_00_sujet18_2: {
     annee: '2020',
@@ -1102,7 +1173,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet18_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet18_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet18_3: {
     annee: '2020',
@@ -1114,7 +1185,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet18_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet18_3_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet18_4: {
     annee: '2020',
@@ -1126,7 +1197,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet18_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet18_4_cor.tex',
-    tags: ['Dérivation', 'Second degré']
+    tags: ['Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet19_1: {
     annee: '2020',
@@ -1138,7 +1209,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet19_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet19_1_cor.tex',
-    tags: ['Dérivation', 'Exponentielle', 'Second degré', 'QCM']
+    tags: ['Dérivation', 'Exponentielle', 'Second degré', 'QCM'],
   },
   e3c_2020_00_sujet19_2: {
     annee: '2020',
@@ -1150,7 +1221,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet19_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet19_2_cor.tex',
-    tags: ['Algorithmie', 'Suites']
+    tags: ['Algorithmie', 'Suites'],
   },
   e3c_2020_00_sujet19_3: {
     annee: '2020',
@@ -1162,7 +1233,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet19_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet19_3_cor.tex',
-    tags: ['Dérivation', 'Polynômes']
+    tags: ['Dérivation', 'Polynômes'],
   },
   e3c_2020_00_sujet19_4: {
     annee: '2020',
@@ -1174,7 +1245,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet19_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet19_4_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet20_1: {
     annee: '2020',
@@ -1186,7 +1257,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet20_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet20_1_cor.tex',
-    tags: ['Dérivation', 'Exponentielle', 'Géométrie repérée', 'Produit scalaire', 'QCM']
+    tags: [
+      'Dérivation',
+      'Exponentielle',
+      'Géométrie repérée',
+      'Produit scalaire',
+      'QCM',
+    ],
   },
   e3c_2020_00_sujet20_2: {
     annee: '2020',
@@ -1198,7 +1275,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet20_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet20_2_cor.tex',
-    tags: ['Dérivation', 'Second degré']
+    tags: ['Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet20_3: {
     annee: '2020',
@@ -1210,7 +1287,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet20_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet20_3_cor.tex',
-    tags: ['Algorithmie', 'Suites']
+    tags: ['Algorithmie', 'Suites'],
   },
   e3c_2020_00_sujet20_4: {
     annee: '2020',
@@ -1222,7 +1299,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet20_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet20_4_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet21_1: {
     annee: '2020',
@@ -1234,7 +1311,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet21_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet21_1_cor.tex',
-    tags: ['Suites', 'Second degré', 'QCM']
+    tags: ['Suites', 'Second degré', 'QCM'],
   },
   e3c_2020_00_sujet21_2: {
     annee: '2020',
@@ -1246,7 +1323,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet21_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet21_2_cor.tex',
-    tags: ['Algorithmie', 'Dérivation', 'Exponentielle']
+    tags: ['Algorithmie', 'Dérivation', 'Exponentielle'],
   },
   e3c_2020_00_sujet21_3: {
     annee: '2020',
@@ -1258,7 +1335,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet21_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet21_3_cor.tex',
-    tags: ['Produit scalaire']
+    tags: ['Produit scalaire'],
   },
   e3c_2020_00_sujet21_4: {
     annee: '2020',
@@ -1270,7 +1347,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet21_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet21_4_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
 
   e3c_2020_00_sujet22_1: {
@@ -1283,7 +1360,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet22_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet22_1_cor.tex',
-    tags: ['Dérivation', 'Exponentielle', 'Polynômes', 'QCM']
+    tags: ['Dérivation', 'Exponentielle', 'Polynômes', 'QCM'],
   },
   e3c_2020_00_sujet22_2: {
     annee: '2020',
@@ -1295,7 +1372,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet22_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet22_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet22_3: {
     annee: '2020',
@@ -1307,7 +1384,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet22_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet22_3_cor.tex',
-    tags: ['Géométrie repérée']
+    tags: ['Géométrie repérée'],
   },
   e3c_2020_00_sujet22_4: {
     annee: '2020',
@@ -1319,7 +1396,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet22_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet22_4_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet23_1: {
     annee: '2020',
@@ -1331,7 +1408,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet23_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet23_1_cor.tex',
-    tags: ['QCM', 'Polynômes', 'Exponentielle', 'Python', 'Géométrie repérée']
+    tags: ['QCM', 'Polynômes', 'Exponentielle', 'Python', 'Géométrie repérée'],
   },
   e3c_2020_00_sujet23_2: {
     annee: '2020',
@@ -1343,7 +1420,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet23_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet23_2_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet23_3: {
     annee: '2020',
@@ -1355,7 +1432,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet23_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet23_3_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet23_4: {
     annee: '2020',
@@ -1367,7 +1444,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet23_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet23_4_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2020_00_sujet24_1: {
     annee: '2020',
@@ -1379,7 +1456,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet24_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet24_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Second degré']
+    tags: ['QCM', 'Géométrie repérée', 'Second degré'],
   },
   e3c_2020_00_sujet24_2: {
     annee: '2020',
@@ -1391,7 +1468,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet24_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet24_2_cor.tex',
-    tags: ['Dérivation', 'Exponentielle', 'Second degré']
+    tags: ['Dérivation', 'Exponentielle', 'Second degré'],
   },
   e3c_2020_00_sujet24_3: {
     annee: '2020',
@@ -1403,7 +1480,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet24_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet24_3_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet24_4: {
     annee: '2020',
@@ -1415,7 +1492,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet24_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet24_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet25_1: {
     annee: '2020',
@@ -1427,7 +1504,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet25_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet25_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Second degré', 'Exponentielle']
+    tags: ['QCM', 'Géométrie repérée', 'Second degré', 'Exponentielle'],
   },
   e3c_2020_00_sujet25_2: {
     annee: '2020',
@@ -1439,7 +1516,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet25_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet25_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet25_3: {
     annee: '2020',
@@ -1451,7 +1528,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet25_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet25_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet25_4: {
     annee: '2020',
@@ -1463,7 +1540,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet25_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet25_4_cor.tex',
-    tags: ['Second degré']
+    tags: ['Second degré'],
   },
 
   e3c_2020_00_sujet26_1: {
@@ -1476,7 +1553,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet26_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet26_1_cor.tex',
-    tags: ['QCM', 'Exponentielle', 'Second degré', 'Géométrie repérée', 'Suites']
+    tags: [
+      'QCM',
+      'Exponentielle',
+      'Second degré',
+      'Géométrie repérée',
+      'Suites',
+    ],
   },
   e3c_2020_00_sujet26_2: {
     annee: '2020',
@@ -1488,7 +1571,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet26_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet26_2_cor.tex',
-    tags: ['Polynômes', 'Dérivation']
+    tags: ['Polynômes', 'Dérivation'],
   },
   e3c_2020_00_sujet26_3: {
     annee: '2020',
@@ -1500,7 +1583,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet26_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet26_3_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet26_4: {
     annee: '2020',
@@ -1512,7 +1595,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet26_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet26_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet27_1: {
     annee: '2020',
@@ -1524,7 +1607,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet27_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet27_1_cor.tex',
-    tags: ['QCM', 'Exponentielle', 'Dérivation', 'Second degré', 'Suites']
+    tags: ['QCM', 'Exponentielle', 'Dérivation', 'Second degré', 'Suites'],
   },
   e3c_2020_00_sujet27_2: {
     annee: '2020',
@@ -1536,7 +1619,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet27_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet27_2_cor.tex',
-    tags: ['Polynômes', 'Dérivation']
+    tags: ['Polynômes', 'Dérivation'],
   },
   e3c_2020_00_sujet27_3: {
     annee: '2020',
@@ -1548,7 +1631,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet27_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet27_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet27_4: {
     annee: '2020',
@@ -1560,7 +1643,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet27_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet27_4_cor.tex',
-    tags: ['Probabilités', 'Probabilités conditionnelles']
+    tags: ['Probabilités', 'Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet28_1: {
     annee: '2020',
@@ -1572,7 +1655,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet28_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet28_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Dérivation', 'Second degré', 'Exponentielle']
+    tags: [
+      'QCM',
+      'Géométrie repérée',
+      'Dérivation',
+      'Second degré',
+      'Exponentielle',
+    ],
   },
   e3c_2020_00_sujet28_2: {
     annee: '2020',
@@ -1584,7 +1673,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet28_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet28_2_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet28_3: {
     annee: '2020',
@@ -1596,7 +1685,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet28_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet28_3_cor.tex',
-    tags: ['Suites', 'Algorithmie']
+    tags: ['Suites', 'Algorithmie'],
   },
   e3c_2020_00_sujet28_4: {
     annee: '2020',
@@ -1608,7 +1697,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet28_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet28_4_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet29_1: {
     annee: '2020',
@@ -1620,7 +1709,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet29_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet29_1_cor.tex',
-    tags: ['QCM', 'Probabilités conditionnelles', 'Second degré', 'Géométrie repérée', 'Suites']
+    tags: [
+      'QCM',
+      'Probabilités conditionnelles',
+      'Second degré',
+      'Géométrie repérée',
+      'Suites',
+    ],
   },
   e3c_2020_00_sujet29_2: {
     annee: '2020',
@@ -1632,7 +1727,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet29_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet29_2_cor.tex',
-    tags: ['Probabilités', 'Variables aléatoires']
+    tags: ['Probabilités', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet29_3: {
     annee: '2020',
@@ -1644,7 +1739,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet29_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet29_3_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet29_4: {
     annee: '2020',
@@ -1656,7 +1751,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet29_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet29_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet30_1: {
     annee: '2020',
@@ -1668,7 +1763,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet30_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet30_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Géométrie repérée']
+    tags: ['QCM', 'Second degré', 'Géométrie repérée'],
   },
   e3c_2020_00_sujet30_2: {
     annee: '2020',
@@ -1680,7 +1775,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet30_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet30_2_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet30_3: {
     annee: '2020',
@@ -1692,7 +1787,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet30_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet30_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet30_4: {
     annee: '2020',
@@ -1704,7 +1799,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet30_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet30_4_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet31_1: {
     annee: '2020',
@@ -1716,7 +1811,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet31_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet31_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Variables aléatoires', 'Exponentielle', 'Suites', 'Géométrie repérée']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Variables aléatoires',
+      'Exponentielle',
+      'Suites',
+      'Géométrie repérée',
+    ],
   },
   e3c_2020_00_sujet31_2: {
     annee: '2020',
@@ -1728,7 +1830,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet31_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet31_2_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet31_3: {
     annee: '2020',
@@ -1740,7 +1842,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet31_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet31_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet31_4: {
     annee: '2020',
@@ -1752,7 +1854,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet31_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet31_4_cor.tex',
-    tags: ['Probabilités', 'Probabilités conditionnelles']
+    tags: ['Probabilités', 'Probabilités conditionnelles'],
   },
 
   e3c_2020_00_sujet32_1: {
@@ -1765,7 +1867,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet32_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet32_1_cor.tex',
-    tags: ['QCM', 'Polynômes', 'Exponentielle', 'Géométrie repérée', 'Produit scalaire', 'Second degré']
+    tags: [
+      'QCM',
+      'Polynômes',
+      'Exponentielle',
+      'Géométrie repérée',
+      'Produit scalaire',
+      'Second degré',
+    ],
   },
   e3c_2020_00_sujet32_2: {
     annee: '2020',
@@ -1777,7 +1886,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet32_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet32_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet32_3: {
     annee: '2020',
@@ -1789,7 +1898,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet32_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet32_3_cor.tex',
-    tags: ['Dérivation']
+    tags: ['Dérivation'],
   },
   e3c_2020_00_sujet32_4: {
     annee: '2020',
@@ -1801,7 +1910,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet32_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet32_4_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet33_1: {
     annee: '2020',
@@ -1813,7 +1922,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet33_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet33_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Produit scalaire']
+    tags: ['QCM', 'Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet33_2: {
     annee: '2020',
@@ -1825,7 +1934,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet33_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet33_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet33_3: {
     annee: '2020',
@@ -1837,7 +1946,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet33_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet33_3_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet33_4: {
     annee: '2020',
@@ -1849,7 +1958,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet33_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet33_4_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet34_1: {
     annee: '2020',
@@ -1861,7 +1970,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet34_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet34_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Second degré', 'Dérivation', 'Exponentielle']
+    tags: [
+      'QCM',
+      'Géométrie repérée',
+      'Second degré',
+      'Dérivation',
+      'Exponentielle',
+    ],
   },
   e3c_2020_00_sujet34_2: {
     annee: '2020',
@@ -1873,7 +1988,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet34_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet34_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet34_3: {
     annee: '2020',
@@ -1885,7 +2000,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet34_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet34_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet34_4: {
     annee: '2020',
@@ -1897,7 +2012,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet34_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet34_4_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet35_1: {
     annee: '2020',
@@ -1909,7 +2024,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet35_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet35_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Géométrie repérée', 'Produit scalaire', 'Suites', 'Dérivation']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Géométrie repérée',
+      'Produit scalaire',
+      'Suites',
+      'Dérivation',
+    ],
   },
   e3c_2020_00_sujet35_2: {
     annee: '2020',
@@ -1921,7 +2043,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet35_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet35_2_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet35_3: {
     annee: '2020',
@@ -1933,7 +2055,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet35_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet35_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet35_4: {
     annee: '2020',
@@ -1945,7 +2067,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet35_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet35_4_cor.tex',
-    tags: ['Dérivation', 'Exponentielle']
+    tags: ['Dérivation', 'Exponentielle'],
   },
   e3c_2020_00_sujet36_1: {
     annee: '2020',
@@ -1957,7 +2079,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet36_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet36_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Suites', 'Dérivation', 'Probabilités conditionnelles']
+    tags: [
+      'QCM',
+      'Géométrie repérée',
+      'Suites',
+      'Dérivation',
+      'Probabilités conditionnelles',
+    ],
   },
   e3c_2020_00_sujet36_2: {
     annee: '2020',
@@ -1969,7 +2097,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet36_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet36_2_cor.tex',
-    tags: ['Géométrie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet36_3: {
     annee: '2020',
@@ -1981,7 +2109,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet36_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet36_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet36_4: {
     annee: '2020',
@@ -1993,7 +2121,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet36_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet36_4_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet37_1: {
     annee: '2020',
@@ -2005,7 +2133,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet37_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet37_1_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Produit scalaire', 'Suites']
+    tags: ['QCM', 'Trigonométrie', 'Produit scalaire', 'Suites'],
   },
   e3c_2020_00_sujet37_2: {
     annee: '2020',
@@ -2017,7 +2145,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet37_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet37_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet37_3: {
     annee: '2020',
@@ -2029,7 +2157,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet37_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet37_3_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet37_4: {
     annee: '2020',
@@ -2041,7 +2169,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet37_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet37_4_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet38_1: {
     annee: '2020',
@@ -2053,7 +2181,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet38_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet38_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Trigonométrie', 'Géométrie repérée', 'Dérivation']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Trigonométrie',
+      'Géométrie repérée',
+      'Dérivation',
+    ],
   },
   e3c_2020_00_sujet38_2: {
     annee: '2020',
@@ -2065,7 +2199,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet38_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet38_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet38_3: {
     annee: '2020',
@@ -2077,7 +2211,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet38_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet38_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet38_4: {
     annee: '2020',
@@ -2089,7 +2223,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet38_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet38_4_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet39_1: {
     annee: '2020',
@@ -2101,7 +2235,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet39_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet39_1_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Dérivation', 'Probabilités', 'Second degré', 'Variables aléatoires']
+    tags: [
+      'QCM',
+      'Trigonométrie',
+      'Dérivation',
+      'Probabilités',
+      'Second degré',
+      'Variables aléatoires',
+    ],
   },
   e3c_2020_00_sujet39_2: {
     annee: '2020',
@@ -2113,7 +2254,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet39_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet39_2_cor.tex',
-    tags: ['Second degré', 'Dérivation', 'Produit scalaire']
+    tags: ['Second degré', 'Dérivation', 'Produit scalaire'],
   },
   e3c_2020_00_sujet39_3: {
     annee: '2020',
@@ -2125,7 +2266,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet39_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet39_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet39_4: {
     annee: '2020',
@@ -2137,7 +2278,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet39_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet39_4_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet40_1: {
     annee: '2020',
@@ -2149,7 +2290,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet40_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet40_1_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Produit scalaire', 'Dérivation', 'Géométrie repérée', 'Suites']
+    tags: [
+      'QCM',
+      'Trigonométrie',
+      'Produit scalaire',
+      'Dérivation',
+      'Géométrie repérée',
+      'Suites',
+    ],
   },
   e3c_2020_00_sujet40_2: {
     annee: '2020',
@@ -2161,7 +2309,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet40_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet40_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet40_3: {
     annee: '2020',
@@ -2173,7 +2321,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet40_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet40_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet40_4: {
     annee: '2020',
@@ -2185,7 +2333,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet40_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet40_4_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet41_1: {
     annee: '2020',
@@ -2197,7 +2345,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet41_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet41_1_cor.tex',
-    tags: ['QCM', 'Produit scalaire', 'Trigonométrie', 'Géométrie repérée']
+    tags: ['QCM', 'Produit scalaire', 'Trigonométrie', 'Géométrie repérée'],
   },
   e3c_2020_00_sujet41_2: {
     annee: '2020',
@@ -2209,7 +2357,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet41_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet41_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet41_3: {
     annee: '2020',
@@ -2221,7 +2369,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet41_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet41_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet41_4: {
     annee: '2020',
@@ -2233,7 +2381,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet41_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet41_4_cor.tex',
-    tags: ['Dérivation']
+    tags: ['Dérivation'],
   },
 
   e3c_2020_00_sujet42_1: {
@@ -2246,7 +2394,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet42_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet42_1_cor.tex',
-    tags: ['QCM', 'Dérivation', 'Produit scalaire', 'Géométrie repérée', 'Suites', 'Python']
+    tags: [
+      'QCM',
+      'Dérivation',
+      'Produit scalaire',
+      'Géométrie repérée',
+      'Suites',
+      'Python',
+    ],
   },
   e3c_2020_00_sujet42_2: {
     annee: '2020',
@@ -2258,7 +2413,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet42_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet42_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet42_3: {
     annee: '2020',
@@ -2270,7 +2425,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet42_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet42_3_cor.tex',
-    tags: ['Second degré', 'Dérivation']
+    tags: ['Second degré', 'Dérivation'],
   },
   e3c_2020_00_sujet42_4: {
     annee: '2020',
@@ -2282,7 +2437,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet42_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet42_4_cor.tex',
-    tags: ['Trigonométrie']
+    tags: ['Trigonométrie'],
   },
   e3c_2020_00_sujet43_1: {
     annee: '2020',
@@ -2294,7 +2449,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet43_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet43_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Dérivation', 'Géométrie repérée', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Dérivation',
+      'Géométrie repérée',
+      'Trigonométrie',
+    ],
   },
   e3c_2020_00_sujet43_2: {
     annee: '2020',
@@ -2306,7 +2467,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet43_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet43_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet43_3: {
     annee: '2020',
@@ -2318,7 +2479,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet43_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet43_3_cor.tex',
-    tags: ['Géométrie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet43_4: {
     annee: '2020',
@@ -2330,7 +2491,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet43_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet43_4_cor.tex',
-    tags: ['Probabilités', 'Variables aléatoires']
+    tags: ['Probabilités', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet44_1: {
     annee: '2020',
@@ -2342,7 +2503,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_1_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Second degré']
+    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Second degré'],
   },
   e3c_2020_00_sujet44_2: {
     annee: '2020',
@@ -2354,7 +2515,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_2_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet44_3: {
     annee: '2020',
@@ -2366,7 +2527,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_3_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet44_4: {
     annee: '2020',
@@ -2378,7 +2539,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet45_1: {
     annee: '2020',
@@ -2390,7 +2551,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet45_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet45_1_cor.tex',
-    tags: ['QCM', 'Produit scalaire', 'Géométrie repérée', 'Trigonométrie', 'Python']
+    tags: [
+      'QCM',
+      'Produit scalaire',
+      'Géométrie repérée',
+      'Trigonométrie',
+      'Python',
+    ],
   },
   e3c_2020_00_sujet45_2: {
     annee: '2020',
@@ -2402,7 +2569,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet45_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet45_2_cor.tex',
-    tags: ['Probabilités', 'Variables aléatoires']
+    tags: ['Probabilités', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet45_3: {
     annee: '2020',
@@ -2414,7 +2581,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet45_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet45_3_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet45_4: {
     annee: '2020',
@@ -2426,7 +2593,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet45_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet45_4_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet46_1: {
     annee: '2020',
@@ -2438,7 +2605,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet46_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet46_1_cor.tex',
-    tags: ['QCM', 'Produit scalaire', 'Géométrie repérée', 'Dérivation', 'Second degré']
+    tags: [
+      'QCM',
+      'Produit scalaire',
+      'Géométrie repérée',
+      'Dérivation',
+      'Second degré',
+    ],
   },
   e3c_2020_00_sujet46_2: {
     annee: '2020',
@@ -2450,7 +2623,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet46_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet46_2_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet46_3: {
     annee: '2020',
@@ -2462,7 +2635,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet46_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet46_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet46_4: {
     annee: '2020',
@@ -2474,7 +2647,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet46_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet46_4_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré'],
   },
 
   e3c_2020_00_sujet50_1: {
@@ -2487,7 +2660,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet50_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet50_1_cor.tex',
-    tags: ['QCM', 'Exponentielle', 'Dérivation', 'Géométrie repérée', 'Trigonométrie', 'Second degré']
+    tags: [
+      'QCM',
+      'Exponentielle',
+      'Dérivation',
+      'Géométrie repérée',
+      'Trigonométrie',
+      'Second degré',
+    ],
   },
   e3c_2020_00_sujet50_2: {
     annee: '2020',
@@ -2499,7 +2679,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet50_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet50_2_cor.tex',
-    tags: ['Dérivation', 'Second degré']
+    tags: ['Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet50_3: {
     annee: '2020',
@@ -2511,7 +2691,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet50_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet50_3_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet50_4: {
     annee: '2020',
@@ -2523,7 +2703,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet50_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet50_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet51_1: {
     annee: '2020',
@@ -2535,7 +2715,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet51_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet51_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Trigonométrie', 'Second degré', 'Variables aléatoires']
+    tags: [
+      'QCM',
+      'Géométrie repérée',
+      'Trigonométrie',
+      'Second degré',
+      'Variables aléatoires',
+    ],
   },
   e3c_2020_00_sujet51_2: {
     annee: '2020',
@@ -2547,7 +2733,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet51_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet51_2_cor.tex',
-    tags: ['Exponentielle', 'Dérivation', 'Python']
+    tags: ['Exponentielle', 'Dérivation', 'Python'],
   },
   e3c_2020_00_sujet51_3: {
     annee: '2020',
@@ -2559,7 +2745,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet51_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet51_3_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet51_4: {
     annee: '2020',
@@ -2571,7 +2757,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet51_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet51_4_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet52_1: {
     annee: '2020',
@@ -2583,7 +2769,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet52_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet52_1_cor.tex',
-    tags: ['QCM', 'Suites', 'Géométrie repérée', 'Exponentielle', 'Dérivation', 'Second degré']
+    tags: [
+      'QCM',
+      'Suites',
+      'Géométrie repérée',
+      'Exponentielle',
+      'Dérivation',
+      'Second degré',
+    ],
   },
   e3c_2020_00_sujet52_2: {
     annee: '2020',
@@ -2595,7 +2788,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet52_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet52_2_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet52_3: {
     annee: '2020',
@@ -2607,7 +2800,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet52_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet52_3_cor.tex',
-    tags: ['Dérivation', 'Exponentielle']
+    tags: ['Dérivation', 'Exponentielle'],
   },
   e3c_2020_00_sujet52_4: {
     annee: '2020',
@@ -2619,7 +2812,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet52_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet52_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet53_1: {
     annee: '2020',
@@ -2631,7 +2824,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet53_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet53_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Trigonométrie', 'Géométrie repérée', 'Dérivation', 'Exponentielle']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Trigonométrie',
+      'Géométrie repérée',
+      'Dérivation',
+      'Exponentielle',
+    ],
   },
   e3c_2020_00_sujet53_2: {
     annee: '2020',
@@ -2643,7 +2843,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet53_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet53_2_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet53_3: {
     annee: '2020',
@@ -2655,7 +2855,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet53_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet53_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet53_4: {
     annee: '2020',
@@ -2667,7 +2867,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet53_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet53_4_cor.tex',
-    tags: ['Dérivation', 'Exponentielle']
+    tags: ['Dérivation', 'Exponentielle'],
   },
   e3c_2020_00_sujet54_1: {
     annee: '2020',
@@ -2679,7 +2879,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet54_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet54_1_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Second degré', 'Dérivation', 'Géométrie repérée', 'Variables aléatoires']
+    tags: [
+      'QCM',
+      'Trigonométrie',
+      'Second degré',
+      'Dérivation',
+      'Géométrie repérée',
+      'Variables aléatoires',
+    ],
   },
   e3c_2020_00_sujet54_2: {
     annee: '2020',
@@ -2691,7 +2898,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet54_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet54_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet54_3: {
     annee: '2020',
@@ -2703,7 +2910,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet54_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet54_3_cor.tex',
-    tags: ['Dérivation', 'Exponentielle']
+    tags: ['Dérivation', 'Exponentielle'],
   },
   e3c_2020_00_sujet54_4: {
     annee: '2020',
@@ -2715,7 +2922,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet54_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet54_4_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet55_1: {
     annee: '2020',
@@ -2727,7 +2934,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet55_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet55_1_cor.tex',
-    tags: ['QCM', 'Dérivation', 'Exponentielle', 'Géométrie repérée', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Dérivation',
+      'Exponentielle',
+      'Géométrie repérée',
+      'Trigonométrie',
+    ],
   },
   e3c_2020_00_sujet55_2: {
     annee: '2020',
@@ -2739,7 +2952,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet55_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet55_2_cor.tex',
-    tags: ['Second degré']
+    tags: ['Second degré'],
   },
   e3c_2020_00_sujet55_3: {
     annee: '2020',
@@ -2751,7 +2964,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet55_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet55_3_cor.tex',
-    tags: ['Géométrie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet55_4: {
     annee: '2020',
@@ -2763,7 +2976,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet55_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet55_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet56_1: {
     annee: '2020',
@@ -2775,7 +2988,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Trigonométrie', 'Dérivation', 'Second degré', 'Exponentielle']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Trigonométrie',
+      'Dérivation',
+      'Second degré',
+      'Exponentielle',
+    ],
   },
   e3c_2020_00_sujet56_2: {
     annee: '2020',
@@ -2787,7 +3007,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet56_3: {
     annee: '2020',
@@ -2799,7 +3019,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_3_cor.tex',
-    tags: ['Géométrie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet56_4: {
     annee: '2020',
@@ -2811,7 +3031,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_4_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
 
   e3c_2020_00_sujet47_1: {
@@ -2824,7 +3044,15 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet47_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet47_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Second degré', 'Trigonométrie', 'Suites', 'Python', 'Exponentielle']
+    tags: [
+      'QCM',
+      'Géométrie repérée',
+      'Second degré',
+      'Trigonométrie',
+      'Suites',
+      'Python',
+      'Exponentielle',
+    ],
   },
   e3c_2020_00_sujet47_2: {
     annee: '2020',
@@ -2836,7 +3064,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet47_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet47_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet47_3: {
     annee: '2020',
@@ -2848,7 +3076,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet47_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet47_3_cor.tex',
-    tags: ['Second degré', 'Dérivation']
+    tags: ['Second degré', 'Dérivation'],
   },
   e3c_2020_00_sujet47_4: {
     annee: '2020',
@@ -2860,7 +3088,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet47_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet47_4_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet48_1: {
     annee: '2020',
@@ -2872,7 +3100,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet48_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet48_1_cor.tex',
-    tags: ['QCM', 'Dérivation', 'Trigonométrie', 'Second degré', 'Géométrie repérée', 'Suites']
+    tags: [
+      'QCM',
+      'Dérivation',
+      'Trigonométrie',
+      'Second degré',
+      'Géométrie repérée',
+      'Suites',
+    ],
   },
   e3c_2020_00_sujet48_2: {
     annee: '2020',
@@ -2884,7 +3119,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet48_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet48_2_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet48_3: {
     annee: '2020',
@@ -2896,7 +3131,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet48_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet48_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet48_4: {
     annee: '2020',
@@ -2908,7 +3143,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet48_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet48_4_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet49_1: {
     annee: '2020',
@@ -2920,7 +3155,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet49_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet49_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Trigonométrie', 'Suites', 'Python', 'Exponentielle']
+    tags: [
+      'QCM',
+      'Géométrie repérée',
+      'Trigonométrie',
+      'Suites',
+      'Python',
+      'Exponentielle',
+    ],
   },
   e3c_2020_00_sujet49_2: {
     annee: '2020',
@@ -2932,7 +3174,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet49_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet49_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet49_3: {
     annee: '2020',
@@ -2944,7 +3186,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet49_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet49_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet49_4: {
     annee: '2020',
@@ -2956,7 +3198,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet49_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet49_4_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
 
   e3c_2020_00_sujet57_1: {
@@ -2969,7 +3211,15 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet57_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet57_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Probabilités conditionnelles', 'Trigonométrie', 'Dérivation', 'Exponentielle', 'Suites']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Probabilités conditionnelles',
+      'Trigonométrie',
+      'Dérivation',
+      'Exponentielle',
+      'Suites',
+    ],
   },
   e3c_2020_00_sujet57_2: {
     annee: '2020',
@@ -2981,7 +3231,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet57_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet57_2_cor.tex',
-    tags: ['Dérivation', 'Second degré']
+    tags: ['Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet57_3: {
     annee: '2020',
@@ -2993,7 +3243,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet57_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet57_3_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet57_4: {
     annee: '2020',
@@ -3005,7 +3255,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet57_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet57_4_cor.tex',
-    tags: ['Géométrie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet58_1: {
     annee: '2020',
@@ -3017,7 +3267,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet58_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet58_1_cor.tex',
-    tags: ['QCM', 'Exponentielle', 'Géométrie repérée', 'Dérivation', 'Exponentielle', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Exponentielle',
+      'Géométrie repérée',
+      'Dérivation',
+      'Exponentielle',
+      'Trigonométrie',
+    ],
   },
   e3c_2020_00_sujet58_2: {
     annee: '2020',
@@ -3029,7 +3286,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet58_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet58_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet58_3: {
     annee: '2020',
@@ -3041,7 +3298,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet58_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet58_3_cor.tex',
-    tags: ['Dérivation', 'Second degré']
+    tags: ['Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet58_4: {
     annee: '2020',
@@ -3053,7 +3310,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet58_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet58_4_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet59_1: {
     annee: '2020',
@@ -3065,7 +3322,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet59_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet59_1_cor.tex',
-    tags: ['QCM', 'Suites', 'Python', 'Trigonométrie']
+    tags: ['QCM', 'Suites', 'Python', 'Trigonométrie'],
   },
   e3c_2020_00_sujet59_2: {
     annee: '2020',
@@ -3077,7 +3334,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet59_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet59_2_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet59_3: {
     annee: '2020',
@@ -3089,7 +3346,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet59_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet59_3_cor.tex',
-    tags: ['Dérivation', 'Exponentielle', 'Second degré']
+    tags: ['Dérivation', 'Exponentielle', 'Second degré'],
   },
   e3c_2020_00_sujet59_4: {
     annee: '2020',
@@ -3101,7 +3358,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet59_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet59_4_cor.tex',
-    tags: ['Géométrie repérée', 'Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire'],
   },
   e3c_2020_00_sujet60_1: {
     annee: '2020',
@@ -3113,7 +3370,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet60_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet60_1_cor.tex',
-    tags: ['QCM', 'Exponentielle', 'Variables aléatoires', 'Trigonométrie', 'Second degré', 'Produit scalaire']
+    tags: [
+      'QCM',
+      'Exponentielle',
+      'Variables aléatoires',
+      'Trigonométrie',
+      'Second degré',
+      'Produit scalaire',
+    ],
   },
   e3c_2020_00_sujet60_2: {
     annee: '2020',
@@ -3125,7 +3389,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet60_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet60_2_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet60_3: {
     annee: '2020',
@@ -3137,7 +3401,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet60_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet60_3_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet60_4: {
     annee: '2020',
@@ -3149,7 +3413,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet60_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet60_4_cor.tex',
-    tags: ['Géométrie repérée']
+    tags: ['Géométrie repérée'],
   },
   e3c_2020_00_sujet61_1: {
     annee: '2020',
@@ -3161,7 +3425,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet61_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet61_1_cor.tex',
-    tags: ['QCM', 'Dérivation', 'Trigonométrie', 'Produit scalaire', 'Géométrie repérée']
+    tags: [
+      'QCM',
+      'Dérivation',
+      'Trigonométrie',
+      'Produit scalaire',
+      'Géométrie repérée',
+    ],
   },
   e3c_2020_00_sujet61_2: {
     annee: '2020',
@@ -3173,7 +3443,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet61_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet61_2_cor.tex',
-    tags: ['Suites']
+    tags: ['Suites'],
   },
   e3c_2020_00_sujet61_3: {
     annee: '2020',
@@ -3185,7 +3455,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet61_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet61_3_cor.tex',
-    tags: ['Probabilités conditionnelles']
+    tags: ['Probabilités conditionnelles'],
   },
   e3c_2020_00_sujet61_4: {
     annee: '2020',
@@ -3197,7 +3467,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet61_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet61_4_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet62_1: {
     annee: '2020',
@@ -3209,7 +3479,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet62_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet62_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Trigonométrie', 'Produit scalaire', 'Géométrie repérée', 'Exponentielle']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Trigonométrie',
+      'Produit scalaire',
+      'Géométrie repérée',
+      'Exponentielle',
+    ],
   },
   e3c_2020_00_sujet62_2: {
     annee: '2020',
@@ -3221,7 +3498,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet62_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet62_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet62_3: {
     annee: '2020',
@@ -3233,7 +3510,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet62_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet62_3_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet62_4: {
     annee: '2020',
@@ -3245,7 +3522,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet62_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet62_4_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet63_1: {
     annee: '2020',
@@ -3257,7 +3534,15 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet63_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet63_1_cor.tex',
-    tags: ['QCM', 'Second degré', 'Géométrie repérée', 'Produit scalaire', 'Exponentielle', 'Dérivation', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Second degré',
+      'Géométrie repérée',
+      'Produit scalaire',
+      'Exponentielle',
+      'Dérivation',
+      'Trigonométrie',
+    ],
   },
   e3c_2020_00_sujet63_2: {
     annee: '2020',
@@ -3269,7 +3554,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet63_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet63_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet63_3: {
     annee: '2020',
@@ -3281,7 +3566,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet63_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet63_3_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet63_4: {
     annee: '2020',
@@ -3293,7 +3578,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet63_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet63_4_cor.tex',
-    tags: ['Exponentielle', 'Dérivation']
+    tags: ['Exponentielle', 'Dérivation'],
   },
   e3c_2020_00_sujet64_1: {
     annee: '2020',
@@ -3305,7 +3590,13 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet64_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet64_1_cor.tex',
-    tags: ['QCM', 'Dérivation', 'Trigonométrie', 'Second degré', 'Exponentielle']
+    tags: [
+      'QCM',
+      'Dérivation',
+      'Trigonométrie',
+      'Second degré',
+      'Exponentielle',
+    ],
   },
   e3c_2020_00_sujet64_2: {
     annee: '2020',
@@ -3317,7 +3608,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet64_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet64_2_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet64_3: {
     annee: '2020',
@@ -3329,7 +3620,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet64_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet64_3_cor.tex',
-    tags: ['Géométrie repérée', 'Second degré']
+    tags: ['Géométrie repérée', 'Second degré'],
   },
   e3c_2020_00_sujet64_4: {
     annee: '2020',
@@ -3341,7 +3632,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet64_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet64_4_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
   e3c_2020_00_sujet65_1: {
     annee: '2020',
@@ -3353,7 +3644,14 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet65_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet65_1_cor.tex',
-    tags: ['QCM', 'Géométrie repérée', 'Produit scalaire', 'Exponentielle', 'Dérivation', 'Trigonométrie']
+    tags: [
+      'QCM',
+      'Géométrie repérée',
+      'Produit scalaire',
+      'Exponentielle',
+      'Dérivation',
+      'Trigonométrie',
+    ],
   },
   e3c_2020_00_sujet65_2: {
     annee: '2020',
@@ -3365,7 +3663,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet65_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet65_2_cor.tex',
-    tags: ['Dérivation', 'Second degré']
+    tags: ['Dérivation', 'Second degré'],
   },
   e3c_2020_00_sujet65_3: {
     annee: '2020',
@@ -3377,7 +3675,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet65_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet65_3_cor.tex',
-    tags: ['Suites', 'Python']
+    tags: ['Suites', 'Python'],
   },
   e3c_2020_00_sujet65_4: {
     annee: '2020',
@@ -3389,7 +3687,6 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet65_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet65_4_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires'],
   },
-
 }

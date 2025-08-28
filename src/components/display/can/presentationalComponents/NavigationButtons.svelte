@@ -23,7 +23,7 @@
 
   let direction
 
-  function handleSwipe (event: CustomEvent) {
+  function handleSwipe(event: CustomEvent) {
     direction = event.detail.direction
     if (direction === 'left' && current < numberOfQuestions - 1) {
       current += 1
@@ -35,8 +35,8 @@
 </script>
 
 <div
-  use:swipe={{ timeframe: 300, minSwipeDistance: 60 }}
-  on:swipe={handleSwipe}
+  use:swipe="{{ timeframe: 300, minSwipeDistance: 60 }}"
+  on:swipe="{handleSwipe}"
   class="w-full pb-8 md:pb-10 px-10 space-y-4 flex flex-col md:flex-row justify-start md:justify-between items-center"
 >
   <div></div>
@@ -44,64 +44,64 @@
     <button
       class="md:hidden flex justify-center items-center"
       type="button"
-      on:click={() => {
+      on:click="{() => {
         if (current >= 10) {
           current -= 10
         }
-      }}
+      }}"
     >
       <i
         class="bx bxs-chevrons-left text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
             {current < 10
-              ? 'text-opacity-10'
-              : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+          ? 'text-opacity-10'
+          : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
     <button
       type="button"
-      on:click={() => {
+      on:click="{() => {
         if (current > 0) {
           current -= 1
         }
-      }}
+      }}"
     >
       <i
         class="bx bxs-chevron-left md:bxs-left-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
             {current === 0
-              ? 'text-opacity-10'
-              : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+          ? 'text-opacity-10'
+          : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
     <ShortPagination {current} {state} {resultsByQuestion} />
     <button
       type="button"
-      on:click={() => {
+      on:click="{() => {
         if (current < numberOfQuestions - 1) {
           current += 1
         }
-      }}
+      }}"
     >
       <i
         class="bx bxs-chevron-right md:bxs-right-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
             {current === numberOfQuestions - 1
-              ? 'text-opacity-10'
-              : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+          ? 'text-opacity-10'
+          : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
     <button
       class="md:hidden flex justify-center items-center"
       type="button"
-      on:click={() => {
+      on:click="{() => {
         if (current + 10 <= numberOfQuestions - 1) {
           current += 10
         }
-      }}
+      }}"
     >
       <i
         class="bx bxs-chevrons-right text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
             {current > numberOfQuestions - 11
-              ? 'text-opacity-10'
-              : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+          ? 'text-opacity-10'
+          : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
   </div>
@@ -167,7 +167,7 @@
               stroke-linecap="round"
               stroke-linejoin="round"
               d="M6 18L18 6M6 6l12 12"
-            />
+            ></path>
           </svg>
         </button>
       </div>
@@ -205,9 +205,9 @@
         <button
           type="button"
           class="ml-1 inline-block rounded bg-coopmaths-action dark:bg-coopmathsdark-action px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-coopmaths-canvas dark:text-coopmathsdark-canvas transition duration-150 ease-in-out hover:bg-coopmaths-action-dark focus:bg-coopmaths-action-dark dark:hover:bg-coopmathsdark-action-dark dark:focus:bg-coopmathsdark-action-dark focus:outline-none focus:ring-0 dark:active:bg-coopmathsdark-action-dark"
-          on:click={() => {
+          on:click="{() => {
             handleEndOfRace()
-          }}
+          }}"
           data-te-modal-dismiss
         >
           Terminer

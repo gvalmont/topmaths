@@ -1,6 +1,7 @@
 import QuestionsMasses from './6N5-2'
 
-export const titre = 'Résoudre des problèmes de prix avec des objets mettant en jeu des multiplications'
+export const titre =
+  'Résoudre des problèmes de prix avec des objets mettant en jeu des multiplications'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -13,10 +14,10 @@ export const uuid = '1ab39'
 export const refs = {
   'fr-fr': ['6N2G-1'],
   'fr-2016': ['6C12-1a'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class QuestionsMasses1 extends QuestionsMasses {
-  constructor () {
+  constructor() {
     super()
     this.sup = '1-2-5-6'
   }

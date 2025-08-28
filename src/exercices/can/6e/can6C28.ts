@@ -18,10 +18,10 @@ export const uuid = '2ce71'
 
 export const refs = {
   'fr-fr': ['can6C28', 'auto6N3E-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PetitsProblemeDeFraction extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,17 +29,31 @@ export default class PetitsProblemeDeFraction extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = choice([12, 24, 36, 48])
     const b = choice([15, 20, 25, 30, 35, 40, 45])
-    const N = choice(['quart', 'tiers', 'cinquième', 'sixième', 'autre', 'autre', 'autre'])//
-    const listeFractions = [[2, 5], [3, 5], [3, 4], [1, 4], [5, 6]]
+    const N = choice([
+      'quart',
+      'tiers',
+      'cinquième',
+      'sixième',
+      'autre',
+      'autre',
+      'autre',
+    ]) //
+    const listeFractions = [
+      [2, 5],
+      [3, 5],
+      [3, 4],
+      [1, 4],
+      [5, 6],
+    ]
 
     const fraction = choice(listeFractions)
     const frac = new FractionEtendue(fraction[0], fraction[1])
     const nbre = frac.d * choice([2, 3, 4, 5, 6, 7, 8])
     const reste = new FractionEtendue(frac.d - frac.n, frac.d)
-    const reponse = nbre * reste.n / frac.d
+    const reponse = (nbre * reste.n) / frac.d
 
     switch (N) {
       case 'cinquième':

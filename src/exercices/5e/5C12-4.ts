@@ -4,17 +4,12 @@ import type { MathfieldElement } from 'mathlive'
 import engine from '../../lib/interactif/comparisonFunctions'
 import {
   handleAnswers,
-  type AnswerType
+  type AnswerType,
 } from '../../lib/interactif/gestionInteractif'
-import {
-  remplisLesBlancs
-} from '../../lib/interactif/questionMathLive'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import {
-  assignVariables,
-  calculer
-} from '../../modules/outilsMathjs'
+import { assignVariables, calculer } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -22,20 +17,27 @@ export const interactifType = 'mathLive'
 
 export const dateDePublication = '21/07/2024'
 export const uuid = 'e2a95'
-export const titre = "Mettre des parenthèses ou pas pour qu'une égalité soit juste"
+export const titre =
+  "Mettre des parenthèses ou pas pour qu'une égalité soit juste"
 export const refs = {
   'fr-fr': ['5C12-4'],
-  'fr-ch': ['9NO6-6', '10NO6-4']
+  'fr-ch': ['9NO6-6', '10NO6-4'],
 }
 /**
  * @author Jean-Claude Lhote
  * Placer des parenthèses mais pas inutilement dans une expression pour qu'elle vérifie une égalité
  */
 
-type Materiel = { expSP: string; expAP: string; test: (a:number, b:number, c:number, d:number)=>boolean }
+type Materiel = {
+  expSP: string
+  expAP: string
+  test: (a: number, b: number, c: number, d: number) => boolean
+}
 
 type ListeVariableExo = 'a' | 'b' | 'c' | 'd'
-type VariablesExo = Partial<Record<ListeVariableExo, string | number | boolean | Fraction | object>>
+type VariablesExo = Partial<
+  Record<ListeVariableExo, string | number | boolean | Fraction | object>
+>
 
 // Les tirets bas sont placés là où il n'y a pas de parenthèses mais qu'il pourrait y en avoir une. Cela sert à placer les placeholders et à savoir à quelle position on a quelle parenthèse
 // Pour l'analyse et l'utilisation de l'expression, ces tirets bas sont remplacés par du vide.
@@ -47,98 +49,161 @@ const dicoDesExpressions: {
   quatreSignesRelatifs: Materiel[]
 } = {
   troisSignesToutPositif: [
-    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: (a, b, c) => a * b + c !== a * (b + c) },
-    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: (a, b, c) => a + b * c !== (a + b) * c },
+    {
+      expSP: '_a*_b_+c_',
+      expAP: '_a*(b_+c)',
+      test: (a, b, c) => a * b + c !== a * (b + c),
+    },
+    {
+      expSP: '_a+_b_*c_',
+      expAP: '(a+_b)*c_',
+      test: (a, b, c) => a + b * c !== (a + b) * c,
+    },
     {
       expSP: '_a*_b_-c_',
       expAP: '_a*(b_-c)',
-      test: (a, b, c) => a * b - c !== a * (b - c) && b > c
+      test: (a, b, c) => a * b - c !== a * (b - c) && b > c,
     },
     {
       expSP: '_a-_b_*c_',
       expAP: '(a-_b)*c_',
-      test: (a, b, c) => a - b * c !== (a - b) * c && a > b * c
-    }
+      test: (a, b, c) => a - b * c !== (a - b) * c && a > b * c,
+    },
   ],
   troisSignesRelatifs: [
-    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: (a, b, c) => a * b + c !== a * (b + c) },
-    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: (a, b, c) => a + b * c !== (a + b) * c },
-    { expSP: '_a*_b_-c_', expAP: '_a*(b_-c)', test: (a, b, c) => a * b - c !== a * (b - c) },
-    { expSP: '_a-_b_*c_', expAP: '(a-_b)*c_', test: (a, b, c) => a - b * c !== (a - b) * c }
+    {
+      expSP: '_a*_b_+c_',
+      expAP: '_a*(b_+c)',
+      test: (a, b, c) => a * b + c !== a * (b + c),
+    },
+    {
+      expSP: '_a+_b_*c_',
+      expAP: '(a+_b)*c_',
+      test: (a, b, c) => a + b * c !== (a + b) * c,
+    },
+    {
+      expSP: '_a*_b_-c_',
+      expAP: '_a*(b_-c)',
+      test: (a, b, c) => a * b - c !== a * (b - c),
+    },
+    {
+      expSP: '_a-_b_*c_',
+      expAP: '(a-_b)*c_',
+      test: (a, b, c) => a - b * c !== (a - b) * c,
+    },
   ],
   quatreSignesToutPositif: [
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*(c_+d)',
-      test: (a, b, c, d) => (a + b) * (c + d) !== a + b * c + d && (a + b) * (c + d) !== (a + b) * c + d && (a + b) * (c + d) !== a + b * (c + d)
+      test: (a, b, c, d) =>
+        (a + b) * (c + d) !== a + b * c + d &&
+        (a + b) * (c + d) !== (a + b) * c + d &&
+        (a + b) * (c + d) !== a + b * (c + d),
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '_a+_b_*(c_+d)',
-      test: (a, b, c, d) => a + b * (c + d) !== a + b * c + d && a + b * (c + d) !== (a + b) * (c + d) && a + b * (c + d) !== (a + b) * c + d
+      test: (a, b, c, d) =>
+        a + b * (c + d) !== a + b * c + d &&
+        a + b * (c + d) !== (a + b) * (c + d) &&
+        a + b * (c + d) !== (a + b) * c + d,
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*_c_+d_',
-      test: (a, b, c, d) => (a + b) * c + d !== a + b * c + d && (a + b) * c + d !== (a + b) * (c + d) && (a + b) * c + d !== a + b * (c + d)
+      test: (a, b, c, d) =>
+        (a + b) * c + d !== a + b * c + d &&
+        (a + b) * c + d !== (a + b) * (c + d) &&
+        (a + b) * c + d !== a + b * (c + d),
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*(c_+d)',
-      test: (a, b, c, d) => (a - b) * (c + d) !== a - b * c + d && (a - b) * (c + d) !== (a - b) * c + d && (a - b) * (c + d) !== a - b * (c + d) && a > b * c
+      test: (a, b, c, d) =>
+        (a - b) * (c + d) !== a - b * c + d &&
+        (a - b) * (c + d) !== (a - b) * c + d &&
+        (a - b) * (c + d) !== a - b * (c + d) &&
+        a > b * c,
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '_a-_b_*(c_+d)',
-      test: (a, b, c, d) => a - b * (c + d) !== a - b * c + d && a - b * (c + d) !== (a - b) * (c + d) && a - b * (c + d) !== (a - b) * c + d && a > b * (c + d)
+      test: (a, b, c, d) =>
+        a - b * (c + d) !== a - b * c + d &&
+        a - b * (c + d) !== (a - b) * (c + d) &&
+        a - b * (c + d) !== (a - b) * c + d &&
+        a > b * (c + d),
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*_c_+d_',
-      test: (a, b, c, d) => (a - b) * c + d !== a - b * c + d && (a - b) * c + d !== (a - b) * (c + d) && (a - b) * c + d !== a - b * (c + d) && a > b * c
-    }
+      test: (a, b, c, d) =>
+        (a - b) * c + d !== a - b * c + d &&
+        (a - b) * c + d !== (a - b) * (c + d) &&
+        (a - b) * c + d !== a - b * (c + d) &&
+        a > b * c,
+    },
   ],
   quatreSignesRelatifs: [
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*(c_+d)',
-      test: (a, b, c, d) => (a + b) * (c + d) !== a + b * c + d && (a + b) * (c + d) !== (a + b) * c + d && (a + b) * (c + d) !== a + b * (c + d)
+      test: (a, b, c, d) =>
+        (a + b) * (c + d) !== a + b * c + d &&
+        (a + b) * (c + d) !== (a + b) * c + d &&
+        (a + b) * (c + d) !== a + b * (c + d),
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '_a+_b_*(c_+d)',
-      test: (a, b, c, d) => a + b * (c + d) !== a + b * c + d && a + b * (c + d) !== (a + b) * (c + d) && a + b * (c + d) !== (a + b) * c + d
+      test: (a, b, c, d) =>
+        a + b * (c + d) !== a + b * c + d &&
+        a + b * (c + d) !== (a + b) * (c + d) &&
+        a + b * (c + d) !== (a + b) * c + d,
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*_c_+d_',
-      test: (a, b, c, d) => (a + b) * c + d !== a + b * c + d && (a + b) * c + d !== (a + b) * (c + d) && (a + b) * c + d !== a + b * (c + d)
+      test: (a, b, c, d) =>
+        (a + b) * c + d !== a + b * c + d &&
+        (a + b) * c + d !== (a + b) * (c + d) &&
+        (a + b) * c + d !== a + b * (c + d),
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*(c_+d)',
-      test: (a, b, c, d) => (a - b) * (c + d) !== a - b * c + d && (a - b) * (c + d) !== (a - b) * c + d && (a - b) * (c + d) !== a - b * (c + d)
+      test: (a, b, c, d) =>
+        (a - b) * (c + d) !== a - b * c + d &&
+        (a - b) * (c + d) !== (a - b) * c + d &&
+        (a - b) * (c + d) !== a - b * (c + d),
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '_a-_b_*(c_+d)',
-      test: (a, b, c, d) => a - b * (c + d) !== a - b * c + d && a - b * (c + d) !== (a - b) * (c + d) && a - b * (c + d) !== (a - b) * c + d
+      test: (a, b, c, d) =>
+        a - b * (c + d) !== a - b * c + d &&
+        a - b * (c + d) !== (a - b) * (c + d) &&
+        a - b * (c + d) !== (a - b) * c + d,
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*_c_+d_',
-      test: (a, b, c, d) => (a - b) * c + d !== a - b * c + d && (a - b) * c + d !== (a - b) * (c + d) && (a - b) * c + d !== a - b * (c + d)
-    }
-  ]
+      test: (a, b, c, d) =>
+        (a - b) * c + d !== a - b * c + d &&
+        (a - b) * c + d !== (a - b) * (c + d) &&
+        (a - b) * c + d !== a - b * (c + d),
+    },
+  ],
 }
 
 class MettreDesParentheses extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.besoinFormulaireTexte = [
       'Complexité',
-      'Nombres séparés par des tirets :\n1 : 2 opérations\n2 : 3 opérations\n3 Mélange'
+      'Nombres séparés par des tirets :\n1 : 2 opérations\n2 : 3 opérations\n3 Mélange',
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs', false]
     this.sup = '3'
@@ -147,7 +212,7 @@ class MettreDesParentheses extends Exercice {
       "L'exercice propose des expressions à 3 ou 4 opérandes avec possibilité d'avoir des calculs relatifs ou pas.<br>Les opérandes sont inférieures ou égales à 10 en valeur absolue pour permettre le calcul mental. Une réponse trop parenthésée est comptée fausse."
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.nbQuestions > 1) {
       this.consigne =
         'Mettre des parenthèses si besoin dans les égalités suivantes afin que celles-ci soient justes.<br>'
@@ -161,9 +226,9 @@ class MettreDesParentheses extends Exercice {
       min: 1,
       max: 3,
       melange: 3,
-      defaut: 3
+      defaut: 3,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const choix: Materiel[] = []
       if (listeTypeDeQuestion[i] === 1) {
         if (this.sup2) {
@@ -194,9 +259,16 @@ class MettreDesParentheses extends Exercice {
           a: (this.sup2 ? choice([-1, 1]) : 1) * randint(1, 10),
           b: randint(1, 10),
           c: (this.sup2 ? choice([-1, 1]) : 1) * randint(1, 10),
-          d: randint(1, 10)
+          d: randint(1, 10),
         }
-      } while (!materiel.test(assignations.a, assignations.b, assignations.c, assignations.d))
+      } while (
+        !materiel.test(
+          assignations.a,
+          assignations.b,
+          assignations.c,
+          assignations.d,
+        )
+      )
 
       const a = Number(assignations.a)
       const b = Number(assignations.b)
@@ -233,43 +305,43 @@ class MettreDesParentheses extends Exercice {
         a: assignations.a,
         b: assignations.b,
         c: assignations.c,
-        d: assignations.d
+        d: assignations.d,
         // test: assignations.test
       }
       // La fonction calculer() de Frédéric Piou fournit la correction, mais elle fournit aussi le résultat, et bien d'autres choses que je n'utilise pas...
       const answer = parentheses
         ? calculer(
-          assignVariables(materiel.expAP.replaceAll('_', ''), valeurs),
-          {
-            removeImplicit: false,
-            suppr1: false,
-            suppr0: false,
-            supprPlusMoins: false,
-            comment: true,
-            commentStep: true
-          }
-        )
+            assignVariables(materiel.expAP.replaceAll('_', ''), valeurs),
+            {
+              removeImplicit: false,
+              suppr1: false,
+              suppr0: false,
+              supprPlusMoins: false,
+              comment: true,
+              commentStep: true,
+            },
+          )
         : calculer(
-          assignVariables(materiel.expSP.replaceAll('_', ''), valeurs),
-          {
-            removeImplicit: false,
-            suppr1: false,
-            suppr0: false,
-            supprPlusMoins: false,
-            comment: true,
-            commentStep: true
-          }
-        )
+            assignVariables(materiel.expSP.replaceAll('_', ''), valeurs),
+            {
+              removeImplicit: false,
+              suppr1: false,
+              suppr0: false,
+              supprPlusMoins: false,
+              comment: true,
+              commentStep: true,
+            },
+          )
       const texteCorr: string = `${answer.texteCorr}`
       // La callback de correction intéractive
       const callback = (
         exercice: Exercice,
         question: number,
-        variables: [string, AnswerType][]
+        variables: [string, AnswerType][],
       ) => {
         let feedback = ''
         const mfe = document.querySelector(
-          `#champTexteEx${exercice.numeroExercice}Q${question}`
+          `#champTexteEx${exercice.numeroExercice}Q${question}`,
         ) as MathfieldElement
         const goodAnswer = engine.parse(String(resultat))
 
@@ -280,8 +352,7 @@ class MettreDesParentheses extends Exercice {
             .replace('\\left(', '(')
             .replace('\\right)', ')')
             .replace('\\lparen', '(')
-            .replace('\\rparen', ')')
-
+            .replace('\\rparen', ')'),
         )
         let laSaisie = ''
         for (let k = 0, index = 0; k < materiel.expSP.length; k++) {
@@ -319,14 +390,14 @@ class MettreDesParentheses extends Exercice {
           }
         }
         const spanReponseLigne = document.querySelector(
-          `#resultatCheckEx${exercice.numeroExercice}Q${question}`
+          `#resultatCheckEx${exercice.numeroExercice}Q${question}`,
         )
         if (spanReponseLigne != null) {
           spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
         }
 
         const spanFeedback = document.querySelector(
-          `#feedbackEx${exercice.numeroExercice}Q${question}`
+          `#feedbackEx${exercice.numeroExercice}Q${question}`,
         )
         if (feedback != null && spanFeedback != null && feedback.length > 0) {
           spanFeedback.innerHTML = '💡 ' + feedback
@@ -334,7 +405,7 @@ class MettreDesParentheses extends Exercice {
             'py-2',
             'italic',
             'text-coopmaths-warn-darkest',
-            'dark:text-coopmathsdark-warn-darkest'
+            'dark:text-coopmathsdark-warn-darkest',
           )
         }
         return {
@@ -342,8 +413,8 @@ class MettreDesParentheses extends Exercice {
           feedback,
           score: {
             nbBonnesReponses: isOk1 && isOk2 ? 1 : 0,
-            nbReponses: 1
-          }
+            nbReponses: 1,
+          },
         }
       }
       // fin de la callback
@@ -359,11 +430,11 @@ class MettreDesParentheses extends Exercice {
               champ2: { value: listePar[1] === '(' ? '(' : '' },
               champ3: { value: listePar[2] === ')' ? ')' : '' },
               champ4: { value: listePar[3] === ')' ? ')' : '' },
-              callback
+              callback,
             })
           } else {
             throw Error(
-              `Il y a un problème avec cette expressions, on n'a pas trouvé 4 symboles : ${materiel.expAP}`
+              `Il y a un problème avec cette expressions, on n'a pas trouvé 4 symboles : ${materiel.expAP}`,
             )
           }
         } else {
@@ -373,7 +444,7 @@ class MettreDesParentheses extends Exercice {
             champ2: { value: '' },
             champ3: { value: '' },
             champ4: { value: '' },
-            callback
+            callback,
           })
         }
       } else {
@@ -386,25 +457,25 @@ class MettreDesParentheses extends Exercice {
               champ2: { value: listePar[1] === '(' ? '(' : '' },
               champ3: {
                 value:
-                  listePar[2] === '(' ? '(' : listePar[2] === ')' ? ')' : ''
+                  listePar[2] === '(' ? '(' : listePar[2] === ')' ? ')' : '',
               },
               champ4: {
                 value:
-                  listePar[3] === '(' ? '(' : listePar[3] === ')' ? ')' : ''
+                  listePar[3] === '(' ? '(' : listePar[3] === ')' ? ')' : '',
               },
               champ5: {
                 value:
-                  listePar[4] === '(' ? '(' : listePar[4] === ')' ? ')' : ''
+                  listePar[4] === '(' ? '(' : listePar[4] === ')' ? ')' : '',
               },
               champ6: {
                 value:
-                  listePar[5] === '(' ? '(' : listePar[5] === ')' ? ')' : ''
+                  listePar[5] === '(' ? '(' : listePar[5] === ')' ? ')' : '',
               },
-              callback
+              callback,
             })
           } else {
             throw Error(
-              `Il y a un problème avec cette expressions, on n'a pas trouvé 6 symboles : ${materiel.expAP}`
+              `Il y a un problème avec cette expressions, on n'a pas trouvé 6 symboles : ${materiel.expAP}`,
             )
           }
         } else {
@@ -416,7 +487,7 @@ class MettreDesParentheses extends Exercice {
             champ4: { value: '' },
             champ5: { value: '' },
             champ6: { value: '' },
-            callback
+            callback,
           })
         }
       }

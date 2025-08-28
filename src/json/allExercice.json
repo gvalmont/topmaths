@@ -4709,10 +4709,7 @@
         "titre": "Utiliser tables de multiplication pour effectuer produits avec multiple de 10",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "qcmMono"
         }
@@ -5248,9 +5245,7 @@
         "titre": "Choisir la bonne figure",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "cliqueFigure"
-          ],
+          "interactifType": ["cliqueFigure"],
           "amc": true,
           "amcType": "qcmMono"
         }
@@ -5262,10 +5257,7 @@
         "titre": "Connaître le vocabulaire du cercle",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ]
+          "interactifType": ["qcm", "mathLive"]
         }
       },
       "6G10-5": {
@@ -5454,10 +5446,7 @@
         "titre": "Nommer un angle",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "AMCHybride"
         }
@@ -5680,10 +5669,7 @@
         "titre": "Nommer des faces dans un pavé droit",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "AMCHybride"
         }
@@ -5714,10 +5700,7 @@
         "titre": "Reconnaitre des solides",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "qcmMono"
         }
@@ -5952,10 +5935,7 @@
         "titre": "Convertir des aires",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "qcmMono"
         }
@@ -5988,10 +5968,7 @@
         "titre": "Calculer le volume de solides donnés",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "AMCHybride"
         }
@@ -6016,10 +5993,7 @@
         "dateDeModifImportante": "14/05/2022",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "qcmMono"
         }
@@ -7477,10 +7451,7 @@
         "titre": "Calculs de volumes",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "AMCHybride"
         }
@@ -7801,10 +7772,7 @@
         "titre": "Addition de deux entiers relatifs",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "qcmMono"
         }
@@ -8804,10 +8772,7 @@
         "titre": "Calculs de volumes",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "AMCHybride"
         }
@@ -9756,10 +9721,7 @@
         "titre": "Calculs de volumes",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "AMCHybride"
         }
@@ -10434,10 +10396,7 @@
         "titre": "Calculs de volumes",
         "tags": {
           "interactif": true,
-          "interactifType": [
-            "qcm",
-            "mathLive"
-          ],
+          "interactifType": ["qcm", "mathLive"],
           "amc": true,
           "amcType": "AMCHybride"
         }

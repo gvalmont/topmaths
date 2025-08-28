@@ -8,15 +8,17 @@ import { courses3 } from './courses'
  * @author Jean-Claude Lhote
  */
 export default class ProblemeTransfoApres extends Probleme {
-  constructor (name: string = '', data?: { nb1: number, nb2: number }) {
+  constructor(name: string = '', data?: { nb1: number; nb2: number }) {
     data = data == null ? { nb1: randint(2, 25), nb2: randint(2, 25) } : data
     super(name, data)
     this.schema = new SchemaEnBoite({
-      topBraces: [{
-        start: 1,
-        end: 11,
-        text: 'Maintenant'
-      }],
+      topBraces: [
+        {
+          start: 1,
+          end: 11,
+          text: 'Maintenant',
+        },
+      ],
       bottomBraces: [],
       rightBraces: [],
       lignes: [
@@ -25,17 +27,16 @@ export default class ProblemeTransfoApres extends Probleme {
             {
               content: `$${texNombre(data.nb1, 2)}$`,
               length: 8,
-              color: 'lightgray'
+              color: 'lightgray',
             },
             {
               content: `$${texNombre(data.nb2, 2)}$`,
               length: 2,
-              color: 'lightgray'
-            }
-          ]
+              color: 'lightgray',
+            },
+          ],
         },
-
-      ]
+      ],
     })
     this.enonce = `On dispose d'une somme de $${texNombre(data.nb1, 2)}$ € et on vient de toucher un remboursement de $${texNombre(data.nb2, 2)}$ €.
 Quelle somme d'argent a-t-on maintenant ?`
@@ -43,6 +44,4 @@ Quelle somme d'argent a-t-on maintenant ?`
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }
 }
-export const listeDeProblemesTransfoApres = [
-  courses3
-]
+export const listeDeProblemesTransfoApres = [courses3]

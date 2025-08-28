@@ -14,15 +14,15 @@ export const dateDeModifImportante = '03/07/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora & Jean-Claude Lhote
-*/
+ */
 export const uuid = '31096'
 
 export const refs = {
   'fr-fr': ['can6C26', '6N2B-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Multiplier extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,10 +30,12 @@ export default class Multiplier extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, resultat
-    switch (choice([1, 2])) { //, 2, 3
-      case 1:// entier
+    switch (
+      choice([1, 2]) //, 2, 3
+    ) {
+      case 1: // entier
         a = randint(2, 1000)
         b = choice([0.1, 0.01, 0.001])
         resultat = texNombre(a * b, 3)
@@ -54,7 +56,7 @@ export default class Multiplier extends ExerciceSimple {
         this.correction += `$${texNombre(a)}\\times ${texNombre(b, 3)} = ${miseEnEvidence(resultat)}$`
         this.reponse = resultat
         break
-      case 2:// nombre décimal
+      case 2: // nombre décimal
         a = randint(2, 999) / choice([10, 100])
         b = choice([0.1, 0.01, 0.001])
         resultat = texNombre(a * b, 7)

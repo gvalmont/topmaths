@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'ecb98'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -16,7 +16,7 @@ export const refs = {
 
 */
 export default class ProduitCalculNul extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class ProduitCalculNul extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '$=$', texteApres: '' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 3 : randint(3, 7)
     const reponse = 0
     this.reponse = reponse

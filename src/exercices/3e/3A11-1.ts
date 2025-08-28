@@ -8,10 +8,10 @@ export const dateDePublication = '30/10/2021'
 export const uuid = '80772'
 export const refs = {
   'fr-fr': ['3A11-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ProblemesEvenementsRecurrents3e extends ProblemesEvenementsRecurrents {
-  constructor () {
+  constructor() {
     super()
     this.sup = 2
   }

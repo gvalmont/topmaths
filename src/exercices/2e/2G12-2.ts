@@ -5,12 +5,19 @@ import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  ecritureAlgebrique,
+} from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  fixeBordures,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
@@ -18,7 +25,8 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Calculer et utiliser les coordonnées du milieu d\'un segment dans un repère'
+export const titre =
+  "Calculer et utiliser les coordonnées du milieu d'un segment dans un repère"
 export const dateDeModifImportante = '04/12/2023'
 /**
  * @author Stéphane Guyon modif Gilles Mora
@@ -27,12 +35,16 @@ export const uuid = '4b25a'
 
 export const refs = {
   'fr-fr': ['2G12-2'],
-  'fr-ch': ['11GM1-5']
+  'fr-ch': ['11GM1-5'],
 }
 export default class Milieu extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Situations', 4, '1 : Application directe  \n2 : Application directe (fractions) \n3 : Application indirecte \n4 : Mélange ']
+    this.besoinFormulaireNumerique = [
+      'Situations',
+      4,
+      '1 : Application directe  \n2 : Application directe (fractions) \n3 : Application indirecte \n4 : Mélange ',
+    ]
 
     this.nbQuestions = 1
 
@@ -41,7 +53,7 @@ export default class Milieu extends Exercice {
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles = [1, 2, 3]
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -52,8 +64,11 @@ export default class Milieu extends Exercice {
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3]
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       let texte = ''
       let texteCorr = ''
@@ -75,7 +90,7 @@ export default class Milieu extends Exercice {
         axeXStyle: '->',
         axeYStyle: '->',
         yLabelDistance: 2,
-        xLabelDistance: 2
+        xLabelDistance: 2,
       })
       const A = point(xA, yA, 'A')
       const B = point(xB, yB, 'B')
@@ -101,33 +116,45 @@ export default class Milieu extends Exercice {
       $M\\left(\\dfrac{x_A+x_B}{2}\\,;\\,\\dfrac{y_A+y_B}{2}\\right)$ <br>
       On peut représenter la situation avec les données de l'énoncé : <br>`
       switch (typesDeQuestions) {
-        case 1:// cas simple du milieu
+        case 1: // cas simple du milieu
           {
             const xM = new FractionEtendue(xA + xB, 2)
-            const yM = new FractionEtendue(yA + yB, 2)// .simplifie()
+            const yM = new FractionEtendue(yA + yB, 2) // .simplifie()
             objets.push(g, T, L, s, o, I, J)
             handleAnswers(this, i, {
-              bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+              bareme: (listePoints) => [
+                Math.min(listePoints[0], listePoints[1]),
+                1,
+              ],
               champ1: { value: xM.texFraction },
-              champ2: { value: yM.texFraction }
+              champ2: { value: yM.texFraction },
             })
 
-            texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
+            texte =
+              'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
             texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
             texte += `<br>Déterminer les coordonnées du point $${M.nom}$, milieu du segment $[${A.nom}${B.nom}]$. `
             if (this.interactif) {
-              texte += '<br>' + remplisLesBlancs(this, i,
-              `${M.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
-              KeyboardType.clavierDeBaseAvecFraction
-              )
+              texte +=
+                '<br>' +
+                remplisLesBlancs(
+                  this,
+                  i,
+                  `${M.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                )
             }
             if (this.correctionDetaillee) {
               texteCorr = corrD
-              texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)), objets)
+              texteCorr += mathalea2d(
+                Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)),
+                objets,
+              )
             } else {
               texteCorr = ''
             }
-            texteCorr += 'On applique les formules avec les données de l\'énoncé  : <br><br>'
+            texteCorr +=
+              "On applique les formules avec les données de l'énoncé  : <br><br>"
             texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{x_${A.nom}+x_${B.nom}}{2}=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2}=\\dfrac{${texNombre(xA + xB)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.5em]y_${M.nom}=\\dfrac{y_${A.nom}+y_${B.nom}}{2}=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}=\\dfrac{${texNombre(yA + yB)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
             texteCorr += `  <br>Ainsi : $${M.nom}\\left(${xM.simplifie().texFSD}\\,;\\,${yM.simplifie().texFSD}\\right)$ ou 
           $${M.nom}\\left(${texNombre((xA + xB) / 2, 1)}\\,;\\,${texNombre((yA + yB) / 2, 1)}\\right)$<br> `
@@ -140,28 +167,40 @@ export default class Milieu extends Exercice {
 
             objets.push(g, T, L, s, o, I, J)
             handleAnswers(this, i, {
-              bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+              bareme: (listePoints) => [
+                Math.min(listePoints[0], listePoints[1]),
+                1,
+              ],
               champ1: { value: (xM * 2 - xA).toString() },
-              champ2: { value: (yM * 2 - yA).toString() }
+              champ2: { value: (yM * 2 - yA).toString() },
             })
-            texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
+            texte =
+              'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
             texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$.`
             texte += `<br>Déterminer les coordonnées du point $${B.nom}$ tel que $${M.nom}$ soit le milieu du segment $[${A.nom}${B.nom}]$. `
 
             if (this.interactif) {
-              texte += '<br>' + remplisLesBlancs(this, i,
-              `${B.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
-              KeyboardType.clavierDeBaseAvecFraction
-              )
+              texte +=
+                '<br>' +
+                remplisLesBlancs(
+                  this,
+                  i,
+                  `${B.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                )
             }
             if (this.correctionDetaillee) {
               texteCorr = corrD
-              texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)), objets)
+              texteCorr += mathalea2d(
+                Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)),
+                objets,
+              )
             } else {
               texteCorr = ''
             }
             texteCorr += `$${M.nom}$ est le  milieu du segment $[${A.nom}${B.nom}]$.<br>`
-            texteCorr += 'On applique les formules avec les données de l\'énoncé  : <br><br>'
+            texteCorr +=
+              "On applique les formules avec les données de l'énoncé  : <br><br>"
             texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{x_${A.nom}+x_${B.nom}}{2}\\\\[0.5em]y_${M.nom}=\\dfrac{y_${A.nom}+y_${B.nom}}{2}\\end{cases}$ `
             texteCorr += `$\\iff\\begin{cases}${texNombre(xM, 1)}=\\dfrac{${xA}+x_${B.nom}}{2}\\\\[0.5em]${texNombre(yM, 1)}=\\dfrac{${yA}+y_${B.nom}}{2}\\end{cases}$`
             texteCorr += `$\\iff \\begin{cases}${xA}+x_${B.nom}=2\\times ${ecritureParentheseSiNegatif(xM)}  \\\\[0.5em] ${yA}+y_${B.nom}=2\\times ${ecritureParentheseSiNegatif(yM)}\\end{cases}$`
@@ -173,14 +212,90 @@ export default class Milieu extends Exercice {
 
         case 3: // cas simple du milieu avec fraction
           {
-            const listeFractions1 = [[2, 1], [6, 1], [5, 1], [3, 1], [4, 1], [7, 1], [8, 1], [9, 1], [10, 1], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4],
-              [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
-            const listeFractions2 = [[3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4],
-              [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
-            const listeFractions3 = [[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4],
-              [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
-            const listeFractions4 = [[2, 1], [6, 1], [5, 1], [3, 1], [4, 1], [7, 1], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4],
-              [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
+            const listeFractions1 = [
+              [2, 1],
+              [6, 1],
+              [5, 1],
+              [3, 1],
+              [4, 1],
+              [7, 1],
+              [8, 1],
+              [9, 1],
+              [10, 1],
+              [3, 2],
+              [5, 2],
+              [1, 3],
+              [2, 3],
+              [4, 3],
+              [5, 3],
+              [1, 4],
+              [3, 4],
+              [5, 4],
+              [1, 5],
+              [2, 5],
+              [3, 5],
+              [4, 5],
+              [1, 6],
+              [5, 6],
+            ]
+            const listeFractions2 = [
+              [3, 2],
+              [5, 2],
+              [1, 3],
+              [2, 3],
+              [4, 3],
+              [5, 3],
+              [1, 4],
+              [3, 4],
+              [5, 4],
+              [1, 5],
+              [2, 5],
+              [3, 5],
+              [4, 5],
+              [1, 6],
+              [5, 6],
+            ]
+            const listeFractions3 = [
+              [1, 2],
+              [3, 2],
+              [5, 2],
+              [1, 3],
+              [2, 3],
+              [4, 3],
+              [5, 3],
+              [1, 4],
+              [3, 4],
+              [5, 4],
+              [1, 5],
+              [2, 5],
+              [3, 5],
+              [4, 5],
+              [1, 6],
+              [5, 6],
+            ]
+            const listeFractions4 = [
+              [2, 1],
+              [6, 1],
+              [5, 1],
+              [3, 1],
+              [4, 1],
+              [7, 1],
+              [3, 2],
+              [5, 2],
+              [1, 3],
+              [2, 3],
+              [4, 3],
+              [5, 3],
+              [1, 4],
+              [3, 4],
+              [5, 4],
+              [1, 5],
+              [2, 5],
+              [3, 5],
+              [4, 5],
+              [1, 6],
+              [5, 6],
+            ]
 
             const xAf = choice(listeFractions1)
             const Ax = new FractionEtendue(xAf[0] * choice([-1, 1]), xAf[1])
@@ -194,29 +309,44 @@ export default class Milieu extends Exercice {
             const yBf = choice(listeFractions4)
             const By = new FractionEtendue(yBf[0] * choice([-1, 1]), yBf[1])
 
-            const xM = new FractionEtendue(Ax.num * Bx.d + Bx.num * Ax.den, 2 * Ax.den * Bx.den)
-            const yM = new FractionEtendue(Ay.num * By.den + By.num * Ay.den, 2 * Ay.den * By.den)
+            const xM = new FractionEtendue(
+              Ax.num * Bx.d + Bx.num * Ax.den,
+              2 * Ax.den * Bx.den,
+            )
+            const yM = new FractionEtendue(
+              Ay.num * By.den + By.num * Ay.den,
+              2 * Ay.den * By.den,
+            )
 
-            texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
+            texte =
+              'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
             texte += ` $${A.nom}\\left(${Ax.texFSD}\\,;\\,${Ay.texFSD}\\right)$ et $${B.nom}\\left(${Bx.texFSD}\\,;\\,${By.texFSD}\\right)$.`
             texte += `<br>Déterminer les coordonnées du point $${M.nom}$, milieu du segment $[${A.nom}${B.nom}]$.`
             handleAnswers(this, i, {
-              bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+              bareme: (listePoints) => [
+                Math.min(listePoints[0], listePoints[1]),
+                1,
+              ],
               champ1: { value: xM.texFraction },
-              champ2: { value: yM.texFraction }
+              champ2: { value: yM.texFraction },
             })
             if (this.interactif) {
-              texte += '<br>' + remplisLesBlancs(this, i,
-              `${M.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
-              KeyboardType.clavierDeBaseAvecFraction
-              )
+              texte +=
+                '<br>' +
+                remplisLesBlancs(
+                  this,
+                  i,
+                  `${M.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                )
             }
             if (this.correctionDetaillee) {
               texteCorr = corrD
             } else {
               texteCorr = ''
             }
-            texteCorr += 'On applique les formules avec les données de l\'énoncé  : <br><br>'
+            texteCorr +=
+              "On applique les formules avec les données de l'énoncé  : <br><br>"
             texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{x_${A.nom}+x_${B.nom}}{2}=\\dfrac{${Ax.texFSD}+${Bx.num < 0 ? `\\left(${Bx.texFSD}\\right)` : `${Bx.texFSD}`}}{2}=
           \\dfrac{\\dfrac{${Ax.num * Bx.den}}{${Ax.den * Bx.den}}+\\dfrac{${Bx.num * Ax.den}}{${Ax.den * Bx.den}}}{2}=\\dfrac{\\dfrac{${Ax.num * Bx.den + Bx.num * Ax.den}}{${Ax.den * Bx.den}}}{2}=\\dfrac{${Ax.num * Bx.den + Bx.num * Ax.den}}{${Ax.den * Bx.den}}\\times \\dfrac{1}{2}=${xM.texFraction}${xM.texSimplificationAvecEtapes()}\\\\[1em]
           y_${M.nom}=\\dfrac{y_${A.nom}+y_${B.nom}}{2}=\\dfrac{${Ay.texFSD}+${By.num < 0 ? `\\left(${By.texFSD}\\right)` : `${By.texFSD}`}}{2}=
@@ -226,7 +356,8 @@ export default class Milieu extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

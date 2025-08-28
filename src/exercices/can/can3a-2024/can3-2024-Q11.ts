@@ -14,7 +14,7 @@ export const uuid = '6bb1f'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 4
       this.question = '$3x-5=7$'
@@ -50,8 +50,7 @@ export default class NomExercice extends ExerciceSimple {
         this.reponse = randint(-5, 5, [-1, 0, 1])
         c = randint(-7, 7, [0])
         b = c - a * this.reponse
-      }
-      while (b === 0)
+      } while (b === 0)
       this.question = `$${a}x${ecritureAlgebrique(b)}=${c}$`
       this.correction = `On procède par étapes successives :<br>
       On commence par isoler $${a}x$ dans le membre de gauche en ajoutant
@@ -71,6 +70,8 @@ export default class NomExercice extends ExerciceSimple {
     this.canReponseACompleter = '$x=\\ldots$'
     if (!this.interactif) {
       this.question += '<br> $x=\\ldots$'
-    } else { this.question += '<br> $x=$' }
+    } else {
+      this.question += '<br> $x=$'
+    }
   }
 }

@@ -1,5 +1,8 @@
 import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
@@ -15,7 +18,7 @@ export const uuid = '74ad3'
 
 */
 export default class CompareNombre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -25,8 +28,14 @@ export default class CompareNombre extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
-    const [aa, bb, cc] = this.canOfficielle ? [5, 'dixièmes', 10] : choice([[randint(2, 50), 'dixièmes', 10], [randint(20, 500), 'centièmes', 100], [randint(200, 5000), 'millièmes', 1000]])
+  nouvelleVersion() {
+    const [aa, bb, cc] = this.canOfficielle
+      ? [5, 'dixièmes', 10]
+      : choice([
+          [randint(2, 50), 'dixièmes', 10],
+          [randint(20, 500), 'centièmes', 100],
+          [randint(200, 5000), 'millièmes', 1000],
+        ])
     const a = aa
     const b = bb
     const c = cc
@@ -44,14 +53,13 @@ export default class CompareNombre extends ExerciceSimple {
       propositions: [
         {
           texte: `$${texNombre(a, 0)}$ ${b}  `,
-          statut: nbA > nbB
+          statut: nbA > nbB,
         },
         {
           texte: `$${texNombre(nbB, 1)}$`,
-          statut: nbB > nbA
-        }
-      ]
-
+          statut: nbB > nbA,
+        },
+      ],
     }
     const qcm = propositionsQcm(this, 0)
     if (!this.interactif) {

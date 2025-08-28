@@ -17,10 +17,10 @@ export const uuid = 'eae92'
 
 export const refs = {
   'fr-fr': ['can6C10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Tables5A9 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,7 +28,7 @@ export default class Tables5A9 extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(3, 9)
     const b = randint(5, 9)
     this.reponse = a * b

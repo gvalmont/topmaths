@@ -19,18 +19,20 @@ export const uuid = 'c0bf1'
 
 export const refs = {
   'fr-fr': ['can6M04', 'auto6M1C-flash3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ConversionEnTousSens extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, resultat
-    switch (choice(['a', 'b', 'c', 'd'])) { //
+    switch (
+      choice(['a', 'b', 'c', 'd']) //
+    ) {
       case 'a':
         if (choice([true, false])) {
           a = randint(1, 13) * 50

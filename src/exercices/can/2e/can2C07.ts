@@ -17,10 +17,10 @@ export const uuid = '2af85'
 
 export const refs = {
   'fr-fr': ['can2C07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAvecRacineCarree2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.optionsChampTexte = { texteAvant: '<br>' }
@@ -30,9 +30,22 @@ export default class CalculAvecRacineCarree2 extends ExerciceSimple {
     this.optionsDeComparaison = { texteSansCasse: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeRacines1 = [
-      [2, 8], [2, 32], [2, 50], [3, 27], [5, 20], [2, 18], [2, 72], [3, 48], [5, 45], [2, 200], [3, 300], [5, 500], [6, 600], [7, 700]
+      [2, 8],
+      [2, 32],
+      [2, 50],
+      [3, 27],
+      [5, 20],
+      [2, 18],
+      [2, 72],
+      [3, 48],
+      [5, 45],
+      [2, 200],
+      [3, 300],
+      [5, 500],
+      [6, 600],
+      [7, 700],
     ] // couples pour simplifier des produits de racines carrées
     let racine, a, b, reduction
     switch (choice([1, 2])) {
@@ -82,7 +95,12 @@ export default class CalculAvecRacineCarree2 extends ExerciceSimple {
   `
           if (1 - reduction[0] === -1) {
             this.reponse = [`${1 - reduction[0]}\\sqrt${reduction[1]}`]
-          } else { this.reponse = [`${1 - reduction[0]}\\sqrt${reduction[1]}`, `-\\sqrt${reduction[1]}`] }
+          } else {
+            this.reponse = [
+              `${1 - reduction[0]}\\sqrt${reduction[1]}`,
+              `-\\sqrt${reduction[1]}`,
+            ]
+          }
         } else {
           this.question = `Écrire $\\sqrt{${b}}-\\sqrt{${a}}$ sous la forme $a\\sqrt{b}$ avec $a$ et $b$ entiers et $b$ le plus petit possible. `
           this.correction = `On a  $${b}=${reduction[0]}^2\\times ${reduction[1]}$.<br>
@@ -94,8 +112,13 @@ export default class CalculAvecRacineCarree2 extends ExerciceSimple {
   \\end{aligned}$
 `
           if (1 - reduction[0] === 1) {
-            this.reponse = [`${reduction[0] - 1}\\sqrt${reduction[1]}`, `\\sqrt${reduction[1]}`]
-          } else { this.reponse = [`${reduction[0] - 1}\\sqrt${reduction[1]}`] }
+            this.reponse = [
+              `${reduction[0] - 1}\\sqrt${reduction[1]}`,
+              `\\sqrt${reduction[1]}`,
+            ]
+          } else {
+            this.reponse = [`${reduction[0] - 1}\\sqrt${reduction[1]}`]
+          }
         }
 
         break

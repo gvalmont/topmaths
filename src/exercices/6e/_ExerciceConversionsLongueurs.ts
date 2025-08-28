@@ -8,7 +8,11 @@ import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -28,16 +32,19 @@ export const titre = 'Convertir des longueurs ou des masses'
  * @author Rémi Angot
  */
 export default class ExerciceConversionsLongueurs extends Exercice {
-  constructor (niveau = 1) {
+  constructor(niveau = 1) {
     super()
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard'
+      ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard',
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
     this.besoinFormulaire3CaseACocher = ['Avec tableau']
-    this.besoinFormulaire4Texte = ['Type de grandeur', 'Nombres séparés par des tirets :\n1 : Longueur\n2 : Masse\n3 : Mélange']
+    this.besoinFormulaire4Texte = [
+      'Type de grandeur',
+      'Nombres séparés par des tirets :\n1 : Longueur\n2 : Masse\n3 : Mélange',
+    ]
     this.sup = niveau // Niveau de difficulté de l'exercice
     this.sup2 = false // Avec des nombres décimaux ou pas
     this.sup3 = false // avec le tableau
@@ -45,36 +52,46 @@ export default class ExerciceConversionsLongueurs extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.consigne = context.isDiaporama ? 'Convertir ' : 'Compléter '
     const reponses = []
-    const typeDeGrandeur = gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 2, defaut: 1, melange: 3, nbQuestions: this.nbQuestions })
+    const typeDeGrandeur = gestionnaireFormulaireTexte({
+      saisie: this.sup4,
+      min: 1,
+      max: 2,
+      defaut: 1,
+      melange: 3,
+      nbQuestions: this.nbQuestions,
+    })
     const prefixeMulti = [
       ['da', 10],
       ['h', 100],
-      ['k', 1000]
+      ['k', 1000],
     ]
     const prefixeDiv = [
       ['d', 10],
       ['c', 100],
-      ['m', 1000]
+      ['m', 1000],
     ]
     const listeUnite1 = combinaisonListes(
       [0, 1, 2, 3, 4, 5, 6],
-      this.nbQuestions
+      this.nbQuestions,
     )
     const listek = combinaisonListes([0, 1, 2], this.nbQuestions)
     const listeDeDecimaux = combinaisonListes(
       ['entier', 'XX,X', '0,X', '0,0X', 'X,XX'],
-      this.nbQuestions
+      this.nbQuestions,
     )
     for (
       let i = 0, a, k, div, resultat, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       const unite = typeDeGrandeur[i] === 1 ? 'm' : 'g'
-      const listeUnite = ['m', 'c', 'd', '', 'da', 'h', 'k'].map(pref => `${pref}${unite}`)
+      const listeUnite = ['m', 'c', 'd', '', 'da', 'h', 'k'].map(
+        (pref) => `${pref}${unite}`,
+      )
       const typesDeQuestions = this.sup
       k = listek[i] // Plutôt que de prendre un préfix au hasard, on alterne entre 10,100 et 1000
       if (typesDeQuestions === 1) {
@@ -106,7 +123,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
           default:
             a = arrondi(
               randint(1, 9) + randint(1, 9) / 10 + randint(1, 9) / 100,
-              2
+              2,
             )
         }
         // entier ou
@@ -115,7 +132,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
           randint(1, 9),
           randint(1, 9) * 10,
           randint(1, 9) * 100,
-          randint(1, 9) * 10 + randint(1, 9)
+          randint(1, 9) * 10 + randint(1, 9),
         ])
         // X, X0, X00, XX
       }
@@ -128,14 +145,12 @@ export default class ExerciceConversionsLongueurs extends Exercice {
           this.interactif && context.isHtml
             ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
             : `\\dotfills  ${texTexte(unite)}$`
-        texteCorr =
-          `$ ${texNombre(a)}${texTexte(prefixeMulti[k][0] + unite)} =  ${texNombre(a)}\\times${prefixeMulti[k][1]}${texTexte(unite)} = ${miseEnEvidence(texNombre(resultat))}${texTexte(unite)}$`
+        texteCorr = `$ ${texNombre(a)}${texTexte(prefixeMulti[k][0] + unite)} =  ${texNombre(a)}\\times${prefixeMulti[k][1]}${texTexte(unite)} = ${miseEnEvidence(texNombre(resultat))}${texTexte(unite)}$`
         if (this.sup3 && context.vue === 'diap') {
           texte += `<br>${buildTab('0', '', '0', '', 2, true)}`
         }
         if (this.sup3) {
-          texteCorr +=
-            `<br>${buildTab(String(a), `${prefixeMulti[k][0]}m`, String(resultat), unite)}`
+          texteCorr += `<br>${buildTab(String(a), `${prefixeMulti[k][0]}m`, String(resultat), unite)}`
         }
       } else if (div && typesDeQuestions < 4) {
         resultat = arrondi(a / Number(prefixeDiv[k][1]), 12)
@@ -144,14 +159,12 @@ export default class ExerciceConversionsLongueurs extends Exercice {
           this.interactif && context.isHtml
             ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
             : `\\dotfills  ${texTexte(unite)}$`
-        texteCorr =
-          `$ ${texNombre(a)}${texTexte(prefixeDiv[k][0] + unite)} =  ${texNombre(a)}\\div${texTexte(String(prefixeDiv[k][1]))}${texTexte(unite)} = ${miseEnEvidence(texNombre(resultat))}${texTexte(unite)}$`
+        texteCorr = `$ ${texNombre(a)}${texTexte(prefixeDiv[k][0] + unite)} =  ${texNombre(a)}\\div${texTexte(String(prefixeDiv[k][1]))}${texTexte(unite)} = ${miseEnEvidence(texNombre(resultat))}${texTexte(unite)}$`
         if (this.sup3 && context.vue === 'diap') {
           texte += `<br>${buildTab('0', '', '0', '', 2, true)}`
         }
         if (this.sup3) {
-          texteCorr +=
-            `<br>${buildTab(String(a), `${prefixeDiv[k][0]}m`, String(resultat), unite)}`
+          texteCorr += `<br>${buildTab(String(a), `${prefixeDiv[k][0]}m`, String(resultat), unite)}`
         }
       } else {
         // pour type de question = 4
@@ -159,10 +172,10 @@ export default class ExerciceConversionsLongueurs extends Exercice {
         let unite2 = randint(
           Math.max(0, unite1 - 3),
           Math.min(unite1 + 3, 6),
-          unite1
+          unite1,
         )
         if (unite1 > unite2) {
-          [unite1, unite2] = [unite2, unite1]
+          ;[unite1, unite2] = [unite2, unite1]
         }
         const ecart = unite2 - unite1 // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (randint(0, 1) > 0) {
@@ -172,14 +185,12 @@ export default class ExerciceConversionsLongueurs extends Exercice {
             this.interactif && context.isHtml
               ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(listeUnite[unite1])}$` })}`
               : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
-          texteCorr =
-            `$ ${texNombre(a)}${texTexte(listeUnite[unite2])} =  ${texNombre(a)}\\times${texNombre(10 ** ecart)}${texTexte(listeUnite[unite1])} = ${miseEnEvidence(texNombre(resultat))}${texTexte(listeUnite[unite1])}$`
+          texteCorr = `$ ${texNombre(a)}${texTexte(listeUnite[unite2])} =  ${texNombre(a)}\\times${texNombre(10 ** ecart)}${texTexte(listeUnite[unite1])} = ${miseEnEvidence(texNombre(resultat))}${texTexte(listeUnite[unite1])}$`
           if (this.sup3 && context.vue === 'diap') {
             texte += `<br>${buildTab('0', '', '0', '', 2, true)}`
           }
           if (this.sup3) {
-            texteCorr +=
-              `<br>${buildTab(String(a), listeUnite[unite2], String(arrondi(resultat, 7)), listeUnite[unite1])}`
+            texteCorr += `<br>${buildTab(String(a), listeUnite[unite2], String(arrondi(resultat, 7)), listeUnite[unite1])}`
           }
         } else {
           resultat = a / 10 ** ecart
@@ -188,14 +199,12 @@ export default class ExerciceConversionsLongueurs extends Exercice {
             this.interactif && context.isHtml
               ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(listeUnite[unite2])}$` })}`
               : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
-          texteCorr =
-            `$ ${texNombre(a)}${texTexte(listeUnite[unite1])} =  ${texNombre(a)}\\div${texNombre(10 ** ecart)}${texTexte(listeUnite[unite2])} = ${miseEnEvidence(texNombre(resultat))}${texTexte(listeUnite[unite2])}$`
+          texteCorr = `$ ${texNombre(a)}${texTexte(listeUnite[unite1])} =  ${texNombre(a)}\\div${texNombre(10 ** ecart)}${texTexte(listeUnite[unite2])} = ${miseEnEvidence(texNombre(resultat))}${texTexte(listeUnite[unite2])}$`
           if (this.sup3 && context.vue === 'diap') {
             texte += `<br>${buildTab('0', '', '0', '', 2, true)}`
           }
           if (this.sup3) {
-            texteCorr +=
-              `<br>${buildTab(String(a), listeUnite[unite1], String(arrondi(resultat, 7)), listeUnite[unite2])}`
+            texteCorr += `<br>${buildTab(String(a), listeUnite[unite1], String(arrondi(resultat, 7)), listeUnite[unite2])}`
           }
         }
       }
@@ -209,7 +218,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
         } else if (context.isHtml) {
           texte = texte.replace(
             '\\dotfills',
-            '................................'
+            '................................',
           )
         }
         this.listeQuestions[i] = texte
@@ -228,7 +237,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
         '0',
         '',
         Math.min(10, this.nbQuestions),
-        true
+        true,
       )
     } else if (context.vue !== 'diap' && context.isHtml && this.sup3) {
       this.consigne += "en s'aidant du tableau ci-dessous :<br><br>"
@@ -238,7 +247,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
         '0',
         '',
         Math.min(10, this.nbQuestions),
-        true
+        true,
       )
     } else this.consigne += ':'
   }
@@ -257,7 +266,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
  * getDigitFromNumber(1302.56,0.1) retourne '5'
  * getDigitFromNumber(1302.56,0.001) retourne ''
  */
-export function getDigitFromNumber (nb: string | number, pos: number) {
+export function getDigitFromNumber(nb: string | number, pos: number) {
   if (typeof nb === 'number') nb = nb.toString()
   const n = new Decimal(nb)
   const po = new Decimal(pos)
@@ -285,8 +294,18 @@ export function getDigitFromNumber (nb: string | number, pos: number) {
  * @param {*} force Ajoute deux colonnes avant km et deuux après mm (par défaut : false)
  * @returns Un tableau de conversion de longueur en latex.
  */
-function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne = 2, force = false) {
-  const tabRep: (nbre: string, uniteNbre: string) => string[] = (nbre: string, uniteNbre: string) => {
+function buildTab(
+  a: string,
+  uniteA: string,
+  r: string,
+  uniteR: string,
+  ligne = 2,
+  force = false,
+) {
+  const tabRep: (nbre: string, uniteNbre: string) => string[] = (
+    nbre: string,
+    uniteNbre: string,
+  ) => {
     const res = ['', '', '', '', '', '', '', '', '', '', '']
     switch (uniteNbre.replaceAll(' ', '')) {
       case 'km':
@@ -376,7 +395,13 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
     }
     return res
   }
-  const createTab = (aT: string[], rT: string[], first: number, end: number, ligne: number) => {
+  const createTab = (
+    aT: string[],
+    rT: string[],
+    first: number,
+    end: number,
+    ligne: number,
+  ) => {
     let texte = '$\\def\\arraystretch{1.5}\\begin{array}{'
     for (let i = first; i <= end; i++) {
       texte += `|c${i === end ? '|}' : ''}`
@@ -392,7 +417,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
       '\\; cm \\;',
       '\\;mm\\;',
       '\\hspace*{0.6cm}',
-      '\\hspace*{0.6cm}'
+      '\\hspace*{0.6cm}',
     ]
     texte += '\\hline '
     for (let i = first; i <= end; i++) {
@@ -426,7 +451,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
     rTab,
     Math.min(minTab1, minTab2),
     Math.max(maxTab1, maxTab2),
-    ligne
+    ligne,
   )
   return texte
 }

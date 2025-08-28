@@ -14,23 +14,24 @@ export const uuid = '7f5f6'
  */
 export const refs = {
   'fr-fr': ['1A-F2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 type Noeud = {
-  x: number;
-  y: number;
-  deriveeGauche: number;
-  deriveeDroit: number;
-  isVisible: boolean;
+  x: number
+  y: number
+  deriveeGauche: number
+  deriveeDroit: number
+  isVisible: boolean
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Trouver les nombres solutions d\'une équation avec un graphique'
+export const titre =
+  "Trouver les nombres solutions d'une équation avec un graphique"
 export default class auto1AF2 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    const noeuds1 : Noeud[] = [
+    const noeuds1: Noeud[] = [
       { x: -3.5, y: -3.5, deriveeGauche: 2, deriveeDroit: 2, isVisible: false },
       { x: -2.5, y: -1.5, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
       { x: -1.5, y: 1, deriveeGauche: 2, deriveeDroit: 3, isVisible: true },
@@ -39,22 +40,24 @@ export default class auto1AF2 extends ExerciceQcmA {
       { x: 1.5, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: false },
       { x: 3, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
       { x: 3.5, y: -0.5, deriveeGauche: 1, deriveeDroit: 1.5, isVisible: true },
-      { x: 4, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: false }
+      { x: 4, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: false },
     ]
     const mesFonctions = [noeuds1, noeuds1]
-    function aleatoiriseCourbe (listeFonctions: Noeud[][]) {
-      const coeffX = 1// choice([-1, 1])
-      const coeffY = 1// choice([-1, 1])
+    function aleatoiriseCourbe(listeFonctions: Noeud[][]) {
+      const coeffX = 1 // choice([-1, 1])
+      const coeffY = 1 // choice([-1, 1])
       const deltaX = 0
       const deltaY = 0
       const choix = choice(listeFonctions)
-      return choix.map((noeud) => Object({
-        x: (noeud.x + deltaX) * coeffX,
-        y: (noeud.y + deltaY) * coeffY,
-        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-        isVisible: noeud.isVisible
-      }))
+      return choix.map((noeud) =>
+        Object({
+          x: (noeud.x + deltaX) * coeffX,
+          y: (noeud.y + deltaY) * coeffY,
+          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+          isVisible: noeud.isVisible,
+        }),
+      )
     }
     let bornes = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
 
@@ -64,13 +67,25 @@ export default class auto1AF2 extends ExerciceQcmA {
     this.spline = theSpline
     bornes = theSpline.trouveMaxes()
 
-    const labelA = latex2d('A', theSpline.x[1] - 0.3, theSpline.y[1] + 0.3, { color: 'blue', letterSize: 'normalsize' })
+    const labelA = latex2d('A', theSpline.x[1] - 0.3, theSpline.y[1] + 0.3, {
+      color: 'blue',
+      letterSize: 'normalsize',
+    })
 
-    const labelB = latex2d('B', theSpline.x[2] - 0.3, theSpline.y[2] + 0.3, { color: 'blue', letterSize: 'normalsize' })
+    const labelB = latex2d('B', theSpline.x[2] - 0.3, theSpline.y[2] + 0.3, {
+      color: 'blue',
+      letterSize: 'normalsize',
+    })
 
-    const labelR = latex2d('R', theSpline.x[4] + 0.3, theSpline.y[4] + 0.3, { color: 'blue', letterSize: 'normalsize' })
+    const labelR = latex2d('R', theSpline.x[4] + 0.3, theSpline.y[4] + 0.3, {
+      color: 'blue',
+      letterSize: 'normalsize',
+    })
 
-    const labelS = latex2d('S', theSpline.x[7] + 0.3, theSpline.y[7] + 0.2, { color: 'blue', letterSize: 'normalsize' })
+    const labelS = latex2d('S', theSpline.x[7] + 0.3, theSpline.y[7] + 0.2, {
+      color: 'blue',
+      letterSize: 'normalsize',
+    })
     const repere1 = repere({
       xMin: bornes.xMin - 1,
       xMax: bornes.xMax + 1,
@@ -82,22 +97,41 @@ export default class auto1AF2 extends ExerciceQcmA {
       xThickListe: [0],
       yThickListe: [0],
       xLabelListe: [-6],
-      yLabelListe: [-6]
+      yLabelListe: [-6],
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'black'
+      color: 'black',
     })
     const objetsEnonce = [repere1, courbe1]
 
-    this.enonce = `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br>
+    this.enonce =
+      `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br>
     Les points $A$, $B$, $R$ et $S$ appartiennent à $\\mathscr{C}$.<br>
     Leurs abscisses sont notées respectivement $x_A$, $x_B$, $x_C$ et $x_D$.<br>
-     ` + mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), labelA, labelB, labelR, labelS, objetsEnonce, o) + '<br>' +
-         'L\'inéquation $x\\times f(x) > 0$ est vérifiée par :'
+     ` +
+      mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
+          {
+            xmin: bornes.xMin - 1,
+            ymin: bornes.yMin - 1,
+            xmax: bornes.xMax + 1,
+            ymax: bornes.yMax + 1,
+          },
+        ),
+        labelA,
+        labelB,
+        labelR,
+        labelS,
+        objetsEnonce,
+        o,
+      ) +
+      '<br>' +
+      "L'inéquation $x\\times f(x) > 0$ est vérifiée par :"
     // fixeBordures(objetsEnonce))
     this.correction = `L'inéquation est vérifiée lorsque $x$ et $f(x)$ sont de même signe, c'est-à-dire lorsque $x$ et $f(x)$ sont tous les deux positifs ou tous les deux négatifs.<br>
     Ici,  $x_A$ et $f(x_A)$ sont tous les deux négatifs. Aussi, $x_R$ et $f(x_R)$ sont tous les deux positifs.<br>
@@ -107,12 +141,12 @@ export default class auto1AF2 extends ExerciceQcmA {
       '$x_A$ et $x_R$',
       '$x_A$ et $x_B$',
       '$x_A$, $x_R$ et $x_S$',
-      '$x_R$ et $x_S$'
+      '$x_R$ et $x_S$',
     ]
   }
 
   versionAleatoire = () => {
-  // Fonction utilitaire pour formater une liste avec "et" avant le dernier élément
+    // Fonction utilitaire pour formater une liste avec "et" avant le dernier élément
     const formaterListe = (elements: string[]): string => {
       if (elements.length === 0) return ''
       if (elements.length === 1) return elements[0]
@@ -124,7 +158,7 @@ export default class auto1AF2 extends ExerciceQcmA {
       return autresElements.join(', ') + ' \\text{ et } ' + dernierElement
     }
 
-    const noeuds1 : Noeud[] = [
+    const noeuds1: Noeud[] = [
       { x: -3.5, y: -3.5, deriveeGauche: 2, deriveeDroit: 2, isVisible: false },
       { x: -2.5, y: -1.5, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
       { x: -1.5, y: 1, deriveeGauche: 2, deriveeDroit: 3, isVisible: true },
@@ -133,23 +167,25 @@ export default class auto1AF2 extends ExerciceQcmA {
       { x: 1.5, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: false },
       { x: 3, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
       { x: 3.5, y: -0.5, deriveeGauche: 1, deriveeDroit: 2, isVisible: true },
-      { x: 4, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: false }
+      { x: 4, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: false },
     ]
     const mesFonctions = [noeuds1]
 
-    function aleatoiriseCourbe (listeFonctions: Noeud[][]) {
-      const coeffX = 1  // Pas de symétrie par rapport à l'axe des ordonnées pour le test
-      const coeffY = choice([-1, 1])  // Symétrie par rapport à l'axe des abscisses seulement
+    function aleatoiriseCourbe(listeFonctions: Noeud[][]) {
+      const coeffX = 1 // Pas de symétrie par rapport à l'axe des ordonnées pour le test
+      const coeffY = choice([-1, 1]) // Symétrie par rapport à l'axe des abscisses seulement
       const deltaX = 0
       const deltaY = 0
       const choix = choice(listeFonctions)
-      return choix.map((noeud) => Object({
-        x: (noeud.x + deltaX) * coeffX,
-        y: (noeud.y + deltaY) * coeffY,
-        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-        isVisible: noeud.isVisible
-      }))
+      return choix.map((noeud) =>
+        Object({
+          x: (noeud.x + deltaX) * coeffX,
+          y: (noeud.y + deltaY) * coeffY,
+          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+          isVisible: noeud.isVisible,
+        }),
+      )
     }
 
     let bornes = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
@@ -165,24 +201,44 @@ export default class auto1AF2 extends ExerciceQcmA {
       { index: 1, x: theSpline.x[1], y: theSpline.y[1] },
       { index: 2, x: theSpline.x[2], y: theSpline.y[2] },
       { index: 4, x: theSpline.x[4], y: theSpline.y[4] },
-      { index: 7, x: theSpline.x[7], y: theSpline.y[7] }
+      { index: 7, x: theSpline.x[7], y: theSpline.y[7] },
     ].sort((a, b) => a.x - b.x)
 
     // Choix aléatoire des noms de points
     const nomsPoints = [
-      choice(['A', 'B', 'C', 'D']),    // Premier point (le plus à gauche)
-      choice(['E', 'F', 'G', 'H']),    // Deuxième point
-      choice(['R', 'S', 'T']),         // Troisième point
-      choice(['U', 'V'])               // Quatrième point (le plus à droite)
+      choice(['A', 'B', 'C', 'D']), // Premier point (le plus à gauche)
+      choice(['E', 'F', 'G', 'H']), // Deuxième point
+      choice(['R', 'S', 'T']), // Troisième point
+      choice(['U', 'V']), // Quatrième point (le plus à droite)
     ]
 
     // Assigner les labels avec les noms choisis aléatoirement
     const decalageX = 0.5
     const decalageY = 0.3
-    const labelPoint1 = latex2d(nomsPoints[0], pointsVisibles[0].x - decalageX, pointsVisibles[0].y + decalageY, { color: 'blue', letterSize: 'normalsize' })
-    const labelPoint2 = latex2d(nomsPoints[1], pointsVisibles[1].x - decalageX, pointsVisibles[1].y + decalageY, { color: 'blue', letterSize: 'normalsize' })
-    const labelPoint3 = latex2d(nomsPoints[2], pointsVisibles[2].x + decalageX, pointsVisibles[2].y + decalageY, { color: 'blue', letterSize: 'normalsize' })
-    const labelPoint4 = latex2d(nomsPoints[3], pointsVisibles[3].x + decalageX, pointsVisibles[3].y + decalageY, { color: 'blue', letterSize: 'normalsize' })
+    const labelPoint1 = latex2d(
+      nomsPoints[0],
+      pointsVisibles[0].x - decalageX,
+      pointsVisibles[0].y + decalageY,
+      { color: 'blue', letterSize: 'normalsize' },
+    )
+    const labelPoint2 = latex2d(
+      nomsPoints[1],
+      pointsVisibles[1].x - decalageX,
+      pointsVisibles[1].y + decalageY,
+      { color: 'blue', letterSize: 'normalsize' },
+    )
+    const labelPoint3 = latex2d(
+      nomsPoints[2],
+      pointsVisibles[2].x + decalageX,
+      pointsVisibles[2].y + decalageY,
+      { color: 'blue', letterSize: 'normalsize' },
+    )
+    const labelPoint4 = latex2d(
+      nomsPoints[3],
+      pointsVisibles[3].x + decalageX,
+      pointsVisibles[3].y + decalageY,
+      { color: 'blue', letterSize: 'normalsize' },
+    )
 
     const repere1 = repere({
       xMin: bornes.xMin - 1,
@@ -195,7 +251,7 @@ export default class auto1AF2 extends ExerciceQcmA {
       xThickListe: [0],
       yThickListe: [0],
       xLabelListe: [-6],
-      yLabelListe: [-6]
+      yLabelListe: [-6],
     })
 
     const courbe1 = theSpline.courbe({
@@ -203,7 +259,7 @@ export default class auto1AF2 extends ExerciceQcmA {
       epaisseur: 2,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'red'
+      color: 'red',
     })
 
     const objetsEnonce = [repere1, courbe1]
@@ -216,37 +272,57 @@ export default class auto1AF2 extends ExerciceQcmA {
       { nom: nomsPoints[0], x: pointsVisibles[0].x, y: pointsVisibles[0].y },
       { nom: nomsPoints[1], x: pointsVisibles[1].x, y: pointsVisibles[1].y },
       { nom: nomsPoints[2], x: pointsVisibles[2].x, y: pointsVisibles[2].y },
-      { nom: nomsPoints[3], x: pointsVisibles[3].x, y: pointsVisibles[3].y }
+      { nom: nomsPoints[3], x: pointsVisibles[3].x, y: pointsVisibles[3].y },
     ]
 
     // Fonction pour vérifier si un point satisfait l'inéquation x*f(x) > 0 ou < 0
-    const satisfaitInequation = (point: { x: number, y: number }, type: string) => {
+    const satisfaitInequation = (
+      point: { x: number; y: number },
+      type: string,
+    ) => {
       const produit = point.x * point.y
       return type === '>' ? produit > 0 : produit < 0
     }
 
     // Trouver les points qui satisfont l'inéquation
-    const pointsSolution = points.filter(point => satisfaitInequation(point, typeInequation))
+    const pointsSolution = points.filter((point) =>
+      satisfaitInequation(point, typeInequation),
+    )
 
     // Créer la bonne réponse en utilisant la fonction de formatage
-    const bonneReponse = formaterListe(pointsSolution.map(p => `x_${p.nom}`))
+    const bonneReponse = formaterListe(pointsSolution.map((p) => `x_${p.nom}`))
 
     // Créer des réponses alternatives
-    const tousLesPoints = points.map(p => `x_${p.nom}`)
+    const tousLesPoints = points.map((p) => `x_${p.nom}`)
     const reponsesAlternatives = [
-    // Quelques combinaisons fausses
-      formaterListe(points.filter(point => !satisfaitInequation(point, typeInequation)).slice(0, 2).map(p => `x_${p.nom}`)),
+      // Quelques combinaisons fausses
+      formaterListe(
+        points
+          .filter((point) => !satisfaitInequation(point, typeInequation))
+          .slice(0, 2)
+          .map((p) => `x_${p.nom}`),
+      ),
       formaterListe(tousLesPoints.slice(0, 3)),
-      formaterListe(tousLesPoints.slice(1, 3))
-    ].filter(rep => rep !== bonneReponse && rep.length > 0)
+      formaterListe(tousLesPoints.slice(1, 3)),
+    ].filter((rep) => rep !== bonneReponse && rep.length > 0)
 
     // S'assurer qu'on a 3 réponses alternatives différentes
     while (reponsesAlternatives.length < 3) {
       const combinaison = choice([
-        [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]
+        [0, 1],
+        [0, 2],
+        [0, 3],
+        [1, 2],
+        [1, 3],
+        [2, 3],
       ])
-      const nouvelleReponse = formaterListe(combinaison.map(i => `x_${points[i].nom}`))
-      if (!reponsesAlternatives.includes(nouvelleReponse) && nouvelleReponse !== bonneReponse) {
+      const nouvelleReponse = formaterListe(
+        combinaison.map((i) => `x_${points[i].nom}`),
+      )
+      if (
+        !reponsesAlternatives.includes(nouvelleReponse) &&
+        nouvelleReponse !== bonneReponse
+      ) {
         reponsesAlternatives.push(nouvelleReponse)
       }
     }
@@ -254,37 +330,59 @@ export default class auto1AF2 extends ExerciceQcmA {
     // Créer la liste des noms pour l'énoncé
     const listeNomsPoints = formaterListe(nomsPoints)
 
-    this.enonce = `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br>
+    this.enonce =
+      `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br>
 Les points $${listeNomsPoints}$ appartiennent à $\\mathscr{C}$.<br>
-Leurs abscisses sont notées respectivement $${formaterListe(nomsPoints.map(nom => `x_${nom}`))}$.<br>
- ` + mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), labelPoint1, labelPoint2, labelPoint3, labelPoint4, objetsEnonce, o) + '<br>' +
-     `L'inéquation $x\\times f(x) ${typeInequation} 0$ est vérifiée par :`
+Leurs abscisses sont notées respectivement $${formaterListe(nomsPoints.map((nom) => `x_${nom}`))}$.<br>
+ ` +
+      mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
+          {
+            xmin: bornes.xMin - 1,
+            ymin: bornes.yMin - 1,
+            xmax: bornes.xMax + 1,
+            ymax: bornes.yMax + 1,
+          },
+        ),
+        labelPoint1,
+        labelPoint2,
+        labelPoint3,
+        labelPoint4,
+        objetsEnonce,
+        o,
+      ) +
+      '<br>' +
+      `L'inéquation $x\\times f(x) ${typeInequation} 0$ est vérifiée par :`
 
     // Explication pour la correction
-    const explicationSigne = typeInequation === '>'
-      ? 'lorsque $x$ et $f(x)$ sont de même signe, c\'est-à-dire lorsque $x$ et $f(x)$ sont tous les deux positifs ou tous les deux négatifs'
-      : 'lorsque $x$ et $f(x)$ sont de signes opposés, c\'est-à-dire lorsque l\'un est positif et l\'autre négatif'
+    const explicationSigne =
+      typeInequation === '>'
+        ? "lorsque $x$ et $f(x)$ sont de même signe, c'est-à-dire lorsque $x$ et $f(x)$ sont tous les deux positifs ou tous les deux négatifs"
+        : "lorsque $x$ et $f(x)$ sont de signes opposés, c'est-à-dire lorsque l'un est positif et l'autre négatif"
 
     // Détail des vérifications pour chaque point solution
-    const detailsSolution = pointsSolution.map(point => {
-      const signeX = point.x > 0 ? 'positif' : 'négatif'
-      const signeY = point.y > 0 ? 'positif' : 'négatif'
-      return `$x_${point.nom}$ est ${signeX} et $f(x_${point.nom})$ est ${signeY}`
-    }).join('. Aussi, ')
+    const detailsSolution = pointsSolution
+      .map((point) => {
+        const signeX = point.x > 0 ? 'positif' : 'négatif'
+        const signeY = point.y > 0 ? 'positif' : 'négatif'
+        return `$x_${point.nom}$ est ${signeX} et $f(x_${point.nom})$ est ${signeY}`
+      })
+      .join('. Aussi, ')
 
     this.correction = `L'inéquation est vérifiée ${explicationSigne}.<br>
 Ici, ${detailsSolution}.<br>
 L'inéquation est donc vérifiée pour $${miseEnEvidence(bonneReponse)}$.`
 
     this.reponses = [
-    `$${bonneReponse}$`,
-    `$${reponsesAlternatives[0]}$`,
-    `$${reponsesAlternatives[1]}$`,
-    `$${reponsesAlternatives[2]}$`
+      `$${bonneReponse}$`,
+      `$${reponsesAlternatives[0]}$`,
+      `$${reponsesAlternatives[1]}$`,
+      `$${reponsesAlternatives[2]}$`,
     ]
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

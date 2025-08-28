@@ -1,8 +1,12 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
-import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
+import {
+  fraction,
+  obtenirListeFractionsIrreductibles,
+} from '../../../modules/fractions'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Déterminer la somme de fractions à dénominateurs compatibles'
+export const titre =
+  'Déterminer la somme de fractions à dénominateurs compatibles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -17,10 +21,10 @@ export const uuid = '1b4fe'
 
 export const refs = {
   'fr-fr': ['can4C05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SommeFractionsCompatibles extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,7 +32,7 @@ export default class SommeFractionsCompatibles extends ExerciceSimple {
     // this.formatInteractif = 'fractionEgale'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 4])
     const b = fraction(1, a.d * c)

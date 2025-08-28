@@ -4,7 +4,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Operation from '../../modules/operations'
 import { base10VersBaseN } from './PEA13'
-export const titre = 'Additions et soustractions dans d\'autres bases'
+export const titre = "Additions et soustractions dans d'autres bases"
 export const dateDePublication = '31/10/2021'
 
 /**
@@ -20,13 +20,21 @@ export const uuid = '3441e'
 
 export const refs = {
   'fr-fr': ['PEA12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class AdditionSoustractionBaseN extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Uniquement des additions\n2 : Uniquement des soustractions\n3 Additions et soustractions']
-    this.besoinFormulaire2Numerique = ['Choix des bases', 3, '1 : Bases 2 à 5\n2 : Bases 12 et 16\n3 Bases 2 à base 16']
+    this.besoinFormulaireNumerique = [
+      'Opérations',
+      3,
+      '1 : Uniquement des additions\n2 : Uniquement des soustractions\n3 Additions et soustractions',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Choix des bases',
+      3,
+      '1 : Bases 2 à 5\n2 : Bases 12 et 16\n3 Bases 2 à base 16',
+    ]
     this.consigne = 'Poser et effectuer les calculs suivants :'
     this.video = '-bIvS95dmYw'
     this.nbQuestions = 4
@@ -37,7 +45,7 @@ export default class AdditionSoustractionBaseN extends Exercice {
     this.sup2 = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let listeOperations = []
     let listeBases: number[] = []
     if (this.sup === 1) {
@@ -48,7 +56,7 @@ export default class AdditionSoustractionBaseN extends Exercice {
     }
     if (this.sup === 3) {
       for (let i = 0; i < this.nbQuestions; i++) {
-        listeOperations[i] = (i < this.nbQuestions / 2) ? '+' : '-'
+        listeOperations[i] = i < this.nbQuestions / 2 ? '+' : '-'
       }
     }
     if (this.sup2 === 1) {
@@ -64,7 +72,11 @@ export default class AdditionSoustractionBaseN extends Exercice {
         listeBases = combinaisonListes([3, 4, 5, 6, 12, 16], this.nbQuestions)
       }
     }
-    for (let i = 0, texte, texteCorr, m, n, mb, nb, base, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, m, n, mb, nb, base, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       base = listeBases[i]
       if (listeOperations[i] === '+') {
         m = randint(base ** 2, base ** 4)
@@ -72,12 +84,20 @@ export default class AdditionSoustractionBaseN extends Exercice {
         mb = base10VersBaseN(m, base)
         nb = base10VersBaseN(n, base)
         texte = `$(${mb})_{${base}} + (${nb})_{${base}}$`
-        texteCorr = `En base ${base} :<br>` + Operation({ operande1: m, operande2: n, type: 'addition', base })
+        texteCorr =
+          `En base ${base} :<br>` +
+          Operation({ operande1: m, operande2: n, type: 'addition', base })
         const retenue = []
         for (let rang = 0; rang < Math.max(mb.length, nb.length); rang++) {
-          const somme: number = parseInt(mb[mb.length - 1 - rang] || 0, base) + parseInt(nb[nb.length - 1 - rang] || 0, base) + parseInt(retenue[rang - 1] || 0, base)
+          const somme: number =
+            parseInt(mb[mb.length - 1 - rang] || 0, base) +
+            parseInt(nb[nb.length - 1 - rang] || 0, base) +
+            parseInt(retenue[rang - 1] || 0, base)
           texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || 0} + ${nb[nb.length - 1 - rang] || 0} ${retenue[rang - 1] ? '+' + retenue[rang - 1] : ''}`
-          if (parseInt(mb[mb.length - 1 - rang] || 0, base) > 9 || parseInt(nb[nb.length - 1 - rang] || 0, base) > 9) {
+          if (
+            parseInt(mb[mb.length - 1 - rang] || 0, base) > 9 ||
+            parseInt(nb[nb.length - 1 - rang] || 0, base) > 9
+          ) {
             // Si un chiffre est un lettre
             texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || 0, base)} + ${parseInt(nb[nb.length - 1 - rang] || 0, base)}`
           }
@@ -97,17 +117,25 @@ export default class AdditionSoustractionBaseN extends Exercice {
         mb = base10VersBaseN(m, base)
         nb = base10VersBaseN(n, base)
         texte = `$(${mb})_{${base}} - (${nb})_{${base}}$`
-        texteCorr = `En base ${base} :<br>` + Operation({ operande1: m, operande2: n, type: 'soustraction', base })
+        texteCorr =
+          `En base ${base} :<br>` +
+          Operation({ operande1: m, operande2: n, type: 'soustraction', base })
         const retenue = []
         for (let rang = 0; rang < Math.max(mb.length, nb.length); rang++) {
-          let difference = parseInt(mb[mb.length - 1 - rang] || 0, base) - (parseInt(nb[nb.length - 1 - rang] || 0, base) + parseInt(String(retenue[rang - 1] || 0), base))
+          let difference =
+            parseInt(mb[mb.length - 1 - rang] || 0, base) -
+            (parseInt(nb[nb.length - 1 - rang] || 0, base) +
+              parseInt(String(retenue[rang - 1] || 0), base))
           if (difference < 0) difference += base
           if (retenue[rang - 1]) {
             texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || 0} - (${nb[nb.length - 1 - rang] || 0} + 1)`
           } else {
             texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || 0} - ${nb[nb.length - 1 - rang] || 0}`
           }
-          if (parseInt(mb[mb.length - 1 - rang] || 0, base) > 9 || parseInt(nb[nb.length - 1 - rang] || 0, base) > 9) {
+          if (
+            parseInt(mb[mb.length - 1 - rang] || 0, base) > 9 ||
+            parseInt(nb[nb.length - 1 - rang] || 0, base) > 9
+          ) {
             // Si un chiffre est un lettre
             if (retenue[rang - 1]) {
               texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - (${parseInt(nb[nb.length - 1 - rang] || 0, base)} + 1)`
@@ -115,7 +143,10 @@ export default class AdditionSoustractionBaseN extends Exercice {
               texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - ${parseInt(nb[nb.length - 1 - rang] || 0, base)}`
             }
           }
-          if (parseInt(mb[mb.length - 1 - rang] || 0, base) < parseInt(nb[nb.length - 1 - rang] || 0, base)) {
+          if (
+            parseInt(mb[mb.length - 1 - rang] || 0, base) <
+            parseInt(nb[nb.length - 1 - rang] || 0, base)
+          ) {
             texteCorr += `$ la soustraction est impossible donc on récupère un paquet de ${base} au rang supérieur.`
             if (retenue[rang - 1]) {
               texteCorr += `<br> $${base} + ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - (${parseInt(nb[nb.length - 1 - rang] || 0, base)} + 1)`
@@ -128,7 +159,8 @@ export default class AdditionSoustractionBaseN extends Exercice {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

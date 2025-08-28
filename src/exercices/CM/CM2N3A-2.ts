@@ -1,5 +1,5 @@
 import ExerciceTablesAdditions from '../6e/6N0A-1'
-export const titre = 'Connaître les tables d\'addition'
+export const titre = "Connaître les tables d'addition"
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
@@ -17,10 +17,10 @@ export const uuid = 'ed7fc'
 export const refs = {
   'fr-fr': ['CM2N3A-2'],
   'fr-2016': ['c3C10-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TablesAdditionsCycle3 extends ExerciceTablesAdditions {
-  constructor () {
+  constructor() {
     super(10)
   }
 }

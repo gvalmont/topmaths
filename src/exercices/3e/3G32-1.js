@@ -13,10 +13,10 @@ export const uuid = 'e0287'
 
 export const refs = {
   'fr-fr': ['3G32-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculParalleleTerrestre extends problemesTrigoLongueur {
-  constructor () {
+  constructor() {
     super()
     this.sup2 = 2
     this.besoinFormulaireCaseACocher = false

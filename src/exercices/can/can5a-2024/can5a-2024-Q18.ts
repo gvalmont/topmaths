@@ -4,7 +4,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Calculer le volume d\'un cube'
+export const titre = "Calculer le volume d'un cube"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '8b4a4'
@@ -14,7 +14,7 @@ export const uuid = '8b4a4'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,11 +24,11 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse: number
     if (this.canOfficielle) {
       reponse = 27
-      this.question = 'Le volume d\'un cube d\'arête $3$ cm est : '
+      this.question = "Le volume d'un cube d'arête $3$ cm est : "
       this.correction = `Le volume du cube est : $3^3=${miseEnEvidence(27)}$ cm$^3$`
     } else {
       const a = choice([0.2, 2, 3, 0.3, 4, 20, 30])
@@ -41,6 +41,8 @@ export default class NomExercice extends ExerciceSimple {
     this.reponse = reponse.toFixed(3)
     if (!this.interactif) {
       this.question += '$\\ldots$ cm$^3$'
-    } else { this.optionsChampTexte = { texteApres: 'cm$^3$' } }
+    } else {
+      this.optionsChampTexte = { texteApres: 'cm$^3$' }
+    }
   }
 }

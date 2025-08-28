@@ -8,7 +8,11 @@ import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
-import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import {
+  formatMinute,
+  stringNombre,
+  texNombre,
+} from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
@@ -16,7 +20,10 @@ import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 import Hms from '../../../modules/Hms'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -34,7 +41,7 @@ export const dateDePublication = '11/04/2022' // La date de publication initiale
 
  */
 
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
@@ -42,12 +49,12 @@ export const uuid = '90c8c'
 
 export const refs = {
   'fr-fr': ['can6a-2021'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN2021Sixieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.nbQuestions = 30// 10,20,30
+    this.nbQuestions = 30 // 10,20,30
 
     this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
 Il est composé de 30 questions réparties de la façon suivante :<br>
@@ -57,24 +64,93 @@ En choisissant un nombre de questions inférieur à 30, on fabrique une « mini 
 Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 11]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([10, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    const typeQuestionsDisponiblesNiv1 = shuffle([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 11,
+    ])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
 
-    const listeFractions15 = [[1, 3], [2, 3], [1, 6], [5, 6], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [4, 3], [5, 3], [7, 6], [11, 6], [5, 4], [7, 4], [6, 5], [7, 5], [8, 5], [9, 5]
+    const listeFractions15 = [
+      [1, 3],
+      [2, 3],
+      [1, 6],
+      [5, 6],
+      [1, 4],
+      [3, 4],
+      [1, 5],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [4, 3],
+      [5, 3],
+      [7, 6],
+      [11, 6],
+      [5, 4],
+      [7, 4],
+      [6, 5],
+      [7, 5],
+      [8, 5],
+      [9, 5],
     ]
-    const listeFractions20 = [[1, 10], [3, 10], [7, 10], [9, 10], [1, 2], [1, 4], [3, 4]
+    const listeFractions20 = [
+      [1, 10],
+      [3, 10],
+      [7, 10],
+      [9, 10],
+      [1, 2],
+      [1, 4],
+      [3, 4],
     ]
     const nombre18 = [
       ['dixièmes', 10],
       ['centième', 100],
-      ['millième', 1000]
+      ['millième', 1000],
     ]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, maListe, propositions, m, n, code1, code2, choix, truc, a, b, c, d, k, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        texte,
+        texteCorr,
+        reponse,
+        maListe,
+        propositions,
+        m,
+        n,
+        code1,
+        code2,
+        choix,
+        truc,
+        a,
+        b,
+        c,
+        d,
+        k,
+        A,
+        B,
+        C,
+        D,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -93,7 +169,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
 
         case 2:
-
           a = randint(2, 9)
           b = randint(4, 10)
           c = a * b
@@ -134,7 +209,10 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         case 4:
           a = randint(3, 8) // choix de la table = écart entre deux graduations
           c = Math.floor(randint(10, 40) / a) * a // premier nombre.
-          maListe = [[c, String(c)], [c + a, String(c + a)]]
+          maListe = [
+            [c, String(c)],
+            [c + a, String(c + a)],
+          ]
           d = droiteGraduee({
             Unite: 3 / a,
             Min: c - 2 * a,
@@ -150,17 +228,22 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             labelListe: maListe,
             pointCouleur: 'blue',
             pointStyle: 'x',
-            labelsPrincipaux: false
+            labelsPrincipaux: false,
           })
           reponse = c - a
-          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>' + mathalea2d({
-            xmin: -1,
-            ymin: -1,
-            xmax: 15,
-            ymax: 2,
-            scale: 0.6,
-            style: 'margin: auto'
-          }, d)
+          texte =
+            "Quel est le nombre écrit sous le point d'interrogation ?<br>" +
+            mathalea2d(
+              {
+                xmin: -1,
+                ymin: -1,
+                xmax: 15,
+                ymax: 2,
+                scale: 0.6,
+                style: 'margin: auto',
+              },
+              d,
+            )
           texteCorr = `Comme les graduations vont de $${a}$ en $${a}$,  le nombre écrit sous le point d'interrogation correspond à $${c}-${a}=${miseEnEvidence(c - a)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -198,7 +281,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'g' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, '', { texteApres: 'g' })
           }
           nbChamps = 1
           break
@@ -221,10 +306,17 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${miseEnEvidence(a + 1)}$ h $${miseEnEvidence(formatMinute(b - 45))}$ min.`
           }
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), options: { HMS: true } } })
+          handleAnswers(this, index, {
+            reponse: {
+              value: new Hms({ hour: a + 1, minute: reponse }).toString(),
+              options: { HMS: true },
+            },
+          })
 
           nbChamps = 1
 
@@ -256,7 +348,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'cm' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: 'cm',
+            })
           } else {
             texte += '$\\ldots$ cm'
           }
@@ -298,7 +392,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
 
         case 11:
-
           a = arrondi(randint(1, 2) + randint(3, 7) / 10, 1)
           k = randint(4, 6)
           reponse = arrondi(a * k, 1)
@@ -332,7 +425,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
 
         case 13:
-
           a = arrondi(randint(1, 9) + randint(1, 9) / 10, 1)
           reponse = arrondi(10 - a, 1)
           texte = `Complète :<br>$${texNombre(a)}+\\ldots=10$`
@@ -348,7 +440,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
 
         case 14:
-
           a = randint(3, 10)
           b = randint(a + 1, 20)
           reponse = b - a
@@ -368,28 +459,29 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         case 15:
           a = choice(listeFractions15)
           b = fraction(a[0], a[1])
-          d = droiteGraduee(
-            {
-              Unite: 6, // nombre de cm pour une unité
-              Min: 0, // Là où commence la droite
-              Max: 2, // Là où finit la droite prévoir 0,5cm pour la flèche
-              x: 0.5,
-              y: 1.8, // les coordonnées du début du tracé dans le SVG
-              axeEpaisseur: 2,
-              axeCouleur: 'white',
-              thickCouleur: 'black',
-              axeStyle: '-',
-              axeHauteur: 4,
-              axePosition: 'H', // Les caractéristiques de l'axe
-              thickEpaisseur: 2, // Les caractéristiques des graduations principales
-              thickSecDist: 1 / a[1],
-              thickSec: true, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
-              labelsPrincipaux: true,
-              labelsSecondaires: false
-            }
+          d = droiteGraduee({
+            Unite: 6, // nombre de cm pour une unité
+            Min: 0, // Là où commence la droite
+            Max: 2, // Là où finit la droite prévoir 0,5cm pour la flèche
+            x: 0.5,
+            y: 1.8, // les coordonnées du début du tracé dans le SVG
+            axeEpaisseur: 2,
+            axeCouleur: 'white',
+            thickCouleur: 'black',
+            axeStyle: '-',
+            axeHauteur: 4,
+            axePosition: 'H', // Les caractéristiques de l'axe
+            thickEpaisseur: 2, // Les caractéristiques des graduations principales
+            thickSecDist: 1 / a[1],
+            thickSec: true, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
+            labelsPrincipaux: true,
+            labelsSecondaires: false,
+          })
+          c = polygone(
+            [point(0, 0), point(13, 0), point(13, 2), point(0, 2)],
+            'black',
           )
-          c = polygone([point(0, 0), point(13, 0), point(13, 2), point(0, 2)], 'black')
-          A = segment(0.5, 2.4, 0.5 + 6 * a[0] / a[1], 2.4)
+          A = segment(0.5, 2.4, 0.5 + (6 * a[0]) / a[1], 2.4)
           A.epaisseur = 2
           A.styleExtremites = '|-|'
           texte = `Quelle est la mesure de ce segment ?<br>
@@ -399,9 +491,13 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `L'unité est divisée en $${b.d}$. La mesure du segment est donc : $\\dfrac{${miseEnEvidence(b.n)}}{${miseEnEvidence(b.d)}}$ unité.`
 
           reponse = fraction(b.n, b.d).simplifie()
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'unité' })
+            texte += ajouteChampTexteMathLive(this, index, '', {
+              texteApres: 'unité',
+            })
           } else {
             texte += '$\\ldots$ unité'
           }
@@ -413,7 +509,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             a = arrondi(randint(3, 6) + randint(2, 9) / 10, 1)
             b = arrondi(randint(7, 9) + randint(2, 9) / 10, 1)
 
-            propositions = shuffle([`$${Math.floor(a * b)}$`, `$${Math.floor(a + b)}$`, `$${Math.floor(a * b * 10)}$`])
+            propositions = shuffle([
+              `$${Math.floor(a * b)}$`,
+              `$${Math.floor(a + b)}$`,
+              `$${Math.floor(a * b * 10)}$`,
+            ])
             reponse = Math.floor(a * b)
             texte = `Recopie  le nombre le plus proche de  $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
@@ -424,7 +524,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             a = arrondi(randint(12, 19) + randint(2, 9) / 10, 1)
             b = arrondi(randint(15, 29, 20) + randint(2, 9) / 10, 1)
 
-            propositions = shuffle([`$${Math.floor(a * b)}$`, `$${Math.floor(a + b)}$`, `$${Math.floor(a * b * 10)}$`])
+            propositions = shuffle([
+              `$${Math.floor(a * b)}$`,
+              `$${Math.floor(a + b)}$`,
+              `$${Math.floor(a * b * 10)}$`,
+            ])
             reponse = Math.floor(a * b)
             texte = `Recopie  le nombre le plus proche de  $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
@@ -449,7 +553,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           reponse = c
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: '€' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', {
+              texteApres: '€',
+            })
           } else {
             texte += '$\\ldots$ €'
           }
@@ -489,7 +595,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
 
         case 19:
-
           a = randint(2, 9) * 10
           reponse = a * 3
           texte = `Le triple de $${a}$
@@ -498,23 +603,32 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += 'est égal à : ' + ajouteChampTexteMathLive(this, index, ' ')
-          } else { texte += '.' }
+            texte +=
+              'est égal à : ' + ajouteChampTexteMathLive(this, index, ' ')
+          } else {
+            texte += '.'
+          }
           break
 
         case 20:
-
           a = choice(listeFractions20)
           b = fraction(a[0], a[1])
-          reponse = Math.round(a[0] / a[1] * 100)
-          propositions = shuffle([`$${texNombre(a[0] / a[1], 2)}\\,\\%$`, `$${reponse}\\,\\%$`, `$${texNombre(a[1])}\\,\\%$`, `$${a[0]},${a[1]}\\,\\%$`])
+          reponse = Math.round((a[0] / a[1]) * 100)
+          propositions = shuffle([
+            `$${texNombre(a[0] / a[1], 2)}\\,\\%$`,
+            `$${reponse}\\,\\%$`,
+            `$${texNombre(a[1])}\\,\\%$`,
+            `$${a[0]},${a[1]}\\,\\%$`,
+          ])
           texteCorr = `$\\dfrac{${a[0]}}{${a[1]}}=${texNombre(a[0] / a[1], 2)}=${miseEnEvidence(reponse)}\\%$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte = `Recopie le pourcentage correspondant à $\\dfrac{${a[0]}}{${a[1]}}$.<br>
         `
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}`
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: '$\\%$' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, '', { texteApres: '$\\%$' })
           } else {
             texte = `Entoure le pourcentage correspondant à $${texNombre(b)}$.<br>
                            ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}`
@@ -537,7 +651,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
           } else {
             texte += '$\\ldots$ km'
           }
@@ -560,7 +676,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
           }
 
           nbChamps = 1
@@ -571,7 +689,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           b = randint(22, 32)
           reponse = a * b
 
-          propositions = shuffle([`$${b}$ feuilles`, `$${reponse}$ feuilles`, `$${reponse * 20}$ feuilles`])
+          propositions = shuffle([
+            `$${b}$ feuilles`,
+            `$${reponse}$ feuilles`,
+            `$${reponse * 20}$ feuilles`,
+          ])
           texte = `Chaque élève de la classe ramène $${a}$ feuilles.<br>
           `
           texteCorr = `La seule réponse vraisemblable est $${miseEnEvidence(reponse)}$ feuilles. <br>
@@ -581,7 +703,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += `Recopie la réponse vraisemblable.<br>
             Le maître ramasse en tout : <br>
               ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'feuilles' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: 'feuilles',
+              })
           } else {
             texte += `Entoure la réponse vraisemblable.<br>
             Le maître ramasse en tout : <br>
@@ -616,7 +742,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte = `$${texNombre(a, 0)}$ m  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'cm' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', {
+                texteApres: 'cm',
+              })
             } else {
               texte += '$\\ldots$ cm'
             }
@@ -629,7 +757,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte = `$${texNombre(a)}$ cm  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'm' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', {
+                texteApres: 'm',
+              })
             } else {
               texte += '$\\ldots$ m'
             }
@@ -657,28 +787,51 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           ymax = 4.5
           objets = []
           objets.push(
-            texteParPosition(`${stringNombre(a)} cm`, milieu(A, D).x - 0.9, milieu(A, D).y),
-            texteParPosition(`${stringNombre(b)} cm`, milieu(A, B).x, milieu(A, B).y - 0.4),
-            texteParPosition(`${stringNombre(c)} cm`, milieu(C, D).x, milieu(C, D).y + 0.3),
-            segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2)
+            texteParPosition(
+              `${stringNombre(a)} cm`,
+              milieu(A, D).x - 0.9,
+              milieu(A, D).y,
+            ),
+            texteParPosition(
+              `${stringNombre(b)} cm`,
+              milieu(A, B).x,
+              milieu(A, B).y - 0.4,
+            ),
+            texteParPosition(
+              `${stringNombre(c)} cm`,
+              milieu(C, D).x,
+              milieu(C, D).y + 0.3,
+            ),
+            segment(A, B),
+            segment(B, C),
+            segment(C, D),
+            segment(D, A),
+            code1,
+            code2,
+          )
           reponse = arrondi(2 * a + b + c, 1)
           texte = `Quel est le périmètre de cette figure ? <br>
             `
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 30,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.8,
-            style: 'margin: auto'
-          }, objets)
+          texte += mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 30,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.8,
+              style: 'margin: auto',
+            },
+            objets,
+          )
           texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a, 1)}\\times 2+${texNombre(b, 1)}+${texNombre(c, 1)}=${miseEnEvidence(texNombre(2 * a + b + c, 1))}$ cm.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'cm' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, '', { texteApres: 'cm' })
           } else {
             texte += '  $\\mathscr{P}=\\ldots$ cm'
           }
@@ -688,36 +841,45 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         case 27:
           a = randint(3, 6)
           b = choice([a + 1, 2 * a - 1])
-          reponse = fraction(b, a)// .simplifie()
-          texte = "Quelle est la fraction repérée par le point d'interrogation ?<br>" +
-                        mathalea2d({
-                          xmin: -0.5,
-                          ymin: -1,
-                          xmax: 10,
-                          ymax: 1.5,
-                          scale: 0.8,
-                          style: 'margin: auto'
-                        }, droiteGraduee({
-                          Unite: 8,
-                          Min: 1,
-                          Max: 2,
-                          x: 0,
-                          y: 0,
-                          thickSecDist: 1 / a,
-                          thickSec: true,
-                          thickoffset: 0,
-                          axeStyle: '|->',
-                          pointListe: [[b / a, '?']],
-                          labelPointTaille: 15,
-                          pointCouleur: 'blue',
-                          pointStyle: 'x',
-                          labelsPrincipaux: true,
-                          step1: 1,
-                          step2: 1
-                        }))
+          reponse = fraction(b, a) // .simplifie()
+          texte =
+            "Quelle est la fraction repérée par le point d'interrogation ?<br>" +
+            mathalea2d(
+              {
+                xmin: -0.5,
+                ymin: -1,
+                xmax: 10,
+                ymax: 1.5,
+                scale: 0.8,
+                style: 'margin: auto',
+              },
+              droiteGraduee({
+                Unite: 8,
+                Min: 1,
+                Max: 2,
+                x: 0,
+                y: 0,
+                thickSecDist: 1 / a,
+                thickSec: true,
+                thickoffset: 0,
+                axeStyle: '|->',
+                pointListe: [[b / a, '?']],
+                labelPointTaille: 15,
+                pointCouleur: 'blue',
+                pointStyle: 'x',
+                labelsPrincipaux: true,
+                step1: 1,
+                step2: 1,
+              }),
+            )
           texteCorr = `L'unité est divisée en $${a}$. <br>
           $1=\\dfrac{${a}}{${a}}$ et $2=\\dfrac{${2 * a}}{${a}}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: true } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse.toLatex(),
+              options: { fractionEgale: true },
+            },
+          })
           if (this.interactif) {
             texte += '<br> ' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -737,7 +899,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: '€' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, '', { texteApres: '€' })
           }
           nbChamps = 1
           break
@@ -760,15 +924,36 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
 
         case 30:
-
           a = randint(1, 5)
           b = randint(2, 4)
-          A = polygone([point(1, 7), point(11, 7), point(11, 6), point(1, 6)], 'black')
+          A = polygone(
+            [point(1, 7), point(11, 7), point(11, 6), point(1, 6)],
+            'black',
+          )
           A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-          B = texteParPosition('1 uA', 6, 6.5, 'milieu', 'black', 1, 'middle', false)
+          B = texteParPosition(
+            '1 uA',
+            6,
+            6.5,
+            'milieu',
+            'black',
+            1,
+            'middle',
+            false,
+          )
           C = grille(0, 0, 12, 7, 'black', 1, 1, false)
           D = point(1 + a, 4 - b)
-          d = polygone([D, point(D.x, D.y + 1), point(11, D.y + 1), point(11, 5), point(1, 5), point(1, D.y)], 'black')
+          d = polygone(
+            [
+              D,
+              point(D.x, D.y + 1),
+              point(11, D.y + 1),
+              point(11, 5),
+              point(1, 5),
+              point(1, D.y),
+            ],
+            'black',
+          )
           d.epaisseur = 2
           d.couleurDeRemplissage = colorToLatexOrHTML('white')
           d.couleurDesHachures = colorToLatexOrHTML('gray')
@@ -777,14 +962,22 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texte = `En grisé, on a représenté une unité d'aire, notée uA.<br>
             Quelle est l'aire de la figure hachurée ?<br>`
-          texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 7.5, scale: 0.7 }, C, A, B, d)
+          texte += mathalea2d(
+            { xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 7.5, scale: 0.7 },
+            C,
+            A,
+            B,
+            d,
+          )
           texteCorr = `$1$ uA est représentée par  $10$ petits carreaux. La figure hachurée est constituée de $${arrondi(a / 10 + b, 1) * 10}$.<br>
            Elle a donc une aire de $${miseEnEvidence(texNombre(arrondi(a / 10 + b, 1)))}$ unités.`
           reponse = arrondi(a / 10 + b, 1)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'uA' })
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, '', { texteApres: 'uA' })
           } else {
             texte += 'Aire $=\\ldots $ uA'
           }
@@ -792,7 +985,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

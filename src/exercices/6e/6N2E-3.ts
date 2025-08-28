@@ -21,23 +21,35 @@ export const uuid = 'c6836'
 export const refs = {
   'fr-fr': ['6N2E-3'],
   'fr-2016': ['6C30-9'],
-  'fr-ch': ['9NO8-17']
+  'fr-ch': ['9NO8-17'],
 }
 export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 4
     this.spacing = 2
-    this.besoinFormulaireNumerique = ['Nombre de calculs par exercice', 3, '1\n2\n3'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
+    this.besoinFormulaireNumerique = [
+      'Nombre de calculs par exercice',
+      3,
+      '1\n2\n3',
+    ] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
     this.sup = 3
     this.besoinFormulaire2CaseACocher = ['Mélanger additions et soustractions']
     this.sup2 = false
   }
 
-  nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const A = new Decimal(choice([randint(10, 99), randint(100, 999)]) * 10 + randint(1, 9))
-      const B = new Decimal(choice([randint(1, 9), randint(10, 99)]) * 10 + randint(1, 9))
+  nouvelleVersion() {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      const A = new Decimal(
+        choice([randint(10, 99), randint(100, 999)]) * 10 + randint(1, 9),
+      )
+      const B = new Decimal(
+        choice([randint(1, 9), randint(10, 99)]) * 10 + randint(1, 9),
+      )
       const diviseursPossibles = [10, 100, 1000]
       const operandes1 = [A]
       const operandes2 = [B]
@@ -53,13 +65,26 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
       }
       const couples = shuffle(couplesPossibles).slice(0, this.sup)
       texte = 'Calculer.'
-      texteCorr = Operation({ operande1: A.toNumber(), operande2: B.toNumber(), type: 'multiplication', style: 'display: inline', options: { solution: true, colore: '' } }) + '<br>'
+      texteCorr =
+        Operation({
+          operande1: A.toNumber(),
+          operande2: B.toNumber(),
+          type: 'multiplication',
+          style: 'display: inline',
+          options: { solution: true, colore: '' },
+        }) + '<br>'
       let indice = 0
       for (const couple of couples) {
         const addition = this.sup2 ? choice([true, false]) : true
         texte += `<br>${numAlpha(indice)}$${texNombre(couple.A)} ${addition ? '+' : '-'} ${texNombre(couple.B)}$ ${sp()} ${sp()} ${sp()} et ${sp()} ${sp()} ${sp()} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$.`
         texteCorr += `<br>${numAlpha(indice)}<br>`
-        texteCorr += Operation({ operande1: couple.A.toNumber(), operande2: couple.B.toNumber(), type: addition ? 'addition' : 'soustraction', style: 'display: inline', methodeParCompensation: addition })
+        texteCorr += Operation({
+          operande1: couple.A.toNumber(),
+          operande2: couple.B.toNumber(),
+          type: addition ? 'addition' : 'soustraction',
+          style: 'display: inline',
+          methodeParCompensation: addition,
+        })
 
         texteCorr += `<br> Je sais que $${texNombre(A)}\\times${texNombre(B)}=${texNombre(B.mul(A))}$.`
         texteCorr += '<br>'

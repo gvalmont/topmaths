@@ -16,7 +16,7 @@ export const uuid = '5d29b'
 
 export const refs = {
   'fr-fr': ['1A-C10-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,7 +25,11 @@ export const amcType = 'qcmMono'
 export const titre = 'Résoudre une inéquation du type $x^2<a$ ou $x^2>a$'
 export default class InequationsSecondDegre extends ExerciceQcmA {
   // Méthode utilitaire pour créer les éléments graphiques communs
-  private creerElementsGraphiques (val: number, estInegStrict: boolean, typeInequation: 'inf' | 'sup') {
+  private creerElementsGraphiques(
+    val: number,
+    estInegStrict: boolean,
+    typeInequation: 'inf' | 'sup',
+  ) {
     const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
 
     // Position graphique fixe pour l'affichage
@@ -75,16 +79,31 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
     const textes = [
       latex2d(`y=${val}`, 4, 2.7, { letterSize: 'scriptsize' }),
       latex2d('y=x^2', 3, 4.5, { letterSize: 'scriptsize' }),
-      latex2d(`-\\sqrt{${val}}`, -racineValGraphique, -0.6, { letterSize: 'scriptsize' }),
-      latex2d(`\\sqrt{${val}}`, racineValGraphique, -0.6, { letterSize: 'scriptsize' }),
-      latex2d(`${val}`, -0.5, valGraphique + 0.1, { letterSize: 'scriptsize' })
+      latex2d(`-\\sqrt{${val}}`, -racineValGraphique, -0.6, {
+        letterSize: 'scriptsize',
+      }),
+      latex2d(`\\sqrt{${val}}`, racineValGraphique, -0.6, {
+        letterSize: 'scriptsize',
+      }),
+      latex2d(`${val}`, -0.5, valGraphique + 0.1, { letterSize: 'scriptsize' }),
     ]
 
-    return { o, A, Ax, B, Bx, sAAx, sBBx, segmentsSolution, textes, valGraphique }
+    return {
+      o,
+      A,
+      Ax,
+      B,
+      Bx,
+      sAAx,
+      sBBx,
+      segmentsSolution,
+      textes,
+      valGraphique,
+    }
   }
 
   // Méthode utilitaire pour créer le repère et les graphiques
-  private creerGraphiques (val: number, elements: any) {
+  private creerGraphiques(val: number, elements: any) {
     const { o, sAAx, sBBx, segmentsSolution, textes, valGraphique } = elements
 
     const r1 = repere({
@@ -101,46 +120,71 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
       xThickListe: [0],
       yThickListe: [valGraphique], // Utilisation de la position graphique fixe
       xLabelListe: [-6],
-      yLabelListe: [-6]
+      yLabelListe: [-6],
     })
 
     const f = (x: number) => Number(x) ** 2
-    const Cg = droite(point(-3, valGraphique), point(3, valGraphique), '', 'green')
+    const Cg = droite(
+      point(-3, valGraphique),
+      point(3, valGraphique),
+      '',
+      'green',
+    )
     Cg.epaisseur = 2
 
     // Graphique simple pour l'énoncé
-    const graphique = mathalea2d({
-      xmin: -5,
-      xmax: 5,
-      ymin: -0.5,
-      ymax: 5,
-      pixelsParCm: 20,
-      scale: 0.7
-    }, r1, o, textes[4], courbe(f, {
-      repere: r1,
-      color: 'blue',
-      epaisseur: 2
-    }))
+    const graphique = mathalea2d(
+      {
+        xmin: -5,
+        xmax: 5,
+        ymin: -0.5,
+        ymax: 5,
+        pixelsParCm: 20,
+        scale: 0.7,
+      },
+      r1,
+      o,
+      textes[4],
+      courbe(f, {
+        repere: r1,
+        color: 'blue',
+        epaisseur: 2,
+      }),
+    )
 
     // Graphique complet pour la correction
-    const graphiqueC = mathalea2d({
-      xmin: -6,
-      xmax: 6,
-      ymin: -0.5,
-      ymax: 5,
-      pixelsParCm: 30,
-      scale: 1
-    }, courbe(f, {
-      repere: r1,
-      color: 'blue',
-      epaisseur: 2
-    }), Cg, r1, o, sAAx, sBBx, ...segmentsSolution, ...textes)
+    const graphiqueC = mathalea2d(
+      {
+        xmin: -6,
+        xmax: 6,
+        ymin: -0.5,
+        ymax: 5,
+        pixelsParCm: 30,
+        scale: 1,
+      },
+      courbe(f, {
+        repere: r1,
+        color: 'blue',
+        epaisseur: 2,
+      }),
+      Cg,
+      r1,
+      o,
+      sAAx,
+      sBBx,
+      ...segmentsSolution,
+      ...textes,
+    )
 
     return { graphique, graphiqueC }
   }
 
   // Méthode utilitaire pour formater les réponses
-  private formaterReponses (val: number, estInegStrict: boolean, typeInequation: 'inf' | 'sup') {
+  private formaterReponses(
+    val: number,
+    estInegStrict: boolean,
+    typeInequation: 'inf' | 'sup',
+  ) {
     const borne = `\\sqrt{${val}}`
 
     if (typeInequation === 'inf') {
@@ -154,7 +198,7 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
         `$${intervalleLaTex('-' + borne, borne, signeInegalité)}$`,
         `$${intervalleLaTex('-' + borne, borne, signeInegalitéFaux)}$`,
         `$x=-\\sqrt{${val}}$ ou $x=\\sqrt{${val}}$`,
-        `$x ${estInegStrict ? '<' : ' \\leqslant '}-\\sqrt{${val}}$ ou $x ${estInegStrict ? '>' : ' \\geqslant '}\\sqrt{${val}}$`
+        `$x ${estInegStrict ? '<' : ' \\leqslant '}-\\sqrt{${val}}$ ou $x ${estInegStrict ? '>' : ' \\geqslant '}\\sqrt{${val}}$`,
       ]
     } else {
       const signeInegalité = estInegStrict ? '>' : ' \\geqslant '
@@ -167,16 +211,27 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
         `${intervalleLaTex('-' + borne, borne, signeInegalité)}`,
         `${intervalleLaTex('-' + borne, borne, signeInegalitéFaux)}`,
         `$x=-\\sqrt{${val}}$ ou $x=\\sqrt{${val}}$`,
-        `$-\\sqrt{${val}} ${signeInegalitéFaux} x ${signeInegalitéFaux}\\sqrt{${val}}$`
+        `$-\\sqrt{${val}} ${signeInegalitéFaux} x ${signeInegalitéFaux}\\sqrt{${val}}$`,
       ]
     }
   }
 
   // Méthode utilitaire pour générer la correction
-  private genererCorrection (val: number, estInegStrict: boolean, typeInequation: 'inf' | 'sup', graphiqueC: any, reponseCorrecte: string) {
-    const positionText = typeInequation === 'inf'
-      ? (estInegStrict ? 'strictement en-dessous de' : ' sur ou sous ')
-      : (estInegStrict ? 'strictement au-dessus de' : ' sur ou au-dessus de ')
+  private genererCorrection(
+    val: number,
+    estInegStrict: boolean,
+    typeInequation: 'inf' | 'sup',
+    graphiqueC: any,
+    reponseCorrecte: string,
+  ) {
+    const positionText =
+      typeInequation === 'inf'
+        ? estInegStrict
+          ? 'strictement en-dessous de'
+          : ' sur ou sous '
+        : estInegStrict
+          ? 'strictement au-dessus de'
+          : ' sur ou au-dessus de '
 
     return `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la parabole d'équation $y=x^2$. <br>
@@ -193,14 +248,27 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
     const typeInequation: 'sup' = 'sup'
     const signeInegalité = ' \\geqslant '
 
-    const elements = this.creerElementsGraphiques(val, estInegStrict, typeInequation)
+    const elements = this.creerElementsGraphiques(
+      val,
+      estInegStrict,
+      typeInequation,
+    )
     const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
     const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
 
-    this.enonce = `${deuxColonnes(`On a représenté la parabole d'équation $y=x^2$. <br><br>
+    this.enonce = `${deuxColonnes(
+      `On a représenté la parabole d'équation $y=x^2$. <br><br>
         On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInegalité} ${val}$.<br><br>
-        L'inéquation $(I)$ est équivalente à :`, `${graphique}`)}<br>`
-    this.correction = this.genererCorrection(val, estInegStrict, typeInequation, graphiqueC, reponses[0])
+        L'inéquation $(I)$ est équivalente à :`,
+      `${graphique}`,
+    )}<br>`
+    this.correction = this.genererCorrection(
+      val,
+      estInegStrict,
+      typeInequation,
+      graphiqueC,
+      reponses[0],
+    )
     this.reponses = reponses
   }
 
@@ -209,22 +277,40 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
     const estInegStrict = choice([true, false])
     const val = randint(2, 19, [4, 9, 16])
 
-    const signeInegalité = typeInequation === 'inf'
-      ? (estInegStrict ? '<' : ' \\leqslant ')
-      : (estInegStrict ? '>' : ' \\geqslant ')
+    const signeInegalité =
+      typeInequation === 'inf'
+        ? estInegStrict
+          ? '<'
+          : ' \\leqslant '
+        : estInegStrict
+          ? '>'
+          : ' \\geqslant '
 
-    const elements = this.creerElementsGraphiques(val, estInegStrict, typeInequation)
+    const elements = this.creerElementsGraphiques(
+      val,
+      estInegStrict,
+      typeInequation,
+    )
     const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
     const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
 
-    this.enonce = `${deuxColonnes(`On a représenté la parabole d'équation $y=x^2$. <br><br>
+    this.enonce = `${deuxColonnes(
+      `On a représenté la parabole d'équation $y=x^2$. <br><br>
         On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInegalité} ${val}$.<br><br>
-        L'inéquation $(I)$ est équivalente à :`, `${graphique}`)}<br>`
-    this.correction = this.genererCorrection(val, estInegStrict, typeInequation, graphiqueC, reponses[0])
+        L'inéquation $(I)$ est équivalente à :`,
+      `${graphique}`,
+    )}<br>`
+    this.correction = this.genererCorrection(
+      val,
+      estInegStrict,
+      typeInequation,
+      graphiqueC,
+      reponses[0],
+    )
     this.reponses = reponses
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

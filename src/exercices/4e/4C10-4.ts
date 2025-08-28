@@ -21,12 +21,14 @@ export const uuid = 'cdcc1'
 
 export const refs = {
   'fr-fr': ['4C10-4'],
-  'fr-ch': ['10NO5-2']
+  'fr-ch': ['10NO5-2'],
 }
 export default class ExerciceQuotientsRelatifs extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireCaseACocher = ['Utiliser seulement les tables de multiplication de 2 à 9']
+    this.besoinFormulaireCaseACocher = [
+      'Utiliser seulement les tables de multiplication de 2 à 9',
+    ]
 
     this.sup = false
 
@@ -35,13 +37,24 @@ export default class ExerciceQuotientsRelatifs extends Exercice {
     this.nbQuestions = 6
   }
 
-  nouvelleVersion () {
-    const listeTypeDeQuestions = combinaisonListes(['-+', '+-', '--', '++'], this.nbQuestions)
-    let typesDeNombres = combinaisonListes(['tables', 'horstables'], this.nbQuestions)
+  nouvelleVersion() {
+    const listeTypeDeQuestions = combinaisonListes(
+      ['-+', '+-', '--', '++'],
+      this.nbQuestions,
+    )
+    let typesDeNombres = combinaisonListes(
+      ['tables', 'horstables'],
+      this.nbQuestions,
+    )
     if (this.sup) {
       typesDeNombres = combinaisonListes(['tables'], this.nbQuestions)
     }
-    for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+    for (
+      let i = 0, a, b, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (typesDeNombres[i] === 'tables') {
         b = randint(2, 9)
         a = b * randint(2, 9)
@@ -66,7 +79,8 @@ export default class ExerciceQuotientsRelatifs extends Exercice {
       setReponse(this, i, arrondi(a / b))
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
-      if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

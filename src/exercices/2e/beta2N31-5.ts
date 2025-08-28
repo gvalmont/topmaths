@@ -22,7 +22,7 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
  * 2N31-5
  */
 export default class CalculerAvecEcritureScientifique extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.correctionDetailleeDisponible = true
@@ -30,18 +30,24 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
     if (!context.isHtml) {
       this.correctionDetaillee = false
     }
-    this.consigne = 'Calculer, en détaillant les étapes, puis exprimer le résultat sous forme scientifique. <br>'
-    this.consigne += 'En cas de besoin, on arrondira la mantisse au centième près.'
+    this.consigne =
+      'Calculer, en détaillant les étapes, puis exprimer le résultat sous forme scientifique. <br>'
+    this.consigne +=
+      'En cas de besoin, on arrondira la mantisse au centième près.'
     this.nbCols = 2
     this.nbColsCorr = 2
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.nbQuestions = 3
     this.sup = 1
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Produit\n 2 : Quotient\n 3 : Quotient de produits\n 4 : Mélange des cas précédents']
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Produit\n 2 : Quotient\n 3 : Quotient de produits\n 4 : Mélange des cas précédents',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // Produit
@@ -52,8 +58,11 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3]
     } // Mélange des cas précédents
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       let n = 0
       const a: number[] = []
@@ -69,7 +78,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
         b[n] = randint(11, 99) / 10 // initialise les mantisses entières ou avec un chiffre des dixièmes non nul.
         a[n] = randint(1, 9) + randint(0, 9) / 10 + randint(1, 9) / 10 / 10 // initialise les mantises avec chiffre des centièmes non nul
         if (randint(1, 2) === 1) {
-          [a[n], b[n]] = [b[n], a[n]]
+          ;[a[n], b[n]] = [b[n], a[n]]
         }
         // prod[n] ne contient pas le produit mais le tableau issu de decimalToScientifique.
         // ça évite de la rappeler à chaque fois qu'on a besoin de la mantisse ou de son exposant.
@@ -84,14 +93,18 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
           if (this.correctionDetaillee) {
             texteCorr = `${context.isHtml ? '<br>' : ''}$\\begin{aligned}${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} &= \\left ( ${texNombre(a[0])} \\times   ${texNombre(b[0])} \\right ) \\times \\left ( 10^{${texNombre(c[1])}} \\times 10^{${texNombre(c[0])}} \\right )\\\\\n`
             texteCorr += `&= ${texNombre(a[0] * b[0], 3)} \\times 10^{${texNombre(somme)}}\\\\\n`
-            if (prod[0][1] !== 0) { // On ajoute ces lignes seulement si l'exposant du produit est différent de zéro
+            if (prod[0][1] !== 0) {
+              // On ajoute ces lignes seulement si l'exposant du produit est différent de zéro
               texteCorr += `&= ${texNombre(prod[0][0])} \\times 10^{${prod[0][1]}} \\times 10^{${somme}}\\\\\n`
               texteCorr += `&= ${texNombre(prod[0][0])} \\times 10^{${prod[0][1] + somme}}\\\\\n`
             }
             // La ligne suivante est une concaténation conditionnelle : si il n'y a pas d'arrondi à faire on termine le calcul sinon on ajoute une ligne pour l'approximation
-            texteCorr += egalOuApprox(prod[0][0], 2) === '=' ? '\\\\\n\\end{aligned}$<br>' : `&\\approx ${texNombre(round(prod[0][0], 2))} \\times 10^{${prod[0][1] + somme}}\\\\\n\\end{aligned}$<br>(avec la mantisse arrondie au centième) <br>`
+            texteCorr +=
+              egalOuApprox(prod[0][0], 2) === '='
+                ? '\\\\\n\\end{aligned}$<br>'
+                : `&\\approx ${texNombre(round(prod[0][0], 2))} \\times 10^{${prod[0][1] + somme}}\\\\\n\\end{aligned}$<br>(avec la mantisse arrondie au centième) <br>`
           } else {
-            texteCorr = `$ ${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} ${egalOuApprox(prod[0][0], 2)} ${texNombre(round(decimalToScientifique(prod[0][0])[0], 2))} \\times 10^{${(decimalToScientifique(prod[0][1])[1] + somme)}} $  (avec la mantisse arrondie au centième) <br>`
+            texteCorr = `$ ${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} ${egalOuApprox(prod[0][0], 2)} ${texNombre(round(decimalToScientifique(prod[0][0])[0], 2))} \\times 10^{${decimalToScientifique(prod[0][1])[1] + somme}} $  (avec la mantisse arrondie au centième) <br>`
           }
           reponse = `${prod[0][0].toFixed(2)}e${prod[0][1] + somme}`
 
@@ -119,8 +132,20 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
           break
       }
       texte += ajouteChampTexteMathLive(this, i)
-      handleAnswers(this, i, { reponse: { value: reponse, options: { ecritureScientifique: true } } })
-      if (this.questionJamaisPosee(i, reponse, somme, a.join(';'), b.join(';'), c.join(';'), prod.join(';'))) {
+      handleAnswers(this, i, {
+        reponse: { value: reponse, options: { ecritureScientifique: true } },
+      })
+      if (
+        this.questionJamaisPosee(
+          i,
+          reponse,
+          somme,
+          a.join(';'),
+          b.join(';'),
+          c.join(';'),
+          prod.join(';'),
+        )
+      ) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

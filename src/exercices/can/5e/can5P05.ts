@@ -19,18 +19,20 @@ export const uuid = '6946a'
 
 export const refs = {
   'fr-fr': ['can5P05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PoucentageP2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, u, b
-    switch (choice(['a', 'a', 'b', 'c', 'c', 'd', 'd'])) { //
+    switch (
+      choice(['a', 'a', 'b', 'c', 'c', 'd', 'd']) //
+    ) {
       case 'a':
         a = randint(10, 99)
         this.reponse = a / 100

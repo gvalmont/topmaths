@@ -13,10 +13,17 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -25,7 +32,8 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/03/2022'
 
-export const titre = 'Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie'
+export const titre =
+  'Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie'
 
 /**
  * @author Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot
@@ -39,11 +47,11 @@ export const uuid = 'bd6b1'
 
 export const refs = {
   'fr-fr': ['3G30'],
-  'fr-ch': ['1mT-5']
+  'fr-ch': ['1mT-5'],
 }
 export default class CalculDeLongueur extends Exercice {
   level: number
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
 
@@ -61,19 +69,53 @@ export default class CalculDeLongueur extends Exercice {
       this.spacingCorr = 2
     }
     this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
-    this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1 : Côté adjacent (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjacent (tangente)\n7 : Mélange']
-    this.besoinFormulaire3Numerique = ['Types de correction', 2, '1 : Avec produit en croix\n2 : Sans produit en croix']
+    this.besoinFormulaire2Texte = [
+      'Types de questions',
+      'Nombres séparés par des tirets :\n1 : Côté adjacent (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjacent (tangente)\n7 : Mélange',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Types de correction',
+      2,
+      '1 : Avec produit en croix\n2 : Sans produit en croix',
+    ]
     this.level = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let reponse = ''
     let listeDeNomsDePolygones: string[] = []
-    const typeQuestionsDisponibles = (this.level === 4)
-      ? gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3, listeOfCase: ['cosinus', 'invCosinus'] })
-      : gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 6, melange: 7, defaut: 7, listeOfCase: ['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente'] })
+    const typeQuestionsDisponibles =
+      this.level === 4
+        ? gestionnaireFormulaireTexte({
+            saisie: this.sup2,
+            nbQuestions: this.nbQuestions,
+            min: 1,
+            max: 2,
+            melange: 3,
+            defaut: 3,
+            listeOfCase: ['cosinus', 'invCosinus'],
+          })
+        : gestionnaireFormulaireTexte({
+            saisie: this.sup2,
+            nbQuestions: this.nbQuestions,
+            min: 1,
+            max: 6,
+            melange: 7,
+            defaut: 7,
+            listeOfCase: [
+              'cosinus',
+              'sinus',
+              'tangente',
+              'invCosinus',
+              'invSinus',
+              'invTangente',
+            ],
+          })
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     for (let i = 0; i < this.nbQuestions; i++) {
       const unite = choice(['m', 'cm', 'dm', 'mm'])
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
@@ -84,12 +126,12 @@ export default class CalculDeLongueur extends Exercice {
       let q2AMC = ''
       let nom1, nom2
       let texteCorr = ''
-      const objetsEnonce:NestedObjetMathalea2dArray = []
-      const objetsCorrection:NestedObjetMathalea2dArray = []
+      const objetsEnonce: NestedObjetMathalea2dArray = []
+      const objetsCorrection: NestedObjetMathalea2dArray = []
       let ab, bc, ac
 
       const angleABC = randint(35, 55)
-      const angleABCr = angleABC * Math.PI / 180
+      const angleABCr = (angleABC * Math.PI) / 180
       if (!context.isHtml && this.sup) {
         // texte += '\\begin{minipage}{.7\\linewidth}\n'
       }
@@ -172,8 +214,20 @@ export default class CalculDeLongueur extends Exercice {
       const mBC = milieu(B, C)
       const G = barycentre(p2)
       const m3 = homothetie(mBC, G, 1 + 1.5 / longueur(G, mBC), 'm3', 'center')
-      const m1 = homothetie(mAB, mBC, 1 + 1.5 / longueur(mBC, mAB), 'm1', 'center')
-      const m2 = homothetie(mAC, mBC, 1 + 1.5 / longueur(mBC, mAC), 'm2', 'center')
+      const m1 = homothetie(
+        mAB,
+        mBC,
+        1 + 1.5 / longueur(mBC, mAB),
+        'm1',
+        'center',
+      )
+      const m2 = homothetie(
+        mAC,
+        mBC,
+        1 + 1.5 / longueur(mBC, mAC),
+        'm2',
+        'center',
+      )
       let m4
       let t1, t2, t3
       let nomLongueur // la longueur à déterminer
@@ -181,38 +235,80 @@ export default class CalculDeLongueur extends Exercice {
       let calculTrue
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
-          t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
+          t3 = latexParPoint(
+            `${bc} \\text{ ${unite}}`,
+            m3,
+            'black',
+            120,
+            12,
+            '',
+          )
           t2 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 20, 12, '')
           break
         case 'sinus':
-          t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
+          t3 = latexParPoint(
+            `${bc} \\text{ ${unite}}`,
+            m3,
+            'black',
+            120,
+            12,
+            '',
+          )
           t2 = latexParPoint('?', m2, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'tangente':
-          t1 = latexParPoint(`${ab} \\text{ ${unite}}`, m1, 'black', 120, 12, '')
+          t1 = latexParPoint(
+            `${ab} \\text{ ${unite}}`,
+            m1,
+            'black',
+            120,
+            12,
+            '',
+          )
           t2 = latexParPoint('?', m2, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t3 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'invCosinus':
-          t1 = latexParPoint(`${ab} \\text{ ${unite}}`, m1, 'black', 120, 12, '')
+          t1 = latexParPoint(
+            `${ab} \\text{ ${unite}}`,
+            m1,
+            'black',
+            120,
+            12,
+            '',
+          )
           t3 = latexParPoint('?', m3, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t2 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'invSinus':
-          t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
+          t2 = latexParPoint(
+            `${ac} \\text{ ${unite}}`,
+            m2,
+            'black',
+            120,
+            12,
+            '',
+          )
           t3 = latexParPoint('?', m3, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'invTangente':
         default:
-          t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
+          t2 = latexParPoint(
+            `${ac} \\text{ ${unite}}`,
+            m2,
+            'black',
+            120,
+            12,
+            '',
+          )
           t1 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t3 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
@@ -229,7 +325,7 @@ export default class CalculDeLongueur extends Exercice {
         pixelsParCm: 20,
         scale: 0.37,
         mainlevee: true,
-        amplitude: context.isHtml ? 0.4 : 1
+        amplitude: context.isHtml ? 0.4 : 1,
       }
       const paramsCorrection = {
         xmin: Math.min(A.x, B.x, C.x) - 4,
@@ -238,7 +334,7 @@ export default class CalculDeLongueur extends Exercice {
         ymax: Math.max(A.y, B.y, C.y) + 2,
         pixelsParCm: 20,
         scale: 0.35,
-        mainlevee: false
+        mainlevee: false,
       }
       if (!context.isHtml && this.sup) {
         texte += '\\\\' // \\begin{minipage}{.3\\linewidth}\n'
@@ -252,7 +348,8 @@ export default class CalculDeLongueur extends Exercice {
         }
         texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
         if (!context.isHtml) {
-          texteCorr += '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
+          texteCorr +=
+            '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
         }
       }
       if (!context.isHtml && this.sup) {
@@ -405,54 +502,61 @@ export default class CalculDeLongueur extends Exercice {
       // Pour AMC
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: texteAMC + (this.sup ? mathalea2d(paramsEnonce, objetsEnonce) + '<br>La figure ci-dessus ne respecte pas les dimensions.' : ''), // + '\\\\\n',
+          enonce:
+            texteAMC +
+            (this.sup
+              ? mathalea2d(paramsEnonce, objetsEnonce) +
+                '<br>La figure ci-dessus ne respecte pas les dimensions.'
+              : ''), // + '\\\\\n',
           enonceAvantUneFois: true,
           // enonceApresNumQuestion: true,
           options: {
             multicols: false,
             barreseparation: true,
             multicolsAll: true,
-            numerotationEnonce: true
+            numerotationEnonce: true,
           },
           propositions: [
             {
               type: 'qcmMono',
-              enonce: numAlpha(0) + `Quel calcul effectuer pour calculer ${nomLongueur} ?`, // \\\\\n`,
+              enonce:
+                numAlpha(0) +
+                `Quel calcul effectuer pour calculer ${nomLongueur} ?`, // \\\\\n`,
               options: {
-                ordered: true
+                ordered: true,
               },
               propositions: [
                 {
                   texte: calcul0,
                   statut: calculTrue === 0,
-                  feedback: ''
+                  feedback: '',
                 },
                 {
                   texte: calcul1,
                   statut: calculTrue === 1,
-                  feedback: ''
+                  feedback: '',
                 },
                 {
                   texte: calcul2,
                   statut: calculTrue === 2,
-                  feedback: ''
+                  feedback: '',
                 },
                 {
                   texte: calcul3,
                   statut: calculTrue === 3,
-                  feedback: ''
+                  feedback: '',
                 },
                 {
                   texte: calcul4,
                   statut: calculTrue === 4,
-                  feedback: ''
+                  feedback: '',
                 },
                 {
                   texte: calcul5,
                   statut: calculTrue === 5,
-                  feedback: ''
-                }
-              ]
+                  feedback: '',
+                },
+              ],
             },
             {
               type: 'AMCNum',
@@ -467,17 +571,23 @@ export default class CalculDeLongueur extends Exercice {
                       signe: false,
                       exposantNbChiffres: 0,
                       exposantSigne: false,
-                      approx: 1
-                    }
-                  }
-                }]
-            }
-          ]
+                      approx: 1,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
       if (context.isHtml && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, ' unites[Longueur]')
-        handleAnswers(this, i, { reponse: { value: new Grandeur(arrondi(Number(reponse), 1), unite), options: { unite: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: new Grandeur(arrondi(Number(reponse), 1), unite),
+            options: { unite: true },
+          },
+        })
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

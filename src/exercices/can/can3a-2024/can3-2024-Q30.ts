@@ -14,19 +14,31 @@ export const uuid = 'ffcee'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsChampTexte = { texteApres: 'billes.', texteAvant: '<br>Bruno a pris' }
+    this.optionsChampTexte = {
+      texteApres: 'billes.',
+      texteAvant: '<br>Bruno a pris',
+    }
 
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
-    const listeRatio = this.canOfficielle ? [[3, 5]] : [[3, 5], [3, 7], [4, 7], [5, 6], [5, 7], [2, 3]]
+  nouvelleVersion() {
+    const listeRatio = this.canOfficielle
+      ? [[3, 5]]
+      : [
+          [3, 5],
+          [3, 7],
+          [4, 7],
+          [5, 6],
+          [5, 7],
+          [2, 3],
+        ]
     const ratio = choice(listeRatio)
     const k = this.canOfficielle ? 7 : randint(3, 6)
     const nbreA = k * ratio[0]
@@ -39,6 +51,8 @@ export default class NomExercice extends ExerciceSimple {
 
     this.canEnonce = this.question
     this.canReponseACompleter = 'Bruno a pris $\\ldots$ billes.'
-    if (!this.interactif) { this.question += '<br>Bruno a pris $\\ldots$ billes.' }
+    if (!this.interactif) {
+      this.question += '<br>Bruno a pris $\\ldots$ billes.'
+    }
   }
 }

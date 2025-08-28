@@ -6,7 +6,7 @@ export class MySpreadsheetElement extends HTMLElement {
   private _buttonListener?: EventListener
   private _customListeners: { [eventName: string]: EventListener } = {}
 
-  constructor () {
+  constructor() {
     super()
     this._spreadsheet = null
   }
@@ -14,7 +14,7 @@ export class MySpreadsheetElement extends HTMLElement {
   /**
    * Ajoute un listener sur l'élément et le mémorise pour suppression ultérieure
    */
-  public addListener (eventName: string, callback: EventListener) {
+  public addListener(eventName: string, callback: EventListener) {
     this.addEventListener(eventName, callback)
     this._customListeners[eventName] = callback
   }
@@ -22,19 +22,19 @@ export class MySpreadsheetElement extends HTMLElement {
   /**
    * Méthode statique pour créer et configurer un MySpreadsheetElement
    */
-  static create ({
+  static create({
     id,
     data = [],
     minDimensions = [5, 5],
     style = {},
     columns = [],
-    interactif = false
+    interactif = false,
   }: {
-    id?: string,
-    data?: (string | number)[][],
-    minDimensions?: [number, number],
-    style?: any,
-    columns?: any[],
+    id?: string
+    data?: (string | number)[][]
+    minDimensions?: [number, number]
+    style?: any
+    columns?: any[]
     interactif?: boolean
   } = {}) {
     const elt = new MySpreadsheetElement()
@@ -47,18 +47,34 @@ export class MySpreadsheetElement extends HTMLElement {
     return elt
   }
 
-  connectedCallback () {
+  connectedCallback() {
     this.innerHTML = '<div></div>'
-    const container = (this.firstElementChild ?? document.createElement('div')) as HTMLDivElement
+    const container = (this.firstElementChild ??
+      document.createElement('div')) as HTMLDivElement
 
-    let data:(number | string)[][] = []
+    let data: (number | string)[][] = []
     let minDimensions = [5, 5]
     let style = {}
     let columns = []
-    try { if (this.getAttribute('data')) data = JSON.parse(this.getAttribute('data') ?? '') as (string | number)[][] } catch {}
-    try { if (this.getAttribute('min-dimensions')) minDimensions = JSON.parse(this.getAttribute('min-dimensions') ?? '') } catch {}
-    try { if (this.getAttribute('style')) style = JSON.parse(this.getAttribute('style') ?? '') } catch {}
-    try { if (this.getAttribute('columns')) columns = JSON.parse(this.getAttribute('columns') ?? '[]') } catch {}
+    try {
+      if (this.getAttribute('data'))
+        data = JSON.parse(this.getAttribute('data') ?? '') as (
+          | string
+          | number
+        )[][]
+    } catch {}
+    try {
+      if (this.getAttribute('min-dimensions'))
+        minDimensions = JSON.parse(this.getAttribute('min-dimensions') ?? '')
+    } catch {}
+    try {
+      if (this.getAttribute('style'))
+        style = JSON.parse(this.getAttribute('style') ?? '')
+    } catch {}
+    try {
+      if (this.getAttribute('columns'))
+        columns = JSON.parse(this.getAttribute('columns') ?? '[]')
+    } catch {}
     this._spreadsheet = jspreadsheet(container, {
       data,
       minDimensions,
@@ -66,7 +82,7 @@ export class MySpreadsheetElement extends HTMLElement {
       tableHeight: '300px',
       toolbar: true,
       style,
-      columns
+      columns,
     } as any)
     let numeroExercice = 0
     let question = 0
@@ -84,7 +100,8 @@ export class MySpreadsheetElement extends HTMLElement {
     container.appendChild(resultCheck)
     const divFeedback = document.createElement('div')
     divFeedback.id = `feedbackEx${numeroExercice}Q${question}`
-    divFeedback.className = 'italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest'
+    divFeedback.className =
+      'italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest'
     container.appendChild(divFeedback)
     const bouton = document.createElement('button')
     bouton.id = 'runCode'
@@ -94,14 +111,14 @@ export class MySpreadsheetElement extends HTMLElement {
     bouton.style.zIndex = '10'
     bouton.style.marginTop = '10px'
     // Styles personnalisés
-    bouton.style.backgroundColor = '#2b6cb0'      // Bleu coopmaths
-    bouton.style.color = 'white'                  // Texte blanc
-    bouton.style.border = 'none'                  // Pas de bordure
-    bouton.style.borderRadius = '6px'             // Bords arrondis
-    bouton.style.padding = '8px 20px'             // Espacement interne
-    bouton.style.fontSize = '1rem'                // Taille du texte
-    bouton.style.fontWeight = 'bold'              // Texte en gras
-    bouton.style.cursor = 'pointer'               // Curseur main au survol
+    bouton.style.backgroundColor = '#2b6cb0' // Bleu coopmaths
+    bouton.style.color = 'white' // Texte blanc
+    bouton.style.border = 'none' // Pas de bordure
+    bouton.style.borderRadius = '6px' // Bords arrondis
+    bouton.style.padding = '8px 20px' // Espacement interne
+    bouton.style.fontSize = '1rem' // Taille du texte
+    bouton.style.fontWeight = 'bold' // Texte en gras
+    bouton.style.cursor = 'pointer' // Curseur main au survol
     bouton.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)' // Ombre légère
 
     // Effet au survol
@@ -111,7 +128,8 @@ export class MySpreadsheetElement extends HTMLElement {
     bouton.onmouseout = () => {
       bouton.style.backgroundColor = '#2b6cb0'
     }
-    bouton.style.display = this.getAttribute('interactif') === 'true' ? 'none' : 'block'
+    bouton.style.display =
+      this.getAttribute('interactif') === 'true' ? 'none' : 'block'
     container.appendChild(bouton)
     if (idMatch) {
       const numeroExercice = Number(idMatch[1])
@@ -121,7 +139,7 @@ export class MySpreadsheetElement extends HTMLElement {
     this.dispatchEvent(new CustomEvent('spreadsheet-ready'))
   }
 
-  disconnectedCallback () {
+  disconnectedCallback() {
     if (this._spreadsheet) {
       this._spreadsheet.destroy()
       this._spreadsheet = null
@@ -138,78 +156,83 @@ export class MySpreadsheetElement extends HTMLElement {
     this._customListeners = {}
   }
 
-  _setupButton (bouton: HTMLButtonElement, numeroExercice: number, question: number) {
+  _setupButton(
+    bouton: HTMLButtonElement,
+    numeroExercice: number,
+    question: number,
+  ) {
     const eventName = `checkEx${numeroExercice}Q${question}`
     this._buttonListener = () => {
-      this.dispatchEvent(new CustomEvent(eventName, { detail: { sheet: this } }))
+      this.dispatchEvent(
+        new CustomEvent(eventName, { detail: { sheet: this } }),
+      )
     }
     bouton.addEventListener('click', this._buttonListener)
   }
 
-  getCellValue (column: number, row: number) {
+  getCellValue(column: number, row: number) {
     return this._spreadsheet.getValueFromCoords(column, row, true)
   }
 
-  getCellFormula (column: number, row: number) {
+  getCellFormula(column: number, row: number) {
     return this._spreadsheet.getValueFromCoords(column, row, false)
   }
 
-  getData () {
+  getData() {
     return this._spreadsheet.getData()
   }
 
-  setCellValue (column: number, row: number, value: string | number) {
+  setCellValue(column: number, row: number, value: string | number) {
     this._spreadsheet.setValueFromCoords(column, row, value, true)
   }
 
-  setCellFormula (column: number, row: number, formula: string) {
+  setCellFormula(column: number, row: number, formula: string) {
     if (!formula.startsWith('=')) formula = '=' + formula
     this._spreadsheet.setValueFromCoords(column, row, formula, true)
   }
 
-  setData (data: any[]) {
+  setData(data: any[]) {
     this._spreadsheet.setData(data)
   }
 
-  isMounted () {
+  isMounted() {
     return this._spreadsheet !== null
   }
 
-  getMinDimensions () {
+  getMinDimensions() {
     return this._spreadsheet.options.minDimensions
   }
 
-  getStyle () {
+  getStyle() {
     return this._spreadsheet.options.style
   }
 
-  getColumns () {
+  getColumns() {
     return this._spreadsheet.options.columns
   }
 }
 
 customElements.define('my-spreadsheet', MySpreadsheetElement)
 
-export function addSheet (
-  {
-    numeroExercice,
-    question,
-    data,
-    minDimensions,
-    style,
-    columns,
-    interactif
-  }: {
-    numeroExercice: number,
-    question: number,
-    data: any[][],
-    minDimensions: [number, number],
-    style: any,
-    columns: any[],
-    interactif: boolean
-  }
-): string {
-  return `<my-spreadsheet
+export function addSheet({
+  numeroExercice,
+  question,
+  data,
+  minDimensions,
+  style,
+  columns,
+  interactif,
+}: {
+  numeroExercice: number
+  question: number
+  data: any[][]
+  minDimensions: [number, number]
+  style: any
+  columns: any[]
+  interactif: boolean
+}): string {
+  return (
+    `<my-spreadsheet
   id="sheet-Ex${numeroExercice}Q${question}"
   data='${JSON.stringify(data)}'
   min-dimensions='${JSON.stringify(minDimensions)}'
@@ -217,9 +240,10 @@ export function addSheet (
   columns='${JSON.stringify(columns)}'
   interactif='${interactif}'
 >` +
-(interactif
-  ? `<div class="ml-2 py-2" id="resultatCheckEx${numeroExercice}Q${question}"></div>
+    (interactif
+      ? `<div class="ml-2 py-2" id="resultatCheckEx${numeroExercice}Q${question}"></div>
 <div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${numeroExercice}Q${question}"}></div>`
-  : '') +
-  '</my-spreadsheet>'
+      : '') +
+    '</my-spreadsheet>'
+  )
 }

@@ -12,14 +12,14 @@ export const interactifType = 'mathLive'
 export const uuid = '57688'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class VecteurEgal extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -29,7 +29,7 @@ export default class VecteurEgal extends ExerciceSimple {
     this.formatInteractif = 'fillInTheBlank'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = grille(0, 0, 7, 5, 'gray', 1, 1)
     const A = point(1, 1, 'A', 'below')
     const B = point(3, 2, 'B', 'above')
@@ -37,8 +37,8 @@ export default class VecteurEgal extends ExerciceSimple {
     const D = point(6, 4, 'D', 'above')
     const E = point(2, 2, 'E', 'above')
     const F = point(5, 2, 'F', 'above')
-    const G = point(5, 3, 'G', 'above')// unite
-    const H = point(4, 3, 'H', 'above')// unite
+    const G = point(5, 3, 'G', 'above') // unite
+    const H = point(4, 3, 'H', 'above') // unite
     const PositionPt = tracePoint(A, B, C, D, E, F, G, H)
     const LabelsPt = labelPoint(A, B, C, D, E, F, G, H)
     const xmin = -1
@@ -48,33 +48,41 @@ export default class VecteurEgal extends ExerciceSimple {
     const objets = []
     objets.push(a, PositionPt, LabelsPt)
     this.reponse = { champ1: { value: 'G' } }
-    this.consigne = mathalea2d({
-      xmin,
-      ymin,
-      xmax,
-      ymax,
-      pixelsParCm: 20,
-      mainlevee: false,
-      amplitude: 0.5,
-      scale: 0.5,
-      style: 'margin: auto'
-    }, objets) + '<br>Compléter :'
+    this.consigne =
+      mathalea2d(
+        {
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 20,
+          mainlevee: false,
+          amplitude: 0.5,
+          scale: 0.5,
+          style: 'margin: auto',
+        },
+        objets,
+      ) + '<br>Compléter :'
     this.question = '\\overrightarrow{AB}=\\overrightarrow{B{%{champ1}}}'
     this.correction = `Le vecteur d'origine $B$ égal au  vecteur $\\overrightarrow{AB}$ est le vecteur $\\overrightarrow{BG}$. <br>
     Ainsi, $\\overrightarrow{AB}=\\overrightarrow{B${miseEnEvidence('G')}}$.`
 
-    this.canEnonce = mathalea2d({
-      xmin,
-      ymin,
-      xmax,
-      ymax,
-      pixelsParCm: 20,
-      mainlevee: false,
-      amplitude: 0.5,
-      scale: 0.5,
-      style: 'margin: auto'
-    }, objets)
-    this.canReponseACompleter = 'Compléter : <br>$\\overrightarrow{AB}=\\overrightarrow{B\\ldots}$'
+    this.canEnonce = mathalea2d(
+      {
+        xmin,
+        ymin,
+        xmax,
+        ymax,
+        pixelsParCm: 20,
+        mainlevee: false,
+        amplitude: 0.5,
+        scale: 0.5,
+        style: 'margin: auto',
+      },
+      objets,
+    )
+    this.canReponseACompleter =
+      'Compléter : <br>$\\overrightarrow{AB}=\\overrightarrow{B\\ldots}$'
     this.canNumeroLie = 23
     this.canLiee = [24]
   }

@@ -13,7 +13,7 @@ export const uuid = '4311e'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -23,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 180
       this.question = `Le TGV Metz-Paris parcourt $270$ km en $1$ h $30$ à vitesse constante.<br>

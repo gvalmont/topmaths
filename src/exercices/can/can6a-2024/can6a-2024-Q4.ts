@@ -13,7 +13,7 @@ export const uuid = '4b9d2'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const unit = this.canOfficielle ? 4 : randint(3, 6)
     const a = this.canOfficielle ? 2 : randint(2, 4)
     const b = this.canOfficielle ? 6 : randint(5, 7)
@@ -35,7 +35,9 @@ export default class NomExercice extends ExerciceSimple {
     this.correction = `$${a}$ carreaux de chocolats pèsent $${a * unit}$ g,  donc $1$ carreau pèse $${unit}$ g.<br>
       Donc $${b}$ carreaux pèsent  $${b}\\times${unit}$ g $=${miseEnEvidence(texNombre(this.reponse, 0))}$ g.`
 
-    if (!this.interactif) { this.question += '$\\ldots$ g.' }
+    if (!this.interactif) {
+      this.question += '$\\ldots$ g.'
+    }
     this.canEnonce = `$${a}$ carreaux de chocolats pèsent $${a * unit}$ g.`
     this.canReponseACompleter = `$${b}$ carreaux de chocolat pèsent $\\ldots$ g.`
   }

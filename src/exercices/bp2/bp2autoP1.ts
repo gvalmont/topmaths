@@ -9,11 +9,11 @@ export const dateDePublication = '13/4/2025'
 export const uuid = '816b8'
 export const refs = {
   'fr-fr': ['BP2AutoP1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class ExerciceEquations extends Exercice2F204 {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = false
     this.sup = '1'

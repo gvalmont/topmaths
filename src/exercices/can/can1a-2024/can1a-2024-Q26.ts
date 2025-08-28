@@ -15,7 +15,7 @@ export const uuid = '9bbc7'
 
 */
 export default class additionnerFrac extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -25,20 +25,38 @@ export default class additionnerFrac extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeFractions = this.canOfficielle
       ? [[5, 6, 1, 4, 12]]
-      : [[5, 6, 1, 4, 12], [5, 6, 3, 4, 12], [7, 6, 3, 4, 12],
-          [1, 6, 1, 4, 12], [11, 6, 1, 4, 12], [5, 9, 1, 6, 18],
-          [2, 9, 1, 6, 18], [4, 9, 1, 6, 18], [4, 9, 5, 6, 18],
-          [2, 9, 5, 6, 18], [3, 10, 3, 4, 20], [7, 10, 3, 4, 20],
-          [9, 10, 5, 4, 20], [3, 10, 1, 6, 30], [7, 10, 5, 6, 30]
+      : [
+          [5, 6, 1, 4, 12],
+          [5, 6, 3, 4, 12],
+          [7, 6, 3, 4, 12],
+          [1, 6, 1, 4, 12],
+          [11, 6, 1, 4, 12],
+          [5, 9, 1, 6, 18],
+          [2, 9, 1, 6, 18],
+          [4, 9, 1, 6, 18],
+          [4, 9, 5, 6, 18],
+          [2, 9, 5, 6, 18],
+          [3, 10, 3, 4, 20],
+          [7, 10, 3, 4, 20],
+          [9, 10, 5, 4, 20],
+          [3, 10, 1, 6, 30],
+          [7, 10, 5, 6, 30],
         ]
     const a = choice(listeFractions)
     const choix = choice([true, false])
-    const b = this.canOfficielle ? new FractionEtendue(5, 6) : new FractionEtendue(a[0], a[1])
-    const c = this.canOfficielle ? new FractionEtendue(1, 4) : new FractionEtendue(a[2], a[3])
-    this.reponse = new FractionEtendue(b.n * c.d + c.n * b.d, b.d * c.d).simplifie()
+    const b = this.canOfficielle
+      ? new FractionEtendue(5, 6)
+      : new FractionEtendue(a[0], a[1])
+    const c = this.canOfficielle
+      ? new FractionEtendue(1, 4)
+      : new FractionEtendue(a[2], a[3])
+    this.reponse = new FractionEtendue(
+      b.n * c.d + c.n * b.d,
+      b.d * c.d,
+    ).simplifie()
     this.question = `Écrire sous la forme d'une fraction irréductible : <br>
           $${choix ? `${b.texFraction} + ${c.texFraction}=` : `${c.texFraction} + ${b.texFraction}=`}$
              `
@@ -47,13 +65,15 @@ export default class additionnerFrac extends ExerciceSimple {
              Ainsi, <br>
            $\\begin{aligned}
            ${choix ? `${b.texFraction} + ${c.texFraction}` : `${c.texFraction} + ${b.texFraction}`}&=
-           ${choix ? `\\dfrac{${texNombre(b.n * a[4] / b.d, 0)}}{${a[4]}} + \\dfrac{${texNombre(c.n * a[4] / c.d, 0)}}{${a[4]}}` : ` \\dfrac{${texNombre(c.n * a[4] / c.d, 0)}}{${a[4]}}+\\dfrac{${texNombre(b.n * a[4] / b.d, 0)}}{${a[4]}} `}\\\\
+           ${choix ? `\\dfrac{${texNombre((b.n * a[4]) / b.d, 0)}}{${a[4]}} + \\dfrac{${texNombre((c.n * a[4]) / c.d, 0)}}{${a[4]}}` : ` \\dfrac{${texNombre((c.n * a[4]) / c.d, 0)}}{${a[4]}}+\\dfrac{${texNombre((b.n * a[4]) / b.d, 0)}}{${a[4]}} `}\\\\
            &=${miseEnEvidence(`${new FractionEtendue(b.n * c.d + c.n * b.d, b.d * c.d).simplifie().texFraction}`)}\\text{(fraction irréductible)}
            \\end{aligned}$
              
              
             `
-    if (!this.interactif) { this.question += ' $\\ldots$' }
+    if (!this.interactif) {
+      this.question += ' $\\ldots$'
+    }
 
     this.canEnonce = `Écrire sous la forme d'une fraction irréductible : <br>
     $${choix ? `${b.texFraction} + ${c.texFraction}` : `${c.texFraction} + ${b.texFraction}`}$

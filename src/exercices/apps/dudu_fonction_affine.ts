@@ -4,8 +4,10 @@ export const uuid = 'duduAffine'
 export const titre = 'Fonctions affines'
 
 class duduAffine extends ExternalApp {
-  constructor () {
-    super('https://mathix.org/exerciseur_fonction_affine_suivi/index.html?suivi=1&mathalea=1')
+  constructor() {
+    super(
+      'https://mathix.org/exerciseur_fonction_affine_suivi/index.html?suivi=1&mathalea=1',
+    )
   }
 }
 

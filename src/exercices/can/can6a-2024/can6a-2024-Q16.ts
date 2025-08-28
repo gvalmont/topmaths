@@ -13,7 +13,7 @@ export const uuid = '67c9a'
 
 */
 export default class PourcentageFacile extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -22,14 +22,14 @@ export default class PourcentageFacile extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let p: number
     let distance: number
     let unite: string
     const ratios: Record<number, [number, number]> = {
       25: [1, 4],
       50: [1, 2],
-      75: [3, 4]
+      75: [3, 4],
     }
     if (this.canOfficielle) {
       p = 25
@@ -43,7 +43,7 @@ export default class PourcentageFacile extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: unite, texteAvant: ' $=$' }
     const num = ratios[p][0]
     const den = ratios[p][1]
-    this.reponse = (p * distance / 100).toFixed(0)
+    this.reponse = ((p * distance) / 100).toFixed(0)
     this.question = `$${texNombre(p, 0)}\\,\\%$ de $${texNombre(distance, 0)}$ ${unite}`
     this.canEnonce = this.question
     this.canReponseACompleter = `$\\ldots$ ${unite}`

@@ -36,13 +36,13 @@ export const interactifType = 'mathLive'
 export const uuid = '76e48'
 export const refs = {
   'fr-fr': ['canc3a-NY2025'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '08/12/2024'
 /**
  * Annales CAN 2025
  * @author
-*/
+ */
 
 const questions = [
   Question1,
@@ -74,11 +74,11 @@ const questions = [
   Question27,
   Question28,
   Question29,
-  Question30
+  Question30,
 ]
 
 export default class Can6aNY2025 extends MetaExercice {
-  constructor () {
+  constructor() {
     super(questions)
   }
 }

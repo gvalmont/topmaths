@@ -28,20 +28,34 @@ export const uuid = '6b3e4'
 export const refs = {
   'fr-fr': ['6M4C-2'],
   'fr-2016': ['6D101'],
-  'fr-ch': ['10GM3-2']
+  'fr-ch': ['10GM3-2'],
 }
 export default class HeuresDecimales extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.spacing = 2
     this.nbQuestions = 5
-    this.comment = 'La partie décimale peut être 0,1 ; 0,2 ; 0,3 ; 0,4 ; 0,5 ; 0,6 ; 0,7 ; 0,8 ; 0,9 ; 0,25 ou 0,75 de manière équiprobable.'
+    this.comment =
+      'La partie décimale peut être 0,1 ; 0,2 ; 0,3 ; 0,4 ; 0,5 ; 0,6 ; 0,7 ; 0,8 ; 0,9 ; 0,25 ou 0,75 de manière équiprobable.'
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Écrire les durées suivantes en heures et minutes.' : 'Écrire la durée suivante en heures et minutes.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Écrire les durées suivantes en heures et minutes.'
+        : 'Écrire la durée suivante en heures et minutes.'
 
-    for (let i = 0, partieEntiere, partieDecimale, minutes, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        partieEntiere,
+        partieDecimale,
+        minutes,
+        texte,
+        texteCorr,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       partieEntiere = randint(1, 12)
       partieDecimale = choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 25, 75])
       texte = `$${partieEntiere},${partieDecimale}~\\text{h}=$`
@@ -67,46 +81,55 @@ export default class HeuresDecimales extends Exercice {
         minutes = partieDecimale * 6
       }
       if (!context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: new Hms({ hour: partieEntiere, minute: minutes }).toString(), options: { HMS: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: new Hms({ hour: partieEntiere, minute: minutes }).toString(),
+            options: { HMS: true },
+          },
+        })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,
           propositions: [
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: texteCorr,
-                statut: '',
-                reponse: {
-                  texte: "Nombre d'heures",
-                  valeur: partieEntiere,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: '',
+                  reponse: {
+                    texte: "Nombre d'heures",
+                    valeur: partieEntiere,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
             },
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: 'Nombre de minutes',
-                  valeur: minutes,
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Nombre de minutes',
+                    valeur: minutes,
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
       }
 

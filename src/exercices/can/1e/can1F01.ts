@@ -1,4 +1,7 @@
-import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 import { texteCentre } from '../../../lib/format/miseEnPage'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -6,7 +9,8 @@ import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 
-export const titre = 'Déterminer les coordonnées du sommet d\'une parabole à partir de la forme canonique'
+export const titre =
+  "Déterminer les coordonnées du sommet d'une parabole à partir de la forme canonique"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -22,22 +26,26 @@ export const uuid = 'f2035'
 
 export const refs = {
   'fr-fr': ['can1F01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CoordonneesSommetParabole extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte, texteCorr, a, b, c
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       a = randint(-10, 10, [0, -1, 1])
       b = randint(-5, 5, 0)
       c = randint(-5, 5)
-      const mathfield = remplisLesBlancs(this, i, '\\Bigg(~~%{champ1}~~;~~%{champ2}~~\\Bigg)')
+      const mathfield = remplisLesBlancs(
+        this,
+        i,
+        '\\Bigg(~~%{champ1}~~;~~%{champ2}~~\\Bigg)',
+      )
       const statique = '$\\Bigg(~~~~~;~~~~~\\Bigg)$'
       if (c === 0) {
         texte = `Les coordonnées du sommet de la parabole représentant
@@ -85,7 +93,10 @@ export default class CoordonneesSommetParabole extends Exercice {
         par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.`
         this.canReponseACompleter = ''
       }
-      handleAnswers(this, i, { champ1: { value: String(-b) }, champ2: { value: String(c) } })
+      handleAnswers(this, i, {
+        champ1: { value: String(-b) },
+        champ2: { value: String(c) },
+      })
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte

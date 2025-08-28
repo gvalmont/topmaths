@@ -21,10 +21,10 @@ export const uuid = '991c2'
 
 export const refs = {
   'fr-fr': ['can2F11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComparerAvecFctCarre extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -32,14 +32,20 @@ export default class ComparerAvecFctCarre extends Exercice {
     this.spacing = 1.2
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte, texteCorr, a, b, props
       const choix = choice([1, 2, 3])
-      switch (choix) { //
-        case 1 :
-          a = randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000
-          b = a + (2 * randint(1, 9) / 1000) * choice([1, -1])
+      switch (
+        choix //
+      ) {
+        case 1:
+          a =
+            randint(0, 5) +
+            randint(5, 9) / 10 +
+            randint(5, 9) / 100 +
+            randint(0, 2) / 1000
+          b = a + ((2 * randint(1, 9)) / 1000) * choice([1, -1])
           texte = 'Sélectionner la réponse correcte. '
           if (a < b) {
             this.autoCorrection[i] = {
@@ -47,13 +53,13 @@ export default class ComparerAvecFctCarre extends Exercice {
               propositions: [
                 {
                   texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -61,13 +67,13 @@ export default class ComparerAvecFctCarre extends Exercice {
               propositions: [
                 {
                   texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -90,9 +96,14 @@ export default class ComparerAvecFctCarre extends Exercice {
           this.canEnonce = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
           this.canReponseACompleter = ''
           break
-        case 2 :
-          a = (randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000) * (-1)
-          b = a + (2 * randint(1, 9) / 1000) * choice([1, -1])
+        case 2:
+          a =
+            (randint(0, 5) +
+              randint(5, 9) / 10 +
+              randint(5, 9) / 100 +
+              randint(0, 2) / 1000) *
+            -1
+          b = a + ((2 * randint(1, 9)) / 1000) * choice([1, -1])
           texte = 'Sélectionner la réponse correcte. '
           if (a < b) {
             this.autoCorrection[i] = {
@@ -100,13 +111,13 @@ export default class ComparerAvecFctCarre extends Exercice {
               propositions: [
                 {
                   texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -114,13 +125,13 @@ export default class ComparerAvecFctCarre extends Exercice {
               propositions: [
                 {
                   texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -144,10 +155,14 @@ export default class ComparerAvecFctCarre extends Exercice {
           this.canEnonce = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
           this.canReponseACompleter = ''
           break
-        case 3 :
+        case 3:
         default:
-          a = randint(1, 6) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000
-          b = (-1) * a + (2 * randint(1, 9) / 1000) * choice([1, -1])
+          a =
+            randint(1, 6) +
+            randint(5, 9) / 10 +
+            randint(5, 9) / 100 +
+            randint(0, 2) / 1000
+          b = -1 * a + ((2 * randint(1, 9)) / 1000) * choice([1, -1])
           texte = 'Sélectionner la réponse correcte. '
           if (abs(a) < abs(b)) {
             this.autoCorrection[i] = {
@@ -155,13 +170,13 @@ export default class ComparerAvecFctCarre extends Exercice {
               propositions: [
                 {
                   texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           } else {
             this.autoCorrection[i] = {
@@ -169,13 +184,13 @@ export default class ComparerAvecFctCarre extends Exercice {
               propositions: [
                 {
                   texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
-                  statut: false
-                }
-              ]
+                  statut: false,
+                },
+              ],
             }
           }
 
@@ -186,7 +201,9 @@ export default class ComparerAvecFctCarre extends Exercice {
               texte = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
               this.canEnonce = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
               this.canReponseACompleter = ''
-            } else { texte = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.` }
+            } else {
+              texte = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.`
+            }
             this.canEnonce = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.`
             this.canReponseACompleter = ''
           }

@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '0287b'
 export const refs = {
   'fr-fr': ['TSG2-QCM09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,10 +25,10 @@ export const dateDePublication = '28/10/2024'
 export default class metropoleSept2024Ex4Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      'l\'ensemble vide',
+      "l'ensemble vide",
       'un plan',
       'une droite',
-      'réduite à un point'
+      'réduite à un point',
     ]
 
     this.enonce = this.sup3
@@ -40,23 +40,31 @@ $\\bullet~~$ Le plan $\\mathcal{P}$ d'équation cartésienne : $3 x+2 y+z-4=0$;<
 $\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0$.<br>`
       : ''
 
-    this.enonce += '<br>L\'intersection des plans $\\mathcal{P}$ et $\\mathcal{Q}$ est :'
+    this.enonce +=
+      "<br>L'intersection des plans $\\mathcal{P}$ et $\\mathcal{Q}$ est :"
 
-    this.correction = 'Le plan $\\mathcal{P}$ a pour vecteur normal $\\vec n\\begin{pmatrix}3\\\\2\\\\1\\end{pmatrix}$.<br>'
-    this.correction += 'et le plan $\\mathcal{Q}$ a pour vecteur normal $\\vec{n\'}\\begin{pmatrix}-6\\\\-4\\\\-2\\end{pmatrix}$.<br>'
-    this.correction += '$\\vec{n\'}=-2\\vec n$ donc les plans sont parallèles.<br>'
-    this.correction += 'Les plans sont donc confondus ou strictement parallèles.<br>'
-    this.correction += 'Pour vérifier, on teste avec le point T. On vérifie que le point T appartient à $\\mathcal{P}$.<br>'
-    this.correction += '$3x_{T} +2y_{T} +z_{T}-4= 3+0+1-4=0$ donc $\\text T \\in \\mathcal{P}$. <br> Mais comme :<br>'
-    this.correction += '$-6x_{\\text T} -4y_{\\text T} -2z_{\\text T} +7= -6\\times 1 -4\\times 0 -2\\times 1+7=-1\\neq 0$ donc $\\text T \\notin \\mathcal{Q}$<br>'
+    this.correction =
+      'Le plan $\\mathcal{P}$ a pour vecteur normal $\\vec n\\begin{pmatrix}3\\\\2\\\\1\\end{pmatrix}$.<br>'
+    this.correction +=
+      "et le plan $\\mathcal{Q}$ a pour vecteur normal $\\vec{n'}\\begin{pmatrix}-6\\\\-4\\\\-2\\end{pmatrix}$.<br>"
+    this.correction +=
+      "$\\vec{n'}=-2\\vec n$ donc les plans sont parallèles.<br>"
+    this.correction +=
+      'Les plans sont donc confondus ou strictement parallèles.<br>'
+    this.correction +=
+      'Pour vérifier, on teste avec le point T. On vérifie que le point T appartient à $\\mathcal{P}$.<br>'
+    this.correction +=
+      '$3x_{T} +2y_{T} +z_{T}-4= 3+0+1-4=0$ donc $\\text T \\in \\mathcal{P}$. <br> Mais comme :<br>'
+    this.correction +=
+      '$-6x_{\\text T} -4y_{\\text T} -2z_{\\text T} +7= -6\\times 1 -4\\times 0 -2\\times 1+7=-1\\neq 0$ donc $\\text T \\notin \\mathcal{Q}$<br>'
     this.correction += 'Les deux plans sont donc strictement parallèles.'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

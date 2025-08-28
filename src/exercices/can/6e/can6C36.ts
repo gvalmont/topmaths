@@ -12,15 +12,15 @@ export const dateDePublication = '01/08/2022'
 export const dateDeModifImportante = '03/07/2025'
 /**
  * @author Gilles Mora
-*/
+ */
 export const uuid = '6e1de'
 
 export const refs = {
   'fr-fr': ['can6C36', '6N2A-flash7'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PetitsProblemeReste2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,7 +28,7 @@ export default class PetitsProblemeReste2 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2])) {
       case 1:
         {
@@ -42,7 +42,9 @@ export default class PetitsProblemeReste2 extends ExerciceSimple {
       Quelle longueur de fil électrique reste-t-il dans le rouleau ?`
           this.correction = `Les $${nbre}$  morceaux de fil ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}$ m.<br>
       Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(Number(this.reponse), 2))}$ m.`
-          if (this.interactif) { this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' m' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' m' }
+          }
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\dots$ m'
         }
@@ -59,7 +61,9 @@ Il coupe $${nbre}$ sections de tuyau de $${texNombre(b, 2, true)}$ mètres chacu
 Quelle longueur de tuyau lui reste-t-il ?`
           this.correction = `Les $${nbre}$  sections de tuyau ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}$ m.<br>
       Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(Number(this.reponse), 2))}$ m.`
-          if (this.interactif) { this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' m' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' m' }
+          }
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\dots$ m'
         }

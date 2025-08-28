@@ -14,28 +14,30 @@ export const interactifType = 'mathLive'
 /**
  *
  * @author Stéphane Guyon
-*/
+ */
 
 export const uuid = '11dd8'
 export const refs = {
   'fr-fr': ['canTSpeE02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class CoordonneesVecteur extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion() {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       const choixLettre = randint(1, 23, [9, 10, 11, 15])
       const pointA = lettreDepuisChiffre(choixLettre)
-      const pointB = lettreDepuisChiffre(randint(1, 23, [9, 10, 11, 15, choixLettre]))
+      const pointB = lettreDepuisChiffre(
+        randint(1, 23, [9, 10, 11, 15, choixLettre]),
+      )
       const xA = randint(-6, 6)
       const yA = randint(-6, 6)
       const zA = randint(-6, 6)
@@ -49,12 +51,23 @@ export default class CoordonneesVecteur extends Exercice {
       texte += `<br>$${pointA}(${xA}~;~${yA};~${zA})$ et  $${pointB}(${xB}~;~${yB}~;~${zB})$.<br>`
       texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${pointA}${pointB}}$`
       if (this.interactif) {
-        texte += ': ' + remplisLesBlancs(this, i, '\\begin{pmatrix}%{champ1}\\\\%{champ2}\\\\%{champ3}\\end{pmatrix}.')
+        texte +=
+          ': ' +
+          remplisLesBlancs(
+            this,
+            i,
+            '\\begin{pmatrix}%{champ1}\\\\%{champ2}\\\\%{champ3}\\end{pmatrix}.',
+          )
       } else {
         texte += '.'
       }
-      handleAnswers(this, i, { champ1: { value: texNombre(xV, 1) }, champ2: { value: texNombre(yV, 1) }, champ3: { value: texNombre(zV, 1) } })
-      texteCorr = 'On calcule la différence des coordonnées des deux points :<br>'
+      handleAnswers(this, i, {
+        champ1: { value: texNombre(xV, 1) },
+        champ2: { value: texNombre(yV, 1) },
+        champ3: { value: texNombre(zV, 1) },
+      })
+      texteCorr =
+        'On calcule la différence des coordonnées des deux points :<br>'
       texteCorr += 'On obtient :  '
       texteCorr += `$\\overrightarrow{${pointA}${pointB}}\\begin{pmatrix} ${xB}-${ecritureParentheseSiNegatif(xA)} \\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\\\${zB}-${ecritureParentheseSiNegatif(zA)}\\end{pmatrix}$<br>`
       texteCorr += `Cela donne au final :  $\\overrightarrow{${pointA}${pointB}}${miseEnEvidence(`\\begin{pmatrix} ${xB - xA}\\\\${yB - yA}\\\\${zB - zA}\\end{pmatrix}`)}$<br>`

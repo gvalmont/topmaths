@@ -1,5 +1,6 @@
 import SolutionsEquationProduit from '../can/3e/can3L05'
-export const titre = 'Calculer le produit des solutions d’une équation produit nul'
+export const titre =
+  'Calculer le produit des solutions d’une équation produit nul'
 export const dateDePublication = '27/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +16,10 @@ export const uuid = '0ed0f'
 
 export const refs = {
   'fr-fr': ['1A-C15-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC15a extends SolutionsEquationProduit {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

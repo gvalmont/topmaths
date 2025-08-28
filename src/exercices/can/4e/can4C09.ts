@@ -17,17 +17,17 @@ export const uuid = '92186'
 
 export const refs = {
   'fr-fr': ['can4C09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PuissancesDe2345 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let b, a
     switch (choice([2, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9, 10])) {
       case 2:

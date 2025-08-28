@@ -1,6 +1,11 @@
 import { max, min } from 'mathjs'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
-import { choice, combinaisonListes, getRandomSubarray, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  getRandomSubarray,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -12,24 +17,47 @@ export const dateDePublication = '19/08/2024'
 /**
  * Réduire une expression littérale
  * @author Nathan Scheinmann
-*/
+ */
 
 export const uuid = '4b495'
 export const refs = {
   'fr-fr': ['3L11-13'],
-  'fr-ch': ['11FA1-9', '1mCL1-12']
+  'fr-ch': ['11FA1-9', '1mCL1-12'],
 }
 
 export default class nomExercice extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Réduire les expressions suivantes.'
+        : "Réduire l'expression suivante."
 
-    this.besoinFormulaireNumerique = ['Type de calcul', 4, 'Addition\nSoustraction\n Avec un signe devant la première parenthèse\nMélange']
-    this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
-    this.besoinFormulaire3Numerique = ['Degré maximum (au moins égal au degré minimum)', 5, '1\n2\n3\n4\n5']
-    this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']
-    this.besoinFormulaire5Numerique = ['Nombre de termes maximal dans un polynôme', 5, '2\n3\n4\n5\n6']
+    this.besoinFormulaireNumerique = [
+      'Type de calcul',
+      4,
+      'Addition\nSoustraction\n Avec un signe devant la première parenthèse\nMélange',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Coefficients',
+      3,
+      'Entiers \n2 : Fractionnaires \n3 : Mélange',
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Degré maximum (au moins égal au degré minimum)',
+      5,
+      '1\n2\n3\n4\n5',
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Nombre de variables différentes',
+      5,
+      '1\n2\n3\n4\n5',
+    ]
+    this.besoinFormulaire5Numerique = [
+      'Nombre de termes maximal dans un polynôme',
+      5,
+      '2\n3\n4\n5\n6',
+    ]
     // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
     // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
     this.sup = 4
@@ -40,7 +68,7 @@ export default class nomExercice extends Exercice {
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeQuestionsDisponibles: ('addition' | 'soustraction' | 'signe')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['addition']
@@ -52,9 +80,12 @@ export default class nomExercice extends Exercice {
       typeQuestionsDisponibles = shuffle(['addition', 'soustraction', 'signe'])
     }
     const degMin = 0
-    const listeTypeDeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte, texteCorr: string
       const degMax = max(this.sup3, 0)
       const variables = ['x', 'y', 'z', 'r', 's', 't']
@@ -68,8 +99,24 @@ export default class nomExercice extends Exercice {
       } else {
         typeofCoeff = typeCoeffListe
       }
-      const p1 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, this.sup5 + 1, choice(typeofCoeff), variablesSelect)
-      const p2 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, this.sup5 + 1, choice(typeofCoeff), variablesSelect, getRandomSubarray(p1.monomes, randint(min(1, this.sup5), this.sup5 + 1)))
+      const p1 = PolynomePlusieursVariables.createRandomPolynome(
+        degMin,
+        degMax,
+        this.sup5 + 1,
+        choice(typeofCoeff),
+        variablesSelect,
+      )
+      const p2 = PolynomePlusieursVariables.createRandomPolynome(
+        degMin,
+        degMax,
+        this.sup5 + 1,
+        choice(typeofCoeff),
+        variablesSelect,
+        getRandomSubarray(
+          p1.monomes,
+          randint(min(1, this.sup5), this.sup5 + 1),
+        ),
+      )
       // On redéfinit à présent le coefficient des monômes fractionnaires afin que toutes les fractions soient des multiples les unes des autres
       let testPremiereFraction = true
       let denominateurCommun = 1
@@ -79,7 +126,10 @@ export default class nomExercice extends Exercice {
             denominateurCommun = p1.monomes[i].coefficient.den
             testPremiereFraction = false
           } else {
-            p1.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+            p1.monomes[i].coefficient = new FractionEtendue(
+              randint(-10, 10, [0]),
+              denominateurCommun * randint(-2, 2, [0]),
+            )
           }
         }
       }
@@ -89,22 +139,25 @@ export default class nomExercice extends Exercice {
             denominateurCommun = p2.monomes[i].coefficient.den
             testPremiereFraction = false
           } else {
-            p2.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+            p2.monomes[i].coefficient = new FractionEtendue(
+              randint(-10, 10, [0]),
+              denominateurCommun * randint(-2, 2, [0]),
+            )
           }
         }
       }
       switch (listeTypeDeQuestions[i]) {
-        case 'addition':{
+        case 'addition': {
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}\\right)+\\left(${p2.toString()}\\right)$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${(p1.somme(p2)).toString()}=${miseEnEvidence((p1.somme(p2)).reduire().toString())}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${p1.somme(p2).toString()}=${miseEnEvidence(p1.somme(p2).reduire().toString())}$`
           break
         }
-        case 'soustraction':{
+        case 'soustraction': {
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}\\right)-\\left(${p2.toString()}\\right)$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${p1.difference(p2).toString()}=${miseEnEvidence(p1.difference(p2).reduire().toString())}$`
           break
         }
-        case 'signe':{
+        case 'signe': {
           const randomInt = randint(0, 1)
           const signe = randomInt === 0 ? '-' : '+'
           if (signe === '-') {

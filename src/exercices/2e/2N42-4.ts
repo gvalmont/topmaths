@@ -1,11 +1,16 @@
 import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
-export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré (2 formes)'
+export const titre =
+  "Utiliser les différentes formes d'un polynôme du second degré (2 formes)"
 export const interactifReady = false
 
 export const dateDePublication = '25/10/2024'
@@ -13,16 +18,16 @@ export const dateDePublication = '25/10/2024'
 /**
  * Forme développée, factorisée ou canonique pour résoudre équations et inéquations
  * @author Gilles Mora
-*/
+ */
 export const uuid = '6b5bc'
 
 export const refs = {
   'fr-fr': ['2N42-4'],
-  'fr-ch': ['1mF3-10']
+  'fr-ch': ['1mF3-10'],
 }
 class FormeTrinome extends Exercice {
   // version: number
-  constructor () {
+  constructor() {
     super()
     this.sup = 1
     this.sup2 = 1
@@ -31,24 +36,34 @@ class FormeTrinome extends Exercice {
     this.spacing = 1.2
     this.spacingCorr = 1.8
     this.nbQuestionsModifiable = false
-    this.besoinFormulaireNumerique = ['Forme de la fonction de départ', 2, '1 : Développée \n2 : Factorisée']
-    this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : a=1 \n2 : a différent de 1']
+    this.besoinFormulaireNumerique = [
+      'Forme de la fonction de départ',
+      2,
+      '1 : Développée \n2 : Factorisée',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Niveau de difficulté',
+      3,
+      '1 : a=1 \n2 : a différent de 1',
+    ]
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion(): void {
     let a = randint(-4, 4, [0, 1])
     let question1: string
     let question2: string
     let correction1: string
     let correction2: string
 
-    if (this.sup2 === 1) { a = 1 }
+    if (this.sup2 === 1) {
+      a = 1
+    }
     let x1 = randint(-8, 8, 0)
     let x2 = x1 + 2 * randint(1, 6)
     while (x1 === -x2 || x1 === 0 || x2 === 0) {
-    // x1 + x2 doit êter pair pour n'avoir que des nombres entiers dans les différentes formes
+      // x1 + x2 doit êter pair pour n'avoir que des nombres entiers dans les différentes formes
       x1 = randint(-8, 8, 0)
       x2 = x1 + 2 * randint(1, 6)
     }
@@ -104,11 +119,13 @@ class FormeTrinome extends Exercice {
         break
     }
 
-    question2 = 'Répondre aux questions suivantes en utilisant l\'écriture de $f(x)$ la mieux adaptée :'
+    question2 =
+      "Répondre aux questions suivantes en utilisant l'écriture de $f(x)$ la mieux adaptée :"
     correction2 = ''
     const q2a = `Calculer $f(0)$ et  $f(${x1})$.`
 
-    let corr2a = '$\\bullet$ Pour déterminer $f(0)$, les calculs à partir de la forme développée sont plus rapides : '
+    let corr2a =
+      '$\\bullet$ Pour déterminer $f(0)$, les calculs à partir de la forme développée sont plus rapides : '
     if (a !== 1) {
       corr2a += `<br>$f(0)= ${p.texCalculImage(0)}$ `
     } else {
@@ -120,12 +137,13 @@ class FormeTrinome extends Exercice {
     corr2a += `<br>$f(${x1})= ${rienSi1(a)}(${x1}${ecritureAlgebrique(-x1)})(${x1}${ecritureAlgebrique(-x2)})
     = ${rienSi1(a)}\\times 0\\times ${ecritureParentheseSiNegatif(x1 - x2)}=0$ `
 
-    const q2b = 'Résoudre l\'équation $f(x)=0$.'
-    let corr2b = 'En utilisant la forme factorisée, cela revient à résoudre  une équation produit-nul.'
+    const q2b = "Résoudre l'équation $f(x)=0$."
+    let corr2b =
+      'En utilisant la forme factorisée, cela revient à résoudre  une équation produit-nul.'
     // @fixme : p.x1 n'est pas forcément une FractionEtendue : son type est false | number | FractionEtendue (dans les deux premiers cas, le code ci-dessous plante)
 
     corr2b += `<br>$f(x)=0 \\iff ${p.texFormeFactorisee} = 0${this.correctionDetaillee === true ? `${sp(25)}${miseEnEvidence('\\textit{Équation produit-nul }')}` : ''}$`
-    corr2b += `<br>$\\phantom{f(x)=0} \\iff x${ecritureAlgebrique(-x1)} = 0 \\text{\\quad ou \\quad} x${ecritureAlgebrique(-x2)} = 0${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{L\'un au moins des deux facteurs est nul}')}` : ''}$`
+    corr2b += `<br>$\\phantom{f(x)=0} \\iff x${ecritureAlgebrique(-x1)} = 0 \\text{\\quad ou \\quad} x${ecritureAlgebrique(-x2)} = 0${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence("\\textit{L'un au moins des deux facteurs est nul}")}` : ''}$`
     corr2b += `<br>$\\phantom{f(x)=0} \\iff x=${x1} \\text{\\quad ou \\quad} x=${x2}$`
     corr2b += `<br>L'équation a deux solutions : $${x1}$ et $${x2}$.`
 
@@ -135,11 +153,14 @@ class FormeTrinome extends Exercice {
     corr2c += `<br> $f(x) = ${p.c.simplifie().texFraction} \\iff ${p.tex} = ${p.c.simplifie().texFraction}$`
     corr2c += `<br> $\\phantom{f(x) = ${p.c.simplifie().texFraction}} \\iff ${p.a.simplifie().texFractionSaufUn}x^2 ${p.b.simplifie().texFractionSaufUnSignee}x = 0 ${this.correctionDetaillee === true ? `${sp(30)}${miseEnEvidence('\\textit{Le second membre est nul }')}` : ''}$`
     corr2c += `<br> $\\phantom{f(x) = ${p.c.simplifie().texFraction}} \\iff x \\left(${p.a.simplifie().texFractionSaufUn}x ${p.b.simplifie().texFractionSaufUnSignee}\\right) = 0 ${this.correctionDetaillee === true ? `${sp(25)}${miseEnEvidence('\\textit{On met x en facteur }')}` : ''}$`
-    corr2c += `<br> $\\phantom{f(x) = ${p.c.simplifie().texFraction}} \\iff x = 0 \\text{\\quad ou \\quad} ${p.a.simplifie().texFractionSaufUn}x ${p.b.simplifie().texFractionSaufUnSignee} = 0 ${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{L\'un au moins des deux facteurs est nul}')}` : ''}$`
+    corr2c += `<br> $\\phantom{f(x) = ${p.c.simplifie().texFraction}} \\iff x = 0 \\text{\\quad ou \\quad} ${p.a.simplifie().texFractionSaufUn}x ${p.b.simplifie().texFractionSaufUnSignee} = 0 ${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence("\\textit{L'un au moins des deux facteurs est nul}")}` : ''}$`
     corr2c += `<br> $\\phantom{f(x) = ${p.c.simplifie().texFraction}} \\iff x = 0 \\text{\\quad ou \\quad} x = ${p.b.oppose().diviseFraction(p.a).simplifie().texFraction} $`
     corr2c += `<br>
     L'équation a deux solutions : $0$ et $${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}$.`
-    const [sousQuestions, sousCorrections] = [[q2a, q2b, q2c], [corr2a, corr2b, corr2c]]
+    const [sousQuestions, sousCorrections] = [
+      [q2a, q2b, q2c],
+      [corr2a, corr2b, corr2c],
+    ]
     shuffle2tableaux(sousQuestions, sousCorrections)
     for (let i = 0; i < 3; i++) {
       question2 += `<br><br>${numAlpha(i)} ${sousQuestions[i]}`

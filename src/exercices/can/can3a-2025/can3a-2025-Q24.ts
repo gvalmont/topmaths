@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '1e3d7'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class ResteDivisioEuclidienne extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -27,7 +27,7 @@ export default class ResteDivisioEuclidienne extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 11 : choice([9, 12, 13])
     const b = this.canOfficielle ? 4 : randint(5, a - 1)
     const c = this.canOfficielle ? 6 : randint(3, 6)
@@ -36,7 +36,7 @@ export default class ResteDivisioEuclidienne extends ExerciceSimple {
     this.correction = `$${d}=${a} \\times ${c} + ${b}$ avec $${b}<${a}$ donc le reste de la division de $${d}$ par $${a}$ est $${miseEnEvidence(b)}$.`
 
     this.reponse = b
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

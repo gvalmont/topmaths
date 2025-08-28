@@ -22,10 +22,10 @@ export const uuid = '95dd2'
 
 export const refs = {
   'fr-fr': ['can6C35', '6N2A-flash6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PlusOuMoins6ieme extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -33,11 +33,26 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
-    let a, b, c, prenom1, prenom2, choix1, reponse1, reponse2, choix, prix1, prix2, choix2, m1, m2
-    switch (choice([1, 1, 1, 2, 3, 3, 3])) { //
+  nouvelleVersion() {
+    let a,
+      b,
+      c,
+      prenom1,
+      prenom2,
+      choix1,
+      reponse1,
+      reponse2,
+      choix,
+      prix1,
+      prix2,
+      choix2,
+      m1,
+      m2
+    switch (
+      choice([1, 1, 1, 2, 3, 3, 3]) //
+    ) {
       case 1:
-        choix = choice(['a', 'b', 'c', 'd'])//
+        choix = choice(['a', 'b', 'c', 'd']) //
         choix1 = choice([true, false])
         prenom1 = prenomF()
         prenom2 = prenomF()
@@ -109,7 +124,9 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           this.canReponseACompleter = '$\\dots$ €'
         }
 
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ' €' }
+        }
 
         break
 
@@ -146,12 +163,14 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\dots$ m'
         }
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' m' } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ' m' }
+        }
 
         break
 
       case 3:
-        choix = choice(['a', 'b', 'c', 'd'])//, 'b', 'c', 'd'
+        choix = choice(['a', 'b', 'c', 'd']) //, 'b', 'c', 'd'
         choix1 = choice([true, false])
         choix2 = choice([true, false])
         prenom1 = prenomM()
@@ -159,12 +178,12 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
         while (prenom2 === prenom1) {
           prenom2 = prenomM()
         }
-        a = (new Decimal(randint(1, 5) * 10 + randint(1, 10))).div(10)
+        a = new Decimal(randint(1, 5) * 10 + randint(1, 10)).div(10)
         b = randint(1, 9) * 100
-        c = (new Decimal(b)).div(1000)
+        c = new Decimal(b).div(1000)
         if (choix === 'a') {
-          reponse1 = (new Decimal(a)).add(c)
-          reponse2 = (new Decimal(a)).sub(c)
+          reponse1 = new Decimal(a).add(c)
+          reponse2 = new Decimal(a).sub(c)
           this.reponse = choix1 ? reponse2 : reponse1
           this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
             Il en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.<br>
@@ -177,8 +196,8 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\dots$ kg'
         } else if (choix === 'b') {
-          reponse1 = (new Decimal(a)).add(c)
-          reponse2 = (new Decimal(a)).sub(c)
+          reponse1 = new Decimal(a).add(c)
+          reponse2 = new Decimal(a).sub(c)
           this.reponse = choix1 ? reponse1 : reponse2
           this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
           ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '}.<br>
@@ -191,10 +210,10 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\dots$ kg'
         } else if (choix === 'c') {
-          m1 = (new Decimal(a)).add(c)
-          m2 = (new Decimal(a)).sub(c)
-          reponse1 = (new Decimal(m1)).add(a)
-          reponse2 = (new Decimal(m2)).add(a)
+          m1 = new Decimal(a).add(c)
+          m2 = new Decimal(a).sub(c)
+          reponse1 = new Decimal(m1).add(a)
+          reponse2 = new Decimal(m2).add(a)
           this.reponse = choix1 ? reponse1 : reponse2
           this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
           ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '}.<br>
@@ -209,10 +228,10 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\dots$ kg'
         } else {
-          m1 = (new Decimal(a)).add(c)
-          m2 = (new Decimal(a)).sub(c)
-          reponse1 = (new Decimal(m1)).add(a)
-          reponse2 = (new Decimal(m2)).add(a)
+          m1 = new Decimal(a).add(c)
+          m2 = new Decimal(a).sub(c)
+          reponse1 = new Decimal(m1).add(a)
+          reponse2 = new Decimal(m2).add(a)
           this.reponse = choix1 ? reponse2 : reponse1
           this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
           Il en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.<br>
@@ -228,7 +247,9 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
           this.canReponseACompleter = '$\\dots$ kg'
         }
 
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' kg' } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ' kg' }
+        }
 
         break
     }

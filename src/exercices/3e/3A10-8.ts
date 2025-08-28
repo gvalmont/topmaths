@@ -2,9 +2,17 @@ import { createList } from '../../lib/format/lists'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { listeDesDiviseurs, pgcd, texFactorisation } from '../../lib/outils/primalite'
+import {
+  listeDesDiviseurs,
+  pgcd,
+  texFactorisation,
+} from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 
@@ -15,20 +23,24 @@ export const dateDePublication = '13/11/2024'
 export const uuid = 'cb844'
 export const refs = {
   'fr-fr': ['3A10-8'],
-  'fr-ch': ['9NO4-29']
+  'fr-ch': ['9NO4-29'],
 }
 /**
  * @Author Jean-Claude LHOTE
  * Ajout de this.sup 7 et 8 par Guillaume Valmont le 12/04/2025
  */
 export default class LireUnePuissance extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.sup = 6
-    this.besoinFormulaireNumerique = ['Choix des questions', 6, '1 : Décomposition seulement\n2 : Decomposition et liste des diviseurs\n3 : Decomposition, liste des diviseurs et PGCD\n4 : Liste des diviseurs et PGCD\n5 : Liste des diviseurs, PGCD et conclusion\n6 : Toutes les questions\n7 : Décomposition et PGCD\n8 : Décomposition, PGCD et conclusion']
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      6,
+      '1 : Décomposition seulement\n2 : Decomposition et liste des diviseurs\n3 : Decomposition, liste des diviseurs et PGCD\n4 : Liste des diviseurs et PGCD\n5 : Liste des diviseurs, PGCD et conclusion\n6 : Toutes les questions\n7 : Décomposition et PGCD\n8 : Décomposition, PGCD et conclusion',
+    ]
   }
 
   situations = [
@@ -42,7 +54,11 @@ export default class LireUnePuissance extends Exercice {
       especePluriel: 's',
       groupement: 'groupe',
       groupementDet: 'de ',
-      premiers: [[5, 7], [7, 11], [3, 5]]
+      premiers: [
+        [5, 7],
+        [7, 11],
+        [3, 5],
+      ],
     },
     {
       qui: 'fleuriste',
@@ -54,7 +70,12 @@ export default class LireUnePuissance extends Exercice {
       especePluriel: 's',
       groupement: 'bouquet',
       groupementDet: 'de ',
-      premiers: [[5, 7], [7, 11], [11, 13], [17, 19]]
+      premiers: [
+        [5, 7],
+        [7, 11],
+        [11, 13],
+        [17, 19],
+      ],
     },
     {
       qui: 'pâtissier',
@@ -66,7 +87,13 @@ export default class LireUnePuissance extends Exercice {
       especePluriel: '',
       groupement: 'plat',
       groupementDet: 'de ',
-      premiers: [[5, 7], [2, 3], [3, 5], [5, 6], [3, 4]]
+      premiers: [
+        [5, 7],
+        [2, 3],
+        [3, 5],
+        [5, 6],
+        [3, 4],
+      ],
     },
     {
       qui: 'boulanger',
@@ -77,8 +104,14 @@ export default class LireUnePuissance extends Exercice {
       espece2: 'croissant',
       especePluriel: 's',
       groupement: 'assortiment',
-      groupementDet: 'd\'',
-      premiers: [[5, 7], [5, 6], [3, 4], [6, 7], [7, 8]]
+      groupementDet: "d'",
+      premiers: [
+        [5, 7],
+        [5, 6],
+        [3, 4],
+        [6, 7],
+        [7, 8],
+      ],
     },
     {
       qui: 'collectionneur',
@@ -90,7 +123,11 @@ export default class LireUnePuissance extends Exercice {
       especePluriel: '',
       groupement: 'vitrine',
       groupementDet: 'de ',
-      premiers: [[9, 8], [6, 7], [7, 8]]
+      premiers: [
+        [9, 8],
+        [6, 7],
+        [7, 8],
+      ],
     },
     {
       qui: 'producteur',
@@ -101,8 +138,14 @@ export default class LireUnePuissance extends Exercice {
       espece2: 'poirier',
       especePluriel: 's',
       groupement: 'allée',
-      groupementDet: 'd\'',
-      premiers: [[5, 7], [5, 6], [3, 4], [6, 7], [7, 8]]
+      groupementDet: "d'",
+      premiers: [
+        [5, 7],
+        [5, 6],
+        [3, 4],
+        [6, 7],
+        [7, 8],
+      ],
     },
     {
       qui: 'maitre-nageur',
@@ -114,7 +157,11 @@ export default class LireUnePuissance extends Exercice {
       especePluriel: 's',
       groupement: 'groupe',
       groupementDet: 'de ',
-      premiers: [[2, 3], [5, 6], [3, 4]]
+      premiers: [
+        [2, 3],
+        [5, 6],
+        [3, 4],
+      ],
     },
     {
       qui: 'cuisinier',
@@ -126,7 +173,13 @@ export default class LireUnePuissance extends Exercice {
       especePluriel: '',
       groupement: 'plat',
       groupementDet: 'de ',
-      premiers: [[10, 12], [8, 9], [5, 6], [6, 7], [7, 8]]
+      premiers: [
+        [10, 12],
+        [8, 9],
+        [5, 6],
+        [6, 7],
+        [7, 8],
+      ],
     },
     {
       qui: 'décorateur',
@@ -138,12 +191,18 @@ export default class LireUnePuissance extends Exercice {
       especePluriel: 's',
       groupement: 'bouquet',
       groupementDet: 'de ',
-      premiers: [[4, 6], [5, 7], [3, 4], [6, 8], [2, 4]]
-    }
+      premiers: [
+        [4, 6],
+        [5, 7],
+        [3, 4],
+        [6, 8],
+        [2, 4],
+      ],
+    },
   ]
 
-  nouvelleVersion (): void {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion(): void {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const listeQuestParChoix = [
         [1],
         [1, 2],
@@ -152,7 +211,7 @@ export default class LireUnePuissance extends Exercice {
         [2, 3, 4],
         [1, 2, 3, 4],
         [1, 3],
-        [1, 3, 4]
+        [1, 3, 4],
       ]
       const listeQ = listeQuestParChoix[this.sup - 1]
       const situation = choice(this.situations)
@@ -175,52 +234,85 @@ export default class LireUnePuissance extends Exercice {
       const itemsCorr: string[] = []
 
       if (listeQ.includes(1)) {
-        items.push(`Décomposer, en produit de facteurs premiers, les nombres ${nb1} et ${nb2}.${this.interactif ? `<br> $${texNombre(nb1, 0)} =$ ${ajouteChampTexteMathLive(this, indiceI + indiceII)}<br>$${texNombre(nb2, 0)} =$ ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)}` : ''}`)
+        items.push(
+          `Décomposer, en produit de facteurs premiers, les nombres ${nb1} et ${nb2}.${this.interactif ? `<br> $${texNombre(nb1, 0)} =$ ${ajouteChampTexteMathLive(this, indiceI + indiceII)}<br>$${texNombre(nb2, 0)} =$ ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)}` : ''}`,
+        )
         itemsCorr.push(`La décomposition en produit de facteurs premiers de $${texNombre(nb1, 0)}$ est $${miseEnEvidence(texFactorisation(nb1, false))}$
 et celle de $${texNombre(nb2, 0)}$ est $${miseEnEvidence(texFactorisation(nb2, false))}$, soit respectivement : $${miseEnEvidence(texFactorisation(nb1, true))}$
 et $${miseEnEvidence(texFactorisation(nb2, true))}$.`)
-        handleAnswers(this, indiceI + indiceII, { reponse: { value: texFactorisation(nb1, true), options: { nbFacteursIdentiquesFactorisation: true } } })
-        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: texFactorisation(nb2), options: { nbFacteursIdentiquesFactorisation: true } } })
+        handleAnswers(this, indiceI + indiceII, {
+          reponse: {
+            value: texFactorisation(nb1, true),
+            options: { nbFacteursIdentiquesFactorisation: true },
+          },
+        })
+        handleAnswers(this, indiceI + indiceII + 1, {
+          reponse: {
+            value: texFactorisation(nb2),
+            options: { nbFacteursIdentiquesFactorisation: true },
+          },
+        })
         indiceII += 2
       }
       if (listeQ.includes(2)) {
         items.push(`Trouver tous les entiers positifs qui divisent ${nb1} et ${nb2}.${this.interactif ? '<br>Écrire la liste des diviseurs en les séparant par des points-virgules.<br>' : ''}
-             ${this.interactif
-             ? `Pour $${texNombre(nb1, 0)}$ : ${ajouteChampTexteMathLive(this, indiceI + indiceII)}<br>Pour $${texNombre(nb2, 0)}$ : ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)}`
-: ''}`)
+             ${
+               this.interactif
+                 ? `Pour $${texNombre(nb1, 0)}$ : ${ajouteChampTexteMathLive(this, indiceI + indiceII)}<br>Pour $${texNombre(nb2, 0)}$ : ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)}`
+                 : ''
+             }`)
         itemsCorr.push(`Les diviseurs de $${texNombre(nb1, 0)}$ sont $${miseEnEvidence(listDiv1.join('~;~'))}$.<br>
         Et ceux de $${texNombre(nb2, 0)}$ sont $${miseEnEvidence(listDiv2.join('~;~'))}$.`)
-        handleAnswers(this, indiceI + indiceII, { reponse: { value: listDiv1.join(';'), options: { suiteDeNombres: true } } })
-        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: listDiv2.join(';'), options: { suiteDeNombres: true } } })
+        handleAnswers(this, indiceI + indiceII, {
+          reponse: {
+            value: listDiv1.join(';'),
+            options: { suiteDeNombres: true },
+          },
+        })
+        handleAnswers(this, indiceI + indiceII + 1, {
+          reponse: {
+            value: listDiv2.join(';'),
+            options: { suiteDeNombres: true },
+          },
+        })
         indiceII += 2
       }
       if (listeQ.includes(3)) {
-        items.push(`En déduire le plus grand nombre ${situation.groupementDet}${situation.groupement}s que le ${situation.qui} pourra constituer.` + ajouteChampTexteMathLive(this, indiceI + indiceII))
-        itemsCorr.push(`Le plus grand diviseur commun à $${texNombre(nb1, 0)}$ et $${texNombre(nb2, 0)}$ est $${miseEnEvidence(texNombre(pgcd12, 0))}$.`)
-        handleAnswers(this, indiceI + indiceII, { reponse: { value: String(pgcd12) } })
+        items.push(
+          `En déduire le plus grand nombre ${situation.groupementDet}${situation.groupement}s que le ${situation.qui} pourra constituer.` +
+            ajouteChampTexteMathLive(this, indiceI + indiceII),
+        )
+        itemsCorr.push(
+          `Le plus grand diviseur commun à $${texNombre(nb1, 0)}$ et $${texNombre(nb2, 0)}$ est $${miseEnEvidence(texNombre(pgcd12, 0))}$.`,
+        )
+        handleAnswers(this, indiceI + indiceII, {
+          reponse: { value: String(pgcd12) },
+        })
         indiceII += 1
       }
       if (listeQ.includes(4)) {
-        items.push(`Combien de ${situation.espece1}${situation.especePluriel} et de ${situation.espece2}${situation.especePluriel} y aura-t-il dans chaque ${situation.groupement} ? ${this.interactif ? `<br> Il y aura ${ajouteChampTexteMathLive(this, indiceI + indiceII)}  ${situation.espece1}${situation.especePluriel}.<br>Il y aura ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)} ${situation.espece2}${situation.especePluriel}.` : ''}`)
+        items.push(
+          `Combien de ${situation.espece1}${situation.especePluriel} et de ${situation.espece2}${situation.especePluriel} y aura-t-il dans chaque ${situation.groupement} ? ${this.interactif ? `<br> Il y aura ${ajouteChampTexteMathLive(this, indiceI + indiceII)}  ${situation.espece1}${situation.especePluriel}.<br>Il y aura ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)} ${situation.espece2}${situation.especePluriel}.` : ''}`,
+        )
         itemsCorr.push(`Il y aura $${texNombre(nb1, 0)}\\div ${texNombre(pgcd12, 0)}=${miseEnEvidence(texNombre(nb1parGroupe, 0))}$ ${situation.espece1}${situation.especePluriel}
              et $${texNombre(nb2, 0)}\\div ${texNombre(pgcd12, 0)}=${miseEnEvidence(texNombre(nb2parGroupe, 0))}$ ${situation.espece2}${situation.especePluriel}
               dans chaque ${situation.groupement}.`)
-        handleAnswers(this, indiceI + indiceII, { reponse: { value: String(nb1parGroupe) } })
-        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: String(nb2parGroupe) } })
+        handleAnswers(this, indiceI + indiceII, {
+          reponse: { value: String(nb1parGroupe) },
+        })
+        handleAnswers(this, indiceI + indiceII + 1, {
+          reponse: { value: String(nb2parGroupe) },
+        })
       }
-      const liste = createList(
-        {
-          items,
-          style: 'alpha'
-        }
-      )
+      const liste = createList({
+        items,
+        style: 'alpha',
+      })
       texte += liste
-      const listeCorr = createList(
-        {
-          items: itemsCorr,
-          style: 'alpha'
-        }
-      )
+      const listeCorr = createList({
+        items: itemsCorr,
+        style: 'alpha',
+      })
       const texteCorr = listeCorr
       if (this.questionJamaisPosee(i, nb1, nb2)) {
         this.listeQuestions[i] = texte

@@ -9,7 +9,8 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Effectuer des calculs littéraux avec des puissances et leurs règles de calculs'
+export const titre =
+  'Effectuer des calculs littéraux avec des puissances et leurs règles de calculs'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,29 +27,27 @@ export const uuid = 'fc2e8'
 
 export const refs = {
   'fr-fr': ['2N31-10'],
-  'fr-ch': ['']
+  'fr-ch': [''],
 }
 export default class PuissancesDUnRelatif2 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.consigne = 'Soit $a$ un nombre réel non nul et $n$ un nombre entier relatif. <br>Écrire les nombres suivants sous la forme $a^n$ :'
+    this.consigne =
+      'Soit $a$ un nombre réel non nul et $n$ un nombre entier relatif. <br>Écrire les nombres suivants sous la forme $a^n$ :'
     this.spacing = 2
     this.spacingCorr = 2.5
     this.nbQuestions = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
 
-    for (
-      let i = 0, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-    ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
 
       const variables = ['a']
@@ -60,7 +59,11 @@ export default class PuissancesDUnRelatif2 extends Exercice {
       // let exposantInteractif = 0 // AMC désactivé le 22/01/2025 par JCL)
       switch (typesDeQuestions) {
         case 1: // (x^a·x²)/(x^b·x^c)
-          exp = [randint(-7, 7, [0, 1]), randint(-7, 7, [0, 1]), randint(-7, 7, [0, 1])] // on a besoin de 3 exposants distincts
+          exp = [
+            randint(-7, 7, [0, 1]),
+            randint(-7, 7, [0, 1]),
+            randint(-7, 7, [0, 1]),
+          ] // on a besoin de 3 exposants distincts
           texte += `$\\dfrac{${base}^{ ${exp[0]} }\\times ${base}^2}{${base}^{ ${exp[1]} } \\times ${base}^{ ${exp[2]} }}$`
           texteCorr = `$\\dfrac{${base}^{ ${exp[0]} }\\times ${base}^2}{${base}^{${exp[1]}} \\times ${base}^{ ${exp[2]} }}`
           texteCorr += ` = \\dfrac{${base}^{ ${exp[0]} }\\times ${base}^2}{${base}^{ ${exp[1]} } \\times ${base}^{ ${exp[2]} }}`
@@ -70,7 +73,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           texteCorr += ` = ${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
           if (
             exp[0] + 2 - exp[1] - exp[2] === 0 ||
-                        exp[0] + 2 - exp[1] - exp[2] === 1
+            exp[0] + 2 - exp[1] - exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, exp[0] + 2 - exp[1] - exp[2])
@@ -103,8 +106,9 @@ export default class PuissancesDUnRelatif2 extends Exercice {
             texteCorr = `$\\dfrac{${base}\\times ${base}^{${exp[0]}}}{(${base}^2)^{${exp[1]}}}`
             texteCorr += `=\\dfrac{${base}^{1+${ecritureParentheseSiNegatif(exp[0])}}}{(${base}^2)^{${exp[1]}}}`
             texteCorr += `=\\dfrac{${base}^{1+${ecritureParentheseSiNegatif(exp[0])}}}{${base}^{2 \\times ${exp[1]}}}`
-            texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{${2 * exp[1]
-                        }}}`
+            texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{${
+              2 * exp[1]
+            }}}`
           } else {
             texte += `$\\dfrac{${base}\\times ${base}^{${exp[0]}}}{${base}^2}$`
             texteCorr = `$\\dfrac{${base}\\times ${base}^{${exp[0]}}}{${base}^2}`
@@ -163,7 +167,11 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           // exposantInteractif = 3 * exp[0] - 1
           break
         case 7: // (x^a·x^b)/(x²)^c·x
-          exp = [randint(-7, 7, [0, 1]), randint(-7, 7, [0, 1]), randint(-4, 4, [0, 1])] // on a besoin de 3 exposants distincts
+          exp = [
+            randint(-7, 7, [0, 1]),
+            randint(-7, 7, [0, 1]),
+            randint(-4, 4, [0, 1]),
+          ] // on a besoin de 3 exposants distincts
           texte += `$\\dfrac{${base}^{${exp[0]}}\\times ${base}^{${exp[1]}}}{(${base}^2)^{${exp[2]}}}\\times ${base}$`
           texteCorr = `$\\dfrac{${base}^{${exp[0]}}\\times ${base}^{${exp[1]}}}{(${base}^2)^{${exp[2]}}}\\times ${base}`
           texteCorr += `=\\dfrac{${base}^{${exp[0]}+${ecritureParentheseSiNegatif(exp[1])}}}{(${base}^2)^{${exp[2]}}}\\times ${base}`
@@ -176,7 +184,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           texteCorr += `=${base}^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
           if (
             exp[0] + exp[1] + 1 - 2 * exp[2] === 0 ||
-                        exp[0] + exp[1] + 1 - 2 * exp[2] === 1
+            exp[0] + exp[1] + 1 - 2 * exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(base, exp[0] + exp[1] + 1 - 2 * exp[2])
@@ -205,7 +213,9 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           break
       }
       if (this.interactif && !context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: reponseInteractive, options: { puissance: true } } })
+        handleAnswers(this, i, {
+          reponse: { value: reponseInteractive, options: { puissance: true } },
+        })
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
       }
       // Pour moi, cela ne peut pas fonctionner : base est une chaine de caractère alors qu'AMC va attendre un nombre ! (JCL le 22/01/2025 lors du typage en typescript)

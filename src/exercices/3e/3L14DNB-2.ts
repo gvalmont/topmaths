@@ -2,10 +2,18 @@ import { BoiteBuilder } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { createList } from '../../lib/format/lists'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import { texteItalique } from '../../lib/outils/embellissements'
 import { signe } from '../../lib/outils/nombres'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  fixeBordures,
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { randint } from '../../modules/outils'
@@ -14,7 +22,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = '972f7'
 export const refs = {
   'fr-fr': ['3L14DNB-2', '3Z1DNB-14'],
-  'fr-ch': ['11FA4-5', '1mCL1-13']
+  'fr-ch': ['11FA4-5', '1mCL1-13'],
 }
 export const titre = 'Programme de calcul et calcul littéral'
 export const dateDePublication = '25/11/2024'
@@ -78,33 +86,54 @@ $(x + 2 \times 4)(x \times 5 - 3)$ & $(4 x+ 2)(5x - 3)$ & $(4 x + 8)(5x - 3)$ & 
 
 */
 export default class Exercice3L14DNB1 extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
 
-    this.introduction = texteItalique('D\'après l\'exercice 2 du brevet Amérique du Nord 2024.') + '<br><br>'
+    this.introduction =
+      texteItalique("D'après l'exercice 2 du brevet Amérique du Nord 2024.") +
+      '<br><br>'
 
     this.versionAleatoire(0)
   }
 
-  private appliquerLesValeurs (add1: number, mult1: number, mult2: number, add2: number, x0: number, x1: number) {
+  private appliquerLesValeurs(
+    add1: number,
+    mult1: number,
+    mult2: number,
+    add2: number,
+    x0: number,
+    x1: number,
+  ) {
     const signe1 = signe(add1) === '+'
     const signe2 = signe(add2) === '+'
-    const f = (x:number) => (x + add1) * mult1 * (x * mult2 + add2)
-    const gauche = (x:number) => (x + add1) * mult1
-    const droite = (x:number) => x * mult2 + add2
+    const f = (x: number) => (x + add1) * mult1 * (x * mult2 + add2)
+    const gauche = (x: number) => (x + add1) * mult1
+    const droite = (x: number) => x * mult2 + add2
     const y0 = f(x0)
     const y1 = f(x1)
     const listeProps = [
-      { exp: `\\Big(x${ecritureAlgebrique(add1)}\\times ${ecritureParentheseSiNegatif(mult1)}\\Big)\\Big(x\\times ${ecritureParentheseSiNegatif(mult2)}${ecritureAlgebrique(add2)}\\Big)`, isGood: false },
-      { exp: `\\Big(${mult1}x${ecritureAlgebrique(add1)}\\Big)\\Big(${mult2}x${ecritureAlgebrique(add2)}\\Big)`, isGood: false },
-      { exp: `\\Big(${mult1}x${ecritureAlgebrique(add1 * mult1)}\\Big)\\Big(${mult2}x${ecritureAlgebrique(add2)}\\Big)`, isGood: true },
-      { exp: `\\Big(x${ecritureAlgebrique(add1)}\\Big)\\times ${ecritureParentheseSiNegatif(mult1)}\\times\\Big(x\\times ${ecritureParentheseSiNegatif(mult2)}${ecritureAlgebrique(add2)}\\Big)`, isGood: true }
+      {
+        exp: `\\Big(x${ecritureAlgebrique(add1)}\\times ${ecritureParentheseSiNegatif(mult1)}\\Big)\\Big(x\\times ${ecritureParentheseSiNegatif(mult2)}${ecritureAlgebrique(add2)}\\Big)`,
+        isGood: false,
+      },
+      {
+        exp: `\\Big(${mult1}x${ecritureAlgebrique(add1)}\\Big)\\Big(${mult2}x${ecritureAlgebrique(add2)}\\Big)`,
+        isGood: false,
+      },
+      {
+        exp: `\\Big(${mult1}x${ecritureAlgebrique(add1 * mult1)}\\Big)\\Big(${mult2}x${ecritureAlgebrique(add2)}\\Big)`,
+        isGood: true,
+      },
+      {
+        exp: `\\Big(x${ecritureAlgebrique(add1)}\\Big)\\times ${ecritureParentheseSiNegatif(mult1)}\\times\\Big(x\\times ${ecritureParentheseSiNegatif(mult2)}${ecritureAlgebrique(add2)}\\Big)`,
+        isGood: true,
+      },
     ]
     const props = ['A', 'B', 'C', 'D']
     shuffle2tableaux(listeProps, props)
-    const indexB = props.findIndex(el => el === 'B')
+    const indexB = props.findIndex((el) => el === 'B')
     const expression = listeProps[indexB].exp
     // enonce
     const question3 = `On choisit $x$ comme nombre de départ.<br>
@@ -113,7 +142,7 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
     \\hline
     \\text{Expression A} & \\text{Expression B} & \\text{Expression C} & \\text{Expression D} \\\\
     \\hline
-    ${listeProps.map(el => el.exp).join(' & ')} \\\\
+    ${listeProps.map((el) => el.exp).join(' & ')} \\\\
     \\hline
     \\end{array}$<br>
     <br>`
@@ -122,10 +151,10 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
         `Montrer que, si on choisit $${x0}$ comme nombre de départ, le résultat du programme A est $${y0}$.`,
         `Quel est le résultat obtenu à l'arrivée si on choisit $${x1}$ comme nombre de départ ?`,
         question3,
-        'Trouver les deux nombres de départ qui permettent d\'obtenir 0 à l\'arrivée. Expliquer la démarche.',
-        `Développer et réduire l'expression ${String.fromCharCode(65 + indexB)}.`
+        "Trouver les deux nombres de départ qui permettent d'obtenir 0 à l'arrivée. Expliquer la démarche.",
+        `Développer et réduire l'expression ${String.fromCharCode(65 + indexB)}.`,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
     const gauche0 = gauche(x0)
     const droite0 = droite(x0)
@@ -143,11 +172,13 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
     $${x1}\\times ${mult2}${ecritureAlgebrique(add2)} = ${x1 * mult2}${ecritureAlgebrique(add2)} = ${droite1}$<br>
     Enfin, le résultat du programme est :<br>
     $${gauche1}\\times${ecritureParentheseSiNegatif(droite1)} = ${y1}$`
-    const justifications = listeProps.map((el, index) => {
-      const exp = el.exp
-      return `Expression ${String.fromCharCode(65 + index)} : $${exp}$ est ${el.isGood ? 'vraie' : 'fausse'}`
-    }
-    ).filter(el => el.includes('vraie')).join('<br>')
+    const justifications = listeProps
+      .map((el, index) => {
+        const exp = el.exp
+        return `Expression ${String.fromCharCode(65 + index)} : $${exp}$ est ${el.isGood ? 'vraie' : 'fausse'}`
+      })
+      .filter((el) => el.includes('vraie'))
+      .join('<br>')
     const correction3 = `Le nombre de gauche s'exprime en fonction de x comme suit :<br>
     $\\Big(x${ecritureAlgebrique(add1)}\\Big)\\times ${mult1} = ${mult1}x${ecritureAlgebrique(mult1 * add1)}$<br>
     Le nombre de droite s'exprime en fonction de x comme suit :<br>
@@ -170,19 +201,67 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
         correction2,
         correction3 + justifications,
         correction4,
-        correction5
+        correction5,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
     // création du diagramme svg
     const objets: NestedObjetMathalea2dArray = []
-    const resultat = new BoiteBuilder({ xMin: -4.5, yMin: -0.5, xMax: 4.5, yMax: 0.5 }).addTextIn({ textIn: 'Résultat obtenu à l\'arrivée' }).render()
-    const multiplier = new BoiteBuilder({ xMin: -4.5, yMin: 2, xMax: 4.5, yMax: 3 }).addTextIn({ textIn: 'Multiplier les deux nombres' }).render()
-    const multiplier1 = new BoiteBuilder({ xMin: -9, yMin: 4.5, xMax: -4, yMax: 5.5 }).addTextIn({ textIn: `Multiplier par ${mult1}` }).render()
-    const addition1 = new BoiteBuilder({ xMin: -8.5, yMin: 7, xMax: -4.5, yMax: 8 }).addTextIn({ textIn: `${signe1 ? 'Ajouter' : 'Soustraire'} ${Math.abs(add1)}` }).render()
-    const addition2 = new BoiteBuilder({ xMin: 4.5, yMin: 4.5, xMax: 8.5, yMax: 5.5 }).addTextIn({ textIn: `${signe2 ? 'Ajouter' : 'Soustraire'} ${Math.abs(add2)}` }).render()
-    const multiplier2 = new BoiteBuilder({ xMin: 4, yMin: 7, xMax: 9, yMax: 8 }).addTextIn({ textIn: `Multiplier par ${mult2}` }).render()
-    const depart = new BoiteBuilder({ xMin: -4, yMin: 9.5, xMax: 4, yMax: 10.5 }).addTextIn({ textIn: 'Nombre choisi au départ' }).render()
+    const resultat = new BoiteBuilder({
+      xMin: -4.5,
+      yMin: -0.5,
+      xMax: 4.5,
+      yMax: 0.5,
+    })
+      .addTextIn({ textIn: "Résultat obtenu à l'arrivée" })
+      .render()
+    const multiplier = new BoiteBuilder({
+      xMin: -4.5,
+      yMin: 2,
+      xMax: 4.5,
+      yMax: 3,
+    })
+      .addTextIn({ textIn: 'Multiplier les deux nombres' })
+      .render()
+    const multiplier1 = new BoiteBuilder({
+      xMin: -9,
+      yMin: 4.5,
+      xMax: -4,
+      yMax: 5.5,
+    })
+      .addTextIn({ textIn: `Multiplier par ${mult1}` })
+      .render()
+    const addition1 = new BoiteBuilder({
+      xMin: -8.5,
+      yMin: 7,
+      xMax: -4.5,
+      yMax: 8,
+    })
+      .addTextIn({
+        textIn: `${signe1 ? 'Ajouter' : 'Soustraire'} ${Math.abs(add1)}`,
+      })
+      .render()
+    const addition2 = new BoiteBuilder({
+      xMin: 4.5,
+      yMin: 4.5,
+      xMax: 8.5,
+      yMax: 5.5,
+    })
+      .addTextIn({
+        textIn: `${signe2 ? 'Ajouter' : 'Soustraire'} ${Math.abs(add2)}`,
+      })
+      .render()
+    const multiplier2 = new BoiteBuilder({ xMin: 4, yMin: 7, xMax: 9, yMax: 8 })
+      .addTextIn({ textIn: `Multiplier par ${mult2}` })
+      .render()
+    const depart = new BoiteBuilder({
+      xMin: -4,
+      yMin: 9.5,
+      xMax: 4,
+      yMax: 10.5,
+    })
+      .addTextIn({ textIn: 'Nombre choisi au départ' })
+      .render()
     const flecheResultat = segment(0, 1.9, 0, 0.6)
     const flecheMultiplierG = segment(-6.5, 4.4, -0.2, 3.1)
     const flecheMultiplierD = segment(6.5, 4.4, 0.2, 3.1)
@@ -190,18 +269,43 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
     const flecheMultiplier1 = segment(-6.5, 6.9, -6.5, 5.6)
     const flecheAddition1 = segment(-0.2, 9.4, -6.5, 8.1)
     const flecheAddition2 = segment(0.2, 9.4, 6.5, 8.1)
-    for (const el of [flecheResultat, flecheMultiplierG, flecheMultiplierD, flecheMultiplier1, flecheMultiplier2, flecheAddition1, flecheAddition2]) {
+    for (const el of [
+      flecheResultat,
+      flecheMultiplierG,
+      flecheMultiplierD,
+      flecheMultiplier1,
+      flecheMultiplier2,
+      flecheAddition1,
+      flecheAddition2,
+    ]) {
       el.styleExtremites = '->'
       el.epaisseur = 2
     }
 
-    objets.push(resultat, multiplier, multiplier1, multiplier2, addition1, addition2, depart)
-    objets.push(flecheResultat, flecheMultiplierG, flecheMultiplierD, flecheMultiplier1, flecheMultiplier2, flecheAddition1, flecheAddition2)
+    objets.push(
+      resultat,
+      multiplier,
+      multiplier1,
+      multiplier2,
+      addition1,
+      addition2,
+      depart,
+    )
+    objets.push(
+      flecheResultat,
+      flecheMultiplierG,
+      flecheMultiplierD,
+      flecheMultiplier1,
+      flecheMultiplier2,
+      flecheAddition1,
+      flecheAddition2,
+    )
     const figure = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
     this.enonce = `Voici un programme de calcul :<br>
-    ${context.isHtml
-    ? figure
-  : ` \\begin{figure}[!h]
+    ${
+      context.isHtml
+        ? figure
+        : ` \\begin{figure}[!h]
     \\begin{center}
     \\psset{unit=1cm,arrowsize=2pt 3}
     \\begin{pspicture}(-7,0)(7,8.4)
@@ -217,7 +321,8 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
     \\psline[linewidth=1.5pt]{->}(0,1.5)(0,0.5)
     \\end{pspicture}
     \\end{center}
-    \\end{figure}`}
+    \\end{figure}`
+    }
     ${questions}`
     this.correction = corrections
   }
@@ -226,7 +331,7 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
     this.appliquerLesValeurs(2, 4, 5, -3, 2, -3)
   }
 
-  versionAleatoire: (i: number) => void = (i:number) => {
+  versionAleatoire: (i: number) => void = (i: number) => {
     let signe1 = 1
     let signe2 = 1
     let add1 = 2
@@ -244,7 +349,10 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
       mult2 = randint(2, 5, mult1)
       x0 = randint(2, 7)
       x1 = -randint(2, 7, x0)
-    } while ((x0 + add1) * mult1 * (x0 * mult2 + add2) === 0 || (x1 + add1) * mult1 * (x1 * mult2 + add2) === 0)
+    } while (
+      (x0 + add1) * mult1 * (x0 * mult2 + add2) === 0 ||
+      (x1 + add1) * mult1 * (x1 * mult2 + add2) === 0
+    )
 
     this.appliquerLesValeurs(add1, mult1, mult2, add2, x0, x1)
   }

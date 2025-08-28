@@ -7,7 +7,7 @@ export const interactifType = 'mathLive'
 export const uuid = '6d56a'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -15,7 +15,7 @@ export const refs = {
 
 */
 export default class Can2025TQ22 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class Can2025TQ22 extends ExerciceSimple {
     this.optionsChampTexte = { texteAvant: ' <br>' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 2 : randint(1, 9)
     this.reponse = `e^{2x}-${a ** 2}`
     this.question = `Simplifier au maximum $(\\text{e}^x+${a})(\\text{e}^x-${a})$.`

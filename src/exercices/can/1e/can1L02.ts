@@ -1,15 +1,19 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  reduirePolynomeDegre3
+  reduirePolynomeDegre3,
 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
-export const titre = 'Déterminer le nombre de solutions d’une équation du second degré'
+export const titre =
+  'Déterminer le nombre de solutions d’une équation du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -25,20 +29,20 @@ export const uuid = 'c74ea'
 
 export const refs = {
   'fr-fr': ['can1L02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class NombreSolutionsSecondDegre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, maFraction
     switch (choice([1, 2])) {
-      case 1 :
+      case 1:
         a = randint(1, 4) * choice([-1, 1])
         b = randint(-4, 4, 0)
         c = randint(-4, 4, 0)
@@ -82,7 +86,7 @@ et évaluez le signe de leur différence. `)
           this.reponse = 1
         }
         break
-      case 2 :
+      case 2:
         a = randint(-10, 10, 0)
         b = randint(-5, 5, 0)
         c = randint(-5, 5)
@@ -94,9 +98,10 @@ et évaluez le signe de leur différence. `)
         $\\begin{aligned}
         ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
         ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\`
-          this.correction += a === 1
-            ? ''
-            : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+          this.correction +=
+            a === 1
+              ? ''
+              : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
           this.correction += `
         (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee}
                 \\end{aligned}$<br>
@@ -112,9 +117,10 @@ et évaluez le signe de leur différence. `)
              $\\begin{aligned}
              -(${reduireAxPlusB(1, b)})^2&=0\\\\
              ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2&=0\\\\`
-            this.correction += a === 1
-              ? ''
-              : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+            this.correction +=
+              a === 1
+                ? ''
+                : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
             this.correction += `
              (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee}
                      \\end{aligned}$<br>
@@ -127,9 +133,10 @@ et évaluez le signe de leur différence. `)
             this.correction = `On isole le carré : <br>
                 $\\begin{aligned}
                 ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2&=0\\\\`
-            this.correction += a === 1
-              ? ''
-              : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+            this.correction +=
+              a === 1
+                ? ''
+                : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
             this.correction += `
                 (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee}
                         \\end{aligned}$<br>
@@ -145,9 +152,10 @@ et évaluez le signe de leur différence. `)
                  $\\begin{aligned}
                  ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
                  ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\`
-          this.correction += a === 1
-            ? ''
-            : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+          this.correction +=
+            a === 1
+              ? ''
+              : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
           this.correction += `(${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee}
                          \\end{aligned}$<br>
                          Puisque $${maFraction.texFractionSimplifiee}$ est strictement négatif, il n'existe pas de nombres réels dont le carré est strictement négatif, donc l'équation n'a pas de solution. `

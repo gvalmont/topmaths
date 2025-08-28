@@ -14,7 +14,7 @@ export const uuid = 'f5d12'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 30
       this.question = '$2+4\\times 7$ '
@@ -33,7 +33,7 @@ export default class NomExercice extends ExerciceSimple {
       const a = randint(2, 9)
       const b = randint(1, 9)
       const c = randint(2, 6)
-      this.reponse = a + (b * c)
+      this.reponse = a + b * c
       this.question = `$${a} +${b}\\times ${c}$ `
       this.correction = `La multiplication est prioritaire :<br> 
       $${a} +${b}\\times ${c}=${a}+${b * c}=${miseEnEvidence(texNombre(this.reponse, 0))}$`

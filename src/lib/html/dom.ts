@@ -10,7 +10,9 @@
  * @param {string} prop
  * @return {boolean}
  */
-const hasProp = (object: object, prop: string) => typeof object === 'object' && Object.prototype.hasOwnProperty.call(object, prop)
+const hasProp = (object: object, prop: string) =>
+  typeof object === 'object' &&
+  Object.prototype.hasOwnProperty.call(object, prop)
 
 /**
  * Affecte des styles à un élément html (on peut pas affecter elt.style directement car read only, faut faire du elt.style.foo = bar)
@@ -19,7 +21,10 @@ const hasProp = (object: object, prop: string) => typeof object === 'object' && 
  * @param {HTMLElement} elt
  * @param {string|object} styles
  */
-export function setStyles (elt: HTMLElement, styles: string | { [key: string]: string }) {
+export function setStyles(
+  elt: HTMLElement,
+  styles: string | { [key: string]: string },
+) {
   try {
     if (elt && elt.style) {
       if (typeof styles === 'string') {
@@ -27,11 +32,17 @@ export function setStyles (elt: HTMLElement, styles: string | { [key: string]: s
         stylesArr.forEach(function (paire: string) {
           const paireArr = /([\w]+):(.+)/.exec(paire)
           if (paireArr) {
-            const [, key, value] = paireArr as unknown as [string, keyof CSSStyleDeclaration, string]
+            const [, key, value] = paireArr as unknown as [
+              string,
+              keyof CSSStyleDeclaration,
+              string,
+            ]
             try {
               if (!elt.style[key]) elt.style[key] = value
             } catch (error) {
-              console.warn(`Cannot assign value to style property ${String(key)}: ${error}`)
+              console.warn(
+                `Cannot assign value to style property ${String(key)}: ${error}`,
+              )
             }
           }
         })
@@ -41,7 +52,9 @@ export function setStyles (elt: HTMLElement, styles: string | { [key: string]: s
             try {
               Object.assign(elt.style, { [prop]: styles[prop] })
             } catch (error) {
-              console.warn(`Cannot assign value to style property ${prop}: ${error}`)
+              console.warn(
+                `Cannot assign value to style property ${prop}: ${error}`,
+              )
             }
           }
         }
@@ -57,7 +70,7 @@ export function setStyles (elt: HTMLElement, styles: string | { [key: string]: s
  * @param {HTMLElement} elt
  * @param {string} text
  */
-export function addText (elt: HTMLElement, text: string) {
+export function addText(elt: HTMLElement, text: string) {
   elt.appendChild(window.document.createTextNode(text))
 }
 
@@ -69,7 +82,7 @@ export function addText (elt: HTMLElement, text: string) {
  * @throws {TypeError} Si id n'est pas une string
  * @throws {Error} Si l'élément id n'existe pas
  */
-export function get (id:string, strict = true) {
+export function get(id: string, strict = true) {
   if (typeof id !== 'string') throw TypeError('argument invalide')
   const elt = document.getElementById(id)
   if (!elt && strict) throw Error(`L’élément html ${id} n’existe pas`)
@@ -82,7 +95,11 @@ export function get (id:string, strict = true) {
  * @param {Object} [attrs] Les attributs
  * @param {string} [txtContent] Contenu textuel éventuel
  */
-export function create (tag: keyof HTMLElementTagNameMap, attrs: { [key: string]: any }, txtContent?: string) {
+export function create(
+  tag: keyof HTMLElementTagNameMap,
+  attrs: { [key: string]: any },
+  txtContent?: string,
+) {
   const elt = window.document.createElement(tag)
   let attr
   try {
@@ -113,7 +130,12 @@ export function create (tag: keyof HTMLElementTagNameMap, attrs: { [key: string]
  * @param {string=} content
  * @returns {HTMLElement} L'élément ajouté
  */
-export function addElement (parent: HTMLElement, tag: keyof HTMLElementTagNameMap, attrs: { [key: string]: any }, content: string) {
+export function addElement(
+  parent: HTMLElement,
+  tag: keyof HTMLElementTagNameMap,
+  attrs: { [key: string]: any },
+  content: string,
+) {
   const elt = create(tag, attrs, content)
   parent.appendChild(elt)
   return elt
@@ -126,7 +148,7 @@ export function addElement (parent: HTMLElement, tag: keyof HTMLElementTagNameMa
  * @return {HTMLElement|SVGElement|Element}
  * @throws {TypeError} Si elt n'était pas un élément du type voulu
  */
-export function enforceElt (elt: HTMLElement | string, type: string) {
+export function enforceElt(elt: HTMLElement | string, type: string) {
   let newElt: HTMLElement | SVGElement | Element | null
   if (typeof elt === 'string') {
     newElt = document.getElementById(elt) ?? null
@@ -152,7 +174,7 @@ export function enforceElt (elt: HTMLElement | string, type: string) {
  * @param {string} url du fichier HTML
  * @param {HTMLElement} element dont le innerHTML va être remplacé par le contenu du fichier
  */
-export async function fetchHtmlToElement (url: string, element: HTMLElement) {
+export async function fetchHtmlToElement(url: string, element: HTMLElement) {
   const response = await fetch(url)
   element.innerHTML = await response.text()
 }
@@ -165,7 +187,17 @@ export async function fetchHtmlToElement (url: string, element: HTMLElement) {
  * @param {Object=} attrs Les attributs
  * @returns {HTMLElement} L'élément ajouté
  */
-export async function addFetchHtmlToParent (url: string, parent: HTMLElement, tag = 'div', attrs:{ [key: string]: any }) {
-  const child = addElement(parent, tag as keyof HTMLElementTagNameMap, attrs, '')
+export async function addFetchHtmlToParent(
+  url: string,
+  parent: HTMLElement,
+  tag = 'div',
+  attrs: { [key: string]: any },
+) {
+  const child = addElement(
+    parent,
+    tag as keyof HTMLElementTagNameMap,
+    attrs,
+    '',
+  )
   return fetchHtmlToElement(url, child)
 }

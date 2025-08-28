@@ -11,7 +11,8 @@
   let foundResources: ResourceAndItsPath[] = []
   let inputSearch: string = ''
   let searchInput: SearchInputType
-  export const triggerUpdateFromSearchBlock = (): void => searchInput.triggerUpdate()
+  export const triggerUpdateFromSearchBlock = (): void =>
+    searchInput.triggerUpdate()
 </script>
 
 <!--
@@ -23,12 +24,12 @@
   - `resourcesSet` : l'ensemble des resources à chercher sous la forme
   d'une liste d'objets de type `ResourceAndItsPath`
  -->
-<div class={`${$$props.class || ''}`}>
+<div class="{`${$$props.class || ''}`}">
   <div class="p-4">
     <SearchInput
-      bind:this={searchInput}
-      origin={resourcesSet}
-      bind:results={foundResources}
+      bind:this="{searchInput}"
+      origin="{resourcesSet}"
+      bind:results="{foundResources}"
       bind:inputSearch
       on:filters-change
       {addExercise}
@@ -42,8 +43,8 @@
     {#each foundResources as foundResource}
       <li>
         <ReferentielEnding
-          ending={foundResource.resource}
-          nestedLevelCount={1}
+          ending="{foundResource.resource}"
+          nestedLevelCount="{1}"
         />
       </li>
     {/each}

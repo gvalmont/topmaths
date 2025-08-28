@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = '97291'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -21,11 +21,11 @@ export const refs = {
 
 */
 export default class Can2025N4Q18 extends ExerciceCan {
-  enonce (a?: number, b?: number, c?: number) {
+  enonce(a?: number, b?: number, c?: number) {
     if (a == null || b == null || c == null) {
       a = randint(3, 7)
       b = randint(3, 9, a)
-      c = randint(Math.abs(b - a) + 1, (a + b) - 1)
+      c = randint(Math.abs(b - a) + 1, a + b - 1)
     }
     const A = point(0, 0, 'A', 'below left')
     const B = point(c, 0, 'B', 'below right')
@@ -37,17 +37,27 @@ export default class Can2025N4Q18 extends ExerciceCan {
     const l1 = placeLatexSurSegment(`${a}\\text{ cm}`, A, C)
     const l2 = placeLatexSurSegment(`${b}\\text{ cm}`, C, B)
     const objets = [polygoneAvecNom(A, B, C), l1, l2]
-    this.question = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5, display: 'inline-block' }, fixeBordures(objets)), objets)
+    this.question = mathalea2d(
+      Object.assign(
+        { pixelsParCm: 20, scale: 0.5, display: 'inline-block' },
+        fixeBordures(objets),
+      ),
+      objets,
+    )
     this.question += `Le périmètre de ce triangle est de $${a + b + c}$ cm.`
     this.correction = `$AB=${a + b + c}\\text{ cm}-${a}\\text{ cm}-${b}\\text{ cm}=${miseEnEvidence(`${c}`)}\\text{ cm}$`
     this.canEnonce = this.question
     this.optionsChampTexte = { texteApres: ' cm' }
-    if (this.interactif) { this.question += '<br>$AB=$' } else { this.question += '<br>$AB=\\ldots$ cm' }
+    if (this.interactif) {
+      this.question += '<br>$AB=$'
+    } else {
+      this.question += '<br>$AB=\\ldots$ cm'
+    }
     this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
     this.reponse = String(c)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(4, 6, 8) : this.enonce()
   }
 }

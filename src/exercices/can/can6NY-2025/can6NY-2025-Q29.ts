@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '6c365'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class CalculDivers extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -26,7 +26,7 @@ export default class CalculDivers extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const date = randint(27, 30)
     const nbre = randint(1, 23)
     this.question = `Nous sommes le $${date}$ décembre $2024$. Il est $${nbre}$ h${nbre < 12 ? ' du matin' : ''}.<br>
@@ -36,7 +36,9 @@ export default class CalculDivers extends ExerciceSimple {
         Il faudra donc attendre $${24 * (31 - date)}+${24 - nbre}$ heures, soit $${miseEnEvidence(texNombre(24 * (31 - date) + 24 - nbre, 0))}$ heures avant de se souhaiter la bonne année.
        `
     this.reponse = 24 * (31 - date) + 24 - nbre
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

@@ -9,7 +9,7 @@ export const dateDePublication = '14/04/2024'
 export const uuid = '8bb40'
 export const refs = {
   'fr-fr': ['can2N07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,15 +17,17 @@ export const refs = {
 
 */
 export default class SuitesEv extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
-    switch (choice([1, 2])) { //, 2, 3
+  nouvelleVersion() {
+    switch (
+      choice([1, 2]) //, 2, 3
+    ) {
       case 1:
         {
           const n = randint(10, 25)

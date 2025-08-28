@@ -35,10 +35,10 @@ export const uuid = '5563e'
 export const refs = {
   'fr-fr': ['auto6M1E-1'],
   'fr-2016': ['6M11-3'],
-  'fr-ch': ['9GM1-1']
+  'fr-ch': ['9GM1-1'],
 }
 export default class AireCarresRectanglesTrianglesSL extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.amcReady = amcReady
@@ -52,7 +52,7 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
     this.nbQuestionsModifiable = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let texte = ''
     let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')
@@ -87,28 +87,48 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
     const K = pointIntersectionCC(cI, cJ, nom[10], 1)
     K.positionLabel = 'above'
     const triangle = polygoneAvecNom(I, J, K)
-    this.introduction = mathalea2d({
-      xmin: -2,
-      xmax: 22,
-      ymin: -3,
-      ymax: 7,
-      pixelsParCm: 20,
-      scale: 0.75,
-      mainlevee: false
-    },
-    carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
-    rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
-    triangle, afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)
+    this.introduction = mathalea2d(
+      {
+        xmin: -2,
+        xmax: 22,
+        ymin: -3,
+        ymax: 7,
+        pixelsParCm: 20,
+        scale: 0.75,
+        mainlevee: false,
+      },
+      carre,
+      codageAngleDroit(A, B, C),
+      codageAngleDroit(A, D, C),
+      codageAngleDroit(D, C, B),
+      codageAngleDroit(B, A, D),
+      codageSegments('//', 'blue', [A, B, C, D]),
+      afficheLongueurSegment(B, A),
+      rectangle,
+      codageAngleDroit(E, F, G),
+      codageAngleDroit(F, G, H),
+      codageAngleDroit(G, H, E),
+      codageAngleDroit(H, E, F),
+      codageSegments('/', 'red', E, F, G, H),
+      codageSegments('||', 'blue', F, G, H, E),
+      afficheLongueurSegment(F, E),
+      afficheLongueurSegment(G, F),
+      triangle,
+      afficheLongueurSegment(J, I),
+      afficheLongueurSegment(K, J),
+      afficheLongueurSegment(I, K),
     )
     for (let i = 0; i < 3; i++) {
       texte = ''
       texteCorr = ''
       switch (i) {
-        case 0 :
+        case 0:
           texte = 'Calculer le périmètre du carré en cm.'
 
           texteCorr += `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=4\\times ${c}~\\text{cm}=${4 * c}~\\text{cm}$`
-          setReponse(this, i, new Grandeur(4 * c, 'cm'), { formatInteractif: 'unites' })
+          setReponse(this, i, new Grandeur(4 * c, 'cm'), {
+            formatInteractif: 'unites',
+          })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer le périmètre du carré de côté ${c}cm en cm.`,
@@ -122,17 +142,20 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
                   signe: false,
                   exposantNbChiffres: 0,
                   exposantSigne: false,
-                  approx: 0
-                }
-              }
+                  approx: 0,
+                },
+              },
             }
           }
           break
-        case 1 :
+        case 1:
           texte = 'Calculer le périmètre du rectangle en cm.'
-          texteCorr += `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=2\\times ${L}~\\text{cm} + 2\\times${l}~\\text{cm}=${2 * L + 2 * l
-                    }~\\text{cm}$`
-          setReponse(this, i, new Grandeur(2 * L + 2 * l, 'cm'), { formatInteractif: 'unites' })
+          texteCorr += `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=2\\times ${L}~\\text{cm} + 2\\times${l}~\\text{cm}=${
+            2 * L + 2 * l
+          }~\\text{cm}$`
+          setReponse(this, i, new Grandeur(2 * L + 2 * l, 'cm'), {
+            formatInteractif: 'unites',
+          })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer le périmètre du rectangle de longueur ${L}cm et de largeur ${l}cm en cm.`,
@@ -146,16 +169,18 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
                   signe: false,
                   exposantNbChiffres: 0,
                   exposantSigne: false,
-                  approx: 0
-                }
-              }
+                  approx: 0,
+                },
+              },
             }
           }
           break
-        case 2 :
+        case 2:
           texte = 'Calculer le périmètre du triangle en cm.'
           texteCorr += `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm} + ${b}~\\text{cm} + ${d}~\\text{cm} =${a + b + d}~\\text{cm}$`
-          setReponse(this, i, new Grandeur(a + b + d, 'cm'), { formatInteractif: 'unites' })
+          setReponse(this, i, new Grandeur(a + b + d, 'cm'), {
+            formatInteractif: 'unites',
+          })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer le périmètre du triangle dont les côtés de l'angle droit mesurent ${a}cm, ${b}cm et ${d}cm en cm.`,
@@ -169,9 +194,9 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
                   signe: false,
                   exposantNbChiffres: 0,
                   exposantSigne: false,
-                  approx: 0
-                }
-              }
+                  approx: 0,
+                },
+              },
             }
           }
           break

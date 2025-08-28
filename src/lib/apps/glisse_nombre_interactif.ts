@@ -32,20 +32,30 @@ type GlisseNombreInteractifOptions = {
  * @param options.initialPower - pour choisir la colonne de départ des calculs (par défaut à 0)
  * @returns le code HTML du glisse-nombre interactif
  */
-export function glisseNombreInteractif (options?: GlisseNombreInteractifOptions): string {
+export function glisseNombreInteractif(
+  options?: GlisseNombreInteractifOptions,
+): string {
   if (!context.isHtml) {
     return '' // La sortie LaTeX n'est pas encore gérée
   }
   let optionsString: string = ''
   if (options) {
-    if (options.number !== undefined) optionsString += `number="${options.number}" `
-    if (options.addZeros !== undefined) optionsString += `add-zeros="${options.addZeros}" `
-    if (options.animation !== undefined) optionsString += `animation="${options.animation}" `
-    if (options.showCalculus !== undefined) optionsString += `show-calculus="${options.showCalculus}" `
-    if (options.showComma1 !== undefined) optionsString += `show-comma1="${options.showComma1}" `
-    if (options.showComma2 !== undefined) optionsString += `show-comma2="${options.showComma2}" `
-    if (options.removeLeftZeros !== undefined) optionsString += `remove-left-zeros="${options.removeLeftZeros}" `
-    if (options.initialPower !== undefined) optionsString += `initial-power="${options.initialPower}" `
+    if (options.number !== undefined)
+      optionsString += `number="${options.number}" `
+    if (options.addZeros !== undefined)
+      optionsString += `add-zeros="${options.addZeros}" `
+    if (options.animation !== undefined)
+      optionsString += `animation="${options.animation}" `
+    if (options.showCalculus !== undefined)
+      optionsString += `show-calculus="${options.showCalculus}" `
+    if (options.showComma1 !== undefined)
+      optionsString += `show-comma1="${options.showComma1}" `
+    if (options.showComma2 !== undefined)
+      optionsString += `show-comma2="${options.showComma2}" `
+    if (options.removeLeftZeros !== undefined)
+      optionsString += `remove-left-zeros="${options.removeLeftZeros}" `
+    if (options.initialPower !== undefined)
+      optionsString += `initial-power="${options.initialPower}" `
   }
   return `<div class="block"><glisse-nombre ${optionsString} ></glisse-nombre></div>`
 }

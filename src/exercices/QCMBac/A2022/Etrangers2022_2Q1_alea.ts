@@ -8,7 +8,7 @@ import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const uuid = 'bc8ae'
 export const refs = {
   'fr-fr': ['TSA5-QCM02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,37 +25,43 @@ export const dateDePublication = '23/02/2025'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (a: number, b: number, k : number):
-  void {
+  private appliquerLesValeurs(a: number, b: number, k: number): void {
     const delta = -4 * (b - exp(k)) * a
 
     if (delta > 0) {
       this.reponses = [
         'admet exactement deux solutions.',
-        'n\'admet aucune solution.',
+        "n'admet aucune solution.",
         'admet une unique solution.',
-        'admet une infinité de solutions.']
+        'admet une infinité de solutions.',
+      ]
     }
     if (delta === 0) {
       this.reponses = [
         'admet une unique solution.',
-        'n\'admet aucune solution.',
+        "n'admet aucune solution.",
         'admet exactement deux solutions.',
-        'admet une infinité de solutions.']
+        'admet une infinité de solutions.',
+      ]
     }
     if (delta < 0) {
       this.reponses = [
-        'n\'admet aucune solution.',
+        "n'admet aucune solution.",
         'admet une unique solution.',
         'admet exactement deux solutions.',
-        'admet une infinité de solutions.']
+        'admet une infinité de solutions.',
+      ]
     }
     this.enonce = `On considère la fonction $f$ définie pour tout réel $x$ par $f(x) = \\ln \\left(${rienSi1(a)}x^2${ecritureAlgebrique(b)}\\right)$. `
     this.enonce += `<br>Sur $\\mathbb{R}$, l'équation $f(x) = ${k}$<br>`
     this.correction = `Soit $x\\in \\mathbb{R}$. <br>$\\begin{aligned} f(x) &= ${k}\\\\ \\iff \\ln \\left(${rienSi1(a)}x^2${ecritureAlgebrique(b)}\\right) &= \\ln\\left(\\mathrm{e}^{${k}}\\right)\\end{aligned}$`
-    this.correction += '<br>Si a et b sont deux réels strictement positifs, on a $\\ln(a) = \\ln(b) \\iff a = b.$'
+    this.correction +=
+      '<br>Si a et b sont deux réels strictement positifs, on a $\\ln(a) = \\ln(b) \\iff a = b.$'
     this.correction += `<br>On a donc <br>$\\begin{aligned} \\ln \\left(${rienSi1(a)}x^2${ecritureAlgebrique(b)}\\right) &= \\ln\\left(\\mathrm{e}^{${k}}\\right)\\\\ \\iff ${rienSi1(a)}x^2${ecritureAlgebrique(b)} &= \\mathrm{e}^{${k}}\\end{aligned}$`
-    if (a === 1) { this.correction += `<br>$\\begin{aligned} \\iff x^2 &= \\mathrm{e}^{${k}}${ecritureAlgebrique(-b)}\\end{aligned}$` } else this.correction += `<br>$\\begin{aligned} \\iff \\phantom{${rienSi1(a)}${ecritureAlgebrique(b)}}x^2 &= \\dfrac{\\mathrm{e}^{${k}}${ecritureAlgebrique(-b)}}{${a}}\\end{aligned}$`
+    if (a === 1) {
+      this.correction += `<br>$\\begin{aligned} \\iff x^2 &= \\mathrm{e}^{${k}}${ecritureAlgebrique(-b)}\\end{aligned}$`
+    } else
+      this.correction += `<br>$\\begin{aligned} \\iff \\phantom{${rienSi1(a)}${ecritureAlgebrique(b)}}x^2 &= \\dfrac{\\mathrm{e}^{${k}}${ecritureAlgebrique(-b)}}{${a}}\\end{aligned}$`
     if (delta > 0) {
       this.correction += `<br> $\\mathrm{e}^{${k}}${ecritureAlgebrique(-b)}$ est un réel strictement positif, donc on a $x^2 > 0.$`
       this.reponse = 'exactement deux solutions'
@@ -69,7 +75,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
       this.reponse = 'aucune solution'
     }
     this.correction += `<br>L'équation $f(x) = ${k}$`
-    if (delta < 0) this.correction += ' n\''
+    if (delta < 0) this.correction += " n'"
     this.correction += ` admet donc ${texteEnCouleurEtGras(this.reponse)}.`
   }
   // S'occupe de passser les données originales à la fonction appliquerLesValeurs
@@ -84,15 +90,15 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     const n = 4 // nombre de réponses différentes voulues (on rappelle que la première réponse est la bonne)
     do {
       const a = randint(1, 6)
-      const b = randint(1, 30)// On génère un polynôme de degré 2 ax^2+c
-      const k = randint(-10, 10, 0)// On résout f(x)=k
+      const b = randint(1, 30) // On génère un polynôme de degré 2 ax^2+c
+      const k = randint(-10, 10, 0) // On résout f(x)=k
 
       this.appliquerLesValeurs(a, b, k)
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()

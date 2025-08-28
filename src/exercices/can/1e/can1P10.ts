@@ -12,7 +12,7 @@ export const dateDePublication = '13/04/2024'
 export const uuid = 'f3d16'
 export const refs = {
   'fr-fr': ['can1P10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -20,18 +20,20 @@ export const refs = {
 
 */
 export default class esperance extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = new Decimal(randint(1, 9)).div(10)
     const b = new Decimal(randint(1, 9)).div(10)
     const pAinterB = a.mul(b)
-    switch (choice([1, 2])) { //, 2, 3
+    switch (
+      choice([1, 2]) //, 2, 3
+    ) {
       case 1:
         this.reponse = texNombre(pAinterB, 2)
         this.question = `$A$ et $B$ sont des événements indépendants.<br>
@@ -50,10 +52,13 @@ export default class esperance extends ExerciceSimple {
         this.canReponseACompleter = '$P(A\\cap B)=\\ldots$'
         if (!this.interactif) {
           this.question += '<br> Calculer $P(A\\cap B)$.'
-        } else { this.question += '<br>$P(A\\cap B)=$' }
+        } else {
+          this.question += '<br>$P(A\\cap B)=$'
+        }
         break
 
-      case 2 :this.reponse = texNombre(b, 1)
+      case 2:
+        this.reponse = texNombre(b, 1)
         this.question = `$A$ et $B$ sont des événements indépendants.<br>
     On sait que $P(A)=${texNombre(a, 1)}$ et $P(A\\cap B)=${texNombre(pAinterB, 2)}$.
     `
@@ -67,7 +72,9 @@ export default class esperance extends ExerciceSimple {
         this.canReponseACompleter = '$P(B)=\\ldots$'
         if (!this.interactif) {
           this.question += '<br> Calculer $P(B)$.'
-        } else { this.question += '<br>$P(B)=$' }
+        } else {
+          this.question += '<br>$P(B)=$'
+        }
         break
     }
   }

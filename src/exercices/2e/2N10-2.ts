@@ -1,5 +1,5 @@
 import PlacerPointsSurAxe from '../6e/6N1H-2'
-export const titre = 'Placer un point d\'abscisse décimale'
+export const titre = "Placer un point d'abscisse décimale"
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -14,10 +14,10 @@ export const uuid = '8164e'
 
 export const refs = {
   'fr-fr': ['2N10-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PlacerPointsSurAxe2nde extends PlacerPointsSurAxe {
-  constructor () {
+  constructor() {
     super()
     this.sup = 4
   }

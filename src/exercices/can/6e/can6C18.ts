@@ -1,6 +1,9 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 
 import { bleuMathalea } from '../../../lib/colors'
@@ -19,10 +22,10 @@ export const uuid = 'd02a7'
 
 export const refs = {
   'fr-fr': ['can6C18', '6N2K-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResteDivisionEuclidienne extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,7 +33,7 @@ export default class ResteDivisionEuclidienne extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, q, r
     if (choice([true, false])) {
       a = randint(7, 9)
@@ -40,21 +43,34 @@ export default class ResteDivisionEuclidienne extends ExerciceSimple {
       this.reponse = c % a
       this.question = `Je possède $${c}$ bonbons et je fabrique des sacs de $${a}$ bonbons.<br>
      Une fois mes sacs complétés, combien me restera-t-il de bonbons ?`
-      if (b === 1) { this.correction = `Il me restera $${miseEnEvidence(b)}$ bonbon.<br>` } else { this.correction = `Il me restera $${miseEnEvidence(b)}$ bonbons.<br>` }
-      this.correction += texteEnCouleur(`
+      if (b === 1) {
+        this.correction = `Il me restera $${miseEnEvidence(b)}$ bonbon.<br>`
+      } else {
+        this.correction = `Il me restera $${miseEnEvidence(b)}$ bonbons.<br>`
+      }
+      this.correction += texteEnCouleur(
+        `
     <br> Mentalement : <br>
     On cherche un multiple de $${a}$ inférieur à $${c}$ (mais le plus grand possible).
-     C'est $${c - c % a}$. <br> `, bleuMathalea)
+     C'est $${c - (c % a)}$. <br> `,
+        bleuMathalea,
+      )
       if (b === 1) {
-        this.correction += texteEnCouleur(`
-     Comme $${c}=${c - c % a} + ${b}$, donc il me restera $${b}$ bonbon.<br>
-     Remarque : je pourrai faire $${(c - c % a) / a}$ sacs complets.
-     `, bleuMathalea)
+        this.correction += texteEnCouleur(
+          `
+     Comme $${c}=${c - (c % a)} + ${b}$, donc il me restera $${b}$ bonbon.<br>
+     Remarque : je pourrai faire $${(c - (c % a)) / a}$ sacs complets.
+     `,
+          bleuMathalea,
+        )
       } else {
-        this.correction += texteEnCouleur(`
-     Comme $${c}=${c - c % a} + ${b}$, donc il me restera $${b}$ bonbons.<br>
-     Remarque : je pourrai faire $${(c - c % a) / a}$ sacs complets.
-     `, bleuMathalea)
+        this.correction += texteEnCouleur(
+          `
+     Comme $${c}=${c - (c % a)} + ${b}$, donc il me restera $${b}$ bonbons.<br>
+     Remarque : je pourrai faire $${(c - (c % a)) / a}$ sacs complets.
+     `,
+          bleuMathalea,
+        )
       }
     } else {
       q = randint(11, 15)

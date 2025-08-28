@@ -7,7 +7,10 @@ import { demiDroite, segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
+import {
+  texFractionFromString,
+  simplificationDeFractionAvecEtapes,
+} from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
@@ -17,7 +20,10 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { min, round } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
@@ -33,7 +39,7 @@ export const dateDePublication = '30/03/2022' // La date de publication initiale
  * Gilles Mora
 
  */
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
@@ -41,13 +47,13 @@ export const uuid = 'afd9f'
 
 export const refs = {
   'fr-fr': ['can3a-2021'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SujetCAN20213ieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.nbQuestions = 30// 10,20,30
+    this.nbQuestions = 30 // 10,20,30
 
     this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
@@ -57,22 +63,96 @@ export default class SujetCAN20213ieme extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 22)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([9, 10,
-      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-    const listeFractions18 = [[3, 2], [1, 2], [3, 4], [1, 4], [2, 5],
-      [3, 5], [4, 5]
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8])
+      .slice(-nbQ1)
+      .sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+      28, 29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres)
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
+    const listeFractions18 = [
+      [3, 2],
+      [1, 2],
+      [3, 4],
+      [1, 4],
+      [2, 5],
+      [3, 5],
+      [4, 5],
     ]
-    const listeFractions22 = [[4, 15], [3, 11], [2, 9], [5, 11], [3, 13],
-      [10, 9], [4, 11], [7, 15], [2, 15], [5, 12]
+    const listeFractions22 = [
+      [4, 15],
+      [3, 11],
+      [2, 9],
+      [5, 11],
+      [3, 13],
+      [10, 9],
+      [4, 11],
+      [7, 15],
+      [2, 15],
+      [5, 12],
     ]
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, resultat, fraction18 = [], fraction22 = [], triplet, sCote1, sCote2, s1, s2, s3, s4, s5, s6, prix, choix, truc, a, b, c, d, e, m, p, k, A, B, C, D, E, F, G, pol, code1, code2, code3, code4, code5, code6, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        texte,
+        texteCorr,
+        reponse,
+        resultat,
+        fraction18 = [],
+        fraction22 = [],
+        triplet,
+        sCote1,
+        sCote2,
+        s1,
+        s2,
+        s3,
+        s4,
+        s5,
+        s6,
+        prix,
+        choix,
+        truc,
+        a,
+        b,
+        c,
+        d,
+        e,
+        m,
+        p,
+        k,
+        A,
+        B,
+        C,
+        D,
+        E,
+        F,
+        G,
+        pol,
+        code1,
+        code2,
+        code3,
+        code4,
+        code5,
+        code6,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       typeQuestionsDisponibles[i] = 23
       switch (typeQuestionsDisponibles[i]) {
         case 1:
@@ -119,7 +199,6 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 3:
-
           a = randint(101, 121)
           b = randint(21, 45)
 
@@ -136,7 +215,6 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 4:
-
           a = randint(3, 9) + randint(1, 4) / 10
           b = randint(1, 5) / 10 + randint(2, 9) / 100
           reponse = arrondi(a + b, 2)
@@ -173,8 +251,17 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 6:
-          a = arrondi(randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100, 2)
-          b = arrondi(randint(1, 9) * 10 + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000, 3)
+          a = arrondi(
+            randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100,
+            2,
+          )
+          b = arrondi(
+            randint(1, 9) * 10 +
+              randint(1, 9) / 10 +
+              0.09 +
+              randint(1, 9) / 1000,
+            3,
+          )
 
           if (choice([true, false])) {
             texte = `Quel nombre obtient-on si on ajoute un dixième à $${texNombre(a)}$ ?`
@@ -277,7 +364,6 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 10:
-
           a = randint(11, 24, 20)
           reponse = 101 * a
           texte = `$${a}\\times 101=$`
@@ -346,7 +432,9 @@ export default class SujetCAN20213ieme extends Exercice {
             texteCorr = `Les diviseurs de $${a}$ sont : $1$, $3$, $11$ et $33$. `
             reponse = '1;3;11;33'
           }
-          handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
+          handleAnswers(this, index, {
+            reponse: { value: reponse, options: { suiteDeNombres: true } },
+          })
           if (this.interactif) {
             texte += 'Écrire les diviseurs séparés par un point-virgule'
             texte += ajouteChampTexteMathLive(this, index, '')
@@ -354,11 +442,11 @@ export default class SujetCAN20213ieme extends Exercice {
           nbChamps = 1
           break
         case 12:
-          a = randint(1, 9)// longueur BE
+          a = randint(1, 9) // longueur BE
           k = randint(2, 4)
           b = k * a // longueur DC
-          c = a + 1// longueur AE
-          d = k * c// longueur AD
+          c = a + 1 // longueur AE
+          d = k * c // longueur AD
           A = point(0, 0, 'A', 'below')
           B = point(2, -0.4, 'B', 'below')
           C = point(5, -1, 'C', 'below')
@@ -368,30 +456,69 @@ export default class SujetCAN20213ieme extends Exercice {
           ymin = -2
           xmax = 6
           ymax = 4.5
-          sCote1 = segment(point(A.x - 0.3, A.y + 0.5), point(E.x - 0.2, E.y + 0.5))
-          sCote2 = segment(point(A.x - 0.8, A.y + 1.3), point(D.x - 0.8, D.y + 1.3))
+          sCote1 = segment(
+            point(A.x - 0.3, A.y + 0.5),
+            point(E.x - 0.2, E.y + 0.5),
+          )
+          sCote2 = segment(
+            point(A.x - 0.8, A.y + 1.3),
+            point(D.x - 0.8, D.y + 1.3),
+          )
           sCote1.styleExtremites = '<->'
           sCote2.styleExtremites = '<->'
           objets = []
           objets.push(
-            texteParPosition(`${stringNombre(a)} `, milieu(B, E).x + 0.4, milieu(B, E).y),
-            texteParPosition('?', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${stringNombre(b)} `, milieu(D, C).x + 0.5, milieu(D, C).y),
-            texteParPosition(`${stringNombre(d)} `, milieu(A, D).x - 1, milieu(A, D).y + 1.5),
-            demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
+            texteParPosition(
+              `${stringNombre(a)} `,
+              milieu(B, E).x + 0.4,
+              milieu(B, E).y,
+            ),
+            texteParPosition(
+              '?',
+              milieu(A, E).x - 0.4,
+              milieu(A, E).y + 0.7,
+              'milieu',
+              'black',
+              1,
+              'middle',
+              true,
+            ),
+            texteParPosition(
+              `${stringNombre(b)} `,
+              milieu(D, C).x + 0.5,
+              milieu(D, C).y,
+            ),
+            texteParPosition(
+              `${stringNombre(d)} `,
+              milieu(A, D).x - 1,
+              milieu(A, D).y + 1.5,
+            ),
+            demiDroite(A, C),
+            demiDroite(A, D),
+            labelPoint(A, B, C, D, E),
+            segment(A, D),
+            segment(A, C),
+            segment(B, E),
+            segment(D, C),
+            sCote1,
+            sCote2,
+          )
           reponse = c
           texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 30,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 0.8,
-            style: 'margin: auto'
-          }, objets)
+          texte += mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 30,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.8,
+              style: 'margin: auto',
+            },
+            objets,
+          )
           texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
           On obtient donc la longueur $AE$ en divisant par $${k}$ la longueur $AD$.<br>
           $AE=\\dfrac{${d}}{${k}}=${c}$.<br>`
@@ -422,7 +549,6 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 14:
-
           a = randint(1, 5)
           b = choice([0.25, 0.5, 0.75])
           d = Math.round(b * 60)
@@ -432,9 +558,18 @@ export default class SujetCAN20213ieme extends Exercice {
           } else {
             texte = `$${texNombre(a + b, 2)}$ h $=$`
 
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierHms,
+            )
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
+            handleAnswers(this, index, {
+              reponse: {
+                value: new Hms({ hour: a, minute: d }).toString(),
+                options: { HMS: true },
+              },
+            })
 
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
 
@@ -445,7 +580,7 @@ export default class SujetCAN20213ieme extends Exercice {
         case 15:
           a = randint(1, 5) * 10
           p = randint(2, 9, 5) * 10
-          reponse = Math.round(a * p / 100)
+          reponse = Math.round((a * p) / 100)
           texte = `$${p}\\,\\%$ de $${a}= $`
           texteCorr = ` Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
           Comme $10\\,\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
@@ -461,7 +596,6 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 16:
-
           b = randint(8, 15) // longueur hauteur
 
           A = point(0, 0, 'A', 'below')
@@ -480,22 +614,38 @@ export default class SujetCAN20213ieme extends Exercice {
           ymax = 1.5
           objets = []
           objets.push(
-            texteParPosition(`${stringNombre(3)} cm`, milieu(A, C).x, milieu(A, C).y + 0.2),
-            texteParPosition(`${stringNombre(b)} cm`, milieu(A, D).x + 0.5, milieu(A, D).y),
-            segment(B, D), segment(D, C), s1, s2, c)
+            texteParPosition(
+              `${stringNombre(3)} cm`,
+              milieu(A, C).x,
+              milieu(A, C).y + 0.2,
+            ),
+            texteParPosition(
+              `${stringNombre(b)} cm`,
+              milieu(A, D).x + 0.5,
+              milieu(A, D).y,
+            ),
+            segment(B, D),
+            segment(D, C),
+            s1,
+            s2,
+            c,
+          )
           reponse = 3 * b
           texte = 'Donne le volume exact de ce cône.<br>'
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax,
-            pixelsParCm: 30,
-            mainlevee: false,
-            amplitude: 0.5,
-            scale: 1,
-            style: 'margin: auto'
-          }, objets)
+          texte += mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 30,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto',
+            },
+            objets,
+          )
           texteCorr = `Le volume du cône est  : $\\dfrac{1}{3}\\times \\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
           Soit : $\\dfrac{1}{3}\\times \\pi \\times 3^2\\times ${b}=${reponse}\\pi$ cm$^3$.  `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -510,7 +660,11 @@ export default class SujetCAN20213ieme extends Exercice {
           b = randint(121, 149, [130, 140])
           c = randint(61, 98, [70, 80, 90])
           d = randint(2, 5)
-          e = choice([[b, 200 - b], [c, 100 - c], [d, 10 - d]])
+          e = choice([
+            [b, 200 - b],
+            [c, 100 - c],
+            [d, 10 - d],
+          ])
           reponse = a * e[0] + a * e[1]
           texte = `$${a}\\times ${e[0]}+${a}\\times ${e[1]}= $ `
 
@@ -541,7 +695,10 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 19:
-          triplet = [[3, 4, 5], [6, 8, 10]]
+          triplet = [
+            [3, 4, 5],
+            [6, 8, 10],
+          ]
           a = choice(triplet)
 
           C = point(0, 0, 'C', 'below')
@@ -558,24 +715,37 @@ export default class SujetCAN20213ieme extends Exercice {
           if (choix === 'a') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${stringNombre(a[0])} dm`, milieu(A, C).x, milieu(A, C).y - 0.3)
-              , texteParPosition(`${stringNombre(a[2])} dm`, milieu(B, C).x - 0.6, milieu(B, C).y)
+              texteParPosition(
+                `${stringNombre(a[0])} dm`,
+                milieu(A, C).x,
+                milieu(A, C).y - 0.3,
+              ),
+              texteParPosition(
+                `${stringNombre(a[2])} dm`,
+                milieu(B, C).x - 0.6,
+                milieu(B, C).y,
+              ),
 
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
+              labelPoint(A, B, C),
+              codageAngleDroit(B, A, C),
+            )
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1.2,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1.2,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -585,23 +755,36 @@ export default class SujetCAN20213ieme extends Exercice {
           if (choix === 'b') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${stringNombre(a[1])} dm`, milieu(A, B).x + 0.5, milieu(A, B).y)
-              , texteParPosition(`${stringNombre(a[2])} dm`, milieu(B, C).x - 0.6, milieu(B, C).y)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
+              texteParPosition(
+                `${stringNombre(a[1])} dm`,
+                milieu(A, B).x + 0.5,
+                milieu(A, B).y,
+              ),
+              texteParPosition(
+                `${stringNombre(a[2])} dm`,
+                milieu(B, C).x - 0.6,
+                milieu(B, C).y,
+              ),
+              labelPoint(A, B, C),
+              codageAngleDroit(B, A, C),
+            )
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -611,23 +794,36 @@ export default class SujetCAN20213ieme extends Exercice {
           if (choix === 'c') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${stringNombre(a[1])} dm`, milieu(A, B).x + 0.5, milieu(A, B).y)
-              , texteParPosition(`${stringNombre(a[0])} dm`, milieu(A, C).x, milieu(A, C).y - 0.3)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
+              texteParPosition(
+                `${stringNombre(a[1])} dm`,
+                milieu(A, B).x + 0.5,
+                milieu(A, B).y,
+              ),
+              texteParPosition(
+                `${stringNombre(a[0])} dm`,
+                milieu(A, C).x,
+                milieu(A, C).y - 0.3,
+              ),
+              labelPoint(A, B, C),
+              codageAngleDroit(B, A, C),
+            )
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -663,7 +859,10 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 21:
-          a = choice([randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
+          a = choice([
+            randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9),
+            randint(1, 9) * 10 + randint(1, 9),
+          ])
           reponse = arrondi(a / 1000, 3)
           texte = `Complète.<br>
          $${a}$ cm$^3 = $ `
@@ -693,7 +892,12 @@ export default class SujetCAN20213ieme extends Exercice {
 
           reponse = b.simplifie()
 
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse.toLatex(),
+              options: { fractionIrreductible: true },
+            },
+          })
 
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -731,23 +935,57 @@ export default class SujetCAN20213ieme extends Exercice {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${stringNombre(b)}  `, milieu(D, E).x + 0.3, milieu(D, E).y),
-              texteParPosition(`${stringNombre(a)}  `, milieu(D, C).x, milieu(D, C).y + 0.3),
-              s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
+              texteParPosition(
+                'x',
+                milieu(B, C).x,
+                milieu(B, C).y + 0.3,
+                'milieu',
+                'black',
+                1,
+                'middle',
+                true,
+              ),
+              texteParPosition(
+                `${stringNombre(b)}  `,
+                milieu(D, E).x + 0.3,
+                milieu(D, E).y,
+              ),
+              texteParPosition(
+                `${stringNombre(a)}  `,
+                milieu(D, C).x,
+                milieu(D, C).y + 0.3,
+              ),
+              s1,
+              s2,
+              s3,
+              s4,
+              s5,
+              s6,
+              code1,
+              code2,
+              code3,
+              code4,
+              code5,
+              code6,
+              segment(D, E),
+            )
             reponse = `4x${ecritureAlgebrique(2 * a + b)}`
-            texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte =
+              'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `La figure est composée de $4$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
           Le périmètre de cette figure est donc : $4\\times x+2\\times ${a}+${b}=4x+${2 * a + b}$.   `
           }
@@ -779,23 +1017,57 @@ export default class SujetCAN20213ieme extends Exercice {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`${stringNombre(a)}`, milieu(B, C).x, milieu(B, C).y + 0.3),
-              texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
-              texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
+              texteParPosition(
+                `${stringNombre(a)}`,
+                milieu(B, C).x,
+                milieu(B, C).y + 0.3,
+              ),
+              texteParPosition(
+                `${stringNombre(b)}`,
+                milieu(D, E).x + 0.3,
+                milieu(D, E).y,
+              ),
+              texteParPosition(
+                'x',
+                milieu(D, C).x,
+                milieu(D, C).y + 0.3,
+                'milieu',
+                'black',
+                1,
+                'middle',
+                true,
+              ),
+              s1,
+              s2,
+              s3,
+              s4,
+              s5,
+              s6,
+              code1,
+              code2,
+              code3,
+              code4,
+              code5,
+              code6,
+              segment(D, E),
+            )
             reponse = `2x${ecritureAlgebrique(4 * a + b)}`
-            texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte =
+              'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $4$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
             Le périmètre de cette figure est donc : $2\\times x+4\\times ${a}+${b}=2x+${4 * a + b}$.   `
           }
@@ -825,23 +1097,55 @@ export default class SujetCAN20213ieme extends Exercice {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`${stringNombre(a)}`, milieu(B, C).x, milieu(B, C).y + 0.3),
-              texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
-              texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
+              texteParPosition(
+                `${stringNombre(a)}`,
+                milieu(B, C).x,
+                milieu(B, C).y + 0.3,
+              ),
+              texteParPosition(
+                `${stringNombre(b)}`,
+                milieu(D, E).x + 0.3,
+                milieu(D, E).y,
+              ),
+              texteParPosition(
+                'x',
+                milieu(D, C).x,
+                milieu(D, C).y + 0.3,
+                'milieu',
+                'black',
+                1,
+                'middle',
+                true,
+              ),
+              s1,
+              s2,
+              s4,
+              s5,
+              s6,
+              code1,
+              code2,
+              code4,
+              code5,
+              code6,
+              segment(D, E),
+            )
             reponse = `2x${ecritureAlgebrique(3 * a + b)}`
-            texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte =
+              'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $3$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
               Le périmètre de cette figure est donc : $2\\times x+3\\times ${a}+${b}=2x+${3 * a + b}$.   `
           }
@@ -870,23 +1174,55 @@ export default class SujetCAN20213ieme extends Exercice {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
-              texteParPosition(`${stringNombre(a)}`, milieu(D, C).x, milieu(D, C).y + 0.3),
-              s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
+              texteParPosition(
+                'x',
+                milieu(B, C).x,
+                milieu(B, C).y + 0.3,
+                'milieu',
+                'black',
+                1,
+                'middle',
+                true,
+              ),
+              texteParPosition(
+                `${stringNombre(b)}`,
+                milieu(D, E).x + 0.3,
+                milieu(D, E).y,
+              ),
+              texteParPosition(
+                `${stringNombre(a)}`,
+                milieu(D, C).x,
+                milieu(D, C).y + 0.3,
+              ),
+              s1,
+              s2,
+              s4,
+              s5,
+              s6,
+              code1,
+              code2,
+              code4,
+              code5,
+              code6,
+              segment(D, E),
+            )
             reponse = `3x${ecritureAlgebrique(2 * a + b)}`
-            texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
+            texte =
+              'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texteCorr = `La figure est composée de $3$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
                 Le périmètre de cette figure est donc : $3\\times x+2\\times ${a}+${b}=3x+${2 * a + b}$.   `
           }
@@ -918,14 +1254,13 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 25:
-
           a = randint(2, 10) * 1000
           b = randint(2, 5)
           reponse = Math.round(a * (1 + b / 100))
           texte = `           Un capital de $${texNombre(a)}$ € rapporte $${texNombre(b)} \\%$ par an.<br>
            Quelle est la valeur du capital au bout d'un an ?`
-          texteCorr = `Le capital est augmenté de $${b}\\%$ de $${texNombre(a)}$, soit de $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre(a * b / 100)}$.<br>
-          Le capital au bout d'un an sera donc de : $${texNombre(a, 0)}+ ${texNombre(a * b / 100, 0)}=${texNombre(a + a * b / 100, 0)}$.`
+          texteCorr = `Le capital est augmenté de $${b}\\%$ de $${texNombre(a)}$, soit de $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre((a * b) / 100)}$.<br>
+          Le capital au bout d'un an sera donc de : $${texNombre(a, 0)}+ ${texNombre((a * b) / 100, 0)}=${texNombre(a + (a * b) / 100, 0)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + '€'
@@ -944,31 +1279,33 @@ export default class SujetCAN20213ieme extends Exercice {
           On en déduit que la probabilité d'obtenir un nombre premier est : $${texFractionFromString(b, a)}${simplificationDeFractionAvecEtapes(b, a)}$.`
             reponse = [fraction(b, a), fraction(b, a).simplifie()]
           }
-          if ((a > 10) && (a < 13)) {
+          if (a > 10 && a < 13) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$.<br>
   Il y a donc $5$ nombres premiers inférieurs à $${a}$. <br>
   On en déduit que la probabilité d'obtenir un nombre premier est : $${texFractionFromString(b + 1, a)}${simplificationDeFractionAvecEtapes(b + 1, a)}$.`
             reponse = [fraction(b + 1, a), fraction(b + 1, a).simplifie()]
           }
-          if ((a > 12) && (a < 17)) {
+          if (a > 12 && a < 17) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$.<br>
   Il y a donc $6$ nombres premiers inférieurs à $${a}$. <br>
   On en déduit que la probabilité d'obtenir un nombre premier est : $${texFractionFromString(b + 2, a)}${simplificationDeFractionAvecEtapes(b + 2, a)}$.`
             reponse = [fraction(b + 2, a), fraction(b + 2, a).simplifie()]
           }
-          if ((a > 16) && (a < 19)) {
+          if (a > 16 && a < 19) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$, $17$.<br>
   Il y a donc $7$ nombres premiers inférieurs à $${a}$. <br>
   On en déduit que la probabilité d'obtenir un nombre premier est : $${texFractionFromString(b + 3, a)}${simplificationDeFractionAvecEtapes(b + 3, a)}$.`
             reponse = [fraction(b + 3, a), fraction(b + 3, a).simplifie()]
           }
-          if ((a > 18) && (a < 23)) {
+          if (a > 18 && a < 23) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$, $17$, $19$.<br>
   Il y a donc $8$ nombres premiers inférieurs à $${a}$. <br>
   On en déduit que la probabilité d'obtenir un nombre premier est : $${texFractionFromString(b + 4, a)}${simplificationDeFractionAvecEtapes(b + 4, a)}$.`
             reponse = [fraction(b + 4, a), fraction(b + 4, a).simplifie()]
           }
-          handleAnswers(this, i, { reponse: { value: fraction(b + 4, a).toLatex() } })
+          handleAnswers(this, i, {
+            reponse: { value: fraction(b + 4, a).toLatex() },
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }
@@ -994,7 +1331,7 @@ export default class SujetCAN20213ieme extends Exercice {
           break
 
         case 28:
-          choix = choice(['a', 'b', 'c'])//
+          choix = choice(['a', 'b', 'c']) //
           if (choix === 'a') {
             a = arrondi(randint(11, 39, [10, 20, 30]) / 1000, 3)
             truc = arrondi(a * 100, 1)
@@ -1077,7 +1414,8 @@ export default class SujetCAN20213ieme extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

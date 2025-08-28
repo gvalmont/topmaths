@@ -19,10 +19,10 @@ export const uuid = 'bdb11'
 
 export const refs = {
   'fr-fr': ['canc3C03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TableMultiplicationTrous extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,7 +30,7 @@ export default class TableMultiplicationTrous extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(2, 9)
     const b = randint(4, 10)
     const c = a * b

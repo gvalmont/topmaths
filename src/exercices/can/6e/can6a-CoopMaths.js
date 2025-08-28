@@ -2,7 +2,10 @@ import Decimal from 'decimal.js'
 import { droiteGraduee } from '../../../lib/2d/reperes'
 import { texPrix } from '../../../lib/format/style'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -13,7 +16,11 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import Grandeur from '../../../modules/Grandeur'
 import Hms from '../../../modules/Hms'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 export const dateDeModifImportante = '11/09/2024'
@@ -33,13 +40,14 @@ export const uuid = '3a526'
 
 export const refs = {
   'fr-fr': ['can6a-CoopMaths'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CourseAuxNombres6e extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Choix des questions',
-  ` Nombres séparés par des tirets :\n1 : Moitié et double\n
+    this.besoinFormulaireTexte = [
+      'Choix des questions',
+      ` Nombres séparés par des tirets :\n1 : Moitié et double\n
 2 : Quotient de a par b\n
 3 : Somme astucieuse de 4 nombres entiers\n
 4 : Somme de deux décimaux avec retenue\n
@@ -69,13 +77,14 @@ export default class CourseAuxNombres6e extends Exercice {
 28 :  Comparaison de périmètre\n
 29 :  Repérage fraction\n
 30 :  Proportionnalité par linéarité\n
-31 :  Mélange`]
+31 :  Mélange`,
+    ]
     this.nbQuestions = 30
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, resultat, propositions
 
     const listeIndex = gestionnaireFormulaireTexte({
@@ -84,7 +93,7 @@ export default class CourseAuxNombres6e extends Exercice {
       melange: 31,
       defaut: 31,
       nbQuestions: this.nbQuestions,
-      shuffle: false
+      shuffle: false,
     }).map((index) => index - 1)
     const fruits = [
       ['pêches', 4, 10, 30],
@@ -94,14 +103,14 @@ export default class CourseAuxNombres6e extends Exercice {
       ['framboises', 15, 1, 5],
       ['fraises', 7, 5, 10],
       ['citrons', 1.5, 15, 30],
-      ['bananes', 1.5, 15, 25]
+      ['bananes', 1.5, 15, 25],
     ]
     const hauteurs = [
       ['chaise', 75, 115, 'cm'],
       ['grue', 120, 250, 'dm'],
       ['tour', 50, 180, 'm'],
       ['girafe', 40, 50, 'dm'],
-      ['coline', 75, 150, 'm']
+      ['coline', 75, 150, 'm'],
     ]
     const typeQuestionsDisponibles = [
       'q1', // On donne le double d'un nombre et on demande sa moitié
@@ -133,12 +142,17 @@ export default class CourseAuxNombres6e extends Exercice {
       'q27', // Calcul de distance à vitesse constante
       'q28', // Comparaison de périmètre
       'q29', // Repérage fraction
-      'q30' // Proportionnalité par linéarité
-
+      'q30', // Proportionnalité par linéarité
     ] // On créé 3 types de questions
-    for (let i = 0, q = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, q = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        typeQuestionsDisponibles[listeIndex[i]] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'q1':
           a = randint(1, 25)
           texte = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?`
@@ -156,11 +170,22 @@ export default class CourseAuxNombres6e extends Exercice {
           texte = `Quel est le nombre qui, multiplié par ${b} donne ${a} ?`
           texteCorr = `C'est $${c.texFraction}$ car $${c.texFraction}\\times ${b} = ${a}$`
           if (!c.valeurDecimale) {
-            setReponse(this, q, [c.texFraction, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`])
+            setReponse(this, q, [
+              c.texFraction,
+              `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`,
+            ])
           } else {
-            setReponse(this, q, [c.texFraction, resultat, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`])
+            setReponse(this, q, [
+              c.texFraction,
+              resultat,
+              `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`,
+            ])
           }
-          texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBaseAvecFraction)
+          texte += ajouteChampTexteMathLive(
+            this,
+            q,
+            KeyboardType.clavierDeBaseAvecFraction,
+          )
           break
         case 'q3':
           a = randint(1, 9)
@@ -288,7 +313,9 @@ export default class CourseAuxNombres6e extends Exercice {
           texte = `Convertir $${d}$ minutes en heures et minutes (format : ... h ...min)`
           texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
           resultat = new Hms({ hour: a, minute: b })
-          handleAnswers(this, q, { reponse: { value: resultat.toString(), options: { HMS: true } } })
+          handleAnswers(this, q, {
+            reponse: { value: resultat.toString(), options: { HMS: true } },
+          })
           texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierHms)
           break
         case 'q14':
@@ -350,7 +377,8 @@ export default class CourseAuxNombres6e extends Exercice {
           }
           setReponse(this, q, resultat)
           texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBase)
-          break }
+          break
+        }
         case 'q18':
           a = randint(5, 9)
           b = randint(6, 9)
@@ -374,9 +402,9 @@ export default class CourseAuxNombres6e extends Exercice {
           a = randint(0, 7)
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
-          resultat = arrondi(c / 5 * b)
-          texte = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 10 * b)}$ €, combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
-          texteCorr = `$${texNombre(c / 10 * b)} \\times 2 = ${texNombre(resultat)}$`
+          resultat = arrondi((c / 5) * b)
+          texte = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre((c / 10) * b)}$ €, combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
+          texteCorr = `$${texNombre((c / 10) * b)} \\times 2 = ${texNombre(resultat)}$`
           setReponse(this, q, resultat)
           texte += ajouteChampTexteMathLive(this, q, '', { texteApres: '€' })
           break
@@ -387,7 +415,11 @@ export default class CourseAuxNombres6e extends Exercice {
           d = randint(5, 9)
           resultat = (a * 100 + b * 10 + c) * d
           texte = `$${texNombre(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
-          propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombre((a * 1000 + b * 100 + c) * d)}$`])
+          propositions = shuffle([
+            `$${texNombre(resultat)}$`,
+            `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`,
+            `$${texNombre((a * 1000 + b * 100 + c) * d)}$`,
+          ])
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `$${texNombre(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$`
           setReponse(this, q, resultat)
@@ -399,7 +431,12 @@ export default class CourseAuxNombres6e extends Exercice {
           texte = `$${a}$ cm font combien de mètres ?`
           texteCorr = `$${a}~\\text{cm} = ${texNombre(resultat)}~\\text{m}$`
           setReponse(this, q, resultat)
-          texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBase, { texteApres: 'm' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            q,
+            KeyboardType.clavierDeBase,
+            { texteApres: 'm' },
+          )
           break
         case 'q23':
           a = randint(3, 5)
@@ -429,12 +466,14 @@ export default class CourseAuxNombres6e extends Exercice {
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`
           texte += ajouteChampTexteMathLive(this, q, KeyboardType.longueur)
-          setReponse(this, q, new Grandeur(b, hauteurs[a][3]), { formatInteractif: 'unites' })
+          setReponse(this, q, new Grandeur(b, hauteurs[a][3]), {
+            formatInteractif: 'unites',
+          })
           break
         case 'q26':
           a = randint(2, 9) * 10
           b = randint(2, 9, a) * 10
-          resultat = a * b / 100
+          resultat = (a * b) / 100
           texte = `$${a}\\%$ de $${b}$`
           texteCorr = `$${a}\\%$ de $${b} = ${resultat}$`
           setReponse(this, q, resultat)
@@ -447,7 +486,12 @@ export default class CourseAuxNombres6e extends Exercice {
           texte = `Une voiture roule à une vitesse constante de ${a} km/h. Combien de kilomètres parcourt-elle en ${b} h et 30 min ?`
           texteCorr = `$${a}\\times ${texNombre(b + 0.5)} = ${resultat}$`
           setReponse(this, q, resultat)
-          texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBase, { texteApres: 'km' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            q,
+            KeyboardType.clavierDeBase,
+            { texteApres: 'km' },
+          )
           break
         case 'q28':
           a = randint(3, 9)
@@ -460,7 +504,11 @@ export default class CourseAuxNombres6e extends Exercice {
             texteCorr = `Vrai car $4\\times ${a}$ cm $= 2\\times ${a - 1}$ cm $+ 2\\times ${a + 1}$ cm $= ${4 * a}$ cm.`
             setReponse(this, q, 'V')
           }
-          texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBaseAvecVariable)
+          texte += ajouteChampTexteMathLive(
+            this,
+            q,
+            KeyboardType.clavierDeBaseAvecVariable,
+          )
           break
         case 'q29':
           a = randint(3, 5) // dénominateur
@@ -468,36 +516,52 @@ export default class CourseAuxNombres6e extends Exercice {
           c = new FractionEtendue(b, a)
           resultat = b / a
 
-          texte = 'Déterminer l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({
-            xmin: -1,
-            ymin: -1,
-            xmax: 14,
-            ymax: 1.5,
-            scale: 0.5
-          }, droiteGraduee({
-            Unite: 3,
-            Min: 0,
-            Max: 4.2,
-            x: 0,
-            y: 0,
-            thickSecDist: 1 / a,
-            thickSec: true,
-            thickoffset: 0,
-            axeStyle: '|->',
-            pointListe: [[b / a, 'A']],
-            pointCouleur: 'blue',
-            pointStyle: 'x',
-            labelsPrincipaux: true,
-            step1: 1,
-            step2: 1
-          }))
+          texte =
+            "Déterminer l'abscisse du point A situé ci-dessous :<br>" +
+            mathalea2d(
+              {
+                xmin: -1,
+                ymin: -1,
+                xmax: 14,
+                ymax: 1.5,
+                scale: 0.5,
+              },
+              droiteGraduee({
+                Unite: 3,
+                Min: 0,
+                Max: 4.2,
+                x: 0,
+                y: 0,
+                thickSecDist: 1 / a,
+                thickSec: true,
+                thickoffset: 0,
+                axeStyle: '|->',
+                pointListe: [[b / a, 'A']],
+                pointCouleur: 'blue',
+                pointStyle: 'x',
+                labelsPrincipaux: true,
+                step1: 1,
+                step2: 1,
+              }),
+            )
           texteCorr = `L'abscisse du point A est $\\dfrac{${b}}{${a}}$`
           if (a === 3) {
-            setReponse(this, q, [c.texFraction, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`])
+            setReponse(this, q, [
+              c.texFraction,
+              `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`,
+            ])
           } else {
-            setReponse(this, q, [c.texFraction, resultat, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`])
+            setReponse(this, q, [
+              c.texFraction,
+              resultat,
+              `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`,
+            ])
           }
-          texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBaseAvecFraction)
+          texte += ajouteChampTexteMathLive(
+            this,
+            q,
+            KeyboardType.clavierDeBaseAvecFraction,
+          )
           break
         case 'q30':
           a = randint(0, 7) // index du fruit
@@ -508,7 +572,12 @@ export default class CourseAuxNombres6e extends Exercice {
           texte = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br> $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>Combien coûtent ${d} kg de ces ${fruits[a][0]} ?`
           texteCorr = `$${texPrix((c + d) * b)} € - ${texPrix(c * b)} € =${texPrix(resultat)} €$`
           setReponse(this, q, resultat)
-          texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBase, { texteApres: '€' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            q,
+            KeyboardType.clavierDeBase,
+            { texteApres: '€' },
+          )
           break
       }
 

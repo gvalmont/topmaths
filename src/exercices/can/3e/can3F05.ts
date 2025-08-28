@@ -18,10 +18,10 @@ export const uuid = '83a8a'
 
 export const refs = {
   'fr-fr': ['can3F05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAntecedentAffine extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -29,7 +29,7 @@ export default class CalculAntecedentAffine extends ExerciceSimple {
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const x = randint(-9, 9, [0, 1, -1])
     const m = randint(-9, 9, [0, 1, -1])
     const y = randint(-9, 9, [x, 0])

@@ -2,7 +2,11 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { Grille } from '../../../lib/2d/reperes'
 import { Point } from '../../../lib/2d/points'
 import { Polygone } from '../../../lib/2d/polygones'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { latex2d } from '../../../lib/2d/textes'
@@ -14,7 +18,7 @@ export const interactifType = 'mathLive'
 export const uuid = '5e041'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -22,7 +26,7 @@ export const refs = {
 
 */
 export default class Can2025N6Q16 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -32,7 +36,7 @@ export default class Can2025N6Q16 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.alphanumeric
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const grille = new Grille(0, 0, 10, 5, 'gray', 1, 1)
     const A = new Point(1, 1)
     const B = new Point(4, 1)
@@ -54,7 +58,10 @@ export default class Can2025N6Q16 extends ExerciceSimple {
     const figureB = latex2d('\\text{B}', 7, 2.5, { letterSize: 'normalsize' })
     const objets = [grille, poly1, poly2, figureA, figureB]
     this.question = 'Quelle figure a la plus grande aire ?'
-    this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    this.question += mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
 
     if (this.interactif) {
       this.autoCorrection[0] = {
@@ -63,21 +70,25 @@ export default class Can2025N6Q16 extends ExerciceSimple {
         propositions: [
           {
             texte: 'Figure $A$',
-            statut: true
+            statut: true,
           },
           {
             texte: 'Figure $B$',
-            statut: false
-          }
-        ]
+            statut: false,
+          },
+        ],
       }
       this.formatInteractif = 'qcm'
 
       const monQcm = propositionsQcm(this, 0)
       this.question += this.interactif ? `${monQcm.texte}` : ''
     }
-    this.canEnonce = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
-    this.canReponseACompleter = 'Quelle figure a la plus grande aire ? $\\ldots$'
+    this.canEnonce = mathalea2d(
+      Object.assign({ scale: 0.5 }, fixeBordures(objets)),
+      objets,
+    )
+    this.canReponseACompleter =
+      'Quelle figure a la plus grande aire ? $\\ldots$'
     this.reponse = 'A'
     this.correction = `La figure A est composé de plus de carreaux que la figure B, donc c'est la figure $${miseEnEvidence('A')}$ qui a la plus grande aire.`
 

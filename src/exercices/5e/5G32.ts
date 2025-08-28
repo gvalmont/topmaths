@@ -10,10 +10,17 @@ import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer un angle, déduit de figures simples'
@@ -35,10 +42,10 @@ export const uuid = '329fe'
 export const refs = {
   'fr-fr': ['5G32'],
   'fr-2016': ['6G23-5'],
-  'fr-ch': ['9ES5-8']
+  'fr-ch': ['9ES5-8'],
 }
 export default class CalculerUnAngle extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.sup = 15
@@ -59,22 +66,62 @@ export default class CalculerUnAngle extends Exercice {
   12 : Somme d'un angle droit et d'un angle aigu
   13 : Angle issu d'une division puis d'une différence
   14 : Angle issu d'une différence puis d'une multiplication
-  15 : Mélange `
+  15 : Mélange `,
     ]
   }
 
-  nouvelleVersion () {
-    this.consigne = (this.nbQuestions === 1 ? 'L\' angle attendu est un angle saillant' : 'Les angles attendus sont des angles saillants') + ' (dont la mesure est comprise entre $0^\\circ$ et $180^\\circ$).'
+  nouvelleVersion() {
+    this.consigne =
+      (this.nbQuestions === 1
+        ? "L' angle attendu est un angle saillant"
+        : 'Les angles attendus sont des angles saillants') +
+      ' (dont la mesure est comprise entre $0^\\circ$ et $180^\\circ$).'
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 14,
       defaut: 15,
       nbQuestions: this.nbQuestions,
       melange: 15,
       // shuffle: false, // A GARDER POUR LE DEBUGGAGE
-      saisie: this.sup
+      saisie: this.sup,
     }).map(Number)
-    const partagesPossiblesAngle90 = combinaisonListes([2, 3, 5, 6, 9, 10], this.nbQuestions)
-    for (let i = 0, QCas6 = 0, numA, numB, numC, numD, texte, texteCorr, pointsPartage, choixPartage, reponse, A, B, B1, C, C1, D, D1, E, AB, AC, AD, sensRot, posA, posB, posC, posD, angB, angC, paramsEnonce; i < this.nbQuestions; i++) {
+    const partagesPossiblesAngle90 = combinaisonListes(
+      [2, 3, 5, 6, 9, 10],
+      this.nbQuestions,
+    )
+    for (
+      let i = 0,
+        QCas6 = 0,
+        numA,
+        numB,
+        numC,
+        numD,
+        texte,
+        texteCorr,
+        pointsPartage,
+        choixPartage,
+        reponse,
+        A,
+        B,
+        B1,
+        C,
+        C1,
+        D,
+        D1,
+        E,
+        AB,
+        AC,
+        AD,
+        sensRot,
+        posA,
+        posB,
+        posC,
+        posD,
+        angB,
+        angC,
+        paramsEnonce;
+      i < this.nbQuestions;
+      i++
+    ) {
       let numE = 1
       texte = ''
       texteCorr = ''
@@ -142,16 +189,17 @@ export default class CalculerUnAngle extends Exercice {
         case 9:
           partageAngle = randint(3, 10, [7, 8])
           choixPartage = 1
-          angD = sensRot * (180 - arrondi(choixPartage * 180 / partageAngle))
+          angD = sensRot * (180 - arrondi((choixPartage * 180) / partageAngle))
           angC = sensRot * 180
           break
         case 10:
           partageAngle = randint(3, 10, [7, 8])
           choixPartage = randint(2, partageAngle - 1)
-          while (arrondi(choixPartage * 180 / partageAngle) === 90) { // Pour éviter d'avoir à trouver un angle droit
+          while (arrondi((choixPartage * 180) / partageAngle) === 90) {
+            // Pour éviter d'avoir à trouver un angle droit
             choixPartage = randint(2, partageAngle - 1)
           }
-          angD = sensRot * (180 - arrondi(choixPartage * 180 / partageAngle))
+          angD = sensRot * (180 - arrondi((choixPartage * 180) / partageAngle))
           angC = sensRot * 180
           break
         case 11:
@@ -159,7 +207,7 @@ export default class CalculerUnAngle extends Exercice {
           tabAngle = []
           somAngle = 0
           for (let ee = 0; ee <= 4; ee++) {
-            tabAngle[ee] = (randint(25, 60))
+            tabAngle[ee] = randint(25, 60)
             somAngle += tabAngle[ee]
           }
           // D est la rotation de B de la somme, au maximum, des 3 premiers angles du tableau. A minima, c'est le juste le premier angle.
@@ -198,7 +246,8 @@ export default class CalculerUnAngle extends Exercice {
           numE = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numD])
           break
       }
-      if (QuestionsDisponibles[i] < 6) angD = sensRot * randint(25, Math.abs(angC) - 25, [90])
+      if (QuestionsDisponibles[i] < 6)
+        angD = sensRot * randint(25, Math.abs(angC) - 25, [90])
 
       /* Ne pas effacer ! Pratique à décommenter pour débugguer
                   numA = 1
@@ -212,21 +261,120 @@ export default class CalculerUnAngle extends Exercice {
       // posA (et posB, pos C...) permet de choisir une position du point pour ne pas que celui-ci soit illisible (géné par le rapporteur ou l'orientation d'une demi-droite)
       // Ce tableau comporte 12 entrées donc 4 identiques parce que selon que la rotation se fait dans le sens trigo ou pas, pour un angle donné, la position de A dans le tableau varie de 4.
       // La position de A pourrait peut-être aboutir à une fonction pour éviter qu'un point touche une droite.
-      const tabPosition = ['above', 'above left', 'left', 'below left', 'below', 'below right', 'right', 'above right', 'above', 'above left', 'left', 'below left', 'left']
-      if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12].indexOf(QuestionsDisponibles[i]) !== -1) posA = tabPosition[sensRot === -1 ? Math.trunc((180 + angleModulo(angB + angC + 22.5)) / 45) : 4 + Math.trunc((180 + angleModulo(angB + angC + 22.5)) / 45)]
-      else if (QuestionsDisponibles[i] === 11) posA = tabPosition[sensRot === -1 ? Math.trunc((180 + angleModulo(angB + somAngle + 22.5)) / 45) : 4 + Math.trunc((180 + angleModulo(angB + somAngle + 22.5)) / 45)]
-      else if ([13, 14].indexOf(QuestionsDisponibles[i]) !== -1) posA = tabPosition[sensRot === -1 ? Math.trunc((180 + angleModulo(angB + angC + (partageAngle - 1) * choixAngD * sensRot + 22.5)) / 45) : 4 + Math.trunc((180 + angleModulo(angB + angC + (partageAngle - 1) * choixAngD * sensRot + 22.5)) / 45)]
+      const tabPosition = [
+        'above',
+        'above left',
+        'left',
+        'below left',
+        'below',
+        'below right',
+        'right',
+        'above right',
+        'above',
+        'above left',
+        'left',
+        'below left',
+        'left',
+      ]
+      if (
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12].indexOf(QuestionsDisponibles[i]) !==
+        -1
+      )
+        posA =
+          tabPosition[
+            sensRot === -1
+              ? Math.trunc((180 + angleModulo(angB + angC + 22.5)) / 45)
+              : 4 + Math.trunc((180 + angleModulo(angB + angC + 22.5)) / 45)
+          ]
+      else if (QuestionsDisponibles[i] === 11)
+        posA =
+          tabPosition[
+            sensRot === -1
+              ? Math.trunc((180 + angleModulo(angB + somAngle + 22.5)) / 45)
+              : 4 + Math.trunc((180 + angleModulo(angB + somAngle + 22.5)) / 45)
+          ]
+      else if ([13, 14].indexOf(QuestionsDisponibles[i]) !== -1)
+        posA =
+          tabPosition[
+            sensRot === -1
+              ? Math.trunc(
+                  (180 +
+                    angleModulo(
+                      angB +
+                        angC +
+                        (partageAngle - 1) * choixAngD * sensRot +
+                        22.5,
+                    )) /
+                    45,
+                )
+              : 4 +
+                Math.trunc(
+                  (180 +
+                    angleModulo(
+                      angB +
+                        angC +
+                        (partageAngle - 1) * choixAngD * sensRot +
+                        22.5,
+                    )) /
+                    45,
+                )
+          ]
 
       A = point(0, 0, lettreDepuisChiffre(numA), posA)
       B1 = rotation(point(6, 0), A, angB)
-      posB = angB > 135 ? 'above' : (angB > 45 ? 'right' : (angB > -45 ? 'below' : (angB > -135 ? 'left' : 'above')))
-      B = pointSurSegment(A, B1, randint(50, 60) / 10, lettreDepuisChiffre(numB), posB)
-      posC = angleModulo(angB + angC) > 135 ? 'above' : (angleModulo(angB + angC) > 45 ? 'right' : (angleModulo(angB + angC) > -45 ? 'below' : (angleModulo(angB + angC) > -135 ? 'left' : 'above')))
+      posB =
+        angB > 135
+          ? 'above'
+          : angB > 45
+            ? 'right'
+            : angB > -45
+              ? 'below'
+              : angB > -135
+                ? 'left'
+                : 'above'
+      B = pointSurSegment(
+        A,
+        B1,
+        randint(50, 60) / 10,
+        lettreDepuisChiffre(numB),
+        posB,
+      )
+      posC =
+        angleModulo(angB + angC) > 135
+          ? 'above'
+          : angleModulo(angB + angC) > 45
+            ? 'right'
+            : angleModulo(angB + angC) > -45
+              ? 'below'
+              : angleModulo(angB + angC) > -135
+                ? 'left'
+                : 'above'
       C1 = rotation(B1, A, angC)
-      C = pointSurSegment(A, C1, choixPartage === 0 ? randint(40, 55) / 10 : 6, lettreDepuisChiffre(numC), posC)
-      posD = angleModulo(angB + angD) > 135 ? 'above' : (angleModulo(angB + angD) > 45 ? 'right' : (angleModulo(angB + angD) > -45 ? 'below' : (angleModulo(angB + angD) > -135 ? 'left' : 'above')))
+      C = pointSurSegment(
+        A,
+        C1,
+        choixPartage === 0 ? randint(40, 55) / 10 : 6,
+        lettreDepuisChiffre(numC),
+        posC,
+      )
+      posD =
+        angleModulo(angB + angD) > 135
+          ? 'above'
+          : angleModulo(angB + angD) > 45
+            ? 'right'
+            : angleModulo(angB + angD) > -45
+              ? 'below'
+              : angleModulo(angB + angD) > -135
+                ? 'left'
+                : 'above'
       D1 = rotation(B1, A, angD)
-      D = pointSurSegment(A, D1, choixPartage === 0 ? randint(50, 60) / 10 : 6, lettreDepuisChiffre(numD), posD)
+      D = pointSurSegment(
+        A,
+        D1,
+        choixPartage === 0 ? randint(50, 60) / 10 : 6,
+        lettreDepuisChiffre(numD),
+        posD,
+      )
       AB = segment(A, B1)
       AC = segment(A, C1)
       AD = segment(A, D1)
@@ -235,10 +383,31 @@ export default class CalculerUnAngle extends Exercice {
       if ([6, 7, 8, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
         pointsPartage = [B1]
         for (let ee = 1; ee <= Math.max(partageAngle, choixPartage); ee++) {
-          pointsPartage[ee] = rotation(B1, A, sensRot * ee * arrondi(Math.abs(angC) / partageAngle))
-          objetsEnonce.push(codageAngle(pointsPartage[ee - 1], A, sensRot * arrondi(Math.abs(angC) / partageAngle), 3, 'X'))
-          objetsCorrection.push(codageAngle(pointsPartage[ee - 1], A, sensRot * arrondi(Math.abs(angC) / partageAngle), 3, 'X'))
-          if (ee !== partageAngle - choixPartage || ee !== partageAngle) { // On ne crée pas les angles pour C et D (car créé dans la partie commune)
+          pointsPartage[ee] = rotation(
+            B1,
+            A,
+            sensRot * ee * arrondi(Math.abs(angC) / partageAngle),
+          )
+          objetsEnonce.push(
+            codageAngle(
+              pointsPartage[ee - 1],
+              A,
+              sensRot * arrondi(Math.abs(angC) / partageAngle),
+              3,
+              'X',
+            ),
+          )
+          objetsCorrection.push(
+            codageAngle(
+              pointsPartage[ee - 1],
+              A,
+              sensRot * arrondi(Math.abs(angC) / partageAngle),
+              3,
+              'X',
+            ),
+          )
+          if (ee !== partageAngle - choixPartage || ee !== partageAngle) {
+            // On ne crée pas les angles pour C et D (car créé dans la partie commune)
             objetsEnonce.push(segment(A, pointsPartage[ee]))
             objetsCorrection.push(segment(A, pointsPartage[ee]))
           }
@@ -247,10 +416,19 @@ export default class CalculerUnAngle extends Exercice {
       } else if (QuestionsDisponibles[i] === 11) {
         pointsPartage = [B1]
         for (let ee = 1; ee <= 5; ee++) {
-          pointsPartage[ee] = rotation(pointsPartage[ee - 1], A, sensRot * tabAngle[ee - 1])
-          objetsEnonce.push(afficheMesureAngle(pointsPartage[ee - 1], A, pointsPartage[ee]))
-          objetsCorrection.push(afficheMesureAngle(pointsPartage[ee - 1], A, pointsPartage[ee]))
-          if (ee !== choixAngD + 1 && ee !== choixAngC + 1) { // On ne crée pas les angles pour D (car créé dans la partie commune)
+          pointsPartage[ee] = rotation(
+            pointsPartage[ee - 1],
+            A,
+            sensRot * tabAngle[ee - 1],
+          )
+          objetsEnonce.push(
+            afficheMesureAngle(pointsPartage[ee - 1], A, pointsPartage[ee]),
+          )
+          objetsCorrection.push(
+            afficheMesureAngle(pointsPartage[ee - 1], A, pointsPartage[ee]),
+          )
+          if (ee !== choixAngD + 1 && ee !== choixAngC + 1) {
+            // On ne crée pas les angles pour D (car créé dans la partie commune)
             objetsEnonce.push(segment(A, pointsPartage[ee]))
             objetsCorrection.push(segment(A, pointsPartage[ee]))
           }
@@ -259,47 +437,76 @@ export default class CalculerUnAngle extends Exercice {
       } else if ([13, 14].indexOf(QuestionsDisponibles[i]) !== -1) {
         pointsPartage = [D1]
         for (let ee = 1; ee <= partageAngle; ee++) {
-          pointsPartage[ee] = rotation(pointsPartage[ee - 1], A, sensRot * choixAngD)
-          objetsEnonce.push(codageAngle(pointsPartage[ee - 1], A, sensRot * choixAngD, 3, 'X'))
-          objetsCorrection.push(codageAngle(pointsPartage[ee - 1], A, sensRot * choixAngD, 3, 'X'))
-          if (ee !== 1) { // On ne crée pas les angles pour C (car créé dans la partie commune)
+          pointsPartage[ee] = rotation(
+            pointsPartage[ee - 1],
+            A,
+            sensRot * choixAngD,
+          )
+          objetsEnonce.push(
+            codageAngle(pointsPartage[ee - 1], A, sensRot * choixAngD, 3, 'X'),
+          )
+          objetsCorrection.push(
+            codageAngle(pointsPartage[ee - 1], A, sensRot * choixAngD, 3, 'X'),
+          )
+          if (ee !== 1) {
+            // On ne crée pas les angles pour C (car créé dans la partie commune)
             objetsEnonce.push(segment(A, pointsPartage[ee]))
             objetsCorrection.push(segment(A, pointsPartage[ee]))
           }
         }
-        E = pointSurSegment(A, pointsPartage[partageAngle], randint(50, 60) / 10, lettreDepuisChiffre(numE), posB)
+        E = pointSurSegment(
+          A,
+          pointsPartage[partageAngle],
+          randint(50, 60) / 10,
+          lettreDepuisChiffre(numE),
+          posB,
+        )
         objetsEnonce.push(labelPoint(E), tracePoint(E))
         objetsCorrection.push(labelPoint(E), tracePoint(E))
       }
 
       // Partie commune à tous les cas
       objetsEnonce.push(AB, AC, AD, labelPoint(A, C, D), tracePoint(C, D))
-      objetsCorrection.push(AB, AC, AD, labelPoint(A, B, C, D), tracePoint(B, C, D)) // On remplit les tableaux d'objets Mathalea2d
+      objetsCorrection.push(
+        AB,
+        AC,
+        AD,
+        labelPoint(A, B, C, D),
+        tracePoint(B, C, D),
+      ) // On remplit les tableaux d'objets Mathalea2d
 
       // Commencent ici tous les cas particuliers
 
       // Angle orange de toutes les corrections  '#f15929'
       if ([8, 13].indexOf(QuestionsDisponibles[i]) !== -1) {
-        objetsCorrection.push(afficheMesureAngle(B, A, D, 'pink', 3, '', {
-          ecart: 0.85,
-          colorArc: 'pink',
-          arcEpaisseur: 2,
-          mesureEnGras: true
-        }))
-      } else if (QuestionsDisponibles[i] === 14) { // On remplit les tableaux d'objets Mathalea2d
-        objetsCorrection.push(afficheMesureAngle(E, A, D, 'pink', 3, '', {
-          ecart: 0.85,
-          colorArc: 'pink',
-          arcEpaisseur: 2,
-          mesureEnGras: true
-        }))
-      } else { // On remplit les tableaux d'objets Mathalea2d
-        objetsCorrection.push(afficheMesureAngle(C, A, D, 'pink', 3, '', {
-          ecart: 0.85,
-          colorArc: 'pink',
-          arcEpaisseur: 2,
-          mesureEnGras: true
-        }))
+        objetsCorrection.push(
+          afficheMesureAngle(B, A, D, 'pink', 3, '', {
+            ecart: 0.85,
+            colorArc: 'pink',
+            arcEpaisseur: 2,
+            mesureEnGras: true,
+          }),
+        )
+      } else if (QuestionsDisponibles[i] === 14) {
+        // On remplit les tableaux d'objets Mathalea2d
+        objetsCorrection.push(
+          afficheMesureAngle(E, A, D, 'pink', 3, '', {
+            ecart: 0.85,
+            colorArc: 'pink',
+            arcEpaisseur: 2,
+            mesureEnGras: true,
+          }),
+        )
+      } else {
+        // On remplit les tableaux d'objets Mathalea2d
+        objetsCorrection.push(
+          afficheMesureAngle(C, A, D, 'pink', 3, '', {
+            ecart: 0.85,
+            colorArc: 'pink',
+            arcEpaisseur: 2,
+            mesureEnGras: true,
+          }),
+        )
       } // On remplit les tableaux d'objets Mathalea2d
 
       // Point B
@@ -309,60 +516,115 @@ export default class CalculerUnAngle extends Exercice {
 
       // Affichage de l'angle connu
       if ([1, 2, 3, 4, 5, 12, 14].indexOf(QuestionsDisponibles[i]) !== -1) {
-        objetsEnonce.push(afficheMesureAngle(B, A, D, 'black', 3, '', { ecart: 0.75 }))
+        objetsEnonce.push(
+          afficheMesureAngle(B, A, D, 'black', 3, '', { ecart: 0.75 }),
+        )
       }
       if ([1, 2, 3, 4, 5].indexOf(QuestionsDisponibles[i]) !== -1) {
-        objetsCorrection.push(afficheMesureAngle(B, A, D, 'black', 3, '', { ecart: 0.75 }))
-      } else if (QuestionsDisponibles[i] === 12) { // Affichage de l'angle connu dans une taille plus petite
-        objetsCorrection.push(afficheMesureAngle(B, A, D, 'black', 1.5, '', { ecart: 0.75 }))
+        objetsCorrection.push(
+          afficheMesureAngle(B, A, D, 'black', 3, '', { ecart: 0.75 }),
+        )
+      } else if (QuestionsDisponibles[i] === 12) {
+        // Affichage de l'angle connu dans une taille plus petite
+        objetsCorrection.push(
+          afficheMesureAngle(B, A, D, 'black', 1.5, '', { ecart: 0.75 }),
+        )
       }
 
-      reponse = QuestionsDisponibles[i] === 14 ? choixAngD * partageAngle : [8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? -Math.abs(angD) : QuestionsDisponibles[i] === 12 ? Math.abs(Math.abs(angC) + Math.abs(angD)) : Math.abs(Math.abs(angC) - Math.abs(angD)) // Correction issue du 6
+      reponse =
+        QuestionsDisponibles[i] === 14
+          ? choixAngD * partageAngle
+          : [8, 13].indexOf(QuestionsDisponibles[i]) !== -1
+            ? -Math.abs(angD)
+            : QuestionsDisponibles[i] === 12
+              ? Math.abs(Math.abs(angC) + Math.abs(angD))
+              : Math.abs(Math.abs(angC) - Math.abs(angD)) // Correction issue du 6
 
       // Création de l'angle "multiple" dans les cas 6, 7, 9 et 10
       if ([6, 7, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
-        objetsEnonce.push(codageAngle(D, A, sensRot * reponse, 3, '', 'pink', 0, 1, 'pink', 0.5))
+        objetsEnonce.push(
+          codageAngle(
+            D,
+            A,
+            sensRot * reponse,
+            3,
+            '',
+            'pink',
+            0,
+            1,
+            'pink',
+            0.5,
+          ),
+        )
       }
 
       // Création des angles droits et des angles plats
-      if ([1, 6, 7, 8, 12, 13, 14].indexOf(QuestionsDisponibles[i]) !== -1) { // Affichage de l'angle droit dans les cas 1, 6, 7 et 8
+      if ([1, 6, 7, 8, 12, 13, 14].indexOf(QuestionsDisponibles[i]) !== -1) {
+        // Affichage de l'angle droit dans les cas 1, 6, 7 et 8
         objetsEnonce.push(codageAngleDroit(B, A, C, 'blue', 0.8, 2))
         objetsCorrection.push(codageAngleDroit(B, A, C, 'blue', 0.8, 2))
-      } else if ([2, 3, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) { // Affichage de l'angle plat dans les cas 2, 3, 9 et 10
+      } else if ([2, 3, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
+        // Affichage de l'angle plat dans les cas 2, 3, 9 et 10
         if (QuestionsDisponibles[i] !== 3) {
-          objetsEnonce.push(afficheMesureAngle(B, A, C, 'blue', 1.5, '', {
+          objetsEnonce.push(
+            afficheMesureAngle(B, A, C, 'blue', 1.5, '', {
+              ecart: 0.75,
+              saillant: sensRot === -1,
+              colorArc: 'blue',
+              arcEpaisseur: 2,
+            }),
+          )
+        } // On remplit les tableaux d'objets Mathalea2d
+        objetsCorrection.push(
+          afficheMesureAngle(B, A, C, 'blue', 1.5, '', {
             ecart: 0.75,
             saillant: sensRot === -1,
             colorArc: 'blue',
-            arcEpaisseur: 2
-          }))
-        } // On remplit les tableaux d'objets Mathalea2d
-        objetsCorrection.push(afficheMesureAngle(B, A, C, 'blue', 1.5, '', {
-          ecart: 0.75,
-          saillant: sensRot === -1,
-          colorArc: 'blue',
-          arcEpaisseur: 2
-        })) // On remplit les tableaux d'objets Mathalea2d
+            arcEpaisseur: 2,
+          }),
+        ) // On remplit les tableaux d'objets Mathalea2d
       }
 
       // Début de la consigne selon les cas
-      if ([1, 2, 11, 12].indexOf(QuestionsDisponibles[i]) !== -1) texte += 'Quelle'
-      else if (QuestionsDisponibles[i] === 3) texte += `Sachant que les points $${lettreDepuisChiffre(numC)}$, $${lettreDepuisChiffre(numA)}$ et $${lettreDepuisChiffre(numB)}$ sont alignés, quelle`
-      else if ([4, 5].indexOf(QuestionsDisponibles[i]) !== -1) texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ mesure $${Math.abs(angC)}°$, quelle`
-      else if ([6, 7, 8, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) texte += `Sachant que l'angle ${QuestionsDisponibles[i] < 9 ? 'droit' : 'plat'} $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ est partagé en ${partageAngle} angles égaux, quelle`
-      else if (QuestionsDisponibles[i] === 13) texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ mesure $${Math.abs(choixAngD * partageAngle)}°$ et est partagé en ${partageAngle} angles égaux, quelle`
-      else if (QuestionsDisponibles[i] === 14) texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ est partagé en ${partageAngle} angles égaux, quelle`
+      if ([1, 2, 11, 12].indexOf(QuestionsDisponibles[i]) !== -1)
+        texte += 'Quelle'
+      else if (QuestionsDisponibles[i] === 3)
+        texte += `Sachant que les points $${lettreDepuisChiffre(numC)}$, $${lettreDepuisChiffre(numA)}$ et $${lettreDepuisChiffre(numB)}$ sont alignés, quelle`
+      else if ([4, 5].indexOf(QuestionsDisponibles[i]) !== -1)
+        texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ mesure $${Math.abs(angC)}°$, quelle`
+      else if ([6, 7, 8, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1)
+        texte += `Sachant que l'angle ${QuestionsDisponibles[i] < 9 ? 'droit' : 'plat'} $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ est partagé en ${partageAngle} angles égaux, quelle`
+      else if (QuestionsDisponibles[i] === 13)
+        texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ mesure $${Math.abs(choixAngD * partageAngle)}°$ et est partagé en ${partageAngle} angles égaux, quelle`
+      else if (QuestionsDisponibles[i] === 14)
+        texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ est partagé en ${partageAngle} angles égaux, quelle`
 
-      if (QuestionsDisponibles[i] !== 14) texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre([8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? numB : numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
-      else texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
+      if (QuestionsDisponibles[i] !== 14)
+        texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre([8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? numB : numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
+      else
+        texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
 
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' °' })
-      if (context.isAmc) setReponse(this, i, Math.abs(reponse), { digits: 3, decimals: 0, signe: false })  // abs indispensable à cause du cas 8
-      else handleAnswers(this, i, { reponse: { value: Math.abs(reponse), options: { nombreDecimalSeulement: true } } })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteApres: ' °',
+      })
+      if (context.isAmc)
+        setReponse(this, i, Math.abs(reponse), {
+          digits: 3,
+          decimals: 0,
+          signe: false,
+        }) // abs indispensable à cause du cas 8
+      else
+        handleAnswers(this, i, {
+          reponse: {
+            value: Math.abs(reponse),
+            options: { nombreDecimalSeulement: true },
+          },
+        })
 
       // Correction selon les cas
       // Les espaces (sp) sont nécessaires pour contrecarrer l'espace créé par les °.
-      if (QuestionsDisponibles[i] < 6) texteCorr += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ mesure $${Math.abs(angC)}°$, alors l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure : $${Math.abs(angC)}^\\circ-${sp()}${Math.abs(angD)}°=${sp()}${miseEnEvidence(reponse + '°')}$.<br>`
+      if (QuestionsDisponibles[i] < 6)
+        texteCorr += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ mesure $${Math.abs(angC)}°$, alors l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure : $${Math.abs(angC)}^\\circ-${sp()}${Math.abs(angD)}°=${sp()}${miseEnEvidence(reponse + '°')}$.<br>`
       else if ([6, 7, 8, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
         texteCorr += `Sachant que l'angle ${QuestionsDisponibles[i] < 9 ? 'droit' : 'plat'} $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ est partagé en ${partageAngle} angles égaux, alors chacun de ces angles égaux mesure $${arrondi(Math.abs(angC) / partageAngle)}°$ (car $${Math.abs(angC)}°\\div${sp()}${partageAngle}=${sp()}${arrondi(Math.abs(angC) / partageAngle)}°$).<br>`
         if ([6, 9].indexOf(QuestionsDisponibles[i]) !== -1) {
@@ -388,11 +650,14 @@ export default class CalculerUnAngle extends Exercice {
       }
 
       // paramètres de la fenêtre Mathalea2d pour l'énoncé
-      paramsEnonce = Object.assign({
-        pixelsParCm: 20,
-        scale: context.isHtml ? 1 : 0.5,
-        mainlevee: false
-      }, fixeBordures(objetsEnonce))
+      paramsEnonce = Object.assign(
+        {
+          pixelsParCm: 20,
+          scale: context.isHtml ? 1 : 0.5,
+          mainlevee: false,
+        },
+        fixeBordures(objetsEnonce),
+      )
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
       // On ajoute au texte de la correction, la figure de la correction

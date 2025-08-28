@@ -9,7 +9,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_1.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_1_cor.tex',
-    tags: ['Calcul numérique', 'Racines', 'Fractions', 'Priorités opératoires']
+    tags: ['Calcul numérique', 'Racines', 'Fractions', 'Priorités opératoires'],
   },
   evacom_2023_LS_p1_2: {
     annee: '2023',
@@ -21,7 +21,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_2.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_2_cor.tex',
-    tags: ['Racines']
+    tags: ['Racines'],
   },
   evacom_2023_LS_p1_3: {
     annee: '2023',
@@ -33,7 +33,13 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_3.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_3_cor.tex',
-    tags: ['Vrai/Faux', 'Calcul numérique', 'Racines', 'Fractions', 'Puisssances']
+    tags: [
+      'Vrai/Faux',
+      'Calcul numérique',
+      'Racines',
+      'Fractions',
+      'Puisssances',
+    ],
   },
   evacom_2023_LS_p1_4: {
     annee: '2023',
@@ -45,7 +51,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_4.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_4_cor.tex',
-    tags: ['Calcul littéral', 'Aire']
+    tags: ['Calcul littéral', 'Aire'],
   },
   evacom_2023_LS_p1_5: {
     annee: '2023',
@@ -57,7 +63,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_5.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_5_cor.tex',
-    tags: ['Vrai/Faux', 'Équations']
+    tags: ['Vrai/Faux', 'Équations'],
   },
   evacom_2023_LS_p1_6: {
     annee: '2023',
@@ -69,7 +75,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_6.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_6_cor.tex',
-    tags: ['Figures géométriques']
+    tags: ['Figures géométriques'],
   },
   evacom_2023_LS_p1_7: {
     annee: '2023',
@@ -81,7 +87,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_7.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_7_cor.tex',
-    tags: ['Volumes', 'Transformations de formules']
+    tags: ['Volumes', 'Transformations de formules'],
   },
   evacom_2023_LS_p2_8: {
     annee: '2023',
@@ -93,7 +99,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P2_8.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P2_8_cor.tex',
-    tags: ['Vrai/Faux', 'Pythagore']
+    tags: ['Vrai/Faux', 'Pythagore'],
   },
   evacom_2023_LS_p2_9: {
     annee: '2023',
@@ -105,7 +111,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P2_9.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P2_9_cor.tex',
-    tags: ['Aire', 'Transformations de formules']
+    tags: ['Aire', 'Transformations de formules'],
   },
   evacom_2023_LS_p2_10: {
     annee: '2023',
@@ -117,7 +123,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P2_10.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P2_10_cor.tex',
-    tags: ['Équations']
+    tags: ['Équations'],
   },
   evacom_2023_LS_p2_11: {
     annee: '2023',
@@ -129,7 +135,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P2_11.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P2_11_cor.tex',
-    tags: ['Équations']
+    tags: ['Équations'],
   },
   evacom_2023_LS_p2_12: {
     annee: '2023',
@@ -141,7 +147,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P2_12.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P2_12_cor.tex',
-    tags: ['Solides', 'Aire']
+    tags: ['Solides', 'Aire'],
   },
   evacom_2023_LS_p2_13: {
     annee: '2023',
@@ -153,7 +159,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P2_13.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P2_13_cor.tex',
-    tags: ['Calcul littéral']
+    tags: ['Calcul littéral'],
   },
   evacom_2023_LS_p2_14: {
     annee: '2023',
@@ -165,6 +171,6 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P2_14.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P2_14_cor.tex',
-    tags: ['Calcul littéral', 'Identités remarquables', 'Factorisation']
-  }
+    tags: ['Calcul littéral', 'Identités remarquables', 'Factorisation'],
+  },
 }

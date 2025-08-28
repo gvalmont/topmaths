@@ -10,21 +10,21 @@ export const interactifType = 'mathLive'
 export const uuid = '84a4e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author GM+EE
-*/
+ */
 export default class CalculDivers extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (randint(1, 7)) {
       case 1:
         this.question = `Combien vaut $${texNombre(2025)} + 20 + 5$ ?`
@@ -62,7 +62,9 @@ export default class CalculDivers extends ExerciceSimple {
         this.correction = `$${texNombre(2025)} + (20 \\times 5)=${texNombre(2025)} +100=${miseEnEvidence(texNombre(this.reponse, 4))}$`
         break
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

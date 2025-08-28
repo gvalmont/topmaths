@@ -15,10 +15,10 @@ export const uuid = 'f0230'
 
 export const refs = {
   'fr-fr': ['1A-C12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC12 extends SolutionInequation {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

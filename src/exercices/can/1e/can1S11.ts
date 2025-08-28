@@ -20,21 +20,23 @@ export const uuid = '0f014'
 
 export const refs = {
   'fr-fr': ['can1S11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculSuitePython extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, k, u, r, q
     let n = 0
-    switch (choice(['a', 'b', 'c'])) { //
-      case 'a':// u=u+r
+    switch (
+      choice(['a', 'b', 'c']) //
+    ) {
+      case 'a': // u=u+r
         a = randint(2, 5)
         u = randint(1, 8) * choice([-1, 1])
         r = randint(1, 9) * choice([-1, 1])
@@ -64,7 +66,7 @@ export default class CalculSuitePython extends ExerciceSimple {
         this.reponse = u
         break
 
-      case 'b':// suite u=u+i
+      case 'b': // suite u=u+i
         a = randint(3, 4)
         u = randint(1, 8) * choice([-1, 1])
         k = a
@@ -93,7 +95,7 @@ export default class CalculSuitePython extends ExerciceSimple {
         this.reponse = u
         break
 
-      case 'c':// suite u=u+i
+      case 'c': // suite u=u+i
         a = randint(1, 5)
         b = randint(6, 80)
         q = randint(2, 3)

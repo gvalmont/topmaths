@@ -4,7 +4,7 @@ import ProblemeMultiplicatifParts from './problemesMultiplicatifsPart'
 /**
  * @author Jean-Claude Lhote
  */
-export function centreLoisir (decimal = false): Probleme {
+export function centreLoisir(decimal = false): Probleme {
   const nbFois = randint(5, 12)
   const quotité = randint(10, 40)
   const data = { nbFois, quotité }

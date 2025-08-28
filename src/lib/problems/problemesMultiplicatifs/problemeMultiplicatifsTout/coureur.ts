@@ -9,10 +9,12 @@ import ProblemeMultiplicatifs from './problemesMultiplicatifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function coureur1 (decimal = false): Probleme {
+export function coureur1(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nbFoisParSemaine = randint(2, 4)
-  const nbKmParJour = decimal ? choice([11, 12, 15, 16, 18]) * choice([0.8, 0.9, 1.2, 1.1]) : choice([11, 12, 15, 16, 18]) * 1000
+  const nbKmParJour = decimal
+    ? choice([11, 12, 15, 16, 18]) * choice([0.8, 0.9, 1.2, 1.1])
+    : choice([11, 12, 15, 16, 18]) * 1000
   const unite = decimal ? 'km' : 'm'
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'
   const data = { nbFois: nbFoisParSemaine, facteur: nbKmParJour }

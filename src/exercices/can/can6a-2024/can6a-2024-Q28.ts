@@ -15,7 +15,7 @@ export const uuid = 'c1fe4'
 */
 
 export default class CompleterUnLitre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -25,7 +25,7 @@ export default class CompleterUnLitre extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let capacite: number
     let reste: number
     let unite: string

@@ -1,6 +1,9 @@
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import ExerciceSimple from '../../ExerciceSimple'
 import { fraction } from '../../../modules/fractions'
@@ -21,10 +24,10 @@ export const uuid = '96a78'
 
 export const refs = {
   'fr-fr': ['can2L05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SolutionInequation extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -36,12 +39,14 @@ export default class SolutionInequation extends ExerciceSimple {
     this.versionQcmDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, maFraction, n
 
-    switch (randint(1, 8)) { //
-      case 1:// cas a>0
-      { a = randint(2, 6)
+    switch (
+      randint(1, 8) //
+    ) {
+      case 1: { // cas a>0
+        a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
@@ -56,12 +61,19 @@ export default class SolutionInequation extends ExerciceSimple {
             $x>${maFraction.texFractionSimplifiee}$<br>
             Les solutions sont les nombres strictement supérieurs à $${maFraction.texFractionSimplifiee}$.   `
         this.reponse = `$]${-n}~;~+\\infty[$`
-        let tableau = [`$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]${n}~;~+\\infty[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${n}[$`]
+        let tableau = [
+          `$[${-n}~;~+\\infty[$`,
+          `$[${n}~;~+\\infty[$`,
+          `$]${n}~;~+\\infty[$`,
+          `$]-\\infty~;~${-n}[$`,
+          `$]-\\infty~;~${n}[$`,
+        ]
         tableau = shuffle(tableau)
         this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
-        break }
-      case 2:// cas a>0
-      { a = randint(2, 6)
+        break
+      }
+      case 2: { // cas a>0
+        a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
@@ -76,12 +88,20 @@ export default class SolutionInequation extends ExerciceSimple {
                     $x\\geqslant${maFraction.texFractionSimplifiee}$<br>
                     Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
         this.reponse = `$[${-n}~;~+\\infty[$`
-        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]${n}~;~+\\infty[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${n}[$`,]
+        let tableau = [
+          `$]${-n}~;~+\\infty[$`,
+          `$[${n}~;~+\\infty[$`,
+          `$]${n}~;~+\\infty[$`,
+          `$]-\\infty~;~${-n}[$`,
+          `$]-\\infty~;~${-n}[$`,
+          `$]-\\infty~;~${n}[$`,
+        ]
         tableau = shuffle(tableau)
         this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
-        break }
-      case 3:// cas a>0
-      { a = randint(2, 6)
+        break
+      }
+      case 3: { // cas a>0
+        a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
@@ -96,12 +116,20 @@ export default class SolutionInequation extends ExerciceSimple {
                       $x\\leqslant${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
         this.reponse = `$]-\\infty~;~${-n}]$`
-        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${n}]$`]
+        let tableau = [
+          `$]${-n}~;~+\\infty[$`,
+          `$[${-n}~;~+\\infty[$`,
+          `$[${n}~;~+\\infty[$`,
+          `$]-\\infty~;~${n}[$`,
+          `$]-\\infty~;~${-n}[$`,
+          `$]-\\infty~;~${n}]$`,
+        ]
         tableau = shuffle(tableau)
         this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
-        break }
-      case 4:// cas a>0
-      { a = randint(2, 6)
+        break
+      }
+      case 4: { // cas a>0
+        a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
@@ -116,13 +144,21 @@ export default class SolutionInequation extends ExerciceSimple {
                       $x<${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$.   `
         this.reponse = `$]-\\infty~;~${-n}[$`
-        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}]$`, `$]-\\infty~;~${n}]$`]
+        let tableau = [
+          `$]${-n}~;~+\\infty[$`,
+          `$[${-n}~;~+\\infty[$`,
+          `$[${n}~;~+\\infty[$`,
+          `$]-\\infty~;~${n}[$`,
+          `$]-\\infty~;~${-n}]$`,
+          `$]-\\infty~;~${n}]$`,
+        ]
         tableau = shuffle(tableau)
         this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
-        break }
+        break
+      }
 
-      case 5:// cas a<0
-      { a = randint(-6, -2)
+      case 5: { // cas a<0
+        a = randint(-6, -2)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
@@ -139,12 +175,20 @@ export default class SolutionInequation extends ExerciceSimple {
             ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
             Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$. `
         this.reponse = `$]-\\infty~;~${-n}[$`
-        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}]$`, `$]-\\infty~;~${n}]$`]
+        let tableau = [
+          `$]${-n}~;~+\\infty[$`,
+          `$[${-n}~;~+\\infty[$`,
+          `$[${n}~;~+\\infty[$`,
+          `$]-\\infty~;~${n}[$`,
+          `$]-\\infty~;~${-n}]$`,
+          `$]-\\infty~;~${n}]$`,
+        ]
         tableau = shuffle(tableau)
         this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
-        break }
-      case 6:// cas a<0
-      { a = randint(-6, -2)
+        break
+      }
+      case 6: { // cas a<0
+        a = randint(-6, -2)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
@@ -160,12 +204,20 @@ export default class SolutionInequation extends ExerciceSimple {
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
         this.reponse = `$]-\\infty~;~${-n}]$`
-        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${n}]$`]
+        let tableau = [
+          `$]${-n}~;~+\\infty[$`,
+          `$[${-n}~;~+\\infty[$`,
+          `$[${n}~;~+\\infty[$`,
+          `$]-\\infty~;~${n}[$`,
+          `$]-\\infty~;~${-n}[$`,
+          `$]-\\infty~;~${n}]$`,
+        ]
         tableau = shuffle(tableau)
         this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
-        break }
-      case 7:// cas a<0
-      { a = randint(-6, -2)
+        break
+      }
+      case 7: { // cas a<0
+        a = randint(-6, -2)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
@@ -181,12 +233,20 @@ export default class SolutionInequation extends ExerciceSimple {
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
         this.reponse = `$[${-n}~;~+\\infty[$`
-        let tableau = [`$]${-n}~;~+\\infty[$`, `$]${n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}]$`, `$]-\\infty~;~${n}]$`]
+        let tableau = [
+          `$]${-n}~;~+\\infty[$`,
+          `$]${n}~;~+\\infty[$`,
+          `$[${n}~;~+\\infty[$`,
+          `$]-\\infty~;~${n}[$`,
+          `$]-\\infty~;~${-n}]$`,
+          `$]-\\infty~;~${n}]$`,
+        ]
         tableau = shuffle(tableau)
         this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
-        break }
-      case 8:// cas a<0
-      { a = randint(-6, -2)
+        break
+      }
+      case 8: { // cas a<0
+        a = randint(-6, -2)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
@@ -202,12 +262,20 @@ export default class SolutionInequation extends ExerciceSimple {
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres strictement supérieurs   à $${maFraction.texFractionSimplifiee}$. `
         this.reponse = `$]${-n}~;~+\\infty[$`
-        let tableau = [`$[${-n}~;~+\\infty[$`, `$]${n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}]$`, `$]-\\infty~;~${n}]$`]
+        let tableau = [
+          `$[${-n}~;~+\\infty[$`,
+          `$]${n}~;~+\\infty[$`,
+          `$[${n}~;~+\\infty[$`,
+          `$]-\\infty~;~${n}[$`,
+          `$]-\\infty~;~${-n}]$`,
+          `$]-\\infty~;~${n}]$`,
+        ]
         tableau = shuffle(tableau)
         this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
-        break }
+        break
+      }
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -1,14 +1,29 @@
-import { type CodageAngleDroit, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import {
+  type CodageAngleDroit,
+  codageAngle,
+  codageAngleDroit,
+} from '../../lib/2d/angles'
 import type { CodageAngle } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
-import { type NommePolygone, Polygone, nommePolygone } from '../../lib/2d/polygones'
+import {
+  type NommePolygone,
+  Polygone,
+  nommePolygone,
+} from '../../lib/2d/polygones'
 import { type Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { type ObjetMathalea2D, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import {
+  type ObjetMathalea2D,
+  fixeBordures,
+  mathalea2d,
+} from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -18,7 +33,7 @@ export const interactifType = 'qcm'
 export const uuid = '08f6e'
 export const refs = {
   'fr-fr': ['4G40-0'],
-  'fr-ch': ['11GM1-10', '11EVA-6', '11TAF-4', '1mG2-1']
+  'fr-ch': ['11GM1-10', '11EVA-6', '11TAF-4', '1mG2-1'],
 }
 export const dateDePublication = '23/08/2024'
 
@@ -28,20 +43,30 @@ export const dateDePublication = '23/08/2024'
  */
 
 export default class VocabulaireTriangleRectangle extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 5
     this.spacingCorr = 3
     this.besoinFormulaireCaseACocher = ['Figure à main levée', true]
-    this.besoinFormulaire2Texte = ['Type de questions ', 'Nombres séparés par des tirets :\n1 : Donner le bon terme\n2 : Donner le bon côté\n3 : Mélange']
+    this.besoinFormulaire2Texte = [
+      'Type de questions ',
+      'Nombres séparés par des tirets :\n1 : Donner le bon terme\n2 : Donner le bon côté\n3 : Mélange',
+    ]
     this.sup = false
     this.sup2 = '3'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const mainlevee = this.sup
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, melange: 3, defaut: 3, nbQuestions: this.nbQuestions })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 2,
+      melange: 3,
+      defaut: 3,
+      nbQuestions: this.nbQuestions,
+    })
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
       const ab = randint(200, 500) / 100
       const ac = randint(300, Math.ceil(ab * 100)) / 100
       const a = point(0, 0)
@@ -54,7 +79,7 @@ export default class VocabulaireTriangleRectangle extends Exercice {
       const B = p2.listePoints[1]
       const C = p2.listePoints[2]
       const codage = codageAngleDroit(B, A, C)
-      const nom = (creerNomDePolygone(3))
+      const nom = creerNomDePolygone(3)
 
       A.nom = nom[0]
       B.nom = nom[1]
@@ -78,72 +103,82 @@ export default class VocabulaireTriangleRectangle extends Exercice {
       const choix = choice([1, 2, 3])
       switch (choix) {
         case 1:
-          texte += listeTypeDeQuestions[i] === 1
-            ? `Le côté $[${nom[0]}${nom[1]}]$ est`
-            : `Le côté adjacent à $\\widehat{${nom}}$ est`
-          goodAnswer = listeTypeDeQuestions[i] === 1
-            ? `Le côté adjacent à $\\widehat{${nom}}$`
-            : `[${nom[0]}${nom[1]}]`
-          texteCorr = listeTypeDeQuestions[i] === 1
-            ? `Le côté $[${nom[0]}${nom[1]}]$ est ${texteEnCouleurEtGras('le côté adjacent')} à $\\widehat{${nom}}$.`
-            : `Le côté adjacent à $\\widehat{${nom}}$ est $${miseEnEvidence(`[${nom[0]}${nom[1]}]`)}$.`
+          texte +=
+            listeTypeDeQuestions[i] === 1
+              ? `Le côté $[${nom[0]}${nom[1]}]$ est`
+              : `Le côté adjacent à $\\widehat{${nom}}$ est`
+          goodAnswer =
+            listeTypeDeQuestions[i] === 1
+              ? `Le côté adjacent à $\\widehat{${nom}}$`
+              : `[${nom[0]}${nom[1]}]`
+          texteCorr =
+            listeTypeDeQuestions[i] === 1
+              ? `Le côté $[${nom[0]}${nom[1]}]$ est ${texteEnCouleurEtGras('le côté adjacent')} à $\\widehat{${nom}}$.`
+              : `Le côté adjacent à $\\widehat{${nom}}$ est $${miseEnEvidence(`[${nom[0]}${nom[1]}]`)}$.`
           break
         case 2:
-          texte += listeTypeDeQuestions[i] === 1
-            ? `Le côté $[${nom[0]}${nom[2]}]$ est`
-            : `Le côté opposé à $\\widehat{${nom}}$ est`
-          goodAnswer = listeTypeDeQuestions[i] === 1
-            ? `Le côté opposé à $\\widehat{${nom}}$`
-            : `[${nom[0]}${nom[2]}]`
-          texteCorr = listeTypeDeQuestions[i] === 1
-            ? `Le côté $[${nom[0]}${nom[2]}]$ est ${texteEnCouleurEtGras('le côté opposé')} à $\\widehat{${nom}}$.`
-            : `Le côté opposé à $\\widehat{${nom}}$ est $${miseEnEvidence(`[${nom[0]}${nom[2]}]`)}$.`
+          texte +=
+            listeTypeDeQuestions[i] === 1
+              ? `Le côté $[${nom[0]}${nom[2]}]$ est`
+              : `Le côté opposé à $\\widehat{${nom}}$ est`
+          goodAnswer =
+            listeTypeDeQuestions[i] === 1
+              ? `Le côté opposé à $\\widehat{${nom}}$`
+              : `[${nom[0]}${nom[2]}]`
+          texteCorr =
+            listeTypeDeQuestions[i] === 1
+              ? `Le côté $[${nom[0]}${nom[2]}]$ est ${texteEnCouleurEtGras('le côté opposé')} à $\\widehat{${nom}}$.`
+              : `Le côté opposé à $\\widehat{${nom}}$ est $${miseEnEvidence(`[${nom[0]}${nom[2]}]`)}$.`
           break
         default:
-          texte += listeTypeDeQuestions[i] === 1
-            ? `Le côté $[${nom[1]}${nom[2]}]$ est`
-            : `L'hypoténuse du triangle ${nom} est`
-          goodAnswer = listeTypeDeQuestions[i] === 1
-            ? 'L\'hypoténuse du triangle'
-            : `[${nom[1]}${nom[2]}]`
-          texteCorr = listeTypeDeQuestions[i] === 1
-            ? `Le côté $[${nom[1]}${nom[2]}]$ est ${texteEnCouleurEtGras('l\'hypoténuse')} du triangle $${nom}$.`
-            : `L'hypoténuse du triangle $${nom}$ est $${miseEnEvidence(`[${nom[1]}${nom[2]}]`)}$.`
+          texte +=
+            listeTypeDeQuestions[i] === 1
+              ? `Le côté $[${nom[1]}${nom[2]}]$ est`
+              : `L'hypoténuse du triangle ${nom} est`
+          goodAnswer =
+            listeTypeDeQuestions[i] === 1
+              ? "L'hypoténuse du triangle"
+              : `[${nom[1]}${nom[2]}]`
+          texteCorr =
+            listeTypeDeQuestions[i] === 1
+              ? `Le côté $[${nom[1]}${nom[2]}]$ est ${texteEnCouleurEtGras("l'hypoténuse")} du triangle $${nom}$.`
+              : `L'hypoténuse du triangle $${nom}$ est $${miseEnEvidence(`[${nom[1]}${nom[2]}]`)}$.`
       }
       this.autoCorrection[i] = {}
-      this.autoCorrection[i].options = listeTypeDeQuestions[i] === 1
-        ? { ordered: true, vertical: true }
-        : { ordered: true }
-      this.autoCorrection[i].propositions = listeTypeDeQuestions[i] === 1
-        ? [
-            {
-              texte: `Le côté adjacent à $\\widehat{${nom}}$`,
-              statut: goodAnswer === `Le côté adjacent à $\\widehat{${nom}}$`
-            },
-            {
-              texte: `Le côté opposé à $\\widehat{${nom}}$`,
-              statut: goodAnswer === `Le côté opposé à $\\widehat{${nom}}$`
-            },
-            {
-              texte: 'L\'hypoténuse du triangle',
-              statut: goodAnswer === 'L\'hypoténuse du triangle'
-            }
-
-          ]
-        : [
-            {
-              texte: `[${nom[0]}${nom[1]}]`,
-              statut: goodAnswer === `[${nom[0]}${nom[1]}]`
-            },
-            {
-              texte: `[${nom[0]}${nom[2]}]`,
-              statut: goodAnswer === `[${nom[0]}${nom[2]}]`
-            },
-            {
-              texte: `[${nom[1]}${nom[2]}]`,
-              statut: goodAnswer === `[${nom[1]}${nom[2]}]`
-            }
-          ]
+      this.autoCorrection[i].options =
+        listeTypeDeQuestions[i] === 1
+          ? { ordered: true, vertical: true }
+          : { ordered: true }
+      this.autoCorrection[i].propositions =
+        listeTypeDeQuestions[i] === 1
+          ? [
+              {
+                texte: `Le côté adjacent à $\\widehat{${nom}}$`,
+                statut: goodAnswer === `Le côté adjacent à $\\widehat{${nom}}$`,
+              },
+              {
+                texte: `Le côté opposé à $\\widehat{${nom}}$`,
+                statut: goodAnswer === `Le côté opposé à $\\widehat{${nom}}$`,
+              },
+              {
+                texte: "L'hypoténuse du triangle",
+                statut: goodAnswer === "L'hypoténuse du triangle",
+              },
+            ]
+          : [
+              {
+                texte: `[${nom[0]}${nom[1]}]`,
+                statut: goodAnswer === `[${nom[0]}${nom[1]}]`,
+              },
+              {
+                texte: `[${nom[0]}${nom[2]}]`,
+                statut: goodAnswer === `[${nom[0]}${nom[2]}]`,
+              },
+              {
+                texte: `[${nom[1]}${nom[2]}]`,
+                statut: goodAnswer === `[${nom[1]}${nom[2]}]`,
+              },
+            ]
       const monQcm = propositionsQcm(this, i)
       texte += `<br>${monQcm.texte}`
       if (this.questionJamaisPosee(i, ab, ac)) {

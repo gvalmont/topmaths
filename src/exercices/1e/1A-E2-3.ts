@@ -8,13 +8,14 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '118c2'
 export const refs = {
   'fr-fr': ['1A-E2-3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Exprimer la valeur finale en fonction de la valeur initiale'
+export const titre =
+  'Exprimer la valeur finale en fonction de la valeur initiale'
 export const dateDePublication = '02/08/2025'
 //
 /**
@@ -36,7 +37,7 @@ export default class Auto1AE2c extends ExerciceQcmA {
       '$V(n + 1) = 0,97 \\times V(n)$',
       '$V(n + 1) = V(n) - 0,03$',
       '$V(n + 1) = 0,03 \\times V(n)$',
-      '$V(n + 1) = V(n) - 0,97$'
+      '$V(n + 1) = V(n) - 0,97$',
     ]
   }
 
@@ -56,19 +57,30 @@ export default class Auto1AE2c extends ExerciceQcmA {
         const bonneReponse3 = `V(n + 1) = V(n)-\\dfrac{${taux}\\times V(n)}{100}`
         const mauvaiseReponse1 = `$V(n + 1) = V(n) - \\dfrac{${taux}}{100}$`
         const mauvaiseReponse2 = `$V(n + 1) = V(n) - ${texNombre(taux / 10, 2)}\\times V(n)$`
-        const bonneReponseRetenue = choice([bonneReponse1, bonneReponse2, bonneReponse3])
-        const mauvaiseReponseRetenue = choice([mauvaiseReponse1, mauvaiseReponse2])
-        if (bonneReponseRetenue === `V(n + 1) = ${coeffMultiplicateur} \\times V(n)`) {
+        const bonneReponseRetenue = choice([
+          bonneReponse1,
+          bonneReponse2,
+          bonneReponse3,
+        ])
+        const mauvaiseReponseRetenue = choice([
+          mauvaiseReponse1,
+          mauvaiseReponse2,
+        ])
+        if (
+          bonneReponseRetenue ===
+          `V(n + 1) = ${coeffMultiplicateur} \\times V(n)`
+        ) {
           this.correction = `Pour diminuer de $${taux}\\,\\%$, on applique un coefficient multiplicateur de  $1 - ${tauxDecimal}= ${coeffMultiplicateur}$.<br>
         On a donc : $${miseEnEvidence(bonneReponseRetenue)}$.`
         } else {
           this.correction = `On obtient $V(n+1)$ en diminuant  $V(n)$  de $${taux}\\,\\%$ de $V(n)$.<br>
         On a donc : $${miseEnEvidence(bonneReponseRetenue)}$.`
         }
-        this.reponses = [`$${bonneReponseRetenue}$`,
+        this.reponses = [
+          `$${bonneReponseRetenue}$`,
           `$V(n + 1) = V(n) - ${tauxDecimal}$`,
           `$V(n + 1) = ${tauxDecimal} \\times V(n)$`,
-          mauvaiseReponseRetenue
+          mauvaiseReponseRetenue,
         ]
         break
       }
@@ -81,7 +93,9 @@ export default class Auto1AE2c extends ExerciceQcmA {
           ? texNombre((100 + taux) / 100, 2)
           : texNombre((100 - taux) / 100, 2)
         const tauxDecimal = texNombre(taux / 100, 2)
-        const verbe = augmentation ? ['augmenter', 'augmentant', 'augmente'] : ['diminuer', 'diminuant', 'diminue']
+        const verbe = augmentation
+          ? ['augmenter', 'augmentant', 'augmente']
+          : ['diminuer', 'diminuant', 'diminue']
         const signe = augmentation ? '+' : '-'
         const signeOppose = augmentation ? '-' : '+'
         const operateur = augmentation ? '1 + ' : '1 - '
@@ -94,19 +108,30 @@ export default class Auto1AE2c extends ExerciceQcmA {
         const bonneReponse3 = `P(n + 1) = P(n)${signe}\\dfrac{${taux}\\times P(n)}{100}`
         const mauvaiseReponse1 = `$P(n + 1) = P(n) ${signe} \\dfrac{${taux}}{100}$`
         const mauvaiseReponse2 = `$P(n + 1) = P(n) ${signeOppose} ${texNombre(taux / 10, 2)}\\times P(n)$`
-        const bonneReponseRetenue = choice([bonneReponse1, bonneReponse2, bonneReponse3])
-        const mauvaiseReponseRetenue = choice([mauvaiseReponse1, mauvaiseReponse2])
-        if (bonneReponseRetenue === `P(n + 1) = ${coeffMultiplicateur} \\times P(n)`) {
+        const bonneReponseRetenue = choice([
+          bonneReponse1,
+          bonneReponse2,
+          bonneReponse3,
+        ])
+        const mauvaiseReponseRetenue = choice([
+          mauvaiseReponse1,
+          mauvaiseReponse2,
+        ])
+        if (
+          bonneReponseRetenue ===
+          `P(n + 1) = ${coeffMultiplicateur} \\times P(n)`
+        ) {
           this.correction = `Pour ${verbe[0]} de $${taux}\\,\\%$, on applique un coefficient multiplicateur de $${operateur}${tauxDecimal} = ${coeffMultiplicateur}$.<br>
         Donc $${miseEnEvidence(bonneReponseRetenue)}$.`
         } else {
           this.correction = `On obtient $P(n+1)$ en ${verbe[1]}  $P(n)$  de $${taux}\\,\\%$ de $P(n)$.<br>
         On a donc : $${miseEnEvidence(bonneReponseRetenue)}$.`
         }
-        this.reponses = [`$${bonneReponseRetenue}$`,
+        this.reponses = [
+          `$${bonneReponseRetenue}$`,
           `$P(n + 1) = P(n) ${signe} ${tauxDecimal}$`,
           `$P(n + 1) = ${tauxDecimal} \\times P(n)$`,
-          mauvaiseReponseRetenue
+          mauvaiseReponseRetenue,
         ]
         break
       }
@@ -119,7 +144,9 @@ export default class Auto1AE2c extends ExerciceQcmA {
           ? texNombre((100 + taux) / 100, 2)
           : texNombre((100 - taux) / 100, 2)
         const tauxDecimal = texNombre(taux / 100, 2)
-        const verbe = augmentation ? ['augmenter', 'augmentant', 'augmente'] : ['diminuer', 'diminuant', 'diminue']
+        const verbe = augmentation
+          ? ['augmenter', 'augmentant', 'augmente']
+          : ['diminuer', 'diminuant', 'diminue']
         const signe = augmentation ? '+' : '-'
         const signeOppose = augmentation ? '-' : '+'
         const operateur = augmentation ? '1 + ' : '1 - '
@@ -132,20 +159,31 @@ export default class Auto1AE2c extends ExerciceQcmA {
         const bonneReponse3 = `P(n + 1) = P(n)${signe}\\dfrac{${taux}\\times P(n)}{100}`
         const mauvaiseReponse1 = `$P(n + 1) = P(n) ${signe} \\dfrac{${taux}}{100}$`
         const mauvaiseReponse2 = `$P(n + 1) = P(n) ${signeOppose} ${texNombre(taux / 10, 2)}\\times P(n)$`
-        const bonneReponseRetenue = choice([bonneReponse1, bonneReponse2, bonneReponse3])
-        const mauvaiseReponseRetenue = choice([mauvaiseReponse1, mauvaiseReponse2])
+        const bonneReponseRetenue = choice([
+          bonneReponse1,
+          bonneReponse2,
+          bonneReponse3,
+        ])
+        const mauvaiseReponseRetenue = choice([
+          mauvaiseReponse1,
+          mauvaiseReponse2,
+        ])
 
-        if (bonneReponseRetenue === `P(n + 1) = ${coeffMultiplicateur} \\times P(n)`) {
+        if (
+          bonneReponseRetenue ===
+          `P(n + 1) = ${coeffMultiplicateur} \\times P(n)`
+        ) {
           this.correction = `Pour ${verbe[0]} de $${taux}\\,\\%$, on applique un coefficient multiplicateur de $${operateur}${tauxDecimal} = ${coeffMultiplicateur}$.<br>
         Donc $${miseEnEvidence(bonneReponseRetenue)}$.`
         } else {
           this.correction = `On obtient $P(n+1)$ en ${verbe[1]}  $P(n)$  de $${taux}\\,\\%$ de $P(n)$.<br>
         On a donc : $${miseEnEvidence(bonneReponseRetenue)}$.`
         }
-        this.reponses = [`$${bonneReponseRetenue}$`,
+        this.reponses = [
+          `$${bonneReponseRetenue}$`,
           `$P(n + 1) = P(n) ${signe} ${tauxDecimal}$`,
           `$P(n + 1) = ${tauxDecimal} \\times P(n)$`,
-          mauvaiseReponseRetenue
+          mauvaiseReponseRetenue,
         ]
         break
       }
@@ -159,11 +197,18 @@ export default class Auto1AE2c extends ExerciceQcmA {
           ? texNombre((100 + taux) / 100, 2)
           : texNombre((100 - taux) / 100, 2)
         const tauxDecimal = texNombre(taux / 100, 2)
-        const verbe = augmentation ? ['augmenter', 'augmentant', 'augmente'] : ['diminuer', 'diminuant', 'diminue']
+        const verbe = augmentation
+          ? ['augmenter', 'augmentant', 'augmente']
+          : ['diminuer', 'diminuant', 'diminue']
         const signe = augmentation ? '+' : '-'
         const signeOppose = augmentation ? '-' : '+'
         const operateur = augmentation ? '1 + ' : '1 - '
-        const typeClub = choice(['club de sport', 'association', 'club de lecture', 'club d\'échecs'])
+        const typeClub = choice([
+          'club de sport',
+          'association',
+          'club de lecture',
+          "club d'échecs",
+        ])
 
         this.enonce = `Le nombre d'adhérents d'un ${typeClub} ${verbe[2]} de $${taux}\\,\\%$ chaque année.<br>
         Si $N(n)$ désigne le nombre d'adhérents du ${typeClub} pour l'année $n$ on a :`
@@ -173,27 +218,38 @@ export default class Auto1AE2c extends ExerciceQcmA {
         const bonneReponse3 = `N(n + 1) = N(n)${signe}\\dfrac{${taux}\\times N(n)}{100}`
         const mauvaiseReponse1 = `$N(n + 1) = N(n) ${signe} \\dfrac{${taux}}{100}$`
         const mauvaiseReponse2 = `$N(n + 1) = N(n) ${signeOppose} ${texNombre(taux / 10, 2)}\\times N(n)$`
-        const bonneReponseRetenue = choice([bonneReponse1, bonneReponse2, bonneReponse3])
-        const mauvaiseReponseRetenue = choice([mauvaiseReponse1, mauvaiseReponse2])
+        const bonneReponseRetenue = choice([
+          bonneReponse1,
+          bonneReponse2,
+          bonneReponse3,
+        ])
+        const mauvaiseReponseRetenue = choice([
+          mauvaiseReponse1,
+          mauvaiseReponse2,
+        ])
 
-        if (bonneReponseRetenue === `N(n + 1) = ${coeffMultiplicateur} \\times N(n)`) {
+        if (
+          bonneReponseRetenue ===
+          `N(n + 1) = ${coeffMultiplicateur} \\times N(n)`
+        ) {
           this.correction = `Pour ${verbe[0]} de $${taux}\\,\\%$, on applique un coefficient multiplicateur de $${operateur}${tauxDecimal} = ${coeffMultiplicateur}$.<br>
         Donc $${miseEnEvidence(bonneReponseRetenue)}$.`
         } else {
           this.correction = `On obtient $N(n+1)$ en ${verbe[1]}  $N(n)$  de $${taux}\\,\\%$ de $N(n)$.<br>
         On a donc : $${miseEnEvidence(bonneReponseRetenue)}$.`
         }
-        this.reponses = [`$${bonneReponseRetenue}$`,
+        this.reponses = [
+          `$${bonneReponseRetenue}$`,
           `$N(n + 1) = N(n) ${signe} ${tauxDecimal}$`,
           `$N(n + 1) = ${tauxDecimal} \\times N(n)$`,
-          mauvaiseReponseRetenue
+          mauvaiseReponseRetenue,
         ]
         break
       }
     }
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
     this.options = { vertical: true, ordered: false }

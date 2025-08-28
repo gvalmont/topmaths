@@ -1,14 +1,24 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiMoins, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiMoins,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
-export const titre = 'Calculer les termes d\'une suite arithmétique ou géométrique'
+export const titre =
+  "Calculer les termes d'une suite arithmétique ou géométrique"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -23,10 +33,10 @@ export const uuid = '3ae4a'
 
 export const refs = {
   'fr-fr': ['1AL11-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TermesSASG extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.sup = '7'
@@ -35,7 +45,8 @@ export default class TermesSASG extends Exercice {
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
     this.besoinFormulaireTexte = [
-      'Type de questions', [
+      'Type de questions',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Suite arithmétique avec premier terme u_0',
         '2 : Suite arithmétique avec premier terme u_1',
@@ -43,23 +54,26 @@ export default class TermesSASG extends Exercice {
         '4 : Suite géométrique avec premier terme u_1',
         '5 : Suite géométrique avec premier terme u_1',
         '6 : Suite géométrique avec premier terme u_p',
-        '7 : Mélange'
-      ].join('\n')
+        '7 : Mélange',
+      ].join('\n'),
     ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 6,
       melange: 7,
       defaut: 7,
-      nbQuestions: this.nbQuestions
+      nbQuestions: this.nbQuestions,
     })
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let reponse
@@ -80,7 +94,12 @@ export default class TermesSASG extends Exercice {
           handleAnswers(this, i, { reponse: { value: reponse } })
           texte = `$(${NomS}_n)$ est une suite arithmétique de raison $r=${r}$ et de premier terme $${NomS}_0=${a}$.<br>
           Calculer $${NomS}_{${k}}$.`
-          if (this.correctionDetaillee) { texteCorr = 'La forme explicite d\'une suite arithmétique $(u_n)$ de raison $r$ et de premier terme $u_0$ est : $u_n=u_0+n\\times r$.<br>' } else { texteCorr = '' }
+          if (this.correctionDetaillee) {
+            texteCorr =
+              "La forme explicite d'une suite arithmétique $(u_n)$ de raison $r$ et de premier terme $u_0$ est : $u_n=u_0+n\\times r$.<br>"
+          } else {
+            texteCorr = ''
+          }
           texteCorr += `La suite $(${NomS}_n)$ est arithmétique de raison $r=${r}$ et de premier terme $${NomS}_0=${a}$.<br>
           On en déduit que pour tout $n\\in\\mathbb{N}$,  <br>
           $\\begin{aligned}
@@ -92,11 +111,15 @@ export default class TermesSASG extends Exercice {
           if (a === 0) {
             if (r === 1 || r === -1) {
               texteCorr += `$${NomS}_n=${miseEnEvidence(reponse)}$.`
-            } else { texteCorr += `$${NomS}_{${k}}=${r}\\times ${k} =${miseEnEvidence(reponse)}$.` }
+            } else {
+              texteCorr += `$${NomS}_{${k}}=${r}\\times ${k} =${miseEnEvidence(reponse)}$.`
+            }
           } else {
             if (r === 1 || r === -1) {
               texteCorr += `$${NomS}_{${k}}=${a}${r === 1 ? `${ecritureAlgebrique(k)}` : `${-k}`} =${miseEnEvidence(reponse)}$.`
-            } else { texteCorr += `$${NomS}_{${k}}=${a}${ecritureAlgebrique(r)}\\times ${k} =${miseEnEvidence(reponse)}$.` }
+            } else {
+              texteCorr += `$${NomS}_{${k}}=${a}${ecritureAlgebrique(r)}\\times ${k} =${miseEnEvidence(reponse)}$.`
+            }
           }
           break
         case 2:
@@ -107,7 +130,12 @@ export default class TermesSASG extends Exercice {
           handleAnswers(this, i, { reponse: { value: reponse } })
           texte = `$(${NomS}_n)$ est une suite arithmétique de raison $r=${r}$ et de premier terme $${NomS}_1=${a}$.<br>
           Calculer $${NomS}_{${k}}$.`
-          if (this.correctionDetaillee) { texteCorr = 'La forme explicite d\'une suite arithmétique $(u_n)$ de raison $r$ et de premier terme $u_1$ est : $u_n=u_1+(n-1)\\times r$.<br>' } else { texteCorr = '' }
+          if (this.correctionDetaillee) {
+            texteCorr =
+              "La forme explicite d'une suite arithmétique $(u_n)$ de raison $r$ et de premier terme $u_1$ est : $u_n=u_1+(n-1)\\times r$.<br>"
+          } else {
+            texteCorr = ''
+          }
           texteCorr += `
           La suite $(${NomS}_n)$ est arithmétique de raison $r=${r}$ et de premier terme $${NomS}_1=${a}$.<br>
           On en déduit que pour tout $n\\in\\mathbb{N}^*$,  <br>
@@ -121,11 +149,15 @@ export default class TermesSASG extends Exercice {
           if (a - r === 0) {
             if (r === 1 || r === -1) {
               texteCorr += `$${NomS}_n=${miseEnEvidence(reponse)}$.`
-            } else { texteCorr += `$${NomS}_{${k}}=${r}\\times ${k} =${miseEnEvidence(reponse)}$.` }
+            } else {
+              texteCorr += `$${NomS}_{${k}}=${r}\\times ${k} =${miseEnEvidence(reponse)}$.`
+            }
           } else {
             if (r === 1 || r === -1) {
               texteCorr += `$${NomS}_{${k}}=${a - r}${r === 1 ? `${ecritureAlgebrique(k)}` : `${-k}`} =${miseEnEvidence(reponse)}$.`
-            } else { texteCorr += `$${NomS}_{${k}}=${a - r}${ecritureAlgebrique(r)}\\times ${k} =${miseEnEvidence(reponse)}$.` }
+            } else {
+              texteCorr += `$${NomS}_{${k}}=${a - r}${ecritureAlgebrique(r)}\\times ${k} =${miseEnEvidence(reponse)}$.`
+            }
           }
           break
 
@@ -138,7 +170,12 @@ export default class TermesSASG extends Exercice {
           handleAnswers(this, i, { reponse: { value: reponse } })
           texte = `$(${NomS}_n)$ est une suite arithmétique de raison $r=${r}$ avec $${NomS}_${p}=${a}$.<br>
             Calculer $${NomS}_{${k}}$.`
-          if (this.correctionDetaillee) { texteCorr = 'Si $(u_n)$ est une suite arithmétique  de raison $r$, alors pour tout entier naturel $n$ et $p$, on a $u_n=u_p+(n-p)\\times r$.<br>' } else { texteCorr = '' }
+          if (this.correctionDetaillee) {
+            texteCorr =
+              'Si $(u_n)$ est une suite arithmétique  de raison $r$, alors pour tout entier naturel $n$ et $p$, on a $u_n=u_p+(n-p)\\times r$.<br>'
+          } else {
+            texteCorr = ''
+          }
           texteCorr += `
               La suite $(${NomS}_n)$ est arithmétique de raison $r=${r}$ avec $${NomS}_${p}=${a}$.<br>
             On en déduit que pour tout $n\\in\\mathbb{N}$,  <br>
@@ -152,11 +189,15 @@ export default class TermesSASG extends Exercice {
           if (a - p * r === 0) {
             if (r === 1 || r === -1) {
               texteCorr += `$${NomS}_n=${miseEnEvidence(reponse)}$.`
-            } else { texteCorr += `$${NomS}_{${k}}=${r}\\times ${k} =${miseEnEvidence(reponse)}$.` }
+            } else {
+              texteCorr += `$${NomS}_{${k}}=${r}\\times ${k} =${miseEnEvidence(reponse)}$.`
+            }
           } else {
             if (r === 1 || r === -1) {
               texteCorr += `$${NomS}_{${k}}=${a - p * r}${r === 1 ? `${ecritureAlgebrique(k)}` : `${-k}`} =${miseEnEvidence(reponse)}$.`
-            } else { texteCorr += `$${NomS}_{${k}}=${a - p * r}${ecritureAlgebrique(r)}\\times ${k} =${miseEnEvidence(reponse)}$.` }
+            } else {
+              texteCorr += `$${NomS}_{${k}}=${a - p * r}${ecritureAlgebrique(r)}\\times ${k} =${miseEnEvidence(reponse)}$.`
+            }
           }
           break
 
@@ -170,7 +211,12 @@ export default class TermesSASG extends Exercice {
           texte = `$(${NomS}_n)$ est une suite géométrique de raison $q=${texNombre(q, 1)}$ et de premier terme $${NomS}_0=${a}$.<br>
             Calculer $${NomS}_{${k}}$.`
           texte += '<br>Donner la valeur arrondie au dixième.'
-          if (this.correctionDetaillee) { texteCorr = 'La forme explicite d\'une suite géométrique $(u_n)$ de raison $q$ et de premier terme $u_0$ est : $u_n=u_0\\times q^n$.<br>' } else { texteCorr = '' }
+          if (this.correctionDetaillee) {
+            texteCorr =
+              "La forme explicite d'une suite géométrique $(u_n)$ de raison $q$ et de premier terme $u_0$ est : $u_n=u_0\\times q^n$.<br>"
+          } else {
+            texteCorr = ''
+          }
           texteCorr += `La suite $(${NomS}_n)$ est géométrique de raison $q=${texNombre(q, 1)}$ et de premier terme $${NomS}_0=${a}$.<br>
           On en déduit que pour tout $n\\in\\mathbb{N}$,  <br>
           $\\begin{aligned}
@@ -191,7 +237,12 @@ export default class TermesSASG extends Exercice {
           texte = `$(${NomS}_n)$ est une suite géométrique de raison $q=${texNombre(q, 1)}$ et de premier terme $${NomS}_1=${a}$.<br>
             Calculer $${NomS}_{${k}}$.`
           texte += '<br>Donner la valeur arrondie au dixième.'
-          if (this.correctionDetaillee) { texteCorr = 'La forme explicite d\'une suite géométrique $(u_n)$ de raison $q$ et de premier terme $u_1$ est : $u_n=u_1\\times q^{n-1}$.<br>' } else { texteCorr = '' }
+          if (this.correctionDetaillee) {
+            texteCorr =
+              "La forme explicite d'une suite géométrique $(u_n)$ de raison $q$ et de premier terme $u_1$ est : $u_n=u_1\\times q^{n-1}$.<br>"
+          } else {
+            texteCorr = ''
+          }
           texteCorr += `La suite $(${NomS}_n)$ est géométrique de raison $q=${texNombre(q, 1)}$ 
           et de premier terme $${NomS}_1=${a}$.<br>
           On en déduit que pour tout $n\\in\\mathbb{N}^*$,  <br>
@@ -215,7 +266,12 @@ export default class TermesSASG extends Exercice {
           texte = `$(${NomS}_n)$ est une suite géométrique de raison $q=${texNombre(q, 1)}$ avec $${NomS}_${p}=${a}$.<br>
             Calculer $${NomS}_{${k}}$.`
           texte += '<br>Donner la valeur arrondie au dixième.'
-          if (this.correctionDetaillee) { texteCorr = 'Si $(u_n)$ est une suite géométrique  de raison $q$, alors pour tout entier naturel $n$ et $p$, on a $u_n=u_p\\times q^{n-p}$.<br>' } else { texteCorr = '' }
+          if (this.correctionDetaillee) {
+            texteCorr =
+              'Si $(u_n)$ est une suite géométrique  de raison $q$, alors pour tout entier naturel $n$ et $p$, on a $u_n=u_p\\times q^{n-p}$.<br>'
+          } else {
+            texteCorr = ''
+          }
           texteCorr += ` La suite $(${NomS}_n)$ est géométrique de raison $q=${texNombre(q, 1)}$ avec $${NomS}_${p}=${a}$.<br>
           On en déduit que pour tout $n\\in\\mathbb{N}$,  <br>
           $\\begin{aligned}
@@ -228,8 +284,25 @@ export default class TermesSASG extends Exercice {
           break
       }
 
-      if (listeTypeDeQuestions[i] === 1 || listeTypeDeQuestions[i] === 2 || listeTypeDeQuestions[i] === 3) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_{${k}}=$` }) } else { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_{${k}}\\simeq$` }) }
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (
+        listeTypeDeQuestions[i] === 1 ||
+        listeTypeDeQuestions[i] === 2 ||
+        listeTypeDeQuestions[i] === 3
+      ) {
+        texte +=
+          '<br>' +
+          ajouteChampTexteMathLive(this, i, ' ', {
+            texteAvant: `$${NomS}_{${k}}=$`,
+          })
+      } else {
+        texte +=
+          '<br>' +
+          ajouteChampTexteMathLive(this, i, ' ', {
+            texteAvant: `$${NomS}_{${k}}\\simeq$`,
+          })
+      }
+      if (this.questionJamaisPosee(i, texte)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -52,7 +52,29 @@ export interface ItabDbleEntry {
  * @param NoEx
  * @param NoQ
  */
-function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ, style }: { isInteractif: boolean, line: HTMLElement, icell: Icell, indexCol: number, indexLine: number, tag: 'th' | 'td', classes: string, NoEx: number, NoQ: number, style: string }) {
+function appendCell({
+  isInteractif,
+  line,
+  icell,
+  indexCol,
+  indexLine,
+  tag,
+  classes,
+  NoEx,
+  NoQ,
+  style,
+}: {
+  isInteractif: boolean
+  line: HTMLElement
+  icell: Icell
+  indexCol: number
+  indexLine: number
+  tag: 'th' | 'td'
+  classes: string
+  NoEx: number
+  NoQ: number
+  style: string
+}) {
   const cell = document.createElement(tag)
   let element: HTMLElement
   const options = icell.options || {}
@@ -72,9 +94,15 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
       for (const classe of classes.split(' ')) {
         // if (classe === 'clavierDeBase') element.setAttribute('data-keyboard', 'numbersOperations')
         // else if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
-        if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
-        else if (classe === 'clavierDeBaseAvecVariable') element.setAttribute('data-keyboard', 'numbers basicOperations variables')
-        else if (classe === 'clavierDeBaseAvecEgal') element.setAttribute('data-keyboard', 'numbers2 basicOperations')
+        if (classe === 'clavierDeBaseAvecFraction')
+          element.setAttribute('data-keyboard', 'numbers basicOperations')
+        else if (classe === 'clavierDeBaseAvecVariable')
+          element.setAttribute(
+            'data-keyboard',
+            'numbers basicOperations variables',
+          )
+        else if (classe === 'clavierDeBaseAvecEgal')
+          element.setAttribute('data-keyboard', 'numbers2 basicOperations')
         else element.setAttribute('data-keyboard', 'numbersOperations')
       }
       element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
@@ -99,9 +127,9 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
     }
   } else {
     if (icell.latex) {
-    // J'aimerais pouvoir utiliser mathlive mais ça semble poser des soucis, je remplace par katex...
-    //  element = document.createElement('math-field')
-    // element.innerHTML = `<math-field read-only style="display:inline-block" id="L${indexLine}C${i + 1}">${icell.texte}</math-field>`
+      // J'aimerais pouvoir utiliser mathlive mais ça semble poser des soucis, je remplace par katex...
+      //  element = document.createElement('math-field')
+      // element.innerHTML = `<math-field read-only style="display:inline-block" id="L${indexLine}C${i + 1}">${icell.texte}</math-field>`
       element = document.createElement('span')
       cell.appendChild(element)
       element.outerHTML = `<span id="spanEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}">$${icell.texte}$</span>`
@@ -125,9 +153,40 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
  * @param {'td'|'th'} tag le tag (td pour des cellules à l'intérieur th pour des cellules d'entête)
  * @param {string} classes une liste de className dans un string séparés par des espaces
  */
-const fillLine = function ({ isInteractif, line, content, index, tag, classes, NoEx, NoQ, style }:{ isInteractif: boolean, line: HTMLElement, content: Icell[], index: number, tag: 'td' | 'th', classes: string, NoEx: number, NoQ: number, style: ObjetParams }): void {
+const fillLine = function ({
+  isInteractif,
+  line,
+  content,
+  index,
+  tag,
+  classes,
+  NoEx,
+  NoQ,
+  style,
+}: {
+  isInteractif: boolean
+  line: HTMLElement
+  content: Icell[]
+  index: number
+  tag: 'td' | 'th'
+  classes: string
+  NoEx: number
+  NoQ: number
+  style: ObjetParams
+}): void {
   for (let i = 0; i < content.length; i++) {
-    appendCell({ isInteractif, line, icell: content[i], indexCol: i, indexLine: index, tag, classes, NoEx, NoQ, style: style[`L${index}C${i}`] })
+    appendCell({
+      isInteractif,
+      line,
+      icell: content[i],
+      indexCol: i,
+      indexLine: index,
+      tag,
+      classes,
+      NoEx,
+      NoQ,
+      style: style[`L${index}C${i}`],
+    })
   }
 }
 
@@ -148,7 +207,13 @@ export class AddTabPropMathlive {
   classes?: string
   isInteractif: boolean
 
-  private constructor (numeroExercice: number, question: number, tableau: Itableau, classes: string, isInteractif: boolean) {
+  private constructor(
+    numeroExercice: number,
+    question: number,
+    tableau: Itableau,
+    classes: string,
+    isInteractif: boolean,
+  ) {
     this.nbColonnes = tableau.nbColonnes ?? 1
     this.flecheHaut = tableau.flecheHaut ?? []
     this.flecheBas = tableau.flecheBas ?? []
@@ -163,9 +228,20 @@ export class AddTabPropMathlive {
     this.isInteractif = isInteractif
   }
 
-  static create (numeroExercice: number, question: number, tableau: Itableau, classes: string, isInteractif: boolean, style: ObjetParams) {
+  static create(
+    numeroExercice: number,
+    question: number,
+    tableau: Itableau,
+    classes: string,
+    isInteractif: boolean,
+    style: ObjetParams,
+  ) {
     if (!Array.isArray(tableau.ligne1) || !Array.isArray(tableau.ligne1)) {
-      notify('ajouteTableauMathlive : vérifiez vos paramètres !', { ligne1: tableau.ligne1, ligne2: tableau.ligne2, nbColonnes: tableau.nbColonnes })
+      notify('ajouteTableauMathlive : vérifiez vos paramètres !', {
+        ligne1: tableau.ligne1,
+        ligne2: tableau.ligne2,
+        nbColonnes: tableau.nbColonnes,
+      })
     }
     if (style == null) style = {}
     // ça, c'est pour ne pas modifier les lignes du tableau passé en argument
@@ -173,25 +249,77 @@ export class AddTabPropMathlive {
     const NoQ = question
     const ligne1 = [...tableau.ligne1]
     const ligne2 = [...tableau.ligne2]
-    const tableauMathlive: AddTabPropMathlive = new AddTabPropMathlive(numeroExercice, question, tableau, classes, isInteractif)
-    tableauMathlive.ligne1 = ligne1.map(el => JSON.parse(JSON.stringify(el))) // on clone les lignes pour ne pas modifier le tableau passé en argument
-    tableauMathlive.ligne2 = ligne2.map(el => JSON.parse(JSON.stringify(el)))
+    const tableauMathlive: AddTabPropMathlive = new AddTabPropMathlive(
+      numeroExercice,
+      question,
+      tableau,
+      classes,
+      isInteractif,
+    )
+    tableauMathlive.ligne1 = ligne1.map((el) => JSON.parse(JSON.stringify(el))) // on clone les lignes pour ne pas modifier le tableau passé en argument
+    tableauMathlive.ligne2 = ligne2.map((el) => JSON.parse(JSON.stringify(el)))
     const table = document.createElement('table')
     table.className = 'tableauMathlive'
     table.id = `tabMathliveEx${NoEx}Q${question}`
     const firstLine = document.createElement('tr')
     const entete1 = ligne1.shift()
-    if (entete1) appendCell({ isInteractif, line: firstLine, icell: entete1, indexCol: 0, indexLine: 0, tag: 'th', classes, NoEx, NoQ, style: style[`L${0}C${0}`] })
+    if (entete1)
+      appendCell({
+        isInteractif,
+        line: firstLine,
+        icell: entete1,
+        indexCol: 0,
+        indexLine: 0,
+        tag: 'th',
+        classes,
+        NoEx,
+        NoQ,
+        style: style[`L${0}C${0}`],
+      })
     for (let i = 0; i < ligne1.length; i++) {
-      appendCell({ isInteractif, line: firstLine, icell: ligne1[i], indexCol: i + 1, indexLine: 0, tag: 'td', classes, NoEx, NoQ, style: style[`L${0}C${i + 1}`] })
+      appendCell({
+        isInteractif,
+        line: firstLine,
+        icell: ligne1[i],
+        indexCol: i + 1,
+        indexLine: 0,
+        tag: 'td',
+        classes,
+        NoEx,
+        NoQ,
+        style: style[`L${0}C${i + 1}`],
+      })
     }
     table.appendChild(firstLine)
     // tableau de proportionnalité conforme à ceux définis dans src/lib/2d/tableau
     const secondLine = document.createElement('tr')
     const entete2 = ligne2.shift()
-    if (entete2) appendCell({ isInteractif, line: secondLine, icell: entete2, indexCol: 0, indexLine: 1, tag: 'th', classes, NoEx, NoQ, style: style[`L${1}C${0}`] })
+    if (entete2)
+      appendCell({
+        isInteractif,
+        line: secondLine,
+        icell: entete2,
+        indexCol: 0,
+        indexLine: 1,
+        tag: 'th',
+        classes,
+        NoEx,
+        NoQ,
+        style: style[`L${1}C${0}`],
+      })
     for (let i = 0; i < ligne2.length; i++) {
-      appendCell({ isInteractif, line: secondLine, icell: ligne2[i], indexCol: i + 1, indexLine: 1, tag: 'td', classes, NoEx, NoQ, style: style[`L${1}C${i + 1}`] })
+      appendCell({
+        isInteractif,
+        line: secondLine,
+        icell: ligne2[i],
+        indexCol: i + 1,
+        indexLine: 1,
+        tag: 'td',
+        classes,
+        NoEx,
+        NoQ,
+        style: style[`L${1}C${i + 1}`],
+      })
     }
     table.appendChild(secondLine)
     const spanCheckOuterHTML = `<span id="resultatCheckEx${numeroExercice}Q${question}"></span>`
@@ -209,7 +337,12 @@ export class AddTabPropMathlive {
    * @param tabEntetesLignes
    * @param tabLignes
    */
-  static convertTableauToTableauMathlive (lgn1: string[], lgn2: string[], gras: boolean = false, color: string = 'black'): Itableau {
+  static convertTableauToTableauMathlive(
+    lgn1: string[],
+    lgn2: string[],
+    gras: boolean = false,
+    color: string = 'black',
+  ): Itableau {
     const nbColonnes = Math.max(lgn1.length, lgn2.length)
     const ligne1: Icell[] = []
     const ligne2: Icell[] = []
@@ -222,13 +355,16 @@ export class AddTabPropMathlive {
     return { ligne1, ligne2, nbColonnes }
   }
 
-  get latexOutput ():string {
+  get latexOutput(): string {
     // retourne le tableau au format latex
-    let output = '\\begin{tabular}{|c|' + 'c|'.repeat(this.nbColonnes - 1) + '}\n'
+    let output =
+      '\\begin{tabular}{|c|' + 'c|'.repeat(this.nbColonnes - 1) + '}\n'
     output += '\\hline\n'
-    output += this.ligne1.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
+    output +=
+      this.ligne1.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
     output += '\\hline\n'
-    output += this.ligne2.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
+    output +=
+      this.ligne2.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
     output += '\\hline\n'
     output += '\\end{tabular}'
     return output
@@ -245,10 +381,18 @@ export class AddTabDbleEntryMathlive {
   headingLines: Icell[]
   classes: string
   isInteractif: boolean
-  private constructor (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string, isInteractif: boolean) {
+  private constructor(
+    numeroExercice: number,
+    question: number,
+    tableau: ItabDbleEntry,
+    classes: string,
+    isInteractif: boolean,
+  ) {
     if (numeroExercice == null) {
       // @ts-expect-error
-      window.notify('AddTabDbleEntryMathlive a besoin absolument d\'un numero d\'exercice')
+      window.notify(
+        "AddTabDbleEntryMathlive a besoin absolument d'un numero d'exercice",
+      )
     }
     this.headingCols = tableau.headingCols
     this.headingLines = tableau.headingLines
@@ -260,13 +404,33 @@ export class AddTabDbleEntryMathlive {
     this.isInteractif = isInteractif
   }
 
-  static create (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string, isInteractif: boolean, style: ObjetParams) {
+  static create(
+    numeroExercice: number,
+    question: number,
+    tableau: ItabDbleEntry,
+    classes: string,
+    isInteractif: boolean,
+    style: ObjetParams,
+  ) {
     // tableau doit contenir headingCols et headingLines, qui peuvent être vides, mais doivent être fournis.
-    if (!Array.isArray(tableau.headingCols) || !Array.isArray(tableau.headingLines)) {
-      notify('ajouteTableauMathlive : vérifiez vos paramètres !', { headingCols: tableau.headingCols, headingLines: tableau.headingLines })
+    if (
+      !Array.isArray(tableau.headingCols) ||
+      !Array.isArray(tableau.headingLines)
+    ) {
+      notify('ajouteTableauMathlive : vérifiez vos paramètres !', {
+        headingCols: tableau.headingCols,
+        headingLines: tableau.headingLines,
+      })
     }
     if (style == null) style = {}
-    const tableauMathlive: AddTabDbleEntryMathlive = new AddTabDbleEntryMathlive(numeroExercice, question, tableau, classes, isInteractif)
+    const tableauMathlive: AddTabDbleEntryMathlive =
+      new AddTabDbleEntryMathlive(
+        numeroExercice,
+        question,
+        tableau,
+        classes,
+        isInteractif,
+      )
     const table = document.createElement('table')
     const NoEx = numeroExercice ?? 0
     const NoQ = question
@@ -274,29 +438,72 @@ export class AddTabDbleEntryMathlive {
     table.id = `tabMathliveEx${numeroExercice}Q${question}`
     const firstLine = document.createElement('tr')
     table.appendChild(firstLine)
-    tableauMathlive.headingCols = tableau.headingCols.map(el => JSON.parse(JSON.stringify(el))) // on clone les lignes pour ne pas modifier le tableau passé en argument
+    tableauMathlive.headingCols = tableau.headingCols.map((el) =>
+      JSON.parse(JSON.stringify(el)),
+    ) // on clone les lignes pour ne pas modifier le tableau passé en argument
     if (tableau.headingCols != null) {
-      fillLine({ isInteractif, line: firstLine, content: tableau.headingCols, index: 0, tag: 'th', classes, NoEx, NoQ, style })
+      fillLine({
+        isInteractif,
+        line: firstLine,
+        content: tableau.headingCols,
+        index: 0,
+        tag: 'th',
+        classes,
+        NoEx,
+        NoQ,
+        style,
+      })
     }
     // lignes suivantes
     for (let j = 0; j < tableau.raws.length; j++) {
       const newLine = document.createElement('tr')
       table.appendChild(newLine)
       if (tableau.headingLines != null) {
-        tableauMathlive.headingLines = tableau.headingLines.map(el => JSON.parse(JSON.stringify(el))) // on clone les lignes pour ne pas modifier le tableau passé en argument
-        const sty = style[`L${tableau.headingCols != null ? 1 + j : j}C${0}`] || style[`LC${0}`]
-        appendCell({ isInteractif, line: newLine, icell: tableau.headingLines[j], indexCol: 0, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'th', classes, NoEx, NoQ, style: sty })
+        tableauMathlive.headingLines = tableau.headingLines.map((el) =>
+          JSON.parse(JSON.stringify(el)),
+        ) // on clone les lignes pour ne pas modifier le tableau passé en argument
+        const sty =
+          style[`L${tableau.headingCols != null ? 1 + j : j}C${0}`] ||
+          style[`LC${0}`]
+        appendCell({
+          isInteractif,
+          line: newLine,
+          icell: tableau.headingLines[j],
+          indexCol: 0,
+          indexLine: tableau.headingCols != null ? 1 + j : j,
+          tag: 'th',
+          classes,
+          NoEx,
+          NoQ,
+          style: sty,
+        })
         /*
         const head = document.createElement('th')
         head.textContent = `$${tableau.headingLines[j]}$`
         newLine.appendChild(head)
         */
       }
-      tableauMathlive.raws = tableau.raws.map(el => JSON.parse(JSON.stringify(el))) // on clone les raws pour ne pas modifier le tableau passé en argument
+      tableauMathlive.raws = tableau.raws.map((el) =>
+        JSON.parse(JSON.stringify(el)),
+      ) // on clone les raws pour ne pas modifier le tableau passé en argument
       const raw = tableau.raws[j]
       if (Array.isArray(raw) && raw.length > 0) {
         for (let i = 0; i < raw.length; i++) {
-          appendCell({ isInteractif, line: newLine, icell: raw[i], indexCol: tableau.headingLines != null ? i + 1 : i, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'td', classes, NoEx, NoQ, style: style[`L${tableau.headingCols != null ? 1 + j : j}C${tableau.headingLines != null ? i + 1 : i}`] })
+          appendCell({
+            isInteractif,
+            line: newLine,
+            icell: raw[i],
+            indexCol: tableau.headingLines != null ? i + 1 : i,
+            indexLine: tableau.headingCols != null ? 1 + j : j,
+            tag: 'td',
+            classes,
+            NoEx,
+            NoQ,
+            style:
+              style[
+                `L${tableau.headingCols != null ? 1 + j : j}C${tableau.headingLines != null ? i + 1 : i}`
+              ],
+          })
         }
       }
     }
@@ -307,12 +514,18 @@ export class AddTabDbleEntryMathlive {
     return tableauMathlive
   }
 
-  get latexOutput ():string {
+  get latexOutput(): string {
     if (this.headingCols.length === 0 && this.headingLines.length === 0) {
-      throw Error('Un tableau à double entrée doit avoir des entête de colonne et des entête de ligne')
+      throw Error(
+        'Un tableau à double entrée doit avoir des entête de colonne et des entête de ligne',
+      )
     }
-    const nbCols = this.headingCols.length > 0 ? this.headingCols.length : this.raws[0].length + (this.headingLines.length > 0 ? 1 : 0)
-    const nbLines = this.headingLines.length > 0 ? this.headingLines.length : this.raws.length
+    const nbCols =
+      this.headingCols.length > 0
+        ? this.headingCols.length
+        : this.raws[0].length + (this.headingLines.length > 0 ? 1 : 0)
+    const nbLines =
+      this.headingLines.length > 0 ? this.headingLines.length : this.raws.length
 
     // retourne le tableau au format latex
     let output = '\\begin{tabular}{|c|' + 'c|'.repeat(nbCols - 1) + '}\n'
@@ -322,7 +535,8 @@ export class AddTabDbleEntryMathlive {
         output += `$${this.headingLines[i].texte}$ & `
       }
       const raw = this.raws[i]
-      output += raw.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
+      output +=
+        raw.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
       output += '\\hline\n'
     }
     output += '\\end{tabular}'
@@ -337,26 +551,50 @@ export class AddTabDbleEntryMathlive {
    * @param tabEntetesLignes
    * @param tabLignes
    */
-  static convertTclToTableauMathlive (tabEntetesColonnes: (string | number)[], tabEntetesLignes: (string | number)[], tabLignes: (string | number)[], gras: boolean = true, color: string = 'black') {
+  static convertTclToTableauMathlive(
+    tabEntetesColonnes: (string | number)[],
+    tabEntetesLignes: (string | number)[],
+    tabLignes: (string | number)[],
+    gras: boolean = true,
+    color: string = 'black',
+  ) {
     const headingCols: Icell[] = []
     for (const enTete of tabEntetesColonnes) {
       headingCols.push({ texte: enTete.toString(), latex: true, gras, color })
     }
     const headingLines: Icell[] = []
     for (const enTete of tabEntetesLignes) {
-      headingLines.push({ texte: enTete.toString(), latex: (!enTete.toString().includes('<pre class')), gras, color })
+      headingLines.push({
+        texte: enTete.toString(),
+        latex: !enTete.toString().includes('<pre class'),
+        gras,
+        color,
+      })
     }
     const raws: Array<Icell[]> = []
     const haveHeadC = headingCols.length > 0
     const haveHeadL = headingLines.length > 0
-    if (!haveHeadL && !haveHeadC) throw Error('Un tableau à double entrée doit avoir des entête de colonne et des entête de ligne')
+    if (!haveHeadL && !haveHeadC)
+      throw Error(
+        'Un tableau à double entrée doit avoir des entête de colonne et des entête de ligne',
+      )
     // on boucle sur les lignes mais il peut ne pas y avoir de headingLines ! On doit alors diviser le nombre de cellules par le nombre de colonnes à remplir.
-    const nbCols = haveHeadL && haveHeadC ? headingCols.length - 1 : haveHeadC ? headingCols.length : tabLignes.length / headingLines.length
+    const nbCols =
+      haveHeadL && haveHeadC
+        ? headingCols.length - 1
+        : haveHeadC
+          ? headingCols.length
+          : tabLignes.length / headingLines.length
     const nbLines = haveHeadL ? headingLines.length : tabLignes.length / nbCols
     for (let i = 0; i < nbLines; i++) {
       const raw: Icell[] = []
       for (let j = 0; j < nbCols; j++) {
-        raw.push({ texte: tabLignes[i * nbCols + j].toString(), latex: true, gras, color })
+        raw.push({
+          texte: tabLignes[i * nbCols + j].toString(),
+          latex: true,
+          gras,
+          color,
+        })
       }
       raws.push(raw)
     }

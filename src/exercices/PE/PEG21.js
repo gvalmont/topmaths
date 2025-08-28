@@ -1,13 +1,19 @@
 import { cercle } from '../../lib/2d/cercle'
 import { droite } from '../../lib/2d/droites'
-import { milieu, point, pointAdistance, pointIntersectionLC } from '../../lib/2d/points'
+import {
+  milieu,
+  point,
+  pointAdistance,
+  pointIntersectionLC,
+} from '../../lib/2d/points'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
-export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de la hauteur'
+export const titre =
+  "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de la hauteur"
 
 export const dateDePublication = '1/11/2021'
 
@@ -19,18 +25,26 @@ export const uuid = '838fb'
 
 export const refs = {
   'fr-fr': ['PEG21'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class RacineCarrAvecTheoremeHauteur extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
   }
 
-  nouvelleVersion (numeroExercice) {
-    const couplesPossibles = [[1, 5], [2, 3], [1, 7], [2, 4], [2, 5], [3, 4], [3, 5]]
+  nouvelleVersion(numeroExercice) {
+    const couplesPossibles = [
+      [1, 5],
+      [2, 3],
+      [1, 7],
+      [2, 4],
+      [2, 5],
+      [3, 4],
+      [3, 5],
+    ]
     const couple = choice(couplesPossibles)
     const a = couple[0]
     const b = couple[1]
@@ -67,7 +81,11 @@ export default class RacineCarrAvecTheoremeHauteur extends Exercice {
     }
     anim.pointCreer(H)
     anim.pointCreer(B)
-    anim.mediatriceAuCompas(Ax[a - 1], Ax[a + 1], { coderFigure: false, longueur1: 5, longueur2: -5 })
+    anim.mediatriceAuCompas(Ax[a - 1], Ax[a + 1], {
+      coderFigure: false,
+      longueur1: 5,
+      longueur2: -5,
+    })
     anim.crayonMasquer()
     if ((a + b) % 2 === 0) {
       anim.compasEcarter2Points(Ax[(a + b) / 2], B)
@@ -87,17 +105,21 @@ export default class RacineCarrAvecTheoremeHauteur extends Exercice {
     let texteCorr = texteGras('Programme de construction :')
     texteCorr += `<br>$${r}=${a}\\times ${b}$`
     texteCorr += `<br>On place 3 points $A$, $H$ et $B$ alignés tels que $AH = ${a}u$ et $BH = ${b}u$.`
-    texteCorr += '<br>On trace la perpendiculaire à $(AB)$ passant par $H$ (pour cela on choisit 2 points $M$ et $N$ sur $[AB]$ tels que $H$ soit le milieu de $[MN]$ puis on trace la médiatrice de $[MN]$).'
+    texteCorr +=
+      '<br>On trace la perpendiculaire à $(AB)$ passant par $H$ (pour cela on choisit 2 points $M$ et $N$ sur $[AB]$ tels que $H$ soit le milieu de $[MN]$ puis on trace la médiatrice de $[MN]$).'
     if ((a + b) % 2 === 0) {
       texteCorr += `<br> $AB = ${a + b}u$, il est facile de trouver le milieu de $[AB]$.`
     } else {
       texteCorr += `<br> $AB = ${a + b}u$, il faut tracer la médiatrice de $[AB]$ pour trouver son milieu.`
     }
     texteCorr += '<br>On trace un demi-cercle de diamètre $[AB]$.'
-    texteCorr += '<br>On place le point $C$ à l\'intersection du cercle et de la perpendiculaire à $(AB)$ passant par $H$.'
+    texteCorr +=
+      "<br>On place le point $C$ à l'intersection du cercle et de la perpendiculaire à $(AB)$ passant par $H$."
     texteCorr += '<br><br>' + texteGras('Justification :')
-    texteCorr += '<br> Le triangle $ABC$ est inscrit dans un cercle de diamètre $[AB]$, il est donc rectangle en $C$.'
-    texteCorr += '<br> Les droites $(CH)$ et $(AB)$ sont perpendiculaires en $H$ donc $H$ est le pied de la hauteur relative à l\'hypoténuse du triangle $ABC$.'
+    texteCorr +=
+      '<br> Le triangle $ABC$ est inscrit dans un cercle de diamètre $[AB]$, il est donc rectangle en $C$.'
+    texteCorr +=
+      "<br> Les droites $(CH)$ et $(AB)$ sont perpendiculaires en $H$ donc $H$ est le pied de la hauteur relative à l'hypoténuse du triangle $ABC$."
     texteCorr += `<br> D'après le théorème de la hauteur, on a : $CH = \\sqrt{AH \\times HB}= \\sqrt{${a}u \\times ${b}u}=\\sqrt{${r}}u$.`
     texteCorr += anim.html(numeroExercice)
 

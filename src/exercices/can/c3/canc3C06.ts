@@ -19,10 +19,10 @@ export const uuid = '3ca23'
 
 export const refs = {
   'fr-fr': ['canc3C06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComplementAuDixiemeOuALaDizaine extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,10 +30,11 @@ export default class ComplementAuDixiemeOuALaDizaine extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b
-    if (choice([true, false])) { // décimal ou entier ?
-      a = arrondi((randint(1, 5) * 10 + randint(1, 9) / 10))
+    if (choice([true, false])) {
+      // décimal ou entier ?
+      a = arrondi(randint(1, 5) * 10 + randint(1, 9) / 10)
       b = Math.ceil(a)
       this.reponse = arrondi(b - a)
       this.question = `Compléter : $${texNombre(a)}+\\dots=${b}$`
@@ -41,7 +42,7 @@ export default class ComplementAuDixiemeOuALaDizaine extends ExerciceSimple {
       this.canEnonce = 'Compléter.'
       this.canReponseACompleter = `$${texNombre(a)}+\\dots=${b}$`
     } else {
-      a = arrondi((randint(2, 5) * 100 + randint(1, 9) * 10 + randint(1, 9)))
+      a = arrondi(randint(2, 5) * 100 + randint(1, 9) * 10 + randint(1, 9))
       b = Math.ceil(a / 10) * 10
       this.reponse = b - a
       this.question = `Compléter : $${a}+\\dots=${b}$`

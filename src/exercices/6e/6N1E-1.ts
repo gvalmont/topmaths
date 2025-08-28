@@ -1,13 +1,20 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { choice, combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  enleveDoublonNum,
+} from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -17,22 +24,23 @@ export const interactifType = 'mathLive'
 export const interactifReady = true
 
 /**
-* Lier nombre décimal, fraction spécifique et pourcentage
-* @author Eric Elter
-*/
+ * Lier nombre décimal, fraction spécifique et pourcentage
+ * @author Eric Elter
+ */
 
 export const uuid = '13f50'
 
 export const refs = {
   'fr-fr': ['6N1E-1'],
   'fr-2016': ['6N23-11'],
-  'fr-ch': ['']
+  'fr-ch': [''],
 }
 export default class DecimalFractionPourcentage extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Type de fractions désirées', [
+      'Type de fractions désirées',
+      [
         'Nombres séparés par des tirets  :',
         '1 : 1/4',
         '2 : 1/2',
@@ -46,23 +54,30 @@ export default class DecimalFractionPourcentage extends Exercice {
         '10 : 7/10',
         '11 : 4/5',
         '12 : 9/10',
-        '13 : Mélange'
-      ].join('\n')
+        '13 : Mélange',
+      ].join('\n'),
     ]
 
     this.sup = 13
     this.nbQuestions = 1
-    this.consigne = 'Dans chaque colonne de ce tableau, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter ce tableau.'
-    this.comment = 'Le tableau contiendra toujours 6 colonnes.<br>Un paramètre permettra de choisir des fractions.<br>'
-    this.comment += 'Si vous en choisissez plus que 6, alors un choix aléatoire sera fait parmi les fractions choisies pour n\'en garder que 6.<br>'
-    this.comment += 'Si vous en choisissez moins que 6, alors un choix aléatoire sera fait parmi les fractions non choisies pour compléter jusque 6 fractions.'
+    this.consigne =
+      'Dans chaque colonne de ce tableau, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter ce tableau.'
+    this.comment =
+      'Le tableau contiendra toujours 6 colonnes.<br>Un paramètre permettra de choisir des fractions.<br>'
+    this.comment +=
+      "Si vous en choisissez plus que 6, alors un choix aléatoire sera fait parmi les fractions choisies pour n'en garder que 6.<br>"
+    this.comment +=
+      'Si vous en choisissez moins que 6, alors un choix aléatoire sera fait parmi les fractions non choisies pour compléter jusque 6 fractions.'
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions === 1
-      ? 'Dans chaque colonne de ce tableau, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter ce tableau.'
-      : 'Dans chaque colonne de ces tableaux, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter les tableaux suivants.'
-    const numerateursSpecifiques = [25, 50, 75, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Dans chaque colonne de ce tableau, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter ce tableau.'
+        : 'Dans chaque colonne de ces tableaux, il y a un unique nombre exprimé sous 3 formes différentes.<br>Compléter les tableaux suivants.'
+    const numerateursSpecifiques = [
+      25, 50, 75, 10, 20, 30, 40, 50, 60, 70, 80, 90,
+    ]
 
     const numerateur = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -71,27 +86,35 @@ export default class DecimalFractionPourcentage extends Exercice {
       defaut: 13,
       melange: 13,
       nbQuestions: 6,
-      listeOfCase: numerateursSpecifiques
+      listeOfCase: numerateursSpecifiques,
     })
 
-    let numerateurAuFormatNumber: number[] = numerateur
-      .filter((val): val is number => typeof val === 'number')
+    let numerateurAuFormatNumber: number[] = numerateur.filter(
+      (val): val is number => typeof val === 'number',
+    )
     numerateurAuFormatNumber = enleveDoublonNum(numerateurAuFormatNumber)
 
     const longueurListe = numerateurAuFormatNumber.length
     if (longueurListe < 6) {
       for (let i = longueurListe; i < 6; i++) {
-        numerateurAuFormatNumber.push(choice(numerateursSpecifiques, numerateurAuFormatNumber))
+        numerateurAuFormatNumber.push(
+          choice(numerateursSpecifiques, numerateurAuFormatNumber),
+        )
       }
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const nbfractionDecimaleEtPourcentage = function (i:number) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      const nbfractionDecimaleEtPourcentage = function (i: number) {
         const nbNum = numerateurAuFormatNumber[i]
         return {
           decimal: texNombre(arrondi(nbNum / 100)),
-          fractionDecimale: new FractionEtendue(nbNum, 100).simplifie().texFraction,
-          pourcentage: texNombre(nbNum)
+          fractionDecimale: new FractionEtendue(nbNum, 100).simplifie()
+            .texFraction,
+          pourcentage: texNombre(nbNum),
         }
       }
 
@@ -138,19 +161,37 @@ export default class DecimalFractionPourcentage extends Exercice {
       const enonces = []
       enonces.push({
         tabEntetesColonnes: [],
-        tabEntetesLignes: ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'],
+        tabEntetesLignes: [
+          '\\text{Nombre décimal}',
+          '\\text{Fraction}',
+          '\\text{Pourcentage}',
+        ],
         tabLines: nbDecimal.concat(fractionDecimale).concat(pourcentage),
-        tabLinesCorr: nbDecimalCorrNu.concat(fractionDecimaleCorrNu).concat(pourcentageCorrNu),
+        tabLinesCorr: nbDecimalCorrNu
+          .concat(fractionDecimaleCorrNu)
+          .concat(pourcentageCorrNu),
         enonce: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], nbDecimal.concat(fractionDecimale).concat(pourcentage))}`,
-        correction: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr))}`
+        correction: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr))}`,
       })
       let objetReponse = {}
       for (let i = 0; i < enonces[0].tabLines.length; i++) {
         if (enonces[0].tabLines[i] === '') {
-          const ligne = Math.floor(i / (6))
-          const colonne = i % (6)
+          const ligne = Math.floor(i / 6)
+          const colonne = i % 6
           const ref = `L${ligne + 1}C${colonne + 1}`
-          const valeur = Object.assign({}, { value: ligne === 2 ? `${enonces[0].tabLinesCorr[i]}`.slice(0, 2) : `${enonces[0].tabLinesCorr[i]}`, options: ligne === 1 ? { fractionEgale: true } : { nombreDecimalSeulement: true } })
+          const valeur = Object.assign(
+            {},
+            {
+              value:
+                ligne === 2
+                  ? `${enonces[0].tabLinesCorr[i]}`.slice(0, 2)
+                  : `${enonces[0].tabLinesCorr[i]}`,
+              options:
+                ligne === 1
+                  ? { fractionEgale: true }
+                  : { nombreDecimalSeulement: true },
+            },
+          )
           const cellule = Object.fromEntries([[ref, valeur]])
           objetReponse = Object.assign(objetReponse, cellule)
         }
@@ -158,24 +199,42 @@ export default class DecimalFractionPourcentage extends Exercice {
 
       objetReponse = Object.assign(objetReponse, {
         bareme: (listePoints: number[]) => {
-          return [Math.floor(listePoints.reduce((a, b) => a + b / 2, 0)), listePoints.length / 2]
-        }
+          return [
+            Math.floor(listePoints.reduce((a, b) => a + b / 2, 0)),
+            listePoints.length / 2,
+          ]
+        },
       })
       handleAnswers(this, i, objetReponse)
 
       if (this.interactif) {
-        const tableau = AddTabDbleEntryMathlive.convertTclToTableauMathlive(enonces[0].tabEntetesColonnes, enonces[0].tabEntetesLignes, enonces[0].tabLines)
+        const tableau = AddTabDbleEntryMathlive.convertTclToTableauMathlive(
+          enonces[0].tabEntetesColonnes,
+          enonces[0].tabEntetesLignes,
+          enonces[0].tabLines,
+        )
         for (let j = 0; j < tableau.raws[2].length; j++) {
-          if (tableau.raws[2][j].texte === '') Object.assign(tableau.raws[2][j], { options: { texteApres: '$~\\%$' } })
+          if (tableau.raws[2][j].texte === '')
+            Object.assign(tableau.raws[2][j], {
+              options: { texteApres: '$~\\%$' },
+            })
         }
-        const leTableau = AddTabDbleEntryMathlive.create(this.numeroExercice ?? 0, i, tableau, `tableauMathlive ${KeyboardType.clavierDeBaseAvecFraction}`, true, {})
+        const leTableau = AddTabDbleEntryMathlive.create(
+          this.numeroExercice ?? 0,
+          i,
+          tableau,
+          `tableauMathlive ${KeyboardType.clavierDeBaseAvecFraction}`,
+          true,
+          {},
+        )
         texte = leTableau.output
       } else {
         texte = `${enonces[0].enonce}`
       }
       texteCorr = `${enonces[0].correction}`
 
-      if (this.questionJamaisPosee(i, JSON.stringify(objetReponse))) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, JSON.stringify(objetReponse))) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -1,9 +1,15 @@
 <script lang="ts">
   import Sortable from 'sortablejs'
   import ChipExo from './ChipExo.svelte'
-  import { exercicesParams, moveExercice } from '../../../lib/stores/generalStore'
+  import {
+    exercicesParams,
+    moveExercice,
+  } from '../../../lib/stores/generalStore'
   import { onMount } from 'svelte'
-  import { uuidCount, exercisesUuidRanking } from '../../../lib/components/counts'
+  import {
+    uuidCount,
+    exercisesUuidRanking,
+  } from '../../../lib/components/counts'
   import { getUniqueStringBasedOnTimeStamp } from '../../../lib/components/time'
   import type { ChipContentType } from '../../../lib/types'
   export let chipsListDisplayed: boolean
@@ -22,7 +28,7 @@
       const obj: ChipContentType = {
         ref: ex.id ?? ex.uuid,
         title: `${ex.id ?? ex.uuid}${insert}`,
-        key: keyValue
+        key: keyValue,
       }
       lIFC.push(obj)
     }
@@ -38,7 +44,7 @@
         exercicesParams.update((l) => {
           return moveExercice(l, evt.oldIndex, evt.newIndex)
         })
-      }
+      },
     })
   })
 </script>
@@ -48,13 +54,13 @@
     <button
       class="absolute -right-3 -top-3"
       type="button"
-      on:click={() => {
+      on:click="{() => {
         chipsListDisplayed = false
-      }}
+      }}"
     >
       <i
         class="bx bx-x text-2xl text-coopmaths-action hover:text-coopmaths-action-lightest"
-      />
+      ></i>
     </button>
     <div class="text-coopmaths-struct font-semibold text-lg">
       Réorganisation des exercices
@@ -68,7 +74,7 @@
     id="chips-list"
   >
     {#each listIdsForChips as id, indice (id.key)}
-      <ChipExo text={id.title} {indice} />
+      <ChipExo text="{id.title}" {indice} />
     {/each}
   </div>
 </div>

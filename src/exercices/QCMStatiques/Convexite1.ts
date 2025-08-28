@@ -3,7 +3,7 @@ import ExerciceQcm from '../ExerciceQcm'
 export const uuid = '9bfb4'
 export const refs = {
   'fr-fr': ['TSA2-QCM02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,20 +25,21 @@ export const dateDePublication = '03/11/2024'
 export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      '$f\'(x_2)\\geqslant f\'(x_1)$',
-      '$f\'\'(x_2)\\geqslant f\'\'(x_1)$',
-      '$f\'(x_1)\\geqslant f\'(x_2)$',
-      '$f^{\\prime\\prime}(x_2)\\leqslant f\'\'(x_1)$'
-
+      "$f'(x_2)\\geqslant f'(x_1)$",
+      "$f''(x_2)\\geqslant f''(x_1)$",
+      "$f'(x_1)\\geqslant f'(x_2)$",
+      "$f^{\\prime\\prime}(x_2)\\leqslant f''(x_1)$",
     ]
 
-    this.enonce = 'Soit $f$ une fonction deux fois dérivable et convexe sur un intervalle $[a;b]$.<br> On a alors pour tout $x_1$ et $x_2$ vérifiant : $a\\leqslant x_1\\leqslant x_2\\leqslant b$'
+    this.enonce =
+      'Soit $f$ une fonction deux fois dérivable et convexe sur un intervalle $[a;b]$.<br> On a alors pour tout $x_1$ et $x_2$ vérifiant : $a\\leqslant x_1\\leqslant x_2\\leqslant b$'
 
-    this.correction = 'La fonction étant convexe sur l\'intervalle $[a;b]$, la dérivée de $f$ est une fonction croissante sur l\'intervalle.<br> '
-    this.correction += ' Il vient alors que $f\'(x_2)\\geqslant f\'(x_1)$'
+    this.correction =
+      "La fonction étant convexe sur l'intervalle $[a;b]$, la dérivée de $f$ est une fonction croissante sur l'intervalle.<br> "
+    this.correction += " Il vient alors que $f'(x_2)\\geqslant f'(x_1)$"
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

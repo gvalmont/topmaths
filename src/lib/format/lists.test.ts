@@ -13,7 +13,7 @@ item 1\\par
 <ul class='none'>
 <li>item 1</li>
 </ul>
-`
+`,
 }
 const simpleNone2Items = {
   name: 'simple none style two items',
@@ -29,7 +29,7 @@ item 2\\par
 <li>item 1</li>
 <li>item 2</li>
 </ul>
-`
+`,
 }
 const simplePuces = {
   name: 'simples puces styles',
@@ -43,7 +43,7 @@ const simplePuces = {
 <ul class='puces'>
 	<li>item 1</li>
 </ul>
-`
+`,
 }
 const simplePuces2Items = {
   name: 'simple puces style 2 items',
@@ -59,14 +59,14 @@ const simplePuces2Items = {
 	<li>item 1</li>
 	<li>item 2</li>
 </ul>
-`
+`,
 }
 
 const listWithDescriptionItem = {
   name: 'description item',
   input: {
     items: ['item 1', { description: 'en-tête', text: 'texte' }, 'item 3'],
-    style: 'puces'
+    style: 'puces',
   },
   htmlOut: `
 <ul class='puces'>
@@ -81,13 +81,19 @@ const listWithDescriptionItem = {
 	\\item[\\textbf{en-tête}] texte
 	\\item item 3
 \\end{itemize}
-`
-
+`,
 }
 
 const listWithIntroAndSubList = {
   name: 'intro and sublist',
-  input: { items: ['item 1', 'item 2', { items: ['item 3'], style: 'carres', introduction: 'intro' }], style: 'puces' },
+  input: {
+    items: [
+      'item 1',
+      'item 2',
+      { items: ['item 3'], style: 'carres', introduction: 'intro' },
+    ],
+    style: 'puces',
+  },
   htmlOut: `
 <ul class='puces'>
 	<li>item 1</li>
@@ -109,7 +115,7 @@ const listWithIntroAndSubList = {
 	\\end{itemize}
 
 \\end{itemize}
-`
+`,
 }
 
 describe.each([
@@ -118,7 +124,7 @@ describe.each([
   simplePuces,
   simplePuces2Items,
   listWithDescriptionItem,
-  listWithIntroAndSubList
+  listWithIntroAndSubList,
 ])('$name', ({ input, htmlOut, latexOut }) => {
   test('html output', () => {
     setOutputHtml()

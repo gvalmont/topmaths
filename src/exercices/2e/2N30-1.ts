@@ -1,5 +1,6 @@
 import Exercice from '../6e/auto6N2B-6'
-export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
+export const titre =
+  "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
 export const interactifType = 'custom'
 /**
@@ -9,11 +10,11 @@ export const uuid = '45726'
 
 export const refs = {
   'fr-fr': ['2N30-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class ExerciceFractionsDifferentesEcritures extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 2
   }

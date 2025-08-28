@@ -9,7 +9,7 @@ export const uuid = '4c3c0'
 
 export const refs = {
   'fr-fr': ['1A-F3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -41,19 +41,20 @@ $f_2$ est une fonction affine avec $m=\\dfrac{1}{2}$ et $p=-\\left(1+\\dfrac{1}{
 
     this.reponses = [
       'Toutes ces fonctions sont affines',
-      'Aucune de ces fonctions n\'est affine',
+      "Aucune de ces fonctions n'est affine",
       'Uniquement la fonction $f_1$ est affine',
-      'Uniquement les fonctions $f_2$ et $f_3$ sont affines'
+      'Uniquement les fonctions $f_2$ et $f_3$ sont affines',
     ]
   }
 
   versionAleatoire = () => {
     const cas = randint(1, 4)
-    const cours = 'On cherche si les fonctions $f$ peuvent s\'écrire sous la forme $f(x)=mx+p$.<br>'
+    const cours =
+      "On cherche si les fonctions $f$ peuvent s'écrire sous la forme $f(x)=mx+p$.<br>"
     switch (cas) {
       case 1: // Toutes ces fonctions sont affines
         {
-        // Pour f1 : ax² - (ax + b)(x - c) = ax² - (ax² - acx + bx - bc) = (ac - b)x + bc
+          // Pour f1 : ax² - (ax + b)(x - c) = ax² - (ax² - acx + bx - bc) = (ac - b)x + bc
           const a1 = randint(2, 5)
           const b1 = randint(1, 4)
           const c1 = randint(2, 4)
@@ -73,7 +74,9 @@ $f_2$ est une fonction affine avec $m=\\dfrac{1}{2}$ et $p=-\\left(1+\\dfrac{1}{
 
         On peut affirmer que :`
 
-          this.correction = cours + ` $\\bullet$ En développant, on obtient :<br> 
+          this.correction =
+            cours +
+            ` $\\bullet$ En développant, on obtient :<br> 
         $\\begin{aligned}
         f_1(x)&=${a1}x^2-(${a1}x+${b1})(x-${c1})\\\\
         &=${a1}x^2-(${a1}x^2-${a1 * c1}x+${b1}x-${b1 * c1})\\\\
@@ -90,9 +93,9 @@ $f_2$ est une fonction affine avec $m=\\dfrac{1}{2}$ et $p=-\\left(1+\\dfrac{1}{
 ${texteEnCouleurEtGras('Toutes ces fonctions sont affines.')}`
           this.reponses = [
             'Toutes ces fonctions sont affines',
-            'Aucune de ces fonctions n\'est affine',
+            "Aucune de ces fonctions n'est affine",
             'Uniquement la fonction $f_1$ est affine',
-            'Uniquement les fonctions $f_2$ et $f_3$ sont affines'
+            'Uniquement les fonctions $f_2$ et $f_3$ sont affines',
           ]
         }
         break
@@ -113,7 +116,9 @@ ${texteEnCouleurEtGras('Toutes ces fonctions sont affines.')}`
 
         On peut affirmer que :`
 
-          this.correction = cours + ` $\\bullet$ $f_1(x)=\\dfrac{${a1}x+${b1}}{x}=${a1}+\\dfrac{${b1}}{x}$<br>
+          this.correction =
+            cours +
+            ` $\\bullet$ $f_1(x)=\\dfrac{${a1}x+${b1}}{x}=${a1}+\\dfrac{${b1}}{x}$<br>
         Après simplification, cette fonction contient un terme en $\\dfrac{1}{x}$, elle n'est donc pas affine.<br>
         
          $\\bullet$ $f_2(x)=${a2}\\sqrt{x}-${c1}$<br>
@@ -121,20 +126,20 @@ ${texteEnCouleurEtGras('Toutes ces fonctions sont affines.')}`
 
         $\\bullet$ $f_3(x)=\\dfrac{${a3}}{x}+${b3}$<br>
         Cette fonction contient un terme en $\\dfrac{1}{x}$, elle n'est donc pas affine.<br>
-${texteEnCouleurEtGras('Aucune de ces fonctions n\'est affine.')}`
+${texteEnCouleurEtGras("Aucune de ces fonctions n'est affine.")}`
           this.reponses = [
-            'Aucune de ces fonctions n\'est affine',
+            "Aucune de ces fonctions n'est affine",
             'Toutes ces fonctions sont affines',
             'Uniquement la fonction $f_1$ est affine',
-            'Uniquement les fonctions $f_2$ et $f_3$ sont affines'
+            'Uniquement les fonctions $f_2$ et $f_3$ sont affines',
           ]
         }
         break
 
       case 3: // Uniquement la fonction f_1 est affine
         {
-        // Pour f1 : ax² - (x + b)(x - c) = ax² - (x² - cx + bx - bc) = (a-1)x² + (c-b)x + bc
-        // Pour que ce soit affine, il faut a = 1
+          // Pour f1 : ax² - (x + b)(x - c) = ax² - (x² - cx + bx - bc) = (a-1)x² + (c-b)x + bc
+          // Pour que ce soit affine, il faut a = 1
           const b1 = randint(2, 5)
           const c1 = randint(3, 7, b1)
 
@@ -149,7 +154,9 @@ ${texteEnCouleurEtGras('Aucune de ces fonctions n\'est affine.')}`
 
         On peut affirmer que :`
 
-          this.correction = cours + ` $\\bullet$ En développant, on obtient :<br> 
+          this.correction =
+            cours +
+            ` $\\bullet$ En développant, on obtient :<br> 
         $\\begin{aligned}
         f_1(x)&=x^2-(x+${b1})(x-${c1})\\\\
         &=x^2-(x^2-${c1}x+${b1}x-${b1 * c1})\\\\
@@ -167,8 +174,8 @@ ${texteEnCouleurEtGras('Aucune de ces fonctions n\'est affine.')}`
           this.reponses = [
             'Uniquement la fonction $f_1$ est affine',
             'Toutes ces fonctions sont affines',
-            'Aucune de ces fonctions n\'est affine',
-            'Uniquement les fonctions $f_2$ et $f_3$ sont affines'
+            "Aucune de ces fonctions n'est affine",
+            'Uniquement les fonctions $f_2$ et $f_3$ sont affines',
           ]
         }
         break
@@ -192,7 +199,9 @@ ${texteEnCouleurEtGras('Aucune de ces fonctions n\'est affine.')}`
 
         On peut affirmer que :`
 
-          this.correction = cours + ` $\\bullet$ $f_1(x)=${a1}x^2+${b1}$<br>
+          this.correction =
+            cours +
+            ` $\\bullet$ $f_1(x)=${a1}x^2+${b1}$<br>
         Cette fonction contient un terme en $x^2$, elle n'est donc pas affine.<br>
         
          $\\bullet$ En développant, on obtient :<br> 
@@ -211,15 +220,15 @@ ${texteEnCouleurEtGras('Aucune de ces fonctions n\'est affine.')}`
           this.reponses = [
             'Uniquement les fonctions $f_2$ et $f_3$ sont affines',
             'Toutes ces fonctions sont affines',
-            'Aucune de ces fonctions n\'est affine',
-            'Uniquement la fonction $f_1$ est affine'
+            "Aucune de ces fonctions n'est affine",
+            'Uniquement la fonction $f_1$ est affine',
           ]
         }
         break
     }
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
     this.options = { vertical: true, ordered: false }

@@ -19,10 +19,10 @@ export const uuid = 'af398'
 
 export const refs = {
   'fr-fr': ['can2C22'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculExpAvecValeurs extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -33,29 +33,52 @@ export default class CalculExpAvecValeurs extends ExerciceSimple {
     this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d, frac1
     switch (randint(1, 2)) {
       case 1:
         {
-          frac1 = choice([[1, 3], [2, 3], [3, 4], [1, 4], [2, 5], [1, 2], [1, 6], [1, 7]])
+          frac1 = choice([
+            [1, 3],
+            [2, 3],
+            [3, 4],
+            [1, 4],
+            [2, 5],
+            [1, 2],
+            [1, 6],
+            [1, 7],
+          ])
           a = new FractionEtendue(frac1[0], frac1[1])
           b = randint(1, 9)
           c = randint(-9, 9, [-2, -1, 0, 1, 2])
           d = choice([new FractionEtendue(1, c), new FractionEtendue(1, -c)])
           const candidats: FractionEtendue[] = [
-            new FractionEtendue(a.num * d.num * c + b * d.den, a.den * d.num * c),
-            new FractionEtendue(a.num * d.den * c + b * d.num * a.den, a.den * d.den * c),
-            a.sommeFraction(new FractionEtendue(b, c * d.num / d.den)),
-            new FractionEtendue(a.num * d.num * c + b * d.den * a.den, a.den * d.num),
+            new FractionEtendue(
+              a.num * d.num * c + b * d.den,
+              a.den * d.num * c,
+            ),
+            new FractionEtendue(
+              a.num * d.den * c + b * d.num * a.den,
+              a.den * d.den * c,
+            ),
+            a.sommeFraction(new FractionEtendue(b, (c * d.num) / d.den)),
+            new FractionEtendue(
+              a.num * d.num * c + b * d.den * a.den,
+              a.den * d.num,
+            ),
             a.sommeFraction(new FractionEtendue(b, 1)), // celui qui cause l'ambiguïté
-            new FractionEtendue(a.num * d.num * c - b * d.den * a.den, a.den * d.num * c),
+            new FractionEtendue(
+              a.num * d.num * c - b * d.den * a.den,
+              a.den * d.num * c,
+            ),
           ]
           const num = a.num * d.num * c + b * d.den * a.den
           const den = a.den * d.num * c
 
           const bonneReponse = new FractionEtendue(num, den).simplifie()
-          this.reponse = this.versionQcm ? `$${bonneReponse.texFractionSimplifiee}$` : bonneReponse
+          this.reponse = this.versionQcm
+            ? `$${bonneReponse.texFractionSimplifiee}$`
+            : bonneReponse
 
           this.question = `
 On considère la relation  $F=a+\\dfrac{b}{cd}$.<br>
@@ -78,7 +101,7 @@ Calculer $F$ lorsque  $a=${a.texFraction}$, $b=${b}$, $c=${c}$ et $d=${d.texFrac
             const simpl = frac.simplifie().texFractionSimplifiee
             if (
               simpl !== bonneReponse.texFractionSimplifiee &&
-    !distracteursValides.includes(`$${simpl}$`)
+              !distracteursValides.includes(`$${simpl}$`)
             ) {
               distracteursValides.push(`$${simpl}$`)
             }
@@ -95,11 +118,24 @@ Calculer $F$ lorsque  $a=${a.texFraction}$, $b=${b}$, $c=${c}$ et $d=${d.texFrac
         break
       case 2:
         {
-          const fracB = choice([[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7]])
+          const fracB = choice([
+            [1, 2],
+            [1, 3],
+            [1, 4],
+            [1, 5],
+            [1, 6],
+            [1, 7],
+          ])
           b = new FractionEtendue(fracB[0], fracB[1]) // numérateur 1
           a = randint(1, 5)
           c = randint(4, 4, 0)
-          const fracD = choice([[1, 2], [2, 3], [3, 4], [1, 4], [3, 5]])
+          const fracD = choice([
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [1, 4],
+            [3, 5],
+          ])
           d = new FractionEtendue(fracD[0], fracD[1])
           const div = new FractionEtendue(a * b.den, b.num)
           const prod = new FractionEtendue(c * d.num, d.den) // c * d
@@ -130,13 +166,15 @@ Calculer $F$ lorsque $a=${a}$, $b=${b.texFraction}$, $c=${c}$ et $d=${d.texFract
 
           this.distracteurs = [
             `$${dist1.texFractionSimplifiee}$`,
-          `$${dist2.texFractionSimplifiee}$`,
-            `$${erreur3.texFractionSimplifiee}$`
+            `$${dist2.texFractionSimplifiee}$`,
+            `$${erreur3.texFractionSimplifiee}$`,
           ]
         }
 
         break
     }
-    if (!this.interactif && !this.versionQcm) { this.question += ' $\\ldots$' }
+    if (!this.interactif && !this.versionQcm) {
+      this.question += ' $\\ldots$'
+    }
   }
 }

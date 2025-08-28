@@ -22,19 +22,35 @@ referentielFR.BrevetTags = {}
 const setTagsDNB = new Set()
 
 for (const ex in dictionnaireDNB) {
-  dictionnaireDNB[ex].tags.forEach(e => {
+  dictionnaireDNB[ex].tags.forEach((e) => {
     setTagsDNB.add(e)
   })
 }
 
 for (const ex in dictionnaireDNBPRO) {
-  dictionnaireDNBPRO[ex].tags.forEach(e => {
+  dictionnaireDNBPRO[ex].tags.forEach((e) => {
     setTagsDNB.add(e)
   })
 }
 
-const tagsDNB = [...setTagsDNB].sort((a, b) => { return a.localeCompare(b) })
-for (const annee of ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+const tagsDNB = [...setTagsDNB].sort((a, b) => {
+  return a.localeCompare(b)
+})
+for (const annee of [
+  '2025',
+  '2024',
+  '2023',
+  '2022',
+  '2021',
+  '2020',
+  '2019',
+  '2018',
+  '2017',
+  '2016',
+  '2015',
+  '2014',
+  '2013',
+]) {
   referentielFR.Brevet[annee] = {}
   for (const ex in dictionnaireDNB) {
     if (dictionnaireDNB[ex].annee === annee) {
@@ -60,7 +76,10 @@ for (const tag of tagsDNB) {
   }
   for (const ex in dictionnaireDNBPRO) {
     if (dictionnaireDNBPRO[ex].tags.includes(tag)) {
-      referentielFR.BrevetTags[tag][ex] = { uuid: ex, ...dictionnaireDNBPRO[ex] }
+      referentielFR.BrevetTags[tag][ex] = {
+        uuid: ex,
+        ...dictionnaireDNBPRO[ex],
+      }
     }
   }
 }
@@ -72,18 +91,28 @@ const setThemesBAC = new Set()
 const setThemeSTI2D = new Set()
 
 for (const ex in dictionnaireBAC) {
-  dictionnaireBAC[ex].tags.forEach(e => {
+  dictionnaireBAC[ex].tags.forEach((e) => {
     setThemesBAC.add(e)
   })
 }
 
 for (const ex in dictionnaireSTI2D) {
-  dictionnaireSTI2D[ex].tags.forEach(e => {
+  dictionnaireSTI2D[ex].tags.forEach((e) => {
     setThemeSTI2D.add(e)
   })
 }
 
-for (const annee of ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029']) {
+for (const annee of [
+  '2021',
+  '2022',
+  '2023',
+  '2024',
+  '2025',
+  '2026',
+  '2027',
+  '2028',
+  '2029',
+]) {
   referentielFR.BAC[annee] = {}
   for (const ex in dictionnaireBAC) {
     if (dictionnaireBAC[ex].annee === annee) {
@@ -92,7 +121,17 @@ for (const annee of ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '20
   }
 }
 
-for (const annee of ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029']) {
+for (const annee of [
+  '2021',
+  '2022',
+  '2023',
+  '2024',
+  '2025',
+  '2026',
+  '2027',
+  '2028',
+  '2029',
+]) {
   referentielFR.STI2D[annee] = {}
   for (const ex in dictionnaireSTI2D) {
     if (dictionnaireSTI2D[ex].annee === annee) {
@@ -101,10 +140,14 @@ for (const annee of ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '20
   }
 }
 
-const tagsBAC = [...setThemesBAC].sort((a, b) => { return a.localeCompare(b) })
+const tagsBAC = [...setThemesBAC].sort((a, b) => {
+  return a.localeCompare(b)
+})
 referentielFR.BACTags = {}
 
-const tagsSTI2D = [...setThemeSTI2D].sort((a, b) => { return a.localeCompare(b) })
+const tagsSTI2D = [...setThemeSTI2D].sort((a, b) => {
+  return a.localeCompare(b)
+})
 referentielFR.STI2DTags = {}
 
 for (const tag of tagsBAC) {
@@ -130,7 +173,7 @@ referentielFR.E3C = {}
 const setThemesE3C = new Set()
 
 for (const ex in dictionnaireE3C) {
-  dictionnaireE3C[ex].tags.forEach(e => {
+  dictionnaireE3C[ex].tags.forEach((e) => {
     setThemesE3C.add(e)
   })
 }
@@ -144,7 +187,9 @@ for (const annee of ['2020', '2021']) {
   }
 }
 
-const tagsE3C = [...setThemesE3C].sort((a, b) => { return a.localeCompare(b) })
+const tagsE3C = [...setThemesE3C].sort((a, b) => {
+  return a.localeCompare(b)
+})
 referentielFR.E3CTags = {}
 
 for (const tag of tagsE3C) {
@@ -161,7 +206,7 @@ referentielFR.crpe = {}
 const setThemesCrpe = new Set()
 
 for (const ex in dictionnaireCrpeCoop) {
-  dictionnaireCrpeCoop[ex].tags.forEach(e => {
+  dictionnaireCrpeCoop[ex].tags.forEach((e) => {
     setThemesCrpe.add(e)
   })
 }
@@ -175,14 +220,19 @@ for (const annee of ['2019', '2018', '2017', '2016', '2015', '2022', '2023']) {
   }
 }
 
-const tagsCrpe = [...setThemesCrpe].sort((a, b) => { return a.localeCompare(b) })
+const tagsCrpe = [...setThemesCrpe].sort((a, b) => {
+  return a.localeCompare(b)
+})
 referentielFR.crpeTags = {}
 
 for (const tag of tagsCrpe) {
   referentielFR.crpeTags[tag] = {}
   for (const ex in dictionnaireCrpeCoop) {
     if (dictionnaireCrpeCoop[ex].tags.includes(tag)) {
-      referentielFR.crpeTags[tag][ex] = { uuid: ex, ...dictionnaireCrpeCoop[ex] }
+      referentielFR.crpeTags[tag][ex] = {
+        uuid: ex,
+        ...dictionnaireCrpeCoop[ex],
+      }
     }
   }
 }
@@ -193,13 +243,29 @@ referentielCH.EVACOMTags = {}
 const setTagsEVACOM = new Set()
 
 for (const ex in dictionnaireEVACOM) {
-  dictionnaireEVACOM[ex].tags.forEach(e => {
+  dictionnaireEVACOM[ex].tags.forEach((e) => {
     setTagsEVACOM.add(e)
   })
 }
 
-const tagsEVACOM = [...setTagsEVACOM].sort((a, b) => { return a.localeCompare(b) })
-for (const annee of ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+const tagsEVACOM = [...setTagsEVACOM].sort((a, b) => {
+  return a.localeCompare(b)
+})
+for (const annee of [
+  '2025',
+  '2024',
+  '2023',
+  '2022',
+  '2021',
+  '2020',
+  '2019',
+  '2018',
+  '2017',
+  '2016',
+  '2015',
+  '2014',
+  '2013',
+]) {
   referentielCH.EVACOM[annee] = {}
   for (const ex in dictionnaireEVACOM) {
     if (dictionnaireEVACOM[ex].annee === annee) {
@@ -212,7 +278,10 @@ for (const tag of tagsEVACOM) {
   referentielCH.EVACOMTags[tag] = {}
   for (const ex in dictionnaireEVACOM) {
     if (dictionnaireEVACOM[ex].tags.includes(tag)) {
-      referentielCH.EVACOMTags[tag][ex] = { uuid: ex, ...dictionnaireEVACOM[ex] }
+      referentielCH.EVACOMTags[tag][ex] = {
+        uuid: ex,
+        ...dictionnaireEVACOM[ex],
+      }
     }
   }
 }

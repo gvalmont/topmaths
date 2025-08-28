@@ -1,5 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
@@ -20,10 +24,10 @@ export const uuid = '0bb5f'
 
 export const refs = {
   'fr-fr': ['can2L10'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class SimplifierQuotient extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: '<br> ', texteApres: ' ' }
@@ -31,9 +35,9 @@ export default class SimplifierQuotient extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2])) {
-      case 1:// ax/b
+      case 1: // ax/b
         {
           const a = randint(2, 9)
           const k = randint(-9, 9, [0, 1])
@@ -66,7 +70,7 @@ export default class SimplifierQuotient extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

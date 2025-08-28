@@ -19,10 +19,10 @@ export const uuid = 'e4b95'
 
 export const refs = {
   'fr-fr': ['can5C12'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FractionDEntierQuiVaBien extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -30,7 +30,7 @@ export default class FractionDEntierQuiVaBien extends ExerciceSimple {
     this.optionsDeComparaison = { fractionSimplifiee: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
     const b = a.d * c
@@ -47,7 +47,7 @@ export default class FractionDEntierQuiVaBien extends ExerciceSimple {
       this.correction += `${texteEnCouleur('Pour multiplier $' + b + '$ par $' + a.texFraction + '$, on commence par diviser  $' + b + '$ par $' + a.d + '$ (car la division "tombe juste") : on obtient $\\dfrac{' + b + '}{' + a.d + '}=' + b / a.d + '$.')}<br>`
       this.correction += `${texteEnCouleur('Puis, on multiplie ce résultat par $' + a.n + '$, ce qui donne : $' + a.n + '\\times ' + b / a.d + '=' + a.n * c + '$.<br>')}`
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

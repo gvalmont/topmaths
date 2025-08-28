@@ -9,20 +9,20 @@ export const uuid = '6b2e5'
 
 export const refs = {
   'fr-fr': ['2N31-5', 'BP2AutoE2'],
-  'fr-ch': ['10NO2-9']
+  'fr-ch': ['10NO2-9'],
 }
 /**
  *
  */
 export default class PuissancesDeDix2 extends PuissancesDeDix {
-  constructor () {
+  constructor() {
     super()
     this.sup = 3
     this.correctionDetaillee = false
     this.besoinFormulaireNumerique = [
       'Règle à travailler',
       3,
-      '1 : Calculs de base\n2 : Calculs plus complexes\n3 : Mélange'
+      '1 : Calculs de base\n2 : Calculs plus complexes\n3 : Mélange',
     ]
     this.besoinFormulaire2Texte = false
   }

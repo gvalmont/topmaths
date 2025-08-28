@@ -1,5 +1,5 @@
 import ConstruireParSymetrie from '../6e/_Construire_par_symetrie'
-export const titre = 'Construire l\'image d\'un triangle par symétrie centrale'
+export const titre = "Construire l'image d'un triangle par symétrie centrale"
 export const interactifReady = false
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -13,10 +13,10 @@ export const uuid = '49786'
 
 export const refs = {
   'fr-fr': ['5G11-2'],
-  'fr-ch': ['9ES6-6']
+  'fr-ch': ['9ES6-6'],
 }
 export default class ConstruireParSymetrieCentraleFigure extends ConstruireParSymetrie {
-  constructor () {
+  constructor() {
     super()
     this.version = 5
     this.figure = true

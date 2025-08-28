@@ -1,5 +1,5 @@
 import ExprimerVariable from '../can/2e/can2L11'
-export const titre = 'Exprimer une variable en fonction d\'une autre'
+export const titre = "Exprimer une variable en fonction d'une autre"
 export const dateDePublication = '26/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -15,10 +15,10 @@ export const uuid = 'a78e8'
 
 export const refs = {
   'fr-fr': ['1A-C13-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC13a extends ExprimerVariable {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

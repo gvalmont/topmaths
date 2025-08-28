@@ -5,15 +5,29 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
+import {
+  simplificationDeFractionAvecEtapes,
+  texFractionReduite,
+} from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import {
+  formatMinute,
+  stringNombre,
+  texNombre,
+} from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import {
+  colorToLatexOrHTML,
+  fixeBordures,
+  mathalea2d,
+} from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { scratchblock } from '../../../modules/scratchblock'
@@ -24,7 +38,10 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
@@ -39,7 +56,7 @@ export const uuid = 'cae4f'
 
 export const refs = {
   'fr-fr': ['can4a-2023'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -47,12 +64,12 @@ export const refs = {
  * Gilles Mora
  */
 
-function compareNombres (a, b) {
+function compareNombres(a, b) {
   return a - b
 }
 
 export default class SujetCAN2023Quatrieme extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 30
     this.typeExercice = 'Scratch'
@@ -64,14 +81,84 @@ export default class SujetCAN2023Quatrieme extends Exercice {
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
 
-  nouvelleVersion () {
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+  nouvelleVersion() {
+    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    const typeQuestionsDisponiblesNiv1 = shuffle([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    ])
+      .slice(-nbQ1)
+      .sort(compareNombres) // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    const typeQuestionsDisponiblesNiv2 = shuffle([
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      29, 30,
+    ])
+      .slice(-nbQ2)
+      .sort(compareNombres) // 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+    const typeQuestionsDisponibles = typeQuestionsDisponiblesNiv1.concat(
+      typeQuestionsDisponiblesNiv2,
+    )
 
-    for (let i = 0, index = 0, nbChamps, m, listeFraction, poly, poly1, poly2, poly3, v, maFraction, n, p, lettre, listeTriplet, triplet, choix1, num, den, params, origine, traceA, traceD, traceB, traceorigine, ang1, s3, K, I, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        index = 0,
+        nbChamps,
+        m,
+        listeFraction,
+        poly,
+        poly1,
+        poly2,
+        poly3,
+        v,
+        maFraction,
+        n,
+        p,
+        lettre,
+        listeTriplet,
+        triplet,
+        choix1,
+        num,
+        den,
+        params,
+        origine,
+        traceA,
+        traceD,
+        traceB,
+        traceorigine,
+        ang1,
+        s3,
+        K,
+        I,
+        J,
+        texte,
+        texteCorr,
+        reponse,
+        prenom1,
+        L,
+        E,
+        choix,
+        a,
+        b,
+        c,
+        d,
+        e,
+        f,
+        k,
+        s1,
+        s2,
+        A,
+        B,
+        C,
+        D,
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        objets,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -94,7 +181,13 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           e = randint(1, 9, [a, b, c, d])
           f = randint(1, 9, [a, b, c, d, e])
           n = new Decimal(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
-          m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes'])
+          m = choice([
+            'centaines',
+            'dizaines',
+            'dixièmes',
+            'centièmes',
+            'millièmes',
+          ])
           texte = `Dans $${texNombre(n, 3)}$ le chiffre des ${m} est : `
           switch (m) {
             case 'centaines':
@@ -146,16 +239,18 @@ export default class SujetCAN2023Quatrieme extends Exercice {
              min pour atteindre $${a + 1}$ h $${d}$ min. Son trajet aura  duré  $${miseEnEvidence(formatMinute(60 - b + d))}$ min.`
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: sp(5) + 'min' })
+            texte += ajouteChampTexteMathLive(this, index, '', {
+              texteApres: sp(5) + 'min',
+            })
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('\\dots{} min')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+            '\\dots{} min'
           break
 
         case 4:
-
           if (choice([true, false])) {
             k = randint(12, 18)
             reponse = 3 * k
@@ -180,7 +275,9 @@ export default class SujetCAN2023Quatrieme extends Exercice {
 
         case 5:
           if (choice([true, false])) {
-            ang1 = choice([20, 30, 40, 60, 70, 80, 100, 110, 120, 130, 140, 150, 160])
+            ang1 = choice([
+              20, 30, 40, 60, 70, 80, 100, 110, 120, 130, 140, 150, 160,
+            ])
             A = point(0, 0, 'A', 'below')
             B = point(6, 0, 'B', 'below')
             origine = point(3, 0, 'O', 'below')
@@ -199,30 +296,94 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             ymax = 2.5
             objets = []
             reponse = 180 - ang1
-            objets.push(texteParPosition('$A$', 0, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$B$', 6, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$O$', 3, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              s1, s2, traceA, traceorigine, traceB, codageAngle(C, origine, A, 0.6), codageAngle(B, origine, C, 0.5)
+            objets.push(
+              texteParPosition(
+                '$A$',
+                0,
+                -0.55,
+                'milieu',
+                'black',
+                context.isHtml ? 1 : 0.7,
+              ),
+              texteParPosition(
+                '$B$',
+                6,
+                -0.55,
+                'milieu',
+                'black',
+                context.isHtml ? 1 : 0.7,
+              ),
+              texteParPosition(
+                '$O$',
+                3,
+                -0.55,
+                'milieu',
+                'black',
+                context.isHtml ? 1 : 0.7,
+              ),
+              s1,
+              s2,
+              traceA,
+              traceorigine,
+              traceB,
+              codageAngle(C, origine, A, 0.6),
+              codageAngle(B, origine, C, 0.5),
             )
             if (ang1 < 50) {
-              objets.push(texteParPosition('?', 2.2, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-                texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7))
+              objets.push(
+                texteParPosition(
+                  '?',
+                  2.2,
+                  0.6,
+                  'milieu',
+                  'black',
+                  context.isHtml ? 1 : 0.7,
+                ),
+                texteParPosition(
+                  `${stringNombre(ang1)}°`,
+                  3.8,
+                  0.2,
+                  'milieu',
+                  'black',
+                  context.isHtml ? 1 : 0.7,
+                ),
+              )
             } else {
-              objets.push(texteParPosition('?', 2.2, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7), texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7))
+              objets.push(
+                texteParPosition(
+                  '?',
+                  2.2,
+                  0.2,
+                  'milieu',
+                  'black',
+                  context.isHtml ? 1 : 0.7,
+                ),
+                texteParPosition(
+                  `${stringNombre(ang1)}°`,
+                  3.8,
+                  0.5,
+                  'milieu',
+                  'black',
+                  context.isHtml ? 1 : 0.7,
+                ),
+              )
             }
             reponse = 180 - ang1
             texte = '$A$, $O$ et $B$ sont alignés.<br>'
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 0.6,
-              style: 'margin: auto'
-            }, objets)
+            texte += mathalea2d(
+              {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 0.6,
+                style: 'margin: auto',
+              },
+              objets,
+            )
             texte += context.isHtml ? '? $=$' : ''
             texteCorr = `Un angle plat a une mesure de  $180^\\circ$.<br>
              Ainsi, ?$=180-${ang1}=${miseEnEvidence(180 - ang1)}^\\circ$.`
@@ -249,50 +410,116 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             objets = []
             reponse = 180 - ang1
             objets.push(
-              traceD, traceB, texteParPosition('$D$', 0.2, 1.8, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$B$', 2, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$O$', 0, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              s1, s2, s3, traceorigine, codageAngleDroit(B, origine, D, 'black', 0.3), codageAngle(B, origine, C, 0.8),
-              codageAngle(D, origine, C, 0.4))
+              traceD,
+              traceB,
+              texteParPosition(
+                '$D$',
+                0.2,
+                1.8,
+                'milieu',
+                'black',
+                context.isHtml ? 1 : 0.7,
+              ),
+              texteParPosition(
+                '$B$',
+                2,
+                -0.55,
+                'milieu',
+                'black',
+                context.isHtml ? 1 : 0.7,
+              ),
+              texteParPosition(
+                '$O$',
+                0,
+                -0.55,
+                'milieu',
+                'black',
+                context.isHtml ? 1 : 0.7,
+              ),
+              s1,
+              s2,
+              s3,
+              traceorigine,
+              codageAngleDroit(B, origine, D, 'black', 0.3),
+              codageAngle(B, origine, C, 0.8),
+              codageAngle(D, origine, C, 0.4),
+            )
 
             if (ang1 < 90) {
               objets.push(
-                texteParPosition('?', 0.2, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-                texteParPosition(`${stringNombre(ang1)}°`, 1.2, 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.5))
+                texteParPosition(
+                  '?',
+                  0.2,
+                  0.8,
+                  'milieu',
+                  'black',
+                  context.isHtml ? 1 : 0.7,
+                ),
+                texteParPosition(
+                  `${stringNombre(ang1)}°`,
+                  1.2,
+                  0.3,
+                  'milieu',
+                  'black',
+                  context.isHtml ? 1 : 0.5,
+                ),
+              )
 
               reponse = 90 - ang1
-              texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
-              texte += mathalea2d({
-                xmin,
-                ymin,
-                xmax,
-                ymax,
-                pixelsParCm: 40,
-                mainlevee: false,
-                amplitude: 0.5,
-                scale: 0.8,
-                style: 'margin: auto'
-              }, objets)
+              texte = "L'angle $\\widehat{BOD}$ est un angle droit.<br>"
+              texte += mathalea2d(
+                {
+                  xmin,
+                  ymin,
+                  xmax,
+                  ymax,
+                  pixelsParCm: 40,
+                  mainlevee: false,
+                  amplitude: 0.5,
+                  scale: 0.8,
+                  style: 'margin: auto',
+                },
+                objets,
+              )
               texte += context.isHtml ? '? $=$' : ''
               texteCorr = `
                ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}^\\circ$.`
             } else {
-              objets.push(texteParPosition('?', -0.15, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-                texteParPosition(`${stringNombre(ang1)}°`, 1, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7))
+              objets.push(
+                texteParPosition(
+                  '?',
+                  -0.15,
+                  0.6,
+                  'milieu',
+                  'black',
+                  context.isHtml ? 1 : 0.7,
+                ),
+                texteParPosition(
+                  `${stringNombre(ang1)}°`,
+                  1,
+                  0.8,
+                  'milieu',
+                  'black',
+                  context.isHtml ? 1 : 0.7,
+                ),
+              )
 
               reponse = ang1 - 90
-              texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
-              texte += mathalea2d({
-                xmin,
-                ymin,
-                xmax,
-                ymax,
-                pixelsParCm: 40,
-                mainlevee: false,
-                amplitude: 0.5,
-                scale: 0.6,
-                style: 'margin: auto'
-              }, objets)
+              texte = "L'angle $\\widehat{BOD}$ est un angle droit.<br>"
+              texte += mathalea2d(
+                {
+                  xmin,
+                  ymin,
+                  xmax,
+                  ymax,
+                  pixelsParCm: 40,
+                  mainlevee: false,
+                  amplitude: 0.5,
+                  scale: 0.6,
+                  style: 'margin: auto',
+                },
+                objets,
+              )
               texte += context.isHtml ? '? $=$' : ''
               texteCorr = `?$=${ang1}-90=${miseEnEvidence(ang1 - 90)}^\\circ$.  `
             }
@@ -307,7 +534,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
 
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('? $=\\ldots ^\\circ$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+            '? $=\\ldots ^\\circ$'
           break
         case 6:
           if (choice([true, false])) {
@@ -323,7 +551,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             } else {
               texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
             }
-            this.listeCanReponsesACompleter[this.listeCanEnonces.length] = ('$\\ldots\\Aire[dm]{}$')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
+              '$\\ldots\\Aire[dm]{}$'
           } else {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).div(100)
@@ -336,7 +565,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '') + 'm$^2$'
             } else {
               texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
-              this.listeCanReponsesACompleter[this.listeCanEnonces.length] = ('$\\ldots\\Aire[m]{}$')
+              this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
+                '$\\ldots\\Aire[m]{}$'
             }
           }
           this.listeCanEnonces.push(texte)
@@ -369,7 +599,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots €$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+            '$\\ldots €$'
           break
 
         case 8:
@@ -382,17 +613,31 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             ymax: 3,
             pixelsParCm: 20,
             scale: 0.4,
-            style: 'margin: auto'
+            style: 'margin: auto',
           }
           f = new FractionEtendue(num, den)
           reponse = f
           texte = `Quelle fraction du disque représente ${context.isHtml ? '' : '<br>'}l'aire grisée ?<br>`
           texte += context.isHtml ? '' : '\\begin{center}'
-          texte += context.isHtml ? mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray')) : `\\Fraction[Reponse,Couleur=LightGray,Rayon=0.8cm]{${num}/${den}}`
+          texte += context.isHtml
+            ? mathalea2d(
+                params,
+                f.representation(
+                  0,
+                  0,
+                  2,
+                  randint(0, den - 1),
+                  'gateau',
+                  'gray',
+                ),
+              )
+            : `\\Fraction[Reponse,Couleur=LightGray,Rayon=0.8cm]{${num}/${den}}`
           texte += context.isHtml ? '' : '\\end{center}'
           texteCorr = `L'aire grisée représente $${f.texFraction}$ de l'aire du disque.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -400,7 +645,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           break
 
         case 9:
-
           a = new Decimal(randint(41, 61, [50, 60])).div(10)
           b = new Decimal(randint(111, 149, [120, 130, 140])).div(100)
           reponse = new Decimal(a).add(b)
@@ -453,9 +697,15 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           this.listeCanEnonces.push(texte)
           break
         case 11:
-
           listeFraction = [
-            [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
+            [1, 3],
+            [2, 3],
+            [1, 4],
+            [3, 4],
+            [1, 5],
+            [2, 5],
+            [3, 5],
+            [4, 5],
           ]
           maFraction = choice(listeFraction)
           a = randint(1, 4)
@@ -474,7 +724,9 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             texteCorr = `$${a}-${f.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} - \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} - \\dfrac{${b}}{${c}}  =${miseEnEvidence(e.texFraction)}$`
             reponse = e
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -482,7 +734,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           this.listeCanEnonces.push(texte)
           break
         case 12:
-
           if (choice([true, false])) {
             a = randint(2, 10)
             b = randint(2, 10)
@@ -506,7 +757,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           this.listeCanEnonces.push(texte)
           break
         case 13:
-
           a = new Decimal(randint(21, 69, [30, 40, 50, 60])).div(10)
           choix = choice(['a', 'b'])
 
@@ -520,7 +770,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             } else {
               texte += ' $\\ldots$ L'
               texte += context.isHtml ? ' $\\ldots$ L' : ''
-              this.listeCanReponsesACompleter[this.listeCanEnonces.length] = ('$\\ldots\\Capa{}$')
+              this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
+                '$\\ldots\\Capa{}$'
             }
           }
           if (choix === 'b') {
@@ -532,7 +783,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '') + 'L'
             } else {
               texte += context.isHtml ? ' $\\ldots$ L' : ''
-              this.listeCanReponsesACompleter[this.listeCanEnonces.length] = ('$\\ldots\\Capa{}$')
+              this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
+                '$\\ldots\\Capa{}$'
             }
           }
 
@@ -547,18 +799,22 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules vertes.`
           texte += context.isHtml ? '<br>' : ''
           texte += 'On tire une boule au hasard.'
-          texte += context.isHtml ? `<br>Complète : $\\text{\\textquotedblleft}$ On a $\\ldots$ chances sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'} $\\text{\\textquotedblright}$.` : ''
+          texte += context.isHtml
+            ? `<br>Complète : $\\text{\\textquotedblleft}$ On a $\\ldots$ chances sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'} $\\text{\\textquotedblright}$.`
+            : ''
           texteCorr = `Dans l'urne, il y a $${a}$ boules rouges et $${b}$ boules vertes, soit un total de $${a + b}$ boules. <br>
             On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(a + b)}$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`
 
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += '<br>Écrire les deux nombres  séparés par un point-virgule.'
+            texte +=
+              '<br>Écrire les deux nombres  séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = (`On a $\\ldots$ chances <br> sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`)
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+            `On a $\\ldots$ chances <br> sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`
           break
 
         case 15:
@@ -579,13 +835,19 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             reponse = 5
             texte = 'Le nombre de faces de ce solide est : <br>'
 
-            texte += mathalea2d({
-              xmin: -1.5,
-              ymin: -1.2,
-              xmax: 7.1,
-              ymax: 4.2,
-              scale: 0.4
-            }, poly1, s1, poly2, poly3)
+            texte += mathalea2d(
+              {
+                xmin: -1.5,
+                ymin: -1.2,
+                xmax: 7.1,
+                ymax: 4.2,
+                scale: 0.4,
+              },
+              poly1,
+              s1,
+              poly2,
+              poly3,
+            )
             texteCorr = `Ce solide a $${miseEnEvidence(5)}$ faces.`
           } else {
             A = point(0, 0, 'A', 'above')
@@ -604,13 +866,19 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             reponse = 4
             texte = 'Le nombre de faces de ce solide est : <br>'
 
-            texte += mathalea2d({
-              xmin: -1.5,
-              ymin: -0.5,
-              xmax: 7.1,
-              ymax: 4.5,
-              scale: 0.5
-            }, poly1, s1, s2, s3)
+            texte += mathalea2d(
+              {
+                xmin: -1.5,
+                ymin: -0.5,
+                xmax: 7.1,
+                ymax: 4.5,
+                scale: 0.5,
+              },
+              poly1,
+              s1,
+              s2,
+              s3,
+            )
             texteCorr = `Ce solide a $${miseEnEvidence(4)}$ faces.`
           }
 
@@ -640,7 +908,9 @@ export default class SujetCAN2023Quatrieme extends Exercice {
     =${a.reduire(c).texFraction} + ${b.texFraction}=\\dfrac{${a.n * c}+${b.n}}{${b.d}}=\\dfrac{${miseEnEvidence(a.n * c + b.n)}}{${miseEnEvidence(b.d)}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
             reponse = a.sommeFraction(b).simplifie()
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -648,34 +918,36 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           this.listeCanEnonces.push(texte)
           break
 
-        case 17: {
-          a = randint(2, 10)
-          b = randint(2, 10)
-          reponse = a * b
+        case 17:
+          {
+            a = randint(2, 10)
+            b = randint(2, 10)
+            reponse = a * b
 
-          let prog = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
-          prog += '\\blockinit{quand \\greenflag est cliqué}\n'
-          prog += '\\blockpen{stylo en position d\'écriture} \n'
-          prog += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
-          prog += '{\n'
-          prog += `\\blockmove{avancer de \\ovalnum{${b}} pas}\n`
-          prog += '}\n'
-          prog += '\\end{scratch}'
+            let prog = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
+            prog += '\\blockinit{quand \\greenflag est cliqué}\n'
+            prog += "\\blockpen{stylo en position d'écriture} \n"
+            prog += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
+            prog += '{\n'
+            prog += `\\blockmove{avancer de \\ovalnum{${b}} pas}\n`
+            prog += '}\n'
+            prog += '\\end{scratch}'
 
-          texte = `De combien de pas avance le stylo ? <br>
+            texte = `De combien de pas avance le stylo ? <br>
           ${scratchblock(prog)}
           `
-          texteCorr = `Le stylo avance de $${a}\\times ${b}=${miseEnEvidence(a * b)}$ pas.`
+            texteCorr = `Le stylo avance de $${a}\\times ${b}=${miseEnEvidence(a * b)}$ pas.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          // if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, '') + ' pas' } else { texte += '$\\ldots$ pas' }
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + ' pas'
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            // if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, '') + ' pas' } else { texte += '$\\ldots$ pas' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, '') + ' pas'
+            }
+            nbChamps = 1
+            this.listeCanEnonces.push(texte)
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+              '$\\ldots$ pas.'
           }
-          nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots$ pas.')
-        }
           break
 
         case 18:
@@ -689,18 +961,39 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             C = point(6, 0, 'C', 'below')
             poly = polygone([A, B, C], 'black')
             poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-            d = texteParPosition(`${stringNombre(c)} cm²`, 1.5, 1.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-            e = texteParPosition(`${stringNombre(a)} cm`, -0.9, 2, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            d = texteParPosition(
+              `${stringNombre(c)} cm²`,
+              1.5,
+              1.5,
+              'milieu',
+              'black',
+              context.isHtml ? 1 : 0.7,
+            )
+            e = texteParPosition(
+              `${stringNombre(a)} cm`,
+              -0.9,
+              2,
+              'milieu',
+              'black',
+              context.isHtml ? 1 : 0.7,
+            )
             poly.epaisseur = 1
             reponse = b
             texte = 'On donne la figure suivante :<br>'
-            texte += mathalea2d({
-              xmin: -1.8,
-              ymin: -1.1,
-              xmax: 7.1,
-              ymax: 5.1,
-              scale: 0.4
-            }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
+            texte += mathalea2d(
+              {
+                xmin: -1.8,
+                ymin: -1.1,
+                xmax: 7.1,
+                ymax: 5.1,
+                scale: 0.4,
+              },
+              poly,
+              labelPoint(A, B, C),
+              codageAngleDroit(B, A, C),
+              d,
+              e,
+            )
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
           On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
             texte += context.isHtml ? `${sp(4)}$AC= $` : ''
@@ -709,10 +1002,15 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
             } else {
               texte += context.isHtml ? ' $\\ldots$ cm' : ''
-              this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$AC=\\ldots$ cm.')
+              this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+                '$AC=\\ldots$ cm.'
             }
           } else {
-            listeTriplet = [[3, 4, 5], [6, 8, 10], [5, 12, 13]]
+            listeTriplet = [
+              [3, 4, 5],
+              [6, 8, 10],
+              [5, 12, 13],
+            ]
             triplet = choice(listeTriplet)
             a = triplet[0]
             b = triplet[1]
@@ -722,21 +1020,54 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             C = point(1, 2, 'C', 'above')
             poly = polygone([A, B, C], 'black')
             poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-            d = texteParPosition(`${stringNombre(a)} cm`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-            e = texteParPosition(`${stringNombre(b)} cm`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-            f = texteParPosition(`${stringNombre(c)} cm`, milieu(B, A).x, milieu(B, A).y - 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            d = texteParPosition(
+              `${stringNombre(a)} cm`,
+              milieu(A, C).x - 0.5,
+              milieu(A, C).y,
+              'milieu',
+              'black',
+              context.isHtml ? 1 : 0.7,
+            )
+            e = texteParPosition(
+              `${stringNombre(b)} cm`,
+              milieu(B, C).x + 0.5,
+              milieu(B, C).y + 0.2,
+              'milieu',
+              'black',
+              context.isHtml ? 1 : 0.7,
+            )
+            f = texteParPosition(
+              `${stringNombre(c)} cm`,
+              milieu(B, A).x,
+              milieu(B, A).y - 0.3,
+              'milieu',
+              'black',
+              context.isHtml ? 1 : 0.7,
+            )
 
             poly.epaisseur = 1
-            reponse = arrondi(a * b / 2, 0)
-            texte = 'L\'aire du triangle $ABC$ est :<br>'
+            reponse = arrondi((a * b) / 2, 0)
+            texte = "L'aire du triangle $ABC$ est :<br>"
 
-            texte += mathalea2d(Object.assign({ pixelsParCm: 40, scale: 0.8 }, fixeBordures(labelPoint(A, B, C))), poly, labelPoint(A, B, C), codageAngleDroit(A, C, B), d, e, f)
+            texte += mathalea2d(
+              Object.assign(
+                { pixelsParCm: 40, scale: 0.8 },
+                fixeBordures(labelPoint(A, B, C)),
+              ),
+              poly,
+              labelPoint(A, B, C),
+              codageAngleDroit(A, C, B),
+              d,
+              e,
+              f,
+            )
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}$ cm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
             }
-            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots\\Aire[cm]{}$')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+              '$\\ldots\\Aire[cm]{}$'
           }
 
           nbChamps = 1
@@ -744,7 +1075,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           break
 
         case 19:
-
           a = randint(2, 10)
           b = randint(2, 4)
           c = randint(2, 5)
@@ -809,7 +1139,9 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             reponse = e
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -827,7 +1159,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             b = randint(2, 3)
             c = 3
           }
-          reponse = a * (b ** c)
+          reponse = a * b ** c
           texte = `$${a}\\times ${b}^${c}$`
 
           texteCorr = `$${a}\\times ${b}^${c}=${a}\\times ${b ** c}=${miseEnEvidence(reponse)}$`
@@ -891,14 +1223,14 @@ export default class SujetCAN2023Quatrieme extends Exercice {
         case 24:
           if (choice([true, false])) {
             a = choice([75, 33, 60, 45, 90])
-            reponse = arrondi(2 * a / 3, 0)
+            reponse = arrondi((2 * a) / 3, 0)
             texte = `Je bois le tiers d'une bouteille d'eau ${context.isHtml ? '' : '<br>'} de $${a}$ cL.<br>
               Quelle quantité d'eau reste-t-il ?`
             texteCorr = `J'ai bu $\\dfrac{${a}}{3}=${texNombre(a / 3, 0)}$ cL. Il reste donc
               $${a}$ cL $-${texNombre(a / 3, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
           } else {
             a = choice([75, 90, 100, 60, 50])
-            reponse = arrondi(4 * a / 5, 0)
+            reponse = arrondi((4 * a) / 5, 0)
             texte = `Je bois le cinquième  d'une bouteille d'eau ${context.isHtml ? '' : '<br>'} de $${a}$ cL.<br>
               Quelle quantité d'eau reste-t-il ?`
             texteCorr = `J'ai bu $\\dfrac{${a}}{5}=${texNombre(a / 5, 0)}$ cL. Il reste donc
@@ -911,7 +1243,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots\\Capa[cL]{}$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+            '$\\ldots\\Capa[cL]{}$'
           break
 
         case 25:
@@ -948,12 +1281,18 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
-            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
+            handleAnswers(this, i, {
+              reponse: {
+                value: new Hms({ hour: a, minute: d }).toString(),
+                options: { HMS: true },
+              },
+            })
           }
           texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${miseEnEvidence(a)}$ h $${miseEnEvidence(d)}$ min`
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots\\text{ h}\\ldots \\text{ min}$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+            '$\\ldots\\text{ h}\\ldots \\text{ min}$'
           break
 
         case 27:
@@ -978,7 +1317,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
         case 28:
           a = randint(1, 9) * choice([10, 100])
           p = randint(1, 2) * 10
-          reponse = a * p / 100
+          reponse = (a * p) / 100
           texte = `$${p}${sp(1)}\\%$ de $${a}$ `
           texteCorr = `$${p}${sp(1)}\\%$ de $${a} = ${miseEnEvidence(reponse)}$`
           if (a === 10) {
@@ -1002,7 +1341,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           break
 
         case 29:
-
           a = randint(6, 7)
           b = randint(2, 3)
           c = randint(4, 5)
@@ -1024,19 +1362,52 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           poly1 = polygone([A, B, C, D], 'black')
           poly2 = polygone([A, D, L, I], 'black')
           poly3 = polygone([L, K, C, D], 'black')
-          d = texteParPosition(`${stringNombre(a)} cm`, milieu(I, L).x, milieu(I, L).y - 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-          e = texteParPosition(`${stringNombre(b)} cm`, milieu(K, L).x + 0.8, milieu(K, L).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-          f = texteParPosition('?', milieu(A, I).x - 0.5, milieu(A, I).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+          d = texteParPosition(
+            `${stringNombre(a)} cm`,
+            milieu(I, L).x,
+            milieu(I, L).y - 0.5,
+            'milieu',
+            'black',
+            context.isHtml ? 1 : 0.7,
+          )
+          e = texteParPosition(
+            `${stringNombre(b)} cm`,
+            milieu(K, L).x + 0.8,
+            milieu(K, L).y,
+            'milieu',
+            'black',
+            context.isHtml ? 1 : 0.7,
+          )
+          f = texteParPosition(
+            '?',
+            milieu(A, I).x - 0.5,
+            milieu(A, I).y,
+            'milieu',
+            'black',
+            context.isHtml ? 1 : 0.7,
+          )
           reponse = c
           texte = `Ce pavé droit a un volume de $${v}$ cm$^3$.<br>
             Quelle est sa hauteur ? <br>`
-          texte += mathalea2d({
-            xmin: -1.5,
-            ymin: -1,
-            xmax: 7.1,
-            ymax: 5,
-            scale: 0.5
-          }, labelPoint(A, B, C, D, I, J, K, L), d, e, f, poly1, poly2, poly3, s1, s2, s3)
+          texte += mathalea2d(
+            {
+              xmin: -1.5,
+              ymin: -1,
+              xmax: 7.1,
+              ymax: 5,
+              scale: 0.5,
+            },
+            labelPoint(A, B, C, D, I, J, K, L),
+            d,
+            e,
+            f,
+            poly1,
+            poly2,
+            poly3,
+            s1,
+            s2,
+            s3,
+          )
           texteCorr = `Le volume d'un pavé droit est donné par le produit  longueur $\\times$ largeur $\\times$ hauteur.<br>
             Ainsi, $AI=\\dfrac{${v}}{${a}\\times ${b}}=${miseEnEvidence(c)}$.`
           texte += context.isHtml ? `${sp(4)}$AI= $` : ''
@@ -1049,7 +1420,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
 
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$AI= \\ldots\\Lg[cm]{}$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
+            '$AI= \\ldots\\Lg[cm]{}$'
           break
 
         case 30:
@@ -1057,7 +1429,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
 
-          m = choice([1, 2, 3, 4, 5])//, 2, 3, 4
+          m = choice([1, 2, 3, 4, 5]) //, 2, 3, 4
           if (m === 1) {
             d = a + b * 0.1 + c * 0.01
             reponse = arrondi(100 * d, 0)
@@ -1097,7 +1469,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           this.listeCanEnonces.push(texte)
           break
       }
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, texte)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

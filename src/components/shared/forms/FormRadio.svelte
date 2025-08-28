@@ -3,10 +3,10 @@
   type FlexOrientation = 'col' | 'row'
 
   export let title: string
-  export let valueSelected: string|number
+  export let valueSelected: string | number
   export let labelsValues: {
     label: string
-    value: string|number
+    value: string | number
     isDisabled?: boolean
   }[] = []
   export let isDisabled: boolean = false
@@ -16,12 +16,12 @@
   const name =
     title !== undefined
       ? title
-        .replaceAll(' ', '')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
+          .replaceAll(' ', '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
       : Math.round(Math.random() * 1000).toString()
   const dispatch = createEventDispatcher()
-  function valueHasChanged () {
+  function valueHasChanged() {
     dispatch('newvalue')
   }
 </script>
@@ -71,24 +71,26 @@
           checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action
           checked:disabled:bg-opacity-10 checked:disabled:border-opacity-10
           {isDisabled || labelValue.isDisabled
-            ? `border-opacity-10 dark:border-opacity-10
+          ? `border-opacity-10 dark:border-opacity-10
               bg-opacity-10 dark:bg-opacity-10
               checked:disabled:opacity-10 dark:checked:disabled:opacity-10`
-            : 'cursor-pointer'}"
+          : 'cursor-pointer'}"
         type="radio"
         {name}
-        id={name + i.toString()}
-        bind:group={valueSelected}
-        value={labelValue.value}
-        disabled={isDisabled || labelValue.isDisabled}
-        on:change={valueHasChanged}
+        id="{name + i.toString()}"
+        bind:group="{valueSelected}"
+        value="{labelValue.value}"
+        disabled="{isDisabled || labelValue.isDisabled}"
+        on:change="{valueHasChanged}"
       />
       <label
         class="form-check-label inline-block text-sm
           text-coopmaths-corpus dark:text-coopmathsdark-corpus
           {valueSelected === labelValue.value ? 'font-semibold' : 'font-light'}
-          {isDisabled || labelValue.isDisabled ? 'text-opacity-10' : 'text-opacity-70 cursor-pointer'}"
-        for={name + i.toString()}
+          {isDisabled || labelValue.isDisabled
+          ? 'text-opacity-10'
+          : 'text-opacity-70 cursor-pointer'}"
+        for="{name + i.toString()}"
       >
         {labelValue.label}
       </label>

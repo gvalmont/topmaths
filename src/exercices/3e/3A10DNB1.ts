@@ -5,8 +5,15 @@ import { createList } from '../../lib/format/lists'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
-import { texteEnCouleurEtGras, texteItalique } from '../../lib/outils/embellissements'
-import { listeDesDiviseurs, pgcd, texFactorisation } from '../../lib/outils/primalite'
+import {
+  texteEnCouleurEtGras,
+  texteItalique,
+} from '../../lib/outils/embellissements'
+import {
+  listeDesDiviseurs,
+  pgcd,
+  texFactorisation,
+} from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
@@ -19,7 +26,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = '61217'
 export const refs = {
   'fr-fr': ['3A10DNB1', '3Z1DNB-06'],
-  'fr-ch': ['11TAF-1']
+  'fr-ch': ['11TAF-1'],
 }
 export const titre = 'Préparation DNB : Arithmétique, volume, fraction'
 export const dateDePublication = '28/11/2024'
@@ -33,7 +40,7 @@ export const dateDePublication = '28/11/2024'
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
 export default class Exercice3A10DNB0 extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
 
     this.spacingCorr = 2
@@ -41,11 +48,28 @@ export default class Exercice3A10DNB0 extends ExerciceBrevetA {
     this.sup = false
 
     this.versionAleatoire()
-    this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Métropole 2024.')
+    this.introduction = texteItalique(
+      "D'après l'exercice 5 du brevet Métropole 2024.",
+    )
   }
 
-  private appliquerLesValeurs (autocollants: number, drapeaux: number, sachets: number, hauteur: number, largeur: number, longueur: number, num:number, den:number, prixM3: number) {
-    const pave = pave3d(point3d(0, 0, 0), point3d(6, 0, 0), point3d(0, 10, 0), point3d(0, 0, -2))
+  private appliquerLesValeurs(
+    autocollants: number,
+    drapeaux: number,
+    sachets: number,
+    hauteur: number,
+    largeur: number,
+    longueur: number,
+    num: number,
+    den: number,
+    prixM3: number,
+  ) {
+    const pave = pave3d(
+      point3d(0, 0, 0),
+      point3d(6, 0, 0),
+      point3d(0, 10, 0),
+      point3d(0, 0, -2),
+    )
     const segH = segment(point(-0.3, 0), point(-0.3, -2))
     const segL = segment(point(0, -2.3), point(6, -2.3))
     const segP = segment(point(6.3, -2.2), point(10.3, 0.1))
@@ -59,7 +83,9 @@ export default class Exercice3A10DNB0 extends ExerciceBrevetA {
     const fracR = new FractionEtendue(num, den)
     const volume = longueur * largeur * hauteur
 
-    const prixFinal = fracR.produitFraction(volume).produitFraction(prixM3).valeurDecimale
+    const prixFinal = fracR
+      .produitFraction(volume)
+      .produitFraction(prixM3).valeurDecimale
     const enonce = `Un club de natation propose un après-midi découverte pour les enfants.<br>
 La présidente du club veut offrir des petits sachets cadeaux tous identiques contenant des autocollants et des drapeaux avec le logo du club.<br>
  Elle a acheté ${autocollants} autocollants et ${drapeaux} drapeaux et veut tous les utiliser.<br>
@@ -71,12 +97,12 @@ La présidente du club veut offrir des petits sachets cadeaux tous identiques co
         items: [
           `Décomposer ${autocollants} et ${drapeaux} en produits de facteurs premiers.`,
           'En déduire le plus grand nombre de sachets que la présidente pourra réaliser.',
-          'Dans ce cas, combien mettra-t-elle d\'autocollants et de drapeaux dans chaque sachet ?'
+          "Dans ce cas, combien mettra-t-elle d'autocollants et de drapeaux dans chaque sachet ?",
         ],
-        style: 'alpha'
-      })
+        style: 'alpha',
+      }),
     ],
-    style: 'nombres'
+    style: 'nombres',
   })}<br><br>
   La piscine a la forme d'un pavé droit représenté ci-dessous.<br><br>
 ${deuxColonnesResp(
@@ -88,8 +114,8 @@ ${deuxColonnesResp(
     largeur1: 50,
     widthmincol1: '150px',
     widthmincol2: '150px',
-    eleId: ''
-  }
+    eleId: '',
+  },
 )}`
     const decompo1 = texFactorisation(autocollants)
     const decompo2 = texFactorisation(drapeaux)
@@ -102,7 +128,7 @@ ${deuxColonnesResp(
     const correction = `${texteEnCouleurEtGras('PARTIE A', 'black')}<br>
   ${createList({
     items: [
-      `On a $${autocollantsParSachet.texFraction} ${egalOuApprox(autocollants / sachets, 2)} ${texNombre(autocollants / sachets, 2)}$ qui ${autocollantsParSachet.estEntiere ? 'est' : 'n\'est pas'} entier, et on a $${drapeauxParSachet.texFraction} ${egalOuApprox(drapeaux / sachets, 2)} ${texNombre(drapeaux / sachets, 2)}$ qui ${drapeauxParSachet.estEntiere ? 'est' : 'n\'est pas'} entier.<br>
+      `On a $${autocollantsParSachet.texFraction} ${egalOuApprox(autocollants / sachets, 2)} ${texNombre(autocollants / sachets, 2)}$ qui ${autocollantsParSachet.estEntiere ? 'est' : "n'est pas"} entier, et on a $${drapeauxParSachet.texFraction} ${egalOuApprox(drapeaux / sachets, 2)} ${texNombre(drapeaux / sachets, 2)}$ qui ${drapeauxParSachet.estEntiere ? 'est' : "n'est pas"} entier.<br>
       On ne peut donc pas faire ${sachets} sachets car ${autocollantsParSachet.estEntiere ? drapeaux : autocollants} n'est pas un multiple de ${sachets}.`,
       createList({
         items: [
@@ -111,12 +137,12 @@ ${deuxColonnesResp(
           Autrement dit le plus grand diviseur de $${autocollants}$ et de $${drapeaux}$ est $${pgcdAutocollantsDrapeaux}$.<br>
           La présidente pourra donc réaliser $${pgcdAutocollantsDrapeaux}$ sachets identiques.<br>`,
           `On a $${autocollants} = ${pgcdAutocollantsDrapeaux}\\times ${autocollants / pgcdAutocollantsDrapeaux}$ et $${drapeaux} = ${pgcdAutocollantsDrapeaux}\\times ${drapeaux / pgcdAutocollantsDrapeaux}$.<br>
-          Chaque sachet contiendra $${autocollantsParSachetFinal}$ autocollants et $${drapeauxParSachetFinal}$ drapeaux.`
+          Chaque sachet contiendra $${autocollantsParSachetFinal}$ autocollants et $${drapeauxParSachetFinal}$ drapeaux.`,
         ],
-        style: 'alpha'
-      })
+        style: 'alpha',
+      }),
     ],
-    style: 'nombres'
+    style: 'nombres',
   })}
   ${texteEnCouleurEtGras('PARTIE B', 'black')}<br>
   Le volume de la piscine est en $\\text{m}^3$ : $${longueur} \\times ${largeur} \\times ${texNombre(hauteur, 1)} =${texNombre(volume, 1)}$, soit $${texNombre(volume, 1)}\\text{m}^3$.<br>
@@ -127,9 +153,9 @@ ${deuxColonnesResp(
       `Si on considère que la question porte sur le coût de remplissage de $${fracR.texFractionSimplifiee}$ du volume total de la piscine, alors le prix du remplissage est :  $${fracR.texFractionSimplifiee}\\times ${texNombre(volume * prixM3, 2, true)}=${texNombre(prixFinal, 2, true)}$ €.`,
       `Si on considère que la piscine est déjà remplie de $${fracR.texFractionSimplifiee}$ du volume total et qu'on veut la remplir totalement, alors il reste $${fraction(1, 1).differenceFraction(fracR).texFractionSimplifiee}$ du volume à remplir.<br>
       Le prix du remplissage est alors : $${fraction(1, 1).differenceFraction(fracR).texFractionSimplifiee}\\times ${texNombre(volume * prixM3, 2, true)}=${texNombre(volume * prixM3 - prixFinal, 2, true)}$ €.`,
-      `Si on considère que la question porte sur le remplissage complet de la piscine, alors le prix du remplissage est : $${texNombre(volume * prixM3, 2, true)}$ €.`
+      `Si on considère que la question porte sur le remplissage complet de la piscine, alors le prix du remplissage est : $${texNombre(volume * prixM3, 2, true)}$ €.`,
     ],
-    style: 'fleches'
+    style: 'fleches',
   })}`
 
     this.enonce = enonce
@@ -143,7 +169,13 @@ ${deuxColonnesResp(
   versionAleatoire: () => void = () => {
     const den = choice([5, 10, 16, 20])
     const num = randint(Math.ceil(den / 2) + 1, den - 1)
-    const [unPremier, unSecond] = choice([[4, 7], [5, 7], [3, 4], [7, 8], [5, 11]])
+    const [unPremier, unSecond] = choice([
+      [4, 7],
+      [5, 7],
+      [3, 4],
+      [7, 8],
+      [5, 11],
+    ])
     const facteurs1 = combinaisonListes([2, 2, 3, 3, 5, 7], 5).slice(0, 3)
     const nb1 = facteurs1.reduce((acc, val) => acc * val, unPremier)
     const nb2 = facteurs1.reduce((acc, val) => acc * val, unSecond)
@@ -154,9 +186,7 @@ ${deuxColonnesResp(
       const listDiv1 = listeDesDiviseurs(nb1)
       const listDiv2 = listeDesDiviseurs(nb2)
       const choix = choice([true, false])
-      unDiviseur = choix
-        ? choice(listDiv1)
-        : choice(listDiv2)
+      unDiviseur = choix ? choice(listDiv1) : choice(listDiv2)
       trouve = choix
         ? !listDiv2.includes(unDiviseur) && unDiviseur !== nb1
         : !listDiv1.includes(unDiviseur) && unDiviseur !== nb2
@@ -168,6 +198,16 @@ ${deuxColonnesResp(
     const hauteur = choice([2, 3, 2.5, 1.8, 2.2])
     const largeur = choice([10, 15, 20, 25])
     const longueur = randint(largeur / 5 + 1, largeur / 5 + 6) * 5
-    this.appliquerLesValeurs(nb1, nb2, sachets, hauteur, largeur, longueur, num, den, prixM3)
+    this.appliquerLesValeurs(
+      nb1,
+      nb2,
+      sachets,
+      hauteur,
+      largeur,
+      longueur,
+      num,
+      den,
+      prixM3,
+    )
   }
 }

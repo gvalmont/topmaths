@@ -37,11 +37,20 @@ export class ObjetLutin extends ObjetMathalea2D {
   crayonBaisse: boolean
   isVisible: boolean
   costume: string
-  listeTraces: [number, number, number, number, string, number, number, number][]
+  listeTraces: [
+    number,
+    number,
+    number,
+    number,
+    string,
+    number,
+    number,
+    number,
+  ][]
   animation: string
   stringColor: string
   codeScratch?: string
-  constructor () {
+  constructor() {
     super()
     this.x = 0
     this.y = 0
@@ -71,7 +80,7 @@ export class ObjetLutin extends ObjetMathalea2D {
     this.animation = ''
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let code = ''
     for (const trace of this.listeTraces) {
       const A = point(trace[0], trace[1])
@@ -91,7 +100,7 @@ export class ObjetLutin extends ObjetMathalea2D {
         style += ` stroke-opacity="${opacite}" `
       }
       code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-        coeff
+        coeff,
       )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color[0]}" ${style}  />`
     }
     if (this.isVisible && this.animation !== '') {
@@ -100,7 +109,7 @@ export class ObjetLutin extends ObjetMathalea2D {
     return code
   }
 
-  tikz () {
+  tikz() {
     let code = ''
     for (const trace of this.listeTraces) {
       const A = point(trace[0], trace[1])
@@ -114,10 +123,10 @@ export class ObjetLutin extends ObjetMathalea2D {
       if (color[1].length > 1 && color[1] !== 'black') {
         tableauOptions.push(`color =${color[1]}`)
       }
-      if ((!isNaN(epaisseur)) && epaisseur !== 1) {
+      if (!isNaN(epaisseur) && epaisseur !== 1) {
         tableauOptions.push(`line width = ${epaisseur}`)
       }
-      if ((!isNaN(opacite)) && opacite !== 1) {
+      if (!isNaN(opacite) && opacite !== 1) {
         tableauOptions.push(`opacity = ${opacite}`)
       }
       if (pointilles) {
@@ -138,7 +147,7 @@ export class ObjetLutin extends ObjetMathalea2D {
  * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
  * @returns {ObjetLutin} Instance d'un lutin
  */
-export function creerLutin () {
+export function creerLutin() {
   return new ObjetLutin()
 }
 
@@ -150,14 +159,28 @@ export function creerLutin () {
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function avance (d: number, lutin: ObjetLutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
+export function avance(d: number, lutin: ObjetLutin) {
+  // A faire avec pointSurCercle pour tenir compte de l'orientation
   const xdepart = lutin.x
   const ydepart = lutin.y
-  lutin.x = lutin.x + d / context.unitesLutinParCm * Math.cos(degToRad(lutin.orientation))
-  lutin.y = lutin.y + d / context.unitesLutinParCm * Math.sin(degToRad(lutin.orientation))
+  lutin.x =
+    lutin.x +
+    (d / context.unitesLutinParCm) * Math.cos(degToRad(lutin.orientation))
+  lutin.y =
+    lutin.y +
+    (d / context.unitesLutinParCm) * Math.sin(degToRad(lutin.orientation))
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([
+      xdepart,
+      ydepart,
+      lutin.x,
+      lutin.y,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
   }
   lutin.xMin = Math.min(lutin.xMin, lutin.x)
   lutin.yMin = Math.min(lutin.yMin, lutin.y)
@@ -170,7 +193,7 @@ export function avance (d: number, lutin: ObjetLutin) { // A faire avec pointSur
  * @param {ObjetLutin} lutin
  * @example baisseCrayon(lutin) // Met lutin en mode "trace"
  */
-export function baisseCrayon (lutin: ObjetLutin) {
+export function baisseCrayon(lutin: ObjetLutin) {
   lutin.crayonBaisse = true
 }
 
@@ -180,7 +203,7 @@ export function baisseCrayon (lutin: ObjetLutin) {
  * @example leveCrayon(lutin) // Sort lutin du mode "trace"
  */
 // JSDOC Validee par EE Juin 2022
-export function leveCrayon (lutin: ObjetLutin) {
+export function leveCrayon(lutin: ObjetLutin) {
   lutin.crayonBaisse = false
 }
 
@@ -190,7 +213,7 @@ export function leveCrayon (lutin: ObjetLutin) {
  * @param {number} a
  * @param {ObjetLutin} lutin
  */
-export function orienter (a: number, lutin: ObjetLutin) {
+export function orienter(a: number, lutin: ObjetLutin) {
   lutin.orientation = angleModulo(a)
 }
 
@@ -199,7 +222,7 @@ export function orienter (a: number, lutin: ObjetLutin) {
  * @param {number} a
  * @param {ObjetLutin} lutin
  */
-export function tournerG (a: number, lutin: ObjetLutin) {
+export function tournerG(a: number, lutin: ObjetLutin) {
   lutin.orientation = angleModulo(lutin.orientation + a)
 }
 
@@ -208,7 +231,7 @@ export function tournerG (a: number, lutin: ObjetLutin) {
  * @param {number} a
  * @param {ObjetLutin} lutin
  */
-export function tournerD (a: number, lutin: ObjetLutin) {
+export function tournerD(a: number, lutin: ObjetLutin) {
   lutin.orientation = angleModulo(lutin.orientation - a)
 }
 
@@ -220,14 +243,23 @@ export function tournerD (a: number, lutin: ObjetLutin) {
  * @example allerA(10,-5,lutin) // Le lutin prend pour coordonnées (10 ; -5).
  */
 // JSDOC Validee par EE Juin 2022
-export function allerA (x: number, y: number, lutin: ObjetLutin) {
+export function allerA(x: number, y: number, lutin: ObjetLutin) {
   const xdepart = lutin.x
   const ydepart = lutin.y
   lutin.x = x / context.unitesLutinParCm
   lutin.y = y / context.unitesLutinParCm
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([
+      xdepart,
+      ydepart,
+      lutin.x,
+      lutin.y,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
   }
   lutin.xMin = Math.min(lutin.xMin, lutin.x)
   lutin.yMin = Math.min(lutin.yMin, lutin.y)
@@ -241,12 +273,21 @@ export function allerA (x: number, y: number, lutin: ObjetLutin) {
  * @param {ObjetLutin} lutin Lutin
  * @example mettrexA(10,lutin) // L'abscisse de lutin devient 10.
  */
-export function mettrexA (x: number, lutin: ObjetLutin) {
+export function mettrexA(x: number, lutin: ObjetLutin) {
   const xdepart = lutin.x
   lutin.x = x / context.unitesLutinParCm
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([
+      xdepart,
+      lutin.y,
+      lutin.x,
+      lutin.y,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
   }
   lutin.xMin = Math.min(lutin.xMin, lutin.x)
   lutin.xMax = Math.max(lutin.xMax, lutin.x)
@@ -258,12 +299,21 @@ export function mettrexA (x: number, lutin: ObjetLutin) {
  * @param {ObjetLutin} lutin Lutin
  * @example mettreyA(10,lutin) // L'ordonnée de lutin devient 10.
  */
-export function mettreyA (y: number, lutin: ObjetLutin) {
+export function mettreyA(y: number, lutin: ObjetLutin) {
   const ydepart = lutin.y
   lutin.y = y / context.unitesLutinParCm
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([
+      lutin.x,
+      ydepart,
+      lutin.x,
+      lutin.y,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
   }
   lutin.yMin = Math.min(lutin.yMin, lutin.y)
   lutin.yMax = Math.max(lutin.yMax, lutin.y)
@@ -276,12 +326,21 @@ export function mettreyA (y: number, lutin: ObjetLutin) {
  * @example ajouterAx(10,lutin) // L'abscisse de lutin est augmentée de 10.
  */
 // JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-export function ajouterAx (x: number, lutin: ObjetLutin) {
+export function ajouterAx(x: number, lutin: ObjetLutin) {
   const xdepart = lutin.x
   lutin.x += x / context.unitesLutinParCm
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([
+      xdepart,
+      lutin.y,
+      lutin.x,
+      lutin.y,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
   }
   lutin.xMin = Math.min(lutin.xMin, lutin.x)
   lutin.xMax = Math.max(lutin.xMax, lutin.x)
@@ -294,12 +353,21 @@ export function ajouterAx (x: number, lutin: ObjetLutin) {
  * @example ajouterAy(10,lutin) // L'ordonnée de lutin est augmentée de 10.
  */
 // JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-export function ajouterAy (y: number, lutin: ObjetLutin) {
+export function ajouterAy(y: number, lutin: ObjetLutin) {
   const ydepart = lutin.y
   lutin.y += y / context.unitesLutinParCm
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([
+      lutin.x,
+      ydepart,
+      lutin.x,
+      lutin.y,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
   }
   lutin.yMin = Math.min(lutin.yMin, lutin.y)
   lutin.yMax = Math.max(lutin.yMax, lutin.y)
@@ -313,19 +381,91 @@ export function ajouterAy (y: number, lutin: ObjetLutin) {
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function attendre (tempo: number, lutin: ObjetLutin) {
+export function attendre(tempo: number, lutin: ObjetLutin) {
   const x = lutin.x
   const y = lutin.y
-  lutin.listeTraces.push([x, y, x + 0.08, y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+  lutin.listeTraces.push([
+    x,
+    y,
+    x + 0.08,
+    y,
+    lutin.stringColor,
+    lutin.epaisseur,
+    lutin.pointilles,
+    lutin.opacite,
+  ])
   for (let i = 0; i < tempo; i++) {
-    lutin.listeTraces.push([x + 0.08, y, x + 0.08, y + 0.08, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y + 0.08, x - 0.08, y + 0.08, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y + 0.08, x - 0.08, y + 0.08, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x - 0.08, y + 0.08, x - 0.08, y - 0.08, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x - 0.08, y - 0.08, x + 0.08, y - 0.08, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y - 0.08, x + 0.08, y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+    lutin.listeTraces.push([
+      x + 0.08,
+      y,
+      x + 0.08,
+      y + 0.08,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
+    lutin.listeTraces.push([
+      x + 0.08,
+      y + 0.08,
+      x - 0.08,
+      y + 0.08,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
+    lutin.listeTraces.push([
+      x + 0.08,
+      y + 0.08,
+      x - 0.08,
+      y + 0.08,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
+    lutin.listeTraces.push([
+      x - 0.08,
+      y + 0.08,
+      x - 0.08,
+      y - 0.08,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
+    lutin.listeTraces.push([
+      x - 0.08,
+      y - 0.08,
+      x + 0.08,
+      y - 0.08,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
+    lutin.listeTraces.push([
+      x + 0.08,
+      y - 0.08,
+      x + 0.08,
+      y,
+      lutin.stringColor,
+      lutin.epaisseur,
+      lutin.pointilles,
+      lutin.opacite,
+    ])
   }
-  lutin.listeTraces.push([x + 0.03, y, x, y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+  lutin.listeTraces.push([
+    x + 0.03,
+    y,
+    x,
+    y,
+    lutin.stringColor,
+    lutin.epaisseur,
+    lutin.pointilles,
+    lutin.opacite,
+  ])
 }
 
 /**
@@ -333,7 +473,7 @@ export function attendre (tempo: number, lutin: ObjetLutin) {
  * @param {ObjetMathalea2D} originalObject
  * @returns {object} copie de cet objet.
  */
-export function clone (lutin: ObjetLutin): ObjetLutin {
+export function clone(lutin: ObjetLutin): ObjetLutin {
   const clone = new ObjetLutin()
   clone.x = lutin.x
   clone.y = lutin.y

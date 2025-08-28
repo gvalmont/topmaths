@@ -18,12 +18,16 @@ export const titre = 'Écrire une relation de Thalès'
 /**
  * Relation de Thalès
  * @author Sébastien LOZANO
-*/
+ */
 export default class RelationDeThales extends Exercice {
   level: number
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Configuration',
+      3,
+      '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange',
+    ]
 
     this.nbQuestions = 1
 
@@ -31,7 +35,7 @@ export default class RelationDeThales extends Exercice {
     this.level = 4
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion(numeroExercice: number) {
     let listeDeNomsDePolygones: string[] = []
 
     if (this.level === 4) {
@@ -39,9 +43,14 @@ export default class RelationDeThales extends Exercice {
     }
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
 
-    for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte = '', texteCorr = '', cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // this.autoCorrection[i] = {}
-      if (i % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
+      if (i % 3 === 0) {
+        // Toutes les 3 questions, on repart à zéro sur les noms des polygones
         listeDeNomsDePolygones = ['QD']
       }
       const nomDesPoints = creerNomDePolygone(5, listeDeNomsDePolygones)
@@ -64,7 +73,7 @@ export default class RelationDeThales extends Exercice {
       if (this.sup === 2) {
         k *= -1
       }
-      if (this.sup === 3 && ((i + premiereQuestionPapillon) % 2 === 0)) {
+      if (this.sup === 3 && (i + premiereQuestionPapillon) % 2 === 0) {
         k *= -1
       }
       const M = homothetie(A, C, k)
@@ -84,10 +93,20 @@ export default class RelationDeThales extends Exercice {
         if (angle(A, C, N) < angle(N, C, A)) {
           c = similitude(A, C, -angleOriente(A, C, N) / 2, 1 / longueur(A, C))
         } else {
-          c = similitude(A, C, -angleOriente(N, C, A) / 2, 1 / longueur(A, C) * 0.5)
+          c = similitude(
+            A,
+            C,
+            -angleOriente(N, C, A) / 2,
+            (1 / longueur(A, C)) * 0.5,
+          )
         }
       } else {
-        c = similitude(A, C, -180 + angleOriente(A, C, B) / 2, 1 / longueur(A, C) * 0.5)
+        c = similitude(
+          A,
+          C,
+          -180 + angleOriente(A, C, B) / 2,
+          (1 / longueur(A, C)) * 0.5,
+        )
       }
       const marqueNomC = texteParPoint(nomC, c, 0, 'black', 1, 'milieu', true)
 
@@ -102,19 +121,27 @@ export default class RelationDeThales extends Exercice {
 
       texte += `<br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles.<br>Écrire une relation de Thalès.<br>`
 
-      texte += mathalea2d({
-        xmin: Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
-        ymin: Math.min(A.y, B.y, C.y, M.y, N.y) - 0.8,
-        xmax: Math.max(A.x, B.x, C.x, M.x, N.x) + 1.5,
-        ymax: Math.max(A.y, B.y, C.y, M.y, N.y) + 0.8,
-        scale: 0.5
-      },
+      texte += mathalea2d(
+        {
+          xmin: Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
+          ymin: Math.min(A.y, B.y, C.y, M.y, N.y) - 0.8,
+          xmax: Math.max(A.x, B.x, C.x, M.x, N.x) + 1.5,
+          ymax: Math.max(A.y, B.y, C.y, M.y, N.y) + 0.8,
+          scale: 0.5,
+        },
 
-      ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
+        ABC,
+        MNC,
+        marqueNomA,
+        marqueNomB,
+        marqueNomC,
+        marqueNomM,
+        marqueNomN,
       )
 
-      const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
-      const boutonAideMathalea2d = ajouterBoutonMathalea2d(`${numeroExercice}_${i}`,
+      const epaisseurTriangle = k < 0 ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
+      const boutonAideMathalea2d = ajouterBoutonMathalea2d(
+        `${numeroExercice}_${i}`,
         `if (!document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == 'false')){
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.stroke = 'blue';
           document.getElementById('M2D_${numeroExercice}_${i}_2').style.stroke = 'red';
@@ -136,7 +163,8 @@ export default class RelationDeThales extends Exercice {
   
         }
         `,
-        'Mettre en couleur les 2 triangles')
+        'Mettre en couleur les 2 triangles',
+      )
 
       if (k > 0) {
         texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :

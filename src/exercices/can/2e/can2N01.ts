@@ -19,10 +19,10 @@ export const uuid = 'f6f76'
 
 export const refs = {
   'fr-fr': ['can2N01'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Intervalles extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,15 +30,17 @@ export default class Intervalles extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, N, d, e
 
-    switch (choice([1, 2])) { //, 2, 2
+    switch (
+      choice([1, 2]) //, 2, 2
+    ) {
       case 1:
-        a = randint(1, 4) * (-1)
+        a = randint(1, 4) * -1
         b = randint(1, 4)
         c = arrondi(randint(-4, -1) + randint(-9, -1) / 10)
-        N = choice(['a', 'b', 'c', 'd', 'e'])//, ${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}     Bigg[${a}  ${sp(2)} ; ${sp(2)} ${b}\\Bigg]$ <br><br>$\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$?<br>
+        N = choice(['a', 'b', 'c', 'd', 'e']) //, ${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}     Bigg[${a}  ${sp(2)} ; ${sp(2)} ${b}\\Bigg]$ <br><br>$\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$?<br>
         if (N === 'a') {
           this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$ ?
                     `
@@ -87,12 +89,12 @@ export default class Intervalles extends ExerciceSimple {
         break
 
       case 2:
-        a = randint(1, 4) * (-1)
+        a = randint(1, 4) * -1
         b = randint(1, 4)
         c = arrondi(randint(-9, -4) + randint(-9, -1) / 10)
         d = arrondi(c + randint(2, 4))
         e = randint(-8, -1)
-        N = choice(['a', 'b', 'c', 'd'])//,
+        N = choice(['a', 'b', 'c', 'd']) //,
         if (N === 'a') {
           this.question = `Quel est le plus petit entier appartenant à l'intervalle $\\bigg]${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg[$ ?`
           this.correction = `C'est le plus petit entier strictement supérieur à  $${a}$ : il s'agit de $${a + 1}$.`
@@ -115,7 +117,7 @@ export default class Intervalles extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

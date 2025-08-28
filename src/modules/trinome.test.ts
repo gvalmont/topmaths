@@ -122,13 +122,13 @@ describe('Trinome', () => {
   })
 
   describe('isEqual', () => {
-    test('Test d\'égalité', () => {
+    test("Test d'égalité", () => {
       const trinome1 = new Trinome(1, 2, 3)
       const trinome2 = new Trinome(1, 2, 3)
       expect(trinome1.isEqual(trinome2)).toBe(true)
     })
 
-    test('Test d\'inégalité', () => {
+    test("Test d'inégalité", () => {
       const trinome1 = new Trinome(1, 2, 3)
       const trinome2 = new Trinome(4, 5, 6)
       expect(trinome1.isEqual(trinome2)).toBe(false)
@@ -165,7 +165,7 @@ describe('Trinome', () => {
       expect(trinome.isConstant).toBe(true)
     })
 
-    test('Devrait dire que le trinome n\'est pas constant', () => {
+    test("Devrait dire que le trinome n'est pas constant", () => {
       const trinome = new Trinome(1, 0, 5)
       expect(trinome.isConstant).toBe(false)
     })
@@ -206,11 +206,19 @@ describe('Trinome', () => {
   describe('texCalculX1', () => {
     test('Devrait retourner le calcul de la 1re racine', () => {
       const trinome1 = new Trinome(3, -9, 6)
-      expect(trinome1.texCalculRacine1()).toBe('x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{9-\\sqrt{9}}{2\\times3}=\\dfrac{6}{6}=1')
-      expect(trinome1.texCalculRacine2()).toBe('x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{9+\\sqrt{9}}{2\\times3}=\\dfrac{12}{6}=2')
+      expect(trinome1.texCalculRacine1()).toBe(
+        'x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{9-\\sqrt{9}}{2\\times3}=\\dfrac{6}{6}=1',
+      )
+      expect(trinome1.texCalculRacine2()).toBe(
+        'x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{9+\\sqrt{9}}{2\\times3}=\\dfrac{12}{6}=2',
+      )
       const trinome2 = new Trinome(-2, -20, -47)
-      expect(trinome2.texCalculRacine1()).toBe('x_1 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{20+\\sqrt{24}}{2\\times\\left(-2\\right)}=\\dfrac{-20-\\sqrt{24}}{4}\\approx-6{,}225')
-      expect(trinome2.texCalculRacine1(true)).toBe('x_1 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{20+\\sqrt{24}}{2\\times\\left(-2\\right)}=\\dfrac{-20-\\sqrt{24}}{4}=\\dfrac{-10- \\sqrt{6}}{2}')
+      expect(trinome2.texCalculRacine1()).toBe(
+        'x_1 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{20+\\sqrt{24}}{2\\times\\left(-2\\right)}=\\dfrac{-20-\\sqrt{24}}{4}\\approx-6{,}225',
+      )
+      expect(trinome2.texCalculRacine1(true)).toBe(
+        'x_1 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{20+\\sqrt{24}}{2\\times\\left(-2\\right)}=\\dfrac{-20-\\sqrt{24}}{4}=\\dfrac{-10- \\sqrt{6}}{2}',
+      )
     })
   })
 })

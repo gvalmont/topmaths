@@ -1,10 +1,13 @@
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'dff98'
 export const refs = {
   'fr-fr': ['TSA2-QCM14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,29 +32,31 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$0$', // Réponse correcte (d)
       '$\\dfrac{2}{3}$', // Mauvaise réponse (a)
       '$+\\infty$', // Mauvaise réponse (b)
-      '$-\\infty$' // Mauvaise réponse (c)
+      '$-\\infty$', // Mauvaise réponse (c)
     ]
 
     this.reponses = [
       'Une seule solution', // Réponse correcte (c)
       'Trois solutions', // Mauvaise réponse (a)
       'Deux solutions', // Mauvaise réponse (b)
-      'Aucune solution' // Mauvaise réponse (d)
+      'Aucune solution', // Mauvaise réponse (d)
     ]
 
-    this.enonce = 'L\'équation : '
+    this.enonce = "L'équation : "
     this.enonce += '$\\text{e}^{2x} + \\text{e}^x - 12 = 0$'
     this.enonce += ' admet dans $\\mathbb R$ :'
 
-    this.correction = 'On pose $X = \\text{e}^x$. L\'équation devient :<br>'
+    this.correction = "On pose $X = \\text{e}^x$. L'équation devient :<br>"
     this.correction += '$X^2 + X - 12 = 0.$<br>'
     this.correction += 'Les solutions sont $X = -4$ et $X = 3$.<br>'
-    this.correction += 'Or, $X = \\text{e}^x > 0$, donc seule $X = 3$ est acceptable.<br>'
-    this.correction += 'Ainsi, l\'équation $\\text{e}^x = 3$ admet une unique solution : $x = \\ln(3)$.<br>'
+    this.correction +=
+      'Or, $X = \\text{e}^x > 0$, donc seule $X = 3$ est acceptable.<br>'
+    this.correction +=
+      "Ainsi, l'équation $\\text{e}^x = 3$ admet une unique solution : $x = \\ln(3)$.<br>"
     this.correction += `La solution est donc ${texteEnCouleurEtGras('une seule solution')}.`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

@@ -4,14 +4,17 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { context } from '../../../modules/context'
 import { sp } from '../../../lib/outils/outilString'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../../lib/outils/ecritures'
 export const titre = 'Utiliser un script Python'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '9e9fb'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -19,7 +22,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q12 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -28,7 +31,7 @@ export default class Can2025N5Q12 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = this.canOfficielle ? 3 : randint(-5, 5, [-1, 0, 1])
     const coeff = this.canOfficielle ? 2 : randint(-3, 3, [-1, 0, 1])
     this.question = 'Soit le script Python : <br><br>'
@@ -63,6 +66,8 @@ export default class Can2025N5Q12 extends ExerciceSimple {
     this.canEnonce += '}'
     this.canReponseACompleter = `$\\texttt{resultat(${a})}$ renvoie <br> $\\ldots$`
 
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
   }
 }

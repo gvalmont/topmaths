@@ -11,9 +11,9 @@ export const uuid = 'fc596'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -24,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: '.' }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(3, 6).simplifie().texFraction
       this.question = `On lance un dé à six faces numérotées de 1 à 6. <br>

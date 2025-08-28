@@ -6,13 +6,13 @@ import refToUuidCH from '../../json/refToUuidCH.json'
 
 export const localisedIDToUuid: Record<Language, Record<string, string>> = {
   'fr-CH': { ...refToUuidCH },
-  'fr-FR': { ...refToUuidFR }
+  'fr-FR': { ...refToUuidFR },
 }
 
 export const referentielLocale = writable<Language>('fr-FR')
 
 export const updateReferentielLocaleFromURL = (
-  urlString = window.location.href
+  urlString = window.location.href,
 ) => {
   let url: URL
   try {
@@ -42,6 +42,6 @@ export const updateURLFromReferentielLocale = (url: URL) => {
   }
 }
 
-export function getLang () {
+export function getLang() {
   return get(referentielLocale)
 }

@@ -11,14 +11,14 @@ export const interactifType = 'mathLive'
 export const uuid = '91304'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class ComparerFractions extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -26,7 +26,7 @@ export default class ComparerFractions extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const oliveK = choice([100, 200])
     const nbreBouteilles = choice([20, 25, 10])
     const oliveParBouteille = new Decimal(oliveK).div(nbreBouteilles)
@@ -52,7 +52,9 @@ export default class ComparerFractions extends ExerciceSimple {
       \\end{aligned}$<br>
       Il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     }
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ bouteilles'
   }

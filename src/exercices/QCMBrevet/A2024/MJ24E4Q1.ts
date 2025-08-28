@@ -1,5 +1,10 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  rienSi1,
+} from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -9,13 +14,13 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'aa6a8'
 export const refs = {
   'fr-fr': ['3F1QCM-4'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Fonction calcul d\'image (06/2024 Métropole)'
+export const titre = "Fonction calcul d'image (06/2024 Métropole)"
 export const dateDePublication = '09/11/2024'
 /**
  *
@@ -24,11 +29,11 @@ export const dateDePublication = '09/11/2024'
  */
 
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs (a: number, b:number, c:number): void {
+  private appliquerLesValeurs(a: number, b: number, c: number): void {
     this.reponses = [
       `$${texNombre(a * c + b, 0)}$`,
       `$${texNombre(a + c + b, 0)}$`,
-      `$${texNombre(a * c - b)}$`
+      `$${texNombre(a * c - b)}$`,
     ]
     this.enonce = `On considère la fonction $f$ définie par $f(x)=${reduireAxPlusB(a, b)}$.<br>
     Quelle est l'image de $${String(c)}$ par cette fonction ?`
@@ -49,7 +54,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

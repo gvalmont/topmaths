@@ -24,13 +24,17 @@ export const uuid = '06633'
 export const refs = {
   'fr-fr': ['6N3H'],
   'fr-2016': ['6N41'],
-  'fr-ch': ['9NO12-1']
+  'fr-ch': ['9NO12-1'],
 }
 export default class EgalitesEntreFractions extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99]
-    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Type de questions',
+      3,
+      '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Mélange',
+    ]
     this.sup = 11 // Correspond au facteur commun
     this.sup2 = 2 // alternance numérateur ou dénominateur imposé.
     this.consigne = 'Compléter les égalités.'
@@ -39,7 +43,7 @@ export default class EgalitesEntreFractions extends Exercice {
     this.nbQuestions = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let listeFractions = [
       [1, 2],
       [1, 3],
@@ -71,16 +75,27 @@ export default class EgalitesEntreFractions extends Exercice {
       [1, 10],
       [3, 10],
       [7, 10],
-      [9, 10]
+      [9, 10],
     ] // Couples de nombres premiers entre eux
     listeFractions = shuffle(listeFractions)
     const listeTypeDeQuestions = combinaisonListes(
       [1, 1, 1, 1, 2],
-      this.nbQuestions
+      this.nbQuestions,
     )
     for (
-      let i = 0, cpt = 0, fraction, a:number, b:number, c:number, d:number, k:number, choix, texte, texteCorr;
+      let i = 0,
+        cpt = 0,
+        fraction,
+        a: number,
+        b: number,
+        c: number,
+        d: number,
+        k: number,
+        choix,
+        texte,
+        texteCorr;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       if (this.sup2 === 3) {
         choix = i % 2
@@ -99,15 +114,24 @@ export default class EgalitesEntreFractions extends Exercice {
         d = k * b
 
         switch (choix) {
-          case 0 :
+          case 0:
             texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction('\\ldots\\ldots', d)}$`
             if (this.interactif && context.isHtml) {
-              texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}} = \\dfrac{${a} \\times %{champ1}}{${b} \\times %{champ2}} = \\dfrac{%{champ3}}{${d}}`, 'fillInTheBlank', '\\ldots')
+              texte = remplisLesBlancs(
+                this,
+                i,
+                `\\dfrac{${a}}{${b}} = \\dfrac{${a} \\times %{champ1}}{${b} \\times %{champ2}} = \\dfrac{%{champ3}}{${d}}`,
+                'fillInTheBlank',
+                '\\ldots',
+              )
               handleAnswers(this, i, {
-                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                bareme: (listePoints) => [
+                  listePoints[0] * listePoints[1] + listePoints[2],
+                  2,
+                ],
                 champ1: { value: `${k}` },
                 champ2: { value: `${k}` },
-                champ3: { value: String(c) }
+                champ3: { value: String(c) },
               })
             }
             texteCorr = `$${stringTexFraction(a, b)} = ${stringTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${stringTexFraction(c, d)}$`
@@ -116,38 +140,47 @@ export default class EgalitesEntreFractions extends Exercice {
               this.autoCorrection[i].propositions = [
                 {
                   texte: `$${stringTexFraction(c, d)}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${stringTexFraction(a, d)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction((k - 1) * a, d)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction((k + 1) * a, d)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction(Math.abs(d - a), d)}$`,
-                  statut: false
-                }
+                  statut: false,
+                },
               ]
             }
             break
-          case 1 :
+          case 1:
           default:
             texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction(c, '\\ldots\\ldots')}$`
             if (this.interactif && context.isHtml) {
               const content = `\\dfrac{${a}}{${b}} = \\dfrac{${a} \\times %{champ1}}{${b} \\times %{champ2}} = \\dfrac{${c}}{%{champ3}}`
-              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              texte = remplisLesBlancs(
+                this,
+                i,
+                content,
+                'fillInTheBlank',
+                '\\ldots',
+              )
               handleAnswers(this, i, {
-                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                bareme: (listePoints) => [
+                  listePoints[0] * listePoints[1] + listePoints[2],
+                  2,
+                ],
                 champ1: { value: `${k}` },
                 champ2: { value: `${k}` },
-                champ3: { value: String(d) }
+                champ3: { value: String(d) },
               })
             }
             texteCorr = `$${stringTexFraction(a, b)} = ${stringTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${stringTexFraction(c, d)}$`
@@ -156,24 +189,24 @@ export default class EgalitesEntreFractions extends Exercice {
               this.autoCorrection[i].propositions = [
                 {
                   texte: `$${stringTexFraction(c, d)}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${stringTexFraction(c, b)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$\\dfrac{${c}}{${(k - 1) * b}}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction(c, (k + 1) * b)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$\\dfrac{${c}}{${Math.abs(c - b)}}$`,
-                  statut: false
-                }
+                  statut: false,
+                },
               ]
             }
             break
@@ -190,12 +223,21 @@ export default class EgalitesEntreFractions extends Exercice {
         c = a * d
 
         switch (choix) {
-          case 0 : // Recherche du numérateur
+          case 0: // Recherche du numérateur
             if (this.interactif && context.isHtml) {
               const content = `${a} = \\dfrac{${a} \\times %{champ1}}{1 \\times %{champ2}} = \\dfrac{%{champ3}}{${d}}`
-              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              texte = remplisLesBlancs(
+                this,
+                i,
+                content,
+                'fillInTheBlank',
+                '\\ldots',
+              )
               handleAnswers(this, i, {
-                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                bareme: (listePoints) => [
+                  listePoints[0] * listePoints[1] + listePoints[2],
+                  2,
+                ],
                 champ1: { value: String(d) },
                 champ2: { value: String(d) },
                 champ3: { value: String(a * d) },
@@ -212,35 +254,44 @@ export default class EgalitesEntreFractions extends Exercice {
               this.autoCorrection[i].propositions = [
                 {
                   texte: `$${stringTexFraction(c, d)}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${stringTexFraction(a, d)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction(d + a, d)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction(Math.abs(d - a), d)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction((a + 1) * d, d)}$`,
-                  statut: false
-                }
+                  statut: false,
+                },
               ]
             }
             break
-          case 1 :
+          case 1:
           default:
             texte = `$${a} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction(c, '\\ldots\\ldots\\ldots\\ldots')}$`
             if (this.interactif && context.isHtml) {
               const content = `${a} = \\dfrac{${a} \\times %{champ1}}{1 \\times %{champ2}} = \\dfrac{${c}}{%{champ3}}`
-              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              texte = remplisLesBlancs(
+                this,
+                i,
+                content,
+                'fillInTheBlank',
+                '\\ldots',
+              )
               handleAnswers(this, i, {
-                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                bareme: (listePoints) => [
+                  listePoints[0] * listePoints[1] + listePoints[2],
+                  2,
+                ],
                 champ1: { value: String(d) },
                 champ2: { value: String(d) },
                 champ3: { value: String(d) },
@@ -255,31 +306,32 @@ export default class EgalitesEntreFractions extends Exercice {
               this.autoCorrection[i].propositions = [
                 {
                   texte: `$${stringTexFraction(c, d)}$`,
-                  statut: true
+                  statut: true,
                 },
                 {
                   texte: `$${stringTexFraction(c, c - a)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction(c, a)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction(c, c + a)}$`,
-                  statut: false
+                  statut: false,
                 },
                 {
                   texte: `$${stringTexFraction(c, c * a)}$`,
-                  statut: false
-                }
+                  statut: false,
+                },
               ]
             }
             break
         }
       }
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = `Parmi les fractions suivantes, laquelle est égale à ${texte.split('=')[0]}$ ?`
+        this.autoCorrection[i].enonce =
+          `Parmi les fractions suivantes, laquelle est égale à ${texte.split('=')[0]}$ ?`
       }
       if (this.questionJamaisPosee(i, a, b, c, d)) {
         this.listeQuestions[i] = texte
@@ -292,6 +344,6 @@ export default class EgalitesEntreFractions extends Exercice {
   }
 }
 
-function stringTexFraction (a: number | string, b: number | string) {
+function stringTexFraction(a: number | string, b: number | string) {
   return `\\dfrac{${a}}{${b}}`
 }

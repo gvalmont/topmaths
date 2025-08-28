@@ -18,8 +18,8 @@
     min="0"
     name="duration"
     id="duration"
-    bind:value={cursorTimeValue}
-    on:change={() => dispatch('change', cursorTimeValue)}
+    bind:value="{cursorTimeValue}"
+    on:change="{() => dispatch('change', cursorTimeValue)}"
   />
   <label
     class="
@@ -49,7 +49,7 @@
   $thumb-width: 18px !default;
   $thumb-shadow-size: 2px !default;
   $thumb-shadow-blur: 2px !default;
-  $thumb-shadow-color: rgba(0, 0, 0, .2) !default;
+  $thumb-shadow-color: rgba(0, 0, 0, 0.2) !default;
   $thumb-border-width: 2px !default;
   $thumb-border-color: #eceff1 !default;
 
@@ -57,27 +57,36 @@
   $track-height: 5px !default;
   $track-shadow-size: 0px !default;
   $track-shadow-blur: 1px !default;
-  $track-shadow-color: rgba(0, 0, 0, .2) !default;
+  $track-shadow-color: rgba(0, 0, 0, 0.2) !default;
   $track-border-width: 1px !default;
   $track-border-color: #cfd8dc !default;
   $track-radius: 5px !default;
 
   $contrast: 5% !default;
-  $ie-bottom-track-color: color.adjust($track-color, $lightness: -$contrast) !default;
+  $ie-bottom-track-color: color.adjust(
+    $track-color,
+    $lightness: -$contrast
+  ) !default;
 
   @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
-    box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size color.adjust($shadow-color, $lightness: $contrast);
+    box-shadow:
+      $shadow-size $shadow-size $shadow-blur $shadow-color,
+      0 0 $shadow-size color.adjust($shadow-color, $lightness: $contrast);
   }
 
   @mixin track {
     cursor: default;
     height: $track-height;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
     width: $track-width;
   }
 
   @mixin thumb {
-    @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+    @include shadow(
+      $thumb-shadow-size,
+      $thumb-shadow-blur,
+      $thumb-shadow-color
+    );
     background: $thumb-color;
     border: $thumb-border-width solid $thumb-border-color;
     border-radius: $thumb-radius;
@@ -116,7 +125,11 @@
 
     &::-webkit-slider-runnable-track {
       @include track;
-      @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+      @include shadow(
+        $track-shadow-size,
+        $track-shadow-blur,
+        $track-shadow-color
+      );
       background: $track-color;
       border: $track-border-width solid $track-border-color;
       border-radius: $track-radius;
@@ -125,11 +138,20 @@
     &::-webkit-slider-thumb {
       @include thumb;
       -webkit-appearance: none;
-      margin-top: (math.div((-$track-border-width * 2 + $track-height), 2) - math.div($thumb-height, 2));
+      margin-top: (
+        math.div((-$track-border-width * 2 + $track-height), 2) - math.div(
+            $thumb-height,
+            2
+          )
+      );
     }
 
     &::-moz-range-track {
-      @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+      @include shadow(
+        $track-shadow-size,
+        $track-shadow-blur,
+        $track-shadow-color
+      );
       @include track;
       background: $track-color;
       border: $track-border-width solid $track-border-color;
@@ -150,14 +172,22 @@
     }
 
     &::-ms-fill-lower {
-      @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+      @include shadow(
+        $track-shadow-size,
+        $track-shadow-blur,
+        $track-shadow-color
+      );
       background: $ie-bottom-track-color;
       border: $track-border-width solid $track-border-color;
       border-radius: ($track-radius * 2);
     }
 
     &::-ms-fill-upper {
-      @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+      @include shadow(
+        $track-shadow-size,
+        $track-shadow-blur,
+        $track-shadow-color
+      );
       background: $track-color;
       border: $track-border-width solid $track-border-color;
       border-radius: ($track-radius * 2);

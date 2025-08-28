@@ -15,21 +15,25 @@ type optionsAide = {
  * @param options.titreAide En HTML : titre de la modale. En LaTeX : texte en gras avant le contenu dans la note de bas de page
  * @returns le code HTML ou LaTeX pour afficher l'aide
  */
-export function ajouterAide (contenu: string, options: optionsAide = {}) {
+export function ajouterAide(contenu: string, options: optionsAide = {}) {
   if (context.isHtml) {
     let HTML = ''
     HTML = `<div class="aide group inline
     text-coopmaths-warn-dark dark:text-coopmathsdark-warn-light"
     >
       ${options.texteAvant ?? ''}
-      ${options.iconeBxIcon
-        ? `<i class="bx ${options.iconeBxIcon}"></i>`
-        : '<div class="h-[1em] w-[1em] inline-flex justify-center items-center rounded-full font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light">?</div>'}
+      ${
+        options.iconeBxIcon
+          ? `<i class="bx ${options.iconeBxIcon}"></i>`
+          : '<div class="h-[1em] w-[1em] inline-flex justify-center items-center rounded-full font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light">?</div>'
+      }
       <div class="fixed w-5/6 md:w-2/3 lg:w-1/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:flex flex-col items-start justify-start z-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 rounded-xl shadow-lg">
-      ${options.titreAide
-        ? `<div class="text-coopmaths-struct dark:text-coopmathsdark-struct font-semibold text-base md:text-lg">${options.titreAide}</div>
+      ${
+        options.titreAide
+          ? `<div class="text-coopmaths-struct dark:text-coopmathsdark-struct font-semibold text-base md:text-lg">${options.titreAide}</div>
            <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light pt-2 pl-0 md:pl-2">${contenu}</div>`
-        : contenu}
+          : contenu
+      }
       </div>
     </div>`
     return HTML
@@ -44,14 +48,19 @@ export function ajouterAide (contenu: string, options: optionsAide = {}) {
  * @param text texte à afficher. Si non précisé, l'url est affichée
  * @returns code HTML ou LaTeX pour afficher le lien
  */
-export function ajouterLien (url: string, text?: string) {
+export function ajouterLien(url: string, text?: string) {
   if (context.isHtml) {
     return `<a href="${url}" target="_blank" class="text-coopmaths-action">${text ?? url}</a>`
   }
   return `\\href{${url}}{{${text ?? url}}}`
 }
 
-export function ajouterBoutonMathalea2d (numeroExercice: number | string, fonction: string, labelBouton = 'Aide', icone = 'info circle') {
+export function ajouterBoutonMathalea2d(
+  numeroExercice: number | string,
+  fonction: string,
+  labelBouton = 'Aide',
+  icone = 'info circle',
+) {
   return `<button class="inline-block px-6 py-2.5 mr-10 my-5 ml-6 bg-coopmaths text-white font-medium text-xs leading-tight uppercase rounded shadow-md transform hover:scale-110 hover:bg-coopmaths-dark hover:shadow-lg focus:bg-coopmaths-dark focus:shadow-lg focus:outline-none focus:ring-0 active:bg-coopmaths-dark active:shadow-lg transition duration-150 ease-in-out" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
 }
 
@@ -61,7 +70,7 @@ export function ajouterBoutonMathalea2d (numeroExercice: number | string, foncti
  * @returns le code HTML ou LaTeX pour afficher l'image
  * @author Guillaume Valmont
  */
-export function ajouterImage (urlImage: string) {
+export function ajouterImage(urlImage: string) {
   if (context.isHtml) {
     return `<img class="inline" src="images/${urlImage}">`
   } else {

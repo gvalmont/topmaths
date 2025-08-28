@@ -1,5 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureNombreRelatif,
+  ecritureNombreRelatifc,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -14,21 +19,21 @@ export const interactifType = 'qcm'
 export const titre = 'Addition à trou de deux entiers relatifs'
 
 /**
-* Compléter une addition à trou entre 2 nombres relatifs.
-*
-* * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
-* * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
-* @author Rémi Angot
-* 5R20-2
-*/
+ * Compléter une addition à trou entre 2 nombres relatifs.
+ *
+ * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
+ * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
+ * @author Rémi Angot
+ * 5R20-2
+ */
 export const uuid = 'ce842'
 
 export const refs = {
   'fr-fr': ['5R20-2'],
-  'fr-ch': ['9NO9-7']
+  'fr-ch': ['9NO9-7'],
 }
 export default class ExerciceAdditionsRelatifsATrou extends Exercice {
-  constructor (max = 10) {
+  constructor(max = 10) {
     super()
     this.sup = max
     this.sup2 = false // écriture simplifiée
@@ -45,53 +50,111 @@ export default class ExerciceAdditionsRelatifsATrou extends Exercice {
     this.nbColsCorr = 3
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion(numeroExercice: number) {
     this.numeroExercice = numeroExercice
-    for (let i = 0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+    for (
+      let i = 0, k, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
+      // On limite le nombre d'essais pour chercher des valeurs nouvelles
       const CoefDecimales = this.sup3 ? 10 : 1
-      let a = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
-      let b = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
-      k = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
+      let a =
+        (randint(1, this.sup * CoefDecimales) / CoefDecimales) * choice([-1, 1])
+      let b =
+        (randint(1, this.sup * CoefDecimales) / CoefDecimales) * choice([-1, 1])
+      k = choice([
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+      ]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
       a = a * k[0]
       b = b * k[1]
       let termes
       const rang1 = randint(0, 1)
       const rang2 = 1 - rang1
       if (this.sup2) {
-        termes = [rang1 === 0 ? texNombre(a, 1) : ecritureAlgebrique(a), (rang2 === 1 ? '+' : '') + '\\ldots\\ldots\\ldots', rang1 === 0 ? texNombre(a, 1) : ecritureAlgebrique(a), rang2 === 1 ? '+' + miseEnEvidence(ecritureParentheseSiNegatif(b)) : miseEnEvidence(texNombre(b, 1))]// miseEnEvidence(b)]
-        texte = '$ ' + termes[rang1] + termes[rang2] + ' = ' + texNombre(a + b, 1) + ' $'
-        texteCorr = '$ ' + termes[rang1 + 2] + termes[rang2 + 2] + ' = ' + texNombre(a + b, 1) + ' $'
-        if (rang2 === 1 && b < 0) texteCorr += '<br>$ ' + termes[rang1 + 2] + sp(1) + miseEnEvidence(texNombre(b, 1)) + ' = ' + texNombre(a + b, 1) + ' $'
+        termes = [
+          rang1 === 0 ? texNombre(a, 1) : ecritureAlgebrique(a),
+          (rang2 === 1 ? '+' : '') + '\\ldots\\ldots\\ldots',
+          rang1 === 0 ? texNombre(a, 1) : ecritureAlgebrique(a),
+          rang2 === 1
+            ? '+' + miseEnEvidence(ecritureParentheseSiNegatif(b))
+            : miseEnEvidence(texNombre(b, 1)),
+        ] // miseEnEvidence(b)]
+        texte =
+          '$ ' +
+          termes[rang1] +
+          termes[rang2] +
+          ' = ' +
+          texNombre(a + b, 1) +
+          ' $'
+        texteCorr =
+          '$ ' +
+          termes[rang1 + 2] +
+          termes[rang2 + 2] +
+          ' = ' +
+          texNombre(a + b, 1) +
+          ' $'
+        if (rang2 === 1 && b < 0)
+          texteCorr +=
+            '<br>$ ' +
+            termes[rang1 + 2] +
+            sp(1) +
+            miseEnEvidence(texNombre(b, 1)) +
+            ' = ' +
+            texNombre(a + b, 1) +
+            ' $'
       } else {
-        termes = [ecritureNombreRelatif(a), '\\ldots\\ldots\\ldots', ecritureNombreRelatifc(a), ecritureNombreRelatifc(b)]
-        texte = '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + ecritureNombreRelatif(a + b) + ' $'
-        texteCorr = '$ ' + termes[rang1 + 2] + ' + ' + termes[rang2 + 2] + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
+        termes = [
+          ecritureNombreRelatif(a),
+          '\\ldots\\ldots\\ldots',
+          ecritureNombreRelatifc(a),
+          ecritureNombreRelatifc(b),
+        ]
+        texte =
+          '$ ' +
+          termes[rang1] +
+          ' + ' +
+          termes[rang2] +
+          ' = ' +
+          ecritureNombreRelatif(a + b) +
+          ' $'
+        texteCorr =
+          '$ ' +
+          termes[rang1 + 2] +
+          ' + ' +
+          termes[rang2 + 2] +
+          ' = ' +
+          ecritureNombreRelatifc(a + b) +
+          ' $'
       }
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
           texte: `$${texNombre(b, 1)}$`, // `$${b}$`,
-          statut: true
+          statut: true,
         },
         {
           texte: `$${texNombre(a + b + a, 1)}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${texNombre(-2 * a - b, 1)}$`,
-          statut: false
+          statut: false,
         },
         {
           texte: `$${texNombre(-b, 1)}$`,
-          statut: false
-        }
+          statut: false,
+        },
       ]
       const props = propositionsQcm(this, i)
       if (this.interactif) {
         texte += props.texte
       }
-      if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

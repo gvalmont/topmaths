@@ -8,7 +8,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 
-export const titre = 'Effectuer des calculs avec des puissances et leurs règles de calculs'
+export const titre =
+  'Effectuer des calculs avec des puissances et leurs règles de calculs'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,10 +27,10 @@ export const uuid = 'c71da'
 
 export const refs = {
   'fr-fr': ['2N31-3'],
-  'fr-ch': ['10NO2-14', '11NO1-10']
+  'fr-ch': ['10NO2-14', '11NO1-10'],
 }
 export default class PuissancesDUnRelatif2 extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     context.isHtml
@@ -40,21 +41,18 @@ export default class PuissancesDUnRelatif2 extends Exercice {
     this.nbQuestions = 8
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     // const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
 
-    for (
-      let i = 0, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-    ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       let base = 0
-      let exp:number[] = []
+      let exp: number[] = []
       let texte = ''
       let texteCorr = ''
       let reponseInteractive = ''
@@ -63,19 +61,22 @@ export default class PuissancesDUnRelatif2 extends Exercice {
         case 1:
           base = 3 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 3 exposants distincts
-          texte = `$\\dfrac{${base}^${exp[0]}\\times ${base * base}}{${base}^${exp[1]
-                    } \\times ${base}^${exp[2]}}$`
-          texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${base * base
-                    }}{${base}^${exp[1]} \\times ${base}^${exp[2]}}`
+          texte = `$\\dfrac{${base}^${exp[0]}\\times ${base * base}}{${base}^${
+            exp[1]
+          } \\times ${base}^${exp[2]}}$`
+          texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${
+            base * base
+          }}{${base}^${exp[1]} \\times ${base}^${exp[2]}}`
           texteCorr += ` = \\dfrac{${base}^${exp[0]}\\times ${base}^{2}}{${base}^${exp[1]} \\times ${base}^${exp[2]}}`
           texteCorr += ` = \\dfrac{${base}^{${exp[0]}+2}}{${base}^{${exp[1]}+${exp[2]}}}`
-          texteCorr += ` = \\dfrac{${base}^{${exp[0] + 2}}}{${base}^{${exp[1] + exp[2]
-                    }}}`
+          texteCorr += ` = \\dfrac{${base}^{${exp[0] + 2}}}{${base}^{${
+            exp[1] + exp[2]
+          }}}`
           texteCorr += ` = ${base}^{${exp[0] + 2}-${exp[1] + exp[2]}}`
           texteCorr += ` = ${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
           if (
             exp[0] + 2 - exp[1] - exp[2] === 0 ||
-                        exp[0] + 2 - exp[1] - exp[2] === 1
+            exp[0] + 2 - exp[1] - exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             // texteCorr += '=' + simpExp(base, exp[0] + 2 - exp[1] - exp[2])
@@ -87,14 +88,15 @@ export default class PuissancesDUnRelatif2 extends Exercice {
         case 2:
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 2 exposants distincts
-          texte = `$\\dfrac{${base}^${exp[0]}\\times ${base ** 3}}{${base}^${exp[1]
-                    }}$`
-          texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${base ** 3
-                    }}{${base}^${exp[1]}}`
+          texte = `$\\dfrac{${base}^${exp[0]}\\times ${base ** 3}}{${base}^${
+            exp[1]
+          }}$`
+          texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${
+            base ** 3
+          }}{${base}^${exp[1]}}`
           texteCorr += ` = \\dfrac{${base}^${exp[0]}\\times ${base}^3}{${base}^${exp[1]}}`
           texteCorr += ` = \\dfrac{${base}^{${exp[0]}+3}}{${base}^${exp[1]}}`
-          texteCorr += ` = \\dfrac{${base}^{${exp[0] + 3}}}{${base}^${exp[1]
-                    }}`
+          texteCorr += ` = \\dfrac{${base}^{${exp[0] + 3}}}{${base}^${exp[1]}}`
           texteCorr += ` = ${base}^{${exp[0] + 3}-${exp[1]}}`
           texteCorr += ` = ${base}^{${exp[0] + 3 - exp[1]}}`
           if (exp[0] + 3 - exp[1] === 0 || exp[0] + 3 - exp[1] === 1) {
@@ -110,18 +112,22 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           exp = [randint(1, 7, [1]), randint(1, 2)] // on a besoin de 2 exposants distincts
           // le second exposant ne peut valoir que 1 ou 2 la fonction testExp ne convient pas à l'affichage ici
           if (exp[1] === 2) {
-            texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2}^${exp[1]
-                        }}$`
-            texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
-                        }^${exp[1]}}`
+            texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2}^${
+              exp[1]
+            }}$`
+            texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${
+              base ** 2
+            }^${exp[1]}}`
             texteCorr += `=\\dfrac{${base}^{1+${exp[0]}}}{(${base}^2)^${exp[1]}}`
             texteCorr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^{2 \\times ${exp[1]}}}`
-            texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{${2 * exp[1]
-                        }}}`
+            texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{${
+              2 * exp[1]
+            }}}`
           } else {
             texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2}}$`
-            texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
-                        }}`
+            texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${
+              base ** 2
+            }}`
             texteCorr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^2}`
           }
           texteCorr += `=${base}^{${1 + exp[0]}-${2 * exp[1]}}`
@@ -137,10 +143,12 @@ export default class PuissancesDUnRelatif2 extends Exercice {
         case 4:
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
-                    }\\times ${base ** 2}}$`
-          texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
-                    }\\times ${base ** 2}}`
+          texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${
+            base ** 2
+          }\\times ${base ** 2}}$`
+          texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${
+            base ** 2
+          }\\times ${base ** 2}}`
           texteCorr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^2\\times ${base}^2}`
           texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{2+2}}`
           texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{${2 + 2}}}`
@@ -185,26 +193,33 @@ export default class PuissancesDUnRelatif2 extends Exercice {
         case 7:
           base = 3 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 4, [1])] // on a besoin de 3 exposants distincts
-          texte = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base ** 2
-                    }^${exp[2]}}\\times ${base}$`
-          texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base ** 2
-                    }^${exp[2]}}\\times ${base}`
+          texte = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${
+            base ** 2
+          }^${exp[2]}}\\times ${base}$`
+          texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${
+            base ** 2
+          }^${exp[2]}}\\times ${base}`
           texteCorr += `=\\dfrac{${base}^{${exp[0]}+${exp[1]}}}{(${base}^2)^${exp[2]}}\\times ${base}`
-          texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]
-                    }}}{${base}^{2\\times ${exp[2]}}}\\times ${base}`
-          texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]}}}{${base}^{${2 * exp[2]
-                    }}}\\times ${base}`
-          texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]
-                    }}\\times ${base}}{${base}^{${2 * exp[2]}}}`
-          texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]}+1}}{${base}^{${2 * exp[2]
-                    }}}`
-          texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1] + 1}}}{${base}^{${2 * exp[2]
-                    }}}`
+          texteCorr += `=\\dfrac{${base}^{${
+            exp[0] + exp[1]
+          }}}{${base}^{2\\times ${exp[2]}}}\\times ${base}`
+          texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]}}}{${base}^{${
+            2 * exp[2]
+          }}}\\times ${base}`
+          texteCorr += `=\\dfrac{${base}^{${
+            exp[0] + exp[1]
+          }}\\times ${base}}{${base}^{${2 * exp[2]}}}`
+          texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]}+1}}{${base}^{${
+            2 * exp[2]
+          }}}`
+          texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1] + 1}}}{${base}^{${
+            2 * exp[2]
+          }}}`
           texteCorr += `=${base}^{${exp[0] + exp[1] + 1}-${2 * exp[2]}}`
           texteCorr += `=${base}^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
           if (
             exp[0] + exp[1] + 1 - 2 * exp[2] === 0 ||
-                        exp[0] + exp[1] + 1 - 2 * exp[2] === 1
+            exp[0] + exp[1] + 1 - 2 * exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             // texteCorr += '=' + simpExp(base, exp[0] + exp[1] + 1 - 2 * exp[2])
@@ -216,10 +231,12 @@ export default class PuissancesDUnRelatif2 extends Exercice {
         case 8:
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
-          texte = `$\\dfrac{${base ** 3}\\times ${base}}{${base ** 2}^${exp[0]
-                    }}$`
-          texteCorr = `$\\dfrac{${base ** 3}\\times ${base}}{${base ** 2}^${exp[0]
-                    }}`
+          texte = `$\\dfrac{${base ** 3}\\times ${base}}{${base ** 2}^${
+            exp[0]
+          }}$`
+          texteCorr = `$\\dfrac{${base ** 3}\\times ${base}}{${base ** 2}^${
+            exp[0]
+          }}`
           texteCorr += `=\\dfrac{${base}^3\\times ${base}}{(${base}^2)^${exp[0]}}`
           texteCorr += `=\\dfrac{${base}^{3+1}}{${base}^{2\\times${exp[0]}}}`
           texteCorr += `=\\dfrac{${base}^{4}}{${base}^{${2 * exp[0]}}}`
@@ -236,14 +253,18 @@ export default class PuissancesDUnRelatif2 extends Exercice {
       }
 
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
-        texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: sp(2) + '$=$' })
+        setReponse(this, i, reponseInteractive, {
+          formatInteractif: 'puissance',
+        })
+        texte += ajouteChampTexteMathLive(this, i, '', {
+          texteAvant: sp(2) + '$=$',
+        })
       }
       if (context.isAmc) {
         setReponse(this, i, reponseInteractive, {
           formatInteractif: 'puissance',
           basePuissance: base,
-          exposantPuissance: exposantInteractif
+          exposantPuissance: exposantInteractif,
         })
       }
 

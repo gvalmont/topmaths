@@ -5,7 +5,7 @@ import {
   obtenirListeFractionsIrreductibles,
   obtenirListeFractionsIrreductiblesFaciles,
   produitDeDeuxFractions,
-  simplificationDeFractionAvecEtapes
+  simplificationDeFractionAvecEtapes,
 } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -34,22 +34,25 @@ export const uuid = '18ddd'
 
 export const refs = {
   'fr-fr': ['4C23-1', 'BP2AutoH18'],
-  'fr-ch': ['10NO6-3']
+  'fr-ch': ['10NO6-3'],
 }
 export default class ExerciceAdditionnerFractionProduit extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = [
-      'Style d\'expressions',
+      "Style d'expressions",
       4,
       `   1 : Fractions faciles, tout enchaînement d'opérations possibles
   2 : Fractions standards, tout enchaînement d'opérations possibles
   3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
-  4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`
+  4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`,
     ]
     this.besoinFormulaire2CaseACocher = ['Utiliser les nombres relatifs', false]
     this.besoinFormulaire3CaseACocher = ['Utiliser les divisions', true]
-    this.besoinFormulaire4CaseACocher = ['Présentation des calculs en colonnes', true]
+    this.besoinFormulaire4CaseACocher = [
+      'Présentation des calculs en colonnes',
+      true,
+    ]
     this.sup = 3
     this.sup2 = false
     this.sup3 = true
@@ -65,10 +68,14 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
-    const listeFractions = obtenirListeFractionsIrreductibles() as [number, number][]
-    const listeFractionsFaciles = obtenirListeFractionsIrreductiblesFaciles() as [number, number][]
+    const listeFractions = obtenirListeFractionsIrreductibles() as [
+      number,
+      number,
+    ][]
+    const listeFractionsFaciles =
+      obtenirListeFractionsIrreductiblesFaciles() as [number, number][]
     let piegeObligatoire = false
 
     // Définition des styles d'exercices
@@ -97,10 +104,10 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
     }
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       const typesDeQuestions = listeTypeDeQuestions[i]
@@ -123,7 +130,9 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
       let [e, f] = ef
 
       if (this.sup2) {
-        [a, b, c, d, e, f] = [a, b, c, d, e, f].map(e => e * randint(-1, 1, [0]))
+        ;[a, b, c, d, e, f] = [a, b, c, d, e, f].map(
+          (e) => e * randint(-1, 1, [0]),
+        )
       }
       let produit: [string, string, [number, number, number, number]]
       const operation1 = randint(0, 1) // Pioche la soustraction (0) ou l'addition (1)
@@ -144,8 +153,9 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
           texte += `$${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(c, d)} ${texteOperation2} ${texFractionFromString(e, f)}$`
 
           texteCorr = `$${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(c, d)} ${texteOperation2} ${texFractionFromString(e, f)}$`
-          if (!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
-            [e, f] = [f, e]
+          if (!operation2) {
+            // Si il y a division, multiplier par l'inverse du diviseur
+            ;[e, f] = [f, e]
             texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(c, d)} \\times ${texFractionFromString(e, f)}$`
           }
           produit = produitDeDeuxFractions(c, d, e, f)
@@ -159,12 +169,20 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
 
           // faut-il simplifier c×e⁄d×f ?
           if (!this.correctionDetaillee) {
-            [c, d, e, f] = produit[2]
+            ;[c, d, e, f] = produit[2]
           }
           p = pgcd(c * e, d * f)
           if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}'
-                        )}$`
+            texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(
+              (e * c) / p +
+                '\\times\\cancel{' +
+                ecritureParentheseSiNegatif(p) +
+                '}',
+              (f * d) / p +
+                '\\times\\cancel{' +
+                ecritureParentheseSiNegatif(p) +
+                '}',
+            )}$`
             c = (e * c) / p
             d = (f * d) / p
           } else {
@@ -204,8 +222,9 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
           texte += `$${texFractionFromString(c, d)} ${texteOperation2} ${texFractionFromString(e, f)} ${texteOperation1} ${texFractionFromString(a, b)}$`
 
           texteCorr = `$${texFractionFromString(c, d)} ${texteOperation2} ${texFractionFromString(e, f)} ${texteOperation1} ${texFractionFromString(a, b)}$`
-          if (!operation2) { // S'il y a division, multiplier par l'inverse du diviseur
-            [e, f] = [f, e]
+          if (!operation2) {
+            // S'il y a division, multiplier par l'inverse du diviseur
+            ;[e, f] = [f, e]
             texteCorr += `$=${texFractionFromString(c, d)} \\times ${texFractionFromString(e, f)} ${texteOperation1} ${texFractionFromString(a, b)}$`
           }
 
@@ -221,7 +240,7 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
 
           // faut-il simplifier c×e⁄d×f ?
           if (!this.correctionDetaillee) {
-            [c, d, e, f] = produit[2]
+            ;[c, d, e, f] = produit[2]
           }
           p = pgcd(c * e, d * f)
           if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
@@ -237,9 +256,9 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
           k2 = p / d
           if (k2 !== 1) {
             texteCorr += `$=${texFractionFromString(
-                            c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)),
-                            d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2))
-                        )}$`
+              c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)),
+              d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)),
+            )}$`
           } else {
             if (k1 !== 1) {
               texteCorr += `$=${texFractionFromString(c, d)}$`
@@ -248,9 +267,9 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
 
           if (k1 !== 1) {
             texteCorr += `$ ${texteOperation1} ${texFractionFromString(
-                            a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)),
-                            b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1))
-                        )}$`
+              a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)),
+              b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)),
+            )}$`
           } else {
             if (k2 !== 1) {
               texteCorr += `$ ${texteOperation1} ${texFractionFromString(a, b)}$`
@@ -270,7 +289,12 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
-        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
+        handleAnswers(this, i, {
+          reponse: {
+            value: reponse.toLatex(),
+            options: { fractionIrreductible: true },
+          },
+        })
 
         if (this.sup4) {
           texte = `$${lettreDepuisChiffre(i + 1)} = $ ${texte}`
@@ -299,13 +323,15 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
         // Fin de cette uniformisation
 
         if (context.isAmc) {
-          texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+          texte =
+            'Calculer et donner le résultat sous forme irréductible\\\\\n' +
+            texte
           this.autoCorrection[i] = {
             enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
             propositions: [
               {
-                texte: '' // Si vide, le texte est la correction de l'exercice.
-              }
+                texte: '', // Si vide, le texte est la correction de l'exercice.
+              },
             ],
             reponse: {
               // @ts-expect-error
@@ -314,9 +340,9 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
                 digits: 5,
                 digitsNum: 3,
                 digitsDen: 2,
-                signe: true
-              }
-            }
+                signe: true,
+              },
+            },
           }
         }
 

@@ -1,12 +1,13 @@
 import ExerciceConstructionSegmentDemiDroiteDroite from './geoElements1'
-export const titre = 'Tracer segment, droite et demi-droite (depuis description)'
+export const titre =
+  'Tracer segment, droite et demi-droite (depuis description)'
 export const dateDePublication = '29/01/2024'
 export const interactifReady = true
 export const interactifType = 'custom'
 
 export const refs = {
   'fr-fr': ['elements2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const uuid = 'b1e01'
 
@@ -15,7 +16,7 @@ export const uuid = 'b1e01'
  */
 
 class ExerciceConstructionSegmentDemiDroiteDroite2 extends ExerciceConstructionSegmentDemiDroiteDroite {
-  constructor () {
+  constructor() {
     super()
     this.sup = true
   }

@@ -20,22 +20,22 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora (2F10-02)
-*/
+ */
 export const uuid = 'f554f'
 
 export const refs = {
   'fr-fr': ['can3F08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1, 'milieu', true)
     let s1, s2
     const a = randint(-5, 5, [0, 4]) // numérateut coefficient directeur non nul
@@ -48,25 +48,33 @@ export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
     c.color = colorToLatexOrHTML('red')
     c.epaisseur = 2
     this.question = `$f$ est une fonction affine${this.interactif ? '.' : ' définie par $f(x)=\\ldots$'}<br>`
-    this.question += `${mathalea2d({
-      xmin: -5,
-      ymin: -5,
-      xmax: 6,
-      ymax: 5,
-      pixelsParCm: 20,
-      scale: 0.7,
-      style: 'margin: auto'
-    }, r, c, o)}`// On trace le graphique
+    this.question += `${mathalea2d(
+      {
+        xmin: -5,
+        ymin: -5,
+        xmax: 6,
+        ymax: 5,
+        pixelsParCm: 20,
+        scale: 0.7,
+        style: 'margin: auto',
+      },
+      r,
+      c,
+      o,
+    )}` // On trace le graphique
     this.optionsChampTexte = { texteAvant: '$f(x)=$' }
-    this.reponse = [`${new FractionEtendue(a, d).texFraction}x${ecritureAlgebrique(b)}`]
-    if (egal(a * 1000 / d, Math.round(a * 1000 / d))) {
+    this.reponse = [
+      `${new FractionEtendue(a, d).texFraction}x${ecritureAlgebrique(b)}`,
+    ]
+    if (egal((a * 1000) / d, Math.round((a * 1000) / d))) {
       this.reponse.push(`${a / d}x${ecritureAlgebrique(b)}`)
     }
     this.correction = `$f$ est de la forme
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
     L'ordonnée à l'origine  est $b=${b}$ et :`
-    this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
+    this.correction +=
+      texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
     \\dfrac{${miseEnEvidence(a, 'blue')}}{${miseEnEvidence(d, 'green')}}$`)
     this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${miseEnEvidence(`${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}`)}$ .<br>`
     s1 = segment(0, 0, 1, 0, 'black')
@@ -84,30 +92,41 @@ export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
     s2.styleExtremites = '->'
     s1.styleExtremites = '<-'
     if (a !== 0) {
-      this.correction += `${mathalea2d({
-        xmin: -5,
-        ymin: -5,
-        xmax: 6,
-        ymax: 5,
-        pixelsParCm: 20,
-        scale: 0.7,
-        style: 'margin: auto'
-      }, r, s1, s2, c, o)}`
-    }// On trace le graphique
+      this.correction += `${mathalea2d(
+        {
+          xmin: -5,
+          ymin: -5,
+          xmax: 6,
+          ymax: 5,
+          pixelsParCm: 20,
+          scale: 0.7,
+          style: 'margin: auto',
+        },
+        r,
+        s1,
+        s2,
+        c,
+        o,
+      )}`
+    } // On trace le graphique
     this.canEnonce = `$f$ est une fonction affine. <br>
     
     Exprimer $f(x)$ en fonction de $x$.<br>`
-    this.canEnonce +=
-      `
-    ${mathalea2d({
+    this.canEnonce += `
+    ${mathalea2d(
+      {
         xmin: -5,
         ymin: -5,
         xmax: 6,
         ymax: 5,
         pixelsParCm: 20,
         scale: 0.7,
-        style: 'margin: auto'
-      }, r, c, o)}
+        style: 'margin: auto',
+      },
+      r,
+      c,
+      o,
+    )}
       
       `
     this.canReponseACompleter = '$f(x)=\\ldots$'

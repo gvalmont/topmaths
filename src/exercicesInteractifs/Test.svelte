@@ -8,7 +8,7 @@
     settingsReady: false,
     interactifReady: false,
     randomReady: false,
-    correctionReady: false
+    correctionReady: false,
   }
 
   const a = new Date().getSeconds()

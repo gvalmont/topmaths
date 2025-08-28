@@ -11,9 +11,9 @@ export const uuid = '9fa79'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -22,7 +22,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(17, 3).texFraction
       this.question = 'Compléter : $3\\times \\ldots =17$'
@@ -40,7 +40,10 @@ export default class NomExercice extends ExerciceSimple {
       const b = choice([3, 6, 7, 9])
       this.reponse = new FractionEtendue(a, b).texFraction
       this.question = `Compléter : $${b}\\times \\ldots =${a}$`
-      this.optionsChampTexte = { texteAvant: `$${b}\\times $`, texteApres: `$=${a}$` }
+      this.optionsChampTexte = {
+        texteAvant: `$${b}\\times $`,
+        texteApres: `$=${a}$`,
+      }
       if (this.interactif) {
         this.question = `Compléter : <br>
       `

@@ -20,36 +20,44 @@ export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
 export const uuid = '3391d'
 export const refs = {
   'fr-fr': ['1AN14-7'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 type TypeDeFonction = 'monome' | 'racine' | 'inv' | 'exp'
 
 export default class DeriveeComposee extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireCaseACocher = ['Inclure l\'exponentielle']
+    this.besoinFormulaireCaseACocher = ["Inclure l'exponentielle"]
 
     // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-    this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
+    this.consigne =
+      "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
     this.nbQuestions = 5
     // Sortie LaTeX
     this.nbCols = 2 // Nombre de colonnes
     this.nbColsCorr = 2 // Nombre de colonnes dans la correction
     this.sup = false
-  // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
+    // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.sup = Number(this.sup)
     const listeValeurs: string[] = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles: TypeDeFonction[] = ['monome', 'racine', 'inv']
+    const listeTypeDeQuestionsDisponibles: TypeDeFonction[] = [
+      'monome',
+      'racine',
+      'inv',
+    ]
     if (this.sup) {
       listeTypeDeQuestionsDisponibles.push('exp')
     }
-    const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      listeTypeDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let exprF = ''
@@ -62,7 +70,7 @@ export default class DeriveeComposee extends Exercice {
         exp: 'e^',
         racine: '\\sqrt',
         inv: '1/',
-        monome: new Polynome({ coeffs })
+        monome: new Polynome({ coeffs }),
       }
       const polAff = new Polynome({ rand: true, deg: 1 })
       const a: number = Number(polAff.monomes[1])
@@ -70,24 +78,27 @@ export default class DeriveeComposee extends Exercice {
       const typeF: TypeDeFonction = listeTypeDeQuestions[i]
       const f = dictFonctions[typeF]
       // Expression finale de la fonction
-      exprF = typeF === 'monome'
-        ? (f as Polynome).toMathExpr()
-        : typeF === 'inv'
-          ? '\\frac{1}{x}'
-          : (f as string) + '{x}'
-      expression = typeF === 'monome'
-        ? `${rienSi1((f as Polynome).monomes[(f as Polynome).deg])}(${polAff})^${(f as Polynome).deg}`
-        : typeF === 'inv'
-          ? `\\frac{1}{${polAff}}`
-          : `${f}{${polAff}}`
+      exprF =
+        typeF === 'monome'
+          ? (f as Polynome).toMathExpr()
+          : typeF === 'inv'
+            ? '\\frac{1}{x}'
+            : (f as string) + '{x}'
+      expression =
+        typeF === 'monome'
+          ? `${rienSi1((f as Polynome).monomes[(f as Polynome).deg])}(${polAff})^${(f as Polynome).deg}`
+          : typeF === 'inv'
+            ? `\\frac{1}{${polAff}}`
+            : `${f}{${polAff}}`
       let value = ''
 
       // Enoncé
       const nameF = lettreMinusculeDepuisChiffre(i + 6)
       texte = `$${nameF}(x)=${expression}$`
       // Correction
-      texteCorr = 'On rappelle le cours. Si $x$ est un nombre réel tel que $u$ soit dérivable en $ax+b$, alors $v:x\\mapsto u(ax+b)$ est dérivable en $x$ et on a :'
-      texteCorr += '\\[v\'(x)=a\\times u\'(ax+b).\\]'
+      texteCorr =
+        'On rappelle le cours. Si $x$ est un nombre réel tel que $u$ soit dérivable en $ax+b$, alors $v:x\\mapsto u(ax+b)$ est dérivable en $x$ et on a :'
+      texteCorr += "\\[v'(x)=a\\times u'(ax+b).\\]"
       let deriveeF = ''
       // Déterminons la dérivée de u
       switch (typeF) {
@@ -112,13 +123,13 @@ export default class DeriveeComposee extends Exercice {
           break
         case 'inv':
           texteCorr += `\\[${nameF}'(x)=${a}\\times ${`\\frac{-1}{(${polAff})^2}`}.\\]`
-          texteCorr += 'D\'où, en simplifiant : '
+          texteCorr += "D'où, en simplifiant : "
           texteCorr += `\\[${nameF}'(x)=${`\\frac{${-a}}{(${polAff})^2}`}.\\]`
           value = `${`\\frac{${-a}}{(${polAff})^2}`}`
           break
         case 'racine': {
           texteCorr += `\\[${nameF}'(x)=${a}\\times${`\\frac{1}{2\\sqrt{${polAff}}}`}.\\]`
-          texteCorr += 'D\'où, en simplifiant :'
+          texteCorr += "D'où, en simplifiant :"
           const num = a % 2 === 0 ? a / 2 : a
           const den = `${a % 2 === 0 ? '' : '2'}\\sqrt{${polAff}}`
           texteCorr += `\\[${nameF}'(x)=${`\\frac{${num}}{${den}}`}.\\]`
@@ -127,7 +138,7 @@ export default class DeriveeComposee extends Exercice {
         }
         case 'monome':
           texteCorr += `\\[${nameF}'(x)=${a}\\times ${`${(f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}`}.\\]`
-          texteCorr += 'D\'où, en simplifiant : '
+          texteCorr += "D'où, en simplifiant : "
           texteCorr += `\\[${nameF}'(x)=${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}.\\]`
           value = `${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}`
 
@@ -141,7 +152,9 @@ export default class DeriveeComposee extends Exercice {
           texteCorr += 'Correction non encore implémentée.'
           break
       }
-      texte = texte.replaceAll('\\frac', '\\dfrac') + ajouteChampTexteMathLive(this, i, '')
+      texte =
+        texte.replaceAll('\\frac', '\\dfrac') +
+        ajouteChampTexteMathLive(this, i, '')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
 
       if (listeValeurs.indexOf(expression) === -1) {

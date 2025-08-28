@@ -17,20 +17,21 @@ export const uuid = '7d21c'
 
 export const refs = {
   'fr-fr': ['can5C16'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAstucieuxAvecFactorisation extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, d
-    switch (choice(['a', 'b', 'c', 'c', 'd', 'e'])) { //
+    switch (
+      choice(['a', 'b', 'c', 'c', 'd', 'e']) //
+    ) {
       case 'a':
-
         a = randint(5, 99) / 10
         b = randint(2, 9) * 5
         c = 100 - b
@@ -109,7 +110,7 @@ ${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=$
         this.reponse = arrondi(5 * a)
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

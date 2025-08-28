@@ -18,10 +18,10 @@ export const uuid = 'ec3cc'
 export const refs = {
   'fr-fr': ['CM2N5C-2'],
   'fr-2016': ['c3C13-1'],
-  'fr-ch': ['9FA3-17']
+  'fr-ch': ['9FA3-17'],
 }
 export default class QuestionsMassesCM extends QuestionsMasses {
-  constructor () {
+  constructor() {
     super()
     this.sup = '1-2-3-4-5-6' // Par défaut, pas de divisions
     this.sup3 = false // Par défaut, que des entiers

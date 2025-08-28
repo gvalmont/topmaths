@@ -6,10 +6,10 @@ export const dateDePublication = '12/10/2022'
 export const uuid = '50663'
 export const refs = {
   'fr-fr': ['4A10-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ExerciceLabyrinthePremiers4e extends ExerciceLabyrinthePremiers3e {
-  constructor () {
+  constructor() {
     super()
     this.sup = 2
   }

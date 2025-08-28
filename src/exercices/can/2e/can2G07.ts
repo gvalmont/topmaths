@@ -21,17 +21,17 @@ export const uuid = '651a5'
 
 export const refs = {
   'fr-fr': ['can2G07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CoordonneesVecteur1 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const xA = randint(-5, 5)
     const yA = randint(-5, 5)
     const ux = randint(-5, 5, 0)
@@ -43,7 +43,9 @@ export default class CoordonneesVecteur1 extends ExerciceSimple {
     this.question = `Dans un repère orthonormé, on donne les points suivants :
     $A\\left(${xA}${sp(1)} ; ${sp(1)}${yA}\\right)$ et $B\\left(${xB}${sp(1)} ; ${sp(1)}${yB}\\right)$.<br>
     Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$.<br><br>`
-    this.optionsChampTexte = { texteAvant: '$\\overrightarrow{AB}$ a pour coordonnées :' }
+    this.optionsChampTexte = {
+      texteAvant: '$\\overrightarrow{AB}$ a pour coordonnées :',
+    }
     this.correction = `On sait d'après le cours, que si $A(x_A${sp(1)} ; ${sp(1)}y_A)$ et $B(x_B${sp(1)} ; ${sp(1)} y_B)$ sont deux points dans un repère, alors on a : $\\overrightarrow{AB}(x_B-x_A  ${sp(1)} ; ${sp(1)} y_B-y_A)$.<br>
     En appliquant aux données de l'énoncé, on obtient  : $\\overrightarrow{AB}(${xB}-${ecritureParentheseSiNegatif(xA)} ${sp(1)} ; ${sp(1)} ${yB}-${ecritureParentheseSiNegatif(yA)})$.<br>
     Les coordonnées du vecteur $\\overrightarrow{AB}$ sont donc $${miseEnEvidence('(')} ${miseEnEvidence(`${xB - xA}`)}\\,${miseEnEvidence(';')}\\,${miseEnEvidence(`${yB - yA}`)} ${miseEnEvidence(')')}$.`

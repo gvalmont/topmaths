@@ -10,27 +10,27 @@ import { arrondi } from '../../../lib/outils/nombres'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-export const titre = 'Calculer les coordonnées d\'un milieu'
+export const titre = "Calculer les coordonnées d'un milieu"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '2ecf9'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class coordMilieu extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const nom = creerNomDePolygone(2, ['PQDO'])
     const b = randint(-5, 5) * 2 + 1
     const c = randint(-5, 5) * 2 + 1
@@ -48,10 +48,13 @@ export default class coordMilieu extends ExerciceSimple {
     handleAnswers(this, 0, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
       champ1: { value: reponse1 },
-      champ2: { value: reponse2 }
+      champ2: { value: reponse2 },
+    })
+    this.reponse = {
+      bareme: toutPourUnPoint,
+      champ1: { value: reponse1 },
+      champ2: { value: reponse2 },
     }
-    )
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: reponse1 }, champ2: { value: reponse2 } }
     this.formatInteractif = 'fillInTheBlank'
     this.canReponseACompleter = '$(\\,\\ldots\\,;\\,\\ldots\\,)$'
     this.canEnonce = this.consigne

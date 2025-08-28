@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '3422z'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -18,9 +18,14 @@ export const refs = {
 
 */
 export default class Can2025N4Q29 extends ExerciceCan {
-  enonce (a?:number, b?:number, c?:number) {
+  enonce(a?: number, b?: number, c?: number) {
     if (a == null || b == null || c == null) {
-      [a, c] = choice([[2.5, 4], [0.4, 25], [0.5, 20], [0.2, 50]])
+      ;[a, c] = choice([
+        [2.5, 4],
+        [0.4, 25],
+        [0.5, 20],
+        [0.2, 50],
+      ])
       b = randint(3, 9) / 10 + randint(1, 7) / 100
     }
     this.question = `$${texNombre(a, 1)}\\times ${texNombre(b, 2)}\\times ${texNombre(c, 0)}$`
@@ -33,7 +38,7 @@ export default class Can2025N4Q29 extends ExerciceCan {
     this.question += this.interactif ? '$=$' : ''
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(2.5, 0.31, 4) : this.enonce()
   }
 }

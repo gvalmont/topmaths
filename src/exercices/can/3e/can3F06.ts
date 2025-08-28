@@ -19,17 +19,17 @@ export const uuid = '17987'
 
 export const refs = {
   'fr-fr': ['can3F06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CoefficientFonctionAffine extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const b = randint(-3, 3, 0)
     const c = randint(1, 5)
     const n = choice([-4, -3, -2, 2, 3, 4])
@@ -53,7 +53,7 @@ export default class CoefficientFonctionAffine extends ExerciceSimple {
 
       this.reponse = (d - b) / c
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = '$a=\\ldots$'
   }
 }

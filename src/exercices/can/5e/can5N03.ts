@@ -16,7 +16,7 @@ export const uuid = 'ed8da'
 
 export const refs = {
   'fr-fr': ['can5N03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PlusGrandMultiple extends ExerciceSimple {
   constructor() {
@@ -52,7 +52,7 @@ export default class PlusGrandMultiple extends ExerciceSimple {
         } else {
           this.reponse = Math.floor(c / b) * b
           this.correction = ` Comme $${b}\\times ${Math.floor(c / b)} =${Math.floor(c / b) * b} < ${c}$ et
-        $ ${b}\\times${Math.floor(c / b) + 1}=${(Math.floor(c / b + 1)) * b} > ${c}$,
+        $ ${b}\\times${Math.floor(c / b) + 1}=${Math.floor(c / b + 1) * b} > ${c}$,
         alors le plus grand multiple cherché est $${miseEnEvidence(this.reponse)}$.`
         }
         break
@@ -66,12 +66,12 @@ export default class PlusGrandMultiple extends ExerciceSimple {
         } else {
           this.reponse = Math.ceil(c / b) * b
           this.correction = ` Comme $${b}\\times ${Math.ceil(c / b) - 1} =${Math.ceil(c / b) * b - b} < ${c}$ et
-        $ ${b}\\times${Math.ceil(c / b)}=${(Math.ceil(c / b)) * b} > ${c}$,
+        $ ${b}\\times${Math.ceil(c / b)}=${Math.ceil(c / b) * b} > ${c}$,
         alors le plus petit multiple cherché est $${miseEnEvidence(this.reponse)}$.`
         }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

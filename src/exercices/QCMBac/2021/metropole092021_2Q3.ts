@@ -12,13 +12,13 @@ import { exp } from 'mathjs'
 export const uuid = 'qsdf'
 export const refs = {
   'fr-fr': ['TSA2-QCM09'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Métropole 09/21 : point d\'inflexion'
+export const titre = "Métropole 09/21 : point d'inflexion"
 export const dateDePublication = '08/11/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
@@ -29,7 +29,7 @@ export const dateDePublication = '08/11/2024'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (a: number, b: number): void {
+  private appliquerLesValeurs(a: number, b: number): void {
     const r = repere({
       xMin: -10,
       yMin: -8,
@@ -53,7 +53,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
       grilleSecondaireYMin: 0,
       grilleSecondaireYMax: 1,
       grilleSecondaireXMin: 0,
-      grilleSecondaireXMax: 1
+      grilleSecondaireXMax: 1,
     })
     const A = point(0, 2, 'A')
     const B = point(2, 8, 'B')
@@ -64,9 +64,9 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     const tB = tracePoint(B, 'red') // Variable qui trace les points avec une croix
     const tC = tracePoint(C, 'red') // Variable qui trace les points avec une croix
 
-    const lA = labelPoint(A, 'red')// Variable qui trace les nom s A et B
-    const lB = labelPoint(B, 'red')// Variable qui trace les nom s A et B
-    const lC = labelPoint(C, 'red')// Variable qui trace les nom s A et B
+    const lA = labelPoint(A, 'red') // Variable qui trace les nom s A et B
+    const lB = labelPoint(B, 'red') // Variable qui trace les nom s A et B
+    const lC = labelPoint(C, 'red') // Variable qui trace les nom s A et B
 
     tA.taille = 5
     tA.epaisseur = 2
@@ -80,23 +80,44 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     droiteCD.epaisseur = 2
     droiteCD.color = colorToLatexOrHTML('red')
     droiteCD.epaisseur = 2
-    const f = (x:number) => (a * x + b) * exp(x)
-    const graphique = mathalea2d({
-      xmin: -10,
-      xmax: 5,
-      ymin: -4,
-      ymax: 9,
-      pixelsParCm: 30,
-      scale: 1,
-      style: 'margin: auto'
-    },
-    [courbe(f, { repere: r, xMin: -10, xMax: 8, color: 'blue', epaisseur: 2 }), r, o, tA, tB, lA, lB, tC, lC, droiteAB, droiteCD])
+    const f = (x: number) => (a * x + b) * exp(x)
+    const graphique = mathalea2d(
+      {
+        xmin: -10,
+        xmax: 5,
+        ymin: -4,
+        ymax: 9,
+        pixelsParCm: 30,
+        scale: 1,
+        style: 'margin: auto',
+      },
+      [
+        courbe(f, {
+          repere: r,
+          xMin: -10,
+          xMax: 8,
+          color: 'blue',
+          epaisseur: 2,
+        }),
+        r,
+        o,
+        tA,
+        tB,
+        lA,
+        lB,
+        tC,
+        lC,
+        droiteAB,
+        droiteCD,
+      ],
+    )
 
     this.reponses = [
-      'Le point C est l\'unique point d\'inflexion de $\\mathcal{C}_f$',
+      "Le point C est l'unique point d'inflexion de $\\mathcal{C}_f$",
       'La fonction $f$ est convexe sur $\\R$',
       'La fonction $f$ est concave sur $\\R$',
-      '$\\mathcal{C}_f$ n\'admet pas de point d\'inflexion']
+      "$\\mathcal{C}_f$ n'admet pas de point d'inflexion",
+    ]
 
     this.enonce = this.sup3
       ? `Le graphique ci-contre donne la représentation graphique $\\mathcal{C}_f$ dans un repère orthogonal <br>
@@ -106,8 +127,10 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
       Le point C est le point de la courbe $\\mathcal{C}_f$ ayant pour abscisse $-2,5$.<br> La droite (AB) est la tangente à la courbe $\\mathcal{C}_f$ au point A.<br>
        ${graphique}`
       : ''
-    this.enonce += 'On admet que la dérivée seconde de la fonction $f$ est définie sur $\\mathbb R$ par :<br> '
-    this.enonce += '$f^{\\prime\\prime}(x) = (10x + 25)\\text{e}^x$. <br>On peut affirmer que:'
+    this.enonce +=
+      'On admet que la dérivée seconde de la fonction $f$ est définie sur $\\mathbb R$ par :<br> '
+    this.enonce +=
+      '$f^{\\prime\\prime}(x) = (10x + 25)\\text{e}^x$. <br>On peut affirmer que:'
     this.correction = `$f''(x) = 0 \\iff (10x + 25)\\text{e}^x = 0 \\iff 10x + 25 = 0$ <br>
     (car $\\text{e}^x > 0$ quel que soit $x \\in \\mathbb R$) ;<br> donc 
 $f''(x) = 0 \\iff x = - 2,5$ : C est donc l'unique point d'inflexion.`
@@ -130,11 +153,11 @@ $f''(x) = 0 \\iff x = - 2,5$ : C est donc l'unique point d'inflexion.`
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
   }
 }

@@ -15,10 +15,10 @@ export const uuid = 'dac3c'
 
 export const refs = {
   'fr-fr': ['1A-C2-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AC2b extends ProgrammeCalcul2 {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

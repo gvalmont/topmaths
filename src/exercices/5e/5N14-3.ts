@@ -8,7 +8,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import type FractionEtendue from '../../modules/FractionEtendue'
 
-export const titre = 'Manipuler fractions égales et égalité des produits en croix'
+export const titre =
+  'Manipuler fractions égales et égalité des produits en croix'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -17,7 +18,8 @@ export const interactifReady = true
 export const dateDePublication = '23/05/2021'
 export const dateDeModifImportante = '26/08/2023'
 
-export const description = 'Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix.<br> 4 niveaux : petits entiers, grands entiers, décimaux, mélange.'
+export const description =
+  'Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix.<br> 4 niveaux : petits entiers, grands entiers, décimaux, mélange.'
 
 /**
  * * Fractions et égalité des produits en croix
@@ -27,7 +29,7 @@ export const uuid = 'd1fb2'
 
 export const refs = {
   'fr-fr': ['5N14-3'],
-  'fr-ch': ['9NO12-7']
+  'fr-ch': ['9NO12-7'],
 }
 
 /**
@@ -35,7 +37,7 @@ export const refs = {
  * @param num le numerateur de type number
  * @param den le dénominateur de type number
  */
-function showFracNumDenDec (num: number, den: number) {
+function showFracNumDenDec(num: number, den: number) {
   const f = fraction(num, den)
   return `\\dfrac{${texNombre(f.num / 10, 1)}}{${texNombre(f.den / 10, 1)}}`
 }
@@ -44,7 +46,12 @@ function showFracNumDenDec (num: number, den: number) {
  * @param {boolean} bool
  * @returns deux fractions egales ou non
  */
-const fracEqualOrNot = function (bool: boolean, n: number, d: number, k: number) {
+const fracEqualOrNot = function (
+  bool: boolean,
+  n: number,
+  d: number,
+  k: number,
+) {
   // On a besoin de deux fractions
   let f2
   const f1 = fraction(n, d)
@@ -62,15 +69,19 @@ const fracEqualOrNot = function (bool: boolean, n: number, d: number, k: number)
  * @param f une fraction
  * @param fEqOrNot l'autre fraction égale ou pas
  */
-function justifyEq (bool: boolean, deuxFractions: { frac: FractionEtendue, fracEqualOrNot: FractionEtendue }, decimal = false) {
+function justifyEq(
+  bool: boolean,
+  deuxFractions: { frac: FractionEtendue; fracEqualOrNot: FractionEtendue },
+  decimal = false,
+) {
   const f = deuxFractions.frac
   const fEqOrNot = deuxFractions.fracEqualOrNot
   let strOut
   // tous les nombres sont entiers ! on pourrait complètement se passer de texNombre (sauf pour les séparateurs de classes) => précision mise à 0
   if (bool) {
     if (decimal) {
-      strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
-            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
+      strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre((f.num * fEqOrNot.den) / 100, 2))}$.<br>
+            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre((f.den * fEqOrNot.num) / 100, 2))}$.<br>
             On constate que les produits en croix sont égaux.<br>
             `
       strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égaux.`
@@ -88,9 +99,10 @@ function justifyEq (bool: boolean, deuxFractions: { frac: FractionEtendue, fracE
             On constate que les produits en croix ne sont pas égaux.<br>
             `
       strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ ne sont donc pas égales.`
-    } else { // si on utilise des nombres décimaux au numérateur et au dénominateur, il ne faudrait pas appeler ça des fractions
-      strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
-            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
+    } else {
+      // si on utilise des nombres décimaux au numérateur et au dénominateur, il ne faudrait pas appeler ça des fractions
+      strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre((f.num * fEqOrNot.den) / 100, 2))}$.<br>
+            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre((f.den * fEqOrNot.num) / 100, 2))}$.<br>
             On constate que les produits en croix ne sont pas égaux.<br>
             `
       strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égaux.`
@@ -101,9 +113,13 @@ function justifyEq (bool: boolean, deuxFractions: { frac: FractionEtendue, fracE
 
 export default class EqResolvantesThales extends Exercice {
   niveau: string
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Type de nombres', 4, '1 : Petits entiers\n2 : Grands entiers\n3 : Décimaux\n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de nombres',
+      4,
+      '1 : Petits entiers\n2 : Grands entiers\n3 : Décimaux\n4 : Mélange',
+    ]
     this.nbQuestions = 4
     this.sup = 1 // Niveau de difficulté
     this.spacing = context.isHtml ? 3 : 2
@@ -111,12 +127,23 @@ export default class EqResolvantesThales extends Exercice {
     this.niveau = '5e'
   }
 
-  nouvelleVersion () {
-    this.consigne = this.nbQuestions > 1 ? 'Les égalités suivantes sont-elles vraies ? Justifier.' : 'L\'égalité suivante est-elle vraie ? Justifier.'
+  nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Les égalités suivantes sont-elles vraies ? Justifier.'
+        : "L'égalité suivante est-elle vraie ? Justifier."
 
-    const listeTypeDeQuestions = Number(this.sup < 4) ? Array(this.nbQuestions).fill(Number(this.sup)) : Array(this.nbQuestions).fill(0).map(() => randint(1, 3))
+    const listeTypeDeQuestions = Number(this.sup < 4)
+      ? Array(this.nbQuestions).fill(Number(this.sup))
+      : Array(this.nbQuestions)
+          .fill(0)
+          .map(() => randint(1, 3))
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       // On a besoin d'un booléen pour que tout ne soit pas vrai ou faux
       let equalOrNot
       // On a besoin de variables opur les fractions
@@ -165,7 +192,7 @@ export default class EqResolvantesThales extends Exercice {
         enonces.push({
           enonce: egalite,
           question: '',
-          correction: justification
+          correction: justification,
         })
       }
       texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
@@ -174,24 +201,25 @@ export default class EqResolvantesThales extends Exercice {
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
-          texte: 'L\'égalité est vraie',
-          statut: equalOrNot
+          texte: "L'égalité est vraie",
+          statut: equalOrNot,
         },
         {
-          texte: 'L\'égalité est fausse',
-          statut: !equalOrNot
+          texte: "L'égalité est fausse",
+          statut: !equalOrNot,
         },
         {
           texte: 'Je ne sais pas',
-          statut: false
-        }
+          statut: false,
+        },
       ]
       this.autoCorrection[i].options = { ordered: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
       const props = propositionsQcm(this, i)
       if (this.interactif) {
         texte += '<br>' + props.texte
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

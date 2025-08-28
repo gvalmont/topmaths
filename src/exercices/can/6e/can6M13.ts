@@ -16,26 +16,32 @@ export const uuid = '59144'
 
 export const refs = {
   'fr-fr': ['can6M13', 'auto6M1A-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CombienDeFois extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const unite = choice(['g', 'm', 'L'])
     const choix = choice([true, false])
     this.optionsChampTexte = { texteApres: 'fois' }
-    this.canReponseACompleter = 'La réponse correcte à cette question est : <br>$\\ldots$'
-    let Choixprefixes : [number, string][]
+    this.canReponseACompleter =
+      'La réponse correcte à cette question est : <br>$\\ldots$'
+    let Choixprefixes: [number, string][]
     let prefixes: [number, string] = [10, 'h']
     switch (choice([1, 1, 2, 2, 3, 3, 4])) {
       case 0:
-        Choixprefixes = [[10, 'h'], [100, 'da'], [1000, ''], [10000, 'd']]
+        Choixprefixes = [
+          [10, 'h'],
+          [100, 'da'],
+          [1000, ''],
+          [10000, 'd'],
+        ]
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève : <br>
@@ -48,7 +54,12 @@ export default class CombienDeFois extends ExerciceSimple {
         break
 
       case 1:
-        Choixprefixes = [[10, 'da'], [100, ''], [1000, 'd'], [10000, 'c']]
+        Choixprefixes = [
+          [10, 'da'],
+          [100, ''],
+          [1000, 'd'],
+          [10000, 'c'],
+        ]
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève : <br>
@@ -61,7 +72,12 @@ export default class CombienDeFois extends ExerciceSimple {
 
         break
       case 2:
-        Choixprefixes = [[10, ''], [100, 'd'], [1000, 'c'], [10000, 'm']]
+        Choixprefixes = [
+          [10, ''],
+          [100, 'd'],
+          [1000, 'c'],
+          [10000, 'm'],
+        ]
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève : <br>
@@ -75,7 +91,11 @@ export default class CombienDeFois extends ExerciceSimple {
         break
 
       case 3:
-        Choixprefixes = [[10, 'd'], [100, 'c'], [1000, 'm']]
+        Choixprefixes = [
+          [10, 'd'],
+          [100, 'c'],
+          [1000, 'm'],
+        ]
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève : <br>
@@ -89,7 +109,10 @@ export default class CombienDeFois extends ExerciceSimple {
         break
 
       case 4:
-        Choixprefixes = [[10, 'c'], [100, 'm']]
+        Choixprefixes = [
+          [10, 'c'],
+          [100, 'm'],
+        ]
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève :<br> 

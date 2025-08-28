@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'fe2b7'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -16,7 +16,7 @@ export const refs = {
 
 */
 export default class Can2025CE1Q5 extends ExerciceCan {
-  enonce (a?: number, b?: number) {
+  enonce(a?: number, b?: number) {
     if (a == null || b == null) {
       a = randint(1, 9)
       b = randint(1, 9)
@@ -27,8 +27,8 @@ export default class Can2025CE1Q5 extends ExerciceCan {
     this.reponse = {
       reponse: {
         value: `[${valInf};${valSup}[`,
-        options: { estDansIntervalle: true }
-      }
+        options: { estDansIntervalle: true },
+      },
     }
     this.optionsChampTexte = { texteAvant: '<br>' }
     this.question = `Écris un  nombre qui a $${a}$ pour chiffre des dizaines et $${b}$ pour chiffre des centaines.`
@@ -40,7 +40,7 @@ export default class Can2025CE1Q5 extends ExerciceCan {
     this.canEnonce = this.question
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(4, 5) : this.enonce()
   }
 }

@@ -7,7 +7,7 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
-  rienSi1
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
@@ -16,7 +16,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ajouterAide } from '../../lib/outils/enrichissements'
 
-export const titre = 'Calcul du discriminant d\'une équation du second degré'
+export const titre = "Calcul du discriminant d'une équation du second degré"
 
 /**
  * Calculer le discriminant d'une équation
@@ -27,13 +27,14 @@ export const uuid = 'feb39'
 
 export const refs = {
   'fr-fr': ['1AL20-11'],
-  'fr-ch': ['11FA10-7']
+  'fr-ch': ['11FA10-7'],
 }
 export default class CalculDiscriminant extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
-    this.consigne = 'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
+    this.consigne =
+      'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
     this.nbQuestions = 6
     this.nbCols = 2
     this.nbColsCorr = 2
@@ -42,9 +43,12 @@ export default class CalculDiscriminant extends Exercice {
     }
   }
 
-  nouvelleVersion (numeroExercice: number) {
-    const listeTypesEquations = combinaisonListes(['0solution', '1solution', '2solutions'], this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+  nouvelleVersion(numeroExercice: number) {
+    const listeTypesEquations = combinaisonListes(
+      ['0solution', '1solution', '2solutions'],
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let aNbPointsIntersection
       let a: number, b: number, c: number, k: number, x1: number, y1: number
       let texte = ''
@@ -55,11 +59,13 @@ export default class CalculDiscriminant extends Exercice {
           k = randint(1, 5)
           x1 = randint(-3, 3, [0])
           y1 = randint(1, 5)
-          if (choice(['+', '-']) === '+') { // k(x-x1)^2 + y1 avec k>0 et y1>0
+          if (choice(['+', '-']) === '+') {
+            // k(x-x1)^2 + y1 avec k>0 et y1>0
             a = k
             b = -2 * k * x1
             c = k * x1 * x1 + y1
-          } else { // -k(x-x1)^2 -y1 avec k>0 et y1>0
+          } else {
+            // -k(x-x1)^2 -y1 avec k>0 et y1>0
             a = -k
             b = 2 * k * x1
             c = -k * x1 * x1 - y1
@@ -69,7 +75,7 @@ export default class CalculDiscriminant extends Exercice {
             texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}=0$`
           }
           texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-          texteCorr += `<br>$\\Delta<0$ donc l'équation ${texteEnCouleurEtGras('n\'admet pas de solution')}.`
+          texteCorr += `<br>$\\Delta<0$ donc l'équation ${texteEnCouleurEtGras("n'admet pas de solution")}.`
           texteCorr += '<br>$\\mathcal{S}=\\emptyset$.'
           break
         case '1solution': // k(x-x1)^2
@@ -95,12 +101,14 @@ export default class CalculDiscriminant extends Exercice {
           k = randint(1, 5)
           x1 = randint(-3, 3)
           y1 = randint(1, 5)
-          if (choice(['+', '-']) === '+') { // k(x-x1)^2 + y1 avec k>0 et y1<0
+          if (choice(['+', '-']) === '+') {
+            // k(x-x1)^2 + y1 avec k>0 et y1<0
             y1 *= -1
             a = k
             b = -2 * k * x1
             c = k * x1 * x1 + y1
-          } else { // -k(x-x1)^2 -y1 avec k>0 et y1>0
+          } else {
+            // -k(x-x1)^2 -y1 avec k>0 et y1>0
             a = -k
             b = 2 * k * x1
             c = -k * x1 * x1 + y1
@@ -117,7 +125,7 @@ export default class CalculDiscriminant extends Exercice {
           break
       }
       if (context.isHtml) {
-        const f = (x:number) => a * x ** 2 + b * x + c
+        const f = (x: number) => a * x ** 2 + b * x + c
         const s = segment(point(-10, 0), point(10, 0), 'red')
         s.epaisseur = 3
         const r = repere({ xLabelListe: [], yLabelListe: [] })
@@ -125,10 +133,17 @@ export default class CalculDiscriminant extends Exercice {
         let correctionComplementaire = `Notons $f : x \\mapsto ${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         correctionComplementaire += `<br>On observe que la courbe représentative de $f$ ${aNbPointsIntersection} avec l'axe des abscisses.`
         correctionComplementaire += '<br>'
-        correctionComplementaire += mathalea2d({ xmin: -10.1, ymin: -10.1, xmax: 10.1, ymax: 10.1, pixelsParCm: 15 },
-          graphique, r, s)
+        correctionComplementaire += mathalea2d(
+          { xmin: -10.1, ymin: -10.1, xmax: 10.1, ymax: 10.1, pixelsParCm: 15 },
+          graphique,
+          r,
+          s,
+        )
 
-        texteCorr += ajouterAide(correctionComplementaire, { texteAvant: 'Complément graphique', titreAide: 'Complément graphique' })
+        texteCorr += ajouterAide(correctionComplementaire, {
+          texteAvant: 'Complément graphique',
+          titreAide: 'Complément graphique',
+        })
       }
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte

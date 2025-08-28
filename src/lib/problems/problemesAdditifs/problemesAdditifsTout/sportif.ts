@@ -8,10 +8,12 @@ import ProblemeAdditif from './problemesAdditifsTout'
 /**
  * @author Jean-Claude Lhote
  */
-export function sportif (decimal = false): Probleme {
+export function sportif(decimal = false): Probleme {
   const personnage = prenomPronom()
   const nb1 = decimal ? randint(25, 35) / 10 : randint(2, 4) * 100
-  const nb2 = decimal ? randint(25, 45, Math.round(nb1 * 10)) / 10 : randint(2, 5, Math.round(nb1 / 100)) * 100
+  const nb2 = decimal
+    ? randint(25, 45, Math.round(nb1 * 10)) / 10
+    : randint(2, 5, Math.round(nb1 / 100)) * 100
   const data = { nb1, nb2 }
   const unite = decimal ? 'kJ' : 'J'
   const uniteComplete = decimal ? 'kilojoules' : 'joules'

@@ -1,4 +1,10 @@
-import { CrochetD, crochetD, CrochetG, crochetG, intervalle } from '../../lib/2d/intervalles'
+import {
+  CrochetD,
+  crochetD,
+  CrochetG,
+  crochetG,
+  intervalle,
+} from '../../lib/2d/intervalles'
 import { Point, point } from '../../lib/2d/points'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -11,7 +17,8 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
+export const titre =
+  'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -22,10 +29,10 @@ export const uuid = 'dc2a5'
 
 export const refs = {
   'fr-fr': ['2N11-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class UnionEtIntersectionIntervallesDeR extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 4
@@ -33,12 +40,15 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     const X1 = point(0, 0)
     const X2 = point(12, 0)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typeDeQuestion = listeTypeDeQuestions[i]
       const test = randint(1, 6)
       let texte = 'Donner une écriture simplifiée, si possible, de '
@@ -135,7 +145,8 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
             texte += `$I=]${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
           }
-          texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
+          texteCorr +=
+            "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge.<br>"
           texteCorr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
                     $I=\\emptyset$`
           break
@@ -208,7 +219,8 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
             texte += `$I=]${a};${b}]\\cup]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
           }
-          texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
+          texteCorr +=
+            "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
           texteCorr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
                     On ne peut pas simplifier l'écriture de $I$ qui s'écrit donc `
           if (test === 1) {
@@ -225,7 +237,7 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
             texteCorr += `$I=]${a};${b}]\\cup]${c};${d}]$`
           }
           break
-        case 3:// Intersection de deux intervalles fermés avec intervalle fermé en commun
+        case 3: // Intersection de deux intervalles fermés avec intervalle fermé en commun
           a = randint(1, 15)
           e = a + 4
           b = randint(29, 45)
@@ -278,37 +290,43 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cap[${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += `$I=[${c};${b}]$`
           } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cap[${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $[${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += `$I=[${c};${b}]$`
           } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $]${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += `$I=]${c};${b}]$`
           } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cap]${c};${d}[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += `$I=]${c};${b}[$`
           } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cap[${c};${d}[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += `$I=[${c};${b}[$`
           } else {
             texte += `$I=]${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += `$I=]${c};${b}]$`
           }
 
           break
-        case 4:// Union de deux intervalles fermés avec intervalle fermé en commun
+        case 4: // Union de deux intervalles fermés avec intervalle fermé en commun
           a = randint(1, 15)
           e = a + 4
           b = randint(29, 45)
@@ -361,43 +379,49 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cup[${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>"
 
             texteCorr += `$I=[${a};${d}]$`
           } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cup[${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $[${c};${d}]$ , ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>"
 
             texteCorr += `$I=]${a};${d}]$`
           } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cup]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans $[${a};${b}]$ou bien  $]${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>"
 
             texteCorr += `$I=[${a};${d}]$`
           } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cup]${c};${d}[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $]${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>"
 
             texteCorr += `$I=[${a};${d}[$`
           } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cup[${c};${d}[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $[${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>"
 
             texteCorr += `$I=[${a};${d}[$`
           } else {
             texte += `$I=]${a};${b}]\\cup]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>"
 
             texteCorr += `$I=]${a};${d}]$`
           }
 
           break
-        case 5:// Intersection de deux intervalles fermés dont un inclus dans l'autre
+        case 5: // Intersection de deux intervalles fermés dont un inclus dans l'autre
           a = randint(1, 15)
           e = a + 15
           b = randint(e, 35)
@@ -451,37 +475,43 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           if (test === 1) {
             texte += `$I=[${a};${b}] \\cap [${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge.<br>"
             texteCorr += `On observe que $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${c};${d}]$`
           } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cap[${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $[${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge.<br>"
             texteCorr += `On observe que $[${c};${d}]\\subset ]${a};${b}]$ donc $I=[${c};${d}]$`
           } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $]${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge.<br>"
             texteCorr += `On observe que $]${c};${d}]\\subset [${a};${b}]$ donc $I=]${c};${d}]$`
           } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cap]${c};${d}[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge.<br>"
             texteCorr += `On observe que $]${c};${d}[\\subset [${a};${b}[$ donc $I=]${c};${d}[$`
           } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cap[${c};${d}[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}[$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge.<br>"
             texteCorr += `On observe que $[${c};${d}[\\subset [${a};${b}[$ donc $I=[${c};${d}[$`
           } else {
             texte += `$I=]${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge.<br>"
             texteCorr += `On observe que $]${c};${d}]\\subset ]${a};${b}]$ donc $I=]${c};${d}]$`
           }
 
           break
-        case 6:// Union de deux intervalles fermés dont un inclus dans l'autre
+        case 6: // Union de deux intervalles fermés dont un inclus dans l'autre
           a = randint(1, 15)
           e = a + 15
           b = randint(e, 35)
@@ -535,43 +565,49 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cup[${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
 
             texteCorr += `On a $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}]$`
           } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cup[${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $[${c};${d}]$ , ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
 
             texteCorr += `On a $[${c};${d}]\\subset ]${a};${b}]$ donc $I=]${a};${b}]$`
           } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cup]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans $[${a};${b}]$ou bien  $]${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
 
             texteCorr += `On a $]${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}]$`
           } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cup]${c};${d}[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $]${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
 
             texteCorr += `On a $]${c};${d}[\\subset [${a};${b}[$ donc $I=[${a};${b}[$`
           } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cup[${c};${d}[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $[${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
 
             texteCorr += `On a $[${c};${d}]\\subset [${a};${b}[$ donc $I=[${a};${b}[$`
           } else {
             texte += `$I=]${a};${b}]\\cup]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>"
 
             texteCorr += `On a $]${c};${d}]\\subset ]${a};${b}]$ donc $I=]${a};${b}]$`
           }
 
           break
-        case 7:// Intersection de deux intervalles avec infini
+        case 7: // Intersection de deux intervalles avec infini
           a = randint(1, 15)
           e = a + 1
           b = randint(e, 25)
@@ -635,39 +671,48 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           if (test === 1) {
             texte += `$I=]-\\infty;${b}] \\cap [${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $]-\\infty;${b}]$ et dans $[${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc aucun réel n\'appartient aux deux ensembles.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
+            texteCorr +=
+              "On observe que les deux intervalles sont disjoints donc aucun réel n'appartient aux deux ensembles.<br>"
             texteCorr += '$I=\\emptyset$'
           } else if (test === 2) {
             texte += `$I=]-\\infty;${b}] \\cap [${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $]-\\infty;${b}]$ et dans $[${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc aucun réel n\'appartient aux deux ensembles.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
+            texteCorr +=
+              "On observe que les deux intervalles sont disjoints donc aucun réel n'appartient aux deux ensembles.<br>"
             texteCorr += '$I=\\emptyset$'
           } else if (test === 3) {
             texte += `$I=]-\\infty;${b}]\\cap]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $]-\\infty;${b}]$ et dans $]${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc aucun réel n\'appartient aux deux ensembles.<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
+            texteCorr +=
+              "On observe que les deux intervalles sont disjoints donc aucun réel n'appartient aux deux ensembles.<br>"
             texteCorr += '$I=\\emptyset$'
           } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cap]${c};+\\infty[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}[$ et dans $]${c};+\\infty[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += '$I=\\emptyset$'
           } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cap[${c};+\\infty[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}[$ et dans $[${c};+\\infty[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += '$I=\\emptyset$'
           } else {
             texte += `$I=]${a};${b}]\\cap]${c};+\\infty[$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $]${c};+\\infty[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr +=
+              "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
             texteCorr += '$I=\\emptyset$'
           }
           break
-        case 8:// Union de deux intervalles un fermé et l'autre semi fermé, et disjoints
+        case 8: // Union de deux intervalles un fermé et l'autre semi fermé, et disjoints
           a = randint(1, 15)
           e = a + 1
           b = randint(e, 25)
@@ -731,35 +776,53 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           if (test === 1) {
             texte += `$I=]-\\infty;${b}] \\cup [${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge<br>"
+            texteCorr +=
+              'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}]$`
           } else if (test === 2) {
             texte += `$I=]-\\infty;${b}] \\cup [${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge<br>"
+            texteCorr +=
+              'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}]$`
           } else if (test === 3) {
             texte += `$I=]-\\infty;${b}]\\cup]${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
+            texteCorr +=
+              "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
+            texteCorr +=
+              'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}]$`
           } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cup]${c};+\\infty[$`
-            texteCorr = context.isHtml ? '<br>' : '' + 'On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
+            texteCorr = context.isHtml
+              ? '<br>'
+              : '' +
+                "On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
+            texteCorr +=
+              'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=[${a};${b}[\\cup]${c};+\\infty[$`
           } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cup[${c};+\\infty[$`
-            texteCorr = context.isHtml ? '<br>' : '' + 'On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
+            texteCorr = context.isHtml
+              ? '<br>'
+              : '' +
+                "On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
+            texteCorr +=
+              'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=[${a};${b}[\\cup[${c};+\\infty[$`
           } else {
             texte += `$I=]${a};${b}]\\cup]${c};+\\infty[$`
-            texteCorr = context.isHtml ? '<br>' : '' + 'On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
-            texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
+            texteCorr = context.isHtml
+              ? '<br>'
+              : '' +
+                "On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>"
+            texteCorr +=
+              'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=[${a};${b}]\\cup]${c};+\\infty[$`
           }
 
@@ -789,7 +852,8 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           texte += `$I=]${a};${b}[ \\cap [${c};${d}]$`
 
           texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $]${a};${b}[$ et dans $[${c};${d}]$.`
-          texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+          texteCorr +=
+            "<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>"
           texteCorr += `$I=[${c};${b}[$`
           break
         case 10:
@@ -818,7 +882,8 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
           texte = `$I=]${a};${b}[ \\cup ]${c};${d}[$`
 
           texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont dans $]${a};${b}[$, ou bien dans $]${c};${d}[$.`
-          texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+          texteCorr +=
+            "<br>On regarde donc la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>"
           texteCorr += `$I=]${a};${d}[$`
           break
       }
@@ -827,17 +892,30 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
       aRemplacer = aRemplacer.replace('$', '')
       texteCorr = texteCorr.split('=')[0] + '=$'
       texteCorr += `$${miseEnEvidence(aRemplacer)}$.`
-      const listeObjets = [int, int1, int2, c1, c2, c3, c4].filter(el => el !== undefined)
-      texteCorr += mathalea2d({
-        xmin: -2,
-        ymin: -2,
-        xmax: 15,
-        ymax: 2
-      }, listeObjets)
-      if (this.questionJamaisPosee(i, a, b, String(c))) { // Si la question n'a jamais été posée, on en créé une autre
+      const listeObjets = [int, int1, int2, c1, c2, c3, c4].filter(
+        (el) => el !== undefined,
+      )
+      texteCorr += mathalea2d(
+        {
+          xmin: -2,
+          ymin: -2,
+          xmax: 15,
+          ymax: 2,
+        },
+        listeObjets,
+      )
+      if (this.questionJamaisPosee(i, a, b, String(c))) {
+        // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`, { texteAvant: '<br>$I=$' })
-          handleAnswers(this, i, { reponse: { value: aRemplacer, options: { intervalle: true } } })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            ` ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`,
+            { texteAvant: '<br>$I=$' },
+          )
+          handleAnswers(this, i, {
+            reponse: { value: aRemplacer, options: { intervalle: true } },
+          })
         }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

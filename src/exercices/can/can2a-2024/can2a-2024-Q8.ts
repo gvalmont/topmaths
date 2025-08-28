@@ -12,9 +12,9 @@ export const uuid = '8a4eb'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -23,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.question = `Moyenne de la série : 
       ${sp(2)} $12$ ${sp(2)} ; ${sp(2)} $7$ ${sp(2)} ; ${sp(2)} $8$${sp(2)} ; ${sp(2)} $13$<br>`

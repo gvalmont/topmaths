@@ -3,7 +3,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-export const titre = 'Connaitre les tables de multiplication (avec des divisions)'
+export const titre =
+  'Connaitre les tables de multiplication (avec des divisions)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -20,10 +21,10 @@ export const uuid = 'd61d9'
 
 export const refs = {
   'fr-fr': ['canc3C14'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class TableDivisions extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -32,7 +33,7 @@ export default class TableDivisions extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 1, 2])) {
       case 1:
         {

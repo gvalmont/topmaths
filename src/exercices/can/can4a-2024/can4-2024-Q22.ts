@@ -15,7 +15,7 @@ export const uuid = 'a34f6'
 
 */
 export default class NomExercice extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -26,7 +26,7 @@ export default class NomExercice extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 22
       this.question = `$20$ ${sp(4)} ; ${sp(4)} $16$ ${sp(4)} ; ${sp(4)} $30$<br>

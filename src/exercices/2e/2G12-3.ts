@@ -12,9 +12,13 @@ import { abs } from '../../lib/outils/nombres'
 import { texteGras } from '../../lib/format/style'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogramme'
+export const titre =
+  "Démontrer qu'un quadrilatère est ou non un parallélogramme"
 export const dateDeModifImportante = '30/11/2023'
 
 /**
@@ -25,10 +29,10 @@ export const uuid = '31760'
 
 export const refs = {
   'fr-fr': ['2G12-3'],
-  'fr-ch': ['11GM1-6']
+  'fr-ch': ['11GM1-6'],
 }
 export default class Parallélogramme extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -38,19 +42,22 @@ export default class Parallélogramme extends Exercice {
     this.correctionDetailleeDisponible = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2]
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       let texte = ''
       let texteCorr = ''
       const objets: NestedObjetMathalea2dArray = []
-      const variables:number[] = []
+      const variables: number[] = []
       switch (typesDeQuestions) {
-      // Cas par cas, on définit le type de nombres que l'on souhaite
-      // Combien de chiffres ? Quelles valeurs ?
+        // Cas par cas, on définit le type de nombres que l'on souhaite
+        // Combien de chiffres ? Quelles valeurs ?
         case 1: // Dq ABDC parallélogramme
           {
             let xA = randint(0, 5) * choice([-1, 1])
@@ -85,9 +92,22 @@ export default class Parallélogramme extends Exercice {
               BC2 = (xC - xB) ** 2 + (yC - yB) ** 2
               DB2 = (xB - xD) ** 2 + (yB - yD) ** 2
               DC2 = (xC - xD) ** 2 + (yC - yD) ** 2
-            } while ((xD - xA) ** 2 + (yD - yA) ** 2 < 8 || (xC - xB) ** 2 + (yC - yB) ** 2 < 8 || abs(xA - xB) < 3 || abs(xA - xC) < 3 ||
-            yC === (yB - yA) / (xB - xA) * xC + yA - (yB - yA) / (xB - xA) * xA || Math.acos((BC2 - AB2 - AC2) / (-2 * (Math.sqrt(AB2)) * (Math.sqrt(AC2)))) < 0.4 ||
-            Math.acos((BC2 - AB2 - AC2) / (-2 * (Math.sqrt(AB2)) * (Math.sqrt(AC2)))) > 2.6)
+            } while (
+              (xD - xA) ** 2 + (yD - yA) ** 2 < 8 ||
+              (xC - xB) ** 2 + (yC - yB) ** 2 < 8 ||
+              abs(xA - xB) < 3 ||
+              abs(xA - xC) < 3 ||
+              yC ===
+                ((yB - yA) / (xB - xA)) * xC +
+                  yA -
+                  ((yB - yA) / (xB - xA)) * xA ||
+              Math.acos(
+                (BC2 - AB2 - AC2) / (-2 * Math.sqrt(AB2) * Math.sqrt(AC2)),
+              ) < 0.4 ||
+              Math.acos(
+                (BC2 - AB2 - AC2) / (-2 * Math.sqrt(AB2) * Math.sqrt(AC2)),
+              ) > 2.6
+            )
 
             const xM = new FractionEtendue(xA + xD, 2)
             const yM = new FractionEtendue(yA + yD, 2)
@@ -120,7 +140,8 @@ export default class Parallélogramme extends Exercice {
             const L = labelPoint(M)
             const P = polygoneAvecNom(A, B, D, C)
             objets.push(P[1])
-            texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les 4 points suivants :<br>'
+            texte =
+              'Dans un repère orthonormé $(O,I,J)$, on donne les 4 points suivants :<br>'
             texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ ; `
             texte += ` $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ ; $${D.nom}\\left(${xD}\\,;\\,${yD}\\right).$<br>
        `
@@ -133,24 +154,39 @@ export default class Parallélogramme extends Exercice {
             const YMIN = Math.min(yA, yB, yC, yD, -1) - 1
             const XMAX = Math.max(xA, xB, xC, xD, 1) + 1
             const YMAX = Math.max(yA, yB, yC, yD, 1) + 1
-            objets.push(repere({
-              xMin: XMIN,
-              yMin: YMIN,
-              xMax: XMAX,
-              yMax: YMAX,
-              yLabelEcart: 0.6,
-              xLabelEcart: 0.6,
-              yLabelDistance: 2,
-              xLabelDistance: 2
-            }))
+            objets.push(
+              repere({
+                xMin: XMIN,
+                yMin: YMIN,
+                xMax: XMAX,
+                yMax: YMAX,
+                yLabelEcart: 0.6,
+                xLabelEcart: 0.6,
+                yLabelDistance: 2,
+                xLabelDistance: 2,
+              }),
+            )
 
             if (this.correctionDetaillee) {
-              texteCorr = 'On peut représenter la situation avec les données de l\'énoncé : <br>'
-              texteCorr += mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: 25, scale: 0.6 }, objets)
+              texteCorr =
+                "On peut représenter la situation avec les données de l'énoncé : <br>"
+              texteCorr += mathalea2d(
+                {
+                  xmin: XMIN,
+                  ymin: YMIN,
+                  xmax: XMAX,
+                  ymax: YMAX,
+                  pixelsParCm: 25,
+                  scale: 0.6,
+                },
+                objets,
+              )
               texteCorr += `<br>Pour savoir si $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme, on peut utiliser l'un des deux résultats suivants :  <br>
              $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu (c'est-à-dire si $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ ont le même milieu). <br>
              $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses côtés opposés sont deux à deux de même longueur.<br>`
-            } else { texteCorr = '' }
+            } else {
+              texteCorr = ''
+            }
             texteCorr += `<br> ${texteGras('En utilisant les milieux :')} : <br> `
             texteCorr += `<br> $\\bullet$ Soit $M$ le milieu de $[${A.nom}${D.nom}]$ : <br> `
             texteCorr += `$\\begin{cases}x_M=\\dfrac{x_${A.nom}+x_${D.nom}}{2}= \\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xA + xD)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.8em] y_M=\\dfrac{y_${A.nom}+y_${D.nom}}{2}= \\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yA + yD)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
@@ -159,7 +195,8 @@ export default class Parallélogramme extends Exercice {
             texteCorr += `$\\begin{cases}x_N=\\dfrac{x_${B.nom}+x_${C.nom}}{2}= \\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xB + xC)}}{2}${xN.texSimplificationAvecEtapes()}\\\\[0.8em] y_N=\\dfrac{y_${B.nom}+y_${C.nom}}{2}= \\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yB + yC)}}{2}${yN.texSimplificationAvecEtapes()}\\end{cases}$`
 
             texteCorr += `  <br><br>Ainsi : $ N\\left(${xN.simplifie().texFSD}\\,;\\,${yN.simplifie().texFSD}\\right)$`
-            texteCorr += '<br><br>On observe que $M$ et $N$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
+            texteCorr +=
+              '<br><br>On observe que $M$ et $N$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
             texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
 
             texteCorr += `<br><br> ${texteGras('En utilisant les longueurs :')}  <br> `
@@ -204,8 +241,8 @@ export default class Parallélogramme extends Exercice {
               ux = randint(2, 4) * choice([-1, 1])
               uy = randint(2, 4) * choice([-1, 1])
               xB = xA + ux
-              yB = yA + uy;
-              [xD, yD] = choice([true, false])
+              yB = yA + uy
+              ;[xD, yD] = choice([true, false])
                 ? [xC + ux + randint(1, 2) * choice([-1, 1]), yC + uy]
                 : [xC + ux, yC + uy + randint(1, 2) * choice([-1, 1])]
               AB2 = (xA - xB) ** 2 + (yA - yB) ** 2
@@ -213,9 +250,22 @@ export default class Parallélogramme extends Exercice {
               BC2 = (xC - xB) ** 2 + (yC - yB) ** 2
               DB2 = (xB - xD) ** 2 + (yB - yD) ** 2
               DC2 = (xC - xD) ** 2 + (yC - yD) ** 2
-            } while ((xD - xA) ** 2 + (yD - yA) ** 2 < 8 || (xC - xB) ** 2 + (yC - yB) ** 2 < 8 || abs(xA - xB) < 3 || abs(xA - xC) < 3 ||
-            yC === (yB - yA) / (xB - xA) * xC + yA - (yB - yA) / (xB - xA) * xA || Math.acos((BC2 - AB2 - AC2) / (-2 * (Math.sqrt(AB2)) * (Math.sqrt(AC2)))) < 0.4 ||
-            Math.acos((BC2 - AB2 - AC2) / (-2 * (Math.sqrt(AB2)) * (Math.sqrt(AC2)))) > 2.6)
+            } while (
+              (xD - xA) ** 2 + (yD - yA) ** 2 < 8 ||
+              (xC - xB) ** 2 + (yC - yB) ** 2 < 8 ||
+              abs(xA - xB) < 3 ||
+              abs(xA - xC) < 3 ||
+              yC ===
+                ((yB - yA) / (xB - xA)) * xC +
+                  yA -
+                  ((yB - yA) / (xB - xA)) * xA ||
+              Math.acos(
+                (BC2 - AB2 - AC2) / (-2 * Math.sqrt(AB2) * Math.sqrt(AC2)),
+              ) < 0.4 ||
+              Math.acos(
+                (BC2 - AB2 - AC2) / (-2 * Math.sqrt(AB2) * Math.sqrt(AC2)),
+              ) > 2.6
+            )
 
             const xM = new FractionEtendue(xA + xD, 2)
             const yM = new FractionEtendue(yA + yD, 2)
@@ -256,29 +306,45 @@ export default class Parallélogramme extends Exercice {
             const YMIN = Math.min(yA, yB, yC, yD, -1) - 1
             const XMAX = Math.max(xA, xB, xC, xD, 1) + 1
             const YMAX = Math.max(yA, yB, yC, yD, 1) + 1
-            objets.push(repere({
-              xMin: XMIN,
-              yMin: YMIN,
-              xMax: XMAX,
-              yMax: YMAX,
-              yLabelEcart: 0.6,
-              xLabelEcart: 0.6,
-              yLabelDistance: 2,
-              xLabelDistance: 2
-            }))
-            texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les 4 points suivants :<br>'
+            objets.push(
+              repere({
+                xMin: XMIN,
+                yMin: YMIN,
+                xMax: XMAX,
+                yMax: YMAX,
+                yLabelEcart: 0.6,
+                xLabelEcart: 0.6,
+                yLabelDistance: 2,
+                xLabelDistance: 2,
+              }),
+            )
+            texte =
+              'Dans un repère orthonormé $(O,I,J)$, on donne les 4 points suivants :<br>'
             texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, `
             texte += ` $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ ; $${D.nom}\\left(${xD}\\,;\\,${yD}\\right).$<br>
        `
             texte += `Déterminer si le quadrilatère $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme. Justifier.`
 
             if (this.correctionDetaillee) {
-              texteCorr = 'On peut représenter la situation avec les données de l\'énoncé : <br>'
-              texteCorr += mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: 25, scale: 0.6 }, objets)
+              texteCorr =
+                "On peut représenter la situation avec les données de l'énoncé : <br>"
+              texteCorr += mathalea2d(
+                {
+                  xmin: XMIN,
+                  ymin: YMIN,
+                  xmax: XMAX,
+                  ymax: YMAX,
+                  pixelsParCm: 25,
+                  scale: 0.6,
+                },
+                objets,
+              )
               texteCorr += `<br>Pour savoir si $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme, on peut utiliser l'un des deux résultats suivants :  <br>
              $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu (c'est-à-dire si $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ ont le même milieu). <br>
              $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses côtés opposés sont deux à deux de même longueur.<br><br>`
-            } else { texteCorr = '' }
+            } else {
+              texteCorr = ''
+            }
             texteCorr += `${texteGras('En utilisant les milieux :')} : <br> `
             texteCorr += `<br> $\\bullet$ Soit $M$ le milieu de $[${A.nom}${D.nom}]$ : <br> `
             texteCorr += `$\\begin{cases}x_M=\\dfrac{x_${A.nom}+x_${D.nom}}{2}= \\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xA + xD)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.8em] y_M=\\dfrac{y_${A.nom}+y_${D.nom}}{2}= \\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yA + yD)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
@@ -288,7 +354,8 @@ export default class Parallélogramme extends Exercice {
             texteCorr += `$\\begin{cases}x_N=\\dfrac{x_${B.nom}+x_${C.nom}}{2}= \\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xB + xC)}}{2}${xN.texSimplificationAvecEtapes()}\\\\[0.8em] y_N=\\dfrac{y_${B.nom}+y_${C.nom}}{2}= \\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yB + yC)}}{2}${yN.texSimplificationAvecEtapes()}\\end{cases}$`
 
             texteCorr += `  <br><br>Ainsi : $ N\\left(${xN.simplifie().texFSD}\\,;\\,${yN.simplifie().texFSD}\\right)$`
-            texteCorr += '<br><br>On observe que $M$ et $N$ n\'ont pas les mêmes coordonnées, donc les deux diagonales du quadrilatère ne se coupent pas en leur milieu.'
+            texteCorr +=
+              "<br><br>On observe que $M$ et $N$ n'ont pas les mêmes coordonnées, donc les deux diagonales du quadrilatère ne se coupent pas en leur milieu."
             texteCorr += `<br>$${A.nom}${B.nom}${D.nom}${C.nom}$ n'est pas un parallélogramme.`
 
             texteCorr += `<br><br> ${texteGras('En utilisant les longueurs :')}  <br> `
@@ -308,7 +375,8 @@ export default class Parallélogramme extends Exercice {
           break
       }
       variables.push(typesDeQuestions)
-      if (this.questionJamaisPosee(i, variables.map(String).join(')'))) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, variables.map(String).join(')'))) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

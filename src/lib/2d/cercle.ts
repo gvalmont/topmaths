@@ -1,6 +1,6 @@
 import {
   colorToLatexOrHTML,
-  ObjetMathalea2D
+  ObjetMathalea2D,
 } from '../../modules/2dGeneralites'
 import { arrondi } from '../outils/nombres'
 import { angleModulo, angleOriente } from './angles'
@@ -57,7 +57,7 @@ export class Cercle extends ObjetMathalea2D {
   epaisseurDesHachures: number
   distanceDesHachures: number
 
-  constructor (
+  constructor(
     O: PointAbstrait,
     r: number,
     color = 'black',
@@ -68,7 +68,7 @@ export class Cercle extends ObjetMathalea2D {
     opacite = 1,
     opaciteDeRemplissage = 1.1,
     epaisseurDesHachures = 1,
-    distanceDesHachures = 10
+    distanceDesHachures = 10,
   ) {
     super()
     this.color = colorToLatexOrHTML(color)
@@ -85,7 +85,7 @@ export class Cercle extends ObjetMathalea2D {
     this.opacite = opacite
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -119,7 +119,7 @@ export class Cercle extends ObjetMathalea2D {
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[0],
           couleurDeRemplissage: this.couleurDeRemplissage[0],
-          opaciteDeRemplissage: this.opaciteDeRemplissage
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
         }) +
         `<circle cx="${this.centre.xSVG(coeff)}" cy="${this.centre.ySVG(coeff)}" r="${this.rayon * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
       )
@@ -140,7 +140,7 @@ export class Cercle extends ObjetMathalea2D {
     }
   }
 
-  tikz () {
+  tikz() {
     let optionsDraw: string = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
@@ -179,7 +179,7 @@ export class Cercle extends ObjetMathalea2D {
       this.couleurDeRemplissage[1] !== ''
     ) {
       tableauOptions.push(
-        `preaction={fill,color = ${this.couleurDeRemplissage[1]}}`
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]}}`,
       )
     }
 
@@ -192,8 +192,8 @@ export class Cercle extends ObjetMathalea2D {
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
           couleurDeRemplissage: this.couleurDeRemplissage[1],
-          opaciteDeRemplissage: this.opaciteDeRemplissage
-        })
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
+        }),
       )
     }
 
@@ -203,16 +203,20 @@ export class Cercle extends ObjetMathalea2D {
     return `\\draw${optionsDraw} (${this.centre.x},${this.centre.y}) circle (${this.rayon});`
   }
 
-  svgml (coeff: number) {
+  svgml(coeff: number) {
     const mainLevee = MainLevee.create()
     if (mainLevee != null) {
-      const code = mainLevee.circle(this.centre.x, this.centre.y, this.rayon * coeff)
+      const code = mainLevee.circle(
+        this.centre.x,
+        this.centre.y,
+        this.rayon * coeff,
+      )
       mainLevee.destroy()
       return code
     } else return ''
   }
 
-  tikzml (amp: number) {
+  tikzml(amp: number) {
     let optionsDraw = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
@@ -226,7 +230,7 @@ export class Cercle extends ObjetMathalea2D {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     tableauOptions.push(
-      `decorate,decoration={random steps , amplitude = ${amp}pt}`
+      `decorate,decoration={random steps , amplitude = ${amp}pt}`,
     )
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
@@ -258,7 +262,7 @@ export class Cercle extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function cercle (
+export function cercle(
   O: PointAbstrait,
   r: number,
   color = 'black',
@@ -269,7 +273,7 @@ export function cercle (
   opacite = 1,
   opaciteDeRemplissage = 1.1,
   epaisseurDesHachures = 1,
-  distanceDesHachures = 10
+  distanceDesHachures = 10,
 ) {
   return new Cercle(
     O,
@@ -282,7 +286,7 @@ export function cercle (
     opacite,
     opaciteDeRemplissage,
     epaisseurDesHachures,
-    distanceDesHachures
+    distanceDesHachures,
   )
 }
 
@@ -309,7 +313,7 @@ export function cercle (
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function cercleCentrePoint (
+export function cercleCentrePoint(
   O: Point,
   M: Point,
   color = 'black',
@@ -320,7 +324,7 @@ export function cercleCentrePoint (
   opacite = 1,
   opaciteDeRemplissage = 1.1,
   epaisseurDesHachures = 1,
-  distanceDesHachures = 10
+  distanceDesHachures = 10,
 ) {
   return new Cercle(
     O,
@@ -333,7 +337,7 @@ export function cercleCentrePoint (
     opacite,
     opaciteDeRemplissage,
     epaisseurDesHachures,
-    distanceDesHachures
+    distanceDesHachures,
   )
 }
 
@@ -379,7 +383,7 @@ export class Arc extends ObjetMathalea2D {
   pointDepart: PointAbstrait
   centre: PointAbstrait
   pointFinal: PointAbstrait
-  constructor (
+  constructor(
     M: PointAbstrait,
     omega: PointAbstrait,
     angle: PointAbstrait | number,
@@ -390,7 +394,7 @@ export class Arc extends ObjetMathalea2D {
     couleurDesHachures = 'none',
     opacite = 1,
     epaisseurDesHachures = 1,
-    distanceDesHachures = 10
+    distanceDesHachures = 10,
   ) {
     super()
     this.pointDepart = M
@@ -406,7 +410,8 @@ export class Arc extends ObjetMathalea2D {
     this.pointilles = 0
     this.epaisseur = 1
     this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
-    this.angle = angle instanceof PointAbstrait ? angleOriente(M, omega, angle) : angle
+    this.angle =
+      angle instanceof PointAbstrait ? angleOriente(M, omega, angle) : angle
     const medX: number[] = []
     const medY: number[] = []
     for (let ee = 1; ee < 9; ee++) {
@@ -424,11 +429,11 @@ export class Arc extends ObjetMathalea2D {
       Math.min(M.x, this.pointFinal.x, ...medX) - 0.1,
       Math.min(M.y, this.pointFinal.y, ...medY) - 0.1,
       Math.max(M.x, this.pointFinal.x, ...medX) + 0.1,
-      Math.max(M.y, this.pointFinal.y, ...medY) + 0.1
+      Math.max(M.y, this.pointFinal.y, ...medY) + 0.1,
     ]
   }
 
-  svg (coeff: number) {
+  svg(coeff: number) {
     let sweep: number
     let large: number
     if (this.angle > 180) {
@@ -479,7 +484,7 @@ export class Arc extends ObjetMathalea2D {
             epaisseurDesHachures: this.epaisseurDesHachures,
             couleurDesHachures: this.couleurDesHachures[0] ?? 'black',
             couleurDeRemplissage: this.couleurDeRemplissage[0],
-            opaciteDeRemplissage: this.opaciteDeRemplissage
+            opaciteDeRemplissage: this.opaciteDeRemplissage,
           }) +
           `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})"/>`
         )
@@ -535,7 +540,7 @@ export class Arc extends ObjetMathalea2D {
     }
   }
 
-  tikz () {
+  tikz() {
     let optionsDraw: string = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
@@ -571,7 +576,7 @@ export class Arc extends ObjetMathalea2D {
       this.couleurDeRemplissage[1] !== ''
     ) {
       tableauOptions.push(
-        `preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`,
       )
     }
 
@@ -583,18 +588,22 @@ export class Arc extends ObjetMathalea2D {
           distanceDesHachures: this.distanceDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
           couleurDeRemplissage: this.couleurDeRemplissage[1],
-          opaciteDeRemplissage: this.opaciteDeRemplissage
-        })
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
+        }),
       )
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
     const lng = longueur(this.centre, this.pointDepart, 2)
-    if (this.rayons) { return `\\draw  ${optionsDraw} (${this.pointFinal.x},${this.pointFinal.y}) -- (${this.centre.x},${this.centre.y}) -- (${this.pointDepart.x},${this.pointDepart.y}) arc (${this.azimut}:${this.angleFin}:${lng}) ;` } else { return `\\draw${optionsDraw} (${this.pointDepart.x},${this.pointDepart.y}) arc (${this.azimut}:${this.angleFin}:${lng}) ;` }
+    if (this.rayons) {
+      return `\\draw  ${optionsDraw} (${this.pointFinal.x},${this.pointFinal.y}) -- (${this.centre.x},${this.centre.y}) -- (${this.pointDepart.x},${this.pointDepart.y}) arc (${this.azimut}:${this.angleFin}:${lng}) ;`
+    } else {
+      return `\\draw${optionsDraw} (${this.pointDepart.x},${this.pointDepart.y}) arc (${this.azimut}:${this.angleFin}:${lng}) ;`
+    }
   }
 
-  svgml (coeff: number) {
+  svgml(coeff: number) {
     const width = longueur(this.pointDepart, this.centre, 2) * coeff * 2
     const height = width
     const closed = this.rayons
@@ -610,14 +619,14 @@ export class Arc extends ObjetMathalea2D {
         height,
         start > end ? end : start,
         start > end ? start : end,
-        closed
+        closed,
       )
       mainLevee.destroy()
       return code
     } else return ''
   }
 
-  tikzml (amp: number) {
+  tikzml(amp: number) {
     let optionsDraw: string = ''
     const tableauOptions = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
@@ -630,7 +639,7 @@ export class Arc extends ObjetMathalea2D {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     tableauOptions.push(
-      `decorate,decoration={random steps , amplitude = ${amp}pt}`
+      `decorate,decoration={random steps , amplitude = ${amp}pt}`,
     )
 
     optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -656,7 +665,7 @@ export class Arc extends ObjetMathalea2D {
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function arc (
+export function arc(
   M: PointAbstrait,
   Omega: PointAbstrait,
   angle: PointAbstrait | number,
@@ -664,7 +673,7 @@ export function arc (
   couleurDeRemplissage = 'none',
   color = 'black',
   opaciteDeRemplissage = 0.2,
-  couleurDesHachures = 'none'
+  couleurDesHachures = 'none',
 ) {
   return new Arc(
     M,
@@ -674,7 +683,7 @@ export function arc (
     couleurDeRemplissage,
     color,
     opaciteDeRemplissage,
-    couleurDesHachures
+    couleurDesHachures,
   )
 }
 
@@ -695,7 +704,7 @@ export function arc (
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function arcPointPointAngle (
+export function arcPointPointAngle(
   M: PointAbstrait,
   N: PointAbstrait,
   angle: number,
@@ -703,7 +712,7 @@ export function arcPointPointAngle (
   couleurDeRemplissage = 'none',
   color = 'black',
   opaciteDeRemplissage = 0.2,
-  couleurDesHachures = 'none'
+  couleurDesHachures = 'none',
 ): Arc {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
@@ -723,7 +732,7 @@ export function arcPointPointAngle (
     couleurDeRemplissage,
     color,
     opaciteDeRemplissage,
-    couleurDesHachures
+    couleurDesHachures,
   )
 }
 
@@ -731,14 +740,14 @@ export function arcPointPointAngle (
  * m = traceCompas(O, A, 20) trace un arc de cercle de centre O qui commence 10° avant A et finit 10° après.
  *@author Jean-Claude Lhote
  */
-export function traceCompas (
+export function traceCompas(
   O: PointAbstrait,
   A: PointAbstrait,
   angle = 20,
   color = 'gray',
   opacite = 1.1,
   epaisseur = 1,
-  pointilles = 0
+  pointilles = 0,
 ) {
   const B = rotation(A, O, -angle / 2)
   const a = arc(B, O, angle, false)

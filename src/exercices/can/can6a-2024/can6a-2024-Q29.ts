@@ -14,7 +14,7 @@ export const uuid = '17db4'
 */
 
 export default class DivisionParCinq extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class DivisionParCinq extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let dividende: number
     if (this.canOfficielle) {
       dividende = 120
@@ -36,7 +36,8 @@ export default class DivisionParCinq extends ExerciceSimple {
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = texNombre(dividende / 5, 0)
-    this.correction = 'Pour diviser par $5$, on peut diviser par $10$ puis multiplier le résultat par $2$ :<br>'
+    this.correction =
+      'Pour diviser par $5$, on peut diviser par $10$ puis multiplier le résultat par $2$ :<br>'
     this.correction += `
     $\\begin{aligned}
     ${texNombre(dividende, 0)}\\div 5&=(${texNombre(dividende, 0)}\\div 10)\\times 2\\\\

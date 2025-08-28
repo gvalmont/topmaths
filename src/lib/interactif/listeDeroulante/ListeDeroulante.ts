@@ -4,10 +4,10 @@ type EventListener = (event?: Event) => void
 type KeyboardEventListener = (event: KeyboardEvent) => void
 
 interface CHoiceValue {
-  latex?: string,
-  image?: string,
-  label?: string,
-  value: string,
+  latex?: string
+  image?: string
+  label?: string
+  value: string
   svg?: string
 }
 
@@ -16,7 +16,7 @@ interface CHoiceValue {
  * On peut passer autant de paramètres que l'on veut, les null|undefined seront ignorés silencieusement
  * @param {...Element} elts
  */
-function empty (...elts: Element[]): void {
+function empty(...elts: Element[]): void {
   for (const elt of elts) {
     if (elt == null) continue
     while (elt?.lastChild != null) elt.removeChild(elt.lastChild)
@@ -30,11 +30,14 @@ function empty (...elts: Element[]): void {
 //            {latex: '\\frac{\\sqrt{3}}{2}',value: 'sinusPiSur3'},
 //            {label: "n'est pas définie en zéro", value: 'noF0'}
 //            'Je ne sais pas']
-export type AllChoiceType = (CHoiceValue)
+export type AllChoiceType = CHoiceValue
 export type AllChoicesType = AllChoiceType[]
 
 // @todo faire évoluer cette fonction vers un renderToString() directement dans le li lorsque mathlive sera en version 1.0 ou plus.
-function renderLatexToHTMLFragment (li: HTMLLIElement | HTMLSpanElement, latex: string): void {
+function renderLatexToHTMLFragment(
+  li: HTMLLIElement | HTMLSpanElement,
+  latex: string,
+): void {
   li.innerHTML = `$$${latex}$$`
   renderMathInElement(li)
   const spanToInvisible = li.querySelectorAll('span')
@@ -50,7 +53,10 @@ function renderLatexToHTMLFragment (li: HTMLLIElement | HTMLSpanElement, latex: 
  * @param {HTMLLIElement} li l'élément de liste qui doit contenir le choix
  * @param {AllChoiceType} choice le choix en question
  */
-function afficheChoice (li: HTMLLIElement | HTMLSpanElement, choice: AllChoiceType | undefined) {
+function afficheChoice(
+  li: HTMLLIElement | HTMLSpanElement,
+  choice: AllChoiceType | undefined,
+) {
   // Les textes sont naturellement alignés avec li.textAlign, mais pas les images ou les math-field
   if (choice == null) return
   if (typeof choice === 'object') {
@@ -107,16 +113,22 @@ class ListeDeroulante {
   width?: number
 
   /**
-     * @constructor
-     * @param options
-     * @param choices
-     * @param options.choix0
-     */
-  constructor (choices: AllChoicesType, { choix0 }: {
-    choix0?: boolean,
-  } = { choix0: false }) {
+   * @constructor
+   * @param options
+   * @param choices
+   * @param options.choix0
+   */
+  constructor(
+    choices: AllChoicesType,
+    {
+      choix0,
+    }: {
+      choix0?: boolean
+    } = { choix0: false },
+  ) {
     if (arguments.length > 2) throw Error('nombre d’arguments invalides')
-    if (!Array.isArray(choices)) throw Error('Il faut passer une liste de choix')
+    if (!Array.isArray(choices))
+      throw Error('Il faut passer une liste de choix')
     this.disabled = false // mettre à true pour désactiver la liste
     this.choices = [...choices] // La liste des choix
     this.givenChoices = [...choices] // idem, mais celle-là restera complète avec l'entête de liste si le choix0 retire cet élément de choices lors de l'init.
@@ -129,15 +141,25 @@ class ListeDeroulante {
   }
 
   /**
-     * Crée les éléments dans le DOM (appelé par create) et ajoute les listeners
-     * @private
-     */
-  _init ({ conteneur, sansFleche, select }:{ conteneur?: HTMLElement, sansFleche?: boolean, select?: number } = { sansFleche: false, select: 0 }) {
+   * Crée les éléments dans le DOM (appelé par create) et ajoute les listeners
+   * @private
+   */
+  _init(
+    {
+      conteneur,
+      sansFleche,
+      select,
+    }: { conteneur?: HTMLElement; sansFleche?: boolean; select?: number } = {
+      sansFleche: false,
+      select: 0,
+    },
+  ) {
     /**
-         * Le span qui va contenir la liste (tous les éléments que l'on crée, enfant de conteneur)
-         * @type {HTMLSpanElement}
-         */
-    if (!conteneur) throw Error('Le conteneur est obligatoire pour la liste déroulante !')
+     * Le span qui va contenir la liste (tous les éléments que l'on crée, enfant de conteneur)
+     * @type {HTMLSpanElement}
+     */
+    if (!conteneur)
+      throw Error('Le conteneur est obligatoire pour la liste déroulante !')
     this.container = conteneur
     this.container.classList.add('listeDeroulante')
     const char = '˅'
@@ -156,9 +178,9 @@ class ListeDeroulante {
     this.container.onclick = this._clickListener
 
     /**
-         * listener de keydown sur spanSelected, pour sélection au clavier
-         * @param {KeyboardEvent} event
-         */
+     * listener de keydown sur spanSelected, pour sélection au clavier
+     * @param {KeyboardEvent} event
+     */
     this._keydownListener = (event: KeyboardEvent): void => {
       const { code, key } = event
       if (code === 'Tab' || key === 'Tab') {
@@ -179,7 +201,12 @@ class ListeDeroulante {
           if (!this.isVisible()) this.show()
           this._kbSelect()
         }
-      } else if (code === 'Space' || key === 'Space' || code === 'Enter' || key === 'Enter') {
+      } else if (
+        code === 'Space' ||
+        key === 'Space' ||
+        code === 'Enter' ||
+        key === 'Enter'
+      ) {
         if (this.isVisible()) {
           this.select(this._kbIndex, { withoutOffset: true })
         } else {
@@ -246,17 +273,17 @@ class ListeDeroulante {
   }
 
   /**
-     * met le focus sur l'élément sélectionné
-     */
-  focus () {
+   * met le focus sur l'élément sélectionné
+   */
+  focus() {
     if (this.spanSelected) this.spanSelected.focus()
   }
 
   /**
-     * positionne le ul par rapport au spanSelected
-     * @private
-     */
-  _replace () {
+   * positionne le ul par rapport au spanSelected
+   * @private
+   */
+  _replace() {
     if (this.container) {
       const height = this.container.offsetHeight
       const widthSpan = this.spanSelected?.offsetWidth ?? 0
@@ -268,9 +295,9 @@ class ListeDeroulante {
   }
 
   /**
-     * Remet la liste dans son état initial
-     */
-  reset () {
+   * Remet la liste dans son état initial
+   */
+  reset() {
     this.hide()
     if (this.spanSelected) {
       empty(this.spanSelected)
@@ -285,14 +312,19 @@ class ListeDeroulante {
   }
 
   /**
-     * Sélectionne le choix index (dans le tableau fourni initialement)
-     * @param {number} index index dans choices
-     * @param {Object} [options]
-     * @param {boolean} [options.withoutOffset] Passer true si l'index est celui du tableau après avoir éventuellement retiré son 1er élément (à priori usage interne seulement)
-     */
-  select (index: number, { withoutOffset }: {
-    withoutOffset?: boolean,
-  } = {}) {
+   * Sélectionne le choix index (dans le tableau fourni initialement)
+   * @param {number} index index dans choices
+   * @param {Object} [options]
+   * @param {boolean} [options.withoutOffset] Passer true si l'index est celui du tableau après avoir éventuellement retiré son 1er élément (à priori usage interne seulement)
+   */
+  select(
+    index: number,
+    {
+      withoutOffset,
+    }: {
+      withoutOffset?: boolean
+    } = {},
+  ) {
     if (this.spanSelected != null) {
       if (this.disabled) return
       this.spanSelected.style.fontStyle = ''
@@ -301,14 +333,26 @@ class ListeDeroulante {
       // faut décaler l'index si on a viré le 1er elt à l'init
       const realIndex = withoutOffset ? index : index - this._offset
       if (realIndex < 0 || realIndex >= this.choices.length) {
-        if (withoutOffset) return console.error(`index invalide : ${index} non compris entre 0 et ${this.choices.length - 1}`)
-        return console.error(`index invalide : ${index} non compris entre ${this._offset} et ${this.choices.length - 1 + this._offset}`)
+        if (withoutOffset)
+          return console.error(
+            `index invalide : ${index} non compris entre 0 et ${this.choices.length - 1}`,
+          )
+        return console.error(
+          `index invalide : ${index} non compris entre ${this._offset} et ${this.choices.length - 1 + this._offset}`,
+        )
       }
       empty(this.spanSelected)
       const choix = this.choices[realIndex]
       afficheChoice(this.spanSelected, choix)
-      this.reponse = String(typeof choix === 'string' ? choix : typeof choix === 'object' ? choix?.value : 'undefined')
-      if (this.reponse === 'undefined') throw Error(`Un problème avec la valeur de ce choix : ${choix}`)
+      this.reponse = String(
+        typeof choix === 'string'
+          ? choix
+          : typeof choix === 'object'
+            ? choix?.value
+            : 'undefined',
+      )
+      if (this.reponse === 'undefined')
+        throw Error(`Un problème avec la valeur de ce choix : ${choix}`)
       this.changed = true
       this._kbIndex = index
       for (const [i, li] of this._elts.entries()) {
@@ -322,20 +366,20 @@ class ListeDeroulante {
   }
 
   /**
-     * Marque un élément comme étant sélectionné au clavier (sera ensuite vraiment sélectionné si on appuie ensuite sur entrée)
-     */
-  _kbSelect () {
+   * Marque un élément comme étant sélectionné au clavier (sera ensuite vraiment sélectionné si on appuie ensuite sur entrée)
+   */
+  _kbSelect() {
     for (const [i, li] of this._elts.entries()) {
       if (this._kbIndex === i) li.classList.add('selected')
       else li.classList.remove('selected')
     }
   }
 
-  hide () {
+  hide() {
     if (this.ulContainer) this.ulContainer.classList.remove('visible')
   }
 
-  show () {
+  show() {
     if (this.disabled) return
     // il faut d'abord masquer toutes les autres listes qui pourraient être ouverte (pour éviter des chevauchements)
     for (const ul of document.querySelectorAll('.listeDeroulante ul.visible')) {
@@ -351,53 +395,58 @@ class ListeDeroulante {
   }
 
   /**
-     * Pour changer l'état 'visible' de la liste
-     */
-  toggle () {
+   * Pour changer l'état 'visible' de la liste
+   */
+  toggle() {
     if (this.disabled) return
     if (this.isVisible()) this.hide()
     else this.show()
   }
 
   /**
-     * Comme son nom l'indique, dit si la liste est visible
-     */
-  isVisible () {
+   * Comme son nom l'indique, dit si la liste est visible
+   */
+  isVisible() {
     if (this.ulContainer) return this.ulContainer.classList.contains('visible')
     else return false
   }
 
-  getSelectedIndex () {
+  getSelectedIndex() {
     return this._kbIndex
   }
 
   /**
-     * Ajoute la liste dans le dom et retourne l'objet ListeDeroulante qu'elle a créé
-     * @name ListeDeroulante
-     * @param {HTMLElement|string} conteneur
-     * @param {CHoiceValue[]} choices la liste des choix
-     * @param {Object} [parametres]  Les paramètres de cette liste
-     * @param {boolean} [parametres.sansFleche=false] passer true pour ne pas mettre la flèche permettant le déroulement
-     * @param {number} [parametres.select=0] index de choices à sélectionner dès le départ (ignoré si choix est précisé)
-     * @return {ListeDeroulante}
-     */
-  static create (conteneur: HTMLElement, choices: AllChoicesType, {
-    choix0,
-    sansFleche,
-    select
-  }: {
-    choix0?: boolean,
-    sansFleche?: boolean,
-    select?: number,
-  } = {
-    choix0: false,
-    sansFleche: false,
-    select: 0
-  }): ListeDeroulante {
+   * Ajoute la liste dans le dom et retourne l'objet ListeDeroulante qu'elle a créé
+   * @name ListeDeroulante
+   * @param {HTMLElement|string} conteneur
+   * @param {CHoiceValue[]} choices la liste des choix
+   * @param {Object} [parametres]  Les paramètres de cette liste
+   * @param {boolean} [parametres.sansFleche=false] passer true pour ne pas mettre la flèche permettant le déroulement
+   * @param {number} [parametres.select=0] index de choices à sélectionner dès le départ (ignoré si choix est précisé)
+   * @return {ListeDeroulante}
+   */
+  static create(
+    conteneur: HTMLElement,
+    choices: AllChoicesType,
+    {
+      choix0,
+      sansFleche,
+      select,
+    }: {
+      choix0?: boolean
+      sansFleche?: boolean
+      select?: number
+    } = {
+      choix0: false,
+      sansFleche: false,
+      select: 0,
+    },
+  ): ListeDeroulante {
     const ld = new ListeDeroulante(choices, {
-      choix0
+      choix0,
     })
-    if (!conteneur) throw Error('Impossible de créer la liste déroulante, pas de conteneur')
+    if (!conteneur)
+      throw Error('Impossible de créer la liste déroulante, pas de conteneur')
     ld._init({ conteneur, sansFleche, select })
     return ld
   }

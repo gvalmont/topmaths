@@ -13,11 +13,11 @@ export const uuid = '95adb'
 // déréférencé car inutile
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class CalculHauteurMontagne extends problemesTrigoLongueur {
-  constructor () {
+  constructor() {
     super()
     this.sup2 = '6'
     this.besoinFormulaireCaseACocher = false

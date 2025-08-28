@@ -34,12 +34,16 @@ export const uuid = '594eb'
 export const refs = {
   'fr-fr': ['6I1B-1'],
   'fr-2016': ['6I10-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ColorierDeplacement extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Nombre d\'instructions de déplacements', 3, '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions']
+    this.besoinFormulaireNumerique = [
+      "Nombre d'instructions de déplacements",
+      3,
+      '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions',
+    ]
     this.besoinFormulaire2CaseACocher = ['Avec une boucle']
     this.besoinFormulaire3CaseACocher = ['Inclure la possibilité de reculer']
     this.typeExercice = 'Scratch'
@@ -51,16 +55,16 @@ export default class ColorierDeplacement extends Exercice {
     this.consigne = 'Dans le quadrillage, effectuer le programme.'
 
     this.nbQuestionsModifiable = false
-    context.isHtml ? this.spacing = 2 : this.spacing = 1
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const lstObjet = [] // liste de tous les objets Mathalea2d
     let direction: 0 | 90 | 180 | 270 = 0 // Orientation du lutin en degrés
     let positionApresPremierDeplacement = 'A1'
     let positionApresDernierDeplacement = 'A1'
-    function scratchblocksTikz (codeSvg: string, codeTikz: string) {
+    function scratchblocksTikz(codeSvg: string, codeTikz: string) {
       // c'est une ancienne façon de faire. Maintenant il existe une fonction scratchblock() qui effectue la conversion scratch Latex -> scratchblock
       if (context.isHtml) {
         return codeSvg
@@ -69,7 +73,10 @@ export default class ColorierDeplacement extends Exercice {
       }
     }
 
-    function calculerDeplacementsLutin (rotation: 0 | 1, deplacement: 2 | 3): [number, number] {
+    function calculerDeplacementsLutin(
+      rotation: 0 | 1,
+      deplacement: 2 | 3,
+    ): [number, number] {
       let ajoutX = 0
       let ajoutY = 0
       switch (rotation) {
@@ -93,7 +100,7 @@ export default class ColorierDeplacement extends Exercice {
       return [ajoutX, ajoutY]
     }
 
-    function fleche (x: number, y: number, direction: 0 | 90 | 180 | 270) {
+    function fleche(x: number, y: number, direction: 0 | 90 | 180 | 270) {
       let depart, arrivee
       switch (direction) {
         case 0: // est
@@ -113,7 +120,10 @@ export default class ColorierDeplacement extends Exercice {
           arrivee = [x + 0.5, y - 0.8]
           break
       }
-      const fleche = segment(point(depart[0], depart[1]), point(arrivee[0], arrivee[1]))
+      const fleche = segment(
+        point(depart[0], depart[1]),
+        point(arrivee[0], arrivee[1]),
+      )
       fleche.styleExtremites = '->'
       fleche.color = colorToLatexOrHTML('white')
       return fleche
@@ -128,10 +138,22 @@ export default class ColorierDeplacement extends Exercice {
     if (this.sup2) {
       nbRepetition = 3
     }
-    const lstCommandesTikz = ['\\blockmove{Tourner à gauche}', '\\blockmove{Tourner à droite}', '\\blockmove{Avancer}', '\\blockmove{Reculer}', '\\blockmove{Colorier la case}']
-    const lstCommandesSVG = ['Tourner à gauche', 'Tourner à droite', 'Avancer', 'Reculer', 'Colorier']
+    const lstCommandesTikz = [
+      '\\blockmove{Tourner à gauche}',
+      '\\blockmove{Tourner à droite}',
+      '\\blockmove{Avancer}',
+      '\\blockmove{Reculer}',
+      '\\blockmove{Colorier la case}',
+    ]
+    const lstCommandesSVG = [
+      'Tourner à gauche',
+      'Tourner à droite',
+      'Avancer',
+      'Reculer',
+      'Colorier',
+    ]
     codeTikz += '\\medskip \\begin{scratch} <br>'
-    codeSvg += '<pre class=\'blocks\'>'
+    codeSvg += "<pre class='blocks'>"
     const lstNumCommande: (0 | 1 | 2 | 3 | 4)[] = [] // liste des commandes successives
     const lstDeplacements: [number, number][] = [] // Liste des [ajoutX, ajoutY] successifs
     const lstX = [0] // liste des abscisses successives
@@ -151,14 +173,24 @@ export default class ColorierDeplacement extends Exercice {
       codeSvg += lstCommandesSVG[4] + '<br>' // ajout de l'instruction "Colorier"
       lstNumCommande.push(rotation, deplacement) // ajout d'une rotation et d'un déplacement
       lstNumCommande.push(4) // ajout de l'instruction "Colorier"
-      const ajoutXY = calculerDeplacementsLutin(rotation as 0 | 1, deplacement as 2 | 3)
+      const ajoutXY = calculerDeplacementsLutin(
+        rotation as 0 | 1,
+        deplacement as 2 | 3,
+      )
       lstX.push(lstX[lstX.length - 1] + ajoutXY[0]) // calcul de la nouvelle abscisse
       lstY.push(lstY[lstY.length - 1] + ajoutXY[1]) // calcul de la nouvelle ordonnée
       lstDeplacements.push(ajoutXY)
     }
     for (let k = 0; k < nbRepetition - 1; k++) {
-      for (let i = k * lstNumCommande.length; i < (k + 1) * lstNumCommande.length; i += 3) {
-        const ajoutXY = calculerDeplacementsLutin(lstNumCommande[i % lstNumCommande.length] % 2 as 0 | 1, (2 + lstNumCommande[(i + 1) % lstNumCommande.length] % 2) as 2 | 3)
+      for (
+        let i = k * lstNumCommande.length;
+        i < (k + 1) * lstNumCommande.length;
+        i += 3
+      ) {
+        const ajoutXY = calculerDeplacementsLutin(
+          (lstNumCommande[i % lstNumCommande.length] % 2) as 0 | 1,
+          (2 + (lstNumCommande[(i + 1) % lstNumCommande.length] % 2)) as 2 | 3,
+        )
         lstX.push(ajoutXY[0])
         lstY.push(ajoutXY[1])
       }
@@ -197,32 +229,68 @@ export default class ColorierDeplacement extends Exercice {
     const yGrilleMin = yLutinMin - 3
     const yGrilleMax = yLutinMax + 2
 
-    const r2 = grille(xGrilleMin, yGrilleMin, xGrilleMax, yGrilleMax, 'black', 0.8, 1)
+    const r2 = grille(
+      xGrilleMin,
+      yGrilleMin,
+      xGrilleMax,
+      yGrilleMax,
+      'black',
+      0.8,
+      1,
+    )
     lstObjet.push(r2)
 
     let p // carré gris représentant le lutin en position de départ
-    p = polygone(point(lstX[0], lstY[0]), point(lstX[0] + 1, lstY[0]), point(lstX[0] + 1, lstY[0] - 1), point(lstX[0], lstY[0] - 1))
+    p = polygone(
+      point(lstX[0], lstY[0]),
+      point(lstX[0] + 1, lstY[0]),
+      point(lstX[0] + 1, lstY[0] - 1),
+      point(lstX[0], lstY[0] - 1),
+    )
     p.opacite = 0.5
     p.couleurDeRemplissage = colorToLatexOrHTML('black')
     p.opaciteDeRemplissage = 0.5
     p.epaisseur = 0
     lstObjet.push(p, fleche(lstX[0], lstY[0], 0))
     let txt = '' // variable temporaire
-    for (let j = 0; j < (xGrilleMax - xGrilleMin); j++) {
+    for (let j = 0; j < xGrilleMax - xGrilleMin; j++) {
       txt = String.fromCharCode(65 + j) // ascii 65 = A
-      lstObjet.push(texteParPosition(txt, xGrilleMin + j + 0.5, yGrilleMax + 0.5, 0, 'black', 1, 'milieu')) // affiche de A à J... en haut de la grille
+      lstObjet.push(
+        texteParPosition(
+          txt,
+          xGrilleMin + j + 0.5,
+          yGrilleMax + 0.5,
+          0,
+          'black',
+          1,
+          'milieu',
+        ),
+      ) // affiche de A à J... en haut de la grille
     }
-    for (let i = 0; i < (yGrilleMax - yGrilleMin); i++) {
-      lstObjet.push(texteParPosition(String(i + 1), xGrilleMin - 0.25, yGrilleMax - i - 0.5, 0, 'black', 1, 'milieu')) // affiche de 0 à 9... à gauche de la grille
+    for (let i = 0; i < yGrilleMax - yGrilleMin; i++) {
+      lstObjet.push(
+        texteParPosition(
+          String(i + 1),
+          xGrilleMin - 0.25,
+          yGrilleMax - i - 0.5,
+          0,
+          'black',
+          1,
+          'milieu',
+        ),
+      ) // affiche de 0 à 9... à gauche de la grille
     }
-    const mathalea2dEnonce = mathalea2d({
-      xmin: xGrilleMin - 3,
-      xmax: xGrilleMax + 1,
-      ymin: yGrilleMin - 1,
-      ymax: yGrilleMax + 1,
-      pixelsParCm: 20,
-      scale: 0.5
-    }, lstObjet)
+    const mathalea2dEnonce = mathalea2d(
+      {
+        xmin: xGrilleMin - 3,
+        xmax: xGrilleMax + 1,
+        ymin: yGrilleMin - 1,
+        ymax: yGrilleMax + 1,
+        pixelsParCm: 20,
+        scale: 0.5,
+      },
+      lstObjet,
+    )
 
     // CORRECTION
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
@@ -232,37 +300,55 @@ export default class ColorierDeplacement extends Exercice {
 
     // on fait un dessin par passage dans la boucle
     if (context.isHtml) {
-      texteCorr += '<table style="width:100%"><tr><td style="text-align:center">'
+      texteCorr +=
+        '<table style="width:100%"><tr><td style="text-align:center">'
     } else {
       texteCorr += '\\begin{minipage}{.49\\textwidth}'
     }
     direction = 0
     for (let k = 0; k < nbRepetition; k++) {
-      for (let i = k * lstNumCommande.length; i < (k + 1) * lstNumCommande.length; i += 3) {
-        const ajoutXY = calculerDeplacementsLutin(lstNumCommande[i % lstNumCommande.length] % 2 as 0 | 1, (2 + lstNumCommande[(i + 1) % lstNumCommande.length] % 2) as 2 | 3)
+      for (
+        let i = k * lstNumCommande.length;
+        i < (k + 1) * lstNumCommande.length;
+        i += 3
+      ) {
+        const ajoutXY = calculerDeplacementsLutin(
+          (lstNumCommande[i % lstNumCommande.length] % 2) as 0 | 1,
+          (2 + (lstNumCommande[(i + 1) % lstNumCommande.length] % 2)) as 2 | 3,
+        )
         xLutin += ajoutXY[0]
         yLutin += ajoutXY[1]
-        p = polygone(point(xLutin, yLutin), point(xLutin + 1, yLutin), point(xLutin + 1, yLutin - 1), point(xLutin, yLutin - 1))
+        p = polygone(
+          point(xLutin, yLutin),
+          point(xLutin + 1, yLutin),
+          point(xLutin + 1, yLutin - 1),
+          point(xLutin, yLutin - 1),
+        )
         p.couleurDeRemplissage = colorToLatexOrHTML(couleur)
         p.opaciteDeRemplissage = 0.25
         p.epaisseur = 0
         lstObjet.push(p)
         if (i === 0) {
-          positionApresPremierDeplacement = lettreDepuisChiffre(xLutin - xGrilleMin + 1) + (yGrilleMax - yLutin + 1) // position finale du lutin
+          positionApresPremierDeplacement =
+            lettreDepuisChiffre(xLutin - xGrilleMin + 1) +
+            (yGrilleMax - yLutin + 1) // position finale du lutin
         }
       }
       lstObjet.push(p, fleche(xLutin, yLutin, direction))
       if (this.sup2) {
         texteCorr += `Passage n° ${k + 1} dans la boucle : <br>`
       }
-      texteCorr += mathalea2d({
-        xmin: xGrilleMin - 3,
-        xmax: xGrilleMax + 1,
-        ymin: yGrilleMin - 1,
-        ymax: yGrilleMax + 1,
-        pixelsParCm: 20,
-        scale: 0.4
-      }, lstObjet)
+      texteCorr += mathalea2d(
+        {
+          xmin: xGrilleMin - 3,
+          xmax: xGrilleMax + 1,
+          ymin: yGrilleMin - 1,
+          ymax: yGrilleMax + 1,
+          pixelsParCm: 20,
+          scale: 0.4,
+        },
+        lstObjet,
+      )
       if (context.isHtml) {
         if (k % 3 === 2) {
           texteCorr += '</td></tr><tr><td style="text-align:center">' // retour à la ligne après 3 grilles dessinées en HTML
@@ -271,21 +357,31 @@ export default class ColorierDeplacement extends Exercice {
         }
       } else {
         texteCorr += '\\end{minipage}'
-        if (k % 2 === 1) { texteCorr += '\\\\ ' } // retour à la ligne après 2 grilles dessinées en LaTeX
+        if (k % 2 === 1) {
+          texteCorr += '\\\\ '
+        } // retour à la ligne après 2 grilles dessinées en LaTeX
         texteCorr += '\\begin{minipage}{.49\\textwidth}'
       }
     }
-    positionApresDernierDeplacement = lettreDepuisChiffre(xLutin - xGrilleMin + 1) + (yGrilleMax - yLutin + 1) // position finale du lutin
-    context.isHtml ? texteCorr += '</td></tr></table>' : texteCorr += '\\end{minipage}'
+    positionApresDernierDeplacement =
+      lettreDepuisChiffre(xLutin - xGrilleMin + 1) + (yGrilleMax - yLutin + 1) // position finale du lutin
+    context.isHtml
+      ? (texteCorr += '</td></tr></table>')
+      : (texteCorr += '\\end{minipage}')
 
     if (context.isAmc) {
-      this.autoCorrection = [{ propositions: [{ texte: '', statut: 3, sanscadre: true }] }]
+      this.autoCorrection = [
+        { propositions: [{ texte: '', statut: 3, sanscadre: true }] },
+      ]
     }
 
-    texte += 'Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. Exécuter le programme.'
+    texte +=
+      'Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. Exécuter le programme.'
 
     texte += '<br><br>'
-    if (!context.isHtml) { texte += '\\begin{center}' }
+    if (!context.isHtml) {
+      texte += '\\begin{center}'
+    }
     texte += mathalea2dEnonce
     if (context.isHtml) {
       texte += '</td></tr></table>'
@@ -297,10 +393,20 @@ export default class ColorierDeplacement extends Exercice {
     if (this.interactif && context.isHtml) {
       texte += `<br>
       ${numAlphaNum(0)} Quelle est la première case coloriée par le lutin ? ${ajouteChampTexteMathLive(this, 0, 'alphanumeric', { placeholder: 'A1' })}`
-      handleAnswers(this, 0, { reponse: { value: positionApresPremierDeplacement, compare: texteSansCasseCompare } })
+      handleAnswers(this, 0, {
+        reponse: {
+          value: positionApresPremierDeplacement,
+          compare: texteSansCasseCompare,
+        },
+      })
       texte += `<br>
       ${numAlphaNum(1)} Quelle est la dernière case coloriée par le lutin ? ${ajouteChampTexteMathLive(this, 1, 'alphanumeric', { placeholder: 'A1' })}`
-      handleAnswers(this, 1, { reponse: { value: positionApresDernierDeplacement, compare: texteSansCasseCompare } })
+      handleAnswers(this, 1, {
+        reponse: {
+          value: positionApresDernierDeplacement,
+          compare: texteSansCasseCompare,
+        },
+      })
       texteCorr += `<br>
       La première case coloriée par le lutin est ${texteEnCouleurEtGras(positionApresPremierDeplacement)}.<br>
       La dernière case coloriée par le lutin est ${texteEnCouleurEtGras(positionApresDernierDeplacement)}.`

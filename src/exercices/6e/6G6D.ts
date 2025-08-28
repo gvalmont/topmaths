@@ -7,7 +7,11 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -16,7 +20,8 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { arrondi } from '../../lib/outils/nombres'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Déterminer la valeur d\'un angle en utilisant la somme des angles dans un triangle'
+export const titre =
+  "Déterminer la valeur d'un angle en utilisant la somme des angles dans un triangle"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -55,7 +60,7 @@ export const uuid = 'dc8c9'
 export const refs = {
   'fr-fr': ['6G6D'],
   'fr-2016': ['5G31'],
-  'fr-ch': ['9ES2-9', '1mG1-2']
+  'fr-ch': ['9ES2-9', '1mG1-2'],
 }
 const troisiemeAngle = function (a1: number, a2: number) {
   if (a1 + a2 <= 180) {
@@ -65,41 +70,44 @@ const troisiemeAngle = function (a1: number, a2: number) {
   }
 }
 export default class ExerciceAnglesTriangles extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Situations différentes', [
+      'Situations différentes',
+      [
         'Nombres séparés par des tirets  :',
         '1 : Triangle quelconque avec deux angles aigus connus',
         '2 : Triangle rectangle avec un angle aigu connu',
         '3 : Triangle isocèle avec un angle à la base connu',
         '4 : Triangle rectangle isocèle',
         '5 : Triangle équilatéral',
-        '6 : Triangle rectangle avec un angle aigu double de l\'autre (*)',
-        '7 : Triangle rectangle avec un angle aigu quart de l\'autre (*)',
-        '8 : Triangle rectangle avec un angle aigu quintuple de l\'autre (*)',
-        '9 : Triangle rectangle avec un angle aigu tiers de l\'autre (*)',
-        '10 : Triangle rectangle avec un angle aigu deux tiers de l\'autre (*)',
-        '11 : Triangle isocèle avec un angle aigu double de l\'autre (*)',
-        '12 : Triangle isocèle avec l\'angle au sommet principal connu (*)',
+        "6 : Triangle rectangle avec un angle aigu double de l'autre (*)",
+        "7 : Triangle rectangle avec un angle aigu quart de l'autre (*)",
+        "8 : Triangle rectangle avec un angle aigu quintuple de l'autre (*)",
+        "9 : Triangle rectangle avec un angle aigu tiers de l'autre (*)",
+        "10 : Triangle rectangle avec un angle aigu deux tiers de l'autre (*)",
+        "11 : Triangle isocèle avec un angle aigu double de l'autre (*)",
+        "12 : Triangle isocèle avec l'angle au sommet principal connu (*)",
         '13 : Mélange',
-        '(*) : Question plus difficile'
-      ].join('\n')
+        '(*) : Question plus difficile',
+      ].join('\n'),
     ]
     this.besoinFormulaire2CaseACocher = ['Ajouter un schéma aux questions']
-    this.besoinFormulaire3CaseACocher = ['Dans l\'ordre des situations différentes']
+    this.besoinFormulaire3CaseACocher = [
+      "Dans l'ordre des situations différentes",
+    ]
     this.sup = '1-2-3-4-5'
     this.sup2 = false
     this.sup3 = true
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
-    context.isHtml ? this.spacing = 2 : this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
     this.nbCols = 2
     this.nbColsCorr = 2
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -107,14 +115,18 @@ export default class ExerciceAnglesTriangles extends Exercice {
       melange: 13,
       defaut: 13,
       nbQuestions: this.nbQuestions,
-      shuffle: !this.sup3
+      shuffle: !this.sup3,
     })
     let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2
     let indiceSetReponse = 0
-    for (let i = 0, texte, texteCorr, texteCorrFinal, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, texteCorrFinal, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       const objetsEnonce = []
       const objetsCorrection = []
-      let reponseInteractive:number[] = []
+      let reponseInteractive: number[] = []
       const nomAngles = []
       let choixAngle = shuffle([0, 1, 2]) // Cas général de devoir trouver trois angles
       lettre1 = randint(1, 26) // aleatoirisation du nom des points
@@ -124,9 +136,10 @@ export default class ExerciceAnglesTriangles extends Exercice {
       lettre3 = randint(1, 24, [lettre1, lettre2])
       s3 = lettreDepuisChiffre(lettre3)
       const A = point(randint(0, 2), 0, s1)
-      const B = listeTypeDeQuestions[i] === 8
-        ? point(randint(1, 4), randint(4, 6), s2)
-        : point(randint(1, 5), randint(8, 10), s2)
+      const B =
+        listeTypeDeQuestions[i] === 8
+          ? point(randint(1, 4), randint(4, 6), s2)
+          : point(randint(1, 5), randint(8, 10), s2)
       let triangle, C, angleA, angleB, angleC
       texteCorrFinal = ''
       texteCorr = ''
@@ -144,15 +157,91 @@ export default class ExerciceAnglesTriangles extends Exercice {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, angle2, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, -angle1, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(
+            B,
+            A,
+            angle2,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           objetsEnonce.push(angleA, angleB)
-          angleA = codageAngle(B, A, angle2, 0.7, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, -angle1, 0.7, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, 180 - angle2 - angle1, 1, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(
+            B,
+            A,
+            angle2,
+            0.7,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.7,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            180 - angle2 - angle1,
+            1,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
-            texteCorr += 'Dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr +=
+              'Dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
             texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s3 + s1}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
             texteCorr += `D'où : $\\widehat{${s2 + s3 + s1}}=180- \\left(\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s1 + s3}}\\right)$.<br>D'où : `
           }
@@ -171,11 +260,56 @@ export default class ExerciceAnglesTriangles extends Exercice {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, C, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(
+            B,
+            A,
+            C,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB = codageAngleDroit(A, B, C, 'blue', 1, 1.5)
           objetsEnonce.push(angleA, angleB)
-          angleA = codageAngle(B, A, C, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, B, 1, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(
+            B,
+            A,
+            C,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            B,
+            1,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
             texteCorr += `Le triangle $${s1 + s2 + s3}$ étant rectangle en $${s2}$, les angles $\\widehat{${s2 + s1 + s3}}$ et $\\widehat{${s2 + s3 + s1}}$ sont complémentaires (leur somme est égale à $90^\\circ$).<br>`
@@ -194,21 +328,103 @@ export default class ExerciceAnglesTriangles extends Exercice {
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
-          objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
-          objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
-          angleB = codageAngle(A, B, -angle1, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          objetsEnonce.push(
+            triangle,
+            nommePolygone(triangle),
+            codageSegments(
+              '||',
+              'blue',
+              segment(triangle.listePoints[1], triangle.listePoints[2]),
+              segment(triangle.listePoints[1], triangle.listePoints[0]),
+              2,
+            ),
+          )
+          objetsCorrection.push(
+            triangle,
+            nommePolygone(triangle),
+            codageSegments(
+              '||',
+              'blue',
+              segment(triangle.listePoints[1], triangle.listePoints[2]),
+              segment(triangle.listePoints[1], triangle.listePoints[0]),
+              2,
+            ),
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB.echelleMark = 2
           objetsEnonce.push(angleB)
-          angleA = codageAngle(B, A, angle2, 1, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(
+            B,
+            A,
+            angle2,
+            1,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleA.angleArrondi = 1
-          angleB = codageAngle(A, B, -angle1, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, 180 - angle2 - angle1, 1, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            180 - angle2 - angle1,
+            1,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleC.angleArrondi = 1
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
-            texteCorr += 'Les angles à la base d\'un triangle isocèle sont de même mesure.<br>'
+            texteCorr +=
+              "Les angles à la base d'un triangle isocèle sont de même mesure.<br>"
             texteCorr += `D'où : $\\widehat{${s2 + s1 + s3}}=\\widehat{${s2 + s3 + s1}}$.<br>`
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr +=
+              'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
             texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}+ \\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
             texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}+2\\times  \\widehat{${s2 + s3 + s1}}=180^\\circ$.<br>`
             texteCorr += `Soit  $${angle1}^\\circ+2\\times  \\widehat{${s2 + s3 + s1}}=180^\\circ$.<br>`
@@ -227,19 +443,101 @@ export default class ExerciceAnglesTriangles extends Exercice {
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
-          objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[2], triangle.listePoints[0]), 2))
-          objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[2], triangle.listePoints[0]), 2))
-          angleB = codageAngle(A, B, -angle1, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          objetsEnonce.push(
+            triangle,
+            nommePolygone(triangle),
+            codageSegments(
+              '||',
+              'blue',
+              segment(triangle.listePoints[1], triangle.listePoints[2]),
+              segment(triangle.listePoints[2], triangle.listePoints[0]),
+              2,
+            ),
+          )
+          objetsCorrection.push(
+            triangle,
+            nommePolygone(triangle),
+            codageSegments(
+              '||',
+              'blue',
+              segment(triangle.listePoints[1], triangle.listePoints[2]),
+              segment(triangle.listePoints[2], triangle.listePoints[0]),
+              2,
+            ),
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB.echelleMark = 2
           objetsEnonce.push(angleB)
-          angleA = codageAngle(B, A, angle2, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, -angle1, 1, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, 180 - angle2 - angle1, 1, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(
+            B,
+            A,
+            angle2,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            180 - angle2 - angle1,
+            1,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
-            texteCorr += 'Les deux angles à la base d\'un triangle isocèle sont égaux.<br>'
+            texteCorr +=
+              "Les deux angles à la base d'un triangle isocèle sont égaux.<br>"
             texteCorr += `Donc $\\widehat{${s1 + s2 + s3}}=\\widehat{${s2 + s1 + s3}}=${angle2}^\\circ$.<br>`
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>D\'où : '
+            texteCorr +=
+              "Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>D'où : "
           }
           texteCorr += `$\\widehat{${s2 + s3 + s1}}=180^\\circ-2\\times ${angle2}^\\circ=180^\\circ-${2 * angle2}^\\circ=${180 - 2 * angle2}^\\circ$.<br>`
           texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(180 - 2 * angle2)}^\\circ$.`
@@ -263,14 +561,45 @@ export default class ExerciceAnglesTriangles extends Exercice {
           angleC = codageAngle(A, C, B, 1, '|', 'blue', 2)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, angle2, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            angle2,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB.angleArrondi = 0
           angleC.angleArrondi = 0
           objetsCorrection.push(angleA, angleB, angleC)
           texteCorr += `$\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr +=
+              'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
             texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + 90^\\circ=180^\\circ$.<br>`
             texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}}=180^\\circ-90^\\circ=90^\\circ$.<br>`
           } else {
@@ -299,8 +628,38 @@ export default class ExerciceAnglesTriangles extends Exercice {
           angleC = codageAngle(A, C, B, 1, '|', 'blue', 1.5)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, angle2, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            angle2,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB.angleArrondi = 0
           angleC.angleArrondi = 0
           objetsCorrection.push(angleA, angleB, angleC)
@@ -334,8 +693,38 @@ export default class ExerciceAnglesTriangles extends Exercice {
           angleC = codageAngle(A, C, B, 1, '||||', 'blue', 1.5)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, 180 - angle2 - angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            180 - angle2 - angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB.angleArrondi = 1
           angleC.angleArrondi = 1
           objetsCorrection.push(angleA, angleB, angleC)
@@ -369,8 +758,38 @@ export default class ExerciceAnglesTriangles extends Exercice {
           angleC = codageAngle(A, C, B, 1, '|', 'blue', 2)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, 180 - angle2 - angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            180 - angle2 - angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB.angleArrondi = 1
           angleC.angleArrondi = 1
           objetsCorrection.push(angleA, angleB, angleC)
@@ -379,7 +798,8 @@ export default class ExerciceAnglesTriangles extends Exercice {
             texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90^\\circ$).<br>`
             texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
             texteCorr += `D'où : $6 \\times  \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
-          } else texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
+          } else
+            texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
           texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90^\\circ \\div  6=15^\\circ$<br>`
           texteCorr += `$\\widehat{${s1 + s2 + s3}}=5\\times \\widehat{${s1 + s3 + s2}}=5\\times  15^\\circ=75^\\circ$<br>`
           texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('15')}^\\circ$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('75')}^\\circ$.`
@@ -398,14 +818,72 @@ export default class ExerciceAnglesTriangles extends Exercice {
           angleB.echelleMark = 2
           angleC = codageAngle(A, C, 60, 1, '|', 'blue', 2)
           angleC.echelleMark = 2
-          objetsEnonce.push(triangle, angleA, angleB, angleC, nommePolygone(triangle))
-          angleA = codageAngle(B, A, 60, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, -60, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, 60, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          objetsCorrection.push(triangle, angleA, angleB, angleC, nommePolygone(triangle))
+          objetsEnonce.push(
+            triangle,
+            angleA,
+            angleB,
+            angleC,
+            nommePolygone(triangle),
+          )
+          angleA = codageAngle(
+            B,
+            A,
+            60,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -60,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            60,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          objetsCorrection.push(
+            triangle,
+            angleA,
+            angleB,
+            angleC,
+            nommePolygone(triangle),
+          )
           texteCorr += `Comme le triangle $${s1 + s2 + s3}$ a trois angles égaux, $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\widehat{${s2 + s1 + s3}}$<br>`
           if (this.correctionDetaillee) {
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr +=
+              'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
             texteCorr += `D'où $3\\times \\widehat{${s1 + s2 + s3}}=180^\\circ$.<br>`
           }
           texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}=180^\\circ\\div  3=60^\\circ$.<br>`
@@ -432,8 +910,38 @@ export default class ExerciceAnglesTriangles extends Exercice {
           angleC = codageAngle(A, C, B, 1, '|||', 'blue', 2)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, angle2, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            angle2,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB.angleArrondi = 1
           angleC.angleArrondi = 1
           objetsCorrection.push(angleA, angleB, angleC)
@@ -459,23 +967,89 @@ export default class ExerciceAnglesTriangles extends Exercice {
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
-          objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('XX', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
-          objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('XX', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
+          objetsEnonce.push(
+            triangle,
+            nommePolygone(triangle),
+            codageSegments(
+              'XX',
+              'blue',
+              segment(triangle.listePoints[0], triangle.listePoints[2]),
+              segment(triangle.listePoints[1], triangle.listePoints[0]),
+              2,
+            ),
+          )
+          objetsCorrection.push(
+            triangle,
+            nommePolygone(triangle),
+            codageSegments(
+              'XX',
+              'blue',
+              segment(triangle.listePoints[0], triangle.listePoints[2]),
+              segment(triangle.listePoints[1], triangle.listePoints[0]),
+              2,
+            ),
+          )
           angleA = codageAngle(B, A, C, 1, '||', 'blue', 2)
           angleA.echelleMark = 2
           angleB = codageAngle(A, B, C, 1, '|||', 'blue', 2)
           angleB.echelleMark = 2
           objetsEnonce.push(angleA, angleB)
-          angleA = codageAngle(B, A, angle2, 1, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, 180 - angle2 - angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(
+            B,
+            A,
+            angle2,
+            1,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            180 - angle2 - angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           angleB.angleArrondi = 1
           angleC.angleArrondi = 1
           objetsCorrection.push(angleA, angleB, angleC)
           texteCorr += `Comme $\\widehat{${s2 + s1 + s3}}=\\dfrac{2\\times  \\widehat{${s1 + s3 + s2}}}{3}$, on en déduit que $\\widehat{${s1 + s3 + s2}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `De plus, comme le triangle $${s1 + s2 + s3}$ est isocèle en $${s1}$, $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont égaux, alors $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}$.<br>`
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr +=
+              'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
             texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}+\\widehat{${s1 + s2 + s3}}+\\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
             texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
             texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2}\\times  2 + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
@@ -499,21 +1073,87 @@ export default class ExerciceAnglesTriangles extends Exercice {
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
-          objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('|||', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
-          objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('|||', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
+          objetsEnonce.push(
+            triangle,
+            nommePolygone(triangle),
+            codageSegments(
+              '|||',
+              'blue',
+              segment(triangle.listePoints[0], triangle.listePoints[2]),
+              segment(triangle.listePoints[1], triangle.listePoints[0]),
+              2,
+            ),
+          )
+          objetsCorrection.push(
+            triangle,
+            nommePolygone(triangle),
+            codageSegments(
+              '|||',
+              'blue',
+              segment(triangle.listePoints[0], triangle.listePoints[2]),
+              segment(triangle.listePoints[1], triangle.listePoints[0]),
+              2,
+            ),
+          )
           angleA = codageAngle(B, A, C, 1, '|', 'blue', 2)
           angleA.echelleMark = 2
           angleB = codageAngle(A, B, C, 1, '||', 'blue', 2)
           angleB.echelleMark = 2
           objetsEnonce.push(angleA, angleB)
-          angleA = codageAngle(B, A, angle2, 1, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleC = codageAngle(A, C, 180 - angle2 - angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(
+            B,
+            A,
+            angle2,
+            1,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            180 - angle2 - angle1,
+            0.8,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
           objetsCorrection.push(angleA, angleB, angleC)
           texteCorr += `On a $\\widehat{${s1 + s2 + s3}}=2\\times  \\widehat{${s2 + s1 + s3}}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `De plus, comme le triangle $${s1 + s2 + s3}$ est isocèle en $${s1}$, $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont égaux, alors $\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s2 + s1 + s3}}$.<br>`
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr +=
+              'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
             texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}+\\widehat{${s1 + s2 + s3}}+\\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
             texteCorr += `D'où : $2 \\times  \\widehat{${s2 + s1 + s3}} + 2 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
             texteCorr += `D'où : $4 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>D'où `
@@ -533,27 +1173,41 @@ export default class ExerciceAnglesTriangles extends Exercice {
       setReponse(this, indiceSetReponse, reponseInteractive[choixAngle[0]])
       if (reponseInteractive.length > 1) {
         reponsesAMC.push(reponseInteractive[choixAngle[1]])
-        setReponse(this, indiceSetReponse + 1, reponseInteractive[choixAngle[1]])
+        setReponse(
+          this,
+          indiceSetReponse + 1,
+          reponseInteractive[choixAngle[1]],
+        )
         if (reponseInteractive.length > 2) {
           reponsesAMC.push(reponseInteractive[choixAngle[2]])
-          setReponse(this, indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
+          setReponse(
+            this,
+            indiceSetReponse + 2,
+            reponseInteractive[choixAngle[2]],
+          )
         }
       }
       if (this.interactif) {
-        texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse, ' ', {
-          texteAvant: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`,
-          texteApres: '$^\\circ$'
-        })
-        if (reponseInteractive.length > 1) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 1, ' ', {
-            texteAvant: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
-            texteApres: '$^\\circ$'
+        texte +=
+          '<br>' +
+          ajouteChampTexteMathLive(this, indiceSetReponse, ' ', {
+            texteAvant: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`,
+            texteApres: '$^\\circ$',
           })
-          if (reponseInteractive.length > 2) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 2, ' ', {
-              texteAvant: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
-              texteApres: '$^\\circ$'
+        if (reponseInteractive.length > 1) {
+          texte +=
+            '<br>' +
+            ajouteChampTexteMathLive(this, indiceSetReponse + 1, ' ', {
+              texteAvant: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
+              texteApres: '$^\\circ$',
             })
+          if (reponseInteractive.length > 2) {
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, indiceSetReponse + 2, ' ', {
+                texteAvant: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
+                texteApres: '$^\\circ$',
+              })
           }
         }
       }
@@ -566,7 +1220,14 @@ export default class ExerciceAnglesTriangles extends Exercice {
       const xmax = Math.max(A.x, B.x, C.x) + 2
       const ymin = Math.min(A.y, B.y, C.y) - 2
       const ymax = Math.max(A.y, B.y, C.y) + 2
-      const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.3 }
+      const paramsEnonce = {
+        xmin,
+        ymin,
+        xmax,
+        ymax,
+        pixelsParCm: 20,
+        scale: 0.3,
+      }
 
       if (this.sup2) {
         texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
@@ -577,7 +1238,15 @@ export default class ExerciceAnglesTriangles extends Exercice {
         }
       }
       texteCorrFinal += texteCorr
-      texteCorrFinal += '<br>' + mathalea2d(Object.assign(fixeBordures(objetsCorrection), { pixelsParCm: 20, scale: 0.3 }), objetsCorrection)
+      texteCorrFinal +=
+        '<br>' +
+        mathalea2d(
+          Object.assign(fixeBordures(objetsCorrection), {
+            pixelsParCm: 20,
+            scale: 0.3,
+          }),
+          objetsCorrection,
+        )
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -589,31 +1258,37 @@ export default class ExerciceAnglesTriangles extends Exercice {
           propositions: [
             {
               type: 'AMCNum',
-              propositions: [{
-                texte: '',
-                statut: '',
-                reponse: {
-                  texte: texte + `<br><br>Valeur de $\\widehat{${nomAngles[choixAngle[0]]}}$`,
-                  valeur: reponsesAMC[0],
-                  param: {
-                    digits: 2,
-                    decimals: 0,
-                    signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          ]
+              propositions: [
+                {
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte:
+                      texte +
+                      `<br><br>Valeur de $\\widehat{${nomAngles[choixAngle[0]]}}$`,
+                    valeur: reponsesAMC[0],
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         }
         if (reponseInteractive.length > 1) {
           // @ts-expect-error
-          this.autoCorrection[i].propositions[0].propositions[0].multicolsBegin = true
+          this.autoCorrection[
+            i
+          ].propositions[0].propositions[0].multicolsBegin = true
           // @ts-expect-error
-          this.autoCorrection[i].propositions.push(
-            {
-              type: 'AMCNum',
-              propositions: [{
+          this.autoCorrection[i].propositions.push({
+            type: 'AMCNum',
+            propositions: [
+              {
                 texte: '',
                 multicolsEnd: true,
                 statut: '',
@@ -624,19 +1299,19 @@ export default class ExerciceAnglesTriangles extends Exercice {
                     digits: 2,
                     decimals: 0,
                     signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          )
+                    approx: 0,
+                  },
+                },
+              },
+            ],
+          })
         }
         if (reponseInteractive.length > 2) {
           // @ts-expect-error
-          this.autoCorrection[i].propositions.push(
-            {
-              type: 'AMCNum',
-              propositions: [{
+          this.autoCorrection[i].propositions.push({
+            type: 'AMCNum',
+            propositions: [
+              {
                 texte: '',
                 multicolsEnd: true,
                 statut: '',
@@ -647,16 +1322,17 @@ export default class ExerciceAnglesTriangles extends Exercice {
                     digits: 2,
                     decimals: 0,
                     signe: false,
-                    approx: 0
-                  }
-                }
-              }]
-            }
-          )
+                    approx: 0,
+                  },
+                },
+              },
+            ],
+          })
         }
       }
 
-      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorrFinal
         i++

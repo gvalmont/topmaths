@@ -13,7 +13,7 @@ export const uuid = 'f195a'
 
 */
 export default class MultiplieDixiemeCM2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -23,7 +23,7 @@ export default class MultiplieDixiemeCM2 extends ExerciceSimple {
     this.consigne = 'Complete :'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let nb: number
     let puissance: number
     if (this.canOfficielle) {
@@ -34,11 +34,11 @@ export default class MultiplieDixiemeCM2 extends ExerciceSimple {
       nb = randint(6, 9) * 10 + randint(6, 9) * 10 ** (puissance - 1)
     }
     this.reponse = { champ1: { value: texNombre(10 ** puissance, 3) } }
-    this.question = ` %{champ1}\\times ${texNombre(nb / (10 ** puissance), 3)}=${texNombre(nb, 0)}`
+    this.question = ` %{champ1}\\times ${texNombre(nb / 10 ** puissance, 3)}=${texNombre(nb, 0)}`
     this.canEnonce = 'Complète.'
-    this.canReponseACompleter = `$\\ldots\\times ${texNombre(nb / (10 ** puissance), 3)}=${texNombre(nb, 0)}$`
+    this.canReponseACompleter = `$\\ldots\\times ${texNombre(nb / 10 ** puissance, 3)}=${texNombre(nb, 0)}$`
     this.correction = `Le chiffre des dixièmes du nombre de départ est devenu le chiffre des ${puissance === 1 ? 'unités' : puissance === 2 ? 'dizaines' : 'centaines'}.<br>
     C'est donc que le nombre a été multiplié par $1$ ${puissance === 1 ? 'dizaine' : puissance === 2 ? 'centaine' : 'millier'}.<br>`
-    this.correction += `Donc $${miseEnEvidence(texNombre(10 ** puissance, 3))}\\times ${texNombre(nb / (10 ** puissance), 3)}=${texNombre(nb, 0)}$`
+    this.correction += `Donc $${miseEnEvidence(texNombre(10 ** puissance, 3))}\\times ${texNombre(nb / 10 ** puissance, 3)}=${texNombre(nb, 0)}$`
   }
 }

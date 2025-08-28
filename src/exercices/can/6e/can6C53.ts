@@ -17,10 +17,10 @@ export const uuid = '7a447'
 
 export const refs = {
   'fr-fr': ['can6C53', '6N2J-flash3'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ComprendreDivisionEuclidienne extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -28,7 +28,7 @@ export default class ComprendreDivisionEuclidienne extends ExerciceSimple {
     this.spacing = 1.5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2, 3])) {
       case 1:
         {
@@ -45,7 +45,10 @@ export default class ComprendreDivisionEuclidienne extends ExerciceSimple {
     $${texNombre(dividende)}$ par ${diviseur}. <br>
     On en déduit que le paysagiste pourra faire ${choix ? `$${miseEnEvidence(texNombre(quotient))}$ ` : `$${texNombre(quotient)}$ `} bouquets et 
     il restera ${choix ? `$${texNombre(reste)}$ ` : `$${miseEnEvidence(texNombre(reste))}$ `}  ${reste === 1 ? 'fleur' : 'fleurs'}.`
-          this.optionsChampTexte = { texteAvant: '<br>', texteApres: `${choix ? 'bouquet(s)' : 'fleur(s)'}` }
+          this.optionsChampTexte = {
+            texteAvant: '<br>',
+            texteApres: `${choix ? 'bouquet(s)' : 'fleur(s)'}`,
+          }
           this.canEnonce = this.question
           this.canReponseACompleter = `$\\ldots$ ${choix ? 'bouquet(s)' : 'fleur(s)'}`
         }
@@ -53,8 +56,8 @@ export default class ComprendreDivisionEuclidienne extends ExerciceSimple {
       case 2:
         {
           const diviseur = choice([5, 6, 7]) // Nombre d’élèves par rangée
-          const quotient = randint(20, 30)   // Nombre de rangées pleines
-          const reste = randint(1, 5)        // Élèves sans rangée
+          const quotient = randint(20, 30) // Nombre de rangées pleines
+          const reste = randint(1, 5) // Élèves sans rangée
           const dividende = diviseur * quotient + reste // Total d’élèves
 
           const choix = choice([true, false]) // true = question sur les rangées, false = sur les élèves sans place
@@ -71,7 +74,7 @@ et qu’il restera ${choix ? `$${texNombre(reste)}$` : `$${miseEnEvidence(texNom
 
           this.optionsChampTexte = {
             texteAvant: '<br>',
-            texteApres: `${choix ? 'rangée(s)' : 'élève(s)'}`
+            texteApres: `${choix ? 'rangée(s)' : 'élève(s)'}`,
           }
 
           this.canEnonce = this.question
@@ -81,8 +84,8 @@ et qu’il restera ${choix ? `$${texNombre(reste)}$` : `$${miseEnEvidence(texNom
       case 3:
         {
           const diviseur = choice([6, 7, 8, 9]) // Livres par carton
-          const quotient = randint(15, 25)    // Nombre de cartons pleins
-          const reste = randint(1, 5)         // Livres restants
+          const quotient = randint(15, 25) // Nombre de cartons pleins
+          const reste = randint(1, 5) // Livres restants
           const dividende = diviseur * quotient + reste // Total de livres
 
           const choix = choice([true, false]) // true = question sur les cartons, false = sur les livres restants
@@ -99,7 +102,7 @@ et qu’il lui restera ${choix ? `$${texNombre(reste)}$` : `$${miseEnEvidence(te
 
           this.optionsChampTexte = {
             texteAvant: '<br>',
-            texteApres: `${choix ? 'cartons' : 'livres'}`
+            texteApres: `${choix ? 'cartons' : 'livres'}`,
           }
 
           this.canEnonce = this.question

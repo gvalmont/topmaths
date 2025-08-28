@@ -18,10 +18,10 @@ export const uuid = '4ba86'
 
 export const refs = {
   'fr-fr': ['canc3C04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class DoubleOuBienMoitie extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -29,14 +29,16 @@ export default class DoubleOuBienMoitie extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a = randint(2, 4) * 10 + randint(1, 9)
     if (choice([true, false])) {
       this.reponse = a << 1
       this.question = `Calculer le double de $ ${a} $.`
       this.correction = `$${a}\\times 2 = ${a << 1}$`
     } else {
-      if (a % 2 === 1) { a++ }
+      if (a % 2 === 1) {
+        a++
+      }
       this.question = `Calculer la moitié de $ ${a} $.`
       this.reponse = a >> 1
       this.correction = `$${a}\\div 2 = ${a >> 1}$`

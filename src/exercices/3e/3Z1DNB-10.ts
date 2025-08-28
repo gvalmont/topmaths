@@ -9,9 +9,10 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = 'fb6e1'
 export const refs = {
   'fr-fr': ['3Z1DNB-10'],
-  'fr-ch': ['11FA8-21']
+  'fr-ch': ['11FA8-21'],
 }
-export const titre = 'Préparation DNB : Fonctions, équation, statistiques, volume'
+export const titre =
+  'Préparation DNB : Fonctions, équation, statistiques, volume'
 export const dateDePublication = '05/04/2025'
 
 /**
@@ -23,16 +24,27 @@ export const dateDePublication = '05/04/2025'
  * La méthode versionAleatoire permet de générer des valeurs aléatoires pour l'exercice
  */
 export default class Exercice3F14DNB2 extends ExerciceBrevetA {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.introduction = texteItalique('D\'après l\'exercice 3 du brevet Métropole Septembre 2023.<br>')
+    this.introduction = texteItalique(
+      "D'après l'exercice 3 du brevet Métropole Septembre 2023.<br>",
+    )
 
     this.versionAleatoire()
   }
 
-  private appliquerLesValeurs (a: number, b:number, c:number, d: number, entrees: number[], L: number, l: number, p:number) : void {
+  private appliquerLesValeurs(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    entrees: number[],
+    L: number,
+    l: number,
+    p: number,
+  ): void {
     const currentYear = new Date().getFullYear()
     this.enonce = `
 Une piscine propose deux tarifs d'entrée pour l'année ${currentYear}.<br>
@@ -40,30 +52,45 @@ ${texteGras('Tarif A')} : $${texPrix(a)}$ € l'entrée.<br>
 ${texteGras('Tarif B')} : $${texPrix(b)}$ € l'entrée avec une carte d'abonnement de $${texPrix(c)}$ € valable toute l'année.<br>`
     const listeQuestions1 = createList({
       items: [
-    `Quel est le prix total pour $${d}$ entrées avec le tarif A ?`,
-    `Quel est le prix total pour $${d}$ entrées avec le tarif B ?`
+        `Quel est le prix total pour $${d}$ entrées avec le tarif A ?`,
+        `Quel est le prix total pour $${d}$ entrées avec le tarif B ?`,
       ],
-      style: 'alpha'
+      style: 'alpha',
     })
     const question2 = `On note $f$ et $g$ les fonctions qui modélisent les prix, en euro, respectivement du tarif A et du tarif B en fonction du nombre $x$ d'entrées.<br>
 Donner l'expression de $f(x)$, puis celle de $g(x)$.`
     const listeQuestions3 = createList({
       items: [
-    `Résoudre l'équation $${texPrix(a)}x = ${texPrix(b)}x + ${texPrix(c)}$.`,
-    'Quel est le nombre d\'entrées pour lequel les tarifs A et B donnent le même prix à payer ?'
+        `Résoudre l'équation $${texPrix(a)}x = ${texPrix(b)}x + ${texPrix(c)}$.`,
+        "Quel est le nombre d'entrées pour lequel les tarifs A et B donnent le même prix à payer ?",
       ],
-      style: 'alpha'
+      style: 'alpha',
     })
     const tableau = tableauColonneLigne(
-      ['Mois', 'Jan.', 'Fév.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'].map((el) => `\\text{${el}}`),
-      ['\\text{Entrées}'], entrees.map((el) => texNombre(el, 0))
+      [
+        'Mois',
+        'Jan.',
+        'Fév.',
+        'Mars',
+        'Avr.',
+        'Mai',
+        'Juin',
+        'Juil.',
+        'Août',
+        'Sept.',
+        'Oct.',
+        'Nov.',
+        'Déc.',
+      ].map((el) => `\\text{${el}}`),
+      ['\\text{Entrées}'],
+      entrees.map((el) => texNombre(el, 0)),
     )
     const listeQuestions4 = createList({
       items: [
-        'Calculer le nombre moyen d\'entrées par mois.',
-        'Calculer l\'étendue du nombre d\'entrées par mois.'
+        "Calculer le nombre moyen d'entrées par mois.",
+        "Calculer l'étendue du nombre d'entrées par mois.",
       ],
-      style: 'alpha'
+      style: 'alpha',
     })
     const question4 = `On relève le nombre d'entrées par mois durant une année.
 
@@ -77,17 +104,17 @@ En admettant qu'elle soit entièrement remplie, déterminer en m$^3$, le volume 
         question2,
         listeQuestions3,
         question4,
-        question5
+        question5,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
     this.enonce += listeQuestions
     const listeCorrections1 = createList({
       items: [
         `Le prix total pour $${d}$ entrées avec le tarif A est de $${d}\\times ${texPrix(a)}=${texPrix(a * d)}$ €.`,
-        `Le prix total pour $${d}$ entrées avec le tarif B est de $${d}\\times ${texPrix(b)}+${texPrix(c)}=${texPrix(b * d)}+${texPrix(c)}=${texPrix(b * d + c)}$ €.`
+        `Le prix total pour $${d}$ entrées avec le tarif B est de $${d}\\times ${texPrix(b)}+${texPrix(c)}=${texPrix(b * d)}+${texPrix(c)}=${texPrix(b * d + c)}$ €.`,
       ],
-      style: 'alpha'
+      style: 'alpha',
     })
     const correction2 = `On note $f$ et $g$ les fonctions qui modélisent les prix, en euro, respectivement du tarif A et du tarif B en fonction du nombre $x$ d'entrées.<br>
 $f(x) = ${texPrix(a)}x$ et $g(x) = ${texPrix(b)}x + ${texPrix(c)}$.`
@@ -98,16 +125,16 @@ $f(x) = ${texPrix(a)}x$ et $g(x) = ${texPrix(b)}x + ${texPrix(c)}$.`
         soit $${texPrix(a - b)}x = ${texPrix(c)}$<br>
         donc $x = \\dfrac{${texPrix(c)}}{${texPrix(a - b)}}$<br>
         soit $x = ${texNombre(c / (a - b), 0)}$<br>`,
-        `D'après la solution de l'équation précédente, le nombre d'entrées pour lequel les tarifs A et B donnent le même prix à payer est de $${texNombre(c / (a - b), 0)}$ entrées.`
+        `D'après la solution de l'équation précédente, le nombre d'entrées pour lequel les tarifs A et B donnent le même prix à payer est de $${texNombre(c / (a - b), 0)}$ entrées.`,
       ],
-      style: 'alpha'
+      style: 'alpha',
     })
     const listeCorrections4 = createList({
       items: [
         `Le nombre moyen d'entrées par mois est de :<br>$\\dfrac{${entrees[0]}+${entrees[1]}+\\ldots+${entrees[11]}}{12}=\\dfrac{${entrees.reduce((a, b) => a + b, 0)}}{12} = ${texNombre(entrees.reduce((a, b) => a + b, 0) / 12, 0)}$ entrées.`,
-        `L'étendue du nombre d'entrées par mois est de $${texNombre(Math.max(...entrees), 0)}-${texNombre(Math.min(...entrees), 0)}=${texNombre(Math.max(...entrees) - Math.min(...entrees), 0)}$ entrées.`
+        `L'étendue du nombre d'entrées par mois est de $${texNombre(Math.max(...entrees), 0)}-${texNombre(Math.min(...entrees), 0)}=${texNombre(Math.max(...entrees) - Math.min(...entrees), 0)}$ entrées.`,
       ],
-      style: 'alpha'
+      style: 'alpha',
     })
     const correction4 = listeCorrections4
     const correction5 = `Le volume d'eau qui sera évacué pour réaliser la vidange est de :<br>$${L}\\times ${l}\\times ${texNombre(p, 1)}=${texNombre(L * l * p, 2)}$ m$^3$.`
@@ -117,15 +144,27 @@ $f(x) = ${texPrix(a)}x$ et $g(x) = ${texPrix(b)}x + ${texPrix(c)}$.`
         correction2,
         listeCorrections3,
         correction4,
-        correction5
+        correction5,
       ],
-      style: 'nombres'
+      style: 'nombres',
     })
     this.correction = listeCorrections
   }
 
   versionOriginale: () => void = () => {
-    this.appliquerLesValeurs(5.9, 4.4, 30, 10, [12500, 13700, 10400, 13600, 12300, 11700, 10400, 11600, 10200, 13800, 12600, 11800], 50, 25, 3)
+    this.appliquerLesValeurs(
+      5.9,
+      4.4,
+      30,
+      10,
+      [
+        12500, 13700, 10400, 13600, 12300, 11700, 10400, 11600, 10200, 13800,
+        12600, 11800,
+      ],
+      50,
+      25,
+      3,
+    )
   }
 
   versionAleatoire: () => void = () => {

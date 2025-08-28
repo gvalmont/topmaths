@@ -19,10 +19,10 @@ export const uuid = '080f9'
 
 export const refs = {
   'fr-fr': ['canc3C08'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PlusOuMoins2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -31,19 +31,46 @@ export default class PlusOuMoins2 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeObjets = [
-      ['biscuits'], ['billes'], ['bonbons'], ['ballons'], ['vis'], ['clous'], ['bandes dessinées']
+      ['biscuits'],
+      ['billes'],
+      ['bonbons'],
+      ['ballons'],
+      ['vis'],
+      ['clous'],
+      ['bandes dessinées'],
     ]
     const listeClubs = [
-      ['judo'], ['tennis'], ['tennis de table'], ['musique'], ['théâtre'], ['danse']
-
+      ['judo'],
+      ['tennis'],
+      ['tennis de table'],
+      ['musique'],
+      ['théâtre'],
+      ['danse'],
     ]
-    let choix, a, b, r, e, m, somme, prenom1, prenom2, choix1, reponse1, reponse2, clubs, objets, choix2
-    switch (choice([1, 2, 3])) { // 1, 2
+    let choix,
+      a,
+      b,
+      r,
+      e,
+      m,
+      somme,
+      prenom1,
+      prenom2,
+      choix1,
+      reponse1,
+      reponse2,
+      clubs,
+      objets,
+      choix2
+    switch (
+      choice([1, 2, 3]) // 1, 2
+    ) {
       case 1:
         choix = choice(['a', 'b', 'c', 'd'])
-        if (choix === 'a') { // somme d'argent ensemble avec de plus(1)
+        if (choix === 'a') {
+          // somme d'argent ensemble avec de plus(1)
           r = randint(4, 7) * 10
           e = randint(1, 3) * 10
           m = r - e
@@ -58,12 +85,14 @@ export default class PlusOuMoins2 extends ExerciceSimple {
             this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € soit $${texPrix(e)}$ € de plus que toi ».<br>
             
             `
-            this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
+            this.question +=
+              "Combien d'argent en tout possèdent les deux filles ?"
           } else {
             this.question = ` ${prenom2} a $${texPrix(r)}$ €. Elle a  $${texPrix(e)}$ € de plus que ${prenom1} ».<br>
             
             `
-            this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
+            this.question +=
+              "Combien d'argent en tout possèdent les deux filles ?"
           }
           this.correction = `${prenom2} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ € `
           this.correction += ' de plus '
@@ -72,9 +101,12 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}-${texPrix(e)}=${texPrix(m)}$ €.`
           this.correction += `<br>$${texPrix(r)}+${texPrix(m)}= ${texPrix(somme)}$`
           this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteApres: ' €' }
+          }
         }
-        if (choix === 'b') { // somme d'argent ensemble avec de moins(1)
+        if (choix === 'b') {
+          // somme d'argent ensemble avec de moins(1)
           r = randint(4, 7) * 10
           e = randint(1, 3) * 10
           m = r + e
@@ -89,12 +121,14 @@ export default class PlusOuMoins2 extends ExerciceSimple {
             this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € soit $${texPrix(e)}$ € de moins que toi ».<br>
             
             `
-            this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
+            this.question +=
+              "Combien d'argent en tout possèdent les deux filles ? "
           } else {
             this.question = ` ${prenom2} a $${texPrix(r)}$ €. Elle a $${texPrix(e)}$ € de moins ${prenom1}.<br>
             
             `
-            this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
+            this.question +=
+              "Combien d'argent en tout possèdent les deux filles ? "
           }
 
           this.correction = `${prenom2} a  $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ € `
@@ -104,9 +138,12 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)} + ${texPrix(e)} = ${texPrix(m)}$ €.`
           this.correction += `<br>$${texPrix(r)} + ${texPrix(m)}  = ${texPrix(somme)}$`
           this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteApres: ' €' }
+          }
         }
-        if (choix === 'c') { // somme d'argent ensemble avec de moins(2)
+        if (choix === 'c') {
+          // somme d'argent ensemble avec de moins(2)
           r = randint(4, 7) * 10
           e = randint(1, 3) * 10
           m = r - e
@@ -121,12 +158,14 @@ export default class PlusOuMoins2 extends ExerciceSimple {
             this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € et tu as  $${texPrix(e)}$ € de moins que moi ».<br>
             
             `
-            this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
+            this.question +=
+              "Combien d'argent en tout possèdent les deux filles ? "
           } else {
             this.question = ` ${prenom2} a $${texPrix(r)}$ €. ${prenom1} a $${texPrix(e)}$ € de moins.<br>
             
             `
-            this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
+            this.question +=
+              "Combien d'argent en tout possèdent les deux filles ? "
           }
 
           this.correction = `${prenom2} a  $${texPrix(r)}$ €.<br>${prenom1}  a $${texPrix(e)}$ € `
@@ -135,9 +174,12 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction += ` <br>${prenom1} a donc : $${texPrix(r)} -${texPrix(e)} = ${texPrix(m)}$ €.`
           this.correction += `<br>$${texPrix(r)} + ${texPrix(m)}  = ${texPrix(somme)}$`
           this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteApres: ' €' }
+          }
         }
-        if (choix === 'd') { // somme d'argent ensemble avec de plus(2)
+        if (choix === 'd') {
+          // somme d'argent ensemble avec de plus(2)
           r = randint(4, 7) * 10
           e = randint(1, 3) * 10
           m = r + e
@@ -152,12 +194,14 @@ export default class PlusOuMoins2 extends ExerciceSimple {
             this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € et tu as  $${texPrix(e)}$ € de plus que moi ».<br>
             
             `
-            this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
+            this.question +=
+              "Combien d'argent en tout possèdent les deux filles ?"
           } else {
             this.question = ` ${prenom2} a $${texPrix(r)}$ €. ${prenom1} a $${texPrix(e)}$ € de plus.<br>
             
             `
-            this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
+            this.question +=
+              "Combien d'argent en tout possèdent les deux filles ? "
           }
           this.correction = `${prenom2} a $${texPrix(r)}$ €.<br>${prenom1}  a $${texPrix(e)}$ € `
           this.correction += ' de plus '
@@ -165,11 +209,13 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction += `  <br>${prenom1} a donc : $${texPrix(r)}+${texPrix(e)}=${texPrix(m)}$ €.`
           this.correction += `<br>$${texPrix(r)}+${texPrix(m)}= ${texPrix(somme)}$`
           this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteApres: ' €' }
+          }
         }
 
         break
-      case 2:// ensemble, objets
+      case 2: // ensemble, objets
         choix = choice(['a', 'b'])
         if (choix === 'a') {
           choix1 = choice([true, false])
@@ -242,7 +288,9 @@ export default class PlusOuMoins2 extends ExerciceSimple {
               `
           }
         }
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ` ${objets}` } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ` ${objets}` }
+        }
         break
 
       case 3:
@@ -270,7 +318,9 @@ export default class PlusOuMoins2 extends ExerciceSimple {
             que de ${choix2 ? ' garçons ' : ' filles'}.<br>
                       Il y a donc  (${choix1 ? `$${a}+${b}$` : `$${a}-${b}$`}) ${choix2 ? ' filles' : ' garçons'}, soit  ${choix1 ? `$${a + b}$` : `$${a - b}$`} ${choix2 ? ' filles ' : ' garçons'}. <br>
                       Dans ce club, il y a donc au total (${choix1 ? `$${a + b}+${a}$` : `$${a - b}+${a}$`}) soit ${choix1 ? `$${reponse1}$` : `$${reponse2}$`} adhérents.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ' adhérents' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteApres: ' adhérents' }
+          }
         }
         if (choix === 'b') {
           choix1 = choice([true, false])
@@ -294,7 +344,9 @@ export default class PlusOuMoins2 extends ExerciceSimple {
                       que de ${choix2 ? ' filles ' : ' garçons'}.<br>
                      Il y a (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ${choix2 ? ' garçons' : ' filles'}, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ${choix2 ? ' garçons' : ' filles'} dans ce club.
                      <br>Dans ce club, il y a donc au total (${choix1 ? `$${a - b}+${a}$` : `$${a + b}+${a}$`}) soit ${choix1 ? `$${reponse2}$` : `$${reponse1}$`} adhérents.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: ' adhérents' } }
+          if (this.interactif) {
+            this.optionsChampTexte = { texteApres: ' adhérents' }
+          }
         }
 
         break

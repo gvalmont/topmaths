@@ -19,23 +19,34 @@ export const amcType = 'qcmMono'
 
 /**
  *
-*/
+ */
 export const uuid = '8812e'
 
 export const refs = {
   'fr-fr': ['5G42'],
-  'fr-ch': ['9ES2-3']
+  'fr-ch': ['9ES2-3'],
 }
 export default class DemonstrationsParallelogrammes extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 7
   }
 
-  nouvelleVersion () {
-    const typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] // On créé 3 types de questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+  nouvelleVersion() {
+    const typesDeQuestionsDisponibles = [
+      'type1',
+      'type2',
+      'type3',
+      'type4',
+      'type5',
+      'type6',
+      'type7',
+    ] // On créé 3 types de questions
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const lesNoms = []
     let k = 0
     while (k < this.nbQuestions) {
@@ -45,13 +56,49 @@ export default class DemonstrationsParallelogrammes extends Exercice {
         k++
       }
     }
-    for (let i = 0, objets, O, A, B, C, D, p, t1, t2, t3, t4, s1, s2, s3, s4, d1, d2, texte, texteCorr, nom, noms, prop1, prop2, type, def, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0,
+        objets,
+        O,
+        A,
+        B,
+        C,
+        D,
+        p,
+        t1,
+        t2,
+        t3,
+        t4,
+        s1,
+        s2,
+        s3,
+        s4,
+        d1,
+        d2,
+        texte,
+        texteCorr,
+        nom,
+        noms,
+        prop1,
+        prop2,
+        type,
+        def,
+        cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       noms = lesNoms[i]
       nom = `$${noms[0] + noms[1] + noms[2] + noms[3]}$`
       objets = []
       O = point(0, 0, noms[4], 'above left')
       A = rotation(point(3, 0), O, randint(0, 90), noms[0])
-      B = similitude(A, O, 80 + randint(0, 20), 0.8 + randint(1, 40) / 100, noms[1])
+      B = similitude(
+        A,
+        O,
+        80 + randint(0, 20),
+        0.8 + randint(1, 40) / 100,
+        noms[1],
+      )
       C = similitude(A, O, 180, 0.9 + randint(1, 20) / 100, noms[2])
       D = similitude(B, O, 180, 0.9 + randint(1, 20) / 100, noms[3])
       p = polygoneAvecNom(A, B, C, D)
@@ -63,7 +110,9 @@ export default class DemonstrationsParallelogrammes extends Exercice {
       d2 = segment(B, D)
       objets.push(s1, s2, s3, s4, p[1])
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        listeTypeDeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'type1': // rectangle 1
           def = `ses diagonales $[${noms[0] + noms[2]}]$ et $[${noms[1] + noms[3]}]$ ont la même longueur`
           prop1 = 'a des diagonales de même longueur'
@@ -114,7 +163,8 @@ export default class DemonstrationsParallelogrammes extends Exercice {
         case 'type6': // carré 2
           prop2 = `$[${noms[0] + noms[1]}]\\perp[${noms[1] + noms[2]}]$ et $${noms[0] + noms[1]}=${noms[1] + noms[2]}$`
           def = `ses côtés $[${noms[0] + noms[1]}]$ et $[${noms[1] + noms[2]}]$ sont perpendiculaires et de même longueur`
-          prop1 = 'a deux côtés consécutifs perpendiculaires et de même longueur'
+          prop1 =
+            'a deux côtés consécutifs perpendiculaires et de même longueur'
           t2 = codageSegments('O', 'green', A, B, B, C)
           t3 = codageAngleDroit(A, B, C)
           objets.push(t2, t3)
@@ -123,7 +173,8 @@ export default class DemonstrationsParallelogrammes extends Exercice {
         case 'type7': // carré 3
           prop2 = `$[${noms[0] + noms[1]}]\\perp[${noms[1] + noms[2]}]$ et $[${noms[0] + noms[2]}]\\perp[${noms[1] + noms[3]}]$`
           def = `ses côtés $[${noms[0] + noms[1]}]$ et $[${noms[1] + noms[2]}]$ sont perpendiculaires et ses diagonales $[${noms[0] + noms[2]}]$ et $[${noms[1] + noms[3]}]$ aussi`
-          prop1 = 'a deux côtés consécutifs perpendiculaires et des diagonales perpendiculaires'
+          prop1 =
+            'a deux côtés consécutifs perpendiculaires et des diagonales perpendiculaires'
           type = 'carré'
           t1 = codageAngleDroit(A, O, B)
           t2 = codageAngleDroit(A, B, C)
@@ -134,28 +185,41 @@ export default class DemonstrationsParallelogrammes extends Exercice {
       texte = `${nom} est un parallélogramme tel que ${def}.<br>`
       texte += `Déterminer la nature de ${nom}`
       texte += this.interactif ? '.' : ' en justifiant la réponse.'
-      texteCorr = 'Les segments de même couleur sont parallèles sur le schéma suivant :<br>'
-      texteCorr += mathalea2d({ xmin: -5, ymin: -4.5, xmax: 5, ymax: 4.5, pixelsParCm: 20, scale: 0.5, mainlevee: true }, objets) + '<br>'
+      texteCorr =
+        'Les segments de même couleur sont parallèles sur le schéma suivant :<br>'
+      texteCorr +=
+        mathalea2d(
+          {
+            xmin: -5,
+            ymin: -4.5,
+            xmax: 5,
+            ymax: 4.5,
+            pixelsParCm: 20,
+            scale: 0.5,
+            mainlevee: true,
+          },
+          objets,
+        ) + '<br>'
       texteCorr += `On sait que ${prop2}.<br>`
       texteCorr += `Si un parallélogramme ${prop1}, alors c'est un ${type}.<br>`
       texteCorr += `${nom} est donc un ${type}.`
       const propositionsDuQCM = [
         {
           texte: 'losange',
-          statut: type === 'losange'
+          statut: type === 'losange',
         },
         {
           texte: 'carré',
-          statut: type === 'carré'
+          statut: type === 'carré',
         },
         {
           texte: 'rectangle',
-          statut: type === 'rectangle'
+          statut: type === 'rectangle',
         },
         {
           texte: 'parallélogramme non particulier',
-          statut: false
-        }
+          statut: false,
+        },
       ]
       this.autoCorrection[i] = {}
       this.autoCorrection[i].options = { ordered: false }

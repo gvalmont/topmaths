@@ -1,8 +1,19 @@
 import Exercice from '../Exercice'
 import { choice } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
-import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul'
+import {
+  Add,
+  ExponentialOperande,
+  Frac,
+  Mul,
+  Pow,
+  Sub,
+} from '../../lib/mathFonctions/Calcul'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -15,7 +26,7 @@ export const interactifType = 'mathlive'
 export const uuid = '9325e'
 export const refs = {
   'fr-fr': ['1AN30-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -25,7 +36,7 @@ export const refs = {
 */
 export default class SimplifierExponentielles extends Exercice {
   can: boolean
-  constructor () {
+  constructor() {
     super()
     this.can = false
     this.consigne = 'Simplifier les expressions suivantes.'
@@ -34,13 +45,21 @@ export default class SimplifierExponentielles extends Exercice {
     this.spacingCorr = 3
     this.sup = 1
     this.sup2 = 8
-    this.besoinFormulaireNumerique = ['Niveaux de difficulté', 3, '1 : Exposants entiers\n2 : Exposants de la forme ax\n3 : Exposants de la forme ax + b']
-    this.besoinFormulaire2Texte = ['Types de calculs', 'Nombres séparés par des tirets : \n1 : Produit\n2 : Puissance\n3 : Produit et puisances\n4 : Distributivité simple\n5 : Différence de puissance et de produit \n6 : Fraction et puissance\n7 : Fraction et produit\n8 : Mélange']
-    this.comment = '7 types de calculs différents. Le résultat peut être une exponentielle ou une somme de deux exponentiels'
+    this.besoinFormulaireNumerique = [
+      'Niveaux de difficulté',
+      3,
+      '1 : Exposants entiers\n2 : Exposants de la forme ax\n3 : Exposants de la forme ax + b',
+    ]
+    this.besoinFormulaire2Texte = [
+      'Types de calculs',
+      'Nombres séparés par des tirets : \n1 : Produit\n2 : Puissance\n3 : Produit et puisances\n4 : Distributivité simple\n5 : Différence de puissance et de produit \n6 : Fraction et puissance\n7 : Fraction et produit\n8 : Mélange',
+    ]
+    this.comment =
+      '7 types de calculs différents. Le résultat peut être une exponentielle ou une somme de deux exponentiels'
     this.listeAvecNumerotation = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -48,10 +67,20 @@ export default class SimplifierExponentielles extends Exercice {
       defaut: 1,
       melange: 8,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['mul', 'pow', 'powTimesPow', 'k(a+b)', '(e^mx)p - e^nx * e^ox', 'fracPowNum', 'fracMulNum']
+      listeOfCase: [
+        'mul',
+        'pow',
+        'powTimesPow',
+        'k(a+b)',
+        '(e^mx)p - e^nx * e^ox',
+        'fracPowNum',
+        'fracMulNum',
+      ],
     })
-    if (this.sup >= 2) { this.consigne = 'Soit $x$ un réel. Simplifier les expressions suivantes :' }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    if (this.sup >= 2) {
+      this.consigne = 'Soit $x$ un réel. Simplifier les expressions suivantes :'
+    }
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let answer = ''
@@ -81,7 +110,7 @@ export default class SimplifierExponentielles extends Exercice {
           answer = calcul.result.toString()
           break
         }
-        case 'pow' : {
+        case 'pow': {
           const calcul = new Pow(e1, randint(2, 4))
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
           texteCorr = ''
@@ -92,7 +121,7 @@ export default class SimplifierExponentielles extends Exercice {
           answer = calcul.result.toString()
           break
         }
-        case 'powTimesPow' : {
+        case 'powTimesPow': {
           const facteur1 = new Pow(e1, randint(2, 4))
           const facteur2 = new Pow(e2, randint(2, 4))
           const calcul = new Mul(facteur1, facteur2)
@@ -127,7 +156,10 @@ export default class SimplifierExponentielles extends Exercice {
           break
         }
         case '(e^mx)p - e^nx * e^ox': {
-          const [m, p, n, o] = choice([productEqualSum(), [randint(2, 5), randint(2, 5), randint(2, 5), randint(2, 5)]])
+          const [m, p, n, o] = choice([
+            productEqualSum(),
+            [randint(2, 5), randint(2, 5), randint(2, 5), randint(2, 5)],
+          ])
           let p1 = new Trinome(0, 0, m)
           let p2 = new Trinome(0, 0, n)
           let p3 = new Trinome(0, 0, o)
@@ -183,13 +215,16 @@ export default class SimplifierExponentielles extends Exercice {
         }
       }
       if (this.can) {
-        texte = 'Simplifier l\'expression :<br>' + texte
+        texte = "Simplifier l'expression :<br>" + texte
       }
       if (this.interactif) {
-        texte += `<br><br> $${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.lycee)
+        texte +=
+          `<br><br> $${lettreDepuisChiffre(i + 1)} = $` +
+          ajouteChampTexteMathLive(this, i, KeyboardType.lycee)
         handleAnswers(this, i, { reponse: { value: answer } })
       }
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, texte)) {
+        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -203,7 +238,7 @@ export default class SimplifierExponentielles extends Exercice {
 /**
  * @returns [a, b, c, d] avec a * b = c + d
  */
-function productEqualSum () {
+function productEqualSum() {
   // return [a, b, c, d] avec
   // a * b = c + d
   return choice([
@@ -217,6 +252,6 @@ function productEqualSum () {
     [3, 3, 1, 8],
     [3, 3, 2, 7],
     [3, 3, 3, 6],
-    [3, 3, 4, 5]
+    [3, 3, 4, 5],
   ])
 }

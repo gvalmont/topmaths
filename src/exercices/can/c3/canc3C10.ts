@@ -18,10 +18,10 @@ export const uuid = '06268'
 
 export const refs = {
   'fr-fr': ['canc3C10', 'auto6P3B-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class FoisPlusFoisMoins2 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,14 +30,37 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
-    const listeObjets = [['biscuits'], ['billes'], ['bonbons'], ['ballons'], ['vis'], ['clous']]
-    const listeClubs = [
-      ['judo'], ['tennis'], ['tennis de table'], ['musique'], ['théâtre'], ['danse']
-
+  nouvelleVersion() {
+    const listeObjets = [
+      ['biscuits'],
+      ['billes'],
+      ['bonbons'],
+      ['ballons'],
+      ['vis'],
+      ['clous'],
     ]
-    let a, b, k, prenom1, prenom2, choix1, reponse1, reponse2, objets, clubs, choix2
-    switch (choice([1, 2, 3])) { // 1, 2
+    const listeClubs = [
+      ['judo'],
+      ['tennis'],
+      ['tennis de table'],
+      ['musique'],
+      ['théâtre'],
+      ['danse'],
+    ]
+    let a,
+      b,
+      k,
+      prenom1,
+      prenom2,
+      choix1,
+      reponse1,
+      reponse2,
+      objets,
+      clubs,
+      choix2
+    switch (
+      choice([1, 2, 3]) // 1, 2
+    ) {
       case 1:
         choix1 = choice([true, false])
         prenom1 = prenomM()
@@ -71,7 +94,9 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
        Ensemble ils en ont ${choix1 ? `$${a}+${b}$` : ` $${a}+ ${b}$ `}, soit ${choix1 ? `$${a + b}$` : ` $${a + b}$`}.
        `
         }
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ` ${objets}` } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ` ${objets}` }
+        }
 
         break
       case 2:
@@ -104,7 +129,9 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
               Elle en a donc ${choix1 ? `$${b}\\div ${k}$` : ` $${k}\\times ${a}$ `}, soit ${choix1 ? `$${a}$` : ` $${b}$`} ${objets}.<br>
               Ensemble, ils en ont donc : ${choix1 ? `$${a}+${b}$` : ` $${b}+${a}$ `} soit $${a + b}$.`
         }
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ` ${objets}` } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ` ${objets}` }
+        }
         break
       case 3:
         choix1 = choice([true, false])
@@ -137,7 +164,9 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
                   le nombre de  ${choix2 ? ' filles ' : ' garçons'} est : ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$ `}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.<br>
                   Le nombre total d'adhérents dans ce club est donc ${choix1 ? `$${k * a}+${a}$` : ` $${a}+${b}$ `} soit ${choix1 ? `$${a + b}$` : ` $${a + b}$`}.`
         }
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' adhérents' } }
+        if (this.interactif) {
+          this.optionsChampTexte = { texteApres: ' adhérents' }
+        }
 
         break
     }

@@ -10,7 +10,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
+import {
+  mathalea2d,
+  colorToLatexOrHTML,
+  fixeBordures,
+} from '../../modules/2dGeneralites'
 import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
@@ -30,20 +34,28 @@ export const uuid = 'adac4'
 export const refs = {
   'fr-fr': ['auto6P1A-1'],
   'fr-2016': ['6S10-1'],
-  'fr-ch': ['9FA1-2']
+  'fr-ch': ['9FA1-2'],
 }
 export default class LireUnDiagramme extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
-    this.besoinFormulaire2Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
+    this.besoinFormulaireNumerique = [
+      "Nombre d'espèces différentes",
+      3,
+      '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces',
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Type de diagramme',
+      5,
+      '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard',
+    ]
 
     this.nbQuestions = 2
     this.sup = 3
     this.sup2 = 5
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles
     if (this.sup2 < 5) {
       typesDeQuestionsDisponibles = [this.sup2]
@@ -52,22 +64,62 @@ export default class LireUnDiagramme extends Exercice {
     }
     const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
     const listeMotifs = combinaisonListes(listeHachuresDisponibles, 4)
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     let N = 0
     let nom
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
     let lstAnimauxExo: string[] // liste des animaux uniquement cités dans l'exercice
     let lstNombresAnimaux // liste des effectifs de chaque animal
-    let lstVal:number[] = [] // liste des valeurs à éviter pour les effectifs
+    let lstVal: number[] = [] // liste des valeurs à éviter pour les effectifs
 
     let paramsEnonce, coef, r, lstElementGraph, g
     let reponse1, reponse2, nbMin, nbMax, monQcm1, monQcm2, monQcm3
     let objets
-    const lstAnimaux = ['Girafes', 'Zèbres', 'Gnous', 'Buffles', 'Gazelles', 'Crocodiles', 'Rhinocéros', 'Léopards', 'Guépards', 'Hyènes', 'Lycaons', 'Servals', 'Phacochères']
-    const lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
-      'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane']
+    const lstAnimaux = [
+      'Girafes',
+      'Zèbres',
+      'Gnous',
+      'Buffles',
+      'Gazelles',
+      'Crocodiles',
+      'Rhinocéros',
+      'Léopards',
+      'Guépards',
+      'Hyènes',
+      'Lycaons',
+      'Servals',
+      'Phacochères',
+    ]
+    const lstNomParc = [
+      'Dramve',
+      'Fatenmin',
+      'Batderfa',
+      'Vihi',
+      'Genser',
+      'Barbetdou',
+      'Dramrendu',
+      'Secai',
+      'Cipeudram',
+      'Cigel',
+      'Lisino',
+      'Fohenlan',
+      'Farnfoss',
+      'Kinecardine',
+      'Zeffari',
+      'Barmwich',
+      'Swadlincote',
+      'Swordbreak',
+      'Loshull',
+      'Ruyron',
+      'Fluasall',
+      'Blueross',
+      'Vlane',
+    ]
     let A, B, T, angle, a, legende, textelegende, hachures, a0, t, alpha
-    for (let q = 0, texte, texteCorr, texteAMC; q < this.nbQuestions;) {
+    for (let q = 0, texte, texteCorr, texteAMC; q < this.nbQuestions; ) {
       objets = []
       lstVal = []
       lstAnimauxExo = []
@@ -80,13 +132,23 @@ export default class LireUnDiagramme extends Exercice {
         this.autoCorrection[q] = {}
       }
 
-      texteAMC = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d\'animaux.<br> Voici un diagramme qui représente les effectifs de quelques espèces.<br><br>'
+      texteAMC =
+        'Dans le parc naturel de ' +
+        choice(lstNomParc) +
+        ", il y a beaucoup d'animaux.<br> Voici un diagramme qui représente les effectifs de quelques espèces.<br><br>"
       texteCorr = ''
       switch (this.sup) {
-        case 1: nbAnimaux = 2; break
-        case 2: nbAnimaux = 3; break
-        case 3: nbAnimaux = 4; break
-        default: nbAnimaux = 4
+        case 1:
+          nbAnimaux = 2
+          break
+        case 2:
+          nbAnimaux = 3
+          break
+        case 3:
+          nbAnimaux = 4
+          break
+        default:
+          nbAnimaux = 4
       }
       for (let i = 0; i < nbAnimaux - 1; i++) {
         N = randint(5, 40, lstVal) // choisit un nombre entre 5 et 40 sauf dans les valeurs à éviter
@@ -134,22 +196,46 @@ export default class LireUnDiagramme extends Exercice {
           objets.push(t)
 
           for (let i = 0; i < nbAnimaux; i++) {
-            angle = 360 * lstNombresAnimaux[i] / effectiftotal
-            a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
+            angle = (360 * lstNombresAnimaux[i]) / effectiftotal
+            a = arc(
+              rotation(B, A, alpha),
+              A,
+              angle,
+              true,
+              texcolors(i + 1),
+              'black',
+              0.7,
+            )
             hachures = motifs(listeMotifs[i])
             a.hachures = hachures
             a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
             a.couleurDesHachures = a.couleurDeRemplissage
             objets.push(a)
             alpha += angle
-            legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
+            legende = carre(
+              translation(T, vecteur(0, 1.5 * i)),
+              translation(T, vecteur(1, 1.5 * i)),
+              'black',
+            )
             legende.couleurDeRemplissage = a.couleurDeRemplissage
             legende.couleurDesHachures = a.couleurDesHachures
             legende.hachures = hachures
             legende.opaciteDeRemplissage = 0.7
-            textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + 0.5, 0, 'black', 1.5, 'gauche', false)
+            textelegende = texteParPosition(
+              lstAnimauxExo[i],
+              8.5,
+              i * 1.5 + 0.5,
+              0,
+              'black',
+              1.5,
+              'gauche',
+              false,
+            )
             objets.push(legende, textelegende)
-            paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
+            paramsEnonce = Object.assign(
+              { pixelsParCm: 20, scale: 0.5, mainlevee: false },
+              fixeBordures(objets),
+            )
           }
           break
         case 2:
@@ -164,22 +250,46 @@ export default class LireUnDiagramme extends Exercice {
           objets.push(t)
 
           for (let i = 0; i < nbAnimaux; i++) {
-            angle = 180 * lstNombresAnimaux[i] / effectiftotal
-            a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
+            angle = (180 * lstNombresAnimaux[i]) / effectiftotal
+            a = arc(
+              rotation(B, A, alpha),
+              A,
+              angle,
+              true,
+              texcolors(i + 1),
+              'black',
+              0.7,
+            )
             hachures = motifs(listeMotifs[i])
             a.hachures = hachures
             a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
             a.couleurDesHachures = a.couleurDeRemplissage
             objets.push(a)
             alpha += angle
-            legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
+            legende = carre(
+              translation(T, vecteur(0, 1.5 * i)),
+              translation(T, vecteur(1, 1.5 * i)),
+              'black',
+            )
             legende.couleurDeRemplissage = a.couleurDeRemplissage
             legende.couleurDesHachures = a.couleurDesHachures
             legende.hachures = hachures
             legende.opaciteDeRemplissage = 0.7
-            textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + 0.5, 0, 'black', 1, 'gauche', false)
+            textelegende = texteParPosition(
+              lstAnimauxExo[i],
+              8.5,
+              i * 1.5 + 0.5,
+              0,
+              'black',
+              1,
+              'gauche',
+              false,
+            )
             objets.push(legende, textelegende)
-            paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
+            paramsEnonce = Object.assign(
+              { pixelsParCm: 20, scale: 0.5, mainlevee: false },
+              fixeBordures(objets),
+            )
           }
           break
         case 3:
@@ -205,15 +315,29 @@ export default class LireUnDiagramme extends Exercice {
             xMax: 10,
             yMin: 0,
             axeXStyle: '',
-            yLegende: "Nombre d'individus"
+            yLegende: "Nombre d'individus",
           })
 
           lstElementGraph = []
           for (let i = 0; i < nbAnimaux; i++) {
-            objets.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], lstAnimauxExo[i], { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
+            objets.push(
+              traceBarre(
+                ((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1),
+                lstNombresAnimaux[i],
+                lstAnimauxExo[i],
+                {
+                  unite: 0.1 / coef,
+                  couleurDeRemplissage: texcolors(i + 1),
+                  hachures: 'north east lines',
+                },
+              ),
+            )
           }
           if (r.objets != null) objets.push(r.objets)
-          paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
+          paramsEnonce = Object.assign(
+            { pixelsParCm: 20, scale: 0.5, mainlevee: false },
+            fixeBordures(objets),
+          )
 
           break
 
@@ -240,13 +364,23 @@ export default class LireUnDiagramme extends Exercice {
             xMax: 10,
             yMin: 0,
             axeXStyle: '',
-            yLegende: "Nombre d'individus"
+            yLegende: "Nombre d'individus",
           })
 
           lstElementGraph = []
           for (let i = 0; i < nbAnimaux; i++) {
             lstElementGraph.push([(i + 1) * 2, lstNombresAnimaux[i]])
-            objets.push(texteParPosition(lstAnimauxExo[i], (i + 1) * 2, -0.2, 66, 'black', 1, 'gauche'))
+            objets.push(
+              texteParPosition(
+                lstAnimauxExo[i],
+                (i + 1) * 2,
+                -0.2,
+                66,
+                'black',
+                1,
+                'gauche',
+              ),
+            )
             objets.push(segment((i + 1) * 2, -0.1, (i + 1) * 2, 0.1))
           }
           g = traceGraphiqueCartesien(lstElementGraph, r, {
@@ -255,13 +389,16 @@ export default class LireUnDiagramme extends Exercice {
             styleDuTrait: '', // plein par défaut
             epaisseurDuTrait: 1,
             styleDesPoints: 'o', // croix par défaut
-            tailleDesPoints: 3
+            tailleDesPoints: 3,
           })
 
           if (r.objets != null) objets.push(r.objets)
           objets.push(g)
 
-          paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
+          paramsEnonce = Object.assign(
+            { pixelsParCm: 20, scale: 0.5, mainlevee: false },
+            fixeBordures(objets),
+          )
 
           break
       }
@@ -275,7 +412,7 @@ export default class LireUnDiagramme extends Exercice {
       for (let i = 0; i < nbAnimaux; i++) {
         propositionsQcm1.push({
           texte: `${lstAnimauxExo[i]}`,
-          statut: reponse1 === lstAnimauxExo[i]
+          statut: reponse1 === lstAnimauxExo[i],
         })
       }
 
@@ -283,23 +420,25 @@ export default class LireUnDiagramme extends Exercice {
       for (let i = 0; i < nbAnimaux; i++) {
         propositionsQcm2.push({
           texte: `${lstAnimauxExo[i]}`,
-          statut: reponse2 === lstAnimauxExo[i]
+          statut: reponse2 === lstAnimauxExo[i],
         })
       }
 
       const propositionsQcm3 = []
-      propositionsQcm3.push({
-        texte: 'Plus de la moitié des animaux',
-        statut: nbMax > effectiftotal / 2
-      },
-      {
-        texte: 'Moins de la moitié des animaux',
-        statut: nbMax < effectiftotal / 2
-      },
-      {
-        texte: 'La moitié des animaux',
-        statut: nbMax === effectiftotal / 2
-      })
+      propositionsQcm3.push(
+        {
+          texte: 'Plus de la moitié des animaux',
+          statut: nbMax > effectiftotal / 2,
+        },
+        {
+          texte: 'Moins de la moitié des animaux',
+          statut: nbMax < effectiftotal / 2,
+        },
+        {
+          texte: 'La moitié des animaux',
+          statut: nbMax === effectiftotal / 2,
+        },
+      )
 
       // La variation entre QCM Interactif et AMC commence ici
       if (!context.isAmc) {
@@ -312,32 +451,47 @@ export default class LireUnDiagramme extends Exercice {
         monQcm1 = propositionsQcm(this, q * 3)
         monQcm2 = propositionsQcm(this, q * 3 + 1)
         monQcm3 = propositionsQcm(this, q * 3 + 2)
-        texte += `${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?` + monQcm1.texte
-        texte += `<br>${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?` + monQcm2.texte
-        texte += `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ...` + monQcm3.texte
-        texteCorr = `${context.isHtml ? '<br>' : ''}${numAlpha(0)} L'animal le moins nombreux parmi ces espèces est : ` + monQcm1.texteCorr
-        texteCorr += `<br>${numAlpha(1)} L'animal le plus nombreux parmi ces espèces est : ` + monQcm2.texteCorr
-        texteCorr += `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces représente : ` + monQcm3.texteCorr
-      } else { // en AMC
+        texte +=
+          `${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?` +
+          monQcm1.texte
+        texte +=
+          `<br>${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?` +
+          monQcm2.texte
+        texte +=
+          `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ...` +
+          monQcm3.texte
+        texteCorr =
+          `${context.isHtml ? '<br>' : ''}${numAlpha(0)} L'animal le moins nombreux parmi ces espèces est : ` +
+          monQcm1.texteCorr
+        texteCorr +=
+          `<br>${numAlpha(1)} L'animal le plus nombreux parmi ces espèces est : ` +
+          monQcm2.texteCorr
+        texteCorr +=
+          `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces représente : ` +
+          monQcm3.texteCorr
+      } else {
+        // en AMC
         this.autoCorrection[q].enonce = ''
-        this.autoCorrection[q].propositions =
-         [
-           {
-             type: 'qcmMono',
-             propositions: propositionsQcm1,
-             enonce: texteAMC + `${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?`
-           },
-           {
-             type: 'qcmMono',
-             propositions: propositionsQcm2,
-             enonce: `${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?`
-           },
-           {
-             type: 'qcmMono',
-             propositions: propositionsQcm3,
-             enonce: `${numAlpha(2)} L'espèce la plus nombreuse représente ?`,
-             options: { lastChoice: 2 }
-           }]
+        this.autoCorrection[q].propositions = [
+          {
+            type: 'qcmMono',
+            propositions: propositionsQcm1,
+            enonce:
+              texteAMC +
+              `${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?`,
+          },
+          {
+            type: 'qcmMono',
+            propositions: propositionsQcm2,
+            enonce: `${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?`,
+          },
+          {
+            type: 'qcmMono',
+            propositions: propositionsQcm3,
+            enonce: `${numAlpha(2)} L'espèce la plus nombreuse représente ?`,
+            options: { lastChoice: 2 },
+          },
+        ]
       }
 
       if (this.questionJamaisPosee(q, effectiftotal)) {

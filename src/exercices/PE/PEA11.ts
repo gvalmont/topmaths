@@ -19,24 +19,44 @@ export const uuid = '8dbda'
 
 export const refs = {
   'fr-fr': ['PEA11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class PasserDUneBaseA1Autre extends Exercice {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 3
 
-    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   }
 
-  nouvelleVersion () {
-    let typesDeQuestionsDisponibles = ['vers_base_10', choice(['vers_base_n_3_chiffres', 'vers_base_n_4_chiffres']), choice(['plus_grand_4_chiffres', 'plus_grand_3_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres'])]
+  nouvelleVersion() {
+    let typesDeQuestionsDisponibles = [
+      'vers_base_10',
+      choice(['vers_base_n_3_chiffres', 'vers_base_n_4_chiffres']),
+      choice([
+        'plus_grand_4_chiffres',
+        'plus_grand_3_chiffres',
+        'plus_petit_4_chiffres',
+        'plus_petit_3_chiffres',
+      ]),
+    ]
     if (this.nbQuestions > 3) {
-      typesDeQuestionsDisponibles = ['vers_base_10', 'vers_base_n_3_chiffres', 'vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_grand_3_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres']
+      typesDeQuestionsDisponibles = [
+        'vers_base_10',
+        'vers_base_n_3_chiffres',
+        'vers_base_n_4_chiffres',
+        'plus_grand_4_chiffres',
+        'plus_grand_3_chiffres',
+        'plus_petit_4_chiffres',
+        'plus_petit_3_chiffres',
+      ]
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let n = NaN
@@ -49,7 +69,11 @@ export default class PasserDUneBaseA1Autre extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 'vers_base_10':
           n = randint(1, b - 1) * 10 + randint(0, b - 1)
-          m = randint(1, b - 1) * 1000 + randint(0, b - 1) * 100 + randint(0, b - 1) * 10 + randint(0, b - 1)
+          m =
+            randint(1, b - 1) * 1000 +
+            randint(0, b - 1) * 100 +
+            randint(0, b - 1) * 10 +
+            randint(0, b - 1)
           texte = `Les nombres $(${n})_${b}$ et $(${m})_${b}$ sont écrits en base ${b}. Exprimer leur écriture en base dix.`
           texteCorr = `$(${n})_${b}=${n.toString()[0]}\\times${b}+${n.toString()[1]}=${parseInt(n.toString(), b)}$`
           texteCorr += `<br>$(${m})_${b}=${m.toString()[0]}\\times${b}^3+${m.toString()[1]}\\times${b}^2+${m.toString()[2]}\\times${b}+${m.toString()[3]}=${parseInt(m.toString(), b)}$`

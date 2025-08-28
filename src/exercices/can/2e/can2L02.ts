@@ -1,4 +1,7 @@
-import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import {
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+} from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -14,17 +17,17 @@ export const uuid = 'dfe60'
 
 export const refs = {
   'fr-fr': ['can2L02'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CoordonneesPointDroite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-10, 10, 0)
     const b = randint(-10, 10, 0)
     const c = randint(-10, 10, 0)

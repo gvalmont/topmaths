@@ -15,10 +15,10 @@ export const uuid = '5ca1e'
 
 export const refs = {
   'fr-fr': ['4L13-2', 'BP2RES3'],
-  'fr-ch': ['10FA3-11']
+  'fr-ch': ['10FA3-11'],
 }
 export default class ProblemesEnEquation4e extends ProblemesEnEquation {
-  constructor () {
+  constructor() {
     super()
     this.sup = '1-2-3-4-5-6-7-8-9'
   }

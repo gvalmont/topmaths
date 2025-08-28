@@ -1,5 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -18,16 +21,16 @@ export const uuid = '62de7'
 
 export const refs = {
   'fr-fr': ['can6M07', 'CM1M3A-flash1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CompleterVolumeAuLitre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a
     switch (choice(['a', 'b', 'c', 'd'])) {
       case 'a':

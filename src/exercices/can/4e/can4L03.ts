@@ -7,15 +7,15 @@ export const titre = 'Résoudre une équation $ax+b=cx+d$'
 export const uuid = '91cd5'
 export const refs = {
   'fr-fr': ['can4L03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class UneEquationDifficile extends ExerciceEquationASolutionEntiere {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.correctionDetaillee = false
     this.sup = false
     this.sup2 = 3
-    this.consigne = 'Résoudre l\'équation :'
+    this.consigne = "Résoudre l'équation :"
   }
 }

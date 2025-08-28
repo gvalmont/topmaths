@@ -19,17 +19,17 @@ export const uuid = 'ce089'
 
 export const refs = {
   'fr-fr': ['can3C05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculPuissance10 extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 6)
     const n = arrondi(2 * randint(1, 6) + 1) / 2
     const N = arrondi(2 * randint(1, 6, a) + 1) / 2
@@ -38,7 +38,7 @@ export default class CalculPuissance10 extends ExerciceSimple {
     this.question = `Calculer sous forme décimale $B=${texNombre(n)}\\times 10^{${rienSi1(c)}}+${texNombre(N)}\\times 10^{${rienSi1(d)}}$.`
     this.correction = `$B=${texNombre(n)}\\times 10^{${rienSi1(c)}}+${texNombre(N)}\\times 10^{${rienSi1(d)}}=${texNombre(n * 10 ** c)}+${texNombre(N * 10 ** d)}=${texNombre(n * 10 ** c + N * 10 ** d)}$.`
     this.reponse = arrondi(n * 10 ** c + N * 10 ** d)
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

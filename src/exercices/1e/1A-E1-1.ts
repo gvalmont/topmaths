@@ -15,10 +15,10 @@ export const uuid = 'ae5f6'
 
 export const refs = {
   'fr-fr': ['1A-E1-1'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class Auto1AE1a extends CoeffTaux {
-  constructor () {
+  constructor() {
     super()
     this.versionQcm = true
   }

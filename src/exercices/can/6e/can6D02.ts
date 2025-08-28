@@ -16,17 +16,17 @@ export const uuid = '46e66'
 
 export const refs = {
   'fr-fr': ['can6D02', '6M4C-flash2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class ResteEnMinutes extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 2)
     const b = randint(10, 59)
     const d = a * 60 + b

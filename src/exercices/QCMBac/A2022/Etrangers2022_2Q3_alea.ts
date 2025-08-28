@@ -4,7 +4,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '4f818'
 export const refs = {
   'fr-fr': ['TSA5-QCM04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -29,18 +29,21 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       '$g(x) = - \\dfrac12 \\ln \\left(1 - x^2\\right)$',
       '$g(x) =  \\dfrac{1 + x^2}{ \\left(1 - x^2\\right)^2}$',
       '$g(x)= \\dfrac{x^2}{2\\left(x - \\dfrac{x^3}{3}\\right)}$',
-      '$g(x) = \\dfrac{x^2}{2}\\ln \\left(1 - x^2\\right)$'
+      '$g(x) = \\dfrac{x^2}{2}\\ln \\left(1 - x^2\\right)$',
     ]
 
     this.enonce = ` On considère la fonction $f$ définie sur $]- 1~;~1[$ par $f(x) = \\dfrac{x}{1 - x^2}.$
 <br>Une primitive de la fonction $f$ est la fonction $g$ définie sur l'intervalle $] - 1~;~1[$ par :`
-    this.correction = 'Soit la fonction $g$ définie sur $] - 1~;~1[$ par $g(x) = - \\dfrac12 \\ln \\left(1 - x^2\\right)$.<br>'
-    this.correction += 'En posant $u(x) = 1 - x^2$, dérivable et non nulle sur $] - 1~;~1[$, on a $u\'(x) = - 2x$.'
-    this.correction += '<br>On sait que $g(x) = - \\dfrac12\\ln u(x)$ entraîne $g\'(x) = - \\dfrac12\\dfrac{u\'(x)}{u(x)} = - \\dfrac12 \\times \\dfrac{- 2x}{1 - x^2} = \\dfrac{x}{1 - x^2} = f(x)$.'
+    this.correction =
+      'Soit la fonction $g$ définie sur $] - 1~;~1[$ par $g(x) = - \\dfrac12 \\ln \\left(1 - x^2\\right)$.<br>'
+    this.correction +=
+      "En posant $u(x) = 1 - x^2$, dérivable et non nulle sur $] - 1~;~1[$, on a $u'(x) = - 2x$."
+    this.correction +=
+      "<br>On sait que $g(x) = - \\dfrac12\\ln u(x)$ entraîne $g'(x) = - \\dfrac12\\dfrac{u'(x)}{u(x)} = - \\dfrac12 \\times \\dfrac{- 2x}{1 - x^2} = \\dfrac{x}{1 - x^2} = f(x)$."
     this.correction += `<br>${texteEnCouleurEtGras('La fonction $g$ est donc une primitive de la fonction $f$ sur $] - 1~;~1[$.')}`
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

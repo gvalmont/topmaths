@@ -1,7 +1,7 @@
 import { lcm } from 'mathjs'
 import { listeDesDiviseurs } from '../lib/outils/primalite'
 
-function ppcm ([...n]) {
+function ppcm([...n]) {
   return parseInt(lcm(...n))
 }
 
@@ -11,14 +11,15 @@ function ppcm ([...n]) {
  * @param {Fraction[]} liste
  * @return {Fraction[]}
  */
-const sortFractions = liste => liste.slice().sort((f1, f2) => f1.valeurDecimale - f2.valeurDecimale)
+const sortFractions = (liste) =>
+  liste.slice().sort((f1, f2) => f1.valeurDecimale - f2.valeurDecimale)
 
 /**
  * Classe ListeFraction qui propose des méthodes utiles sur les collections de fractions
  * @author Jean-Claude Lhote sur une idée de Sébastien Lozano
  */
 class ListeFraction {
-  constructor (...fractions) {
+  constructor(...fractions) {
     /**
      * La liste des fractions passées au constructeur (une par argument)
      * @type {Fraction[]}
@@ -35,7 +36,7 @@ class ListeFraction {
     this.denominateurs_amis = []
     let listetemp = []
     const dens = []
-    this.liste.forEach(f => {
+    this.liste.forEach((f) => {
       dens.push(f.d)
       listetemp = listeDesDiviseurs(f.d)
       listetemp.splice(0, 1)
@@ -47,7 +48,7 @@ class ListeFraction {
      * @type {listeNombres[]}
      */
     this.listeMemeDenominateur = []
-    this.liste.forEach(f => {
+    this.liste.forEach((f) => {
       this.listeMemeDenominateur.push(f.reduire(Math.round(den / f.d)))
     })
 
@@ -65,7 +66,7 @@ class ListeFraction {
      * la liste des fractions simplifiées (dans le même ordre que celles fournies)
      * @type {Fraction[]}
      */
-    this.listeSimplifiee = this.liste.map(f => f.simplifie())
+    this.listeSimplifiee = this.liste.map((f) => f.simplifie())
     /**
      * la liste des fractions simplifiées par ordre croissant
      * @type {Fraction[]}
@@ -75,14 +76,14 @@ class ListeFraction {
      * La liste des fractions au format LaTeX, séparées par ;
      * @type {string}
      */
-    this.texListe = this.liste.map(f => f.texFraction).join(' ; ')
+    this.texListe = this.liste.map((f) => f.texFraction).join(' ; ')
   }
 
   /**
    * @todo virer cette méthode jamais utilisée
    * @param {...Fraction}
    */
-  completeListe (...frac) {
+  completeListe(...frac) {
     const dens = [this.listeMemeDenominateur[0].d]
     for (let i = 0; i < frac.length; i++) {
       this.liste.push(frac[i])
@@ -94,7 +95,9 @@ class ListeFraction {
     const den = ppcm(dens)
     this.listeMemeDenominateur = []
     for (let i = 0; i < this.liste.length; i++) {
-      this.listeMemeDenominateur.push(this.liste[i].reduire(Math.round(den / this.liste[i].d)))
+      this.listeMemeDenominateur.push(
+        this.liste[i].reduire(Math.round(den / this.liste[i].d)),
+      )
     }
     this.listeSimplifiee = []
     for (let i = 0; i < this.liste.length; i++) {

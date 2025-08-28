@@ -18,10 +18,10 @@ export const uuid = 'aee7c'
 
 export const refs = {
   'fr-fr': ['canc3C11'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculMoitieImpair extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple'
@@ -30,7 +30,7 @@ export default class CalculMoitieImpair extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(3, 48) * 2 + 1
     this.reponse = a / 2
     this.question = `Calculer la moitié de $${a}$. `

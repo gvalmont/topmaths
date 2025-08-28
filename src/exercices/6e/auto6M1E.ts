@@ -14,10 +14,10 @@ export const uuid = '316d2'
 export const refs = {
   'fr-fr': ['auto6M1E'],
   'fr-2016': ['6M21-1'],
-  'fr-ch': ['']
+  'fr-ch': [''],
 }
 export default class ComparePerimetreAvecRectangle extends CompareAireEtPerimetreAvecRectangle {
-  constructor () {
+  constructor() {
     super()
     this.sup2 = 1
     this.besoinFormulaire2Numerique = false

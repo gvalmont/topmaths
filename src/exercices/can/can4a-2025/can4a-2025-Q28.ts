@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '3422o'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 /**
@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class Can2025N4Q28 extends ExerciceCan {
-  enonce (a?:number, b?:number, c?:number) {
+  enonce(a?: number, b?: number, c?: number) {
     if (a == null || b == null || c == null) {
       a = randint(2, 6)
       b = randint(2, 6, a)
@@ -30,20 +30,33 @@ export default class Can2025N4Q28 extends ExerciceCan {
     const partA = part * a
     const partB = part * b
     const callback = (exercice: Exercice, question: number) => {
-      const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
-      if (mfe == null) return { isOk: false, feedback: '', score: { nbBonnesReponses: 0, nbReponses: 0 } }
+      const mfe = document.querySelector(
+        `#champTexteEx${exercice.numeroExercice}Q${question}`,
+      ) as MathfieldElement
+      if (mfe == null)
+        return {
+          isOk: false,
+          feedback: '',
+          score: { nbBonnesReponses: 0, nbReponses: 0 },
+        }
       const num = Number(mfe.getPromptValue('champ1') || 0)
       const den = Number(mfe.getPromptValue('champ2') || 0)
-      const isOk = (num !== 0 && den !== 0 && num * b === a * den)
+      const isOk = num !== 0 && den !== 0 && num * b === a * den
       if (isOk) {
         mfe.setPromptState('champ1', 'correct', true)
         mfe.setPromptState('champ2', 'correct', true)
       }
-      const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+      const spanReponseLigne = document.querySelector(
+        `#resultatCheckEx${exercice.numeroExercice}Q${question}`,
+      )
       if (spanReponseLigne != null) {
         spanReponseLigne.innerHTML = isOk ? '😎' : '☹️'
       }
-      return { isOk, feedback: '', score: { nbBonnesReponses: (isOk ? 1 : 0), nbReponses: 1 } }
+      return {
+        isOk,
+        feedback: '',
+        score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 },
+      }
     }
     this.reponse = { bareme: toutPourUnPoint, callback }
     this.consigne = `Dans un club sportif de $${c}$ membres, il y a $${partA}$ minimes et $${partB}$ cadets.<br>
@@ -57,7 +70,7 @@ export default class Can2025N4Q28 extends ExerciceCan {
     this.canReponseACompleter = ''
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     this.canOfficielle ? this.enonce(4, 3, 28) : this.enonce()
   }
 }

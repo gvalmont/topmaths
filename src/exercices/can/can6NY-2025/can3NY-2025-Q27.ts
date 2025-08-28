@@ -11,21 +11,21 @@ export const interactifType = 'mathLive'
 export const uuid = '986cd'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
-*/
+ */
 export default class ComparerFractions extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-5, 5, [0, -1, 1])
     this.reponse = randint(-9, 9, [-1, 0, 1])
     const b = -a * this.reponse + 2025
@@ -43,7 +43,9 @@ export default class ComparerFractions extends ExerciceSimple {
        \\end{aligned}$<br>
        La solution de l'équation $${a}x+${texNombre(b, 0)}=${texNombre(2025, 0)}$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.
        `
-    if (this.interactif) { this.question += '<br>' }
+    if (this.interactif) {
+      this.question += '<br>'
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

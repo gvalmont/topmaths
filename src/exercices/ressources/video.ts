@@ -16,7 +16,7 @@ class ressourceVideo extends Exercice {
   teacherText: HTMLDivElement
   iTooltip: HTMLButtonElement
   button: HTMLButtonElement
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'html'
     this.titre = 'Vidéo'
@@ -29,7 +29,7 @@ class ressourceVideo extends Exercice {
     this.iframe.setAttribute('frameborder', '0')
     this.iframe.setAttribute(
       'allow',
-      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
     )
     this.iframe.setAttribute('allowfullscreen', '')
     this.teacherText = document.createElement('div')
@@ -39,7 +39,7 @@ class ressourceVideo extends Exercice {
     // constitution d'une ID pour mise en forme dans app.css
     this.iframe.setAttribute(
       'id',
-      'iframe-video' + getUniqueStringBasedOnTimeStamp('-')
+      'iframe-video' + getUniqueStringBasedOnTimeStamp('-'),
     )
     // /!\ pas de mise en formee ici !!!
     // this.iframe.classList.add('my-10')
@@ -63,7 +63,7 @@ class ressourceVideo extends Exercice {
       this.fieldText,
       this.teacherText,
       this.button,
-      this.iframe
+      this.iframe,
     )
     this.button.addEventListener('click', () => {
       // On transforme https://youtu.be/Jup128waBI8 en https://www.youtube.com/embed/Jup128waBI8
@@ -73,10 +73,15 @@ class ressourceVideo extends Exercice {
         this.sup2 = encodeURIComponent(this.fieldText.value)
       }
       exercicesParams.update((l) => {
-        if (this.numeroExercice !== undefined && l[this.numeroExercice] !== undefined) {
+        if (
+          this.numeroExercice !== undefined &&
+          l[this.numeroExercice] !== undefined
+        ) {
           l[this.numeroExercice].sup = this.sup
           if (this.fieldText.value !== '') {
-            l[this.numeroExercice].sup2 = encodeURIComponent(this.fieldText.value)
+            l[this.numeroExercice].sup2 = encodeURIComponent(
+              this.fieldText.value,
+            )
           }
         }
         return l
@@ -84,16 +89,17 @@ class ressourceVideo extends Exercice {
     })
   }
 
-  private updateSize = () => { // same function as in video.ts
+  private updateSize = () => {
+    // same function as in video.ts
     updateIframeSize(this.container, this.iframe)
   }
 
-  destroy () {
+  destroy() {
     window.removeEventListener('resize', this.updateSize)
     this.container.removeEventListener('addedToDom', this.updateSize)
   }
 
-  get html () {
+  get html() {
     if (get(globalOptions).v === 'eleve') {
       this.fieldUrl.remove()
       this.fieldText.remove()
@@ -105,7 +111,11 @@ class ressourceVideo extends Exercice {
         let iframeUrl: string | URL
         try {
           iframeUrl = new URL(decodeURIComponent(this.sup))
-          if (iframeUrl.protocol === 'http:' || iframeUrl.protocol === 'https:' || iframeUrl.protocol === 'ftp:') {
+          if (
+            iframeUrl.protocol === 'http:' ||
+            iframeUrl.protocol === 'https:' ||
+            iframeUrl.protocol === 'ftp:'
+          ) {
             iframeUrl = iframeUrl.href
           } else {
             iframeUrl = 'data:text/html,Erreur'
@@ -130,7 +140,7 @@ class ressourceVideo extends Exercice {
     return this.container
   }
 
-  updateVideoFromUrl () {
+  updateVideoFromUrl() {
     const url = new URL(this.fieldUrl.value)
     if (url.hostname === 'youtu.be') {
       url.hostname = 'www.youtube.com'

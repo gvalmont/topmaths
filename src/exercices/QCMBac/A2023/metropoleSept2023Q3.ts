@@ -3,7 +3,7 @@ import ExerciceQcm from '../../ExerciceQcm'
 export const uuid = '999ee'
 export const refs = {
   'fr-fr': ['TSA1-QCM03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,7 +28,7 @@ export default class metropoleSept2023Q3 extends ExerciceQcm {
       'u$\\leqslant {10000}$',
       'u $={10000}$  ',
       'u$> {10000}$',
-      '$n\\leqslant{10000}$'
+      '$n\\leqslant{10000}$',
     ]
 
     this.enonce = `On considère la suite $\\left(u_n\\right)$ définie sur $\\mathbb N$ par:
@@ -47,10 +47,11 @@ $\\qquad$ return(n)<br><br>
 
 À la ligne 4, on complète par :`
 
-    this.correction = 'Pour sortir de la boucle quand $u>10000$, la boucle while doit fonctionner tant que $u\\leqslant 10000$.'
+    this.correction =
+      'Pour sortir de la boucle quand $u>10000$, la boucle while doit fonctionner tant que $u\\leqslant 10000$.'
   }
 
-  constructor () {
+  constructor() {
     super()
     this.options = { vertical: true, ordered: false }
     this.versionOriginale()

@@ -6,22 +6,22 @@ import { sp } from './outilString'
  * @Example
  * //0 h 24 est accepté
  */
-export function minToHoraire (minutes: number, NbEnLatex = false) {
+export function minToHoraire(minutes: number, NbEnLatex = false) {
   let nbHour = Math.floor(minutes / 60)
   if (nbHour > 23) {
     nbHour = nbHour - 24
   }
-  const nbminuteRestante = (minutes % 60)
+  const nbminuteRestante = minutes % 60
   if (NbEnLatex) {
     if (nbminuteRestante > 9) {
-      return (`${nbHour}${sp()}\\text{h}${sp()}${nbminuteRestante}${sp()}\\text{min}`)
+      return `${nbHour}${sp()}\\text{h}${sp()}${nbminuteRestante}${sp()}\\text{min}`
     }
-    return (`${nbHour}${sp()}\\text{h}${sp()}0${nbminuteRestante}${sp()}\\text{min}`)
+    return `${nbHour}${sp()}\\text{h}${sp()}0${nbminuteRestante}${sp()}\\text{min}`
   }
   if (nbminuteRestante > 9) {
-    return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
+    return nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min'
   }
-  return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
+  return nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min'
 }
 
 /**
@@ -29,19 +29,19 @@ export function minToHoraire (minutes: number, NbEnLatex = false) {
  * @Example
  * //on écrira 24 minutes plutôt que 0 h 24
  */
-export function minToHour (minutes: number) {
+export function minToHour(minutes: number) {
   let nbHour = Math.floor(minutes / 60)
   if (nbHour > 23) {
     nbHour = nbHour - 24
   }
-  const nbminuteRestante = (minutes % 60)
+  const nbminuteRestante = minutes % 60
   if (nbHour === 0) {
-    return (nbminuteRestante + sp() + 'min')
+    return nbminuteRestante + sp() + 'min'
   } else {
     if (nbminuteRestante > 9) {
-      return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
+      return nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min'
     } else {
-      return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
+      return nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min'
     }
   }
 }
@@ -54,8 +54,8 @@ export function minToHour (minutes: number) {
  * @example minToHeuresMinutes (1456) renvoie [24,16] car 1456min = 24h16min
  *
  */
-export function minToHeuresMinutes (minutes: number) {
-  return [Math.floor(minutes / 60), (minutes % 60)]
+export function minToHeuresMinutes(minutes: number) {
+  return [Math.floor(minutes / 60), minutes % 60]
 }
 
 /**
@@ -63,10 +63,11 @@ export function minToHeuresMinutes (minutes: number) {
  * @param n quantième du mois (janvier=1...)
  * @author Jean-Claude Lhote
  */
-export function joursParMois (n: number, annee = 2022) {
+export function joursParMois(n: number, annee = 2022) {
   const joursMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   if (n === 2) {
-    if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) return 29 // années bissextiles.
+    if ((annee % 4 === 0 && annee % 100 !== 0) || annee % 400 === 0)
+      return 29 // années bissextiles.
     else return 28
   } else return joursMois[n - 1]
 }
@@ -76,8 +77,21 @@ export function joursParMois (n: number, annee = 2022) {
  * @param n quantième du mois
  * @author Jean-Claude Lhote
  */
-export function nomDuMois (n: number) {
-  const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+export function nomDuMois(n: number) {
+  const mois = [
+    'janvier',
+    'février',
+    'mars',
+    'avril',
+    'mai',
+    'juin',
+    'juillet',
+    'août',
+    'septembre',
+    'octobre',
+    'novembre',
+    'décembre',
+  ]
   return mois[n - 1]
 }
 
@@ -86,8 +100,16 @@ export function nomDuMois (n: number) {
  * @param n quantième du jour
  * @author Mireille Gain
  */
-export function nomDuJour (n: number) {
-  const jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
+export function nomDuJour(n: number) {
+  const jour = [
+    'lundi',
+    'mardi',
+    'mercredi',
+    'jeudi',
+    'vendredi',
+    'samedi',
+    'dimanche',
+  ]
   return jour[n - 1]
 }
 
@@ -96,6 +118,14 @@ export function nomDuJour (n: number) {
  * @param n quantième du jour
  * @author Mireille Gain
  */
-export function jourAuHasard () {
-  return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
+export function jourAuHasard() {
+  return choice([
+    'lundi',
+    'mardi',
+    'mercredi',
+    'jeudi',
+    'vendredi',
+    'samedi',
+    'dimanche',
+  ])
 }

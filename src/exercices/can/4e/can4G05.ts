@@ -1,6 +1,9 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { texRacineCarree } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 
@@ -11,16 +14,16 @@ export const dateDePublication = '09/09/2021'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export const uuid = '66672'
 
 export const refs = {
   'fr-fr': ['can4G05'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class DiagonaleCarre extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = false
@@ -28,15 +31,17 @@ export default class DiagonaleCarre extends ExerciceSimple {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     switch (choice([1, 2])) {
       case 1:
         {
-          const a = randint(1, 10)//
+          const a = randint(1, 10) //
           const c2 = 2 * a ** 2
 
           this.question = `Calculer la valeur exacte de la longueur de la diagonale $d$ d'un carré de côté $${a}$.`
-          if (this.interactif) { this.question += '<br>$d=$' }
+          if (this.interactif) {
+            this.question += '<br>$d=$'
+          }
           this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $${a}$ et de diagonale $d$, on a :<br><br>
     $\\begin{aligned}
     d^2&=${a}^2+${a}^2\\\\
@@ -44,19 +49,24 @@ export default class DiagonaleCarre extends ExerciceSimple {
     d&=${miseEnEvidence(`\\sqrt{ ${2 * a ** 2}}`)}
        \\end{aligned}$
    `
-          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          this.correction += texteEnCouleur(
+            `<br> Mentalement : <br>
    On calcule le double du carré du côté du carré,
-   soit $2\\times ${a}^2=2\\times ${a ** 2}=${c2}$, puis on en prend la racine carrée.    `, 'blue')
+   soit $2\\times ${a}^2=2\\times ${a ** 2}=${c2}$, puis on en prend la racine carrée.    `,
+            'blue',
+          )
           this.reponse = texRacineCarree(c2)
         }
         break
       case 2:
         {
-          const a = randint(2, 48, [4, 9, 16, 25, 36])//
+          const a = randint(2, 48, [4, 9, 16, 25, 36]) //
           const c2 = 2 * a
 
           this.question = `Calculer la valeur exacte de la longueur de la diagonale $d$ d'un carré de côté $\\sqrt{${a}}$.`
-          if (this.interactif) { this.question += '<br>$d=$' }
+          if (this.interactif) {
+            this.question += '<br>$d=$'
+          }
 
           this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $c=\\sqrt{${a}}$
        et de diagonale $d$, on a :<br>`
@@ -79,9 +89,12 @@ export default class DiagonaleCarre extends ExerciceSimple {
        d&=${miseEnEvidence(`\\sqrt{${c2}}`)}
        \\end{aligned}$`
           }
-          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          this.correction += texteEnCouleur(
+            `<br> Mentalement : <br>
        On calcule le double du carré du côté du carré, soit
-       $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée.    `, 'blue')
+       $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée.    `,
+            'blue',
+          )
 
           this.reponse = texRacineCarree(c2)
         }

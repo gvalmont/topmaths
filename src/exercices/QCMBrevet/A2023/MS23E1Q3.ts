@@ -8,7 +8,7 @@ import { nombreElementsDifferents } from '../../ExerciceQcm'
 export const uuid = '80f6a'
 export const refs = {
   'fr-fr': ['3L1QCM-04'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,12 +23,12 @@ export const dateDePublication = '28/10/2024'
  */
 
 export default class MetropoleSep23Ex1Q3 extends ExerciceQcmA {
-  private appliquerLesValeurs (a:number, b:number, c:number): void {
+  private appliquerLesValeurs(a: number, b: number, c: number): void {
     const resultat = c ** 2 + a * c + b
     this.reponses = [
       `$${String(resultat)}$`,
       `$${String(-(c ** 2) + a * c + b)}$`,
-      `$${String(c * c - a * c + b)}$`
+      `$${String(c * c - a * c + b)}$`,
     ]
     this.enonce = `Quelle est la valeur de l'expression $x^2+${String(a)}x${ecritureAlgebrique(b)}$ pour $x=${c}$ ?`
     this.correction = ` $\\begin{aligned}
@@ -46,14 +46,14 @@ export default class MetropoleSep23Ex1Q3 extends ExerciceQcmA {
     const n = 3
     do {
       const a = choice([2, 4, 5, 6])
-      const b = -(randint(2, 6))
+      const b = -randint(2, 6)
       const c = choice([-3, -4, -5])
 
       this.appliquerLesValeurs(a, b, c)
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 
-  constructor () {
+  constructor() {
     super()
     this.versionAleatoire()
   }

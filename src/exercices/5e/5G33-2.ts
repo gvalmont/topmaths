@@ -4,11 +4,15 @@ import {
   droiteParPointEtParallele,
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire,
-  labelOnLine
+  labelOnLine,
 } from '../../lib/2d/droites'
 import { point, pointIntersectionDD } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListesSansChangerOrdre,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -16,33 +20,38 @@ import {
   contraindreValeur,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '22/11/2020'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const titre = 'Utiliser les propriétés des droites parallèles et perpendiculaires'
+export const titre =
+  'Utiliser les propriétés des droites parallèles et perpendiculaires'
 
 /**
  * @author Jean-Claude Lhote (EE : pour l'ajout d'AMC et la possibilité de sélectionner différents mélanges)
  * @author Mickael Guironnet (refactoring avec ajout des 4 à 6 et des figures)
-  */
+ */
 export const uuid = 'c46e8'
 
 export const refs = {
   'fr-fr': ['5G33-2'],
   'fr-2016': ['6G52-2'],
-  'fr-ch': ['9ES3-7']
+  'fr-ch': ['9ES3-7'],
 }
 export default class ProprietesParallelesPerpendiculaires extends Exercice {
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaireTexte = ['Type de raisonnement', 'Nombres séparés par des tirets :\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
+    this.besoinFormulaireTexte = [
+      'Type de raisonnement',
+      'Nombres séparés par des tirets :\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange',
+    ]
     this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
     this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
-    this.comment = 'Il se peut que l\'exercice vous propose moins de questions que le nombre demandé par manque de possibiilités d\'exercices différents. Pour augmenter cette possibilité, choisissez d\'autres types de raisonnement.'
+    this.comment =
+      "Il se peut que l'exercice vous propose moins de questions que le nombre demandé par manque de possibiilités d'exercices différents. Pour augmenter cette possibilité, choisissez d'autres types de raisonnement."
     this.nbQuestions = 3
 
     this.sup = 4
@@ -52,7 +61,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const typesDeQuestionsDisponibles: number[] = []
     let questionsParNiveau = []
     if (!this.sup2) {
@@ -60,7 +69,13 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       questionsParNiveau.push(rangeMinMax(4, 6))
       questionsParNiveau.push(rangeMinMax(9, 15))
       questionsParNiveau.push(rangeMinMax(19, 31, 20))
-      questionsParNiveau.push(questionsParNiveau[0].concat(questionsParNiveau[1].concat(questionsParNiveau[2]).concat(questionsParNiveau[3])))
+      questionsParNiveau.push(
+        questionsParNiveau[0].concat(
+          questionsParNiveau[1]
+            .concat(questionsParNiveau[2])
+            .concat(questionsParNiveau[3]),
+        ),
+      )
     } else {
       questionsParNiveau = [[2], [5], [15], [31], [2, 5, 15, 31]]
     }
@@ -73,30 +88,49 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       defaut: 5,
       melange: 5,
       nbQuestions: this.nbQuestions,
-      shuffle: true
+      shuffle: true,
     }).map(Number)
-    for (let i = 0; i < this.nbQuestions; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-      NumQuestionsDisponibles = contraindreValeur(1, 5, QuestionsDisponibles[i % QuestionsDisponibles.length], 4) - 1
+    for (let i = 0; i < this.nbQuestions; i++) {
+      // on a un tableau avec des strings : ['1', '1', '2']
+      NumQuestionsDisponibles =
+        contraindreValeur(
+          1,
+          5,
+          QuestionsDisponibles[i % QuestionsDisponibles.length],
+          4,
+        ) - 1
       const liste1 = questionsParNiveau[NumQuestionsDisponibles]
-      const listeAEviter = typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])
+      const listeAEviter = typesDeQuestionsDisponibles.slice(
+        IndiceNew[NumQuestionsDisponibles],
+      )
       if (listeAEviter.length === liste1.length) {
         this.nbQuestions = i
         break
       }
       typesDeQuestionsDisponibles[i] = choice(liste1, listeAEviter) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
-      if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
+      if (typesDeQuestionsDisponibles[i] === undefined) {
+        // Dans le cas, on a épuisé tous les choix différents d'un mélange
         IndiceNew[NumQuestionsDisponibles] = i
-        typesDeQuestionsDisponibles[i] = choice(liste1, typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles]))
+        typesDeQuestionsDisponibles[i] = choice(
+          liste1,
+          typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles]),
+        )
       }
     }
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
       typesDeQuestionsDisponibles,
-      this.nbQuestions
+      this.nbQuestions,
     )
 
-    const droiteColor = (context.isHtml ? ['red', 'blue', 'green', 'black', 'magenta', '#f15929'] : ['black', 'black', 'black', 'black', 'black', 'black'])
+    const droiteColor = context.isHtml
+      ? ['red', 'blue', 'green', 'black', 'magenta', '#f15929']
+      : ['black', 'black', 'black', 'black', 'black', 'black']
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+
+    ) {
       texte = ''
       texteCorr = ''
 
@@ -112,100 +146,233 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         // \n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 : Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
         case 0: // si 1//2 et 2//3 alors 1//3
-          code = [[1, 2, 1], [2, 3, 1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+          ]
           break
         case 1: // si 1//2 et 2T3 alors 1T3
-          code = [[1, 2, 1], [2, 3, -1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, -1],
+          ]
           break
         case 2: // si 1T2 et 2T3 alors 1//3
-          code = [[1, 2, -1], [2, 3, -1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, -1],
+          ]
           break
         case 3: // si 1T2 et 2//3 alors 1T3
-          code = [[1, 2, -1], [2, 3, 1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, 1],
+          ]
           break
         case 4: // si 1T2 et 2//3 alors 1T3 et 4 distracteur
-          code = [[1, 2, -1], [2, 3, 1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, 1],
+          ]
           code2 = [[1, 4, 1]]
           break
         case 5: // si 1T2 et 2T3 alors 1//3 et 4 distracteur
-          code = [[1, 2, -1], [2, 3, -1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, -1],
+          ]
           code2 = [[2, 4, 1]]
           break
         case 6: // si 1//2 et 2//3 alors 1//3 et 4 distracteur
-          code = [[1, 2, 1], [2, 3, 1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+          ]
           code2 = [[1, 4, -1]]
           break
         case 8: // Si 1//2 et 2//3 et 3//4 alors 1//4
-          code = [[1, 2, 1], [2, 3, 1], [3, 4, 1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+            [3, 4, 1],
+          ]
           break
         case 9: // Si 1//2 et 2//3 et 3T4 alors 1T4
-          code = [[1, 2, 1], [2, 3, 1], [3, 4, -1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+            [3, 4, -1],
+          ]
           break
         case 10: // Si 1//2 et 2T3 et 3//4 alors 1T4
-          code = [[1, 2, 1], [2, 3, 1], [3, 4, 1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+            [3, 4, 1],
+          ]
           break
         case 11: // Si 1//2 et 2T3 et 3T4 alors 1//4
-          code = [[1, 2, 1], [2, 3, -1], [3, 4, -1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, -1],
+            [3, 4, -1],
+          ]
           break
         case 12: // Si 1T2 et 2//3 et 3//4 alors 1T4
-          code = [[1, 2, -1], [2, 3, 1], [3, 4, 1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, 1],
+            [3, 4, 1],
+          ]
           break
         case 13: // Si 1T2 et 2//3 et 3T4 alors 1//4
-          code = [[1, 2, -1], [2, 3, 1], [3, 4, -1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, 1],
+            [3, 4, -1],
+          ]
           break
         case 14: // Si 1T2 et 2T3 et 3//4 alors 1//4
-          code = [[1, 2, -1], [2, 3, -1], [3, 4, 1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, -1],
+            [3, 4, 1],
+          ]
           break
         case 15: // Si 1T2 et 2T3 et 3T4 alors 1T4
-          code = [[1, 2, -1], [2, 3, -1], [3, 4, -1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, -1],
+            [3, 4, -1],
+          ]
           break
         case 16: // Si 1//2 et 2//3 et 3//4 et 4//5 alors 1//5
-          code = [[1, 2, 1], [2, 3, 1], [3, 4, 1], [4, 5, 1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+            [3, 4, 1],
+            [4, 5, 1],
+          ]
           break
         case 17: // Si 1//2 et 2//3 et 3T4 et 4//5 alors 1T5
-          code = [[1, 2, 1], [2, 3, 1], [3, 4, -1], [4, 5, 1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+            [3, 4, -1],
+            [4, 5, 1],
+          ]
           break
         case 18: // Si 1//2 et 2T3 et 3//4 et 4//5 alors 1T5
-          code = [[1, 2, 1], [2, 3, -1], [3, 4, 1], [4, 5, 1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, -1],
+            [3, 4, 1],
+            [4, 5, 1],
+          ]
           break
         case 19: // Si 1//2 et 2T3 et 3T4 et 4//5 alors 1//5
-          code = [[1, 2, 1], [2, 3, -1], [3, 4, -1], [4, 5, 1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, -1],
+            [3, 4, -1],
+            [4, 5, 1],
+          ]
           break
         case 20: // Si 1T2 et 2//3 et 3//4 et 4//5 alors 1T5
-          code = [[1, 2, -1], [2, 3, 1], [3, 4, 1], [4, 5, 1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, 1],
+            [3, 4, 1],
+            [4, 5, 1],
+          ]
           break
         case 21: // Si 1T2 et 2//3 et 3T4 et 4//5 alors 1//5
-          code = [[1, 2, -1], [2, 3, 1], [3, 4, -1], [4, 5, 1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, 1],
+            [3, 4, -1],
+            [4, 5, 1],
+          ]
           break
         case 22: // Si 1T2 et 2T3 et 3//4 et 4//5 alors 1//5
-          code = [[1, 2, -1], [2, 3, -1], [3, 4, 1], [4, 5, 1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, -1],
+            [3, 4, 1],
+            [4, 5, 1],
+          ]
           break
         case 23: // Si 1T2 et 2T3 et 3T4 et 4//5 alors 1T5
-          code = [[1, 2, -1], [2, 3, -1], [3, 4, -1], [4, 5, 1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, -1],
+            [3, 4, -1],
+            [4, 5, 1],
+          ]
           break
         case 24: // Si 1//2 et 2//3 et 3//4 et 4T5 alors 1T5
-          code = [[1, 2, 1], [2, 3, 1], [3, 4, 1], [4, 5, -1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+            [3, 4, 1],
+            [4, 5, -1],
+          ]
           break
         case 25: // Si 1//2 et 2//3 et 3T4 et 4T5 alors 1//5
-          code = [[1, 2, 1], [2, 3, 1], [3, 4, -1], [4, 5, -1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, 1],
+            [3, 4, -1],
+            [4, 5, -1],
+          ]
           break
         case 26: // Si 1//2 et 2T3 et 3//4 et 4T5 alors 1//5
-          code = [[1, 2, 1], [2, 3, -1], [3, 4, 1], [4, 5, -1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, -1],
+            [3, 4, 1],
+            [4, 5, -1],
+          ]
           break
         case 27: // Si 1//2 et 2T3 et 3T4 et 4T5 alors 1T5
-          code = [[1, 2, 1], [2, 3, -1], [3, 4, -1], [4, 5, -1]]
+          code = [
+            [1, 2, 1],
+            [2, 3, -1],
+            [3, 4, -1],
+            [4, 5, -1],
+          ]
           break
         case 28: // Si 1T2 et 2//3 et 3//4 et 4T5 alors 1//5
-          code = [[1, 2, -1], [2, 3, 1], [3, 4, 1], [4, 5, -1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, 1],
+            [3, 4, 1],
+            [4, 5, -1],
+          ]
           break
         case 29: // Si 1T2 et 2//3 et 3T4 et 4T5 alors 1T5
-          code = [[1, 2, -1], [2, 3, 1], [3, 4, -1], [4, 5, -1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, 1],
+            [3, 4, -1],
+            [4, 5, -1],
+          ]
           break
         case 30: // Si 1T2 et 2T3 et 3//4 et 4T5 alors 1T5
-          code = [[1, 2, -1], [2, 3, -1], [3, 4, 1], [4, 5, -1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, -1],
+            [3, 4, 1],
+            [4, 5, -1],
+          ]
           break
         case 31: // Si 1T2 et 2T3 et 3T4 et 4T5 alors 1//5
-          code = [[1, 2, -1], [2, 3, -1], [3, 4, -1], [4, 5, -1]]
+          code = [
+            [1, 2, -1],
+            [2, 3, -1],
+            [3, 4, -1],
+            [4, 5, -1],
+          ]
           break
       }
 
@@ -238,11 +405,20 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       context.fenetreMathalea2d = [-2, -2, 15, 10] // important avec la création des droites
       const labels = []
       P.push(point(0, 0))
-      let droiteP = droiteParPointEtPente(P[0], randint(-1, 1, -2) / 10, '', droiteColor[couleurd[0]])
+      let droiteP = droiteParPointEtPente(
+        P[0],
+        randint(-1, 1, -2) / 10,
+        '',
+        droiteColor[couleurd[0]],
+      )
       droiteP.epaisseur = 2
       droiteP.pointilles = 0
       d.push(droiteP)
-      const droiteE = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), '')
+      const droiteE = droite(
+        point(droiteP.x1, droiteP.y1),
+        point(droiteP.x2, droiteP.y2),
+        '',
+      )
       droiteE.epaisseur = 2
       dE.push(droiteE)
       labels.push(labelOnLine(droiteE, `(d_${numDroites[codeAll[0][0] - 1]})`))
@@ -251,22 +427,44 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       for (let x = 0; x < codeAll.length; x++) {
         if (codeAll[x][2] === 1) {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtParallele(P[x + 1], d[codeAll[x][0] - 1], '', droiteColor[couleurd[x + 1]])
+          droiteP = droiteParPointEtParallele(
+            P[x + 1],
+            d[codeAll[x][0] - 1],
+            '',
+            droiteColor[couleurd[x + 1]],
+          )
           droiteP.epaisseur = 2
           droiteP.pointilles = d[codeAll[x][0] - 1].pointilles
           d.push(droiteP)
-          const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), '')
+          const droiteP2 = droite(
+            point(droiteP.x1, droiteP.y1),
+            point(droiteP.x2, droiteP.y2),
+            '',
+          )
           droiteP2.epaisseur = 2
           dE.push(droiteP2)
-          labels.push(labelOnLine(droiteP2, `(d_${numDroites[codeAll[x][1] - 1]})`))
+          labels.push(
+            labelOnLine(droiteP2, `(d_${numDroites[codeAll[x][1] - 1]})`),
+          )
         } else {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[codeAll[x][0] - 1], '', droiteColor[couleurd[x + 1]])
+          droiteP = droiteParPointEtPerpendiculaire(
+            P[x + 1],
+            d[codeAll[x][0] - 1],
+            '',
+            droiteColor[couleurd[x + 1]],
+          )
           droiteP.epaisseur = 2
-          droiteP.pointilles = x % 3 + 1
+          droiteP.pointilles = (x % 3) + 1
           d.push(droiteP)
-          const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), '')
-          labels.push(labelOnLine(droiteP2, `(d_${numDroites[codeAll[x][1] - 1]})`))
+          const droiteP2 = droite(
+            point(droiteP.x1, droiteP.y1),
+            point(droiteP.x2, droiteP.y2),
+            '',
+          )
+          labels.push(
+            labelOnLine(droiteP2, `(d_${numDroites[codeAll[x][1] - 1]})`),
+          )
           droiteP2.epaisseur = 2
           dE.push(droiteP2)
           const Inter = pointIntersectionDD(d[codeAll[x][0] - 1], droiteP)
@@ -281,38 +479,53 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       objets.push(...labels)
 
       if (this.sup3) {
-        texte += (context.vue === 'diap' ? '<center>' : '') + mathalea2d({
-          xmin: -2,
-          xmax: 15,
-          ymin: -2,
-          ymax: 10,
-          pixelsParCm: 20,
-          scale: (context.vue !== 'latex' ? 0.3 : 0.6),
-          mainlevee: false,
-          amplitude: 0.3
-        }, objets2) + (context.vue === 'diap' ? '</center>' : '')
+        texte +=
+          (context.vue === 'diap' ? '<center>' : '') +
+          mathalea2d(
+            {
+              xmin: -2,
+              xmax: 15,
+              ymin: -2,
+              ymax: 10,
+              pixelsParCm: 20,
+              scale: context.vue !== 'latex' ? 0.3 : 0.6,
+              mainlevee: false,
+              amplitude: 0.3,
+            },
+            objets2,
+          ) +
+          (context.vue === 'diap' ? '</center>' : '')
       }
       texte += `Que peut-on dire de $(d_${numDroites[code[0][0] - 1]})$ et $(d_${numDroites[code[code.length - 1][1] - 1]})$ ?`
       if (context.isAmc && !this.sup3) {
-        texte += ' On pourra s\'aider en traçant une figure.'
+        texte += " On pourra s'aider en traçant une figure."
       }
 
       // correction raisonnement ordonné
-      texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br>'
-      if ([2, 5, 15, 31].indexOf(listeTypeDeQuestions[i]) === -1 && !this.sup2) {
-        texteCorr += ' Les droites données parallèles dans l\'énoncé sont de même '
-        texteCorr += (context.isHtml) ? ' couleur/style.<br>' : 'style.<br>'
+      texteCorr =
+        "À partir de l'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br>"
+      if (
+        [2, 5, 15, 31].indexOf(listeTypeDeQuestions[i]) === -1 &&
+        !this.sup2
+      ) {
+        texteCorr +=
+          " Les droites données parallèles dans l'énoncé sont de même "
+        texteCorr += context.isHtml ? ' couleur/style.<br>' : 'style.<br>'
       }
-      texteCorr += mathalea2d({
-        xmin: -2,
-        xmax: 15,
-        ymin: -2,
-        ymax: 10,
-        pixelsParCm: 20,
-        scale: (context.vue !== 'latex' ? 0.3 : 0.6),
-        mainlevee: false,
-        amplitude: 0.3
-      }, objets) + '<br>'
+      texteCorr +=
+        mathalea2d(
+          {
+            xmin: -2,
+            xmax: 15,
+            ymin: -2,
+            ymax: 10,
+            pixelsParCm: 20,
+            scale: context.vue !== 'latex' ? 0.3 : 0.6,
+            mainlevee: false,
+            amplitude: 0.3,
+          },
+          objets,
+        ) + '<br>'
       for (let j = 0; j < code.length - 1; j++) {
         if (this.correctionDetaillee) texteCorr += 'On sait que : '
         else texteCorr += 'Comme '
@@ -325,20 +538,29 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
         else texteCorr += '\\perp'
         texteCorr += `(d_${numDroites[code[j + 1][1] - 1]})$`
         // quelle propriété ?
-        if (code[j][2] * code[j + 1][2] === -1) { // Une parallèle et une perpendiculaire
-          if (this.correctionDetaillee) texteCorr += '.<br> Or si deux droites sont parallèles alors toute droite perpendiculaire à l\'une est aussi perpendiculaire à l\'autre.<br>Donc'
+        if (code[j][2] * code[j + 1][2] === -1) {
+          // Une parallèle et une perpendiculaire
+          if (this.correctionDetaillee)
+            texteCorr +=
+              ".<br> Or si deux droites sont parallèles alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre.<br>Donc"
           else texteCorr += ', on en déduit que '
           texteCorr += ` $(d_${numDroites[code[0][0] - 1]})\\perp(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]
           code[j + 1][2] = -1
-        } else if (code[j][2] > 0) { // deux parallèles
-          if (this.correctionDetaillee) texteCorr += '.<br> Or si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles.<br>Donc'
+        } else if (code[j][2] > 0) {
+          // deux parallèles
+          if (this.correctionDetaillee)
+            texteCorr +=
+              '.<br> Or si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles.<br>Donc'
           else texteCorr += ', on en déduit que '
           texteCorr += ` $(d_${numDroites[code[0][0] - 1]})//(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]
           code[j + 1][2] = 1
-        } else { // deux perpendiculaires
-          if (this.correctionDetaillee) texteCorr += '.<br> Or si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles.<br>Donc'
+        } else {
+          // deux perpendiculaires
+          if (this.correctionDetaillee)
+            texteCorr +=
+              '.<br> Or si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles.<br>Donc'
           else texteCorr += ', on en déduit que '
           texteCorr += ` $(d_${numDroites[code[0][0] - 1]})//(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]
@@ -353,12 +575,19 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: texteCorr,
-          statut: 3
-        }
+          statut: 3,
+        },
       ]
       /****************************************************/
 
-      if (this.questionJamaisPosee(i, numDroites.join(''), JSON.stringify(code), JSON.stringify(code2))) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          numDroites.join(''),
+          JSON.stringify(code),
+          JSON.stringify(code2),
+        )
+      ) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

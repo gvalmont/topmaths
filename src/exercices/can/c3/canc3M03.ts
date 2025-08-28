@@ -18,10 +18,10 @@ export const uuid = '85e82'
 
 export const refs = {
   'fr-fr': ['canc3M03'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export default class CalculAvecUnite extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 1
@@ -31,7 +31,7 @@ export default class CalculAvecUnite extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const prefixes = ['k', 'h', 'da', '', 'd', 'c', 'm']
 
     const unite = choice(['g', 'm', 'L'])
@@ -45,7 +45,9 @@ export default class CalculAvecUnite extends ExerciceSimple {
           this.question = `Compléter : <br>
         $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 1]}${unite} }= ${this.interactif ? '' : `\\ldots \\text{ ${prefixes[k + 1]}${unite}}`}$`
           this.reponse = a * 10 + b
-          this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k + 1]}${unite}}$` }
+          this.optionsChampTexte = {
+            texteApres: `$\\text{ ${prefixes[k + 1]}${unite}}$`,
+          }
           this.correction = `$${a}\\text{ ${prefixes[k]}${unite} }=${a * 10}\\text{ ${prefixes[k + 1]}${unite} }$<br>
         Ainsi, $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 1]}${unite} }
         = ${a * 10}\\text{ ${prefixes[k + 1]}${unite}}+${b}\\text{ ${prefixes[k + 1]}${unite} }
@@ -56,7 +58,9 @@ export default class CalculAvecUnite extends ExerciceSimple {
           this.question = `Compléter : <br>
         $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 1]}${unite} }= ${this.interactif ? '' : `\\ldots \\text{ ${prefixes[k]}${unite}}`}$`
           this.reponse = a + b / 10
-          this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k]}${unite}}$` }
+          this.optionsChampTexte = {
+            texteApres: `$\\text{ ${prefixes[k]}${unite}}$`,
+          }
           this.correction = `$${b}\\text{ ${prefixes[k + 1]}${unite} }=${texNombre(b / 10, 1)}\\text{ ${prefixes[k]}${unite} }$<br>
         Ainsi, $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 1]}${unite} }
         = ${a}\\text{ ${prefixes[k]}${unite}}+${texNombre(b / 10, 1)}\\text{ ${prefixes[k]}${unite} }
@@ -72,7 +76,9 @@ export default class CalculAvecUnite extends ExerciceSimple {
           this.question = `Compléter : <br>
             $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 2]}${unite} }= ${this.interactif ? '' : `\\ldots \\text{ ${prefixes[k + 2]}${unite}}`}$`
           this.reponse = a * 100 + b
-          this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k + 2]}${unite}}$` }
+          this.optionsChampTexte = {
+            texteApres: `$\\text{ ${prefixes[k + 2]}${unite}}$`,
+          }
           this.correction = `$${a}\\text{ ${prefixes[k]}${unite} }=${a * 100}\\text{ ${prefixes[k + 2]}${unite} }$<br>
             Ainsi, $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 2]}${unite} }
             = ${a * 100}\\text{ ${prefixes[k + 2]}${unite}}+${b}\\text{ ${prefixes[k + 2]}${unite} }
@@ -83,7 +89,9 @@ export default class CalculAvecUnite extends ExerciceSimple {
           this.question = `Compléter : <br>
             $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 2]}${unite} }= ${this.interactif ? '' : `\\ldots \\text{ ${prefixes[k]}${unite}}`}$`
           this.reponse = a + b / 100
-          this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k]}${unite}}$` }
+          this.optionsChampTexte = {
+            texteApres: `$\\text{ ${prefixes[k]}${unite}}$`,
+          }
           this.correction = `$${b}\\text{ ${prefixes[k + 2]}${unite} }=${texNombre(b / 100, 2)}\\text{ ${prefixes[k]}${unite} }$<br>
             Ainsi, $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 2]}${unite} }
             = ${a}\\text{ ${prefixes[k]}${unite}}+${texNombre(b / 100, 2)}\\text{ ${prefixes[k]}${unite} }
@@ -99,7 +107,9 @@ export default class CalculAvecUnite extends ExerciceSimple {
           this.question = `Compléter : <br>
                 $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }= ${this.interactif ? '' : `\\ldots \\text{ ${prefixes[k + 3]}${unite}}`}$`
           this.reponse = a * 1000 + b
-          this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k + 3]}${unite}}$` }
+          this.optionsChampTexte = {
+            texteApres: `$\\text{ ${prefixes[k + 3]}${unite}}$`,
+          }
           this.correction = `$${a}\\text{ ${prefixes[k]}${unite} }=${a * 1000}\\text{ ${prefixes[k + 3]}${unite} }$<br>
                 Ainsi, $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }
                 = ${a * 1000}\\text{ ${prefixes[k + 3]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }
@@ -110,7 +120,9 @@ export default class CalculAvecUnite extends ExerciceSimple {
           this.question = `Compléter : <br>
                 $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }= ${this.interactif ? '' : `\\ldots \\text{ ${prefixes[k]}${unite}}`}$`
           this.reponse = a + b / 1000
-          this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k]}${unite}}$` }
+          this.optionsChampTexte = {
+            texteApres: `$\\text{ ${prefixes[k]}${unite}}$`,
+          }
           this.correction = `$${b}\\text{ ${prefixes[k + 3]}${unite} }=${texNombre(b / 1000, 3)}\\text{ ${prefixes[k]}${unite} }$<br>
                 Ainsi, $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }
                 = ${a}\\text{ ${prefixes[k]}${unite}}+${texNombre(b / 1000, 3)}\\text{ ${prefixes[k]}${unite} }

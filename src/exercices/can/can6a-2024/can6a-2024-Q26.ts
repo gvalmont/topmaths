@@ -16,7 +16,7 @@ export const uuid = 'cc48b'
 */
 
 export default class AjouteDecimauxPieges extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -25,7 +25,7 @@ export default class AjouteDecimauxPieges extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a: Decimal
     let b: Decimal
     if (this.canOfficielle) {

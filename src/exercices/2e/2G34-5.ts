@@ -1,4 +1,7 @@
-import { combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import {
+  combinaisonListes,
+  shuffle2tableaux,
+} from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -7,40 +10,53 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { addCombLin, eqToLatex, multCoeff, printSystem, timesIfNotUn } from '../../lib/outils/systemeEquations'
+import {
+  addCombLin,
+  eqToLatex,
+  multCoeff,
+  printSystem,
+  timesIfNotUn,
+} from '../../lib/outils/systemeEquations'
 import FractionEtendue from '../../modules/FractionEtendue'
-export const titre = 'Résoudre un système linéaire de deux équations à deux inconnues par combinaison linéaire'
+export const titre =
+  'Résoudre un système linéaire de deux équations à deux inconnues par combinaison linéaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '21/03/2024'
 export const uuid = '5179b'
 export const refs = {
   'fr-ch': ['11FA6-6'],
-  'fr-fr': ['2G34-5']
+  'fr-fr': ['2G34-5'],
 }
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
  *
  * @author Nathan Scheinmann
-*/
+ */
 
 export default class systemeEquationsPremDeg extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 3
     this.sup = 4
     this.sup2 = false
     this.sup3 = false
     this.correctionDetailleeDisponible = true
-    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      4,
+      '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange',
+    ]
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre le système d\'équations suivant par combinaison linéaire :'
+      this.consigne =
+        "Résoudre le système d'équations suivant par combinaison linéaire :"
     } else {
-      this.consigne = 'Résoudre les systèmes d\'équations suivants par combinaison linéaire :'
+      this.consigne =
+        "Résoudre les systèmes d'équations suivants par combinaison linéaire :"
     }
 
     this.besoinFormulaire2CaseACocher = ['Solution contenant des fractions']
@@ -55,21 +71,30 @@ export default class systemeEquationsPremDeg extends Exercice {
       typeQuestionsDisponibles = ['lv1', 'lv2', 'lv3']
     }
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      this.comment = 'Dans cet exercice, un système est donné à résoudre. Les solutions sont entières comprises entre -10 et 10.<br>Le niveau 1 correspond à des inconnues seulement dans les membres de gauche;<br>Le niveau 2 à des inconnues dans les deux membres, mais ordonnées;<br>Le niveau 3 à des inconnues dans le désordre dans les deux membres.'
+    const listeTypeQuestions = combinaisonListes(
+      typeQuestionsDisponibles,
+      this.nbQuestions,
+    )
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      this.comment =
+        'Dans cet exercice, un système est donné à résoudre. Les solutions sont entières comprises entre -10 et 10.<br>Le niveau 1 correspond à des inconnues seulement dans les membres de gauche;<br>Le niveau 2 à des inconnues dans les deux membres, mais ordonnées;<br>Le niveau 3 à des inconnues dans le désordre dans les deux membres.'
       let texte = ''
       let texteCorr = ''
-      let solX : FractionEtendue
-      let solY : FractionEtendue
+      let solX: FractionEtendue
+      let solY: FractionEtendue
       let eq1: Array<number> = [0, 0, 0, 0, 0, 0]
       let eq2: Array<number> = [0, 0, 0, 0, 0, 0]
       if (this.sup2) {
         do {
-          solX = new FractionEtendue(randint(-6, 6, [0]), randint(-6, 6, [0, 1]))
-          solY = new FractionEtendue(randint(-6, 6, [0]), randint(-6, 6, [0, 1]))
-        }
-        while (solX.simplifie().den === 1 || solY.simplifie().den === 1)
+          solX = new FractionEtendue(
+            randint(-6, 6, [0]),
+            randint(-6, 6, [0, 1]),
+          )
+          solY = new FractionEtendue(
+            randint(-6, 6, [0]),
+            randint(-6, 6, [0, 1]),
+          )
+        } while (solX.simplifie().den === 1 || solY.simplifie().den === 1)
         eq1 = [solX.den, 0, 0, 0, 0, solX.num]
         eq2 = [0, solY.den, 0, 0, 0, solY.num]
       } else {
@@ -84,7 +109,10 @@ export default class systemeEquationsPremDeg extends Exercice {
 
       // error http://localhost:5173/alea/?uuid=5179b&n=3&d=10&s=4&alea=u0c8&cd=1
       // http://localhost:5173/alea/?uuid=5179b&n=1&d=10&s=4&alea=PAwM&cd=1
-      const eqEquiv = function (vect1 : Array<number | FractionEtendue>, niveau : string) {
+      const eqEquiv = function (
+        vect1: Array<number | FractionEtendue>,
+        niveau: string,
+      ) {
         let vectEquiv = vect1
         vectEquiv = multCoeff(vectEquiv, randint(-6, 6, [0]))
         if (niveau === 'lv2' || niveau === 'lv3') {
@@ -95,10 +123,10 @@ export default class systemeEquationsPremDeg extends Exercice {
         return vectEquiv
       }
 
-      let eqInt1 : Array<number > = []
-      let eqInt2 : Array<number> = []
-      let eqSimpl1 : Array<number> = []
-      let eqSimpl2 : Array<number> = []
+      let eqInt1: Array<number> = []
+      let eqInt2: Array<number> = []
+      let eqSimpl1: Array<number> = []
+      let eqSimpl2: Array<number> = []
       switch (listeTypeQuestions[i]) {
         case 'lv1':
           eqInt1 = addCombLin(eqEquiv(eq1, 'lv1'), eqEquiv(eq2, 'lv1'), 1)
@@ -169,15 +197,18 @@ export default class systemeEquationsPremDeg extends Exercice {
       const mY = lcm(Math.abs(eqSimpl1[1]), Math.abs(eqSimpl2[1]))
       let varElim = ''
       let coeffElim = 0
-      let coeffEq : Array<number> = []
+      let coeffEq: Array<number> = []
       const eqSimpl1Abs = [Math.abs(eqSimpl1[0]), Math.abs(eqSimpl1[1])]
       const eqSimpl2Abs = [Math.abs(eqSimpl2[0]), Math.abs(eqSimpl2[1])]
-      if ((mX === eqSimpl1Abs[0] || mX === eqSimpl2Abs[0]) && (mY === eqSimpl1Abs[1] || mY === eqSimpl2Abs[1])) {
-        if ((mY === eqSimpl1Abs[1] && mY === eqSimpl2Abs[1])) {
+      if (
+        (mX === eqSimpl1Abs[0] || mX === eqSimpl2Abs[0]) &&
+        (mY === eqSimpl1Abs[1] || mY === eqSimpl2Abs[1])
+      ) {
+        if (mY === eqSimpl1Abs[1] && mY === eqSimpl2Abs[1]) {
           varElim = 'y'
           coeffElim = mY
           coeffEq = [eqSimpl1[1], eqSimpl2[1]]
-        } else if ((mX === eqSimpl1Abs[0] && mX === eqSimpl2Abs[0])) {
+        } else if (mX === eqSimpl1Abs[0] && mX === eqSimpl2Abs[0]) {
           varElim = 'x'
           coeffElim = mX
           coeffEq = [eqSimpl1[0], eqSimpl2[0]]
@@ -212,56 +243,113 @@ export default class systemeEquationsPremDeg extends Exercice {
       const varPasElim = varElim === 'x' ? 'y' : 'x'
       const indexVarPasElim = varPasElim === 'x' ? 0 : 1
       const indexVarElim = varElim === 'x' ? 0 : 1
-      let eqVarElim : Array<number> = []
-      texte = texte + ` $${printSystem(eqToLatex(eqFinale1, nomVal1, true), eqToLatex(eqFinale2, nomVal2, true))}$`
+      let eqVarElim: Array<number> = []
+      texte =
+        texte +
+        ` $${printSystem(eqToLatex(eqFinale1, nomVal1, true), eqToLatex(eqFinale2, nomVal2, true))}$`
       if (this.correctionDetaillee) {
-        texteCorr = texteCorr + 'On résout ce système en utilisant la méthode de combinaison linéaire. '
+        texteCorr =
+          texteCorr +
+          'On résout ce système en utilisant la méthode de combinaison linéaire. '
         switch (listeTypeQuestions[i]) {
           case 'lv2':
           case 'lv3':
-            texteCorr = texteCorr + 'On commence par réunir les inconnues dans les membres de gauche et les termes constants dans les membres de droite.<br>'
-            texteCorr = texteCorr + `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(eqSimpl1, listeVar, true), eqToLatex(eqSimpl2, listeVar, true))}\\]`
+            texteCorr =
+              texteCorr +
+              'On commence par réunir les inconnues dans les membres de gauche et les termes constants dans les membres de droite.<br>'
+            texteCorr =
+              texteCorr +
+              `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(eqSimpl1, listeVar, true), eqToLatex(eqSimpl2, listeVar, true))}\\]`
             break
           case 'lv1':
             break
         }
         if (!(coeffElim / coeffEq[0] === 1 || -coeffElim / coeffEq[1] === 1)) {
-          texteCorr = texteCorr + `On multiplie la première équation par $${texNombre(coeffElim / coeffEq[0], 0)}$ et la deuxième par $${texNombre(-coeffElim / coeffEq[1], 0)}$ pour obtenir des coefficients opposé devant $${varElim}$.<br>`
-          texteCorr = texteCorr + `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), listeVar, true))}\\]`
-        } else if (coeffElim / coeffEq[0] === 1 && !(-coeffElim / coeffEq[1] === 1)) {
-          texteCorr = texteCorr + `On multiplie la deuxième équation par $${texNombre(-coeffElim / coeffEq[1], 0)}$ pour obtenir des coefficients opposé devant $${varElim}$.<br>`
-          texteCorr = texteCorr + `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), listeVar, true))}\\]`
-        } else if (!(coeffElim / coeffEq[0] === 1) && -coeffElim / coeffEq[1] === 1) {
-          texteCorr = texteCorr + `On multiplie la première équation par $${texNombre(coeffElim / coeffEq[0], 0)}$ pour obtenir des coefficients opposé devant $${varElim}$.<br>`
-          texteCorr = texteCorr + `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), listeVar, true))}\\]`
+          texteCorr =
+            texteCorr +
+            `On multiplie la première équation par $${texNombre(coeffElim / coeffEq[0], 0)}$ et la deuxième par $${texNombre(-coeffElim / coeffEq[1], 0)}$ pour obtenir des coefficients opposé devant $${varElim}$.<br>`
+          texteCorr =
+            texteCorr +
+            `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(multCoeff(eqSimpl2, -coeffElim / coeffEq[1]), listeVar, true))}\\]`
+        } else if (
+          coeffElim / coeffEq[0] === 1 &&
+          !(-coeffElim / coeffEq[1] === 1)
+        ) {
+          texteCorr =
+            texteCorr +
+            `On multiplie la deuxième équation par $${texNombre(-coeffElim / coeffEq[1], 0)}$ pour obtenir des coefficients opposé devant $${varElim}$.<br>`
+          texteCorr =
+            texteCorr +
+            `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(multCoeff(eqSimpl2, -coeffElim / coeffEq[1]), listeVar, true))}\\]`
+        } else if (
+          !(coeffElim / coeffEq[0] === 1) &&
+          -coeffElim / coeffEq[1] === 1
+        ) {
+          texteCorr =
+            texteCorr +
+            `On multiplie la première équation par $${texNombre(coeffElim / coeffEq[0], 0)}$ pour obtenir des coefficients opposé devant $${varElim}$.<br>`
+          texteCorr =
+            texteCorr +
+            `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(multCoeff(eqSimpl2, -coeffElim / coeffEq[1]), listeVar, true))}\\]`
         } else {
-          texteCorr = texteCorr + `Les coefficients devant $${varElim}$ sont déjà opposés. `
+          texteCorr =
+            texteCorr +
+            `Les coefficients devant $${varElim}$ sont déjà opposés. `
         }
-        texteCorr = texteCorr + `On additionne les deux equations pour élimer l'inconnue $${varElim}$ dans la deuxième équation. `
-        texteCorr = texteCorr + `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1), listeVar, true))}\\]`
-        texteCorr = texteCorr + `On obtient que $${varPasElim} = ${new FractionEtendue(addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1)[5], addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1)[indexVarPasElim]).texFractionSimplifiee}$.<br>`
-        texteCorr = texteCorr + `On subsitue la valeur obtenue pour $${varPasElim}$ dans l'équation restante pour déterminer la valeur de $${varElim}\\,:$`
+        texteCorr =
+          texteCorr +
+          `On additionne les deux equations pour élimer l'inconnue $${varElim}$ dans la deuxième équation. `
+        texteCorr =
+          texteCorr +
+          `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / coeffEq[1]), 1), listeVar, true))}\\]`
+        texteCorr =
+          texteCorr +
+          `On obtient que $${varPasElim} = ${new FractionEtendue(addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / coeffEq[1]), 1)[5], addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / coeffEq[1]), 1)[indexVarPasElim]).texFractionSimplifiee}$.<br>`
+        texteCorr =
+          texteCorr +
+          `On subsitue la valeur obtenue pour $${varPasElim}$ dans l'équation restante pour déterminer la valeur de $${varElim}\\,:$`
         eqVarElim = multCoeff(eqSimpl1, coeffElim / coeffEq[0])
         if (varPasElim === 'x') {
           listeVar[0] = `${timesIfNotUn(eqVarElim[0])} ${ecritureParentheseSiNegatif(solX)}`
-          eqVarElim = addCombLin(eqVarElim, [-eqVarElim[0], 0, solX.multiplieEntier(eqVarElim[0]), 0, 0, 0], 1)
+          eqVarElim = addCombLin(
+            eqVarElim,
+            [-eqVarElim[0], 0, solX.multiplieEntier(eqVarElim[0]), 0, 0, 0],
+            1,
+          )
         } else {
           listeVar[1] = `${timesIfNotUn(eqVarElim[1])} ${ecritureParentheseSiNegatif(solY)}`
-          eqVarElim = addCombLin(eqVarElim, [0, -eqVarElim[1], solY.multiplieEntier(eqVarElim[1]), 0, 0, 0], 1)
+          eqVarElim = addCombLin(
+            eqVarElim,
+            [0, -eqVarElim[1], solY.multiplieEntier(eqVarElim[1]), 0, 0, 0],
+            1,
+          )
         }
-        texteCorr = texteCorr + `\\[${eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, false)}\\implies ${eqToLatex(eqVarElim, listeVar, false)}\\]`
-        texteCorr = texteCorr + `On résout l'équation et on obtient $${varElim}=${[solX.texFractionSimplifiee, solY.texFractionSimplifiee][indexVarElim]}$. `
+        texteCorr =
+          texteCorr +
+          `\\[${eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, false)}\\implies ${eqToLatex(eqVarElim, listeVar, false)}\\]`
+        texteCorr =
+          texteCorr +
+          `On résout l'équation et on obtient $${varElim}=${[solX.texFractionSimplifiee, solY.texFractionSimplifiee][indexVarElim]}$. `
       }
 
-      texteCorr = texteCorr + `La solution du système est $${miseEnEvidence(`S=\\left\\{\\left(${solX.texFractionSimplifiee};${solY.texFractionSimplifiee}\\right)\\right\\}`)}$.`
+      texteCorr =
+        texteCorr +
+        `La solution du système est $${miseEnEvidence(`S=\\left\\{\\left(${solX.texFractionSimplifiee};${solY.texFractionSimplifiee}\\right)\\right\\}`)}$.`
       if (this.interactif) {
-        texte += '<br>' + remplisLesBlancs(this, i, 'S=\\{(%{champ1};%{champ2})\\}')
-        handleAnswers(this, i, {
-          bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          champ1: { value: solX.texFractionSimplifiee },
-          champ2: { value: solY.texFractionSimplifiee }
-        },
-        { formatInteractif: 'fillInTheBlank' }
+        texte +=
+          '<br>' + remplisLesBlancs(this, i, 'S=\\{(%{champ1};%{champ2})\\}')
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: (listePoints: number[]) => [
+              Math.min(listePoints[0], listePoints[1]),
+              1,
+            ],
+            champ1: { value: solX.texFractionSimplifiee },
+            champ2: { value: solY.texFractionSimplifiee },
+          },
+          { formatInteractif: 'fillInTheBlank' },
         )
       }
       if (this.questionJamaisPosee(i, solX, solY)) {

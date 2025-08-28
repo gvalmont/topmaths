@@ -8,28 +8,28 @@
     type ResourceAndItsPath,
     type ToolItemInReferentiel,
     type Level,
-
     isStaticType,
-
-    isExamItemInReferentiel
-
+    isExamItemInReferentiel,
   } from '../../../../../../../lib/types/referentiels'
   import {
     allFilters,
     getSelectedFiltersObjects,
     handleUncheckingMutipleFilters,
-    filtersHaveChanged
+    filtersHaveChanged,
   } from '../../filtersStore'
   import type { FilterObject } from '../../../../../../../lib/types'
   import {
     getUniqueStringBasedOnTimeStamp,
-    debounce
+    debounce,
   } from '../../../../../../../lib/components/time'
   import Filtres from './Filtres.svelte'
   import Chip from './Chip.svelte'
   import type { Unsubscriber } from 'svelte/store'
   import ButtonIcon from '../../../../../../shared/forms/ButtonIcon.svelte'
-  import { sortArrayOfResourcesBasedOnProp, sortArrayOfResourcesBasedOnYearAndMonth } from '../../../../../../../lib/components/sorting'
+  import {
+    sortArrayOfResourcesBasedOnProp,
+    sortArrayOfResourcesBasedOnYearAndMonth,
+  } from '../../../../../../../lib/components/sorting'
   export let origin: ResourceAndItsPath[]
   export let results: ResourceAndItsPath[] = []
   export let addExercise: (uuid: string, id: string) => void
@@ -53,7 +53,7 @@
     '3e proba',
     'dnb+3e stat',
     'bac asie python',
-    'crpe 2016+2015 aires'
+    'crpe 2016+2015 aires',
   ]
 
   onMount(() => {
@@ -78,7 +78,7 @@
   //                                Gestion de la recherche
   //
   // ===================================================================================
-  function updateResults (input: string): void {
+  function updateResults(input: string): void {
     if (input == null || input.length === 0) {
       results.length = 0
     } else {
@@ -102,13 +102,21 @@
       // -- année/mois décroissant pour examens
       // -- id ordre alpha pour les exercices
       nonStatics = [...sortArrayOfResourcesBasedOnProp(nonStatics, 'id')]
-      statics = [...sortArrayOfResourcesBasedOnYearAndMonth(statics, 'desc')].sort((eltA, eltB) => {
+      statics = [
+        ...sortArrayOfResourcesBasedOnYearAndMonth(statics, 'desc'),
+      ].sort((eltA, eltB) => {
         // ranger dans les sujets d'examens identiques par numéro d'exercices croissant
         const nameA = eltA.resource.uuid.slice(0, -1)
         const nameB = eltB.resource.uuid.slice(0, -1)
         if (nameA.localeCompare(nameB) === 0) {
-          if (isExamItemInReferentiel(eltA.resource) && (isExamItemInReferentiel(eltB.resource))) {
-            return parseInt(eltA.resource.numeroInitial) - parseInt(eltB.resource.numeroInitial)
+          if (
+            isExamItemInReferentiel(eltA.resource) &&
+            isExamItemInReferentiel(eltB.resource)
+          ) {
+            return (
+              parseInt(eltA.resource.numeroInitial) -
+              parseInt(eltB.resource.numeroInitial)
+            )
           } else {
             return 0
           }
@@ -120,7 +128,7 @@
     }
   }
 
-  function getResults (input: string) {
+  function getResults(input: string) {
     if (input.length === 0) {
       return []
     } else {
@@ -128,7 +136,7 @@
     }
   }
 
-  function getUniques (results: ResourceAndItsPath[]) {
+  function getUniques(results: ResourceAndItsPath[]) {
     const uniques: ResourceAndItsPath[] = []
     const treatedUuids: string[] = []
     for (const elt of results) {
@@ -140,7 +148,7 @@
     return uniques
   }
 
-  function handleInput (input: string) {
+  function handleInput(input: string) {
     const beginsWithQuote = input.replace(/^[\s"']/, '').length === 0
     if (input == null || input.length === 0 || beginsWithQuote) {
       results.length = 0
@@ -167,10 +175,10 @@
   //                                Gestion du clavier
   //
   // ===================================================================================
-  function onFocusInput () {
+  function onFocusInput() {
     isInputFocused = true
   }
-  function onBlurInput () {
+  function onBlurInput() {
     isInputFocused = false
   }
 
@@ -178,8 +186,8 @@
    * Recherche si la chaîne de l'input correspond à une ID de la liste des résultats.
    * @returns {ExerciceItemInReferentiel|ToolItemInReferentiel|null} renvoie l'exercice trouvé ou `null`
    */
-  function matchOnResultsList (
-    inputSearch: string
+  function matchOnResultsList(
+    inputSearch: string,
   ): ExerciceItemInReferentiel | ToolItemInReferentiel | null {
     if (inputSearch == null || inputSearch.length === 0) return null
     for (const result of results) {
@@ -197,7 +205,7 @@
   /**
    * Si Entrée et qu'un seul exercice matche alors on ajoute l'exercice à la liste
    */
-  function onEnterDown () {
+  function onEnterDown() {
     const matchingResource = matchOnResultsList(inputSearch)
     if (matchingResource !== null) {
       addExercise(matchingResource.uuid, matchingResource.id)
@@ -207,7 +215,7 @@
    *
    * @param event
    */
-  function onKeyDown (event: KeyboardEvent) {
+  function onKeyDown(event: KeyboardEvent) {
     if (event.repeat) return
     switch (event.key) {
       case 'Control':
@@ -233,7 +241,7 @@
     }
   }
 
-  function onKeyUp (event: KeyboardEvent) {
+  function onKeyUp(event: KeyboardEvent) {
     switch (event.key) {
       case 'Control':
         isCtrlDown = false
@@ -263,26 +271,26 @@
    * @param textListI
    * @param delayMs
    */
-  function typeWriter (
+  function typeWriter(
     selectorTarget: string,
     textList: string[],
     placeholder = false,
     i = 0,
     textListI = 0,
-    delayMs = 100
+    delayMs = 100,
   ) {
     if (lastInput === '') {
       if (!i) {
         if (placeholder) {
           const inputDiv = document.querySelector(
-            selectorTarget
+            selectorTarget,
           ) as HTMLInputElement
           if (inputDiv) {
             inputDiv.placeholder = ''
           }
         } else {
           const inputDiv = document.querySelector(
-            selectorTarget
+            selectorTarget,
           ) as HTMLInputElement
           if (inputDiv) {
             inputDiv.innerHTML = ''
@@ -293,14 +301,14 @@
       if (i < txt.length) {
         if (placeholder) {
           const inputDiv = document.querySelector(
-            selectorTarget
+            selectorTarget,
           ) as HTMLInputElement
           if (inputDiv) {
             inputDiv.placeholder += txt.charAt(i)
           }
         } else {
           const inputDiv = document.querySelector(
-            selectorTarget
+            selectorTarget,
           ) as HTMLInputElement
           if (inputDiv) {
             inputDiv.innerHTML += txt.charAt(i)
@@ -314,7 +322,7 @@
           textList,
           placeholder,
           i,
-          textListI
+          textListI,
         )
       } else {
         textListI++
@@ -324,7 +332,7 @@
             delayMs * 7,
             selectorTarget,
             textList,
-            placeholder
+            placeholder,
           )
         } else {
           i = 0
@@ -335,13 +343,13 @@
             textList,
             placeholder,
             i,
-            textListI
+            textListI,
           )
         }
       }
     } else {
       const inputDiv = document.querySelector(
-        selectorTarget
+        selectorTarget,
       ) as HTMLInputElement
       if (inputDiv) {
         inputDiv.placeholder = '🔍 Thème, identifiant...'
@@ -357,7 +365,7 @@
   - **origin** (_ResourceAndItsPath[]_) : le référentiel à rechercher (déplier dans un tableau)
   - **result** (_ResourceAndItsPath[]_) : la liste des entrées correspondant au texte dans le champ de recherche
  -->
-<svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
+<svelte:window on:keydown="{onKeyDown}" on:keyup="{onKeyUp}" />
 <div class="flex flex-col justify-start items-center">
   <div class="relative flex flex-col w-full">
     <input
@@ -365,10 +373,10 @@
       id="searchInputField-{timeStamp}"
       class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm placeholder-coopmaths-corpus-lightest dark:placeholder-coopmathsdark-corpus-lightest placeholder:italic placeholder-opacity-50"
       placeholder="🔍 Thème, identifiant..."
-      bind:value={inputSearch}
-      bind:this={searchField}
-      on:focus={onFocusInput}
-      on:blur={onBlurInput}
+      bind:value="{inputSearch}"
+      bind:this="{searchField}"
+      on:focus="{onFocusInput}"
+      on:blur="{onBlurInput}"
       autocomplete="off"
       autocorrect="off"
       name="”notASearchField”"
@@ -386,46 +394,46 @@
     <ButtonIcon
       icon="bxs-tag-x text-2xl"
       class="absolute right-2 top-1"
-      disabled={inputSearch.length === 0}
-      on:click={() => {
+      disabled="{inputSearch.length === 0}"
+      on:click="{() => {
         inputSearch = ''
-      }}
+      }}"
     />
     <!-- Bouton pour afficher les filtres -->
     <button
       type="button"
       class="absolute right-2 -bottom-6 text-sm text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
-      on:click={() => {
+      on:click="{() => {
         isFiltersVisible = !isFiltersVisible
-      }}
+      }}"
     >
-      Filtrer les exercices <i class="bx bx-filter-alt" />
+      Filtrer les exercices <i class="bx bx-filter-alt"></i>
     </button>
   </div>
   <!-- Chips des filtres -->
   <div
-    class={selectedFilters.length === 0
+    class="{selectedFilters.length === 0
       ? 'hidden'
-      : 'flex w-full flex-row flex-wrap justify-start text-sm mt-6 leading-tight'}
+      : 'flex w-full flex-row flex-wrap justify-start text-sm mt-6 leading-tight'}"
   >
     {#each selectedFilters as filter}
       <Chip
-        text={filter.content.title}
+        text="{filter.content.title}"
         textColor="canvas"
         bgColor="struct"
-        isVisible={true}
-        on:action={() => {
+        isVisible="{true}"
+        on:action="{() => {
           $allFilters[filter.type][filter.key].isSelected = false
           handleUncheckingMutipleFilters(filter.key)
           dispatch('filters-change')
           $filtersHaveChanged = true
           triggerUpdate()
-        }}
+        }}"
       />
     {/each}
   </div>
   <!-- Filtres -->
-  <div class={isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}>
+  <div class="{isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}">
     <Filtres class="mt-2" filterType="levels" on:filters-change />
     <Filtres class="mt-2" filterType="specs" on:filters-change />
     <Filtres class="mt-2" filterType="types" on:filters-change />

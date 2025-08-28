@@ -4,20 +4,20 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Calculer les coordonnées d\'un milieu'
+export const titre = "Calculer les coordonnées d'un milieu"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '50ee5'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': [],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
-*/
+ */
 export default class CoordonneesMilieu extends ExerciceSimple {
-  constructor () {
+  constructor() {
     super()
 
     this.canOfficielle = true
@@ -27,7 +27,7 @@ export default class CoordonneesMilieu extends ExerciceSimple {
     this.formatInteractif = 'fillInTheBlank'
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const xa = this.canOfficielle ? 2 : randint(1, 5) * choice([-2, 2])
     const ya = this.canOfficielle ? 1 : randint(1, 3) * 2 + 1
     const xb = this.canOfficielle ? -4 : randint(1, 5) * choice([-2, 2])
@@ -35,7 +35,11 @@ export default class CoordonneesMilieu extends ExerciceSimple {
     const xm = (xa + xb) / 2
     const ym = (ya + yb) / 2
 
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: xm }, champ2: { value: ym } }
+    this.reponse = {
+      bareme: toutPourUnPoint,
+      champ1: { value: xm },
+      champ2: { value: ym },
+    }
     this.consigne = `Coordonnées du  milieu de $[AB]$ avec $A(${xa}\\,;\\,${ya})$ et $B(${xb}\\,;\\,${yb})$<br>`
     this.question = '(%{champ1};%{champ2})'
 

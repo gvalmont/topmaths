@@ -9,14 +9,14 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
  * les string1 à 5 ainsi que l'expresion sont ) mettre en mode maths.
  * sert dans les exercices CM019,
  */
-export default function TrouverSolutionMathador (
+export default function TrouverSolutionMathador(
   min,
   max,
   A = 1,
   B = 4,
   C = 8,
   D = 3,
-  E = 5
+  E = 5,
 ) {
   let eureka
   let a
@@ -37,60 +37,43 @@ export default function TrouverSolutionMathador (
   let operationsSuccessives = []
   let solution
   const listeChoix = [
-    1,
-    2,
-    2,
-    3,
-    3,
-    4,
-    4,
-    4,
-    4,
-    5,
-    6,
-    6,
-    6,
-    6,
-    7,
-    7,
-    8,
-    8,
-    8,
-    8,
-    9,
-    9,
-    9,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20
+    1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10,
+    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]
   eureka = false
   const nbDetermines = arguments.length - 2
   while (eureka === false) {
     tirage = []
 
-    if (nbDetermines < 1) { a = parseInt(choice(listeChoix)) } else { a = A }
-    if (nbDetermines < 2) { b = parseInt(choice(listeChoix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else { b = B }
+    if (nbDetermines < 1) {
+      a = parseInt(choice(listeChoix))
+    } else {
+      a = A
+    }
+    if (nbDetermines < 2) {
+      b = parseInt(choice(listeChoix, [13, 14, 15, 16, 17, 18, 19, 20, a]))
+    } else {
+      b = B
+    }
     if (nbDetermines < 3) {
       c = parseInt(
-        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
+        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b]),
       )
-    } else { c = C }
+    } else {
+      c = C
+    }
     if (nbDetermines < 4) {
       d = parseInt(
-        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
+        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c]),
       )
-    } else { d = D }
-    if (nbDetermines < 5) { e = parseInt(choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else { e = E }
+    } else {
+      d = D
+    }
+    if (nbDetermines < 5) {
+      e = parseInt(choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20]))
+    } else {
+      e = E
+    }
     tirage.push(a, b, c, d, e)
     nombresRestants = shuffle(tirage)
     operationsRestantes = ['\\times', '+', '-', '\\div']
@@ -100,14 +83,14 @@ export default function TrouverSolutionMathador (
       `${nombresRestants[1]}`,
       `${nombresRestants[2]}`,
       `${nombresRestants[3]}`,
-      `${nombresRestants[4]}`
+      `${nombresRestants[4]}`,
     ]
     expressionEnCoursD = [
       `${nombresRestants[0]}`,
       `${nombresRestants[1]}`,
       `${nombresRestants[2]}`,
       `${nombresRestants[3]}`,
-      `${nombresRestants[4]}`
+      `${nombresRestants[4]}`,
     ]
 
     while (nombresRestants.length > 1) {
@@ -138,18 +121,18 @@ export default function TrouverSolutionMathador (
           expressionEnCoursF.push(`\\dfrac{${part1f}}{${part2f}}`)
           expressionEnCoursD.push(`\\left(${part1d}${op}${part2d}\\right)`)
           nombresRestants.push(c)
-        } else { break }
+        } else {
+          break
+        }
       } else if (op === '-') {
         if (a > b) {
           c = a - b
-          expressionEnCoursF.push(
-            `\\left(${part1f}${op}${part2f}\\right)`
-          )
-          expressionEnCoursD.push(
-            `\\left(${part1d}${op}${part2d}\\right)`
-          )
+          expressionEnCoursF.push(`\\left(${part1f}${op}${part2f}\\right)`)
+          expressionEnCoursD.push(`\\left(${part1d}${op}${part2d}\\right)`)
           nombresRestants.push(c)
-        } else { break }
+        } else {
+          break
+        }
       } else if (op === '+') {
         c = a + b
         if (part2f.substring(0, 2) === '\\l') {
@@ -171,26 +154,30 @@ export default function TrouverSolutionMathador (
       solution = nombresRestants[0]
       if (solution >= min && solution <= max) {
         eureka = true
-        if (expressionEnCoursF[0][0] === '\\' &&
-          expressionEnCoursF[0][1] === 'l') {
+        if (
+          expressionEnCoursF[0][0] === '\\' &&
+          expressionEnCoursF[0][1] === 'l'
+        ) {
           expressionEnCoursF[0] = expressionEnCoursF[0].substring(
             6,
-            expressionEnCoursF[0].length
+            expressionEnCoursF[0].length,
           )
           expressionEnCoursF[0] = expressionEnCoursF[0].substring(
             0,
-            expressionEnCoursF[0].length - 7
+            expressionEnCoursF[0].length - 7,
           )
         }
-        if (expressionEnCoursD[0][0] === '\\' &&
-          expressionEnCoursD[0][1] === 'l') {
+        if (
+          expressionEnCoursD[0][0] === '\\' &&
+          expressionEnCoursD[0][1] === 'l'
+        ) {
           expressionEnCoursD[0] = expressionEnCoursD[0].substring(
             6,
-            expressionEnCoursD[0].length
+            expressionEnCoursD[0].length,
           )
           expressionEnCoursD[0] = expressionEnCoursD[0].substring(
             0,
-            expressionEnCoursD[0].length - 7
+            expressionEnCoursD[0].length - 7,
           )
         }
         return [
@@ -198,9 +185,13 @@ export default function TrouverSolutionMathador (
           solution,
           operationsSuccessives,
           expressionEnCoursF,
-          expressionEnCoursD
+          expressionEnCoursD,
         ]
-      } else { operationsSuccessives = [] }
-    } else { operationsSuccessives = [] }
+      } else {
+        operationsSuccessives = []
+      }
+    } else {
+      operationsSuccessives = []
+    }
   }
 }

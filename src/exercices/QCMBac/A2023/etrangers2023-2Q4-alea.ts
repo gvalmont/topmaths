@@ -7,7 +7,7 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '1916e'
 export const refs = {
   'fr-fr': ['TSP1-QCM06'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -24,13 +24,14 @@ export const dateDePublication = '08/11/2024'
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs (p: number, nn: number): void {
+  private appliquerLesValeurs(p: number, nn: number): void {
     const pourcent = p / 100
     this.reponses = [
       `$${texNombre(pourcent, 3)}^n$`,
       `$${texNombre(1 - pourcent, 3)}^n$`,
       `$1-${texNombre(1 - pourcent, 3)} ^ n$`,
-       `$1-${texNombre(pourcent, 3)} ^ n$`]
+      `$1-${texNombre(pourcent, 3)} ^ n$`,
+    ]
 
     this.enonce = this.sup3
       ? `Une chaîne de fabrication produit des pièces mécaniques.<br>
@@ -39,8 +40,9 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
      Le nombre de pièces produites est suffisamment grand pour que ce choix puisse être assimilé à un tirage avec remise. <br>
      On note $X$ la variable aléatoire égale au nombre de pièces défectueuses tirées.<br>`
       : ''
-    this.enonce += 'Quelle est la probabilité de ne tirer que des pièces défectueuses ?'
-    this.correction = `$p\\left(X=0\\right)=${texNombre((p / 100), 3)}^n $`
+    this.enonce +=
+      'Quelle est la probabilité de ne tirer que des pièces défectueuses ?'
+    this.correction = `$p\\left(X=0\\right)=${texNombre(p / 100, 3)}^n $`
   }
 
   // S'occupe de passser les données originales à la fonction appliquerLesValeurs
@@ -61,9 +63,9 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
-  constructor () {
+  constructor() {
     super()
-    this.besoinFormulaire3CaseACocher = ['Avec le préambule de l\'énoncé', true]
+    this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
