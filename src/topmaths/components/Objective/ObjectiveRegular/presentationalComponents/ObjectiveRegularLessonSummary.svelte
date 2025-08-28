@@ -1,21 +1,28 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import type { Objective } from '../../../../types/objective'
 
-  export let lessonImages: string[]
-  export let lessonSummaryHTML: string
-  export let lessonSummaryImage: string
-  export let lessonSummaryImageAlt: string
-  export let lessonSummaryInstrumenpoche: string
+  export let objective: Objective
   export let mathaleaRenderDiv: (div: HTMLDivElement, zoom: number) => void
   export let loadIep: () => void
+
+  let lessonImages: string[] = []
+  let lessonSummaryHTML: string = ''
+  let lessonSummaryImage: string = ''
+  let lessonSummaryImageAlt: string = ''
+  let lessonSummaryInstrumenpoche: string = ''
 
   let lessonSummaryDiv: HTMLDivElement
   $: if (lessonSummaryDiv) mathaleaRenderDiv(lessonSummaryDiv, -1)
 
-  onMount(() => {
+  $: if (objective) {
+    lessonImages = objective.lessonImages
+    lessonSummaryHTML = objective.lessonSummaryHTML
+    lessonSummaryImage = objective.lessonSummaryImage
+    lessonSummaryImageAlt = objective.lessonSummaryImageAlt
+    lessonSummaryInstrumenpoche = objective.lessonSummaryInstrumenpoche
     if (lessonSummaryInstrumenpoche) loadIep()
     if (lessonSummaryDiv) lessonSummaryDiv.innerHTML = lessonSummaryHTML
-  })
+  }
 </script>
 
 <h2

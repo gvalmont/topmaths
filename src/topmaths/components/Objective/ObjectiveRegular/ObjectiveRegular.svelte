@@ -37,7 +37,7 @@
   function updateObjective(): void {
     objective =
       $objectives.find(
-        (objectif) => objectif.reference === $objectiveReference,
+        (objective) => objective.reference === $objectiveReference,
       ) || deepCopy(emptyObjective)
   }
 
@@ -81,15 +81,7 @@
     />
   {/if}
   {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche || objective.lessonImages.length > 0}
-    <ObjectiveRegularLessonSummary
-      lessonImages="{objective.lessonImages}"
-      lessonSummaryHTML="{objective.lessonSummaryHTML}"
-      lessonSummaryImage="{objective.lessonSummaryImage}"
-      lessonSummaryImageAlt="{objective.lessonSummaryImageAlt}"
-      lessonSummaryInstrumenpoche="{objective.lessonSummaryInstrumenpoche}"
-      {mathaleaRenderDiv}
-      {loadIep}
-    />
+    <ObjectiveRegularLessonSummary {objective} {mathaleaRenderDiv} {loadIep} />
   {/if}
   {#if objective.videos.length > 0}
     <ObjectiveRegularVideos videos="{objective.videos}" />
