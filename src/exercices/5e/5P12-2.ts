@@ -1,12 +1,12 @@
-import { polygone } from '../../lib/2d/polygones'
-import { shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternRatio, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
-import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { texteParPosition } from '../../lib/2d/textes'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { shuffle } from '../../lib/outils/arrayOutils'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -35,7 +35,6 @@ export default class PaternNum1 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.nbQuestionsModifiable = false
     this.comment = 'Cet exercice contient des patterns issus de l\'excellent site : https://www.visualpatterns.org/'
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3

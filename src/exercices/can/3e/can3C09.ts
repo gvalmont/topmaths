@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a2d6a'
 
 export const refs = {
-  'fr-fr': ['can3C09','auto6P3B-flash1'],
+  'fr-fr': ['can3C09'],
   'fr-ch': []
 }
 export default class CalculAvecRacineCarree1 extends ExerciceSimple {

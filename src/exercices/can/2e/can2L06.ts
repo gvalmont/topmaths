@@ -55,7 +55,7 @@ $\\begin{aligned}
         this.distracteurs = [
           `$${reduirePolynomeDegre3(0, 1, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, -2 * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`,
+          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`
         ]
         break
       case 2 :
@@ -74,7 +74,7 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, 1, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, -2 * a, -a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, 2 * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`,
+          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`
         ]
         break
       case 3 :
@@ -93,7 +93,7 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, 1, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, -2 * a, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, 2 * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, 1, -2 * a, -a * a, inconnue)}$`,
+          `$${reduirePolynomeDegre3(0, 1, -2 * a, -a * a, inconnue)}$`
         ]
         break
 
@@ -113,7 +113,7 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, b * b, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, a * b, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, 2 * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`,
+          `$${reduirePolynomeDegre3(0, 1, a, a * a, inconnue)}$`
         ]
         break
       case 5 :
@@ -133,7 +133,7 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, b * b, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, 2 * b * a, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, b * a, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, b * b, -2 * b * a, a * a, inconnue)}$`,
+          `$${reduirePolynomeDegre3(0, b * b, -2 * b * a, a * a, inconnue)}$`
         ]
         break
       case 6 :
@@ -153,7 +153,7 @@ $\\begin{aligned}
           `$${reduirePolynomeDegre3(0, b * b, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, -2 * a * b, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, b * b, 2 * a * b, a * a, inconnue)}$`,
-          `$${reduirePolynomeDegre3(0, b * b, -2 * a * b, -a * a, inconnue)}$`,
+          `$${reduirePolynomeDegre3(0, b * b, -2 * a * b, -a * a, inconnue)}$`
         ]
         break
     }

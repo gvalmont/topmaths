@@ -4,6 +4,7 @@
   "spline": "OutilSpline.svelte",
   "test": "Test.svelte",
   "clavier": "ClavierTest.svelte",
+  "equation": "EquationSolve.svelte",
   "version": "Version.svelte",
   "sandboxCE": "ressources/sandboxCE.ts"
 }

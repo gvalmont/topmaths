@@ -1,23 +1,22 @@
+import { UniverSheetElement } from 'univer-sheets-vite'
 import type { CellSheetData, StyleSheets } from 'univer-sheets-vite/src/convert'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { latex2d } from '../../lib/2d/textes'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { listeDesDiviseurs } from '../../lib/outils/primalite'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { polygone } from '../../lib/2d/polygones'
-import { point } from '../../lib/2d/points'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
-import { UniverSheetElement } from 'univer-sheets-vite'
-import { latex2d } from '../../lib/2d/textes'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { listeDesDiviseurs } from '../../lib/outils/primalite'
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
 
 export const titre = 'Programmer des calculs sur tableur'
 export const dateDePublication = '12/08/2025'
 
 export const interactifReady = true
 export const interactifType = 'custom'
-
 /*
  * Programmer des calculs sur tableur : New programme de 6eme 2025
  * @author Mickael Guironnet
@@ -131,7 +130,7 @@ export default class ExerciceTableur extends Exercice {
       texte = 'On a créé le programme de calculs suivant :<br>'
       texte += createDigramm(Object.keys(rect).length, rect) + '<br>'
 
-      texte += `On choisit un nombre dans la première case, ici ${steps[0].oldn} et on obtient un nombre à la fin de la chaîne.<br><br>      
+      texte += `On choisit un nombre dans la première case, ici ${steps[0].oldn} et on obtient un nombre à la fin de la chaîne.<br><br>
       On veut programmer cette suite de calculs dans un tableur. <br>
       Par exemple, la cellule B1 doit contenir la formule du premier calcul.<br>
       Faire de même pour les autres cellules. <br>
@@ -140,7 +139,7 @@ export default class ExerciceTableur extends Exercice {
       if (context.isHtml) {
         texte += `<div>
         <div style="flex:1;width:100%;height: 250px; min-width: 360px;display:flex; flex-direction:column;">
-          <univer-sheet 
+          <univer-sheet
             style='width:100%;height:100%;' id='${id}'
             data='{"rowCount":4,"columnCount":${steps.length + 1},"cellData":${JSON.stringify(data)},"styles":${JSON.stringify(ExerciceTableur.styles)}}'>
           </univer-sheet>
@@ -208,7 +207,9 @@ export default class ExerciceTableur extends Exercice {
         document.removeEventListener('exercicesAffiches', listener) // On retire l'écouteur pour éviter les doublons
       }
       document.addEventListener('exercicesAffiches', listener)
+
       /****************************************************/
+
       if (this.questionJamaisPosee(q, texte)) {
         this.listeQuestions[q] = texte
         this.listeCorrections[q] = texteCorr
@@ -310,6 +311,7 @@ function transformationsOper (steps :{
  *   final: 18
  * }
  */
+
 function programmeCalcul (operations: number[] = [1, 2, 3, 4]) {
   let steps : {
     oldn: number;

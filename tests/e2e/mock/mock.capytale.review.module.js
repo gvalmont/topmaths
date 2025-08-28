@@ -51,7 +51,7 @@ const activityParams = {
       },
       {
         uuid: 'f8dee',
-        id: '6G10-8',
+        id: '6G2B',
         interactif: '1',
         alea: 'XEP0'
       },

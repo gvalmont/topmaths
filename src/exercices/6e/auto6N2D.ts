@@ -1,16 +1,16 @@
+import { glisseNombreInteractif } from '../../lib/apps/glisse_nombre_interactif'
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { coloreUnSeulChiffre, miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { sp } from '../../lib/outils/outilString'
-import { bleuMathalea } from '../../lib/colors'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import { glisseNombreInteractif } from '../../lib/apps/glisse_nombre_interactif'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -34,6 +34,8 @@ export const refs = {
 
 export function donneNomClasse (valeur: number): string[] {
   switch (valeur) {
+    case 1:
+      return ['unités', 'unités']
     case 10:
       return ['dizaines', 'dixièmes']
     case 100:

@@ -1,11 +1,12 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Operation from '../../modules/operations'
-import { context } from '../../modules/context'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import Operation from '../../modules/operations'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Trouver des phrases avec les mots : divisible, diviseur et multiple'
 export const interactifReady = true
@@ -87,7 +88,8 @@ export default class DivisibleDiviseurMultiple extends Exercice {
             { latex: texNombre(q, 0), value: String(q) }
           ])
         }
-        texteCorr = `$${texNombre(a, 0)}$ est divisible par $${texNombre(b, 0)}$ ou $${texNombre(a, 0)}$ est divisible par $${texNombre(q, 0)}$.`
+        texteCorr = `$${miseEnEvidence(texNombre(a, 0))}$ est divisible par $${miseEnEvidence(texNombre(b, 0))}$ ou $${miseEnEvidence(texNombre(a, 0))}$ est divisible par $${miseEnEvidence(texNombre(q, 0))}$
+        car le reste de la division euclidienne de ${texNombre(a, 0)} par $${texNombre(b, 0)}$ est $0$ et le quotient est $${texNombre(q, 0)}$.`
         this.setReponse(i, [[String(a), String(b)], [String(a), String(q)]])
       } else if (listeTypeDeQuestions[i] === 2) {
         texte = '... est un diviseur de ...'
@@ -106,7 +108,8 @@ export default class DivisibleDiviseurMultiple extends Exercice {
             { latex: texNombre(q, 0), value: String(q) }
           ])
         }
-        texteCorr = `$${texNombre(b, 0)}$ est un diviseur de $${texNombre(a, 0)}$ ou $${texNombre(q, 0)}$ est un diviseur de $${texNombre(a, 0)}$.`
+        texteCorr = `$${miseEnEvidence(texNombre(b, 0))}$ est un diviseur de $${miseEnEvidence(texNombre(a, 0))}$ ou $${miseEnEvidence(texNombre(q, 0))}$ est un diviseur de $${miseEnEvidence(texNombre(a, 0))}$
+        car le reste de la division euclidienne de ${texNombre(a, 0)} par $${texNombre(b, 0)}$ est $0$ et le quotient est $${texNombre(q, 0)}$.`
         this.setReponse(i, [[String(b), String(a)], [String(q), String(a)]])
       } else if (listeTypeDeQuestions[i] === 3) {
         texte = '... est un multiple de ...'
@@ -125,7 +128,8 @@ export default class DivisibleDiviseurMultiple extends Exercice {
             { latex: texNombre(q, 0), value: String(q) }
           ])
         }
-        texteCorr = `$${texNombre(a, 0)}$ est un multiple de $${texNombre(b, 0)}$ ou $${texNombre(a, 0)}$ est un multiple de $${texNombre(q, 0)}$.`
+        texteCorr = `$${miseEnEvidence(texNombre(a, 0))}$ est un multiple de $${miseEnEvidence(texNombre(b, 0))}$ ou $${miseEnEvidence(texNombre(a, 0))}$ est un multiple de $${miseEnEvidence(texNombre(q, 0))}$
+        car le reste de la division euclidienne de ${texNombre(a, 0)} par $${texNombre(b, 0)}$ est $0$ et le quotient est $${texNombre(q, 0)}$.`
         this.setReponse(i, [[String(a), String(b)], [String(a), String(q)]])
       } else if (listeTypeDeQuestions[i] === 4) {
         texte = '... n\'est pas divisible par ...'
@@ -144,7 +148,8 @@ export default class DivisibleDiviseurMultiple extends Exercice {
             { latex: texNombre(q, 0), value: String(q) }
           ])
         }
-        texteCorr = `$${texNombre(a1, 0)}$ n'est pas divisible par $${texNombre(b, 0)}$ ou $${texNombre(a1, 0)}$ n'est pas divisible par $${texNombre(q, 0)}$.`
+        texteCorr = `$${miseEnEvidence(texNombre(a1, 0))}$ n'est pas divisible par $${miseEnEvidence(texNombre(b, 0))}$ ou $${miseEnEvidence(texNombre(a1, 0))}$ n'est pas divisible par $${miseEnEvidence(texNombre(q, 0))}$
+        car le reste de la division euclidienne de ${texNombre(a1, 0)} par $${texNombre(b, 0)}$ n'est pas $0$.`
         this.setReponse(i, [[String(a1), String(b)], [String(a1), String(q)],
           [String(b), String(a1)], // réponses absurdes mais vraies !
           [String(q), String(a1)],
@@ -168,7 +173,8 @@ export default class DivisibleDiviseurMultiple extends Exercice {
             { latex: texNombre(q, 0), value: String(q) }
           ])
         }
-        texteCorr = `$${texNombre(b, 0)}$ n'est pas un diviseur de $${texNombre(a1, 0)}$ ou $${texNombre(q, 0)}$ n'est pas un diviseur de $${texNombre(a1, 0)}$.`
+        texteCorr = `$${miseEnEvidence(texNombre(b, 0))}$ n'est pas un diviseur de $${miseEnEvidence(texNombre(a1, 0))}$ ou $${miseEnEvidence(texNombre(q, 0))}$ n'est pas un diviseur de $${miseEnEvidence(texNombre(a1, 0))}$
+        car le reste de la division euclidienne de ${texNombre(a1, 0)} par $${texNombre(b, 0)}$ n'est pas $0$.`
         this.setReponse(i, [[String(b), String(a1)], [String(q), String(a1)],
           [String(a1), String(b)],
           [String(a1), String(q)],
@@ -192,7 +198,8 @@ export default class DivisibleDiviseurMultiple extends Exercice {
             { latex: texNombre(q, 0), value: String(q) }
           ])
         }
-        texteCorr = `$${texNombre(a1, 0)}$ n'est pas un multiple de $${texNombre(b, 0)}$ ou $${texNombre(a1, 0)}$ est n'est pas un multiple de $${texNombre(q, 0)}$.`
+        texteCorr = `$${miseEnEvidence(texNombre(a1, 0))}$ n'est pas un multiple de $${miseEnEvidence(texNombre(b, 0))}$ ou $${miseEnEvidence(texNombre(a1, 0))}$ est n'est pas un multiple de $${miseEnEvidence(texNombre(q, 0))}$
+        car le reste de la division euclidienne de ${texNombre(a1, 0)} par $${texNombre(b, 0)}$ n'est pas $0$.`
         this.setReponse(i, [[String(a1), String(b)], [String(a1), String(q)],
           [String(b), String(a1)], // réponses absurdes mais vraies !
           [String(q), String(a1)],

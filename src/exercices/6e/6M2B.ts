@@ -1,10 +1,10 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { shuffle } from '../../lib/outils/arrayOutils'
 import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Connaître la formule de l’aire d’un carré ou d’un rectangle'
 export const interactifReady = true
@@ -153,7 +153,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
             choixListeDeroulantePourCeCas.push([{ label: 'Choisir une proposition', value: '' }, ...shuffle(choixListeDeroulante[2])])
             choixListeDeroulantePourCeCas.push([{ label: 'Choisir une proposition', value: '' }, ...shuffle(choixListeDeroulante[1])])
             this.typeDeQuestions[i] = 'operation'
-            texteCorr = `Aire d'un carré =  ${texteEnCouleurEtGras('sa longueur')} $${miseEnEvidence('\\times')}$ ${texteEnCouleurEtGras('sa largeur')}`
+            texteCorr = `Aire d'un rectangle =  ${texteEnCouleurEtGras('sa longueur')} $${miseEnEvidence('\\times')}$ ${texteEnCouleurEtGras('sa largeur')}`
             break
           case 6 :
             texteFixe.push(`On a un rectangle dont on connaît la longueur et la largeur (notée respectivement $L$ et $l$) et dont on peut trouver le périmètre $p$.<br>
@@ -165,7 +165,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
             choixListeDeroulantePourCeCas.push([{ label: 'Choisir une proposition', value: '' }, ...shuffle(choixListeDeroulante[2])])
             choixListeDeroulantePourCeCas.push([{ label: 'Choisir une proposition', value: '' }, ...shuffle(choixListeDeroulante[3])])
             this.typeDeQuestions[i] = 'operation'
-            texteCorr = `Aire d'un carré =  ${texteEnCouleurEtGras('L')} $${miseEnEvidence('\\times')}$ ${texteEnCouleurEtGras('l')}`
+            texteCorr = `Aire d'un rectangle =  ${texteEnCouleurEtGras('L')} $${miseEnEvidence('\\times')}$ ${texteEnCouleurEtGras('l')}`
             break
         }
 

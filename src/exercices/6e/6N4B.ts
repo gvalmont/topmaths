@@ -1,23 +1,23 @@
-import { polygone } from '../../lib/2d/polygones'
-import { areSameArray, completerNombresUniques, compteOccurences, enleveDoublonNum, remplaceDansTableau, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
-import { listePatternAffineOuLineaire, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
-import { createList } from '../../lib/format/lists'
-import { texNombre } from '../../lib/outils/texNombre'
-import { texteParPosition } from '../../lib/2d/textes'
-import { point } from '../../lib/2d/points'
 import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
-import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { context } from '../../modules/context'
+import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
+import { listePatternsFor6N4B, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { range1 } from '../../lib/outils/nombres'
+import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { texteParPosition } from '../../lib/2d/textes'
 import { bleuMathalea } from '../../lib/colors'
+import { createList } from '../../lib/format/lists'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { areSameArray, completerNombresUniques, compteOccurences, enleveDoublonNum, remplaceDansTableau, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { range1 } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Identifier la structure d\'un motif (itératif)'
 export const interactifReady = true
@@ -71,11 +71,11 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.sup2 = '7'
 
     this.besoinFormulaire3Numerique = [
-      'Numéro du motif (choisi entre 11 et 99).\nMettre 100 pour laisser le hasard choisir ', 100
+      'Numéro du motif (choisi entre 11 et 99).\nMettre 100 pour laisser le hasard choisir ', listePatternsFor6N4B.length
     ]
     this.sup3 = '0'
 
-    const maxNumPattern = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1)).length
+    const maxNumPattern = listePatternsFor6N4B.length
     this.besoinFormulaire4Texte = [
       'Numéro de pattern', [
         'Nombres séparés par des tirets :',
@@ -99,7 +99,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.destroyers.forEach(destroy => destroy())
     this.destroyers.length = 0
     // on ne conserve que les linéaires et les affines sans ratio, ni fraction, ni multiple shape
-    const listePatternReference = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1))
+    const listePatternReference = listePatternsFor6N4B
 
     let listePattern = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
@@ -133,7 +133,8 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
       const objetsCorr: NestedObjetMathalea2dArray = []
       const pat = listePreDef[i]
-      const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', shapes: ['cube'], prefixId: `Ex${this.numeroExercice}Q${i}` }) : new VisualPattern([])
+      // const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', shapes: ['cube'], prefixId: `Ex${this.numeroExercice}Q${i}` }) : new VisualPattern([])
+      const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', prefixId: `Ex${this.numeroExercice}Q${i}`, shapes: ['cube'] }) : new VisualPattern([])
       if ('iterate3d' in pattern) {
         pattern.shape = shapeCubeIso() as Shape3D
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
@@ -146,7 +147,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           if (shape in listeShapes2DInfos) {
             objetsCorr.push(listeShapes2DInfos[shape].shapeDef)
           } else {
-            throw new Error(`Shape ${shape} not found in listeShapesDef or emojis.`)
+            throw new Error(`Shape ${shape} not found in listeShapes2DInfos or emojis.`)
           }
         }
       }
@@ -167,7 +168,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
             if (shape in listeShapes2DInfos) {
               figures[j].push(listeShapes2DInfos[shape].shapeDef)
             } else {
-              throw new Error(`Shape ${shape} not found in listeShapesDef or emojis.`)
+              throw new Error(`Shape ${shape} not found in listeShapes2DInfos or emojis.`)
             }
           }
         }
@@ -214,13 +215,14 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       let texteCorr = ''
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []
+      const infosShape = pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : { articleCourt: 'de ', nomPluriel: 'cubes' }
 
-      const deMotif = (['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de ') + pattern.shapes[0] + 's'
+      const deMotif = infosShape.articleCourt + infosShape.nomPluriel
 
       let complementCorrection = true
       const delta = pat.fonctionNb(2) - pat.fonctionNb(1)
       const b = pat.fonctionNb(1) - delta
-      const explain = `On constate que le nombre ${deMotif} augmente de $${delta}$ à chaque étape.<br>
+      const explain = `On constate que le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} augmente de $${delta}$ à chaque étape.<br>
         Cependant, il n'y a pas ${delta} ${pattern.shapes[0]}s sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut multiplier le numéro du motif par ${delta} et ${b < 0 ? `retirer ${-b}` : `ajouter ${b}`}.<br>`
 
       const colonne1TabCorrection = []
@@ -245,8 +247,8 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
             numeroMotif = 10
             break
           case 4:
-            this.sup3 = contraindreValeur(11, 100, this.sup3, randint(11, 99))
-            numeroMotif = this.sup3 === 100 ? randint(11, 99) : this.sup3
+            this.sup3 = contraindreValeur(1, 100, this.sup3, randint(11, 99))
+            numeroMotif = this.sup3 === 100 || this.sup3 < 11 ? randint(11, 99) : this.sup3
             break
           case 5:
             numeroMotif = 100
@@ -257,7 +259,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           const nbFormes = pat.fonctionNb(numeroMotif)
           const nbTex = texNombre(nbFormes, 0)
 
-          listeQuestions.push(`\nQuel sera le nombre ${deMotif} dans le motif $${numeroMotif}$ ?<br>${ajouteQuestionMathlive(
+          listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} dans le motif $${numeroMotif}$ ?<br>${ajouteQuestionMathlive(
             {
 exercice: this,
               question: indexInteractif++,
@@ -266,7 +268,7 @@ exercice: this,
             }
           )}`)
           listeCorrections.push((complementCorrection ? explain : '') +
-           `Une formule pour trouver le nombre ${deMotif} est donc : $${pat.formule.replaceAll('n', miseEnEvidence(`${numeroMotif}`, bleuMathalea))}=${miseEnEvidence(texNombre(nbFormes))}$.<br>
+           `Une formule pour trouver le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} est donc : $${pat.formule.replaceAll('n', miseEnEvidence(`${numeroMotif}`, bleuMathalea))}=${miseEnEvidence(texNombre(nbFormes))}$.<br>
               Le motif $${numeroMotif}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${pattern.shapes[0]}s.`)
           if (complementCorrection) complementCorrection = false
 
@@ -291,7 +293,7 @@ exercice: this,
           style: 'alpha',
         })
 
-      if (!areSameArray(typesQuestions, [1])) { texteCorr += '<br>Les informations recherchées sont résumées dans ce tableau.<br>' + tableauColonneLigne(['\\text{Numéro du motif}', `\\text{Nombre ${deMotif}}`], colonne1TabCorrection, colonne2TabCorrection) }
+      if (!areSameArray(typesQuestions, [1])) { texteCorr += '<br>Les informations recherchées sont résumées dans ce tableau.<br>' + tableauColonneLigne(['\\text{Numéro du motif}', `\\text{Nombre ${infosShape.articleCourt} ${infosShape.nomPluriel}}`], colonne1TabCorrection, colonne2TabCorrection) }
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

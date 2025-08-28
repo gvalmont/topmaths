@@ -5,15 +5,14 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine from '../../lib/interactif/comparisonFunctions'
-import type { MathfieldElement } from 'mathlive'
 
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '05/04/2024'
+export const dateDeModifImportante = '27/08/2025'
+// Enoncés plus explicites avec la multiplication écrite pour le calcul intermédiaire (donc suppression de la correction personnalisée avec un callback)
 
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
@@ -37,6 +36,7 @@ export default class EgalitesEntreFractions extends Exercice {
     this.consigne = 'Compléter les égalités.'
     this.spacing = 2
     this.spacingCorr = 2
+    this.nbQuestions = 5
   }
 
   nouvelleVersion () {
@@ -102,11 +102,11 @@ export default class EgalitesEntreFractions extends Exercice {
           case 0 :
             texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction('\\ldots\\ldots', d)}$`
             if (this.interactif && context.isHtml) {
-              texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}`, 'fillInTheBlank', '\\ldots')
+              texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}} = \\dfrac{${a} \\times %{champ1}}{${b} \\times %{champ2}} = \\dfrac{%{champ3}}{${d}}`, 'fillInTheBlank', '\\ldots')
               handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                champ1: { value: `${a}\\times ${k}` },
-                champ2: { value: `${b}\\times ${k}` },
+                champ1: { value: `${k}` },
+                champ2: { value: `${k}` },
                 champ3: { value: String(c) }
               })
             }
@@ -141,12 +141,12 @@ export default class EgalitesEntreFractions extends Exercice {
           default:
             texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction(c, '\\ldots\\ldots')}$`
             if (this.interactif && context.isHtml) {
-              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
+              const content = `\\dfrac{${a}}{${b}} = \\dfrac{${a} \\times %{champ1}}{${b} \\times %{champ2}} = \\dfrac{${c}}{%{champ3}}`
               texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
               handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                champ1: { value: `${a}\\times ${k}` },
-                champ2: { value: `${b}\\times ${k}` },
+                champ1: { value: `${k}` },
+                champ2: { value: `${k}` },
                 champ3: { value: String(d) }
               })
             }
@@ -189,72 +189,16 @@ export default class EgalitesEntreFractions extends Exercice {
         }
         c = a * d
 
-        const callback = (exercice: Exercice, question: number) => {
-          let feedback
-          const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
-          const prompts = mfe.getPrompts()
-          const [num1, den1, champ3] = prompts.map(el => engine.parse(mfe.getPromptValue(el)).evaluate().numericValue) as number[]
-          const num2 = choix === 0 ? champ3 : c
-          const den2 = choix === 1 ? champ3 : d
-          if (num1 !== undefined && den1 !== undefined && num2 !== undefined && den2 !== undefined) {
-            const isOk1 = num1 * den2 === num2 * den1 && num1 * den1 * num2 * den2 !== 0
-            if (isOk1) {
-              mfe.setPromptState('champ1', 'correct', true)
-              mfe.setPromptState('champ2', 'correct', true)
-            } else {
-              mfe.setPromptState('champ1', 'incorrect', true)
-              mfe.setPromptState('champ2', 'incorrect', true)
-            }
-            const isOk2 = num2 === a * d
-            if (isOk2) {
-              mfe.setPromptState('champ3', 'correct', true)
-            } else {
-              mfe.setPromptState('champ3', 'incorrect', true)
-            }
-            feedback = isOk1 ? '' : 'Le calcul intermédiaire est faux.<br>'
-            feedback += isOk2 ? '' : 'Le résultat final est faux.'
-            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
-            if (spanReponseLigne != null) {
-              spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
-            }
-
-            const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
-            if (feedback != null && spanFeedback != null && feedback.length > 0) {
-              spanFeedback.innerHTML = '💡 ' + feedback
-              spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
-            }
-            return {
-              isOk: isOk1 && isOk2,
-              feedback,
-              score: {
-                nbBonnesReponses: (isOk1 ? 1 : 0) + (isOk2 ? 1 : 0),
-                nbReponses: 2
-              }
-            }
-          } else {
-            window.notify('Un problème avec la récupération des saisies', { num1, den1, num2, den2, champ3 })
-            return {
-              isOk: false,
-              feedback: 'problème dans le programme',
-              score: {
-                nbBonnesReponses: 0,
-                nbReponses: 2
-              }
-            }
-          }
-        }
-
         switch (choix) {
           case 0 : // Recherche du numérateur
             if (this.interactif && context.isHtml) {
-              const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}`
+              const content = `${a} = \\dfrac{${a} \\times %{champ1}}{1 \\times %{champ2}} = \\dfrac{%{champ3}}{${d}}`
               texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
               handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                champ1: { value: String(a) },
-                champ2: { value: '1' },
+                champ1: { value: String(d) },
+                champ2: { value: String(d) },
                 champ3: { value: String(a * d) },
-                callback
               })
             } else {
               texte = `$${a} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction('\\ldots\\ldots', d)}$`
@@ -293,14 +237,13 @@ export default class EgalitesEntreFractions extends Exercice {
           default:
             texte = `$${a} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction(c, '\\ldots\\ldots\\ldots\\ldots')}$`
             if (this.interactif && context.isHtml) {
-              const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
+              const content = `${a} = \\dfrac{${a} \\times %{champ1}}{1 \\times %{champ2}} = \\dfrac{${c}}{%{champ3}}`
               texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
               handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                champ1: { value: String(a) },
-                champ2: { value: '1' },
+                champ1: { value: String(d) },
+                champ2: { value: String(d) },
                 champ3: { value: String(d) },
-                callback
               })
             }
             if (this.interactif && this.interactifType !== 'mathLive') {

@@ -1,15 +1,16 @@
+import Decimal from 'decimal.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
 export const titre = 'Calculer des produits et des quotients de nombres relatifs'
 export const interactifReady = true
@@ -85,14 +86,22 @@ export default class ProduitsEtQuotientRelatifs extends Exercice {
           if (listeTypesDeNombre[i] < 3) {
             texte = `$${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(b)} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
             texteCorr = texte.split('=')[0] + ' = ' + texNombre(fois(a, b), 1) + '$'
-            handleAnswers(this, i, { reponse: { value: fois(a, b), options: { resultatSeulementEtNonOperation: true } } })
+            if (context.isAmc) {
+              setReponse(this, i, fois(a, b))
+            } else {
+              handleAnswers(this, i, { reponse: { value: fois(a, b), options: { resultatSeulementEtNonOperation: true } } })
+            }
           } else {
             const aF = a as FractionEtendue
             const bF = b as FractionEtendue
             texte = `$${aF.texFSD}\\times ${bF.texFSP} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)}`
             texteCorr = texte.split('=')[0] + ' = ' + aF.texProduitFraction(bF, true) + '$'
             // setReponse(this, i, a.produitFraction(b), { formatInteractif: 'fractionEgale' })
-            handleAnswers(this, i, { reponse: { value: aF.produitFraction(bF).texFraction, options: { resultatSeulementEtNonOperation: true } } })
+            if (context.isAmc) {
+              setReponse(this, i, aF.produitFraction(bF).texFraction, { formatInteractif: 'fractionEgale' })
+            } else {
+              handleAnswers(this, i, { reponse: { value: aF.produitFraction(bF).texFraction, options: { resultatSeulementEtNonOperation: true } } })
+            }
           }
           break
 

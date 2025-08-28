@@ -11,7 +11,8 @@ import { nombreEnLettres } from './nombreEnLettres'
  * Retourne une liste de fractions irréducibles
  * @return {FractionEtendue[]}
  */
-export function obtenirListeFractionsIrreductibles () { // sous forme de fractions
+export function obtenirListeFractionsIrreductibles() {
+  // sous forme de fractions
   return [
     new FractionEtendue(1, 2),
     new FractionEtendue(1, 3),
@@ -43,14 +44,16 @@ export function obtenirListeFractionsIrreductibles () { // sous forme de fractio
     new FractionEtendue(1, 10),
     new FractionEtendue(3, 10),
     new FractionEtendue(7, 10),
-    new FractionEtendue(9, 10)]
+    new FractionEtendue(9, 10),
+  ]
 }
 
 /**
  * Retourne une liste de fractions irréducibles simples (1/2, 1/3, 2/3, 1/5 … 4/5, 1/7 … 6/7)
  * @return {FractionEtendue[]}
  */
-export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de fractions
+export function obtenirListeFractionsIrreductiblesFaciles() {
+  // sous forme de fractions
   return [
     new FractionEtendue(1, 2),
     new FractionEtendue(1, 3),
@@ -64,11 +67,11 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
     new FractionEtendue(3, 7),
     new FractionEtendue(4, 7),
     new FractionEtendue(5, 7),
-    new FractionEtendue(6, 7)
+    new FractionEtendue(6, 7),
   ]
 }
 
-export function listeFractions (...fractions: FractionEtendue[]): ListeFraction {
+export function listeFractions(...fractions: FractionEtendue[]): ListeFraction {
   return new ListeFraction(...fractions)
 }
 
@@ -78,11 +81,15 @@ export function listeFractions (...fractions: FractionEtendue[]): ListeFraction 
  * @param {number|undefined} b
  * @return {FractionEtendue}
  */
-export function fraction (a: number, b: number | undefined): FractionEtendue {
-  if (b === undefined) { // pas d'argument b
+export function fraction(a: number, b: number | undefined): FractionEtendue {
+  if (b === undefined) {
+    // pas d'argument b
     if (a === undefined) {
-      window.notify('fraction de fractions : aucun argument n\'est défini ', { a, b })
-      throw new Error('fraction de fractions : aucun argument n\'est défini ')
+      window.notify("fraction de fractions : aucun argument n'est défini ", {
+        a,
+        b,
+      })
+      throw new Error("fraction de fractions : aucun argument n'est défini ")
     } else {
       if (typeof a === 'number') {
         const frac = rationnalise(a)
@@ -91,26 +98,42 @@ export function fraction (a: number, b: number | undefined): FractionEtendue {
         const frac = rationnalise(Number(a))
         return frac
       }
-      window.notify('fraction de fractions : l\'argument est de type inconvenant ', { a })
-      throw new Error('fraction de fractions : l\'argument est de type inconvenant ')
+      window.notify(
+        "fraction de fractions : l'argument est de type inconvenant ",
+        { a },
+      )
+      throw new Error(
+        "fraction de fractions : l'argument est de type inconvenant ",
+      )
     }
-  } else { // on a un argument b
+  } else {
+    // on a un argument b
     if (a === undefined) {
-      window.notify('fraction de fractions : le premier argument n\'est pas défini ', { a, b })
-      throw new Error('fraction de fractions : le premier argument n\'est pas défini ')
+      window.notify(
+        "fraction de fractions : le premier argument n'est pas défini ",
+        { a, b },
+      )
+      throw new Error(
+        "fraction de fractions : le premier argument n'est pas défini ",
+      )
     } else {
       if (typeof a === 'number' && typeof b === 'number') {
         return new FractionEtendue(a, b)
       } else if (!isNaN(b) && !isNaN(a)) {
         return new FractionEtendue(Number(a), Number(b))
       }
-      window.notify('fraction de fractions : les arguments sont de type inconvenant ', { a, b })
-      throw new Error('fraction de fractions : les arguments sont de type inconvenant ')
+      window.notify(
+        'fraction de fractions : les arguments sont de type inconvenant ',
+        { a, b },
+      )
+      throw new Error(
+        'fraction de fractions : les arguments sont de type inconvenant ',
+      )
     }
   }
 }
 
-export function denominateurEnLettre (den: number, pluriel: string): string {
+export function denominateurEnLettre(den: number, pluriel: boolean): string {
   let denEnLettre
   switch (den) {
     case 2:
@@ -123,6 +146,7 @@ export function denominateurEnLettre (den: number, pluriel: string): string {
       return pluriel ? 'neuvièmes' : 'neuvième'
     default:
       denEnLettre = nombreEnLettres(den)
+      if (den === 5) return pluriel ? 'cinquièmes' : 'cinquième'
       if (!denEnLettre.endsWith('e')) {
         return `${denEnLettre}ième${pluriel ? 's' : ''}`
       }

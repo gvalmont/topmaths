@@ -568,7 +568,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: carreDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de',
+    articleCourt: 'de ',
   },
   carréRond: {
     shape2D: shapeCarreArrondi,
@@ -577,7 +577,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: carreRondDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de',
+    articleCourt: 'de ',
   },
   losange: {
     shape2D: shapeLosange,
@@ -586,7 +586,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: losangeDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de',
+    articleCourt: 'de ',
   },
   hexagone: {
     shape2D: shapeHexagone,
@@ -605,7 +605,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: pentagoneDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   rond: {
     shape2D: shapeRond,
@@ -614,7 +614,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: rondDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   balle: {
     shape2D: shapeBalle,
@@ -623,7 +623,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: balleDef,
     articleSingulier: 'une',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   triangle: {
     shape2D: shapeTriangleEquilateral,
@@ -632,7 +632,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: triangleEquilateralDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   redCross: {
     shape2D: shapeRedCross,
@@ -641,7 +641,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: redCrossDef,
     articleSingulier: 'une',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   carréBleu: {
     shape2D: shapeCarreBleu,
@@ -650,7 +650,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: carreBleuDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   hexagoneJaune: {
     shape2D: shapeHexagoneJaune,
@@ -668,7 +668,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: rectangleBlancDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   rectangleVert: {
     shape2D: shapeRectangle,
@@ -677,7 +677,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: rectangleDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   allumetteV: {
     shape2D: shapeAllumette,
@@ -722,7 +722,7 @@ export const listeShapes2DInfos: Record<
     shapeDef: segmentHorizontalDef,
     articleSingulier: 'un',
     articlePluriel: 'des',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   smiley: {
     shape2D: emoji('smiley', '1f603'),
@@ -731,7 +731,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'smiley',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   heart: {
     shape2D: emoji('heart', '2764'),
@@ -740,7 +740,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'cœur',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   thumbsUp: {
     shape2D: emoji('thumbsUp', '1f44d'),
@@ -749,7 +749,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'pouce levé',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   étoile: {
     shape2D: emoji('étoile', '2b50'),
@@ -767,7 +767,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'part de pizza',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   licorne: {
     shape2D: emoji('licorne', '1f984'),
@@ -776,7 +776,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'licorne',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   chien: {
     shape2D: emoji('chien', '1f436'),
@@ -785,7 +785,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'chien',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   chat: {
     shape2D: emoji('chat', '1f431'),
@@ -794,7 +794,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'chat',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   souris: {
     shape2D: emoji('souris', '1f42d'),
@@ -803,7 +803,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'souris',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   tortue: {
     shape2D: emoji('tortue', '1f422'),
@@ -812,7 +812,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'tortue',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   pieuvre: {
     shape2D: emoji('pieuvre', '1f419'),
@@ -821,7 +821,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'pieuvre',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   poisson: {
     shape2D: emoji('poisson', '1f41f'),
@@ -830,7 +830,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'poisson',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   papillon: {
     shape2D: emoji('papillon', '1f98b'),
@@ -839,7 +839,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'papillon',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   fantome: {
     shape2D: emoji('fantome', '1f47b'),
@@ -848,7 +848,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'fantôme',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   dragon: {
     shape2D: emoji('dragon', '1f409'),
@@ -857,7 +857,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'dragon',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   feu: {
     shape2D: emoji('feu', '1f525'),
@@ -866,7 +866,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'feu',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   fleur: {
     shape2D: emoji('fleur', '1f33c'),
@@ -875,7 +875,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'fleur',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   etoileBrillante: {
     shape2D: emoji('étoileBrillante', '1f31f'),
@@ -893,7 +893,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'cloche',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   crotte: {
     shape2D: emoji('crotte', '1f4a9'),
@@ -902,7 +902,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'crotte',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   fusee: {
     shape2D: emoji('fusee', '1f680'),
@@ -911,7 +911,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'fusée',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   drapeauDamier: {
     shape2D: emoji('drapeauDamier', '1f3c1'),
@@ -920,7 +920,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'drapeau à damier',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   arcEnCiel: {
     shape2D: emoji('arcEnCiel', '1f308'),
@@ -938,7 +938,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'soleil',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   lune: {
     shape2D: emoji('lune', '1f319'),
@@ -947,7 +947,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'lune',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   nuage: {
     shape2D: emoji('nuage', '2601'),
@@ -956,7 +956,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'nuage',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   cerise: {
     shape2D: emoji('cerise', '1f352'),
@@ -965,7 +965,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'paire de cerises',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   pomme: {
     shape2D: emoji('pomme', '1f34e'),
@@ -974,7 +974,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'pomme',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   biere: {
     shape2D: emoji('biere', '1f37a'),
@@ -983,7 +983,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'bière',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   pingouin: {
     shape2D: emoji('pingouin', '1f427'),
@@ -992,7 +992,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'pingouin',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   banane: {
     shape2D: emoji('banane', '1f34c'),
@@ -1001,7 +1001,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'banane',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   fraise: {
     shape2D: emoji('fraise', '1f353'),
@@ -1010,7 +1010,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'fraise',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   raisin: {
     shape2D: emoji('raisin', '1f347'),
@@ -1019,7 +1019,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'grappe de raisin',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   pasteque: {
     shape2D: emoji('pasteque', '1f349'),
@@ -1028,7 +1028,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'part de pastèque',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   melon: {
     shape2D: emoji('melon', '1f348'),
@@ -1037,7 +1037,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'melon',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   orange: {
     shape2D: emoji('orange', '1f34a'),
@@ -1055,7 +1055,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'citron',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   peche: {
     shape2D: emoji('peche', '1f351'),
@@ -1064,7 +1064,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'pêche',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   poire: {
     shape2D: emoji('poire', '1f350'),
@@ -1073,7 +1073,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'poire',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   ananas: {
     shape2D: emoji('ananas', '1f34d'),
@@ -1091,7 +1091,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'kiwi',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   mangue: {
     shape2D: emoji('mangue', '1f96d'),
@@ -1100,7 +1100,7 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'mangue',
     articlePluriel: 'des',
     articleSingulier: 'une',
-    articleCourt: 'de'
+    articleCourt: 'de '
   },
   explosion: {
     shape2D: emoji('explosion', '1f4a5'),
@@ -1118,6 +1118,6 @@ export const listeShapes2DInfos: Record<
     nomSingulier: 'cadeau',
     articlePluriel: 'des',
     articleSingulier: 'un',
-    articleCourt: 'de'
+    articleCourt: 'de '
   }
 }

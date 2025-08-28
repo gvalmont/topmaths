@@ -65,7 +65,7 @@ export default class NombreInverse extends ExerciceSimple {
         : `Calculer $${Nom}$ sachant que : <br>
          $\\dfrac{1}{${Nom}}=${a}-${texFractionFromString(b, c)}$`
       this.correction = `$\\dfrac{1}{${Nom}}=${a}-${texFractionFromString(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} - \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} - \\dfrac{${b}}{${c}}  =${e.texFraction}$<br><br>
-        L'inverse de $${Nom}$ vaut  $${d.texFraction}$, donc $${Nom}=${miseEnEvidence(`${e.inverse().texFraction}`)}$.`
+        L'inverse de $${Nom}$ vaut  $${e.texFraction}$, donc $${Nom}=${miseEnEvidence(`${e.inverse().texFraction}`)}$.`
       this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}-${texFractionFromString(b, c)}$`// 'Compléter'
       this.canReponseACompleter = `$${Nom}=\\ldots$`
       this.optionsChampTexte = { texteAvant: `<br>$${Nom}=$` }

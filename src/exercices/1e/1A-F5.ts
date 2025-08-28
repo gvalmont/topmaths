@@ -1,16 +1,15 @@
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
-import type FractionEtendue from '../../modules/FractionEtendue'
+import { reduireAxPlusB } from '../../lib/outils/ecritures'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
+
 import ExerciceQcmA from '../ExerciceQcmA'
 /**
- * @author Gilles Mora (et Claude)
+ * @author Gilles Mora
  *
  */
-export const uuid = '6fc42'
+export const uuid = 'cf226'
 export const refs = {
   'fr-fr': ['1A-F5'],
   'fr-ch': []
@@ -19,97 +18,156 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Retrouver une fonction affine à partir de son tableau de signes'
-export const dateDePublication = '10/07/2025'
+export const titre = 'Déterminer le tableau de signes d\'une fonction affine.'
+export const dateDePublication = '27/08/2025'
 
 export default class Auto1AF5 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    const f = (x:number | FractionEtendue) => -3 * Number(x) + 6
-    this.enonce = `On considère une fonction $f$ définie sur $\\mathbb{R}$ dont le tableau de signes est donné ci-dessous. <br><br>
-  ${tableauSignesFonction(f,
-        -10,
-        10,
-        {
-          step: 1,
-          tolerance: 0.1,
-          substituts: [
-            { antVal: -10, antTex: '-\\infty' },
-            { antVal: 10, antTex: '+\\infty' }
-          ]
-        })}<br><br>
-        Parmi les quatre expressions proposées pour la fonction $f$, une seule est possible. `
+    const a = -3
+    const b = 6
+
+    this.enonce = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = ${reduireAxPlusB(a, b)}$.<br><br>
+        Parmi les quatre tableaux de signes proposés, lequel correspond à cette fonction ?`
+
+    // Fonction correcte
+    const fCorrecte = (x: number | FractionEtendue) => -3 * Number(x) + 6
+
+    // Distracteur 1: mauvaise racine (décalage de la fonction)
+    const fDistracteur1 = (x: number | FractionEtendue) => -3 * Number(x) - 6
+
+    // Distracteur 2: signes inversés (coefficient directeur opposé)
+    const fDistracteur2 = (x: number | FractionEtendue) => 3 * Number(x) - 6
+
+    // Distracteur 3: autre fonction affine
+    const fDistracteur3 = (x: number | FractionEtendue) => 2 * Number(x) + 4
+
     this.reponses = [
-      '$f(x)=-3x+6$',
-      '$f(x)=x+2$',
-      '$f(x)=x-2$',
-      '$f(x)=-4x+2$'
+      tableauSignesFonction(fCorrecte, -10, 10, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -10, antTex: '-\\infty' },
+          { antVal: 10, antTex: '+\\infty' }
+        ]
+      }),
+      tableauSignesFonction(fDistracteur1, -10, 10, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -10, antTex: '-\\infty' },
+          { antVal: 10, antTex: '+\\infty' }
+        ]
+      }),
+      tableauSignesFonction(fDistracteur2, -10, 10, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -10, antTex: '-\\infty' },
+          { antVal: 10, antTex: '+\\infty' }
+        ]
+      }),
+      tableauSignesFonction(fDistracteur3, -10, 10, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -10, antTex: '-\\infty' },
+          { antVal: 10, antTex: '+\\infty' }
+        ]
+      })
     ]
-    this.correction = `Parmi les réponses proposées, on cherche la fonction affine qui s'annule en $2$ et dont le coefficient directeur est négatif. En effet, 
-     la droite représentant la fonction $f$ est décroissante car la fonction donne des images positives puis négatives d'après le tableau de signes.<br>
-     Il s'agit de la fonction $f$ définie par  $${miseEnEvidence('f(x)=-3x+6')}$.`
+
+    this.correction = `La fonction $f(x) = ${reduireAxPlusB(a, b)}$ est une fonction affine de coefficient directeur $a = ${a}$ et d'ordonnée à l'origine $b = ${b}$.<br>
+    • La fonction s'annule quand ${reduireAxPlusB(a, b)} = 0$, soit $x = ${new FractionEtendue(-b, a).simplifie().texFraction}$.<br>
+    • Comme $a = ${a} < 0$, la fonction est décroissante : elle est positive avant la racine et négative après.<br>Le tableau de signes de la fonction $f$ est donc le suivant :<br>
+    ${tableauSignesFonction(fCorrecte, -20, 20, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' }
+        ]
+      })}`
   }
 
   versionAleatoire: () => void = () => {
-  // Génération aléatoire de la racine (nombre entier entre -5 et 5, excluant 0)
-    const racine = randint(-5, 5, 0)
+    const a = randint(1, 6) * choice([-1, 1]) // coefficient a de la fonction affine
+    const k1 = randint(1, 100) / 10
+    const k2 = randint(1, 10)
+    const k = choice([k1, k2, k2, k2])
+    const b = a * k // coefficient b de la fonction affine
+    const racineTexe = new FractionEtendue(-b, a).simplifie().texFraction
 
-    // Choix aléatoire entre fonction croissante ou décroissante
-    const estDecroissante = choice([true, false])
+    this.enonce = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = ${reduireAxPlusB(a, b)}$.<br>
+        Parmi les quatre tableaux de signes proposés, lequel correspond à cette fonction ?`
 
-    // Génération du coefficient directeur selon le sens de variation
-    const coefficients = estDecroissante ? [-4, -3, -2, -1] : [1, 2, 3, 4]
-    const a = choice(coefficients)
+    // Fonction correcte
+    const fCorrecte = (x: number | FractionEtendue) => a * Number(x) + b
 
-    // Calcul du terme constant : b = -a * racine (pour que f(racine) = 0)
-    const b = -a * racine
+    // Distracteur 1: coefficient directeur opposé (signes inversés)
+    const fDistracteur1 = (x: number | FractionEtendue) => (-a) * Number(x) + b
 
-    // Définition de la fonction f(x) = ax + b
-    const f = (x: number | FractionEtendue) => a * Number(x) + b
+    // Distracteur 2: ordonnée à l'origine opposée (racine déplacée)
+    const fDistracteur2 = (x: number | FractionEtendue) => a * Number(x) + (-b)
 
-    this.enonce = `On considère une fonction $f$ définie sur $\\mathbb{R}$ dont le tableau de signes est donné ci-dessous. <br><br>
-${tableauSignesFonction(f,
-    -10,
-    10,
-    {
-      step: 1,
-      tolerance: 0.1,
-      substituts: [
-        { antVal: -10, antTex: '-\\infty' },
-        { antVal: 10, antTex: '+\\infty' }
-      ]
-    })}<br><br>
-    Parmi les quatre expressions proposées pour la fonction $f$, une seule est possible. `
+    // Distracteur 3: les deux opposés
+    const fDistracteur3 = (x: number | FractionEtendue) => (-a) * Number(x) + (-b)
 
-    // Construction de la bonne réponse
-    const bonneReponse = `$f(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$`
+    this.reponses = [
+      tableauSignesFonction(fCorrecte, -20, 20, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' }
+        ]
+      }),
+      tableauSignesFonction(fDistracteur1, -20, 20, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' }
+        ]
+      }),
+      tableauSignesFonction(fDistracteur2, -20, 20, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' }
+        ]
+      }),
+      tableauSignesFonction(fDistracteur3, -20, 20, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' }
+        ]
+      })
+    ]
 
-    // Distracteur 1: même racine mais coefficient directeur de signe opposé
-    const a1 = estDecroissante ? choice([1, 2, 3, 4]) : choice([-4, -3, -2, -1])
-    const b1 = -a1 * racine
-    const distracteur1 = `$f(x)=${rienSi1(a1)}x${ecritureAlgebrique(b1)}$`
+    const sensVariation = a > 0 ? 'croissante' : 'décroissante'
+    const explicationSignes = a > 0
+      ? 'elle est négative avant la racine et positive après'
+      : 'elle est positive avant la racine et négative après'
 
-    // Distracteur 2:
-
-    const distracteur2 = `$f(x)=${rienSi1(racine)}x$`
-
-    // Distracteur 3: racine opposée avec les bons signes dans le tableau
-    const racineOpposee = -racine
-    const a3 = estDecroissante ? choice([-4, -3, -2, -1]) : choice([1, 2, 3, 4])
-    const b3 = -a3 * racineOpposee
-    const distracteur3 = `$f(x)=${rienSi1(a3)}x${ecritureAlgebrique(b3)}$`
-
-    // Construction du tableau des réponses (bonne réponse en premier)
-    this.reponses = [bonneReponse, distracteur1, distracteur2, distracteur3]
-
-    this.correction = `Parmi les réponses proposées, on cherche la fonction affine qui s'annule en $${texNombre(racine)}$ et dont le coefficient directeur est ${a < 0 ? 'négatif' : 'positif'}. En effet, 
- la droite représentant la fonction $f$ est ${a < 0 ? 'décroissante' : 'croissante'} car la fonction donne des images ${a < 0 ? 'positives puis négatives' : 'négatives puis positives'} d'après le tableau de signes.<br>
- Il s'agit de la fonction $f$ définie par $${miseEnEvidence(`f(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}`)}$.`
+    this.correction = `La fonction $f(x) = ${reduireAxPlusB(a, b)}$ est une fonction affine de coefficient directeur $a = ${a}$ et d'ordonnée à l'origine $b = ${b}$.<br>
+    • La fonction s'annule quand $${reduireAxPlusB(a, b)} = 0$, soit $x = ${racineTexe}$.<br>
+    • Comme $a = ${a} ${a > 0 ? '> 0' : '< 0'}$, la fonction est ${sensVariation} : ${explicationSignes}.<br>
+    Le tableau de signes de la fonction $f$ est donc le suivant :<br>
+    ${tableauSignesFonction(fCorrecte, -20, 20, {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' }
+        ]
+      })}`
   }
 
-  // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor () {
     super()
-    // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }
 }

@@ -1,10 +1,10 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { createList } from '../../lib/format/lists'
-import { fraction } from '../../modules/fractions'
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Distance d\'un point à une droite'
 export const interactifReady = true
@@ -74,7 +74,7 @@ export default class DistancePointDroite extends Exercice {
         AB2 = yA - y0
         AB3 = zA - z0
         a = u1 ** 2 + u2 ** 2 + u3 ** 2
-        b = 2 * (AB1 * u1 + AB2 * u2 + AB3 * u3)
+        b = -2 * (AB1 * u1 + AB2 * u2 + AB3 * u3)
 
         c = AB1 ** 2 + AB2 ** 2 + AB3 ** 2
         delta = b ** 2 - 4 * a * c

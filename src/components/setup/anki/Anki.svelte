@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from '../../../lib/stores/generalStore'
+  import type TypeExercice from '../../../exercices/Exercice'
+  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea.js'
+  import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
   import Footer from '../../Footer.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea.js'
-  import type TypeExercice from '../../../exercices/Exercice'
-  import { referentielLocale } from '../../../lib/stores/languagesStore'
 
   type TypeNote = {
     deckName: string

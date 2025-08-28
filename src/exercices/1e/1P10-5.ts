@@ -56,7 +56,8 @@ export default class ProlemesE3CProbabiltesCond extends Exercice {
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, texteCorr, cpt = 0, P, a, pA, pB, pBb, u1, u2, omega, omegaC, omega3, pAsachantB, pAbsachantB, pAsachantBb, pBsachantA, pAbinterBb, pAbinterB, pAinterBb, pAinterB, pBsachantAb, pAb, pBbsachantA, pBbsachantAb, objets, objetsC, objets3, listeEV, ev, textePAbinterB, textePAbinterBb, textePAinterBb, textePAsachantB, texteProbaTotaleB, textePAbsachantB, textePAsachantBb, textePAinterB; i < this.nbQuestions && cpt < 50;) {
-      listeEV = listeTypeDeQuestions[i] === 1 ? [['M', 'T'], ['A', 'S'], ['M', 'S'], ['A', 'T']] : listeTypeDeQuestions[i] === 2 ? [['S', 'D'], ['S', 'R'], ['A', 'T'], ['K', 'L']] : listeTypeDeQuestions[i] === 3 ? [['C', 'G'], ['F', 'G'], ['E', 'G']] : listeTypeDeQuestions[i] === 4 ? [['F', 'A'], ['L', 'A'], ['F', 'C']] : listeTypeDeQuestions[i] === 5 ? [['A', 'V'], ['A', 'G'], ['I', 'G']] : listeTypeDeQuestions[i] === 6 ? [['C', 'E'], ['C', 'F'], ['S', 'E']] : listeTypeDeQuestions[i] === 7 ? [['S', 'M'], ['S', 'T'], ['S', 'M']] : [['C', 'G'], ['F', 'G'], ['E', 'G']]
+      listeEV = listeTypeDeQuestions[i] === 1 ? [['M', 'T'], ['A', 'S'], ['M', 'S'], ['A', 'T']] : listeTypeDeQuestions[i] === 2 ? [['S', 'D'], ['S', 'R'], ['A', 'T'], ['K', 'L']] : listeTypeDeQuestions[i] === 3 ? [['C', 'G'], ['F', 'G'], ['E', 'G']] : listeTypeDeQuestions[i] === 4 ? [['F', 'A'], ['L', 'A'], ['F', 'C']] : listeTypeDeQuestions[i] === 5 ? [['A', 'V'], ['A', 'G'], ['I', 'G']] : listeTypeDeQuestions[i] === 6 ? [['C', 'E'], ['C', 'F'], ['S', 'E']] :
+       listeTypeDeQuestions[i] === 7 ? [ ['M', 'S'], ['T', 'S'], ['L', 'S']] : [['C', 'G'], ['F', 'G'], ['E', 'G']]
       ev = choice(listeEV)
       P = prenomM()
       u1 = randint(3, 7)
@@ -594,8 +595,8 @@ On choisit au hasard un voyageur franchissant un portique. <br>
 On note :`
           texte += createList({
             items: [
-`$${ev[0]}$ l'événement : « Le voyageur fait sonner le portique » ;`,
-`$${ev[1]}$ l'événement : « Le voyageur porte un objet métallique » .`
+`$${ev[1]}$ l'événement : « Le voyageur fait sonner le portique » ;`,
+`$${ev[0]}$ l'événement : « Le voyageur porte un objet métallique » .`
             ],
             style: 'fleches'
           })

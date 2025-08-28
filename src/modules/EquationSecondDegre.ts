@@ -1,14 +1,14 @@
 import { sqrt } from 'mathjs'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../lib/outils/ecritures'
-import FractionEtendue from './FractionEtendue'
-import { shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
-import { randint } from './outils'
-import { getLang } from '../lib/stores/languagesStore'
-import { pgcd } from '../lib/outils/primalite'
-import { extraireRacineCarree } from '../lib/outils/calculs'
-import { miseEnEvidence } from '../lib/outils/embellissements'
-import PolynomePlusieursVariables from '../lib/mathFonctions/PolynomePlusieursVariables'
 import MonomePlusieursVariables from '../lib/mathFonctions/MonomePlusieursVariables'
+import PolynomePlusieursVariables from '../lib/mathFonctions/PolynomePlusieursVariables'
+import { shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
+import { extraireRacineCarree } from '../lib/outils/calculs'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../lib/outils/ecritures'
+import { miseEnEvidence } from '../lib/outils/embellissements'
+import { pgcd } from '../lib/outils/primalite'
+import { getLang } from '../lib/stores/languagesStore'
+import FractionEtendue from './FractionEtendue'
+import { randint } from './outils'
 
 interface Options {
   format: string;
@@ -319,16 +319,16 @@ class EquationSecondDegre {
         expr = expr + '0'
       } else if (!(this.coefficients[i].num === 0) && checkPreviousNull) {
         if (nomVal[i] === '') {
-          expr = expr + `${this.coefficients[i].texFSD}${nomVal[i]}`
+          expr = expr + `${this.coefficients[i].texFSD}`
         } else {
           expr = expr + `${rienSi1(this.coefficients[i])}${nomVal[i]}`
         }
         checkPreviousNull = false
       } else if (!(this.coefficients[i].num === 0) && !checkPreviousNull) {
         if (nomVal[i] === '') {
-          expr = expr + `${ecritureAlgebrique(this.coefficients[i])}${nomVal[i]}`
+          expr += `${ecritureAlgebrique(this.coefficients[i].simplifie())}`
         } else {
-          expr = expr + `${ecritureAlgebriqueSauf1(this.coefficients[i])}${nomVal[i]}`
+          expr += `${ecritureAlgebriqueSauf1(this.coefficients[i].simplifie())}${nomVal[i]}`
         }
         checkPreviousNull = false
       }
@@ -340,14 +340,14 @@ class EquationSecondDegre {
         expr = expr + '0'
       } else if (!(this.coefficients[i].num === 0) && checkPreviousNull) {
         if (nomVal[i] === '') {
-          expr = expr + `${this.coefficients[i].texFSD}${nomVal[i]}`
+          expr = expr + `${this.coefficients[i].texFSD}`
         } else {
           expr = expr + `${rienSi1(this.coefficients[i])}${nomVal[i]}`
         }
         checkPreviousNull = false
       } else if (!(this.coefficients[i].num === 0) && !checkPreviousNull) {
         if (nomVal[i] === '') {
-          expr = expr + `${this.coefficients[i].texFSD}${nomVal[i]}`
+          expr = expr + `${this.coefficients[i].texFSD}`
         } else {
           expr = expr + `${ecritureAlgebriqueSauf1(this.coefficients[i])}${nomVal[i]}`
         }

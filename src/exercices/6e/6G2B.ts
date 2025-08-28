@@ -1,15 +1,16 @@
-import Exercice from '../Exercice'
-import figureApigeom from '../../lib/figureApigeom'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Figure from 'apigeom'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import checkCircle from 'apigeom/src/check/checkCircleRadius'
 import type Point from 'apigeom/src/elements/points/Point'
-import { numAlpha, sp } from '../../lib/outils/outilString'
 import Decimal from 'decimal.js'
-import { texNombre } from '../../lib/outils/texNombre'
-import { texteGras } from '../../lib/outils/embellissements'
+import figureApigeom from '../../lib/figureApigeom'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texteGras } from '../../lib/outils/embellissements'
+import { numAlpha, sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Utiliser la définition du cercle et du disque'
 
@@ -122,11 +123,17 @@ export default class nomExercice extends Exercice {
       this.figuresApiGeom[i].options.fillColorAndBorderColorAreSame = true
       this.figuresApiGeom[i].options.changeColorChangeActionToSetOptions = true
 
-      texte += figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], idAddendum: '6GXX' + i, defaultAction: 'DRAG' })
-      texteCorr += figureApigeom({ exercice: this, i, figure: this.figuresApiGeomCorr[i], idAddendum: '6GXXCor' + i })
       this.figuresApiGeomCorr[i].isDynamic = false
       this.figuresApiGeomCorr[i].divButtons.style.display = 'none'
       this.figuresApiGeomCorr[i].divUserMessage.style.display = 'none'
+
+      texte += context.isHtml
+        ? figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], idAddendum: '6GXX' + i, defaultAction: 'DRAG' })
+        : ('<br>' + this.figuresApiGeom[i].latex({ includePreambule: false }))
+
+      texteCorr += context.isHtml
+        ? figureApigeom({ exercice: this, i, figure: this.figuresApiGeomCorr[i], idAddendum: '6GXXCor' + i })
+        : this.figuresApiGeomCorr[i].latex({ includePreambule: false })
 
       if (this.questionJamaisPosee(i, texte)) {
         if (!this.interactif) {

@@ -1,20 +1,20 @@
+import Decimal from 'decimal.js'
+import { isNumber } from 'mathjs'
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { listeShapes2DInfos, shapeNames, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { type PatternRiche3D, type PatternRiche, listePatternAffineOuLineaire } from '../../lib/2d/patterns/patternsPreDef'
+import { listePatternAffineOuLineaire, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { choice } from '../../lib/outils/arrayOutils'
-import Decimal from 'decimal.js'
-import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { isNumber } from 'mathjs'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Liste des patterns disponibles pour l\'exercice 6I13'
 export const dateDePublication = '23/07/2025'
@@ -95,19 +95,11 @@ export default class ListePatternsPreDef6I13 extends Exercice {
         const n43 = !('nbMotifMin' in pat)
           ? new Decimal(pat.fonctionNb(43)).toString()
           : null
-        /*  const n43R = !('nbMotifMin' in pat)
-          ? pat.fonctionRatio
-            ? pat.fonctionRatio(43).values.map((el) => new Decimal(el).toString()).join('~:~')
-            : null
-          : null
-        const n43F = !('nbMotifMin' in pat)
-          ? pat.fonctionFraction && pat.fonctionRatio
-            ? `\\dfrac{${(pat.fonctionRatio(43).values[0] ?? 0).toString()}}{${new Decimal(pat.fonctionNb(43)).toString()}}`
-            : null
-          : null
-        */
-        // texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule ?? '')}\\right]$ <br>`
-        texte += `${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:<br> Pour le motif 43, il y a ${n43} ${'shapes' in pat ? pat.shapes + 's' : 'cubes'}.<br>`
+        const infosShape = pat.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pat.shapes[0]] : { articleCourt: 'de ', nomPluriel: 'cubes' }
+
+        const nom = infosShape.nomPluriel
+
+        texte += `${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:<br> Pour le motif 43, il y a ${n43} ${nom}.<br>`
         texte += `Pour le motif $${miseEnEvidence('n', bleuMathalea)}$, il y a $${miseEnEvidence(pat.formule, bleuMathalea)}$ éléments.<br>`
 
         const patternRiche = pat

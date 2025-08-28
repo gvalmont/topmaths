@@ -1,21 +1,21 @@
-import { polygone } from '../../lib/2d/polygones'
-import { completerNombresUniques, compteOccurences, enleveDoublonNum, remplaceDansTableau, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
-import { listePatternAffineOuLineaire, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
-import { createList } from '../../lib/format/lists'
-import { texNombre } from '../../lib/outils/texNombre'
-import { texteParPosition } from '../../lib/2d/textes'
-import { point } from '../../lib/2d/points'
 import { cubeDef, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
-import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { context } from '../../modules/context'
+import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
+import { listePatternsFor5I13, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
+import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { texteParPosition } from '../../lib/2d/textes'
+import { createList } from '../../lib/format/lists'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { compteOccurences, enleveDoublonNum, remplaceDansTableau, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range1 } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Identifier la structure d\'un motif (itératif)'
 export const interactifReady = true
@@ -67,15 +67,9 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     ]
     this.sup2 = '7'
 
-    const maxNumPattern = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1)).length
-    this.besoinFormulaire3Texte = [
-      'Numéro de pattern :', [
-        'Nombres séparés par des tirets :',
-        `* Numéros entre 1 et ${maxNumPattern}`,
-        '* Mettre 0 pour laisser le hasard choisir '
-      ].join('\n')
-    ]
-    this.sup3 = '0'
+    this.besoinFormulaire3Numerique = [
+      'Numéro de pattern si nombre de question = 1 :', listePatternsFor5I13.length]
+    this.sup3 = 1
     this.listePackages = ['twemojis'] // this.listePackages est inutile mais la présence du mot "twemojis" est indispensable pour la sortie LaTeX.
   }
 
@@ -90,21 +84,6 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.destroyers.forEach(destroy => destroy())
     this.destroyers.length = 0
     // on ne conserve que les linéaires et les affines sans ratio, ni fraction, ni multiple shape
-    const listePatternReference = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1))
-
-    let listePattern = gestionnaireFormulaireTexte({
-      nbQuestions: this.nbQuestions,
-      saisie: this.sup3,
-      min: 0,
-      max: listePatternReference.length,
-      melange: 0,
-      defaut: 0,
-      exclus: [0]
-    }).map(Number)
-    listePattern = enleveDoublonNum(listePattern, 0)
-    listePattern = completerNombresUniques(listePattern, this.nbQuestions, listePatternReference.length)
-
-    const listePreDef = shuffle(listePattern.map(i => listePatternReference[i - 1]))
     const nbFigures = contraindreValeur(2, 4, this.sup + 1, 4)
 
     let typesQuestionsInitiales = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 6, defaut: 1, melange: 7, nbQuestions: 5, shuffle: false }).map(Number)
@@ -112,7 +91,10 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     if (typesQuestionsInitiales.length === 6) typesQuestionsInitiales = range1(5)
     let typesQuestions
     let indexInteractif = 0
-    for (let i = 0; i < Math.min(listePatternReference.length, this.nbQuestions);) {
+    const listePreDef = this.nbQuestions === 1
+      ? [listePatternsFor5I13[this.sup3 - 1]]
+      : shuffle(listePatternsFor5I13)
+    for (let i = 0; i < Math.min(listePatternsFor5I13.length, this.nbQuestions);) {
       if (compteOccurences(typesQuestionsInitiales, 6) > 0) {
         typesQuestions = remplaceDansTableau(typesQuestionsInitiales, 6, randint(1, 5, typesQuestionsInitiales))
         typesQuestions = enleveDoublonNum(typesQuestions)
@@ -210,7 +192,8 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       let texteCorr = ''
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []
-      const deMotif = (['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de ') + pattern.shapes[0] + 's'
+      const infosShape = pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : { articleCourt: 'de ', nomPluriel: 'cubes' }
+      const deMotif = `${infosShape.articleCourt}${infosShape.nomPluriel}`
 
       for (const q of typesQuestions) {
         switch (q) {
@@ -231,7 +214,7 @@ exercice: this,
               typeInteractivite: 'mathlive'
             }
           )}`)
-            listeCorrections.push(`Le motif $${nbFigures + 1}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ formes ${deMotif}.<br>
+            listeCorrections.push(`Le motif $${nbFigures + 1}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${infosShape.nomPluriel}.<br>
           ${!typesQuestions.includes(1) ? mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -1, rymin: 0, rxmax: 0, rymax: 1 }), { scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr) : ''}`)
           }
             break
@@ -247,7 +230,7 @@ exercice: this,
               }
             )}
             `)
-            listeCorrections.push(`Le motif $10$ contient $${miseEnEvidence(nbTex)}$ formes ${deMotif}.<br>
+            listeCorrections.push(`Le motif $10$ contient $${miseEnEvidence(nbTex)}$ ${infosShape.nomPluriel}.<br>
             En effet, la formule pour trouver le nombre ${deMotif} est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'))}$.<br>
             ${explain}`)
           }

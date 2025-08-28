@@ -256,7 +256,7 @@ export default class SommeFractionsDecimales extends Exercice {
         texteCorr += `$ $${miseEnEvidence(aRemplacer)}`
 
         // Fin de cette uniformisation
-      }
+      } else texteCorr += '$'
       if (typesDeSolutionsDisponiblesEntiers.includes(1)) {
         texteCorr += `=${miseEnEvidence(texNombre(reponseAMC))}`
       }

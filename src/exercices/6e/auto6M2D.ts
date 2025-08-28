@@ -1,19 +1,26 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import {
+  choice,
+  combinaisonListes,
+  shuffle
+} from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
-export const titre = 'Connaître les multiples égalités d\'une unité de volume'
+export const titre = "Connaître les multiples égalités d'une unité d'aire"
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDePublication = '04/08/2025'
 
 /**
- * Connaître les multiples égalités d'une unité de volume
+ * Connaître les multiples égalités d'une unité d'aire
  * @author Eric Elter
 
  */
@@ -25,32 +32,34 @@ export const refs = {
   'fr-ch': ['']
 }
 
-export default class EgalitessUnitesVolumes extends Exercice {
+export default class EgalitesUnitesAires extends Exercice {
   listeReponses: string[][]
-  constructor () {
+  constructor() {
     super()
 
     this.nbQuestions = 2
-    this.besoinFormulaireTexte = ['Unités désirées', [
-      'Nombres séparés par des tirets  :',
-      '1 : cm³',
-      '2 : dm³',
-      '3 : m³',
-      '4 : Mélange'
-    ].join('\n')
+    this.besoinFormulaireTexte = [
+      'Unités désirées',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : cm³',
+        '2 : dm³',
+        '3 : m³',
+        '4 : Mélange'
+      ].join('\n')
     ]
     this.sup = '2-3'
 
     this.listeReponses = []
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let unitesChoisies = gestionnaireFormulaireTexte({
       max: 3,
       defaut: 4,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup2
+      saisie: this.sup
     }).map(Number)
     unitesChoisies = combinaisonListes(unitesChoisies, 50)
 
@@ -59,7 +68,7 @@ export default class EgalitessUnitesVolumes extends Exercice {
       : 'Compléter'
     this.consigne += '.'
 
-    const choixListeDeroulante:AllChoicesType[] = [
+    const choixListeDeroulante: AllChoicesType[] = [
       [
         { label: '1 000', value: '1000' },
         { label: '100', value: '100' },
@@ -73,11 +82,17 @@ export default class EgalitessUnitesVolumes extends Exercice {
         { label: 'm', value: 'm' }
       ]
     ]
-    let choixListeDeroulantePourCoefficient = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[0])])
-    const choixListeDeroulantePourUnite = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[1])])
+    let choixListeDeroulantePourCoefficient = [
+      { label: 'Choisir', value: '' },
+      ...shuffle(choixListeDeroulante[0])
+    ]
+    const choixListeDeroulantePourUnite = [
+      { label: 'Choisir', value: '' },
+      ...shuffle(choixListeDeroulante[1])
+    ]
 
     const unitesPossibles = ['mm', 'cm', 'dm', 'm']
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const unite = unitesPossibles[unitesChoisies[cpt]] // cpt choisi ici et dans tous les tableaux comme indice par pas assez de questions sinon.
       const sousUnite = unitesPossibles[unitesChoisies[cpt] - 1]
 
@@ -110,7 +125,11 @@ export default class EgalitessUnitesVolumes extends Exercice {
         choix = choice([true, false])
         if (choix) {
           texte += this.interactif
-            ? choixDeroulant(this, 4 * i + 1, choixListeDeroulantePourCoefficient)
+            ? choixDeroulant(
+                this,
+                4 * i + 1,
+                choixListeDeroulantePourCoefficient
+              )
             : '$\\ldots\\ldots\\ldots$'
           texte += ` ${sousUnite} `
           this.listeReponses[i].push('10')
@@ -131,7 +150,11 @@ export default class EgalitessUnitesVolumes extends Exercice {
         choix = choice([true, false])
         if (choix) {
           texte += this.interactif
-            ? choixDeroulant(this, 4 * i + 1, choixListeDeroulantePourCoefficient)
+            ? choixDeroulant(
+                this,
+                4 * i + 1,
+                choixListeDeroulantePourCoefficient
+              )
             : '$\\ldots\\ldots\\ldots$'
           texte += ` ${sousUnite} `
           this.listeReponses[i].push('10')
@@ -167,7 +190,10 @@ export default class EgalitessUnitesVolumes extends Exercice {
       texte += ` ${sousUnite}$^2$ = `
       texteCorr += ` ${sousUnite}$^2$ = `
 
-      choixListeDeroulantePourCoefficient = ([{ label: 'Choisir', value: '' }, ...shuffle(choixListeDeroulante[0])])
+      choixListeDeroulantePourCoefficient = [
+        { label: 'Choisir', value: '' },
+        ...shuffle(choixListeDeroulante[0])
+      ]
       texte += this.interactif
         ? choixDeroulant(this, 4 * i + 3, choixListeDeroulantePourCoefficient)
         : '$\\ldots\\ldots\\ldots$'
@@ -194,10 +220,26 @@ export default class EgalitessUnitesVolumes extends Exercice {
 
   correctionInteractive = (i: number) => {
     const select = []
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${4 * i}`) as HTMLSelectElement)
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${4 * i + 1}`) as HTMLSelectElement)
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${4 * i + 2}`) as HTMLSelectElement)
-    select.push(document.querySelector(`#ex${this.numeroExercice}Q${4 * i + 3}`) as HTMLSelectElement)
+    select.push(
+      document.querySelector(
+        `#ex${this.numeroExercice}Q${4 * i}`
+      ) as HTMLSelectElement
+    )
+    select.push(
+      document.querySelector(
+        `#ex${this.numeroExercice}Q${4 * i + 1}`
+      ) as HTMLSelectElement
+    )
+    select.push(
+      document.querySelector(
+        `#ex${this.numeroExercice}Q${4 * i + 2}`
+      ) as HTMLSelectElement
+    )
+    select.push(
+      document.querySelector(
+        `#ex${this.numeroExercice}Q${4 * i + 3}`
+      ) as HTMLSelectElement
+    )
 
     let isOk = true
     for (let j = 0; j < 4; j++) {
@@ -205,9 +247,15 @@ export default class EgalitessUnitesVolumes extends Exercice {
     }
 
     // const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${4 * i + 3}`)
-    const spanReponseLigne = document.querySelector(`li#exercice${this.numeroExercice}Q${i}`)
+    const spanReponseLigne = document.querySelector(
+      `li#exercice${this.numeroExercice}Q${i}`
+    )
 
-    if (spanReponseLigne == null) window.notify(`Pas trouvé le spanReponseLigne li#exercice${this.numeroExercice}Q${i}`, {})
+    if (spanReponseLigne == null)
+      window.notify(
+        `Pas trouvé le spanReponseLigne li#exercice${this.numeroExercice}Q${i}`,
+        {}
+      )
     if (spanReponseLigne) {
       if (isOk) {
         spanReponseLigne.innerHTML += sp(2) + '😎'

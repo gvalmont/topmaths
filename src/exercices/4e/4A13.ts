@@ -1,5 +1,5 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
-import { listePatternAffineOuLineaire, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
+import { listePatternsFor4A13, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -51,7 +51,7 @@ export default class PaternNum0 extends Exercice {
     this.sup = 3
     this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
     this.sup4 = '6'
-    this.besoinFormulaire5Numerique = ['Numéro de pattern (uniquement si 1 seule question)', 100,]
+    this.besoinFormulaire5Numerique = ['Numéro de pattern (uniquement si 1 seule question)', listePatternsFor4A13.length]
     this.sup5 = 1
   }
 
@@ -65,18 +65,18 @@ export default class PaternNum0 extends Exercice {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
     this.destroyers.forEach(destroy => destroy())
     this.destroyers.length = 0
-    if (this.sup5 > listePatternAffineOuLineaire.length) {
-      this.sup5 = listePatternAffineOuLineaire.length
+    if (this.sup5 > listePatternsFor4A13.length) {
+      this.sup5 = listePatternsFor4A13.length
     }
     if (this.sup5 < 1) {
       this.sup5 = 1
     }
     if (this.nbQuestions > 25) this.nbQuestions = 25
     // on ne conserve que les linéaires et les affines.
-    const listePreDef = (this.nbQuestions === 1
-      ? [listePatternAffineOuLineaire[Number(this.sup5) - 1]]
-      : shuffle(listePatternAffineOuLineaire.slice(0, this.sup2 ?? listePatternAffineOuLineaire.length)))
-      .filter(p => p.fonctionRatio == null && p.fonctionFraction == null && p.type !== 'autre' && p.type !== 'degré3' && p.type !== 'degré2' && p.type !== 'fractal')
+    const listePreDef = this.nbQuestions === 1
+      ? [listePatternsFor4A13[Number(this.sup5) - 1]]
+      : shuffle(listePatternsFor4A13)
+
     const nbFigures = Math.max(2, this.sup)
     const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: 5, shuffle: false }).map(Number)))
     let indexInteractif = 0
@@ -211,7 +211,7 @@ export default class PaternNum0 extends Exercice {
       let texteCorr = ''
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []
-      const infosShape = pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : { articleCourt: 'un', nomPluriel: 'formes' }
+      const infosShape = pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : { articleCourt: 'de ', nomPluriel: 'cubes' }
       for (const q of typesQuestions) {
         switch (q) {
           case 1:
@@ -223,7 +223,7 @@ export default class PaternNum0 extends Exercice {
             const nbFormes = pat.fonctionNb(nbFigures + 1)
             const nbTex = texNombre(nbFormes, 0)
 
-            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} dans le motif $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
+            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} dans le motif $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
               question: indexInteractif++,
@@ -238,7 +238,7 @@ export default class PaternNum0 extends Exercice {
           case 3:{
             const nbFormes = pat.fonctionNb(10)
             const nbTex = texNombre(nbFormes, 0)
-            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} pour le motif $10$ ?<br>${ajouteQuestionMathlive(
+            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} pour le motif $10$ ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
               question: indexInteractif++,
@@ -247,8 +247,8 @@ export default class PaternNum0 extends Exercice {
               }
             )}
             `)
-            listeCorrections.push(`Le motif $10$ contient $${miseEnEvidence(nbTex)}$ ${infosShape.articleCourt} ${infosShape.nomPluriel}.<br>
-            En effet, la formule pour trouver le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'))}$.<br>
+            listeCorrections.push(`Le motif $10$ contient $${miseEnEvidence(nbTex)}$ ${infosShape.nomPluriel}.<br>
+            En effet, la formule pour trouver le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'))}$.<br>
             ${explain}`)
           }
             break
@@ -279,7 +279,7 @@ export default class PaternNum0 extends Exercice {
           case 5:{
             const nbFormes = pat.fonctionNb(100)
             const nbTex = texNombre(nbFormes, 0)
-            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} pour le motif $100$ ?<br>${ajouteQuestionMathlive(
+            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} pour le motif $100$ ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
               question: indexInteractif++,
@@ -289,7 +289,7 @@ export default class PaternNum0 extends Exercice {
             )}
             `)
             listeCorrections.push(`Le motif $100$ contient $${miseEnEvidence(nbTex)}$ ${infosShape.nomPluriel}.<br>
-            En effet, la formule pour trouver le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', '100'))}$.<br>
+            En effet, la formule pour trouver le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', '100'))}$.<br>
             ${explain}`)
           }
             break

@@ -26,7 +26,7 @@ export const amcType = 'qcmMono'
 export const titre = 'Retrouver le tableau de signes d\'un produit de fonctions (graphique)'
 export const dateDePublication = '03/07/2025'
 
-export default class Auto1AF5a extends ExerciceQcmA {
+export default class Auto1AF5b extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     // Version originale avec g(x) = 2x + 6 et h(x) = -x + 1
     const a = 2

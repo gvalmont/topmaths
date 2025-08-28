@@ -1,6 +1,6 @@
-import prefs from '../../helpers/prefs.js'
 import { expect } from '@playwright/test'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 import { runTest } from '../../helpers/run'
 
 async function testV (page: Page) {
@@ -27,7 +27,7 @@ async function testV (page: Page) {
 
   // Go to the page
   const hostname = `http://localhost:${process.env.CI ? '80' : '5173'}/parent`
-  await page.setDefaultTimeout(6000) // Set timeout to 60 seconds
+  await page.setDefaultTimeout(60000) // Set timeout to 60 seconds
   await page.goto(hostname)
 
   await page.getByText('bonjour').waitFor({ state: 'visible' })

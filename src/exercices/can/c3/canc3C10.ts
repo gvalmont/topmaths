@@ -17,7 +17,7 @@ export const dateDePublication = '23/07/2022'
 export const uuid = '06268'
 
 export const refs = {
-  'fr-fr': ['canc3C10'],
+  'fr-fr': ['canc3C10', 'auto6P3B-flash2'],
   'fr-ch': []
 }
 export default class FoisPlusFoisMoins2 extends ExerciceSimple {

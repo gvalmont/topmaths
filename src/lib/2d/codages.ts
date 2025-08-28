@@ -6,11 +6,11 @@ import { angleOriente, codageAngle, codageAngleDroit } from './angles'
 import { arc } from './cercle'
 import { Droite, droite, mediatrice } from './droites'
 import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points'
+import { PointAbstrait } from './points-abstraits'
+import type { Polygone } from './polygones'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs'
 import { Latex2d, latex2d, latexParCoordonnees, tailleDeNbVersLatex, TexteParPoint, texteParPoint, type LetterSizeType } from './textes'
 import { rotation, similitude, translation } from './transformations'
-import type { Polygone } from './polygones'
-import { PointAbstrait } from './points-abstraits'
 
 /**
  * Code le milieu d'un segment
@@ -691,6 +691,9 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
   svg (coeff: number) {
     let code = ''
     if (this.objets == null) return code
+    this.objets.forEach(objet => {
+      objet.opacite = this.opacite
+    })
     for (const objet of this.objets) code += '\n\t' + objet.svg(coeff)
     return code
   }
@@ -698,6 +701,9 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
   tikz () {
     let code = ''
     if (this.objets == null) return code
+    this.objets.forEach(objet => {
+      objet.opacite = this.opacite
+    })
     for (const objet of this.objets) code += '\n\t' + objet.tikz()
     return code
   }

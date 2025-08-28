@@ -1,14 +1,14 @@
 import { texteGras } from '../../lib/format/style'
 import engine from '../../lib/interactif/comparisonFunctions'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import { fraction } from '../../modules/fractions'
-import Trinome from '../../modules/Trinome'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 export const titre = 'Nombre de solutions d\'une équation du second degré à paramètre'
 export const dateDePublication = '30/10/2021'
 
@@ -39,10 +39,10 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       const a = randint(-5, 5, 0)
-      const coefBm = randint(-2, 2)
-      const coefBc = randint(-3, 3)
-      const coefCm = randint(-2, 2)
-      const coefCc = randint(-3, 3)
+      const coefBm = randint(-2, 2, 0)
+      const coefBc = randint(-3, 3, 0)
+      const coefCm = randint(-2, 2, 0)
+      const coefCc = randint(-3, 3, 0)
 
       // Enoncé
       const expr0 = engine.parse(`${coefBm}mx${ecritureAlgebrique(a)}x^2${rienSi1(coefCm)}m${ecritureAlgebriqueSauf1(coefBc)}x${ecritureAlgebrique(coefCc)}`).simplify().latex

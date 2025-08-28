@@ -1,4 +1,4 @@
-import CalculsFractionsSimples from '../c3/c3C23'
+import CalculsFractionsSimples from '../CM/CM2M2H-1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

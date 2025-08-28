@@ -1,5 +1,5 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
-import { listePatternAffine, listePatternDegre2, listePatternDegre3, listePatternLineaire, listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
+import { lisdtePatternsFor5L105, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -7,7 +7,6 @@ import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { cubeDef, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
@@ -44,9 +43,7 @@ export default class PaternNum1 extends Exercice {
     this.comment = 'Cet exercice contient des modèles issus de l\'excellent site : https://www.visualpatterns.org/'
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
-    this.besoinFormulaire2Texte = ['Types de formules au menu (cumulatif)', 'Nombres séparés par des tirets :\n1 : Linéaire\n2 : Affine\n3 : Quadratique\n4 : Cubique\n5 : Mélange']
-    this.sup2 = '1-2'
-    this.besoinFormulaire5Numerique = ['Numéro de modèle (uniquement si 1 seule question)', 100,]
+    this.besoinFormulaire5Numerique = ['Numéro de modèle (uniquement si 1 seule question)', lisdtePatternsFor5L105.length]
     this.sup5 = 1
   }
 
@@ -60,37 +57,16 @@ export default class PaternNum1 extends Exercice {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
     this.destroyers.forEach(destroy => destroy())
     this.destroyers.length = 0
-    if (this.sup5 > listePatternsPreDef.length) {
-      this.sup5 = listePatternsPreDef.length
+    if (this.sup5 > lisdtePatternsFor5L105.length) {
+      this.sup5 = lisdtePatternsFor5L105.length
     }
     if (this.sup5 < 1) {
       this.sup5 = 1
     }
-    const listeSelection: (PatternRiche | PatternRiche3D)[] = []
-    const numbers = new Set(gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 4, defaut: 1, melange: 5, nbQuestions: this.nbQuestions }).map(Number))
-    for (const n of numbers) {
-      switch (n) {
-        case 1:
-          listeSelection.push(...listePatternLineaire)
-          break
-        case 2:
-          listeSelection.push(...listePatternAffine)
-          break
-        case 3:
-          listeSelection.push(...listePatternDegre2)
-          break
-        case 4:
-          listeSelection.push(...listePatternDegre3)
-          break
-        case 5:
-        default:
-          listeSelection.push(...listePatternsPreDef)
-          break
-      }
-    }
+
     const listePreDef = this.nbQuestions === 1
-      ? [listePatternsPreDef[Number(this.sup5) - 1]]
-      : shuffle(listeSelection)
+      ? [lisdtePatternsFor5L105[Number(this.sup5) - 1]]
+      : shuffle(lisdtePatternsFor5L105)
     const nbFigures = Math.max(2, this.sup)
     for (let i = 0; i < this.nbQuestions;) {
       const objetsCorr: NestedObjetMathalea2dArray = []
@@ -188,9 +164,10 @@ export default class PaternNum1 extends Exercice {
 
       const nbFormes = pat.fonctionNb(nbFigures + 1)
       const nbTex = miseEnEvidence(nbFormes)
-      texteCorr += `Le motif de rang $n$ contient $${nbTex}$ formes.<br>`
-      texteCorr += `En effet, la formule pour trouver le nombre de formes est : $${miseEnEvidence(pat.formule.replaceAll('n', 'n'))}$.<br>`
-      texte += `<br>Quel sera le nombre de formes dans le motif au rang $n$ en fonction de $n$ ?<br>${ajouteQuestionMathlive(
+      const infosShape = pat.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pat.shapes[0]] : { articleCourt: 'de ', nomPluriel: 'cubes' }
+      texteCorr += `Le motif de rang $n$ contient $${nbTex}$ ${infosShape.nomPluriel}.<br>`
+      texteCorr += `En effet, la formule pour trouver le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', 'n'))}$.<br>`
+      texte += `<br>Quel sera le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} dans le motif au rang $n$ en fonction de $n$ ?<br>${ajouteQuestionMathlive(
             {
 exercice: this,
               question: i,

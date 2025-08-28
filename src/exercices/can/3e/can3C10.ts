@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Encadrer avec des puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = '3c064'
 
 export const refs = {
-  'fr-fr': ['can3C10','auto6P3B-flash2'],
+  'fr-fr': ['can3C10'],
   'fr-ch': []
 }
 export default class EncadrementAvecPuissancesDe10 extends ExerciceSimple {

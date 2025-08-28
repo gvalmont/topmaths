@@ -1,36 +1,37 @@
+import Decimal from 'decimal.js'
 import renderMathInElement from 'katex/contrib/auto-render'
-import Exercice from '../exercices/Exercice'
-import type TypeExercice from '../exercices/Exercice'
-import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore'
-import { get } from 'svelte/store'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
-import uuidToUrl from '../json/uuidsToUrlFR.json'
-import referentielStaticFR from '../json/referentielStaticFR.json'
-import referentielStaticCH from '../json/referentielStaticCH.json'
 import 'katex/dist/katex.min.css'
-import renderScratch from './renderScratch'
-import { decrypt, isCrypted } from './components/urls'
-import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types'
-import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
-import { handleAnswers, isAnswerValueType, setReponse, type AnswerValueType, type MathaleaSVG, type ReponseComplexe, type Valeur } from './interactif/gestionInteractif'
-import { fonctionComparaison } from './interactif/comparisonFunctions'
+import seedrandom from 'seedrandom'
+import { get } from 'svelte/store'
+import type TypeExercice from '../exercices/Exercice'
+import Exercice from '../exercices/Exercice'
+import ExerciceSimple from '../exercices/ExerciceSimple'
+import referentielStaticCH from '../json/referentielStaticCH.json'
+import referentielStaticFR from '../json/referentielStaticFR.json'
+import uuidToUrl from '../json/uuidsToUrlFR.json'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
-import { canOptions } from './stores/canStore'
-import { getLang, localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore'
-import { delay } from './components/time'
 import { contraindreValeur } from '../modules/outils'
-import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange'
-import { resizeContent } from './components/sizeTools'
-import Decimal from 'decimal.js'
-import { checkForServerUpdate } from './components/version'
 import { showDialogForLimitedTime, showPopupAndWait } from './components/dialogs'
-import { propositionsQcm } from './interactif/qcm'
-import { formaterReponse } from './outils/ecritures'
-import ExerciceSimple from '../exercices/ExerciceSimple'
-import { shuffle } from './outils/arrayOutils'
+import { resizeContent } from './components/sizeTools'
+import { delay } from './components/time'
+import { decrypt, isCrypted } from './components/urls'
+import { checkForServerUpdate } from './components/version'
+import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
+import { fonctionComparaison } from './interactif/comparisonFunctions'
+import { handleAnswers, isAnswerValueType, setReponse, type AnswerValueType, type MathaleaSVG, type ReponseComplexe, type Valeur } from './interactif/gestionInteractif'
 import type ListeDeroulanteElement from './interactif/listeDeroulante/ListeDeroulanteElement'
+import { propositionsQcm } from './interactif/qcm'
+import { shuffle } from './outils/arrayOutils'
+import { formaterReponse } from './outils/ecritures'
+import renderScratch from './renderScratch'
+import { canOptions } from './stores/canStore'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore'
+import { getLang, localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore'
+import type { MySpreadsheetElement } from './tableur/MySpreadSheet'
+import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types'
+import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -1016,6 +1017,27 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
             }
             const time = window.performance.now()
             log(`duration ${answer}: ${(time - starttime)}`)
+            resolve(true)
+          }
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
+        })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('sheet-')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement('#' + answer).then(() => {
+          // La réponse correspond à une feuille de calcul univer
+          const ele = document.querySelector(`#${answer}`) as MySpreadsheetElement
+          if (ele) {
+            const actions = answers[answer].split('&')
+            for (const action of actions) {
+              const [cell, formula] = action.split('->')
+              console.info(cell, formula)
+            }
+            ele.style.pointerEvents = 'none' // Plus possible de modifier la feuille
             resolve(true)
           }
         }).catch((reason) => {

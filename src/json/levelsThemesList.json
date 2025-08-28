@@ -206,26 +206,890 @@
   "canExa": {
     "titre": "Sujets (annales/créations)"
   },
-  "c3C1": {
-    "titre": "Calculs - Niveau 1"
+  "CM1N1": {
+    "titre": "Nombres entiers"
   },
-  "c3C2": {
-    "titre": "Calculs - Niveau 2"
+  "CM1N1A": {
+    "titre": "Comparer et dénombrer des collections en les organisant"
   },
-  "c3C3": {
-    "titre": "Calculs - Niveau 3"
+  "CM1N1B": {
+    "titre": "Construire des collections de cardinal donné"
   },
-  "c3I1": {
-    "titre": "Programmation"
+  "CM1N1C": {
+    "titre": "Connaître et utiliser les relations entre les unités de numération"
   },
-  "c3N1": {
-    "titre": "Numération et fractions - Niveau 1"
+  "CM1N1D": {
+    "titre": "Connaître la suite écrite et la suite orale des nombres jusqu'à 999 999"
   },
-  "c3N2": {
-    "titre": "Numération et fractions - Niveau 2"
+  "CM1N1E": {
+    "titre": "Connaître la valeur des chiffres en fonction de leur position dans un nombre"
   },
-  "c3N3": {
-    "titre": "Numération et fractions - Niveau 3"
+  "CM1N1F": {
+    "titre": "Connaître et utiliser diverses représentations d'un nombre et passer de l'une à l'autre"
+  },
+  "CM1N1G": {
+    "titre": "Comprendre et savoir utiliser les expressions « égal à », « supérieur à », « inférieur à », « compris entre … et … »"
+  },
+  "CM1N1H": {
+    "titre": "Comparer, encadrer, intercaler des nombres entiers en utilisant les symboles =, < et >"
+  },
+  "CM1N1I": {
+    "titre": "Ordonner des nombres dans l'ordre croissant ou décroissant"
+  },
+  "CM1N1J": {
+    "titre": "Savoir placer des nombres et repérer des points sur une demi-droite graduée"
+  },
+  "CM1N1K": {
+    "titre": "Savoir reconnaître les multiples de 2, de 5 et de 10 à partir de leur écriture chiffrée"
+  },
+  "CM1N1L": {
+    "titre": "Savoir déterminer si un nombre entier donné est un multiple d'un nombre entier inférieur ou égal à 10"
+  },
+  "CM1N1M": {
+    "titre": "Savoir déterminer si un nombre entier inférieur ou égal à 10 est un diviseur d'un nombre entier donné"
+  },
+  "CM1N2": {
+    "titre": "Fractions"
+  },
+  "CM1N2A": {
+    "titre": "Savoir interpréter, représenter, écrire et lire des fractions"
+  },
+  "CM1N2B": {
+    "titre": "Savoir écrire une fraction supérieure à 1 comme la somme d'un entier et d'une fraction inférieure à 1"
+  },
+  "CM1N2C": {
+    "titre": "Savoir écrire la somme d'un entier et d'une fraction inférieure à 1 comme une unique fraction"
+  },
+  "CM1N2D": {
+    "titre": "Savoir encadrer une fraction par deux nombres entiers consécutifs"
+  },
+  "CM1N2E": {
+    "titre": "Savoir placer une fraction ou la somme d'un nombre entier et d'une fraction inférieure à un sur une demi-droite graduée"
+  },
+  "CM1N2F": {
+    "titre": "Savoir repérer un point d'une demi-droite graduée par une fraction ou par la somme d'un nombre entier et d'une fraction"
+  },
+  "CM1N2G": {
+    "titre": "Comparer des fractions"
+  },
+  "CM1N2H": {
+    "titre": "Additionner et soustraire des fractions"
+  },
+  "CM1N2I": {
+    "titre": "Déterminer une fraction d'une quantité ou d'une grandeur"
+  },
+  "CM1N3": {
+    "titre": "Nombres décimaux"
+  },
+  "CM1N3A": {
+    "titre": "Interpréter, représenter, écrire et lire des fractions décimales"
+  },
+  "CM1N3B": {
+    "titre": "Connaître et utiliser les relations entre unités simples, dixièmes et centièmes"
+  },
+  "CM1N3C": {
+    "titre": "Placer une fraction décimale sur une demi-droite graduée et repérer un point d'une demi-droite graduée par une fraction décimale"
+  },
+  "CM1N3D": {
+    "titre": "Écrire une fraction décimale supérieure à 1 comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1"
+  },
+  "CM1N3E": {
+    "titre": "Écrire une fraction décimale supérieure à 1 comme la somme d'un nombre entier et de fractions décimales ayant un numérateur inférieur à 10"
+  },
+  "CM1N3F": {
+    "titre": "Comparer, encadrer, intercaler des fractions décimales en utilisant les symboles =, < et >"
+  },
+  "CM1N3G": {
+    "titre": "Ordonner des fractions décimales dans l'ordre croissant ou décroissant"
+  },
+  "CM1N3H": {
+    "titre": "Passer d'une écriture sous forme d'une fraction décimale ou d'une somme de fractions décimales à une écriture à virgule et réciproquement"
+  },
+  "CM1N3I": {
+    "titre": "Interpréter, représenter, écrire et lire des nombres décimaux (écriture à virgule)"
+  },
+  "CM1N3J": {
+    "titre": "Placer un nombre décimal en écriture à virgule sur une demi-droite graduée et repérer un point d'une demi-droite graduée par un nombre décimal"
+  },
+  "CM1N3K": {
+    "titre": "Savoir donner la partie entière et l'arrondi à l'entier d'un nombre décimal"
+  },
+  "CM1N3L": {
+    "titre": "Comparer, encadrer, intercaler, ordonner, par ordre croissant ou décroissant, des nombres décimaux donnés par leur écriture à virgule en utilisant les symboles =, < et >"
+  },
+  "CM1C1": {
+    "titre": "Calcul mental"
+  },
+  "CM1C1A": {
+    "titre": "Connaître des faits numériques usuels relatifs aux nombres entiers"
+  },
+  "CM1C1B": {
+    "titre": "Connaître quelques relations entre des fractions usuelles"
+  },
+  "CM1C1C": {
+    "titre": "Connaître l'écriture décimale de fractions usuelles"
+  },
+  "CM1C1D": {
+    "titre": "Ajouter ou soustraire un nombre entier inférieur à 10, d'unités, de dizaines, de centaines, de dixièmes ou de centièmes à un nombre décimal, lorsqu'il n'y a pas de retenue"
+  },
+  "CM1C1E": {
+    "titre": "Multiplier un nombre entier par 10, 100 ou 1 000"
+  },
+  "CM1C1F": {
+    "titre": "Multiplier un nombre décimal par 10"
+  },
+  "CM1C1G": {
+    "titre": "Diviser un nombre décimal par 10"
+  },
+  "CM1C1H": {
+    "titre": "Ajouter ou soustraire 8, 9, 18, 19, 28, 29, 38 ou 39, à un nombre"
+  },
+  "CM1C1I": {
+    "titre": "Multiplier un nombre entier inférieur à 10 par un nombre entier de dizaines ou de centaines"
+  },
+  "CM1C1J": {
+    "titre": "Multiplier un nombre entier par 4 ou par 8"
+  },
+  "CM1C1K": {
+    "titre": "Multiplier un nombre entier par 5"
+  },
+  "CM1C1L": {
+    "titre": "Utiliser la distributivité de la multiplication par rapport à l'addition dans des cas simples"
+  },
+  "CM1C2": {
+    "titre": "Addition, soustraction, multiplication, division"
+  },
+  "CM1C2A": {
+    "titre": "Estimer le résultat d'une opération"
+  },
+  "CM1C2B": {
+    "titre": "Savoir effectuer un calcul contenant des parenthèses"
+  },
+  "CM1C2C": {
+    "titre": "Poser en colonnes et effectuer des additions et des soustractions de nombres décimaux"
+  },
+  "CM1C2D": {
+    "titre": "Poser et effectuer des multiplications de deux nombres entiers"
+  },
+  "CM1C2E": {
+    "titre": "Poser et effectuer des multiplications d'un nombre décimal par un nombre entier inférieur à 10"
+  },
+  "CM1C2F": {
+    "titre": "Poser et effectuer des divisions euclidiennes avec un diviseur à un chiffre"
+  },
+  "CM1C3": {
+    "titre": "Résolution de problèmes"
+  },
+  "CM1C3A": {
+    "titre": "Résoudre des problèmes additifs en une étape des types « parties-tout » et « comparaison »"
+  },
+  "CM1C3B": {
+    "titre": "Résoudre des problèmes additifs en deux ou trois étapes"
+  },
+  "CM1C3C": {
+    "titre": "Résoudre des problèmes multiplicatifs de type « parties-tout » en une étape"
+  },
+  "CM1C3D": {
+    "titre": "Résoudre des problèmes de comparaison multiplicative"
+  },
+  "CM1C3E": {
+    "titre": "Résoudre des problèmes mixtes en deux ou trois étapes"
+  },
+  "CM1C3F": {
+    "titre": "Résoudre des problèmes de dénombrement"
+  },
+  "CM1C3G": {
+    "titre": "Résoudre des problèmes d'optimisation"
+  },
+  "CM1C4": {
+    "titre": "Algèbre"
+  },
+  "CM1C4A": {
+    "titre": "Trouver le nombre manquant dans une égalité à trous"
+  },
+  "CM1C4B": {
+    "titre": "Déterminer la valeur d'un nombre inconnu en utilisant un symbole ou une lettre pour le représenter"
+  },
+  "CM1C4C": {
+    "titre": "Résoudre des problèmes algébriques"
+  },
+  "CM1C4D": {
+    "titre": "Exécuter un programme de calcul"
+  },
+  "CM1C4E": {
+    "titre": "Identifier et formuler une règle de calcul pour poursuivre une suite de nombres"
+  },
+  "CM1C4F": {
+    "titre": "Identifier des régularités et poursuivre une suite de motifs évolutive"
+  },
+  "CM1M1": {
+    "titre": "Longueurs"
+  },
+  "CM1M1A": {
+    "titre": "Connaître et utiliser les unités de longueur du millimètre au kilomètre et les symboles associés"
+  },
+  "CM1M1B": {
+    "titre": "Connaître les relations entre les unités de longueur"
+  },
+  "CM1M1C": {
+    "titre": "Choisir une unité adaptée pour exprimer une longueur"
+  },
+  "CM1M1D": {
+    "titre": "Comparer des longueurs"
+  },
+  "CM1M1E": {
+    "titre": "Disposer de quelques longueurs de référence"
+  },
+  "CM1M1F": {
+    "titre": "Estimer la longueur d'un objet ou d'une distance"
+  },
+  "CM1M1G": {
+    "titre": "Savoir ce qu'est le périmètre d'une figure plane"
+  },
+  "CM1M1H": {
+    "titre": "Déterminer le périmètre d'un polygone en utilisant une règle graduée"
+  },
+  "CM1M1I": {
+    "titre": "Résoudre des problèmes mettant en jeu les longueurs des côtés d'un polygone et son périmètre"
+  },
+  "CM1M2": {
+    "titre": "Masses"
+  },
+  "CM1M2A": {
+    "titre": "Connaître et utiliser les unités de masse du milligramme au kilogramme et la tonne, et les symboles associés"
+  },
+  "CM1M2B": {
+    "titre": "Connaître les relations entre les unités de masse"
+  },
+  "CM1M2C": {
+    "titre": "Choisir une unité adaptée pour exprimer une masse"
+  },
+  "CM1M2D": {
+    "titre": "Comparer des masses"
+  },
+  "CM1M2E": {
+    "titre": "Disposer de quelques masses de référence"
+  },
+  "CM1M2F": {
+    "titre": "Estimer la masse d'un objet"
+  },
+  "CM1M3": {
+    "titre": "Contenances"
+  },
+  "CM1M3A": {
+    "titre": "Connaître et utiliser les unités de contenance du millilitre à l'hectolitre et les symboles associés"
+  },
+  "CM1M3B": {
+    "titre": "Connaître les relations entre les unités de contenance"
+  },
+  "CM1M3C": {
+    "titre": "Choisir une unité adaptée pour exprimer une contenance"
+  },
+  "CM1M3D": {
+    "titre": "Comparer des contenances"
+  },
+  "CM1M4A": {
+    "titre": "Comparer les aires de différentes figures planes"
+  },
+  "CM1M4": {
+    "titre": "Aires"
+  },
+  "CM1M4B": {
+    "titre": "Déterminer des aires"
+  },
+  "CM1M4C": {
+    "titre": "Connaître et utiliser les centimètres carrés pour exprimer des aires"
+  },
+  "CM1M5A": {
+    "titre": "Utiliser le lexique spécifique associé aux angles"
+  },
+  "CM1M5": {
+    "titre": "Angles"
+  },
+  "CM1M5B": {
+    "titre": "Comprendre et utiliser les notations des angles"
+  },
+  "CM1M5C": {
+    "titre": "Comparer des angles"
+  },
+  "CM1M6A": {
+    "titre": "Lire l'heure sur une horloge à aiguilles"
+  },
+  "CM1M6": {
+    "titre": "Durées"
+  },
+  "CM1M6B": {
+    "titre": "Positionner les aiguilles d'une horloge correspondant à une heure donnée en heure et minute"
+  },
+  "CM1M6C": {
+    "titre": "Comparer et mesurer des durées écoulées entre deux instants affichés sur une horloge (instants et durées sont exprimés en heure et minute)"
+  },
+  "CM1M6D": {
+    "titre": "Résoudre des problèmes à une ou deux étapes impliquant des durées"
+  },
+  "CM1G1": {
+    "titre": "Vocabulaire et outils pour la géométrie"
+  },
+  "CM1G1A": {
+    "titre": "Utiliser le vocabulaire géométrique approprié dans le contexte d'apprentissage des notions correspondantes"
+  },
+  "CM1G1B": {
+    "titre": "Utiliser les outils géométriques usuels : règle, règle graduée, équerre et compas"
+  },
+  "CM1G1C": {
+    "titre": "Connaître les codes usuels utilisés en géométrie"
+  },
+  "CM1G1D": {
+    "titre": "Décrire et reconnaître un cercle et un disque comme un ensemble de points caractérisés par leur distance à un point donné"
+  },
+  "CM1G2": {
+    "titre": "Parallèles et perpendiculaires"
+  },
+  "CM1G2A": {
+    "titre": "Reconnaître et utiliser la notion de perpendicularité"
+  },
+  "CM1G2B": {
+    "titre": "Reconnaître et utiliser la notion de parallélisme"
+  },
+  "CM1G3": {
+    "titre": "Polygones"
+  },
+  "CM1G3A": {
+    "titre": "Reconnaître et nommer les figures suivantes en faisant référence à leur définition : triangle, triangle rectangle, triangle isocèle, triangle équilatéral, quadrilatère, carré, rectangle et losange"
+  },
+  "CM1G3B": {
+    "titre": "Connaître les propriétés de parallélisme des côtés opposés, des égalités de longueurs et d'angles pour les figures usuelles : triangle rectangle, triangle isocèle, triangle équilatéral, carré, rectangle et losange"
+  },
+  "CM1G3C": {
+    "titre": "Reproduire ou construire un carré, un rectangle, un triangle, un triangle rectangle ou un cercle ou des assemblages de ces figures sur tout support (papier quadrillé, pointé ou uni), avec une règle graduée, une équerre ou un compas"
+  },
+  "CM1G3D": {
+    "titre": "Construire une figure géométrique composée de segments, de droites, de polygones usuels et de cercles"
+  },
+  "CM1G4": {
+    "titre": "Symétrie axiale"
+  },
+  "CM1G4A": {
+    "titre": "Reconnaître si une figure possède un ou plusieurs axes de symétrie"
+  },
+  "CM1G4B": {
+    "titre": "Compléter une figure pour la rendre symétrique par rapport à une droite donnée, horizontale ou verticale"
+  },
+  "CM1G4C": {
+    "titre": "Construire, sur papier quadrillé, la figure symétrique d'une figure donnée par rapport à une droite horizontale ou verticale"
+  },
+  "CM1G5": {
+    "titre": "Solides"
+  },
+  "CM1G5A": {
+    "titre": "Nommer un cube, une boule, un pavé, un cône, une pyramide, un cylindre et un prisme droit"
+  },
+  "CM1G5B": {
+    "titre": "Décrire un cube, un pavé, une pyramide et un prisme droit en faisant référence à des propriétés et en utilisant le vocabulaire approprié"
+  },
+  "CM1G5C": {
+    "titre": "Connaître le nombre et la nature des faces d'un cube ou d'un pavé"
+  },
+  "CM1G5D": {
+    "titre": "Connaître la nature des faces d'une pyramide"
+  },
+  "CM1G5E": {
+    "titre": "Connaître la nature des faces d'un prisme droit"
+  },
+  "CM1G5F": {
+    "titre": "Construire un cube, un pavé, une pyramide ou un prisme droit"
+  },
+  "CM1G5G": {
+    "titre": "Reconnaître un patron d'un cube"
+  },
+  "CM1G5H": {
+    "titre": "Construire un patron d'un cube"
+  },
+  "CM1G6": {
+    "titre": "Déplacements"
+  },
+  "CM1G6A": {
+    "titre": "Connaître et utiliser le vocabulaire lié aux déplacements"
+  },
+  "CM1G6B": {
+    "titre": "Comprendre, utiliser et produire une suite d'instructions qui décrivent un déplacement en utilisant un vocabulaire spatial précis"
+  },
+  "CM1G6C": {
+    "titre": "Résoudre des problèmes portant sur des assemblages de cubes"
+  },
+  "CM1D1": {
+    "titre": "Organisation et gestion de données"
+  },
+  "CM1D1A": {
+    "titre": "Recueillir des données et produire un tableau, un diagramme en barres ou un ensemble de points dans un repère pour les présenter"
+  },
+  "CM1D1B": {
+    "titre": "Lire et interpréter les données d'un tableau à simple ou double entrée, d'un diagramme en barres ou d'une courbe"
+  },
+  "CM1D1C": {
+    "titre": "Résoudre des problèmes en une ou plusieurs étapes en utilisant les données d'un tableau à simple ou double entrée, d'un diagramme en barres ou d'une courbe"
+  },
+  "CM1D2": {
+    "titre": "Probabilités"
+  },
+  "CM1D2A": {
+    "titre": "Identifier des expériences aléatoires"
+  },
+  "CM1D2B": {
+    "titre": "Identifier toutes les issues possibles lors d'une expérience aléatoire simple"
+  },
+  "CM1D2C": {
+    "titre": "Comprendre et utiliser le vocabulaire approprié : « impossible », « possible », « certain », « probable », « peu probable », « une chance sur deux »"
+  },
+  "CM1D2D": {
+    "titre": "Comparer des issues d'expériences aléatoires ou des événements selon leur probabilité de réalisation"
+  },
+  "CM1D2E": {
+    "titre": "Comprendre que ce n'est pas parce qu'il y a deux issues possibles que chacune a une chance sur deux de se réaliser"
+  },
+  "CM1D2F": {
+    "titre": "Reconnaître des situations d'équiprobabilité"
+  },
+  "CM1D3": {
+    "titre": "Proportionnalité"
+  },
+  "CM1D3A": {
+    "titre": "Identifier une situation de proportionnalité"
+  },
+  "CM1D3B": {
+    "titre": "Savoir résoudre un problème de proportionnalité"
+  },
+  "CM1I1": {
+    "titre": "Pensée informatique"
+  },
+  "CM1I1A": {
+    "titre": "Utiliser et produire des codages de déplacements"
+  },
+  "CM1I1B": {
+    "titre": "Travailler sur des suites évolutives"
+  },
+  "CM1I1C": {
+    "titre": "Exécuter des programmes de calcul"
+  },
+  "CM1I1D": {
+    "titre": "Réaliser des figures géométriques s'appuyant sur des programmes de construction"
+  },
+  "CM2N1": {
+    "titre": "Nombres entiers"
+  },
+  "CM2N1A": {
+    "titre": "Connaître et utiliser les relations entre les unités de numération"
+  },
+  "CM2N1B": {
+    "titre": "Connaître la suite écrite et la suite orale des nombres jusqu'à 999 999 999"
+  },
+  "CM2N1C": {
+    "titre": "Connaître et utiliser diverses représentations d'un nombre et passer de l'une à l'autre"
+  },
+  "CM2N1D": {
+    "titre": "Connaître la valeur des chiffres en fonction de leur position dans un nombre"
+  },
+  "CM2N1E": {
+    "titre": "Comparer, encadrer, intercaler des nombres entiers en utilisant les symboles =, < et >"
+  },
+  "CM2N1F": {
+    "titre": "Ordonner des nombres dans l'ordre croissant ou décroissant"
+  },
+  "CM2N1G": {
+    "titre": "Placer des nombres et repérer des points sur une demi-droite graduée"
+  },
+  "CM2N1H": {
+    "titre": "Déterminer si un nombre entier inférieur ou égal à 10 est un diviseur d'un nombre entier donné ou si un nombre entier donné est un multiple d'un nombre entier inférieur ou égal à 10"
+  },
+  "CM2N1I": {
+    "titre": "Déterminer des diviseurs d'un nombre entier inférieur ou égal à 100"
+  },
+  "CM2N1J": {
+    "titre": "Déterminer tous les diviseurs d'un nombre entier inférieur ou égal à 30"
+  },
+  "CM2N1K": {
+    "titre": "Déterminer les diviseurs communs à deux nombres entiers inférieurs ou égaux à 30"
+  },
+  "CM2N1L": {
+    "titre": "Déterminer des multiples communs à deux nombres entiers inférieurs à 15"
+  },
+  "CM2N2": {
+    "titre": "Fractions"
+  },
+  "CM2N2A": {
+    "titre": "Interpréter, représenter, écrire et lire des fractions"
+  },
+  "CM2N2B": {
+    "titre": "Écrire une fraction supérieure à 1 comme la somme d'un entier et d'une fraction inférieure à 1"
+  },
+  "CM2N2C": {
+    "titre": "Écrire la somme d'un entier et d'une fraction inférieure à 1 comme une unique fraction"
+  },
+  "CM2N2D": {
+    "titre": "Encadrer une fraction entre deux nombres entiers consécutifs"
+  },
+  "CM2N2E": {
+    "titre": "Placer une fraction ou la somme d'un nombre entier et d'une fraction inférieure à un sur une demi-droite graduée"
+  },
+  "CM2N2F": {
+    "titre": "Repérer un point d'une demi-droite graduée par une fraction ou par la somme d'un nombre entier et d'une fraction"
+  },
+  "CM2N2G": {
+    "titre": "Comparer des fractions"
+  },
+  "CM2N2H": {
+    "titre": "Additionner et soustraire des fractions"
+  },
+  "CM2N2I": {
+    "titre": "Calculer le produit d'un entier et d'une fraction"
+  },
+  "CM2N2J": {
+    "titre": "Déterminer une fraction d'une quantité ou d'une grandeur"
+  },
+  "CM2N2K": {
+    "titre": "Les nombres décimaux"
+  },
+  "CM2N2L": {
+    "titre": "Interpréter, représenter, écrire et lire des fractions décimales"
+  },
+  "CM2N2M": {
+    "titre": "Connaître et utiliser les relations entre unités simples, dixièmes, centièmes et millièmes"
+  },
+  "CM2N2N": {
+    "titre": "Placer une fraction décimale sur une demi-droite graduée et repérer un point d'une demi-droite graduée par une fraction décimale"
+  },
+  "CM2N2O": {
+    "titre": "Écrire une fraction décimale supérieure à 1 comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1"
+  },
+  "CM2N2P": {
+    "titre": "Écrire une fraction décimale supérieure à 1 comme la somme d'un nombre entier et de fractions décimales ayant un numérateur inférieur à 10"
+  },
+  "CM2N2Q": {
+    "titre": "Comparer, encadrer, intercaler des fractions décimales en utilisant les symboles =, < et >"
+  },
+  "CM2N2R": {
+    "titre": "Ordonner des fractions décimales dans l'ordre croissant ou décroissant"
+  },
+  "CM2N2S": {
+    "titre": "Passer d'une écriture sous forme d'une fraction décimale ou de la somme de fractions décimales à une écriture à virgule et réciproquement"
+  },
+  "CM2N2T": {
+    "titre": "Interpréter, représenter, écrire et lire des nombres décimaux (écriture à virgule)"
+  },
+  "CM2N2U": {
+    "titre": "Placer un nombre décimal en écriture à virgule sur une demi-droite graduée et repérer un point d'une demi-droite graduée par un nombre en écriture à virgule"
+  },
+  "CM2N2V": {
+    "titre": "Savoir donner la partie entière et l'arrondi à l'entier d'un nombre décimal"
+  },
+  "CM2N2W": {
+    "titre": "Comparer, encadrer, intercaler, ordonner par ordre croissant ou décroissant des nombres décimaux donnés par leur écriture à virgule en utilisant les symboles =, < et >"
+  },
+  "CM2N3": {
+    "titre": "Calcul mental"
+  },
+  "CM2N3A": {
+    "titre": "Connaître des faits numériques usuels avec des entiers"
+  },
+  "CM2N3B": {
+    "titre": "Connaître la moitié des nombres impairs jusqu'à 15"
+  },
+  "CM2N3C": {
+    "titre": "Connaître quelques relations entre des fractions usuelles"
+  },
+  "CM2N3D": {
+    "titre": "Connaître l'écriture décimale de fractions usuelles"
+  },
+  "CM2N3E": {
+    "titre": "Ajouter ou soustraire un nombre entier à un nombre décimal lorsqu'il n'y a pas de retenue"
+  },
+  "CM2N3F": {
+    "titre": "Ajouter un nombre entier à un nombre décimal lorsqu'il y a une retenue"
+  },
+  "CM2N3G": {
+    "titre": "Multiplier un nombre décimal par 10, 100 ou 1 000"
+  },
+  "CM2N3H": {
+    "titre": "Diviser un nombre décimal par 10, 100 ou 1 000"
+  },
+  "CM2N3I": {
+    "titre": "Ajouter deux nombres décimaux inférieurs à 10, s'écrivant avec au plus un chiffre après la virgule"
+  },
+  "CM2N3J": {
+    "titre": "Ajouter ou soustraire 8, 9, 18, 19, 28, 29, ..., 98 ou 99 à un nombre"
+  },
+  "CM2N3K": {
+    "titre": "Multiplier un nombre entier, inférieur à 10, de dizaines, de centaines ou de milliers par un nombre entier, inférieur à 10, de dizaines, de centaines ou de milliers"
+  },
+  "CM2N3L": {
+    "titre": "Utiliser la distributivité de la multiplication par rapport à l'addition dans des cas simples"
+  },
+  "CM2N3M": {
+    "titre": "Calculer le double d'un nombre décimal dans des cas simples"
+  },
+  "CM2N3N": {
+    "titre": "Calculer la moitié d'un nombre décimal dans des cas simples"
+  },
+  "CM2N3O": {
+    "titre": "Diviser un nombre entier par 4 ou par 8"
+  },
+  "CM2N3P": {
+    "titre": "Multiplier un nombre décimal par 5"
+  },
+  "CM2N3Q": {
+    "titre": "Multiplier un nombre décimal par 50"
+  },
+  "CM2N4": {
+    "titre": "Addition, soustraction, multiplication, division"
+  },
+  "CM2N4A": {
+    "titre": "Estimer le résultat d'une opération"
+  },
+  "CM2N4B": {
+    "titre": "Savoir réaliser un calcul contenant une ou deux paires de parenthèses"
+  },
+  "CM2N4C": {
+    "titre": "Poser et effectuer la multiplication d'un nombre décimal par un nombre entier"
+  },
+  "CM2N4D": {
+    "titre": "Poser et effectuer des divisions décimales avec un dividende entier et un diviseur à un chiffre"
+  },
+  "CM2N4E": {
+    "titre": "Poser et effectuer des divisions décimales avec un dividende décimal et un diviseur à un chiffre"
+  },
+  "CM2N5": {
+    "titre": "Résolution de problèmes"
+  },
+  "CM2N5A": {
+    "titre": "Résoudre des problèmes additifs en une ou plusieurs étapes"
+  },
+  "CM2N5B": {
+    "titre": "Résoudre des problèmes multiplicatifs de type « parties-tout » en une étape"
+  },
+  "CM2N5C": {
+    "titre": "Résoudre des problèmes mixtes en plusieurs étapes"
+  },
+  "CM2N5D": {
+    "titre": "Résoudre des problèmes de comparaison multiplicative"
+  },
+  "CM2N5E": {
+    "titre": "Résoudre des problèmes de dénombrement"
+  },
+  "CM2N5F": {
+    "titre": "Résoudre des problèmes d'optimisation"
+  },
+  "CM2N5G": {
+    "titre": "Résoudre des problèmes préparant à l'utilisation d'algorithmes"
+  },
+  "CM2N6": {
+    "titre": "Algèbre"
+  },
+  "CM2N6A": {
+    "titre": "Trouver le nombre manquant dans une égalité à trous"
+  },
+  "CM2N6B": {
+    "titre": "Résoudre des problèmes algébriques"
+  },
+  "CM2N6C": {
+    "titre": "Exécuter ou produire un programme de calcul"
+  },
+  "CM2N6D": {
+    "titre": "Identifier et formuler une règle de calcul pour poursuivre une suite de nombres"
+  },
+  "CM2N6E": {
+    "titre": "Identifier des régularités et poursuivre une suite de motifs évolutive"
+  },
+  "CM2N6F": {
+    "titre": "Trouver le nombre d'éléments pour une étape donnée dans une suite de motifs évolutive"
+  },
+  "CM2M1": {
+    "titre": "Aires"
+  },
+  "CM2M1A": {
+    "titre": "Comparer les aires de différentes figures planes"
+  },
+  "CM2M1B": {
+    "titre": "Connaître et utiliser les unités centimètre carré, décimètre carré et mètre carré pour exprimer des aires"
+  },
+  "CM2M1C": {
+    "titre": "Convertir des aires entre différentes unités"
+  },
+  "CM2M1D": {
+    "titre": "Déterminer l'aire d'un carré ou d'un rectangle"
+  },
+  "CM2M2": {
+    "titre": "Angles"
+  },
+  "CM2M2A": {
+    "titre": "Utiliser le lexique spécifique associé aux angles"
+  },
+  "CM2M2B": {
+    "titre": "Comprendre et utiliser les notations des angles"
+  },
+  "CM2M2C": {
+    "titre": "Comparer des angles"
+  },
+  "CM2M2D": {
+    "titre": "Construire un angle égal à la somme de deux angles donnés ou un angle multiple d'un angle donné"
+  },
+  "CM2M2E": {
+    "titre": "Construire par pliage la moitié d'un angle donné"
+  },
+  "CM2M2F": {
+    "titre": "Savoir qu'un angle droit mesure 90°"
+  },
+  "CM2M3": {
+    "titre": "Durées"
+  },
+  "CM2M3A": {
+    "titre": "Lire l'heure sur une horloge à aiguilles"
+  },
+  "CM2M3B": {
+    "titre": "Positionner les aiguilles d'une horloge correspondant à une heure donnée en heure, minute et seconde"
+  },
+  "CM2M3C": {
+    "titre": "Comparer et mesurer des durées écoulées entre deux instants affichés sur une horloge (instants et durées sont exprimés en heure, minute et seconde)"
+  },
+  "CM2M3D": {
+    "titre": "Résoudre des problèmes à une ou plusieurs étapes impliquant des durées"
+  },
+  "CM2G1": {
+    "titre": "Vocabulaire et outils pour la géométrie"
+  },
+  "CM2G1A": {
+    "titre": "Utiliser le vocabulaire géométrique approprié dans le contexte d'apprentissage des notions correspondantes"
+  },
+  "CM2G1B": {
+    "titre": "Utiliser les outils géométriques usuels : règle, règle graduée, équerre et compas"
+  },
+  "CM2G1C": {
+    "titre": "Connaître les notations et les codes usuels utilisés en géométrie"
+  },
+  "CM2G2": {
+    "titre": "Parallèles et perpendiculaires"
+  },
+  "CM2G2A": {
+    "titre": "Reconnaître et utiliser la notion de perpendicularité"
+  },
+  "CM2G2B": {
+    "titre": "Reconnaître et utiliser la notion de parallélisme"
+  },
+  "CM2G3": {
+    "titre": "Figures géométriques"
+  },
+  "CM2G3A": {
+    "titre": "Décrire et reconnaître un cercle et un disque comme un ensemble de points caractérisés par leur distance à un point donné"
+  },
+  "CM2G3B": {
+    "titre": "Reconnaître et nommer les figures suivantes en s'appuyant sur leur définition : triangle, triangle rectangle, triangle isocèle, triangle équilatéral, quadrilatère, carré, rectangle, losange, trapèze, trapèze rectangle, pentagone et hexagone"
+  },
+  "CM2G3C": {
+    "titre": "Connaître les propriétés de parallélisme des côtés opposés, des égalités de longueurs et d'angles pour les figures usuelles : triangle rectangle, triangle isocèle, triangle équilatéral, carré, rectangle, losange, trapèze et trapèze rectangle"
+  },
+  "CM2G3D": {
+    "titre": "Reproduire ou construire un carré, un rectangle, un triangle, un triangle rectangle ou un cercle ou des assemblages de ces figures sur tout support (papier quadrillé, pointé ou uni), avec une règle graduée, une équerre ou un compas"
+  },
+  "CM2G3E": {
+    "titre": "Construire une figure géométrique composée de segments, de droites, de polygones usuels et de cercles"
+  },
+  "CM2G3F": {
+    "titre": "Élaborer un programme de construction"
+  },
+  "CM2G4": {
+    "titre": "Symétrie axiale"
+  },
+  "CM2G4A": {
+    "titre": "Construire, sur papier quadrillé, la figure symétrique d'une figure donnée par rapport à une droite verticale, horizontale ou une diagonale du quadrillage"
+  },
+  "CM2G5": {
+    "titre": "Solides"
+  },
+  "CM2G5A": {
+    "titre": "Nommer un cube, une boule, un pavé, un cône, une pyramide, un cylindre ou un prisme droit"
+  },
+  "CM2G5B": {
+    "titre": "Décrire un cube, un pavé, une pyramide ou un prisme droit en faisant référence à des propriétés et en utilisant le vocabulaire approprié"
+  },
+  "CM2G5C": {
+    "titre": "Reconnaître un patron d'un cube"
+  },
+  "CM2G5D": {
+    "titre": "Construire un patron d'un cube"
+  },
+  "CM2G5E": {
+    "titre": "Reconnaître un patron d'un pavé"
+  },
+  "CM2G5F": {
+    "titre": "Déplacements dans l'espace"
+  },
+  "CM2G6": {
+    "titre": "Déplacements dans l'espace"
+  },
+  "CM2G6A": {
+    "titre": "Connaître et utiliser le vocabulaire lié aux déplacements"
+  },
+  "CM2G6B": {
+    "titre": "Comprendre, utiliser et produire une suite d'instructions qui décrivent un déplacement en utilisant un vocabulaire spatial précis"
+  },
+  "CM2G6C": {
+    "titre": "Résoudre des problèmes portant sur des assemblages de cubes"
+  },
+  "CM2D1": {
+    "titre": "Organisation et gestion de données"
+  },
+  "CM2D1A": {
+    "titre": "Recueillir des données et produire un tableau, un diagramme en barres ou un ensemble de points dans un repère pour présenter des données recueillies"
+  },
+  "CM2D1B": {
+    "titre": "Lire et interpréter les données d'un tableau, d'un diagramme en barres, d'un diagramme circulaire ou d'une courbe"
+  },
+  "CM2D1C": {
+    "titre": "Résoudre des problèmes en une ou deux étapes en utilisant les données d'un tableau, d'un diagramme en barres, d'un diagramme circulaire ou d'une courbe"
+  },
+  "CM2D2": {
+    "titre": "Probabilités"
+  },
+  "CM2D2A": {
+    "titre": "Identifier toutes les issues possibles lors d'une expérience aléatoire simple"
+  },
+  "CM2D2B": {
+    "titre": "Identifier toutes les issues réalisant un événement dans une expérience aléatoire simple"
+  },
+  "CM2D2C": {
+    "titre": "Dans une situation d'équiprobabilité, lors d'une expérience aléatoire simple, exprimer la probabilité d'un événement sous la forme « a chances sur b »"
+  },
+  "CM2D2D": {
+    "titre": "Comparer des probabilités dans des cas simples"
+  },
+  "CM2D2E": {
+    "titre": "Comprendre la notion d'indépendance lors de la répétition de la même expérience aléatoire"
+  },
+  "CM2D2F": {
+    "titre": "Dans des situations d'équiprobabilité, recenser toutes les issues possibles d'une expérience aléatoire en deux étapes dans un tableau ou dans un arbre afin de déterminer des probabilités"
+  },
+  "CM2D3": {
+    "titre": "Proportionnalité"
+  },
+  "CM2D3A": {
+    "titre": "Identifier une situation de proportionnalité"
+  },
+  "CM2D3B": {
+    "titre": "Savoir résoudre un problème de proportionnalité"
+  },
+  "CM2I1": {
+    "titre": "Pensée informatique"
+  },
+  "CM2I1A": {
+    "titre": "Identifier une instruction ou une séquence d'instructions"
+  },
+  "CM2I1B": {
+    "titre": "Produire et exécuter une séquence d'instructions"
+  },
+  "CM2I1C": {
+    "titre": "Répéter à la main une séquence d'instructions pour accomplir une tâche imposée"
+  },
+  "CM2I1D": {
+    "titre": "Programmer la construction d'un chemin simple"
   },
   "6N0": {
     "titre": "Nombres entiers"
@@ -791,7 +1655,7 @@
     }
   },
   "5M3": {
-    "titre": "Durée",
+    "titre": "Durées",
     "sousThemes": {
       "5M30": "Effectuer des conversions d’unités de durées",
       "5M31": "Effectuer des calculs de durées et d’horaires"

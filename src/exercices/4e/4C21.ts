@@ -1,18 +1,18 @@
+import { bleuMathalea } from '../../lib/colors'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
+import { simplificationDeFractionAvecEtapes, texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { pgcd, ppcm } from '../../lib/outils/primalite'
-import FractionEtendue from '../../modules/FractionEtendue'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../lib/outils/nombres'
-import { bleuMathalea } from '../../lib/colors'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -216,15 +216,11 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
         const etapes = myTexteCorrCol.split('=')
         texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[0].replace('$', '')}$ <br>`
         for (let w = 1; w < etapes.length - 1; w++) {
-          if (context.isHtml) {
-            texteCorr += '<br>'
-          }
-          texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[w]}$ <br>`
+          texteCorr += `<br>${lettreDepuisChiffre(i + 1)} = $${etapes[w]}$ <br>`
         }
         if (context.isHtml) {
-          texteCorr += '<br>'
-        }
-        texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[etapes.length - 1]}`
+          texteCorr += `<br>${lettreDepuisChiffre(i + 1)} = $${etapes[etapes.length - 1]}`
+        } else { texteCorr += `<br>${lettreDepuisChiffre(i + 1)} = ${etapes[etapes.length - 1].replace('$', '')}` }
       }
 
       if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += sp(5) + ' (On a réduit le plus possible la fraction.)'

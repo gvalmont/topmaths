@@ -16,7 +16,7 @@ export const amcType = 'AMCNum'
 export const uuid = '52336'
 
 export const refs = {
-  'fr-fr': ['can5C04','auto6P3A-flash5'],
+  'fr-fr': ['can5C04', 'auto6P3A-flash5'],
   'fr-ch': []
 }
 export default class TripleEtMoitie extends ExerciceSimple {

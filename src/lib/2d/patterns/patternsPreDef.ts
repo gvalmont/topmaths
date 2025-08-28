@@ -1,8 +1,8 @@
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { Ratio } from '../../mathFonctions/Ratio'
 import { listeShapes2DInfos } from '../figures2d/shapes2d'
 import { VisualPattern } from './VisualPattern'
 import { VisualPattern3D } from './VisualPattern3D'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { Ratio } from '../../mathFonctions/Ratio'
 type Shape = keyof typeof listeShapes2DInfos
 type ShapeInfo = typeof listeShapes2DInfos[Shape]
 export type PatternRiche = {
@@ -2397,8 +2397,12 @@ const pattern96: PatternRiche = {
   numero: 96,
   shapes: ['fraise', 'soleil'],
   type: 'affine',
-  formule: '7+4\\times n',
-  fonctionNb: (x:number) => 7 + 4 * x,
+  formule: '1+8\\times n',
+  fonctionNb: (x:number) => 1 + 8 * x,
+  fonctionRatio: (x:number) => new Ratio([1 + 4 * x, 4 * x]),
+  texRatio: 'fraises : soleils',
+  fonctionFraction: (x:number) => new FractionEtendue(1 + 4 * x, 4 * x),
+
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2410,10 +2414,10 @@ const pattern96: PatternRiche = {
       newCells.add(VisualPattern.coordToKey([n + 2, 2 * n - i, this.shapes[0]])) // fraise
     }
     for (let i = n + 1; i <= 2 * n; i++) {
-      newCells.add(VisualPattern.coordToKey([n + 2 + i, 2 * n, this.shapes[1]])) // fraise
-      newCells.add(VisualPattern.coordToKey([n + 2 - i, 2 * n, this.shapes[1]])) // fraise
-      newCells.add(VisualPattern.coordToKey([n + 2, 2 * n + i, this.shapes[1]])) // fraise
-      newCells.add(VisualPattern.coordToKey([n + 2, 2 * n - i, this.shapes[1]])) // fraise
+      newCells.add(VisualPattern.coordToKey([n + 2 + i, 2 * n, this.shapes[1]])) // soleil
+      newCells.add(VisualPattern.coordToKey([n + 2 - i, 2 * n, this.shapes[1]])) // soleil
+      newCells.add(VisualPattern.coordToKey([n + 2, 2 * n + i, this.shapes[1]])) // soleil
+      newCells.add(VisualPattern.coordToKey([n + 2, 2 * n - i, this.shapes[1]])) // soleil
     }
     return newCells
   }
@@ -2815,4 +2819,8 @@ const listePatternAffineOuLineaire: (PatternRiche | PatternRiche3D)[] = listePat
 
 const listePatternsFor6I13 = listePatternsPreDef.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && p.type !== 'autre' && p.type !== 'degré3' && p.type !== 'degré2' && p.type !== 'fractal').sort((a, b) => Number(a.numero) - Number(b.numero))
 const listePatternsFor6I131 = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1)).sort((a, b) => Number(a.numero) - Number(b.numero))
-export { listePatternsRepetition, listePatternsFor6I13, listePatternsFor6I131, listePatternAffineOuLineaire, listePatternsPreDef, listePatternAutres, listePattern2d, listePattern3d, listePatternAffine, listePatternLineaire, listePatternDegre2, listePatternDegre3, listePattern2dAffine, listePattern2dLineaire, listePatternRatio, listePatternFraction }
+const listePatternsFor4A13 = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null).sort((a, b) => Number(a.numero) - Number(b.numero))
+const lisdtePatternsFor5L105 = listePatternAffineOuLineaire.filter(p => !('iterate3d' in p) && p.fonctionRatio == null && p.fonctionFraction == null).sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternsFor5I13 = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null).sort((a, b) => Number(a.numero) - Number(b.numero))
+const listePatternsFor6N4B = listePatternsFor5I13
+export { lisdtePatternsFor5L105, listePattern2d, listePattern2dAffine, listePattern2dLineaire, listePattern3d, listePatternAffine, listePatternAffineOuLineaire, listePatternAutres, listePatternDegre2, listePatternDegre3, listePatternFraction, listePatternLineaire, listePatternRatio, listePatternsFor4A13, listePatternsFor5I13, listePatternsFor6I13, listePatternsFor6I131, listePatternsFor6N4B, listePatternsPreDef, listePatternsRepetition }
