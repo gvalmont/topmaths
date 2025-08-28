@@ -46,18 +46,23 @@ src/json/referentielStaticCH.json
 
 src/json/exercicesCH.json
 src/json/exercicesFR.json
+src/json/exercicesFR-2016.json
 
 src/json/exercicesNonInteractifsCH.json
 src/json/exercicesNonInteractifsFR.json
+src/json/exercicesNonInteractifsFR-2016.json
 
 src/json/referentiel2022CH.json
 src/json/referentiel2022FR.json
+src/json/referentiel2022FR-2016.json
 
 src/json/refToUuidCH.json
 src/json/refToUuidFR.json
+src/json/refToUuidFR-2016.json
 
 src/json/uuidsToUrlCH.json
 src/json/uuidsToUrlFR.json
+src/json/uuidsToUrlFR-2016.json
 
 src/json/referentielGeometrieDynamique.json
 

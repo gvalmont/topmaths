@@ -1,7 +1,8 @@
-import type { InterfaceParams, VueType } from '../../lib/types'
+import { get } from 'svelte/store'
+import refToUuid2016 from '../../json/refToUuidFR-2016.json'
 import refToUuid from '../../json/refToUuidFR.json'
 import { globalOptions } from '../../lib/stores/generalStore'
-import { get } from 'svelte/store'
+import type { InterfaceParams, VueType } from '../../lib/types'
 import { isDoubleView } from './store'
 let urlToWrite: URL
 let timerId: ReturnType<typeof setTimeout> | undefined
@@ -29,7 +30,9 @@ export function getParamsFromUrl(urlString: string): InterfaceParams[] {
       // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
       indiceExercice++
       const id = entry[1]
-      const uuid = refToUuid[id as keyof typeof refToUuid]
+      const uuid =
+        refToUuid[id as keyof typeof refToUuid] ||
+        refToUuid2016[id as keyof typeof refToUuid2016]
       if (!newListeExercice[indiceExercice])
         newListeExercice[indiceExercice] = { id, uuid }
     } else if (entry[0] === 'n') {

@@ -114,7 +114,6 @@ async function readInfos(
             const refsArray = matchRef[1]
               .split(',')
               .map((ref) => ref.trim().replace(/'/g, ''))
-
             if (refsArray.length === 0) {
               console.error(
                 '\x1b[31m%s\x1b[0m',
@@ -279,10 +278,13 @@ async function readInfos(
               !filePath.includes('a-2024') &&
               !filePath.includes('/ressources/')
             ) {
-              console.error(
-                '\x1b[31m%s\x1b[0m',
-                `${codePays}: ref non trouvé dans ${filePath}`,
-              )
+              if (codePays !== 'fr-2016') {
+                // Pour éviter de polluer les logs avec les références qui ne suivent pas encore la nouvelle nomenclature post-réforme de 2025
+                console.error(
+                  '\x1b[31m%s\x1b[0m',
+                  `${codePays}: ref non trouvé dans ${filePath}`,
+                )
+              }
             }
           }
         }
@@ -507,6 +509,38 @@ readInfos(
   .then(() => {
     console.log(
       'FR: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour',
+    )
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+
+const uuidMapFR2016 = new Map()
+const exercicesNonInteractifsFR2016 = []
+const exercicesShuffledFR2016 = {}
+const refToUuidFR2016 = {}
+
+readInfos(
+  exercicesDir,
+  uuidMapFR2016,
+  exercicesNonInteractifsFR2016,
+  refToUuidFR2016,
+  exercicesShuffledFR2016,
+  'fr-2016',
+)
+  .then(() => {
+    createFiles(
+      JSON.parse(emptyRef2022),
+      uuidMapFR2016,
+      exercicesShuffledFR2016,
+      exercicesNonInteractifsFR2016,
+      refToUuidFR2016,
+      'FR-2016',
+    )
+  })
+  .then(() => {
+    console.log(
+      'FR-2016: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour',
     )
   })
   .catch((err) => {
