@@ -70,7 +70,10 @@ class ExternalApp extends Exercice {
 
   get html() {
     exercicesParams.update((l) => {
-      if (this.numeroExercice !== undefined) {
+      if (
+        this.numeroExercice !== undefined &&
+        l[this.numeroExercice] !== undefined
+      ) {
         l[this.numeroExercice].type = 'app'
       }
       return l
