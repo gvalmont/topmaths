@@ -623,19 +623,16 @@
         ]
       },
       {
-        "title": "Symétrie et médiatrice",
+        "title": "Symétrie centrale",
         "objectives": [
           {
-            "reference": "6G3A"
+            "reference": "5G10"
           },
           {
-            "reference": "6G3B"
+            "reference": "5G11"
           },
           {
-            "reference": "6G7A"
-          },
-          {
-            "reference": "6G7B"
+            "reference": "5G12"
           }
         ]
       },
@@ -708,20 +705,6 @@
           },
           {
             "reference": "5N53"
-          }
-        ]
-      },
-      {
-        "title": "Symétrie centrale",
-        "objectives": [
-          {
-            "reference": "5G10"
-          },
-          {
-            "reference": "5G11"
-          },
-          {
-            "reference": "5G12"
           }
         ]
       },

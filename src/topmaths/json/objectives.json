@@ -3357,7 +3357,12 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "5G11-2,s=5,s2=3,s3=4,n=1"
+                    "slug": "uuid=34032&id=5G11-3",
+                    "description": "Tracer le symétrique d'un point"
+                  },
+                  {
+                    "slug": "uuid=d37ea&id=5G11-20&n=1&d=10&s=4&s2=6&cd=1",
+                    "description": "Tracer le symétrique d'une figure"
                   }
                 ],
                 "lessonPlans": [
@@ -3396,8 +3401,8 @@
               {
                 "reference": "5G11",
                 "titleAcademic": "Comprendre et utiliser l'effet d'une symétrie centrale : conservation du parallélisme, des longueurs, des aires et des angles",
-                "title": "Utiliser le fait que la symétrie centrale conserve le parallélisme, les longueurs et les angles",
-                "lessonSummaryHTML": "La symétrie centrale <i>conserve</i> le <i>parallélisme</i>, les <i>longueurs</i> et les <i>angles</i> :<br><ul><li>Si des droites sont <i>parallèles</i>, leurs symétriques seront aussi <i>parallèles</i> ;</li><li>Si des segments ont une certaine <i>longueur</i>, leurs symétriques auront la même <i>longueur</i> ;</li><li>Si des angles ont une certaine <i>mesure</i>, leurs symétriques auront la même <i>mesure</i>.</li></ul>",
+                "title": "Utiliser le fait que les symétries conservent le parallélisme, les longueurs et les angles",
+                "lessonSummaryHTML": "Les symétries <i>conservent</i> le <i>parallélisme</i>, les <i>longueurs</i> et les <i>angles</i> :<br><ul><li>Si des droites sont <i>parallèles</i>, leurs symétriques seront aussi <i>parallèles</i> ;</li><li>Si des segments ont une certaine <i>longueur</i>, leurs symétriques auront la même <i>longueur</i> ;</li><li>Si des angles ont une certaine <i>mesure</i>, leurs symétriques auront la même <i>mesure</i>.</li></ul>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -3409,7 +3414,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "5G13,s=2,s2=3,n=1"
+                    "slug": "uuid=65bd7&id=5G10-3&n=2&d=10&s=5&s2=false&cd=1"
                   }
                 ],
                 "lessonPlans": [
@@ -3452,7 +3457,7 @@
               },
               {
                 "reference": "5G12",
-                "titleAcademic": "Identifier des symétries centrales dans des frises, des pavages, des rosaces",
+                "titleAcademic": "Identifier des symétries dans des frises, des pavages, des rosaces",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
