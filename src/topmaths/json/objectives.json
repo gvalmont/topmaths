@@ -7715,7 +7715,12 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "3G40,s=3,n=4"
+                    "slug": "uuid=75ea3&id=3G40-1&n=4&d=10&s=true&cd=1",
+                    "description": "Se repérer sur une sphère en 3d"
+                  },
+                  {
+                    "slug": "3G40,s=3,n=4",
+                    "description": "Se repérer sur une sphère en 2d"
                   }
                 ]
               },
