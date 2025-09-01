@@ -3510,7 +3510,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "5G21-1,s=1,n=2"
+                    "slug": "uuid=f789c&id=5G21-1&n=2&d=10&s=1&s2=true&cd=1"
                   }
                 ],
                 "lessonPlans": [
@@ -6429,6 +6429,9 @@
                 "prerequisites": [
                   {
                     "objectiveReference": "4N20"
+                  },
+                  {
+                    "objectiveReference": "4N24"
                   }
                 ],
                 "videos": [
@@ -6441,16 +6444,12 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "4C22-1,s=4,n=2",
-                    "description": "Trouver l'inverse d'une fraction"
-                  },
-                  {
                     "slug": "4C22-2,s=1,n=2",
-                    "description": "Divisions avec des nombres positifs"
+                    "description": "Avec des nombres positifs"
                   },
                   {
                     "slug": "4C22-2,s=2,n=2",
-                    "description": "Divisions avec des nombres relatifs"
+                    "description": "Avec des nombres relatifs"
                   }
                 ]
               },
@@ -6506,6 +6505,21 @@
                   {
                     "slug": "uuid=1871d&id=3A11-0&n=3&d=10&s=4&s2=2-3-5-7-11&s3=1",
                     "description": "Grands numérateurs et dénominateurs"
+                  }
+                ]
+              },
+              {
+                "reference": "4N24",
+                "titleAcademic": "Trouver l'inverse d'une fraction",
+                "title": "",
+                "lessonSummaryHTML": "L'<i><b>inverse</b></i> d'une fraction est le nombre qui, multiplié par cette fraction, donne 1.<br>Pour trouver ce nombre, il suffit d'inverser le numérateur et le dénominateur.",
+                "lessonSummaryImage": "",
+                "prerequisites": [],
+                "videos": [],
+                "exercises": [
+                  {
+                    "slug": "4C22-1,s=4,n=2",
+                    "description": ""
                   }
                 ]
               }
