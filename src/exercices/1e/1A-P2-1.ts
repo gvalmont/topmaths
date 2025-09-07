@@ -79,12 +79,9 @@ export default class Puissances extends ExerciceQcmA {
     let distracteur3: number
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
-    this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
-      objets,
-    )
-    this.enonce += '$P(A \\cap C)=\\ldots$'
+    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
+    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce += '<br>$P(A \\cap C)=\\ldots$'
     this.correction = `On sait que <br>$\\begin{aligned}
         P(A \\cap C) &= P(A) \\times P_A(C)\\\\
         &= \\dfrac{3}{10} \\times \\dfrac{6}{10} \\\\
@@ -171,12 +168,9 @@ export default class Puissances extends ExerciceQcmA {
 
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
-    this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
-      objets,
-    )
-    this.enonce += '$P(A \\cap C)=\\ldots$'
+    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
+    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce += '<br>$P(A \\cap C)=\\ldots$'
 
     this.correction = `On sait que <br>$\\begin{aligned}
         P(A \\cap C) &= P(A) \\times P_A(C)\\\\

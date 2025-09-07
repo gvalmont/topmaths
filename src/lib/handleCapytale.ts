@@ -189,9 +189,6 @@ async function toolSetActivityParams({
               mathaleaWriteStudentPreviousAnswers(exercice.answers),
             )
             const time = window.performance.now()
-            console.log(
-              `duration exercice ${exercice.uuid}: ${time - starttime}`,
-            )
           }
         }
       }

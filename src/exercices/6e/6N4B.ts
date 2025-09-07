@@ -386,7 +386,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           listeCorrections.push(
             (complementCorrection ? explain : '') +
               `Une formule pour trouver le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} est donc : $${pat.formule.replaceAll('n', miseEnEvidence(`${numeroMotif}`, bleuMathalea))}=${miseEnEvidence(texNombre(nbFormes))}$.<br>
-              Le motif $${numeroMotif}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${pattern.shapes[0]}s.`,
+              Le motif $${numeroMotif}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${infosShape.nomPluriel}.`,
           )
           if (complementCorrection) complementCorrection = false
 

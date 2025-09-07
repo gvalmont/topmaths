@@ -10,8 +10,8 @@ import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const dateDeModifImportante = '13/07/2025'
-export const titre = 'Repérage géodésique sur la Terre'
+export const dateDePublication = '13/07/2025'
+export const titre = 'Repérage géodésique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -22,6 +22,9 @@ export const refs = {
   'fr-ch': [],
 }
 
+/**
+ * @author Jean-Claude Lhote
+ */
 const baseVilles = [
   { latitude: 40.7128, longitude: -74.006, label: 'New York' },
   { latitude: -33.8688, longitude: 151.2093, label: 'Sydney' },

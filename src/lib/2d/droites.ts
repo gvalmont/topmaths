@@ -10,6 +10,7 @@ import { angleOriente } from './angles'
 import { traceCompas } from './cercle'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages'
 import { milieu, Point, point, pointSurDroite, pointSurSegment } from './points'
+import { PointAbstrait } from './points-abstraits'
 import {
   DemiDroite,
   demiDroite,
@@ -33,7 +34,6 @@ import {
   symetrieAxiale,
   translation,
 } from './transformations'
-import { PointAbstrait } from './points-abstraits'
 
 /**
  * Ajouter une étiquette sur une droite.
@@ -1806,9 +1806,9 @@ export class Bissectrice extends DemiDroite {
  */
 // JSDOC Validee par EE Juin 2022
 export function bissectrice(
-  A: Point,
-  O: Point,
-  B: Point,
+  A: Point | PointAbstrait,
+  O: Point | PointAbstrait,
+  B: Point | PointAbstrait,
   couleurBissectrice = 'red',
   color = 'blue',
   couleurConstruction = 'black',

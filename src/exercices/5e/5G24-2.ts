@@ -44,7 +44,7 @@ export default class TrianglesEgaux extends Exercice {
 
     this.besoinFormulaireTexte = [
       'Choix des questions',
-      'Nombres séparés par des tirets :\n1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange',
+      'Nombres séparés par des tirets :\n1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : Mélange',
     ]
   }
 

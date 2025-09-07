@@ -1,4 +1,3 @@
-import Exercice from '../Exercice'
 import { max } from 'mathjs'
 import { arcPointPointAngle } from '../../lib/2d/cercle'
 import { texteSurArc, texteSurSegment } from '../../lib/2d/codages'
@@ -6,8 +5,8 @@ import { point } from '../../lib/2d/points'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -16,13 +15,14 @@ import {
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { arrondi } from '../../lib/outils/nombres'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Effectuer des calculs liés aux homothéties'
 export const dateDePublication = '28/11/2021'
@@ -91,7 +91,7 @@ export default class CalculsHomothetie extends Exercice {
     this.besoinFormulaire2Numerique = [
       'Signe du rapport',
       3,
-      '1 : positif\n2 : négatif\n3 : mélange',
+      '1 : Positif\n2 : Négatif\n3 : Mélange',
     ]
     this.besoinFormulaire3Numerique = [
       'Choix des valeurs',

@@ -1,3 +1,4 @@
+import { min, round } from 'mathjs'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
@@ -9,18 +10,17 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { fraction } from '../../../modules/fractions'
 import { context } from '../../../modules/context'
-import { min, round } from 'mathjs'
+import { fraction } from '../../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 export const titre = 'CAN 4e sujet 2022'
 export const interactifReady = true
@@ -370,7 +370,7 @@ export default class SujetCAN2022quatrieme extends Exercice {
           c = randint(3, 9)
           reponse = a + b * c
           texte = `$${a}+${b}\\times ${c}=$`
-          texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}$
+          texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}=${a + b * c}$
                                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -413,7 +413,8 @@ export default class SujetCAN2022quatrieme extends Exercice {
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${Math.round(b)}=${50 * Math.round(b)}$.`
+            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${Math.round(b)}=${50 * Math.round(b)}$.<br>
+            Comme le résultat exact est proche de cet ordre de grandeur, on choisit $${texNombre(reponse)}$ parmi les propositions.`
           }
           if (choix === 'b') {
             a = randint(3, 9) + randint(1, 9) / 10
@@ -428,7 +429,8 @@ export default class SujetCAN2022quatrieme extends Exercice {
                 $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $${Math.round(a)}\\times ${Math.round(b)}=${Math.round(a) * Math.round(b)}$.`
+            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $${Math.round(a)}\\times ${Math.round(b)}=${Math.round(a) * Math.round(b)}$.<br>
+            Comme le résultat exact est proche de cet ordre de grandeur, on choisit $${texNombre(reponse)}$ parmi les propositions.`
           }
           if (choix === 'c') {
             a = randint(45, 49) + randint(1, 9) / 10
@@ -444,7 +446,8 @@ export default class SujetCAN2022quatrieme extends Exercice {
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
             texteCorr =
-              'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
+              `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.<br>
+            Comme le résultat exact est proche de cet ordre de grandeur, on choisit $${texNombre(reponse)}$ parmi les propositions.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

@@ -1,11 +1,11 @@
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = "Trouver l'opposé d'un nombre relatif"
 export const dateDeModifImportante = '24/11/2024'
@@ -195,7 +195,9 @@ export default class TrouverOppose extends Exercice {
         )
         texte = leTableau.output
       } else {
-        texte = `${enonces[0].enonce}`
+        texte = `
+        
+${enonces[0].enonce}`
       }
       texteCorr = `${enonces[0].correction}`
 

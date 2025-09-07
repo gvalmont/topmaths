@@ -77,12 +77,9 @@ export default class Puissances extends ExerciceQcmA {
     let distracteur3: number
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
-    this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
-      objets,
-    )
-    this.enonce += '$p_C(A)=\\ldots$'
+    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
+    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce += '<br>$p_C(A)=\\ldots$'
     this.correction = `On sait que $ P_C(A)=\\dfrac{P(A \\cap C)}{P(C)}$<br>
         D'après la formule des probabilités totales :<br>
          $\\begin{aligned}P(C)&=p(A\\cap C)+p(\\bar A \\cap C)\\\\
@@ -177,12 +174,9 @@ export default class Puissances extends ExerciceQcmA {
     const Reponse = pC1.diviseFraction(pC)
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
-    this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
-      objets,
-    )
-    this.enonce += '$P_C(A)=\\ldots$'
+    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
+    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce += '<br>$P_C(A)=\\ldots$'
     const resultat = Reponse.texFractionSimplifiee
 
     this.correction = `On sait que $ P_C(A)=\\dfrac{P(A \\cap C)}{P(C)}$<br>

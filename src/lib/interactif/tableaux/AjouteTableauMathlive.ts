@@ -1,11 +1,12 @@
-import './tableauMathlive.scss'
 import { notify } from '../../../bugsnag'
+import { buildDataKeyboardFromStyle } from '../claviers/keyboard'
+import './tableauMathlive.scss'
 export interface Icell {
   texte: string
   latex: boolean
   gras: boolean
   color: string
-  style?: Record<string, string>
+  style?: string
   options?: {
     texteApres?: string
     texteAvant?: string
@@ -91,10 +92,13 @@ function appendCell({
         element.setAttribute('data-space', 'true')
       }
       element.classList.add('tableauMathlive')
-      for (const classe of classes.split(' ')) {
+
+      const classeString = buildDataKeyboardFromStyle(classes).join(' ')
+      /*  for (const classe of classes.split(' ')) {
         // if (classe === 'clavierDeBase') element.setAttribute('data-keyboard', 'numbersOperations')
         // else if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
-        if (classe === 'clavierDeBaseAvecFraction')
+        if (classe === 'angles') element.setAttribute('data-keyboard', 'angles')
+        else if (classe === 'clavierDeBaseAvecFraction')
           element.setAttribute('data-keyboard', 'numbers basicOperations')
         else if (classe === 'clavierDeBaseAvecVariable')
           element.setAttribute(
@@ -105,6 +109,8 @@ function appendCell({
           element.setAttribute('data-keyboard', 'numbers2 basicOperations')
         else element.setAttribute('data-keyboard', 'numbersOperations')
       }
+        */
+      element.setAttribute('data-keyboard', classeString)
       element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
       element.setAttribute('virtual-keyboard-mode', 'manual')
       cell.appendChild(element)
@@ -191,6 +197,7 @@ const fillLine = function ({
 }
 
 export class AddTabPropMathlive {
+  styles: Record<string, string>
   id!: string // ce sera nécessaire pour retrouver le tableau s'il y en a plusieurs dans la page.
   numeroExercice: number
   numeroQuestion: number
@@ -226,6 +233,7 @@ export class AddTabPropMathlive {
     this.id = `tabMLEx${this.numeroExercice}Q${this.numeroQuestion}`
     this.classes = classes
     this.isInteractif = isInteractif
+    this.styles = {}
   }
 
   static create(
@@ -258,6 +266,7 @@ export class AddTabPropMathlive {
     )
     tableauMathlive.ligne1 = ligne1.map((el) => JSON.parse(JSON.stringify(el))) // on clone les lignes pour ne pas modifier le tableau passé en argument
     tableauMathlive.ligne2 = ligne2.map((el) => JSON.parse(JSON.stringify(el)))
+    tableauMathlive.styles = style
     const table = document.createElement('table')
     table.className = 'tableauMathlive'
     table.id = `tabMathliveEx${NoEx}Q${question}`
@@ -287,7 +296,7 @@ export class AddTabPropMathlive {
         classes,
         NoEx,
         NoQ,
-        style: style[`L${0}C${i + 1}`],
+        style: style[`L${0}C${i + 1}`] ?? ligne1[i].style,
       })
     }
     table.appendChild(firstLine)
@@ -318,7 +327,7 @@ export class AddTabPropMathlive {
         classes,
         NoEx,
         NoQ,
-        style: style[`L${1}C${i + 1}`],
+        style: style[`L${1}C${i + 1}`] ?? ligne2[i].style,
       })
     }
     table.appendChild(secondLine)
@@ -360,11 +369,32 @@ export class AddTabPropMathlive {
     let output =
       '\\begin{tabular}{|c|' + 'c|'.repeat(this.nbColonnes - 1) + '}\n'
     output += '\\hline\n'
-    output +=
-      this.ligne1.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
+    let content: string[] = []
+    for (let i = 0; i < this.ligne1.length; i++) {
+      const cellule = this.ligne1[i]
+      const style = this.styles[`L0C${i}`] ?? ''
+      content.push(
+        `${(style ?? ';').split(';')[0] !== '' ? `\\cellcolor{${(style ?? ';').split(';')[0]}}` : ''} ${`${cellule.latex ? '$' : ''}${cellule.texte}${cellule.latex ? '$' : ''}`}`.replace(
+          '$$',
+          '',
+        ),
+      )
+    }
+    output += content.join(' & ') + '\\\\\n'
+
     output += '\\hline\n'
-    output +=
-      this.ligne2.map((cellule) => `$${cellule.texte}$`).join(' & ') + '\\\\\n'
+    content = []
+    for (let i = 0; i < this.ligne2.length; i++) {
+      const cellule = this.ligne2[i]
+      const style = this.styles[`L1C${i}`] ?? ''
+      content.push(
+        `${(style ?? ';').split(';')[0] !== '' ? `\\cellcolor{${(style ?? ';').split(';')[0]}}` : ''} ${`${cellule.latex ? '$' : ''}${cellule.texte}${cellule.latex ? '$' : ''}`}`.replace(
+          '$$',
+          '',
+        ),
+      )
+    }
+    output += content.join(' & ') + '\\\\\n'
     output += '\\hline\n'
     output += '\\end{tabular}'
     return output

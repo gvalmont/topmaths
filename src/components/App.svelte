@@ -1,45 +1,39 @@
 <script lang="ts">
-  import Topmaths from '../topmaths/components/Topmaths.svelte'
-  import Diaporama from './setup/diaporama/Diaporama.svelte'
-  import Eleve from './display/eleve/Eleve.svelte'
-  import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
-  import Latex from './setup/latex/Latex.svelte'
+  import { onDestroy, onMount } from 'svelte'
+  import type { Unsubscriber } from 'svelte/store'
+  import { checkBrowserVersion } from '../lib/components/browserVersion'
+  import { fetchServerVersion } from '../lib/components/version'
+  import { mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea'
+  import { canOptions } from '../lib/stores/canStore'
   import {
-    darkMode,
-    exercicesParams,
     freezeUrl,
     globalOptions,
     isInIframe,
   } from '../lib/stores/generalStore'
+  import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
+  import { vendor } from '../lib/stores/vendorStore'
+  import type { CanSolutionsMode } from '../lib/types/can'
   import { context } from '../modules/context'
   import {
     ElementButtonInstrumenpoche,
     ElementInstrumenpoche,
   } from '../modules/ElementInstrumenpoche'
+  import Topmaths from '../topmaths/components/Topmaths.svelte'
+  import Can from './display/can/Can.svelte'
+  import Eleve from './display/eleve/Eleve.svelte'
+  import Alacarte from './setup/alacarte/Alacarte.svelte'
   import Amc from './setup/amc/Amc.svelte'
   import Anki from './setup/anki/Anki.svelte'
+  import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
+  import Diaporama from './setup/diaporama/Diaporama.svelte'
+  import Latex from './setup/latex/Latex.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Start from './setup/start/Start.svelte'
-  import { onMount } from 'svelte'
-  import {
-    mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaUpdateUrlFromExercicesParams,
-  } from '../lib/mathalea'
-  import Can from './display/can/Can.svelte'
-  import { canOptions } from '../lib/stores/canStore'
-  import type { CanSolutionsMode } from '../lib/types/can'
-  import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
-  import Alacarte from './setup/alacarte/Alacarte.svelte'
-  import { fetchServerVersion } from '../lib/components/version'
   import Popup from './shared/modal/Popup.svelte'
-  import { checkBrowserVersion } from '../lib/components/browserVersion'
-  import { vendor } from '../lib/stores/vendorStore'
-  import { convertVueType } from '../lib/types'
-
-  let isInitialUrlHandled = false
 
   let showPopup = false
   let popupMessage = ''
+  let globalOptionsUnsubscriber: Unsubscriber
 
   function handlePopupClose() {
     // console.log('Popup has been closed');
@@ -47,13 +41,25 @@
   }
 
   onMount(() => {
-    handleInitialUrl()
+    updateUrl()
+    updateContext()
+    updateVendor()
+    globalOptionsUnsubscriber = globalOptions.subscribe(() => {
+      updateContext()
+      updateVendor()
+    })
+    addEventListener('popstate', updateUrl)
 
     const version = checkBrowserVersion()
     if (version.popupMessage.length > 0) {
       showPopup = true
       popupMessage = version.popupMessage
     }
+  })
+
+  onDestroy(() => {
+    removeEventListener('popstate', updateParams)
+    globalOptionsUnsubscriber()
   })
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
@@ -108,8 +114,21 @@
     $canOptions.isInteractive = canIsInteractive === 'true'
   }
 
-  $: {
-    // if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+  function updateParams() {
+    updateUrl()
+    updateContext()
+    updateVendor()
+  }
+
+  function updateUrl() {
+    updateReferentielLocaleFromURL()
+    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
+    if (JSON.stringify(globalOptions) !== JSON.stringify(urlOptions)) {
+      globalOptions.set(urlOptions)
+    }
+  }
+
+  function updateContext() {
     context.isDiaporama = $globalOptions.v === 'diaporama'
     if ($globalOptions.v === 'latex') {
       context.isHtml = false
@@ -128,6 +147,15 @@
     } else {
       context.isAmc = false
     }
+    context.vue = ''
+    if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
+    if ($globalOptions.v === 'latex') context.vue = 'latex' // for compatibility
+    if ($globalOptions.v === 'can') context.vue = 'can' // for compatibility
+    // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
+    context.isInEditor = false
+  }
+
+  function updateVendor() {
     // initialisation du vendor pour l'intégration de la bannière dans la vue élève
     if ($globalOptions.v === 'myriade') {
       $vendor.product = {
@@ -141,21 +169,6 @@
         logoPath: 'assets/images/vendors/bordas/indices-bordas-logo.png',
       }
     }
-    context.vue = ''
-    if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
-    if ($globalOptions.v === 'latex') context.vue = 'latex' // for compatibility
-    if ($globalOptions.v === 'can') context.vue = 'can' // for compatibility
-    // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
-    context.isInEditor = false
-  }
-
-  function handleInitialUrl() {
-    updateReferentielLocaleFromURL()
-    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
-    globalOptions.update(() => {
-      return urlOptions
-    })
-    isInitialUrlHandled = true
   }
 
   function isDevMode() {

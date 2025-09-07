@@ -1,3 +1,5 @@
+import seedrandom from 'seedrandom'
+import TypeExercice from '../exercices/Exercice'
 import genericPreamble from '../lib/latex/preambule.tex?raw'
 import {
   loadFonts,
@@ -6,9 +8,7 @@ import {
   loadProfCollegeIfNeed,
   logPDF,
 } from '../lib/latex/preambuleTex'
-import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
-import seedrandom from 'seedrandom'
 import { getLang } from './stores/languagesStore'
 import { buildThemeFromReference } from '../topmaths/services/reference'
 import { reference } from '../topmaths/services/store'
@@ -48,6 +48,14 @@ export type LatexFileInfos = {
   fontOption: 'StandardFont' | 'DysFont'
   correctionOption: 'AvecCorrection' | 'SansCorrection'
   qrcodeOption: 'AvecQrcode' | 'SansQrcode'
+  typeFiche: 'Fiche' | 'Eval'
+  exos?: {
+    [key: string]: {
+      labels?: string
+      itemsep?: number
+      blocrep?: { nbligs: number; nbcols: number }
+    }
+  }
   signal?: AbortSignal | undefined
 }
 
@@ -102,6 +110,14 @@ class Latex {
     return this.exercices.some((e) => e.typeExercice === 'statique')
   }
 
+  getExercices() {
+    return this.exercices.map((e, i) => ({
+      titre: e.titre,
+      uuid: e.uuid,
+      index: i,
+    }))
+  }
+
   addExercices(exercices: TypeExercice[]) {
     this.exercices.push(...exercices)
   }
@@ -112,15 +128,12 @@ class Latex {
   ): { content: string; contentCorr: string } {
     if (latexFileInfos.style === 'ProfMaquette')
       return {
-        content: this.getContentForAVersionProfMaquette(
-          1,
-          latexFileInfos.qrcodeOption === 'AvecQrcode',
-        ),
+        content: this.getContentForAVersionProfMaquette(1, latexFileInfos),
         contentCorr: '',
       }
     if (latexFileInfos.style === 'ProfMaquetteQrcode')
       return {
-        content: this.getContentForAVersionProfMaquette(1, true),
+        content: this.getContentForAVersionProfMaquette(1, latexFileInfos),
         contentCorr: '',
       }
     let content = ''
@@ -345,26 +358,32 @@ class Latex {
 
   getContentForAVersionProfMaquette(
     indiceVersion: number = 1,
-    withQrcode = false,
+    latexFileInfos: LatexFileInfos,
   ): string {
     this.loadExercicesWithVersion(indiceVersion)
     let content = ''
-    for (const exercice of this.exercices) {
+    for (let k = 0; k < this.exercices.length; k++) {
+      const exercice = this.exercices[k]
+      const confExo: {
+        labels?: string
+        itemsep?: number
+        blocrep?: { nbligs: number; nbcols: number }
+      } =
+        latexFileInfos.exos && latexFileInfos.exos[k]
+          ? latexFileInfos.exos[k]
+          : {}
       content += `\n% @see : ${getUrlFromExercice(exercice)}`
       if (exercice.typeExercice === 'statique') {
         if (exercice.content === '') {
           content += "% Cet exercice n'est pas disponible au format LaTeX"
         } else {
           content += '\n\\needspace{10\\baselineskip}'
-          content += '\n\\begin{exercice}\n'
-          if (withQrcode) {
-            content += `\\begin{wrapfigure}{r}{2cm}
-\\centering
-{\\hypersetup{urlcolor=black}
-\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}
-}
-Correction
-\\end{wrapfigure}\\ `
+          if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
+            content += `\n\\begin{exercice}[Ajout={\\node[anchor=north east, inner sep=2pt] 
+        at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice)}&v=eleve&es=0211}};
+}]%[Lignes=5,Interieur]`
+          } else {
+            content += '\n\\begin{exercice}%[Lignes=5,Interieur]\n'
           }
           content += exercice.content
           content += '\n\\end{exercice}\n'
@@ -374,7 +393,13 @@ Correction
         }
       } else {
         content += '\n\\needspace{10\\baselineskip}'
-        content += '\n\\begin{exercice}\n'
+        if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
+          content += `\n\\begin{exercice}[Ajout={\\node[anchor=north east, inner sep=2pt] 
+        at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice)}&v=eleve&es=0211}};
+}]%[Lignes=5,Interieur]`
+        } else {
+          content += '\n\\begin{exercice}%[Lignes=5,Interieur]\n'
+        }
         content += testIfLoaded(
           [
             ...exercice.listeQuestions,
@@ -384,15 +409,6 @@ Correction
           '\\anote{',
           '\n\\resetcustomnotes',
         )
-        if (withQrcode) {
-          content += `\\begin{wrapfigure}{r}{2cm}
-\\centering
-{\\hypersetup{urlcolor=black}
-\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}
-}
-Correction
-\\end{wrapfigure}\\ `
-        }
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
         content += writeInCols(
@@ -401,6 +417,7 @@ Correction
             exercice.spacing,
             Boolean(exercice.listeAvecNumerotation),
             Number(exercice.nbCols),
+            confExo,
           ),
           Number(exercice.nbCols),
         )
@@ -461,10 +478,11 @@ Correction
           }
           const contentVersion = this.getContentForAVersionProfMaquette(
             i,
-            latexFileInfos.qrcodeOption === 'AvecQrcode',
+            latexFileInfos,
           )
-          contents.content += `\n\\begin{Maquette}[Fiche=true,IE=false]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'},Code= ,Calculatrice=true}\n`
+          contents.content += `\n\\begin{Maquette}[Fiche=${latexFileInfos.typeFiche === 'Fiche' ? 'true' : 'false'},IE=${latexFileInfos.typeFiche === 'Fiche' ? 'false' : 'true'}]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'},Code= ,Calculatrice=false}\n`
           contents.content += contentVersion
+
           contents.content += '\n\\end{Maquette}'
           contents.content += '\n\\clearpage'
           contents.contentCorr = ''
@@ -477,7 +495,10 @@ Correction
               'AbortError',
             )
           }
-          const contentVersion = this.getContentForAVersionProfMaquette(i, true)
+          const contentVersion = this.getContentForAVersionProfMaquette(
+            i,
+            latexFileInfos,
+          )
           contents.content += `\n\\begin{Maquette}[Fiche=true, IE=false, CorrigeApres=false, CorrigeFin=true]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'}}\n`
           contents.content += contentVersion
           contents.content += '\n\\end{Maquette}'
@@ -551,7 +572,12 @@ Correction
     contents: contentsType,
     latexFileInfos: LatexFileInfos,
   ) {
-    contents.preamble = `% @see : ${window.location.href}`
+    const currentUrl = new URL(window.location.href)
+    currentUrl.hostname = 'www.coopmaths.fr'
+    currentUrl.port = ''
+    currentUrl.protocol = 'https:'
+    currentUrl.searchParams.set('v', 'eleve')
+    contents.preamble = `% @see : ${currentUrl.href.replaceAll('%', '\\%')}`
     contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
     loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
     contents.preamble += '\n\\usepackage{xcolor}'
@@ -559,7 +585,6 @@ Correction
     contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
     contents.preamble +=
       '\n\\setKVdefault[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}'
-    contents.preamble += loadFonts(latexFileInfos)
     contents.preamble +=
       '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
     contents.preamble += '\n\\usepackage[luatex]{hyperref}'
@@ -567,14 +592,10 @@ Correction
     contents.preamble += '\n\\usetikzlibrary{calc}'
     contents.preamble += '\n\\usepackage{fancyhdr}'
     contents.preamble += '\n\\pagestyle{fancy}'
-    contents.preamble +=
-      '\n\\usepackage{fvextra} %EE: Pour la gestion de verb (police Python)'
-    contents.preamble +=
-      '\n\\usepackage{tabularray} %EE: Pour la gestion des tableaux tblr'
+
     contents.preamble += '\n\\renewcommand\\headrulewidth{0pt}'
     contents.preamble += '\n\\setlength{\\headheight}{18pt}'
-    contents.preamble +=
-      '\n\\fancyhead[R]{\\href{https://coopmaths.fr/alea}{Mathaléa}}'
+    contents.preamble += `\n\\fancyhead[R]{\\href{${currentUrl.href.replaceAll('%', '\\%')}}{Mathaléa}}`
     contents.preamble += '\n\\fancyfoot[C]{\\thepage}'
     contents.preamble += `\n\\fancyfoot[R]{%
 \\begin{tikzpicture}[remember picture,overlay]
@@ -609,6 +630,27 @@ Correction
   }%
 }%
 ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.append style={height=4cm, height plus=25cm}\n}\n' : ''}
+${
+  latexFileInfos.typeFiche === 'Eval'
+    ? `
+% Interrogations écrites
+% Définir un toggle "calculatrice"
+\\newtoggle{CalculatriceDisplay}
+% Valeur par défaut : désactivée
+\\togglefalse{CalculatriceDisplay}
+\\tcbset{%
+  userie/.style={%
+  colback=gray!5,
+  enhanced,%
+  overlay unbroken and first={%
+    \\iftoggle{CalculatriceDisplay}{
+    \\node[yshift=1em] at (frame.south) {\\scriptsize\\sffamily-- Calculatrice \\ifboolKV[IE]{Calculatrice}{autorisée}{interdite} --};
+    }{}
+    }%
+  }%
+}%}`
+    : ''
+}
 % Parametrages
 \\hypersetup{
     colorlinks=true,% On active la couleur pour les liens. Couleur par défaut rouge
@@ -624,6 +666,7 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
     contents.preamble += '\n\\usepackage[french]{babel}'
     contents.preamble += '\n\\setlength{\\parindent}{0cm}'
     loadPackagesFromContent(contents)
+    contents.preamble += loadFonts(latexFileInfos)
     const [latexCmds, latexPackages] = this.getContentLatex()
     for (const pack of latexPackages) {
       logPDF(`pack: ${pack} : ${window.location.href}`)
@@ -709,15 +752,27 @@ function writeQuestions(
   spacing = 1,
   numbersNeeded: boolean,
   nbCols: number = 1,
+  confExo: {
+    labels?: string
+    itemsep?: number
+    blocrep?: { nbligs: number; nbcols: number }
+  } = {},
 ): string {
   let content = ''
+  const blocrep = confExo.blocrep
+    ? `\\blocrep[1.5]{${confExo.blocrep.nbligs}}{${confExo.blocrep.nbcols}} `
+    : ''
   if (questions !== undefined && questions.length > 1) {
     content += '\n\\begin{enumerate}'
     const specs: string[] = []
-    if (spacing !== 0) {
+    if (confExo.itemsep !== undefined && confExo.itemsep !== null) {
+      specs.push(`itemsep=${confExo.itemsep}em`)
+    } else if (spacing !== 0) {
       specs.push(`itemsep=${spacing}em`)
     }
-    if (!numbersNeeded) {
+    if (confExo.labels) {
+      specs.push(`label=${confExo.labels}`)
+    } else if (!numbersNeeded) {
       specs.push('label={}')
     }
     if (specs.length !== 0) {
@@ -725,17 +780,17 @@ function writeQuestions(
     }
     for (const question of questions) {
       if (nbCols > 1) {
-        content += `\n\t\\item \\begin{minipage}[t]{\\linewidth} ${format(question)} \\end{minipage}`
+        content += `\n\t\\item \\begin{minipage}[t]{\\linewidth} ${format(question)} \\end{minipage}${blocrep}`
       } else {
-        content += `\n\t\\item ${format(question)}`
+        content += `\n\t\\item ${format(question)}${blocrep}`
       }
     }
     content += '\n\\end{enumerate}'
   } else {
     if (nbCols > 1) {
-      content += `\n \\begin{minipage}[t]{\\linewidth} ${format(questions[0])} \\end{minipage}`
+      content += `\n \\begin{minipage}[t]{\\linewidth} ${format(questions[0])} \\end{minipage}${blocrep}`
     } else {
-      content += `\n ${format(questions[0])}`
+      content += `\n ${format(questions[0])}${blocrep}`
     }
   }
   return content
@@ -965,8 +1020,8 @@ function getUrlFromExercice(ex: TypeExercice) {
 
 function addPackages(latexFileInfos: LatexFileInfos, contents: contentsType) {
   contents.preamble += genericPreamble
-  contents.preamble += loadFonts(latexFileInfos)
   loadPreambule(latexFileInfos, contents)
+  contents.preamble += loadFonts(latexFileInfos)
   return contents.preamble
 }
 

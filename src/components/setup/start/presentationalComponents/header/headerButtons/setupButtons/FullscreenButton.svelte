@@ -120,7 +120,6 @@
   }
 
   const exitFullScreen = async () => {
-    console.log('exit', document)
     if (!isFullscreenExitEnabled(document)) {
       handleFullScreenError(new Error("Le plein écran n'est plus disponible"))
       return

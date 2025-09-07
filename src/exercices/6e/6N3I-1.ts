@@ -58,11 +58,11 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
     this.besoinFormulaire2Texte = this.lycee
       ? [
           'Dénominateurs à choisir',
-          'Nombres séparés par des tirets :\nDe 2 à 9\n10: mélange',
+          'Nombres séparés par des tirets :\nDe 2 à 9\n10: Mélange',
         ]
       : [
           'Dénominateurs à choisir',
-          'Nombres séparés par des tirets :\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange',
+          'Nombres séparés par des tirets :\n2: Demis\n3: Tiers\n4: Quarts\n5: Cinquièmes\n10: Dixièmes\n11: Mélange',
         ]
     this.besoinFormulaire3CaseACocher = ['Brouillon interactif']
     this.besoinFormulaire4CaseACocher = ['Correction avec nombre mixte']

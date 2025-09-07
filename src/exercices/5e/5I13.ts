@@ -348,7 +348,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
               const etape = randint(20, 80)
               const nbFormes = pat.fonctionNb(etape)
               const nbTex = texNombre(nbFormes, 0)
-              listeQuestions.push(`\nUn motif de cette série contient $${nbTex}$ ${pattern.shapes[0]}s. À quel numéro de motif cela correspond-il ?<br>${ajouteQuestionMathlive(
+              listeQuestions.push(`\nUn motif de cette série contient $${nbTex}$ ${infosShape.nomPluriel}. À quel numéro de motif cela correspond-il ?<br>${ajouteQuestionMathlive(
                 {
                   exercice: this,
                   question: indexInteractif++,
@@ -365,7 +365,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                   : `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
         Cependant, il n'y a pas ${delta} formes sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut ${b < 0 ? `ajouter ${-b}` : `retirer ${b}`} au nombre de formes puis diviser le résultat par ${delta} : <br>
         $\\dfrac{${nbTex} ${b < 0 ? '+' : '-'} ${Math.abs(b)}}{${delta}}=${miseEnEvidence(etape)}$.`
-              listeCorrections.push(`C'est le motif numéro $${miseEnEvidence(etape.toString())}$ qui contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${pattern.shapes[0]}s.<br>
+              listeCorrections.push(`C'est le motif numéro $${miseEnEvidence(etape.toString())}$ qui contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${infosShape.nomPluriel}.<br>
             ${explain2}`)
             }
             break

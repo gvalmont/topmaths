@@ -1,10 +1,10 @@
 import { droiteGraduee } from '../../lib/2d/reperes'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenuSansNumero,
 } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Tracer des droites graduées'
 
@@ -26,7 +26,7 @@ export default class FeuilleDAxesGradues extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Nombres de parts',
-      '1: unité\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n6: sixièmes\n7: septièmes\n8: huitièmes\n9: neuvièmes\n10: dixièmes\n11: mélange',
+      'Nombres séparés par des tirets  :\n1 : Unités\n2 : Demis\n3 : Tiers\n4 : Quarts\n5 : Cinquièmes\n6 : Sixièmes\n7 : Septièmes\n8 : Huitièmes\n9 : Neuvièmes\n10: Dixièmes\n11: Mélange',
     ]
 
     this.nbQuestions = 1

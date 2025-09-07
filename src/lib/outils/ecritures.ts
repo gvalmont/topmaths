@@ -46,7 +46,6 @@ export function rienSi1(a: number | FractionEtendue | Decimal) {
     window.notify("rienSi1() n'accepte pas les string.", { argument: a })
     return texNombre(Number(a), 7)
   }
-  console.log(typeof a)
   window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
   return String(a)
 }
@@ -77,7 +76,6 @@ export function rienSi0(a: number | FractionEtendue | Decimal) {
     window.notify("rienSi0() n'accepte pas les string.", { argument: a })
     return texNombre(Number(a), 7)
   }
-  console.log(typeof a)
   window.notify('rienSi0 : type de valeur non prise en compte : ', { a })
   return String(a)
 }

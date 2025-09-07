@@ -12,7 +12,10 @@ import {
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
+import {
+  enleveDoublonNum,
+  genererBinomesAleatoires,
+} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 
@@ -21,7 +24,9 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '12/05/2025'
+export const dateDePublication = '12/05/2025'
+export const dateDeModifImportante = '05/09/2025'
+
 /**
  * Connaitre les liens entre les unités de numération : unité, dizaine, centaine, millier, dixième, centième, millième
  *
@@ -34,47 +39,6 @@ export const refs = {
   'fr-fr': ['6N1B'],
   'fr-2016': ['6N23-9'],
   'fr-ch': [''],
-}
-
-type OptionsBinomes = {
-  premierNombre?: number
-  ordreCroissant?: boolean
-  ordreDecroissant?: boolean
-}
-
-function genererBinomesAleatoires(
-  tab: number[],
-  options: OptionsBinomes = {},
-): [number, number][] {
-  const {
-    premierNombre = undefined,
-    ordreCroissant = false,
-    ordreDecroissant = false,
-  } = options
-  const binomes: [number, number][] = []
-
-  for (let i = 0; i < tab.length; i++) {
-    for (let j = 0; j < tab.length; j++) {
-      if (i === j) continue
-
-      const a = tab[i]
-      const b = tab[j]
-
-      // Appliquer les options
-      if (premierNombre !== undefined && a !== premierNombre) continue
-      if (ordreCroissant && a >= b) continue
-      if (ordreDecroissant && a <= b) continue
-
-      binomes.push([a, b])
-    }
-  }
-
-  // Mélange aléatoire (Fisher-Yates)
-  for (let i = binomes.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[binomes[i], binomes[j]] = [binomes[j], binomes[i]]
-  }
-  return binomes
 }
 
 export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice {
@@ -94,8 +58,9 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
         '7 : Millièmes\n' +
         '8 : Mélange',
     ]
-    this.besoinFormulaire2Texte = [
+    this.besoinFormulaire2Numerique = [
       'Type de conversions',
+      3,
       '1 : De grandes unités vers de plus petites unités\n' +
         '2 : De petites unités vers de plus grandes unités\n' +
         '3 : Mélange',
@@ -107,6 +72,8 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
       "Que depuis l'unité",
       false,
     ]
+    this.comment =
+      "Selon le paramétrage choisi, les possibilités diffèrent et vous pourriez ne pas avoir autant que questions que vous le souhaitez. C'est alors un fonctionnement normal."
   }
 
   nouvelleVersion() {
@@ -120,6 +87,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     const listeTypeDeQuestions3 = listeTypeDeQuestions.map(
       (value) => parseInt(value.toString(), 10) - 1,
     )
+
     if (this.sup4) listeTypeDeQuestions3.push(3)
 
     enleveDoublonNum(listeTypeDeQuestions3)
@@ -127,12 +95,12 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
       listeTypeDeQuestions3.push(randint(0, 6, listeTypeDeQuestions3[0]))
 
     const binomesConversion = this.sup4
-      ? this.sup2 === '1'
+      ? this.sup2 === 1
         ? genererBinomesAleatoires(listeTypeDeQuestions3, {
-            premierNombre: 3,
+            dernierNombre: 3,
             ordreCroissant: true,
           })
-        : this.sup2 === '2'
+        : this.sup2 === 2
           ? genererBinomesAleatoires(listeTypeDeQuestions3, {
               premierNombre: 3,
               ordreDecroissant: true,
@@ -140,11 +108,11 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
           : genererBinomesAleatoires(listeTypeDeQuestions3, {
               premierNombre: 3,
             })
-      : this.sup2 === '1'
+      : this.sup2 === 1
         ? genererBinomesAleatoires(listeTypeDeQuestions3, {
             ordreCroissant: true,
           })
-        : this.sup2 === '2'
+        : this.sup2 === 2
           ? genererBinomesAleatoires(listeTypeDeQuestions3, {
               ordreDecroissant: true,
             })

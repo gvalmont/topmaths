@@ -66,6 +66,7 @@ import {
   triangle3longueurs,
   triangleEquilateral,
   triangleEquilateral2Sommets,
+  triangleIsocele2Longueurs,
   triangleRectangle2Cotes,
   triangleRectangleCoteHypotenuse,
 } from './iepMacros/triangles'
@@ -245,6 +246,7 @@ export default class Alea2iep {
   homothetiePolygone = homothetiePolygone
   parallelogramme2sommetsConsecutifsCentre =
     parallelogramme2sommetsConsecutifsCentre
+  triangleIsocele2Longueurs = triangleIsocele2Longueurs
 
   constructor() {
     this.idIEP = 0 // Identifiant pour les tracés

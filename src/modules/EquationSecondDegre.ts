@@ -247,7 +247,9 @@ class EquationSecondDegre {
       this.delta.num < 0
         ? 'S=\\emptyset'
         : this.delta.num > 0
-          ? 'S = \\left\\{' + this.solutionsListeTex.join(';') + '\\right\\}'
+          ? 'S = \\left\\{' +
+            this.solutionsListeTex.join('\\,;\\,') +
+            '\\right\\}'
           : `S=\\left\\{${this.solutionsListeTex[0]}\\right\\}`
     if (this.nombreSolutions === 0) {
       this.correctionTex = `On a que $\\Delta=${this.delta.texFSD}$, l'équation n'a pas de solution réelle, $${this.ensembleDeSolutionsTex}$.`

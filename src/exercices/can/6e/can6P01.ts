@@ -1,4 +1,5 @@
 import { texPrix } from '../../../lib/format/style'
+import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -42,7 +43,7 @@ export default class ProportionnaliteSimple extends ExerciceSimple {
     const a = randint(0, 7)
     const b = fruits[a][1] as number
     const c = randint(fruits[a][2] as number, fruits[a][3] as number)
-    this.reponse = (c / 5) * b
+    this.reponse = arrondi((c / 5) * b, 2)
     this.question = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre((c / 10) * b)}$ €,
     combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
     this.correction = `On reconnaît une situation de proportionnalité.<br>

@@ -16,12 +16,11 @@ class MainLevee {
     y1: number,
     x2: number,
     y2: number,
-    { color = '#000', epaisseur = 1, roughness = 1, bowing = 2.5 } = {},
+    { color = '#000', epaisseur = 2, roughness = 1 } = {},
   ) {
     return this.roughSvg.line(x1, y1, x2, y2, {
       roughness,
-      bowing,
-      disableMultiStroke: true,
+      disableMultiStroke: false,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML

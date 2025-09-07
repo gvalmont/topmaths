@@ -1,21 +1,21 @@
-import Exercice from '../Exercice'
+import Decimal from 'decimal.js'
+import { point, tracePoint } from '../../lib/2d/points'
+import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { createList } from '../../lib/format/lists'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { arrondi } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
+import { prenom } from '../../lib/outils/Personne'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
-import Decimal from 'decimal.js'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import { prenom } from '../../lib/outils/Personne'
-import { createList } from '../../lib/format/lists'
-import { sp } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { point, tracePoint } from '../../lib/2d/points'
-import { arrondi } from '../../lib/outils/nombres'
-import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 export const titre =
   'Résoudre plusieurs questions sur une même suite (bilan type E3C)'
 export const dateDePublication = '05/01/2025'
@@ -50,7 +50,7 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
         "8 : Hauteur d'une balle",
         '9 : Comparaison de salaires',
         "10 : Population d'abeilles",
-        '11 : mélange',
+        '11 : Mélange',
       ].join('\n'),
     ]
   }

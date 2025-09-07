@@ -511,7 +511,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             ],
             'black',
           )
-          A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+          A.couleurDeRemplissage = colorToLatexOrHTML('gray')
 
           C = grille(0, 0, a, b, 'black', 1, 1, false)
           D = point(1 + a, 4 - b)

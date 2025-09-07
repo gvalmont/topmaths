@@ -265,7 +265,6 @@
     }
     const event = new window.Event(eventName, { bubbles: true })
     document.dispatchEvent(event)
-    console.log($globalOptions.setInteractive)
   }
 
   function newDataForAll() {

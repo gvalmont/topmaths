@@ -1,41 +1,41 @@
-import Exercice from '../Exercice'
+import Figure from 'apigeom'
+import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
+import type Line from 'apigeom/src/elements/lines/Line'
+import type PointApigeom from 'apigeom/src/elements/points/Point'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { cercleCentrePoint } from '../../lib/2d/cercle'
+import { codageMilieu } from '../../lib/2d/codages'
 import {
+  Droite,
   droiteHorizontaleParPoint,
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire,
   droiteVerticaleParPoint,
-  Droite,
 } from '../../lib/2d/droites'
-import { point, TracePoint, Point, pointSurDroite } from '../../lib/2d/points'
-import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  Vide2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
+import { point, Point, pointSurDroite, TracePoint } from '../../lib/2d/points'
 import { grille } from '../../lib/2d/reperes'
-import { egal, randint } from '../../modules/outils'
-import {
-  choice,
-  combinaisonListes,
-  shuffle,
-} from '../../lib/outils/arrayOutils'
 import {
   labelPoint,
   latexParCoordonnees,
   LatexParCoordonnees,
 } from '../../lib/2d/textes'
 import { projectionOrtho, symetrieAxiale } from '../../lib/2d/transformations'
-import { cercleCentrePoint } from '../../lib/2d/cercle'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { context } from '../../modules/context'
-import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
-import type PointApigeom from 'apigeom/src/elements/points/Point'
-import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
-import { codageMilieu } from '../../lib/2d/codages'
-import type Line from 'apigeom/src/elements/lines/Line'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
+import {
+  colorToLatexOrHTML,
+  mathalea2d,
+  Vide2d,
+  type NestedObjetMathalea2dArray,
+} from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { egal, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Construire des symétriques de points'
 export const dateDePublication = '07/01/2024'
@@ -328,8 +328,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           Object.assign(options, {
             xMin: -10,
             yMin: -10,
-            width: 600,
-            height: 600,
+            width: 300,
+            height: 300,
           }),
         )
         this.figuresApiGeom[i].options.labelAutomaticBeginsWith =

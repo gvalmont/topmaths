@@ -1180,7 +1180,6 @@ export function mathaleaGoToView(destinationView: '' | VueType) {
   const newPart = destinationView === '' ? '' : '&v=' + destinationView
   const urlString = window.location.href.replace(oldPart, newPart)
   previousView.set(originView)
-  window.history.pushState(null, '', urlString)
   globalOptions.update((l) => {
     l.v = destinationView
     return l

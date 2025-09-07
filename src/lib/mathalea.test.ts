@@ -1,10 +1,19 @@
-import { describe, it, expect } from 'vitest'
-import ExerciceSimple from '../../src/exercices/ExerciceSimple'
-import { getDistracteurs } from './mathalea'
-import FractionEtendue from '../modules/FractionEtendue'
 import Decimal from 'decimal.js'
+import { describe, expect, it, vi } from 'vitest'
+import ExerciceSimple from '../../src/exercices/ExerciceSimple'
+import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
 import Hms from '../modules/Hms'
+import { getDistracteurs } from './mathalea'
+
+// Mock avant l'import
+vi.mock('../../src/lib/renderScratch', () => ({
+  renderScratch: vi.fn(() => 'mocked value'),
+}))
+
+vi.mock('../../src/lib/components/version', () => ({
+  checkForServerUpdate: vi.fn(() => 'mocked value'),
+}))
 
 describe('getDistracteurs', () => {
   it('retourne 3 distracteurs différents de la réponse (cas simple)', () => {

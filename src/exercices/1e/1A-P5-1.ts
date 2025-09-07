@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec des puissances (10)'
+export const titre = 'Utiliser un arbre pour calculer une probabilité (3)'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     let objets = []
@@ -76,12 +76,9 @@ export default class Puissances extends ExerciceQcmA {
 
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
-    this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
-      objets,
-    )
-    this.enonce += '$p(C)=\\ldots$'
+    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
+    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce += '<br>$p(C)=\\ldots$'
     this.correction = `On applique la formule de probabilité totale :<br> $\\begin{aligned}
     p(C)&=p(A)\\times p_A(C)+p(\\overline A)\\times p_{\\overline A}(C)\\\\
     &=${texProba(pA)}\\times ${texProba(pAC)}+${texProba(1 - pA)}\\times ${texProba(pBC)}\\\\
@@ -172,12 +169,9 @@ export default class Puissances extends ExerciceQcmA {
       distracteur3 === distracteur2 ||
       distracteur3 === Reponse
     )
-    this.enonce = "On donne l'arbre de probabilités ci-dessous :"
-    this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
-      objets,
-    )
-    this.enonce += '$p(C)=\\ldots$'
+    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
+    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce += '<br>$p(C)=\\ldots$'
     this.correction = `On applique la formule de probabilité totale :<br> $\\begin{aligned}
     p(C)&=p(A)\\times p_A(C)+p(\\overline A)\\times p_{\\overline A}(C)\\\\
     &=${texProba(pA)}\\times ${texProba(pAC)}+${texProba(1 - pA)}\\times ${texProba(pBC)}\\\\

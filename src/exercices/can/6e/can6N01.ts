@@ -1,5 +1,9 @@
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -8,11 +12,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '05/09/2025'
 
 /**
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
-
  */
 export const uuid = '5cffb'
 
@@ -25,6 +29,8 @@ export default class RecomposerEntier extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.besoinFormulaireCaseACocher = ['Avec des parenthèses', true]
+    this.sup = true
   }
 
   nouvelleVersion() {
@@ -32,33 +38,42 @@ export default class RecomposerEntier extends ExerciceSimple {
     const b = randint(2, 9)
     const c = randint(2, 9)
     this.reponse = a * 1000 + b * 10 + c * 100
-    if (choice([true, false])) {
-      this.question = `Calculer $${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$.`
-      this.correction = `$${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(this.reponse)}$`
-      this.correction += texteEnCouleur(`<br> Mentalement : <br>
+    let correction = `<br><br> Mentalement : <br>
     On décompose le calcul (milliers, centaines puis dizaines) : <br>
     $\\bullet$ $${texNombre(a)}\\times ${texNombre(1000)}=${texNombre(a * 1000)}$.<br>
     $\\bullet$ $${texNombre(c)}\\times 100=${texNombre(c * 100)}$.<br>
     $\\bullet$ $${texNombre(b)}\\times 10=${texNombre(b * 10)}$.<br>
     Ainsi,  <br>
-    $\\begin{aligned}
-  ${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 &=${texNombre(a * 1000)}+${texNombre(c * 100)}+${texNombre(b * 10)}\\\\
-  &=${texNombre(this.reponse)}
-  \\end{aligned}$.`)
+    $\\begin{aligned}`
+
+    if (choice([true, false])) {
+      this.question = this.sup
+        ? `Calculer $(${texNombre(a)}\\times ${texNombre(1000)}) + (${texNombre(b)}\\times 10) + (${texNombre(c)}\\times 100)$.`
+        : `Calculer $${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$.`
+      this.correction = this.sup
+        ? `$(${texNombre(a)}\\times ${texNombre(1000)}) + (${texNombre(b)}\\times 10) + (${texNombre(c)}\\times 100) `
+        : `$${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 `
+      correction += this.sup
+        ? `(${texNombre(a)}\\times ${texNombre(1000)}) + (${texNombre(b)}\\times 10) + (${texNombre(c)}\\times 100) `
+        : `${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 `
     } else {
-      this.question = `Calculer $ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)}$.`
-      this.correction = `$ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)}  =${texNombre(this.reponse)}$`
-      this.correction += texteEnCouleur(`<br> Mentalement : <br>
-  On décompose le calcul (milliers, centaines puis dizaines) : <br>
-  $\\bullet$ $${texNombre(a)}\\times 1000=${texNombre(a * 1000)}$.<br>
-  $\\bullet$ $${texNombre(c)}\\times 100=${texNombre(c * 100)}$.<br>
-  $\\bullet$ $${texNombre(b)}\\times 10=${texNombre(b * 10)}$.<br>
-  Ainsi, <br>$\\begin{aligned}
-  ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)} &=${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(c)}\\times 100 + ${texNombre(b)}\\times 10\\\\
-  & =${texNombre(a * 1000)}+${texNombre(c * 100)}+${texNombre(b * 10)}\\\\
-  &=${texNombre(this.reponse)}
-  \\end{aligned}$. `)
+      this.question = this.sup
+        ? `Calculer $(${texNombre(c)}\\times 100)+ (${texNombre(b)}\\times 10) + (${texNombre(a)}\\times ${texNombre(1000)})$.`
+        : `Calculer $ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)}$.`
+      this.correction = this.sup
+        ? `$(${texNombre(c)}\\times 100)+ (${texNombre(b)}\\times 10) + (${texNombre(a)}\\times ${texNombre(1000)})`
+        : `$ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)}`
+      correction += this.sup
+        ? `(${texNombre(c)}\\times 100)+ (${texNombre(b)}\\times 10) + (${texNombre(a)}\\times ${texNombre(1000)}) &=(${texNombre(a)}\\times ${texNombre(1000)}) + (${texNombre(c)}\\times 100) + (${texNombre(b)}\\times 10)\\\\`
+        : `${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)} &=${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(c)}\\times 100 + ${texNombre(b)}\\times 10\\\\`
+      correction += ``
     }
+
+    correction += `&=${texNombre(a * 1000)}+${texNombre(c * 100)}+${texNombre(b * 10)}\\\\
+  &=${texNombre(this.reponse)}
+  \\end{aligned}$.`
+    this.correction += `=${miseEnEvidence(texNombre(this.reponse))}$`
+    this.correction += texteEnCouleur(correction, bleuMathalea)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

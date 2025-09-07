@@ -321,37 +321,37 @@ export default class Auto1AF5a extends ExerciceQcmA {
     this.enonce = `La fonction $f$ définie sur $\\mathbb{R}$ par $f(x)=(${reduireAxPlusB(a, b)})(${reduireAxPlusB(m, p)})$ admet pour tableau de signes :   `
 
     this.reponses = [
-      `${tableauSignesFonction(f, -10, 10, {
+      `${tableauSignesFonction(f, -20, 20, {
         step: 1,
         tolerance: 0.1,
         substituts: [
-          { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' },
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' },
         ],
       })}`,
-      `${tableauSignesFonction(f1, -10, 10, {
+      `${tableauSignesFonction(f1, -20, 20, {
         step: 1,
         tolerance: 0.1,
         substituts: [
-          { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' },
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' },
         ],
       })}`,
 
-      `${tableauSignesFonction(f2, -10, 10, {
+      `${tableauSignesFonction(f2, -20, 20, {
         step: 1,
         tolerance: 0.1,
         substituts: [
-          { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' },
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' },
         ],
       })}`,
-      `${tableauSignesFonction(f3, -10, 10, {
+      `${tableauSignesFonction(f3, -20, 20, {
         step: 1,
         tolerance: 0.1,
         substituts: [
-          { antVal: -10, antTex: '-\\infty' },
-          { antVal: 10, antTex: '+\\infty' },
+          { antVal: -20, antTex: '-\\infty' },
+          { antVal: 20, antTex: '+\\infty' },
         ],
       })}`,
     ]

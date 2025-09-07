@@ -1,24 +1,29 @@
 <script lang="ts">
   import * as ace from 'brace'
+  import 'brace/ext/searchbox'
   import 'brace/mode/latex'
   import 'brace/theme/monokai'
 
-  import type Latex from '../../../lib/Latex'
+  import { onDestroy, onMount, tick } from 'svelte'
   import { tweened, type Tweened } from 'svelte/motion'
+  import type Latex from '../../../lib/Latex'
   import {
-    buildImagesUrlsList,
-    doesLatexNeedsPics,
-    getExosContentList,
-    getPicsNames,
-    type LatexFileInfos,
+      buildImagesUrlsList,
+      doesLatexNeedsPics,
+      getExosContentList,
+      getPicsNames,
+      type LatexFileInfos,
   } from '../../../lib/Latex'
   import ButtonTextAction from './ButtonTextAction.svelte'
-  import { onDestroy, onMount, tick } from 'svelte'
 
   export let latex: Latex
   export let latexFileInfos: LatexFileInfos
+  export let id: string
 
+  
   let clockAbled: boolean = false
+
+  let idkey = id || '0'
 
   const original = 1 * 60 // TYPE NUMBER OF SECONDS HERE
   const timer: Tweened<number> = tweened(original)
@@ -66,11 +71,11 @@
   }
 
   function submitFormToIframe(formData: FormData) {
-    const form = document.getElementById('form') as HTMLFormElement
+    const form = document.getElementById(`form${idkey}`) as HTMLFormElement
     form.innerHTML = ''
     form.action = 'https://texlive.net/cgi-bin/latexcgi'
     form.method = 'POST'
-    form.target = 'pre0ifr'
+    form.target = `pre0ifr${idkey}`
     form.enctype = 'multipart/form-data'
 
     for (const [name, value] of formData.entries()) {
@@ -87,21 +92,21 @@
   }
 
   function resetIframe(): HTMLElement {
-    const iframe = document.getElementById('pre0ifr') as HTMLElement
+    const iframe = document.getElementById(`pre0ifr${idkey}`) as HTMLElement
     const parent = iframe.parentElement
     parent?.removeChild(iframe)
     const iframe2 = document.createElement('iframe')
     iframe2.setAttribute('title', 'output')
     iframe2.setAttribute('width', '100%')
     iframe2.setAttribute('height', '100%')
-    iframe2.setAttribute('id', 'pre0ifr')
-    iframe2.setAttribute('name', 'pre0ifr')
+    iframe2.setAttribute('id', `pre0ifr${idkey}`)
+    iframe2.setAttribute('name', `pre0ifr${idkey}`)
     parent?.appendChild(iframe2)
     return iframe2
   }
 
   async function compileToPDF() {
-    const editor = ace.edit('editor')
+    const editor = ace.edit(`editor${idkey}`)
     const t = editor.getValue()
 
     const iframe2 = resetIframe()
@@ -155,7 +160,7 @@
    * Affiche ou ferme si déjà ouvert le code Latex dans une boite de dialogue
    */
   async function dialogToDisplayToggle() {
-    const dialog = document.getElementById('editorLatex') as HTMLDialogElement
+    const dialog = document.getElementById(`editorLatex${idkey}`) as HTMLDialogElement
     if (dialog.open) {
       clockAbled = false
       dialog.close()
@@ -170,10 +175,18 @@
 
       const { latexWithPreamble } = await latex.getFile(latexFileInfos)
 
-      const editor = ace.edit('editor')
+      const editor = ace.edit(`editor${idkey}`)
       editor.getSession().setMode('ace/mode/latex')
       editor.getSession().setNewLineMode('unix')
       editor.setTheme('ace/theme/monokai')
+      // Ouvrir la searchbox avec Ctrl+F
+      editor.commands.addCommand({
+        name: "showSearchBox",
+        bindKey: { win: "Ctrl-F", mac: "Command-F" },
+        exec: function(edite: any) {
+          edite.execCommand("find");
+        }
+      })
       editor.setShowPrintMargin(false)
       editor.setValue(latexWithPreamble)
       editor.gotoLine(1)
@@ -225,7 +238,7 @@
 
 <dialog
   class="fixed rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus left-[2%] top-[2%] w-[96%] h-[96%] dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
-  id="editorLatex"
+  id="editorLatex{idkey}"
 >
   <div class="mt-3 text-center">
     <div class="text-3xl font-medium text-coopmaths-warn-dark">
@@ -246,7 +259,7 @@
     </div>
     <div class="font-light">
       <div class="flex h-[80vh] flex-row max-md:portrait:flex-col">
-        <div id="editor" class="flex flex-grow flex-1"></div>
+        <div id="editor{idkey}" class="flex flex-grow flex-1"></div>
         <div class="bg-gray-100 flex flex-grow flex-1">
           {#if clockAbled}
             <div class="loader">
@@ -260,8 +273,8 @@
             title="output"
             width="100%"
             height="100%"
-            id="pre0ifr"
-            name="pre0ifr"
+            id="pre0ifr{idkey}"
+            name="pre0ifr{idkey}"
           ></iframe>
         </div>
       </div>
@@ -272,7 +285,7 @@
         text="Compiler en PDF"
         on:click="{compileToPDF}"
       />
-      <form id="form"></form>
+      <form id="form{idkey}"></form>
     </div>
   </div>
 </dialog>

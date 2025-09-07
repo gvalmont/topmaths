@@ -56,7 +56,7 @@ export default class DeriveeQuotient extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Types de fonctions : ',
-      'Nombres séparés par des tirets :\n1 : (ax+b)/(cx+d)\n2 : ax^n/(cx+d)\n3 : (ax²+bx+c)/(ex+f)\n4 ax^n/(ax²+bx+c)\n5 : mélange',
+      'Nombres séparés par des tirets :\n1 : (ax+b)/(cx+d)\n2 : ax^n/(cx+d)\n3 : (ax²+bx+c)/(ex+f)\n4 ax^n/(ax²+bx+c)\n5 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = [
       'Montrer que... (non interactif)',

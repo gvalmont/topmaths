@@ -1,9 +1,9 @@
 import {
+  isExamItemInReferentiel,
   isExerciceItemInReferentiel,
   isStaticType,
-  type ResourceAndItsPath,
-  isExamItemInReferentiel,
   resourceHasMonth,
+  type ResourceAndItsPath,
 } from '../types/referentiels'
 import { monthes } from './handleDate'
 
@@ -127,7 +127,35 @@ export const sortArrayOfStringsWithHyphens = (
 }
 
 /**
- * Trie une liste de ressources sur la base d'une proppriété (uuid ou id).
+ * Transforme les ID des exercices d'automatisme afin de préserver
+ * leur positionnement en fin de liste d'une section lors de l'organisation du référentiel.
+ * La chaîne auto6N2A devient 6N2zzzzzA, auto6N2A-1 devient 6N2zzzzzA-1, etc.
+ * @param input ID à transformer
+ * @returns la chaîne avec le `zzzzz` insérée après les trois premiers caractères
+ */
+function transformAutomatismId(input: string): string {
+  // Expression régulière pour matcher le pattern décrit
+  // auto + chiffre + lettre majuscule + chiffre + reste
+  const regex = /^auto(\d)([A-Z])(\d)(.*)?/gm
+  const match = [...input.matchAll(regex)]
+
+  // Si la chaîne ne correspond pas au pattern, retourner l'input inchangé
+  if (match.length === 0) {
+    return input
+  }
+
+  // Extraction des groupes capturés
+  const [, digit1, letter, digit2, optionalSuffix] = [...match[0]]
+
+  // Construction de la nouvelle chaîne
+  // Format: chiffre + lettre + chiffre + "zzzzz" + dernière partie + suffixe optionnel
+  const result = `${digit1}${letter}${digit2}zzzzz${optionalSuffix || ''}`
+
+  return result
+}
+
+/**
+ * Trie une liste de ressources sur la base d'une propriété (uuid ou id).
  * L'ordre tient compte des tirets : par exemple, `4-C10`, viendra avant `4-C10-1`
  * qui viendra lui-même avant `4-C10-10`
  * @param data la liste à trier
@@ -148,7 +176,8 @@ export const sortArrayOfResourcesBasedOnProp = (
     const r = elt.resource
     let string: string
     if (isExerciceItemInReferentiel(r) && key === 'id') {
-      string = r[key].replace(/\d(?=[a-z])|[a-z](?=\.)/gi, '$&. .')
+      string = transformAutomatismId(r[key])
+      string = string.replace(/\d(?=[a-z])|[a-z](?=\.)/gi, '$&. .')
     } else if (isStaticType(r) && key === 'uuid') {
       string = r[key].replace(/\d(?=[a-z])|[a-z](?=\.)/gi, '$&. .')
     } else {

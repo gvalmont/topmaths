@@ -1,17 +1,17 @@
 import { droiteGraduee } from '../../lib/2d/reperes'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { fraction } from '../../modules/fractions'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { fraction } from '../../modules/fractions'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = 'Lire des abscisses fractionnaires'
 export const interactifReady = true
@@ -40,8 +40,8 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
     this.sup3 = true // avec des fractions simplifiées
     this.sup4 = false // valeurs positives si false sinon valeurs positives et négatives
     this.besoinFormulaireTexte = [
-      'Types de questions (nombres séparés par des tirets)',
-      '2 : demi\n3 : tiers\n4 : quart\n5 : cinquièmes\n6 : sixièmes\n7 : septièmes\n8 : huitièmes\n9 : neuvièmes\n10: dixièmes\n11: onzièmes\n12 : douzièmes\n13 : mélange',
+      'Types de questions',
+      'Nombres séparés par des tirets  :\n2 : Demis\n3 : Tiers\n4 : Quarts\n5 : Cinquièmes\n6 : Sixièmes\n7 : Septièmes\n8 : Huitièmes\n9 : Neuvièmes\n10: Dixièmes\n11: Onzièmes\n12 : Douzièmes\n13 : Mélange',
     ]
     //   this.besoinFormulaire2CaseACocher = ['Eviter les nombres décimaux (si possible)', false]
     this.besoinFormulaire3CaseACocher = [

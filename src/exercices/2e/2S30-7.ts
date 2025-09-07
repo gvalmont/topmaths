@@ -147,7 +147,7 @@ export default class ProbaConcret extends Exercice {
           new FractionEtendue(nbHommesEtEmployes, total).texFraction,
           'la personne choisie est une femme ou fait partie des employés',
           new FractionEtendue(
-            nbFemmes + nbEmployes - nbFemmesEtEmployees,
+            nbHommes + nbEmployes - nbHommesEtEmployes,
             total,
           ).texFraction,
         ],

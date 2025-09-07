@@ -64,7 +64,6 @@ export function parseHexColor(
   b: number
 } {
   const regex = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/
-  console.log(input)
   const match = input.match(regex)
   if (!match) return null // Pas une couleur hex valide
 
@@ -76,7 +75,6 @@ export function parseHexColor(
       .map((c) => c + c)
       .join('')
   }
-  console.log(hex.toUpperCase())
   return {
     withHash: `#${hex.toUpperCase()}`,
     withoutHash: `${hex.toUpperCase()}`,

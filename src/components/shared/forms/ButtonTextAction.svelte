@@ -5,6 +5,7 @@
   export let disabled: boolean = false
   export let icon: string = ''
   export let inverted: boolean = false
+  export let iconFirst = true
 </script>
 
 <ButtonText
@@ -27,5 +28,6 @@
   {disabled}
   {icon}
   {inverted}
+  {iconFirst}
   on:click
 />

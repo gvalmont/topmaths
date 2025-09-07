@@ -6,6 +6,8 @@ export function loadFonts(latexFileInfos: LatexFileInfos) {
 \\setbool{dys}{${latexFileInfos.fontOption === 'DysFont' ? 'true' : 'false'}}          
 \\ifbool{dys}{
 % POLICE DYS
+% ===== VARIABLE =====
+\\def\\FontChoisie{Fira} % valeurs possibles : Fira, lmodern, tgheros
 \\newcommand{\\choiceFontsDys}[1]{
 \\ifstrequal{#1}{Fira}{%
   % Fira Sans + Fira Math
@@ -35,7 +37,7 @@ export function loadFonts(latexFileInfos: LatexFileInfos) {
 }{}
 }
 % Fira ou lmodern ou tgheros
-\\choiceFontsDys{Fira}
+\\choiceFontsDys{\\FontChoisie}
 
 %\\usepackage{unicode-math}
 %\\usepackage{fontspec}
@@ -399,6 +401,48 @@ export function loadPackagesFromContent(contents: contentsType) {
   testIfLoaded(
     ['\\dotfills'],
     '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}',
+    contents,
+  )
+
+  testIfLoaded(
+    ['\\blocrep{', '\\blocrep['],
+    `
+\\usepackage{setspace}
+% ligne pointillée
+\\newcommand{\\dotline}{\\noindent\\makebox[\\linewidth]{\\dotfill}}
+
+
+
+% bloc de réponses
+\\newcommand{\\blocrep}[3][1.5]{% #1 = nb lignes, #2 = nb colonnes
+  \\begin{spacing}{#1} % interligne
+  \\newcount\\foo
+  \\ifstrequal{#3}{1}{%
+  % --- Cas 1 colonne ---
+    
+  \\foo=#2
+	\\loop
+		\\dotline
+
+		\\advance \\foo -1
+	\\ifnum \\foo>0
+	\\repeat
+  }{%
+    % --- Cas multi-colonnes ---
+    \\begin{multicols}{#3}
+    \\foo=\\numexpr#2 * #3\\relax
+	  \\loop
+		  \\dotline 
+		
+      \\advance \\foo -1
+    \\ifnum \\foo>0
+    \\repeat
+    \\end{multicols}
+  }%
+  \\end{spacing}
+  \\vspace{-0cm}
+}
+`,
     contents,
   )
 

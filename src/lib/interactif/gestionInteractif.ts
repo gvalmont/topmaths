@@ -658,7 +658,7 @@ export function setReponse(
   if (formatInteractif === undefined) formatInteractif = 'calcul'
   let reponses: Array<LegacyReponse>
   if (url.hostname === 'localhost' && url.searchParams.has('triche')) {
-    console.log(
+    console.info(
       `Réponses de l'exercice ${(exercice.numeroExercice ?? 0) + 1} - question ${i + 1} : `,
       valeurs,
     )

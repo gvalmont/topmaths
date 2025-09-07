@@ -247,7 +247,7 @@ async function waitForLatex(page: Page, model: LatexVariation | AMCVariation) {
   switch (model) {
     case 'Coopmaths':
       await page.waitForFunction(() => {
-        const preElement = document.querySelector('pre')
+        const preElement = document.querySelector('main > section > pre')
         if (preElement && preElement.textContent) {
           return preElement.textContent.includes('\\begin{EXO}{')
         }
@@ -256,7 +256,7 @@ async function waitForLatex(page: Page, model: LatexVariation | AMCVariation) {
       break
     case 'Classique':
       await page.waitForFunction(() => {
-        const preElement = document.querySelector('pre')
+        const preElement = document.querySelector('main > section > pre')
         if (preElement && preElement.textContent) {
           return preElement.textContent.includes('\\begin{EXO}{')
         }
@@ -265,7 +265,7 @@ async function waitForLatex(page: Page, model: LatexVariation | AMCVariation) {
       break
     case 'ProfMaquette':
       await page.waitForFunction(() => {
-        const preElement = document.querySelector('pre')
+        const preElement = document.querySelector('main > section > pre')
         if (preElement && preElement.textContent) {
           return preElement.textContent.includes('\\begin{Maquette}[Fiche')
         }

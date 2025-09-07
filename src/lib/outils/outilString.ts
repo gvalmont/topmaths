@@ -34,7 +34,7 @@ export function creerNomDePolygone(
       cpt++ // Au bout de 20 essais, on laisse tomber la liste à éviter
     }
   } else {
-    console.log(
+    console.info(
       'Trop de questions donc plusieurs polygones peuvent avoir le même nom',
     )
   }

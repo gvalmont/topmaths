@@ -13,6 +13,7 @@ import {
 import { choice } from '../lib/outils/arrayOutils'
 import { obtenirListeFacteursPremiers } from '../lib/outils/primalite'
 import { texNombre2 } from '../lib/outils/texNombre'
+import { randint } from '../modules/outils'
 import { getNewChangeNodes } from './Change'
 import { context } from './context'
 import {
@@ -711,10 +712,10 @@ export function aleaVariables(
           const n = variables[v as keyof Variables] ? 1 : 0
 
           // Choix aléatoire entre -1 et +1
-          const sign = math.pickRandom([-1, 1]) as number
+          const sign = choice<number>([-1, 1])
 
           // Valeur de base (aléatoire entre 1 et 9 inclus)
-          const value = math.randomInt(1, 10)
+          const value = randint(1, 10)
 
           // Si n = 0 -> pas de signe (car sign 1), sinon on garde le signe
           const result = (n === 0 ? 1 : sign) * value

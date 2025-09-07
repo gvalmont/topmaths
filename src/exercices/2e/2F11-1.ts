@@ -1,15 +1,15 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   "Déterminer l'image d'un nombre par une fonction de référence"
@@ -69,13 +69,17 @@ export default class ImageFonctionsRefs extends Exercice {
       typeQuestionsDisponibles,
       this.nbQuestions,
     )
+
+    const listeTypeQuestionsDansLOrdre = typeQuestionsDisponibles.filter(x=>listeTypeQuestions.includes(x))
+
+    this.consigne = (typeQuestionsDisponibles.length >=2 ? 'Soient ' : 'Soit ') +
+      listeTypeQuestionsDansLOrdre.map((x,i)=>'$' + ['f','g','h','i'][i] + '$ la fonction ' + x).join(', ').replace(/,([^,]*$)/,' et$1') + '.'
+
     const listePhrases = combinaisonListes([0, 1], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      // choix du nom de la fonction : f, g, h, p, q, r si trois questions ou moins, sinon f_1, g_1, h_1, p_1, q_1, r_1, s_1, f_2, g_2, h_2, ...
-      let nom = ['f', 'g', 'h', 'p', 'q', 'r', 's', 't'][i % 8]
-      this.nbQuestions > 3 && (nom += '_' + String(Math.floor(1 + i / 8)))
+      let nom = ['f','g','h','i'][listeTypeQuestionsDansLOrdre.indexOf(listeTypeQuestions[i])]
       let nombre: number
       let solution: FractionEtendue
       let calcul: number
@@ -120,9 +124,7 @@ export default class ImageFonctionsRefs extends Exercice {
         : `l'image de $${texNombre(nombre, 6)}$ par la fonction $${nom}$`
       listePhrases[i] &&
         (texteCorr += `<br>L'image de $${texNombre(nombre, 0)}$ par la fonction $${nom}$ est donc $${miseEnEvidence(solution.texFractionSimplifiee)}$.`)
-      texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}.<br>
-      
-      Calculer ${phrase}.`
+      texte = `Calculer ${phrase}.`
       texte += ajouteChampTexteMathLive(this, i, '')
 
       // Si la question n'a jamais été posée, on l'enregistre

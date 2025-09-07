@@ -53,8 +53,8 @@ export default class DeriveeProduit extends Exercice {
   constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'types de fonctions :',
-      'Nombres séparés par des tirets :\n1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynôme\n4 : racine et polynôme degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange',
+      'Types de fonctions :',
+      'Nombres séparés par des tirets :\n1 Monôme2 et affine\n2 : Inverse et affine\n3 : Racine et polynôme\n4 : Racine et polynôme degré 2 sans degré 1\n5 : Monôme2 et racine\n6 : Mélange',
     ]
 
     this.consigne =

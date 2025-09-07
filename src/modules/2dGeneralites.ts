@@ -1,7 +1,7 @@
-import { context } from './context'
 import katex from 'katex'
-import { arrondi } from '../lib/outils/nombres'
 import type { Latex2d } from '../lib/2d/textes'
+import { arrondi } from '../lib/outils/nombres'
+import { context } from './context'
 export type ObjetDivLatex = {
   x: number
   y: number
@@ -538,6 +538,12 @@ function convertHexToRGB(couleur = '000000') {
     return [0, 0, 0]
   }
 }
+
+export function convertColorWithDieseToLatex(color: string) {
+  if (!color.startsWith('#')) return color
+  const rgb = convertHexToRGB(color.replace('#', ''))
+  return '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
+}
 /**
  * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
  * La sortie de cette fonction est un tableau où :
@@ -579,9 +585,7 @@ export function colorToLatexOrHTML(couleur: string): [string, string] {
     const tabCouleur: string[] = []
     tabCouleur[0] = couleur
     if (couleur[0] === '#') {
-      rgb = convertHexToRGB(couleur.replace('#', ''))
-      tabCouleur[1] =
-        '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
+      tabCouleur[1] = convertColorWithDieseToLatex(couleur)
     } else {
       tabCouleur[1] = `{${couleur}}`.replace('{{', '{').replace('}}', '}')
     }

@@ -1,8 +1,10 @@
 <script lang="ts">
   import Footer from '../../../Footer.svelte'
-  import Advertising from './Advertising.svelte'
+  import Carousel from './carousel/Carousel.svelte'
 
   export let text: string
+  // Les images du caroussel sont stockées dans le dossier 'public/images/carousel/'é
+  const carouselPics = ['carousel04.jpg', 'carousel03.jpg', 'carousel01.jpg']
 </script>
 
 <div class="relative flex-1 h-full">
@@ -12,8 +14,9 @@
     <!-- <div class="bg-coopmaths-canvas">
       <span class="text-coopmaths-canvas">&nbsp;</span>  <- Décommenter si pas d'Advertising
     </div> -->
-    <div>
-      <Advertising />
+    <!-- <Advertising /> -->
+    <div class="md:block md:h-full hidden">
+      <Carousel />
     </div>
     <div
       class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"

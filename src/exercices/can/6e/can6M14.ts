@@ -92,7 +92,7 @@ export default class AireParComptageCan extends ExerciceSimple {
       ),
       objets,
     )
-    this.question = `<br>${fig1}<br>Quelle est l'aire de la figure ci-dessus ?`
+    this.question = `${fig1}<br>Quelle est l'aire de la figure ci-dessus ?`
     this.optionsChampTexte = { texteApres: unite }
     this.reponse = aire
     this.correction = `L'aire de cette figure est : $${miseEnEvidence(String(aire))}$ ${unite}.`

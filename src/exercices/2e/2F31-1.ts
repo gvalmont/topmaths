@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   'Utiliser les variations des fonctions de référence pour comparer des images'
 export const dateDePublication = '07/01/2022'
@@ -24,9 +24,9 @@ export default class ComparerAvecFctRef extends Exercice {
   constructor() {
     super()
     this.besoinFormulaireNumerique = [
-      'Choix des questions',
+      'Type de questions',
       5,
-      '1 : carré\n2 : inverse\n3 : cube\n4 : racine carrée\n5 : mélange',
+      '1 : Carré\n2 : Inverse\n3 : Cube\n4 : Racine carrée\n5 : Mélange',
     ]
 
     this.nbQuestions = 2

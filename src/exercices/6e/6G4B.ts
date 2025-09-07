@@ -3,13 +3,13 @@ import { point, pointSurSegment } from '../../lib/2d/points'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -35,7 +35,7 @@ export default class MesurerUnAngle extends Exercice {
     this.besoinFormulaireNumerique = [
       "Précision de l'angle",
       4,
-      '1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°\n 4 : mélange',
+      '1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°\n 4 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = ['Utilisation du rapporteur', false]
     this.nbQuestions = 2

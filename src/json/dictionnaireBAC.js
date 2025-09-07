@@ -2975,7 +2975,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Equations différentielles', 'Logarithme'],
+    tags: ['Équations différentielles', 'Logarithme'],
   },
   bac_2025_06_sujet2_asie_1: {
     annee: '2025',
@@ -3011,7 +3011,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Exponentielle', 'Intégration', 'TVI', 'Equations différentielles'],
+    tags: ['Exponentielle', 'Intégration', 'TVI', 'Équations différentielles'],
   },
 
   bac_2025_06_sujet2_etrangers_1: {
@@ -3137,7 +3137,7 @@ export const dictionnaireBAC = {
       'Python',
       'Exponentielle',
       'Intégration',
-      'Equations différentielles',
+      'Équations différentielles',
     ],
   },
   bac_2025_06_sujet2_metropole_1: {
@@ -3179,7 +3179,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Equations différentielles', 'Intégration', 'Exponentielle'],
+    tags: ['Équations différentielles', 'Intégration', 'Exponentielle'],
   },
   bac_2025_06_sujet2_polynesie_1: {
     annee: '2025',
@@ -3219,7 +3219,7 @@ export const dictionnaireBAC = {
       'Affirmations',
       'Dénombrement',
       'Intégration',
-      'Equations différentielles',
+      'Équations différentielles',
       'Logarithme',
       'Suites',
       'Trigonométrie',

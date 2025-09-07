@@ -1,22 +1,23 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   nombreDeChiffresDansLaPartieEntiere,
   range1,
 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,7 +31,7 @@ export const dateDeModifImportante = '17/09/2023'
 
 /**
  * Plusieurs types de calcul avec priorités opératoires/ relatifs/ puissances
- *
+ * modifié le 17/09/2023 pour permettre les cubes a la place des carrés
  * Sans parenthèses :
  * * a²+b*c
  * * a+b²*c
@@ -90,7 +91,10 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
       'AMC : Que la réponse numérique (pas de question ouverte)',
       false,
     ]
-
+    this.besoinFormulaire2Texte = [
+      'Type de puissance',
+      'Nombres séparés par des tirets : \n1 : Carrés \n2 : Cubes\n3 : Mélange',
+    ]
     this.consigne = 'Calculer.'
     this.nbQuestions = 5
 
@@ -99,6 +103,7 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
     this.spacingCorr = context.isHtml ? 3 : 1
     this.listeAvecNumerotation = false
     this.sup = false
+    this.sup2 = 1
   }
 
   nouvelleVersion() {
@@ -111,12 +116,23 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
       listeQuestionsDisponibles,
       this.nbQuestions,
     )
+    const typeDePuissances = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 2,
+      melange: 3,
+      defaut: 1,
+      listeOfCase: ['Carre', 'Cube'],
+      shuffle: true,
+      nbQuestions: this.nbQuestions,
+    })
     for (
       let i = 0, texte, texteCorr, a, b, c, d, m, n, p, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      a = randint(2, 7) * choice([-1, 1])
+      a = typeDePuissances[i] === 'Carre' ? randint(2, 7) : randint(1, 5)
+      a *= choice([-1, 1])
       b = randint(1, 7) * choice([-1, 1])
       c = randint(1, 7) * choice([-1, 1])
       d = randint(1, 7) * choice([-1, 1])
@@ -126,114 +142,114 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestions[i]) {
         case 1: // a² + b*c
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(a)}^2 +  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(ecritureParentheseSiNegatif(a) + '^2', 'blue')}  +  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(c)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(a)}${affichePuissance(typeDePuissances[i])} +  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(c)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(ecritureParentheseSiNegatif(a) + affichePuissance(typeDePuissances[i]), 'blue')}  +  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(c)}$`
 
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${a * a} + ${miseEnEvidence(ecritureParentheseSiNegatif(b) + '\\times' + ecritureParentheseSiNegatif(c), 'blue')}$`
+            `$${lettreDepuisChiffre(i + 1)}=${calculPuissance(a, typeDePuissances[i])} + ${miseEnEvidence(ecritureParentheseSiNegatif(b) + '\\times' + ecritureParentheseSiNegatif(c), 'blue')}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${a * a} ${ecritureAlgebrique(b * c)}$`
+            `$${lettreDepuisChiffre(i + 1)}=${calculPuissance(a, typeDePuissances[i])} ${ecritureAlgebrique(b * c)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a * a + b * c)}$`
+            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(calculPuissance(a, typeDePuissances[i]) + b * c)}$`
 
-          reponse = a * a + b * c
+          reponse = calculPuissance(a, typeDePuissances[i]) + b * c
           break
 
         case 2: // a + b²*c
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a} + ${ecritureParentheseSiNegatif(p)}^2 \\times ${ecritureParentheseSiNegatif(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}          =${a} + ${miseEnEvidence(ecritureParentheseSiNegatif(p) + '^2', 'blue')} \\times ${ecritureParentheseSiNegatif(c)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a} + ${ecritureParentheseSiNegatif(p)}${affichePuissance(typeDePuissances[i])} \\times ${ecritureParentheseSiNegatif(c)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}          =${a} + ${miseEnEvidence(ecritureParentheseSiNegatif(p) + affichePuissance(typeDePuissances[i]), 'blue')} \\times ${ecritureParentheseSiNegatif(c)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${a} + ${miseEnEvidence(ecritureParentheseSiNegatif(p * p) + '\\times' + ecritureParentheseSiNegatif(c), 'blue')}$`
+            `$${lettreDepuisChiffre(i + 1)}=${a} + ${miseEnEvidence(ecritureParentheseSiNegatif(calculPuissance(p, typeDePuissances[i])) + '\\times' + ecritureParentheseSiNegatif(c), 'blue')}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${a + ecritureAlgebrique(p * p * c)}$`
+            `$${lettreDepuisChiffre(i + 1)}=${a + ecritureAlgebrique(calculPuissance(p, typeDePuissances[i]) * c)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a + p * p * c)}$`
-          reponse = a + p * p * c
+            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a + calculPuissance(p, typeDePuissances[i]) * c)}$`
+          reponse = a + calculPuissance(p, typeDePuissances[i]) * c
           break
 
         case 3: // a²+b+c*d
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(a)}^2   ${ecritureAlgebrique(b)} ${ecritureAlgebrique(c)} \\times ${ecritureParentheseSiNegatif(d)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}        =${miseEnEvidence(ecritureParentheseSiNegatif(a) + '^2', 'blue')} ${ecritureAlgebrique(b)}  ${ecritureAlgebrique(c)} \\times ${ecritureParentheseSiNegatif(d)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(a)}${affichePuissance(typeDePuissances[i])}   ${ecritureAlgebrique(b)} ${ecritureAlgebrique(c)} \\times ${ecritureParentheseSiNegatif(d)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}        =${miseEnEvidence(ecritureParentheseSiNegatif(a) + affichePuissance(typeDePuissances[i]), 'blue')} ${ecritureAlgebrique(b)}  ${ecritureAlgebrique(c)} \\times ${ecritureParentheseSiNegatif(d)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${a * a} ${ecritureAlgebrique(b)} +  ${miseEnEvidence(ecritureParentheseSiNegatif(c) + '\\times' + ecritureParentheseSiNegatif(d), 'blue')}$`
+            `$${lettreDepuisChiffre(i + 1)}=${calculPuissance(a, typeDePuissances[i])} ${ecritureAlgebrique(b)} +  ${miseEnEvidence(ecritureParentheseSiNegatif(c) + '\\times' + ecritureParentheseSiNegatif(d), 'blue')}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${a * a + ecritureAlgebrique(b) + ecritureAlgebrique(c * d)}$`
+            `$${lettreDepuisChiffre(i + 1)}=${calculPuissance(a, typeDePuissances[i]) + ecritureAlgebrique(b) + ecritureAlgebrique(c * d)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a * a + b + c * d)}$`
-          reponse = a * a + b + c * d
+            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(calculPuissance(a, typeDePuissances[i]) + b + c * d)}$`
+          reponse = calculPuissance(a, typeDePuissances[i]) + b + c * d
           break
 
         case 4: // a²*(b+c)
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(n)}^2 \\times ( ${b + ecritureAlgebrique(c)})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}          =${miseEnEvidence(ecritureParentheseSiNegatif(n) + '^2', 'blue')}  \\times ( ${b + ecritureAlgebrique(c)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(n)}${affichePuissance(typeDePuissances[i])} \\times ( ${b + ecritureAlgebrique(c)})$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}          =${miseEnEvidence(ecritureParentheseSiNegatif(n) + affichePuissance(typeDePuissances[i]), 'blue')}  \\times ( ${b + ecritureAlgebrique(c)})$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ( ${miseEnEvidence(b + ecritureAlgebrique(c), 'blue')})$`
+            `$${lettreDepuisChiffre(i + 1)}=${calculPuissance(n, typeDePuissances[i])} \\times ( ${miseEnEvidence(b + ecritureAlgebrique(c), 'blue')})$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ${ecritureParentheseSiNegatif(b + c)}$`
+            `$${lettreDepuisChiffre(i + 1)}=${calculPuissance(n, typeDePuissances[i])} \\times ${ecritureParentheseSiNegatif(b + c)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(n * n * (b + c))}$`
-          reponse = n * n * (b + c)
+            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(calculPuissance(n, typeDePuissances[i]) * (b + c))}$`
+          reponse = calculPuissance(n, typeDePuissances[i]) * (b + c)
           break
 
         case 5: // m*(n²+p*n)
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${m} \\times ( ${ecritureParentheseSiNegatif(n)}^2${ecritureAlgebrique(p)}\\times${ecritureParentheseSiNegatif(n)})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}            =${m} \\times ( ${miseEnEvidence(ecritureParentheseSiNegatif(n) + '^2', 'blue')} ${ecritureAlgebrique(p)}\\times${ecritureParentheseSiNegatif(n)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${m} \\times ( ${ecritureParentheseSiNegatif(n)}${affichePuissance(typeDePuissances[i])}${ecritureAlgebrique(p)}\\times${ecritureParentheseSiNegatif(n)})$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}            =${m} \\times ( ${miseEnEvidence(ecritureParentheseSiNegatif(n) + affichePuissance(typeDePuissances[i]), 'blue')} ${ecritureAlgebrique(p)}\\times${ecritureParentheseSiNegatif(n)})$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${m} \\times ( ${n * n} + ${miseEnEvidence(ecritureParentheseSiNegatif(p) + '\\times' + ecritureParentheseSiNegatif(n), 'blue')})$`
+            `$${lettreDepuisChiffre(i + 1)}=${m} \\times ( ${calculPuissance(n, typeDePuissances[i])} + ${miseEnEvidence(ecritureParentheseSiNegatif(p) + '\\times' + ecritureParentheseSiNegatif(n), 'blue')})$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${m}\\times ( ${miseEnEvidence(n * n + ecritureAlgebrique(p * n), 'blue')})$`
+            `$${lettreDepuisChiffre(i + 1)}=${m}\\times ( ${miseEnEvidence(calculPuissance(n, typeDePuissances[i]) + ecritureAlgebrique(p * n), 'blue')})$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${m}\\times ${ecritureParentheseSiNegatif(n * n + p * n)}$`
+            `$${lettreDepuisChiffre(i + 1)}=${m}\\times ${ecritureParentheseSiNegatif(calculPuissance(n, typeDePuissances[i]) + p * n)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(m * (n * n + p * n))}$`
-          reponse = m * (n * n + p * n)
+            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(m * (calculPuissance(n, typeDePuissances[i]) + p * n))}$`
+          reponse = m * (calculPuissance(n, typeDePuissances[i]) + p * n)
           break
 
         case 6: // (a+b+n²)*d
-          texte = `$${lettreDepuisChiffre(i + 1)} = (${a} ${ecritureAlgebrique(b)} + ${ecritureParentheseSiNegatif(n)}^2 ) \\times ${ecritureParentheseSiNegatif(d)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}              =(${a} + ${ecritureParentheseSiNegatif(b)} + ${miseEnEvidence(ecritureParentheseSiNegatif(n) + '^2', 'blue')}  ) \\times ${ecritureParentheseSiNegatif(d)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = (${a} ${ecritureAlgebrique(b)} + ${ecritureParentheseSiNegatif(n)}${affichePuissance(typeDePuissances[i])} ) \\times ${ecritureParentheseSiNegatif(d)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}              =(${a} + ${ecritureParentheseSiNegatif(b)} + ${miseEnEvidence(ecritureParentheseSiNegatif(n) + affichePuissance(typeDePuissances[i]), 'blue')}  ) \\times ${ecritureParentheseSiNegatif(d)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=(${miseEnEvidence(a + ecritureAlgebrique(b) + ecritureAlgebrique(n * n), 'blue')}) \\times ${ecritureParentheseSiNegatif(d)}$`
+            `$${lettreDepuisChiffre(i + 1)}=(${miseEnEvidence(a + ecritureAlgebrique(b) + ecritureAlgebrique(calculPuissance(n, typeDePuissances[i])), 'blue')}) \\times ${ecritureParentheseSiNegatif(d)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${a + b + n * n} \\times ${ecritureParentheseSiNegatif(d)}$`
+            `$${lettreDepuisChiffre(i + 1)}=${a + b + calculPuissance(n, typeDePuissances[i])} \\times ${ecritureParentheseSiNegatif(d)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence((a + b + n * n) * d)}$`
-          reponse = (a + b + n * n) * d
+            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence((a + b + calculPuissance(n, typeDePuissances[i])) * d)}$`
+          reponse = (a + b + calculPuissance(n, typeDePuissances[i])) * d
           break
 
         case 7: // n²*(a+b+c)
         default:
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(n)}^2 \\times ( ${a + ecritureAlgebrique(b) + ecritureAlgebrique(c)})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}                =${miseEnEvidence(ecritureParentheseSiNegatif(n) + '^2', 'blue')} \\times ( ${a} ${ecritureAlgebrique(b)} ${ecritureAlgebrique(c)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(n)}${affichePuissance(typeDePuissances[i])} \\times ( ${a + ecritureAlgebrique(b) + ecritureAlgebrique(c)})$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}                =${miseEnEvidence(ecritureParentheseSiNegatif(n) + affichePuissance(typeDePuissances[i]), 'blue')} \\times ( ${a} ${ecritureAlgebrique(b)} ${ecritureAlgebrique(c)})$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ( ${miseEnEvidence(a + ecritureAlgebrique(b) + ecritureAlgebrique(c), 'blue')})$`
+            `$${lettreDepuisChiffre(i + 1)}=${calculPuissance(n, typeDePuissances[i])} \\times ( ${miseEnEvidence(a + ecritureAlgebrique(b) + ecritureAlgebrique(c), 'blue')})$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ${ecritureParentheseSiNegatif(a + b + c)}$`
+            `$${lettreDepuisChiffre(i + 1)}=${calculPuissance(n, typeDePuissances[i])} \\times ${ecritureParentheseSiNegatif(a + b + c)}$`
           texteCorr +=
             '<br>' +
-            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence((a + b + c) * n * n)}$`
-          reponse = n * n * (a + b + c)
+            `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence((a + b + c) * calculPuissance(n, typeDePuissances[i]))}$`
+          reponse = calculPuissance(n, typeDePuissances[i]) * (a + b + c)
           break
       }
       if (this.questionJamaisPosee(i, a, b, c)) {
@@ -249,7 +265,6 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [
                   {
                     enonce: texte + '\\\\',
@@ -262,7 +277,6 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: '',
@@ -295,5 +309,25 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
       cpt++
     }
     listeQuestionsToContenuSansNumero(this)
+  }
+}
+
+function affichePuissance(st: string | number): string {
+  switch (st) {
+    case 'Cube':
+      return '^3'
+    case 'Carre':
+    default:
+      return '^2'
+  }
+}
+
+function calculPuissance(nb: number, st: string | number): number {
+  switch (st) {
+    case 'Cube':
+      return Math.pow(nb, 3)
+    case 'Carre':
+    default:
+      return Math.pow(nb, 2)
   }
 }

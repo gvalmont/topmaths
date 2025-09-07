@@ -9,9 +9,7 @@
 
   function goToVueProf() {
     window.history.replaceState({}, '', window.location.href)
-    console.log(window.location.href)
     mathaleaGoToView('')
-    console.log(window.location.href)
     window.history.replaceState({}, '', window.location.href)
   }
 </script>

@@ -128,6 +128,8 @@ export class CodageMediatrice extends ObjetMathalea2D {
     const M = rotation(A, O, 90)
     const c = codageAngleDroit(M, O, B, color)
     const v = codageSegments(mark, color, A, O, O, B)
+    const bordures = fixeBordures([A, B, O, c])
+    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
     this.svg = function (coeff) {
       const code = `<g id="${this.id}">${c.svg(coeff) + '\n' + v.svg(coeff)}</g>`
       return code
@@ -219,23 +221,9 @@ export class CodageBissectrice extends ObjetMathalea2D {
       1,
     )
     this.objets = [a1, a2]
+    const bordures = fixeBordures([a1, a2])
+    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
-  /*
-  this.svg = function (coeff) {
-    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    const a2 = codageAngle(pointSurSegment(this.centre, lieu, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    return (
-      a1.svg(coeff) +
-      '\n' +
-      a2.svg(coeff) +
-      '\n'
-    )
-  }
-  this.tikz = function () {
-    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    const a2 = codageAngle(pointSurSegment(this.centre, lieu, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    return a1.tikz() + '\n' + a2.tikz() + '\n'
-  } */
 }
 
 /**
@@ -1038,7 +1026,7 @@ export class CodageSegments extends ObjetMathalea2D {
   stringColor: string // Pour pouvoir passer une simple couleur aux autres constructeurs.
   mark: string
   isEchelle: boolean
-  args: (Point | Segment | number)[]
+  args: (PointAbstrait | Point | Segment | number)[]
   constructor(mark = '||', color = 'black', ...args: any[]) {
     super()
     this.args = args
@@ -1128,15 +1116,21 @@ export class CodageSegments extends ObjetMathalea2D {
         i < (this.isEchelle ? this.args.length - 1 : this.args.length);
         i += 2
       ) {
-        const codage = codageSegment(
-          this.args[i],
-          this.args[i + 1],
-          this.mark,
-          this.stringColor,
-          this.echelle,
-        )
-        code += codage.svg(coeff)
-        code += '\n'
+        if (
+          [this.args[i], this.args[i + 1]].every(
+            (p) => p instanceof Point || p instanceof PointAbstrait,
+          )
+        ) {
+          const codage = codageSegment(
+            this.args[i] as PointAbstrait,
+            this.args[i + 1] as Point,
+            this.mark,
+            this.stringColor,
+            this.echelle,
+          )
+          code += codage.svg(coeff)
+          code += '\n'
+        }
       }
     }
     code = `<g id="${this.id}">${code}</g>`
@@ -1178,14 +1172,20 @@ export class CodageSegments extends ObjetMathalea2D {
     } else {
       const condition = this.isEchelle ? this.args.length - 1 : this.args.length
       for (let i = 0; i < condition; i += 2) {
-        code += codageSegment(
-          this.args[i],
-          this.args[i + 1],
-          this.mark,
-          this.stringColor,
-          this.echelle,
-        ).tikz()
-        code += '\n'
+        if (
+          [this.args[i], this.args[i + 1]].every(
+            (p) => p instanceof Point || p instanceof PointAbstrait,
+          )
+        ) {
+          code += codageSegment(
+            this.args[i] as PointAbstrait,
+            this.args[i + 1] as PointAbstrait,
+            this.mark,
+            this.stringColor,
+            this.echelle,
+          ).tikz()
+          code += '\n'
+        }
       }
     }
     return code

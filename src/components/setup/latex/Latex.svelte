@@ -1,36 +1,37 @@
 <script lang="ts">
-  import { Carousel, initTE } from 'tw-elements'
-  import { exercicesParams, darkMode } from '../../../lib/stores/generalStore'
+  import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
-  import {
-    mathaleaGetExercicesFromParams,
-    mathaleaRenderDiv,
-    mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaUpdateUrlFromExercicesParams,
-  } from '../../../lib/mathalea.js'
+  import { Carousel, initTE } from 'tw-elements'
   import type TypeExercice from '../../../exercices/Exercice'
-  import Footer from '../../Footer.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
+  import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import Latex, {
-    type Exo,
-    type picFile,
-    getExosContentList,
-    getPicsNames,
-    doesLatexNeedsPics,
-    makeImageFilesUrls,
-    type latexFileType,
-    type LatexFileInfos,
+      doesLatexNeedsPics,
+      getExosContentList,
+      getPicsNames,
+      makeImageFilesUrls,
+      type Exo,
+      type LatexFileInfos,
+      type latexFileType,
+      type picFile,
   } from '../../../lib/Latex'
+  import {
+      mathaleaGetExercicesFromParams,
+      mathaleaRenderDiv,
+      mathaleaUpdateExercicesParamsFromUrl,
+      mathaleaUpdateUrlFromExercicesParams,
+  } from '../../../lib/mathalea.js'
+  import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import Footer from '../../Footer.svelte'
+  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
+  import ButtonConfig from '../../shared/forms/ButtonConfig.svelte'
+  import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
-  import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
-  import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
-  import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
-  import SimpleCard from '../../shared/ui/SimpleCard.svelte'
-  import { referentielLocale } from '../../../lib/stores/languagesStore'
-  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
+  import SimpleCard from '../../shared/ui/SimpleCard.svelte'
 
   /**
    * Toutes les variables configurables par l'interface WEB
@@ -46,6 +47,7 @@
     dysTailleFontOption: 14,
     correctionOption: 'AvecCorrection',
     qrcodeOption: 'SansQrcode',
+    typeFiche: 'Fiche',
     durationCanOption: '9 min',
     titleOption: 'SansTitre',
     nbVersions: 1,
@@ -457,6 +459,35 @@
             <h6
               class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
             >
+              Format
+            </h6>
+            <FormRadio
+              title="typeFiche"
+              bgColor="bg-coopmaths-canvas-dark"
+              orientation="{'col'}"
+              bind:valueSelected="{latexFileInfos.typeFiche}"
+              labelsValues="{[
+                { label: 'Fiche', value: 'Fiche' },
+                { label: 'Évaluation', value: 'Eval' },
+              ]}"
+            />
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
+              Configuration
+            </h6>
+            {#await promise}
+                <p>Chargement en cours...</p>
+            {:then}
+                <ButtonConfig
+                  class=""
+                  {latex}
+                  {latexFileInfos}
+                />    
+            {/await}
+            <h6
+              class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+            >
               Exercices
             </h6>
             <FormRadio
@@ -671,6 +702,7 @@
                   class="flex w-full flex-col justify-center"
                   {latex}
                   {latexFileInfos}
+                  id="0"
                 />
               {/await}
             </div>

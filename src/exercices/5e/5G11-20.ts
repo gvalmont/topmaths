@@ -1,19 +1,19 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { shuffle } from '../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { context } from '../../modules/context'
-import figureApigeom from '../../lib/figureApigeom'
-import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
-import type PointApigeom from 'apigeom/src/elements/points/Point'
 import Figure from 'apigeom'
-import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
-import checkSegment from 'apigeom/src/check/checkSegment'
+import checkCircle from 'apigeom/src/check/checkCircleRadius'
+import checkCoords from 'apigeom/src/check/checkCoords'
+import checkLine from 'apigeom/src/check/checkLine'
 import checkPolygon from 'apigeom/src/check/checkPolygon'
 import checkRay from 'apigeom/src/check/checkRay'
-import checkLine from 'apigeom/src/check/checkLine'
-import checkCoords from 'apigeom/src/check/checkCoords'
-import checkCircle from 'apigeom/src/check/checkCircleRadius'
+import checkSegment from 'apigeom/src/check/checkSegment'
+import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
+import type PointApigeom from 'apigeom/src/elements/points/Point'
+import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
+import figureApigeom from '../../lib/figureApigeom'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { shuffle } from '../../lib/outils/arrayOutils'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Construire des symétriques de figures par rapport à un point'
@@ -494,10 +494,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           labelCentre,
         )
       ) {
-        i++
         this.listeCorrections[i] = context.isHtml
           ? wrapperApigeomToMathalea(correctionFig)
           : correctionFig.tikz()
+        i++
       }
       cpt++
     }

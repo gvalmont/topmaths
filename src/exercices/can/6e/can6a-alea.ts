@@ -8,6 +8,7 @@ import {
 import { gestionnaireFormulaireTexte } from '../../../modules/outils'
 
 import Decimal from 'decimal.js'
+import seedrandom from 'seedrandom'
 import uuidToUrl from '../../../json/uuidsToUrlFR.json'
 import {
   mathaleaGenerateSeed,
@@ -47,15 +48,15 @@ export default class can6eAll extends Exercice {
       'Type de questions',
       [
         'Nombres séparés\n par des tirets :',
-        'All : mélange',
+        'All : Mélange',
         'C1 à C47 : can de 6C01 à 6C47',
         'G1 à G7 : can de 6G01 à 6G07',
         'M1 à M7 : can de 6M01 à 6M13',
         'N1 à N17 : can de 6N01 à 6N17',
-        'C : mélange calcul',
-        'G : mélange géométrie',
-        'M : mélange mesure',
-        'N : mélange numération',
+        'C : Mélange calcul',
+        'G : Mélange géométrie',
+        'M : Mélange mesure',
+        'N : Mélange numération',
       ].join('\n'),
     ]
     this.nbQuestions = 4
@@ -323,6 +324,8 @@ export default class can6eAll extends Exercice {
           const q2 = exports // new exports.default()
           exercice.interactif ? (q2.interactif = true) : (q2.interactif = false)
           q2.numeroExercice = exercice.numeroExercice
+          q2.seed = exercice.seed
+          seedrandom(q2.seed, { global: true })
           q2.nouvelleVersion()
           const k = i
           if (q2.listeQuestions.length === 0) {

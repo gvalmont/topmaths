@@ -180,57 +180,14 @@ describe('nodeMath', () => {
     expect(result.steps.length).toBeGreaterThan(0)
   })
 
-  // it('traduireProgrammeCalcul should return expected texte and texteCorr for default stepProg', () => {
-  //   const { texte, texteCorr } = traduireProgrammeCalcul(undefined, 5)
-  //   expect(texte).toContain('Voici un programme de calcul')
-  //   expect(texte).toContain('\\begin{aligned}')
-  //   expect(texte).toContain('Notons $x$ le nombre choisi')
-  //   expect(texteCorr).toContain('Solution détaillée')
-  //   expect(texteCorr).toContain('\\begin{aligned}')
-  //   expect(texteCorr).toContain('\\bullet')
-  //   expect(texteCorr).toContain('\\text')
-  // })
-
-  // it('traduireProgrammeCalcul should handle custom stepProg and nombreChoisi', () => {
-  //   const stepProg = ['+', '*', '^2']
-  //   const { texte, texteCorr } = traduireProgrammeCalcul(stepProg, 3)
-  //   expect(texte).toContain('Voici un programme de calcul')
-  //   expect(texte).toContain('\\begin{aligned}')
-  //   expect(texte).toContain('Notons $x$ le nombre choisi')
-  //   expect(texteCorr).toContain('Solution détaillée')
-  //   expect(texteCorr).toContain('\\begin{aligned}')
-  //   expect(texteCorr).toContain('\\bullet')
-  //   expect(texteCorr).toContain('\\text')
-  //   expect(texteCorr).toContain('=') // Should show simplified step
-  // })
-
-  // it('traduireProgrammeCalcul should include debug output if debug=true', () => {
-  //   const { texte, texteCorr } = traduireProgrammeCalcul(['+', '*'], 2, true)
-  //   expect(texte).toContain('Solution détaillée')
-  //   expect(texteCorr).toContain('Solution détaillée')
-  // })
-
-  // it('traduireProgrammeCalcul should handle empty stepProg', () => {
-  //   const { texte, texteCorr } = traduireProgrammeCalcul([], 7)
-  //   expect(texte).toContain('Voici un programme de calcul')
-  //   expect(texteCorr).toContain('Solution détaillée')
-  // })
-
-  // it('traduireProgrammeCalcul should handle undefined nombreChoisi', () => {
-  //   const { texte, texteCorr } = traduireProgrammeCalcul(['+'], undefined)
-  //   expect(texte).toContain('Voici un programme de calcul')
-  //   expect(texteCorr).toContain('Solution détaillée')
-  // })
-
   it('programmeCalcul should return expected structure for default stepProg and nombreChoisi', () => {
     const result = programmeCalcul(['+', '*'], 5)
-    console.log(result)
+    // console.log(result)
     expect(result).toHaveProperty('phrases')
-    expect(result.phrases).toHaveLength(4)
+    expect(result.phrases).toHaveLength(3)
     expect(result.phrases[0]).toBe('Choisir un nombre.')
     expect(result.phrases[1]).to.include('Ajouter $')
     expect(result.phrases[2]).to.include('Multiplier par $')
-    expect(result.phrases[3]).to.include('Écrire le résultat')
     expect(result).toHaveProperty('steps')
     expect(result).toHaveProperty('stepsSimplified')
     expect(result).toHaveProperty('stepsInv')

@@ -1,8 +1,8 @@
-import ExerciceCan from '../../ExerciceCan'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { randint } from '../../../modules/outils'
-import { premierMultipleSuperieur } from '../../../lib/outils/primalite'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { premierMultipleSuperieur } from '../../../lib/outils/primalite'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Ordre de grandeur'
 export const interactifReady = true
@@ -139,7 +139,7 @@ export default class Can2025CE2Q13 extends ExerciceCan {
 
   nouvelleVersion() {
     this.canOfficielle
-      ? this.enonce(70, 2, 50, 'Une paire de basckets')
+      ? this.enonce(70, 2, 50, 'Une paire de baskets')
       : this.enonce()
   }
 }

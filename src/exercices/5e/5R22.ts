@@ -12,6 +12,7 @@ import {
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
 import {
+  arrondi,
   nombreDeChiffresDansLaPartieEntiere,
   signe,
   triePositifsNegatifs,
@@ -317,7 +318,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
         if (this.sup2 < 4) {
           handleAnswers(this, i, {
             reponse: {
-              value: a + s1 * b + s2 * c + s3 * d + s4 * e,
+              value: arrondi(a + s1 * b + s2 * c + s3 * d + s4 * e),
               options: { resultatSeulementEtNonOperation: true },
             },
           })
@@ -372,7 +373,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
         } else {
           handleAnswers(this, i, {
             reponse: {
-              value: a + b + c + d + e,
+              value: arrondi(a + b + c + d + e),
               options: { resultatSeulementEtNonOperation: true },
             },
           })

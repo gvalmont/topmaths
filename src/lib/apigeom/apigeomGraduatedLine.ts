@@ -1,5 +1,6 @@
 import Figure from 'apigeom'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
+import { round } from 'apigeom/src/lib/format'
 import { arrondi } from '../outils/nombres'
 
 export function apigeomGraduatedLine({
@@ -46,12 +47,15 @@ export function apigeomGraduatedLine({
     stepBis: arrondi(1 / (10 * scale), 6),
   })
   d.draw()
+  const step = arrondi(1 / scale, 6)
+  const start = round(Math.ceil(xMin / step) * step)
+  // const end = round(Math.floor(xMax / step) * step)
   let latex = `\n\\bigskip
     \\begin{tikzpicture}[x=2.2mm]
     \\draw[-{Latex[round]},thick] (0,0) -- (72,0);
     \\foreach \\x in {0,1,...,70} \\draw[thick] ([yshift=-0.8mm]\\x,0) -- ([yshift=0.8mm]\\x,0);
     \\foreach \\x [count=\\i from 0] in {0,10,...,70} \\draw[ultra thick] ([yshift=-1.5mm]\\x,0) coordinate (a\\i) -- ([yshift=1.5mm]\\x,0);
-    \\foreach \\x [count=\\i from 0] in {${arrondi(xMin)},${arrondi(xMin + 1 / scale)},${arrondi(xMin + 2 / scale)},${arrondi(xMin + 3 / scale)},${arrondi(xMin + 4 / scale)},${arrondi(xMin + 5 / scale)},${arrondi(xMin + 6 / scale)},${arrondi(xMin + 7 / scale)}} {
+    \\foreach \\x [count=\\i from 0] in {${arrondi(start)},${arrondi(start + 1 * step)},${arrondi(start + 2 * step)},${arrondi(start + 3 * step)},${arrondi(start + 4 * step)},${arrondi(start + 5 * step)},${arrondi(start + 6 * step)},${arrondi(start + 7 * step)}} {
       \\node[below=2mm of a\\i,inner sep=0pt,font=\\small] {$\\num{\\x}$};
     }`
   if (points !== undefined) {

@@ -6689,7 +6689,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Aritmétique', 'Pourcentages', 'Volumes'],
+    tags: ['Arithmétique', 'Pourcentages', 'Volumes'],
   },
   dnb_2025_06_etrangers_1: {
     annee: '2025',
@@ -6699,7 +6699,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: [
       'QCM',
-      'Aritmétique',
+      'Arithmétique',
       'Tableur',
       'Transformations',
       'Calcul littéral',

@@ -1,5 +1,5 @@
 import jspreadsheet from 'jspreadsheet-ce'
-import 'jspreadsheet-ce/dist/jexcel.css'
+import 'jspreadsheet-ce/dist/jspreadsheet.css'
 
 export class MySpreadsheetElement extends HTMLElement {
   private _spreadsheet: any = null
@@ -76,14 +76,19 @@ export class MySpreadsheetElement extends HTMLElement {
         columns = JSON.parse(this.getAttribute('columns') ?? '[]')
     } catch {}
     this._spreadsheet = jspreadsheet(container, {
-      data,
-      minDimensions,
-      tableOverflow: true,
-      tableHeight: '300px',
-      toolbar: true,
-      style,
-      columns,
-    } as any)
+      tabs: false,
+      toolbar: false,
+      worksheets: [
+        {
+          data,
+          minDimensions,
+          tableOverflow: true,
+          tableHeight: '300px',
+          style,
+          columns,
+        } as any,
+      ],
+    })[0]
     let numeroExercice = 0
     let question = 0
     const idMatch = this.id.match(/sheet-Ex(\d+)Q(\d+)$/)
@@ -141,7 +146,6 @@ export class MySpreadsheetElement extends HTMLElement {
 
   disconnectedCallback() {
     if (this._spreadsheet) {
-      this._spreadsheet.destroy()
       this._spreadsheet = null
     }
     // Retire le listener personnalisé
@@ -179,7 +183,8 @@ export class MySpreadsheetElement extends HTMLElement {
   }
 
   getData() {
-    return this._spreadsheet.getData()
+    // Retourne les données de la première worksheet
+    return this._spreadsheet.getData() ?? []
   }
 
   setCellValue(column: number, row: number, value: string | number) {
@@ -200,15 +205,15 @@ export class MySpreadsheetElement extends HTMLElement {
   }
 
   getMinDimensions() {
-    return this._spreadsheet.options.minDimensions
+    return this._spreadsheet.minDimensions ?? [5, 5]
   }
 
   getStyle() {
-    return this._spreadsheet.options.style
+    return this._spreadsheet.style ?? {}
   }
 
   getColumns() {
-    return this._spreadsheet.options.columns
+    return this._spreadsheet.columns ?? []
   }
 }
 

@@ -1,0 +1,39 @@
+{
+  "slides": [
+    {
+      "background": "carousel06.jpg",
+      "title": "Nouveau programme en 6e",
+      "message": "Le référentiel et les exercices pour la classe de 6e ont été mis à jour pour suivre les nouveaux programmes.",
+      "image": "",
+      "link": "https://coopmaths.fr/www/blog/2025-09-03-nouveauprogramme6e/"
+    },
+    {
+      "background": "",
+      "title": "Nouveauté",
+      "message": "La 3D est arrivée dans MathALÉA\u00a0!",
+      "image": "cube3d.gif",
+      "link": "https://coopmaths.fr/alea/?uuid=5f115&id=6G8A-1&n=3&d=10&s=1&s2=1&s3=true&s4=1&i=1&cd=1&alea=WSYf&v=eleve&es=0111001"
+    },
+    {
+      "background": "carousel05.jpg",
+      "title": "Automatismes au primaire",
+      "message": "Nous vous proposons un nouveau site, fluence.mathalea.fr, pour travailler les automatismes en calcul mental à l'école primaire.",
+      "image": "fluence.png",
+      "link": "https://fluence.mathalea.fr/"
+    },
+    {
+      "background": "carousel04.jpg",
+      "title": "Capytale",
+      "message": "Les enseignants peuvent sélectionner des exercices, les donner à leurs élèves et récupérer tous les scores sur Capytale.",
+      "image": "capytale.png",
+      "link": "https://capytale2.ac-paris.fr/"
+    },
+    {
+      "background": "",
+      "title": "Glisse-nombre",
+      "message": "Pour mieux appréhender les multiplications et divisions par 10, 100, 1\u00A0000, nous avons développé un glisse-nombre.",
+      "image": "glisseNombre.png",
+      "link": "https://coopmaths.fr/apps/glisse-nombre/"
+    }
+  ]
+}

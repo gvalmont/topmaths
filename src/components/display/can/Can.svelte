@@ -87,7 +87,7 @@
           answers.push('')
         }
       }
-      console.log('answers', answers)
+      console.info('answers', answers)
 
       if (assignmentDataFromCapytale?.resultsByQuestion !== undefined)
         resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion

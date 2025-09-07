@@ -32,8 +32,8 @@ export default class EncadrerAvecFctRef extends Exercice {
   constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Choix des questions ',
-      'Nombres séparés par des tirets :\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange',
+      'Type de questions ',
+      'Nombres séparés par des tirets :\n1 : Carré\n2 : Inverse\n3 : Racine carrée\n4 : Cube\n5 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = ["Pas d'inégalités doubles"]
     this.nbQuestions = 3

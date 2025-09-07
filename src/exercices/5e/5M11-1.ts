@@ -163,7 +163,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
           case 1: // Carré
             if (this.sup2 !== 2) {
               texteAMC =
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 'Calculer le périmètre' +
                 (context.isAmc ? ', en cm, ' : ' ')
               texteAMC += this.sup3
@@ -184,7 +184,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 '<br>'
 
               texteCorr +=
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}=${
                   4 * c
                 }${sp()}\\text{cm}$<br>`
@@ -221,7 +221,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
             }
             if (this.sup2 !== 1) {
               texteAMC =
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 "Calculer l'aire" +
                 (context.isAmc ? ', en cm$^2$, ' : ' ')
               texteAMC += this.sup3
@@ -242,7 +242,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 '<br>'
 
               texteCorr +=
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}\\times${c}${sp()}\\text{cm}=${c * c}${sp()}\\text{cm}^2$<br>`
               handleAnswers(this, incrementation * i + nbPuces, {
                 reponse: {
@@ -279,7 +279,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
           case 2: // Rectangle
             if (this.sup2 !== 2) {
               texteAMC =
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 'Calculer le périmètre' +
                 (context.isAmc ? ', en cm, ' : ' ')
               texteAMC += this.sup3
@@ -300,7 +300,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 '<br>'
 
               texteCorr +=
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}+${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}=${
                   2 * L + 2 * l
                 }${sp()}\\text{cm}$<br>`
@@ -337,7 +337,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
             }
             if (this.sup2 !== 1) {
               texteAMC =
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 "Calculer l'aire" +
                 (context.isAmc ? ', en cm$^2$, ' : ' ')
               texteAMC += this.sup3
@@ -358,7 +358,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 '<br>'
 
               texteCorr +=
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${
                   L * l
                 }${sp()}\\text{cm}^2$<br>`
@@ -397,7 +397,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
           case 3: // Triangle rectangle
             if (this.sup2 !== 2) {
               texteAMC =
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 'Calculer le périmètre' +
                 (context.isAmc ? ', en cm, ' : ' ')
               texteAMC += this.sup3
@@ -418,7 +418,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 '<br>'
 
               texteCorr +=
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}+${b}${sp()}\\text{cm}+${texNombre(c2, 1)}${sp()}\\text{cm}=${texNombre(pIJK)}${sp()}\\text{cm}$<br>`
               handleAnswers(this, incrementation * i + nbPuces, {
                 reponse: {
@@ -453,7 +453,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
             }
             if (this.sup2 !== 1) {
               texteAMC =
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 "Calculer l'aire" +
                 (context.isAmc ? ', en cm$^2$, ' : ' ')
               texteAMC += this.sup3
@@ -474,7 +474,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 '<br>'
 
               texteCorr +=
-                numAlpha(nbPuces) +
+                (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre((a * b) / 2)}${sp()}\\text{cm}^2$<br>`
               handleAnswers(this, incrementation * i + nbPuces, {
                 reponse: {

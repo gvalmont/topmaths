@@ -5,10 +5,12 @@ import {
 } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { arrondi } from '../outils/nombres'
 import { angleOriente } from './angles'
 import { Cercle } from './cercle'
 import { Droite, droite } from './droites'
+import MainLevee from './MainLevee'
 import {
   milieu,
   Point,
@@ -17,11 +19,9 @@ import {
   pointIntersectionLC,
   pointSurSegment,
 } from './points'
+import { pointAbstrait, PointAbstrait } from './points-abstraits'
 import { latex2d, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
-import MainLevee from './MainLevee'
-import { pointAbstrait, PointAbstrait } from './points-abstraits'
-import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 
 /**
  * v = vecteur('V') // son nom
@@ -429,7 +429,11 @@ export class Segment extends ObjetMathalea2D {
         A.ySVG(coeff),
         B.xSVG(coeff),
         B.ySVG(coeff),
-        { color: this.color[0], epaisseur: this.epaisseur },
+        {
+          color: this.color[0],
+          epaisseur: this.epaisseur,
+          roughness: amplitude * 5,
+        },
       )
       if (this.styleExtremites.length > 0) {
         code = `<g id="${this.id}">${code}</g>`

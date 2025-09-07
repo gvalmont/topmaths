@@ -3,6 +3,7 @@ import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
   point,
   pointAdistance,
+  pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
   pointSurSegment,
@@ -12,8 +13,8 @@ import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import type { OptionsCompas } from '../Alea2iep'
 import type Alea2iep from '../Alea2iep'
+import type { OptionsCompas } from '../Alea2iep'
 import { randint } from '../outils'
 
 /**
@@ -534,5 +535,53 @@ export const triangleEquilateral = function (
   this.segmentCodage(A, B)
   this.segmentCodage(A, C)
   this.segmentCodage(B, C)
+  return [A, B, C]
+}
+
+export const triangleIsocele2Longueurs = function (
+  this: Alea2iep,
+  NOM: string | string[],
+  AB: number, // côtés égaux
+  AC: number, // base,
+  options: OptionsCompas = {},
+) {
+  const A = point(6, 0)
+  const C = pointAdistance(A, AC, randint(-10, 10))
+  const CC = pointAdistance(A, AB, 0)
+  const c1 = cercle(A, AB)
+  const c2 = cercle(C, AB)
+  const B = pointIntersectionCC(c1, c2, 'C', 1) as PointAbstrait
+
+  //
+  if (NOM.length === 3) {
+    A.nom = NOM[0]
+    B.nom = NOM[2]
+    C.nom = NOM[1]
+  }
+  this.pointCreer(A, options)
+  // this.regleRotation(droite(A,B).angleAvecHorizontale, options)
+  // this.regleMontrer(A, options)
+  this.regleSegment(A, C, options)
+  this.compasMontrer(A, options)
+  this.pointCreer(C, options)
+  this.compasEcarterAvecRegle(AB, options)
+  this.compasTracerArcCentrePoint(A, B, options)
+  this.compasTracerArcCentrePoint(C, B, options)
+  this.pointCreer(B, options)
+  this.compasMasquer(options)
+  this.couleur = 'blue'
+  this.epaisseur = 3
+  if (options.description)
+    this.textePosition(
+      `Le point ${B.nom} est à une intersection des deux cercles.`,
+      0,
+      -5,
+      options,
+    )
+  this.pointCreer(B, options)
+  this.regleSegment(B, C, options)
+  this.regleSegment(B, A, options)
+  this.crayonMasquer(options)
+  this.regleMasquer(options)
   return [A, B, C]
 }

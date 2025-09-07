@@ -1,5 +1,5 @@
 <script lang="ts">
-  import katex from 'katex/dist/katex'
+  import katex from 'katex'
   import { onDestroy } from 'svelte'
   import {
     isExerciceItemInReferentiel,
@@ -138,7 +138,7 @@
   style="padding-left: {(nestedLevelCount * 2) / 6}rem"
 >
   <div
-    class="w-full relative inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
+    class="{`w-full relative inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest ${selectedCount >= 1 ? 'bg-coopmaths-warn dark:bg-coopmathsdark-warn' : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'} cursor-pointer`}"
   >
     <button
       type="button"
@@ -249,7 +249,7 @@
     {#if selectedCount >= 1}
       <button
         type="button"
-        class="absolute -left-4 -top-[0.15rem]"
+        class="absolute -left-4 top-1/2 transform -translate-y-1/2"
         on:mouseover="{handleMouseOver}"
         on:focus="{handleMouseOver}"
         on:mouseout="{handleMouseOut}"

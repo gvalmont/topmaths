@@ -3,6 +3,7 @@ import DragAndDrop, { type Etiquette } from '../../lib/interactif/DragAndDrop'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import {
   contraindreValeur,
   gestionnaireFormulaireTexte,
@@ -103,7 +104,7 @@ class DragAndDropNumerationEntiere extends Exercice {
         nombreStr = arrayFromNbr.map(String).join('')
       }
       const nombre = new Decimal(nombreStr)
-      texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les ${enLettre ? 'adjectifs numéraux' : 'valeurs'} qui conviennent ${enLettre ? 'unité, dizaine(s), centaine(s)...' : `($1, 10, 100,${texNombre(1000, 3)},...$)`}.<br>`
+      texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les ${enLettre ? 'adjectifs numéraux' : 'opérations'} qui conviennent ${enLettre ? '(unité(s) ou dizaine(s) ou centaine(s) ou ...)' : `($\\times 1 \\text{ ou }\\times 10 \\text{ ou }\\times 100 \\text{ ou }\\times ${texNombre(1000, 3)} \\text{ ou }\\ldots$)`}.<br>`
       // texte += `$${texNombre(nombre, 0)}=`
 
       texteCorr = `$${texNombre(nombre, 0)}=`
@@ -137,47 +138,57 @@ class DragAndDropNumerationEntiere extends Exercice {
           })
         }
       }
-
-      for (let k = 0, indiceRectangle = 1; k < this.morceaux[i].length; k++) {
-        if (this.morceaux[i][k] !== '0') {
-          enonceATrous += `$${this.morceaux[i][k]}$%{rectangle${indiceRectangle}}$+$`
-          if (this.exposantMorceaux[i][k] === 3) {
-            reponses.push([
-              `rectangle${indiceRectangle++}`,
-              {
-                value: enLettre
-                  ? String(2 * this.exposantMorceaux[i][k] + 1)
-                  : String(this.exposantMorceaux[i][k] + 1),
-              },
-            ])
-          } else {
-            const shift = Number(this.morceaux[i][k]) > 1 ? 1 : 0
-            reponses.push([
-              `rectangle${indiceRectangle++}`,
-              {
-                value: enLettre
-                  ? String(2 * this.exposantMorceaux[i][k] + 1 + shift)
-                  : String(this.exposantMorceaux[i][k] + 1),
-                options: { multi: false },
-              },
-            ])
+      if (context.isHtml) {
+        for (let k = 0, indiceRectangle = 1; k < this.morceaux[i].length; k++) {
+          if (this.morceaux[i][k] !== '0') {
+            enonceATrous += `$${this.morceaux[i][k]}$%{rectangle${indiceRectangle}}$+$`
+            if (this.exposantMorceaux[i][k] === 3) {
+              reponses.push([
+                `rectangle${indiceRectangle++}`,
+                {
+                  value: enLettre
+                    ? String(2 * this.exposantMorceaux[i][k] + 1)
+                    : String(this.exposantMorceaux[i][k] + 1),
+                },
+              ])
+            } else {
+              const shift = Number(this.morceaux[i][k]) > 1 ? 1 : 0
+              reponses.push([
+                `rectangle${indiceRectangle++}`,
+                {
+                  value: enLettre
+                    ? String(2 * this.exposantMorceaux[i][k] + 1 + shift)
+                    : String(this.exposantMorceaux[i][k] + 1),
+                  options: { multi: false },
+                },
+              ])
+            }
           }
         }
+        const objetReponse = Object.fromEntries(reponses)
+        enonceATrous = `${enonceATrous.substring(0, enonceATrous.length - 3)}` // En fin de boucle on a ajouté un '+$' inutile, il faut le supprimer
+        const leDragAndDrop = new DragAndDrop({
+          exercice: this,
+          question: i,
+          etiquettes: [etiquettes],
+          consigne: `Remettre les étiquettes au bon endroit pour reconstituer le nombre $${texNombre(nombre, 0)}$`,
+          enonceATrous,
+        })
+        handleAnswers(this, i, objetReponse, { formatInteractif: 'dnd' })
+        texte += leDragAndDrop.ajouteDragAndDrop({
+          melange: true,
+          duplicable: false,
+        })
+        this.dragAndDrops[i] = leDragAndDrop // on stocke les instances de dragAndDrop dans l'exercice pour pouvoir accéder aux listeners à supprimer lors de la vérification.
+      } else {
+        texte += '\n$'
+        for (let k = 0; k < this.morceaux[i].length; k++) {
+          if (this.morceaux[i][k] !== '0') {
+            texte += `(${this.morceaux[i][k]} \\ldots \\ldots \\ldots) +`
+          }
+        }
+        texte = `${texte.substring(0, texte.length - 2)}$`
       }
-      const objetReponse = Object.fromEntries(reponses)
-      enonceATrous = `${enonceATrous.substring(0, enonceATrous.length - 3)}` // En fin de boucle on a ajouté un '+$' inutile, il faut le supprimer
-      const leDragAndDrop = new DragAndDrop({
-        exercice: this,
-        question: i,
-        etiquettes: [etiquettes],
-        consigne: `Remettre les étiquettes au bon endroit pour reconstituer le nombre $${texNombre(nombre, 0)}$`,
-        enonceATrous,
-      })
-      handleAnswers(this, i, objetReponse, { formatInteractif: 'dnd' })
-      texte += leDragAndDrop.ajouteDragAndDrop({
-        melange: true,
-        duplicable: false,
-      })
       for (let k = 0; k < this.morceaux[i].length; k++) {
         if (this.morceaux[i][k] !== '0') {
           texteCorr += enLettre
@@ -188,7 +199,6 @@ class DragAndDropNumerationEntiere extends Exercice {
       // texte = `${texte.substring(0, texte.length - 1)}$`
       texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
       if (this.questionJamaisPosee(i, nombreStr)) {
-        this.dragAndDrops.push(leDragAndDrop) // on stocke les instances de dragAndDrop dans l'exercice pour pouvoir accéder aux listeners à supprimer lors de la vérification.
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

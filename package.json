@@ -81,11 +81,9 @@
     "@cortex-js/compute-engine": "^0.29.1",
     "@mixer/postmessage-rpc": "^1.1.4",
     "@svgdotjs/svg.js": "^3.2.4",
-    "@types/aframe": "^1.2.8",
     "@types/crypto-js": "^4.2.2",
     "@types/jspreadsheet-ce": "^4.7.9",
     "@types/three": "^0.178.0",
-    "aframe": "^1.7.1",
     "apigeom": "git+https://forge.apps.education.fr/coopmaths/apigeom.git",
     "blockly": "12.2.0",
     "boxicons": "^2.1.4",
@@ -101,7 +99,7 @@
     "glisse-nombre": "git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git",
     "husky": "^9.1.7",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
-    "jspreadsheet-ce": "4.6.0",
+    "jspreadsheet-ce": "github:lhotejc/spreadsheet-ce",
     "jszip": "^3.10.1",
     "jszip-utils": "^0.1.0",
     "katex": "^0.16.22",
@@ -123,7 +121,6 @@
     "ts-import": "5.0.0-beta.0",
     "tw-elements": "^1.1.0",
     "ua-parser-js": "^2.0.4",
-    "univer-sheets-vite": "git+https://forge.apps.education.fr/guironnetmickael/excelweb.git",
     "xstate": "^4.38.3"
   },
   "devDependencies": {

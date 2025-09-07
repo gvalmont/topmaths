@@ -608,3 +608,87 @@ export function arrayClone(originalArray: any[]): any[] {
     }
   })
 }
+
+type OptionsBinomes = {
+  premierNombre?: number
+  dernierNombre?: number
+  ordreCroissant?: boolean
+  ordreDecroissant?: boolean
+}
+
+/**
+ * Génère tous les binômes possibles à partir d’un tableau de nombres,
+ * en respectant éventuellement certaines options de filtrage.
+ *
+ * @param {number[]} tab - Tableau de nombres à combiner.
+ * @param {Object} [options={}] - Options permettant de restreindre ou filtrer les binômes.
+ * @param {number} [options.premierNombre] - Si défini, ne garde que les binômes dont le premier élément est ce nombre.
+ * @param {number} [options.dernierNombre] - Si défini, ne garde que les binômes dont le second élément est ce nombre.
+ * @param {boolean} [options.ordreCroissant=false] - Si true, ne conserve que les binômes [a, b] où a < b.
+ * @param {boolean} [options.ordreDecroissant=false] - Si true, ne conserve que les binômes [a, b] où a > b.
+ * @returns {[number, number][]} Liste de binômes valides.
+ * @author Eric Elter
+ *
+ * @example
+ * genererBinomesAleatoires([0,1,2,3])
+ * // =>
+ * // [
+ * //   [0,1],[0,2],[0,3],
+ * //   [1,0],[1,2],[1,3],
+ * //   [2,0],[2,1],[2,3],
+ * //   [3,0],[3,1],[3,2]
+ * // ]
+ *
+ * @example
+ * genererBinomesAleatoires([0,1,2,3], { ordreCroissant: true })
+ * // => [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]]
+ *
+ * @example
+ * genererBinomesAleatoires([0,1,2,3], { premierNombre: 2 })
+ * // => [[2,0],[2,1],[2,3]]
+ *
+ * @example
+ * genererBinomesAleatoires([0,1,2,3], { dernierNombre: 2 })
+ * // => [[0,2],[1,2],[3,2]]
+ *
+ * @example
+ * genererBinomesAleatoires([0,1,2,3], { premierNombre: 1, dernierNombre: 3 })
+ * // => [[1,3]]
+ */
+export function genererBinomesAleatoires(
+  tab: number[],
+  options: OptionsBinomes = {},
+): [number, number][] {
+  const {
+    premierNombre = undefined,
+    dernierNombre = undefined,
+    ordreCroissant = false,
+    ordreDecroissant = false,
+  } = options
+
+  const binomes: [number, number][] = []
+
+  for (let i = 0; i < tab.length; i++) {
+    for (let j = 0; j < tab.length; j++) {
+      if (i === j) continue
+
+      const a = tab[i]
+      const b = tab[j]
+
+      // Appliquer les options
+      if (premierNombre !== undefined && a !== premierNombre) continue
+      if (dernierNombre !== undefined && b !== dernierNombre) continue
+      if (ordreCroissant && a >= b) continue
+      if (ordreDecroissant && a <= b) continue
+
+      binomes.push([a, b])
+    }
+  }
+
+  // Mélange aléatoire (Fisher-Yates)
+  for (let i = binomes.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[binomes[i], binomes[j]] = [binomes[j], binomes[i]]
+  }
+  return binomes
+}

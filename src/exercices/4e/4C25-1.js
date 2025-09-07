@@ -1,23 +1,22 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { numAlpha } from '../../lib/outils/outilString'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { numAlpha } from '../../lib/outils/outilString'
 import { prenomF } from '../../lib/outils/Personne'
-import Exercice from '../Exercice'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import { fraction, listeFractions } from '../../modules/fractions'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
-  gestionnaireFormulaireTexte,
 } from '../../modules/outils'
-import { fraction, listeFractions } from '../../modules/fractions'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../Exercice'
 
 export const titre =
   'Résoudre des problèmes additifs et multiplicatifs utilisant des fractions'
 
 /**
  * Résoudre des problèmes additifs et multiplicatifs utilisant des fractions
- * 4C25-1
  * @author Mickael Guironnet
  */
 
@@ -31,8 +30,8 @@ export default class ProblemesMultiplicatifsFractions extends Exercice {
   constructor() {
     super()
     this.besoinFormulaireTexte = [
-      "Type de problèmes (séparé par un trait d'union",
-      '1: bouteille (3 fractions)\n2 : examen (3 fractions)\n3 : élections (3 fractions)\n4 : argent (3 fractions)\n5 : jeu tv(4 fractions)\n6 : timbres(4 fractions)\n7 : fleurs(4 fractions)\n8 : mélange',
+      'Type de problèmes',
+      'Nombres séparés par des tirets :\n1: Bouteille (3 fractions)\n2 : Examen (3 fractions)\n3 : Élections (3 fractions)\n4 : Argent (3 fractions)\n5 : Jeu TV (4 fractions)\n6 : Timbres (4 fractions)\n7 : Fleurs (4 fractions)\n8 : Mélange',
     ]
 
     this.sup = '8'

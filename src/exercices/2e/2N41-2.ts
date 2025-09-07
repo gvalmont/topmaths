@@ -1,23 +1,23 @@
-import Exercice from '../Exercice'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
-import { miseEnEvidence, miseEnCouleur } from '../../lib/outils/embellissements'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
 } from '../../lib/outils/ecritures'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import { fraction } from '../../modules/fractions'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Factoriser avec $a^2-b^2$'
 export const uuid = '47f20'
 export const interactifReady = true
@@ -79,6 +79,7 @@ export default class factorisationDifferenceCarres extends Exercice {
       let texteCorr = ''
       const texteEgaliteR = `On utilise l'égalité remarquable $${miseEnCouleur('a', 'red')}^2-${miseEnCouleur('b', 'blue')}^2=(${miseEnCouleur('a', 'red')}-${miseEnCouleur('b', 'blue')})(${miseEnCouleur('a', 'red')}+${miseEnCouleur('b', 'blue')})$ avec `
       const choix = choice([true, false])
+
       switch (listeTypeDeQuestions[i]) {
         case 1: // x^2-a^2
           {
@@ -101,9 +102,9 @@ export default class factorisationDifferenceCarres extends Exercice {
               }
             } else {
               if (choix === true) {
-                texteCorr = `$x^2-${a * a}=${miseEnEvidence(`(x-${a})(x+${a})`)}$`
+                texteCorr = `$x^2-${a * a}=(x-${a})(x+${a})`
               } else {
-                texteCorr += `$${a * a}-x^2=${miseEnEvidence(`(${a}-x)(${a}+x)`)}$`
+                texteCorr += `$${a * a}-x^2=(${a}-x)(${a}+x)`
               }
             }
 
@@ -140,9 +141,9 @@ export default class factorisationDifferenceCarres extends Exercice {
               }
             } else {
               if (choix === true) {
-                texteCorr = `$x^2-${a}=${miseEnEvidence(`(x-\\sqrt{${a}})(x+\\sqrt{${a}})`)}$`
+                texteCorr = `$x^2-${a}=(x-\\sqrt{${a}})(x+\\sqrt{${a}})`
               } else {
-                texteCorr += `$${a}-x^2=${miseEnEvidence(`(\\sqrt{${a}}-x)(\\sqrt{${a}}+x)`)}$`
+                texteCorr += `$${a}-x^2=(\\sqrt{${a}}-x)(\\sqrt{${a}}+x)`
               }
             }
 
@@ -179,9 +180,9 @@ export default class factorisationDifferenceCarres extends Exercice {
               }
             } else {
               if (choix === true) {
-                texteCorr = `$${a * a}x^2-${b * b}=${miseEnEvidence(`(${a}x-${b})(${a}x+${b})`)}$`
+                texteCorr = `$${a * a}x^2-${b * b}=(${a}x-${b})(${a}x+${b})`
               } else {
-                texteCorr += `$${b * b}-${a * a}x^2=${miseEnEvidence(`(${b}-${a}x)(${b}+${a}x)`)}$`
+                texteCorr += `$${b * b}-${a * a}x^2=(${b}-${a}x)(${b}+${a}x)`
               }
             }
 
@@ -219,9 +220,9 @@ export default class factorisationDifferenceCarres extends Exercice {
               }
             } else {
               if (choix === true) {
-                texteCorr = `$${a}x^2-${b * b}=${miseEnEvidence(`(\\sqrt{${a}}x-${b})(\\sqrt{${a}}x+${b})`)}$`
+                texteCorr = `$${a}x^2-${b * b}=(\\sqrt{${a}}x-${b})(\\sqrt{${a}}x+${b})`
               } else {
-                texteCorr += `$${b * b}-${a}x^2=${miseEnEvidence(`(${b}-\\sqrt{${a}}x)(${b}+\\sqrt{${a}}x)`)}$`
+                texteCorr += `$${b * b}-${a}x^2=(${b}-\\sqrt{${a}}x)(${b}+\\sqrt{${a}}x)`
               }
             }
 
@@ -259,9 +260,9 @@ export default class factorisationDifferenceCarres extends Exercice {
               }
             } else {
               if (choix === true) {
-                texteCorr = `$${a}x^2-${b * b}=${miseEnEvidence(`\\left(\\dfrac{x}{${a}}-${b}\\right)\\left(\\dfrac{x}{${a}}+${b}\\right)`)}$`
+                texteCorr = `$${a}x^2-${b * b}=\\left(\\dfrac{x}{${a}}-${b}\\right)\\left(\\dfrac{x}{${a}}+${b}\\right)`
               } else {
-                texteCorr += `$${b * b}-${a}x^2=${miseEnEvidence(`\\left(${b}-\\dfrac{x}{${a}}\\right)\\left((${b}+\\dfrac{x}{${a}}\\right)`)}$`
+                texteCorr += `$${b * b}-${a}x^2=\\left(${b}-\\dfrac{x}{${a}}\\right)\\left((${b}+\\dfrac{x}{${a}}\\right)`
               }
             }
 
@@ -336,9 +337,9 @@ export default class factorisationDifferenceCarres extends Exercice {
               }
             } else {
               if (choix === true) {
-                texteCorr = `$${dfrac2.texFraction}x^2-${b * b}=${miseEnEvidence(`(${dfrac.texFraction}x-${b})(${dfrac.texFraction}x+${b})`)}$`
+                texteCorr = `$${dfrac2.texFraction}x^2-${b * b}=(${dfrac.texFraction}x-${b})(${dfrac.texFraction}x+${b})`
               } else {
-                texteCorr += `$${b * b}-x^2=${miseEnEvidence(`\\left(${b}-${dfrac.texFraction}x\\right)\\left(${b}+${dfrac.texFraction}x\\right)`)}$`
+                texteCorr += `$${b * b}-x^2=\\left(${b}-${dfrac.texFraction}x\\right)\\left(${b}+${dfrac.texFraction}x\\right)`
               }
             }
 
@@ -378,9 +379,9 @@ export default class factorisationDifferenceCarres extends Exercice {
               }
             } else {
               if (choix === true) {
-                texteCorr = `$${texNombre(new Decimal(a.mul(a)), 2)}x^2-${texNombre(new Decimal(b.mul(b)), 2)}=${miseEnEvidence(`(${texNombre(a, 2)}x-${b})(${texNombre(a, 2)}x+${b})`)}$`
+                texteCorr = `$${texNombre(new Decimal(a.mul(a)), 2)}x^2-${texNombre(new Decimal(b.mul(b)), 2)}=(${texNombre(a, 2)}x-${b})(${texNombre(a, 2)}x+${b})`
               } else {
-                texteCorr += `$${texNombre(new Decimal(b.mul(b)), 2)}-${texNombre(new Decimal(a.mul(a)), 2)}x^2=${miseEnEvidence(`(${texNombre(b, 2)}-${texNombre(a, 2)}x)(${texNombre(b, 2)}+${texNombre(a, 2)}x)`)}$`
+                texteCorr += `$${texNombre(new Decimal(b.mul(b)), 2)}-${texNombre(new Decimal(a.mul(a)), 2)}x^2=(${texNombre(b, 2)}-${texNombre(a, 2)}x)(${texNombre(b, 2)}+${texNombre(a, 2)}x)`
               }
             }
 
@@ -418,17 +419,17 @@ export default class factorisationDifferenceCarres extends Exercice {
               }
             } else {
               if (choix === true) {
-                texteCorr = `$(${reduireAxPlusB(a, b)})^2-${c * c}=${miseEnEvidence(`(${reduireAxPlusB(a, b + c)})(${reduireAxPlusB(a, b - c)})`)}$`
+                texteCorr = `$(${reduireAxPlusB(a, b)})^2-${c * c}=(${reduireAxPlusB(a, b + c)})(${reduireAxPlusB(a, b - c)})`
               } else {
-                texteCorr += `$${c * c}-(${reduireAxPlusB(a, b)})^2=${miseEnEvidence(`(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(a, c - b)})`)}$`
+                texteCorr += `$${c * c}-(${reduireAxPlusB(a, b)})^2=(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(a, c + b)})`
               }
             }
 
             handleAnswers(this, i, {
               reponse: {
                 value: choix
-                  ? `(${reduireAxPlusB(a, b + c)})(${reduireAxPlusB(a, b - c)})`
-                  : `(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(-a, c + b)})`,
+                  ? `${c === b ? `${reduireAxPlusB(a, b - c)}(${reduireAxPlusB(a, b + c)})` : `${c === -b ? `${reduireAxPlusB(a, b + c)}(${reduireAxPlusB(a, b - c)})` : `(${reduireAxPlusB(a, b - c)})(${reduireAxPlusB(a, b + c)})`}`}`
+                  : `(${reduireAxPlusB(-a, c - b)})(${reduireAxPlusB(a, c + b)})`,
                 options: { factorisation: true },
               },
             })
@@ -473,12 +474,12 @@ export default class factorisationDifferenceCarres extends Exercice {
             } else {
               texteCorr += `$(${reduireAxPlusB(a, b)})^2-(${reduireAxPlusB(c, d)})^2=`
               if (facteurConstant.length === 0) {
-                texteCorr += `${miseEnEvidence(`(${facteur1})(${facteur2})`)}$`
+                texteCorr += `(${facteur1})(${facteur2})`
               } else {
                 if (facteur1.includes('x')) {
-                  texteCorr += `${miseEnEvidence(`${facteur2}(${facteur1})`)}$`
+                  texteCorr += `${facteur2}(${facteur1})`
                 } else {
-                  texteCorr += `${miseEnEvidence(`${facteur1}(${facteur2})`)}$`
+                  texteCorr += `${facteur1}(${facteur2})`
                 }
               }
             }
@@ -526,9 +527,9 @@ export default class factorisationDifferenceCarres extends Exercice {
             } else {
               texteCorr = ` $${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2`
               if (facteurConstant.length === 0 || !facteur1.includes('x')) {
-                texteCorr += ` = ${miseEnEvidence(`(${facteur1})(${facteur2})`)}$`
+                texteCorr += ` = (${facteur1})(${facteur2})`
               } else {
-                texteCorr += ` = ${miseEnEvidence(`(${facteur2})(${facteur1})`)}$`
+                texteCorr += ` = (${facteur2})(${facteur1})`
               }
             }
             handleAnswers(this, i, {
@@ -549,6 +550,24 @@ export default class factorisationDifferenceCarres extends Exercice {
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        const avecAligned = aRemplacer.includes('aligned')
+        const sansAccolades = !aRemplacer.includes('a+b')
+        if (avecAligned && sansAccolades)
+          aRemplacer = aRemplacer.replace('\\end{aligned}$', '')
+        else if (sansAccolades) aRemplacer = aRemplacer.replace('$', '')
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        if (avecAligned && sansAccolades)
+          texteCorr += `${miseEnEvidence(aRemplacer)}\\end{aligned}$`
+        else if (sansAccolades) texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        else texteCorr += aRemplacer
+        // Fin de cette uniformisation
+
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

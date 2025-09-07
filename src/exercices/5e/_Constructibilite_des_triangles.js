@@ -1,15 +1,15 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Triangle } from '../../modules/Triangle'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { context } from '../../modules/context'
-import { arrondi } from '../../lib/outils/nombres'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -144,14 +144,15 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} est constructible`)}.`
           break
         case 2: // 3 longueurs plat
-          while (!triangle.isPlatTriangleLongueurs()) {
+          do {
             l1 = randint(lMin, lMax)
             l2 = randint(lMin, lMax)
             l3 = arrondi(l1 + l2)
             triangle.l1 = l1
             triangle.l2 = l2
             triangle.l3 = l3
-          }
+          } while (!triangle.isPlatTriangleLongueurs())
+
           texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $ = ${triangle.l1}$ cm ; `
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
@@ -166,7 +167,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
-          texteCorr = `${triangle.getNom()}, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
+          texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
           texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${currentTriangle[2].valeur}$ cm aussi.`
           texteCorr +=
             `<br> Les points ${triangle.stringSommets} sont donc alignés. ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` +

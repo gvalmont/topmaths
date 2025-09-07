@@ -1,8 +1,7 @@
-import { exercicesParams, globalOptions } from '../stores/generalStore'
-import { canOptions } from '../stores/canStore'
 import { get } from 'svelte/store'
 import { type InterfaceGlobalOptions, type VueType } from '../../lib/types'
-import { notify } from '../../bugsnag'
+import { canOptions } from '../stores/canStore'
+import { exercicesParams, globalOptions } from '../stores/generalStore'
 
 export class MathAleaURL extends URL {
   /**
@@ -227,7 +226,7 @@ export async function getShortenedCurrentUrl(
     const jsonResponse = await response.json()
     return jsonResponse.result.full_short_link
   } catch (error) {
-    notify("Impossible de raccourcir l'url", { error })
+    window.notify("Impossible de raccourcir l'url", { error })
     return url
   }
 }

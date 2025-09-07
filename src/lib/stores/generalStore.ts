@@ -1,4 +1,6 @@
 import { get, writable } from 'svelte/store'
+import { statsPageTracker } from '../../modules/statsUtils'
+import { buildDsParams } from '../components/urls'
 import type {
   InterfaceGlobalOptions,
   InterfaceParams,
@@ -8,8 +10,6 @@ import type {
 } from '../types'
 import { type JSONReferentielEnding } from '../types/referentiels'
 import { canOptions } from './canStore'
-import { buildDsParams } from '../components/urls'
-import { statsPageTracker } from '../../modules/statsUtils'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -226,6 +226,11 @@ export function updateGlobalOptionsInURL(url: URL) {
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
   if (timerId === undefined) {
     timerId = setTimeout(() => {
+      const currentUrl = new URL(window.location.href)
+      if (urlToWrite.href === currentUrl.href) {
+        timerId = undefined
+        return
+      }
       window.history.pushState({}, '', urlToWrite)
       statsPageTracker()
       timerId = undefined

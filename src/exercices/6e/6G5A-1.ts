@@ -1,25 +1,26 @@
-import { afficheMesureAngle } from '../../lib/2d/codages'
-import { droite } from '../../lib/2d/droites'
-import { tracePointSurDroite } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes'
-import { rotation } from '../../lib/2d/transformations'
-import { createList } from '../../lib/format/lists'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import {
+  AddTabPropMathlive,
+  type Icell,
+  type Itableau,
+} from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import { rangeMinMax } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const uuid = '01875'
-export const titre = "Calculer une mesure d'angle avec la bissectrice"
+export const uuid = '91875'
+export const titre =
+  "Donner une mesure d'angle à l'aide de la bissectrice (tableau)"
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '27/08/2025'
+export const dateDePublication = '31/09/2025'
 
 export const refs = {
   'fr-fr': ['6G5A-1'],
@@ -33,27 +34,25 @@ export const refs = {
 export default class QuestionBissectrice extends Exercice {
   constructor() {
     super()
-    this.nbQuestions = 1
+    this.nbQuestions = 3
 
     this.besoinFormulaireTexte = [
       'types de questions',
-      'Nombres séparés par des tirets :\n1 : utilisation directe\n2 : utilisation indirecte\n3 : Mélange',
+      'Nombres séparés par des tirets :\n1 : Utilisation directe\n2 : Utilisation indirecte\n3 : Mélange',
     ]
     this.besoinFormulaire2Texte = [
       'Niveau de difficulté',
-      'Nombres séparés par des tirets :\n1 : multiples de 10\n2 : nombres pairs\n3 : nombres quelconques\n4 : mélange',
+      'Nombres séparés par des tirets :\n1 : Moitié de nombres entiers pairs\n2 : Moitié de nombres entiers pairs ou impairs\n3 : Moitié de nombres décimaux\n4 : Mélange',
     ]
-    this.besoinFormulaire4CaseACocher = ['Avec figure', false]
+
     this.sup = '3'
     this.sup2 = '4'
-    this.sup3 = false
-    this.sup4 = false
   }
 
   nouvelleVersion(): void {
     const typesQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
-      nbQuestions: this.nbQuestions,
+      nbQuestions: 5,
       min: 1,
       max: 2,
       melange: 3,
@@ -69,101 +68,190 @@ export default class QuestionBissectrice extends Exercice {
     }).map(Number)
     const avecFigure = this.sup4
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
-      let texte = ''
-      let texteCorr = ''
-      let alpha = 0
-      const angleMax = 90
-      const angleMin = 20
-      if (niveauxDifficulte[i] === 1) {
-        alpha = 10 * (2 + Math.floor(((angleMax - 20) / 20) * Math.random()))
-      } else if (niveauxDifficulte[i] === 2) {
-        alpha = 2 * (5 + Math.floor(((angleMax - 10) / 2) * Math.random()))
-      } else if (niveauxDifficulte[i] === 3) {
-        alpha = angleMin + Math.floor((angleMax - angleMin) * Math.random())
-      }
-      const alpha2 = 2 * alpha
-      const lettres = choisitLettresDifferentes(4)
+      const minuscule = choice(['x', 'y', 'z'])
+      const lettres = choisitLettresDifferentes(4, 'XYZ')
       const A = lettres[0]
       const B = lettres[1]
       const C = lettres[2]
       const I = lettres[3]
-      if (typesQuestions[i] === 1) {
-        if (avecFigure) {
-          const pointA = pointAbstrait(5, 0, A, 'below')
-          const pointB = pointAbstrait(0, 0, B, 'below left')
-          const pointC = rotation(pointA, pointB, alpha2, C, 'above left')
-          const pointI = rotation(pointA, pointB, alpha)
-          const dd1 = demiDroite(pointB, pointA)
-          const d1 = droite(pointB, pointA)
-          const d2 = droite(pointB, pointC)
-          const dd2 = demiDroite(pointB, pointC)
-          const d3 = demiDroite(pointB, pointI)
-          const labels = labelPoint(pointA, pointB, pointC)
-          const trace1 = tracePointSurDroite(pointA, d1)
-          const trace2 = tracePointSurDroite(pointC, d2)
-          const mesureAngle = afficheMesureAngle(pointA, pointB, pointC)
-          const objets = [dd1, dd2, labels, trace1, trace2, mesureAngle]
-          texte += mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
-          texte += '<br>'
+      const alphas: number[] = []
+      const alphas2: number[] = []
+      const ligne1: Icell[] = [
+        {
+          texte: `\\widehat{${A}${B}${C}}`,
+          latex: true,
+          gras: true,
+          color: 'black',
+        },
+      ]
+      const ligne2: Icell[] = [
+        {
+          texte: `\\widehat{${A}${B}${I}}`,
+          latex: true,
+          gras: true,
+          color: 'black',
+        },
+      ]
+      const ligne1Corr: Icell[] = [
+        {
+          texte: `\\widehat{${A}${B}${C}}`,
+          latex: true,
+          gras: true,
+          color: 'black',
+        },
+      ]
+      const ligne2Corr: Icell[] = [
+        {
+          texte: `\\widehat{${A}${B}${I}}`,
+          latex: true,
+          gras: true,
+          color: 'black',
+        },
+      ]
+
+      for (let n = 0; n < 5; n++) {
+        let alpha = 0
+        if (niveauxDifficulte[i] === 1) {
+          alpha = 2 * randint(2, 89, alphas)
+        } else if (niveauxDifficulte[i] === 2) {
+          alpha = randint(1, 189, alphas)
+        } else {
+          alpha = randint(10, 160, alphas.map(Math.round)) + randint(0, 9) / 10
         }
-        texte +=
-          `Donner la mesure de l'angle $\\widehat{${A}${B}${I}}$ sachant que :<br>
-        ${createList({
-          items: [
-            `la demi-droite $\\left[${B}${I}\\right)$ est la bissectrice de l'angle $\\widehat{${A}${B}${C}}$,`,
-            `$\\widehat{${A}${B}${C}}$ mesure $${alpha2}^\\circ$.`,
-          ],
-          style: 'fleches',
-        })}` +
-          ajouteChampTexteMathLive(this, i, KeyboardType.angles, {
-            texteAvant: `$\\widehat{${A}${B}${I}}=$`,
+        alphas.push(alpha)
+        alphas2.push(alpha / 2)
+        if (typesQuestions[n] === 1) {
+          ligne1.push({
+            texte: `${texNombre(alpha, 1)}^\\circ`,
+            latex: true,
+            color: 'black',
+            gras: false,
+            style: `gray;`,
           })
-        handleAnswers(this, i, {
-          reponse: { value: `${alpha}^\\circ`, options: { unite: true } },
-        })
-        texteCorr = `La demi-droite $\\left[${B}${I}\\right)$ est la bissectrice de l'angle $\\widehat{${A}${B}${C}}$.<br>
-        Par définition de la bissectrice, elle partage cet angle en deux angles égaux.<br>
-        Donc : $\\widehat{${A}${B}${I}} = \\dfrac{${alpha2}^\\circ}{2} = ${miseEnEvidence(`${alpha}^\\circ`)}$.`
-      } else {
-        if (avecFigure) {
-          const pointA = pointAbstrait(5, 0, A, 'below')
-          const pointB = pointAbstrait(0, 0, B, 'below left')
-          const pointC = rotation(pointA, pointB, alpha2, C, 'above left')
-          const pointI = rotation(pointA, pointB, alpha, I, 'above')
-          const dd1 = demiDroite(pointB, pointA)
-          const d1 = droite(pointB, pointA)
-          const d2 = droite(pointB, pointC)
-          const d3 = droite(pointB, pointI)
-          const dd2 = demiDroite(pointB, pointC)
-          const dd3 = demiDroite(pointB, pointI)
-          const labels = labelPoint(pointA, pointB, pointI)
-          const trace1 = tracePointSurDroite(pointA, d1)
-          const trace2 = tracePointSurDroite(pointI, d3)
-          const mesureAngle = afficheMesureAngle(pointA, pointB, pointI)
-          const objets = [dd1, dd3, labels, trace1, trace2, mesureAngle]
-          texte += mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
-          texte += '<br>'
+          ligne1Corr.push({
+            texte: `${texNombre(alpha, 1)}^\\circ`,
+            latex: true,
+            color: 'black',
+            gras: false,
+            style: `gray;`,
+          })
+
+          ligne2.push({
+            texte: '',
+            latex: true,
+            gras: false,
+            color: 'black',
+          })
+          ligne2Corr.push({
+            texte: miseEnEvidence(`${texNombre(alpha / 2, 1)}^\\circ`),
+            latex: true,
+            color: orangeMathalea,
+            gras: false,
+          })
+        } else {
+          ligne2.push({
+            texte: `${texNombre(alpha / 2, 1)}^\\circ`,
+            latex: true,
+            color: 'black',
+            gras: false,
+            style: `gray;`,
+          })
+          ligne1.push({
+            texte: '',
+            latex: true,
+            gras: false,
+            color: 'black',
+          })
+          ligne1Corr.push({
+            texte: miseEnEvidence(`${texNombre(alpha, 1)}^\\circ`),
+            latex: true,
+            color: 'black',
+            gras: false,
+          })
+          ligne2Corr.push({
+            texte: `${texNombre(alpha / 2, 1)}^\\circ`,
+            latex: true,
+            color: 'black',
+            gras: false,
+            style: `gray;`,
+          })
         }
-        texte +=
-          `Donner la mesure de l'angle $\\widehat{${A}${B}${C}}$ sachant que :<br>
-        ${createList({
-          items: [
-            `la demi-droite $\\left[${B}${I}\\right)$ est la bissectrice de l'angle $\\widehat{${A}${B}${C}}$,`,
-            `$\\widehat{${A}${B}${I}}$ mesure $${alpha}^\\circ$.`,
-          ],
-          style: 'fleches',
-        })}` +
-          ajouteChampTexteMathLive(this, i, KeyboardType.angles, {
-            texteAvant: `$\\widehat{${A}${B}${C}}=$`,
-          })
-        handleAnswers(this, i, {
-          reponse: { value: `${alpha2}^\\circ`, options: { unite: true } },
-        })
-        texteCorr = `La demi-droite $\\left[${B}${I}\\right)$ est la bissectrice de l'angle $\\widehat{${A}${B}${C}}$.<br>
-        Par définition de la bissectrice, elle partage cet angle en deux angles égaux.<br>
-        Donc : $\\widehat{${A}${B}${C}} = 2 \\times ${alpha}^\\circ = ${miseEnEvidence(`${alpha2}^\\circ`)}$.`
       }
-      if (this.questionJamaisPosee(i, alpha)) {
+      const iTab: Itableau = {
+        nbColonnes: 6,
+        ligne1,
+        ligne2,
+      }
+
+      let styleCorr = {}
+      let style = {}
+      for (let c = 1; c < 6; c++) {
+        if (ligne1[c].texte !== '') {
+          style = {
+            ...style,
+            [`L0C${c}`]: `lightgray;black`,
+          }
+          styleCorr = {
+            ...styleCorr,
+            [`L1C${c}`]: `;${orangeMathalea}`,
+          }
+          styleCorr = { ...styleCorr, [`L0C${c}`]: `lightgray;black` }
+        }
+        if (ligne2[c].texte !== '') {
+          style = {
+            ...style,
+            [`L1C${c}`]: `lightgray;black`,
+          }
+          styleCorr = {
+            ...styleCorr,
+            [`L0C${c}`]: `;${orangeMathalea}`,
+          }
+          styleCorr = { ...styleCorr, [`L1C${c}`]: `lightgray;black` }
+        }
+      }
+      const tableauCorr = AddTabPropMathlive.create(
+        this.numeroExercice ?? 0,
+        i,
+        {
+          nbColonnes: 6,
+          ligne1: ligne1Corr,
+          ligne2: ligne2Corr,
+        },
+        KeyboardType.angles ?? 'angles',
+        false,
+        styleCorr,
+      )
+      const tableau = AddTabPropMathlive.create(
+        this.numeroExercice ?? 0,
+        i,
+        iTab,
+        KeyboardType.nombresEtDegre ?? '',
+        this.interactif,
+        style,
+      )
+      let objetReponse = Object.fromEntries(
+        rangeMinMax(1, 5).map((n) =>
+          ligne1[n].texte === ''
+            ? [
+                `L0C${n}`,
+                { value: `${alphas[n - 1]}°`, options: { unite: true } },
+              ]
+            : [
+                `L1C${n}`,
+                { value: `${alphas2[n - 1]}°`, options: { unite: true } },
+              ],
+        ),
+      )
+      handleAnswers(this, i, objetReponse, { formatInteractif: 'mathlive' })
+      let texte =
+        'Compléter le tableau.<br>' +
+        `$${I}$ est un point de la demi-droite $\\left[${B}${minuscule}\\right)$, bissectrice de l'angle $\\widehat{${A}${B}${C}}$.<br>` +
+        (context.isHtml ? tableau.output : tableau.latexOutput)
+      let texteCorr = context.isHtml
+        ? tableauCorr.output
+        : tableauCorr.latexOutput
+
+      if (this.questionJamaisPosee(i, alphas.join('-'))) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

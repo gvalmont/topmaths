@@ -1,6 +1,9 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { droiteGraduee } from '../../lib/2d/reperes'
 import { labelPoint } from '../../lib/2d/textes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   arrondi,
@@ -9,13 +12,10 @@ import {
 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = "Lire l'abscisse relative d'un point"
 export const interactifReady = true
@@ -136,6 +136,8 @@ export default class LireAbscisseRelative extends Exercice {
           y: 0,
           thickSecDist: 1 / pas2 / pas1,
           thickSec: true,
+          axeEpaisseur: 1,
+          thickEpaisseur: 1,
           labelsPrincipaux: true,
           thickDistance: 1 / pas1,
         }),
@@ -147,7 +149,14 @@ export default class LireAbscisseRelative extends Exercice {
       objets.push(tracePoint(A, B, C), labelPoint(A, B, C))
 
       texte = mathalea2d(
-        { xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 },
+        {
+          xmin: abs0 - 0.5,
+          xmax: abs0 + 22,
+          ymin: -1,
+          ymax: 1,
+          scale: 0.75,
+          zoom: 1.5,
+        },
         objets,
       )
       if (!context.isAmc && this.interactif) {
@@ -239,7 +248,14 @@ export default class LireAbscisseRelative extends Exercice {
         }
       }
       texteCorr = mathalea2d(
-        { xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1.5, ymax: 1, scale: 0.75 },
+        {
+          xmin: abs0 - 0.5,
+          xmax: abs0 + 22,
+          ymin: -1.5,
+          ymax: 1,
+          scale: 0.75,
+          zoom: 1.5,
+        },
         droiteGraduee({
           Unite: 3 * pas1,
           Min: abs0,
@@ -248,6 +264,8 @@ export default class LireAbscisseRelative extends Exercice {
           y: 0,
           thickSecDist: 1 / pas2 / pas1,
           thickSec: true,
+          axeEpaisseur: 1,
+          thickEpaisseur: 1,
           labelsPrincipaux: true,
           thickDistance: 1 / pas1,
           labelPointTaille: 8,
