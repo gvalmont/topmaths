@@ -2,6 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Simplifier des fractions (cas simples)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,6 +25,8 @@ export default class SimplifierFractionSimple extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+          this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
   nouvelleVersion() {

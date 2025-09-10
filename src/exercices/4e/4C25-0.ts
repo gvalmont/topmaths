@@ -75,7 +75,6 @@ export default class ProblemesAdditifsFractionsBis extends Exercice {
       min: 1,
       max: 5,
       melange: 6,
-      shuffle: false,
       defaut: 1,
       nbQuestions: this.nbQuestions,
     }).map(Number)

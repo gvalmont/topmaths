@@ -432,7 +432,7 @@ export class Segment extends ObjetMathalea2D {
         {
           color: this.color[0],
           epaisseur: this.epaisseur,
-          roughness: amplitude * 5,
+          roughness: amplitude * 2,
         },
       )
       if (this.styleExtremites.length > 0) {

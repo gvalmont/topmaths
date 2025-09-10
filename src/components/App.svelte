@@ -3,9 +3,13 @@
   import type { Unsubscriber } from 'svelte/store'
   import { checkBrowserVersion } from '../lib/components/browserVersion'
   import { fetchServerVersion } from '../lib/components/version'
-  import { mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea'
+  import {
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams,
+  } from '../lib/mathalea'
   import { canOptions } from '../lib/stores/canStore'
   import {
+    exercicesParams,
     freezeUrl,
     globalOptions,
     isInIframe,
@@ -34,6 +38,7 @@
   let showPopup = false
   let popupMessage = ''
   let globalOptionsUnsubscriber: Unsubscriber
+  let exercicesParamsUnsubscriber: Unsubscriber
 
   function handlePopupClose() {
     // console.log('Popup has been closed');
@@ -41,14 +46,16 @@
   }
 
   onMount(() => {
-    updateUrl()
-    updateContext()
-    updateVendor()
+    updateParams()
+    addEventListener('popstate', updateParams)
     globalOptionsUnsubscriber = globalOptions.subscribe(() => {
-      updateContext()
-      updateVendor()
+      updateContext() // Si on attend les 500 ms de mise à jour de l'url, la sortie LaTeX sera chargée avant la mise à jour du contexte et on se retrouvera avec du svg dans le LaTeX
+      updateVendor() // Par prévention, on met aussi à jour le vendor
+      mathaleaUpdateUrlFromExercicesParams()
     })
-    addEventListener('popstate', updateUrl)
+    exercicesParamsUnsubscriber = exercicesParams.subscribe(() => {
+      mathaleaUpdateUrlFromExercicesParams()
+    })
 
     const version = checkBrowserVersion()
     if (version.popupMessage.length > 0) {
@@ -60,6 +67,7 @@
   onDestroy(() => {
     removeEventListener('popstate', updateParams)
     globalOptionsUnsubscriber()
+    exercicesParamsUnsubscriber()
   })
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
@@ -115,15 +123,15 @@
   }
 
   function updateParams() {
-    updateUrl()
+    updateParamsFromUrl()
     updateContext()
     updateVendor()
   }
 
-  function updateUrl() {
+  function updateParamsFromUrl() {
     updateReferentielLocaleFromURL()
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
-    if (JSON.stringify(globalOptions) !== JSON.stringify(urlOptions)) {
+    if (JSON.stringify($globalOptions) !== JSON.stringify(urlOptions)) {
       globalOptions.set(urlOptions)
     }
   }

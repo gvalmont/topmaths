@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -24,7 +25,8 @@ export default class MultiplierFraction extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
+this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+      this.optionsChampTexte = { texteAvant: '<br>' }
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 

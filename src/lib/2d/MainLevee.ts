@@ -20,7 +20,7 @@ class MainLevee {
   ) {
     return this.roughSvg.line(x1, y1, x2, y2, {
       roughness,
-      disableMultiStroke: false,
+      disableMultiStroke: true,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML

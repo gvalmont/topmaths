@@ -364,7 +364,8 @@ export default class SchemaEnBoite {
           const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
             let styleTexte = ''
-            if (color) styleTexte += `\\textcolor{${color}}{`
+            if (color && !texte.includes('tikzpicture'))
+              styleTexte += `\\textcolor{${color}}{`
             let fontSizeCmd = ''
             if (fontSize) {
               if (fontSize === 'small') fontSizeCmd = '\\small '
@@ -375,7 +376,7 @@ export default class SchemaEnBoite {
             }
             let fontWeightCmd = ''
             if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
-            const texteLatex = `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+            const texteLatex = `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color && !texte.includes('tikzpicture') ? '}' : ''}`
             if (type === 'flèche') {
               latex += `\\draw[<->,thick, draw=${color}] (${start.toFixed(1)},3.2) -- (${end.toFixed(1)},3.2) node[above, pos=0.5] {${texteLatex}};\n`
             } else {
@@ -442,7 +443,8 @@ export default class SchemaEnBoite {
           const fontWeight = options.fontWeight ?? 'normal'
 
           let styleTexte = ''
-          if (color) styleTexte += `\\textcolor{${color}}{`
+          if (color && !barre.content.includes('tikzpicture'))
+            styleTexte += `\\textcolor{${color}}{`
           let fontSizeCmd = ''
           if (fontSize) {
             if (fontSize === 'small') fontSizeCmd = '\\small '
@@ -454,7 +456,7 @@ export default class SchemaEnBoite {
           let fontWeightCmd = ''
           if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
           const texteLatex = barre.content.includes('<br>')
-            ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${barre.content.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+            ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${barre.content.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color && !barre.content.includes('tikzpicture') ? '}' : ''}`
             : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${barre.content}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
           if (barre.type === 'boite') {
             if (barre.options?.style === 'borderless') {
@@ -503,7 +505,8 @@ export default class SchemaEnBoite {
           const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
             let styleTexte = ''
-            if (color) styleTexte += `\\textcolor{${color}}{`
+            if (color && !texte.includes('tikzpicture'))
+              styleTexte += `\\textcolor{${color}}{`
             let fontSizeCmd = ''
             if (fontSize) {
               if (fontSize === 'small') fontSizeCmd = '\\small '
@@ -515,7 +518,7 @@ export default class SchemaEnBoite {
             let fontWeightCmd = ''
             if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
             const texteLatex = texte.includes('<br>')
-              ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+              ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color && !texte.includes('tikzpicture') ? '}' : ''}`
               : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
             if (type === 'flèche') {
               latex += `\\draw[<->,thick, draw=${color}] (${start.toFixed(1)},${y - 0.2}) -- (${end.toFixed(1)},${y - 0.2}) node[below, pos=0.5] {${texteLatex}};\n`
@@ -550,7 +553,8 @@ export default class SchemaEnBoite {
           const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
             let styleTexte = ''
-            if (color) styleTexte += `\\textcolor{${color}}{`
+            if (color && !texte.includes('tikzpicture'))
+              styleTexte += `\\textcolor{${color}}{`
             let fontSizeCmd = ''
             if (fontSize) {
               if (fontSize === 'small') fontSizeCmd = '\\small '
@@ -562,7 +566,7 @@ export default class SchemaEnBoite {
             let fontWeightCmd = ''
             if (fontWeight === 'bold') fontWeightCmd = '\\textbf{'
             const texteLatex = texte.includes('<br>')
-              ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
+              ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color && !texte.includes('tikzpicture') ? '}' : ''}`
               : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
 
             latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}]  (${((gridLength + 0.3) * texScale).toFixed(1)},${start.toFixed(1)}) -- (${((gridLength + 0.3) * texScale).toFixed(1)},${end.toFixed(1)});\n`

@@ -20,6 +20,7 @@ import {
   showDialogForLimitedTime,
   showPopupAndWait,
 } from './components/dialogs'
+import { isStatic, isSvelte } from './components/exercisesUtils'
 import { resizeContent } from './components/sizeTools'
 import { delay } from './components/time'
 import { decrypt, isCrypted } from './components/urls'
@@ -740,7 +741,16 @@ export function mathaleaUpdateExercicesParamsFromUrl(
     return {}
   }
 
-  exercicesParams.set(newExercisesParams.filter((e) => e.uuid || e.id))
+  const newExercisesParamsFiltered = newExercisesParams.filter(
+    (e) => e.uuid || e.id,
+  )
+
+  if (
+    JSON.stringify(get(exercicesParams)) !==
+    JSON.stringify(newExercisesParamsFiltered)
+  ) {
+    exercicesParams.set(newExercisesParamsFiltered)
+  }
 
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
@@ -1430,6 +1440,9 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
 export async function getExercisesFromExercicesParams() {
   const exercises = []
   for (const paramsExercice of get(exercicesParams)) {
+    if (isStatic(paramsExercice.uuid) || isSvelte(paramsExercice.uuid)) {
+      continue
+    }
     const exercise: TypeExercice = await mathaleaLoadExerciceFromUuid(
       paramsExercice.uuid,
     )

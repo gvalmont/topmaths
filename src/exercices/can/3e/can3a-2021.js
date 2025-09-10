@@ -1,3 +1,4 @@
+import { min, round } from 'mathjs'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { codageSegment } from '../../../lib/2d/codages'
 import { milieu, point } from '../../../lib/2d/points'
@@ -5,25 +6,24 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { ellipse } from '../../../lib/2d/projections3d'
 import { demiDroite, segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import {
-  texFractionFromString,
-  simplificationDeFractionAvecEtapes,
-} from '../../../lib/outils/deprecatedFractions'
-import { arrondi } from '../../../lib/outils/nombres'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { fraction } from '../../../modules/fractions'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import Hms from '../../../modules/Hms'
-import { min, round } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import {
+  simplificationDeFractionAvecEtapes,
+  texFractionFromString,
+} from '../../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { arrondi } from '../../../lib/outils/nombres'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { fraction } from '../../../modules/fractions'
+import Hms from '../../../modules/Hms'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
@@ -153,7 +153,6 @@ export default class SujetCAN20213ieme extends Exercice {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      typeQuestionsDisponibles[i] = 23
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)

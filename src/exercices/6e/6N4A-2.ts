@@ -3,6 +3,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
+import { prenoms } from '../../lib/outils/Personne'
 import { premierAvec } from '../../lib/outils/primalite'
 import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -52,63 +53,6 @@ type FonctionProbleme = {
   ): { enonce: string; barre: SchemaEnBoite; reponses: ReponseType }
 }
 
-// matériel des fonctions problèmes
-const prenoms: { prenom: string; pronom: string }[] = [
-  { prenom: 'Albert', pronom: 'il' },
-  { prenom: 'Alice', pronom: 'elle' },
-  { prenom: 'Benoît', pronom: 'il' },
-  { prenom: 'Béatrice', pronom: 'elle' },
-  { prenom: 'Céline', pronom: 'elle' },
-  { prenom: 'Charles', pronom: 'il' },
-  { prenom: 'David', pronom: 'il' },
-  { prenom: 'Diane', pronom: 'elle' },
-  { prenom: 'Émile', pronom: 'il' },
-  { prenom: 'Élodie', pronom: 'elle' },
-  { prenom: 'François', pronom: 'il' },
-  { prenom: 'Fiona', pronom: 'elle' },
-  { prenom: 'Gaspard', pronom: 'il' },
-  { prenom: 'Gabrielle', pronom: 'elle' },
-  { prenom: 'Hugo', pronom: 'il' },
-  { prenom: 'Hélène', pronom: 'elle' },
-  { prenom: 'Isabelle', pronom: 'elle' },
-  { prenom: 'Julien', pronom: 'il' },
-  { prenom: 'Julie', pronom: 'elle' },
-  { prenom: 'Kevin', pronom: 'il' },
-  { prenom: 'Karine', pronom: 'elle' },
-  { prenom: 'Lucas', pronom: 'il' },
-  { prenom: 'Léa', pronom: 'elle' },
-  { prenom: 'Mathieu', pronom: 'il' },
-  { prenom: 'Marie', pronom: 'elle' },
-  { prenom: 'Nicolas', pronom: 'il' },
-  { prenom: 'Nathalie', pronom: 'elle' },
-  { prenom: 'Olivier', pronom: 'il' },
-  { prenom: 'Océane', pronom: 'elle' },
-  { prenom: 'Paul', pronom: 'il' },
-  { prenom: 'Pascale', pronom: 'elle' },
-  { prenom: 'Quentin', pronom: 'il' },
-  { prenom: 'Quynh', pronom: 'elle' },
-  { prenom: 'Romain', pronom: 'il' },
-  { prenom: 'Roxane', pronom: 'elle' },
-  { prenom: 'Sébastien', pronom: 'il' },
-  { prenom: 'Sophie', pronom: 'elle' },
-  { prenom: 'Thomas', pronom: 'il' },
-  { prenom: 'Tania', pronom: 'elle' },
-  { prenom: 'Ulysse', pronom: 'il' },
-  { prenom: 'Ursule', pronom: 'elle' },
-  { prenom: 'Victor', pronom: 'il' },
-  { prenom: 'Valérie', pronom: 'elle' },
-  { prenom: 'William', pronom: 'il' },
-  { prenom: 'Wendy', pronom: 'elle' },
-  { prenom: 'Xavier', pronom: 'il' },
-  { prenom: 'Yasmine', pronom: 'elle' },
-  { prenom: 'Zoé', pronom: 'elle' },
-  { prenom: 'Yann', pronom: 'il' },
-  { prenom: 'Yvette', pronom: 'elle' },
-  { prenom: 'Zacharie', pronom: 'il' },
-  { prenom: 'Madeleine', pronom: 'elle' },
-  { prenom: 'Schona', pronom: 'elle' },
-  { prenom: 'Lilian', pronom: 'il' },
-]
 export const troisObjetsAVendre: [ObjetAVendre, ObjetAVendre, ObjetAVendre][] =
   [
     [

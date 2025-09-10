@@ -1,12 +1,9 @@
 <script lang="ts">
-  import type Exercice from '../../../exercices/Exercice'
-  import type { InterfaceParams } from '../../../lib/types'
-  import type { Slide, Slideshow } from './types'
   import seedrandom from 'seedrandom'
-  import SlideshowOverview from './slideshowOverview/SlideshowOverview.svelte'
-  import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
-  import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
-  import { onMount, onDestroy } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
+  import { get } from 'svelte/store'
+  import { notify } from '../../../bugsnag'
+  import type Exercice from '../../../exercices/Exercice'
   import {
     getExercisesFromExercicesParams,
     mathaleaFormatExercice,
@@ -16,21 +13,24 @@
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea'
+  import { shuffle } from '../../../lib/outils/arrayOutils'
   import {
+    darkMode,
     exercicesParams,
     globalOptions,
-    darkMode,
     previousView,
   } from '../../../lib/stores/generalStore'
-  import { context } from '../../../modules/context.js'
-  import { isIntegerInRange0to3 } from '../../../lib/types/integerInRange'
-  import KickOff from '../../display/can/presentationalComponents/KickOff.svelte'
+  import type { InterfaceParams } from '../../../lib/types'
   import type { CanState } from '../../../lib/types/can'
+  import { isIntegerInRange0to3 } from '../../../lib/types/integerInRange'
+  import { context } from '../../../modules/context.js'
   import CountDown from '../../display/can/presentationalComponents/CountDown.svelte'
+  import KickOff from '../../display/can/presentationalComponents/KickOff.svelte'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
-  import { notify } from '../../../bugsnag'
-  import { get } from 'svelte/store'
-  import { shuffle } from '../../../lib/outils/arrayOutils'
+  import SlideshowOverview from './slideshowOverview/SlideshowOverview.svelte'
+  import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
+  import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
+  import type { Slide, Slideshow } from './types'
 
   const transitionSounds = {
     0: new Audio('assets/sounds/transition_sound_01.mp3'),

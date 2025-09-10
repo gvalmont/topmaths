@@ -1,13 +1,14 @@
 <script lang="ts">
+  import type TypeExercice from '../../../../exercices/Exercice'
   import ExerciceMathaleaVueEleve from './exerciceMathaleaVueEleve/ExerciceMathaleaVueEleve.svelte'
   import ExerciceMathaleaVueProf from './exerciceMathaleaVueProf/ExerciceMathaleaVueProf.svelte'
-  import type TypeExercice from '../../../../exercices/Exercice'
 
   export let vue: 'prof' | 'eleve'
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
   export let isCorrectionVisible: boolean = false
+  export let toggleSidenav: (open: boolean) => void
 </script>
 
 {#if vue === 'prof'}
@@ -16,6 +17,7 @@
     {exerciseIndex}
     {indiceLastExercice}
     {isCorrectionVisible}
+    {toggleSidenav}
     on:exerciseRemoved
   />
 {:else if vue === 'eleve'}

@@ -9,52 +9,51 @@
   //     les fassent redescendre ensuite par des {attributs}
   //
   import { onDestroy, onMount, setContext, tick } from 'svelte'
-  import {
-    previousView,
-    darkMode,
-    exercicesParams,
-    globalOptions,
-  } from '../../../lib/stores/generalStore'
-  import {
-    localisedIDToUuid,
-    referentielLocale,
-  } from '../../../lib/stores/languagesStore'
-  import SideMenu from './presentationalComponents/sideMenu/SideMenu.svelte'
-  import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
-  import { type AppTierceGroup } from '../../../lib/types/referentiels'
-  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
-  import appsTierce from '../../../json/referentielAppsTierce.json'
-  import Footer from '../../Footer.svelte'
-  import ModalThirdApps from './presentationalComponents/ModalThirdApps.svelte'
-  import ButtonBackToTop from './presentationalComponents/ButtonBackToTop.svelte'
-  import Header from './presentationalComponents/header/Header.svelte'
-  import HeaderButtons from './presentationalComponents/header/headerButtons/HeaderButtons.svelte'
-  import Exercices from './presentationalComponents/Exercices.svelte'
-  import Placeholder from './presentationalComponents/Placeholder.svelte'
-  import type {
-    InterfaceGlobalOptions,
-    InterfaceParams,
-    VueType,
-  } from '../../../lib/types'
-  import Keyboard from '../../keyboard/Keyboard.svelte'
-  import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
-  import type { Language } from '../../../lib/types/languages'
-  import { ALLOWED_LANGUAGES, isLanguage } from '../../../lib/types/languages'
   import { get } from 'svelte/store'
+  import { Collapse, Ripple, Sidenav, initTE } from 'tw-elements'
+  import appsTierce from '../../../json/referentielAppsTierce.json'
+  import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
+  import { buildEsParams } from '../../../lib/components/urls'
+  import { downloadFile } from '../../../lib/files'
+  import handleCapytale from '../../../lib/handleCapytale'
+  import { sendActivityParams } from '../../../lib/handleRecorder'
   import {
     getExercisesFromExercicesParams,
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea'
-  import handleCapytale from '../../../lib/handleCapytale'
-  import { sendActivityParams } from '../../../lib/handleRecorder'
   import { canOptions } from '../../../lib/stores/canStore'
-  import { buildEsParams } from '../../../lib/components/urls'
-  import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
+  import {
+    darkMode,
+    exercicesParams,
+    globalOptions,
+    previousView,
+  } from '../../../lib/stores/generalStore'
+  import {
+    localisedIDToUuid,
+    referentielLocale,
+  } from '../../../lib/stores/languagesStore'
+  import type {
+    InterfaceGlobalOptions,
+    InterfaceParams,
+    VueType,
+  } from '../../../lib/types'
   import type { CanOptions } from '../../../lib/types/can'
+  import type { Language } from '../../../lib/types/languages'
+  import { ALLOWED_LANGUAGES, isLanguage } from '../../../lib/types/languages'
+  import { type AppTierceGroup } from '../../../lib/types/referentiels'
+  import Footer from '../../Footer.svelte'
+  import Keyboard from '../../keyboard/Keyboard.svelte'
+  import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
+  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
+  import ButtonBackToTop from './presentationalComponents/ButtonBackToTop.svelte'
+  import Exercices from './presentationalComponents/Exercices.svelte'
+  import Header from './presentationalComponents/header/Header.svelte'
   import SideMenuWrapper from './presentationalComponents/header/SideMenuWrapper.svelte'
-  import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
-  import { downloadFile } from '../../../lib/files'
+  import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
+  import ModalThirdApps from './presentationalComponents/ModalThirdApps.svelte'
+  import Placeholder from './presentationalComponents/Placeholder.svelte'
+  import SideMenu from './presentationalComponents/sideMenu/SideMenu.svelte'
 
   let isNavBarVisible: boolean = true
   let innerWidth = 0
@@ -465,14 +464,7 @@
             bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
           {#if $exercicesParams.length !== 0}
-            <Exercices
-              exercicesParams="{$exercicesParams}"
-              on:exerciseRemoved="{() => {
-                if ($exercicesParams.length === 0) {
-                  toggleSidenav(true)
-                }
-              }}"
-            />
+            <Exercices exercicesParams="{$exercicesParams}" {toggleSidenav} />
           {:else}
             <Placeholder text="Sélectionner les exercices" />
           {/if}
@@ -539,7 +531,7 @@
             class="flex w-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
           >
             {#if $exercicesParams.length !== 0}
-              <Exercices exercicesParams="{$exercicesParams}" />
+              <Exercices exercicesParams="{$exercicesParams}" {toggleSidenav} />
             {:else}
               <Placeholder text="Sélectionner les exercices" />
             {/if}

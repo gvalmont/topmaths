@@ -1,18 +1,18 @@
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { texNombre } from '../../lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { texNombre } from '../../lib/outils/texNombre'
 
 export const titre = 'Associer puissances de 10 et préfixes'
 export const interactifReady = true
@@ -69,7 +69,7 @@ export default class PuissancesEtPrefixe extends Exercice {
       [3, 'kilo', 'mille'],
       [6, 'méga', 'un-million'],
       [9, 'giga', 'un-milliard'],
-      [12, 'téra', 'mille-milliards'],
+      // [12, 'téra', 'mille-milliards'],
     ]
     const listeExposants = combinaisonListes(exposants, this.nbQuestions)
     for (
@@ -97,7 +97,7 @@ export default class PuissancesEtPrefixe extends Exercice {
               { label: 'kilo', value: 'kilo' },
               { label: 'méga', value: 'méga' },
               { label: 'giga', value: 'giga' },
-              { label: 'téra', value: 'téra' },
+              //    { label: 'téra', value: 'téra' },
             ]),
           ])
         handleAnswers(
@@ -113,7 +113,7 @@ export default class PuissancesEtPrefixe extends Exercice {
             ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.clavierFullOperations,
+              KeyboardType.clavierDeBaseAvecFraction,
             )
           : `${prefixe}`
         handleAnswers(this, i, { reponse: { value: `10^{${exposant}}` } })

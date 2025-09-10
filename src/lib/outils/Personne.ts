@@ -1,6 +1,6 @@
 import { choice, shuffle } from './arrayOutils'
 
-const prenoms: { prenom: string; pronom: string }[] = [
+export const prenoms: { prenom: string; pronom: string }[] = [
   { prenom: 'Albert', pronom: 'il' },
   { prenom: 'Alice', pronom: 'elle' },
   { prenom: 'Benoît', pronom: 'il' },

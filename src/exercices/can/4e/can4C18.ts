@@ -2,6 +2,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Décomposer une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,6 +25,8 @@ export default class DecomposerFraction extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+          this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
   nouvelleVersion() {

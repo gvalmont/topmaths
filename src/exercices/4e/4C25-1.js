@@ -50,7 +50,6 @@ export default class ProblemesMultiplicatifsFractions extends Exercice {
       min: 1,
       max: 7,
       melange: 8,
-      shuffle: false,
       defaut: 1,
       nbQuestions: this.nbQuestions,
     })

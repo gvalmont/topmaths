@@ -165,7 +165,7 @@ export default class PuissancesEncadrement extends Exercice {
         // nombre entier positif
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, '', { texteApres: sp(10) }) +
+          ? ajouteChampTexteMathLive(this, 2 * i, '') +
             `$\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant $` +
             ajouteChampTexteMathLive(this, 2 * i + 1, '')
           : consigneAMC
@@ -189,7 +189,7 @@ export default class PuissancesEncadrement extends Exercice {
         // nombre décimal positif
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, '', { texteApres: sp(10) }) +
+          ? ajouteChampTexteMathLive(this, 2 * i, '') +
             `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` +
             ajouteChampTexteMathLive(this, 2 * i + 1, '')
           : consigneAMC
@@ -213,7 +213,7 @@ export default class PuissancesEncadrement extends Exercice {
         // nombre décimal positif inferieur à 1
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, '', { texteApres: sp(10) }) +
+          ? ajouteChampTexteMathLive(this, 2 * i, '') +
             `$\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant $` +
             ajouteChampTexteMathLive(this, 2 * i + 1, '')
           : consigneAMC

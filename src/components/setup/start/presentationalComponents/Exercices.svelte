@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { flip } from 'svelte/animate'
+  import type { InterfaceParams } from '../../../../lib/types'
   import Footer from '../../../Footer.svelte'
   import Exercice from '../../../shared/exercice/Exercice.svelte'
-  import type { InterfaceParams } from '../../../../lib/types'
-  import { flip } from 'svelte/animate'
 
   export let exercicesParams: InterfaceParams[]
+  export let toggleSidenav: (open: boolean) => void
 </script>
 
 <div
@@ -16,6 +17,7 @@
       <div id="exo{i}" animate:flip="{{ duration: (d) => 30 * Math.sqrt(d) }}">
         <Exercice
           {paramsExercice}
+          {toggleSidenav}
           indiceExercice="{i}"
           indiceLastExercice="{exercicesParams.length - 1}"
           on:exerciseRemoved

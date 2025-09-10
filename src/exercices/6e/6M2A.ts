@@ -11,12 +11,17 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { bleuMathalea } from '../../lib/colors'
 import { sp } from '../../lib/outils/outilString'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Effectuer des conversions d’aire (du $cm^2$ au $m^2$)'
+export const titre = 'Effectuer des conversions d’aire (du cm² au m²)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '28/07/2025'
+export const dateDeModifImportante = '9/09/2025'
+// Ajout de l'interactivité et changements dans les polices pour les unités
 
 /**
  * Effectuer des conversions d’aire (du cm^2 au m^2)
@@ -78,20 +83,20 @@ export default class convertirAiresVersion2025 extends Exercice {
       let unite2 = ''
       switch (typesDeConversions[i]) {
         case 1:
-          unite1 = 'm$^2$'
-          unite2 = 'dm$^2$'
+          unite1 = '~\\text{m}^2'
+          unite2 = '~\\text{dm}^2'
           break
         case 2:
-          unite1 = 'dm$^2$'
-          unite2 = 'm$^2$'
+          unite1 = '~\\text{dm}^2'
+          unite2 = '~\\text{m}^2'
           break
         case 3:
-          unite1 = 'dm$^2$'
-          unite2 = 'cm$^2$'
+          unite1 = '~\\text{dm}^2'
+          unite2 = '~\\text{cm}^2'
           break
         case 4:
-          unite1 = 'cm$^2$'
-          unite2 = 'dm$^2$'
+          unite1 = '~\\text{cm}^2'
+          unite2 = '~\\text{dm}^2'
           break
       }
       let val = 0
@@ -116,7 +121,13 @@ export default class convertirAiresVersion2025 extends Exercice {
         // X, X0, X00, XX
       }
       const versUnitePlusPetite = typesDeConversions[i] % 2 === 1
-      texte += `$${texNombre(val)}$ ${unite1} = $\\ldots\\ldots\\ldots\\ldots$ ${unite2}`
+      if (this.interactif) {
+        texte += `$${texNombre(val)} ${unite1} = $`
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {texteApres: ` $${unite2}$`})
+        handleAnswers(this, i, {reponse: { value: versUnitePlusPetite ? arrondi(val * 100) : arrondi(val / 100) }})
+      } else {
+        texte += `$${texNombre(val)} ${unite1} = \\ldots\\ldots\\ldots\\ldots ${unite2}$`
+      }
       const adjectif = versUnitePlusPetite ? 'grande' : 'petite'
       const facteur = versUnitePlusPetite
         ? '100'
@@ -124,16 +135,16 @@ export default class convertirAiresVersion2025 extends Exercice {
       const reponse = texNombre(
         versUnitePlusPetite ? arrondi(val * 100) : arrondi(val / 100),
       )
-      const operation = versUnitePlusPetite ? '\\times' : '\\div'
-      texteCorr = `$1$ ${unite1} = $${facteur}$ ${unite2} et donc la mesure en ${unite2} est $100$ fois plus ${adjectif} que la mesure en ${unite1}`
+      const operation = versUnitePlusPetite ? '~\\times~' : '~\\div~'
+      texteCorr = `$1${unite1} = ${facteur} ${unite2}$ et donc la mesure en $${unite2}$ est $100$ fois plus ${adjectif} que la mesure en $${unite1}$`
       texteCorr += versUnitePlusPetite
-        ? ` ($1$ ${unite1} est une centaine de $1$ ${unite2})`
-        : ` ($1$ ${unite1} est un centième de $1$ ${unite2})`
+        ? ` ($1 ${unite1}$ est une centaine de $1 ${unite2}$)`
+        : ` ($1 ${unite1}$ est un centième de $1 ${unite2}$)`
       texteCorr += '.<br>'
-      texteCorr += `$${texNombre(val)}$ ${unite1} = $${texNombre(val)} ${miseEnEvidence(`\\times 1${sp()}${unite1.replaceAll('$', '')}`, bleuMathalea)}$ = `
+      texteCorr += `$${texNombre(val)} ${unite1} = ${texNombre(val)} ${miseEnEvidence(`\\times 1${sp()}${unite1}`, bleuMathalea)}$ = `
       if (!versUnitePlusPetite)
-        texteCorr += `$${texNombre(val)} ${miseEnEvidence(`\\times \\dfrac{1}{100}${sp()}${unite2.replaceAll('$', '')}`, bleuMathalea)}$ = `
-      texteCorr += `$${texNombre(val)} ${miseEnEvidence(`${operation} 100${sp()}${unite2.replaceAll('$', '')}`, bleuMathalea)} = ${miseEnEvidence(reponse)}$ ${unite2}`
+        texteCorr += `$${texNombre(val)} ${miseEnEvidence(`\\times \\dfrac{1}{100}${sp()}${unite2}`, bleuMathalea)}$ = `
+      texteCorr += `$${texNombre(val)} ${miseEnEvidence(`${operation} 100${sp()}${unite2}`, bleuMathalea)} = ${miseEnEvidence(reponse)} ${unite2}$`
       if (this.questionJamaisPosee(i, val)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

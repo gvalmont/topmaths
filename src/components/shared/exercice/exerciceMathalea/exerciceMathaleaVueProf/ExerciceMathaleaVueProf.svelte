@@ -1,17 +1,17 @@
 <script lang="ts">
-  import {
-    globalOptions,
-    resultsByExercice,
-    exercicesParams,
-    changes,
-  } from '../../../../../lib/stores/generalStore'
-  import { afterUpdate, beforeUpdate, onMount, tick, onDestroy } from 'svelte'
   import seedrandom from 'seedrandom'
+  import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
+  import { get } from 'svelte/store'
+  import Exercice from '../../../../../exercices/Exercice'
+  import ExerciceSimple from '../../../../../exercices/ExerciceSimple'
   import {
-    prepareExerciceCliqueFigure,
+    exercisesUuidRanking,
+    uuidCount,
+  } from '../../../../../lib/components/counts'
+  import {
     exerciceInteractif,
+    prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
-  import { loadMathLive } from '../../../../../modules/loaders'
   import {
     mathaleaFormatExercice,
     mathaleaHandleExerciceSimple,
@@ -19,25 +19,26 @@
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../../../lib/mathalea'
-  import Settings from './presentationalComponents/Settings.svelte'
   import {
-    exercisesUuidRanking,
-    uuidCount,
-  } from '../../../../../lib/components/counts'
-  import Exercice from '../../../../../exercices/Exercice'
-  import type { HeaderProps } from '../../../../../lib/types/ui'
-  import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
+    changes,
+    exercicesParams,
+    globalOptions,
+    resultsByExercice,
+  } from '../../../../../lib/stores/generalStore'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type { InterfaceParams } from '../../../../../lib/types'
-  import { get } from 'svelte/store'
+  import type { HeaderProps } from '../../../../../lib/types/ui'
+  import { loadMathLive } from '../../../../../modules/loaders'
   import { countMathField } from '../../countMathField'
-  import ExerciceSimple from '../../../../../exercices/ExerciceSimple'
   import { handleCorrectionAffichee } from '../../handleCorrection'
+  import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
+  import Settings from './presentationalComponents/Settings.svelte'
 
   export let exercise: Exercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
+  export let toggleSidenav: (open: boolean) => void
 
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
@@ -358,8 +359,9 @@
       exercise === null ||
       interfaceParams === undefined ||
       exercise.uuid !== interfaceParams.uuid
-    )
+    ) {
       return
+    }
     if (
       exercise.seed === undefined &&
       typeof exercise.applyNewSeed === 'function'
@@ -570,6 +572,13 @@
   window.onresize = async () => {
     await adjustMathalea2dFiguresWidth(true)
   }
+
+  async function handleExerciseRemoved(event: CustomEvent) {
+    if ($exercicesParams.length === 0) {
+      toggleSidenav(true)
+    }
+    await updateDisplay()
+  }
 </script>
 
 <div class="z-0 flex-1" bind:this="{divExercice}">
@@ -613,7 +622,7 @@
         !isCorrectionVisible &&
         headerProps?.interactifReady,
     )}"
-    on:exerciseRemoved
+    on:exerciseRemoved="{handleExerciseRemoved}"
   />
 
   {#if isVisible}

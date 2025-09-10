@@ -110,7 +110,7 @@ export default class DeveloppementDouble extends ExerciceSimple {
           this.distracteurs = tableau.slice(0, 3)
           this.question = `Développer et réduire l'expression $(${b}${ecritureAlgebriqueSauf1(a)}x)(${reduireAxPlusB(c, d)})$.<br>`
           this.correction = `$\\begin{aligned}
-            (${b}${ecritureAlgebriqueSauf1(a)}x)(${reduireAxPlusB(c, d)})&=${rienSi1(b * a)}x${ecritureAlgebrique(b * d)}${ecritureAlgebriqueSauf1(a * c)}x^2${ecritureAlgebrique(a * d)}x\\\\
+            (${b}${ecritureAlgebriqueSauf1(a)}x)(${reduireAxPlusB(c, d)})&=${rienSi1(b * c)}x${ecritureAlgebrique(b * d)}${ecritureAlgebriqueSauf1(a * c)}x^2${ecritureAlgebrique(a * d)}x\\\\
             &=${miseEnEvidence(reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d))}
             \\end{aligned}$`
           this.correction += `<br>Le terme en $x^2$ vient de $${rienSi1(a)}x\\times ${c === 1 ? 'x' : `${ecritureParentheseSiNegatif(c)}x`}=${rienSi1(a * c)}x^2$.`

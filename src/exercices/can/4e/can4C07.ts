@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import {
@@ -28,6 +29,8 @@ export default class DifferenceFractionsCompatibles extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+          this.optionsChampTexte = { texteAvant: '<br>' }
 
     // this.formatInteractif = 'fractionEgale'
   }

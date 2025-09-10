@@ -3,6 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = "Passer d'un décimal à une fraction"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,6 +25,8 @@ export default class DecimalVersFraction extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+      this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
   nouvelleVersion() {

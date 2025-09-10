@@ -4,6 +4,7 @@ import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecat
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { fraction } from '../../../modules/fractions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer une somme/différence de fractions égyptiennes'
 export const interactifReady = true
@@ -28,6 +29,8 @@ export default class SommeDifferenceFractionsEgyptiennes extends ExerciceSimple 
     this.nbQuestions = 1
 
     this.optionsDeComparaison = { fractionIrreductible: true }
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+          this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
   nouvelleVersion() {

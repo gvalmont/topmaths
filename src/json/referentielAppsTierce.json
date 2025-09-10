@@ -22,6 +22,13 @@
     "rubrique": "Applications Coopmaths",
     "liste": [
       {
+        "title": "Glisse-nombre",
+        "typeExercice": "tierce",
+        "presentation": "Pour illuster les multiplications ou divisions par 10n, 100, 1000...",
+        "imgPath": "images/apps/app_glisse_nombre.png",
+        "uuid": "glisseNombre"
+      },
+      {
         "title": "Challenge Tables",
         "typeExercice": "tierce",
         "presentation": "Tables de multiplications en temps limité.",

@@ -1,19 +1,12 @@
 <script lang="ts">
-  import {
-    globalOptions,
-    resultsByExercice,
-    exercicesParams,
-    isMenuNeededForExercises,
-  } from '../../../../../lib/stores/generalStore'
-  import { statsTracker } from '../../../../../modules/statsUtils'
-  import { afterUpdate, onMount, tick, onDestroy, beforeUpdate } from 'svelte'
-  import type TypeExercice from '../../../../../exercices/Exercice'
   import seedrandom from 'seedrandom'
+  import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
+  import type TypeExercice from '../../../../../exercices/Exercice'
+  import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import {
-    prepareExerciceCliqueFigure,
     exerciceInteractif,
+    prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
-  import { loadMathLive } from '../../../../../modules/loaders'
   import {
     mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
@@ -21,18 +14,24 @@
     mathaleaUpdateUrlFromExercicesParams,
     mathaleaWriteStudentPreviousAnswers,
   } from '../../../../../lib/mathalea'
-  import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
-  import type { MathfieldElement } from 'mathlive'
-  import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
-  import Question from './presentationalComponents/Question.svelte'
-  import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
+  import {
+    exercicesParams,
+    globalOptions,
+    isMenuNeededForExercises,
+    resultsByExercice,
+  } from '../../../../../lib/stores/generalStore'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
     InterfaceParams,
     InterfaceResultExercice,
   } from '../../../../../lib/types'
+  import { loadMathLive } from '../../../../../modules/loaders'
+  import { statsTracker } from '../../../../../modules/statsUtils'
   import { countMathField } from '../../countMathField'
   import { handleCorrectionAffichee } from '../../handleCorrection'
+  import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
+  import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
+  import Question from './presentationalComponents/Question.svelte'
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number

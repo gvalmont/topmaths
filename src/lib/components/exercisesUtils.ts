@@ -1,8 +1,10 @@
-import Exercice from '../../exercices/Exercice'
+import seedrandom from 'seedrandom'
+import { get } from 'svelte/store'
 import type TypeExercice from '../../exercices/Exercice'
-import { globalOptions, exercicesParams } from '../stores/generalStore'
-import referentielStaticFR from '../../json/referentielStaticFR.json'
+import Exercice from '../../exercices/Exercice'
 import referentielStaticCH from '../../json/referentielStaticCH.json'
+import referentielStaticFR from '../../json/referentielStaticFR.json'
+import uuidToUrl from '../../json/uuidsToUrlFR.json'
 import { retrieveResourceFromUuid } from '../../lib/components/refUtils'
 import {
   isStaticType,
@@ -14,8 +16,7 @@ import {
   mathaleaHandleParamOfOneExercice,
   mathaleaLoadExerciceFromUuid,
 } from '../mathalea'
-import seedrandom from 'seedrandom'
-import { get } from 'svelte/store'
+import { exercicesParams, globalOptions } from '../stores/generalStore'
 
 const allStaticReferentiels: JSONReferentielObject = {
   ...referentielStaticFR,
@@ -116,6 +117,11 @@ export function isStatic(uuid: string | undefined) {
     uuid.startsWith('evacom_') ||
     uuid.startsWith('2nd_')
   )
+}
+
+export function isSvelte(uuid: string) {
+  const urlExercice = uuidToUrl[uuid as keyof typeof uuidToUrl]
+  return urlExercice && urlExercice.includes('.svelte')
 }
 
 export const splitExercisesIntoQuestions = (

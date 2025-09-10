@@ -1,11 +1,15 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)'
@@ -13,14 +17,13 @@ export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '17/04/2025'
+export const dateDeModifImportante = '08/09/2025'
 
 /**
  * Des questions sur le nombre ou le chiffre de centaines, de dizaines, de dixièmes, de centièmes...
  * @author Rémi Angot
  * Ajout de l'interactivité, de l'export AMC et du paramétrage par Jean-Claude Lhote (15/10/2021)
-
- * Relecture : Décembre 2021 par EE
+ * Rajout d'un paramètre par Eric Elter (08/09/2025)
  */
 export const uuid = '6ea89'
 
@@ -43,11 +46,23 @@ export default class DecompositionNombreDecimal extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ['Avec nombre entier ?']
     this.sup2 = false
+    this.besoinFormulaire3Numerique = [
+      'Type de nombres',
+      3,
+      [
+        '1 : Inférieurs à 10',
+        '2 : Inférieurs à 100',
+        '3 : Supérieurs à 100',
+      ].join('\n'),
+    ]
+    this.sup3 = 3
   }
 
   nouvelleVersion() {
+    const typeDeNombres = contraindreValeur(1, 3, this.sup3, 3)
+
     let typesDeQuestionsDisponibles
-    switch (parseInt(this.sup)) {
+    switch (this.sup) {
       case 1:
         typesDeQuestionsDisponibles = [3, 4, 5, 6, 7, 8, 'chiffreDesUnites']
         break
@@ -112,10 +127,29 @@ export default class DecompositionNombreDecimal extends Exercice {
 
     ) {
       if (i % typesDeQuestionsDisponibles.length === 0) {
-        m = randint(1, 9) // le nombre sera le même tant qu'on peut poser des questions dessus, s'il y a trop de questions, on choisit un autre nombre
-        c = randint(0, 9, [m])
-        d = randint(0, 9, [m, c])
-        u = randint(0, 9, [m, c, d])
+        // Génération des chiffres selon le type de nombre souhaité
+        switch (typeDeNombres) {
+          case 1: // Nombres inférieurs à 10
+            m = 0
+            c = 0
+            d = 0
+            u = randint(1, 9)
+            break
+          case 2: // Nombres inférieurs à 100
+            m = 0
+            c = 0
+            d = randint(1, 9)
+            u = randint(0, 9)
+            break
+          case 3: // Supérieurs à 100 (comportement original)
+          default:
+            m = randint(1, 9) // le nombre sera le même tant qu'on peut poser des questions dessus, s'il y a trop de questions, on choisit un autre nombre
+            c = randint(0, 9, [m])
+            d = randint(0, 9, [m, c])
+            u = randint(0, 9, [m, c, d])
+            break
+        }
+
         if (this.sup2) {
           di = 0
           ci = 0
@@ -136,6 +170,9 @@ export default class DecompositionNombreDecimal extends Exercice {
             ci.toString() +
             mi
         }
+        n = texNombre(
+          m * 1000 + c * 100 + d * 10 + u + di / 10 + ci / 100 + mi / 1000,
+        )
       }
 
       switch (listeTypeDeQuestions[i]) {
@@ -160,10 +197,18 @@ export default class DecompositionNombreDecimal extends Exercice {
           this.autoCorrection[i]!.reponse!.param!.decimals = 4
           break
         case 3:
-          texte = `Le chiffre des dizaines du nombre $${n}$ est : `
-          texteCorr = texte + `$${miseEnEvidence(d!)}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, d!)
+          // Pour les nombres < 10, pas de dizaines
+          if (typeDeNombres === 1) {
+            texte = `Le chiffre des unités du nombre $${n}$ est : `
+            texteCorr = texte + `$${miseEnEvidence(u!)}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, u!)
+          } else {
+            texte = `Le chiffre des dizaines du nombre $${n}$ est : `
+            texteCorr = texte + `$${miseEnEvidence(d!)}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, d!)
+          }
           this.autoCorrection[i]!.reponse!.param!.digits = 1
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
@@ -176,18 +221,48 @@ export default class DecompositionNombreDecimal extends Exercice {
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
         case 4:
-          texte = `Le chiffre des centaines du nombre $${n}$ est : `
-          texteCorr = texte + `$${miseEnEvidence(c!)}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, c!)
+          // Pour les nombres < 100, pas de centaines
+          if (typeDeNombres === 1 || typeDeNombres === 2) {
+            if (typeDeNombres === 1) {
+              texte = `Le chiffre des unités du nombre $${n}$ est : `
+              texteCorr = texte + `$${miseEnEvidence(u!)}$`
+              texte += ajouteChampTexteMathLive(this, i, '')
+              setReponse(this, i, u!)
+            } else {
+              texte = `Le chiffre des dizaines du nombre $${n}$ est : `
+              texteCorr = texte + `$${miseEnEvidence(d!)}$`
+              texte += ajouteChampTexteMathLive(this, i, '')
+              setReponse(this, i, d!)
+            }
+          } else {
+            texte = `Le chiffre des centaines du nombre $${n}$ est : `
+            texteCorr = texte + `$${miseEnEvidence(c!)}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, c!)
+          }
           this.autoCorrection[i]!.reponse!.param!.digits = 1
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
         case 5:
-          texte = `Le chiffre des milliers du nombre $${n}$ est : `
-          texteCorr = texte + `$${miseEnEvidence(m!)}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, m!)
+          // Pour les nombres < 1000, pas de milliers
+          if (typeDeNombres === 1 || typeDeNombres === 2) {
+            if (typeDeNombres === 1) {
+              texte = `Le chiffre des unités du nombre $${n}$ est : `
+              texteCorr = texte + `$${miseEnEvidence(u!)}$`
+              texte += ajouteChampTexteMathLive(this, i, '')
+              setReponse(this, i, u!)
+            } else {
+              texte = `Le chiffre des centaines du nombre $${n}$ est : `
+              texteCorr = texte + `$${miseEnEvidence(0)}$` // Pas de centaines pour < 100
+              texte += ajouteChampTexteMathLive(this, i, '')
+              setReponse(this, i, 0)
+            }
+          } else {
+            texte = `Le chiffre des milliers du nombre $${n}$ est : `
+            texteCorr = texte + `$${miseEnEvidence(m!)}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, m!)
+          }
           this.autoCorrection[i]!.reponse!.param!.digits = 1
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
@@ -216,44 +291,75 @@ export default class DecompositionNombreDecimal extends Exercice {
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
         case 9:
-          texte = `Le nombre de dizaines du nombre $${n}$ est : `
-          texteCorr =
-            texte + `$${miseEnEvidence(texNombre(d! + c! * 10 + m! * 100))}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, d! + c! * 10 + m! * 100)
+          // Nombre de dizaines - Adaptation selon le type
+          if (typeDeNombres === 1) {
+            texte = `Le nombre de dixièmes du nombre $${n}$ est : `
+            texteCorr = texte + `$${miseEnEvidence(texNombre(di! + u! * 10))}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, di! + u! * 10)
+          } else {
+            texte = `Le nombre de dizaines du nombre $${n}$ est : `
+            const nombreDizaines =
+              typeDeNombres === 2 ? d! : d! + c! * 10 + m! * 100
+            texteCorr = texte + `$${miseEnEvidence(texNombre(nombreDizaines))}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, nombreDizaines)
+          }
           this.autoCorrection[i]!.reponse!.param!.digits = 6
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
         case 10:
-          texte = `Le nombre de centaines du nombre $${n}$ est : `
-          texteCorr = texte + `$${miseEnEvidence(texNombre(c! + m! * 10))}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, c! + m! * 10)
+          // Nombre de centaines - Adaptation selon le type
+          if (typeDeNombres === 1 || typeDeNombres === 2) {
+            texte = `Le nombre de centièmes du nombre $${n}$ est : `
+            const nombreCentiemes =
+              typeDeNombres === 1
+                ? ci! + di! * 10 + u! * 100
+                : ci! + di! * 10 + u! * 100 + d! * 1000
+            texteCorr =
+              texte + `$${miseEnEvidence(texNombre(nombreCentiemes))}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, nombreCentiemes)
+          } else {
+            texte = `Le nombre de centaines du nombre $${n}$ est : `
+            texteCorr = texte + `$${miseEnEvidence(texNombre(c! + m! * 10))}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, c! + m! * 10)
+          }
           this.autoCorrection[i]!.reponse!.param!.digits = 6
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
         case 11:
           texte = `Le nombre de dixièmes du nombre $${n}$ est : `
-          texteCorr =
-            texte +
-            `$${miseEnEvidence(texNombre(di! + u! * 10 + d! * 100 + c! * 1000 + m! * 10000))}$`
+          const nombreDixiemes =
+            typeDeNombres === 1
+              ? di! + u! * 10
+              : typeDeNombres === 2
+                ? di! + u! * 10 + d! * 100
+                : di! + u! * 10 + d! * 100 + c! * 1000 + m! * 10000
+          texteCorr = texte + `$${miseEnEvidence(texNombre(nombreDixiemes))}$`
           texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, di! + u! * 10 + d! * 100 + c! * 1000 + m! * 10000)
+          setReponse(this, i, nombreDixiemes)
           this.autoCorrection[i]!.reponse!.param!.digits = 6
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
         case 12:
         default:
           texte = `Le nombre de centièmes du nombre $${n}$ est : `
-          texteCorr =
-            texte +
-            `$${miseEnEvidence(texNombre(ci! + di! * 10 + u! * 100 + d! * 1000 + c! * 10000 + m! * 100000))}$`
+          const nombreCentiemes =
+            typeDeNombres === 1
+              ? ci! + di! * 10 + u! * 100
+              : typeDeNombres === 2
+                ? ci! + di! * 10 + u! * 100 + d! * 1000
+                : ci! +
+                  di! * 10 +
+                  u! * 100 +
+                  d! * 1000 +
+                  c! * 10000 +
+                  m! * 100000
+          texteCorr = texte + `$${miseEnEvidence(texNombre(nombreCentiemes))}$`
           texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(
-            this,
-            i,
-            ci! + di! * 10 + u! * 100 + d! * 1000 + c! * 10000 + m! * 100000,
-          )
+          setReponse(this, i, nombreCentiemes)
           this.autoCorrection[i]!.reponse!.param!.digits = 6
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break

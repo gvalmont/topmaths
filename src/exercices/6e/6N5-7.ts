@@ -1,20 +1,20 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
+import { prenomF } from '../../lib/outils/Personne'
+import { texNombre, texPrix } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
-import { texNombre, texPrix } from '../../lib/outils/texNombre'
-import { prenomF } from '../../lib/outils/Personne'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes utilisant les 4 opérations'
 export const interactifReady = true
@@ -122,7 +122,7 @@ export default class ProblemesAvec4Opérations extends Exercice {
           const quantitéTartelettes = randint(2, 9, [quantitéPains])
           const prix =
             prixPains * quantitéPains + prixTartelettes * quantitéTartelettes
-          texte = `${prenomF()} achète ${quantitéPains} cahiers à $${texPrix(prixPains)}$€ et ${quantitéTartelettes} stylos au même prix chacun.. Elle paie $${texPrix(prix)}$€. Quel est le prix d'un stylo ?<br>`
+          texte = `${prenomF()} achète ${quantitéPains} cahiers à $${texPrix(prixPains)}$€ et ${quantitéTartelettes} stylos au même prix chacun. Elle paie $${texPrix(prix)}$€. Quel est le prix d'un stylo ?<br>`
           texte +=
             this.interactif && !context.isAmc
               ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {

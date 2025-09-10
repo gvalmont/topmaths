@@ -95,7 +95,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
         ? 'Développer puis réduire les expressions littérales suivantes.'
         : "Développer puis réduire l'expression littérale suivante."
 
-    const lettresPossibles = ['x', 'y', 'z', 't']
+    const lettresPossibles = ['x', 'y', 'z', 'n']
 
     let listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
