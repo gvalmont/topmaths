@@ -29,7 +29,7 @@
   class="subtitle
   text-xl md:text-3xl"
 >
-  Résumé du cours
+  {lessonImages.length === 0 ? 'Résumé du cours' : 'Cours'}
 </h2>
 
 {#if lessonImages.length > 0}

@@ -83,8 +83,11 @@
   {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche || objective.lessonImages.length > 0}
     <ObjectiveRegularLessonSummary {objective} {mathaleaRenderDiv} {loadIep} />
   {/if}
-  {#if objective.videos.length > 0}
-    <ObjectiveRegularVideos videos="{objective.videos}" />
+  {#if objective.videos.length > 0 || objective.lessonVideos.length > 0}
+    <ObjectiveRegularVideos
+      videos="{objective.videos}"
+      lessonVideos="{objective.lessonVideos}"
+    />
   {/if}
   {#if objective.exercises.length > 0}
     <ObjectiveRegularExercises

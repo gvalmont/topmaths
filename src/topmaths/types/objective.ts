@@ -6,8 +6,8 @@ import {
   isStringGrades,
   type StringGrade,
 } from './grade.js'
-import { isStrings, type ReplaceReferencesByStrings } from './shared.js'
 import { objectivesReferences } from './objectivesReferences.js'
+import { isStrings, type ReplaceReferencesByStrings } from './shared.js'
 import { isUnitReference, type UnitReference } from './unit.js'
 
 type ObjectivesReferencesValidTypes = typeof objectivesReferences
@@ -459,6 +459,7 @@ export type Objective = {
   lessonSummaryImage: string
   lessonSummaryImageAlt: string
   lessonSummaryInstrumenpoche: string
+  lessonVideos: string[]
   prerequisites: ObjectivePrerequisite[]
   term: number
   reference: ObjectiveReference
@@ -509,6 +510,8 @@ export function isObjective(
     typeof obj.lessonSummaryImageAlt === 'string' &&
     'lessonSummaryInstrumenpoche' in obj &&
     typeof obj.lessonSummaryInstrumenpoche === 'string' &&
+    'lessonVideos' in obj &&
+    isStrings(obj.lessonVideos) &&
     'prerequisites' in obj &&
     isObjectivePrerequisites(obj.prerequisites, withStringReference) &&
     'term' in obj &&
@@ -557,6 +560,7 @@ export const emptyObjective: Objective = {
   lessonSummaryImage: '',
   lessonSummaryImageAlt: '',
   lessonSummaryInstrumenpoche: '',
+  lessonVideos: [],
   prerequisites: [],
   term: 0,
   reference: emptyObjectiveReference,

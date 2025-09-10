@@ -323,6 +323,7 @@ function buildObjectives(): ObjectiveWithStringReference[] {
             objective.lessonSummaryImageAlt ?? ''
           objective.lessonSummaryInstrumenpoche =
             objective.lessonSummaryInstrumenpoche ?? ''
+          objective.lessonVideos = buildObjectiveLessonVideos(objective)
           objective.prerequisites = buildObjectivePrerequisites(objective)
           objective.term = findTerm(objective)
           objective.reference = objective.reference ?? '0'
@@ -831,21 +832,31 @@ function buildObjectiveLessonImages(
 ): string[] {
   const objectiveReference = objective.reference
   if (!objectiveReference) return []
-  const lessonImages: string[] = []
-  const publicPath = './public/'
-  const basePath = 'topmaths/cours-image/'
-  if (fs.existsSync(publicPath + basePath)) {
-    const files = fs.readdirSync(publicPath + basePath)
-    // Match files like "6N1A-1.png", "6N1A-2.png", etc.
-    const pattern = new RegExp(`^${objectiveReference}-\\d+\\.png$`)
-    files.forEach((file) => {
-      if (pattern.test(file)) {
-        lessonImages.push(basePath + file)
-      }
-    })
-  }
+  const directory = 'topmaths/cours-image/'
+  // Match files like "6N1A-1.png", "6N1A-2.png", etc.
+  const pattern = new RegExp(`^${objectiveReference}-\\d+\\.png$`)
+  return getFilesWithPattern(directory, pattern)
+}
 
-  return lessonImages
+function buildObjectiveLessonVideos(
+  objective: RecursivePartial<Objective>,
+): string[] {
+  const objectiveReference = objective.reference
+  if (!objectiveReference) return []
+  const directory = 'topmaths/cours-video/'
+  // Match files like "6N1A-1.mp4", "6N1A-2.mp4", etc.
+  const pattern = new RegExp(`^${objectiveReference}-\\d+\\.mp4$`)
+  return getFilesWithPattern(directory, pattern)
+}
+
+function getFilesWithPattern(directory: string, pattern: RegExp): string[] {
+  const publicDirectory = './public/'
+  if (!fs.existsSync(publicDirectory + directory)) {
+    return []
+  }
+  const files = fs.readdirSync(publicDirectory + directory)
+  const filesWithPattern = files.filter((file) => pattern.test(file))
+  return filesWithPattern.map((file) => directory + file)
 }
 
 function buildObjectiveLessonPlan(

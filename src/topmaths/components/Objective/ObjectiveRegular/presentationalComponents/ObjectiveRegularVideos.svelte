@@ -1,8 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import type { ObjectiveVideo } from '../../../../types/objective'
+  import ObjectiveRegularEmbededVideo from './ObjectiveRegularEmbededVideo.svelte'
 
   export let videos: ObjectiveVideo[] = []
+  export let lessonVideos: string[] = []
 
   onMount(() => {
     videos.forEach((video) => {
@@ -23,40 +25,21 @@
 >
   Vidéo{videos.length > 1 ? 's' : ''} d'explication
 </h2>
+{#each lessonVideos as video}
+  <video
+    src="{video}"
+    controls
+    title="Vidéo d'explication"
+    style="width: 100%; height: auto;"
+  >
+    <track kind="captions" src="" label="Sous-titres non disponibles" />
+  </video>
+{/each}
 {#each videos as video}
-  <div class="pb-5">
-    {#if video.title}
-      <h3
-        class="subtitle
-        text-lg md:text-2xl"
-      >
-        {video.title}
-      </h3>
-    {/if}
-    <div class="is-16by9">
-      <iframe
-        src="{video.videoLink}"
-        id="{video.videoLink}"
-        title="Vidéo d'explication"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        style="display: none;"
-      ></iframe>
-    </div>
-    <p>
-      Vidéo de
-      <a
-        href="{video.authorLink}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="is-interactive is-topmaths"
-      >
-        <button>
-          {video.authorName}
-        </button>
-      </a>
-    </p>
-  </div>
+  <ObjectiveRegularEmbededVideo
+    title="{video.title}"
+    authorName="{video.authorName}"
+    authorLink="{video.authorLink}"
+    videoLink="{video.videoLink}"
+  />
 {/each}
