@@ -5,6 +5,6 @@ export const titre = 'Glisse-nombre'
 
 export default class GlisseNombre extends ExternalApp {
   constructor() {
-    super('https://coopmaths.fr/apps/glisse-nombre/')
+    super('https://coopmaths.fr/apps/glisse-nombre/?v=embed')
   }
 }

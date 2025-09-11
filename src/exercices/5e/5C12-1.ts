@@ -44,7 +44,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
       '2 : 2 opérations successives\n3 : 3 opérations successives\n4 : 4 opérations successives\n5 : Mélange',
     ]
     this.besoinFormulaire3CaseACocher = ['Sans parenthèses inutiles', false]
-    this.sup2 = 4
+    this.sup2 = '4'
     this.sup3 = false
     // Ce paramètre n'aura de sens que si la correction fournie ne comporte pas de parenthèses inutiles conformément au paramètre
     // this.besoinFormulaire3CaseACocher = ['Sanctionner les parenthèses inutiles', false]
@@ -64,7 +64,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
       max: 4,
       defaut: 4,
       melange: 5,
-    })
+    }).map(Number)
     const noUselessParen = false // Pour l'instant, on ne peu pas se permettre de ne pas les accepter car elles figurent dans la correction.
     const typeQuestionsDisponibles = [
       'Enchaînement simple',
@@ -113,12 +113,22 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
                 right: nombres[2],
               }
               resultat1 = computeEngine.parse(calcul1).simplify().latex
-              calcul2 = `${nombres[0]} ${signes[1]} ${resultat1}`
-              const calcul2EN: Expression = {
-                operator: signes[1] as Operator,
-                left: nombres[0],
-                right: calcul1EN,
-              }
+              calcul2 =
+                signes[1] === '+' || signes[1] === '\\times'
+                  ? `${resultat1} ${signes[1]} ${nombres[0]}`
+                  : `${nombres[0]} ${signes[1]} ${resultat1}`
+              const calcul2EN: Expression =
+                signes[1] === '+' || signes[1] === '\\times'
+                  ? {
+                      operator: signes[1] as Operator,
+                      left: calcul1EN,
+                      right: nombres[0],
+                    }
+                  : {
+                      operator: signes[1] as Operator,
+                      left: nombres[0],
+                      right: calcul1EN,
+                    }
               resultat2 = computeEngine.parse(calcul2).simplify().latex
               nombreCible = resultat2
               if (
@@ -130,14 +140,17 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
               ) {
                 continue
               }
-              redaction = rediger(nombres[0].toString(), signes[1], calcul1)
+              redaction =
+                signes[1] === '+' || signes[1] === '\\times'
+                  ? rediger(calcul1, signes[1], nombres[0].toString())
+                  : rediger(nombres[0].toString(), signes[1], calcul1)
               if (this.sup3) redaction = parseExpression(calcul2EN) // sans parenthèse inutile
               texteCorr = `$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
 $${miseEnCouleur(`${nombres[0]} ${signes[1]}${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} = ${resultat2}`, 'green')}$<br><br>`
               break
             }
             default: {
-              calcul1 = `${nombres[0]} ${signes[1]} ${nombres[0]}`
+              calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
               resultat1 = computeEngine.parse(calcul1).simplify().latex
               const calcul1EN: Expression = {
                 operator: signes[0] as Operator,
@@ -547,6 +560,7 @@ Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' clavierDeB
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
+        cpt = 0
       }
     }
     listeQuestionsToContenu(this)

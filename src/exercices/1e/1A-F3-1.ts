@@ -23,7 +23,7 @@ export const titre = 'Déterminer une image par une fonction affine sans son exp
 export default class AutoF3a extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = `On considère une fonction affine $f$ telle que $f(2)=7$ et $f(5)=13$.<br>
-    L'image de $7$ par cette fonction afine est : `
+    L'image de $7$ par cette fonction affine est : `
     this.correction = `$f$ est une fonction affine, elle est donc de la forme $f(x)=mx+p$.<br>
      
     $\\begin{aligned}

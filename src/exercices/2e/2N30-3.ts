@@ -12,6 +12,6 @@ export const refs = {
 export default class ExerciceMultiplierFractions2nde extends ExerciceMultiplierFractions {
   constructor() {
     super()
-    this.sup = 3
+    this.sup = '3'
   }
 }

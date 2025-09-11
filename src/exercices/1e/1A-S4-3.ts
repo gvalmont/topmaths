@@ -27,7 +27,8 @@ export const dateDePublication = '02/08/2025'
 export default class MoyenneQCM extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs(p1: number, p2: number): void {
+ versionOriginale: () => void = () => {}
+   versionAleatoire = () => {
     const effectif = choice([4, 5])
     const valeurs = []
 
@@ -99,26 +100,27 @@ export default class MoyenneQCM extends ExerciceQcmA {
     $x = ${texNombre(moyenne)} \\times ${effectif + 1} - ${somme}$
     <br>$x = ${texNombre(x)}$.`
     this.reponses[0] = `$${texNombre(x)}$`
-  }
+  
 
   // S'occupe de passser les données originales à la fonction appliquerLesValeurs
 
   // s'occupe d'aléatoiriser les valeurs à passer à la fonction appliquerLesValeurs en vérifiant qu'on a bien 3 réponses différentes
   // Pour un qcm à n réponses, il faudrait vérifier que nombreElementsDifferents(this.reponses) < n
-  versionAleatoire: () => void = () => {
-    const n = 4 // nombre de réponses différentes voulues (on rappelle que la première réponse est la bonne)
+  
+
+  const n = 4
     do {
       const p1 = randint(-6, 6, 0) * 10
       const p2 = randint(-6, 6, 0) * 10 // On génère un polynôme de degré 2 ax^2+c
 
-      this.appliquerLesValeurs(p1, p2)
+      
     } while (nombreElementsDifferents(this.reponses) < n)
   }
-
+   
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
     this.options = { vertical: false, ordered: false }
-    this.versionAleatoire()
+   
   }
 }

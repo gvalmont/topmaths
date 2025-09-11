@@ -25,6 +25,7 @@
   import Footer from '../../Footer.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
+  import ButtonCompileLatexToPdfLink from '../../shared/forms/ButtonCompileLatexToPDFLink.svelte'
   import ButtonConfig from '../../shared/forms/ButtonConfig.svelte'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
@@ -703,6 +704,27 @@
                   {latex}
                   {latexFileInfos}
                   id="0"
+                />
+              {/await}
+            </div>
+          </SimpleCard>
+          <SimpleCard
+            title="{'Compiler le code pour avoir un fichier PDF (version encore gamma)'}"
+          >
+            <div>
+              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$.
+              J'essaie le nouveau compilateur en ligne qui
+              ne nécessite pas d'avoir un compte.
+            </div>
+            <div slot="button1">
+              {#await promise}
+                <p>Chargement en cours...</p>
+              {:then}
+                <ButtonCompileLatexToPdfLink
+                  class="flex w-full flex-col justify-center"
+                  {latex}
+                  {latexFileInfos}
+                  id="3"
                 />
               {/await}
             </div>

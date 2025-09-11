@@ -556,7 +556,7 @@ class Latex {
           '% Pour les carrés des cases à cocher\n\\usepackage{fontawesome5}\n\n'
         contents.preamble += '\n\\newbool{correctionDisplay}'
         contents.preamble += `\n\\setbool{correctionDisplay}{${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
-        contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
+        contents.preamble += `\n\\Theme[CAN]{}{}{${latexFileInfos.durationCanOption}}{}`
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
         contents.intro += '\n\\setcounter{CompteurTableauCan}{0}'

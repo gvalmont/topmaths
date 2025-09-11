@@ -1,15 +1,19 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -45,10 +49,11 @@ const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une f
 export default class ExerciceMultiplierFractions extends Exercice {
   constructor() {
     super()
-    this.besoinFormulaireNumerique = [
+    this.nbCols = 4 // Pour Latex
+    this.nbColsCorr = 2
+    this.besoinFormulaireTexte = [
       'Niveau de difficulté',
-      3,
-      ' 1 : Tout positif avec une fois sur 4 un entier\n 2 : Deux fractions (50% de type 1 et 50% de type 3)\n3 : Fractions avec nombres relatifs (au moins 2 négatifs)',
+      'Nombres séparés par des tirets\n1 : Un entier et une fraction (tout positif)\n2 : Deux fractions à numérateurs et dénominateurs positifs\n3 : Fractions avec nombres relatifs (au moins 2 négatifs)\n4 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = ['Avec décomposition']
     this.besoinFormulaire3CaseACocher = ['Demander une fraction irréductible']
@@ -58,7 +63,7 @@ export default class ExerciceMultiplierFractions extends Exercice {
       '1 : Multiplication\n2 : Division\n3 : Mélange',
     ]
     this.listeAvecNumerotation = false
-    this.sup = 1 // Avec ou sans relatifs
+    this.sup = '2' // Avec ou sans relatifs
     this.sup3 = true
     if (context.isAmc)
       this.titre =
@@ -79,15 +84,15 @@ export default class ExerciceMultiplierFractions extends Exercice {
     } else {
       this.consigne = 'Calculer.'
     }
-    // this.sup = contraindreValeur(1, 3, this.sup, 1)
-    // this.sup4 = contraindreValeur(1, 3, this.sup4, 1)
-    if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1, 2, 2, 2] // 1*nombre entier,3*fraction (pas de négatifs)
-    } else if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [2, 3] // fractions, 50% fractions positives 50% fractions avec relatifs
-    } else {
-      typesDeQuestionsDisponibles = [3]
-    }
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 2,
+      nbQuestions: this.nbQuestions,
+    })
+
     // On choisit les opérations en fonction de this.sup4
     const typesDoperation = []
     if (this.sup4 % 2 === 1) typesDoperation.push('mul')
@@ -97,10 +102,7 @@ export default class ExerciceMultiplierFractions extends Exercice {
       this.nbQuestions,
     )
     let nombreDeSigneMoins
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions,
-    )
+
     for (
       let i = 0,
         a,
@@ -183,12 +185,12 @@ export default class ExerciceMultiplierFractions extends Exercice {
       if (listeTypesDoperation[i] === 'mul') {
         const f2 = new FractionEtendue(c, d)
         texte = `$${lettreDepuisChiffre(i + 1)} = ${f1.texFraction}\\times${f2.texFraction}$`
-        texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${f1.texProduitFraction(f2, this.sup2)}$`
+        texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &= ${f1.texProduitFraction(f2, this.sup2).replaceAll('=', '\\\\&=')}\\end{aligned}$`
         reponse = f1.produitFraction(f2).simplifie()
       } else {
         const f2 = new FractionEtendue(d, c)
         texte = `$${lettreDepuisChiffre(i + 1)} = \\dfrac{${(f1.den === 1 ? space2 : space) + f1.texFSD + (f1.den === 1 ? space2 : space)}}{${(f2.den === 1 ? space2 : space) + f2.texFraction + (f2.den === 1 ? space2 : space)}}$`
-        texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${f1.texDiviseFraction(f2, this.sup2, '/')}$`
+        texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &= ${f1.texDiviseFraction(f2, this.sup2, '/').replaceAll('=', '\\\\&=')}\\end{aligned}$`
         reponse = f1.diviseFraction(f2).simplifie()
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
@@ -228,13 +230,10 @@ export default class ExerciceMultiplierFractions extends Exercice {
         // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
         const textCorrSplit = texteCorr.split('=')
         let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
-        aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
-
-        texteCorr = ''
-        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
-          texteCorr += textCorrSplit[ee] + '='
-        }
-        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        const [result, end] = aRemplacer.split('\\end{aligned}')
+        aRemplacer = `${miseEnEvidence(result.trim())}\\end{aligned}${end ?? ''}`
+        textCorrSplit.length = textCorrSplit.length - 1
+        texteCorr = `${textCorrSplit.join('=')}=${aRemplacer}`
         // Fin de cette uniformisation
 
         this.listeQuestions[i] = texte
