@@ -120,7 +120,7 @@
   }
 
   function updateParams() {
-    // updateParamsFromUrl() En conflit avec la gestion des url de topmaths
+    updateParamsFromUrl()
     updateContext()
     updateVendor()
   }
