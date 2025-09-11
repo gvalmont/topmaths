@@ -1,29 +1,29 @@
 <script lang="ts">
+  import seedrandom from 'seedrandom'
+  import { SvelteComponent, onMount } from 'svelte'
+  import Exercice from '../../../exercices/Exercice'
+  import referentielStatic from '../../../json/referentielStaticFR.json'
+  import uuidToUrl from '../../../json/uuidsToUrlFR.json'
   import {
     mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
     mathaleaHandleParamOfOneExercice,
     mathaleaLoadExerciceFromUuid,
   } from '../../../lib/mathalea'
-  import referentielStatic from '../../../json/referentielStaticFR.json'
-  import { SvelteComponent, onMount, tick } from 'svelte'
+  import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString'
   import type { InterfaceParams } from '../../../lib/types'
-  import uuidToUrl from '../../../json/uuidsToUrlFR.json'
-  import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
-  import Exercice from '../../../exercices/Exercice'
-  import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
-  import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
+  import { randint } from '../../../modules/outils'
   import {
     getParamsFromUrl,
     getUrlFromParams,
     updateUrlFromParams,
   } from '../../services/mathalea'
   import { exerciseLinks, isDoubleView } from '../../services/store'
-  import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
-  import seedrandom from 'seedrandom'
-  import { randint } from '../../../modules/outils'
-  import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString'
   import { copyToClipboard } from '../../services/url'
+  import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
+  import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
+  import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
+  import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
 
   export let isMd: boolean
 

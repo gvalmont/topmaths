@@ -3,10 +3,7 @@
   import type { Unsubscriber } from 'svelte/store'
   import { checkBrowserVersion } from '../lib/components/browserVersion'
   import { fetchServerVersion } from '../lib/components/version'
-  import {
-    mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaUpdateUrlFromExercicesParams,
-  } from '../lib/mathalea'
+  import { mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea'
   import { canOptions } from '../lib/stores/canStore'
   import {
     exercicesParams,
@@ -51,10 +48,10 @@
     globalOptionsUnsubscriber = globalOptions.subscribe(() => {
       updateContext() // Si on attend les 500 ms de mise à jour de l'url, la sortie LaTeX sera chargée avant la mise à jour du contexte et on se retrouvera avec du svg dans le LaTeX
       updateVendor() // Par prévention, on met aussi à jour le vendor
-      mathaleaUpdateUrlFromExercicesParams()
+      // mathaleaUpdateUrlFromExercicesParams() En conflit avec la gestion des url de topmaths
     })
     exercicesParamsUnsubscriber = exercicesParams.subscribe(() => {
-      mathaleaUpdateUrlFromExercicesParams()
+      // mathaleaUpdateUrlFromExercicesParams() En conflit avec la gestion des url de topmaths
     })
 
     const version = checkBrowserVersion()
@@ -123,7 +120,7 @@
   }
 
   function updateParams() {
-    updateParamsFromUrl()
+    // updateParamsFromUrl() En conflit avec la gestion des url de topmaths
     updateContext()
     updateVendor()
   }

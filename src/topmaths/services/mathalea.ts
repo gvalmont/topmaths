@@ -67,7 +67,9 @@ export function updateUrlFromParams(
   exercicesParams: InterfaceParams[],
 ): void {
   urlToWrite = getUrlFromParams(v, exercicesParams)
-  updateUrl(v, urlToWrite.href)
+  if (urlToWrite.href !== window.location.href) {
+    updateUrl(v, urlToWrite.href)
+  }
 }
 
 export function getUrlFromParams(
