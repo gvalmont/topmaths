@@ -3266,7 +3266,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=6de10&id=can6P01&n=2&d=10&qcm=0&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6P3G",
@@ -3276,7 +3281,20 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=9d994&id=auto6P3A-3&n=4&d=10&s=1&cd=1",
+                    "description": "Double, tiers, moitié, triple"
+                  },
+                  {
+                    "slug": "uuid=a8e75&id=canc3C09&n=1&d=10&qcm=0&cd=1",
+                    "description": "Fois plus, fois moins 1"
+                  },
+                  {
+                    "slug": "uuid=06268&id=canc3C10&n=1&d=10&qcm=0&cd=1",
+                    "description": "Fois plus, fois moins 2"
+                  }
+                ]
               }
             ]
           }
