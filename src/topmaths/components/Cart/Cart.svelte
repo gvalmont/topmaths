@@ -1,13 +1,13 @@
 <script lang="ts">
+  import { onDestroy, onMount } from 'svelte'
+  import Cart from '../../modules/Cart'
   import {
     REGULAR_VIEW_ADDENDUM,
     TOPMATHS_BASE_URL,
   } from '../../services/environment'
   import { goToCoopmathsView, launchExercise } from '../../services/navigation'
-  import { copyLink } from '../../services/url'
-  import Cart from '../../modules/Cart'
-  import { onDestroy, onMount } from 'svelte'
   import { buildGradeFromObjectiveReference } from '../../services/reference'
+  import { copyLink } from '../../services/url'
 
   let cartLink = ''
   let items = Cart.items
@@ -66,6 +66,18 @@
           size-12 md:size-16"
         src="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
         alt="Lancer en plein écran"
+      />
+    </button>
+    <button
+      class="is-fuchsia is-interactive
+        mx-2 md:mx-4"
+      on:click="{(mouseEvent) => launchExercise(mouseEvent, cartLink, true)}"
+    >
+      <img
+        class="is-icon
+          size-12 md:size-16"
+        src="/topmaths/img/cc0/fullscreen-double-svgrepo-com.svg"
+        alt="Lancer l'exercice en double-vue"
       />
     </button>
     <button
