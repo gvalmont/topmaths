@@ -760,7 +760,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=88021&id=6N2K-2&n=1&d=10&s=11&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N2L",
