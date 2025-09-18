@@ -47,6 +47,7 @@
     updateParams()
     addEventListener('popstate', updateParams)
     globalOptionsUnsubscriber = globalOptions.subscribe(() => {
+      mathaleaUpdateExercicesParamsFromUrl() // pour pouvoir naviguer de topmaths vers mathaléa
       updateContext() // Si on attend les 500 ms de mise à jour de l'url, la sortie LaTeX sera chargée avant la mise à jour du contexte et on se retrouvera avec du svg dans le LaTeX
       updateVendor() // Par prévention, on met aussi à jour le vendor
       // mathaleaUpdateUrlFromExercicesParams() En conflit avec la gestion des url de topmaths
