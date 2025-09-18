@@ -1,20 +1,14 @@
 // Ce store est dédié au stockage des référentiels et des outils de leur évolution
-import referentielAlea from '../../json/referentiel2022FR.json'
+import { get, writable } from 'svelte/store'
 import referentielAleaCH from '../../json/referentiel2022CH.json'
-import referentielExams from '../../json/referentielStaticFR.json'
-import referentielExamsCH from '../../json/referentielStaticCH.json'
-import referentielProfs from '../../json/referentielProfs.json'
-import referentielRessources from '../../json/referentielRessources.json'
+import referentielAlea from '../../json/referentiel2022FR.json'
 import referentielBibliotheque from '../../json/referentielBibliotheque.json'
 import referentielGeometrieDynamique from '../../json/referentielGeometrieDynamique.json'
+import referentielProfs from '../../json/referentielProfs.json'
+import referentielRessources from '../../json/referentielRessources.json'
 import referentielsActivation from '../../json/referentielsActivation.json'
-import type {
-  ActivationName,
-  JSONReferentielObject,
-  ReferentielInMenu,
-  ResourceAndItsPath,
-} from '../types/referentiels'
-import { get, writable } from 'svelte/store'
+import referentielExamsCH from '../../json/referentielStaticCH.json'
+import referentielExams from '../../json/referentielStaticFR.json'
 import {
   buildReferentiel,
   getAllEndings,
@@ -25,6 +19,12 @@ import {
   triAnnales,
 } from '../components/sorting'
 import type { Language } from '../types/languages'
+import type {
+  ActivationName,
+  JSONReferentielObject,
+  ReferentielInMenu,
+  ResourceAndItsPath,
+} from '../types/referentiels'
 
 function createoriginalReferentielsFR() {
   /**
@@ -175,12 +175,12 @@ function createoriginalReferentielsCH() {
       searchable: true,
       referentiel: aleaReferentielCH,
     },
-    {
-      title: 'EVACOM et TAF',
-      name: 'examens',
-      searchable: true,
-      referentiel: orderedExamsReferentielCH,
-    },
+    //    {
+    //     title: 'EVACOM et TAF',
+    //  name: 'examens',
+    // searchable: true,
+    // referentiel: orderedExamsReferentielCH,
+    // },
     {
       title: 'Géométrie dynamique',
       name: 'geometrieDynamique',

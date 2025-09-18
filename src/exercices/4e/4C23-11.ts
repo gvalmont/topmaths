@@ -22,7 +22,7 @@ export const uuid = 'f7f49'
 
 export const refs = {
   'fr-fr': ['4C23-11', 'BP2AutoH19'],
-  'fr-ch': ['10NO5-12', '11TAF-3', '11EVA-5', '1mCN-15'],
+  'fr-ch': ['10NO5-12', '1mCN-15'],
 }
 export default class FractionEtPriorites extends Exercice {
   constructor() {
@@ -101,12 +101,14 @@ export default class FractionEtPriorites extends Exercice {
           }
           changeForSignes()
           // cd est un booléen qui active la correction détaillée (on ajoute des commentaires)
-          if (update)
+          if (update) {
             texteCorr += `${cd ? "&\\text{On s'occupe d'abord des signes moins.}" : ''} \\\\`
-          if (update)
+          }
+          if (update) {
             texteCorr += ` &= ${c.texFSD}${operation}${a.texFSD}\\times ${b.texFraction}${cd ? '&\\text{On effectue la multiplication en priorité.}' : ''} \\\\`
-          else
+          } else {
             texteCorr += `${cd ? '&\\text{On effectue la multiplication en priorité.}' : ''} \\\\`
+          }
           texteCorr += ` &= ${c.texFSD}${operation}${a.produitFraction(b).texFSD}${cd ? `&\\text{On effectue ${operation === '-' ? 'la soustraction.' : "l'addtition."}}` : ''}\\\\`
           reponse =
             operation === '+'
@@ -130,12 +132,14 @@ export default class FractionEtPriorites extends Exercice {
           }
           changeForSignes()
           // cd est un booléen qui active la correction détaillée (on ajoute des commentaires)
-          if (update)
+          if (update) {
             texteCorr += `${cd ? "&\\text{On s'occupe d'abord des signes moins.}" : ''} \\\\`
-          if (update)
+          }
+          if (update) {
             texteCorr += ` &= ${c.texFSD}${operation}${a.texFSD}\\times ${b.texFraction}${cd ? '&\\text{On effectue la multiplication en priorité.}' : ''} \\\\`
-          else
+          } else {
             texteCorr += `${cd ? '&\\text{On effectue la multiplication en priorité.}' : ''} \\\\`
+          }
           texteCorr += ` &= ${c.texFSD}${operation}${a.produitFraction(b).texFSD}${cd ? '&\\text{On met au même dénominateur}' : ''}\\\\`
           texteCorr += ` &= ${c.reduire(b.denIrred).texFSD}${operation}${a.produitFraction(b).texFSD}${cd ? `&\\text{On effectue ${operation === '-' ? 'la soustraction.' : "l'addtition."}}` : ''}\\\\`
           reponse =
@@ -159,12 +163,14 @@ export default class FractionEtPriorites extends Exercice {
           }
           changeForSignes()
           // cd est un booléen qui active la correction détaillée (on ajoute des commentaires)
-          if (update)
+          if (update) {
             texteCorr += `${cd ? "&\\text{On s'occupe d'abord des signes moins.}" : ''} \\\\`
-          if (update)
+          }
+          if (update) {
             texteCorr += ` &= ${c.texFSD}${operation}${a.texFSD}\\div ${b.texFraction}${cd ? '&\\text{On effectue la division en priorité.}' : ''} \\\\`
-          else
+          } else {
             texteCorr += `${cd ? '&\\text{On effectue la division en priorité.}' : ''} \\\\`
+          }
 
           texteCorr += ` &= ${c.texFSD}${operation}${a.texFSD}\\times ${b.inverse().texFSD}${cd ? "&\\text{Diviser revient à multiplier par l'inverse}" : ''}\\\\`
           texteCorr += ` &= ${c.texFSD}${operation}${a.diviseFraction(b).texFSD}${cd ? `&\\text{On effectue ${operation === '-' ? 'la soustraction.' : "l'addtition."}}` : ''}\\\\`
@@ -196,12 +202,14 @@ export default class FractionEtPriorites extends Exercice {
             c = c.oppose()
           }
           // cd est un booléen qui active la correction détaillée (on ajoute des commentaires)
-          if (update)
+          if (update) {
             texteCorr += `${cd ? "&\\text{On s'occupe d'abord des signes moins.}" : ''} \\\\`
-          if (update)
+          }
+          if (update) {
             texteCorr += ` &= ${a.texFSD}\\div ${b.texFraction}${operation}${c.texFraction}${cd ? '&\\text{On effectue la division en priorité.}' : ''} \\\\`
-          else
+          } else {
             texteCorr += `${cd ? '&\\text{On effectue la division en priorité.}' : ''} \\\\`
+          }
           texteCorr += ` &= ${a.texFSD}\\times ${b.inverse().texFSD}${operation}${c.texFSD}${cd ? "&\\text{Diviser revient à multiplier par l'inverse}" : ''}\\\\`
           texteCorr += ` &= ${a.diviseFraction(b).texFSD}${operation}${c.texFraction}${cd ? `&\\text{On effectue ${operation === '-' ? 'la soustraction.' : "l'addtition."}}` : ''}\\\\`
           reponse =
@@ -226,16 +234,19 @@ export default class FractionEtPriorites extends Exercice {
           }
           changeForSignes()
           // cd est un booléen qui active la correction détaillée (on ajoute des commentaires)
-          if (update)
+          if (update) {
             texteCorr += `${cd ? "&\\text{On s'occupe d'abord des signes moins.}" : ''} \\\\`
-          if (update)
+          }
+          if (update) {
             texteCorr += ` &= ${c.texFSD}${operation}${a.texFSD}\\div ${b.texFraction}${cd ? '&\\text{On effectue la division en priorité.}' : ''} \\\\`
-          else
+          } else {
             texteCorr += `${cd ? '&\\text{On effectue la division en priorité.}' : ''} \\\\`
+          }
 
           texteCorr += ` &= ${c.texFSD}${operation}${a.texFSD}\\times ${b.inverse().texFSD}${cd ? "&\\text{Diviser revient à multiplier par l'inverse}" : ''}\\\\`
-          if (b.numIrred !== 1)
+          if (b.numIrred !== 1) {
             texteCorr += ` &= ${c.texFSD}${operation}${a.diviseFraction(b).texFSD}${cd ? '&\\text{On met au même dénominateur}' : ''}\\\\`
+          }
           texteCorr += ` &= ${c.reduire(b.numIrred).texFSD}${operation}${a.diviseFraction(b).texFSD}${cd ? `&\\text{On effectue ${operation === '-' ? 'la soustraction.' : "l'addtition."}}` : ''}\\\\`
           reponse =
             operation === '+'
@@ -267,12 +278,14 @@ export default class FractionEtPriorites extends Exercice {
             c = c.oppose()
           }
           // cd est un booléen qui active la correction détaillée (on ajoute des commentaires)
-          if (update)
+          if (update) {
             texteCorr += `${cd ? "&\\text{On s'occupe d'abord des signes moins.}" : ''} \\\\`
-          if (update)
+          }
+          if (update) {
             texteCorr += ` &= ${a.texFSD}\\times ${b.texFraction}${operation}${c.texFraction}${cd ? '&\\text{On effectue la multiplication en priorité.}' : ''} \\\\`
-          else
+          } else {
             texteCorr += `${cd ? '&\\text{On effectue la multiplication en priorité.}' : ''} \\\\`
+          }
           texteCorr += ` &= ${a.produitFraction(b).texFSD}${operation}${c.texFraction}${cd ? `&\\text{On effectue ${operation === '-' ? 'la soustraction.' : "l'addtition."}}` : ''}\\\\`
           reponse =
             operation === '+'
@@ -299,13 +312,14 @@ export default class FractionEtPriorites extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        if (this.interactif)
+        if (this.interactif) {
           handleAnswers(this, i, {
             reponse: {
               value: reponse.texFractionSimplifiee,
               options: { fractionIrreductible: true },
             },
           })
+        }
         i++
       }
       cpt++

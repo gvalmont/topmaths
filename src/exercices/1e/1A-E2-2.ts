@@ -68,7 +68,6 @@ export default class AugmentationsSuccessives extends ExerciceQcmA {
       `$P \\times \\left(1 + \\left(\\dfrac{${pourcentage}}{100}\\right)^${nombreAugmentations}\\right)$`, // Confusion avec la formule
       `$P \\times ${texNombre(1 + (nombreAugmentations * pourcentage) / 100, 2)}$`, // Addition linéaire des pourcentages
       `$\\dfrac{P}{${coefficientTotalTexte}}$`, // Division au lieu de multiplication
-      `$P \\times ${coefficientTotalTexte}$`, // Résultat final direct (pas la formule)
       `$P \\times \\left(\\dfrac{${pourcentage}}{100}\\right)^${nombreAugmentations}$`, // Oubli du +1
       `$P \\times ${texNombre((pourcentage / 100) * nombreAugmentations, 2)}$`, // Confusion totale
       `$P \\times \\left(${coefficientTexte} + ${texNombre(((nombreAugmentations - 1) * pourcentage) / 100, 2)}\\right)$`, // Formule inventée

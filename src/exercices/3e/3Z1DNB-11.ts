@@ -1,42 +1,42 @@
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { arc } from '../../lib/2d/cercle'
+import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { cone, ellipse } from '../../lib/2d/projections3d'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { createList } from '../../lib/format/lists'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { choice } from '../../lib/outils/arrayOutils'
+import { egalOuApprox } from '../../lib/outils/ecritures'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
   texteGras,
   texteItalique,
 } from '../../lib/outils/embellissements'
+import { prenomM } from '../../lib/outils/Personne'
+import {
+  premierMultipleInferieur,
+  premierMultipleSuperieur,
+} from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
   colorToLatexOrHTML,
   fixeBordures,
   mathalea2d,
 } from '../../modules/2dGeneralites'
-import { randint } from '../../modules/outils'
-import ExerciceBrevetA from '../ExerciceBrevetA'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { polygone } from '../../lib/2d/polygones'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { placeLatexSurSegment } from '../../lib/2d/codages'
-import { labelPoint, latex2d } from '../../lib/2d/textes'
+import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
-import { cone, ellipse } from '../../lib/2d/projections3d'
-import { arc } from '../../lib/2d/cercle'
-import {
-  premierMultipleInferieur,
-  premierMultipleSuperieur,
-} from '../../lib/outils/primalite'
-import { egalOuApprox } from '../../lib/outils/ecritures'
-import { prenomM } from '../../lib/outils/Personne'
-import { context } from '../../modules/context'
+import { randint } from '../../modules/outils'
+import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = 'fb6ee'
 export const refs = {
   'fr-fr': ['3Z1DNB-11'],
-  'fr-ch': ['11EVA-1'],
+  'fr-ch': [],
 }
 export const titre =
   'Préparation DNB : Volume, Pythagore, périmètre, agrandissement-réduction'

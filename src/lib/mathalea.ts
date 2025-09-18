@@ -859,6 +859,7 @@ export function mathaleaHandleExerciceSimple(
     // const options = exercice.optionsDeComparaison == null ? { nombreDecimalSeulement: true } : exercice.optionsDeComparaison
     const options =
       exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
+    console.info(`Chargement de la seed : ${String(exercice.seed) + i + cptSecours}`)
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (
       exercice.nouvelleVersion &&
@@ -1122,6 +1123,7 @@ export function mathaleaGenerateSeed({
   for (; d < a; d++) {
     c += e[Math.floor(Math.random() * e.length)]
   }
+  console.info(`Nouvelle seed générée : ${c}`)
   return c
 }
 

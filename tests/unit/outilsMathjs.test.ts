@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   assignVariables,
+  calculer,
   programmeCalcul,
   resoudre,
   toTex,
@@ -177,6 +178,13 @@ describe('nodeMath', () => {
 
   it('should solve equations with substeps', () => {
     const result = resoudre('2*x+4=4*x-5', { substeps: true })
+    expect(result.steps.length).toBeGreaterThan(0)
+  })
+
+  it('should compute expressions with substeps', () => {
+    const result = calculer('2 * (-3) + 4 + (-3) ^ 2 * (-5)', {
+      substeps: true,
+    })
     expect(result.steps.length).toBeGreaterThan(0)
   })
 

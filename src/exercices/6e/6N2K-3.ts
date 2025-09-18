@@ -38,7 +38,7 @@ export default class DivisionsEuclidiennesEgalite extends Exercice {
       "1 : L'égalité correspond à la division euclidienne.\n2 : L'égalité ne correspond pas nécessairement à la division euclidienne.",
     ]
     this.consigneCorrection = texteGras(
-      'Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b',
+      'Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = (b × q) + r avec r < b',
     )
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
@@ -81,26 +81,26 @@ export default class DivisionsEuclidiennesEgalite extends Exercice {
           texteCorr = `L'égalité $ ${texNombre(a)} = ${b} \\times ${q} $ correspond bien à l'expression de la division euclidienne de $ ${texNombre(a)} $ par $ ${b} $. <br> Le quotient est ${texteEnCouleurEtGras(String(q))} et le reste est ${texteEnCouleurEtGras('0')}.`
           break
         case 2: // égalité "directe"
-          texte += `$ ${texNombre(a)} = ${b} \\times ${q} + ${r} $<br>`
-          texteCorr = `${r} est inférieur à ${b}, l'égalité $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $ correspond bien à l'expression de la division euclidienne de $ ${texNombre(a)} $ par ${b}. <br> On a donc : ${texteEnCouleurEtGras(String(q))} le quotient et ${texteEnCouleurEtGras(String(r))} le reste.`
+          texte += `$ ${texNombre(a)} = (${b} \\times ${q}) + ${r} $<br>`
+          texteCorr = `${r} est inférieur à ${b}, l'égalité $ ${texNombre(a)} = (${b} \\times ${q}) + ${r} $ correspond bien à l'expression de la division euclidienne de $ ${texNombre(a)} $ par ${b}. <br> On a donc : ${texteEnCouleurEtGras(String(q))} le quotient et ${texteEnCouleurEtGras(String(r))} le reste.`
           break
         case 3:
-          texte += `$ ${texNombre(a)} = ${b} \\times ${q - 1} + ${r + b} $<br>`
-          texteCorr = `${r + b} est supérieur à ${b}. ${r + b} n'est donc pas le reste. <br> L'égalité $ ${texNombre(a)} = ${b} \\times ${q - 1} + ${r + b} $ ne traduit pas directement la division euclidienne de $ ${texNombre(a)} $ par ${b}. <br>
+          texte += `$ ${texNombre(a)} = (${b} \\times ${q - 1}) + ${r + b} $<br>`
+          texteCorr = `${r + b} est supérieur à ${b}. ${r + b} n'est donc pas le reste. <br> L'égalité $ ${texNombre(a)} = (${b} \\times ${q - 1}) + ${r + b} $ ne traduit pas directement la division euclidienne de $ ${texNombre(a)} $ par ${b}. <br>
             Transformons cette égalité en utilisant le fait que $ ${r + b} = ${r} + ${b} $.<br>
-            $ ${texNombre(a)} = ${b} \\times ${q - 1} + ${r + b} = ${b} \\times ${q - 1} + ${b} + ${r} = ${b} \\times ${q} + ${r} $ <br>
-            Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $.
+            $ ${texNombre(a)} = (${b} \\times ${q - 1}) + ${r + b} = (${b} \\times ${q - 1}) + ${b} + ${r} = (${b} \\times ${q}) + ${r} $ <br>
+            Ainsi, $ ${texNombre(a)} = (${b} \\times ${q}) + ${r} $.
             <br> On a donc : ${texteEnCouleurEtGras(String(q))} le quotient et ${texteEnCouleurEtGras(String(r))} le reste.`
           break
         case 4:
         default:
-          texte += `$ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} $<br>`
-          texteCorr = `L'égalité $ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} $ ne traduit pas directement la division euclidienne de $ ${texNombre(a)} $ par ${b}.  <br>
+          texte += `$ ${texNombre(a)} = (${b} \\times ${q + 1}) - ${b - r} $<br>`
+          texteCorr = `L'égalité $ ${texNombre(a)} = (${b} \\times ${q + 1}) - ${b - r} $ ne traduit pas directement la division euclidienne de $ ${texNombre(a)} $ par ${b}.  <br>
           Transformons cette égalité : <br>
           Dans cette égalité, on a pris ${q + 1} fois ${b} et on dépasse $ ${texNombre(a)} $. Cela veut dire qu'on a pris ${b} trop de fois.<br>
           Prenons-le une fois de moins, on va donc avoir ${q} fois ${b} : <br>
-          $ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} = ${b} \\times ${q} + ${b} - ${b - r} = ${b} \\times ${q} + ${r} $ <br>
-          Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $.
+          $ ${texNombre(a)} = (${b} \\times ${q + 1}) - ${b - r} = (${b} \\times ${q}) + ${b} - ${b - r} = (${b} \\times ${q}) + ${r} $ <br>
+          Ainsi, $ ${texNombre(a)} = (${b} \\times ${q}) + ${r} $.
           <br> On a donc : ${texteEnCouleurEtGras(String(q))} le quotient et ${texteEnCouleurEtGras(String(r))} le reste.`
           break
       }

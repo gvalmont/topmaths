@@ -5,20 +5,20 @@ import {
   /* miseEnEvidence, */ texteGras,
   texteItalique,
 } from '../../lib/outils/embellissements'
+import { prenomPronom } from '../../lib/outils/Personne'
+import { premierMultipleInferieur } from '../../lib/outils/primalite'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import ExerciceBrevetA from '../ExerciceBrevetA'
-import { premierMultipleInferieur } from '../../lib/outils/primalite'
-import { prenomPronom } from '../../lib/outils/Personne'
 // import { texteParPosition } from '../../lib/2d/textes'
-import { randint } from '../../modules/outils'
+import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texNombre } from '../../lib/outils/texNombre'
-import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
+import { randint } from '../../modules/outils'
 
 export const uuid = '8abca'
 export const refs = {
   'fr-fr': ['3Z1DNB-21'],
-  'fr-ch': ['11EVA-3'],
+  'fr-ch': [],
 }
 export const titre = "Préparation DNB : Aires, prise d'initiative, volumes"
 export const dateDePublication = '15/04/2025'

@@ -103,8 +103,8 @@ export default class AutoF3 extends ExerciceQcmA {
 
     this.reponses = [
       `$x\\longmapsto ${texNombre(a)}(x${alphaPositif ? '-' : '+'}${alpha})^2${betaPositif ? '+' : '-'}${b}$`,
-      `$x\\longmapsto ${texNombre(a)}(x${alphaPositif ? '-' : '+'}${alpha})^2${betaPositif ? '-' : '+'}${b}$`,
-      `$x\\longmapsto${texNombre(a)}(x${alphaPositif ? '+' : '-'}${alpha})^2${betaPositif ? '+' : '-'}${b}$`,
+      `$x\\longmapsto ${texNombre(a)}(x${alphaPositif ? '+' : '-'}${alpha})^2${betaPositif ? '+' : '-'}${b}$`,
+      `$x\\longmapsto${texNombre(-a)}(x${alphaPositif ? '+' : '-'}${alpha})^2${betaPositif ? '+' : '-'}${b}$`,
       `$x\\longmapsto${texNombre(-a)}(x${alphaPositif ? '-' : '+'}${alpha})^2${betaPositif ? '+' : '-'}${b}$`,
     ]
   }

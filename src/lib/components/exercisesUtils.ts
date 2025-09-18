@@ -152,6 +152,7 @@ export const splitExercisesIntoQuestions = (
     } else {
       if (exercice.nouvelleVersionWrapper !== undefined) {
         if (exercice.seed !== undefined) {
+          console.info(`Chargement de la seed : ${exercice.seed}`)
           seedrandom(exercice.seed, { global: true })
         }
         exercice.nouvelleVersionWrapper(k)

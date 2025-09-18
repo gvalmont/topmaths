@@ -12,6 +12,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
 import { fraction } from '../../../modules/fractions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre =
   'Déterminer une équation de l’axe de symétrie d’une parabole'
 export const interactifReady = true
@@ -35,6 +36,7 @@ export default class AxeSymetrieParabole extends ExerciceSimple {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion() {

@@ -197,7 +197,7 @@ export default class DecimaleAFractionnaire extends Exercice {
                   '\\dfrac{3}{%{champ1}}',
                   KeyboardType.clavierNumbers,
                 )
-              : texFractionFromString(1, '\\ldots') + '$')
+              : texFractionFromString(3, '\\ldots') + '$')
           reponse = '4'
           texteCorr += texFractionFromString(3, miseEnEvidence(reponse)) + '$'
           break

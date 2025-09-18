@@ -192,18 +192,22 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
 
       if (listeTypeDeNombres[i] === 'entiers relatifs') {
         ;[a, b, x, c] = garantirUnNegatif(a, b, x, c)
+        if (x === 1) x = -1
       }
 
       const expressionX = simplify(expressionABCX, [], { a, b, c }).toString()
       const expression = simplify(expressionX, [], { x }).toString()
 
-      texte = `Pour $x=${x}$,${sp(1)} calculer : $${toTex(expressionX)}$.`
+      texte = `Pour $x=${x}$,${sp(1)} calculer : $${toTex(expressionX, { rearrangeCoefficient: false })}$.`
       if (this.interactif) {
-        texte = `Pour $x=${x}$,${sp(1)} $${toTex(expressionX)} = $`
+        texte = `Pour $x=${x}$,${sp(1)} $${toTex(expressionX, { rearrangeCoefficient: false })} = $`
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
       }
 
-      const corrDetails = calculer(expression, {})
+      const corrDetails = calculer(expression, {
+        removeImplicit: false,
+        removeMultiplicationByNegativeOne: false,
+      })
       texteCorr = corrDetails.texteCorr + '<br>'
       texteCorr += `Le  résultat est donc : $${miseEnEvidence(corrDetails.result)}$.`
 

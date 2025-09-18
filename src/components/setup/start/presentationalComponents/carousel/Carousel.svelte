@@ -1,11 +1,15 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
-  import carouselContent from '../../../../../json/carouselContent.json'
+  import legacyCarouselContent from '../../../../../json/carouselContent.json'
+  import carouselContentForCapytale from '../../../../../json/carouselContentForCapytale.json'
   import ButtonTextAction from '../../../../shared/forms/ButtonTextAction.svelte'
+    import { globalOptions } from '../../../../../lib/stores/generalStore'
 
   let currentSlideIndex = 0
   let intervalId: number | null = null
   let isPaused = false
+
+  let carouselContent = $globalOptions.recorder === 'capytale' ? carouselContentForCapytale : legacyCarouselContent
 
   // Configuration de l'animation
   const SLIDE_DURATION = 5000 // 5 secondes par slide
@@ -152,7 +156,6 @@
                           <video
                             class="flex items-center justify-center w-full h-full object-scale-down"
                             src="images/carousel/{slide.image}"
-                            alt="Video:{slide.image}"
                             autoplay
                             loop
                             muted

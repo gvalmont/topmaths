@@ -102,7 +102,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: diviseur,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(dividende)}=(${diviseur}\\times${texNombre(quotient)})+ ${texNombre(reste)}`, 'blue')}$`
           texteCorr += `<br>Le paysagiste peut faire ${texteEnCouleurEtGras(String(quotient))} bouquets et il lui reste ${texteEnCouleurEtGras(String(reste), 'blue')} fleurs.`
           texteCorr += `<br>${numAlpha(1)} Il reste ${reste} fleurs et il en faut ${diviseur} pour un bouquet.`
           texteCorr += `<br>$${diviseur} - ${reste} = ${diviseur - reste}$`
@@ -141,7 +141,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: diviseur,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(dividende)}=(${diviseur}\\times${texNombre(quotient)})+ ${texNombre(reste)}`, 'blue')}$`
           texteCorr += `<br>Il lui faudra ${texteEnCouleurEtGras(String(quotient))} boîtes et il restera ${texteEnCouleurEtGras(String(reste), 'blue')} oeufs.`
           texteCorr += `<br>${numAlpha(1)} Il reste ${reste} oeufs et il en faut ${diviseur} pour une boîte.`
           texteCorr += `<br>$${diviseur} - ${reste} = ${diviseur - reste}$`
@@ -180,7 +180,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: diviseur,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(dividende)}=(${diviseur}\\times${texNombre(quotient)})+ ${texNombre(reste)}`, 'blue')}$`
           texteCorr += `<br>Chaque pirate aura ${texteEnCouleurEtGras(String(quotient))} pièces.`
           texteCorr += `<br>${numAlpha(1)}  Il restera ${texteEnCouleurEtGras(String(reste))} pièces d'or.`
           handleAnswers(this, indiceInteractif, {
@@ -229,7 +229,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: diviseur,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(dividende)}=(${diviseur}\\times${texNombre(quotient)})+ ${texNombre(reste)}`, 'blue')}$`
           texteCorr += `<br>Il se sera écoulé ${texteEnCouleurEtGras(String(quotient), 'blue')} semaines complètes et ${texteEnCouleurEtGras(String(reste), 'blue')} jours.`
           texteCorr += `<br>Donc nous serons ${reste} jours de plus que  ${table[jour]}, soit ${texteEnCouleurEtGras(table[(jour + reste) % diviseur])}.`
           indiceInteractif++
@@ -371,7 +371,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: nbPerlesJaune,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(nbPerlesJauneTotal)}=${nbPerlesJaune}\\times${texNombre(nbColliersJaune)}${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune === 0 ? '' : `+ ${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune}`}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(nbPerlesJauneTotal)}=${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune === 0 ? `${nbPerlesJaune}\\times${texNombre(nbColliersJaune)}` : `(${nbPerlesJaune}\\times${texNombre(nbColliersJaune)})+ ${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune}`}`, 'blue')}$`
           texteCorr += `<br>Il peut faire $${miseEnEvidence(texNombre(nbColliersJaune), 'blue')}$ colliers avec les perles jaunes.`
           texteCorr += `<br>Posons la division euclidienne de $${texNombre(nbPerlesRougeTotal)}$ par $${nbPerlesRouge}$. <br>`
           texteCorr +=
@@ -380,7 +380,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: nbPerlesRouge,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(nbPerlesRougeTotal)}=${nbPerlesRouge}\\times${texNombre(nbColliersRouge)}${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge === 0 ? '' : `+ ${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge}`}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(nbPerlesRougeTotal)}=${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge === 0 ? `${nbPerlesRouge}\\times${texNombre(nbColliersRouge)}` : `(${nbPerlesRouge}\\times${texNombre(nbColliersRouge)})+ ${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge}`}`, 'blue')}$`
           texteCorr += `<br>Il peut faire $${miseEnEvidence(texNombre(nbColliersRouge), 'blue')}$ colliers avec les perles rouges.`
           texteCorr += `<br>Finalement, en prenant en compte les deux couleurs, et puisque $${texNombre(Math.min(nbColliersRouge, nbColliersJaune))}$ < $${texNombre(Math.max(nbColliersRouge, nbColliersJaune))}$, le bijoutier ne pourra faire que $${miseEnEvidence(texNombre(Math.min(nbColliersRouge, nbColliersJaune)))}$ colliers.`
           texteCorr += `<br>${numAlpha(1)} $${nbPerlesJauneTotal} - (${nbPerlesJaune} \\times ${Math.min(nbColliersRouge, nbColliersJaune)})=${miseEnEvidence(String(nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune)))}$`
@@ -445,7 +445,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: nbTimbresParPage,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(nbTimbres)}=${nbTimbresParPage}\\times${texNombre(nbPages)}${nbTimbres - nbTimbresParPage * nbPages === 0 ? '' : `+ ${nbTimbres - nbTimbresParPage * nbPages}`}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(nbTimbres)}=(${nbTimbresParPage}\\times${texNombre(nbPages)})${nbTimbres - nbTimbresParPage * nbPages === 0 ? '' : `+ ${nbTimbres - nbTimbresParPage * nbPages}`}`, 'blue')}$`
           texteCorr += `<br>Il y aura $${miseEnEvidence(texNombre(nbPages), 'blue')}$ pages remplies et une page avec $${miseEnEvidence(texNombre(reste), 'blue')}$ timbres. Donc au total, il faudra $${miseEnEvidence(texNombre(nbPages + 1))}$ pages.`
           texteCorr += `<br>${numAlpha(1)} Comme l'indique la division euclidienne ci-dessus, il y aura $${miseEnEvidence(texNombre(reste))}$ timbres sur la dernière page.`
           handleAnswers(this, indiceInteractif, {
@@ -485,7 +485,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: diviseur,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(nbPiecesParPirate)} +  ${reste}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(dividende)}=(${diviseur}\\times${texNombre(nbPiecesParPirate)}) +  ${reste}`, 'blue')}$`
           texteCorr += `<br>Chaque pirate aura $${miseEnEvidence(texNombre(nbPiecesParPirate))}$ pièces.`
           texteCorr += `<br>${numAlpha(1)} Comme l'indique la division euclidienne ci-dessus, le capitaine aura $${miseEnEvidence(texNombre(reste))}$ pièces et il aura le plus de pièces.`
           handleAnswers(this, indiceInteractif, {
@@ -544,7 +544,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: nbPlaces1ParRangée,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(nbPersonnes)}=${nbPlaces1ParRangée}\\times${texNombre(nbRangée1)} +  ${reste1}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(nbPersonnes)}=(${nbPlaces1ParRangée}\\times${texNombre(nbRangée1)}) +  ${reste1}`, 'blue')}$`
           texteCorr += `<br> Avec ${nbPlaces1ParRangée} places par rangée, il y aura ${nbRangée1} rangées remplies et une dernière avec ${reste1} places occupées et ${texteEnCouleurEtGras(String(nbPlaces1ParRangée - reste1), 'blue')} places libres.`
           texteCorr += `<br> <br> Posons la division euclidienne de $${texNombre(nbPersonnes)}$ par $${nbPlaces2ParRangée}$. <br>`
           texteCorr +=
@@ -553,7 +553,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
               operande2: nbPlaces2ParRangée,
               type: 'divisionE',
             }) +
-            `$${miseEnEvidence(`${texNombre(nbPersonnes)}=${nbPlaces2ParRangée}\\times${texNombre(nbRangée2)} +  ${reste2}`, 'blue')}$`
+            `$${miseEnEvidence(`${texNombre(nbPersonnes)}=(${nbPlaces2ParRangée}\\times${texNombre(nbRangée2)}) +  ${reste2}`, 'blue')}$`
           texteCorr += `<br> Avec ${nbPlaces2ParRangée} places par rangée, il y aura ${nbRangée2} rangées remplies et une dernière avec ${reste2} places occupées et ${texteEnCouleurEtGras(String(nbPlaces2ParRangée - reste2), 'blue')} places libres.`
           texteCorr += `<br> <br> Comme $${Math.min(nbPlaces2ParRangée - reste2, nbPlaces1ParRangée - reste1)} < ${Math.max(nbPlaces2ParRangée - reste2, nbPlaces1ParRangée - reste1)}$,
            alors pour avoir le moins de places libres, les organisateurs vont préférer $${miseEnEvidence(String(nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbPlaces2ParRangée : nbPlaces1ParRangée))}$ places par rangée.`

@@ -52,7 +52,7 @@ export default class MoyenneQCM extends ExerciceQcmA {
   ]
 
   // Construction de l'énoncé
-  this.enonce = `On donne la série suivante : $${valeurs.join(' ; ')}$.<br>
+  this.enonce = `On donne la série statistique suivante : $${valeurs.join(' ; ')}$.<br>
   Quelle valeur faut-il ajouter à la série pour que sa moyenne soit égale à $${texNombre(moyenne)}$ ?`
 
   // Construction de la correction

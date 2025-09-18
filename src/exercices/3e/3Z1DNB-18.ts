@@ -1,23 +1,23 @@
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { labelPoint } from '../../lib/2d/textes'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
+import { egalOuApprox } from '../../lib/outils/ecritures'
 import { texteGras, texteItalique } from '../../lib/outils/embellissements'
 import { texNombre, texPrix } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
-import { labelPoint } from '../../lib/2d/textes'
-import { polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { placeLatexSurSegment } from '../../lib/2d/codages'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { egalOuApprox } from '../../lib/outils/ecritures'
 
 export const uuid = 'fb7ad'
 export const refs = {
   'fr-fr': ['3Z1DNB-18'],
-  'fr-ch': ['11EVA-2'],
+  'fr-ch': [],
 }
 export const titre =
   "Préparation DNB : Volumes, périmètres, proportionnalité, prise d'intitiative"
@@ -35,8 +35,9 @@ function meilleurPrix(
       ? `Il est préférable de prendre deux pots de peinture A de $5~\\mathrm{l}$ dont le deuxième est à $50\\,\\%$ de réduction, soit un total de $${texPrix(prixPotA)}+\\dfrac{${texPrix(prixPotA)}}{2}=${texPrix(prixPotA * 1.5)}$€ plutôt qu'un pot de peinture B à $${texPrix(prixPotB)}$€.`
       : `Il est préférable de prendre un pot de peinture B de $10~\\mathrm{l}$ à $${texPrix(prixPotB)}$€ plutôt que deux pots de peinture A de $5~\\mathrm{l}$ dont le deuxième est à $50\\,\\%$ de réduction pour un total de $${texPrix(prixPotA)}+\\dfrac{${texPrix(prixPotA)}}{2}=${texPrix(prixPotA * 1.5)}$€.`
   } else if (nbLitres <= 15) {
-    if (2.5 * prixPotA < 1.5 * prixPotB)
+    if (2.5 * prixPotA < 1.5 * prixPotB) {
       return `Il est préférable de prendre trois pots de peinture A de $5~\\mathrm{l}$ à $${texPrix(prixPotA)}$€ dont un à $50\\,\\%$ soit au total de $2{,}5\\times ${texPrix(prixPotA)}=${texPrix(2.5 * prixPotA)}$€ plutôt qu'un pot de peinture A de $5~\\mathrm{l}$ à $${texPrix(prixPotA)}$€ et un pot de peinture B de $10~\\mathrm{l}$ à $${texPrix(prixPotB)}$€, soit un total de $${texPrix(prixPotA + prixPotB)}$€.`
+    }
     return prixPotA + prixPotB < prixPotB * 1.5
       ? `Il est préférable de prendre un pot de peinture A de $5~\\mathrm{l}$ à $${texPrix(prixPotA)}$€ et un pot de peinture B de $10~\\mathrm{l}$ à $${texPrix(prixPotB)}$€, soit un total de $${texPrix(prixPotA + prixPotB)}$€ plutôt que deux pots de peinture B de $10~\\mathrm{l}$ le deuxième étant à $50\\,\\%$ soit au total $${texPrix(prixPotB)}\\times 1{,}5=${texPrix(prixPotB * 1.5)}$€.<br>
       De plus, trois pots de peinture A seront au prix de $2{,}5\\times ${texPrix(prixPotA)}=${texPrix(2.5 * prixPotA)}$€, ce qui est moins intéressant.`

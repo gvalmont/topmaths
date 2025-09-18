@@ -19,7 +19,7 @@
           .replaceAll(' ', '')
           .normalize('NFD')
           .replace(/[\u0300-\u036f]/g, '')
-      : Math.round(Math.random() * 1000).toString()
+      : Math.round(new Date().getTime()).toString()
   const dispatch = createEventDispatcher()
   function valueHasChanged() {
     dispatch('newvalue')

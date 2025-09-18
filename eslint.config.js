@@ -1,3 +1,4 @@
+import prettier from 'eslint-config-prettier'
 import neostandard from 'neostandard'
 export default [
   ...neostandard({ ts: true }),
@@ -13,4 +14,5 @@ export default [
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 1 }],
     },
   },
+  prettier, // à maintenir en dernier pour éviter les conflits entre ESLint et Prettier
 ]

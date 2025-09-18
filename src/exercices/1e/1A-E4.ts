@@ -1,3 +1,4 @@
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
@@ -30,7 +31,7 @@ export default class Automatismes extends ExerciceQcmA {
     const c2 = 1 + p2 / 100
     const c = c1 * c2
     const p = (c - 1) * 100
-    const evo = p > 0 ? 'augmentation' : 'diminution'
+    const evo = p > 0 ? 'augmentation' : 'réduction'
     const alea = randint(-2, 2, 0)
     const alea2 = randint(-3, 3, [0, alea])
     let evo1: string
@@ -38,39 +39,38 @@ export default class Automatismes extends ExerciceQcmA {
     if (p1 >= 0) {
       evo1 = 'augmentation'
     } else {
-      evo1 = 'diminution'
+      evo1 = 'réduction'
     }
     if (p2 >= 0) {
       evo2 = 'augmentation'
     } else {
-      evo2 = 'diminution'
+      evo2 = 'réduction'
     }
 
     this.reponses = [
-      `une ${evo} de $${texNombre(abs(p))}$ %`,
+      `une ${evo} de $${texNombre(abs(p))}\\,\\%$`,
       p1 + p2 > 0
-        ? `une augmentation de $${texNombre(p1 + p2)}$ %,`
-        : `une diminution de $${texNombre(abs(p1 + p2))}$ %`,
-      `une ${evo} de $${texNombre(abs(p + alea))}$ %`,
-      `une ${evo} de $${texNombre(abs(p + alea2))}$ %.`,
+        ? `une augmentation de $${texNombre(p1 + p2)}\\,\\%$`
+        : `une diminution de $${texNombre(abs(p1 + p2))}\\,\\%$`,
+      `une ${evo} de $${texNombre(abs(p + alea))}\\,\\%$`,
+      `une ${evo} de $${texNombre(abs(p + alea2))}\\,\\%$`,
     ]
 
-    this.enonce = `Une ${evo1} de $${abs(p1)}$ % suivie d'une ${evo2} de $${abs(p2)}$ % équivaut à `
+    this.enonce = `Une ${evo1} de $${abs(p1)}$ % suivie d'une ${evo2} de $${abs(p2)}$ % équivaut à :`
     this.correction =
-      'A partir des évolutions en pourcentage, on déduit les coefficients multiplicateurs : <br>'
+      'À partir des évolutions en pourcentage, on déduit les coefficients multiplicateurs : <br>'
     if (p1 > 0) {
       this.correction += `On note $CM_1 = 1 + \\dfrac{${p1}}{100}=${texNombre((100 + p1) / 100)}$`
     } else {
       this.correction += `On note  $CM_1  = 1 - \\dfrac{${abs(p1)}}{100}=${texNombre((100 + p1) / 100)}$`
     }
     if (p2 > 0) {
-      this.correction += ` et $CM_2 = 1 + \\dfrac{${p2}}{100}=${texNombre((100 + p2) / 100)}$.`
+      this.correction += ` et $CM_2 = 1 + \\dfrac{${p2}}{100}=${texNombre((100 + p2) / 100)}$.<br>`
     } else {
       this.correction += ` et  $CM_2 = 1 - \\dfrac{${abs(p2)}}{100}=${texNombre((100 + p2) / 100)}$.<br>`
     }
-    this.correction += `<br> Le coefficient multiplicateur global est :  $CM = CM_1 \\times CM_2 = ${texNombre((100 + p1) / 100)} \\times ${texNombre((100 + p2) / 100)} = ${texNombre((100 + p) / 100)}$<br>`
-    this.correction += `qui correspond au coefficient multiplicateur global. <br>Or, multiplier par $${texNombre((100 + p) / 100)}$ revient à avoir une ${evo} de $${texNombre(abs(p))}\\%$<br>`
-    this.correction += `L'évolution globale est donc de $${texNombre(p)}$ %.<br>`
+    this.correction += ` Le coefficient multiplicateur global est : <br> $CM = CM_1 \\times CM_2 = ${texNombre((100 + p1) / 100)} \\times ${texNombre((100 + p2) / 100)} = ${texNombre((100 + p) / 100)}$ `
+    this.correction += `<br>Or, multiplier par $${texNombre((100 + p) / 100)}$ revient à avoir ${texteEnCouleurEtGras('une')} ${texteEnCouleurEtGras(evo)} ${texteEnCouleurEtGras('de')} $${miseEnEvidence(`${texNombre(abs(p))}\\,\\%`)}$.`
     this.reponse = ` ${p} %`
   }
 
@@ -79,10 +79,10 @@ export default class Automatismes extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.appliquerLesValeurs(-50, 50) // valeurs originales
     this.reponses = [
-      "L'évolution est de - 25 %,",
-      "L'évolution est de - 50 %,",
-      "L'évolution est de + 25 %,",
-      "L'évolution est de + 75 %.",
+      "Une réduction de  $25\\,\\%$",
+      "Une réduction de  $50\\,\\%$",
+      "Une augmentation de $25\\,\\%$",
+      "Une augmentation de $75\\,\\%$",
     ]
   }
 

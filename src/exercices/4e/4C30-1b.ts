@@ -53,7 +53,7 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
         ? 'Encadrer le nombre suivant '
         : 'Encadrer les nombres suivants '
     this.consigne +=
-      'par deux expressions respectivement de la forme $k\\times10^n$ et $(k+1)\\times10^n$ où $k$ est un entier à un chiffre et $n$ est un entier relatif.'
+      'par deux expressions respectivement de la forme $k\\times10^n$ et $(k+1)\\times10^n$ où $k$ est un entier, non nul, à un chiffre et $n$ est un entier relatif.'
 
     signeChange = this.classe === 2
 
@@ -118,15 +118,15 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
         return {
           coeffInf: -coeffSup,
           coeffSup: -coeffInf,
-          exposant: exposant,
+          exposant,
           borneInf: -coeffSup * puissanceDix,
           borneSup: -coeffInf * puissanceDix,
         }
       } else {
         return {
-          coeffInf: coeffInf,
-          coeffSup: coeffSup,
-          exposant: exposant,
+          coeffInf,
+          coeffSup,
+          exposant,
           borneInf: coeffInf * puissanceDix,
           borneSup: coeffSup * puissanceDix,
         }
@@ -150,18 +150,19 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
         // nombre entier positif
         const j = listeTypeDeQuestions[i] - 1
         signe = signeChange ? choice([-1, 1]) : 1
-        nombre = signe * randint(10 ** j + 1, 10 ** (j + 1) - 1)
+        nombre = signe * randint(10 ** j + 1, 9 * 10 ** j - 1)
       } else if (listeTypeDeQuestions[i] < 11) {
         // nombre décimal positif
         const j = listeTypeDeQuestions[i] - 7
         signe = signeChange ? choice([-1, 1]) : 1
-        nombre = (signe * randint(10001, 99999)) / 10 ** (4 - j)
+        nombre = (signe * randint(10001, 89999)) / 10 ** (4 - j)
       } else {
         // nombre décimal positif inférieur à 1
         const j = listeTypeDeQuestions[i] - 11
         signe = signeChange ? choice([-1, 1]) : 1
         nombre =
-          (signe * randint(10 ** (4 - j - 1) + 1, 10 ** (4 - j) - 1)) / 10000
+          (signe * randint(10 ** (4 - j - 1) + 1, 9 * 10 ** (4 - j - 1) - 1)) /
+          10000
       }
 
       encadrement = calculerEncadrement(nombre)
@@ -202,7 +203,7 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce:
-            'Encadrer le nombre suivant par deux expressions de la forme k×10^n où k et k+1 sont des entiers consécutifs : ' +
+            'Encadrer le nombre suivant par deux expressions de la forme $k\\times10^n$ et $(k+1)\\times10^n$ où $k$ est un entier non nul : ' +
             consigneAMC,
           enonceAvant: false,
           enonceApresNumQuestion: true,

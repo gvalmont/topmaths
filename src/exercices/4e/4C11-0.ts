@@ -1,18 +1,18 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculs complexes utilisant les priorités opératoires'
 export const dateDePublication = '23/04/2025'
@@ -53,7 +53,7 @@ export const interactifType = 'mathLive'
 export const uuid = '1bf3b'
 export const refs = {
   'fr-fr': ['4C11-0'],
-  'fr-ch': ['1mCN-14', '9NO6-5', '10N06-4', '11TAF-2', '11EVA-4'],
+  'fr-ch': ['1mCN-14', '9NO6-5', '10N06-4'],
 }
 
 export default class PrioritesEtRelatifsComplex extends Exercice {
@@ -111,7 +111,8 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
       let resultat: string = '0'
 
       switch (listeTypeDeQuestions[i]) {
-        case 1: { // Expressions imbriquées simples: a - (b + (c - d))
+        case 1: {
+          // Expressions imbriquées simples: a - (b + (c - d))
           a = randint(2, 15) * choice([-1, 1])
           b = randint(2, 10) * choice([-1, 1])
           c = randint(2, 10) * choice([-1, 1])
@@ -122,14 +123,16 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           const etape2 = b + etape1
           resultat = texNombre(a - etape2)
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a} - (${b} + (${miseEnEvidence(c + ' - ' + ecritureParentheseSiNegatif(d), 'blue')}))`
-          if (d < 0)
+          if (d < 0) {
             texteCorr += `= ${a} - (${b} + (${miseEnEvidence(c + ' + ' + -d, 'blue')}))`
+          }
           texteCorr += `= ${a} - (${miseEnEvidence(b + ' + ' + ecritureParentheseSiNegatif(etape1), 'blue')})`
           texteCorr += `= ${a} - ${ecritureParentheseSiNegatif(etape2)}`
           if (etape2 < 0) texteCorr += `= ${a} + ${-etape2}`
           break
         }
-        case 2: { // Expression avec multiplications imbriquées: a × (b + c × d)
+        case 2: {
+          // Expression avec multiplications imbriquées: a × (b + c × d)
           a = randint(2, 8) * choice([-1, 1])
           b = randint(2, 8) * choice([-1, 1])
           c = randint(2, 5) * choice([-1, 1])
@@ -144,7 +147,8 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           texteCorr += `= ${a} \\times ${ecritureParentheseSiNegatif(etape2Q22)}`
           break
         }
-        case 3: { // Expression complexe avec fractions: (a - b × c) / (d + e)
+        case 3: {
+          // Expression complexe avec fractions: (a - b × c) / (d + e)
           d = randint(2, 5) * choice([-1, 1])
           e = randint(1, 5) * choice([-1, 1])
           // Pour éviter division par zéro
@@ -164,13 +168,16 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
             .texFractionSimplifiee
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\dfrac{${a} - ${miseEnEvidence(ecritureParentheseSiNegatif(b) + ' \\times ' + ecritureParentheseSiNegatif(c), 'blue')}}{${miseEnEvidence(d + ' + ' + ecritureParentheseSiNegatif(e), 'blue')}}`
           texteCorr += `= \\dfrac{${miseEnEvidence(`${a} - ${ecritureParentheseSiNegatif(etape1Q23)}`, 'blue')}}{${etape3Q23}}`
-          if (etape1Q23 < 0)
+          if (etape1Q23 < 0) {
             texteCorr += `= \\dfrac{${miseEnEvidence(`${a} + ${-etape1Q23}`, 'blue')}}{${etape3Q23}}`
-          if (!(etape2Q23 > 0 && etape3Q23 > 0))
+          }
+          if (!(etape2Q23 > 0 && etape3Q23 > 0)) {
             texteCorr += `= \\dfrac{${etape2Q23}}{${etape3Q23}}`
+          }
           break
         }
-        case 4: { // Expression avec double niveau d'imbrication: a × (b - c × (d + e))
+        case 4: {
+          // Expression avec double niveau d'imbrication: a × (b - c × (d + e))
           a = randint(2, 5) * choice([-1, 1])
           b = randint(5, 15) * choice([-1, 1])
           c = randint(2, 4) * choice([-1, 1])
@@ -185,12 +192,14 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a} \\times (${b} - ${ecritureParentheseSiNegatif(c)} \\times (${miseEnEvidence(d + ' + ' + ecritureParentheseSiNegatif(e), 'blue')}))`
           texteCorr += `= ${a} \\times (${b} - ${miseEnEvidence(ecritureParentheseSiNegatif(c) + ' \\times ' + ecritureParentheseSiNegatif(etape1Q24), 'blue')})`
           texteCorr += `= ${a} \\times (${miseEnEvidence(b + ' - ' + ecritureParentheseSiNegatif(etape2Q24), 'blue')})`
-          if (etape2Q24 < 0)
+          if (etape2Q24 < 0) {
             texteCorr += `= ${a} \\times (${miseEnEvidence(b + ' + ' + -etape2Q24, 'blue')})`
+          }
           texteCorr += `= ${a} \\times ${ecritureParentheseSiNegatif(etape3Q24)}`
           break
         }
-        case 5: { // Expression avec nombre décimal et opérations multiples: a - (b + (c - d × e))
+        case 5: {
+          // Expression avec nombre décimal et opérations multiples: a - (b + (c - d × e))
           a = randint(2, 7) * choice([-1, 1])
           b = (randint(2, 10) + 0.5) * choice([-1, 1])
           c = randint(2, 4) * choice([-1, 1])
@@ -204,15 +213,18 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           resultat = texNombre(a - etape3Q25)
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a} - (${texNombre(b)} + (${c} - ${miseEnEvidence(ecritureParentheseSiNegatif(d) + ' \\times ' + ecritureParentheseSiNegatif(e), 'blue')}))`
           texteCorr += `= ${a} - (${texNombre(b)} + (${miseEnEvidence(c + ' - ' + ecritureParentheseSiNegatif(etape1Q25), 'blue')}))`
-          if (etape1Q25 < 0)
+          if (etape1Q25 < 0) {
             texteCorr += `= ${a} - (${texNombre(b)} + (${miseEnEvidence(c + ' + ' + -etape1Q25, 'blue')}))`
+          }
           texteCorr += `= ${a} - (${miseEnEvidence(texNombre(b) + ' + ' + ecritureParentheseSiNegatif(etape2Q25), 'blue')})`
           texteCorr += `= ${a} - ${ecritureParentheseSiNegatif(etape3Q25)}`
-          if (etape3Q25 < 0)
+          if (etape3Q25 < 0) {
             texteCorr += `= ${a} + ${ecritureParentheseSiNegatif(-etape3Q25)}`
+          }
           break
         }
-        case 6: { // Expression combinant multiplication et addition avec nombres décimaux: a × (b + c) - (d + e) × f
+        case 6: {
+          // Expression combinant multiplication et addition avec nombres décimaux: a × (b + c) - (d + e) × f
           a = randint(2, 7) * choice([-1, 1])
           b = (randint(2, 10) / 2) * choice([-1, 1])
           c = (randint(2, 10) / 2) * choice([-1, 1])
@@ -231,7 +243,8 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           texteCorr += `= ${texNombre(etape2Q26)} - ${ecritureParentheseSiNegatif(etape4Q26)}`
           break
         }
-        case 7: { // Expression avec fraction complexe: [a × (b + c × d)] / [e + f × g]
+        case 7: {
+          // Expression avec fraction complexe: [a × (b + c × d)] / [e + f × g]
           a = randint(2, 7) * choice([-1, 1])
           b = randint(2, 5) * choice([-1, 1])
           c = randint(2, 5) * choice([-1, 1])
@@ -250,11 +263,13 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\dfrac{${a} \\times (${b} + ${miseEnEvidence(ecritureParentheseSiNegatif(c) + ' \\times ' + ecritureParentheseSiNegatif(d), 'blue')})}{${e} + ${miseEnEvidence(ecritureParentheseSiNegatif(f) + ' \\times ' + ecritureParentheseSiNegatif(g), 'blue')}}`
           texteCorr += `= \\dfrac{${a} \\times (${miseEnEvidence(b + ' + ' + ecritureParentheseSiNegatif(etape1Q27), 'blue')})}{${miseEnEvidence(e + ' + ' + ecritureParentheseSiNegatif(etape4Q27), 'blue')}}`
           texteCorr += `= \\dfrac{${a} \\times ${ecritureParentheseSiNegatif(etape2Q27)}}{${etape5Q27}}`
-          if (!(etape3Q27 > 0 && etape5Q27 > 0))
+          if (!(etape3Q27 > 0 && etape5Q27 > 0)) {
             texteCorr += `= \\dfrac{${etape3Q27}}{${etape5Q27}}`
+          }
           break
         }
-        case 8: { // Expression très complexe à multiples niveaux: a × (b × (c + d × e + f) - g) + h
+        case 8: {
+          // Expression très complexe à multiples niveaux: a × (b × (c + d × e + f) - g) + h
           a = randint(2, 7) * choice([-1, 1])
           b = randint(2, 5) * choice([-1, 1])
           c = randint(2, 5) * choice([-1, 1])
@@ -275,13 +290,15 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           texteCorr += `= ${a} \\times (${b} \\times (${miseEnEvidence(c + ' + ' + ecritureParentheseSiNegatif(etape1Q28) + ' + ' + ecritureParentheseSiNegatif(f), 'blue')}) - ${ecritureParentheseSiNegatif(g)}) + ${ecritureParentheseSiNegatif(h)}`
           texteCorr += `= ${a} \\times (${miseEnEvidence(b + ' \\times ' + ecritureParentheseSiNegatif(etape2Q28), 'blue')} - ${ecritureParentheseSiNegatif(g)}) + ${ecritureParentheseSiNegatif(h)}`
           texteCorr += `= ${a} \\times (${miseEnEvidence(etape3Q28 + ' - ' + ecritureParentheseSiNegatif(g), 'blue')}) + ${ecritureParentheseSiNegatif(h)}`
-          if (g < 0)
+          if (g < 0) {
             texteCorr += `= ${a} \\times (${miseEnEvidence(etape3Q28 + ' + ' + -g, 'blue')}) + ${ecritureParentheseSiNegatif(h)}`
+          }
           texteCorr += `= ${miseEnEvidence(a + ' \\times ' + ecritureParentheseSiNegatif(etape4Q28), 'blue')} + ${ecritureParentheseSiNegatif(h)}`
           texteCorr += `= ${etape5Q28} + ${ecritureParentheseSiNegatif(h)}`
           break
         }
-        case 9: { // Opérations de multiplication avec addition: a × b + c × d
+        case 9: {
+          // Opérations de multiplication avec addition: a × b + c × d
           a = randint(2, 7) * choice([-1, 1])
           b = (randint(3, 10) / 2) * choice([-1, 1])
           c = randint(2, 5) * choice([-1, 1])
@@ -295,7 +312,8 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           texteCorr += `= ${texNombre(etape1Q29)} + ${ecritureParentheseSiNegatif(etape2Q29)}`
           break
         }
-        case 10: { // Opérations de multiplication avec soustraction: a × b - c × d
+        case 10: {
+          // Opérations de multiplication avec soustraction: a × b - c × d
           a = randint(2, 7) * choice([-1, 1])
           b = (randint(3, 10) / 2) * choice([-1, 1])
           c = (randint(3, 10) / 2) * choice([-1, 1])
@@ -307,11 +325,13 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           resultat = texNombre(etape1Q30 - etape2Q30)
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a + ' \\times ' + ecritureParentheseSiNegatif(b), 'blue')} - ${miseEnEvidence(ecritureParentheseSiNegatif(c) + ' \\times ' + ecritureParentheseSiNegatif(d), 'blue')}`
           texteCorr += `= ${texNombre(etape1Q30)} - ${ecritureParentheseSiNegatif(etape2Q30)}`
-          if (etape2Q30 < 0)
+          if (etape2Q30 < 0) {
             texteCorr += `= ${texNombre(etape1Q30)} + ${-etape2Q30}`
+          }
           break
         }
-        case 11: { // Expression avec fraction et multiples opérations: d + b × c - a
+        case 11: {
+          // Expression avec fraction et multiples opérations: d + b × c - a
           a = randint(2, 7) * choice([-1, 1])
           b = (randint(3, 10) / 2) * choice([-1, 1])
           c = randint(3, 10) * choice([-1, 1])
@@ -334,7 +354,8 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           if (a < 0) texteCorr += `= ${etape2Q31} + ${-a}`
           break
         }
-        case 12: { // Fraction complexe avec produits: (a - b × c) / (d × e + f)
+        case 12: {
+          // Fraction complexe avec produits: (a - b × c) / (d × e + f)
           a = randint(2, 7) * choice([-1, 1])
           b = randint(2, 5) * choice([-1, 1])
           c = randint(2, 5) * choice([-1, 1])
@@ -350,10 +371,12 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
           resultat = new FractionEtendue(etape2Q32, etape4Q32).texFSD
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\dfrac{${a} - ${miseEnEvidence(ecritureParentheseSiNegatif(b) + ' \\times ' + ecritureParentheseSiNegatif(c), 'blue')}}{${miseEnEvidence(d + ' \\times ' + ecritureParentheseSiNegatif(e), 'blue')} + ${ecritureParentheseSiNegatif(f)}}`
           texteCorr += `= \\dfrac{${miseEnEvidence(`${a} - ${ecritureParentheseSiNegatif(etape1Q32)}`, 'blue')}}{${miseEnEvidence(`${etape3Q32} + ${ecritureParentheseSiNegatif(f)}`, 'blue')}}`
-          if (etape1Q32 < 0)
+          if (etape1Q32 < 0) {
             texteCorr += `= \\dfrac{${a} + ${-etape1Q32}}{${etape3Q32} + ${ecritureParentheseSiNegatif(f)}}`
-          if (!(etape2Q32 > 0 && etape4Q32 > 0))
+          }
+          if (!(etape2Q32 > 0 && etape4Q32 > 0)) {
             texteCorr += `= \\dfrac{${etape2Q32}}{${etape4Q32}}`
+          }
           break
         }
       }

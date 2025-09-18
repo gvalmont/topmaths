@@ -40,10 +40,11 @@ export function setPhraseDuree(duree: number) {
  */
 export function getUniqueStringBasedOnTimeStamp(prefix: string = '') {
   // /!\ ATTENTION new Date().getTime() est en ms et n'est pas assez précis pour donner des chaînes uniques
-  // const timeStamp = String(new Date().getTime())
-  const timeStamp = String(
-    performance.now().toString().replace('.', '') + Math.random(),
-  ).replace('.', '')
+  // Mais utiliser Math.random peut interférer avec d'autres usages de Math.random dans l'application et gêner la génération de valeurs aléatoires reproductibles
+  const timeStamp = String(new Date().getTime())
+  // const timeStamp = String(
+  //   performance.now().toString().replace('.', '') + Math.random(),
+  // ).replace('.', '')
   return `${prefix}${timeStamp}`
 }
 

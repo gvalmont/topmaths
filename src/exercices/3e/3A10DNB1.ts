@@ -1,6 +1,8 @@
 import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
+import { point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
+import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import { createList } from '../../lib/format/lists'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -16,8 +18,6 @@ import {
 } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import { point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import { randint } from '../../modules/outils'
@@ -26,7 +26,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = '61217'
 export const refs = {
   'fr-fr': ['3A10DNB1', '3Z1DNB-06'],
-  'fr-ch': ['11TAF-1'],
+  'fr-ch': [],
 }
 export const titre = 'Préparation DNB : Arithmétique, volume, fraction'
 export const dateDePublication = '28/11/2024'
