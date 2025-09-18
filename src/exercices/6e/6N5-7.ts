@@ -16,7 +16,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Résoudre des problèmes utilisant les 4 opérations'
+export const titre = 'Résoudre des problèmes de prix'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -39,23 +39,25 @@ export default class ProblemesAvec4Opérations extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 2
-    this.consigne = 'Résoudre les problèmes suivants.'
     this.sup = 3
     this.besoinFormulaireTexte = [
       'Type de problèmes',
       `Nombres séparés par des tirets :
-  1 : pains et tartelettes
-  2 : cahiers et stylos
+  1 : Pains et tartelettes
+  2 : Cahiers et stylos
   3 : Mélange`,
     ]
     this.besoinFormulaire2Numerique = [
       'Précision des prix',
       4,
-      '1 : au dixième\n2 : au centième\n3 : Mélange',
+      '1 : Au dixième\n2 : Au centième\n3 : Mélange',
     ]
   }
 
   nouvelleVersion() {
+    this.consigne = 'Résoudre '
+    this.consigne +=
+      this.nbQuestions > 1 ? 'les problèmes suivants.' : 'le problème suivant.'
     const typesDeQuestions = gestionnaireFormulaireTexte({
       max: 2,
       defaut: 1,

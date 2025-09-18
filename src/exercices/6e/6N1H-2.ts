@@ -42,7 +42,7 @@ export const refs = {
 }
 export default class LireAbscisseDecimaleTroisFormes extends Exercice {
   niveau: string
-  vspace: number // espace vertical entre les questions pourqoi en faire une propriété de l'exo ? aschant que le seul clone exiistant ne modifie pas cette valeur ?
+  vspace: number // espace vertical entre les questions pourqoi en faire une propriété de l'exo ? aschant que le seul clone existant ne modifie pas cette valeur ?
   constructor() {
     super()
     this.besoinFormulaireNumerique = [
@@ -263,18 +263,18 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
         )
       texte3 = `${numAlpha(1)} ` + texte3
       const multiple = this.sup === 1 ? 10 : this.sup === 2 ? 100 : 1000
-      texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${miseEnEvidence(texNombre(x1, 2))}$.<br>`
+      texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${miseEnEvidence(texNombre(x1, 3))}$.<br>`
       texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${miseEnEvidence(`${texNombre(Math.floor(x2))} + ${new FractionEtendue(multiple * (x2 - Math.floor(x2)), multiple).toLatex()}`)}$.<br>`
       texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${miseEnEvidence(new FractionEtendue(multiple * x3, multiple).toLatex())}$.`
       if (!context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: x1 } })
-        handleAnswers(this, i + 1, {
+        handleAnswers(this, i * 3, { reponse: { value: x1 } })
+        handleAnswers(this, i * 3 + 1, {
           reponse: {
             value: `${Math.floor(x2)}+${new FractionEtendue(multiple * (x2 - Math.floor(x2)), multiple).toLatex()}`,
             options: { operationSeulementEtNonResultat: true },
           },
         })
-        handleAnswers(this, i + 2, {
+        handleAnswers(this, i * 3 + 2, {
           reponse: { value: x3, options: { fractionDecimale: true } },
         })
       } else {

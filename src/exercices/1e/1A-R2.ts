@@ -19,17 +19,17 @@ export const titre = 'Calculer un pourcentage (opération)'
 export default class Pourcentages extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = "L'opération qui permet de calculer $25\\,\\%$ de $480$ est :"
-    this.correction = `Pour calculer $25$\\,% de $480$, on peut utiliser la formule :<br>
-    $\\text{Pourcentage} = \\dfrac{\\text{taux}}{100} \\times \\text{nombre}$<br><br>
-    Donc : $25\\,\\% \\text{ de } 480 = \\dfrac{25}{100} \\times 480 = ${miseEnEvidence('\\dfrac{25 \\times 480}{100}')}$<br><br>
-    On peut aussi écrire : $25\\,\\% = \\dfrac{25}{100} = \\dfrac{1}{4}$<br>
-    Donc : $25\\,\\% \\text{ de } 480 = \\dfrac{1}{4} \\times 480 = ${miseEnEvidence('120')}$`
+    this.correction = `Pour calculer $25\\,\\%$ de $480$, on peut utiliser la formule :<br>
+    $\\text{Pourcentage} = \\dfrac{\\text{taux}}{100} \\times \\text{nombre}$.<br><br>
+    Donc : $25\\,\\% \\text{ de } 480 = \\dfrac{25}{100} \\times 480 = ${miseEnEvidence('\\dfrac{25 \\times 480}{100}')}$.<br><br>
+    On peut aussi écrire : $25\\,\\% = \\dfrac{25}{100} = \\dfrac{1}{4}$.<br>
+    Donc : $25\\,\\% \\text{ de } 480 = \\dfrac{1}{4} \\times 480 = ${miseEnEvidence('120')}$.`
 
     this.reponses = [
+      '$\\dfrac{1}{4} \\times 480$',
       '$\\dfrac{480}{25\\times 100}$',
       '$25 \\times 480 \\times 0,1$',
       '$\\dfrac{480\\times 100}{25}$',
-      '$\\dfrac{1}{4} \\times 480$',
     ]
   }
 

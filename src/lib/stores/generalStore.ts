@@ -221,6 +221,16 @@ export function updateGlobalOptionsInURL(url: URL) {
   if (logParam !== null && /^[0-9]$/.test(logParam)) {
     url.searchParams.append('log', logParam)
   }
+  const pdfParam = currentUrl.searchParams.get('pdfParam')
+  if (
+    (options.v === 'latex' || options.v === 'pdf') &&
+    pdfParam !== null &&
+    /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(
+      pdfParam,
+    )
+  ) {
+    url.searchParams.append('pdfParam', pdfParam)
+  }
   urlToWrite = url
   // On ne met à jour l'url qu'une fois toutes les 0,5 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds

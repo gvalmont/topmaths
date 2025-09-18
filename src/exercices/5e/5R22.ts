@@ -1,3 +1,7 @@
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
@@ -12,20 +16,15 @@ import {
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
 import {
-  arrondi,
   nombreDeChiffresDansLaPartieEntiere,
   signe,
   triePositifsNegatifs,
 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import { texNombre, texNombreCoul } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { stringNombre, texNombre, texNombreCoul } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre =
   "Effectuer un enchaînement d'additions et de soustractions de nombres relatifs"
@@ -62,7 +61,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
     this.besoinFormulaire2Numerique = [
       'Type de questions',
       5,
-      'Tous les nombres entre parenthèses, correction avec des parenthèses \n2 : Seuls les termes négatifs sont entre parenthèses, correction avec des parenthèses \n3 : Seuls les termes négatifs sont entre parenthèses, correction avec des écritures simplifiées \n4 : Écriture simplifiée \n5 : Tous les nombres entre parenthèses, correction  avec des écritures simplifiées',
+      '1 : Tous les nombres entre parenthèses, correction avec des parenthèses \n2 : Seuls les termes négatifs sont entre parenthèses, correction avec des parenthèses \n3 : Seuls les termes négatifs sont entre parenthèses, correction avec des écritures simplifiées \n4 : Écriture simplifiée \n5 : Tous les nombres entre parenthèses, correction  avec des écritures simplifiées',
     ]
     this.besoinFormulaire3CaseACocher = ['Avec des nombres décimaux']
   }
@@ -80,37 +79,37 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
     let relatifs
     let sommesSignees
     for (
-      let i = 0, a, b, c, d, e, texte, texteCorr, cpt = 0;
+      let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       relatifs = []
       sommesSignees = []
-      a = -1
-      b = choice([-1, 1])
-      if (a === -1 && b === -1) {
-        c = 1
-      } else {
-        // On s'assure que les 3 premières termes n'ont pas le même signe
-        c = choice([-1, 1])
-      }
+      const signeA = -1
+      const signeB = choice([-1, 1])
+      const signeC = (signeA === -1 && signeB === -1)
+        ? 1
+        : choice([-1, 1])
+
       const partieDecimaleAUnChiffre = combinaisonListes(
         [true, true, false],
         this.nbQuestions,
       )
       let CoefDecimales = this.sup3 ? 10 : 1
-      a = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * a
-      b = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * b
-      c = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * c
+      const a0 = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * signeA
+      const b0 = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * signeB
+      const c0 = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * signeC
       CoefDecimales = this.sup3 ? (partieDecimaleAUnChiffre[i] ? 10 : 100) : 1
-      d =
+      const d0 =
         (randint(1, this.sup * CoefDecimales) / CoefDecimales) * choice([-1, 1])
-      e =
+      const e0 =
         (randint(1, this.sup * CoefDecimales) / CoefDecimales) * choice([-1, 1])
-      if (choice([true, false])) {
-        ;[a, b, c, d, e] = shuffle([a, b, c, d, e])
-      }
+
+      const [a, b, c, d, e] = choice([true, false])
+        ? shuffle([a0, b0, c0, d0, e0])
+        : [a0, b0, c0, d0, e0]
+
       const s1 = choice([-1, 1])
       const s2 = choice([-1, 1])
       const s4 = choice([-1, 1])
@@ -123,9 +122,14 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
       } else {
         s3 = choice([-1, 1])
       }
+      const aa = a
+      const bb = s1 * b
+      const cc = s2 * c
+      const dd = s3 * d
+      const ee = s4 * e
       switch (this.sup2) {
         case 4: {
-          texte = `$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(a, 2)}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)}$`
+          texte = `$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(aa, 2)}${ecritureAlgebrique(bb)}${ecritureAlgebrique(cc)}${ecritureAlgebrique(dd)}${ecritureAlgebrique(ee)}$`
           if (this.interactif && context.isHtml) {
             texte +=
               `$${sp(1)} = $` +
@@ -134,22 +138,22 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
           if (!context.isHtml && !context.isAmc) {
             texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
           }
-          relatifs = triePositifsNegatifs([a, b, c, d, e])
-          texteCorr = `$ ${lettreDepuisChiffre(i + 1)}=${texNombreCoul(a, 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(b)}${ecritureAlgebriquec(c)}${ecritureAlgebriquec(d)}${ecritureAlgebriquec(e)}$<br>`
+          relatifs = triePositifsNegatifs([aa, bb, cc, dd, ee])
+          texteCorr = `$ ${lettreDepuisChiffre(i + 1)}=${texNombreCoul(a, 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(bb)}${ecritureAlgebriquec(cc)}${ecritureAlgebriquec(dd)}${ecritureAlgebriquec(ee)}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)}=`
           if (
-            sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0 &&
-            sommeDesTermesParSigne([a, b, c, d, e])[1] !== 0
+            sommeDesTermesParSigne([aa, bb, cc, dd, ee])[0] !== 0 &&
+            sommeDesTermesParSigne([aa, bb, cc, dd, ee])[1] !== 0
           ) {
             texteCorr += `${texNombreCoul(relatifs[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(relatifs[1])}${ecritureAlgebriquec(relatifs[2])}${ecritureAlgebriquec(relatifs[3])}${ecritureAlgebriquec(relatifs[4])}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)}=`
-            texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1])}$<br>`
+            texteCorr += `${texNombreCoul(sommeDesTermesParSigne([aa, bb, cc, dd, ee])[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(sommeDesTermesParSigne([aa, bb, cc, dd, ee])[1])}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)}=`
-            texteCorr += `${texNombreCoul(a + b + c + d + e, 'blue', '#f15929', 'black', 2)} $`
-          } else if (sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0) {
-            texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929', 'black', 2)}$`
+            texteCorr += `${texNombreCoul(aa + bb + cc + dd + ee, 'blue', '#f15929', 'black', 2)} $`
+          } else if (sommeDesTermesParSigne([aa, bb, cc, dd, ee])[0] !== 0) {
+            texteCorr += `${texNombreCoul(sommeDesTermesParSigne([aa, bb, cc, dd, ee])[0], 'blue', '#f15929', 'black', 2)}$`
           } else {
-            texteCorr += `${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1], 'blue')}$`
+            texteCorr += `${ecritureAlgebriquec(sommeDesTermesParSigne([aa, bb, cc, dd, ee])[1], 'blue')}$`
           }
           break
         }
@@ -165,8 +169,8 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
             texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
           }
           texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${texNombre(a, 2)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
-          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${texNombreCoul(a, 'blue', 'green', 'black', 2)}+${ecritureNombreRelatifc(s1 * b)}+${ecritureNombreRelatifc(s2 * c)}+${ecritureNombreRelatifc(s3 * d)}+${ecritureNombreRelatifc(s4 * e)} $`
-          relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${texNombreCoul(a, 'blue', 'green', 'black', 2)}+${ecritureNombreRelatifc(bb)}+${ecritureNombreRelatifc(cc)}+${ecritureNombreRelatifc(dd)}+${ecritureNombreRelatifc(ee)} $`
+          relatifs = triePositifsNegatifs([aa, bb, cc, dd, ee])
           if (relatifs[0] > 0 && relatifs[4] < 0) {
             texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${texNombreCoul(relatifs[0], 'blue', 'green', 'black', 2)}+${ecritureNombreRelatifc(relatifs[1])}+${ecritureNombreRelatifc(relatifs[2])}+${ecritureNombreRelatifc(relatifs[3])}+${ecritureNombreRelatifc(relatifs[4])} $`
           }
@@ -179,7 +183,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
           ])
           if (sommesSignees[0] !== 0 && sommesSignees[1] !== 0) {
             texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${texNombreCoul(sommesSignees[0], 'blue', 'green', 'black', 2)}+${ecritureNombreRelatifc(sommesSignees[1])} $`
-            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e, orangeMathalea)} $<br>`
+            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(aa + bb + cc + dd + ee, orangeMathalea)} $<br>`
           } else if (sommesSignees[0] !== 0) {
             texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0], orangeMathalea)}$`
           } else {
@@ -199,26 +203,22 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
             texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
           }
           texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${texNombre(a, 2)}${signe(s1)}${ecritureParentheseSiNegatif(b)}${signe(s2)}${ecritureParentheseSiNegatif(c)}${signe(s3)}${ecritureParentheseSiNegatif(d)}${signe(s4)}${ecritureParentheseSiNegatif(e)}$<br>`
-          relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
-          texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=${texNombreCoul(a, 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(s1 * b)}${ecritureAlgebriquec(s2 * c)}${ecritureAlgebriquec(s3 * d)}${ecritureAlgebriquec(s4 * e)}$<br>`
+          relatifs = triePositifsNegatifs([aa, bb, cc, dd, ee])
+          texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=${texNombreCoul(aa, 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(bb)}${ecritureAlgebriquec(cc)}${ecritureAlgebriquec(dd)}${ecritureAlgebriquec(ee)}$<br>`
           texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=$`
-          b = s1 * b
-          c = s2 * c
-          d = s3 * d
-          e = s4 * e
           if (
-            sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0 &&
-            sommeDesTermesParSigne([a, b, c, d, e])[1] !== 0
+            sommeDesTermesParSigne([a, bb, cc, dd, ee])[0] !== 0 &&
+            sommeDesTermesParSigne([a, bb, cc, dd, ee])[1] !== 0
           ) {
             texteCorr += `$ ${texNombreCoul(relatifs[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(relatifs[1])}${ecritureAlgebriquec(relatifs[2])}${ecritureAlgebriquec(relatifs[3])}${ecritureAlgebriquec(relatifs[4])}$<br>`
             texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=$`
-            texteCorr += `$ ${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1])}$<br>`
+            texteCorr += `$ ${texNombreCoul(sommeDesTermesParSigne([a, bb, cc, dd, ee])[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(sommeDesTermesParSigne([a, bb, cc, dd, ee])[1])}$<br>`
             texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=$`
-            texteCorr += `$ ${texNombreCoul(a + b + c + d + e, 'blue', '#f15929', 'black', 2)} $`
-          } else if (sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0) {
-            texteCorr += `$ ${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929', 'black', 2)}$`
+            texteCorr += `$ ${texNombreCoul(a + bb + cc + dd + ee, 'blue', '#f15929', 'black', 2)} $`
+          } else if (sommeDesTermesParSigne([a, bb, cc, dd, ee])[0] !== 0) {
+            texteCorr += `$ ${texNombreCoul(sommeDesTermesParSigne([a, bb, cc, dd, ee])[0], 'blue', '#f15929', 'black', 2)}$`
           } else {
-            texteCorr += `$ ${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1], '#f15929')}$`
+            texteCorr += `$ ${ecritureAlgebriquec(sommeDesTermesParSigne([a, bb, cc, dd, ee])[1], '#f15929')}$`
           }
           break
         }
@@ -233,45 +233,25 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
             texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
           }
           texteCorr = `$ ${lettreDepuisChiffre(i + 1)} = ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$<br>`
-          relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
-          texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=${texNombreCoul(a, 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(s1 * b)}${ecritureAlgebriquec(s2 * c)}${ecritureAlgebriquec(s3 * d)}${ecritureAlgebriquec(s4 * e)}$<br>`
+          relatifs = triePositifsNegatifs([a, bb, cc, dd, ee])
+          texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=${texNombreCoul(aa, 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(bb)}${ecritureAlgebriquec(cc)}${ecritureAlgebriquec(dd)}${ecritureAlgebriquec(ee)}$<br>`
           texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=$`
-          b = s1 * b
-          c = s2 * c
-          d = s3 * d
-          e = s4 * e
+
           if (
-            sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0 &&
-            sommeDesTermesParSigne([a, b, c, d, e])[1] !== 0
+            sommeDesTermesParSigne([aa, bb, cc, dd, ee])[0] !== 0 &&
+            sommeDesTermesParSigne([aa, bb, cc, dd, ee])[1] !== 0
           ) {
             texteCorr += `$ ${texNombreCoul(relatifs[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(relatifs[1])}${ecritureAlgebriquec(relatifs[2])}${ecritureAlgebriquec(relatifs[3])}${ecritureAlgebriquec(relatifs[4])}$<br>`
             texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=$`
-            texteCorr += `$ ${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1])}$<br>`
+            texteCorr += `$ ${texNombreCoul(sommeDesTermesParSigne([aa, bb, cc, dd, ee])[0], 'blue', '#f15929', 'black', 2)}${ecritureAlgebriquec(sommeDesTermesParSigne([aa, bb, cc, dd, ee])[1])}$<br>`
             texteCorr += `$ ${lettreDepuisChiffre(i + 1)}=$`
-            texteCorr += `$ ${texNombreCoul(a + b + c + d + e, 'blue', '#f15929', 'black', 2)} $`
-          } else if (sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0) {
-            texteCorr += `$ ${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929', 'black', 2)}$`
+            texteCorr += `$ ${texNombreCoul(aa + bb + cc + dd + ee, 'blue', '#f15929', 'black', 2)} $`
+          } else if (sommeDesTermesParSigne([aa, bb, cc, dd, ee])[0] !== 0) {
+            texteCorr += `$ ${texNombreCoul(sommeDesTermesParSigne([a, bb, cc, dd, ee])[0], 'blue', '#f15929', 'black', 2)}$`
           } else {
-            texteCorr += `$ ${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1], '#f15929')}$`
+            texteCorr += `$ ${ecritureAlgebriquec(sommeDesTermesParSigne([a, bb, cc, dd, ee])[1], '#f15929')}$`
           }
-          /*           texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
-          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(a)}+${ecritureNombreRelatifc(s1 * b)}+${ecritureNombreRelatifc(s2 * c)}+${ecritureNombreRelatifc(s3 * d)}+${ecritureNombreRelatifc(s4 * e)} $`
-
-          relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
-
-          if (relatifs[0] > 0 && relatifs[4] < 0) {
-            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(relatifs[0])}+${ecritureNombreRelatifc(relatifs[1])}+${ecritureNombreRelatifc(relatifs[2])}+${ecritureNombreRelatifc(relatifs[3])}+${ecritureNombreRelatifc(relatifs[4])} $`
-          }
-          sommesSignees = sommeDesTermesParSigne([relatifs[0], relatifs[1], relatifs[2], relatifs[3], relatifs[4]])
-          if (sommesSignees[0] !== 0 && sommesSignees[1] !== 0) {
-            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(sommesSignees[0])}+${ecritureNombreRelatifc(sommesSignees[1])} $`
-            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e, orangeMathalea)} $<br>`
-          } else if (sommesSignees[0] !== 0) {
-            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0], orangeMathalea)}$`
-          } else {
-            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[1], orangeMathalea)}$<br>`
-          }
- */ break
+          break
         }
         case 1:
         default: {
@@ -285,9 +265,8 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
             texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
           }
           texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
-          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(a)}+${ecritureNombreRelatifc(s1 * b)}+${ecritureNombreRelatifc(s2 * c)}+${ecritureNombreRelatifc(s3 * d)}+${ecritureNombreRelatifc(s4 * e)} $`
-
-          relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(aa)}+${ecritureNombreRelatifc(bb)}+${ecritureNombreRelatifc(cc)}+${ecritureNombreRelatifc(dd)}+${ecritureNombreRelatifc(ee)} $`
+          relatifs = triePositifsNegatifs([aa, bb, cc, dd, ee])
 
           if (relatifs[0] > 0 && relatifs[4] < 0) {
             texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(relatifs[0])}+${ecritureNombreRelatifc(relatifs[1])}+${ecritureNombreRelatifc(relatifs[2])}+${ecritureNombreRelatifc(relatifs[3])}+${ecritureNombreRelatifc(relatifs[4])} $`
@@ -301,7 +280,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
           ])
           if (sommesSignees[0] !== 0 && sommesSignees[1] !== 0) {
             texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(sommesSignees[0])}+${ecritureNombreRelatifc(sommesSignees[1])} $`
-            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e, orangeMathalea)} $<br>`
+            texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(aa + bb + cc + dd + ee, orangeMathalea)} $<br>`
           } else if (sommesSignees[0] !== 0) {
             texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0], orangeMathalea)}$`
           } else {
@@ -310,120 +289,62 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
           break
         }
       }
-      if (this.questionJamaisPosee(i, a, b, c, d, e)) {
-        // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, aa, bb, cc, dd, ee)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        if (this.sup2 < 4) {
-          handleAnswers(this, i, {
-            reponse: {
-              value: arrondi(a + s1 * b + s2 * c + s3 * d + s4 * e),
-              options: { resultatSeulementEtNonOperation: true },
-            },
-          })
-          if (context.isAmc) {
-            this.autoCorrection[i] = {
-              enonce: '',
-              enonceAvant: false,
-              options: { multicols: true },
-              propositions: [
-                {
-                  type: 'AMCOpen',
+        handleAnswers(this, i, {
+          reponse: {
+            value: stringNombre(aa + bb + cc + dd + ee, 1),
+            options: { resultatSeulementEtNonOperation: true },
+          },
+        })
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: '',
+            enonceAvant: false,
+            options: { multicols: true },
+            propositions: [
+              {
+                type: 'AMCOpen',
 
-                  propositions: [
-                    {
-                      enonce: this.consigne + '<br>' + texte,
-                      texte: texteCorr,
-                      statut: 3,
-                      pointilles: true,
-                    },
-                  ],
-                },
-                {
-                  type: 'AMCNum',
+                propositions: [
+                  {
+                    enonce: this.consigne + '<br>' + texte,
+                    texte: texteCorr,
+                    statut: 3,
+                    pointilles: true,
+                  },
+                ],
+              },
+              {
+                type: 'AMCNum',
 
-                  propositions: [
-                    {
-                      texte: '',
-                      statut: '',
-                      reponse: {
-                        texte: 'Résultat',
-                        valeur: [a + s1 * b + s2 * c + s3 * d + s4 * e],
-                        param: {
-                          digits: Math.max(
-                            2,
-                            nombreDeChiffresDansLaPartieEntiere(
-                              a + s1 * b + s2 * c + s3 * d + s4 * e,
-                            ),
+                propositions: [
+                  {
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: 'Résultat',
+                      valeur: [aa + bb + cc + dd + ee],
+                      param: {
+                        digits: Math.max(
+                          2,
+                          nombreDeChiffresDansLaPartieEntiere(
+                            aa + bb + cc + dd + ee,
                           ),
-                          decimals: 0,
-                          signe: true,
-                          exposantNbChiffres: 0,
-                          exposantSigne: false,
-                          approx: 0,
-                        },
+                        ),
+                        decimals: 0,
+                        signe: true,
+                        exposantNbChiffres: 0,
+                        exposantSigne: false,
+                        approx: 0,
                       },
                     },
-                  ],
-                },
-              ],
-            }
-          }
-        } else {
-          handleAnswers(this, i, {
-            reponse: {
-              value: arrondi(a + b + c + d + e),
-              options: { resultatSeulementEtNonOperation: true },
-            },
-          })
-          if (context.isAmc) {
-            this.autoCorrection[i] = {
-              enonce: '',
-              enonceAvant: false,
-              options: { multicols: true },
-              propositions: [
-                {
-                  type: 'AMCOpen',
-
-                  propositions: [
-                    {
-                      enonce: this.consigne + '<br>' + texte,
-                      texte: texteCorr,
-                      statut: 3,
-                      pointilles: true,
-                    },
-                  ],
-                },
-                {
-                  type: 'AMCNum',
-
-                  propositions: [
-                    {
-                      texte: '',
-                      statut: '',
-                      reponse: {
-                        texte: 'Résultat',
-                        valeur: [a + b + c + d + e],
-                        param: {
-                          digits: Math.max(
-                            2,
-                            nombreDeChiffresDansLaPartieEntiere(
-                              a + b + c + d + e,
-                            ),
-                          ),
-                          decimals: 0,
-                          signe: true,
-                          exposantNbChiffres: 0,
-                          exposantSigne: false,
-                          approx: 0,
-                        },
-                      },
-                    },
-                  ],
-                },
-              ],
-            }
+                  },
+                ],
+              },
+            ],
           }
         }
 

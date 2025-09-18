@@ -192,10 +192,11 @@ export default class DiviserDecimauxPar101001000 extends Exercice {
       aEntier = choice([randint(11, 99), randint(101, 999)])
       b = puissances[i]
 
-      if (typesDeFacteursDisponibles[i] === 1)
+      if (typesDeFacteursDisponibles[i] === 1) {
         choixPuissance10 = Math.pow(10, randint(0, 3))
-      else
+      } else {
         choixPuissance10 = Math.pow(10, randint(-3 + b, Math.min(-3 + b, -1)))
+      }
       a = arrondi(aEntier * choixPuissance10)
 
       if (typesDeResultatsDisponibles[i] === 1 && a / Math.pow(10, b) > 1) {
@@ -210,157 +211,161 @@ export default class DiviserDecimauxPar101001000 extends Exercice {
           a = arrondi(a * 10)
         }
       }
-      const choixClasseEntiere = donneNomClasse(Math.pow(10, b))[0]
-      const choixClasseDecimale = donneNomClasse(Math.pow(10, b))[1]
-      const chiffreDesUnites = Math.abs(Math.floor(a)) % 10
-      const chiffrePartieDecimale = chiffreAPositionDecimale(
-        a,
-        Math.pow(10, -b),
-      )
 
-      let texteCorr = ''
-      let reponse = 0
-
-      switch (typesDeNombres[i]) {
-        case 1: // Recherche du quotient
-          texte = `$${texNombre(a)}\\div${texNombre(Math.pow(10, b))}=$`
-
-          if (this.interactif)
-            texte += ajouteChampTexteMathLive(
-              this,
-              i,
-              KeyboardType.clavierDeBaseAvecFraction,
-            )
-          else texte += sp() + '$ \\ldots$'
-
-          if (this.correctionDetaillee) {
-            texteCorr = `Quand on divise par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
-            texteCorr += `En particulier, quand on divise $${texNombre(a)}$ par $${texNombre(Math.pow(10, b))}$, alors `
-            texteCorr += `le chiffre des unités de $${texNombre(a)}$ (${analyserNombre(a).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, 1)}$) devient le chiffre des ${choixClasseDecimale}.<br>`
-          }
-          texteCorr += `$${texNombre(a)} \\div ${texNombre(
-            Math.pow(10, b),
-          )} = ${miseEnEvidence(texNombre(a / Math.pow(10, b)))}$`
-          reponse = arrondi(a / Math.pow(10, b))
-          // Important laisser ici les deux options de comparaison
-          handleAnswers(this, i, {
-            reponse: {
-              value: reponse,
-              options: { fractionEgale: true, nombreDecimalSeulement: true },
-            },
-          })
-
-          break
-        case 2: // Recherche du dividende
-          texte = `$\\div${texNombre(Math.pow(10, b))}=${texNombre(a / Math.pow(10, b))}$`
-
-          if (this.interactif)
-            texte = ajouteChampTexteMathLive(
-              this,
-              i,
-              KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: texte },
-            )
-          else texte = '$ \\ldots$' + texte
-
-          if (this.correctionDetaillee) {
-            texteCorr = `Quand on divise par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
-            if (chiffreAPositionDecimale(a / Math.pow(10, b), 1) === 0) {
-              texteCorr += `Notamment, le chiffre des unités devient le chiffre des ${choixClasseDecimale}.<br>`
-              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$ (le résultat du calcul), le chiffre des ${choixClasseDecimale} est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$`
-              texteCorr += ` donc le chiffre des unités du nombre recherché est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$.<br>`
-            } else {
-              texteCorr += `Notamment, le chiffre des ${choixClasseEntiere} devient le chiffre des unités.<br>`
-              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$ (le résultat du calcul), le chiffre des unités est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$`
-              texteCorr += ` donc le chiffre des ${choixClasseEntiere} du nombre recherché est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$.<br>`
-            }
-          }
-          texteCorr += `$${miseEnEvidence(texNombre(a))} \\div ${texNombre(
-            Math.pow(10, b),
-          )} = ${texNombre(a / Math.pow(10, b))}$`
-          reponse = a
-          // Important laisser ici les deux options de comparaison
-          handleAnswers(this, i, {
-            reponse: {
-              value: reponse,
-              options: { fractionEgale: true, nombreDecimalSeulement: true },
-            },
-          })
-          break
-        case 3: // Recherche de la puissance de 10
-        default:
-          texte = `$${texNombre(a)}~\\div$`
-
-          if (this.interactif)
-            texte += ajouteChampTexteMathLive(
-              this,
-              i,
-              KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: `$=${texNombre(a / Math.pow(10, b))}$` },
-            )
-          else
-            texte +=
-              sp() +
-              '$ \\ldots$' +
-              sp() +
-              `$=${texNombre(a / Math.pow(10, b))}$`
-
-          if (this.correctionDetaillee) {
-            texteCorr = `Quand on divise par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
-            if (chiffreAPositionDecimale(a / Math.pow(10, b), 1) === 0) {
-              texteCorr += `Notamment, le chiffre des unités devient le chiffre des ${choixClasseDecimale}.<br>`
-              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$ (le résultat du calcul), le chiffre des ${choixClasseDecimale} est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$`
-              texteCorr += ` donc le chiffre des unités du nombre recherché est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$.<br>`
-            } else {
-              texteCorr += `Notamment, le chiffre des ${choixClasseEntiere} devient le chiffre des unités.<br>`
-              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$ (le résultat du calcul), le chiffre des unités est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$`
-              texteCorr += ` donc le chiffre des ${choixClasseEntiere} du nombre recherché est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$.<br>`
-            }
-          }
-          if (this.correctionDetaillee) {
-            texteCorr =
-              a / Math.pow(10, b) < 1
-                ? `Le chiffre des unités de $${texNombre(a)}$ (${analyserNombre(arrondi(a)).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, 1)}$` +
-                  `) devient le chiffre des ${choixClasseDecimale} (dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$).<br>`
-                : `Le chiffre des ${choixClasseEntiere} de $${texNombre(a)}$ (${analyserNombre(arrondi(a / Math.pow(10, b))).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, Math.pow(10, b))}$` +
-                  `) devient le chiffre des unités (dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$).<br>`
-            texteCorr += `Tous les chiffres prennent donc une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
-          }
-
-          texteCorr += `$${texNombre(a)} \\div ${miseEnEvidence(
-            texNombre(Math.pow(10, b)),
-          )} = ${texNombre(a / Math.pow(10, b))}$`
-          reponse = Math.pow(10, b)
-
-          handleAnswers(this, i, {
-            reponse: {
-              value: reponse,
-              options: { nombreDecimalSeulement: true },
-            },
-          })
-          break
-      }
-
-      if (this.sup4)
-        texteCorr += glisseNombreInteractif({ number: a, animation: -b })
-
-      if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions = [{ texte: texteCorr }]
-        // @ts-expect-error trop compliqué à typer
-        this.autoCorrection[i].reponse.param = {
-          digits:
-            nombreDeChiffresDansLaPartieEntiere(reponse) +
-            nombreDeChiffresDansLaPartieDecimale(reponse) +
-            2,
-          decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1,
-          signe: false,
-          exposantNbChiffres: 0,
-        }
-      }
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = texte
+
+        const choixClasseEntiere = donneNomClasse(Math.pow(10, b))[0]
+        const choixClasseDecimale = donneNomClasse(Math.pow(10, b))[1]
+        const chiffreDesUnites = Math.abs(Math.floor(a)) % 10
+        const chiffrePartieDecimale = chiffreAPositionDecimale(
+          a,
+          Math.pow(10, -b),
+        )
+
+        let texteCorr = ''
+        let reponse = 0
+
+        switch (typesDeNombres[i]) {
+          case 1: // Recherche du quotient
+            texte = `$${texNombre(a)}\\div${texNombre(Math.pow(10, b))}=$`
+
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
+            } else texte += sp() + '$ \\ldots$'
+
+            if (this.correctionDetaillee) {
+              texteCorr = `Quand on divise par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
+              texteCorr += `En particulier, quand on divise $${texNombre(a)}$ par $${texNombre(Math.pow(10, b))}$, alors `
+              texteCorr += `le chiffre des unités de $${texNombre(a)}$ (${analyserNombre(a).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, 1)}$) devient le chiffre des ${choixClasseDecimale}.<br>`
+            }
+            texteCorr += `$${texNombre(a)} \\div ${texNombre(
+              Math.pow(10, b),
+            )} = ${miseEnEvidence(texNombre(a / Math.pow(10, b)))}$`
+            reponse = arrondi(a / Math.pow(10, b))
+            // Important laisser ici les deux options de comparaison
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse,
+                options: { fractionEgale: true, nombreDecimalSeulement: true },
+              },
+            })
+
+            break
+          case 2: // Recherche du dividende
+            texte = `$\\div${texNombre(Math.pow(10, b))}=${texNombre(a / Math.pow(10, b))}$`
+
+            if (this.interactif) {
+              texte = ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+                { texteApres: texte },
+              )
+            } else texte = '$ \\ldots$' + texte
+
+            if (this.correctionDetaillee) {
+              texteCorr = `Quand on divise par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
+              if (chiffreAPositionDecimale(a / Math.pow(10, b), 1) === 0) {
+                texteCorr += `Notamment, le chiffre des unités devient le chiffre des ${choixClasseDecimale}.<br>`
+                texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$ (le résultat du calcul), le chiffre des ${choixClasseDecimale} est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$`
+                texteCorr += ` donc le chiffre des unités du nombre recherché est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$.<br>`
+              } else {
+                texteCorr += `Notamment, le chiffre des ${choixClasseEntiere} devient le chiffre des unités.<br>`
+                texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$ (le résultat du calcul), le chiffre des unités est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$`
+                texteCorr += ` donc le chiffre des ${choixClasseEntiere} du nombre recherché est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$.<br>`
+              }
+            }
+            texteCorr += `$${miseEnEvidence(texNombre(a))} \\div ${texNombre(
+              Math.pow(10, b),
+            )} = ${texNombre(a / Math.pow(10, b))}$`
+            reponse = a
+            // Important laisser ici les deux options de comparaison
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse,
+                options: { fractionEgale: true, nombreDecimalSeulement: true },
+              },
+            })
+            break
+          case 3: // Recherche de la puissance de 10
+          default:
+            texte = `$${texNombre(a)}~\\div$`
+
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+                { texteApres: `$=${texNombre(a / Math.pow(10, b))}$` },
+              )
+            } else {
+              texte +=
+                sp() +
+                '$ \\ldots$' +
+                sp() +
+                `$=${texNombre(a / Math.pow(10, b))}$`
+            }
+
+            if (this.correctionDetaillee) {
+              texteCorr = `Quand on divise par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
+              if (chiffreAPositionDecimale(a / Math.pow(10, b), 1) === 0) {
+                texteCorr += `Notamment, le chiffre des unités devient le chiffre des ${choixClasseDecimale}.<br>`
+                texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$ (le résultat du calcul), le chiffre des ${choixClasseDecimale} est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$`
+                texteCorr += ` donc le chiffre des unités du nombre recherché est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$.<br>`
+              } else {
+                texteCorr += `Notamment, le chiffre des ${choixClasseEntiere} devient le chiffre des unités.<br>`
+                texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$ (le résultat du calcul), le chiffre des unités est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$`
+                texteCorr += ` donc le chiffre des ${choixClasseEntiere} du nombre recherché est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$.<br>`
+              }
+            }
+            if (this.correctionDetaillee) {
+              texteCorr =
+                a / Math.pow(10, b) < 1
+                  ? `Le chiffre des unités de $${texNombre(a)}$ (${analyserNombre(arrondi(a)).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, 1)}$` +
+                    `) devient le chiffre des ${choixClasseDecimale} (dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$).<br>`
+                  : `Le chiffre des ${choixClasseEntiere} de $${texNombre(a)}$ (${analyserNombre(arrondi(a / Math.pow(10, b))).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, Math.pow(10, b))}$` +
+                    `) devient le chiffre des unités (dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$).<br>`
+              texteCorr += `Tous les chiffres prennent donc une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
+            }
+
+            texteCorr += `$${texNombre(a)} \\div ${miseEnEvidence(
+              texNombre(Math.pow(10, b)),
+            )} = ${texNombre(a / Math.pow(10, b))}$`
+            reponse = Math.pow(10, b)
+
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse,
+                options: { nombreDecimalSeulement: true },
+              },
+            })
+            break
+        }
+
+        if (this.sup4) {
+          texteCorr += glisseNombreInteractif({ number: a, animation: -b })
+        }
+
+        if (context.isAmc) {
+          this.autoCorrection[i].enonce = texte
+          this.autoCorrection[i].propositions = [{ texte: texteCorr }]
+          // @ts-expect-error trop compliqué à typer
+          this.autoCorrection[i].reponse.param = {
+            digits:
+              nombreDeChiffresDansLaPartieEntiere(reponse) +
+              nombreDeChiffresDansLaPartieDecimale(reponse) +
+              2,
+            decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1,
+            signe: false,
+            exposantNbChiffres: 0,
+          }
+        }
+        this.listeQuestions[i] = texte.replaceAll('$$', '')
         this.listeCorrections[i] = texteCorr
         i++
       }

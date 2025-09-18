@@ -28,6 +28,7 @@ const VueTypeArray = <const>[
   'can',
   'eleve',
   'latex',
+  'pdf',
   'confeleve',
   'amc',
   'anki',

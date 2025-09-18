@@ -120,6 +120,7 @@ export default class DeriveeComposee extends Exercice {
       switch (typeF) {
         case 'exp':
           texteCorr += `\\[${nameF}'(x)=${rienSi1(a)}e^{${polAff}}.\\]`
+          value = `${rienSi1(a)}e^{${polAff}}`
           break
         case 'inv':
           texteCorr += `\\[${nameF}'(x)=${a}\\times ${`\\frac{-1}{(${polAff})^2}`}.\\]`

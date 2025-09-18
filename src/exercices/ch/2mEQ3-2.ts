@@ -38,7 +38,7 @@ export default class ExerciceTangenteCourbe extends Exercice {
       let rPot = randint(-12, 12, [0])
       let x1 = randint(-10, 10)
       let y1 = randint(-10, 10)
-      let cConst = x1 ** 2 + y1 ** 2 - rPot ** 2
+      let cConst = x1 ** 2 + y1 ** 2 - rPot ** 2 * (rPot > 0 ? 1 : -1)
       let cX = -2 * x1
       let cY = -2 * y1
       let eqCerclePot = ''
@@ -58,7 +58,7 @@ export default class ExerciceTangenteCourbe extends Exercice {
       &${eqCerclePot} \\\\
       \\iff& x^2 ${ecritureAlgebriqueSauf1(cX)}x + y^2  ${ecritureAlgebriqueSauf1(cY)}y ${ecritureAlgebrique(cConst)} = 0 \\\\
       \\iff& x^2 ${ecritureAlgebriqueSauf1(cX)}x ${miseEnCouleur(`\\,+ \\left(\\frac{${cX}}{2}\\right)^2 - \\left(\\frac{${cX}}{2}\\right)^2`, 'red')} + y^2  ${ecritureAlgebriqueSauf1(cY)}y ${miseEnCouleur(`\\,+ \\left(\\frac{${cY}}{2}\\right)^2 - \\left(\\frac{${cY}}{2}\\right)^2`, 'red')} ${ecritureAlgebrique(cConst)} = 0 \\\\
-      \\iff& ${miseEnCouleur(`\\,x^2 ${ecritureAlgebriqueSauf1(cX)}x ${ecritureAlgebriqueSauf1((cX / 2) ** 2)}`, 'green')}  ${miseEnCouleur(`\\,${ecritureAlgebriqueSauf1(-((cX / 2) ** 2))}`, 'orange')} + ${miseEnCouleur(`\\,y^2  ${ecritureAlgebriqueSauf1(cY)}y ${ecritureAlgebriqueSauf1((cY / 2) ** 2)}`, 'blue')}  ${miseEnCouleur(`\\,${ecritureAlgebriqueSauf1(-((cY / 2) ** 2))} ${ecritureAlgebrique(cConst)}`, 'orange')} = 0 \\\\
+      \\iff& ${miseEnCouleur(`\\,x^2 ${ecritureAlgebriqueSauf1(cX)}x ${ecritureAlgebrique((cX / 2) ** 2)}`, 'green')}  ${miseEnCouleur(`\\,${ecritureAlgebrique(-((cX / 2) ** 2))}`, 'orange')} + ${miseEnCouleur(`\\,y^2  ${ecritureAlgebriqueSauf1(cY)}y ${ecritureAlgebrique((cY / 2) ** 2)}`, 'blue')}  ${miseEnCouleur(`\\,${ecritureAlgebrique(-((cY / 2) ** 2))} ${ecritureAlgebrique(cConst)}`, 'orange')} = 0 \\\\
       \\iff& ${miseEnCouleur(`\\,(x ${ecritureAlgebrique(-x1)})^2`, 'green')} + ${miseEnCouleur(`\\,(y ${ecritureAlgebrique(-y1)})^2`, 'blue')} = ${miseEnCouleur(`\\,${rPot < 0 ? '-' : ''}${rPot ** 2}`, 'orange')}
       \\end{aligned}$<br>
       `

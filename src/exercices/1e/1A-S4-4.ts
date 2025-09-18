@@ -1,5 +1,6 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 import { nombreElementsDifferents } from '../ExerciceQcm'
@@ -128,9 +129,9 @@ export default class MoyennePondereeQCM extends ExerciceQcmA {
       }
     }
     this.enonce = `
-Voici les $${effectif + 1}$ notes sur vingt obtenues par un élève en mathématiques :<br>
+Voici les $${effectif + 1}$ notes sur vingt obtenues par un élève en mathématiques :<br><br>
 ${tableau}
-<br>
+<br><br>
 On cherche ce que doit valoir $x$ pour que la moyenne de l'élève soit égale $${moyenne}$.`
     if (estPossible) {
       const inclureImpossibleCommePiege = x >= 18
@@ -147,9 +148,9 @@ On cherche ce que doit valoir $x$ pour que la moyenne de l'élève soit égale $
 Pour déterminer la moyenne de l'élève, on calcule :<br>
 $\\bullet$ La somme des produits de chaque note par son coefficient :
 
-$${produits} + x \\times ${coeffX} = ${sommeLitterale}$.
+$${produits} + x \\times ${coeffX} = ${sommeLitterale}$.<br>
 
-<br>$\\bullet$ La somme des coefficients : $${sommeCoeffsDetail}= ${sommeCoeff}$.
+$\\bullet$ La somme des coefficients : $${sommeCoeffsDetail}= ${sommeCoeff}$.
 <br>Remarque : On fera bien attention à ne pas utiliser la ligne des numéros de devoirs du tableau, donnée qui n'intervient pas dans le calcul de la moyenne.
 <br>La moyenne est donc égale à $\\dfrac{${sommeProduits} + ${coeffX}x}{${sommeCoeff}}$. <br> Comme elle doit être égale à $${moyenne}$, on doit résoudre l'équation suivante :
 <br>
@@ -161,7 +162,7 @@ ${sommeProduits} + ${coeffX}x &= ${moyenne} \\times ${sommeCoeff}\\\\
 ${coeffX}x &= ${moyenne * sommeCoeff} - ${sommeProduits}\\\\
  ${coeffX}x &= ${moyenne * sommeCoeff - sommeProduits}\\\\
 x &= \\dfrac{${moyenne * sommeCoeff - sommeProduits}}{${coeffX}}\\\\
-x&= ${x}.
+x&= ${miseEnEvidence(x)}.
 \\end{aligned}
 $
 `

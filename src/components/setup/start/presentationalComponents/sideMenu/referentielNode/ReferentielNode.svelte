@@ -40,12 +40,22 @@
   function themeTitle(themeCode: string) {
     if (themes.has(themeCode)) {
       return [
-        themeCodeisSubthemeCode(levelTitle) ? '' : ' : ',
+        themeCodeisSubthemeCode(
+          levelTitle,
+          Array.from(levelTitle.replace('auto', ''))[0],
+        )
+          ? ''
+          : ' : ',
         themes.get(themeCode).get('titre'),
       ].join('')
     } else if (themesCH.has(themeCode)) {
       return [
-        themeCodeisSubthemeCode(levelTitle) ? '' : ' : ',
+        themeCodeisSubthemeCode(
+          levelTitle,
+          Array.from(levelTitle.replace('auto', ''))[0],
+        )
+          ? ''
+          : ' : ',
         themesCH.get(themeCode).get('titre'),
       ].join('')
     } else {
@@ -60,11 +70,14 @@
    * la fonction confronte le code à tester à une expression régulière afin de savoir si
    * une lettre suit le code de trois caractères.
    * @param {string} themeCode code du niveau
-   * @param {number} level? niveau optionnel (6 par défaut)
+   * @param {string} level? niveau optionnel (6 par défaut)
    * @author Sylvain Chambon
    */
-  function themeCodeisSubthemeCode(themeCode: string, level = 6): boolean {
-    const regexp = new RegExp(`^(auto)?${level}[A-Z]\\d+[A-Z]$`, 'g')
+  function themeCodeisSubthemeCode(
+    themeCode: string,
+    level: string = '6',
+  ): boolean {
+    const regexp = new RegExp(`^(auto)?${level}[A-Z]\\d+[A-Z0-9]$`, 'g')
     return regexp.test(themeCode)
   }
 
@@ -194,9 +207,13 @@
   onMount(() => {
     //   console.log('******** subset ********')
     //   console.log(Object.entries(subset))
+    // console.log('levelTitle: ', levelTitle)
     if (
       (nestedLevelCount === 1 && levelTitle === 'Exercices aléatoires') ||
-      themeCodeisSubthemeCode(levelTitle)
+      themeCodeisSubthemeCode(
+        levelTitle,
+        Array.from(levelTitle.replace('auto', ''))[0],
+      )
     ) {
       unfold = true
     }
@@ -231,7 +248,12 @@
     {nestedLevelCount !== 1
       ? 'text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest'
       : 'text-coopmaths-struct dark:text-coopmathsdark-struct py-2'}
-    {unfold && nestedLevelCount !== 1 && !themeCodeisSubthemeCode(levelTitle)
+    {unfold &&
+    nestedLevelCount !== 1 &&
+    !themeCodeisSubthemeCode(
+      levelTitle,
+      Array.from(levelTitle.replace('auto', ''))[0],
+    )
       ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
       : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}
     {Object.keys(subset).length === 0
@@ -246,16 +268,22 @@
       id="{'titre-liste-' + indexBase + '-content'}"
       class=" {nestedLevelCount === 1
         ? 'text-xl'
-        : themeCodeisSubthemeCode(levelTitle)
+        : themeCodeisSubthemeCode(
+              levelTitle,
+              Array.from(levelTitle.replace('auto', ''))[0],
+            )
           ? 'text-base leading-none py-2'
           : 'text-base'}"
     >
       <!-- on va chercher dans les fichiers JSON les significations des clés passées comme titre -->
-      {#if !themeCodeisSubthemeCode(levelTitle)}
+      {#if !themeCodeisSubthemeCode(levelTitle, Array.from(levelTitle.replace('auto', ''))[0])}
         {codeToLevelTitle(levelTitle)}
       {/if}
       <span
-        class="{themeCodeisSubthemeCode(levelTitle)
+        class="{themeCodeisSubthemeCode(
+          levelTitle,
+          Array.from(levelTitle.replace('auto', ''))[0],
+        )
           ? 'font-normal text-sm leading-[80%]'
           : 'font-normal '}">{themeTitle(levelTitle)}</span
       >

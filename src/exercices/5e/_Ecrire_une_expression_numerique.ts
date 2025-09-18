@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -98,8 +99,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
       nbOperations = listeTypeDeQuestions[i]
       val1 = randint(2, 5)
       val2 = randint(6, 9)
-      if (this.version > 2 && nbOperations === 1 && !this.litteral)
+      if (this.version > 2 && nbOperations === 1 && !this.litteral) {
         nbOperations++
+      }
       if (!this.litteral) {
         const sousCas = listeSousCasParNbOperation[nbOperations - 1][i]
         resultats = choisirExpressionNumerique(
@@ -142,8 +144,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
             )
           break
         case 2:
-          if (expn.indexOf('ou') > 0)
-            expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
+          if (expn.indexOf('ou') > 0) {
+            expn = expn.substring(0, expn.indexOf('ou') - 1)
+          } // on supprime la deuxième expression fractionnaire
           this.consigne = this.interactif
             ? 'De quel type est chaque calcul ?'
             : 'Traduire le calcul par une phrase en français.'
@@ -160,8 +163,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               'Traduire la phrase par un calcul et effectuer le calcul demandé.'
           }
           if (!this.litteral) texte = `${expf}.`
-          else if (nbval === 2)
-            texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.` // nbval contient le nombre de valeurs en cas de calcul littéral
+          else if (nbval === 2) {
+            texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.`
+          } // nbval contient le nombre de valeurs en cas de calcul littéral
           else texte = `${expf} puis calculer pour $x=${val1}$.`
           texteCorr = `${expf} s'écrit : ${resultats[1]}.<br>`
 
@@ -193,9 +197,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                     : `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
               })
             }
-          } else if (nbval === 2)
+          } else if (nbval === 2) {
             texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`
-          else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
+          } else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
           reponse = String(expc)
             .split('=')
             [String(expc).split('=').length - 1].replace('$', '')
@@ -218,17 +222,18 @@ export default class EcrireUneExpressionNumerique extends Exercice {
         case 4:
         default:
           {
-            if (expn.indexOf('ou') > 0)
-              expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
+            if (expn.indexOf('ou') > 0) {
+              expn = expn.substring(0, expn.indexOf('ou') - 1)
+            } // on supprime la deuxième expression fractionnaire
             this.consigne = ''
             if (!this.litteral) texte = `${expn}`
-            else if (nbval === 2)
+            else if (nbval === 2) {
               texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
-            else texte = `Pour $x=${val1}$, calculer ${expn}.`
+            } else texte = `Pour $x=${val1}$, calculer ${expn}.`
             if (!this.litteral) texteCorr = `${expc}`
-            else if (nbval === 2)
+            else if (nbval === 2) {
               texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
-            else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
+            } else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
             reponse = String(expc)
               .split('=')
               [String(expc).split('=').length - 1].replace('$', '')
@@ -305,9 +310,14 @@ export default class EcrireUneExpressionNumerique extends Exercice {
           } else {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: ' Résultat : ',
-              })
+              ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecEgal,
+                {
+                  texteAvant: ' Résultat : ',
+                },
+              )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
         }
@@ -364,9 +374,14 @@ export default class EcrireUneExpressionNumerique extends Exercice {
           } else {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: ' Calcul : ',
-              })
+              ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecEgal,
+                {
+                  texteAvant: ' Calcul : ',
+                },
+              )
             handleAnswers(this, i, {
               reponse: {
                 value: reponse,

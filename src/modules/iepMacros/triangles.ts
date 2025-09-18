@@ -2,6 +2,7 @@ import { cercle } from '../../lib/2d/cercle'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
   point,
+  Point,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
@@ -125,7 +126,7 @@ export const triangleRectangleCoteHypotenuse = function (
   dBC.isVisible = false
   const cAC = cercle(A, AC)
   cAC.isVisible = false
-  const C = pointIntersectionLC(dBC, cAC)
+  const C = pointIntersectionLC(dBC, cAC) as Point
   const c = homothetie(C, B, 1.2)
   let description = options.description ?? true
   if (ABC.length !== 3) {
@@ -212,7 +213,7 @@ export const triangleRectangle2Cotes = function (
   dBC.isVisible = false
   const cBC = cercle(B, BC)
   cBC.isVisible = false
-  const C = pointIntersectionLC(dBC, cBC)
+  const C = pointIntersectionLC(dBC, cBC) as Point
   const c = homothetie(C, B, 1.2)
   let description = options.description ?? true
   if (ABC.length !== 3) {
@@ -305,7 +306,7 @@ export const triangle1longueur2angles = function (
   D.isVisible = false
   const d2 = rotation(droite(B, A), B, -a2)
   d2.isVisible = false
-  const C = pointIntersectionDD(d, d2)
+  const C = pointIntersectionDD(d, d2) as Point
   let description = options.description ?? true
   const mesure = options.mesure ?? false
   if (NOM.length !== 3) {

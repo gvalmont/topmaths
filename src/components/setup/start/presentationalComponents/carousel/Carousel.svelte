@@ -90,7 +90,7 @@
 {#if carouselContent.slides && carouselContent.slides.length !== 0}
   <div class="h-[90%]">
     <div
-      class="carousel w-full h-full"
+      class="carousel w-full h-full cursor-pause-circle"
       on:mouseenter="{handleMouseEnter}"
       on:mouseleave="{handleMouseLeave}"
       role="region"
@@ -147,11 +147,24 @@
                       <div
                         class="hidden lg:flex lg:w-1/2 flex-1 justify-center items-center"
                       >
+                        <!-- Support for both images and videos -->
+                        {#if slide.image.endsWith('.mp4')}
+                          <video
+                            class="flex items-center justify-center w-full h-full object-scale-down"
+                            src="images/carousel/{slide.image}"
+                            alt="Video:{slide.image}"
+                            autoplay
+                            loop
+                            muted
+                            playsinline
+                          ></video>
+                        {:else}
                         <img
                           class="flex items-center justify-center w-full h-full object-scale-down"
                           src="images/carousel/{slide.image}"
                           alt="Image:{slide.image}"
                         />
+                        {/if}
                       </div>
                     </div>
                   {:else}
@@ -172,7 +185,9 @@
               {#if slide.link && slide.link.length !== 0}
                 <div class="absolute bottom-6 right-6">
                   <ButtonTextAction
-                    text="En savoir plus"
+                    text="{slide.buttonTitle && slide.buttonTitle.length !== 0
+                      ? slide.buttonTitle
+                      : 'En savoir plus'}"
                     class="inline-flex items-center py-1 px-3 rounded-md font-normal"
                     on:click="{() => {
                       const w = window.open(

@@ -1,22 +1,22 @@
 import { courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import {
   premierMultipleInferieur,
   premierMultipleSuperieur,
 } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer une équation de parabole'
 
@@ -75,7 +75,7 @@ export default class TrouverEquationParabole extends Exercice {
       let x1: number, x2: number, x3: number
       let f: (x: number) => number
       fName.push(lettreMinusculeDepuisChiffre(i + 6))
-      texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré `
+      texte = `Quelle est l'expression de la fonction polynomiale $${fName[i]}$ du second degré `
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
         case 1: // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
@@ -89,8 +89,8 @@ export default class TrouverEquationParabole extends Exercice {
             return a * x ** 2 + b * x + c
           }
           texte += `qui passe par les points de coordonnées $(${-x1};${f(-x1)})$, $(0;${f(0)})$ et $(${x1};${f(x1)})$ ?<br>`
-          texteCorr = `Soit $\\mathscr{${fName[i]}}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, comme $\\mathscr{${fName[i]}}(0)=${f(0)}$ nous en déduisons que $c=${miseEnEvidence(f(0), 'red')}$.<br>`
-          texteCorr += `Donc $\\mathscr{${fName[i]}}(x)=ax^2+bx${miseEnEvidence(ecritureAlgebrique(f(0)), 'red')}$.<br>`
+          texteCorr = `Soit $${fName[i]}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, comme $${fName[i]}(0)=${f(0)}$ nous en déduisons que $c=${miseEnEvidence(f(0), 'red')}$.<br>`
+          texteCorr += `Donc $${fName[i]}(x)=ax^2+bx${miseEnEvidence(ecritureAlgebrique(f(0)), 'red')}$.<br>`
           texteCorr +=
             "En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>"
           texteCorr += `$\\begin{cases}
@@ -109,7 +109,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
  \\end{cases}$<br>`
           }
           texteCorr += `La résolution de ce système donne $a=${miseEnEvidence(texNombre(a), 'blue')}$ et $b=${miseEnEvidence(texNombre(b), 'green')}$.<br>`
-          texteCorr += `D'où $\\mathscr{${fName[i]}}(x)=${a !== 1 ? miseEnEvidence(String(rienSi1(a)), 'blue') : ''}x^2 ${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x  ${miseEnEvidence(ecritureAlgebrique(c), 'red')}$<br>`
+          texteCorr += `D'où $${fName[i]}(x)=${a !== 1 ? miseEnEvidence(String(rienSi1(a)), 'blue') : ''}x^2 ${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x  ${miseEnEvidence(ecritureAlgebrique(c), 'red')}$<br>`
 
           break
         case 2: // Passant par le sommet (x1,y1) et par le point (x2,y2)
@@ -124,8 +124,8 @@ ${f(x1) - f(-x1)}=${2 * x1}b
             return a * x ** 2 + b * x + c
           }
           texte += `dont la parabole a pour sommet le point de coordonnées $(${x1};${f(x1)})$ et passe par le point de coordonnées $(${x2};${f(x2)})$ ?<br>`
-          texteCorr = `D'après les coordonnées $(${x1};${f(x1)})$ du sommet, $\\mathscr{${fName[i]}}$ a pour forme canonique : $\\mathscr{${fName[i]}}(x)=a(x${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}$.<br>`
-          texteCorr += `De plus $\\mathscr{${fName[i]}}(${x2})=${f(x2)}$`
+          texteCorr = `D'après les coordonnées $(${x1};${f(x1)})$ du sommet, $${fName[i]}$ a pour forme canonique : $${fName[i]}(x)=a(x${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}$.<br>`
+          texteCorr += `De plus $${fName[i]}(${x2})=${f(x2)}$`
           if (this.correctionDetaillee) {
             texteCorr += ` donc $a(${x2}${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}=${f(x2)}$ `
             texteCorr += `soit $${x2 ** 2}a ${ecritureAlgebrique(-2 * x1 * x2)}a ${ecritureAlgebrique(x1 ** 2)}a ${ecritureAlgebrique(f(x1))}=${f(x2)}$.<br>`
@@ -136,13 +136,13 @@ ${f(x1) - f(-x1)}=${2 * x1}b
             }
           } else texteCorr += ` donc $a=${a}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `Développons la forme canonique : $\\mathscr{${fName[i]}}(x)=
+            texteCorr += `Développons la forme canonique : $${fName[i]}(x)=
   a(x${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}=
   a(x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1), 'green')}x+${miseEnEvidence(texNombre(x1 ** 2), 'red')})${miseEnEvidence(ecritureAlgebrique(f(x1)), 'red')}
   =${miseEnEvidence('a', 'blue')}x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1) + 'a', 'green')}x${miseEnEvidence(ecritureAlgebriqueSauf1(x1 ** 2) + 'a' + ecritureAlgebrique(f(x1)), 'red')}$.<br>`
           }
           texteCorr += `En remplaçant $a$ par sa valeur $${a}$ dans l'expression canonique développée $${miseEnEvidence('a', 'blue')}x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1) + 'a', 'green')}x${miseEnEvidence(ecritureAlgebriqueSauf1(x1 ** 2) + 'a' + ecritureAlgebrique(f(x1)), 'red')}$ on obtient :<br>`
-          texteCorr += `$\\mathscr{${fName[i]}}(x)=${a !== 1 ? miseEnEvidence(String(rienSi1(a)), 'blue') : ''}x^2${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x${miseEnEvidence(ecritureAlgebrique(c), 'red')}$`
+          texteCorr += `$${fName[i]}(x)=${a !== 1 ? miseEnEvidence(String(rienSi1(a)), 'blue') : ''}x^2${miseEnEvidence(ecritureAlgebriqueSauf1(b), 'green')}x${miseEnEvidence(ecritureAlgebrique(c), 'red')}$`
           break
         case 3: // on a deux racines x1 et x2 et un troisième point (x3;f(x3))
         default:
@@ -156,14 +156,14 @@ ${f(x1) - f(-x1)}=${2 * x1}b
             return a * x ** 2 + b * x + c
           }
           texte += `qui s'annule en $x=${x1}$ et en $x=${x2}$ et dont la parabole passe par le point de coordonnées $(${x3};${f(x3)})$ ?<br>`
-          texteCorr += `Comme $${x1}$ et $${x2}$ sont les deux solutions de l'équation $\\mathscr{${fName[i]}}(x)=0$, on peut factoriser $\\mathscr{${fName[i]}}(x)$ :<br>`
-          texteCorr += `$\\mathscr{${fName[i]}}(x)=a(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$.<br>`
-          texteCorr += `Comme $\\mathscr{${fName[i]}}(${x3})=${f(x3)}$, on en déduit que `
+          texteCorr += `Comme $${x1}$ et $${x2}$ sont les deux solutions de l'équation $${fName[i]}(x)=0$, on peut factoriser $${fName[i]}(x)$ :<br>`
+          texteCorr += `$${fName[i]}(x)=a(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$.<br>`
+          texteCorr += `Comme $${fName[i]}(${x3})=${f(x3)}$, on en déduit que `
           if (this.correctionDetaillee) {
             texteCorr += `$${f(x3)}=a(${x3}${ecritureAlgebrique(-x1)})(${x3}${ecritureAlgebrique(-x2)})$ `
             texteCorr += `d'où $a=${f(x3)}\\div ${ecritureParentheseSiNegatif((x3 - x1) * (x3 - x2))}=${a}$.<br>`
           } else texteCorr += `$a=${a}$.<br>`
-          texteCorr += `On obtient ainsi $\\mathscr{${fName[i]}}(x)=${rienSi1(a)}(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$ ou en développant $\\mathscr{${fName[i]}}(x)=${rienSi1(a)}x^2 ${ecritureAlgebriqueSauf1(b)}x  ${ecritureAlgebrique(c)}$`
+          texteCorr += `On obtient ainsi $${fName[i]}(x)=${rienSi1(a)}(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$ ou en développant $${fName[i]}(x)=${rienSi1(a)}x^2 ${ecritureAlgebriqueSauf1(b)}x  ${ecritureAlgebrique(c)}$`
           break
       }
       if (a < 0) {

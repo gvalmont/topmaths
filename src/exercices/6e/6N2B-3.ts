@@ -14,6 +14,7 @@ import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { lampeMessage } from '../../lib/format/message'
+import { context } from '../../modules/context'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre =
@@ -49,12 +50,16 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
     this.besoinFormulaire3CaseACocher = [
       'Avec le glisse-nombre pour la correction',
     ]
+    this.besoinFormulaire4CaseACocher = [
+      'Afficher un rappel de méthode'
+    ]
 
     this.nbQuestions = 6 // Ici le nombre de questions
 
     this.sup = false
     this.sup2 = 3
     this.sup3 = false
+    this.sup4 = false
   }
 
   nouvelleVersion() {
@@ -77,15 +82,16 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
       listeChoixAlea = range(2)
       this.nbQuestions = min(this.nbQuestions, 3)
     }
-    if (this.interactif) {
-      this.consigne = 'Calculer.'
-    } else {
+    this.consigne = ''
+    if (!context.isDiaporama && this.sup4) {
       this.consigne = lampeMessage({
         titre: '',
         texte: `1${texteEnCouleur('4', 'green')},5 $\\times$ ${texteEnCouleur('10', 'blue')} = 1${texteEnCouleur('4', 'green')},5  ${texteEnCouleur('dizaines', 'blue')} = 1${texteEnCouleur('4', 'green')}5. <br>
     En effet, le chiffre des unités ($${miseEnEvidence('4', 'green')}$) est devenu celui des ${texteEnCouleur('dizaines', 'blue')}.`,
         couleur: 'nombres',
       })
+    }
+    if (!context.isDiaporama) {
       this.consigne += 'Calculer.'
     }
 

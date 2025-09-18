@@ -47,12 +47,11 @@
   }
 
   async function downloadAndExtractPDF(blob: Blob, filename: string) {
-
     pdfBlob = blob
     // juste stocker blob + filename
     downloadFilename = filename
   }
-		
+	
   function generateFilename(prefix = "latex", ext = "pdf") {
     const now = new Date();
     const pad = (n: number) => String(n).padStart(2, "0");
@@ -118,6 +117,7 @@
     clockAbled = false
     return downloadAndExtractPDF(blob, generateFilename("document", "pdf"))
   }).catch((err) => {
+    clockAbled = false
     console.error('Error occured' + err)
     resultReq = 'KO'
   })

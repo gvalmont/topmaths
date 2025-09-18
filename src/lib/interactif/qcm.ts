@@ -1,16 +1,16 @@
+import type Exercice from '../../exercices/Exercice'
 import { context } from '../../modules/context'
-import { get } from '../html/dom'
 import { messageFeedback } from '../../modules/messages'
-import { afficheScore } from './afficheScore'
-import { lettreDepuisChiffre } from '../outils/outilString'
+import { shuffleJusquaWithIndexes } from '../amc/qcmCam'
+import { get } from '../html/dom'
 import {
   barreTexte,
   miseEnEvidence,
   texteEnCouleurEtGras,
   texteGras,
 } from '../outils/embellissements'
-import { shuffleJusquaWithIndexes } from '../amc/qcmCam'
-import type Exercice from '../../exercices/Exercice'
+import { lettreDepuisChiffre } from '../outils/outilString'
+import { afficheScore } from './afficheScore'
 import type { ButtonWithMathaleaListener } from './gestionCan'
 import type { UneProposition } from './gestionInteractif'
 
@@ -281,24 +281,21 @@ export function propositionsQcm(
   if (context.isHtml) {
     const isRadio = exercice.autoCorrection[i].options?.radio ?? false
     const formateQ = (format: string, rep: number) => {
-      if (format == null || format === 'case')
-        return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">`
+      if (format == null || format === 'case') { return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">` }
       if (format === 'lettre') {
         return `<label ${classCss} >${texteGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
       return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}"><label ${classCss} >${lettreDepuisChiffre(rep + 1)}.</label>`
     }
     const formateRV = (format: string, rep: number) => {
-      if (format == null || format === 'case')
-        return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked>`
+      if (format == null || format === 'case') { return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked>` }
       if (format === 'lettre') {
         return `<label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
       return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked><label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
     }
     const formateRF = (format: string, rep: number) => {
-      if (format == null || format === 'case')
-        return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default">`
+      if (format == null || format === 'case') { return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default">` }
       if (format === 'lettre') {
         return `<label ${classCss} >${texteGras(`${barreTexte(lettreDepuisChiffre(rep + 1))}`)}.</label>`
       }
@@ -313,7 +310,7 @@ export function propositionsQcm(
       rep++
     ) {
       if (nbCols > 1 && rep % nbCols === 0) texte += '<br>'
-      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline-block'} my-2 align-top">
+      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline-block'} my-2 align-center">
       ${formateQ(options?.format, rep)}
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" ${classCss} >${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div></div>`

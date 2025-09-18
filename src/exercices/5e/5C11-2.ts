@@ -1,14 +1,15 @@
-import { context } from '../../modules/context'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { prenom } from '../../lib/outils/Personne'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import TrouverSolutionMathador from './_TrouverSolutionMathador'
-import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { checkLeCompteEstBon } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
-import type { MathfieldElement } from 'mathlive'
+import { prenom } from '../../lib/outils/Personne'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
+import TrouverSolutionMathador from './_TrouverSolutionMathador'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
@@ -80,9 +81,14 @@ export default class ÉcrireUneExpressionMathador extends Exercice {
       texte +=
         "Écrire la succession d'opérations en une seule expression." +
         (this.interactif
-          ? ajouteChampTexteMathLive(this, i, ' ', {
-              texteAvant: sp(10) + '$E=$',
-            })
+          ? ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecEgal,
+              {
+                texteAvant: sp(10) + '$E=$',
+              },
+            )
           : '')
       texteCorr = ''
       if (this.sup) {
@@ -93,13 +99,14 @@ export default class ÉcrireUneExpressionMathador extends Exercice {
       }
 
       texteCorr += `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
-      if (!this.sup)
+      if (!this.sup) {
         handleAnswers(this, i, {
           reponse: {
             value: [expression, solutionMathador[4]],
             options: { operationSeulementEtNonResultat: true },
           },
         })
+      }
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

@@ -89,33 +89,84 @@ export const prenoms: { prenom: string; pronom: string }[] = [
   { prenom: 'Rémi', pronom: 'il' },
   { prenom: 'Yazid', pronom: 'il' },
 ]
+
 /**
- * Renvoie un prénom féminin au hasard ou une liste de prénoms féminins au hasard
+ * Renvoie un ou plusieurs prénoms féminins choisis aléatoirement.
+ *
+ * @param {number} [n=1] - Nombre de prénoms à renvoyer.
+ *   - Si `n === 1`, la fonction renvoie par défaut un `string`.
+ *   - Si `n > 1`, la fonction renvoie un `string[]` de longueur `n`.
+ * @param {boolean} [asArray=false] - Si `true` et `n === 1`,
+ *   renvoie un tableau contenant un seul prénom au lieu d'un string.
+ *
+ * @returns {string | string[]}
+ *   - Un prénom unique (`string`) si `n === 1` et `asArray === false`.
+ *   - Un tableau de prénoms (`string[]`) dans tous les autres cas.
+ *
  * @author Rémi Angot
+ *
+ * @example
+ * prenomF();
+ * // → "Alice"
+ *
+ * @example
+ * prenomF(1, true);
+ * // → ["Alice"]
+ *
+ * @example
+ * prenomF(3);
+ * // → ["Alice", "Marie", "Léa"]
  */
-export function prenomF(n = 1) {
+export function prenomF(n = 1, asArray = false): string | string[] {
   const prenomsFeminins = prenoms
     .filter((p) => p.pronom === 'elle')
     .map((p) => p.prenom)
+
   if (n === 1) {
-    return choice(prenomsFeminins)
+    const chosen = choice(prenomsFeminins)
+    return asArray ? [chosen] : chosen
   } else {
     return shuffle(prenomsFeminins).slice(0, n)
   }
 }
 
 /**
- * Renvoie un prénom masculin au hasard ou une liste de prénoms masculins au hasard
+ * Renvoie un ou plusieurs prénoms masculins choisis aléatoirement.
+ *
+ * @param {number} [n=1] - Nombre de prénoms à renvoyer.
+ *   - Si `n === 1`, la fonction renvoie par défaut un `string`.
+ *   - Si `n > 1`, la fonction renvoie un `string[]` de longueur `n`.
+ * @param {boolean} [asArray=false] - Si `true` et `n === 1`,
+ *   renvoie un tableau contenant un seul prénom au lieu d'un string.
+ *
+ * @returns {string | string[]}
+ *   - Un prénom unique (`string`) si `n === 1` et `asArray === false`.
+ *   - Un tableau de prénoms (`string[]`) dans tous les autres cas.
+ *
  * @author Rémi Angot
+ *
+ * @example
+ * prenomM();
+ * // → "Marc"
+ *
+ * @example
+ * prenomM(1, true);
+ * // → ["Marc"]
+ *
+ * @example
+ * prenomM(3);
+ * // → ["Marc", "Francis", "Léo"]
  */
-export function prenomM(n: number = 1): string | string[] {
-  const prenomsMasculinsArray = prenoms
+export function prenomM(n = 1, asArray = false): string | string[] {
+  const prenomsMasculins = prenoms
     .filter((p) => p.pronom === 'il')
     .map((p) => p.prenom)
+
   if (n === 1) {
-    return choice(prenomsMasculinsArray)
+    const chosen = choice(prenomsMasculins)
+    return asArray ? [chosen] : chosen
   } else {
-    return shuffle(prenomsMasculinsArray).slice(0, n)
+    return shuffle(prenomsMasculins).slice(0, n)
   }
 }
 

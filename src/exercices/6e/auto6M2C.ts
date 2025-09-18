@@ -126,8 +126,9 @@ export default class AireParComptage extends Exercice {
         point(xmax - (2 + decalageVisuelAire), ymin + 1),
         point(xmax - (1 + decalageVisuelAire), ymin + 1),
       )
-      visuelUniteLongueur.epaisseur = 2
+      visuelUniteLongueur.epaisseur = 1.5
       visuelUniteLongueur.styleExtremites = '|-|'
+      visuelUniteLongueur.tailleExtremites = 2
       const texteUniteLongueur = latex2d(
         '1 ' + uniteLongueur,
         xmax - (1.5 + decalageVisuelAire),

@@ -1,5 +1,8 @@
+import Decimal from 'decimal.js'
 import { abs, acos, equal, largerEq, max, polynomialRoot, round } from 'mathjs'
+import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue'
 import { egal, randint } from '../../modules/outils'
+import { generateCleaner } from '../interactif/comparisonFunctions'
 import { choice } from '../outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -7,10 +10,7 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../outils/ecritures'
-import Decimal from 'decimal.js'
 import { texNombre } from '../outils/texNombre'
-import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue'
-import { generateCleaner } from '../interactif/comparisonFunctions'
 
 type NombreType = number | Decimal | FractionEtendue
 /**
@@ -159,9 +159,9 @@ const clean = generateCleaner(['virgules', 'fractions', 'espaces'])
 const somme = function (a: unknown, b: unknown) {
   if (a instanceof Decimal) {
     if (b instanceof Decimal) return a.add(b)
-    else if (b instanceof FractionEtendue)
+    else if (b instanceof FractionEtendue) {
       return a.add(new Decimal(b.valeurDecimale))
-    else return a.add(new Decimal(String(b)))
+    } else return a.add(new Decimal(String(b)))
   }
   if (a instanceof FractionEtendue) {
     if (b instanceof FractionEtendue) return a.sommeFraction(b).simplifie()
@@ -174,9 +174,9 @@ const produit = function (a: unknown, b: unknown) {
   if (typeof a === 'number' && typeof b === 'number') return a * b
   if (a instanceof Decimal) {
     if (b instanceof Decimal) return a.mul(b)
-    else if (b instanceof FractionEtendue)
+    else if (b instanceof FractionEtendue) {
       return a.mul(new Decimal(b.valeurDecimale))
-    else return a.mul(new Decimal(String(b)))
+    } else return a.mul(new Decimal(String(b)))
   }
   if (a instanceof FractionEtendue) {
     if (b instanceof FractionEtendue) return a.produitFraction(b).simplifie()
@@ -185,17 +185,18 @@ const produit = function (a: unknown, b: unknown) {
 }
 
 const quotient = function (a: unknown, b: unknown) {
-  if (egal(Number(b), 0))
+  if (egal(Number(b), 0)) {
     window.notify('quotient de Polynome.js a reçu un diviseur nul', {
       dividende: a,
       diviseur: b,
     })
+  }
   if (typeof a === 'number' && typeof b === 'number') return a / b
   if (a instanceof Decimal) {
     if (b instanceof Decimal) return a.div(b)
-    else if (b instanceof FractionEtendue)
+    else if (b instanceof FractionEtendue) {
       return a.div(new Decimal(b.valeurDecimale))
-    else return a.div(new Decimal(String(b)))
+    } else return a.div(new Decimal(String(b)))
   }
   if (a instanceof FractionEtendue) {
     if (b instanceof FractionEtendue) return a.diviseFraction(b).simplifie()
@@ -351,8 +352,9 @@ export class Polynome {
       }
       const degMin = Math.min(this.deg, p.deg)
       for (let i = 0; i <= degMin; i++) {
-        if (!egal(Number(p.monomes[i]), Number(this.monomes[i]), 1e-15))
+        if (!egal(Number(p.monomes[i]), Number(this.monomes[i]), 1e-15)) {
           return false
+        }
       }
       for (let i = degMin + 1; i <= Math.max(p.deg, this.deg); i++) {
         if (i <= this.deg) {
@@ -763,5 +765,39 @@ export class Polynome {
   image(x: number) {
     // const fonction = x => this.monomes.reduce((val, current, currentIndex) => val + current * x ** currentIndex, 0)
     return this.fonction(x)
+  }
+
+  /**
+   * Construit un polynôme à partir de ses racines
+   * @param roots Liste des racines du polynôme
+   * @param useFraction Utiliser des fractions pour les coefficients
+   * @param useDecimal Utiliser des décimaux pour les coefficients
+   * @returns {Polynome} Polynôme dont les racines sont celles données en paramètre
+   * @example Polynome.fromRoots([1, 2, 3]) donne (x-1)(x-2)(x-3) = x³-6x²+11x-6
+   */
+  static fromRoots(
+    roots: NombreType[],
+    useFraction = false,
+    useDecimal = false,
+  ): Polynome {
+    if (roots.length === 0) {
+      return new Polynome({ coeffs: [1] })
+    }
+
+    // Commencer avec le polynôme constant 1
+    let result = new Polynome({ coeffs: [1], useFraction, useDecimal })
+
+    // Multiplier par chaque facteur (x - racine)
+    for (const root of roots) {
+      // Créer le polynôme (x - root) = [-root, 1]
+      const factor = new Polynome({
+        coeffs: [typeof root === 'number' ? -root : produit(root, -1), 1],
+        useFraction,
+        useDecimal,
+      })
+      result = result.multiply(factor)
+    }
+
+    return result
   }
 }

@@ -48,8 +48,9 @@ export function areSameObject(o1: unknown, o2: unknown): boolean {
  * Retourne true si ar1 et ar2 sont deux tableaux de même longueur, avec les même valeurs dans le même ordre
  */
 export function areSameArray(ar1: unknown[], ar2: unknown[]): boolean {
-  if (!Array.isArray(ar1) || !Array.isArray(ar2) || ar1.length !== ar2.length)
+  if (!Array.isArray(ar1) || !Array.isArray(ar2) || ar1.length !== ar2.length) {
     return false
+  }
   return ar1.every((elt, i) => areSameValues(elt, ar2[i]))
 }
 /**
@@ -479,11 +480,12 @@ export function shuffle3tableaux<T, U, V>(
  */
 export function combinaisonListes<T>(liste: T[], tailleMinimale?: number) {
   if (tailleMinimale === undefined) tailleMinimale = liste.length
-  if (liste.length === 0)
+  if (liste.length === 0) {
     window.notify(
       'erreur dans CombinaisonListes : la liste à combiner est vide',
       { liste },
     )
+  }
   let l = shuffle(liste) // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
     l = l.concat(shuffle(liste))
@@ -502,11 +504,12 @@ export function combinaisonListes<T>(liste: T[], tailleMinimale?: number) {
  * @author Eric Elter
  */
 export function combinaisonListes2<T>(liste: T[], tailleMinimale: number) {
-  if (liste.length === 0)
+  if (liste.length === 0) {
     window.notify(
       'erreur dans CombinaisonListes : la liste à combiner est vide',
       { liste },
     )
+  }
   let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
     l = l.concat(choice(liste) as T[])
@@ -519,11 +522,12 @@ export function combinaisonListesSansChangerOrdre<T>(
   tailleMinimale: number,
 ) {
   // Concatène liste à elle-même sans changer l'ordre
-  if (liste.length === 0)
+  if (liste.length === 0) {
     window.notify(
       'erreur dans CombinaisonListes : la liste à combiner est vide',
       { liste },
     )
+  }
   let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
     l = l.concat(liste)

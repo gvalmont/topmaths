@@ -1228,7 +1228,7 @@ const waitForElement = async (
         reject(new Error(`Element not found ${elementId}`))
       } else {
         tempTime++
-        console.log(`Waiting for ${elementId}`, tempTime)
+        // console.log(`Waiting for ${elementId}`, tempTime)
       }
     }, 100) // check every 100ms
   })

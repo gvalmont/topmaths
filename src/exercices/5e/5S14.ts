@@ -142,7 +142,6 @@ export default class CalculerDesMoyennes extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: texteCorr,
@@ -152,7 +151,6 @@ export default class CalculerDesMoyennes extends Exercice {
             },
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: '',

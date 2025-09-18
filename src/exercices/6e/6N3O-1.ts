@@ -1,16 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
+import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../lib/outils/nombres'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../Exercice'
 
 export const titre = 'Trouver un pourcentage dans un problème'
 export const dateDePublication = '04/06/2025'
@@ -25,7 +25,7 @@ export const interactifReady = true
 export const uuid = '66c48'
 
 export const refs = {
-  'fr-fr': ['6N1E-2'],
+  'fr-fr': ['6N3O-1'],
   'fr-2016': ['6N23-12'],
   'fr-ch': [''],
 }

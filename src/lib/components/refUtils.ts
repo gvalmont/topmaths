@@ -257,7 +257,7 @@ export function isReferentielActivated(refName: string): boolean {
   if (referentielList.has(refName)) {
     return referentielList.get(refName) === 'true'
   } else {
-    console.log(refName + ' is not a valid referentiel name !')
+    console.warn(refName + ' is not a valid referentiel name !')
     return false
   }
 }

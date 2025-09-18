@@ -20,7 +20,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer l\'image d\'une fraction par une fonction polynome du second degré'
+export const titre = 'Déterminer l\'image d\'une fraction par une fonction polynôme du second degré'
 export default class AutoF1f extends ExerciceQcmA {
  versionOriginale: () => void = () => {
     this.enonce = `On considère la fonction  $f$ définie sur $\\mathbb{R}$ par $f(x)=2x^2+5x+8$<br>
@@ -48,6 +48,8 @@ export default class AutoF1f extends ExerciceQcmA {
 
 versionAleatoire = () => {
     const listeFractions = [
+      [1, 3],
+       [1,6],
       [2, 3],
       [3, 4],
       [3, 5],
@@ -60,7 +62,7 @@ versionAleatoire = () => {
       [2, 5],
     ]
     const frac = choice(listeFractions)
-    const f = choice([true, false])?  new FractionEtendue(frac[0], frac[1]).produitFraction(new FractionEtendue(-1, 1)) :  new FractionEtendue(frac[0], frac[1])
+    const f =  new FractionEtendue(frac[0], frac[1]).produitFraction(new FractionEtendue(-1, 1))
     const a = randint(-2, 2, 0)
     const b = randint(-5, 5, [-1,0,1])
     const c = randint(-2, 2, 0)

@@ -1,7 +1,7 @@
 import type { MathfieldElement } from 'mathlive'
 import type Exercice from '../../exercices/Exercice'
-import { fonctionComparaison } from './comparisonFunctions'
 import { sp } from '../outils/outilString'
+import { fonctionComparaison } from './comparisonFunctions'
 
 // Un barème qui ne met qu'un point si tout est juste
 export function toutPourUnPoint(listePoints: number[]): [number, number] {
@@ -28,6 +28,7 @@ export function verifQuestionMathLive(
   writeResult = true,
 ) {
   let noFeedback = false
+  let champTexte: HTMLInputElement | MathfieldElement | null = null
   const getCustomFeedback =
     exercice.autoCorrection[i]?.reponse?.valeur?.feedback
   if (exercice.autoCorrection[i]?.reponse == null) {
@@ -58,7 +59,6 @@ export function verifQuestionMathLive(
     `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
   ) as HTMLSpanElement
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-  let champTexte
   const reponses = exercice.autoCorrection[i].reponse.valeur
   if (reponses == null) {
     window.notify(
@@ -228,28 +228,31 @@ export function verifQuestionMathLive(
             points.push(0)
             mfe.setPromptState(key, 'incorrect', true)
             if (result.feedback === 'saisieVide') result.feedback = null
-            else
+            else {
               result = {
                 isOk: false,
                 feedback:
                   ` Le résultat dans la zone de saisie${variables.length > 1 ? ` N°${key.charAt(key.length - 1)}` : ''}  est incorrect.<br>` +
                   sp(7),
               }
+            }
           }
           mfe.classList.add('corrected')
           if (result.feedback != null) feedback += result.feedback
         }
         if (compteurBonnesReponses === variables.length) feedback = ''
-        else if (compteurBonnesReponses === 0 && compteurSaisiesVides === 0)
+        else if (compteurBonnesReponses === 0 && compteurSaisiesVides === 0) {
           feedback =
             variables.length === 1
               ? " Le résultat n'est pas correct."
               : " Aucun résultat n'est correct."
+        }
 
-        if (compteurSaisiesVides === 1)
+        if (compteurSaisiesVides === 1) {
           feedback += ` Il manque une réponse dans ${variables.length === 1 ? 'la' : 'une'} zone de saisie.<br>`
-        else if (compteurSaisiesVides > 1)
+        } else if (compteurSaisiesVides > 1) {
           feedback += ` Il manque une réponse dans ${compteurSaisiesVides} zones de saisie.<br>`
+        }
 
         if (typeof reponses.feedback === 'function') {
           feedback += reponses.feedback(saisies)
@@ -321,12 +324,13 @@ export function verifQuestionMathLive(
 
     const options = objetReponse.options ?? {}
     noFeedback = options.noFeedback ?? false
-    if (saisie == null || saisie === '')
+    if (saisie == null || saisie === '') {
       return {
         isOk: false,
         feedback: noFeedback ? '' : 'Vous devez saisir une réponse.',
         score: { nbBonnesReponses: 0, nbReponses: 1 },
       }
+    }
     let isOk = false
     let ii = 0
     let reponse
@@ -357,6 +361,7 @@ export function verifQuestionMathLive(
         feedback = check.feedback ?? ''
       }
     }
+
     if (spanReponseLigne != null) {
       spanReponseLigne.innerHTML = ''
       if (customFeedback.length > 0) {

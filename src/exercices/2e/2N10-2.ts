@@ -6,7 +6,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '27/10/2021'
 /**
- * Clone de 6N30-2 pour les 2nde
+ * Clone de 6N1H-2 pour les 2nde
  *
  * @author Jean-Claude Lhote et Rémi Angot
  */
@@ -19,6 +19,6 @@ export const refs = {
 export default class PlacerPointsSurAxe2nde extends PlacerPointsSurAxe {
   constructor() {
     super()
-    this.sup = 4
+    this.sup = 3
   }
 }

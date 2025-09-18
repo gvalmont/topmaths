@@ -53,6 +53,8 @@ export type LatexFileInfos = {
     [key: string]: {
       labels?: string
       itemsep?: number
+      cols?: number
+      cols_corr?: number
       blocrep?: { nbligs: number; nbcols: number }
     }
   }
@@ -126,11 +128,12 @@ class Latex {
     latexFileInfos: LatexFileInfos,
     indiceVersion: number = 1,
   ): { content: string; contentCorr: string } {
-    if (latexFileInfos.style === 'ProfMaquette')
+    if (latexFileInfos.style === 'ProfMaquette') {
       return {
         content: this.getContentForAVersionProfMaquette(1, latexFileInfos),
         contentCorr: '',
       }
+    }
     if (latexFileInfos.style === 'ProfMaquetteQrcode') {
       latexFileInfos.qrcodeOption = 'AvecQrcode'
       return {
@@ -183,8 +186,9 @@ class Latex {
                   questionLiee[j].dejaLiee = exercice.listeCanLiees[j].includes(
                     exercice.listeCanNumerosLies[i],
                   )
-                  if (questionLiee[j].dejaLiee)
+                  if (questionLiee[j].dejaLiee) {
                     questionLiee[i].compteurQuestionsLiees++
+                  }
                   questionSuivante =
                     questionLiee[j] && j < exercice.listeQuestions.length - 1
                   j++
@@ -194,8 +198,9 @@ class Latex {
 
             // L'énoncé des CAN est dépendant des questions liées ou pas
             content += '\\CompteurTC  &'
-            if (questionLiee[i].compteurQuestionsLiees !== 0)
+            if (questionLiee[i].compteurQuestionsLiees !== 0) {
               content += `\\SetCell[r=${questionLiee[i].compteurQuestionsLiees + 1}]{c}`
+            }
             content += !questionLiee[i].dejaLiee
               ? ` { ${format(enonce)} }&`
               : '&'
@@ -212,8 +217,9 @@ class Latex {
             if (
               i + 1 < exercice.listeQuestions.length &&
               questionLiee[i + 1].dejaLiee
-            )
-              content += '*' // Cette étoile permet de gérer les sauts de page malencontreux
+            ) {
+              content += '*'
+            } // Cette étoile permet de gérer les sauts de page malencontreux
             content += '\n'
           }
           for (const correction of exercice.listeCorrections) {
@@ -289,8 +295,9 @@ class Latex {
               contentCorr += `\n${Number(exercice.nbQuestions) > 1 ? '\\item' : ''} ${format(correction)}`
             }
           }
-          if (Number(exercice.nbQuestions) > 1)
+          if (Number(exercice.nbQuestions) > 1) {
             contentCorr += '\n\\end{enumerate}\n'
+          }
           if (Number(exercice.nbColsCorr) > 1) {
             contentCorr += '\\end{multicols}\n'
           }
@@ -341,8 +348,9 @@ class Latex {
         }
         continue
       }
-      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions'))
+      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) {
         continue
+      }
       const seed =
         indiceVersion > 1
           ? exercice.seed + indiceVersion.toString()
@@ -352,8 +360,9 @@ class Latex {
         mathaleaHandleExerciceSimple(exercice, false)
       } else {
         seedrandom(seed, { global: true })
-        if (typeof exercice.nouvelleVersionWrapper === 'function')
+        if (typeof exercice.nouvelleVersionWrapper === 'function') {
           exercice.nouvelleVersionWrapper()
+        }
       }
     }
   }
@@ -370,6 +379,8 @@ class Latex {
         labels?: string
         itemsep?: number
         blocrep?: { nbligs: number; nbcols: number }
+        cols?: number
+        cols_corr?: number
       } =
         latexFileInfos.exos && latexFileInfos.exos[k]
           ? latexFileInfos.exos[k]
@@ -381,11 +392,19 @@ class Latex {
         } else {
           content += '\n\\needspace{10\\baselineskip}'
           if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
-            content += `\n\\begin{exercice}[Ajout={\\node[anchor=north east, inner sep=2pt] 
+            content += `\n\\begin{exercice}[${
+              latexFileInfos.titleOption === 'AvecTitre'
+                ? `Titre=${latexFileInfos.titleOption}, `
+                : ''
+            }Ajout={\\node[anchor=north east, inner sep=2pt] 
         at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice)}&v=eleve&es=0211}};
 }]%[Lignes=5,Interieur]`
           } else {
-            content += '\n\\begin{exercice}%[Lignes=5,Interieur]\n'
+            content += `\n\\begin{exercice}${
+              latexFileInfos.titleOption === 'AvecTitre'
+                ? `[Titre=${latexFileInfos.titleOption}]`
+                : ''
+            }%[Lignes=5,Interieur]\n`
           }
           content += exercice.content
           content += '\n\\end{exercice}\n'
@@ -396,11 +415,19 @@ class Latex {
       } else {
         content += '\n\\needspace{10\\baselineskip}'
         if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
-          content += `\n\\begin{exercice}[Ajout={\\node[anchor=north east, inner sep=2pt] 
+          content += `\n\\begin{exercice}[${
+            latexFileInfos.titleOption === 'AvecTitre'
+              ? `Titre=${exercice.titre}, `
+              : ''
+          }Ajout={\\node[anchor=north east, inner sep=2pt]
         at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice)}&v=eleve&es=0211}};
 }]%[Lignes=5,Interieur]`
         } else {
-          content += '\n\\begin{exercice}%[Lignes=5,Interieur]\n'
+          content += `\n\\begin{exercice}${
+            latexFileInfos.titleOption === 'AvecTitre'
+              ? `[Titre=${exercice.titre}]`
+              : ''
+          }%[Lignes=5,Interieur]\n`
         }
         content += testIfLoaded(
           [
@@ -411,6 +438,13 @@ class Latex {
           '\\anote{',
           '\n\\resetcustomnotes',
         )
+        if (
+          latexFileInfos.qrcodeOption === 'AvecQrcode' &&
+          (exercice.introduction.length > 40 || exercice.consigne.length > 40)
+        ) {
+          // il faut un espace pour le QRCODE
+          content += '\n\\vspace{2cm}'
+        }
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
         content += writeInCols(
@@ -421,7 +455,7 @@ class Latex {
             Number(exercice.nbCols),
             confExo,
           ),
-          Number(exercice.nbCols),
+          confExo.cols ? confExo.cols : Number(exercice.nbCols),
         )
         content += testIfLoaded(
           [
@@ -446,7 +480,7 @@ class Latex {
             Boolean(exercice.listeAvecNumerotation),
             Number(exercice.nbCols),
           ),
-          Number(exercice.nbColsCorr),
+          confExo.cols_corr ? confExo.cols_corr : Number(exercice.nbColsCorr),
         )
         content += testIfLoaded(
           [...exercice.listeCorrections],
@@ -482,7 +516,7 @@ class Latex {
             i,
             latexFileInfos,
           )
-          contents.content += `\n\\begin{Maquette}[Fiche=${latexFileInfos.typeFiche === 'Fiche' ? 'true' : 'false'},IE=${latexFileInfos.typeFiche === 'Fiche' ? 'false' : 'true'}]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'},Code= ,Calculatrice=false}\n`
+          contents.content += `\n\\begin{Maquette}[Fiche=${latexFileInfos.typeFiche === 'Fiche' ? 'true' : 'false'},IE=${latexFileInfos.typeFiche === 'Fiche' ? 'false' : 'true'}]{Numero= ,Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'},Code= ,Calculatrice=false}\n`
           contents.content += contentVersion
 
           contents.content += '\n\\end{Maquette}'
@@ -674,8 +708,9 @@ ${
     for (const pack of latexPackages) {
       logPDF(`pack: ${pack} : ${window.location.href}`)
       if (pack === 'bclogo') {
-        if (!contents.preamble.includes('bclogo'))
+        if (!contents.preamble.includes('bclogo')) {
           contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
+        }
       } else {
         contents.preamble += '\n\\usepackage{' + pack + '}'
       }
@@ -904,8 +939,9 @@ export function getPicsNames(exosContentList: ExoContent[]) {
       const pics: RegExpMatchArray[] = []
       // on supprime les phrases avec des commentaires
       const content = [...exo.content.matchAll(regDeleteCommentaires)]
-      if (exo.contentCorr)
+      if (exo.contentCorr) {
         content.push(...exo.contentCorr.matchAll(regDeleteCommentaires))
+      }
       content.forEach((list) => {
         // on recherche sur les lignes restantes si une image ou plusieurs images sont présentes
         const matchIm = Array.from(list[0].matchAll(regExpImage))
@@ -1003,10 +1039,12 @@ function getUrlFromExercice(ex: TypeExercice) {
   const url = new URL('https://coopmaths.fr/alea')
   url.searchParams.append('uuid', String(ex.uuid))
   if (ex.id !== undefined) url.searchParams.append('id', ex.id)
-  if (ex.nbQuestions !== undefined)
+  if (ex.nbQuestions !== undefined) {
     url.searchParams.append('n', ex.nbQuestions.toString())
-  if (ex.duration !== undefined)
+  }
+  if (ex.duration !== undefined) {
     url.searchParams.append('d', ex.duration.toString())
+  }
   if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
   if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
   if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
@@ -1014,10 +1052,12 @@ function getUrlFromExercice(ex: TypeExercice) {
   if (ex.sup5 !== undefined) url.searchParams.append('s5', ex.sup5)
   if (ex.seed !== undefined) url.searchParams.append('alea', ex.seed)
   if (ex.interactif) url.searchParams.append('i', '1')
-  if (ex.correctionDetaillee !== undefined)
+  if (ex.correctionDetaillee !== undefined) {
     url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
-  if (ex.nbCols !== undefined)
+  }
+  if (ex.nbCols !== undefined) {
     url.searchParams.append('cols', ex.nbCols.toString())
+  }
   return url.href.replaceAll('%', '\\%')
 }
 

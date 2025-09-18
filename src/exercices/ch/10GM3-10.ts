@@ -39,7 +39,7 @@ export default class ConvertirDuree extends Exercice {
       'Quarts et demi-heures seulement',
       false,
     ]
-    this.besoinFormulaire3CaseACocher = [`Dixièmes d'heure seulement`, true]
+    this.besoinFormulaire3CaseACocher = ["Dixièmes d'heure seulement", true]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
   }
@@ -90,7 +90,7 @@ export default class ConvertirDuree extends Exercice {
       let uniteDepart: string = ''
       let uniteArrivee: string = ''
       let reponse: number | string = 0
-      let estApproximation: boolean = false
+      const estApproximation: boolean = false
 
       // Déterminer les unités selon le type de question
       switch (typeDeQuestion) {
@@ -181,7 +181,7 @@ export default class ConvertirDuree extends Exercice {
             if (this.sup3) {
               valeurDepart = Math.round((valeurDepart as number) * 10) / 10
             }
-            let dureeDepArr = new Grandeur(valeurDepart, uniteDepart)
+            const dureeDepArr = new Grandeur(valeurDepart, uniteDepart)
             reponse = dureeDepArr.toHHMMSS()
           } else {
             reponse = dureeBase.toHHMMSS()
@@ -209,18 +209,18 @@ export default class ConvertirDuree extends Exercice {
 
             // Vérifier si c'est une approximation (plus de 2 décimales)
             if (Math.round(reponseB * 100) !== reponseB * 100) {
-              //estApproximation = true
+              // estApproximation = true
               // Arrondir à 2 décimales pour la cohérence
               reponse = Math.round(reponseB * 100) / 100
             }
             if (Math.round(reponseB * 10) !== reponseB * 10 && this.sup3) {
-              //estApproximation = true
+              // estApproximation = true
               // Arrondir à 2 décimales pour la cohérence
               reponse = Math.round(reponseB * 10) / 10
             } else {
               reponse = reponseB
             }
-            //reponse = reponseB
+            // reponse = reponseB
           }
         }
       } while (
@@ -253,12 +253,14 @@ export default class ConvertirDuree extends Exercice {
             if (h > 0) parts.push(`${h}\\text{ ${h <= 1 ? 'heure' : 'heures'}}`)
           } else if (match.includes(' min')) {
             const m = parseInt(match.replace(' min', ''))
-            if (m > 0)
+            if (m > 0) {
               parts.push(`${m}\\text{ ${m <= 1 ? 'minute' : 'minutes'}}`)
+            }
           } else if (match.includes(' s')) {
             const s = parseInt(match.replace(' s', ''))
-            if (s > 0)
+            if (s > 0) {
               parts.push(`${s}\\text{ ${s <= 1 ? 'seconde' : 'secondes'}}`)
+            }
           }
         })
 
@@ -373,9 +375,9 @@ export default class ConvertirDuree extends Exercice {
           const hmsString = reponse as string
           const parts =
             hmsString.match(/(\d+)\s*h|(\d+)\s*min|(\d+)\s*s/g) || []
-          let heures = 0,
-            minutes = 0,
-            secondes = 0
+          let heures = 0
+          let minutes = 0
+          let secondes = 0
 
           parts.forEach((part) => {
             if (part.includes('h')) {
@@ -449,8 +451,7 @@ export default class ConvertirDuree extends Exercice {
     let texteCorr = ''
 
     switch (typeDeQuestion) {
-      case 1: // hhmmss → hdec
-        // Extraire h, m, s du nouveau format "X h Y min Z s"
+      case 1: { // Extraire h, m, s du nouveau format "X h Y min Z s" // hhmmss → hdec
         const valStr1 = valeurDepart as string
         const h1 = valStr1.match(/(\d+) h/)
           ? parseInt(valStr1.match(/(\d+) h/)![1])
@@ -461,7 +462,8 @@ export default class ConvertirDuree extends Exercice {
         const s1 = valStr1.match(/(\d+) s/)
           ? parseInt(valStr1.match(/(\d+) s/)![1])
           : 0
-        texteCorr = `Pour convertir un temps au format heures minutes secondes en heures, on convertit les minutes et secondes en fractions d'heures. <br>`
+        texteCorr =
+          "Pour convertir un temps au format heures minutes secondes en heures, on convertit les minutes et secondes en fractions d'heures. <br>"
         if (h1 > 0) {
           texteCorr += ` Le nombre d'heures ne change pas : $${h1}\\text{\\,h}$. <br>`
         }
@@ -478,7 +480,7 @@ export default class ConvertirDuree extends Exercice {
             texteCorr += `${!estApproximation ? '=' : '\\approx'}`
             texteCorr += `${this.sup3 ? `${texNombre(minToHours, 1)}` : `${texNombre(minToHours, 2)}`}\\text{\\,h}$. <br>`
           } else {
-            texteCorr += `$. <br>`
+            texteCorr += '$. <br>'
           }
         }
         const secToHours = s1 / 3600
@@ -492,7 +494,7 @@ export default class ConvertirDuree extends Exercice {
           if (isPeriodicSec) estApproximation = true
           texteCorr += `On divise le nombre de secondes par $3600$ pour le convertir en heures : $${s1}\\text{\\,s} = \\dfrac{${s1}}{3600}\\text{\\,h} ${isExactSec ? `=${secToHours}\\text{\\,h}` : ''}$.<br>`
         }
-        texteCorr += `On somme : $`
+        texteCorr += 'On somme : $'
         const parts = []
         if (h1 > 0) parts.push(`${h1}`)
         if (m1 > 0) {
@@ -524,9 +526,9 @@ export default class ConvertirDuree extends Exercice {
         } else {
           texteCorr += ` = ${texNombre(reponse as number, 2)}$`
         }
-        texteCorr += `. Ainsi,`
+        texteCorr += '. Ainsi,'
         break
-
+      }
       case 2: // hhmmss → mindec
         {
           // Extraire h, m, s du nouveau format "X h Y min Z s"
@@ -541,8 +543,9 @@ export default class ConvertirDuree extends Exercice {
             ? parseInt(valStr2.match(/(\d+) s/)![1])
             : 0
           const totalMinutes = h2 * 60 + m2 + s2 / 60
-          texteCorr = `Pour convertir un temps au format heures minutes secondes en minutes, `
-          texteCorr += `on convertit tout en minutes :<br><br>`
+          texteCorr =
+            'Pour convertir un temps au format heures minutes secondes en minutes, '
+          texteCorr += 'on convertit tout en minutes :<br><br>'
           const secToMin = s2 / 60
           const isExactSec = Math.round(secToMin * 1000) === secToMin * 1000
           if (h2 > 0) {
@@ -573,8 +576,8 @@ export default class ConvertirDuree extends Exercice {
         }
         break
 
-      case 3: // hdec → hhmmss
-        // Utiliser la valeur affichée pour la cohérence avec le résultat final
+      case 3: // Utiliser la valeur affichée pour la cohérence avec le résultat final // hdec → hhmmss
+      {
         const heuresTotales = valeurDepart as number
         const heuresEnt = Math.floor(heuresTotales)
 
@@ -593,13 +596,15 @@ export default class ConvertirDuree extends Exercice {
         // Calculer les valeurs intermédiaires cohérentes
         const partieDecimale = heuresTotales - heuresEnt
 
-        texteCorr = `Pour convertir des heures en format heures minutes secondes, on sépare la partie entière (heures) et on convertit la partie décimale.<br><br>`
+        texteCorr =
+          'Pour convertir des heures en format heures minutes secondes, on sépare la partie entière (heures) et on convertit la partie décimale.<br><br>'
 
         // Utiliser la précision d'affichage (2 décimales) pour la cohérence
         texteCorr += `$${texNombre(heuresTotales, 2)}\\text{\\,h} = ${heuresEnt}\\text{\\,h} + ${texNombre(partieDecimale, 2)}\\text{\\,h}$`
 
         if (partieDecimale > 0) {
-          texteCorr += `<br><br>Conversion de la partie décimale en secondes :<br>`
+          texteCorr +=
+            '<br><br>Conversion de la partie décimale en secondes :<br>'
 
           // Convertir d'abord en secondes totales
           const secondesTotales = partieDecimale * 3600
@@ -617,15 +622,16 @@ export default class ConvertirDuree extends Exercice {
           }
         }
         break
-
-      case 4: // mindec → hhmmss
+      }
+      case 4: { // mindec → hhmmss
         const minTotales = valeurDepart as number
         const heures4 = Math.floor(minTotales / 60)
         const minutesRestantes = minTotales - heures4 * 60
         const minutes4 = Math.floor(minutesRestantes)
         const secondes4 = Math.round((minutesRestantes - minutes4) * 60)
 
-        texteCorr = `Pour convertir des minutes en format heures minutes secondes, on divise par 60 pour obtenir le nombre d'heures, puis on traite le reste.<br><br>`
+        texteCorr =
+          "Pour convertir des minutes en format heures minutes secondes, on divise par 60 pour obtenir le nombre d'heures, puis on traite le reste.<br><br>"
         texteCorr += `Le nombre d'heures entières correspond au chiffre des unités du quotient $${texNombre(minTotales, 2)}\\text{\\,min} \\div 60$, soit $${heures4}\\text{\\,h}$. `
         if (heures4 > 0) {
           texteCorr += `<br><br>Il reste à convertir : $${minTotales}-${heures4}\\times 60 =${texNombre(minutesRestantes, 2)}\\text{\\,min}$ en minutes et secondes.`
@@ -638,20 +644,26 @@ export default class ConvertirDuree extends Exercice {
           texteCorr += `<br><br> Il y a un nombre entier de minutes, donc $${minutes4}\\text{\\,min}$ et $0\\text{\\,s}$.`
         }
         break
-
-      case 5: // hdec → mindec
-        texteCorr = `Pour convertir des heures en minutes, on multiplie par 60 (car $1\\text{\\,h} = 60\\text{\\,min}$).<br><br>`
+      }
+      case 5: { // hdec → mindec
+        texteCorr =
+          'Pour convertir des heures en minutes, on multiplie par 60 (car $1\\text{\\,h} = 60\\text{\\,min}$).<br><br>'
         const egalite5 = estApproximation ? '\\approx' : '='
         texteCorr += `$${texNombre(valeurDepart as number, 2)}\\text{\\,h} = ${texNombre(valeurDepart as number, 2)} \\times 60 \\text{\\,min}${egalite5} ${texNombre(reponse as number, 2)}\\text{\\,min}$`
         break
-
-      case 6: // mindec → hdec
-        texteCorr = `Pour convertir des minutes en heures, on divise par 60 (car $60\\text{\\,min} = 1\\text{\\,h}$).<br><br>`
-        if (texNombre(reponse as number, 2) !== texNombre(reponse as number, 3))
+      }
+      case 6: { // mindec → hdec
+        texteCorr =
+          'Pour convertir des minutes en heures, on divise par 60 (car $60\\text{\\,min} = 1\\text{\\,h}$).<br><br>'
+        if (
+          texNombre(reponse as number, 2) !== texNombre(reponse as number, 3)
+        ) {
           estApproximation = true
+        }
         const egalite6 = estApproximation ? '\\approx' : '='
         texteCorr += `$${texNombre(valeurDepart as number, 2)}\\text{\\,min} = ${texNombre(valeurDepart as number, 2)} \\div 60 \\text{\\,h}${egalite6} ${texNombre(reponse as number, 2)}\\text{\\,h}$`
         break
+      }
     }
 
     return { texte: texteCorr, estApproximation }

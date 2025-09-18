@@ -1,20 +1,20 @@
+import Decimal from 'decimal.js'
+import { format } from 'mathjs'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import {
-  ajouteChampTexteMathLive,
-  remplisLesBlancs,
-} from '../../lib/interactif/questionMathLive'
-import { format } from 'mathjs'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import Decimal from 'decimal.js'
+import Exercice from '../Exercice'
 
-export const titre = "Donner l'écriture décimale ou la fraction décimale"
+export const titre = "Donner l'écriture décimale ou une fraction décimale"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -25,11 +25,11 @@ export const dateDePublication = '28/09/22'
  * On donne une fraction qui a pour dénominateur 10, 100 ou 1 000, il faut donner l'écriture décimale.
  * ou réciproquement
  * Le numérateur est de la forme X, XX, X0X, X00X ou XXX
- * @author Mickael Guironet
+ * @author Mickael Guironnet
  */
 
 export const refs = {
-  'fr-fr': ['BP2AutoC4', '6N1F-1'],
+  'fr-fr': ['6N1F-1', 'BP2AutoC4'],
   'fr-2016': ['6N23-8', 'BP2AutoC4'],
   'fr-ch': ['9NO10-10'],
 }
@@ -94,7 +94,7 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
           consi[1] = true
           handleAnswers(this, i, { reponse: { value: texNombre(n, 3) } })
           texte =
-            `$${texFraction(String(a), String(b))}  ${!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '='} $` +
+            `$${texFraction(texNombre(a), texNombre(b))}  ${!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '='} $` +
             ajouteChampTexteMathLive(this, i, '')
           texteCorr =
             '$ ' +
@@ -151,7 +151,9 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
               })
             }
           } else {
-            texte = `$${texNombre(n, precision, this.sup3)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
+            texte = this.sup2
+              ? `$${texNombre(n, precision, this.sup3)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
+              : `$${texNombre(n, precision, this.sup3)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots')} $`
           }
           texteCorr =
             '$ ' +
@@ -175,12 +177,14 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
       cpt++
     }
     if (consi[0] === true && consi[1] === true) {
-      this.consigne = "Donner l'écriture décimale ou la fraction décimale."
+      this.consigne = "Donner l'écriture décimale ou une fraction décimale"
     } else if (consi[0] === false && consi[1] === true) {
       this.consigne = "Donner l'écriture décimale"
     } else {
-      this.consigne = 'Donner la fraction décimale'
+      this.consigne = 'Donner une fraction décimale'
     }
+    this.consigne +=
+      this.nbQuestions > 1 ? ' de ces nombres.' : ' de ce nombre.'
     listeQuestionsToContenu(this)
   }
 }

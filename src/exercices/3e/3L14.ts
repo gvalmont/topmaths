@@ -114,12 +114,12 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + `$(x+${b})(x+${d})=0$`
           texteCorr +=
-            '<br> Soit ' +
+            '<br> ' +
             `$x+${b}=0$` +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             `$x+${d}=0$`
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             `$x=${0 - b}$` +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             `$x=${0 - d}$`
@@ -136,12 +136,12 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
           texteCorr +=
-            '<br> Soit ' +
+            '<br> ' +
             (choix === 0 ? `$x-${b}=0$` : `$x+${d}=0$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$x+${d}=0$` : `$x-${b}=0$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$x=${b}$` : `$x=${-d}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$x=${-d}$` : `$x=${b}$`)
@@ -166,24 +166,24 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
           texteCorr +=
-            '<br> Soit ' +
+            '<br> ' +
             (choix === 0 ? `$x+${b}=0$` : `$${c}x+${d}=0$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$${c}x+${d}=0$` : `$x+${b}=0$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$x=${-b}$` : `$${c}x=${-d}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$${c}x=${-d}$` : `$x=${-b}$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0
               ? `$x=${-b}$`
               : `$x=-${texFractionFromString(d, c)}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${-b}$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$x=${-b}$` : `$x=${-d / c}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$x=${-d / c}$` : `$x=${-b}$`)
@@ -210,22 +210,22 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
           texteCorr +=
-            '<br> Soit ' +
+            '<br> ' +
             (choix === 0 ? `$x-${b}=0$` : `$${c}x+${d}=0$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$${c}x+${d}=0$` : `$x-${b}=0$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$x=${b}$` : `$${c}x=${-d}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$${c}x=${-d}$` : `$x=${b}$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$x=${b}$` : `$x=-${texFractionFromString(d, c)}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${b}$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$x=${b}$` : `$x=${-d / c}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$x=${-d / c}$` : `$x=${b}$`)
@@ -247,22 +247,22 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
           texteCorr +=
-            '<br> Soit ' +
+            '<br> ' +
             `$${a}x+${b}=0$` +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             `$${c}x+${d}=0$`
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             `$${a}x=${-b}$` +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             `$${c}x=${-d}$`
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             `$x=-${texFractionFromString(b, a)}$` +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             `$x=-${texFractionFromString(d, c)}$`
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             `$x=${-b / a}$` +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             `$x=${-d / c}$`
@@ -290,17 +290,17 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
           texteCorr +=
-            '<br> Soit ' +
+            '<br> ' +
             (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$${a}x=${-b}$` : `$${c}x=${d}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${-b}$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0
               ? `$x=-${texFractionFromString(b, a)}$`
               : `$x=${texFractionFromString(d, c)}$`) +
@@ -309,7 +309,7 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
               ? `$x=${texFractionFromString(d, c)}$`
               : `$x=-${texFractionFromString(b, a)}$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$x=${-b / a}$` : `$x=${d / c}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$x=${d / c}$` : `$x=${-b / a}$`)
@@ -331,16 +331,16 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
           texteCorr +=
-            '<br> Soit ' +
+            '<br> ' +
             `$${a}x+${b}=0$` +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             `$${c}x+${d}=0$`
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             `$${a}x=${0 - b}$` +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             `$${c}x=${0 - d}$`
-          texteCorr += '<br> Donc ' + `$x=-${texFractionFromString(b, a)}$`
+          texteCorr += '<br> ' + `$x=-${texFractionFromString(b, a)}$`
           if (texFractionFromString(b, a) !== texFractionReduite(b, a)) {
             texteCorr += `$=-${texFractionReduite(b, a)}$`
           }
@@ -389,17 +389,17 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
             "Un produit est nul si l'un au moins de ses facteurs est nul."
           texteCorr += '<br>' + texte
           texteCorr +=
-            '<br> Soit ' +
+            '<br> ' +
             (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0 ? `$${a}x=${0 - b}$` : `$${c}x=${d}$`) +
             ` ${texteEnCouleurEtGras('ou', 'black')} ` +
             (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${0 - b}$`)
           texteCorr +=
-            '<br> Donc ' +
+            '<br> ' +
             (choix === 0
               ? `$x=-${texFractionFromString(b, a)}$`
               : `$x=${texFractionFromString(d, c)}$`)

@@ -1,8 +1,8 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = "Déterminer le signe d'une puissance"
@@ -139,7 +139,7 @@ export default class SignePuissance extends Exercice {
               },
             ]
           } else {
-            texteCorr = `$-(-${a})^{${n}}$ est ${texteEnCouleurEtGras('positif')}. L' exposant est impair et -${a} est négatif donc $(-${a})^{${n}}$ est négatif et son opposé est positif.`
+            texteCorr = `$-(-${a})^{${n}}$ est ${texteEnCouleurEtGras('positif')}. L'exposant est impair et -${a} est négatif donc $(-${a})^{${n}}$ est négatif et son opposé est positif.`
             this.autoCorrection[i] = {}
             this.autoCorrection[i].enonce = `${texte}\n`
             this.autoCorrection[i].propositions = [

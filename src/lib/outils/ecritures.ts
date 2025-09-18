@@ -1,17 +1,17 @@
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import Decimal from 'decimal.js'
 import { equal, round } from 'mathjs'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import Grandeur from '../../modules/Grandeur'
+import Hms from '../../modules/Hms'
 import { egal } from '../../modules/outils'
+import type { ReponseComplexe } from '../interactif/gestionInteractif'
 import { miseEnEvidence } from './embellissements'
 import { arrondi } from './nombres'
 import { lettreDepuisChiffre } from './outilString'
 import { stringNombre, texNombre } from './texNombre'
-import { fraction } from '../../modules/fractions'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import Grandeur from '../../modules/Grandeur'
-import Hms from '../../modules/Hms'
-import type { ReponseComplexe } from '../interactif/gestionInteractif'
 
 /**
  * écrit le nombre, mais pas un nombre s'il est égal à 1
@@ -34,8 +34,9 @@ export function rienSi1(a: number | FractionEtendue | Decimal) {
   if (
     a instanceof FractionEtendue &&
     !(a.isEqual(fraction(1, 1)) || a.isEqual(fraction(-1, 1)))
-  )
+  ) {
     return a.toLatex()
+  }
   if (a instanceof FractionEtendue && a.isEqual(fraction(1, 1))) return ''
   if (a instanceof FractionEtendue && a.isEqual(fraction(-1, 1))) return '-'
   if (!(a instanceof FractionEtendue)) {
@@ -66,8 +67,9 @@ export function rienSi0(a: number | FractionEtendue | Decimal) {
     if (a.isZero()) return ''
     return texNombre(a)
   }
-  if (a instanceof FractionEtendue && !a.isEqual(fraction(0, 1)))
+  if (a instanceof FractionEtendue && !a.isEqual(fraction(0, 1))) {
     return a.toLatex()
+  }
   if (a instanceof FractionEtendue && a.isEqual(fraction(0, 1))) return ''
   if (!(a instanceof FractionEtendue)) {
     if (egal(a, 0)) return ''
@@ -198,9 +200,9 @@ export function ecritureAlgebriqueSauf1(a: FractionEtendue | number | Decimal) {
   }
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
-  else if (typeof a === 'number' || a instanceof Decimal)
+  else if (typeof a === 'number' || a instanceof Decimal) {
     return ecritureAlgebrique(a)
-  else {
+  } else {
     window.notify(
       'ecritureAlgebriqueSauf1 : type de valeur non prise en compte',
       {},
@@ -236,13 +238,14 @@ export function ecritureAlgebriquec(a: number | string, color?: string) {
  */
 
 export function signeMoinsEnEvidence(r: number, precision = 0) {
-  if (typeof r !== 'number')
+  if (typeof r !== 'number') {
     window.notify(
       "signeMoinsEnEvidence() appelé avec autre chose qu'un nombre.",
       { argument: r },
     )
-  else if (r < 0) return miseEnEvidence('-') + texNombre(Math.abs(r), precision)
-  else return texNombre(Math.abs(r), precision)
+  } else if (r < 0) {
+    return miseEnEvidence('-') + texNombre(Math.abs(r), precision)
+  } else return texNombre(Math.abs(r), precision)
 }
 
 /**
@@ -257,9 +260,10 @@ export function ecritureParentheseSiNegatif(
 ): string {
   let result = ''
   if (a instanceof Decimal) {
-    if (a.gte(0))
-      return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
-    else return `(${texNombre(a, 8)})`
+    if (a.gte(0)) {
+      return texNombre(a, 8)
+      // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
+    } else return `(${texNombre(a, 8)})`
   } else if (typeof a === 'number') {
     if (a >= 0) {
       result = texNombre(a, 8) // j'ai passé le nombre dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
@@ -288,14 +292,15 @@ export function ecritureParentheseSiMoins(
   expr: string | number | FractionEtendue,
 ) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
-  else if (typeof expr === 'string')
-    return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
-  else if (typeof expr === 'number' && expr < 0)
+  else if (typeof expr === 'string') {
+    return expr
+    // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
+  } else if (typeof expr === 'number' && expr < 0) {
     return `(${stringNombre(expr, 7)})`
-  else if (typeof expr === 'number') return stringNombre(expr, 7)
-  else if (expr instanceof FractionEtendue && expr.s === -1)
+  } else if (typeof expr === 'number') return stringNombre(expr, 7)
+  else if (expr instanceof FractionEtendue && expr.s === -1) {
     return `(${expr.texFSD})`
-  else {
+  } else {
     // avant on passait ici quand c'était un string sans signe - devant... c'était une mauvaise idée !
     window.notify(
       "ecritureParentheseSiMoins() n'accepte pas ce type d'argument.",
@@ -338,11 +343,11 @@ export function egalOuApprox(
       : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
-  } else if (!isNaN(a) && !isNaN(precision))
+  } else if (!isNaN(a) && !isNaN(precision)) {
     return egal(a, round(a, precision), 10 ** (-precision - 2))
       ? '='
       : '\\approx'
-  else {
+  } else {
     window.notify("egalOuApprox : l'argument n'est pas un nombre", {
       a,
       precision,
@@ -414,12 +419,15 @@ export function reduireAxPlusByPlusC(
   inconnueY = 'y',
   options: OptionsReduireAxPlusByPlusC = {},
 ) {
-  if (!(a instanceof Decimal) && !(a instanceof FractionEtendue))
+  if (!(a instanceof Decimal) && !(a instanceof FractionEtendue)) {
     a = new Decimal(a)
-  if (!(b instanceof Decimal) && !(b instanceof FractionEtendue))
+  }
+  if (!(b instanceof Decimal) && !(b instanceof FractionEtendue)) {
     b = new Decimal(b)
-  if (!(c instanceof Decimal) && !(c instanceof FractionEtendue))
+  }
+  if (!(c instanceof Decimal) && !(c instanceof FractionEtendue)) {
     c = new Decimal(c)
+  }
   let valeurDecimaleFraction: number
   let aEgalZero: boolean
   let bEgalZero: boolean
@@ -672,11 +680,12 @@ export function doubleDeveloppement({
   x = 'x',
   reduire = false,
 } = {}) {
-  if (a === 0)
+  if (a === 0) {
     return [
       ...simpleDeveloppement({ a: c, b: d, c: b, x, sommeAGauche: false }),
     ]
-  if (b === 0)
+  }
+  if (b === 0) {
     return [
       ...simpleDeveloppementAvecDoubleX({
         a: c,
@@ -686,6 +695,7 @@ export function doubleDeveloppement({
         sommeAGauche: false,
       }),
     ]
+  }
   if (c === 0) return [...simpleDeveloppement({ a, b, c: d, x })]
   if (d === 0) return [...simpleDeveloppementAvecDoubleX({ a, b, c, x })]
   const expression1 = `${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + x)} + 

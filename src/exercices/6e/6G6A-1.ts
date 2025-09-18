@@ -340,7 +340,7 @@ export default class ConstruireUnTriangle extends Exercice {
           IEP.regleMasquer()
           IEP.crayonMasquer()
           IEP.textePoint(
-            `${segment(Ci, milieu(Ai, Bi)).longueur} cm`,
+            `${stringNombre(segment(Ci, milieu(Ai, Bi)).longueur, 1)} cm`,
             milieu(Ci, milieu(Ai, Bi)),
           )
           break
@@ -452,7 +452,7 @@ export default class ConstruireUnTriangle extends Exercice {
           IEP.regleMasquer()
           IEP.crayonMasquer()
           IEP.textePoint(
-            `${segment(Ci, milieu(Ai, Bi)).longueur} cm`,
+            `${stringNombre(segment(Ci, milieu(Ai, Bi)).longueur, 1)} cm`,
             milieu(Ci, milieu(Ai, Bi)),
           )
           break
@@ -482,7 +482,7 @@ export default class ConstruireUnTriangle extends Exercice {
           lAB = arrondi(disSave[0] / 10)
           lBC = arrondi(disSave[1] / 10)
           lAC = arrondi(disSave[2] / 10)
-          B = pointAdistance(A, lAB, randint(-10, 10), sommets[1])
+          B = pointAdistance(A, lAB, randint(-170, -190), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
@@ -540,28 +540,28 @@ export default class ConstruireUnTriangle extends Exercice {
 
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
           const [Ai, Bi, Ci] = IEP.triangleRectangleCoteHypotenuse(
-            sommets.slice(0, 3).join(''),
+            `${sommets[1]}${sommets[0]}${sommets[2]}`,
             lAB,
             lBC,
             { description: false },
           )
           if (Ci && Bi && Ai) {
-            IEP.regleMontrer(Ci)
-            IEP.regleRotation(Bi)
-            IEP.pointCreer(milieu(Ci, Bi), {
+            IEP.regleMontrer(Ai)
+            IEP.regleRotation(Ci)
+            IEP.pointCreer(milieu(Ci, Ai), {
               dx: 0,
               dy: -0.5,
               label: sommets[3],
             })
             IEP.regleMasquer()
-            IEP.segmentCodage(Ci, milieu(Ci, Bi), { codage: 'X' })
-            IEP.segmentCodage(Bi, milieu(Ci, Bi), { codage: 'X' })
-            IEP.regleSegment(Ai, milieu(Ci, Bi))
+            IEP.segmentCodage(Ai, milieu(Ai, Ci), { codage: 'X' })
+            IEP.segmentCodage(Ci, milieu(Ai, Ci), { codage: 'X' })
+            IEP.regleSegment(Bi, milieu(Ai, Ci))
             IEP.regleMasquer()
             IEP.crayonMasquer()
             IEP.textePoint(
-              `${segment(Ai, milieu(Ci, Bi)).longueur} cm`,
-              milieu(Ai, milieu(Ci, Bi)),
+              `${stringNombre(segment(Bi, milieu(Ai, Ci)).longueur, 1)} cm`,
+              milieu(Bi, milieu(Ci, Ai)),
             )
           }
           break
@@ -591,11 +591,11 @@ export default class ConstruireUnTriangle extends Exercice {
           lAB = arrondi(disSave[0] / 10)
           lBC = arrondi(disSave[1] / 10)
           lAC = arrondi(disSave[2] / 10)
-          B = pointAdistance(A, lAB, randint(-10, 10), sommets[1])
+          B = pointAdistance(A, lAB, randint(-170, -190), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1)
+          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
           C.positionLabel = 'above'
           CC = point(
             C.x + randint(-5, 5, 0) / 10,
@@ -648,11 +648,11 @@ export default class ConstruireUnTriangle extends Exercice {
 
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
           const [Ai, Bi, Ci] = IEP.triangleRectangle2Cotes(
-            sommets.slice(0, 3).join(''),
+            `${sommets[1]}${sommets[0]}${sommets[2]}`,
             lAB,
             lAC,
             { description: false },
-          )
+          ) as [Point, Point, Point]
           IEP.regleMontrer(Ai)
           IEP.regleRotation(Ci)
           IEP.pointCreer(milieu(Ai, Ci), { dx: 0, dy: -0.5, label: sommets[3] })
@@ -663,7 +663,7 @@ export default class ConstruireUnTriangle extends Exercice {
           IEP.regleMasquer()
           IEP.crayonMasquer()
           IEP.textePoint(
-            `${segment(Bi, milieu(Ai, Ci)).longueur} cm`,
+            `${stringNombre(segment(Bi, milieu(Ai, Ci)).longueur, 1)} cm`,
             milieu(Bi, milieu(Ci, Ai)),
           )
           break
@@ -705,7 +705,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1)
+          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
           C.positionLabel = 'above'
           CC = point(
             C.x + randint(-5, 5, 0) / 10,
@@ -778,7 +778,7 @@ export default class ConstruireUnTriangle extends Exercice {
           IEP.regleMasquer()
           IEP.crayonMasquer()
           IEP.textePoint(
-            `${segment(Ci, milieu(Ai, Bi)).longueur} cm`,
+            `${stringNombre(segment(Ci, milieu(Ai, Bi)).longueur, 1)} cm`,
             milieu(Ci, milieu(Ai, Bi)),
           )
           break

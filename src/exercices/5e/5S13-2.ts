@@ -1,22 +1,21 @@
 import { diagrammeBarres } from '../../lib/2d/diagrammes'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
-  combinaisonListes,
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { fraction } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculs de fréquences'
 export const interactifReady = true
@@ -508,7 +507,6 @@ function questionsEtCorrections(
         propositions: [
           {
             type: 'AMCNum',
-            // @ts-expect-error
             propositions: [
               {
                 texte: correction1 + correction2,
@@ -526,7 +524,6 @@ function questionsEtCorrections(
           },
           {
             type: 'AMCNum',
-            // @ts-expect-error
             propositions: [
               {
                 texte: '',
@@ -568,16 +565,14 @@ export default class CalculerDesFrequences extends Exercice {
 
     this.spacingCorr = 1.5
 
-    this.sup = 1
-    this.besoinFormulaireNumerique = [
+    this.sup = '3'
+    this.besoinFormulaireTexte = [
       'Type de questions',
-      4,
-      [
-        "1 : Choix d'un exercice aléatoire parmi les deux versions",
-        "2 : Calculer des fréquences à partir d'un tableau d'effectifs",
-        "3 : Calculer des fréquences à partir d'un diagramme bâton",
-        '4 : Les deux versions en deux questions (thème du 2e au hasard)',
-      ].join('\n'),
+     `Nombres séparés par des tirets\n${[
+        "1 : Calculer des fréquences à partir d'un tableau d'effectifs",
+        "2 : Calculer des fréquences à partir d'un diagramme bâton",
+        '3 : Mélange',
+      ].join('\n')}`,
     ]
     this.sup2 = 1
     this.besoinFormulaire2Numerique = [
@@ -600,40 +595,20 @@ export default class CalculerDesFrequences extends Exercice {
       corrections: [],
     }
     let transit
-    const de = combinaisonListes([0, 1], this.nbQuestions)
+    const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 2, defaut: 1, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      switch (this.sup) {
-        case 1: // au hasard
-          switch (de[i]) {
-            case 0:
-              transit = exerciceAvecDiagramme(theme, this, i)
-              break
-            case 1:
-            default:
-              transit = exerciceAvecTableau(theme, this, i)
-              break
-          }
-          exercice.questions = [transit.questions]
-          exercice.corrections = [transit.corrections]
-          break
-        case 2: // tableau
+      switch (typeDeQuestions[i]) {
+        case 1: // tableau
           transit = exerciceAvecTableau(theme, this, i)
           exercice.questions = [transit.questions]
           exercice.corrections = [transit.corrections]
           break
-        case 3: // diagramme
+        case 2: // diagramme
+        default:
           transit = exerciceAvecDiagramme(theme, this, i)
           exercice.questions = [transit.questions]
           exercice.corrections = [transit.corrections]
           break
-        case 4: // les deux
-        default:
-          transit = exerciceAvecTableau(theme, this, i)
-          exercice.questions = [transit.questions]
-          exercice.corrections = [transit.corrections]
-          transit = exerciceAvecDiagramme('hasard', this, i)
-          exercice.questions.push(transit.questions)
-          exercice.corrections.push(transit.corrections)
       }
       if (this.questionJamaisPosee(i, ...transit.effectifs)) {
         this.listeQuestions[i] = exercice.questions[0]

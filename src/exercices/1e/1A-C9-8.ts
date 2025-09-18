@@ -19,7 +19,7 @@ export const titre = 'Développer une expression algébrique.'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = 'Soit $x$ un réel.<br>'
-    this.enonce += `À quelle expression est égale $3(x+2)^2-8$?`
+    this.enonce += `À quelle expression est égale $3(x+2)^2-8$ ?`
     this.correction = `On cherche parmi les  propositions, lesquelles peuvent donner, après développement, l'expression de l'énoncé. <br>
      $\\begin{aligned}
        (2x+1)(x-3)&=2x^2-6x+x-3\\\\
@@ -37,7 +37,7 @@ export default class Puissances extends ExerciceQcmA {
    
     this.enonce = 'Soit $x$ un réel.<br>'
 
-    this.enonce += `À quelle expression est égale $${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$?`
+    this.enonce += `À quelle expression est égale $${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$ ?`
     this.correction = `On développe l'expression de l'énoncé. <br>
               $\\begin{aligned}
     ${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}&=${ecritureAlgebriqueSauf1(a)}\\left(x^2 ${ecritureAlgebrique(2*-alpha)}x${ecritureAlgebrique((-alpha)*(-alpha))}\\right)${ecritureAlgebrique(beta)}\\\\

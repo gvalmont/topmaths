@@ -18,7 +18,7 @@ export const titre = 'Développer une expression algébrique.'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = 'Soit $x$ un réel.<br>'
-    this.enonce += `À quelle expression est égale $2x^2-5x-3$?`
+    this.enonce += `À quelle expression est égale $2x^2-5x-3$ ?`
     this.correction = `On cherche parmi les  propositions, lesquelles peuvent donner, après développement, l'expression de l'énoncé. <br>
      $\\begin{aligned}
        (2x+1)(x-3)&=2x^2-6x+x-3\\\\
@@ -36,7 +36,7 @@ export default class Puissances extends ExerciceQcmA {
     const distracteur= new FractionEtendue(b1,a1)
     this.enonce = 'Soit $x$ un réel.<br>'
 
-    this.enonce += `À quelle expression est égale $${a1*a2}x^2${ecritureAlgebriqueSauf1(a1*b2+a2*b1)}x${ecritureAlgebrique(b1*b2)}$`
+    this.enonce += `À quelle expression est égale $${a1*a2}x^2${ecritureAlgebriqueSauf1(a1*b2+a2*b1)}x${ecritureAlgebrique(b1*b2)}$ ?`
     this.correction = `On cherche parmi les  propositions, lesquelles peuvent donner, après développement, l'expression de l'énoncé. <br>
               $\\begin{aligned}
      \\left (${reduireAxPlusB(a1,b1)}\\right)\\left(${reduireAxPlusB(a2,b2)}\\right)&=${a1*a2}x^2${ecritureAlgebriqueSauf1(a1*b2)}x${ecritureAlgebriqueSauf1(a2*b1)}x${ecritureAlgebrique(b1*b2)}\\\\

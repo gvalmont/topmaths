@@ -34,11 +34,13 @@ export default class SommeSuiteGeometrique extends ExerciceSimple {
     this.correctionDetailleeDisponible = true
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
+    this.besoinFormulaireCaseACocher = ['Le premier indice est toujours 1']
+    this.sup = false
   }
 
   nouvelleVersion() {
     const premierTerme = randint(2, 10)
-    const premierRang = choice([0, 1])
+    const premierRang = this.sup ? 1 : choice([0, 1])
     const q = arrondi(randint(2, 19, 10) / 10, 1)
     const n = choice([10, 12, 15])
     const u = choice(['u', 'v', 'w'])

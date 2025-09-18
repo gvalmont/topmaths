@@ -397,19 +397,40 @@ export class Segment extends ObjetMathalea2D {
         tableauOptions.push(' dashed ')
         break
     }
-
-    if (this.styleExtremites.length > 1) {
-      if (this.styleExtremites === '->') {
-        tableauOptions.push('>=latex,->')
-      } else {
-        if (
-          this.styleExtremites.includes('[') ||
-          this.styleExtremites.includes(']')
-        ) {
-          tableauOptions.push('{' + this.styleExtremites + '}')
-        } else {
-          tableauOptions.push(this.styleExtremites)
-        }
+    let arrowsOption = ''
+    if (this.styleExtremites.length > 0) {
+      // Map des styles
+      const map: { [key: string]: string } = {
+        '|': 'Bar',
+        '>': 'Stealth',
+        '<': 'Stealth',
+      }
+      // Taille des pointes
+      const width = Math.max(2, Math.round(this.tailleExtremites))
+      const length = Math.max(4, Math.round(this.tailleExtremites * 2))
+      let left = '',
+        right = ''
+      if (this.styleExtremites.length === 3) {
+        left = map[this.styleExtremites[0]] || ''
+        right = map[this.styleExtremites[2]] || ''
+      } else if (this.styleExtremites.length === 2) {
+        if (this.styleExtremites[0] in map) left = map[this.styleExtremites[0]]
+        if (this.styleExtremites[1] in map) right = map[this.styleExtremites[1]]
+      } else if (this.styleExtremites.length === 1) {
+        if (this.styleExtremites[0] in map) right = map[this.styleExtremites[0]]
+      }
+      // Ajout des tailles personnalisées
+      const leftTip = left ? `{${left}[width=${width}mm]}` : ''
+      const rightTip = right ? `{${right}[width=${width}mm]}` : ''
+      if (leftTip && rightTip) {
+        arrowsOption = `${leftTip}-${rightTip}`
+      } else if (leftTip) {
+        arrowsOption = `${leftTip}-`
+      } else if (rightTip) {
+        arrowsOption = `-${rightTip}`
+      }
+      if (arrowsOption) {
+        tableauOptions.push(arrowsOption)
       }
     }
     if (tableauOptions.length > 0) {

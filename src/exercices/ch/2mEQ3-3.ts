@@ -165,7 +165,7 @@ export default class ExerciceTangenteCourbe extends Exercice {
             (choixX + 1) % 2
           ] + y2
         texte = `Déterminer les équations de toutes les tangentes au cercle d'équation $(x${ecritureAlgebrique(-x2)})^2+(y${ecritureAlgebrique(-y2)})^2 = ${r ** 2}$ passant par le point $(${x1} \\,;\\, ${y1})$.`
-        texteCorr = `On pose $y=ax+b$ la droite tangente avec inconnues $a$ et $b$.<br> On va déterminer les valeurs de $a$ et $b$.<br> La droite passe par le point $(${x1}\\,;\\,${y1})$, donc $${y1}=${x1}a+b$, d'où $b=${y1}${ecritureAlgebriqueSauf1(-x1)}a$. On obtient 
+        texteCorr = `On pose $y=ax+b$ la droite tangente avec inconnues $a$ et $b$.<br> On va déterminer les valeurs de $a$ et $b$.<br> La droite passe par le point $(${x1}\\,;\\,${y1})$, donc $${y1}=${rienSi1(x1)}a+b$, d'où $b=${y1}${ecritureAlgebriqueSauf1(-x1)}a$. On obtient 
             \\[y=ax${ecritureAlgebrique(y1)}${ecritureAlgebriqueSauf1(-x1)}a\\]
             On impose que cette droite et la courbe aient un unique point d'intersection, donc que le système
             \\[\\begin{cases}
@@ -176,11 +176,14 @@ export default class ExerciceTangenteCourbe extends Exercice {
             \\[\\begin{cases}
              ${r ** 2}=(x${ecritureAlgebrique(-x2)})^2+(ax${ecritureAlgebrique(y1)}${ecritureAlgebriqueSauf1(-x1)}a${ecritureAlgebrique(-y2)})^2\\\\
             y=ax${ecritureAlgebrique(y1)}${ecritureAlgebriqueSauf1(-x1)}a
+            \\end{cases}\\iff\\begin{cases}
+             ${r ** 2}=(x${ecritureAlgebrique(-x2)})^2+(ax${ecritureAlgebriqueSauf1(-x1)}a${ecritureAlgebrique(y1 - y2)})^2\\\\
+            y=ax${ecritureAlgebrique(y1)}${ecritureAlgebriqueSauf1(-x1)}a
             \\end{cases}\\]
-            La première équation est équivalente à 
-            \\[(a^2+1)x^2+(${rienSi1(-2 * x1)}a^2${ecritureAlgebriqueSauf1(2 * y1 - 2 * y2)}a${ecritureAlgebriqueSauf1(-2 * x2)})x${ecritureAlgebriqueSauf1(x1 ** 2)}a^2${ecritureAlgebriqueSauf1(2 * x1 * y2 - 2 * y1 * x1)}a${ecritureAlgebrique(-2 * y1 * y2 + y2 ** 2 - r ** 2 + y1 ** 2)}=0\\]
+            La première équation du système est équivalente à 
+            \\[(a^2+1)x^2+(${rienSi1(-2 * x1)}a^2${ecritureAlgebriqueSauf1(2 * y1 - 2 * y2)}a${ecritureAlgebriqueSauf1(-2 * x2)})x${ecritureAlgebriqueSauf1(x1 ** 2)}a^2${ecritureAlgebriqueSauf1(2 * x1 * y2 - 2 * y1 * x1)}a${ecritureAlgebrique(x2 ** 2 + (y1 - y2) ** 2 - r ** 2)}=0\\]
             Le discriminant de ce polynôme doit être nul, afin que l'équation ait une unique solution. Il vaut :
-            \\[\\Delta=(${rienSi1(-2 * x1)}a^2${ecritureAlgebriqueSauf1(2 * y1 - 2 * y2)}a${ecritureAlgebriqueSauf1(-2 * x2)})^2-4(a^2+1)(${rienSi1(x1 ** 2)}a^2${ecritureAlgebriqueSauf1(2 * x1 * y2 - 2 * y1 * x1)}a${ecritureAlgebrique(-2 * y1 * y2 + y2 ** 2 - r ** 2 + y1 ** 2)}).\\] On impose donc $\\Delta=0$ et on obtient l'équation du second degré en $a$ suivante :
+            \\[\\Delta=(${rienSi1(-2 * x1)}a^2${ecritureAlgebriqueSauf1(2 * y1 - 2 * y2)}a${ecritureAlgebriqueSauf1(-2 * x2)})^2-4(a^2+1)(${rienSi1(x1 ** 2)}a^2${ecritureAlgebriqueSauf1(2 * x1 * y2 - 2 * y1 * x1)}a${ecritureAlgebrique(x2 ** 2 + (y1 - y2) ** 2 - r ** 2)}).\\] On impose donc $\\Delta=0$ et on obtient l'équation du second degré en $a$ suivante :
             \\[${rienSi1(4 * r ** 2 - 4 * x1 ** 2 + 8 * x1 * x2 - 4 * x2 ** 2)}a^2${ecritureAlgebriqueSauf1(8 * x1 * y1 - 8 * x2 * y1 - 8 * x1 * y2 + 8 * x2 * y2)}a${ecritureAlgebrique(4 * r ** 2 - 4 * y1 ** 2 + 8 * y1 * y2 - 4 * y2 ** 2)}=0.\\]
             On résout cette équation et on obtient les deux solutions
             `

@@ -10,6 +10,7 @@ import { randint } from '../../../modules/outils'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = "Exprimer une variable en fonction d'une autre"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,6 +34,7 @@ export default class ExprimerVariable extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.versionQcmDisponible = true
     this.nbQuestions = 1
+   //  this.compare = functionCompare
   }
 
   nouvelleVersion() {
@@ -74,9 +76,8 @@ export default class ExprimerVariable extends ExerciceSimple {
               : `$${var1}=\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}$`
         } else {
           this.reponse =
-            a < 0
-              ? `\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}`
-              : `\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`
+           [`\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}`,
+              `\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`]
         }
         this.distracteurs = [
           // Erreur : oubli de diviser par le coefficient
@@ -121,9 +122,9 @@ export default class ExprimerVariable extends ExerciceSimple {
               : `$${var2}=\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}$`
         } else {
           this.reponse =
-            b < 0
-              ? `\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}`
-              : `\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`
+           [
+            `\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}`,
+               `\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`]
         }
         this.distracteurs = [
           // Erreur : oubli de diviser par le coefficient

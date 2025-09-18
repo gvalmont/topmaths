@@ -6,7 +6,6 @@ import {
 } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import Trinome from '../../modules/Trinome'
-import { createList } from '../../lib/format/lists'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { choice } from '../../lib/outils/arrayOutils'
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
@@ -17,7 +16,7 @@ export const dateDePublication = '25/10/2024'
 
 /**
  * @author Rémi Angot
- * Étude d\'une suite par récurrence définie par une fonction polynôme du second degré.
+ * Étude d'une suite par récurrence définie par une fonction polynôme du second degré.
  */
 
 export const uuid = '787b5'
@@ -37,18 +36,13 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
   }
 
   nouvelleVersion() {
-    let texte = ''
-    let texteCorr = ''
-
     const i1 = 1
     const i2 = 3
 
     const [a, b, c] = choice([
       [frac(1, 3), frac(-1, 3), frac(1, 1)],
       [frac(1, 3), frac(-2, 3), frac(4, 3)],
-      [frac(1, 3), frac(-1, 1), frac(2, 1)],
       [frac(1, 4), frac(-1, 2), frac(5, 4)],
-      [frac(1, 4), frac(-2, 3), frac(17, 12)],
       [frac(1, 4), frac(-1, 4), frac(1, 1)],
       [frac(1, 5), frac(-1, 5), frac(1, 1)],
       [frac(1, 5), frac(1, 5), frac(3, 5)],
@@ -56,21 +50,12 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
 
     const f = new Trinome(a, b, c)
     const alpha = f.alpha.texFractionSimplifiee
-    texte = `On considère la fonction définie sur $\\R$ par $f(x)=${f.tex}$ et la suite $(u_n)$ définie par $u_0 = ${i2}$ et pour tout $n\\in\\N$,${sp()};${sp()};$u_{n+1} = f(u_n)$. `
+    this.introduction = `On considère la fonction définie sur $\\R$ par $f(x)=${f.tex}$ et la suite $(u_n)$ définie par $u_0 = ${i2}$ et pour tout $n\\in\\N$,${sp()}$u_{n+1} = f(u_n)$. `
     const questions = [
       `Étudier le sens de variation de $f$ sur $[${i1}\\;;\\;${i2}]$.`,
       `Démontrer par récurrence que, pour tout entier naturel $n$, $${i1} \\leqslant u_n \\leqslant ${i2}$`,
       'Démontrer que la suite $(u_n)$ est décroissante.',
     ]
-    const style = 'nombres'
-    const classOptions = 'space-y-4 mt-3'
-    texte +=
-      '<br>' +
-      createList({
-        items: questions,
-        style,
-        classOptions,
-      })
     let correction1 =
       'La fonction $f$ est une fonction polynôme du second degré. Elle est donc dérivable sur $\\R$ et pour tout $x$ de $\\R$ :'
     correction1 += `<br><br> $f'(x)=${f.derivee.tex}$.`
@@ -130,17 +115,13 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
     correction3 +=
       '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
 
-    texteCorr = createList({
-      items: [correction1, correction2, correction3],
-      style,
-      classOptions,
-    })
-
     if (!context.isHtml) {
-      texteCorr = texteCorr.replaceAll('forestgreen', 'black')
+      for (let text of [correction1, correction2, correction3]) {
+        text = text.replaceAll('forestgreen', 'black')
+      }
     }
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
+    this.listeQuestions.push(...questions)
+    this.listeCorrections.push(correction1, correction2, correction3)
 
     listeQuestionsToContenu(this)
   }

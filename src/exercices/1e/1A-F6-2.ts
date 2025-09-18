@@ -60,7 +60,7 @@ export default class Auto1AF6b extends ExerciceQcmA {
     ymin: -3,
     ymax: 3,
     pixelsParCm: 15,
-    scale: 1,
+    scale: 0.5,
   }
 
   // Fonctions des droites

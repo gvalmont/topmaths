@@ -28,6 +28,7 @@
   import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
   import Diaporama from './setup/diaporama/Diaporama.svelte'
   import Latex from './setup/latex/Latex.svelte'
+  import Pdf from './setup/latex/Pdf.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Start from './setup/start/Start.svelte'
   import Popup from './shared/modal/Popup.svelte'
@@ -135,7 +136,7 @@
 
   function updateContext() {
     context.isDiaporama = $globalOptions.v === 'diaporama'
-    if ($globalOptions.v === 'latex') {
+    if ($globalOptions.v === 'latex' || $globalOptions.v === 'pdf') {
       context.isHtml = false
     } else {
       context.isHtml = true
@@ -206,6 +207,8 @@
     <Moodle />
   {:else if $globalOptions.v === 'anki'}
     <Anki />
+  {:else if $globalOptions.v === 'pdf'}
+    <Pdf />
   {:else if $globalOptions.v === 'start'}
     <Start />
   {:else}
