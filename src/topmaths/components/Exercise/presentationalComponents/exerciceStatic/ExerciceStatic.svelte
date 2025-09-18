@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { afterUpdate } from 'svelte'
+  import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
+  import referentielStatic from '../../../../../json/referentielStaticFR.json'
   import { retrieveResourceFromUuid } from '../../../../../lib/components/refUtils'
   import type { JSONReferentielObject } from '../../../../../lib/types/referentiels'
-  import referentielStatic from '../../../../../json/referentielStaticFR.json'
-  import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
-  import { afterUpdate } from 'svelte'
   export let uuid: string
   export let exerciseIndex: number
   export let zoomFactor: string
@@ -38,7 +38,7 @@
   <div class="flex-1 md:max-w-screen-lg mx-auto">
     {#if resourceToDisplay}
       <img
-        src="https://coopmaths.fr/alea/static/{resourceToDisplay.uuid.split(
+        src="static/{resourceToDisplay.uuid.split(
           '_',
         )[0]}/{resourceToDisplay.uuid.split(
           '_',
@@ -55,7 +55,7 @@
         <div class="container">
           {#if resourceToDisplay}
             <img
-              src="https://coopmaths.fr/alea/static/{resourceToDisplay.uuid.split(
+              src="static/{resourceToDisplay.uuid.split(
                 '_',
               )[0]}/{resourceToDisplay.uuid.split(
                 '_',
