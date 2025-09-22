@@ -1,15 +1,15 @@
-import {
-  exerciseLinks,
-  view,
-  reference,
-  reference2,
-  isDoubleView,
-} from './store'
-import { removeSeed } from './url'
+import type { VueType } from '../../lib/types'
 import type { Reference, View } from '../types/navigation'
 import { isTopmaths } from './environment'
-import { getParamsFromUrl, updateUrlFromParams } from './mathalea'
-import type { VueType } from '../../lib/types'
+import { buildParamsFromUrl, updateUrlFromParams } from './mathalea'
+import {
+  exerciseLinks,
+  isDoubleView,
+  reference,
+  reference2,
+  view,
+} from './store'
+import { removeSeed } from './url'
 
 export function backToHome(): void {
   view.set('home')
@@ -45,7 +45,7 @@ export function goToCoopmathsView(
     return // to allow right clicks and opening in new tabs
   }
   mouseEvent.preventDefault()
-  const params = getParamsFromUrl(exercisesLink)
+  const params = buildParamsFromUrl(exercisesLink)
   updateUrlFromParams(coopmathsView, params)
 }
 

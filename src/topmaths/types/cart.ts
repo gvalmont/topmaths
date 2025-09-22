@@ -6,11 +6,13 @@ import {
   type ObjectiveExercise,
   type ObjectiveReference,
 } from './objective'
+import { emptyUnitReference, isUnitReference, type UnitReference } from './unit'
 
 export type CartItem = {
   exercise: ObjectiveExercise
   label: string
-  reference: ObjectiveReference
+  objectiveReference: ObjectiveReference | ''
+  unitReference: UnitReference | ''
 }
 export function isCartItem(obj: unknown): obj is CartItem {
   if (obj == null || typeof obj !== 'object') return false
@@ -19,8 +21,11 @@ export function isCartItem(obj: unknown): obj is CartItem {
     isObjectiveExercise(obj.exercise) &&
     'label' in obj &&
     typeof obj.label === 'string' &&
-    'reference' in obj &&
-    isObjectiveReference(obj.reference)
+    'objectiveReference' in obj &&
+    (isObjectiveReference(obj.objectiveReference) ||
+      obj.objectiveReference === '') &&
+    'unitReference' in obj &&
+    (isUnitReference(obj.unitReference) || obj.unitReference === '')
   )
 }
 export function isCartItems(obj: unknown): obj is CartItem[] {
@@ -30,5 +35,6 @@ export function isCartItems(obj: unknown): obj is CartItem[] {
 export const emptyCartItem: CartItem = {
   exercise: emptyObjectiveExercise,
   label: '',
-  reference: emptyObjectiveReference,
+  objectiveReference: emptyObjectiveReference,
+  unitReference: emptyUnitReference,
 }

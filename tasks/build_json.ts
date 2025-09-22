@@ -298,6 +298,7 @@ function buildObjectives(): ObjectiveWithStringReference[] {
             objective.examExercises,
           )
           objective.examExercisesLink = buildLinkFromSlugs(
+            objective.reference,
             objective.examExercises.map((exercise) => exercise?.slug),
           )
           objective.exercises = buildExercises(
@@ -305,6 +306,7 @@ function buildObjectives(): ObjectiveWithStringReference[] {
             objective.exercises,
           )
           objective.exercisesLink = buildLinkFromSlugs(
+            objective.reference,
             objective.exercises.map((exercise) => exercise?.slug),
           )
           objective.grade = grade.name
@@ -914,6 +916,7 @@ function findTerm(
 }
 
 function buildLinkFromSlugs(
+  objectiveReference: string,
   slugs: (string | undefined)[] | undefined,
   isSlideshow: boolean = false,
 ): string {
@@ -928,6 +931,9 @@ function buildLinkFromSlugs(
     exerciseCount++
   })
   link = link.slice(0, -1)
+  if (objectiveReference !== '') {
+    link += `&o=${objectiveReference}`
+  }
   if (isSlideshow) {
     link += SLIDESHOW_VIEW_ADDENDUM
   } else {
@@ -948,7 +954,7 @@ function buildExercises(
       if (exercise === undefined) throw new Error('Exercise is undefined')
       exercise.id = reference + '-' + exerciseNumber
       exercise.slug = formatSlug(exercise.slug)
-      exercise.link = buildExerciseLink(exercise.slug)
+      exercise.link = buildExerciseLink(exercise.slug, reference, false)
       exercise.isInteractive = exercise.isInteractive ?? false
       exercise.description = exercise.description ?? ''
       exerciseNumber++
@@ -1070,9 +1076,9 @@ function updateUnitAssessmentLink(unit: UnitWithStringReference): void {
   }
   unit.assessmentLink = TOPMATHS_BASE_URL
   for (const objectiveSlug of objectivesSlugs) {
-    unit.assessmentLink += objectiveSlug + '&'
+    unit.assessmentLink += `${objectiveSlug.slug}&o=${objectiveSlug.objectiveReference}&u=${unit.reference}&`
   }
-  unit.assessmentLink.slice(0, -1)
+  unit.assessmentLink = unit.assessmentLink.slice(0, -1)
   unit.assessmentLink += REGULAR_VIEW_ADDENDUM
 }
 
@@ -1294,11 +1300,15 @@ function checkMathaleaFullLinks(): void {
 
 function buildExerciseLink(
   slug: string | undefined,
-  isSlideshow = false,
+  objectiveReference: string,
+  isSlideshow: boolean = false,
 ): string {
   if (!slug) return ''
   if (isFullLink(slug)) return slug
   let link = TOPMATHS_BASE_URL + slug
+  if (objectiveReference !== '') {
+    link += `&o=${objectiveReference}`
+  }
   if (isSlideshow) {
     link += SLIDESHOW_VIEW_ADDENDUM
   } else {
@@ -1330,9 +1340,15 @@ function convertV2ToV3(link: string): string {
   return link
 }
 
-function getUnitObjectivesSlugs(unit: UnitWithStringReference): string[] {
+function getUnitObjectivesSlugs(
+  unit: UnitWithStringReference,
+): { slug: string; objectiveReference: string }[] {
   return unit.objectives
-    .map((objective) => objective.exercises.map((exercise) => exercise.slug))
+    .map((objective) =>
+      objective.exercises.map((exercise) => {
+        return { slug: exercise.slug, objectiveReference: objective.reference }
+      }),
+    )
     .flat()
 }
 

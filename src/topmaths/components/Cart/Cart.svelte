@@ -23,10 +23,21 @@
 
   function updateCartLink(): void {
     items = Cart.items
-    cartLink =
-      TOPMATHS_BASE_URL +
-      items.map((item) => item.exercise.slug).join('&') +
-      REGULAR_VIEW_ADDENDUM
+    let link = TOPMATHS_BASE_URL
+    link += items
+      .map((item) => {
+        let slug = item.exercise.slug
+        if (item.objectiveReference !== '') {
+          slug += `&o=${item.objectiveReference}`
+        }
+        if (item.unitReference !== '') {
+          slug += `&u=${item.unitReference}`
+        }
+        return slug
+      })
+      .join('&')
+    link += REGULAR_VIEW_ADDENDUM
+    cartLink = link
   }
 </script>
 
@@ -110,11 +121,11 @@
     {#each items as item}
       <li>
         <div>
-          {item.reference}
+          {item.objectiveReference}
           {item.label}&nbsp;
           <button
             class="is-{buildGradeFromObjectiveReference(
-              item.reference,
+              item.objectiveReference,
             )} is-interactive"
             on:click="{() => Cart.remove(item.exercise.id)}"
           >

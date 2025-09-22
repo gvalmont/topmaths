@@ -1,40 +1,40 @@
 <script lang="ts">
-  import Home from './Home/Home.svelte'
-  import Unit from './Unit/Unit.svelte'
-  import { goToView } from '../services/navigation'
-  import Storage from '../modules/Storage'
-  import CartComponent from './Cart/Cart.svelte'
   import { onDestroy, onMount } from 'svelte'
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
-  import Student from './Student/Student.svelte'
-  import Practice from './Practice/Practice.svelte'
-  import {
-    isTeacherMode,
-    isPersonalMode,
-    reference,
-    view,
-    reference2,
-    isDoubleView,
-    isDarkMode,
-  } from '../services/store'
-  import Exercise from './Exercise/Exercise.svelte'
-  import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
+  import Cart from '../modules/Cart'
+  import Storage from '../modules/Storage'
   import { cacheData } from '../services/data'
+  import { goToView } from '../services/navigation'
   import {
-    isView,
+    isDarkMode,
+    isDoubleView,
+    isPersonalMode,
+    isTeacherMode,
+    reference,
+    reference2,
+    view,
+  } from '../services/store'
+  import type { CartItem } from '../types/cart'
+  import {
     isReference,
+    isView,
     type Reference,
     type View,
   } from '../types/navigation'
-  import Cart from '../modules/Cart'
-  import type { CartItem } from '../types/cart'
-  import TimeOverlay from './presentationalComponents/TimeOverlay.svelte'
-  import InfoDialog from './presentationalComponents/InfoDialog.svelte'
-  import Footer from './presentationalComponents/Footer.svelte'
-  import Perso from './presentationalComponents/Perso.svelte'
+  import CartComponent from './Cart/Cart.svelte'
+  import Classroom from './Classroom/Classroom.svelte'
+  import Exercise from './Exercise/Exercise.svelte'
+  import Home from './Home/Home.svelte'
   import Info from './Info/Info.svelte'
   import Objective from './Objective/Objective.svelte'
-  import Classroom from './Classroom/Classroom.svelte'
+  import Practice from './Practice/Practice.svelte'
+  import Footer from './presentationalComponents/Footer.svelte'
+  import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
+  import InfoDialog from './presentationalComponents/InfoDialog.svelte'
+  import Perso from './presentationalComponents/Perso.svelte'
+  import TimeOverlay from './presentationalComponents/TimeOverlay.svelte'
+  import Student from './Student/Student.svelte'
+  import Unit from './Unit/Unit.svelte'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)

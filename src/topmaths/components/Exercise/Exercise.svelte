@@ -11,11 +11,11 @@
     mathaleaLoadExerciceFromUuid,
   } from '../../../lib/mathalea'
   import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString'
-  import type { InterfaceParams } from '../../../lib/types'
+  import type { InterfaceParamsWithMeta } from '../../../lib/types'
   import { randint } from '../../../modules/outils'
   import {
-    getParamsFromUrl,
-    getUrlFromParams,
+    buildParamsFromUrl,
+    buildUrlFromParams,
     updateUrlFromParams,
   } from '../../services/mathalea'
   import { exerciseLinks, isDoubleView } from '../../services/store'
@@ -40,7 +40,7 @@
   }
 
   let exercisesWithMeta: ExerciseWithMeta[] = []
-  let exercicesParams: InterfaceParams[] = []
+  let exercicesParams: InterfaceParamsWithMeta[] = []
   let currentIndex = 0
 
   const apiGeomUuids = getApiGeomUuids()
@@ -51,7 +51,7 @@
       url = $exerciseLinks[randint(0, $exerciseLinks.length - 1)]
     else url = window.location.href
     initComponent(url)
-    updateUrlFromParams('exercise', exercicesParams)
+    updateUrlFromParams(url, exercicesParams)
   })
 
   function getApiGeomUuids(): string[] {
@@ -65,7 +65,7 @@
 
   async function initComponent(url: string): Promise<void> {
     const tempExercicesWithMeta = []
-    exercicesParams = getParamsFromUrl(url)
+    exercicesParams = buildParamsFromUrl(url)
     let i = 0
     for (const paramsExercice of exercicesParams) {
       const exerciseWithMeta = await getExerciseWithMeta(
@@ -85,7 +85,7 @@
   }
 
   async function getExerciseWithMeta(
-    paramsExercice: InterfaceParams,
+    paramsExercice: InterfaceParamsWithMeta,
     exerciseIndex: number,
     lastExerciseIndex: number,
   ): Promise<ExerciseWithMeta> {
@@ -153,7 +153,7 @@
   }
 
   async function getSvelteComponent(
-    paramsExercice: InterfaceParams,
+    paramsExercice: InterfaceParamsWithMeta,
   ): Promise<SvelteComponent> {
     const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
     // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
@@ -167,7 +167,7 @@
   }
 
   async function getExercise(
-    paramsExercice: InterfaceParams,
+    paramsExercice: InterfaceParamsWithMeta,
     indiceExercice: number,
   ): Promise<Exercice> {
     const exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
@@ -410,7 +410,7 @@
     const title =
       exercisesWithMeta[exerciseIndex].exercise?.titre ??
       exercicesParams[exerciseIndex].id
-    const url = getUrlFromParams('exercise', [
+    const url = buildUrlFromParams('exercise', [
       exercicesParams[exerciseIndex],
     ]).href
     if (navigator.share) {
@@ -453,6 +453,10 @@
     >
       {#if exerciseWithMeta.exerciseType !== 'html' || $exerciseLinks.length > 1}
         <HeaderExerciceMathalea
+          sourceObjective="{exercicesParams[exerciseWithMeta.exerciseIndex]
+            .sourceObjective}"
+          sourceUnit="{exercicesParams[exerciseWithMeta.exerciseIndex]
+            .sourceUnit}"
           exerciseType="{exerciseWithMeta.exerciseType}"
           exerciseIndex="{exerciseWithMeta.exerciseIndex}"
           exercise="{exerciseWithMeta.exercise ?? new Exercice()}"

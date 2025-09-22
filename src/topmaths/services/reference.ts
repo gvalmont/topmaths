@@ -1,12 +1,17 @@
 import { get } from 'svelte/store'
-import { isStringGrade, type StringGrade } from '../types/grade.js'
+import {
+  DEFAULT_GRADE,
+  isStringGrade,
+  type StringGrade,
+} from '../types/grade.js'
 import type { ObjectiveReference } from '../types/objective'
 import type { UnitReference } from '../types/unit'
 import { examExercises } from './store.js'
 
 export function buildGradeFromObjectiveReference(
-  reference: ObjectiveReference,
+  reference: ObjectiveReference | '',
 ): StringGrade {
+  if (reference === '') return DEFAULT_GRADE
   const grade = reference.slice(0, 1) + 'e'
   if (!isStringGrade(grade)) {
     console.error(reference)

@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { goToCoopmathsView, launchExercise } from '../../services/navigation'
-  import TooltipIcon from './TooltipIcon.svelte'
-  import type { ObjectiveVideo } from '../../types/objective'
-  import { isTeacherMode } from '../../services/store'
+  import { onDestroy, onMount, tick } from 'svelte'
   import Cart from '../../modules/Cart'
   import { COOPMATHS_BASE_URL, isTopmaths } from '../../services/environment'
-  import type { CartItem } from '../../types/cart'
+  import { goToCoopmathsView, launchExercise } from '../../services/navigation'
+  import { isTeacherMode } from '../../services/store'
   import { copyLink } from '../../services/url'
-  import { onDestroy, onMount, tick } from 'svelte'
+  import type { CartItem } from '../../types/cart'
+  import type { ObjectiveVideo } from '../../types/objective'
+  import TooltipIcon from './TooltipIcon.svelte'
 
   export let itemsToAddToCart: CartItem[] = []
   export let exercisesLink: string
@@ -67,7 +67,7 @@
     itemsToAddToCart.forEach((item) => {
       if (!isTopmaths(item.exercise.link)) {
         console.warn(
-          `L'exercice ${item.reference} ${item.label} n'a pas été ajouté au panier car il n'est pas un exercice MathALÉA`,
+          `L'exercice ${item.objectiveReference} ${item.label} n'a pas été ajouté au panier car il n'est pas un exercice MathALÉA`,
         )
         return
       }

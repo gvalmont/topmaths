@@ -1,17 +1,20 @@
 import { get } from 'svelte/store'
 import refToUuid2016 from '../../json/refToUuidFR-2016.json'
 import refToUuid from '../../json/refToUuidFR.json'
-import { globalOptions } from '../../lib/stores/generalStore'
-import type { InterfaceParams, VueType } from '../../lib/types'
+import type { InterfaceParamsWithMeta } from '../../lib/types'
+import { isObjectiveReference } from '../types/objective'
+import { isUnitReference } from '../types/unit'
 import { isDoubleView } from './store'
 let urlToWrite: URL
 let timerId: ReturnType<typeof setTimeout> | undefined
 
-export function getParamsFromUrl(urlString: string): InterfaceParams[] {
+export function buildParamsFromUrl(
+  urlString: string,
+): InterfaceParamsWithMeta[] {
   const url = new URL(urlString)
   const entries = url.searchParams.entries()
   let indiceExercice = -1
-  const newListeExercice: InterfaceParams[] = []
+  const newListeExercice: InterfaceParamsWithMeta[] = []
   let previousEntryWasUuid = false
   for (const entry of entries) {
     if (entry[0] === 'uuid') {
@@ -55,6 +58,17 @@ export function getParamsFromUrl(urlString: string): InterfaceParams[] {
       newListeExercice[indiceExercice].interactif = '1'
     } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
       newListeExercice[indiceExercice].cd = entry[1]
+    } else if (entry[0] === 'o') {
+      const sourceObjectiveCandidate = entry[1]
+      if (isObjectiveReference(sourceObjectiveCandidate)) {
+        newListeExercice[indiceExercice].sourceObjective =
+          sourceObjectiveCandidate
+      }
+    } else if (entry[0] === 'u') {
+      const sourceUnitCandidate = entry[1]
+      if (isUnitReference(sourceUnitCandidate)) {
+        newListeExercice[indiceExercice].sourceUnit = sourceUnitCandidate
+      }
     }
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
@@ -62,19 +76,9 @@ export function getParamsFromUrl(urlString: string): InterfaceParams[] {
   return newListeExercice
 }
 
-export function updateUrlFromParams(
-  v: VueType,
-  exercicesParams: InterfaceParams[],
-): void {
-  urlToWrite = getUrlFromParams(v, exercicesParams)
-  if (urlToWrite.href !== window.location.href) {
-    updateUrl(v, urlToWrite.href)
-  }
-}
-
-export function getUrlFromParams(
-  v: VueType,
-  exercicesParams: InterfaceParams[],
+export function buildUrlFromParams(
+  originStringUrl: string,
+  exercicesParams: InterfaceParamsWithMeta[],
 ): URL {
   const url = new URL(window.location.protocol + '//' + window.location.host)
   for (const ex of exercicesParams) {
@@ -92,23 +96,41 @@ export function getUrlFromParams(
     if (ex.interactif === '1') url.searchParams.append('i', '1')
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
     if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
+    if (ex.sourceObjective != null) {
+      url.searchParams.append('o', ex.sourceObjective)
+    }
+    if (ex.sourceUnit != null) {
+      url.searchParams.append('u', ex.sourceUnit)
+    }
   }
+  const originUrl = new URL(originStringUrl)
+  const v = originUrl.searchParams.get('v') || 'exercise'
+  const sourceUnit = originUrl.searchParams.get('u')
+  const sourceObjective = originUrl.searchParams.get('o')
   url.searchParams.append('v', v)
+  if (sourceUnit) url.searchParams.append('u', sourceUnit)
+  if (sourceObjective) url.searchParams.append('o', sourceObjective)
   if (get(isDoubleView)) url.searchParams.append('dv', 'true')
   return url
 }
 
-export function updateUrl(v: VueType, urlToWrite: string): void {
+export function updateUrl(urlToWrite: string): void {
   // On ne met à jour l'url qu'une fois toutes les 0,1 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
   if (timerId === undefined) {
     timerId = setTimeout(() => {
       window.history.pushState({}, '', urlToWrite)
       timerId = undefined
-      globalOptions.update((options) => {
-        options.v = v
-        return options
-      })
     }, 100)
+  }
+}
+
+export function updateUrlFromParams(
+  url: string,
+  exercicesParams: InterfaceParamsWithMeta[],
+): void {
+  urlToWrite = buildUrlFromParams(url, exercicesParams)
+  if (urlToWrite.href !== window.location.href) {
+    updateUrl(urlToWrite.href)
   }
 }

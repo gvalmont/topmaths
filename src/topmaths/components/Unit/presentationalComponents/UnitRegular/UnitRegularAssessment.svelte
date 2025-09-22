@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
   import { getTitle } from '../../../../services/string'
+  import type { CartItem } from '../../../../types/cart'
   import type { Unit } from '../../../../types/unit'
   import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
-  import type { CartItem } from '../../../../types/cart'
 
   export let unit: Unit
 
@@ -16,7 +16,8 @@
           return {
             exercise,
             label: exercise.description || getTitle(objective),
-            reference: objective.reference,
+            objectiveReference: objective.reference,
+            unitReference: unit.reference,
           }
         }),
       )
@@ -32,7 +33,11 @@
 </h2>
 <div class="p-6 flex flex-col">
   <div class="p-1 md:p-2">
-    <ExercisesButtons {itemsToAddToCart} exercisesLink="{unit.assessmentLink}">
+    <ExercisesButtons
+      {itemsToAddToCart}
+      exercisesLink="{unit.assessmentLink}"
+      unitReference="{unit.reference}"
+    >
       S'entraîner pour l'évaluation{unit.assessmentExamLink
         ? ' (Automatismes)'
         : ''}
@@ -40,7 +45,10 @@
   </div>
   {#if unit.assessmentExamLink}
     <div class="p-1 md:p-2">
-      <ExercisesButtons exercisesLink="{unit.assessmentExamLink}">
+      <ExercisesButtons
+        exercisesLink="{unit.assessmentExamLink}"
+        unitReference="{unit.reference}"
+      >
         S'entraîner pour l'évaluation{unit.assessmentExamLink
           ? ' (Brevet)'
           : ''}

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
+  import type { CartItem } from '../../../../types/cart'
   import type {
     ObjectiveExercise,
     ObjectiveReference,
     ObjectiveVideo,
   } from '../../../../types/objective'
   import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
-  import type { CartItem } from '../../../../types/cart'
 
   export let reference: ObjectiveReference
   export let exercises: ObjectiveExercise[]
@@ -21,7 +21,8 @@
       return {
         exercise,
         label: exercise.description || objectiveTitle,
-        reference,
+        objectiveReference: reference,
+        unitReference: '',
       }
     })
   })
@@ -43,7 +44,8 @@
           {
             exercise: exercises[i],
             label: exercises[i].description || objectiveTitle,
-            reference,
+            objectiveReference: reference,
+            unitReference: '',
           },
         ]}"
         {videos}

@@ -1,19 +1,29 @@
 import type { View } from '../topmaths/types/navigation'
+import type { ObjectiveReference } from '../topmaths/types/objective'
+import type { UnitReference } from '../topmaths/types/unit'
 import type { CanOptions, CanSolutionsMode } from './types/can'
 import type { Language } from './types/languages'
 
 /**
  * Recursively make all properties of T optional (to work with unfinished objects)
  */
-export type RecursivePartial<T> = T extends string ? string | undefined : {
-  [P in keyof T]?: RecursivePartial<T[P]>;
-}
+export type RecursivePartial<T> = T extends string
+  ? string | undefined
+  : {
+      [P in keyof T]?: RecursivePartial<T[P]>
+    }
 
 /**
  * Recursively replace all Dates and branded strings of T by strings (for JSON import)
  */
 export type ReplaceDateWithString<T> = {
-  [K in keyof T]: T[K] extends Date ? string : T[K] extends string ? string : T[K] extends object ? ReplaceDateWithString<T[K]> : T[K];
+  [K in keyof T]: T[K] extends Date
+    ? string
+    : T[K] extends string
+      ? string
+      : T[K] extends object
+        ? ReplaceDateWithString<T[K]>
+        : T[K]
 }
 
 /*
@@ -117,6 +127,11 @@ export interface InterfaceParams
   cols?: number
   type?: 'mathalea' | 'static' | 'app'
   bestScore?: number
+}
+
+export interface InterfaceParamsWithMeta extends InterfaceParams {
+  sourceObjective?: ObjectiveReference
+  sourceUnit?: UnitReference
 }
 
 export interface InterfaceReferentiel {
