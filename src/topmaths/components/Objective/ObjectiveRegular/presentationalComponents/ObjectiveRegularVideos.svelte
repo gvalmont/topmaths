@@ -23,7 +23,7 @@
   class="{videos.length > 0 && videos[0].title ? 'title' : 'subtitle'}
   text-xl md:text-3xl"
 >
-  Vidéo{videos.length > 1 ? 's' : ''} d'explication
+  Cours-vidéo
 </h2>
 {#each lessonVideos as video}
   <video
