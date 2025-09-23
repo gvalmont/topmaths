@@ -1612,7 +1612,14 @@
                 "isAutomaticity": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "videos": [],
+                "videos": [
+                  {
+                    "title": "Périmètre",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=wNk5XKwEZDw&vignette=https://i.ytimg.com/vi/wNk5XKwEZDw/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
                 "exercises": [
                   {
                     "slug": "uuid=5e598&id=6M11-1a&n=1&d=10&s=1-2-3&s2=1&s3=true&cd=1",
@@ -1773,23 +1780,10 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "prerequisites": [],
-                "videos": [
-                  {
-                    "title": "Périmètre",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=wNk5XKwEZDw&vignette=https://i.ytimg.com/vi/wNk5XKwEZDw/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  },
-                  {
-                    "title": "Aire",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
+                "videos": [],
                 "exercises": [
                   {
-                    "slug": "uuid=a17d6&id=can6M17&n=1&d=10&s=2&s2=true&qcm=0&cd=1",
+                    "slug": "uuid=95313&id=auto6M2A&n=1&d=10&s=13&s2=2&cd=1",
                     "description": ""
                   }
                 ],
