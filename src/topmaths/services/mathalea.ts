@@ -1,7 +1,8 @@
 import { get } from 'svelte/store'
 import refToUuid2016 from '../../json/refToUuidFR-2016.json'
 import refToUuid from '../../json/refToUuidFR.json'
-import type { InterfaceParamsWithMeta } from '../../lib/types'
+import { globalOptions } from '../../lib/stores/generalStore'
+import type { InterfaceParamsWithMeta, VueType } from '../../lib/types'
 import { isObjectiveReference } from '../types/objective'
 import { isUnitReference } from '../types/unit'
 import { isDoubleView } from './store'
@@ -77,7 +78,7 @@ export function buildParamsFromUrl(
 }
 
 export function buildUrlFromParams(
-  originStringUrl: string,
+  v: VueType,
   exercicesParams: InterfaceParamsWithMeta[],
 ): URL {
   const url = new URL(window.location.protocol + '//' + window.location.host)
@@ -103,34 +104,32 @@ export function buildUrlFromParams(
       url.searchParams.append('u', ex.sourceUnit)
     }
   }
-  const originUrl = new URL(originStringUrl)
-  const v = originUrl.searchParams.get('v') || 'exercise'
-  const sourceUnit = originUrl.searchParams.get('u')
-  const sourceObjective = originUrl.searchParams.get('o')
   url.searchParams.append('v', v)
-  if (sourceUnit) url.searchParams.append('u', sourceUnit)
-  if (sourceObjective) url.searchParams.append('o', sourceObjective)
   if (get(isDoubleView)) url.searchParams.append('dv', 'true')
   return url
 }
 
-export function updateUrl(urlToWrite: string): void {
+export function updateUrl(v: VueType, urlToWrite: string): void {
   // On ne met à jour l'url qu'une fois toutes les 0,1 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
   if (timerId === undefined) {
     timerId = setTimeout(() => {
       window.history.pushState({}, '', urlToWrite)
       timerId = undefined
+      globalOptions.update((options) => {
+        options.v = v
+        return options
+      })
     }, 100)
   }
 }
 
 export function updateUrlFromParams(
-  url: string,
+  v: VueType,
   exercicesParams: InterfaceParamsWithMeta[],
 ): void {
-  urlToWrite = buildUrlFromParams(url, exercicesParams)
+  urlToWrite = buildUrlFromParams(v, exercicesParams)
   if (urlToWrite.href !== window.location.href) {
-    updateUrl(urlToWrite.href)
+    updateUrl(v, urlToWrite.href)
   }
 }

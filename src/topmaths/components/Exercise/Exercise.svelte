@@ -51,7 +51,7 @@
       url = $exerciseLinks[randint(0, $exerciseLinks.length - 1)]
     else url = window.location.href
     initComponent(url)
-    updateUrlFromParams(url, exercicesParams)
+    updateUrlFromParams('exercise', exercicesParams)
   })
 
   function getApiGeomUuids(): string[] {
