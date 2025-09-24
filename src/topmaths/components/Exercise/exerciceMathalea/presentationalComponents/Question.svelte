@@ -50,12 +50,7 @@
         </div>
         <div
           style="break-inside:avoid; line-height: {exercise.spacing ||
-            DEFAULT_LINE_HEIGHT}; margin-top: {exercise.spacing *
-            SPACING_MARGIN_RATIO ||
-            DEFAULT_LINE_HEIGHT *
-              SPACING_MARGIN_RATIO}em; margin-bottom: {exercise.spacing *
-            SPACING_MARGIN_RATIO ||
-            DEFAULT_LINE_HEIGHT * SPACING_MARGIN_RATIO}em;"
+            DEFAULT_LINE_HEIGHT};"
         >
           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           {@html exercise.consigneCorrection}
@@ -64,12 +59,7 @@
       <div
         class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1"
         style="break-inside:avoid; line-height: {exercise.spacing ||
-          DEFAULT_LINE_HEIGHT}; margin-top: {exercise.spacing *
-          SPACING_MARGIN_RATIO ||
-          DEFAULT_LINE_HEIGHT *
-            SPACING_MARGIN_RATIO}em; margin-bottom: {exercise.spacing *
-          SPACING_MARGIN_RATIO ||
-          DEFAULT_LINE_HEIGHT * SPACING_MARGIN_RATIO}em;"
+          DEFAULT_LINE_HEIGHT};"
       >
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html mathaleaFormatExercice(exercise.listeCorrections[questionIndex])}
