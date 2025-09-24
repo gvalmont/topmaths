@@ -1,22 +1,23 @@
+import type Figure from 'apigeom/src/Figure'
+import {
+  KeyboardType,
+  type PartialKbType,
+} from '../lib/interactif/claviers/keyboard'
+import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
+import type DragAndDrop from '../lib/interactif/DragAndDrop'
+import type {
+  AutoCorrection,
+  clickFigures,
+  ReponseComplexe,
+} from '../lib/interactif/gestionInteractif'
 import type Grandeur from '../modules/Grandeur'
+import { DEFAULT_LINE_HEIGHT } from '../topmaths/services/environment'
 import {
   exportedApplyNewSeed,
   exportedNouvelleVersionWrapper,
   exportedQuestionJamaisPosee,
   exportedReinit,
 } from './exerciseMethods'
-import type {
-  AutoCorrection,
-  clickFigures,
-  ReponseComplexe,
-} from '../lib/interactif/gestionInteractif'
-import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
-import type DragAndDrop from '../lib/interactif/DragAndDrop'
-import type Figure from 'apigeom/src/Figure'
-import {
-  KeyboardType,
-  type PartialKbType,
-} from '../lib/interactif/claviers/keyboard'
 
 /**
  *
@@ -61,6 +62,7 @@ export default class Exercice {
   canLiee: number[] = [] //  Pour la sortie LaTeX des CAN dont les énoncés sont liées, cette variable contient, dans un tableau, les numéros des CAN liées à l'actuelle.
   formatChampTexte: string | undefined | PartialKbType =
     KeyboardType.clavierDeBase // Seulement pour les exercices de type simple
+
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   // tailleDiaporama?: number // Pour fixer un zoom de base en mode diaporama
   compare?:
@@ -72,6 +74,7 @@ export default class Exercice {
         input: string,
         goodAnswer: Grandeur,
       ) => { isOk: boolean; feedback?: string }) // Seulement pour les exercices de type simple
+
   // optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
   optionsDeComparaison?: Partial<OptionsComparaisonType>
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
@@ -110,30 +113,35 @@ export default class Exercice {
     | boolean
     | [titre: string, max: number, tooltip: string]
     | [titre: string, max: number]
+
   besoinFormulaireTexte: boolean | [string, string]
   besoinFormulaireCaseACocher: boolean | [string] | [string, boolean]
   besoinFormulaire2Numerique:
     | boolean
     | [titre: string, max: number, tooltip: string]
     | [titre: string, max: number]
+
   besoinFormulaire2Texte: boolean | [string, string]
   besoinFormulaire2CaseACocher: boolean | [string] | [string, boolean]
   besoinFormulaire3Numerique:
     | boolean
     | [titre: string, max: number, tooltip: string]
     | [titre: string, max: number]
+
   besoinFormulaire3Texte: boolean | [string, string]
   besoinFormulaire3CaseACocher: boolean | [string] | [string, boolean]
   besoinFormulaire4Numerique:
     | boolean
     | [titre: string, max: number, tooltip: string]
     | [titre: string, max: number]
+
   besoinFormulaire4Texte: boolean | [string, string]
   besoinFormulaire4CaseACocher: boolean | [string] | [string, boolean]
   besoinFormulaire5Numerique:
     | boolean
     | [titre: string, max: number, tooltip: string]
     | [titre: string, max: number]
+
   besoinFormulaire5Texte: boolean | [string, string]
   besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
   mg32Editable: boolean
@@ -176,8 +184,8 @@ export default class Exercice {
     // ///////////////////////////////////////////////
     // Mise en forme de l'exercice
     // ///////////////////////////////////////////////
-    this.spacing = 1 // Interligne des questions
-    this.spacingCorr = 1 // Interligne des réponses
+    this.spacing = DEFAULT_LINE_HEIGHT // Interligne des questions
+    this.spacingCorr = DEFAULT_LINE_HEIGHT // Interligne des réponses
 
     // ////////////////////////////////////////////
     // Gestion de la sortie LateX

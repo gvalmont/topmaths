@@ -1,6 +1,10 @@
 <script lang="ts">
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { mathaleaFormatExercice } from '../../../../../lib/mathalea.js'
+  import {
+    DEFAULT_LINE_HEIGHT,
+    SPACING_MARGIN_RATIO,
+  } from '../../../../services/environment'
 
   export let exercise: TypeExercice
   export let exerciseIndex: number
@@ -15,7 +19,12 @@
 >
   <li
     id="exercice{exerciseIndex}Q{questionIndex}"
-    style="line-height: {exercise.spacing || 1}"
+    style="break-inside:avoid; line-height: {exercise.spacing ||
+      DEFAULT_LINE_HEIGHT}; margin-top: {exercise.spacing *
+      SPACING_MARGIN_RATIO ||
+      DEFAULT_LINE_HEIGHT *
+        SPACING_MARGIN_RATIO}em; margin-bottom: {exercise.spacing *
+      SPACING_MARGIN_RATIO || DEFAULT_LINE_HEIGHT * SPACING_MARGIN_RATIO}em;"
   >
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html mathaleaFormatExercice(exercise.listeQuestions[questionIndex])}
@@ -39,14 +48,28 @@
             class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark"
           ></i>
         </div>
-        <div class="">
+        <div
+          style="break-inside:avoid; line-height: {exercise.spacing ||
+            DEFAULT_LINE_HEIGHT}; margin-top: {exercise.spacing *
+            SPACING_MARGIN_RATIO ||
+            DEFAULT_LINE_HEIGHT *
+              SPACING_MARGIN_RATIO}em; margin-bottom: {exercise.spacing *
+            SPACING_MARGIN_RATIO ||
+            DEFAULT_LINE_HEIGHT * SPACING_MARGIN_RATIO}em;"
+        >
           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           {@html exercise.consigneCorrection}
         </div>
       </div>
       <div
         class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1"
-        style="line-height: {exercise.spacing || 1}; break-inside:avoid"
+        style="break-inside:avoid; line-height: {exercise.spacing ||
+          DEFAULT_LINE_HEIGHT}; margin-top: {exercise.spacing *
+          SPACING_MARGIN_RATIO ||
+          DEFAULT_LINE_HEIGHT *
+            SPACING_MARGIN_RATIO}em; margin-bottom: {exercise.spacing *
+          SPACING_MARGIN_RATIO ||
+          DEFAULT_LINE_HEIGHT * SPACING_MARGIN_RATIO}em;"
       >
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html mathaleaFormatExercice(exercise.listeCorrections[questionIndex])}

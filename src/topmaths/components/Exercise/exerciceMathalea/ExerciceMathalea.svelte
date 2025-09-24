@@ -5,8 +5,12 @@
     exerciceInteractif,
     prepareExerciceCliqueFigure,
   } from '../../../../lib/interactif/gestionInteractif'
-  import { loadMathLive } from '../../../../modules/loaders'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { loadMathLive } from '../../../../modules/loaders'
+  import {
+    DEFAULT_LINE_HEIGHT,
+    SPACING_MARGIN_RATIO,
+  } from '../../../services/environment'
   import Question from './presentationalComponents/Question.svelte'
   export let exercise: TypeExercice | SvelteComponent
   export let exerciseIndex: number
@@ -166,6 +170,13 @@
               class="my-2
               ml-2 lg:ml-6
               text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+              style="break-inside:avoid; line-height: {exercise.spacing ||
+                DEFAULT_LINE_HEIGHT}; margin-top: {exercise.spacing *
+                SPACING_MARGIN_RATIO ||
+                DEFAULT_LINE_HEIGHT *
+                  SPACING_MARGIN_RATIO}em; margin-bottom: {exercise.spacing *
+                SPACING_MARGIN_RATIO ||
+                DEFAULT_LINE_HEIGHT * SPACING_MARGIN_RATIO}em;"
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html exercise.consigne}
@@ -178,6 +189,13 @@
               class="my-2
               ml-2 lg:ml-6
               text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+              style="break-inside:avoid; line-height: {exercise.spacing ||
+                DEFAULT_LINE_HEIGHT}; margin-top: {exercise.spacing *
+                SPACING_MARGIN_RATIO ||
+                DEFAULT_LINE_HEIGHT *
+                  SPACING_MARGIN_RATIO}em; margin-bottom: {exercise.spacing *
+                SPACING_MARGIN_RATIO ||
+                DEFAULT_LINE_HEIGHT * SPACING_MARGIN_RATIO}em;"
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html exercise.introduction}

@@ -3,6 +3,8 @@ export const COOPMATHS_BASE_URL = 'https://coopmaths.fr/alea/?'
 export const EXERCISE_PARAM_ADDENDUM = '&i=0'
 export const REGULAR_VIEW_ADDENDUM = '&v=exercise'
 export const SLIDESHOW_VIEW_ADDENDUM = '&v=diaporama&ds=1000101'
+export const DEFAULT_LINE_HEIGHT = 1.6 // em
+export const SPACING_MARGIN_RATIO = 0.8 // margin = line height * ratio
 
 export function isTopmaths(link: string): boolean {
   return link.slice(0, TOPMATHS_BASE_URL.length) === TOPMATHS_BASE_URL
