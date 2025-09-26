@@ -68,19 +68,13 @@
             "reference": "6N1A"
           },
           {
-            "reference": "6N1D"
+            "reference": "6N1B"
           },
           {
             "reference": "6N2N"
           },
           {
-            "reference": "6N1B"
-          },
-          {
-            "reference": "6N1H"
-          },
-          {
-            "reference": "6N1G"
+            "reference": "6N1D"
           }
         ]
       },
@@ -175,6 +169,12 @@
       {
         "title": "Nombres décimaux 2",
         "objectives": [
+          {
+            "reference": "6N1H"
+          },
+          {
+            "reference": "6N1G"
+          },
           {
             "reference": "6N1I"
           },
