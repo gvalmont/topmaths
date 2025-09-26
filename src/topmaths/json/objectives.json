@@ -796,13 +796,7 @@
                 "lessonSummaryImage": "",
                 "videos": [
                   {
-                    "title": "Écrire en lettres un nombre décimal",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mybEQfCJFD0&vignette=https://i.ytimg.com/vi/mybEQfCJFD0/hqdefault.jpg&debut=0&fin=580&largeur=200&hauteur=150",
-                    "authorName": "La classe de Marion",
-                    "authorLink": "https://www.youtube.com/channel/UC1CNz6Kh6hrER1lVD_vwzPg"
-                  },
-                  {
-                    "title": "Passer d'une écriture fractionnaire à l'écriture décimale",
+                    "title": "",
                     "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=i75HKdds3Gc&vignette=https://i.ytimg.com/vi/i75HKdds3Gc/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
@@ -810,20 +804,16 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "6N23-4,s=1-2-3,n=3",
-                    "description": "Donner l'écriture décimale d'un nombre écrit en lettres"
+                    "slug": "uuid=47fed&id=auto6N2B&n=4&d=10&s=1&s2=1&cd=1",
+                    "description": "Passer de l'écriture décimale à une écriture fractionnaire"
                   },
                   {
-                    "slug": "6N23-0,s=1,s2=1,s3=2,n=4",
-                    "description": "Écrire en lettres un nombre décimal"
+                    "slug": "uuid=1acf7&id=auto6N2B-1&n=2&d=10&s=1-2-3&cd=1",
+                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale en passant par une écriture mixte"
                   },
                   {
-                    "slug": "6N23-1,s=8,n=4",
-                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale en décomposant"
-                  },
-                  {
-                    "slug": "6N23,n=4",
-                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale directement"
+                    "slug": "uuid=47fed&id=auto6N2B&n=4&d=10&s=3&s2=2&cd=1",
+                    "description": "Passer d'une écriture fractionnaire ou mixte à l'écriture décimale"
                   }
                 ],
                 "lessonPlans": [
