@@ -9,12 +9,23 @@
             "name": "6N1 Les nombres entiers et décimaux",
             "objectives": [
               {
+                "reference": "6N1AA",
+                "titleAcademic": "Connaître et utiliser la valeur des chiffres selon leur rang dans l'écriture d'un nombre entier",
+                "title": "",
+                "exercises": [
+                  {
+                    "slug": "uuid=34579&id=6N1A-2&n=4&d=10&s=3&s2=3&cd=1",
+                    "description": ""
+                  }
+                ]
+              },
+              {
                 "reference": "6N1A",
                 "titleAcademic": "Connaître et utiliser la valeur des chiffres selon leur rang dans l'écriture d'un nombre",
                 "title": "",
                 "exercises": [
                   {
-                    "slug": "uuid=34579&id=6N1A-2&n=4&d=10&s=3&s2=3&cd=1",
+                    "slug": "uuid=6ea89&id=6N1A&n=4&d=10&s=7&s2=false&s3=3&cd=1",
                     "description": ""
                   }
                 ]
