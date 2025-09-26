@@ -51,16 +51,13 @@
         ]
       },
       {
-        "title": "Périmètres et aires 1",
+        "title": "Proportionnalité 1",
         "objectives": [
           {
-            "reference": "6M1J"
+            "reference": "6P3A"
           },
           {
-            "reference": "6M2D"
-          },
-          {
-            "reference": "6M2F"
+            "reference": "6P3B"
           }
         ]
       },
@@ -88,13 +85,16 @@
         ]
       },
       {
-        "title": "Proportionnalité 1",
+        "title": "Périmètres et aires 1",
         "objectives": [
           {
-            "reference": "6P3A"
+            "reference": "6M1G"
           },
           {
-            "reference": "6P3B"
+            "reference": "6M1J"
+          },
+          {
+            "reference": "6M2D"
           }
         ]
       },
@@ -190,10 +190,13 @@
         "title": "Périmètres et aires 2",
         "objectives": [
           {
-            "reference": "6M1F"
+            "reference": "6M2E"
           },
           {
-            "reference": "6M1G"
+            "reference": "6M2F"
+          },
+          {
+            "reference": "6M1F"
           },
           {
             "reference": "6M1H"
@@ -334,9 +337,6 @@
         "objectives": [
           {
             "reference": "6M2A"
-          },
-          {
-            "reference": "6M2E"
           },
           {
             "reference": "6M2G"
