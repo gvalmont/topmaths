@@ -1,5 +1,3 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import { randint } from '../../modules/outils'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import {
@@ -7,11 +5,13 @@ import {
   spline,
   type NoeudSpline,
 } from '../../lib/mathFonctions/Spline'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/2dGeneralites'
+import { randint } from '../../modules/outils'
 
-import ExerciceQcmA from '../ExerciceQcmA'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '30/07/2025'
 export const uuid = '3d696'
 
@@ -260,169 +260,169 @@ export default class AutoF4 extends ExerciceQcmA {
     this.enonce += 'Une seule affirmation est correcte :'
 
     // Définir toutes les réponses possibles avec leur correction
-  const bonnesReponses = [
-  {
-    texte: `Le produit des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] * solutions2[1]}$.`,
-    texteCorrection: `${texteEnCouleurEtGras(`Le produit des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] * solutions2[1]}$.`)}`,
-    correction:
-      AFC +
-      `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
+    const bonnesReponses = [
+      {
+        texte: `Le produit des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] * solutions2[1]}$.`,
+        texteCorrection: `${texteEnCouleurEtGras(`Le produit des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] * solutions2[1]}$.`)}`,
+        correction:
+          AFC +
+          `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
           Le produit de ces solutions est $${solutions2[0]}\\times ${ecritureParentheseSiNegatif(solutions2[1])}= ${solutions2[0] * solutions2[1]}$.`,
-    estCorrecte: true,
-  },
-  {
-    texte: `La somme des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] + solutions2[1]}$.`,
-    texteCorrection: `${texteEnCouleurEtGras(`La somme des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] + solutions2[1]}$.`)}`,
-    correction:
-      AFC +
-      `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
+        estCorrecte: true,
+      },
+      {
+        texte: `La somme des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] + solutions2[1]}$.`,
+        texteCorrection: `${texteEnCouleurEtGras(`La somme des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] + solutions2[1]}$.`)}`,
+        correction:
+          AFC +
+          `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
           La somme de ces solutions est $${solutions2[0]}+ ${ecritureParentheseSiNegatif(solutions2[1])}= ${solutions2[0] + solutions2[1]}$.`,
-    estCorrecte: true,
-  },
-  {
-    texte: `La somme des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
-    texteCorrection: `${texteEnCouleurEtGras(`La somme des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] + solutions3[1] + solutions3[2]}$.`)}`,
-    correction:
-      AFC +
-      `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
+        estCorrecte: true,
+      },
+      {
+        texte: `La somme des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
+        texteCorrection: `${texteEnCouleurEtGras(`La somme des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] + solutions3[1] + solutions3[2]}$.`)}`,
+        correction:
+          AFC +
+          `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
           La somme de ces solutions est $${solutions3[0]}+ ${ecritureParentheseSiNegatif(solutions3[1])}+${ecritureParentheseSiNegatif(solutions3[2])}= ${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
-    estCorrecte: true,
-  },
-  {
-    texte: `Le produit des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
-    texteCorrection: `${texteEnCouleurEtGras(`Le produit des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] * solutions3[1] * solutions3[2]}$.`)}`,
-    correction:
-      AFC +
-      `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
+        estCorrecte: true,
+      },
+      {
+        texte: `Le produit des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
+        texteCorrection: `${texteEnCouleurEtGras(`Le produit des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] * solutions3[1] * solutions3[2]}$.`)}`,
+        correction:
+          AFC +
+          `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
           Le produit de ces solutions est $${solutions3[0]}\\times ${ecritureParentheseSiNegatif(solutions3[1])}\\times ${ecritureParentheseSiNegatif(solutions3[2])}= ${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
-    estCorrecte: true,
-  },
-  {
-    texte: `Soit $k\\in\\mathbb{R}$. <br>
+        estCorrecte: true,
+      },
+      {
+        texte: `Soit $k\\in\\mathbb{R}$. <br>
           L'équation $f(x)=k$ a au plus $3$ solutions.`,
-    texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in\\mathbb{R}$. <br>
+        texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in\\mathbb{R}$. <br>
           L'équation $f(x)=k$ a au plus $3$ solutions.`)}`,
-    correction:
-      AFC +
-      'Une droite horizontale coupe au plus trois fois la courbe, donc le nombre maximal de solutions est $3$.',
-    estCorrecte: true,
-  },
-  {
-    texte: `Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
+        correction:
+          AFC +
+          'Une droite horizontale coupe au plus trois fois la courbe, donc le nombre maximal de solutions est $3$.',
+        estCorrecte: true,
+      },
+      {
+        texte: `Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
           L'équation $f(x)=k$ admet exactement deux solutions.`,
-    texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
+        texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
           L'équation $f(x)=k$ admet exactement deux solutions.`)}`,
-    correction:
-      AFC +
-      `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
-    estCorrecte: true,
-  },
-  {
-    texte: `Soit $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$. <br>
+        correction:
+          AFC +
+          `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
+        estCorrecte: true,
+      },
+      {
+        texte: `Soit $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$. <br>
           L'équation $f(x)=k$ admet exactement deux solutions.`,
-    texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$. <br>
+        texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$. <br>
           L'équation $f(x)=k$ admet exactement deux solutions.`)}`,
-    correction:
-      AFC +
-      `Si $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$,  la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
-    estCorrecte: true,
-  },
-  {
-    texte: `Soit $k\\in\\mathbb{R}$. <br>
+        correction:
+          AFC +
+          `Si $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$,  la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
+        estCorrecte: true,
+      },
+      {
+        texte: `Soit $k\\in\\mathbb{R}$. <br>
           Il existe une infinité de valeurs de $k$ pour lesquelles l'équation $f(x)=k$ admet exactement trois solutions.`,
-    texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in\\mathbb{R}$. <br>
+        texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in\\mathbb{R}$. <br>
           Il existe une infinité de valeurs de $k$ pour lesquelles l'équation $f(x)=k$ admet exactement trois solutions.`)}`,
-    correction:
-      AFC +
-      `Pour toutes les valeurs de $k$ comprises entre $${Math.min(theSpline.y[0], theSpline.y[9])}$ et $${Math.max(theSpline.y[0], theSpline.y[9])}$, l'équation $f(x)=k$ admet exactement trois solutions.`,
-    estCorrecte: true,
-  },
-  {
-    texte: `Soit $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$. <br>
+        correction:
+          AFC +
+          `Pour toutes les valeurs de $k$ comprises entre $${Math.min(theSpline.y[0], theSpline.y[9])}$ et $${Math.max(theSpline.y[0], theSpline.y[9])}$, l'équation $f(x)=k$ admet exactement trois solutions.`,
+        estCorrecte: true,
+      },
+      {
+        texte: `Soit $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$. <br>
           L'équation $f(x)=k$ admet exactement trois solutions.`,
-    texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$. <br>
+        texteCorrection: `${texteEnCouleurEtGras(`Soit $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$. <br>
           L'équation $f(x)=k$ admet exactement trois solutions.`)}`,
-    correction:
-      AFC +
-      `Si $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$ la droite d'équation $y=k$ coupe bien trois fois la courbe.`,
-    estCorrecte: true,
-  },
-]
+        correction:
+          AFC +
+          `Si $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$ la droite d'équation $y=k$ coupe bien trois fois la courbe.`,
+        estCorrecte: true,
+      },
+    ]
 
-const mauvaisesReponses = [
-  {
-    texte: `Le produit des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] + solutions2[1]}$.`,
-    correction:
-      AFF +
-      `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
+    const mauvaisesReponses = [
+      {
+        texte: `Le produit des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] + solutions2[1]}$.`,
+        correction:
+          AFF +
+          `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
           Le produit de ces solutions est $${solutions2[0]}\\times ${ecritureParentheseSiNegatif(solutions2[1])}= ${solutions2[0] * solutions2[1]}$.`,
-    estCorrecte: false,
-  },
-  {
-    texte: `La somme des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] * solutions2[1]}$.`,
-    correction:
-      AFF +
-      `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
+        estCorrecte: false,
+      },
+      {
+        texte: `La somme des solutions de l'équation $f(x)=${y2}$ est égal à $${solutions2[0] * solutions2[1]}$.`,
+        correction:
+          AFF +
+          `L'équation $f(x)=${y2}$ a deux solutions : $${solutions2[0]}$ et $${solutions2[1]}$.<br>
           La somme de ces solutions est $${solutions2[0]}+ ${ecritureParentheseSiNegatif(solutions2[1])}= ${solutions2[0] + solutions2[1]}$.`,
-    estCorrecte: false,
-  },
-  {
-    texte: `La somme des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
-    correction:
-      AFF +
-      `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
+        estCorrecte: false,
+      },
+      {
+        texte: `La somme des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
+        correction:
+          AFF +
+          `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
           La somme de ces solutions est $${solutions3[0]}+ ${ecritureParentheseSiNegatif(solutions3[1])}+${ecritureParentheseSiNegatif(solutions3[2])}= ${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
-    estCorrecte: false,
-  },
-  {
-    texte: `Le produit des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
-    correction:
-      AFF +
-      `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
+        estCorrecte: false,
+      },
+      {
+        texte: `Le produit des solutions de l'équation $f(x)=${y3}$ est égal à $${solutions3[0] + solutions3[1] + solutions3[2]}$.`,
+        correction:
+          AFF +
+          `L'équation $f(x)=${y3}$ a trois solutions : $${solutions3[0]}$, $${solutions3[1]}$ et $${solutions3[2]}$.<br>
           Le produit de ces solutions est $${solutions3[0]}\\times ${ecritureParentheseSiNegatif(solutions3[1])}\\times ${ecritureParentheseSiNegatif(solutions3[2])}= ${solutions3[0] * solutions3[1] * solutions3[2]}$.`,
-    estCorrecte: false,
-  },
-  {
-    texte: `Soit $k\\in\\mathbb{R}$. <br>
+        estCorrecte: false,
+      },
+      {
+        texte: `Soit $k\\in\\mathbb{R}$. <br>
           L'équation $f(x)=k$ a au plus $4$ solutions.`,
-    correction:
-      AFF +
-      'Une droite horizontale coupe au plus trois fois la courbe, donc le nombre maximal de solutions est $3$.',
-    estCorrecte: false,
-  },
-  {
-    texte: `Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
+        correction:
+          AFF +
+          'Une droite horizontale coupe au plus trois fois la courbe, donc le nombre maximal de solutions est $3$.',
+        estCorrecte: false,
+      },
+      {
+        texte: `Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
           L'équation $f(x)=k$ admet exactement trois solutions.`,
-    correction:
-      AFF +
-      `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
-    estCorrecte: false,
-  },
-  {
-    texte: `Soit $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$. <br>
+        correction:
+          AFF +
+          `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
+        estCorrecte: false,
+      },
+      {
+        texte: `Soit $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$. <br>
           L'équation $f(x)=k$ admet exactement trois solutions.`,
-    correction:
-      AFF +
-      `Si $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$,  la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
-    estCorrecte: false,
-  },
-  {
-    texte: `Soit $k\\in\\mathbb{R}$. <br>
+        correction:
+          AFF +
+          `Si $k\\in]${Math.min(theSpline.y[6], theSpline.y[7])}\\,;\\,${Math.max(theSpline.y[6], theSpline.y[7])}[$,  la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
+        estCorrecte: false,
+      },
+      {
+        texte: `Soit $k\\in\\mathbb{R}$. <br>
           Il n'existe que deux valeurs de $k$ pour lesquelles l'équation $f(x)=k$ ait exactement trois solutions.`,
-    correction:
-      AFF +
-      `Pour toutes les valeurs de $k$ comprises entre $${Math.min(theSpline.y[0], theSpline.y[9])}$ et $${Math.max(theSpline.y[0], theSpline.y[9])}$, l'équation $f(x)=k$ admet exactement trois solutions.`,
-    estCorrecte: false,
-  },
-  {
-    texte: `Soit $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$. <br>
+        correction:
+          AFF +
+          `Pour toutes les valeurs de $k$ comprises entre $${Math.min(theSpline.y[0], theSpline.y[9])}$ et $${Math.max(theSpline.y[0], theSpline.y[9])}$, l'équation $f(x)=k$ admet exactement trois solutions.`,
+        estCorrecte: false,
+      },
+      {
+        texte: `Soit $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$. <br>
           L'équation $f(x)=k$ admet exactement deux solutions.`,
-    correction:
-      AFF +
-      `Si $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$ la droite d'équation $y=k$ coupe trois fois la courbe et donc l'équation a trois solutions.`,
-    estCorrecte: false,
-  },
-]
+        correction:
+          AFF +
+          `Si $k\\in[${Math.min(theSpline.y[0], theSpline.y[9])}\\,;\\,${Math.max(theSpline.y[0], theSpline.y[9])}]$ la droite d'équation $y=k$ coupe trois fois la courbe et donc l'équation a trois solutions.`,
+        estCorrecte: false,
+      },
+    ]
     /* // ========== MODE TEST - AFFICHAGE DE TOUTES LES RÉPONSES ==========
     // Afficher TOUTES les bonnes réponses avec leurs corrections
     this.reponses = []
@@ -455,9 +455,7 @@ const mauvaisesReponses = [
     // ========== FIN MODE TEST ========== */
     // Choisir une bonne réponse et 3 mauvaises réponses distinctes
     const bonneReponseChoisie = choice(bonnesReponses)
-    const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(
-      () => Math.random() - 0.5,
-    )
+    const mauvaisesReponsesMelangees = shuffle([...mauvaisesReponses])
     const mauvaisesReponsesChoisies = mauvaisesReponsesMelangees.slice(0, 3)
 
     // Constituer le tableau des réponses (bonne réponse en premier)
@@ -470,13 +468,16 @@ const mauvaisesReponses = [
     this.reponses = toutesLesReponses.map((reponse) => reponse.texte)
 
     // Construire la correction en analysant chaque réponse
-   this.correction = ''
-toutesLesReponses.forEach((reponse, index) => {
-  // Utiliser texteCorrection pour la bonne réponse (index 0), texte pour les autres
-  const texteAffiche = (index === 0 && 'texteCorrection' in reponse) ? (reponse as any).texteCorrection : reponse.texte
-  this.correction += `$\\bullet$ ${texteAffiche}<br>`
-  this.correction += `  ${reponse.correction}<br>`
-})
+    this.correction = ''
+    toutesLesReponses.forEach((reponse, index) => {
+      // Utiliser texteCorrection pour la bonne réponse (index 0), texte pour les autres
+      const texteAffiche =
+        index === 0 && 'texteCorrection' in reponse
+          ? (reponse as any).texteCorrection
+          : reponse.texte
+      this.correction += `$\\bullet$ ${texteAffiche}<br>`
+      this.correction += `  ${reponse.correction}<br>`
+    })
   }
 
   constructor() {

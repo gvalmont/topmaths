@@ -1,4 +1,4 @@
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -174,14 +174,14 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
           ? `10^{${encadrement.exposant}}`
           : encadrement.coeffInf === -1
             ? `-10^{${encadrement.exposant}}`
-            : `${encadrement.coeffInf} \\times 10^{${encadrement.exposant}}`
+            : `${encadrement.coeffInf}\\times10^{${encadrement.exposant}}`
 
       const borneSupExpr =
         encadrement.coeffSup === 1
           ? `10^{${encadrement.exposant}}`
           : encadrement.coeffSup === -1
             ? `-10^{${encadrement.exposant}}`
-            : `${encadrement.coeffSup} \\times 10^{${encadrement.exposant}}`
+            : `${encadrement.coeffSup}\\times10^{${encadrement.exposant}}`
 
       consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${nombreTexte}\\leqslant${sp(1)}\\dots\\dots\\dots$`
 
@@ -192,9 +192,17 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
         : consigneAMC
 
       // Définir les réponses pour l'interactif
-      setReponse(this, 2 * i, borneInfExpr, { formatInteractif: 'puissance' })
-      setReponse(this, 2 * i + 1, borneSupExpr, {
-        formatInteractif: 'puissance',
+      handleAnswers(this, 2 * i, {
+        reponse: {
+          value: borneInfExpr,
+          options: { ecritureScientifique: true },
+        },
+      })
+      handleAnswers(this, 2 * i + 1, {
+        reponse: {
+          value: borneSupExpr,
+          options: { ecritureScientifique: true },
+        },
       })
 
       texteCorr = `$${miseEnEvidence(borneInfExpr)} \\leqslant ${nombreTexte} \\leqslant ${miseEnEvidence(borneSupExpr)}$`

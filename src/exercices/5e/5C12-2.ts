@@ -83,8 +83,8 @@ export default class ExpressionsDepuisCalculs extends Exercice {
     this.sup3 = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
     this.besoinFormulaire2Texte = [
-      "Nombre d'opérations de 2 à 4",
-      'nombres séparés par des tirets :',
+      'Nombre de calculs (2 à 4) séparés par des tirets :',
+      '2 : 2 opérations successives\n3 : 3 opérations successives\n4 : 4 opérations successives\n5 : Mélange',
     ]
     this.besoinFormulaire3CaseACocher = ['Sans parenthèses inutiles', false]
     this.correctionDetailleeDisponible = true
@@ -253,7 +253,7 @@ En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidenc
         `$${calcul4} = ${resultat4}$<br>`,
       ]
       const tirage = nombres.slice(0, nbOps[i] + 1)
-      const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${tirage.join(' ; ')}.<br>
+      const texte = `${prenom()} a obtenu le nombre $${nombreCible}$ à partir des nombres suivants : ${tirage.map((n) => `$${n}$`).join(' ; ')}.<br>
 Voici ses calculs :<br>${enonce.slice(0, nbOps[i]).join('\n')}
 Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecEgal)}`
       handleAnswers(this, i, {

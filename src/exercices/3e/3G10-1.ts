@@ -1,34 +1,44 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
 import {
+  Droite,
   droiteAvecNomLatex,
   droiteHorizontaleParPoint,
   droiteParPointEtPente,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
-import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import {
+  milieu,
+  Point,
+  point,
+  pointSurDroite,
+  tracePoint,
+} from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { imagePointParTransformation } from '../../modules/imagePointParTransformation'
-import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import {
+  imagePointParTransformation,
+  type TransformationsIndex,
+} from '../../modules/imagePointParTransformation'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre =
   "Trouver les coordonnées de l'image d'un point par une rotation et une homothétie"
@@ -63,26 +73,32 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
   }
 
   nouvelleVersion() {
-    const k = []
-    let A, B, C, Aprime, Bprime, Cprime
+    const k: number[] = []
+    // On initialise les Point pour éviter les erreurs typescript type undefined.
+    let A: Point = point(0, 0)
+    let B: Point = point(0, 0)
+    let C: Point = point(0, 0)
+    let Aprime: Point = point(0, 0)
+    let Bprime: Point = point(0, 0)
+    let Cprime: Point = point(0, 0)
     const xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
     const yP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // comme pour t, je n'utiliserai pas le premier élément pour coller aux index.
     const t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
     const lettre1 = ['A', 'B', 'C']
     const lettre2 = ["O'", 'A', 'B'] // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
-    const punto = [[]]
+    const punto: number[][] = [[]]
     const couleurs = ['brown', 'green', 'blue']
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
     for (
       let ee = 0,
         texte,
         texteCorr,
-        xA,
-        yA,
-        xB,
-        yB,
-        xC,
-        yC,
+        xA = 0,
+        yA = 0,
+        xB = 0,
+        yB = 0,
+        xC = 0,
+        yC = 0,
         objetsEnonce,
         objetsCorrection,
         cpt = 0;
@@ -96,7 +112,9 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         melange: 7,
         defaut: 7,
         nbQuestions: 3,
-      }).map((nb) => nb - 1)
+      })
+        .map(Number)
+        .map((nb) => nb - 1)
       let enonceAmc = ''
       texte = ''
       texteCorr = ''
@@ -135,7 +153,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         yA = randint(-7, 7, -1)
         if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
         punto[0] = imagePointParTransformation(
-          choixTransformation[0],
+          choixTransformation[0] as TransformationsIndex,
           [xA, yA],
           [xO, yO],
           [xO, yO],
@@ -155,7 +173,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           yA = randint(-7, 7, -1)
           if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
           punto[0] = imagePointParTransformation(
-            choixTransformation[0],
+            choixTransformation[0] as TransformationsIndex,
             [xA, yA],
             [xO, yO],
             [xO, yO],
@@ -174,7 +192,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
         if (choixTransformation[1] > 4) {
           punto[1] = imagePointParTransformation(
-            choixTransformation[1],
+            choixTransformation[1] as TransformationsIndex,
             [xB, yB],
             [xA, yA],
             [xA, yA],
@@ -183,7 +201,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           punto[1] = punto[1].map((e) => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } else {
           punto[1] = imagePointParTransformation(
-            choixTransformation[1],
+            choixTransformation[1] as TransformationsIndex,
             [xB, yB],
             [xO, yO],
           )
@@ -203,7 +221,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
           if (choixTransformation[1] > 4) {
             punto[1] = imagePointParTransformation(
-              choixTransformation[1],
+              choixTransformation[1] as TransformationsIndex,
               [xB, yB],
               [xA, yA],
               [xA, yA],
@@ -212,7 +230,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
             punto[1] = punto[1].map((e) => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } else {
             punto[1] = imagePointParTransformation(
-              choixTransformation[1],
+              choixTransformation[1] as TransformationsIndex,
               [xB, yB],
               [xO, yO],
             )
@@ -225,12 +243,12 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         Bprime = point(punto[1][0], punto[1][1], "B'")
 
         // xC = randint(-7, 7, 0) // Point C
-        xC = randint(-7, 7, 0, punto[0][0], punto[1][0]) // Point C
+        xC = randint(-7, 7, [0, punto[0][0], punto[1][0]]) // Point C
         yC = randint(-7, 7, [yA, yB, -1])
         if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
         if (choixTransformation[2] > 4) {
           punto[2] = imagePointParTransformation(
-            choixTransformation[2],
+            choixTransformation[2] as TransformationsIndex,
             [xC, yC],
             [xB, yB],
             [xB, yB],
@@ -239,7 +257,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           punto[2] = punto[2].map((e) => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } else {
           punto[2] = imagePointParTransformation(
-            choixTransformation[2],
+            choixTransformation[2] as TransformationsIndex,
             [xC, yC],
             [xO, yO],
           )
@@ -259,7 +277,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
           if (choixTransformation[2] > 4) {
             punto[2] = imagePointParTransformation(
-              choixTransformation[2],
+              choixTransformation[2] as TransformationsIndex,
               [xC, yC],
               [xB, yB],
               [xB, yB],
@@ -268,7 +286,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
             punto[2] = punto[2].map((e) => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } else {
             punto[2] = imagePointParTransformation(
-              choixTransformation[2],
+              choixTransformation[2] as TransformationsIndex,
               [xC, yC],
               [xO, yO],
             )
@@ -284,7 +302,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         C = point(xC, yC, 'C')
         Cprime = point(punto[2][0], punto[2][1], "C'")
       }
-      let couleurDroite
+      let couleurDroite: string = 'black'
       // les puntos sont choisis, on écrit l'énoncé
       for (let i = 0; i < 3; i++) {
         couleurDroite = context.isHtml ? couleurs[i] : 'black'
@@ -295,7 +313,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               '(d_1)',
               couleurDroite,
             )
-            droited1 = droited1Latex[0]
+            droited1 = droited1Latex[0] as Droite
             droited1.isVisible = true
             droited1.epaisseur = 2
             droited1.opacite = 0.5
@@ -326,13 +344,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               xP[1] = xA
               yP[1] = yA
             } else if (i === 1) {
-              couleurDroite = colorToLatexOrHTML(
-                context.isHtml
-                  ? choixTransformation[0] === choixTransformation[1]
-                    ? couleurs[0]
-                    : couleurs[i]
-                  : 'black',
-              )
+              couleurDroite = context.isHtml
+                ? choixTransformation[0] === choixTransformation[1]
+                  ? couleurs[0]
+                  : couleurs[i]
+                : 'black'
               objetsEnonce.push(tracePoint(B), labelPoint(B))
               objetsCorrection.push(
                 tracePoint(B),
@@ -358,15 +374,13 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               xP[1] = xB
               yP[1] = yB
             } else {
-              couleurDroite = colorToLatexOrHTML(
-                context.isHtml
-                  ? choixTransformation[0] === choixTransformation[2]
-                    ? couleurs[0]
-                    : choixTransformation[1] === choixTransformation[2]
-                      ? couleurs[1]
-                      : couleurs[i]
-                  : 'black',
-              )
+              couleurDroite = context.isHtml
+                ? choixTransformation[0] === choixTransformation[2]
+                  ? couleurs[0]
+                  : choixTransformation[1] === choixTransformation[2]
+                    ? couleurs[1]
+                    : couleurs[i]
+                : 'black'
               objetsEnonce.push(tracePoint(C), labelPoint(C))
               objetsCorrection.push(
                 tracePoint(C),
@@ -399,11 +413,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
 
             texte +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', droited1.color)}$.`
+              ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', droited1.color[0])}$.`
             if (context.isAmc) {
               enonceAmc +=
                 (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-                ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', droited1.color)}$.`
+                ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', droited1.color[0])}$.`
             }
             texteCorr +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
@@ -416,7 +430,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               '(d_2)',
               couleurDroite,
             )
-            droited2 = droited2Latex[0]
+            droited2 = droited2Latex[0] as Droite
             droited2.isVisible = true
             droited2.epaisseur = 2
             droited2.opacite = 0.5
@@ -448,13 +462,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               xP[2] = xA
               yP[2] = yA
             } else if (i === 1) {
-              couleurDroite = colorToLatexOrHTML(
-                context.isHtml
-                  ? choixTransformation[0] === choixTransformation[1]
-                    ? couleurs[0]
-                    : couleurs[i]
-                  : 'black',
-              )
+              couleurDroite = context.isHtml
+                ? choixTransformation[0] === choixTransformation[1]
+                  ? couleurs[0]
+                  : couleurs[i]
+                : 'black'
               objetsEnonce.push(tracePoint(B), labelPoint(B))
               objetsCorrection.push(
                 tracePoint(B),
@@ -480,15 +492,13 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               xP[2] = xB
               yP[2] = yB
             } else {
-              couleurDroite = colorToLatexOrHTML(
-                context.isHtml
-                  ? choixTransformation[0] === choixTransformation[2]
-                    ? couleurs[0]
-                    : choixTransformation[1] === choixTransformation[2]
-                      ? couleurs[1]
-                      : couleurs[i]
-                  : 'black',
-              )
+              couleurDroite = context.isHtml
+                ? choixTransformation[0] === choixTransformation[2]
+                  ? couleurs[0]
+                  : choixTransformation[1] === choixTransformation[2]
+                    ? couleurs[1]
+                    : couleurs[i]
+                : 'black'
               objetsEnonce.push(tracePoint(C), labelPoint(C))
               objetsCorrection.push(
                 tracePoint(C),
@@ -520,11 +530,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
             objetsCorrection.push(droited2Latex)
             texte +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color)}$.`
+              ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color[0])}$.`
             if (context.isAmc) {
               enonceAmc +=
                 (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-                ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color)}$.`
+                ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color[0])}$.`
             }
             texteCorr +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
@@ -537,7 +547,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               '(d)',
               couleurDroite,
             )
-            droited = droitedLatex[0]
+            droited = droitedLatex[0] as Droite
             droited.isVisible = true
             droited.epaisseur = 2
             droited.opacite = 0.5
@@ -568,13 +578,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               xP[3] = xA
               yP[3] = yA
             } else if (i === 1) {
-              couleurDroite = colorToLatexOrHTML(
-                context.isHtml
-                  ? choixTransformation[0] === choixTransformation[1]
-                    ? couleurs[0]
-                    : couleurs[i]
-                  : 'black',
-              )
+              couleurDroite = context.isHtml
+                ? choixTransformation[0] === choixTransformation[1]
+                  ? couleurs[0]
+                  : couleurs[i]
+                : 'black'
               objetsEnonce.push(tracePoint(B), labelPoint(B))
               objetsCorrection.push(
                 tracePoint(B),
@@ -600,15 +608,13 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               xP[3] = xB
               yP[3] = yB
             } else {
-              couleurDroite = colorToLatexOrHTML(
-                context.isHtml
-                  ? choixTransformation[0] === choixTransformation[2]
-                    ? couleurs[0]
-                    : choixTransformation[1] === choixTransformation[2]
-                      ? couleurs[1]
-                      : couleurs[i]
-                  : 'black',
-              )
+              couleurDroite = context.isHtml
+                ? choixTransformation[0] === choixTransformation[2]
+                  ? couleurs[0]
+                  : choixTransformation[1] === choixTransformation[2]
+                    ? couleurs[1]
+                    : couleurs[i]
+                : 'black'
               objetsEnonce.push(tracePoint(C), labelPoint(C))
               objetsCorrection.push(
                 tracePoint(C),
@@ -640,11 +646,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
             objetsCorrection.push(droitedLatex)
             texte +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
+              ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color[0])}$.`
             if (context.isAmc) {
               enonceAmc +=
                 (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-                ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
+                ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color[0])}$.`
             }
             texteCorr +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
@@ -657,7 +663,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               "(d')",
               couleurDroite,
             )
-            droitedprime = droitedprimeLatex[0]
+            droitedprime = droitedprimeLatex[0] as Droite
             droitedprime.isVisible = true
             droitedprime.epaisseur = 2
             droitedprime.opacite = 0.5
@@ -688,13 +694,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               xP[4] = xA
               yP[4] = yA
             } else if (i === 1) {
-              couleurDroite = colorToLatexOrHTML(
-                context.isHtml
-                  ? choixTransformation[0] === choixTransformation[1]
-                    ? couleurs[0]
-                    : couleurs[i]
-                  : 'black',
-              )
+              couleurDroite = context.isHtml
+                ? choixTransformation[0] === choixTransformation[1]
+                  ? couleurs[0]
+                  : couleurs[i]
+                : 'black'
               objetsEnonce.push(tracePoint(B), labelPoint(B))
               objetsCorrection.push(
                 tracePoint(B),
@@ -720,15 +724,13 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               xP[4] = xB
               yP[4] = yB
             } else {
-              couleurDroite = colorToLatexOrHTML(
-                context.isHtml
-                  ? choixTransformation[0] === choixTransformation[2]
-                    ? couleurs[0]
-                    : choixTransformation[1] === choixTransformation[2]
-                      ? couleurs[1]
-                      : couleurs[i]
-                  : 'black',
-              )
+              couleurDroite = context.isHtml
+                ? choixTransformation[0] === choixTransformation[2]
+                  ? couleurs[0]
+                  : choixTransformation[1] === choixTransformation[2]
+                    ? couleurs[1]
+                    : couleurs[i]
+                : 'black'
               objetsEnonce.push(tracePoint(C), labelPoint(C))
               objetsCorrection.push(
                 tracePoint(C),
@@ -760,11 +762,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
             objetsCorrection.push(droitedprimeLatex)
             texte +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur("(d')", droitedprime.color)}$.`
+              ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur("(d')", droitedprime.color[0])}$.`
             if (context.isAmc) {
               enonceAmc +=
                 (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-                ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur("(d')", droitedprime.color)}$.`
+                ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur("(d')", droitedprime.color[0])}$.`
             }
             texteCorr +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +

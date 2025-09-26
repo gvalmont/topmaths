@@ -14,7 +14,7 @@
   export let isImagesOnSides: boolean
 
   let nbVues
-  $: nbVues = currentSlide.vues.length
+  $: nbVues = currentSlide?.vues.length || 1
 </script>
 
 <div

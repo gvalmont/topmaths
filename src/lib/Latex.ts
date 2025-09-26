@@ -130,14 +130,20 @@ class Latex {
   ): { content: string; contentCorr: string } {
     if (latexFileInfos.style === 'ProfMaquette') {
       return {
-        content: this.getContentForAVersionProfMaquette(1, latexFileInfos),
+        content: this.getContentForAVersionProfMaquette(
+          indiceVersion,
+          latexFileInfos,
+        ),
         contentCorr: '',
       }
     }
     if (latexFileInfos.style === 'ProfMaquetteQrcode') {
       latexFileInfos.qrcodeOption = 'AvecQrcode'
       return {
-        content: this.getContentForAVersionProfMaquette(1, latexFileInfos),
+        content: this.getContentForAVersionProfMaquette(
+          indiceVersion,
+          latexFileInfos,
+        ),
         contentCorr: '',
       }
     }
@@ -351,6 +357,7 @@ class Latex {
       if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) {
         continue
       }
+      const seedOld = exercice.seed
       const seed =
         indiceVersion > 1
           ? exercice.seed + indiceVersion.toString()
@@ -364,6 +371,7 @@ class Latex {
           exercice.nouvelleVersionWrapper()
         }
       }
+      exercice.seed = seedOld // on remet l'ancienne seed pour ne pas perturber la génération des versions suivantes
     }
   }
 
@@ -385,7 +393,7 @@ class Latex {
         latexFileInfos.exos && latexFileInfos.exos[k]
           ? latexFileInfos.exos[k]
           : {}
-      content += `\n% @see : ${getUrlFromExercice(exercice)}`
+      content += `\n% @see : ${getUrlFromExercice(exercice, indiceVersion)}`
       if (exercice.typeExercice === 'statique') {
         if (exercice.content === '') {
           content += "% Cet exercice n'est pas disponible au format LaTeX"
@@ -396,8 +404,8 @@ class Latex {
               latexFileInfos.titleOption === 'AvecTitre'
                 ? `Titre=${latexFileInfos.titleOption}, `
                 : ''
-            }Ajout={\\node[anchor=north east, inner sep=2pt] 
-        at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice)}&v=eleve&es=0211}};
+            }Ajout={\\node[anchor=north east, inner sep=2pt]
+        at (frame.north east) {\\hypersetup{urlcolor=black, pdfnewwindow=true}\\qrcode[height=2cm]{${getUrlFromExercice(exercice, indiceVersion)}&v=eleve&es=0211}};
 }]%[Lignes=5,Interieur]`
           } else {
             content += `\n\\begin{exercice}${
@@ -420,7 +428,7 @@ class Latex {
               ? `Titre=${exercice.titre}, `
               : ''
           }Ajout={\\node[anchor=north east, inner sep=2pt]
-        at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice)}&v=eleve&es=0211}};
+        at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice, indiceVersion)}&v=eleve&es=0211}};
 }]%[Lignes=5,Interieur]`
         } else {
           content += `\n\\begin{exercice}${
@@ -1035,7 +1043,7 @@ export function format(
   return formattedText
 }
 
-function getUrlFromExercice(ex: TypeExercice) {
+function getUrlFromExercice(ex: TypeExercice, version: number = 1): string {
   const url = new URL('https://coopmaths.fr/alea')
   url.searchParams.append('uuid', String(ex.uuid))
   if (ex.id !== undefined) url.searchParams.append('id', ex.id)
@@ -1050,7 +1058,11 @@ function getUrlFromExercice(ex: TypeExercice) {
   if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
   if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
   if (ex.sup5 !== undefined) url.searchParams.append('s5', ex.sup5)
-  if (ex.seed !== undefined) url.searchParams.append('alea', ex.seed)
+  if (ex.seed !== undefined)
+    url.searchParams.append(
+      'alea',
+      version > 1 ? ex.seed + version.toString : ex.seed,
+    )
   if (ex.interactif) url.searchParams.append('i', '1')
   if (ex.correctionDetaillee !== undefined) {
     url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')

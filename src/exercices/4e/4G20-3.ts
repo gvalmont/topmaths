@@ -1,18 +1,18 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer un carré'
 export const dateDePublication = '17/01/2023'
-export const dateDeModifImportante = '5/4/2024' // Refonte des cas pour n'utiliser que les 15 premiers carrés parfaits
+export const dateDeModifImportante = '25/09/2025' // Eric Elter : Parenthèses + Eviter doublons
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -103,8 +103,8 @@ export default class calculsDeCarre extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 1: // entier naturel
           texte = this.interactif ? `$${entier}^2 =$` : `$${entier}$`
-          texteCorr = signe === -1 ? `$(${entier})^2` : `$${entier}^2`
-          texteCorr += `=${miseEnEvidence(entier * entier)}$`
+          // texteCorr = signe === -1 ? `$(${entier})^2` : `$${entier}^2`
+          texteCorr = `$${entier}^2=${miseEnEvidence(entier * entier)}$`
           setReponse(this, i, entier * entier)
           break
         case 2: // entier relatif
@@ -157,7 +157,16 @@ export default class calculsDeCarre extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, decimal, entier)) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          this.sup === 1 || this.sup === 2
+            ? entier
+            : this.sup === 3 || this.sup === 4
+              ? decimal
+              : numerateur,
+        )
+      ) {
         texte += ajouteChampTexteMathLive(
           this,
           i,

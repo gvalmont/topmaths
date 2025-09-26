@@ -19,7 +19,7 @@ export const titre = "Taux d'évolution entre deux grandeurs"
 export const dateDePublication = '10/07/2025'
 
 export default class TauxEvolution extends ExerciceQcmA {
-  private appliquerLesValeurs(
+   private appliquerLesValeurs(
     valeurInitiale: number,
     valeurFinale: number,
     evo: string,
@@ -29,7 +29,7 @@ export default class TauxEvolution extends ExerciceQcmA {
     const taux = ((valeurFinale - valeurInitiale) / valeurInitiale) * 100
     const tauxInverse = ((valeurInitiale - valeurFinale) / valeurFinale) * 100
     const diffBrute = valeurFinale - valeurInitiale
-    let distracteur = taux + choice([-10, -5, 5, 10]) // Distracteur pour éviter les réponses trop évidentes
+    let distracteur = taux + choice([-10, -5, 5, 10])
     do {
       distracteur = taux + choice([-10, -5, 5, 10])
     } while (
@@ -46,7 +46,7 @@ export default class TauxEvolution extends ExerciceQcmA {
       `Une ${evo}  de $${abs(distracteur)}\\, \\%$`,
     ]
 
-    this.enonce = `Une grandeur passe de $${texNombre(valeurInitiale)}$ à $${texNombre(valeurFinale)}$.<br>
+    this.enonce = `Une grandeur passe de $${texNombre(valeurInitiale)}$ à  $${texNombre(valeurFinale)}$.<br>
     L'évolution est :`
 
     this.correction = `Le taux d'évolution $t$ est donné par la formule :<br>
@@ -79,6 +79,16 @@ export default class TauxEvolution extends ExerciceQcmA {
         valeurFinale =
           valeurInitiale + randint(-1, 1, 0) * base * randint(1, 5) * 10
       } while (valeurFinale === valeurInitiale || valeurFinale <= 0)
+      
+      // Vérification pour éviter les cas problématiques
+      const taux = ((valeurFinale - valeurInitiale) / valeurInitiale) * 100
+      const diffBrute = valeurFinale - valeurInitiale
+      
+      // Si le taux arrondi égale la différence brute, on recommence
+      if (Math.round(abs(taux)) === abs(diffBrute)) {
+        continue
+      }
+      
       const evo = valeurFinale < valeurInitiale ? 'diminution' : 'augmentation'
       this.appliquerLesValeurs(valeurInitiale, valeurFinale, evo, base, coeff)
     } while (nombreElementsDifferents(this.reponses) < n)

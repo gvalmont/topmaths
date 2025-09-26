@@ -16,5 +16,6 @@ export default class SymetriesEtCoordonnees5e extends TransformationsDuPlanEtCoo
   constructor() {
     super()
     this.sup = '1-2'
+    this.besoinFormulaireTexte = false
   }
 }

@@ -11,7 +11,8 @@ import type { Expression } from 'mathlive'
   LatexDictionaryEntry,
   ParseLatexOptions,
   Parser
-} from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'*/
+} from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'
+ */
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { areSameArray } from '../outils/arrayOutils'
@@ -169,12 +170,53 @@ function cleanComas(str: string): string {
   return replaceThinSpaces(replaceUnescapedCommas(str.replaceAll(/\{,}/g, '.')))
 }
 
-/**
+/** Ancien cleanSpaces
  * Nettoie la saisie des espaces
  * @param {string} str
- */
+ 
 function cleanSpaces(str: string): string {
   return str.replaceAll(/\s/g, '').replaceAll(/\\,/g, '')
+}
+*/
+
+/**
+ * Supprime tous les espaces "classiques" et les espaces LaTeX d'une chaîne.
+ *
+ * Espaces supprimés :
+ * - Espaces standards (espace, tab, retour ligne, etc.)
+ * - `~` (espace insécable LaTeX)
+ * - `\,` (petit espace LaTeX)
+ * - `\:` (espace moyen LaTeX)
+ * - `\;` (espace large LaTeX)
+ * - `\!` (espace négatif LaTeX)
+ * - `\quad` (espace quad LaTeX)
+ * - `\qquad` (espace double quad LaTeX)
+ *
+ * @param {string} str - La chaîne à nettoyer.
+ * @returns {string} La chaîne sans aucun espace ni commande d'espacement LaTeX.
+ *
+ * @example
+ * removeLatexSpaces("Hello ~ world\\, test \\: math \\quad fini");
+ * // → "Helloworldtestmathfini"
+ *
+ * @author Eric Elter
+ */
+function cleanSpaces(str: string): string {
+  const patterns = [
+    /\s/g, // espaces normaux (tab, retour ligne…)
+    /~/g, // espace insécable (~)
+    /\\,/g, // petit espace \,
+    /\\:/g, // espace moyen \:
+    /\\;/g, // espace large \;
+    /\\!/g, // espace négatif \!
+    /\\quad/g, // espace quad
+    /\\qquad/g, // espace double quad
+  ]
+
+  for (const regex of patterns) {
+    str = str.replace(regex, '')
+  }
+  return str
 }
 
 /**
@@ -1682,6 +1724,60 @@ export function expressionDeveloppeeEtNonReduiteCompare(
 }
 
 /**
+ * Vérifie si une chaîne est en notation scientifique LaTeX valide.
+ * Gère les formes "a\\times10^{b}" et "10^{b}\\timesa".
+ * Retourne un objet avec isOk et feedback.
+ * @author Eric Elter
+ */
+/**
+ * Vérifie si une chaîne est en notation scientifique LaTeX valide.
+ * Gère les formes "a\\times10^b" et "10^b\\timesa" avec ou sans accolades.
+ * Retourne un objet avec isOk et feedback.
+ * @author Eric Elter
+ */
+function isScientific(str: string): { isOk: boolean; feedback: string } {
+  // Regex 1 : a\times10^b ou a\times10^{b}
+  const regex1 = /^(-?\d+(?:\.\d+)?)\\times10\^{?(-?\d+)}?$/
+  // Regex 2 : 10^b\timesa ou 10^{b}\timesa
+  const regex2 = /^10\^{?(-?\d+)}?\\times(-?\d+(?:\.\d+)?)$/
+
+  let base: number | null = null
+  let exponent: number | null = null
+
+  if (regex1.test(str)) {
+    const match = str.match(regex1)!
+    base = Number(match[1])
+    exponent = Number(match[2])
+  } else if (regex2.test(str)) {
+    const match = str.match(regex2)!
+    exponent = Number(match[1])
+    base = Number(match[2])
+  } else {
+    return {
+      isOk: false,
+      feedback: 'Format incorrect : utilisez a\\times10^b ou 10^b\\timesa.',
+    }
+  }
+
+  if (isNaN(base) || isNaN(exponent)) {
+    return {
+      isOk: false,
+      feedback: "La mantisse ou l'exposant n'est pas un nombre valide.",
+    }
+  }
+
+  if (Math.abs(base) < 1) {
+    return { isOk: false, feedback: 'La mantisse doit être ≥ 1.' }
+  }
+
+  if (Math.abs(base) >= 10) {
+    return { isOk: false, feedback: 'La mantisse doit être < 10.' }
+  }
+
+  return { isOk: true, feedback: 'La notation est correcte.' }
+}
+
+/**
  * Comparaison de nombres en notation scientifique
  * @param {string} input
  * @param {string} goodAnswer
@@ -1740,6 +1836,12 @@ function scientifiqueCompare(input: string, goodAnswer: string): ResultType {
       isOk: false,
       feedback:
         "La réponse fournie est bien égale à celle attendue mais la réponse fournie n'est pas en notation scientifique.",
+    }
+  if (isScientific(saisieClean).isOk)
+    return {
+      isOk: false,
+      feedback:
+        "La réponse fournie est bien en notation scientifique mais la réponse fournie n'est pas égale à celle attendue.",
     }
   return {
     isOk: false,
@@ -2816,7 +2918,7 @@ export function checkLeCompteEstBon( // Ne fonctionne que si numbers est un tabl
     if (node.numericValue !== null) {
       if (listeNombresEnonce.length === 0) {
         if (numbers.includes(Math.abs(Number(node.value)))) {
-          // abs obligatoire car sinon, poir 5-3, il tente de chercher -3.
+          // abs obligatoire car sinon, pour 5-3, il tente de chercher -3.
           nombresEnDoublon = true
           return 'Au moins un nombre en doublon'
         }
@@ -2852,6 +2954,7 @@ export function checkLeCompteEstBon( // Ne fonctionne que si numbers est un tabl
             divideCount++
             break
           case 'Subtract':
+          case 'Negate':
             subtractCount++
             break
           default:
@@ -2892,7 +2995,7 @@ export function checkLeCompteEstBon( // Ne fonctionne que si numbers est un tabl
     return {
       isOk: false,
       feedback:
-        "L'expression de doit contenir que des additions, des soustractions, des multiplications, des divisions ou des parenthèses.",
+        "L'expression doit contenir que des additions, des soustractions, des multiplications, des divisions ou des parenthèses.",
     }
   if (
     quatreOperationsObligatoires &&

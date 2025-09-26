@@ -732,7 +732,6 @@ export function droiteAvecNomLatex(d: Droite, nom: string, color = 'black') {
   }
   const leNom = latex2d(nom, absNom, ordNom, {
     color,
-    orientation: d.angleAvecHorizontale,
   })
   return [d, leNom]
 }

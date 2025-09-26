@@ -11,7 +11,7 @@ export const dateDePublication = '28/07/2025'
 export const uuid = '8fa9b'
 
 export const refs = {
-  'fr-fr': ['1A-F4-4'],
+  'fr-fr': ['1A-F2-5'],
   'fr-ch': [],
 }
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Reconnaître une parabole (forme canonique)'
-export default class AutoF3 extends ExerciceQcmA {
+export default class AutoF2e extends ExerciceQcmA {
   private creerRepere(xMin: number, xMax: number, yMin: number, yMax: number) {
     const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
     const r = repere({

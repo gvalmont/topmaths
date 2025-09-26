@@ -1,6 +1,3 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { randint } from '../../modules/outils'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import {
@@ -8,7 +5,10 @@ import {
   spline,
   type NoeudSpline,
 } from '../../lib/mathFonctions/Spline'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites'
+import { randint } from '../../modules/outils'
 
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '30/07/2025'
@@ -375,9 +375,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
           ]
           // Choisir une bonne réponse et 3 mauvaises réponses distinctes
           const bonneReponseChoisie = choice(bonnesReponses)
-          const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(
-            () => Math.random() - 0.5,
-          )
+          const mauvaisesReponsesMelangees = shuffle([...mauvaisesReponses])
           const mauvaisesReponsesChoisies = mauvaisesReponsesMelangees.slice(
             0,
             3,
@@ -582,9 +580,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
           // ========== FIN MODE TEST ==========
           // Choisir une bonne réponse et 3 mauvaises réponses distinctes
           const bonneReponseChoisie = choice(bonnesReponses)
-          const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(
-            () => Math.random() - 0.5,
-          )
+          const mauvaisesReponsesMelangees = shuffle([...mauvaisesReponses])
           const mauvaisesReponsesChoisies = mauvaisesReponsesMelangees.slice(
             0,
             3,

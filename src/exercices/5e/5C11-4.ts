@@ -1,15 +1,15 @@
-import Exercice from '../Exercice'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../Exercice'
 
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Écrire un nombre sous différentes formes'
@@ -156,9 +156,14 @@ export default class EcrireNombreDifferentesFormes extends Exercice {
           texteCorr = `$${n} = ${miseEnEvidence(`\\dfrac{${4 * n}}{4}`)}$`
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-        texteAvant: `${sp(5)}$${n}=$`,
-      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecEgal,
+        {
+          texteAvant: `${sp(5)}$${n}=$`,
+        },
+      )
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], n)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

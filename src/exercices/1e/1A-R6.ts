@@ -39,7 +39,7 @@ export default class ProportionDeProportion extends ExerciceQcmA {
     ]
     const jour = randint(0, 6)
     const P = prenomM()
-    this.enonce = `${P} consacre $25\\,\\%$ de sa journée de ${table[jour]} à faire ses devoirs. <br>
+    this.enonce = `Jean consacre $25\\,\\%$ de sa journée de ${table[jour]} à faire ses devoirs. <br>
      $80\\,\\%$ du temps consacré aux devoirs est consacré à faire un exposé.  <br>
     Le pourcentage du temps consacré à l’exposé par rapport à la journée de ${table[jour]} est égal à :`
     this.correction = `Le pourcentage du temps consacré à l’exposé par rapport à la journée de ${table[jour]} est égal à $25\\,\\%$ de $80\\,\\%$, soit $${miseEnEvidence('\\dfrac{1}{4}\\times 80\\,\\%')}$.`

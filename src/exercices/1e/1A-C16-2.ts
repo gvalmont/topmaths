@@ -15,7 +15,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
  */
 export const uuid = 'fdf27'
 export const refs = {
-  'fr-fr': ['1A-F5-1'],
+  'fr-fr': ['1A-C16-2'],
   'fr-ch': [],
 }
 export const interactifReady = true
@@ -25,7 +25,7 @@ export const amcType = 'qcmMono'
 export const titre = "Retrouver le tableau de signes d'un produit de fonctions"
 export const dateDePublication = '26/07/2025'
 
-export default class Auto1AF5a extends ExerciceQcmA {
+export default class Auto1AC16b extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     const f = (x: number | FractionEtendue) =>
       (3 * Number(x) - 15) * (Number(x) + 2)

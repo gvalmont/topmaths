@@ -31,5 +31,6 @@ export default class EcrirePetitsNombresEntiersCan extends EcrirePetitsNombresEn
     this.besoinFormulaireTexte = false // pour ne pas qu'il y ait de paramètrage possible.
     this.besoinFormulaire2Texte = false // afin de conserver les paramètres fixés ci-dessus et choisis par le programmeur
     this.besoinFormulaire3Numerique = false
+    this.besoinFormulaire4CaseACocher = false
   }
 }

@@ -34,7 +34,7 @@ export default class CalculSuitePython extends ExerciceSimple {
     let a, b, k, u, r, q
     let n = 0
     switch (
-      choice(['a', 'b', 'c']) //
+    choice(['a', 'b', 'c']) //
     ) {
       case 'a': // u=u+r
         a = randint(2, 5)
@@ -105,6 +105,7 @@ export default class CalculSuitePython extends ExerciceSimple {
         $\\begin{array}{|l|}\n`
         this.question += '\\hline\n'
         this.question += '\\\n \\texttt{def suite(u) :}  \\\n '
+        this.question += `\\\\\n ${sp(6)} \\texttt{u=${a}}\\\n `
         this.question += `\\\\\n ${sp(6)} \\texttt{n=0}\\\n `
         this.question += `\\\\\n ${sp(6)} \\texttt{while u<${b}:}\\\n `
         this.question += `\\\\\n ${sp(12)} \\texttt{u = u*${q}}\\\n `
@@ -125,7 +126,7 @@ export default class CalculSuitePython extends ExerciceSimple {
           n = n + 1
           a = q * a
         }
-        this.correction += `$> ${b}$. Donc l'algorithme retourne $${n}$ `
+        this.correction += `$> ${b}$. Donc l'algorithme retourne $${n}$.`
         this.reponse = n
         break
     }

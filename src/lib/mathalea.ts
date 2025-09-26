@@ -859,7 +859,6 @@ export function mathaleaHandleExerciceSimple(
     // const options = exercice.optionsDeComparaison == null ? { nombreDecimalSeulement: true } : exercice.optionsDeComparaison
     const options =
       exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
-    console.info(`Chargement de la seed : ${String(exercice.seed) + i + cptSecours}`)
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (
       exercice.nouvelleVersion &&
@@ -1123,7 +1122,6 @@ export function mathaleaGenerateSeed({
   for (; d < a; d++) {
     c += e[Math.floor(Math.random() * e.length)]
   }
-  console.info(`Nouvelle seed générée : ${c}`)
   return c
 }
 
@@ -1246,7 +1244,29 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
   const promiseAnswers: Promise<Boolean>[] = []
   const starttime = window.performance.now()
   for (const answer in answers) {
-    if (
+    if (answer.includes('sheet')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement('#' + answer)
+          .then(() => {
+            // La réponse correspond à une figure apigeom
+            const sheetElement = document.getElementById(
+              answer,
+            ) as MySpreadsheetElement
+            if (sheetElement != null) {
+              sheetElement.setData(JSON.parse(answers[answer]))
+            }
+            const time = window.performance.now()
+            log(`duration ${answer}: ${time - starttime}`)
+            resolve(true)
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
+    } else if (
       answer.includes('apigeom') ||
       answers[answer].includes('apiGeomVersion')
     ) {
@@ -1405,7 +1425,9 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
                 resolve(true)
               } else if (ele.id.includes('check')) {
                 // La réponse correspond à une case à cocher qui doit être cochée
-                ;(ele as HTMLInputElement).checked = answers[answer] === '1'
+                if (answers[answer] === '1') {
+                  ;(ele as HTMLInputElement).checked = true
+                }
                 const time = window.performance.now()
                 log(`duration ${answer}: ${time - starttime}`)
                 resolve(true)

@@ -99,7 +99,7 @@
     "glisse-nombre": "git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git",
     "husky": "^9.1.7",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
-    "jspreadsheet-ce": "github:lhotejc/spreadsheet-ce",
+    "jspreadsheet-ce": "https://github.com/lhotejc/spreadsheet-ce",
     "jszip": "^3.10.1",
     "jszip-utils": "^0.1.0",
     "katex": "^0.16.22",

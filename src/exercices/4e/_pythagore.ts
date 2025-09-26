@@ -1,10 +1,10 @@
+import { orangeMathalea } from '../../lib/colors'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
 import { arrondi } from '../../lib/outils/nombres'
-import { orangeMathalea } from '../../lib/colors'
+import { texNombre } from '../../lib/outils/texNombre'
 
 /**
  * Crée une rédaction du théorème de Pythagore adaptée à la recherche de l'hypoténuse ou d'un côté de l'angle droit
@@ -37,7 +37,8 @@ export function RedactionPythagore(
   couleurReponse = orangeMathalea,
 ) {
   let texte, signeEgal
-  texte = `Le triangle $${A + B + C}$ est rectangle en $${A}$ donc d'après le théorème de Pythagore, on a : `
+  texte = `Le triangle $${A + B + C}$ est rectangle en $${A}$.`
+  texte += "<br> D'après le théorème de Pythagore, on a : "
   if (rechercheHypotenuse === 1 || rechercheHypotenuse === 2)
     texte += `<br> $${B + C}^2=${A + B}^2+${A + C}^2$`
   else

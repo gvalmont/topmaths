@@ -7,6 +7,8 @@ const minVersion = {
   Safari: 16,
   Edge: 80,
   Opera: 67,
+  GSA: 387, // Google Search App (iOS)
+  WebKit: 605, // Apple WebView (iOS)
   'Samsung Internet': 14,
   'Mobile Safari': 12,
   'Mobile Chrome': 63,

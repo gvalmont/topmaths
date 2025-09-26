@@ -73,7 +73,7 @@ export default class ModeliserSuites extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
 
@@ -342,7 +342,7 @@ Pour l'année $2024$, il y a $${a}$ abonnés.<br>`
           b = randint(30, 40) * 10
           choix = prenomF()
           reponse1 = String(a)
-          reponse2 = `${cm.toFixed(2)}\\times v_{n}-${b}`
+          reponse2 = `${cm.toFixed(3)}\\times v_{n}-${b}`
           texte = `En janvier $2024$, une personne se décide à acheter un scooter coûtant $${texNombre(a, 0)}$ euros sans apport personnel.<br>
            Le vendeur lui propose un crédit à la consommation d'un montant de $${texNombre(a, 0)}$ euros, au taux
 mensuel de $${texNombre(p, 2, true)}\\,\\%$. <br>
@@ -381,11 +381,11 @@ Le premier versement a lieu le $25$ février $2024$.<br>`
             { formatInteractif: 'fillInTheBlank' },
           )
           texteCorr = `$v_n$ est le capital restant dû en euros juste après la $n$-ième mensualité.<br>
-           Chaque mois, le capital restant dû augmente de $${texNombre(p, 2, true)}\\,\\%$, cela signifie qu'il est multiplié par $${texNombre(cm, 2)}$.<br>
+           Chaque mois, le capital restant dû augmente de $${texNombre(p, 2, true)}\\,\\%$, cela signifie qu'il est multiplié par $${texNombre(cm, 3)}$.<br>
           De plus, il baisse de $${b}$ euros (versement de la mensualité).<br>
           Ainsi, la suite $(v_n)$ est définie par : 
           $\\begin{cases}v_0=${miseEnEvidence(`${texNombre(a, 0)}`)}\\\\
-          v_{n+1}=${miseEnEvidence(`${texNombre(cm, 2)}\\times v_n-${b}`)} \\text{ pour tout entier naturel }n.
+          v_{n+1}=${miseEnEvidence(`${texNombre(cm, 3)}\\times v_n-${b}`)} \\text{ pour tout entier naturel }n.
           \\end{cases}$`
           break
 

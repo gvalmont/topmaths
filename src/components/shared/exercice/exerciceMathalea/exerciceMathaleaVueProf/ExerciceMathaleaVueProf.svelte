@@ -368,7 +368,6 @@
     ) {
       exercise.applyNewSeed()
     }
-    console.info(`Chargement de la seed : ${exercise.seed}`)
     seedrandom(exercise.seed, { global: true })
     if (exercise.typeExercice === 'simple' && withNewVersion) {
       mathaleaHandleExerciceSimple(exercise, Boolean(isInteractif))

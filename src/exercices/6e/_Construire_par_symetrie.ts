@@ -28,18 +28,145 @@ import {
 import { aireTriangle } from '../../lib/2d/triangle'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import {
+  contraindreValeur,
   listeQuestionsToContenu,
   randint,
-  contraindreValeur,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 export const dateDeModifImportante = '14/11/2021'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const titre = 'Construire par symétrie...'
+
+function choisiPointDuBonCote(d: Droite, lieu = 'dessus') {
+  if (d.b === 0) {
+    // droite verticale
+    let x: number
+    let y: number
+    x = lieu === 'gauche' ? randint(-8, -1) : lieu === 'sur' ? 0 : randint(1, 8)
+    y = randint(-8, 8)
+    return point(x, y)
+  } else if (d.a === 0) {
+    // droite horizontale
+    let x: number
+    let y: number
+    y = lieu === 'dessus' ? randint(1, 8) : lieu === 'sur' ? 0 : randint(-8, -1)
+    x = randint(-8, 8)
+    return point(x, y)
+  } else {
+    // droite oblique
+    let x: number
+    let y: number
+    if (-d.b / d.a > 0) {
+      // pente positive
+      x = randint(-8, 6) // on évite de s'approcher trop du bord droit où il y aura moins de possibilités
+      const y0 = -(d.a * x + d.c) / d.b
+      y =
+        lieu === 'dessus'
+          ? randint(Math.ceil(y0), 8)
+          : lieu === 'dessous'
+            ? randint(-8, Math.floor(y0))
+            : (y = y0)
+    } else {
+      // pente négative
+      x = randint(-6, 8) // on évite de s'approcher trop du bord droit où il y aura moins de possibilités
+      const y0 = -(d.a * x + d.c) / d.b
+      y =
+        lieu === 'dessus'
+          ? randint(Math.ceil(y0), 8)
+          : lieu === 'dessous'
+            ? randint(-8, Math.floor(y0))
+            : (y = y0)
+    }
+    return point(x, y)
+  }
+}
+
+function choisi3Points(d: Droite, lieu = ['dessus', 'dessous', 'sur']) {
+  let A, B, C
+  let pA, pB, pC
+  let lAB, lAC, lBC
+  let hA, hB, hC
+  let count = 0
+  let count3 = 0
+  let trouves = false
+  do {
+    trouves = false
+    // on vérifie que les points sont assez espacés les uns des autres.
+    let trouveA = false
+    do {
+      // on vérifie que le point est du bon côté et à distance suffisante de la droite.
+      if (lieu[0] === 'sur') A = pointSurDroite(d, randint(-6, 6), '')
+      else A = choisiPointDuBonCote(d, lieu[0])
+      pA = projectionOrtho(A, d)
+      hA = longueur(A, pA)
+      count++
+    } while (
+      ((hA < 2 && lieu[0] !== 'sur') || dessousDessus(d, A) !== lieu[0]) &&
+      count < 100
+    )
+    if (count < 100) {
+      trouveA = true
+    }
+    count = 0
+    let trouveB = false
+    do {
+      // on vérifie que le point est du bon côté et à distance suffisante de la droite.
+      if (lieu[1] === 'sur') B = pointSurDroite(d, randint(-6, 6), '')
+      else
+        B = point(
+          randint(-8, 8, Math.round(A.x)),
+          randint(-8, 8, Math.round(A.y)),
+        )
+      pB = projectionOrtho(B, d)
+      hB = longueur(B, pB)
+      count++
+    } while (
+      ((hB < 2 && lieu[1] !== 'sur') || dessousDessus(d, B) !== lieu[1]) &&
+      count < 100
+    )
+    if (count < 100) {
+      trouveB = true
+    }
+    count = 0
+    let trouveC = false
+    do {
+      // on vérifie que le point est du bon côté et à distance suffisante de la droite.
+      if (lieu[2] === 'sur') C = pointSurDroite(d, randint(-8, 8), '')
+      else
+        C = point(
+          randint(-8, 8, [Math.round(A.x), Math.round(B.x)]),
+          randint(-8, 8, [Math.round(A.y), Math.round(B.y)]),
+        )
+      pC = projectionOrtho(C, d)
+      hC = longueur(C, pC)
+      count++
+    } while (
+      ((hC < 2 && lieu[2] !== 'sur') || dessousDessus(d, C) !== lieu[2]) &&
+      count < 100
+    )
+    if (count < 100) {
+      trouveC = true
+    }
+    lAB = longueur(pA, pB)
+    lAC = longueur(pA, pC)
+    lBC = longueur(pB, pC)
+    trouves = trouveA && trouveB && trouveC
+    count3++
+  } while (
+    (lAB < 2 ||
+      lAC < 2 ||
+      lBC < 2 ||
+      !trouves ||
+      Number(aireTriangle(polygone(A, B, C))) < 15) &&
+    count3 < 100
+  )
+  return [A, B, C] // Il y aura quand même trois points, même si ils ne conviennent pas au regard des contraintes
+}
+
 /**
  * @author Jean-Claude Lhote  (Ajout AMC par Eric Elter, ES6 par Loïc Geeraerts)
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
@@ -83,101 +210,9 @@ export default class ConstruireParSymetrie extends Exercice {
     this.comment =
       "Décentrer l'axe ou le centre, permt d'éviter les stratégies de comptage à partir du bord du quadrillage"
   }
-
   // La fonction qui suit va chercher 3 points au hasard placés par rapport à la droite d de la façon demandée
   // Elle va s'assurer que la distance entre les projetés n'est pas trop petite afin d'espacer les corrections
   // Si pour une raison ou une autre elle ne trouve pas de point convenable, un message dans la console le signale.
-  _choisi3Points(d: Droite, lieu = ['dessus', 'dessous', 'sur']) {
-    let A, B, C
-    let pA, pB, pC
-    let lAB, lAC, lBC
-    let hA, hB, hC
-    let count = 0
-    let count3 = 0
-    do {
-      // on vérifie que les points sont assez espacés les uns des autres.
-      do {
-        // on vérifie que le point est du bon côté et à distance suffisante de la droite.
-        if (lieu[0] === 'sur') A = pointSurDroite(d, randint(-6, 6), '')
-        else A = point(randint(-8, 8), randint(-8, 8))
-        pA = projectionOrtho(A, d)
-        hA = longueur(A, pA)
-        count++
-      } while (
-        ((hA < 2 && lieu[0] !== 'sur') || dessousDessus(d, A) !== lieu[0]) &&
-        count < 50
-      )
-      if (count === 50) {
-        window.notify(
-          'Choisi3Points : Impossible de trouver le premier des 3 points',
-          { lieu, d },
-        )
-      }
-      count = 0
-      do {
-        // on vérifie que le point est du bon côté et à distance suffisante de la droite.
-        if (lieu[1] === 'sur') B = pointSurDroite(d, randint(-6, 6), '')
-        else
-          B = point(
-            randint(-8, 8, Math.round(A.x)),
-            randint(-8, 8, Math.round(A.y)),
-          )
-        pB = projectionOrtho(B, d)
-        hB = longueur(B, pB)
-        count++
-      } while (
-        ((hB < 2 && lieu[1] !== 'sur') || dessousDessus(d, B) !== lieu[1]) &&
-        count < 50
-      )
-      if (count === 50) {
-        window.notify(
-          'Choisi3Points : Impossible de trouver le deuxième des 3 points',
-          { lieu, d },
-        )
-      }
-      count = 0
-      do {
-        // on vérifie que le point est du bon côté et à distance suffisante de la droite.
-        if (lieu[2] === 'sur') C = pointSurDroite(d, randint(-8, 8), '')
-        else
-          C = point(
-            randint(-8, 8, [Math.round(A.x), Math.round(B.x)]),
-            randint(-8, 8, [Math.round(A.y), Math.round(B.y)]),
-          )
-        pC = projectionOrtho(C, d)
-        hC = longueur(C, pC)
-        count++
-      } while (
-        ((hC < 2 && lieu[2] !== 'sur') || dessousDessus(d, C) !== lieu[2]) &&
-        count < 50
-      )
-      if (count === 50) {
-        window.notify(
-          'Choisi3Points : Impossible de trouver le troisième des 3 points',
-          { lieu, d },
-        )
-      }
-      lAB = longueur(pA, pB)
-      lAC = longueur(pA, pC)
-      lBC = longueur(pB, pC)
-      count3++
-    } while (
-      (lAB < 2 ||
-        lAC < 2 ||
-        lBC < 2 ||
-        Number(aireTriangle(polygone(A, B, C))) < 15) &&
-      count3 < 20
-    )
-    if (count3 === 50) {
-      // si on en est là, c'est qu'il y a trop de contraintes
-      window.notify('Choisi3Points : Impossible de trouver 3 points', {
-        lieu,
-        d,
-      })
-    }
-    return [A, B, C] // Il y aura quand même trois points, même si ils ne conviennent pas au regard des contraintes
-  }
-
   nouvelleVersion() {
     if (this.version === 5) {
       this.sup = 5
@@ -363,7 +398,7 @@ export default class ConstruireParSymetrie extends Exercice {
                 ['dessous', 'dessus', 'dessous'],
               ])
           }
-          ;[C, D, E] = this._choisi3Points(d, lieux)
+          ;[C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -447,7 +482,7 @@ export default class ConstruireParSymetrie extends Exercice {
           d = droiteParPointEtPente(A, k)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
           d.epaisseur = 2
-          ;[C, D, E] = this._choisi3Points(d, lieux)
+          ;[C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -529,7 +564,7 @@ export default class ConstruireParSymetrie extends Exercice {
           B = point(6, choice([-1, 1], [A.y]), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.epaisseur = 2
-          ;[C, D, E] = this._choisi3Points(d, lieux)
+          ;[C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -658,7 +693,7 @@ export default class ConstruireParSymetrie extends Exercice {
               ])
           }
           d.epaisseur = 2
-          ;[C, D, E] = this._choisi3Points(d, lieux)
+          ;[C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -808,7 +843,7 @@ export default class ConstruireParSymetrie extends Exercice {
             B.positionLabel = 'above'
           }  */
           d.epaisseur = 2
-          ;[C, D, E] = this._choisi3Points(d, lieux)
+          ;[C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -942,7 +977,7 @@ export default class ConstruireParSymetrie extends Exercice {
           B = point(6, choice([-1, 1], [A.y]), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.epaisseur = 2
-          ;[C, D, E] = this._choisi3Points(d, lieux)
+          ;[C, D, E] = choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -1076,7 +1111,7 @@ export default class ConstruireParSymetrie extends Exercice {
           listeDeNomsDePolygones.push(p1nom)
           B = point(randint(-8, 8), randint(-3, 3), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0)
-          ;[A, C, D] = this._choisi3Points(
+          ;[A, C, D] = choisi3Points(
             d,
             choice([
               ['dessus', 'dessous', 'dessus'],
@@ -1139,7 +1174,7 @@ export default class ConstruireParSymetrie extends Exercice {
           listeDeNomsDePolygones.push(p1nom)
           B = point(randint(-8, 8), randint(-3, 3), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0)
-          ;[A, C, D] = this._choisi3Points(
+          ;[A, C, D] = choisi3Points(
             d,
             choice([
               ['dessus', 'dessous', 'dessus'],

@@ -189,7 +189,7 @@ export default class FractionsDunite extends Exercice {
       ) {
         // result = (ele.numerator === this.goodAnswers[i] && ele.numerator === ele.indiceLastInColor) // On n'impose plus que le segment soit colorié depuis le début
         const bonNombreDeCasesColoriees = ele.numerator === this.goodAnswers[i]
-        const indicesArray = Array.from(ele.indicesRectanglesInColor)
+        const indicesArray = Array.from(ele.indicesRectanglesInColor).sort((a, b) => a - b)
         const firstElement = indicesArray[0]
         const lastElement = indicesArray[indicesArray.length - 1]
         const difference = lastElement - firstElement

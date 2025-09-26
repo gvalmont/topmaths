@@ -51,11 +51,6 @@ function myOrdre(ordre: 'croissant' | 'décroissant', tab: number[]) {
   }
 }
 
-// Fonction made by IA
-function melangeTableau<T>(array: T[]): T[] {
-  return [...array].sort(() => Math.random() - 0.5)
-}
-
 // Fonctions from EE
 function generateNumbers(
   niveaux: Number[] = [1, 2, 3],
@@ -130,7 +125,7 @@ function generateNumbers(
     }
 
     // Mélange des decimales
-    const melangeDecimales = melangeTableau(decimales)
+    const melangeDecimales = shuffle(decimales)
 
     for (let indiceTableau = 0; indiceTableau < 6; indiceTableau++) {
       const decimal = melangeDecimales[indiceTableau]

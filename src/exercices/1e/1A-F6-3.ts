@@ -3,6 +3,7 @@ import { milieu, point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
+import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -28,9 +29,9 @@ export const dateDePublication = '10/07/2025'
 export default class Auto1AF6c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     const xA = 0
-    const yA = 3
-    const xB = 2
-    const yB = 1
+    const yA = 2
+    const xB = 1
+    const yB = -1
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const A = point(xA, yA)
     const B = point(xB, yB)
@@ -60,10 +61,10 @@ export default class Auto1AF6c extends ExerciceQcmA {
     traceA.epaisseur = 2
     traceB.taille = 3
     traceB.epaisseur = 2
-    const xmin = -6
-    const ymin = -1
-    const xmax = 6
-    const ymax = 6
+    const xmin = -3
+    const ymin = -4
+    const xmax = 3
+    const ymax = 4
     const r1 = repere({
       xMin: xmin,
       xMax: xmax,
@@ -79,10 +80,11 @@ export default class Auto1AF6c extends ExerciceQcmA {
       axeXStyle: '->',
       axeYStyle: '->',
       yLabelDistance: 1,
-      yLabelEcart: 0.3,
+      yLabelEcart: 0.4,
       grilleSecondaire: true,
-      grilleSecondaireYDistance: 1,
-      grilleSecondaireXDistance: 1,
+      grilleSecondaireYDistance: 0.1,
+      grilleSecondaireXDistance: 0.1,
+      grilleSecondaireOpacite: 0.1,
       grilleSecondaireYMin: ymin - 0.1,
       grilleSecondaireYMax: ymax + 0.1,
       grilleSecondaireXMin: xmin - 0.1,
@@ -94,13 +96,12 @@ export default class Auto1AF6c extends ExerciceQcmA {
         xmax,
         ymin: ymin - 0.25,
         ymax: ymax + 0.25,
-        pixelsParCm: 30,
+        pixelsParCm: 40,
         scale: 0.75,
         style: 'margin: auto',
       },
       d,
       r1,
-      traceB,
       o,
     )
     const objetC = mathalea2d(
@@ -125,9 +126,11 @@ export default class Auto1AF6c extends ExerciceQcmA {
       lABx,
       lBBx,
     )
-
-    this.enonce = `${objet}<br><br>`
-    this.enonce += 'Le coefficient directeur de cette droite est : '
+    this.enonce = `${deuxColonnes(
+      `Dans un repère du plan, on a représenté une droite.<br><br>
+      Le coefficient directeur de cette droite est égal  à :`,
+      `${objet}`,
+    )}<br>`
 
     this.correction = `En prenant deux points sur la droite, on obtient :<br>
      
@@ -135,7 +138,7 @@ export default class Auto1AF6c extends ExerciceQcmA {
        `
     this.correction += `<br>
           ${objetC}<br>  `
-    this.reponses = ['$-1$', '$1$', '$3$', '$2$']
+    this.reponses = ['$-3$', '$-1$', '$2$', '$3$']
   }
 
   versionAleatoire: () => void = () => {
@@ -193,8 +196,9 @@ export default class Auto1AF6c extends ExerciceQcmA {
       yLabelDistance: 1,
       yLabelEcart: 0.3,
       grilleSecondaire: true,
-      grilleSecondaireYDistance: 1,
-      grilleSecondaireXDistance: 1,
+      grilleSecondaireYDistance: 0.1,
+      grilleSecondaireXDistance: 0.1,
+      grilleSecondaireOpacite: 0.1,
       grilleSecondaireYMin: ymin - 0.1,
       grilleSecondaireYMax: ymax + 0.1,
       grilleSecondaireXMin: xmin - 0.1,
@@ -212,7 +216,6 @@ export default class Auto1AF6c extends ExerciceQcmA {
       },
       d,
       r1,
-      traceB,
       o,
     )
     const objetC = mathalea2d(
@@ -238,8 +241,11 @@ export default class Auto1AF6c extends ExerciceQcmA {
       lBBx,
     )
 
-    this.enonce = `${objet}<br><br>`
-    this.enonce += 'Le coefficient directeur de cette droite est : '
+    this.enonce = `${deuxColonnes(
+      `Dans un repère du plan, on a représenté une droite.<br><br>
+      Le coefficient directeur de cette droite est égal  à :`,
+      `${objet}`,
+    )}<br>`
 
     if (yB === yA) {
       // this.reponse = this.versionQcm ? `$y= ${yA}$` : [`y=${maFraction.texFraction}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`, `y=\\frac{${yA - yB}}{${xA - xB}}x + ${yA}`]

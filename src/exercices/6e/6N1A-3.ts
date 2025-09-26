@@ -615,69 +615,73 @@ export default class RecomposerEntierC3 extends Exercice {
           blanc = '\\ldots\\ldots\\ldots'
           break
       }
-      if (listeTypeDeQuestions[i] < 12 && listeTypeDeQuestions[i] > 8) {
-        texte += ajouteChampTexteMathLive(
-          this,
-          i,
-          `  ${KeyboardType.numbersSpace}`,
-          { espace: true, texteAvant: ' $=$ ' },
-        )
-        handleAnswers(this, i, {
-          reponse: {
-            value: listeReponses[0][1],
-            options: { nombreAvecEspace: true },
-          },
-        })
-      } else {
-        texte += remplisLesBlancs(
-          this,
-          i,
-          formule.substring(0, formule.length - 1),
-          KeyboardType.numbersSpace,
-          blanc,
-        )
-        // bareme est une fonction qui retourne [nbBonnesReponses, nbReponses]
-        handleAnswers(
-          this,
-          i,
-          Object.assign(
-            {
-              bareme: (listePoints: number[]) =>
-                [Math.floor(somme(listePoints) / listePoints.length), 1] as [
-                  number,
-                  number,
-                ],
-            },
-            Object.fromEntries(listeReponses),
-          ),
-          { formatInteractif: 'fillInTheBlank' },
-        )
-      }
-      //   }
-      //  texte = `${texte.substring(0, texte.length - 1)}$`
-      texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
-
-      texte += this.interactif ? '<br>' : ''
-
-      if (context.isAmc) {
-        this.autoCorrection[i] = {
-          enonce: `${texte}<br>`,
-          propositions: [
-            {
-              texte: texteCorr,
-              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-              sanscadre: true,
-            },
-          ],
-        }
-      }
-
-      texte +=
-        context.isHtml && this.interactif
-          ? `<span id=resultatCheckEx${this.numeroExercice}Q${i}></span>`
-          : ''
 
       if (this.questionJamaisPosee(i, nombre)) {
+        if (listeTypeDeQuestions[i] < 12 && listeTypeDeQuestions[i] > 8) {
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            `  ${KeyboardType.numbersSpace}`,
+            { espace: true, texteAvant: ' $=$ ' },
+          )
+          handleAnswers(this, i, {
+            reponse: {
+              value: listeReponses[0][1],
+              options: { nombreAvecEspace: true },
+            },
+          })
+        } else {
+          texte += remplisLesBlancs(
+            this,
+            i,
+            formule.substring(0, formule.length - 1),
+            KeyboardType.numbersSpace,
+            blanc,
+          )
+          // bareme est une fonction qui retourne [nbBonnesReponses, nbReponses]
+          handleAnswers(
+            this,
+            i,
+            Object.assign(
+              {
+                bareme: (listePoints: number[]) =>
+                  [Math.floor(somme(listePoints) / listePoints.length), 1] as [
+                    number,
+                    number,
+                  ],
+              },
+              Object.fromEntries(listeReponses),
+            ),
+            { formatInteractif: 'fillInTheBlank' },
+          )
+        }
+        //   }
+        //  texte = `${texte.substring(0, texte.length - 1)}$`
+        texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
+
+        texte += this.interactif ? '<br>' : ''
+
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: `${texte}<br>`,
+            propositions: [
+              {
+                texte: texteCorr,
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: true,
+              },
+            ],
+          }
+        }
+
+        texte +=
+          context.isHtml && this.interactif
+            ? `<span id=resultatCheckEx${this.numeroExercice}Q${i}></span>`
+            : ''
+
+        texte = texte.replaceAll('$$', ' ')
+        texteCorr = texteCorr.replaceAll('$$', ' ')
+
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

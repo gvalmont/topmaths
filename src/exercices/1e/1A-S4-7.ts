@@ -1,3 +1,4 @@
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { nombreElementsDifferents } from '../ExerciceQcm'
@@ -49,7 +50,7 @@ export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
         deltas[
           dispersion === 1 ? 'faible' : dispersion === 2 ? 'moyenne' : 'forte'
         ]
-      const melange = ecarts.sort(() => Math.random() - 0.5)
+      const melange = shuffle(ecarts)
       return melange.map((d) => base + d)
     }
 

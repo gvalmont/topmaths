@@ -8,7 +8,7 @@ export const dateDePublication = '10/08/2025'
 export const uuid = '24438'
 // Author Stéphane Guyon
 export const refs = {
-  'fr-fr': ['1A-P7'],
+  'fr-fr': ['1A-P3-3'],
   'fr-ch': [],
 }
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Déterminer une probabilité conditionnelle.'
-export default class Puissances extends ExerciceQcmA {
+export default class auto1AP3c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     let objets = []
     const rationnel = true
@@ -77,8 +77,11 @@ export default class Puissances extends ExerciceQcmA {
     let distracteur3: number
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
+    this.enonce += mathalea2d(
+      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce += '<br>$p_C(A)=\\ldots$'
     this.correction = `On sait que $ P_C(A)=\\dfrac{P(A \\cap C)}{P(C)}$<br>
         D'après la formule des probabilités totales :<br>
@@ -174,8 +177,11 @@ export default class Puissances extends ExerciceQcmA {
     const Reponse = pC1.diviseFraction(pC)
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
+    this.enonce += mathalea2d(
+      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce += '<br>$P_C(A)=\\ldots$'
     const resultat = Reponse.texFractionSimplifiee
 

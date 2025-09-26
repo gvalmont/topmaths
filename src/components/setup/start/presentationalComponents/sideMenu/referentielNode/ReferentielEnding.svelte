@@ -2,22 +2,22 @@
   import katex from 'katex'
   import { onDestroy } from 'svelte'
   import {
-    isExerciceItemInReferentiel,
-    isGeoDynamic,
-    isTool,
-    resourceHasMonth,
-    resourceHasPlace,
-    type JSONReferentielEnding,
+      isExerciceItemInReferentiel,
+      isGeoDynamic,
+      isTool,
+      resourceHasMonth,
+      resourceHasPlace,
+      type JSONReferentielEnding,
   } from '../../../../../../lib/types/referentiels'
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   import { mathaleaGenerateSeed } from '../../../../../../lib/mathalea'
   import {
-    changes,
-    exercicesParams,
-    globalOptions,
+      changes,
+      exercicesParams,
+      globalOptions,
   } from '../../../../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../../../../lib/types'
-  import { isLessThan3Months } from '../../../../../../lib/types/dates'
+  import { isLessThan1Month } from '../../../../../../lib/types/dates'
   import NoInteractivityIcon from '../../../../../shared/icons/NoInteractivityIcon.svelte'
   import QcmCamIcon from '../../../../../shared/icons/QcmCamIcon.svelte'
 
@@ -152,7 +152,7 @@
             class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
             <span class="font-bold">{ending.id} - </span>{@html endingTitre}
-            {#if isLessThan3Months(ending.datePublication)}
+            {#if isLessThan1Month(ending.datePublication)}
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"
@@ -165,7 +165,7 @@
                 </span>
               </span>
             {/if}
-            {#if isLessThan3Months(ending.dateModification)}
+            {#if isLessThan1Month(ending.dateModification)}
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"

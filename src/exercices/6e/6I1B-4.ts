@@ -25,7 +25,7 @@ export const interactifType = 'custom'
 /*
  * Programmer des calculs sur tableur : New programme de 6eme 2025
  * @author Mickael Guironnet
- * revisité par Jean-Claude Lhote (intoduction du custom élément sheet-element)
+ * revisité par Jean-Claude Lhote (intoduction du custom élément sheet-element) et modification de la librairie utilisée.
  */
 
 export const uuid = 'ae07c'
@@ -105,7 +105,10 @@ export default class ExerciceTableur extends Exercice {
     },
   }
 
-  validateFormulas(q: number, userSheet: MySpreadsheetElement): string {
+  validateFormulas(
+    q: number,
+    userSheet: MySpreadsheetElement,
+  ): { isOk: boolean; messages: string } {
     // 1. Récupère les données de l'utilisateur
     const userData = userSheet.getData()
 
@@ -170,7 +173,10 @@ export default class ExerciceTableur extends Exercice {
       maxMessages.length === 0
         ? '✅ Toutes les formules sont correctes !'
         : '❌ Des erreurs ont été détéctées.'
-    return maxMessages.join('') + feedback
+    return {
+      isOk: maxMessages.length === 0,
+      messages: maxMessages.join('') + feedback,
+    }
   }
 
   checkSolution(event?: CustomEvent) {
@@ -188,7 +194,7 @@ export default class ExerciceTableur extends Exercice {
     // const bouton = event?.detail?.sheet?.querySelector('#runCode')
 
     if (sheetElt && sheetElt.isMounted()) {
-      const messages = this.validateFormulas(Number(q), sheetElt)
+      const { messages } = this.validateFormulas(Number(q), sheetElt)
       const messagesDiv = sheetElt.querySelector(
         '#message-faux',
       ) as HTMLDivElement
@@ -350,6 +356,9 @@ export default class ExerciceTableur extends Exercice {
       return result
     }
     if (sheetElement && sheetElement.isMounted()) {
+      this.answers[`sheet-Ex${this.numeroExercice}Q${i}`] = JSON.stringify(
+        sheetElement.getData(),
+      )
       const spanResultat = document.querySelector(
         `#resultatCheckEx${this.numeroExercice}Q${i}`,
       )
@@ -357,21 +366,21 @@ export default class ExerciceTableur extends Exercice {
         `#feedbackEx${this.numeroExercice}Q${i}`,
       )
 
-      const messages = this.validateFormulas(i, sheetElement)
+      const { isOk, messages } = this.validateFormulas(i, sheetElement)
       if (messages.length > 0 && spanResultat && divFeedback) {
         divFeedback.innerHTML = messages
-        spanResultat.innerHTML = '☹️'
-      } else {
-        if (spanResultat) spanResultat.innerHTML = '😊'
-        if (divFeedback) {
-          divFeedback.style.display = 'none'
+        if (!isOk) {
+          if (spanResultat) spanResultat.innerHTML = '☹️'
+        } else {
+          if (spanResultat) spanResultat.innerHTML = '😊'
+          result = 'OK'
         }
-        result = 'OK'
       }
     }
     return result
   }
 }
+
 function transformationsOper(
   steps: {
     oldn: number

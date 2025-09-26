@@ -314,8 +314,8 @@
       $canOptions.isChoosen = true
     }
     url = url.replace('&v=can', '&recorder=' + $globalOptions.recorder)
-    url = url.replace(/es=\d/g, 'es=1') // Force la vue 1 page par exercice
-    if (url.includes('coopmaths.fr/alea')) {
+    url = url.replace(/&es=\d{7}/g, '') // Supprime les réglages de présentation
+    if (url.includes('coopmaths.fr/alea') || url.includes('/mathalea.fr/')) {
       const options = mathaleaUpdateExercicesParamsFromUrl(url)
       if (options !== null) {
         globalOptions.set(options)

@@ -1,8 +1,9 @@
 import Figure from 'apigeom/src/Figure'
-import FractionEtendue from '../modules/FractionEtendue'
-import type Exercice from './Exercice'
 import CryptoJS from 'crypto-js'
 import type Decimal from 'decimal.js'
+import seedrandom from 'seedrandom'
+import FractionEtendue from '../modules/FractionEtendue'
+import type Exercice from './Exercice'
 type EventListener = (evt: Event) => void
 
 export function exportedNouvelleVersionWrapper(
@@ -32,6 +33,7 @@ export function exportedNouvelleVersionWrapper(
   }
   this.lastCallback = signature
   this.reinit()
+  seedrandom(this.seed, { global: true })
   this.nouvelleVersion(numeroExercice, numeroQuestion)
 }
 

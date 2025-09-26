@@ -2,8 +2,8 @@
   "slides": [
     {
       "background": "carousel07.jpg",
-      "title": "Bug en cours de réparation ",
-      "message": "Les scores des élèves sont correctement enregistrés et fiables. En revanche, l’affichage des copies pour les enseignants pose problème : les questions visibles ne correspondent pas à celles soumises aux élèves.",
+      "title": "Copie des élèves",
+      "message": "Les scores des élèves sont correctement enregistrés et fiables. En revanche, l’affichage des copies faites avant le 19/9 peuvent poser problème avec des questions qui ne correspondent pas à celles soumises aux élèves.",
       "image": "",
       "link": "",
       "buttonTitle":""

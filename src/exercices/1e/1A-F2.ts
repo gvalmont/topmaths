@@ -1,11 +1,13 @@
+import { repere } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
-import { repere } from '../../lib/2d/reperes'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
+import { courbe } from '../../lib/2d/courbes'
+import { point, tracePoint } from '../../lib/2d/points'
 import { spline } from '../../lib/mathFonctions/Spline'
-import ExerciceQcmA from '../ExerciceQcmA'
 import { mathalea2d } from '../../modules/2dGeneralites'
+import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '24/07/2025'
 export const uuid = '7f5f6'
 /**
@@ -28,69 +30,67 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  "Trouver les nombres solutions d'une équation avec un graphique"
+  "Trouver les abscisses solutions d'une inéquation avec un graphique"
 export default class auto1AF2 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    const noeuds1: Noeud[] = [
-      { x: -3.5, y: -3.5, deriveeGauche: 2, deriveeDroit: 2, isVisible: false },
-      { x: -2.5, y: -1.5, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
-      { x: -1.5, y: 1, deriveeGauche: 2, deriveeDroit: 3, isVisible: true },
-      { x: -0.3, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
-      { x: 0.5, y: 2, deriveeGauche: -1, deriveeDroit: -2, isVisible: true },
-      { x: 1.5, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: false },
-      { x: 3, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
-      { x: 3.5, y: -0.5, deriveeGauche: 1, deriveeDroit: 1.5, isVisible: true },
-      { x: 4, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: false },
-    ]
-    const mesFonctions = [noeuds1, noeuds1]
-    function aleatoiriseCourbe(listeFonctions: Noeud[][]) {
-      const coeffX = 1 // choice([-1, 1])
-      const coeffY = 1 // choice([-1, 1])
-      const deltaX = 0
-      const deltaY = 0
-      const choix = choice(listeFonctions)
-      return choix.map((noeud) =>
-        Object({
-          x: (noeud.x + deltaX) * coeffX,
-          y: (noeud.y + deltaY) * coeffY,
-          deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
-          deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
-          isVisible: noeud.isVisible,
-        }),
-      )
-    }
-    let bornes = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
-
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
-    const nuage = aleatoiriseCourbe(mesFonctions)
-    const theSpline = spline(nuage)
-    this.spline = theSpline
-    bornes = theSpline.trouveMaxes()
 
-    const labelA = latex2d('A', theSpline.x[1] - 0.3, theSpline.y[1] + 0.3, {
-      color: 'blue',
-      letterSize: 'normalsize',
-    })
+    const fonc = (x: number) => 0.1 * (x - 4) * (x - 1) * (x + 3)
+    const labelB = latex2d(
+      'B',
+      -1,
+      0.1 * (-1 - 4) * (-1 - 1) * (-1 + 3) + 0.5,
+      {
+        //0.1*(-1- 4) * (-1 - 1) * (-1 +3)
+        color: 'black',
+        letterSize: 'normalsize',
+      },
+    )
+    const A = point(-3.5, 0.1 * (-3.5 - 4) * (-3.5 - 1) * (-3.5 + 3))
 
-    const labelB = latex2d('B', theSpline.x[2] - 0.3, theSpline.y[2] + 0.3, {
-      color: 'blue',
-      letterSize: 'normalsize',
-    })
+    const TA = tracePoint(A)
+    const labelA = latex2d(
+      'A',
+      -3.8,
+      0.1 * (-3.5 - 4) * (-3.5 - 1) * (-3.5 + 3) + 0.4,
+      {
+        color: 'black',
+        letterSize: 'normalsize',
+      },
+    )
+    const B = point(-1, 0.1 * -5 * -2 * 2)
 
-    const labelR = latex2d('R', theSpline.x[4] + 0.3, theSpline.y[4] + 0.3, {
-      color: 'blue',
-      letterSize: 'normalsize',
-    })
+    const TB = tracePoint(B)
 
-    const labelS = latex2d('S', theSpline.x[7] + 0.3, theSpline.y[7] + 0.2, {
-      color: 'blue',
-      letterSize: 'normalsize',
-    })
+    const R = point(0.5, 0.1 * (0.5 - 4) * (0.5 - 1) * (0.5 + 3))
+
+    const TR = tracePoint(R)
+    const labelR = latex2d(
+      'R',
+      0.6,
+      0.1 * (0.5 - 4) * (0.5 - 1) * (0.5 + 3) + 0.5,
+      {
+        color: 'black',
+        letterSize: 'normalsize',
+      },
+    )
+    const S = point(3.5, 0.1 * (3.5 - 4) * (3.5 - 1) * (3.5 + 3))
+
+    const TS = tracePoint(S)
+    const labelS = latex2d(
+      'S',
+      3.7,
+      0.1 * (3.5 - 4) * (3.5 - 1) * (3.5 + 3) - 0.4,
+      {
+        color: 'black',
+        letterSize: 'normalsize',
+      },
+    )
     const repere1 = repere({
-      xMin: bornes.xMin - 1,
-      xMax: bornes.xMax + 1,
-      yMin: bornes.yMin - 1,
-      yMax: bornes.yMax + 1,
+      xMin: -5,
+      xMax: 5,
+      yMin: -4,
+      yMax: 4,
       grilleX: false,
       grilleY: false,
       grilleSecondaire: false,
@@ -99,14 +99,8 @@ export default class auto1AF2 extends ExerciceQcmA {
       xLabelListe: [-6],
       yLabelListe: [-6],
     })
-    const courbe1 = theSpline.courbe({
-      repere: repere1,
-      epaisseur: 1.5,
-      ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'black',
-    })
-    const objetsEnonce = [repere1, courbe1]
+
+    const objetsEnonce = [repere1] //, courbe1
 
     this.enonce =
       `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br>
@@ -117,18 +111,23 @@ export default class auto1AF2 extends ExerciceQcmA {
         Object.assign(
           { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
           {
-            xmin: bornes.xMin - 1,
-            ymin: bornes.yMin - 1,
-            xmax: bornes.xMax + 1,
-            ymax: bornes.yMax + 1,
+            xmin: -5,
+            ymin: -5,
+            xmax: 5,
+            ymax: 5,
           },
         ),
+        TA,
+        TB,
+        TR,
+        TS,
         labelA,
         labelB,
         labelR,
         labelS,
         objetsEnonce,
         o,
+        courbe(fonc, { repere: repere1, color: 'blue', epaisseur: 2 }),
       ) +
       '<br>' +
       "L'inéquation $x\\times f(x) > 0$ est vérifiée par :"
@@ -164,10 +163,16 @@ export default class auto1AF2 extends ExerciceQcmA {
       { x: -1.5, y: 1, deriveeGauche: 2, deriveeDroit: 3, isVisible: true },
       { x: -0.3, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
       { x: 0.5, y: 2, deriveeGauche: -1, deriveeDroit: -2, isVisible: true },
-      { x: 1.5, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: false },
-      { x: 3, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
-      { x: 3.5, y: -0.5, deriveeGauche: 1, deriveeDroit: 2, isVisible: true },
-      { x: 4, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: false },
+      {
+        x: 1.5,
+        y: 0,
+        deriveeGauche: -1.5,
+        deriveeDroit: -1.5,
+        isVisible: false,
+      },
+      { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+      { x: 4, y: -0.5, deriveeGauche: 1, deriveeDroit: 1.5, isVisible: true },
+      { x: 5, y: 1, deriveeGauche: 0.5, deriveeDroit: 1, isVisible: false },
     ]
     const mesFonctions = [noeuds1]
 

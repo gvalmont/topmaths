@@ -10,20 +10,20 @@ import {
   rotation,
   similitude,
 } from '../../lib/2d/transformations'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { enleveDoublonNum, shuffleLettres } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre =
   "Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle"
@@ -82,7 +82,7 @@ export default class ExprimerCosSinTan extends Exercice {
       defaut: 4,
       melange: 4,
       nbQuestions: 3,
-    })
+    }).map(Number)
 
     fonctionsTrigonometriques = enleveDoublonNum(fonctionsTrigonometriques)
     const nomFonctionsTrigonometriques = ['', '\\cos', '\\sin', '\\tan']
@@ -143,7 +143,16 @@ export default class ExprimerCosSinTan extends Exercice {
       const pointNomH = pointSurSegment(H, A, -0.5)
       const codage2 = codageAngleDroit(A, H, B)
       H.nom = nom[3]
-      const t4 = texteParPoint(`$${H.nom}$`, pointNomH, 1, 'milieu', true)
+      // const t4 = texteParPoint(`$${H.nom}$`, pointNomH, 1, 'milieu', true)
+      const t4 = texteParPoint(
+        `$${H.nom}$`,
+        pointNomH,
+        0,
+        'black',
+        1,
+        'milieu',
+        true,
+      )
       const sAH = segment(A, H)
       const t13 = texteSurSegment('hypoténuse', B, A)
       let t23
@@ -559,19 +568,16 @@ export default class ExprimerCosSinTan extends Exercice {
               KeyboardType.alphanumeric,
               '\\ldots',
             )
-            handleAnswers(
-              this,
-              fonctionsTrigonometriques.length * i + ee,
-              {
-                champ1: {
-                  value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0],
-                },
-                champ2: {
-                  value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][1],
-                },
+            handleAnswers(this, fonctionsTrigonometriques.length * i + ee, {
+              champ1: {
+                value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0],
+                options: { texteAvecCasse: true },
               },
-              { options: { texteAvecCasse: true } },
-            )
+              champ2: {
+                value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][1],
+                options: { texteAvecCasse: true },
+              },
+            })
           } else {
             propositionsAMC[ee] = {
               type: 'qcmMono',
@@ -603,12 +609,13 @@ export default class ExprimerCosSinTan extends Exercice {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1], 2],
                 champ1: {
                   value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0],
+                  options: { texteAvecCasse: true },
                 },
                 champ2: {
                   value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][1],
+                  options: { texteAvecCasse: true },
                 },
               },
-              { options: { texteAvecCasse: true } },
             )
 
             texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
@@ -632,6 +639,7 @@ export default class ExprimerCosSinTan extends Exercice {
                           ? 2
                           : 1
                     ][0],
+                  options: { texteAvecCasse: true },
                 },
                 champ2: {
                   value:
@@ -642,9 +650,9 @@ export default class ExprimerCosSinTan extends Exercice {
                           ? 2
                           : 1
                     ][1],
+                  options: { texteAvecCasse: true },
                 },
               },
-              { options: { texteAvecCasse: true } },
             )
           } else {
             propositionsAMC[ee * 2] = {
@@ -680,19 +688,16 @@ export default class ExprimerCosSinTan extends Exercice {
               KeyboardType.alphanumeric,
               '\\ldots',
             )
-            handleAnswers(
-              this,
-              fonctionsTrigonometriques.length * i + 2 * ee,
-              {
-                champ1: {
-                  value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0],
-                },
-                champ2: {
-                  value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][1],
-                },
+            handleAnswers(this, fonctionsTrigonometriques.length * i + 2 * ee, {
+              champ1: {
+                value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0],
+                options: { texteAvecCasse: true },
               },
-              { options: { texteAvecCasse: true } },
-            )
+              champ2: {
+                value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][1],
+                options: { texteAvecCasse: true },
+              },
+            })
 
             texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
             texte += remplisLesBlancs(
@@ -709,13 +714,14 @@ export default class ExprimerCosSinTan extends Exercice {
                 champ1: {
                   value:
                     correctionTrigoPointHRLB[fonctionsTrigonometriques[ee]][0],
+                  options: { texteAvecCasse: true },
                 },
                 champ2: {
                   value:
                     correctionTrigoPointHRLB[fonctionsTrigonometriques[ee]][1],
+                  options: { texteAvecCasse: true },
                 },
               },
-              { options: { texteAvecCasse: true } },
             )
             texte += '<br>'
           } else {

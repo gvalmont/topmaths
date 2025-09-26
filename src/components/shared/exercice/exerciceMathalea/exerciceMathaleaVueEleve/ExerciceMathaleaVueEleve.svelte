@@ -4,26 +4,26 @@
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import {
-    exerciceInteractif,
-    prepareExerciceCliqueFigure,
+      exerciceInteractif,
+      prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
   import {
-    mathaleaGenerateSeed,
-    mathaleaHandleExerciceSimple,
-    mathaleaRenderDiv,
-    mathaleaUpdateUrlFromExercicesParams,
-    mathaleaWriteStudentPreviousAnswers,
+      mathaleaGenerateSeed,
+      mathaleaHandleExerciceSimple,
+      mathaleaRenderDiv,
+      mathaleaUpdateUrlFromExercicesParams,
+      mathaleaWriteStudentPreviousAnswers,
   } from '../../../../../lib/mathalea'
   import {
-    exercicesParams,
-    globalOptions,
-    isMenuNeededForExercises,
-    resultsByExercice,
+      exercicesParams,
+      globalOptions,
+      isMenuNeededForExercises,
+      resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
-    InterfaceParams,
-    InterfaceResultExercice,
+      InterfaceParams,
+      InterfaceResultExercice,
   } from '../../../../../lib/types'
   import { loadMathLive } from '../../../../../modules/loaders'
   import { statsTracker } from '../../../../../modules/statsUtils'
@@ -234,11 +234,11 @@
 
   async function updateDisplay() {
     log('updateDisplay')
-    if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
-    console.info(`Chargement de la seed : ${exercise.seed}`)
-    seedrandom(exercise.seed, { global: true })
-    if (exercise.typeExercice === 'simple')
+    if (exercise.typeExercice === 'simple') {
+      if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+      seedrandom(exercise.seed, { global: true })
       mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
+    }
     exercise.interactif = isInteractif
     if ($exercicesParams[exerciseIndex] != null) {
       // Des erreurs bugsnag font état de cet objet undefined. JC le 3/12/2024
@@ -267,6 +267,8 @@
       exercise.typeExercice !== 'simple' &&
       typeof exercise.nouvelleVersionWrapper === 'function'
     ) {
+      if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+      seedrandom(exercise.seed, { global: true })
       exercise.nouvelleVersionWrapper(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -292,6 +294,22 @@
         buttonScore,
       )
       const isThisTryBetter = numberOfPoints >= previousBestScore
+      if (buttonScore.dataset.capytaleLoadAnswers === '1' && previousBestScore !== numberOfPoints) {
+        // ICI les réponses ont été chargées par Capytale et
+        //  le score ne peut pas être inferieur à best score,
+        //  car c'est de la restitution de la meilleure copie
+        // donc si on est ici dans ce IF, c'est un bug du moteur à faire vite remonter
+        window.notify(
+          `Le score de l'exercice ${exercise.numeroExercice} est incorrect, passé de ${previousBestScore} à ${numberOfPoints}. Merci de le signaler au support.`,
+          {
+            exo: exercise,
+            globalOptions: $globalOptions,
+            exercicesParams: $exercicesParams,
+            resultsByExercice: $resultsByExercice,
+          },
+        )
+      }
+
       let bestScore = previousBestScore
       // On ne met à jour resultsByExercice que si le score est meilleur
       if (isThisTryBetter) {
@@ -300,7 +318,6 @@
           l[exercise.numeroExercice as number].bestScore = bestScore
           return l
         })
-        console.info(`Les deux seeds devraient être les même : ${exercise.seed} et ${$exercicesParams[exercise.numeroExercice].alea}`)
         resultsByExercice.update((l: InterfaceResultExercice[]) => {
           l[exercise.numeroExercice as number] = {
             uuid: exercise.uuid,

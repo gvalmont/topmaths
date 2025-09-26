@@ -5,13 +5,13 @@
  */
 
 import fs from 'fs'
+import { dictionnaireBAC } from '../src/json/dictionnaireBAC.js'
 import { dictionnaireCrpeCoop } from '../src/json/dictionnaireCrpeCoop.js'
 import { dictionnaireDNB } from '../src/json/dictionnaireDNB.js'
 import { dictionnaireDNBPRO } from '../src/json/dictionnaireDNBPRO.js'
-import { dictionnaireBAC } from '../src/json/dictionnaireBAC.js'
-import { dictionnaireSTI2D } from '../src/json/dictionnaireSTI2D.js'
 import { dictionnaireE3C } from '../src/json/dictionnaireE3C.js'
 import { dictionnaireEVACOM } from '../src/json/dictionnaireEVACOM.js'
+import { dictionnaireSTI2D } from '../src/json/dictionnaireSTI2D.js'
 
 const referentielFR = {}
 const referentielCH = {}
@@ -59,7 +59,16 @@ for (const annee of [
   }
 }
 
-for (const annee of ['2024', '2023']) {
+for (const annee of [
+  '2030',
+  '2029',
+  '2028',
+  '2027',
+  '2026',
+  '2025',
+  '2024',
+  '2023',
+]) {
   for (const ex in dictionnaireDNBPRO) {
     if (dictionnaireDNBPRO[ex].annee === annee) {
       referentielFR.Brevet[annee][ex] = { uuid: ex, ...dictionnaireDNBPRO[ex] }

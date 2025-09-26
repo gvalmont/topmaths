@@ -1,8 +1,9 @@
-import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import checkElementExist from 'apigeom/src/check/checkElementExist'
-import figureApigeom from '../../lib/figureApigeom'
 import Point from 'apigeom/src/elements/points/Point'
+import figureApigeom from '../../lib/figureApigeom'
+import { shuffle } from '../../lib/outils/arrayOutils'
+import ExerciceSimple from '../ExerciceSimple'
 
 export const titre = 'Tracer segment, droite et demi-droite (depuis notation)'
 export const dateDePublication = '29/01/2024'
@@ -128,9 +129,11 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
     this.nameC = String.fromCharCode(indiceFirstLetter + 2)
     this.figure.options.labelAutomaticBeginsWith = this.nameA
 
-    const types = ['Segment', 'Line', 'Ray'].sort(
-      () => Math.random() - 0.5,
-    ) as ('Segment' | 'Line' | 'Ray')[]
+    const types = shuffle(['Segment', 'Line', 'Ray']) as (
+      | 'Segment'
+      | 'Line'
+      | 'Ray'
+    )[]
     this.traits.push(new Trait(types[0], this.nameA, this.nameB))
     this.traits.push(new Trait(types[1], this.nameB, this.nameC))
     this.traits.push(new Trait(types[2], this.nameC, this.nameA))

@@ -3,6 +3,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer avec  des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,6 +29,7 @@ export default class CalculPuissancesOperation extends ExerciceSimple {
     this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
   }
 
   nouvelleVersion() {
@@ -39,7 +41,7 @@ export default class CalculPuissancesOperation extends ExerciceSimple {
     }
     let a, b, n, p, s
     switch (
-      choice(['a', 'b', 'c', 'd', 'e']) //
+    choice(['a', 'b', 'c', 'd', 'e']) //
     ) {
       case 'a':
         a = randint(-9, 9, [0, 1, -1])

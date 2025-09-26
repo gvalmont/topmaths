@@ -29,7 +29,7 @@ export const dateDeModifImportante = '26/08/2024'
  * @author Jean-Claude Lhote et Rémi Angot
  * Relecture : Novembre 2021 par EE
  */
-export const uuid = 'acd4a'
+export const uuid = 'ad8c8'
 
 export const refs = {
   'fr-fr': ['6N1C-1'],
@@ -39,14 +39,16 @@ export const refs = {
 export default class LireAbscisseEntiere2d extends Exercice {
   constructor() {
     super()
+
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
-      4,
-      '1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange',
-    ]
+      5, 
+      '1 : Centaines\n2 : Milliers\n3 : Dizaines de mille\n4 : Centaines de mille\n5 : Mélange',
+    ];
+
     this.nbQuestions = 3
 
-    this.sup = 4
+    this.sup = 5
     this.interactif = false
   }
 
@@ -57,8 +59,8 @@ export default class LireAbscisseEntiere2d extends Exercice {
     }
     let typesDeQuestions
 
-    if (this.sup === 4) {
-      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+    if (this.sup === 5) {
+      typesDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
       typesDeQuestions = combinaisonListes([this.sup], this.nbQuestions)
     }
@@ -96,21 +98,27 @@ export default class LireAbscisseEntiere2d extends Exercice {
       l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
       l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
       switch (typesDeQuestions[i]) {
-        case 1: // Placer des entiers sur un axe (milliers)
+        case 1: // Version simplifiée : Centaines (ajout Mireille, septembre 2025)
+        abs0 = randint(1, 9) * 100; // Ex: 200, 500, 900...
+        pas1 = 0.01; // 1 unité sur la droite = 100 (car 1/pas1 = 100)
+        break;
+
+        case 2: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
           pas1 = 0.001
-          break
+          break;
 
-        case 2: // Placer des entiers sur un axe (dizaines de mille)
+        case 3: // Placer des entiers sur un axe (dizaines de mille)
           abs0 = randint(5, 15) * 10000
           pas1 = 0.0001
-          break
+          break;
 
-        case 3: // Placer des entiers sur un axe (centaines de mille)
+        case 4: // Placer des entiers sur un axe (centaines de mille)
         default:
           abs0 = randint(35, 85) * 100000
           pas1 = 0.00001
-          break
+          break;
+
       }
       x1 = arrondi(randint(1, 27, [10, 20]) / 10)
       x2 = arrondi(randint(33, 47, 40) / 10)

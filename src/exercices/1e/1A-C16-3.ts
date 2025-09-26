@@ -12,7 +12,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
  */
 export const uuid = '6fc42'
 export const refs = {
-  'fr-fr': ['1A-F5-3'],
+  'fr-fr': ['1A-C16-3'],
   'fr-ch': [],
 }
 export const interactifReady = true
@@ -23,7 +23,7 @@ export const titre =
   'Retrouver une fonction affine à partir de son tableau de signes'
 export const dateDePublication = '10/07/2025'
 
-export default class Auto1AF5c extends ExerciceQcmA {
+export default class Auto1AC16c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     const f = (x: number | FractionEtendue) => -3 * Number(x) + 6
     this.enonce = `On considère une fonction $f$ définie sur $\\mathbb{R}$ dont le tableau de signes est donné ci-dessous. <br><br>

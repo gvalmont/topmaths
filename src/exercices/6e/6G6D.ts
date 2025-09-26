@@ -1,24 +1,24 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { codageSegments } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { nommePolygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { triangle2points2angles } from '../../lib/2d/triangle'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { codageSegments } from '../../lib/2d/codages'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { arrondi } from '../../lib/outils/nombres'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre =
   "Déterminer la valeur d'un angle en utilisant la somme des angles dans un triangle"
@@ -89,6 +89,7 @@ export default class ExerciceAnglesTriangles extends Exercice {
         "11 : Triangle isocèle avec un angle aigu double de l'autre (*)",
         "12 : Triangle isocèle avec l'angle au sommet principal connu (*)",
         '13 : Mélange',
+        '14: Triangle quelconque avec un angle obtus et un angle aigu connus',
         '(*) : Question plus difficile',
       ].join('\n'),
     ]
@@ -96,9 +97,19 @@ export default class ExerciceAnglesTriangles extends Exercice {
     this.besoinFormulaire3CaseACocher = [
       "Dans l'ordre des situations différentes",
     ]
+    this.besoinFormulaire4Texte = [
+      'Précision des angles',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : angles définis au degré près',
+        '2 : angles multiples de 5°',
+        '3 : angles multiples de 10°',
+      ].join('\n'),
+    ]
     this.sup = '1-2-3-4-5'
     this.sup2 = false
     this.sup3 = true
+    this.sup4 = '1'
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
     context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
     this.nbQuestions = 5
@@ -111,11 +122,20 @@ export default class ExerciceAnglesTriangles extends Exercice {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 12,
+      max: 14,
       melange: 13,
       defaut: 13,
       nbQuestions: this.nbQuestions,
       shuffle: !this.sup3,
+    })
+    const listePrecision = gestionnaireFormulaireTexte({
+      saisie: this.sup4,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 1,
+      nbQuestions: this.nbQuestions,
+      // shuffle: !this.sup3,
     })
     let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2
     let indiceSetReponse = 0
@@ -144,13 +164,130 @@ export default class ExerciceAnglesTriangles extends Exercice {
       texteCorrFinal = ''
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
-        case 1: // triangle quelconque 2 angles connus
+        case 1: // triangle quelconque 2 angles connus et aigus
           choixAngle = [0]
           nomAngles.push(s2 + s3 + s1)
           do {
             angle1 = randint(20, 40)
             angle2 = randint(20, 100)
           } while (angle1 + angle2 < 60)
+          if (listePrecision[i] === 2) {
+            angle1 = 5 * Math.round(angle1 / 5)
+            angle2 = 5 * Math.round(angle2 / 5)
+          } else if (listePrecision[i] === 3) {
+            angle1 = 10 * Math.round(angle1 / 10)
+            angle2 = 10 * Math.round(angle2 / 10)
+          }
+          texte = `$${s1 + s2 + s3}$ est un triangle quelconque. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}^\\circ$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          objetsEnonce.push(triangle, nommePolygone(triangle))
+          objetsCorrection.push(triangle, nommePolygone(triangle))
+          angleA = codageAngle(
+            B,
+            A,
+            angle2,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            1,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          objetsEnonce.push(angleA, angleB)
+          angleA = codageAngle(
+            B,
+            A,
+            angle2,
+            0.7,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleB = codageAngle(
+            A,
+            B,
+            -angle1,
+            0.7,
+            '',
+            'blue',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          angleC = codageAngle(
+            A,
+            C,
+            180 - angle2 - angle1,
+            1,
+            '',
+            '#f15929',
+            2,
+            1,
+            'none',
+            0.2,
+            true,
+            false,
+            '',
+            1.2,
+          )
+          objetsCorrection.push(angleA, angleB, angleC)
+          if (this.correctionDetaillee) {
+            texteCorr +=
+              'Dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s3 + s1}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
+            texteCorr += `D'où : $\\widehat{${s2 + s3 + s1}}=180- \\left(\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s1 + s3}}\\right)$.<br>D'où : `
+          }
+          texteCorr += `$\\widehat{${s2 + s3 + s1}}= 180^\\circ-\\left(${angle1}^\\circ+${angle2}^\\circ\\right)=180^\\circ-${angle1 + angle2}^\\circ=${troisiemeAngle(angle1, angle2)}^\\circ$.<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(troisiemeAngle(angle1, angle2))}^\\circ$.`
+          reponseInteractive = [troisiemeAngle(angle1, angle2)]
+          break
+        case 14: // triangle quelconque 2 angles connus dont un obtus
+          choixAngle = [0]
+          nomAngles.push(s2 + s3 + s1)
+          angle1 = randint(20, 40)
+          angle2 = randint(95, 180 - angle1 - 20)
+          if (listePrecision[i] === 2) {
+            angle1 = 5 * Math.round(angle1 / 5)
+            angle2 = 5 * Math.round(angle2 / 5)
+          } else if (listePrecision[i] === 3) {
+            angle1 = 10 * Math.round(angle1 / 10)
+            angle2 = 10 * Math.round(angle2 / 10)
+          }
           texte = `$${s1 + s2 + s3}$ est un triangle quelconque. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}^\\circ$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
@@ -254,6 +391,11 @@ export default class ExerciceAnglesTriangles extends Exercice {
           nomAngles.push(s2 + s3 + s1)
           angle1 = 90
           angle2 = randint(20, 70)
+          if (listePrecision[i] === 2) {
+            angle2 = 5 * Math.round(angle2 / 5)
+          } else if (listePrecision[i] === 3) {
+            angle2 = 10 * Math.round(angle2 / 10)
+          }
           texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s2}$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
@@ -323,6 +465,11 @@ export default class ExerciceAnglesTriangles extends Exercice {
           choixAngle = [0]
           nomAngles.push(s2 + s3 + s1)
           angle1 = 2 * randint(15, 75)
+          if (listePrecision[i] === 2) {
+            angle1 = 10 * Math.round(angle1 / 10)
+          } else if (listePrecision[i] === 3) {
+            angle1 = 20 * Math.round(angle1 / 20)
+          }
           angle2 = (180 - angle1) / 2
           texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s2}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
@@ -438,6 +585,11 @@ export default class ExerciceAnglesTriangles extends Exercice {
           choixAngle = [0]
           nomAngles.push(s2 + s3 + s1)
           angle2 = randint(30, 60, [90])
+          if (listePrecision[i] === 2) {
+            angle2 = 5 * Math.round(angle2 / 5)
+          } else if (listePrecision[i] === 3) {
+            angle2 = 10 * Math.round(angle2 / 10)
+          }
           angle1 = angle2
           texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s3}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
@@ -1330,7 +1482,6 @@ export default class ExerciceAnglesTriangles extends Exercice {
           })
         }
       }
-
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

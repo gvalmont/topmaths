@@ -1,11 +1,12 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
 } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer une forme canonique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,6 +28,7 @@ export default class FormeCanonique extends ExerciceSimple {
     super()
 
     this.typeExercice = 'simple'
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.nbQuestions = 1
   }
 
@@ -64,13 +66,13 @@ export default class FormeCanonique extends ExerciceSimple {
 
     this.correction += `<br> On a $a=1$, et on reconnaît dans $x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$, le début du carré de $(${reduireAxPlusB(1, -alpha)})^2$.`
     this.correction += `<br>On peut donc écrire :  $\\underbrace{x^2${ecritureAlgebriqueSauf1(b)}x}_{(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}}${ecritureAlgebrique(c)}
-    =${miseEnEvidence(`(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}${ecritureAlgebrique(c)}`)}$.`
+    =(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}${ecritureAlgebrique(c)}$.`
     this.correction += '<br>Soit : $f(x)='
-    this.correction += `(x ${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$`
     this.reponse = [
       `(x${ecritureAlgebrique(b / 2)})^2${ecritureAlgebrique(beta)}`,
       `${beta}+(x${ecritureAlgebrique(b / 2)})^2`,
     ]
+    this.correction += `${miseEnEvidence(this.reponse[0])}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

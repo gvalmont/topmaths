@@ -29,7 +29,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '12/05/2025' // Ajout de paramètres
+export const dateDePublication = '25/09/2025'
 /**
  * Donner l\'écriture décimale d\'un nombre à partir de fraction décimale (ou inversement)
  *
@@ -56,7 +56,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     this.besoinFormulaire2Numerique = [
       'Type de questions',
       2,
-      '1 : Du nombre décimal à la fraction décimale\n2 : De fractions décimales au nombre décimal',
+      '1 : Du nombre décimal à la fraction décimale\n2 : De la fraction décimale au nombre décimal',
     ]
     this.sup = 3
   }
@@ -75,9 +75,9 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     }
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
-      max: 5,
-      defaut: 6,
-      melange: 6,
+      max: 2,
+      defaut: 2,
+      melange: 3,
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
       shuffle: false,

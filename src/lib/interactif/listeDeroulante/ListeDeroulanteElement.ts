@@ -42,84 +42,113 @@ class ListeDeroulanteElement extends HTMLElement {
 span.listeDeroulante {
   position: relative;
   display: inline-flex;
-  background: #F0FFFF;
-  vertical-align: middle;
-  margin: 0;
-  padding: 0;
+  align-items: center;
+  background: #fff;
+  color: #333;
+  border: 1px solid #d1d5db; /* gris clair moderne */
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: all 0.2s ease;
   cursor: pointer;
-  border-radius: 5px;
-  border: solid 1px grey;
+  padding: 2px 6px;
 }
+
+span.listeDeroulante:hover {
+  border-color: #3b82f6; /* bleu Tailwind */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
 span.listeDeroulante span.currentChoice {
-  margin: 0;
-  padding: 2px 10px;
   display: flex;
+  align-items: center;
+  padding: 6px 10px;
   outline: none;
 }
+
 span.listeDeroulante .trigger {
-  margin: 0;
+  margin-left: auto;
+  padding: 6px 8px;
   font-weight: bold;
-  padding-right: 6px;
-  padding-left: 5px;
-  padding-top: 2px;
-  border-left: 1px solid grey;
-  outline: none;
+  font-size: 0.9em;
+  color: #6b7280; /* gris neutre */
+  border-left: 1px solid #e5e7eb;
+  transition: color 0.2s ease;
 }
-span.listeDeroulante span.currentChoice:hover, span.listeDeroulante .trigger:hover {
-  border-color: CornflowerBlue;
+
+span.listeDeroulante .trigger:hover {
+  color: #111827; /* noir doux */
 }
+
 span.listeDeroulante .ok {
-  color: #008A73;
+  color: #10b981; /* vert moderne */
 }
+
 span.listeDeroulante .ko {
-  color: #D64700;
+  color: #ef4444; /* rouge moderne */
 }
+
+/* Liste déroulante */
 span.listeDeroulante ul {
   position: absolute;
+  top: 100%;
   left: 0;
-  border-color: grey;
-  margin: 0;
-  padding: 0;
+  width: max-content;
+  min-width: 100%;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  margin: 4px 0 0 0;
+  padding: 4px 0;
   display: none;
-  z-index: 60;
+  z-index: 100;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  animation: fadeIn 0.15s ease-out;
 }
+
+span.listeDeroulante ul.visible {
+  display: block;
+}
+
 span.listeDeroulante ul li {
   display: flex;
-  width: 100%;
+  align-items: center;
   list-style-type: none;
-  border: solid 1px grey;
+  padding: 8px 12px;
   cursor: pointer;
-  font-size: 100%;
-  color: black;
-  background: #F0FFFF;
-  margin: 0;
-  padding: 2px 5px;
-  box-sizing: border-box;
-  box-shadow: 0 0 0 0;
-  white-space: nowrap;
+  font-size: 0.95rem;
+  color: #111827;
+  background: #fff;
+  transition: background 0.2s ease, color 0.2s ease;
+  border: none;
 }
-span.listeDeroulante ul li.selected, span.listeDeroulante ul li:hover {
-  border-color: black;
-  background-color: #D3D3D3;
+
+span.listeDeroulante ul li:hover {
+  background: #f3f4f6;
+  color: #1d4ed8; /* bleu accent */
 }
-span.listeDeroulante ul.visible {
-  display: inline-block;
+
+span.listeDeroulante ul li.selected {
+  background: #e0f2fe;
+  color: #0284c7;
+  font-weight: 500;
 }
-liste-deroulante.listeDeroulante:hover {
-  border-color: CornflowerBlue;
+
+span.listeDeroulante.disabled {
+  cursor: not-allowed;
+  background: #f9fafb;
+  border-color: #e5e7eb;
+  color: #9ca3af;
 }
-liste-deroulante.listeDeroulante.disabled {
-  cursor: auto;
-  border-color: grey;
+
+span.listeDeroulante.disabled .trigger {
+  color: #d1d5db;
 }
-liste-deroulante.listeDeroulante.disabled .trigger {
-  color: lightgrey;
-  border-color: grey;
-}
-liste-deroulante.listeDeroulante.disabled span.currentChoice {
-  border-color: grey;
+
+span.listeDeroulante.disabled span.currentChoice {
   pointer-events: none;
 }
+
 span.listeDeroulante math-field {
   pointer-events: none;
   background: transparent !important;
@@ -128,25 +157,25 @@ span.listeDeroulante math-field {
   outline: none !important;
   padding: 0 !important;
 }
-span.listeDeroulante ul li math-field .ML__mathlive {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  padding: 0 !important;
+
+span.listeDeroulante ul li svg.svgChoice {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 6px;
+  flex-shrink: 0;
+  fill: currentColor;
 }
-  span.listeDeroulante ul li svg.svgChoice {
-  width: 100%;
-  max-width: 100%;
-  height: 2em; /* ou ajuste selon la hauteur souhaitée */
-  max-height: 2.5em;
-  display: block;
-  object-fit: contain;
-  box-sizing: border-box;
-}
-span.listeDeroulante ul li,
-span.listeDeroulante ul li * {
-  cursor: pointer !important;
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 `
     this.shadowRoot!.appendChild(style)

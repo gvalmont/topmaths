@@ -300,7 +300,7 @@ export default class nomExercice extends Exercice {
           ordreGroupements.push('après')
         }
       }
-      if (signeGroupements.every((s) => s === -1)) {
+      if (signeGroupements.filter((s) => s !== -1).length === 0) {
         signeGroupements[0] = 1
         listeTermesFactorises[0] = listeTermesFactorises[0].oppose()
       }

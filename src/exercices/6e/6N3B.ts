@@ -1,22 +1,22 @@
+import Figure from 'apigeom'
+import { distance } from 'apigeom/src/elements/calculus/Coords'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
+import type { MathfieldElement } from 'mathlive'
+import figureApigeom from '../../lib/figureApigeom'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import {
   lettreIndiceeDepuisChiffre,
   numAlpha,
 } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
-import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
-import { arrondi } from '../../lib/outils/nombres'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
-import type { MathfieldElement } from 'mathlive'
-import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { distance } from 'apigeom/src/elements/calculus/Coords'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '08/07/2025'
 export const titre = "Donner du sens à la définition d'un quotient"
@@ -369,7 +369,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
     ) as MathfieldElement
 
     // Sauvegarde de la réponse pour Capytale
-    // this.answers[`........................`] = mf.getValue()
+    exercice.answers[`Ex${this.numeroExercice}Q${2 * i + 100}`] = mf.getValue()
 
     // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
     const saisie1 = mf.value
@@ -383,7 +383,8 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
     ) as MathfieldElement
 
     // Sauvegarde de la réponse pour Capytale
-    // this.answers[`........................`] = mf.getValue()
+    exercice.answers[`Ex${this.numeroExercice}Q${2 * i + 100 + 1}`] =
+      mf.getValue()
 
     // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
     const saisie2 = mf.value

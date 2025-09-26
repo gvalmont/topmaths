@@ -1,3 +1,5 @@
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import {
@@ -5,11 +7,9 @@ import {
   listeDesDiviseurs,
 } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { choice } from '../../lib/outils/arrayOutils'
+import Exercice from '../Exercice'
 
 export const titre =
   "Compter et lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers"
@@ -85,11 +85,13 @@ export default class ListerDiviseursParDecompositionFacteursPremiers extends Exe
         }
       } else {
         // S'il y a 3 facteurs premiers, on fixe à 12, 16 ou 18 le nombre de diviseurs
-        tabMultiplicitesb = choice([
-          [2, 1, 1],
-          [3, 1, 1],
-          [2, 2, 1],
-        ]).sort(() => Math.random() - 0.5)
+        tabMultiplicitesb = shuffle(
+          choice([
+            [2, 1, 1],
+            [3, 1, 1],
+            [2, 2, 1],
+          ]),
+        )
       }
 
       texte = ''

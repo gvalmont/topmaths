@@ -7,6 +7,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -18,7 +19,7 @@ export const dateDePublication = '08/06/2025'
 
 /**
  * Restituer, de manière automatique, des équivalences sur les fractions décimales
- * @author Éric Elter
+ * @author Éric Elter (Mireille Gain pour variabilité possible du numérateur, entre 1 et 9)
  */
 export const uuid = 'bcef9'
 export const refs = {
@@ -30,14 +31,14 @@ export const refs = {
 export default class TrouverFractionDecimaleEgale extends Exercice {
   constructor() {
     super()
-    this.comment = '12 questions sont possibles au maximum.'
+    this.comment =
+      '12 questions sont possibles au maximum si le numérateur est égal à 1.'
     this.consigne = 'Compléter.'
     this.nbQuestions = 3
     this.besoinFormulaireTexte = [
       'Choix de la fraction',
       'Nombres sépares par des tirets :\n1 : 1/10\n2 : 1/100\n3 : 1/1 000\n4 : Mélange',
     ]
-
     this.besoinFormulaire2Numerique = [
       "Sens de l'égalité",
       3,
@@ -54,9 +55,17 @@ export default class TrouverFractionDecimaleEgale extends Exercice {
     3 : Mélange`,
     ]
 
+    this.besoinFormulaire4Numerique = [
+      'Choix du numérateur',
+      2,
+      `   1 : Numérateur égal à 1
+    2 : Numérateur variable de 1 à 9`,
+    ]
+
     this.sup = 4
     this.sup2 = 3
     this.sup3 = 3
+    this.sup4 = 1
   }
 
   nouvelleVersion() {
@@ -67,6 +76,7 @@ export default class TrouverFractionDecimaleEgale extends Exercice {
       defaut: 4,
       nbQuestions: 50,
     })
+
     const sensEgalite = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       max: 2,
@@ -81,29 +91,36 @@ export default class TrouverFractionDecimaleEgale extends Exercice {
       defaut: 3,
       nbQuestions: 50,
     })
-
+    const choixNumerateur = gestionnaireFormulaireTexte({
+      saisie: this.sup4,
+      max: 2,
+      melange: 2,
+      defaut: 1,
+      nbQuestions: 50,
+    })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const numerateur = choixNumerateur[cpt] === 1 ? 1 : randint(1, 9)
       if (
         this.questionJamaisPosee(
           i,
           nombreCherche[cpt],
           sensEgalite[cpt],
           choixDenominateur[cpt],
+          numerateur,
         )
       ) {
         // Si la question n'a jamais été posée, on en crée une autre
         let texte = ''
         let texteCorr = ''
-        const numerateur = 10 ** parseInt(choixDenominateur[cpt].toString())
+        const denominateur = 10 ** parseInt(choixDenominateur[cpt].toString())
         const valeurDecimale =
-          10 ** -parseInt(choixDenominateur[cpt].toString())
-
+          numerateur * 10 ** -parseInt(choixDenominateur[cpt].toString())
         if (sensEgalite[cpt] === 1) {
           if (nombreCherche[cpt] === 1) {
             texte = remplisLesBlancs(
               this,
               i,
-              `\\dfrac{1}{${texNombre(numerateur)}} =~%{champ1}`,
+              `\\dfrac{${numerateur}}{${texNombre(denominateur)}} =~%{champ1}`,
               KeyboardType.clavierNumbers,
               '\\ldots',
             )
@@ -113,29 +130,29 @@ export default class TrouverFractionDecimaleEgale extends Exercice {
               { champ1: { value: valeurDecimale } },
               { formatInteractif: 'fillInTheBlank' },
             )
-            texteCorr = `$${texFractionFromString(1, texNombre(numerateur))}=${miseEnEvidence(texNombre(valeurDecimale))}$`
+            texteCorr = `$${texFractionFromString(numerateur, texNombre(denominateur))}=${miseEnEvidence(texNombre(valeurDecimale))}$`
           } else {
             texte = remplisLesBlancs(
               this,
               i,
-              `\\dfrac{1}{%{champ1}} = ${texNombre(valeurDecimale)}`,
+              `\\dfrac{${numerateur}}{%{champ1}} = ${texNombre(valeurDecimale)}`,
               KeyboardType.clavierNumbers,
               '\\ldots',
             )
             handleAnswers(
               this,
               i,
-              { champ1: { value: numerateur } },
+              { champ1: { value: denominateur } },
               { formatInteractif: 'fillInTheBlank' },
             )
-            texteCorr = `$${texFractionFromString(1, miseEnEvidence(texNombre(numerateur)))}=${texNombre(valeurDecimale)}$`
+            texteCorr = `$${texFractionFromString(numerateur, miseEnEvidence(texNombre(denominateur)))}=${texNombre(valeurDecimale)}$`
           }
         } else {
           if (nombreCherche[cpt] === 1) {
             texte = remplisLesBlancs(
               this,
               i,
-              `%{champ1}~ = \\dfrac{1}{${texNombre(numerateur)}}`,
+              `%{champ1}~ = \\dfrac{${numerateur}}{${texNombre(denominateur)}}`,
               KeyboardType.clavierNumbers,
               '\\ldots',
             )
@@ -145,22 +162,22 @@ export default class TrouverFractionDecimaleEgale extends Exercice {
               { champ1: { value: valeurDecimale } },
               { formatInteractif: 'fillInTheBlank' },
             )
-            texteCorr = `$${miseEnEvidence(texNombre(valeurDecimale))}=${texFractionFromString(1, texNombre(numerateur))}$`
+            texteCorr = `$${miseEnEvidence(texNombre(valeurDecimale))}=${texFractionFromString(numerateur, texNombre(denominateur))}$`
           } else {
             texte = remplisLesBlancs(
               this,
               i,
-              `${texNombre(valeurDecimale)}=\\dfrac{1}{%{champ1}}`,
+              `${texNombre(valeurDecimale)}=\\dfrac{${numerateur}}{%{champ1}}`,
               KeyboardType.clavierNumbers,
               '\\ldots',
             )
             handleAnswers(
               this,
               i,
-              { champ1: { value: numerateur } },
+              { champ1: { value: denominateur } },
               { formatInteractif: 'fillInTheBlank' },
             )
-            texteCorr = `$${texNombre(valeurDecimale)}=${texFractionFromString(1, miseEnEvidence(texNombre(numerateur)))}$`
+            texteCorr = `$${texNombre(valeurDecimale)}=${texFractionFromString(numerateur, miseEnEvidence(texNombre(denominateur)))}$`
           }
         }
         this.listeQuestions[i] = texte

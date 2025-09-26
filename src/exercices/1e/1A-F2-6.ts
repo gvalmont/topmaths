@@ -11,7 +11,7 @@ export const dateDePublication = '15/09/2025'
 export const uuid = '11090'
 
 export const refs = {
-  'fr-fr': ['1A-F4-5'],
+  'fr-fr': ['1A-F2-6'],
   'fr-ch': [],
 }
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Reconnaître une parabole (forme factorisée)'
-export default class AutoF4f extends ExerciceQcmA {
+export default class AutoF2f extends ExerciceQcmA {
   private creerRepere(xMin: number, xMax: number, yMin: number, yMax: number) {
     const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
     const r = repere({

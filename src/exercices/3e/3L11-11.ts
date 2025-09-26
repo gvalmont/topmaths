@@ -1,4 +1,6 @@
 import { max } from 'mathjs'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 import {
@@ -7,13 +9,11 @@ import {
   getRandomSubarray,
   shuffle,
 } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Additionner et soustraire des monômes'
 export const dateDePublication = '19/08/2024'
 export const interactifReady = true
@@ -76,7 +76,8 @@ export default class NomExercice extends Exercice {
       let texte, texteCorr: string
       const degMin = this.sup2 - 1
       const degMax = max(this.sup3, this.sup2 - 1)
-      const variables = ['x', 'y', 'z', 'r', 's', 't']
+      // const variables = ['x', 'y', 'z', 'r', 's', 't']
+      const variables = ['x', 'y', 'z', 'a', 'b', 'c', 'k']
       const variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeCoeffListe = ['entier', 'fractionnaire']
       let typeofCoeff = []

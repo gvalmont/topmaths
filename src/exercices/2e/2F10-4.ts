@@ -158,6 +158,7 @@ export default class Determinerfonctionaffine extends Exercice {
                 texteCorr +=
                   '$f$ est une fonction constante, cas particulier des fonctions affines.<br>'
                 texteCorr += `On a donc : $f(x)=${b}$`
+                reponse = `${b}`
               } else {
                 texteCorr += `On en déduit que la fonction $f$ s'écrit sous la forme : $f(x)=${texFractionReduite(b - d, a - c)}x +b.$<br>`
                 texteCorr += `${texteGras('Remarque : ')}On obtient $b$ en utilisant (au choix)   une des deux données de l'énoncé, par exemple $f(${a})=${b}$.<br>`
@@ -168,15 +169,17 @@ export default class Determinerfonctionaffine extends Exercice {
                 texteCorr += '\\end{aligned}$<br>'
                 if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
                   texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
+                reponse = `${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}`
                 }
                 if ((b * (a - c) - (b - d) * a) * (a - c) < 0) {
                   texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.`
+                  reponse = `${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}`
                 }
                 if ((b * (a - c) - (b - d) * a) * (a - c) === 0) {
                   texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x.`
+                  reponse = `${texFractionReduite(b - d, a - c)}x`
                 }
               }
-              reponse = `${m.texFraction}x+${pfraction.texFraction}`
             }
             variables.push(a, b, c, d, p)
           }
@@ -220,6 +223,7 @@ export default class Determinerfonctionaffine extends Exercice {
                 texteCorr +=
                   '$f$ est une fonction constante, cas particulier des fonctions affines.<br>'
                 texteCorr += `On a donc : $f(x)=${b}$`
+                reponse = `${b}`
               } else {
                 texteCorr +=
                   "On en déduit que la fonction $f$ s'écrit sous la forme : "
@@ -232,15 +236,17 @@ export default class Determinerfonctionaffine extends Exercice {
                 texteCorr += '\\end{aligned}$<br>'
                 if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
                   texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
+                  reponse = `${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}`
                 }
                 if ((b * (a - c) - (b - d) * a) * (a - c) < 0) {
                   texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.`
+                  reponse = `${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}`
                 }
                 if ((b * (a - c) - (b - d) * a) * (a - c) === 0) {
                   texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x.`
+                  reponse = `${texFractionReduite(b - d, a - c)}x`
                 }
               }
-              reponse = `${m.texFraction}x+${pfraction.texFraction}`
             }
             variables.push(a, b, c, d, p)
           }

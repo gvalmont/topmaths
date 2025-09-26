@@ -5,7 +5,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ajouteQuestionMathlive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-export const titre = 'ajouter ou soustraire des dizaines à un près'
+export const titre = 'Ajouter ou soustraire des dizaines à un près'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '03/02/2025'

@@ -1,26 +1,26 @@
+import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { Arbre, texProba } from '../../modules/arbres'
+import { Arbre } from '../../modules/arbres'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '10/08/2025'
-export const uuid = '3a5ab'
+export const uuid = '939af'
 // Author Stéphane Guyon
 export const refs = {
-  'fr-fr': ['1A-P5-1'],
+  'fr-fr': ['1A-P3-1'],
   'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Utiliser un arbre pour calculer une probabilité (3)'
-export default class Puissances extends ExerciceQcmA {
+export const titre = 'Utiliser un arbre pour calculer une probabilité (intersection) '
+export default class auto1AP3a extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     let objets = []
     const rationnel = true
-    const pA = 0.4
-    const pAC = 0.6
-    const pBC = 0.3
+
     const omega = new Arbre({
       racine: true,
       rationnel,
@@ -32,37 +32,39 @@ export default class Puissances extends ExerciceQcmA {
         new Arbre({
           rationnel,
           nom: 'A',
-          proba: pA,
+          proba: 0.3,
+          visible: false,
           enfants: [
             new Arbre({
               rationnel,
               nom: 'C',
-              proba: pAC,
+              proba: 0.6,
+              visible: false,
             }),
             new Arbre({
               rationnel,
               nom: '\\bar C',
-              proba: Number(1 - pAC),
+              proba: 0.4,
             }),
           ],
         }),
         new Arbre({
           rationnel,
           nom: '\\bar A',
-          proba: Number(1 - pA),
+          proba: 0.7,
           enfants: [
             new Arbre({
               rationnel,
               nom: 'C',
-              proba: pBC,
+              proba: 0.4,
               visible: true,
-              // alter: 'x'
+              alter: '',
             }),
             new Arbre({
               rationnel,
               nom: '\\bar C',
-              proba: Number(1 - pBC),
-              visible: true,
+              proba: 0.6,
+              visible: false,
               alter: '',
             }),
           ],
@@ -72,35 +74,42 @@ export default class Puissances extends ExerciceQcmA {
 
     omega.setTailles() // On calcule les tailles des arbres.
     objets = omega.represente(0, 6, 0, 3, true, 1, 8)
-    const Reponse = pA * pAC + (1 - pA) * pBC
 
+    let distracteur2: number
+    let distracteur3: number
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
     this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
     this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
-    this.enonce += '<br>$p(C)=\\ldots$'
-    this.correction = `On applique la formule de probabilité totale :<br> $\\begin{aligned}
-    p(C)&=p(A)\\times p_A(C)+p(\\overline A)\\times p_{\\overline A}(C)\\\\
-    &=${texProba(pA)}\\times ${texProba(pAC)}+${texProba(1 - pA)}\\times ${texProba(pBC)}\\\\
-    &=${texProba(pA * pAC + (1 - pA) * pBC)}.
-    \\end{aligned}$`
+    this.enonce += '<br>$P(A \\cap C)=\\ldots$'
+    this.correction = `On sait que <br>$\\begin{aligned}
+        P(A \\cap C) &= P(A) \\times P_A(C)\\\\
+        &= \\dfrac{3}{10} \\times \\dfrac{6}{10} \\\\
+        &= \\dfrac{18}{100}\\\\
+        &= \\dfrac{9}{50}
+        \\end{aligned}$`
+
     this.reponses = [
-      `$${texProba(pA * pAC + (1 - pA) * pBC)} $`,
-      `$${texProba(0.44)}$ `,
-      `$${texProba(0.61)}$ `,
-      `$${texProba(0.39)}$ `,
+      '$\\dfrac{9}{50}$',
+      '$\\dfrac{13}{50}$ ',
+      '$\\dfrac{7}{50}$ ',
+      '$\\dfrac{11}{50}$ ',
     ]
   }
 
   versionAleatoire = () => {
     let objets = []
     const rationnel = true
-    let pA = randint(1, 9)
-    let pAC = randint(2, 8, pA)
-    let pBC = randint(2, 8, pAC)
-    pA = pA / 10
-    pAC = pAC / 10
-    pBC = pBC / 10
+    const NumA = randint(1, 9)
+    const DenA = 10
+    const NumAC = randint(1, 9)
+    const DenAC = 10
+    const NumBC = randint(2, 8)
+    const DenBC = 10
+    const pA = new FractionEtendue(NumA, DenA)
+    const pAC = new FractionEtendue(NumAC, DenAC)
+    const pBC = new FractionEtendue(NumBC, DenBC)
+
     // On définit l'arbre complet
     const omega = new Arbre({
       racine: true,
@@ -114,36 +123,37 @@ export default class Puissances extends ExerciceQcmA {
           rationnel,
           nom: 'A',
           proba: pA,
+          visible: false,
           enfants: [
             new Arbre({
               rationnel,
               nom: 'C',
               proba: pAC,
+              visible: false,
             }),
             new Arbre({
               rationnel,
               nom: '\\bar C',
-              proba: Number(1 - pAC),
+              proba: pAC.entierMoinsFraction(1),
             }),
           ],
         }),
         new Arbre({
           rationnel,
           nom: '\\bar A',
-          proba: Number(1 - pA),
+          proba: pA.entierMoinsFraction(1),
           enfants: [
             new Arbre({
               rationnel,
               nom: 'C',
               proba: pBC,
               visible: true,
-              // alter: 'x'
             }),
             new Arbre({
               rationnel,
               nom: '\\bar C',
-              proba: Number(1 - pBC),
-              visible: true,
+              proba: pBC.entierMoinsFraction(1),
+              visible: false,
               alter: '',
             }),
           ],
@@ -153,35 +163,27 @@ export default class Puissances extends ExerciceQcmA {
 
     omega.setTailles() // On calcule les tailles des arbres.
     objets = omega.represente(0, 6, 0, 3, true, 1, 8)
-    const Reponse = pA * pAC + (1 - pA) * pBC
-    const distracteur1 = Reponse + (randint(-1, 1, 0) * randint(5, 30)) / 100
-    let distracteur2: number
-    let distracteur3: number
+    const pC1 = pA.produitFraction(pAC)
+    const distracteur = pA.sommeFraction(pAC)
+
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    do {
-      distracteur2 = Reponse + (randint(-1, 1, 0) * randint(5, 30)) / 100
-    } while (distracteur2 === distracteur1 || distracteur2 === Reponse)
-    do {
-      distracteur3 = Reponse + (randint(-1, 1, 0) * randint(5, 30)) / 100
-    } while (
-      distracteur3 === distracteur1 ||
-      distracteur3 === distracteur2 ||
-      distracteur3 === Reponse
-    )
     this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
     this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
-    this.enonce += '<br>$p(C)=\\ldots$'
-    this.correction = `On applique la formule de probabilité totale :<br> $\\begin{aligned}
-    p(C)&=p(A)\\times p_A(C)+p(\\overline A)\\times p_{\\overline A}(C)\\\\
-    &=${texProba(pA)}\\times ${texProba(pAC)}+${texProba(1 - pA)}\\times ${texProba(pBC)}\\\\
-    &=${texProba(pA * pAC + (1 - pA) * pBC)}.
-    \\end{aligned}$`
+    this.enonce += '<br>$P(A \\cap C)=\\ldots$'
+
+    this.correction = `On sait que <br>$\\begin{aligned}
+        P(A \\cap C) &= P(A) \\times P_A(C)\\\\
+        &= ${pA.texFractionSimplifiee} \\times ${pAC.texFractionSimplifiee} \\\\
+        &= ${pC1.texFractionSimplifiee}
+        \\end{aligned}$`
+
     this.reponses = [
-      `$${texProba(pA * pAC + (1 - pA) * pBC)} $`,
-      `$${texProba(distracteur1)}$ `,
-      `$${texProba(distracteur2)}$ `,
-      `$${texProba(distracteur3)}$ `,
+      `$${pC1.texFractionSimplifiee}$`,
+      `$${pAC.texFractionSimplifiee}$`,
+      `$${pBC.entierMoinsFraction(1).texFractionSimplifiee}$`,
+      `$${distracteur.texFractionSimplifiee}$`,
+      `$${pAC.texFractionSimplifiee}$`,
     ]
   }
 
@@ -189,4 +191,7 @@ export default class Puissances extends ExerciceQcmA {
     super()
     this.versionAleatoire()
   }
+}
+function Do(arg0: number) {
+  throw new Error('Function not implemented.')
 }

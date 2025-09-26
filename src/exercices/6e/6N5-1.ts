@@ -46,7 +46,7 @@ export const dateDePublication = '02/11/2021'
 export const uuid = '28d56'
 
 export const refs = {
-  'fr-fr': ['BP2CCF3', '6N5-1'],
+  'fr-fr': ['6N5-1', 'BP2CCF3'],
   'fr-2016': ['6C12', 'BP2CCF3'],
   'fr-ch': ['9FA3-5'],
 }
@@ -65,7 +65,7 @@ export default class QuestionsPrix extends Exercice {
 
     this.besoinFormulaireTexte = [
       'Choix des questions',
-      'Nombres séparés par des tirets :\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions\n',
+      'Nombres séparés par des tirets :\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions',
     ]
     this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des questions']
     this.besoinFormulaire3CaseACocher = ['Prix unitaire entier']
@@ -73,7 +73,7 @@ export default class QuestionsPrix extends Exercice {
     this.besoinFormulaire4Numerique = [
       'Choix AMC',
       3,
-      '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps\n',
+      '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps',
     ]
   }
 

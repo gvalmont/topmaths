@@ -22,7 +22,7 @@ import {
 import Exercice from '../Exercice'
 
 export const titre =
-  'Résoudre des problèmes de prix avec des aliments mettant en jeu diverses opérations'
+  'Résoudre des problèmes de masses avec des aliments mettant en jeu diverses opérations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -44,7 +44,7 @@ export const dateDePublication = '02/11/2021'
 export const uuid = '4e2b2'
 
 export const refs = {
-  'fr-fr': ['BP2CCF4', '6N5-2'],
+  'fr-fr': ['6N5-2', 'BP2CCF4'],
   'fr-2016': ['6C12-1', 'BP2CCF4'],
   'fr-ch': ['9FA3-6'],
 }
@@ -53,14 +53,14 @@ export default class QuestionsMasses extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Choix des questions',
-      'Nombres séparés par des tirets :\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions\n',
+      'Nombres séparés par des tirets :\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions',
     ]
     this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des questions']
     this.besoinFormulaire3CaseACocher = ['Prix unitaire entier']
     this.besoinFormulaire4Numerique = [
       'Choix AMC',
       3,
-      '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps\n',
+      '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps',
     ]
     this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction
     this.nbQuestions = 1

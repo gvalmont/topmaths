@@ -1,15 +1,15 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import {
   choice,
   combinaisonListes,
   enleveElement,
 } from '../../lib/outils/arrayOutils'
+import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { arrondi } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -35,12 +35,18 @@ export default class ReciproquePythagore extends Exercice {
       "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas ",
     ]
 
+    this.besoinFormulaire2CaseACocher = [
+      'Correction avec le mot "contraposée"',
+      false,
+    ]
+
     this.amcReady = amcReady
     this.amcType = amcType
 
     this.nbQuestions = 3
 
     this.sup = 3
+    this.sup2 = false
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   }
 
@@ -222,7 +228,7 @@ export default class ReciproquePythagore extends Exercice {
           this.autoCorrection[i].propositions![1].statut = true
         texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${
           B + C
-        }^2$, l'égalité de Pythagore n'est pas vérifiée.<br> D'après le théorème de Pythagore, le triangle  $${nomTriangle}$ n'est pas rectangle.`
+        }^2$, l'égalité de Pythagore n'est pas vérifiée.<br> D'après ${this.sup2 ? 'la contraposée du' : 'le'} théorème de Pythagore, le triangle  $${nomTriangle}$ n'est pas rectangle.`
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {

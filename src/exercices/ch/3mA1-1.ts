@@ -24,7 +24,7 @@ export const refs = {
 }
 
 /**
- * Calculer une limite d'une fonction rationnelle sans indétermination ou avec une indétermination de type 1/0 ou 0/0
+ * Calculer une limite d'une fonction rationnelle type 1/0 ou 0/0
  * @author Nathan Scheinmann
  */
 
@@ -33,7 +33,7 @@ export default class ExerciceTangenteCourbe extends Exercice {
     super()
     this.nbQuestions = 3
     this.sup = 7
-    this.sup2 = false
+    this.sup2 = true
     this.sup3 = false
     this.sup4 = false
     this.besoinFormulaireTexte = [
@@ -315,9 +315,9 @@ export default class ExerciceTangenteCourbe extends Exercice {
       switch (typeDeQuestion) {
         case 1:
         case 2:
-          texteCorr += `La limite est indéterminée.<br> Puisque $P(${limite})=${polyNum.image(
+          texteCorr += `La limite est n'est pas finie.<br> Puisque $P(${limite})=${polyNum.image(
             limite,
-          )}\\neq 0$, l'indétermination est du type « $\\dfrac{1}{0}$ ».<br>`
+          )}\\neq 0$, on a une limite du type « $\\dfrac{1}{0}$ ».<br>`
           if (!this.sup3) {
             if (listeRacinesDen.length > 1) {
               texteCorr += `On met autant que possible en évidence au dénominateur le facteur $x${ecritureAlgebrique(-limite)}$ (en utilisant la division polynomiale ou les identités remarquables).<br> On obtient $Q(x)=${formatFactorizedPolynomial(listeRacinesDen, limite, coeffDen, this.sup3)}$.<br>`
@@ -362,15 +362,23 @@ export default class ExerciceTangenteCourbe extends Exercice {
             const signeDenDroite = polyDen.image(limite + 0.01) < 0 ? -1 : 1
             const signeDenGauche = polyDen.image(limite - 0.01) < 0 ? -1 : 1
             const signeNum = polyNum.image(limite) < 0 ? -1 : 1
-            texteCorr += `On calcule les limites à droite et à gauche pour déterminer l'existence de la limite. <br> On a <br>
+            texteCorr += `On calcule les limites à droite et à gauche pour déterminer l'existence de la limite. <br> On calcule la limite à droite <br>
             $\\begin{aligned}
             \\displaystyle\\lim_{x \\to ${limite}^+} \\dfrac{P(x)}{Q(x)} &= \\dfrac{\\displaystyle\\lim_{x \\to ${limite}^+} P(x)}{\\displaystyle\\lim_{x \\to ${limite}^+}Q(x)} \\\\
-            &=\\dfrac{\\displaystyle\\lim_{x \\to ${limite}^+} ${numerateurTex}}{\\displaystyle\\lim_{x \\to ${limite}^+}${denominateurTex}} \\\\
-            &= \\text{ «}\\,\\dfrac{${polyNum.image(limite)}}{0^${signeDenDroite < 0 ? '-' : '+'}}\\,\\text{» } = ${signeDenDroite * signeNum < 0 ? '-' : '+'}\\infty.\\end{aligned}$<br> On a <br>
+            &=\\dfrac{\\displaystyle\\lim_{x \\to ${limite}^+} ${numerateurTex}}{\\displaystyle\\lim_{x \\to ${limite}^+}${denominateurTex}}.\\end{aligned}$<br>
+            On a 
+            $\\displaystyle\\lim_{x \\to ${limite}^+} ${numerateurTex}= ${polyNum.image(limite)}$
+            et  
+            $ \\displaystyle\\lim_{x \\to ${limite}^+}${denominateurTex}=0^${signeDenDroite < 0 ? '-' : '+'}$.<br> D'où $\\displaystyle\\lim_{x \\to ${limite}^+} \\dfrac{P(x)}{Q(x)}=${signeDenDroite * signeNum < 0 ? '-' : '+'}\\infty$<br> On calcule la limite à gauche :<br>
             $\\begin{aligned}
             \\displaystyle\\lim_{x \\to ${limite}^-} \\dfrac{P(x)}{Q(x)} &= \\dfrac{\\displaystyle\\lim_{x \\to ${limite}^- } P(x)}{\\displaystyle\\lim_{x \\to ${limite}^-}Q(x)} \\\\
-            &= \\dfrac{\\displaystyle\\lim_{x \\to ${limite}^- } ${numerateurTex}}{\\displaystyle\\lim_{x \\to ${limite}^-}${denominateurTex}} \\\\
-            &= \\text{ «}\\,\\dfrac{${polyNum.image(limite)}}{0^${signeDenGauche < 0 ? '-' : '+'}}\\,\\text{» } = ${signeDenGauche * signeNum < 0 ? '-' : '+'}\\infty.\\end{aligned}$<br>`
+            &= \\dfrac{\\displaystyle\\lim_{x \\to ${limite}^- } ${numerateurTex}}{\\displaystyle\\lim_{x \\to ${limite}^-}${denominateurTex}}.\\end{aligned}$
+            <br>
+            On a
+            $\\displaystyle\\lim_{x \\to ${limite}^- } ${numerateurTex}= ${polyNum.image(limite)}$
+            et 
+            $\\displaystyle\\lim_{x \\to ${limite}^-}${denominateurTex}=0^${signeDenGauche < 0 ? '-' : '+'}$.<br>
+            D'où $\\displaystyle\\lim_{x \\to ${limite}^-} \\dfrac{P(x)}{Q(x)} = ${signeDenGauche * signeNum < 0 ? '-' : '+'}\\infty.$<br>`
             if (signeDenDroite !== signeDenGauche) {
               texteCorr += `${texteEnCouleurEtGras("La limite n'existe donc pas")}.`
             } else {
@@ -394,14 +402,24 @@ export default class ExerciceTangenteCourbe extends Exercice {
             const signeDenGauche =
               polyDenSimplifie.image(limite - 0.01) < 0 ? -1 : 1
             const signeNum = polyNumSimplifie.image(limite) < 0 ? -1 : 1
-            texteCorr += `On se retrouve à présent dans le cas d'une indétermination du type «$\\,\\dfrac{1}{0}\\,$». On calcule les limites à droite et à gauche pour déterminer l'existence de la limite. <br> On a <br>
+            texteCorr += `On se retrouve à présent dans le cas d'une limite infinie du type «$\\,\\dfrac{1}{0}\\,$». On calcule les limites à droite et à gauche pour déterminer l'existence de la limite. <br> On calcule la limite à droite :<br>
             $\\begin{aligned}
             \\displaystyle\\lim_{x \\to ${limite}^+} \\dfrac{P(x)}{Q(x)} &= \\displaystyle\\lim_{x \\to ${limite}^+}\\dfrac{${formatFactorizedPolynomial(listeNumSansUneRacineLimite, limite, coeffNum, this.sup3)}}{${formatFactorizedPolynomial(listeDenSansUneRacineLimite, limite, coeffDen, this.sup3)}} \\\\
-            &= \\dfrac{\\displaystyle\\lim_{x \\to ${limite}^+}${formatFactorizedPolynomial(listeNumSansUneRacineLimite, limite, coeffNum, this.sup3)}}{\\displaystyle\\lim_{x \\to ${limite}^+}${formatFactorizedPolynomial(listeDenSansUneRacineLimite, limite, coeffDen, this.sup3)}} \\\\
-            &= \\text{ «}\\,\\dfrac{${polyNumSimplifie.image(limite)}}{0^${signeDenDroite < 0 ? '-' : '+'}}\\,\\text{» } = ${signeDenDroite * signeNum < 0 ? '-' : '+'}\\infty.\\end{aligned}$<br> On a <br>$\\begin{aligned}
+            &= \\dfrac{\\displaystyle\\lim_{x \\to ${limite}^+}${formatFactorizedPolynomial(listeNumSansUneRacineLimite, limite, coeffNum, this.sup3)}}{\\displaystyle\\lim_{x \\to ${limite}^+}${formatFactorizedPolynomial(listeDenSansUneRacineLimite, limite, coeffDen, this.sup3)}}. \\end{aligned}$<br>
+            On a 
+            $\\displaystyle\\lim_{x \\to ${limite}^+}${formatFactorizedPolynomial(listeNumSansUneRacineLimite, limite, coeffNum, this.sup3)}=${polyNumSimplifie.image(limite)}$
+            et 
+            $\\displaystyle\\lim_{x \\to ${limite}^+}${formatFactorizedPolynomial(listeDenSansUneRacineLimite, limite, coeffDen, this.sup3)}=0^${signeDenDroite < 0 ? '-' : '+'}$.<br>
+            D'où $ \\displaystyle\\lim_{x \\to ${limite}^+} \\dfrac{P(x)}{Q(x)} = ${signeDenDroite * signeNum < 0 ? '-' : '+'}\\infty.$<br>
+            On calcule la limite à gauche : <br>$\\begin{aligned}
             \\displaystyle\\lim_{x \\to ${limite}^-} \\dfrac{P(x)}{Q(x)} &= \\displaystyle\\lim_{x \\to ${limite}^-}\\dfrac{${formatFactorizedPolynomial(listeNumSansUneRacineLimite, limite, coeffNum, this.sup3)}}{${formatFactorizedPolynomial(listeDenSansUneRacineLimite, limite, coeffDen, this.sup3)}} \\\\
-            &=\\dfrac{\\displaystyle\\lim_{x \\to ${limite}^-}${formatFactorizedPolynomial(listeNumSansUneRacineLimite, limite, coeffNum, this.sup3)}}{\\displaystyle\\lim_{x \\to ${limite}^-}${formatFactorizedPolynomial(listeDenSansUneRacineLimite, limite, coeffDen, this.sup3)}} \\\\
-            &= \\text{ «}\\,\\dfrac{${polyNumSimplifie.image(limite)}}{0^${signeDenGauche < 0 ? '-' : '+'}}\\,\\text{» } = ${signeDenGauche * signeNum < 0 ? '-' : '+'}\\infty.\\end{aligned}$<br>`
+            &=\\dfrac{\\displaystyle\\lim_{x \\to ${limite}^-}${formatFactorizedPolynomial(listeNumSansUneRacineLimite, limite, coeffNum, this.sup3)}}{\\displaystyle\\lim_{x \\to ${limite}^-}${formatFactorizedPolynomial(listeDenSansUneRacineLimite, limite, coeffDen, this.sup3)}}. \\end{aligned}$<br>
+            
+            On a 
+            <br>$\\displaystyle\\lim_{x \\to ${limite}^-}${formatFactorizedPolynomial(listeNumSansUneRacineLimite, limite, coeffNum, this.sup3)}=${polyNumSimplifie.image(limite)}$
+             et 
+            $\\displaystyle\\lim_{x \\to ${limite}^-}${formatFactorizedPolynomial(listeDenSansUneRacineLimite, limite, coeffDen, this.sup3)}=0^${signeDenGauche < 0 ? '-' : '+'}$.<br>
+            D'où  $\\displaystyle\\lim_{x \\to ${limite}^-} \\dfrac{P(x)}{Q(x)}=${signeDenGauche * signeNum < 0 ? '-' : '+'}\\infty.$<br>`
             if (signeDenDroite !== signeDenGauche) {
               texteCorr += `${texteEnCouleurEtGras("La limite n'existe donc pas")}.`
             } else {

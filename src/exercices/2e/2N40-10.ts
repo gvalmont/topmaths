@@ -9,6 +9,7 @@ import Exercice from '../Exercice'
 
 import { simplify } from 'mathjs'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { calculer, toTex } from '../../modules/outilsMathjs'
@@ -45,10 +46,11 @@ export const refs = {
  * @requires randint - Fonction qui retourne un entier aléatoire entre min et max inclus
  */
 function garantirUnNegatif(...args: number[]) {
-  const indexPositifs = args
-    .map((val, index) => (val > 0 ? index : -1))
-    .filter((val) => val !== -1)
-  indexPositifs.sort(() => Math.random() - 0.5)
+  const indexPositifs = shuffle(
+    args
+      .map((val, index) => (val > 0 ? index : -1))
+      .filter((val) => val !== -1),
+  )
   const nbNegatifs = randint(1, indexPositifs.length)
   for (let i = 0; i < nbNegatifs; i++) {
     args[indexPositifs[i]] *= -1

@@ -1,9 +1,10 @@
-import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
-import { randint } from '../../modules/outils'
 import type TextByPosition from 'apigeom/src/elements/text/TextByPosition'
+import figureApigeom from '../../lib/figureApigeom'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
+import { randint } from '../../modules/outils'
+import ExerciceSimple from '../ExerciceSimple'
 
 export const titre = 'Placer des points dans un repère'
 export const dateDePublication = '27/10/2023'
@@ -71,8 +72,8 @@ class ReperagePointDuPlan extends ExerciceSimple {
         [x4, y4],
       ].some((e) => e[0] === 0 && e[1] === 0)
     ) {
-      ;[x1, x2, x3, x4] = [x1, x2, x3, x4].sort(() => Math.random() - 0.5)
-      ;[y1, y2, y3, y4] = [y1, y2, y3, y4].sort(() => Math.random() - 0.5)
+      ;[x1, x2, x3, x4] = shuffle([x1, x2, x3, x4])
+      ;[y1, y2, y3, y4] = shuffle([y1, y2, y3, y4])
     }
     this.points = [
       { label: 'A', x: x1, y: y1 },

@@ -1,5 +1,5 @@
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { personnes } from '../../lib/outils/Personne'
 import { texNombre, texPrix } from '../../lib/outils/texNombre'
@@ -321,7 +321,7 @@ export default class VraiFauxProportionnalite extends Exercice {
         correction: `Le nombre de notions apprises par ${quidam[20].prenom} n’est pas proportionnel au nombre de camarades car rien ne dit qu'avec deux camarades, il apprend deux fois plus vite qu'avec un seul camarade.`,
       },
     ]
-    this.affirmations.sort(() => Math.random() - 0.5)
+    this.affirmations = shuffle(this.affirmations)
     this.nbQuestions = Math.min(this.affirmations.length, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = this.affirmations[i].texte

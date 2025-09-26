@@ -8,15 +8,15 @@ export const dateDePublication = '10/08/2025'
 export const uuid = '93b62'
 // Author Stéphane Guyon
 export const refs = {
-  'fr-fr': ['1A-P2-2'],
+  'fr-fr': ['1A-P3-2'],
   'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Utiliser un arbre pour calculer une probabilité (2)'
-export default class Puissances extends ExerciceQcmA {
+export const titre = 'Utiliser un arbre pour calculer une probabilité (conditionnelle)'
+export default class auto1AP3b extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     let objets = []
     const rationnel = true

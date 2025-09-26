@@ -88,7 +88,7 @@ export default class DeriveeExp extends Exercice {
                 texteIntro +
                 ` $f(x)=${reduireAxPlusB(b, c)}${signe(a)}${rienSi1(abs(a))}\\text{e}^x$.<br>
             Calculer $f'(x)$.`
-              texteCorr += `$f'(x)=${miseEnEvidence(`${b}${rienSi1(a)}\\text{e}^x`)}$.`
+              texteCorr += `$f'(x)=${miseEnEvidence(`${b === 0 ? '' : `${b}`}${ecritureAlgebriqueSauf1(a)}\\text{e}^x`)}$.`
             }
             texte += ajouteChampTexteMathLive(
               this,
