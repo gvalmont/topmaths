@@ -3106,7 +3106,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=ec781&id=6P3A-1&n=4&d=10&s=1&cd=1",
+                    "description": "Identifier des grandeurs"
+                  }
+                ]
               },
               {
                 "reference": "6P3B",
@@ -3266,12 +3271,7 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": [
-                  {
-                    "slug": "",
-                    "description": ""
-                  }
-                ]
+                "exercises": []
               },
               {
                 "reference": "6P3G",
