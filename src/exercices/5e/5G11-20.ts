@@ -66,6 +66,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     | 'cercle'
     | 'triangle'
   )[]
+
   nbPoints!: number[]
   exoCustomResultat: boolean
   figuresApiGeom!: Figure[]
@@ -184,7 +185,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       switch (this.typesDeQuestions[i]) {
         case 'segment':
           this.nbPoints[i] = 2
-          enonce += `du segment $[${this.labels[i][0]}${this.labels[i][1]}]$`
+          enonce += `du segment $[${this.labels[i][0]}${this.labels[i][1]}]$.`
           this.figuresApiGeom[i].create('Segment', {
             point1: this.antecedents[i][0],
             point2: this.antecedents[i][1],
@@ -225,7 +226,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           break
         case 'triangle':
           this.nbPoints[i] = 3
-          enonce += `du triangle $${this.labels[i][0]}${this.labels[i][1]}${this.labels[i][2]}$`
+          enonce += `du triangle $${this.labels[i][0]}${this.labels[i][1]}${this.labels[i][2]}$.`
           this.figuresApiGeom[i].create('Polygon', {
             points: [
               this.antecedents[i][0],
@@ -541,14 +542,14 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           figure: this.figuresApiGeom[i],
           x: cords1.x,
           y: cords1.y,
-          label: this.antecedents[i][0].label + "'",
+          // label: this.antecedents[i][0].label + "'",
           checkOnlyAbscissa: false,
         })
         resultat3 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords2.x,
           y: cords2.y,
-          label: this.antecedents[i][1].label + "'",
+          // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
         break
@@ -563,14 +564,14 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           figure: this.figuresApiGeom[i],
           x: cords1.x,
           y: cords1.y,
-          label: this.antecedents[i][0].label + "'",
+          // label: this.antecedents[i][0].label + "'",
           checkOnlyAbscissa: false,
         })
         resultat3 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords2.x,
           y: cords2.y,
-          label: this.antecedents[i][1].label + "'",
+          // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
 
@@ -586,14 +587,14 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           figure: this.figuresApiGeom[i],
           x: cords1.x,
           y: cords1.y,
-          label: this.antecedents[i][0].label + "'",
+          // label: this.antecedents[i][0].label + "'",
           checkOnlyAbscissa: false,
         })
         resultat3 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords2.x,
           y: cords2.y,
-          label: this.antecedents[i][1].label + "'",
+          // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
 
@@ -603,7 +604,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         resultat = checkCircle({
           figure: this.figuresApiGeom[i],
           center: cords1,
-          labelCenter: this.antecedents[i][0].label + "'",
+          // labelCenter: this.antecedents[i][0].label + "'",
           radius: Math.sqrt(
             (cords2.x - cords1.x) ** 2 + (cords2.y - cords1.y) ** 2,
           ),
@@ -612,14 +613,14 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           figure: this.figuresApiGeom[i],
           x: cords1.x,
           y: cords1.y,
-          label: this.antecedents[i][0].label + "'",
+          // label: this.antecedents[i][0].label + "'",
           checkOnlyAbscissa: false,
         })
         resultat3 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords2.x,
           y: cords2.y,
-          label: this.antecedents[i][1].label + "'",
+          // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
 
@@ -634,21 +635,21 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           figure: this.figuresApiGeom[i],
           x: cords1.x,
           y: cords1.y,
-          label: this.antecedents[i][0].label + "'",
+          // label: this.antecedents[i][0].label + "'",
           checkOnlyAbscissa: false,
         })
         resultat3 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords2.x,
           y: cords2.y,
-          label: this.antecedents[i][1].label + "'",
+          // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         })
         resultat4 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords3.x,
           y: cords3.y,
-          label: this.antecedents[i][2].label + "'",
+          // label: this.antecedents[i][2].label + "'",
           checkOnlyAbscissa: false,
         })
 

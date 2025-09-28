@@ -7,6 +7,7 @@ import { latex2d } from '../../lib/2d/textes'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
@@ -188,11 +189,11 @@ private creerElementsGraphiques(
     if (typeInequation === 'inf') {
       // Pour x² < a ou x² ≤ a : intervalle ]-√a, √a[ ou [-√a, √a]
       const crochets = estInegStrict ? `]-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}[` : `[-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}]`
-      const crochetsIncorrects = estInegStrict ? `[-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}]` : `]-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}[`
+      const valIncorrects = estInegStrict ? `]-${texNombre(val/2,1)}\\,;\\,${texNombre(val/2,1)}[` : `[-${texNombre(val/2,1)}\\,;\\,${texNombre(val/2,1)}]`
 
       return [
         `$S = ${crochets}$`,
-        `$S = ${crochetsIncorrects}$`,
+        `$S = ${valIncorrects}$`,
         `$S = \\{-\\sqrt{${val}}\\, ; \\,\\sqrt{${val}}\\}$`,
         `$S = ]-\\infty\\,;\\,-\\sqrt{${val}}${estInegStrict ? '[' : ']'} \\cup ${estInegStrict ? ']' : '['}\\sqrt{${val}}\\,;\\,+\\infty[$`,
       ]
@@ -201,13 +202,13 @@ private creerElementsGraphiques(
       const intervalleCorrect = estInegStrict 
         ? `]-\\infty\\,;\\,-\\sqrt{${val}}[ \\cup ]\\sqrt{${val}}\\,;\\,+\\infty[`
         : `]-\\infty\\,;\\,-\\sqrt{${val}}] \\cup [\\sqrt{${val}}\\,;\\,+\\infty[`
-      const intervalleIncorrect = estInegStrict
-        ? `]-\\infty\\,;\\,-\\sqrt{${val}}] \\cup [\\sqrt{${val}}\\,;\\,+\\infty[`
-        : `]-\\infty\\,;\\,-\\sqrt{${val}}[ \\cup ]\\sqrt{${val}}\\,;\\,+\\infty[`
+      const valIncorrect = estInegStrict
+        ? `]-\\infty\\,;\\,-${texNombre(val/2,1)}[ \\cup ]${texNombre(val/2,1)}\\,;\\,+\\infty[`
+        : `]-\\infty\\,;\\,-${texNombre(val/2,1)}] \\cup [${texNombre(val/2,1)}\\,;\\,+\\infty[`
 
       return [
         `$S = ${intervalleCorrect}$`,
-        `$S = ${intervalleIncorrect}$`,
+        `$S = ${valIncorrect}$`,
         `$S = \\{-\\sqrt{${val}} \\,; \\,\\sqrt{${val}}\\}$`,
         `$S = ]-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}[$`,
       ]
@@ -256,9 +257,9 @@ private creerElementsGraphiques(
     this.enonce = `${deuxColonnes(
       `On a représenté la parabole d'équation $y=x^2$. <br><br>
         On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInegalité} ${val}$.<br><br>
-        L'ensemble des solutions $S$ de cette inéquation est :`,
+       `,
       `${graphique}`,
-    )}<br>`
+    )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
     this.correction = this.genererCorrection(
       val,
       estInegStrict,
@@ -292,10 +293,9 @@ private creerElementsGraphiques(
 
     this.enonce = `${deuxColonnes(
       `On a représenté la parabole d'équation $y=x^2$. <br><br>
-        On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInégalité} ${val}$.<br><br>
-        L'ensemble des solutions $S$ de cette inéquation est :`,
+        On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInégalité} ${val}$.<br><br>`,
       `${graphique}`,
-    )}<br>`
+    )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
     this.correction = this.genererCorrection(
       val,
       estInegStrict,
