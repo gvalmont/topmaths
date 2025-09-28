@@ -1,9 +1,9 @@
 import { courbe } from '../../../lib/2d/courbes'
 import { Repere, repere } from '../../../lib/2d/reperes'
 import {
+  latex2d,
   Latex2d,
   TexteParPoint,
-  texteParPosition,
 } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
@@ -50,7 +50,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
       case 1: // cas parabole a>0
         a = randint(1, 8) / 2
         b = randint(-6, 6, 0) / 2
-        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+        o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
 
         f = function (x) {
           return a * x ** 2 + b
@@ -63,34 +63,37 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             yMin: -1,
             yMax: 6,
             xMax: 3,
-            thickHauteur: 0.1,
+            thickHauteur: 0.2,
+            xThickMin: -4,
             xLabelMin: -2,
             xLabelMax: 2,
             yLabelMax: 5,
             yLabelMin: -2,
             grilleSecondaire: true,
-            grilleSecondaireYDistance: 1,
-            grilleSecondaireXDistance: 1,
+             grilleSecondaireOpacite: 1,
+      grilleSecondaireYDistance: 1,
+      grilleSecondaireXDistance: 1,
+      grilleSecondaireCouleur: 'black',
+           axesEpaisseur:1.5,
             grilleSecondaireYMin: -2.1,
             grilleSecondaireYMax: 12.1,
             grilleSecondaireXMin: -3.1,
             grilleSecondaireXMax: 3.1,
-            yLabelEcart: 0.7,
-            axeXStyle: '->',
-            axeYStyle: '->',
+              xLabelEcart: 0.8,
+            yLabelEcart: 0.8,
           })
           f = (x) => a * x ** 2 + b
 
-          this.question = `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br>`
+          this.question = `1)Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br>`
           this.question +=
             mathalea2d(
               {
-                xmin: -6.1,
-                xmax: 6.1,
-                ymin: -2.1,
-                ymax: 12.1,
+                xmin: -6,
+                xmax: 6,
+                ymin: -2,
+                ymax: 12,
                 pixelsParCm: 20,
-                scale: 0.45,
+                scale: 0.5,
                 style: 'margin: auto',
               },
               r,
@@ -106,11 +109,16 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             yMin: -3,
             yMax: 3,
             xMax: 3,
-            thickHauteur: 0.1,
+            thickHauteur: 0.2,
+              xThickMin: -6,
+               yThickMin: -6,
             xLabelMin: -2,
             xLabelMax: 2,
             yLabelMax: 2,
             yLabelMin: -2,
+          grilleSecondaireOpacite: 1,
+           axesEpaisseur:1.5,
+           grilleOpacite: 1,
             grilleSecondaire: true,
             grilleSecondaireYDistance: 1,
             grilleSecondaireXDistance: 1,
@@ -118,23 +126,23 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireYMax: 3.1,
             grilleSecondaireXMin: -3.1,
             grilleSecondaireXMax: 3.1,
-            yLabelEcart: 0.7,
-            axeXStyle: '->',
-            axeYStyle: '->',
+              xLabelEcart: 0.8,
+            yLabelEcart: 0.8,
+            
           })
 
           f = (x) => a * x ** 2 + b
 
-          this.question = `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> `
+          this.question = `2)Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> `
           this.question +=
             mathalea2d(
               {
-                xmin: -6.1,
-                xmax: 6.1,
-                ymin: -6.1,
-                ymax: 6.1,
+                xmin: -6,
+                xmax: 6,
+                ymin: -6,
+                ymax: 6,
                 pixelsParCm: 20,
-                scale: 0.45,
+                scale: 0.5,
                 style: 'margin: auto',
               },
               r,
@@ -150,7 +158,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
       default:
         a = randint(-4, -1) / 2
         b = randint(-6, 6, 0) / 2
-        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+        o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
 
         f = function (x) {
           return a * x ** 2 + b
@@ -163,11 +171,16 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             yMin: -2,
             yMax: 4,
             xMax: 3,
-            thickHauteur: 0.1,
+            thickHauteur: 0.2,
+               xThickMin: -6,
+               yThickMin: -4,
             xLabelMin: -2,
             xLabelMax: 2,
             yLabelMax: 3,
             yLabelMin: -1,
+              grilleSecondaireOpacite: 1,
+           axesEpaisseur:1.5,
+           grilleOpacite: 1,
             grilleSecondaire: true,
             grilleSecondaireYDistance: 1,
             grilleSecondaireXDistance: 1,
@@ -175,9 +188,8 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireYMax: 4.1,
             grilleSecondaireXMin: -3.1,
             grilleSecondaireXMax: 3.1,
-            yLabelEcart: 0.7,
-            axeXStyle: '->',
-            axeYStyle: '->',
+               xLabelEcart: 0.8,
+            yLabelEcart: 0.8,
           })
 
           f = (x) => a * x ** 2 + b
@@ -191,7 +203,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
                 ymin: -4.1,
                 ymax: 8.1,
                 pixelsParCm: 20,
-                scale: 0.6,
+                scale: 0.5,
                 style: 'margin: auto',
               },
               r,
@@ -208,11 +220,16 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             yMin: -5,
             yMax: 1,
             xMax: 3,
-            thickHauteur: 0.1,
+            thickHauteur: 0.2,
+               xThickMin: -6,
+               yThickMin: -10,
             xLabelMin: -2,
             xLabelMax: 2,
             yLabelMax: 0,
             yLabelMin: -4,
+             grilleSecondaireOpacite: 1,
+           axesEpaisseur:1.5,
+           grilleOpacite: 1,
             grilleSecondaire: true,
             grilleSecondaireYDistance: 1,
             grilleSecondaireXDistance: 1,
@@ -220,9 +237,8 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireYMax: 1.1,
             grilleSecondaireXMin: -3.1,
             grilleSecondaireXMax: 3.1,
-            yLabelEcart: 0.7,
-            axeXStyle: '->',
-            axeYStyle: '->',
+            xLabelEcart: 0.8,
+            yLabelEcart: 0.8,
           })
 
           f = (x) => a * x ** 2 + b
@@ -236,7 +252,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
                 ymin: -10.1,
                 ymax: 2.1,
                 pixelsParCm: 20,
-                scale: 0.45,
+                scale: 0.5,
                 style: 'margin: auto',
               },
               r,

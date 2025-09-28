@@ -90,13 +90,25 @@ export default class ImageSpline extends ExerciceSimple {
       yMax: bornes.yMax + 1,
       grilleX: false,
       grilleY: false,
+      xThickMin: bornes.xMin - 1,
+      yThickMin: bornes.yMin - 1,
+      yThickMax: bornes.yMax + 1,
+      xLabelMin: bornes.xMin,
+      yLabelMin: bornes.yMin,
+      yLabelMax: bornes.yMax,
+      xLabelMax: bornes.xMax,
+      xThickMax: bornes.xMax + 1,
       grilleSecondaire: true,
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,
-      grilleSecondaireYMin: bornes.yMin - 1,
-      grilleSecondaireYMax: bornes.yMax + 1,
-      grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1,
+      grilleSecondaireOpacite: 1,
+      axesEpaisseur: 1.5,
+      grilleOpacite: 1,
+      grilleSecondaireCouleur: 'black',
+      grilleSecondaireYMin: bornes.yMin - 1.02,
+      grilleSecondaireYMax: bornes.yMax + 1.02,
+      grilleSecondaireXMin: bornes.xMin - 1.02,
+      grilleSecondaireXMax: bornes.xMax + 1.02,
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
@@ -112,6 +124,8 @@ export default class ImageSpline extends ExerciceSimple {
       `$${theSpline.x[antecedent]}$`,
       `L\'image de $${theSpline.x[antecedent]}$ n'existe pas`,
       `$${theSpline.y[0]}$`,
+      `$${antecedent}$`,
+      `$${theSpline.x[antecedent]}$`,
     ]
     if (this.versionQcm) {
       this.question =

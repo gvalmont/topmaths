@@ -8,7 +8,9 @@ import { latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { arrondi } from '../../../lib/outils/nombres'
 import { pgcd } from '../../../lib/outils/primalite'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -21,26 +23,28 @@ export const amcType = 'AMCHybride'
 export const dateDePublication = '29/08/2021'
 export const dateDeModifImportante = '12/10/2024'
 /**
- * @author Jean-Claude Lhote et Gilles Mora
+ * @author Jean-Claude Lhote et Gilles Mora (Rajout version CM1\6e par Eric Elter)
  * Créé pendant l'été 2021
 
  */
 export const uuid = 'ca515'
 
 export const refs = {
-  'fr-fr': ['can6N04', 'CM1N3J-flash1'],
+  'fr-fr': ['can6N04'],
   'fr-ch': [],
 }
 
 export default class AbscisseFractionnaire extends Exercice {
+  version: string
   constructor() {
     super()
     this.nbQuestions = 1
+    this.version = '6e'
   }
 
   nouvelleVersion() {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const a = randint(2, 6) // dénominateur
+      const a = randint(2, 6, this.version === '6e' ? [] : [3, 6]) // dénominateur
       let b = randint(2, a * 4 - 1)
       do {
         b = randint(2, a * 4 - 1) // numérateur
@@ -91,11 +95,11 @@ export default class AbscisseFractionnaire extends Exercice {
         })
       }
 
-      if (pgcd(a, b) === 1) {
+      if (this.version !== '6e' || pgcd(a, b) === 1) {
         this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
-    Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
+    Une graduation correspond donc à $${this.version === '6e' ? `\\dfrac{1}{${a}}` : `${texNombre(arrondi(1 / a))}`}$. <br>
      Comme le point $A$ est situé à $${b}$ graduations de l'origine,
-      l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$, soit  $${miseEnEvidence(`\\dfrac{${b}}{${a}}`)}$.<br>
+      l'abscisse du point $A$ est donc $${this.version === '6e' ? `\\dfrac{1}{${a}}` : `${texNombre(arrondi(1 / a))}`}\\times ${b}$, soit  $${miseEnEvidence(`${this.version === '60xe' ? `\\dfrac{${b}}{${a}}` : `${texNombre(arrondi(b / a))}`}`)}$.<br>
       `
       } else {
         this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
@@ -110,50 +114,76 @@ export default class AbscisseFractionnaire extends Exercice {
         this.listeCorrections[i] = this.correction
 
         if (context.isAmc) {
-          this.autoCorrection[i] = {
-            enonce: this.question,
-            options: { multicols: true },
-            propositions: [
-              {
-                type: 'AMCNum',
-                propositions: [
-                  {
-                    texte: this.correction,
-                    statut: '',
-                    reponse: {
-                      texte: 'Numérateur',
-                      valeur: b,
-                      param: {
-                        digits: b > 9 ? 2 : 1,
-                        decimals: 0,
-                        signe: false,
-                        approx: 0,
+          if (this.version === '6e')
+            this.autoCorrection[i] = {
+              enonce: this.question,
+              options: { multicols: true },
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: this.correction,
+                      statut: '',
+                      reponse: {
+                        texte: 'Numérateur',
+                        valeur: b,
+                        param: {
+                          digits: b > 9 ? 2 : 1,
+                          decimals: 0,
+                          signe: false,
+                          approx: 0,
+                        },
                       },
                     },
-                  },
-                ],
-              },
-              {
-                type: 'AMCNum',
-                propositions: [
-                  {
-                    texte: '',
-                    statut: '',
-                    reponse: {
-                      texte: 'Dénominateur',
-                      valeur: a,
-                      param: {
-                        digits: 1,
-                        decimals: 0,
-                        signe: false,
-                        approx: 0,
+                  ],
+                },
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: '',
+                      statut: '',
+                      reponse: {
+                        texte: 'Dénominateur',
+                        valeur: a,
+                        param: {
+                          digits: 1,
+                          decimals: 0,
+                          signe: false,
+                          approx: 0,
+                        },
                       },
                     },
-                  },
-                ],
-              },
-            ],
-          }
+                  ],
+                },
+              ],
+            }
+          else
+            this.autoCorrection[i] = {
+              enonce: this.question,
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: this.correction,
+                      statut: '',
+                      reponse: {
+                        texte: 'Valeur décimale',
+                        valeur: arrondi(b / a),
+                        param: {
+                          digits: b > 9 ? 2 : 1,
+                          decimals: 0,
+                          signe: false,
+                          approx: 0,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            }
         }
 
         i++

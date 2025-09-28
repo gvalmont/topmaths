@@ -1,5 +1,5 @@
 import { repere } from '../../lib/2d/reperes'
-import { texteParPosition } from '../../lib/2d/textes'
+import { latex2d } from '../../lib/2d/textes'
 import {
   Spline,
   spline,
@@ -41,7 +41,7 @@ export default class AutoF4 extends ExerciceQcmA {
       { x: 5, y: 0, deriveeGauche: -1, deriveeDroit: 0, isVisible: true },
     ]
 
-    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+    const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
     const theSpline = spline(noeudsFixes)
     this.spline = theSpline
 
@@ -54,30 +54,38 @@ export default class AutoF4 extends ExerciceQcmA {
       grilleX: false,
       grilleY: false,
       grilleSecondaire: true,
+      grilleSecondaireOpacite: 1,
+      xThickMin: bornes.xMin - 1,
+      yThickMin: bornes.yMin - 1,
+      xLabelMin: bornes.xMin,
+      yLabelMin: bornes.yMin,
+      axesEpaisseur: 1.5,
+      grilleOpacite: 1,
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,
-      grilleSecondaireYMin: bornes.yMin - 1,
-      grilleSecondaireYMax: bornes.yMax + 1,
-      grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1,
+      grilleSecondaireCouleur: 'black',
+      grilleSecondaireYMin: bornes.yMin - 1.02,
+      grilleSecondaireYMax: bornes.yMax + 1.02,
+      grilleSecondaireXMin: bornes.xMin - 1.02,
+      grilleSecondaireXMax: bornes.xMax + 1.02,
     })
 
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
+      optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
       color: 'blue',
     })
 
     const objetsEnonce = [repere1, courbe1]
 
     this.enonce =
-      "Voici la représentation graphique d'une fonction $f$ définie sur $[-5\\,;\\,5]$."
+      "Voici la représentation graphique d'une fonction $f$ définie sur $[-5\\,;\\,5]$.<br><br>"
     this.enonce +=
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          { pixelsParCm: 30, scale: 0.75, style: 'margin: auto' },
           {
             xmin: bornes.xMin - 1,
             ymin: bornes.yMin - 1,
@@ -87,7 +95,7 @@ export default class AutoF4 extends ExerciceQcmA {
         ),
         objetsEnonce,
         o,
-      ) + '<br>'
+      ) + '<br><br>'
     this.enonce += 'Une seule affirmation est correcte :'
 
     // Nouvelles questions inspirées des thèmes de la version aléatoire
@@ -148,7 +156,7 @@ export default class AutoF4 extends ExerciceQcmA {
       )
     }
 
-    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+    const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
     const nuage = aleatoiriseCourbe(noeudsCourbe)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -160,19 +168,28 @@ export default class AutoF4 extends ExerciceQcmA {
       yMax: bornes.yMax + 1,
       grilleX: false,
       grilleY: false,
+      xThickMin: bornes.xMin - 1,
+      yThickMin: bornes.yMin - 1,
+      thickHauteur: 0.1,
+      xLabelMin: bornes.xMin,
+      yLabelMin: bornes.yMin,
+      grilleSecondaireOpacite: 1,
+      axesEpaisseur: 1.5,
+      grilleOpacite: 1,
       grilleSecondaire: true,
+      grilleSecondaireCouleur: 'black',
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,
-      grilleSecondaireYMin: bornes.yMin - 1,
-      grilleSecondaireYMax: bornes.yMax + 1,
-      grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1,
+      grilleSecondaireYMin: bornes.yMin - 1.02,
+      grilleSecondaireYMax: bornes.yMax + 1.02,
+      grilleSecondaireXMin: bornes.xMin - 1.02,
+      grilleSecondaireXMax: bornes.xMax + 1.02,
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
+      optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
       color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]
@@ -242,13 +259,13 @@ export default class AutoF4 extends ExerciceQcmA {
 
     const AFC = 'Cette affirmation est correcte : <br>'
     const AFF = 'Cette affirmation est fausse : <br>'
-    this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.`
+    this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.<br><br>`
     this.enonce +=
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          { pixelsParCm: 30, scale: 0.75, style: 'margin: auto' },
           {
-            xmin: bornes.xMin - 1,
+            xmin: bornes.xMin - 2,
             ymin: bornes.yMin - 1,
             xmax: bornes.xMax + 1,
             ymax: bornes.yMax + 1,
@@ -256,7 +273,7 @@ export default class AutoF4 extends ExerciceQcmA {
         ),
         objetsEnonce,
         o,
-      ) + '<br>'
+      ) + '<br><br>'
     this.enonce += 'Une seule affirmation est correcte :'
 
     // Définir toutes les réponses possibles avec leur correction

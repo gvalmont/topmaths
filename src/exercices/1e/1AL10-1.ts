@@ -1,16 +1,16 @@
-import Exercice from '../Exercice'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
@@ -21,6 +21,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '14/12/2024'
+export const dateDeModifImportante = '26/09/2025'
 
 /**
  *
@@ -73,7 +74,7 @@ export default class ModeliserSuites extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
 
@@ -85,7 +86,7 @@ export default class ModeliserSuites extends Exercice {
           cm = new Decimal(100).sub(p).div(100)
           b = randint(1, 8) * 10
           reponse1 = String(a)
-          reponse2 = `${cm.toFixed(2)}\\times c_{n}${ecritureAlgebrique(b)}`
+          reponse2 = `${cm.toNumber()}\\times c_{n}${ecritureAlgebrique(b)}`
           texte = `Un apiculteur souhaite étendre son activité de production de miel à une nouvelle région.<br>
          En juillet $2024$, il achète $${a}$ colonies d'abeilles qu'il installe dans cette région.<br>
         Après renseignements pris auprès des services spécialisés, il s'attend à perdre $${p}$ % des colonies durant
@@ -118,7 +119,7 @@ export default class ModeliserSuites extends Exercice {
                 1,
               ],
               champ1: { value: reponse1 },
-              champ2: { value: reponse2 },
+              champ2: { value: reponse2, options: { calculFormel: true } },
             },
             { formatInteractif: 'fillInTheBlank' },
           )

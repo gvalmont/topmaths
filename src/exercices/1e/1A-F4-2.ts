@@ -1,5 +1,5 @@
 import { repere } from '../../lib/2d/reperes'
-import { texteParPosition } from '../../lib/2d/textes'
+import { latex2d, texteParPosition } from '../../lib/2d/textes'
 import {
   Spline,
   spline,
@@ -51,33 +51,40 @@ export default class AutoF4b extends ExerciceQcmA {
       xMax: bornes.xMax + 1,
       yMin: bornes.yMin - 1,
       yMax: bornes.yMax + 1,
-      grilleX: false,
-      grilleY: false,
-      grilleSecondaire: true,
-      grilleSecondaireYDistance: 1,
-      grilleSecondaireXDistance: 1,
-      grilleSecondaireYMin: bornes.yMin - 1,
-      grilleSecondaireYMax: bornes.yMax + 1,
-      grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1,
+      grilleX: true,
+      grilleY: true,
+            xThickMin: bornes.xMin - 1,
+      yThickMin: bornes.yMin - 1,
+      yThickMax: bornes.yMax+1,
+      xLabelMin: bornes.xMin,
+      yLabelMin: bornes.yMin,
+       yLabelMax: bornes.yMax,
+         xLabelMax: bornes.xMax,
+         xThickMax: bornes.xMax +1,
+           axesEpaisseur:1.5,
+           grilleOpacite: 1,
+      grilleYMin: bornes.yMin - 1.02,
+      grilleYMax: bornes.yMax + 1.02,
+      grilleXMin: bornes.xMin - 1.02,
+      grilleXMax: bornes.xMax + 1.02,
     })
 
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
+       optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
       color: 'blue',
     })
 
     const objetsEnonce = [repere1, courbe1]
 
     this.enonce =
-      "Voici la représentation graphique d'une fonction $f$ définie sur $[-5\\,;\\,5]$."
+      "Voici la représentation graphique d'une fonction $f$ définie sur $[-5\\,;\\,5]$.<br><br>"
     this.enonce +=
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          { pixelsParCm: 30, scale: 0.9, style: 'margin: auto' },
           {
             xmin: bornes.xMin - 1,
             ymin: bornes.yMin - 1,
@@ -87,7 +94,7 @@ export default class AutoF4b extends ExerciceQcmA {
         ),
         objetsEnonce,
         o,
-      ) + '<br>'
+      ) + '<br><br>'
     this.enonce += 'Une seule affirmation est correcte :'
 
     // Questions fixes avec leurs corrections
@@ -160,7 +167,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       )
     }
 
-    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const nuage = aleatoiriseCourbe(noeudsCourbe)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -170,21 +177,30 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       xMax: bornes.xMax + 1,
       yMin: bornes.yMin - 1,
       yMax: bornes.yMax + 1,
-      grilleX: false,
-      grilleY: false,
-      grilleSecondaire: true,
-      grilleSecondaireYDistance: 1,
-      grilleSecondaireXDistance: 1,
-      grilleSecondaireYMin: bornes.yMin - 1,
-      grilleSecondaireYMax: bornes.yMax + 1,
-      grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1,
+       grilleX: true,
+      grilleY: true,
+            xThickMin: bornes.xMin - 1,
+      yThickMin: bornes.yMin - 1,
+      yThickMax: bornes.yMax+1,
+      xLabelMin: bornes.xMin,
+      yLabelMin: bornes.yMin,
+       yLabelMax: bornes.yMax,
+         xLabelMax: bornes.xMax,
+         xThickMax: bornes.xMax +1,
+           axesEpaisseur:1.5,
+           grilleOpacite: 1,
+          
+             
+      grilleYMin: bornes.yMin - 1.02,
+      grilleYMax: bornes.yMax + 1.02,
+      grilleXMin: bornes.xMin - 1.02,
+      grilleXMax: bornes.xMax + 1.02,
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
+    optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
       color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]
@@ -241,11 +257,11 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
           const choix = choice([true, false])
           const AFC = 'Cette affirmation est correcte : <br>'
           const AFF = 'Cette affirmation est fausse : <br>'
-          this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.`
+          this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.<br><br>`
           this.enonce +=
             mathalea2d(
               Object.assign(
-                { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+                { pixelsParCm: 30, scale: 1, style: 'margin: auto' },
                 {
                   xmin: bornes.xMin - 1,
                   ymin: bornes.yMin - 1,
@@ -255,7 +271,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
               ),
               objetsEnonce,
               o,
-            ) + '<br>'
+            ) + '<br><br>'
           this.enonce += 'Une seule affirmation est correcte :'
 
           // Définir toutes les réponses possibles avec leur correction
@@ -418,11 +434,11 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
           const choix = choice([true, false])
           const AFC = 'Cette affirmation est correcte : <br>'
           const AFF = 'Cette affirmation est fausse : <br>'
-          this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.`
+          this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.<br><br>`
           this.enonce +=
             mathalea2d(
               Object.assign(
-                { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+                { pixelsParCm: 30, scale: 1, style: 'margin: auto' },
                 {
                   xmin: bornes.xMin - 1,
                   ymin: bornes.yMin - 1,
@@ -432,7 +448,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
               ),
               objetsEnonce,
               o,
-            ) + '<br>'
+            ) + '<br><br>'
           this.enonce += 'Une seule affirmation est correcte :'
 
           // Définir toutes les réponses possibles avec leur correction

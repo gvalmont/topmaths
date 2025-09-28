@@ -1402,7 +1402,7 @@ export function resoudre(
     ? traverserEtapes(solveEquation(equation), params.changeType)
     : solveEquation(equation)
 
-  steps.forEach(logSteps)
+  // steps.forEach(logSteps)
 
   // Si l'équation est déjà resolue...
   if (steps.length === 0 && equation.includes('=')) {

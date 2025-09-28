@@ -1,19 +1,19 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { personne } from '../../lib/outils/Personne'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -415,7 +415,7 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
       } else if (saveurs[i] === 'engrenages') {
         texteCorr += `lorsque ${texteEnCouleurEtGras('la première roue', 'red')} aura fait ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')} tours et que ${texteEnCouleurEtGras('la deuxième roue', 'green')} aura fait ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')} tours.<br>`
       } else {
-        texteCorr += `lorsque ${texteEnCouleurEtGras(String(phenomene1), 'red')} ${texte5} pour la ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')}ème fois et que ${texteEnCouleurEtGras(String(phenomene2), 'green')} ${texte5} pour la ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}ème fois.<br>`
+        texteCorr += `lorsque ${texteEnCouleurEtGras(String(phenomene1), 'red')} ${texte5} pour la ${texteEnCouleurEtGras(nombreAvecEspace(B), 'red')}$^{ème}$ fois et que ${texteEnCouleurEtGras(String(phenomene2), 'green')} ${texte5} pour la ${texteEnCouleurEtGras(nombreAvecEspace(A), 'green')}$^{ème}$ fois.<br>`
       }
       if (this.correctionDetaillee) {
         texteCorr += `<br>${nombreAvecEspace(Commun * A * B)} est bien un multiple de ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} car :

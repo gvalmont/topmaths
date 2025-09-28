@@ -1,4 +1,21 @@
 <script lang="ts">
+  import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
+  import type TypeExercice from '../../../exercices/Exercice'
+  import {
+    buildExercisesList,
+    splitExercisesIntoQuestions,
+  } from '../../../lib/components/exercisesUtils'
+  import {
+    getCanvasFont,
+    getTextWidth,
+    remToPixels,
+  } from '../../../lib/components/measures'
+  import { resizeContent } from '../../../lib/components/sizeTools'
+  import { verifQuestionCliqueFigure } from '../../../lib/interactif/cliqueFigure'
+  import { prepareExerciceCliqueFigure } from '../../../lib/interactif/gestionInteractif'
+  import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
+  import { verifQuestionQcm } from '../../../lib/interactif/qcm'
+  import { verifQuestionListeDeroulante } from '../../../lib/interactif/questionListeDeroulante'
   import {
     mathaleaFormatExercice,
     mathaleaRenderDiv,
@@ -6,41 +23,24 @@
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea'
   import {
-    exercicesParams,
     darkMode,
+    exercicesParams,
     globalOptions,
-    resultsByExercice,
     isMenuNeededForExercises,
     isMenuNeededForQuestions,
+    resultsByExercice,
   } from '../../../lib/stores/generalStore'
   import { vendor } from '../../../lib/stores/vendorStore'
-  import type TypeExercice from '../../../exercices/Exercice'
-  import Exercice from '../../shared/exercice/Exercice.svelte'
-  import { onDestroy, onMount, tick, afterUpdate, beforeUpdate } from 'svelte'
   import { loadMathLive } from '../../../modules/loaders'
-  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
-  import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
-  import { verifQuestionQcm } from '../../../lib/interactif/qcm'
-  import { verifQuestionListeDeroulante } from '../../../lib/interactif/questionListeDeroulante'
-  import ButtonToggle from '../../shared/forms/ButtonToggle.svelte'
-  import { verifQuestionCliqueFigure } from '../../../lib/interactif/cliqueFigure'
-  import { prepareExerciceCliqueFigure } from '../../../lib/interactif/gestionInteractif'
-  import BtnZoom from '../../shared/ui/btnZoom.svelte'
-  import {
-    getCanvasFont,
-    getTextWidth,
-    remToPixels,
-  } from '../../../lib/components/measures'
-  import Footer2 from './Footer2.svelte'
-  import FlipCard from './FlipCard.svelte'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
-  import {
-    buildExercisesList,
-    splitExercisesIntoQuestions,
-  } from '../../../lib/components/exercisesUtils'
-  import { resizeContent } from '../../../lib/components/sizeTools'
+  import Exercice from '../../shared/exercice/Exercice.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import ButtonToggle from '../../shared/forms/ButtonToggle.svelte'
+  import BtnZoom from '../../shared/ui/btnZoom.svelte'
   import Banner from '../../shared/vendors/Banner.svelte'
+  import FlipCard from './FlipCard.svelte'
+  import Footer2 from './Footer2.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -115,7 +115,7 @@
     }
   }
 
-  $: exerciseTitle = buildExoTitle(currentWindowWidth, exercices.length)
+  $: exerciseTitle = buildExoTitle(currentWindowWidth, $exercicesParams.length)
 
   /**
    * Adaptation du titre des pages pour chaque question
@@ -219,10 +219,14 @@
       }
     }
 
-    /** Charge les exercices*/
-    exercices = await Promise.all(buildExercisesList())
-
     if ($globalOptions.presMode === 'une_question_par_page') {
+      /** Charge les exercices
+       * MGU : pas besoin de charger les exos si ce n'est pas des questions,
+       * car c'est le composant qui affiche l'exo qui le charge
+       * DONC UNIQUEMENT SI ON EST EN MODE UNE QUESTION PAR PAGE!
+       */
+      exercices = await Promise.all(buildExercisesList())
+
       // construit les questions
       buildQuestions()
     }
@@ -320,10 +324,11 @@
       return
     }
     if (type.toLowerCase() === 'mathlive') {
-      resultsByQuestion[i] = verifQuestionMathLive(
+      const resu = verifQuestionMathLive(
         exercices[indiceExercice[i]],
         indiceQuestionInExercice[i],
-      )?.isOk
+      )
+      resultsByQuestion[i] = resu.isOk === 'Ok' || resu.isOk === true
     } else if (type === 'qcm') {
       resultsByQuestion[i] =
         verifQuestionQcm(
@@ -387,7 +392,7 @@
       }
     } else if ($globalOptions.presMode === 'un_exo_par_page') {
       await tick() // MGU attendre que le div soit affiché avant de mettre à jour la question
-      const exo = exercices[exoNum]
+      const exo = $exercicesParams[exoNum]
       const questionEvent = new CustomEvent('questionDisplay', {
         detail: {
           uuid: exo.uuid,
@@ -396,9 +401,6 @@
         },
       })
       document.dispatchEvent(questionEvent)
-      if (exo && exo.interactifType === 'cliqueFigure' && exo.interactif) {
-        prepareExerciceCliqueFigure(exo)
-      }
     }
   }
 </script>
@@ -459,7 +461,7 @@
         id="navigationHeaderID"
         class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode ===
         'un_exo_par_page'
-          ? exercices.length
+          ? $exercicesParams.length
           : questions.length}
           {($globalOptions.presMode === 'un_exo_par_page' &&
           !$isMenuNeededForExercises) ||
@@ -585,6 +587,7 @@
                 indiceExercice="{i}"
                 indiceLastExercice="{$exercicesParams.length - 1}"
                 isCorrectionVisible="{isCorrectionVisible[i]}"
+                toggleSidenav="{() => {}}"
               />
             </div>
           </div>
@@ -603,6 +606,7 @@
                 indiceExercice="{i}"
                 indiceLastExercice="{$exercicesParams.length - 1}"
                 isCorrectionVisible="{isCorrectionVisible[i]}"
+                toggleSidenav="{() => {}}"
               />
             </div>
           {/each}
@@ -621,6 +625,7 @@
                 indiceExercice="{i}"
                 indiceLastExercice="{$exercicesParams.length - 1}"
                 isCorrectionVisible="{$globalOptions.presMode === 'verso'}"
+                toggleSidenav="{() => {}}"
               />
             </div>
           {/each}

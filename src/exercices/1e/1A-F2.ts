@@ -5,6 +5,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { courbe } from '../../lib/2d/courbes'
 import { point, tracePoint } from '../../lib/2d/points'
+import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { spline } from '../../lib/mathFonctions/Spline'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -93,6 +94,7 @@ export default class auto1AF2 extends ExerciceQcmA {
       yMax: 4,
       grilleX: false,
       grilleY: false,
+       axesEpaisseur:1.5,
       grilleSecondaire: false,
       xThickListe: [0],
       yThickListe: [0],
@@ -102,14 +104,14 @@ export default class auto1AF2 extends ExerciceQcmA {
 
     const objetsEnonce = [repere1] //, courbe1
 
-    this.enonce =
-      `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br>
-    Les points $A$, $B$, $R$ et $S$ appartiennent à $\\mathscr{C}$.<br>
-    Leurs abscisses sont notées respectivement $x_A$, $x_B$, $x_C$ et $x_D$.<br>
-     ` +
+    this.enonce = `${deuxColonnes(
+      `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br><br>
+    Les points $A$, $B$, $R$ et $S$ appartiennent à $\\mathscr{C}$.<br><br>
+    Leurs abscisses sont notées respectivement $x_A$, $x_B$, $x_C$ et $x_D$.
+ `,
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
+          { pixelsParCm: 20, scale: 0.6, style: 'margin: auto' },
           {
             xmin: -5,
             ymin: -5,
@@ -128,9 +130,11 @@ export default class auto1AF2 extends ExerciceQcmA {
         objetsEnonce,
         o,
         courbe(fonc, { repere: repere1, color: 'blue', epaisseur: 2 }),
-      ) +
-      '<br>' +
-      "L'inéquation $x\\times f(x) > 0$ est vérifiée par :"
+      ),
+    )}`
+
+    this.enonce += `L'inéquation $x\\times f(x) > 0$ est vérifiée par :`
+
     // fixeBordures(objetsEnonce))
     this.correction = `L'inéquation est vérifiée lorsque $x$ et $f(x)$ sont de même signe, c'est-à-dire lorsque $x$ et $f(x)$ sont tous les deux positifs ou tous les deux négatifs.<br>
     Ici,  $x_A$ et $f(x_A)$ sont tous les deux négatifs. Aussi, $x_R$ et $f(x_R)$ sont tous les deux positifs.<br>
@@ -224,25 +228,25 @@ export default class auto1AF2 extends ExerciceQcmA {
       nomsPoints[0],
       pointsVisibles[0].x - decalageX,
       pointsVisibles[0].y + decalageY,
-      { color: 'blue', letterSize: 'normalsize' },
+      { color: 'black', letterSize: 'normalsize' },
     )
     const labelPoint2 = latex2d(
       nomsPoints[1],
       pointsVisibles[1].x - decalageX,
       pointsVisibles[1].y + decalageY,
-      { color: 'blue', letterSize: 'normalsize' },
+      { color: 'black', letterSize: 'normalsize' },
     )
     const labelPoint3 = latex2d(
       nomsPoints[2],
       pointsVisibles[2].x + decalageX,
       pointsVisibles[2].y + decalageY,
-      { color: 'blue', letterSize: 'normalsize' },
+      { color: 'black', letterSize: 'normalsize' },
     )
     const labelPoint4 = latex2d(
       nomsPoints[3],
       pointsVisibles[3].x + decalageX,
       pointsVisibles[3].y + decalageY,
-      { color: 'blue', letterSize: 'normalsize' },
+      { color: 'black', letterSize: 'normalsize' },
     )
 
     const repere1 = repere({
@@ -252,6 +256,7 @@ export default class auto1AF2 extends ExerciceQcmA {
       yMax: bornes.yMax + 1,
       grilleX: false,
       grilleY: false,
+       axesEpaisseur:1.5,
       grilleSecondaire: false,
       xThickListe: [0],
       yThickListe: [0],
@@ -263,8 +268,8 @@ export default class auto1AF2 extends ExerciceQcmA {
       repere: repere1,
       epaisseur: 2,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'red',
+      optionsNoeuds: { color: 'black', taille: 3, style: '.', epaisseur: 2 },
+      color: 'blue',
     })
 
     const objetsEnonce = [repere1, courbe1]
@@ -335,14 +340,14 @@ export default class auto1AF2 extends ExerciceQcmA {
     // Créer la liste des noms pour l'énoncé
     const listeNomsPoints = formaterListe(nomsPoints)
 
-    this.enonce =
-      `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br>
-Les points $${listeNomsPoints}$ appartiennent à $\\mathscr{C}$.<br>
-Leurs abscisses sont notées respectivement $${formaterListe(nomsPoints.map((nom) => `x_${nom}`))}$.<br>
- ` +
+    this.enonce = `${deuxColonnes(
+      `On a représenté une courbe $\\mathscr{C}$ d'une fonction $f$.<br><br>
+Les points $${listeNomsPoints}$ appartiennent à $\\mathscr{C}$.<br><br>
+Leurs abscisses sont notées respectivement $${formaterListe(nomsPoints.map((nom) => `x_${nom}`))}$.<br><br>
+ `,
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
+          { pixelsParCm: 22, scale: 0.6, style: 'margin: auto' },
           {
             xmin: bornes.xMin - 1,
             ymin: bornes.yMin - 1,
@@ -356,9 +361,10 @@ Leurs abscisses sont notées respectivement $${formaterListe(nomsPoints.map((nom
         labelPoint4,
         objetsEnonce,
         o,
-      ) +
-      '<br>' +
-      `L'inéquation $x\\times f(x) ${typeInequation} 0$ est vérifiée par :`
+      ),
+    )}`
+
+    this.enonce += `L\'inéquation $x\\times f(x) ${typeInequation} 0$ est vérifiée par :`
 
     // Explication pour la correction
     const explicationSigne =

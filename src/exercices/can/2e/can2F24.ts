@@ -1,19 +1,19 @@
 import { repere } from '../../../lib/2d/reperes'
-import { texteParPosition } from '../../../lib/2d/textes'
+import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   Spline,
   spline,
   type NoeudSpline,
 } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const dateDePublication = '28/07/2025'
 export const interactifReady = true
@@ -93,7 +93,7 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
         }),
       )
     }
-    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+   const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const nuage = aleatoiriseCourbe(mesFonctions)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -105,19 +105,31 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
       yMax: bornes.yMax + 1,
       grilleX: false,
       grilleY: false,
+       xThickMin: bornes.xMin - 1,
+      yThickMin: bornes.yMin - 1,
+      yThickMax: bornes.yMax+1,
+      xLabelMin: bornes.xMin,
+      yLabelMin: bornes.yMin,
+       yLabelMax: bornes.yMax,
+         xLabelMax: bornes.xMax,
+         xThickMax: bornes.xMax +1,
       grilleSecondaire: true,
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,
-      grilleSecondaireYMin: bornes.yMin - 1,
-      grilleSecondaireYMax: bornes.yMax + 1,
-      grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1,
+       grilleSecondaireOpacite: 1,
+           axesEpaisseur:1.5,
+           grilleOpacite: 1,
+             grilleSecondaireCouleur: 'black',
+      grilleSecondaireYMin: bornes.yMin - 1.02,
+      grilleSecondaireYMax: bornes.yMax + 1.02,
+      grilleSecondaireXMin: bornes.xMin - 1.02,
+      grilleSecondaireXMax: bornes.xMax + 1.02,
     })
     const courbe1 = theSpline.courbe({
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
+      optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
       color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]
@@ -164,20 +176,21 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
       : solutions1.length
     this.reponse = reponse1
     this.question =
-      "On donne la représentation graphique d'une fonction $f$. <br>"
-    this.question += mathalea2d(
-      Object.assign(
-        { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
-        {
-          xmin: bornes.xMin - 1,
-          ymin: bornes.yMin - 1,
-          xmax: bornes.xMax + 1,
-          ymax: bornes.yMax + 1,
-        },
-      ),
-      objetsEnonce,
-      o,
-    )
+      "On donne la représentation graphique d'une fonction $f$. <br><br>"
+    this.question +=
+      mathalea2d(
+        Object.assign(
+          { pixelsParCm: 25, scale: 0.9, style: 'margin: auto' },
+          {
+            xmin: bornes.xMin - 1,
+            ymin: bornes.yMin - 1,
+            xmax: bornes.xMax + 1,
+            ymax: bornes.yMax + 1,
+          },
+        ),
+        objetsEnonce,
+        o,
+      ) + '<br><br>'
     this.question += this.versionQcm
       ? `L'équation $f(x)=${y1}$ a :`
       : `Donner le nombre de solutions de l'équation $f(x)=${y1}$.`

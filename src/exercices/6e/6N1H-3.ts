@@ -42,6 +42,12 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
       3,
       '1 : Au dixième\n2 : Au centième\n3 : Au millième',
     ]
+
+    this.besoinFormulaire2CaseACocher = [
+      'Enoncé avec « nombre mixte »',
+      false,
+    ]
+
     this.niveau = 'sixième'
     this.sup = 3
     if (context.isHtml) {
@@ -677,12 +683,18 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         reponse2B = new FractionEtendue(1000 * pardec, 1000)
         reponse3 = new FractionEtendue(1000 * x1, 1000)
       }
-      texte = `Donner l'abscisse de $${noms[1]} $sous `
+      texte = `Donner l'abscisse de $${noms[1]} $ sous `
       texte += context.isAmc ? 'deux ' : 'trois '
-      texte += 'formes : en écriture décimale'
+      texte += 'formes : en écriture décimale, '
       texte += context.isAmc
         ? ''
-        : ", comme somme d'un nombre entier et d'une fraction décimale inférieure à 1,"
+        : 
+        this.sup2
+        ? 'comme nombre mixte, '
+        :
+        ", comme somme d'un nombre entier et d'une fraction décimale inférieure à 1,"
+
+
       texte += " et sous forme d'une seule fraction décimale.<br>"
       texte += mathalea2d(fenetre, objets)
       if (this.interactif) {

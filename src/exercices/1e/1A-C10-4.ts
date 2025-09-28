@@ -11,21 +11,21 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
-export const dateDePublication = '07/08/2025'
-export const uuid = '5d29b'
+export const dateDePublication = '26/09/2025'
+export const uuid = '84c9f'
 
 export const refs = {
-  'fr-fr': ['1A-C10-3'],
+  'fr-fr': ['1A-C10-4'],
   'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Résoudre une inéquation du type $x^2<a$ ou $x^2>a$ (solutions sous forme d\'inégalités)'
-export default class InequationsSecondDegre extends ExerciceQcmA {
+export const titre = 'Résoudre une inéquation du type $x^2<a$ ou $x^2>a$ (solutions sous forme d\'intervalles)'
+export default class Auto1AC10d extends ExerciceQcmA {
   // Méthode utilitaire pour créer les éléments graphiques communs
-  private creerElementsGraphiques(
+private creerElementsGraphiques(
     val: number,
     estInegStrict: boolean,
     typeInequation: 'inf' | 'sup',
@@ -179,39 +179,37 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
     return { graphique, graphiqueC }
   }
 
-  // Méthode utilitaire pour formater les réponses
+  // Méthode utilitaire pour formater les réponses sous forme d'intervalles
   private formaterReponses(
     val: number,
     estInegStrict: boolean,
     typeInequation: 'inf' | 'sup',
   ) {
-    const borne = `\\sqrt{${val}}`
-
     if (typeInequation === 'inf') {
-      const signeInegalité = estInegStrict ? '<' : ' \\leqslant '
-      const signeInegalitéFaux = estInegStrict ? ' \\leqslant ' : '<'
-
-      const intervalleLaTex = (borneG: string, borneD: string, signe: string) =>
-        ` ${borneG} ${signe} x ${signe} ${borneD}`
+      // Pour x² < a ou x² ≤ a : intervalle ]-√a, √a[ ou [-√a, √a]
+      const crochets = estInegStrict ? `]-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}[` : `[-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}]`
+      const crochetsIncorrects = estInegStrict ? `[-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}]` : `]-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}[`
 
       return [
-        `$${intervalleLaTex('-' + borne, borne, signeInegalité)}$`,
-        `$${intervalleLaTex('-' + borne, borne, signeInegalitéFaux)}$`,
-        `$x=-\\sqrt{${val}}$ ou $x=\\sqrt{${val}}$`,
-        `$x ${estInegStrict ? '<' : ' \\leqslant '}-\\sqrt{${val}}$ ou $x ${estInegStrict ? '>' : ' \\geqslant '}\\sqrt{${val}}$`,
+        `$S = ${crochets}$`,
+        `$S = ${crochetsIncorrects}$`,
+        `$S = \\{-\\sqrt{${val}}\\, ; \\,\\sqrt{${val}}\\}$`,
+        `$S = ]-\\infty\\,;\\,-\\sqrt{${val}}${estInegStrict ? '[' : ']'} \\cup ${estInegStrict ? ']' : '['}\\sqrt{${val}}\\,;\\,+\\infty[$`,
       ]
     } else {
-      const signeInegalité = estInegStrict ? '>' : ' \\geqslant '
-      const signeInegalitéFaux = estInegStrict ? ' < ' : ' \\leqslant '
-
-      const intervalleLaTex = (borneG: string, borneD: string, signe: string) =>
-        `$x ${signeInegalitéFaux} ${borneG}$ ou $x ${signe} ${borneD}$`
+      // Pour x² > a ou x² ≥ a : réunion d'intervalles ]-∞,-√a[ ∪ ]√a,+∞[ ou ]-∞,-√a] ∪ [√a,+∞[
+      const intervalleCorrect = estInegStrict 
+        ? `]-\\infty\\,;\\,-\\sqrt{${val}}[ \\cup ]\\sqrt{${val}}\\,;\\,+\\infty[`
+        : `]-\\infty\\,;\\,-\\sqrt{${val}}] \\cup [\\sqrt{${val}}\\,;\\,+\\infty[`
+      const intervalleIncorrect = estInegStrict
+        ? `]-\\infty\\,;\\,-\\sqrt{${val}}] \\cup [\\sqrt{${val}}\\,;\\,+\\infty[`
+        : `]-\\infty\\,;\\,-\\sqrt{${val}}[ \\cup ]\\sqrt{${val}}\\,;\\,+\\infty[`
 
       return [
-        `${intervalleLaTex('-' + borne, borne, signeInegalité)}`,
-        `${intervalleLaTex('-' + borne, borne, signeInegalitéFaux)}`,
-        `$x=-\\sqrt{${val}}$ ou $x=\\sqrt{${val}}$`,
-        `$-\\sqrt{${val}} ${signeInegalitéFaux} x ${signeInegalitéFaux}\\sqrt{${val}}$`,
+        `$S = ${intervalleCorrect}$`,
+        `$S = ${intervalleIncorrect}$`,
+        `$S = \\{-\\sqrt{${val}} \\,; \\,\\sqrt{${val}}\\}$`,
+        `$S = ]-\\sqrt{${val}}\\,;\\,\\sqrt{${val}}[$`,
       ]
     }
   }
@@ -238,9 +236,8 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
             $\\bullet$ On trace la droite horizontale d'équation $y=${val}$. Cette droite coupe la parabole en $-\\sqrt{${val}}$ et $\\sqrt{${val}}$. <br>
             $\\bullet$ Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${positionText} la droite.<br>
             ${graphiqueC}<br>
-            On en déduit que l'inéquation $(I)$ est équivalente à : ${texteEnCouleurEtGras(reponseCorrecte)}.`
+            On en déduit que l'ensemble des solutions de l'inéquation $(I)$ est : ${texteEnCouleurEtGras(reponseCorrecte)}.`
   }
-
   versionOriginale: () => void = () => {
     // Version originale : x² ≥ 10
     const val = 10
@@ -259,7 +256,7 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
     this.enonce = `${deuxColonnes(
       `On a représenté la parabole d'équation $y=x^2$. <br><br>
         On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInegalité} ${val}$.<br><br>
-        L'inéquation $(I)$ est équivalente à :`,
+        L'ensemble des solutions $S$ de cette inéquation est :`,
       `${graphique}`,
     )}<br>`
     this.correction = this.genererCorrection(
@@ -271,13 +268,12 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
     )
     this.reponses = reponses
   }
-
   versionAleatoire = () => {
     const typeInequation = choice(['inf', 'sup'] as const)
     const estInegStrict = choice([true, false])
     const val = randint(2, 19, [4, 9, 16])
 
-    const signeInegalité =
+    const signeInégalité =
       typeInequation === 'inf'
         ? estInegStrict
           ? '<'
@@ -296,8 +292,8 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
 
     this.enonce = `${deuxColonnes(
       `On a représenté la parabole d'équation $y=x^2$. <br><br>
-        On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInegalité} ${val}$.<br><br>
-        L'inéquation $(I)$ est équivalente à :`,
+        On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInégalité} ${val}$.<br><br>
+        L'ensemble des solutions $S$ de cette inéquation est :`,
       `${graphique}`,
     )}<br>`
     this.correction = this.genererCorrection(
@@ -312,6 +308,7 @@ export default class InequationsSecondDegre extends ExerciceQcmA {
 
   constructor() {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }
 }
