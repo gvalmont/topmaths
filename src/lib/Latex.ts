@@ -1,4 +1,5 @@
 import seedrandom from 'seedrandom'
+import { get } from 'svelte/store'
 import TypeExercice from '../exercices/Exercice'
 import genericPreamble from '../lib/latex/preambule.tex?raw'
 import {
@@ -8,11 +9,10 @@ import {
   loadProfCollegeIfNeed,
   logPDF,
 } from '../lib/latex/preambuleTex'
-import { mathaleaHandleExerciceSimple } from './mathalea.js'
-import { getLang } from './stores/languagesStore'
 import { buildThemeFromReference } from '../topmaths/services/reference'
 import { reference } from '../topmaths/services/store'
-import { get } from 'svelte/store'
+import { mathaleaHandleExerciceSimple } from './mathalea.js'
+import { getLang } from './stores/languagesStore'
 // printPrettier pose problème avec begin{aligned}[t] en ajoutant un saut de ligne problématique
 // import { printPrettier } from 'prettier-plugin-latex/standalone.js'
 
@@ -618,10 +618,10 @@ class Latex {
     latexFileInfos: LatexFileInfos,
   ) {
     const currentUrl = new URL(window.location.href)
-    currentUrl.hostname = 'www.coopmaths.fr'
+    currentUrl.hostname = 'topmaths.fr'
     currentUrl.port = ''
     currentUrl.protocol = 'https:'
-    currentUrl.searchParams.set('v', 'eleve')
+    currentUrl.searchParams.set('v', 'exercise')
     contents.preamble = `% @see : ${currentUrl.href.replaceAll('%', '\\%')}`
     contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
     loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
@@ -640,11 +640,11 @@ class Latex {
 
     contents.preamble += '\n\\renewcommand\\headrulewidth{0pt}'
     contents.preamble += '\n\\setlength{\\headheight}{18pt}'
-    contents.preamble += `\n\\fancyhead[R]{\\href{${currentUrl.href.replaceAll('%', '\\%')}}{Mathaléa}}`
+    contents.preamble += `\n\\fancyhead[R]{\\href{${currentUrl.href.replaceAll('%', '\\%')}}{Topmaths}}`
     contents.preamble += '\n\\fancyfoot[C]{\\thepage}'
     contents.preamble += `\n\\fancyfoot[R]{%
 \\begin{tikzpicture}[remember picture,overlay]
-  \\node[anchor=south east] at ($(current page.south east)+(-2,0.25cm)$) {\\scriptsize {\\bfseries \\href{https://coopmaths.fr/}{Coopmaths.fr} -- \\href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
+  \\node[anchor=south east] at ($(current page.south east)+(-2,0.25cm)$) {\\scriptsize {\\href{https://topmaths.fr/}{Topmaths.fr} -- \\href{https://coopmaths.fr/}{Coopmaths.fr} -- \\href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
 \\end{tikzpicture}
 }`
     contents.preamble += `\n\\fancyhead[L]{
