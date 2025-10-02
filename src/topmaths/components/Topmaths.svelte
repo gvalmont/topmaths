@@ -6,7 +6,6 @@
   import { cacheData } from '../services/data'
   import { goToView } from '../services/navigation'
   import {
-    isDarkMode,
     isDoubleView,
     isPersonalMode,
     isTeacherMode,
@@ -45,13 +44,9 @@
   let isMd: boolean
   $: isMd = innerWidth >= 768
 
-  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  $: document.documentElement.classList.toggle('dark', $isDarkMode)
-
   onMount(() => {
     Cart.subscribe(handleCartUpdate)
     addEventListener('popstate', updateParams)
-    addDarkModeListener()
     cacheData()
     updateParams()
   })
@@ -59,7 +54,6 @@
   onDestroy(() => {
     Cart.unsubscribe(handleCartUpdate)
     removeEventListener('popstate', updateParams)
-    removeDarkModeListener()
   })
 
   function updateParams(): void {
@@ -104,23 +98,6 @@
     reference.set(newRef)
     reference2.set(newRef2)
     isDoubleView.set(newIsDoubleView)
-  }
-
-  function addDarkModeListener(): void {
-    setDarkMode(Storage.getDarkMode() ?? darkModeMediaQuery.matches)
-    darkModeMediaQuery.addEventListener('change', (event) => {
-      setDarkMode(event.matches)
-    })
-  }
-
-  function removeDarkModeListener(): void {
-    darkModeMediaQuery.removeEventListener('change', (event) => {
-      setDarkMode(event.matches)
-    })
-  }
-
-  function setDarkMode(isDarkMode: boolean): void {
-    Storage.setDarkMode(isDarkMode)
   }
 
   function setPersonalMode(isPersonalMode: boolean): void {

@@ -1,16 +1,16 @@
-import type { GlossaryUniteItem } from '../types/glossary.js'
-import type { Unit } from '../types/unit.js'
-import type { Objective } from '../types/objective.js'
 import { writable } from 'svelte/store'
-import { deepCopy } from '../types/shared.js'
-import { type View } from '../types/navigation.js'
 import {
   emptyCalendarSchoolYear,
   type CalendarSchoolYear,
 } from '../types/calendar.js'
 import { emptyCurriculum, type Curriculum } from '../types/curriculum.js'
-import type { SpecialUnit } from '../types/specialUnit.js'
 import type { ExamExercise } from '../types/exam-exercise.js'
+import type { GlossaryUniteItem } from '../types/glossary.js'
+import { type View } from '../types/navigation.js'
+import type { Objective } from '../types/objective.js'
+import { deepCopy } from '../types/shared.js'
+import type { SpecialUnit } from '../types/specialUnit.js'
+import type { Unit } from '../types/unit.js'
 
 // libraries
 export const units = writable<Unit[]>([])
@@ -32,7 +32,6 @@ export const reference2 = writable<string>('')
 export const isTitleAcademicPreferred = writable<boolean>(false)
 export const isTeacherMode = writable<boolean>(false)
 export const isPersonalMode = writable<boolean>(false)
-export const isDarkMode = writable<boolean>(false)
 
 // exercises
 export const exerciseLinks = writable<string[]>([])
