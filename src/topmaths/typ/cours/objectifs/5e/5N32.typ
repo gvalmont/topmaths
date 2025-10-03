@@ -20,8 +20,8 @@
 ]
 
 #propriete(titre: "Règle de calcul de la somme de deux relatifs")[
-  Si on ajoute deux relatifs de #rouge()[même signe], leur somme est le relatif de #rouge()[même signe] qui a pour valeur absolue #vert()[la somme des valeurs absolues].\
-  Si on ajoute deux relatifs de #rouge()[signes différents], leur somme est le relatif de signe #rouge()[le signe de celui qui a la plus grande valeur absolue] et de valeur absolue #vert()[la différence des valeurs absolues].
+  Si on ajoute deux relatifs de #rouge()[même signe], leur somme est le relatif de #rouge()[même signe] qui a pour distance à zéro #vert()[la somme des valeurs absolues].\
+  Si on ajoute deux relatifs de #rouge()[signes différents], leur somme est le relatif de signe #rouge()[le signe de celui qui a la plus grande distance à zéro] et de distance à zéro #vert()[la différence des valeurs absolues].
 ]
 
 #remarque(titre: "Deux remarques importantes")[
