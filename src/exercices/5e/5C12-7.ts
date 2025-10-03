@@ -57,7 +57,7 @@ export default class nomExercice extends Exercice {
         // '18 : Multiple suivant',
       ].join('\n'),
     ]
-    this.nbQuestions = 4
+
     this.besoinFormulaire2Texte = [
       "Type de nombres dans l'énoncé",
       [
@@ -68,12 +68,10 @@ export default class nomExercice extends Exercice {
         // ' 4 : Mélange',
       ].join('\n'),
     ]
-    this.besoinFormulaire3CaseACocher = ['Utiliser des nombres reltifs']
-    this.besoinFormulaire4Numerique = [
-      'Valeurs maximum en valeurs absolues',
-      100,
-    ]
-    this.sup = '1-2-3-4-5-6-7-8-9-10-11'
+    this.besoinFormulaire3CaseACocher = ['Utiliser des nombres relatifs']
+    this.besoinFormulaire4Numerique = ['Valeur maximum en valeur absolue', 100]
+    this.nbQuestions = 14
+    this.sup = '1-2-3-4-5-6-7-8-9-10-12-13-14-15'
     this.sup2 = 1
     this.sup3 = false
     this.sup4 = 50
@@ -90,9 +88,8 @@ export default class nomExercice extends Exercice {
       // shuffle: false, //true bien pour les tests
       nbQuestions: this.nbQuestions,
     })
-
     const listeTypeNombres = gestionnaireFormulaireTexte({
-      saisie: this.sup,
+      saisie: this.sup2,
       min: 1,
       max: 2,
       defaut: 1,
@@ -326,6 +323,7 @@ export default class nomExercice extends Exercice {
       const metUnE = texteAvecNombre.charAt(1) === 'a' ? 'e' : ''
       let PrepareCorrection = operations[lOperation - 1].enchainement
       if (nombre1 < 0) {
+        // si le nombre est négatif
         switch (lOperation) {
           case 8: // carré
           case 9: // cube
@@ -354,7 +352,7 @@ export default class nomExercice extends Exercice {
       }
       texteCorr += `${texteAvecNombre.replace('l', 'L')} est égal${metUnE} à ${enchainementAvecNombre}`
       texteCorr +=
-        lOperation === 11
+        lOperation === 11 // inverse on laisse 1 sur nombre1
           ? ''
           : `$${texNombre(operations[lOperation - 1].fct(nombre1, nombre2))}$.`
       // fin de la correction

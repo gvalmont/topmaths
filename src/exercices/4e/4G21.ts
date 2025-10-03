@@ -36,7 +36,7 @@ export default class ReciproquePythagore extends Exercice {
     ]
 
     this.besoinFormulaire2CaseACocher = [
-      'Correction avec le mot "contraposée"',
+      'Correction avec le mot « contraposée »',
       false,
     ]
 

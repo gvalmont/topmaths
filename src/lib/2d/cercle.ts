@@ -2,16 +2,16 @@ import {
   colorToLatexOrHTML,
   ObjetMathalea2D,
 } from '../../modules/2dGeneralites'
+import { degToRad } from '../mathFonctions/trigo'
 import { arrondi } from '../outils/nombres'
 import { angleModulo, angleOriente } from './angles'
 import { Droite, droite, mediatrice } from './droites'
+import MainLevee from './MainLevee'
 import { Point, point } from './points'
+import { PointAbstrait } from './points-abstraits'
 import { pattern } from './polygones'
 import { longueur } from './segmentsVecteurs'
 import { rotation } from './transformations'
-import MainLevee from './MainLevee'
-import { degToRad } from '../mathFonctions/trigo'
-import { PointAbstrait } from './points-abstraits'
 
 /**
  * Construit le cercle (ou le disque) de centre O, de rayon r
@@ -471,11 +471,14 @@ export class Arc extends ObjetMathalea2D {
           this.style += ' stroke-dasharray="5 5" '
           break
       }
-      if (this.hachures != null && typeof this.hachures === 'string') {
+      if (
+        this.hachures != null &&
+        typeof this.hachures === 'string' &&
+        this.hachures !== ''
+      ) {
         if (this.couleurDeRemplissage.length < 1) {
           this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
-
         return (
           pattern({
             motif: this.hachures,
@@ -580,7 +583,11 @@ export class Arc extends ObjetMathalea2D {
       )
     }
 
-    if (this.hachures != null && typeof this.hachures === 'string') {
+    if (
+      this.hachures != null &&
+      typeof this.hachures === 'string' &&
+      this.hachures !== ''
+    ) {
       tableauOptions.push(
         pattern({
           motif: this.hachures,

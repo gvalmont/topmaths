@@ -1,15 +1,14 @@
-import FractionEtendue from '../../modules/FractionEtendue'
+import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
+import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
-import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
-import EquationSecondDegre from '../../modules/EquationSecondDegre'
+import Exercice from '../Exercice'
 export const titre =
   "Déterminer le domaine de définition d'une fonction inverse ou racine"
 export const interactifReady = false

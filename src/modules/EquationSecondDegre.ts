@@ -27,6 +27,7 @@ class EquationSecondDegre {
   delta: FractionEtendue
   nombreSolutions: number
   solutionsListeTex: string[]
+  solutionsListeTexOppose: string[]
   ensembleDeSolutionsTex: string
   natureDesSolutions: string
   natureDelEquation: string
@@ -123,6 +124,7 @@ class EquationSecondDegre {
       this.nombreSolutions = 0
     }
     this.solutionsListeTex = []
+    this.solutionsListeTexOppose = []
     this.natureDesSolutions = ''
     if (this.nombreSolutions > 0) {
       if (this.delta.estParfaite) {
@@ -176,10 +178,42 @@ class EquationSecondDegre {
               ).texFractionSimplifiee
           }`,
         ]
+        this.solutionsListeTexOppose = [
+          `${
+            this.coefficientsEqReduite[1]
+              .multiplieEntier(-1)
+              .differenceFraction(
+                new FractionEtendue(
+                  sqrt(this.delta.num) as number,
+                  sqrt(this.delta.den) as number,
+                ),
+              )
+              .produitFraction(
+                this.coefficientsEqReduite[0].multiplieEntier(2).inverse(),
+              )
+              .oppose().texFractionSimplifiee
+          }`,
+          `${
+            this.coefficientsEqReduite[1]
+              .multiplieEntier(-1)
+              .sommeFraction(
+                new FractionEtendue(
+                  sqrt(this.delta.num) as number,
+                  sqrt(this.delta.den) as number,
+                ),
+              )
+              .produitFraction(
+                this.coefficientsEqReduite[0].multiplieEntier(2).inverse(),
+              )
+              .oppose().texFractionSimplifiee
+          }`,
+        ]
         // parse la réponse latex en CE qui la simplifie et l'imprime
       } else if (this.natureDesSolutions === 'irrationnel') {
         const sol1Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`
         const sol2Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`
+        const sol1TexOppose = '-' + sol1Tex
+        const sol2TexOppose = '-' + sol2Tex
         const racineDelta = extraireRacineCarree(this.delta.num)
         if (this.delta.estEntiere) {
           if (this.delta.num === 0) {
@@ -203,6 +237,10 @@ class EquationSecondDegre {
             this.solutionsListeTex = [
               sol1.texFractionSimplifiee,
               sol2.texFractionSimplifiee,
+            ]
+            this.solutionsListeTexOppose = [
+              sol1.oppose().texFractionSimplifiee,
+              sol2.oppose().texFractionSimplifiee,
             ]
           } else {
             let pgcdRacines = pgcd(
@@ -234,12 +272,30 @@ class EquationSecondDegre {
                 this.coefficientsEqReduite[0].num *
                 this.coefficientsEqReduite[1].den) /
               pgcdRacines
-            const sol1RevisiteeTex = `\\dfrac{${a} - ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
-            const sol2RevisiteeTex = `\\dfrac{${a} + ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
+            let sol1RevisiteeTex = `\\dfrac{${a} - ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
+            let sol2RevisiteeTex = `\\dfrac{${a} + ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
+            let sol1RevisiteeTexOppose = `-\\dfrac{${a} - ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
+            let sol2RevisiteeTexOppose = `-\\dfrac{${a} + ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
+            if (d == 1) {
+              sol1RevisiteeTex = `${a} - ${b === 1 ? '' : b}\\sqrt{${c}}`
+              sol2RevisiteeTex = `${a} + ${b === 1 ? '' : b}\\sqrt{${c}}`
+              sol1RevisiteeTexOppose = `-${a} - ${b === 1 ? '' : b}\\sqrt{${c}}`
+              sol2RevisiteeTexOppose = `-${a} + ${b === 1 ? '' : b}\\sqrt{${c}}`
+            } else if (d === -1) {
+              sol1RevisiteeTex = `-${a} + ${b === 1 ? '' : b}\\sqrt{${c}}`
+              sol2RevisiteeTex = `-${a} - ${b === 1 ? '' : b}\\sqrt{${c}}`
+              sol1RevisiteeTexOppose = `${a} - ${b === 1 ? '' : b}\\sqrt{${c}}`
+              sol2RevisiteeTexOppose = `${a} + ${b === 1 ? '' : b}\\sqrt{${c}}`
+            }
             this.solutionsListeTex = [sol1RevisiteeTex, sol2RevisiteeTex]
+            this.solutionsListeTexOppose = [
+              sol1RevisiteeTexOppose,
+              sol2RevisiteeTexOppose,
+            ]
           }
         } else {
           this.solutionsListeTex = [sol1Tex, sol2Tex]
+          this.solutionsListeTexOppose = [sol1TexOppose, sol2TexOppose]
         }
       }
     }
@@ -320,6 +376,51 @@ class EquationSecondDegre {
     const e = new FractionEtendue(0, 1)
     const f = new FractionEtendue(0, 1)
     return new EquationSecondDegre(a, b, c, d, e, f, options)
+  }
+
+  // Méthode pour créer une équation à partir des coefficients d'un PolynomePlusieursVariables
+  static aPartirDuPolynome(
+    polynome: PolynomePlusieursVariables,
+    options: Options = { format: 'reduit', variable: 'x' },
+  ): EquationSecondDegre {
+    // Reduce polynomial to combine like terms
+    const polynomeReduit = polynome.reduire()
+
+    // Initialize coefficients
+    let coeffX2 = new FractionEtendue(0, 1)
+    let coeffX1 = new FractionEtendue(0, 1)
+    let coeffX0 = new FractionEtendue(0, 1)
+
+    const variable = options.variable
+
+    // Extract coefficients from reduced polynomial
+    for (const monome of polynomeReduit.monomes) {
+      const varIndex = monome.partieLitterale.variables.indexOf(variable)
+      const degree =
+        varIndex !== -1 ? monome.partieLitterale.exposants[varIndex] : 0
+
+      if (degree === 2) {
+        coeffX2 = monome.coefficient
+      } else if (degree === 1) {
+        coeffX1 = monome.coefficient
+      } else if (degree === 0) {
+        coeffX0 = monome.coefficient
+      }
+    }
+
+    // Check that it's a quadratic equation
+    if (coeffX2.num === 0) {
+      throw new Error(
+        "Le coefficient de x² est nul. Ce n'est pas une équation du second degré.",
+      )
+    }
+
+    // Create equation: ax² + bx + c = 0
+    const d = new FractionEtendue(0, 1)
+    const e = new FractionEtendue(0, 1)
+    const f = new FractionEtendue(0, 1)
+
+    return new EquationSecondDegre(coeffX2, coeffX1, coeffX0, d, e, f, options)
   }
 
   // Méthode pour créer une équation à partir du type de jeu de coefficients
@@ -508,6 +609,16 @@ class EquationSecondDegre {
         }
         return solListe
       }
+    }
+  }
+
+  printToLatexFormeFactorisee(): string {
+    if (this.nombreSolutions === 0) {
+      return '\\left (' + this.printToLatexMDG() + '\\right )'
+    } else if (this.nombreSolutions === 1) {
+      return `${rienSi1(this.coefficients[0])}\\left(${this.variable}${this.solutionsListeTex[0][0] === '-' ? '' : '+'}${this.solutionsListeTexOppose[0]}\\right)^2`
+    } else {
+      return `${rienSi1(this.coefficients[0])}\\left(${this.variable}${this.solutionsListeTexOppose[1]}\\right)\\left(${this.variable}${this.solutionsListeTexOppose[0]}\\right)`
     }
   }
 

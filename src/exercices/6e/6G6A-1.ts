@@ -636,7 +636,7 @@ export default class ConstruireUnTriangle extends Exercice {
             ),
           )
           if (this.sup2) {
-            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[0]}$ avec $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}~\\text{cm}$ et $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[0]}$ avec $${sommets[0]}${sommets[2]} = ${stringNombre(lAC)}~\\text{cm}$ et $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[1]}${sommets[2]}]$, tracer le segment $[${sommets[3]}${sommets[0]}]$ et mesurer la longueur de ce segment.<br>`
           verif =

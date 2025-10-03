@@ -1,6 +1,8 @@
 import { texteSurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { rectangle1Point2Longueurs } from '../../lib/2d/polygones'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { equation1erDegre1Inconnue } from '../../lib/outils/equations'
@@ -10,9 +12,7 @@ import {
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre =
   "Résoudre un problème mêlant équations et périmètre et aire d'un rectangle"
@@ -134,12 +134,12 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             texteCorr += 'On divise les deux membres par $2$.<br>'
           texteCorr += `$${perimetre - 2 * longueurConnue} ${miseEnEvidence('\\div 2')} = 2 ${coteInconnu} ${miseEnEvidence('\\div 2')}$<br>
             $${longueurInconnue} = ${coteInconnu}$<br><br>
-            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm².`)}<br>
+            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm$^2$.`)}<br>
             $\\mathcal{A} = L \\times l$<br>
             $\\mathcal{A} = ${longCote} \\times ${largeCote}$<br>
             $\\mathcal{A} = ${longueur} \\times ${largeur}$<br>
             $\\mathcal{A} = ${reponse}$<br>
-            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(reponse)}$ cm².`
+            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(reponse)}$ cm$^2$.`
           break
         }
         case 2: // Deux longueurs différentes
@@ -205,18 +205,19 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             ${texteGras(`Calcul de $${segment2}$ en cm.`)}<br>
             $${segment2} = ${a2} \\times ${equation.reponse}${b2 === 0 ? '' : ecritureAlgebrique(b2)}$<br>
             $${segment2} = ${largeur}$<br><br>
-            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm².`)}<br>
+            ${texteGras(`Calcul de l'aire de $${nomRectangle}$ en cm$^2$.`)}<br>
             $\\mathcal{A} = L \\times l$<br>
             $\\mathcal{A} = ${longCote} \\times ${largeCote}$<br>
             $\\mathcal{A} = ${longueur} \\times ${largeur}$<br>
             $\\mathcal{A} = ${reponse}$<br>
-            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(reponse)}$ cm².`
+            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(reponse)}$ cm$^2$.`
           break
         }
       }
       texte +=
         `Le périmètre de $${nomRectangle}$ mesure $${perimetre}$ cm.<br>
-      Déterminer son aire en cm².` + ajouteChampTexteMathLive(this, i, 'inline')
+      Déterminer son aire en cm$^2$.` +
+        ajouteChampTexteMathLive(this, i, 'inline')
       handleAnswers(this, i, { reponse: { value: reponse } })
       texte += mathalea2d(
         Object.assign(

@@ -30,6 +30,7 @@ export default class ExerciceQcm extends Exercice {
   bonnesReponses?: boolean[]
   corrections?: string[]
   options: { vertical?: boolean; ordered: boolean; lastChoice?: number }
+  qcmCorr!: string
   versionAleatoire?: () => void
   versionOriginale?: () => void = undefined /* () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
@@ -125,6 +126,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
             format: this.interactif ? 'case' : 'lettre',
           })
           texte += `<br>${monQcm.texte}`
+          this.qcmCorr = monQcm.texteCorr
           let messageBonnesReponses: string
           if (this.corrections && autoCorr.propositions != null) {
             this.correction = ''
@@ -217,7 +219,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
         format: this.interactif ? 'case' : 'lettre',
       })
       texte += `<br>${monQcm.texte}`
-
+      this.qcmCorr = monQcm.texteCorr
       const laBonneLettre =
         lettres[autoCorr.propositions.findIndex((el) => el.statut)]
       // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s

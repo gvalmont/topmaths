@@ -8,6 +8,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer avec un programme de calcul*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,6 +29,7 @@ export default class ProgrammeCalcul2 extends ExerciceSimple {
   constructor() {
     super()
     this.versionQcmDisponible = true
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: '<br>' }
     this.typeExercice = 'simple'
     this.nbQuestions = 1

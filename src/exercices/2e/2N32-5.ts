@@ -1,23 +1,26 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
+  rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { abs, signe } from '../../lib/outils/nombres'
 
 export const titre =
   'Appliquer la double distributivité avec les racines carrées'
-export const dateDeModifImportante = '25/04/2024'
+export const dateDeModifImportante = '30/09/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * @author Stéphane Guyon
+ * @author Stéphane Guyon + Gilles Mora pour modification
  */
 export const uuid = '660de'
 
@@ -28,25 +31,41 @@ export const refs = {
 export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
   constructor() {
     super()
-
-    this.nbQuestions = 5
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      3,
+      '1 : Coefficient égal à 1 \n2 : Coefficient  différent de 1\n3 : Mélange',
+    ]
+    this.sup = 1
+    // this.correctionDetaillee = false
+    // this.correctionDetailleeDisponible = true
+    this.spacing = 2
+    this.nbQuestions = 1
     this.nbCols = 2
-    this.nbColsCorr = 2
   }
 
   nouvelleVersion() {
-    const typesDeQuestionsDisponibles = [1, 2]
-    let typesDeQuestions
+    let typesDeQuestionsDisponibles: number[] = []
+    if (this.sup === 1) {
+      typesDeQuestionsDisponibles = [3]
+    } else if (this.sup === 2) {
+      typesDeQuestionsDisponibles = [1, 2]
+    } else {
+      typesDeQuestionsDisponibles = [1, 2, 3]
+    }
+
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
+
     this.consigne =
       this.nbQuestions === 1
-        ? 'Effectuer le calcul suivant.'
-        : 'Effectuer les calculs suivants.'
+        ? 'Développer le produit  suivant.'
+        : 'Développer les produits  suivants.'
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+      const typesDeQuestions = listeTypeDeQuestions[i]
+
       let a1 = 0
       let a2 = 0
       let a = 0
@@ -67,7 +86,7 @@ export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
-          a1 = randint(2, 9) * choice([-1, 1])
+          a1 = randint(2, 9) * choice([-1, 1, 1])
           a = randint(2, 11, [4, 8, 9])
           b1 = randint(2, 9) * choice([-1, 1])
           a2 = randint(2, 9)
@@ -84,17 +103,20 @@ export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
           }
           texte = `\\left(${a1}\\sqrt{${a}}${ecritureAlgebrique(b1)}\\right)\\left(${a2}\\sqrt{${a}}${ecritureAlgebrique(b2)}\\right)`
           reponse = `${aa2} \\sqrt{${a}}${ecritureAlgebrique(aaa)}`
-          texteCorr = `$${texte}=${a1}\\sqrt{${a}}\\times ${a2}\\sqrt{${a}}${ecritureAlgebrique(a1)}\\sqrt{${a}} \\times ${ecritureParentheseSiNegatif(b2)}
-                    ${ecritureAlgebrique(b1)} \\times ${a2}\\sqrt{${a}}${ecritureAlgebrique(b1)} \\times ${ecritureParentheseSiNegatif(b2)}$<br>
-                    $\\phantom{${texte}}=${a1}\\times ${a}\\times ${a2}+ \\left( ${a1} \\times ${ecritureParentheseSiNegatif(b2)}${ecritureAlgebrique(b1)} \\times ${a2}\\right)\\sqrt{${a}} ${ecritureAlgebrique(bb)}$<br>
-                    $\\phantom{${texte}}=${aa1}${ecritureAlgebrique(aa2)} \\sqrt{${a}}${ecritureAlgebrique(bb)}$<br>
-                    $\\phantom{${texte}}=${miseEnEvidence(reponse)}$`
+          texteCorr = `On développe en utilisant la double distributivité : <br><br>
+          $\\begin{aligned}
+${texte}&=${a1}\\sqrt{${a}}\\times ${a2}\\sqrt{${a}}${ecritureAlgebrique(a1)}\\sqrt{${a}} \\times ${ecritureParentheseSiNegatif(b2)} ${ecritureAlgebrique(b1)} \\times ${a2}\\sqrt{${a}}${ecritureAlgebrique(b1)} \\times ${ecritureParentheseSiNegatif(b2)}\\\\
+   &=\\underbrace{${a1}\\times ${a2}}_{=${a1 * a2}}\\times\\underbrace{\\sqrt{${a}}\\times \\sqrt{${a}}}_{=${a}}${ecritureAlgebrique(a1 * b2)}\\sqrt{${a}} ${ecritureAlgebrique(b1 * a2)}\\sqrt{${a}}${ecritureAlgebrique(b1 * b2)}\\\\
+   &=${a1 * a2}\\times ${a} +(${a1 * b2}${ecritureAlgebrique(b1 * a2)})\\sqrt{${a}} ${ecritureAlgebrique(bb)}\\\\   
+                   &=${miseEnEvidence(`${rienSi1(aa2)} \\sqrt{${a}}${ecritureAlgebrique(aaa)}`)}
+                   \\end{aligned}$
+                  `
           break
+
         case 2:
-        default:
-          a1 = randint(2, 9) * choice([-1, 1])
+          a1 = randint(2, 9) * choice([-1, 1, 1])
           a = randint(2, 11, [4, 8, 9])
-          b1 = randint(2, 9) * choice([-1, 1])
+          b1 = randint(2, 9) * choice([-1, 1, 1])
           b2 = randint(2, 9)
           a2 = randint(2, 9)
           aa1 = a1 * b2
@@ -105,9 +127,41 @@ export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
           bb3 = aa1 + bb1
           texte = `\\left(${a1}\\sqrt{${a}}${ecritureAlgebrique(b1)}\\right)\\left(${b2} ${ecritureAlgebrique(a2)}\\sqrt{${a}}\\right)`
           reponse = `${bb3}\\sqrt{${a}}${ecritureAlgebrique(bb2)}`
-          texteCorr = `$${texte}=${a1}\\sqrt{${a}}\\times ${b2}${ecritureAlgebrique(a1)}\\sqrt{${a}} \\times ${ecritureParentheseSiNegatif(a2)}\\sqrt{${a}}${ecritureAlgebrique(b1)} \\times ${b2}  ${ecritureAlgebrique(b1)}  \\times ${a2}\\sqrt{${a}}$<br>
-                    $\\phantom{${texte}}=${aa1}\\sqrt{${a}} ${ecritureAlgebrique(aa2)}\\times ${a} ${ecritureAlgebrique(bb)} ${ecritureAlgebrique(bb1)} \\sqrt{${a}}   $<br>
-                    $\\phantom{${texte}}=${miseEnEvidence(reponse)}$`
+          texteCorr = `On développe en utilisant la double distributivité : <br><br>
+          $\\begin{aligned}
+${texte}&=${a1}\\sqrt{${a}}\\times ${b2}${ecritureAlgebrique(a1)}\\sqrt{${a}} \\times ${ecritureParentheseSiNegatif(a2)}\\sqrt{${a}}${ecritureAlgebrique(b1)} \\times ${b2}  ${ecritureAlgebrique(b1)}  \\times ${a2}\\sqrt{${a}}\\\\
+ &=${aa1}\\sqrt{${a}}${signe(a1)} \\underbrace{${abs(a1)}\\times ${a2}}_{=${abs(a1) * a2}}\\times \\underbrace{\\sqrt{${a}}\\times \\sqrt{${a}}}_{=${a}} ${ecritureAlgebrique(bb)} ${ecritureAlgebrique(bb1)} \\sqrt{${a}} \\\\   
+&=(${aa1}${ecritureAlgebrique(bb1)})\\sqrt{${a}} ${ecritureAlgebrique(aa2)}\\times ${a} ${ecritureAlgebrique(bb)} \\\\
+                   &=${miseEnEvidence(`${rienSi1(bb3)}\\sqrt{${a}}${ecritureAlgebrique(bb2)}`)}
+                   \\end{aligned}$`
+          break
+
+        case 3:
+        default:
+          a1 = 1
+          a = randint(2, 11, [4, 8, 9])
+          b1 = randint(2, 9) * choice([-1, 1])
+          a2 = 1
+          b2 = randint(2, 9) * choice([-1, 1])
+          aa1 = a1 * a2 * a
+          bb = b1 * b2
+          aa2 = a1 * b2 + b1 * a2
+          aaa = aa1 + bb
+          if (aa2 === 0) {
+            b2 = -b2
+            bb = b1 * b2
+            aa2 = a1 * b2 + b1 * a2
+            aaa = aa1 + bb
+          }
+          texte = `\\left(\\sqrt{${a}}${ecritureAlgebrique(b1)}\\right)\\left(\\sqrt{${a}}${ecritureAlgebrique(b2)}\\right)`
+          reponse = `${rienSi1(aa2)} \\sqrt{${a}}${ecritureAlgebrique(aaa)}`
+          texteCorr = `On développe en utilisant la double distributivité : <br><br>
+          $\\begin{aligned}
+${texte}&=\\underbrace{\\sqrt{${a}}\\times \\sqrt{${a}}}_{=${a}}${ecritureAlgebriqueSauf1(a1)}\\sqrt{${a}} \\times ${ecritureParentheseSiNegatif(b2)} ${ecritureAlgebrique(b1)} \\times \\sqrt{${a}}${ecritureAlgebrique(b1)} \\times ${ecritureParentheseSiNegatif(b2)}\\\\
+   &=${a}${ecritureAlgebrique(a1 * b2)}\\sqrt{${a}} ${ecritureAlgebrique(b1 * a2)}\\sqrt{${a}}${ecritureAlgebrique(b1 * b2)}\\\\
+   &=${a}+(${a1 * b2} ${ecritureAlgebrique(b1 * a2)})\\sqrt{${a}} ${ecritureAlgebrique(b1 * b2)}\\\\
+                   &=${miseEnEvidence(reponse)}
+                   \\end{aligned}$`
           break
       }
       texte = `$${texte}$`

@@ -1,8 +1,8 @@
 <script lang="ts">
   import type TypeExercice from '../../../exercices/Exercice'
   import {
-    mathaleaGetExercicesFromParams,
-    mathaleaUpdateExercicesParamsFromUrl,
+      mathaleaGetExercicesFromParams,
+      mathaleaUpdateExercicesParamsFromUrl,
   } from '../../../lib/mathalea.js'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
@@ -15,6 +15,9 @@
     fields: {
       Titre: string
       url: string
+    },
+    options?: {
+      allowDuplicate?: boolean
     }
   }
   const notes: TypeNote[] = []
@@ -125,13 +128,18 @@
         })
       })
       .then(() => {
-        return ankiConnect('addNotes', {
+        return ankiConnect('canAddNotes', {
           notes,
+        })
+      })
+      .then((can) => {
+        return ankiConnect('addNotes', {
+          notes: notes.filter((note, i) => can[i]), // On n'ajoute que les notes qui peuvent l'être (évite les doublons)
         })
       })
       .then((r) => {
         const nbExos = r.length
-        const nbExosDejaPresent = r.filter((x) => x == null).length
+        const nbExosDejaPresent = notes.length - r.length
         logs += `${nbExos} ${nbExos > 1 ? 'exercices importés' : 'exercice importé'} ${nbExosDejaPresent ? `(dont ${nbExosDejaPresent} déjà présent${nbExosDejaPresent > 1 ? 's' : ''}) ` : ''}dans Anki avec succès !\n`
       })
       .catch((e) => {

@@ -16,7 +16,7 @@ export const dateDeModifImportante = '27/08/2024'
 export const uuid = '665a0'
 
 export const refs = {
-  'fr-fr': ['CM2N3A-8'],
+  'fr-fr': [''], // Identique à CM2N3A-1
   'fr-2016': ['CM001'],
   'fr-ch': [],
 }

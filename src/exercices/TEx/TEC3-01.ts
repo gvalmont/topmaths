@@ -18,14 +18,38 @@ export const dateDePublication = '20/08/2024'
 // Les valeurs particulières des cosinus et des sinus
 
 const listePourPiSur6 = [
-  { a: '\\sqrt{3}', b: '1', A: '2' },
-  { a: '2\\sqrt{3}', b: '2', A: '4' },
-  { a: '3\\sqrt{3}', b: '3', A: '6' },
-  { a: '1', b: '\\dfrac{\\sqrt{3}}{3}', A: '2\\dfrac{\\sqrt{3}}{3}' },
-  { a: '2', b: '\\dfrac{2\\sqrt{3}}{3}', A: '4\\dfrac{\\sqrt{3}}{3}' },
-  { a: '3', b: '\\sqrt{3}', A: '2\\sqrt{3}' },
-  { a: '\\sqrt{6}', b: '\\sqrt{2}', A: '2\\sqrt{2}' },
-  { a: '\\sqrt{15}', b: '\\sqrt{5}', A: '2\\sqrt{5}' },
+  { a: '\\sqrt{3}', b: '1', a2: '\\sqrt{3}^2', b2: '1^2', A: '2' },
+  { a: '2\\sqrt{3}', b: '2', a2: '(2\\sqrt{3})^2', b2: '2^2', A: '4' },
+  { a: '3\\sqrt{3}', b: '3', a2: '(3\\sqrt{3})^2', b2: '3^2', A: '6' },
+  {
+    a: '1',
+    b: '\\dfrac{\\sqrt{3}}{3}',
+    a2: '1^2',
+    b2: '\\left(\\dfrac{\\sqrt{3}}{3}\\right)^2',
+    A: '2\\dfrac{\\sqrt{3}}{3}',
+  },
+  {
+    a: '2',
+    b: '\\dfrac{2\\sqrt{3}}{3}',
+    a2: '2^2',
+    b2: '\\left(2\\dfrac{\\sqrt{3}}{3}\\right)^2',
+    A: '4\\dfrac{\\sqrt{3}}{3}',
+  },
+  { a: '3', b: '\\sqrt{3}', a2: '3^2', b2: '\\sqrt{3}^2', A: '2\\sqrt{3}' },
+  {
+    a: '\\sqrt{6}',
+    b: '\\sqrt{2}',
+    a2: '\\sqrt{6}^2',
+    b2: '\\sqrt{2}^2',
+    A: '2\\sqrt{2}',
+  },
+  {
+    a: '\\sqrt{15}',
+    b: '\\sqrt{5}',
+    a2: '\\sqrt{15}^2',
+    b2: '\\sqrt{15}^2',
+    A: '2\\sqrt{5}',
+  },
 ].map((el) =>
   Object.assign(el, {
     aSurA: '\\dfrac{\\sqrt{3}}{2}',
@@ -34,15 +58,33 @@ const listePourPiSur6 = [
   }),
 )
 const listePourPiSur4 = [
-  { a: '\\sqrt{2}', b: '\\sqrt{2}', A: '2' },
-  { a: '1', b: '1', A: '\\sqrt{2}' },
-  { a: '2', b: '2', A: '2\\sqrt{2}' },
-  { a: '\\sqrt{3}', b: '\\sqrt{3}', A: '\\sqrt{6}' },
-  { a: '3', b: '3', A: '3\\sqrt{2}' },
-  { a: '5', b: '5', A: '5\\sqrt{2}' },
-  { a: '\\sqrt{6}', b: '\\sqrt{6}', A: '2\\sqrt{3}' },
-  { a: '\\sqrt{5}', b: '\\sqrt{5}', A: '\\sqrt{10}' },
-  { a: '6', b: '6', A: '6\\sqrt{2}' },
+  {
+    a: '\\sqrt{2}',
+    b: '\\sqrt{2}',
+    a2: '\\sqrt{2}^2',
+    b2: '\\sqrt{2}^2',
+    A: '2',
+  },
+  { a: '1', b: '1', a2: '1^2', b2: '1^2', A: '\\sqrt{2}' },
+  { a: '2', b: '2', a2: '2^2', b2: '2^2', A: '2\\sqrt{2}' },
+  { a: '\\sqrt{3}', b: '\\sqrt{3}', a2: '\\sqrt{3}^2', b2: '', A: '\\sqrt{6}' },
+  { a: '3', b: '3', a2: '3^2', b2: '3^2', A: '3\\sqrt{2}' },
+  { a: '5', b: '5', a2: '5^2', b2: '5^2', A: '5\\sqrt{2}' },
+  {
+    a: '\\sqrt{6}',
+    b: '\\sqrt{6}',
+    a2: '\\sqrt{6}^2',
+    b2: '\\sqrt{6}^2',
+    A: '2\\sqrt{3}',
+  },
+  {
+    a: '\\sqrt{5}',
+    b: '\\sqrt{5}',
+    a2: '\\sqrt{5}^2',
+    b2: '\\sqrt{5}^2',
+    A: '\\sqrt{10}',
+  },
+  { a: '6', b: '6', a2: '6^2', b2: '6^2', A: '6\\sqrt{2}' },
 ].map((el) =>
   Object.assign(el, {
     aSurA: '\\dfrac{\\sqrt{2}}{2}',
@@ -51,16 +93,40 @@ const listePourPiSur4 = [
   }),
 )
 const listePourPiSur3 = [
-  { a: '1', b: '\\sqrt{3}', A: '2' },
-  { a: '2', b: '2\\sqrt{3}', A: '4' },
-  { a: '3', b: '3\\sqrt{3}', A: '6' },
-  { a: '\\sqrt{3}', b: '3', A: '2\\sqrt{3}' },
-  { a: '2\\sqrt{3}', b: '6', A: '4\\sqrt{3}' },
-  { a: '3\\sqrt{3}', b: '9', A: '6\\sqrt{3}' },
-  { a: '\\sqrt{2}', b: '\\sqrt{6}', A: '2\\sqrt{2}' },
-  { a: '\\sqrt{5}', b: '\\sqrt{15}', A: '2\\sqrt{5}' },
-  { a: '\\dfrac{\\sqrt{3}}{3}', b: '1', A: '2\\dfrac{\\sqrt{3}}{3}' },
-  { a: '2\\dfrac{\\sqrt{3}}{3}', b: '2', A: '4\\dfrac{\\sqrt{3}}{3}' },
+  { a: '1', b: '\\sqrt{3}', a2: '1^2', b2: '\\sqrt{3}^2', A: '2' },
+  { a: '2', b: '2\\sqrt{3}', a2: '2^2', b2: '(2\\sqrt{3})^2', A: '4' },
+  { a: '3', b: '3\\sqrt{3}', a2: '3^2', b2: '(3\\sqrt{3})^2', A: '6' },
+  { a: '\\sqrt{3}', b: '3', a2: '\\sqrt{3}^2', b2: '3^2', A: '2\\sqrt{3}' },
+  { a: '2\\sqrt{3}', b: '6', a2: '(2\\sqrt{3})^2', b2: '6^2', A: '4\\sqrt{3}' },
+  { a: '3\\sqrt{3}', b: '9', a2: '(3\\sqrt{3})^2', b2: '9^2', A: '6\\sqrt{3}' },
+  {
+    a: '\\sqrt{2}',
+    b: '\\sqrt{6}',
+    a2: 'sqrt{2}^2',
+    b2: '\\sqrt{6}^2',
+    A: '2\\sqrt{2}',
+  },
+  {
+    a: '\\sqrt{5}',
+    b: '\\sqrt{15}',
+    a2: '\\sqrt{5}^2',
+    b2: '\\sqrt{15}^2',
+    A: '2\\sqrt{5}',
+  },
+  {
+    a: '\\dfrac{\\sqrt{3}}{3}',
+    b: '1',
+    a2: '\\left(\\dfrac{\\sqrt{3}}{3}\\right)^2',
+    b2: '1^2',
+    A: '2\\dfrac{\\sqrt{3}}{3}',
+  },
+  {
+    a: '2\\dfrac{\\sqrt{3}}{3}',
+    b: '2',
+    a2: '\\left(2\\dfrac{\\sqrt{3}}{3}\\right)^2',
+    b2: '2^2',
+    A: '4\\dfrac{\\sqrt{3}}{3}',
+  },
 ].map((el) =>
   Object.assign(el, {
     aSurA: '\\dfrac{1}{2}',
@@ -73,6 +139,8 @@ const listePour3PiSur4 = listePourPiSur4.map((el) =>
     {},
     {
       a: `-${el.a}`,
+      a2: el.a2,
+      b2: el.b2,
       b: el.b,
       A: el.A,
       aSurA: `-${el.aSurA}`,
@@ -87,6 +155,8 @@ const listePour5PiSur6 = listePourPiSur6.map((el) =>
     {
       a: `-${el.a}`,
       b: el.b,
+      a2: el.a2,
+      b2: el.b2,
       A: el.A,
       aSurA: `-${el.aSurA}`,
       bSurA: el.bSurA,
@@ -100,6 +170,8 @@ const listePour2PiSur3 = listePourPiSur3.map((el) =>
     {
       a: `-${el.a}`,
       b: el.b,
+      a2: el.a2,
+      b2: el.b2,
       A: el.A,
       aSurA: `-${el.aSurA}`,
       bSurA: el.bSurA,
@@ -113,6 +185,8 @@ const listePourMoinsPiSur4 = listePourPiSur4.map((el) =>
     {
       a: el.a,
       b: `-${el.b}`,
+      a2: el.a2,
+      b2: el.b2,
       A: el.A,
       aSurA: el.aSurA,
       bSurA: `-${el.bSurA}`,
@@ -126,6 +200,8 @@ const listePourMoinsPiSur6 = listePourPiSur6.map((el) =>
     {
       a: el.a,
       b: `-${el.b}`,
+      a2: el.a2,
+      b2: el.b2,
       A: el.A,
       aSurA: el.aSurA,
       bSurA: `-${el.bSurA}`,
@@ -139,6 +215,8 @@ const listePourMoinsPiSur3 = listePourPiSur3.map((el) =>
     {
       a: el.a,
       b: `-${el.b}`,
+      a2: el.a2,
+      b2: el.b2,
       A: el.A,
       aSurA: el.aSurA,
       bSurA: `-${el.bSurA}`,
@@ -152,6 +230,8 @@ const listePourMoins3PiSur4 = listePour3PiSur4.map((el) =>
     {
       a: el.a,
       b: `-${el.b}`,
+      a2: el.a2,
+      b2: el.b2,
       A: el.A,
       aSurA: el.aSurA,
       bSurA: `-${el.bSurA}`,
@@ -165,6 +245,8 @@ const listePourMoins5PiSur6 = listePour5PiSur6.map((el) =>
     {
       a: el.a,
       b: `-${el.b}`,
+      a2: el.a2,
+      b2: el.b2,
       A: el.A,
       aSurA: el.aSurA,
       bSurA: `-${el.bSurA}`,
@@ -178,6 +260,8 @@ const listePourMoins2PiSur3 = listePour2PiSur3.map((el) =>
     {
       a: el.a,
       b: `-${el.b}`,
+      a2: el.a2,
+      b2: el.b2,
       A: el.A,
       aSurA: el.aSurA,
       bSurA: `-${el.bSurA}`,
@@ -231,7 +315,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
       melange: 5,
     })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
-      const { a, b, A, aSurA, bSurA, phi } = listeDeValeurs[i]
+      const { a, b, a2, b2, A, aSurA, bSurA, phi } = listeDeValeurs[i]
       let texte = 'Soit le nombre complexe '
       let texteCorr: string
       let value: string
@@ -241,7 +325,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
           texte += `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}i$.<br>`
           texte += "Donner l'écriture trigonométrique de $z$."
           texteCorr = `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}i$ est de la forme $a+bi$ avec $a=${a}$ et $b=${b}$.<br>`
-          texteCorr += `Calculons le module de $z$ : $|z|=\\sqrt{${a.startsWith('-') || a.startsWith('\\dfrac') ? `(${a})^2` : `${a}^2`}+${b.startsWith('-') || b.startsWith('\\dfrac') ? `(${b})^2` : `${b}^2`}}=${A}$.<br>`
+          texteCorr += `Calculons le module de $z$ : $|z|=\\sqrt{${a2}+${b2}}=${A}$.<br>`
           texteCorr += `Factorisons $|z|$ : $z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}i\\right)$.<br>`
           texteCorr += `Nous reconnaissons ici :<br>d'une part $\\cos(${phi})=${aSurA}$<br>d'autre part $\\sin(${phi})=${bSurA}$.<br>`
           value = `${A}\\left(\\cos(${phi})+i\\sin(${phi})\\right)`
@@ -259,7 +343,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
           texte += `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}i$.<br>`
           texte += "Donner l'écriture de $z$ sous la forme $k.e^{i\\theta}$."
           texteCorr = `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}i$ est de la forme $a+bi$ avec $a=${a}$ et $b=${b}$.<br>`
-          texteCorr += `Calculons le module de $z$ : $|z|=\\sqrt{${a.startsWith('-') || a.startsWith('\\dfrac') ? `(${a})^2` : `${a}^2`}+${b.startsWith('-') || b.startsWith('\\dfrac') ? `(${b})^2` : `${b}^2`}}=${A}$.<br>`
+          texteCorr += `Calculons le module de $z$ : $|z|=\\sqrt{${a2}+${b2}}=${A}$.<br>`
           texteCorr += `Factorisons $|z|$ : $z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}i\\right)$.<br>`
           texteCorr += `Nous reconnaissons ici :<br>d'une part $\\cos(${phi})=${aSurA}$<br>d'autre part $\\sin(${phi})=${bSurA}$.<br>`
           value = `${A}e^{${phi.replace('\\dfrac', 'i\\frac')}}`

@@ -1,18 +1,16 @@
 import loadjs from 'loadjs'
+import { MathfieldElement } from 'mathlive'
+import { get } from 'svelte/store'
+import { keyboardState } from '../components/keyboard/stores/keyboardStore'
+import { getKeyboardShortcusts } from '../lib/interactif/claviers/keyboard'
+import { globalOptions } from '../lib/stores/generalStore'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
-import { keyboardState } from '../components/keyboard/stores/keyboardStore'
-import { get } from 'svelte/store'
-import { globalOptions } from '../lib/stores/generalStore'
-import { getKeyboardShortcusts } from '../lib/interactif/claviers/keyboard'
-import { MathfieldElement } from 'mathlive'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
  */
 const apps = {
-  mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min',
-  prism: ['/assets/externalJs/prism', '/assets/externalJs/prism.css'],
   scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min',
   slick: [
     '/assets/externalJs/semantic-ui/semantic.min.css',
@@ -67,35 +65,6 @@ export async function loadIep(elt, xml) {
   } catch (error) {
     console.error(error)
     throw UserFriendlyError('Le chargement d’instrumenpoche a échoué')
-  }
-}
-
-/**
- * Charge mathgraph dans l'élément fourni
- * @param {HTMLElement} elt
- * @param {Object} svgOptions Options du svg créé (taille et id, cf {@link https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad})
- * @param {Object} mtgOptions Options pour l'appli (boutons, menus, etc., cf {@link https://www.mathgraph32.org/documentation/loading/global.html#MtgOptions}
- * @return {Promise<MtgApp>} l'appli mathgraph {@link https://www.mathgraph32.org/documentation/loading/MtgApp.html}
- */
-export async function loadMG32(elt, svgOptions, mtgOptions) {
-  try {
-    if (typeof window.mtgLoad !== 'function') await load('mathgraph')
-    if (typeof window.mtgLoad !== 'function') {
-      throw Error('mtgLoad n’existe pas')
-    }
-    // cf https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad
-    // la syntaxe qui retourne une promesse fonctionne avec un import seulement (il faudrait mettre mathgraph dans nos dépendances et l'importer)
-    // avec le chargement du js via un tag script il faut fournir une callback
-    return new Promise((resolve, reject) => {
-      window.mtgLoad(elt, svgOptions, mtgOptions, (error, mtgApp) => {
-        if (error) return reject(error)
-        if (mtgApp) return resolve(mtgApp)
-        reject(Error('mtgLoad ne retourne ni erreur ni application'))
-      })
-    })
-  } catch (error) {
-    console.error(error)
-    throw new UserFriendlyError('Erreur de chargement de Mathgraph')
   }
 }
 

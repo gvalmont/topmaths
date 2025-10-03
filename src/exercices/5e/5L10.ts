@@ -1,13 +1,13 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../Exercice'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMult'
 export const interactifReady = true
@@ -65,8 +65,11 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
     this.nbQuestions = 4
 
     this.besoinFormulaireCaseACocher = ["Inclure l'inverse d'un nombre"]
+    this.besoinFormulaire3CaseACocher = ["Supprimer le « en fonction de » dans l'énoncé"]
+
     this.sup = true
     this.sup2 = 19
+    this.sup3 = false
   }
 
   nouvelleVersion() {
@@ -94,7 +97,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
       const k = randint(2, 10)
       switch (listeTypeDeQuestions[i]) {
         case 1: // 2x
-          texte = `Exprimer le double de $${x}$ en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer le double de $${x}$.` }
+        else {
+          texte = `Exprimer le double de $${x}$ en fonction de $${x}$.`}
           texteCorr = `Le double de $${x}$ peut s’écrire de plusieurs façons : $${miseEnEvidence(`2\\times ${x}`)}$, $${miseEnEvidence(`${x}+${x}`)}$ ou encore $${miseEnEvidence(`2${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -130,7 +136,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 2: // 3x
-          texte = `Exprimer le triple de $${x}$  en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer le triple de $${x}$.` }
+        else {
+          texte = `Exprimer le triple de $${x}$  en fonction de $${x}$.`}
           texteCorr = `Le triple de $${x}$ peut s’écrire de plusieurs façons : $${miseEnEvidence(`3\\times ${x}`)}$, $${miseEnEvidence(`${x}+2${x}`)}$ ou encore $${miseEnEvidence(`3${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -166,7 +175,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 3: // x/2
-          texte = `Exprimer la moitié de $${x}$ en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer la moitié de $${x}$.` }
+        else {
+          texte = `Exprimer la moitié de $${x}$ en fonction de $${x}$.`}
           texteCorr = `La moitié de $${x}$ peut se noter : $${miseEnEvidence(`${texFractionFromString(x, 2)}`)}$, $${miseEnEvidence(`${x}\\div 2`)}$, ou $${miseEnEvidence(`0,5${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -204,7 +216,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 4: // x/4
-          texte = `Exprimer le quart de $${x}$  en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer le quart de $${x}$.` }
+        else {
+          texte = `Exprimer le quart de $${x}$  en fonction de $${x}$.`}
           texteCorr = `Le quart de $${x}$ peut se noter : $${miseEnEvidence(`${texFractionFromString(x, 4)}`)}$, $${miseEnEvidence(`${x}\\div 4`)}$, ou $${miseEnEvidence(`0,25${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -242,7 +257,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 5: // x+1
-          texte = `$${x}$ étant un nombre entier, exprimer l'entier suivant en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `$${x}$ étant un nombre entier, exprimer le nombre entier qui le suit.` }
+        else {
+          texte = `$${x}$ étant un nombre entier, exprimer l'entier suivant en fonction de $${x}$.`}
           texteCorr = `Le successeur de $${x}$ peut se noter : $${miseEnEvidence(`${x}+1`)}$ ou $${miseEnEvidence(`1+${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -280,7 +298,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 6: // x-1
-          texte = `$${x}$ étant un nombre entier, exprimer l'entier précédent en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `$${x}$ étant un nombre entier, exprimer le nombre entier qui le précède.` }
+        else {
+          texte = `$${x}$ étant un nombre entier, exprimer l'entier précédent en fonction de $${x}$.`}
           texteCorr = `Le prédécesseur de $${x}$ peut se noter : $${miseEnEvidence(`${x}-1`)}$ ou $${miseEnEvidence(`${x}+(-1)`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -317,7 +338,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 7: // x^2
-          texte = `Exprimer le carré de $${x}$  en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer le carré de $${x}$.` }
+        else {
+          texte = `Exprimer le carré de $${x}$  en fonction de $${x}$.`}
           texteCorr = `Le carré de $${x}$ peut se noter : $${miseEnEvidence(`${x}${x}`)}$, $${miseEnEvidence(`${x}\\times ${x}`)}$, ou $${miseEnEvidence(`${x}^2`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -353,7 +377,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 8: // x^3
-          texte = `Exprimer le cube de $${x}$  en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer le cube de $${x}$.` }
+        else {
+          texte = `Exprimer le cube de $${x}$  en fonction de $${x}$.`}
           texteCorr = `Le cube de $${x}$ peut se noter : $${miseEnEvidence(`${x}${x}${x}`)}$, $${miseEnEvidence(`${x}\\times ${x}\\times ${x}`)}$, ou $${miseEnEvidence(`${x}^3`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -389,7 +416,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 9: // -x
-          texte = `Exprimer l'opposé de $${x}$  en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer l'opposé de $${x}$.` }
+        else {
+          texte = `Exprimer l'opposé de $${x}$  en fonction de $${x}$.`}
           texteCorr = `L'opposé de $${x}$ peut se noter : $${miseEnEvidence(`-${x}`)}$ ou $${miseEnEvidence(`-1\\times ${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -425,7 +455,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 10: // 1/x
-          texte = `Exprimer l'inverse de $${x}$  en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer l'inverse de $${x}$.` }
+        else {
+          texte = `Exprimer l'inverse de $${x}$  en fonction de $${x}$.`}
           texteCorr = `L'inverse de $${x}$ peut se noter : $${miseEnEvidence(`${texFractionFromString(1, x)}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -461,7 +494,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 11: // x+k
-          texte = `Exprimer la somme de $${x}$ et ${k} en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer la somme de $${x}$ et ${k}.` }
+        else {
+          texte = `Exprimer la somme de $${x}$ et ${k} en fonction de $${x}$.`}
           texteCorr = `La somme de $${x}$ et ${k} peut se noter : $${miseEnEvidence(`${k}+${x}`)}$ ou $${miseEnEvidence(`${x}+${k}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -497,7 +533,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 12: // kx
-          texte = `Exprimer le produit de $${x}$  par ${k} en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer le produit de $${x}$ par ${k}.` }
+        else {
+          texte = `Exprimer le produit de $${x}$ par ${k} en fonction de $${x}$.`}
           texteCorr = `Le produit de $${x}$ par ${k} peut se noter : $${miseEnEvidence(`${k}${x}`)}$ ou $${miseEnEvidence(`${k}\\times ${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -533,7 +572,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 15: // x/k
-          texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer le quotient de $${x}$ par ${k}.` }
+        else {
+          texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`}
           texteCorr = `Le quotient de $${x}$ par ${k} peut se noter : $${miseEnEvidence(`${texFractionFromString(x, k)}`)}$ ou $${miseEnEvidence(`${x}\\div ${k}`)}$.`
           this.autoCorrection[i].propositions = [
             {
@@ -569,7 +611,10 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
           ]
           break
         case 14: // k/x
-          texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`
+        if (this.sup3)
+          {texte = `Exprimer le quotient de ${k} par $${x}$.` }
+        else {
+          texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`}
           texteCorr = `Le quotient de ${k} par $${x}$ peut se noter : $${miseEnEvidence(`${texFractionFromString(k, x)}`)}$ ou $${miseEnEvidence(`${k}\\div ${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {

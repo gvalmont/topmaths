@@ -21,6 +21,19 @@ export function ppcm(a: number, b: number): number {
 }
 
 /**
+ * Renvoie le PPCM d'une liste de nombres
+ * @param numbers - Liste des nombres
+ * @returns Le PPCM de tous les nombres de la liste
+ * @author Nathan Scheinmann
+ */
+export function ppcmListe(numbers: number[]): number {
+  if (numbers.length === 0) return 0
+  if (numbers.length === 1) return Math.abs(numbers[0])
+
+  return numbers.reduce((acc, current) => ppcm(acc, current))
+}
+
+/**
  * Donne la liste des facteurs premiers d'un nombre
  * @param { number } n - Nombre à décomposer
  * @returns {number[]} - Liste des facteurs premiers

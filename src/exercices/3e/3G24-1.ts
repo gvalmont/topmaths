@@ -510,9 +510,16 @@ export default class TrianglesSemblables extends Exercice {
         case 2: {
           // const sontSemblables = randint(0, 1) === 1
           const angleC = 180 - angleA - angleB
-          const angleF = sontSemblables
+          let angleF = sontSemblables
             ? angleC
             : angleC + choice([-1, 1]) * randint(1, 5) * 2
+          let compteurDeSecours = 0
+          while (angleF === angleB && compteurDeSecours <10) {
+            angleF = sontSemblables
+              ? angleC
+              : angleC + choice([-1, 1]) * randint(1, 5) * 2
+            compteurDeSecours++
+          }
           const angleE = 180 - angleA - angleF
           const codeAngleB = codageAngle(
             A,
@@ -613,7 +620,7 @@ export default class TrianglesSemblables extends Exercice {
           const choices = [
             { label: 'Choisir la proposition qui convient', value: '' },
             { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont semblables', value: 'non' },
+            { label: 'ne sont pas semblables', value: 'non' },
           ]
           if (this.interactif) {
             texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
@@ -643,7 +650,7 @@ export default class TrianglesSemblables extends Exercice {
             widthmincol2: '0px',
           })
           texteCorr =
-            "D'après la règle des 180° dans un triangle, la somme des angles est égale à 180°. <br>"
+            "On sait que, dans un triangle, la somme des mesures des angles est égale à 180°. <br>"
           texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}} = 180^{\\circ} - ${texNombre(angleB, 0)}^{\\circ} - ${texNombre(angleA, 0)}^{\\circ}=${texNombre(angleC, 0)}^{\\circ}$. <br>`
           texteCorr += `$\\widehat{${D.nom + E.nom + F.nom}} = 180^{\\circ} - ${texNombre(angleF, 0)}^{\\circ} - ${texNombre(angleA, 0)}^{\\circ}=${texNombre(angleE, 0)}^{\\circ}$. <br>`
           if (sontSemblables) {
@@ -651,12 +658,12 @@ export default class TrianglesSemblables extends Exercice {
             texteCorr += `$\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$.<br>`
             texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.<br>`
             texteCorr +=
-              "Les 3 paires d'angles sont égales. Comme les angles sont égaux deux à deux, les deux triangles sont semblables.<br>"
+              "Comme les angles sont deux à deux de même mesure, les deux triangles sont semblables.<br>"
           } else {
-            texteCorr += `Les angles du triangle ${B.nom + C.nom + A.nom} mesurent  ${angleA}°, ${angleB}° et ${angleC}°.<br>`
-            texteCorr += `Les angles du triangle ${D.nom + E.nom + F.nom} mesurent  ${angleA}°, ${angleE}° et ${angleF}°.<br>`
+            texteCorr += `Les angles du triangle $${B.nom + C.nom + A.nom}$ mesurent  ${angleA}°, ${angleB}° et ${angleC}°.<br>`
+            texteCorr += `Les angles du triangle $${D.nom + E.nom + F.nom}$ mesurent  ${angleA}°, ${angleE}° et ${angleF}°.<br>`
             texteCorr +=
-              "Les deux triangles ABE et ACD n'ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ne sont pas semblables.<br>"
+              `Les deux triangles $${B.nom + C.nom + A.nom}$ et $${D.nom + E.nom + F.nom}$ n'ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ne sont pas semblables.<br>`
           }
           nbDeChampsReponse++
           break
@@ -755,7 +762,7 @@ export default class TrianglesSemblables extends Exercice {
           const choices = [
             { label: 'Choisir la proposition qui convient', value: '' },
             { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont semblables', value: 'non' },
+            { label: 'ne sont pas semblables', value: 'non' },
           ]
           texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}$ cm, $${texNombre(longueurAC, 1)}$ cm et $${texNombre(longueurBC, 1)}$ cm pour le premier triangle et $${texNombre(longueurDE, 1)}$ cm, $${texNombre(longueurDF, 1)}$ cm et $${texNombre(longueurEF, 1)}$ cm pour le second triangle.`
           if (this.interactif) {
@@ -851,7 +858,7 @@ export default class TrianglesSemblables extends Exercice {
           const choices = [
             { label: 'Choisir la proposition qui convient', value: '' },
             { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont semblables', value: 'non' },
+            { label: 'ne sont pas semblables', value: 'non' },
           ]
           texte += `ont pour angles respectifs $\\widehat{${A.nom + B.nom + C.nom}}$ = $\\widehat{${D.nom + E.nom + F.nom}}$ = 90°, $\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$ et $\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.`
           if (this.interactif) {
@@ -1077,7 +1084,7 @@ export default class TrianglesSemblables extends Exercice {
           const choices = [
             { label: 'Choisir la proposition qui convient', value: '' },
             { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont semblables', value: 'non' },
+            { label: 'ne sont pas semblables', value: 'non' },
           ]
           texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}$ cm, $${texNombre(longueurAC, 1)}$ cm et $${texNombre(longueurBC, 1)}$ cm pour le premier triangle et $${texNombre(longueurDE, 1)}$ cm, $${texNombre(longueurDF, 1)}$ cm et $${texNombre(longueurEF, 1)}$ cm pour le second triangle.`
           if (this.interactif) {

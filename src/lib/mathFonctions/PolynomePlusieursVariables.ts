@@ -94,6 +94,42 @@ class PolynomePlusieursVariables {
     return new PolynomePlusieursVariables(monome)
   }
 
+  static createPolynomeFromRoots(
+    racines: (number | FractionEtendue)[],
+    coeffDominant: FractionEtendue = new FractionEtendue(1, 1),
+  ): PolynomePlusieursVariables {
+    let polynome = new PolynomePlusieursVariables(
+      new MonomePlusieursVariables(new FractionEtendue(1, 1), {
+        variables: ['x'],
+        exposants: [0],
+      }),
+    )
+    racines.forEach((racine) => {
+      const polynomeSimple = new PolynomePlusieursVariables([
+        new MonomePlusieursVariables(new FractionEtendue(1, 1), {
+          variables: ['x'],
+          exposants: [1],
+        }),
+        new MonomePlusieursVariables(
+          new FractionEtendue(-1, 1).produitFraction(racine),
+          {
+            variables: ['x'],
+            exposants: [0],
+          },
+        ),
+      ])
+      polynome = polynome.produit(polynomeSimple)
+    })
+    return polynome
+      .produit(
+        new MonomePlusieursVariables(coeffDominant, {
+          variables: ['x'],
+          exposants: [0],
+        }),
+      )
+      .reduire()
+  }
+
   // Ajoute un monome au PolynomePlusieursVariables, en combinant avec les monomes semblables
 
   // Additionne deux PolynomePlusieursVariabless ou un PolynomePlusieursVariables et un monome
@@ -278,6 +314,67 @@ class PolynomePlusieursVariables {
       (acc, monome) => acc.sommeFraction(monome.evaluer(valeurs)),
       new FractionEtendue(0, 1),
     )
+  }
+
+  /**
+   * Génère un tableau LaTeX avec les évaluations du polynôme pour une liste de valeurs candidates
+   * et retourne la liste des racines (valeurs pour lesquelles P(x) = 0)
+   * @param candidats - Tableau de FractionEtendue à tester
+   * @param variable - Nom de la variable (par défaut 'x')
+   * @param nbColonnes - Nombre de colonnes dans le tableau (par défaut 3)
+   * @returns Object contenant le code LaTeX du tableau et le tableau des racines
+   */
+  tableauEvaluations(
+    candidats: FractionEtendue[],
+    variable: string = 'x',
+    nbColonnes: number = 3,
+  ): { tableauLatex: string; racines: FractionEtendue[] } {
+    const racines: FractionEtendue[] = []
+    const evaluations: Array<{
+      valeur: FractionEtendue
+      resultat: FractionEtendue
+    }> = []
+
+    // Calculer toutes les évaluations
+    for (const candidat of candidats) {
+      const resultat = this.evaluer({ [variable]: candidat })
+      evaluations.push({ valeur: candidat, resultat })
+      if (resultat.num === 0) {
+        racines.push(candidat)
+      }
+    }
+
+    // Construire le tableau LaTeX sans en-tête
+    const nbLignes = Math.ceil(evaluations.length / nbColonnes)
+    let tableauLatex = '\\begin{array}{'
+
+    // Colonnes alignées à gauche
+    for (let i = 0; i < nbColonnes; i++) {
+      tableauLatex += 'l'
+      if (i < nbColonnes - 1) tableauLatex += ' '
+    }
+    tableauLatex += '}\n'
+
+    // Lignes de données
+    for (let ligne = 0; ligne < nbLignes; ligne++) {
+      for (let col = 0; col < nbColonnes; col++) {
+        const index = ligne * nbColonnes + col
+        if (index < evaluations.length) {
+          const { valeur, resultat } = evaluations[index]
+          tableauLatex += `P\\left(${valeur.toLatex()}\\right)=${resultat.toLatex()}`
+        }
+        if (col < nbColonnes - 1) tableauLatex += ' & '
+      }
+      tableauLatex += ' \\\\\n'
+    }
+
+    tableauLatex += '\\end{array}'
+
+    return { tableauLatex, racines }
+  }
+
+  termes(): FractionEtendue[] {
+    return this.reduire().monomes.map((m) => m.coefficient.simplifie())
   }
 
   // should do the same as to string, but with the values of the variables replaced by the values in the object valeurs

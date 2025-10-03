@@ -1,8 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
 import { texteCentre } from '../../../lib/format/miseEnPage'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Exprimer une variable en fonction des autres (formules)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -38,7 +38,7 @@ export default class ExprimerEnFonction extends ExerciceSimple {
     switch (choice([1, 2])) {
       case 1:
         this.question = `Lorsqu’un point mobile suit une trajectoire circulaire de rayon $R$, 
-  en mètre (m), son accélération centripète $a$ (en m/s²) 
+  en mètre (m), son accélération centripète $a$ (en m/s$^2$) 
   et sa vitesse $v$ (en m/s) sont liées par la relation : <br>
   ${choixQ ? `${texteCentre('$a=\\dfrac{v^2}{R}$')}` : `${texteCentre('$v=\\sqrt{aR}$')}`}`
 

@@ -43,10 +43,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
       '1 : Au dixième\n2 : Au centième\n3 : Au millième',
     ]
 
-    this.besoinFormulaire2CaseACocher = [
-      'Enoncé avec « nombre mixte »',
-      false,
-    ]
+    this.besoinFormulaire2CaseACocher = ['Enoncé avec « nombre mixte »', false]
 
     this.niveau = 'sixième'
     this.sup = 3
@@ -688,12 +685,9 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
       texte += 'formes : en écriture décimale, '
       texte += context.isAmc
         ? ''
-        : 
-        this.sup2
-        ? 'comme nombre mixte, '
-        :
-        ", comme somme d'un nombre entier et d'une fraction décimale inférieure à 1,"
-
+        : this.sup2
+          ? 'comme nombre mixte, '
+          : "comme somme d'un nombre entier et d'une fraction décimale inférieure à 1,"
 
       texte += " et sous forme d'une seule fraction décimale.<br>"
       texte += mathalea2d(fenetre, objets)

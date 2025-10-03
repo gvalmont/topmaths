@@ -448,7 +448,7 @@ const situations = [
         "Le nombre de participants n'a pas d'influence sur l'heure de début, donc les grandeurs ne sont pas proportionnelles.",
     },
     {
-      enonce: `Une course avec $500$ participants commence à $8$ h. Une course avec $${texNombre(1000)}$ participants commence $10$ h.`,
+      enonce: `Une course avec $500$ participants commence à $8$ h. Une course avec $${texNombre(1000)}$ participants commence à $10$ h.`,
       grandeurs: ['nombre de participants', 'heure de début'],
       unites: ['participants', 'h'],
       estProportionnel: false,

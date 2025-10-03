@@ -84,7 +84,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
           })
           f = (x) => a * x ** 2 + b
 
-          this.question = `1)Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br>`
+          this.question = `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br>`
           this.question +=
             mathalea2d(
               {
@@ -133,7 +133,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
 
           f = (x) => a * x ** 2 + b
 
-          this.question = `2)Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> `
+          this.question = `Voici la représentation graphique d'une fonction $f$  définie sur $\\mathbb{R}$ par ${this.versionQcm ? '$f(x)=ax^2+b$' : `$f(x)=ax^2${ecritureAlgebrique(b)}$`}.<br> `
           this.question +=
             mathalea2d(
               {

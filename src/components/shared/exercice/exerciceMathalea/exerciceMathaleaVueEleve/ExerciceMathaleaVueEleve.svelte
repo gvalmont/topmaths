@@ -4,26 +4,26 @@
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import {
-      exerciceInteractif,
-      prepareExerciceCliqueFigure,
+    exerciceInteractif,
+    prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
   import {
-      mathaleaGenerateSeed,
-      mathaleaHandleExerciceSimple,
-      mathaleaRenderDiv,
-      mathaleaUpdateUrlFromExercicesParams,
-      mathaleaWriteStudentPreviousAnswers,
+    mathaleaGenerateSeed,
+    mathaleaHandleExerciceSimple,
+    mathaleaRenderDiv,
+    mathaleaUpdateUrlFromExercicesParams,
+    mathaleaWriteStudentPreviousAnswers,
   } from '../../../../../lib/mathalea'
   import {
-      exercicesParams,
-      globalOptions,
-      isMenuNeededForExercises,
-      resultsByExercice,
+    exercicesParams,
+    globalOptions,
+    isMenuNeededForExercises,
+    resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
-      InterfaceParams,
-      InterfaceResultExercice,
+    InterfaceParams,
+    InterfaceResultExercice,
   } from '../../../../../lib/types'
   import { loadMathLive } from '../../../../../modules/loaders'
   import { statsTracker } from '../../../../../modules/statsUtils'
@@ -294,7 +294,10 @@
         buttonScore,
       )
       const isThisTryBetter = numberOfPoints >= previousBestScore
-      if (buttonScore.dataset.capytaleLoadAnswers === '1' && previousBestScore !== numberOfPoints) {
+      if (
+        buttonScore.dataset.capytaleLoadAnswers === '1' &&
+        previousBestScore !== numberOfPoints
+      ) {
         // ICI les réponses ont été chargées par Capytale et
         //  le score ne peut pas être inferieur à best score,
         //  car c'est de la restitution de la meilleure copie
@@ -641,7 +644,7 @@
             class="{exercise.listeQuestions.length === 1 ||
             !exercise.listeAvecNumerotation
               ? 'list-none'
-              : 'list-decimal'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+              : 'list-decimal'} list-inside mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
             {#each exercise.listeQuestions as question, questionIndex (questionIndex + '_' + (exercise.seed || ''))}

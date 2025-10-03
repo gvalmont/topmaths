@@ -51,7 +51,7 @@ export default class Automatismes extends ExerciceQcmA {
       `une ${evo} de $${texNombre(abs(p))}\\,\\%$`,
       p1 + p2 > 0
         ? `une augmentation de $${texNombre(p1 + p2)}\\,\\%$`
-        : `une diminution de $${texNombre(abs(p1 + p2))}\\,\\%$`,
+        : `une réduction de $${texNombre(abs(p1 + p2))}\\,\\%$`,
       `une ${evo} de $${texNombre(abs(p + alea))}\\,\\%$`,
       `une ${evo} de $${texNombre(abs(p + alea2))}\\,\\%$`,
     ]
