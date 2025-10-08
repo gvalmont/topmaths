@@ -19,9 +19,21 @@
   ]
 ]
 
+#remarque(titre: [Preuve que #vert()[\+ 7] + (#rouge()[\– 2]) = #bleu()[\+ 5]])[
+  \+ 7 + (–2) = + 7 #rouge()[\+ #h(1em) 0] #h(1em) + (–2)
+
+  #phantom([\+ 7 + (–2)]) = + 7 #rouge()[\– 2 +   2]    + (–2)
+
+  #phantom([\+ 7 + (–2)]) = #h(1em) #bleu()[5] #h(1em) +   #vert()[2]    + (–2)
+
+  #phantom([\+ 7 + (–2)]) = #h(1em) #bleu()[5] #h(1em) + #vert()[(+2)] + (–2)
+
+  #phantom([\+ 7 + (–2)]) = #h(1em) #bleu()[5] #h(1em) + #h(2.8em) #rouge()[0]
+]
+
 #propriete(titre: "Règle de calcul de la somme de deux relatifs")[
-  Si on ajoute deux relatifs de #rouge()[même signe], leur somme est le relatif de #rouge()[même signe] qui a pour distance à zéro #vert()[la somme des valeurs absolues].\
-  Si on ajoute deux relatifs de #rouge()[signes différents], leur somme est le relatif de signe #rouge()[le signe de celui qui a la plus grande distance à zéro] et de distance à zéro #vert()[la différence des valeurs absolues].
+  Si on ajoute deux relatifs de #rouge()[même signe], leur somme est le relatif de #rouge()[même signe] qui a pour distance à zéro #vert()[la somme des distances à zéro].\
+  Si on ajoute deux relatifs de #rouge()[signes différents], leur somme est le relatif de signe #rouge()[le signe de celui qui a la plus grande distance à zéro] et de distance à zéro #vert()[la différence des distances à zéro].
 ]
 
 #remarque(titre: "Deux remarques importantes")[
