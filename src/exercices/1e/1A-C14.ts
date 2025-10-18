@@ -15,7 +15,7 @@ export const uuid = '42237'
 
 export const refs = {
   'fr-fr': ['1A-C14'],
-  'fr-ch': [],
+  'fr-ch': ['11QCM-2'],
 }
 export default class Auto1AC14 extends CalculExpAvecValeurs {
   constructor() {

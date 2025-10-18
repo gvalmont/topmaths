@@ -259,7 +259,7 @@ Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, KeyboardType
       handleAnswers(this, i, {
         reponse: {
           value: redaction,
-          options: { operationSeulementEtNonResultat: true },
+          options: { expressionNumerique: true },
         },
       })
       //   if (!this.correctionDetaillee) texteCorr = ''

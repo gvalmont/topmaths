@@ -78,7 +78,8 @@
     level: string = '6',
   ): boolean {
     const regexp = new RegExp(`^(auto)?${level}[A-Z]\\d+[A-Z0-9]$`, 'g')
-    return regexp.test(themeCode)
+    const regexp3Auto = new RegExp(`^(3Auto)?[A-Z]\\d+[A-Z0-9]$`, `g`)
+    return regexp.test(themeCode) || regexp3Auto.test(themeCode)
   }
 
   /**

@@ -26,7 +26,7 @@ export const uuid = '0a113'
 
 export const refs = {
   'fr-fr': ['5C11-5'],
-  'fr-ch': [],
+  'fr-ch': ['9NO16-8'],
 }
 export default class ProblemesAvecOperationsEnUneLigne extends Exercice {
   constructor() {
@@ -501,7 +501,7 @@ export default class ProblemesAvecOperationsEnUneLigne extends Exercice {
       handleAnswers(this, i * nbQ, {
         reponse: {
           value: reponse,
-          options: { operationSeulementEtNonResultat: true },
+          options: { expressionNumerique: true },
         },
       })
 

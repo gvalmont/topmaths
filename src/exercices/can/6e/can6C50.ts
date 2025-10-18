@@ -18,7 +18,7 @@ export const uuid = '59129'
 
 export const refs = {
   'fr-fr': ['can6C50', 'auto6N2A-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class RelationUniteDixiemeCentiemeMillieme extends ExerciceSimple {
   constructor() {

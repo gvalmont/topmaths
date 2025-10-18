@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Question from './Question.svelte'
-  import Pagination from './Pagination.svelte'
-  import NavigationButtons from './NavigationButtons.svelte'
-  import { canOptions } from '../../../../lib/stores/canStore'
   import { afterUpdate, onMount } from 'svelte'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { canOptions } from '../../../../lib/stores/canStore'
   import ButtonToggle from '../../../shared/forms/ButtonToggle.svelte'
+  import NavigationButtons from './NavigationButtons.svelte'
+  import Pagination from './Pagination.svelte'
+  import Question from './Question.svelte'
 
   let current: number = 0
   export let questions: string[]
@@ -126,7 +126,7 @@
               id="answer-{current}"
               class="text-coopmaths-warn-800 dark:text-coopmathsdark-warn font-medium"
             >
-              {formatAnswer(questions[current], answers[current])}
+              {@html formatAnswer(questions[current], answers[current])}
             </span>
           </div>
         {/if}
@@ -245,7 +245,7 @@
                 id="answer-{i}"
                 class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-medium"
               >
-                {formatAnswer(questions[i], answers[i])}
+                {@html formatAnswer(questions[i], answers[i])}
               </span>
             </div>
           </div>

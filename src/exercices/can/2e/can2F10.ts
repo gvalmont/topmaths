@@ -28,7 +28,7 @@ export const uuid = '1380f'
 
 export const refs = {
   'fr-fr': ['can2F10'],
-  'fr-ch': [],
+  'fr-ch': ['1mCL3-1'],
 }
 export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
   constructor() {

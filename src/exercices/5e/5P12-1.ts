@@ -201,7 +201,7 @@ export default class ProblemeDeRatio extends Exercice {
                   champ2: { value: k * y },
                   bareme: toutAUnPoint,
                 },
-                typeInteractivite: 'remplisLesBlancs',
+                typeInteractivite: 'fillInTheBlank',
               })
             }
           } else {
@@ -220,7 +220,7 @@ export default class ProblemeDeRatio extends Exercice {
                   champ3: { value: k * z },
                   bareme: toutAUnPoint,
                 },
-                typeInteractivite: 'remplisLesBlancs',
+                typeInteractivite: 'fillInTheBlank',
               })
             }
           }
@@ -257,7 +257,7 @@ export default class ProblemeDeRatio extends Exercice {
                     champ2: { value: k * y },
                     bareme: toutAUnPoint,
                   },
-                  typeInteractivite: 'remplisLesBlancs',
+                  typeInteractivite: 'fillInTheBlank',
                 })
               }
             } else {
@@ -278,7 +278,7 @@ export default class ProblemeDeRatio extends Exercice {
                     champ2: { value: k * y + k * x },
                     bareme: toutAUnPoint,
                   },
-                  typeInteractivite: 'remplisLesBlancs',
+                  typeInteractivite: 'fillInTheBlank',
                 })
               }
             }
@@ -301,7 +301,7 @@ export default class ProblemeDeRatio extends Exercice {
                     champ3: { value: String(k * z) },
                     bareme: toutAUnPoint,
                   },
-                  typeInteractivite: 'remplisLesBlancs',
+                  typeInteractivite: 'fillInTheBlank',
                 })
               }
             } else {
@@ -322,7 +322,7 @@ export default class ProblemeDeRatio extends Exercice {
                     champ3: { value: String(k * (x + y + z)) },
                     bareme: toutAUnPoint,
                   },
-                  typeInteractivite: 'remplisLesBlancs',
+                  typeInteractivite: 'fillInTheBlank',
                 })
               }
             }
@@ -381,7 +381,7 @@ export default class ProblemeDeRatio extends Exercice {
                     champ2: { value: k * y },
                     bareme: toutAUnPoint,
                   },
-                  typeInteractivite: 'remplisLesBlancs',
+                  typeInteractivite: 'fillInTheBlank',
                 })
               }
             }
@@ -416,7 +416,7 @@ export default class ProblemeDeRatio extends Exercice {
                     },
                     bareme: toutAUnPoint,
                   },
-                  typeInteractivite: 'remplisLesBlancs',
+                  typeInteractivite: 'fillInTheBlank',
                 })
               }
             } else {
@@ -440,7 +440,7 @@ export default class ProblemeDeRatio extends Exercice {
                     champ3: { value: String(k * z - k * y) },
                     bareme: toutAUnPoint,
                   },
-                  typeInteractivite: 'remplisLesBlancs',
+                  typeInteractivite: 'fillInTheBlank',
                 })
               }
             }
@@ -476,7 +476,7 @@ export default class ProblemeDeRatio extends Exercice {
                   champ3: { value: String(k * z - k * y) },
                   bareme: toutAUnPoint,
                 },
-                typeInteractivite: 'remplisLesBlancs',
+                typeInteractivite: 'fillInTheBlank',
               })
             }
           } else {
@@ -504,7 +504,7 @@ export default class ProblemeDeRatio extends Exercice {
                   champ2: { value: String(k * 15 * (x + y)) },
                   bareme: toutAUnPoint,
                 },
-                typeInteractivite: 'remplisLesBlancs',
+                typeInteractivite: 'fillInTheBlank',
               })
             }
           }
@@ -527,7 +527,7 @@ export default class ProblemeDeRatio extends Exercice {
                   question: i,
                   content: `${texNombre(a, 0)}\\times %{champ1}`,
                   objetReponse: { champ1: { value: texNombre(b, 0) } },
-                  typeInteractivite: 'remplisLesBlancs',
+                  typeInteractivite: 'fillInTheBlank',
                 })
             }
           } else {
@@ -547,7 +547,7 @@ export default class ProblemeDeRatio extends Exercice {
                     question: i,
                     content: `${texNombre(a, 0)}\\times %{champ1}`,
                     objetReponse: { champ1: { value: String(k * y) } },
-                    typeInteractivite: 'remplisLesBlancs',
+                    typeInteractivite: 'fillInTheBlank',
                   })
               }
               texteCorr += `On doit avoir : $${texFractionFromString(a, x)}=${texFractionFromString('h', y)}$<br>`
@@ -566,7 +566,7 @@ export default class ProblemeDeRatio extends Exercice {
                     question: i,
                     content: ` %{champ1}\\times${texNombre(b, 0)}`,
                     objetReponse: { champ1: { value: String(k * x) } },
-                    typeInteractivite: 'remplisLesBlancs',
+                    typeInteractivite: 'fillInTheBlank',
                   })
               }
               texteCorr += `On doit avoir : $${texFractionFromString(b, y)}=${texFractionFromString('L', x)}$<br>`
@@ -666,7 +666,7 @@ export default class ProblemeDeRatio extends Exercice {
                       bareme: toutAUnPoint,
                       callback,
                     },
-                    typeInteractivite: 'remplisLesBlancs',
+                    typeInteractivite: 'fillInTheBlank',
                   })
               } else {
                 texte +=

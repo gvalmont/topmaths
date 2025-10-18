@@ -30,9 +30,7 @@ export default class DifferenceFractionsCompatibles extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-          this.optionsChampTexte = { texteAvant: '<br>' }
-
-    // this.formatInteractif = 'fractionEgale'
+    this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
   nouvelleVersion() {

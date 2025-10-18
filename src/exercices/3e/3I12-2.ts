@@ -1,4 +1,3 @@
-import { min } from 'mathjs'
 import { lampeMessage } from '../../lib/format/message'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -298,14 +297,18 @@ export default class ComprendreScriptMultiples extends Exercice {
       this.consigne =
         'Lire ce script Scratch associé à un lutin et répondre ensuite'
       this.consigne +=
-        min(choixQuestions.length, nbDeQuestions[0]) > 1
+        Math.min(choixQuestions.length, nbDeQuestions[0]) > 1
           ? ' aux questions.'
           : ' à la question.'
       let colonne2 = ''
       texteCorr = ''
       let enonceAMC = ''
-      for (let i = 0; i < min(choixQuestions.length, nbDeQuestions[0]); i++) {
-        if (min(choixQuestions.length, nbDeQuestions[0]) === 1) {
+      for (
+        let i = 0;
+        i < Math.min(choixQuestions.length, nbDeQuestions[0]);
+        i++
+      ) {
+        if (Math.min(choixQuestions.length, nbDeQuestions[0]) === 1) {
           enonceAMC = choixQuestions[0][0] + '<br>'
           texteCorr = choixQuestions[0][1] + '<br>'
         } else {

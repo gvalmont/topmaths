@@ -12,7 +12,7 @@ export const uuid = '0d8b3'
 
 export const refs = {
   'fr-fr': ['2N15-1'],
-  'fr-ch': [],
+  'fr-ch': ['2mFctPoly-5'],
 }
 export default class ValeurAbsolue extends Exercice {
   constructor() {

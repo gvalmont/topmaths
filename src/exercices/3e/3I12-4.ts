@@ -1,4 +1,3 @@
-import { max, min } from 'mathjs'
 import { lampeMessage } from '../../lib/format/message'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -225,8 +224,8 @@ export default class ComprendreScriptListeMultiples extends Exercice {
         [
           `Si le nombre saisi est ${nb03}, que dit précisément le lutin ?`,
           `${choixScript[i] === 1 ? nb03 + ' est un multiple de 1' : choixScript[i] === 2 ? '1 divise ' + nb03 : '1 est un diviseur de ' + nb03}.<br>
-      ${choixScript[i] === 1 ? nb03 + ' est un multiple de ' + min(nb01, nb02) : choixScript[i] === 2 ? min(nb01, nb02) + ' divise ' + nb03 : min(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
-      ${choixScript[i] === 1 ? nb03 + ' est un multiple de ' + max(nb01, nb02) : choixScript[i] === 2 ? max(nb01, nb02) + ' divise ' + nb03 : max(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
+      ${choixScript[i] === 1 ? nb03 + ' est un multiple de ' + Math.min(nb01, nb02) : choixScript[i] === 2 ? Math.min(nb01, nb02) + ' divise ' + nb03 : Math.min(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
+      ${choixScript[i] === 1 ? nb03 + ' est un multiple de ' + Math.max(nb01, nb02) : choixScript[i] === 2 ? Math.max(nb01, nb02) + ' divise ' + nb03 : Math.max(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
       ${choixScript[i] === 1 ? nb03 + ' est un multiple de ' + nb03 : choixScript[i] === 2 ? nb03 + ' divise ' + nb03 : nb03 + ' est un diviseur de ' + nb03}.`,
           1,
         ],
@@ -290,13 +289,17 @@ export default class ComprendreScriptListeMultiples extends Exercice {
       this.consigne =
         'Lire ce script Scratch associé à un lutin et répondre ensuite'
       this.consigne +=
-        min(choixQuestions.length, nbDeQuestions[0]) > 1
+        Math.min(choixQuestions.length, nbDeQuestions[0]) > 1
           ? ' aux questions.'
           : ' à la question.'
       texteCorr = ''
       let enonceAMC = ''
-      for (let i = 0; i < min(choixQuestions.length, nbDeQuestions[0]); i++) {
-        if (min(choixQuestions.length, nbDeQuestions[0]) === 1) {
+      for (
+        let i = 0;
+        i < Math.min(choixQuestions.length, nbDeQuestions[0]);
+        i++
+      ) {
+        if (Math.min(choixQuestions.length, nbDeQuestions[0]) === 1) {
           enonceAMC =
             typeof choixQuestions[0][0] === 'string'
               ? choixQuestions[0][0]

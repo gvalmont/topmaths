@@ -8,7 +8,7 @@ export const dateDeModifImportante = '09/05/2025'
 export const uuid = '1e42b'
 export const refs = {
   'fr-fr': ['2N31-2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class PuissancesDunRelatif12e extends PuissancesDunRelatif1 {
   constructor() {

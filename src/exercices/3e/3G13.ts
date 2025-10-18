@@ -1,4 +1,3 @@
-import { max } from 'mathjs'
 import { arcPointPointAngle } from '../../lib/2d/cercle'
 import { texteSurArc, texteSurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
@@ -237,11 +236,12 @@ export default class CalculsHomothetie extends Exercice {
       ).valeurAbsolue().valeurDecimale // Pas en version Latex contrairement à avant
 
       let largeurFigure = new FractionEtendue(
-        max(
+        Math.max(
           OA.valeurAbsolue().valeurDecimale,
           OhA.valeurAbsolue().valeurDecimale,
           AhA.valeurAbsolue().valeurDecimale,
         ),
+        1,
       )
       largeurFigure = new FractionEtendue(10, 1).diviseFraction(largeurFigure)
       largeurFigure = largeurFigure.multiplieEntier(2)

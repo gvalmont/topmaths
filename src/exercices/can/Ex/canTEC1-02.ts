@@ -17,7 +17,7 @@ export const uuid = '30cc1'
 
 export const refs = {
   'fr-fr': ['canTEC1-02'],
-  'fr-ch': [],
+  'fr-ch': ['3mNC-5'],
 }
 export default class SommeDeComplexes extends ExerciceSimple {
   constructor() {

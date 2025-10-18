@@ -1,11 +1,11 @@
 import { droiteGraduee } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Trouver un coefficient de colinéarité (graphique)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,8 +28,6 @@ export default class VecteursCol extends ExerciceSimple {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion() {

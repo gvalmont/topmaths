@@ -19,7 +19,7 @@ export const uuid = '20cf0'
 
 export const refs = {
   'fr-fr': ['can6D09','6M4C-flash5'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class HeureDecimalesMinutes extends ExerciceSimple {
   constructor() {

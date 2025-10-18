@@ -9,7 +9,7 @@ export const uuid = '28a36'
 
 export const refs = {
   'fr-fr': ['BP2FONC28'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ExerciceBPFONC28 extends Exercice2F106 {
   constructor() {

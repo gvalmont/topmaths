@@ -20,7 +20,7 @@ export const uuid = '031f0'
 
 export const refs = {
   'fr-fr': ['can2C11'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CoeffTaux extends ExerciceSimple {
   constructor() {

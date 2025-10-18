@@ -56,7 +56,7 @@ export default class Automatismes extends ExerciceQcmA {
       `une ${evo} de $${texNombre(abs(p + alea2))}\\,\\%$`,
     ]
 
-    this.enonce = `Une ${evo1} de $${abs(p1)}$ % suivie d'une ${evo2} de $${abs(p2)}$ % équivaut à :`
+    this.enonce = `Une ${evo1} de $${abs(p1)}\\,\\%$  suivie d'une ${evo2} de $${abs(p2)}\\,\\%$  équivaut à :`
     this.correction =
       'À partir des évolutions en pourcentage, on déduit les coefficients multiplicateurs : <br>'
     if (p1 > 0) {

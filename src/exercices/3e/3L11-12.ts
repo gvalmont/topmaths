@@ -1,14 +1,13 @@
-import { max } from 'mathjs'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import {
   choice,
   combinaisonListes,
   getRandomSubarray,
 } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Multiplier des monômes'
 export const dateDePublication = '19/08/2024'
 
@@ -69,7 +68,7 @@ export default class nomExercice extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte, texteCorr: string
       const degMin = this.sup2 - 1
-      const degMax = max(this.sup3, this.sup2 - 1)
+      const degMax = Math.max(this.sup3, this.sup2 - 1)
       const variables = ['x', 'y', 'z', 'r', 's', 't']
       const variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeCoeffListe = ['entier', 'fractionnaire']

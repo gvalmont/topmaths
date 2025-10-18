@@ -8,11 +8,11 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
-import { exp } from 'mathjs'
+
 export const uuid = 'qsdf'
 export const refs = {
   'fr-fr': ['TSA2-QCM09'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -80,7 +80,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     droiteCD.epaisseur = 2
     droiteCD.color = colorToLatexOrHTML('red')
     droiteCD.epaisseur = 2
-    const f = (x: number) => (a * x + b) * exp(x)
+    const f = (x: number) => (a * x + b) * Math.exp(x)
     const graphique = mathalea2d(
       {
         xmin: -10,

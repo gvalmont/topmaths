@@ -2,21 +2,21 @@ import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { deuxColonnes } from '../../lib/format/miseEnPage'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { jourAuHasard } from '../../lib/outils/dateEtHoraires'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { jourAuHasard } from '../../lib/outils/dateEtHoraires'
-import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
 export const titre = 'Modéliser des problèmes'
@@ -789,7 +789,7 @@ export default class ModelisationProblemes extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: correctionSansSchema,
-            options: { operationSeulementEtNonResultat: true },
+            options: { expressionNumerique: true },
           },
         })
         texteCorr += "L'opération qui peut résoudre le problème est : "

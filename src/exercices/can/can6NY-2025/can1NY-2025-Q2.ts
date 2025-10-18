@@ -1,19 +1,19 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
 import Decimal from 'decimal.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { abs } from '../../../lib/outils/nombres'
+import { randint } from '../../../modules/outils'
 export const titre = 'Écrire un décimal sous une forme particulière'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '27504'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

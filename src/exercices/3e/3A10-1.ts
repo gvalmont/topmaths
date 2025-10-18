@@ -1,15 +1,15 @@
+import { warnMessage } from '../../lib/format/message'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import {
   combinaisonListesSansChangerOrdre,
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { warnMessage } from '../../lib/format/message'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 export const titre = 'Indiquer si des nombres sont premiers ou pas'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -33,7 +33,6 @@ export const refs = {
 const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
 export default class PremierOuPas extends Exercice {
-  level: number
   constructor() {
     super()
     this.besoinFormulaireNumerique = [
@@ -42,10 +41,10 @@ export default class PremierOuPas extends Exercice {
       '1 : Sans calculatrice\n2 : Avec calculatrice',
     ]
     this.besoinFormulaire2CaseACocher = [
-      'Afficher la liste des nombres premiers inférieurs à 100',
+      'Afficher la liste des premiers nombres premiers',
     ]
     this.besoinFormulaire3CaseACocher = [
-      'Ne proposer que des nombres premiers inférieurs à 100',
+      'Que des nombres premiers inférieurs à 100',
     ]
     // pas de différence entre la version html et la version latex pour la consigne
     context.isHtml ? (this.spacing = 1) : (this.spacing = 2)
@@ -58,21 +57,19 @@ export default class PremierOuPas extends Exercice {
     this.sup = 1
     this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
     this.sup3 = false
-    this.level = 2
     // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
   }
 
   nouvelleVersion() {
-    this.consigne =
-      this.level === 2
-        ? this.nbQuestions > 1
-          ? 'Justifier que les nombres suivants sont premiers ou pas.'
-          : 'Justifier que le nombre suivant est premier ou pas.'
-        : this.nbQuestions > 1
-          ? 'Indiquer si les nombres suivants sont premiers ou pas.' +
-            (this.interactif ? '' : " Justifier s'ils ne le sont pas.")
-          : 'Indiquer si le nombre suivant est premier ou pas.' +
-            (this.interactif ? '' : " Justifier s'il ne l'est pas.")
+    this.consigne = !this.sup3
+      ? this.nbQuestions > 1
+        ? 'Justifier que les nombres suivants sont premiers ou pas.'
+        : 'Justifier que le nombre suivant est premier ou pas.'
+      : this.nbQuestions > 1
+        ? 'Indiquer si les nombres suivants sont premiers ou pas.' +
+          (this.interactif ? '' : " Justifier s'ils ne le sont pas.")
+        : 'Indiquer si le nombre suivant est premier ou pas.' +
+          (this.interactif ? '' : " Justifier s'il ne l'est pas.")
     let typesDeQuestions
 
     let typesDeQuestionsDisponibles // = [1, 2, 3, 6, 7];
@@ -118,14 +115,13 @@ export default class PremierOuPas extends Exercice {
       let evenSum // pour la somme des chiffres de rang impair
       let oddSum // pour la somme des chiffres de rang pair
       let bonneReponse
-      this.introduction =
-        this.level === 2
-          ? warnMessage(
-              'Penser aux critères de divisibilité.',
-              'nombres',
-              'Coup de pouce',
-            )
-          : ''
+      this.introduction = !this.sup3
+        ? warnMessage(
+            'Penser aux critères de divisibilité.',
+            'nombres',
+            'Coup de pouce',
+          )
+        : ''
       if (this.sup2) {
         this.introduction += warnMessage(
           stringRappel,
@@ -135,7 +131,7 @@ export default class PremierOuPas extends Exercice {
       } else this.introduction += ''
       switch (typesDeQuestions) {
         case 1: // nombre pair
-          N = this.level === 2 ? 2 * randint(51, 499) : 2 * randint(12, 49)
+          N = !this.sup3 ? 2 * randint(51, 499) : 2 * randint(12, 49)
           texte = nombreAvecEspace(N)
           texteCorr =
             'Comme ' +
@@ -149,9 +145,9 @@ export default class PremierOuPas extends Exercice {
           break
         case 2: // Multiple de 3
           sum = 0 // pour la valeur de la somme;
-          N = this.level === 2 ? 3 * randint(34, 333) : 3 * randint(11, 33) // on initialise avant la boucle car on a peut être de la chance
+          N = !this.sup3 ? 3 * randint(34, 333) : 3 * randint(11, 33) // on initialise avant la boucle car on a peut être de la chance
           while (N % 2 === 0 || N % 5 === 0) {
-            N = this.level === 2 ? 3 * randint(34, 333) : 3 * randint(11, 33)
+            N = !this.sup3 ? 3 * randint(34, 333) : 3 * randint(11, 33)
           }
           texte = nombreAvecEspace(N)
           texteCorr = 'Comme ' + N.toString().charAt(0)
@@ -170,7 +166,7 @@ export default class PremierOuPas extends Exercice {
           bonneReponse = 'non'
           break
         case 3: // Multiple de 5
-          N = this.level === 2 ? 5 * randint(20, 200) : 5 * randint(3, 19)
+          N = !this.sup3 ? 5 * randint(20, 200) : 5 * randint(3, 19)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme le chiffre des unités de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)}, alors ${nombreAvecEspace(N)} est divisible par 5, `
           texteCorr +=
@@ -182,9 +178,9 @@ export default class PremierOuPas extends Exercice {
           bonneReponse = 'non'
           break
         case 4: // Multiple de 7
-          N = this.level === 2 ? 7 * randint(15, 143) : 7 * randint(2, 14)
+          N = !this.sup3 ? 7 * randint(15, 143) : 7 * randint(2, 14)
           while (N % 2 === 0 || N % 3 === 0 || N % 5 === 0) {
-            N = this.level === 2 ? 7 * randint(15, 143) : 7 * randint(2, 14)
+            N = !this.sup3 ? 7 * randint(15, 143) : 7 * randint(2, 14)
           }
           texte = nombreAvecEspace(N)
           Nlongueur = N.toString().length
@@ -309,7 +305,7 @@ export default class PremierOuPas extends Exercice {
           break
         case 7: // nombre premier inférieur à 529, si le nombre premier dépasse 100 on affiche le coup de pouce
           // rang du nombre premier choisi
-          r = randint(25, prems.length - 1)
+          r = !this.sup3 ? randint(25, prems.length - 1) : randint(6, 24)
           N = prems[r] // on choisit un nombre premier inférieur à 529
 
           if (N > 100) {
@@ -358,13 +354,12 @@ export default class PremierOuPas extends Exercice {
             tabPremiersATester.push(prems[r])
             r++
           }
-          texteCorr =
-            this.level === 1
-              ? texteEnCouleurEtGras(
-                  nombreAvecEspace(N) + ' est un nombre premier',
-                ) +
-                ' car il fait partie de la liste des nombres premiers à connaitre. Sinon, sans cette connaissance, il y a la méthode suivante.<br>'
-              : ''
+          texteCorr = !this.sup3
+            ? ''
+            : texteEnCouleurEtGras(
+                nombreAvecEspace(N) + ' est un nombre premier',
+              ) +
+              ' car il fait partie de la liste des nombres premiers à connaitre. Sinon, sans cette connaissance, il y a la méthode suivante.<br>'
           texteCorr += `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
           if (N === 2 || N === 3) {
             texteCorr +=

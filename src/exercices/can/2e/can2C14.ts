@@ -19,7 +19,7 @@ export const uuid = '27f5c'
 
 export const refs = {
   'fr-fr': ['can2C14'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CalculAvecRacineDef extends ExerciceSimple {
   constructor() {

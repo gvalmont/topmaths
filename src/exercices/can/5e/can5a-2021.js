@@ -3,13 +3,21 @@ import { codageSegment } from '../../../lib/2d/codages'
 import { milieu, point } from '../../../lib/2d/points'
 import { droiteGraduee } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
+import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../../lib/outils/embellissements'
-import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import {
@@ -17,23 +25,14 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import {
   fraction,
   obtenirListeFractionsIrreductibles,
 } from '../../../modules/fractions'
-import { min, round } from 'mathjs'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../../lib/2d/tableau'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 export const titre = 'CAN 5e sujet 2021'
 export const interactifReady = true
@@ -72,8 +71,8 @@ export default class SujetCAN20215ieme extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 22)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 22)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8])
       .slice(-nbQ1)
       .sort(compareNombres)

@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   texFractionFromString,
@@ -7,6 +7,7 @@ import {
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
+  reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres'
@@ -15,15 +16,27 @@ import { pgcd } from '../../lib/outils/primalite'
 import { texSymbole } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-
 import FractionEtendue from '../../modules/FractionEtendue'
+
+type SymboleInegalite = '≤' | '≥' | '<' | '>'
+type Question =
+  | 'ax≤b'
+  | 'x+b≤c'
+  | 'ax+b≤c'
+  | 'ax+b≤0'
+  | 'ax+b≤cx+d'
+  | 'a(bx+c)≤dx+e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre une inéquation du premier degré'
-export const dateDeModifImportante = '07/06/2024'
+export const dateDeModifImportante = '08/10/2025'
 /**
  * Inéquations du premier degré
  * * Type 1 : x+a≤b ou ax≤b
@@ -39,14 +52,31 @@ export const refs = {
   'fr-fr': ['2N60-4', 'BP2RES19'],
   'fr-ch': [],
 }
+
+function buildConclusion(
+  borneInfinie: 'gauche' | 'droite',
+  borneFinie: FractionEtendue,
+  estStrict: boolean,
+): { reponse: string; correction: string } {
+  let reponse: string
+  if (borneInfinie === 'gauche') {
+    reponse = `\\left] -\\infty\\,;\\,${borneFinie.texFractionSimplifiee}\\right${estStrict ? '[' : ']'}`
+  } else {
+    reponse = `\\left${estStrict ? ']' : '['}${borneFinie.texFractionSimplifiee}\\,;\\,+\\infty\\right[`
+  }
+  return {
+    reponse: reponse,
+    correction: `L'ensemble de solutions de l'inéquation est $S = ${miseEnEvidence(reponse)}$.`,
+  }
+}
+
 export default class ExerciceInequation1 extends Exercice {
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
-    this.besoinFormulaire2Numerique = [
+    this.besoinFormulaire2Texte = [
       "Type d'inéquations",
-      4,
-      '1 : ax≤b ou x+a≤b ou x-a≤b\n2 : ax+b≤c\n3 : ax+b≤cx+d\n4 : Les 2 types précédents',
+      '1 : ax≤b ou x+a≤b\n2 : ax+b≤c ou ax+b≤0\n3 : ax+b≤cx+d\n4 : a(bx+c)≤dx+e\n5 : Mélange',
     ]
 
     this.spacing = 1.5
@@ -56,7 +86,7 @@ export default class ExerciceInequation1 extends Exercice {
       this.correctionDetaillee = false
     }
     this.sup = true // Avec des nombres relatifs
-    this.sup2 = 4 // Choix du type d'inéquation
+    this.sup2 = 5 // Choix du type d'inéquation
     this.nbQuestions = 2
   }
 
@@ -67,41 +97,58 @@ export default class ExerciceInequation1 extends Exercice {
         ? 'les inéquations suivantes'
         : "l'inéquation suivante") +
       '.'
-    let listeTypeDeQuestions
-
-    switch (this.sup2.toString()) {
-      case '1':
-        listeTypeDeQuestions = ['ax≤b', 'x+b≤c']
-        break
-      case '2':
-        listeTypeDeQuestions = ['ax+b≤c']
-
-        break
-      case '3':
-        listeTypeDeQuestions = ['ax+b≤cx+d']
-        break
-      default:
-        listeTypeDeQuestions = [
-          'ax+b≤0',
-          'ax+b≤c',
-          'ax≤b',
-          'x+b≤c',
-          'ax+b≤cx+d',
-        ]
-        break
+    if (this.interactif) {
+      this.consigne +=
+        "<p>On donnera la réponse sous forme d'un intervalle.</p>"
     }
-    listeTypeDeQuestions = combinaisonListes(
-      listeTypeDeQuestions,
-      this.nbQuestions,
-    )
+
+    const typeQuestionsPermis: Question[] = [
+      'ax≤b',
+      'x+b≤c',
+      'ax+b≤c',
+      'ax+b≤0', // pourquoi ce cas là est-il géré à part bien que non proposé explicitement à l'utilisateur
+      'ax+b≤cx+d',
+      'a(bx+c)≤dx+e',
+    ]
+    let listeTypeDeQuestions: Question[] = []
+    const typeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 1,
+      nbQuestions: this.nbQuestions,
+    })
+
+    for (let index = 0; index < this.nbQuestions; index++) {
+      switch (typeDeQuestions[index]) {
+        case 1:
+          listeTypeDeQuestions.push(choice(typeQuestionsPermis.slice(2)))
+          break
+        case 2:
+          listeTypeDeQuestions.push(choice(typeQuestionsPermis.slice(2, 4)))
+          break
+        case 3:
+          listeTypeDeQuestions.push(typeQuestionsPermis[4])
+          break
+        case 4:
+          listeTypeDeQuestions.push(typeQuestionsPermis[5])
+          break
+        case 5:
+          listeTypeDeQuestions.push(choice(typeQuestionsPermis))
+          break
+      }
+    }
+
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       let a = randint(2, 13)
       let b = randint(1, 13)
       let c = randint(1, 13)
       let d = randint(1, 13)
-      let symboleInegalite: '≤' | '≥' | '<' | '>' | '\\' = '>'
-      let symboleInegaliteOppose: '≤' | '≥' | '<' | '>' | '\\' = '<'
+      let e = randint(1, 13) // sert seulement dans le dernier des types de questions
+      let symboleInegalite: SymboleInegalite | '\\' = '>'
+      let symboleInegaliteOppose: SymboleInegalite | '\\' = '<'
       let texte = ''
       let texteCorr = ''
       let reponse = ''
@@ -110,12 +157,10 @@ export default class ExerciceInequation1 extends Exercice {
         case 1:
           symboleInegalite = '<'
           symboleInegaliteOppose = '>'
-
           break
         case 2:
           symboleInegalite = '≤'
           symboleInegaliteOppose = '≥'
-
           break
         case 3:
           symboleInegalite = '>'
@@ -126,12 +171,15 @@ export default class ExerciceInequation1 extends Exercice {
           symboleInegaliteOppose = '≤'
           break
       }
+      const estStrict = ['<', '>'].includes(symboleInegalite)
       if (this.sup) {
         a *= choice([-1, 1])
         b *= choice([-1, 1])
         c *= choice([-1, 1])
         d *= choice([-1, 1])
+        e *= choice([-1, 1])
       }
+
       if (
         listeTypeDeQuestions[i] === 'ax+b≤0' ||
         listeTypeDeQuestions[i] === 'ax+b≤c'
@@ -141,7 +189,7 @@ export default class ExerciceInequation1 extends Exercice {
         }
         if (!this.sup && c < b) {
           b = randint(1, 9)
-          c = randint(b, 15) // c sera plus grand que b pour que c-b>0
+          c = randint(b, 15) // c sera plus grand que b pour que c-b≥0
         }
         texte = `$${a}x${ecritureAlgebrique(b)}${texSymbole(symboleInegalite)}${c}$`
         texteCorr = texte + '<br>'
@@ -178,31 +226,18 @@ export default class ExerciceInequation1 extends Exercice {
             texteCorr += `<br>$x${texSymbole(symboleInegalite)}${texFractionReduite(c - b, a)}$`
           }
         }
-        if (
+        // Conclusion
+        const borneInfinie =
           (symboleInegalite === '<' && a >= 0) ||
-          (symboleInegalite === '>' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = ${miseEnEvidence(`\\left] -\\infty\\,;\\,${texFractionReduite(c - b, a)} \\right[`)}$.`
-          reponse = `]-\\infty;${new FractionEtendue(c - b, a).texFraction}[`
-        } else if (
+          (symboleInegalite === '>' && a < 0) ||
           (symboleInegalite === '≤' && a >= 0) ||
           (symboleInegalite === '≥' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] -\\infty\\,;\\,${texFractionReduite(c - b, a)} \\right] `)}$.`
-          reponse = `]-\\infty;${new FractionEtendue(c - b, a).texFraction}]`
-        } else if (
-          (symboleInegalite === '>' && a >= 0) ||
-          (symboleInegalite === '<' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] ${texFractionReduite(c - b, a)}\\,;\\,+\\infty \\right[`)}$.`
-          reponse = `]${new FractionEtendue(c - b, a).texFraction};+\\infty[`
-        } else if (
-          (symboleInegalite === '≥' && a >= 0) ||
-          (symboleInegalite === '≤' && a < 0)
-        ) {
-          reponse = `[${new FractionEtendue(c - b, a).texFraction};+\\infty[`
-          texteCorr += `<br> $${reponse}$L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left[ ${texFractionReduite(c - b, a)}\\,;\\,+\\infty \\right[ `)}$.`
-        }
+            ? 'gauche'
+            : 'droite'
+        const borneFinie = new FractionEtendue(c - b, a)
+        const conclusion = buildConclusion(borneInfinie, borneFinie, estStrict)
+        reponse = conclusion.reponse
+        texteCorr += `<br> ${conclusion.correction}`
       } else if (listeTypeDeQuestions[i] === 'x+b≤c') {
         a = 1
         if (!this.sup && c < b) {
@@ -221,31 +256,18 @@ export default class ExerciceInequation1 extends Exercice {
         texteCorr += `$x${ecritureAlgebrique(b)}${miseEnEvidence(ecritureAlgebrique(-1 * b), 'blue')}
           ${texSymbole(symboleInegalite)}${c}${miseEnEvidence(ecritureAlgebrique(-1 * b), 'blue')}$<br>`
         texteCorr += `$x${texSymbole(symboleInegalite)}${c - b}$`
-        if (
+        // Conclusion
+        const borneInfinie =
           (symboleInegalite === '<' && a >= 0) ||
-          (symboleInegalite === '>' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] -\\infty\\,;\\,${c - b} \\right[`)}$.`
-          reponse = `]-\\infty;${c - b}[`
-        } else if (
+          (symboleInegalite === '>' && a < 0) ||
           (symboleInegalite === '≤' && a >= 0) ||
           (symboleInegalite === '≥' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] -\\infty\\,;\\,${c - b} \\right] `)}$.`
-          reponse = `]-\\infty;${c - b}]`
-        } else if (
-          (symboleInegalite === '>' && a >= 0) ||
-          (symboleInegalite === '<' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] ${c - b}\\,;\\,+\\infty \\right[`)}$.`
-          reponse = `]${c - b};+\\infty[`
-        } else if (
-          (symboleInegalite === '≥' && a >= 0) ||
-          (symboleInegalite === '≤' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left[${c - b}\\,;\\,+\\infty \\right[`)}$.`
-          reponse = `[${c - b};+\\infty[`
-        }
+            ? 'gauche'
+            : 'droite'
+        const borneFinie = new FractionEtendue(c - b, 1)
+        const conclusion = buildConclusion(borneInfinie, borneFinie, estStrict)
+        reponse = conclusion.reponse
+        texteCorr += `<br> ${conclusion.correction}`
       } else if (listeTypeDeQuestions[i] === 'ax≤b') {
         texte = `$${a}x${texSymbole(symboleInegalite)}${b}$`
         texteCorr = texte + '<br>'
@@ -272,33 +294,19 @@ export default class ExerciceInequation1 extends Exercice {
             texteCorr += `<br>$x${texSymbole(symboleInegalite)}${texFractionReduite(b, a)}$`
           }
         }
-        if (
+        // Conclusion
+        const borneInfinie =
           (symboleInegalite === '<' && a >= 0) ||
-          (symboleInegalite === '>' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] -\\infty\\,;\\,${texFractionReduite(b, a)} \\right[`)}$.`
-          reponse = `]-\\infty;${new FractionEtendue(b, a).texFraction}[`
-        } else if (
+          (symboleInegalite === '>' && a < 0) ||
           (symboleInegalite === '≤' && a >= 0) ||
           (symboleInegalite === '≥' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] -\\infty\\,;\\,${texFractionReduite(b, a)} \\right]`)}$.`
-          reponse = `]-\\infty;${new FractionEtendue(b, a).texFraction}]`
-        } else if (
-          (symboleInegalite === '>' && a >= 0) ||
-          (symboleInegalite === '<' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = ${miseEnEvidence(`\\left] ${texFractionReduite(b, a)}\\,;\\,+\\infty \\right[`)}$.`
-          reponse = `]${new FractionEtendue(b, a).texFraction};+\\infty[`
-        } else if (
-          (symboleInegalite === '≥' && a >= 0) ||
-          (symboleInegalite === '≤' && a < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left[ ${texFractionReduite(b, a)}\\,;\\,+\\infty \\right[`)}$.`
-          reponse = `[${new FractionEtendue(b, a).texFraction};+\\infty[`
-        }
-      } else {
-        //  if (listeTypeDeQuestions[i] === 'ax+b≤cx+d') pas de condition pour le dernier if ! JCL le 5/02/2025
+            ? 'gauche'
+            : 'droite'
+        const borneFinie = new FractionEtendue(b, a)
+        const conclusion = buildConclusion(borneInfinie, borneFinie, estStrict)
+        reponse = conclusion.reponse
+        texteCorr += `<br> ${conclusion.correction}`
+      } else if (listeTypeDeQuestions[i] === 'ax+b≤cx+d') {
         if (c === a) {
           c = randint(1, 13, [a])
         } // sinon on arrive à une division par 0
@@ -356,33 +364,80 @@ export default class ExerciceInequation1 extends Exercice {
             texteCorr += `<br>$x${texSymbole(symboleInegalite)}${texFractionReduite(d - b, a - c)}$`
           }
         }
-        if (
+        // Conclusion
+        const borneInfinie =
           (symboleInegalite === '<' && a - c >= 0) ||
-          (symboleInegalite === '>' && a - c < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est  $S =  ${miseEnEvidence(`\\left] -\\infty\\,;\\,${texFractionReduite(d - b, a - c)} \\right[`)}$.`
-          reponse = `]-\\infty;${new FractionEtendue(d - b, a - c).texFraction}[`
-        } else if (
+          (symboleInegalite === '>' && a - c < 0) ||
           (symboleInegalite === '≤' && a - c >= 0) ||
           (symboleInegalite === '≥' && a - c < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est  $S =  ${miseEnEvidence(`\\left] -\\infty\\,;\\,${texFractionReduite(d - b, a - c)} \\right]`)}$.`
-          reponse = `]-\\infty;${new FractionEtendue(d - b, a - c).texFraction}]`
-        } else if (
-          (symboleInegalite === '>' && a - c >= 0) ||
-          (symboleInegalite === '<' && a - c < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est  $S =  ${miseEnEvidence(`\\left] ${texFractionReduite(d - b, a - c)} , +\\infty \\right[`)}$.`
-          reponse = `]${new FractionEtendue(d - b, a - c).texFraction};+\\infty[`
-        } else if (
-          (symboleInegalite === '≥' && a - c >= 0) ||
-          (symboleInegalite === '≤' && a - c < 0)
-        ) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est  $S =  ${miseEnEvidence(`\\left[ ${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty \\right[ `)}$.`
-          reponse = `[${new FractionEtendue(d - b, a - c).texFraction};+\\infty[`
+            ? 'gauche'
+            : 'droite'
+        const borneFinie = new FractionEtendue(d - b, a - c)
+        const conclusion = buildConclusion(borneInfinie, borneFinie, estStrict)
+        reponse = conclusion.reponse
+        texteCorr += `<br> ${conclusion.correction}`
+      } else {
+        if (d === a * b) {
+          // évitons une division par 0
+          d = randint(1, 13, [a * b])
         }
+        if (e === a * c) {
+          // évitons un résultat nul
+          e = randint(1, 13, [a * c])
+        }
+        texte = `$${a}(${reduireAxPlusB(b, c)})${symboleInegalite}${reduireAxPlusB(d, e)}$`
+        texteCorr = texte + '<br>'
+        texteCorr += 'On commence par développer le membre de gauche.<br>'
+        texteCorr += `$${a}\\times ${b === 1 ? '' : ecritureParentheseSiNegatif(b)}x${ecritureAlgebrique(a)}\\times${ecritureParentheseSiNegatif(c)}${symboleInegalite}${reduireAxPlusB(d, e)}$<br>`
+        texteCorr += `$${reduireAxPlusB(a * b, a * c)}${symboleInegalite}${reduireAxPlusB(d, e)}$<br>`
+        if (this.correctionDetaillee) {
+          if (d > 0) {
+            texteCorr += `On soustrait $${rienSi1(d)}x$ aux deux membres.<br>`
+          } else {
+            texteCorr += `On ajoute $${rienSi1(-d)}x$ aux deux membres.<br>`
+          }
+        }
+        texteCorr += `$${reduireAxPlusB(a * b, a * c)}${miseEnEvidence(signe(-1 * d) + rienSi1(abs(d)) + 'x', 'blue')}${symboleInegalite}${reduireAxPlusB(d, e)}${miseEnEvidence(signe(-1 * d) + rienSi1(abs(d)) + 'x', 'blue')}$<br>`
+        texteCorr += `$${rienSi1(a * b - d)}x${ecritureAlgebrique(a * c)}${texSymbole(symboleInegalite)}${e}$<br>`
+        if (this.correctionDetaillee) {
+          if (a * c > 0) {
+            texteCorr += `On soustrait $${a * c}$ aux deux membres.<br>`
+          } else {
+            texteCorr += `On ajoute $${-a * c}$ aux deux membres.<br>`
+          }
+        }
+        texteCorr += `$${rienSi1(a * b - d)}x${ecritureAlgebrique(a * c)}${miseEnEvidence(ecritureAlgebrique(-a * c), 'blue')}
+           ${texSymbole(symboleInegalite)}${e}${miseEnEvidence(ecritureAlgebrique(-a * c), 'blue')}$<br>`
+        texteCorr += `$${rienSi1(a * b - d)}x${texSymbole(symboleInegalite)}${e - a * c}$<br>`
+        if (this.correctionDetaillee) {
+          texteCorr += `On divise les deux membres par $${a * b - d}$.<br>`
+          if (a * b - d < 0) {
+            texteCorr += `Comme $${a * b - d}$ est négatif, l'inégalité change de sens.<br>`
+          }
+        }
+        const borneFinie = new FractionEtendue(e - a * c, a * b - d)
+        const symboleInegaliteFinal =
+          a * b - d > 0 ? symboleInegalite : symboleInegaliteOppose
+        texteCorr += `$${rienSi1(a * b - d)}x${miseEnEvidence(
+          '\\div' +
+            ecritureParentheseSiNegatif(a * b - d) +
+            texSymbole(symboleInegaliteFinal),
+          'blue',
+        )}${e - a * c + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a * b - d), 'blue')}$<br>`
+        texteCorr += `$x${texSymbole(symboleInegaliteFinal)}${borneFinie.texFraction}$`
+        if (!borneFinie.estIrreductible) {
+          texteCorr += `<br><br>$x${texSymbole(symboleInegaliteFinal)}${borneFinie.texFractionSimplifiee}$`
+        }
+
+        // Conclusion
+        const borneInfinie = ['≥', '>'].includes(symboleInegaliteFinal)
+          ? 'droite'
+          : 'gauche'
+        const conclusion = buildConclusion(borneInfinie, borneFinie, estStrict)
+        reponse = conclusion.reponse
+        texteCorr += `<br> ${conclusion.correction}`
       }
-      // texte += `<br> Solution : $${reponse}$`// pour test
+      // texte += `<br> Solution : $${reponse}$` // pour test
       texte +=
         '<br>' +
         ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, {

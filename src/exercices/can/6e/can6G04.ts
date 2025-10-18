@@ -1,4 +1,4 @@
-import { codageSegments, texteSurSegment } from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/codages'
 import { droite } from '../../../lib/2d/droites'
 import { point, tracePointSurDroite } from '../../../lib/2d/points'
 import {
@@ -72,7 +72,7 @@ export default class ProblemesDeLongueurs extends ExerciceSimple {
     s2.pointilles = 2
     const abc = a * b * c
     objets.push(
-      texteSurSegment(String(c), F, E),
+      // texteSurSegment(String(c), F, E),
       labelPoint(F),
       codageSegments('/', 'blue', D, ...pointsSurDE, E),
       s1,

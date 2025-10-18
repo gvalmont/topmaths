@@ -2,7 +2,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice, creerCouples } from '../../lib/outils/arrayOutils'
+import { creerCouples, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -46,21 +46,36 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
       'Choix des tables (entre 2 et 9)',
       'Nombres séparés par des tirets :',
     ] // Texte, tooltip
-    if (context.isHtml)
+    if (context.isHtml) {
       this.besoinFormulaire2Numerique = [
         'Exercice interactif',
         2,
         '1 : QCM\n2 : Numérique',
-      ] // Texte, tooltip
+      ]
+    }
+    this.sup3 = 5
+    this.besoinFormulaire3Texte = [
+      'types de questions',
+      "Nombres séparés par des tirets :\n1 : un facteur à 1 chiffre l'autre à 2 chiffres\n2 : Un facteur à 1 chiffre l'autre à 3 chiffres\n3 : Deux facteurs à 2chiffres\n4 : Un facteur à 2 chiffres l'autre à 3 chiffres\n5 : Mélange",
+    ]
   }
 
   nouvelleVersion() {
+    const typesDeQuestions = gestionnaireFormulaireTexte({
+      min: 1,
+      max: 4,
+      defaut: 5,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup3,
+      melange: 5,
+    }).map(Number)
     if (context.isHtml)
       this.besoinFormulaire2Numerique = [
         'Exercice interactif',
         2,
         '1 : QCM\n2 : Numérique',
-      ] // Texte, tooltip
+      ]
+    // Texte, tooltip
     else this.besoinFormulaire2Numerique = false
 
     this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
@@ -76,23 +91,26 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
 
     const couples = creerCouples(
       tables.map(Number),
-      [2, 3, 4, 5, 6, 7, 8, 9, 10],
+      [2, 3, 4, 5, 6, 7, 8, 9],
       this.nbQuestions,
     ) // Liste tous les couples possibles (2,3)≠(3,2)
     for (
-      let i = 0, cpt = 0, a, b, k1, k2, texte, texteCorr, melange;
+      let i = 0, cpt = 0, a, b, texte, texteCorr, melange;
       i < this.nbQuestions && cpt < 100;
 
     ) {
       this.autoCorrection[i] = {}
+      const [k1, k2] = shuffle(
+        typesDeQuestions[i] === 1
+          ? [1, 10] // un facteur à 1 chiffre l'autre à 2 chiffres
+          : typesDeQuestions[i] === 2
+            ? [1, 100] // Un facteur à 1 chiffre l'autre à 3 chiffres
+            : typesDeQuestions[i] === 3
+              ? [10, 10] // Deux facteurs à 2chiffres
+              : [10, 100], // Un facteur à 2 chiffres l'autre à 3 chiffres
+      )
       a = couples[i][0]
       b = couples[i][1]
-      if (a > 1) {
-        k1 = choice([1, 10, 100, 1000])
-      } else {
-        k1 = choice([10, 100, 1000])
-      }
-      k2 = choice([1, 10, 100, 1000])
       a = k1 * a
       b = k2 * b
       melange = randint(0, 1)

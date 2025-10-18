@@ -24,7 +24,7 @@ export const uuid = '14a2c'
 
 export const refs = {
   'fr-fr': ['2G24-3'],
-  'fr-ch': [],
+  'fr-ch': ['3mAlgLin-3'],
 }
 export default class Calculercoordonneesdifferencevecteurs extends Exercice {
   constructor() {

@@ -1,18 +1,18 @@
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
+import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
+import { range } from '../../lib/outils/nombres'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { scratchblock } from '../../modules/scratchblock'
 import {
   avance,
   baisseCrayon,
   creerLutin,
   tournerD,
 } from '../../modules/2dLutin'
-import { bleuMathalea, orangeMathalea } from '../../lib/colors'
-import { range } from '../../lib/outils/nombres'
-import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import { scratchblock } from '../../modules/scratchblock'
+import Exercice from '../Exercice'
 
 export const titre = 'Dessiner avec scratch'
 export const dateDeModifImportante = '10/06/2025'
@@ -29,8 +29,8 @@ export const interactifType = 'cliqueFigure'
 export const uuid = '33c9a'
 
 export const refs = {
-  'fr-fr': ['4I1'],
-  'fr-ch': [],
+  'fr-fr': ['4I1', '3AutoI01-1'],
+  'fr-ch': ['autres-16'],
 }
 export default class TracerAvecScratch extends Exercice {
   constructor() {

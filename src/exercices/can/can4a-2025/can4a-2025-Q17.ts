@@ -1,8 +1,8 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
 import { context } from '../../../modules/context'
+import { randint } from '../../../modules/outils'
 import { scratchblock } from '../../../modules/scratchblock'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Boucle scratch'
 export const interactifReady = true
@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '34224'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['autres-1'],
 }
 
 /**

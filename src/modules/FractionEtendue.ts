@@ -698,12 +698,14 @@ class FractionEtendue {
   valeurAbsolue(): FractionEtendue {
     return new FractionEtendue(abs(this.num), abs(this.den))
   }
+
   /**
    * @return {FractionEtendue} opposé de la FractionEtendue
    */
   oppose() {
     return new FractionEtendue(-1 * this.num, this.den)
   }
+
   /**
    * On pourra utiliser k = 0.5 pour simplifier par 2 la  FractionMathjs  par exemple.
    * @param {number} k

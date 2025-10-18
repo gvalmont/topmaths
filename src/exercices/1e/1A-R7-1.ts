@@ -1,21 +1,5 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteItalique } from '../../lib/outils/embellissements'
-import { arrondi } from '../../lib/outils/nombres'
-import { texNombre } from '../../lib/outils/texNombre'
-import { randint } from '../../modules/outils'
-import ExerciceQcmA from '../ExerciceQcmA'
-
-export const uuid = 'a4b8f'
-export const refs = { 'fr-fr': ['1A-R7-1'], 'fr-ch': [] }
-export const interactifReady = true
-export const interactifType = 'qcm'
-export const amcReady = 'true'
-export const amcType = 'qcmMono'
-export const titre = 'Calculer un prix dans une situation de proportionnalité'
-export const dateDePublication = '22/09/2025'
-
 /**
- * Exercice de proportionnalité dans des situations d'achat concrètes.
+ * Exercice 1A-R7-1 : Calculer un prix dans une situation de proportionnalité
  *
  * L'élève doit calculer le prix d'une certaine quantité d'objets connaissant
  * le prix d'une autre quantité des mêmes objets.
@@ -37,8 +21,32 @@ export const dateDePublication = '22/09/2025'
  * - d3 : Autre confusion : (Q1 × P1) ÷ Q2
  *
  * @author G.Marris
+ * @date 22/09/2025
+ * @updated 08/10/2025 - Refactorisation : architecture conforme (appliquerLesValeurs)
  */
 
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence, texteItalique } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { randint } from '../../modules/outils'
+import ExerciceQcmA from '../ExerciceQcmA'
+
+// ============================================================================
+// MÉTADONNÉES
+// ============================================================================
+export const uuid = 'a4b8f'
+export const refs = { 'fr-fr': ['1A-R7-1'], 'fr-ch': [] }
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = 'true'
+export const amcType = 'qcmMono'
+export const titre = 'Calculer un prix dans une situation de proportionnalité'
+export const dateDePublication = '22/09/2025'
+
+// ============================================================================
+// INTERFACES TYPESCRIPT
+// ============================================================================
 interface ObjetAchat {
   nom: string
   pluriel: string
@@ -66,7 +74,25 @@ interface ConfigurationPrix {
   prixTotal: number
 }
 
+interface DonneesExercice {
+  objet: ObjetAchat
+  lieu: LieuContexte
+  qte1: number
+  prix1: number
+  qte2: number
+  prixUnitaire: number
+  bonneReponse: number
+  distracteurs: [number, number, number]
+}
+
+// ============================================================================
+// CLASSE PRINCIPALE
+// ============================================================================
 export default class Auto1AR71 extends ExerciceQcmA {
+  // ==========================================================================
+  // 1. DONNÉES STATIQUES
+  // ==========================================================================
+
   // Liste des objets avec leurs caractéristiques réalistes
   private static readonly OBJETS: ObjetAchat[] = [
     // Papeterie/École - prix unitaires typiques : 0,30€ à 3€
@@ -224,38 +250,36 @@ export default class Auto1AR71 extends ExerciceQcmA {
     // CROISSANTS (0,8€ - 2,2€ l'unité)
     { objet: 'croissant', qte: 4, prixUnitaire: 1.25, prixTotal: 5 },
     { objet: 'croissant', qte: 4, prixUnitaire: 1.75, prixTotal: 7 },
-    { objet: 'croissant', qte: 5, prixUnitaire: 1.2, prixTotal: 6 },
-    { objet: 'croissant', qte: 5, prixUnitaire: 1.6, prixTotal: 8 },
+    { objet: 'croissant', qte: 5, prixUnitaire: 1.4, prixTotal: 7 },
     { objet: 'croissant', qte: 5, prixUnitaire: 2.0, prixTotal: 10 },
     { objet: 'croissant', qte: 10, prixUnitaire: 1.1, prixTotal: 11 },
 
-    // PAINS AU CHOCOLAT (1€ - 2,5€ l'unité)
-    { objet: 'pain au chocolat', qte: 4, prixUnitaire: 1.5, prixTotal: 6 },
-    { objet: 'pain au chocolat', qte: 4, prixUnitaire: 2.25, prixTotal: 9 },
+    // PAINS AU CHOCOLAT (0,9€ - 2,5€ l'unité)
+    { objet: 'pain au chocolat', qte: 4, prixUnitaire: 1.25, prixTotal: 5 },
+    { objet: 'pain au chocolat', qte: 4, prixUnitaire: 1.75, prixTotal: 7 },
     { objet: 'pain au chocolat', qte: 5, prixUnitaire: 1.4, prixTotal: 7 },
-    { objet: 'pain au chocolat', qte: 5, prixUnitaire: 2.2, prixTotal: 11 },
+    { objet: 'pain au chocolat', qte: 5, prixUnitaire: 2.0, prixTotal: 10 },
+    { objet: 'pain au chocolat', qte: 10, prixUnitaire: 1.2, prixTotal: 12 },
 
-    // BAGUETTES (0,8€ - 1,8€ l'unité)
+    // BAGUETTES (0,8€ - 1,5€ l'unité)
     { objet: 'baguette', qte: 4, prixUnitaire: 1.25, prixTotal: 5 },
+    { objet: 'baguette', qte: 5, prixUnitaire: 1.0, prixTotal: 5 },
     { objet: 'baguette', qte: 5, prixUnitaire: 1.2, prixTotal: 6 },
-    { objet: 'baguette', qte: 5, prixUnitaire: 1.6, prixTotal: 8 },
 
-    // POMMES (0,3€ - 1,5€ l'unité)
+    // POMMES (0,3€ - 1€ l'unité)
     { objet: 'pomme', qte: 4, prixUnitaire: 0.5, prixTotal: 2 },
     { objet: 'pomme', qte: 4, prixUnitaire: 0.75, prixTotal: 3 },
-    { objet: 'pomme', qte: 4, prixUnitaire: 1.25, prixTotal: 5 },
     { objet: 'pomme', qte: 5, prixUnitaire: 0.6, prixTotal: 3 },
     { objet: 'pomme', qte: 5, prixUnitaire: 0.8, prixTotal: 4 },
-    { objet: 'pomme', qte: 5, prixUnitaire: 1.2, prixTotal: 6 },
     { objet: 'pomme', qte: 10, prixUnitaire: 0.7, prixTotal: 7 },
-    { objet: 'pomme', qte: 10, prixUnitaire: 0.9, prixTotal: 9 },
     { objet: 'pomme', qte: 20, prixUnitaire: 0.5, prixTotal: 10 },
 
-    // ORANGES (0,4€ - 1,8€ l'unité)
+    // ORANGES (0,3€ - 0,8€ l'unité)
+    { objet: 'orange', qte: 4, prixUnitaire: 0.5, prixTotal: 2 },
     { objet: 'orange', qte: 4, prixUnitaire: 0.75, prixTotal: 3 },
-    { objet: 'orange', qte: 4, prixUnitaire: 1.25, prixTotal: 5 },
+    { objet: 'orange', qte: 5, prixUnitaire: 0.6, prixTotal: 3 },
     { objet: 'orange', qte: 5, prixUnitaire: 0.8, prixTotal: 4 },
-    { objet: 'orange', qte: 5, prixUnitaire: 1.4, prixTotal: 7 },
+    { objet: 'orange', qte: 10, prixUnitaire: 0.5, prixTotal: 5 },
     { objet: 'orange', qte: 10, prixUnitaire: 0.9, prixTotal: 9 },
 
     // BANANES (0,2€ - 1€ l'unité)
@@ -406,6 +430,10 @@ export default class Auto1AR71 extends ExerciceQcmA {
 
   private static readonly MAX_TENTATIVES = 100
 
+  // ==========================================================================
+  // 2. MÉTHODES UTILITAIRES PRIVÉES
+  // ==========================================================================
+
   /**
    * Fonction pour remplacer les champs dans une phrase modèle.
    *
@@ -424,7 +452,7 @@ export default class Auto1AR71 extends ExerciceQcmA {
    */
   private remplacerChamps(
     phrase: string,
-    contexte: any,
+    contexte: DonneesExercice,
     objet: ObjetAchat,
     prenom: any | null,
   ): string {
@@ -470,7 +498,7 @@ export default class Auto1AR71 extends ExerciceQcmA {
    *
    * @returns Configuration complète ou null si échec
    */
-  private genererConfiguration(): any | null {
+  private genererConfiguration(): DonneesExercice | null {
     // Étape 1 : Sélection d'un contexte cohérent
     const contexte = choice(Auto1AR71.CONTEXTES)
     const nomObjet = choice(contexte.objets)
@@ -479,7 +507,7 @@ export default class Auto1AR71 extends ExerciceQcmA {
     if (!objet) return null
 
     // Étape 2 : Filtrer les configurations pour cet objet
-    let configurationsDisponibles = Auto1AR71.CONFIGURATIONS_PRIX.filter(
+    const configurationsDisponibles = Auto1AR71.CONFIGURATIONS_PRIX.filter(
       (config) => config.objet === nomObjet,
     )
 
@@ -532,21 +560,34 @@ export default class Auto1AR71 extends ExerciceQcmA {
     }
   }
 
+  // ==========================================================================
+  // 3. CONSTRUCTEUR
+  // ==========================================================================
+  constructor() {
+    super()
+    this.versionAleatoire()
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
+  }
+
+  // ==========================================================================
+  // 4. VERSIONS (qui appellent appliquerLesValeurs())
+  // ==========================================================================
+
   versionOriginale: () => void = () => {
-    this.enonce = `$10$ stylos coûtent $12$ €. Le prix de $3$ stylos est égal à :`
+    const objet = Auto1AR71.OBJETS.find((o) => o.nom === 'stylo')!
+    const lieu = Auto1AR71.CONTEXTES[1] // papeterie
 
-    this.correction =
-      texteItalique('Méthode 1 — calcul du prix unitaire') +
-      ' :<br>' +
-      "Le prix d'un stylo est : $\\dfrac{12}{10} = 1{,}2$ €.<br>" +
-      `Donc le prix de $3$ stylos est : $3 \\times 1{,}2 = ${miseEnEvidence('3{,}6')}$ €.<br>` +
-      texteItalique('Méthode 2 — par produit en croix') +
-      ' :<br>' +
-      'On a la proportion : $\\dfrac{10 \\text{ stylos}}{12 \\text{ €}} = \\dfrac{3 \\text{ stylos}}{? \\text{ €}}$.<br>' +
-      `Donc $10 \\times ? = 3 \\times 12$, d'où $? = \\dfrac{3 \\times 12}{10} = ${miseEnEvidence('3{,}6')}$ €.<br>` +
-      'Vérification : $10 \\times 3{,}6 = 36$ et $3 \\times 12 = 36$.'
-
-    this.reponses = ['$3{,}6$ €', '$4$ €', '$2{,}5$ €', '$40$ €']
+    this.appliquerLesValeurs({
+      objet,
+      lieu,
+      qte1: 10,
+      prix1: 12,
+      qte2: 3,
+      prixUnitaire: 1.2,
+      bonneReponse: 3.6,
+      distracteurs: [4, 2.5, 40],
+    })
   }
 
   versionAleatoire: () => void = () => {
@@ -554,64 +595,9 @@ export default class Auto1AR71 extends ExerciceQcmA {
       const config = this.genererConfiguration()
       if (!config) continue
 
-      // Sélection du modèle et du prénom si nécessaire
-      const modele = choice(Auto1AR71.MODELES)
-      const prenom = modele.utilise_prenom ? choice(Auto1AR71.PRENOMS) : null
-
-      // Construction de l'énoncé
-      this.enonce = this.remplacerChamps(
-        modele.phrase,
-        config,
-        config.objet,
-        prenom,
-      )
-
-      // Construction de la correction
-      const objetsPluriel1 =
-        config.qte1 > 1 ? config.objet.pluriel : config.objet.nom
-      const objetsPluriel2 =
-        config.qte2 > 1 ? config.objet.pluriel : config.objet.nom
-      const article = config.objet.genre === 'M' ? 'un' : 'une'
-
-      // Vérifier si qte2/qte1 est un entier (cas simple)
-      const rapport = config.qte2 / config.qte1
-      const estRapportEntier = Number.isInteger(rapport)
-
-      if (estRapportEntier) {
-        // CAS SIMPLE : rapport entier
-        this.correction =
-          texteItalique('Méthode 1 — par multiplication directe') +
-          ' :<br>' +
-          `La quantité est multipliée par $${rapport}$ (car $${config.qte2} = ${config.qte1} \\times ${rapport}$).<br>` +
-          `Donc le prix est aussi multiplié par $${rapport}$ : $${texNombre(config.prix1, 2)} \\times ${rapport} = ${miseEnEvidence(texNombre(config.bonneReponse, 2))}$ €.<br>` +
-          texteItalique('Méthode 2 — calcul du prix unitaire') +
-          ' :<br>' +
-          `Le prix d'${article} ${config.objet.nom} est : $\\dfrac{${texNombre(config.prix1, 2)}}{${config.qte1}} = ${texNombre(config.prixUnitaire, 2)}$ €.<br>` +
-          `Donc le prix de $${config.qte2}$ ${objetsPluriel2} est : $${config.qte2} \\times ${texNombre(config.prixUnitaire, 2)} = ${miseEnEvidence(texNombre(config.bonneReponse, 2))}$ €.`
-      } else {
-        // CAS GÉNÉRAL : rapport non entier
-        this.correction =
-          texteItalique('Méthode 1 — calcul du prix unitaire') +
-          ' :<br>' +
-          `Le prix d'${article} ${config.objet.nom} est : $\\dfrac{${texNombre(config.prix1, 2)}\\text{ €}}{${config.qte1}} = ${texNombre(config.prixUnitaire, 2)}$ €.<br>` +
-          `Donc le prix de $${config.qte2}$ ${objetsPluriel2} est : $${config.qte2} \\times ${texNombre(config.prixUnitaire, 2)}\\text{ €} = ${miseEnEvidence(texNombre(config.bonneReponse, 2))}$ €.<br>` +
-          texteItalique('Méthode 2 — par produit en croix') +
-          ' :<br>' +
-          `On a la proportion : $\\dfrac{${config.qte1} \\text{ ${objetsPluriel1}}}{${texNombre(config.prix1, 2)} \\text{ €}} = \\dfrac{${config.qte2} \\text{ ${objetsPluriel2}}}{? \\text{ €}}$.<br>` +
-          `Donc $${config.qte1} \\times ? = ${config.qte2} \\times ${texNombre(config.prix1, 2)}$,  d'où  $? = \\dfrac{${config.qte2} \\times ${texNombre(config.prix1, 2)}}{${config.qte1}} = ${texNombre(config.bonneReponse, 2)}$.<br>` +
-          `Le prix de ${config.qte2} ${objetsPluriel2} est $${miseEnEvidence(texNombre(config.bonneReponse, 2))}$ €.<br>` +
-          `Vérification : $${config.qte1} \\times ${texNombre(config.bonneReponse, 2)} = ${texNombre(config.qte1 * config.bonneReponse, 2)}$  et  $${config.qte2} \\times ${texNombre(config.prix1, 2)} = ${texNombre(config.qte2 * config.prix1, 2)}$.`
-      }
-
-      // Construction des réponses
-      this.reponses = [
-        `$${texNombre(config.bonneReponse, 2)}$ €`,
-        `$${texNombre(config.distracteurs[0], 2)}$ €`,
-        `$${texNombre(config.distracteurs[1], 2)}$ €`,
-        `$${texNombre(config.distracteurs[2], 2)}$ €`,
-      ]
-
-      return // Succès
+      // Si toutes les conditions sont satisfaites, appliquer les valeurs
+      this.appliquerLesValeurs(config)
+      return
     }
 
     // Fallback si aucune configuration valide trouvée
@@ -621,10 +607,75 @@ export default class Auto1AR71 extends ExerciceQcmA {
     this.versionOriginale()
   }
 
-  constructor() {
-    super()
-    this.versionAleatoire()
-    this.spacing = 1.5
-    this.spacingCorr = 1.5
+  // ==========================================================================
+  // 5. MÉTHODE CENTRALE : appliquerLesValeurs
+  // ==========================================================================
+
+  private appliquerLesValeurs(donnees: DonneesExercice): void {
+    const {
+      objet,
+      lieu,
+      qte1,
+      prix1,
+      qte2,
+      prixUnitaire,
+      bonneReponse,
+      distracteurs,
+    } = donnees
+
+    // ========================================================================
+    // CONSTRUCTION ÉNONCÉ
+    // ========================================================================
+    const modele = choice(Auto1AR71.MODELES)
+    const prenom = modele.utilise_prenom ? choice(Auto1AR71.PRENOMS) : null
+
+    this.enonce = this.remplacerChamps(modele.phrase, donnees, objet, prenom)
+
+    // ========================================================================
+    // CONSTRUCTION CORRECTION
+    // ========================================================================
+    const objetsPluriel1 = qte1 > 1 ? objet.pluriel : objet.nom
+    const objetsPluriel2 = qte2 > 1 ? objet.pluriel : objet.nom
+    const article = objet.genre === 'M' ? 'un' : 'une'
+
+    // Vérifier si qte2/qte1 est un entier (cas simple)
+    const rapport = qte2 / qte1
+    const estRapportEntier = Number.isInteger(rapport)
+
+    if (estRapportEntier) {
+      // CAS SIMPLE : rapport entier
+      this.correction =
+        texteItalique('Méthode 1 – par multiplication directe') +
+        ' :<br>' +
+        `La quantité est multipliée par $${rapport}$ (car $${qte2} = ${qte1} \\times ${rapport}$).<br>` +
+        `Donc le prix est aussi multiplié par $${rapport}$ : $${texNombre(prix1, 2)} \\times ${rapport} = ${miseEnEvidence(texNombre(bonneReponse, 2))}$ €.<br>` +
+        texteItalique('Méthode 2 – calcul du prix unitaire') +
+        ' :<br>' +
+        `Le prix d'${article} ${objet.nom} est : $\\dfrac{${texNombre(prix1, 2)}}{${qte1}} = ${texNombre(prixUnitaire, 2)}$ €.<br>` +
+        `Donc le prix de $${qte2}$ ${objetsPluriel2} est : $${qte2} \\times ${texNombre(prixUnitaire, 2)} = ${miseEnEvidence(texNombre(bonneReponse, 2))}$ €.`
+    } else {
+      // CAS GÉNÉRAL : rapport non entier
+      this.correction =
+        texteItalique('Méthode 1 – calcul du prix unitaire') +
+        ' :<br>' +
+        `Le prix d'${article} ${objet.nom} est : $\\dfrac{${texNombre(prix1, 2)}\\text{ €}}{${qte1}} = ${texNombre(prixUnitaire, 2)}$ €.<br>` +
+        `Donc le prix de $${qte2}$ ${objetsPluriel2} est : $${qte2} \\times ${texNombre(prixUnitaire, 2)}\\text{ €} = ${miseEnEvidence(texNombre(bonneReponse, 2))}$ €.<br>` +
+        texteItalique('Méthode 2 – par produit en croix') +
+        ' :<br>' +
+        `On a la proportion : $\\dfrac{${qte1} \\text{ ${objetsPluriel1}}}{${texNombre(prix1, 2)} \\text{ €}} = \\dfrac{${qte2} \\text{ ${objetsPluriel2}}}{? \\text{ €}}$.<br>` +
+        `Donc $${qte1} \\times ? = ${qte2} \\times ${texNombre(prix1, 2)}$,  d'où  $? = \\dfrac{${qte2} \\times ${texNombre(prix1, 2)}}{${qte1}} = ${texNombre(bonneReponse, 2)}$.<br>` +
+        `Le prix de ${qte2} ${objetsPluriel2} est $${miseEnEvidence(texNombre(bonneReponse, 2))}$ €.<br>` +
+        `Vérification : $${qte1} \\times ${texNombre(bonneReponse, 2)} = ${texNombre(qte1 * bonneReponse, 2)}$  et  $${qte2} \\times ${texNombre(prix1, 2)} = ${texNombre(qte2 * prix1, 2)}$.`
+    }
+
+    // ========================================================================
+    // CONSTRUCTION RÉPONSES
+    // ========================================================================
+    this.reponses = [
+      `$${texNombre(bonneReponse, 2)}$ €`,
+      `$${texNombre(distracteurs[0], 2)}$ €`,
+      `$${texNombre(distracteurs[1], 2)}$ €`,
+      `$${texNombre(distracteurs[2], 2)}$ €`,
+    ]
   }
 }

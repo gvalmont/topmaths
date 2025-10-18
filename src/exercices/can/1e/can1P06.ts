@@ -1,14 +1,14 @@
+import Decimal from 'decimal.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre =
@@ -28,7 +28,7 @@ export const uuid = '73673'
 
 export const refs = {
   'fr-fr': ['can1P06'],
-  'fr-ch': [],
+  'fr-ch': ['3mP-6'],
 }
 export default class CalculProbaTableau extends Exercice {
   constructor() {

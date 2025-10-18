@@ -1,3 +1,5 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebriqueSauf1,
@@ -5,11 +7,9 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3,
 } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $1/u(x)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export const uuid = '12089'
 
 export const refs = {
   'fr-fr': ['can1F17'],
-  'fr-ch': [],
+  'fr-ch': ['3mA2-4'],
 }
 export default class CalculFonctionDeriveeUnsurU extends ExerciceSimple {
   constructor() {

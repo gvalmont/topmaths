@@ -3,18 +3,18 @@ import { milieu, point, pointAdistance } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { similitude } from '../../../lib/2d/transformations'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import {
   miseEnEvidence,
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
-import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export const dateDeModifImportante = '01/06/2025'
 export const uuid = 'd9524'
 
 export const refs = {
-  'fr-fr': ['can4G03'],
+  'fr-fr': ['can4G03', '3AutoG11-1'],
   'fr-ch': [],
 }
 export default class CalculHypotenusePythagore extends ExerciceSimple {

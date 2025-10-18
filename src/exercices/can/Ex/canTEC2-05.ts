@@ -17,7 +17,7 @@ export const dateDePublication = '4/5/2024'
 export const uuid = '16c5f'
 export const refs = {
   'fr-fr': ['canTEC2-05'],
-  'fr-ch': [],
+  'fr-ch': ['3mNC-3'],
 }
 
 function ajoutePlusSiPasMoins(str: string): string {

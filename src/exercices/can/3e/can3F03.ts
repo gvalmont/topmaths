@@ -29,8 +29,7 @@ export const refs = {
 export default class CalculImageParFonctionAffine extends ExerciceSimple {
   constructor() {
     super()
-    this.formatInteractif = 'fractionEgale'
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { fractionEgale: true }
     this.nbQuestions = 1
     this.versionQcmDisponible = true
     this.typeExercice = 'simple'

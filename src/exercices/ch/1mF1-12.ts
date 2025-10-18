@@ -2,6 +2,7 @@ import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVar
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import EquationSecondDegre from '../../modules/EquationSecondDegre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,

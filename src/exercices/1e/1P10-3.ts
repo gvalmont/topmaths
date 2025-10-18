@@ -28,7 +28,7 @@ export const uuid = '233ef'
 
 export const refs = {
   'fr-fr': ['1P10-3'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-14'],
 }
 export default class CalculerProbaArbre extends Exercice {
   constructor() {

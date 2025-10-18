@@ -9,7 +9,7 @@ export const dateDePublication = '02/08/2024' // La date de publication initiale
 export const uuid = '24db8'
 export const refs = {
   'fr-fr': ['4S20-4', 'BP2FLUC12'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-15'],
 }
 
 /**

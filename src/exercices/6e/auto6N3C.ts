@@ -22,7 +22,7 @@ export const uuid = '297f9'
 export const refs = {
   'fr-fr': ['auto6N3C'],
   'fr-2016': ['6N22-5'],
-  'fr-ch': [],
+  'fr-ch': ['9NO12-14'],
 }
 
 /** Passer, de façon automatique, d\'une valeur décimale à une valeur fractionnaire (et réciproquement) sur des valeurs simples

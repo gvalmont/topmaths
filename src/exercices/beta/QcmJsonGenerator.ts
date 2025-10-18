@@ -1,5 +1,5 @@
-import ExerciceQcm from '../ExerciceQcm'
 import { choice } from '../../lib/outils/arrayOutils'
+import ExerciceQcm from '../ExerciceQcm'
 
 // Type pour définir la structure d'une question QCM dans le JSON
 export interface QuestionQcm {
@@ -80,7 +80,7 @@ export const titre = "Générateur d'exercices QCM à partir de JSON"
 export const dateDePublication = '3/7/2025'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export const uuid = 'QcmGen'
 /**

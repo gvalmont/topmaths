@@ -1,20 +1,20 @@
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { min, round } from 'mathjs'
 import { context } from '../../../modules/context'
 import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import Grandeur from '../../../modules/Grandeur'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import ClasseCan2023 from './_Canc3a'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { arrondi } from '../../../lib/outils/nombres'
+import Grandeur from '../../../modules/Grandeur'
+import ClasseCan2023 from './_Canc3a'
 
 export const titre = 'CAN CM2 sujet 2023'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export const uuid = '57239'
 
 export const refs = {
   'fr-fr': ['canc3a-2023'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 /**
@@ -53,8 +53,8 @@ export default class SujetCAN2023CM2 extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ])

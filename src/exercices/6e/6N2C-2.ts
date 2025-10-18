@@ -1,18 +1,17 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
+import { lampeMessage } from '../../lib/format/message'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { lampeMessage } from '../../lib/format/message'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { min } from 'mathjs'
 import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -56,7 +55,7 @@ export default class DiviserUnNombreParPuissanceDeDix extends Exercice {
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes']
     let listeChoixAlea = range(2)
     if (!this.sup2 || this.interactif) {
-      this.nbQuestions = min(this.nbQuestions, 3)
+      this.nbQuestions = Math.min(this.nbQuestions, 3)
     }
     if (context.isAmc) {
       this.sup2 = false

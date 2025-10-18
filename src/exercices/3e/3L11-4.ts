@@ -1,18 +1,18 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Factoriser une expression'
 export const dateDeModifImportante = '20/04/2025'
@@ -31,7 +31,7 @@ export const amcType = 'AMCOpen'
 export const uuid = '5f5a6'
 
 export const refs = {
-  'fr-fr': ['3L11-4', 'BP2AutoI21'],
+  'fr-fr': ['3L11-4', 'BP2AutoI21', '3autoN13-2'],
   'fr-ch': ['11FA3-2'],
 }
 export default class FactoriserParNombreOux extends Exercice {

@@ -132,6 +132,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.destroyers.length = 0
     // on ne conserve que les linéaires et les affines sans ratio, ni fraction, ni multiple shape
     const listePatternReference = listePatternsFor6N4B
+    const angle = Math.PI / 6
 
     let listePattern = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
@@ -203,9 +204,46 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
             })
           : new VisualPattern([])
       if ('iterate3d' in pattern) {
-        pattern.shape = shapeCubeIso() as Shape3D
+        let xminCorr = Infinity
+        let yminCorr = Infinity
+        let xmaxCorr = -Infinity
+        let ymaxCorr = -Infinity
+        pattern.shape = shapeCubeIso(`cubeIsoQ${i}F0`) as Shape3D
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
+
+        const figureCorr: NestedObjetMathalea2dArray = []
+        if (context.isHtml) {
+          pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F0"></use>`
+          const cells = (pattern as VisualPattern3D).update3DCells(
+            nbFigures + 1,
+          )
+          // Ajouter les SVG générés par svg() de chaque objet
+          cells.forEach((cell) => {
+            const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
+            const obj = shapeCubeIso(`cubeIsoQ${i}F0`, px, py)
+            figureCorr.push(obj)
+            yminCorr = Math.min(yminCorr, -py / 20)
+            ymaxCorr = Math.max(ymaxCorr, -py / 20)
+            xminCorr = Math.min(xminCorr, px / 20)
+            xmaxCorr = Math.max(xmaxCorr, px / 20)
+          })
+        } else {
+          figureCorr.push(
+            (pattern as VisualPattern3D).render(nbFigures + 1, 0, 0, angle),
+          )
+        }
         objetsCorr.push(cubeDef(`cubeIsoQ${i}F0`))
+        objetsCorr.push(...figureCorr)
+        // On ajoute un cadre en Html à cause de la bordure car les éléments sont tous clonés à partir du même modèle centré à l'origine et en utilsant des href.
+        if (context.isHtml) {
+          const cadre = polygone(
+            point(xminCorr - 1, yminCorr - 2),
+            point(xmaxCorr + 2, yminCorr - 2),
+            point(xmaxCorr + 2, ymaxCorr + 2),
+            point(xminCorr - 1, ymaxCorr + 2),
+          )
+          objetsCorr.push(cadre)
+        }
       } else {
         const pat2D = pat as PatternRiche
         pattern.iterate = (pat as PatternRiche).iterate
@@ -219,13 +257,13 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
             )
           }
         }
+        const rendered = pattern.render(nbFigures + 1, 0, 0)
+        objetsCorr.push(...rendered)
       }
 
-      const rendered = pattern.render(nbFigures + 1, 0, 0, Math.PI / 6)
-      objetsCorr.push(...rendered)
       let yMax = 0
       let yMin = 0
-      const angle = Math.PI / 6
+
       let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs figuratifs. Ils évoluent selon des règles définies.<br>`
       const figures: NestedObjetMathalea2dArray[] = []
       for (let j = 0; j < nbFigures; j++) {
@@ -326,8 +364,6 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           ? listeShapes2DInfos[pattern.shapes[0]]
           : { articleCourt: 'de ', nomPluriel: 'cubes' }
 
-      const deMotif = infosShape.articleCourt + infosShape.nomPluriel
-
       let complementCorrection = true
       const delta = pat.fonctionNb(2) - pat.fonctionNb(1)
       const b = pat.fonctionNb(1) - delta
@@ -349,7 +385,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
         let numeroMotif = 0
         switch (q) {
           case 1:
-            listeQuestions.push(`\nDessiner le motif $${nbFigures + 1}$.<br>`)
+            listeQuestions.push(`\nDessiner le motif $${nbFigures + 1}$.`)
             listeCorrections.push(`Voici le motif $${nbFigures + 1}$ :<br>
               ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr)}`)
             break
@@ -374,7 +410,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           const nbTex = texNombre(nbFormes, 0)
 
           listeQuestions.push(
-            `\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} dans le motif $${numeroMotif}$ ?<br>${ajouteQuestionMathlive(
+            `\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} dans le motif $${numeroMotif}$ ?${ajouteQuestionMathlive(
               {
                 exercice: this,
                 question: indexInteractif++,
@@ -409,14 +445,14 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       }
       texte +=
         listeQuestions.length === 1
-          ? '<br>' + listeQuestions[0]
+          ? listeQuestions[0]
           : createList({
               items: listeQuestions,
               style: 'alpha',
             })
       texteCorr +=
         listeCorrections.length === 1
-          ? '<br>' + listeCorrections[0]
+          ? listeCorrections[0]
           : createList({
               items: listeCorrections,
               style: 'alpha',
@@ -424,7 +460,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
       if (!areSameArray(typesQuestions, [1])) {
         texteCorr +=
-          '<br>Les informations recherchées sont résumées dans ce tableau.<br>' +
+          '<br><br>Les informations recherchées sont résumées dans ce tableau.<br><br>' +
           tableauColonneLigne(
             [
               '\\text{Numéro du motif}',

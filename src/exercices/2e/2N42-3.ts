@@ -27,7 +27,7 @@ export const uuid = '327cf'
 
 export const refs = {
   'fr-fr': ['2N42-3'],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-23'],
 }
 export default class EtudeTrinome extends Exercice {
   constructor() {

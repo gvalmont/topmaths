@@ -12,7 +12,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const dateDeModifImportante = '05/09/2023'
+export const dateDeModifImportante = '06/10/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -37,6 +37,7 @@ export default class PuissancesEncadrement extends Exercice {
       'Niveau de difficulté',
       'Nombres séparés par des tirets :\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Mélange',
     ]
+
     this.sup = 4
     this.nbQuestions = 5
 
@@ -51,38 +52,47 @@ export default class PuissancesEncadrement extends Exercice {
         ? "Encadrer le nombre suivant par deux puissances de 10 d'exposants consécutifs."
         : "Encadrer les nombres suivants par deux puissances de 10 d'exposants consécutifs."
 
-    signeChange = this.classe === 2
+    // this.sup2 might be undefined
+    if (!!this.sup2) {
+      this.consigne +=
+        "<br>Dans le cas où le nombre est négatif, on utilisera les opposés de puissances de 10 d'exposants consécutifs."
+    }
+
+    signeChange = this.classe === 2 && !!this.sup2
 
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: this.classe === 4 ? 3 : 4,
-      melange: this.classe === 4 ? 4 : 5,
+      max: 3,
+      melange: 4,
       defaut: 1,
       nbQuestions: this.nbQuestions,
     })
     for (let ee = 0; ee < this.nbQuestions; ee++) {
       switch (typeDeQuestions[ee]) {
-        case 1: // nombre enier positif
+        case 1: // nombre entier
           listeTypeDeQuestions.push(
             choice(this.classe === 2 ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5]),
           )
           break
-        case 2: // nombre décimal positif
+        case 2: // nombre décimal supérieur à 1
           listeTypeDeQuestions.push(
             choice(this.classe === 2 ? [7, 8, 9, 10] : [7, 8, 9]),
           )
           break
-        case 3: // nombre décimal positif inférieur à 1
+        case 3: // nombre décimal inférieur à 1
           listeTypeDeQuestions.push(
             choice(this.classe === 2 ? [11, 12, 13, 14] : [11, 12, 13]),
           )
           break
         case 4: // Mélange
           listeTypeDeQuestions.push(
-            choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]),
+            choice(
+              [1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 13].concat(
+                this.classe === 2 ? [6, 10, 14] : [],
+              ),
+            ),
           )
-          signeChange = true
           break
       }
     }

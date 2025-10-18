@@ -37,7 +37,7 @@ export const uuid = '23033'
 
 export const refs = {
   'fr-fr': ['1G10-4'],
-  'fr-ch': [],
+  'fr-ch': ['2mGeomVect-5'],
 }
 
 export default class CalculProduitScalaireProjection extends Exercice {

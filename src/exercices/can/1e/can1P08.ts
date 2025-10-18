@@ -27,7 +27,7 @@ export const uuid = '0f776'
 
 export const refs = {
   'fr-fr': ['can1P08'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-7'],
 }
 export default class ProbaLoiVA extends Exercice {
   constructor() {

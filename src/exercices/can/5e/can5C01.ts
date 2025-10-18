@@ -16,7 +16,7 @@ export const uuid = '102f4'
 
 export const refs = {
   'fr-fr': ['can5C01'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ProduitEntiers5e extends ExerciceSimple {
   constructor() {

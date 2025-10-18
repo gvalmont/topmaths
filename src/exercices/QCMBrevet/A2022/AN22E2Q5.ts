@@ -16,7 +16,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 export const uuid = '279da'
 export const refs = {
   'fr-fr': ['5M2QCM-1'],
-  'fr-ch': [],
+  'fr-ch': ['10GM2-3'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'

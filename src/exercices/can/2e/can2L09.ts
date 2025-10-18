@@ -18,7 +18,7 @@ export const uuid = '05bc2'
 
 export const refs = {
   'fr-fr': ['can2L09'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ÉcrireUnQuotient extends ExerciceSimple {
   constructor() {

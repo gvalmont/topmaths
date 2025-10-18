@@ -1,13 +1,13 @@
-import Exercice from '../Exercice'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { texNombre } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -20,7 +20,7 @@ export const dateDeModifImportante = '03/04/2025'
 
 export const uuid = 'e9252'
 export const refs = {
-  'fr-fr': ['auto6M1E-2'],
+  'fr-fr': ['auto6M1E-2', '3AutoG08-1'],
   'fr-2016': ['6M25-1'],
   'fr-ch': ['9GM1-18'],
 }

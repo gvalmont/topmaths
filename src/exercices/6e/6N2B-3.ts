@@ -1,4 +1,7 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
+import { lampeMessage } from '../../lib/format/message'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnCouleur,
@@ -8,13 +11,9 @@ import {
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { min } from 'mathjs'
-import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { lampeMessage } from '../../lib/format/message'
 import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre =
@@ -50,9 +49,7 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
     this.besoinFormulaire3CaseACocher = [
       'Avec le glisse-nombre pour la correction',
     ]
-    this.besoinFormulaire4CaseACocher = [
-      'Afficher un rappel de méthode'
-    ]
+    this.besoinFormulaire4CaseACocher = ['Afficher un rappel de méthode']
 
     this.nbQuestions = 6 // Ici le nombre de questions
 
@@ -74,13 +71,13 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
     ]
     let listeChoixAlea = range(6, [3])
     let reponse
-    this.nbQuestions = min(this.nbQuestions, 6)
+    this.nbQuestions = Math.min(this.nbQuestions, 6)
     if (parseInt(this.sup2) === 1) {
       listeChoixAlea = rangeMinMax(4, 6)
     }
     if (parseInt(this.sup2) === 2) {
       listeChoixAlea = range(2)
-      this.nbQuestions = min(this.nbQuestions, 3)
+      this.nbQuestions = Math.min(this.nbQuestions, 3)
     }
     this.consigne = ''
     if (!context.isDiaporama && this.sup4) {

@@ -4,34 +4,33 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import {
   choice,
   combinaisonListes,
   shuffle,
 } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
-  texFractionFromString,
   simplificationDeFractionAvecEtapes,
+  texFractionFromString,
   texFractionReduite,
 } from '../../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
+import { context } from '../../../modules/context'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import {
   fraction,
   obtenirListeFractionsIrreductibles,
 } from '../../../modules/fractions'
-import { min, round } from 'mathjs'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { context } from '../../../modules/context'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../../lib/interactif/gestionInteractif'
+import Exercice from '../../Exercice'
 
 export const titre = 'CAN 4e sujet 2021'
 export const interactifReady = true
@@ -54,7 +53,7 @@ export const uuid = '60563'
 
 export const refs = {
   'fr-fr': ['can4a-2021'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SujetCAN20214ieme extends Exercice {
   constructor() {
@@ -70,8 +69,8 @@ export default class SujetCAN20214ieme extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 22)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 22)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8])
       .slice(-nbQ1)
       .sort(compareNombres)

@@ -102,8 +102,8 @@ export default class ÉcrireUneExpressionMathador extends Exercice {
       if (!this.sup) {
         handleAnswers(this, i, {
           reponse: {
-            value: [expression, solutionMathador[4]],
-            options: { operationSeulementEtNonResultat: true },
+            value: [...expression, ...solutionMathador[4]],
+            options: { expressionNumerique: true },
           },
         })
       }

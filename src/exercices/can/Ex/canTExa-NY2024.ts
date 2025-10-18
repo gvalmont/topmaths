@@ -7,7 +7,7 @@ export const uuid = '60653'
 
 export const refs = {
   'fr-fr': ['canTExa-NY2024'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export const dateDePublication = '01/01/2024'
 

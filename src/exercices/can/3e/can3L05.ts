@@ -1,13 +1,13 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
 import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer le produit des solutions d’une équation produit nul'
 export const interactifReady = true
@@ -35,13 +35,13 @@ export default class SolutionsEquationProduit extends ExerciceSimple {
     this.spacingCorr = 1.5
     this.optionsChampTexte = { texteAvant: '<br>' }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
+    this.versionQcm = false
   }
 
   nouvelleVersion() {
     const cours =
       "On reconnaît une équation produit nul. <br>Un produit de facteurs est nul, si et seulement si l'un au moins de ses facteurs est nul.<br>"
-    switch (this.versionQcm ? choice([2, 3]) : choice([1, 3])) {
+    switch (this.versionQcm ? choice([2, 3]) : choice([1, 2, 3])) {
       case 1: // cas (x+b)(x+p)=0
         {
           const b = randint(-10, 10)
@@ -99,7 +99,12 @@ Le produit de ces soltions est donc égal à : $${sol1.simplifie().ecritureParen
 
           this.reponse = this.versionQcm
             ? `$${produitSolutions.texFractionSimplifiee}$`
-            : produitSolutions.valeurDecimale
+            : {
+                reponse: {
+                  value: produitSolutions.texFractionSimplifiee,
+                  options: { fractionEgale: true },
+                },
+              }
 
           // Distracteurs basés sur des erreurs classiques
           const somme = sol1.sommeFraction(sol2)
@@ -146,6 +151,7 @@ ${a}x=${-b} &\\text{ ou } ${c}x=${-d}\\\\
 x=${p} &\\text{ ou } x=${q}
 \\end{aligned}$<br>
 Le produit de ces soltions est donc égal à : $${ecritureParentheseSiNegatif(p)}\\times ${ecritureParentheseSiNegatif(q)}=${miseEnEvidence(produitSolutions)}$.`
+
           this.reponse = this.versionQcm
             ? `$${produitSolutions}$`
             : produitSolutions

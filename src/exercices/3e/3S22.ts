@@ -29,7 +29,7 @@ export const uuid = '76231'
 
 export const refs = {
   'fr-fr': ['3S22'],
-  'fr-ch': [],
+  'fr-ch': ['3mP-7'],
 }
 export default class CalculProbaTab2Entrées extends Exercice {
   constructor() {

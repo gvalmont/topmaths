@@ -290,14 +290,15 @@ export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
   types: 'Types',
 }
 
-export type interactivityType =
+export type InteractivityType =
   | 'qcm'
   | 'mathlive'
-  | 'remplisLesBlancs'
+  | 'fillInTheBlank'
   | 'tableauMathlive'
   | 'texte'
   | 'cliqueFigure'
   | 'dnd'
   | 'listeDeroulante'
+  | 'custom'
 
 export type TableauMathliveType = 'doubleEntree' | 'proportionnalite'

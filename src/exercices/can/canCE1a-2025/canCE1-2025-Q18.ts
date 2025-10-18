@@ -13,7 +13,7 @@ export const interactifType = 'custom'
 export const uuid = '0e237'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 /**

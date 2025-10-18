@@ -1,6 +1,6 @@
 import PuissancesEncadrement from '../4e/4C30-1'
 export const titre = 'Encadrer des nombres relatifs avec des puissances de 10'
-export const dateDeModifImportante = '05/09/2023'
+export const dateDeModifImportante = '06/10/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '8f56e'
@@ -15,7 +15,14 @@ export default class PuissancesEncadrement2nde extends PuissancesEncadrement {
     this.classe = 2
     this.besoinFormulaireTexte = [
       'Niveau de difficulté',
-      'Nombres séparés par des tirets :\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Nombre relatif \n5 : Mélange',
+      'Nombres séparés par des tirets :\n1 : Nombre entier naturel\n2 : Nombre décimal supérieur à 1\n3 : Nombre décimal positif inférieur à 1\n4 : Mélange',
     ]
+
+    if (this.classe === 2) {
+      this.besoinFormulaire2CaseACocher = [
+        'Autoriser des nombres négatifs',
+        true,
+      ]
+    }
   }
 }

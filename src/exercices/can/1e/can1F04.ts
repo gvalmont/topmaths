@@ -24,7 +24,7 @@ export const uuid = '0f0de'
 
 export const refs = {
   'fr-fr': ['can1F04'],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-18'],
 }
 export default class LectureGraphiqueParaboleB extends Exercice {
   constructor() {

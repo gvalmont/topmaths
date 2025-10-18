@@ -9,11 +9,11 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
-import { exp } from 'mathjs'
+
 export const uuid = 'zert'
 export const refs = {
   'fr-fr': ['TSA2-QCM07'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -78,7 +78,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     droiteAB.color = colorToLatexOrHTML('red')
     droiteAB.epaisseur = 2
 
-    const f = (x: number) => (a * x + b) * exp(x)
+    const f = (x: number) => (a * x + b) * Math.exp(x)
     const graphique = mathalea2d(
       {
         xmin: -5,

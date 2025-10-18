@@ -15,28 +15,27 @@ import {
 import { polygone } from '../../../lib/2d/polygones'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
+import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
-import { max, min, round } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur'
-import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../../lib/2d/tableau'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 export const titre = 'CAN 5e sujet 2022'
 export const interactifReady = true
@@ -75,8 +74,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ])
@@ -1114,10 +1113,10 @@ export default class SujetCAN2022cinquieme extends Exercice {
           ) // On remplit les tableaux d'objets Mathalea2d
           texte = "Donne la mesure de l'angle."
           paramsEnonce = {
-            xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
-            ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
-            xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
-            ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
+            xmin: Math.min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
+            ymin: -1 + Math.min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
+            xmax: Math.max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
+            ymax: 1 + Math.max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
             pixelsParCm: 20,
             scale: 0.4,
             mainlevee: false,

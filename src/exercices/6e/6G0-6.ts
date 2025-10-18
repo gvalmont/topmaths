@@ -25,7 +25,7 @@ export const uuid = '18672'
 export const refs = {
   'fr-fr': ['6G0-6'],
   'fr-2016': ['6G20-3'],
-  'fr-ch': [],
+  'fr-ch': ['9ES2-12'],
 }
 export default class VocabulaireDeBaseDesPolygones extends Exercice {
   constructor() {

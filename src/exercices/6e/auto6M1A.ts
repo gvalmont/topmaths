@@ -26,5 +26,6 @@ export default class Reglages6N35 extends ExerciceConversions {
     this.sup4 = false
     this.correctionDetailleeDisponible = true
     this.valUnitaire = true
+    this.besoinFormulaire2CaseACocher = false
   }
 }

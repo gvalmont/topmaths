@@ -13,8 +13,8 @@ export const titre =
 export const uuid = '3303a'
 
 export const refs = {
-  'fr-fr': ['4G40'],
-  'fr-ch': [],
+  'fr-fr': ['4G40', '3AutoG13-1'],
+  'fr-ch': ['NR'],
 }
 export default class CalculDeLongueur4e extends CalculDeLongueur {
   constructor() {

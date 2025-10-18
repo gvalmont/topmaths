@@ -6,7 +6,7 @@ export const interactifReady = false
 export const uuid = '74939'
 export const refs = {
   'fr-fr': ['2N20-6'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ListerDiviseursParDecompositionFacteursPremiers2nde extends listerDiviseursParDecompositionFacteursPremiers {
   constructor() {

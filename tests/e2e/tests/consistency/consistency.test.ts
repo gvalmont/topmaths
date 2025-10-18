@@ -1,19 +1,19 @@
-import { runTest } from '../../helpers/run'
 import type { Locator, Page } from 'playwright'
-import { clean } from '../../helpers/text'
 import { log } from '../../helpers/log'
 import prefs from '../../helpers/prefs'
+import { runTest } from '../../helpers/run'
 import {
   type AMCVariation,
   type LatexVariation,
-  type View,
   type Variation,
-  testAllViews,
-  isLatexVariation,
-  isAMCVariation,
-  isStudentVariation,
+  type View,
   getLatexFromPage,
+  isAMCVariation,
+  isLatexVariation,
+  isStudentVariation,
+  testAllViews,
 } from '../../helpers/testAllViews'
+import { clean } from '../../helpers/text'
 
 type ExerciseType = 'classique' | 'simple'
 
@@ -203,9 +203,6 @@ async function defaultViewStatePush(
         )
       }
     }
-    if (variation === 'Course aux nombres') {
-      numbers.pop()
-    }
   }
   states.push({
     url,
@@ -222,7 +219,7 @@ async function getNumbers(locators: Locator[]) {
     const number = clean(innerText, ['cr']).replace(/\D/g, '')
     numbers.push(number)
   }
-  return numbers
+  return numbers.filter((n) => n !== '')
 }
 
 function isConsistent() {

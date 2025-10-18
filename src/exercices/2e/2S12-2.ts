@@ -28,7 +28,7 @@ export const uuid = '018f3'
 
 export const refs = {
   'fr-fr': ['2S12-2'],
-  'fr-ch': [],
+  'fr-ch': ['10FA4-8'],
 }
 export default class EvolutionsSuccesives extends Exercice {
   constructor() {

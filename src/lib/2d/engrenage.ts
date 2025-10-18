@@ -1,10 +1,9 @@
-import { abs, round } from 'mathjs'
-import { arrondi } from '../outils/nombres'
 import {
   colorToLatexOrHTML,
   ObjetMathalea2D,
 } from '../../modules/2dGeneralites'
 import { degCos, degSin } from '../mathFonctions/trigo'
+import { arrondi } from '../outils/nombres'
 /**
  * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
  * @param {object} parametres paramètres de l'objet voir ci-dessous
@@ -78,8 +77,8 @@ class Engrenage extends ObjetMathalea2D {
   }) {
     super()
     this.rayon = rayon
-    this.rayonExt = rayonExt > rayon ? rayonExt : round((rayon * 4) / 3)
-    this.rayonInt = rayonInt < rayon ? rayonInt : round((rayon * 3) / 4)
+    this.rayonExt = rayonExt > rayon ? rayonExt : arrondi((rayon * 4) / 3)
+    this.rayonInt = rayonInt < rayon ? rayonInt : arrondi((rayon * 3) / 4)
     this.nbDents = nbDents
     this.xCenter = xCenter
     this.yCenter = yCenter
@@ -103,14 +102,14 @@ class Engrenage extends ObjetMathalea2D {
   svg(coeff: number) {
     const xC = this.xCenter * coeff
     const yC = -this.yCenter * coeff
-    const R1 = round(this.rayon * coeff)
-    const R2 = round(this.rayonExt * coeff)
-    const R0 = round(this.rayonInt * coeff)
+    const R1 = arrondi(this.rayon * coeff)
+    const R2 = arrondi(this.rayonExt * coeff)
+    const R0 = arrondi(this.rayonInt * coeff)
     const angle = 360 / this.nbDents
-    const r1x = round(R2 - R1)
-    const r1y = round(R1 * degSin(0.25 * angle))
-    const Ax = round(xC + R1 * degCos(angle * 0.25 + this.angleStart))
-    const Ay = round(yC + R1 * degSin(angle * 0.25 + this.angleStart))
+    const r1x = arrondi(R2 - R1)
+    const r1y = arrondi(R1 * degSin(0.25 * angle))
+    const Ax = arrondi(xC + R1 * degCos(angle * 0.25 + this.angleStart))
+    const Ay = arrondi(yC + R1 * degSin(angle * 0.25 + this.angleStart))
     let code = `<g class="roueEngrenage" id=roue${this.id}>
       <path stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}"
         d="M ${Ax},${Ay} `
@@ -123,13 +122,13 @@ class Engrenage extends ObjetMathalea2D {
       const Dy = yC + R2 * degSin(angle * (-i - 0.125) + this.angleStart)
       const Ex = xC + R1 * degCos(angle * (-i - 0.75) + this.angleStart)
       const Ey = yC + R1 * degSin(angle * (-i - 0.75) + this.angleStart)
-      code += `A${r1x},${r1y} ${180 + this.angleStart - i * angle},0 0 ${Cx},${Cy} L${Dx},${Dy} A${r1x},${r1y} ${round(180 + this.angleStart - (i - 0.125) * angle)}, 0, 0 ${Bx},${By} A${R1},${R1} 0, 0, 0 ${Ex},${Ey} `
+      code += `A${r1x},${r1y} ${180 + this.angleStart - i * angle},0 0 ${Cx},${Cy} L${Dx},${Dy} A${r1x},${r1y} ${arrondi(180 + this.angleStart - (i - 0.125) * angle)}, 0, 0 ${Bx},${By} A${R1},${R1} 0, 0, 0 ${Ex},${Ey} `
     }
     code += 'Z"/>'
     if (typeof this.marqueurG === 'number')
-      code += `<circle cx="${round(xC + (R1 - 5) * degCos(this.marqueurG))}" cy="${round(yC + (R1 - 5) * degSin(this.marqueurG))}" r="3" stroke="HotPink" fill="${this.marqueurColorG}" />`
+      code += `<circle cx="${arrondi(xC + (R1 - 5) * degCos(this.marqueurG))}" cy="${arrondi(yC + (R1 - 5) * degSin(this.marqueurG))}" r="3" stroke="HotPink" fill="${this.marqueurColorG}" />`
     if (typeof this.marqueurD === 'number')
-      code += `<circle cx="${round(xC + (R1 - 5) * degCos(this.marqueurD))}" cy="${round(yC + (R1 - 5) * degSin(this.marqueurD))}" r="3" stroke="HotPink" fill="${this.marqueurColorD}" />`
+      code += `<circle cx="${arrondi(xC + (R1 - 5) * degCos(this.marqueurD))}" cy="${arrondi(yC + (R1 - 5) * degSin(this.marqueurD))}" r="3" stroke="HotPink" fill="${this.marqueurColorD}" />`
     if (this.dureeTour !== 0) {
       code += `<animateTransform
         id="animRoue${this.id}"
@@ -138,7 +137,7 @@ class Engrenage extends ObjetMathalea2D {
         type="rotate"
         from="0 ${xC} ${yC}"
         to="${this.dureeTour < 0 ? -360 : 360} ${xC} ${yC}"
-        dur="${abs(this.dureeTour)}"
+        dur="${Math.abs(this.dureeTour)}"
         repeatCount="indefinite"
         />
         </g>

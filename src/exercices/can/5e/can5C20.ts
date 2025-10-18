@@ -18,7 +18,7 @@ export const uuid = '0f007'
 
 export const refs = {
   'fr-fr': ['can5C20'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class Soustraire2Decimaux2 extends ExerciceSimple {
   constructor() {

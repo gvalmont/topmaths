@@ -3,7 +3,8 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { Arbre, texProba } from '../../modules/arbres'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
-export const titre = 'Somme de deux entiers'
+export const titre =
+  "Calculer une probabilité à l'aide d'un arbre de probabilités"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -12,7 +13,7 @@ export const dateDePublication = '4/5/2024'
 export const uuid = '51599'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['3mQCM-1'],
 }
 
 /**

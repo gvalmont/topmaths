@@ -9,7 +9,7 @@ export const dateDeModifImportante = '03/10/2023'
 export const uuid = '1871d'
 export const refs = {
   'fr-fr': ['3A11-0'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SimplifierFractions3e extends SimplifierFractions {
   constructor() {

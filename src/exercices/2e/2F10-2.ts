@@ -53,6 +53,10 @@ export default class Lecturefonctionaffine extends Exercice {
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
     this.spacing = 2
+    this.besoinFormulaire2CaseACocher = [
+      'Énoncé sans le terme fonction affine',
+      false,
+    ]
   }
 
   nouvelleVersion() {
@@ -112,13 +116,13 @@ export default class Lecturefonctionaffine extends Exercice {
               grilleXDistance: 2,
               yLabelDistance: 1,
               yLabelEcart: 0.6,
-              grilleSecondaire: false,
+              grilleSecondaire: true,
               grilleSecondaireYDistance: 1,
               grilleSecondaireXDistance: 2,
-              grilleSecondaireYMin: -5,
-              grilleSecondaireYMax: 6,
-              grilleSecondaireXMin: -8,
-              grilleSecondaireXMax: 8,
+              grilleSecondaireYMin: -5.1,
+              grilleSecondaireYMax: 6.1,
+              grilleSecondaireXMin: -8.1,
+              grilleSecondaireXMax: 8.1,
             })
             let a = randint(-4, 4) // coeff dir
             const b = randint(-4, 3) // ord origine
@@ -129,7 +133,7 @@ export default class Lecturefonctionaffine extends Exercice {
             c.color = colorToLatexOrHTML('red')
             c.epaisseur = 2
             texte =
-              "Déterminer graphiquement l'expression algébrique de la fonction affine $f$ représentée ci-dessous :<br>"
+              `Déterminer l'expression algébrique de la fonction ${this.sup2 ? '': 'affine'} $f$ représentée ${this.sup2 ? 'par la droite': ''}  ci-dessous :<br>`
             texte += mathalea2d(
               {
                 xmin: -8,
@@ -202,8 +206,8 @@ export default class Lecturefonctionaffine extends Exercice {
               )
             } else texte += '$f(x)=\\ldots$'
 
-            texteCorr =
-              'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
+            texteCorr = this.sup2 ? 
+              'La fonction $f$ est représentée par une droite (non verticale), donc $f$ est une fonction affine de la forme $f(x)=ax+b$. <br>': 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
             if (a === 0) {
               texteCorr += `La droite est horizontale. Elle représente une fonction affine constante ($a=0$).<br>
           Ainsi, $f(x)=${b}$.`
@@ -326,16 +330,16 @@ export default class Lecturefonctionaffine extends Exercice {
               grilleSecondaire: true,
               grilleSecondaireYDistance: 1,
               grilleSecondaireXDistance: 1,
-              grilleSecondaireYMin: -6,
-              grilleSecondaireYMax: 6,
-              grilleSecondaireXMin: -8,
-              grilleSecondaireXMax: 8,
+              grilleSecondaireYMin: -6.1,
+              grilleSecondaireYMax: 6.1,
+              grilleSecondaireXMin: -8.1,
+              grilleSecondaireXMax: 8.1,
             })
             const c = droite(a / d, -1, b)
             c.color = colorToLatexOrHTML('red')
             c.epaisseur = 2
-            texte =
-              "Déterminer graphiquement l'expression algébrique de la fonction affine $f$ représentée ci-dessous :<br>"
+             texte =
+              `Déterminer l'expression algébrique de la fonction ${this.sup2 ? '': 'affine'} $f$ représentée ${this.sup2 ? 'par la droite': ''} ci-dessous :<br>`
             texte += mathalea2d(
               {
                 xmin: -8,
@@ -349,8 +353,8 @@ export default class Lecturefonctionaffine extends Exercice {
               c,
               o,
             ) // On trace le graphique
-            texteCorr =
-              'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
+           texteCorr = this.sup2 ? 
+              'La fonction $f$ est représentée par une droite (non verticale), donc $f$ est une fonction affine de la forme $f(x)=ax+b$. <br>': 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
             texteCorr += `$\\bullet$ $b$ est l'ordonnée à l'origine de la droite. On lit $b=${b}$.<br>`
             if (this.correctionDetaillee) {
               texteCorr += `L'ordonnée à l'origine est l'ordonnée du point d'intersection entre la droite et l'axe des ordonnées.<br>

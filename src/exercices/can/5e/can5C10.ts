@@ -5,7 +5,7 @@ export const titre = 'Décomposer en produit de facteurs premiers'
 export const uuid = '1b91d'
 export const refs = {
   'fr-fr': ['can5C10'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class DecomposerFacteursPremierSimple extends ExerciceDecomposerEnFacteursPremiers {
   constructor() {

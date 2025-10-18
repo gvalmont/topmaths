@@ -1,6 +1,8 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { range1 } from '../../../lib/outils/nombres'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
+import SchemaEnBoite from '../../../lib/outils/SchemaEnBoite'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème avec "fois plus", "fois moins"'
@@ -20,147 +22,154 @@ export const refs = {
   'fr-fr': ['canc3C09', 'auto6P3B-flash1'],
   'fr-ch': [],
 }
+const listeObjets = ['biscuits', 'billes', 'bonbons', 'ballons', 'vis', 'clous']
+const listeClubs = [
+  'judo',
+  'tennis',
+  'tennis de table',
+  'musique',
+  'théâtre',
+  'danse',
+]
+function schema(
+  entete1: string,
+  entete2: string,
+  valeur1: number,
+  valeur2: number,
+  facteur: number,
+) {
+  return new SchemaEnBoite({
+    lignes: [
+      {
+        entete: {
+          content: entete1,
+          longueur: 3,
+        },
+        barres:
+          valeur1 === facteur * valeur2
+            ? [
+                {
+                  content: `${valeur1}`,
+                  length: 2 * facteur,
+                  color: 'lightgray',
+                },
+              ]
+            : range1(facteur).map((index) =>
+                Object.assign(
+                  { color: index === 1 ? 'lightgray' : 'white', length: 2 },
+                  { content: `${valeur1}` },
+                ),
+              ),
+      },
+      {
+        entete: {
+          content: entete2,
+          longueur: 3,
+        },
+        barres:
+          valeur1 === facteur * valeur2
+            ? range1(facteur).map((index) =>
+                Object.assign(
+                  { color: index === 1 ? 'lightgray' : 'white', length: 2 },
+                  {
+                    content: `${valeur2}`,
+                  },
+                ),
+              )
+            : [
+                {
+                  content: `${valeur2}`,
+                  length: 2 * facteur,
+                  color: 'lightgray',
+                },
+              ],
+      },
+    ],
+  })
+}
 export default class FoisPlusFoisMoins extends ExerciceSimple {
   constructor() {
     super()
-
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
     this.formatChampTexte = KeyboardType.clavierNumbers
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
   }
 
   nouvelleVersion() {
-    const listeObjets = [
-      ['biscuits'],
-      ['billes'],
-      ['bonbons'],
-      ['ballons'],
-      ['vis'],
-      ['clous'],
-    ]
-    const listeClubs = [
-      ['judo'],
-      ['tennis'],
-      ['tennis de table'],
-      ['musique'],
-      ['théâtre'],
-      ['danse'],
-    ]
-    let a,
-      b,
-      k,
-      prenom1,
-      prenom2,
-      choix1,
-      choix2,
-      reponse1,
-      reponse2,
-      objets,
-      clubs
+    const plusOuMoins = choice(['plus', 'moins'])
+    const [sexe1, sexe2] = shuffle(['filles', 'garçons'])
+    const objet = choice(listeObjets)
+    const club = choice(listeClubs)
+    const prenom1 = prenomM() as string
+    const prenom2 = prenomF() as string
+    const quantité1 = randint(3, 12)
+    const facteur = choice([3, 4, 5, 6])
+    const quantité2 = quantité1 * facteur
+    this.optionsChampTexte = { texteApres: ` ${objet}` }
     switch (
       choice([1, 2, 3]) // 1, 2
     ) {
       case 1:
-        choix1 = choice([true, false])
-        prenom1 = prenomM()
-        prenom2 = prenomF()
-        objets = choice(listeObjets)
-        a = randint(3, 12)
-        k = choice([3, 4, 5, 6])
-        b = a * k
-
-        if (choice([true, false])) {
-          reponse1 = b
-          reponse2 = a
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom1} a $${k}$ fois  ${choix1 ? ' plus' : ' moins'}  de ${objets}
-                que ${prenom2} qui en a ${choix1 ? `$${a}$` : ` $${b}$`}. <br>
-             Combien de ${objets[0]} a  ${prenom1} ? `
-          this.correction = `${prenom2}  a ${choix1 ? `$${a}$` : ` $${b}$ `}  ${objets}. <br>
-            ${prenom1} en a $${k}$ fois  ${choix1 ? ' plus' : ' moins'} ; il en a donc
-            ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$ `}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.`
-        } else {
-          reponse1 = b
-          reponse2 = a
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom2} a ${choix1 ? `$${a}$` : ` $${b}$ `}  ${objets}. ${prenom1} en a $${k}$ fois ${choix1 ? ' plus' : ' moins'}. <br>
-         Combien de ${objets[0]} a  ${prenom1} ? `
-          this.correction = `${prenom2}  a ${choix1 ? `$${a}$` : ` $${b}$`}  ${objets}. <br>
-         ${prenom1} en a $${k}$ fois  ${choix1 ? ' plus' : ' moins'} ; il en a donc
-         ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$ `}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.`
-        }
-        if (this.interactif) {
-          this.optionsChampTexte = { texteApres: ` ${objets}` }
+        this.reponse = plusOuMoins ? quantité2 : quantité1
+        this.question = choice([true, false])
+          ? `${prenom1} a $${facteur}$ fois  ${plusOuMoins}  de ${objet} que ${prenom2} qui en a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$`}.<br>`
+          : `${prenom2} a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `} ${objet}. ${prenom1} en a $${facteur}$ fois ${plusOuMoins}.<br>`
+        this.question += `Combien de ${objet} a  ${prenom1} ? `
+        this.correction = `${prenom2}  a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `}  ${objet}.<br>
+        ${prenom1} en a $${facteur}$ fois  ${plusOuMoins} ; il en a donc ${plusOuMoins === 'plus' ? `$${facteur}\\times ${quantité1}$` : ` $${quantité2}\\div ${facteur}$ `}, soit ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$`}.<br>`
+        if (this.correctionDetaillee) {
+          this.correction += schema(
+            prenom1,
+            prenom2,
+            plusOuMoins === 'plus' ? quantité2 : quantité1,
+            plusOuMoins === 'plus' ? quantité1 : quantité2,
+            facteur,
+          ).display()
         }
         break
-
       case 2:
-        choix1 = choice([true, false])
-        prenom1 = prenomM()
-        prenom2 = prenomF()
-        objets = choice(listeObjets)
-        a = randint(3, 12)
-        k = choice([3, 4, 5, 6])
-        b = a * k
-        if (choice([true, false])) {
-          reponse1 = a
-          reponse2 = b
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom1} a ${choix1 ? `$${b}$` : ` $${a}$`} ${objets}. Il en a $${k}$ fois
-          ${choix1 ? ' plus' : ' moins'}  que ${prenom2}. <br>
-           Combien de ${objets[0]} a  ${prenom2} ? `
-          this.correction = `Puisque   ${prenom1} a ${choix1 ? `$${b}$` : ` $${a}$`} ${objets} et qu'il en a $${k}$ fois
-          ${choix1 ? ' plus' : ' moins'}  que ${prenom2}, ${prenom2} en a $${k}$ fois ${choix1 ? ' moins' : ' plus'}. <br>
-          Elle en a donc ${choix1 ? `$${b}\\div ${k}$` : ` $${k}\\times ${a}$ `}, soit ${choix1 ? `$${a}$` : ` $${b}$`} ${objets}.`
-        } else {
-          reponse1 = a
-          reponse2 = b
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom1} a  $${k}$ fois
-          ${choix1 ? ' plus' : ' moins'} de ${objets} que ${prenom2}. Sachant qu'il a ${choix1 ? `$${b}$` : ` $${a}$`} ${objets}, combien de ${objets[0]} a  ${prenom2} ? `
-          this.correction = `Puisque   ${prenom1} a ${choix1 ? `$${b}$` : ` $${a}$ `} ${objets} et qu'il en a $${k}$ fois
-          ${choix1 ? ' plus' : ' moins'}  que ${prenom2}, ${prenom2} en a $${k}$ fois ${choix1 ? ' moins' : ' plus'}. <br>
-          Elle en a donc ${choix1 ? `$${b}\\div ${k}$` : ` $${k}\\times ${a}$ `}, soit ${choix1 ? `$${a}$` : ` $${b}$ `} ${objets}.`
-        }
-        if (this.interactif) {
-          this.optionsChampTexte = { texteApres: ` ${objets}` }
+        this.reponse = plusOuMoins ? quantité1 : quantité2
+        this.question = choice([true, false])
+          ? `${prenom1} a ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$`} ${objet}. Il en a $${facteur}$ fois ${plusOuMoins}  que ${prenom2}.<br>C`
+          : `${prenom1} a  $${facteur}$ fois ${plusOuMoins} de ${objet} que ${prenom2}.<br>Sachant qu'il a ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$`} ${objet}, c`
+        this.question += `ombien de ${objet} a  ${prenom2} ? `
+        this.correction = `Puisque   ${prenom1} a ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$ `} ${objet} et qu'il en a $${facteur}$ fois ${plusOuMoins}  que ${prenom2}, ${prenom2} en a $${facteur}$ fois ${plusOuMoins === 'plus' ? 'moins' : 'plus'}.<br>
+          Elle en a donc ${plusOuMoins === 'plus' ? `$${quantité2}\\div ${facteur}$` : ` $${facteur}\\times ${quantité1}$ `}, soit ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `} ${objet}.<br>`
+        if (this.correctionDetaillee) {
+          this.correction += schema(
+            prenom1,
+            prenom2,
+            plusOuMoins === 'plus' ? quantité2 : quantité1,
+            plusOuMoins === 'plus' ? quantité1 : quantité2,
+            facteur,
+          ).display()
         }
         break
 
       case 3:
-        choix1 = choice([true, false])
-        choix2 = choice([true, false])
-        prenom1 = prenomM()
-        prenom2 = prenomF()
-        clubs = choice(listeClubs)
-        a = randint(3, 12)
-        k = choice([3, 4, 5, 6])
-        b = a * k
-        if (choice([true, false])) {
-          reponse1 = b
-          reponse2 = a
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `Dans un club de ${clubs}, il y a ${choix1 ? `$${a}$` : ` $${b}$ `} ${choix2 ? ' garçons' : ' filles'} et
-          $${k}$ fois  ${choix1 ? ' plus' : ' moins'} de ${choix2 ? ' filles' : ' garçons'}.<br>
-          Combien y a-t-il de ${choix2 ? ' filles' : ' garçons'} dans ce club ? `
-          this.correction = `Puisqu'il y a    ${choix1 ? `$${a}$` : ` $${b}$ `} ${choix2 ? ' garçons' : ' filles'}
-          et $${k}$ fois  ${choix1 ? ' plus' : ' moins'} de ${choix2 ? ' filles' : ' garçons'},
-          le nombre de ${choix2 ? ' filles' : ' garçons'} est :
-          ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$ `}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.`
-        } else {
-          reponse1 = b
-          reponse2 = a
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `Dans un club de ${clubs}, il y a $${k}$ fois  ${choix1 ? ' plus' : ' moins '} de ${choix2 ? ' filles' : ' garçons'} que de ${choix2 ? ' garçons' : ' filles'}. <br>
-          Sachant qu'il y a ${choix1 ? `$${a}$` : ` $${b}$ `} ${choix2 ? ' garçons' : ' filles'}, combien y a-t-il de ${choix2 ? ' filles' : ' garçons'} dans ce club ? `
-          this.correction = `Puisqu'il y a  $${k}$ fois  ${choix1 ? ' plus' : ' moins'} de ${choix2 ? ' filles ' : ' garçons'} que de ${choix2 ? ' garçons' : ' filles'},
-          le nombre de  ${choix2 ? ' filles' : ' garçons'} est : ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$`}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.`
+        this.reponse = plusOuMoins ? quantité2 : quantité1
+        this.question = choice([true, false])
+          ? `Dans un club de ${club}, il y a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `} ${sexe1} et
+          $${facteur}$ fois  ${plusOuMoins} de ${sexe2}.<br>C`
+          : `Dans un club de ${club}, il y a $${facteur}$ fois ${plusOuMoins} de ${sexe2} que de ${sexe1}. <br>
+          Sachant qu'il y a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `} ${sexe1}, c`
+        this.question += `ombien y a-t-il de ${sexe2} ? `
+        this.correction = `Puisqu'il y a  $${facteur}$ fois  ${plusOuMoins} de ${sexe2} que de ${sexe1},
+          le nombre de  ${sexe2} est : ${plusOuMoins === 'plus' ? `$${facteur}\\times ${quantité1}$` : ` $${quantité2}\\div ${facteur}$`}, soit ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$`}.<br>`
+        if (this.correctionDetaillee) {
+          this.correction += schema(
+            sexe1,
+            sexe2,
+            plusOuMoins === 'plus' ? quantité1 : quantité2,
+            plusOuMoins === 'plus' ? quantité2 : quantité1,
+            facteur,
+          ).display()
         }
-        if (this.interactif) {
-          this.optionsChampTexte = {
-            texteApres: ` ${choix2 ? ' filles' : ' garçons'}`,
-          }
+        // On écrase les options par défaut
+        this.optionsChampTexte = {
+          texteApres: ` ${sexe2}`,
         }
 
         break

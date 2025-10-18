@@ -1,20 +1,20 @@
+import Decimal from 'decimal.js'
+import { texTexte } from '../../lib/format/texTexte'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   compteOccurences,
 } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texTexte } from '../../lib/format/texTexte'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import Decimal from 'decimal.js'
 import { fraction } from '../../modules/fractions'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -100,7 +100,7 @@ export default class ExerciceConversions extends Exercice {
     this.correctionDetaillee = true
     this.correctionDetailleeDisponible = false
     this.comment =
-      'Le paramètre qui permet de ne choisir que des unités de longueurs devient caduque si, à un paramètre précédent, on choisit de convertir des unités de stockage informatiques.'
+      'Le paramètre qui permet de ne choisir que des unités de longueurs devient caduque si, à un paramètre précédent, on choisit de convertir des unités de stockage informatique.'
   }
 
   nouvelleVersion() {

@@ -13,5 +13,6 @@ export default class PremierOuPas4e extends PremierOuPas {
   constructor() {
     super()
     this.sup2 = false
+    this.sup3 = true
   }
 }

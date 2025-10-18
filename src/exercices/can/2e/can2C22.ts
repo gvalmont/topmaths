@@ -27,10 +27,10 @@ export default class CalculExpAvecValeurs extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.spacing = 3
-    this.formatInteractif = 'fractionEgale'
+    this.optionsDeComparaison = { fractionEgale: true }
     this.versionQcmDisponible = true
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion() {

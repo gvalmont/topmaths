@@ -1,21 +1,21 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenuSansNumero,
   randint,
-  gestionnaireFormulaireTexte,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Réduire une expression'
 export const interactifReady = true
@@ -32,7 +32,7 @@ export const dateDeModifImportante = '06/02/2024'
 export const uuid = 'f6853'
 
 export const refs = {
-  'fr-fr': ['3L11-2', 'BP2AutoI10'],
+  'fr-fr': ['3L11-2', 'BP2AutoI10', '3autoN11-1'],
   'fr-ch': ['10FA1-13'],
 }
 export default class ReductionSiPossible extends Exercice {

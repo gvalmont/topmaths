@@ -21,7 +21,7 @@ export const uuid = '02170'
 
 export const refs = {
   'fr-fr': ['can6C27', '6N2A-flash4'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class RenduMonnaie extends ExerciceSimple {
   constructor() {

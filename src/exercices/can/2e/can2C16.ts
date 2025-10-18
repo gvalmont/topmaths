@@ -23,7 +23,7 @@ export const uuid = '04048'
 
 export const refs = {
   'fr-fr': ['can2C16'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ProgrammeCalcul2 extends ExerciceSimple {
   constructor() {

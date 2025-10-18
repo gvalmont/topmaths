@@ -7,7 +7,6 @@ export const titre = 'Compter les cubes manquants'
 
 /**
  * @author Jean-Claude Lhote
- * Créé pendant l'été 2021
  */
 export const uuid = '5571c'
 

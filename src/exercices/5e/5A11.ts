@@ -5,7 +5,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const uuid = 'a55d2'
 export const refs = {
-  'fr-fr': ['5A11'],
+  'fr-fr': ['5A11', '3autoN09-1'],
   'fr-ch': [],
 }
 export default class TableauCriteresDeDivisibilite5e extends TableauCriteresDeDivisibilite {

@@ -1,5 +1,4 @@
 import Decimal from 'decimal.js'
-import { min } from 'mathjs'
 import { tableau } from '../../lib/2d/tableau'
 import {
   handleAnswers,
@@ -145,16 +144,16 @@ export default class EchellesProblemes extends Exercice {
           quidam2 = choice([prenomF(), prenomM()])
           nb1 = choice(rangeMinMax(3, 17, [10])) // nb1 est le nombre de mm
           unite1 = tableauUnites[Math.floor(Math.log10(nb1))] // unite1 est l'unité d'usage de nb1 (mm ou cm)
-          nb1Unite1 = nb1 / Math.pow(10, min(Math.floor(Math.log10(nb1)))) // nb1Unite1 vaut nb1 dans l'unite1
+          nb1Unite1 = nb1 / Math.pow(10, Math.min(Math.floor(Math.log10(nb1)))) // nb1Unite1 vaut nb1 dans l'unite1
           echelleQ = choice(Echelle) // echelle choisie pour cette question
           nb2 = nb1 * echelleQ.echelle // nb2 est la distance réelle en mm
-          unite2 = tableauUnites[Math.floor(min(Math.log10(nb2), 6))] // unite2 est l'unité d'usage de nb2 (m, dam, hm ou km)
+          unite2 = tableauUnites[Math.floor(Math.min(Math.log10(nb2), 6))] // unite2 est l'unité d'usage de nb2 (m, dam, hm ou km)
           nb2Unite1 = arrondi(
-            nb2 / Math.pow(10, min(Math.floor(Math.log10(nb1)), 6)),
+            nb2 / Math.pow(10, Math.min(Math.floor(Math.log10(nb1)), 6)),
             3,
           ) // nb2Unite1 vaut nb2 dans l'unite1
           nb2Unite2 = arrondi(
-            nb2 / Math.pow(10, min(Math.floor(Math.log10(nb2)), 6)),
+            nb2 / Math.pow(10, Math.min(Math.floor(Math.log10(nb2)), 6)),
             3,
           ) // nb2Unite2 vaut nb2 dans l'unite2
           reponse = new FractionEtendue(nb1, nb2)
@@ -304,20 +303,20 @@ export default class EchellesProblemes extends Exercice {
             texteCorr += `Or, $${new FractionEtendue(nb1Unite1, nb2Unite1).texFSD}=${texFractionFromString(texNombre(nb1Unite1) + sp(2) + miseEnEvidence('\\div ' + sp(2) + texNombre(nb1Unite1), 'blue'), texNombre(nb2Unite1, 2) + sp(2) + miseEnEvidence('\\div ' + sp(2) + texNombre(nb1Unite1, 2), 'blue'))}=${reponse.simplifie().texFraction}$. `
           }
           texteCorr += `Donc, l'échelle du plan ${echelleQ.lieu}  ${quidam[2]} ${quidam[0]} de ${quidam2} est de : $${miseEnEvidence(reponse.simplifie().texFSP)}$.<br>`
-          texteCorr += `Remarque : cela signifie que, sur le plan ${echelleQ.lieu}  ${quidam[2]} ${quidam[0]} de ${quidam2}, $1$ ${unite1} représente $${texNombre(reponse.simplifie().den)}$ ${unite1} en réalité, et donc, $1$ ${unite1} représente $${texNombre(reponse.simplifie().den / Math.pow(10, min(Math.floor(Math.log10(reponse.simplifie().den)), 6)), 2)}$ ${unite2} en réalité.`
+          texteCorr += `Remarque : cela signifie que, sur le plan ${echelleQ.lieu}  ${quidam[2]} ${quidam[0]} de ${quidam2}, $1$ ${unite1} représente $${texNombre(reponse.simplifie().den)}$ ${unite1} en réalité, et donc, $1$ ${unite1} représente $${texNombre(reponse.simplifie().den / Math.pow(10, Math.min(Math.floor(Math.log10(reponse.simplifie().den)), 6)), 2)}$ ${unite2} en réalité.`
           break
         case 2:
           quidam = choice(Famille)
           quidam2 = choice([prenomF(), prenomM()])
           nb1 = choice(rangeMinMax(3, 47, [10, 20, 30, 40]))
           nb1Unite1 = new Decimal(nb1).div(
-            Math.pow(10, min(Math.floor(Math.log10(nb1)), 6)),
+            Math.pow(10, Math.min(Math.floor(Math.log10(nb1)), 6)),
           )
           echelleQ = choice(Echelle)
           echelleQUnite2 = new Decimal(echelleQ.echelle).div(
             Math.pow(
               10,
-              min(
+              Math.min(
                 Math.floor(Math.log10(echelleQ.echelle)),
                 6 - Math.floor(Math.log10(nb1)),
               ),
@@ -328,7 +327,7 @@ export default class EchellesProblemes extends Exercice {
           unite2 =
             tableauUnites[
               Math.floor(
-                min(
+                Math.min(
                   Math.log10(echelleQ.echelle) + Math.floor(Math.log10(nb1)),
                   6,
                 ),
@@ -497,11 +496,11 @@ export default class EchellesProblemes extends Exercice {
           echelleQ = choice(Echelle)
           unite1 = tableauUnites[1]
           nb2 = nb1 * echelleQ.echelle
-          unite2 = tableauUnites[Math.floor(min(Math.log10(nb2), 6))]
+          unite2 = tableauUnites[Math.floor(Math.min(Math.log10(nb2), 6))]
           // echelleQUnite2 = echelleQ.echelle / Math.pow(10, min(Math.floor(Math.log10(echelleQ.echelle)), 5)) // EE : Suppression au profit de la suivante sinon pb avec échelle 5000.
           echelleQUnite2 =
             echelleQ.echelle /
-            Math.pow(10, min(Math.round(Math.log10(echelleQ.echelle)), 5))
+            Math.pow(10, Math.min(Math.round(Math.log10(echelleQ.echelle)), 5))
           nb2Unite2 = nb1 * echelleQUnite2
           nb2Unite1 = nb2
           reponse = arrondi(nb1Unite1, 0)

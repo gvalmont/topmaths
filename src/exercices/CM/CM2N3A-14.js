@@ -22,14 +22,14 @@ export const uuid = '67962'
 export const refs = {
   'fr-fr': ['CM2N3A-14'],
   'fr-2016': ['CM012'],
-  'fr-ch': [],
+  'fr-ch': ['PR-6'],
 }
 export default class ComplementA100 extends Exercice {
   constructor() {
     super()
 
     this.besoinFormulaireNumerique = [
-      'Type d\'écriture',
+      "Type d'écriture",
       2,
       `   1 : 100 - n = ...
     2 : n + ... = 100`,
@@ -45,11 +45,13 @@ export default class ComplementA100 extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-      
+
     ) {
       a = randint(11, 89)
-      this.sup === 1 ? texte = `$100-${a}=$` : texte = `$${a}+...=100$`
-      this.sup === 1 ? texteCorr = `$100-${a}=${miseEnEvidence(texNombre(100 - a))}$` : texteCorr = `$${a}+ ${miseEnEvidence(texNombre(100 - a))}=100$`
+      this.sup === 1 ? (texte = `$100-${a}=$`) : (texte = `$${a}+...=100$`)
+      this.sup === 1
+        ? (texteCorr = `$100-${a}=${miseEnEvidence(texNombre(100 - a))}$`)
+        : (texteCorr = `$${a}+ ${miseEnEvidence(texNombre(100 - a))}=100$`)
       setReponse(this, i, 100 - a)
       if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
 

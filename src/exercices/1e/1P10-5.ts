@@ -23,7 +23,7 @@ export const uuid = '0e166'
 
 export const refs = {
   'fr-fr': ['1P10-5'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-6'],
 }
 export default class ProlemesE3CProbabiltesCond extends Exercice {
   constructor() {

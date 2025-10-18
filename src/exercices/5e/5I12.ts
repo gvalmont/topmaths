@@ -1,14 +1,14 @@
 import Exercice from '../Exercice'
 
-import { scratchblock } from '../../modules/scratchblock'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { shuffle } from '../../lib/outils/arrayOutils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { scratchblock } from '../../modules/scratchblock'
 
 import { context } from '../../modules/context'
 
@@ -146,12 +146,13 @@ export default class CalculsAvecPriorité extends Exercice {
       )
 
       const reponses = Object.fromEntries([
-        ...texteMath
-          .slice(1)
-          .map((el, index) => [
-            `L${index + 2}C1`,
-            { value: el, options: { operationSeulementEtNonResultat: true } },
-          ]),
+        ...texteMath.slice(1).map((el, index) => [
+          `L${index + 2}C1`,
+          {
+            value: el,
+            options: { expressionNumerique: true },
+          },
+        ]),
         ...resultat
           .slice(1)
           .map((el, index) => [`L${index + 2}C2`, { value: el }]),

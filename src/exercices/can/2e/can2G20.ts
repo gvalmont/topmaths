@@ -26,7 +26,7 @@ export const uuid = '1f967'
 
 export const refs = {
   'fr-fr': ['can2G20'],
-  'fr-ch': [],
+  'fr-ch': ['11QCM-8', '1mQCM-11'],
 }
 export default class EquationDroite extends ExerciceSimple {
   constructor() {

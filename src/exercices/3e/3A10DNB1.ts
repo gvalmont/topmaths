@@ -26,7 +26,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = '61217'
 export const refs = {
   'fr-fr': ['3A10DNB1', '3Z1DNB-06'],
-  'fr-ch': [],
+  'fr-ch': ['11PROB-1'],
 }
 export const titre = 'Préparation DNB : Arithmétique, volume, fraction'
 export const dateDePublication = '28/11/2024'

@@ -1,10 +1,8 @@
-// import { ComputeEngine } from '@cortex-js/compute-engine'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -15,17 +13,16 @@ export const interactifType = 'mathLive'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
-const result = fonctionComparaison('3.1\\times10^{3}', '3100', {
+/* const result = fonctionComparaison('3.1\\times10^{3}', '3100', {
   ecritureScientifique: true,
 })
-// console.log('result', result)
-/*
+
 const result = fonctionComparaison(
   '0.90\\times c_{n}+50',
   '20+30+0.90\\times c_{n}',
@@ -33,19 +30,22 @@ const result = fonctionComparaison(
     calculFormel: true,
   },
 )
-console.log('result', result)
 
 
 */
-const expr1 = engine.parse('0.93\times c_{n}+20', { canonical: false })
-const expr2 = engine.parse('10+10+0.93c_{n}', {
+const expr1 = engine.parse('(15 \\div 3) - 3', { canonical: true })
+const expr2 = engine.parse('10 \\times (9-4)', {
   canonical: false,
 })
-// console.info(expr1.json) // -> false but should be true
-// console.info(expr2.json) // -> false but should be true
+console.info(expr1.latex) // -> false but should be true
+// console.info(expr1.simplify().json) // -> false but should be true
+console.info(expr2.latex) // -> false but should be true
 
-// console.info('comparaison', expr1.isEqual(expr2)) // -> true OK of course
-// console.info(expr1.isSame(expr2)) // -> true OK of course
+console.info('comparaison', expr1.isEqual(expr2)) // -> true OK of course
+console.info(expr1.isSame(expr2)) // -> true OK of course
+
+console.info(expr1.latex)
+console.info(JSON.stringify(expr2.json))
 
 /* console.info(engine.parse('2^6').isEqual(engine.parse('-2^6'))) // -> false OK
 console.info(engine.parse('(-2)^6').isEqual(engine.parse('2^6'))) // -> true

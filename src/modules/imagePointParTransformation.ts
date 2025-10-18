@@ -1,5 +1,4 @@
 import { Matrice, matrice } from '../lib/mathFonctions/Matrice'
-import { Matrix } from 'mathjs'
 export type TransformationsIndex =
   | 1
   | 2
@@ -160,7 +159,7 @@ export function imagePointParTransformation(
           [0, -1, 0],
           [0, 0, 1],
         ]) // x'=-x et y'=-y
-        maMatrice = matriceSymCentrale!.multiply(matriceChangementDeRepereInv)
+        maMatrice = matriceSymCentrale.multiply(matriceChangementDeRepereInv)
       }
       break
     case 11:
@@ -171,7 +170,7 @@ export function imagePointParTransformation(
           [Math.sin(Math.PI / 3), 0.5, 0],
           [0, 0, 1],
         ])
-        maMatrice = matriceRotation60Direct!.multiply(
+        maMatrice = matriceRotation60Direct.multiply(
           matriceChangementDeRepereInv,
         )
       }
@@ -184,7 +183,7 @@ export function imagePointParTransformation(
           [-Math.sin(Math.PI / 3), 0.5, 0],
           [0, 0, 1],
         ])
-        maMatrice = matriceRotation60Indirect!.multiply(
+        maMatrice = matriceRotation60Indirect.multiply(
           matriceChangementDeRepereInv,
         )
       }
@@ -250,8 +249,10 @@ export function imagePointParTransformation(
       break
   }
   const pointA1 = (maMatrice! as Matrice).multiply(pointA)
-  const pointA2 = matriceChangementDeRepere!.multiply(
-    pointA1,
-  ) as unknown as Matrix
-  return pointA2.toArray().slice(0, 2) as [number, number]
+  const pointA2 = matriceChangementDeRepere.multiply(pointA1)
+  return typeof (pointA2 as any).toArray === 'function'
+    ? ((pointA2 as any).toArray().slice(0, 2) as [number, number])
+    : Array.isArray(pointA2)
+      ? (pointA2.slice(0, 2) as [number, number])
+      : [0, 0]
 }

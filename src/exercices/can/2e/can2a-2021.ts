@@ -16,21 +16,21 @@ import {
 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { context } from '../../../modules/context'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
 } from '../../../modules/2dGeneralites'
+import { context } from '../../../modules/context'
 import { fraction } from '../../../modules/fractions'
-import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { arrondi } from '../../../lib/outils/nombres'
 import FractionEtendue from '../../../modules/FractionEtendue'
 
 export const titre = 'CAN Seconde sujet 2021'
@@ -53,7 +53,7 @@ export const uuid = '1f0cd'
 
 export const refs = {
   'fr-fr': ['can2a-2021'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SujetCAN2021Seconde extends Exercice {
   constructor() {
@@ -70,8 +70,8 @@ export default class SujetCAN2021Seconde extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 22)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 22)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 8, 9])
       .slice(-nbQ1)
       .sort(compareNombres)

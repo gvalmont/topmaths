@@ -20,7 +20,7 @@ export const dateDePublication = '02/02/2025'
 export const uuid = '24d3a'
 export const refs = {
   'fr-fr': ['TSG2-06'],
-  'fr-ch': [],
+  'fr-ch': ['2mGeomVect-6'],
 }
 
 /**

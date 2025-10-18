@@ -56,7 +56,7 @@ export const uuid = '0e016'
 export const refs = {
   'fr-fr': ['6I1B-2'],
   'fr-2016': ['6I11'],
-  'fr-ch': [],
+  'fr-ch': ['autres-6'],
 }
 export default class NoteLaCouleur6e extends Exercice {
   relatif: boolean

@@ -1,4 +1,3 @@
-import { round } from 'mathjs'
 import { courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -100,13 +99,13 @@ export default class EtudeParabole extends Exercice {
     const question4 =
       'Avec les résultats précédents, esquisser le graphe de $f$.'
     let correction4 = `On a le sommet de la parabole en $S\\left(${pAlpha.simplifie().texFractionSimplifiee} \\,;\\, ${pPoly.evaluer({ x: pAlpha }).texFractionSimplifiee}\\right)$, l'intersection avec l'axe des abscisses en $\\left(${p.solutionsListeTex[0]}\\,;\\,0\\right)$ et $\\left(${p.solutionsListeTex[1]}\\,;\\,0\\right)$ et le point d'intersection avec l'axe des ordonnées en $\\left(0\\,;\\,${pPoly.evaluer({ x: new FractionEtendue(0, 1) }).texFractionSimplifiee}\\right)$. On peut donc esquisser le graphe de $f$ en traçant une parabole passant par ces points.`
-    let yminVal = round(
+    let yminVal = Math.round(
       pPoly.evaluer({ x: pAlpha }).num / pPoly.evaluer({ x: pAlpha }).den - 1,
     )
     let ymaxVal = 5
     if (p.coefficients[0].signe === -1) {
       yminVal = -5
-      ymaxVal = round(
+      ymaxVal = Math.round(
         pPoly.evaluer({ x: pAlpha }).num / pPoly.evaluer({ x: pAlpha }).den + 1,
       )
     }

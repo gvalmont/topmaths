@@ -10,7 +10,7 @@ import { ppcm } from '../../lib/outils/primalite'
 export const uuid = '2ab24'
 export const refs = {
   'fr-fr': ['1A-C19-2'],
-  'fr-ch': [],
+  'fr-ch': ['10QCM-8'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'

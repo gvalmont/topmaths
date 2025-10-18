@@ -4,16 +4,16 @@ import { milieu, point } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu } from '../../modules/outils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Reconnaitre un parallélogramme à partir du codage d'une figure"
 export const interactifReady = true
@@ -30,7 +30,7 @@ export const dateDeModifImportante = '18/04/2024'
 export const uuid = '588fe'
 
 export const refs = {
-  'fr-fr': ['5G40-2'],
+  'fr-fr': ['5G40-2', '3AutoG02-2'],
   'fr-ch': ['9ES2-2'],
 }
 export default class ParallelogrammeAPartirDUneFigure extends Exercice {

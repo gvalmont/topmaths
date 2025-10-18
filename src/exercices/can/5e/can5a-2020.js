@@ -1,12 +1,14 @@
+import Decimal from 'decimal.js'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { codageSegment } from '../../../lib/2d/codages'
+import { traceBarre } from '../../../lib/2d/diagrammes'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { pave } from '../../../lib/2d/projections3d'
 import { droiteGraduee, grille, repere } from '../../../lib/2d/reperes'
-import { traceBarre } from '../../../lib/2d/diagrammes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -14,26 +16,23 @@ import {
 } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomM } from '../../../lib/outils/Personne'
-import { texPrix } from '../../../lib/format/style'
 import {
   formatMinute,
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import Decimal from 'decimal.js'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { fraction } from '../../../modules/fractions'
-import { min, round } from 'mathjs'
 import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -75,8 +74,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ])

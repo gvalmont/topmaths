@@ -1,13 +1,18 @@
 import { droite } from '../../lib/2d/droites'
-import { point, pointAdistance, pointIntersectionDD } from '../../lib/2d/points'
+import {
+  Point,
+  point,
+  pointAdistance,
+  pointIntersectionDD,
+} from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
-import { shuffle } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../Exercice'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Utiliser les symboles ∈ et ∉'
 
 export const dateDePublication = '27/02/2023'
@@ -37,25 +42,32 @@ export default class UtilerAppartientA extends Exercice {
   nouvelleVersion() {
     const objetsEnonce = []
     const lettres = choisitLettresDifferentes(6)
-    let rayon = 3
-    if (context.isHtml) rayon = 4
+    let rayon = 6
+    if (context.isHtml) rayon = 8
     const A = point(0, 0, lettres[0])
-    const angle = randint(0, 359)
-    const B = pointAdistance(A, rayon, angle, lettres[1])
-    const D = pointAdistance(A, rayon, angle + 60, lettres[3])
-    const CentreBD = randint(4, 6) / 10
-    const C = point(
-      B.x * CentreBD + D.x * (1 - CentreBD),
-      B.y * CentreBD + D.y * (1 - CentreBD),
-      lettres[2],
-    )
-    const EentreAC = randint(4, 6) / 10
-    const E = point(
-      A.x * EentreAC + C.x * (1 - EentreAC),
-      A.y * EentreAC + C.y * (1 - EentreAC),
-      lettres[4],
-    )
-    const F = pointIntersectionDD(droite(B, E), droite(A, D), lettres[5])
+    let B = point(0, 0)
+    let C = point(0, 0)
+    let D = point(0, 0)
+    let E = point(0, 0)
+    let F: false | Point = false
+    while (!F) {
+      const angle = randint(0, 359)
+      B = pointAdistance(A, rayon, angle, lettres[1])
+      D = pointAdistance(A, rayon, angle + 60, lettres[3])
+      const CentreBD = randint(4, 6) / 10
+      C = point(
+        B.x * CentreBD + D.x * (1 - CentreBD),
+        B.y * CentreBD + D.y * (1 - CentreBD),
+        lettres[2],
+      )
+      const EentreAC = randint(4, 6) / 10
+      E = point(
+        A.x * EentreAC + C.x * (1 - EentreAC),
+        A.y * EentreAC + C.y * (1 - EentreAC),
+        lettres[4],
+      )
+      F = pointIntersectionDD(droite(B, E), droite(A, D), lettres[5])
+    }
     const polyABE = polygoneAvecNom(A, B, E)
     const polyCFD = polygoneAvecNom(C, F, D)
     const segmentAB = segment(A, B)

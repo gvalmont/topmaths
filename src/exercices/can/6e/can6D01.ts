@@ -16,7 +16,7 @@ export const uuid = '1db82'
 
 export const refs = {
   'fr-fr': ['can6D01', '6M4C-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ConversionHeuresEtMinutesVersMinutes extends ExerciceSimple {
   constructor() {

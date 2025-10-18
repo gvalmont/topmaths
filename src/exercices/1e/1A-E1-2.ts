@@ -15,7 +15,7 @@ export const uuid = '04c8b'
 
 export const refs = {
   'fr-fr': ['1A-E1-2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class Auto1AE1b extends CoeffMul {
   constructor() {

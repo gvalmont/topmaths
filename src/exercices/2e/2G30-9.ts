@@ -1,25 +1,24 @@
-import figureApigeom from '../../lib/figureApigeom'
 import Figure from 'apigeom'
+import type Point from 'apigeom/src/elements/points/Point'
 import { droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
+import { orangeMathalea } from '../../lib/colors'
+import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { abs } from '../../lib/outils/nombres'
+import { getLang } from '../../lib/stores/languagesStore'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { min, max } from 'mathjs'
-import { abs } from '../../lib/outils/nombres'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
-import type Point from 'apigeom/src/elements/points/Point'
-import { orangeMathalea } from '../../lib/colors'
-import { context } from '../../modules/context'
-import { getLang } from '../../lib/stores/languagesStore'
+import Exercice from '../Exercice'
 
 export const titre =
   "Tracer une droite à partir d'un point et d'un coefficient directeur ou d'un vecteur directeur"
@@ -79,10 +78,10 @@ export default class RepresenterfDroite extends Exercice {
       const A = point(xA, yA, 'A')
       const B = point(0, 0, 'B')
       const cadre = {
-        xMin: min(-3, xA - 5),
-        yMin: min(-4, yA - 5),
-        xMax: max(4, xA + 5),
-        yMax: max(4, yA + 5),
+        xMin: Math.min(-3, xA - 5),
+        yMin: Math.min(-4, yA - 5),
+        xMax: Math.max(4, xA + 5),
+        yMax: Math.max(4, yA + 5),
       }
       // C'est bizarre mais c'est parce que dans mathAlea, les attributs n'ont pas de majuscules.
       // Donc même quand c'est le même cadre, on doit le faire.

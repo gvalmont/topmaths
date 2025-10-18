@@ -34,7 +34,7 @@ export const uuid = '0716b'
 
 export const refs = {
   'fr-fr': ['2N61-4'],
-  'fr-ch': [],
+  'fr-ch': ['2mIneq-4'],
 }
 export default class ExerciceInequationQuotient extends Exercice {
   constructor() {

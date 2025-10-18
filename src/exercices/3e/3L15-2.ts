@@ -1,10 +1,9 @@
-import { abs } from 'mathjs'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   "Résoudre une équaton du second degré à l'aide la racine carrée"
@@ -87,7 +86,7 @@ export default class nomExercice extends Exercice {
             }
           } while (
             coeffConstant.num === 0 ||
-            abs(coeffX * coeffConstant.num) > 144
+            Math.abs(coeffX * coeffConstant.num) > 144
           )
           break
         case 'entierPasDeSol':
@@ -101,7 +100,7 @@ export default class nomExercice extends Exercice {
             }
           } while (
             coeffConstant.num === 0 ||
-            abs(coeffX * coeffConstant.num) > 144
+            Math.abs(coeffX * coeffConstant.num) > 144
           )
           break
         case 'fraction':

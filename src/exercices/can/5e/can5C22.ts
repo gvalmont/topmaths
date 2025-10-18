@@ -1,9 +1,9 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = "Passer d'un décimal à une fraction"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,13 +26,12 @@ export default class DecimalVersFraction extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-      this.optionsChampTexte = { texteAvant: '<br>' }
+    this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
   nouvelleVersion() {
     let a, d, maFraction
 
-    // this.formatInteractif = 'fractionEgale'
     a = randint(1, 39, [10, 20, 30])
     switch (choice([1, 2, 3])) {
       case 1: // division par 10

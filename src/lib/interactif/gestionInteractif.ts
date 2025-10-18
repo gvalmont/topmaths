@@ -1,10 +1,7 @@
-import { addElement, get, setStyles } from '../html/dom'
-import { verifQuestionMathLive } from './mathLive'
-import { verifQuestionQcm } from './qcm'
-import { verifQuestionListeDeroulante } from './questionListeDeroulante'
+import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
-import Decimal from 'decimal.js'
+import { addElement, get, setStyles } from '../html/dom'
 import {
   fonctionComparaison,
   // fractionCompare,
@@ -23,14 +20,19 @@ import {
   type CompareFunction,
   type OptionsComparaisonType,
 } from './comparisonFunctions'
+import { verifQuestionMathLive } from './mathLive'
+import { verifQuestionQcm } from './qcm'
+import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 // import Hms from '../../modules/Hms'
-import { context } from '../../modules/context'
-import type Exercice from '../../exercices/Exercice'
-import { verifDragAndDrop } from './DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
-import { afficheScore, type ResultOfExerciceInteractif } from './afficheScore'
-import Hms from '../../modules/Hms'
+import type Exercice from '../../exercices/Exercice'
+import type { OldFormatInteractifType } from '../../exercices/Exercice'
 import MetaExercice from '../../exercices/MetaExerciceCan'
+import { context } from '../../modules/context'
+import Hms from '../../modules/Hms'
+import type { InteractivityType } from '../types'
+import { afficheScore, type ResultOfExerciceInteractif } from './afficheScore'
+import { verifDragAndDrop } from './DragAndDrop'
 export interface ReponseParams {
   digits?: number
   decimals?: number
@@ -45,13 +47,7 @@ export interface ReponseParams {
   exposantPuissance?: number
   baseNbChiffres?: number
   milieuIntervalle?: number
-  formatInteractif?:
-    | 'listeDeroulante'
-    | 'qcm'
-    | 'cliqueFigure'
-    | 'mathlive'
-    | string
-    | undefined
+  formatInteractif?: InteractivityType | OldFormatInteractifType
   precision?: number
   scoreapprox?: number
   vertical?: boolean
@@ -527,7 +523,12 @@ export function prepareExerciceCliqueFigure(exercice: Exercice) {
             fig.addEventListener('mouseover', mouseOverSvgEffect)
             fig.addEventListener('mouseout', mouseOutSvgEffect)
             fig.addEventListener('click', mouseSvgClick)
-            fig.etat = false
+            if (fig.etat === true) {
+              // MGu : si l'état est true, c'est que ca a été coché par capytale
+              // il faudrait revoir le système de figure cliquable avec un customelement
+            } else {
+              fig.etat = false
+            }
             fig.style.margin = '10px'
             fig.style.border = '3px solid transparent'
             fig.hasMathaleaListener = true

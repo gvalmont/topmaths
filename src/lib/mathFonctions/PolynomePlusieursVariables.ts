@@ -1,14 +1,27 @@
+import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import { shuffle } from '../outils/arrayOutils'
 import { miseEnEvidence } from '../outils/embellissements'
+import { ppcmListe } from '../outils/primalite'
 import MonomePlusieursVariables from './MonomePlusieursVariables'
 
 class PolynomePlusieursVariables {
   monomes: MonomePlusieursVariables[]
+  coefficients: FractionEtendue[]
 
   constructor(monomes: MonomePlusieursVariables[] | MonomePlusieursVariables) {
     this.monomes = Array.isArray(monomes) ? monomes : [monomes]
+    this.coefficients = this.monomes.map((m) => m.coefficient.simplifie())
+  }
+
+  get degre(): number {
+    if (this.monomes.length === 0) return 0
+    return Math.max(...this.monomes.map((m) => m.degre))
+  }
+
+  get ppcm(): number {
+    return ppcmListe(this.monomes.map((m) => m.coefficient.simplifie().den))
   }
 
   static PolynomeNonReduit(
@@ -51,8 +64,16 @@ class PolynomePlusieursVariables {
     typeCoeff: string,
     variables: string[],
     monomes: MonomePlusieursVariables[] = [],
+    coeffMax: number = 10,
   ): PolynomePlusieursVariables {
-    const monomesListe = []
+    const monomesListe = [
+      MonomePlusieursVariables.createRandomMonome(
+        randint(degMin, degMax),
+        typeCoeff,
+        variables,
+        coeffMax,
+      ),
+    ]
     // Add a check to make sure that all the monomials have a different literal part
     while (monomesListe.length < nbTermes) {
       if (monomes.length > monomesListe.length) {
@@ -60,6 +81,7 @@ class PolynomePlusieursVariables {
           MonomePlusieursVariables.createMonomeFromPartieLitterale(
             typeCoeff,
             monomes[monomesListe.length].partieLitterale,
+            coeffMax,
           ),
         )
       } else {
@@ -69,6 +91,7 @@ class PolynomePlusieursVariables {
             randint(0, degMax),
             typeCoeff,
             variables,
+            coeffMax,
           )
           isSemblable = false
           // check if m is not sembable with any of the monomes in monomesListe
@@ -242,6 +265,62 @@ class PolynomePlusieursVariables {
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
 
+  /**
+   * Divise ce polynôme par un autre polynôme (division euclidienne)
+   * @param diviseur - Le polynôme diviseur
+   * @returns Un objet contenant le quotient et le reste de la division
+   */
+  diviser(diviseur: PolynomePlusieursVariables): {
+    quotient: PolynomePlusieursVariables
+    reste: PolynomePlusieursVariables
+  } {
+    const dividende = this.reduire().ordonner()
+    const div = diviseur.reduire().ordonner()
+
+    // Vérifier que le diviseur n'est pas nul
+    if (
+      div.monomes.length === 0 ||
+      div.monomes.every((m) => m.coefficient.num === 0)
+    ) {
+      throw new Error('Division par un polynôme nul impossible')
+    }
+
+    // Algorithme de division euclidienne de polynômes
+    let reste = dividende
+    const quotientMonomes: MonomePlusieursVariables[] = []
+
+    const degreDiv = Math.max(...div.monomes.map((m) => m.degre))
+    const monomeLeadingDiv = div.monomes.find((m) => m.degre === degreDiv)!
+
+    while (reste.monomes.length > 0) {
+      const resteOrdonne = reste.reduire().ordonner()
+      if (resteOrdonne.monomes.length === 0) break
+
+      const degreReste = Math.max(...resteOrdonne.monomes.map((m) => m.degre))
+      if (degreReste < degreDiv) break
+
+      const monomeLeadingReste = resteOrdonne.monomes.find(
+        (m) => m.degre === degreReste,
+      )!
+
+      // Calculer le monôme du quotient
+      const monomeQuotient = monomeLeadingReste.diviserPar(monomeLeadingDiv)
+      quotientMonomes.push(monomeQuotient)
+
+      // Calculer le produit monomeQuotient * diviseur
+      const produit = div.produit(monomeQuotient).reduire()
+
+      // Soustraire ce produit du reste
+      const nouveauReste = reste.difference(produit).reduire()
+
+      reste = nouveauReste
+    }
+
+    const quotient = PolynomePlusieursVariables.PolynomeReduit(quotientMonomes)
+
+    return { quotient, reste }
+  }
+
   // Générer des identités remarquables sans avoir de carré dans les termes de départ
 
   difference(
@@ -403,7 +482,7 @@ class PolynomePlusieursVariables {
   }
 
   // Convertit le polynome en une chaîne de caractères
-  toString(): string {
+  toString(avcParentheses: boolean = false): string {
     if (this.monomes.length === 0) return '0'
     let result = ''
     this.monomes.forEach((monome, index) => {
@@ -423,8 +502,248 @@ class PolynomePlusieursVariables {
         }
       }
     })
+    if (this.monomes.length > 1 && avcParentheses) {
+      result = `\\left(${result}\\right)`
+    }
+    return result
+  }
+
+  toStringAlgebrique(): string {
+    let result = this.toString(false)
+    if (this.coefficients[0].signe !== -1 && this.coefficients[0].num !== 0) {
+      result = `+${result}`
+    }
+    return result
+  }
+
+  /**
+   * Converts the polynomial to a pgfplots-compatible expression using decimal coefficients
+   * Only works for single-variable polynomials in x
+   * @returns A string like "2.5*x^3 - 1.333*x^2 + 4*x - 2"
+   */
+  toPgfplots(): string {
+    if (this.monomes.length === 0) return '0'
+
+    let result = ''
+    const polyOrdonne = this.reduire().ordonner()
+
+    polyOrdonne.monomes.forEach((monome, index) => {
+      if (monome.coefficient.num === 0) return // Skip zero terms
+
+      const coeff = monome.coefficient.valeurDecimale
+      const exposantX = monome.partieLitterale.exposants[0] || 0
+
+      // Build the term
+      let term = ''
+
+      // Handle coefficient
+      if (exposantX === 0) {
+        // Constant term
+        term = Math.abs(coeff).toString()
+      } else if (Math.abs(coeff) === 1) {
+        // Coefficient is ±1
+        if (exposantX === 1) {
+          term = 'x'
+        } else {
+          term = `x^${exposantX}`
+        }
+      } else {
+        // General case
+        if (exposantX === 1) {
+          term = `${Math.abs(coeff)}*x`
+        } else {
+          term = `${Math.abs(coeff)}*x^${exposantX}`
+        }
+      }
+
+      // Handle sign
+      if (index === 0) {
+        // First term
+        if (coeff < 0) {
+          result += '-' + term
+        } else {
+          result += term
+        }
+      } else {
+        // Subsequent terms
+        if (coeff < 0) {
+          result += ' - ' + term
+        } else {
+          result += ' + ' + term
+        }
+      }
+    })
 
     return result
+  }
+
+  // Note : KaTeX ne permet pas d'utiliser cline, donc l'affichage ne peut pas être aussi joli que dans LaTeX
+
+  /**
+   * Convertit le polynôme en chaîne avec espacement phantom pour alignement
+   * @param degreMax - Le degré maximum pour l'alignement
+   * @returns Le polynôme avec espacement
+   */
+  private toStringAvecEspacement(degreMax: number): string {
+    if (this.monomes.length === 0) return '0'
+
+    let result = ''
+    const polyOrdonne = this.reduire().ordonner()
+
+    polyOrdonne.monomes.forEach((monome, index) => {
+      if (monome.coefficient.num === 0) return
+
+      const monomeStr = monome.toString()
+
+      if (index === 0) {
+        result += monomeStr
+      } else {
+        if (monome.coefficient.signe === 1) {
+          result += ' + ' + monomeStr
+        } else {
+          result += ' ' + monomeStr
+        }
+      }
+    })
+
+    return result
+  }
+
+  /**
+   * Affiche la division euclidienne de ce polynôme par un diviseur
+   * Utilise \polylongdiv pour LaTeX, ou un affichage manuel pour HTML
+   * @param diviseur - Le polynôme diviseur
+   * @returns Le code LaTeX de la division
+   */
+  afficherDivision(diviseur: PolynomePlusieursVariables): string {
+    // Si le contexte est LaTeX, utiliser la commande \polylongdiv
+    if (!context.isHtml) {
+      const dividendeStr = this.toString().replace(/\\dfrac/g, '\\frac')
+      const diviseurStr = diviseur.toString().replace(/\\dfrac/g, '\\frac')
+      return `\\polylongdiv[style=D]{${dividendeStr}}{${diviseurStr}}`
+    }
+
+    // Pour HTML, construire l'affichage manuel avec un tableau LaTeX
+    // D'abord, effectuer la division pour obtenir le quotient
+    const dividende = this.reduire().ordonner()
+    const div = diviseur.reduire().ordonner()
+
+    // Vérifier que le diviseur n'est pas nul
+    if (
+      div.monomes.length === 0 ||
+      div.monomes.every((m) => m.coefficient.num === 0)
+    ) {
+      return 'Division par zéro impossible'
+    }
+
+    // Algorithme de division euclidienne de polynômes
+    let reste = dividende
+    const quotientMonomes: MonomePlusieursVariables[] = []
+    const etapes: Array<{
+      quotientPartiel: MonomePlusieursVariables
+      produit: PolynomePlusieursVariables
+      nouveauReste: PolynomePlusieursVariables
+    }> = []
+
+    const degreDiv = Math.max(...div.monomes.map((m) => m.degre))
+    const monomeLeadingDiv = div.monomes.find((m) => m.degre === degreDiv)!
+
+    while (reste.monomes.length > 0) {
+      const resteOrdonne = reste.reduire().ordonner()
+      if (resteOrdonne.monomes.length === 0) break
+
+      const degreReste = Math.max(...resteOrdonne.monomes.map((m) => m.degre))
+      if (degreReste < degreDiv) break
+
+      const monomeLeadingReste = resteOrdonne.monomes.find(
+        (m) => m.degre === degreReste,
+      )!
+
+      // Calculer le monôme du quotient
+      const monomeQuotient = monomeLeadingReste.diviserPar(monomeLeadingDiv)
+      quotientMonomes.push(monomeQuotient)
+
+      // Calculer le produit monomeQuotient * diviseur
+      const produit = div.produit(monomeQuotient).reduire()
+
+      // Soustraire ce produit du reste
+      const nouveauReste = reste.difference(produit).reduire()
+
+      etapes.push({
+        quotientPartiel: monomeQuotient,
+        produit,
+        nouveauReste,
+      })
+
+      reste = nouveauReste
+    }
+
+    const quotient = PolynomePlusieursVariables.PolynomeReduit(quotientMonomes)
+
+    // Déterminer le degré maximum pour l'alignement
+    const degreMax = Math.max(...dividende.monomes.map((m) => m.degre))
+
+    // Construire l'affichage LaTeX style phantom (like HPC100)
+    let texte = `$\\begin{array}{r|l}`
+
+    // Première ligne: dividende et diviseur
+    texte += `${dividende.toStringAvecEspacement(degreMax)} & ${div.toString()}\\\\`
+
+    // Construire les phantoms progressifs
+    let phantomAccumule = ''
+
+    // Déterminer la longueur de l'overline (max entre diviseur et quotient)
+    const diviseurStr = div.toString()
+    const quotientStr = quotient.toString()
+    // Compare visual lengths and pad the shorter one
+    let overlineContent = quotientStr
+    // Simple heuristic: if quotient appears shorter, pad it to match divisor width
+    if (quotientStr.length < diviseurStr.length) {
+      overlineContent = `${quotientStr}\\phantom{\\qquad}`
+    }
+
+    // Pour chaque étape de division
+    etapes.forEach((etape, index) => {
+      // Ligne de soustraction avec underline
+      const produitAvecEspacement =
+        etape.produit.toStringAvecEspacement(degreMax)
+
+      if (index === 0) {
+        texte += `${phantomAccumule}\\underline{-(${produitAvecEspacement})} & \\overline{${overlineContent}}\\\\`
+      } else {
+        texte += `${phantomAccumule}\\underline{-(${produitAvecEspacement})} & \\\\`
+      }
+
+      // Ligne du reste
+      const resteNonNul =
+        etape.nouveauReste.monomes.length > 0 &&
+        !etape.nouveauReste.monomes.every((m) => m.coefficient.num === 0)
+
+      if (index === etapes.length - 1) {
+        // Dernière étape - toujours afficher le reste (ou 0)
+        if (resteNonNul) {
+          const resteStr = etape.nouveauReste.toStringAvecEspacement(degreMax)
+          texte += `${phantomAccumule}\\phantom{-(}${resteStr} & \\\\`
+        } else {
+          // Division exacte - afficher 0
+          texte += `${phantomAccumule}\\phantom{-(}0 & \\\\`
+        }
+      } else if (resteNonNul) {
+        // Pas la dernière étape - afficher le reste
+        const resteStr = etape.nouveauReste.toStringAvecEspacement(degreMax)
+        texte += `${phantomAccumule}\\phantom{-(}${resteStr} & \\\\`
+
+        // Accumuler phantom pour la prochaine ligne basé sur le premier terme du produit
+        if (etape.produit.monomes.length > 0) {
+          const premierMonome = etape.produit.monomes[0]
+          phantomAccumule += `\\phantom{-(${premierMonome.toString()})}`
+        }
+      }
+    })
+
+    texte += `\\end{array}$`
+
+    return texte
   }
 }
 

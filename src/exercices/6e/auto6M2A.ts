@@ -16,24 +16,23 @@ import {
   rotation,
   translation,
 } from '../../lib/2d/transformations'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { translationPuisRotationAnimees } from '../../modules/2dAnimation'
 import {
-  mathalea2d,
   colorToLatexOrHTML,
+  mathalea2d,
   type NestedObjetMathalea2dArray,
 } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
-  gestionnaireFormulaireTexte,
 } from '../../modules/outils'
-import { min, max } from 'mathjs'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { context } from '../../modules/context'
-import { translationPuisRotationAnimees } from '../../modules/2dAnimation'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '08/06/2022'
 export const dateDeModifImportante = '22/01/2025'
@@ -270,10 +269,10 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             objets.push(poly, rect)
             texte = mathalea2d(
               {
-                xmin: min(P.x, R.x) - 0.5,
-                ymin: min(F.y, H.y) - 0.5,
-                xmax: max(J.x, L.x) + 0.5,
-                ymax: max(M.y, O.y) + 0.5,
+                xmin: Math.min(P.x, R.x) - 0.5,
+                ymin: Math.min(F.y, H.y) - 0.5,
+                xmax: Math.max(J.x, L.x) + 0.5,
+                ymax: Math.max(M.y, O.y) + 0.5,
                 pixelsParCm: 30,
                 scale: 0.7,
                 mainlevee: false,
@@ -317,7 +316,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             poly.color = colorToLatexOrHTML('none')
             objets.push(poly)
             const rayonOuCote = arrondi(
-              min(
+              Math.min(
                 longueur(E, F),
                 longueur(G, H),
                 longueur(I, J),
@@ -509,7 +508,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             const aleaDemiDisque = choice([true, false])
             const aleaRayon = randint(2, 3)
             let rayonOuCote = arrondi(
-              min(
+              Math.min(
                 longueur(E, F),
                 longueur(G, H),
                 longueur(I, J),
@@ -691,7 +690,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             poly.color = colorToLatexOrHTML('none')
             objets.push(poly)
             const rayonOuCote = arrondi(
-              min(
+              Math.min(
                 longueur(E, F),
                 longueur(G, H),
                 longueur(I, J),
@@ -820,7 +819,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             poly.color = colorToLatexOrHTML('none')
             objets.push(poly)
             const rayonOuCote = arrondi(
-              min(
+              Math.min(
                 longueur(E, F),
                 longueur(G, H),
                 longueur(I, J),
@@ -1047,7 +1046,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             poly.opaciteDeRemplissage = 0.5
             poly.color = colorToLatexOrHTML('none')
             objets.push(poly)
-            const rayonOuCote = min(
+            const rayonOuCote = Math.min(
               longueur(E, F),
               longueur(G, H),
               longueur(I, J),
@@ -1252,7 +1251,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             poly.opaciteDeRemplissage = 0.5
             poly.color = colorToLatexOrHTML('none')
             objets.push(poly)
-            const rayonOuCote = min(
+            const rayonOuCote = Math.min(
               longueur(E, F),
               longueur(G, H),
               longueur(I, J),
@@ -1313,7 +1312,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
                 E,
                 M,
                 arrondi(
-                  min(
+                  Math.min(
                     hauteur / longueur(B, C),
                     longueur(E, B) / longueur(E, M),
                   ),
@@ -1323,7 +1322,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
                 G,
                 N,
                 arrondi(
-                  min(
+                  Math.min(
                     hauteur / longueur(A, B),
                     longueur(G, C) / longueur(G, N),
                   ),
@@ -1333,7 +1332,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
                 I,
                 O,
                 arrondi(
-                  min(
+                  Math.min(
                     hauteur / longueur(B, C),
                     longueur(I, D) / longueur(I, O),
                   ),
@@ -1343,7 +1342,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
                 K,
                 P,
                 arrondi(
-                  min(
+                  Math.min(
                     hauteur / longueur(A, B),
                     longueur(K, A) / longueur(K, P),
                   ),
@@ -1366,8 +1365,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             const aleaRapportHomothetie = choice([
               0.7,
               0.8,
-              arrondi(min(1.2, choixFigAire2[choixFig2][2] - 0.01)),
-              min(1.3, arrondi(choixFigAire2[choixFig2][2] - 0.01)),
+              arrondi(Math.min(1.2, choixFigAire2[choixFig2][2] - 0.01)),
+              Math.min(1.3, arrondi(choixFigAire2[choixFig2][2] - 0.01)),
             ])
             figAire2 = homothetie(
               figAire2,
@@ -1511,7 +1510,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             poly.opaciteDeRemplissage = 0.5
             poly.color = colorToLatexOrHTML('none')
             objets.push(poly)
-            const rayonOuCote = min(
+            const rayonOuCote = Math.min(
               longueur(E, F),
               longueur(G, H),
               longueur(I, J),
@@ -1564,13 +1563,13 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             switch (choixFig) {
               case 0:
               case 2:
-                paramsEnonce.xmin = -0.5 + min(A.x, R.x)
-                paramsEnonce.xmax = 0.5 + max(B.x, R.x)
+                paramsEnonce.xmin = -0.5 + Math.min(A.x, R.x)
+                paramsEnonce.xmax = 0.5 + Math.max(B.x, R.x)
                 break
               case 1:
               case 3:
-                paramsEnonce.ymin = -0.5 + min(A.y, R.y)
-                paramsEnonce.ymax = 0.5 + max(D.y, R.y)
+                paramsEnonce.ymin = -0.5 + Math.min(A.y, R.y)
+                paramsEnonce.ymax = 0.5 + Math.max(D.y, R.y)
                 break
             }
             const figAire1 = polygone(pt2, pt1, R)
@@ -1592,23 +1591,23 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             const T = rotation(S, choixFigAire2[choixFig2][1], aleaAngle)
             switch (choixFig2) {
               case 0:
-                paramsEnonce.xmin = -0.5 + min(A.x, T.x, R.x)
-                paramsEnonce.xmax = 0.5 + max(B.x, T.x, R.x)
+                paramsEnonce.xmin = -0.5 + Math.min(A.x, T.x, R.x)
+                paramsEnonce.xmax = 0.5 + Math.max(B.x, T.x, R.x)
                 paramsEnonce.ymin = -0.5 - rayonOuCote - aleaLongueur
                 break
               case 1:
-                paramsEnonce.ymin = -0.5 + min(A.y, T.y, R.y)
-                paramsEnonce.ymax = 0.5 + max(D.y, T.y, R.y)
+                paramsEnonce.ymin = -0.5 + Math.min(A.y, T.y, R.y)
+                paramsEnonce.ymax = 0.5 + Math.max(D.y, T.y, R.y)
                 paramsEnonce.xmax = rayonOuCote + aleaLongueur + B.x + 0.5
                 break
               case 2:
-                paramsEnonce.xmin = -0.5 + min(A.x, T.x, R.x)
-                paramsEnonce.xmax = 0.5 + max(B.x, T.x, R.x)
+                paramsEnonce.xmin = -0.5 + Math.min(A.x, T.x, R.x)
+                paramsEnonce.xmax = 0.5 + Math.max(B.x, T.x, R.x)
                 paramsEnonce.ymax = rayonOuCote + aleaLongueur + C.y + 0.5
                 break
               case 3:
-                paramsEnonce.ymin = -0.5 + min(A.y, T.y, R.y)
-                paramsEnonce.ymax = 0.5 + max(D.y, T.y, R.y)
+                paramsEnonce.ymin = -0.5 + Math.min(A.y, T.y, R.y)
+                paramsEnonce.ymax = 0.5 + Math.max(D.y, T.y, R.y)
                 paramsEnonce.xmin = -0.5 - rayonOuCote - aleaLongueur
                 break
             }
@@ -1677,7 +1676,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             poly.opaciteDeRemplissage = 1.1
             poly.color = colorToLatexOrHTML('none')
             objets.push(poly)
-            const rayonOuCote = min(
+            const rayonOuCote = Math.min(
               longueur(E, F),
               longueur(G, H),
               longueur(I, J),

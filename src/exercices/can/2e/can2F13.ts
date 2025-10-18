@@ -9,7 +9,7 @@ export const dateDePublication = '18/01/2022' // La date de publication initiale
 export const uuid = '1afde'
 export const refs = {
   'fr-fr': ['can2F13'],
-  'fr-ch': [],
+  'fr-ch': ['11FA9-12'],
 }
 export default class CANImageFonctionsRefs extends ImageFonctionsRefs {
   constructor() {

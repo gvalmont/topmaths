@@ -16,7 +16,7 @@ export const uuid = '0c61c'
 
 export const refs = {
   'fr-fr': ['2N40-4'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SimpleDistributiviteSeconde extends SimpleDistributivite {
   constructor() {

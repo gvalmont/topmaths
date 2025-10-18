@@ -1,4 +1,3 @@
-import { sqrt } from 'mathjs'
 import MonomePlusieursVariables from '../lib/mathFonctions/MonomePlusieursVariables'
 import PolynomePlusieursVariables from '../lib/mathFonctions/PolynomePlusieursVariables'
 import { shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
@@ -133,8 +132,8 @@ class EquationSecondDegre {
             .multiplieEntier(-1)
             .differenceFraction(
               new FractionEtendue(
-                sqrt(this.delta.num) as number,
-                sqrt(this.delta.den) as number,
+                Math.sqrt(this.delta.num) as number,
+                Math.sqrt(this.delta.den) as number,
               ),
             )
             .produitFraction(a.multiplieEntier(2).inverse()).denIrred === 1
@@ -156,8 +155,8 @@ class EquationSecondDegre {
               .multiplieEntier(-1)
               .differenceFraction(
                 new FractionEtendue(
-                  sqrt(this.delta.num) as number,
-                  sqrt(this.delta.den) as number,
+                  Math.sqrt(this.delta.num) as number,
+                  Math.sqrt(this.delta.den) as number,
                 ),
               )
               .produitFraction(
@@ -169,8 +168,8 @@ class EquationSecondDegre {
               .multiplieEntier(-1)
               .sommeFraction(
                 new FractionEtendue(
-                  sqrt(this.delta.num) as number,
-                  sqrt(this.delta.den) as number,
+                  Math.sqrt(this.delta.num) as number,
+                  Math.sqrt(this.delta.den) as number,
                 ),
               )
               .produitFraction(
@@ -184,8 +183,8 @@ class EquationSecondDegre {
               .multiplieEntier(-1)
               .differenceFraction(
                 new FractionEtendue(
-                  sqrt(this.delta.num) as number,
-                  sqrt(this.delta.den) as number,
+                  Math.sqrt(this.delta.num) as number,
+                  Math.sqrt(this.delta.den) as number,
                 ),
               )
               .produitFraction(
@@ -198,8 +197,8 @@ class EquationSecondDegre {
               .multiplieEntier(-1)
               .sommeFraction(
                 new FractionEtendue(
-                  sqrt(this.delta.num) as number,
-                  sqrt(this.delta.den) as number,
+                  Math.sqrt(this.delta.num) as number,
+                  Math.sqrt(this.delta.den) as number,
                 ),
               )
               .produitFraction(

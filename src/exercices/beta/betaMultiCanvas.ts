@@ -7,7 +7,7 @@ export const uuid = 'threejs2'
 export const titre = 'canvas multi vues'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class BetaThreeJs extends Exercice {

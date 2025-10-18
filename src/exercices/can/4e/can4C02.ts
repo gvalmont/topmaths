@@ -26,8 +26,6 @@ export default class OpposeDeFraction extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion() {

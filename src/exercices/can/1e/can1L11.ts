@@ -23,7 +23,7 @@ export const uuid = '131bd'
 
 export const refs = {
   'fr-fr': ['can1L11'],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-19', '2mFctPoly-6'],
 }
 export default class TableauSignesSecondDegre extends Exercice {
   constructor() {

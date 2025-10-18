@@ -1,17 +1,17 @@
-import Exercice from '../Exercice'
+import Figure from 'apigeom'
+import Element2D from 'apigeom/src/elements/Element2D'
+import type Point from 'apigeom/src/elements/points/Point'
 import figureApigeom from '../../lib/figureApigeom'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { numAlpha } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import Figure from 'apigeom'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import type Point from 'apigeom/src/elements/points/Point'
-import { numAlpha } from '../../lib/outils/outilString'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Element2D from 'apigeom/src/elements/Element2D'
-import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 
 export const titre = 'Construire des médiatrices'
 
@@ -52,7 +52,7 @@ export default class nomExercice extends Exercice {
   figuresApiGeomCorr!: Figure[]
   lesPoints!: Point[][]
   lesPointsCorr!: Point[][]
-  mediatrices!: Mediatrice[]
+  mediatrices!: Mediatrice[][]
   nbMediatrices!: number
   ensembleDesQuestions!: EnsembleDesQuestions[]
   constructor() {
@@ -83,8 +83,9 @@ export default class nomExercice extends Exercice {
     this.lesPoints = []
     this.lesPointsCorr = []
     this.ensembleDesQuestions = []
+    this.mediatrices = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      this.mediatrices = []
+      this.mediatrices[i] = []
       this.lesPoints[i] = []
       this.lesPointsCorr[i] = []
       const nbPoints = contraindreValeur(2, 23, this.sup, 3)
@@ -142,7 +143,7 @@ export default class nomExercice extends Exercice {
       // Génération de toutes les médiatrices possibles avec tous ces points
       for (let ee = 0; ee < nbPoints; ee++) {
         for (let j = ee + 1; j < nbPoints; j++) {
-          this.mediatrices.push({
+          this.mediatrices[i].push({
             pointSeg1: this.lesPoints[i][ee],
             pointSeg2: this.lesPoints[i][j],
             pointMed1: this.lesPoints[i][ee], // Cette valeur sera changée ensuite. C'est juste pour ne pas avoir d'erreur de typage
@@ -152,8 +153,8 @@ export default class nomExercice extends Exercice {
           })
         }
       }
-      this.mediatrices = shuffle(this.mediatrices)
-      const nbMediatricesPossibles = this.mediatrices.length
+      this.mediatrices[i] = shuffle(this.mediatrices[i])
+      const nbMediatricesPossibles = this.mediatrices[i].length
       this.nbMediatrices = contraindreValeur(
         1,
         Math.min(nbMediatricesPossibles, 4),
@@ -171,41 +172,41 @@ export default class nomExercice extends Exercice {
       const codage = combinaisonListes(['||', 'O', '|', '|||'])
 
       for (let ee = 0; ee < this.nbMediatrices; ee++) {
-        this.mediatrices[ee].couleurMed = {
+        this.mediatrices[i][ee].couleurMed = {
           couleurFrancais: choixCouleur[ee][0],
           couleurHTML: choixCouleur[ee][1],
         }
         texte +=
           (this.nbMediatrices === 1 ? '' : numAlpha(ee)) +
-          `Tracer, en ${this.mediatrices[ee].couleurMed.couleurFrancais}, `
-        texte += `la médiatrice du segment $[${this.mediatrices[ee].pointSeg1.label}${this.mediatrices[ee].pointSeg2.label}]$.<br>`
+          `Tracer, en ${this.mediatrices[i][ee].couleurMed.couleurFrancais}, `
+        texte += `la médiatrice du segment $[${this.mediatrices[i][ee].pointSeg1.label}${this.mediatrices[i][ee].pointSeg2.label}]$.<br>`
         texteCorr += this.nbMediatrices === 1 ? '' : numAlpha(ee)
 
         switch (this.sup3) {
           case 2: {
             // Construction au compas
-            texteCorr += `La médiatrice du segment $[${this.mediatrices[ee].pointSeg1.label}${this.mediatrices[ee].pointSeg2.label}]$ est la droite contenant tous les points à égale distance de $${this.mediatrices[ee].pointSeg1.label}$ et de $${this.mediatrices[ee].pointSeg2.label}$.<br>`
+            texteCorr += `La médiatrice du segment $[${this.mediatrices[i][ee].pointSeg1.label}${this.mediatrices[i][ee].pointSeg2.label}]$ est la droite contenant tous les points à égale distance de $${this.mediatrices[i][ee].pointSeg1.label}$ et de $${this.mediatrices[i][ee].pointSeg2.label}$.<br>`
 
             // Le segment reliant les deux points
             this.figuresApiGeomCorr[i].create('Segment', {
-              point1: this.mediatrices[ee].pointSeg1,
-              point2: this.mediatrices[ee].pointSeg2,
+              point1: this.mediatrices[i][ee].pointSeg1,
+              point2: this.mediatrices[i][ee].pointSeg2,
             })
 
             // Le rayon du cercle à tracer
             const rayonCercle = this.figuresApiGeomCorr[i].create('Distance', {
-              point1: this.mediatrices[ee].pointSeg1,
-              point2: this.mediatrices[ee].pointSeg2,
+              point1: this.mediatrices[i][ee].pointSeg1,
+              point2: this.mediatrices[i][ee].pointSeg2,
             })
 
             // Les deux cercles
             const c1 = this.figuresApiGeomCorr[i].create('Circle', {
-              center: this.mediatrices[ee].pointSeg1,
+              center: this.mediatrices[i][ee].pointSeg1,
               radius: 0.75 * rayonCercle.value,
               isDashed: true,
             })
             const c2 = this.figuresApiGeomCorr[i].create('Circle', {
-              center: this.mediatrices[ee].pointSeg2,
+              center: this.mediatrices[i][ee].pointSeg2,
               radius: 0.75 * rayonCercle.value,
               isDashed: true,
             })
@@ -219,62 +220,62 @@ export default class nomExercice extends Exercice {
               },
             )
 
-            this.mediatrices[ee].pointMed1 = intersection2Cercles.point1
-            this.mediatrices[ee].pointMed2 = intersection2Cercles.point2
+            this.mediatrices[i][ee].pointMed1 = intersection2Cercles.point1
+            this.mediatrices[i][ee].pointMed2 = intersection2Cercles.point2
 
             // Les 4 segements égaux
             this.figuresApiGeomCorr[i].create('Segment', {
-              point1: this.mediatrices[ee].pointSeg1,
-              point2: this.mediatrices[ee].pointMed1,
+              point1: this.mediatrices[i][ee].pointSeg1,
+              point2: this.mediatrices[i][ee].pointMed1,
               isDashed: true,
             })
             this.figuresApiGeomCorr[i].create('Segment', {
-              point1: this.mediatrices[ee].pointSeg2,
-              point2: this.mediatrices[ee].pointMed1,
+              point1: this.mediatrices[i][ee].pointSeg2,
+              point2: this.mediatrices[i][ee].pointMed1,
               isDashed: true,
             })
             this.figuresApiGeomCorr[i].create('Segment', {
-              point1: this.mediatrices[ee].pointSeg1,
-              point2: this.mediatrices[ee].pointMed2,
+              point1: this.mediatrices[i][ee].pointSeg1,
+              point2: this.mediatrices[i][ee].pointMed2,
               isDashed: true,
             })
             this.figuresApiGeomCorr[i].create('Segment', {
-              point1: this.mediatrices[ee].pointSeg2,
-              point2: this.mediatrices[ee].pointMed2,
+              point1: this.mediatrices[i][ee].pointSeg2,
+              point2: this.mediatrices[i][ee].pointMed2,
               isDashed: true,
             })
 
             // Les 4 marques des segments égaux
             this.figuresApiGeomCorr[i].create('MarkBetweenPoints', {
-              point1: this.mediatrices[ee].pointMed1,
-              point2: this.mediatrices[ee].pointSeg1,
+              point1: this.mediatrices[i][ee].pointMed1,
+              point2: this.mediatrices[i][ee].pointSeg1,
               text: codage[ee],
-              color: this.mediatrices[ee].couleurMed.couleurHTML,
+              color: this.mediatrices[i][ee].couleurMed.couleurHTML,
             })
             this.figuresApiGeomCorr[i].create('MarkBetweenPoints', {
-              point1: this.mediatrices[ee].pointMed2,
-              point2: this.mediatrices[ee].pointSeg1,
+              point1: this.mediatrices[i][ee].pointMed2,
+              point2: this.mediatrices[i][ee].pointSeg1,
               text: codage[ee],
-              color: this.mediatrices[ee].couleurMed.couleurHTML,
+              color: this.mediatrices[i][ee].couleurMed.couleurHTML,
             })
             this.figuresApiGeomCorr[i].create('MarkBetweenPoints', {
-              point1: this.mediatrices[ee].pointMed1,
-              point2: this.mediatrices[ee].pointSeg2,
+              point1: this.mediatrices[i][ee].pointMed1,
+              point2: this.mediatrices[i][ee].pointSeg2,
               text: codage[ee],
-              color: this.mediatrices[ee].couleurMed.couleurHTML,
+              color: this.mediatrices[i][ee].couleurMed.couleurHTML,
             })
             this.figuresApiGeomCorr[i].create('MarkBetweenPoints', {
-              point1: this.mediatrices[ee].pointMed2,
-              point2: this.mediatrices[ee].pointSeg2,
+              point1: this.mediatrices[i][ee].pointMed2,
+              point2: this.mediatrices[i][ee].pointSeg2,
               text: codage[ee],
-              color: this.mediatrices[ee].couleurMed.couleurHTML,
+              color: this.mediatrices[i][ee].couleurMed.couleurHTML,
             })
 
             // La médiatrice
             this.figuresApiGeomCorr[i].create('Line', {
-              point1: this.mediatrices[ee].pointMed1,
-              point2: this.mediatrices[ee].pointMed2,
-              color: this.mediatrices[ee].couleurMed.couleurHTML,
+              point1: this.mediatrices[i][ee].pointMed1,
+              point2: this.mediatrices[i][ee].pointMed2,
+              color: this.mediatrices[i][ee].couleurMed.couleurHTML,
               thickness: 2,
             })
             this.figuresApiGeom[i].setToolbar({
@@ -299,36 +300,36 @@ export default class nomExercice extends Exercice {
           }
           default: {
             // Construction à l'équerre
-            texteCorr += `La médiatrice du segment $[${this.mediatrices[ee].pointSeg1.label}${this.mediatrices[ee].pointSeg2.label}]$ est la droite perpendiculaire à $[${this.mediatrices[ee].pointSeg1.label}${this.mediatrices[ee].pointSeg2.label}]$ passant par son milieu.<br>`
+            texteCorr += `La médiatrice du segment $[${this.mediatrices[i][ee].pointSeg1.label}${this.mediatrices[i][ee].pointSeg2.label}]$ est la droite perpendiculaire à $[${this.mediatrices[i][ee].pointSeg1.label}${this.mediatrices[i][ee].pointSeg2.label}]$ passant par son milieu.<br>`
 
             const segmentConstruit = this.figuresApiGeomCorr[i].create(
               'Segment',
               {
-                point1: this.mediatrices[ee].pointSeg1,
-                point2: this.mediatrices[ee].pointSeg2,
+                point1: this.mediatrices[i][ee].pointSeg1,
+                point2: this.mediatrices[i][ee].pointSeg2,
               },
             )
 
             const milieuDuSegment = this.figuresApiGeomCorr[i].create(
               'Middle',
               {
-                point1: this.mediatrices[ee].pointSeg1,
-                point2: this.mediatrices[ee].pointSeg2,
-                color: this.mediatrices[ee].couleurMed.couleurHTML,
+                point1: this.mediatrices[i][ee].pointSeg1,
+                point2: this.mediatrices[i][ee].pointSeg2,
+                color: this.mediatrices[i][ee].couleurMed.couleurHTML,
               },
             )
 
             this.figuresApiGeomCorr[i].create('MarkBetweenPoints', {
               point1: milieuDuSegment,
-              point2: this.mediatrices[ee].pointSeg2,
+              point2: this.mediatrices[i][ee].pointSeg2,
               text: codage[ee],
-              color: this.mediatrices[ee].couleurMed.couleurHTML,
+              color: this.mediatrices[i][ee].couleurMed.couleurHTML,
             })
             this.figuresApiGeomCorr[i].create('MarkBetweenPoints', {
-              point1: this.mediatrices[ee].pointSeg1,
+              point1: this.mediatrices[i][ee].pointSeg1,
               point2: milieuDuSegment,
               text: codage[ee],
-              color: this.mediatrices[ee].couleurMed.couleurHTML,
+              color: this.mediatrices[i][ee].couleurMed.couleurHTML,
             })
 
             const perpendiculaire = this.figuresApiGeomCorr[i].create(
@@ -336,7 +337,7 @@ export default class nomExercice extends Exercice {
               {
                 point: milieuDuSegment,
                 line: segmentConstruit,
-                color: this.mediatrices[ee].couleurMed.couleurHTML,
+                color: this.mediatrices[i][ee].couleurMed.couleurHTML,
                 thickness: 2,
               },
             )
@@ -349,8 +350,8 @@ export default class nomExercice extends Exercice {
               },
             )
 
-            this.mediatrices[ee].pointMed1 = milieuDuSegment
-            this.mediatrices[ee].pointMed2 = pointSurMediatrice
+            this.mediatrices[i][ee].pointMed1 = milieuDuSegment
+            this.mediatrices[i][ee].pointMed2 = pointSurMediatrice
 
             this.figuresApiGeomCorr[i].create('MarkRightAngle', {
               point: milieuDuSegment,
@@ -423,7 +424,7 @@ export default class nomExercice extends Exercice {
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-        this.ensembleDesQuestions[i] = { mediatrice: this.mediatrices }
+        this.ensembleDesQuestions[i] = { mediatrice: this.mediatrices[i] }
         i++
       }
       cpt++
@@ -492,8 +493,8 @@ export default class nomExercice extends Exercice {
           " n'est pas une droite."
       } else {
         const verif = this.figuresApiGeom[i].checkPerpendicularBisector({
-          label1: this.mediatrices[ee].pointSeg1.label,
-          label2: this.mediatrices[ee].pointSeg2.label,
+          label1: this.mediatrices[i][ee].pointSeg1.label,
+          label2: this.mediatrices[i][ee].pointSeg2.label,
           color:
             this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurHTML,
         })

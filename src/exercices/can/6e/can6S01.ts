@@ -19,7 +19,7 @@ export const uuid = '1957a'
 
 export const refs = {
   'fr-fr': ['can6S01', 'auto6P1A-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['9FA1-9'],
 }
 export default class LectureDiagrammeBarre extends ExerciceSimple {
   constructor() {

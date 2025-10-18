@@ -1,13 +1,12 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { round } from 'mathjs'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const uuid = 'a1d0b'
 export const titre = 'Calculer avec des nombres en notation scientifique'
@@ -102,9 +101,9 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
             texteCorr +=
               egalOuApprox(prod[0][0], 2) === '='
                 ? '\\\\\n\\end{aligned}$<br>'
-                : `&\\approx ${texNombre(round(prod[0][0], 2))} \\times 10^{${prod[0][1] + somme}}\\\\\n\\end{aligned}$<br>(avec la mantisse arrondie au centième) <br>`
+                : `&\\approx ${texNombre(arrondi(prod[0][0], 2))} \\times 10^{${prod[0][1] + somme}}\\\\\n\\end{aligned}$<br>(avec la mantisse arrondie au centième) <br>`
           } else {
-            texteCorr = `$ ${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} ${egalOuApprox(prod[0][0], 2)} ${texNombre(round(decimalToScientifique(prod[0][0])[0], 2))} \\times 10^{${decimalToScientifique(prod[0][1])[1] + somme}} $  (avec la mantisse arrondie au centième) <br>`
+            texteCorr = `$ ${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} ${egalOuApprox(prod[0][0], 2)} ${texNombre(arrondi(decimalToScientifique(prod[0][0])[0], 2))} \\times 10^{${decimalToScientifique(prod[0][1])[1] + somme}} $  (avec la mantisse arrondie au centième) <br>`
           }
           reponse = `${prod[0][0].toFixed(2)}e${prod[0][1] + somme}`
 

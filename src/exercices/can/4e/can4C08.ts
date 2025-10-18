@@ -16,7 +16,7 @@ export const uuid = '48334'
 
 export const refs = {
   'fr-fr': ['can4C08'],
-  'fr-ch': [],
+  'fr-ch': ['10N02-7b'],
 }
 export default class SommePuissancesDeDix extends ExerciceSimple {
   constructor() {

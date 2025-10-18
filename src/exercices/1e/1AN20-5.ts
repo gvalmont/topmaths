@@ -1,10 +1,5 @@
-import {
-  carreParfait,
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
-import Exercice from '../Exercice'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -12,14 +7,19 @@ import {
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
-import Trinome from '../../modules/Trinome'
+import { factorisation } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { factorisation } from '../../lib/outils/primalite'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
+import {
+  carreParfait,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 export const titre = "Étudier le sens de variation d'une fonction rationnelle"
 export const dateDePublication = '05/05/2025'
 export const interactifReady = false
@@ -240,8 +240,11 @@ export default class EtudeFctRatio extends Exercice {
             let b = randint(-5, 10, 0)
             let c = randint(-2, 6, 0)
             let d = randint(-5, 5, 0) * c
-            const lignePP = ['Line', 30, '', 0, '+', 20, 'd', 5, '+', 20]
-            const ligneMM = ['Line', 30, '', 0, '-', 20, 'd', 5, '-', 20]
+            const lignePP = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 20]
+            const lignePPz = ['Line', 30, '', 0, '+', 20, 'z', 5, '+', 20]
+            const ligneMM = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20]
+            const ligneMMd = ['Line', 30, '', 0, '-', 20, 'd', 5, '-', 20]
+            const lignePPd = ['Line', 30, '', 0, '+', 20, 'd', 5, '+', 20]
             do {
               a = randint(-5, 8, 0)
               b = randint(-5, 10)
@@ -250,14 +253,14 @@ export default class EtudeFctRatio extends Exercice {
             } while (a * d - b * c === 0)
             if (a * d - b * c > 0) {
               ligne1 = lignePP
-              ligne2 = lignePP
-              ligne3 = lignePP
+              ligne2 = lignePPz
+              ligne3 = lignePPd
               ligneVar = ['Var', 10, '-/', 20, '+D-/ /', 20, '+/', 10]
             } else {
               // Sinon, la deuxième ligne change de signe en premier
               ligne1 = ligneMM
-              ligne2 = lignePP
-              ligne3 = ligneMM
+              ligne2 = lignePPz
+              ligne3 = ligneMMd
               ligneVar = ['Var', 10, '+/', 20, '-D+/ /', 20, '-/', 10]
             }
 
@@ -306,18 +309,21 @@ export default class EtudeFctRatio extends Exercice {
             const a = randint(-10, 10, 0)
             const c = randint(-2, 6, 0)
             const d = randint(-5, 5, 0) * c
-            const lignePP = ['Line', 30, '', 0, '+', 20, 'd', 5, '+', 20]
-            const ligneMM = ['Line', 30, '', 0, '-', 20, 'd', 5, '-', 20]
+            const lignePP = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 20]
+            const lignePPz = ['Line', 30, '', 0, '+', 20, 'z', 5, '+', 20]
+            const ligneMM = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20]
+            const ligneMMd = ['Line', 30, '', 0, '-', 20, 'd', 5, '-', 20]
+            const lignePPd = ['Line', 30, '', 0, '-', 20, 'd', 5, '-', 20]
             if (-a * c > 0) {
               ligne1 = lignePP
-              ligne2 = lignePP
-              ligne3 = lignePP
+              ligne2 = lignePPz
+              ligne3 = lignePPd
               ligneVar = ['Var', 10, '-/', 20, '+D-/ /', 20, '+/', 10]
             } else {
               // Sinon, la deuxième ligne change de signe en premier
               ligne1 = ligneMM
-              ligne2 = lignePP
-              ligne3 = ligneMM
+              ligne2 = lignePPz
+              ligne3 = ligneMMd
               ligneVar = ['Var', 10, '+/', 20, '-D+/ /', 20, '-/', 10]
             }
 
@@ -465,6 +471,27 @@ export default class EtudeFctRatio extends Exercice {
                   5,
                   '-',
                   5,
+                  't',
+                  5,
+                  '-',
+                  5,
+                  'z',
+                  5,
+                  '+',
+                  20,
+                ]
+
+                const lignePMMPd = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '+',
+                  20,
+                  'z',
+                  5,
+                  '-',
+                  5,
                   'd',
                   5,
                   '-',
@@ -474,7 +501,28 @@ export default class EtudeFctRatio extends Exercice {
                   '+',
                   20,
                 ]
+
                 const ligneMPPM = [
+                  'Line',
+                  30,
+                  '',
+                  0,
+                  '-',
+                  20,
+                  'z',
+                  5,
+                  '+',
+                  5,
+                  't',
+                  5,
+                  '+',
+                  5,
+                  'z',
+                  5,
+                  '-',
+                  20,
+                ]
+                const ligneMPPMd = [
                   'Line',
                   30,
                   '',
@@ -505,7 +553,7 @@ export default class EtudeFctRatio extends Exercice {
                   5,
                   '+',
                   5,
-                  'd',
+                  'z',
                   5,
                   '+',
                   5,
@@ -528,7 +576,7 @@ export default class EtudeFctRatio extends Exercice {
                 if (a * d > 0) {
                   ligne1 = lignePMMP
                   ligne2 = lignePPPP
-                  ligne3 = lignePMMP
+                  ligne3 = lignePMMPd
                   ligneVar = [
                     'Var',
                     10,
@@ -547,7 +595,7 @@ export default class EtudeFctRatio extends Exercice {
                   // Sinon, la deuxième ligne change de signe en premier
                   ligne1 = ligneMPPM
                   ligne2 = lignePPPP
-                  ligne3 = lignePMMP
+                  ligne3 = ligneMPPMd
                   ligneVar = [
                     'Var',
                     10,
@@ -563,7 +611,7 @@ export default class EtudeFctRatio extends Exercice {
                     10,
                   ]
                 }
-                texte = `On considère la fonction $f$ définie sur $\\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFSD}\\right\\}$ par : $f(x)=\\dfrac{${p}}{${reduireAxPlusB(d, e)}}$.<br>
+                texte = `eeeeOn considère la fonction $f$ définie sur $\\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFSD}\\right\\}$ par : $f(x)=\\dfrac{${p}}{${reduireAxPlusB(d, e)}}$.<br>
        Étudier le sens de variations de la fonction $f$ sur son ensemble de définition.<br>`
                 texteCorr += `$f$ est le quotient de deux fonctions dérivables sur  $\\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFSD}\\right\\}$ dont le dénominateur ne s'annule pas $\\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFSD}\\right\\}$.<br>
             On en déduit que $f$ est dérivable sur  $\\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFSD}\\right\\}$.<br>
@@ -592,11 +640,7 @@ export default class EtudeFctRatio extends Exercice {
                       [
                         ['$x$', 2, 20],
                         [`$${pPrime}$`, 2, 25],
-                        [
-                          `$(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2$`,
-                          2,
-                          25,
-                        ],
+                        [`$(${reduireAxPlusB(d, e)})^2$`, 2, 25],
                         ["$f'(x)$", 2, 25],
                         ['$f(x)$', 4, 200],
                       ],
@@ -633,18 +677,22 @@ export default class EtudeFctRatio extends Exercice {
                 const p = new Trinome(a, b, c)
                 const valInterdite = new FractionEtendue(-e, d).simplifie()
                 const pPrime = new Trinome(a * d, 2 * a * e, b * e - d * c)
-                const lignePP = ['Line', 30, '', 0, '+', 20, 'd', 5, '+', 20]
-                const ligneMM = ['Line', 30, '', 0, '-', 20, 'd', 5, '-', 20]
+                const lignePP = ['Line', 30, '', 0, '+', 20, 't', 5, '+', 20]
+                const ligneMM = ['Line', 30, '', 0, '-', 20, 't', 5, '-', 20]
+                const lignePPz = ['Line', 30, '', 0, '+', 20, 'z', 5, '+', 20]
+                const ligneMMz = ['Line', 30, '', 0, '-', 20, 'z', 5, '-', 20]
+                const lignePPd = ['Line', 30, '', 0, '+', 20, 'd', 5, '+', 20]
+                const ligneMMd = ['Line', 30, '', 0, '-', 20, 'd', 5, '-', 20]
                 if (a * d > 0) {
                   ligne1 = lignePP
-                  ligne2 = lignePP
-                  ligne3 = lignePP
+                  ligne2 = lignePPz
+                  ligne3 = lignePPd
                   ligneVar = ['Var', 10, '-/', 20, '+D-/ /', 20, '+/', 10]
                 } else {
                   // Sinon, la deuxième ligne change de signe en premier
                   ligne1 = ligneMM
-                  ligne2 = lignePP
-                  ligne3 = ligneMM
+                  ligne2 = lignePPz
+                  ligne3 = ligneMMd
                   ligneVar = ['Var', 10, '+/', 20, '-D+/ /', 20, '-/', 10]
                 }
                 texte = `On considère la fonction $f$ définie sur $\\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFSD}\\right\\}$ par : $f(x)=\\dfrac{${p}}{${reduireAxPlusB(d, e)}}$.<br>
@@ -668,11 +716,7 @@ export default class EtudeFctRatio extends Exercice {
                       [
                         ['$x$', 2, 20],
                         [`$${pPrime}$`, 2, 25],
-                        [
-                          `$(${rienSi1(c)}x^2${ecritureAlgebrique(d)})^2$`,
-                          2,
-                          25,
-                        ],
+                        [`$(${reduireAxPlusB(d, e)})^2$`, 2, 25],
                         ["$f'(x)$", 2, 25],
                         ['$f(x)$', 4, 200],
                       ],

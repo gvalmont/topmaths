@@ -20,7 +20,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'daaa3'
 
 export const refs = {
-  'fr-fr': ['can6C17', 'auto6N3E-flash1'],
+  'fr-fr': ['can6C17', 'auto6N3E-flash1', '3AutoN04-1'],
   'fr-ch': [],
 }
 export default class FractionSimpleDeQuantite extends ExerciceSimple {
@@ -30,7 +30,7 @@ export default class FractionSimpleDeQuantite extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.optionsChampTexte = { texteApres: ' L' }
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion() {

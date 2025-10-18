@@ -26,7 +26,7 @@ export const uuid = '1e362'
 
 export const refs = {
   'fr-fr': ['2F25-2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class EtudierPariteFonction extends Exercice {
   constructor() {

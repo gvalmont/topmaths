@@ -1,4 +1,3 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -6,6 +5,7 @@ import {
 } from '../../../lib/outils/embellissements'
 import { texRacineCarree } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer la diagonale d’un carré'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const uuid = '66672'
 
 export const refs = {
   'fr-fr': ['can4G05'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class DiagonaleCarre extends ExerciceSimple {

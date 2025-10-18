@@ -14,7 +14,7 @@ export const interactifType = 'listeDeroulante'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class TestListDeroulante extends ExerciceSimple {
   constructor() {

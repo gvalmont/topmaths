@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Calculer la dérivée d'une fonction logarithme népérien."
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,7 +12,7 @@ export const dateDePublication = '22/02/2025'
 export const uuid = '66395'
 export const refs = {
   'fr-fr': ['canTSpeAN06'],
-  'fr-ch': [],
+  'fr-ch': ['4mAna-2'],
 }
 
 /**

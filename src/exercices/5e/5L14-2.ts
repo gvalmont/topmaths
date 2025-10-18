@@ -1,17 +1,17 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   enleveElement,
 } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -40,7 +40,7 @@ export const uuid = '8865d'
 
 export const refs = {
   'fr-fr': ['5L14-2'],
-  'fr-ch': ['10FA1-1', '11FA1-4'],
+  'fr-ch': ['10FA1-1a', '11FA1-4a'],
 }
 export default class ExerciceSubstituer extends Exercice {
   constructor(difficulte = 1) {

@@ -86,9 +86,10 @@ export default class TrianglesSemblables extends Exercice {
     this.nbQuestions = 1
     if (context.isHtml) this.spacing = 3
     this.sup = 1
-    this.besoinFormulaireTexte = [
+    this.besoinFormulaireNumerique = [
       'Types de questions ',
-      'Nombres séparés par des tirets :\n1 : Trouver angles et côtés homologues\n2 : Démontrer semblables avec les angles\n3 : Démontrer semblables avec les longueurs\n4 : Démontrer semblables avec des triangles rectangles imbriqués\n5 : Démontrer semblables avec des configurations type Thalès',
+      5,
+      '1 : Trouver angles et côtés homologues\n2 : Démontrer semblables avec les angles\n3 : Démontrer semblables avec les longueurs\n4 : Démontrer semblables avec des triangles rectangles imbriqués\n5 : Démontrer semblables avec des configurations type Thalès',
     ]
   }
 
@@ -514,7 +515,7 @@ export default class TrianglesSemblables extends Exercice {
             ? angleC
             : angleC + choice([-1, 1]) * randint(1, 5) * 2
           let compteurDeSecours = 0
-          while (angleF === angleB && compteurDeSecours <10) {
+          while (angleF === angleB && compteurDeSecours < 10) {
             angleF = sontSemblables
               ? angleC
               : angleC + choice([-1, 1]) * randint(1, 5) * 2
@@ -650,7 +651,7 @@ export default class TrianglesSemblables extends Exercice {
             widthmincol2: '0px',
           })
           texteCorr =
-            "On sait que, dans un triangle, la somme des mesures des angles est égale à 180°. <br>"
+            'On sait que, dans un triangle, la somme des mesures des angles est égale à 180°. <br>'
           texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}} = 180^{\\circ} - ${texNombre(angleB, 0)}^{\\circ} - ${texNombre(angleA, 0)}^{\\circ}=${texNombre(angleC, 0)}^{\\circ}$. <br>`
           texteCorr += `$\\widehat{${D.nom + E.nom + F.nom}} = 180^{\\circ} - ${texNombre(angleF, 0)}^{\\circ} - ${texNombre(angleA, 0)}^{\\circ}=${texNombre(angleE, 0)}^{\\circ}$. <br>`
           if (sontSemblables) {
@@ -658,12 +659,11 @@ export default class TrianglesSemblables extends Exercice {
             texteCorr += `$\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$.<br>`
             texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.<br>`
             texteCorr +=
-              "Comme les angles sont deux à deux de même mesure, les deux triangles sont semblables.<br>"
+              'Comme les angles sont deux à deux de même mesure, les deux triangles sont semblables.<br>'
           } else {
             texteCorr += `Les angles du triangle $${B.nom + C.nom + A.nom}$ mesurent  ${angleA}°, ${angleB}° et ${angleC}°.<br>`
             texteCorr += `Les angles du triangle $${D.nom + E.nom + F.nom}$ mesurent  ${angleA}°, ${angleE}° et ${angleF}°.<br>`
-            texteCorr +=
-              `Les deux triangles $${B.nom + C.nom + A.nom}$ et $${D.nom + E.nom + F.nom}$ n'ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ne sont pas semblables.<br>`
+            texteCorr += `Les deux triangles $${B.nom + C.nom + A.nom}$ et $${D.nom + E.nom + F.nom}$ n'ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ne sont pas semblables.<br>`
           }
           nbDeChampsReponse++
           break

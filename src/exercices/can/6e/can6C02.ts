@@ -30,7 +30,7 @@ export default class NombrePairFois5 extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion() {

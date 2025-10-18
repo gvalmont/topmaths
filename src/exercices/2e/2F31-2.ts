@@ -26,7 +26,7 @@ export const uuid = '1ca05'
 
 export const refs = {
   'fr-fr': ['2F31-2'],
-  'fr-ch': [],
+  'fr-ch': ['2mIneq-5'],
 }
 export default class EncadrerAvecFctRef extends Exercice {
   constructor() {

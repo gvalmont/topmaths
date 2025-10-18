@@ -5,7 +5,7 @@ export const titre = 'Calculer avec les identités remarquables*'
 export const uuid = '69522'
 export const refs = {
   'fr-fr': ['can2C04'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class IdentitesCalculs2e extends identitesCalculs {
   constructor() {

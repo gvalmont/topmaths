@@ -4,11 +4,11 @@ import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
 import { PointCliquable, pointCliquable } from '../../modules/2dinteractif'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = false
@@ -233,7 +233,6 @@ export default class CompleterParSymetrie5e extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [
                   {
                     enonce: texte,
@@ -245,7 +244,6 @@ export default class CompleterParSymetrie5e extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: '',

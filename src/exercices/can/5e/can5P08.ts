@@ -1,10 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de proportionnalité**'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -89,7 +89,6 @@ export default class Proportionnalite3 extends ExerciceSimple {
         `
         }
         this.reponse = frac
-        // this.formatInteractif = 'fractionEgale'
         this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = '$\\ldots$ kg'
         break
@@ -150,7 +149,6 @@ export default class Proportionnalite3 extends ExerciceSimple {
             `
         }
         this.reponse = frac
-        // this.formatInteractif = 'fractionEgale'
         this.canEnonce = this.question // 'Compléter'
         this.canReponseACompleter = `$\\ldots$ de ${fruits2[0]}`
         break

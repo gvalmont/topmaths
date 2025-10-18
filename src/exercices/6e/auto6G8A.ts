@@ -1,16 +1,8 @@
 import { milieu, point, tracePoint } from '../../lib/2d/points'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
+import type { Latex2d } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
-import { choice } from '../../lib/outils/arrayOutils'
-import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import { rotation3d } from '../../lib/3d/3dProjectionMathalea2d/tranformations'
-import {
-  cone3d,
-  cylindre3d,
-  prisme3d,
-  pyramide3d,
-} from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   arc3d,
   arete3d,
@@ -20,22 +12,30 @@ import {
   polygone3d,
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { context } from '../../modules/context'
-import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
+  cone3d,
+  cylindre3d,
+  prisme3d,
+  pyramide3d,
+} from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { rotation3d } from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import {
   fixeBordures,
   mathalea2d,
   ObjetMathalea2D,
 } from '../../modules/2dGeneralites'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { context } from '../../modules/context'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
-import type { Latex2d } from '../../lib/2d/textes'
 
 export const titre = 'Reconnaitre des solides'
 export const dateDePublication = '24/09/2022'
@@ -51,7 +51,7 @@ export const amcType = 'qcmMono'
  */
 
 export const refs = {
-  'fr-fr': ['auto6G8A'],
+  'fr-fr': ['auto6G8A', '3AutoG07-1'],
   'fr-2016': ['6G44-1'],
   'fr-ch': ['9ES7-8', '10ES1-1', '11ES1-1'],
 }
@@ -218,7 +218,8 @@ export default class ReconnaitreDesSolides extends Exercice {
             solide === 'prisme' ? ['prisme', 'prisme droit'] : 'pyramide'
 
           break
-        case 'cône': { // cone  ?
+        case 'cône': {
+          // cone  ?
           if (axe === 3) {
             cone = cone3d(
               point3d(0, 0, 0),
@@ -427,7 +428,8 @@ export default class ReconnaitreDesSolides extends Exercice {
 
           break
         case 'pavé droit': // pavé droit
-        case 'cube': { // cube
+        case 'cube': {
+          // cube
           if (solide === 'cube') {
             axe = 2 // cube quel que soit l'axe
           }

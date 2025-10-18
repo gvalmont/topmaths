@@ -2,6 +2,7 @@ import {
   colorToLatexOrHTML,
   fixeBordures,
   ObjetMathalea2D,
+  Vide2d,
 } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
@@ -878,6 +879,7 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
     let valeur
     const A = s.extremite1
     const B = s.extremite2
+
     const v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur)
     const cote = segment(translation(A, v), translation(B, v), couleurCote)
     if (longueur(A, B) > 1) cote.styleExtremites = '<->'
@@ -951,7 +953,7 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
  * // Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
  * @example afficheCoteSegment(s,'x',-1,'red',2,1,'blue',true)
  * // Affiche la côte du segment s, avec une flèche rouge d\'épaisseur 2 "cm", placée 1 "cm" sous le segment, avec le texte 'x' écrit en bleu, 1 "cm" au-dessus, et horizontalement.
- * @return {AfficheCoteSegment}
+ * @return {AfficheCoteSegment|Vide2d}
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
@@ -966,6 +968,13 @@ export function afficheCoteSegment(
   couleurValeur = 'black',
   horizontal = false,
 ) {
+  if (s.longueur < 1) {
+    window.notify(
+      'afficheCoteSegment : Segment trop petit pour cette fonction',
+      { s },
+    )
+    return new Vide2d(s.extremite1.x, s.extremite1.y)
+  }
   return new AfficheCoteSegment(
     s,
     Cote,

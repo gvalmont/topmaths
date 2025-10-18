@@ -42,7 +42,7 @@ export const uuid = '29c3c'
 export const refs = {
   'fr-fr': ['6G2C'],
   'fr-2016': ['6G54'],
-  'fr-ch': [],
+  'fr-ch': ['9ES4-15'],
 }
 export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
   constructor() {
@@ -671,6 +671,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 context.isHtml ? 'gray' : 'darkgray',
                 true,
               )
+
               const r3 = afficheCoteSegment(
                 segment(cabD, J),
                 `${longueurRestanteGauche}\\,\\text{m}`,
@@ -1018,8 +1019,8 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             // **********************************************
             // On s'occupe de la partie au-dessus de la cabane
             if (
-              longueurRestanteHautDroite < 0 &&
-              longueurRestanteHautGauche < 0
+              longueurRestanteHautDroite <= 0 &&
+              longueurRestanteHautGauche <= 0
             )
               break // Il n'y a pas de cordelette au dessus de la cabane
             const c5 = cercle(cabB, Math.max(longueurRestanteHautDroite, 0))
@@ -1045,25 +1046,25 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 if (TDroit.y === largeurEnclos && TDroit.x !== VDroite.x) {
                   const t6 = polygone(cabB, TDroit, VDroite)
                   t6.couleurDeRemplissage = colorToLatexOrHTML('pink')
-                  t6.opaciteDeRemplissage = 0.2
+                  t6.opaciteDeRemplissage = 0.3
                   t6.couleurDesHachures = colorToLatexOrHTML('black')
                   t6.hachures = 'north east lines'
-                  t6.opacite = 0.2
+                  t6.opacite = 0.3
                   objetsCorrection.push(t6)
                 }
                 if (TGauche.y === largeurEnclos && TGauche.x !== VGauche.x) {
                   const t7 = polygone(cabC, TGauche, VGauche)
                   t7.couleurDeRemplissage = colorToLatexOrHTML('pink')
-                  t7.opaciteDeRemplissage = 0.2
+                  t7.opaciteDeRemplissage = 0.3
                   t7.couleurDesHachures = colorToLatexOrHTML('black')
                   t7.hachures = 'north east lines'
-                  t7.opacite = 0.2
+                  t7.opacite = 0.3
                   objetsCorrection.push(t7)
                 }
                 if (contact.y > cabB.y) {
                   const t7 = polygone(cabB, cabC, contact)
                   t7.couleurDeRemplissage = colorToLatexOrHTML('pink')
-                  t7.opaciteDeRemplissage = 0.2
+                  t7.opaciteDeRemplissage = 0.3
                   t7.couleurDesHachures = colorToLatexOrHTML('black')
                   t7.hachures = 'north east lines'
                   t7.opacite = 0.2
@@ -1080,7 +1081,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 )
                 a4.couleurDesHachures = colorToLatexOrHTML('black')
                 a4.hachures = 'north east lines'
-                a4.opacite = 0.2
+                a4.opacite = 0.3
                 const a5 = arc(
                   contact,
                   cabC,
@@ -1092,14 +1093,14 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 )
                 a5.couleurDesHachures = colorToLatexOrHTML('black')
                 a5.hachures = 'north east lines'
-                a5.opacite = 0.2
+                a5.opacite = 0.3
                 objetsCorrection.push(a5, a4)
               }
             } else if (!contact) {
               // la cordelette ne permet pas de faire se toucher les deux arcs
               if (
-                longueurRestanteHautDroite < 0 &&
-                longueurRestanteHautGauche < 0
+                longueurRestanteHautDroite <= 0 &&
+                longueurRestanteHautGauche <= 0
               )
                 break // Il n'y a pas de cordelette au dessus de la cabane
               // on trace séparément les deux arcs, parce qu'ils peuvent potentiellement ne pas exister
@@ -1122,7 +1123,13 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 a4.couleurDesHachures = colorToLatexOrHTML('black')
                 a4.hachures = 'north east lines'
                 a4.opacite = 0.2
-                objetsCorrection.push(a4)
+                const a6 = polygone(cabB, VDroite, point(cabB.x, largeurEnclos))
+                a6.couleurDeRemplissage = colorToLatexOrHTML('pink')
+                a6.opaciteDeRemplissage = 0.3
+                a6.couleurDesHachures = colorToLatexOrHTML('black')
+                a6.hachures = 'north east lines'
+                a6.opacite = 0.3
+                objetsCorrection.push(a4, a6)
               }
               if (longueurRestanteHautGauche > 0) {
                 const finGauche = pointIntersectionLC(
@@ -1143,7 +1150,13 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 a5.couleurDesHachures = colorToLatexOrHTML('black')
                 a5.hachures = 'north east lines'
                 a5.opacite = 0.2
-                objetsCorrection.push(a5)
+                const a7 = polygone(cabC, VGauche, point(cabC.x, largeurEnclos))
+                a7.couleurDeRemplissage = colorToLatexOrHTML('pink')
+                a7.opaciteDeRemplissage = 0.3
+                a7.couleurDesHachures = colorToLatexOrHTML('black')
+                a7.hachures = 'north east lines'
+                a7.opacite = 0.3
+                objetsCorrection.push(a5, a7)
               }
             } else {
               // On trace un rectangle car les deux arcs se croisent au dessus de l'enclos
@@ -1423,7 +1436,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
       texte +=
         "Dans l'enclos rectangulaire représenté ci-dessous, on a attaché une chèvre à un piquet $(P)$ situé sur le mur d'une cabane rectangulaire, elle aussi.<br>"
       texte += `La corde qui limite les déplacements de la chèvre mesure $${longueurCordelette}\\,\\text{m}$.<br>`
-      texte += `${numAlpha(0)} Réprésenter le schéma de l'enclos en utilisant comme échelle : $1\\,\\text{cm}$ pour $1\\,\\text{m}$.<br>`
+      texte += `${numAlpha(0)} Représenter le schéma de l'enclos en utilisant comme échelle : $1\\,\\text{cm}$ pour $1\\,\\text{m}$.<br>`
       texte += `${numAlpha(1)} Délimiter et hachurer la zone de l'enclos dans laquelle peut brouter la chèvre.<br><br>`
 
       texte += mathalea2d(

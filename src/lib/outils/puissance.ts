@@ -1,5 +1,5 @@
-import { round } from 'mathjs'
 import { ecritureParentheseSiNegatif } from './ecritures'
+import { arrondi } from './nombres'
 
 /**
  * Fonction pour écrire des notations scientifique de la forme a * b ^ n
@@ -36,7 +36,7 @@ export function ecriturePuissance(a: number, b: number, n: number) {
     case 1:
       return `$${puissance(b, n)}$`
     default:
-      return `$${String(round(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace(
+      return `$${String(arrondi(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace(
         '.',
         '{,}',
       )

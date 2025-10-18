@@ -16,7 +16,7 @@ export const uuid = '31e91'
 
 export const refs = {
   'fr-fr': ['canc3C18'],
-  'fr-ch': [],
+  'fr-ch': ['PR-19'],
 }
 export default class problemeSoustraction extends ExerciceSimple {
   constructor() {

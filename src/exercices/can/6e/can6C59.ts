@@ -1,10 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceSimple from '../../ExerciceSimple'
-import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { ppcm } from '../../../lib/outils/primalite'
 import type FractionEtendue from '../../../modules/FractionEtendue'
+import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le plus petit dénominateur commun'
 export const interactifReady = true
 export const interactifType = 'mathLive'

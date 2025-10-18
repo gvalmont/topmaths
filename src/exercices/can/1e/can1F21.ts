@@ -4,9 +4,9 @@ import {
   ecritureParentheseSiNegatif,
   reduirePolynomeDegre3,
 } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export const uuid = '2d459'
 
 export const refs = {
   'fr-fr': ['can1F21'],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-21'],
 }
 export default class EcondDegreAbscisseOrdonneeSommet extends ExerciceSimple {
   constructor() {
@@ -37,7 +37,6 @@ export default class EcondDegreAbscisseOrdonneeSommet extends ExerciceSimple {
     const nomF = [['f'], ['g'], ['h'], ['u'], ['v']]
     let a, b, c, r, alpha, nom
     if (choice([true, false])) {
-      // this.formatInteractif = 'fractionEgale'
       a = randint(-3, 3, 0)
       b = randint(-9, 9)
       c = randint(-9, 9)

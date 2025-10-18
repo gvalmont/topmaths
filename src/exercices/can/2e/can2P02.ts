@@ -1,8 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { prenomM } from '../../../lib/outils/Personne'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
+import { prenomM } from '../../../lib/outils/Personne'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Dénombrer dans une situation concrète'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const uuid = '38207'
 
 export const refs = {
   'fr-fr': ['can2P02'],
-  'fr-ch': [],
+  'fr-ch': ['3mP-4'],
 }
 export default class Denombrement extends ExerciceSimple {
   constructor() {

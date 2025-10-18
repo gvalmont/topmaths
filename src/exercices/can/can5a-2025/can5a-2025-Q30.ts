@@ -1,14 +1,14 @@
+import { latex2d } from '../../../lib/2d/textes'
+import { point3d } from '../../../lib/3d/3dProjectionMathalea2d/elements'
+import { pave3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { pave3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
-import { point3d } from '../../../lib/3d/3dProjectionMathalea2d/elements'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { latex2d } from '../../../lib/2d/textes'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer une longueur de pavé'
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'y3u3x'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 /**

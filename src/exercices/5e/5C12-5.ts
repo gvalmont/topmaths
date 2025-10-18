@@ -1,14 +1,14 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { bleuMathalea } from '../../lib/colors'
-import { arrondi } from '../../lib/outils/nombres'
-import { texNombre } from '../../lib/outils/texNombre'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculs avec des grands traits de fractions'
 export const interactifReady = true
@@ -146,7 +146,7 @@ export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: answer,
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
       }

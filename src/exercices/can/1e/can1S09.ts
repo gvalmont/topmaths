@@ -25,7 +25,7 @@ export const uuid = '1eb6e'
 
 export const refs = {
   'fr-fr': ['can1S09'],
-  'fr-ch': [],
+  'fr-ch': ['autres-12'],
 }
 export default class RelationRec extends Exercice {
   constructor() {

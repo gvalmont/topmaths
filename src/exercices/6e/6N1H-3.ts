@@ -97,6 +97,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
       let pD2
       let sC
       let sD
+      texte = ''
       if (this.sup === 1) {
         if (this.niveau === 'CM') {
           xmin = 0
@@ -112,8 +113,10 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
 
         const alea1 = randint(2, 8) / 10 // EE : Ne pas mettre entre 1 et 9 pour éviter la superpostion des lettres
         // x1 = new Decimal(xmin).add(alea1).add(0.2).add(randint(1, 5)) // EE : Ce 0.2 met parfois deux points confondus.
-        x1 = xmin + alea1 + randint(1, 5)
-
+        // pour le 0.2 le pb c'est CM ou pas CM
+        const x0 = randint(1, 5)
+        x1 = xmin + alea1 + x0
+        x1 += this.niveau === 'CM' ? 0 : 0.2
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
 
@@ -187,7 +190,8 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           thickCouleur: 'black',
           axeCouleur: 'black',
           axeHauteur: 4,
-          labelsPrincipaux: true,
+          labelsPrincipaux: true, // false,
+          labelsSecondaires: false,
           labelListe: [
             [origine, `${stringNombre(origine)}`],
             [extreme, `${stringNombre(extreme)}`],
@@ -264,15 +268,18 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         if (this.niveau === 'CM') {
           xmin = 0
         } else {
-          xmin = randint(1, 15) - 0.02
+          xmin = randint(1, 15) // - 0.02
         }
-        let alea1 = randint(2, 8) / 10
+        const alea1 = randint(2, 8) / 10
         const alea2 = randint(2, 8) / 100
+
         x1 = xmin + alea1 + alea2
         x2 = Math.floor(x1 * 10) / 10
-        alea1 = 0.1
-        x3 = x1 + alea1
-        xmin = this.niveau === 'CM' ? 0 : Math.floor(x2)
+        // alea1 = 0.1
+        // x3 = x1 + alea1
+        x3 = x2 + 0.1
+        //  xmin = this.niveau === 'CM' ? 0 : Math.floor(x2)
+
         xmax = xmin + 1
 
         if (xmin === 0) extremite = '|->'
@@ -343,9 +350,9 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         d1Corr = droiteGraduee({
           x: 0,
           y: 3,
-          Min: xmin,
+          Min: xmin - 0.01,
           axePosition: 'H',
-          Max: xmax,
+          Max: xmax + 0.01,
           thickSec: true,
           thickTer: true,
           Unite: 30,
@@ -356,6 +363,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           thickDistance: 1,
           thickSecDist: 0.1,
           thickTerDist: 0.01,
+          labelsPrincipaux: false, // false,
           labelsSecondaires: true,
           labelListe: [
             [Math.floor(x1), `${Math.floor(x1)}`],
@@ -389,11 +397,11 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           thickDistance: 0.1,
           thickSecDist: 0.01,
           thickTerDist: 0.001,
-          labelsPrincipaux: false,
-          labelsSecondaires: true,
+          labelsPrincipaux: false, // false,
+          labelsSecondaires: true, // true,
           labelListe: [
             [x2, `${stringNombre(x2)}`],
-            [x1, `${stringNombre(x1)}`],
+            // [x1, `${stringNombre(x1)}`],
             [x3, `${stringNombre(x3)}`],
           ],
           pointListe: [
@@ -409,9 +417,9 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           axeStyle: extremite,
         })
 
-        pA1 = point((Math.floor(x1 * 10) / 10 - xmin) * 30, 3)
+        pA1 = point((Math.floor(x1 * 10) / 10 - xmin + 0.01) * 30, 3)
         pA2 = point(x2 - xmin + 6, 0)
-        pB1 = point((Math.floor(x1 * 10) / 10 + 0.1 - xmin) * 30, 3)
+        pB1 = point((Math.floor(x1 * 10) / 10 + 0.11 - xmin) * 30, 3)
         pB2 = point(x3 - xmin + 26, 0)
         sA = segment(pA1, pA2)
         sB = segment(pB1, pB2)
@@ -429,8 +437,8 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         const partent = Math.floor(x1)
         const pardec = x1 - partent
+        // pardec = arrondi(pardec, 3)
         texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 100, 100).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 100, 100).toLatex())}$.<br>`
-
         reponse1 = arrondi(x1, 3)
         reponse2A = partent
         reponse2B = new FractionEtendue(pardec * 100, 100)
@@ -680,7 +688,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         reponse2B = new FractionEtendue(1000 * pardec, 1000)
         reponse3 = new FractionEtendue(1000 * x1, 1000)
       }
-      texte = `Donner l'abscisse de $${noms[1]} $ sous `
+      texte += `Donner l'abscisse de $${noms[1]} $ sous `
       texte += context.isAmc ? 'deux ' : 'trois '
       texte += 'formes : en écriture décimale, '
       texte += context.isAmc
@@ -696,7 +704,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         handleAnswers(this, 3 * i + 1, {
           reponse: {
             value: `${reponse2A}+${reponse2B.toLatex()}`,
-            options: { operationSeulementEtNonResultat: true },
+            options: { expressionNumerique: true },
           },
         })
         handleAnswers(this, 3 * i + 2, {

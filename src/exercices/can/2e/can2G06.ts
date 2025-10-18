@@ -26,7 +26,7 @@ export const uuid = '1f62f'
 
 export const refs = {
   'fr-fr': ['can2G06'],
-  'fr-ch': [],
+  'fr-ch': ['11QCM-7', '1mQCM-10'],
 }
 export default class CoeffDirecteurDroite extends ExerciceSimple {
   constructor() {

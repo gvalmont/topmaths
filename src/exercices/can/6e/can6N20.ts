@@ -13,4 +13,9 @@ export const refs = {
   'fr-fr': ['can6N20', '6N3F-flash1'],
   'fr-ch': [''],
 }
-export default class EcrireEntierSousFormeDeFractionCAN extends EcrireEntierSousFormeDeFraction {}
+export default class EcrireEntierSousFormeDeFractionCAN extends EcrireEntierSousFormeDeFraction {
+  constructor() {
+    super()
+    this.nbQuestions = 1
+  }
+}

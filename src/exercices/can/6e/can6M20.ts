@@ -20,7 +20,7 @@ export const uuid = '10697'
 
 export const refs = {
   'fr-fr': ['can6M20', 'auto6M12-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ConversionUnitesMetriquesConsecutives extends ExerciceSimple {
   constructor() {

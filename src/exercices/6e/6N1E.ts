@@ -1,18 +1,18 @@
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
 } from '../../modules/outils'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { sp } from '../../lib/outils/outilString'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Lier nombre décimal, fraction décimale et pourcentage'
 export const dateDePublication = '04/06/2025'
@@ -27,7 +27,7 @@ export const interactifReady = true
 export const uuid = '2359a'
 
 export const refs = {
-  'fr-fr': ['6N1E'],
+  'fr-fr': ['6N1E', '3autoN06-1'],
   'fr-2016': ['6N23-10'],
   'fr-ch': [''],
 }

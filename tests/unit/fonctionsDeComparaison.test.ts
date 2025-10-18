@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { fonctionComparaison } from '../../src/lib/interactif/comparisonFunctions'
 import { ComputeEngine } from '@cortex-js/compute-engine'
+import { describe, expect, it } from 'vitest'
+import { fonctionComparaison } from '../../src/lib/interactif/comparisonFunctions'
 import { texNombre } from '../../src/lib/outils/texNombre'
 // import exp from 'constants'
 
@@ -195,42 +195,32 @@ describe('fonctionComparaison', () => {
     )
   })
 
-  it("Vérifie le fonctionnement de l'option operationSeulementEtNonResultat", () => {
+  it("Vérifie le fonctionnement de l'option expressionNumerique", () => {
     const result = fonctionComparaison('4', '2+2', {
-      operationSeulementEtNonResultat: true,
+      expressionNumerique: true,
     })
     expect(result.isOk).toBe(false)
     expect(result.feedback).toBe(
       'Résultat incorrect car un calcul est attendu.',
     )
     const result2 = fonctionComparaison('2\\times3+1', '1+3\\times2', {
-      operationSeulementEtNonResultat: true,
+      expressionNumerique: true,
     })
     expect(result2.isOk).toBe(true)
     const result3 = fonctionComparaison('3\\times2+1', '1+3\\times2', {
-      operationSeulementEtNonResultat: true,
+      expressionNumerique: true,
     })
     expect(result3.isOk).toBe(true)
     const result4 = fonctionComparaison('(3\\times2)+1', '1+3\\times2', {
-      operationSeulementEtNonResultat: true,
+      expressionNumerique: true,
     })
     expect(result4.isOk).toBe(true)
     const result5 = fonctionComparaison('3\\times(2+1)', '1+3\\times2', {
-      operationSeulementEtNonResultat: true,
+      expressionNumerique: true,
     })
     expect(result5.isOk).toBe(false)
     expect(result5.feedback).toBe(
       "Résultat incorrect car ce n'est pas ce calcul qui est attendu.",
-    )
-  })
-
-  it("Vérifie le fonctionnement de l'option resultatSeulementEtNonOperation", () => {
-    const result = fonctionComparaison('2+2', '4', {
-      resultatSeulementEtNonOperation: true,
-    })
-    expect(result.isOk).toBe(false)
-    expect(result.feedback).toBe(
-      'Résultat incorrect car une valeur numérique est attendue.',
     )
   })
 

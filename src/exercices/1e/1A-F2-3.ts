@@ -16,7 +16,7 @@ export const uuid = '27154'
 
 export const refs = {
   'fr-fr': ['1A-F2-3'],
-  'fr-ch': [],
+  'fr-ch': ['1mQCM-2', '2mQCM-3'],
 }
 export default class Auto1AF2c extends ordonneePointDroite {
   constructor() {

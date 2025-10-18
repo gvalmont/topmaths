@@ -1,17 +1,17 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
-import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec les chiffres (relatifs)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '71793'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

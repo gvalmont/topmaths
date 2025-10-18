@@ -1,4 +1,6 @@
+import { clone } from 'mathjs'
 import { cercle } from '../../lib/2d/cercle'
+import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import {
   point,
@@ -9,23 +11,24 @@ import {
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  type UneProposition,
+} from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import {
   numAlpha,
   premiereLettreEnMajuscule,
 } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
-import { clone } from 'mathjs'
-import { codageSegments } from '../../lib/2d/codages'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true
@@ -50,7 +53,12 @@ export const refs = {
   'fr-ch': ['9ES1-9'],
 }
 
-function ajouterAlternatives(fonction, reponses) {
+type Proposition = UneProposition & { feedbackAlt?: string }
+
+function ajouterAlternatives(
+  fonction: (reponse: string) => string,
+  reponses: string[],
+) {
   const copieReponses = []
   for (const reponse of reponses) {
     copieReponses.push(reponse)
@@ -61,23 +69,23 @@ function ajouterAlternatives(fonction, reponses) {
   return reponses
 }
 
-function longueurAlternative(longueur) {
+function longueurAlternative(longueur: string): string {
   return longueur.slice(1) + longueur.slice(0, 1)
 }
 
-// const mots = ['un diamètre', 'le diamètre', 'un rayon', 'le rayon', 'une corde', 'le centre', 'le milieu']
-// @todo relire la définition de cette fonction et la déplacer
-function segmentAlternatif(reponses) {
-  if (reponses[0] != null) {
-    return '[' + reponses[0].slice(2, 3) + reponses[0].slice(1, 2) + ']'
+function segmentAlternatif(reponse: string): string {
+  if (reponse != null) {
+    return '[' + reponse.slice(2, 3) + reponse.slice(1, 2) + ']'
   } else {
     window.notify("segmentAlternatif n'a pas de matière pour choisir", {
-      reponses,
+      reponse,
     })
+    return ''
   }
 }
 
 export default class VocabulaireDuCercle extends Exercice {
+  sup3ParDefaut = '1-2-3-4-5-6'
   constructor() {
     super()
 
@@ -94,7 +102,7 @@ export default class VocabulaireDuCercle extends Exercice {
     this.correctionDetailleeDisponible = true
     // this.typesDeQuestionsParDefaut = '1-2-3-4-5-6-7'
     // this.sup3 = this.typesDeQuestionsParDefaut
-    this.sup3 = '1-2-3-4-5-6'
+    this.sup3 = this.sup3ParDefaut
     this.besoinFormulaire3Texte = [
       'Type de questions',
       [
@@ -115,9 +123,9 @@ export default class VocabulaireDuCercle extends Exercice {
   nouvelleVersion() {
     // typesDeQuestions nécessite d'avoir au moins deux valeurs
     const typesDeQuestions =
-      String(this.sup3).match(/[1-6]/g).length > 1
+      (String(this.sup3).match(/[1-6]/g) ?? '').length > 1
         ? this.sup3
-        : this.besoinFormulaire3Texte[1]
+        : this.sup3ParDefaut
     this.consigne = this.sup2
       ? 'Cocher la (ou les) bonne(s) réponse(s).'
       : 'Compléter.'
@@ -158,12 +166,13 @@ export default class VocabulaireDuCercle extends Exercice {
       const O = point(0, 0, nomsDesPoints[0])
       const leCercle = cercle(O, 3)
       const A = pointAdistance(O, 3, nomsDesPoints[1])
-      this.consigne += `<br>Les points $${nomsDesPoints[0]}$, $${nomsDesPoints[3]}$ et $${nomsDesPoints[2]}$ sont alignés.`
+      texte += `Les points $${nomsDesPoints[3]}$, $${nomsDesPoints[0]}$ et $${nomsDesPoints[2]}$ sont alignés.`
       let B, C, D, E
       do {
         B = pointAdistance(O, 3, nomsDesPoints[2])
         C = pointIntersectionLC(droite(O, B), leCercle, nomsDesPoints[3])
       } while (
+        !C ||
         longueur(A, B) < distanceMinEntrePoints ||
         longueur(A, C) < distanceMinEntrePoints ||
         longueur(B, C) < distanceMinEntrePoints
@@ -341,7 +350,7 @@ export default class VocabulaireDuCercle extends Exercice {
         if (this.correctionDetaillee && question.commentaire !== '')
           texteCorr += question.commentaire + '<br>'
         if (this.sup2 || context.isAmc) {
-          let propositions = []
+          let propositions: Proposition[] = []
           if (question.sens === 'Un rayon est ...') {
             // clone réalise la deep copy d'un array ou d'un objet... ce qui rend propositions indépendant des changements de propositionsUnRayonEst
             propositions = clone(propositionsUnRayonEst)
@@ -384,7 +393,7 @@ export default class VocabulaireDuCercle extends Exercice {
             }
           }
         } else {
-          let reponses
+          let reponses: string[] = []
           if (question.sens === 'Un rayon est ...') {
             reponses = [question.nom.replace(/\$/g, '')]
             switch (question.nature) {
@@ -410,7 +419,7 @@ export default class VocabulaireDuCercle extends Exercice {
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
                 break
               case 'un diamètre':
-                reponses.push(segmentAlternatif(reponses))
+                reponses.push(segmentAlternatif(reponses[0]))
                 break
               case 'une corde':
                 for (const point1 of [A, B, C, D, E]) {
@@ -449,7 +458,7 @@ export default class VocabulaireDuCercle extends Exercice {
       }
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, nomsDesPoints, objetsEnonce)) {
+      if (this.questionJamaisPosee(i, ...nomsDesPoints)) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions[i] = texte

@@ -1,15 +1,15 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { repere } from '../../../lib/2d/reperes'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { droite } from '../../../lib/2d/droites'
-import { latex2d } from '../../../lib/2d/textes'
+import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import FractionEtendue from '../../../modules/FractionEtendue'
+import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer le coefficient directeur d'une droite"
 export const interactifReady = true
@@ -30,7 +30,6 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    // this.formatInteractif = 'fractionEgale'
     this.canOfficielle = true
   }
 

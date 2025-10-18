@@ -1,18 +1,19 @@
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte,
-} from '../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
 import { engrenages } from '../../lib/2d/engrenage'
+import { bleuMathalea } from '../../lib/colors'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { numAlpha } from '../../lib/outils/outilString'
 import { ppcm } from '../../lib/outils/primalite'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -74,7 +75,7 @@ export default class EngrenagesAnimes extends Exercice {
       for (let k = 1; k < kMax + 1; k++) {
         result += `$${k}\\times${nbDentsRoueA} = `
         if (k === ppcm(nbDentsRoueA, nbDentsRoueB) / nbDentsRoueA) {
-          result += miseEnEvidence(texNombre(k * nbDentsRoueA, 0), 'blue')
+          result += miseEnEvidence(texNombre(k * nbDentsRoueA, 0), bleuMathalea)
           result += '$ ; '
         } else {
           result += `${texNombre(k * nbDentsRoueA, 0)}$ ; `
@@ -266,12 +267,12 @@ export default class EngrenagesAnimes extends Exercice {
           setReponse(this, kk, nbToursB)
           kk++
           texteCorr += `Lorsque la roue de gauche effectue $n$ tours, cela fait $${nbDentsRoueA}n$ dents.<br>`
-          texteCorr += `Lorsque la roue de gauche effectue $m$ tours, cela fait $${nbDentsRoueB}m$ dents.<br>`
+          texteCorr += `Lorsque la roue de droite effectue $m$ tours, cela fait $${nbDentsRoueB}m$ dents.<br>`
           texteCorr += `Nous cherchons donc le plus petit multiple commun à $${nbDentsRoueA}$ et à $${nbDentsRoueB}$.<br>`
           texteCorr += listePremiersMultiples(nbDentsRoueA, nbDentsRoueB)
           texteCorr += listePremiersMultiples(nbDentsRoueB, nbDentsRoueA)
-          texteCorr += `${numAlpha(0)}Il faudra donc $${nbToursA}$ tours de la roue de gauche pour que les roues retrouvent leur position initiale.<br>`
-          texteCorr += `${numAlpha(1)}La roue de droite aura effectué alors $${miseEnEvidence(nbToursB)}$ tours.<br>`
+          texteCorr += `${numAlpha(0)}Il faudra donc $${miseEnEvidence(nbToursA)}$ tours (car $${miseEnEvidence(nbToursA)}\\times${nbDentsRoueA}=${miseEnEvidence(nbDentsRoueA * nbToursA, bleuMathalea)}$) de la roue de gauche pour que les roues retrouvent leur position initiale.<br>`
+          texteCorr += `${numAlpha(1)}La roue de droite aura effectué alors $${miseEnEvidence(nbToursB)}$ tours (car $${miseEnEvidence(nbToursB)}\\times${nbDentsRoueB}=${miseEnEvidence(nbDentsRoueB * nbToursB, bleuMathalea)}$).<br>`
           roues = engrenages(
             { dureeTourBase: 0, module: 0.4 },
             nbDentsRoueA,
@@ -311,7 +312,7 @@ export default class EngrenagesAnimes extends Exercice {
             'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
           texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents.<br>`
           texteCorr += `Soit $n$ le nombre de tours de la roue de droite qui a $${nbDentsRoueB}$ dents, on a alors : $n\\times${nbDentsRoueB} = ${nbDentsRoueA * nbToursA}$.<br>`
-          texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbDentsRoueB}}=${nbToursB}$<br>`
+          texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbDentsRoueB}}=${nbToursB}$.<br>`
           texteCorr += `La roue de droite a donc effectué $${miseEnEvidence(nbToursB)}$ tours pendant que la roue de gauche en a effectués $${nbToursA}$.<br>`
           roues = engrenages(
             { dureeTourBase: 0, module: 0.4 },

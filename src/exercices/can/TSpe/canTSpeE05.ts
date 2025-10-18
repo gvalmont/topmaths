@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0cd98'
 export const refs = {
   'fr-fr': ['canTSpeE05'],
-  'fr-ch': [],
+  'fr-ch': ['2mGeomVect-2'],
 }
 
 export default class MilieuSegment extends Exercice {

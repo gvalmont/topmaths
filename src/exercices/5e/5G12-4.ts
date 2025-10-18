@@ -83,6 +83,16 @@ export default class NbAxesDeSymetrie extends Exercice {
       const listeFigs = listeFigures2d
         .filter((el) => el.type === typeDeFigureChoisie)
         .filter((el) => !numerosChoisis.includes(el.numero))
+        .filter((el, index, self) => {
+          // Si on ne parle pas d'un panneau, on ne filtre pas par style
+          if (typeDeFigureChoisie !== 'panneau') return true
+
+          // On garde seulement le premier élément pour chaque style défini
+          return (
+            index ===
+            self.findIndex((autre) => (autre.style ?? '') === (el.style ?? ''))
+          )
+        })
       if (listeFigs.length === 0) {
         this.listeQuestions.push('Aucune figure disponible')
         this.listeCorrections.push('Aucune figure disponible')
@@ -106,8 +116,8 @@ export default class NbAxesDeSymetrie extends Exercice {
         figures.push(figure)
       }
       texte += this.interactif
-        ? `Dire si l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} possède un centre de symétrie.<br>`
-        : `Placer le centre de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} si il existe.<br>`
+        ? `Dire si l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} possède${nbFigures > 1 ? 'nt' : ''} un centre de symétrie.<br>`
+        : `Placer le centre de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} s'il existe.<br>`
       const formes: Figure2D[] = []
       const scale = nbFigures === 1 ? 1 : nbFigures === 2 ? 0.9 : 0.8
       for (let j = 0; j < nbFigures; j++) {

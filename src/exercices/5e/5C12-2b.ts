@@ -23,7 +23,8 @@ export const refs = {
 export default class DistributiviteNumerique extends Exercice {
   constructor() {
     super()
-    this.nbQuestions = 6 // Ici le nombre de questions
+    this.nbQuestions = 6
+    this.listeAvecNumerotation = false
     this.consigne =
       'Calculer les expressions suivantes de deux manières différentes.'
   }

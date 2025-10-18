@@ -30,6 +30,7 @@ export default class TablesDeMultiplications extends Exercice {
     this.sup = tablesParDefaut
     this.sup2 = '1'
     this.sup3 = true
+    this.sup4 = true
     this.consigne = 'Calculer : '
     this.spacing = 2
 
@@ -45,6 +46,7 @@ export default class TablesDeMultiplications extends Exercice {
       'Le facteur de gauche est celui de la table',
       true,
     ]
+    this.besoinFormulaire4CaseACocher = ["Changer le sens de l'égalité", true]
   }
 
   nouvelleVersion() {
@@ -84,74 +86,157 @@ export default class TablesDeMultiplications extends Exercice {
           ? [true]
           : [true, false]
       const choix = choice(ordre)
+      const choixEgalite = this.sup4
       if (typeDeQuestion === 'classique') {
         reponse = a * b
-        if (choix) {
-          texte = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} =`
-          texte +=
-            this.interactif && context.isHtml
-              ? '$' +
-                ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-              : '\\ldots\\ldots$'
-          texteCorr = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
+        if (choixEgalite) {
+          if (choix) {
+            texte = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} =`
+            texte +=
+              this.interactif && context.isHtml
+                ? '$' +
+                  ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+                : '\\ldots\\ldots$'
+            texteCorr = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
+          } else {
+            texte = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = `
+            texte +=
+              this.interactif && context.isHtml
+                ? '$' +
+                  ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+                : '\\ldots\\ldots$'
+            texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
+          }
         } else {
-          texte = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = `
-          texte +=
-            this.interactif && context.isHtml
-              ? '$' +
-                ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-              : '\\ldots\\ldots$'
-          texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
+          // Inverser toutes les égalités.
+          if (choix) {
+            texte =
+              this.interactif && context.isHtml
+                ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+                : '$\\ldots\\ldots$ '
+            texte += `$ = ${texNombre(a, 0)}\\times ${texNombre(b, 0)}$`
+            texteCorr = `$ ${miseEnEvidence(texNombre(reponse, 0))} = ${texNombre(a, 0)}\\times ${texNombre(b, 0)}$`
+          } else {
+            texte =
+              this.interactif && context.isHtml
+                ? '$' +
+                  ajouteChampTexteMathLive(
+                    this,
+                    i,
+                    KeyboardType.clavierNumbers,
+                  ) +
+                  '$'
+                : '$\\ldots\\ldots$'
+            texte += `$ = ${texNombre(b, 0)}\\times ${texNombre(a, 0)}$`
+            texteCorr = `$ ${miseEnEvidence(texNombre(reponse, 0))} = ${texNombre(b, 0)}\\times ${texNombre(a, 0)}$`
+          }
         }
         handleAnswers(this, i, {
           reponse: {
             value: String(a * b),
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
       } else if (typeDeQuestion === 'a_trous') {
-        if (choix) {
-          texte = '$' + a.toString() + '\\times '
-          texte +=
-            this.interactif && context.isHtml
-              ? '$' +
-                ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
-                  texteApres: ` $=${(a * b).toString()}$`,
-                })
-              : ` \\ldots\\ldots =${(a * b).toString()}$`
-          reponse = b
+        if (choixEgalite) {
+          if (choix) {
+            texte = '$' + a.toString() + '\\times '
+            texte +=
+              this.interactif && context.isHtml
+                ? '$' +
+                  ajouteChampTexteMathLive(
+                    this,
+                    i,
+                    KeyboardType.clavierNumbers,
+                    {
+                      texteApres: ` $=${(a * b).toString()}$`,
+                    },
+                  )
+                : ` \\ldots\\ldots =${(a * b).toString()}$`
+            reponse = b
+          } else {
+            texte =
+              this.interactif && context.isHtml
+                ? ajouteChampTexteMathLive(
+                    this,
+                    i,
+                    KeyboardType.clavierNumbers,
+                    {
+                      texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$`,
+                    },
+                  )
+                : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
+            reponse = a
+          }
+          texteCorr = choix
+            ? `$${a.toString()} \\times ${miseEnEvidence(reponse.toString())} =${(a * b).toString()}$`
+            : `$${miseEnEvidence(reponse.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
         } else {
-          texte =
-            this.interactif && context.isHtml
-              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
-                  texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$`,
-                })
-              : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
-          reponse = a
+          // Inverser toutes les égalités.
+          if (choix) {
+            texte =
+              this.interactif && context.isHtml
+                ? `$${(a * b).toString()}=$ ` +
+                  ajouteChampTexteMathLive(
+                    this,
+                    i,
+                    KeyboardType.clavierNumbers,
+                    {
+                      texteApres: ` $\\times ${a.toString()}$`,
+                    },
+                  )
+                : `$${(a * b).toString()}= \\ldots\\ldots \\times ${a.toString()}$`
+            reponse = b
+          } else {
+            texte =
+              this.interactif && context.isHtml
+                ? `$${(a * b).toString()}=$ ` +
+                  ajouteChampTexteMathLive(
+                    this,
+                    i,
+                    KeyboardType.clavierNumbers,
+                    {
+                      texteApres: ` $\\times ${b.toString()}$`,
+                    },
+                  )
+                : `$${(a * b).toString()}= \\ldots\\ldots \\times ${b.toString()}$`
+            reponse = a
+          }
+          texteCorr = choix
+            ? `$${(a * b).toString()} = ${miseEnEvidence(reponse.toString())} \\times ${a.toString()}$`
+            : `$${(a * b).toString()} = ${miseEnEvidence(reponse.toString())} \\times ${b.toString()}$`
         }
         handleAnswers(this, i, {
           reponse: {
             value: String(reponse),
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
-        texteCorr = choix
-          ? `$${a.toString()} \\times ${miseEnEvidence(reponse.toString())} =${(a * b).toString()}$`
-          : `$${miseEnEvidence(reponse.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
       } else {
         // typeDeQuestion === 'quotient'
-        texte = `$${texNombre(a * b, 0)} \\div ${texNombre(a, 0)} = `
-        texte +=
-          this.interactif && context.isHtml
-            ? '$' +
-              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-            : '\\ldots\\ldots$'
-        texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
-        reponse = b
+        if (choixEgalite) {
+          texte = `$${texNombre(a * b, 0)} \\div ${texNombre(a, 0)} = `
+          texte +=
+            this.interactif && context.isHtml
+              ? '$' +
+                ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+              : '\\ldots\\ldots$'
+          texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
+          reponse = b
+        } else {
+          // Inverser toutes les égalités.
+          texte =
+            this.interactif && context.isHtml
+              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+              : '$\\ldots\\ldots$ '
+          texte += ` $= ${texNombre(a * b, 0)} \\div ${texNombre(a, 0)}$`
+          texteCorr = `$ ${miseEnEvidence(texNombre(b, 0))} = ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)}$`
+          reponse = b
+        }
         handleAnswers(this, i, {
           reponse: {
             value: String(reponse),
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
       }

@@ -9,7 +9,7 @@ export const uuid = '46799'
 export const refs = {
   'fr-fr': ['CM1N3J-flash1'],
   'fr-2016': [''],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class AbscisseFractionnaireCM1 extends AbscisseFractionnaire {
   constructor() {

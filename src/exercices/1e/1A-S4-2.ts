@@ -9,7 +9,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '12ba0'
 export const refs = {
   'fr-fr': ['1A-S4-2'],
-  'fr-ch': [],
+  'fr-ch': ['4mProbStat-1'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -33,11 +33,17 @@ export default class QuartileQCM extends ExerciceQcmA {
     quartile: number,
   ): void {
     const serieClassee = [...valeurs].sort((a, b) => a - b)
-    const rangQ1 = Math.floor(0.25 * effectif)
-    const rangQ3 = Math.floor(0.75 * effectif)
-
-    const Q1 = serieClassee[rangQ1 - 1]
-    const Q3 = serieClassee[rangQ3 - 1]
+   let rangQ1 :number
+   let rangQ3 :number
+    if (effectif % 4===0) {
+      rangQ1 = 0.25 * effectif
+      rangQ3 = 0.75 * effectif
+    } else {
+      rangQ1 = Math.floor(0.25 * effectif)+1
+      rangQ3 = Math.floor(0.75 * effectif)+1
+    }
+      const Q1 = serieClassee[rangQ1 -1]
+    const Q3 = serieClassee[rangQ3 -1]
 
     let distracteur1Q1: number
     if (rangQ1 - 2 >= 0) {
@@ -90,10 +96,10 @@ export default class QuartileQCM extends ExerciceQcmA {
       Le premier quartile de la série est :`
       this.correction = `La série triée par ordre croissant est : ${serieClassee.join('  ;  ')}.`
       this.correction += `<br>La série contient $${effectif}$ valeurs.<br>
-      Pour trouver le rang de $Q_1$, on cherche la partie entière du quart de ${texNombre(effectif)} qui vaut
+      Pour trouver le rang de $Q_1$, on calcule le quart de ${texNombre(effectif)} qui vaut
        $\\dfrac{${effectif}}{4}=${texNombre(effectif / 4)}$`
       if (effectif % 4 !== 0) {
-        this.correction += `<br>La partie entière vaut $${rangQ1}$.`
+        this.correction += `<br>On arrondit à l'entier supérieur qui vaut $${rangQ1}$.`
       }
       this.correction += `<br> Le premier quartile est donc la valeur de rang $${rangQ1}$ de la série classée : $Q_1=${Q1}$.`
       this.reponse = `$${Q1}$`
@@ -111,10 +117,10 @@ export default class QuartileQCM extends ExerciceQcmA {
       this.correction = `La série triée par ordre croissant est : $${serieClassee.join('  ;  ')}$.`
 
       this.correction += `<br>La série contient $${effectif}$ valeurs.<br>
-      Pour trouver le rang de $Q_3$, on cherche la partie entière des trois quarts de $${effectif}$ qui vaut
-       $\\dfrac{3\\times${effectif}}{4}=${texNombre((3 * effectif) / 4)}$.`
+      Pour trouver le rang de $Q_3$, on calcule les trois quarts de $${effectif}$ qui vaut
+       $\\dfrac{3\\times${effectif}}{4}=${texNombre(0.75 * effectif)}$.`
       if ((3 * effectif) % 4 !== 0) {
-        this.correction += `<br>La partie entière vaut $${rangQ3}$ .`
+        this.correction += `<br>On arrondit à l'entier supérieur qui vaut $${rangQ3}$ .`
       }
       this.correction += `<br> Le troisième quartile est donc la valeur de rang $${rangQ3}$ de la série classée : $Q_3=${Q3}$.`
       this.reponse = `$${Q3}$`

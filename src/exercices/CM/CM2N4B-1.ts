@@ -168,7 +168,7 @@ export default class nomExercice extends Exercice {
       handleAnswers(this, i, {
         reponse: {
           value: resultat,
-          options: { resultatSeulementEtNonOperation: true },
+          options: { nombreDecimalSeulement: true },
         },
       })
       if (resultat < ResultatMmax && this.questionJamaisPosee(i, texte)) {

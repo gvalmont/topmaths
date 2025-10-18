@@ -1,16 +1,16 @@
-import Exercice from '../Exercice'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
-  rienSi1,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
+  rienSi1,
 } from '../../lib/outils/ecritures'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Reconnaitre une suite arithmétique/géométrique (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,7 +25,7 @@ export const uuid = '42983'
 
 export const refs = {
   'fr-fr': ['1AL11-1'],
-  'fr-ch': [],
+  'fr-ch': ['autres-2'],
 }
 export default class ReconnaitreSuites extends Exercice {
   constructor() {

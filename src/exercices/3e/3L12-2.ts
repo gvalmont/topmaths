@@ -1,4 +1,3 @@
-import { max, min } from 'mathjs'
 import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
@@ -85,7 +84,7 @@ export default class nomExercice extends Exercice {
       texte = ''
       texteCorr = ''
       const degreMaxMonomeRestant = this.sup3
-      const degreMaxMonomeEvid = min(this.sup3 - 1, this.sup2)
+      const degreMaxMonomeEvid = Math.min(this.sup3 - 1, this.sup2)
       const variables = ['x', 'y', 'z', 'r', 's', 't']
       const variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeofCoeff = ['entier']
@@ -117,9 +116,9 @@ export default class nomExercice extends Exercice {
             } while (p1.toString() === '1')
             do {
               p2 = PolynomePlusieursVariables.createRandomPolynome(
-                min(1, degreMaxMonomeRestant),
+                Math.min(1, degreMaxMonomeRestant),
                 degreMaxMonomeRestant,
-                randint(2, min(3, degreMaxMonomeRestant) + 1),
+                randint(2, Math.min(3, degreMaxMonomeRestant) + 1),
                 choice(typeofCoeff),
                 variablesSelect,
               )
@@ -180,7 +179,7 @@ export default class nomExercice extends Exercice {
             listeDeQuestions[i] === 7
           ) {
             pSP3 = MonomePlusieursVariables.createRandomMonome(
-              randint(1, max(1, this.sup2)),
+              randint(1, Math.max(1, this.sup2)),
               choice(typeofCoeff),
               variablesSelect,
             )
@@ -199,7 +198,7 @@ export default class nomExercice extends Exercice {
           do {
             p1 = PolynomePlusieursVariables.createPolynomeFromMonome(
               MonomePlusieursVariables.createRandomMonome(
-                randint(1, max(1, this.sup3)),
+                randint(1, Math.max(1, this.sup3)),
                 choice(typeofCoeff),
                 variablesSelect,
               ),
@@ -208,7 +207,7 @@ export default class nomExercice extends Exercice {
           do {
             p2 = PolynomePlusieursVariables.createPolynomeFromMonome(
               MonomePlusieursVariables.createRandomMonome(
-                randint(0, max(1, this.sup3)),
+                randint(0, Math.max(1, this.sup3)),
                 choice(typeofCoeff),
                 variablesSelect,
               ),
@@ -241,14 +240,14 @@ export default class nomExercice extends Exercice {
               do {
                 p1 = PolynomePlusieursVariables.createPolynomeFromMonome(
                   MonomePlusieursVariables.createRandomMonome(
-                    randint(1, max(1, this.sup3)),
+                    randint(1, Math.max(1, this.sup3)),
                     choice(typeofCoeff),
                     variablesSelect,
                   ),
                 )
               } while (p1.contientCarre())
               pSP1 = MonomePlusieursVariables.createRandomMonome(
-                randint(0, min(p1.monomes[0].degre, 2)),
+                randint(0, Math.min(p1.monomes[0].degre, 2)),
                 'entier',
                 variablesSelect,
               )

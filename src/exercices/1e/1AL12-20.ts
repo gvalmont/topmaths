@@ -220,7 +220,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
             texteCorr += '<br><br>'
             texteCorr += 'La suite $(u_n)$ est constante sur $\\mathbb{N}$'
           } else {
-            texteCorr = '<br>'
+            texteCorr = '<br><br>'
             texteCorr += `Remarque : $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}=0 \\iff n= ${new FractionEtendue(-denomD, denomC).texFractionSimplifiee}$. Or $${new FractionEtendue(-denomD, denomC).texFractionSimplifiee} \\notin \\mathbb{N}$, c'est pourquoi $(u_n)$ est définie pour tout $n \\in \\mathbb{N}$`
             texteCorr += '<br>'
             texteCorr += 'Voici les premiers termes de la suite $(u_n)$ :'

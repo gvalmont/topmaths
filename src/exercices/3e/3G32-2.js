@@ -5,9 +5,10 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
+export const dateDeModifImportante = '10/10/2025'
+
 /**
  * @author Guillaume Valmont
- * reference 3G32-2
  */
 export const uuid = '5986b'
 

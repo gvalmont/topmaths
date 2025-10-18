@@ -1,15 +1,15 @@
 import {
-  texteEnCouleur,
-  miseEnEvidence,
-} from '../../../lib/outils/embellissements'
-import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
 } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une image avec un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,8 +33,6 @@ export default class CalculImageQuotient extends ExerciceSimple {
     this.typeExercice = 'simple'
 
     this.nbQuestions = 1
-
-    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion() {

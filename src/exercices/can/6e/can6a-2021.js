@@ -13,17 +13,16 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
-import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Hms from '../../../modules/Hms'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -65,8 +64,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 11,
     ])

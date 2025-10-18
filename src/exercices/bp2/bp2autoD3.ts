@@ -9,7 +9,7 @@ export const dateDePublication = '12/4/2025'
 export const uuid = '06a67'
 export const refs = {
   'fr-fr': ['BP2AutoD3'],
-  'fr-ch': [],
+  'fr-ch': ['9QCM-3'],
 }
 
 export default class ExerciceMoyenneTemperaturesQCM extends NouvelleCaledonieDec20Exo1Q4 {

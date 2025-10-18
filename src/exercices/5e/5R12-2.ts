@@ -1,22 +1,22 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint } from '../../lib/2d/textes'
-import { creerCouples, shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import {
-  listeQuestionsToContenuSansNumero,
-  randint,
-  contraindreValeur,
-} from '../../modules/outils'
-import { context } from '../../modules/context'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { creerCouples, shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import {
+  contraindreValeur,
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Déterminer les coordonnées (relatives) d'un point"
 export const interactifReady = true
@@ -32,7 +32,7 @@ export const dateDeModifImportante = '24/11/2024'
 export const uuid = 'ab968'
 
 export const refs = {
-  'fr-fr': ['5R12-2'],
+  'fr-fr': ['5R12-2', '3AutoG01-2'],
   'fr-ch': ['9FA1-7'],
 }
 export default class ReperagePointDuPlan extends Exercice {
@@ -124,7 +124,6 @@ export default class ReperagePointDuPlan extends Exercice {
       this.autoCorrection[0] = {
         enonce: '',
         enonceAvant: false,
-        // @ts-expect-error
         enonceApresNumQuestion: true,
         options: { barreseparation: true },
         propositions: [],
@@ -141,7 +140,6 @@ export default class ReperagePointDuPlan extends Exercice {
         this.autoCorrection[0].propositions.push(
           {
             type: 'AMCNum',
-            // @ts-expect-error
             propositions: [
               {
                 texte: '',

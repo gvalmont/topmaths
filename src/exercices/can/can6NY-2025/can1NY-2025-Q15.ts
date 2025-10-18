@@ -1,17 +1,17 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { randint } from '../../../modules/outils'
 export const titre = "Donner le nombre de solutions d'une équation"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '10886'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['11FA10-7b'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

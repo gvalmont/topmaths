@@ -1,20 +1,20 @@
-import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
+import { createList } from '../../lib/format/lists'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
+import { prenomPronom } from '../../lib/outils/Personne'
+import { texNombre } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
-import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
-import { bleuMathalea } from '../../lib/colors'
-import { choice } from '../../lib/outils/arrayOutils'
-import { prenomPronom } from '../../lib/outils/Personne'
-import { createList } from '../../lib/format/lists'
+import Exercice from '../Exercice'
 
 export const titre = "Comprendre le sens d'un pourcentage"
 export const interactifReady = true
@@ -334,7 +334,7 @@ export default class ComprendreSensPourcentage extends Exercice {
                 KeyboardType.clavierNumbers,
                 { texteAvant: texteAvant[indice], texteApres },
               )
-            : texteAvant[indice] + ' $$\\ldots ' + texteApres,
+            : texteAvant[indice] + ' $\\ldots$ ' + texteApres,
         )
         handleAnswers(this, 3 * i + indice, {
           reponse: {

@@ -4,7 +4,7 @@ export const interactifReady = false
 export const uuid = '36116'
 export const refs = {
   'fr-fr': ['5G20-0'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ConstruireUnTriangle5e extends ConstruireUnTriangle {
   constructor() {

@@ -23,7 +23,7 @@ export const uuid = '05ba1'
 
 export const refs = {
   'fr-fr': ['can2L03'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CoordonneesPointIntersectionAxeAbscissesDroite extends ExerciceSimple {
   constructor() {

@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import {
@@ -5,18 +6,17 @@ import {
   stringNombre,
   texNombre,
 } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
-import { context } from '../../modules/context'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
 } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Associer un nombre décimal à sa notation scientifique'
 export const interactifReady = true
@@ -32,7 +32,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'a0d16'
 
 export const refs = {
-  'fr-fr': ['4C32', 'BP2AutoF1'],
+  'fr-fr': ['4C32', 'BP2AutoF1', '3autoN07-1'],
   'fr-ch': ['10NO2-16'],
 }
 export default class NotationScientifique extends Exercice {

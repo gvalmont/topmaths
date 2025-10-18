@@ -1,6 +1,6 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { add, complex } from 'mathjs'
 import { randint } from '../../../modules/outils'
-import { complex, add } from 'mathjs'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Somme de nombres complexes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const uuid = '71292'
 
 export const refs = {
   'fr-fr': ['canTEC1-01'],
-  'fr-ch': [],
+  'fr-ch': ['3mNC-1'],
 }
 export default class SommeDeComplexes extends ExerciceSimple {
   constructor() {

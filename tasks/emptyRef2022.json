@@ -806,6 +806,54 @@
     }
   },
   "3e": {
+    "3Auto": {
+      "3AutoN": {
+        "3AutoN01": {},
+        "3AutoN02": {},
+        "3AutoN03": {},
+        "3AutoN04": {},
+        "3AutoN05": {},
+        "3AutoN06": {},
+        "3AutoN07": {},
+        "3AutoN08": {},
+        "3AutoN09": {},
+        "3AutoN10": {},
+        "3AutoN11": {},
+        "3AutoN12": {},
+        "3AutoN13": {},
+        "3AutoN14": {},
+        "3AutoN15": {}
+      },
+      "3AutoG": {
+        "3AutoG01": {},
+        "3AutoG02": {},
+        "3AutoG03": {},
+        "3AutoG04": {},
+        "3AutoG05": {},
+        "3AutoG06": {},
+        "3AutoG07": {},
+        "3AutoG08": {},
+        "3AutoG09": {},
+        "3AutoG10": {},
+        "3AutoG11": {},
+        "3AutoG12": {},
+        "3AutoG13": {}
+      },
+      "3AutoP": {
+        "3AutoP01": {},
+        "3AutoP02": {},
+        "3AutoP03": {},
+        "3AutoP04": {},
+        "3AutoP05": {},
+        "3AutoP06": {},
+        "3AutoP07": {},
+        "3AutoP08": {},
+        "3AutoP09": {}
+      },
+      "3AutoI": {
+        "3AutoI01": {}
+      }
+    },
     "3A1": {
       "3A10": {},
       "3A11": {},

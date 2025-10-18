@@ -1,13 +1,13 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { Grille } from '../../../lib/2d/reperes'
 import { Point } from '../../../lib/2d/points'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { latex2d } from '../../../lib/2d/textes'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { Grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Calculer la longueur d'un segment par comparaison"
 export const interactifReady = true
@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = '29736'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['PR-3'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

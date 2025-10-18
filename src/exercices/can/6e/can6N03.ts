@@ -20,7 +20,7 @@ export const uuid = '1dbee'
 
 export const refs = {
   'fr-fr': ['can6N03', '6N1A-flash3'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class RecomposerEntierMoinsSimple extends ExerciceSimple {
   constructor() {

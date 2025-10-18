@@ -3,13 +3,13 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import Hms from '../../../modules/Hms'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre =
   'Convertir des heures décimales en heures/minutes et inversement*'
@@ -26,7 +26,7 @@ export const uuid = '47802'
 
 export const refs = {
   'fr-fr': ['can5D02'],
-  'fr-ch': [],
+  'fr-ch': ['10GM3-11'],
 }
 export default class HeuresDecimalesHeuresMinutes2 extends Exercice {
   constructor() {

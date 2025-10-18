@@ -16,7 +16,7 @@ export const uuid = '21516'
 
 export const refs = {
   'fr-fr': ['1A-F4-1'],
-  'fr-ch': [],
+  'fr-ch': ['1mQCM-1', '2mQCM-1'],
 }
 export default class Auto1AF4a extends EquationsGSplineNombre {
   constructor() {

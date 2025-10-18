@@ -1,17 +1,21 @@
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Personne } from '../../lib/outils/Personne'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
-  texFractionFromString
+  simplificationDeFractionAvecEtapes,
+  texFractionFromString,
 } from '../../lib/outils/deprecatedFractions'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
-import { numAlpha } from '../../lib/outils/outilString'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-
 import Exercice from '../Exercice'
 
 export const titre =
@@ -25,13 +29,15 @@ export const interactifType = 'mathLive'
  * Ajout de la partie vocabulaire (this.sup !== 1) par Guillaume Valmont le 03/04/2022
  * Remplacement des this.sup par des this.niveau par Guillaume Valmont le 07/05/2022
  */
+
 export const uuid = '69e1f'
 
 export const refs = {
   'fr-fr': ['6P2B-1'],
   'fr-ch': [''],
 }
-export default class FonctionsProbabilite1 extends Exercice {
+
+export default class FonctionsProbabilite6e extends Exercice {
   niveau: number
   styleCorrection: string
   constructor() {
@@ -40,7 +46,7 @@ export default class FonctionsProbabilite1 extends Exercice {
 
     this.spacing = context.isHtml ? 2 : 1
     this.spacingCorr = context.isHtml ? 2 : 1
-    this.niveau = 1
+    this.niveau = 6
     this.styleCorrection = 'college'
   }
 
@@ -122,7 +128,7 @@ export default class FonctionsProbabilite1 extends Exercice {
 
       texte = `Dans ${lieu}, il y a ${somme} ${objets}. ${n[0]} sont ${qualites[index1][0]}, ${n[1]} sont ${qualites[index1][1]}, ${n[2]} sont ${qualites[index1][2]}, ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `
       texte += `${quidam} choisit au hasard l'${article} d'entre ${pronom}.`
-      if (this.niveau === 1) {
+      if (this.niveau > 4) {
         texte += `<br> ${numAlpha(0)} Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ? `
         texte += ajouteChampTexteMathLive(this, 4 * i) + '<br>'
         texte +=
@@ -137,34 +143,99 @@ export default class FonctionsProbabilite1 extends Exercice {
           numAlpha(3) +
           ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} ?`
         texte += ajouteChampTexteMathLive(this, 4 * i + 3) + '<br>'
-       texteCorr =
+        texteCorr =
+          this.niveau === 5
+            ? "On est dans une situation d'équiprobabilité donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total.<br>"
+            : ''
+        texteCorr +=
           numAlpha(0) +
-          ` Il y a ${n[m]} ${objets} ${qualites[index1][m]} sur ${somme} ${objets} possibles. 
-          <br>La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} est donc de ${n[m]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(texFractionFromString(n[m], somme))}$.<br>`
+          ` Il y a ${n[m]} ${objets} ${qualites[index1][m]} et il y a ${somme} ${objets} possibles.<br>
+          La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} est `
+        let reponseValue = new FractionEtendue(n[m], somme).texFSD
+        texteCorr +=
+          this.niveau === 5
+            ? `: $${new FractionEtendue(n[m], somme).estIrreductible ? miseEnEvidence(reponseValue) : reponseValue}${simplificationDeFractionAvecEtapes(n[m], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`
+            : `donc de ${n[m]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`
         handleAnswers(this, 4 * i, {
-          reponse: { value: new FractionEtendue(n[m], somme).texFSD },
+          reponse: { value: reponseValue },
         })
         texteCorr +=
           numAlpha(1) +
-          ` Il y a ${n[p]} ${objets} ${qualites[index1][p]} sur ${somme} ${objets} possibles. 
-          <br>La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][p]} est donc de ${n[p]} chances sur ${somme}, ce qui s'écrit aussi $${miseEnEvidence(texFractionFromString(n[p], somme))}$.<br>`
+          ` Il y a ${n[p]} ${objets} ${qualites[index1][p]} et il y a ${somme} ${objets} possibles.<br>
+          La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][p]} est `
+        reponseValue = new FractionEtendue(n[p], somme).texFSD
+        texteCorr +=
+          this.niveau === 5
+            ? `: $${new FractionEtendue(n[p], somme).estIrreductible ? miseEnEvidence(reponseValue) : reponseValue}${simplificationDeFractionAvecEtapes(n[p], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`
+            : `donc de ${n[p]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`
         handleAnswers(this, 4 * i + 1, {
-          reponse: { value: new FractionEtendue(n[p], somme).texFSD },
+          reponse: { value: reponseValue },
         })
         texteCorr +=
           numAlpha(2) +
-          ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets}, sur ${somme} ${objets} possibles. 
-          <br>La probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} est donc de ${somme - n[q]} chances sur ${somme}, ce qui s'écrit aussi $${miseEnEvidence(texFractionFromString(somme - n[q], somme))}$.<br>`
-        handleAnswers(this, 4 * i + 2, {
-          reponse: { value: new FractionEtendue(somme - n[q], somme).texFSD },
-        })
+          ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets} et il y a ${somme} ${objets} possibles.
+          <br>La probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} est `
+        reponseValue = new FractionEtendue(somme - n[q], somme).texFSD
         texteCorr +=
-          numAlpha(3) +` Il y a ${n[m]} ${objets} ${qualites[index1][m]} et ${n[p]} ${objets} ${qualites[index1][p]}, soit ${n[p] + n[m]} ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}, sur  ${somme} ${objets} possibles. 
-            <br>La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est donc de ${n[p] + n[m]} chances sur ${somme}, ce qui s'écrit aussi $${miseEnEvidence(texFractionFromString(n[p] + n[m], somme))}$.<br>`
-           
-            handleAnswers(this, 4 * i + 3, {
-          reponse: { value: new FractionEtendue(n[m] + n[p], somme).texFSD },
+          this.niveau === 5
+            ? `: $${new FractionEtendue(somme - n[q], somme).estIrreductible ? miseEnEvidence(reponseValue) : reponseValue}${simplificationDeFractionAvecEtapes(somme - n[q], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`
+            : `donc de ${somme - n[q]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`
+        handleAnswers(this, 4 * i + 2, {
+          reponse: { value: reponseValue },
         })
+        reponseValue = new FractionEtendue(n[p] + n[m], somme).texFSD
+        texteCorr +=
+          numAlpha(3) +
+          (this.styleCorrection === 'college'
+            ? `Il y a ${n[m]} ${objets} ${qualites[index1][m]} et ${n[p]} ${objets} ${qualites[index1][p]}, soit ${n[p] + n[m]} ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} et il y a ${somme} ${objets} possibles.<br>
+            La probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est ` +
+              (this.niveau === 5
+                ? `: $${new FractionEtendue(n[p] + n[m], somme).estIrreductible ? miseEnEvidence(reponseValue) : reponseValue}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`
+                : `donc de ${n[p] + n[m]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`)
+            : ` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[m], somme)}+${texFractionFromString(n[p], somme)}=${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme, { couleur1: 'blue', couleur2: '#f15929' })}$.<br>`)
+        handleAnswers(this, 4 * i + 3, {
+          reponse: { value: reponseValue },
+        })
+      } else {
+        texte += ` ${personne.Pronom} regarde ${natureDeLIssue[index1]}.<br>`
+
+        texte +=
+          numAlpha(0) +
+          "Est-ce que c'est une expérience aléatoire ? Pourquoi ?<br>"
+        texteCorr =
+          numAlpha(0) +
+          ` On sait qu'on tombera sur ${article} ${objet} mais on ne sait pas ${defini} sera ${singulier(qualites[index1][0], index1)}, ${singulier(qualites[index1][1], index1)}, ${singulier(qualites[index1][2], index1)}, ${singulier(qualites[index1][3], index1)} ou ${singulier(qualites[index1][4], index1)}.<br>On ne peut pas prévoir à l'avance le résultat, c'est donc une expérience aléatoire.<br>`
+        texte += numAlpha(1) + ' Quelles sont les issues ?<br>'
+        const issues = qualites[index1]
+          .map((q, i) => `- ${texteEnCouleurEtGras(singulier(q, index1))}`)
+          .join(' ;<br>\n')
+        texteCorr += numAlpha(1) + `Les issues sont :<br>${issues}.<br>`
+        texte +=
+          numAlpha(2) +
+          ` Quelles issues réalisent l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» ?<br>`
+        texteCorr +=
+          numAlpha(2) +
+          `Les issues qui réalisent l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» sont :<br>
+        - ${texteEnCouleurEtGras(singulier(qualites[index1][m], index1))} ;<br>
+        - ${texteEnCouleurEtGras(singulier(qualites[index1][p], index1))}.<br>`
+        if (this.niveau > 2) {
+          texte +=
+            numAlpha(3) +
+            ` Quel est l'événement contraire de «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» ?<br>`
+          texteCorr +=
+            numAlpha(3) +
+            ` L'événement contraire de «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» est l'événement «${texteEnCouleurEtGras(`${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][indexEvenementContraire[0]]}, ${qualites[index1][indexEvenementContraire[1]]} ou ${qualites[index1][indexEvenementContraire[2]]}${sp(1)}`)}».`
+        } else {
+          texte +=
+            numAlpha(3) +
+            ` Quelles issues ne réalisent pas l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][q]} ou ${qualites[index1][m]}${sp(1)}» ?<br>`
+          texteCorr +=
+            numAlpha(3) +
+            ` Les issues qui ne réalisent pas l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» sont :<br>
+          - ${singulier(qualites[index1][indexEvenementContraire[0]], index1)} ;<br>
+          - ${singulier(qualites[index1][indexEvenementContraire[1]], index1)} ;<br>
+          - ${singulier(qualites[index1][indexEvenementContraire[2]], index1)}.`
+        }
       }
       if (this.questionJamaisPosee(i, n[0], n[1], n[2], n[3], n[4], m, p, q)) {
         // Si la question n'a jamais été posée, on en créé une autre

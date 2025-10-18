@@ -19,7 +19,7 @@ export const uuid = '1f71c'
 
 export const refs = {
   'fr-fr': ['can5C18'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ReconnaitreExp extends Exercice {
   constructor() {

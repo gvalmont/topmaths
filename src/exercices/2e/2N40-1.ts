@@ -14,6 +14,6 @@ export const uuid = '0a01e'
 
 export const refs = {
   'fr-fr': ['2N40-1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class TraduireUnProgrammeDeCalcul2e extends TraduireUnProgrammeDeCalcul {}

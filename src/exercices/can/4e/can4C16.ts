@@ -18,7 +18,7 @@ export const uuid = '07df0'
 
 export const refs = {
   'fr-fr': ['can4C16'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class MultiplierFraction extends ExerciceSimple {
   constructor() {

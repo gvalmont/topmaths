@@ -1,9 +1,9 @@
-import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { randint, listeQuestionsToContenu } from '../../modules/outils'
+import { index, range } from 'mathjs'
 import { matrice } from '../../lib/mathFonctions/Matrice'
 import { choice } from '../../lib/outils/arrayOutils'
-import { index, range } from 'mathjs'
+import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Produit de matrices'
 
@@ -109,12 +109,8 @@ export default class nomExercice extends Exercice {
         texteCorr += `<br><br> Le produit $A \\times B$ est possible et c'est une matrice qui a ${nblignes[0]} lignes et ${nbcolonnes[1]} colonnes. `
         texteCorr += `<br><br> $ \\begin{array}{rccl} && \\textcolor{blue}{${matricesprint[1]}}& =\\textcolor{blue}{B} \\\\ \\textcolor{red}{A} = &\\textcolor{red}{${matricesprint[0]}} & ${produitprint} & = AB \\end{array} $`
         // texteCorr += `Par exemple, on obtient $${math.parse(matrices[0].subset(index(nblignes[0], range(0, nbcolonnes[0]))).toString()).toTex().replaceAll('bmatrix', 'pmatrix')} $ `
-        const l1 = matrices[0].subset(
-          index(nblignes[0] - 1, range(0, nbcolonnes[0])),
-        )
-        const c1 = matrices[1].subset(
-          index(range(0, nblignes[1]), nbcolonnes[1] - 1),
-        )
+        const l1 = matrices[0].subset(nblignes[0] - 1, range(0, nbcolonnes[0]))
+        const c1 = matrices[1].subset(range(0, nblignes[1]), nbcolonnes[1] - 1)
         let detail = `c_{${nblignes[0]}, ${nbcolonnes[1]}}  = `
         // Vérification si l1 est un nombre ou un objet sans dimension
         if (
@@ -124,9 +120,8 @@ export default class nomExercice extends Exercice {
         ) {
           // Cas où l1 est un nombre scalaire
           for (let i = 0; i < nbcolonnes[0]; i++) {
-            const valeurL1 = typeof l1 === 'number' ? l1 : l1.subset(index(0))
-            const valeurC1 =
-              typeof c1 === 'number' ? c1 : c1.subset(index(i, 0))
+            const valeurL1 = typeof l1 === 'number' ? l1 : l1.subset(0, 0)
+            const valeurC1 = typeof c1 === 'number' ? c1 : c1.subset(i, 0)
             detail +=
               '\\textcolor{red}{' +
               ecritureParentheseSiMoins(valeurL1.toString()) +
@@ -144,9 +139,9 @@ export default class nomExercice extends Exercice {
           for (let i = 0; i < nbcolonnes[0]; i++) {
             detail +=
               '\\textcolor{red}{' +
-              ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) +
+              ecritureParentheseSiMoins(l1.subset(0, i).toString()) +
               '} \\times \\textcolor{blue}{' +
-              ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) +
+              ecritureParentheseSiMoins(c1.subset(i, 0).toString()) +
               '}'
             if (i < nbcolonnes[0] - 1) {
               detail += '+'
@@ -155,7 +150,7 @@ export default class nomExercice extends Exercice {
             }
           }
         }
-        detail += `${produit.subset(index(nblignes[0] - 1, nbcolonnes[1] - 1))}`
+        detail += `${produit.subset(nblignes[0] - 1, nbcolonnes[1] - 1)}`
         texteCorr += `<br> Le détail du calcul de $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ où $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ est le coefficient de la $${nblignes[0]}$-ème ligne et de la $${nbcolonnes[1]}$-ème colonne de la matrice $C = AB$ donne : <br> $${detail}$.`
         texteCorr += `<br> On trouve $A \\times B =  ${produitprint}$.`
       } else {
@@ -167,12 +162,8 @@ export default class nomExercice extends Exercice {
         const produitprint = produit.toTex()
         texteCorr += `<br><br> Le produit $B \\times A$ est possible et c'est une matrice qui a ${nblignes[1]} lignes et ${nbcolonnes[0]} colonnes. `
         texteCorr += `<br><br> $ \\begin{array}{rccl} && \\textcolor{red}{${matricesprint[0]}}& =\\textcolor{red}{A} \\\\ \\textcolor{blue}{B} = &\\textcolor{blue}{${matricesprint[1]}} & ${produitprint} & = BA \\end{array} $`
-        const l1 = matrices[1].subset(
-          index(nblignes[1] - 1, range(0, nbcolonnes[1])),
-        )
-        const c1 = matrices[0].subset(
-          index(range(0, nblignes[0]), nbcolonnes[0] - 1),
-        )
+        const l1 = matrices[1].subset(nblignes[1] - 1, range(0, nbcolonnes[1]))
+        const c1 = matrices[0].subset(range(0, nblignes[0]), nbcolonnes[0] - 1)
         let detail = `c_{${nblignes[1]}, ${nbcolonnes[0]}} = `
         // Vérification si l1 est un nombre ou un objet sans dimension
         if (
@@ -182,9 +173,8 @@ export default class nomExercice extends Exercice {
         ) {
           // Cas où l1 est un nombre scalaire
           for (let i = 0; i < nbcolonnes[1]; i++) {
-            const valeurL1 = typeof l1 === 'number' ? l1 : l1.subset(index(0))
-            const valeurC1 =
-              typeof c1 === 'number' ? c1 : c1.subset(index(i, 0))
+            const valeurL1 = typeof l1 === 'number' ? l1 : l1.subset(0, 0)
+            const valeurC1 = typeof c1 === 'number' ? c1 : c1.subset(i, 0)
             detail +=
               '\\textcolor{blue}{' +
               ecritureParentheseSiMoins(valeurL1.toString()) +
@@ -213,7 +203,7 @@ export default class nomExercice extends Exercice {
             }
           }
         }
-        detail += `${produit.subset(index(nblignes[1] - 1, nbcolonnes[0] - 1))}`
+        detail += `${produit.subset(nblignes[1] - 1, nbcolonnes[0] - 1)}`
         texteCorr += `<br> Le détail du calcul de $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ où $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ est le coefficient de la $${nblignes[1]}$-ème ligne et de la $${nbcolonnes[0]}$-ème colonne de la matrice $C = BA$ donne : <br> $${detail}$.`
         texteCorr += `<br> On trouve $B \\times A =  ${produitprint}$.`
       } else {

@@ -16,7 +16,7 @@ export const uuid = '10a62'
 
 export const refs = {
   'fr-fr': ['1A-F6-4'],
-  'fr-ch': [],
+  'fr-ch': ['11QCM-5', '1mQCM-8'],
 }
 export default class Auto1AF6d extends TrouverpDroite {
   constructor() {

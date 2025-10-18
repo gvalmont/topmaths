@@ -1,19 +1,19 @@
+import { codageSegments, placeLatexSurSegment } from '../../../lib/2d/codages'
+import { droite } from '../../../lib/2d/droites'
+import { Point, point, tracePointSurDroite } from '../../../lib/2d/points'
+import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../../lib/2d/textes'
+import { translation } from '../../../lib/2d/transformations'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
+import { texNombre } from '../../../lib/outils/texNombre'
 import {
   fixeBordures,
   mathalea2d,
   ObjetMathalea2D,
 } from '../../../modules/2dGeneralites'
-import { Point, point, tracePointSurDroite } from '../../../lib/2d/points'
-import { codageSegments, placeLatexSurSegment } from '../../../lib/2d/codages'
 import { context } from '../../../modules/context'
-import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs'
-import { droite } from '../../../lib/2d/droites'
-import { labelPoint } from '../../../lib/2d/textes'
-import { translation } from '../../../lib/2d/transformations'
-import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Partage d'un segment"
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'y343x'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['PR-7'],
 }
 
 /**

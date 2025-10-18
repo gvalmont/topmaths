@@ -1,16 +1,16 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { sp } from '../../../lib/outils/outilString'
+import { randint } from '../../../modules/outils'
 export const titre = 'Ajouter une durée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '22787'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['10GM3-3b'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

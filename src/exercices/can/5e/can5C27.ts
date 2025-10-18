@@ -18,7 +18,7 @@ export const uuid = '2745a'
 
 export const refs = {
   'fr-fr': ['can5C27'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class AdditionRelatifATrou extends ExerciceSimple {
   constructor() {

@@ -1,9 +1,9 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { min } from 'mathjs'
+import Exercice from '../Exercice'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Union et Intersection de proportions'
 
@@ -19,7 +19,7 @@ export const uuid = '1aad3'
 
 export const refs = {
   'fr-fr': ['techno1P8'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-11'],
 }
 export default class nomExercice extends Exercice {
   constructor() {
@@ -54,7 +54,7 @@ export default class nomExercice extends Exercice {
         effectif = randint(22, 80)
         belote = randint(10, effectif - 10)
         tarot = randint(10, effectif - 10)
-        inter = randint(3, min(belote, tarot) - 1)
+        inter = randint(3, Math.min(belote, tarot) - 1)
         union = belote + tarot - inter
       } while (union > effectif)
       texte = `Dans un club du 3ème age comprenant $${effectif}$ personnes, $${belote}$ jouent à la belote régulièrement,

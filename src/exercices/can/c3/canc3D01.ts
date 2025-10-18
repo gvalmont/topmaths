@@ -26,7 +26,7 @@ export const uuid = '2ce11'
 
 export const refs = {
   'fr-fr': ['canc3D01', 'auto6M4A-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class LireHeure extends ExerciceSimple {
   constructor() {

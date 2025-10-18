@@ -22,7 +22,7 @@ export const uuid = '0f7aa'
 
 export const refs = {
   'fr-fr': ['TSA6-12'],
-  'fr-ch': [],
+  'fr-ch': ['4mInt-1'],
 }
 export default class IntegraleAffine extends ExerciceSimple {
   constructor() {

@@ -18,7 +18,7 @@ export const uuid = '1630a'
 
 export const refs = {
   'fr-fr': ['can6D06', 'auto6M4D-flash2'],
-  'fr-ch': [],
+  'fr-ch': ['PR-16'],
 }
 export default class AutoDureeAnnees extends ExerciceSimple {
   constructor() {

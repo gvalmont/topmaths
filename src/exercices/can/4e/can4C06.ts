@@ -16,7 +16,7 @@ export const uuid = '11f3c'
 
 export const refs = {
   'fr-fr': ['can4C06'],
-  'fr-ch': [],
+  'fr-ch': ['PR-15'],
 }
 export default class NombreDeNombresEntiersEntreDeuxValeurs extends ExerciceSimple {
   constructor() {

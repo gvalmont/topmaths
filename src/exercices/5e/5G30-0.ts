@@ -15,7 +15,7 @@ export const titre =
   "Calculer des mesures d'angles adjacents, supplémentaires ou complémentaires"
 export const uuid = 'ed9f4'
 export const refs = {
-  'fr-fr': ['5G30-0'],
+  'fr-fr': ['5G30-0', '3AutoG03-2'],
   'fr-ch': ['11ES2-3', '1mG1-6'],
 }
 /**

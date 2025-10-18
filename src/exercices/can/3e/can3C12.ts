@@ -17,7 +17,7 @@ export const uuid = '0ad86'
 
 export const refs = {
   'fr-fr': ['can3C12'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class EncadreRacine extends Exercice {
   constructor() {

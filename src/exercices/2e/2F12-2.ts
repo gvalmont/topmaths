@@ -31,7 +31,7 @@ export const uuid = '277d3'
 
 export const refs = {
   'fr-fr': ['2F12-2'],
-  'fr-ch': [],
+  'fr-ch': ['2mIneq-6'],
 }
 export default class ResoudreGraphFonctionRef extends Exercice {
   constructor() {

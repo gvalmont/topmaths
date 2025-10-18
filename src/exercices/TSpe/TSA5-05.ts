@@ -15,7 +15,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['TSA5-05'],
-  'fr-ch': [],
+  'fr-ch': ['2mLogExp-3'],
 }
 
 const listeExposants = [1, 2, 3, -1, -2, -3]

@@ -86,6 +86,24 @@
   "9ES7": {
     "titre": "Solides"
   },
+  "9QCM": {
+    "titre": "QCM 9e"
+  },
+  "10QCM": {
+    "titre": "QCM 10e"
+  },
+  "11QCM": {
+    "titre": "QCM 11e"
+  },
+  "1mQCM": {
+    "titre": "QCM 1re"
+  },
+  "2mQCM": {
+    "titre": "QCM 2e"
+  },
+  "3mQCM": {
+    "titre": "QCM 3e"
+  },
   "10NO1": {
     "titre": "Ensembles de nombres"
   },
@@ -197,6 +215,9 @@
   "11ES3": {
     "titre": "Transformations du plan"
   },
+  "11PROB": {
+    "titre": "Résolution de problèmes"
+  },
   "1mCL1": {
     "titre": "Calcul littéral - Généralités"
   },
@@ -233,6 +254,9 @@
   "1mF4": {
     "titre": "Fonctions racine, inverse, cubique"
   },
+  "1mF5": {
+    "titre": "Géométrie analytique"
+  },
   "1mG1": {
     "titre": "Les angles"
   },
@@ -254,6 +278,18 @@
   "2mFctPoly": {
     "titre": "Fonctions polynomiales"
   },
+  "2mIneq": {
+    "titre": "Inéquations"
+  },
+  "2mGeomVect": {
+    "titre": "Géométrie vectorielle"
+  },
+  "2mLogExp": {
+    "titre": "Logarithmes et exponentielles"
+  },
+  "2mTrigo": {
+    "titre": "Trigonométrie dans le triangle quelconque"
+  },
   "3mA1": {
     "titre": "Limites"
   },
@@ -262,5 +298,41 @@
   },
   "3mA3": {
     "titre": "Étude de fonctions"
+  },
+  "3mP1": {
+    "titre": "Probabilités"
+  },
+  "3mNC": {
+    "titre": "Nombres complexes"
+  },
+  "3mAlgLin": {
+    "titre": "Algèbre linéaire"
+  },
+  "4mAna": {
+    "titre": "Analyse"
+  },
+  "4mEqDif": {
+    "titre": "Équations différentielles"
+  },
+  "4mAlgLin": {
+    "titre": "Algèbre linéaire"
+  },
+  "4mInt": {
+    "titre": "Intégration"
+  },
+  "4mProbStat": {
+    "titre": "Probabilités et statistiques"
+  },
+  "4mQCM": {
+    "titre": "QCM 4e"
+  },
+  "divers": {
+    "titre": "Exercices divers"
+  },
+  "autres": {
+    "titre": "Autres exercices"
+  },
+  "PR": {
+    "titre": "Exercices divers"
   }
 }

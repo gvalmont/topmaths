@@ -12,19 +12,72 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '01/10/2025'
+export const dateDeModifImportante = '12/10/2025'
 export const uuid = '26802'
-
+//
+/**
+ *
+ * @author Gilles Mora + Claude ia pour la factorisation
+ *
+ */
 export const refs = {
   'fr-fr': ['1A-C10-5'],
-  'fr-ch': [],
+  'fr-ch': ['2mQCM-2'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  'Résoudre une inéquation du type $\\dfrac{1}{x}<a$ ou $\\dfrac{1}{x}>a$ '
+  'Résoudre une inéquation du type $\\dfrac{1}{x}<a$ ou $\\dfrac{1}{x}>a$ (avec ou sans courbe)'
 export default class Auto1AC10e extends ExerciceQcmA {
+  private appliquerLesValeurs(
+    val: number,
+    estInegStrict: boolean,
+    typeInequation: 'inf' | 'sup',
+  ): void {
+    // Détermination du signe d'inégalité
+    const signeInégalité =
+      typeInequation === 'inf'
+        ? estInegStrict
+          ? '<'
+          : ' \\leqslant '
+        : estInegStrict
+          ? '>'
+          : ' \\geqslant '
+
+    // Création des éléments graphiques
+    const elements = this.creerElementsGraphiques(
+      val,
+      estInegStrict,
+      typeInequation,
+    )
+    const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
+    const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
+
+    // Énoncé
+    this.enonce = this.sup5
+      ? `On note $(I)$ l'inéquation, sur $\\mathbb{R}^*$, $\\dfrac{1}{x}${signeInégalité} ${val}$.<br><br>
+         L'ensemble des solutions $S$ de cette inéquation est :`
+      : `${deuxColonnes(
+          `On a représenté l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br><br>
+           On note $(I)$ l'inéquation, sur $\\mathbb{R}^*$, $\\dfrac{1}{x}${signeInégalité} ${val}$.<br><br>`,
+          `${graphique}<br>`,
+        )} L'ensemble des solutions $S$ de cette inéquation est :`
+
+    // Correction
+    this.correction = this.genererCorrection(
+      val,
+      estInegStrict,
+      typeInequation,
+      graphiqueC,
+      reponses[0],
+    )
+
+    // Réponses
+    this.reponses = reponses
+  }
+
   private creerElementsGraphiques(
     val: number,
     estInegStrict: boolean,
@@ -175,11 +228,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
       },
       r1,
       o,
-      courbe(f, {
-        repere: r1,
-        color: 'blue',
-        epaisseur: 2,
-      }),
+      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }),
     )
 
     // Graphique complet pour la correction
@@ -192,11 +241,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
         pixelsParCm: 25,
         scale: 1,
       },
-      courbe(f, {
-        repere: r1,
-        color: 'blue',
-        epaisseur: 2,
-      }),
+      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }),
       Cg,
       r1,
       o,
@@ -290,76 +335,26 @@ export default class Auto1AC10e extends ExerciceQcmA {
   }
 
   versionOriginale: () => void = () => {
-    const val = 3
-    const estInegStrict = false
-    const typeInequation: 'sup' = 'sup'
-    const signeInegalité = ' \\geqslant '
-
-    const elements = this.creerElementsGraphiques(
-      val,
-      estInegStrict,
-      typeInequation,
+    // Version originale : 1/x ≥ 3
+    this.appliquerLesValeurs(
+      3, // val
+      false, // estInegStrict
+      'sup', // typeInequation
     )
-    const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
-    const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
-
-    this.enonce = `${deuxColonnes(
-      `On a représenté l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br><br>
-        On note $(I)$ l'inéquation, sur $\\mathbb{R}^*$, $\\dfrac{1}{x}${signeInegalité} ${val}$.<br><br>
-       `,
-      `${graphique}<br>`,
-    )} L'ensemble des solutions $S$ de cette inéquation est :`
-    this.correction = this.genererCorrection(
-      val,
-      estInegStrict,
-      typeInequation,
-      graphiqueC,
-      reponses[0],
-    )
-    this.reponses = reponses
   }
 
-  versionAleatoire = () => {
+  versionAleatoire: () => void = () => {
     const typeInequation = choice(['inf', 'sup'] as const)
     const estInegStrict = choice([true, false])
     const val = randint(-6, 6, [-1, 0, 1])
 
-    const signeInégalité =
-      typeInequation === 'inf'
-        ? estInegStrict
-          ? '<'
-          : ' \\leqslant '
-        : estInegStrict
-          ? '>'
-          : ' \\geqslant '
-
-    const elements = this.creerElementsGraphiques(
-      val,
-      estInegStrict,
-      typeInequation,
-    )
-    const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
-    const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
-
-    this.enonce = `${deuxColonnes(
-      `On a représenté l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br><br>
-        On note $(I)$ l'inéquation, sur $\\mathbb{R}^*$, $\\dfrac{1}{x}${signeInégalité} ${val}$.<br><br>
-       `,
-      `${graphique}<br>`,
-    )} L'ensemble des solutions $S$ de cette inéquation est :`
-    this.correction = this.genererCorrection(
-      val,
-      estInegStrict,
-      typeInequation,
-      graphiqueC,
-      reponses[0],
-    )
-    this.reponses = reponses
+    this.appliquerLesValeurs(val, estInegStrict, typeInequation)
   }
 
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    //this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
+    this.besoinFormulaire5CaseACocher = ['Sans la courbe']
   }
 }

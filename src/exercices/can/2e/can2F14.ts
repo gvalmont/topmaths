@@ -23,7 +23,7 @@ export const uuid = '1d7cc'
 
 export const refs = {
   'fr-fr': ['can2F14'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CalculOrdonneePoint extends ExerciceSimple {
   constructor() {

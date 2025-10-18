@@ -11,6 +11,7 @@
   }
   export let reversed: boolean = false
   export let selected: boolean = false
+  export let loadImages: boolean = true // Pour éviter le chargement des images lorsque la carte n'est pas visible à l'écran
 
   let listeCodes: string[]
   // on compte réactivement le nombre d'occurences
@@ -52,11 +53,17 @@
   on:click="{handelSelection}"
 >
   <div class="{reversed ? 'hide' : 'block'} ">
-    <img
-      src="{application.imgPath}"
-      alt="{application.title} image"
-      class="object-fill rounded-t-lg"
-    />
+    {#if loadImages}
+      <img
+        src="{application.imgPath}"
+        alt="{application.title} image"
+        class="object-fill rounded-t-lg"
+      />
+    {:else}
+      <div class="h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
+        <span class="text-gray-500">Image à charger...</span>
+      </div>
+    {/if}
   </div>
   <div class="p-2 text-left">
     <h5

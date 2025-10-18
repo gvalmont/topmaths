@@ -375,7 +375,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           texte += ajouteQuestionMathlive({
             exercice: this,
             question: i,
-            typeInteractivite: 'remplisLesBlancs',
+            typeInteractivite: 'fillInTheBlank',
             content: `${pointsInvisibles.map((el, index) => `${el.nom} : (~%{champ${index * 2 + 1}}~;~%{champ${index * 2 + 2}}~)`).join('~~et~~')}`,
             objetReponse: {
               champ1: { value: pointsInvisibles[0].x },
@@ -395,7 +395,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           texte += ajouteQuestionMathlive({
             exercice: this,
             question: i,
-            typeInteractivite: 'remplisLesBlancs',
+            typeInteractivite: 'fillInTheBlank',
             content: `\\text{Coordonnées du centre } ${noms[4]}:~(~%{champ1}~;~%{champ2}~)`,
             objetReponse: {
               champ1: { value: centre.x },

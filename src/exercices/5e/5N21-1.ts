@@ -1,3 +1,7 @@
+import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   nombreDeChiffresDansLaPartieDecimale,
@@ -5,15 +9,10 @@ import {
 } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { min } from 'mathjs'
-import Decimal from 'decimal.js'
-import { getDigitFromNumber } from '../6e/_ExerciceConversionsLongueurs'
 import { context } from '../../modules/context'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { getDigitFromNumber } from '../6e/_ExerciceConversionsLongueurs'
+import Exercice from '../Exercice'
 
 export const titre = 'Convertir des volumes ou des capacités'
 export const amcReady = true
@@ -37,7 +36,7 @@ export const dateDeModifImportante = '05/06/2023'
 export const uuid = 'f4d29'
 
 export const refs = {
-  'fr-fr': ['5N21-1'],
+  'fr-fr': ['5N21-1', '3AutoG06-2'],
   'fr-2016': ['6M31-2'],
   'fr-ch': ['10GM3-6'],
 }
@@ -164,7 +163,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
           bonusDecimalesAMC = n.toNumber() < 1000 ? randint(0, 1) : 0 // Sinon, cela fait trop de digits
           resultat = n.mul(1000000)
           setReponse(this, i, resultat, {
-            digits: min(
+            digits: Math.min(
               nombreDeChiffresDe(resultat.toNumber()) +
                 randint(0, 1) +
                 bonusDecimalesAMC,

@@ -14,7 +14,7 @@ export const uuid = '1ab39'
 export const refs = {
   'fr-fr': ['6N2G-1'],
   'fr-2016': ['6C12-1a'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class QuestionsMasses1 extends QuestionsMasses {
   constructor() {

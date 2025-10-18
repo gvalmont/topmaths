@@ -1,13 +1,12 @@
-import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { numAlpha } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { string } from 'mathjs'
 import { listeQuestionsToContenu } from '../../modules/outils'
 /**
  * Problème à résoudre en utilisant les nombres relatifs
@@ -97,7 +96,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
           correctement aux ${nombreQuestions} questions et en marquant ${nombresPoints[0]} points
           à chaque fois. <br>
           Score maximal $ = ${nombreQuestions} \\times ${nombresPoints[0]}$<br>
-          $\\phantom{\\text{Score maxima}} = ${miseEnEvidence(string(nombreQuestions * nombresPoints[0]))}$`
+          $\\phantom{\\text{Score maxima}} = ${miseEnEvidence(String(nombreQuestions * nombresPoints[0]))}$`
       texte += '<br>' + numAlpha(1) + 'Quel est le score minimal à ce jeu ? '
       texte += ajouteChampTexteMathLive(
         this,
@@ -114,7 +113,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
           faux aux ${nombreQuestions} questions et en marquant ${ecritureParentheseSiNegatif(-nombresPoints[1])} points
           à chaque fois. <br>
           Score minimal $ = ${nombreQuestions} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])}$<br>
-          $\\phantom{\\text{Score minima}} = ${miseEnEvidence(string(-nombreQuestions * nombresPoints[1]))}$`
+          $\\phantom{\\text{Score minima}} = ${miseEnEvidence(String(-nombreQuestions * nombresPoints[1]))}$`
       texte +=
         '<br>' +
         numAlpha(2) +
@@ -143,7 +142,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
         candidats[0][0] +
         ` $= ${nombreQuestions * 0.6} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.4} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])}$<br>
           $\\phantom{\\text{Score d ${candidats[0][0]}} }= ${nombreQuestions * 0.6 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.4 * nombresPoints[1])}$<br>
-          $\\phantom{\\text{Score d ${candidats[0][0]}} }= ${miseEnEvidence(string(nombreQuestions * 0.6 * nombresPoints[0] - nombreQuestions * 0.4 * nombresPoints[1]))}$`
+          $\\phantom{\\text{Score d ${candidats[0][0]}} }= ${miseEnEvidence(String(nombreQuestions * 0.6 * nombresPoints[0] - nombreQuestions * 0.4 * nombresPoints[1]))}$`
       texte +=
         '<br>' +
         numAlpha(3) +
@@ -173,7 +172,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
         candidats[1][0] +
         ` $ = ${nombreQuestions * 0.3} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.2} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])} +  ${nombreQuestions * 0.5} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
          $\\phantom{\\text{Score d ${candidats[1][0]}}} = ${nombreQuestions * 0.3 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.2 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.5 * nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score d ${candidats[1][0]}}} = ${miseEnEvidence(string(nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]))}$`
+         $\\phantom{\\text{Score d ${candidats[1][0]}}} = ${miseEnEvidence(String(nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]))}$`
 
       if (candidats[2][1] === 1) {
         texte +=
@@ -208,7 +207,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
         candidats[2][0] +
         ` $ = ${nombreQuestions * 0.7} \\times  ${ecritureParentheseSiNegatif(-nombresPoints[1])} + ${nombreQuestions * 0.3} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
          $\\phantom{\\text{Score de${candidats[2][0]}}} = ${ecritureParentheseSiNegatif(-nombreQuestions * 0.7 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.3 * nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score de${candidats[2][0]}}} = ${miseEnEvidence(string(-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]))}$`
+         $\\phantom{\\text{Score de${candidats[2][0]}}} = ${miseEnEvidence(String(-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]))}$`
 
       if (this.interactif) {
         // Question sans version interactive : il s'agit d'encourager la recherche d'une solution par essai/erreur et le format interactif ne parait pas le plus adapté.
@@ -233,11 +232,11 @@ export default class resoudreProblemeRelatifs extends Exercice {
             "Il est possible d'avoir un score nul d'une seule façon dans ce jeu : <br>"
           texteCorr +=
             'Solution unique : Nombre de bonnes réponses = ' +
-            `$ ${miseEnEvidence(string(Solutions[1][0]))}$` +
+            `$ ${miseEnEvidence(String(Solutions[1][0]))}$` +
             ' ; Nombre de mauvaises réponses = ' +
-            `$ ${miseEnEvidence(string(Solutions[1][1]))}$` +
+            `$ ${miseEnEvidence(String(Solutions[1][1]))}$` +
             " ; Nombre d'absence de réponses = " +
-            `$ ${miseEnEvidence(string(Solutions[1][2]))}$`
+            `$ ${miseEnEvidence(String(Solutions[1][2]))}$`
         } else {
           texteCorr +=
             '<br>' +
@@ -250,11 +249,11 @@ export default class resoudreProblemeRelatifs extends Exercice {
               '<br> Solution n°' +
               i +
               ' : Nombre de bonnes réponses = ' +
-              `$ ${miseEnEvidence(string(Solutions[i][0]))}$` +
+              `$ ${miseEnEvidence(String(Solutions[i][0]))}$` +
               ' ; Nombre de mauvaises réponses = ' +
-              `$ ${miseEnEvidence(string(Solutions[i][1]))}$` +
+              `$ ${miseEnEvidence(String(Solutions[i][1]))}$` +
               " ; Nombre d'absence de réponses = " +
-              `$ ${miseEnEvidence(string(Solutions[i][2]))}$`
+              `$ ${miseEnEvidence(String(Solutions[i][2]))}$`
           }
         }
       }

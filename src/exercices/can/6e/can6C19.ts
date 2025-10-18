@@ -1,9 +1,9 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   miseEnEvidence,
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -29,7 +29,7 @@ export default class ComplementACent extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.typeExercice = 'simple'
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion() {

@@ -24,7 +24,7 @@ export const uuid = '0bb5f'
 
 export const refs = {
   'fr-fr': ['can2L10'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SimplifierQuotient extends ExerciceSimple {
   constructor() {

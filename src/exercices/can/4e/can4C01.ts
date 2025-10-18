@@ -20,7 +20,7 @@ export const uuid = '1da2d'
 
 export const refs = {
   'fr-fr': ['can4C01'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class PrioriteOperatoireEtRelatifs extends ExerciceSimple {
   constructor() {

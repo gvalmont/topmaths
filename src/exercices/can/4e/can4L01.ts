@@ -7,7 +7,7 @@ export const titre = 'Résoudre une équation $x+a=b$ ou $ax=b$'
 export const uuid = '0641c'
 export const refs = {
   'fr-fr': ['can4L01'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class UneEquationSimple extends ExerciceEquationASolutionEntiere {
   constructor() {

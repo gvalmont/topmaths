@@ -49,9 +49,9 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
 
 function resizeSchemaContainer(schemaContainer: HTMLElement, zoom: number) {
   const originalWidth =
-    schemaContainer.dataset.originalWidth || schemaContainer.offsetWidth
+    schemaContainer.dataset.originalWidth || schemaContainer.scrollWidth
   const originalHeight =
-    schemaContainer.dataset.originalHeight || schemaContainer.offsetHeight
+    schemaContainer.dataset.originalHeight || schemaContainer.scrollHeight
 
   // Store the original dimensions if not already stored
   if (!schemaContainer.dataset.originalWidth) {

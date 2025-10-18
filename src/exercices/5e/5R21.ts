@@ -1,3 +1,10 @@
+import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -9,17 +16,10 @@ import {
   arrondi,
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
-import Decimal from 'decimal.js'
-import { texNombre } from '../../lib/outils/texNombre'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -190,7 +190,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
           handleAnswers(this, i, {
             reponse: {
               value: arrondi(a - b).toString(),
-              options: { resultatSeulementEtNonOperation: true },
+              options: { nombreDecimalSeulement: true },
             },
           })
 

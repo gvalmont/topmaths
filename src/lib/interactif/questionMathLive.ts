@@ -1,14 +1,14 @@
+import type Exercice from '../../exercices/Exercice'
 import { context } from '../../modules/context'
 import { sp } from '../outils/outilString'
-import { buildDataKeyboardFromStyle } from './claviers/keyboard'
+import type { InteractivityType, TableauMathliveType } from '../types'
 import './champTexte.scss'
-import type Exercice from '../../exercices/Exercice'
+import { buildDataKeyboardFromStyle } from './claviers/keyboard'
 import {
   handleAnswers,
   type ReponseParams,
   type Valeur,
 } from './gestionInteractif'
-import type { interactivityType, TableauMathliveType } from '../types'
 import {
   AddTabDbleEntryMathlive,
   AddTabPropMathlive,
@@ -36,7 +36,7 @@ const buildDataKeyboardString = (style = '') => {
  * @param {number} question
  * @param {Valeur} objetReponse
  * @param {ReponseParams} reponseParams
- * @param {interactivityType} typeInteractivite
+ * @param {InteractivityType} typeInteractivite
  * @param {string} content
  * @param {string} classe
  * @param {ItabDbleEntry | Itableau} tableau
@@ -66,7 +66,7 @@ export function ajouteQuestionMathlive({
   question: number
   objetReponse: Valeur
   reponseParams?: ReponseParams
-  typeInteractivite: interactivityType
+  typeInteractivite: InteractivityType
   content?: string
   classe?: string
   tableau?: ItabDbleEntry | Itableau
@@ -80,7 +80,7 @@ export function ajouteQuestionMathlive({
     if (
       !(
         typeInteractivite === 'mathlive' ||
-        typeInteractivite === 'remplisLesBlancs' ||
+        typeInteractivite === 'fillInTheBlank' ||
         typeInteractivite === 'tableauMathlive' ||
         typeInteractivite === 'texte'
       )
@@ -96,7 +96,7 @@ export function ajouteQuestionMathlive({
     }
     handleAnswers(exercice, question, objetReponse, reponseParams)
     switch (typeInteractivite) {
-      case 'remplisLesBlancs':
+      case 'fillInTheBlank':
         return remplisLesBlancs(exercice, question, content, classe, '\\ldots')
       case 'tableauMathlive': {
         if (!tableau) {

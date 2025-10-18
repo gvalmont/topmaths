@@ -1,16 +1,16 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { prenomM } from '../../../lib/outils/Personne'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une vitesse moyenne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '13440'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['11FA11-4'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

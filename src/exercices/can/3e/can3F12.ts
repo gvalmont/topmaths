@@ -24,7 +24,7 @@ export const uuid = '0e1c6'
 
 export const refs = {
   'fr-fr': ['can3F12'],
-  'fr-ch': [],
+  'fr-ch': ['1mF1-17'],
 }
 type Noeud = {
   x: number

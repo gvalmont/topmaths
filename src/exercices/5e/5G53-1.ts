@@ -33,7 +33,7 @@ export const uuid = '083b9'
 export const refs = {
   'fr-fr': ['5G53-1'],
   'fr-2016': ['6G44-2'],
-  'fr-ch': [],
+  'fr-ch': ['11ES1-1'],
 }
 export default class DecrireAssemblageDeSolides extends Exercice {
   constructor() {

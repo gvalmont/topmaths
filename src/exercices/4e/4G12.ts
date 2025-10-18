@@ -11,6 +11,10 @@ import { Grille, grille } from '../../lib/2d/reperes'
 import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { TexteParPointEchelle, texteParPointEchelle } from '../../lib/2d/textes'
 import { homothetie, translation } from '../../lib/2d/transformations'
+import { centrage, deuxColonnes } from '../../lib/format/miseEnPage'
+import { texcolors } from '../../lib/format/style'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   compteOccurences,
@@ -21,10 +25,12 @@ import {
   texteEnCouleur,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { centrage, deuxColonnes } from '../../lib/format/miseEnPage'
-import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import type {
+  RotationAnimee,
+  SymetrieAnimee,
+  TranslationAnimee,
+} from '../../modules/2dAnimation'
 import {
   colorToLatexOrHTML,
   mathalea2d,
@@ -32,19 +38,12 @@ import {
   vide2d,
   type NestedObjetMathalea2dArray,
 } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { mod } from 'mathjs'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import type {
-  RotationAnimee,
-  SymetrieAnimee,
-  TranslationAnimee,
-} from '../../modules/2dAnimation'
+import Exercice from '../Exercice'
 import { transfoPoly } from './4G12-1'
 
 export const titre = 'Trouver une série de transformations'
@@ -746,15 +745,15 @@ export default class SerieDeTransformations extends Exercice {
             numeroFigure + 1,
             numeroFigure + 6,
           ]
-          if (mod(numeroFigure, 6) === 0) {
+          if (numeroFigure % 6 === 0) {
             // bord bas de la figure
             enleveElement(parcoursPossible, numeroFigure - 6)
             enleveElement(parcoursPossible, numeroFigure - 1)
-          } else if (mod(numeroFigure, 6) === 4) {
+          } else if (numeroFigure % 6 === 4) {
             // bord haut de la figure
             enleveElement(parcoursPossible, numeroFigure - 6)
             enleveElement(parcoursPossible, numeroFigure + 1)
-          } else if (mod(numeroFigure, 6) === 3) {
+          } else if (numeroFigure % 6 === 3) {
             // Avant-dernière ligne de la figure
             enleveElement(parcoursPossible, numeroFigure - 6) // Interdiction d'aller à gauche sous peine de retour impossible
           }
@@ -830,8 +829,8 @@ export default class SerieDeTransformations extends Exercice {
             Number(x * 6 + y).toString(),
             point(x * 3.2 + 1.6, y * 3.2 + 1.6),
             0,
-            context.isHtml ? 'yellow' : 'black',
-            1.2,
+            'black',
+            1.5,
             'milieu',
             true,
             0.4,

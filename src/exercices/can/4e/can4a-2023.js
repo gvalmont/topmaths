@@ -4,44 +4,43 @@ import { polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
+import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../../lib/outils/embellissements'
 import {
   simplificationDeFractionAvecEtapes,
   texFractionReduite,
 } from '../../../lib/outils/deprecatedFractions'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
-import { texPrix } from '../../../lib/format/style'
 import {
   formatMinute,
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import {
   colorToLatexOrHTML,
   fixeBordures,
   mathalea2d,
 } from '../../../modules/2dGeneralites'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { scratchblock } from '../../../modules/scratchblock'
-import { min, round } from 'mathjs'
-import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { scratchblock } from '../../../modules/scratchblock'
+import Exercice from '../../Exercice'
 
-import Hms from '../../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import Hms from '../../../modules/Hms'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
@@ -82,8 +81,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ])

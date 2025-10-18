@@ -1,13 +1,13 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
 } from '../../modules/outils'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = "Simplifier des fractions à l'aide des nombres premiers"
 export const interactifReady = true
@@ -25,7 +25,7 @@ export const dateDeModifImportante = '03/10/2023'
 export const uuid = '612b9'
 
 export const refs = {
-  'fr-fr': ['4C24'],
+  'fr-fr': ['4C24', '3AutoN03-1'],
   'fr-ch': ['9NO12-9'],
 }
 export default class SimplifierFractions extends Exercice {

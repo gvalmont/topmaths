@@ -1,10 +1,11 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Quotient de deux entiers relatifs'
 export const interactifReady = true
@@ -15,7 +16,6 @@ export const interactifType = 'mathLive'
  *
  * * On peut choisir de n'avoir que des tables de multiplication, par défaut il y a aussi des divisions simples par 2, 3 ou 4
  * @author Rémi Angot
- * 4C10-4
  */
 export const uuid = 'cdcc1'
 
@@ -75,9 +75,11 @@ export default class ExerciceQuotientsRelatifs extends Exercice {
           break
       }
       texte = `$\\dfrac{${a}}{${b}}$`
-      texteCorr = `$\\dfrac{${a}}{${b}}=${arrondi(a / b)}$`
+      texteCorr = `$\\dfrac{${a}}{${b}}=${miseEnEvidence(arrondi(a / b))}$`
       setReponse(this, i, arrondi(a / b))
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
+        texteAvant: '=',
+      })
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre

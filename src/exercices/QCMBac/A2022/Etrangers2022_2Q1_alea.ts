@@ -1,8 +1,8 @@
+import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
-import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
-import { exp } from 'mathjs'
+
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 
 export const uuid = 'bc8ae'
@@ -26,7 +26,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
   private appliquerLesValeurs(a: number, b: number, k: number): void {
-    const delta = -4 * (b - exp(k)) * a
+    const delta = -4 * (b - Math.exp(k)) * a
 
     if (delta > 0) {
       this.reponses = [

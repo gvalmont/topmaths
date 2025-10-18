@@ -10,7 +10,7 @@ export const interactifType = 'qcm'
 export const uuid = '1172e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

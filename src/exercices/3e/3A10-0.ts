@@ -17,6 +17,5 @@ export default class PremierOuPasDebut extends PremierOuPas {
     this.besoinFormulaire2CaseACocher = false
     this.besoinFormulaire3CaseACocher = false
     this.sup3 = true
-    this.level = 1
   }
 }

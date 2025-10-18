@@ -301,7 +301,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: stringNombre(aa + bb + cc + dd + ee, 1),
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
         if (context.isAmc) {

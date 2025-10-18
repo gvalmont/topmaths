@@ -30,7 +30,7 @@ export const dateDePublication = '03/12/2022'
 export const uuid = 'fe08e'
 
 export const refs = {
-  'fr-fr': ['6G4A-2'],
+  'fr-fr': ['6G4A-2', '3AutoG03-1'],
   'fr-2016': ['6G22-2'],
   'fr-ch': ['9ES5-2'],
 }
@@ -86,7 +86,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
         case 'droit':
           triangle = triangle2points1angle1longueur(B, A, 90, distanceCB, -1)
           explications =
-            'Un angle nul est un angle dont la mesure est égale à 0°.'
+            'Un angle droit est un angle dont la mesure est égale à 90°.'
           break
         case 'obtus':
           B = point(
@@ -102,7 +102,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
             -1,
           )
           explications =
-            'Un angle nul est un angle dont la mesure est égale à 0°.'
+            'Un angle obtus est un angle dont la mesure est supérieure à 90°.'
           break
         case 'plat':
         default:
@@ -119,7 +119,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
             -1,
           )
           explications =
-            'Un angle aigu est un angle dont la mesure est comprise entre 0° et 90°.'
+            'Un angle plat est un angle dont la mesure est égale à 180°.'
           break
       }
       const C = triangle.listePoints[2]

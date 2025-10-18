@@ -23,7 +23,7 @@ export const uuid = '22c4c'
 
 export const refs = {
   'fr-fr': ['can4C03'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class QuotientEntierQuiVaBienParFraction extends ExerciceSimple {
   constructor() {

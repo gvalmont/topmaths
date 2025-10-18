@@ -345,7 +345,7 @@ export function updateCubeIso({
     cells.forEach((cell) => {
       const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
       const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, {
-        scale: cell[3]?.scale ?? newScale ?? 1,
+        scale: 1,
       })
       if (typeof obj.svg === 'function') {
         const temp = document.createElementNS('http://www.w3.org/2000/svg', 'g')

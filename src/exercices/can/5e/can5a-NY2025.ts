@@ -36,7 +36,7 @@ export const interactifType = 'mathLive'
 export const uuid = '20c06'
 export const refs = {
   'fr-fr': ['can5a-NY2025'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export const dateDePublication = '08/12/2024'
 /**

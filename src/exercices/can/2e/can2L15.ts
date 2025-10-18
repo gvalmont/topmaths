@@ -18,7 +18,7 @@ export const dateDePublication = '04/05/2024'
 export const uuid = '1f55b'
 export const refs = {
   'fr-fr': ['can2L15'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * @author Gilles Mora

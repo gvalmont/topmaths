@@ -20,7 +20,7 @@ export const dateDePublication = '03/10/2024'
 export const uuid = '1b656'
 export const refs = {
   'fr-fr': ['1AL12-21'],
-  'fr-ch': [],
+  'fr-ch': ['autres-11'],
 }
 export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
   constructor() {

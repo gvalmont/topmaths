@@ -1,4 +1,3 @@
-import { max } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import {
@@ -227,7 +226,10 @@ export default class SommeFractionsDecimales extends Exercice {
           {
             // Somme d'un entier avec une différence de deux fractions décimales de même dénominateur, sans retenue
             b = randint(3, 50)
-            c = choix === 1 ? randint(max(b - 9, 2), b - 1) : randint(2, b - 1)
+            c =
+              choix === 1
+                ? randint(Math.max(b - 9, 2), b - 1)
+                : randint(2, b - 1)
             a = randint(2, 20, [b, c])
             numAMC = a * denAMC + b - c
             const fracNumAMC = fraction(numAMC, denAMC)

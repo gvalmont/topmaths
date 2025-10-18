@@ -15,7 +15,7 @@ export const uuid = '1252f'
 
 export const refs = {
   'fr-fr': ['1A-C2-3'],
-  'fr-ch': [],
+  'fr-ch': ['11QCM-6', '1mQCM-9'],
 }
 export default class Auto1AC2c extends CalculComplexeFraction {
   constructor() {

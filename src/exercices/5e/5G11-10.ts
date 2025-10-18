@@ -1,25 +1,25 @@
-import Exercice from '../Exercice'
-import { point, TracePoint, Point } from '../../lib/2d/points'
+import Figure from 'apigeom'
+import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
+import type PointApigeom from 'apigeom/src/elements/points/Point'
+import { cercleCentrePoint } from '../../lib/2d/cercle'
+import { codageMilieu } from '../../lib/2d/codages'
+import { point, Point, TracePoint } from '../../lib/2d/points'
+import { grille } from '../../lib/2d/reperes'
+import { demiDroite } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { rotation } from '../../lib/2d/transformations'
+import figureApigeom from '../../lib/figureApigeom'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import {
   colorToLatexOrHTML,
   fixeBordures,
   mathalea2d,
   type NestedObjetMathalea2dArray,
 } from '../../modules/2dGeneralites'
-import { grille } from '../../lib/2d/reperes'
-import { contraindreValeur, egal, randint } from '../../modules/outils'
-import { shuffle } from '../../lib/outils/arrayOutils'
-import { labelPoint } from '../../lib/2d/textes'
-import { rotation } from '../../lib/2d/transformations'
-import { cercleCentrePoint } from '../../lib/2d/cercle'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { context } from '../../modules/context'
-import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
-import type PointApigeom from 'apigeom/src/elements/points/Point'
-import { codageMilieu } from '../../lib/2d/codages'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
-import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
+import { contraindreValeur, egal, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Construire des symétriques de points par rapport à un point'
@@ -156,7 +156,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       enonce +=
         `${this.nbPoints > 1 ? ' des' : ' du'} point${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join(',') : this.labels[i][0] + `$ par rapport au point $${labelCentre}$.`}$` +
         (this.nbPoints > 1
-          ? ` et $${this.labels[i][this.nbPoints - 1]}$ par rapport au point $${labelCentre}$..<br>`
+          ? ` et $${this.labels[i][this.nbPoints - 1]}$ par rapport au point $${labelCentre}$.<br>`
           : '<br>')
       const guidesArc = []
       for (let k = 0; k < this.nbPoints; k++) {

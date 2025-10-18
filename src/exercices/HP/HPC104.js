@@ -111,7 +111,7 @@ export default class nomExercice extends Exercice {
           const matRed = []
           const factor = []
           for (let i = 0; i < 3; i++) {
-            factor.push(matrice.get([0, i]))
+            factor.push(matrice.getValue(0, i))
             matRed.push(matrice.reduite(0, i))
           }
           texteCorr += `$\\begin{aligned}\\text{On calcule : }${matrice.texDet()}&=`

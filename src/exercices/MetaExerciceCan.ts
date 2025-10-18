@@ -1,5 +1,4 @@
 import Decimal from 'decimal.js'
-import { string } from 'mathjs'
 import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../lib/interactif/qcm'
@@ -50,7 +49,7 @@ export default class MetaExercice extends Exercice {
       this.sup2 = false
     } else {
       exercicesRef = this.Exercices
-      this.nbQuestions = string(this.sup2).includes('-')
+      this.nbQuestions = String(this.sup2).includes('-')
         ? this.sup2.split('-').length
         : 1
     }
@@ -63,7 +62,7 @@ export default class MetaExercice extends Exercice {
         defaut: 1,
         melange: 31,
         shuffle: false,
-        nbQuestions: string(this.sup2).includes('-')
+        nbQuestions: String(this.sup2).includes('-')
           ? this.sup2.split('-').length
           : 1,
       })

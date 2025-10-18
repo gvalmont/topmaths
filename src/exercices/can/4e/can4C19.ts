@@ -19,7 +19,7 @@ export const uuid = '1ae99'
 
 export const refs = {
   'fr-fr': ['can4C19'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class MultiplicationRelatifCAN extends ExerciceSimple {
   constructor() {

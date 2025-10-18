@@ -1,3 +1,6 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -6,18 +9,15 @@ import {
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import Decimal from 'decimal.js'
-import { arrondi } from '../../lib/outils/nombres'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -167,7 +167,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: arrondi(a + b).toString(),
-            options: { resultatSeulementEtNonOperation: true },
+            options: { nombreDecimalSeulement: true },
           },
         })
       }

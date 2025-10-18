@@ -1,7 +1,10 @@
-import { max } from 'mathjs'
 import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
-import { choice, getRandomSubarray } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  getRandomSubarray,
+} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -15,26 +18,31 @@ export const titre = 'Développer une identité remarquable'
 export const dateDePublication = '04/09/2024'
 
 /**
- * Réduire une expression littérale
+ * Développer une identité remarquable
  * @author Nathan Scheinmann
+ * Eric Elter a modifié le code pour qu'il soit exploitable en France le 09/08/2025 (omission de le 4ème IR)
  */
 
 export const uuid = '6e472'
 export const refs = {
-  'fr-fr': ['3L11-15', 'BP2AutoI8'],
+  // Exo pour la Suisse à cause de la 4ème identité remarquable.
+  'fr-fr': [],
   'fr-ch': ['11FA1-11', '1mCL1-7'],
 }
 
-export default class nomExercice extends Exercice {
+export default class developperIdentiteRemarquable extends Exercice {
+  pays: string
   constructor() {
     super()
+    this.pays = 'Suisse'
     this.consigne =
       'Développer et réduire en utilisant les identités remarquables.'
 
     this.besoinFormulaireTexte = [
       'Choix des questions',
-      'Nombres séparés par des tirets :\n1 - (x+a)^2\n2 - (x-a)^2\n3 - (x-a)(x-b)\n4 - (x+a)(x+b)\n5 - (ax+by)^2\n6 - (ax-by)^2\n7 - (ax+by)(ax-by)\n8 - (ax+b)(ax+c)\n9 - Mélange',
+      'Nombres séparés par des tirets :\n1 : (x+a)^2\n2 : (x-a)^2\n3 : (x-a)(x-b)\n4 : (x+a)(x+b)\n5 : (ax+by)^2\n6 : (ax-by)^2\n7 : (ax+by)(ax-by)\n8 : (ax+b)(ax+c)\n9 - Mélange',
     ]
+
     this.besoinFormulaire2Numerique = [
       'Coefficients',
       3,
@@ -59,18 +67,27 @@ export default class nomExercice extends Exercice {
     this.consigne =
       'Développer et réduire en utilisant les identités remarquables.'
 
-    const listeDeQuestions = gestionnaireFormulaireTexte({
+    let listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 8,
       melange: 9,
       defaut: 9,
       nbQuestions: this.nbQuestions,
-    })
+    }).map(Number)
+    if (this.pays === 'France') {
+      listeDeQuestions = listeDeQuestions.filter((q) => q !== 4 && q !== 8)
+
+      if (listeDeQuestions.length === 0) {
+        listeDeQuestions.push(randint(1, 7, [4]))
+      }
+      listeDeQuestions = combinaisonListes(listeDeQuestions, this.nbQuestions)
+    }
+
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      const degMax = max(this.sup3, 0)
+      const degMax = Math.max(this.sup3, 0)
       const variables = ['x', 'y', 'z', 'r', 's', 't']
       const variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeCoeffListe = ['entier', 'fractionnaire']
@@ -142,13 +159,13 @@ export default class nomExercice extends Exercice {
         listeDeQuestions[i] === 8
       ) {
         p1 = MonomePlusieursVariables.createRandomMonome(
-          randint(0, max(1, degMax)),
+          randint(0, Math.max(1, degMax)),
           choice(typeofCoeff),
           variablesSelect,
         )
         do {
           p2 = MonomePlusieursVariables.createRandomMonome(
-            randint(0, max(1, degMax)),
+            randint(0, Math.max(1, degMax)),
             choice(typeofCoeff),
             variablesSelect,
           )

@@ -1,18 +1,18 @@
-import { choice } from '../../../lib/outils/arrayOutils'
+import Decimal from 'decimal.js'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Lire une probabilité  à partir d’un arbre'
 export const dateDePublication = '03/07/2022'
@@ -30,7 +30,7 @@ export const uuid = '32394'
 
 export const refs = {
   'fr-fr': ['can1P02'],
-  'fr-ch': [],
+  'fr-ch': ['3mP-3'],
 }
 export default class LectureProbabilite extends Exercice {
   constructor() {

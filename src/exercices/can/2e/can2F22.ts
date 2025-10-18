@@ -2,9 +2,9 @@ import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -22,7 +22,7 @@ export const uuid = '61271'
 
 export const refs = {
   'fr-fr': ['can2F22'],
-  'fr-ch': [],
+  'fr-ch': ['2mIneq-2'],
 }
 export default class InequationsGSpline extends ExerciceSimple {
   constructor() {

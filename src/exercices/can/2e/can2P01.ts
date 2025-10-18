@@ -1,8 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,8 +26,6 @@ export default class CalculsDeProbabilites extends ExerciceSimple {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion() {

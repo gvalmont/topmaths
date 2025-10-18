@@ -18,7 +18,7 @@ export const uuid = '2a91a'
 
 export const refs = {
   'fr-fr': ['can6S02', '6P2A-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ChancesSurEtProbabilites extends ExerciceSimple {
   constructor() {

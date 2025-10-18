@@ -2,7 +2,7 @@ import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
@@ -20,15 +20,15 @@ export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
 export const uuid = '3391d'
 export const refs = {
   'fr-fr': ['1AN14-7'],
-  'fr-ch': [],
+  'fr-ch': ['3mA2-9', '4mAna-3'],
 }
 type TypeDeFonction = 'monome' | 'racine' | 'inv' | 'exp'
 
 export default class DeriveeComposee extends Exercice {
   constructor() {
     super()
-    this.besoinFormulaireCaseACocher = ["Inclure l'exponentielle"]
-
+    this.besoinFormulaireTexte = ['Choix possibles pour $u$', 'Nombres séparés par des tirets.\n' + ["Puissance", "Racine", "Inverse", "Exponentielle", "Mélange"].map((nom, index) => `${index + 1}. ${nom}`).join("\n")]
+    this.sup = 5
     // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
     this.consigne =
       "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
@@ -36,28 +36,33 @@ export default class DeriveeComposee extends Exercice {
     // Sortie LaTeX
     this.nbCols = 2 // Nombre de colonnes
     this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-    this.sup = false
     // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   }
 
   nouvelleVersion() {
-    this.sup = Number(this.sup)
-    const listeValeurs: string[] = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
-    // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles: TypeDeFonction[] = [
+
+    const listeValeurs = [
       'monome',
       'racine',
       'inv',
+      'exp'
     ]
-    if (this.sup) {
-      listeTypeDeQuestionsDisponibles.push('exp')
-    }
+    const listeTypeDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: listeValeurs,
+
+    })
     const listeTypeDeQuestions = combinaisonListes(
       listeTypeDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let exprF = ''

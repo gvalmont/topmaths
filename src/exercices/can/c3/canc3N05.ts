@@ -1,6 +1,6 @@
-import { arrondi } from '../../../lib/outils/nombres'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -20,7 +20,7 @@ export const uuid = '42453'
 
 export const refs = {
   'fr-fr': ['canc3N05'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CompositionDeNombreDecimalC3 extends ExerciceSimple {
   constructor() {

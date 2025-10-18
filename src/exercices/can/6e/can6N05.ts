@@ -18,7 +18,7 @@ export const uuid = '22f41'
 
 export const refs = {
   'fr-fr': ['can6N05', '6N1A-flash4'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ChiffreDes extends ExerciceSimple {
   constructor() {

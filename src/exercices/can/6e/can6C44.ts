@@ -20,7 +20,7 @@ export const uuid = '16c8e'
 
 export const refs = {
   'fr-fr': ['can6C44'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ComparerFraction extends Exercice {
   constructor() {

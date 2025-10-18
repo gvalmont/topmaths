@@ -19,7 +19,7 @@ export const uuid = '31096'
 
 export const refs = {
   'fr-fr': ['can6C26', '6N2B-flash2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class Multiplier extends ExerciceSimple {
   constructor() {

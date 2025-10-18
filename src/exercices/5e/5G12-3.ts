@@ -7,7 +7,7 @@ export const dateDeModifImportante = '16/12/2024'
 export const uuid = '2d343'
 export const refs = {
   'fr-fr': ['5G12-3'],
-  'fr-ch': [],
+  'fr-ch': ['10GM2-4'],
 }
 export default class TrouverLaTransformation5e extends TrouverLaTransformation {
   constructor() {

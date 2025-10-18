@@ -1,33 +1,33 @@
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { spline } from '../../../lib/mathFonctions/Spline'
+import { spline, type NoeudSpline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
-import ExerciceSimple from '../../ExerciceSimple'
+import { choixDeroulant } from '../../../lib/interactif/questionListeDeroulante'
+import Exercice from '../../../exercices/Exercice'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'listeDeroulante'
 export const titre =
   "Dresser le tableau de signes d'une fonction dérivée à partir d'un graphique"
-export const dateDePublication = '18/11/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const uuid = 'ad915' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
+export const dateDePublication = '18/11/2023'
+export const dateDeModifImportante = '08/10/2025'
+export const uuid = 'ad915'
 
 export const refs = {
   'fr-fr': ['can1F23'],
   'fr-ch': [],
 }
 // une liste de nœuds pour définir une fonction Spline
-export default class SignesTabGSpline extends ExerciceSimple {
+export default class SignesTabGSpline extends Exercice {
   constructor() {
     super()
-
-    this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
-
   nouvelleVersion() {
-    const noeuds1 = [
+    const noeuds1: NoeudSpline[] = [
       { x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
       { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
@@ -38,8 +38,7 @@ export default class SignesTabGSpline extends ExerciceSimple {
       { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: 5, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
     ]
-    // une autre liste de nœuds...
-    const noeuds2 = [
+    const noeuds2: NoeudSpline[] = [
       { x: -6, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
       { x: -5, y: 0, deriveeGauche: 2, deriveeDroit: 3, isVisible: true },
       { x: -4, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
@@ -55,7 +54,7 @@ export default class SignesTabGSpline extends ExerciceSimple {
       { x: 6, y: 5, deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true },
     ]
 
-    const noeuds3 = [
+    const noeuds3: NoeudSpline[] = [
       { x: -6, y: -4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: 2, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
@@ -63,7 +62,7 @@ export default class SignesTabGSpline extends ExerciceSimple {
       { x: 6, y: -3, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
     ]
 
-    const noeuds4 = [
+    const noeuds4: NoeudSpline[] = [
       { x: -6, y: 3, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -5, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -4, y: 2, deriveeGauche: -1.5, deriveeDroit: -1.5, isVisible: true },
@@ -75,8 +74,8 @@ export default class SignesTabGSpline extends ExerciceSimple {
     ]
 
     // une liste des listes
-    const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4] //, , noeuds2noeuds1, noeuds2,
-    function aleatoiriseCourbe(listeFonctions) {
+    const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4]
+    function aleatoiriseCourbe(listeFonctions: NoeudSpline[][]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-2, +2) // translations
@@ -93,98 +92,121 @@ export default class SignesTabGSpline extends ExerciceSimple {
       )
     }
 
-    let bornes = {}
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-    const nuage = aleatoiriseCourbe(mesFonctions)
-    const maSpline = spline(nuage)
-    bornes = maSpline.trouveMaxes()
+    for (
+      let i = 0, cpt = 0, texte = '', texteCorr = '';
+      i < this.nbQuestions && cpt < 50;
 
-    const fonctionD = (x) => maSpline.derivee(x)
-    const { xMin, xMax, yMin, yMax } = bornes
-    const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, {
-      step: 1,
-      tolerance: 0.1,
-      nomVariable: 'x',
-      nomFonction: 'f^\\prime(x)',
-    })
-    const tableauD = tableauSignesFonction(fonctionD, xMin, xMax, {
-      step: 1,
-      tolerance: 0.1,
-      nomVariable: 'x',
-      nomFonction: 'f^\\prime(x)',
-    })
-    const choixInteractif = choice([tableau, tableauD])
-    const repere1 = repere({
-      xMin: bornes.xMin - 1,
-      xMax: bornes.xMax + 1,
-      yMin: bornes.yMin - 1,
-      yMax: bornes.yMax + 1,
-      grilleX: false,
-      grilleY: false,
-      grilleSecondaire: true,
-      grilleSecondaireYDistance: 1,
-      grilleSecondaireXDistance: 1,
-      grilleSecondaireYMin: bornes.yMin - 1,
-      grilleSecondaireYMax: bornes.yMax + 1,
-      grilleSecondaireXMin: bornes.xMin - 1,
-      grilleSecondaireXMax: bornes.xMax + 1,
-    })
-    const courbe1 = maSpline.courbe({
-      repere: repere1,
-      epaisseur: 1.5,
-      ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'blue',
-    })
-    const objetsEnonce = [repere1, courbe1]
+    ) {
+      let bornes = {}
+      const o = texteParPosition('O', -0.3, -0.3)
+      const nuage = aleatoiriseCourbe(mesFonctions)
+      const maSpline = spline(nuage)
+      bornes = maSpline.trouveMaxes()
 
-    if (choixInteractif === tableau) {
-      this.reponse = ['Non', 'NON', 'non']
-    } else {
-      this.reponse = ['Oui', 'OUI', 'oui']
-    }
-    this.question =
-      `On donne la représentation graphique d'une fonction $f$. <br>
+      const fonctionD = (x) => maSpline.derivee(x)
+      const { xMin, xMax, yMin, yMax } = bornes
+      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, {
+        step: 1,
+        tolerance: 0.1,
+        nomVariable: 'x',
+        nomFonction: 'f^\\prime(x)',
+      })
+      const tableauD = tableauSignesFonction(fonctionD, xMin, xMax, {
+        step: 1,
+        tolerance: 0.1,
+        nomVariable: 'x',
+        nomFonction: 'f^\\prime(x)',
+      })
+      const choixInteractif = choice([tableau, tableauD])
+      const repere1 = repere({
+        xMin: bornes.xMin - 1,
+        xMax: bornes.xMax + 1,
+        yMin: bornes.yMin - 1,
+        yMax: bornes.yMax + 1,
+        grilleX: false,
+        grilleY: false,
+        grilleSecondaire: true,
+        grilleSecondaireYDistance: 1,
+        grilleSecondaireXDistance: 1,
+        grilleSecondaireYMin: bornes.yMin - 1,
+        grilleSecondaireYMax: bornes.yMax + 1,
+        grilleSecondaireXMin: bornes.xMin - 1,
+        grilleSecondaireXMax: bornes.xMax + 1,
+      })
+      const courbe1 = maSpline.courbe({
+        repere: repere1,
+        epaisseur: 1.5,
+        ajouteNoeuds: true,
+        optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
+        color: 'blue',
+      })
+      const objetsEnonce = [repere1, courbe1]
+
+      texte =
+        `On donne la représentation graphique d'une fonction $f$. <br>
     Dresser le tableau de signes de sa fonction dérivée $f^\\prime$.<br>` +
-      mathalea2d(
-        Object.assign(
-          { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
-          { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 },
-        ),
-        objetsEnonce,
-        o,
-      )
-    if (this.interactif) {
-      this.question =
-        "Voici la représentation graphique d'une fonction $f$ :<br>"
-      this.question += mathalea2d(
-        Object.assign(
-          { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
-          { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 },
-        ),
-        objetsEnonce,
-        o,
-      )
-      this.question +=
-        '<br>Le tableau de signes de la fonction $f^\\prime$ est : <br>'
-      this.question += choixInteractif
-      this.question += '<br>Répondre par "Oui" ou "Non" <br>'
-      this.correction = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>
+        mathalea2d(
+          Object.assign(
+            { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
+            { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 },
+          ),
+          objetsEnonce,
+          o,
+        )
+      if (this.interactif) {
+        texte = "Voici la représentation graphique d'une fonction $f$ :<br>"
+        texte += mathalea2d(
+          Object.assign(
+            { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
+            { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 },
+          ),
+          objetsEnonce,
+          o,
+        )
+        texte +=
+          '<br>Le tableau de signes de la fonction $f^\\prime$ est : <br>'
+        texte += choixInteractif
+        texte +=
+          '<br> Réponse : ' +
+          choixDeroulant(this, i, [
+            { label: 'Choisir la réponse', value: '' },
+            { label: 'Vrai', value: 'Vrai' },
+            { label: 'Faux', value: 'Faux' },
+          ])
+        handleAnswers(this, i, {
+          reponse: {
+            value: choixInteractif === tableauD ? 'Vrai' : 'Faux',
+          },
+        })
+        texteCorr = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>
     Lorsque la fonction $f$ est croissante, $f^\\prime$ est positive et lorsque $f$ est décroissante, $f^\\prime$ est négative.<br>`
-      if (choixInteractif === tableau) {
-        this.correction +=
-          'Voici le tableau de signes de $f(x)$ sur son ensemble de définition :<br> '
-        this.correction += tableauD
+        if (choixInteractif === tableau) {
+          texteCorr +=
+            'Voici le tableau de signes de $f^\\prime(x)$ sur son ensemble de définition :<br> '
+          texteCorr += tableauD
+        } else {
+          texteCorr +=
+            'Ce tableau de signe est bien celui de la dérivée de $f$. A ne pas confondre avec le tableau de signe de $f$ : <br>'
+          texteCorr += tableauSignesFonction(maSpline.fonction, xMin, xMax, {
+            step: 1,
+            tolerance: 0.1,
+            nomVariable: 'x',
+            nomFonction: 'f(x)',
+          })
+        }
       } else {
-        this.correction += ''
+        texteCorr = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>
+    Lorsque la fonction $f$ est croissante, $f^\\prime$ est positive et lorsque $f$ est décroissante, $f^\\prime$ est négative. Le tableau de signe de $f^\\prime$ est donc<br>`
+        texteCorr += tableauD
       }
-    } else {
-      this.correction = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>
-    Lorsque la fonction $f$ est croissante, $f^\\prime$ est positive et lorsque $f$ est décroissante, $f^\\prime$ est négative.<br>`
-      this.correction += tableauD
+      if ((this.questionJamaisPosee(i), tableau)) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+        i++
+      }
+      cpt++
     }
-
-    this.canEnonce = this.question // 'Compléter'
-    this.canReponseACompleter = ''
+    listeQuestionsToContenu(this)
   }
 }

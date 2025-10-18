@@ -1,20 +1,20 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   ecritureParentheseSiNegatif,
   reduirePolynomeDegre3,
 } from '../../../lib/outils/ecritures'
-import { randint } from '../../../modules/outils'
-import FractionEtendue from '../../../modules/FractionEtendue'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Trouver l'extremum à partir d'une forme canonique"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '71604'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-16'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

@@ -9,24 +9,23 @@ import {
 import { polygoneAvecNom, polyline } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { couleurTab } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   enleveElement,
 } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { couleurTab } from '../../lib/format/style'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { max, min } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Nommer un angle'
 export const interactifType = ['qcm', 'mathLive']
@@ -211,7 +210,7 @@ export default class NommerUnAngle extends Exercice {
           case numA: // Si le sommet est A, alors il y a 3 choix possibles d'angles
             pt2 = A
             tailleAngle =
-              (min(
+              (Math.min(
                 segment(pt2, M).longueur,
                 segment(pt2, N).longueur,
                 segment(pt2, I).longueur,
@@ -239,7 +238,7 @@ export default class NommerUnAngle extends Exercice {
             pt2 = C
             choixAngle = randint(1, 3)
             tailleAngle =
-              (min(
+              (Math.min(
                 segment(pt2, M).longueur,
                 segment(pt2, N).longueur,
                 segment(pt2, I).longueur,
@@ -265,7 +264,7 @@ export default class NommerUnAngle extends Exercice {
           case numB:
             pt2 = B
             tailleAngle =
-              (min(
+              (Math.min(
                 segment(pt2, M).longueur,
                 segment(pt2, N).longueur,
                 segment(pt2, I).longueur,
@@ -279,7 +278,7 @@ export default class NommerUnAngle extends Exercice {
           case numM: // Si le sommet est M, alors il y a 2 choix possibles d'angles
             pt2 = M
             tailleAngle =
-              (min(
+              (Math.min(
                 segment(pt2, A).longueur,
                 segment(pt2, C).longueur,
                 segment(pt2, I).longueur,
@@ -294,7 +293,7 @@ export default class NommerUnAngle extends Exercice {
           case numN: // Si le sommet est N, alors il y a 2 choix possibles d'angles
             pt2 = N
             tailleAngle =
-              (min(
+              (Math.min(
                 segment(pt2, A).longueur,
                 segment(pt2, C).longueur,
                 segment(pt2, I).longueur,
@@ -331,7 +330,7 @@ export default class NommerUnAngle extends Exercice {
                 break
             }
             tailleAngle =
-              (min(
+              (Math.min(
                 segment(pt2, listePt1[0]).longueur,
                 segment(pt2, listePt3[0]).longueur,
                 4,
@@ -525,9 +524,9 @@ export default class NommerUnAngle extends Exercice {
         }
       }
       const params = {
-        xmin: min(0, absA, absC) - 1,
+        xmin: Math.min(0, absA, absC) - 1,
         ymin: ordC - 1,
-        xmax: max(0, absA, absC) + 1,
+        xmax: Math.max(0, absA, absC) + 1,
         ymax: ordA + 1,
         pixelsParCm: 20,
         scale: 0.5,

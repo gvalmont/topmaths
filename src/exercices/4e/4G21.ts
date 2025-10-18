@@ -214,9 +214,7 @@ export default class ReciproquePythagore extends Exercice {
         A + B
       }]$.`
       texteCorr += `<br>$${A + B}^2=${texNombre(c)}^2=${texNombre(c ** 2)}$`
-      texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(
-        a,
-      )}^2=${texNombre(b ** 2 + a ** 2)}$`
+      texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(a,)}^2=${texNombre(b ** 2)}+${texNombre(a ** 2)}=${texNombre(b ** 2 + a ** 2)}$`
       if (listeTypeDeQuestions[i] === 'rectangle') {
         if (!context.isAmc)
           this.autoCorrection[i].propositions![0].statut = true

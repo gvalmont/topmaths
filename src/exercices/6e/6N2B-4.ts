@@ -1,4 +1,6 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
+import { lampeMessage } from '../../lib/format/message'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import {
   choice,
   combinaisonListes,
@@ -8,15 +10,12 @@ import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { lampeMessage } from '../../lib/format/message'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { min } from 'mathjs'
 import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -75,17 +74,17 @@ export default class MultiplierUnNombreParPuissanceDeDix extends Exercice {
     ]
     let listeChoixAlea = range(6, [3])
     if (!this.sup2 || this.interactif || context.isAmc) {
-      this.nbQuestions = min(this.nbQuestions, 6)
+      this.nbQuestions = Math.min(this.nbQuestions, 6)
     }
     if (parseInt(this.sup3) === 1) {
       listeChoixAlea = rangeMinMax(4, 6)
       if (!this.sup2 || this.interactif || context.isAmc) {
-        this.nbQuestions = min(this.nbQuestions, 3)
+        this.nbQuestions = Math.min(this.nbQuestions, 3)
       }
     } else if (parseInt(this.sup3) === 2) {
       listeChoixAlea = range(2)
       if (!this.sup2 || this.interactif || context.isAmc) {
-        this.nbQuestions = min(this.nbQuestions, 3)
+        this.nbQuestions = Math.min(this.nbQuestions, 3)
       }
     }
     if (this.interactif) {

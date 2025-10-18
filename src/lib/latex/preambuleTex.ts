@@ -649,7 +649,11 @@ export function loadPackagesFromContent(contents: contentsType) {
     '\\newcolumntype{C}[1]{>{\\centering\\arraybackslash}p{#1cm}}',
     contents,
   )
-  testIfLoaded(['pattern'], '\\usetikzlibrary{patterns.meta}', contents)
+  testIfLoaded(
+    ['pattern'],
+    '\\usetikzlibrary{patterns,patterns.meta}',
+    contents,
+  )
   testIfLoaded(['framed'], '\\usetikzlibrary{backgrounds}', contents)
   testIfLoaded(
     ['single arrow', 'ellipse,'],
@@ -657,7 +661,12 @@ export function loadPackagesFromContent(contents: contentsType) {
     contents,
   )
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
-  testIfLoaded(['Stealth'], '\\usetikzlibrary{arrows.meta}', contents)
+  testIfLoaded(
+    ['-{Latex', '-{Stealth', '-{Triangle', '-{Bar'],
+    '\\usetikzlibrary{arrows.meta}',
+    contents,
+  )
+  testIfLoaded(['below=2mm of'], '\\usetikzlibrary{positioning}', contents)
   testIfLoaded(
     ['\\llbracket', '\\rrbracket'],
     '\\usepackage{stmaryrd}',
@@ -703,6 +712,7 @@ export function loadPackagesFromContent(contents: contentsType) {
     '\\pstEllipse',
   )
   testIfLoaded(['\\makecell'], '\\usepackage{makecell}', contents)
+  testIfLoaded(['\\polylongdiv'], '\\usepackage{polynom}', contents)
   testIfLoaded(
     ['\\includegraphicsembedded'],
     '\\usepackage{luaimageembed}',

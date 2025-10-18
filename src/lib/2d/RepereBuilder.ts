@@ -1,5 +1,5 @@
+import { arrondi } from '../outils/nombres'
 import { Repere } from './reperes'
-import { round } from 'mathjs'
 type LAbel = {
   valeur: number
   texte: string
@@ -205,7 +205,7 @@ export default class RepereBuilder {
     for (let x = 0; x < this.xLabelMax; x += Math.PI / n) {
       if (x !== 0) {
         labels.push({
-          valeur: round(x, 2),
+          valeur: arrondi(x, 2),
           texte: `\\frac{${i > 1 ? i.toString() : ''}\\Pi}{${n}}`,
         })
       }
@@ -215,7 +215,7 @@ export default class RepereBuilder {
     for (let x = 0; x > this.xLabelMin; x -= Math.PI / n) {
       if (x !== 0) {
         labels.push({
-          valeur: round(x, 2),
+          valeur: arrondi(x, 2),
           texte: `\\frac{${i < -1 ? i.toString() : '-'}\\Pi}{${n}}`,
         })
       }

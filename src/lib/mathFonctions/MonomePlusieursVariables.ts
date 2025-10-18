@@ -35,17 +35,20 @@ class MonomePlusieursVariables {
     )
   }
 
-  static genereCoefficients(typeofCoeff: string): FractionEtendue {
+  static genereCoefficients(
+    typeofCoeff: string,
+    coeffMax: number = 10,
+  ): FractionEtendue {
     let randomCoefficient: FractionEtendue
     let numerateur: number
     let denominateur: number
     if (typeofCoeff === 'entier') {
       denominateur = 1
     } else {
-      denominateur = randint(-10, 10, [0, 1, -1])
+      denominateur = randint(-coeffMax, coeffMax, [0, 1, -1])
     }
     do {
-      numerateur = randint(-10, 10)
+      numerateur = randint(-coeffMax, coeffMax)
       randomCoefficient = new FractionEtendue(numerateur, denominateur)
     } while (
       numerateur === 0 ||
@@ -59,8 +62,9 @@ class MonomePlusieursVariables {
   static createMonomeFromPartieLitterale(
     typeofCoeff: string,
     partieLitterale: partieLitterale,
+    coeffMax: number = 10,
   ): MonomePlusieursVariables {
-    const coefficient = this.genereCoefficients(typeofCoeff)
+    const coefficient = this.genereCoefficients(typeofCoeff, coeffMax)
     return new MonomePlusieursVariables(coefficient, partieLitterale)
   }
 
@@ -69,6 +73,7 @@ class MonomePlusieursVariables {
     degree: number,
     typeofCoeff: string,
     variables: string[],
+    coeffMax: number = 10,
   ): MonomePlusieursVariables {
     // Generate a random coefficient
     const randomPartieLitterale: partieLitterale = {
@@ -106,7 +111,7 @@ class MonomePlusieursVariables {
       randomPartieLitterale.exposants.push(minExponents[i])
     }
     return new MonomePlusieursVariables(
-      this.genereCoefficients(typeofCoeff),
+      this.genereCoefficients(typeofCoeff, coeffMax),
       randomPartieLitterale,
     )
   }
@@ -217,58 +222,48 @@ class MonomePlusieursVariables {
     }
   }
 
-  // diviser deux monômes (cela va fonction seulement si les coefficients sont entiers)
+  // diviser deux monômes (supporte maintenant les fractions)
   diviserPar(m: MonomePlusieursVariables): MonomePlusieursVariables {
-    if (this.coefficient.estEntiere && m.coefficient.estEntiere) {
-      const quotientCoefficient = this.coefficient.diviseFraction(m.coefficient)
-      if (quotientCoefficient.estEntiere) {
-        // Les variables qui apparaissent dans les deux monômes avec un exposant minimum de 1
-        const variables = this.partieLitterale.variables.filter((variable) =>
-          m.partieLitterale.variables.includes(variable),
-        )
-        const nouvellePartieLitterale: partieLitterale = {
-          variables: [],
-          exposants: [],
-        }
-        variables.forEach((variable) => {
-          // throw an error if the variable is not in the monome or if the variable is in the monome but with an exponent of 0 or if the difference of the exponents is negative
-          if (
-            !this.partieLitterale.variables.includes(variable) ||
-            !m.partieLitterale.variables.includes(variable) ||
-            this.partieLitterale.exposants[
-              this.partieLitterale.variables.indexOf(variable)
-            ] <
-              m.partieLitterale.exposants[
-                m.partieLitterale.variables.indexOf(variable)
-              ]
-          ) {
-            throw new Error(
-              'Impossible de diviser deux monômes avec des variables qui ne sont pas semblables',
-            )
-          } else {
-            const indexThis = this.partieLitterale.variables.indexOf(variable)
-            const indexM = m.partieLitterale.variables.indexOf(variable)
-            const exposant =
-              this.partieLitterale.exposants[indexThis] -
-              m.partieLitterale.exposants[indexM]
-            nouvellePartieLitterale.variables.push(variable)
-            nouvellePartieLitterale.exposants.push(exposant)
-          }
-        })
-        return new MonomePlusieursVariables(
-          quotientCoefficient,
-          nouvellePartieLitterale,
+    // Calculer le quotient des coefficients (peut être une fraction)
+    const quotientCoefficient = this.coefficient.diviseFraction(m.coefficient)
+
+    // Les variables qui apparaissent dans les deux monômes avec un exposant minimum de 1
+    const variables = this.partieLitterale.variables.filter((variable) =>
+      m.partieLitterale.variables.includes(variable),
+    )
+    const nouvellePartieLitterale: partieLitterale = {
+      variables: [],
+      exposants: [],
+    }
+    variables.forEach((variable) => {
+      // throw an error if the variable is not in the monome or if the variable is in the monome but with an exponent of 0 or if the difference of the exponents is negative
+      if (
+        !this.partieLitterale.variables.includes(variable) ||
+        !m.partieLitterale.variables.includes(variable) ||
+        this.partieLitterale.exposants[
+          this.partieLitterale.variables.indexOf(variable)
+        ] <
+          m.partieLitterale.exposants[
+            m.partieLitterale.variables.indexOf(variable)
+          ]
+      ) {
+        throw new Error(
+          'Impossible de diviser deux monômes avec des variables qui ne sont pas semblables',
         )
       } else {
-        throw new Error(
-          `Impossible de diviser deux monômes avec des coefficients qui ne se divisent pas entièrement ${this.coefficient.num} et ${m.coefficient.num}`,
-        )
+        const indexThis = this.partieLitterale.variables.indexOf(variable)
+        const indexM = m.partieLitterale.variables.indexOf(variable)
+        const exposant =
+          this.partieLitterale.exposants[indexThis] -
+          m.partieLitterale.exposants[indexM]
+        nouvellePartieLitterale.variables.push(variable)
+        nouvellePartieLitterale.exposants.push(exposant)
       }
-    } else {
-      throw new Error(
-        'Impossible de diviser deux monômes avec des coefficients non entiers',
-      )
-    }
+    })
+    return new MonomePlusieursVariables(
+      quotientCoefficient,
+      nouvellePartieLitterale,
+    )
   }
 
   // Multiplie deux monômes

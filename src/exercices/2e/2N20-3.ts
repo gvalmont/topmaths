@@ -7,7 +7,7 @@ export const uuid = '098db'
 
 export const refs = {
   'fr-fr': ['2N20-3'],
-  'fr-ch': [],
+  'fr-ch': ['1mCN-17'],
 }
 export default class DivisionEuclidienneMultiplesDiviseursCriteres2nde extends DivisionEuclidienneMultiplesDiviseursCriteres {
   constructor() {

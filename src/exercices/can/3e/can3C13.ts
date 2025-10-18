@@ -19,7 +19,7 @@ export const uuid = '140ad'
 
 export const refs = {
   'fr-fr': ['can3C13'],
-  'fr-ch': [],
+  'fr-ch': ['10NO5-17'],
 }
 export default class Pyramide3EtagesAdditionFractions extends ExerciceSimple {
   constructor() {

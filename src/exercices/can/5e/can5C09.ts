@@ -17,7 +17,7 @@ export const uuid = '1a593'
 
 export const refs = {
   'fr-fr': ['can5C09'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class MutliplierParN0N extends ExerciceSimple {
   constructor() {

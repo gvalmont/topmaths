@@ -24,12 +24,12 @@ export const uuid = '2bbd1'
 
 export const refs = {
   'fr-fr': ['can3F14'],
-  'fr-ch': [],
+  'fr-ch': ['10QCM-9', '11QCM-11'],
 }
 export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSimple {
   constructor() {
     super()
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.nbQuestions = 1
     this.versionQcmDisponible = true
     this.typeExercice = 'simple'

@@ -21,7 +21,7 @@ export const uuid = '103a2'
 export const refs = {
   'fr-fr': ['BP2AutoU5', '6N5-5'],
   'fr-2016': ['6C12-5', 'BP2AutoU5'],
-  'fr-ch': [],
+  'fr-ch': ['9QCM-4', '10QCM-2'],
 }
 
 function piqueNique() {

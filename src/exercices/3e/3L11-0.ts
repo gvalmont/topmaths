@@ -30,7 +30,7 @@ export const amcReady = true
 
 /**
  * Développer des expressions de la forme (ax+b)c ou (ax+b)c ou (ax+b)cx ou cx(ax+b) avec a, b, c relatifs et paramétrables ainsi que x
- * @author Eric Elter
+ * @author Eric Elter (modifié par Rémi Angot 10/10/2025 pour utiliser combinaisonListes)
  */
 export const uuid = 'f61d9'
 
@@ -94,21 +94,40 @@ export default class SimpleDistributivite extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-
+    
+    let signesa: (-1 | 1)[] = []
+    if (this.sup2 === 1) {
+      signesa = Array.from({ length: this.nbQuestions }, () => 1)
+    } else if (this.sup2 === 2) {
+      signesa = Array.from({ length: this.nbQuestions }, () => -1)
+    } else {
+      signesa = combinaisonListes([-1, 1], this.nbQuestions)
+    }
+    let signesb: (-1 | 1)[] = []
+    if (this.sup3 === 1) {
+      signesb = Array.from({ length: this.nbQuestions }, () => 1)
+    } else if (this.sup3 === 2) {
+      signesb = Array.from({ length: this.nbQuestions }, () => -1)
+    } else {
+      signesb = combinaisonListes([-1, 1], this.nbQuestions)
+    }
+    let signesc: (-1 | 1)[] = []
+    if (this.sup4 === 1) {
+      signesc = Array.from({ length: this.nbQuestions }, () => 1)
+    } else if (this.sup4 === 2) {
+      signesc = Array.from({ length: this.nbQuestions }, () => -1)
+    } else {
+      signesc = combinaisonListes([-1, 1], this.nbQuestions)
+    }
+    
     for (
       let i = 0, reponse, cpt = 0, a, b, c;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      a =
-        randint(1, 9) *
-        (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([1, -1]))
-      b =
-        randint(1, 9) *
-        (this.sup3 === 1 ? 1 : this.sup3 === 2 ? -1 : choice([1, -1]))
-      c =
-        randint(2, 9) *
-        (this.sup4 === 1 ? 1 : this.sup4 === 2 ? -1 : choice([1, -1]))
+      a = randint(1, 9) * signesa[i]
+      b = randint(1, 9) * signesb[i]
+      c = randint(2, 9) * signesc[i]
       let reponse1 = 0
       let reponse2 = 0
       let texteCorr = ''

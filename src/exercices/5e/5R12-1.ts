@@ -20,7 +20,7 @@ export const amcType = 'AMCOpen'
 export const uuid = '4dadb'
 
 export const refs = {
-  'fr-fr': ['5R12-1'],
+  'fr-fr': ['5R12-1', '3AutoG01-1'],
   'fr-ch': ['9FA1-6'],
 }
 

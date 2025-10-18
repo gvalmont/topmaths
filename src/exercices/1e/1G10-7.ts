@@ -1,22 +1,21 @@
-import { Point, point, pointAdistance } from '../../lib/2d/points'
-import { shuffleLettres } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { angleOriente, codageAngle, angle } from '../../lib/2d/angles'
+import { angle, angleOriente, codageAngle } from '../../lib/2d/angles'
 import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
-import { texNombre } from '../../lib/outils/texNombre'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
-import { arrondi } from '../../lib/outils/nombres'
+import { Point, point, pointAdistance } from '../../lib/2d/points'
 import { nommePolygone, Polygone } from '../../lib/2d/polygones'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { createList } from '../../lib/format/lists'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
-import { pi } from 'mathjs'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { shuffleLettres } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = "Utiliser la formule d'Al-Kashi"
@@ -192,7 +191,7 @@ export default class ProduitScalaireAlKashi extends Exercice {
                 ${nom[1]}${nom[2]}^2&=${longueurAB}^2+ ${longueurAC}^2-2\\times ${longueurAB}\\times ${longueurAC} \\times\\cos(${Math.round(angle(B, A, C))}°)\\\\
                 ${nom[1]}${nom[2]}^2&=${longueurAB ** 2 + longueurAC ** 2}-${2 * longueurAB * longueurAC}\\cos(${Math.round(angle(B, A, C))}°)\\\\
                 ${nom[1]}${nom[2]}&=\\sqrt{${longueurAB ** 2 + longueurAC ** 2}-${2 * longueurAB * longueurAC}\\cos(${Math.round(angle(B, A, C))}°)}\\\\
-                ${nom[1]}${nom[2]}&\\approx ${miseEnEvidence(texNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2 - 2 * longueurAB * longueurAC * Math.cos(arrondi((angle(B, A, C) * pi) / 180, 4))), 1))}\\\\
+                ${nom[1]}${nom[2]}&\\approx ${miseEnEvidence(texNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2 - 2 * longueurAB * longueurAC * Math.cos(arrondi((angle(B, A, C) * Math.PI) / 180, 4))), 1))}\\\\
               \\end{aligned}$`
       reponse = texNombre(
         Math.sqrt(
@@ -201,7 +200,7 @@ export default class ProduitScalaireAlKashi extends Exercice {
             2 *
               longueurAB *
               longueurAC *
-              Math.cos(arrondi((angle(B, A, C) * pi) / 180, 4)),
+              Math.cos(arrondi((angle(B, A, C) * Math.PI) / 180, 4)),
         ),
         1,
       )

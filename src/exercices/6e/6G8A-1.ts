@@ -10,6 +10,7 @@ import { createCubesProjections } from '../../lib/3d/3dProjectionMathalea2d/Cube
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 
 export const dateDePublication = '03/03/2021'
@@ -125,7 +126,7 @@ export default class DenombrerCubes extends Exercice {
           // correction :
           texteCorr += "On peut représenter l'empilement par tranches : <br>"
           texteCorr += figureCorrection + '<br>'
-          texteCorr += `Il y a au total ${L.length} cubes.`
+          texteCorr += `Il y a au total $${miseEnEvidence(L.length)}$ cubes.`
           handleAnswers(this, q, {
             reponse: {
               value: L.length,
@@ -146,10 +147,9 @@ export default class DenombrerCubes extends Exercice {
           texteCorr += figureCorrection + '<br>'
           texteCorr += unitesCubes
             ? `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur * largeur * hauteur}$. <br>`
-            : `Il y a au total $${L.length}$ cm³. On en veut $${longueur}\\text{cm} \\times ${largeur}\\text{cm} \\times ${hauteur}\\text{cm} = ${longueur * largeur * hauteur}\\text{cm}^3$. <br>`
-          texteCorr += unitesCubes
-            ? `Il manque $${longueur * largeur * hauteur - L.length}$ cubes.`
-            : `Il manque $${longueur * largeur * hauteur - L.length}$ cm³.`
+            : `Il y a au total $${L.length}$ $\\text{cm}^3$. On en veut $${longueur}\\text{cm} \\times ${largeur}\\text{cm} \\times ${hauteur}\\text{cm} = ${longueur * largeur * hauteur}\\text{cm}^3$. <br>`
+          texteCorr += `Il manque $${miseEnEvidence(longueur * largeur * hauteur - L.length)}$ `
+          texteCorr += unitesCubes ? `cubes.` : `$\\text{cm}^3$.`
           handleAnswers(this, q, {
             reponse: {
               value: longueur * largeur * hauteur - L.length,
@@ -159,8 +159,6 @@ export default class DenombrerCubes extends Exercice {
           break
       }
       if (this.questionJamaisPosee(q, JSON.stringify(L))) {
-        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[q] = texte
         this.listeCorrections[q] = texteCorr
         q++

@@ -24,7 +24,7 @@ export const uuid = '15f6d'
 
 export const refs = {
   'fr-fr': ['can1P01'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-10'],
 }
 export default class ProbabilitesNotation extends Exercice {
   constructor() {

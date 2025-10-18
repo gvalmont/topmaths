@@ -14,7 +14,7 @@ export const uuid = '25d7a'
 export const refs = {
   'fr-fr': ['6N2I-1'],
   'fr-2016': ['6C12-0b'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class QuestionsPrix2 extends QuestionsPrix {
   constructor() {

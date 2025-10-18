@@ -1,7 +1,7 @@
 import { expressionDeveloppeeEtNonReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiMoins,
@@ -50,7 +50,7 @@ export const dateDeModifImportante = '10/06/2024'
 export const uuid = 'db2e0'
 
 export const refs = {
-  'fr-fr': ['3L11'],
+  'fr-fr': ['3L11', '3autoN13-1'],
   'fr-ch': ['10FA2-2', '11FA2-2'],
 }
 export default class ExerciceDevelopper extends Exercice {
@@ -110,6 +110,9 @@ export default class ExerciceDevelopper extends Exercice {
       nbQuestions: this.nbQuestions,
       melange: 7,
     })
+    
+    const signesK = combinaisonListes([1, -1], this.nbQuestions)
+    const signesabc = combinaisonListes([[1, -1, 1], [-1, -1, -1], [-1, 1, 1], [-1, 1, -1], [1, -1, 1], [1, -1, -1]], this.nbQuestions)
 
     const couleurCorrection =
       this.sup2 === 1 ? ['#f15929', 'blue'] : ['blue', '#f15929']
@@ -134,16 +137,16 @@ export default class ExerciceDevelopper extends Exercice {
       reponseDev = ''
       reponseRed = ''
       const typesDeQuestions = listeTypeDeQuestions[i]
-      const k = randint(2, 11) * (this.sup === 3 ? choice([-1, 1]) : 1)
+      const k = randint(2, 11) * (this.sup === 3 ? signesK[i] : 1)
       const a =
-        randint(1, 9, [Math.abs(k)]) * (this.sup >= 2 ? choice([-1, 1]) : 1)
+        randint(1, 9, [Math.abs(k)]) * (this.sup >= 2 ? signesabc[i][0] : 1)
       const b =
         randint(1, 9, [Math.abs(k), Math.abs(a)]) *
-        (this.sup >= 2 ? choice([-1, 1]) : 1)
+        (this.sup >= 2 ? signesabc[i][1] : 1)
       const inconnue = choice(lettre)
       const c =
         randint(2, 9, [Math.abs(k), Math.abs(a), Math.abs(b)]) *
-        (this.sup >= 2 ? choice([-1, 1]) : 1)
+        (this.sup >= 2 ? signesabc[i][2] : 1)
       switch (typesDeQuestions) {
         case 'k(ax+b)':
           // ne pas écrire 1x

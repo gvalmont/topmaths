@@ -31,7 +31,7 @@ export const uuid = '03b1d'
 
 export const refs = {
   'fr-fr': ['can2F03'],
-  'fr-ch': [],
+  'fr-ch': ['1mQCM-4'],
 }
 export default class SigneFonctionAffine extends Exercice {
   constructor() {

@@ -29,7 +29,7 @@ export const uuid = '2b8bf'
 
 export const refs = {
   'fr-fr': ['2G21-1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SommeDeVecteurs extends Exercice {
   constructor() {

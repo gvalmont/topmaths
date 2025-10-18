@@ -236,7 +236,7 @@ export class ObjetMathalea2D {
     return ''
   }
 
-  tikz(): string | ObjetDivLatex {
+  tikz(...args: any[]): string | ObjetDivLatex {
     return ''
   }
 }
@@ -297,6 +297,8 @@ export function mathalea2d(
     amplitude = 1,
     style = 'display: block',
     id = '', // L'id peut-être utile pour des animations, c'est celui du svg. Le div englobant aura un id en M2D + id
+    usePgfplots = false,
+    centerLatex = false,
   }: {
     xmin?: number
     ymin?: number
@@ -310,6 +312,8 @@ export function mathalea2d(
     amplitude?: number
     style?: string
     id?: string
+    usePgfplots?: boolean
+    centerLatex?: boolean
   } = {},
   ...objets: NestedObjetMathalea2dArray
 ) {
@@ -397,10 +401,28 @@ export function mathalea2d(
   const ajouteCodeTikz = (
     mainlevee: boolean,
     objets: ObjetMathalea2D | NestedObjetMathalea2dArray,
+    skipRepere = false,
+    axisYMin?: number,
+    axisYMax?: number,
   ) => {
     let codeTikz = ''
+    // Skip Repere objects when using pgfplots (pgfplots handles axis/grid)
+    // Check BEFORE expanding objets.objets
+    if (
+      skipRepere &&
+      objets instanceof ObjetMathalea2D &&
+      objets.constructor.name === 'Repere'
+    ) {
+      return codeTikz
+    }
+    // Don't expand Courbe objects when using pgfplots (they handle their own tikz output)
+    // Check BEFORE expanding objets.objets
+    const shouldNotExpand =
+      objets instanceof ObjetMathalea2D &&
+      objets.constructor.name === 'Courbe' &&
+      (objets as any).usePgfplots === true
     if (objets instanceof ObjetMathalea2D) {
-      if (objets.objets != null) {
+      if (objets.objets != null && !shouldNotExpand) {
         objets = objets.objets as ObjetMathalea2D[]
       }
     } // c'est un objet composé d'objets. Exemple : Repere
@@ -408,7 +430,15 @@ export function mathalea2d(
       try {
         if (!mainlevee || typeof objets.tikzml === 'undefined') {
           if (typeof objets.tikz === 'function') {
-            codeTikz = '\t' + objets.tikz() + '\n'
+            // Pass axis bounds to Courbe's tikz method
+            if (
+              objets.constructor.name === 'Courbe' &&
+              (objets as any).usePgfplots === true
+            ) {
+              codeTikz = '\t' + objets.tikz(axisYMin, axisYMax) + '\n'
+            } else {
+              codeTikz = '\t' + objets.tikz() + '\n'
+            }
           }
         } else {
           if (typeof objets.tikzml === 'function') {
@@ -420,7 +450,13 @@ export function mathalea2d(
       }
     } else {
       for (const objet of objets) {
-        codeTikz += ajouteCodeTikz(mainlevee, objet)
+        codeTikz += ajouteCodeTikz(
+          mainlevee,
+          objet,
+          skipRepere,
+          axisYMin,
+          axisYMax,
+        )
       }
     }
     return codeTikz
@@ -455,22 +491,59 @@ export function mathalea2d(
       optionsTikz.forEach((e) => listeOptionsTikz.push(e))
     }
   }
-  if (scale === 1) {
-    codeTikz = '\\begin{tikzpicture}[baseline'
-    for (let l = 0; l < listeOptionsTikz.length; l++) {
-      codeTikz += `,${listeOptionsTikz[l]}`
-    }
-    codeTikz += ']\n'
-  } else {
-    codeTikz = '\\begin{tikzpicture}[baseline'
-    for (let l = 0; l < listeOptionsTikz.length; l++) {
-      codeTikz += `,${listeOptionsTikz[l]}`
-    }
-    codeTikz += `,scale = ${scale}`
-    codeTikz += ']\n'
-  }
 
-  codeTikz += `
+  if (usePgfplots) {
+    // Use pgfplots with axis environment instead of tikzpicture
+    codeTikz = centerLatex ? '{\\centering\n' : ''
+    codeTikz += '\\begin{tikzpicture}[baseline'
+    for (let l = 0; l < listeOptionsTikz.length; l++) {
+      codeTikz += `,${listeOptionsTikz[l]}`
+    }
+    if (scale !== 1) {
+      codeTikz += `,scale = ${scale}`
+    }
+    codeTikz += ']\n'
+    codeTikz += '\\begin{axis}[\n'
+    codeTikz += `  xmin=${xmin}, xmax=${xmax},\n`
+    codeTikz += `  ymin=${ymin}, ymax=${ymax},\n`
+    codeTikz += '  axis lines=middle,\n'
+    codeTikz += '  axis line style={-Stealth},\n'
+    codeTikz += '  xlabel={},\n'
+    codeTikz += '  ylabel={},\n'
+    codeTikz += '  xtick distance=2,\n'
+    codeTikz += '  ytick distance=2,\n'
+    codeTikz += '  minor tick num=1,\n'
+    codeTikz += '  grid=both,\n'
+    codeTikz += '  grid style={line width=.1pt, draw=gray!30},\n'
+    codeTikz += '  major grid style={line width=.2pt,draw=gray!50},\n'
+    codeTikz += '  tick label style={font=\\scriptsize},\n'
+    codeTikz += '  every axis plot/.append style={line width=1pt},\n'
+    codeTikz += '  clip=true,\n'
+    codeTikz += ']\n'
+    // code += codeTikz(...objets)
+    codeTikz += ajouteCodeTikz(mainlevee, objets, true, ymin, ymax) // Skip Repere when using pgfplots, pass axis bounds
+    codeTikz += '\\end{axis}\n'
+    codeTikz += '\\end{tikzpicture}'
+    if (centerLatex) codeTikz += '\\par}'
+  } else {
+    // Standard tikzpicture behavior
+    codeTikz = centerLatex ? '{\\centering\n' : ''
+    if (scale === 1) {
+      codeTikz += '\\begin{tikzpicture}[baseline'
+      for (let l = 0; l < listeOptionsTikz.length; l++) {
+        codeTikz += `,${listeOptionsTikz[l]}`
+      }
+      codeTikz += ']\n'
+    } else {
+      codeTikz += '\\begin{tikzpicture}[baseline'
+      for (let l = 0; l < listeOptionsTikz.length; l++) {
+        codeTikz += `,${listeOptionsTikz[l]}`
+      }
+      codeTikz += `,scale = ${scale}`
+      codeTikz += ']\n'
+    }
+
+    codeTikz += `
     \\tikzset{
       point/.style={
         thick,
@@ -483,10 +556,13 @@ export function mathalea2d(
     }
     \\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});
     `
-  // code += codeTikz(...objets)
-  codeTikz += ajouteCodeTikz(mainlevee, objets)
-  codeTikz += '\n\\end{tikzpicture}'
-  if (style.includes('display: block')) codeTikz += '\\\\\n'
+    // code += codeTikz(...objets)
+    codeTikz += ajouteCodeTikz(mainlevee, objets)
+    codeTikz += '\n\\end{tikzpicture}'
+    if (centerLatex) codeTikz += '\\par}'
+  }
+
+  if (style.includes('display: block') && !centerLatex) codeTikz += '\\\\\n'
   if (context.isHtml) return codeHTML
   else return codeTikz
 }
@@ -559,7 +635,7 @@ export function convertColorWithDieseToLatex(color: string) {
  */
 // JSDOC Validee par EE Juin 2022
 export function colorToLatexOrHTML(couleur: string): [string, string] {
-  let rgb = []
+  // let rgb = []
   if (Array.isArray(couleur) && couleur.length === 2) {
     if (couleur[1] === 'none') couleur[1] = '' // pas de 'none' comme couleur en latex !
     if (couleur.length === 2) {

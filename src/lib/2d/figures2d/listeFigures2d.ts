@@ -1,27 +1,21 @@
+import { randint } from '../../../modules/outils'
 import type { Figure2D } from '../Figures2D'
 import {
-  panneauCroisementPrioriteADroite,
-  panneauCederLePassage,
-  panneauDoubleSens,
-  panneauFeuTricolore,
-  panneauRetrecissementChaussee1,
-  panneauRetrecissementChaussee2,
-  panneauCroisementRouteSecondaire,
-  panneauRetrecissementChaussee3,
-  panneauFinDeLimitation,
-  panneauSensInterdit,
-  panneauArretInterdit,
-  panneauInterdictionDeCirculer,
-  panneauFinDeRoutePrioritaire,
-  panneauVoieSansIssue,
-  panneauParking,
-  panneauStop,
-  panneauStationnementInterdit,
-  panneauRoutePrioritaire,
-} from './panneaux'
-import { briqueLego } from './legos'
+  chiffreDigital,
+  nombre13,
+  nombre25,
+  nombre26,
+  nombre30,
+  nombre38,
+  nombre42,
+  nombre52,
+  nombre73,
+  nombre75,
+  nombre80,
+  nombre88,
+  nombre96,
+} from './chiffres'
 import {
-  ovale,
   aileDelta,
   cerfVolant,
   coeur,
@@ -33,6 +27,7 @@ import {
   hexagoneNonRegulier,
   losange,
   ogive,
+  ovale,
   pacman,
   parallelogramme,
   pentagoneRegulier,
@@ -42,7 +37,7 @@ import {
   triangleIsocele,
   triangleQuelconque1,
 } from './geometrie'
-import { randint } from '../../../modules/outils'
+import { briqueLego } from './legos'
 import {
   lettreA,
   lettreB,
@@ -72,20 +67,25 @@ import {
   lettreZ,
 } from './lettres'
 import {
-  chiffreDigital,
-  nombre13,
-  nombre25,
-  nombre26,
-  nombre30,
-  nombre38,
-  nombre42,
-  nombre52,
-  nombre73,
-  nombre75,
-  nombre80,
-  nombre88,
-  nombre96,
-} from './chiffres'
+  panneauArretInterdit,
+  panneauCederLePassage,
+  panneauCroisementPrioriteADroite,
+  panneauCroisementRouteSecondaire,
+  panneauDoubleSens,
+  panneauFeuTricolore,
+  panneauFinDeLimitation,
+  panneauFinDeRoutePrioritaire,
+  panneauInterdictionDeCirculer,
+  panneauParking,
+  panneauRetrecissementChaussee1,
+  panneauRetrecissementChaussee2,
+  panneauRetrecissementChaussee3,
+  panneauRoutePrioritaire,
+  panneauSensInterdit,
+  panneauStationnementInterdit,
+  panneauStop,
+  panneauVoieSansIssue,
+} from './panneaux'
 /**
  * @description formes utilisées dans l'exercice 6G25-4 notamment
  * @author Jean-Claude Lhote
@@ -96,96 +96,112 @@ export const listeFigures2d: Forme[] = [
     numero: 1,
     name: 'fin de limitation',
     type: 'panneau',
+    style: 'disque',
     figure2d: panneauFinDeLimitation,
   },
   {
     numero: 2,
     name: 'sens interdit',
     type: 'panneau',
+    style: 'disque',
     figure2d: panneauSensInterdit,
   },
   {
     numero: 3,
     name: "interdiction de s'arrêter",
     type: 'panneau',
+    style: 'disque',
     figure2d: panneauArretInterdit,
   },
   {
     numero: 4,
     name: 'interdiction de circuler à tout véhicule',
     type: 'panneau',
+    style: 'disque',
     figure2d: panneauInterdictionDeCirculer,
   },
   {
     numero: 5,
     name: 'danger : céder le passage',
     type: 'panneau',
+    style: 'triangle',
     figure2d: panneauCederLePassage,
   },
   {
     numero: 6,
     name: 'danger : circulation à double sens',
     type: 'panneau',
+    style: 'triangle',
     figure2d: panneauDoubleSens,
   },
   {
     numero: 7,
     name: 'danger : retrécissement de chaussée',
     type: 'panneau',
+    style: 'triangle',
     figure2d: panneauRetrecissementChaussee1,
   },
   {
     numero: 8,
     name: 'danger : retrécissement de chaussée',
     type: 'panneau',
+    style: 'triangle',
     figure2d: panneauRetrecissementChaussee2,
   },
   {
     numero: 9,
     name: 'danger : croisement à priorité à droite',
     type: 'panneau',
+    style: 'triangle',
     figure2d: panneauCroisementPrioriteADroite,
   },
   {
     numero: 10,
     name: 'fin de route prioritaire',
     type: 'panneau',
+    style: 'losange',
     figure2d: panneauFinDeRoutePrioritaire,
   },
   {
     numero: 11,
     name: 'danger : feu tricolore',
     type: 'panneau',
+    style: 'triangle',
     figure2d: panneauFeuTricolore,
   },
   {
     numero: 12,
     name: 'voie sans issue',
     type: 'panneau',
+    style: 'carre',
     figure2d: panneauVoieSansIssue,
   },
   {
     numero: 13,
     name: 'parking',
     type: 'panneau',
+    style: 'carre',
     figure2d: panneauParking,
   },
   {
     numero: 14,
     name: 'stop',
     type: 'panneau',
+    style: 'octogone',
     figure2d: panneauStop,
   },
   {
     numero: 15,
     name: 'stationnement interdit',
     type: 'panneau',
+    style: 'disque',
     figure2d: panneauStationnementInterdit,
   },
   {
     numero: 16,
     name: 'route prioritaire',
     type: 'panneau',
+    style: 'losange',
     figure2d: panneauRoutePrioritaire,
   },
   // legos
@@ -926,4 +942,5 @@ export type Forme = {
   type: string
   figure2d: (options?: Figure2DOptions) => Figure2D
   options?: Figure2DOptions
+  style?: string
 }

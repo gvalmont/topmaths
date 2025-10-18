@@ -16,7 +16,7 @@ export const uuid = '14b41'
 
 export const refs = {
   'fr-fr': ['can5C07'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class PrioriteOperatoire5e extends ExerciceSimple {
   constructor() {

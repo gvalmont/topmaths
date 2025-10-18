@@ -5,10 +5,9 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { abs } from 'mathjs'
+import Exercice from '../Exercice'
 
 export const titre = "Étudier graphiquement la parité d'une fonction"
 
@@ -487,7 +486,7 @@ export default class EtudierGraphiqueParite extends Exercice {
               grilleSecondaireXMin: -6,
               grilleSecondaireXMax: 6,
             })
-            const x = 4 - abs(b)
+            const x = 4 - Math.abs(b)
             const f = (x: number) => a * (x - b) * (x - b) + c
             const C = courbe(f, { repere: rC, step: 0.25, color: 'blue' })
 

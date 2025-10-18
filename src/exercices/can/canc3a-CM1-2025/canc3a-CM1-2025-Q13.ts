@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const uuid = '2a856'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['PR-17'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

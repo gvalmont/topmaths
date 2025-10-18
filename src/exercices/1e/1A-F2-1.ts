@@ -16,7 +16,7 @@ export const uuid = '08208'
 
 export const refs = {
   'fr-fr': ['1A-F2-1'],
-  'fr-ch': [],
+  'fr-ch': ['1mQCM-5'],
 }
 export default class Auto1AF2a extends CoordonneesPointIntersectionAxeAbscissesDroite {
   constructor() {

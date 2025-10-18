@@ -19,7 +19,7 @@ export const uuid = '080f9'
 
 export const refs = {
   'fr-fr': ['canc3C08'],
-  'fr-ch': [],
+  'fr-ch': ['PR-12'],
 }
 export default class PlusOuMoins2 extends ExerciceSimple {
   constructor() {

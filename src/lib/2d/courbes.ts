@@ -7,6 +7,9 @@ import {
 } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { estentier, inferieurouegal } from '../../modules/outils'
+import type { Spline } from '../mathFonctions/Spline'
+import { tousDeMemeSigne } from '../outils/nombres'
+import { arc } from './cercle'
 import { Point, point, tracePoint } from './points'
 import {
   elimineBinomesXYIntermediairesAlignes,
@@ -15,12 +18,9 @@ import {
   polygone,
   polyline,
 } from './polygones'
+import { Repere } from './reperes'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
-import { arc } from './cercle'
-import { Repere } from './reperes'
-import type { Spline } from '../mathFonctions/Spline'
-import { tousDeMemeSigne } from '../outils/nombres'
 
 export class LectureImage extends ObjetMathalea2D {
   x: number
@@ -430,6 +430,17 @@ export function lectureAntecedent(
 // JSDOC Validee par EE Aout 2022
 export class Courbe extends ObjetMathalea2D {
   stringColor: string
+  f?: (x: number) => number
+  usePgfplots: boolean
+  xmin: number
+  xmax: number
+  ymin: number
+  ymax: number
+  samples: number = 100
+  xunite: number
+  yunite: number
+  epaisseur: number
+  fLatex?: string
   constructor(
     f: (x: number) => number,
     {
@@ -443,6 +454,8 @@ export class Courbe extends ObjetMathalea2D {
       yMax,
       xUnite = 1,
       yUnite = 1,
+      usePgfplots = false,
+      fLatex,
     }: {
       repere?: Repere
       color?: string
@@ -454,10 +467,15 @@ export class Courbe extends ObjetMathalea2D {
       yMax?: number
       xUnite?: number
       yUnite?: number
+      usePgfplots?: boolean
+      fLatex?: string
     } = {},
   ) {
     super()
     this.objets = []
+    this.usePgfplots = usePgfplots
+    this.epaisseur = epaisseur
+    this.fLatex = fLatex
 
     if (repere == null) {
       window.notify(
@@ -470,6 +488,11 @@ export class Courbe extends ObjetMathalea2D {
     const xmax = xMax == null ? (xMax = repere.xMax ?? 0) : xMax
     const ymin = yMin == null ? (yMin = repere.yMin ?? 0) : yMin
     const ymax = yMax == null ? (yMax = repere.yMax ?? 0) : yMax
+
+    this.xmin = xmin
+    this.xmax = xmax
+    this.ymin = ymin
+    this.ymax = ymax
 
     this.bordures = (repere?.bordures ?? [0, 0, 0, 0]) as unknown as [
       number,
@@ -490,6 +513,9 @@ export class Courbe extends ObjetMathalea2D {
     if (isNaN(yunite)) {
       yunite = yUnite
     }
+
+    this.xunite = xunite
+    this.yunite = yunite
 
     let points = []
     let pas: number
@@ -533,13 +559,37 @@ export class Courbe extends ObjetMathalea2D {
     return code
   }
 
-  tikz() {
-    let code = ''
-    if (this.objets == null) return code
-    for (const objet of this.objets) {
-      code += '\n\t' + objet.tikz()
+  tikz(axisYMin?: number, axisYMax?: number) {
+    if (this.usePgfplots && this.fLatex) {
+      // Use pgfplots with function expression
+      let colorLatex = colorToLatexOrHTML(this.stringColor)[1] || 'black'
+      // Remove braces from color if present
+      colorLatex = colorLatex.replace(/[{}]/g, '')
+      const domainMin = (this.xmin * this.xunite).toFixed(3)
+      const domainMax = (this.xmax * this.xunite).toFixed(3)
+
+      // Use axis bounds if provided, otherwise use curve's ymin/ymax
+      const yDomainMin = (
+        axisYMin !== undefined ? axisYMin * 20 : this.ymin * this.yunite * 20
+      ).toFixed(3)
+      const yDomainMax = (
+        axisYMax !== undefined ? axisYMax * 20 : this.ymax * this.yunite * 20
+      ).toFixed(3)
+
+      let code = `\\addplot[color=${colorLatex},line width=${this.epaisseur / 2}pt,domain=${domainMin}:${domainMax},restrict y to domain=${
+        yDomainMin
+      }:${yDomainMax},samples=${this.samples}] {${this.fLatex}};\n`
+
+      return code
+    } else {
+      // Legacy behavior: use polylines
+      let code = ''
+      if (this.objets == null) return code
+      for (const objet of this.objets) {
+        code += '\n\t' + objet.tikz()
+      }
+      return code
     }
-    return code
   }
 
   svgml(coeff: number, amp: number) {
@@ -577,10 +627,14 @@ export class Courbe extends ObjetMathalea2D {
  * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
  * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @param {boolean} [parametres.usePgfplots = false] Si true, utilise pgfplots pour la sortie LaTeX au lieu de tracés polylignes
+ * @param {string} [parametres.fLatex] Expression LaTeX de la fonction (requis si usePgfplots = true)
  * @example courbe(g, {repere: r})
  * // Trace, en noir avec une épaisseur de 2, la courbe g dans le repère r, tous deux précédemment définis.
  * @example courbe(g, {repere: r, epaisseur: 5, color: 'blue'})
  * // Trace la courbe g dans le repère r, tous deux précédemment définis, en bleu, avec une épaisseur de 5.
+ * @example courbe(g, {repere: r, usePgfplots: true, fLatex: 'x^2 - 2*x + 1'})
+ * // Trace la courbe g dans le repère r en utilisant pgfplots (sortie LaTeX plus compacte).
  * @author Rémi Angot
  * @return {Courbe}
  */
@@ -598,6 +652,8 @@ export function courbe(
     yMax,
     xUnite = 1,
     yUnite = 1,
+    usePgfplots = false,
+    fLatex,
   }: {
     repere?: Repere
     color?: string
@@ -609,6 +665,8 @@ export function courbe(
     yMax?: number
     xUnite?: number
     yUnite?: number
+    usePgfplots?: boolean
+    fLatex?: string
   } = {},
 ) {
   return new Courbe(f, {
@@ -622,6 +680,8 @@ export function courbe(
     yMax,
     xUnite,
     yUnite,
+    usePgfplots,
+    fLatex,
   })
 }
 

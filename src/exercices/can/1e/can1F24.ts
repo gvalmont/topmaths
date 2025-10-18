@@ -28,7 +28,7 @@ export const dateDeModifImportante = '01/08/2025'
 export const uuid = '2ccca'
 export const refs = {
   'fr-fr': ['can1F24'],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-20'],
 }
 export default class LectureGraphiqueParaboleA extends ExerciceSimple {
   constructor() {

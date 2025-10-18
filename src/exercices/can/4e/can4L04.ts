@@ -1,7 +1,7 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une expression pour une valeur particulière'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,8 +17,9 @@ export const uuid = '12514'
 
 export const refs = {
   'fr-fr': ['can4L04'],
-  'fr-ch': [],
+  'fr-ch': ['10FA1-1b', '11FA1-4b'],
 }
+
 export default class SubstitutionRelatif extends ExerciceSimple {
   constructor() {
     super()

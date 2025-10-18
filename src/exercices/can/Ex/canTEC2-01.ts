@@ -15,7 +15,7 @@ export const dateDePublication = '05/02/2025'
 export const uuid = '28c55'
 export const refs = {
   'fr-fr': ['canTEC2-01'],
-  'fr-ch': [],
+  'fr-ch': ['3mNC-4'],
 }
 
 /**

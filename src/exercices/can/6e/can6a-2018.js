@@ -6,27 +6,26 @@ import {
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
-import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { fraction } from '../../../modules/fractions'
 import { context } from '../../../modules/context'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { fraction } from '../../../modules/fractions'
 import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import FractionEtendue from '../../../modules/FractionEtendue'
+import Exercice from '../../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { min, round } from 'mathjs'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -66,8 +65,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 7) / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 23)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 7) / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 23)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 10])
       .slice(-nbQ1)
       .sort(compareNombres)

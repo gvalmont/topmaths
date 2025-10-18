@@ -1,24 +1,23 @@
-import figureApigeom from '../../lib/figureApigeom'
 import Figure from 'apigeom'
+import { Coords } from 'apigeom/src/elements/calculus/Coords'
 import { Droite, droite } from '../../lib/2d/droites'
 import { TracePoint, point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import figureApigeom from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
 } from '../../lib/outils/ecritures'
-import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { min, max } from 'mathjs'
-import { fraction } from '../../modules/fractions'
-import { context } from '../../modules/context'
 import { abs } from '../../lib/outils/nombres'
-import { Coords } from 'apigeom/src/elements/calculus/Coords'
+import { pgcd } from '../../lib/outils/primalite'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { fraction } from '../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Représentation graphique d'une fonction affine"
 export const dateDeModifImportante = '06/04/2024'
@@ -121,10 +120,10 @@ export default class Representerfonctionaffine extends Exercice {
             droiteAB.epaisseur = 2
 
             cadre = {
-              xMin: min(-5, xA - 1, xB - 1),
-              yMin: min(-5, yA - 1, yB - 1),
-              xMax: max(5, xA + 1, xB + 1),
-              yMax: max(5, yA + 1, yB + 1),
+              xMin: Math.min(-5, xA - 1, xB - 1),
+              yMin: Math.min(-5, yA - 1, yB - 1),
+              xMax: Math.max(5, xA + 1, xB + 1),
+              yMax: Math.max(5, yA + 1, yB + 1),
             }
             // C'est bizarre mais c'est parce que dans mathAlea, les attributs n'ont pas de majuscules.
             // Donc même quand c'est le même cadre, on doit le faire.
@@ -218,10 +217,10 @@ export default class Representerfonctionaffine extends Exercice {
             droiteAB.epaisseur = 2
 
             cadre = {
-              xMin: min(-5, xA - 1, xB - 1),
-              yMin: min(-5, yA - 1, yB - 1),
-              xMax: max(5, xA + 1, xB + 1),
-              yMax: max(5, yA + 1, yB + 1),
+              xMin: Math.min(-5, xA - 1, xB - 1),
+              yMin: Math.min(-5, yA - 1, yB - 1),
+              xMax: Math.max(5, xA + 1, xB + 1),
+              yMax: Math.max(5, yA + 1, yB + 1),
             }
 
             cadreFenetreSvg = {

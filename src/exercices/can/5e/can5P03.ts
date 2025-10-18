@@ -1,9 +1,9 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
 import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const uuid = '57777'
 
 export const refs = {
   'fr-fr': ['can5P03'],
-  'fr-ch': [],
+  'fr-ch': ['11FA11-5'],
 }
 export default class PoucentageP2 extends ExerciceSimple {
   constructor() {

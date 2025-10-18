@@ -20,7 +20,7 @@ export const uuid = '0f014'
 
 export const refs = {
   'fr-fr': ['can1S11'],
-  'fr-ch': [],
+  'fr-ch': ['autres-7'],
 }
 export default class CalculSuitePython extends ExerciceSimple {
   constructor() {

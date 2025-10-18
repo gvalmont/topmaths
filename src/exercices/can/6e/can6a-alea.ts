@@ -31,7 +31,7 @@ export const uuid = '315b6'
 
 export const refs = {
   'fr-fr': ['can6a-Aléa'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 const debug = false

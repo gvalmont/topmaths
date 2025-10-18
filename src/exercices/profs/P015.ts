@@ -17,7 +17,7 @@ export const titre = 'Puzzles géométriques avec animation'
 
 export const refs = {
   'fr-fr': ['P015'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export const uuid = '085ed'
 

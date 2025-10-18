@@ -22,7 +22,7 @@ export const uuid = '05b2e'
 
 export const refs = {
   'fr-fr': ['can6D03', '6M4B-flash2'],
-  'fr-ch': [],
+  'fr-ch': ['10GM3-12'],
 }
 export default class CalculDureeMinutes extends ExerciceSimple {
   constructor() {

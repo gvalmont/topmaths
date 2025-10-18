@@ -1,7 +1,7 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { arrondi } from '../../lib/outils/nombres'
 import NombrePeriodique from '../../modules/NombrePeriodique'
-import { ceil, round } from 'mathjs'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Convertir un nombre périodique en écriture décimale en fraction irréductible'
@@ -57,11 +57,11 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     }
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const periode = ceil(
+      const periode = Math.ceil(
         randint(10 ** (this.sup - 1), 10 ** this.sup - 1) /
           10 ** randint(0, this.sup),
       )
-      let entier = round(
+      let entier = arrondi(
         randint(10 ** (this.sup2 - 1), 10 ** this.sup2 - 1) /
           10 ** randint(0, this.sup2),
       )
@@ -69,7 +69,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
       if (this.sup3 === 1) {
         decimal = -1
       } else {
-        decimal = ceil(
+        decimal = Math.ceil(
           randint(10 ** (this.sup3 - 1), 10 ** this.sup3 - 1) /
             10 ** randint(0, this.sup3),
         )

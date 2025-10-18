@@ -1,4 +1,3 @@
-import { round } from 'mathjs'
 import { texPrix } from '../../lib/format/style'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -9,6 +8,7 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouterAide, ajouterImage } from '../../lib/outils/enrichissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenom, prenomF } from '../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
@@ -1178,7 +1178,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             )}\\text{ kg/m}^3${egalOuApprox(v2, 6)}${texNombre(
               v2,
               6,
-            )}\\text{ m}^3${egalOuApprox(round(v2, 6) * 1000000, 0)}${texNombre(
+            )}\\text{ m}^3${egalOuApprox(arrondi(v2, 6) * 1000000, 0)}${texNombre(
               v2 * 1000000,
               0,
             )}\\text{ cm}^3$.<br>`

@@ -85,6 +85,16 @@ export default class NbAxesDeSymetrie extends Exercice {
       const listeFigs = listeFigures2d
         .filter((el) => el.type === typeDeFigureChoisie)
         .filter((el) => !numerosChoisis.includes(el.numero))
+        .filter((el, index, self) => {
+          // Si on ne parle pas d'un panneau, on ne filtre pas par style
+          if (typeDeFigureChoisie !== 'panneau') return true
+
+          // On garde seulement le premier élément pour chaque style défini
+          return (
+            index ===
+            self.findIndex((autre) => (autre.style ?? '') === (el.style ?? ''))
+          )
+        })
       if (listeFigs.length === 0) {
         this.listeQuestions.push('Aucune figure disponible')
         this.listeCorrections.push('Aucune figure disponible')

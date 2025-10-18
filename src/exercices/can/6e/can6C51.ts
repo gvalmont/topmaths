@@ -22,7 +22,7 @@ export const uuid = '0515e'
 
 export const refs = {
   'fr-fr': ['can6C51', 'auto6N2C-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class MultiplieFractionDPar10Par100Par1000 extends ExerciceSimple {
   constructor() {

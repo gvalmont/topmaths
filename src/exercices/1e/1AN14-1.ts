@@ -1,25 +1,25 @@
-import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { choice } from '../../lib/outils/arrayOutils'
 import Decimal from 'decimal.js'
-import { texNombre } from '../../lib/outils/texNombre'
-import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Dérivée de $\\lambda u$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd89'
 export const refs = {
   'fr-fr': ['1AN14-1'],
-  'fr-ch': ['3mA2-1'],
+  'fr-ch': ['3mA2-5'],
 }
 export const dateDePublication = '09/05/2024'
 const listFrac = obtenirListeFractionsIrreductibles()

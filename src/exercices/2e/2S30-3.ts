@@ -28,7 +28,7 @@ export const uuid = '0cf54'
 
 export const refs = {
   'fr-fr': ['2S30-3', 'BP2FLUC2'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-5'],
 }
 export default class ProbaUnionInter extends Exercice {
   constructor() {

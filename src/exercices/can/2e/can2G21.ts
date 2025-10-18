@@ -21,7 +21,7 @@ export const uuid = '21bc0'
 
 export const refs = {
   'fr-fr': ['can2G21'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class LectureCoordonnees extends ExerciceSimple {
   constructor() {

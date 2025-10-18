@@ -22,7 +22,7 @@ export const uuid = '31f61'
 
 export const refs = {
   'fr-fr': ['can2G02'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CalculCotePythagore extends ExerciceSimple {
   constructor() {

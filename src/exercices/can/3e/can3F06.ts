@@ -2,8 +2,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le coefficient d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const uuid = '17987'
 
 export const refs = {
   'fr-fr': ['can3F06'],
-  'fr-ch': [],
+  'fr-ch': ['11FA8-27', '1mF2-1b'],
 }
 export default class CoefficientFonctionAffine extends ExerciceSimple {
   constructor() {

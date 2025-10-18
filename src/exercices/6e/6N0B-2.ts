@@ -1,4 +1,3 @@
-import { min } from 'mathjs'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { sp } from '../../lib/outils/outilString'
 import {
@@ -165,7 +164,7 @@ export default class VocabulaireSur4Operations extends Exercice {
           reponse.statuts = listeVoc.map((el) => el === 'le quotient')
           break
         case 13:
-          reste = randint(1, min(a, b) - 1)
+          reste = randint(1, Math.min(a, b) - 1)
           texte += `Dans l'égalité «${sp()}$${a * b + reste} = ${b} \\times ${a} + ${reste} $${sp()}», comment s'appelle le nombre $${reste}$ ?`
           texteCorr += `Dans l'égalité «${sp()}$${a * b + reste} = ${b} \\times ${a} + ${reste} $${sp()}», $${reste}$ s'appelle le reste du quotient de  $${a * b + reste}$ par $${b}$ ou de $${a * b + reste}$ par $${a}$.`
           reponse.textes = listeVoc

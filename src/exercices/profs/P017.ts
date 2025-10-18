@@ -21,7 +21,7 @@ export const titre = "Encadrer l'aire d'un disque"
 
 export const refs = {
   'fr-fr': ['P017'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export const uuid = '0ff0f'
 

@@ -37,7 +37,7 @@ export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Choix des problèmes',
-      'Nombres séparés par des tirets :\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4: Mélange',
+      'Nombres séparés par des tirets :\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4 : Mélange',
     ]
 
     this.nbQuestions = 3

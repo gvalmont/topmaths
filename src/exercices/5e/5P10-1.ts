@@ -4,6 +4,8 @@ import { point, pointAdistance } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
@@ -13,18 +15,15 @@ import {
 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { max, min } from 'mathjs'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre =
   "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
@@ -622,12 +621,12 @@ class AgrandirReduireFigure extends Exercice {
                       '<br> Dans le nouveau triangle, la plus petite longueur sera :' +
                       ajouteChampTexteMathLive(this, i, '')
                     handleAnswers(this, i, {
-                      reponse: { value: min(reponse, reponse1, reponse2) },
+                      reponse: { value: Math.min(reponse, reponse1, reponse2) },
                     })
                     correctionParticularite +=
                       'Dans le nouveau triangle, la plus petite longueur sera $' +
                       miseEnEvidence(
-                        texNombre(min(reponse, reponse1, reponse2)),
+                        texNombre(Math.min(reponse, reponse1, reponse2)),
                       ) +
                       '$.'
                     break
@@ -636,12 +635,12 @@ class AgrandirReduireFigure extends Exercice {
                       '<br> Dans le nouveau triangle, la plus grande longueur sera :' +
                       ajouteChampTexteMathLive(this, i, '')
                     handleAnswers(this, i, {
-                      reponse: { value: max(reponse, reponse1, reponse2) },
+                      reponse: { value: Math.max(reponse, reponse1, reponse2) },
                     })
                     correctionParticularite +=
                       'Dans le nouveau triangle, la plus grande longueur sera $' +
                       miseEnEvidence(
-                        texNombre(min(reponse, reponse1, reponse2)),
+                        texNombre(Math.min(reponse, reponse1, reponse2)),
                       ) +
                       '$.'
                     break
@@ -714,14 +713,14 @@ class AgrandirReduireFigure extends Exercice {
                         texte:
                           enonceInit +
                           '<br> <br>Dans le nouveau triangle, la plus petite longueur sera :',
-                        valeur: [min(reponse, reponse1, reponse2)],
+                        valeur: [Math.min(reponse, reponse1, reponse2)],
                         alignement: 'center',
                         param: {
                           digits: nombreDeChiffresDe(
-                            min(reponse, reponse1, reponse2),
+                            Math.min(reponse, reponse1, reponse2),
                           ),
                           decimals: nombreDeChiffresDansLaPartieDecimale(
-                            min(reponse, reponse1, reponse2),
+                            Math.min(reponse, reponse1, reponse2),
                           ),
                           signe: false,
                         },
@@ -739,14 +738,14 @@ class AgrandirReduireFigure extends Exercice {
                       reponse: {
                         texte:
                           'Dans le nouveau triangle, la plus grande longueur sera :',
-                        valeur: [max(reponse, reponse1, reponse2)],
+                        valeur: [Math.max(reponse, reponse1, reponse2)],
                         alignement: 'center',
                         param: {
                           digits: nombreDeChiffresDe(
-                            max(reponse, reponse1, reponse2),
+                            Math.max(reponse, reponse1, reponse2),
                           ),
                           decimals: nombreDeChiffresDansLaPartieDecimale(
-                            max(reponse, reponse1, reponse2),
+                            Math.max(reponse, reponse1, reponse2),
                           ),
                           signe: false,
                         },
@@ -768,8 +767,8 @@ class AgrandirReduireFigure extends Exercice {
                           choice(
                             [reponse, reponse1, reponse2],
                             [
-                              min(reponse, reponse1, reponse2),
-                              max(reponse, reponse1, reponse2),
+                              Math.min(reponse, reponse1, reponse2),
+                              Math.max(reponse, reponse1, reponse2),
                             ],
                           ),
                         ],
@@ -779,8 +778,8 @@ class AgrandirReduireFigure extends Exercice {
                             choice(
                               [reponse, reponse1, reponse2],
                               [
-                                min(reponse, reponse1, reponse2),
-                                max(reponse, reponse1, reponse2),
+                                Math.min(reponse, reponse1, reponse2),
+                                Math.max(reponse, reponse1, reponse2),
                               ],
                             ),
                           ),
@@ -788,8 +787,8 @@ class AgrandirReduireFigure extends Exercice {
                             choice(
                               [reponse, reponse1, reponse2],
                               [
-                                min(reponse, reponse1, reponse2),
-                                max(reponse, reponse1, reponse2),
+                                Math.min(reponse, reponse1, reponse2),
+                                Math.max(reponse, reponse1, reponse2),
                               ],
                             ),
                           ),
@@ -976,11 +975,11 @@ class AgrandirReduireFigure extends Exercice {
                       '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' +
                       ajouteChampTexteMathLive(this, i, '')
                     handleAnswers(this, i, {
-                      reponse: { value: min(reponse, reponse1) },
+                      reponse: { value: Math.min(reponse, reponse1) },
                     })
                     correctionParticularite +=
                       'Dans le nouveau triangle, la plus petite longueur à trouver sera $' +
-                      miseEnEvidence(texNombre(min(reponse, reponse1))) +
+                      miseEnEvidence(texNombre(Math.min(reponse, reponse1))) +
                       '$.'
                     break
                   case 2:
@@ -988,11 +987,11 @@ class AgrandirReduireFigure extends Exercice {
                       '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' +
                       ajouteChampTexteMathLive(this, i, '')
                     handleAnswers(this, i, {
-                      reponse: { value: max(reponse, reponse1) },
+                      reponse: { value: Math.max(reponse, reponse1) },
                     })
                     correctionParticularite +=
                       'Dans le nouveau triangle, la plus grande longueur à trouver sera $' +
-                      miseEnEvidence(texNombre(max(reponse, reponse1))) +
+                      miseEnEvidence(texNombre(Math.max(reponse, reponse1))) +
                       '$.'
                     break
                 }
@@ -1033,12 +1032,14 @@ class AgrandirReduireFigure extends Exercice {
                         texte:
                           enonceInit +
                           '<br> <br>Dans le nouveau triangle, la plus petite longueur à trouver sera :',
-                        valeur: [min(reponse, reponse1)],
+                        valeur: [Math.min(reponse, reponse1)],
                         alignement: 'center',
                         param: {
-                          digits: nombreDeChiffresDe(min(reponse, reponse1)),
+                          digits: nombreDeChiffresDe(
+                            Math.min(reponse, reponse1),
+                          ),
                           decimals: nombreDeChiffresDansLaPartieDecimale(
-                            min(reponse, reponse1),
+                            Math.min(reponse, reponse1),
                           ),
                           signe: false,
                         },
@@ -1056,12 +1057,14 @@ class AgrandirReduireFigure extends Exercice {
                       reponse: {
                         texte:
                           'Dans le nouveau triangle, la plus grande longueur à trouver sera :',
-                        valeur: [max(reponse, reponse1)],
+                        valeur: [Math.max(reponse, reponse1)],
                         alignement: 'center',
                         param: {
-                          digits: nombreDeChiffresDe(max(reponse, reponse1)),
+                          digits: nombreDeChiffresDe(
+                            Math.max(reponse, reponse1),
+                          ),
                           decimals: nombreDeChiffresDansLaPartieDecimale(
-                            max(reponse, reponse1),
+                            Math.max(reponse, reponse1),
                           ),
                           signe: false,
                         },
@@ -1250,11 +1253,11 @@ class AgrandirReduireFigure extends Exercice {
                       '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur :' +
                       ajouteChampTexteMathLive(this, i, '')
                     handleAnswers(this, i, {
-                      reponse: { value: min(reponse, reponse1) },
+                      reponse: { value: Math.min(reponse, reponse1) },
                     })
                     correctionParticularite +=
                       'Dans le nouveau triangle, le côté le moins long aura pour longueur $' +
-                      miseEnEvidence(texNombre(min(reponse, reponse1))) +
+                      miseEnEvidence(texNombre(Math.min(reponse, reponse1))) +
                       '$.'
                     break
                   case 2:
@@ -1262,11 +1265,11 @@ class AgrandirReduireFigure extends Exercice {
                       '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur :' +
                       ajouteChampTexteMathLive(this, i, '')
                     handleAnswers(this, i, {
-                      reponse: { value: max(reponse, reponse1) },
+                      reponse: { value: Math.max(reponse, reponse1) },
                     })
                     correctionParticularite +=
                       'Dans le nouveau triangle, le côté le moins long aura pour longueur $' +
-                      miseEnEvidence(texNombre(max(reponse, reponse1))) +
+                      miseEnEvidence(texNombre(Math.max(reponse, reponse1))) +
                       '$.'
                     break
                 }
@@ -1307,12 +1310,14 @@ class AgrandirReduireFigure extends Exercice {
                         texte:
                           enonceInit +
                           '<br> <br>Dans le nouveau rectangle, le côté le moins long aura pour longueur :',
-                        valeur: [min(reponse, reponse1)],
+                        valeur: [Math.min(reponse, reponse1)],
                         alignement: 'center',
                         param: {
-                          digits: nombreDeChiffresDe(min(reponse, reponse1)),
+                          digits: nombreDeChiffresDe(
+                            Math.min(reponse, reponse1),
+                          ),
                           decimals: nombreDeChiffresDansLaPartieDecimale(
-                            min(reponse, reponse1),
+                            Math.min(reponse, reponse1),
                           ),
                           signe: false,
                         },
@@ -1330,12 +1335,14 @@ class AgrandirReduireFigure extends Exercice {
                       reponse: {
                         texte:
                           'Dans le nouveau rectangle, le côté le plus long aura pour longueur :',
-                        valeur: [max(reponse, reponse1)],
+                        valeur: [Math.max(reponse, reponse1)],
                         alignement: 'center',
                         param: {
-                          digits: nombreDeChiffresDe(max(reponse, reponse1)),
+                          digits: nombreDeChiffresDe(
+                            Math.max(reponse, reponse1),
+                          ),
                           decimals: nombreDeChiffresDansLaPartieDecimale(
-                            max(reponse, reponse1),
+                            Math.max(reponse, reponse1),
                           ),
                           signe: false,
                         },

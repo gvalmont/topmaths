@@ -385,7 +385,8 @@ export default class EcrireUneExpressionNumerique extends Exercice {
             handleAnswers(this, i, {
               reponse: {
                 value: reponse,
-                options: { operationSeulementEtNonResultat: true },
+                // options: { operationSeulementEtNonResultat: true },
+                options: { expressionNumerique: true },
               },
             })
           }

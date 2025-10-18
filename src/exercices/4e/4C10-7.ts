@@ -1,3 +1,6 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -5,22 +8,19 @@ import {
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
+import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { context } from '../../modules/context'
-import { sp } from '../../lib/outils/outilString'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Opérations avec deux entiers relatifs'
 export const interactifReady = true
@@ -37,7 +37,7 @@ export const amcType = 'AMCNum'
 export const uuid = '0b020'
 
 export const refs = {
-  'fr-fr': ['4C10-7'],
+  'fr-fr': ['4C10-7', '3AutoN02-2'],
   'fr-ch': ['10NO4-9'],
 }
 export default class ExerciceOperationsRelatifs extends Exercice {

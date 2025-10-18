@@ -41,7 +41,7 @@ export default class MultiplierPar10Par100Par1000 extends ExerciceSimple {
         resultat = a * b
         this.question = `Calculer $${texNombre(a, 0)}\\times ${texNombre(b, 0)}$.`
         if (b === 10) {
-          this.correction = `Le chiffre des unités dans $${texNombre(a, 4)}$ devient le chiffre des dizianes.<br>`
+          this.correction = `Le chiffre des unités dans $${texNombre(a, 4)}$ devient le chiffre des dizaines.<br>`
         } else {
           if (b === 100) {
             this.correction = `Le chiffre des unités dans $${texNombre(a, 4)}$ devient le chiffre des centaines.<br>`

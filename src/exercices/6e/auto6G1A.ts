@@ -1,3 +1,7 @@
+import Figure from 'apigeom'
+import { checkLineFromLabels } from 'apigeom/src/check/checkLine'
+import { checkRayFromLabels } from 'apigeom/src/check/checkRay'
+import { checkSegmentFromLabels } from 'apigeom/src/check/checkSegment'
 import { droite } from '../../lib/2d/droites'
 import {
   point,
@@ -8,15 +12,13 @@ import {
 import { grille, seyes } from '../../lib/2d/reperes'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import figureApigeom from '../../lib/figureApigeom'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Alea2iep from '../../modules/Alea2iep'
-import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
-import type Point from 'apigeom/src/elements/points/Point'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -39,10 +41,10 @@ export const refs = {
   'fr-ch': ['9ES1-7'],
 }
 export default class constructionElementaire extends Exercice {
-  A?: Point
-  B?: Point
-  C?: Point
-  D?: Point
+  Anom?: string
+  Bnom?: string
+  Cnom?: string
+  Dnom?: string
   Enom?: string
   Fnom?: string
   figures: Figure[] = []
@@ -165,34 +167,38 @@ export default class constructionElementaire extends Exercice {
         figure.options.labelAutomaticBeginsWith = E.nom
         figure.options.thickness = 2
         this.figures[i] = figure
-        this.A = figure.create('Point', {
+        const pA = figure.create('Point', {
           x: A.x,
           y: A.y,
           label: A.nom,
           isFree: true,
         })
-        this.B = figure.create('Point', {
+        const pB = figure.create('Point', {
           x: B.x,
           y: B.y,
           label: B.nom,
           isFree: true,
         })
-        this.C = figure.create('Point', {
+        const pC = figure.create('Point', {
           x: C.x,
           y: C.y,
           label: C.nom,
           isFree: true,
         })
-        this.D = figure.create('Point', {
+        const pD = figure.create('Point', {
           x: D.x,
           y: D.y,
           label: D.nom,
           isFree: true,
         })
-        this.A.isDeletable = false
-        this.B.isDeletable = false
-        this.C.isDeletable = false
-        this.D.isDeletable = false
+        pA.isDeletable = false
+        pB.isDeletable = false
+        pC.isDeletable = false
+        pD.isDeletable = false
+        this.Anom = A.nom
+        this.Bnom = B.nom
+        this.Cnom = C.nom
+        this.Dnom = D.nom
         this.Enom = E.nom
         this.Fnom = F.nom
 
@@ -344,10 +350,10 @@ export default class constructionElementaire extends Exercice {
   correctionInteractive = (i: number) => {
     // if (i === undefined) return 'KO'
     if (
-      this.A == null ||
-      this.B == null ||
-      this.C == null ||
-      this.D == null ||
+      this.Anom == null ||
+      this.Bnom == null ||
+      this.Cnom == null ||
+      this.Dnom == null ||
       this.Enom == null ||
       this.Fnom == null
     )
@@ -368,9 +374,10 @@ export default class constructionElementaire extends Exercice {
     const resultat = []
     let feedback = ''
     let questind = 0
-    const { isValid, message } = figure.checkLine({
-      point1: this.A,
-      point2: this.B,
+
+    const { isValid, message } = checkLineFromLabels({
+      figure,
+      nameLine: [`(${this.Anom}${this.Bnom})`, `(${this.Bnom}${this.Anom})`],
       color: 'blue',
     })
     resultat.push(isValid ? 'OK' : 'KO')
@@ -378,19 +385,20 @@ export default class constructionElementaire extends Exercice {
       feedback += numAlpha(questind++) + message + '<br>'
     }
 
-    const { isValid: isValid2, message: message2 } = figure.checkSegment({
-      point1: this.A,
-      point2: this.C,
+    const { isValid: isValid2, message: message2 } = checkSegmentFromLabels({
+      figure,
+      nameSegment: [`${this.Anom}${this.Cnom}`, `${this.Cnom}${this.Anom}`],
       color: 'red',
     })
+
     resultat.push(isValid2 ? 'OK' : 'KO')
     if (message2 !== '') {
       feedback += numAlpha(questind++) + message2 + '<br>'
     }
 
-    const { isValid: isValid3, message: message3 } = figure.checkRay({
-      point1: this.C,
-      point2: this.D,
+    const { isValid: isValid3, message: message3 } = checkRayFromLabels({
+      figure,
+      nameRay: [`[${this.Cnom}${this.Dnom})`],
       color: 'green',
     })
     resultat.push(isValid3 ? 'OK' : 'KO')
@@ -402,11 +410,8 @@ export default class constructionElementaire extends Exercice {
       figure.checkPointOnIntersectionLL({
         figure,
         labelPt: this.Enom,
-        nameLine1: [
-          `(${this.A.label}${this.B.label})`,
-          `(${this.B.label}${this.A.label})`,
-        ],
-        nameLine2: `[${this.C.label}${this.D.label})`,
+        nameLine1: [`(${this.Anom}${this.Bnom})`, `(${this.Bnom}${this.Anom})`],
+        nameLine2: `[${this.Cnom}${this.Dnom})`,
       })
     resultat.push(isValid4 ? 'OK' : 'KO')
     if (message4 !== '') {
@@ -415,7 +420,7 @@ export default class constructionElementaire extends Exercice {
 
     const { isValid: isValid5, message: message5 } = figure.checkPointOnLine({
       labelPt: this.Fnom,
-      nameLine: `${this.A.label}${this.B.label}`,
+      nameLine: `${this.Anom}${this.Bnom}`,
     })
     if (!isValid5 && message5 !== '') {
       feedback += numAlpha(questind++) + message5
@@ -423,8 +428,8 @@ export default class constructionElementaire extends Exercice {
     if (isValid5) {
       const { isValid: isValid6 } = figure.checkPointBetween2Points({
         labelPt: this.Fnom,
-        labelPt1: `${this.A.label}`,
-        labelPt2: `${this.B.label}`,
+        labelPt1: `${this.Anom}`,
+        labelPt2: `${this.Bnom}`,
       })
       if (!isValid6)
         feedback +=

@@ -2033,6 +2033,138 @@
   "3L1QCM": {
     "titre": "QCM"
   },
+  "3Auto": {
+    "titre": "Automatismes"
+  },
+  "3AutoN": {
+    "titre": "Nombres et calcul"
+  },
+  "3AutoN01": {
+    "titre": "Entretenir l'écriture décimale des fractions simples"
+  },
+  "3AutoN02": {
+    "titre": "Comparer des nombres décimaux et calculer avec des nombres décimaux (y compris négatifs)"
+  },
+  "3AutoN03": {
+    "titre": "Simplifier, comparer des fractions, calculer avec des fractions"
+  },
+  "3AutoN04": {
+    "titre": "Prendre une fraction simple d'un nombre"
+  },
+  "3AutoN05": {
+    "titre": "Déterminer a % de c quand a vaut 100, 50, 25, 10, 1"
+  },
+  "3AutoN06": {
+    "titre": "Écrire un même nombre sous de multiples formes"
+  },
+  "3AutoN07": {
+    "titre": "Passer d'une écriture décimale à la notation scientifique"
+  },
+  "3AutoN08": {
+    "titre": "Connaître les carrés des nombres entiers compris entre 1 et 12"
+  },
+  "3AutoN09": {
+    "titre": "Appliquer les critères de divisibilité par 2, 3, 5, 9"
+  },
+  "3AutoN10": {
+    "titre": "Pour un nombre entier n, exprimer son double, son triple, sa moitié, son prédécesseur, son successeur, son carré"
+  },
+  "3AutoN11": {
+    "titre": "Simplifier des expressions littérales"
+  },
+  "3AutoN12": {
+    "titre": "Calculer la valeur d'une expression algébrique y compris avec des puissances"
+  },
+  "3AutoN13": {
+    "titre": "Développer et factoriser une expression simple"
+  },
+  "3AutoN14": {
+    "titre": "Résoudre des équations du type ax = c, a + b = c, ax + b = c"
+  },
+  "3AutoN15": {
+    "titre": "Sur une droite graduée, lire l'abscisse d'un point et placer un point d'abscisse donnée"
+  },
+  "3AutoG": {
+    "titre": "Espace et géométrie"
+  },
+  "3AutoG01": {
+    "titre": "Dans le plan muni d'un repère orthogonal, lire les coordonnées d'un point, placer un point de coordonnées données"
+  },
+  "3AutoG02": {
+    "titre": "Exploiter le codage d'une figure pour identifier des triangles, des quadrilatères particuliers, une médiatrice"
+  },
+  "3AutoG03": {
+    "titre": "Reconnaître et citer des angles sur une configuration géométrique"
+  },
+  "3AutoG04": {
+    "titre": "Savoir qu’un angle droit mesure 90° et un angle plat 180°"
+  },
+  "3AutoG05": {
+    "titre": "Connaître la somme des mesures des angles d'un triangle, calculer la mesure du troisième angle"
+  },
+  "3AutoG06": {
+    "titre": "Connaître les procédures de conversion d'unités"
+  },
+  "3AutoG07": {
+    "titre": "Reconnaître des solides (cube, pavé droit, prisme droit, cylindre, pyramide, cône)"
+  },
+  "3AutoG08": {
+    "titre": "Déterminer le périmètre d'un polygone, d'un disque"
+  },
+  "3AutoG09": {
+    "titre": "Connaître et utiliser les formules d'aire d'un triangle, d'un rectangle, d'un disque"
+  },
+  "3AutoG10": {
+    "titre": "Connaître et utiliser les formules du volume d'un cube, d'un pavé droit, d'un prisme droit, d'un cylindre"
+  },
+  "3AutoG11": {
+    "titre": "Reconnaître une situation d'application du théorème de Pythagore"
+  },
+  "3AutoG12": {
+    "titre": "Reconnaître une situation d'application du théorème de Thalès"
+  },
+  "3AutoG13": {
+    "titre": "Reconnaître une situation d'application de la ligne trigonométrique cosinus"
+  },
+  "3AutoG14": {
+    "titre": "Mobiliser les propriétés de la symétrie axiale, de la symétrie centrale, de la translation"
+  },
+  "3AutoP": {
+    "titre": "Organisation et gestion de données et probabilités"
+  },
+  "3AutoP01": {
+    "titre": "Attribuer des probabilités dans des cas simples (équiprobabilité)"
+  },
+  "3AutoP02": {
+    "titre": "Exprimer une fréquence simple"
+  },
+  "3AutoP03": {
+    "titre": "Exprimer une moyenne"
+  },
+  "3AutoP04": {
+    "titre": "Déterminer une médiane pour une série comportant un petit nombre de valeurs"
+  },
+  "3AutoP05": {
+    "titre": "Lire et interpréter des informations présentées sous forme de tableaux, de diagrammes et de graphiques"
+  },
+  "3AutoP06": {
+    "titre": "Reconnaître si une situation donnée entre dans le cadre de la proportionnalité ou non"
+  },
+  "3AutoP07": {
+    "titre": "Mobiliser une procédure adaptée pour résoudre un problème lié à la proportionnalité"
+  },
+  "3AutoP08": {
+    "titre": "Appliquer une augmentation ou une diminution exprimée en pourcentage"
+  },
+  "3AutoP09": {
+    "titre": "Exploiter un graphique représentant la dépendance de deux grandeurs"
+  },
+  "3AutoI": {
+    "titre": "Algorithmique et programmation"
+  },
+  "3AutoI01": {
+    "titre": "Interpréter une suite d'instructions : programme de calcul, déplacement, construction géométrique"
+  },
   "3A1": {
     "titre": "Arithmétique"
   },

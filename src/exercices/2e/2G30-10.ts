@@ -1,17 +1,12 @@
-import figureApigeom from '../../lib/figureApigeom'
 import Figure from 'apigeom'
+import type Point from 'apigeom/src/elements/points/Point'
 import { droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
-import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { max, min } from 'mathjs'
-import type Point from 'apigeom/src/elements/points/Point'
 import { orangeMathalea } from '../../lib/colors'
-import { context } from '../../modules/context'
+import figureApigeom from '../../lib/figureApigeom'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -19,7 +14,11 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Tracer une droite à partir d'une équation cartésienne"
 export const dateDePublication = '09/03/2025'
@@ -92,10 +91,10 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
 
       // Mise en place graphique
       const cadre = {
-        xMin: min(-3, min(A.x, C.x) - 3),
-        yMin: min(-4, min(A.y, C.y) - 3),
-        xMax: max(4, max(A.x, C.x) + 3),
-        yMax: max(4, max(A.y, C.y + 3)),
+        xMin: Math.min(-3, Math.min(A.x, C.x) - 3),
+        yMin: Math.min(-4, Math.min(A.y, C.y) - 3),
+        xMax: Math.max(4, Math.max(A.x, C.x) + 3),
+        yMax: Math.max(4, Math.max(A.y, C.y + 3)),
       }
       // C'est bizarre mais c'est parce que dans mathAlea, les attributs n'ont pas de majuscules.
       // Donc même quand c'est le même cadre, on doit le faire.

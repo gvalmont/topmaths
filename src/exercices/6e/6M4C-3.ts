@@ -6,7 +6,7 @@ export const interactifType = 'mathLive'
 export const uuid = '185f7'
 export const refs = {
   'fr-fr': ['6M4C-3'],
-  'fr-ch': [],
+  'fr-ch': ['10GM3-13'],
 }
 /**
  * Exercice de conversion de durées

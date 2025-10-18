@@ -40,7 +40,7 @@ export const uuid = '014a4'
 
 export const refs = {
   'fr-fr': ['2N61-2'],
-  'fr-ch': [],
+  'fr-ch': ['2mIneq-3'],
 }
 export default class ExerciceInequationProduit extends Exercice {
   constructor() {

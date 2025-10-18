@@ -26,7 +26,7 @@ export const uuid = '33ae8'
 
 export const refs = {
   'fr-fr': ['can1G10'],
-  'fr-ch': [],
+  'fr-ch': ['2mTrigo-4'],
 }
 export default class PointSurCercleTrigo extends ExerciceSimple {
   constructor() {

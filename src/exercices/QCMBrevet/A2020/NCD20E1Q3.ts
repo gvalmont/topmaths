@@ -1,6 +1,6 @@
-import { round } from 'mathjs'
 import { shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { arrondi } from '../../../lib/outils/nombres'
 import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
@@ -32,7 +32,7 @@ export default class NouvelleCaledonieDec20Exo1Q3 extends ExerciceQcmA {
     mediane: number,
     effectif: number,
   ): void {
-    const moyenne = round(
+    const moyenne = arrondi(
       valeur.reduce((acc, curr) => acc + curr, 0) / valeur.length,
     )
     this.reponses = [

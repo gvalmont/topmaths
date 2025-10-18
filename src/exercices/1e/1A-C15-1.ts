@@ -16,7 +16,7 @@ export const uuid = '0ed0f'
 
 export const refs = {
   'fr-fr': ['1A-C15-1'],
-  'fr-ch': [],
+  'fr-ch': ['1mQCM-6', '2mQCM-4'],
 }
 export default class Auto1AC15a extends SolutionsEquationProduit {
   constructor() {

@@ -2,10 +2,10 @@ import { courbe } from '../../../lib/2d/courbes'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Lire graphiquement un nombre dérivé'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +23,7 @@ export const uuid = '0e984'
 
 export const refs = {
   'fr-fr': ['can1F15'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
   constructor() {
@@ -197,7 +197,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         nbre = randint(1, 2)
         b = randint(0, 3)
         frac = new FractionEtendue(-a, nbre * nbre)
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         f = function (x) {
           return -a / (x * x)
         }
@@ -255,7 +255,6 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
           )
 
         this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${frac.texFraction}${frac.texSimplificationAvecEtapes()}$.`
-        // this.formatInteractif = 'fractionEgale'
         this.reponse = frac
         this.canEnonce = this.question
         this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
@@ -322,7 +321,6 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
             courbe(tang, { repere: r, color: 'red', epaisseur: 2 }),
           )
         this.correction = `$f'(0)$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $0$, soit $${frac.texFraction}${frac.texSimplificationAvecEtapes()}$.`
-        // this.formatInteractif = 'fractionEgale'
         this.reponse = frac
         this.canEnonce = this.question
         this.canReponseACompleter = "$f'(0)=\\ldots$"
@@ -394,7 +392,6 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         this.correction = `$f'(0)$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $0$, soit $${frac.texFraction}${frac.texSimplificationAvecEtapes()}$.`
 
         this.reponse = frac
-        // this.formatInteractif = 'fractionEgale'
         this.canEnonce = this.question
         this.canReponseACompleter = "$f'(0)=\\ldots$"
         break

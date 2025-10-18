@@ -12,7 +12,7 @@ export const uuid = '11090'
 
 export const refs = {
   'fr-fr': ['1A-F2-6'],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-15'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -38,9 +38,15 @@ export default class AutoF2f extends ExerciceQcmA {
     return { o, r }
   }
 
-  private creerEnonce(xMin: number, xMax: number, yMin: number, yMax: number, F: (x: number) => number) {
+  private creerEnonce(
+    xMin: number,
+    xMax: number,
+    yMin: number,
+    yMax: number,
+    F: (x: number) => number,
+  ) {
     const { o, r } = this.creerRepere(xMin, xMax, yMin, yMax)
-    
+
     return `${deuxColonnes(
       `On a représenté ci-contre une parabole $\\mathscr{P}$.<br><br>
        Une seule des quatre fonctions ci-dessous est susceptible d'être représentée par la parabole $\\mathscr{P}$. <br><br>
@@ -68,20 +74,20 @@ export default class AutoF2f extends ExerciceQcmA {
     x2: number,
     orientationHaut: boolean,
     fonction: (x: number) => number,
-    descriptionRacines: string
+    descriptionRacines: string,
   ) {
     // Calcul automatique de la fenêtre d'affichage
     const xSommet = (x1 + x2) / 2
     const ySommet = fonction(xSommet)
-    
+
     // Fenêtre en x : centré sur les racines avec une marge ET incluant l'axe Y (x=0)
     let xMin = Math.min(x1, x2) - 3
     let xMax = Math.max(x1, x2) + 3
-    
+
     // S'assurer que l'axe Y est visible
     if (xMin > 0) xMin = -1
     if (xMax < 0) xMax = 1
-    
+
     // Fenêtre en y selon l'orientation ET incluant l'axe X (y=0)
     let yMin, yMax
     if (orientationHaut) {
@@ -93,13 +99,13 @@ export default class AutoF2f extends ExerciceQcmA {
       yMin = -2
       yMax = Math.max(ySommet + 1, 0.5) // S'assurer que l'axe X est visible
     }
-    
+
     this.enonce = this.creerEnonce(xMin, xMax, yMin, yMax, fonction)
-    
+
     // Déterminer les signes des racines pour l'explication
     const x1Positif = x1 > 0
     const x2Positif = x2 > 0
-    
+
     this.correction = `Les paraboles proposées ont des équations de la forme $y=a(x-x_1)(x-x_2)$ où $x_1$ et $x_2$ sont les racines.<br>
       La parabole $\\mathscr{P}$ a "les bras" tournés vers ${orientationHaut ? 'le haut' : 'le bas'}, on en déduit que $a ${orientationHaut ? '>' : '<'} 0$.<br>
       ${descriptionRacines}<br>
@@ -121,9 +127,9 @@ export default class AutoF2f extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     // Parabole avec racines en -1 et 3, a = 0.5, tournée vers le haut
     const F = (x: number) => 0.5 * (x + 1) * (x - 3)
-    
+
     this.enonce = this.creerEnonce(-3, 5, -3, 2, F)
-    
+
     this.correction = `Les paraboles proposées ont des équations de la forme $y=a(x-x_1)(x-x_2)$ où $x_1$ et $x_2$ sont les racines.<br>
       La parabole $\\mathscr{P}$ a "les bras" tournés vers le haut, on en déduit que $a > 0$.<br>
       Les racines de la parabole (intersections avec l'axe des abscisses) ont des signes contraires (l'une est positive, l'autre est négative).<br>
@@ -139,7 +145,7 @@ export default class AutoF2f extends ExerciceQcmA {
 
   versionAleatoire = () => {
     const cas = randint(1, 6)
-    
+
     switch (cas) {
       case 1: // a>0, racines négatives
         {
@@ -147,9 +153,12 @@ export default class AutoF2f extends ExerciceQcmA {
           const x1 = -randint(1, 2)
           const x2 = -randint(3, 4)
           this.casFormeFactorisee(
-            a, x1, x2, true,
+            a,
+            x1,
+            x2,
+            true,
             (x: number) => a * (x - x1) * (x - x2),
-            "Les racines de la parabole (intersections avec l'axe des abscisses) sont toutes les deux négatives."
+            "Les racines de la parabole (intersections avec l'axe des abscisses) sont toutes les deux négatives.",
           )
         }
         break
@@ -160,9 +169,12 @@ export default class AutoF2f extends ExerciceQcmA {
           const x1 = -randint(1, 2)
           const x2 = randint(2, 3)
           this.casFormeFactorisee(
-            a, x1, x2, true,
+            a,
+            x1,
+            x2,
+            true,
             (x: number) => a * (x - x1) * (x - x2),
-            "Les racines de la parabole (intersections avec l'axe des abscisses) ont des signes contraires (l'une est positive, l'autre est négative)."
+            "Les racines de la parabole (intersections avec l'axe des abscisses) ont des signes contraires (l'une est positive, l'autre est négative).",
           )
         }
         break
@@ -173,9 +185,12 @@ export default class AutoF2f extends ExerciceQcmA {
           const x1 = randint(1, 2)
           const x2 = randint(4, 5)
           this.casFormeFactorisee(
-            a, x1, x2, true,
+            a,
+            x1,
+            x2,
+            true,
             (x: number) => a * (x - x1) * (x - x2),
-            "Les racines de la parabole (intersections avec l'axe des abscisses) sont toutes les deux positives."
+            "Les racines de la parabole (intersections avec l'axe des abscisses) sont toutes les deux positives.",
           )
         }
         break
@@ -186,9 +201,12 @@ export default class AutoF2f extends ExerciceQcmA {
           const x1 = -randint(1, 2)
           const x2 = -randint(4, 5)
           this.casFormeFactorisee(
-            -a, x1, x2, false,
+            -a,
+            x1,
+            x2,
+            false,
             (x: number) => -a * (x - x1) * (x - x2),
-            "Les racines de la parabole (intersections avec l'axe des abscisses) sont toutes les deux négatives."
+            "Les racines de la parabole (intersections avec l'axe des abscisses) sont toutes les deux négatives.",
           )
         }
         break
@@ -199,9 +217,12 @@ export default class AutoF2f extends ExerciceQcmA {
           const x1 = -randint(2, 3)
           const x2 = randint(2, 4)
           this.casFormeFactorisee(
-            -a, x1, x2, false,
+            -a,
+            x1,
+            x2,
+            false,
             (x: number) => -a * (x - x1) * (x - x2),
-            "Les racines de la parabole (intersections avec l'axe des abscisses) ont des signes contraires (l'une est positive, l'autre est négative)."
+            "Les racines de la parabole (intersections avec l'axe des abscisses) ont des signes contraires (l'une est positive, l'autre est négative).",
           )
         }
         break
@@ -213,9 +234,12 @@ export default class AutoF2f extends ExerciceQcmA {
           const x1 = randint(1, 2)
           const x2 = randint(4, 5)
           this.casFormeFactorisee(
-            -a, x1, x2, false,
+            -a,
+            x1,
+            x2,
+            false,
             (x: number) => -a * (x - x1) * (x - x2),
-            "Les racines de la parabole (intersections avec l'axe des abscisses) sont toutes les deux positives."
+            "Les racines de la parabole (intersections avec l'axe des abscisses) sont toutes les deux positives.",
           )
         }
         break

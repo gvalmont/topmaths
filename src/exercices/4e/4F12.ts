@@ -3,15 +3,15 @@ import { point } from '../../lib/2d/points'
 import { polyline } from '../../lib/2d/polygones'
 import { grille, repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { prenomF } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -32,7 +32,7 @@ export const dateDeModifImportante = '28/12/2024'
 export const uuid = 'b428e'
 
 export const refs = {
-  'fr-fr': ['4F12'],
+  'fr-fr': ['4F12', '3AutoP09-1'],
   'fr-ch': ['10FA5-2'],
 }
 export default class ExploiterRepresentationGraphique extends Exercice {

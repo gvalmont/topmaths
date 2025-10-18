@@ -1,4 +1,3 @@
-import { min, round } from 'mathjs'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
@@ -58,8 +57,8 @@ export default class SujetCAN2022quatrieme extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ])
@@ -445,8 +444,7 @@ export default class SujetCAN2022quatrieme extends Exercice {
                     $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr =
-              `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.<br>
+            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.<br>
             Comme le résultat exact est proche de cet ordre de grandeur, on choisit $${texNombre(reponse)}$ parmi les propositions.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

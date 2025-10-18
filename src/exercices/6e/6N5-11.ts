@@ -1,16 +1,16 @@
+import { texPrix } from '../../lib/format/style'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { personne, prenom, prenomF } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { max, min } from 'mathjs'
+import Exercice from '../Exercice'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -637,7 +637,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           } else {
             texte += 'Quel est le plus petit de ces deux nombres ?'
             handleAnswers(this, indiceInteractif, {
-              reponse: { value: min(nbP, nbD).toFixed(2) },
+              reponse: { value: Math.min(nbP, nbD).toFixed(2) },
             })
             texte += ajouteChampTexteMathLive(
               this,
@@ -647,7 +647,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
 
             texte += '<br>Quel est le plus grand de ces deux nombres ?'
             handleAnswers(this, indiceInteractif + 1, {
-              reponse: { value: max(nbP, nbD).toFixed(2) },
+              reponse: { value: Math.max(nbP, nbD).toFixed(2) },
             })
             texte += ajouteChampTexteMathLive(
               this,

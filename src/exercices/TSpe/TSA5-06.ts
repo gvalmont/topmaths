@@ -20,7 +20,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['TSA5-06'],
-  'fr-ch': [],
+  'fr-ch': ['2mLogExp-2'],
 }
 
 /**

@@ -1,4 +1,3 @@
-import { max } from 'mathjs'
 import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import { choice, getRandomSubarray } from '../../lib/outils/arrayOutils'
@@ -70,7 +69,7 @@ export default class nomExercice extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      const degMax = max(this.sup3, 0)
+      const degMax = Math.max(this.sup3, 0)
       const variables = ['x', 'y', 'z', 'r', 's', 't']
       const variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeCoeffListe = ['entier', 'fractionnaire']
@@ -142,13 +141,13 @@ export default class nomExercice extends Exercice {
         listeDeQuestions[i] === 8
       ) {
         p1 = MonomePlusieursVariables.createRandomMonome(
-          randint(1, max(1, degMax)),
+          randint(1, Math.max(1, degMax)),
           choice(typeofCoeff),
           variablesSelect,
         )
         do {
           p2 = MonomePlusieursVariables.createRandomMonome(
-            randint(1, max(1, degMax)),
+            randint(1, Math.max(1, degMax)),
             choice(typeofCoeff),
             variablesSelect,
           )

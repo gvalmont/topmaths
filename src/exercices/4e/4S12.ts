@@ -1,11 +1,11 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Déterminer la moyenne et la médiane d'une série statistique"
 export const interactifReady = true
@@ -55,50 +55,54 @@ export default class MoyenneEtMediane extends Exercice {
       handleAnswers(this, 0, {
         reponse: {
           value: arrondi(moyenne, 1),
-          options: { resultatSeulementEtNonOperation: true },
+          options: { nombreDecimalSeulement: true },
         },
       })
     }
     let correction1 = stringCalculMoyenne(temperatures)
     correction1 += `<br><br> La température moyenne est de $${texNombre(getMoyenne(temperatures), 1)}$°C.`
 
-    let question2 = 'Quelle est la température médiane de cette série ?'
-    let correction2 = `On réordonne les températures par ordre croissant : ${sortedStringList(temperatures)}.<br>`
-    const mediane = getMedianne(temperatures)
-    correction2 +=
-      stringCalculMediane(temperatures) + `$${texNombre(mediane)}$°C.`
-    if (this.interactif) {
-      question2 +=
-        '<br>' +
-        ajouteChampTexteMathLive(this, 1, KeyboardType.clavierDeBase, {
-          texteAvant: 'Médiane : ',
-          texteApres: '°C',
-        })
-      const sortedList = temperatures.sort((a, b) => a - b)
-      const n = sortedList.length
-      if (n % 2 === 0) {
-        if (sortedList[n / 2 - 1] !== sortedList[n / 2]) {
-          handleAnswers(this, 1, {
-            reponse: {
-              value: `]${sortedList[n / 2 - 1]};${sortedList[n / 2]}[`,
-              options: { estDansIntervalle: true },
-            },
+    let question2 = ''
+    let correction2 = ''
+    if (this.onlyMoyenne === false) {
+      question2 += 'Quelle est la température médiane de cette série ?'
+      correction2 = `On réordonne les températures par ordre croissant : ${sortedStringList(temperatures)}.<br>`
+      const mediane = getMedianne(temperatures)
+      correction2 +=
+        stringCalculMediane(temperatures) + `$${texNombre(mediane)}$°C.`
+      if (this.interactif) {
+        question2 +=
+          '<br>' +
+          ajouteChampTexteMathLive(this, 1, KeyboardType.clavierDeBase, {
+            texteAvant: 'Médiane : ',
+            texteApres: '°C',
           })
+        const sortedList = temperatures.sort((a, b) => a - b)
+        const n = sortedList.length
+        if (n % 2 === 0) {
+          if (sortedList[n / 2 - 1] !== sortedList[n / 2]) {
+            handleAnswers(this, 1, {
+              reponse: {
+                value: `]${sortedList[n / 2 - 1]};${sortedList[n / 2]}[`,
+                options: { estDansIntervalle: true },
+              },
+            })
+          } else {
+            handleAnswers(this, 1, {
+              reponse: {
+                value: mediane,
+                options: { nombreDecimalSeulement: true },
+              },
+            })
+          }
         } else {
           handleAnswers(this, 1, {
             reponse: {
               value: mediane,
-              options: { resultatSeulementEtNonOperation: true },
+              options: { nombreDecimalSeulement: true },
             },
           })
         }
-      } else {
-        handleAnswers(this, 1, {
-          reponse: {
-            value: mediane,
-            options: { resultatSeulementEtNonOperation: true },
-          },
-        })
       }
     }
 

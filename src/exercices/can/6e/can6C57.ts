@@ -23,7 +23,7 @@ export const uuid = '058e4'
 
 export const refs = {
   'fr-fr': ['can6C57', '6N3K-flash3'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SommeDiffFractionsCompatibles extends ExerciceSimple {
   constructor() {
@@ -31,9 +31,8 @@ export default class SommeDiffFractionsCompatibles extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.spacingCorr = 1.5
-    this.formatInteractif = 'fractionEgale'
+   this.optionsDeComparaison = { fractionEgale: true }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
   nouvelleVersion() {

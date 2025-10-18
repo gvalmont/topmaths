@@ -30,7 +30,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'cd7ce'
 
 export const refs = {
-  'fr-fr': ['5R11'],
+  'fr-fr': ['5R11', '3autoN15-1'],
   'fr-ch': ['9NO9-1'],
 }
 const changeCoord = function (x: number, abs0: number, pas1: number) {
@@ -184,7 +184,6 @@ export default class LireAbscisseRelative extends Exercice {
           propositions: [
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: '',
@@ -204,7 +203,6 @@ export default class LireAbscisseRelative extends Exercice {
             },
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: '',
@@ -225,7 +223,6 @@ export default class LireAbscisseRelative extends Exercice {
             },
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: '',

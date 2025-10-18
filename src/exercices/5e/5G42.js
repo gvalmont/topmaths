@@ -5,12 +5,12 @@ import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../Exercice'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 export const titre = 'Déterminer la nature de parallélogrammes'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,7 +23,7 @@ export const amcType = 'qcmMono'
 export const uuid = '8812e'
 
 export const refs = {
-  'fr-fr': ['5G42'],
+  'fr-fr': ['5G42', '3AutoG02-3'],
   'fr-ch': ['9ES2-3'],
 }
 export default class DemonstrationsParallelogrammes extends Exercice {

@@ -369,7 +369,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
     ) as MathfieldElement
 
     // Sauvegarde de la réponse pour Capytale
-    exercice.answers[`Ex${this.numeroExercice}Q${2 * i + 100}`] = mf.getValue()
+    this.answers[`Ex${this.numeroExercice}Q${2 * i + 100}`] = mf.getValue()
 
     // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
     const saisie1 = mf.value
@@ -383,8 +383,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
     ) as MathfieldElement
 
     // Sauvegarde de la réponse pour Capytale
-    exercice.answers[`Ex${this.numeroExercice}Q${2 * i + 100 + 1}`] =
-      mf.getValue()
+    this.answers[`Ex${this.numeroExercice}Q${2 * i + 100 + 1}`] = mf.getValue()
 
     // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
     const saisie2 = mf.value

@@ -20,7 +20,7 @@ export default class Puissances extends ExerciceQcmA {
     this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
     Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a : 
      $\\left(a^{n}\\right)^{p}=a^{np}$<br>
-    $\\begin{aligned}\\left(3^{n}\\right)^{2}&=\\left(3^{n}\\right)^{2n}\\\\
+    $\\begin{aligned}\\left(3^{n}\\right)^{2}&=3^{2n}\\\\
     &=\\left(3^{2}\\right)^{n}\\\\
     &=9^{n}
     \\end{aligned}$`
@@ -42,7 +42,7 @@ export default class Puissances extends ExerciceQcmA {
     this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
     Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a : 
      $\\left(a^{n}\\right)^{p}=a^{np}$<br>
-    $\\begin{aligned}\\left(${a}^{n}\\right)^{${k}}&=\\left(${a}^{n}\\right)^{${k}n}\\\\
+    $\\begin{aligned}\\left(${a}^{n}\\right)^{${k}}&=${a}^{${k}n}\\\\
     &=\\left(${a}^{${k}}\\right)^{n}\\\\
     &=${a ** k}^{n}
     \\end{aligned}$`

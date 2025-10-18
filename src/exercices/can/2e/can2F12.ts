@@ -1,10 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre =
   'Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export const uuid = '25143'
 
 export const refs = {
   'fr-fr': ['can2F12'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ComparerAvecFctRef extends Exercice {
   constructor() {

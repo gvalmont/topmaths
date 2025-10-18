@@ -151,7 +151,7 @@ export default class ProduitsEtQuotientRelatifs extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: fois(a, b),
-                  options: { resultatSeulementEtNonOperation: true },
+                  options: { nombreDecimalSeulement: true },
                 },
               })
             }
@@ -173,7 +173,7 @@ export default class ProduitsEtQuotientRelatifs extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: aF.produitFraction(bF).texFraction,
-                  options: { resultatSeulementEtNonOperation: true },
+                  options: { nombreDecimalSeulement: true },
                 },
               })
             }

@@ -15,40 +15,40 @@ import {
   texteParPosition,
 } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
+import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi, signe } from '../../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
-import { texPrix } from '../../../lib/format/style'
 import {
   formatMinute,
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import {
   colorToLatexOrHTML,
   fixeBordures,
   mathalea2d,
 } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { min, round } from 'mathjs'
+import Exercice from '../../Exercice'
+
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 export const titre = 'CAN 3e sujet 2023'
 export const interactifReady = true
@@ -88,8 +88,8 @@ export default class SujetCAN2023troisieme extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ])

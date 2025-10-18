@@ -1,15 +1,15 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { randint } from '../../../modules/outils'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Exprimer une variable en fonction d'une autre"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '14546'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['11FA5-4b'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

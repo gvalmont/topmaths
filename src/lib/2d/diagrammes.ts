@@ -6,13 +6,14 @@ import {
   Vide2d,
   vide2d,
 } from '../../modules/2dGeneralites'
-import { arc, cercle } from './cercle'
-import { point, tracePoint } from './points'
-import { carre, motifs, Polygone, polygone, polyline } from './polygones'
-import { axeY, labelY, pointDansRepere, Repere } from './reperes'
 import { texcolors } from '../format/style'
 import { combinaisonListes } from '../outils/arrayOutils'
 import { numberFormat, texNombre } from '../outils/texNombre'
+import { arc, cercle } from './cercle'
+import { point, tracePoint } from './points'
+import type { PointAbstrait } from './points-abstraits'
+import { carre, motifs, Polygone, polygone, polyline } from './polygones'
+import { axeY, labelY, pointDansRepere, Repere } from './reperes'
 import { segment, vecteur } from './segmentsVecteurs'
 import {
   latexParPoint,
@@ -21,7 +22,6 @@ import {
   texteParPosition,
 } from './textes'
 import { rotation, similitude, translation } from './transformations'
-import type { PointAbstrait } from './points-abstraits'
 
 /**
  * Trace un graphique cartésien dans un repère

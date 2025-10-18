@@ -29,7 +29,7 @@ export const uuid = '61772'
 export const refs = {
   'fr-fr': ['auto6M2D'],
   'fr-2016': ['6M23-3'],
-  'fr-ch': [''],
+  'fr-ch': ['9GM2-5'],
 }
 
 export default class EgalitesUnitesAires extends Exercice {

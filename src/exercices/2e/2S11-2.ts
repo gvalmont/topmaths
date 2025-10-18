@@ -1,18 +1,19 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const titre =
   'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/01/2022'
+export const dateDeModifImportante = '04/10/2025'
 
 /**
  * Problèmes de variations en pourcentage
@@ -29,7 +30,7 @@ export const uuid = '12444'
 
 export const refs = {
   'fr-fr': ['2S11-2', 'BP2AutoB2'],
-  'fr-ch': [],
+  'fr-ch': ['10FA4-7'],
 }
 export default class EvolutionsEnPourcentage extends Exercice {
   onlyMoney = false
@@ -63,8 +64,16 @@ export default class EvolutionsEnPourcentage extends Exercice {
       typesDeQuestionsDisponibles = ['finale', 'evolution', 'initiale']
     }
     const situationsDisponibles = this.onlyMoney
-      ? ['prix', 'facture']
-      : ['prix', 'etablissement', 'facture', 'population']
+      ? ['prix', 'facture', 'abonnement']
+      : [
+          'prix',
+          'etablissement',
+          'facture',
+          'population',
+          'chiffreAffaires',
+          'abonnement',
+        ] //
+
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions,
@@ -112,6 +121,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
                 texteCorr += `<br>Le nouveau prix de cet article est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
+                texte += ajouteChampTexteMathLive(this, i, '', {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                })
               } else {
                 texte = `Un article coûtait $${texPrix(depart)}$ € et son prix est soldé à $${taux}~\\%$.<br>
                  Calculer son nouveau prix.`
@@ -119,6 +132,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
                 texteCorr += `<br>Le nouveau prix de cet article est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
+                texte += ajouteChampTexteMathLive(this, i, '', {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                })
               }
               break
             case 'initiale':
@@ -129,6 +146,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$`
                 texteCorr += `<br>Avant l'augmentation cet article coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
+                texte += ajouteChampTexteMathLive(this, i, '', {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                })
               } else {
                 texte = `Soldé à $${abs(taux)}~\\%$ un article coûte $${texPrix(arrive)}$ €. <br>
                 Calculer son prix avant les soldes.`
@@ -136,6 +157,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$`
                 texteCorr += `<br>Avant les soldes cet article coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
+                texte += ajouteChampTexteMathLive(this, i, '', {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                })
               }
               break
             case 'evolution':
@@ -165,6 +190,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '%',
+              })
               break
           }
           break
@@ -212,6 +241,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Il y a maintenant $${miseEnEvidence(`${texNombre(arrive, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = arrive
               }
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: 'élèves',
+              })
               break
             case 'initiale':
               if (taux > 0) {
@@ -222,13 +255,17 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = depart
               } else {
-                texte = `Depuis ${anneeDerniere}, le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive, 2)}$ élèves.<br>
+                texte = `Depuis ${anneeDerniere}, le nombre d'élèves d'un ${etablissement} a diminué de $${abs(taux)}~\\%$. Il y a maintenant $${texNombre(arrive, 2)}$ élèves.<br>
                  Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
                 texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$..<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texNombre(arrive, 0)}}{${texNombre(coeff, 2)}}  = ${texNombre(depart, 0)}$`
                 texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = depart
               }
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: 'élèves',
+              })
               break
             case 'evolution':
             default:
@@ -255,6 +292,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '%',
+              })
               break
           }
           break
@@ -290,6 +331,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Le ${prixOuMontant} de ${facture} est maintenant de $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
               }
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '€',
+              })
               break
             case 'initiale':
               if (taux > 0) {
@@ -307,6 +352,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Avant la diminution le ${prixOuMontant} de ${facture} était de $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
               }
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '€',
+              })
               break
             case 'evolution':
               if (taux > 0) {
@@ -334,6 +383,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '%',
+              })
               break
           }
           break
@@ -362,6 +415,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>La population de cette ville est maintenant de $${miseEnEvidence(`${texNombre(arrive, 2)}`)}$ habitants.`
               }
               reponse = arrive
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: 'habitants',
+              })
               break
             case 'initiale':
               if (taux > 0) {
@@ -378,6 +435,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Il y a ${nb} ans cette ville comptait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ habitants.`
               }
               reponse = depart
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: 'habitants',
+              })
               break
             case 'evolution':
               if (taux > 0) {
@@ -404,17 +465,209 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
               }
               reponse = taux
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '%',
+              })
               break
           }
           break
+
+        case 'chiffreAffaires': {
+          // Chiffre d'affaires entre 50k€ et 500k€
+          switch (randint(1, 3)) {
+            case 1:
+              depart = randint(5, 20) * 10000 // 50k à 200k
+              taux = randint(2, 8) * 5 * choice([-1, 1]) // -40% à +40% par pas de 10
+              break
+            case 2:
+              depart = randint(20, 50) * 10000 // 200k à 500k
+              taux = randint(1, 6) * 5 * choice([-1, 1]) // -30% à +30% par pas de 5
+              break
+            case 3:
+            default:
+              depart = randint(10, 30) * 10000 // 100k à 300k
+              taux = randint(2, 12) * choice([-1, 1]) // -12% à +12%
+              break
+          }
+          tauxDec = taux / 100
+          coeff = tauxDec + 1
+          arrive = coeff * depart
+          const annee1 = randint(2020, 2023)
+          const annee2 = annee1 + 1
+          const entreprise = choice([
+            'une entreprise',
+            'une PME',
+            'un commerce',
+            'une start-up',
+            'un restaurant',
+          ])
+
+          switch (listeTypeDeQuestions[i]) {
+            case 'finale':
+              if (taux > 0) {
+                texte = `En ${annee1}, le chiffre d'affaires d'${entreprise} était de $${texNombre(depart, 0)}$ €. En ${annee2}, il a augmenté de $${taux}~\\%$.<br>
+         Calculer le chiffre d'affaires de ${annee2}.`
+                texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.`
+                texteCorr += `<br>$${texNombre(depart, 0)}\\times ${texNombre(coeff, 2)} = ${texNombre(arrive, 2)}$`
+                texteCorr += `<br>Le chiffre d'affaires en ${annee2} est de $${miseEnEvidence(`${texNombre(arrive, 2)}`)}$ €.`
+              } else {
+                texte = `En ${annee1}, le chiffre d'affaires d'${entreprise} était de $${texNombre(depart, 0)}$ €. En ${annee2}, il a diminué de $${abs(taux)}~\\%$.<br>
+         Calculer le chiffre d'affaires de ${annee2}.`
+                texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.`
+                texteCorr += `<br>$${texNombre(depart, 0)}\\times ${texNombre(coeff, 2)} = ${texNombre(arrive, 2)}$`
+                texteCorr += `<br>Le chiffre d'affaires en ${annee2} est de $${miseEnEvidence(`${texNombre(arrive, 2)}`)}$ €.`
+              }
+              reponse = arrive
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '€',
+              })
+              break
+
+            case 'initiale':
+              if (taux > 0) {
+                texte = `Après une augmentation de $${taux}~\\%$, le chiffre d'affaires d'${entreprise} est de $${texNombre(arrive, 2)}$ € en ${annee2}.<br>
+         Calculer le chiffre d'affaires de ${annee1}.`
+                texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le chiffre d'affaires initial, on va donc diviser le chiffre d'affaires final par $${texNombre(coeff, 2)}$.`
+                texteCorr += `<br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(coeff, 2)}} = ${texNombre(depart, 0)}$`
+                texteCorr += `<br>Le chiffre d'affaires en ${annee1} était de $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ €.`
+              } else {
+                texte = `Après une diminution de $${abs(taux)}~\\%$, le chiffre d'affaires d'${entreprise} est de $${texNombre(arrive, 2)}$ € en ${annee2}.<br>
+         Calculer le chiffre d'affaires de ${annee1}.`
+                texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le chiffre d'affaires initial, on va donc diviser le chiffre d'affaires final par $${texNombre(coeff, 2)}$.`
+                texteCorr += `<br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(coeff, 2)}} = ${texNombre(depart, 0)}$`
+                texteCorr += `<br>Le chiffre d'affaires en ${annee1} était de $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ €.`
+              }
+              reponse = depart
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '€',
+              })
+              break
+
+            case 'evolution':
+            default:
+              texte = `Le chiffre d'affaires d'${entreprise} est passé de $${texNombre(depart, 0)}$ € en ${annee1} à $${texNombre(arrive, 2)}$ € en ${annee2}.<br>
+       Calculer le taux d'évolution du chiffre d'affaires en pourcentage.`
+              texteCorr =
+                "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
+              texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texNombre(depart, 0)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
+              texteCorr += `<br>Le taux d'évolution du chiffre d'affaires est $${miseEnEvidence(taux)}~\\%$.<br><br>`
+              texteCorr +=
+                'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+              texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
+      $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
+              reponse = taux
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '%',
+              })
+              break
+          }
+          break
+        }
+
+        case 'abonnement': {
+          // Prix d'abonnement entre 5€ et 50€
+          switch (randint(1, 3)) {
+            case 1:
+              depart = randint(5, 15) // 5€ à 15€
+              taux = randint(1, 6) * 5 * choice([-1, 1]) // -30% à +30% par pas de 5
+              break
+            case 2:
+              depart = randint(10, 30) // 10€ à 30€
+              taux = randint(2, 10) * choice([-1, 1]) // -10% à +10%
+              break
+            case 3:
+            default:
+              depart = randint(20, 50) // 20€ à 50€
+              taux = randint(1, 4) * 5 * choice([-1, 1]) // -20% à +20% par pas de 5
+              break
+          }
+          tauxDec = taux / 100
+          coeff = tauxDec + 1
+          arrive = coeff * depart
+          const typeAbonnement = choice([
+            'un abonnement de streaming',
+            'un abonnement téléphonique',
+            'un abonnement Internet',
+            'un abonnement de transport',
+          ])
+          const periode = choice(['mensuel', 'mensuel', 'trimestriel'])
+
+          switch (listeTypeDeQuestions[i]) {
+            case 'finale':
+              if (taux > 0) {
+                texte = `Le prix ${periode} d'${typeAbonnement} était de $${texPrix(depart)}$ € et il a augmenté de $${taux}~\\%$.<br>
+         Calculer son nouveau prix.`
+                texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.`
+                texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
+                texteCorr += `<br>Le nouveau prix de l'abonnement est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
+              } else {
+                texte = `Le prix ${periode} d'${typeAbonnement} était de $${texPrix(depart)}$ € et il a diminué de $${abs(taux)}~\\%$.<br>
+         Calculer son nouveau prix.`
+                texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.`
+                texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
+                texteCorr += `<br>Le nouveau prix de l'abonnement est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
+              }
+              reponse = arrive
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '€',
+              })
+              break
+
+            case 'initiale':
+              if (taux > 0) {
+                texte = `Après une augmentation de $${taux}~\\%$, le prix ${periode} d'${typeAbonnement} est maintenant de $${texPrix(arrive)}$ €.<br>
+         Calculer son prix avant l'augmentation.`
+                texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${texNombre(coeff, 2)}$.`
+                texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}} = ${texPrix(depart)}$`
+                texteCorr += `<br>Avant l'augmentation, l'abonnement coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
+              } else {
+                texte = `Après une diminution de $${abs(taux)}~\\%$, le prix ${periode} d'${typeAbonnement} est maintenant de $${texPrix(arrive)}$ €.<br>
+         Calculer son prix avant la diminution.`
+                texteCorr = `Diminuer de $${abs(taux)}~\\%$ revient à multiplier par $1 - \\dfrac{${abs(taux)}}{100} = 1- ${texNombre(Math.abs(tauxDec), 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${texNombre(coeff, 2)}$.`
+                texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}} = ${texPrix(depart)}$`
+                texteCorr += `<br>Avant la diminution, l'abonnement coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
+              }
+              reponse = depart
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '€',
+              })
+              break
+
+            case 'evolution':
+            default:
+              texte = `Le prix ${periode} d'${typeAbonnement} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €.<br>
+       Calculer le taux d'évolution du prix en pourcentage.`
+              texteCorr =
+                "On utilise la formule du cours qui exprime le taux d'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$ : $t=\\dfrac{V_f-V_i}{V_i}$."
+              texteCorr += `<br><br>Ici : $t=\\dfrac{${texPrix(arrive)}-${texPrix(depart)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
+              texteCorr += `<br>Le taux d'évolution du prix est $${miseEnEvidence(taux)}~\\%$.<br><br>`
+              texteCorr +=
+                'Méthode $2$ : On arrive aussi au même résultat en passant par le coefficient multiplicateur : '
+              texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
+      $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
+              reponse = taux
+              texte += ajouteChampTexteMathLive(this, i, '', {
+                texteAvant: '<br>',
+                texteApres: '%',
+              })
+              break
+          }
+          break
+        }
       }
       handleAnswers(this, i, { reponse: { value: arrondi(reponse) } })
       if (this.interactif) texte += '<br><br>'
-      if (listeTypeDeQuestions[i] === 'evolution') {
-        texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
-      } else {
-        texte += ajouteChampTexteMathLive(this, i)
-      }
+      //  if (listeTypeDeQuestions[i] === 'evolution') {
+      //    texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
+      //  } else {
+      //  texte += ajouteChampTexteMathLive(this, i)
+      //  }
       if (this.questionJamaisPosee(i, depart, taux, typesDeSituations[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

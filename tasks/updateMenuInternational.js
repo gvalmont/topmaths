@@ -30,6 +30,7 @@ async function readInfos(
   refToUuid,
   exercicesShuffled,
   codePays,
+  exercicesNonClasses = {},
 ) {
   const files = await fs.readdir(dirPath)
   await Promise.all(
@@ -45,6 +46,7 @@ async function readInfos(
           refToUuid,
           exercicesShuffled,
           codePays,
+          exercicesNonClasses,
         )
       } else if (stat.isFile()) {
         // Check if it's a .js or .ts file, and exclude certain files
@@ -114,11 +116,92 @@ async function readInfos(
             const refsArray = matchRef[1]
               .split(',')
               .map((ref) => ref.trim().replace(/'/g, ''))
+              .filter((ref) => ref !== '')
+
+            // Skip exercises marked as NR (non relevant) for CH
+            if (
+              codePays === 'fr-ch' &&
+              refsArray.length === 1 &&
+              refsArray[0] === 'NR'
+            ) {
+              // Do nothing - completely ignore this exercise
+              return
+            }
+
             if (refsArray.length === 0) {
-              console.error(
-                '\x1b[31m%s\x1b[0m',
-                `${codePays}: Empty refs array in ${filePath}`,
-              )
+              // Empty refs array: add to exercicesNonClasses for CH
+              // Only add if UUID is non-empty string
+              if (codePays === 'fr-ch' && infos.uuid && infos.uuid !== '') {
+                // Process the exercise to extract all metadata
+                const dataWithoutComments = data.replace(
+                  /\/\/.*|\/\*[\s\S]*?\*\//g,
+                  '',
+                )
+                const matchTitre =
+                  dataWithoutComments.match(
+                    /^export\s+(?:const|let)\s*titre\s*=\s*'((?:[^\\]\\'|[^'])*)'\s*$/ims,
+                  ) ||
+                  dataWithoutComments.match(
+                    /^export\s+(?:const|let)\s*titre\s*=\s*"((?:[^\\]\\"|[^"])*)"\s*$/ims,
+                  ) ||
+                  dataWithoutComments.match(
+                    /^export\s+(?:const|let)\s*titre\s*=\s*`((?:[^\\]\\`|[^`])*)`\s*$/ims,
+                  )
+                if (matchTitre) {
+                  infos.titre = matchTitre[1]
+                    .replaceAll("\\'", "'")
+                    .replaceAll('\\\\', '\\')
+                }
+                const matchDate = data.match(
+                  /export const dateDePublication = '([^']*)'/,
+                )
+                if (matchDate) {
+                  infos.datePublication = matchDate[1]
+                }
+                const matchDateModif = data.match(
+                  /export const dateDeModifImportante = '([^']*)'/,
+                )
+                if (matchDateModif) {
+                  infos.dateModification = matchDateModif[1]
+                }
+                infos.features = {}
+                const matchInteractif = data.match(
+                  /export const interactifReady = (.*)/,
+                )
+                const matchInteractifType = data.match(
+                  /export const interactifType = (.*)/,
+                )
+                if (matchInteractif && matchInteractif[1] === 'true') {
+                  infos.features.interactif = {
+                    isActive: true,
+                    type: matchInteractifType?.[1] || '',
+                  }
+                } else {
+                  infos.features.interactif = {
+                    isActive: false,
+                    type: '',
+                  }
+                  exercicesNonInteractifs.push(filePath)
+                }
+                const matchAmcType = data.match(/export const amcType = '(.*)'/)
+                if (matchAmcType) {
+                  infos.features.amc = {
+                    isActive: true,
+                    type: matchAmcType[1] || '',
+                  }
+                } else {
+                  infos.features.amc = {
+                    isActive: false,
+                    type: '',
+                  }
+                }
+                infos.typeExercice = 'alea'
+                infos.id = infos.uuid
+                // Add to the non-classified exercises
+                exercicesNonClasses[infos.uuid] = { ...infos }
+                exercicesShuffled[infos.uuid] = { ...infos }
+                refToUuid[infos.uuid] = infos.uuid
+              }
             } else {
               refsArray.forEach((ref) => {
                 // const newInfos = { ...infos, id: ref }
@@ -309,6 +392,7 @@ const createFiles = (
   exercicesNonInteractifs,
   refToUuid,
   codePays,
+  exercicesNonClasses = {},
 ) => {
   function findThemes(obj, path) {
     for (const key in obj) {
@@ -378,6 +462,16 @@ const createFiles = (
       JSON.stringify(referentiel['Géométrie dynamique'], null, 2),
     )
     delete referentiel['Géométrie dynamique']
+  }
+  // Add non-classified exercises for CH
+  if (codePays === 'CH' && Object.keys(exercicesNonClasses).length > 0) {
+    if (!referentiel['Non classés']) {
+      referentiel['Non classés'] = {}
+    }
+    if (!referentiel['Non classés']['divers']) {
+      referentiel['Non classés']['divers'] = {}
+    }
+    referentiel['Non classés']['divers'] = exercicesNonClasses
   }
   sortQcmInReferentiel(referentiel, codePays)
   fs.writeFile(
@@ -458,6 +552,7 @@ const uuidMapCH = new Map()
 const exercicesNonInteractifsCH = []
 const exercicesShuffledCH = {}
 const refToUuidCH = {}
+const exercicesNonClassesCH = {}
 readInfos(
   exercicesDir,
   uuidMapCH,
@@ -465,6 +560,7 @@ readInfos(
   refToUuidCH,
   exercicesShuffledCH,
   'fr-ch',
+  exercicesNonClassesCH,
 )
   .then(() => {
     createFiles(
@@ -474,6 +570,7 @@ readInfos(
       exercicesNonInteractifsCH,
       refToUuidCH,
       'CH',
+      exercicesNonClassesCH,
     )
   })
   .then(() => {

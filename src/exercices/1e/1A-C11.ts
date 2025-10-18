@@ -11,7 +11,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 export const uuid = '2e7a5'
 export const refs = {
   'fr-fr': ['1A-C11'],
-  'fr-ch': [],
+  'fr-ch': ['11QCM-12', '1mQCM-12'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -24,7 +24,7 @@ export const uuid = '227f0'
 
 export const refs = {
   'fr-fr': ['1P10-1'],
-  'fr-ch': [],
+  'fr-ch': ['3mP1-13'],
 }
 export default class EcritureProbabilite extends Exercice {
   constructor() {

@@ -1,23 +1,23 @@
 import { arc, cercleCentrePoint } from '../../lib/2d/cercle'
+import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
 import { point, tracePoint } from '../../lib/2d/points'
 import { carre, motifs } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
-import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { rotation, translation } from '../../lib/2d/transformations'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import {
-  mathalea2d,
   colorToLatexOrHTML,
   fixeBordures,
+  mathalea2d,
 } from '../../modules/2dGeneralites'
-import { randint, listeQuestionsToContenu } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Lire des données représentées dans un diagramme'
 export const interactifReady = true
@@ -32,7 +32,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'adac4'
 
 export const refs = {
-  'fr-fr': ['auto6P1A-1'],
+  'fr-fr': ['auto6P1A-1', '3AutoP05-1'],
   'fr-2016': ['6S10-1'],
   'fr-ch': ['9FA1-2'],
 }

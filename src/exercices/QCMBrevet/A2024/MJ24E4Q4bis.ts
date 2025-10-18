@@ -17,7 +17,7 @@ import { rotationAnimee } from '../../../modules/2dAnimation'
 export const uuid = '2c2db'
 export const refs = {
   'fr-fr': ['3G1QCM-5'],
-  'fr-ch': [],
+  'fr-ch': ['10ES2-19'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'

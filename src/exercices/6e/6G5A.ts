@@ -24,7 +24,7 @@ export const dateDePublication = '27/08/2025'
 export const refs = {
   'fr-fr': ['6G5A'],
   'fr-2016': [],
-  'fr-ch': [],
+  'fr-ch': ['9ES3-12'],
 }
 
 /**

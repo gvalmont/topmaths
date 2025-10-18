@@ -36,7 +36,7 @@ export default class MultiplierAstucieusement extends ExerciceSimple {
       'Permettre des facteurs au dixième, au millième',
       false,
     ]
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion() {

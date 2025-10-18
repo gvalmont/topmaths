@@ -22,7 +22,7 @@ export const uuid = '14688'
 export const refs = {
   'fr-fr': ['CM2N3B-1'],
   'fr-2016': ['CM009'],
-  'fr-ch': [],
+  'fr-ch': ['PR-1'],
 }
 export default class Moitie extends Exercice {
   constructor() {

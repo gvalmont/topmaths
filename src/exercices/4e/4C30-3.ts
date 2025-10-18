@@ -1,12 +1,12 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { puissanceEnProduit } from '../../lib/outils/puissance'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import { puissanceEnProduit } from '../../lib/outils/puissance'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import FractionEtendue from '../../modules/FractionEtendue'
 
@@ -99,7 +99,7 @@ export default class EcritureDecimalePuissance extends Exercice {
           handleAnswers(this, i, {
             reponse: {
               value: a ** n,
-              options: { resultatSeulementEtNonOperation: true },
+              options: { nombreDecimalSeulement: true },
             },
           })
 

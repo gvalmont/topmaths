@@ -38,7 +38,7 @@ export const uuid = '328c3'
 export const refs = {
   'fr-fr': ['6N4B-1'],
   'fr-2016': ['6I14'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class PaternRepetitif extends Exercice {

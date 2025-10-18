@@ -7,7 +7,7 @@ export const interactifType = ['qcm', 'mathLive']
 export const dateDeModifImportante = '17/04/2025'
 export const uuid = 'acb80'
 export const refs = {
-  'fr-fr': ['3G43', 'BP2G20'],
+  'fr-fr': ['3G43', 'BP2G20', '3AutoG10-1'],
   'fr-ch': ['11GM2-4'],
 }
 export default class CalculDeVolumes3e extends CalculDeVolumes {

@@ -1,12 +1,12 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, arrondi } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const titre = 'Variations en pourcentage'
 export const interactifReady = true
@@ -26,7 +26,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0bcef'
 
 export const refs = {
-  'fr-fr': ['3P10'],
+  'fr-fr': ['3P10', '3AutoP08-1'],
   'fr-ch': ['10FA4-5'],
 }
 export default class EvolutionsEnPourcentage extends Exercice {

@@ -16,7 +16,7 @@ export const uuid = '2f147'
 
 export const refs = {
   'fr-fr': ['1A-F2-4'],
-  'fr-ch': [],
+  'fr-ch': ['1mF3-22'],
 }
 export default class Auto1AF2d extends LectureGraphiqueParaboleA {
   constructor() {

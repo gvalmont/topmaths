@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un agrandissement/réduction avec fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,8 +25,6 @@ export default class AgrandissementReductionGFraction extends ExerciceSimple {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion() {

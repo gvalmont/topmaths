@@ -13,8 +13,14 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '02/10/2025'
+export const dateDeModifImportante = '12/10/2025'
 export const uuid = 'cc015'
-
+// 
+/**
+ *
+ * @author Gilles Mora + Claude ia pour la factorisation
+ *
+ */
 export const refs = {
   'fr-fr': ['1A-C10-6'],
   'fr-ch': [],
@@ -23,20 +29,59 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Résoudre une inéquation du type $\\sqrt{x}<a$ ou $\\sqrt{x}>a$'
+export const titre = 'Résoudre une inéquation du type $\\sqrt{x}<a$ ou $\\sqrt{x}>a$ (avec ou sans courbe)'
 
 export default class Auto1AC10f extends ExerciceQcmA {
+   private appliquerLesValeurs(
+    val: number,
+    estInegStrict: boolean,
+    typeInequation: 'inf' | 'sup'
+  ): void {
+    // Détermination du signe d'inégalité
+    const signeInégalité =
+      typeInequation === 'inf'
+        ? estInegStrict ? '<' : ' \\leqslant '
+        : estInegStrict ? '>' : ' \\geqslant '
+
+    // Création des éléments graphiques
+    const elements = this.creerElementsGraphiques(val, estInegStrict, typeInequation)
+    const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
+    const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
+
+    // Énoncé
+    this.enonce = this.sup5
+      ? `On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>
+         L'ensemble des solutions $S$ de cette inéquation est :`
+      : `${deuxColonnes(
+          `On a représenté la courbe d'équation $y=\\sqrt{x}$. <br><br>
+           On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>`,
+          `${graphique}`
+        )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
+
+    // Correction
+    this.correction = this.genererCorrection(
+      val,
+      estInegStrict,
+      typeInequation,
+      graphiqueC,
+      reponses[0]
+    )
+
+    // Réponses
+    this.reponses = reponses
+  }
+
   // Méthode utilitaire pour créer les éléments graphiques communs
   private creerElementsGraphiques(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup',
+    typeInequation: 'inf' | 'sup'
   ) {
     const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
 
     // Position graphique fixe pour l'affichage
     const valGraphique = 1.5
-    const carreValGraphique = valGraphique ** 2 // x tel que sqrt(x) = valGraphique
+    const carreValGraphique = valGraphique ** 2
 
     // Points et segments verticaux
     const A = point(carreValGraphique, valGraphique)
@@ -50,14 +95,12 @@ export default class Auto1AC10f extends ExerciceQcmA {
     // Segments de solution selon le type d'inéquation
     let segmentsSolution = []
     if (typeInequation === 'inf') {
-      // Pour √x < a ou √x ≤ a : segment entre 0 et a²
       const sOAx = segment(O, Ax, 'red')
       sOAx.epaisseur = 2
       sOAx.styleExtremites = estInegStrict ? '[-[' : '[-]'
       sOAx.tailleExtremites = 6
       segmentsSolution = [sOAx]
     } else {
-      // Pour √x > a ou √x ≥ a : segment de a² vers +∞
       const AInf = point(5, 0)
       const sAxAInf = segment(Ax, AInf, 'red')
       sAxAInf.epaisseur = 2
@@ -66,15 +109,17 @@ export default class Auto1AC10f extends ExerciceQcmA {
       segmentsSolution = [sAxAInf]
     }
 
-    // Textes (utilisation de la valeur mathématique réelle pour les labels)
+    // Textes
     const textes = [
-        latex2d(`y=${val}`, 4,valGraphique - 0.3, {
-        letterSize: 'scriptsize', color:'green'
+      latex2d(`y=${val}`, 4, valGraphique - 0.3, {
+        letterSize: 'scriptsize',
+        color: 'green'
       }),
-      latex2d('y=\\sqrt{x}', 3,2.3, {
-        letterSize: 'scriptsize', color:'blue',
+      latex2d('y=\\sqrt{x}', 3, 2.3, {
+        letterSize: 'scriptsize',
+        color: 'blue',
       }),
-        latex2d(`${val ** 2}`, carreValGraphique, -0.6, {
+      latex2d(`${val ** 2}`, carreValGraphique, -0.6, {
         letterSize: 'scriptsize',
       }),
     ]
@@ -117,30 +162,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
     Cg.epaisseur = 2
 
     // Graphique simple pour l'énoncé
-   
-    // Graphique complet pour la correction
-    const graphiqueC = mathalea2d(
-      {
-        xmin: -1,
-        xmax: 5,
-        ymin: -1,
-        ymax: 4,
-        pixelsParCm: 30,
-        scale: 1,
-      },
-      courbe(f, {
-        repere: r1,
-        color: 'blue',
-        epaisseur: 2,
-      }),
-      Cg,
-      r1,
-      o,
-      sAAx,
-      ...segmentsSolution,
-      ...textes,
-    )
- const graphique = mathalea2d(
+    const graphique = mathalea2d(
       {
         xmin: -2,
         xmax: 6,
@@ -151,11 +173,26 @@ export default class Auto1AC10f extends ExerciceQcmA {
       },
       r1,
       o,
-      courbe(f, {
-        repere: r1,
-        color: 'blue',
-        epaisseur: 2,
-      }),
+      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 })
+    )
+
+    // Graphique complet pour la correction
+    const graphiqueC = mathalea2d(
+      {
+        xmin: -1,
+        xmax: 5,
+        ymin: -1,
+        ymax: 4,
+        pixelsParCm: 30,
+        scale: 1,
+      },
+      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }),
+      Cg,
+      r1,
+      o,
+      sAAx,
+      ...segmentsSolution,
+      ...textes
     )
 
     return { graphique, graphiqueC }
@@ -165,53 +202,51 @@ export default class Auto1AC10f extends ExerciceQcmA {
   private formaterReponses(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup',
+    typeInequation: 'inf' | 'sup'
   ) {
     const borne = val ** 2
-    const borneIncorrecte1 = val // Erreur classique : confondre √x avec x
-    const borneIncorrecte2 = Math.floor(borne / 2) // Erreur : prendre la moitié du carré
- 
+    const borneIncorrecte1 = val
+    const borneIncorrecte2 = Math.floor(borne / 2)
+
     if (typeInequation === 'inf') {
-      // Pour √x < a ou √x ≤ a : intervalle [0, a²[ ou [0, a²]
-      const crochets = estInegStrict 
-        ? `[0\\,;\\,${borne}[` 
+      const crochets = estInegStrict
+        ? `[0\\,;\\,${borne}[`
         : `[0\\,;\\,${borne}]`
-      const incorrecte1 = estInegStrict 
-        ? `[0\\,;\\,${borneIncorrecte1}[` 
+      const incorrecte1 = estInegStrict
+        ? `[0\\,;\\,${borneIncorrecte1}[`
         : `[0\\,;\\,${borneIncorrecte1}]`
-      const incorrecte2 = estInegStrict 
-        ? `[0\\,;\\,${texNombre(val/2)}[` 
-        : `[0\\,;\\,${texNombre(val/2)}]`
-      const incorrecte3 = estInegStrict 
-        ? `[0\\,;\\,\\sqrt{${val}}[` 
+      const incorrecte2 = estInegStrict
+        ? `[0\\,;\\,${texNombre(val / 2)}[`
+        : `[0\\,;\\,${texNombre(val / 2)}]`
+      const incorrecte3 = estInegStrict
+        ? `[0\\,;\\,\\sqrt{${val}}[`
         : `[0\\,;\\,\\sqrt{${val}}]`
 
       return [
         `$S = ${crochets}$`,
-        `$S = ${incorrecte1}$`, // Confusion entre a et a²
-        `$S = ${incorrecte2}$`, // Oubli du 0 inclus
-        `$S = ${incorrecte3}$`, // Mauvais calcul de a²
+        `$S = ${incorrecte1}$`,
+        `$S = ${incorrecte2}$`,
+        `$S = ${incorrecte3}$`,
       ]
     } else {
-      // Pour √x > a ou √x ≥ a : intervalle ]a², +∞[ ou [a², +∞[
-      const intervalleCorrect = estInegStrict 
+      const intervalleCorrect = estInegStrict
         ? `]${borne}\\,;\\,+\\infty[`
         : `[${borne}\\,;\\,+\\infty[`
-      const incorrecte1 = estInegStrict 
-         ? `]${texNombre(val/2)}\\,;\\,+\\infty[`
-        : `[${texNombre(val/2)}\\,;\\,+\\infty[`
-      const incorrecte2 = estInegStrict 
+      const incorrecte1 = estInegStrict
+        ? `]${texNombre(val / 2)}\\,;\\,+\\infty[`
+        : `[${texNombre(val / 2)}\\,;\\,+\\infty[`
+      const incorrecte2 = estInegStrict
         ? `]${val}\\,;\\,+\\infty[`
         : `[${val}\\,;\\,+\\infty[`
-      const incorrecte3 = estInegStrict 
+      const incorrecte3 = estInegStrict
         ? `]\\sqrt{${val}}\\,;\\,+\\infty[`
         : `[\\sqrt{${val}}\\,;\\,+\\infty[`
 
       return [
         `$S = ${intervalleCorrect}$`,
-        `$S = ${incorrecte1}$`, // Confusion entre a et a²
-        `$S = ${incorrecte2}$`, // +∞ avec crochet fermé
-        `$S = ${incorrecte3}$`, // Mauvais calcul de a²
+        `$S = ${incorrecte1}$`,
+        `$S = ${incorrecte2}$`,
+        `$S = ${incorrecte3}$`,
       ]
     }
   }
@@ -222,17 +257,13 @@ export default class Auto1AC10f extends ExerciceQcmA {
     estInegStrict: boolean,
     typeInequation: 'inf' | 'sup',
     graphiqueC: any,
-    reponseCorrecte: string,
+    reponseCorrecte: string
   ) {
     const borne = val ** 2
     const positionText =
       typeInequation === 'inf'
-        ? estInegStrict
-          ? 'strictement en dessous de'
-          : 'sur ou sous'
-        : estInegStrict
-          ? 'strictement au dessus de'
-          : 'sur ou au dessus de'
+        ? estInegStrict ? 'strictement en dessous de' : 'sur ou sous'
+        : estInegStrict ? 'strictement au dessus de' : 'sur ou au dessus de'
 
     return `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$. <br>
@@ -244,75 +275,24 @@ export default class Auto1AC10f extends ExerciceQcmA {
 
   versionOriginale: () => void = () => {
     // Version originale : √x ≤ 3
-    const val = 3
-    const estInegStrict = false
-    const typeInequation: 'inf' = 'inf'
-    const signeInégalité = ' \\leqslant '
-
-    const elements = this.creerElementsGraphiques(
-      val,
-      estInegStrict,
-      typeInequation,
+    this.appliquerLesValeurs(
+      3,      // val
+      false,  // estInegStrict
+      'inf'   // typeInequation
     )
-    const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
-    const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
-
-    this.enonce = `${deuxColonnes(
-      `On a représenté la courbe d'équation $y=\\sqrt{x}$. <br><br>
-        On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>
-       `,
-      `${graphique}`,
-    )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
-    this.correction = this.genererCorrection(
-      val,
-      estInegStrict,
-      typeInequation,
-      graphiqueC,
-      reponses[0],
-    )
-    this.reponses = reponses
   }
 
-  versionAleatoire = () => {
+  versionAleatoire: () => void = () => {
     const typeInequation = choice(['inf', 'sup'] as const)
     const estInegStrict = choice([true, false])
     const val = randint(1, 12)
 
-    const signeInégalité =
-      typeInequation === 'inf'
-        ? estInegStrict
-          ? '<'
-          : ' \\leqslant '
-        : estInegStrict
-          ? '>'
-          : ' \\geqslant '
-
-    const elements = this.creerElementsGraphiques(
-      val,
-      estInegStrict,
-      typeInequation,
-    )
-    const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
-    const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
-
-    this.enonce = `${deuxColonnes(
-      `On a représenté la courbe d'équation $y=\\sqrt{x}$. <br><br>
-        On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>`,
-      `${graphique}`,
-    )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
-    this.correction = this.genererCorrection(
-      val,
-      estInegStrict,
-      typeInequation,
-      graphiqueC,
-      reponses[0],
-    )
-    this.reponses = reponses
+    this.appliquerLesValeurs(val, estInegStrict, typeInequation)
   }
 
   constructor() {
     super()
-    //this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
+    this.besoinFormulaire5CaseACocher = ['Sans la courbe']
   }
 }

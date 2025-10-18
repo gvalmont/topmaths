@@ -240,8 +240,16 @@ export default class RecomposerEntierC3 extends Exercice {
         if (!sansZero && str.indexOf('0') === -1) {
           str = remplaceParZero(str, randint(2, Math.min(2, str.length - 1)))
         }
+        if (!sansZero && str.endsWith('0')) {
+          // On récupère tous les chiffres déjà utilisés
+          const used = Array.from(str).map((ch) => Number(ch))
+          // On remplace le dernier chiffre (le 0)
+          str = str.slice(0, -1) + randint(1, 9, used).toString()
+        }
+
         return str
       }
+
       switch (listeTypeDeQuestions[i]) {
         case 1: // décomposition chiffre par chiffre dans l'ordre sans zéro
           nombreStr = trouveEntierAlea(true)

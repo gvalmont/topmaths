@@ -6,7 +6,7 @@ import { nombreElementsDifferents } from '../../ExerciceQcm'
 export const uuid = '2f4e0'
 export const refs = {
   'fr-fr': ['3C1QCM-04'],
-  'fr-ch': [],
+  'fr-ch': ['10QCM-10'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'

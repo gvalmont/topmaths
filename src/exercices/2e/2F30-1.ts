@@ -29,7 +29,7 @@ export const uuid = '05b52'
 
 export const refs = {
   'fr-fr': ['2F30-1'],
-  'fr-ch': [],
+  'fr-ch': ['2mFctPoly-4'],
 }
 export default class VariationsCourbe extends Exercice {
   constructor() {

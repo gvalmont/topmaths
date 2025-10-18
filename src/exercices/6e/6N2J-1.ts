@@ -1,16 +1,16 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Operation from '../../modules/operations'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
 } from '../../lib/interactif/gestionInteractif'
-import { sp } from '../../lib/outils/outilString'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import Operation from '../../modules/operations'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const amcReady = true
@@ -189,16 +189,24 @@ export default class DivisionsEuclidiennesEgaliteFondamentale extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: [
-              `${a}=${b}\\times ${q}+${r}`,
-              `${a}=${q}\\times ${b}+${r}`,
-              `${b}\\times ${q}+${r}=${a}`,
-              `${q}\\times ${b}+${r}=${a}`,
-              `${a}=(${b}\\times ${q})+${r}`,
-              `${a}=(${q}\\times ${b})+${r}`,
-              `(${b}\\times ${q})+${r}=${a}`,
-              `(${q}\\times ${b})+${r}=${a}`,
+              `${a}=${b}\\times${q}+${r}`,
+              `${a}=${q}\\times${b}+${r}`,
+              `${a}=${r}+${b}\\times${q}`,
+              `${a}=${r}+${q}\\times${b}`,
+              `${b}\\times${q}+${r}=${a}`,
+              `${q}\\times${b}+${r}=${a}`,
+              `${r}+${b}\\times${q}=${a}`,
+              `${r}+${q}\\times${b}=${a}`,
+              `${a}=(${b}\\times${q})+${r}`,
+              `${a}=(${q}\\times${b})+${r}`,
+              `${a}=${r}+(${b}\\times${q})`,
+              `${a}=${r}+(${q}\\times${b})`,
+              `(${b}\\times${q})+${r}=${a}`,
+              `(${q}\\times${b})+${r}=${a}`,
+              `(${r}+${b}\\times${q})=${a}`,
+              `(${r}+${q}\\times${b})=${a}`,
             ],
-            options: { operationSeulementEtNonResultat: true },
+            options: { texteSansCasse: true },
           },
         })
       }

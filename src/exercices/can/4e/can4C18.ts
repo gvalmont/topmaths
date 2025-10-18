@@ -26,7 +26,7 @@ export default class DecomposerFraction extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-          this.optionsChampTexte = { texteAvant: '<br>' }
+ this.optionsDeComparaison = { expressionNumerique: true }  
   }
 
   nouvelleVersion() {
@@ -71,7 +71,7 @@ export default class DecomposerFraction extends ExerciceSimple {
     const n = fraction1[0]
     const d = fraction1[1]
     const frac = new FractionEtendue(n - Math.trunc(n / d) * d, d)
-    this.reponse = `${Math.trunc(n / d)}+${frac.texFSD}`
+    this.reponse = `${Math.trunc(n / d)}+${frac.texFractionSimplifiee}`
     this.question = `Écrire $\\dfrac{${n}}{${d}}$ sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1.`
     if (this.interactif) {
       this.question += `<br> $\\dfrac{${n}}{${d}}=$`

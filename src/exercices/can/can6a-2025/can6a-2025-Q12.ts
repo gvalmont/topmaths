@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = '2e480'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 /**

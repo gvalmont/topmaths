@@ -14,7 +14,7 @@ export const uuid = '0ec77'
 
 export const refs = {
   'fr-fr': ['2G30-4'],
-  'fr-ch': [],
+  'fr-ch': ['2mGeomVect-8'],
 }
 class EqCartpointVecteur extends EqCartDroite {
   constructor() {

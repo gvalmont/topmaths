@@ -1,24 +1,24 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { ceil } from 'mathjs'
-import { texNombre } from '../../lib/outils/texNombre'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import {
-  listeDesDiviseurs,
-  premiersEntreBornes,
-} from '../../lib/outils/primalite'
-import { abs } from '../../lib/outils/nombres'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
+import { abs } from '../../lib/outils/nombres'
+import {
+  listeDesDiviseurs,
+  premiersEntreBornes,
+} from '../../lib/outils/primalite'
+import { texNombre } from '../../lib/outils/texNombre'
 export const titre = "Problèmes avec les systèmes d'équations du premier degré"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -151,8 +151,8 @@ export default class systemeEquationsPremDeg extends Exercice {
           n = randint(10, 2000, premiersEntreBornes(10, 2000))
           divN = listeDesDiviseurs(n)
         } while (divN.length < 7)
-        va = randint(2, ceil(divN.length / 2))
-        vb = randint(2, ceil(divN.length / 2), [va])
+        va = randint(2, Math.ceil(divN.length / 2))
+        vb = randint(2, Math.ceil(divN.length / 2), [va])
         na = divN[va]
         a = divN[divN.length - 1 - va]
         nb = divN[vb]

@@ -8,7 +8,7 @@ export const titre =
 export const uuid = '22810'
 export const refs = {
   'fr-fr': ['4G41'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CalculDAngle4e extends CalculDAngle {
   constructor() {

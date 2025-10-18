@@ -3,6 +3,7 @@ import { droite } from '../../../lib/2d/droites'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -11,21 +12,20 @@ import {
   reduirePolynomeDegre3,
   rienSi1,
 } from '../../../lib/outils/ecritures'
-import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import {
   fixeBordures,
   mathalea2d,
   type NestedObjetMathalea2dArray,
 } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { arrondi } from '../../../lib/outils/nombres'
 
 export const titre = 'CAN seconde sujet 2022'
 export const interactifReady = true
@@ -47,7 +47,7 @@ export const uuid = '2a4b1'
 
 export const refs = {
   'fr-fr': ['can2a-2022'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SujetCAN2022Seconde extends Exercice {
   constructor() {
@@ -64,8 +64,8 @@ export default class SujetCAN2022Seconde extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = min(round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 4, 5, 6, 7, 8, 9, 10, 15,
     ])

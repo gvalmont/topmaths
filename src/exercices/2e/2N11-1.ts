@@ -30,7 +30,7 @@ export const uuid = '31c01'
 
 export const refs = {
   'fr-fr': ['2N11-1'],
-  'fr-ch': [],
+  'fr-ch': ['2mIneq-8', '1mEI-6'],
 }
 export default class IntervallesDeR extends Exercice {
   constructor() {

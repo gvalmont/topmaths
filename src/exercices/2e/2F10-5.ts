@@ -32,7 +32,7 @@ export const uuid = '03b71'
 
 export const refs = {
   'fr-fr': ['2F10-5'],
-  'fr-ch': [],
+  'fr-ch': ['11FA8-28'],
 }
 export default class Signefonctionaffine extends Exercice {
   constructor() {

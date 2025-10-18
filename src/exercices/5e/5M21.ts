@@ -128,6 +128,12 @@ export default class DefinitionUnitesVolumes extends Exercice {
         { label: '1 dm³', value: 'dm3' },
         { label: '1 m³', value: 'm3' },
       ],
+      [
+        { label: '1 mm²', value: 'mm2' },
+        { label: '1 cm²', value: 'cm2' },
+        { label: '1 dm²', value: 'dm2' },
+        { label: '1 m²', value: 'm2' },
+      ],
     ]
     let indiceInteractif = 0
     this.tabIndiceInteractif = [0]
@@ -175,11 +181,11 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteCorr = `$1$ ${unite}$^3$ est le volume d'un ${texteEnCouleurEtGras('cube')} de $1$ ${unite} de côté.`
               break
             case 4:
-              texteFixe.push('$1$ ')
+              texteFixe.push(' ')
               texteFixe.push(
                 ` est le volume d'un cube de $1$ ${unite} de côté.`,
               )
-              this.listeReponses[i] = [unite + '2']
+              this.listeReponses[i] = [unite + '3']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[3]),
@@ -246,10 +252,10 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteCorr = `$1$ ${unite}$^3$ est le volume d'un ${texteEnCouleurEtGras('cube')} de ${texteEnCouleurEtGras('1 ' + unite)} de côté.`
               break
             case 4:
-              texteFixe.push('$1$ ')
+              texteFixe.push(' ')
               texteFixe.push(' est ')
               texteFixe.push(` d'un cube de $1$ ${unite} de côté.`)
-              this.listeReponses[i] = [unite + '2', 'volume']
+              this.listeReponses[i] = [unite + '3', 'volume']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[3]),
@@ -261,13 +267,13 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteCorr = `1 ${texteEnCouleurEtGras(unite)}$${miseEnEvidence('^3')}$ est ${texteEnCouleurEtGras('le volume')} d'un cube de $1$ ${unite} de côté.`
               break
             case 5:
-              texteFixe.push('$1$ ')
-              texteFixe.push(" est l'aire d'un ")
+              texteFixe.push(' ')
+              texteFixe.push(" est le volume d'un ")
               texteFixe.push(` de $1$ ${unite} de côté.`)
-              this.listeReponses[i] = [unite + '2', 'cube']
+              this.listeReponses[i] = [unite + '3', 'cube']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[3]),
+                ...shuffle(choixListeDeroulante[4]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
@@ -318,12 +324,12 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteCorr = `1 ${unite}$^3$ est ${texteEnCouleurEtGras('le volume')} d'un ${texteEnCouleurEtGras('cube')} de ${texteEnCouleurEtGras('1 ' + unite)} de côté.`
               break
             case 2:
-              texteFixe.push('$1$ ')
+              texteFixe.push(' ')
               texteFixe.push(' est ')
               texteFixe.push(" d'un ")
               texteFixe.push(` de $1$ ${unite} de côté.`)
               texteFixe.push('')
-              this.listeReponses[i] = [unite + '2', 'volume', 'cube']
+              this.listeReponses[i] = [unite + '3', 'volume', 'cube']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[3]),

@@ -19,7 +19,27 @@ import {
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { projectionOrtho } from '../../lib/2d/transformations'
+import {
+  Arete3d,
+  arete3d,
+  demicercle3d,
+  Point3d,
+  point3d,
+  Vecteur3d,
+  vecteur3d,
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
+import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import {
+  CodageAngleDroit3D,
+  rotationV3d,
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
@@ -32,32 +52,15 @@ import {
   sp,
 } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import Grandeur from '../../modules/Grandeur'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import {
-  CodageAngleDroit3D,
-  rotationV3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
-import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import {
-  Arete3d,
-  arete3d,
-  demicercle3d,
-  Point3d,
-  point3d,
-  Vecteur3d,
-  vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Grandeur from '../../modules/Grandeur'
-import { max, min } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre =
   "Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie"
@@ -66,6 +69,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '05/03/2022'
+export const dateDeModifImportante = '10/10/2025'
 
 /**
  * Calculer la largeur d\'une rivière @author Jean-Claude Lhote
@@ -76,6 +80,7 @@ export const dateDePublication = '05/03/2022'
  * Triangle rectangle inscrit dans un triangle rectangle @author Rémi Angot
  * Fusion des exercices @author Guillaume Valmont
  * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Eric Elter
+ * Meilleure interactivite + colorisation des exercices par @author Eric Elter
  */
 export const uuid = '2045e'
 
@@ -93,8 +98,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
     this.sup = true
     this.besoinFormulaire2Texte = [
       'Type de questions',
-      `Cet exercice regroupe les exercices 3G32 et 3G32-X (X : 1 à 5)
-    Nombres séparés par des tirets :
+      `Nombres séparés par des tirets :
     1 : Calculer la largeur d'une rivière
     2 : Calcul d'un parallèle terrestre
     3 : Calculer la hauteur d'un objet vu sous un angle donné
@@ -103,6 +107,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
     6 : Calculer une longueur dans des triangles rectangles imbriqués
     7 : Mélange`,
     ]
+    this.comment = `Cet exercice regroupe les exercices 3G32-X (X : 1 à 5).`
     this.sup2 = 7
     this.nbQuestions = 2
     this.spacingCorr = 3
@@ -316,10 +321,10 @@ export default class ProblemesTrigoLongueur extends Exercice {
             '<br>' +
             mathalea2d(
               {
-                xmin: min(-sensH, absC + sensH * (absS + 1)),
-                ymin: min(-sensV, ordA + sensV),
-                xmax: max(-sensH, absC + sensH * (absS + 1)),
-                ymax: max(-sensV, ordA + sensV),
+                xmin: Math.min(-sensH, absC + sensH * (absS + 1)),
+                ymin: Math.min(-sensV, ordA + sensV),
+                xmax: Math.max(-sensH, absC + sensH * (absS + 1)),
+                ymax: Math.max(-sensV, ordA + sensV),
                 pixelsParCm: 20,
                 scale: 0.5,
               },
@@ -333,22 +338,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
               texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
                 texteAvant: `$${sp(20)}${lB}${lC}=$`,
               })
-              setReponse(
-                this,
-                i + ii,
-                [
-                  // Attention, l'emplacement des espaces est primordial
-                  `${AB}\\times tan(${alfaInteractif})`,
-                  `${BA}\\times tan(${alfaInteractif})`,
-                  `${AB}tan(${alfaInteractif})`,
-                  `${BA}tan(${alfaInteractif})`,
-                  `tan(${alfaInteractif})\\times ${AB}`,
-                  `tan(${alfaInteractif})\\times ${BA}`,
-                  `tan(${alfaInteractif})${AB}`,
-                  `tan(${alfaInteractif})${BA}`,
-                ],
-                { formatInteractif: 'texte' },
-              )
+              handleAnswers(this, i + ii, {
+                reponse: {
+                  value: `${AB}\\times\\tan(${alfaInteractif})`,
+                  options: { calculFormel: true },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -372,21 +367,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
               texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
                 texteAvant: `$${sp(20)}${lB}${lS}=$`,
               })
-              setReponse(
-                this,
-                i + ii,
-                [
-                  `${AB}\\times tan(${baitaInteractif})`,
-                  `${BA}\\times tan(${baitaInteractif})`,
-                  `${AB}tan(${baitaInteractif})`,
-                  `${BA}tan(${baitaInteractif})`,
-                  `tan(${baitaInteractif})\\times ${AB}`,
-                  `tan(${baitaInteractif})\\times ${BA}`,
-                  `tan(${baitaInteractif})${AB}`,
-                  `tan(${baitaInteractif})${BA}`,
-                ],
-                { formatInteractif: 'texte' },
-              )
+              handleAnswers(this, i + ii, {
+                reponse: {
+                  value: `${AB}\\times\\tan(${baitaInteractif})`,
+                  options: { calculFormel: true },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -410,38 +396,15 @@ export default class ProblemesTrigoLongueur extends Exercice {
             texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
               texteAvant: `$${sp(20)}${lC}${lS}=$`,
             })
-            setReponse(
-              this,
-              i + ii,
-              [
-                // La liste n'est pas exhaustive et ne remplace, hélas, pas du calcul formel.
-                `${AB}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
-                `${BA}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
-                `${AB}(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
-                `${BA}(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
-                `(tan(${baitaInteractif})-tan(${alfaInteractif}))\\times ${AB}`,
-                `(tan(${baitaInteractif})-tan(${alfaInteractif}))\\times ${BA}`,
-                `(tan(${baitaInteractif})-tan(${alfaInteractif}))${AB}`,
-                `(tan(${baitaInteractif})-tan(${alfaInteractif}))${BA}`,
-                `${AB}\\times tan(${baitaInteractif})-${AB}\\times tan(${alfaInteractif})`,
-                `${BA}\\times tan(${baitaInteractif})-${BA}\\times tan(${alfaInteractif})`,
-                `${AB}tan(${baitaInteractif})-${AB}tan(${alfaInteractif})`,
-                `${BA}tan(${baitaInteractif})-${BA}tan(${alfaInteractif})`,
-                `tan(${baitaInteractif})\\times ${AB}-tan(${alfaInteractif})\\times ${AB}`,
-                `tan(${baitaInteractif})\\times ${BA}-tan(${alfaInteractif})\\times ${BA}`,
-                `tan(${baitaInteractif})${AB}-tan(${alfaInteractif})${AB}`,
-                `tan(${baitaInteractif})${BA}-tan(${alfaInteractif})${BA}`,
-                `${AB}\\times tan(${baitaInteractif})-${BA}\\times tan(${alfaInteractif})`,
-                `${BA}\\times tan(${baitaInteractif})-${AB}\\times tan(${alfaInteractif})`,
-                `${AB}tan(${baitaInteractif})-${BA}tan(${alfaInteractif})`,
-                `${BA}tan(${baitaInteractif})-${AB}tan(${alfaInteractif})`,
-                `tan(${baitaInteractif})\\times ${AB}-tan(${alfaInteractif})\\times ${BA}`,
-                `tan(${baitaInteractif})\\times ${BA}-tan(${alfaInteractif})\\times ${AB}`,
-                `tan(${baitaInteractif})${AB}-tan(${alfaInteractif})${BA}`,
-                `tan(${baitaInteractif})${BA}-tan(${alfaInteractif})${AB}`,
-              ],
-              { formatInteractif: 'texte' },
-            )
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: [
+                  `${AB}\\times(\\tan(${baitaInteractif})-\\tan(${alfaInteractif}))`,
+                  `${AB}\\times\\tan(${baitaInteractif})-${AB}\\times\\tan(${alfaInteractif})`,
+                ],
+                options: { calculFormel: true },
+              },
+            })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -467,7 +430,10 @@ export default class ProblemesTrigoLongueur extends Exercice {
               this,
               i + ii,
               '  unites[longueurs]',
-              { texteAvant: `$${sp(25)}$` },
+              {
+                texteAvant: `$${sp(25)}$`,
+                texteApres: sp(4) + "(Préciser l'unité)",
+              },
             )
             setReponse(this, i + ii, new Grandeur(taille, 'm'), {
               formatInteractif: 'unites',
@@ -498,28 +464,30 @@ export default class ProblemesTrigoLongueur extends Exercice {
           j = 0
           texteCorr = mathalea2d(
             {
-              xmin: min(-sensH, absC + sensH * (absS + 1)),
-              ymin: min(-sensV, ordA + sensV),
-              xmax: max(-sensH, absC + sensH * (absS + 1)),
-              ymax: max(-sensV, ordA + sensV),
+              xmin: Math.min(-sensH, absC + sensH * (absS + 1)),
+              ymin: Math.min(-sensV, ordA + sensV),
+              xmax: Math.max(-sensH, absC + sensH * (absS + 1)),
+              ymax: Math.max(-sensV, ordA + sensV),
               pixelsParCm: 20,
               scale: 0.5,
             },
             objets,
           )
-          texteCorr += `${numAlpha(j)}Dans le triangle $${lA}${lB}${lC}$ rectangle en $${lB}$ on a : $\\tan(${alfa})=\\dfrac{${lB}${lC}}{${AB}}$ d'où $${lB}${lC}=${AB}\\times \\tan(${alfa})$.<br>`
+          texteCorr += `${numAlpha(j)}Dans le triangle $${lA}${lB}${lC}$ rectangle en $${lB}$ on a : $\\tan(${alfa})=\\dfrac{${lB}${lC}}{${AB}}$ 
+          d'où $${lB}${lC}=${miseEnEvidence(`${AB}\\times \\tan(${alfa})`)}$.<br>`
           j++
           if (this.sup) {
             texteCorr += `${numAlpha(j)}`
             j++
           }
-          texteCorr += `Dans le triangle $${lA}${lB}${lS}$ rectangle en $${lB}$ on a : $\\tan(${baita})=\\dfrac{${lB}${lS}}{${AB}}$ d'où $${lB}${lS}=${AB}\\times \\tan(${baita})$.<br>`
+          texteCorr += `Dans le triangle $${lA}${lB}${lS}$ rectangle en $${lB}$ on a : $\\tan(${baita})=\\dfrac{${lB}${lS}}{${AB}}$ 
+          d'où $${lB}${lS}=${miseEnEvidence(`${AB}\\times \\tan(${baita})`)}$.<br>`
           if (this.sup) {
             texteCorr += `${numAlpha(j)}`
             j++
           }
           texteCorr += `Comme $${lB}${lS}=${AB}\\times \\tan(${baita})$ et $${lB}${lC}=${AB}\\times \\tan(${alfa})$, alors $${lC}${lS}=${AB}\\times(\\tan(${baita})-\\tan(${alfa}))$.<br>`
-          texteCorr += `${numAlpha(j)}Donc $${lC}${lS}=${distance}${sp()} m\\times(\\tan(${beta}^\\circ)-\\tan(${alpha}^\\circ))\\approx ${taille}${sp()}\\text{m}$.<br>`
+          texteCorr += `${numAlpha(j)}Donc $${lC}${lS}=${distance}${sp()} m\\times(\\tan(${beta}^\\circ)-\\tan(${alpha}^\\circ))\\approx ${miseEnEvidence(`${taille}${sp()}\\text{m}`)}$.<br>`
 
           break
         case 2:
@@ -601,7 +569,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             objets,
           )
           texte += `Quelle est la longueur du $${alpha}$e parallèle Nord au kilomètre près ?`
-          texte += `<br>On prendra $${texNombre(6400)}$${sp()}km comme rayon de la Terre.<br>`
+          texte += `<br>On prendra $${texNombre(6400)}${sp()}\\text{km}$ comme rayon de la Terre.<br>`
           enonceAMC = texte
           texteCorr = mathalea2d(
             {
@@ -619,17 +587,18 @@ export default class ProblemesTrigoLongueur extends Exercice {
             'Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>'
           texteCorr +=
             "Dans le triangle $OPH$ rectangle en $H$, $\\cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d'où $HP=OP\\times \\cos(\\widehat{OPH})$.<br>"
-          texteCorr += `Le rayon de la Terre étant approximativement de $${texNombre(6400)}$${sp()}km, nous pouvons calculer $HP$.<br>`
-          texteCorr += `$HP\\approx${texNombre(6400)}${sp()}km\\times \\cos(${alpha}^\\circ)\\approx ${texNombre(arrondi(6400 * Math.cos((alpha * Math.PI) / 180)))}${sp()}km$<br>`
+          texteCorr += `Le rayon de la Terre étant approximativement de $${texNombre(6400)}${sp()}\\text{km}$, nous pouvons calculer $HP$.<br>`
+          texteCorr += `$HP\\approx${texNombre(6400)}${sp()}\\text{km}\\times \\cos(${alpha}^\\circ)\\approx ${texNombre(arrondi(6400 * Math.cos((alpha * Math.PI) / 180)))}${sp()}\\text{km}$<br>`
           reponse = Math.round(
             2 * Math.PI * 6400 * Math.cos((alpha * Math.PI) / 180),
           )
-          texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombre(arrondi(6400 * Math.cos((alpha * Math.PI) / 180)))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
+          texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombre(arrondi(6400 * Math.cos((alpha * Math.PI) / 180)))}${sp()}\\text{km}\\approx ${miseEnEvidence(`${texNombre(reponse)}${sp()}\\text{km}`)}$.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
               i + ii,
               '  unites[longueurs]',
+              { texteApres: sp(4) + "(Préciser l'unité)" },
             )
             setReponse(this, i + ii, new Grandeur(reponse, 'km'), {
               formatInteractif: 'unites',
@@ -654,7 +623,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte: `Longueur calculée, exprimée en km et arrondie à l'unité, du $${alpha}$e parallèle Nord : `,
+                    texte: `Longueur calculée, exprimée en $\\text{km}$ et arrondie à l'unité, du $${alpha}$e parallèle Nord : `,
                     valeur: [reponse],
                     alignement: 'center',
                     param: {
@@ -725,9 +694,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
               "(Le schéma ci-dessous n'est pas en vraie grandeur et ne respecte pas les proportions.)<br>"
             texte += mathalea2d(
               {
-                xmin: min(-sensH, ordA + sensH),
+                xmin: Math.min(-sensH, ordA + sensH),
                 ymin: -1,
-                xmax: max(-sensH, ordA + sensH),
+                xmax: Math.max(-sensH, ordA + sensH),
                 ymax: absS + 1,
                 pixelsParCm: 20,
                 scale: 0.5,
@@ -820,6 +789,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                 this,
                 i + ii,
                 '  unites[longueurs]',
+                { texteApres: sp(4) + "(Préciser l'unité)" },
               )
               setReponse(
                 this,
@@ -875,6 +845,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               this,
               i + ii,
               '  unites[longueurs]',
+              { texteApres: sp(4) + "(Préciser l'unité)" },
             )
             setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), {
               formatInteractif: 'unites',
@@ -921,9 +892,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
           j = 0
           texteCorr = mathalea2d(
             {
-              xmin: min(-sensH, ordA + sensH),
+              xmin: Math.min(-sensH, ordA + sensH),
               ymin: -1,
-              xmax: max(-sensH, ordA + sensH),
+              xmax: Math.max(-sensH, ordA + sensH),
               ymax: absS + 1,
               pixelsParCm: 20,
               scale: 0.5,
@@ -931,18 +902,19 @@ export default class ProblemesTrigoLongueur extends Exercice {
             objets,
           )
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `Dans le triangle $${lC}${lR}${lB}$ rectangle en $${lR}$, $\\tan(${baita})=\\dfrac{${lR}${lB}}{${lC}${lR}}$.<br>D'où $${baita}=\\arctan(\\dfrac{${texNombre(hauteur)}}{${texNombre(distance)}})\\approx ${texNombre(beta, 2)}^\\circ$.<br>`
+          texteCorr += `Dans le triangle $${lC}${lR}${lB}$ rectangle en $${lR}$, $\\tan(${baita})=\\dfrac{${lR}${lB}}{${lC}${lR}}$.<br>
+          D'où $${baita}=\\arctan(\\dfrac{${texNombre(hauteur)}}{${texNombre(distance)}})\\approx ${miseEnEvidence(`${texNombre(beta, 2)}`)}^\\circ$.<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `$\\widehat{${lR}${lC}${lS}}=${alfa}-${baita}\\approx ${texNombre(alpha - beta, 2)}^\\circ$<br>`
+          texteCorr += `$\\widehat{${lR}${lC}${lS}}=${alfa}-${baita}\\approx ${miseEnEvidence(`${texNombre(alpha - beta, 2)}`)}^\\circ$<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `Dans le triangle $${lR}${lC}${lS}$ rectangle en $${lC}$, $\\tan(\\widehat{${lR}${lC}${lS}})=\\dfrac{${lR}${lS}}{${lC}${lR}}$.<br>`
-          texteCorr += `D'où $${lR}${lS}=${lC}${lR}\\times \\tan(\\widehat{${lR}${lC}${lS}})\\approx ${distance}${sp()}\\text{m}\\times \\tan(${texNombre(alpha - beta, 2)}^\\circ)\\approx ${texNombre(taille - hauteur)}${sp()}\\text{m}$<br>`
+          texteCorr += `D'où $${lR}${lS}=${lC}${lR}\\times \\tan(\\widehat{${lR}${lC}${lS}})\\approx ${distance}${sp()}\\text{m}\\times \\tan(${texNombre(alpha - beta, 2)}^\\circ)\\approx ${miseEnEvidence(`${texNombre(taille - hauteur)}${sp()}\\text{m}`)}$<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `$${lB}${lS}=${lB}${lR}+${lR}${lS}\\approx${texNombre(hauteur)}${sp()}\\text{m}+${texNombre(taille - hauteur)}${sp()}\\text{m}=${texNombre(taille)}${sp()}\\text{m}\\approx${texNombre(Math.round(taille))}${sp()}\\text{m}$<br>`
-          texteCorr += `Cet${objet[index][2]} ${objet[index][0]} mesure environ $${texNombre(Math.round(taille))}$ m de hauteur.`
+          texteCorr += `Cet${objet[index][2]} ${objet[index][0]} mesure environ $${miseEnEvidence(`${texNombre(Math.round(taille))}${sp()}\\text{m}`)}$ de hauteur.`
           break
         case 4:
           objets = []
@@ -1003,9 +975,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
               "(Le schéma ci-dessous n'est pas en vraie grandeur et ne respecte pas les proportions.)<br>"
             enonceAMC += mathalea2d(
               {
-                xmin: min(-sensH, absC + sensH),
+                xmin: Math.min(-sensH, absC + sensH),
                 ymin: -1,
-                xmax: max(-sensH, absC + sensH),
+                xmax: Math.max(-sensH, absC + sensH),
                 ymax: ordA + 1,
                 pixelsParCm: 20,
                 scale: 0.5,
@@ -1022,22 +994,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
                 })
               AB = lS + lC
               BA = lC + lS
-              setReponse(
-                this,
-                i + ii,
-                [
-                  // Attention, l'emplacement des espaces est primordial
-                  `${AB}\\times tan(${baitaInteractif})`,
-                  `${BA}\\times tan(${baitaInteractif})`,
-                  `${AB}tan(${baitaInteractif})`,
-                  `${BA}tan(${baitaInteractif})`,
-                  `tan(${baitaInteractif})\\times ${AB}`,
-                  `tan(${baitaInteractif})\\times ${BA}`,
-                  `tan(${baitaInteractif})${AB}`,
-                  `tan(${baitaInteractif})${BA}`,
-                ],
-                { formatInteractif: 'texte' },
-              )
+              handleAnswers(this, i + ii, {
+                reponse: {
+                  value: `${AB}\\times(\\tan(${baitaInteractif})`,
+                  options: { calculFormel: true },
+                },
+              })
               ii++
               texte +=
                 '<br>' +
@@ -1046,22 +1008,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
                 })
               AB = lB + lC
               BA = lC + lB
-              setReponse(
-                this,
-                i + ii,
-                [
-                  // Attention, l'emplacement des espaces est primordial
-                  `${AB}\\times tan(${alfaInteractif})`,
-                  `${BA}\\times tan(${alfaInteractif})`,
-                  `${AB}tan(${alfaInteractif})`,
-                  `${BA}tan(${alfaInteractif})`,
-                  `tan(${alfaInteractif})\\times ${AB}`,
-                  `tan(${alfaInteractif})\\times ${BA}`,
-                  `tan(${alfaInteractif})${AB}`,
-                  `tan(${alfaInteractif})${BA}`,
-                ],
-                { formatInteractif: 'texte' },
-              )
+              handleAnswers(this, i + ii, {
+                reponse: {
+                  value: `${AB}\\times\\tan(${alfaInteractif})`,
+                  options: { calculFormel: true },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -1088,26 +1040,16 @@ export default class ProblemesTrigoLongueur extends Exercice {
                 })
               AB = lS + lB
               BA = lB + lS
-              setReponse(
-                this,
-                i + ii,
-                [
-                  // Aucune exhaustivité hélas
-                  `\\frac{${AB}\\times tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `\\frac{${BA}\\times tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `${AB}\\times \\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `${BA}\\times \\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `tan(${alfaInteractif})\\times \\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `tan(${alfaInteractif})\\times \\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `\\frac{${AB}tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `\\frac{${BA}tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `${AB}\\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `${BA}\\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `tan(${alfaInteractif})\\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `tan(${alfaInteractif})\\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                ],
-                { formatInteractif: 'texte' },
-              )
+              handleAnswers(this, i + ii, {
+                reponse: {
+                  value: [
+                    `\\frac{${AB}\\times\\tan(${alfaInteractif})}{\\tan(${baitaInteractif})-\\tan(${alfaInteractif})}`,
+                    `${AB}\\times\\frac{\\tan(${alfaInteractif})}{\\tan(${baitaInteractif})-\\tan(${alfaInteractif})}`,
+                    `\\tan(${alfaInteractif})\\times\\frac{${AB}}{\\tan(${baitaInteractif})-\\tan(${alfaInteractif})}`,
+                  ],
+                  options: { calculFormel: true },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -1132,26 +1074,16 @@ export default class ProblemesTrigoLongueur extends Exercice {
                 ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
                   texteAvant: `$${sp(20)}${lC}${lA}=$`,
                 })
-              setReponse(
-                this,
-                i + ii,
-                [
-                  // Aucune exhaustivité hélas
-                  `\\frac{${AB}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `\\frac{${BA}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `${AB}\\times \\frac{tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `${BA}\\times \\frac{tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `tan(${alfaInteractif})\\times tan(${baitaInteractif})\\times \\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `tan(${alfaInteractif})\\times tan(${baitaInteractif})\\times \\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `\\frac{${AB}tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `\\frac{${BA}tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `${AB}\\frac{tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `${BA}\\frac{tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `tan(${alfaInteractif})tan(${baitaInteractif})\\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                  `tan(${alfaInteractif})tan(${baitaInteractif})\\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-                ],
-                { formatInteractif: 'texte' },
-              )
+              handleAnswers(this, i + ii, {
+                reponse: {
+                  value: [
+                    `\\frac{${AB}\\times\\tan(${alfaInteractif})\\times\\tan(${baitaInteractif})}{\\tan(${baitaInteractif})-\\tan(${alfaInteractif})}`,
+                    `${AB}\\times\\frac{\\tan(${alfaInteractif})\\times\\tan(${baitaInteractif})}{\\tan(${baitaInteractif})-\\tan(${alfaInteractif})}`,
+                    `\\tan(${alfaInteractif})\\times\\tan(${baitaInteractif})\\times\\frac{${AB}}{\\tan(${baitaInteractif})-\\tan(${alfaInteractif})}`,
+                  ],
+                  options: { calculFormel: true },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -1178,6 +1110,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               this,
               i + ii,
               '  unites[longueurs]',
+              { texteApres: sp(4) + "(Préciser l'unité)" },
             )
             setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), {
               formatInteractif: 'unites',
@@ -1233,6 +1166,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               this,
               i + ii,
               '  unites[longueurs]',
+              { texteApres: sp(4) + "(Préciser l'unité)" },
             )
             context.isAmc
               ? setReponse(
@@ -1289,9 +1223,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
             "<br>Arrondir les résultats au mètre près. (On supposera le point d'observation au niveau de l'eau)"
           texteCorr = mathalea2d(
             {
-              xmin: min(-sensH, absC + sensH),
+              xmin: Math.min(-sensH, absC + sensH),
               ymin: -1,
-              xmax: max(-sensH, absC + sensH),
+              xmax: Math.max(-sensH, absC + sensH),
               ymax: ordA + 1,
               pixelsParCm: 20,
               scale: 0.5,
@@ -1301,32 +1235,32 @@ export default class ProblemesTrigoLongueur extends Exercice {
           j = 0
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `Dans le triangle $${lS}${lC}${lA}$ rectangle en $${lC}$, $\\tan(${baita})=\\dfrac{h}{${lS}${lC}}$.<br>D'où $h=${lS}${lC}\\times \\tan(${baita})$.<br>`
-          texteCorr += `Dans le triangle $${lB}${lC}${lA}$ rectangle en $${lC}$, $\\tan(${alfa})=\\dfrac{h}{${lB}${lC}}$.<br>D'où $h=${lB}${lC}\\times \\tan(${alfa})$.<br>`
+          texteCorr += `Dans le triangle $${lB}${lC}${lA}$ rectangle en $${lC}$, $\\tan(${alfa})=\\dfrac{h}{${lB}${lC}}$.<br>D'où $h=${miseEnEvidence(`${lB}${lC}\\times \\tan(${alfa})`)}$.<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `Or $${lB}${lC}=${lB}${lS}+${lS}${lC}$ donc $h=(${lB}${lS}+${lS}${lC})\\times \\tan(${alfa})$.<br>`
           texteCorr += `On en déduit que $${lS}${lC}\\times \\tan(${baita})=(${lB}${lS}+${lS}${lC})\\times \\tan(${alfa})$ soit $${lS}${lC}\\times \\tan(${baita})=${lB}${lS}\\times \\tan(${alfa})+${lS}${lC}\\times \\tan(${alfa})$.<br>`
           texteCorr += `D'où $${lB}${lS}\\times \\tan(${alfa})=${lS}${lC}\\times \\tan(${baita})-${lS}${lC}\\times \\tan(${alfa})=${lS}${lC}\\times(\\tan(${baita})-\\tan(${alfa}))$.<br>`
-          texteCorr += `Et $${lS}${lC}=\\dfrac{${lB}${lS}\\times \\tan(${alfa})}{\\tan(${baita})-\\tan(${alfa})}$.<br>`
+          texteCorr += `Et $${lS}${lC}=${miseEnEvidence(`\\dfrac{${lB}${lS}\\times \\tan(${alfa})}{\\tan(${baita})-\\tan(${alfa})}`)}$.<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `Ainsi $h=${lS}${lC}\\times \\tan(${baita})=\\dfrac{${lB}${lS}\\times \\tan(${alfa})\\times \\tan(${baita})}{\\tan(${baita})-\\tan(${alfa})}$.<br>`
-          texteCorr += this.sup ? '' : 'Application numérique : <br>'
+          texteCorr += `Ainsi $h=${lS}${lC}\\times \\tan(${baita})=${miseEnEvidence(`\\dfrac{${lB}${lS}\\times \\tan(${alfa})\\times \\tan(${baita})}{\\tan(${baita})-\\tan(${alfa})}`)}$.<br>`
+          // texteCorr += this.sup ? '' : 'Application numérique : <br>'
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `$h=\\dfrac{${distance}${sp()}\\text{m}\\times \\tan(${alpha}^\\circ)\\times \\tan(${alpha + 5}^\\circ)}{\\tan(${alpha + 5}^\\circ)-\\tan(${alpha}^\\circ)}\\approx ${Math.round(taille)}${sp()}\\text{m}$.<br>`
           texteCorr += this.sup
-            ? `La hauteur de la falaise est de $${Math.round(taille)}${sp()}\\text{m}$.<br>`
+            ? `La hauteur de la falaise est de $${miseEnEvidence(`${Math.round(taille)}${sp()}\\text{m}`)}$.<br>`
             : ''
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `$${lS}${lC}=\\dfrac{${distance}${sp()}\\text{m}\\times \\tan(${alpha}^\\circ)}{\\tan(${alpha + 5}^\\circ)-\\tan(${alpha}^\\circ)}\\approx ${texNombre(Math.round(taille / Math.tan(((alpha + 5) * Math.PI) / 180)))}${sp()}\\text{m}$.<br>`
           texteCorr += this.sup
-            ? `L'observateur se trouve à $${texNombre(Math.round(taille / Math.tan(((alpha + 5) * Math.PI) / 180)))}$ m de la falaise lors du deuxième relevé.<br>`
+            ? `L'observateur se trouve à $${miseEnEvidence(`${texNombre(Math.round(taille / Math.tan(((alpha + 5) * Math.PI) / 180)))}${sp()}\\text{m}`)}$ de la falaise lors du deuxième relevé.<br>`
             : ''
           texteCorr += this.sup
             ? ''
-            : `La hauteur de la falaise est de $${Math.round(taille)}$ m et l'observateur se trouve à $${texNombre(Math.round(taille / Math.tan(((alpha + 5) * Math.PI) / 180)))}$ m de celle-ci lors du deuxième relevé.<br>`
+            : `La hauteur de la falaise est de $${miseEnEvidence(`${Math.round(taille)}${sp()}\\text{m}`)}$ et l'observateur se trouve à $${miseEnEvidence(`${texNombre(Math.round(taille / Math.tan(((alpha + 5) * Math.PI) / 180)))}${sp()}\\text{m}`)}$ de celle-ci lors du deuxième relevé.<br>`
           break
         case 5:
           objets = []
@@ -1403,9 +1337,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lB}${lC}=${distance}$ m.<br>`
           texte += mathalea2d(
             {
-              xmin: min(-sensH, absS + sensH),
+              xmin: Math.min(-sensH, absS + sensH),
               ymin: -1,
-              xmax: max(-sensH, absS + sensH),
+              xmax: Math.max(-sensH, absS + sensH),
               ymax: ordA + 1,
               pixelsParCm: 20,
               scale: 0.5,
@@ -1505,16 +1439,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
             texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
               texteAvant: `$${sp(20)}CA=$`,
             })
-            setReponse(
-              this,
-              i + ii,
-              [
-                // Attention, l'emplacement des espaces est primordial
-                `\\frac{CH}{sin(${baitaInteractif}-${alfaInteractif})}`,
-                `\\frac{HC}{sin(${baitaInteractif}-${alfaInteractif})}`,
-              ],
-              { formatInteractif: 'texte' },
-            )
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: `\\frac{CH}{\\sin(${baitaInteractif}-${alfaInteractif})}`,
+                options: { calculFormel: true },
+              },
+            })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -1541,18 +1471,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
             texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
               texteAvant: `$${sp(20)}${lC}${lH}=$`,
             })
-            setReponse(
-              this,
-              i + ii,
-              [
-                // Aucune exhasutivité hélas
-                `${lB}${lC}\\times sin(${alfaInteractif})`,
-                `sin(${alfaInteractif})\\times ${lB}${lC}`,
-                `${lC}${lB}\\times sin(${alfaInteractif})`,
-                `sin(${alfaInteractif})\\times ${lC}${lB}`,
-              ],
-              { formatInteractif: 'texte' },
-            )
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: `${lB}${lC}\\times\\sin(${alfaInteractif})`,
+                options: { calculFormel: true },
+              },
+            })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -1582,54 +1506,42 @@ export default class ProblemesTrigoLongueur extends Exercice {
               ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
                 texteAvant: `$${sp(20)}h=$`,
               })
-            setReponse(
-              this,
-              i + ii,
-              [
-                // Aucune exhaustivité hélas
-                `${lA}${lC}\\times sin(${baitaInteractif})`,
-                `sin(${baitaInteractif})\\times ${lA}${lC}`,
-                `${lC}${lA}\\times sin(${baitaInteractif})`,
-                `sin(${baitaInteractif})\\times ${lC}${lA}`,
-              ],
-              { formatInteractif: 'texte' },
-            )
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: `${lA}${lC}\\times\\sin(${baitaInteractif})`,
+                options: { calculFormel: true },
+              },
+            })
             ii++
             texte +=
               '<br>' +
               ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
                 texteAvant: `$${sp(20)}h=$`,
               })
-            setReponse(
-              this,
-              i + ii,
-              [
-                // Aucune exhasutivité hélas
-                `\\frac{${lC}${lH}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                `\\frac{${lH}${lC}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                `\\frac{sin(${baitaInteractif}\\times ${lC}${lH} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                `\\frac{sin(${baitaInteractif}\\times ${lH}${lC} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-              ],
-              { formatInteractif: 'texte' },
-            )
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: [
+                  `\\frac{${lC}${lH}\\times\\sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                  `\\frac{\\sin(${baitaInteractif}\\times${lC}${lH}\\sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                ],
+                options: { calculFormel: true },
+              },
+            })
             ii++
             texte +=
               '<br>' +
               ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
                 texteAvant: `$${sp(20)}h=$`,
               })
-            setReponse(
-              this,
-              i + ii,
-              [
-                // Aucune exhasutivité hélas
-                `\\frac{${lB}${lC}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                `\\frac{sin(${alfaInteractif})\\times ${lB}${lC}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                `\\frac{${lC}${lB}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                `\\frac{sin(${alfaInteractif})\\times ${lC}${lB}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-              ],
-              { formatInteractif: 'texte' },
-            )
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: [
+                  `\\frac{${lB}${lC}\\times\\sin(${alfaInteractif})\\times\\sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                  `\\frac{\\sin(${alfaInteractif})\\times${lB}${lC}\\times\\sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                ],
+                options: { calculFormel: true },
+              },
+            })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -1647,7 +1559,10 @@ export default class ProblemesTrigoLongueur extends Exercice {
           }
           j++
           enonceAMC = `${numAlpha(j)}En supposant que le point d'observation est au niveau du sol, quelle est la hauteur de la montagne ? `
-          texte += '<br>' + enonceAMC + '(arrondir au mètre près)'
+          texte +=
+            '<br>' +
+            enonceAMC +
+            "(arrondir au mètre près, en précisant l'unité)"
           enonceAMC += '(exprimer en mètres et arrondir au mètre près)'
 
           if (this.interactif) {
@@ -1685,9 +1600,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
           j = 0
           texteCorr = mathalea2d(
             {
-              xmin: min(-sensH, absS + sensH),
+              xmin: Math.min(-sensH, absS + sensH),
               ymin: -1,
-              xmax: max(-sensH, absS + sensH),
+              xmax: Math.max(-sensH, absS + sensH),
               ymax: ordA + 1,
               pixelsParCm: 20,
               scale: 0.5,
@@ -1695,22 +1610,26 @@ export default class ProblemesTrigoLongueur extends Exercice {
             objets,
           )
           if (this.sup) {
-            texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lS}${lA}$ rectangle en $${lS}$, les angles aigus sont complémentaires donc $\\widehat{${lC}${lA}${lS}}=90-${baita}$.<br>`
-            texteCorr += `${numAlpha(j + 1)}Dans le triangle $${lB}${lS}${lA}$ rectangle en $${lS}$, pour la même raison $\\widehat{${lB}${lA}${lS}}=90-${alfa}$.<br>`
+            texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lS}${lA}$ rectangle en $${lS}$, les angles aigus sont complémentaires donc $\\widehat{${lC}${lA}${lS}}=${miseEnEvidence(`90-${baita}`)}$.<br>`
+            texteCorr += `${numAlpha(j + 1)}Dans le triangle $${lB}${lS}${lA}$ rectangle en $${lS}$, pour la même raison $\\widehat{${lB}${lA}${lS}}=${miseEnEvidence(`90-${alfa}`)}$.<br>`
             j += 2
           }
-          texteCorr += `${numAlpha(j)}On sait que $\\widehat{${lC}${lA}${lS}}=90-${baita}$ et $\\widehat{${lB}${lA}${lS}}=90-${alfa}$.<br>Donc $\\widehat{${lC}${lA}${lH}}=\\widehat{${lB}${lA}${lS}}-\\widehat{${lC}${lA}${lS}}=90-${alfa}-(90-${baita})=\\cancel{90}-${alfa}-\\cancel{90}+${baita}=${baita}-${alfa}$.<br>`
+          texteCorr += `${numAlpha(j)}On sait que $\\widehat{${lC}${lA}${lS}}=90-${baita}$ et $\\widehat{${lB}${lA}${lS}}=90-${alfa}$.<br>
+          Donc $\\widehat{${lC}${lA}${lH}}=\\widehat{${lB}${lA}${lS}}-\\widehat{${lC}${lA}${lS}}=90-${alfa}-(90-${baita})=\\cancel{90}-${alfa}-\\cancel{90}+${baita}=${miseEnEvidence(`${baita}-${alfa}`)}$.<br>`
           j++
-          texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lH}${lA}$ rectangle en $${lH}$, $\\sin(\\widehat{${lC}${lA}${lH}})=\\dfrac{${lC}${lH}}{${lC}${lA}}$ d'où $${lC}${lA}=\\dfrac{${lC}${lH}}{\\sin(\\widehat{${lC}${lA}${lH}})}=\\dfrac{${lC}${lH}}{\\sin(${baita}-${alfa})}$.<br>`
+          texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lH}${lA}$ rectangle en $${lH}$, $\\sin(\\widehat{${lC}${lA}${lH}})=\\dfrac{${lC}${lH}}{${lC}${lA}}$ 
+          d'où $${lC}${lA}=\\dfrac{${lC}${lH}}{\\sin(\\widehat{${lC}${lA}${lH}})}=${miseEnEvidence(`\\dfrac{${lC}${lH}}{\\sin(${baita}-${alfa})}`)}$.<br>`
           j++
-          texteCorr += `${numAlpha(j)}Dans le triangle $${lB}${lC}${lH}$ rectangle en $${lH}$, $\\sin(\\widehat{${lC}${lB}${lH}})=\\dfrac{${lC}${lH}}{${lB}${lC}}$ d'où $${lC}${lH}=${lB}${lC}\\times \\sin(\\widehat{${lC}${lB}${lH}})=${lB}${lC}\\times \\sin(${alfa})$.<br>`
+          texteCorr += `${numAlpha(j)}Dans le triangle $${lB}${lC}${lH}$ rectangle en $${lH}$, $\\sin(\\widehat{${lC}${lB}${lH}})=\\dfrac{${lC}${lH}}{${lB}${lC}}$ 
+          d'où $${lC}${lH}=${lB}${lC}\\times \\sin(\\widehat{${lC}${lB}${lH}})=${miseEnEvidence(`${lB}${lC}\\times \\sin(${alfa})`)}$.<br>`
           j++
 
-          texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lS}${lA}$ rectangle en $${lS}$, $h=${lC}${lA}\\times \\sin(${baita})=\\dfrac{${lC}${lH}}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})=\\dfrac{${lB}${lC}\\times \\sin(${alfa})}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})$<br>`
+          texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lS}${lA}$ rectangle en $${lS}$, 
+          $h=${lC}${lA}\\times \\sin(${baita})=\\dfrac{${lC}${lH}}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})=${miseEnEvidence(`\\dfrac{${lB}${lC}\\times \\sin(${alfa})}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})`)}$<br>`
 
           j++
           texteCorr += `${numAlpha(j)}Application numérique : $h=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}^\\circ)}{\\sin(${beta}^\\circ-${alpha}^\\circ)}\\times \\sin(${beta}^\\circ)$`
-          texteCorr += `$=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}^\\circ)\\times \\sin(${beta}^\\circ)}{\\sin(${beta - alpha}^\\circ)}\\approx ${texNombre(Math.round(taille))}${sp()}\\text{m}$.<br>`
+          texteCorr += `$=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}^\\circ)\\times \\sin(${beta}^\\circ)}{\\sin(${beta - alpha}^\\circ)}\\approx ${miseEnEvidence(`${texNombre(Math.round(taille))}${sp()}\\text{m}`)}$.<br>`
           break
         case 6:
           {
@@ -1764,10 +1683,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
               scale: 1,
               mainlevee: false,
             }
-            texte = `$${A.nom + E.nom} = ${AE}~\\text{cm}$, $${A.nom + D.nom} = ${AD}~\\text{cm}$ et $${A.nom + C.nom} = ${AC}~\\text{cm}$.`
-            texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-            texte += `Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée au millimètre près.`
-            enonceAMC = texte + '<br>'
+            enonceAMC = `$${A.nom + E.nom} = ${AE}~\\text{cm}$, $${A.nom + D.nom} = ${AD}~\\text{cm}$ et $${A.nom + C.nom} = ${AC}~\\text{cm}$.`
+            enonceAMC += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+            enonceAMC += `Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée `
+            texte =
+              enonceAMC + "(au millimètre près près, en précisant l'unité)."
+            enonceAMC += 'en cm, au millimètre près.<br>'
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
                 this,
@@ -1822,7 +1743,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
 
             texteCorr += `<br><br>Dans le triangle $${A.nom + B.nom + C.nom}$ rectangle en $${B.nom}$ : `
             texteCorr += `<br>$\\cos(\\widehat{${B.nom + A.nom + C.nom}})=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}\\quad$ soit $\\quad\\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx\\dfrac{${A.nom + B.nom}}{${AC}}$,`
-            texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx${texNombre(longueur(A, B), 1)}$ cm.`
+            texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx${miseEnEvidence(`${texNombre(longueur(A, B), 1)}${sp()}\\text{m}`)}$.`
 
             // texteCorr += `<br><br>On pouvait aussi écrire : $${A.nom + B.nom} = ${AC}\\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times \\dfrac{${AD}}{${AE}}=${texFractionReduite(AC * AD, AE)}$ cm qui est la valeur exacte.`
           }

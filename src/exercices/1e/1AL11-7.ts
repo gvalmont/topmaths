@@ -27,7 +27,7 @@ export const uuid = '12afc'
 
 export const refs = {
   'fr-fr': ['1AL11-7'],
-  'fr-ch': [],
+  'fr-ch': ['autres-10'],
 }
 export default class SuitesArithmeticoG extends Exercice {
   constructor() {

@@ -344,7 +344,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         texte += ajouteQuestionMathlive({
           exercice: this,
           question: i,
-          typeInteractivite: 'remplisLesBlancs',
+          typeInteractivite: 'fillInTheBlank',
           content: `${pointInvisible.nom}(%{champ1}~;~%{champ2})`,
           objetReponse: {
             champ1: { value: pointInvisible.x },

@@ -1,4 +1,4 @@
-import FonctionsProbabilite1 from '../6e/6P2B-1'
+import FonctionsProbabilite6e from '../6e/6P2B-1'
 export const titre = 'Utiliser le vocabulaire des probabilités'
 export const interactifReady = false
 export const dateDePublication = '03/04/2022'
@@ -12,10 +12,10 @@ export const refs = {
   'fr-fr': ['4S20', 'BP2FLUC10'],
   'fr-ch': ['11NO2-10'],
 }
-export default class FonctionsVocabulaireProbabilite4e extends FonctionsProbabilite1 {
+export default class FonctionsVocabulaireProbabilite4e extends FonctionsProbabilite6e {
   constructor() {
     super()
-    this.niveau = 3
+    this.niveau = 4
     this.spacingCorr = 2
     this.interactifReady = false
   }

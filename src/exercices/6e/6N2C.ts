@@ -1,15 +1,15 @@
-import Exercice from '../Exercice'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-} from '../../modules/outils'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
@@ -74,15 +74,15 @@ export default class DiviserPar10 extends Exercice {
       switch (diviseursPossibles[i]) {
         case 1:
           combien = 10
-          reponse = '0,1'
+          reponse = texNombre(0.1)
           break
         case 2:
           combien = 100
-          reponse = '0,01'
+          reponse = texNombre(0.01)
           break
         case 3:
           combien = 1000
-          reponse = '0,001'
+          reponse = texNombre(0.001)
           break
       }
       if (this.questionJamaisPosee(i, combien, operationsPossibles[i])) {
@@ -121,7 +121,7 @@ export default class DiviserPar10 extends Exercice {
             { reponse: { value: reponse } },
             { formatInteractif: 'listeDeroulante' },
           )
-          texteCorr = `Diviser par $${texNombre(combien)}$ revient à ${texteEnCouleurEtGras('multiplier')} par $${texteEnCouleurEtGras(reponse)}$.`
+          texteCorr = `Diviser par $${texNombre(combien)}$ revient à ${texteEnCouleurEtGras('multiplier')} par $${miseEnEvidence(reponse)}$.`
         } else {
           texte += `Multiplier par $${reponse}$ revient à `
           texte += this.interactif

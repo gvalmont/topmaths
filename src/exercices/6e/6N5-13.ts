@@ -23,6 +23,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 export const dateDePublication = '10/09/2025'
+export const dateDeModifImportante = '15/10/2025'
 
 /**
  *
@@ -304,8 +305,8 @@ export default class ProblemesAvecOperations extends Exercice {
         case 7: {
           const nbAmis = choice([2, 4, 5])
           const garcons = randint(1, nbAmis - 1)
-          const prenomsGars = prenomM(garcons, true)
-          const prenomsFilles = prenomF(nbAmis - garcons, true)
+          // const prenomsGars = prenomM(garcons, true)
+          // const prenomsFilles = prenomF(nbAmis - garcons, true)
 
           let prenoms = ([] as string[]).concat(
             ...prenomM(garcons, true),
@@ -372,6 +373,12 @@ export default class ProblemesAvecOperations extends Exercice {
           texteCorr +=
             'Donc ' +
             `$${miseEnEvidence(texNombre(bouteillesUtilisees))}$ bouteilles ont été utilisées.`
+          if (context.isAmc) setReponse(this, i, bouteillesUtilisees)
+          else
+            handleAnswers(this, i, {
+              reponse: { value: texPrix(bouteillesUtilisees) },
+            })
+
           break
         }
         case 9: {
@@ -407,6 +414,11 @@ export default class ProblemesAvecOperations extends Exercice {
             'Donc chaque personne reçoit ' +
             `$${miseEnEvidence(texPrix(gainParPersonne))}$ €.`
 
+          if (context.isAmc) setReponse(this, i, gainParPersonne)
+          else
+            handleAnswers(this, i, {
+              reponse: { value: texPrix(gainParPersonne) },
+            })
           break
         }
         case 10: {
@@ -440,6 +452,11 @@ export default class ProblemesAvecOperations extends Exercice {
           texteCorr +=
             'Donc il me reste ' +
             `$${miseEnEvidence(texNombre(oeufsRestants))}$ œufs de mes poules à la fin de la semaine .`
+          if (context.isAmc) setReponse(this, i, oeufsRestants)
+          else
+            handleAnswers(this, i, {
+              reponse: { value: texPrix(oeufsRestants) },
+            })
           break
         }
         case 11: {
@@ -471,6 +488,11 @@ export default class ProblemesAvecOperations extends Exercice {
           texteCorr +=
             'Donc il y a ' +
             `$${miseEnEvidence(texNombre(carburantParReservoir))}$ litres dans chaque réservoir.`
+          if (context.isAmc) setReponse(this, i, carburantParReservoir)
+          else
+            handleAnswers(this, i, {
+              reponse: { value: texPrix(carburantParReservoir) },
+            })
           break
         }
       }

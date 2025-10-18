@@ -29,6 +29,7 @@
               <Card
                 application="{app}"
                 selected="{appsTierceInExercisesList.includes(app.uuid)}"
+                loadImages="{showThirdAppsChoiceDialog}"
               />
             {/each}
           </div>

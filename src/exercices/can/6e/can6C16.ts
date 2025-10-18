@@ -8,7 +8,7 @@ import { randint } from '../../../modules/outils'
 
 import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer le double ou la moitié'
+export const titre = 'Calculer le double et la moitié'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -28,7 +28,7 @@ export default class DoubleEtMoitie extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple'
-    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
   }

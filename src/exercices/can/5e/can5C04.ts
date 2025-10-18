@@ -17,7 +17,7 @@ export const uuid = '52336'
 
 export const refs = {
   'fr-fr': ['can5C04', 'auto6P3A-flash5'],
-  'fr-ch': [],
+  'fr-ch': ['10FA3-14'],
 }
 export default class TripleEtMoitie extends ExerciceSimple {
   constructor() {

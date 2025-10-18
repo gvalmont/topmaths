@@ -1,17 +1,17 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
 export const titre = 'Compléter une égalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '17654'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

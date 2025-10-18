@@ -1,15 +1,15 @@
+import Decimal from 'decimal.js'
+import { texTexte } from '../../lib/format/texTexte'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texTexte } from '../../lib/format/texTexte'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import { getDigitFromNumber } from '../6e/_ExerciceConversionsLongueurs'
-import Decimal from 'decimal.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = 'Convertir des volumes'
 export const amcReady = true
@@ -35,7 +35,7 @@ export const dateDeModifImportante = '03/06/2024'
 export const uuid = '33ac2'
 
 export const refs = {
-  'fr-fr': ['5N21'],
+  'fr-fr': ['5N21', '3AutoG06-4'],
   'fr-2016': ['6M31'],
   'fr-ch': ['9GM2-3'],
 }

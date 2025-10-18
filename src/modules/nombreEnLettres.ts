@@ -60,6 +60,7 @@ export function nombreEnLettres(nb: number, type = 1) {
  *
  */
 export function partieEntiereEnLettres(nb: number) {
+  if (nb === 0) return 'zéro'
   const dictionnaire = {
     0: 'zéro',
     '000': '',

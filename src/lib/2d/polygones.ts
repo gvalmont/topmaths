@@ -6,8 +6,13 @@ import {
 } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
+import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { arrondi, rangeMinMax } from '../outils/nombres'
+import { lettreDepuisChiffre } from '../outils/outilString'
+import { codageAngleDroit } from './angles'
+import { codageSegments } from './codages'
 import { Point, point, pointAdistance, pointSurSegment } from './points'
+import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
 import { longueur, segment, Vecteur, vecteur } from './segmentsVecteurs'
 import {
   Latex2d,
@@ -19,11 +24,6 @@ import {
 } from './textes'
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
-import { lettreDepuisChiffre } from '../outils/outilString'
-import { codageSegments } from './codages'
-import { codageAngleDroit } from './angles'
-import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
-import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 
 type BinomeXY = { x: number; y: number }
 type BinomesXY = BinomeXY[]
@@ -506,6 +506,8 @@ export class Polygone extends ObjetMathalea2D {
         `preaction={fill,color = ${this.couleurDeRemplissage[1]}${this.opaciteDeRemplissage !== 1 ? ', opacity = ' + this.opaciteDeRemplissage : ''}}`,
       )
     }
+
+    if (this.hachures) this.hachures = 'dotted'
     if (this.hachures != null && typeof this.hachures === 'string') {
       tableauOptions.push(
         pattern({

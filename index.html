@@ -1,158 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr" class="notranslate">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <meta http-equiv="Content-Language" content="fr" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>MathALÉA</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-  <link rel="manifest" href="/favicon/site.webmanifest" />
-  <meta http-equiv="Content-Language" content="fr" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Topmaths - Les maths au Top !</title>
-  <link rel="preload" href="topmaths/img/gvalmont/logo-topmaths-crop.svg" as="image">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicon/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <meta http-equiv="Content-Language" content="fr" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Topmaths - Les maths au Top !</title>
+    <link
+      rel="preload"
+      href="topmaths/img/gvalmont/logo-topmaths-crop.svg"
+      as="image"
+    />
+  </head>
 
-<body class="flex-col h-full w-full font-sans touch-manipulation">
-  <div id="appMathalea">
-    <div id="loading" class="hidden">
-      <div id="loading-content">
-        <img id="logo-topmaths" src="topmaths/img/gvalmont/logo-topmaths-crop.svg">
-        <div class="spinner">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+  <body class="flex-col h-full w-full font-sans touch-manipulation">
+    <div id="appMathalea">
+      <div id="loading" class="hidden">
+        <div id="loading-content">
+          <img
+            id="logo-topmaths"
+            src="topmaths/img/gvalmont/logo-topmaths-crop.svg"
+          />
+          <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script type="module" src="/src/main"></script>
-</body>
+    <script type="module" src="/src/main"></script>
+  </body>
 
-<style>
-  html,
-  body {
-    background-color: #ffffff !important
+  <style>
+    html,
+    body {
+      background-color: #ffffff !important;
       /* keep sync with tailwind.config.js topmaths-canvas-default */
-  }
+    }
 
-  #loading-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+    #loading-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-  #logo-topmaths {
-    width: 200px;
-    margin-bottom: 50px;
-  }
+    #logo-topmaths {
+      width: 200px;
+      margin-bottom: 50px;
+    }
 
-  #logo-topmaths {
-    display: block;
-  }
+    #logo-topmaths {
+      display: block;
+    }
 
-  .spinner {
-    display: flex;
-    justify-content: space-between;
-    width: 120px;
-    height: 20px;
-    position: relative;
-  }
+    .spinner {
+      display: flex;
+      justify-content: space-between;
+      width: 120px;
+      height: 20px;
+      position: relative;
+    }
 
-  .spinner div {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    position: absolute;
-    animation: move 2.75s linear infinite;
-    opacity: 0;
-  }
-
-  .spinner div:nth-child(1) {
-    background-color: #da5e75;
-  }
-
-  .spinner div:nth-child(2) {
-    background-color: #9f64ff;
-  }
-
-  .spinner div:nth-child(3) {
-    background-color: #4e8ef6;
-  }
-
-  .spinner div:nth-child(4) {
-    background-color: #28a745;
-  }
-
-  .spinner div:nth-child(5) {
-    background-color: #feb60a;
-  }
-
-  @keyframes move {
-
-    0% {
-      transform: translateX(-28px);
+    .spinner div {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      position: absolute;
+      animation: move 2.75s linear infinite;
       opacity: 0;
     }
 
-    10% {
-      opacity: 0.75;
+    .spinner div:nth-child(1) {
+      background-color: #da5e75;
     }
 
-    20% {
-      transform: translateX(0);
-      opacity: 1;
+    .spinner div:nth-child(2) {
+      background-color: #9f64ff;
     }
 
-    40% {
-      transform: translateX(28px);
-      opacity: 1;
+    .spinner div:nth-child(3) {
+      background-color: #4e8ef6;
     }
 
-    60% {
-      transform: translateX(56px);
-      opacity: 1;
+    .spinner div:nth-child(4) {
+      background-color: #28a745;
     }
 
-    80% {
-      transform: translateX(84px);
-      opacity: 1;
+    .spinner div:nth-child(5) {
+      background-color: #feb60a;
     }
 
-    90% {
-      opacity: 0.75;
+    @keyframes move {
+      0% {
+        transform: translateX(-28px);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.75;
+      }
+
+      20% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      40% {
+        transform: translateX(28px);
+        opacity: 1;
+      }
+
+      60% {
+        transform: translateX(56px);
+        opacity: 1;
+      }
+
+      80% {
+        transform: translateX(84px);
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 0.75;
+      }
+
+      100% {
+        transform: translateX(112px);
+        opacity: 0;
+      }
+    }
+    .spinner div:nth-child(1) {
+      animation-delay: 0s;
     }
 
-    100% {
-      transform: translateX(112px);
-      opacity: 0;
+    .spinner div:nth-child(2) {
+      animation-delay: 0.55s;
     }
-  }
 
-  .spinner div:nth-child(1) {
-    animation-delay: 0s;
-  }
+    .spinner div:nth-child(3) {
+      animation-delay: 1.1s;
+    }
 
-  .spinner div:nth-child(2) {
-    animation-delay: 0.55s;
-  }
+    .spinner div:nth-child(4) {
+      animation-delay: 1.65s;
+    }
 
-  .spinner div:nth-child(3) {
-    animation-delay: 1.1s;
-  }
-
-  .spinner div:nth-child(4) {
-    animation-delay: 1.65s;
-  }
-
-  .spinner div:nth-child(5) {
-    animation-delay: 2.2s;
-  }
-</style>
-
+    .spinner div:nth-child(5) {
+      animation-delay: 2.2s;
+    }
+  </style>
 </html>

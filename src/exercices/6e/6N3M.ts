@@ -1,25 +1,25 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   enleveDoublonNum,
 } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import FractionEtendue from '../../modules/FractionEtendue'
-import { rangeMinMax } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { partieEntiereEnLettres } from '../../modules/nombreEnLettres'
+import { rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { partieEntiereEnLettres } from '../../modules/nombreEnLettres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/03/2025'
@@ -449,7 +449,7 @@ export default class ProblemesFractions6e extends Exercice {
         }
       }
       liste3Corrections[i][0] =
-        `On va chercher combien réprésente ${partieEntiereEnLettres(num)} ${suffixeFractionnaire(num, den)} de $${nbInitial}$ ${elementsCorrection[i][0]}, soit $${new FractionEtendue(num, den).texFraction}$ de $${nbInitial}$ ${elementsCorrection[i][0]}.<br>`
+        `On va chercher combien représente ${partieEntiereEnLettres(num)} ${suffixeFractionnaire(num, den)} de $${nbInitial}$ ${elementsCorrection[i][0]}, soit $${new FractionEtendue(num, den).texFraction}$ de $${nbInitial}$ ${elementsCorrection[i][0]}.<br>`
       liste3Corrections[i][0] +=
         `Partageons $${nbInitial}$ ${elementsCorrection[i][0]} en $${den}$ parts égales afin de trouver $${new FractionEtendue(1, den).texFraction}$ de $${nbInitial}$ ${elementsCorrection[i][0]}. Pour cela, effectuons la division de $${nbInitial}$ par $${den}$.<br>`
       liste3Corrections[i][0] +=

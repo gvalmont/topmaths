@@ -1,26 +1,26 @@
-import Exercice from '../Exercice'
-import { randint } from '../../modules/outils'
-import { choice } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { interpolationDeLagrange } from '../../lib/mathFonctions/outilsMaths'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
+import { choice } from '../../lib/outils/arrayOutils'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import Figure from 'apigeom'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { segment } from '../../lib/2d/segmentsVecteurs'
 import { courbe } from '../../lib/2d/courbes'
+import { point } from '../../lib/2d/points'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import {
   colorToLatexOrHTML,
   fixeBordures,
   mathalea2d,
 } from '../../modules/2dGeneralites'
-import { point } from '../../lib/2d/points'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -38,7 +38,7 @@ export const uuid = '28997'
 
 export const refs = {
   'fr-fr': ['2F20-4'],
-  'fr-ch': [],
+  'fr-ch': ['2mIneq-1'],
 }
 type TypesDeFonction = 'constante' | 'affine' | 'poly2' | 'poly3'
 

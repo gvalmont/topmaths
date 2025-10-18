@@ -418,7 +418,7 @@ export default class ReperageSurLaTerre extends Exercice {
           ajouteQuestionMathlive({
             exercice: this,
             question: i,
-            typeInteractivite: 'remplisLesBlancs',
+            typeInteractivite: 'fillInTheBlank',
             content: '%{champ1}°%{champ2}',
             classe: KeyboardType.geolocalisation,
             objetReponse: {

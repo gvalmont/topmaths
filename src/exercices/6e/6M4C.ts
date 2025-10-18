@@ -1,14 +1,14 @@
 // import { MathfieldElement } from 'mathlive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import Hms from '../../modules/Hms'
+import Operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import Hms from '../../modules/Hms'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Operation from '../../modules/operations'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Convertir des durées'
 export const interactifReady = true
@@ -28,7 +28,7 @@ export const dateDeModifImportante = '10/11/2024'
 export const uuid = '8b0f9'
 
 export const refs = {
-  'fr-fr': ['6M4C'],
+  'fr-fr': ['6M4C', '3AutoG06-5'],
   'fr-2016': ['6D10'],
   'fr-ch': ['10GM3-1'],
 }

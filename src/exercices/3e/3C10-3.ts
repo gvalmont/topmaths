@@ -8,7 +8,7 @@ export const dateDePublication = '24/09/2023'
 export const uuid = '31bd7'
 export const refs = {
   'fr-fr': ['3C10-3'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class NotationPuissanceEn3eme extends NotationPuissance {
   constructor() {

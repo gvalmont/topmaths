@@ -1,12 +1,12 @@
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { runAStar } from '../../modules/findPath'
-import Exercice from '../Exercice'
+import 'blockly/blocks'
 import * as Blockly from 'blockly/core'
 import { javascriptGenerator } from 'blockly/javascript'
-import 'blockly/blocks'
 import * as En from 'blockly/msg/en'
-import { context } from '../../modules/context'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { context } from '../../modules/context'
+import { runAStar } from '../../modules/findPath'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Programmer le déplacement d'un bus"
 export const dateDePublication = '15/07/2025'
@@ -381,7 +381,7 @@ export default class ExerciceLabyrintheChemin extends Exercice {
   \\end{scope}
 
 \\end{tikzpicture}
-\\endgroup
+\\endgroup\\\\
    
 Les instructions à utiliser sont les suivantes :
 

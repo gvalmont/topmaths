@@ -1,15 +1,15 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../../lib/2d/textes'
-import { codageAngleDroit } from '../../../lib/2d/angles'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
-import { point } from '../../../lib/2d/points'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Calculer une longueur dans un triangle rectangle'
 export const interactifReady = true
@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
 export const uuid = '75151'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

@@ -2,22 +2,22 @@ import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { fraction } from '../../../modules/fractions'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { fraction } from '../../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Calculer une aire, un périmètre ou une longueur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -277,7 +277,6 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           Ainsi, l'aire a été multipliée par : $\\left(${maFraction.texFraction}\\right)^2=${miseEnEvidence(reponse)}$.
       <br>`
 
-            // this.formatInteractif = 'fractionEgale'
             handleAnswers(this, i, {
               reponse: { value: reponse, compare: functionCompare },
             })
@@ -307,7 +306,6 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
             texteCorr = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
           Ainsi, les longueurs ont été multipliées par : $\\sqrt{${maFractionAuCarre}}=${miseEnEvidence(reponse)}$.
       <br>`
-            // this.formatInteractif = 'fractionEgale'
             handleAnswers(this, i, {
               reponse: { value: reponse, compare: functionCompare },
             })

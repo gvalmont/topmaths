@@ -42,7 +42,7 @@ export const uuid = '75002'
 
 export const refs = {
   'fr-fr': ['bonneAnnee2023'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class Questions2023 extends Exercice {
   constructor() {

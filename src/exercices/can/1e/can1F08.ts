@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -5,10 +6,9 @@ import {
   reduireAxPlusB,
 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
-import Decimal from 'decimal.js'
-import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export const uuid = '45511'
 
 export const refs = {
   'fr-fr': ['can1F08'],
-  'fr-ch': [],
+  'fr-ch': ['3mA2-6'],
 }
 export default class CalculFonctionDeriveeAffine extends ExerciceSimple {
   constructor() {

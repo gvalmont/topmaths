@@ -19,7 +19,7 @@ export const uuid = '1853b'
 
 export const refs = {
   'fr-fr': ['can3C04'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SommeEntierEtFractionIrred extends ExerciceSimple {
   constructor() {

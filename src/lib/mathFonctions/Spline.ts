@@ -1,5 +1,8 @@
-import { Matrix, polynomialRoot, round } from 'mathjs'
+import { polynomialRoot, round } from 'mathjs'
 
+import type Point from 'apigeom/src/elements/points/Point'
+import type Figure from 'apigeom/src/Figure'
+import Decimal from 'decimal.js'
 import {
   colorToLatexOrHTML,
   ObjetMathalea2D,
@@ -8,16 +11,13 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { egal, randint } from '../../modules/outils'
 import { BezierPath } from '../2d/courbes'
 import { point, tracePoint } from '../2d/points'
-import { choice } from '../outils/arrayOutils'
-import { brent, tableauDeVariation, variationsFonction } from './etudeFonction'
-import { chercheMinMaxLocal, Polynome } from './Polynome'
-import Decimal from 'decimal.js'
-import { rangeMinMax } from '../outils/nombres'
-import { matrice } from './Matrice'
-import { stringNombre } from '../outils/texNombre'
 import type { Repere } from '../2d/reperes'
-import type Point from 'apigeom/src/elements/points/Point'
-import type Figure from 'apigeom/src/Figure'
+import { choice } from '../outils/arrayOutils'
+import { rangeMinMax } from '../outils/nombres'
+import { stringNombre } from '../outils/texNombre'
+import { brent, tableauDeVariation, variationsFonction } from './etudeFonction'
+import { Matrice, matrice } from './Matrice'
+import { chercheMinMaxLocal, Polynome } from './Polynome'
 
 export type NoeudSpline = {
   x: number
@@ -274,13 +274,12 @@ export class Spline {
         const matriceInverse = maMatrice.inverse()
         if (matriceInverse != null) {
           const vecteur = [y0, y1, d0, d1]
-          const prodV = matriceInverse.multiply(vecteur) as unknown as Matrix
+          const prodV = matriceInverse.multiply(vecteur)
           if (prodV != null) {
             this.polys.push(
               new Polynome({
                 useFraction: true,
-                coeffs: prodV
-                  .toArray()
+                coeffs: (prodV instanceof Matrice ? prodV.toArray() : prodV)
                   .reverse()
                   .map((el) => Number(Number(el).toFixed(6))), // parti pris : on arrondit au millionnième pour les entiers qui s'ignorent (pour les 1/3 c'est rapé, mais c'est suffisamment précis)
               }),
@@ -647,7 +646,7 @@ export class Spline {
   }
 
   /**
-   * retourne les min et max pour un repère contenant la courbe si ceux-ci sont sur des noeuds (c'est vivement consseillé)
+   * retourne les min et max pour un repère contenant la courbe si ceux-ci sont sur des noeuds (c'est vivement conseillé)
    * Ne fonctionne pas si yMax ou yMin sont atteints entre deux noeuds
    */
   trouveMaxes(): { xMin: number; xMax: number; yMin: number; yMax: number } {

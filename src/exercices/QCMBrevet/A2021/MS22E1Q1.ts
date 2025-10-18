@@ -1,14 +1,14 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { obtenirListeFractionsIrreductiblesFaciles } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { obtenirListeFractionsIrreductiblesFaciles } from '../../../modules/fractions'
 export const uuid = '16773'
 export const refs = {
   'fr-fr': ['4C2QCM-04', 'BP2AutoH7'],
-  'fr-ch': [],
+  'fr-ch': ['9QCM-1'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'

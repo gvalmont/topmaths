@@ -1,9 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Passer des fractions d'heures en minutes"
 export const interactifReady = true
@@ -64,7 +64,6 @@ export default class NomExercice extends ExerciceSimple {
           this.optionsChampTexte = { texteApres: 'min' }
         }
       } else {
-        // this.formatInteractif = 'fractionEgale'
         this.reponse = new FractionEtendue(a[0], a[1])
         this.question = `$${a[2]}$ min $=$ `
         this.correction = `$\\dfrac{1}{${a[1]}}$ h $=60\\text{ min } \\div ${a[1]} = ${texNombre(a[2] / a[0], 0)}$ min.<br>

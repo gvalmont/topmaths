@@ -6,7 +6,7 @@ import { shuffle } from '../../../lib/outils/arrayOutils'
 export const uuid = '12ead'
 export const refs = {
   'fr-fr': ['5A1QCM-1'],
-  'fr-ch': [],
+  'fr-ch': ['9QCM-5'],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'

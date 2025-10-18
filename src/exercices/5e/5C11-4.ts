@@ -126,7 +126,7 @@ export default class EcrireNombreDifferentesFormes extends Exercice {
             handleAnswers(this, i, {
               reponse: {
                 value: `2 \\times ${texNombre(n / 2)}`,
-                options: { operationSeulementEtNonResultat: true },
+                options: { expressionNumerique: true },
               },
             })
           } else {
@@ -134,7 +134,7 @@ export default class EcrireNombreDifferentesFormes extends Exercice {
             handleAnswers(this, i, {
               reponse: {
                 value: `${Math.floor(n / 2)} + ${Math.ceil(n / 2)}`,
-                options: { operationSeulementEtNonResultat: true },
+                options: { expressionNumerique: true },
               },
             })
 

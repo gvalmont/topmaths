@@ -1,16 +1,15 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { courbe } from '../../../lib/2d/courbes'
+import { droiteParPointEtPente } from '../../../lib/2d/droites'
 import { point } from '../../../lib/2d/points'
+import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
-import { repere } from '../../../lib/2d/reperes'
-import { droiteParPointEtPente } from '../../../lib/2d/droites'
-import { sqrt } from 'mathjs'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { courbe } from '../../../lib/2d/courbes'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre =
   'Résoudre une inéquation du type $\\sqrt{x}<k$ ou $\\sqrt{x}>k$'
@@ -65,7 +64,7 @@ export default class EquationsRacCarree extends ExerciceSimple {
     const sAAx = segment(A, Ax)
     const O = point(0, 0)
     const sAxBx = segment(O, Ax, 'red')
-    const f = (x: number) => sqrt(x)
+    const f = (x: number) => Math.sqrt(x)
     const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
     const r1 = repere({
       xMin: -1,

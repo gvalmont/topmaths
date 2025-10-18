@@ -4,12 +4,12 @@ import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Déterminer le coefficient directeur d'une droite (graphique)"
 export const interactifReady = true
@@ -33,8 +33,6 @@ export default class CoeffDirDroite extends ExerciceSimple {
     super()
 
     this.typeExercice = 'simple'
-
-    // this.formatInteractif = 'fractionEgale'
     this.nbQuestions = 1
   }
 

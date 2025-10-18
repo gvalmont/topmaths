@@ -1,28 +1,27 @@
-import Exercice from '../Exercice'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
-import { texNombre, texPrix } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
-import { createList } from '../../lib/format/lists'
-import { texteGras } from '../../lib/outils/embellissements'
-import { prenom, prenomM } from '../../lib/outils/Personne'
-import { sp } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import {
   antecedentParDichotomie,
   courbe,
   courbeInterpolee,
 } from '../../lib/2d/courbes'
-import { latex2d, texteParPosition } from '../../lib/2d/textes'
-import { repere } from '../../lib/2d/reperes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { exp } from 'mathjs'
+import { latex2d, texteParPosition } from '../../lib/2d/textes'
+import { createList } from '../../lib/format/lists'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texteGras } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
+import { prenom, prenomM } from '../../lib/outils/Personne'
+import { texNombre, texPrix } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = "Modéliser une situation à l'aide d'une fonction"
 export const dateDePublication = '14/02/2023'
 export const dateDeModifImportante = '13/12/2024'
@@ -460,8 +459,8 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const h = choice([11, 12, 13, 17, 18]) //
             const nom = choice(nomF)
             const o = texteParPosition('O', -0.3, -0.3)
-            const f = (x: number) => a * x * exp(b * x)
-            const fprime = (x: number) => (a + a * b * x) * exp(b * x)
+            const f = (x: number) => a * x * Math.exp(b * x)
+            const fprime = (x: number) => (a + a * b * x) * Math.exp(b * x)
             const Cg = droiteParPointEtPente(point(0, 5), 0, '', 'red')
             Cg.epaisseur = 2
             const s0 = antecedentParDichotomie(0, 7, fprime, 0, 0.01)
