@@ -6689,8 +6689,12 @@
                     "description": "Puissance simple"
                   },
                   {
+                    "slug": "uuid=760d7&id=4C30-1&n=2&d=10&s=4&cd=1",
+                    "description": "Encadrer un nombre par deux puissances de 10"
+                  },
+                  {
                     "slug": "4C32-0,n=4",
-                    "description": "Produit d'un nombre par une puissance"
+                    "description": "Produit d'un nombre par une puissance de 10"
                   }
                 ]
               },
