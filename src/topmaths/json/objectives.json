@@ -14,8 +14,32 @@
                 "title": "",
                 "exercises": [
                   {
+                    "slug": "uuid=5cffb&id=can6N01&n=2&d=10&s=true&qcm=0&cd=1",
+                    "description": "Recomposer un nombre entier (Niveau 1)"
+                  },
+                  {
+                    "slug": "uuid=75d40&id=can6N02&n=2&d=10&qcm=0&cd=1",
+                    "description": "Recomposer un nombre entier (Niveau 2)"
+                  },
+                  {
+                    "slug": "uuid=7efdf&id=6N1A-5&n=2&d=10&s=false&s2=true&s3=3&s4=1&cd=1",
+                    "description": "Recomposer un nombre entier (Niveau 3)"
+                  },
+                  {
+                    "slug": "uuid=f899b&id=6N1A-3&n=2&d=10&s=3&s2=5&s3=5&s4=0&cd=1",
+                    "description": "Décomposer un nombre entier (Niveau 1)"
+                  },
+                  {
+                    "slug": "uuid=f899b&id=6N1A-3&n=2&d=10&s=3&s2=5&s3=6&s4=0&cd=1",
+                    "description": "Décomposer un nombre entier (Niveau 2)"
+                  },
+                  {
+                    "slug": "uuid=ba5d4&id=canc3N07&n=2&d=10&cd=1",
+                    "description": "Décomposer un nombre entier (Niveau 3)"
+                  },
+                  {
                     "slug": "uuid=34579&id=6N1A-2&n=4&d=10&s=3&s2=3&cd=1",
-                    "description": ""
+                    "description": "Décomposer un nombre entier (Niveau 4)"
                   }
                 ]
               },
