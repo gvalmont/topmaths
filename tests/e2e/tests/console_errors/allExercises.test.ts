@@ -220,7 +220,7 @@ async function getConsoleTest(page: Page, urlExercice: string) {
       // si une exception comme timeout: on récupère la requete
       let message = 'Unknown Error'
       if (error instanceof Error) message = error.message
-      messages.push('erreur:' + message)
+      messages.push('erreur:url' + page.url() + ': ' + message)
       log('url:' + page.url())
       logError(messages)
       logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)

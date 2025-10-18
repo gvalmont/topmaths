@@ -108,7 +108,7 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
     ).map(Number)
 
     const nbChiffresMax = contraindreValeur(1, 5, this.sup3, 2)
-    const nbDiviseursMax = this.sup4
+    const nbDiviseursMax = Math.max(this.sup4, 2)
     let compteurVocabulaire = 0
     for (
       let i = 0,
@@ -257,13 +257,13 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           }
           // on crée les phrases
           textes[0] = `$${texteDiviseurs[0]} \\dotfill ${texteMultiples[0]}$`
-          textesCorr[0] = `$${texteDiviseurs[0]} est ${texteEnCouleurEtGras('un diviseur')} de $${texteMultiples[0]}$ car $${texteMultiples[0]}=${diviseurs[0]}\\times${texteQuotients[0]}$.`
+          textesCorr[0] = `$${texteDiviseurs[0]}$ est ${texteEnCouleurEtGras('un diviseur')} de $${texteMultiples[0]}$ car $${texteMultiples[0]}=${diviseurs[0]}\\times${texteQuotients[0]}$.`
           textes[1] = `$${texteDiviseurs[1]} \\dotfill ${texteMultiples[1]}$`
           textesCorr[1] = `$${texteDiviseurs[1]}$ est ${texteEnCouleurEtGras('un diviseur')} de $${texteMultiples[1]}$ car $${texteMultiples[1]}=${diviseurs[1]}\\times${texteQuotients[1]}$.`
           textes[2] = `$${texteMultiples[2]} \\dotfill ${texteDiviseurs[2]}$`
           textesCorr[2] = `$${texteMultiples[2]}$ est ${texteEnCouleurEtGras('un multiple')} de $${texteDiviseurs[2]}$ car $${texteMultiples[2]}=${diviseurs[2]}\\times${texteQuotients[2]}$.`
           textes[3] = `$${texteMultiples[3]} \\dotfill ${texteDiviseurs[3]}$`
-          textesCorr[3] = `$${texteMultiples[3]} est ${texteEnCouleurEtGras('un multiple')} de $${texteDiviseurs[3]}$ car $${texteMultiples[3]}=${diviseurs[3]}\\times${texteQuotients[3]}$.`
+          textesCorr[3] = `$${texteMultiples[3]}$ est ${texteEnCouleurEtGras('un multiple')} de $${texteDiviseurs[3]}$ car $${texteMultiples[3]}=${diviseurs[3]}\\times${texteQuotients[3]}$.`
           // on ajoute deux cas ni multiple ni diviseur
           // on choisit deux nombres
           n1 = randint(2, 999, [

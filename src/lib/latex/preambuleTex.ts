@@ -662,7 +662,7 @@ export function loadPackagesFromContent(contents: contentsType) {
   )
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
   testIfLoaded(
-    ['-{Latex', '-{Stealth', '-{Triangle', '-{Bar'],
+    ['-{Latex', '-{Stealth', '-{Triangle', '-{Bar', '{Bar['],
     '\\usetikzlibrary{arrows.meta}',
     contents,
   )
