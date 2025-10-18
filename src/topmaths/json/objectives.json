@@ -2596,8 +2596,6 @@
                       "6G23_Poly-2 Paille en queue",
                       "6G23_Poly-3 Tortue"
                     ],
-                    "grades": ["6e"],
-                    "startSteps": [],
                     "segments": [
                       {
                         "steps": [
@@ -2616,32 +2614,6 @@
                     "comments": [
                       "Animaux triangulés de Sarah ABDOUL KAID https://twitter.com/KaidAbdoul/status/1525429605838241792"
                     ]
-                  },
-                  {
-                    "studentMaterialsNeeded": ["Règle", "Compas"],
-                    "teacherMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "5X1_Diaporama-1 Consigne 1",
-                      "5X1_Poly-1_x10 Consigne 1",
-                      "S5S3_Cours"
-                    ],
-                    "grades": ["5e"],
-                    "startSteps": [
-                      "Diapos Consigne 1 (calcul mental, pas le droit de poser les opérations, s’ils ont du mal, les inciter à rechercher \"un truc\" qui leur permettrait de faire les calculs très facilement.)",
-                      "Le professeur demande, si on fait comme ça, est-ce qu’on est sûr d’avoir obtenu le bon résultat ?",
-                      "S'il y en a qui ont des doutes, un élève peut vérifier à la calculatrice",
-                      "Écriture du I.1. du cours Nombres Relatifs 1 et distribuer la Consigne 1 qui n'est pas à recopier mais à coller"
-                    ],
-                    "segments": [
-                      {
-                        "steps": [
-                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G6A"
-                        ]
-                      }
-                    ],
-                    "closureSteps": [],
-                    "comments": []
                   }
                 ]
               },
@@ -3562,14 +3534,8 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "5X1_Poly-4_x8 Consigne 4",
-                      "5X1_Poly-5_x10 Consigne 5",
-                      "5G20_Presentation"
-                    ],
-                    "startSteps": [
-                      "Consigne 5 ou Consigne 4 si elle n'a pas encore été faite"
-                    ],
+                    "teacherMaterialsNeeded": ["5G20_Presentation"],
+                    "startSteps": [],
                     "segments": [
                       {
                         "steps": [
@@ -3623,37 +3589,16 @@
                       "Règle",
                       "Compas",
                       "Rapporteur",
-                      "5X1_Diaporama-2 Consigne 2",
-                      "5X1_Poly-2_x10 Consigne 2",
-                      "S5S3_Cours",
                       "5G21_Poly-1 Baleine",
                       "5G21_Poly-2 Hypocampe",
-                      "5G21_Poly-3 Endormi",
-                      "5X1_Poly-3_x8 Consigne 3"
+                      "5G21_Poly-3 Endormi"
                     ],
-                    "startSteps": [
-                      "Diaporama Consigne 2, on corrige au fur et à mesure",
-                      "Au 5ème calcul, il devraient avoir remarqué que quelque chose cloche, sinon j’attire leur attention sur le fait que le calcul n’est pas le même et que la technique précédente ne marche plus, à moins que… ?",
-                      "Dans le quatrième programme de calcul, « ajouter 62 puis soustraire 61 » équivaut à \"ajouter 1\", alors à quoi équivaut le programme de calcul \"ajouter 61 puis soustraire 62\" ?",
-                      "Des élèves devraient fournir la seule réponse possible dans le cadre \"d’une logique des programmes de calcul\" en disant : \"à soustraire 1\" en le justifiant par : \"car on soustrait 1 de plus que ce qu’on ajoute !\"",
-                      "On peut expliquer que \"enlever 62, c’est enlever 61 et enlever encore 1\".",
-                      "S'il y en a qui ne trouvent pas cela assez rigoureux, on peut aussi détailler en écrivant 4374 + 61 – 62 = 4373 + 1 + 61 – 62 = 4373 + 62 – 62 = 4373 donc 4374 + 61 – 62 = 4374 – 1",
-                      "Écriture du 2. du cours"
-                    ],
+                    "startSteps": [],
                     "segments": [
                       {
                         "steps": [
                           "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5G21",
                           "Faire choisir des animaux triangulés pour la prochaine fois"
-                        ]
-                      },
-                      {
-                        "steps": [
-                          "Travail individuel sur la photocopie de la consigne 3 : les élèves notent au crayon leurs résultats en face de chacun des calculs proposés.",
-                          "Qu'est-ce que vous avez remarqué ? \"C’est toujours le nombre de départ moins 1, Ça revient à enlever (ou soustraire) 1, etc.\"",
-                          "Qu’est-ce qui fait qu’on est amené à soustraire 1 ? (puisque ce n’était pas le cas dans des calculs des consignes 1 et 2)",
-                          "On va noter cela dans le cours, en utilisant une notation un peu particulière.",
-                          "Écriture du 3. du cours"
                         ]
                       },
                       {
@@ -3721,14 +3666,8 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes ou Ordinateurs",
-                      "5X1_Poly-4_x8 Consigne 4",
-                      "5X1_Poly-5_x10 Consigne 5"
-                    ],
-                    "startSteps": [
-                      "Consigne 5 ou Consigne 4 si elle n'a pas encore été faite"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes ou Ordinateurs"],
+                    "startSteps": [],
                     "segments": [
                       {
                         "steps": [
@@ -4506,13 +4445,11 @@
                   {
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": ["S5S3_Cours"],
-                    "startSteps": [
-                      "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC1~o=1~q=1.~p=~t=18~n=8"
-                    ],
+                    "startSteps": [],
                     "segments": [
                       {
                         "steps": [
-                          "Terminer d'écrire le III du cours",
+                          "Ecrire le III du cours",
                           "Entraînement sur https://topmaths.fr/?v=objective&ref=5N30"
                         ]
                       }
@@ -4544,40 +4481,102 @@
                   {
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [
+                      "5N31_Diaporama-1 Consigne 1",
+                      "5X1_Poly-1_x10 Consigne 1",
+                      "5N31_Diaporama-2 Consigne 2",
+                      "5X1_Poly-2_x10 Consigne 2",
+                      "5X1_Poly-3_x8 Consigne 3",
+                      "5N31_Diaporama-4 Consigne 4",
+                      "5N31_Diaporama-5 Consigne 5",
                       "5X1_Poly-6_x8 Consigne 6",
-                      "5X1_Poly-7–x10 Consigne 7",
-                      "S5S3_Cours",
-                      "S5S3_Cours",
-                      "Tablettes"
+                      "5N31_Diaporama-7 Consigne 7",
+                      "S5S3_Cours"
                     ],
                     "startSteps": [],
                     "segments": [
                       {
-                        "title": "Communativité",
+                        "title": "Consigne 1 : Simplifier des programmes de calcul revient à additionner",
                         "steps": [
-                          "Consigne 6",
+                          "Diapos Consigne 1 (calcul mental, pas le droit de poser les opérations, s’ils ont du mal, les inciter à rechercher \"un truc\" qui leur permettrait de faire les calculs très facilement.)",
+                          "Le professeur demande, si on fait comme ça, est-ce qu’on est sûr d’avoir obtenu le bon résultat ?",
+                          "S'il y en a qui ont des doutes, un élève peut vérifier à la calculatrice",
+                          "Écriture du I.1. du cours Nombres Relatifs 1 et distribuer la Consigne 1 qui n'est pas à recopier mais à coller"
+                        ]
+                      },
+                      {
+                        "title": "Consigne 2 : Simplifier des programmes de calcul revient parfois à soustraire",
+                        "steps": [
+                          "Diaporama Consigne 2, on corrige au fur et à mesure",
+                          "Après le 4e calcul, faire en sorte qu'ils regardent bien le tableau au changement de slide car sinon ils risquent de ne pas voir la différence entre les deux calculs",
+                          "Dans le quatrième programme de calcul, « ajouter 62 puis soustraire 61 » équivaut à \"ajouter 1\", alors à quoi équivaut le programme de calcul \"ajouter 61 puis soustraire 62\" ?",
+                          "Des élèves devraient fournir la seule réponse possible dans le cadre \"d’une logique des programmes de calcul\" en disant : \"à soustraire 1\" en le justifiant par : \"car on soustrait 1 de plus que ce qu’on ajoute !\"",
+                          "On peut expliquer que \"enlever 62, c’est enlever 61 et enlever encore 1\".",
+                          "S'il y en a qui ne trouvent pas cela assez rigoureux, on peut aussi détailler en écrivant 4374 + 61 – 62 = 4373 + 1 + 61 – 62 = 4373 + 62 – 62 = 4373 donc 4374 + 61 – 62 = 4374 – 1",
+                          "Écriture du 2. du cours"
+                        ]
+                      },
+                      {
+                        "title": "Consigne 3 : Une nouvelle notation pour simplifier l'écriture",
+                        "steps": [
+                          "Travail individuel sur la photocopie de la consigne 3 : les élèves notent au crayon leurs résultats en face de chacun des calculs proposés.",
+                          "Qu'est-ce que vous avez remarqué ? \"C’est toujours le nombre de départ moins 1, Ça revient à enlever (ou soustraire) 1, etc.\"",
+                          "Qu’est-ce qui fait qu’on est amené à soustraire 1 ? (puisque ce n’était pas le cas dans des calculs des consignes 1 et 2)",
+                          "On va noter cela dans le cours, en utilisant une notation un peu particulière.",
+                          "Écriture du 3. du cours"
+                        ]
+                      },
+                      {
+                        "title": "Consigne 4 : Verbaliser que simplifier un programme de calcul revient à ajouter ou à soustraire",
+                        "steps": [
+                          "Projeter un par un chaque calcul du diaporama de la consigne 4",
+                          "Les élèves répondent à chaque question en écrivant bien la phrase à chaque fois sur l'ardoise puis on corrige ensemble"
+                        ]
+                      },
+                      {
+                        "title": "Consigne 5 : Calculer des sommes algébriques",
+                        "steps": [
+                          "Projeter un par un chaque calcul du diaporama de la consigne 5",
+                          "Les élèves répondent à chaque question sur l'ardoise puis on corrige ensemble"
+                        ]
+                      },
+                      {
+                        "title": "Consigne 6 : Communativité",
+                        "steps": [
+                          "Projeter la consigne 6 et laisser les élèves faire les calculs sur l'ardoise ou le cahier",
                           "À l’issue de cette série de calculs une remarque devrait être faite par les élèves :",
                           "Lorsqu’on change l’ordre dans un programme de calcul, on obtient un programme de calcul équivalent, propriété que l’on note.",
-                          "Noter le II du cours"
+                          "Noter le 4. du cours"
                         ]
                       },
                       {
                         "title": "Entraînement à la simplification de programmes de calculs",
                         "steps": [
-                          "Entraînement sur https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC11~o=2~q=2.0,1~p=~t=18~n=8"
+                          "Développer un exercice sur mathaléa pour faire en sorte que 90% des élèves réussissent à simplifier des programmes de calculs",
+                          "Entraînement sur l'ardoise jusqu'à 90% de réussite"
                         ]
                       },
                       {
-                        "title": "Somme algébrique",
+                        "title": "Avec 3 termes",
                         "steps": [
-                          "Consigne 7",
-                          "Noter la première définition du III"
+                          "Projeter le diaporama de la consigne 7",
+                          "Les élèves font sur l'ardoise, on corrige chaque calcul ensemble avant de passer au suivant"
                         ]
                       },
                       {
+                        "title": "Définitions des nombres relatifs",
                         "steps": [
-                          "Noter la première remarque du II du cours et la définition d'un nombre positif",
-                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N31"
+                          "Noter le II du cours (au fur et à mesure, en écrivant au tableau et en laissant les plus rapides deviner la suite à chaque fois)",
+                          "La première remarque montre que grâce aux nombres négatifs, on peut maintenant faire des calculs qui étaient auparavant innaccessibles comme par exemple 0 - 1).",
+                          "La deuxième remarque montre que les nombres qu'on connaissait correspondent aux nombres positifs",
+                          "Avant de noter la dernière remarque, donner des nombres et interroger des élèves au hasard pour qu'ils disent si c'est un nombre positif ou négatif et pourquoi",
+                          "Eventuellement poursuivre en demandant une réponse chorale",
+                          "Terminer par le nombre 0 et noter la dernière remarque"
+                        ]
+                      },
+                      {
+                        "title": "Calculer une somme algébrique",
+                        "steps": [
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N31 jusqu'à ce qu'il y ait 90% de réussite"
                         ]
                       }
                     ],
