@@ -2122,7 +2122,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=4d9ca&id=6G2A-1&n=2&d=10&s=2&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6G1C",
