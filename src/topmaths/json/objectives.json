@@ -9,7 +9,7 @@
             "name": "6N1 Les nombres entiers et décimaux",
             "objectives": [
               {
-                "reference": "6N1AA",
+                "reference": "6N1A1",
                 "titleAcademic": "Connaître et utiliser la valeur des chiffres selon leur rang dans l'écriture d'un nombre entier",
                 "title": "",
                 "exercises": [
@@ -44,9 +44,10 @@
                 ]
               },
               {
-                "reference": "6N1A",
+                "reference": "6N1A2",
                 "titleAcademic": "Connaître et utiliser la valeur des chiffres selon leur rang dans l'écriture d'un nombre",
                 "title": "",
+                "prerequisites": ["6N1A1"],
                 "exercises": [
                   {
                     "slug": "uuid=6ea89&id=6N1A&n=4&d=10&s=7&s2=false&s3=3&cd=1",
@@ -125,7 +126,7 @@
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "objectiveReference": "6N1A"
+                    "objectiveReference": "6N1A1"
                   }
                 ],
                 "videos": [
@@ -760,9 +761,9 @@
                 "reference": "6N2J",
                 "titleAcademic": "Effectuer la division euclidienne d'un nombre entier par un nombre entier inférieur à 100",
                 "title": "",
+                "prerequisites": ["6N3U"],
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "prerequisites": [],
                 "videos": [
                   {
                     "title": "Diviseur à 1 chiffre",
@@ -792,6 +793,7 @@
                 "reference": "6N2K",
                 "titleAcademic": "Résoudre des problèmes mettant en jeu des divisions euclidiennes",
                 "title": "",
+                "prerequisites": ["6N2J"],
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
@@ -2119,6 +2121,7 @@
                 "titleAcademic": "Connaître et utiliser la définition du milieu d'un segment",
                 "title": "",
                 "isAutomaticity": true,
+                "prerequisites": ["6G1A"],
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
@@ -2168,6 +2171,7 @@
                 "reference": "6G2A",
                 "titleAcademic": "Connaître les définitions d'un cercle, d'un disque, d'un rayon, d'un diamètre, d'une corde",
                 "title": "Connaître le vocabulaire du cercle",
+                "prerequisites": ["6G1A"],
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "Vocabulaire-du-cercle.png",
                 "videos": [
@@ -2226,6 +2230,7 @@
                 "reference": "6G2B",
                 "titleAcademic": "Comprendre la définition d'un cercle et celle d'un disque sous la forme d'ensembles de points",
                 "title": "",
+                "prerequisites": ["6G2A"],
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
@@ -3118,9 +3123,9 @@
                 "reference": "6P3B",
                 "titleAcademic": "Identifier si une situation relève du « modèle » de la proportionnalité",
                 "title": "",
+                "prerequisites": ["6P3A"],
                 "lessonSummaryHTML": "<p>Deux grandeurs (longueur, prix, masse, durée etc.) sont <i>proportionnelles</i> si elles se multiplient de la même façon (si les valeurs de l'une s'obtiennent en multipliant les valeurs de l'autre par un même nombre appelé <i>coefficient de proportionnalité</i>).</p>",
                 "lessonSummaryImage": "",
-                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
@@ -3268,6 +3273,7 @@
                 "reference": "6P3F",
                 "titleAcademic": "L’élève sait repérer des relations multiplicatives simples entre des nombres (double, quadruple, moitié, tiers, quart).",
                 "title": "Repérer des relations multiplicatives simples entre des nombres",
+                "prerequisites": ["6N3U"],
                 "isAutomaticity": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
@@ -3278,6 +3284,7 @@
                 "reference": "6P3G",
                 "titleAcademic": "L'élève associe de manière automatique les expressions du type : « 4 fois plus grand, 4 fois plus petit, 5 fois plus, 5 fois moins » à une multiplication ou à une division.",
                 "title": "Associer des expressions du type « 5 fois moins » à une multiplication ou à une division",
+                "prerequisites": ["6N3U"],
                 "isAutomaticity": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
