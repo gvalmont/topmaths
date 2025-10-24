@@ -1,3 +1,4 @@
+import { DEFAULT_GRADE, isStringGrade, type StringGrade } from './grade.js'
 import {
   isObjectiveExercises,
   isObjectiveLessonPlan,
@@ -8,9 +9,8 @@ import {
   type ObjectivePrerequisite,
   type ObjectiveReference,
 } from './objective.js'
-import { DEFAULT_GRADE, isStringGrade, type StringGrade } from './grade.js'
-import { unitsReferences } from './unitsReferences.js'
 import { isStrings, type ReplaceReferencesByStrings } from './shared.js'
+import { unitsReferences } from './unitsReferences.js'
 
 type UnitsReferencesValidTypes = typeof unitsReferences
 export type UnitReference = UnitsReferencesValidTypes[number]
@@ -63,7 +63,7 @@ export const emptyUnitLessonPlan: UnitLessonPlan = {
   teacherMaterialsNeeded: [],
   grades: [],
   comments: [],
-  objectiveReference: '6N1A', // Cannot access 'emptyObjectiveReference' before initialization
+  objectiveReference: '6N1A1', // Cannot access 'emptyObjectiveReference' before initialization
   objectiveTitle: '',
   reference: '',
 }
@@ -132,7 +132,7 @@ export const emptyUnitObjective: UnitObjective = {
   lessonImages: [],
   lessonPlans: [],
   prerequisites: [],
-  reference: '6N1A', // Cannot access 'emptyObjectiveReference' before initialization
+  reference: '6N1A1', // Cannot access 'emptyObjectiveReference' before initialization
   theme: '',
   title: '',
   titleAcademic: '',

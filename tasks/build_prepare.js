@@ -1,9 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-const emptyObjectiveReference = '6N1A' // keep in sync with objective.ts
+const emptyObjectiveReference = '6N1A1' // keep in sync with objective.ts
 
-const emptyObjective = { // keep in sync with objective.ts
+const emptyObjective = {
+  // keep in sync with objective.ts
   downloadLinks: {
     practiceSheetLink: '',
     testSheetLink: '',
@@ -12,8 +13,8 @@ const emptyObjective = { // keep in sync with objective.ts
       '6e': [],
       '5e': [],
       '4e': [],
-      '3e': []
-    }
+      '3e': [],
+    },
   },
   examExercises: [],
   examExercisesLink: '',
@@ -33,12 +34,13 @@ const emptyObjective = { // keep in sync with objective.ts
   title: '',
   titleAcademic: '',
   units: [],
-  videos: []
+  videos: [],
 }
 
 const emptyUnitReference = 'S6S1' // keep in sync with unit.ts
 
-const emptyUnit = { // keep in sync with unit.ts
+const emptyUnit = {
+  // keep in sync with unit.ts
   assessmentExamLink: '',
   assessmentExamSlug: '',
   assessmentLink: '',
@@ -46,17 +48,18 @@ const emptyUnit = { // keep in sync with unit.ts
     lessonLink: '',
     lessonSummaryLink: '',
     missionLink: '',
-    lessonPlanLink: ''
+    lessonPlanLink: '',
   },
   grade: 'tout',
   number: 0,
   objectives: [],
   term: 0,
   reference: emptyUnitReference,
-  title: ''
+  title: '',
 }
 
-const emptyGlossaryUniteItem = { // keep in sync with glossary.ts
+const emptyGlossaryUniteItem = {
+  // keep in sync with glossary.ts
   comments: [],
   content: '',
   examples: [],
@@ -67,37 +70,39 @@ const emptyGlossaryUniteItem = { // keep in sync with glossary.ts
   relatedItems: [],
   reference: '',
   title: '',
-  type: 'définition'
+  type: 'définition',
 }
 
-const emptyCalendarSchoolYear = { // keep in sync with calendar.ts
+const emptyCalendarSchoolYear = {
+  // keep in sync with calendar.ts
   schoolYearString: '2000-2001',
   start: new Date(),
   end: new Date(),
-  periods: []
+  periods: [],
 }
 
-const emptyCurriculum = { // keep in sync with curriculum.ts
+const emptyCurriculum = {
+  // keep in sync with curriculum.ts
   tout: {
     unitsPerTerm: [],
-    cumulateUnitsPerTerm: []
+    cumulateUnitsPerTerm: [],
   },
   '6e': {
     unitsPerTerm: [],
-    cumulateUnitsPerTerm: []
+    cumulateUnitsPerTerm: [],
   },
   '5e': {
     unitsPerTerm: [],
-    cumulateUnitsPerTerm: []
+    cumulateUnitsPerTerm: [],
   },
   '4e': {
     unitsPerTerm: [],
-    cumulateUnitsPerTerm: []
+    cumulateUnitsPerTerm: [],
   },
   '3e': {
     unitsPerTerm: [],
-    cumulateUnitsPerTerm: []
-  }
+    cumulateUnitsPerTerm: [],
+  },
 }
 
 // synchronise them with build_json.ts
@@ -110,11 +115,17 @@ writeTs('objectivesReferences', [emptyObjectiveReference])
 writeTs('unitsReferences', [emptyUnitReference])
 writeTs('specialUnitsReferences', [''])
 
-function writeJson (fileName, data) {
-  fs.writeFileSync(path.join('./src', 'topmaths', 'json', fileName + '.json'), JSON.stringify(data, null, 2))
+function writeJson(fileName, data) {
+  fs.writeFileSync(
+    path.join('./src', 'topmaths', 'json', fileName + '.json'),
+    JSON.stringify(data, null, 2),
+  )
 }
 
-function writeTs (fileName, data) {
-  fs.writeFileSync(path.join('./src', 'topmaths', 'types', fileName + '.ts'), `export const ${fileName} = <const> ${JSON.stringify(data, null, 2).replace(/"/g, '\'')}
-`)
+function writeTs(fileName, data) {
+  fs.writeFileSync(
+    path.join('./src', 'topmaths', 'types', fileName + '.ts'),
+    `export const ${fileName} = <const> ${JSON.stringify(data, null, 2).replace(/"/g, "'")}
+`,
+  )
 }
