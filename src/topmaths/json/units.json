@@ -62,37 +62,6 @@
         ]
       },
       {
-        "title": "Nombres décimaux 1",
-        "objectives": [
-          {
-            "reference": "6N1A2"
-          },
-          {
-            "reference": "6N1B"
-          },
-          {
-            "reference": "6N2N"
-          },
-          {
-            "reference": "6N1D"
-          }
-        ]
-      },
-      {
-        "title": "Périmètres et aires 1",
-        "objectives": [
-          {
-            "reference": "6M1G"
-          },
-          {
-            "reference": "6M1J"
-          },
-          {
-            "reference": "6M2D"
-          }
-        ]
-      },
-      {
         "title": "Fractions 1",
         "objectives": [
           {
@@ -126,6 +95,37 @@
           },
           {
             "reference": "6P1C"
+          }
+        ]
+      },
+      {
+        "title": "Nombres décimaux 1",
+        "objectives": [
+          {
+            "reference": "6N1A2"
+          },
+          {
+            "reference": "6N1B"
+          },
+          {
+            "reference": "6N2N"
+          },
+          {
+            "reference": "6N1D"
+          }
+        ]
+      },
+      {
+        "title": "Périmètres et aires 1",
+        "objectives": [
+          {
+            "reference": "6M1G"
+          },
+          {
+            "reference": "6M1J"
+          },
+          {
+            "reference": "6M2D"
           }
         ]
       },
