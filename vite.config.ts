@@ -1,7 +1,25 @@
-import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import generateFile from 'vite-plugin-generate-file'
+import * as fs from 'fs'
+import * as path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { defineConfig } from 'vite'
+import generateFile from 'vite-plugin-generate-file'
+
+// Plugin to exclude folders from build output
+function excludeFromBuild(foldersToExclude: string[]) {
+  return {
+    name: 'exclude-from-build',
+    writeBundle() {
+      foldersToExclude.forEach((folder) => {
+        const distPath = path.resolve(__dirname, 'dist', folder)
+        if (fs.existsSync(distPath)) {
+          fs.rmSync(distPath, { recursive: true, force: true })
+          console.log(`Removed ${folder} from dist`)
+        }
+      })
+    },
+  }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,9 +40,7 @@ export default defineConfig({
             // const match = id.match(/.pnpm\/(.*?)@/) // MGu : @cortex-js/compute-engine non géré ici!!!
             if (match && match[1]) {
               // Nettoyer le nom du package
-              const pkgName = match[1]
-                .replace(/@/g, '')
-                .replace(/\//g, '-')
+              const pkgName = match[1].replace(/@/g, '').replace(/\//g, '-')
               return `vendors/${pkgName}`
             }
           }
@@ -40,32 +56,39 @@ export default defineConfig({
             const jsonName = id.split('/').pop().replace('.json', '')
             return `json/${jsonName}`
           }
-        }
-      }
-    }
+        },
+      },
+    },
   },
-  server: (process.env.CI ? { port: 80, watch: null } : { port: 5173 }),
+  server: process.env.CI ? { port: 80, watch: null } : { port: 5173 },
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
     // Injecte dans le bundle final
-    __REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify({ isDisabled: true })
+    __REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify({ isDisabled: true }),
   },
   plugins: [
     svelte({
       compilerOptions: {
-        dev: process.env.NODE_ENV !== 'production'
-      }
+        dev: process.env.NODE_ENV !== 'production',
+      },
     }),
     visualizer({
       emitFile: true,
       filename: 'stats.html',
     }),
-    generateFile([{
-      type: 'json',
-      output: './version.txt',
-      data: {
-        version: '3.0.20230508.' + Date.now()
-      }
-    }])
-  ]
+    generateFile([
+      {
+        type: 'json',
+        output: './version.txt',
+        data: {
+          version: '3.0.20230508.' + Date.now(),
+        },
+      },
+    ]),
+    excludeFromBuild([
+      'static',
+      'topmaths/cours-image',
+      'topmaths/cours-video',
+    ]),
+  ],
 })

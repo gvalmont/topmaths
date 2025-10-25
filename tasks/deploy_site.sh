@@ -11,15 +11,24 @@ REMOTE_SERVER="${REMOTE_SERVER:-user@server}"
 REMOTE_BUILDS_PATH="${REMOTE_BUILDS_PATH:-~/remote/builds/path}"
 REMOTE_DIST_PATH="${REMOTE_DIST_PATH:-~/remote/dist/path}"
 REMOTE_STATIC_PATH="${REMOTE_STATIC_PATH:-~/remote/static/path}"
+REMOTE_VIDEOS_PATH="${REMOTE_VIDEOS_PATH:-~/remote/videos/path}"
 
 # Set the new build path
 TIMESTAMP=$(date +"%Y_%m_%d_%Hh%Mmin%Ss")
 REMOTE_CURRENT_BUILD_PATH="${REMOTE_BUILDS_PATH}/${TIMESTAMP}"
 
 # Send files to the remote server
-rsync -avz ${LOCAL_DIST_PATH}/ ${REMOTE_SERVER}:${REMOTE_CURRENT_BUILD_PATH}/
+rsync -avz --progress ${LOCAL_DIST_PATH}/ ${REMOTE_SERVER}:${REMOTE_CURRENT_BUILD_PATH}/
 
-# Edit the symbolic link to point to the new build
-ssh ${REMOTE_SERVER} "rm ${REMOTE_DIST_PATH}; ln -s ${REMOTE_CURRENT_BUILD_PATH}/ ${REMOTE_DIST_PATH}; ln -s ${REMOTE_STATIC_PATH}/ ${REMOTE_DIST_PATH}/static"
+# Edit the symbolic links to point to the new build
+ssh ${REMOTE_SERVER} "rm ${REMOTE_DIST_PATH} && \
+ln -s ${REMOTE_CURRENT_BUILD_PATH}/ ${REMOTE_DIST_PATH} && \
+ln -s ${REMOTE_STATIC_PATH}/ ${REMOTE_CURRENT_BUILD_PATH}/static && \
+ln -s ${REMOTE_IMAGES_PATH}/ ${REMOTE_CURRENT_BUILD_PATH}/topmaths/cours-image && \
+ln -s ${REMOTE_VIDEOS_PATH}/ ${REMOTE_CURRENT_BUILD_PATH}/topmaths/cours-video"
 
-echo "Déploiement terminé. Le site est disponible dans ${REMOTE_CURRENT_BUILD_PATH} et lié à ${REMOTE_DIST_PATH}. Le dossier des statiques ${REMOTE_STATIC_PATH} est lié à ${REMOTE_DIST_PATH}/static."
+echo "Déploiement terminé.\
+  Le site est disponible dans ${REMOTE_CURRENT_BUILD_PATH} et lié à ${REMOTE_DIST_PATH}.\
+  Le dossier des statiques ${REMOTE_STATIC_PATH} est lié à ${REMOTE_DIST_PATH}/static.\
+  Le dossier des images ${REMOTE_IMAGES_PATH} est lié à ${REMOTE_DIST_PATH}/topmaths/cours-image.\
+  Le dossier des vidéos ${REMOTE_VIDEOS_PATH} est lié à ${REMOTE_DIST_PATH}/topmaths/cours-video."
